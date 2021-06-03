@@ -24,7 +24,7 @@ describe('Common Components', () => {
       const wrapper = shallow(<HeaderButtons {...props} />);
       expect(
         wrapper
-          .findWhere(n => {
+          .findWhere((n) => {
             return n.prop('onClick') === props.onOptOut;
           })
           .exists(),
@@ -36,7 +36,7 @@ describe('Common Components', () => {
       const wrapper = shallow(<HeaderButtons {...props} />);
       expect(
         wrapper
-          .findWhere(n => {
+          .findWhere((n) => {
             return n.prop('onClick') === props.onOptOut;
           })
           .exists(),
@@ -48,7 +48,7 @@ describe('Common Components', () => {
       const wrapper = shallow(<HeaderButtons {...props} />);
       expect(
         wrapper
-          .findWhere(n => {
+          .findWhere((n) => {
             return n.prop('onClick') === props.onClose;
           })
           .exists(),
@@ -60,7 +60,7 @@ describe('Common Components', () => {
       const wrapper = shallow(<HeaderButtons {...props} />);
       expect(
         wrapper
-          .findWhere(n => {
+          .findWhere((n) => {
             return n.prop('onClick') === props.onClose;
           })
           .exists(),

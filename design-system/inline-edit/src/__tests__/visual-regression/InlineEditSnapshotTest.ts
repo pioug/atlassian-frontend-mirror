@@ -167,7 +167,7 @@ describe('Snapshot Test', () => {
     await page.type(inlineEdit, 'short');
     await page.waitFor(500);
 
-    await page.$eval(inlineEdit, e => (e as HTMLElement).blur());
+    await page.$eval(inlineEdit, (e) => (e as HTMLElement).blur());
 
     await page.waitFor(1000);
 

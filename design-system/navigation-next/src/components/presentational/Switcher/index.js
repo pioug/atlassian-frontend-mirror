@@ -54,7 +54,7 @@ export const isOptionSelected = (option, selected) => {
   return option.id === selected[0].id;
 };
 
-export const getOptionValue = option => option.id;
+export const getOptionValue = (option) => option.id;
 
 // ==============================
 // Custom Components
@@ -106,7 +106,7 @@ export const Footer = ({ text, onClick }) => (
 );
 
 const defaultComponents = { Control, Option };
-const isEmpty = obj => Object.keys(obj).length === 0;
+const isEmpty = (obj) => Object.keys(obj).length === 0;
 
 // ==============================
 // Class
@@ -154,7 +154,7 @@ class Switcher extends PureComponent {
     }
   }
 
-  resolveTargetRef = popupRef => ref => {
+  resolveTargetRef = (popupRef) => (ref) => {
     // avoid thrashing fn calls
     if (!this.targetRef && popupRef && ref) {
       this.targetRef = ref;
@@ -170,7 +170,7 @@ class Switcher extends PureComponent {
 
     let { onClick } = create;
     if (closeMenuOnCreate) {
-      onClick = e => {
+      onClick = (e) => {
         if (this.selectRef.current) {
           this.selectRef.current.close();
         }
@@ -211,7 +211,7 @@ class Switcher extends PureComponent {
 
 export { Switcher as BaseSwitcher };
 
-export default props => (
+export default (props) => (
   <UIControllerSubscriber>
     {({ state }) => (
       <Switcher

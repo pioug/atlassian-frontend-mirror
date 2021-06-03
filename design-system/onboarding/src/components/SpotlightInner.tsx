@@ -98,7 +98,7 @@ class SpotlightInner extends React.Component<Props, State> {
                 }
               >
                 <ElementBox element={targetNode}>
-                  {box => (
+                  {(box) => (
                     <TargetReplacement
                       data-testid={`${testId}--target`}
                       {...this.getTargetNodeStyle(box)}
@@ -108,7 +108,7 @@ class SpotlightInner extends React.Component<Props, State> {
               </NodeResovler>
             ) : (
               <ElementBox element={targetNode}>
-                {box => (
+                {(box) => (
                   <Clone
                     testId={`${testId}--target`}
                     pulse={pulse}
@@ -124,7 +124,7 @@ class SpotlightInner extends React.Component<Props, State> {
             )}
             {TargetReplacement && !replacementElement ? null : (
               <Fade in={isOpen} onExited={onExited}>
-                {animationStyles => (
+                {(animationStyles) => (
                   <SpotlightDialog
                     testId={`${testId}--dialog`}
                     actions={this.props.actions}

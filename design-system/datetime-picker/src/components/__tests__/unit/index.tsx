@@ -54,13 +54,13 @@ const convertedTimes = [
 ];
 
 test('"isValid" - accept valid times.', () => {
-  correctTimes.forEach(time => {
+  correctTimes.forEach((time) => {
     expect(isValid(time)).toEqual(true);
   });
 });
 
 test('"isValid" - reject invalid times.', () => {
-  incorrectTimes.forEach(time => {
+  incorrectTimes.forEach((time) => {
     expect(isValid(time)).toEqual(false);
   });
 });

@@ -38,7 +38,7 @@ const markEncoderMapping = new Map([
 const isEscapeNeeded = (node: PMNode, parent?: PMNode) => {
   return !(
     (parent && parent.type.name === 'codeBlock') ||
-    node.marks.find(m => m.type.name === 'code') !== undefined
+    node.marks.find((m) => m.type.name === 'code') !== undefined
   );
 };
 
@@ -54,7 +54,7 @@ export const text: NodeEncoder = (
     ? escapingWikiFormatter(node.text!)
     : node.text!;
   markEncoderMapping.forEach((encoder, markName) => {
-    const mark = node.marks.find(m => m.type.name === markName);
+    const mark = node.marks.find((m) => m.type.name === markName);
     if (mark) {
       result = encoder(result, mark.attrs);
     }

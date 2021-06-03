@@ -36,7 +36,7 @@ export default class TableTree extends Component {
     this.setState({ columnWidths });
   };
 
-  getColumnWidth = columnIndex => {
+  getColumnWidth = (columnIndex) => {
     return (this.state && this.state.columnWidths[columnIndex]) || null;
   };
 

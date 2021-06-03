@@ -56,7 +56,7 @@ const tagNames = [
 
 export default () => (
   <TagGroup>
-    {tagNames.map(sweet => (
+    {tagNames.map((sweet) => (
       <Tag href="http://www.cupcakeipsum.com/" key={sweet} text={sweet} />
     ))}
   </TagGroup>

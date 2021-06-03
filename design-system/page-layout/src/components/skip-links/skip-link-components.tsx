@@ -36,9 +36,9 @@ export const SkipLinkWrapper = ({ skipLinksLabel }: SkipLinkWrapperProps) => {
       return arr;
     }
 
-    const usedIndexes = customLinks.map(a => a.listIndex) as number[];
+    const usedIndexes = customLinks.map((a) => a.listIndex) as number[];
     const regularLinksWithIdx = arr
-      .filter(link => link.listIndex === undefined)
+      .filter((link) => link.listIndex === undefined)
       .map((link, idx, currArr) => {
         const listIndex = assignIndex(idx, usedIndexes);
         usedIndexes.push(listIndex);

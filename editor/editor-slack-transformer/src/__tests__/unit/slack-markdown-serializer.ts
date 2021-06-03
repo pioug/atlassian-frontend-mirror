@@ -453,17 +453,17 @@ describe('SlackTransformer: serializer', () => {
     });
   });
 
-  describe('external media', () => {
+  describe('media', () => {
     it('should be serialized', () => {
       expect(
         markdownSerializer.serialize(
           doc(
             mediaSingle()(
-              media({ url: 'http://path/to/image.jpg', type: 'external' })(),
+              media({ collection: 'test', id: 'media-id', type: 'file' })(),
             ),
           )(defaultSchema),
         ),
-      ).toEqual('[<http://path/to/image.jpg|media attached>]\n');
+      ).toEqual('[media attached]\n');
     });
   });
 

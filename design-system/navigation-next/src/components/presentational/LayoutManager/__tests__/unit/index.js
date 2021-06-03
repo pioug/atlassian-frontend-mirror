@@ -15,7 +15,7 @@ const defaultProps = {
   children: <div>Page content</div>,
 };
 
-const mountWithContext = tree =>
+const mountWithContext = (tree) =>
   mount(<NavigationProvider>{tree}</NavigationProvider>);
 
 describe('LayoutManager', () => {

@@ -16,7 +16,7 @@ const relevantEntryPoints = [
 ];
 
 function isRelevant(j: core.JSCodeshift, source: string): boolean {
-  return relevantEntryPoints.some(entryPoint =>
+  return relevantEntryPoints.some((entryPoint) =>
     hasImportDeclaration(j, source, entryPoint),
   );
 }
@@ -34,7 +34,7 @@ function renameProp({
   attributeFrom: string;
   attributeTo: string;
 }) {
-  base.findJSXElements(component).forEach(element => {
+  base.findJSXElements(component).forEach((element) => {
     const first = getJSXAttributesByName({
       j,
       element: element.value,
@@ -84,7 +84,7 @@ export function getNamedImportName({
   const name: Nullable<string> =
     base
       .find(j.ImportDeclaration)
-      .filter(path => path.node.source.value === importPath)
+      .filter((path) => path.node.source.value === importPath)
       .find(j.ImportSpecifier)
       .nodes()
       .map(
@@ -117,7 +117,7 @@ export default function transformer(
   const base: Collection<any> = j(file.source);
 
   // renaming default imports for entry points
-  relevantEntryPoints.forEach(importPath => {
+  relevantEntryPoints.forEach((importPath) => {
     const defaultName: Nullable<string> = getDefaultSpecifierName({
       j,
       base,
@@ -154,7 +154,7 @@ export default function transformer(
     importPath: '@atlaskit/button',
     originalName: 'CustomThemeButton',
   });
-  [standard, loading, customTheme].forEach(name => {
+  [standard, loading, customTheme].forEach((name) => {
     if (name != null) {
       renameProp({
         j,

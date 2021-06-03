@@ -163,7 +163,7 @@ describe('FieldTextStateless', () => {
         'onKeyDown',
         'onKeyPress',
         'onKeyUp',
-      ].forEach(inputEvent => {
+      ].forEach((inputEvent) => {
         it(inputEvent, () => {
           const eventSpy = jest.fn();
           const wrapper = shallow(

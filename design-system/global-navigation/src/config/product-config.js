@@ -5,14 +5,14 @@ import Avatar from '@atlaskit/avatar';
 import SignInIcon from '@atlaskit/icon/glyph/sign-in';
 
 const MAX_NOTIFICATIONS_COUNT = 9;
-const isNotEmpty = obj => {
+const isNotEmpty = (obj) => {
   const values = Object.values(obj);
   return !!(
     values.length && values.reduce((acc, curr) => acc || !!curr, false)
   );
 };
 
-const generateAvatar = profileIconUrl => {
+const generateAvatar = (profileIconUrl) => {
   const GeneratedAvatar = ({ className, onClick, label }) => (
     <span className={className}>
       <Avatar

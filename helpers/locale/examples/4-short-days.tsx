@@ -30,7 +30,7 @@ export default class Example extends Component<Props, State> {
       <Fragment>
         <h3>Short Days</h3>
         <ul>
-          {l10n.getDaysShort().map(day => (
+          {l10n.getDaysShort().map((day) => (
             <li key={day}>{day}</li>
           ))}
         </ul>

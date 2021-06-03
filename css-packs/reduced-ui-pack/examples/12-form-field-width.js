@@ -6,7 +6,7 @@ import Warning from './utils/warning';
 export default () => (
   <Fragment>
     <Warning />
-    <form onSubmit={e => e.preventDefault()}>
+    <form onSubmit={(e) => e.preventDefault()}>
       <h1>Example form to show field widths</h1>
       <div className="ak-field-group">
         <label htmlFor="username">Username</label>

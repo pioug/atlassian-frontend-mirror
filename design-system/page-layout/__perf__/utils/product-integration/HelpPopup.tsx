@@ -37,7 +37,7 @@ export const HelpPopup = () => {
       content={HelpContent}
       isOpen={isOpen}
       onClose={onClose}
-      trigger={triggerProps => (
+      trigger={(triggerProps) => (
         <Help
           testId={'nav-help'}
           isSelected={isOpen}

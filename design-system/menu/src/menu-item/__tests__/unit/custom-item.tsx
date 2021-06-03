@@ -10,7 +10,7 @@ import CustomItem from '../../custom-item';
 expect.addSnapshotSerializer(serializer);
 expect.extend(matchers);
 
-window.requestAnimationFrame = cb => {
+window.requestAnimationFrame = (cb) => {
   cb(-1);
   return -1;
 };
@@ -100,7 +100,7 @@ describe('<CustomItem />', () => {
   });
 
   it('should respect the cssFn prop', () => {
-    const customCss: CSSFn = state => ({
+    const customCss: CSSFn = (state) => ({
       ...(state.isSelected && { border: '1px solid' }),
       ...(state.isDisabled && { pointerEvents: 'none' as const }),
       padding: '10px',
@@ -128,7 +128,7 @@ describe('<CustomItem />', () => {
 
   it('should prevent dragging so the transparent artefact isnt shown', () => {
     // Return if default was prevented which we will then assert later
-    const dragStartEvent = jest.fn(e => e.defaultPrevented);
+    const dragStartEvent = jest.fn((e) => e.defaultPrevented);
     const { getByTestId } = render(
       <div onDragStart={dragStartEvent}>
         <CustomItem component={Component} testId="target">

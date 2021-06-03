@@ -101,7 +101,7 @@ class InlineDialog extends Component<Props, {}> {
             onBlur={onContentBlur}
             onFocus={onContentFocus}
             onClick={onContentClick}
-            innerRef={node => {
+            innerRef={(node) => {
               this.containerRef = node;
 
               if (typeof ref === 'function') {

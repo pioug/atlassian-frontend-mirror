@@ -66,7 +66,7 @@ class Shortcuts extends Component {
     });
   };
 
-  reducer = view => {
+  reducer = (view) => {
     const { items } = this.state;
     return findId('container/project/index:menu')(
       appendChildren([this.separatorItem, ...items, this.addItem]),

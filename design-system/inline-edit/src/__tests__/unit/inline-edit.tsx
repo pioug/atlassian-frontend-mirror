@@ -136,7 +136,7 @@ describe('InlineEdit component', () => {
                 {editValue || 'Click to enter value'}
               </div>
             )}
-            onConfirm={value => setEditValue(value)}
+            onConfirm={(value) => setEditValue(value)}
           />
         );
       };
@@ -181,7 +181,7 @@ describe('InlineEdit component', () => {
           <InlineEdit<ValueType<OptionType, true>>
             defaultValue={editValue}
             label="Inline edit"
-            editView={fieldProps => (
+            editView={(fieldProps) => (
               <Select<OptionType, true>
                 {...fieldProps}
                 options={selectOptions}

@@ -13,7 +13,7 @@ const walkSync = (dir: string, filelist: string[]) => {
   let fl = filelist;
   const files = fs.readdirSync(dir);
   fl = filelist || [];
-  files.forEach(file => {
+  files.forEach((file) => {
     const pth = path.join(dir, file);
     if (fs.statSync(pth).isDirectory()) {
       fl = walkSync(pth, fl);
@@ -393,14 +393,14 @@ describe('@atlaskit/icon', () => {
         'archive',
       ];
 
-      const expectedPaths = expected.map(a =>
+      const expectedPaths = expected.map((a) =>
         path.join(__dirname, '../../../../glyph', `${a}.js`),
       );
 
       const actual = walkSync(
         path.join(__dirname, '../../../../glyph'),
         [],
-      ).filter(ab => /.*\.js$/.test(ab));
+      ).filter((ab) => /.*\.js$/.test(ab));
 
       // Additional notes on this check:
       // We are doing an equality check on the sorted versions of the lists as we want to
@@ -431,7 +431,7 @@ describe('@atlaskit/icon', () => {
   });
 
   describe('component structure', () => {
-    Object.keys(metadata).forEach(key => {
+    Object.keys(metadata).forEach((key) => {
       it(`should be possible to create the ${key} component`, async () => {
         const component = await import(`../../../../glyph/${key}`);
 

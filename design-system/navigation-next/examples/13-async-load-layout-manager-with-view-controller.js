@@ -36,7 +36,7 @@ const GlobalNavSkeleton = () => (
 const AsyncProjectSwitch = asyncComponent({
   resolve: () =>
     import('./shared/components').then(({ ProjectSwitcher }) => {
-      return new Promise(resolve => {
+      return new Promise((resolve) => {
         setTimeout(() => {
           return resolve(ProjectSwitcher);
         }, 2000);
@@ -48,7 +48,7 @@ const AsyncProjectSwitch = asyncComponent({
 const AsyncLinkItem = asyncComponent({
   resolve: () =>
     import('./shared/components').then(({ LinkItem }) => {
-      return new Promise(resolve => {
+      return new Promise((resolve) => {
         setTimeout(() => {
           return resolve(LinkItem);
         }, 2000);
@@ -60,7 +60,7 @@ const AsyncLinkItem = asyncComponent({
 const AsyncDefaultGlobalNavigation = asyncComponent({
   resolve: () =>
     import('./shared/components').then(({ DefaultGlobalNavigation }) => {
-      return new Promise(resolve => {
+      return new Promise((resolve) => {
         setTimeout(() => {
           return resolve(DefaultGlobalNavigation);
         }, 3000);
@@ -73,7 +73,7 @@ const AsyncRoutes = asyncComponent({
   resolve: () =>
     import('./shared/routes').then(
       ({ BacklogView, ProjectsView, DashboardsView, SearchIssuesView }) => {
-        return new Promise(resolve => {
+        return new Promise((resolve) => {
           setTimeout(() => {
             const RouteComponent = () => (
               <Switch>
@@ -94,7 +94,7 @@ const preloadRootViews = import('./shared/views/root');
 const AsyncRootViews = asyncComponent({
   resolve: () =>
     preloadRootViews.then(({ default: RootViews }) => {
-      return new Promise(resolve => {
+      return new Promise((resolve) => {
         setTimeout(() => {
           return resolve(RootViews);
         }, 2000);
@@ -109,11 +109,11 @@ export default class App extends Component {
   };
 
   onDebugToggle = () => {
-    this.setState(state => ({ isDebugEnabled: !state.isDebugEnabled }));
+    this.setState((state) => ({ isDebugEnabled: !state.isDebugEnabled }));
   };
 
   onFlyoutToggle = () => {
-    this.setState(state => ({ isFlyoutAvailable: !state.isFlyoutAvailable }));
+    this.setState((state) => ({ isFlyoutAvailable: !state.isFlyoutAvailable }));
   };
 
   render() {

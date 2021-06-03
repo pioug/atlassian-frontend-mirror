@@ -17,7 +17,7 @@ const InteractiveContainer = ({
 
 const Example = () => {
   return (
-    <div onClick={e => e.preventDefault()}>
+    <div onClick={(e) => e.preventDefault()}>
       <NavigationHeader>
         <Header description="Next-gen software">Concise Systems</Header>
       </NavigationHeader>

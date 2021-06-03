@@ -7,7 +7,7 @@ import { fontSize, gridSize as gridSizeFn } from '@atlaskit/theme/constants';
 
 const gridSize = gridSizeFn();
 
-const ContentWrapper = props => (
+const ContentWrapper = (props) => (
   <div
     css={{
       display: 'flex',
@@ -18,7 +18,7 @@ const ContentWrapper = props => (
     {...props}
   />
 );
-const TextWrapper = props => (
+const TextWrapper = (props) => (
   <div
     css={{
       flex: '1 1 auto',
@@ -30,7 +30,7 @@ const TextWrapper = props => (
     {...props}
   />
 );
-const SubTextWrapper = props => (
+const SubTextWrapper = (props) => (
   <div
     css={{
       color: N200,

@@ -67,7 +67,7 @@ export default () => {
       </div>
 
       <div style={{ marginTop: '20px', textAlign: 'center' }}>
-        <Button onClick={() => setSize(prev => prev + 1)}>
+        <Button onClick={() => setSize((prev) => prev + 1)}>
           Set width to {sizes[(sizeIndex + 1) % sizes.length]}
         </Button>
       </div>

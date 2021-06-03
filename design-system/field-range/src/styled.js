@@ -30,7 +30,7 @@ const sliderThumbDisabledStyle = css`
 `;
 
 const sliderDefaultBackground = css`
-  background: ${props =>
+  background: ${(props) =>
     `linear-gradient(${track.default.lower}, ${track.default.lower}) 0/ ${props.valuePercent}% 100% no-repeat ${track.default.upper}`};
 `;
 
@@ -45,13 +45,13 @@ const sliderTrackStyle = css`
 `;
 
 const sliderTrackDisabledStyle = css`
-  background: ${props =>
+  background: ${(props) =>
     `linear-gradient(${track.disabled.lower}, ${track.disabled.lower}) 0/ ${props.valuePercent}% 100% no-repeat ${track.disabled.upper}`};
   cursor: not-allowed;
 `;
 
 const sliderTrackFocusedStyle = css`
-  background: ${props =>
+  background: ${(props) =>
     `linear-gradient(${track.hover.lower}, ${track.hover.lower}) 0/ ${props.valuePercent}% 100% no-repeat ${track.hover.upper}`};
 `;
 

@@ -16,7 +16,7 @@ const generatedWarning = `
 // To make changes, use the generator.
 `;
 
-const exportOpts = imageSources.map(file => ({
+const exportOpts = imageSources.map((file) => ({
   name: file.name,
   outputPath: resolve(tempFolder, `./${file.name}.${imageOutputType}`),
   input: resolve(coreIconSrc, `${file.input}.svg`),
@@ -30,17 +30,17 @@ const createIcons = () => {
     createIndividualIconModules();
 
     const indexFileExports = exportOpts
-      .map(icon => `export { ${icon.name} } from './${icon.name}'`)
+      .map((icon) => `export { ${icon.name} } from './${icon.name}'`)
       .join('\n');
 
     const indexFileEnum = `
       export enum IconName {
-        ${exportOpts.map(icon => `${icon.name} = '${icon.name}',`).join('\n')}
+        ${exportOpts.map((icon) => `${icon.name} = '${icon.name}',`).join('\n')}
       }`;
 
     const indexFileIconNameType = `
       export type IconString =
-        ${exportOpts.map(icon => `'${icon.name}'`).join(' | ')}
+        ${exportOpts.map((icon) => `'${icon.name}'`).join(' | ')}
       `;
 
     const indexFileContents = [
@@ -59,7 +59,7 @@ const createIcons = () => {
 };
 
 const createIndividualIconModules = () => {
-  exportOpts.map(icon =>
+  exportOpts.map((icon) =>
     writeFileSync(
       resolve(__dirname, `../icons/${icon.name}.ts`),
       `${generatedWarning}

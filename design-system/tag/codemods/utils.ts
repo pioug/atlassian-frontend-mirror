@@ -35,10 +35,10 @@ function getJSXAttributesByName(
   return j(element)
     .find(j.JSXOpeningElement)
     .find(j.JSXAttribute)
-    .filter(attribute => {
+    .filter((attribute) => {
       const matches = j(attribute)
         .find(j.JSXIdentifier)
-        .filter(identifier => identifier.value.name === attributeName);
+        .filter((identifier) => identifier.value.name === attributeName);
       return Boolean(matches.length);
     });
 }
@@ -88,7 +88,7 @@ const createRenameFuncFor = (component: string, from: string, to: string) => (
   source
     .findJSXElements(defaultSpecifier)
     .forEach((element: ASTPath<JSXAttribute>) => {
-      getJSXAttributesByName(j, element, from).forEach(attribute => {
+      getJSXAttributesByName(j, element, from).forEach((attribute) => {
         j(attribute).replaceWith(
           j.jsxAttribute(j.jsxIdentifier(to), attribute.node.value),
         );
@@ -111,7 +111,7 @@ const createConvertFuncFor = (
   source
     .findJSXElements(defaultSpecifier)
     .forEach((element: ASTPath<JSXAttribute>) => {
-      getJSXAttributesByName(j, element, from).forEach(attribute => {
+      getJSXAttributesByName(j, element, from).forEach((attribute) => {
         const shouldConvert =
           (predicate && predicate(attribute.node.value)) || false;
         const node = j.jsxAttribute(j.jsxIdentifier(to));
@@ -133,20 +133,20 @@ const replaceImportStatementFor = (pkg: string, convertMap: any) => (
     )
     .forEach((path: ASTPath<ImportDeclaration>) => {
       const defaultSpecifier = (path.value.specifiers || []).filter(
-        specifier => specifier.type === 'ImportDefaultSpecifier',
+        (specifier) => specifier.type === 'ImportDefaultSpecifier',
       );
 
-      const defaultDeclarations = defaultSpecifier.map(s => {
+      const defaultDeclarations = defaultSpecifier.map((s) => {
         return j.importDeclaration([s], j.literal(convertMap['default']));
       });
 
       const otherSpecifier = (path.value.specifiers || []).filter(
-        specifier => specifier.type === 'ImportSpecifier',
+        (specifier) => specifier.type === 'ImportSpecifier',
       );
 
       j(path).replaceWith(defaultDeclarations);
 
-      const otherDeclarations = otherSpecifier.map(s => {
+      const otherDeclarations = otherSpecifier.map((s) => {
         const localName = s.local!.name;
         if (convertMap[localName]) {
           return j.importDeclaration([s], j.literal(convertMap[localName]));
@@ -186,7 +186,7 @@ const createTransformer = (
     return fileInfo.source;
   }
 
-  migrates.forEach(tf => tf(j, source));
+  migrates.forEach((tf) => tf(j, source));
 
   return source.toSource(options.printOptions);
 };

@@ -123,7 +123,7 @@ const testMultiStepRenderTransitions = (
 const testNoOrSingleStepRenderTransitions = (
   progressTrackerStages: ShallowWrapper<ProgressTrackerStageProps>,
 ) => {
-  progressTrackerStages.forEach(stage => {
+  progressTrackerStages.forEach((stage) => {
     expect(stage.props().transitionDelay).toBe(0);
     expect(stage.props().transitionEasing).toBe('cubic-bezier(0.15,1,0.3,1)');
   });
@@ -175,7 +175,7 @@ describe('ak-progress-tracker/progress-tracker', () => {
 
   it('should set single step transitions', () => {
     const wrapper = shallow(<ProgressTracker items={items} />);
-    const changedStages = items.map(stage => {
+    const changedStages = items.map((stage) => {
       if (stage.id === '1') {
         return {
           id: '1',
@@ -196,7 +196,7 @@ describe('ak-progress-tracker/progress-tracker', () => {
     const wrapper = shallow(<ProgressTracker items={items} />);
     expect(wrapper.find(ProgressTrackerStage)).toHaveLength(6);
 
-    const newItems = items.map(oldStage => {
+    const newItems = items.map((oldStage) => {
       return {
         ...oldStage,
         percentageComplete: 100,

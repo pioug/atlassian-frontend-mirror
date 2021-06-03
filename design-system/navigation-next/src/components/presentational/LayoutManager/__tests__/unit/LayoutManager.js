@@ -474,7 +474,7 @@ describe('LayoutManager', () => {
           wrapper.update();
           jest.runAllTimers();
 
-          Object.keys(handlers).forEach(propName => {
+          Object.keys(handlers).forEach((propName) => {
             expect(handlers[propName]).not.toHaveBeenCalled();
           });
         });
@@ -492,7 +492,7 @@ describe('LayoutManager', () => {
           wrapper.update();
           jest.runAllTimers();
 
-          Object.keys(handlers).forEach(propName => {
+          Object.keys(handlers).forEach((propName) => {
             expect(handlers[propName]).not.toHaveBeenCalled();
           });
         });
@@ -549,7 +549,7 @@ describe('LayoutManager', () => {
             .find('Button')
             .parents('Tooltip')
             .findWhere(
-              el =>
+              (el) =>
                 el.name() === 'div' &&
                 typeof el.prop('onMouseOver') === 'function',
             )

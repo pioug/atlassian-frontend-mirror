@@ -6,7 +6,7 @@ import OpenIcon from '@atlaskit/icon/glyph/open';
 import { LinkItem } from '../src';
 
 const Example = () => (
-  <div onClick={e => e.preventDefault()}>
+  <div onClick={(e) => e.preventDefault()}>
     <LinkItem href="#">My articles</LinkItem>
     <LinkItem href="#" isDisabled>
       My articles

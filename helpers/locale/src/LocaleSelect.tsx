@@ -55,7 +55,7 @@ export default class LocaleSelect extends Component<LocaleSelectProps> {
       <Select<Locale>
         options={locales}
         defaultValue={defaultLocale}
-        onChange={locale => onLocaleChange(locale as Locale)}
+        onChange={(locale) => onLocaleChange(locale as Locale)}
         styles={{
           container: (css: any) => ({ ...css, width: 300, margin: '0.5em 0' }),
           dropdownIndicator: (css: any) => ({ ...css, paddingLeft: 0 }),

@@ -78,7 +78,7 @@ class SpotlightCard extends React.Component<Props> {
           actionsBeforeElement={actionsBeforeElement}
           components={components}
           image={image}
-          theme={parent => {
+          theme={(parent) => {
             const { container, ...others } = parent({});
             return theme!(
               () => ({

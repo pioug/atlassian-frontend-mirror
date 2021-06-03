@@ -7,7 +7,7 @@ import { WithDataDisplay } from './helpers/helpers';
 export default function BasicMoreConfig() {
   return (
     <WithDataDisplay>
-      {props => {
+      {(props) => {
         return (
           <DefaultNPS
             canOptOut

@@ -79,7 +79,7 @@ function InnerPagination<T>(
           getPageLabel ? getPageLabel(page, currPageIndex) : currPageIndex
         }`}
         component={components!.Page}
-        onClick={event =>
+        onClick={(event) =>
           onChangeWithAnalytics({ event, selectedPageIndex: currPageIndex })
         }
         isSelected={page === selectedPage}

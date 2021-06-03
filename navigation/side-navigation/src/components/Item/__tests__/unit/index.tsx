@@ -66,7 +66,7 @@ describe('Item', () => {
   });
 
   it('should render a CustomItem when contained in an active nested view', () => {
-    const CustomButton: FC<CustomItemComponentProps> = props => (
+    const CustomButton: FC<CustomItemComponentProps> = (props) => (
       <div {...props}>Hello world</div>
     );
 

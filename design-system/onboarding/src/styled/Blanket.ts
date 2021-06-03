@@ -13,7 +13,7 @@ const backgroundColor = themed({ light: N100A, dark: DN90A });
 // IE11 and Edge: z-index needed because fixed position calculates z-index relative
 // to body instead of nearest stacking context (Portal in our case).
 export default styled.div<{ isTinted?: boolean }>`
-  background: ${p => (p.isTinted ? backgroundColor : 'transparent')};
+  background: ${(p) => (p.isTinted ? backgroundColor : 'transparent')};
   bottom: 0;
   left: 0;
   position: fixed;

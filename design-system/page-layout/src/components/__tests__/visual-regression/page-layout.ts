@@ -1,7 +1,7 @@
 import { getExampleUrl, loadPage } from '@atlaskit/visual-regression/helper';
 
 const diff = (arr1: string[], arr2: string[]): string[] =>
-  arr1.filter(x => !arr2.includes(x));
+  arr1.filter((x) => !arr2.includes(x));
 
 describe('<PageLayout />', () => {
   it('should match the basic page-layout', async () => {
@@ -97,7 +97,7 @@ describe('<PageLayout />', () => {
       const elements = Array.from(
         document.querySelectorAll('div[data-skip-link-wrapper="true"] ol li a'),
       );
-      return elements.map(e => e.getAttribute('href'));
+      return elements.map((e) => e.getAttribute('href'));
     });
 
     expect(links.length).toEqual(7);
@@ -118,7 +118,7 @@ describe('<PageLayout />', () => {
       const elements = Array.from(
         document.querySelectorAll('div[data-skip-link-wrapper="true"] ol li a'),
       );
-      return elements.map(e => e.getAttribute('href'));
+      return elements.map((e) => e.getAttribute('href'));
     });
 
     expect(newLinks.length).toEqual(6);

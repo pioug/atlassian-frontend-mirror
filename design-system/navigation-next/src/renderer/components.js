@@ -70,7 +70,7 @@ const SectionHeading = ({ text, ...props }) => (
 );
 
 // ContainerHeader
-const ContainerHeader = props => (
+const ContainerHeader = (props) => (
   // -2px here to account for the extra space at the top of a MenuSection for
   // the scroll hint.
   <div css={{ paddingBottom: gridSize * 2.5 - 2 }}>
@@ -78,7 +78,7 @@ const ContainerHeader = props => (
   </div>
 );
 
-const Debug = props => (
+const Debug = (props) => (
   <pre
     css={{
       backgroundColor: 'rgba(0, 0, 0, 0.1)',
@@ -330,7 +330,7 @@ export const components = { ...itemComponents, ...groupComponents };
 class TypedItemsRenderer extends PureComponent {
   customComponentsWithAnalytics = new Map();
 
-  getCustomComponent = component => {
+  getCustomComponent = (component) => {
     // cache custom components wrapped with analytics
     // to prevent re-mounting of component on re-render
     const { customComponents = {} } = this.props;

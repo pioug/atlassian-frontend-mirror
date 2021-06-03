@@ -15,7 +15,7 @@ const colorItems: OptionsPropType = [
 
 export default function RadioRequired() {
   return (
-    <Form<FormData> onSubmit={formData => console.log('form data', formData)}>
+    <Form<FormData> onSubmit={(formData) => console.log('form data', formData)}>
       {({ formProps }) => (
         <form {...formProps}>
           <Field

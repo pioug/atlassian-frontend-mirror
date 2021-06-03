@@ -58,7 +58,7 @@ const InnerBreadcrumbs = forwardRef(
         analyticsEvent: UIAnalyticsEvent,
       ) => {
         if (!isControlled) {
-          setExpanse(expanded => !expanded);
+          setExpanse((expanded) => !expanded);
         }
         return providedExpanse(event, analyticsEvent);
       },

@@ -49,8 +49,8 @@ const WrapperDiv = styled.div<WrapperDivProps>`
   height: 40px;
   width: 40px;
   margin-right: 20px;
-  color: ${props => props.color};
-  background: ${props => props.background};
+  color: ${(props) => props.color};
+  background: ${(props) => props.background};
 `;
 /* eslint-disable */
 /* prettier-ignore */

@@ -8,7 +8,7 @@ export const orderedList: NodeEncoder = (
   { context }: NodeEncoderOpts = {},
 ): string => {
   const result: string[] = [];
-  node.forEach(item => {
+  node.forEach((item) => {
     result.push(listItem(item, '#', context));
   });
   return result.join('\n');

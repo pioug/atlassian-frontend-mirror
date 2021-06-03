@@ -14,7 +14,7 @@ describe('<SlideIn />', () => {
   it('should default to medium duration', () => {
     const { getByTestId } = render(
       <SlideIn enterFrom="left">
-        {props => <div data-testid="target" {...props} />}
+        {(props) => <div data-testid="target" {...props} />}
       </SlideIn>,
     );
 
@@ -27,7 +27,7 @@ describe('<SlideIn />', () => {
   it('should override default duration', () => {
     const { getByTestId } = render(
       <SlideIn duration={123} enterFrom="left">
-        {props => <div data-testid="target" {...props} />}
+        {(props) => <div data-testid="target" {...props} />}
       </SlideIn>,
     );
 
@@ -40,7 +40,7 @@ describe('<SlideIn />', () => {
   it('should slide in easing out', () => {
     const { getByTestId } = render(
       <SlideIn enterFrom="left">
-        {props => <div data-testid="target" {...props} />}
+        {(props) => <div data-testid="target" {...props} />}
       </SlideIn>,
     );
 
@@ -54,7 +54,7 @@ describe('<SlideIn />', () => {
     const { getByTestId, rerender } = render(
       <ExitingPersistence>
         <SlideIn enterFrom="left">
-          {props => <div data-testid="target" {...props} />}
+          {(props) => <div data-testid="target" {...props} />}
         </SlideIn>
       </ExitingPersistence>,
     );
@@ -67,9 +67,9 @@ describe('<SlideIn />', () => {
     );
   });
 
-  ['entering', 'exiting'].forEach(state => {
-    ['top', 'right', 'bottom', 'left'].forEach(from => {
-      ['none', 'in', 'out', 'inout'].forEach(fade => {
+  ['entering', 'exiting'].forEach((state) => {
+    ['top', 'right', 'bottom', 'left'].forEach((from) => {
+      ['none', 'in', 'out', 'inout'].forEach((fade) => {
         it(`should animate ${state} from ${from} with fade ${fade}`, () => {
           expect(
             slideInAnimation(

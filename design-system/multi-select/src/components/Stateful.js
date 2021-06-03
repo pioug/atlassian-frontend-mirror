@@ -48,7 +48,7 @@ export default class MultiSelect extends PureComponent {
     }
   }
 
-  selectItem = item => {
+  selectItem = (item) => {
     const selectedItems = [...this.state.selectedItems, item];
     this.setState({ selectedItems });
     this.props.onSelectedChange({
@@ -58,9 +58,9 @@ export default class MultiSelect extends PureComponent {
     });
   };
 
-  removeItem = item => {
+  removeItem = (item) => {
     const selectedItems = this.state.selectedItems.filter(
-      i => i.value !== item.value,
+      (i) => i.value !== item.value,
     );
     this.setState({ selectedItems });
     this.props.onSelectedChange({
@@ -70,20 +70,20 @@ export default class MultiSelect extends PureComponent {
     });
   };
 
-  selectedChange = item => {
-    if (this.state.selectedItems.some(i => i.value === item.value)) {
+  selectedChange = (item) => {
+    if (this.state.selectedItems.some((i) => i.value === item.value)) {
       this.removeItem(item);
     } else {
       this.selectItem(item);
     }
   };
 
-  handleFilterChange = value => {
+  handleFilterChange = (value) => {
     this.props.onFilterChange(value);
     this.setState({ filterValue: value });
   };
 
-  handleOpenChange = attrs => {
+  handleOpenChange = (attrs) => {
     if (this.state.isOpen !== attrs.isOpen) {
       this.props.onOpenChange(attrs);
     }

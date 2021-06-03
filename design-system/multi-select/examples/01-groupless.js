@@ -29,7 +29,7 @@ const PaginationExample = () => (
       noMatchesFound="Empty items"
       hasAutocomplete
       defaultSelected={[selectItems[0]]}
-      onSelectedChange={e => console.log('select change', e)}
+      onSelectedChange={(e) => console.log('select change', e)}
     />
     <MultiSelect
       items={selectItems}

@@ -25,7 +25,7 @@ export default class FieldBase extends Component {
 
   timers;
 
-  onFocus = e => {
+  onFocus = (e) => {
     this.setState({ isFocused: true });
     this.props.onFocus(e);
     // Escape from a possible race-condition when blur and focus happen one by one
@@ -33,7 +33,7 @@ export default class FieldBase extends Component {
     this.cancelSchedule(ON_BLUR_KEY);
   };
 
-  onBlur = e => {
+  onBlur = (e) => {
     // Because the blur event fires before the focus event, we want to make sure that we don't
     // render and close the dialog before we can check if the dialog is focused.
     this.reschedule(ON_BLUR_KEY, () => {

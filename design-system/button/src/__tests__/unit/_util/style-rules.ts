@@ -9,9 +9,9 @@ function getCssRules(cssText: string): string[] {
     cssText
       .split(';')
       // removing any empty string values that might occur from the split
-      .filter(value => Boolean(value))
+      .filter((value) => Boolean(value))
       // normalising different sources whitespace
-      .map(value => value.trim().replace(': ', ':'))
+      .map((value) => value.trim().replace(': ', ':'))
   );
 }
 
@@ -25,7 +25,7 @@ export function hasStyleRule(selector: string, expected: CSSObject): boolean {
       [...(sheet as StyleSheet & CSSGroupingRule).cssRules],
     ),
   );
-  const matchSelector: CSSStyleRule[] = allRules.filter(rule =>
+  const matchSelector: CSSStyleRule[] = allRules.filter((rule) =>
     rule.selectorText.trim().split(',').includes(selector),
   );
 

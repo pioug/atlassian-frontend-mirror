@@ -69,7 +69,7 @@ const ReadView = ({
       <div
         css={readViewWrapperStyles}
         onClick={onReadViewClick}
-        onMouseDown={e => {
+        onMouseDown={(e) => {
           startX.current = e.clientX;
           startY.current = e.clientY;
         }}

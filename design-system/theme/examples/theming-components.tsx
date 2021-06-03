@@ -60,7 +60,7 @@ class Button extends Component<Props, State> {
     return (
       <Theme.Provider value={this.props.theme}>
         <Theme.Consumer hover={this.state.hover}>
-          {tokens => {
+          {(tokens) => {
             const { backgroundColor, textColor: color } = tokens;
             return (
               <button

@@ -88,7 +88,7 @@ export default class BreadcrumbsExpand extends React.Component<{}, State> {
           <Select
             defaultValue={selectOptions[3]}
             options={selectOptions}
-            onChange={option => {
+            onChange={(option) => {
               if (!option) {
                 return;
               }
@@ -108,7 +108,7 @@ export default class BreadcrumbsExpand extends React.Component<{}, State> {
           <Select
             defaultValue={selectOptions[8]}
             options={selectOptions}
-            onChange={option =>
+            onChange={(option) =>
               this.setState({ maxItems: (option as Option).value })
             }
           />
@@ -124,7 +124,7 @@ export default class BreadcrumbsExpand extends React.Component<{}, State> {
           <Select
             defaultValue={selectOptions[1]}
             options={selectOptions}
-            onChange={option =>
+            onChange={(option) =>
               this.setState({ itemsBeforeCollapse: (option as Option).value })
             }
           />
@@ -140,14 +140,14 @@ export default class BreadcrumbsExpand extends React.Component<{}, State> {
           <Select
             defaultValue={selectOptions[1]}
             options={selectOptions}
-            onChange={option =>
+            onChange={(option) =>
               this.setState({ itemsAfterCollapse: (option as Option).value })
             }
           />
         </div>
         <Breadcrumbs
           isExpanded={isExpanded}
-          onExpand={e => this.expand(e)}
+          onExpand={(e) => this.expand(e)}
           maxItems={maxItems}
           itemsBeforeCollapse={itemsBeforeCollapse}
           itemsAfterCollapse={itemsAfterCollapse}

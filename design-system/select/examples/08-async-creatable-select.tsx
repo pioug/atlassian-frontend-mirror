@@ -35,7 +35,7 @@ export default class AsyncCreatableExample extends Component<{}, State> {
 
   // you control how the options are filtered
   filterOptions = (inputValue: string) => {
-    return this.state.options.filter(option =>
+    return this.state.options.filter((option) =>
       option.label.toLowerCase().includes(inputValue.toLowerCase()),
     );
   };
@@ -51,7 +51,7 @@ export default class AsyncCreatableExample extends Component<{}, State> {
   };
 
   toggleValue = ({ value }: Record<string, any>) => {
-    this.setState(state => ({ ...state, value }));
+    this.setState((state) => ({ ...state, value }));
   };
 
   render() {

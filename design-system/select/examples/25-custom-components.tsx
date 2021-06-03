@@ -79,7 +79,7 @@ export default () => {
     >
       <Select<OptionType>
         value={value}
-        onChange={val => setValue(val)}
+        onChange={(val) => setValue(val)}
         inputId="colors-example"
         components={{
           Option: CustomColorOption,

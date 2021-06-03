@@ -66,7 +66,7 @@ const getContextColors = ({ background, text }) => {
     1 + vs * 6,
     chromatism.fade(4, background, text).hex[2],
   ).hex;
-  const colorMod = colorMatrix.find(cm => cm.when(bgParts)) || {
+  const colorMod = colorMatrix.find((cm) => cm.when(bgParts)) || {
     hint: { s: 0, l: 8 },
     interact: { s: 0, l: 4 },
     static: { s: 8, l: -6 },

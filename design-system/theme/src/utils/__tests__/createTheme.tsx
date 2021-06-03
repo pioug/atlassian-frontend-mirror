@@ -6,7 +6,7 @@ interface TestTokens {
   [index: string]: boolean;
 }
 
-test('component as a consumer', done => {
+test('component as a consumer', (done) => {
   const Theme = createTheme<TestTokens, any>(() => ({ test: true }));
   mount(
     <Theme.Consumer>
@@ -19,20 +19,20 @@ test('component as a consumer', done => {
   );
 });
 
-test('component as a provider (uses composition)', done => {
+test('component as a provider (uses composition)', (done) => {
   const Theme = createTheme(() => ({
     test1: true,
     test2: false,
   }));
   mount(
     <Theme.Provider
-      value={theme => ({
+      value={(theme) => ({
         ...theme({}),
         test2: true,
       })}
     >
       <Theme.Consumer>
-        {tokens => {
+        {(tokens) => {
           expect(tokens.test1).toBe(true);
           expect(tokens.test2).toBe(true);
           done();
@@ -49,7 +49,7 @@ interface TestProps {
   supplied?: boolean;
 }
 
-test('cascade order', done => {
+test('cascade order', (done) => {
   const Theme = createTheme<TestTokens, TestProps>(() => {
     return { default: true };
   });
@@ -65,7 +65,7 @@ test('cascade order', done => {
     <Theme.Provider value={context}>
       <Theme.Provider value={supplied}>
         <Theme.Consumer>
-          {tokens => {
+          {(tokens) => {
             expect(tokens).toEqual({
               default: undefined,
               context: undefined,

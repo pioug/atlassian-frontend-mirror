@@ -7,7 +7,7 @@ interface RenderCountProps {
   onRender: () => void;
 }
 const StyledComponent = styled.div`
-  ${props => props.theme};
+  ${(props) => props.theme};
 `;
 const RenderCount = (props: RenderCountProps) => {
   props.onRender();

@@ -12,7 +12,7 @@ describe('Form', () => {
   it('should update the onSubmit prop when it was updated', () => {
     const handleSubmit = jest.fn();
     const { getByTestId } = render(
-      <Form onSubmit={values => handleSubmit(values)}>
+      <Form onSubmit={(values) => handleSubmit(values)}>
         {({ formProps }) => (
           <form {...formProps}>
             <Field name="username" label="Username" defaultValue="">
@@ -59,7 +59,7 @@ describe('Form', () => {
   it('should reset the form when the reset function is triggered', () => {
     const handleSubmit = jest.fn();
     const { getByTestId } = render(
-      <Form onSubmit={values => handleSubmit(values)}>
+      <Form onSubmit={(values) => handleSubmit(values)}>
         {({ formProps, reset }) => (
           <form {...formProps}>
             <Field name="username" label="Username" defaultValue="">
@@ -116,14 +116,14 @@ describe('Form', () => {
   it('should be able to update form state imperatively', () => {
     const handleSubmit = jest.fn();
     const { getByTestId } = render(
-      <Form onSubmit={values => handleSubmit(values)}>
+      <Form onSubmit={(values) => handleSubmit(values)}>
         {({ formProps, setFieldValue }) => (
           <form {...formProps}>
             <Field name="username" label="Username" defaultValue="">
               {({ fieldProps }) => (
                 <TextField
                   {...fieldProps}
-                  onChange={e => {
+                  onChange={(e) => {
                     e.currentTarget.value;
                     setFieldValue('slug', `${e.currentTarget.value}-brown`);
                     fieldProps.onChange(e);

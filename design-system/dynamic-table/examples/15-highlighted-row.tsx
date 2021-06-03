@@ -48,7 +48,7 @@ export default class extends React.Component<{}, State> {
           Click on the buttons to highlight the corresponding row
         </h4>
         <ButtonGroup>
-          {[0, 2, 5, 6, 8, 9].map(nos => (
+          {[0, 2, 5, 6, 8, 9].map((nos) => (
             <Button onClick={() => this.setHighlightedRow(nos)} key={nos}>
               {nos}
             </Button>

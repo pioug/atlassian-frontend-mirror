@@ -14,7 +14,7 @@ export default function Advanced() {
   const defaultMessages = getDefaultMessages('Stride');
   return (
     <WithDataDisplay>
-      {props => (
+      {(props) => (
         <NPS
           canClose
           canOptOut={false}
@@ -24,7 +24,7 @@ export default function Advanced() {
           onRoleSelect={props.onRoleSelect}
           onAllowContactChange={props.onAllowContactChange}
           onFollowupSubmit={props.onFollowupSubmit}
-          renderFeedback={feedbackProps => (
+          renderFeedback={(feedbackProps) => (
             <FeedbackPage
               {...feedbackProps}
               messages={{
@@ -38,7 +38,7 @@ export default function Advanced() {
               }}
             />
           )}
-          renderFollowup={followupProps => (
+          renderFollowup={(followupProps) => (
             <FollowupPage
               {...followupProps}
               messages={{
@@ -49,7 +49,7 @@ export default function Advanced() {
               roles={['Some job', 'Some other job', 'Some other other job']}
             />
           )}
-          renderThankyou={thankyouProps => (
+          renderThankyou={(thankyouProps) => (
             <ThankyouPage
               {...thankyouProps}
               messages={{

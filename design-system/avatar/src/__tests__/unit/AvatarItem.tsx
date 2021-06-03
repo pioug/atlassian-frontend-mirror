@@ -19,7 +19,7 @@ describe('Avatar', () => {
       <AvatarItem
         avatar={<Avatar />}
         testId={'avatar'}
-        onClick={event => null}
+        onClick={(event) => null}
       />,
     );
 
@@ -32,7 +32,7 @@ describe('Avatar', () => {
         avatar={<Avatar />}
         testId={'avatar'}
         isDisabled
-        onClick={event => null}
+        onClick={(event) => null}
       />,
     );
     const element = getByTestId('avatar--itemInner');
@@ -46,7 +46,7 @@ describe('Avatar', () => {
         avatar={<Avatar />}
         testId={'avatar'}
         isDisabled
-        onClick={event => null}
+        onClick={(event) => null}
       />,
     );
     const element = getByTestId('avatar--itemInner');

@@ -17,7 +17,7 @@ const disabledCSS = {
   ['& [data-right-arrow]']: { display: 'none' },
 };
 
-export const nestingItemStyle: CSSFn = state => {
+export const nestingItemStyle: CSSFn = (state) => {
   return {
     ...(state.isDisabled ? disabledCSS : enabledCSS),
   };

@@ -106,7 +106,7 @@ const ItemVariants = () => {
         testId="item-link-selected"
         href="//www.atlassian.com"
         iconAfter={Star}
-        cssFn={state => {
+        cssFn={(state) => {
           return {
             padding: '12px 20px',
             [`& [data-item-elem-after]`]: { opacity: 0 },

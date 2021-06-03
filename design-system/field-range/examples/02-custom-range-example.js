@@ -12,7 +12,7 @@ export default class BasicExample extends PureComponent {
     rangeValue: 50,
   };
 
-  onChange = value => {
+  onChange = (value) => {
     this.setState({
       onChangeResult: `onChange called with value: ${value}`,
       rangeValue: value,

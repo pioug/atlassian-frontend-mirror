@@ -64,7 +64,7 @@ describe('useCloseOnEscapePress()', () => {
   it('should callback when enabled after being disabled', () => {
     const onClose = jest.fn();
     const { rerender } = renderHook(
-      props =>
+      (props) =>
         useCloseOnEscapePress({
           onClose,
           isDisabled: props.isDisabled,

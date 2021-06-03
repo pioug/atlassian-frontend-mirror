@@ -13,7 +13,7 @@ export default class BasicExample extends PureComponent {
     onRadioChangeResult: 'Click on a radio field to trigger onRadioChange',
   };
 
-  onRadioChange = event => {
+  onRadioChange = (event) => {
     this.setState({
       onRadioChangeResult: `onRadioChange called with value: ${event.target.value}`,
     });

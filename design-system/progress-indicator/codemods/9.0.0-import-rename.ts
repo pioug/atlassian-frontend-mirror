@@ -7,7 +7,7 @@ function hasImportDeclaration(
 ) {
   return !!source
     .find(j.ImportDeclaration)
-    .filter(path => path.node.source.value === importPath).length;
+    .filter((path) => path.node.source.value === importPath).length;
 }
 
 function hasNameImport(
@@ -19,7 +19,7 @@ function hasNameImport(
     .find(j.ImportDeclaration)
     .find(j.ImportSpecifier)
     .find(j.Identifier)
-    .filter(identifier => identifier!.value!.name === importName).length;
+    .filter((identifier) => identifier!.value!.name === importName).length;
 }
 
 function hasVariableAlreadyDeclared(
@@ -31,7 +31,7 @@ function hasVariableAlreadyDeclared(
     .find(j.VariableDeclaration)
     .find(j.VariableDeclarator)
     .find(j.Identifier)
-    .filter(identifier => identifier!.value!.name === variableName).length;
+    .filter((identifier) => identifier!.value!.name === variableName).length;
 }
 
 export default function transformer(
@@ -46,7 +46,7 @@ export default function transformer(
       source
         .find(j.ImportDeclaration)
         .find(j.Identifier)
-        .filter(identifier => identifier.value.name === 'ProgressDots')
+        .filter((identifier) => identifier.value.name === 'ProgressDots')
         .replaceWith(j.identifier('ProgressIndicator'));
 
       if (hasVariableAlreadyDeclared(j, source, 'ProgressIndicator')) {
@@ -54,7 +54,7 @@ export default function transformer(
           .find(j.ImportDeclaration)
           .find(j.ImportSpecifier)
           .filter(
-            specifier => specifier!.node!.local!.name === 'ProgressIndicator',
+            (specifier) => specifier!.node!.local!.name === 'ProgressIndicator',
           )
           .find(j.Identifier)
           .replaceWith(
@@ -67,22 +67,22 @@ export default function transformer(
         source
           .find(j.VariableDeclarator)
           .find(j.Identifier)
-          .filter(identifier => identifier.value.name === 'ProgressDots')
+          .filter((identifier) => identifier.value.name === 'ProgressDots')
           .replaceWith(j.identifier('AKProgressIndicator'));
 
         source
           .find(j.JSXIdentifier)
-          .filter(identifier => identifier.value.name === 'ProgressDots')
+          .filter((identifier) => identifier.value.name === 'ProgressDots')
           .replaceWith(j.identifier('AKProgressIndicator'));
       } else {
         source
           .find(j.VariableDeclarator)
           .find(j.Identifier)
-          .filter(identifier => identifier.value.name === 'ProgressDots')
+          .filter((identifier) => identifier.value.name === 'ProgressDots')
           .replaceWith(j.identifier('ProgressIndicator'));
         source
           .find(j.JSXIdentifier)
-          .filter(identifier => identifier.value.name === 'ProgressDots')
+          .filter((identifier) => identifier.value.name === 'ProgressDots')
           .replaceWith(j.identifier('ProgressIndicator'));
       }
     }

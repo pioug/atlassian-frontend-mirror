@@ -17,7 +17,7 @@ const SmartSelectOverview = () => (
   <Select
     items={selectItems}
     label="Choose your favourite"
-    onSelected={item => {
+    onSelected={(item) => {
       console.log(item);
     }}
   />

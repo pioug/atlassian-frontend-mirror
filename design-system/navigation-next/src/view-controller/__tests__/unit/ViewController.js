@@ -40,8 +40,8 @@ describe('NavigationNext View Controller', () => {
 
       expect(viewController.reducers).toEqual({});
 
-      const viewControllerReducer = data => data;
-      const secondViewControllerReducer = data => data;
+      const viewControllerReducer = (data) => data;
+      const secondViewControllerReducer = (data) => data;
       viewController.addReducer('view-id', viewControllerReducer);
       viewController.addReducer('view-id', secondViewControllerReducer);
 
@@ -73,7 +73,7 @@ describe('NavigationNext View Controller', () => {
         isDebugEnabled: true,
       });
 
-      const viewControllerReducer = data => data;
+      const viewControllerReducer = (data) => data;
       viewController.addReducer('view-id', viewControllerReducer);
       viewController.removeReducer('view-id', () => []);
 

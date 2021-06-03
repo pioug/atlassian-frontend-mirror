@@ -20,12 +20,12 @@ describe('TagGroup', () => {
     const tags = ['Candy canes', 'Tiramisu', 'Gummi bears'];
     const { getByText } = render(
       <TagGroup>
-        {tags.map(tagName => (
+        {tags.map((tagName) => (
           <Tag key={tagName} text={tagName} />
         ))}
       </TagGroup>,
     );
-    tags.forEach(tagText => {
+    tags.forEach((tagText) => {
       expect(getByText(tagText)).toBeTruthy();
     });
   });

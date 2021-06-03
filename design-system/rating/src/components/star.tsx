@@ -26,7 +26,7 @@ export interface StarProps extends RatingProps {
 const Star = forwardRef<HTMLLabelElement, StarProps>(
   ({ size = 'large', color = Y200, ...props }, ref) => {
     const render: RatingRender = useCallback(
-      props => {
+      (props) => {
         return props.isChecked ? (
           // Labels are set inside Rating - blank them out here to not double up.
           <StarFilledIcon size={size} primaryColor={color} label="" />

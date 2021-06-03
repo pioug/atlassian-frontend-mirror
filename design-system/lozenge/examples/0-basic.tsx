@@ -28,7 +28,7 @@ export default () => (
     <Row>
       <Col>
         <p>Subtle</p>
-        {APPEARANCES.map(a => (
+        {APPEARANCES.map((a) => (
           <p key={a.value as string}>
             <Lozenge appearance={a.value} testId="lozenge-subtle">
               {a.label}
@@ -38,7 +38,7 @@ export default () => (
       </Col>
       <Col>
         <p>Bold</p>
-        {APPEARANCES.map(a => (
+        {APPEARANCES.map((a) => (
           <p key={a.value as string}>
             <Lozenge appearance={a.value} isBold testId="lozenge-bold">
               {a.label}

@@ -120,7 +120,7 @@ describe('@atlaskit/dynamic-table', () => {
     });
 
     const checkSortedData = (isRankable: boolean) => {
-      const headCells = head.cells.map(cell => ({
+      const headCells = head.cells.map((cell) => ({
         ...cell,
         isSortable: true,
       }));
@@ -161,7 +161,7 @@ describe('@atlaskit/dynamic-table', () => {
       const newHead = {
         onClick: theadOnClick,
         onKeyDown: theadOnKeyDown,
-        cells: head.cells.map(cell => ({
+        cells: head.cells.map((cell) => ({
           ...cell,
           onClick: thOnClick,
           onKeyDown: thOnKeyDown,
@@ -181,16 +181,16 @@ describe('@atlaskit/dynamic-table', () => {
       );
       expect(wrapper.find('thead').prop('onClick')).toBe(theadOnClick);
       expect(wrapper.find('thead').prop('onKeyDown')).toBe(theadOnKeyDown);
-      wrapper.find('th').forEach(headCell => {
+      wrapper.find('th').forEach((headCell) => {
         expect(headCell.prop('onClick')).toBe(thOnClick);
       });
-      wrapper.find('th').forEach(headCell => {
+      wrapper.find('th').forEach((headCell) => {
         expect(headCell.prop('onKeyDown')).toBe(thOnKeyDown);
       });
-      wrapper.find('tbody tr').forEach(bodyRow => {
+      wrapper.find('tbody tr').forEach((bodyRow) => {
         expect(bodyRow.prop('onClick')).toBe(trOnClick);
       });
-      wrapper.find('td').forEach(bodyCell => {
+      wrapper.find('td').forEach((bodyCell) => {
         expect(bodyCell.prop('onClick')).toBe(tdOnClick);
       });
     });

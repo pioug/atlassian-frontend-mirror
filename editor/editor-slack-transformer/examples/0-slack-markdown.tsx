@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import { CollapsedEditor, Editor, EditorContext } from '@atlaskit/editor-core';
-import imageUploadHandler from '@atlaskit/editor-core/example-helpers/imageUpload';
+import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 
 import ToolsDrawer from '../example-helpers/ToolsDrawer';
 import { SlackTransformer } from '../src';
@@ -9,6 +9,13 @@ import { SlackTransformer } from '../src';
 const SAVE_ACTION = () => console.log('Save');
 const CANCEL_ACTION = () => console.log('Cancel');
 const EXPAND_ACTION = () => console.log('Expand');
+
+const mediaProvider = storyMediaProviderFactory({
+  useMediaPickerAuthProvider: false,
+  includeUploadMediaClientConfig: true,
+  includeUserAuthProvider: false,
+  collectionName: 'test',
+});
 
 export type Props = {};
 
@@ -30,7 +37,7 @@ export default function EditorWithFeedback(props: Props) {
       'https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js';
 
     scriptElem.onload = () => {
-      setState(prevState => ({
+      setState((prevState) => ({
         ...prevState,
         hasJquery: true,
       }));
@@ -40,7 +47,7 @@ export default function EditorWithFeedback(props: Props) {
   };
 
   const handleFocus = () =>
-    setState(prevState => ({
+    setState((prevState) => ({
       ...prevState,
       isExpanded: !prevState.isExpanded,
     }));
@@ -80,9 +87,11 @@ export default function EditorWithFeedback(props: Props) {
                   disabled={disabled}
                   mentionProvider={mentionProvider}
                   emojiProvider={emojiProvider}
-                  legacyImageUploadProvider={Promise.resolve(
-                    imageUploadHandler,
-                  )}
+                  media={{
+                    provider: mediaProvider,
+                    allowMediaSingle: true,
+                    allowMediaGroup: true,
+                  }}
                   onChange={onChange}
                   onSave={SAVE_ACTION}
                   onCancel={CANCEL_ACTION}

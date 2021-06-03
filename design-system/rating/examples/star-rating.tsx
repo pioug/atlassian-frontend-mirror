@@ -18,12 +18,12 @@ export default () => {
   const [color, setColor] = useState<string>();
   const size = sizes[index];
   const increase = () =>
-    setIndex(prev => {
+    setIndex((prev) => {
       const next = prev + 1;
       return next === sizes.length ? sizes.length - 1 : next;
     });
   const decrease = () =>
-    setIndex(prev => {
+    setIndex((prev) => {
       const next = prev - 1;
       return next < 0 ? 0 : next;
     });
@@ -34,7 +34,7 @@ export default () => {
         <Button onClick={decrease}>Smaller</Button>
         <Button
           isSelected={!!color}
-          onClick={() => setColor(prev => (prev ? undefined : G300))}
+          onClick={() => setColor((prev) => (prev ? undefined : G300))}
         >
           {color ? 'Reset color' : 'Use custom color'}
         </Button>

@@ -21,7 +21,7 @@ type flagData = {
 
 const getRandomIcon = () => {
   const icons = iconMap() as { [key: string]: object };
-  const iconArray = Object.keys(icons).map(i => icons[i]);
+  const iconArray = Object.keys(icons).map((i) => icons[i]);
   return iconArray[Math.floor(Math.random() * iconArray.length)];
 };
 
@@ -75,7 +75,7 @@ const FlagGroupExample = () => {
   return (
     <div>
       <FlagGroup onDismissed={dismissFlag}>
-        {flags.map(flag => (
+        {flags.map((flag) => (
           <Flag actions={actions} {...flag} />
         ))}
       </FlagGroup>

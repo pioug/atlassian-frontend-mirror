@@ -10,7 +10,7 @@ import { Header } from '../../src';
 
 import SampleIcon from './sample-logo';
 
-const Container: React.FC<CustomItemComponentProps> = props => {
+const Container: React.FC<CustomItemComponentProps> = (props) => {
   return <div {...props} />;
 };
 

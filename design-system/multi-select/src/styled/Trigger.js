@@ -7,7 +7,7 @@ const gridSizeUnitless = gridSize();
 
 const lineHeightDefault = (gridSizeUnitless * 2) / fontSize();
 
-const getPlaceholderStyle = style => css`
+const getPlaceholderStyle = (style) => css`
   &::-webkit-input-placeholder {
     /* WebKit, Blink, Edge */
     ${style};

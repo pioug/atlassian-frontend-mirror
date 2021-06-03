@@ -8,7 +8,7 @@ import {
   SecondaryItemsList,
 } from './primitives';
 
-const GlobalNavigationSkeleton = props => {
+const GlobalNavigationSkeleton = (props) => {
   const { dataset, theme, ...rest } = props;
 
   const wrapperStyles = theme.mode.globalNav();

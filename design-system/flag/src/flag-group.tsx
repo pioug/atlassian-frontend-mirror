@@ -123,7 +123,7 @@ const FlagGroup = (props: Props) => {
               duration={flagAnimationTime}
               animationTimingFunction={() => easeIn}
             >
-              {props => (
+              {(props) => (
                 <div
                   {...props}
                   css={css`

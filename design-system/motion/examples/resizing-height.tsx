@@ -40,7 +40,7 @@ export default () => {
   return (
     <div>
       <div css={{ textAlign: 'center', '> *': { margin: '2px' } }}>
-        {[1, 2, 3, 4, 5].map(number => (
+        {[1, 2, 3, 4, 5].map((number) => (
           <Button
             testId={`button--${number}`}
             key={number}
@@ -96,7 +96,7 @@ export default () => {
               .fill(undefined)
               .map((_, index) => (
                 <FadeIn key={index}>
-                  {motion => (
+                  {(motion) => (
                     <div
                       css={css`
                         font-size: 16px;

@@ -13,7 +13,7 @@ export default function Example() {
 
       <Toggle
         id="toggle-controlled"
-        onChange={() => setIsChecked(prev => !prev)}
+        onChange={() => setIsChecked((prev) => !prev)}
         isChecked={isChecked}
       />
     </>

@@ -1,5 +1,11 @@
 # @atlaskit/modal-dialog
 
+## 11.6.1
+
+### Patch Changes
+
+- [`e3a6469c8e5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e3a6469c8e5) - [ux] FIX: fixes a bug introduced in 11.5.0 – now modal dialog is correctly positioned when relative sizing is used as width
+
 ## 11.6.0
 
 ### Minor Changes

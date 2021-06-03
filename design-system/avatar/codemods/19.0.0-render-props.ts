@@ -59,10 +59,10 @@ function getJSXAttributesByName(
   return j(element)
     .find(j.JSXOpeningElement)
     .find(j.JSXAttribute)
-    .filter(attribute => {
+    .filter((attribute) => {
       const matches = j(attribute)
         .find(j.JSXIdentifier)
-        .filter(identifier => identifier.value.name === attributeName);
+        .filter((identifier) => identifier.value.name === attributeName);
       return Boolean(matches.length);
     });
 }
@@ -72,7 +72,7 @@ function wrapChildrenProp(
   source: ReturnType<typeof j>,
   specifier: string,
 ) {
-  source.findJSXElements(specifier).forEach(element => {
+  source.findJSXElements(specifier).forEach((element) => {
     const componentProp = getJSXAttributesByName(j, element, 'component').get();
     const componentName = j(componentProp)
       .find(j.JSXExpressionContainer)
@@ -121,7 +121,7 @@ function hasImportDeclaration(
 ) {
   return !!source
     .find(j.ImportDeclaration)
-    .filter(path => path.node.source.value === importPath).length;
+    .filter((path) => path.node.source.value === importPath).length;
 }
 
 export default function transformer(

@@ -25,7 +25,7 @@ export function useInView(options: IntersectionObserverInit = {}): Response {
   const { threshold, root, rootMargin } = options;
 
   const setRef = React.useCallback(
-    node => {
+    (node) => {
       const { supportsIntersectionObserver } = browser;
       if (!supportsIntersectionObserver) {
         setState({

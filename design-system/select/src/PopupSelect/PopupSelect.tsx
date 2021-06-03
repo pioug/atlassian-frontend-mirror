@@ -92,7 +92,7 @@ export default class PopupSelect<
   targetRef: HTMLElement | null = null;
 
   defaultStyles: StylesConfig<Option, IsMulti> = {
-    groupHeading: provided => ({ ...provided, color: N80 }),
+    groupHeading: (provided) => ({ ...provided, color: N80 }),
   };
 
   state = {

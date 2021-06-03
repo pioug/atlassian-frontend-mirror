@@ -34,7 +34,7 @@ const AnimationDemo: React.FC = () => {
 
   const startAnimating = useCallback(() => {
     setTimerId(
-      window.setInterval(() => setUpdateCount(count => count + 1), 300),
+      window.setInterval(() => setUpdateCount((count) => count + 1), 300),
     );
   }, [setTimerId, setUpdateCount]);
 

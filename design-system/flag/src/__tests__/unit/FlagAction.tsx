@@ -30,7 +30,7 @@ describe('actions prop', () => {
 
   it('actions with bold appearance should be rendered without dots', () => {
     (['info', 'warning', 'error', 'success'] as Array<AppearanceTypes>).forEach(
-      appearance => {
+      (appearance) => {
         const { getByTestId, unmount } = render(
           generateFlag({
             testId: 'flag-action-test',

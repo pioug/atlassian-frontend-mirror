@@ -208,7 +208,7 @@ describe('@atlaskit/item - Item', () => {
           it('should execute the dragHandle function if provided', () => {
             const dnd = {
               dragHandleProps: {
-                onKeyDown: jest.fn(event => event.preventDefault),
+                onKeyDown: jest.fn((event) => event.preventDefault),
               },
               innerRef: () => {},
               draggableProps: {},
@@ -223,7 +223,7 @@ describe('@atlaskit/item - Item', () => {
           it('should call the dragHandle function even if disabled - dnd has its own disabled mechanism', () => {
             const dnd = {
               dragHandleProps: {
-                onKeyDown: jest.fn(event => event.preventDefault),
+                onKeyDown: jest.fn((event) => event.preventDefault),
               },
               innerRef: () => {},
               draggableProps: {},
@@ -238,7 +238,7 @@ describe('@atlaskit/item - Item', () => {
           it('should not call the original function if the dragHandle prevents the default', () => {
             const dnd = {
               dragHandleProps: {
-                onKeyDown: jest.fn(event => event.preventDefault()),
+                onKeyDown: jest.fn((event) => event.preventDefault()),
               },
               innerRef: () => {},
               draggableProps: {},

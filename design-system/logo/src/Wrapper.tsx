@@ -7,10 +7,10 @@ import { sizes, WrapperProps } from './constants';
 type SpanProps = Partial<WrapperProps>;
 
 const Span = styled.span<SpanProps>`
-  color: ${p => p.iconColor};
+  color: ${(p) => p.iconColor};
   display: inline-block;
-  fill: ${p => p.textColor};
-  height: ${p => p.size && sizes[p.size]}px;
+  fill: ${(p) => p.textColor};
+  height: ${(p) => p.size && sizes[p.size]}px;
   position: relative;
   user-select: none;
 
@@ -27,7 +27,7 @@ const Span = styled.span<SpanProps>`
     height: 100%;
     visibility: hidden;
   }
-  ${p =>
+  ${(p) =>
     /* Only apply this if our stop-colors are inherit, if they aren't we don't need to set stop-color via css */
     p.iconGradientStart === 'inherit' &&
     p.iconGradientStop === 'inherit' &&

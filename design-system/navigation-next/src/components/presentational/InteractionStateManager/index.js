@@ -8,13 +8,13 @@ export default class InteractionStateManager extends Component {
   };
 
   // eslint-disable-next-line no-undef
-  onMouseDown = e => {
+  onMouseDown = (e) => {
     e.preventDefault();
     this.setState({ isActive: true });
   };
 
   // eslint-disable-next-line no-undef
-  onMouseUp = e => {
+  onMouseUp = (e) => {
     e.preventDefault();
     this.setState({ isActive: false, isHover: true });
   };

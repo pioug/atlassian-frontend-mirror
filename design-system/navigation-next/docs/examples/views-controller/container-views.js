@@ -104,7 +104,7 @@ const productIssuesView = {
   id: 'product/issues',
   type: 'product',
   getItems: () =>
-    new Promise(resolve =>
+    new Promise((resolve) =>
       setTimeout(
         () =>
           resolve([
@@ -194,7 +194,7 @@ const projectHomeView = {
       items: [
         {
           type: 'ContainerHeader',
-          before: itemState => (
+          before: (itemState) => (
             <ItemAvatar
               itemState={itemState}
               appearance="square"

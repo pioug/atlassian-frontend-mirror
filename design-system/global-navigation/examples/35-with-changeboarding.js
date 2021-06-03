@@ -11,7 +11,7 @@ import AppSwitcherIcon from '@atlaskit/icon/glyph/app-switcher';
 
 import GlobalNavigation from '../src';
 
-const AppSwitcherComponent = props => (
+const AppSwitcherComponent = (props) => (
   <GlobalItem
     {...props}
     icon={AppSwitcherIcon}
@@ -51,7 +51,7 @@ export default class Example extends Component {
 
   getRefs = () => {
     const refs = {};
-    this.icons.forEach(icon => {
+    this.icons.forEach((icon) => {
       refs[`get${icon}Ref`] = this.getRef(icon);
     });
 
@@ -66,7 +66,7 @@ export default class Example extends Component {
     this.setState({ targetIndex: null });
   };
 
-  getRef = icon => node => {
+  getRef = (icon) => (node) => {
     if (node && node.current && node.current !== this[`${icon}Ref`]) {
       this[`${icon}Ref`] = node;
     }

@@ -53,7 +53,7 @@ export default class ViewState extends Container {
    * Setters
    */
 
-  setDebug = enabled => {
+  setDebug = (enabled) => {
     this.logger.setDebug(enabled);
   };
 
@@ -114,7 +114,7 @@ export default class ViewState extends Container {
     }
   };
 
-  setView = maybeViewKey => {
+  setView = (maybeViewKey) => {
     if (maybeViewKey === null) {
       this.setState({ activeView: null, data: null });
       return;
@@ -133,7 +133,7 @@ export default class ViewState extends Container {
         this.setState({ isLoading: true, nextView: viewKey });
 
         // Wait for the promise to resolve.
-        view.then(viewData => {
+        view.then((viewData) => {
           this.setViewData(viewKey, viewData);
         });
         return;
@@ -188,7 +188,7 @@ export default class ViewState extends Container {
    * Will re-resolve the active view and re-reduce its data. Accepts an optional
    * viewKey to only re-resolve if the given key matches the active view.
    */
-  updateActiveView = maybeViewKey => {
+  updateActiveView = (maybeViewKey) => {
     const { activeView, data } = this.state;
     const viewKey = maybeViewKey || activeView;
 

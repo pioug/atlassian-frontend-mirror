@@ -30,7 +30,7 @@ export function getImportDeclarationCollection(
   return collection
     .find(j.ImportDeclaration)
     .filter(
-      importDeclarationPath =>
+      (importDeclarationPath) =>
         importDeclarationPath.node.source.value === importPath,
     );
 }
@@ -48,7 +48,7 @@ export function getDynamicImportCollection(
   collection: Collection<any>,
   importPath: string,
 ) {
-  return collection.find(j.CallExpression).filter(callExpressionPath => {
+  return collection.find(j.CallExpression).filter((callExpressionPath) => {
     const {
       callee,
       arguments: callExpressionArguments,
@@ -82,7 +82,7 @@ function isCallExpressionArgumentValueMatches(
   j: JSCodeshift,
   value: string,
 ) {
-  return j(callExpressionArgument).some(path => path.node.value === value);
+  return j(callExpressionArgument).some((path) => path.node.value === value);
 }
 
 export function getImportSpecifierCollection(
@@ -93,7 +93,7 @@ export function getImportSpecifierCollection(
   return importDeclarationCollection
     .find(j.ImportSpecifier)
     .filter(
-      importSpecifierPath =>
+      (importSpecifierPath) =>
         importSpecifierPath.node.imported.name === importName,
     );
 }
@@ -116,7 +116,7 @@ export function isVariableDeclaratorIdentifierPresent(
   return collection
     .find(j.VariableDeclaration)
     .find(j.VariableDeclarator)
-    .some(variableDeclaratorPath => {
+    .some((variableDeclaratorPath) => {
       const { id } = variableDeclaratorPath.node;
 
       return !!(
@@ -134,7 +134,7 @@ export function isFunctionDeclarationIdentifierPresent(
 ) {
   return collection
     .find(j.FunctionDeclaration)
-    .some(functionDeclarationPath => {
+    .some((functionDeclarationPath) => {
       const { id } = functionDeclarationPath.node;
 
       return !!(
@@ -150,7 +150,7 @@ export function isClassDeclarationIdentifierPresent(
   collection: Collection<any>,
   variableName: string,
 ) {
-  return collection.find(j.ClassDeclaration).some(classDeclarationPath => {
+  return collection.find(j.ClassDeclaration).some((classDeclarationPath) => {
     const { id } = classDeclarationPath.node;
 
     return !!(
@@ -169,7 +169,7 @@ export function isImportDeclarationIdentifierPresent(
   return collection
     .find(j.ImportDeclaration)
     .find(j.Identifier)
-    .some(identifierPath => identifierPath.node.name === variableName);
+    .some((identifierPath) => identifierPath.node.name === variableName);
 }
 
 export function getJSXAttributesByName(
@@ -180,11 +180,11 @@ export function getJSXAttributesByName(
   return j(jsxElementPath)
     .find(j.JSXOpeningElement)
     .find(j.JSXAttribute)
-    .filter(jsxAttributePath =>
+    .filter((jsxAttributePath) =>
       j(jsxAttributePath)
         .find(j.JSXIdentifier)
         .some(
-          jsxIdentifierPath => jsxIdentifierPath.node.name === attributeName,
+          (jsxIdentifierPath) => jsxIdentifierPath.node.name === attributeName,
         ),
     );
 }
@@ -199,7 +199,7 @@ export function getJSXSpreadIdentifierAttributesByName(
     .find(j.JSXOpeningElement)
     .find(j.JSXSpreadAttribute)
     .filter(
-      jsxSpreadAttributePath =>
+      (jsxSpreadAttributePath) =>
         jsxSpreadAttributePath.node.argument.type === 'Identifier',
     )
     .find(j.Identifier);
@@ -210,22 +210,22 @@ export function getJSXSpreadIdentifierAttributesByName(
 
   return collection
     .find(j.VariableDeclarator)
-    .filter(variableDeclaratorPath => {
+    .filter((variableDeclaratorPath) => {
       const { id } = variableDeclaratorPath.node;
 
       return (
         id.type === 'Identifier' &&
         identifierCollection.some(
-          identifierPath => identifierPath.node.name === id.name,
+          (identifierPath) => identifierPath.node.name === id.name,
         )
       );
     })
     .find(j.ObjectExpression)
     .find(j.ObjectProperty)
-    .filter(objectPropertyPath =>
+    .filter((objectPropertyPath) =>
       j(objectPropertyPath)
         .find(j.Identifier)
-        .some(identifierPath => identifierPath.node.name === attributeName),
+        .some((identifierPath) => identifierPath.node.name === attributeName),
     );
 }
 
@@ -239,10 +239,10 @@ export function getJSXSpreadObjectExpressionAttributesByName(
     .find(j.JSXSpreadAttribute)
     .find(j.ObjectExpression)
     .find(j.ObjectProperty)
-    .filter(objectPropertyPath =>
+    .filter((objectPropertyPath) =>
       j(objectPropertyPath)
         .find(j.Identifier)
-        .some(identifierPath => identifierPath.node.name === attributeName),
+        .some((identifierPath) => identifierPath.node.name === attributeName),
     );
 }
 
@@ -258,7 +258,7 @@ export const createRemoveFuncFor = (
     return;
   }
 
-  source.findJSXElements(specifier).forEach(element => {
+  source.findJSXElements(specifier).forEach((element) => {
     getJSXAttributesByName(j, element, prop).forEach((attribute: any) => {
       j(attribute).remove();
       if (comment) {

@@ -88,7 +88,7 @@ const getBaseStyles = ({ alwaysShowScrollHint }) => ({
   },
 });
 
-export default ({ product }) => props => {
+export default ({ product }) => (props) => {
   const baseStyles = getBaseStyles(props);
   return {
     container: {

@@ -76,7 +76,7 @@ describe.skip('dropdown menu - DropdownItemRadio', () => {
     expect(clickSpy).toHaveBeenCalled();
   });
 
-  [KEY_SPACE, KEY_ENTER].forEach(triggerKey => {
+  [KEY_SPACE, KEY_ENTER].forEach((triggerKey) => {
     test(`custom checkbox item onClick should be called when "${triggerKey}" key pressed`, () => {
       const clickSpy = jest.fn();
       const compProps = { isOpen: true };

@@ -70,7 +70,7 @@ export default class GlobalNavigation extends Component {
       notificationCount: 0,
     };
 
-    Object.keys(this.drawers).forEach(drawer => {
+    Object.keys(this.drawers).forEach((drawer) => {
       this.updateDrawerControlledStatus(drawer, props);
 
       const capitalisedDrawerName = this.getCapitalisedDrawerName(drawer);
@@ -103,7 +103,7 @@ export default class GlobalNavigation extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    Object.keys(this.drawers).forEach(drawerName => {
+    Object.keys(this.drawers).forEach((drawerName) => {
       this.updateDrawerControlledStatus(drawerName, this.props);
 
       const capitalisedDrawerName = this.getCapitalisedDrawerName(drawerName);
@@ -178,7 +178,7 @@ export default class GlobalNavigation extends Component {
     return null;
   };
 
-  updateLocalStorageCount = newCount => {
+  updateLocalStorageCount = (newCount) => {
     try {
       localStorage.setItem('notificationBadgeCountCache', newCount);
     } catch (e) {
@@ -198,11 +198,11 @@ export default class GlobalNavigation extends Component {
     }
   };
 
-  getCapitalisedDrawerName = drawerName => {
+  getCapitalisedDrawerName = (drawerName) => {
     return `${drawerName[0].toUpperCase()}${drawerName.slice(1)}Drawer`;
   };
 
-  openDrawer = drawerName => () => {
+  openDrawer = (drawerName) => () => {
     const capitalisedDrawerName = this.getCapitalisedDrawerName(drawerName);
     let onOpenCallback = noop;
 
@@ -229,7 +229,7 @@ export default class GlobalNavigation extends Component {
     }
   };
 
-  closeDrawer = drawerName => (
+  closeDrawer = (drawerName) => (
     // eslint-disable-next-line no-undef
     event,
     analyticsEvent,
@@ -298,7 +298,7 @@ export default class GlobalNavigation extends Component {
       ? this.state
       : this.props;
 
-    const navItems = Object.keys(productConfig).map(item => ({
+    const navItems = Object.keys(productConfig).map((item) => ({
       ...(productConfig[item]
         ? {
             ...(item === 'notification' && this.isNotificationInbuilt
@@ -317,21 +317,21 @@ export default class GlobalNavigation extends Component {
       primaryItems: navItems
         .filter(({ section }) => section === 'primary')
         .sort(({ rank: rank1 }, { rank: rank2 }) => rank1 - rank2)
-        .map(navItem => {
+        .map((navItem) => {
           const { section, rank, ...props } = navItem;
           return props;
         }),
       secondaryItems: navItems
         .filter(({ section }) => section === 'secondary')
         .sort(({ rank: rank1 }, { rank: rank2 }) => rank1 - rank2)
-        .map(navItem => {
+        .map((navItem) => {
           const { section, rank, ...props } = navItem;
           return props;
         }),
     };
   };
 
-  getDrawerContents = drawerName => {
+  getDrawerContents = (drawerName) => {
     switch (drawerName) {
       case 'notification':
         return this.isNotificationInbuilt
@@ -361,7 +361,7 @@ export default class GlobalNavigation extends Component {
             primaryItems={primaryItems}
             secondaryItems={secondaryItems}
           />
-          {Object.keys(this.drawers).map(drawerName => {
+          {Object.keys(this.drawers).map((drawerName) => {
             const capitalisedDrawerName = this.getCapitalisedDrawerName(
               drawerName,
             );

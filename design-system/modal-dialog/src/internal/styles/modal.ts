@@ -147,6 +147,9 @@ export const getDialogStyles = ({
     max-height: inherit;
     max-width: inherit;
 
+    margin-left: inherit;
+    margin-right: inherit;
+
     ${isChromeless !== true &&
     css`
       border-radius: ${borderRadius()}px;

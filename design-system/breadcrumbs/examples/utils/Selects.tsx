@@ -3,7 +3,7 @@ import React, { FC } from 'react';
 import Select, { OptionType, StylesConfig, ValueType } from '@atlaskit/select';
 
 const styles: StylesConfig = {
-  container: base => ({
+  container: (base) => ({
     ...base,
     margin: '8px',
     width: '160px',

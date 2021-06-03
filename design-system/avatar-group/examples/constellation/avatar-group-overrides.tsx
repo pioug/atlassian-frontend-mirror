@@ -14,7 +14,7 @@ const ButtonGroup = styled.div`
 `;
 
 const Example = () => {
-  const data = RANDOM_USERS.slice(0, 8).map(d => ({
+  const data = RANDOM_USERS.slice(0, 8).map((d) => ({
     email: d.email,
     key: d.email,
     name: d.name,

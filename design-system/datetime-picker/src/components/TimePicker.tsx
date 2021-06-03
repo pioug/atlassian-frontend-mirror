@@ -381,7 +381,7 @@ class TimePicker extends React.Component<TimePickerProps, State> {
     const renderIconContainer = Boolean(hideIcon && value);
 
     const mergedStyles = mergeStyles(selectStyles, {
-      control: base => ({
+      control: (base) => ({
         ...base,
         ...controlStyles,
       }),
@@ -396,7 +396,7 @@ class TimePicker extends React.Component<TimePickerProps, State> {
             : 'auto',
         },
       }),
-      indicatorsContainer: base => ({
+      indicatorsContainer: (base) => ({
         ...base,
         paddingLeft: renderIconContainer ? ICON_PADDING : 0,
         paddingRight: renderIconContainer ? gridSize() - BORDER_WIDTH : 0,

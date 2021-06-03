@@ -7,7 +7,7 @@ import { IndicatorButton, IndicatorDiv } from '../../../styled/Dots';
 import { ProgressDotsWithoutAnalytics as ProgressDots } from '../../Dots';
 
 // NOTE: "StubComponent" saves duplicating required props; avoids errors in the logs
-const StubComponent: FC<{ onSelect?: () => any }> = props => (
+const StubComponent: FC<{ onSelect?: () => any }> = (props) => (
   <ProgressDots selectedIndex={0} values={['one', 'two', 'three']} {...props} />
 );
 

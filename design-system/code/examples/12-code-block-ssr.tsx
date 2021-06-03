@@ -22,7 +22,7 @@ ReactDOM.render(
   mountNode
 );`;
 
-const Layout: React.FC = props => (
+const Layout: React.FC = (props) => (
   <div
     css={{
       padding: 8,
@@ -34,7 +34,7 @@ const Layout: React.FC = props => (
   />
 );
 
-const H2: React.FC = props => (
+const H2: React.FC = (props) => (
   // eslint-disable-next-line jsx-a11y/heading-has-content
   <h2
     css={{

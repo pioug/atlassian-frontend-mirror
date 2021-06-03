@@ -28,7 +28,7 @@ export interface CheckboxProps {
   value?: string;
 }
 
-const CheckboxField: FC<CheckboxProps> = props => {
+const CheckboxField: FC<CheckboxProps> = (props) => {
   const { children, defaultIsChecked = false, value, ...rest } = props;
 
   // Maintains a memoised list of the default values
@@ -47,7 +47,7 @@ const CheckboxField: FC<CheckboxProps> = props => {
       transform={(event, currentValue: string[]) =>
         event.currentTarget.checked && currentValue
           ? [...currentValue, value]
-          : currentValue.filter(v => v !== value)
+          : currentValue.filter((v) => v !== value)
       }
     >
       {({ fieldProps: { value: fieldValue, ...otherFieldProps }, ...others }) =>
@@ -65,7 +65,7 @@ const CheckboxField: FC<CheckboxProps> = props => {
     <Field<any>
       {...rest}
       defaultValue={defaultIsChecked}
-      transform={event => event.currentTarget.checked}
+      transform={(event) => event.currentTarget.checked}
     >
       {({ fieldProps: { value: fieldValue, ...otherFieldProps }, ...others }) =>
         children({

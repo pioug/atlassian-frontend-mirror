@@ -55,7 +55,7 @@ const AvatarGroupItem: FC<AvatarGroupItemProps> = ({
         rel={avatar.target === '_blank' ? 'noopener noreferrer' : undefined}
         iconBefore={AvatarIcon}
         testId={testId}
-        onClick={event =>
+        onClick={(event) =>
           callback &&
           callback(event as React.MouseEvent<Element>, undefined, index)
         }
@@ -67,7 +67,7 @@ const AvatarGroupItem: FC<AvatarGroupItemProps> = ({
   if (typeof callback === 'function') {
     return (
       <ButtonItem
-        onClick={event =>
+        onClick={(event) =>
           callback &&
           callback(event as React.MouseEvent<Element>, undefined, index)
         }

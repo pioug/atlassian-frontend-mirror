@@ -6,7 +6,7 @@ import { StaggeredEntrance, ZoomIn } from '@atlaskit/motion';
 import { RatingGroup, Star, StarProps } from '../src';
 
 const ZoomInStar = (props: StarProps) => (
-  <ZoomIn>{motion => <Star {...motion} {...props} />}</ZoomIn>
+  <ZoomIn>{(motion) => <Star {...motion} {...props} />}</ZoomIn>
 );
 
 export default () => {
@@ -15,7 +15,7 @@ export default () => {
   return (
     <div style={{ textAlign: 'center' }}>
       <div style={{ marginBottom: 8 }}>
-        <Button onClick={() => setCount(prev => prev + 1)}>Re-enter</Button>
+        <Button onClick={() => setCount((prev) => prev + 1)}>Re-enter</Button>
       </div>
 
       <StaggeredEntrance>

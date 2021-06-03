@@ -21,7 +21,7 @@ const config: IconBuildConfig = {
   baseIconEntryPoint: '@atlaskit/icon/base',
 };
 
-buildIcons(config).then(icons => {
+buildIcons(config).then((icons) => {
   const iconDocs = createIconDocs(icons, '@atlaskit/icon', synonyms, [
     'icon',
     'core',

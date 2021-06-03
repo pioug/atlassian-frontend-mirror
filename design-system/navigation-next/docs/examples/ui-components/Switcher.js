@@ -15,7 +15,7 @@ import {
 } from '../../../src';
 import { CONTENT_NAV_WIDTH } from '../../../src/common/constants';
 
-const Wrapper = props => (
+const Wrapper = (props) => (
   <div
     css={{
       backgroundColor: colors.N20,
@@ -100,7 +100,7 @@ export default class MySwitcher extends React.Component {
   });
 
   target = ({ id, subText, text }) => {
-    const avatar = s => (
+    const avatar = (s) => (
       <ItemAvatar
         appearance="square"
         href={null}
@@ -121,7 +121,7 @@ export default class MySwitcher extends React.Component {
     );
   };
 
-  onChange = selected => {
+  onChange = (selected) => {
     this.setState({ selected });
   };
 
@@ -138,7 +138,7 @@ export default class MySwitcher extends React.Component {
             value={selected}
           />
           <SectionHeading>Section heading</SectionHeading>
-          {items.map(p => (
+          {items.map((p) => (
             <Item key={p.text} {...p} />
           ))}
         </Wrapper>

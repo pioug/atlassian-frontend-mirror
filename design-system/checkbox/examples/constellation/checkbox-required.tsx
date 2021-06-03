@@ -9,11 +9,11 @@ export default () => {
   const [isChecked, setIsChecked] = useState(false);
 
   const onChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
-    setIsChecked(current => !current);
+    setIsChecked((current) => !current);
   }, []);
 
   return (
-    <Form onSubmit={formData => console.log('form data', formData)}>
+    <Form onSubmit={(formData) => console.log('form data', formData)}>
       {({ formProps }) => (
         <form {...formProps}>
           <CheckboxField name="checkbox-required" isRequired>

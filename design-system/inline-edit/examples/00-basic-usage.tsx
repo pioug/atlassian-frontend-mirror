@@ -37,7 +37,7 @@ const InlineEditExample = () => {
             {editValue || 'Click to enter value'}
           </ReadViewContainer>
         )}
-        onConfirm={value => setEditValue(value)}
+        onConfirm={(value) => setEditValue(value)}
       />
     </div>
   );

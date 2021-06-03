@@ -69,7 +69,10 @@ const OnResizeExample = () => {
           The area above will change color as the width of the container
           changes.
         </p>
-        <Button onClick={() => setSize(prev => prev + 1)} appearance="primary">
+        <Button
+          onClick={() => setSize((prev) => prev + 1)}
+          appearance="primary"
+        >
           Set width to {sizes[(sizeIndex + 1) % sizes.length]}
         </Button>
       </div>

@@ -87,7 +87,9 @@ export default function ExampleScroll() {
           <RadioGroup
             options={scrollBehaviors}
             value={scrollBehavior}
-            onChange={e => setScrollBehavior(e.target.value as ScrollBehavior)}
+            onChange={(e) =>
+              setScrollBehavior(e.target.value as ScrollBehavior)
+            }
           />
         )}
       </Field>
@@ -98,7 +100,7 @@ export default function ExampleScroll() {
             label="Heading/footer shown"
             name="visibility"
             testId="visibility"
-            onChange={e => setHeadingShown(e.target.checked)}
+            onChange={(e) => setHeadingShown(e.target.checked)}
             isChecked={headingShown}
           />
         )}

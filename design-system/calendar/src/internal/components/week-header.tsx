@@ -20,7 +20,7 @@ const WeekHeader = memo(function WeekHeader({ daysShort, mode }: Props) {
 
   return (
     <div css={dayNameGridStyle}>
-      {daysShort.map(shortDay => (
+      {daysShort.map((shortDay) => (
         <span css={dayNameCellStyle} key={shortDay}>
           {shortDay}
         </span>

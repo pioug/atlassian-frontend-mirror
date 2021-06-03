@@ -83,7 +83,7 @@ export const IndicatorButton = styled.button<IndicatorButtonProps>`
   outline: 0;
   padding: 0;
 
-  ${p =>
+  ${(p) =>
     p.selected
       ? css`
           &:focus {

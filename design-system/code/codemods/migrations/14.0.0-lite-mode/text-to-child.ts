@@ -51,7 +51,7 @@ const textToChild = (j: core.JSCodeshift, source: Collection<Node>) => {
 
         j(element)
           .find(j.JSXOpeningElement)
-          .forEach(openingElement => {
+          .forEach((openingElement) => {
             // @ts-ignore
             if (openingElement.value.name.name === specifier) {
               // Create opening and closing tag with the text content as a child

@@ -12,7 +12,7 @@ import {
 
 const renderToolbar = (mode: DocumentMode, editorActions?: any) => (
   <WithDocumentActions
-    render={actions => {
+    render={(actions) => {
       switch (mode) {
         case 'edit':
         case 'create':

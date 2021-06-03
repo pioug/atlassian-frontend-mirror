@@ -53,7 +53,7 @@ export const SidebarResizeController: FC<SidebarResizeControllerProps> = ({
   const { isLeftSidebarCollapsed } = leftSidebarState;
   const leftSidebarSelector = getPageLayoutSlotCSSSelector('left-sidebar');
 
-  const transitionEventHandler = useCallback(event => {
+  const transitionEventHandler = useCallback((event) => {
     if (
       (event as TransitionEvent).propertyName === 'width' &&
       event.target &&

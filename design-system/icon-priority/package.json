@@ -48,7 +48,7 @@
     "@atlaskit/theme": "^11.0.0",
     "@atlaskit/tooltip": "^17.2.0",
     "@atlaskit/visual-regression": "*",
-    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
+    "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@emotion/styled": "^10.0.7",
     "enzyme": "^3.10.0",
     "fs-extra": "^4.0.2",
@@ -62,5 +62,5 @@
     "atlaskit",
     "ui"
   ],
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
 }

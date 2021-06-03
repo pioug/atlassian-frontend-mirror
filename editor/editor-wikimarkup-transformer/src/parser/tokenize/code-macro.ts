@@ -122,7 +122,7 @@ const rawContentProcessor = (
 };
 
 function getCodeLanguage(attrs: { [key: string]: string }): string {
-  const keys = Object.keys(attrs).map(key => key.toLowerCase());
+  const keys = Object.keys(attrs).map((key) => key.toLowerCase());
 
   for (const language of SUPPORTED_CODEBOCK_LANGUAGES) {
     if (keys.indexOf(language) !== -1) {

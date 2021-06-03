@@ -26,7 +26,7 @@ const requiredValidator = (data: FormData, key: string) => {
 
 export default () => (
   <Form<FormData>
-    onSubmit={data => {
+    onSubmit={(data) => {
       console.log('form data', data);
       return Promise.resolve(validateOnSubmit(data));
     }}

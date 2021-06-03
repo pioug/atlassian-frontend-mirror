@@ -8,7 +8,7 @@ export const FillScreen = styled.div<{ scrollDistance: number }>`
   left: 0;
   overflow-y: auto;
   position: absolute;
-  top: ${p => p.scrollDistance}px;
+  top: ${(p) => p.scrollDistance}px;
   width: 100%;
 `;
 

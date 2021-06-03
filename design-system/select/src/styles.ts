@@ -80,14 +80,14 @@ export default function baseStyles<Option, IsMulti extends boolean>(
         },
       };
     },
-    valueContainer: css => ({
+    valueContainer: (css) => ({
       ...css,
       paddingLeft: paddingExcludingBorder,
       paddingRight: paddingExcludingBorder,
       paddingBottom: isCompact ? 0 : 2,
       paddingTop: isCompact ? 0 : 2,
     }),
-    clearIndicator: css => ({
+    clearIndicator: (css) => ({
       ...css,
       color: colors.N70,
       paddingLeft: ICON_PADDING,
@@ -102,7 +102,7 @@ export default function baseStyles<Option, IsMulti extends boolean>(
         color: colors.N500,
       },
     }),
-    loadingIndicator: css => ({
+    loadingIndicator: (css) => ({
       ...css,
       paddingBottom: isCompact ? 0 : 6,
       paddingTop: isCompact ? 0 : 6,
@@ -126,7 +126,7 @@ export default function baseStyles<Option, IsMulti extends boolean>(
         },
       };
     },
-    indicatorsContainer: css => ({
+    indicatorsContainer: (css) => ({
       ...css,
       paddingRight: paddingExcludingBorder - ICON_PADDING,
     }),
@@ -158,25 +158,25 @@ export default function baseStyles<Option, IsMulti extends boolean>(
         cursor,
       };
     },
-    placeholder: css => ({ ...css, color: colors.N100 }),
+    placeholder: (css) => ({ ...css, color: colors.N100 }),
     singleValue: (css, { isDisabled }) => ({
       ...css,
       color: isDisabled ? colors.N70 : colors.N800,
       lineHeight: `${gridSize() * 2}px`, // 16px
     }),
-    menuList: css => ({
+    menuList: (css) => ({
       ...css,
       paddingTop: gridSize(),
       paddingBottom: gridSize(),
     }),
-    multiValue: css => ({
+    multiValue: (css) => ({
       ...css,
       borderRadius: '2px',
       backgroundColor: colors.N40,
       color: colors.N500,
       maxWidth: '100%',
     }),
-    multiValueLabel: css => ({
+    multiValueLabel: (css) => ({
       ...css,
       padding: '2px',
       paddingRight: '2px',

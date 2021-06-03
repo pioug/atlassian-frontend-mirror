@@ -93,13 +93,13 @@ class Droplist extends Component {
     }
   };
 
-  handleEsc = event => {
+  handleEsc = (event) => {
     if ((event.key === 'Escape' || event.key === 'Esc') && this.props.isOpen) {
       this.close(event);
     }
   };
 
-  handleClickOutside = event => {
+  handleClickOutside = (event) => {
     if (this.props.isOpen) {
       if (event.target instanceof Node) {
         // Rather than check for the target within the entire Droplist, we specify the trigger/content.
@@ -117,13 +117,13 @@ class Droplist extends Component {
     }
   };
 
-  close = event => {
+  close = (event) => {
     if (this.props.onOpenChange) {
       this.props.onOpenChange({ isOpen: false, event });
     }
   };
 
-  handleContentRef = ref => {
+  handleContentRef = (ref) => {
     this.dropContentRef = ref;
 
     // If the dropdown has just been opened, we focus on the containing element so the
@@ -134,7 +134,7 @@ class Droplist extends Component {
     }
   };
 
-  handleTriggerRef = ref => {
+  handleTriggerRef = (ref) => {
     this.triggerRef = ref;
   };
 

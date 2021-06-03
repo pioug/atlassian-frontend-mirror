@@ -31,7 +31,7 @@ export default class ToggleBanner extends React.Component<
 > {
   state = { isOpen: false };
 
-  toggleBanner = () => this.setState(state => ({ isOpen: !state.isOpen }));
+  toggleBanner = () => this.setState((state) => ({ isOpen: !state.isOpen }));
 
   render() {
     const { isOpen } = this.state;

@@ -106,7 +106,7 @@ const productIssuesView = {
   id: 'product/issues',
   type: 'product',
   getItems: () =>
-    new Promise(resolve =>
+    new Promise((resolve) =>
       setTimeout(
         () =>
           resolve([
@@ -196,7 +196,7 @@ const projectHomeView = {
       items: [
         {
           type: 'ContainerHeader',
-          before: itemState => (
+          before: (itemState) => (
             <ItemAvatar
               itemState={itemState}
               appearance="square"
@@ -322,8 +322,8 @@ class GrowthExperimentBase extends Component {
     navigationViewController.removeReducer(productHomeView.id, this.reducer);
   }
 
-  reducer = viewItems => {
-    const addBadge = item => ({
+  reducer = (viewItems) => {
+    const addBadge = (item) => ({
       ...item,
       after: () => (
         <Lozenge appearance="success" isBold>

@@ -63,16 +63,16 @@ const ItemComponent = ({ dropdownItems: DropdownItems, ...itemProps }) => {
   return <GlobalItem {...itemProps} />;
 };
 
-const Row = props => (
+const Row = (props) => (
   <div css={{ display: 'flex', flexDirection: 'row' }} {...props} />
 );
-const Variation = props => (
+const Variation = (props) => (
   <div
     css={{ display: 'flex', flexDirection: 'row', padding: '0 40px' }}
     {...props}
   />
 );
-const Title = props => (
+const Title = (props) => (
   <div
     css={{
       fontWeight: 'bold',
@@ -291,7 +291,7 @@ export default () => (
       <Title>Global nav skeleton with theming</Title>
 
       <ThemeProvider
-        theme={theme => ({ ...theme, mode: customMode, context: 'product' })}
+        theme={(theme) => ({ ...theme, mode: customMode, context: 'product' })}
       >
         <GlobalNavigationSkeleton />
       </ThemeProvider>

@@ -353,7 +353,7 @@ export class DropdownMenuStateless extends Component<
       triggerContent
     ) : (
       <div
-        ref={ref => {
+        ref={(ref) => {
           this.triggerContainer = ref as HTMLElement;
         }}
       >
@@ -391,7 +391,7 @@ export class DropdownMenuStateless extends Component<
 
     return (
       <div
-        ref={ref => {
+        ref={(ref) => {
           this.domMenuContainer = ref;
           this.domItemsList = ref
             ? ref.querySelectorAll('[data-role="droplistItem"]')

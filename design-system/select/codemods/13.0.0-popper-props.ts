@@ -28,15 +28,15 @@ function updatePopperProps(
         j,
         element: path,
         attributeName: 'popperProps',
-      }).forEach(attribute => {
+      }).forEach((attribute) => {
         // convert positionFixed
         j(attribute)
           .find(j.JSXExpressionContainer)
           .find(j.ObjectExpression)
           .find(j.ObjectProperty)
           // @ts-ignore
-          .filter(property => property.node.key.name === 'positionFixed')
-          .forEach(property => {
+          .filter((property) => property.node.key.name === 'positionFixed')
+          .forEach((property) => {
             // @ts-ignore
             const strategy = property.node.value.value ? 'fixed' : 'absolute';
             property.replace(
@@ -53,7 +53,7 @@ function updatePopperProps(
           .find(j.ObjectExpression)
           .find(j.ObjectProperty)
           //@ts-ignore
-          .filter(property => property.node.key.name === 'modifiers')
+          .filter((property) => property.node.key.name === 'modifiers')
           .forEach(() => {
             addCommentToStartOfFile({
               j,

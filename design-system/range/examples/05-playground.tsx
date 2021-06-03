@@ -32,7 +32,7 @@ function Playground() {
           step={step}
           value={actualVal}
           isDisabled={isDisabled}
-          onChange={newVal => setActualVal(newVal)}
+          onChange={(newVal) => setActualVal(newVal)}
         />
       </div>
       <div
@@ -65,7 +65,7 @@ function Playground() {
         max={max}
         defaultValue={initialState.min}
         step={1}
-        onChange={newMin => setMin(newMin)}
+        onChange={(newMin) => setMin(newMin)}
       />
       <p>Change maximum value (currently at {max})</p>
       <Range
@@ -73,13 +73,13 @@ function Playground() {
         defaultValue={initialState.max}
         max={500}
         step={1}
-        onChange={newMax => setMax(newMax)}
+        onChange={(newMax) => setMax(newMax)}
       />
       <p>Change step distance (currently at {step})</p>
       <Range
         max={50}
         defaultValue={initialState.step}
-        onChange={newStep => setStep(newStep)}
+        onChange={(newStep) => setStep(newStep)}
       />
     </Fragment>
   );

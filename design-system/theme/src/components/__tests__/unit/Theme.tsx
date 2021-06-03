@@ -32,10 +32,10 @@ const HookThemedComponent = memo((props: RenderCountProps) => {
 });
 
 describe('<Theme />', () => {
-  it('should render without having a parent provider', done => {
+  it('should render without having a parent provider', (done) => {
     render(
       <Theme.Consumer>
-        {tokens => {
+        {(tokens) => {
           expect(tokens).toEqual({ mode: 'light' });
           done();
           return null;
@@ -44,14 +44,14 @@ describe('<Theme />', () => {
     );
   });
 
-  it('should inherit its parents context', done => {
+  it('should inherit its parents context', (done) => {
     const backgroundColor = '#fff';
     const textColor = '#000';
     render(
-      <Theme.Provider value={t => ({ backgroundColor, ...t() })}>
-        <Theme.Provider value={t => ({ ...t(), textColor })}>
+      <Theme.Provider value={(t) => ({ backgroundColor, ...t() })}>
+        <Theme.Provider value={(t) => ({ ...t(), textColor })}>
           <Theme.Consumer>
-            {tokens => {
+            {(tokens) => {
               expect(tokens).toEqual({
                 backgroundColor,
                 mode: 'light',

@@ -15,9 +15,9 @@ export default function NestedDemo() {
   const [scroll, setScroll] = useState<'inside' | 'outside'>('inside');
   const [openModals, setOpenModals] = useState<{ [key: string]: boolean }>({});
   const open = (name: string) =>
-    setOpenModals(prev => ({ ...prev, [name]: true }));
+    setOpenModals((prev) => ({ ...prev, [name]: true }));
   const close = (name: string) =>
-    setOpenModals(prev => ({ ...prev, [name]: false }));
+    setOpenModals((prev) => ({ ...prev, [name]: false }));
 
   const handleStackChange = (idx: number, name: string) => {
     console.info(`"${name}" stack change`, idx);
@@ -38,7 +38,7 @@ export default function NestedDemo() {
         {() => (
           <RadioGroup
             value={scroll}
-            onChange={e => setScroll(e.target.value as 'inside' | 'outside')}
+            onChange={(e) => setScroll(e.target.value as 'inside' | 'outside')}
             options={[
               {
                 label: 'inside',
@@ -89,7 +89,7 @@ export default function NestedDemo() {
                 onClose={() => close(name)}
                 onCloseComplete={() => handleCloseComplete(name)}
                 onOpenComplete={() => handleOpenComplete(name)}
-                onStackChange={id => handleStackChange(id, name)}
+                onStackChange={(id) => handleStackChange(id, name)}
                 heading={`Modal: ${name}`}
                 width={name}
                 testId="modal"

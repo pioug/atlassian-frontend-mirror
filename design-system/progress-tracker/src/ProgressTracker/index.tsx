@@ -66,8 +66,8 @@ export default class ProgressTracker extends PureComponent<
   };
 
   UNSAFE_componentWillReceiveProps(nextProps: ProgressTrackerProps) {
-    const prevStages = nextProps.items.map(stage => {
-      const oldStage = this.props.items.find(st => st.id === stage.id);
+    const prevStages = nextProps.items.map((stage) => {
+      const oldStage = this.props.items.find((st) => st.id === stage.id);
       return oldStage !== undefined ? oldStage : stage;
     });
 

@@ -183,7 +183,7 @@ const InnerInlineEdit = <FieldValue extends unknown>(
     <Form onSubmit={(data: { inlineEdit: any }) => onConfirm(data.inlineEdit)}>
       {({ formProps: { onKeyDown, onSubmit, ref: formRef } }) => (
         <form
-          onKeyDown={e => {
+          onKeyDown={(e) => {
             onKeyDown(e);
             if (e.key === 'Esc' || e.key === 'Escape') {
               onCancel();

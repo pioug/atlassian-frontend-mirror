@@ -124,7 +124,7 @@ describe('Radio', () => {
         <Radio
           label="test"
           value="kachow"
-          onChange={e => {
+          onChange={(e) => {
             value = e.currentTarget.value;
           }}
         />,

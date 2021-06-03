@@ -6,7 +6,7 @@ import Warning from './utils/warning';
 export default () => (
   <Fragment>
     <Warning />
-    <form onSubmit={e => e.preventDefault()}>
+    <form onSubmit={(e) => e.preventDefault()}>
       <div className="ak-field-group">
         <label htmlFor="search">Search</label>
         <input

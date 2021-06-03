@@ -548,7 +548,7 @@ describe('@atlaskit/single-select', () => {
         wrapper.setProps({ hasAutocomplete: true });
         const spy = jest.spyOn(instance, 'handleNativeSearch');
         const preventDefaultSpy = jest.fn();
-        ['Enter', 'ArrowUp', 'ArrowDown'].forEach(eventName => {
+        ['Enter', 'ArrowUp', 'ArrowDown'].forEach((eventName) => {
           const event = { key: eventName, preventDefault: preventDefaultSpy };
           instance.handleKeyboardInteractions(event);
         });
@@ -588,7 +588,7 @@ describe('@atlaskit/single-select', () => {
           wrapper
             .find(Item)
             .getElements()
-            .filter(item => item.props.isFocused).length,
+            .filter((item) => item.props.isFocused).length,
         ).toBe(1);
       });
     });

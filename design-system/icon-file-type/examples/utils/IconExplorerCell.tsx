@@ -116,7 +116,7 @@ class IconExplorerCell extends Component<Props, { isModalOpen: boolean }> {
             {/* eslint-disable jsx-a11y/no-static-element-interactions */}
             <div
               onClick={() => this.input && this.input.select()}
-              ref={ref => {
+              ref={(ref) => {
                 this.importCodeField = ref;
               }}
               role="presentation"

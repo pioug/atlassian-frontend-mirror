@@ -124,7 +124,7 @@ export default class FeedbackForm extends Component<Props, FormFields> {
 
               {showTypeField ? (
                 <Select<OptionType>
-                  onChange={option => {
+                  onChange={(option) => {
                     if (!option || option instanceof Array) {
                       return;
                     }
@@ -133,7 +133,7 @@ export default class FeedbackForm extends Component<Props, FormFields> {
                   }}
                   menuPortalTarget={document.body}
                   styles={{
-                    menuPortal: base => ({
+                    menuPortal: (base) => ({
                       ...base,
                       zIndex: 9999,
                     }),
@@ -156,7 +156,7 @@ export default class FeedbackForm extends Component<Props, FormFields> {
                         name="foo"
                         minimumRows={6}
                         placeholder={this.props.summaryPlaceholder}
-                        onChange={e =>
+                        onChange={(e) =>
                           this.setState({
                             description: e.target.value,
                           })
@@ -170,7 +170,7 @@ export default class FeedbackForm extends Component<Props, FormFields> {
                       <Checkbox
                         {...fieldProps}
                         label={this.props.canBeContactedLabel}
-                        onChange={event =>
+                        onChange={(event) =>
                           this.setState({
                             canBeContacted: event.target.checked,
                           })
@@ -184,7 +184,7 @@ export default class FeedbackForm extends Component<Props, FormFields> {
                       <Checkbox
                         {...fieldProps}
                         label={this.props.enrolInResearchLabel}
-                        onChange={event =>
+                        onChange={(event) =>
                           this.setState({
                             enrollInResearchGroup: event.target.checked,
                           })

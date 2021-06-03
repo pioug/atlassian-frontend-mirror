@@ -56,7 +56,7 @@ describe('LayoutEvent', () => {
     it('should consume `emitItemDragStart` and `emitItemDragEnd` methods provided by listener via context', () => {
       const wrapper = mount(
         <LayoutEventEmitter>
-          {emitters => <div emitters={emitters} />}
+          {(emitters) => <div emitters={emitters} />}
         </LayoutEventEmitter>,
       );
 

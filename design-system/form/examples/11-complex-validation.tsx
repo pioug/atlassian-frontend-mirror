@@ -16,7 +16,7 @@ interface FormData {
   email: string;
 }
 
-const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const createUser = async (data: FormData) => {
   await sleep(500);

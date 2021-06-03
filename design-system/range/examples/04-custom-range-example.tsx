@@ -9,7 +9,7 @@ const CustomValues = () => (
       min={40}
       max={500}
       step={20}
-      onChange={value => console.log('new value', value)}
+      onChange={(value) => console.log('new value', value)}
     />
     <p>
       This range has a minimum of 40, a maximum of 500, a default value of 480 ,

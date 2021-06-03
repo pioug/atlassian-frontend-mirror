@@ -43,7 +43,7 @@ const supportedLanguageInWiki = [
 export const codeBlock: NodeEncoder = (node: PMNode): string => {
   let result = '';
 
-  node.forEach(n => {
+  node.forEach((n) => {
     result += inlines(n, { parent: node });
   });
 

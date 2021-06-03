@@ -25,7 +25,7 @@ export const media: NodeEncoder = (
   }
 
   if (node.marks.length) {
-    const linkMark = node.marks.find(mark => mark.type.name === 'link');
+    const linkMark = node.marks.find((mark) => mark.type.name === 'link');
     if (linkMark) {
       wikiAttrs.push(`href="${linkMark?.attrs.href}"`);
     }

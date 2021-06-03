@@ -15,7 +15,7 @@ export default () => (
       flexDirection: 'column',
     }}
   >
-    <Form onSubmit={data => console.log(data)}>
+    <Form onSubmit={(data) => console.log(data)}>
       {({ formProps }) => (
         <form {...formProps}>
           <Fieldset legend="Products">

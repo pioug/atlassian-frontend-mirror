@@ -48,10 +48,10 @@ export default class extends PureComponent {
                 itemId={numbering}
                 items={children}
                 hasChildren={children.length > 0}
-                onExpand={rowData =>
+                onExpand={(rowData) =>
                   this.triggerEvent(`Node Expanded (${rowData.title})`)
                 }
-                onCollapse={rowData =>
+                onCollapse={(rowData) =>
                   this.triggerEvent(`Node Collapsed (${rowData.title})`)
                 }
               >

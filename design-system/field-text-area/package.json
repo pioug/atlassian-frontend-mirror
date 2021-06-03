@@ -40,7 +40,7 @@
     "@atlaskit/docs": "*",
     "@atlaskit/section-message": "^6.0.0",
     "@atlaskit/ssr": "*",
-    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
+    "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "enzyme": "^3.10.0",
     "react-dom": "^16.8.0",
     "wait-for-expect": "^1.2.0"
@@ -50,5 +50,5 @@
     "react",
     "ui"
   ],
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
 }

@@ -20,7 +20,7 @@ function Overlay() {
         '> *': { marginBottom: gridSize() },
       }}
     >
-      <Button onClick={() => setOverlay(value => (value ? undefined : '🤩'))}>
+      <Button onClick={() => setOverlay((value) => (value ? undefined : '🤩'))}>
         Use overlay: {overlay ? 'true' : 'false'}
       </Button>
       <div>

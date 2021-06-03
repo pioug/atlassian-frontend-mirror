@@ -131,7 +131,7 @@ const childrenToArray = (children?: ReactNode): ElementWithKey[] => {
 
   // We convert children to an array using this helper method as it will add keys to children that do not
   // have them, such as when we have hardcoded children that are conditionally rendered.
-  Children.toArray(children).forEach(child => {
+  Children.toArray(children).forEach((child) => {
     // We ignore any boolean children to make our code a little more simple later on,
     // and also filter out any falsies (empty strings, nulls, and undefined).
     if (typeof child !== 'boolean' && Boolean(child)) {
@@ -155,7 +155,7 @@ const hasAnyExitingChildMountedAgain = (
 ): boolean => {
   let exitingChildMountedAgain = false;
 
-  children.forEach(child => {
+  children.forEach((child) => {
     if (exitingChildren.current[child.key]) {
       exitingChildMountedAgain = true;
       delete exitingChildren.current[child.key];
@@ -218,7 +218,7 @@ const ExitingPersistence: React.FC<ExitingPersistenceProps> = ({
     return (exitThenEnter
       ? persistedChildren.current
       : spliceNewElementsIntoPrevious(children, persistedChildren.current)
-    ).map(child => {
+    ).map((child) => {
       const currentChild = childrenObj[child.key];
       if (!currentChild) {
         // We've found an exiting child - mark it!
@@ -254,7 +254,7 @@ const ExitingPersistence: React.FC<ExitingPersistenceProps> = ({
     previousChildren.current = children;
   }
 
-  return children.map(child =>
+  return children.map((child) =>
     wrapChildWithContextProvider(child, defaultContextValue),
   );
 };

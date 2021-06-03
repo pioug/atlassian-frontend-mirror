@@ -19,7 +19,7 @@ export default () => (
     <Block heading="Circle">
       <Tooltip content="Mike Cannon-Brookes">
         <Avatar name="Mike Cannon-Brookes" size="large">
-          {props => (
+          {(props) => (
             <span {...props} style={customStyles}>
               MCB
             </span>
@@ -28,7 +28,7 @@ export default () => (
       </Tooltip>
       <Tooltip content="Scott Farquhar">
         <Avatar name="Scott Farquhar" size="large">
-          {props => (
+          {(props) => (
             <span {...props} style={customStyles}>
               SF
             </span>

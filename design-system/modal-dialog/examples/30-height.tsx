@@ -34,8 +34,8 @@ export default function ModalDemo() {
 
       <ModalTransition>
         {units
-          .filter(w => w === isOpen)
-          .map(name => (
+          .filter((w) => w === isOpen)
+          .map((name) => (
             <ModalDialog
               actions={actions}
               key={name}

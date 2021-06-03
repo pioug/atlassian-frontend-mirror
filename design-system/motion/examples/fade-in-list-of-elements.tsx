@@ -37,7 +37,7 @@ export default () => {
         <StaggeredEntrance columns={1}>
           {logos.map((logo, index) => (
             <FadeIn key={index}>
-              {props => (
+              {(props) => (
                 <li
                   {...props}
                   css={{ display: 'block', padding: 0, margin: '8px' }}

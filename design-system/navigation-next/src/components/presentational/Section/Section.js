@@ -11,10 +11,10 @@ import { transitionDurationMs } from '../../../common/constants';
 import getAnimationStyles from './getAnimationStyles';
 
 /** The below components are exported for testing purposes only. */
-export const StaticTransitionGroup = props => (
+export const StaticTransitionGroup = (props) => (
   <div css={{ position: 'relative' }} {...props} />
 );
-export const ScrollableTransitionGroup = props => (
+export const ScrollableTransitionGroup = (props) => (
   <div
     css={{
       position: 'relative',
@@ -24,9 +24,9 @@ export const ScrollableTransitionGroup = props => (
     {...props}
   />
 );
-export const ScrollableWrapper = props => <div {...props} />;
-export const ScrollableInner = props => <div {...props} />;
-export const StaticWrapper = props => <div {...props} />;
+export const ScrollableWrapper = (props) => <div {...props} />;
+export const ScrollableInner = (props) => <div {...props} />;
+export const StaticWrapper = (props) => <div {...props} />;
 
 export default class Section extends PureComponent {
   state = {
@@ -74,7 +74,7 @@ export default class Section extends PureComponent {
           key={id}
           timeout={this.isMounted ? transitionDurationMs : 0}
         >
-          {state => {
+          {(state) => {
             const { traversalDirection } = this.state;
             const animationStyles = getAnimationStyles({
               state,

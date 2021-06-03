@@ -10,7 +10,7 @@ const data = [
 export default () => {
   return (
     <AvatarGroup
-      data={data.map(d => ({
+      data={data.map((d) => ({
         email: d.email,
         key: d.email,
         name: d.name,

@@ -72,7 +72,7 @@ const InnerToggle = forwardRef<HTMLInputElement, ExtendedToggleProps>(
         analyticsEvent: UIAnalyticsEvent,
       ) => {
         if (isControlled) {
-          setChecked(checked => !checked);
+          setChecked((checked) => !checked);
         }
         return providedChange(event, analyticsEvent);
       },

@@ -51,7 +51,7 @@ export default class DropdownMenu extends Component<
   }
 
   findActivatedGroup = (item: Object) =>
-    this.state.items.filter(group => group.items.indexOf(item) > -1)[0]; // eslint-disable-line
+    this.state.items.filter((group) => group.items.indexOf(item) > -1)[0]; // eslint-disable-line
 
   handleItemActivation = (attrs: OnItemActivatedArgs) => {
     const activatedItem = attrs.item;
@@ -65,7 +65,7 @@ export default class DropdownMenu extends Component<
         this.setState({ items });
         break;
       case 'radio':
-        activatedGroup.items.forEach(i => {
+        activatedGroup.items.forEach((i) => {
           if (i === activatedItem) {
             i.isChecked = true; // eslint-disable-line no-param-reassign
           } else {

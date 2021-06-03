@@ -66,7 +66,7 @@ export default function MultiLineHeadings() {
                 <RadioGroup
                   options={headings}
                   value={heading}
-                  onChange={e => setHeading(e.target.value)}
+                  onChange={(e) => setHeading(e.target.value)}
                 />
               )}
             </Field>
@@ -77,7 +77,7 @@ export default function MultiLineHeadings() {
                   label="Is heading multi-line?"
                   name="multiline"
                   testId="multiline"
-                  onChange={e => setIsHeadingMultiline(e.target.checked)}
+                  onChange={(e) => setIsHeadingMultiline(e.target.checked)}
                   isChecked={isHeadingMultiline}
                 />
               )}
@@ -89,7 +89,7 @@ export default function MultiLineHeadings() {
                   label="Set warning appearance?"
                   name="appearance"
                   testId="appearance"
-                  onChange={e =>
+                  onChange={(e) =>
                     setAppearance(e.target.checked ? 'warning' : undefined)
                   }
                   isChecked={Boolean(appearance)}

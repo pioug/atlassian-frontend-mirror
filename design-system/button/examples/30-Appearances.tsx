@@ -39,10 +39,10 @@ export default function Example() {
       <Checkbox
         label="Show Loading State"
         isChecked={isLoading}
-        onChange={() => setIsLoading(value => !value)}
+        onChange={() => setIsLoading((value) => !value)}
       />
       <Table>
-        {appearances.map(a => (
+        {appearances.map((a) => (
           <Row key={a}>
             <Cell>
               <Button isLoading={isLoading} appearance={a}>

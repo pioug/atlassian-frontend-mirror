@@ -17,7 +17,7 @@ const fruitItems = [
 ];
 
 export default class FormExample extends Component {
-  onRadioChange = event => {
+  onRadioChange = (event) => {
     console.log(event.target.value);
   };
 

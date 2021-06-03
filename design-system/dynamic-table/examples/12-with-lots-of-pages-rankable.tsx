@@ -61,8 +61,8 @@ export default class extends React.Component<{}, State> {
           defaultPage={1}
           isRankable
           isLoading={this.state.isLoading}
-          onRankStart={params => console.log('onRankStart', params)}
-          onRankEnd={params => console.log('onRankEnd', params)}
+          onRankStart={(params) => console.log('onRankStart', params)}
+          onRankEnd={(params) => console.log('onRankEnd', params)}
           onSort={() => console.log('onSort')}
           onSetPage={() => console.log('onSetPage')}
         />

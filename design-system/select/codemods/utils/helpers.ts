@@ -36,7 +36,7 @@ export function getDefaultSpecifierName({
 }): Nullable<string> {
   const specifiers = base
     .find(j.ImportDeclaration)
-    .filter(path => path.node.source.value === packageName)
+    .filter((path) => path.node.source.value === packageName)
     .find(j.ImportDefaultSpecifier);
 
   if (!specifiers.length) {
@@ -58,7 +58,7 @@ export function getSpecifierName({
 }): Nullable<string> {
   const specifiers = base
     .find(j.ImportDeclaration)
-    .filter(path => path.node.source.value === packageName)
+    .filter((path) => path.node.source.value === packageName)
     .find(j.ImportSpecifier);
 
   if (!specifiers.length) {
@@ -66,7 +66,7 @@ export function getSpecifierName({
   }
   const specifierNode = specifiers
     .nodes()
-    .find(node => node.imported.name === component);
+    .find((node) => node.imported.name === component);
   if (!specifierNode) {
     return null;
   }
@@ -86,10 +86,10 @@ export function getJSXAttributesByName({
   return j(element)
     .find(j.JSXOpeningElement)
     .find(j.JSXAttribute)
-    .filter(attribute => {
+    .filter((attribute) => {
       const matches = j(attribute)
         .find(j.JSXIdentifier)
-        .filter(identifier => identifier.value.name === attributeName);
+        .filter((identifier) => identifier.value.name === attributeName);
       return Boolean(matches.length);
     });
 }
@@ -125,7 +125,7 @@ export function isUsingSupportedSpread({
   return (
     j(element)
       .find(j.JSXSpreadAttribute)
-      .filter(spread => {
+      .filter((spread) => {
         const argument = spread.value.argument;
         // in place expression is supported
         if (argument.type === 'ObjectExpression') {
@@ -170,10 +170,10 @@ export function isUsingThroughSpread({
     j(element)
       .find(j.JSXSpreadAttribute)
       .find(j.ObjectExpression)
-      .filter(item => {
+      .filter((item) => {
         const match: boolean =
           item.value.properties.filter(
-            property =>
+            (property) =>
               property.type === 'ObjectProperty' &&
               property.key.type === 'Identifier' &&
               property.key.name === propName,
@@ -195,11 +195,11 @@ export function isUsingThroughSpread({
           base
             .find(j.VariableDeclarator)
             .filter(
-              declarator =>
+              (declarator) =>
                 declarator.value.id.type === 'Identifier' &&
                 declarator.value.id.name === identifier.value.name,
             )
-            .filter(declarator => {
+            .filter((declarator) => {
               const value = declarator.value;
               if (value.id.type !== 'Identifier') {
                 return false;
@@ -217,7 +217,7 @@ export function isUsingThroughSpread({
                 // @ts-ignore
                 value.init.properties.filter(
                   // @ts-ignore
-                  property =>
+                  (property) =>
                     property.type === 'ObjectProperty' &&
                     property.key.type === 'Identifier' &&
                     property.key.name === propName,
@@ -298,11 +298,11 @@ export function addCommentBefore({
   message: string;
 }) {
   const content: string = ` TODO: (from codemod) ${clean(message)} `;
-  target.forEach(path => {
+  target.forEach((path) => {
     path.value.comments = path.value.comments || [];
 
     const exists = path.value.comments.find(
-      comment => comment.value === content,
+      (comment) => comment.value === content,
     );
 
     // avoiding duplicates of the same comment
@@ -330,7 +330,7 @@ export function updateRenderProps(
         // @ts-ignore
         (path: ASTPath<ObjectProperty>) => path.value.key.name === oldProperty,
       )
-      .forEach(path => {
+      .forEach((path) => {
         j(path).replaceWith(
           j.property(
             'init',

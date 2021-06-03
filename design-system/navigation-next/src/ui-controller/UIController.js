@@ -51,7 +51,7 @@ export default class UIController extends Container {
     this.state = { ...state, isCollapsed };
   }
 
-  storeState = state => {
+  storeState = (state) => {
     this.setState(state);
     const { isCollapsed, productNavWidth } = this.state;
     if (this.setCache) {

@@ -15,7 +15,7 @@ const renderItems = ({ items, focusedItemIndex, handleItemSelect }) => {
         elemBefore={item.elemBefore}
         isFocused={itemIndex === focusedItemIndex}
         key={itemIndex} // eslint-disable-line react/no-array-index-key
-        onActivate={attrs => {
+        onActivate={(attrs) => {
           handleItemSelect(item, attrs);
         }}
       >
@@ -26,11 +26,11 @@ const renderItems = ({ items, focusedItemIndex, handleItemSelect }) => {
   return null;
 };
 
-const renderNoItemsMessage = noMatchesFound => (
+const renderNoItemsMessage = (noMatchesFound) => (
   <NoMatches>{noMatchesFound}</NoMatches>
 );
 
-const renderLoadingMessage = loadingMessage => (
+const renderLoadingMessage = (loadingMessage) => (
   <InitialLoading aria-live="polite" role="status">
     {loadingMessage}
   </InitialLoading>
@@ -77,7 +77,7 @@ const renderGroups = ({
         </Group>
       ) : null;
     })
-    .filter(group => !!group);
+    .filter((group) => !!group);
 
   // don't show the 'noItems' message when the new item functinality is enabled
   return renderedGroups.length > 0 || shouldAllowCreateItem ? (

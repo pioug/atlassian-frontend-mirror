@@ -19,7 +19,7 @@ export const assertIsSortable = (head?: HeadType) => {
     return;
   }
 
-  head.cells.forEach(cell => {
+  head.cells.forEach((cell) => {
     if (cell.isSortable && !cell.key) {
       try {
         throw Error(
@@ -37,7 +37,8 @@ export const validateSortKey = (sortKey?: string, head?: HeadType) => {
   if (!sortKey) {
     return;
   }
-  const headHasKey = head && head.cells.map(cell => cell.key).includes(sortKey);
+  const headHasKey =
+    head && head.cells.map((cell) => cell.key).includes(sortKey);
 
   if (!headHasKey) {
     try {

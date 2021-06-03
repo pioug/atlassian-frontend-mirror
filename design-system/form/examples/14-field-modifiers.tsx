@@ -20,7 +20,7 @@ export default () => (
     }}
   >
     <Form<{ username: string; slug: string }>
-      onSubmit={data => {
+      onSubmit={(data) => {
         console.log('form data', data);
       }}
     >
@@ -31,7 +31,7 @@ export default () => (
               <TextField
                 autoComplete="off"
                 {...fieldProps}
-                onChange={e => {
+                onChange={(e) => {
                   // Generate a value for the slug
                   const nextValue = e.currentTarget.value
                     .toLowerCase()

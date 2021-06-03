@@ -220,7 +220,7 @@ function Field<
     const unregister = registerField<FieldValue>(
       latestPropsRef.current.name,
       latestPropsRef.current.defaultValue,
-      fieldState => {
+      (fieldState) => {
         /** Do not update dirtySinceLastSubmit until submission has finished. */
         const modifiedDirtySinceLastSubmit = fieldState.submitting
           ? latestStateRef.current.meta.dirtySinceLastSubmit
@@ -277,7 +277,7 @@ function Field<
 
         setState({
           fieldProps: {
-            onChange: e => {
+            onChange: (e) => {
               fieldState.change(
                 getTransform(
                   e as FormEvent<Element>,

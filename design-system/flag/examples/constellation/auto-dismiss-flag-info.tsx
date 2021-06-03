@@ -30,7 +30,7 @@ const AutoDismissFlagInfo = () => {
         </Button>
       </p>
       <FlagGroup onDismissed={handleDismiss}>
-        {flags.map(flagId => {
+        {flags.map((flagId) => {
           return (
             <AutoDismissFlag
               appearance="info"

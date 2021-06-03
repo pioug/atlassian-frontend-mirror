@@ -24,7 +24,7 @@ const removePortalParentIfNoMorePortalsSpy = jest.spyOn(
 
 const getElementByText = (text: string, elements: HTMLCollectionOf<Element>) =>
   [...((elements as unknown) as Array<HTMLElement>)].find(
-    e => e.innerHTML.indexOf(text) > -1,
+    (e) => e.innerHTML.indexOf(text) > -1,
   );
 
 const getMountEventObject = (

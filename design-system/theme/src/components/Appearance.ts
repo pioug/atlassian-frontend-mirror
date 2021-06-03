@@ -7,7 +7,7 @@ interface Props {
 export default ({ children, props, theme }: Props) => {
   const appearance = typeof props === 'object' ? 'default' : props;
   const merged = typeof props === 'object' ? { ...props } : {};
-  Object.keys(theme).forEach(key => {
+  Object.keys(theme).forEach((key) => {
     if (!(key in merged)) {
       merged[key] = theme[key]({ appearance });
     }

@@ -18,7 +18,7 @@ export default () => (
     defaultOpen
     triggerType="button"
     trigger="To do"
-    onItemActivated={item => {
+    onItemActivated={(item) => {
       // you can do allthethings here!
       console.log(item);
     }}

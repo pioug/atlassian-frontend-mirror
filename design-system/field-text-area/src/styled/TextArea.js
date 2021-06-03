@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 import { codeFontFamily, fontSize } from '@atlaskit/theme/constants';
 import { placeholderText } from '@atlaskit/theme/colors';
 
-const getPlaceholderStyle = style => css`
+const getPlaceholderStyle = (style) => css`
   &::-webkit-input-placeholder {
     /* WebKit, Blink, Edge */
     ${style};
@@ -59,7 +59,7 @@ const TextArea = styled.textarea`
   box-sizing: border-box;
   color: inherit;
   cursor: inherit;
-  font-family: ${p => (p.isMonospaced ? codeFontFamily() : 'inherit')};
+  font-family: ${(p) => (p.isMonospaced ? codeFontFamily() : 'inherit')};
   font-size: ${fontSize}px;
   line-height: ${20 / fontSize()};
   min-width: 0;

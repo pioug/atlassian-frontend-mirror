@@ -18,7 +18,7 @@ const Container = forwardRef<HTMLElement, { id: string; height: number }>(
 
     return (
       <div
-        ref={element => {
+        ref={(element) => {
           const newRef: HTMLDivElement | null = element
             ? Object.assign(element, { getBoundingClientRect })
             : null;

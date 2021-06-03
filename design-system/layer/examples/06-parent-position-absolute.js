@@ -15,7 +15,7 @@ const alignmentContainer = {
   display: 'inline-block',
 };
 
-const PopperContent = props => (
+const PopperContent = (props) => (
   <div style={{ background: '#fca' }}>
     {props.longContent ? (
       <div>
@@ -29,7 +29,7 @@ const PopperContent = props => (
   </div>
 );
 
-const ExampleAlignment = props => (
+const ExampleAlignment = (props) => (
   <Layer {...props} content={<PopperContent {...props} />}>
     <div style={alignmentContainer} />
   </Layer>

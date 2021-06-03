@@ -352,6 +352,6 @@ const iconIds = [
   'watch',
   'world-small',
   'world',
-].map(id => `ak-icon-${id}`);
+].map((id) => `ak-icon-${id}`);
 
 export default iconIds;

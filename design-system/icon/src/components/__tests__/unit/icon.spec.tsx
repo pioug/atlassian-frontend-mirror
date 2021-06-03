@@ -96,7 +96,7 @@ describe('@atlaskit/icon', () => {
       it('exports handled sizes', () => {
         expect(size).not.toBe(undefined);
         expect(
-          (Object.keys(size) as (keyof typeof size)[]).map(key => size[key]),
+          (Object.keys(size) as (keyof typeof size)[]).map((key) => size[key]),
         ).toEqual(['small', 'medium', 'large', 'xlarge']);
       });
     });
@@ -110,7 +110,7 @@ describe('@atlaskit/icon', () => {
     describe('size property', () => {
       const sizes: Size[] = ['small', 'medium', 'large', 'xlarge'];
 
-      sizes.forEach(s => {
+      sizes.forEach((s) => {
         it(`with value ${s}`, () => {
           const { getByLabelText } = r(
             <Icon glyph={empty} label={s} size={s} />,

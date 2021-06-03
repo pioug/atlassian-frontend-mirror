@@ -15,7 +15,7 @@ function getDefaultSpinnerSpecifier(
 ): Nullable<string> {
   const specifiers = j(source)
     .find(j.ImportDeclaration)
-    .filter(path => path.node.source.value === '@atlaskit/spinner')
+    .filter((path) => path.node.source.value === '@atlaskit/spinner')
     .find(j.ImportDefaultSpecifier);
 
   if (!specifiers.length) {
@@ -46,10 +46,10 @@ function changeTypeName(j: core.JSCodeshift, source: string): string {
   // Replace 'SpinnerSizes' with 'Size' as import identifier
   base
     .find(j.ImportDeclaration)
-    .filter(path => path.node.source.value === '@atlaskit/spinner')
+    .filter((path) => path.node.source.value === '@atlaskit/spinner')
     .find(j.ImportSpecifier)
     .find(j.Identifier)
-    .filter(identifier => identifier.value.name === 'SpinnerSizes')
+    .filter((identifier) => identifier.value.name === 'SpinnerSizes')
     .replaceWith(j.identifier('Size'));
 
   // Want to rename any uses of 'SpinnerSizes' type in the file
@@ -59,9 +59,9 @@ function changeTypeName(j: core.JSCodeshift, source: string): string {
   const isTypeImportAliased =
     base
       .find(j.ImportDeclaration)
-      .filter(path => path.node.source.value === '@atlaskit/spinner')
+      .filter((path) => path.node.source.value === '@atlaskit/spinner')
       .find(j.ImportSpecifier)
-      .filter(specifier => {
+      .filter((specifier) => {
         if (specifier.value.imported.name !== 'Size') {
           return false;
         }
@@ -78,7 +78,7 @@ function changeTypeName(j: core.JSCodeshift, source: string): string {
 
   return base
     .find(j.Identifier)
-    .filter(identifier => identifier.value.name === 'SpinnerSizes')
+    .filter((identifier) => identifier.value.name === 'SpinnerSizes')
     .replaceWith(j.identifier('Size'))
     .toSource();
 }
@@ -95,10 +95,10 @@ function getJSXAttributesByName({
   return j(element)
     .find(j.JSXOpeningElement)
     .find(j.JSXAttribute)
-    .filter(attribute => {
+    .filter((attribute) => {
       const matches = j(attribute)
         .find(j.JSXIdentifier)
-        .filter(identifier => identifier.value.name === attributeName);
+        .filter((identifier) => identifier.value.name === attributeName);
       return Boolean(matches.length);
     });
 }
@@ -111,7 +111,7 @@ function changeSpinnerUsage(j: core.JSCodeshift, source: string): string {
 
   return j(source)
     .findJSXElements(name)
-    .forEach(element => {
+    .forEach((element) => {
       // removing isCompleting prop
       getJSXAttributesByName({
         j,
@@ -128,13 +128,13 @@ function changeSpinnerUsage(j: core.JSCodeshift, source: string): string {
 
       // modify delay prop if needed
       getJSXAttributesByName({ j, element, attributeName: 'delay' })
-        .filter(attribute => {
+        .filter((attribute) => {
           const toRemove = j(attribute)
             .find(j.JSXExpressionContainer)
             // Note: not using j.NumericLiteral as it doesn't play well with flow
             .find(j.Literal)
             .filter(
-              literal =>
+              (literal) =>
                 typeof literal.value.value === 'number' &&
                 literal.value.value <= 150,
             );
@@ -148,7 +148,7 @@ function changeSpinnerUsage(j: core.JSCodeshift, source: string): string {
         j,
         element,
         attributeName: 'invertColor',
-      }).forEach(attribute => {
+      }).forEach((attribute) => {
         // change the name of the prop to appearance
         j(attribute)
           .find(j.JSXIdentifier)
@@ -157,7 +157,7 @@ function changeSpinnerUsage(j: core.JSCodeshift, source: string): string {
         // For usages where the `invertColor` had no value (ie a true value):
         // we need to set it to 'invert'`
         j(attribute)
-          .filter(attr => attr.node.value == null)
+          .filter((attr) => attr.node.value == null)
           .replaceWith(
             j.jsxAttribute(
               j.jsxIdentifier('appearance'),
@@ -167,11 +167,11 @@ function changeSpinnerUsage(j: core.JSCodeshift, source: string): string {
 
         // if value is negative (invertColor={false}) then we can remove it
         j(attribute)
-          .filter(attr => {
+          .filter((attr) => {
             const isFalse = j(attr)
               .find(j.JSXExpressionContainer)
               .find(j.BooleanLiteral)
-              .filter(literal => !literal.node.value);
+              .filter((literal) => !literal.node.value);
 
             return Boolean(isFalse.length);
           })
@@ -180,11 +180,11 @@ function changeSpinnerUsage(j: core.JSCodeshift, source: string): string {
         // if `invertColor` value is positive we can change it to 'invert'
         j(attribute)
           .find(j.JSXExpressionContainer)
-          .filter(expression => {
+          .filter((expression) => {
             return (
               j(expression)
                 .find(j.BooleanLiteral)
-                .filter(literal => literal.node.value).length > 0
+                .filter((literal) => literal.node.value).length > 0
             );
           })
           .replaceWith(j.stringLiteral('invert'));
@@ -192,10 +192,10 @@ function changeSpinnerUsage(j: core.JSCodeshift, source: string): string {
         // if `invertColor` was an expression, then we replace it with a ternary
         j(attribute)
           .find(j.JSXExpressionContainer)
-          .filter(container => {
+          .filter((container) => {
             return j(container).find(j.BooleanLiteral).length === 0;
           })
-          .forEach(container => {
+          .forEach((container) => {
             j(container).replaceWith(
               j.jsxExpressionContainer(
                 j.conditionalExpression(

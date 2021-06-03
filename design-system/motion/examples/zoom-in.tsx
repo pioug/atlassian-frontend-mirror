@@ -14,7 +14,7 @@ export default () => {
   return (
     <RetryContainer>
       <div style={{ textAlign: 'center' }}>
-        <Button onClick={() => setIsIn(prev => !prev)}>
+        <Button onClick={() => setIsIn((prev) => !prev)}>
           {isIn ? 'Exit' : 'Enter'}
         </Button>
       </div>
@@ -25,13 +25,13 @@ export default () => {
             {isIn && (
               <React.Fragment>
                 <ZoomIn>
-                  {props => <Block {...props} appearance="small" />}
+                  {(props) => <Block {...props} appearance="small" />}
                 </ZoomIn>
                 <ZoomIn>
-                  {props => <Block {...props} appearance="small" />}
+                  {(props) => <Block {...props} appearance="small" />}
                 </ZoomIn>
                 <ZoomIn>
-                  {props => <Block {...props} appearance="small" />}
+                  {(props) => <Block {...props} appearance="small" />}
                 </ZoomIn>
               </React.Fragment>
             )}

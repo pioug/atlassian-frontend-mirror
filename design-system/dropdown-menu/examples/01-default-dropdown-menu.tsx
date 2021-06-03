@@ -6,7 +6,7 @@ export default () => (
   <DropdownMenu
     trigger="Page actions"
     triggerType="button"
-    onOpenChange={e => console.log('dropdown opened', e)}
+    onOpenChange={(e) => console.log('dropdown opened', e)}
   >
     <DropdownItemGroup>
       <DropdownItem>Move</DropdownItem>

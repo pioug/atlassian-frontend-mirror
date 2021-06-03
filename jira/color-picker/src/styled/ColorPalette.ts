@@ -24,7 +24,7 @@ export const ColorPaletteContainer = styled.div<
 >`
   display: flex;
   flex-wrap: wrap;
-  padding: ${props =>
+  padding: ${(props) =>
     props.mode === Mode.Compact ? `0` : `${gridSize() / 2}px`};
 `;
 
@@ -34,8 +34,8 @@ export const ColorPaletteMenu = styled.div<
   position: relative;
   margin: 0;
   background-color: ${colors.N0};
-  width: ${props => getWidth(props.cols)}px;
-  ${props =>
+  width: ${(props) => getWidth(props.cols)}px;
+  ${(props) =>
     props.mode &&
     props.mode === Mode.Standard &&
     `

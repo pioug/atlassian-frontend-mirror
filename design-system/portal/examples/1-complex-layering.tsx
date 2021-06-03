@@ -99,7 +99,7 @@ function Modal(props: ModalProps) {
   const addFlag = () => setFlags([flags.length, ...flags]);
 
   const removeFlag = (id: number | string) =>
-    setFlags(flags.filter(v => v !== id));
+    setFlags(flags.filter((v) => v !== id));
 
   const { onClose, onOpen } = props;
 
@@ -144,7 +144,7 @@ function Modal(props: ModalProps) {
         />
       </ModalDialog>
       <FlagGroup onDismissed={(id: number | string) => removeFlag(id)}>
-        {flags.map(id => (
+        {flags.map((id) => (
           <Flag
             id={id}
             key={`${id}`}

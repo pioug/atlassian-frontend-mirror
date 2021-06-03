@@ -18,7 +18,7 @@ export default (props: { mode: Mode; editorActions?: any }) => {
 
   return (
     <WithDocumentActions
-      render={actions => {
+      render={(actions) => {
         switch (mode) {
           case 'edit':
           case 'create':

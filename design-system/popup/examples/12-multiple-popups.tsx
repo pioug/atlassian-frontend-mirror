@@ -33,7 +33,7 @@ const PopupExample: FC<PopupExampleProps> = ({ name }) => {
       isOpen={isOpen}
       onClose={onClose}
       content={() => <div css={contentCSS}>content</div>}
-      trigger={triggerProps => (
+      trigger={(triggerProps) => (
         <Button {...triggerProps} onClick={onClick}>
           {isOpen ? 'Close' : 'Open'} {name} popup
         </Button>

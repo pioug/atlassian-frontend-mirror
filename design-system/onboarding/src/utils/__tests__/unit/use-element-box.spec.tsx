@@ -45,7 +45,7 @@ describe('use-element-box', () => {
 
     render(
       <ElementBox element={element}>
-        {nextBox => {
+        {(nextBox) => {
           if (nextBox) {
             box = nextBox;
           }
@@ -75,7 +75,7 @@ describe('use-element-box', () => {
 
     render(
       <ElementBox element={element}>
-        {nextBox => {
+        {(nextBox) => {
           if (nextBox) {
             box = nextBox;
           }
@@ -110,7 +110,7 @@ describe('use-element-box', () => {
 
     const { rerender } = render(
       <ElementBox element={element}>
-        {nextBox => {
+        {(nextBox) => {
           if (nextBox) {
             box = nextBox;
           }
@@ -134,7 +134,7 @@ describe('use-element-box', () => {
 
     rerender(
       <ElementBox element={elementNext}>
-        {nextBox => {
+        {(nextBox) => {
           if (nextBox) {
             box = nextBox;
           }

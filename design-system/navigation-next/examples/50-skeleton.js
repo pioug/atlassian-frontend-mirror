@@ -60,7 +60,7 @@ export default class Example extends Component {
               }}
             >
               <ContainerHeader
-                before={itemState => (
+                before={(itemState) => (
                   <ItemAvatar
                     itemState={itemState}
                     appearance="square"
@@ -118,7 +118,7 @@ export default class Example extends Component {
     return (
       <NavigationProvider>
         <ThemeProvider
-          theme={theme => ({
+          theme={(theme) => ({
             ...theme,
             mode: themeModes[themeMode],
           })}

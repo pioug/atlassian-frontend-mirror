@@ -20,8 +20,8 @@ class WithStaticData extends Component {
     this.loadChildFor();
   }
 
-  loadChildFor = parentItem => {
-    getChildren(parentItem).then(item => {
+  loadChildFor = (parentItem) => {
+    getChildren(parentItem).then((item) => {
       this.setState({
         items: tableTreeDataHelper.updateItems(
           item,
@@ -63,7 +63,7 @@ class WithStaticData extends Component {
   }
 }
 
-const getChildren = parentItem => {
+const getChildren = (parentItem) => {
   if (!parentItem) {
     return Promise.resolve([
       {

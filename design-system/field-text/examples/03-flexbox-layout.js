@@ -6,7 +6,7 @@ export default class StatelessExample extends Component {
     value: '',
   };
 
-  setValue = e => this.setState({ value: e.target.value });
+  setValue = (e) => this.setState({ value: e.target.value });
 
   render() {
     return (

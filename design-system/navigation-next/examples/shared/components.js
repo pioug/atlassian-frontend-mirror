@@ -75,7 +75,7 @@ export class DefaultGlobalNavigation extends PureComponent {
   };
 
   toggleSearch = () => {
-    this.setState(state => ({ isOpen: !state.isOpen }));
+    this.setState((state) => ({ isOpen: !state.isOpen }));
   };
 
   render() {
@@ -104,7 +104,7 @@ export const SearchDrawer = ({ children, isOpen, onClose }) => (
 // ==============================
 // Project Switcher
 // ==============================
-const SwitcherBefore = itemState => (
+const SwitcherBefore = (itemState) => (
   <ItemAvatar itemState={itemState} appearance="square" size="large" />
 );
 class ProjectSwitcherBase extends PureComponent {
@@ -127,7 +127,7 @@ class ProjectSwitcherBase extends PureComponent {
     );
   };
 
-  onSwitch = selected => {
+  onSwitch = (selected) => {
     const { location, history } = this.props;
     if (selected.pathname === location.pathname) return;
     history.push(selected.pathname);

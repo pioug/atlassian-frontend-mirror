@@ -24,7 +24,7 @@ const SelectWithTooltips = () => (
     <Select
       items={[
         {
-          items: selectItems.map(i => ({
+          items: selectItems.map((i) => ({
             ...i,
             tooltipPosition: 'right',
           })),
@@ -35,7 +35,7 @@ const SelectWithTooltips = () => (
     <Select
       items={[
         {
-          items: selectItems.map(i => ({
+          items: selectItems.map((i) => ({
             ...i,
             tooltipPosition: 'top',
           })),
@@ -46,7 +46,7 @@ const SelectWithTooltips = () => (
     <Select
       items={[
         {
-          items: selectItems.map(i => ({
+          items: selectItems.map((i) => ({
             ...i,
             tooltipPosition: 'bottom',
           })),
@@ -57,7 +57,7 @@ const SelectWithTooltips = () => (
     <Select
       items={[
         {
-          items: selectItems.map(i => ({
+          items: selectItems.map((i) => ({
             ...i,
             tooltipPosition: 'left',
           })),

@@ -7,7 +7,7 @@ import { CustomItemComponentProps } from '@atlaskit/menu';
 import { Footer } from '@atlaskit/side-navigation';
 import { B400, N200 } from '@atlaskit/theme/colors';
 
-const Container: React.FC<CustomItemComponentProps> = props => {
+const Container: React.FC<CustomItemComponentProps> = (props) => {
   return <div {...props} />;
 };
 

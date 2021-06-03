@@ -6,7 +6,7 @@ import { inlines } from './inlines';
 export const heading: NodeEncoder = (node: PMNode): string => {
   let result = '';
 
-  node.forEach(n => {
+  node.forEach((n) => {
     result += inlines(n);
   });
 

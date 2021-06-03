@@ -47,8 +47,8 @@ export function FlagsProvider({ children }: { children: React.ReactNode }) {
   const [flags, setFlags] = useState<FlagArgs[]>([]);
 
   const removeFlag = useCallback((id: FlagId) => {
-    setFlags(current => {
-      return current.slice(0).filter(flag => flag.id !== id);
+    setFlags((current) => {
+      return current.slice(0).filter((flag) => flag.id !== id);
     });
   }, []);
 
@@ -62,7 +62,7 @@ export function FlagsProvider({ children }: { children: React.ReactNode }) {
 
         setFlags((current): FlagArgs[] => {
           const index: number = current.findIndex(
-            value => value.id === flag.id,
+            (value) => value.id === flag.id,
           );
 
           // If flag is not found add it
@@ -88,7 +88,7 @@ export function FlagsProvider({ children }: { children: React.ReactNode }) {
     <>
       <FlagContext.Provider value={api}>{children}</FlagContext.Provider>
       <FlagGroup onDismissed={removeFlag}>
-        {flags.map(flag => {
+        {flags.map((flag) => {
           const { isAutoDismiss, ...restProps } = flag;
           const FlagType = isAutoDismiss ? AutoDismissFlag : Flag;
           return <FlagType {...restProps} key={flag.id} />;

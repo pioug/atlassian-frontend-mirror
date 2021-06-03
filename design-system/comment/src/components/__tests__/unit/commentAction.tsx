@@ -40,7 +40,7 @@ describe('@atlaskit comments', () => {
         };
         const wrapper = shallow(<CommentAction {...props} />);
         const Keys = Object.keys(props) as (keyof Props)[];
-        Keys.forEach(propName => {
+        Keys.forEach((propName) => {
           expect(wrapper.prop(propName)).toBe(props[propName]);
         });
       });

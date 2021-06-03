@@ -40,7 +40,7 @@ const GridColumn = styled.div<GridColumnProps>`
   flex-grow: 1;
   flex-shrink: 0;
   flex-basis: ${getColumnWidth};
-  margin: 0 ${props => spacing[props.theme.spacing] / 2}px;
+  margin: 0 ${(props) => spacing[props.theme.spacing] / 2}px;
   max-width: calc(${getMaxWidthColumnRatio} - ${gridSpacing}px);
   min-width: calc(99.9999% / ${availableColumns} - ${gridSpacing}px);
   word-wrap: break-word;

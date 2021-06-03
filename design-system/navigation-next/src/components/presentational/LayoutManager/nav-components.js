@@ -120,7 +120,7 @@ export class ComposedGlobalNavigation extends Component {
         }
       >
         <ThemeProvider
-          theme={theme => ({
+          theme={(theme) => ({
             topOffset,
             mode: light, // If no theme already exists default to light mode
             ...theme,

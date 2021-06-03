@@ -18,7 +18,7 @@ export const WidthDetectorObserver = React.memo(
 
       // https://github.com/DefinitelyTyped/DefinitelyTyped/pull/40909
       // @ts-ignore
-      return new ResizeObserver(entries => {
+      return new ResizeObserver((entries) => {
         if (!Array.isArray(entries) || !entries.length) {
           return;
         }

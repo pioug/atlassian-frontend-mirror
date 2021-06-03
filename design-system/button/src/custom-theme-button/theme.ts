@@ -96,7 +96,7 @@ export function defaultThemeFn(
   return current(values);
 }
 
-const Theme = createTheme<ThemeTokens, ThemeProps>(themeProps => ({
+const Theme = createTheme<ThemeTokens, ThemeProps>((themeProps) => ({
   buttonStyles: getCustomCss(themeProps),
   // No styles being applied directly to spinner by default
   // Keeping this for legacy compat. We could remove it, but given

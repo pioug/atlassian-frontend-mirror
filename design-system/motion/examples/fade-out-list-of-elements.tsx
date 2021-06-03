@@ -37,7 +37,7 @@ export default () => {
   return (
     <RetryContainer>
       <div css={{ textAlign: 'center', '> *': { marginRight: '4px' } }}>
-        <Button onClick={() => setItems(list => randRemove(list))}>
+        <Button onClick={() => setItems((list) => randRemove(list))}>
           Random remove
         </Button>
         <Button onClick={() => setItems(logos)}>Reset</Button>
@@ -53,10 +53,10 @@ export default () => {
         >
           <StaggeredEntrance>
             <ExitingPersistence appear>
-              {items.map(logo => (
+              {items.map((logo) => (
                 // Gotcha #1 set propery keys YO
                 <FadeIn key={logo[1] as string}>
-                  {props => (
+                  {(props) => (
                     <li
                       {...props}
                       css={{ display: 'block', padding: 0, margin: '8px' }}

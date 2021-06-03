@@ -45,7 +45,7 @@ class FieldTextStateless extends Component {
     }
   }
 
-  setInputRef = input => {
+  setInputRef = (input) => {
     this.input = input;
     this.props.innerRef(input);
   };

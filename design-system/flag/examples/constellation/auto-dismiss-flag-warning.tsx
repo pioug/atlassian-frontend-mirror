@@ -29,7 +29,7 @@ const AutoDismissFlagWarning = () => {
         </Button>
       </p>
       <FlagGroup onDismissed={handleDismiss}>
-        {flags.map(flagId => {
+        {flags.map((flagId) => {
           return (
             <AutoDismissFlag
               appearance="warning"

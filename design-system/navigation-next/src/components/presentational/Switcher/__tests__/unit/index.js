@@ -107,18 +107,18 @@ describe('Switcher', () => {
 
   it('should pass merged custom styles to <PopupSelect /> if styles prop is present', () => {
     const customStyles = {
-      option: base => ({
+      option: (base) => ({
         ...base,
         color: 'green',
         paddingLeft: 16,
         marginBottom: 2,
       }),
-      control: base => ({
+      control: (base) => ({
         ...base,
         color: 'red',
       }),
-      groupHeading: base => ({ ...base, color: 'red' }),
-      singleValue: base => ({ ...base, color: 'red' }),
+      groupHeading: (base) => ({ ...base, color: 'red' }),
+      singleValue: (base) => ({ ...base, color: 'red' }),
     };
     const wrapper = shallow(
       <BaseSwitcher {...baseProps} styles={customStyles} />,
@@ -208,15 +208,15 @@ describe('createStyles()', () => {
 
   it('should return custom styles merged with default styles when given custom styles', () => {
     const customStyles = {
-      singleValue: provided => ({
+      singleValue: (provided) => ({
         ...provided,
         color: 'red',
       }),
-      noOptionsMessage: provided => ({
+      noOptionsMessage: (provided) => ({
         ...provided,
         color: 'green',
       }),
-      groupHeading: provided => ({
+      groupHeading: (provided) => ({
         ...provided,
         color: 'black',
       }),
@@ -229,7 +229,7 @@ describe('createStyles()', () => {
 
   it('should return merged default option styles when given custom option styles', () => {
     const customOptionStyles = {
-      option: provided => ({
+      option: (provided) => ({
         ...provided,
         color: 'red',
         backgroundColor: 'blue',

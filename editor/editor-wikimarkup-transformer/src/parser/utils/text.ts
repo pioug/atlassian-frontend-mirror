@@ -6,7 +6,7 @@ import { Node as PMNode } from 'prosemirror-model';
 export function hasAnyOfMarks(node: PMNode, types: string[]): boolean {
   return (
     node.marks.findIndex(
-      m => types.findIndex(t => m.type.name === t) !== -1,
+      (m) => types.findIndex((t) => m.type.name === t) !== -1,
     ) !== -1
   );
 }

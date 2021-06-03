@@ -62,7 +62,7 @@ export default class SpotlightDialogPlacementExample extends Component<
 > {
   state: State = {};
 
-  next = () => this.setState(state => ({ index: (state.index || 0) + 1 }));
+  next = () => this.setState((state) => ({ index: (state.index || 0) + 1 }));
 
   start = () => this.setState({ index: 0 });
 

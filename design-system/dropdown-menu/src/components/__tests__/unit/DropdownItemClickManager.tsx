@@ -52,7 +52,7 @@ describe('dropdown menu - DropdownItemClickManager', () => {
     expect(spy).not.toHaveBeenCalled();
   });
 
-  ['Enter', 'Space'].forEach(triggerKey => {
+  ['Enter', 'Space'].forEach((triggerKey) => {
     test(`should fire onItemClicked when a DropdownItem is clicked via keyboard (with "${triggerKey}" key)`, () => {
       const spy = jest.fn();
       const wrapper = mount(

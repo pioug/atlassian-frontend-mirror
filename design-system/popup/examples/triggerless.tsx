@@ -23,7 +23,7 @@ const HighlightPopup = (props: { children: React.ReactNode }) => (
         </ButtonGroup>
       </div>
     )}
-    trigger={triggerProps => (
+    trigger={(triggerProps) => (
       <span
         css={{
           backgroundColor: B75,

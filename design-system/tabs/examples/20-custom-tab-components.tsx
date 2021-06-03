@@ -42,7 +42,7 @@ const CustomTabComponent = () => (
   <div>
     <h3>Tabs with tooltips</h3>
     <Tabs
-      onChange={index => console.log('Selected Tab', index + 1)}
+      onChange={(index) => console.log('Selected Tab', index + 1)}
       id="tooltip-tabs"
     >
       <TabList>

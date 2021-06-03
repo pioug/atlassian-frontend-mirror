@@ -12,7 +12,7 @@ type Refs =
  */
 export default function mergeRefs(refs: Refs[]) {
   return (value: HTMLElement | null) => {
-    refs.forEach(ref => {
+    refs.forEach((ref) => {
       if (typeof ref === 'function') {
         ref(value);
       } else if (ref !== null) {

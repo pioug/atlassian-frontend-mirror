@@ -4,7 +4,7 @@ import { GroupsWrapper } from './styled/StoryHelpers';
 
 // eslint-disable-next-line react/prop-types
 
-const DemoGroup = props => (
+const DemoGroup = (props) => (
   <ItemGroup {...props}>
     <Item href="//atlassian.com">This link will reload this window</Item>
     <Item>This is just a standard item</Item>

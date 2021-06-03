@@ -24,7 +24,7 @@ export default () => {
           }}
         />
       )}
-      trigger={triggerProps => (
+      trigger={(triggerProps) => (
         <Button
           {...triggerProps}
           isSelected={isOpen}

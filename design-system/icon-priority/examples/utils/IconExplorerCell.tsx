@@ -115,7 +115,7 @@ class IconExplorerCell extends Component<Props, State> {
           >
             <div
               onClick={() => this.input && this.input.select()}
-              ref={ref => {
+              ref={(ref) => {
                 this.importCodeField = ref;
               }}
               role="presentation"

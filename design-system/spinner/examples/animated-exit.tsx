@@ -100,7 +100,7 @@ function Animated() {
           <ExitingPersistence appear>
             {phase === 'ready' && (
               <FadeIn>
-                {props => (
+                {(props) => (
                   <span {...props}>
                     <Avatar size="xlarge" />
                   </span>
@@ -111,9 +111,9 @@ function Animated() {
           <ExitingPersistence>
             {phase === 'loading' && (
               <FadeIn
-                onFinish={value => console.log('fade in finished', value)}
+                onFinish={(value) => console.log('fade in finished', value)}
               >
-                {props => (
+                {(props) => (
                   <span
                     {...props}
                     css={css`

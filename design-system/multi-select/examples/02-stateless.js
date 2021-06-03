@@ -25,7 +25,7 @@ export default class StatelessExample extends PureComponent {
     selectedItems: [],
   };
 
-  onSelected = item => {
+  onSelected = (item) => {
     let newSelectedItems;
     if (!this.state.selectedItems) newSelectedItems = [item];
     else newSelectedItems = [...this.state.selectedItems, item];
@@ -36,17 +36,17 @@ export default class StatelessExample extends PureComponent {
     });
   };
 
-  onRemoved = item => {
+  onRemoved = (item) => {
     this.setState({
       selectedItems: this.state.selectedItems.filter(
-        i => i.value !== item.value,
+        (i) => i.value !== item.value,
       ),
     });
   };
 
   toggleOpen = ({ isOpen }) => this.setState({ isOpen });
 
-  updateFilter = filterValue => this.setState({ filterValue });
+  updateFilter = (filterValue) => this.setState({ filterValue });
 
   render() {
     return (

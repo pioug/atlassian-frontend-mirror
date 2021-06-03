@@ -7,7 +7,7 @@ export default function ControlledExample() {
   const [onChangeResult, setOnChangeResult] = useState('true');
 
   const onChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
-    setIsChecked(current => !current);
+    setIsChecked((current) => !current);
     setOnChangeResult(`${event.target.checked}`);
   }, []);
 

@@ -77,7 +77,7 @@ export const ColorPill = ({
 );
 
 const separateWords = (str: string) => {
-  return str.replace(/([A-z][A-Z])/g, e => {
+  return str.replace(/([A-z][A-Z])/g, (e) => {
     return e.split('').join(' ');
   });
 };
@@ -105,7 +105,7 @@ export default () =>
       <Heading>{separateWords(groupName)}</Heading>
 
       <div data-testid="color-palette">
-        {groupColors.map(colorData => {
+        {groupColors.map((colorData) => {
           const actualColor =
             typeof colorData.value === 'string'
               ? colorData.value

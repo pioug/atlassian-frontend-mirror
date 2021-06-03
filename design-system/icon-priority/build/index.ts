@@ -21,7 +21,7 @@ const config: IconBuildConfig = {
   isColorsDisabled: true,
 };
 
-buildIcons(config).then(icons => {
+buildIcons(config).then((icons) => {
   const iconDocs = createIconDocs(icons, '@atlaskit/icon-priority', {}, [
     'priority',
     'icon-priority',

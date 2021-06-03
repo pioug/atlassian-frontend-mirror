@@ -4,7 +4,7 @@ import { placeholderText } from '@atlaskit/theme/colors';
 
 const lineHeightDefault = (gridSize() * 2) / fontSize();
 
-const getPlaceholderStyle = style => css`
+const getPlaceholderStyle = (style) => css`
   &::-webkit-input-placeholder {
     /* WebKit, Blink, Edge */
     ${style};

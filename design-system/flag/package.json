@@ -46,7 +46,7 @@
     "@atlaskit/theme": "^11.0.0",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
-    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
+    "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@testing-library/react": "^8.0.1",
     "jest-emotion": "^10.0.32",
     "react-dom": "^16.8.0",
@@ -75,5 +75,5 @@
     }
   },
   "homepage": "https://atlassian.design/components/flag/",
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
 }

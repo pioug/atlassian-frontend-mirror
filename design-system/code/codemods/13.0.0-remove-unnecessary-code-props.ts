@@ -25,7 +25,7 @@ function removeProps(
   elementName: string,
   propName: string,
 ) {
-  collection.findJSXElements(elementName).forEach(jsxElementPath => {
+  collection.findJSXElements(elementName).forEach((jsxElementPath) => {
     const jsxAttributeCollection = getJSXAttributesByName(
       j,
       jsxElementPath,
@@ -92,7 +92,7 @@ export default function transformer(
     return source;
   }
 
-  propsToBeRemoved.forEach(propToRemove => {
+  propsToBeRemoved.forEach((propToRemove) => {
     removePropsForImportSpecifiers(j, collection, propToRemove);
   });
 

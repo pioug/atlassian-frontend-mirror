@@ -65,8 +65,8 @@ it('should delete all nested selectors', () => {
     const result: CSSObject = getCustomCss({ state: interaction });
 
     const nestedSelectors: string[] = Object.keys(result)
-      .filter(key => key !== '&::-moz-focus-inner')
-      .filter(key => key.startsWith('&'));
+      .filter((key) => key !== '&::-moz-focus-inner')
+      .filter((key) => key.startsWith('&'));
 
     expect(nestedSelectors).toEqual([]);
   });

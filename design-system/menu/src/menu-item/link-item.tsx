@@ -8,7 +8,7 @@ import { useBlurOnMouseDown } from '../internal/hooks/use-blur-on-mouse-down';
 import { linkItemCSS } from '../internal/styles/menu-item/link-item';
 import type { LinkItemProps } from '../types';
 
-const preventEvent: MouseEventHandler = e => {
+const preventEvent: MouseEventHandler = (e) => {
   e.preventDefault();
 };
 

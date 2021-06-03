@@ -16,7 +16,7 @@ const extractDateParts = (matchResult: RegExpMatchArray): number[] => {
       // Get the 3 capture groups
       .splice(1, 4)
       // Convert them to numbers
-      .map(datePart => parseInt(datePart, 10))
+      .map((datePart) => parseInt(datePart, 10))
   );
 };
 

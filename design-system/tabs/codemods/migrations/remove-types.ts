@@ -20,7 +20,7 @@ export const removeTypes = (j: core.JSCodeshift, source: Collection<Node>) => {
       (importDeclaration: ASTPath<ImportDeclaration>) =>
         importDeclaration.node.source.value === component,
     )
-    .forEach(importDeclaration => {
+    .forEach((importDeclaration) => {
       const specifiers = j(importDeclaration)
         .find(j.ImportSpecifier)
         .filter((importSpecifier: ASTPath<ImportSpecifier>) => {

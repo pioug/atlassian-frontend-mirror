@@ -7,7 +7,7 @@ import Item from '../Item';
 
 const gridSize = gridSizeFn();
 
-const modifyStyles = defaultStyles => ({
+const modifyStyles = (defaultStyles) => ({
   ...defaultStyles,
   itemBase: {
     ...defaultStyles.itemBase,

@@ -25,7 +25,7 @@ const alignmentContainer = {
   margin: '25px 0px',
 };
 
-const ExampleAlignment = props => (
+const ExampleAlignment = (props) => (
   <Layer
     {...props}
     content={<div style={{ background: '#fca' }}>{props.position}</div>}

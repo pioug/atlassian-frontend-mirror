@@ -26,7 +26,7 @@ export const useRequestAnimationFrame = (
   useEffect(() => {
     return () => {
       if (frames.current.length) {
-        frames.current.forEach(id => cancelAnimationFrame(id));
+        frames.current.forEach((id) => cancelAnimationFrame(id));
         frames.current = [];
       }
     };
@@ -35,8 +35,8 @@ export const useRequestAnimationFrame = (
   }, getHookDeps(opts));
 
   return useCallback((handler: FrameRequestCallback) => {
-    const id = requestAnimationFrame(time => {
-      frames.current = frames.current.filter(frameId => frameId !== id);
+    const id = requestAnimationFrame((time) => {
+      frames.current = frames.current.filter((frameId) => frameId !== id);
       handler(time);
     });
     frames.current.push(id);
@@ -52,7 +52,7 @@ export const useSetTimeout = (opts: Opts = { cleanup: 'unmount' }) => {
   useEffect(() => {
     return () => {
       if (timeouts.current.length) {
-        timeouts.current.forEach(id => clearTimeout(id));
+        timeouts.current.forEach((id) => clearTimeout(id));
         timeouts.current = [];
       }
     };
@@ -65,7 +65,7 @@ export const useSetTimeout = (opts: Opts = { cleanup: 'unmount' }) => {
       const id = setTimeout(
         () => {
           timeouts.current = timeouts.current.filter(
-            timeoutId => timeoutId !== id,
+            (timeoutId) => timeoutId !== id,
           );
           handler();
         },

@@ -269,7 +269,7 @@ describe('@atlaskit/multi-select - stateless', () => {
 
       it('should render a no matches found if all items are selected', () => {
         const selectedItems = itemsIn3Groups
-          .map(group => group.items)
+          .map((group) => group.items)
           .reduceRight((prev, curr) => prev.concat(curr));
 
         const select = mount(

@@ -48,7 +48,7 @@ export default class DropdownItemFocusManager extends Component<Props> {
 
   handleItemDeregistered = (itemId: ItemId): void => {
     this.registeredItems = this.registeredItems.filter(
-      item => item.itemId !== itemId,
+      (item) => item.itemId !== itemId,
     );
   };
 

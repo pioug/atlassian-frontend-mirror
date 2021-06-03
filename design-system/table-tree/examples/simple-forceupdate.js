@@ -69,19 +69,19 @@ export default class extends Component {
   };
 
   componentDidMount() {
-    fetchRoots().then(roots => {
+    fetchRoots().then((roots) => {
       this.setState({
         roots,
       });
     });
   }
 
-  loadChildren = parentItem => {
+  loadChildren = (parentItem) => {
     if (parentItem.children) {
       return;
     }
 
-    fetchChildrenOf().then(childItems => {
+    fetchChildrenOf().then((childItems) => {
       // eslint-disable-next-line
       parentItem.children = childItems;
       this.forceUpdate();

@@ -43,7 +43,7 @@ describe('GlobalItem', () => {
     const mockWithGlobalTheme = jest.fn(() => WrappedWithGlobalTheme);
     jest.doMock('../../../../../theme', () => ({
       withGlobalTheme: mockWithGlobalTheme,
-      styleReducerNoOp: jest.fn(styles => styles),
+      styleReducerNoOp: jest.fn((styles) => styles),
     }));
 
     const { GlobalItemBase: RecentGlobalItemBase } = require('../../index');
@@ -55,7 +55,7 @@ describe('GlobalItem', () => {
     const mockWithGlobalTheme = jest.fn(() => WrappedWithGlobalTheme);
     jest.doMock('../../../../../theme', () => ({
       withGlobalTheme: mockWithGlobalTheme,
-      styleReducerNoOp: jest.fn(styles => styles),
+      styleReducerNoOp: jest.fn((styles) => styles),
     }));
 
     const WrappedWithNavigationItemClicked = () => null;

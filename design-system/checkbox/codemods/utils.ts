@@ -44,10 +44,10 @@ export function getJSXAttributesByName(
   return j(element)
     .find(j.JSXOpeningElement)
     .find(j.JSXAttribute)
-    .filter(attribute => {
+    .filter((attribute) => {
       const matches = j(attribute)
         .find(j.JSXIdentifier)
-        .filter(identifier => identifier.value.name === attributeName);
+        .filter((identifier) => identifier.value.name === attributeName);
       return Boolean(matches.length);
     });
 }
@@ -78,17 +78,17 @@ export function findIdentifierAndReplaceAttribute(
   source
     .find(j.JSXElement)
     .find(j.JSXOpeningElement)
-    .filter(path => {
+    .filter((path) => {
       return !!j(path.node)
         .find(j.JSXIdentifier)
-        .filter(identifier => identifier.value.name === identifierName);
+        .filter((identifier) => identifier.value.name === identifierName);
     })
-    .forEach(element => {
+    .forEach((element) => {
       j(element)
         .find(j.JSXAttribute)
         .find(j.JSXIdentifier)
-        .filter(attr => attr.node.name === searchAttr)
-        .forEach(attribute => {
+        .filter((attr) => attr.node.name === searchAttr)
+        .forEach((attribute) => {
           j(attribute).replaceWith(j.jsxIdentifier(replaceWithAttr));
         });
     });
@@ -99,11 +99,11 @@ export function hasVariableAssignment(
   source: ReturnType<typeof j>,
   identifierName: string,
 ) {
-  const occurance = source.find(j.VariableDeclaration).filter(path => {
+  const occurance = source.find(j.VariableDeclaration).filter((path) => {
     return !!j(path.node)
       .find(j.VariableDeclarator)
       .find(j.Identifier)
-      .filter(identifier => {
+      .filter((identifier) => {
         return identifier.node.name === identifierName;
       }).length;
   });
@@ -154,7 +154,7 @@ export function addCommentBefore({
     path.value.comments = path.value.comments || [];
 
     const exists = path.value.comments.find(
-      comment => comment.value === content,
+      (comment) => comment.value === content,
     );
 
     // avoiding duplicates of the same comment
@@ -180,7 +180,7 @@ export function tryCreateImport({
   const exists: boolean =
     base
       .find(j.ImportDeclaration)
-      .filter(path => path.value.source.value === packageName).length > 0;
+      .filter((path) => path.value.source.value === packageName).length > 0;
 
   if (exists) {
     return;
@@ -188,7 +188,7 @@ export function tryCreateImport({
 
   base
     .find(j.ImportDeclaration)
-    .filter(path => path.value.source.value === relativeToPackage)
+    .filter((path) => path.value.source.value === relativeToPackage)
     .insertBefore(j.importDeclaration([], j.literal(packageName)));
 }
 
@@ -205,15 +205,15 @@ export function addToImport({
 }) {
   base
     .find(j.ImportDeclaration)
-    .filter(path => path.value.source.value === packageName)
-    .replaceWith(declaration => {
+    .filter((path) => path.value.source.value === packageName)
+    .replaceWith((declaration) => {
       return j.importDeclaration(
         [
           // we are appending to the existing specifiers
           // We are doing a filter hear because sometimes specifiers can be removed
           // but they hand around in the declaration
           ...(declaration.value.specifiers || []).filter(
-            item => item.type === 'ImportSpecifier' && item.imported != null,
+            (item) => item.type === 'ImportSpecifier' && item.imported != null,
           ),
           importSpecifier,
         ],
@@ -234,8 +234,8 @@ export const createRenameFuncFor = (
     return;
   }
 
-  source.findJSXElements(specifier).forEach(element => {
-    getJSXAttributesByName(j, element, from).forEach(attribute => {
+  source.findJSXElements(specifier).forEach((element) => {
+    getJSXAttributesByName(j, element, from).forEach((attribute) => {
       j(attribute).replaceWith(
         j.jsxAttribute(j.jsxIdentifier(to), attribute.node.value),
       );
@@ -244,11 +244,11 @@ export const createRenameFuncFor = (
 
   let variable = hasVariableAssignment(j, source, specifier);
   if (variable) {
-    variable.find(j.VariableDeclarator).forEach(declarator => {
+    variable.find(j.VariableDeclarator).forEach((declarator) => {
       j(declarator)
         .find(j.Identifier)
-        .filter(identifier => identifier.name === 'id')
-        .forEach(ids => {
+        .filter((identifier) => identifier.name === 'id')
+        .forEach((ids) => {
           findIdentifierAndReplaceAttribute(j, source, ids.node.name, from, to);
         });
     });
@@ -267,8 +267,8 @@ export const createRemoveFuncFor = (
     return;
   }
 
-  source.findJSXElements(specifier).forEach(element => {
-    getJSXAttributesByName(j, element, prop).forEach(attribute => {
+  source.findJSXElements(specifier).forEach((element) => {
+    getJSXAttributesByName(j, element, prop).forEach((attribute) => {
       j(attribute).remove();
       if (comment) {
         addCommentToStartOfFile({ j, base: source, message: comment });
@@ -291,11 +291,11 @@ export const createRenameImportFor = ({
   const isUsingName: boolean =
     source
       .find(j.ImportDeclaration)
-      .filter(path => path.node.source.value === oldPackagePath)
+      .filter((path) => path.node.source.value === oldPackagePath)
       .find(j.ImportSpecifier)
       .nodes()
       .filter(
-        specifier =>
+        (specifier) =>
           specifier.imported && specifier.imported.name === componentName,
       ).length > 0;
   if (!isUsingName) {
@@ -305,7 +305,7 @@ export const createRenameImportFor = ({
   const existingAlias: Nullable<string> =
     source
       .find(j.ImportDeclaration)
-      .filter(path => path.node.source.value === oldPackagePath)
+      .filter((path) => path.node.source.value === oldPackagePath)
       .find(j.ImportSpecifier)
       .nodes()
       .map(
@@ -365,7 +365,7 @@ export const createRenameImportFor = ({
   // Remove old path
   source
     .find(j.ImportDeclaration)
-    .filter(path => path.node.source.value === oldPackagePath)
+    .filter((path) => path.node.source.value === oldPackagePath)
     .remove();
 };
 
@@ -381,7 +381,7 @@ export const createRemoveImportsFor = ({
   const isUsingName: boolean =
     source
       .find(j.ImportDeclaration)
-      .filter(path => path.node.source.value === packagePath).length > 0;
+      .filter((path) => path.node.source.value === packagePath).length > 0;
   if (!isUsingName) {
     return;
   }
@@ -389,7 +389,7 @@ export const createRemoveImportsFor = ({
   const existingAlias: Nullable<string> =
     source
       .find(j.ImportDeclaration)
-      .filter(path => path.node.source.value === packagePath)
+      .filter((path) => path.node.source.value === packagePath)
       .find(j.ImportSpecifier)
       .nodes()
       .map(
@@ -413,10 +413,10 @@ export const createRemoveImportsFor = ({
   // Remove imports
   source
     .find(j.ImportDeclaration)
-    .filter(path => path.node.source.value === packagePath)
+    .filter((path) => path.node.source.value === packagePath)
     .find(j.ImportSpecifier)
     .find(j.Identifier)
-    .filter(identifier => {
+    .filter((identifier) => {
       if (
         importsToRemove.includes(identifier.value.name) ||
         identifier.value.name === existingAlias
@@ -432,13 +432,13 @@ export const createRemoveImportsFor = ({
   const isEmptyImport =
     source
       .find(j.ImportDeclaration)
-      .filter(path => path.node.source.value === packagePath)
+      .filter((path) => path.node.source.value === packagePath)
       .find(j.ImportSpecifier)
       .find(j.Identifier).length === 0;
   if (isEmptyImport) {
     source
       .find(j.ImportDeclaration)
-      .filter(path => path.node.source.value === packagePath)
+      .filter((path) => path.node.source.value === packagePath)
       .remove();
   }
 };
@@ -453,7 +453,7 @@ export const createTransformer = (
     return fileInfo.source;
   }
 
-  migrates.forEach(tf => tf(j, source));
+  migrates.forEach((tf) => tf(j, source));
 
   return source.toSource(options.printOptions || { quote: 'single' });
 };

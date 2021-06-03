@@ -36,12 +36,12 @@ export default class OverflowParentExample extends Component<{}, State> {
   ref?: HTMLElement;
 
   toggleMenuPosition = () => {
-    this.setState(state => ({ isMenuFixed: !state.isMenuFixed }));
+    this.setState((state) => ({ isMenuFixed: !state.isMenuFixed }));
     this.toggleMenuOpen();
   };
 
   toggleMenuOpen = () => {
-    this.setState(state => ({ isMenuOpen: !state.isMenuOpen }));
+    this.setState((state) => ({ isMenuOpen: !state.isMenuOpen }));
   };
 
   renderDropdown() {

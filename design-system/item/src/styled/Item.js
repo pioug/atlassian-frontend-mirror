@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 import { N60A } from '@atlaskit/theme/colors';
 import { getThemeStyle, themeNamespace } from '../util/theme';
 
-const getItemState = stateName => ({ theme }) => {
+const getItemState = (stateName) => ({ theme }) => {
   const stateStyles = getThemeStyle(theme[themeNamespace], stateName);
   return css`
     background-color: ${stateStyles.background};

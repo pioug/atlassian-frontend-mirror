@@ -12,7 +12,7 @@ export default () => md`
   ${(
     <RetryContainer>
       <Centered>
-        <FadeIn>{props => <Block {...props} />}</FadeIn>
+        <FadeIn>{(props) => <Block {...props} />}</FadeIn>
       </Centered>
     </RetryContainer>
   )}
@@ -29,9 +29,9 @@ export default () => md`
         }}
       >
         <StaggeredEntrance columns={1}>
-          <FadeIn>{props => <Block {...props} />}</FadeIn>
-          <FadeIn>{props => <Block {...props} />}</FadeIn>
-          <FadeIn>{props => <Block {...props} />}</FadeIn>
+          <FadeIn>{(props) => <Block {...props} />}</FadeIn>
+          <FadeIn>{(props) => <Block {...props} />}</FadeIn>
+          <FadeIn>{(props) => <Block {...props} />}</FadeIn>
         </StaggeredEntrance>
       </div>
     </RetryContainer>
@@ -52,15 +52,15 @@ export default () => md`
         }}
       >
         <StaggeredEntrance columns="responsive">
-          <FadeIn>{props => <Block {...props} />}</FadeIn>
-          <FadeIn>{props => <Block {...props} />}</FadeIn>
-          <FadeIn>{props => <Block {...props} />}</FadeIn>
-          <FadeIn>{props => <Block {...props} />}</FadeIn>
-          <FadeIn>{props => <Block {...props} />}</FadeIn>
-          <FadeIn>{props => <Block {...props} />}</FadeIn>
-          <FadeIn>{props => <Block {...props} />}</FadeIn>
-          <FadeIn>{props => <Block {...props} />}</FadeIn>
-          <FadeIn>{props => <Block {...props} />}</FadeIn>
+          <FadeIn>{(props) => <Block {...props} />}</FadeIn>
+          <FadeIn>{(props) => <Block {...props} />}</FadeIn>
+          <FadeIn>{(props) => <Block {...props} />}</FadeIn>
+          <FadeIn>{(props) => <Block {...props} />}</FadeIn>
+          <FadeIn>{(props) => <Block {...props} />}</FadeIn>
+          <FadeIn>{(props) => <Block {...props} />}</FadeIn>
+          <FadeIn>{(props) => <Block {...props} />}</FadeIn>
+          <FadeIn>{(props) => <Block {...props} />}</FadeIn>
+          <FadeIn>{(props) => <Block {...props} />}</FadeIn>
         </StaggeredEntrance>
       </div>
     </RetryContainer>
@@ -81,15 +81,15 @@ export default () => md`
         }}
       >
         <StaggeredEntrance columns={3}>
-          <FadeIn>{props => <Block {...props} />}</FadeIn>
-          <FadeIn>{props => <Block {...props} />}</FadeIn>
-          <FadeIn>{props => <Block {...props} />}</FadeIn>
-          <FadeIn>{props => <Block {...props} />}</FadeIn>
-          <FadeIn>{props => <Block {...props} />}</FadeIn>
-          <FadeIn>{props => <Block {...props} />}</FadeIn>
-          <FadeIn>{props => <Block {...props} />}</FadeIn>
-          <FadeIn>{props => <Block {...props} />}</FadeIn>
-          <FadeIn>{props => <Block {...props} />}</FadeIn>
+          <FadeIn>{(props) => <Block {...props} />}</FadeIn>
+          <FadeIn>{(props) => <Block {...props} />}</FadeIn>
+          <FadeIn>{(props) => <Block {...props} />}</FadeIn>
+          <FadeIn>{(props) => <Block {...props} />}</FadeIn>
+          <FadeIn>{(props) => <Block {...props} />}</FadeIn>
+          <FadeIn>{(props) => <Block {...props} />}</FadeIn>
+          <FadeIn>{(props) => <Block {...props} />}</FadeIn>
+          <FadeIn>{(props) => <Block {...props} />}</FadeIn>
+          <FadeIn>{(props) => <Block {...props} />}</FadeIn>
         </StaggeredEntrance>
       </div>
     </RetryContainer>
@@ -113,25 +113,25 @@ export default () => md`
       >
         <div>
           <StaggeredEntrance column={0}>
-            <FadeIn>{props => <Block {...props} />}</FadeIn>
-            <FadeIn>{props => <Block {...props} />}</FadeIn>
-            <FadeIn>{props => <Block {...props} />}</FadeIn>
+            <FadeIn>{(props) => <Block {...props} />}</FadeIn>
+            <FadeIn>{(props) => <Block {...props} />}</FadeIn>
+            <FadeIn>{(props) => <Block {...props} />}</FadeIn>
           </StaggeredEntrance>
         </div>
 
         <div>
           <StaggeredEntrance column={1}>
-            <FadeIn>{props => <Block {...props} />}</FadeIn>
-            <FadeIn>{props => <Block {...props} />}</FadeIn>
-            <FadeIn>{props => <Block {...props} />}</FadeIn>
+            <FadeIn>{(props) => <Block {...props} />}</FadeIn>
+            <FadeIn>{(props) => <Block {...props} />}</FadeIn>
+            <FadeIn>{(props) => <Block {...props} />}</FadeIn>
           </StaggeredEntrance>
         </div>
 
         <div>
           <StaggeredEntrance column={2}>
-            <FadeIn>{props => <Block {...props} />}</FadeIn>
-            <FadeIn>{props => <Block {...props} />}</FadeIn>
-            <FadeIn>{props => <Block {...props} />}</FadeIn>
+            <FadeIn>{(props) => <Block {...props} />}</FadeIn>
+            <FadeIn>{(props) => <Block {...props} />}</FadeIn>
+            <FadeIn>{(props) => <Block {...props} />}</FadeIn>
           </StaggeredEntrance>
         </div>
       </Centered>

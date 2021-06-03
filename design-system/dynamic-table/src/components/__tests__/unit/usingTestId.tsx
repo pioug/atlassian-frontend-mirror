@@ -15,7 +15,7 @@ describe('Using testId', () => {
       <DynamicTableStateless head={head} rows={rows} testId={testId} />,
     );
 
-    testIds.forEach(testId => {
+    testIds.forEach((testId) => {
       expect(getByTestId(testId)).toBeTruthy();
     });
 
@@ -28,7 +28,7 @@ describe('Using testId', () => {
       `${testId}--cell-4`,
     ];
 
-    multipleTestIds.forEach(testId => {
+    multipleTestIds.forEach((testId) => {
       expect(getAllByTestId(testId)).toBeTruthy();
     });
   });

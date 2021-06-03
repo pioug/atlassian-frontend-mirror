@@ -79,7 +79,7 @@ class TransformerPanels extends React.PureComponent<Props, State> {
               permittedLayouts: 'all',
               stickToolbarToBottom: true,
             }}
-            contentTransformerProvider={schema =>
+            contentTransformerProvider={(schema) =>
               new WikiMarkupTransformer(schema)
             }
             allowDate={true}
@@ -104,7 +104,7 @@ class TransformerPanels extends React.PureComponent<Props, State> {
 export default () => (
   <EditorContext>
     <WithEditorActions
-      render={actions => <TransformerPanels actions={actions} />}
+      render={(actions) => <TransformerPanels actions={actions} />}
     />
   </EditorContext>
 );

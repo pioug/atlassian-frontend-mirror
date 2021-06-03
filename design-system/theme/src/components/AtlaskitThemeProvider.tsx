@@ -29,7 +29,7 @@ function buildThemeState(mode: ThemeModes): AtlaskitThemeProps {
 const LegacyReset = styled.div<{
   background: ThemedValue<string>;
 }>`
-  background-color: ${p => p.background};
+  background-color: ${(p) => p.background};
   color: ${colors.text};
 
   a {

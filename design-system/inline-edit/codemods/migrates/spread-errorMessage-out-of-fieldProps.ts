@@ -37,7 +37,7 @@ const spreadErrorMessage = (j: core.JSCodeshift, source: any) => {
   source
     .findJSXElements(defaultSpecifier)
     .forEach((element: ASTPath<ImportDeclaration>) => {
-      getJSXAttributesByName(j, element, 'editView').forEach(editView => {
+      getJSXAttributesByName(j, element, 'editView').forEach((editView) => {
         const collection = j(editView)
           .find(j.JSXExpressionContainer)
           .find(j.ArrowFunctionExpression);

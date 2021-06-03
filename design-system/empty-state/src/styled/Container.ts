@@ -16,7 +16,7 @@ const Container = styled.div<{ size: Sizes }>`
   margin: ${verticalMarginSize}px auto;
   text-align: center;
   /* Use max-width so the component can shrink on smaller viewports. */
-  max-width: ${props =>
+  max-width: ${(props) =>
     props.size === 'narrow' ? narrowContainerWidth : wideContainerWidth}px;
 `;
 

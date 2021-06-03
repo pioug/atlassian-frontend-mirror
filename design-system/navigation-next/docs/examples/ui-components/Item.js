@@ -16,7 +16,9 @@ export default () => (
           <Badge appearance="primary">3</Badge>
         )
       }
-      before={s => <ItemAvatar itemState={s} presence="online" size="small" />}
+      before={(s) => (
+        <ItemAvatar itemState={s} presence="online" size="small" />
+      )}
       text="Item title"
       subText="Some kind of description"
     />

@@ -25,7 +25,7 @@ const Parent = styled.div<StyledProps>`
   margin-bottom: 8px;
   height: 64px;
   padding: 8px;
-  ${p => direction[p.scroll]}: scroll;
+  ${(p) => direction[p.scroll]}: scroll;
 
   &:last-child {
     margin-bottom: 0;
@@ -34,13 +34,13 @@ const Parent = styled.div<StyledProps>`
 const Shim = styled.div<StyledProps>`
   display: flex;
   justify-content: space-between;
-  ${p =>
+  ${(p) =>
     p.scroll === 'horizontal' &&
     css`
       width: 200%;
       flex-direction: row;
     `};
-  ${p =>
+  ${(p) =>
     p.scroll === 'vertical' &&
     css`
       height: 200%;

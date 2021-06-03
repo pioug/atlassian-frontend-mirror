@@ -4,10 +4,10 @@
 
 // Recursively map over all the items in a view, and if an item satisfies a
 // given selector, apply a modifier to it.
-const walkView = selector => modifier => view => {
+const walkView = (selector) => (modifier) => (view) => {
   const walk = walkView(selector)(modifier);
   let newView = [];
-  view.forEach(viewItem => {
+  view.forEach((viewItem) => {
     let item = { ...viewItem };
     if (item.items && item.items.length) {
       item = { ...item, items: walk(item.items) };
@@ -31,17 +31,18 @@ const walkView = selector => modifier => view => {
  */
 
 // Modify the item in a view with the given id.
-const findId = itemId => walkView(({ id }) => itemId === id);
+const findId = (itemId) => walkView(({ id }) => itemId === id);
 
 // Modify items in a view with an id that matches the given regular expression.
-const matchId = regexp => walkView(({ id }) => regexp.test(id));
+const matchId = (regexp) => walkView(({ id }) => regexp.test(id));
 
 // Modify the item in a view with the given legacyId.
-const findLegacyId = itemId => walkView(({ legacyId }) => itemId === legacyId);
+const findLegacyId = (itemId) =>
+  walkView(({ legacyId }) => itemId === legacyId);
 
 // Modify items in a view with a legacyId that matches the given regular
 // expression.
-const matchLegacyId = regexp =>
+const matchLegacyId = (regexp) =>
   walkView(({ legacyId }) => !!legacyId && regexp.test(legacyId));
 
 /**
@@ -52,19 +53,19 @@ const matchLegacyId = regexp =>
 const removeItem = () => null;
 
 // Inserts an array of items before the selected item.
-const insertBefore = inserted => item => [...inserted, item];
+const insertBefore = (inserted) => (item) => [...inserted, item];
 
 // Inserts an array of items after the selected item.
-const insertAfter = inserted => item => [item, ...inserted];
+const insertAfter = (inserted) => (item) => [item, ...inserted];
 
 // Adds items to the end of the selected item's `items` array.
-const appendChildren = appended => item => ({
+const appendChildren = (appended) => (item) => ({
   ...item,
   items: [...(item.items || []), ...appended],
 });
 
 // Adds items to the start of the selected item's `items` array.
-const prependChildren = prepended => item => ({
+const prependChildren = (prepended) => (item) => ({
   ...item,
   items: [...prepended, ...(item.items || [])],
 });
@@ -74,9 +75,9 @@ const prependChildren = prepended => item => ({
  */
 
 // Flatten navigation items
-const flattenItems = items => {
+const flattenItems = (items) => {
   const itemProps = [];
-  walkView(() => true)(item => {
+  walkView(() => true)((item) => {
     itemProps.push(item);
     return item;
   })(items);

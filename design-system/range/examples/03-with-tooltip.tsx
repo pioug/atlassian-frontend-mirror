@@ -10,7 +10,7 @@ function WithTooltip() {
   return (
     <div style={{ paddingTop: '40px' }}>
       <Tooltip position="top" content={value}>
-        <Range step={1} value={value} onChange={value => setValue(value)} />
+        <Range step={1} value={value} onChange={(value) => setValue(value)} />
       </Tooltip>
     </div>
   );

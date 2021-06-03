@@ -20,7 +20,7 @@ const CustomComponent: React.FC<
   );
 };
 
-const cssFn: CSSFn = state => {
+const cssFn: CSSFn = (state) => {
   return {
     position: 'relative',
     overflow: 'hidden',
@@ -49,7 +49,7 @@ const cssFn: CSSFn = state => {
 
 export default () => (
   // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
-  <div onClick={e => e.preventDefault()}>
+  <div onClick={(e) => e.preventDefault()}>
     <CustomItem
       href="/navigation-system"
       component={CustomComponent}

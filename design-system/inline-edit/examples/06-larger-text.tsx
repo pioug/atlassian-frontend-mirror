@@ -28,7 +28,7 @@ const InlineEditExample = () => (
     <InlineEdit
       defaultValue="Field value"
       onConfirm={() => {}}
-      editView={fieldProps => (
+      editView={(fieldProps) => (
         <Textfield
           {...fieldProps}
           autoFocus

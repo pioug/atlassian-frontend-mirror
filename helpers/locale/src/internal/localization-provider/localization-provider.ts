@@ -47,7 +47,7 @@ export const createLocalizationProvider = (
         ? [...weekdays.slice(weekStartDay), ...weekdays.slice(0, weekStartDay)]
         : weekdays;
 
-    return rotatedWeekdays.map(day =>
+    return rotatedWeekdays.map((day) =>
       // Some short days are longer than 3 characters but are unique if the first
       // three non-white characters are used.
       dayFormatter
@@ -63,7 +63,7 @@ export const createLocalizationProvider = (
     const monthFormatter = Intl.DateTimeFormat(normalizedLocale, {
       month: 'long',
     });
-    return [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map(month =>
+    return [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((month) =>
       // Date chosen for no real reason, the only important part is the month
       // Using 2020 'cos Safari has a faulty implementation when we use the year 2000
       // Intl.DateTimeFormat("en-US", { month: 'long'}).format(new Date(2000, 3, 1))

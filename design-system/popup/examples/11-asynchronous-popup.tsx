@@ -144,7 +144,7 @@ export default () => {
             update={update}
           />
         )}
-        trigger={triggerProps => (
+        trigger={(triggerProps) => (
           <Button
             id="popup-trigger"
             {...triggerProps}

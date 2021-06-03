@@ -11,7 +11,7 @@ interface ThemeTokens {
 const DisplayThemeColors = () => (
   <Theme.Consumer>
     {(tokens: Record<string, keyof ThemeTokens>) =>
-      Object.keys(tokens).map(k => (
+      Object.keys(tokens).map((k) => (
         <div
           key={k}
           style={{
@@ -39,7 +39,7 @@ export default () => (
   <React.Fragment>
     <DisplayThemeColors />
     <Theme.Provider
-      value={t => ({ ...t({}), backgroundColor: 'palevioletred' })}
+      value={(t) => ({ ...t({}), backgroundColor: 'palevioletred' })}
     >
       <DisplayThemeColors />
     </Theme.Provider>

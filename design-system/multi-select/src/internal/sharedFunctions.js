@@ -5,7 +5,7 @@ const isMatched = (item, matchingValue) => {
   const { filterValues } = item;
   if (filterValues && filterValues.length > 0) {
     return filterValues.some(
-      value => value.toLowerCase().indexOf(matchingValue) > -1,
+      (value) => value.toLowerCase().indexOf(matchingValue) > -1,
     );
   }
 
@@ -16,14 +16,14 @@ const filterItems = (items, filterValue, selectedItems) => {
   const value = filterValue;
   const trimmedValue = value && value.toLowerCase().trim();
   const selectedValues = selectedItems
-    ? selectedItems.map(item => item.value)
+    ? selectedItems.map((item) => item.value)
     : [];
   const unselectedItems = items.filter(
-    item => selectedValues.indexOf(item.value) === -1,
+    (item) => selectedValues.indexOf(item.value) === -1,
   );
 
   return trimmedValue
-    ? unselectedItems.filter(item => isMatched(item, trimmedValue))
+    ? unselectedItems.filter((item) => isMatched(item, trimmedValue))
     : unselectedItems;
 };
 
@@ -66,11 +66,11 @@ const getPrevFocusable = (indexItem, length, footerIsFocusable = false) => {
 // i.e [{ heading: 'numbers', items: [...] }, { heading: 'letters', items: [...] }]
 // In this form, the items array matches the one we see above.
 // This function normalises `items` so that it will always be in the later form
-const groupItems = items => {
+const groupItems = (items) => {
   const firstItem = items[0] || {};
   return Array.isArray(firstItem.items) ? items : convertToGroupType(items);
 };
 
-const convertToGroupType = items => [{ items }];
+const convertToGroupType = (items) => [{ items }];
 
 export { filterItems, getNextFocusable, getPrevFocusable, groupItems };

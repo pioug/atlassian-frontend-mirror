@@ -65,7 +65,7 @@ const Wrapper = ({
 interface IconWrapperProps {
   onClick?: (event: MouseEvent<HTMLElement>) => void;
 }
-const IconWrapper: FC<IconWrapperProps> = props => (
+const IconWrapper: FC<IconWrapperProps> = (props) => (
   <button
     type="button"
     css={{

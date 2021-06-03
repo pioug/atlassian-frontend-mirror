@@ -7,7 +7,7 @@ export const mediaGroup: NodeEncoder = (
   { context }: NodeEncoderOpts = {},
 ): string => {
   const result: string[] = [];
-  node.forEach(n => {
+  node.forEach((n) => {
     result.push(media(n, { context, parent: node }));
   });
 

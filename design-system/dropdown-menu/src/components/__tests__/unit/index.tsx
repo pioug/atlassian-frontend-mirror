@@ -71,7 +71,7 @@ describe('dropdown menu', () => {
         <Menu triggerType="button" defaultOpen trigger="text">
           {itemsList}
         </Menu>,
-      ].forEach(val => {
+      ].forEach((val) => {
         const menu = mount(val);
         const button = menu.find(Button);
         expect(button.prop('isSelected')).toBe(menu.props().defaultOpen);
@@ -169,7 +169,7 @@ describe('dropdown menu', () => {
       expect(wrapper.state().isOpen).toBe(true);
     });
 
-    [KEY_SPACE, KEY_DOWN, KEY_ENTER].forEach(key => {
+    [KEY_SPACE, KEY_DOWN, KEY_ENTER].forEach((key) => {
       test(`pressing "${key}" key while trigger focused should open the dropdown`, () => {
         const wrapper = mount<Menu>(
           <Menu trigger={<div id="trigger">test</div>} />,

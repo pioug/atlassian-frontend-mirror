@@ -22,7 +22,7 @@ export const ComponentStub = React.forwardRef(
       <div
         data-testid={testId}
         style={{}}
-        ref={element => {
+        ref={(element) => {
           if (element) {
             Object.defineProperty(element, 'offsetHeight', {
               configurable: true,

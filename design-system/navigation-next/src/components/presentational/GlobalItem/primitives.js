@@ -23,7 +23,7 @@ class GlobalNavigationItemPrimitive extends Component {
     return !deepEqual(this.props, nextProps);
   }
 
-  renderIconAndBadge = badgeWrapper => {
+  renderIconAndBadge = (badgeWrapper) => {
     const { icon: Icon, badge: Badge, label, tooltip } = this.props;
     const presentationProps = this.getPresentationProps();
     if (!Icon && !Badge) return null;
@@ -78,7 +78,7 @@ class GlobalNavigationItemPrimitive extends Component {
     return styleReducer(defaultStyles, presentationProps);
   };
 
-  renderChildren = styles => {
+  renderChildren = (styles) => {
     const {
       component: CustomComponent,
       dataset,

@@ -22,7 +22,7 @@ const getUniqueId = (() => {
   return () => `flag-provider-unique-id:${count++}`;
 })();
 
-const Consumer: React.FC<Partial<CreateFlagArgs>> = props => {
+const Consumer: React.FC<Partial<CreateFlagArgs>> = (props) => {
   const { showFlag } = useFlags();
   const show = (): void => {
     showFlag({

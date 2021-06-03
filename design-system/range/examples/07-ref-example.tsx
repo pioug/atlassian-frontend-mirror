@@ -16,7 +16,7 @@ export default () => {
         ref={ref}
         step={1}
         value={value}
-        onChange={value => setValue(value)}
+        onChange={(value) => setValue(value)}
       />
       <p>The current value from ref is being logged</p>
     </Fragment>

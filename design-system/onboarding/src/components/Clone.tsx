@@ -71,7 +71,9 @@ const Clone = (props: CloneProps) => {
       />
       <TargetOverlay
         onClick={
-          targetOnClick ? event => targetOnClick({ event, target }) : undefined
+          targetOnClick
+            ? (event) => targetOnClick({ event, target })
+            : undefined
         }
       />
     </TargetInner>

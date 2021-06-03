@@ -18,7 +18,7 @@ export const createRemoveFuncWithDefaultSpecifierFor = (
     return;
   }
 
-  source.findJSXElements(specifier).forEach(element => {
+  source.findJSXElements(specifier).forEach((element) => {
     getJSXAttributesByName(j, element, prop).forEach((attribute: any) => {
       if (comment) {
         addCommentToStartOfFile({ j, base: source, message: comment });
@@ -38,7 +38,7 @@ export function doesIdentifierExist({
   name: string;
 }): boolean {
   return (
-    base.find(j.Identifier).filter(identifer => identifer.value.name === name)
+    base.find(j.Identifier).filter((identifer) => identifer.value.name === name)
       .length > 0
   );
 }

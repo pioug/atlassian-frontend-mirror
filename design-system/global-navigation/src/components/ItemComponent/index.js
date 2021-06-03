@@ -29,7 +29,7 @@ class DropdownItem extends Component {
   }
 }
 
-const ItemComponent = props => {
+const ItemComponent = (props) => {
   const {
     dropdownItems: DropdownItems,
     itemComponent: CustomItemComponent,

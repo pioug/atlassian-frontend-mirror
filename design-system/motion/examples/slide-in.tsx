@@ -22,16 +22,16 @@ export default () => {
     <RetryContainer>
       <div css={{ textAlign: 'center' }}>
         <ButtonGroup>
-          <Button onClick={() => setIsIn(prev => !prev)}>
+          <Button onClick={() => setIsIn((prev) => !prev)}>
             {isIn ? 'Exit' : 'Enter'}
           </Button>
           <Button
-            onClick={() => setFromIndex(prev => (prev + 1) % froms.length)}
+            onClick={() => setFromIndex((prev) => (prev + 1) % froms.length)}
           >
             From {froms[fromIndex]}
           </Button>
           <Button
-            onClick={() => setFadeIndex(prev => (prev + 1) % fades.length)}
+            onClick={() => setFadeIndex((prev) => (prev + 1) % fades.length)}
           >
             Fade {fades[fadeIndex]}
           </Button>
@@ -48,7 +48,7 @@ export default () => {
           <ExitingPersistence appear>
             {isIn && (
               <SlideIn enterFrom={froms[fromIndex]} fade={fades[fadeIndex]}>
-                {props => (
+                {(props) => (
                   <Block
                     {...props}
                     css={{

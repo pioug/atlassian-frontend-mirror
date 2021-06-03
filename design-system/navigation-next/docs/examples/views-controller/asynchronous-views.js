@@ -97,7 +97,7 @@ const productIssuesView = {
   id: 'product/issues',
   type: 'product',
   getItems: () =>
-    new Promise(resolve =>
+    new Promise((resolve) =>
       setTimeout(
         () =>
           resolve([

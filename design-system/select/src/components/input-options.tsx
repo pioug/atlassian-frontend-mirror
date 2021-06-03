@@ -170,9 +170,9 @@ class ControlOption<
   }
 }
 
-export const CheckboxOption: FC<OptionProps<OptionType, true>> = props => (
+export const CheckboxOption: FC<OptionProps<OptionType, true>> = (props) => (
   <ControlOption<OptionType, true> Icon={CheckboxIcon} {...props} />
 );
-export const RadioOption: FC<OptionProps> = props => (
+export const RadioOption: FC<OptionProps> = (props) => (
   <ControlOption Icon={RadioIcon} {...props} />
 );

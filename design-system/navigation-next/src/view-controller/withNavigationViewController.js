@@ -2,10 +2,10 @@ import React from 'react';
 
 import ViewControllerSubscriber from './ViewControllerSubscriber';
 
-export default WrappedComponent => {
-  const WithNavigationViewController = props => (
+export default (WrappedComponent) => {
+  const WithNavigationViewController = (props) => (
     <ViewControllerSubscriber>
-      {navigationViewController => (
+      {(navigationViewController) => (
         <WrappedComponent
           navigationViewController={navigationViewController}
           {...props}

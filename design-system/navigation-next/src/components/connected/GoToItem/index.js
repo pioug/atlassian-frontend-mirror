@@ -29,7 +29,7 @@ const After = ({
   return null;
 };
 
-const GoToItem = gotoItemProps => {
+const GoToItem = (gotoItemProps) => {
   const scrollProviderRef = useContext(ScrollProviderRef);
   const spinnerDelay = gotoItemProps.spinnerDelay || 200;
 

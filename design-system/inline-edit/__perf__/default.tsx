@@ -10,9 +10,9 @@ export default () => {
     <InlineEdit
       defaultValue={editValue}
       label="Inline edit"
-      editView={fieldProps => <Textfield {...fieldProps} autoFocus />}
+      editView={(fieldProps) => <Textfield {...fieldProps} autoFocus />}
       readView={() => <div>{editValue || 'Click to enter value'}</div>}
-      onConfirm={value => setEditValue(value)}
+      onConfirm={(value) => setEditValue(value)}
     />
   );
 };

@@ -6,7 +6,7 @@ import Warning from './utils/warning';
 export default () => (
   <Fragment>
     <Warning />
-    <form onSubmit={e => e.preventDefault()}>
+    <form onSubmit={(e) => e.preventDefault()}>
       <h2>Add a comment</h2>
       <div className="ak-field-group">
         <label htmlFor="description">Comment</label>

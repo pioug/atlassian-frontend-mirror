@@ -519,7 +519,7 @@ describe('<ExitingPersistence />', () => {
           animationTimingFunction={() => 'linear'}
           duration={100}
         >
-          {props => <div {...props} data-testid="target" />}
+          {(props) => <div {...props} data-testid="target" />}
         </KeyframesMotion>
       </ExitingPersistence>,
     );
@@ -538,7 +538,7 @@ describe('<ExitingPersistence />', () => {
           animationTimingFunction={() => 'linear'}
           duration={100}
         >
-          {props => <div {...props} data-testid="target" />}
+          {(props) => <div {...props} data-testid="target" />}
         </KeyframesMotion>
       </ExitingPersistence>,
     );
@@ -561,7 +561,7 @@ describe('<ExitingPersistence />', () => {
           animationTimingFunction={() => 'linear'}
           duration={100}
         >
-          {props => <div {...props} data-testid="target" />}
+          {(props) => <div {...props} data-testid="target" />}
         </KeyframesMotion>
       </ExitingPersistence>,
     );
@@ -584,7 +584,7 @@ describe('<ExitingPersistence />', () => {
           animationTimingFunction={() => 'linear'}
           duration={100}
         >
-          {props => <div {...props} data-testid="target" />}
+          {(props) => <div {...props} data-testid="target" />}
         </KeyframesMotion>
       </ExitingPersistence>,
     );
@@ -602,7 +602,7 @@ describe('<ExitingPersistence />', () => {
         animationTimingFunction={() => 'linear'}
         duration={100}
       >
-        {props => <div {...props} data-testid="target" />}
+        {(props) => <div {...props} data-testid="target" />}
       </KeyframesMotion>,
     );
 

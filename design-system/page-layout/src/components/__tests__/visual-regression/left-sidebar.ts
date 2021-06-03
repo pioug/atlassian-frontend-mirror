@@ -10,7 +10,7 @@ describe('<LeftSidebar />', () => {
     const { page } = global;
 
     const isSidebarExpanded =
-      (await page.$eval<string | null>(resizeControl, el =>
+      (await page.$eval<string | null>(resizeControl, (el) =>
         el.getAttribute('aria-expanded'),
       )) === 'true';
 

@@ -26,8 +26,8 @@ const staticData = {
 };
 
 /* eslint react/prop-types: 0 */
-const Title = props => <span>{props.title}</span>;
-const Description = props => <span>{props.description}</span>;
+const Title = (props) => <span>{props.title}</span>;
+const Description = (props) => <span>{props.description}</span>;
 
 export default () => (
   <TableTree

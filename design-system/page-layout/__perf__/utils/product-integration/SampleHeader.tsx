@@ -6,7 +6,7 @@ import { jsx } from '@emotion/core';
 import Icon from '@atlaskit/icon';
 import { CustomItemComponentProps } from '@atlaskit/menu';
 import { Header } from '@atlaskit/side-navigation';
-const Container: React.FC<CustomItemComponentProps> = props => {
+const Container: React.FC<CustomItemComponentProps> = (props) => {
   return <div {...props} />;
 };
 

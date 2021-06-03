@@ -42,33 +42,33 @@ export default class App extends Component {
   };
 
   onDebugToggle = () => {
-    this.setState(state => ({ isDebugEnabled: !state.isDebugEnabled }));
+    this.setState((state) => ({ isDebugEnabled: !state.isDebugEnabled }));
   };
 
   onFlyoutToggle = () => {
-    this.setState(state => ({ isFlyoutAvailable: !state.isFlyoutAvailable }));
+    this.setState((state) => ({ isFlyoutAvailable: !state.isFlyoutAvailable }));
   };
 
   onAlternateBehaviourToggle = () => {
-    this.setState(state => ({
+    this.setState((state) => ({
       isAlternateFlyoutBehaviourEnabled: !state.isAlternateFlyoutBehaviourEnabled,
     }));
   };
 
   onFullWidthFlyoutToggle = () => {
-    this.setState(state => ({
+    this.setState((state) => ({
       isFullWitdhFlyoutEnabled: !state.isFullWitdhFlyoutEnabled,
     }));
   };
 
   onHideNavVisuallyToggle = () => {
-    this.setState(state => ({
+    this.setState((state) => ({
       isHideNavVisuallyEnabled: !state.isHideNavVisuallyEnabled,
     }));
   };
 
   onToggleContextualNavigation = () => {
-    this.setState(state => ({
+    this.setState((state) => ({
       showContextualNavigation: !state.showContextualNavigation,
     }));
   };

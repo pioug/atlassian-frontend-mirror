@@ -112,7 +112,7 @@ export class RankableBody extends React.Component<Props, {}> {
           droppableId="dynamic-table-droppable"
           isDropDisabled={isRankingDisabled}
         >
-          {provided => (
+          {(provided) => (
             <tbody
               data-testid={testId}
               ref={provided.innerRef}

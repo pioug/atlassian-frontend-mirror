@@ -7,8 +7,8 @@ import TableTree from '../src';
 
 import staticData from './data-structured-nodes.json';
 
-const Title = props => <span>{props.title}</span>;
-const Numbering = props => <span>{props.numbering}</span>;
+const Title = (props) => <span>{props.title}</span>;
+const Numbering = (props) => <span>{props.numbering}</span>;
 /* eslint-enable react/no-unused-prop-types */
 
 export default class UpdateData extends Component {

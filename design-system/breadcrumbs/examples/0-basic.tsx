@@ -21,7 +21,7 @@ export default class BreadcrumbsExpand extends React.Component<
     return (
       <Breadcrumbs
         isExpanded={this.state.isExpanded}
-        onExpand={e => this.expand(e)}
+        onExpand={(e) => this.expand(e)}
         testId="MyBreadcrumbsTestId"
       >
         <BreadcrumbsItem href="/pages" text="Pages" />

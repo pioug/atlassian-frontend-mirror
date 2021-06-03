@@ -5,11 +5,11 @@ import {
 
 export const navigationChannel = 'navigation';
 
-const getDisplayName = component =>
+const getDisplayName = (component) =>
   component ? component.displayName || component.name : undefined;
 
-const kebabToCamelCase = str =>
-  `${str}`.replace(/-([a-z])/gi, g => g[1].toUpperCase());
+const kebabToCamelCase = (str) =>
+  `${str}`.replace(/-([a-z])/gi, (g) => g[1].toUpperCase());
 
 export const navigationItemClicked = (
   Component,

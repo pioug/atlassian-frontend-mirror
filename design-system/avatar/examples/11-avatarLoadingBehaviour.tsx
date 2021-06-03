@@ -27,7 +27,7 @@ const initialState = {
 };
 
 // eslint-disable-next-line react/no-multi-comp
-const ExternalSrcAvatar: FC = props => {
+const ExternalSrcAvatar: FC = (props) => {
   const [{ inputValue, imageUrl }, setState] = useState<State>(initialState);
   const [avatarKey, setAvatarKey] = useState(0);
 
@@ -40,7 +40,7 @@ const ExternalSrcAvatar: FC = props => {
   };
 
   const resetState = () => setState(initialState);
-  const forceRemount = () => setAvatarKey(k => k + 1);
+  const forceRemount = () => setAvatarKey((k) => k + 1);
 
   let avatarName = 'Default Avatar';
   if (imageUrl === initialState.inputValue) {

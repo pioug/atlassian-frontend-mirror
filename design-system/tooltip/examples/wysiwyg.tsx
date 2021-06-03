@@ -47,7 +47,7 @@ const ACTIONS: { [key: string]: React.ReactElement } = {
 export default function WysiwygExample() {
   return (
     <Toolbar>
-      {Object.keys(ACTIONS).map(a => (
+      {Object.keys(ACTIONS).map((a) => (
         <Tooltip key={a} content={a} position="top">
           <Action>{ACTIONS[a]}</Action>
         </Tooltip>

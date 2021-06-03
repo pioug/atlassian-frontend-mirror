@@ -50,7 +50,7 @@ const HeaderItems = ({
     isSaving ? savingText : null,
     restrictedElement,
   ]
-    .filter(item => !!item)
+    .filter((item) => !!item)
     .map((item, index) => <TopItem key={index}>{item}</TopItem>); // eslint-disable-line react/no-array-index-key
 
   return items.length ? <TopItemsContainer>{items}</TopItemsContainer> : null;

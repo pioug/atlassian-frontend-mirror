@@ -15,14 +15,14 @@ const OPTIONS: OptionsType = [
 const addedListeners = () => {
   //@ts-ignore
   const { mock } = global.window.addEventListener as jest.Mock;
-  const results = mock.calls.filter(call => call[0] !== 'error');
+  const results = mock.calls.filter((call) => call[0] !== 'error');
   return results;
 };
 
 const removedListeners = () => {
   //@ts-ignore
   const { mock } = global.window.removeEventListener as jest.Mock;
-  const results = mock.calls.filter(call => call[0] !== 'error');
+  const results = mock.calls.filter((call) => call[0] !== 'error');
   return results;
 };
 
@@ -109,7 +109,7 @@ describe('Popup Select', () => {
   test('event listeners continue to work when stopPropagation is called in parent', async () => {
     const { getByText } = render(
       // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
-      <div onClick={e => e.stopPropagation()}>
+      <div onClick={(e) => e.stopPropagation()}>
         <PopupSelect
           options={OPTIONS}
           value={OPTIONS[0]}

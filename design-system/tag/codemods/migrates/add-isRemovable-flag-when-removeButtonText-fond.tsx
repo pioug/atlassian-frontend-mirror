@@ -4,5 +4,5 @@ export const addIsRemovableFlag = createConvertFuncFor(
   '@atlaskit/tag',
   'removeButtonText',
   'isRemovable',
-  value => isEmpty(value),
+  (value) => isEmpty(value),
 );

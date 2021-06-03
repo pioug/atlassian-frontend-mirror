@@ -57,7 +57,7 @@
     "@atlaskit/tooltip": "^17.0.0",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
-    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
+    "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@testing-library/react": "^8.0.1",
     "ast-types": "^0.13.3",
     "enzyme": "^3.10.0",
@@ -69,5 +69,5 @@
     "wait-for-expect": "^1.2.0"
   },
   "homepage": "https://atlassian.design/components/select/",
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
 }

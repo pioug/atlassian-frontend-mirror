@@ -25,11 +25,11 @@ interface HighlightProps {
 
 export const Highlight = styled.div<HighlightProps>`
   align-items: space-between;
-  background-color: ${p => p.bg || colors.N20};
-  border-radius: ${p => p.radius || 0}px;
-  border-left: 4px solid ${p => highlights[p.color]};
+  background-color: ${(p) => p.bg || colors.N20};
+  border-radius: ${(p) => p.radius || 0}px;
+  border-left: 4px solid ${(p) => highlights[p.color]};
   box-sizing: border-box;
-  cursor: ${p => (p.onClick ? 'pointer' : 'auto')};
+  cursor: ${(p) => (p.onClick ? 'pointer' : 'auto')};
   display: inline-flex;
   justify-content: space-between;
   overflow: hidden;

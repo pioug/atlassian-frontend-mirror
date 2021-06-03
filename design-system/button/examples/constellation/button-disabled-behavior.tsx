@@ -20,7 +20,7 @@ function Disabled() {
         '> *': { marginBottom: gridSize() },
       }}
     >
-      <Button onClick={() => setIsDisabled(value => !value)}>
+      <Button onClick={() => setIsDisabled((value) => !value)}>
         Disabled: {isDisabled ? 'true' : 'false'}
       </Button>
       <div>

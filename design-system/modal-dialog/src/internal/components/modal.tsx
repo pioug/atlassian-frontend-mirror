@@ -75,7 +75,7 @@ function ModalDialogInner(props: ModalDialogInnerProps) {
   });
 
   const onBlanketClicked = useCallback(
-    e => {
+    (e) => {
       if (shouldCloseOnOverlayClick) {
         onCloseHandler(e);
       }
@@ -99,7 +99,7 @@ function ModalDialogInner(props: ModalDialogInnerProps) {
 
   return (
     <FadeIn>
-      {fadeInProps => (
+      {(fadeInProps) => (
         <div
           {...fadeInProps}
           css={fillScreenStyles}
@@ -124,7 +124,7 @@ function ModalDialogInner(props: ModalDialogInnerProps) {
               testId={testId}
             >
               <FadeIn entranceDirection="bottom" onFinish={onMotionFinish}>
-                {bottomFadeInProps => (
+                {(bottomFadeInProps) => (
                   <section
                     {...bottomFadeInProps}
                     ref={mergeRefs([bottomFadeInProps.ref, motionRef])}

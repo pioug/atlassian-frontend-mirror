@@ -390,7 +390,7 @@ describe('NestingTransitionProvider', () => {
         testId="provider"
         overrides={{
           GoBackItem: {
-            render: props => (
+            render: (props) => (
               <GoBackItem {...props}>Internationalised</GoBackItem>
             ),
           },
@@ -416,7 +416,7 @@ describe('NestingTransitionProvider', () => {
         testId="provider"
         overrides={{
           GoBackItem: {
-            render: props => (
+            render: (props) => (
               <GoBackItem {...props}>Internationalised</GoBackItem>
             ),
           },
@@ -650,7 +650,7 @@ describe('NestingTransitionProvider', () => {
     },
   ];
 
-  modifierKeys.forEach(modifier => {
+  modifierKeys.forEach((modifier) => {
     it(`should not travel to the second level navigation when a ${modifier.key} modifier key is detected on click`, () => {
       const { queryByText, getByText } = render(
         <NestingTransitionProvider>
@@ -676,7 +676,7 @@ describe('NestingTransitionProvider', () => {
     });
   });
 
-  modifierKeys.forEach(modifier => {
+  modifierKeys.forEach((modifier) => {
     it(`should not travel to the second level navigation when a ${modifier.key} modifier key is detected with keyboard navigation`, () => {
       const { queryByText, getByText } = render(
         <NestingTransitionProvider>

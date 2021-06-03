@@ -24,10 +24,10 @@ export default class StatelessSelectOverview extends Component {
       <StatelessSelect
         items={selectItems}
         isOpen={this.state.isSelectOpen}
-        onOpenChange={attrs => {
+        onOpenChange={(attrs) => {
           this.setState({ isSelectOpen: attrs.isOpen });
         }}
-        onSelected={item => {
+        onSelected={(item) => {
           this.setState({ isSelectOpen: false, selectedItem: item });
         }}
         selectedItem={this.state.selectedItem}

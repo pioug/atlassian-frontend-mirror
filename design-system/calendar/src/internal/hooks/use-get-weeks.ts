@@ -31,7 +31,7 @@ function useGetCalendarWithSixthWeek(
 
       return getBaseCalendar(year, month, { weekStartDay })
         .slice(sliceStart, sliceStart + daysPerWeek)
-        .map(date => ({ ...date, siblingMonth: true }));
+        .map((date) => ({ ...date, siblingMonth: true }));
     }
   }, [calendarLastValue, month, shouldDisplaySixthWeek, weekStartDay, year]);
 }
@@ -73,7 +73,7 @@ export default function useGetWeeks({
   return useMemo(() => {
     const weeks: Week[] = [];
 
-    calendar.forEach(date => {
+    calendar.forEach((date) => {
       const dateAsString = dateToString(date, { fixMonth: true });
 
       let week;

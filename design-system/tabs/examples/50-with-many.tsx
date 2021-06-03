@@ -5,7 +5,7 @@ import { OnChangeCallback } from '../src/types';
 
 import { Panel } from './shared';
 
-const handleTabSelect: OnChangeCallback = index => {
+const handleTabSelect: OnChangeCallback = (index) => {
   console.info(`Switched to tab at index ${index}`);
 };
 

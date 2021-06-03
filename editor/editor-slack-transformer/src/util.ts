@@ -4,7 +4,7 @@
  *
  */
 export const escapeMarkdown = (str: string): string => {
-  return str.replace(/[`*_~&<>]/g, matched => {
+  return str.replace(/[`*_~&<>]/g, (matched) => {
     switch (matched) {
       case '&':
         return '&amp;';

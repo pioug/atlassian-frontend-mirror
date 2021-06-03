@@ -62,7 +62,7 @@ export default class ViewController extends Container {
       return;
     }
 
-    const newReducers = reducersForView.filter(r => r !== reducer);
+    const newReducers = reducersForView.filter((r) => r !== reducer);
     this.reducers = { ...this.reducers, [viewId]: newReducers };
 
     // If we're removing a reducer from the active view we'll want to force an
@@ -75,7 +75,7 @@ export default class ViewController extends Container {
    * 'container'), and a `getItems` function which should return either an array
    * of data, or a Promise which will resolve to an array of data.
    */
-  addView = view => {
+  addView = (view) => {
     const { id } = view;
     this.views = { ...this.views, [id]: view };
 
@@ -97,14 +97,14 @@ export default class ViewController extends Container {
    * Un-register a view. If the view being removed is active it will remain so
    * until a different view is set.
    */
-  removeView = viewId => {
+  removeView = (viewId) => {
     delete this.views[viewId];
   };
 
   /**
    * Set the registered view with the given ID as the active view.
    */
-  setView = viewId => {
+  setView = (viewId) => {
     const view = this.views[viewId];
 
     // The view has been added
@@ -118,7 +118,7 @@ export default class ViewController extends Container {
         this.setState({ incomingView: { id, type } });
 
         // Wait for the Promise to resolve
-        returnedItems.then(data => {
+        returnedItems.then((data) => {
           this._updateViewController(view, data);
         });
         return;
@@ -138,7 +138,7 @@ export default class ViewController extends Container {
    * Will re-resolve the active view and re-reduce its data. Accepts an optional
    * view ID to only re-resolve if the given ID matches the active view.
    */
-  updateActiveView = maybeViewId => {
+  updateActiveView = (maybeViewId) => {
     const { activeView } = this.state;
 
     if (!activeView) {
@@ -158,7 +158,7 @@ export default class ViewController extends Container {
   /**
    * Set whether the view controller is in debug mode.
    */
-  setIsDebugEnabled = isDebugEnabled => {
+  setIsDebugEnabled = (isDebugEnabled) => {
     this.isDebugEnabled = isDebugEnabled;
   };
 }

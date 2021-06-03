@@ -26,7 +26,7 @@ export const NestingMotion = (props: NestingMotionProps) => {
     <SlideIn
       exitTo={exitTo}
       enterFrom={enterFrom}
-      animationTimingFunction={_ => easeOut}
+      animationTimingFunction={(_) => easeOut}
     >
       {(innerProps, direction) =>
         children({

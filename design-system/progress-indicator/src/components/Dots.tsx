@@ -115,7 +115,7 @@ class ProgressDots extends Component<Props, {}> {
 
     return (
       <Container
-        innerRef={r => {
+        innerRef={(r) => {
           this.tablist = r;
         }}
         role="tablist"
@@ -139,7 +139,7 @@ class ProgressDots extends Component<Props, {}> {
               aria-label={tabId}
               aria-selected={selected}
               id={tabId}
-              onClick={event => onSelect({ event, index })}
+              onClick={(event) => onSelect({ event, index })}
               role="tab"
               tabIndex={selected ? 0 : -1}
               type="button"

@@ -117,7 +117,7 @@ export default class Example extends Component {
   };
 
   toggleContainerNav = () => {
-    this.setState(state => ({
+    this.setState((state) => ({
       shouldDisplayContainerNav: !state.shouldDisplayContainerNav,
     }));
   };
@@ -133,7 +133,7 @@ export default class Example extends Component {
             }}
           >
             <ContainerHeader
-              before={itemState => (
+              before={(itemState) => (
                 <ItemAvatar
                   itemState={itemState}
                   appearance="square"
@@ -175,7 +175,7 @@ export default class Example extends Component {
   );
 
   toggleBanner = () => {
-    this.setState(state => ({
+    this.setState((state) => ({
       isBannerVisible: !state.isBannerVisible,
     }));
   };

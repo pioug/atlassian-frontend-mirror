@@ -21,7 +21,7 @@ class NotificationDrawer extends Component {
 
   iframe = null;
 
-  handleMessage = event => {
+  handleMessage = (event) => {
     if (
       event.source &&
       this.iframe &&
@@ -36,7 +36,7 @@ class NotificationDrawer extends Component {
     this.setState({ hasIframeLoaded: true });
   };
 
-  storeIFrame = component => {
+  storeIFrame = (component) => {
     this.iframe = component;
   };
 

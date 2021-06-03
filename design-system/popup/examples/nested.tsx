@@ -14,7 +14,7 @@ const NestedPopup = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <PopupMenuGroup onClick={e => e.stopPropagation()}>
+    <PopupMenuGroup onClick={(e) => e.stopPropagation()}>
       <Section>
         <ButtonItem>Create project</ButtonItem>
         <ButtonItem>View all projects</ButtonItem>
@@ -25,7 +25,7 @@ const NestedPopup = () => {
           placement="right-start"
           onClose={() => setIsOpen(false)}
           content={() => <NestedPopup />}
-          trigger={triggerProps => (
+          trigger={(triggerProps) => (
             <ButtonItem
               {...triggerProps}
               isSelected={isOpen}
@@ -50,7 +50,7 @@ export default () => {
       onClose={() => setIsOpen(false)}
       content={() => <NestedPopup />}
       placement="bottom-start"
-      trigger={triggerProps => (
+      trigger={(triggerProps) => (
         <Button
           {...triggerProps}
           iconBefore={<MenuIcon label="" />}

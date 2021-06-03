@@ -14,7 +14,7 @@ describe('badge component', () => {
 
   it.each([0, 100, 12.34])(
     'should render positive numeric children (value=%p)',
-    value => {
+    (value) => {
       const { getByText } = render(<Badge max={value}>{value}</Badge>);
       expect(getByText(value.toString())).toBeInTheDocument();
     },
@@ -22,7 +22,7 @@ describe('badge component', () => {
 
   it.each([-1, -100, -Infinity])(
     'should clamp negative numeric children (value=%p)',
-    value => {
+    (value) => {
       const { getByText } = render(<Badge>{value}</Badge>);
       expect(getByText('0')).toBeInTheDocument();
     },
@@ -30,7 +30,7 @@ describe('badge component', () => {
 
   it.each(['-100', '0', '100', 'abc', '+100,000.333'])(
     'should render string children exactly (value=%p)',
-    value => {
+    (value) => {
       const { getByText } = render(<Badge>{value}</Badge>);
       expect(getByText(value)).toBeInTheDocument();
     },
@@ -68,7 +68,7 @@ describe('badge component', () => {
 
   it.each([0, -100, -Infinity])(
     'should clamp negative numeric values (value=%p, expected="0")',
-    value => {
+    (value) => {
       const { getByText } = render(<Badge>{value}</Badge>);
       expect(getByText('0')).toBeInTheDocument();
     },

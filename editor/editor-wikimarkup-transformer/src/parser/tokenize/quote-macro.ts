@@ -105,7 +105,7 @@ function sanitize(nodes: PMNode[], schema: Schema) {
 
 function transformHeading(heading: PMNode, schema: Schema): PMNode {
   const contentBuffer: PMNode[] = [];
-  heading.content.forEach(n => {
+  heading.content.forEach((n) => {
     const strong = schema.marks.strong.create();
     const italic = schema.marks.em.create();
     const gray = schema.marks.textColor.create({ color: '#97a0af' });

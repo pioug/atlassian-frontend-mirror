@@ -50,7 +50,7 @@ const AutoDismissExample = () => {
         </Button>
       </p>
       <FlagGroup onDismissed={handleDismiss}>
-        {flags.map(flagId => {
+        {flags.map((flagId) => {
           const appearance = appearances[flagId % appearances.length];
           return (
             <AutoDismissFlag

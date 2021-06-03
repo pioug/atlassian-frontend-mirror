@@ -22,10 +22,10 @@ const HANDLE_OFFSET = 4;
 const INNER_WIDTH = 20;
 const OUTER_WIDTH = INNER_WIDTH + HANDLE_OFFSET;
 const HANDLE_WIDTH = 2;
-const shouldResetGrabArea = width => {
+const shouldResetGrabArea = (width) => {
   return width >= GLOBAL_NAV_COLLAPSE_THRESHOLD && width < CONTENT_NAV_WIDTH;
 };
-const preventDefault = event => event.preventDefault();
+const preventDefault = (event) => event.preventDefault();
 
 export const BodyDragCursor = () => (
   <Global
@@ -37,7 +37,7 @@ export const BodyDragCursor = () => (
   />
 );
 
-const Outer = props => (
+const Outer = (props) => (
   <div
     css={{
       bottom: 0,
@@ -255,7 +255,7 @@ class ResizeControl extends PureComponent {
     this.setState({ mouseIsOverGrabArea: false });
   };
 
-  toggleCollapse = trigger => {
+  toggleCollapse = (trigger) => {
     const { navigation, createAnalyticsEvent } = this.props;
     const newCollapsedState = !navigation.state.isCollapsed;
     navigation.toggleCollapse();
@@ -265,7 +265,7 @@ class ResizeControl extends PureComponent {
     });
   };
 
-  handleResizeStart = event => {
+  handleResizeStart = (event) => {
     const initialX = event.pageX;
 
     this.setState({ initialX, mouseIsDown: true });
@@ -275,7 +275,7 @@ class ResizeControl extends PureComponent {
     window.addEventListener('mouseup', this.handleResizeEnd);
   };
 
-  initializeDrag = event => {
+  initializeDrag = (event) => {
     const { navigation } = this.props;
     const delta = event.pageX - this.state.initialX;
     const { isCollapsed } = navigation.state;
@@ -306,7 +306,7 @@ class ResizeControl extends PureComponent {
     this.setState({ didDragOpen, initialWidth, isDragging: true });
   };
 
-  handleResize = raf(event => {
+  handleResize = raf((event) => {
     const { mutationRefs } = this.props;
     const { initialX, initialWidth, isDragging, mouseIsDown } = this.state;
 

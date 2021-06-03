@@ -14,5 +14,5 @@ const appearancesMap = {
   subtle: 'subtle',
 };
 
-export const mapAppearanceToFieldBase = appearance =>
+export const mapAppearanceToFieldBase = (appearance) =>
   appearancesMap[appearance];

@@ -29,7 +29,7 @@ describe('GlobalNavigationItemPrimitive', () => {
     const MockWithGlobalTheme = jest.fn(() => WrappedWithGlobalTheme);
     jest.doMock('../../../../../theme', () => ({
       withGlobalTheme: MockWithGlobalTheme,
-      styleReducerNoOp: jest.fn(s => s),
+      styleReducerNoOp: jest.fn((s) => s),
     }));
 
     const { BaseGlobalNavigationItemPrimitive } = require('../../primitives');

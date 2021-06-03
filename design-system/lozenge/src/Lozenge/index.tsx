@@ -42,7 +42,7 @@ export default class Lozenge extends PureComponent<Props> {
     return (
       <Theme.Provider value={theme}>
         <Theme.Consumer {...this.props}>
-          {themeTokens => (
+          {(themeTokens) => (
             <Container testId={testId} {...themeTokens}>
               <Content {...themeTokens}>{children}</Content>
             </Container>

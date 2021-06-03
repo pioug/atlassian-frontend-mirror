@@ -91,15 +91,15 @@ describe('ReactNodeView', () => {
       ).toBe('');
     });
 
-    it('should add inline-block when displayInlineBlockForInlineNodes = true', () => {
+    it('should not add inline-block when displayInlineBlockForInlineNodes = true', () => {
       expect(
         nodeView!.createDomRef({ displayInlineBlockForInlineNodes: true }).style
           .display,
-      ).toBe('inline-block');
+      ).not.toBe('inline-block');
     });
 
-    it('should add inline-block when displayInlineBlockForInlineNodes is not passed in', () => {
-      expect(nodeView!.createDomRef().style.display).toBe('inline-block');
+    it('should not add inline-block when displayInlineBlockForInlineNodes is not passed in', () => {
+      expect(nodeView!.createDomRef().style.display).not.toBe('inline-block');
     });
   });
 });

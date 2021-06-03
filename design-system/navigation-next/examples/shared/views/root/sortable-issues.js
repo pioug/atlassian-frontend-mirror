@@ -163,7 +163,7 @@ class SortableIssuesViewBase extends Component {
     });
   };
 
-  onDragEnd = dropResult => {
+  onDragEnd = (dropResult) => {
     if (this.props.onDragEnd) {
       this.props.onDragEnd(dropResult);
     }
@@ -176,7 +176,7 @@ class SortableIssuesViewBase extends Component {
 
 const SortableIssuesView = () => (
   <ViewControllerSubscriber>
-    {viewController => (
+    {(viewController) => (
       <SortableItemState>
         {({ sortableItems, onDragEnd, setItems }) => (
           <SortableIssuesViewBase

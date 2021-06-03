@@ -6,7 +6,9 @@ import { cities } from './common/data';
 
 // you control how the options are filtered
 const filter = (inputValue: string) =>
-  cities.filter(i => i.label.toLowerCase().includes(inputValue.toLowerCase()));
+  cities.filter((i) =>
+    i.label.toLowerCase().includes(inputValue.toLowerCase()),
+  );
 
 // async load function using callback (promises also supported)
 const loadOptions = (

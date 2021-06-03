@@ -385,7 +385,7 @@ describe('SidebarResizeController', () => {
     beforeEach(() => {
       Object.defineProperty(window, 'matchMedia', {
         writable: true,
-        value: jest.fn().mockImplementation(query => ({
+        value: jest.fn().mockImplementation((query) => ({
           matches: true,
           media: query,
           onchange: null,
@@ -401,7 +401,7 @@ describe('SidebarResizeController', () => {
     afterEach(() => {
       Object.defineProperty(window, 'matchMedia', {
         writable: true,
-        value: jest.fn().mockImplementation(query => ({
+        value: jest.fn().mockImplementation((query) => ({
           matches: false,
           media: query,
           onchange: null,

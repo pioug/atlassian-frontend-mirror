@@ -33,7 +33,7 @@ const options: OptionsPropType = [
 export default function RadioInvalid() {
   return (
     <Form<FormData>
-      onSubmit={data => {
+      onSubmit={(data) => {
         console.log('form data', data);
         return Promise.resolve(validateOnSubmit(data));
       }}

@@ -48,7 +48,7 @@ export default function transform(
 
   logoImports.forEach((path: ASTPath<ImportSpecifier>) => {
     const foundKey = Object.keys(replacementMapping).find(
-      key => key === path.node.imported.name,
+      (key) => key === path.node.imported.name,
     );
 
     if (!foundKey || !replacementMapping[foundKey] || !path.node.local) {

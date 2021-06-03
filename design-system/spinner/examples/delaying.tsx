@@ -120,7 +120,7 @@ function CrossFade() {
           <ExitingPersistence appear>
             {phase === 'ready' && (
               <FadeIn>
-                {props => (
+                {(props) => (
                   <span {...props}>
                     <Avatar size="xlarge" />
                   </span>
@@ -131,7 +131,7 @@ function CrossFade() {
           <ExitingPersistence>
             {phase === 'loading' && (
               <FadeIn>
-                {props => (
+                {(props) => (
                   <span
                     {...props}
                     css={css`

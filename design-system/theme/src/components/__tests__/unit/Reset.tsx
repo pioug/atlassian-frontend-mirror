@@ -10,7 +10,7 @@ test('themed reset', () => {
   expect(
     mount(
       <ResetTheme.Provider
-        value={t => ({
+        value={(t) => ({
           ...t,
           backgroundColor: '#000',
           textColor: '#fff',

@@ -12,7 +12,7 @@ addLocaleData([...es]);
 const getGlobalNavigation = () => (
   <AnalyticsListener
     channel="navigation"
-    onEvent={analyticsEvent => {
+    onEvent={(analyticsEvent) => {
       const { payload, context } = analyticsEvent;
       const eventId = `${payload.actionSubject || payload.name} ${
         payload.action || payload.eventType

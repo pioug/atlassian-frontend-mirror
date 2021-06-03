@@ -12,7 +12,7 @@ import safeContextCall from '../../util/safeContextCall';
 import { clickManagerContext } from '../../util/contextNamespace';
 
 // HOC that typically wraps @atlaskit/item
-const withItemClick = WrappedItem =>
+const withItemClick = (WrappedItem) =>
   class WithItemClick extends Component {
     static displayName = `WithItemClick(${getDisplayName(WrappedItem)})`;
 
@@ -28,14 +28,14 @@ const withItemClick = WrappedItem =>
 
     shouldCloseAfterClick = () => !this.props.isDisabled && !this.props.href;
 
-    handleClick = event => {
+    handleClick = (event) => {
       this.props.onClick(event);
       if (this.shouldCloseAfterClick()) {
         this.callContextFn('itemClicked');
       }
     };
 
-    handleKeyDown = event => {
+    handleKeyDown = (event) => {
       if (this.props.onKeyDown) {
         this.props.onKeyDown(event);
       } else if (event.key === 'Space' || event.key === 'Enter') {

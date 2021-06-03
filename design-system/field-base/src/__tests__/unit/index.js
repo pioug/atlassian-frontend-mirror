@@ -245,9 +245,9 @@ describe('smart component', () => {
     jest.useRealTimers();
   });
 
-  const isDialogOpened = wrapper => wrapper.find(InlineDialog).prop('isOpen');
+  const isDialogOpened = (wrapper) => wrapper.find(InlineDialog).prop('isOpen');
 
-  const openDialog = wrapper => {
+  const openDialog = (wrapper) => {
     expect(isDialogOpened(wrapper)).toBe(false);
     wrapper.find(Content).simulate('focus'); // open the dialog
     expect(isDialogOpened(wrapper)).toBe(true);

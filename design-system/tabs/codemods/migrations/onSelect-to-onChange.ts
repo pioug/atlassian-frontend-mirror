@@ -46,7 +46,7 @@ export const migrateOnSelectType = (
       j(element)
         .find(j.JSXOpeningElement)
         .find(j.JSXSpreadAttribute)
-        .forEach(spreadAttribute => {
+        .forEach((spreadAttribute) => {
           const spreadArgument = spreadAttribute.value.argument;
           tabs = j.memberExpression(spreadArgument, j.identifier('tabs'));
         });

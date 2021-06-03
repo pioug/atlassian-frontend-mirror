@@ -33,7 +33,7 @@ export default () => {
 
     if (textIndex !== fullText.length - 1) {
       const id = setTimeout(() => {
-        setTextIndex(prev => prev + 2);
+        setTextIndex((prev) => prev + 2);
       }, 30);
 
       return () => clearTimeout(id);

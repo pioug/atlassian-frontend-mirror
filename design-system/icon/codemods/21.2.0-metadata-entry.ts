@@ -58,7 +58,7 @@ function hasImportDeclaration(
 ) {
   return !!source
     .find(j.ImportDeclaration)
-    .filter(path => path.node.source.value === importPath).length;
+    .filter((path) => path.node.source.value === importPath).length;
 }
 
 function tryCreateImport({
@@ -75,7 +75,7 @@ function tryCreateImport({
   const exists: boolean =
     base
       .find(j.ImportDeclaration)
-      .filter(path => path.value.source.value === packageName).length > 0;
+      .filter((path) => path.value.source.value === packageName).length > 0;
 
   if (exists) {
     return;
@@ -83,7 +83,7 @@ function tryCreateImport({
 
   base
     .find(j.ImportDeclaration)
-    .filter(path => path.value.source.value === relativeToPackage)
+    .filter((path) => path.value.source.value === relativeToPackage)
     .insertBefore(j.importDeclaration([], j.literal(packageName)));
 }
 
@@ -100,15 +100,15 @@ function addToImport({
 }) {
   base
     .find(j.ImportDeclaration)
-    .filter(path => path.value.source.value === packageName)
-    .replaceWith(declaration => {
+    .filter((path) => path.value.source.value === packageName)
+    .replaceWith((declaration) => {
       return j.importDeclaration(
         [
           // we are appending to the existing specifiers
           // We are doing a filter hear because sometimes specifiers can be removed
           // but they hand around in the declaration
           ...(declaration.value.specifiers || []).filter(
-            item => item.type === 'ImportSpecifier' && item.imported != null,
+            (item) => item.type === 'ImportSpecifier' && item.imported != null,
           ),
           importSpecifier,
         ],

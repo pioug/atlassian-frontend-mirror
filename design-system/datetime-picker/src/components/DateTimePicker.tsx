@@ -166,7 +166,7 @@ const Flex = styled.div<StyleProps>`
   display: flex;
   transition: background-color 200ms ease-in-out, border-color 200ms ease-in-out;
   &:hover {
-    cursor: ${props => (props.isDisabled ? 'default' : 'pointer')};
+    cursor: ${(props) => (props.isDisabled ? 'default' : 'pointer')};
     ${getBackgroundColorHover}
     ${getBorderColorHover}
   }
@@ -204,7 +204,7 @@ const IconContainer = styled.div`
 
 // react-select overrides (via @atlaskit/select).
 const styles: StylesConfig = {
-  control: style => ({
+  control: (style) => ({
     ...style,
     backgroundColor: 'transparent',
     border: 2,

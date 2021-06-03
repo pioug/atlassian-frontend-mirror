@@ -13,7 +13,7 @@ import Form, {
   ValidMessage,
 } from '../src';
 
-const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 interface OptionType {
   label: string;
   value: string;
@@ -109,14 +109,14 @@ export default class extends Component<{}> {
                 label="Select a color"
                 defaultValue={null}
                 isRequired
-                validate={async value => {
+                validate={async (value) => {
                   if (value) {
                     return undefined;
                   }
 
-                  return new Promise(resolve => setTimeout(resolve, 300)).then(
-                    () => 'Please select a color',
-                  );
+                  return new Promise((resolve) =>
+                    setTimeout(resolve, 300),
+                  ).then(() => 'Please select a color');
                 }}
               >
                 {({ fieldProps: { id, ...rest }, error }) => (

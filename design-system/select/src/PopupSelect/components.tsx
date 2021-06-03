@@ -60,7 +60,7 @@ const Control: FC<ControlProps<OptionType, boolean>> = ({
     />
   </div>
 );
-export const DummyControl: FC<ControlProps<OptionType, boolean>> = props => (
+export const DummyControl: FC<ControlProps<OptionType, boolean>> = (props) => (
   <div
     css={{
       border: 0,

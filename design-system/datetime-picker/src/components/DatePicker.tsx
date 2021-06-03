@@ -596,7 +596,7 @@ class DatePicker extends React.Component<DatePickerProps, State> {
               ...controlStyles,
               ...disabledStyle,
             }),
-            indicatorsContainer: base => ({
+            indicatorsContainer: (base) => ({
               ...base,
               paddingLeft: ICON_PADDING,
               paddingRight: gridSize() - BORDER_WIDTH,

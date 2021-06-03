@@ -18,7 +18,7 @@ export default function Example() {
         <Toggle
           id="toggle-tooltip"
           isChecked={isAllowed}
-          onChange={() => setIsAllowed(prev => !prev)}
+          onChange={() => setIsAllowed((prev) => !prev)}
         />
       </Tooltip>
     </>

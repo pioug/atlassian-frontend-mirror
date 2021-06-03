@@ -7,7 +7,7 @@ export default class StatelessExample extends Component {
   };
 
   // eslint-disable-next-line no-undef
-  setValue = e => this.setState({ value: e.target.value });
+  setValue = (e) => this.setState({ value: e.target.value });
 
   render() {
     return (

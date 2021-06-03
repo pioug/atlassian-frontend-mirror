@@ -1,3 +1,3 @@
-const styleReducerNoOp = styles => styles;
+const styleReducerNoOp = (styles) => styles;
 
 export default styleReducerNoOp;

@@ -12,7 +12,7 @@ export default function ControlledExample() {
   );
 
   const onChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
-    setIsChecked(current => !current);
+    setIsChecked((current) => !current);
     setOnChangeResult(`props.isChecked: ${event.target.checked}`);
   }, []);
 

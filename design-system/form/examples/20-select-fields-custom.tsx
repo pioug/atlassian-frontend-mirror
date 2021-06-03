@@ -124,7 +124,7 @@ export default () => (
     }}
   >
     <Form<FormTypes>
-      onSubmit={data => {
+      onSubmit={(data) => {
         console.log('form data', data);
         return Promise.resolve(validateOnSubmit(data));
       }}

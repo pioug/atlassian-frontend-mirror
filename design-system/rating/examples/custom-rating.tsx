@@ -33,7 +33,7 @@ export default () => {
     >
       <RatingGroup groupName="rating--custom">
         <Rating
-          render={props => (
+          render={(props) => (
             <Emoji {...props}>
               <span role="img" aria-label="Crying Emoji">
                 😭
@@ -44,7 +44,7 @@ export default () => {
           value="omfg"
         />
         <Rating
-          render={props => (
+          render={(props) => (
             <Emoji {...props}>
               <span role="img" aria-label="Sad Emoji">
                 😞
@@ -55,7 +55,7 @@ export default () => {
           value="omg"
         />
         <Rating
-          render={props => (
+          render={(props) => (
             <Emoji {...props}>
               <span role="img" aria-label="Smiling Emoji">
                 😬
@@ -66,7 +66,7 @@ export default () => {
           value="hmmm"
         />
         <Rating
-          render={props => (
+          render={(props) => (
             <Emoji {...props}>
               <span role="img" aria-label="Happy Emoji">
                 🙂
@@ -77,7 +77,7 @@ export default () => {
           value="its-ok"
         />
         <Rating
-          render={props => (
+          render={(props) => (
             <Emoji {...props}>
               <span role="img" aria-label="Super Happy Emoji">
                 😁
@@ -88,7 +88,7 @@ export default () => {
           value="so-good"
         />
         <Rating
-          render={props => (
+          render={(props) => (
             <Emoji {...props}>
               <span role="img" aria-label="In Love Emoji">
                 😍

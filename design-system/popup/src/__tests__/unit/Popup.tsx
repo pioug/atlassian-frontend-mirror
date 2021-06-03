@@ -385,7 +385,7 @@ describe('Popup', () => {
   it('popup stays open if propagation is stopped on an event before it reaches window', async () => {
     const content = () => (
       <button
-        onClick={event => {
+        onClick={(event) => {
           event.stopPropagation();
         }}
       >

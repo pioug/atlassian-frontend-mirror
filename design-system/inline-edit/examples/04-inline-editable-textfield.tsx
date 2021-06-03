@@ -23,7 +23,7 @@ const InlineEditExample = () => {
       <InlineEditableTextfield
         defaultValue={editValue}
         label="Inline editable textfield"
-        onConfirm={value => setEditValue(value)}
+        onConfirm={(value) => setEditValue(value)}
         placeholder="Click to enter text"
         validate={validate}
       />

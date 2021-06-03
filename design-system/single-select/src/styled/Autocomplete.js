@@ -5,7 +5,7 @@ import { multiply } from '@atlaskit/theme/math';
 import placeholderStyles from './placeholderStyles';
 
 /* Placeholder has been temporarily inlined until we have a helper library for such things */
-const getPlaceholderStyle = style => css`
+const getPlaceholderStyle = (style) => css`
   &::-webkit-input-placeholder {
     /* WebKit, Blink, Edge */
     ${style};

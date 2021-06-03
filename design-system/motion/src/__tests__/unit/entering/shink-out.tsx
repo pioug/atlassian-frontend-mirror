@@ -21,7 +21,7 @@ describe('<ShrinkOut />', () => {
     const { getByTestId } = render(
       <ExitingPersistence>
         <ShrinkOut>
-          {props => (
+          {(props) => (
             <ComponentStub
               testId="target"
               box={{ offsetHeight: 25, offsetWidth: 100 }}
@@ -39,7 +39,7 @@ describe('<ShrinkOut />', () => {
     const { rerender, getByTestId } = render(
       <ExitingPersistence>
         <ShrinkOut>
-          {props => (
+          {(props) => (
             <ComponentStub
               testId="target"
               box={{ offsetHeight: 25, offsetWidth: 100 }}
@@ -60,7 +60,7 @@ describe('<ShrinkOut />', () => {
     const { rerender, getByTestId } = render(
       <ExitingPersistence>
         <ShrinkOut>
-          {props => (
+          {(props) => (
             <ComponentStub
               testId="target"
               box={{ offsetHeight: 25, offsetWidth: 100 }}
@@ -80,7 +80,7 @@ describe('<ShrinkOut />', () => {
     const { rerender, getByTestId } = render(
       <ExitingPersistence>
         <ShrinkOut>
-          {props => (
+          {(props) => (
             <ComponentStub
               testId="target"
               box={{ offsetHeight: 25, offsetWidth: 100 }}
@@ -100,7 +100,7 @@ describe('<ShrinkOut />', () => {
     const { rerender, getByTestId } = render(
       <ExitingPersistence>
         <ShrinkOut>
-          {props => (
+          {(props) => (
             <ComponentStub
               testId="target"
               box={{ offsetHeight: 25, offsetWidth: 100 }}
@@ -126,7 +126,7 @@ describe('<ShrinkOut />', () => {
     const { rerender, getByTestId } = render(
       <ExitingPersistence>
         <ShrinkOut>
-          {props => (
+          {(props) => (
             <ComponentStub
               testId="target"
               box={{ offsetHeight: 25, offsetWidth: 100 }}
@@ -150,7 +150,7 @@ describe('<ShrinkOut />', () => {
     const { rerender, getByTestId } = render(
       <ExitingPersistence>
         <ShrinkOut>
-          {props => (
+          {(props) => (
             <ComponentStub
               testId="target"
               box={{ offsetHeight: 25, offsetWidth: 100 }}
@@ -176,7 +176,7 @@ describe('<ShrinkOut />', () => {
     const { rerender } = render(
       <ExitingPersistence>
         <ShrinkOut onFinish={callback}>
-          {props => (
+          {(props) => (
             <ComponentStub
               testId="target"
               box={{ offsetHeight: 25, offsetWidth: 100 }}
@@ -201,7 +201,7 @@ describe('<ShrinkOut />', () => {
     const { rerender, baseElement } = render(
       <ExitingPersistence>
         <ShrinkOut onFinish={callback}>
-          {props => (
+          {(props) => (
             <ComponentStub
               testId="target"
               box={{ offsetHeight: 25, offsetWidth: 100 }}

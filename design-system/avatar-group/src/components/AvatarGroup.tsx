@@ -207,7 +207,7 @@ const AvatarGroup = ({
         zIndex={layers.modal()}
         content={() => (
           <PopupMenuGroup
-            onClick={e => e.stopPropagation()}
+            onClick={(e) => e.stopPropagation()}
             minWidth={250}
             maxHeight={300}
           >
@@ -230,7 +230,7 @@ const AvatarGroup = ({
             </Section>
           </PopupMenuGroup>
         )}
-        trigger={triggerProps =>
+        trigger={(triggerProps) =>
           renderMoreButton({
             ...triggerProps,
             onClick: () => setIsOpen(!isOpen),

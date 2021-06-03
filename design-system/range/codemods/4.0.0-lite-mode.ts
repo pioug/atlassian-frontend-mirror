@@ -34,10 +34,10 @@ function getJSXAttributesByName(
   return j(element)
     .find(j.JSXOpeningElement)
     .find(j.JSXAttribute)
-    .filter(attribute => {
+    .filter((attribute) => {
       const matches = j(attribute)
         .find(j.JSXIdentifier)
-        .filter(identifier => identifier.value.name === attributeName);
+        .filter((identifier) => identifier.value.name === attributeName);
       return Boolean(matches.length);
     });
 }
@@ -52,7 +52,7 @@ function updateRef(j: core.JSCodeshift, source: any) {
   source
     .findJSXElements(defaultSpecifier)
     .forEach((element: ASTPath<JSXAttribute>) => {
-      getJSXAttributesByName(j, element, 'inputRef').forEach(attribute => {
+      getJSXAttributesByName(j, element, 'inputRef').forEach((attribute) => {
         j(attribute).replaceWith(
           j.jsxAttribute(j.jsxIdentifier('ref'), attribute.node.value),
         );

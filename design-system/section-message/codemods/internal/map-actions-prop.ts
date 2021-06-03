@@ -192,12 +192,12 @@ export const mapActionsProp = (
   if (actionsAttributes.length > 0 && sectionMessageDynamicImportName) {
     addSectionMessageActionDynamicImport(
       j,
-      source.find(j.VariableDeclaration).filter(variableDeclarationPath => {
+      source.find(j.VariableDeclaration).filter((variableDeclarationPath) => {
         return (
           j(variableDeclarationPath)
             .find(j.VariableDeclarator)
             .filter(
-              variableDeclaratorPath =>
+              (variableDeclaratorPath) =>
                 variableDeclaratorPath.node.id.type === 'Identifier' &&
                 variableDeclaratorPath.node.id.name ===
                   sectionMessageDynamicImportName,

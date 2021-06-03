@@ -9,7 +9,7 @@ export const taskItem = (
   { context }: NodeEncoderOpts = {},
 ): string => {
   let result: string = '';
-  node.forEach(n => {
+  node.forEach((n) => {
     // Generate stars based on depth
     const prefix = Array(nestedLevel).fill('*').join('');
     if (node.attrs.state === 'DONE') {

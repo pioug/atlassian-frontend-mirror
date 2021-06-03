@@ -121,7 +121,7 @@ const ContainerNavigation = () => (
           }}
         >
           <ContainerHeader
-            before={itemState => (
+            before={(itemState) => (
               <ItemAvatar
                 itemState={itemState}
                 appearance="square"
@@ -169,9 +169,9 @@ const ContainerNavigation = () => (
 
 function NOOP() {}
 
-const withNavState = Comp => props => (
+const withNavState = (Comp) => (props) => (
   <UIControllerSubscriber>
-    {nav => <Comp navState={nav.state} {...props} />}
+    {(nav) => <Comp navState={nav.state} {...props} />}
   </UIControllerSubscriber>
 );
 
@@ -204,7 +204,7 @@ const CollapseStatusListener = withNavState(CollapseStatus);
 // Nav Implementation
 // ==============================
 
-const Logger = p => (
+const Logger = (p) => (
   <div
     {...p}
     css={{
@@ -262,7 +262,7 @@ class ExtendingNavSubscriber extends React.Component {
     this.updateWidth();
   }
 
-  onEmit = name => value => {
+  onEmit = (name) => (value) => {
     const callStack = this.state.callStack.slice(0);
     const key = makeKey();
     callStack.push({ key, name, value });
@@ -320,11 +320,11 @@ class ExtendingNavSubscriber extends React.Component {
   };
 
   onFlyoutToggle = () => {
-    this.setState(state => ({ isFlyoutAvailable: !state.isFlyoutAvailable }));
+    this.setState((state) => ({ isFlyoutAvailable: !state.isFlyoutAvailable }));
   };
 
   onAlternateBehaviourToggle = () => {
-    this.setState(state => ({
+    this.setState((state) => ({
       isAlternateFlyoutBehaviourEnabled: !state.isAlternateFlyoutBehaviourEnabled,
     }));
   };
@@ -380,7 +380,7 @@ class ExtendingNavSubscriber extends React.Component {
                 Clear
               </button>
               {lastTen.length ? (
-                lastTen.map(e => (
+                lastTen.map((e) => (
                   <div key={e.key}>
                     <code>
                       {e.name}({e.value})

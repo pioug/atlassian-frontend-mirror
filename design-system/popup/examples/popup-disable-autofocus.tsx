@@ -44,7 +44,7 @@ export default () => {
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
         content={() => <PopupContent />}
-        trigger={triggerProps => (
+        trigger={(triggerProps) => (
           <Button
             id="popup-trigger"
             {...triggerProps}

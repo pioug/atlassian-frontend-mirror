@@ -32,8 +32,8 @@ const animation = css`
 export const Div = styled.div<TargetProps>`
   z-index: ${layers.spotlight() + 1};
 
-  ${p => (p.bgColor ? `background-color: ${p.bgColor};` : null)}
-  ${p => (p.radius ? `border-radius: ${p.radius}px;` : null)}
+  ${(p) => (p.bgColor ? `background-color: ${p.bgColor};` : null)}
+  ${(p) => (p.radius ? `border-radius: ${p.radius}px;` : null)}
 `;
 
 export const TargetInner = styled(Div)`
@@ -41,7 +41,7 @@ export const TargetInner = styled(Div)`
 `;
 
 export const TargetOverlay = styled.div`
-  cursor: ${p => (p.onClick ? 'pointer' : 'auto')};
+  cursor: ${(p) => (p.onClick ? 'pointer' : 'auto')};
   height: 100%;
   left: 0;
   position: absolute;

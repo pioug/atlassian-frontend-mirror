@@ -23,7 +23,7 @@ const CustomLink = forwardRef<HTMLAnchorElement, CustomProps>(
 );
 
 const Example = () => (
-  <div onClick={e => e.preventDefault()}>
+  <div onClick={(e) => e.preventDefault()}>
     <CustomItem href="/create-article-1" component={CustomLink}>
       Custom create article
     </CustomItem>

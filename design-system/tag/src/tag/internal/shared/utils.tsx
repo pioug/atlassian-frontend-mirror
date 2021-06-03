@@ -2,7 +2,7 @@ import { Ref } from 'react';
 
 export function mergeRefs<T>(...refs: Array<Ref<T>>) {
   return (ref: T): void => {
-    refs.forEach(resolvableRef => {
+    refs.forEach((resolvableRef) => {
       if (!resolvableRef) {
         return;
       }

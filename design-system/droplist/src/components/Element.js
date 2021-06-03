@@ -19,7 +19,7 @@ export const baseTypes = {
 export default class Element extends PureComponent {
   // this prevents the focus ring from appearing when the element is clicked.
   // It doesn't interfere with the onClick handler
-  handleMouseDown = e => {
+  handleMouseDown = (e) => {
     e.preventDefault();
     this.props.handleMouseDown();
   };

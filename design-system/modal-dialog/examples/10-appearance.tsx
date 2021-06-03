@@ -23,7 +23,7 @@ export default function ExampleAppearance() {
   return (
     <div>
       <ButtonGroup>
-        {appearances.map(name => (
+        {appearances.map((name) => (
           <Button
             key={`${name}-trigger`}
             testId={name}
@@ -36,8 +36,8 @@ export default function ExampleAppearance() {
 
       <ModalTransition>
         {appearances
-          .filter(a => a === isOpen)
-          .map(name => (
+          .filter((a) => a === isOpen)
+          .map((name) => (
             <Modal
               key="active-modal"
               actions={actions}

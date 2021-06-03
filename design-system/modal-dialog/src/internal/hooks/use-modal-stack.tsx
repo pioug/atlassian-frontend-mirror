@@ -70,7 +70,7 @@ export default function useModalStack({
     }
 
     // Fire all registered modal dialogs to update their position in the stack.
-    modalStackRegister.forEach(cb => cb());
+    modalStackRegister.forEach((cb) => cb());
   }, [updateStack, isExiting]);
 
   useEffect(
@@ -79,7 +79,7 @@ export default function useModalStack({
       const currentStackIndex = modalStackRegister.indexOf(updateStack);
       if (currentStackIndex !== -1) {
         modalStackRegister.splice(currentStackIndex, 1);
-        modalStackRegister.forEach(cb => cb());
+        modalStackRegister.forEach((cb) => cb());
       }
     },
     [updateStack],

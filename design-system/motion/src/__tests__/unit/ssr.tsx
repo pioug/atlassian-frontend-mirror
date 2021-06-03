@@ -35,7 +35,7 @@ describe('ssr for motion', () => {
     expect(
       // eslint-disable-next-line no-console
       (console.error as jest.Mock).mock.calls
-        .map(call => call.join(''))
+        .map((call) => call.join(''))
         .join(''),
     ).toEqual('');
   });

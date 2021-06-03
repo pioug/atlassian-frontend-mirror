@@ -158,7 +158,7 @@ describe('LoadingContainerAdvanced', () => {
       wrapper = mount(
         <LoadingContainerAdvanced targetRef={() => target}>
           <Contents
-            innerRef={el => {
+            innerRef={(el) => {
               target = el;
             }}
           />
@@ -707,7 +707,7 @@ describe('LoadingContainerAdvanced', () => {
         mount(
           <LoadingContainerAdvanced targetRef={() => target}>
             <Contents
-              innerRef={el => {
+              innerRef={(el) => {
                 target = el;
               }}
             />
@@ -727,7 +727,7 @@ describe('LoadingContainerAdvanced', () => {
       > = mount(
         <LoadingContainerAdvanced isLoading={false}>
           <Contents
-            innerRef={el => {
+            innerRef={(el) => {
               target = el;
             }}
           />

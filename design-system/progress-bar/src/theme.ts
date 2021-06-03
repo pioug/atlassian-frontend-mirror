@@ -14,7 +14,7 @@ const decreasingBarAnimation = keyframes`
   to { left: 110%; width: 10%;}
 `;
 
-export const Theme = createTheme<ThemeTokens, ThemeProps>(props => ({
+export const Theme = createTheme<ThemeTokens, ThemeProps>((props) => ({
   container: {
     background: N40A,
     borderRadius: 3,

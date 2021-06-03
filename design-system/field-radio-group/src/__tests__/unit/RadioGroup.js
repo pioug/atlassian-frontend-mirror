@@ -90,7 +90,7 @@ describe('@atlaskit/field-radio-group', () => {
             />,
           );
           expect(wrapper.find(Radio).length).toBeGreaterThan(0);
-          wrapper.find(Radio).forEach(radio => {
+          wrapper.find(Radio).forEach((radio) => {
             expect(radio.prop('isRequired', isRequired)).not.toBe(undefined);
           });
         });

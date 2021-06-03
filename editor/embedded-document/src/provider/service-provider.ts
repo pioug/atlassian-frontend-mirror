@@ -6,7 +6,7 @@ export interface Config extends ServiceConfig {}
 
 function queryBuilder(data: { [k: string]: string }): string {
   return Object.keys(data)
-    .map(key => {
+    .map((key) => {
       return [key, data[key]].map(encodeURIComponent).join('=');
     })
     .join('&');

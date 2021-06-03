@@ -28,7 +28,7 @@ interface StyledProps {
 }
 
 export const Target = styled.div<StyledProps>`
-  background-color: ${p => color[p.color] || colors.primary};
+  background-color: ${(p) => color[p.color] || colors.primary};
   border-radius: 3px;
   color: white;
   cursor: pointer;
@@ -41,7 +41,7 @@ export const Target = styled.div<StyledProps>`
 `;
 
 export const BigTarget = styled.div<StyledProps>`
-  background-color: ${p => color[p.color] || colors.primary};
+  background-color: ${(p) => color[p.color] || colors.primary};
   border-radius: 3px;
   color: white;
   cursor: pointer;

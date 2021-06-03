@@ -177,14 +177,14 @@ describe('dropdown menu - DropdownItemFocusManager', () => {
         { attachTo: rootElement },
       );
       items = wrapper.find(DropdownItem);
-      getItem = idx => items.at(idx);
+      getItem = (idx) => items.at(idx);
       pressKey = (key, opts = {}) =>
         wrapper.instance().handleKeyboard({
           key,
           ...opts,
           preventDefault: () => {},
         });
-      isItemFocused = idx => wrapper.instance().focusedItemIndex() === idx;
+      isItemFocused = (idx) => wrapper.instance().focusedItemIndex() === idx;
     });
 
     afterEach(() => {

@@ -11,7 +11,7 @@ function camelToKebab(str) {
 function getTransition(keys) {
   return {
     transition: keys
-      .map(k => `${camelToKebab(k)} ${DURATION}ms cubic-bezier(0.2, 0, 0, 1)`)
+      .map((k) => `${camelToKebab(k)} ${DURATION}ms cubic-bezier(0.2, 0, 0, 1)`)
       .join(','),
   };
 }
@@ -23,7 +23,7 @@ function getStyle({ keys, values }) {
   return style;
 }
 function getChanges(keys) {
-  const props = keys.map(k => camelToKebab(k));
+  const props = keys.map((k) => camelToKebab(k));
   return { willChange: props.join(',') };
 }
 export function isTransitioning(state) {
@@ -48,7 +48,7 @@ export default class ResizeTransition extends PureComponent {
     this.isMounted = true;
   }
 
-  getTarget = ref => {
+  getTarget = (ref) => {
     this.target = ref;
 
     const { innerRef } = this.props;
@@ -77,7 +77,7 @@ export default class ResizeTransition extends PureComponent {
         in={inProp}
         timeout={this.isMounted ? DURATION : 0}
       >
-        {transitionState => {
+        {(transitionState) => {
           // transitions interupt manual resize behaviour
           const cssTransition =
             !userIsDragging && this.isMounted ? getTransition(properties) : {};

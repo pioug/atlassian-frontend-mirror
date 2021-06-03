@@ -11,7 +11,7 @@ describe('date-parser', () => {
 
     it.each([['potato'], ['13/'], ['13/1'], ['2/30']])(
       'parseDate(%s)',
-      dateString => {
+      (dateString) => {
         expect(isNaN(parseDate(dateString).getTime())).toEqual(true);
       },
     );

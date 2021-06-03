@@ -40,7 +40,7 @@ describe('@atlaskit/single-select - smart', () => {
         expect(wrapper.state('selectedItem')).toBe(items[2]);
       });
 
-      it('should select next matching item if the same key was pressed after an interval', done => {
+      it('should select next matching item if the same key was pressed after an interval', (done) => {
         wrapper.simulate('keyDown', { key: 't' });
         expect(wrapper.state('selectedItem')).toBe(items[2]);
         setTimeout(() => {
@@ -61,7 +61,7 @@ describe('@atlaskit/single-select - smart', () => {
         expect(wrapper.state('selectedItem')).toBe(items[4]);
       });
 
-      it('should return to the first matching item when the last one was selected', done => {
+      it('should return to the first matching item when the last one was selected', (done) => {
         wrapper.setState({ selectedItem: items[3] });
         wrapper.simulate('keyDown', { key: 't' });
         expect(wrapper.state('selectedItem')).toBe(items[4]);

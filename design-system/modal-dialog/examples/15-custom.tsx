@@ -120,8 +120,8 @@ export default function ModalDemo() {
 
       <ModalTransition>
         {variants
-          .filter(w => w === isOpen)
-          .map(name => (
+          .filter((w) => w === isOpen)
+          .map((name) => (
             <ModalDialog
               key={name}
               actions={['footer', 'both'].includes(name) ? actions : undefined}

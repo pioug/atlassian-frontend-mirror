@@ -17,8 +17,8 @@ export default () => (
     }}
   >
     <Form<{ username: string; password: string; remember: boolean }>
-      onSubmit={data => {
-        return new Promise(resolve => setTimeout(resolve, 2000)).then(() =>
+      onSubmit={(data) => {
+        return new Promise((resolve) => setTimeout(resolve, 2000)).then(() =>
           data.username === 'error' ? { username: 'IN_USE' } : undefined,
         );
       }}

@@ -60,7 +60,7 @@ export const ProfilePopup = () => {
       content={ProfileContent}
       isOpen={isOpen}
       onClose={onClose}
-      trigger={triggerProps => (
+      trigger={(triggerProps) => (
         <Profile
           icon={
             <img

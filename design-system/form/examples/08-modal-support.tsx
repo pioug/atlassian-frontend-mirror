@@ -29,7 +29,7 @@ export default function ModalDialogForm() {
             ]}
           >
             <Form
-              onSubmit={value =>
+              onSubmit={(value) =>
                 window.alert(
                   `You submitted:\n${JSON.stringify(value, undefined, 2)}`,
                 )

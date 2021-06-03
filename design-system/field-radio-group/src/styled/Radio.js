@@ -18,7 +18,7 @@ const disabledColor = themed({ light: colors.N80, dark: colors.N80 });
 
 export const Label = styled.label`
   display: 'block';
-  color: ${props =>
+  color: ${(props) =>
     props.isDisabled ? disabledColor(props) : colors.text(props)};
   ${({ isDisabled }) =>
     isDisabled
@@ -53,7 +53,7 @@ const border = css`
   stroke-width: 2px;
 `;
 
-const getBorderColor = props => {
+const getBorderColor = (props) => {
   if (props.isDisabled) return '';
   if (props.isFocused) return focusBorder;
   if (props.isActive) return activeBorder;
@@ -62,7 +62,7 @@ const getBorderColor = props => {
   return border;
 };
 
-const getDotColor = props => {
+const getDotColor = (props) => {
   const { isSelected, isDisabled, isActive, ...rest } = props;
 
   let color = themed({ light: colors.N10, dark: colors.DN10 });
@@ -77,7 +77,7 @@ const getDotColor = props => {
   return color(rest);
 };
 
-const getCircleColor = props => {
+const getCircleColor = (props) => {
   const { isSelected, isDisabled, isActive, isHovered, ...rest } = props;
 
   // set the default

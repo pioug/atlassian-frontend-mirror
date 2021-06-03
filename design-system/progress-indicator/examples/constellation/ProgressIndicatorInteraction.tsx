@@ -45,13 +45,13 @@ export default class extends Component<Props, State> {
   };
 
   handlePrev = () => {
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       selectedIndex: prevState.selectedIndex - 1,
     }));
   };
 
   handleNext = () => {
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       selectedIndex: prevState.selectedIndex + 1,
     }));
   };

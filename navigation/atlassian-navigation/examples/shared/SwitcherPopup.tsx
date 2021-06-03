@@ -31,7 +31,7 @@ const SwitcherData: React.FC<{ update: () => void }> = ({ update }) => {
   useEffect(() => {
     mockEndpoints(
       'jira',
-      originalMockData => {
+      (originalMockData) => {
         return {
           ...originalMockData,
           RECENT_CONTAINERS_DATA: {
@@ -88,7 +88,7 @@ export const SwitcherPopup = () => {
       content={({ update }) => <SwitcherContent update={update} />}
       isOpen={isOpen}
       onClose={onClose}
-      trigger={triggerProps => (
+      trigger={(triggerProps) => (
         <AppSwitcher
           onClick={onClick}
           tooltip="Switch to..."

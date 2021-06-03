@@ -16,7 +16,7 @@ export default function Example() {
     return (
       <form
         {...props}
-        onSubmit={e => {
+        onSubmit={(e) => {
           e.preventDefault();
           const data = new FormData(e.target as HTMLFormElement);
           const obj: any = {};

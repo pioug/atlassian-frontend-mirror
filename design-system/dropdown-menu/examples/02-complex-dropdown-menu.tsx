@@ -9,7 +9,7 @@ export default () => (
   <DropdownMenu
     trigger="Filter cities"
     triggerType="button"
-    onOpenChange={e => console.log('dropdown opened', e)}
+    onOpenChange={(e) => console.log('dropdown opened', e)}
   >
     <DropdownItemGroupRadio id="cities-aus" title="Australia">
       <DropdownItemRadio id="sydney">Sydney</DropdownItemRadio>

@@ -124,7 +124,7 @@ class ProgressExample extends Component<{}, State> {
       href: '#',
     };
 
-    const newstages = this.state.items.map(x => {
+    const newstages = this.state.items.map((x) => {
       if (x.id === `${currentId}`) {
         return completed;
       }
@@ -158,7 +158,7 @@ class ProgressExample extends Component<{}, State> {
       href: '#',
     };
 
-    const newstages = this.state.items.map(x => {
+    const newstages = this.state.items.map((x) => {
       if (x.id === `${currentId}`) {
         return completed;
       }

@@ -18,7 +18,7 @@ const rankEnd = (sourceIndex: number, afterIndex: number): RankEnd => {
 const extractKeys = (rows: Array<RowType>) =>
   rows.map((row: RowType) => row.key);
 const getKeys = (params: Array<number>) =>
-  Array.from(params).map(rowIndex => getKey(rowIndex));
+  Array.from(params).map((rowIndex) => getKey(rowIndex));
 
 test('computeIndex - if rowsPerPage are not passed, index is on first page', () => {
   const index = 5;

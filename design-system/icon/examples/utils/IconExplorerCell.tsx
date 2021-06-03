@@ -26,7 +26,7 @@ const iconExplorerLink = css`
   }
 `;
 
-const IconModalHeader: FC = props => (
+const IconModalHeader: FC = (props) => (
   // eslint-disable-next-line jsx-a11y/heading-has-content
   <h3
     css={css`
@@ -40,7 +40,7 @@ const IconModalHeader: FC = props => (
   />
 );
 
-const Divider: FC = props => (
+const Divider: FC = (props) => (
   // eslint-disable-next-line jsx-a11y/heading-has-content
   <h4
     css={css`

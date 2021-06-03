@@ -14,7 +14,7 @@ const BreadcrumbsExpand = () => {
     <Breadcrumbs
       maxItems={2}
       isExpanded={isExpanded}
-      onExpand={e => expand(e)}
+      onExpand={(e) => expand(e)}
       testId="MyBreadcrumbsTestId"
     >
       <BreadcrumbsItem href="/pages" text="Pages" key="Pages" />

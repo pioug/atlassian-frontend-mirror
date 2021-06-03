@@ -15,7 +15,7 @@ function PopupStoryButtonOpen() {
           <Button>Test</Button>
         </div>
       )}
-      trigger={triggerProps => (
+      trigger={(triggerProps) => (
         <Button
           testId="popup-trigger"
           {...triggerProps}

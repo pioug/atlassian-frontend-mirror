@@ -102,7 +102,7 @@ describe('Pagination', () => {
 
       expect(renderResult.getByText('...')).toBeInTheDocument();
 
-      ['6', '7', '8', '9'].forEach(page => {
+      ['6', '7', '8', '9'].forEach((page) => {
         expect(renderResult.queryByText(page)).not.toBeInTheDocument();
       });
     });
@@ -310,7 +310,7 @@ describe('Pagination', () => {
 
         expect(renderResult.getByText('...')).toBeInTheDocument();
 
-        ['7', '8', '9'].forEach(page => {
+        ['7', '8', '9'].forEach((page) => {
           expect(renderResult.queryByText(page)).not.toBeInTheDocument();
         });
       });
@@ -442,7 +442,7 @@ describe('Pagination', () => {
 
       expect(renderResult.getAllByText('...').length).toBe(2);
 
-      ['2', '3', '7', '8', '9'].forEach(page => {
+      ['2', '3', '7', '8', '9'].forEach((page) => {
         expect(renderResult.queryByText(page)).not.toBeInTheDocument();
       });
     });
@@ -470,7 +470,7 @@ describe('Pagination', () => {
 
       expect(renderResult.getByText('...')).toBeInTheDocument();
 
-      ['6', '7', '8', '9'].forEach(page => {
+      ['6', '7', '8', '9'].forEach((page) => {
         expect(renderResult.queryByText(page)).not.toBeInTheDocument();
       });
     });
@@ -499,7 +499,7 @@ describe('Pagination', () => {
       });
 
       expect(renderResult.getByText('...')).toBeInTheDocument();
-      ['2', '3', '4', '5'].forEach(page => {
+      ['2', '3', '4', '5'].forEach((page) => {
         expect(renderResult.queryByText(page)).not.toBeInTheDocument();
       });
     });

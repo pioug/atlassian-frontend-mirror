@@ -37,14 +37,14 @@ export default class AkSingleSelect extends PureComponent {
       : '',
   };
 
-  selectItem = item => {
+  selectItem = (item) => {
     this.setState({ isOpen: false, selectedItem: item });
     if (this.props.onSelected) {
       this.props.onSelected({ item });
     }
   };
 
-  handleOpenChange = attrs => {
+  handleOpenChange = (attrs) => {
     // allows consuming components to look for `defaultPrevented` on the event
     // where they can handle internal state e.g. prevent InlineDialog from closing when
     // the target DOM node no-longer exists
@@ -56,7 +56,7 @@ export default class AkSingleSelect extends PureComponent {
     }
   };
 
-  handleFilterChange = value => {
+  handleFilterChange = (value) => {
     if (this.props.onFilterChange) {
       this.props.onFilterChange(value);
     }

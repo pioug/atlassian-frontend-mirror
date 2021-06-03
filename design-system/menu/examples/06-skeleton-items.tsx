@@ -63,7 +63,7 @@ export default () => {
       <ButtonGroup>
         <Button
           testId="toggle-loading"
-          onClick={() => setIsLoading(prev => !prev)}
+          onClick={() => setIsLoading((prev) => !prev)}
         >
           Set {isLoading ? 'Loaded' : 'Loading'}
         </Button>

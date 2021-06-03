@@ -87,7 +87,7 @@ export const NotificationsPopup = () => {
       content={NotificationsContent}
       isOpen={isOpen}
       onClose={onClose}
-      trigger={triggerProps => (
+      trigger={(triggerProps) => (
         <Notifications
           badge={NotificationsBadge}
           onClick={onClick}

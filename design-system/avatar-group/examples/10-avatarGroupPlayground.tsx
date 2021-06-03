@@ -133,7 +133,7 @@ const AvatarGroupExample: FC = () => {
       <input
         min="200"
         max="500"
-        onChange={e =>
+        onChange={(e) =>
           setState({ ...state, gridWidth: parseInt(e.target.value, 10) })
         }
         step="10"
@@ -145,13 +145,13 @@ const AvatarGroupExample: FC = () => {
         <AvatarGroup
           appearance="grid"
           onAvatarClick={console.log}
-          data={stackSourceURLs.map(i => ({
+          data={stackSourceURLs.map((i) => ({
             key: i,
             appearance: 'circle',
             href: '#',
             name: `Grid Avatar ${i + 1}`,
             size: avatarSize,
-            onClick: e => console.log(e),
+            onClick: (e) => console.log(e),
           }))}
           maxCount={avatarCountMax}
           size={avatarSize}
@@ -176,7 +176,7 @@ const AvatarGroupExample: FC = () => {
       <Note>Total {stackSourceURLs.length} / Max 5</Note>
       <AvatarGroup
         onAvatarClick={console.log}
-        data={stackSourceURLs.map(i => ({
+        data={stackSourceURLs.map((i) => ({
           key: i,
           href: '#',
           name: `Stack Avatar ${i + 1}`,
@@ -197,7 +197,7 @@ const AvatarGroupExample: FC = () => {
           onMoreClick={() => setState({ ...state, mode: 'grid' })}
           appearance={mode}
           maxCount={mode === 'grid' ? avatarCount : undefined}
-          data={stackSourceURLs.map(i => ({
+          data={stackSourceURLs.map((i) => ({
             key: i,
             href: '#',
             name: `Stack Avatar ${i + 1}`,
@@ -223,7 +223,7 @@ const AvatarGroupExample: FC = () => {
         <AvatarGroup
           appearance="stack"
           maxCount={5}
-          data={stackSourceURLs.map(i => ({
+          data={stackSourceURLs.map((i) => ({
             appearance: 'circle',
             href: '#',
             key: i,
@@ -251,7 +251,7 @@ const AvatarGroupExample: FC = () => {
             <AvatarGroup
               boundariesElement="scrollParent"
               onAvatarClick={console.log}
-              data={stackSourceURLs.slice(0, 6).map(i => ({
+              data={stackSourceURLs.slice(0, 6).map((i) => ({
                 href: '#',
                 key: i,
                 name: `Stack Avatar ${i + 1}`,
@@ -268,7 +268,7 @@ const AvatarGroupExample: FC = () => {
         <Label label="Enable tooltips" />
         <Toggle isChecked={!state.tooltipsDisabled} onChange={toggleTooltips} />
         <AvatarGroup
-          data={stackSourceURLs.map(i => ({
+          data={stackSourceURLs.map((i) => ({
             key: i,
             name: `Stack Avatar ${i + 1}`,
             size: avatarSize,

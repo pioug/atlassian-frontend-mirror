@@ -36,7 +36,7 @@ export class WithState<T> extends React.Component<Props<T>, State<T>> {
   };
 
   render() {
-    return this.props.children(this.state.currentState, state =>
+    return this.props.children(this.state.currentState, (state) =>
       this.setState({ currentState: state }),
     );
   }
@@ -235,7 +235,7 @@ test('object identity change in defaultValue should not reset form field', async
                   <>
                     <TextField
                       value={value.value.deep}
-                      onChange={event => {
+                      onChange={(event) => {
                         onChange({
                           value: { deep: event.currentTarget.value },
                         });
@@ -298,7 +298,7 @@ test('array element identity change in defaultValue should not reset form field'
                   <>
                     <TextField
                       value={JSON.stringify(value)}
-                      onChange={event => {
+                      onChange={(event) => {
                         onChange([
                           ...value,
                           { val: event.currentTarget.value },
@@ -491,7 +491,7 @@ test('should associate label with field', () => {
 
 test('should indicate whether form is submitting', () => {
   let complete = () => {};
-  const promise = new Promise(res => {
+  const promise = new Promise((res) => {
     complete = res;
   });
   const wrapper = mount(
@@ -718,7 +718,7 @@ test('should correctly update form state with a non-event value', () => {
               <TextField
                 {...rest}
                 testId="TextField"
-                onChange={event => onChange(event.currentTarget.value)}
+                onChange={(event) => onChange(event.currentTarget.value)}
               />
             )}
           </Field>
@@ -755,7 +755,7 @@ test('should submit default form state with array of usernames', () => {
               <TextField
                 {...rest}
                 testId="TextField"
-                onChange={event => onChange(event.currentTarget.value)}
+                onChange={(event) => onChange(event.currentTarget.value)}
               />
             )}
           </Field>
@@ -763,7 +763,7 @@ test('should submit default form state with array of usernames', () => {
             {({ fieldProps: { onChange, ...rest } }) => (
               <TextField
                 {...rest}
-                onChange={event => onChange(event.currentTarget.value)}
+                onChange={(event) => onChange(event.currentTarget.value)}
               />
             )}
           </Field>
@@ -796,7 +796,7 @@ test('should correctly update form state with array of usernames', () => {
               <TextField
                 {...rest}
                 testId="name"
-                onChange={event => onChange(event.currentTarget.value)}
+                onChange={(event) => onChange(event.currentTarget.value)}
               />
             )}
           </Field>
@@ -805,7 +805,7 @@ test('should correctly update form state with array of usernames', () => {
               <TextField
                 {...rest}
                 testId="email"
-                onChange={event => onChange(event.currentTarget.value)}
+                onChange={(event) => onChange(event.currentTarget.value)}
               />
             )}
           </Field>
@@ -836,7 +836,7 @@ test('should correctly update form state with array of usernames', () => {
 test('should indicate validating status for async validation', async () => {
   const onSubmitMock = () => {};
 
-  const promise = new Promise(resolve => setTimeout(resolve, 100));
+  const promise = new Promise((resolve) => setTimeout(resolve, 100));
   const validate = async (value: any) => {
     if (value && value.length >= 8) {
       return undefined;
@@ -930,7 +930,7 @@ test('should correctly update form state with a nested of object usernames', () 
               <TextField
                 {...rest}
                 testId="name"
-                onChange={event => onChange(event.currentTarget.value)}
+                onChange={(event) => onChange(event.currentTarget.value)}
               />
             )}
           </Field>
@@ -939,7 +939,7 @@ test('should correctly update form state with a nested of object usernames', () 
               <TextField
                 {...rest}
                 testId="email"
-                onChange={event => onChange(event.currentTarget.value)}
+                onChange={(event) => onChange(event.currentTarget.value)}
               />
             )}
           </Field>
@@ -974,7 +974,7 @@ test('should correctly update form state with a nested of object usernames', () 
   );
 });
 
-test('should always show most recent validation result', done => {
+test('should always show most recent validation result', (done) => {
   const { getByTestId, queryByText } = render(
     <Form onSubmit={jest.fn()}>
       {() => (
@@ -986,7 +986,7 @@ test('should always show most recent validation result', done => {
               return 'TOO_SHORT';
             }
             if (value === 'Joe Bloggs') {
-              return new Promise(res => {
+              return new Promise((res) => {
                 res('TAKEN_USERNAME');
               });
             }

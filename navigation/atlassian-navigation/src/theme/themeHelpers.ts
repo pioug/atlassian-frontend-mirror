@@ -17,7 +17,7 @@ const repeat = (str: string, times: number) =>
 const isShortHexColor = (color: string) => color && color.length === 4;
 
 const completeHexColor = (colors: string[]) => {
-  const hex = colors.map(color => repeat(color, 2)).join('');
+  const hex = colors.map((color) => repeat(color, 2)).join('');
   return `#${hex}`;
 };
 

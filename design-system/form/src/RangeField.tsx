@@ -22,7 +22,7 @@ export interface RangeFieldProps {
   label?: ReactNode;
 }
 
-const RangeField: FC<RangeFieldProps> = props => {
+const RangeField: FC<RangeFieldProps> = (props) => {
   const { children, ...strippedProps } = props;
   // isInvalid and isRequired are specifically invalid for range inputs
   return (

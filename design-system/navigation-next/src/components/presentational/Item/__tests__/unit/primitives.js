@@ -4,8 +4,8 @@ import { mount, render, shallow } from 'enzyme';
 
 import { ItemPrimitiveBase } from '../../primitives';
 
-const TestComponent = props => <div>Test Component {props.className}</div>;
-const BeforeOrAfterComponent = props => (
+const TestComponent = (props) => <div>Test Component {props.className}</div>;
+const BeforeOrAfterComponent = (props) => (
   <div>Before/After Component {props.spacing}</div>
 );
 
@@ -175,7 +175,7 @@ describe('ItemPrimitiveBase', () => {
   });
 
   it('should render Before, text and After components in right order', () => {
-    const BeforeComponent = props => props.spacing;
+    const BeforeComponent = (props) => props.spacing;
     const AfterComponent = () => <div>after</div>;
 
     const wrapper = shallow(

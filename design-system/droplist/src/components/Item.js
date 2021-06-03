@@ -67,15 +67,15 @@ class Item extends PureComponent {
   componentWillUnmount = () =>
     document.removeEventListener('mouseup', this.handleMouseUp);
 
-  guardedActivate = event => {
+  guardedActivate = (event) => {
     const { isDisabled, onActivate } = this.props;
 
     if (!isDisabled && onActivate) onActivate({ item: this, event });
   };
 
-  handleClick = event => this.guardedActivate(event);
+  handleClick = (event) => this.guardedActivate(event);
 
-  handleKeyPress = event => {
+  handleKeyPress = (event) => {
     const keyIsValid = ['Enter', ' '].indexOf(event.key) > -1;
 
     if (keyIsValid) this.guardedActivate(event);

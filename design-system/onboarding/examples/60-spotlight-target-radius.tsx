@@ -16,12 +16,12 @@ export default class SpotlightTargetRadiusExample extends Component<{}, State> {
   start = () => this.setState({ active: 0 });
 
   next = () =>
-    this.setState(state => ({
+    this.setState((state) => ({
       active: state.active != null ? state.active + 1 : null,
     }));
 
   prev = () =>
-    this.setState(state => ({
+    this.setState((state) => ({
       active: state.active != null ? state.active - 1 : null,
     }));
 

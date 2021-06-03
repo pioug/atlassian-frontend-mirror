@@ -4,7 +4,7 @@ import deepEqual from 'react-fast-compare';
 
 import { styleReducerNoOp, withContentTheme } from '../../../theme';
 
-const isString = x => typeof x === 'string';
+const isString = (x) => typeof x === 'string';
 
 const ComponentSwitch = ({
   as,
@@ -25,7 +25,7 @@ const ComponentSwitch = ({
   return <ElementOrComponent ref={ref} {...draggableProps} {...props} />;
 };
 
-const getItemComponentProps = props => {
+const getItemComponentProps = (props) => {
   const nonComponentKeys = [
     'isActive',
     'isHover',
@@ -35,7 +35,7 @@ const getItemComponentProps = props => {
     'theme',
   ];
   const componentProps = {};
-  Object.keys(props).forEach(prop => {
+  Object.keys(props).forEach((prop) => {
     if (!nonComponentKeys.includes(prop)) {
       componentProps[prop] = props[prop];
     }

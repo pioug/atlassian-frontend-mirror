@@ -86,7 +86,7 @@ describe('Snapshot Test', () => {
     'Cascading Style Sheets',
     'JSX',
     'No leaking styles',
-  ].forEach(language => {
+  ].forEach((language) => {
     const exampleUrl = language.split(' ').join('-').toLowerCase();
     it(`${language} code example should match production example`, async () => {
       const url = getExampleUrl(

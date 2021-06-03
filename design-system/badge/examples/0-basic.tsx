@@ -13,9 +13,9 @@ interface ItemProps {
 
 const Item = styled.div<ItemProps>`
   align-items: center;
-  background: ${props => (props.inverted ? B400 : 'none')};
+  background: ${(props) => (props.inverted ? B400 : 'none')};
   border-radius: ${borderRadius}px;
-  color: ${props => (props.inverted ? N0 : 'inherit')};
+  color: ${(props) => (props.inverted ? N0 : 'inherit')};
   display: flex;
   justify-content: space-between;
   margin-bottom: 4px;
@@ -23,7 +23,7 @@ const Item = styled.div<ItemProps>`
   padding: 0.6em 1em;
 
   &:hover {
-    background-color: ${props => (props.inverted ? B500 : N20)};
+    background-color: ${(props) => (props.inverted ? B500 : N20)};
   }
 `;
 

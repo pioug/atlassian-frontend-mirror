@@ -4,7 +4,7 @@ import { fireEvent, render } from '@testing-library/react';
 
 import Rating, { RatingRender } from '../../../components/rating';
 
-const renderIcon: RatingRender = props => {
+const renderIcon: RatingRender = (props) => {
   return (
     <div data-testid={`icon-${props.isChecked ? 'checked' : 'unchecked'}`} />
   );

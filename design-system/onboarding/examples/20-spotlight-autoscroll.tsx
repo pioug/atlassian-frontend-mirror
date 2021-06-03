@@ -50,7 +50,7 @@ export default class SpotlightAutoscrollExample extends Component<{}, State> {
             <button onClick={this.highlightOne}>Show</button>
           </p>
 
-          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(i => (
+          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((i) => (
             <Paragraph key={i} position={i} />
           ))}
 
@@ -65,7 +65,7 @@ export default class SpotlightAutoscrollExample extends Component<{}, State> {
             </SpotlightTarget>
           </HighlightGroup>
 
-          {[11, 12, 13, 14, 15, 16, 17, 18, 19, 20].map(i => (
+          {[11, 12, 13, 14, 15, 16, 17, 18, 19, 20].map((i) => (
             <Paragraph key={i} position={i} />
           ))}
 

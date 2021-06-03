@@ -38,7 +38,7 @@ function updateBoundariesProps(
         j,
         element: path,
         attributeName: 'boundariesElement',
-      }).forEach(attribute => {
+      }).forEach((attribute) => {
         const expression = attribute.node.value;
         if (expression && expression.type === 'StringLiteral') {
           const value = expression && expression.value;
@@ -90,7 +90,7 @@ function updateOffset(
       attributeName: 'offset',
     })
       .find(JSXExpressionContainer)
-      .forEach(attribute => {
+      .forEach((attribute) => {
         const expression = attribute.value.expression;
         if (expression.type === 'StringLiteral') {
           const value = expression.value;
@@ -118,7 +118,7 @@ function updateOffset(
             const offsetArray: Literal[] = expression.value
               .split(',')
               //@ts-ignore
-              .map(elem => j.literal(parseInt(elem.replace(/\D/g, ''))));
+              .map((elem) => j.literal(parseInt(elem.replace(/\D/g, ''))));
             if (offsetArray.length === 2) {
               j(attribute).replaceWith(
                 j.jsxExpressionContainer(j.arrayExpression(offsetArray)),
@@ -128,8 +128,8 @@ function updateOffset(
             // Split by space but check if it is a single number
             const offsetArray: Literal[] = expression.value
               .split(' ')
-              .filter(elem => elem.length)
-              .map(elem => j.literal(parseInt(elem.replace(/\D/g, ''))));
+              .filter((elem) => elem.length)
+              .map((elem) => j.literal(parseInt(elem.replace(/\D/g, ''))));
             if (offsetArray.length === 2) {
               j(attribute).replaceWith(
                 j.jsxExpressionContainer(j.arrayExpression(offsetArray)),

@@ -105,7 +105,7 @@ const NestableNavigationContent = (props: NestableNavigationContentProps) => {
       setTransition('nesting');
 
       requestAnimationFrame(() => {
-        setCommittedStack(prev => {
+        setCommittedStack((prev) => {
           const newStack = prev.concat(layerId);
           return newStack;
         });
@@ -128,7 +128,7 @@ const NestableNavigationContent = (props: NestableNavigationContentProps) => {
     setTransition('unnesting');
 
     requestAnimationFrame(() => {
-      setCommittedStack(prev => {
+      setCommittedStack((prev) => {
         const newStack = prev.slice(0, prev.length - 1);
         return newStack;
       });
@@ -213,7 +213,7 @@ const NestableNavigationContent = (props: NestableNavigationContentProps) => {
           exitTo={transition === 'nesting' ? 'left' : 'right'}
           testId={testId && `${testId}-anim`}
         >
-          {motion => (
+          {(motion) => (
             <div
               css={{
                 position: 'absolute',

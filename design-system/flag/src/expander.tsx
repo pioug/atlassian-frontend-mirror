@@ -36,7 +36,7 @@ const Expander = ({ children, isExpanded, testId }: Props) => {
     >
       <ExitingPersistence appear>
         {isExpanded && (
-          <FadeIn>{props => <div {...props}>{children}</div>}</FadeIn>
+          <FadeIn>{(props) => <div {...props}>{children}</div>}</FadeIn>
         )}
       </ExitingPersistence>
     </div>

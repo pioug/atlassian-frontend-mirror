@@ -11,7 +11,7 @@ import GlobalNav from '../../index';
 
 const primaryItems = [{ id: 'primary-item-1', icon: () => null }];
 const secondaryItems = [{ id: 'secondary-item-1', icon: () => null }];
-const GlobalNavigation = props => (
+const GlobalNavigation = (props) => (
   <GlobalNav
     primaryItems={primaryItems}
     secondaryItems={secondaryItems}

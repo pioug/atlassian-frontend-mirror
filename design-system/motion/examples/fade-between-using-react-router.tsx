@@ -40,7 +40,7 @@ export default () => {
       <RetryContainer>
         <div css={{ textAlign: 'center' }}>
           <Route>
-            {route => (
+            {(route) => (
               <Button
                 onClick={() =>
                   route.history.push(
@@ -56,7 +56,7 @@ export default () => {
           <Centered>
             <div css={{ position: 'relative' }}>
               <Route>
-                {route => (
+                {(route) => (
                   <ExitingPersistence appear>
                     {/* The magic sauce is giving switch a key that changes on route transition. */}
                     <Switch key={route.location.pathname}>

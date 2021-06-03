@@ -27,7 +27,7 @@ export default class StatelessMenuExample extends Component<{}, State> {
         <ReallyBigDiv />
         <DropdownMenuStateless
           isOpen={this.state.isDropdownOpen}
-          onOpenChange={attrs => {
+          onOpenChange={(attrs) => {
             this.setState({ isDropdownOpen: attrs.isOpen });
           }}
           trigger="Filter cities"

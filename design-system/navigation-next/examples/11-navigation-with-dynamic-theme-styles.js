@@ -130,7 +130,7 @@ const ContainerNavigation = () => (
           }}
         >
           <ContainerHeader
-            before={itemState => (
+            before={(itemState) => (
               <ItemAvatar
                 itemState={itemState}
                 appearance="square"
@@ -190,7 +190,7 @@ export default class extends Component {
   };
 
   toggleShadowMode = () => {
-    this.setState(state => {
+    this.setState((state) => {
       const { shouldHideGlobalNavShadow } = state;
       return {
         shouldHideGlobalNavShadow: !shouldHideGlobalNavShadow,
@@ -203,7 +203,7 @@ export default class extends Component {
     return (
       <NavigationProvider>
         <ThemeProvider
-          theme={theme => ({
+          theme={(theme) => ({
             ...theme,
             mode: customThemeMode,
           })}

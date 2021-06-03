@@ -8,12 +8,12 @@ import { Checkbox } from '@atlaskit/checkbox';
 
 import Form, { CheckboxField } from '../../index';
 
-const wait = (ms: number) => new Promise(res => setTimeout(res, ms));
+const wait = (ms: number) => new Promise((res) => setTimeout(res, ms));
 
 test('should default to false value', () => {
   const spy = jest.fn();
   const wrapper = mount(
-    <Form onSubmit={data => spy(data)}>
+    <Form onSubmit={(data) => spy(data)}>
       {({ formProps }) => (
         <>
           <CheckboxField name="remember">
@@ -33,7 +33,7 @@ test('should default to false value', () => {
 test('checkbox should be checked when clicked', () => {
   const spy = jest.fn();
   const { getByTestId } = render(
-    <Form onSubmit={data => spy(data)}>
+    <Form onSubmit={(data) => spy(data)}>
       {({ formProps }) => (
         <>
           <fieldset>
@@ -60,7 +60,7 @@ test('checkbox should be checked when clicked', () => {
 test('should use value prop when set', () => {
   const spy = jest.fn();
   const wrapper = mount(
-    <Form onSubmit={data => spy(data)}>
+    <Form onSubmit={(data) => spy(data)}>
       {({ formProps }) => (
         <>
           <CheckboxField name="remember" value="always" defaultIsChecked>
@@ -80,7 +80,7 @@ test('should use value prop when set', () => {
 test('should be undefined when value prop set and not checked', () => {
   const spy = jest.fn();
   const wrapper = mount(
-    <Form onSubmit={data => spy(data)}>
+    <Form onSubmit={(data) => spy(data)}>
       {({ formProps }) => (
         <>
           <CheckboxField name="remember" value="always">
@@ -101,7 +101,7 @@ test('should be undefined when value prop set and not checked', () => {
 test('fields with same name and defaultIsChecked should create array of values', () => {
   const spy = jest.fn();
   const wrapper = mount(
-    <Form onSubmit={data => spy(data)}>
+    <Form onSubmit={(data) => spy(data)}>
       {({ formProps }) => (
         <>
           <fieldset>
@@ -131,7 +131,7 @@ test('fields with same name and defaultIsChecked should create array of values',
 test('checking checkbox should append value to field value', () => {
   const spy = jest.fn();
   const { getByTestId } = render(
-    <Form onSubmit={data => spy(data)}>
+    <Form onSubmit={(data) => spy(data)}>
       {({ formProps }) => (
         <>
           <fieldset>

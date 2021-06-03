@@ -37,10 +37,10 @@ function getJSXAttributesByName(
   return j(element)
     .find(j.JSXOpeningElement)
     .find(j.JSXAttribute)
-    .filter(attribute => {
+    .filter((attribute) => {
       const matches = j(attribute)
         .find(j.JSXIdentifier)
-        .filter(identifier => identifier.value.name === attributeName);
+        .filter((identifier) => identifier.value.name === attributeName);
       return Boolean(matches.length);
     });
 }
@@ -73,17 +73,17 @@ function findIdentifierAndReplaceAttribute(
   source
     .find(j.JSXElement)
     .find(j.JSXOpeningElement)
-    .filter(path => {
+    .filter((path) => {
       return !!j(path.node)
         .find(j.JSXIdentifier)
-        .filter(identifier => identifier.value.name === identifierName);
+        .filter((identifier) => identifier.value.name === identifierName);
     })
-    .forEach(element => {
+    .forEach((element) => {
       j(element)
         .find(j.JSXAttribute)
         .find(j.JSXIdentifier)
-        .filter(attr => attr.node.name === searchAttr)
-        .forEach(attribute => {
+        .filter((attr) => attr.node.name === searchAttr)
+        .forEach((attribute) => {
           j(attribute).replaceWith(j.jsxIdentifier(replaceWithAttr));
         });
     });
@@ -167,8 +167,8 @@ export const createRenameJSXFunc = (
     .forEach((path: ASTPath<any>) => {
       return !!j(path.node)
         .find(j.JSXIdentifier)
-        .filter(identifier => identifier.value.name === from)
-        .forEach(element => {
+        .filter((identifier) => identifier.value.name === from)
+        .forEach((element) => {
           j(element).replaceWith(j.jsxIdentifier(toName));
         });
     });
@@ -179,11 +179,11 @@ function hasVariableAssignment(
   source: ReturnType<typeof j>,
   identifierName: string,
 ) {
-  const occurance = source.find(j.VariableDeclaration).filter(path => {
+  const occurance = source.find(j.VariableDeclaration).filter((path) => {
     return !!j(path.node)
       .find(j.VariableDeclarator)
       .find(j.Identifier)
-      .filter(identifier => {
+      .filter((identifier) => {
         return identifier.node.name === identifierName;
       }).length;
   });
@@ -217,7 +217,7 @@ const createRenameFuncFor = (component: string, from: string, to: string) => (
   source
     .findJSXElements(defaultSpecifier)
     .forEach((element: ASTPath<JSXAttribute>) => {
-      getJSXAttributesByName(j, element, from).forEach(attribute => {
+      getJSXAttributesByName(j, element, from).forEach((attribute) => {
         j(attribute).replaceWith(
           j.jsxAttribute(j.jsxIdentifier(to), attribute.node.value),
         );
@@ -226,11 +226,11 @@ const createRenameFuncFor = (component: string, from: string, to: string) => (
 
   let variable = hasVariableAssignment(j, source, defaultSpecifier);
   if (variable) {
-    variable.find(j.VariableDeclarator).forEach(declarator => {
+    variable.find(j.VariableDeclarator).forEach((declarator) => {
       j(declarator)
         .find(j.Identifier)
-        .filter(identifier => identifier.name === 'id')
-        .forEach(ids => {
+        .filter((identifier) => identifier.name === 'id')
+        .forEach((ids) => {
           findIdentifierAndReplaceAttribute(j, source, ids.node.name, from, to);
         });
     });
@@ -270,7 +270,7 @@ const createAddingPropFor = (component: string, options: AddingPorp) => (
         const node = j.jsxAttribute(j.jsxIdentifier(options.prop), value);
         j(element)
           .find(j.JSXOpeningElement)
-          .forEach(e => {
+          .forEach((e) => {
             if (e.node.attributes) {
               e.node.attributes.push(node);
             }
@@ -294,7 +294,7 @@ const createConvertFuncFor = (
   source
     .findJSXElements(defaultSpecifier)
     .forEach((element: ASTPath<JSXAttribute>) => {
-      getJSXAttributesByName(j, element, from).forEach(attribute => {
+      getJSXAttributesByName(j, element, from).forEach((attribute) => {
         const shouldConvert =
           (predicate && predicate(attribute.node.value)) || false;
         const node = j.jsxAttribute(j.jsxIdentifier(to));
@@ -316,11 +316,11 @@ export const elevateComponentToDefault = (
     )
     .forEach((path: ASTPath<ImportDeclaration>) => {
       const defaultSpecifier = (path.value.specifiers || []).filter(
-        specifier => specifier.type === 'ImportDefaultSpecifier',
+        (specifier) => specifier.type === 'ImportDefaultSpecifier',
       );
 
       const otherSpecifier = (path.value.specifiers || []).filter(
-        specifier => specifier.type === 'ImportSpecifier',
+        (specifier) => specifier.type === 'ImportSpecifier',
       );
 
       if (defaultSpecifier.length > 0) {
@@ -331,7 +331,7 @@ export const elevateComponentToDefault = (
         return;
       }
 
-      const declaration = otherSpecifier.map(s => {
+      const declaration = otherSpecifier.map((s) => {
         return j.importDeclaration(
           [j.importDefaultSpecifier(s.local)],
           j.literal(pkg),
@@ -353,20 +353,20 @@ const replaceImportStatementFor = (pkg: string, convertMap: any) => (
     )
     .forEach((path: ASTPath<ImportDeclaration>) => {
       const defaultSpecifier = (path.value.specifiers || []).filter(
-        specifier => specifier.type === 'ImportDefaultSpecifier',
+        (specifier) => specifier.type === 'ImportDefaultSpecifier',
       );
 
-      const defaultDeclarations = defaultSpecifier.map(s => {
+      const defaultDeclarations = defaultSpecifier.map((s) => {
         return j.importDeclaration([s], j.literal(convertMap['default']));
       });
 
       const otherSpecifier = (path.value.specifiers || []).filter(
-        specifier => specifier.type === 'ImportSpecifier',
+        (specifier) => specifier.type === 'ImportSpecifier',
       );
 
       j(path).replaceWith(defaultDeclarations);
 
-      const otherDeclarations = otherSpecifier.map(s => {
+      const otherDeclarations = otherSpecifier.map((s) => {
         const localName = s.local!.name;
         if (convertMap[localName]) {
           return j.importDeclaration([s], j.literal(convertMap[localName]));
@@ -406,7 +406,7 @@ const createTransformer = (
     return fileInfo.source;
   }
 
-  migrates.forEach(tf => tf(j, source));
+  migrates.forEach((tf) => tf(j, source));
 
   return source.toSource(options.printOptions || { quote: 'single' });
 };

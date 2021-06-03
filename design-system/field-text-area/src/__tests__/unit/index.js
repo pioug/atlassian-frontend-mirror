@@ -168,7 +168,7 @@ describe('FieldTextAreaStateless', () => {
       { placeholder: 'test placeholder' },
       { maxLength: 5 },
       { required: true },
-    ].forEach(prop =>
+    ].forEach((prop) =>
       describe(JSON.stringify(prop), () => {
         it('TextArea should have attribute defined', () => {
           const key = Object.keys(prop)[0];

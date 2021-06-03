@@ -26,7 +26,7 @@ const appearances = {
   default: 'default',
 };
 
-export const getTextContent = item => {
+export const getTextContent = (item) => {
   if (!item || Object.keys(item).length === 0) {
     return '';
   }
@@ -49,7 +49,7 @@ const isMatched = (item, matchingValue) => {
   const { filterValues } = item;
   if (filterValues && filterValues.length > 0) {
     return filterValues.some(
-      value => value.toLowerCase().indexOf(matchingValue) > -1,
+      (value) => value.toLowerCase().indexOf(matchingValue) > -1,
     );
   }
 
@@ -115,7 +115,7 @@ export default class StatelessSelect extends PureComponent {
     }
   };
 
-  componentDidUpdate = prevProps => {
+  componentDidUpdate = (prevProps) => {
     if (
       (!prevProps.shouldFocus && this.props.shouldFocus) ||
       (!prevProps.isOpen && this.props.isOpen)
@@ -128,7 +128,7 @@ export default class StatelessSelect extends PureComponent {
     }
   };
 
-  onOpenChange = attrs => {
+  onOpenChange = (attrs) => {
     this.props.onOpenChange(attrs);
     this.setState({
       focusedItemIndex: undefined,
@@ -165,15 +165,15 @@ export default class StatelessSelect extends PureComponent {
     return currentItem;
   };
 
-  getAllItems = groups => {
+  getAllItems = (groups) => {
     let allItems = [];
-    groups.forEach(val => {
+    groups.forEach((val) => {
       allItems = allItems.concat(val.items);
     });
     return allItems;
   };
 
-  getAllVisibleItems = groups =>
+  getAllVisibleItems = (groups) =>
     groups ? this.filterItems(this.getAllItems(groups)) : [];
 
   getNextNativeSearchItem = (items, key, currentIndex, isSecondStep) => {
@@ -220,21 +220,21 @@ export default class StatelessSelect extends PureComponent {
     this.nativeSearchCounter = undefined;
   };
 
-  filterItems = items => {
+  filterItems = (items) => {
     const value = this.props.filterValue;
     const trimmedValue = value && value.toLowerCase().trim();
     const { selectedItem } = this.props;
     const unselectedItems = items.filter(
-      item => selectedItem && selectedItem.value !== item.value,
+      (item) => selectedItem && selectedItem.value !== item.value,
     );
     const selectedItemContent = getTextContent(selectedItem).toLowerCase();
 
     return trimmedValue && trimmedValue !== selectedItemContent
-      ? unselectedItems.filter(item => isMatched(item, trimmedValue))
+      ? unselectedItems.filter((item) => isMatched(item, trimmedValue))
       : unselectedItems;
   };
 
-  scrollToFocused = index => {
+  scrollToFocused = (index) => {
     const scrollable = this.containerNode
       ? this.containerNode.querySelector('[data-role="droplistContent"]')
       : undefined;
@@ -270,7 +270,7 @@ export default class StatelessSelect extends PureComponent {
     this.scrollToFocused(index);
   };
 
-  focusItem = item => {
+  focusItem = (item) => {
     const filteredItems = this.getAllVisibleItems(this.props.items);
     const index = filteredItems.indexOf(item);
     this.setState({
@@ -279,7 +279,7 @@ export default class StatelessSelect extends PureComponent {
     this.scrollToFocused(index);
   };
 
-  handleNativeSearch = event => {
+  handleNativeSearch = (event) => {
     const { selectedItem, items } = this.props;
     const { key: eventKey } = event;
     let { nativeSearchKey } = this;
@@ -298,7 +298,7 @@ export default class StatelessSelect extends PureComponent {
 
     const allItemsWithoutSelected =
       selectedItem && selectedItem.value
-        ? allItems.filter(item => item.value !== selectedItem.value)
+        ? allItems.filter((item) => item.value !== selectedItem.value)
         : allItems;
 
     if (!this.props.isOpen) {
@@ -325,7 +325,7 @@ export default class StatelessSelect extends PureComponent {
     this.nativeSearchKey = nativeSearchKey;
   };
 
-  handleKeyboardInteractions = event => {
+  handleKeyboardInteractions = (event) => {
     const isSelectOpen = this.props.isOpen;
     switch (event.key) {
       case 'ArrowDown':
@@ -363,7 +363,7 @@ export default class StatelessSelect extends PureComponent {
     }
   };
 
-  handleInputOnChange = event => {
+  handleInputOnChange = (event) => {
     const { value } = event.currentTarget;
 
     if (value !== this.props.filterValue) {
@@ -372,13 +372,13 @@ export default class StatelessSelect extends PureComponent {
     }
   };
 
-  handleTriggerClick = event => {
+  handleTriggerClick = (event) => {
     if (!this.props.isDisabled) {
       this.onOpenChange({ event, isOpen: !this.props.isOpen });
     }
   };
 
-  handleOnBlur = event => {
+  handleOnBlur = (event) => {
     this.onOpenChange({ event, isOpen: false });
   };
 
@@ -404,7 +404,7 @@ export default class StatelessSelect extends PureComponent {
             this.state.focusedItemIndex
           }
           key={itemIndex} // eslint-disable-line react/no-array-index-key
-          onActivate={attrs => {
+          onActivate={(attrs) => {
             this.handleItemSelect(item, attrs);
           }}
           type="option"
@@ -417,13 +417,13 @@ export default class StatelessSelect extends PureComponent {
     return <NothingWasFound noMatchesFound={this.props.noMatchesFound} />;
   };
 
-  renderGroups = groups => {
+  renderGroups = (groups) => {
     if (this.props.isLoading) {
       return <InitialLoading>{this.props.loadingMessage}</InitialLoading>;
     }
 
     const filteredGroups = groups
-      .filter(group => this.filterItems(group.items).length)
+      .filter((group) => this.filterItems(group.items).length)
       .map((group, groupIndex) => (
         <Group
           heading={group.heading}
@@ -440,7 +440,7 @@ export default class StatelessSelect extends PureComponent {
     return filteredGroups;
   };
 
-  renderOptions = items =>
+  renderOptions = (items) =>
     items.map((item, itemIndex) => (
       <option
         disabled={item.isDisabled}
@@ -451,7 +451,7 @@ export default class StatelessSelect extends PureComponent {
       </option>
     ));
 
-  renderOptGroups = groups =>
+  renderOptGroups = (groups) =>
     groups.map((group, groupIndex) => (
       <optgroup
         label={group.heading}
@@ -506,7 +506,7 @@ export default class StatelessSelect extends PureComponent {
     return (
       <StatelessSelectWrapper
         onKeyDown={this.handleKeyboardInteractions}
-        innerRef={ref => {
+        innerRef={(ref) => {
           this.containerNode = ref;
         }}
         shouldFitContainer={shouldFitContainer}
@@ -543,7 +543,7 @@ export default class StatelessSelect extends PureComponent {
               <Trigger
                 onClick={this.handleTriggerClick}
                 tabIndex={!isDisabled && !hasAutocomplete ? '0' : null}
-                innerRef={ref => {
+                innerRef={(ref) => {
                   this.triggerNode = ref;
                 }}
               >
@@ -564,7 +564,7 @@ export default class StatelessSelect extends PureComponent {
                       autoComplete="off"
                       onChange={this.handleInputOnChange}
                       placeholder={placeholder}
-                      innerRef={ref => {
+                      innerRef={(ref) => {
                         this.inputNode = ref;
                       }}
                       type="text"
@@ -581,7 +581,7 @@ export default class StatelessSelect extends PureComponent {
           }
         >
           <div
-            ref={ref => {
+            ref={(ref) => {
               this.droplistNode = ref;
             }}
             style={{ minWidth: this.state.droplistWidth }}

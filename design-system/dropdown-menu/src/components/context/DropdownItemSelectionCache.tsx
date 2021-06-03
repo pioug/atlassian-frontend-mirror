@@ -20,7 +20,7 @@ const isItemInList = (
   groupId: GroupId,
 ) =>
   Boolean(
-    find(itemList, item => item.id === itemId && item.groupId === groupId),
+    find(itemList, (item) => item.id === itemId && item.groupId === groupId),
   );
 
 export default class DropdownItemSelectionCache extends Component<
@@ -82,7 +82,7 @@ export default class DropdownItemSelectionCache extends Component<
     newGroupSelections: Array<CachedItem>,
   ): void => {
     const newSelectedItems: Array<CachedItem> = [
-      ...this.selectedItems.filter(item => item.groupId !== groupId),
+      ...this.selectedItems.filter((item) => item.groupId !== groupId),
       ...newGroupSelections,
     ];
 

@@ -65,13 +65,13 @@ function isPlainObject(x: any) {
 
 function objToCss(obj: { [k: string]: any }, prevKey?: string) {
   const css: string = Object.keys(obj)
-    .filter(key => {
+    .filter((key) => {
       const chunk = obj[key];
       return (
         chunk !== undefined && chunk !== null && chunk !== false && chunk !== ''
       );
     })
-    .map(key => {
+    .map((key) => {
       if (isPlainObject(obj[key])) {
         return objToCss(obj[key], key);
       }

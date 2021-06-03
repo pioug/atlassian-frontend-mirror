@@ -40,7 +40,7 @@ export default class SelectInModal extends Component<{}, State> {
                 menuPortalTarget={document.body}
                 isMulti
                 styles={{
-                  menuPortal: base => ({
+                  menuPortal: (base) => ({
                     ...base,
                     zIndex: 9999,
                   }),

@@ -41,7 +41,7 @@ export const HelpPopup = () => {
       content={HelpContent}
       isOpen={isOpen}
       onClose={onClose}
-      trigger={triggerProps => (
+      trigger={(triggerProps) => (
         <Help
           isSelected={isOpen}
           onClick={onClick}

@@ -49,7 +49,7 @@ const primaryStyles = css`
   color: ${primaryPrimaryTextColor};
 `;
 
-const sharedStyles = props => css`
+const sharedStyles = (props) => css`
   align-items: center;
   box-sizing: border-box;
   color: ${props.isDisabled
@@ -87,10 +87,10 @@ const sharedStyles = props => css`
 `;
 
 export const Anchor = styled.a`
-  ${props => sharedStyles(props)};
+  ${(props) => sharedStyles(props)};
 `;
 export const Span = styled.span`
-  ${props => sharedStyles(props)};
+  ${(props) => sharedStyles(props)};
 `;
 
 // Checkbox/Radio wrapper -- sits left of the children
@@ -125,7 +125,7 @@ export const Content = styled.span`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  ${props =>
+  ${(props) =>
     props.allowMultiline &&
     css`
       white-space: normal;

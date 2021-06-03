@@ -5,7 +5,7 @@ import TextField from '@atlaskit/textfield';
 
 import Form, { ErrorMessage, Field, FormFooter, HelperMessage } from '../src';
 
-const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const createUser = async (data: { username: string; email: string }) => {
   await sleep(500);

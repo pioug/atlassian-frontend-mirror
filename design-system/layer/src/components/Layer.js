@@ -188,7 +188,7 @@ export default class Layer extends Component {
       : 0;
   }
 
-  extractStyles = state => {
+  extractStyles = (state) => {
     if (state) {
       const popperHeight = state.offsets.popper.height;
       const left = Math.round(state.offsets.popper.left);
@@ -298,7 +298,7 @@ export default class Layer extends Component {
     return (
       <div>
         <div
-          ref={ref => {
+          ref={(ref) => {
             this.targetRef = ref;
           }}
         >
@@ -307,7 +307,7 @@ export default class Layer extends Component {
         <FixedTarget targetRef={this.targetRef} fixedOffset={fixedOffset}>
           <div
             style={{ height: '100%', width: '100%' }}
-            ref={ref => {
+            ref={(ref) => {
               this.fixedRef = ref;
             }}
           />
@@ -315,7 +315,7 @@ export default class Layer extends Component {
         {lockScroll && <ScrollBlock />}
         <ContentContainer maxHeight={maxHeight}>
           <div
-            ref={ref => {
+            ref={(ref) => {
               this.contentRef = ref;
             }}
             style={{

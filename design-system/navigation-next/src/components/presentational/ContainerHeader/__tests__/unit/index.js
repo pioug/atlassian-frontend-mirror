@@ -27,7 +27,7 @@ describe('ContainerHeader', () => {
   it('should render the given connected item passed as a `before` prop', () => {
     const wrapper = mount(
       <ContainerHeader
-        before={itemState => (
+        before={(itemState) => (
           <ItemAvatar itemState={itemState} appearance="square" size="large" />
         )}
         {...commonProps}

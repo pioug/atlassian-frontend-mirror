@@ -10,7 +10,7 @@ import { Panel } from './shared';
 export default function testing() {
   return (
     <Tabs
-      onChange={index => {
+      onChange={(index) => {
         console.log('selected index: ', index);
       }}
       testId="tabs"

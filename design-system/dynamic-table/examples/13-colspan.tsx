@@ -11,7 +11,7 @@ const Wrapper = styled.div`
 const days = ['Time', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
 
 const head = {
-  cells: days.map(day => ({
+  cells: days.map((day) => ({
     key: day,
     content: day,
   })),

@@ -25,7 +25,7 @@ const WeekDays = memo(function WeekDays({
 }: Props) {
   return (
     <div role="grid" data-testid={testId && `${testId}--month`}>
-      {weeks.map(week => (
+      {weeks.map((week) => (
         <div role="row" key={week.id} css={daysGridStyle}>
           {week.values.map(
             ({

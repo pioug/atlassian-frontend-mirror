@@ -84,7 +84,7 @@ describe('Snapshot test', () => {
 
     // When scroll is in the middle, both top and bottom keylines are displayed.
     await page.evaluate(
-      selector => document.querySelector(selector).scrollTo(0, 200),
+      (selector) => document.querySelector(selector).scrollTo(0, 200),
       modalBody,
     );
 

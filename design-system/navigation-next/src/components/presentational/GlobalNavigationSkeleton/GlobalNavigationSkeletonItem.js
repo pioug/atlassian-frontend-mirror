@@ -7,7 +7,7 @@ import SkeletonItem from '../SkeletonItem';
 
 const gridSize = gridSizeFn();
 
-const modifyStyles = defaultStyles => ({
+const modifyStyles = (defaultStyles) => ({
   ...defaultStyles,
   wrapper: {
     ...defaultStyles.wrapper,
@@ -34,7 +34,7 @@ export default class GlobalNavigationSkeletonItem extends PureComponent {
 
     // We modify the SkeletonItem styles ourselves, then allow the consumer to
     // modify these if they want to.
-    const patchedStyles = defaultStyles =>
+    const patchedStyles = (defaultStyles) =>
       styleReducer(modifyStyles(defaultStyles));
 
     return <SkeletonItem {...props} styles={patchedStyles} />;

@@ -49,7 +49,7 @@ describe('@atlaskit comments', () => {
           const wrapper = mount(<Comment avatar="" actions={actions} />);
           const container = wrapper.find(ActionsContainer);
           expect(container.find(CommentAction).length).toBe(actions.length);
-          actions.forEach(action => {
+          actions.forEach((action) => {
             expect(container.contains(action)).toBe(true);
           });
         });

@@ -117,7 +117,7 @@ export default class RendererDemo extends React.Component<
               width: '100%',
               height: 320,
             }}
-            ref={ref => {
+            ref={(ref) => {
               this.inputBox = ref;
             }}
             onChange={this.onDocumentChange}
@@ -129,7 +129,7 @@ export default class RendererDemo extends React.Component<
             </button>
             <textarea
               style={{ width: '0px', height: '0px' }}
-              ref={ref => {
+              ref={(ref) => {
                 this.emailTextareaRef = ref;
               }}
             />

@@ -99,12 +99,12 @@ export default class extends Component {
     this.loadTableData();
   }
 
-  loadTableData = parentItem => {
+  loadTableData = (parentItem) => {
     if (parentItem && parentItem.childIds) {
       return;
     }
 
-    getData(parentItem).then(items => {
+    getData(parentItem).then((items) => {
       this.setState({
         items: tableTreeHelper.appendItems(items, this.state.items, parentItem),
       });

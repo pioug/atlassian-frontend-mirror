@@ -81,7 +81,8 @@ const SlideIn: React.FC<SlideInProps> = ({
   exitTo,
   fade = 'none',
   duration = mediumDurationMs,
-  animationTimingFunction = state => (state === 'entering' ? easeOut : easeIn),
+  animationTimingFunction = (state) =>
+    state === 'entering' ? easeOut : easeIn,
   ...props
 }: SlideInProps) => {
   return (

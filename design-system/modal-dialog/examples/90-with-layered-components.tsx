@@ -109,7 +109,7 @@ export default () => {
               content={() => (
                 <div style={{ padding: '5px' }}>I'm a little popup!</div>
               )}
-              trigger={triggerProps => (
+              trigger={(triggerProps) => (
                 <>
                   <Button
                     {...triggerProps}
@@ -157,7 +157,7 @@ export default () => {
               placeholder="zIndex: 9999, menuPortalTarget: document.body, menuPosition: fixed"
               options={selectOptions}
               menuPortalTarget={document.body}
-              styles={{ menuPortal: base => ({ ...base, zIndex: 9999 }) }}
+              styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
               menuPosition="fixed"
               formatOptionLabel={({ label }) => (
                 <Tooltip position="bottom" content="I'm a little tooltip">
@@ -197,7 +197,7 @@ export default () => {
             <AvatarGroup
               testId="avatar-group"
               appearance="stack"
-              data={avatarGroupUsers.map(d => ({
+              data={avatarGroupUsers.map((d) => ({
                 email: d.email,
                 key: d.email,
                 name: d.name,
@@ -283,12 +283,12 @@ const FlagGroupExample = () => {
   const [flags, setFlags] = useState<Array<FlagData>>([]);
 
   const addFlag = () => {
-    setFlags(current => [generateFlagData(flags), ...current]);
+    setFlags((current) => [generateFlagData(flags), ...current]);
   };
 
   const dismissFlag = useCallback(
     (id: string | number) => {
-      setFlags(current => current.filter(flag => flag.id !== id));
+      setFlags((current) => current.filter((flag) => flag.id !== id));
     },
     [setFlags],
   );

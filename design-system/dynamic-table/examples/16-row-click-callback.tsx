@@ -96,7 +96,7 @@ class RankableStatelessExample extends React.Component<
     if (highlightedRow !== undefined) {
       stateUpdate = {
         ...stateUpdate,
-        highlightedRowIndex: rows.findIndex(row => row === highlightedRow),
+        highlightedRowIndex: rows.findIndex((row) => row === highlightedRow),
       };
     }
 

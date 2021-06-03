@@ -14,7 +14,7 @@ export const removeTabItemTabContent = (
         importDeclaration.node.source.value === component,
     )
     // Tabs only exported TabItem and TabContent from base so remove them
-    .forEach(importDeclaration => {
+    .forEach((importDeclaration) => {
       j(importDeclaration)
         .find(j.ImportSpecifier)
         .forEach((importSpecifier: ASTPath<ImportSpecifier>) => {

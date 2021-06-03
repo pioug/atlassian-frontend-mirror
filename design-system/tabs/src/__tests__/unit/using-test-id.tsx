@@ -13,13 +13,13 @@ describe('Tabs should be found by data-testid', () => {
     const { getByTestId } = render(
       <Tabs testId={tabsTestId} id="test">
         <TabList>
-          {testIds.map(testId => (
+          {testIds.map((testId) => (
             <Tab key={testId} testId={testId}>
               {testId}
             </Tab>
           ))}
         </TabList>
-        {testIds.map(testId => (
+        {testIds.map((testId) => (
           <TabPanel key={testId} testId={`${testId}-panel`}>
             {testId} panel
           </TabPanel>
@@ -28,7 +28,7 @@ describe('Tabs should be found by data-testid', () => {
     );
 
     expect(getByTestId(tabsTestId)).toBeTruthy();
-    testIds.forEach(testId => {
+    testIds.forEach((testId) => {
       const tab = getByTestId(testId);
       expect(tab).toBeTruthy();
       expect(tab.innerText).toBe(testId);

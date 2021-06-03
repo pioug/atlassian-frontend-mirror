@@ -184,7 +184,7 @@ const NestingItem = <TCustomComponentProps extends CustomItemComponentProps>(
    * We create a wrapper function to call both.
    */
   const onClickHandler: ButtonItemProps['onClick'] = useCallback(
-    e => {
+    (e) => {
       if (isInteracted) {
         // We return early if this has been interacted with because its assumed
         // this will be already exiting - so we don't want to double up the click.

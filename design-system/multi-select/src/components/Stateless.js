@@ -29,7 +29,7 @@ const appearances = {
   default: 'default',
 };
 
-const getAllValues = selectedItems => selectedItems.map(item => item.value);
+const getAllValues = (selectedItems) => selectedItems.map((item) => item.value);
 
 /*
 
@@ -83,13 +83,13 @@ export default class StatelessMultiSelect extends PureComponent {
     }
   };
 
-  UNSAFE_componentWillReceiveProps = nextProps => {
+  UNSAFE_componentWillReceiveProps = (nextProps) => {
     if (this.props.items !== nextProps.items) {
       this.setState({ groupedItems: groupItems(nextProps.items) });
     }
   };
 
-  componentDidUpdate = prevProps => {
+  componentDidUpdate = (prevProps) => {
     if (!prevProps.shouldFocus && this.props.shouldFocus && this.inputNode) {
       this.inputNode.focus();
     }
@@ -123,13 +123,13 @@ export default class StatelessMultiSelect extends PureComponent {
     }
   };
 
-  onOpenChange = attrs => {
+  onOpenChange = (attrs) => {
     const target = attrs.event.currentTarget;
     // eslint-disable-next-line react/no-find-dom-node
     const tagGroup = ReactDOM.findDOMNode(this.tagGroup);
     const tagGroupElements = tagGroup ? tagGroup.children : [];
     const isInsideTagGroup = [...tagGroupElements].some(
-      node => node.contains(target) && node.tagName !== 'INPUT',
+      (node) => node.contains(target) && node.tagName !== 'INPUT',
     );
 
     const args = { ...attrs, inputNode: this.inputNode };
@@ -153,7 +153,7 @@ export default class StatelessMultiSelect extends PureComponent {
     return undefined;
   };
 
-  getAllVisibleItems = groups => {
+  getAllVisibleItems = (groups) => {
     const { filterValue, selectedItems } = this.props;
     return groups.reduce((allFilteredItems, val) => {
       const filteredItems = filterItems(val.items, filterValue, selectedItems);
@@ -161,11 +161,13 @@ export default class StatelessMultiSelect extends PureComponent {
     }, []);
   };
 
-  handleItemCreate = event => {
+  handleItemCreate = (event) => {
     const { filterValue: value, items } = this.props;
     if (value) {
       const allVisible = this.getAllVisibleItems(items);
-      const matchingElement = allVisible.filter(item => item.content === value);
+      const matchingElement = allVisible.filter(
+        (item) => item.content === value,
+      );
       if (!matchingElement.length) {
         if (this.props.onNewItemCreated) {
           this.props.onNewItemCreated({ value });
@@ -194,7 +196,7 @@ export default class StatelessMultiSelect extends PureComponent {
     }
   };
 
-  handleItemRemove = item => {
+  handleItemRemove = (item) => {
     this.props.onRemoved(item);
   };
 
@@ -222,7 +224,7 @@ export default class StatelessMultiSelect extends PureComponent {
     return focusedItemIndex === selectableItems.length;
   };
 
-  handleOnChange = event => {
+  handleOnChange = (event) => {
     const { value } = event.currentTarget;
 
     if (value !== this.props.filterValue) {
@@ -239,13 +241,13 @@ export default class StatelessMultiSelect extends PureComponent {
     }
   };
 
-  handleTriggerClick = event => {
+  handleTriggerClick = (event) => {
     if (!this.props.isDisabled) {
       this.onOpenChange({ event, isOpen: true });
     }
   };
 
-  handleFooterActivate = event => {
+  handleFooterActivate = (event) => {
     const { footer } = this.props;
     if (footer && footer.onActivate) {
       footer.onActivate(event);
@@ -278,7 +280,7 @@ export default class StatelessMultiSelect extends PureComponent {
     });
   };
 
-  handleKeyboardInteractions = event => {
+  handleKeyboardInteractions = (event) => {
     const { isOpen, items, filterValue } = this.props;
     const { focusedItemIndex } = this.state;
 
@@ -438,7 +440,7 @@ export default class StatelessMultiSelect extends PureComponent {
               handleOnChange={this.handleOnChange}
               handleTriggerClick={this.handleTriggerClick}
               inputNode={this.inputNode}
-              inputRefFunction={ref => {
+              inputRefFunction={(ref) => {
                 this.inputNode = ref;
               }}
               isDisabled={isDisabled}
@@ -452,7 +454,7 @@ export default class StatelessMultiSelect extends PureComponent {
               placeholder={this.getPlaceholder()}
               selectedItems={selectedItems}
               tagGroup={this.tagGroup}
-              tagGroupRefFunction={ref => {
+              tagGroupRefFunction={(ref) => {
                 this.tagGroup = ref;
               }}
               icon={this.props.icon}

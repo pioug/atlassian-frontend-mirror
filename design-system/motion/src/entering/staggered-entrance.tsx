@@ -130,7 +130,7 @@ const StaggeredEntrance: React.FC<StaggeredEntranceProps> = ({
 
   return (
     <StaggeredEntranceContext.Provider
-      value={id => {
+      value={(id) => {
         if (!indexes.includes(id)) {
           indexes.push(id);
         }

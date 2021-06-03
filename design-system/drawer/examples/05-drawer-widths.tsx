@@ -46,7 +46,7 @@ export default class DrawersExample extends Component<{}, State> {
             }}
           >{`${this.state.width} drawer contents`}</code>
         </Drawer>
-        {widths.map(width => (
+        {widths.map((width) => (
           <Button
             onClick={this.openDrawer(width as DrawerWidth)}
             type="button"

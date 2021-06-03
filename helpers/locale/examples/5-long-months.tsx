@@ -34,7 +34,7 @@ export default class Example extends Component<Props, State> {
       <Fragment>
         <h3>Long Months</h3>
         <ul>
-          {l10n.getMonthsLong().map(month => (
+          {l10n.getMonthsLong().map((month) => (
             <li key={month}>{month}</li>
           ))}
         </ul>

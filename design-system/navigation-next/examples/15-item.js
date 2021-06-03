@@ -36,7 +36,7 @@ class BetterDropdown extends Component {
 
   state = { isOpen: this.props.defaultIsOpen };
 
-  onOpenChange = openState => {
+  onOpenChange = (openState) => {
     if (this.props.onOpenChange) {
       this.props.onOpenChange(openState);
     }
@@ -63,7 +63,7 @@ class BetterDropdown extends Component {
     );
   }
 }
-const ConfiguredAvatar = itemState => (
+const ConfiguredAvatar = (itemState) => (
   <ItemAvatar itemState={itemState} presence="online" size="small" />
 );
 
@@ -207,7 +207,7 @@ const variations = [
   {
     itemComponent: ({ themeContext: context, themeMode: mode, ...props }) => (
       <ThemeProvider
-        theme={theme => ({
+        theme={(theme) => ({
           ...theme,
           context,
           mode: themeModes[mode],
@@ -302,7 +302,7 @@ const variations = [
               <ItemPrimitive
                 text="Split item"
                 spacing="compact"
-                styles={styles => ({
+                styles={(styles) => ({
                   ...styles,
                   itemBase: { ...styles.itemBase, cursor: 'default' },
                 })}
@@ -350,7 +350,7 @@ const variations = [
   {
     itemComponent: ({ themeContext: context, themeMode: mode, ...props }) => (
       <ThemeProvider
-        theme={theme => ({
+        theme={(theme) => ({
           ...theme,
           context,
           mode: themeModes[mode],
@@ -410,7 +410,7 @@ const variations = [
   {
     itemComponent: ({ themeContext: context, themeMode: mode, ...props }) => (
       <ThemeProvider
-        theme={theme => ({
+        theme={(theme) => ({
           ...theme,
           context,
           mode: themeModes[mode],
@@ -469,7 +469,7 @@ const variations = [
   },
 ];
 
-const Container = props => (
+const Container = (props) => (
   <div
     css={{
       display: 'flex',
@@ -479,10 +479,10 @@ const Container = props => (
     {...props}
   />
 );
-const VariationWrapper = props => (
+const VariationWrapper = (props) => (
   <div css={{ margin: '0 24px 24px 0' }} {...props} />
 );
-const ItemWrapper = props => (
+const ItemWrapper = (props) => (
   <div css={{ margin: '4px 0', width: `${CONTENT_NAV_WIDTH}px` }} {...props} />
 );
 
@@ -491,7 +491,7 @@ export default () => (
     {variations.map(({ title, items, itemComponent: ItemComponent = Item }) => (
       <VariationWrapper key={title}>
         <h3>{title}</h3>
-        {items.map(item => (
+        {items.map((item) => (
           <ItemWrapper key={item.key || item.text}>
             <ItemComponent {...item} />
           </ItemWrapper>

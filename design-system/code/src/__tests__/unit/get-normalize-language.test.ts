@@ -5,13 +5,13 @@ describe('normalizeLanguage', () => {
     expect(normalizeLanguage('js')).toEqual('javascript');
   });
 
-  [undefined, null, '', false].forEach(input => {
+  [undefined, null, '', false].forEach((input) => {
     it(`should fallback with falsey input (${input})`, () => {
       expect(normalizeLanguage(input as any)).toEqual('');
     });
   });
 
-  [{}, [], class {}].forEach(input => {
+  [{}, [], class {}].forEach((input) => {
     it(`should not throw with bad input (${input})`, () => {
       expect(normalizeLanguage(input as any)).toBeDefined();
     });

@@ -89,7 +89,7 @@ const LoadingSkeleton = () => {
 
   const reset = (incKey: boolean = true) => {
     if (incKey) {
-      setKey(prev => prev + 1);
+      setKey((prev) => prev + 1);
     }
     setIsLoading(true);
 

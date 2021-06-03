@@ -28,7 +28,7 @@ export default function useCloseOnEscapePress({
   const escapePressed = useRef(false);
 
   const onKeyDown: NativeKeyboardEventHandler = useCallback(
-    e => {
+    (e) => {
       if (isDisabled || escapePressed.current || e.key !== 'Escape') {
         // We're either already handling the key down event or it's not escape.
         // Bail early!

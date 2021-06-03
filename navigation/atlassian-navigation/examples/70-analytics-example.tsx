@@ -136,7 +136,7 @@ const AnalyticsExample = () => {
 export default () => (
   <AnalyticsListener
     channel="app-navigation"
-    onEvent={event => console.log('Event fired:', event)}
+    onEvent={(event) => console.log('Event fired:', event)}
   >
     <AnalyticsContext data={{ panel: 'app-navigation' }}>
       <AnalyticsExample />

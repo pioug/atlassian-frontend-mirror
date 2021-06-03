@@ -15,7 +15,7 @@ export default class RenderBlocker extends Component {
     const { blockOnChange, children, ...props } = this.props;
 
     const propsChanged = Object.keys(props).some(
-      propName => props[propName] !== prevProps[propName],
+      (propName) => props[propName] !== prevProps[propName],
     );
 
     return this.props.blockOnChange ? !propsChanged : propsChanged;

@@ -30,7 +30,7 @@ export default class Document extends Component<Props> {
 
     if (renderToolbar) {
       return (
-        <WithEditorActions render={actions => renderToolbar(mode, actions)} />
+        <WithEditorActions render={(actions) => renderToolbar(mode, actions)} />
       );
     }
 

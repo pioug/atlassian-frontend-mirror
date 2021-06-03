@@ -57,14 +57,14 @@ export default () => {
       <div css={{ textAlign: 'center' }}>
         <ButtonGroup>
           <Button
-            onClick={() => setIndex(prev => (prev + 1) % elements.length)}
+            onClick={() => setIndex((prev) => (prev + 1) % elements.length)}
           >
             Switch
           </Button>
 
           <Button
             isSelected={appear}
-            onClick={() => setAppear(appear => !appear)}
+            onClick={() => setAppear((appear) => !appear)}
           >
             {appear ? 'Appears on mount' : 'Immediately appear on mount'}
           </Button>
@@ -72,9 +72,9 @@ export default () => {
           <Button
             isSelected={exitThenEnter}
             onClick={() => {
-              setExitThenEnter(prev => !prev);
+              setExitThenEnter((prev) => !prev);
               setTimeout(
-                () => setIndex(prev => (prev + 1) % elements.length),
+                () => setIndex((prev) => (prev + 1) % elements.length),
                 1,
               );
             }}

@@ -51,7 +51,7 @@ export default class Slider extends Component {
     return percent;
   };
 
-  handleChange = e => {
+  handleChange = (e) => {
     // Event.target is typed as an EventTarget but we need to access properties on it which are
     // specific to HTMLInputElement. Due limitations of the HTML spec flow doesn't know that an
     // EventTarget can have these properties, so we cast it to Element through Object. This is

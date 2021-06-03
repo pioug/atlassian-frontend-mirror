@@ -135,7 +135,7 @@ export default class PropChanges extends Component<Prop, State> {
                   getDisplayedStatus(b.status),
                 );
               })
-              .map(entry => {
+              .map((entry) => {
                 const { key, status, content, packages } = entry;
                 return selectedOptions &&
                   selectedOptions

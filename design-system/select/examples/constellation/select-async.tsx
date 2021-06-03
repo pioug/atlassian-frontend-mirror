@@ -7,10 +7,12 @@ interface State {
 }
 
 const filterCities = (inputValue: string) =>
-  cities.filter(i => i.label.toLowerCase().includes(inputValue.toLowerCase()));
+  cities.filter((i) =>
+    i.label.toLowerCase().includes(inputValue.toLowerCase()),
+  );
 
 const promiseOptions = (inputValue: string) =>
-  new Promise(resolve => {
+  new Promise((resolve) => {
     setTimeout(() => {
       resolve(filterCities(inputValue));
     }, 1000);

@@ -58,12 +58,12 @@ export default class GetPath extends Component<any, any> {
 
     // There is no icon or wordmark file available for property logos
     const fileOptions: File[] = selectedProduct.isProperty
-      ? files.filter(file => file.value === 'Logo')
+      ? files.filter((file) => file.value === 'Logo')
       : files;
 
     const productOptions: Product[] =
       selectedFile.value !== 'Logo'
-        ? products.filter(product => !product.isProperty)
+        ? products.filter((product) => !product.isProperty)
         : products;
 
     return (

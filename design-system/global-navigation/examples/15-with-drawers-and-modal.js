@@ -52,7 +52,7 @@ class GlobalNavWithDrawers extends Component {
     window.removeEventListener('keydown', this.handleKeyboardShortcut);
   }
 
-  handleKeyboardShortcut = e => {
+  handleKeyboardShortcut = (e) => {
     if (e.key === '\\') {
       if (this.state.isSearchDrawerOpen) return this.closeSearchDrawer();
 
@@ -73,7 +73,7 @@ class GlobalNavWithDrawers extends Component {
 
   secondaryAction = ({ target }) => console.log(target.innerText);
 
-  onCloseComplete = node => console.log('onCloseComplete', node);
+  onCloseComplete = (node) => console.log('onCloseComplete', node);
 
   renderCreateDrawerContents = () => (
     <DrawerContent
@@ -235,11 +235,11 @@ export default class extends Component {
     isSettingsDrawerFocusLockEnabled: true,
   };
 
-  handleCreateChange = e => {
+  handleCreateChange = (e) => {
     this.setState({ createItemOpens: e.currentTarget.value });
   };
 
-  handleHelpChange = e => {
+  handleHelpChange = (e) => {
     this.setState({ helpItemOpens: e.currentTarget.value });
   };
 
@@ -255,9 +255,9 @@ export default class extends Component {
     this.setState({ notificationCount: DEFAULT_NOTIFICATION_COUNT });
 
   // eslint-disable-next-line no-undef
-  toggleFocusLock = ev => {
+  toggleFocusLock = (ev) => {
     const propName = `is${ev.target.id}FocusLockEnabled`;
-    this.setState(state => ({
+    this.setState((state) => ({
       [propName]: !state[propName],
     }));
   };

@@ -40,7 +40,7 @@ export default class ItemGroup extends Component {
             <GroupTitleText>{title}</GroupTitleText>
             {elemAfter ? (
               <GroupTitleAfter
-                innerRef={r => {
+                innerRef={(r) => {
                   this.headingAfterElement = r;
                 }}
               >

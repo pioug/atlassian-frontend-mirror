@@ -28,7 +28,7 @@ export const ProgressTrackerStageMarker = styled.div<StageMarkerProps>`
   position: absolute;
   left: 50%;
   transform: translate(-50%, -${labelTopSpacing}px);
-  background-color: ${props => props.color};
+  background-color: ${(props) => props.color};
   height: ${progressBarHeight}px;
   width: ${progressBarHeight}px;
   border-radius: ${progressBarHeight}px;
@@ -39,20 +39,20 @@ export const ProgressTrackerStageMarker = styled.div<StageMarkerProps>`
 
   &.fade-appear.fade-appear-active {
     opacity: 1;
-    transition: opacity ${props => props.transitionSpeed}ms
-      ${props => props.transitionEasing};
-    transition-delay: ${props => props.transitionDelay}ms;
+    transition: opacity ${(props) => props.transitionSpeed}ms
+      ${(props) => props.transitionEasing};
+    transition-delay: ${(props) => props.transitionDelay}ms;
   }
 
   &.fade-enter {
-    background-color: ${props => props.oldMarkerColor};
+    background-color: ${(props) => props.oldMarkerColor};
   }
 
   &.fade-enter.fade-enter-active {
-    background-color: ${props => props.color};
-    transition: background-color ${props => props.transitionSpeed}ms
-      ${props => props.transitionEasing};
-    transition-delay: ${props => props.transitionDelay}ms;
+    background-color: ${(props) => props.color};
+    transition: background-color ${(props) => props.transitionSpeed}ms
+      ${(props) => props.transitionEasing};
+    transition-delay: ${(props) => props.transitionDelay}ms;
   }
 `;
 
@@ -68,48 +68,49 @@ export const ProgressTrackerStageBar = styled.div<StageBarProps>`
   background-color: ${B300};
   height: ${progressBarHeight}px;
   width: calc(
-    ${props => props.percentageComplete}% + ${props => props.percentageComplete} /
-      100 * ${props => halfGridSize + spacing[props.theme.spacing]}px
+    ${(props) => props.percentageComplete}% +
+      ${(props) => props.percentageComplete} / 100 *
+      ${(props) => halfGridSize + spacing[props.theme.spacing]}px
   ); /* account for spacing and radius of marker */
   border-top-right-radius: ${gridSize}px;
   border-bottom-right-radius: ${gridSize}px;
 
   &.fade-appear {
     width: calc(
-      ${props => props.oldPercentageComplete}% +
-        ${props => props.oldPercentageComplete} / 100 *
-        ${props => halfGridSize + spacing[props.theme.spacing]}px
+      ${(props) => props.oldPercentageComplete}% +
+        ${(props) => props.oldPercentageComplete} / 100 *
+        ${(props) => halfGridSize + spacing[props.theme.spacing]}px
     ); /* account for spacing and radius of marker */
   }
 
   &.fade-appear.fade-appear-active {
     width: calc(
-      ${props => props.percentageComplete}% +
-        ${props => props.percentageComplete} / 100 *
-        ${props => halfGridSize + spacing[props.theme.spacing]}px
+      ${(props) => props.percentageComplete}% +
+        ${(props) => props.percentageComplete} / 100 *
+        ${(props) => halfGridSize + spacing[props.theme.spacing]}px
     ); /* account for spacing and radius of marker */
-    transition: width ${props => props.transitionSpeed}ms
-      ${props => props.transitionEasing};
-    transition-delay: ${props => props.transitionDelay}ms;
+    transition: width ${(props) => props.transitionSpeed}ms
+      ${(props) => props.transitionEasing};
+    transition-delay: ${(props) => props.transitionDelay}ms;
   }
 
   &.fade-enter {
     width: calc(
-      ${props => props.oldPercentageComplete}% +
-        ${props => props.oldPercentageComplete} / 100 *
-        ${props => halfGridSize + spacing[props.theme.spacing]}px
+      ${(props) => props.oldPercentageComplete}% +
+        ${(props) => props.oldPercentageComplete} / 100 *
+        ${(props) => halfGridSize + spacing[props.theme.spacing]}px
     ); /* account for spacing and radius of marker */
   }
 
   &.fade-enter.fade-enter-active {
     width: calc(
-      ${props => props.percentageComplete}% +
-        ${props => props.percentageComplete} / 100 *
-        ${props => halfGridSize + spacing[props.theme.spacing]}px
+      ${(props) => props.percentageComplete}% +
+        ${(props) => props.percentageComplete} / 100 *
+        ${(props) => halfGridSize + spacing[props.theme.spacing]}px
     ); /* account for spacing and radius of marker */
-    transition: width ${props => props.transitionSpeed}ms
-      ${props => props.transitionEasing};
-    transition-delay: ${props => props.transitionDelay}ms;
+    transition: width ${(props) => props.transitionSpeed}ms
+      ${(props) => props.transitionEasing};
+    transition-delay: ${(props) => props.transitionDelay}ms;
   }
 `;
 
@@ -118,9 +119,9 @@ interface StageTitleProps extends BaseStageProps {
 }
 
 export const ProgressTrackerStageTitle = styled.div<StageTitleProps>`
-  font-weight: ${props => props.fontweight};
+  font-weight: ${(props) => props.fontweight};
   line-height: 16px;
-  color: ${props => props.color};
+  color: ${(props) => props.color};
   text-align: center;
   font-size: ${fontSize}px;
   margin-left: auto;
@@ -133,7 +134,7 @@ export const ProgressTrackerStageTitle = styled.div<StageTitleProps>`
 
   &.fade-appear.fade-appear-active {
     opacity: 1;
-    transition: opacity ${props => props.transitionSpeed}ms
+    transition: opacity ${(props) => props.transitionSpeed}ms
       cubic-bezier(0.2, 0, 0, 1);
   }
 `;
@@ -157,7 +158,7 @@ const getMaxWidthColumnRatio = (props: ListItemProps) => {
 export const ProgressTrackerListItem = styled.li<Partial<ListItemProps>>`
   flex-grow: 1;
   flex-shrink: 0;
-  margin: 0 ${props => spacing[props.theme.spacing] / 2}px;
+  margin: 0 ${(props) => spacing[props.theme.spacing] / 2}px;
   word-wrap: break-word;
 
   max-width: calc(${getMaxWidthColumnRatio} - ${gridSpacing}px);

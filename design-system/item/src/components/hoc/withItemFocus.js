@@ -10,7 +10,7 @@ import { focusManagerContext } from '../../util/contextNamespace';
 
 // HOC that typically wraps @atlaskit/item
 
-const withItemFocus = WrappedComponent =>
+const withItemFocus = (WrappedComponent) =>
   class WithItemFocus extends Component {
     static displayName = `WithItemFocus(${getDisplayName(WrappedComponent)})`;
 

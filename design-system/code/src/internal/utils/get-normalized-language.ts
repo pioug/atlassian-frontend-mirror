@@ -8,7 +8,7 @@ export const normalizeLanguage = memoizeOne(
     if (!language) {
       return '';
     }
-    const match = SUPPORTED_LANGUAGES.find(val => {
+    const match = SUPPORTED_LANGUAGES.find((val) => {
       return (
         val.name === language ||
         (val.alias as readonly LanguageAlias[]).includes(

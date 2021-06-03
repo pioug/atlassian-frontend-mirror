@@ -16,7 +16,7 @@ const packageVersion = process.env._PACKAGE_VERSION_ as string;
 // TODO: create integration tests to replace these See https://ecosystem.atlassian.net/browse/AK-5183
 describe('dropdown menu - DropdownMenuStateless', () => {
   describe('rendering DropdownItemFocusManager', () => {
-    test.skip('should render DropdownItemFocusManager inside Droplist', done => {
+    test.skip('should render DropdownItemFocusManager inside Droplist', (done) => {
       const wrapper = shallow<DropdownMenuStateless>(
         <DropdownMenuStateless
           isOpen
@@ -101,7 +101,7 @@ describe('dropdown menu - DropdownMenuStateless', () => {
       const spy = jest.fn();
       const trigger = (
         <button
-          ref={r => {
+          ref={(r) => {
             buttonRef = r;
           }}
         >
@@ -126,7 +126,7 @@ describe('dropdown menu - DropdownMenuStateless', () => {
       const trigger = (
         <button
           disabled
-          ref={r => {
+          ref={(r) => {
             buttonRef = r;
           }}
         >

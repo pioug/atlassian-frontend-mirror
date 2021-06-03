@@ -19,7 +19,7 @@ export default class FieldText extends Component {
     value: this.props.value,
   };
 
-  handleOnChange = e => {
+  handleOnChange = (e) => {
     this.setState({ value: e.target.value });
     if (this.props.onChange) {
       this.props.onChange(e);
@@ -32,7 +32,7 @@ export default class FieldText extends Component {
         {...this.props}
         value={this.state.value}
         onChange={this.handleOnChange}
-        innerRef={fieldRef => {
+        innerRef={(fieldRef) => {
           this.input = fieldRef;
         }}
       />

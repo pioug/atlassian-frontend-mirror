@@ -11,7 +11,7 @@ export function doesIdentifierExist({
   name: string;
 }): boolean {
   return (
-    base.find(j.Identifier).filter(identifer => identifer.value.name === name)
+    base.find(j.Identifier).filter((identifer) => identifer.value.name === name)
       .length > 0
   );
 }
@@ -31,11 +31,11 @@ export function getDynamicImportName(
 ) {
   const dynamicImports = source
     .find(j.VariableDeclarator)
-    .filter(variableDeclaratorPath => {
+    .filter((variableDeclaratorPath) => {
       return (
         j(variableDeclaratorPath)
           .find(j.CallExpression)
-          .filter(callExpressionPath => {
+          .filter((callExpressionPath) => {
             const {
               callee,
               arguments: callExpressionArguments,
@@ -85,5 +85,5 @@ function isCallExpressionArgumentValueMatches(
   j: core.JSCodeshift,
   value: string,
 ) {
-  return j(callExpressionArgument).some(path => path.node.value === value);
+  return j(callExpressionArgument).some((path) => path.node.value === value);
 }

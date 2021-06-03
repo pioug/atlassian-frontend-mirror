@@ -73,7 +73,7 @@ export default class SingleLineTextInput extends Component {
     }
   }
 
-  onKeyDown = event => {
+  onKeyDown = (event) => {
     if (this.props.onKeyDown) {
       this.props.onKeyDown(event);
     }
@@ -112,7 +112,7 @@ export default class SingleLineTextInput extends Component {
       <EditView
         style={this.props.style}
         {...this.getInputProps()}
-        innerRef={ref => {
+        innerRef={(ref) => {
           this.inputRef = ref;
         }}
       />

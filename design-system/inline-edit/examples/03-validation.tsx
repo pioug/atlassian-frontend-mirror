@@ -20,7 +20,7 @@ const ReadViewContainer = styled.div<Props>`
   line-height: ${(gridSize() * 2.5) / fontSize()};
   max-width: 100%;
   min-height: ${(gridSize() * 2.5) / fontSize()}em;
-  padding: ${props => (props.isCompact ? gridSize() / 2 : gridSize())}px
+  padding: ${(props) => (props.isCompact ? gridSize() / 2 : gridSize())}px
     ${gridSize() - 2}px;
   word-break: break-word;
 `;
@@ -42,7 +42,7 @@ const InlineEditExample = () => {
   const validate = (value: string) => {
     validateValue = value;
     return new Promise<{ value: string; error: string } | undefined>(
-      resolve => {
+      (resolve) => {
         validateTimeoutId = window.setTimeout(() => {
           if (value.length <= 6) {
             resolve({ value, error: 'Enter a value longer than 6 characters' });
@@ -50,7 +50,7 @@ const InlineEditExample = () => {
           resolve(undefined);
         }, 100);
       },
-    ).then(validateObject => {
+    ).then((validateObject) => {
       if (validateObject && validateObject.value === validateValue) {
         return validateObject.error;
       }
@@ -100,7 +100,7 @@ const InlineEditExample = () => {
             {editValue || 'Click to enter value'}
           </ReadViewContainer>
         )}
-        onConfirm={value => setEditValue(value)}
+        onConfirm={(value) => setEditValue(value)}
         validate={validate}
       />
     </div>

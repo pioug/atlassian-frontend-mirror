@@ -8,7 +8,7 @@ export const decisionItem = (
   { context }: NodeEncoderOpts = {},
 ): string => {
   let result: string = '';
-  node.forEach(n => {
+  node.forEach((n) => {
     result += `* <> ${inlines(n, { context })}`;
   });
   return result;

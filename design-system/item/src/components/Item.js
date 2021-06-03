@@ -40,7 +40,7 @@ export default class Item extends Component {
     }
   }
 
-  setRef = ref => {
+  setRef = (ref) => {
     this.ref = ref;
   };
 
@@ -66,7 +66,7 @@ export default class Item extends Component {
     const dragHandleProps = (dnd && dnd.dragHandleProps) || null;
 
     const patchedEventHandlers = {
-      onClick: event => {
+      onClick: (event) => {
         // rbd will use event.preventDefault() to block clicks that are used
         // as a part of the drag and drop lifecycle.
         if (event.defaultPrevented) {
@@ -77,7 +77,7 @@ export default class Item extends Component {
           onClick(event);
         }
       },
-      onMouseDown: event => {
+      onMouseDown: (event) => {
         // rbd 11.x support
         if (dragHandleProps && dragHandleProps.onMouseDown) {
           dragHandleProps.onMouseDown(event);
@@ -85,7 +85,7 @@ export default class Item extends Component {
         // We want to prevent the item from getting focus when clicked
         event.preventDefault();
       },
-      onKeyDown: event => {
+      onKeyDown: (event) => {
         // swallowing keyboard events on the element while dragging
         // rbd should already be doing this - but we are being really clear here
         if (isDragging) {
@@ -116,7 +116,7 @@ export default class Item extends Component {
       },
     };
 
-    const patchedInnerRef = ref => {
+    const patchedInnerRef = (ref) => {
       this.setRef(ref);
 
       // give rbd the inner ref too

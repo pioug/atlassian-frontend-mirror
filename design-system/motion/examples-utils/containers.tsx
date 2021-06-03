@@ -21,7 +21,7 @@ export const Centered = ({
 
 export const RetryContainer = (props: { children: React.ReactNode }) => {
   const [count, setCount] = useState(0);
-  const increment = () => setCount(prev => prev + 1);
+  const increment = () => setCount((prev) => prev + 1);
 
   return (
     <div key={count}>

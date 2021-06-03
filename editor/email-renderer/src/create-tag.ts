@@ -7,7 +7,7 @@ export const createTag = (
 ) => {
   const attrsList: string[] = [];
 
-  Object.keys(attrs || {}).forEach(key => {
+  Object.keys(attrs || {}).forEach((key) => {
     const value = attrs![key];
 
     if (value === undefined) {

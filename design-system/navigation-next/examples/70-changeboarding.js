@@ -22,7 +22,7 @@ const GlobalNavigation = () => (
 
 const ExpandToggleButton = () => (
   <UIControllerSubscriber>
-    {navigationUIController => (
+    {(navigationUIController) => (
       <Button
         iconBefore={
           navigationUIController.state.isCollapsed ? (

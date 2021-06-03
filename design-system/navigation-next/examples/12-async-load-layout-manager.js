@@ -88,7 +88,7 @@ const AsyncProductNavigation = asyncComponent({
   resolve: () =>
     import('./shared/components/ProductNavigation').then(
       ({ default: ProductNavigation }) => {
-        return new Promise(resolve => {
+        return new Promise((resolve) => {
           setTimeout(() => {
             return resolve(ProductNavigation);
           }, 5000);
@@ -101,7 +101,7 @@ const AsyncProductNavigation = asyncComponent({
 const AsyncContent = asyncComponent({
   resolve: () =>
     import('./shared/components/PageContent').then(({ default: Content }) => {
-      return new Promise(resolve => {
+      return new Promise((resolve) => {
         setTimeout(() => {
           return resolve(makeTestComponent('content', <Content />));
         }, 2000);
@@ -114,7 +114,7 @@ export default class NavigationWithDynamicLoad extends Component {
   render() {
     return (
       <NavigationProvider>
-        <ThemeProvider theme={theme => ({ ...theme, mode: customThemeMode })}>
+        <ThemeProvider theme={(theme) => ({ ...theme, mode: customThemeMode })}>
           <LayoutManager
             globalNavigation={GlobalNavigation}
             productNavigation={AsyncProductNavigation}

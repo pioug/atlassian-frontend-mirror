@@ -14,7 +14,7 @@ import { FieldId } from './Field';
 const Message = styled.div<{ error?: boolean; valid?: boolean }>`
   ${h200} font-weight: normal;
   font-family: ${fontFamily()};
-  color: ${props => {
+  color: ${(props) => {
     if (props.error) {
       return R400;
     }
@@ -44,7 +44,7 @@ interface Props {
 
 export const HelperMessage = ({ children, testId }: Props) => (
   <FieldId.Consumer>
-    {fieldId => (
+    {(fieldId) => (
       <Message
         id={fieldId ? `${fieldId}-helper` : undefined}
         data-testid={testId}
@@ -57,7 +57,7 @@ export const HelperMessage = ({ children, testId }: Props) => (
 
 export const ErrorMessage = ({ children, testId }: Props) => (
   <FieldId.Consumer>
-    {fieldId => (
+    {(fieldId) => (
       <Message
         error
         id={fieldId ? `${fieldId}-error` : undefined}
@@ -74,7 +74,7 @@ export const ErrorMessage = ({ children, testId }: Props) => (
 
 export const ValidMessage = ({ children, testId }: Props) => (
   <FieldId.Consumer>
-    {fieldId => (
+    {(fieldId) => (
       <Message
         valid
         id={fieldId ? `${fieldId}-valid` : undefined}

@@ -7,7 +7,7 @@ import Textfield from '../../src';
 
 export default function TextFieldMaxValueExample() {
   return (
-    <Form onSubmit={formData => console.log('form data', formData)}>
+    <Form onSubmit={(formData) => console.log('form data', formData)}>
       {({ formProps }) => (
         <form {...formProps} name="max-length-example">
           <Field

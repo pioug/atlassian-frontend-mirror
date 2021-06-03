@@ -108,7 +108,7 @@ class FieldTextAreaStateless extends Component {
             autoFocus={autoFocus}
             spellCheck={isSpellCheckEnabled}
             maxLength={maxLength}
-            innerRef={input => {
+            innerRef={(input) => {
               this.input = input;
             }}
           />

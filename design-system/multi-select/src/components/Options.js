@@ -1,6 +1,6 @@
 import React from 'react';
 
-const renderOptions = items => {
+const renderOptions = (items) => {
   if (!items || !items.length) return [];
 
   return items.map((item, itemIndex) => (
@@ -14,7 +14,7 @@ const renderOptions = items => {
   ));
 };
 
-const renderOptGroups = groups =>
+const renderOptGroups = (groups) =>
   groups.map((group, groupIndex) => (
     <optgroup
       key={groupIndex} // eslint-disable-line react/no-array-index-key

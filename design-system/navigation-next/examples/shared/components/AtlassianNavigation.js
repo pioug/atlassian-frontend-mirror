@@ -26,7 +26,7 @@ const ButtonLink = forwardRef(({ href, children, ...rest }, ref) => (
   </Link>
 ));
 
-const NavigationButton = props => (
+const NavigationButton = (props) => (
   <PrimaryButton component={ButtonLink} {...props} />
 );
 

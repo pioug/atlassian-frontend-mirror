@@ -37,20 +37,20 @@ export default class CustomMultiSelect extends PureComponent {
     // we could also keep track of isInvalid here
   };
 
-  selectItem = item => {
+  selectItem = (item) => {
     const selectedItems = [...this.state.selectedItems, item];
     this.setState({ selectedItems });
   };
 
-  removeItem = item => {
+  removeItem = (item) => {
     const selectedItems = this.state.selectedItems.filter(
-      i => i.value !== item.value,
+      (i) => i.value !== item.value,
     );
     this.setState({ selectedItems });
   };
 
-  selectedChange = item => {
-    if (this.state.selectedItems.some(i => i.value === item.value)) {
+  selectedChange = (item) => {
+    if (this.state.selectedItems.some((i) => i.value === item.value)) {
       this.removeItem(item);
     } else {
       this.selectItem(item);
@@ -58,12 +58,12 @@ export default class CustomMultiSelect extends PureComponent {
     // we could update isInvalid here
   };
 
-  handleFilterChange = value => {
+  handleFilterChange = (value) => {
     // value will tell us the value the filter wants to change to
     this.setState({ filterValue: value });
   };
 
-  handleOpenChange = attrs => {
+  handleOpenChange = (attrs) => {
     // attrs.isOpen will tell us the state that the dropdown wants to move to
     this.setState({ isOpen: attrs.isOpen });
   };

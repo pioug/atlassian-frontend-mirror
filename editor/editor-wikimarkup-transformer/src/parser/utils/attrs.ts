@@ -7,7 +7,7 @@ export function parseAttrs(
     return output;
   }
   const attributesStr = str.split(sep);
-  attributesStr.forEach(attributeStr => {
+  attributesStr.forEach((attributeStr) => {
     const [key, ...value] = attributeStr.split('=');
     // take only first value of the same keys
     if (!output[key]) {

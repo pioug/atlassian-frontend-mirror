@@ -69,7 +69,7 @@ const BasicExample = () => {
   const [key, setKey] = useState(0);
   const reset = () => {
     isLoaded = {};
-    setKey(prev => prev + 1);
+    setKey((prev) => prev + 1);
   };
 
   return (

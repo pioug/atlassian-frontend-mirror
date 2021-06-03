@@ -27,7 +27,7 @@ const CustomNestingItem = ({
 const BasicExample = () => {
   return (
     <div
-      onClick={e => e.preventDefault()}
+      onClick={(e) => e.preventDefault()}
       css={{ height: 340, overflow: 'hidden' }}
     >
       <NestableNavigationContent>
@@ -66,7 +66,7 @@ const BasicExample = () => {
             description="I have a custom back button"
             overrides={{
               GoBackItem: {
-                render: props => (
+                render: (props) => (
                   <GoBackItem isSelected {...props}>
                     Go home, man!
                   </GoBackItem>

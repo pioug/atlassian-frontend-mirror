@@ -17,7 +17,7 @@ const getOppositeTheme = (themeMode: ThemeMode) =>
   themeMode === ThemeMode.LIGHT ? ThemeMode.DARK : ThemeMode.LIGHT;
 const paddingStyle = { padding: '8px 0' };
 
-const rowsWithTabIndex: Array<RowType> = rows.map(row => ({
+const rowsWithTabIndex: Array<RowType> = rows.map((row) => ({
   ...row,
   tabIndex: 0,
 }));

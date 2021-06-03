@@ -52,7 +52,7 @@ export const LoaderItemContainer = styled.span`
   ${commonChevronContainer} padding-top: 5px;
   width: 100%;
 
-  ${props =>
+  ${(props) =>
     props.isRoot &&
     css`
       padding-left: 50%;
@@ -68,7 +68,7 @@ const commonCell = css`
   padding: 10px ${defaultToPx(indentWidth)};
   color: ${N800};
   line-height: 20px;
-  ${props =>
+  ${(props) =>
     props.width &&
     css`
       width: ${defaultToPx(props.width)};
@@ -76,7 +76,7 @@ const commonCell = css`
 `;
 
 export const OverflowContainer = styled.span`
-  ${props =>
+  ${(props) =>
     props.singleLine &&
     css`
       white-space: nowrap;
@@ -86,7 +86,7 @@ export const OverflowContainer = styled.span`
 `;
 
 export const Cell = styled.div`
-  ${commonCell} ${props =>
+  ${commonCell} ${(props) =>
     props.indentLevel &&
     css`
       padding-left: ${defaultToPx(indentWidth * props.indentLevel)};

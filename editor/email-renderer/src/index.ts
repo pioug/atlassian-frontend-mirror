@@ -153,10 +153,10 @@ export class EmailSerializer implements SerializerWithImages<string> {
       wrapAdf,
       this.schema.nodeFromJSON,
       property('content'),
-      fragment => traverseTree(fragment, undefined, context),
-      html => juicify(html, this.opts.isInlineCSSEnabled),
-      html => processImages(html, this.opts.isImageStubEnabled), // inline static assets for demo purposes
-      result => stubImages(result, this.opts.isImageStubEnabled), // stub user uploaded images to prevent console.errors
+      (fragment) => traverseTree(fragment, undefined, context),
+      (html) => juicify(html, this.opts.isInlineCSSEnabled),
+      (html) => processImages(html, this.opts.isImageStubEnabled), // inline static assets for demo purposes
+      (result) => stubImages(result, this.opts.isImageStubEnabled), // stub user uploaded images to prevent console.errors
     )(fragment);
   };
 

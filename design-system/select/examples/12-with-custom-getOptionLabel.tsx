@@ -21,7 +21,7 @@ export default class WithCustomGetOptionLabel extends Component<{}, State> {
   toggleValue = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
 
-    this.setState(state => ({ ...state, value }));
+    this.setState((state) => ({ ...state, value }));
   };
 
   render() {

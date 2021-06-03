@@ -58,7 +58,7 @@ const ADragDropView = (props: { items: CustomDraggable[] }) => {
   return (
     <DragDropContext onDragEnd={handleDragEnd}>
       <Droppable droppableId="droppable-1">
-        {provided => (
+        {(provided) => (
           <div
             css={{ display: 'flex', flexDirection: 'column' }}
             ref={provided.innerRef}
@@ -72,7 +72,7 @@ const ADragDropView = (props: { items: CustomDraggable[] }) => {
                   draggableId={item.key}
                   index={index}
                 >
-                  {provided => {
+                  {(provided) => {
                     return item.renderItem({
                       ref: provided.innerRef,
                       dragHandleProps: provided.dragHandleProps,
@@ -166,9 +166,9 @@ const generateDraggableCats = (): CustomDraggable[] => {
     'https://images.pexels.com/photos/2194261/pexels-photo-2194261.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
   ];
 
-  return urls.map(url => ({
+  return urls.map((url) => ({
     key: url,
-    renderItem: props => (
+    renderItem: (props) => (
       <img
         ref={props.ref}
         {...props.dragHandleProps}

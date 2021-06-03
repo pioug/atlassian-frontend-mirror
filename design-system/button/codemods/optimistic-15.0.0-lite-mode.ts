@@ -64,7 +64,7 @@ function changeUsage({
       target: base
         .find(j.ImportDeclaration)
         .filter(
-          declaration =>
+          (declaration) =>
             declaration.value.source.value ===
             '@atlaskit/button/standard-button',
         ),
@@ -105,7 +105,7 @@ function changeUsage({
     customTheme: [],
   };
 
-  base.findJSXElements(defaultName).forEach(path => {
+  base.findJSXElements(defaultName).forEach((path) => {
     const hasThemeProp: boolean = isUsingProp({
       j,
       base,
@@ -136,13 +136,13 @@ function changeUsage({
       base
         .find(j.ImportDeclaration)
         .filter(
-          declaration =>
+          (declaration) =>
             declaration.value.source.value ===
             '@atlaskit/button/custom-theme-button',
         )
         .find(j.ImportSpecifier)
-        .filter(specifier => specifier.value.imported.name === 'Theme').length >
-      0;
+        .filter((specifier) => specifier.value.imported.name === 'Theme')
+        .length > 0;
 
     if (isUsingThemeInFile) {
       addCommentToStartOfFile({
@@ -241,18 +241,19 @@ export default function transformer(
         base
           .find(j.ImportDeclaration)
           .filter(
-            declaration =>
+            (declaration) =>
               declaration.value.source.value === '@atlaskit/button/types',
           )
           .find(j.ImportSpecifier)
-          .filter(specifier => specifier.value.imported.name === 'ButtonProps')
-          .length > 0;
+          .filter(
+            (specifier) => specifier.value.imported.name === 'ButtonProps',
+          ).length > 0;
 
       if (isUsingButtonPropsType) {
         const target = base
           .find(j.ImportDeclaration)
           .filter(
-            declaration =>
+            (declaration) =>
               declaration.value.source.value === '@atlaskit/button/types',
           );
         addCommentBefore({

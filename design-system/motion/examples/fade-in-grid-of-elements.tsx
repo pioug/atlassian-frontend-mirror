@@ -40,7 +40,7 @@ export default () => {
   return (
     <div>
       <div css={{ textAlign: 'center', '> *': { margin: '2px' } }}>
-        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 20, 30, 50, 80].map(num => (
+        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 20, 30, 50, 80].map((num) => (
           <Button
             key={num}
             isSelected={num === state.numOfChildren}
@@ -73,7 +73,7 @@ export default () => {
               .fill(undefined)
               .map((_, index) => (
                 <FadeIn key={index}>
-                  {props => (
+                  {(props) => (
                     <li
                       {...props}
                       css={{ display: 'block', padding: 0, margin: '4px' }}

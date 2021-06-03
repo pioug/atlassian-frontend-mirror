@@ -133,7 +133,7 @@ function getOtherImports(j: any, path: any, fileSource: any) {
           j(lowerPath).replaceWith(j.identifier(lowerPath.value.property.name));
         });
 
-        names.forEach(name => {
+        names.forEach((name) => {
           importSpecifiers.push(j.importSpecifier(j.identifier(name)));
         });
 
@@ -165,7 +165,7 @@ export default function transformer(file: any, api: any) {
         getConstantsImport(j, path),
         getTypesImport(j, path),
         ...otherImports,
-      ].filter(importStat => importStat);
+      ].filter((importStat) => importStat);
 
       if (!firstImport) {
         return;

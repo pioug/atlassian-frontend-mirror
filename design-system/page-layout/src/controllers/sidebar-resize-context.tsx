@@ -75,12 +75,12 @@ export const useLeftSidebarFlyoutLock = () => {
   const { setLeftSidebarState } = useContext(SidebarResizeContext);
 
   useEffect(() => {
-    setLeftSidebarState(current => ({
+    setLeftSidebarState((current) => ({
       ...current,
       flyoutLockCount: current.flyoutLockCount + 1,
     }));
     return () => {
-      setLeftSidebarState(current => ({
+      setLeftSidebarState((current) => ({
         ...current,
         flyoutLockCount: current.flyoutLockCount - 1,
       }));

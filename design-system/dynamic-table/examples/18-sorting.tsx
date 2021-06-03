@@ -10,7 +10,7 @@ interface StateIndicatorProps {
   children?: ReactNode;
 }
 
-const StateIndicator: SFC<StateIndicatorProps> = props => {
+const StateIndicator: SFC<StateIndicatorProps> = (props) => {
   const [color, setColor] = useState('red');
 
   useEffect(() => {

@@ -19,13 +19,13 @@ export function MyTagGroup({ alignment }: Props) {
   const handleRemoveRequest = () => true;
 
   const handleRemoveComplete = (text: string) => {
-    setTags(tags.filter(str => str !== text));
+    setTags(tags.filter((str) => str !== text));
     console.log(`Removed ${text}.`);
   };
 
   return (
     <TagGroup alignment={alignment}>
-      {tags.map(text => (
+      {tags.map((text) => (
         <Tag
           key={text}
           onAfterRemoveAction={handleRemoveComplete}

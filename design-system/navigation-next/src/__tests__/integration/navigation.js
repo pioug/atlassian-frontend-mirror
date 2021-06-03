@@ -11,12 +11,12 @@ const exampleURL = getExampleUrl(
 );
 
 /* Css selectors used for the tests */
-const getByKey = key => `[data-webdriver-test-key="${key}"]`;
+const getByKey = (key) => `[data-webdriver-test-key="${key}"]`;
 
 BrowserTestCase(
   '🌏 Global navigation should render without errors',
   {},
-  async client => {
+  async (client) => {
     const page = new Page(client);
     const globalNav = getByKey('global-navigation');
     await page.goto(exampleURL);
@@ -33,7 +33,7 @@ BrowserTestCase(
 BrowserTestCase(
   '📦 Product navigation should render without errors',
   {},
-  async client => {
+  async (client) => {
     const page = new Page(client);
     await page.goto(exampleURL);
 
@@ -49,7 +49,7 @@ BrowserTestCase(
 BrowserTestCase(
   '🎁 Container navigation should render without errors',
   {},
-  async client => {
+  async (client) => {
     const page = new Page(client);
     await page.goto(exampleURL);
 

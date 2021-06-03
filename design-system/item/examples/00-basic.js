@@ -129,6 +129,6 @@ export default class ItemThemeDemo extends Component {
 }
 
 const Root = styled.div`
-  background-color: ${props => props.background};
+  background-color: ${(props) => props.background};
   margin: ${math.multiply(gridSize, 3)}px 0;
 `;

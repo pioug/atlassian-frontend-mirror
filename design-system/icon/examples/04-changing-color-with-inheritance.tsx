@@ -42,7 +42,7 @@ const ChangingColorWithInheritance = () => {
       <p css={paragraphStyles(isColorFlipped)}>
         <Button
           appearance="subtle-link"
-          onClick={() => setIsColorFlipped(old => !old)}
+          onClick={() => setIsColorFlipped((old) => !old)}
         >
           Change colour
         </Button>

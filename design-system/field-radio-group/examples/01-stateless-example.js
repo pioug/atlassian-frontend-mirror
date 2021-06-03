@@ -11,7 +11,7 @@ export default class StatelessExample extends Component {
     ],
   };
 
-  setValue = e => {
+  setValue = (e) => {
     this.setState({
       value: e.target.value,
     });

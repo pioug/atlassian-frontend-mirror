@@ -12,7 +12,7 @@ describe('Format format component', () => {
 
   it.each([0, 100, 12.34])(
     'should render positive numeric children (value=%p)',
-    value => {
+    (value) => {
       const { getByText } = render(<Format max={value}>{value}</Format>);
       expect(getByText(value.toString())).toBeInTheDocument();
     },
@@ -20,7 +20,7 @@ describe('Format format component', () => {
 
   it.each([-1, -100, -Infinity])(
     'should clamp negative numeric children (value=%p)',
-    value => {
+    (value) => {
       const { getByText } = render(<Format>{value}</Format>);
       expect(getByText('0')).toBeInTheDocument();
     },
@@ -72,7 +72,7 @@ describe('Format format component', () => {
 
   it.each([0, -100, -Infinity])(
     'should clamp negative numeric values (value=%p, expected="0")',
-    value => {
+    (value) => {
       const { getByText } = render(<Format>{value}</Format>);
       expect(getByText('0')).toBeInTheDocument();
     },

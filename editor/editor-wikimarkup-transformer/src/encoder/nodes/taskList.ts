@@ -5,7 +5,7 @@ import { taskItem } from './taskItem';
 
 const nestedNode = (node: PMNode, depth: number = 1): string => {
   const result: string[] = [];
-  node.forEach(item => {
+  node.forEach((item) => {
     if (item.type.name === 'taskList') {
       result.push(nestedNode(item, depth + 1));
     } else {

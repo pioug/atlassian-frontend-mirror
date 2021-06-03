@@ -11,7 +11,7 @@ function Overlay() {
     <>
       <Checkbox
         label="Show overlay"
-        onChange={() => setShowOverlay(value => !value)}
+        onChange={() => setShowOverlay((value) => !value)}
         name="show-loading"
       />
       <Button

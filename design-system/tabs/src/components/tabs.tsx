@@ -78,7 +78,7 @@ const TabsWithMode = (props: InnerProps) => {
 
   const childrenArray = Children.toArray(children)
     // Don't include any conditional children
-    .filter(child => Boolean(child));
+    .filter((child) => Boolean(child));
   // First child should be a tabList followed by tab panels
   const [tabList, ...tabPanels] = childrenArray;
 

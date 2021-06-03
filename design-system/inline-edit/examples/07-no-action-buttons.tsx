@@ -17,7 +17,7 @@ const InlineEditExample = () => {
         testId="editable-text-field"
         defaultValue={editValue}
         label="Inline editable textfield"
-        onConfirm={value => setEditValue(value)}
+        onConfirm={(value) => setEditValue(value)}
         placeholder="Click to enter text"
         hideActionButtons
       />

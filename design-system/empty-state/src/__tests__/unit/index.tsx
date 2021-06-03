@@ -103,7 +103,7 @@ describe('Empty state', () => {
     const wrapper = shallow(
       <EmptyState
         header="Test header"
-        renderImage={props => <TestImageComponent {...props} />}
+        renderImage={(props) => <TestImageComponent {...props} />}
         imageHeight={100}
         imageWidth={200}
         maxImageHeight={300}

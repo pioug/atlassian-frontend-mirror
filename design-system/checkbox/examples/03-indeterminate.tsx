@@ -15,7 +15,7 @@ const CHILD_2_ID: string = 'Jira Software';
 const CHILD_3_ID: string = 'Confluence';
 
 const getCheckedChildrenCount = (checkedItems: CheckedItems) => {
-  const childItems = Object.keys(checkedItems).filter(i => i !== PARENT_ID);
+  const childItems = Object.keys(checkedItems).filter((i) => i !== PARENT_ID);
   return childItems.reduce(
     (count, i) => (checkedItems[i] ? count + 1 : count),
     0,

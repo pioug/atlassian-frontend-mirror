@@ -91,7 +91,7 @@ export default function ToolsDrawer({ renderEditor }: Props) {
     const { doc } = editorView.state;
     const document = new SlackTransformer().encode(doc);
 
-    setState(prevState => ({
+    setState((prevState) => ({
       ...prevState,
       document,
     }));

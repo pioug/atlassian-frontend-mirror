@@ -17,7 +17,7 @@ describe('Textfield analytics', () => {
   [
     { method: 'onFocus', action: 'focused' },
     { method: 'onBlur', action: 'blurred' },
-  ].forEach(event => {
+  ].forEach((event) => {
     it(`should fire an event on internal channel when ${event.action}`, async () => {
       const onAtlaskitEvent = jest.fn();
       const { getByTestId } = render(

@@ -196,7 +196,7 @@ const PrimaryDropdown = (props: PrimaryDropdownProps) => {
       onClose={onClose}
       placement="bottom-start"
       testId={`${text}-popup`}
-      trigger={triggerProps => (
+      trigger={(triggerProps) => (
         <PrimaryDropdownButton
           onClick={onClick}
           onKeyDown={onKeyDown}
@@ -215,7 +215,7 @@ const PrimaryDropdown = (props: PrimaryDropdownProps) => {
 const primaryItems = [
   <PrimaryButton
     href="http://www.atlassian.com"
-    onClick={e => {
+    onClick={(e) => {
       if (e.ctrlKey || e.metaKey) {
         return;
       }

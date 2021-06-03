@@ -180,7 +180,7 @@ const InnerRemovableTag = forwardRef<any, ThemedRemovableTagProps>(
       <ExitingPersistence>
         {!(status === TagStatus.Removed) && (
           <ShrinkOut>
-            {motion => {
+            {(motion) => {
               return (
                 <BaseTag
                   ref={mergeRefs(motion.ref, ref)}

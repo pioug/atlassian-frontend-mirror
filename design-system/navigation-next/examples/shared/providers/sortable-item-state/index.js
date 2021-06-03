@@ -12,7 +12,7 @@ export default class SortableItemState extends Component {
     };
   }
 
-  onDragEnd = dropResult => {
+  onDragEnd = (dropResult) => {
     const updatedItems = updateSortableItems(
       this.state.sortableItems,
       dropResult,
@@ -24,7 +24,7 @@ export default class SortableItemState extends Component {
     }
   };
 
-  setItems = items => {
+  setItems = (items) => {
     this.setState({
       sortableItems: items,
     });

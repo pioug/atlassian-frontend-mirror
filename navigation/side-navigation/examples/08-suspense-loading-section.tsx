@@ -30,7 +30,7 @@ const makeLazy = <TComponent extends React.ComponentType>(
   component: TComponent,
 ) => {
   return lazy(() => {
-    return new Promise<{ default: TComponent }>(resolve => {
+    return new Promise<{ default: TComponent }>((resolve) => {
       setTimeout(() => {
         resolve({ default: component });
       }, 1000);

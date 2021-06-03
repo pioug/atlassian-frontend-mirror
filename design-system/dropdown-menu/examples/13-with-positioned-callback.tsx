@@ -65,7 +65,7 @@ export default class PositionCallbackExample extends Component<{}, State> {
           onPositioned={this.onPositioned}
         >
           <div
-            ref={elem => {
+            ref={(elem) => {
               this.ref = elem;
             }}
           >

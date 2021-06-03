@@ -117,7 +117,7 @@ class MySwitcher extends React.Component {
   });
 
   target = ({ id, subText, text }) => {
-    const avatar = s => (
+    const avatar = (s) => (
       <ItemAvatar
         appearance="square"
         href={null}
@@ -138,7 +138,7 @@ class MySwitcher extends React.Component {
     );
   };
 
-  onChange = selected => {
+  onChange = (selected) => {
     this.setState({ selected });
   };
 

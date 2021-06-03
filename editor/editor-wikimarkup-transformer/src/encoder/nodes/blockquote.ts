@@ -6,7 +6,7 @@ export const blockquote: NodeEncoder = (
   { context }: NodeEncoderOpts = {},
 ): string => {
   const result: string[] = [];
-  node.forEach(n => {
+  node.forEach((n) => {
     result.push(encode(n, context));
   });
   return `{quote}${result.join('\n\n')}{quote}`;

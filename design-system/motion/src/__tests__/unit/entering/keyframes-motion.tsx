@@ -22,7 +22,7 @@ describe('<KeyframesMotion />', () => {
         enteringAnimation={{}}
         animationTimingFunction={() => 'linear'}
       >
-        {props => <div data-testid="target" {...props} />}
+        {(props) => <div data-testid="target" {...props} />}
       </KeyframesMotion>,
     );
 
@@ -35,13 +35,13 @@ describe('<KeyframesMotion />', () => {
     it('should fill the animation backwards to prevent a frame of the element already being entered', () => {
       const { getByTestId } = render(
         <KeyframesMotion
-          animationTimingFunction={state =>
+          animationTimingFunction={(state) =>
             state === 'entering' ? 'ease-out' : 'ease-in'
           }
           duration={duration}
           enteringAnimation={{}}
         >
-          {props => <div data-testid="target" {...props} />}
+          {(props) => <div data-testid="target" {...props} />}
         </KeyframesMotion>,
       );
 
@@ -54,13 +54,13 @@ describe('<KeyframesMotion />', () => {
     it('should use the entering timing function', () => {
       const { getByTestId } = render(
         <KeyframesMotion
-          animationTimingFunction={state =>
+          animationTimingFunction={(state) =>
             state === 'entering' ? 'ease-out' : 'ease-in'
           }
           duration={duration}
           enteringAnimation={{}}
         >
-          {props => <div data-testid="target" {...props} />}
+          {(props) => <div data-testid="target" {...props} />}
         </KeyframesMotion>,
       );
 
@@ -73,13 +73,13 @@ describe('<KeyframesMotion />', () => {
     it('should animate in', () => {
       const { getByTestId } = render(
         <KeyframesMotion
-          animationTimingFunction={state =>
+          animationTimingFunction={(state) =>
             state === 'entering' ? 'ease-out' : 'ease-in'
           }
           duration={duration}
           enteringAnimation={{}}
         >
-          {props => <div data-testid="target" {...props} />}
+          {(props) => <div data-testid="target" {...props} />}
         </KeyframesMotion>,
       );
 
@@ -92,13 +92,13 @@ describe('<KeyframesMotion />', () => {
     it('should animate over {duration} ms', () => {
       const { getByTestId } = render(
         <KeyframesMotion
-          animationTimingFunction={state =>
+          animationTimingFunction={(state) =>
             state === 'entering' ? 'ease-out' : 'ease-in'
           }
           duration={duration}
           enteringAnimation={{}}
         >
-          {props => <div data-testid="target" {...props} />}
+          {(props) => <div data-testid="target" {...props} />}
         </KeyframesMotion>,
       );
 
@@ -118,7 +118,7 @@ describe('<KeyframesMotion />', () => {
           enteringAnimation={{}}
           onFinish={callback}
         >
-          {props => <div {...props} />}
+          {(props) => <div {...props} />}
         </KeyframesMotion>,
       );
       act(() => jest.runTimersToTime(duration));
@@ -137,7 +137,7 @@ describe('<KeyframesMotion />', () => {
             duration={duration}
             enteringAnimation={{}}
           >
-            {props => <div {...props} />}
+            {(props) => <div {...props} />}
           </KeyframesMotion>
           <KeyframesMotion
             animationTimingFunction={() => 'linear'}
@@ -145,7 +145,7 @@ describe('<KeyframesMotion />', () => {
             enteringAnimation={{}}
             onFinish={callback}
           >
-            {props => <div {...props} />}
+            {(props) => <div {...props} />}
           </KeyframesMotion>
         </StaggeredEntrance>,
       );
@@ -167,7 +167,7 @@ describe('<KeyframesMotion />', () => {
             onFinish={callback}
             isPaused
           >
-            {props => <div {...props} />}
+            {(props) => <div {...props} />}
           </KeyframesMotion>
         </ExitingPersistence>,
       );
@@ -186,7 +186,7 @@ describe('<KeyframesMotion />', () => {
             enteringAnimation={{}}
             onFinish={callback}
           >
-            {props => <div {...props} />}
+            {(props) => <div {...props} />}
           </KeyframesMotion>
         </ExitingPersistence>,
       );
@@ -202,7 +202,7 @@ describe('<KeyframesMotion />', () => {
             duration={duration}
             enteringAnimation={{}}
           >
-            {props => <div data-testid="target" {...props} />}
+            {(props) => <div data-testid="target" {...props} />}
           </KeyframesMotion>
         </ExitingPersistence>,
       );
@@ -221,7 +221,7 @@ describe('<KeyframesMotion />', () => {
             duration={duration}
             enteringAnimation={{}}
           >
-            {props => <div data-testid="target" {...props} />}
+            {(props) => <div data-testid="target" {...props} />}
           </KeyframesMotion>
         </ExitingPersistence>,
       );
@@ -249,7 +249,7 @@ describe('<KeyframesMotion />', () => {
             enteringAnimation={{}}
             onFinish={callback}
           >
-            {props => <div {...props} />}
+            {(props) => <div {...props} />}
           </KeyframesMotion>
         </ExitingPersistence>,
       );
@@ -271,7 +271,7 @@ describe('<KeyframesMotion />', () => {
             enteringAnimation={{}}
             onFinish={callback}
           >
-            {props => <div {...props} />}
+            {(props) => <div {...props} />}
           </KeyframesMotion>
         </ExitingPersistence>,
       );
@@ -288,13 +288,13 @@ describe('<KeyframesMotion />', () => {
       const { rerender, getByTestId } = render(
         <ExitingPersistence>
           <KeyframesMotion
-            animationTimingFunction={state =>
+            animationTimingFunction={(state) =>
               state === 'entering' ? 'ease-out' : 'ease-in'
             }
             duration={duration}
             enteringAnimation={{}}
           >
-            {props => <div data-testid="target" {...props} />}
+            {(props) => <div data-testid="target" {...props} />}
           </KeyframesMotion>
         </ExitingPersistence>,
       );
@@ -311,13 +311,13 @@ describe('<KeyframesMotion />', () => {
       const { rerender, getByTestId } = render(
         <ExitingPersistence>
           <KeyframesMotion
-            animationTimingFunction={state =>
+            animationTimingFunction={(state) =>
               state === 'entering' ? 'ease-out' : 'ease-in'
             }
             duration={duration}
             enteringAnimation={{}}
           >
-            {props => <div data-testid="target" {...props} />}
+            {(props) => <div data-testid="target" {...props} />}
           </KeyframesMotion>
         </ExitingPersistence>,
       );
@@ -334,13 +334,13 @@ describe('<KeyframesMotion />', () => {
       const { rerender, getByTestId } = render(
         <ExitingPersistence>
           <KeyframesMotion
-            animationTimingFunction={state =>
+            animationTimingFunction={(state) =>
               state === 'entering' ? 'ease-out' : 'ease-in'
             }
             duration={duration}
             enteringAnimation={{}}
           >
-            {props => <div data-testid="target" {...props} />}
+            {(props) => <div data-testid="target" {...props} />}
           </KeyframesMotion>
         </ExitingPersistence>,
       );
@@ -357,13 +357,13 @@ describe('<KeyframesMotion />', () => {
       const { rerender, getByTestId } = render(
         <ExitingPersistence>
           <KeyframesMotion
-            animationTimingFunction={state =>
+            animationTimingFunction={(state) =>
               state === 'entering' ? 'ease-out' : 'ease-in'
             }
             duration={duration}
             enteringAnimation={{}}
           >
-            {props => <div data-testid="target" {...props} />}
+            {(props) => <div data-testid="target" {...props} />}
           </KeyframesMotion>
         </ExitingPersistence>,
       );
@@ -380,13 +380,13 @@ describe('<KeyframesMotion />', () => {
       const { rerender, getByTestId } = render(
         <ExitingPersistence>
           <KeyframesMotion
-            animationTimingFunction={state =>
+            animationTimingFunction={(state) =>
               state === 'entering' ? 'ease-out' : 'ease-in'
             }
             duration={duration}
             enteringAnimation={{}}
           >
-            {props => <div data-testid="target" {...props} />}
+            {(props) => <div data-testid="target" {...props} />}
           </KeyframesMotion>
         </ExitingPersistence>,
       );

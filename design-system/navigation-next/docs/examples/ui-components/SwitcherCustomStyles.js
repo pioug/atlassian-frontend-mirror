@@ -15,7 +15,7 @@ import {
 } from '../../../src';
 import { CONTENT_NAV_WIDTH } from '../../../src/common/constants';
 
-const Wrapper = props => (
+const Wrapper = (props) => (
   <div
     css={{
       backgroundColor: colors.N20,
@@ -92,7 +92,7 @@ const customStyles = {
     },
     color: isSelected ? 'red' : 'blue',
   }),
-  control: provided => ({
+  control: (provided) => ({
     ...provided,
     color: 'red',
   }),
@@ -116,7 +116,7 @@ export default class SwitcherCustomStyles extends React.Component {
   });
 
   target = ({ id, subText, text }) => {
-    const avatar = s => (
+    const avatar = (s) => (
       <ItemAvatar
         appearance="square"
         href={null}
@@ -137,7 +137,7 @@ export default class SwitcherCustomStyles extends React.Component {
     );
   };
 
-  onChange = selected => {
+  onChange = (selected) => {
     this.setState({ selected });
   };
 
@@ -155,7 +155,7 @@ export default class SwitcherCustomStyles extends React.Component {
             styles={customStyles}
           />
           <SectionHeading>Section heading</SectionHeading>
-          {items.map(p => (
+          {items.map((p) => (
             <Item key={p.text} {...p} />
           ))}
         </Wrapper>

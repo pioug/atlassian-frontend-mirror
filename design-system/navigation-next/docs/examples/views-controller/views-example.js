@@ -53,7 +53,7 @@ const FakeContentNav = ({ isContainer = false, ...props }) => (
   </ThemeProvider>
 );
 
-const FlexColumn = props => (
+const FlexColumn = (props) => (
   <div
     css={{
       display: 'flex',
@@ -138,7 +138,7 @@ export default () => (
           {({ css }) => (
             <div css={{ ...css, paddingBottom: 20 }}>
               <ContainerHeader
-                before={itemState => (
+                before={(itemState) => (
                   <ItemAvatar
                     itemState={itemState}
                     appearance="square"

@@ -7,7 +7,7 @@ const containerStyle = {
   width: 500,
 };
 
-const createSingleLineTextInput = props => (
+const createSingleLineTextInput = (props) => (
   <SingleLineTextInput
     readOnly={false}
     onChange={console.log('onChange')}

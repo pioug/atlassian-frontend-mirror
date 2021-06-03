@@ -1031,7 +1031,7 @@ describe('GlobalNavigation', () => {
       );
       function wasDismissCalled() {
         return Boolean(
-          onEvent.mock.calls.find(call => {
+          onEvent.mock.calls.find((call) => {
             const { payload } = call[0];
             return (
               payload.action === 'dismissed' &&

@@ -41,7 +41,7 @@ function Example() {
       >
         <Button
           onClick={() =>
-            setMode(current => (current === 'light' ? 'dark' : 'light'))
+            setMode((current) => (current === 'light' ? 'dark' : 'light'))
           }
         >
           Mode: <strong>{mode}</strong>

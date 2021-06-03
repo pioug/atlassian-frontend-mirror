@@ -33,7 +33,7 @@ export default function ControlledExample() {
                 {({ fieldProps: { onChange, ...rest } }) => (
                   <RadioGroup
                     {...rest}
-                    onChange={e => {
+                    onChange={(e) => {
                       // keep Form and our own state up-to-date
                       onChange(e);
                       setSelectedOption(e.target.value);

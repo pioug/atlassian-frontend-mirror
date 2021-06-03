@@ -112,7 +112,7 @@ const variations = [
   {
     itemComponent: ({ themeContext: context, themeMode: mode, ...props }) => (
       <ThemeProvider
-        theme={theme => ({
+        theme={(theme) => ({
           ...theme,
           context,
           mode: themeModes[mode],
@@ -184,7 +184,7 @@ const variations = [
   },
 ];
 
-const Container = props => (
+const Container = (props) => (
   <div
     css={{
       display: 'flex',
@@ -194,10 +194,10 @@ const Container = props => (
     {...props}
   />
 );
-const VariationWrapper = props => (
+const VariationWrapper = (props) => (
   <div css={{ margin: '0 24px 24px 0' }} {...props} />
 );
-const ItemWrapper = props => (
+const ItemWrapper = (props) => (
   <div
     css={{
       alignItems: 'center',
@@ -209,7 +209,7 @@ const ItemWrapper = props => (
     {...props}
   />
 );
-const ItemComponentWrapper = props => <div css={{ width: 32 }} {...props} />;
+const ItemComponentWrapper = (props) => <div css={{ width: 32 }} {...props} />;
 const Description = ({ size, children }) => (
   <div
     css={{

@@ -19,7 +19,7 @@ export default class ModalBasicExample extends Component<{}, State> {
   finish = () => this.setState({ active: false });
 
   togglePrimaryButtonPosition = () =>
-    this.setState(state => ({
+    this.setState((state) => ({
       primaryButtonOnRight: !state.primaryButtonOnRight,
     }));
 

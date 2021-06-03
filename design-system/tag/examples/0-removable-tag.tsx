@@ -24,7 +24,7 @@ export default () => (
         console.log('Before removal'); // eslint-disable-line no-console
         return true;
       }}
-      onAfterRemoveAction={e => console.log('After removal', e)} // eslint-disable-line no-console
+      onAfterRemoveAction={(e) => console.log('After removal', e)} // eslint-disable-line no-console
     />
     <Tag
       text="Removable Tag"

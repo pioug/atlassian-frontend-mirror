@@ -384,7 +384,7 @@ describe('Feedback Collector unit tests', () => {
         feedbackCollector.postFeedback(feedback);
 
         // Wait for the timeout to occur. The component will unmount before this triggers.
-        await new Promise(resolve => {
+        await new Promise((resolve) => {
           setTimeout(() => {
             resolve();
           }, timeoutOnSubmit);
@@ -427,7 +427,7 @@ describe('Feedback Collector unit tests', () => {
         <FeedbackForm onClose={() => {}} onSubmit={() => {}} />,
       );
 
-      Object.keys(fieldLabel).forEach(key => {
+      Object.keys(fieldLabel).forEach((key) => {
         if (key !== 'empty') {
           wrapper.setState({ type: key });
           expect(wrapper.find(Field).at(0).props().label).toBe(fieldLabel[key]);

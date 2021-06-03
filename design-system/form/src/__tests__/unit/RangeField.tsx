@@ -47,7 +47,7 @@ describe('RangeField', () => {
   test('passes through defaultValue correctly', () => {
     const spy = jest.fn();
     const { getByTestId } = render(
-      <Form onSubmit={data => spy(data)}>
+      <Form onSubmit={(data) => spy(data)}>
         {({ formProps }) => (
           <form {...formProps} data-testid="form">
             <RangeField name="volume" defaultValue={30}>
@@ -74,7 +74,7 @@ describe('RangeField', () => {
   test('updates value when range changes', () => {
     const spy = jest.fn();
     const { getByTestId } = render(
-      <Form onSubmit={data => spy(data)}>
+      <Form onSubmit={(data) => spy(data)}>
         {({ formProps }) => (
           <form {...formProps} data-testid="form">
             <RangeField name="volume" defaultValue={30}>

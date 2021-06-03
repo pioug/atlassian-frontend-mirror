@@ -14,7 +14,7 @@ class Item extends PureComponent {
     text: '',
   };
 
-  renderItem = state => {
+  renderItem = (state) => {
     const { createAnalyticsEvent, ...props } = this.props;
     return <ItemPrimitive {...state} {...props} />;
   };

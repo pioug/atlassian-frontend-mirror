@@ -8,7 +8,7 @@ export const paragraph: NodeEncoder = (
   { context }: NodeEncoderOpts = {},
 ): string => {
   let result = '';
-  node.forEach(n => {
+  node.forEach((n) => {
     result += inlines(n, { context });
   });
 

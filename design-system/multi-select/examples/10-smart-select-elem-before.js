@@ -35,7 +35,7 @@ export default () => (
     label="Select users to invite"
     placeholder="Type username or email..."
     name="test"
-    onSelectedChange={item => {
+    onSelectedChange={(item) => {
       console.log(item);
     }}
     shouldFitContainer

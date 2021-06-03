@@ -47,12 +47,12 @@ const Menu = () => {
       isOpen={isOpen}
       onClose={() => setIsOpen(false)}
       content={() => <PopupMenu closePopupMenu={closePopupMenu} />}
-      trigger={triggerProps => (
+      trigger={(triggerProps) => (
         <Button
           {...triggerProps}
           testId="popup-trigger"
           isSelected={isOpen}
-          onClick={e => {
+          onClick={(e) => {
             e.stopPropagation();
             setIsOpen(!isOpen);
           }}

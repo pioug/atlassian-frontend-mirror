@@ -21,7 +21,7 @@ const AppFrame = ({
 }: AppFrameProps) => {
   return (
     <div
-      onClick={e => e.preventDefault()}
+      onClick={(e) => e.preventDefault()}
       css={{
         height: '100%',
         minHeight: 600,

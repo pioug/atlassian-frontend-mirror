@@ -11,7 +11,7 @@ expect.extend(matchers);
 
 const noop = () => {};
 
-window.requestAnimationFrame = cb => {
+window.requestAnimationFrame = (cb) => {
   cb(-1);
   return -1;
 };
@@ -94,7 +94,7 @@ describe('<ButtonItem />', () => {
       borderRadius: '5px',
     };
 
-    const cssFn: CSSFn = state => {
+    const cssFn: CSSFn = (state) => {
       return {
         ...(state.isSelected && customCssSelected),
         ...(state.isDisabled && customCssDisabled),

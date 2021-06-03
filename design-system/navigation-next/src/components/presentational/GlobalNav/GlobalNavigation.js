@@ -44,7 +44,9 @@ export default class GlobalNavigation extends Component {
                       <FirstPrimaryItemWrapper key={props.id}>
                         <ItemComponent
                           {...rest}
-                          icon={provided => <Icon {...provided} size="large" />}
+                          icon={(provided) => (
+                            <Icon {...provided} size="large" />
+                          )}
                           size="large"
                           index={index}
                         />

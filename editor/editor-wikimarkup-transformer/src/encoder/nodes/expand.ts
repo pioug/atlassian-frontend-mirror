@@ -8,7 +8,7 @@ export const expand: NodeEncoder = (
   // Title of expand appears as a bold text, followed by empty line
   const result: string[] = [`*${node.attrs.title}*`, ''];
 
-  node.forEach(n => {
+  node.forEach((n) => {
     result.push(encode(n, context));
   });
   return result.join('\n');

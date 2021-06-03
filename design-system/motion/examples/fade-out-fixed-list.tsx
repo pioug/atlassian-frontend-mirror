@@ -24,7 +24,7 @@ const Card = ({
   text: React.ReactNode;
 }) => (
   <FadeIn>
-    {props => (
+    {(props) => (
       <li {...props} css={{ display: 'block', padding: 0, margin: '8px' }}>
         <Block
           css={{
@@ -64,7 +64,7 @@ export default () => {
   return (
     <RetryContainer>
       <div css={{ textAlign: 'center', '> *': { marginRight: '4px' } }}>
-        <Button onClick={() => setItems(list => list - 1)}>Remove</Button>
+        <Button onClick={() => setItems((list) => list - 1)}>Remove</Button>
         <Button onClick={() => setItems(6)}>Reset</Button>
 
         <ul

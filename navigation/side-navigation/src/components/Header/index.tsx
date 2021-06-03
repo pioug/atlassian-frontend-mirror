@@ -7,7 +7,7 @@ import { itemTextColor } from '../../common/constants';
 import { overrideStyleFunction } from '../../common/styles';
 import { CustomItem } from '../Item';
 
-const Container: React.FC<CustomItemComponentProps> = props => {
+const Container: React.FC<CustomItemComponentProps> = (props) => {
   return <div {...props} />;
 };
 

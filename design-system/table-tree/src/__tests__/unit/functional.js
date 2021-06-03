@@ -336,12 +336,12 @@ test('headers and column widths', async () => {
 });
 
 function createTreeHarness(treeWrapper) {
-  const header = columnIndex =>
+  const header = (columnIndex) =>
     treeWrapper.find('Headers Header').at(columnIndex);
 
   const rows = () => treeWrapper.find('Row');
 
-  const row = index => rows().at(index);
+  const row = (index) => rows().at(index);
 
   const cell = (rowIndex, cellIndex) =>
     row(rowIndex).find('Cell').at(cellIndex);
@@ -349,16 +349,16 @@ function createTreeHarness(treeWrapper) {
   const textOfCellsInColumn = (columnIndex = 0) =>
     treeWrapper
       .find('Row')
-      .map(rowWrapper => rowWrapper.find('Cell').at(columnIndex).text());
+      .map((rowWrapper) => rowWrapper.find('Cell').at(columnIndex).text());
 
-  const textOfCellsInRow = rowIndex =>
+  const textOfCellsInRow = (rowIndex) =>
     row(rowIndex)
       .find('Cell')
-      .map(c => c.text());
+      .map((c) => c.text());
 
-  const expandChevron = rowIndex => row(rowIndex).find('button');
+  const expandChevron = (rowIndex) => row(rowIndex).find('button');
 
-  const collapseChevron = rowIndex => row(rowIndex).find('button');
+  const collapseChevron = (rowIndex) => row(rowIndex).find('button');
 
   return {
     header,

@@ -22,7 +22,7 @@ export default () => {
   return (
     <RetryContainer>
       <div css={{ textAlign: 'center' }}>
-        <Button onClick={() => setIsIn(prev => !prev)}>
+        <Button onClick={() => setIsIn((prev) => !prev)}>
           {isIn ? 'Exit' : 'Enter'}
         </Button>
         <Button
@@ -39,7 +39,7 @@ export default () => {
           <ExitingPersistence appear>
             {isIn && (
               <FadeIn entranceDirection={directions[direction]}>
-                {props => <Block {...props} />}
+                {(props) => <Block {...props} />}
               </FadeIn>
             )}
           </ExitingPersistence>

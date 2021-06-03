@@ -80,7 +80,7 @@ export const defaultTheme = {
   },
 };
 
-const isValidCssValue = value =>
+const isValidCssValue = (value) =>
   value !== undefined && value !== null && value !== '';
 
 // Returns the theme that contains the requested theme key(s), preferring the user-supplied

@@ -17,14 +17,14 @@ export default class BasicExample extends PureComponent {
     rangeValue: 50,
   };
 
-  onChange = value => {
+  onChange = (value) => {
     this.setState({
       onChangeResult: `onChange called with value: ${value}`,
       rangeValue: value,
     });
   };
 
-  onCustomValueChange = e => {
+  onCustomValueChange = (e) => {
     const rangeValue = e.target.value;
 
     this.setState({ rangeValue });

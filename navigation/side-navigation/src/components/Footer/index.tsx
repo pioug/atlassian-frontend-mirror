@@ -7,7 +7,7 @@ import { overrideStyleFunction } from '../../common/styles';
 import { HeaderProps } from '../Header';
 import { CustomItem } from '../Item';
 
-const Container: React.FC<CustomItemComponentProps> = props => {
+const Container: React.FC<CustomItemComponentProps> = (props) => {
   return <div {...props} />;
 };
 

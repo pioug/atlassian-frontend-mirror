@@ -86,7 +86,7 @@ export default class SpotlightManager extends PureComponent<
   };
 
   targetRef = (name: string) => (element: HTMLElement | void) => {
-    this.setState(state => ({
+    this.setState((state) => ({
       targets: {
         ...state.targets,
         [name]: element || undefined,
@@ -95,14 +95,14 @@ export default class SpotlightManager extends PureComponent<
   };
 
   spotlightOpen = () => {
-    this.setState(state => ({ spotlightCount: state.spotlightCount + 1 }));
+    this.setState((state) => ({ spotlightCount: state.spotlightCount + 1 }));
   };
 
   spotlightClose = () => {
-    this.setState(state => ({ spotlightCount: state.spotlightCount - 1 }));
+    this.setState((state) => ({ spotlightCount: state.spotlightCount - 1 }));
   };
 
-  getStateProviderValue = memoizeOne(targets => ({
+  getStateProviderValue = memoizeOne((targets) => ({
     opened: this.spotlightOpen,
     closed: this.spotlightClose,
     targets,
@@ -117,7 +117,7 @@ export default class SpotlightManager extends PureComponent<
         <TargetProvider value={this.targetRef}>
           <Container component={Tag || React.Fragment}>
             <Fade in={this.state.spotlightCount > 0}>
-              {animationStyles => (
+              {(animationStyles) => (
                 <Portal zIndex={layers.spotlight()}>
                   <Blanket style={animationStyles} isTinted={blanketIsTinted} />
                 </Portal>

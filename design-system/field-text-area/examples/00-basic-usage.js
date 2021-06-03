@@ -8,7 +8,7 @@ export default class BasicExample extends PureComponent {
     onChangeResult: 'Type in the Field Text Area above to trigger onChange',
   };
 
-  onChange = event => {
+  onChange = (event) => {
     this.setState({
       onChangeResult: `onChange called with value: ${event.target.value}`,
     });

@@ -170,7 +170,7 @@ function ItemLineCardGroup(props: ItemLineCardGroupProps) {
     }
 
     const items = [...consumerItems];
-    const target = items.find(item => item.id === result.draggableId);
+    const target = items.find((item) => item.id === result.draggableId);
 
     if (!target) {
       return;
@@ -218,7 +218,7 @@ function ItemLineCardGroup(props: ItemLineCardGroupProps) {
   );
 }
 
-const ITEMS = [...new Array(5).keys()].map(item => ({
+const ITEMS = [...new Array(5).keys()].map((item) => ({
   id: `id-${item}`,
   message: `Line item card ${item}: `,
 }));
@@ -230,7 +230,7 @@ function Wrapper() {
     <ItemLineCardGroup
       groupId="test-group"
       items={items}
-      onOrderChange={updated => {
+      onOrderChange={(updated) => {
         setItems([...updated]);
       }}
       isReorderEnabled

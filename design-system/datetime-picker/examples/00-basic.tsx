@@ -224,7 +224,7 @@ export default () => {
         htmlFor="react-select-datetimepicker-5--input"
         label="editable times with value (UTC+10:00)"
       />
-      <DateTimePicker id="datetimepicker-5" onChange={v => setValue(v)} />
+      <DateTimePicker id="datetimepicker-5" onChange={(v) => setValue(v)} />
       <pre>{value}</pre>
     </div>
   );

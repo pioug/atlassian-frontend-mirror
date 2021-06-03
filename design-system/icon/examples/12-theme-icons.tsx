@@ -67,12 +67,12 @@ const IconSizeExample = () => {
   return (
     <div>
       <Button
-        onClick={() => setMode(old => (old === 'light' ? 'dark' : 'light'))}
+        onClick={() => setMode((old) => (old === 'light' ? 'dark' : 'light'))}
       >
         Toggle theme
       </Button>
       <div id="theme-example">
-        {themes.map(mode => {
+        {themes.map((mode) => {
           const currentTheme = {
             mode: mode === currentMode ? 'light' : 'dark',
           } as const;

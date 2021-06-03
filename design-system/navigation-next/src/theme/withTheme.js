@@ -4,9 +4,9 @@ import { withTheme as WithEmotionTheme } from 'emotion-theming';
 
 import { light } from './modes';
 
-const withTheme = defaultTheme => {
-  return WrappedComponent => {
-    const WithTheme = WithEmotionTheme(props => {
+const withTheme = (defaultTheme) => {
+  return (WrappedComponent) => {
+    const WithTheme = WithEmotionTheme((props) => {
       const { theme: ctxTheme, ...rest } = props;
       const theme = Object.keys(ctxTheme).length > 0 ? ctxTheme : defaultTheme;
       return <WrappedComponent theme={theme} {...rest} />;
@@ -23,10 +23,10 @@ const withTheme = defaultTheme => {
 const defaultContentTheme = { mode: light, context: 'container' };
 const defaultGlobalTheme = { mode: light };
 
-export const withContentTheme = WrappedComponent =>
+export const withContentTheme = (WrappedComponent) =>
   withTheme(defaultContentTheme)(WrappedComponent);
 
-export const withGlobalTheme = WrappedComponent =>
+export const withGlobalTheme = (WrappedComponent) =>
   withTheme(defaultGlobalTheme)(WrappedComponent);
 
 export default withTheme;

@@ -29,7 +29,7 @@ describe('Breadcrumbs container', () => {
     const links = container.querySelectorAll('a');
 
     expect(links.length).toEqual(3);
-    const anchors = Array.from(links).map(l => l.text);
+    const anchors = Array.from(links).map((l) => l.text);
 
     expect(anchors).toEqual(
       expect.arrayContaining(['Item', 'Another item', 'A third item']),
@@ -119,7 +119,7 @@ describe('Controlled breadcrumbs', () => {
     const links = container.querySelectorAll('a');
     expect(links.length).toEqual(2);
 
-    const anchors = Array.from(links).map(l => l.text);
+    const anchors = Array.from(links).map((l) => l.text);
 
     expect(anchors).toEqual(expect.arrayContaining(['item 1', 'item 3']));
     expect(anchors).not.toEqual(expect.arrayContaining(['item 2']));
@@ -152,7 +152,7 @@ describe('Controlled breadcrumbs', () => {
     const links = container.querySelectorAll('a');
     expect(links.length).toEqual(4);
 
-    const anchors = Array.from(links).map(l => l.text);
+    const anchors = Array.from(links).map((l) => l.text);
 
     expect(anchors).toEqual(
       expect.arrayContaining(['item 1', 'item 2', 'item 6', 'item 7']),

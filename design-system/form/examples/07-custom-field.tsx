@@ -26,7 +26,7 @@ const ColorButton = ({ color, changeHandler }: ColorButtonProps) => {
         margin: '0 5px',
         overflow: 'hidden',
       }}
-      onClick={e => {
+      onClick={(e) => {
         e.preventDefault();
         /*
          * For custom non-form-field fields, the relevant detail of this event handler
@@ -44,7 +44,7 @@ const ColorButton = ({ color, changeHandler }: ColorButtonProps) => {
 
 const ColorButtons = ({ colors, changeHandler }: ColorButtonsProps) => (
   <React.Fragment>
-    {colors.map(color => (
+    {colors.map((color) => (
       <ColorButton color={color} changeHandler={changeHandler} key={color} />
     ))}
   </React.Fragment>
@@ -59,7 +59,7 @@ export default () => (
       flexDirection: 'column',
     }}
   >
-    <Form onSubmit={data => console.log(data)}>
+    <Form onSubmit={(data) => console.log(data)}>
       {({ formProps }) => (
         <form {...formProps}>
           <Field name="favourite-color" defaultValue="" label="Favourite color">

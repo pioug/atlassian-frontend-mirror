@@ -25,7 +25,7 @@ class ReduxTree extends Component {
     this.props.loadRoots();
   }
 
-  loadChildren = item => {
+  loadChildren = (item) => {
     if (!this.props.areChildrenLoaded(item)) {
       this.props.loadChildren(item);
     }
@@ -109,7 +109,7 @@ function reducer(
       for (const root of action.items) {
         rootsById[root.id] = root;
       }
-      const rootIds = action.items.map(item => item.id);
+      const rootIds = action.items.map((item) => item.id);
       newState = {
         ...state,
         rootIds: [...state.rootIds, ...rootIds],
@@ -121,7 +121,7 @@ function reducer(
     case actions.CHILDREN_LOADED: {
       const newParent = {
         ...action.parentItem,
-        childIds: action.childItems.map(item => item.id),
+        childIds: action.childItems.map((item) => item.id),
       };
       const childrenById = {};
       for (const child of action.childItems) {
@@ -148,12 +148,12 @@ function reducer(
 
 // Selectors
 function getRoots(state) {
-  return state.rootIds.map(id => state.itemsById[id]);
+  return state.rootIds.map((id) => state.itemsById[id]);
 }
 
 function getChildrenOf(state, parentId) {
   const { childIds } = state.itemsById[parentId];
-  return childIds && childIds.map(childId => state.itemsById[childId]);
+  return childIds && childIds.map((childId) => state.itemsById[childId]);
 }
 
 // Action creators
@@ -173,13 +173,15 @@ function rootsLoaded({ items }) {
 }
 
 function rootsRequested() {
-  return dispatch =>
-    fetchRoots().then(rootItems => dispatch(rootsLoaded({ items: rootItems })));
+  return (dispatch) =>
+    fetchRoots().then((rootItems) =>
+      dispatch(rootsLoaded({ items: rootItems })),
+    );
 }
 
 function childrenRequested(parentItem) {
-  return dispatch =>
-    fetchChildrenOf(parentItem).then(childItems =>
+  return (dispatch) =>
+    fetchChildrenOf(parentItem).then((childItems) =>
       dispatch(childrenLoaded({ parentItem, childItems })),
     );
 }

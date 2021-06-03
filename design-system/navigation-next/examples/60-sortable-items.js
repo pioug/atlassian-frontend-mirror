@@ -7,7 +7,7 @@ import { colors } from '@atlaskit/theme';
 import { SortableContext, SortableGroup, SortableItem } from '../src';
 import { CONTENT_NAV_WIDTH } from '../src/common/constants';
 
-const SectionWrapper = props => (
+const SectionWrapper = (props) => (
   <div
     css={{
       backgroundColor: colors.N20,
@@ -153,7 +153,7 @@ export default class Example extends Component {
     showContainer: true,
   };
 
-  onDragEnd = dropResult => {
+  onDragEnd = (dropResult) => {
     const updatedGroups = updateGroups(this.state.groups, dropResult);
     if (updatedGroups) {
       this.setState({

@@ -8,7 +8,7 @@ import Form, { FormFooter, RangeField } from '../src';
 export default function RangeFieldExample() {
   return (
     <div>
-      <Form onSubmit={data => console.log(data)}>
+      <Form onSubmit={(data) => console.log(data)}>
         {({ formProps }) => (
           <form {...formProps}>
             <RangeField name="threshold" defaultValue={50} label="Threshold">

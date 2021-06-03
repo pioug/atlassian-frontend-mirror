@@ -79,7 +79,7 @@ describe('@atlaskit comments', () => {
         );
 
         const commentsContainer = wrapper.find(NestedCommentsDiv);
-        childComments.forEach(childComment =>
+        childComments.forEach((childComment) =>
           expect(commentsContainer.contains(childComment)).toBe(true),
         );
       });

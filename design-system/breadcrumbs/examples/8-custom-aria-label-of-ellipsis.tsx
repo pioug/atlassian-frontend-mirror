@@ -20,7 +20,7 @@ export default () => {
         <input
           id="label-input"
           value={label}
-          onChange={e => setLabel(e.target.value)}
+          onChange={(e) => setLabel(e.target.value)}
         />
       </label>
       <hr style={{ margin: '15px 0px' }} />

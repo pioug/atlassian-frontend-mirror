@@ -20,7 +20,7 @@ import {
 } from '../../../src';
 import { CONTENT_NAV_WIDTH } from '../../../src/common/constants';
 
-const SectionWrapper = props => (
+const SectionWrapper = (props) => (
   <div
     css={{
       backgroundColor: colors.N20,
@@ -61,7 +61,7 @@ const Noop = () => null;
 class ViewRegistry extends Component {
   componentDidMount() {
     const { navigationViewController } = this.props;
-    Object.keys(VIEWS).forEach(viewId => {
+    Object.keys(VIEWS).forEach((viewId) => {
       navigationViewController.addView({
         id: viewId,
         type: 'product',

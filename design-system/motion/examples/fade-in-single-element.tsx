@@ -19,7 +19,7 @@ export default () => {
     <RetryContainer>
       <Centered>
         <FadeIn entranceDirection={directions[direction]}>
-          {props => <Block {...props} />}
+          {(props) => <Block {...props} />}
         </FadeIn>
       </Centered>
       <Centered>

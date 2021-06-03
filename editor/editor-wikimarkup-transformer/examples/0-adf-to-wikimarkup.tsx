@@ -36,7 +36,7 @@ export default class EditorWithFeedback extends React.Component<Props, State> {
   }
 
   onFocus = () =>
-    this.setState(prevState => ({ isExpanded: !prevState.isExpanded }));
+    this.setState((prevState) => ({ isExpanded: !prevState.isExpanded }));
 
   render() {
     if (!this.state.hasJquery) {

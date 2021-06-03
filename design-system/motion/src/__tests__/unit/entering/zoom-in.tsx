@@ -13,7 +13,7 @@ jest.mock('../../../utils/accessibility');
 describe('<ZoomIn />', () => {
   it('should default to medium duration', () => {
     const { getByTestId } = render(
-      <ZoomIn>{props => <div data-testid="target" {...props} />}</ZoomIn>,
+      <ZoomIn>{(props) => <div data-testid="target" {...props} />}</ZoomIn>,
     );
 
     expect(getByTestId('target')).toHaveStyleDeclaration(
@@ -25,7 +25,7 @@ describe('<ZoomIn />', () => {
   it('should override default duration', () => {
     const { getByTestId } = render(
       <ZoomIn duration={123}>
-        {props => <div data-testid="target" {...props} />}
+        {(props) => <div data-testid="target" {...props} />}
       </ZoomIn>,
     );
 
@@ -37,7 +37,7 @@ describe('<ZoomIn />', () => {
 
   it('should zoom in ease in out', () => {
     const { getByTestId } = render(
-      <ZoomIn>{props => <div data-testid="target" {...props} />}</ZoomIn>,
+      <ZoomIn>{(props) => <div data-testid="target" {...props} />}</ZoomIn>,
     );
 
     expect(getByTestId('target')).toHaveStyleDeclaration(
@@ -49,7 +49,7 @@ describe('<ZoomIn />', () => {
   it('should zoom out easing in out', () => {
     const { getByTestId, rerender } = render(
       <ExitingPersistence>
-        <ZoomIn>{props => <div data-testid="target" {...props} />}</ZoomIn>
+        <ZoomIn>{(props) => <div data-testid="target" {...props} />}</ZoomIn>
       </ExitingPersistence>,
     );
 

@@ -66,9 +66,9 @@ const CountrySelect = (props: any) => (
     isMulti={false}
     options={groupedCountries}
     styles={{
-      container: css => ({ ...css, width: 105 }),
-      dropdownIndicator: css => ({ ...css, paddingLeft: 0 }),
-      menu: css => ({ ...css, width: 300 }),
+      container: (css) => ({ ...css, width: 105 }),
+      dropdownIndicator: (css) => ({ ...css, paddingLeft: 0 }),
+      menu: (css) => ({ ...css, width: 300 }),
     }}
     {...props}
   />

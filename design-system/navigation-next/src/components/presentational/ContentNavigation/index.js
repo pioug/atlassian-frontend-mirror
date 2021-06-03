@@ -93,7 +93,7 @@ export default class ContentNavigation extends Component {
           mountOnEnter
           unmountOnExit
         >
-          {state => (
+          {(state) => (
             <ContainerNavigation
               isEntering={state === 'entering'}
               isExiting={state === 'exiting'}

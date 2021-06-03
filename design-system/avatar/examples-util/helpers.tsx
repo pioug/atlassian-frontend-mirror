@@ -23,7 +23,7 @@ const ChildrenWrapper = styled.div`
 
 export const Note = styled.p<{ size?: string }>`
   color: ${N100};
-  font-size: ${props => (props.size === 'large' ? '1.15em' : '0.9rem')};
+  font-size: ${(props) => (props.size === 'large' ? '1.15em' : '0.9rem')};
   margin-top: ${gridSize() / 2}px;
   margin-bottom: ${gridSize() * 2}px;
 `;

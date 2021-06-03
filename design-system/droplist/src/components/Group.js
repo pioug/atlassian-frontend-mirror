@@ -40,7 +40,7 @@ class DroplistGroup extends PureComponent {
             <HeadingText>{heading}</HeadingText>
             {elemAfter ? (
               <HeadingAfter
-                innerRef={r => {
+                innerRef={(r) => {
                   this.headingElement = r;
                 }}
               >

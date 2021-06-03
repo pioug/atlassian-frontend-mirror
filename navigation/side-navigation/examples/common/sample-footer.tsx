@@ -11,7 +11,7 @@ import { Footer } from '../../src';
 
 import SampleIcon from './next-gen-project-icon';
 
-const Container: React.FC<CustomItemComponentProps> = props => {
+const Container: React.FC<CustomItemComponentProps> = (props) => {
   return <div {...props} />;
 };
 

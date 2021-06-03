@@ -61,7 +61,7 @@ function renameNamedImports(
     return;
   }
 
-  importSpecifierCollection.forEach(importSpecifierPath => {
+  importSpecifierCollection.forEach((importSpecifierPath) => {
     renameBasedOnImportAlias(
       j,
       collection,
@@ -167,16 +167,18 @@ function renameImportNameWithItsUsage(
 
   collection
     .find(j.JSXIdentifier)
-    .filter(jsxIdentifierPath => jsxIdentifierPath.node.name === fromImportName)
-    .forEach(jsxIdentifierPath => {
+    .filter(
+      (jsxIdentifierPath) => jsxIdentifierPath.node.name === fromImportName,
+    )
+    .forEach((jsxIdentifierPath) => {
       j(jsxIdentifierPath).replaceWith(j.identifier(toImportName));
     });
 
-  collection.find(j.CallExpression).forEach(callExpressionPath => {
+  collection.find(j.CallExpression).forEach((callExpressionPath) => {
     const { arguments: callExpressionArguments } = callExpressionPath.node;
 
     callExpressionPath.node.arguments = callExpressionArguments.map(
-      argument => {
+      (argument) => {
         if (
           argument.type === 'Identifier' &&
           argument.name === fromImportName
@@ -189,7 +191,7 @@ function renameImportNameWithItsUsage(
     );
   });
 
-  collection.find(j.VariableDeclarator).forEach(variableDeclaratorPath => {
+  collection.find(j.VariableDeclarator).forEach((variableDeclaratorPath) => {
     const { init } = variableDeclaratorPath.node;
 
     if (
@@ -206,7 +208,7 @@ function addPromiseThenIdentifier(j: JSCodeshift, collection: Collection<any>) {
   const thenArgument = 'module';
 
   getDynamicImportCollection(j, collection, importPath).forEach(
-    callExpressionPath => {
+    (callExpressionPath) => {
       j(callExpressionPath).replaceWith(
         j.callExpression(
           j.memberExpression(callExpressionPath.node, j.identifier('then')),

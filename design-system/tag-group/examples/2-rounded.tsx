@@ -57,7 +57,7 @@ const tagNames = [
 
 export default () => (
   <TagGroup>
-    {tagNames.map(sweet => (
+    {tagNames.map((sweet) => (
       <Tag
         appearance="rounded"
         elemBefore={<Avatar size="xsmall" />}

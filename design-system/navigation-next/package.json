@@ -71,7 +71,7 @@
     "@atlaskit/toggle": "^12.2.0",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
-    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
+    "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "enzyme": "^3.10.0",
     "fs-extra": "^4.0.2",
     "glob": "^7.1.2",
@@ -88,5 +88,5 @@
       "import-structure": "atlassian-conventions"
     }
   },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
 }

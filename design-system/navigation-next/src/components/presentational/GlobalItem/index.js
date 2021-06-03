@@ -13,7 +13,7 @@ export class GlobalItemBase extends PureComponent {
     styles: styleReducerNoOp,
   };
 
-  renderItem = state => {
+  renderItem = (state) => {
     const { createAnalyticsEvent, theme, ...props } = this.props;
     return <GlobalItemPrimitive {...state} {...props} />;
   };

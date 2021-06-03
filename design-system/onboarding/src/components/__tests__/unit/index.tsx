@@ -21,7 +21,7 @@ const ElementStub = (props: ElementStubProps) => {
     <div
       data-testid={props.testId}
       style={{ position: props.position }}
-      ref={ref => {
+      ref={(ref) => {
         if (!ref) {
           return;
         }
@@ -181,7 +181,7 @@ describe('<Spotlight />', () => {
   });
 
   it('should not log any errors when rendering the spotlight', () => {
-    jest.spyOn(console, 'error').mockImplementation(msg => {
+    jest.spyOn(console, 'error').mockImplementation((msg) => {
       throw new Error(msg);
     });
 

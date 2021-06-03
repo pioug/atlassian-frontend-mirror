@@ -248,7 +248,7 @@ function sanitize(nodes: PMNode[], schema: Schema) {
          * If a blockquote is inside a list item
          * - Convert it to paragraph
          */
-        curr.content.forEach(n => {
+        curr.content.forEach((n) => {
           result.push(n);
         });
         break;
@@ -261,7 +261,7 @@ function sanitize(nodes: PMNode[], schema: Schema) {
          * - Mark text with strong.
          */
         const contentBuffer: PMNode[] = [];
-        curr.content.forEach(n => {
+        curr.content.forEach((n) => {
           const mark = schema.marks.strong.create();
           if (n.type.name === 'text') {
             if (n.text) {

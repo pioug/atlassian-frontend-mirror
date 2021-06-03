@@ -30,9 +30,9 @@ const iconIconInfo = Promise.all(
     const icon = await import(`../glyph/${name}.js`);
     return { name, icon: icon.default };
   }),
-).then(newData =>
+).then((newData) =>
   newData
-    .map(icon => ({
+    .map((icon) => ({
       [icon.name]: {
         ...(metadata as { [key: string]: any })[icon.name],
         component: icon.icon,
@@ -45,9 +45,9 @@ const objectIconInfo = Promise.all(
     const icon = await import(`@atlaskit/icon-object/glyph/${name}.js`);
     return { name, icon: icon.default };
   }),
-).then(newData =>
+).then((newData) =>
   newData
-    .map(icon => ({
+    .map((icon) => ({
       [icon.name]: { ...objectIconMetadata[icon.name], component: icon.icon },
     }))
     .reduce((acc, b) => ({ ...acc, ...b })),
@@ -57,9 +57,9 @@ const fileTypeIconInfo = Promise.all(
     const icon = await import(`@atlaskit/icon-file-type/glyph/${name}.js`);
     return { name, icon: icon.default };
   }),
-).then(newData =>
+).then((newData) =>
   newData
-    .map(icon => ({
+    .map((icon) => ({
       [icon.name]: { ...fileTypeIconMetadata[icon.name], component: icon.icon },
     }))
     .reduce((acc, b) => ({ ...acc, ...b })),
@@ -70,9 +70,9 @@ const priorityIconInfo = Promise.all(
     const icon = await import(`@atlaskit/icon-priority/glyph/${name}.js`);
     return { name, icon: icon.default };
   }),
-).then(newData =>
+).then((newData) =>
   newData
-    .map(icon => ({
+    .map((icon) => ({
       [icon.name]: { ...priorityIconMetadata[icon.name], component: icon.icon },
     }))
     .reduce((acc, b) => ({ ...acc, ...b })),
@@ -172,10 +172,10 @@ const noIcons = css`
 const filterIcons = (icons: IconsList, query: string) => {
   const regex = new RegExp(query);
   return Object.keys(icons)
-    .map(index => icons[index])
-    .filter(icon =>
+    .map((index) => icons[index])
+    .filter((icon) =>
       icon.keywords
-        .map(keyword => (regex.test(keyword) ? 1 : 0))
+        .map((keyword) => (regex.test(keyword) ? 1 : 0))
         .reduce((allMatches: number, match: number) => allMatches + match, 0),
     );
 };
@@ -206,7 +206,7 @@ const IconAllExample: React.FC = () => {
     const icons: IconType[] = filterIcons(allIcons, query);
     return icons.length ? (
       <div css={iconExplorerGrid}>
-        {icons.map(icon => (
+        {icons.map((icon) => (
           <IconExplorerCell {...icon} key={icon.componentName} />
         ))}
       </div>
@@ -231,7 +231,7 @@ const IconAllExample: React.FC = () => {
         <p>
           <Button
             appearance="subtle-link"
-            onClick={() => setIconsShowing(old => !old)}
+            onClick={() => setIconsShowing((old) => !old)}
             spacing="none"
           >
             {areIconsShowing ? 'Hide icons' : 'Show all icons'}

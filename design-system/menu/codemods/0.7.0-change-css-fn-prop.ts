@@ -21,10 +21,10 @@ function getJSXAttributesByName(
   return j(element)
     .find(j.JSXOpeningElement)
     .find(j.JSXAttribute)
-    .filter(attribute => {
+    .filter((attribute) => {
       const matches = j(attribute)
         .find(j.JSXIdentifier)
-        .filter(identifier => identifier.value.name === attributeName);
+        .filter((identifier) => identifier.value.name === attributeName);
       return Boolean(matches.length);
     });
 }
@@ -58,7 +58,7 @@ function updateCssFnProp(
   source: ReturnType<typeof j>,
   specifier: string,
 ) {
-  source.findJSXElements(specifier).forEach(element => {
+  source.findJSXElements(specifier).forEach((element) => {
     const cssFnPropCollection = getJSXAttributesByName(j, element, 'cssFn');
 
     // no cssProp usage for this element
@@ -79,7 +79,7 @@ function updateCssFnProp(
         const [stylePropName] = cssFnExpression!.value.params;
         j(cssFnExpression)
           .find(j.SpreadElement)
-          .forEach(n => {
+          .forEach((n) => {
             // discerns whether there are multiple identifiers here
             const isComplexIdentifier = j(n).find(j.Identifier).length > 1;
 
@@ -91,7 +91,7 @@ function updateCssFnProp(
 
             const hasStyleProp = !!j(n)
               .find(j.Identifier)
-              .filter(node => node.value.name === stylePropName.name).length;
+              .filter((node) => node.value.name === stylePropName.name).length;
             if (hasStyleProp) {
               j(n).remove();
             }
@@ -120,7 +120,7 @@ function hasImportDeclaration(
 ) {
   return !!source
     .find(j.ImportDeclaration)
-    .filter(path => path.node.source.value === importPath).length;
+    .filter((path) => path.node.source.value === importPath).length;
 }
 
 export default function transformer(
@@ -151,7 +151,7 @@ export default function transformer(
       'MenuGroup',
       'PopupMenuGroup',
       'Section',
-    ].forEach(pkg => {
+    ].forEach((pkg) => {
       const importSpecifier = getImportSpecifier(
         j,
         source,

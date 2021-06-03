@@ -73,7 +73,7 @@ export default function RadioInputExample() {
           </tr>
         </thead>
         <tbody>
-          {items.map(item => (
+          {items.map((item) => (
             <tr
               onClick={() => setValue(item.value)}
               key={`${item.value}${item.name}${item.id}`}

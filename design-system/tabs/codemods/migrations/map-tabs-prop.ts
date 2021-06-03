@@ -26,7 +26,7 @@ https://atlassian.design/components/tabs/examples
 `;
 
 const getImportSpecifiers = (j: core.JSCodeshift, defined: Array<string>) => {
-  return ['Tab', 'TabList', 'TabPanel'].map(specifier => {
+  return ['Tab', 'TabList', 'TabPanel'].map((specifier) => {
     if (!defined.includes(specifier)) {
       return j.importSpecifier(
         j.identifier(specifier),
@@ -74,7 +74,7 @@ export const mapTabsProp = (j: core.JSCodeshift, source: Collection<Node>) => {
       j(element)
         .find(j.JSXOpeningElement)
         .find(j.JSXSpreadAttribute)
-        .forEach(spreadAttribute => {
+        .forEach((spreadAttribute) => {
           // If using spread then leave a comment indicating further research being needed
           addCommentToStartOfFile({ j, base: source, message: spreadComment });
           const spreadArgument = spreadAttribute.value.argument;
@@ -140,7 +140,7 @@ export const mapTabsProp = (j: core.JSCodeshift, source: Collection<Node>) => {
 
     j(element)
       .find(j.JSXOpeningElement)
-      .forEach(openingElement => {
+      .forEach((openingElement) => {
         // @ts-ignore
         if (openingElement.value.name.name === specifier) {
           j(openingElement).replaceWith(

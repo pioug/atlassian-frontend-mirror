@@ -33,7 +33,7 @@ export const IframeExample = ({ source, title, id, path = '' }) => (
 /**
  * Contents
  */
-const slugify = s =>
+const slugify = (s) =>
   s
     .toString()
     .toLowerCase()
@@ -53,14 +53,14 @@ export class ContentsProvider extends Component {
     items: [],
   };
 
-  registerItem = item => {
-    this.setState(state =>
+  registerItem = (item) => {
+    this.setState((state) =>
       !state.items.includes(item) ? { items: [...state.items, item] } : null,
     );
   };
 
-  unregisterItem = item => {
-    const newItems = this.state.items.filter(i => i !== item);
+  unregisterItem = (item) => {
+    const newItems = this.state.items.filter((i) => i !== item);
     this.setState({ items: newItems });
   };
 
@@ -82,12 +82,12 @@ export class ContentsProvider extends Component {
 export const Contents = ({ listType: List = 'ul' }) => {
   return (
     <ContentsContextConsumer>
-      {context =>
+      {(context) =>
         context && context.state.items.length ? (
           <Fragment>
             <h3>Contents</h3>
             <List>
-              {context.state.items.map(item => (
+              {context.state.items.map((item) => (
                 <li key={item}>
                   <a href={`#${slugify(item)}`}>{item}</a>
                 </li>
@@ -128,9 +128,9 @@ class HWithContext extends Component {
   }
 }
 
-export const H = props => (
+export const H = (props) => (
   <ContentsContextConsumer>
-    {context => <HWithContext {...props} __context={context} />}
+    {(context) => <HWithContext {...props} __context={context} />}
   </ContentsContextConsumer>
 );
 

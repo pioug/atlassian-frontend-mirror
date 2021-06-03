@@ -46,7 +46,7 @@ describe('@atlaskit comments', () => {
             onMouseOver: () => {},
           };
           const wrapper = shallow(<CommentField href="#" {...props} />);
-          Object.keys(props).forEach(propName => {
+          Object.keys(props).forEach((propName) => {
             expect(wrapper.find(Anchor).prop(propName)).toBe(props[propName]);
           });
         });
@@ -73,7 +73,7 @@ describe('@atlaskit comments', () => {
             onMouseOver: () => {},
           };
           const wrapper = shallow(<CommentField {...props} />);
-          Object.keys(props).forEach(propName => {
+          Object.keys(props).forEach((propName) => {
             expect(wrapper.find(Span).prop(propName)).toBe(props[propName]);
           });
         });

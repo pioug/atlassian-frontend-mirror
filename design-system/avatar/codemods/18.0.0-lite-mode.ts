@@ -73,10 +73,10 @@ function getJSXAttributesByName(
   return j(element)
     .find(j.JSXOpeningElement)
     .find(j.JSXAttribute)
-    .filter(attribute => {
+    .filter((attribute) => {
       const matches = j(attribute)
         .find(j.JSXIdentifier)
-        .filter(identifier => identifier.value.name === attributeName);
+        .filter((identifier) => identifier.value.name === attributeName);
       return Boolean(matches.length);
     });
 }
@@ -88,7 +88,7 @@ function updateAvatarProps(j: core.JSCodeshift, source: ReturnType<typeof j>) {
     return;
   }
 
-  source.findJSXElements(defaultSpecifier).forEach(element => {
+  source.findJSXElements(defaultSpecifier).forEach((element) => {
     getJSXAttributesByName(j, element, 'isHover').remove();
     getJSXAttributesByName(j, element, 'isActive').remove();
     getJSXAttributesByName(j, element, 'isFocus').remove();
@@ -106,22 +106,22 @@ function updateAvatarProps(j: core.JSCodeshift, source: ReturnType<typeof j>) {
       enableTooltipAttributes.length && enableTooltipAttributes;
 
     const hasDefaultTrue = !!enableTooltipAttributes.filter(
-      attr => attr.node.value == null,
+      (attr) => attr.node.value == null,
     ).length;
 
     const hasTruthy = !!enableTooltipAttributes
       .find(j.JSXExpressionContainer)
       .find(j.BooleanLiteral)
-      .filter(literal => literal.node.value).length;
+      .filter((literal) => literal.node.value).length;
 
     const hasFalsy = !!enableTooltipAttributes
       .find(j.JSXExpressionContainer)
       .find(j.BooleanLiteral)
-      .filter(literal => literal.node.value === false).length;
+      .filter((literal) => literal.node.value === false).length;
 
     const hasExpression = !!enableTooltipAttributes
       .find(j.JSXExpressionContainer)
-      .filter(container => {
+      .filter((container) => {
         return j(container).find(j.BooleanLiteral).length === 0;
       }).length;
 
@@ -130,7 +130,7 @@ function updateAvatarProps(j: core.JSCodeshift, source: ReturnType<typeof j>) {
 
     if (shouldWrapAvatar && name) {
       getImportDeclaration(j, source, '@atlaskit/avatar').forEach(
-        importDeclaration => {
+        (importDeclaration) => {
           j(importDeclaration).replaceWith([
             j.importDeclaration(
               [j.importDefaultSpecifier(j.identifier('Tooltip'))],
@@ -188,14 +188,14 @@ function updateAvatarItemProps(
     return;
   }
 
-  source.findJSXElements(importSpecifier).forEach(element => {
+  source.findJSXElements(importSpecifier).forEach((element) => {
     getJSXAttributesByName(j, element, 'isHover').remove();
     getJSXAttributesByName(j, element, 'isActive').remove();
     getJSXAttributesByName(j, element, 'isFocus').remove();
     getJSXAttributesByName(j, element, 'isSelected').remove();
     getJSXAttributesByName(j, element, 'theme').remove();
     getJSXAttributesByName(j, element, 'enableTextTruncate').forEach(
-      attribute => {
+      (attribute) => {
         // Change the prop name to isTruncationDisabled
         j(attribute)
           .find(j.JSXIdentifier)
@@ -203,29 +203,29 @@ function updateAvatarItemProps(
 
         // Remove if enableTextTruncate was true or given no value (ie true)
         j(attribute)
-          .filter(attr => attr.node.value == null)
+          .filter((attr) => attr.node.value == null)
           .remove();
 
         j(attribute)
-          .filter(attr => {
+          .filter((attr) => {
             return !!j(attr)
               .find(j.JSXExpressionContainer)
               .find(j.BooleanLiteral)
-              .filter(literal => literal.node.value).length;
+              .filter((literal) => literal.node.value).length;
           })
           .remove();
 
         // if `enableTextTruncate` value is negative we can change it to 'true'
         j(attribute)
           .filter(
-            attr =>
+            (attr) =>
               !!j(attr)
                 .find(j.JSXExpressionContainer)
                 .filter(
-                  expression =>
+                  (expression) =>
                     j(expression)
                       .find(j.BooleanLiteral)
-                      .filter(literal => !literal.node.value).length > 0,
+                      .filter((literal) => !literal.node.value).length > 0,
                 ).length,
           )
           .replaceWith(j.jsxAttribute(j.jsxIdentifier('isTruncationDisabled')));
@@ -233,10 +233,10 @@ function updateAvatarItemProps(
         // if `enableTextTruncate` was an expression, negate it
         j(attribute)
           .find(j.JSXExpressionContainer)
-          .filter(container => {
+          .filter((container) => {
             return j(container).find(j.BooleanLiteral).length === 0;
           })
-          .forEach(container => {
+          .forEach((container) => {
             j(container).replaceWith(
               j.jsxExpressionContainer(
                 // Type 'JSXEmptyExpression' is not assignable to type 'ExpressionKind'.
@@ -278,7 +278,7 @@ function hasImportDeclaration(
 ) {
   return !!source
     .find(j.ImportDeclaration)
-    .filter(path => path.node.source.value === importPath).length;
+    .filter((path) => path.node.source.value === importPath).length;
 }
 
 export default function transformer(

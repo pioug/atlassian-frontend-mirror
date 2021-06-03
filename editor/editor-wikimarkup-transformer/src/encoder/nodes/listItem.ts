@@ -14,7 +14,7 @@ export const listItem = (
 ): string => {
   const result: string[] = [];
   let contentBuffer: string[] = [];
-  node.forEach(n => {
+  node.forEach((n) => {
     switch (n.type.name) {
       case 'paragraph': {
         contentBuffer.push(paragraph(n, { context }));
@@ -28,7 +28,7 @@ export const listItem = (
         }
         const nestedList = encode(n, context)
           .split('\n')
-          .map(line => {
+          .map((line) => {
             if (['#', '*'].indexOf(line.substr(0, 1)) !== -1) {
               return `${prefix}${line}`;
             }

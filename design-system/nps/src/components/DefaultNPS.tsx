@@ -125,7 +125,7 @@ export default class DefaultNPS extends React.Component<Props> {
         onFeedbackSubmit={onFeedbackSubmit}
         onFollowupSubmit={onFollowupSubmit}
         onFinish={onFinish}
-        renderFeedback={feedbackProps => (
+        renderFeedback={(feedbackProps) => (
           <Feedback
             {...feedbackProps}
             messages={{
@@ -136,7 +136,7 @@ export default class DefaultNPS extends React.Component<Props> {
             }}
           />
         )}
-        renderFollowup={followupProps => (
+        renderFollowup={(followupProps) => (
           <Followup
             {...followupProps}
             roles={roles!}
@@ -147,7 +147,7 @@ export default class DefaultNPS extends React.Component<Props> {
             }}
           />
         )}
-        renderThankyou={thankyouProps => (
+        renderThankyou={(thankyouProps) => (
           <Thankyou
             {...thankyouProps}
             messages={{

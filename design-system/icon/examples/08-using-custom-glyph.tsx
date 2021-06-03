@@ -36,7 +36,7 @@ const AfterPropGlyph = (props: CustomGlyphProps) => (
 
 const IconCustomExample = () => (
   <div id="custom">
-    {([undefined, 'xlarge'] as const).map(size => (
+    {([undefined, 'xlarge'] as const).map((size) => (
       <>
         <Icon
           glyph={BeforePropGlyph}

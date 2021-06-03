@@ -6,7 +6,7 @@ import Warning from './utils/warning';
 export default () => (
   <Fragment>
     <Warning />
-    <form onSubmit={e => e.preventDefault()}>
+    <form onSubmit={(e) => e.preventDefault()}>
       <h2>Settings</h2>
       <fieldset className="ak-field-group">
         <legend>

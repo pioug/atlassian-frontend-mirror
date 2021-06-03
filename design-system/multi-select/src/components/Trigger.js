@@ -64,7 +64,7 @@ export default class Trigger extends PureComponent {
         <TriggerDiv isDisabled={isDisabled} onClick={handleTriggerClick}>
           <Content>
             <TagGroup ref={tagGroupRefFunction}>
-              {selectedItems.map(item => (
+              {selectedItems.map((item) => (
                 <Tag
                   appearance={item.tag ? item.tag.appearance : undefined}
                   elemBefore={item.tag ? item.tag.elemBefore : undefined}

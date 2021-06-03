@@ -25,7 +25,7 @@ export default class StatelessExample extends PureComponent {
     selectedItem: undefined,
   };
 
-  onSelected = item => {
+  onSelected = (item) => {
     this.setState({
       isOpen: false,
       selectedItem: item,
@@ -35,7 +35,7 @@ export default class StatelessExample extends PureComponent {
 
   toggleOpen = ({ isOpen }) => this.setState({ isOpen });
 
-  updateFilter = filterValue => this.setState({ filterValue });
+  updateFilter = (filterValue) => this.setState({ filterValue });
 
   render() {
     return (

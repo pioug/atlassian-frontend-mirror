@@ -34,7 +34,7 @@ class FilledIconExample extends Component {
               type="color"
               className="ak-field-color"
               id="color"
-              ref={input => {
+              ref={(input) => {
                 this.ColorInput = input;
               }}
               defaultValue={this.state.color}
@@ -52,7 +52,7 @@ class FilledIconExample extends Component {
               type="color"
               className="ak-field-color"
               id="fill"
-              ref={input => {
+              ref={(input) => {
                 this.FillInput = input;
               }}
               defaultValue={this.state.fill}

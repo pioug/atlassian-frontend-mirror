@@ -358,7 +358,7 @@ export default function Example() {
     <div>
       <h3>Select an apperance option to see its effects in contexts</h3>
       <select onChange={onChange} value={appearance}>
-        {appearances.map(a => (
+        {appearances.map((a) => (
           <option key={a} value={a}>
             {a}
           </option>

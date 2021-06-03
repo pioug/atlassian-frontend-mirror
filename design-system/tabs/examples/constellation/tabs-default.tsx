@@ -46,7 +46,7 @@ export const Panel = ({
 export default function TabsDefaultExample() {
   return (
     <Tabs
-      onChange={index => console.log('Selected Tab', index + 1)}
+      onChange={(index) => console.log('Selected Tab', index + 1)}
       id="default"
     >
       <TabList>

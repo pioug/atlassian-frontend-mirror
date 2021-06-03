@@ -66,7 +66,7 @@ describe('@atlaskit/field-radio-group', () => {
       });
 
       describe('items prop with defaultValue', () => {
-        const sampleItemsWithDefault = sampleItems.map(item => ({ ...item }));
+        const sampleItemsWithDefault = sampleItems.map((item) => ({ ...item }));
         sampleItemsWithDefault[2].defaultSelected = true;
 
         it('selects the item by default', () => {

@@ -73,7 +73,7 @@ describe('Snapshot Test', () => {
     const pageContent = "[class$='LayoutContainer']";
     await page.waitForSelector(pageContent);
     await page.evaluate(
-      selector => document.querySelector(selector).scrollBy(0, 500),
+      (selector) => document.querySelector(selector).scrollBy(0, 500),
       pageContent,
     );
     const image = await page.screenshot();
@@ -151,7 +151,7 @@ describe('Snapshot Test', () => {
     await page.click(button);
     // Ensure the shadow element is removed
     await page.waitFor(
-      selector => document.querySelector(selector) === null,
+      (selector) => document.querySelector(selector) === null,
       shadow,
     );
 

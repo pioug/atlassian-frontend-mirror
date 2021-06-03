@@ -18,10 +18,10 @@ const packageVersion = process.env._PACKAGE_VERSION_ as string;
 // and replace them with an empty SFC that returns null. This includes components imported
 // directly in this file and others imported as dependencies of those imports.
 jest.mock('@atlaskit/analytics-next', () => ({
-  withAnalyticsEvents: jest.fn(() => jest.fn(args => args)),
-  withAnalyticsContext: jest.fn(() => jest.fn(args => args)),
+  withAnalyticsEvents: jest.fn(() => jest.fn((args) => args)),
+  withAnalyticsContext: jest.fn(() => jest.fn((args) => args)),
   createAndFireEvent: jest.fn(() =>
-    jest.fn((payload: {}) => jest.fn(createEvent => createEvent(payload))),
+    jest.fn((payload: {}) => jest.fn((createEvent) => createEvent(payload))),
   ),
 }));
 

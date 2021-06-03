@@ -20,7 +20,7 @@ type flagData = {
 
 const getRandomIcon = () => {
   const icons = iconMap() as { [key: string]: object };
-  const iconArray = Object.keys(icons).map(i => icons[i]);
+  const iconArray = Object.keys(icons).map((i) => icons[i]);
   return iconArray[Math.floor(Math.random() * iconArray.length)];
 };
 
@@ -59,12 +59,12 @@ const FlagGroupExample = () => {
   const [flags, setFlags] = useState<Array<flagData>>([]);
 
   const addFlag = () => {
-    setFlags(current => [getFlagData(flags.length), ...current]);
+    setFlags((current) => [getFlagData(flags.length), ...current]);
   };
 
   const dismissFlag = useCallback(
     (id: string | number) => {
-      setFlags(current => current.filter(flag => flag.id !== id));
+      setFlags((current) => current.filter((flag) => flag.id !== id));
     },
     [setFlags],
   );
@@ -75,7 +75,7 @@ const FlagGroupExample = () => {
         Add Flag
       </Button>
       <FlagGroup onDismissed={dismissFlag}>
-        {flags.map(flag => (
+        {flags.map((flag) => (
           <Flag
             actions={[
               {

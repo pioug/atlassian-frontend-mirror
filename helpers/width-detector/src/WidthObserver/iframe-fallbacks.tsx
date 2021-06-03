@@ -201,7 +201,7 @@ const IframeWidthObserverFallback = React.memo(
   (props: { children?: React.ReactNode }) => {
     const [listeners] = useState(new Map());
     const subscribe = React.useCallback(
-      cb => {
+      (cb) => {
         listeners.set(cb, null);
         return () => {
           listeners.delete(cb);

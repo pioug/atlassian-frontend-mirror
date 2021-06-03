@@ -13,7 +13,7 @@ import {
 import { SpinnerSizeType } from '../types';
 
 // there is a bug with findDOMNode and Suspense in React < 16.9: https://github.com/facebook/react/issues/14188
-const safeFindDOMNode: typeof findDOMNode = component => {
+const safeFindDOMNode: typeof findDOMNode = (component) => {
   try {
     return findDOMNode(component);
   } catch (e) {

@@ -83,7 +83,7 @@ export default () => {
         content={() => (
           <PopupContent setPosition={setPlacement} placement={placement} />
         )}
-        trigger={triggerProps => (
+        trigger={(triggerProps) => (
           <Button
             id="popup-trigger"
             {...triggerProps}

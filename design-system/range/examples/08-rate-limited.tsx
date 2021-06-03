@@ -15,7 +15,7 @@ function RateLimitedRange() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debounced = useCallback(
     debounce(() => {
-      setDebouncedCallCount(current => current + 1);
+      setDebouncedCallCount((current) => current + 1);
     }, 100),
     [],
   );
@@ -24,7 +24,7 @@ function RateLimitedRange() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const throttled = useCallback(
     throttle(() => {
-      setThrottledCallCount(current => current + 1);
+      setThrottledCallCount((current) => current + 1);
     }, 100),
     [],
   );
@@ -46,9 +46,9 @@ function RateLimitedRange() {
       <Range
         step={1}
         value={value}
-        onChange={currentValue => {
+        onChange={(currentValue) => {
           setValue(currentValue);
-          setOnChangeCallCount(current => current + 1);
+          setOnChangeCallCount((current) => current + 1);
           debounced();
           throttled();
         }}

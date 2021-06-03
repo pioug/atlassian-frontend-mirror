@@ -91,7 +91,7 @@ const CustomThemeButton = React.memo(
 
     const onMouseEnter = useCallback(
       (event: React.MouseEvent<HTMLElement>) => {
-        setState(current => ({ ...current, isHover: true }));
+        setState((current) => ({ ...current, isHover: true }));
         if (providedOnMouseEnter) {
           providedOnMouseEnter(event);
         }
@@ -100,7 +100,7 @@ const CustomThemeButton = React.memo(
     );
     const onMouseLeave = useCallback(
       (event: React.MouseEvent<HTMLElement>) => {
-        setState(current => ({
+        setState((current) => ({
           ...current,
           isHover: false,
           isActive: false,
@@ -113,7 +113,7 @@ const CustomThemeButton = React.memo(
     );
     const onMouseDown = useCallback(
       (event: React.MouseEvent<HTMLElement>) => {
-        setState(current => ({ ...current, isActive: true }));
+        setState((current) => ({ ...current, isActive: true }));
         if (providedOnMouseDown) {
           providedOnMouseDown(event);
         }
@@ -122,7 +122,7 @@ const CustomThemeButton = React.memo(
     );
     const onMouseUp = useCallback(
       (event: React.MouseEvent<HTMLElement>) => {
-        setState(current => ({ ...current, isActive: false }));
+        setState((current) => ({ ...current, isActive: false }));
         if (providedOnMouseUp) {
           providedOnMouseUp(event);
         }
@@ -131,7 +131,7 @@ const CustomThemeButton = React.memo(
     );
     const onFocus = useCallback(
       (event: React.FocusEvent<HTMLElement>) => {
-        setState(current => ({ ...current, isFocus: true }));
+        setState((current) => ({ ...current, isFocus: true }));
         if (providedOnFocus) {
           providedOnFocus(event);
         }
@@ -140,7 +140,7 @@ const CustomThemeButton = React.memo(
     );
     const onBlur = useCallback(
       (event: React.FocusEvent<HTMLElement>) => {
-        setState(current => ({ ...current, isFocus: false }));
+        setState((current) => ({ ...current, isFocus: false }));
         if (providedOnBlur) {
           providedOnBlur(event);
         }

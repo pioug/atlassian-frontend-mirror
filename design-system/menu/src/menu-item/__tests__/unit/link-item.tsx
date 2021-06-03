@@ -9,7 +9,7 @@ import LinkItem from '../../link-item';
 expect.addSnapshotSerializer(serializer);
 expect.extend(matchers);
 
-window.requestAnimationFrame = cb => {
+window.requestAnimationFrame = (cb) => {
   cb(-1);
   return -1;
 };
@@ -86,7 +86,7 @@ describe('<LinkItem />', () => {
   });
 
   it('should respect the cssFn prop', () => {
-    const customCss: CSSFn = state => ({
+    const customCss: CSSFn = (state) => ({
       ...(state.isSelected && { border: '1px solid' }),
       ...(state.isDisabled && { pointerEvents: 'none' as const }),
       padding: '10px',
@@ -107,7 +107,7 @@ describe('<LinkItem />', () => {
 
   it('should prevent dragging so the transparent artefact isnt shown', () => {
     // Return if default was prevented which we will then assert later
-    const dragStartEvent = jest.fn(e => e.defaultPrevented);
+    const dragStartEvent = jest.fn((e) => e.defaultPrevented);
     const { getByTestId } = render(
       <div onDragStart={dragStartEvent}>
         <LinkItem testId="target">Hello world</LinkItem>

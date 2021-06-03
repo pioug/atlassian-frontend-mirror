@@ -17,7 +17,7 @@ import {
 import AppFrame from './common/app-frame';
 import SampleHeader from './common/sample-header';
 
-const CustomComponent: React.FC<CustomItemComponentProps> = props => {
+const CustomComponent: React.FC<CustomItemComponentProps> = (props) => {
   const { children, ...rest } = props;
   return (
     <div
@@ -79,7 +79,7 @@ const CustomisedExample = () => {
       iconBefore={<NestIcon label="" />}
       overrides={{
         GoBackItem: {
-          render: props => (
+          render: (props) => (
             <GoBackItem {...props}>Exit NestingItem 1-1</GoBackItem>
           ),
         },
@@ -106,7 +106,7 @@ const CustomisedExample = () => {
       })}
       overrides={{
         GoBackItem: {
-          render: props => (
+          render: (props) => (
             <GoBackItem {...props}>Exit NestingItem 1</GoBackItem>
           ),
         },
@@ -126,7 +126,7 @@ const CustomisedExample = () => {
         <NestableNavigationContent
           overrides={{
             GoBackItem: {
-              render: props => (
+              render: (props) => (
                 <GoBackItem {...props}>Default Go Back</GoBackItem>
               ),
             },

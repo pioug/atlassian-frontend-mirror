@@ -14,7 +14,7 @@ export default class FieldTextArea extends Component {
     value: this.props.value,
   };
 
-  handleOnChange = e => {
+  handleOnChange = (e) => {
     this.setState({ value: e.target.value });
     if (this.props.onChange) this.props.onChange(e);
   };
@@ -29,7 +29,7 @@ export default class FieldTextArea extends Component {
         {...this.props}
         value={this.state.value}
         onChange={this.handleOnChange}
-        ref={fieldRef => {
+        ref={(fieldRef) => {
           this.input = fieldRef;
         }}
       />

@@ -27,7 +27,7 @@ const CustomTabPanel = ({
 
 const CustomTabPanels = () => (
   <Tabs
-    onChange={index => console.log('Selected Tab', index + 1)}
+    onChange={(index) => console.log('Selected Tab', index + 1)}
     id="custom-panel"
   >
     <TabList>

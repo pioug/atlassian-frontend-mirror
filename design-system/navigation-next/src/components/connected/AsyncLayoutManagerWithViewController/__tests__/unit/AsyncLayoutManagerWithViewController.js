@@ -18,7 +18,7 @@ describe('AsyncLayoutManagerWithViewController', () => {
   let onExpandEnd;
   let getRefs;
 
-  const createAsyncLayoutManager = props => (
+  const createAsyncLayoutManager = (props) => (
     <NavigationProvider cache={false} isDebugEnabled={false}>
       <AsyncLayoutManagerWithViewController
         containerSkeleton={SkeletonContainerView}

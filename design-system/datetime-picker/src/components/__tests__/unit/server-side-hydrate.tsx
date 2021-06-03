@@ -11,7 +11,7 @@ afterEach(() => {
   jest.resetAllMocks();
 });
 
-test('should ssr then hydrate datetime-picker correctly', async done => {
+test('should ssr then hydrate datetime-picker correctly', async (done) => {
   const [example] = await getExamplesFor('datetime-picker');
   const Example = require(example.filePath).default; // eslint-disable-line import/no-dynamic-require
 

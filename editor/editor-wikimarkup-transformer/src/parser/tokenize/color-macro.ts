@@ -43,7 +43,7 @@ const rawContentProcessor = (
     context,
     input: rawContent,
   });
-  const decoratedContent = content.map(n => {
+  const decoratedContent = content.map((n) => {
     const mark = schema.marks.textColor.create({
       color: getEditorColor(parsedAttrs) || '#000000',
     });

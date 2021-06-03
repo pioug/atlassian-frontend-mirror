@@ -59,7 +59,7 @@ const ControlledAsyncExample = () => {
       content={
         <div css={{ flexGrow: 1, padding: 32 }}>
           <Select<OptionType>
-            onChange={value => setStack((value as OptionType).value || [])}
+            onChange={(value) => setStack((value as OptionType).value || [])}
             options={[
               { label: 'Root', value: [] },
               {

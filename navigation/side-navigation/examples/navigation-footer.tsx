@@ -19,7 +19,7 @@ const InteractiveContainer = ({
 
 const Example = () => {
   return (
-    <div onClick={e => e.preventDefault()}>
+    <div onClick={(e) => e.preventDefault()}>
       <NavigationFooter>
         <Footer
           description={

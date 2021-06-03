@@ -86,7 +86,7 @@ export default class extends PureComponent {
     items: tableTreeDataHelper.updateItems(getItemsData(undefined, 100)),
   };
 
-  handleExpand = parentItem => {
+  handleExpand = (parentItem) => {
     this.setState({
       items: tableTreeDataHelper.updateItems(
         getItemsData(parentItem, 100),
@@ -98,7 +98,7 @@ export default class extends PureComponent {
     });
   };
 
-  handleItemsCountChange = option => {
+  handleItemsCountChange = (option) => {
     this.setState({
       selectedChildCountOption: option,
     });

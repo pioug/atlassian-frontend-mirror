@@ -8,9 +8,9 @@ const GlobalNavigationSkeletonWithGlobalTheme = withGlobalTheme(
   BaseGlobalNavigationSkeleton,
 );
 
-const GlobalNavigationSkeleton = props => (
+const GlobalNavigationSkeleton = (props) => (
   <ThemeProvider
-    theme={ancestorTheme => ({
+    theme={(ancestorTheme) => ({
       mode: light,
       ...ancestorTheme,
       context: 'product',

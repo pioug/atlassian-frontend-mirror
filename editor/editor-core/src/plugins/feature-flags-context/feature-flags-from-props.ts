@@ -93,7 +93,7 @@ export function createFeatureFlagsFromProps(props: EditorProps): FeatureFlags {
     displayInlineBlockForInlineNodes: Boolean(
       typeof props.featureFlags?.displayInlineBlockForInlineNodes === 'boolean'
         ? !!props.featureFlags?.displayInlineBlockForInlineNodes
-        : true,
+        : false,
     ),
 
     useUnpredictableInputRule: Boolean(

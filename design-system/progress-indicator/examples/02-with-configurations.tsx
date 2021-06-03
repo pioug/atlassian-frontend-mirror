@@ -26,7 +26,7 @@ const Footer = styled.div<{ appearance: string }>`
   align-items: center;
   display: flex;
   justify-content: space-between;
-  background-color: ${p =>
+  background-color: ${(p) =>
     p.appearance === 'inverted' ? themed({ light: DN30, dark: N0 }) : null};
   margin: 1em -1em;
   padding: 1em;
@@ -80,11 +80,11 @@ export default class ProgressIndicatorDots extends Component<{}, State> {
   };
 
   handlePrev = () => {
-    this.setState(state => ({ selectedIndex: state.selectedIndex - 1 }));
+    this.setState((state) => ({ selectedIndex: state.selectedIndex - 1 }));
   };
 
   handleNext = () => {
-    this.setState(state => ({ selectedIndex: state.selectedIndex + 1 }));
+    this.setState((state) => ({ selectedIndex: state.selectedIndex + 1 }));
   };
   /* eslint-disable */
   /* prettier-ignore */
@@ -100,7 +100,7 @@ export default class ProgressIndicatorDots extends Component<{}, State> {
 
   /* eslint-enable */
   toggleTheme = () =>
-    this.setState(state => ({ themeIndex: state.themeIndex + 1 }));
+    this.setState((state) => ({ themeIndex: state.themeIndex + 1 }));
 
   toggleAppearance = (
     selectedAppearance: 'default' | 'help' | 'inverted' | 'primary',
@@ -134,7 +134,7 @@ export default class ProgressIndicatorDots extends Component<{}, State> {
             <div>
               <Heading>Appearance</Heading>
               <ButtonGroup>
-                {appearances.map(app => (
+                {appearances.map((app) => (
                   <Button
                     isSelected={selectedAppearance === app}
                     key={app}
@@ -149,7 +149,7 @@ export default class ProgressIndicatorDots extends Component<{}, State> {
             <div>
               <Heading>Spacing</Heading>
               <ButtonGroup>
-                {spacing.map(spc => (
+                {spacing.map((spc) => (
                   <Button
                     isSelected={selectedSpacing === spc}
                     key={spc}
@@ -164,7 +164,7 @@ export default class ProgressIndicatorDots extends Component<{}, State> {
             <div>
               <Heading>Size</Heading>
               <ButtonGroup>
-                {sizes.map(sz => (
+                {sizes.map((sz) => (
                   <Button
                     isSelected={selectedSize === sz}
                     key={sz}

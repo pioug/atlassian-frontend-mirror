@@ -36,7 +36,7 @@ const getBorderAndPadding = ({ paddingDisabled, compact }) => {
   `;
 };
 
-const getLineHeight = props => {
+const getLineHeight = (props) => {
   const currentLineHeight = props.compact ? lineHeightCompact : lineHeightBase;
 
   return currentLineHeight / fontSize();
@@ -44,14 +44,14 @@ const getLineHeight = props => {
 
 const getDisabledColor = themed({ light: N70, dark: DN90 });
 
-const getDisabledState = props =>
+const getDisabledState = (props) =>
   props.disabled &&
   css`
     color: ${getDisabledColor(props)};
     pointer-events: none;
   `;
 
-const getHoverState = props => {
+const getHoverState = (props) => {
   if (props.readOnly || props.isFocused || props.none) return null;
 
   return css`
@@ -61,7 +61,7 @@ const getHoverState = props => {
   `;
 };
 
-const getBorderStyle = props =>
+const getBorderStyle = (props) =>
   props.appearance === 'none' ? 'none' : 'solid';
 
 const getMinHeight = ({ compact }) => {
@@ -78,18 +78,18 @@ export const ChildWrapper = styled.div`
   flex-direction: column;
   flex: 1 0 auto;
   max-width: 100%;
-  ${p => getMinHeight(p)};
+  ${(p) => getMinHeight(p)};
 `;
 
 const getColor = themed({ light: N900, dark: DN600 });
 
 export const Content = styled.div`
   align-items: center;
-  background-color: ${props =>
+  background-color: ${(props) =>
     props.isFocused
       ? getBackgroundColorFocus(props)
       : getBackgroundColor(props)};
-  border-color: ${props =>
+  border-color: ${(props) =>
     props.isFocused ? getBorderColorFocus(props) : getBorderColor(props)};
   border-radius: ${borderRadius};
   border-style: ${getBorderStyle};
@@ -108,7 +108,7 @@ export const Content = styled.div`
   ${getBorderAndPadding} ${getHoverState} ${getDisabledState};
 `;
 
-const getMaxWidth = maxWidth => (maxWidth ? `${maxWidth}px` : '100%');
+const getMaxWidth = (maxWidth) => (maxWidth ? `${maxWidth}px` : '100%');
 
 /* IE11 does not respect max-width when using flex-grow + nested flex content, similar to https://github.com/philipwalton/flexbugs#flexbug-11
  * and https://github.com/philipwalton/flexbugs#flexbug-17.
@@ -119,18 +119,18 @@ const getMaxWidth = maxWidth => (maxWidth ? `${maxWidth}px` : '100%');
  * See AK-4285.
  */
 export const ContentWrapper = styled.div`
-  ${props =>
+  ${(props) =>
     props.disabled &&
     `
       cursor: not-allowed;
-    `} ${props =>
+    `} ${(props) =>
     props.grow
       ? css`
           flex: 0 0 ${getMaxWidth(props.maxWidth)};
         `
       : `
           flex: 0 0 auto;
-        `} ${props =>
+        `} ${(props) =>
     props.grow
       ? `
           display: block;
@@ -138,5 +138,5 @@ export const ContentWrapper = styled.div`
       : `
           display: inline-block;
           vertical-align: top;
-        `} max-width: ${props => getMaxWidth(props.maxWidth)};
+        `} max-width: ${(props) => getMaxWidth(props.maxWidth)};
 `;

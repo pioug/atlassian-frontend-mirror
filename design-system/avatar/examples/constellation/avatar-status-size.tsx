@@ -10,7 +10,7 @@ const AvatarStatusWidthExample: FC = () => {
       <input
         min="10"
         max="130"
-        onChange={e => setWidth(parseInt(e.target.value, 10))}
+        onChange={(e) => setWidth(parseInt(e.target.value, 10))}
         step="10"
         title="Width"
         type="range"

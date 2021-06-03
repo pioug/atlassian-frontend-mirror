@@ -4,7 +4,7 @@ export const useBlurOnMouseDown = (
   userLandCallback?: MouseEventHandler<HTMLElement>,
 ): MouseEventHandler<HTMLElement> => {
   const callback: MouseEventHandler<HTMLElement> = useCallback(
-    e => {
+    (e) => {
       const currentTarget = e.currentTarget;
       const focusedDuringMouseDown = currentTarget === document.activeElement;
       userLandCallback && userLandCallback(e);

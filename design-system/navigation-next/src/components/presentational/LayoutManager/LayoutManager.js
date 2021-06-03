@@ -108,15 +108,15 @@ export default class LayoutManager extends Component {
     }
   }
 
-  getContainerRef = ref => {
+  getContainerRef = (ref) => {
     this.containerRef = ref;
   };
 
-  getNavRef = ref => {
+  getNavRef = (ref) => {
     this.productNavRef = ref;
   };
 
-  getPageRef = ref => {
+  getPageRef = (ref) => {
     this.pageRef = ref;
   };
 
@@ -144,7 +144,7 @@ export default class LayoutManager extends Component {
     }, delay);
   };
 
-  closeFlyout = e => {
+  closeFlyout = (e) => {
     e.stopPropagation();
     clearTimeout(this.flyoutMouseOverTimeout);
     if (this.state.flyoutIsOpen) {

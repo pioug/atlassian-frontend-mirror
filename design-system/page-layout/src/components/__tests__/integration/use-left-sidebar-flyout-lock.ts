@@ -21,7 +21,7 @@ const sideNavigation = `${leftSidebar} > div > div:not([data-resize-control])`;
 
 /* Helper functions */
 const wait = (delay: number) =>
-  new Promise(resolve => {
+  new Promise((resolve) => {
     setTimeout(resolve, delay);
   });
 

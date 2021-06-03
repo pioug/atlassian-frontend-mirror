@@ -5,7 +5,7 @@ import {
   gridSize as gridSizeFn,
 } from '@atlaskit/theme/constants';
 
-const targetEdgeAndIE11 = styles => {
+const targetEdgeAndIE11 = (styles) => {
   // From https://browserstrangeness.github.io/css_hacks.html
   return {
     '@media screen and (-ms-high-contrast: none)': styles,
@@ -13,7 +13,7 @@ const targetEdgeAndIE11 = styles => {
   };
 };
 
-const targetFirefox = styles => {
+const targetFirefox = (styles) => {
   // From https://stackoverflow.com/a/953491
   return {
     '@-moz-document url-prefix()': styles,

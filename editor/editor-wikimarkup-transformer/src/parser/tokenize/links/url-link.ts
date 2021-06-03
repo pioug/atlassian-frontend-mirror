@@ -35,7 +35,7 @@ export function urlLinkResolver(
     input: textRepresentation.replace(/^mailto:/, ''),
   });
 
-  const decoratedContent = rawContent.map(n => {
+  const decoratedContent = rawContent.map((n) => {
     const mark = schema.marks.link.create({
       href: url,
     });
@@ -61,7 +61,7 @@ export function urlLinkResolver(
 }
 
 function hasTextNode(nodes: PMNode[]) {
-  return nodes.find(n => {
+  return nodes.find((n) => {
     return n.type.name === 'text';
   });
 }

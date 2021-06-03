@@ -45,7 +45,7 @@ const ToggleIcons: React.FC = () => {
 
       <div style={colorStyle}>
         {toggleableIcons.map(([id, Icon]) => (
-          <Button onClick={() => setIsColorToggled(old => !old)} key={id}>
+          <Button onClick={() => setIsColorToggled((old) => !old)} key={id}>
             <Icon
               key={id}
               label="Icon which checks and unchecks itself"
@@ -60,7 +60,7 @@ const ToggleIcons: React.FC = () => {
       </h6>
       <div style={styles.iconReverse}>
         {toggleableIcons.map(([id, Icon]) => (
-          <Button onClick={() => setIsFillToggled(old => !old)} key={id}>
+          <Button onClick={() => setIsFillToggled((old) => !old)} key={id}>
             <Icon
               key={id}
               label="Icon which checks and unchecks itself"

@@ -45,7 +45,7 @@ export default () => {
             />
           </div>
         )}
-        trigger={triggerProps => (
+        trigger={(triggerProps) => (
           <Button
             {...triggerProps}
             isSelected={isOpen}

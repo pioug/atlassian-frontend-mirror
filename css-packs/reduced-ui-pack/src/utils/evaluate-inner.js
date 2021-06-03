@@ -59,13 +59,13 @@ function isPlainObject(x) {
 
 function objToCss(obj, prevKey) {
   const css = Object.keys(obj)
-    .filter(key => {
+    .filter((key) => {
       const chunk = obj[key];
       return (
         chunk !== undefined && chunk !== null && chunk !== false && chunk !== ''
       );
     })
-    .map(key => {
+    .map((key) => {
       if (isPlainObject(obj[key])) return objToCss(obj[key], key);
       return `${hyphenate(key)}: ${obj[key]};`;
     })

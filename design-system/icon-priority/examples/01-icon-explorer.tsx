@@ -12,9 +12,9 @@ const allIcons = Promise.all(
     const icon = await import(`../glyph/${name}.js`);
     return { name, icon: icon.default };
   }),
-).then(newData =>
+).then((newData) =>
   newData
-    .map(icon => ({
+    .map((icon) => ({
       [icon.name]: { ...metadata[icon.name], component: icon.icon },
     }))
     .reduce((acc, b) => ({ ...acc, ...b })),
@@ -47,10 +47,10 @@ interface Icon {
 const filterIcons = (icons: Record<string, Icon>, query: string) => {
   const regex = new RegExp(query);
   return Object.keys(icons)
-    .map(index => icons[index])
-    .filter(icon =>
+    .map((index) => icons[index])
+    .filter((icon) =>
       icon.keywords
-        .map(keyword => (regex.test(keyword) ? 1 : 0))
+        .map((keyword) => (regex.test(keyword) ? 1 : 0))
         .reduce<number>((allMatches, match) => allMatches + match, 0),
     );
 };
@@ -69,7 +69,7 @@ class IconAllExample extends Component<{}, State> {
   };
 
   componentDidMount() {
-    allIcons.then(iconsMap => this.setState({ allIcons: iconsMap }));
+    allIcons.then((iconsMap) => this.setState({ allIcons: iconsMap }));
   }
 
   updateQuery = (query: string) => this.setState({ query, showIcons: true });
@@ -84,7 +84,7 @@ class IconAllExample extends Component<{}, State> {
 
     return icons.length ? (
       <IconExplorerGrid>
-        {icons.map(icon => (
+        {icons.map((icon) => (
           <IconExplorerCell {...icon} key={icon.componentName} />
         ))}
       </IconExplorerGrid>

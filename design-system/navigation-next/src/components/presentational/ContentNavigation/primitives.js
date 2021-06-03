@@ -72,13 +72,13 @@ const ProductNavigationPrimitive = withContentTheme(
 
 export const ProductNavigationTheme = ({ children }) => (
   <ThemeProvider
-    theme={oldTheme => ({ mode: light, ...oldTheme, context: 'product' })}
+    theme={(oldTheme) => ({ mode: light, ...oldTheme, context: 'product' })}
   >
     <Fragment>{children}</Fragment>
   </ThemeProvider>
 );
 
-export const ProductNavigation = props => (
+export const ProductNavigation = (props) => (
   <ProductNavigationTheme>
     <ProductNavigationPrimitive {...props} />
   </ProductNavigationTheme>
@@ -135,7 +135,7 @@ export const ContainerNavigationTheme = ({ children }) => (
   </ThemeProvider>
 );
 
-export const ContainerNavigation = props => (
+export const ContainerNavigation = (props) => (
   <ContainerNavigationTheme>
     <ContainerNavigationPrimitive {...props} />
   </ContainerNavigationTheme>

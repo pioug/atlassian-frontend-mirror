@@ -15,7 +15,7 @@ const defaultStyles = {
 };
 
 // This will automatically be applied for us as part of react-beautiful-dnd v10
-const applyDraggingStyles = snapshot => ({
+const applyDraggingStyles = (snapshot) => ({
   pointerEvents: snapshot.isDraggingOver ? 'none' : undefined,
 });
 

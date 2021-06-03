@@ -17,10 +17,10 @@ export default function Example({
 
   useLayoutEffect(() => {
     function toggleSelect() {
-      setIsSelected(value => !value);
+      setIsSelected((value) => !value);
     }
     function toggleDisabled() {
-      setIsDisabled(value => !value);
+      setIsDisabled((value) => !value);
     }
 
     const el: HTMLElement | null = ref.current;

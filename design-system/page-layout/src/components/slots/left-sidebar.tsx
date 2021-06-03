@@ -231,7 +231,7 @@ const LeftSidebar = (props: LeftSidebarProps) => {
           flyoutTimerRef.current && clearTimeout(flyoutTimerRef.current);
 
           onFlyoutCollapse && onFlyoutCollapse();
-          setLeftSidebarState(current => ({
+          setLeftSidebarState((current) => ({
             ...current,
             isFlyoutOpen: false,
           }));
@@ -251,7 +251,7 @@ const LeftSidebar = (props: LeftSidebarProps) => {
     );
 
     flyoutTimerRef.current = setTimeout(() => {
-      setLeftSidebarState(current => ({
+      setLeftSidebarState((current) => ({
         ...current,
         isFlyoutOpen: true,
       }));
@@ -289,7 +289,7 @@ const LeftSidebar = (props: LeftSidebarProps) => {
     }
     onFlyoutCollapse && onFlyoutCollapse();
     setTimeout(() => {
-      setLeftSidebarState(current => ({
+      setLeftSidebarState((current) => ({
         ...current,
         isFlyoutOpen: false,
       }));

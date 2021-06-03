@@ -82,7 +82,7 @@ describe('CodeBlock', () => {
       expect(getLineNumWidth(undefined as any)).toEqual('1ch');
     });
 
-    [1, 10, 100, 1000, 10000, 100000].forEach(val => {
+    [1, 10, 100, 1000, 10000, 100000].forEach((val) => {
       it(`should return ${val.toFixed(0).length}ch for (${val})`, () => {
         expect(getLineNumWidth(val)).toEqual(`${val.toFixed(0).length}ch`);
       });

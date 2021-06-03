@@ -8,7 +8,7 @@ export const table: NodeEncoder = (
 ): string => {
   try {
     const result: string[] = [];
-    node.forEach(n => {
+    node.forEach((n) => {
       result.push(tableRow(n, opts));
     });
 
@@ -24,7 +24,7 @@ const tableRow: NodeEncoder = (
 ): string => {
   let result: string = '';
   let separator: string = '|';
-  node.forEach(n => {
+  node.forEach((n) => {
     if (n.type.name === 'tableHeader') {
       separator = '||';
     } else {
@@ -45,7 +45,7 @@ const tableCell: NodeEncoder = (
     throw new Error('Advanced feature of table is not supported');
   }
   const result: string[] = [];
-  node.forEach(n => {
+  node.forEach((n) => {
     result.push(encode(n, context));
   });
   const output = result.join('\n').trim();

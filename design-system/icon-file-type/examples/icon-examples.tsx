@@ -5,7 +5,7 @@ import { background } from '@atlaskit/theme/colors';
 import metadata from '../src/metadata';
 
 const icons16 = Object.keys(metadata)
-  .map(name => {
+  .map((name) => {
     if (name.includes('16')) {
       return require(`../glyph/${name}.js`).default;
     }
@@ -15,7 +15,7 @@ const icons16 = Object.keys(metadata)
   .filter(Boolean);
 
 const icons24 = Object.keys(metadata)
-  .map(name => {
+  .map((name) => {
     if (name.includes('24')) {
       return require(`../glyph/${name}.js`).default;
     }
@@ -25,7 +25,7 @@ const icons24 = Object.keys(metadata)
   .filter(Boolean);
 
 const icons48 = Object.keys(metadata)
-  .map(name => {
+  .map((name) => {
     if (name.includes('48')) {
       return require(`../glyph/${name}.js`).default;
     }

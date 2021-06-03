@@ -1,5 +1,11 @@
 # @atlaskit/editor-core
 
+## 144.0.2
+
+### Patch Changes
+
+- [`6abc1fb5b10`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6abc1fb5b10) - Change default value for displayInlineBlockForInlineNodes feature flag
+
 ## 144.0.1
 
 ### Patch Changes

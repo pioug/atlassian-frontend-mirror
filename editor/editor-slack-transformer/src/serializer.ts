@@ -55,6 +55,9 @@ export const nodes = {
     state.renderInline(node);
     state.closeBlock(node);
   },
+  rule(state: MarkdownSerializerState, node: PMNode) {
+    state.closeBlock(node);
+  },
   bulletList(state: MarkdownSerializerState, node: PMNode) {
     for (let i = 0; i < node.childCount; i++) {
       const child = node.child(i);
@@ -165,10 +168,10 @@ export const nodes = {
   },
   /**
    * Slack markdown does not have specific syntax for images/files.
-   * We just show that there's an image/media attached as a link.
+   * We just show that there's an image attached as a link and a media just as a text.
    */
-  media(state: MarkdownSerializerState, node: PMNode) {
-    state.write(`[<${node.attrs.url}|media attached>]`);
+  media(state: MarkdownSerializerState) {
+    state.write('[media attached]');
   },
   image(state: MarkdownSerializerState, node: PMNode) {
     state.write(`[<${node.attrs.src}|image attached>]`);
@@ -197,13 +200,17 @@ export const marks = {
   },
   code: { open: '`', close: '`', escape: false },
   /**
-   * Slack markdown does not have specific syntax for (sub|super)script, underline.
+   * Slack markdown does not have specific syntax for (sub|super)script, underline, text color.
    */
   subsup: {
     open: '',
     close: '',
   },
   underline: {
+    open: '',
+    close: '',
+  },
+  textColor: {
     open: '',
     close: '',
   },

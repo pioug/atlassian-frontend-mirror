@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { ThemeTokens } from '../theme';
 
 const Container = styled.span<ThemeTokens>`
-  ${props => `
+  ${(props) => `
     background-color: ${props.backgroundColor};
     color: ${props.textColor};
   `};

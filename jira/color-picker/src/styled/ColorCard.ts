@@ -37,7 +37,7 @@ export const ColorCardOption = styled.div<
 >`
   ${sharedColorContainerStyles};
 
-  ${props => {
+  ${(props) => {
     if (props.focused) {
       return `border-color: ${colors.B75}`;
     }
@@ -56,7 +56,7 @@ export const ColorCardButton = styled.button<
     ${buttonFocusedBorder};
   }
 
-  ${props => {
+  ${(props) => {
     if (props.focused) {
       return buttonFocusedBorder;
     }
@@ -74,6 +74,6 @@ export const ColorCardContent = styled.div<ColorCardContentProps>`
   width: 22px;
   height: 22px;
   border-radius: ${borderRadius()}px;
-  background: ${props => props.color};
-  border: solid 1px ${props => darken(0.1, props.color)};
+  background: ${(props) => props.color};
+  border: solid 1px ${(props) => darken(0.1, props.color)};
 `;

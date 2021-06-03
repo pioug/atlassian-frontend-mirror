@@ -34,7 +34,7 @@ const updateOffsetNumbers = (
     const offsetArray: Literal[] = value
       .split(',')
       //@ts-ignore
-      .map(elem => j.literal(parseInt(elem.replace(/\D/g, ''))));
+      .map((elem) => j.literal(parseInt(elem.replace(/\D/g, ''))));
     if (offsetArray.length === 2) {
       j(attribute).replaceWith(
         j.jsxExpressionContainer(j.arrayExpression(offsetArray)),
@@ -44,8 +44,8 @@ const updateOffsetNumbers = (
     // Split by space but check if it is a single number
     const offsetArray: Literal[] = value
       .split(' ')
-      .filter(elem => elem.length)
-      .map(elem => j.literal(parseInt(elem.replace(/\D/g, ''))));
+      .filter((elem) => elem.length)
+      .map((elem) => j.literal(parseInt(elem.replace(/\D/g, ''))));
     if (offsetArray.length === 2) {
       j(attribute).replaceWith(
         j.jsxExpressionContainer(j.arrayExpression(offsetArray)),
@@ -75,21 +75,21 @@ function updateOffset(
       attributeName: 'offset',
     });
 
-    const stringLiteral = offsetExpr.filter(attr => {
+    const stringLiteral = offsetExpr.filter((attr) => {
       return attr.value!.value!.type === 'StringLiteral';
     });
 
-    const expression = offsetExpr.filter(attr => {
+    const expression = offsetExpr.filter((attr) => {
       return attr.value!.value!.type === 'JSXExpressionContainer';
     });
 
     if (stringLiteral.length > 0) {
-      stringLiteral.find(StringLiteral).forEach(attribute => {
+      stringLiteral.find(StringLiteral).forEach((attribute) => {
         const expression = attribute.value;
         updateOffsetNumbers(expression.value, j, attribute);
       });
     } else {
-      expression.find(JSXExpressionContainer).forEach(attribute => {
+      expression.find(JSXExpressionContainer).forEach((attribute) => {
         const expression = attribute.value.expression;
         if (expression.type === 'StringLiteral') {
           const value = expression.value;
@@ -130,7 +130,7 @@ function updateModifierProp(
   source: Collection<any>,
   specifier: string,
 ) {
-  source.findJSXElements(specifier).forEach(element => {
+  source.findJSXElements(specifier).forEach((element) => {
     if (isUsingProp({ j, base: source, element, propName: 'modifiers' })) {
       addCommentToStartOfFile({
         j,

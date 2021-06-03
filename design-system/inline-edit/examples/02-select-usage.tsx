@@ -58,7 +58,7 @@ const InlineEditExample = () => {
       <InlineEdit<ValueType<OptionType, true>>
         defaultValue={editValue}
         label="Inline edit select"
-        editView={fieldProps => (
+        editView={(fieldProps) => (
           <EditViewContainer>
             <Select
               {...fieldProps}

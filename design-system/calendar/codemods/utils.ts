@@ -62,10 +62,10 @@ export function getJSXAttributesByName(
   return j(element)
     .find(j.JSXOpeningElement)
     .find(j.JSXAttribute)
-    .filter(attribute => {
+    .filter((attribute) => {
       const matches = j(attribute)
         .find(j.JSXIdentifier)
-        .filter(identifier => identifier.value.name === attributeName);
+        .filter((identifier) => identifier.value.name === attributeName);
       return Boolean(matches.length);
     });
 }
@@ -129,7 +129,7 @@ export function addCommentBefore({
     path.value.comments = path.value.comments || [];
 
     const exists = path.value.comments.find(
-      comment => comment.value === content,
+      (comment) => comment.value === content,
     );
 
     // avoiding duplicates of the same comment
@@ -152,8 +152,8 @@ export const createRemoveFuncFor = (
     return;
   }
 
-  source.findJSXElements(defaultSpecifier).forEach(element => {
-    getJSXAttributesByName(j, element, prop).forEach(attribute => {
+  source.findJSXElements(defaultSpecifier).forEach((element) => {
+    getJSXAttributesByName(j, element, prop).forEach((attribute) => {
       j(attribute).remove();
       if (comment) {
         addCommentToStartOfFile({ j, base: source, message: comment });
@@ -171,14 +171,14 @@ export const flattenCertainChildPropsAsProp = (
   if (!defaultSpecifier) {
     return;
   }
-  source.findJSXElements(defaultSpecifier).forEach(element => {
-    getJSXAttributesByName(j, element, propName).forEach(attribute => {
+  source.findJSXElements(defaultSpecifier).forEach((element) => {
+    getJSXAttributesByName(j, element, propName).forEach((attribute) => {
       j(attribute)
         .find(j.JSXExpressionContainer)
         .find(j.ObjectExpression)
-        .forEach(objectExpression => {
-          objectExpression.node.properties.forEach(property => {
-            childProps.forEach(childProp => {
+        .forEach((objectExpression) => {
+          objectExpression.node.properties.forEach((property) => {
+            childProps.forEach((childProp) => {
               if (
                 property.type === 'ObjectProperty' &&
                 property.key.type === 'Identifier' &&
@@ -211,7 +211,7 @@ export const createTransformer = (
     return fileInfo.source;
   }
 
-  migrates.forEach(tf => tf(j, source));
+  migrates.forEach((tf) => tf(j, source));
 
   return source.toSource(options.printOptions || { quote: 'single' });
 };

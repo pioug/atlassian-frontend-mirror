@@ -39,7 +39,7 @@ export function getDefaultSpecifierName({
 }): Nullable<string> {
   const specifiers = base
     .find(j.ImportDeclaration)
-    .filter(path => path.node.source.value === packageName)
+    .filter((path) => path.node.source.value === packageName)
     .find(j.ImportDefaultSpecifier);
 
   if (!specifiers.length) {
@@ -60,13 +60,13 @@ export function getJSXAttributesByName({
   return j(element)
     .find(j.JSXOpeningElement)
     .find(j.JSXAttribute)
-    .filter(attribute => {
+    .filter((attribute) => {
       const matches = j(attribute)
         // This will find identifiers on nested jsx elements
         // so we are going to do a filter to ensure we are only
         // going one level deep
         .find(j.JSXIdentifier)
-        .filter(identifer => {
+        .filter((identifer) => {
           j(identifer).closest(j.JSXOpeningElement);
           // Checking we are on the same level as the jsx element
           const closest = j(identifer).closest(j.JSXOpeningElement).nodes()[0];
@@ -80,7 +80,7 @@ export function getJSXAttributesByName({
             element.openingElement.name.name === closest.name.name
           );
         })
-        .filter(identifier => identifier.value.name === attributeName);
+        .filter((identifier) => identifier.value.name === attributeName);
       return Boolean(matches.length);
     });
 }
@@ -108,7 +108,7 @@ export function removeImport({
 }) {
   base
     .find(j.ImportDeclaration)
-    .filter(path => path.node.source.value === packageName)
+    .filter((path) => path.node.source.value === packageName)
     .remove();
 }
 
@@ -126,7 +126,7 @@ export function tryCreateImport({
   const exists: boolean =
     base
       .find(j.ImportDeclaration)
-      .filter(path => path.value.source.value === packageName).length > 0;
+      .filter((path) => path.value.source.value === packageName).length > 0;
 
   if (exists) {
     return;
@@ -134,7 +134,7 @@ export function tryCreateImport({
 
   base
     .find(j.ImportDeclaration)
-    .filter(path => path.value.source.value === relativeToPackage)
+    .filter((path) => path.value.source.value === relativeToPackage)
     .insertBefore(j.importDeclaration([], j.literal(packageName)));
 }
 
@@ -151,15 +151,15 @@ export function addToImport({
 }) {
   base
     .find(j.ImportDeclaration)
-    .filter(path => path.value.source.value === packageName)
-    .replaceWith(declaration => {
+    .filter((path) => path.value.source.value === packageName)
+    .replaceWith((declaration) => {
       return j.importDeclaration(
         [
           // we are appending to the existing specifiers
           // We are doing a filter hear because sometimes specifiers can be removed
           // but they hand around in the declaration
           ...(declaration.value.specifiers || []).filter(
-            item => item.type === 'ImportSpecifier' && item.imported != null,
+            (item) => item.type === 'ImportSpecifier' && item.imported != null,
           ),
           importSpecifier,
         ],
@@ -178,7 +178,7 @@ export function doesIdentifierExist({
   name: string;
 }): boolean {
   return (
-    base.find(j.Identifier).filter(identifer => identifer.value.name === name)
+    base.find(j.Identifier).filter((identifer) => identifer.value.name === name)
       .length > 0
   );
 }
@@ -202,7 +202,7 @@ export function isUsingSupportedSpread({
   return (
     j(element)
       .find(j.JSXSpreadAttribute)
-      .filter(spread => {
+      .filter((spread) => {
         const argument = spread.value.argument;
         // in place expression is supported
         if (argument.type === 'ObjectExpression') {
@@ -239,7 +239,7 @@ export function isOnlyUsingNameForJSX({
 }): boolean {
   const jsxIdentifierCount: number = base
     .find(j.JSXIdentifier)
-    .filter(identifier => identifier.value.name === name).length;
+    .filter((identifier) => identifier.value.name === name).length;
 
   // Not used in JSX at all
   if (jsxIdentifierCount === 0) {
@@ -248,7 +248,7 @@ export function isOnlyUsingNameForJSX({
 
   const nonJSXIdentifierCount: number = base
     .find(j.Identifier)
-    .filter(identifier => {
+    .filter((identifier) => {
       if (identifier.value.name !== name) {
         return false;
       }
@@ -317,10 +317,10 @@ export function isUsingThroughSpread({
     j(element)
       .find(j.JSXSpreadAttribute)
       .find(j.ObjectExpression)
-      .filter(item => {
+      .filter((item) => {
         const match: boolean =
           item.value.properties.filter(
-            property =>
+            (property) =>
               property.type === 'ObjectProperty' &&
               property.key.type === 'Identifier' &&
               property.key.name === propName,
@@ -342,11 +342,11 @@ export function isUsingThroughSpread({
           base
             .find(j.VariableDeclarator)
             .filter(
-              declarator =>
+              (declarator) =>
                 declarator.value.id.type === 'Identifier' &&
                 declarator.value.id.name === identifier.value.name,
             )
-            .filter(declarator => {
+            .filter((declarator) => {
               const value = declarator.value;
               if (value.id.type !== 'Identifier') {
                 return false;
@@ -366,7 +366,7 @@ export function isUsingThroughSpread({
 
               const match: boolean =
                 value.init.properties.filter(
-                  property =>
+                  (property) =>
                     property.type === 'ObjectProperty' &&
                     property.key.type === 'Identifier' &&
                     property.key.name === propName,
@@ -449,11 +449,11 @@ export function addCommentBefore({
   message: string;
 }) {
   const content: string = ` TODO: (from codemod) ${clean(message)} `;
-  target.forEach(path => {
+  target.forEach((path) => {
     path.value.comments = path.value.comments || [];
 
     const exists = path.value.comments.find(
-      comment => comment.value === content,
+      (comment) => comment.value === content,
     );
 
     // avoiding duplicates of the same comment
@@ -495,7 +495,7 @@ export function shiftDefaultImport({
   // removing old default specifier
   base
     .find(j.ImportDeclaration)
-    .filter(path => path.node.source.value === oldPackagePath)
+    .filter((path) => path.node.source.value === oldPackagePath)
     .find(j.ImportDefaultSpecifier)
     .remove();
 }
@@ -535,10 +535,10 @@ export function changeImportFor({
   const isUsingName: boolean =
     base
       .find(j.ImportDeclaration)
-      .filter(path => path.node.source.value === oldPackagePath)
+      .filter((path) => path.node.source.value === oldPackagePath)
       .find(j.ImportSpecifier)
       .find(j.Identifier)
-      .filter(identifier => identifier.value.name === currentName).length > 0;
+      .filter((identifier) => identifier.value.name === currentName).length > 0;
 
   if (!isUsingName) {
     return;
@@ -547,7 +547,7 @@ export function changeImportFor({
   const existingAlias: Nullable<string> =
     base
       .find(j.ImportDeclaration)
-      .filter(path => path.node.source.value === oldPackagePath)
+      .filter((path) => path.node.source.value === oldPackagePath)
       .find(j.ImportSpecifier)
       .nodes()
       .map(
@@ -567,10 +567,10 @@ export function changeImportFor({
 
   base
     .find(j.ImportDeclaration)
-    .filter(path => path.node.source.value === oldPackagePath)
+    .filter((path) => path.node.source.value === oldPackagePath)
     .find(j.ImportSpecifier)
     .find(j.Identifier)
-    .filter(identifier => {
+    .filter((identifier) => {
       if (identifier.value.name === currentName) {
         return true;
       }
@@ -621,7 +621,7 @@ export function changeImportFor({
   }
 
   const isNewNameAvailable: boolean =
-    base.find(j.Identifier).filter(i => i.value.name === option.newName)
+    base.find(j.Identifier).filter((i) => i.value.name === option.newName)
       .length === 0;
 
   const newSpecifier: ImportSpecifier = (() => {
@@ -653,7 +653,7 @@ export function changeImportFor({
   // Change usages of old type in file
   base
     .find(j.Identifier)
-    .filter(identifier => identifier.value.name === option.oldName)
+    .filter((identifier) => identifier.value.name === option.oldName)
     .replaceWith(
       j.identifier(
         isNewNameAvailable ? option.newName : option.fallbackNameAlias,

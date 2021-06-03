@@ -90,7 +90,7 @@ export default class DropdownItemSelectionManager extends Component<Props> {
       ]);
     } else if (!isSelected && isAlreadySelected) {
       const withoutCurrentItem = alreadySelected.filter(
-        item => item.id !== itemId,
+        (item) => item.id !== itemId,
       );
       this.updateCacheContextWithSelections(withoutCurrentItem);
     }
@@ -138,7 +138,7 @@ export default class DropdownItemSelectionManager extends Component<Props> {
       this.props.groupId,
       clickedItemId,
     )
-      ? itemsInGroup.filter(item => item.id !== clickedItemId)
+      ? itemsInGroup.filter((item) => item.id !== clickedItemId)
       : [...itemsInGroup, { id: clickedItemId, groupId: this.props.groupId }];
 
     this.updateCacheContextWithSelections(newSelections);

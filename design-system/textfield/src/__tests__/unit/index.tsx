@@ -36,7 +36,7 @@ describe('Textfield', () => {
         { isCompact: true, padding: '4px 6px', height: '2.00em' },
         { isCompact: false, padding: '8px 6px', height: ' 2.57em' },
       ];
-      compactProps.forEach(compactProp => {
+      compactProps.forEach((compactProp) => {
         const { isCompact, padding, height } = compactProp;
         it(`when isCompact is set to ${isCompact}`, () => {
           const input = render(
@@ -134,15 +134,15 @@ describe('Textfield', () => {
           },
         ];
 
-        disableStyleProps.forEach(disableProps => {
+        disableStyleProps.forEach((disableProps) => {
           const { mode, values } = disableProps;
           const themeMode = mode as ThemeModes;
-          values.forEach(value => {
+          values.forEach((value) => {
             const { isDisabled, color, backgroundColor, borderColor } = value;
             it(`when isDisabled is set to ${isDisabled} & theme mode is ${mode}`, () => {
               const inputContainer = render(
                 <GlobalTheme.Provider
-                  value={t => ({ ...t(), mode: themeMode })}
+                  value={(t) => ({ ...t(), mode: themeMode })}
                 >
                   <Textfield testId="test" isDisabled={isDisabled} />,
                 </GlobalTheme.Provider>,
@@ -226,7 +226,7 @@ describe('Textfield', () => {
       });
       it('should make input invalid in ', () => {
         const { getByTestId } = render(
-          <GlobalTheme.Provider value={t => ({ ...t(), mode: 'dark' })}>
+          <GlobalTheme.Provider value={(t) => ({ ...t(), mode: 'dark' })}>
             <Textfield isInvalid testId="test" />
           </GlobalTheme.Provider>,
         );
@@ -260,7 +260,7 @@ describe('Textfield', () => {
         { width: 'xlarge', maxWidth: '480px' },
         { width: '600', maxWidth: '600px' },
       ];
-      widthProps.forEach(widthProp => {
+      widthProps.forEach((widthProp) => {
         const { width, maxWidth } = widthProp;
         it(`max-width should be ${maxWidth} when width prop is ${
           !width ? 'not passed' : width
@@ -322,7 +322,7 @@ describe('Textfield', () => {
         },
         { prop: 'onKeyUp', fireFunc: fireEvent.keyUp, options },
       ];
-      nativeEvents.forEach(event => {
+      nativeEvents.forEach((event) => {
         it(`${event.prop}`, () => {
           const eventSpy = jest.fn();
           const { getByTestId } = render(

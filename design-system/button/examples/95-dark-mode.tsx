@@ -58,14 +58,14 @@ function ThemeModeSwitcher({
           </ButtonTheme.Provider>
           <Select
             styles={{
-              container: provided => ({
+              container: (provided) => ({
                 ...provided,
                 marginTop: 10,
               }),
             }}
             options={options}
             defaultValue={options[0]}
-            onChange={option => {
+            onChange={(option) => {
               if (option && !Array.isArray(option)) {
                 setMode((option as Option).value);
               }

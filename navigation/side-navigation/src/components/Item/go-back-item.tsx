@@ -28,7 +28,7 @@ const GoBackItem = forwardRef<HTMLElement, ButtonItemProps>(
     const cssOverride = overrideStyleFunction(backItemStyle, cssFn);
 
     const onClickHandler: ButtonItemProps['onClick'] = useCallback(
-      e => {
+      (e) => {
         if (isInteracted) {
           return;
         }

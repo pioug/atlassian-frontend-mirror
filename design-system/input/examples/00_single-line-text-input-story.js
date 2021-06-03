@@ -12,7 +12,7 @@ const customTextStyle = {
   fontSize: 28,
 };
 
-const createSingleLineTextInput = props => (
+const createSingleLineTextInput = (props) => (
   <SingleLineTextInput
     readOnly={false}
     onChange={console.log('onChange')}

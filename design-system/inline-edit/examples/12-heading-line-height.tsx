@@ -57,7 +57,7 @@ const InlineEditExample = () => {
             <HeadingOne>{editValue || 'Click to enter value'}</HeadingOne>
           </ReadViewContainer>
         )}
-        onConfirm={value => setEditValue(value)}
+        onConfirm={(value) => setEditValue(value)}
       />
 
       <Message>Some content beneath a inline edit as a placeholder</Message>

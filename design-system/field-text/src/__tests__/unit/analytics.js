@@ -14,7 +14,7 @@ const packageVersion = process.env._PACKAGE_VERSION_;
 jest.mock('@atlaskit/analytics-next', () => ({
   withAnalyticsEvents: jest.fn(() => jest.fn(() => () => null)),
   withAnalyticsContext: jest.fn(() => jest.fn(() => () => null)),
-  createAndFireEvent: jest.fn(() => jest.fn(args => args)),
+  createAndFireEvent: jest.fn(() => jest.fn((args) => args)),
 }));
 
 describe('FieldTextStateless', () => {

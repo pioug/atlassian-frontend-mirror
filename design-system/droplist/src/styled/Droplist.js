@@ -21,7 +21,7 @@ const getMaxHeight = ({ isTall, maxHeight }) => {
 export default styled.div`
   display: inline-flex;
 
-  ${props =>
+  ${(props) =>
     props.fit &&
     `
     display: block;
@@ -58,7 +58,7 @@ export const Trigger = styled.div`
   transition-duration: 0.2s;
   transition: box-shadow 0.15s cubic-bezier(0.47, 0.03, 0.49, 1.38);
 
-  ${props =>
+  ${(props) =>
     props.fit &&
     `
     box-sizing: border-box;

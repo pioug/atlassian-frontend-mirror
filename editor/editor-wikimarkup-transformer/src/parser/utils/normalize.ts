@@ -95,7 +95,7 @@ function createMergedMediaGroup(
   schema: Schema,
 ): PMNode {
   const { mediaGroup } = schema.nodes;
-  const mediaNodes: PMNode[] = mediaGroupNodes.map(v => v.child(0));
+  const mediaNodes: PMNode[] = mediaGroupNodes.map((v) => v.child(0));
   return mediaGroup.createChecked({}, mediaNodes);
 }
 
@@ -125,7 +125,7 @@ function isMediaGroupWithMultipleChildren(n: PMNode): boolean {
 function isHardBreak(n: PMNode, separatorBuffer: PMNode[]): boolean {
   return (
     n.type.name === 'hardBreak' &&
-    separatorBuffer.map(v => v.type.name).indexOf('hardBreak') !== -1
+    separatorBuffer.map((v) => v.type.name).indexOf('hardBreak') !== -1
   );
 }
 

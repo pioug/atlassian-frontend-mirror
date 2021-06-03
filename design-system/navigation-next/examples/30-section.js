@@ -9,7 +9,7 @@ import { colors } from '@atlaskit/theme';
 import { Item, Section, SectionHeading, Separator } from '../src';
 import { CONTENT_NAV_WIDTH } from '../src/common/constants';
 
-const Container = props => (
+const Container = (props) => (
   <div
     css={{
       display: 'flex',
@@ -19,10 +19,10 @@ const Container = props => (
     {...props}
   />
 );
-const VariationWrapper = props => (
+const VariationWrapper = (props) => (
   <div css={{ margin: '0 24px 24px 0' }} {...props} />
 );
-const NestedSectionWrapper = props => (
+const NestedSectionWrapper = (props) => (
   <div
     css={{
       backgroundColor: colors.N20,
@@ -34,7 +34,7 @@ const NestedSectionWrapper = props => (
     {...props}
   />
 );
-const ScrollableSectionWrapper = props => (
+const ScrollableSectionWrapper = (props) => (
   <div
     css={{
       backgroundColor: colors.N20,
@@ -134,7 +134,7 @@ export default () => (
           {({ css }) => (
             <div css={css}>
               <SectionHeading>Section heading</SectionHeading>
-              {scrollingItems.map(itemProps => (
+              {scrollingItems.map((itemProps) => (
                 <Item key={itemProps.text} {...itemProps} />
               ))}
             </div>
@@ -149,7 +149,7 @@ export default () => (
           {({ css }) => (
             <div css={css}>
               <SectionHeading>Section heading</SectionHeading>
-              {scrollingItems.slice(0, 5).map(itemProps => (
+              {scrollingItems.slice(0, 5).map((itemProps) => (
                 <Item key={itemProps.text} {...itemProps} />
               ))}
             </div>

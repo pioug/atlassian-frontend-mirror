@@ -22,7 +22,7 @@ interface BannerContainerProps {
 const BannerContainer = styled.div<BannerContainerProps>`
   flex: 1 0 auto;
   transition: height 0.25s ease-in-out;
-  height: ${props => (props.isBannerOpen ? props.bannerHeight : 0)}px;
+  height: ${(props) => (props.isBannerOpen ? props.bannerHeight : 0)}px;
   position: relative;
   width: 100%;
   z-index: 3;

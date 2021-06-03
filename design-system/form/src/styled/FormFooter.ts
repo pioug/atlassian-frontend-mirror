@@ -11,6 +11,6 @@ import { Align } from '../types';
 export const FormFooterWrapper = styled.footer<{ align?: Align }>`
   margin-top: ${multiply(gridSize, 3)}px;
   display: flex;
-  justify-content: ${props =>
+  justify-content: ${(props) =>
     props.align === 'start' ? 'flex-start' : 'flex-end'};
 `;

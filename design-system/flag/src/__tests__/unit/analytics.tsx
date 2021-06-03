@@ -43,7 +43,7 @@ describe('Flag analytics', () => {
   [
     { method: 'onFocus', action: 'focused' },
     { method: 'onBlur', action: 'blurred' },
-  ].forEach(action => {
+  ].forEach((action) => {
     it(`should fire an event on the public channel and the internal channel when ${action.action}`, () => {
       const onPublicEvent = jest.fn();
       const onAtlaskitEvent = jest.fn();

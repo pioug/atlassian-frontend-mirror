@@ -155,7 +155,7 @@ class SpotlightDialog extends Component<SpotlightDialogProps, State> {
               <SpotlightCard
                 ref={ref}
                 testId={testId}
-                theme={parent => {
+                theme={(parent) => {
                   const { container, ...others } = parent({});
                   return {
                     ...others,

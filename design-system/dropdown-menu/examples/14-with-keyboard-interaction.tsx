@@ -18,7 +18,7 @@ export default () => {
         trigger="Open dropdown"
         triggerType="button"
         testId="dropdown"
-        onOpenChange={e => console.log('dropdown opened', e)}
+        onOpenChange={(e) => console.log('dropdown opened', e)}
       >
         <DropdownItemGroup>
           <DropdownItem

@@ -23,7 +23,7 @@ import { CONTENT_NAV_WIDTH } from '../src/common/constants';
 
 const ThemedComponents = ({ themeContext, themeMode }) => (
   <ThemeProvider
-    theme={theme => ({
+    theme={(theme) => ({
       ...theme,
       context: themeContext,
       mode: themeMode,
@@ -140,7 +140,7 @@ const variations = [
   },
 ];
 
-const Container = props => (
+const Container = (props) => (
   <div
     css={{
       display: 'flex',
@@ -150,10 +150,10 @@ const Container = props => (
     {...props}
   />
 );
-const VariationWrapper = props => (
+const VariationWrapper = (props) => (
   <div css={{ margin: '0 24px 24px 0' }} {...props} />
 );
-const ItemWrapper = props => (
+const ItemWrapper = (props) => (
   <div css={{ margin: '4px 0', width: `${CONTENT_NAV_WIDTH}px` }} {...props} />
 );
 

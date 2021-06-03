@@ -31,9 +31,9 @@ export default () => {
 
       <Centered css={{ height: '82px' }}>
         <ExitingPersistence>
-          {actualProducts.map(product => (
+          {actualProducts.map((product) => (
             <ShrinkOut key={product}>
-              {props => (
+              {(props) => (
                 <Block
                   {...props}
                   appearance="small"
@@ -45,8 +45,8 @@ export default () => {
                 >
                   <Button
                     onClick={() => {
-                      setProducts(prods =>
-                        prods.filter(val => val !== product),
+                      setProducts((prods) =>
+                        prods.filter((val) => val !== product),
                       );
                     }}
                   >

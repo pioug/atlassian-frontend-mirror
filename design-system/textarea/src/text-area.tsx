@@ -158,7 +158,7 @@ const TextAreaWithTokens = forwardRef((props: InternalProps, ref) => {
   };
 
   const handleOnChange: React.ChangeEventHandler<HTMLTextAreaElement> = useCallback(
-    e => {
+    (e) => {
       const el: HTMLTextAreaElement | null = ourRef.current;
       if (resize === 'smart' && el) {
         el.style.height = 'auto';

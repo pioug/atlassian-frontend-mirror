@@ -26,7 +26,7 @@ export default () => (
             }
           `}
     </style>
-    {iconIds.map(iconId => (
+    {iconIds.map((iconId) => (
       <p className="icon-example" key={iconId}>
         <svg focusable="false" className="ak-icon">
           <use xlinkHref={`#${iconId}`} />

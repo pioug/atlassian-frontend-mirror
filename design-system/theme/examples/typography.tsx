@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { typography } from '../src';
 
 const Heading = styled.div<{ mixin: any }>`
-  ${props => props.mixin};
+  ${(props) => props.mixin};
 `;
 
 export default () => {

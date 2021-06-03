@@ -1,6 +1,6 @@
 import { gridSize } from '@atlaskit/theme/constants';
 
-const externalContent = hasIframeLoaded => ({
+const externalContent = (hasIframeLoaded) => ({
   visibility: hasIframeLoaded ? 'visible' : 'hidden',
   height: `calc(100% - ${3 * gridSize()}px)`,
   width: '100%',

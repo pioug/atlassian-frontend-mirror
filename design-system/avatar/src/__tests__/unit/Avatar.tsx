@@ -143,7 +143,7 @@ describe('Avatar', () => {
       <Avatar
         testId={'avatar'}
         href={'https://atlaskit.atlassian.com/'}
-        onClick={event => onClick(event)}
+        onClick={(event) => onClick(event)}
       />,
     );
 
@@ -163,7 +163,7 @@ describe('Avatar', () => {
     }> = ({ testId, onClick, children }) => (
       // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
       <div
-        onClick={e => typeof onClick === 'function' && onClick(e)}
+        onClick={(e) => typeof onClick === 'function' && onClick(e)}
         data-testid={testId}
       >
         {children}
@@ -178,7 +178,7 @@ describe('Avatar', () => {
             analyticsEvent && analyticsEvent.fire()
           }
         >
-          {props => <MyComponent {...props} />}
+          {(props) => <MyComponent {...props} />}
         </Avatar>
       </AnalyticsListener>,
     );

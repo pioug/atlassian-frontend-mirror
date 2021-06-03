@@ -43,7 +43,7 @@ export default class ProgressBar extends React.PureComponent<
     return (
       <Theme.Provider value={theme}>
         <Theme.Consumer value={value}>
-          {tokens => (
+          {(tokens) => (
             <div
               css={tokens.container}
               role="progressbar"

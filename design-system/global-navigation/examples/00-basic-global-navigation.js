@@ -9,7 +9,7 @@ import AppSwitcherIcon from '@atlaskit/icon/glyph/app-switcher';
 
 import GlobalNavigation from '../src';
 
-const AppSwitcherComponent = props => (
+const AppSwitcherComponent = (props) => (
   <GlobalItem
     {...props}
     icon={AppSwitcherIcon}

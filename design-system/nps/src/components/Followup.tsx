@@ -23,7 +23,7 @@ export const RoleDropdown = ({
   const trigger = selected ? selected : placeholder;
   return (
     <DropdownMenu trigger={trigger} triggerType="button">
-      {roles.map(role => (
+      {roles.map((role) => (
         <DropdownItem
           key={`nps-item-${role}`}
           isSelected={role === selected}

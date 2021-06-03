@@ -54,7 +54,7 @@ const MyContainerNavigation = () => (
       {({ css }) => (
         <div css={{ ...css, paddingBottom: 20 }}>
           <ContainerHeader
-            before={itemState => (
+            before={(itemState) => (
               <ItemAvatar
                 itemState={itemState}
                 appearance="square"

@@ -7,7 +7,7 @@ export default class BasicExample extends PureComponent {
       'Click into and out of the input above to trigger onBlur & onFocus in the Fieldbase',
   };
 
-  onChange = event => {
+  onChange = (event) => {
     this.setState({
       eventResult: `onChange called with value: ${event.target.value}`,
     });

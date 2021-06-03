@@ -20,7 +20,7 @@ describe('@atlaskit/radio', () => {
           );
           expect(container.children.length).toBe(sampleOptions.length);
 
-          sampleOptions.forEach(option => {
+          sampleOptions.forEach((option) => {
             const radio = getByLabelText(option.label) as HTMLInputElement;
             expect(radio.name).toBe(option.name);
             expect(radio.value).toBe(option.value);
@@ -34,7 +34,7 @@ describe('@atlaskit/radio', () => {
           const { getByLabelText } = render(
             <RadioGroup isDisabled={isDisabled} options={sampleOptions} />,
           );
-          sampleOptions.forEach(option => {
+          sampleOptions.forEach((option) => {
             expect(
               (getByLabelText(option.label) as HTMLInputElement).disabled,
             ).toBe(isDisabled);
@@ -56,7 +56,7 @@ describe('@atlaskit/radio', () => {
               ]}
             />,
           );
-          sampleOptions.forEach(option => {
+          sampleOptions.forEach((option) => {
             expect(
               (getByLabelText(option.label) as HTMLInputElement).disabled,
             ).toBe(isDisabled);
@@ -69,7 +69,7 @@ describe('@atlaskit/radio', () => {
           const { getByLabelText } = render(
             <RadioGroup isRequired={isRequired} options={sampleOptions} />,
           );
-          sampleOptions.forEach(option => {
+          sampleOptions.forEach((option) => {
             expect(
               (getByLabelText(option.label) as HTMLInputElement).required,
             ).toBe(isRequired);
@@ -83,7 +83,7 @@ describe('@atlaskit/radio', () => {
           const { getByLabelText } = render(
             <RadioGroup name={testName} options={sampleOptions} />,
           );
-          sampleOptions.forEach(option => {
+          sampleOptions.forEach((option) => {
             expect(
               (getByLabelText(option.label) as HTMLInputElement).name,
             ).toBe(testName);
@@ -94,7 +94,7 @@ describe('@atlaskit/radio', () => {
           const { getByLabelText } = render(
             <RadioGroup options={sampleOptions} />,
           );
-          sampleOptions.forEach(option => {
+          sampleOptions.forEach((option) => {
             expect(
               (getByLabelText(option.label) as HTMLInputElement).name,
             ).toBe(option.name);
@@ -178,7 +178,7 @@ describe('@atlaskit/radio', () => {
             { name: 'n', value: '2', label: 'two' },
           ];
           const { getByLabelText } = render(<RadioGroup options={options} />);
-          options.forEach(option => {
+          options.forEach((option) => {
             expect(
               (getByLabelText(option.label) as HTMLInputElement).checked,
             ).toBe(false);
@@ -255,7 +255,7 @@ describe('@atlaskit/radio', () => {
           let value = '';
           const { getByLabelText } = render(
             <RadioGroup
-              onChange={e => {
+              onChange={(e) => {
                 value = e.currentTarget.value;
               }}
               options={sampleOptions}

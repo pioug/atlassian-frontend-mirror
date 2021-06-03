@@ -13,7 +13,7 @@ import { gridSize } from '@atlaskit/theme/constants';
 import Flag, { FlagGroup } from '../src';
 import { AppearanceArray, AppearanceTypes } from '../src/types';
 
-const boldAppearanceNames = AppearanceArray.filter(val => val !== 'normal');
+const boldAppearanceNames = AppearanceArray.filter((val) => val !== 'normal');
 
 type boldAppearanceItem = {
   name: string;
@@ -22,7 +22,7 @@ type boldAppearanceItem = {
 };
 
 const boldAppearanceItems: Array<boldAppearanceItem> = boldAppearanceNames.map(
-  val => ({
+  (val) => ({
     name: val,
     value: val,
     label: val,

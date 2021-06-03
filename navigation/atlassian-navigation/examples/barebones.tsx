@@ -49,11 +49,11 @@ const ExploreDropdown = () => {
       isOpen={isOpen}
       placement="bottom-start"
       onClose={() => setIsOpen(false)}
-      trigger={triggerProps => (
+      trigger={(triggerProps) => (
         <PrimaryDropdownButton
           {...triggerProps}
           isSelected={isOpen}
-          onClick={() => setIsOpen(prev => !prev)}
+          onClick={() => setIsOpen((prev) => !prev)}
         >
           Explore
         </PrimaryDropdownButton>

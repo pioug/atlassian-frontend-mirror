@@ -32,7 +32,7 @@ export default class PropStatus extends Component<Props, State> {
     });
   };
 
-  onClose: OnCloseHandler = event => {
+  onClose: OnCloseHandler = (event) => {
     event.preventDefault();
     this.setState({
       modalIsOpen: false,

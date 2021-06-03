@@ -4,9 +4,9 @@ import { gridSize as gridSizeFn } from '@atlaskit/theme/constants';
 
 const gridSize = gridSizeFn();
 
-export const Container = props => <div {...props} />;
+export const Container = (props) => <div {...props} />;
 
-export const HeaderContainer = props => {
+export const HeaderContainer = (props) => {
   const { styles, ...rest } = props;
   return (
     <div

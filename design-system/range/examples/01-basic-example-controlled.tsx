@@ -7,7 +7,7 @@ function ControlledRange() {
 
   return (
     <Fragment>
-      <Range step={1} value={value} onChange={value => setValue(value)} />
+      <Range step={1} value={value} onChange={(value) => setValue(value)} />
       <p>The current value is: {value}</p>
     </Fragment>
   );

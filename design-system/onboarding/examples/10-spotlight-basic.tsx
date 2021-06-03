@@ -20,9 +20,9 @@ export default class SpotlightBasicExample extends Component<Object, State> {
 
   start = () => this.setState({ active: 0 });
 
-  next = () => this.setState(state => ({ active: (state.active || 0) + 1 }));
+  next = () => this.setState((state) => ({ active: (state.active || 0) + 1 }));
 
-  prev = () => this.setState(state => ({ active: (state.active || 0) - 1 }));
+  prev = () => this.setState((state) => ({ active: (state.active || 0) - 1 }));
 
   finish = () => this.setState({ active: null });
 

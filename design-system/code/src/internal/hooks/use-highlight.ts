@@ -27,7 +27,7 @@ export const useHighlightLines = ({
     return (
       highlight
         .split(',')
-        .map(num => {
+        .map((num) => {
           if (num.indexOf('-') > 0) {
             // We found a line group, e.g. 1-3
             const [from, to] = num

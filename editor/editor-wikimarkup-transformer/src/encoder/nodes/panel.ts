@@ -14,7 +14,7 @@ export const panel: NodeEncoder = (
   { context }: NodeEncoderOpts = {},
 ): string => {
   const result: string[] = [];
-  node.forEach(n => {
+  node.forEach((n) => {
     result.push(encode(n, context));
   });
   return `{panel:bgColor=${panelTypeColorMapping[node.attrs.panelType] || ''}}

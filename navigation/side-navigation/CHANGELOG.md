@@ -1,5 +1,11 @@
 # @atlaskit/side-navigation
 
+## 1.0.1
+
+### Patch Changes
+
+- [`7c843858398`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7c843858398) - [ux] LinkItem and CustomItem now have correct blue text color when selected and the href has visited
+
 ## 1.0.0
 
 ### Major Changes

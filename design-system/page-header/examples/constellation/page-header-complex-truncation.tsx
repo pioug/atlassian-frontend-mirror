@@ -6,7 +6,7 @@ import Button from '@atlaskit/button/standard-button';
 import Select from '@atlaskit/select';
 import TextField from '@atlaskit/textfield';
 
-import PageHeader from '../src';
+import PageHeader from '../../src';
 
 const breadcrumbs = (
   <Breadcrumbs onExpand={() => {}}>
@@ -43,7 +43,6 @@ export default () => (
     bottomBar={barContent}
     truncateTitle
   >
-    Title describing what the content should be, along with the context for
-    which it applies — maybe also with some catchy words to draw attention
+    Title describing what page content to expect
   </PageHeader>
 );

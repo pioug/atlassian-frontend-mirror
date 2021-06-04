@@ -25,7 +25,7 @@ describe.skip('server side rendering and hydration', () => {
     ['08-multi-with-fixed-values.tsx'],
     ['09-single-disabled.tsx'],
     ['11-watchers.tsx'],
-    ['12-creatable.tsx'],
+    ['12-creatable-with-locale.tsx'],
   ])('ssr("%s")', async (fileName: string) => {
     await ssr_hydrate(__dirname, `${ExamplesPath}/${fileName}`);
 

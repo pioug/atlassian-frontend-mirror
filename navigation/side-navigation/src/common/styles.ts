@@ -60,7 +60,9 @@ export const baseSideNavItemStyle: CSSFn = ({ isSelected, isDisabled }) => {
     }),
     ...(isSelected && {
       backgroundColor: itemHoverBackgroundColor,
-      color: itemTextSelectedColor,
+      '&, &:visited': {
+        color: itemTextSelectedColor,
+      },
     }),
     ['& [data-item-elem-before]']: {
       // center align icons with app-switcher regardless of size

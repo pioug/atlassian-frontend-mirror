@@ -14,6 +14,10 @@ jest.mock('../../../components/components', () => ({
   getComponents: jest.fn(),
 }));
 
+jest.mock('../../../components/MessagesIntlProvider', () =>
+  jest.fn().mockImplementation(({ children }) => children),
+);
+
 import Select, { CreatableSelect } from '@atlaskit/select';
 import { shallowWithIntl } from 'enzyme-react-intl';
 import React from 'react';
@@ -25,10 +29,11 @@ import { UserPickerWithoutAnalytics } from '../../../components/UserPicker';
 import { User, UserPickerProps } from '../../../types';
 
 describe('UserPicker', () => {
+  // dive twice to get to BaseUserPicker
   const shallowUserPicker = (props: Partial<UserPickerProps> = {}) =>
-    shallowWithIntl(
-      <UserPickerWithoutAnalytics fieldId="test" {...props} />,
-    ).dive();
+    shallowWithIntl(<UserPickerWithoutAnalytics fieldId="test" {...props} />)
+      .dive()
+      .dive();
 
   const options: User[] = [
     {

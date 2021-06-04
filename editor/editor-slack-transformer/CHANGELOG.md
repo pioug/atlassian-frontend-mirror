@@ -1,5 +1,11 @@
 # @atlaskit/editor-slack-transformer
 
+## 1.0.2
+
+### Patch Changes
+
+- [`a17337cd389`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a17337cd389) - Added stubs for unsupported nodes in Slack markdown such as table, panel, inline card, task, decision as ["node type" attached]
+
 ## 1.0.1
 
 ### Patch Changes

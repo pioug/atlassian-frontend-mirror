@@ -7,6 +7,7 @@ import { getStyles } from './styles';
 import { getComponents } from './components';
 import { getCreatableProps } from './creatable';
 import { getCreatableSuggestedEmailProps } from './creatableEmailSuggestion';
+import MessagesIntlProvider from './MessagesIntlProvider';
 
 export class UserPickerWithoutAnalytics extends React.Component<
   UserPickerProps
@@ -54,14 +55,16 @@ export class UserPickerWithoutAnalytics extends React.Component<
       : { ...defaultPickerProps };
 
     return (
-      <BaseUserPickerWithoutAnalytics
-        {...this.props}
-        width={width}
-        SelectComponent={SelectComponent}
-        styles={getStyles(width, isMulti, this.props.styles)}
-        components={getComponents(isMulti, anchor)}
-        pickerProps={pickerProps}
-      />
+      <MessagesIntlProvider>
+        <BaseUserPickerWithoutAnalytics
+          {...this.props}
+          width={width}
+          SelectComponent={SelectComponent}
+          styles={getStyles(width, isMulti, this.props.styles)}
+          components={getComponents(isMulti, anchor)}
+          pickerProps={pickerProps}
+        />
+      </MessagesIntlProvider>
     );
   }
 }

@@ -3,11 +3,10 @@ import React from 'react';
 import Breadcrumbs, { BreadcrumbsItem } from '@atlaskit/breadcrumbs';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
-import Page from '@atlaskit/page';
 import Select from '@atlaskit/select';
 import TextField from '@atlaskit/textfield';
 
-import PageHeader from '../src';
+import PageHeader from '../../src';
 
 const breadcrumbs = (
   <Breadcrumbs onExpand={() => {}}>
@@ -38,13 +37,11 @@ const barContent = (
 );
 
 export default () => (
-  <Page>
-    <PageHeader
-      breadcrumbs={breadcrumbs}
-      actions={actionsContent}
-      bottomBar={barContent}
-    >
-      Title for a Page Header within a page
-    </PageHeader>
-  </Page>
+  <PageHeader
+    breadcrumbs={breadcrumbs}
+    actions={actionsContent}
+    bottomBar={barContent}
+  >
+    Title describing what page content to expect
+  </PageHeader>
 );

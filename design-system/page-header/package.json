@@ -1,7 +1,7 @@
 {
   "name": "@atlaskit/page-header",
-  "version": "10.0.9",
-  "description": "A React component that represents Header of an application page",
+  "version": "10.0.10",
+  "description": "A page header defines the top of a page. It contains a title and can be optionally combined with breadcrumbs buttons, search, and filters.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
@@ -21,7 +21,7 @@
     "inPublicMirror": true,
     "releaseModel": "scheduled",
     "website": {
-      "name": "Page Header"
+      "name": "Page header"
     }
   },
   "dependencies": {

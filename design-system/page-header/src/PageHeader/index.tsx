@@ -10,20 +10,19 @@ import {
 } from './styled';
 
 type Props = {
-  /** Returns the inner ref of the component. This is exposed so the focus can be set. */
-  innerRef?: (element: HTMLElement) => void;
-  /** Page breadcrumbs to be rendered above the title. */
-  breadcrumbs?: ReactElement;
   /** Contents of the action bar to be rendered next to the page title. */
   actions?: ReactElement;
-  /** Contents of the header bar to be rendered below the page title. */
+  /** Contents of the action bar to be rendered next to the page title. Typically a button group. */
   bottomBar?: ReactElement;
-  /** Content of the page title. The text would be trimmed if it doesn't fit the
-   header width and end with an ellipsis */
+  /** Page breadcrumbs to be rendered above the title. */
+  breadcrumbs?: ReactElement;
+  /** Contents of the bottom bar to be rendered below the page title. Typically contains a search bar and/or filters. */
   children?: ReactNode;
-  /** Disable default styles for page title */
+  /** Content of the page title. The text wraps by default. */
   disableTitleStyles?: boolean;
-  /** Prevent the title from wrapping across lines */
+  /** Returns the inner ref to the DOM element of the title. This is exposed so the focus can be set. */
+  innerRef?: (element: HTMLElement) => void;
+  /** Prevent the title from wrapping across lines. This should be avoided. */
   truncateTitle?: boolean;
 };
 

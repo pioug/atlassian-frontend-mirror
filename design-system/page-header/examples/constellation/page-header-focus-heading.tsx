@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import Breadcrumbs, { BreadcrumbsItem } from '@atlaskit/breadcrumbs';
 import Button from '@atlaskit/button/standard-button';
 
-import PageHeader from '../src';
+import PageHeader from '../../src';
 
 const breadcrumbs = (
   <Breadcrumbs onExpand={() => {}}>

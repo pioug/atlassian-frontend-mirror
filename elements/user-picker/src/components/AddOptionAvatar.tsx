@@ -8,12 +8,8 @@ const AddOptionAvatarWrapper = styled.span<{ suggestion?: boolean }>`
   color: black;
   padding: 2px;
 
-  > span[class^='Icon__IconWrapper'] {
-    background-color: ${N50};
-    border-radius: 50%;
-  }
-
-  ${({ suggestion }) => suggestion && `border-radius: 50%;`}
+  background-color: ${N50};
+  border-radius: 50%;
 `;
 
 export type AddOptionAvatarProps = {
@@ -31,7 +27,7 @@ export const AddOptionAvatar: React.FunctionComponent<AddOptionAvatarProps> = ({
 }) => {
   const Icon = invalidOption ? MentionIcon : InviteTeamIcon;
   return (
-    <AddOptionAvatarWrapper suggestion={suggestion}>
+    <AddOptionAvatarWrapper>
       <Icon
         label={label}
         size={size}

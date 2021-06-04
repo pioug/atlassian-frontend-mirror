@@ -1,5 +1,11 @@
 # @atlaskit/page-header
 
+## 10.0.10
+
+### Patch Changes
+
+- [`ac373538cdd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ac373538cdd) - Page header migrated from atlaskit to atlassian.design. Documentation and examples added along with updated snapshot test.
+
 ## 10.0.9
 
 ### Patch Changes

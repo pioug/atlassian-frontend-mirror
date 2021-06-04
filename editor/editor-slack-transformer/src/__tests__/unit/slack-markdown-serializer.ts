@@ -8,15 +8,21 @@ import {
   em,
   emoji,
   img,
+  inlineCard,
   li,
   media,
   mediaSingle,
   mention,
   ol,
   p,
+  panel,
   strike,
   strong,
   subsup,
+  table,
+  tr,
+  th,
+  td,
   typeAheadQuery,
   ul,
   underline,
@@ -463,7 +469,7 @@ describe('SlackTransformer: serializer', () => {
             ),
           )(defaultSchema),
         ),
-      ).toEqual('[media attached]\n');
+      ).toEqual('[media attached]\n\n');
     });
   });
 
@@ -711,5 +717,50 @@ describe('SlackTransformer: serializer', () => {
         ),
       ).toEqual('pagh\nwa’\ncha’\nwej\nloS\nvagh\njav\nSoch\nchorgh\nHut\n');
     });
+  });
+});
+
+describe('inline card', () => {
+  it('should serialize an inline card', () => {
+    expect(
+      markdownSerializer.serialize(
+        doc(
+          p(
+            inlineCard({
+              url:
+                'https://product-fabric.atlassian.net/browse/EX-522#icft=EX-522',
+            })(),
+          ),
+        )(defaultSchema),
+      ),
+    ).toEqual('[inline card attached]');
+  });
+});
+
+describe('panel', () => {
+  it('should convert an info panel node', () => {
+    expect(
+      markdownSerializer.serialize(
+        doc(panel({ panelType: 'info' })(p('This is an info panel')))(
+          defaultSchema,
+        ),
+      ),
+    ).toEqual('[panel attached]');
+  });
+});
+
+describe('tables', () => {
+  it('should serialize a table', () => {
+    expect(
+      markdownSerializer.serialize(
+        doc(
+          table()(
+            tr(th({})(p('h1')), th({})(p('h2')), th({})(p('h3'))),
+            tr(td({})(p('c11')), td({})(p('c12')), td({})(p('c13'))),
+            tr(td({})(p('c21')), td({})(p('c22')), td({})(p('c23'))),
+          ),
+        )(defaultSchema),
+      ),
+    ).toEqual('[table attached]');
   });
 });

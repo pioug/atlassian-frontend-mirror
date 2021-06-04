@@ -172,9 +172,45 @@ export const nodes = {
    */
   media(state: MarkdownSerializerState) {
     state.write('[media attached]');
+    state.write('\n');
   },
   image(state: MarkdownSerializerState, node: PMNode) {
     state.write(`[<${node.attrs.src}|image attached>]`);
+  },
+  date(state: MarkdownSerializerState, node: PMNode) {
+    /**
+     *  The year will be omitted if the date refers to the current year.
+     *  Timestamp should be transformed to Unix time.
+     */
+    const unixTime = (+node.attrs.timestamp / 1000) | 0;
+
+    state.write(
+      `<!date^${unixTime}^{date_short}|${new Date(
+        +node.attrs.timestamp,
+      ).toDateString()}>`,
+    );
+  },
+  /**
+   * Stubs for unsupported nodes in Slack markdown
+   */
+  table(state: MarkdownSerializerState, node: PMNode) {
+    state.write('[table attached]');
+    state.closeBlock(node);
+  },
+  panel(state: MarkdownSerializerState, node: PMNode) {
+    state.write('[panel attached]');
+    state.closeBlock(node);
+  },
+  inlineCard(state: MarkdownSerializerState) {
+    state.write('[inline card attached]');
+  },
+  taskList(state: MarkdownSerializerState, node: PMNode) {
+    state.write('[task attached]');
+    state.closeBlock(node);
+  },
+  decisionList(state: MarkdownSerializerState, node: PMNode) {
+    state.write('[decision attached]');
+    state.closeBlock(node);
   },
 };
 

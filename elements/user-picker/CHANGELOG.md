@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 7.10.7
+
+### Patch Changes
+
+- [`bdf81a467fd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bdf81a467fd) - Translation bugfix for text within user picker
+
 ## 7.10.6
 
 ### Patch Changes

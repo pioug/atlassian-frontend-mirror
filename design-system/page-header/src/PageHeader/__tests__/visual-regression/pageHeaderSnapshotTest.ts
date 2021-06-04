@@ -5,7 +5,7 @@ describe('Snapshot Test', () => {
     const url = getExampleUrl(
       'design-system',
       'page-header',
-      'BasicExample',
+      'default',
       global.__BASEURL__,
     );
 

@@ -2,5 +2,12 @@
   "extends": "../../../tsconfig.node.json",
   "compilerOptions": {
     "allowJs": true
+  },
+  // Most ts-node options can be specified here using their programmatic names.
+  "ts-node": {
+    // It is faster to skip typechecking.
+    "transpileOnly": true,
+    // We must load files for third party defs - https://typestrong.org/ts-node/docs/types
+    "files": true,
   }
 }

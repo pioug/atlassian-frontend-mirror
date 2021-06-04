@@ -32,6 +32,7 @@ import getUserRecommendations, {
   Context,
 } from '../service/recommendationClient';
 import getUsersById from '../service/UsersClient';
+import MessagesIntlProvider from '../../MessagesIntlProvider';
 
 type OnError = (
   error: any,
@@ -568,4 +569,16 @@ class SmartUserPicker extends React.Component<
   }
 }
 
-export default withAnalyticsEvents()(injectIntl(SmartUserPicker));
+const WrappedSmartUserPicker = withAnalyticsEvents()(
+  injectIntl(SmartUserPicker),
+);
+
+const SmartUserPickerWithIntlProvider: React.FunctionComponent<Props> = (
+  props,
+) => (
+  <MessagesIntlProvider>
+    <WrappedSmartUserPicker {...props} />
+  </MessagesIntlProvider>
+);
+
+export default SmartUserPickerWithIntlProvider;

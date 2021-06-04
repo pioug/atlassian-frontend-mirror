@@ -12,17 +12,21 @@ export default md`
   ${(
     <Example
       packageName="@atlaskit/page-header"
-      Component={require('../examples/BasicExample').default}
-      source={require('!!raw-loader!../examples/BasicExample')}
-      title="Basic"
+      Component={
+        require('../examples/constellation/page-header-default').default
+      }
+      source={require('!!raw-loader!../examples/constellation/page-header-default')}
+      title="Default"
     />
   )}
 
   ${(
     <Example
       packageName="@atlaskit/page-header"
-      Component={require('../examples/ComplexExample').default}
-      source={require('!!raw-loader!../examples/ComplexExample')}
+      Component={
+        require('../examples/constellation/page-header-complex').default
+      }
+      source={require('!!raw-loader!../examples/constellation/page-header-complex')}
       title="Complex"
     />
   )}
@@ -30,8 +34,10 @@ export default md`
   ${(
     <Example
       packageName="@atlaskit/page-header"
-      Component={require('../examples/CustomTitleComponentExample').default}
-      source={require('!!raw-loader!../examples/CustomTitleComponentExample')}
+      Component={
+        require('../examples/constellation/page-header-custom-title').default
+      }
+      source={require('!!raw-loader!../examples/constellation/page-header-custom-title')}
       title="Custom title component"
     />
   )}

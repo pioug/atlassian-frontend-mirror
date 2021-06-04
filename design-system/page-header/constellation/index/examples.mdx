@@ -1,0 +1,46 @@
+---
+order: 0
+---
+
+import PageHeaderDefault from '../../examples/constellation/page-header-default';
+import PageHeaderComplex from '../../examples/constellation/page-header-complex';
+import PageHeaderCustomTitle from '../../examples/constellation/page-header-custom-title';
+import PageHeaderFocusHeading from '../../examples/constellation/page-header-focus-heading';
+
+
+## Default
+
+Use a default page header for a title underneath [breadcrumbs](/components/breadcrumbs/examples).
+
+The header automatically wraps if the text is too long. This can be disabled with `truncateTitle`. However, this is not recommended (see [accessibility](/components/page-header/usage#accessibility)).
+
+
+<Example Component={PageHeaderDefault} packageName="@atlaskit/page-header" />
+
+## Complex
+
+Page headers can include [breadcrumbs](/components/breadcrumbs/examples), which appear above the header. You can also pass [buttons](/components/button/examples) into `actions` — these appear to the right of the header.
+
+To help users refine the page content on a more granular level, a  [filter bar](/components/textfield/examples) and [search dropdown](/components/dropdown-menu/examples) component can be added to the `bottomBar` below the header title.
+
+<Example Component={PageHeaderComplex} packageName="@atlaskit/page-header" />
+
+## Custom title component
+
+<!-- TODO: change atlaskit link once inline edit migrates to atlassian.design -->
+
+Use custom components for titles where necessary. For example, an [inline edit](https://atlaskit.atlassian.com/packages/design-system/inline-edit) lets users edit the title on the page.
+
+<Example
+  Component={PageHeaderCustomTitle}
+  packageName="@atlaskit/page-header"
+/>
+
+## Focus heading
+
+Set the focus back to the title for accessibility purposes.
+
+<Example
+  Component={PageHeaderFocusHeading}
+  packageName="@atlaskit/page-header"
+/>

@@ -1,5 +1,11 @@
 # @atlaskit/checkbox
 
+## 12.1.2
+
+### Patch Changes
+
+- [`37324ccc750`](https://bitbucket.org/atlassian/atlassian-frontend/commits/37324ccc750) - Fix styling error causing rendering errors in iOS Safari, and focus rings in Firefox
+
 ## 12.1.1
 
 ### Patch Changes

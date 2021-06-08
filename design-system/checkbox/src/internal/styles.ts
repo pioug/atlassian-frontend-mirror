@@ -26,6 +26,12 @@ const checkboxStyles = css`
   -webkit-appearance: none;
   -moz-appearance: none;
   margin: 0;
+  /* Necessary to hide correctly on mobile Safari */
+  border: none;
+  width: 0px;
+  height: 0px;
+  /* Necessary to hide focus ring on Firefox */
+  outline: none;
 
   /*
     Change the variables --checkbox-background-color, --checkbox-border-color

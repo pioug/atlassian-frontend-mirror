@@ -244,6 +244,7 @@ export type LozengeColor =
 
 export interface LozengeProps {
   text: string;
+  tooltip?: string;
   appearance?: LozengeColor;
   isBold?: boolean;
 }

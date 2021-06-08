@@ -8,6 +8,7 @@ export default function AvatarSquareExample() {
       appearance="square"
       size="medium"
       src="https://hello.atlassian.net/secure/projectavatar?pid=30630"
+      name="Rocket image"
     />
   );
 }

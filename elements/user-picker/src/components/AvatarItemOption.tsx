@@ -2,6 +2,7 @@ import React, { ReactNode } from 'react';
 import styled from 'styled-components';
 import { N200, N900 } from '@atlaskit/theme/colors';
 import Lozenge from '@atlaskit/lozenge';
+import Tooltip from '@atlaskit/tooltip';
 import { LozengeProps } from '../types';
 
 const Wrapper = styled.span`
@@ -65,9 +66,18 @@ export const AvatarItemOption = ({
       <div>
         <Text>{primaryText}</Text>
         <AdditionalInfo withTooltip={Boolean(sourcesInfoTooltip)}>
-          {!sourcesInfoTooltip && lozenge && (
-            <Lozenge {...lozenge}>{lozenge.text}</Lozenge>
-          )}
+          {!sourcesInfoTooltip &&
+            lozenge &&
+            lozenge.text &&
+            (lozenge.tooltip ? (
+              // Note that entire Lozenge must be wrapped in the Tooltip (rather than just the
+              // Lozenge text) or tooltip won't work
+              <Tooltip content={lozenge.tooltip}>
+                <Lozenge {...lozenge}>{lozenge.text}</Lozenge>
+              </Tooltip>
+            ) : (
+              <Lozenge {...lozenge}>{lozenge.text}</Lozenge>
+            ))}
           {sourcesInfoTooltip}
         </AdditionalInfo>
       </div>

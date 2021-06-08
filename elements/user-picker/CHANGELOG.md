@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 7.11.0
+
+### Minor Changes
+
+- [`5dcf1001d62`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5dcf1001d62) - [ux] Added tooltips for Confluence ExCo/Guest lozenges for Smart User Picker
+
 ## 7.10.7
 
 ### Patch Changes

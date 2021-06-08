@@ -3,8 +3,8 @@ import React from 'react';
 import { Container, Content, Icon, Text, Visibility } from '../styled';
 
 interface Props {
-  appearance?: 'warning' | 'error' | 'announcement';
   /** Visual style to be used for the banner */
+  appearance?: 'warning' | 'error' | 'announcement';
   /** Content to be shown next to the icon. Typically text content but can contain links. */
   children?: React.ReactNode;
   /** Icon to be shown left of the main content. Typically an Atlaskit [@atlaskit/icon](packages/design-system/icon) */

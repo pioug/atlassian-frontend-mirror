@@ -64,12 +64,15 @@ const getLozenzeProperties = (
   }
 
   if (entity.attributes?.isConfluenceExternalCollaborator) {
-    const guestUserLozengeProps: LozengeProps = {
+    const lozengeTooltipMessage =
+      entity.entityType === EntityType.GROUP
+        ? messages.guestGroupLozengeTooltip
+        : messages.guestUserLozengeTooltip;
+    return {
       text: intl.formatMessage(messages.guestLozengeText),
+      tooltip: intl.formatMessage(lozengeTooltipMessage),
       appearance: 'new',
     };
-
-    return guestUserLozengeProps;
   }
 
   return undefined;

@@ -106,4 +106,18 @@ export const messages = defineMessages({
     description:
       'Text within the lozenge when the user is a guest of confluence',
   },
+  guestUserLozengeTooltip: {
+    id: 'fabric.elements.user-picker.guest.lozenge.tooltip.user',
+    defaultMessage:
+      'Guests can only access certain spaces and have limited access to user info.',
+    description:
+      'Tooltip text for guest lozenge showing that a user is a guest in Confluence',
+  },
+  guestGroupLozengeTooltip: {
+    id: 'fabric.elements.user-picker.guest.lozenge.tooltip.group',
+    defaultMessage:
+      'Guest groups can only access certain spaces and have limited access to user info.',
+    description:
+      'Tooltip text for lozenge showing that a group is for guests in Confluence',
+  },
 });

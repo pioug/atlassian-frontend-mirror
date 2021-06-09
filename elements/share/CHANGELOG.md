@@ -1,5 +1,11 @@
 # @atlaskit/share
 
+## 0.26.7
+
+### Patch Changes
+
+- [`d288a9efa56`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d288a9efa56) - Bumping user picker in shares for translation bugfix
+
 ## 0.26.6
 
 ### Patch Changes

@@ -243,17 +243,16 @@ describe('Snapshot test', () => {
       'multiple',
       global.__BASEURL__,
     );
+
     const { page } = global;
     await loadPage(page, url);
+    await page.setViewport(defaultOptions.viewport);
 
     await page.waitForSelector(scrollOutsideSelector);
     await page.click(scrollOutsideSelector);
 
-    await openModal(url, {
-      ...defaultOptions,
-      triggerSelector: largeModalBtn,
-      shouldLoadPage: false,
-    });
+    await page.click(largeModalBtn);
+    await page.waitForSelector(modalDialog);
 
     await page.waitFor(1000);
     const image = await page.screenshot();
@@ -377,10 +376,16 @@ describe('Snapshot test', () => {
     );
     const { page } = global;
     await loadPage(page, url);
+    await page.setViewport(defaultOptions.viewport);
 
     await page.waitForSelector(visibilitySelector);
     await page.click(visibilitySelector);
-    await openModal(url, { ...defaultOptions, shouldLoadPage: false });
+
+    await page.click(openModalBtn);
+    await page.waitForSelector(modalDialog);
+
+    // Traps the focus on the modal
+    await page.keyboard.press('Tab');
 
     const image = await takeElementScreenShot(page, 'body');
     expect(image).toMatchProdImageSnapshot();

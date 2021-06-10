@@ -256,6 +256,11 @@ describe('Tooltip', () => {
       </Tooltip>,
     );
 
+    // Waits for exit animation to finish
+    act(() => {
+      jest.runAllTimers();
+    });
+
     expect(queryByTestId('tooltip')).toBeNull();
   });
 
@@ -503,6 +508,11 @@ describe('Tooltip', () => {
         <button data-testid="trigger">click me</button>
       </Tooltip>,
     );
+
+    // Waits for exit animation to finish
+    act(() => {
+      jest.runAllTimers();
+    });
 
     expect(queryByTestId('tooltip')).toBeNull();
   });

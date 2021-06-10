@@ -1,5 +1,11 @@
 # @atlaskit/editor-core
 
+## 144.0.3
+
+### Patch Changes
+
+- [`070261ec304`](https://bitbucket.org/atlassian/atlassian-frontend/commits/070261ec304) - Fix Cypress types for packages
+
 ## 144.0.2
 
 ### Patch Changes

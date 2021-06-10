@@ -1,5 +1,11 @@
 # @atlaskit/motion
 
+## 1.0.1
+
+### Patch Changes
+
+- [`08b6e9821d0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/08b6e9821d0) - ExitingPersistence is now memoised to prevent a re-render that terminates the exit animation when its children have not changed.
+
 ## 1.0.0
 
 ### Major Changes

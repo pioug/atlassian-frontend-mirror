@@ -1,3 +1,4 @@
+/// <reference types="cypress" />
 export class MediaCardPageObject {
   constructor(private cy: Cypress.cy) {}
 

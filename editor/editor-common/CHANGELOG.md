@@ -1,5 +1,11 @@
 # @atlaskit/editor-common
 
+## 57.1.2
+
+### Patch Changes
+
+- [`070261ec304`](https://bitbucket.org/atlassian/atlassian-frontend/commits/070261ec304) - Fix Cypress types for packages
+
 ## 57.1.1
 
 ### Patch Changes

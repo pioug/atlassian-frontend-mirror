@@ -14,6 +14,7 @@
   ],
   "exclude": [
     "node_modules",
-    "src/json-schema"
+    "src/json-schema",
+    "src/__tests_external__"
   ]
 }

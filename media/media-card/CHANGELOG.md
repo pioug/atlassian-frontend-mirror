@@ -1,5 +1,11 @@
 # @atlaskit/media-card
 
+## 70.7.2
+
+### Patch Changes
+
+- [`070261ec304`](https://bitbucket.org/atlassian/atlassian-frontend/commits/070261ec304) - Fix Cypress types for packages
+
 ## 70.7.1
 
 ### Patch Changes

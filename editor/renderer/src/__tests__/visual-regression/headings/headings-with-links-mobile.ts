@@ -21,7 +21,7 @@ describe('Headings with links on mobile', () => {
       page = global.page;
       /**
        * To validate the default persistently visible experience on mobile we use device emulation
-       * as as a shortcut to minimicking the mobile experience.
+       * as as a shortcut to mimicking the mobile experience.
        *
        * Note that although emulation shrinks the viewport to the mobile device width, the
        * `initRendererWithADF` function resizes the viewport back to the desktop width internally,

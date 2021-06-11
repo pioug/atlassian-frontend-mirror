@@ -4,7 +4,8 @@ import styled, { css } from 'styled-components';
 import { borderRadius, colors } from '@atlaskit/theme';
 import { COLOR_CARD_SIZE } from '../constants';
 
-import { darken } from 'polished';
+// polished has problems tree-shaking https://github.com/styled-components/polished/issues/478
+import darken from 'polished/lib/color/darken';
 
 type ColorCardProps = {
   focused?: boolean;

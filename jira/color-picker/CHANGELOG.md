@@ -1,5 +1,11 @@
 # @atlaskit/color-picker
 
+## 1.2.3
+
+### Patch Changes
+
+- [`a96040c6a39`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a96040c6a39) - Update imports to help tree-shake, greatly improving bundle size
+
 ## 1.2.2
 
 ### Patch Changes

@@ -70,7 +70,7 @@ export const propsWithHeadingLinksEnabledWithHash = (activeHeadingId: string) =>
  * property to ensure it doesn't negatively impact the real styles.
  *
  * To validate the default persistently visible experience on mobile we use device emulation
- * as as a shortcut to minimicking the mobile experience. In Chrome this disables the media
+ * as as a shortcut to mimicking the mobile experience. In Chrome this disables the media
  * query support automatically.
  * This is technically a no-op until Puppeteer supports the media query, but it's functional
  * on real Chrome for the case of debug runs.

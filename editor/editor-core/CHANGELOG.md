@@ -1,5 +1,25 @@
 # @atlaskit/editor-core
 
+## 144.1.0
+
+### Minor Changes
+
+- [`92c1a74eb2d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/92c1a74eb2d) - [ux] ED-13083: fixed serialize() for Tabs and Expand fields
+
+### Patch Changes
+
+- [`6bbd57f1499`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6bbd57f1499) - ED-13095 Config panel: Fixed initial params are not set for nested fields.
+  ED-13084 Config panel: Added a workaround for data lost in tabs when submitting.
+- [`547024df2b8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/547024df2b8) - [ux] ED-13053 Config panel: fixed mixed name/label on tabs
+- Updated dependencies
+
+## 144.0.4
+
+### Patch Changes
+
+- [`9e09b407b43`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9e09b407b43) - Exclude `__tests_external__` from the `build/tsconfig.json`.
+  Add `local-cypress` and remove types export.
+
 ## 144.0.3
 
 ### Patch Changes

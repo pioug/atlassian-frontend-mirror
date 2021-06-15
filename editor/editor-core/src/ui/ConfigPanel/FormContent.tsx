@@ -177,7 +177,7 @@ export function FieldComponent({
           <FormContent
             parentName={resolvedParentName}
             fields={field.fields}
-            parameters={parameters}
+            parameters={parameters[field.name] || {}}
             onFieldChange={onFieldChange}
             extensionManifest={extensionManifest}
           />
@@ -185,15 +185,18 @@ export function FieldComponent({
       );
 
     case 'tab-group':
-      const renderPanel = (tabField: TabField) => (
-        <FormContent
-          parentName={`${field.name}.${tabField.name}`}
-          fields={tabField.fields}
-          parameters={parameters}
-          onFieldChange={onFieldChange}
-          extensionManifest={extensionManifest}
-        />
-      );
+      const renderPanel = (tabField: TabField) => {
+        const tabParameters = parameters[field.name] || {};
+        return (
+          <FormContent
+            parentName={`${field.name}.${tabField.name}`}
+            fields={tabField.fields}
+            parameters={tabParameters[tabField.name] || {}}
+            onFieldChange={onFieldChange}
+            extensionManifest={extensionManifest}
+          />
+        );
+      };
 
       return <TabGroup field={field} renderPanel={renderPanel} />;
 

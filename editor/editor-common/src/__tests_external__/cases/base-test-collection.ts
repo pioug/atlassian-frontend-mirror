@@ -1,3 +1,6 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { context } from 'local-cypress';
+
 import { EditorTestCase } from './base-test-case';
 
 export interface EditorTestCollectionOpts {

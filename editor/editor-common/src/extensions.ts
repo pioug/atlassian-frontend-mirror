@@ -13,6 +13,8 @@ export {
   getFieldSerializer,
   getFieldDeserializer,
   isFieldset,
+  isTabGroup,
+  isExpand,
   isDateRange,
   getUserFieldContextProvider,
   buildMenuItem,

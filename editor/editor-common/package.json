@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-common",
-  "version": "57.1.2",
+  "version": "57.2.0",
   "description": "A package that contains common classes and components for editor and renderer",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -87,6 +87,7 @@
     "@testing-library/react": "^8.0.1",
     "cypress-file-upload": "^5.0.2",
     "enzyme": "^3.10.0",
+    "local-cypress": "^1.2.1",
     "raf-stub": "^2.0.1",
     "react": "^16.8.0",
     "react-test-renderer": "^16.8.0",

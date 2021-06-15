@@ -1,5 +1,18 @@
 # @atlaskit/editor-common
 
+## 57.2.0
+
+### Minor Changes
+
+- [`92c1a74eb2d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/92c1a74eb2d) - [ux] ED-13083: fixed serialize() for Tabs and Expand fields
+
+## 57.1.3
+
+### Patch Changes
+
+- [`9e09b407b43`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9e09b407b43) - Exclude `__tests_external__` from the `build/tsconfig.json`.
+  Add `local-cypress` and remove types export.
+
 ## 57.1.2
 
 ### Patch Changes

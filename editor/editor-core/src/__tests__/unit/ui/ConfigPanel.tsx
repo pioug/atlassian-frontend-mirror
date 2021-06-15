@@ -276,6 +276,18 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
                     type: 'string',
                     label: 'Free text',
                   },
+                  {
+                    type: 'enum',
+                    label: 'My enum field',
+                    style: 'select',
+                    name: 'enumList',
+                    defaultValue: 'a',
+                    items: [
+                      { label: 'label-A', value: 'a' },
+                      { label: 'label-B', value: 'b' },
+                      { label: 'label-C', value: 'c' },
+                    ],
+                  },
                 ],
               },
             ]),
@@ -284,9 +296,9 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
           const field = wrapper.find('Textfield');
           typeInField(field.find('input'), 'hello');
           await trySubmit();
-
+          await flushPromises();
           expect(onChange).toHaveBeenCalledWith({
-            expandField: { textField: 'hello' },
+            expandField: { textField: 'hello', enumList: 'a' },
           });
         });
       });
@@ -317,6 +329,18 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
                             type: 'string',
                             label: 'Free text',
                           },
+                          {
+                            type: 'enum',
+                            label: 'My first enum field',
+                            style: 'select',
+                            name: 'enumListA',
+                            defaultValue: 'a',
+                            items: [
+                              { label: 'label-A', value: 'a' },
+                              { label: 'label-B', value: 'b' },
+                              { label: 'label-C', value: 'c' },
+                            ],
+                          },
                         ],
                       },
                     ],
@@ -330,6 +354,18 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
                         name: 'textFieldTwo',
                         type: 'string',
                         label: 'Free text',
+                      },
+                      {
+                        type: 'enum',
+                        label: 'My enum field',
+                        style: 'select',
+                        name: 'enumListB',
+                        defaultValue: 'b',
+                        items: [
+                          { label: 'label-A', value: 'a' },
+                          { label: 'label-B', value: 'b' },
+                          { label: 'label-C', value: 'c' },
+                        ],
                       },
                     ],
                   },
@@ -380,17 +416,21 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
           );
 
           tab2.simulate('click');
+
           await trySubmit();
+          await flushPromises();
 
           expect(onChange).toHaveBeenCalledWith({
             tabGroup: {
               optionA: {
                 expandField: {
                   textFieldOne: 'tab 1 text',
+                  enumListA: 'a',
                 },
               },
               optionB: {
                 textFieldTwo: 'tab 2 text',
+                enumListB: 'b',
               },
             },
           });
@@ -1872,6 +1912,141 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
             esm: ['a', 'c'],
             ess: 'b',
             user: 'u123i1431',
+          });
+        });
+
+        it('should populate nested fields with passed parameters', async () => {
+          const { trySubmit } = await mountWithProviders({
+            ...defaultProps,
+            extensionProvider: createProvider(
+              [
+                {
+                  name: 'expandField',
+                  type: 'expand',
+                  label: 'awesome expand field',
+                  fields: [
+                    {
+                      name: 'textField',
+                      type: 'string',
+                      label: 'Free text',
+                    },
+                    {
+                      type: 'enum',
+                      label: 'My enum field',
+                      style: 'select',
+                      name: 'enumList',
+                      defaultValue: 'a',
+                      items: [
+                        { label: 'label-A', value: 'a' },
+                        { label: 'label-B', value: 'b' },
+                        { label: 'label-C', value: 'c' },
+                      ],
+                    },
+                  ],
+                },
+                {
+                  type: 'tab-group',
+                  label: 'Tab type',
+                  name: 'tabGroup',
+                  fields: [
+                    {
+                      type: 'tab',
+                      label: 'Tab A',
+                      name: 'optionA',
+                      fields: [
+                        {
+                          name: 'expandField',
+                          type: 'expand',
+                          label: 'awesome expand field',
+                          fields: [
+                            {
+                              name: 'textFieldOne',
+                              type: 'string',
+                              label: 'Free text',
+                            },
+                            {
+                              type: 'enum',
+                              label: 'My first enum field',
+                              style: 'select',
+                              name: 'enumListA',
+                              items: [
+                                { label: 'label-A', value: 'a' },
+                                { label: 'label-B', value: 'b' },
+                                { label: 'label-C', value: 'c' },
+                              ],
+                            },
+                          ],
+                        },
+                      ],
+                    },
+                    {
+                      type: 'tab',
+                      label: 'Tab B',
+                      name: 'optionB',
+                      fields: [
+                        {
+                          name: 'textFieldTwo',
+                          type: 'string',
+                          label: 'Free text',
+                        },
+                        {
+                          type: 'enum',
+                          label: 'My enum field',
+                          style: 'select',
+                          name: 'enumListB',
+                          items: [
+                            { label: 'label-A', value: 'a' },
+                            { label: 'label-B', value: 'b' },
+                            { label: 'label-C', value: 'c' },
+                          ],
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+              {},
+            ),
+            parameters: {
+              expandField: {
+                textField: 'test value',
+                enumList: 'c',
+              },
+              tabGroup: {
+                optionA: {
+                  expandField: {
+                    enumListA: 'a',
+                    textFieldOne: 'test field one',
+                  },
+                },
+                optionB: {
+                  textFieldTwo: 'test field two',
+                  enumListB: 'b',
+                },
+              },
+            },
+          });
+
+          await trySubmit();
+          await flushPromises();
+
+          expect(onChange).toHaveBeenCalledWith({
+            expandField: {
+              enumList: 'c',
+              textField: 'test value',
+            },
+            tabGroup: {
+              optionA: {
+                expandField: {
+                  enumListA: 'a',
+                  textFieldOne: 'test field one',
+                },
+              },
+              optionB: {
+                enumListB: 'b',
+                textFieldTwo: 'test field two',
+              },
+            },
           });
         });
 

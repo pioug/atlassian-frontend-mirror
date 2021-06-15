@@ -19,7 +19,7 @@ export default ({ node }: ExtensionComponentProps<ChartParams>) => {
   return (
     <div>
       <p>{nodeKey} settings</p>
-      <pre>{JSON.stringify(parameters)}</pre>
+      <pre>{JSON.stringify(parameters, null, 2)}</pre>
     </div>
   );
 };

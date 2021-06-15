@@ -200,8 +200,11 @@ export type FieldDefinition = NestedFieldDefinition | Fieldset | GroupingField;
 export const isFieldset = (field: FieldDefinition): field is Fieldset => {
   return field.type === 'fieldset';
 };
-export const isTabGroup = (field: FieldDefinition): field is Fieldset => {
+export const isTabGroup = (field: FieldDefinition): field is TabGroupField => {
   return field.type === 'tab-group';
+};
+export const isExpand = (field: FieldDefinition): field is ExpandField => {
+  return field.type === 'expand';
 };
 
 export const isDateRange = (value: any): value is DateRangeResult => {

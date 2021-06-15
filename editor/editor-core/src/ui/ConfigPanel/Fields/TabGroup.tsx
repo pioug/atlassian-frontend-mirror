@@ -51,8 +51,8 @@ const TabGroupImpl = (props: Props) => {
         selected={activeTab}
       >
         <TabList>
-          {fields.map(({ name }) => (
-            <Tab key={`tab-${name}`}>{name}</Tab>
+          {fields.map(({ name, label }) => (
+            <Tab key={`tab-${name}`}>{label}</Tab>
           ))}
         </TabList>
         {fields.map(field => (

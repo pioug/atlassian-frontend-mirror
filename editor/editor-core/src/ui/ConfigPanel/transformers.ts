@@ -3,11 +3,14 @@ import {
   FieldDefinition,
   isFieldset,
   isDateRange,
+  isTabGroup,
+  isExpand,
   Parameters,
   ExtensionManifest,
   getFieldSerializer,
   getFieldDeserializer,
   ParametersWithDuplicateFields,
+  TabField,
 } from '@atlaskit/editor-common/extensions';
 import { getNameFromDuplicateField, isDuplicateField } from './utils';
 
@@ -65,9 +68,31 @@ export const serialize = async (
         continue;
       }
 
+      if (isTabGroup(field)) {
+        const { fields: tabs } = field;
+        value = {};
+
+        const resolveTabValues = async (tabField: TabField, groupData: any) => {
+          return await serialize(
+            manifest,
+            groupData[tabField.name] || {},
+            tabField.fields,
+          );
+        };
+
+        for (let i = 0; i < tabs.length; i++) {
+          const tabField = tabs[i];
+          value[tabField.name] = await resolveTabValues(
+            tabField,
+            data[field.name] || {},
+          );
+        }
+      } else if (isExpand(field)) {
+        value = await serialize(manifest, data[field.name] || {}, field.fields);
+      }
       // WARNING: don't recursively serialize, limit to depth < 1
       // serializable?
-      if (isFieldset(field) && depth === 0) {
+      else if (isFieldset(field) && depth === 0) {
         const fieldSerializer = await getFieldSerializer(
           manifest,
           field.options.transformer,

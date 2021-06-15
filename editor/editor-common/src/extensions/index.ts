@@ -1,4 +1,4 @@
-export { isFieldset, isDateRange } from './types';
+export { isFieldset, isTabGroup, isExpand, isDateRange } from './types';
 export type {
   Extension,
   ExtensionAutoConvertHandler,

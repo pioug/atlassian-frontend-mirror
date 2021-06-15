@@ -5,7 +5,7 @@ export function hasValue(str?: string): boolean {
 export const IS_DEV = process.env.NODE_ENV === 'development';
 export const IS_TEST = process.env.NODE_ENV === 'test';
 export const IS_DUMMY = !window.webkit && !window.promiseBridge;
-export const IS_ATLASKIT = typeof WEBSITE_ENV === 'string';
+export const IS_ATLASKIT = process.env.IS_ATLASKIT === 'true';
 
 export interface DeferredValue<T> extends Promise<T> {
   resolve(v: T): void;

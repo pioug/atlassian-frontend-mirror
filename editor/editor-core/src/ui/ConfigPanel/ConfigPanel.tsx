@@ -17,6 +17,7 @@ import {
   FieldDefinition,
   Parameters,
   OnSaveCallback,
+  isTabGroup,
 } from '@atlaskit/editor-common/extensions';
 import _isEqual from 'lodash/isEqual';
 
@@ -247,6 +248,27 @@ class ConfigPanel extends React.Component<Props, State> {
     }
   };
 
+  // https://product-fabric.atlassian.net/browse/DST-2697
+  // workaround for DST-2697, remove this function once fix.
+  backfillTabFormData = (
+    fields: FieldDefinition[],
+    formData: Parameters,
+    currentParameters: Parameters,
+  ): Parameters => {
+    const mergedTabGroups = fields.filter(isTabGroup).reduce(
+      (acc, field) => ({
+        ...acc,
+        [field.name]: {
+          ...(currentParameters[field.name] || {}),
+          ...(formData[field.name] || {}),
+        },
+      }),
+      {},
+    );
+
+    return { ...formData, ...mergedTabGroups };
+  };
+
   handleSubmit = async (formData: Parameters) => {
     const { fields, extensionManifest, onChange } = this.props;
     if (!extensionManifest || !fields) {
@@ -256,7 +278,11 @@ class ConfigPanel extends React.Component<Props, State> {
     try {
       const serializedData = await serialize(
         extensionManifest,
-        formData,
+        this.backfillTabFormData(
+          fields,
+          formData,
+          this.state.currentParameters,
+        ),
         fields,
       );
 

@@ -1,4 +1,7 @@
-/// <reference types="cypress" />
+// complains about devDependencies instead of dependencies
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { cy } from 'local-cypress';
+
 export class MediaCardPageObject {
   constructor(private cy: Cypress.cy) {}
 

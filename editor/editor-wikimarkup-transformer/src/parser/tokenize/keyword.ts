@@ -69,8 +69,11 @@ const keywordTokenMap: { [key: string]: TokenType } = {
   '??': TokenType.CITATION,
 };
 
+const keywordTokenMapKeys = Object.keys(keywordTokenMap);
+
 export function parseMacroKeyword(input: string) {
-  for (const keyword of macroKeywordTokenMap) {
+  for (let i = 0; i < macroKeywordTokenMap.length; i++) {
+    const keyword = macroKeywordTokenMap[i];
     if (keyword.regex.test(input)) {
       return {
         type: keyword.type,
@@ -82,10 +85,10 @@ export function parseMacroKeyword(input: string) {
 }
 
 export function parseOtherKeyword(input: string): { type: TokenType } | null {
-  for (const name in keywordTokenMap) {
-    if (keywordTokenMap.hasOwnProperty(name) && input.startsWith(name)) {
+  for (let i = 0; i < keywordTokenMapKeys.length; i++) {
+    if (input.startsWith(keywordTokenMapKeys[i])) {
       return {
-        type: keywordTokenMap[name],
+        type: keywordTokenMap[keywordTokenMapKeys[i]],
       };
     }
   }
@@ -141,7 +144,8 @@ const leadingKeywordTokenMap: KeywordToken[] = [
 ];
 
 export function parseLeadingKeyword(input: string) {
-  for (const keyword of leadingKeywordTokenMap) {
+  for (let i = 0; i < leadingKeywordTokenMap.length; i++) {
+    const keyword = leadingKeywordTokenMap[i];
     if (keyword.regex.test(input)) {
       return {
         type: keyword.type,

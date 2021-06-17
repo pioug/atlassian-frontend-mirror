@@ -1,5 +1,11 @@
 # @atlaskit/editor-wikimarkup-transformer
 
+## 9.3.2
+
+### Patch Changes
+
+- [`b7375e1a3fc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b7375e1a3fc) - ADFS-670 Performance improvement by replacing string buffer with array buffer
+
 ## 9.3.1
 
 ### Patch Changes

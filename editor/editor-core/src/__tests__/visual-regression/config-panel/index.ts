@@ -21,7 +21,7 @@ export async function goToConfigPanelWithParameters() {
 }
 
 describe('Snapshot Test', () => {
-  it('should display config panels with fields correctly', async () => {
+  it.skip('should display config panels with fields correctly', async () => {
     const page = await goToConfigPanelWithParameters();
 
     const image = await takeElementScreenShot(
@@ -42,7 +42,7 @@ describe('Snapshot Test', () => {
     expect(image).toMatchProdImageSnapshot();
   });
 
-  it('should position calendar for datefield correctly', async () => {
+  it.skip('should position calendar for datefield correctly', async () => {
     const dateInputSelector = 'input[name="date-start"]';
     const page = await goToConfigPanelWithParameters();
     const dateInputElement = await page.$(dateInputSelector);

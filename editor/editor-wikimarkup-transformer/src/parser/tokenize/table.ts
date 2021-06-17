@@ -49,7 +49,7 @@ export const table: TokenParser = ({ input, position, schema, context }) => {
   const output: PMNode[] = [];
   let index = position;
   let currentState = processState.NEW_ROW;
-  let buffer = '';
+  let buffer = [];
   let cellsBuffer: AddCellArgs[] = [];
   let cellStyle = '';
 
@@ -83,7 +83,7 @@ export const table: TokenParser = ({ input, position, schema, context }) => {
         if (emptyLineMatch) {
           bufferToCells(
             cellStyle,
-            buffer,
+            buffer.join(''),
             cellsBuffer,
             schema,
             ignoreTokenTypes,
@@ -114,7 +114,7 @@ export const table: TokenParser = ({ input, position, schema, context }) => {
             currentState = processState.CLOSE_ROW;
           } else {
             currentState = processState.LINE_BREAK;
-            buffer += input.substr(index, length);
+            buffer.push(input.substr(index, length));
           }
           index += length;
           continue;
@@ -125,13 +125,13 @@ export const table: TokenParser = ({ input, position, schema, context }) => {
             // This is now end of a cell, we should wrap the buffer into a cell
             bufferToCells(
               cellStyle,
-              buffer,
+              buffer.join(''),
               cellsBuffer,
               schema,
               ignoreTokenTypes,
               context,
             );
-            buffer = '';
+            buffer = [];
 
             // Update cells tyle
             const cellMatch = substring.match(CELL_REGEXP);
@@ -168,7 +168,7 @@ export const table: TokenParser = ({ input, position, schema, context }) => {
           }
 
           default: {
-            buffer += char;
+            buffer.push(char);
             index++;
             continue;
           }
@@ -178,13 +178,13 @@ export const table: TokenParser = ({ input, position, schema, context }) => {
       case processState.CLOSE_ROW: {
         bufferToCells(
           cellStyle,
-          buffer,
+          buffer.join(''),
           cellsBuffer,
           schema,
           ignoreTokenTypes,
           context,
         );
-        buffer = '';
+        buffer = [];
         if (builder) {
           builder.add(cellsBuffer);
           cellsBuffer = [];
@@ -209,14 +209,14 @@ export const table: TokenParser = ({ input, position, schema, context }) => {
       }
       case processState.MEDIA: {
         const token = media({ input, schema, context, position: index });
-        buffer += input.substr(index, token.length);
+        buffer.push(input.substr(index, token.length));
         index += token.length;
         currentState = processState.BUFFER;
         continue;
       }
       case processState.EMOJI: {
         const token = emoji({ input, schema, context, position: index });
-        buffer += input.substr(index, token.length);
+        buffer.push(input.substr(index, token.length));
         index += token.length;
         currentState = processState.BUFFER;
         continue;
@@ -229,12 +229,12 @@ export const table: TokenParser = ({ input, position, schema, context }) => {
          */
         const token = linkFormat({ input, schema, context, position: index });
         if (token.type === 'text') {
-          buffer += token.text;
+          buffer.push(token.text);
           index += token.length;
           currentState = processState.BUFFER;
           continue;
         } else if (token.type === 'pmnode') {
-          buffer += input.substr(index, token.length);
+          buffer.push(input.substr(index, token.length));
           index += token.length;
           currentState = processState.BUFFER;
           continue;
@@ -244,13 +244,13 @@ export const table: TokenParser = ({ input, position, schema, context }) => {
       case processState.MACRO: {
         const match = parseMacroKeyword(input.substring(index));
         if (!match) {
-          buffer += char;
+          buffer.push(char);
           currentState = processState.BUFFER;
           break;
         }
 
         const token = parseToken(input, match.type, index, schema, context);
-        buffer += input.substr(index, token.length);
+        buffer.push(input.substr(index, token.length));
         index += token.length;
         currentState = processState.BUFFER;
         continue;
@@ -267,10 +267,11 @@ export const table: TokenParser = ({ input, position, schema, context }) => {
    * we still want to create a new cell for the last cell3 if it's
    * not empty.
    */
-  if (buffer.trim().length > 0) {
+  const bufferOutput = buffer.join('');
+  if (bufferOutput.trim().length > 0) {
     bufferToCells(
       cellStyle,
-      buffer,
+      bufferOutput,
       cellsBuffer,
       schema,
       ignoreTokenTypes,

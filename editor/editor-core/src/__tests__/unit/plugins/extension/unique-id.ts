@@ -1,3 +1,6 @@
+import { safeInsert } from 'prosemirror-utils';
+import { NodeSelection } from 'prosemirror-state';
+
 import { uuid } from '@atlaskit/adf-schema';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
@@ -14,8 +17,8 @@ describe('allowLocalIdGeneration', () => {
       uuid.setStatic(false);
     });
 
-    it('should generate an unique localId when a new node is inserted', () => {
-      const { editorView, sel } = createEditor({
+    it('should generate an unique localId when a new extension node is inserted', () => {
+      const { editorView } = createEditor({
         doc: doc(p('{<>}')),
         editorProps: {
           allowExtension: true,
@@ -29,11 +32,49 @@ describe('allowLocalIdGeneration', () => {
       });
 
       expect(node.attrs.localId).toBe(null);
-      const tr = editorView.state.tr.insert(sel, node);
-      editorView.dispatch(tr);
-      const extensionNode = editorView.state.doc.nodeAt(sel + 1)!;
-      expect(extensionNode.type).toBe(extension);
-      expect(extensionNode.attrs.localId).toBe('local-uuid');
+      editorView.dispatch(
+        // NOTE: Same way `EditorAction.replaceSelection` works
+        // but `replaceSelection` takes ADF as input
+        safeInsert(node)(editorView.state.tr).scrollIntoView(),
+      );
+
+      expect(editorView.state.selection.toJSON()).toEqual({
+        anchor: 0,
+        type: 'node',
+      });
+      expect(
+        (editorView.state.selection as NodeSelection).node.attrs.localId,
+      ).toBe('local-uuid');
+    });
+
+    it('should generate an unique localId when a new inline extension node is inserted', () => {
+      const { editorView } = createEditor({
+        doc: doc(p('{<>}')),
+        editorProps: {
+          allowExtension: true,
+        },
+      });
+
+      const { inlineExtension } = editorView.state.schema.nodes;
+      const node = inlineExtension.createChecked({
+        extensionType: 'inc.acme.extension',
+        extensionKey: 'awesome-extension',
+      });
+
+      expect(node.attrs.localId).toBe(null);
+      editorView.dispatch(
+        // NOTE: Same way `EditorAction.replaceSelection` works
+        // but `replaceSelection` takes ADF as input
+        safeInsert(node)(editorView.state.tr).scrollIntoView(),
+      );
+
+      expect(editorView.state.selection.toJSON()).toEqual({
+        anchor: 1,
+        type: 'node',
+      });
+      expect(
+        (editorView.state.selection as NodeSelection).node.attrs.localId,
+      ).toBe('local-uuid');
     });
   });
 });

@@ -1,5 +1,11 @@
 # @atlaskit/editor-core
 
+## 144.1.1
+
+### Patch Changes
+
+- [`9b9ca925f18`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9b9ca925f18) - ED-13109 Fix inline extension insertion behavior
+
 ## 144.1.0
 
 ### Minor Changes

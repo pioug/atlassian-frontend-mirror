@@ -27,7 +27,7 @@ const escapedChar = [
 ];
 
 export function escapeHandler(input: string, position: number): TextToken {
-  let buffer = '';
+  let buffer = [];
   const char = input.charAt(position);
   const prevChar = input.charAt(position - 1);
   const nextChar = input.charAt(position + 1);
@@ -37,13 +37,13 @@ export function escapeHandler(input: string, position: number): TextToken {
    */
   if (escapedChar.indexOf(nextChar) === -1 || prevChar === '\\') {
     // Insert \ in buffer mode
-    buffer += char;
+    buffer.push(char);
   }
-  buffer += nextChar;
+  buffer.push(nextChar);
 
   return {
     type: 'text',
-    text: buffer,
+    text: buffer.join(''),
     length: 2,
   };
 }

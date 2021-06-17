@@ -16,7 +16,10 @@ export default class TreeItem extends Component<Props> {
         'snapshot',
         'onCollapse',
         'onExpand',
-      ]) || !isSamePath(this.props.path, nextProps.path)
+      ]) ||
+      !isSamePath(this.props.path, nextProps.path) ||
+      // also rerender tree item even if the item is not draggable, this allows draggable/nondraggable items to behave the same
+      this.props.provided.dragHandleProps === null
     );
   }
 

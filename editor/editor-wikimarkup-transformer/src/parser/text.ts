@@ -33,7 +33,7 @@ export function parseString({
 }): PMNode[] {
   let index = 0;
   let state = processState.NEWLINE;
-  let buffer = '';
+  let buffer = [];
   let tokenType = TokenType.STRING;
   const output: PMNode[] = [];
 
@@ -51,7 +51,7 @@ export function parseString({
         if (length) {
           index += length;
           if (includeLeadingSpace) {
-            buffer += char;
+            buffer.push(char);
           }
           continue;
         }
@@ -86,7 +86,7 @@ export function parseString({
          * keyword
          */
         let match: { type: TokenType } | null = null;
-        if (buffer.endsWith('{')) {
+        if (buffer.length > 0 && buffer[buffer.length - 1].endsWith('{')) {
           match = parseOtherKeyword(substring);
         } else {
           match =
@@ -106,17 +106,17 @@ export function parseString({
           continue;
         }
 
-        buffer += char;
+        buffer.push(char);
         break;
       }
 
       case processState.TOKEN: {
         const token = parseToken(input, tokenType, index, schema, context);
         if (token.type === 'text') {
-          buffer += token.text;
+          buffer.push(token.text);
         } else if (token.type === 'pmnode') {
-          output.push(...createTextNode(buffer, schema));
-          buffer = ''; // clear the buffer
+          output.push(...createTextNode(buffer.join(''), schema));
+          buffer = []; // clear the buffer
           output.push(...token.nodes);
         }
         index += token.length;
@@ -130,7 +130,7 @@ export function parseString({
 
       case processState.ESCAPE: {
         const token = escapeHandler(input, index);
-        buffer += token.text;
+        buffer.push(token.text);
         index += token.length;
         state = processState.BUFFER;
         continue;
@@ -140,9 +140,10 @@ export function parseString({
     index++;
   }
 
-  if (buffer.length > 0) {
+  const bufferedStr = buffer.join('');
+  if (bufferedStr.length > 0) {
     // Wrapping the rest of the buffer into a text node
-    output.push(...createTextNode(buffer, schema));
+    output.push(...createTextNode(bufferedStr, schema));
   }
 
   return output;

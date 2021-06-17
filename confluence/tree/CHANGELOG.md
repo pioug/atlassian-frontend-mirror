@@ -1,5 +1,11 @@
 # @atlaskit/tree
 
+## 8.3.0
+
+### Minor Changes
+
+- [`7d9095756b7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7d9095756b7) - [ux] nondraggable and draggable tree items will both re-render every time the tree renders. This allows draggable/nondraggable items to behave the same.
+
 ## 8.2.0
 
 ### Minor Changes

@@ -23,6 +23,7 @@ export function isNotBlank(value: string | null) {
   return !isBlank(value);
 }
 
+// TODO This is using strings which makes it potentially a performance bottleneck
 export class StringBuffer {
   constructor(private buffer: string = '') {}
 

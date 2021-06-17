@@ -32,7 +32,7 @@ export const list: TokenParser = ({ input, position, schema, context }) => {
 
   let index = position;
   let state = processState.NEW_LINE;
-  let buffer = '';
+  let buffer = [];
   let lastListSymbols: string | null = null;
   let builder: ListBuilder | null = null;
   let contentBuffer: PMNode[] = [];
@@ -81,7 +81,7 @@ export const list: TokenParser = ({ input, position, schema, context }) => {
                 ignoreTokenTypes,
                 schema,
                 context,
-                input: buffer,
+                input: buffer.join(''),
                 includeLeadingSpace: true,
               });
               contentBuffer.push(...content);
@@ -94,7 +94,7 @@ export const list: TokenParser = ({ input, position, schema, context }) => {
                   ),
                 },
               ]);
-              buffer = '';
+              buffer = [];
               contentBuffer = [];
             }
 
@@ -124,7 +124,7 @@ export const list: TokenParser = ({ input, position, schema, context }) => {
       case processState.BUFFER: {
         const length = parseNewlineOnly(input.substring(index));
         if (length) {
-          buffer += input.substr(index, length);
+          buffer.push(input.substr(index, length));
           state = processState.NEW_LINE;
           index += length;
           continue;
@@ -134,20 +134,20 @@ export const list: TokenParser = ({ input, position, schema, context }) => {
           state = processState.MACRO;
           continue;
         } else {
-          buffer += char;
+          buffer.push(char);
         }
         break;
       }
       case processState.MACRO: {
         const match = parseMacroKeyword(input.substring(index));
         if (!match) {
-          buffer += char;
+          buffer.push(char);
           state = processState.BUFFER;
           break;
         }
         const token = parseToken(input, match.type, index, schema, context);
         if (token.type === 'text') {
-          buffer += token.text;
+          buffer.push(token.text);
         } else {
           // We found a macro in the list...
           if (!builder) {
@@ -163,11 +163,11 @@ export const list: TokenParser = ({ input, position, schema, context }) => {
               ignoreTokenTypes,
               schema,
               context,
-              input: buffer,
+              input: buffer.join(''),
               includeLeadingSpace: true,
             });
             contentBuffer.push(...sanitize(content, schema));
-            buffer = '';
+            buffer = [];
           }
 
           contentBuffer.push(...sanitize(token.nodes, schema));
@@ -188,7 +188,7 @@ export const list: TokenParser = ({ input, position, schema, context }) => {
             ignoreTokenTypes,
             schema,
             context,
-            input: buffer,
+            input: buffer.join(''),
             includeLeadingSpace: true,
           });
           contentBuffer.push(...content);
@@ -217,7 +217,7 @@ export const list: TokenParser = ({ input, position, schema, context }) => {
       ignoreTokenTypes,
       schema,
       context,
-      input: buffer,
+      input: buffer.join(''),
       includeLeadingSpace: true,
     });
     contentBuffer.push(...content);

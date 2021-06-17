@@ -125,7 +125,7 @@ describe('@atlaskit/tree - Tree', () => {
         },
       };
       wrapper.setProps({ tree: mutatedTree, renderItem: mockRender });
-      expect(mockRender).toHaveBeenCalledTimes(1);
+      expect(mockRender).toHaveBeenCalledTimes(3);
       expect(mockRender).toBeCalledWith({
         item: mutatedTree.items['1-3'],
         depth: 0,

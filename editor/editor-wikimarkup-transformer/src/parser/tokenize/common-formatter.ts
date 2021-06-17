@@ -34,7 +34,7 @@ export function commonFormatter(
 ): Token {
   let index = position;
   let state = processState.START;
-  let buffer = '';
+  let buffer = [];
   const openingSymbolLength = opt.opening.length;
   const closingSymbolLength = opt.closing.length;
 
@@ -78,7 +78,7 @@ export function commonFormatter(
           continue;
         } else if (twoChar === '{{') {
           // this is a monospace
-          buffer += twoChar;
+          buffer.push(twoChar);
           index += 2;
           continue;
         } else if (char === '{') {
@@ -91,7 +91,7 @@ export function commonFormatter(
           state = processState.ESCAPE;
           continue;
         } else {
-          buffer += char;
+          buffer.push(char);
         }
         break;
       }
@@ -112,7 +112,7 @@ export function commonFormatter(
           const charAfterEnd = input.charAt(index);
 
           if (/[a-zA-Z0-9]|[^\u0000-\u007F]/.test(charAfterEnd)) {
-            buffer += charsMatchClosingSymbol;
+            buffer.push(charsMatchClosingSymbol);
             state = processState.BUFFER;
             continue;
           }
@@ -122,16 +122,16 @@ export function commonFormatter(
          * If the closing symbol has an empty space before it,
          * it's not a valid formatter
          */
-        if (buffer.endsWith(' ')) {
+        if (buffer.length > 0 && buffer[buffer.length - 1].endsWith(' ')) {
           return fallback(input, position, openingSymbolLength);
         }
 
-        return opt.rawContentProcessor(buffer, index - position);
+        return opt.rawContentProcessor(buffer.join(''), index - position);
       }
       case processState.INLINE_MACRO: {
         const match = parseMacroKeyword(input.substring(index));
         if (!match) {
-          buffer += char;
+          buffer.push(char);
           state = processState.BUFFER;
           break;
         }
@@ -141,7 +141,7 @@ export function commonFormatter(
          */
         const token = parseToken(input, match.type, index, schema, {});
         if (token.type === 'text') {
-          buffer += token.text;
+          buffer.push(token.text);
           index += token.length;
           state = processState.BUFFER;
           continue;
@@ -149,7 +149,7 @@ export function commonFormatter(
           /**
            * {color} is valid in formatter, we simply jump over the length
            */
-          buffer += input.substr(index, token.length);
+          buffer.push(input.substr(index, token.length));
           index += token.length;
           state = processState.BUFFER;
           continue;
@@ -174,12 +174,12 @@ export function commonFormatter(
           context: {},
         });
         if (token.type === 'text') {
-          buffer += token.text;
+          buffer.push(token.text);
           index += token.length;
           state = processState.BUFFER;
           continue;
         } else if (token.type === 'pmnode') {
-          buffer += input.substr(index, token.length);
+          buffer.push(input.substr(index, token.length));
           index += token.length;
           state = processState.BUFFER;
           continue;
@@ -188,7 +188,7 @@ export function commonFormatter(
       }
       case processState.ESCAPE: {
         const token = escapeHandler(input, index);
-        buffer += token.text;
+        buffer.push(token.text);
         index += token.length;
         state = processState.BUFFER;
         continue;

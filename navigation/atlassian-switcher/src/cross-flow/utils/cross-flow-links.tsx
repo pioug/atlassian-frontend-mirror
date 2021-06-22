@@ -29,19 +29,12 @@ export const getFixedProductLinks = (params: {}): SwitcherItemType[] => {
 
 const getDiscoverMoreLink = (
   customIcon?: React.ComponentType<any>,
-  isSlackDiscoveryEnabled?: boolean,
 ): SwitcherItemType => {
   const icon = customIcon || AddIcon;
   return {
     // The discover more link href is intentionally empty to prioritise the onDiscoverMoreClicked callback
     key: DiscoverLinkItemKeys.DISCOVER_MORE,
-    label: (
-      <FormattedMessage
-        {...(isSlackDiscoveryEnabled
-          ? messages.moreProductsLink
-          : messages.moreAtlassianProductsLink)}
-      />
-    ),
+    label: <FormattedMessage {...messages.moreAtlassianProductsLink} />,
     Icon: createIcon(icon, { size: 'medium' }),
     href: '',
   };
@@ -84,10 +77,7 @@ export function getDiscoverSectionLinks({
   slackDiscoveryClickHandler?: DiscoverMoreCallback;
 }) {
   const discoverLinks: SwitcherItemType[] = [];
-  const discoverMoreLink = getDiscoverMoreLink(
-    DiscoverFilledGlyph,
-    isSlackDiscoveryEnabled && Boolean(slackDiscoveryClickHandler),
-  );
+  const discoverMoreLink = getDiscoverMoreLink(DiscoverFilledGlyph);
 
   const slackIntegrationLink = getSlackIntegrationLink();
 

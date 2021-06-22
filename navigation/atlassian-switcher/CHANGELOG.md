@@ -1,5 +1,17 @@
 # @atlaskit/atlassian-switcher
 
+## 12.4.0
+
+### Minor Changes
+
+- [`3d5af006d6b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3d5af006d6b) - In Atlassian-Switcher MoreLinks is not related to isSlackDiscoveryEnabled anymore
+
+## 12.3.1
+
+### Patch Changes
+
+- [`79513ec6e6b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/79513ec6e6b) - [ux] Adding a Prop that when passed will remove the administration button for trusted users as we are deprecating the trusted admin UI
+
 ## 12.3.0
 
 ### Minor Changes

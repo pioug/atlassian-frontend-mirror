@@ -37,6 +37,7 @@ const clickAreaClickHandler = (
   const isPopupClicked = !!closestElement(target, '[data-editor-popup]');
   // Fixes issue when using a textarea for editor title in full page editor doesn't let user focus it.
   const isTextAreaClicked = target.nodeName === 'TEXTAREA';
+  const isBreadcrumbClicked = !!closestElement(target, '[data-breadcrumbs]');
   const targetIsNotContentArea = !contentArea;
   const tragetIsNotChildOfContentArea = !insideContentArea(
     target.parentNode as HTMLElement | null,
@@ -48,6 +49,7 @@ const clickAreaClickHandler = (
       editorIsNotInFocus) &&
     !isInputClicked &&
     !isTextAreaClicked &&
+    !isBreadcrumbClicked &&
     !isPopupClicked;
   if (isClickOutsideEditor && view) {
     outsideProsemirrorEditorClickHandler(view, event);

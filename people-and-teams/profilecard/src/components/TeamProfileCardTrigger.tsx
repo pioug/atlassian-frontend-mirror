@@ -169,8 +169,16 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
   }
 
   componentDidUpdate(prevProps: TeamProfileCardTriggerProps) {
-    const { orgId, teamId } = this.props;
-    if (teamId !== prevProps.teamId || orgId !== prevProps.orgId) {
+    const { orgId, teamId, resourceClient } = this.props;
+    const { visible } = this.state;
+
+    // just re-fetching data when the card opens
+    if (
+      visible &&
+      (teamId !== prevProps.teamId ||
+        orgId !== prevProps.orgId ||
+        resourceClient !== prevProps.resourceClient)
+    ) {
       this.setState(
         {
           isLoading: undefined,

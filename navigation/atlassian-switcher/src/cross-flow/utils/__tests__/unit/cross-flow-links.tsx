@@ -1,5 +1,3 @@
-import { ReactElement } from 'react';
-import messages from '../../../../common/utils/messages';
 import {
   getFixedProductLinks,
   getSuggestedProductLink,
@@ -216,25 +214,6 @@ describe('cross-flow-links', () => {
       expect(
         result.filter((link) => link.key === SHOW_GIT_TOOLS_KEY),
       ).toHaveLength(0);
-    });
-    it('should have a different label for `discover-more` link if isSlackDiscoveryEnabled enabled', () => {
-      const result = getDiscoverSectionLinks({
-        isSlackDiscoveryEnabled: true,
-        slackDiscoveryClickHandler: mockClickHandler,
-        isEmceeLinkEnabled: true,
-        product: Product.CONFLUENCE,
-        canManagePermission: true,
-        canAddProducts: true,
-      });
-
-      const discoverMore = result.filter(
-        (link) => link.key === 'discover-more',
-      );
-      const discoverMoreLabel = discoverMore[0]?.label as ReactElement;
-
-      expect(discoverMoreLabel.props.defaultMessage).toEqual(
-        messages.moreProductsLink.defaultMessage,
-      );
     });
     it('should return slack integration link if isSlackDiscoveryEnabled enabled', () => {
       const result = getDiscoverSectionLinks({

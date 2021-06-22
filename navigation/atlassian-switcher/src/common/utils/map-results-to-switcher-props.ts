@@ -24,7 +24,10 @@ import {
   TriggerXFlowCallback,
 } from '../../types';
 import { createCollector } from './create-collector';
-import { collectAdminLinks } from '../../admin/utils/admin-link-collector';
+import {
+  collectAdminLinks,
+  collectAdminLinksNext,
+} from '../../admin/utils/admin-link-collector';
 import {
   collectDiscoverSectionLinks,
   collectSuggestedLinks,
@@ -274,10 +277,12 @@ export function mapResultsToSwitcherProps(
         )
       : [],
     fixedLinks: [],
-    adminLinks: collect(
-      collectAdminLinks(managePermission, addProductsPermission, adminUrl),
-      [],
-    ),
+    adminLinks: features.isTrustedAdminUIDeprecationEnabled
+      ? collect(collectAdminLinksNext(managePermission, adminUrl), [])
+      : collect(
+          collectAdminLinks(managePermission, addProductsPermission, adminUrl),
+          [],
+        ),
     joinableSiteLinks: collect(collectJoinableSiteLinks(joinableSites), []),
     discoverSectionLinks: hasLoadedDiscoverSection
       ? collect(

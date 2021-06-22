@@ -14,6 +14,7 @@ exports[`Atlassian Switcher basic snapshot 1`] = `
             "isProductStoreInTrelloConfluenceFirstEnabled": false,
             "isProductStoreInTrelloJSWFirstEnabled": false,
             "isSlackDiscoveryEnabled": false,
+            "isTrustedAdminUIDeprecationEnabled": false,
             "xflow": true,
           },
         },
@@ -40,6 +41,7 @@ exports[`Atlassian Switcher basic snapshot 1`] = `
             "isProductStoreInTrelloConfluenceFirstEnabled": false,
             "isProductStoreInTrelloJSWFirstEnabled": false,
             "isSlackDiscoveryEnabled": false,
+            "isTrustedAdminUIDeprecationEnabled": false,
             "xflow": true,
           }
         }

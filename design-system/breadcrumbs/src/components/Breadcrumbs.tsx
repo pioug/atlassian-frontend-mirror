@@ -100,7 +100,7 @@ const InnerBreadcrumbs = forwardRef(
       shouldExpand || (maxItems && childrenArray.length <= maxItems);
 
     return (
-      <nav aria-label={label} ref={ref}>
+      <nav aria-label={label} ref={ref} data-breadcrumbs={true}>
         <ol data-testid={testId} css={breadcrumbStyles}>
           {shouldDisplayItems ? children : renderItemsWithEllipsis()}
         </ol>

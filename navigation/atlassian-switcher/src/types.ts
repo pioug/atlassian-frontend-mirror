@@ -85,6 +85,8 @@ export enum Feature {
   isProductStoreInTrelloConfluenceFirstEnabled = 'isProductStoreInTrelloConfluenceFirstEnabled',
   // Integrations discovery button and copy changes to More products
   isSlackDiscoveryEnabled = 'isSlackDiscoveryEnabled',
+  // Trusted Admin button removal
+  isTrustedAdminUIDeprecationEnabled = 'isTrustedAdminUIDeprecationEnabled',
 }
 
 export type FeatureFlagProps = {
@@ -98,6 +100,8 @@ export type FeatureFlagProps = {
   isEmceeLinkEnabled?: boolean;
   /** Enable Integrations discovery in the discover more section  */
   isSlackDiscoveryEnabled?: boolean;
+  /** Enable Trusted Admin UI deprecation  */
+  isTrustedAdminUIDeprecationEnabled?: boolean;
 };
 
 export type FeatureMap = { [key in Feature]: boolean };

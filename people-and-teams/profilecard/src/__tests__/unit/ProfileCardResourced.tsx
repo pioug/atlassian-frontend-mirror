@@ -55,6 +55,36 @@ describe('Fetching data', () => {
       'new-test-user-id',
     );
   });
+
+  it('should re-fetch when "resourceClient" prop changes', async () => {
+    const newClient = new ProfileClient({
+      url: clientUrl,
+    });
+    jest.spyOn(newClient, 'getProfile').mockResolvedValue({});
+
+    const wrapper = renderShallow();
+
+    await defaultProps.resourceClient.getProfile;
+
+    expect(wrapper.state('isLoading')).toEqual(false);
+    expect(defaultProps.resourceClient.getProfile).toHaveBeenCalledWith(
+      defaultProps.cloudId,
+      'test-user-id',
+    );
+
+    // update a new resourceClient prop
+    wrapper.setProps({
+      resourceClient: newClient,
+    });
+
+    await newClient.getProfile;
+
+    // expect(wrapper.state('isLoading')).toEqual(false);
+    expect(newClient.getProfile).toHaveBeenCalledWith(
+      defaultProps.cloudId,
+      'test-user-id',
+    );
+  });
 });
 
 describe('ProfileCardResourced', () => {

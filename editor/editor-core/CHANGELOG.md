@@ -1,5 +1,11 @@
 # @atlaskit/editor-core
 
+## 144.1.2
+
+### Patch Changes
+
+- [`5d7f119c55d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5d7f119c55d) - Fix bread crumb issue
+
 ## 144.1.1
 
 ### Patch Changes

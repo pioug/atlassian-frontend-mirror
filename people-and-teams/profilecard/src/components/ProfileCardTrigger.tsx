@@ -82,8 +82,16 @@ class ProfilecardTrigger extends React.PureComponent<
   }
 
   componentDidUpdate(prevProps: ProfileCardTriggerProps) {
-    const { userId, cloudId } = this.props;
-    if (userId !== prevProps.userId || cloudId !== prevProps.cloudId) {
+    const { userId, cloudId, resourceClient } = this.props;
+    const { visible } = this.state;
+
+    // just re-fetching data when the card opens
+    if (
+      visible &&
+      (userId !== prevProps.userId ||
+        cloudId !== prevProps.cloudId ||
+        resourceClient !== prevProps.resourceClient)
+    ) {
       this.setState(
         {
           isLoading: undefined,

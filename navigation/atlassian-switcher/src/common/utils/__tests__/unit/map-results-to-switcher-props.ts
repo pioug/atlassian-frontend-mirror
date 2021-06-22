@@ -28,6 +28,7 @@ const defaultFeatures = {
   isProductStoreInTrelloJSWFirstEnabled: false,
   isProductStoreInTrelloConfluenceFirstEnabled: false,
   isSlackDiscoveryEnabled: false,
+  isTrustedAdminUIDeprecationEnabled: false,
 };
 
 describe('map-results-to-switcher-props', () => {
@@ -891,6 +892,58 @@ describe('map-results-to-switcher-props', () => {
           productType: 'JIRA_SERVICE_DESK',
         },
       ]);
+    });
+  });
+
+  describe('Trusted Admin deprecation', () => {
+    it('should return Administration link if the user is an Admin and isTrustedAdminUIDeprecationEnabled is passed', () => {
+      const props = mapResultsToSwitcherProps(
+        CLOUD_ID,
+        {
+          ...completedProvidersResult,
+          managePermission: asCompletedProvider(true),
+          availableProducts: asCompletedProvider<AvailableProductsResponse>({
+            isPartial: false,
+            sites: [generateSite(CLOUD_ID, SwitcherProductType.JIRA_SOFTWARE)],
+          }),
+        },
+        {
+          ...defaultFeatures,
+          isTrustedAdminUIDeprecationEnabled: true,
+        },
+        () => {},
+        () => {},
+        Product.JIRA,
+      );
+
+      expect(props.adminLinks).toMatchObject([
+        {
+          href: '/admin',
+          key: 'administration',
+        },
+      ]);
+    });
+    it('should NOT return Administration link if the user is a trusted user and isTrustedAdminUIDeprecationEnabled is passed', () => {
+      const props = mapResultsToSwitcherProps(
+        CLOUD_ID,
+        {
+          ...completedProvidersResult,
+          addProductsPermission: asCompletedProvider(true),
+          availableProducts: asCompletedProvider<AvailableProductsResponse>({
+            isPartial: false,
+            sites: [generateSite(CLOUD_ID, SwitcherProductType.JIRA_SOFTWARE)],
+          }),
+        },
+        {
+          ...defaultFeatures,
+          isTrustedAdminUIDeprecationEnabled: true,
+        },
+        () => {},
+        () => {},
+        Product.JIRA,
+      );
+
+      expect(props.adminLinks).toMatchObject([]);
     });
   });
 });

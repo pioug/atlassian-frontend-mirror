@@ -1,5 +1,11 @@
 # @atlaskit/breadcrumbs
 
+## 11.2.2
+
+### Patch Changes
+
+- [`5d7f119c55d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5d7f119c55d) - Fix bread crumb issue
+
 ## 11.2.1
 
 ### Patch Changes

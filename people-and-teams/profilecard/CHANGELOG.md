@@ -1,5 +1,11 @@
 # @atlaskit/profilecard
 
+## 15.5.9
+
+### Patch Changes
+
+- [`d57d071183e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d57d071183e) - Fix a bug - should re-render ProfileCard when "resourceClient" prop is changed
+
 ## 15.5.8
 
 ### Patch Changes

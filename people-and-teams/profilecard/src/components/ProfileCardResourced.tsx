@@ -40,10 +40,14 @@ export default class ProfileCardResourced extends React.PureComponent<
     prevProps: ProfileCardResourcedProps,
     prevState: ProfileCardResourcedState,
   ) {
-    const { userId, cloudId } = this.props;
+    const { userId, cloudId, resourceClient } = this.props;
     const { hasError } = this.state;
 
-    if (userId !== prevProps.userId || cloudId !== prevProps.cloudId) {
+    if (
+      userId !== prevProps.userId ||
+      cloudId !== prevProps.cloudId ||
+      resourceClient !== prevProps.resourceClient
+    ) {
       this.setState(
         {
           isLoading: undefined,

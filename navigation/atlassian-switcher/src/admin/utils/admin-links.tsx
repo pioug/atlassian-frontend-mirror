@@ -19,3 +19,16 @@ export const getAdministrationLinks = (
     },
   ];
 };
+
+export const getAdministrationLinksNext = (
+  adminUrl?: string,
+): SwitcherItemType[] => {
+  return [
+    {
+      key: 'administration',
+      label: <FormattedMessage {...messages.administration} />,
+      Icon: createIcon(SettingsGlyph, { size: 'medium' }),
+      href: adminUrl || `/admin`,
+    },
+  ];
+};

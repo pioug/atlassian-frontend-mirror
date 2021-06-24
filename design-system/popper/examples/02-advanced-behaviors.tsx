@@ -1,6 +1,6 @@
 import React from 'react';
 
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 
 import { B500 } from '@atlaskit/theme/colors';
 import { borderRadius } from '@atlaskit/theme/constants';
@@ -65,16 +65,13 @@ const BasicPopper = ({
   <ReferenceBoundaries>
     <Manager>
       <Reference>
-        {({ ref }) => (
-          <ReferenceBox innerRef={ref || undefined}>Reference</ReferenceBox>
-        )}
+        {({ ref }) => <ReferenceBox ref={ref}>Reference</ReferenceBox>}
       </Reference>
       <Popper placement={placement}>
         {({ ref, style, placement, isReferenceHidden }) => (
           <Popup
             isReferenceHidden={isReferenceHidden}
-            // innerRef can't be null so shortcircuit to undefined if it is.
-            innerRef={ref || undefined}
+            ref={ref}
             style={style}
             data-placement={placement}
           >

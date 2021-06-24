@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 7.12.0
+
+### Minor Changes
+
+- [`92f34fa25a7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/92f34fa25a7) - Switching compass over to using its own user search index instead of jira's
+
 ## 7.11.0
 
 ### Minor Changes

@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 
 import { N100A } from '@atlaskit/theme/colors';
 import { gridSize } from '@atlaskit/theme/constants';
@@ -32,7 +32,7 @@ export const TopItem = styled.div`
     margin-right: ${gridSize()}px;
   }
 
-  &:first-child {
+  &:first-of-type {
     margin-left: 0;
 
     [dir='rtl'] & {

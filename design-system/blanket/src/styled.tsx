@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 
 import { DN90A, N100A } from '@atlaskit/theme/colors';
 import { themed } from '@atlaskit/theme/components';

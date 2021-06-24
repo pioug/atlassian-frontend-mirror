@@ -44,7 +44,12 @@ type OnValueError = (
 ) => Promise<OptionData[]> | void;
 type OnEmpty = (query: string) => Promise<OptionData[]>;
 
-export type SupportedProduct = 'jira' | 'confluence' | 'people' | 'bitbucket';
+export type SupportedProduct =
+  | 'jira'
+  | 'confluence'
+  | 'people'
+  | 'bitbucket'
+  | 'compass';
 
 export type ProductAttributes = BitbucketAttributes | ConfluenceAttributes;
 

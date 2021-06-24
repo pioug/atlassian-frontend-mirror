@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 
 import { N100A, N800 } from '@atlaskit/theme/colors';
 import { gridSize } from '@atlaskit/theme/constants';

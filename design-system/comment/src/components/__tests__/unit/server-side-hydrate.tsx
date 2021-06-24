@@ -1,7 +1,6 @@
 import React from 'react';
 
 import ReactDOM from 'react-dom';
-import waitForExpect from 'wait-for-expect';
 
 import { getExamplesFor } from '@atlaskit/build-utils/getExamples';
 import { ssr } from '@atlaskit/ssr';
@@ -29,9 +28,11 @@ test('should ssr then hydrate comment correctly', async () => {
         f ===
           'Warning: Did not expect server HTML to contain a <%s> in <%s>.' &&
         s === 'style'
+      ) &&
+      !f.includes(
+        'The pseudo class ":first-child" is potentially unsafe when doing server-side rendering',
       ),
   );
-  await waitForExpect(() => {
-    expect(mockCalls.length).toBe(0);
-  });
+
+  expect(mockCalls.length).toBe(0);
 });

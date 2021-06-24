@@ -1,6 +1,6 @@
 import React from 'react';
 
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 
 import { B400, B500, N0, N20 } from '@atlaskit/theme/colors';
 import { borderRadius } from '@atlaskit/theme/constants';

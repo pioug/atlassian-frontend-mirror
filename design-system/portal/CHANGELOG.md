@@ -1,5 +1,11 @@
 # @atlaskit/portal
 
+## 4.2.0
+
+### Minor Changes
+
+- [`f6b951a51f2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f6b951a51f2) - Removes usage of styled-components in favour of standardising on emotion
+
 ## 4.1.2
 
 ### Patch Changes

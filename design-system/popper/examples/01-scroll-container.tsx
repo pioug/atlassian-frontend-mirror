@@ -1,7 +1,7 @@
 import React from 'react';
 
+import styled from '@emotion/styled';
 import Lorem from 'react-lorem-component';
-import styled from 'styled-components';
 
 import Button from '@atlaskit/button/standard-button';
 import { borderRadius } from '@atlaskit/theme/constants';
@@ -36,8 +36,7 @@ const BasicPopper = () => (
       {({ ref, style, placement, isReferenceHidden }) => (
         <Popup
           isReferenceHidden={isReferenceHidden}
-          // innerRef can't be null so shortcircuit to undefined if it is.
-          innerRef={ref || undefined}
+          ref={ref}
           style={style}
           data-placement={placement}
         >

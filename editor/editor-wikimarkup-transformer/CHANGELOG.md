@@ -1,5 +1,11 @@
 # @atlaskit/editor-wikimarkup-transformer
 
+## 9.3.3
+
+### Patch Changes
+
+- [`7cb32dce7eb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7cb32dce7eb) - ADFS-700 trailing whitespaces don't open a new table cell
+
 ## 9.3.2
 
 ### Patch Changes

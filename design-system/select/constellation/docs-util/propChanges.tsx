@@ -1,5 +1,5 @@
 import React, { Component, Fragment, ReactNode } from 'react';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import { CheckboxSelect, RadioSelect, ValueType, OptionType } from '../../src';
 import PropStatus from './propStatus';
 

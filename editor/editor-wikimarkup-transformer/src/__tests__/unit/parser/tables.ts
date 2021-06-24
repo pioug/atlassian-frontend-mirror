@@ -71,7 +71,7 @@ this is a new line text, not in the table`,
 * Dot point|foo|foo|`,
     ],
     [
-      'should terminate empty cell on whitespace at end of line',
+      'should remove whole row if no content is present',
       `
 ||*H1*||*H2*||*H3*||
 | 
@@ -88,6 +88,10 @@ this is a new line text, not in the table`,
 ||Header Column 1|Cell 1|Cell 2|
 ||Header Column 2|Cell 3|Cell 4|
 `,
+    ],
+    [
+      'ADFS-700 Should not consider trailing spaces as a cell at the end of row',
+      '|a| \n|b|',
     ],
   ];
 

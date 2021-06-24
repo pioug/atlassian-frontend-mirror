@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/portal",
-  "version": "4.1.2",
+  "version": "4.2.0",
   "description": "Atlaskit wrapper for rendering components in React portals",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -51,7 +51,6 @@
     "@testing-library/react": "^8.0.1",
     "enzyme": "^3.10.0",
     "storybook-addon-performance": "^0.15.1",
-    "styled-components": "^3.2.6",
     "typescript": "3.9.6"
   },
   "keywords": [

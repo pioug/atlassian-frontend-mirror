@@ -176,15 +176,18 @@ export const table: TokenParser = ({ input, position, schema, context }) => {
         break;
       }
       case processState.CLOSE_ROW: {
-        bufferToCells(
-          cellStyle,
-          buffer.join(''),
-          cellsBuffer,
-          schema,
-          ignoreTokenTypes,
-          context,
-        );
-        buffer = [];
+        const bufferOutput = buffer.join('');
+        if (bufferOutput.trim().length > 0) {
+          bufferToCells(
+            cellStyle,
+            bufferOutput,
+            cellsBuffer,
+            schema,
+            ignoreTokenTypes,
+            context,
+          );
+          buffer = [];
+        }
         if (builder) {
           builder.add(cellsBuffer);
           cellsBuffer = [];

@@ -1,5 +1,11 @@
 # @atlaskit/select
 
+## 14.0.1
+
+### Patch Changes
+
+- [`76f16d562bc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/76f16d562bc) - Removed styled-components as a peerDependency
+
 ## 14.0.0
 
 ### Major Changes

@@ -14,7 +14,7 @@ export interface Context {
   sessionId?: string;
   principalId?: string;
   childObjectId?: string;
-  productKey: 'jira' | 'confluence' | 'people' | 'bitbucket';
+  productKey: 'jira' | 'confluence' | 'people' | 'bitbucket' | 'compass';
   siteId: string;
   productAttributes?: ProductAttributes;
 }

@@ -1,5 +1,11 @@
 # @atlaskit/blanket
 
+## 11.3.0
+
+### Minor Changes
+
+- [`f6b951a51f2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f6b951a51f2) - Removes usage of styled-components in favour of standardising on emotion
+
 ## 11.2.1
 
 ### Patch Changes

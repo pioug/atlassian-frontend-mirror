@@ -1,5 +1,11 @@
 # @atlaskit/feedback-collector
 
+## 6.1.9
+
+### Patch Changes
+
+- [`76f16d562bc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/76f16d562bc) - Removed styled-components as a peerDependency
+
 ## 6.1.8
 
 ### Patch Changes

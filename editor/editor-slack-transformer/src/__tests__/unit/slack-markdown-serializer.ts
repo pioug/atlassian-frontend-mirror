@@ -4,11 +4,15 @@ import {
   br,
   code,
   code_block,
+  decisionItem,
+  decisionList,
   doc,
   em,
   emoji,
   img,
   inlineCard,
+  layoutColumn,
+  layoutSection,
   li,
   media,
   mediaSingle,
@@ -16,6 +20,8 @@ import {
   ol,
   p,
   panel,
+  placeholder,
+  status,
   strike,
   strong,
   subsup,
@@ -142,7 +148,15 @@ describe('SlackTransformer: serializer', () => {
   });
 
   describe('emoji', () => {
-    it('should serialize emoji', () => {
+    it('should serialize emoji (returns text)', () => {
+      const node = doc(p(emoji({ text: '😁', shortName: ':grinning:' })()))(
+        defaultSchema,
+      );
+      const test = markdownSerializer.serialize(node);
+      expect(test).toEqual('😁');
+    });
+
+    it('should serialize emoji (returns shortName if text is undefined)', () => {
       const node = doc(p(emoji({ shortName: ':grinning:' })()))(defaultSchema);
       const test = markdownSerializer.serialize(node);
       expect(test).toEqual(':grinning:');
@@ -733,7 +747,7 @@ describe('inline card', () => {
           ),
         )(defaultSchema),
       ),
-    ).toEqual('[inline card attached]');
+    ).toEqual('[inline card]');
   });
 });
 
@@ -745,7 +759,71 @@ describe('panel', () => {
           defaultSchema,
         ),
       ),
-    ).toEqual('[panel attached]');
+    ).toEqual('This is an info panel');
+  });
+});
+
+describe('placeholder', () => {
+  it('should convert an placeholder', () => {
+    expect(
+      markdownSerializer.serialize(
+        doc(p(placeholder({ text: 'Placeholder' })))(defaultSchema),
+      ),
+    ).toEqual('Placeholder');
+  });
+});
+
+describe('status', () => {
+  it('should serialize a status', () => {
+    expect(
+      markdownSerializer.serialize(
+        doc(
+          p(
+            status({
+              text: 'status',
+              color: 'neutral',
+              localId: 'local-id',
+            }),
+          ),
+        )(defaultSchema),
+      ),
+    ).toEqual('*status*');
+  });
+});
+
+describe('decision', () => {
+  it('should serialize a decision list', () => {
+    expect(
+      markdownSerializer.serialize(
+        doc(
+          decisionList({ localId: 'list-local-id' })(
+            decisionItem({
+              localId: 'item-local-id',
+              state: 'DECIDED',
+            })('Decision item 1'),
+            decisionItem({
+              localId: 'item-local-id',
+              state: 'DECIDED',
+            })('Decision item 2'),
+          ),
+        )(defaultSchema),
+      ),
+    ).toEqual('<> Decision item 1\n<> Decision item 2\n\n');
+  });
+});
+
+describe('layout', () => {
+  it('should serialize layout', () => {
+    expect(
+      markdownSerializer.serialize(
+        doc(
+          layoutSection(
+            layoutColumn({ width: 50 })(p('Layout column 1')),
+            layoutColumn({ width: 50 })(p('Layout column 2')),
+          ),
+        )(defaultSchema),
+      ),
+    ).toEqual('Layout column 1\n\nLayout column 2');
   });
 });
 
@@ -761,6 +839,6 @@ describe('tables', () => {
           ),
         )(defaultSchema),
       ),
-    ).toEqual('[table attached]');
+    ).toEqual('[table]');
   });
 });

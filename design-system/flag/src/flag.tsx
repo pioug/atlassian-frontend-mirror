@@ -101,7 +101,7 @@ const Flag = (props: FlagProps) => {
       }
 
       let ButtonIcon = CrossIcon;
-      let buttonLabel = 'Dismiss flag';
+      let buttonLabel = 'Dismiss';
       let buttonAction = () => {
         if (isDismissAllowed) {
           onDismissedAnalytics(id);
@@ -112,7 +112,7 @@ const Flag = (props: FlagProps) => {
       let a11yProps = {};
       if (isBold) {
         ButtonIcon = isExpanded ? ChevronUpIcon : ChevronDownIcon;
-        buttonLabel = 'Toggle flag body';
+        buttonLabel = isExpanded ? 'Collapse' : 'Expand';
         buttonAction = () => setIsExpanded(!isExpanded);
         size = 'large';
         buttonTestId = testId && `${testId}-toggle`;

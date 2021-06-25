@@ -1,13 +1,18 @@
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { snapshot, initFullPageEditorWithAdf } from '../_utils';
 import * as wrappedMediaAdf from './__fixtures__/wrapped-media.adf.json';
+import * as wrappedMediasNextToEachOtherAdf from './__fixtures__/wrapped-medias-next-to-each-other.adf.json';
 import * as wrappedInBlockMedia from './__fixtures__/wrapped-in-block-media.adf.json';
 import * as singleWrappedMedia from './__fixtures__/single-wrapped-media.adf.json';
 import * as wrappedMediaTextAdf from './__fixtures__/wrapped-media-text.adf.json';
 import * as wrappedMediaTextSplitAdf from './__fixtures__/wrapped-media-text-split.adf.json';
 import * as wrappedMediaTextLayoutAdf from './__fixtures__/wrapped-media-text-layout.adf.json';
 import * as wrappedMediaTextLayoutSplitAdf from './__fixtures__/wrapped-media-text-layout-split.adf.json';
-import { waitForMediaToBeLoaded } from '../../__helpers/page-objects/_media';
+import {
+  waitForMediaToBeLoaded,
+  mediaImageSelector,
+  mediaResizeSelectors,
+} from '../../__helpers/page-objects/_media';
 import * as nonResizableMedia from './__fixtures__/non-resizable-media.adf.json';
 import { pressKey } from '../../__helpers/page-objects/_keyboard';
 
@@ -116,6 +121,30 @@ describe('Snapshot Test: Wrapped media', () => {
       height: 900,
     });
     await waitForMediaToBeLoaded(page);
+    await snapshot(page);
+  });
+
+  // https://product-fabric.atlassian.net/browse/EDM-1365
+  it('should have position multiple wrapped media properly', async () => {
+    await initFullPageEditorWithAdf(
+      page,
+      wrappedMediasNextToEachOtherAdf,
+      undefined,
+      viewport,
+      {
+        media: {
+          allowMediaSingle: true,
+          allowResizing: true,
+        },
+      },
+    );
+    await waitForMediaToBeLoaded(page);
+
+    const medias = await page.$$(mediaImageSelector);
+    await medias[1].click();
+
+    const resizeHandlers = await page.$$(mediaResizeSelectors.right);
+    await resizeHandlers[1].click();
     await snapshot(page);
   });
 

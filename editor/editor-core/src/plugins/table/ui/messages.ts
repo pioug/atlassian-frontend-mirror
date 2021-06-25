@@ -26,4 +26,18 @@ export default defineMessages({
     defaultMessage: 'Cell options',
     description: 'Opens a menu with options for the current table cell.',
   },
+
+  confirmDeleteLinkedModalOKButton: {
+    id: 'fabric.editor.tables.confirmDeleteLinkedModalOKButton',
+    defaultMessage: 'Remove table and data',
+    description:
+      'Action button label for confirm modal when deleting a table linked to an extension.',
+  },
+  confirmDeleteLinkedModalMessage: {
+    id: 'fabric.editor.tables.confirmDeleteLinkedModalMessage',
+    defaultMessage:
+      'Removing this table will also remove all of the data contained in any connected charts.',
+    description:
+      'Message for confirm modal when deleting a table linked to an extension.',
+  },
 });

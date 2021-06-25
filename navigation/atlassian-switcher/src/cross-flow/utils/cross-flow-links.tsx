@@ -6,7 +6,6 @@ import messages from '../../common/utils/messages';
 import DiscoverFilledGlyph from '@atlaskit/icon/glyph/discover-filled';
 import CodeIcon from '@atlaskit/icon/glyph/code';
 import {
-  Product,
   ProvisionedProducts,
   RecommendationsEngineResponse,
   JoinableSite,
@@ -19,7 +18,6 @@ import {
   AVAILABLE_PRODUCT_DATA_MAP,
   TO_SWITCHER_PRODUCT_KEY,
   SwitcherItemType,
-  getEmceeLink,
 } from '../../common/utils/links';
 import SlackIcon from '../../ui/primitives/SlackIcon';
 
@@ -60,18 +58,10 @@ const getSlackIntegrationLink = (): SwitcherItemType => ({
 });
 
 export function getDiscoverSectionLinks({
-  isEmceeLinkEnabled,
-  product,
-  canManagePermission,
-  canAddProducts,
   recommendationsFeatureFlags,
   isSlackDiscoveryEnabled,
   slackDiscoveryClickHandler,
 }: {
-  isEmceeLinkEnabled: boolean;
-  product?: Product;
-  canManagePermission: boolean;
-  canAddProducts: boolean;
   recommendationsFeatureFlags?: RecommendationsFeatureFlags;
   isSlackDiscoveryEnabled?: boolean;
   slackDiscoveryClickHandler?: DiscoverMoreCallback;
@@ -80,11 +70,6 @@ export function getDiscoverSectionLinks({
   const discoverMoreLink = getDiscoverMoreLink(DiscoverFilledGlyph);
 
   const slackIntegrationLink = getSlackIntegrationLink();
-
-  const emceeLink =
-    (canManagePermission || canAddProducts) &&
-    isEmceeLinkEnabled &&
-    getEmceeLink(product);
 
   const gitToolsLink =
     recommendationsFeatureFlags &&
@@ -101,10 +86,6 @@ export function getDiscoverSectionLinks({
 
   if (discoverMoreLink) {
     discoverLinks.push(discoverMoreLink);
-  }
-
-  if (emceeLink) {
-    discoverLinks.push(emceeLink);
   }
 
   return discoverLinks;

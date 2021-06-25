@@ -96,6 +96,7 @@ export default {
   'fabric.media.learn_more': 'Lue lisää',
   'fabric.media.load_more_gifs': 'Lataa lisää GIFejä',
   'fabric.media.loading': 'Ladataan...',
+  'fabric.media.loading_file': 'Ladataan tiedostoa...',
   'fabric.media.might_be_a_hiccup': 'Se saattaa olla vain tilapäinen ongelma.',
   'fabric.media.no_gifs_found': 'Hei? Minuako etsit?',
   'fabric.media.no_gifs_found_suggestion':

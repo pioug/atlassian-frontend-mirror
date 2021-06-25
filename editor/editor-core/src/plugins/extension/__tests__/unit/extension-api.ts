@@ -12,10 +12,7 @@ import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor
 import { ExtensionAPI } from '@atlaskit/editor-common/extensions';
 
 import { EditorView } from 'prosemirror-view';
-import {
-  createExtensionAPI,
-  findNodePosWithLocalId,
-} from '../../extension-api';
+import { createExtensionAPI } from '../../extension-api';
 import {
   ACTION_SUBJECT,
   EVENT_TYPE,
@@ -426,52 +423,5 @@ describe('ExtensionAPI', () => {
         );
       });
     });
-  });
-});
-
-describe('findNodePosWithLocalId', () => {
-  /**
-   * Use `createEditorFactory` here when `allowReferentiliaty: true`, as
-   * `createProsemirrorEditorFactory` has some issues with correctly mimicking
-   * old state for the unique localId plugin
-   */
-  const createEditorFn = createEditorFactory<{}>();
-  const createEditor = (doc: DocBuilder) => {
-    const { editorView } = createEditorFn({
-      doc,
-      editorProps: {
-        featureFlags: {
-          'local-id-generation-on-tables': true,
-          'data-consumer-mark': true,
-        },
-        allowExtension: true,
-        allowTables: true,
-        allowLayouts: true,
-        allowExpand: true,
-      },
-    });
-    return editorView;
-  };
-
-  it('should return undefined when localId is not found', () => {
-    const initDoc = doc(
-      table({ localId: 'tableId' })(tr(td({})(p()), td({})(p()), td({})(p()))),
-    );
-    const { state } = createEditor(initDoc);
-    const result = findNodePosWithLocalId(state, 'fakeId');
-
-    expect(result).toBeUndefined();
-  });
-
-  it('should return NodePos when localId is found', () => {
-    const initDoc = doc(
-      table({ localId: 'tableId' })(tr(td({})(p()), td({})(p()), td({})(p()))),
-    );
-    const { state } = createEditor(initDoc);
-    const result = findNodePosWithLocalId(state, 'tableId');
-
-    expect(result).not.toBeUndefined();
-    expect(result!.pos).toEqual(0);
-    expect(result!.node.type.name).toEqual('table');
   });
 });

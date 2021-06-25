@@ -1,49 +1,48 @@
 import {
+  ContextualToolbar,
   DefaultExtensionProvider,
   ExtensionManifest,
-  ExtensionModuleToolbarItem,
 } from '@atlaskit/editor-common';
 
-const icon = () => import('@atlaskit/icon/glyph/editor/success');
+const icon = () =>
+  import(
+    /* webpackChunkName: "@atlaskit-internal_editor-success" */ '@atlaskit/icon/glyph/editor/success'
+  ).then(mod => mod.default);
 
 export const createTestExtensionProvider = (
   action: any,
-  items?: ExtensionModuleToolbarItem[],
+  items?: ContextualToolbar[],
 ) => {
-  const defaultItems: ExtensionModuleToolbarItem[] = [
+  const defaultItems: ContextualToolbar[] = [
     {
       context: {
         type: 'node',
         nodeType: 'table',
       },
-      key: 'item-1',
-      icon,
-      label: 'Item with icon and label',
-      tooltip: 'Item with icon and label',
-      action,
-    },
-    {
-      context: {
-        type: 'node',
-        nodeType: 'table',
-      },
-      key: 'item-2',
-      label: 'Item with label and no icon',
-      display: 'label',
-      tooltip: 'Item with label and no icon',
-      action,
-    },
-    {
-      context: {
-        type: 'node',
-        nodeType: 'table',
-      },
-      key: 'item-3',
-      icon,
-      label: 'Item with icon and no label',
-      display: 'icon',
-      tooltip: 'Item with icon and no label',
-      action,
+      toolbarItems: [
+        {
+          key: 'item-1',
+          icon,
+          label: 'Item with icon and label',
+          tooltip: 'Item with icon and label',
+          action,
+        },
+        {
+          key: 'item-2',
+          label: 'Item with label and no icon',
+          display: 'label',
+          tooltip: 'Item with label and no icon',
+          action,
+        },
+        {
+          key: 'item-3',
+          icon,
+          label: 'Item with icon and no label',
+          display: 'icon',
+          tooltip: 'Item with icon and no label',
+          action,
+        },
+      ],
     },
   ];
   const testManifest: ExtensionManifest = {
@@ -57,7 +56,7 @@ export const createTestExtensionProvider = (
     key: 'table-floating-toolbar',
     description: 'test',
     modules: {
-      contextualToolbarItems: items || defaultItems,
+      contextualToolbars: items || defaultItems,
     },
   };
 

@@ -90,7 +90,7 @@ const ListExample = () => {
 // Registering custom skip links
 // whose targets live outside PageLayout
 const RegisterCustomSkipLinks = () => {
-  useCustomSkipLink('external-footer', 'External Footer', 6);
+  useCustomSkipLink('external-footer', 'External Footer', 7);
   useCustomSkipLink('intro-section', 'Intro section', 0);
 
   return null;

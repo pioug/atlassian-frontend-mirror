@@ -244,7 +244,7 @@ const editorProps = ({
   ],
   allowExtension: { allowAutoSave: true, allowBreakout: true },
   macroProvider: Promise.resolve(macroProvider),
-  UNSAFE_cards: {
+  smartLinks: {
     provider: Promise.resolve(cardProviderStaging),
   },
   allowExpand: true,

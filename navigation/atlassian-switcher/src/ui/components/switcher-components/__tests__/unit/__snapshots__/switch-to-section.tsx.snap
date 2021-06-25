@@ -203,8 +203,6 @@ exports[`SwitchToSection when disableSwitchToHeading is false should render with
       onDiscoverMoreClicked={[MockFunction]}
       showNewHeading={false}
       showStartLink={false}
-      suggestedProductLinks={Array []}
-      triggerXFlow={[MockFunction]}
     >
       <Component
         appearance="drawer"
@@ -250,9 +248,12 @@ exports[`SwitchToSection when disableSwitchToHeading is false should render with
                 />
               }
             >
-              <SectionContainer>
+              <SectionContainer
+                data-testid="switchTo__section"
+              >
                 <section
                   className="c0"
+                  data-testid="switchTo__section"
                 >
                   <styled.div>
                     <div
@@ -457,6 +458,7 @@ exports[`SwitchToSection when disableSwitchToHeading is false should render with
                                                         >
                                                           <Consumer>
                                                             <span
+                                                              aria-hidden="true"
                                                               className="emotion-0"
                                                               dangerouslySetInnerHTML={
                                                                 Object {
@@ -912,8 +914,6 @@ exports[`SwitchToSection when disableSwitchToHeading is false should render with
       onDiscoverMoreClicked={[MockFunction]}
       showNewHeading={true}
       showStartLink={true}
-      suggestedProductLinks={Array []}
-      triggerXFlow={[MockFunction]}
     >
       <Component
         actionSubject="atlassianLink"
@@ -983,9 +983,12 @@ exports[`SwitchToSection when disableSwitchToHeading is false should render with
                 }
               }
             >
-              <SectionContainer>
+              <SectionContainer
+                data-testid="switchTo__section"
+              >
                 <section
                   className="c0"
+                  data-testid="switchTo__section"
                 >
                   <TitleSectionFadeIn>
                     <styled.div
@@ -1291,6 +1294,7 @@ exports[`SwitchToSection when disableSwitchToHeading is false should render with
                                               >
                                                 <Consumer>
                                                   <span
+                                                    aria-hidden="true"
                                                     className="emotion-1"
                                                     dangerouslySetInnerHTML={
                                                       Object {
@@ -1490,6 +1494,7 @@ exports[`SwitchToSection when disableSwitchToHeading is false should render with
                                                         >
                                                           <Consumer>
                                                             <span
+                                                              aria-hidden="true"
                                                               className="emotion-4"
                                                               dangerouslySetInnerHTML={
                                                                 Object {
@@ -1733,8 +1738,6 @@ exports[`SwitchToSection when disableSwitchToHeading is true should render with 
       onDiscoverMoreClicked={[MockFunction]}
       showNewHeading={false}
       showStartLink={false}
-      suggestedProductLinks={Array []}
-      triggerXFlow={[MockFunction]}
     >
       <Component
         appearance="drawer"
@@ -1768,9 +1771,12 @@ exports[`SwitchToSection when disableSwitchToHeading is true should render with 
               sectionId="switchTo"
               title={null}
             >
-              <SectionContainer>
+              <SectionContainer
+                data-testid="switchTo__section"
+              >
                 <section
                   className="c0"
+                  data-testid="switchTo__section"
                 >
                   <NavigationAnalyticsContext
                     data={
@@ -1947,6 +1953,7 @@ exports[`SwitchToSection when disableSwitchToHeading is true should render with 
                                                         >
                                                           <Consumer>
                                                             <span
+                                                              aria-hidden="true"
                                                               className="emotion-0"
                                                               dangerouslySetInnerHTML={
                                                                 Object {
@@ -2382,8 +2389,6 @@ exports[`SwitchToSection when disableSwitchToHeading is true should render with 
       onDiscoverMoreClicked={[MockFunction]}
       showNewHeading={true}
       showStartLink={true}
-      suggestedProductLinks={Array []}
-      triggerXFlow={[MockFunction]}
     >
       <Component
         actionSubject="atlassianLink"
@@ -2441,9 +2446,12 @@ exports[`SwitchToSection when disableSwitchToHeading is true should render with 
                 }
               }
             >
-              <SectionContainer>
+              <SectionContainer
+                data-testid="switchTo__section"
+              >
                 <section
                   className="c0"
+                  data-testid="switchTo__section"
                 >
                   <TitleSectionFadeIn>
                     <styled.div
@@ -2729,6 +2737,7 @@ exports[`SwitchToSection when disableSwitchToHeading is true should render with 
                                               >
                                                 <Consumer>
                                                   <span
+                                                    aria-hidden="true"
                                                     className="emotion-1"
                                                     dangerouslySetInnerHTML={
                                                       Object {
@@ -2928,6 +2937,7 @@ exports[`SwitchToSection when disableSwitchToHeading is true should render with 
                                                         >
                                                           <Consumer>
                                                             <span
+                                                              aria-hidden="true"
                                                               className="emotion-4"
                                                               dangerouslySetInnerHTML={
                                                                 Object {

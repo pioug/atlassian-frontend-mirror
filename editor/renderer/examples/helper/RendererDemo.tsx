@@ -149,6 +149,7 @@ export interface DemoRendererProps {
   allowColumnSorting?: boolean;
   allowAnnotations?: boolean;
   allowCopyToClipboard?: boolean;
+  allowPlaceholderText?: boolean;
   allowCustomPanels?: boolean;
   copies?: number;
   schema?: Schema;
@@ -353,6 +354,7 @@ export default class RendererDemo extends React.Component<
       props.allowHeadingAnchorLinks = this.props.allowHeadingAnchorLinks;
       props.useSpecBasedValidator = this.props.useSpecBasedValidator;
       props.allowCopyToClipboard = this.props.allowCopyToClipboard;
+      props.allowPlaceholderText = this.props.allowPlaceholderText;
       props.UNSAFE_allowCustomPanels = this.props.allowCustomPanels;
       props.analyticsEventSeverityTracking = this.props.analyticsEventSeverityTracking;
       props.allowUgcScrubber = this.props.allowUgcScrubber;

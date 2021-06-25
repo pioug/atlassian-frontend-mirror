@@ -49,6 +49,7 @@
   "devDependencies": {
     "@atlaskit/docs": "^9.0.0",
     "@atlaskit/field-range": "^9.0.0",
+    "@atlaskit/icon-file-type": "^6.3.0",
     "@atlaskit/media-common": "^2.7.0",
     "@atlaskit/media-core": "^32.1.0",
     "@atlaskit/media-test-helpers": "^28.7.0",

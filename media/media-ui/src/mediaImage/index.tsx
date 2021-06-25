@@ -82,7 +82,7 @@ export class MediaImage extends Component<MediaImageProps, MediaImageState> {
       previewOrientation,
       crossOrigin,
       onImageError,
-      alt,
+      alt = '',
     } = this.props;
     const {
       parentWidth,

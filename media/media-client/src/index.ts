@@ -174,25 +174,8 @@ export { isImageRemote } from './utils/isImageRemote';
 export { checkWebpSupport } from './utils/checkWebpSupport';
 export { observableToPromise } from './utils/observableToPromise';
 
-export { getMediaTypeFromMimeType } from './utils/getMediaTypeFromMimeType';
-
 export { getDimensionsFromBlob } from './utils/getDimensionsFromBlob';
 export type { Dimensions } from './utils/getDimensionsFromBlob';
-
-export {
-  isImageMimeTypeSupportedByBrowser,
-  isDocumentMimeTypeSupportedByBrowser,
-  isMimeTypeSupportedByBrowser,
-} from './utils/isMimeTypeSupportedByBrowser';
-
-export {
-  isImageMimeTypeSupportedByServer,
-  isDocumentMimeTypeSupportedByServer,
-  isAudioMimeTypeSupportedByServer,
-  isVideoMimeTypeSupportedByServer,
-  isUnknownMimeTypeSupportedByServer,
-  isMimeTypeSupportedByServer,
-} from './utils/isMimeTypeSupportedByServer';
 
 export { createFileStateSubject } from './utils/createFileStateSubject';
 export { safeUnsubscribe } from './utils/safeUnsubscribe';
@@ -231,3 +214,59 @@ export {
 export type { MediaBlobUrlAttrs } from './utils/url';
 
 export { RECENTS_COLLECTION, MAX_RESOLUTION } from './constants';
+
+// TODO MEX-659 Remove these exports when all the usages from media-client are replaced with media-common.
+
+import {
+  getMediaTypeFromMimeType as _getMediaTypeFromMimeType,
+  isImageMimeTypeSupportedByBrowser as _isImageMimeTypeSupportedByBrowser,
+  isDocumentMimeTypeSupportedByBrowser as _isDocumentMimeTypeSupportedByBrowser,
+  isMimeTypeSupportedByBrowser as _isMimeTypeSupportedByBrowser,
+  isImageMimeTypeSupportedByServer as _isImageMimeTypeSupportedByServer,
+  isDocumentMimeTypeSupportedByServer as _isDocumentMimeTypeSupportedByServer,
+  isAudioMimeTypeSupportedByServer as _isAudioMimeTypeSupportedByServer,
+  isVideoMimeTypeSupportedByServer as _isVideoMimeTypeSupportedByServer,
+  isUnknownMimeTypeSupportedByServer as _isUnknownMimeTypeSupportedByServer,
+  isMimeTypeSupportedByServer as _isMimeTypeSupportedByServer,
+} from '@atlaskit/media-common/mediaTypeUtils';
+
+/**
+ * @deprecated This export will be removed. Please use one from @atlaskit/media-common or @atlaskit/media-common/mediaTypeUtils
+ */
+export const getMediaTypeFromMimeType = _getMediaTypeFromMimeType;
+/**
+ * @deprecated This export will be removed. Please use one from @atlaskit/media-common or @atlaskit/media-common/mediaTypeUtils
+ */
+export const isImageMimeTypeSupportedByBrowser = _isImageMimeTypeSupportedByBrowser;
+/**
+ * @deprecated This export will be removed. Please use one from @atlaskit/media-common or @atlaskit/media-common/mediaTypeUtils
+ */
+export const isDocumentMimeTypeSupportedByBrowser = _isDocumentMimeTypeSupportedByBrowser;
+/**
+ * @deprecated This export will be removed. Please use one from @atlaskit/media-common or @atlaskit/media-common/mediaTypeUtils
+ */
+export const isMimeTypeSupportedByBrowser = _isMimeTypeSupportedByBrowser;
+/**
+ * @deprecated This export will be removed. Please use one from @atlaskit/media-common or @atlaskit/media-common/mediaTypeUtils
+ */
+export const isImageMimeTypeSupportedByServer = _isImageMimeTypeSupportedByServer;
+/**
+ * @deprecated This export will be removed. Please use one from @atlaskit/media-common or @atlaskit/media-common/mediaTypeUtils
+ */
+export const isDocumentMimeTypeSupportedByServer = _isDocumentMimeTypeSupportedByServer;
+/**
+ * @deprecated This export will be removed. Please use one from @atlaskit/media-common or @atlaskit/media-common/mediaTypeUtils
+ */
+export const isAudioMimeTypeSupportedByServer = _isAudioMimeTypeSupportedByServer;
+/**
+ * @deprecated This export will be removed. Please use one from @atlaskit/media-common or @atlaskit/media-common/mediaTypeUtils
+ */
+export const isVideoMimeTypeSupportedByServer = _isVideoMimeTypeSupportedByServer;
+/**
+ * @deprecated This export will be removed. Please use one from @atlaskit/media-common or @atlaskit/media-common/mediaTypeUtils
+ */
+export const isUnknownMimeTypeSupportedByServer = _isUnknownMimeTypeSupportedByServer;
+/**
+ * @deprecated This export will be removed. Please use one from @atlaskit/media-common or @atlaskit/media-common/mediaTypeUtils
+ */
+export const isMimeTypeSupportedByServer = _isMimeTypeSupportedByServer;

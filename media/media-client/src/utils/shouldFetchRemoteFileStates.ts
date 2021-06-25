@@ -3,8 +3,10 @@ import { from } from 'rxjs/observable/from';
 
 import { FilePreview } from '../models/file-state';
 import { MediaType } from '../models/media';
-import { isMimeTypeSupportedByBrowser } from './isMimeTypeSupportedByBrowser';
-import { isMimeTypeSupportedByServer } from './isMimeTypeSupportedByServer';
+import {
+  isMimeTypeSupportedByBrowser,
+  isMimeTypeSupportedByServer,
+} from '@atlaskit/media-common/mediaTypeUtils';
 import { getVideoDimensionsFromBlob } from './getVideoDimensionsFromBlob';
 
 /**

@@ -55,8 +55,11 @@ export default {
   'fabric.editor.configPanel.customSelect.createOption': 'Skapa',
   'fabric.editor.configPanel.dateRange.custom.from': 'Från',
   'fabric.editor.configPanel.dateRange.custom.to': 'Till',
+  'fabric.editor.configPanel.dateRange.grouping.collapse': 'Dölj',
+  'fabric.editor.configPanel.dateRange.grouping.expand': 'Expandera',
   'fabric.editor.configPanel.dateRange.option.custom': 'Anpassat',
   'fabric.editor.configPanel.documentation': 'Dokumentation',
+  'fabric.editor.configPanel.errorBoundary.title': 'Något gick fel.',
   'fabric.editor.configPanel.fieldTypeError.isMultipleAndRadio':
     'Kan inte kombinera isMultiple med stilen radio',
   'fabric.editor.configPanel.formType.addField': 'Lägg till fält',

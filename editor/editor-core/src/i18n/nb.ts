@@ -53,8 +53,11 @@ export default {
   'fabric.editor.configPanel.customSelect.createOption': 'Opprett',
   'fabric.editor.configPanel.dateRange.custom.from': 'Fra',
   'fabric.editor.configPanel.dateRange.custom.to': 'Til',
+  'fabric.editor.configPanel.dateRange.grouping.collapse': 'Skjul',
+  'fabric.editor.configPanel.dateRange.grouping.expand': 'Utvid',
   'fabric.editor.configPanel.dateRange.option.custom': 'Tilpasset',
   'fabric.editor.configPanel.documentation': 'Dokumentasjon',
+  'fabric.editor.configPanel.errorBoundary.title': 'Det oppstod en feil.',
   'fabric.editor.configPanel.fieldTypeError.isMultipleAndRadio':
     'Kan ikke kombinere isMultiple med stil: radio',
   'fabric.editor.configPanel.formType.addField': 'Legg til felt',

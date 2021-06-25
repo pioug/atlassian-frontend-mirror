@@ -206,7 +206,9 @@ describe('media', () => {
     if (toolbar?.items) {
       const customLinkingToolbar = (toolbar.items as FloatingToolbarItem<
         Command
-      >[]).find(item => item.type === 'custom') as FloatingToolbarCustom;
+      >[]).find(item => item.type === 'custom') as FloatingToolbarCustom<
+        Command
+      >;
 
       linkToolbarAppearance = customLinkingToolbar
         ? (customLinkingToolbar.render(editorView, 1) as ReactElement<
@@ -252,7 +254,7 @@ describe('media', () => {
 
     const linkingToolbarComponent = getToolbarItems(toolbar!, editorView).find(
       item => item.type === 'custom',
-    ) as FloatingToolbarCustom;
+    ) as FloatingToolbarCustom<Command>;
 
     const linkingToolbar = mountWithIntl<LinkAddToolbarProps, any>(
       linkingToolbarComponent.render(editorView) as ReactElement<any>,

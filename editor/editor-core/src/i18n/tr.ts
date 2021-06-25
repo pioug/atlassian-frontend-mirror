@@ -58,8 +58,11 @@ export default {
   'fabric.editor.configPanel.customSelect.createOption': 'Oluştur',
   'fabric.editor.configPanel.dateRange.custom.from': 'Başlangıç',
   'fabric.editor.configPanel.dateRange.custom.to': 'Bitiş',
+  'fabric.editor.configPanel.dateRange.grouping.collapse': 'Daralt',
+  'fabric.editor.configPanel.dateRange.grouping.expand': 'Genişlet',
   'fabric.editor.configPanel.dateRange.option.custom': 'Özel',
   'fabric.editor.configPanel.documentation': 'Belgeler',
+  'fabric.editor.configPanel.errorBoundary.title': 'Bir hata oluştu.',
   'fabric.editor.configPanel.fieldTypeError.isMultipleAndRadio':
     'Stil radio olduğunda isMultiple kullanılamaz',
   'fabric.editor.configPanel.formType.addField': 'Alan ekle',

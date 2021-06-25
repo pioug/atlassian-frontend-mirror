@@ -1,5 +1,11 @@
 # @atlaskit/mention
 
+## 19.6.3
+
+### Patch Changes
+
+- [`52e7807e543`](https://bitbucket.org/atlassian/atlassian-frontend/commits/52e7807e543) - Fixed English translations for team counts
+
 ## 19.6.2
 
 ### Patch Changes

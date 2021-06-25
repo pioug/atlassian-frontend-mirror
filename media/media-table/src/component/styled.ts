@@ -10,6 +10,7 @@ export const NameCellWrapper = styled.div`
 export const TruncateWrapper = styled.div`
   min-width: 0;
   width: 100%;
+  margin-left: 4px;
 
   span:first-of-type {
     &::first-letter {

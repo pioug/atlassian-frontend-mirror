@@ -1,4 +1,6 @@
-import { BetaBrowserTestCase } from '@atlaskit/webdriver-runner/runner';
+// TODO: please investigate why BetaBrowserTestCase can fail those tests.
+// https://product-fabric.atlassian.net/browse/EDM-2171
+import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 import { getExampleUrl } from '@atlaskit/visual-regression/helper';
 import { MediaViewerPageObject } from '@atlaskit/media-integration-test-helpers';
@@ -27,7 +29,7 @@ const openMediaViewer = async (client: WebDriverIOBrowser) => {
   return mediaViewer;
 };
 
-BetaBrowserTestCase(
+BrowserTestCase(
   'media-viewer-basic.ts: Navigation should navigate back and forth',
   { skip: ['edge'] },
   async (client: WebDriverIOBrowser) => {
@@ -66,7 +68,7 @@ BetaBrowserTestCase(
   },
 );
 
-BetaBrowserTestCase(
+BrowserTestCase(
   'media-viewer-basic.ts: Should close on Close click',
   { skip: ['edge'] },
   async (client: ConstructorParameters<typeof Page>[0]) => {
@@ -75,7 +77,7 @@ BetaBrowserTestCase(
   },
 );
 
-BetaBrowserTestCase(
+BrowserTestCase(
   'media-viewer-basic.ts: Should close on Escape press',
   { skip: ['edge'] },
   async (client: ConstructorParameters<typeof Page>[0]) => {
@@ -84,7 +86,7 @@ BetaBrowserTestCase(
   },
 );
 
-BetaBrowserTestCase(
+BrowserTestCase(
   'media-viewer-basic.ts: Should open and close sidebar',
   { skip: ['edge'] },
   async (client: ConstructorParameters<typeof Page>[0]) => {

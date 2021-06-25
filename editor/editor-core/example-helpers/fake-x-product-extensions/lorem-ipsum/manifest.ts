@@ -20,7 +20,10 @@ const manifest: ExtensionManifest<LoremParams> = {
   key: 'fake.lorem.ipsum',
   description: 'Extension demo',
   icons: {
-    '48': () => import('@atlaskit/icon/glyph/editor/code'),
+    '48': () =>
+      import(
+        /* webpackChunkName: "@atlaskit-internal_editor-code" */ '@atlaskit/icon/glyph/editor/code'
+      ).then(mod => mod.default),
   },
   modules: {
     quickInsert: [
@@ -28,7 +31,10 @@ const manifest: ExtensionManifest<LoremParams> = {
         key: 'qi-lorem-ipsum-1',
         title: 'Lorem Ipsum 1',
         description: 'Extension 1',
-        icon: () => import('@atlaskit/icon/glyph/tray'),
+        icon: () =>
+          import(
+            /* webpackChunkName: "@atlaskit-internal_editor-tray" */ '@atlaskit/icon/glyph/tray'
+          ).then(mod => mod.default),
         action: {
           type: 'node',
           key: 'lorem-ipsum-1',
@@ -42,7 +48,10 @@ const manifest: ExtensionManifest<LoremParams> = {
         key: 'qi-lorem-ipsum-2',
         title: 'Lorem Ipsum 2',
         description: 'Extension 2',
-        icon: () => import('@atlaskit/icon/glyph/book'),
+        icon: () =>
+          import(
+            /* webpackChunkName: "@atlaskit-internal_editor-book" */ '@atlaskit/icon/glyph/book'
+          ).then(mod => mod.default),
         action: {
           type: 'node',
           key: 'lorem-ipsum-2',
@@ -56,14 +65,23 @@ const manifest: ExtensionManifest<LoremParams> = {
         key: 'qi-lorem-ipsum-3',
         title: 'Lorem Ipsum 3 with body',
         description: 'Extension 3',
-        icon: () => import('@atlaskit/icon/glyph/tray'),
-        action: () => import('./adf-node-text-3-with-body'),
+        icon: () =>
+          import(
+            /* webpackChunkName: "@atlaskit-internal_editor-tray" */ '@atlaskit/icon/glyph/tray'
+          ).then(mod => mod.default),
+        action: () =>
+          import(
+            /* webpackChunkName: "@atlaskit-internal_editor-adf-node-text-3-with-body" */ './adf-node-text-3-with-body'
+          ).then(mod => mod.default),
       },
       {
         key: 'qi-lorem-ipsum-4',
         title: 'Lorem Ipsum 4 inline',
         description: 'Extension 4',
-        icon: () => import('@atlaskit/icon/glyph/bitbucket/pipelines'),
+        icon: () =>
+          import(
+            /* webpackChunkName: "@atlaskit-internal_editor-pipelines" */ '@atlaskit/icon/glyph/bitbucket/pipelines'
+          ).then(mod => mod.default),
         action: {
           type: 'node',
           key: 'lorem-ipsum-4-inline',
@@ -76,7 +94,10 @@ const manifest: ExtensionManifest<LoremParams> = {
     nodes: {
       'lorem-ipsum-1': {
         type: 'extension',
-        render: () => import('./extension-handler'),
+        render: () =>
+          import(
+            /* webpackChunkName: "@atlaskit-internal_editor-extension-handler" */ './extension-handler'
+          ).then(mod => mod.default),
         update: defaultUpdate,
         getFieldsDefinition: () =>
           Promise.resolve([
@@ -90,7 +111,10 @@ const manifest: ExtensionManifest<LoremParams> = {
       },
       'lorem-ipsum-2': {
         type: 'extension',
-        render: () => import('./extension-handler'),
+        render: () =>
+          import(
+            /* webpackChunkName: "@atlaskit-internal_editor-extension-handler" */ './extension-handler'
+          ).then(mod => mod.default),
         update: defaultUpdate,
         getFieldsDefinition: () =>
           Promise.resolve([
@@ -111,7 +135,10 @@ const manifest: ExtensionManifest<LoremParams> = {
       'lorem-ipsum-3-with-body': {
         type: 'bodiedExtension',
         update: defaultUpdate,
-        render: () => import('./extension-handler'),
+        render: () =>
+          import(
+            /* webpackChunkName: "@atlaskit-internal_editor-extension-handler" */ './extension-handler'
+          ).then(mod => mod.default),
         getFieldsDefinition: () =>
           Promise.resolve([
             {
@@ -124,7 +151,10 @@ const manifest: ExtensionManifest<LoremParams> = {
       },
       'lorem-ipsum-4-inline': {
         type: 'inlineExtension',
-        render: () => import('./extension-handler'),
+        render: () =>
+          import(
+            /* webpackChunkName: "@atlaskit-internal_editor-extension-handler" */ './extension-handler'
+          ).then(mod => mod.default),
         update: defaultUpdate,
         getFieldsDefinition: () =>
           Promise.resolve([

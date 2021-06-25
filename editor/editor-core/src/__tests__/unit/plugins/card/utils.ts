@@ -17,7 +17,7 @@ describe('Rich Media utils:', () => {
       doc,
       editorProps: {
         allowLayouts: { allowBreakout: true },
-        UNSAFE_cards: {
+        smartLinks: {
           allowEmbeds: true,
           ...cardProps,
         },

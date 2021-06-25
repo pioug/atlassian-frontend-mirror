@@ -17,7 +17,7 @@ describe('ResizableEmbedCard', () => {
     return createEditor({
       doc,
       editorProps: {
-        UNSAFE_cards: {
+        smartLinks: {
           allowEmbeds: true,
           ...cardProps,
         },

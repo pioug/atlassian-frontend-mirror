@@ -329,6 +329,10 @@ export const Wrapper = styled.div<RendererWrapperProps & HTMLAttributes<{}>>`
     cursor: pointer;
   }
 
+  & span[data-placeholder] {
+    color: ${colors.placeholderText};
+  }
+
   ${whitespaceSharedStyles};
   ${blockquoteSharedStyles};
   ${headingsSharedStyles};

@@ -204,6 +204,24 @@ describe('mobile editor element', () => {
 
       expect(mockedisIndentationAllowed).toBeCalled();
     });
+
+    it('should have called isLocalIdGenerationOnTablesEnabled', () => {
+      const lcalIdGenerationOnTablesEnabledSpy = jest.spyOn(
+        MobileEditorConfiguration.prototype,
+        'isLocalIdGenerationOnTablesEnabled',
+      );
+      initEditor();
+      expect(lcalIdGenerationOnTablesEnabledSpy).toBeCalled();
+    });
+
+    it('should have called isDataConsumerMarkEnabled', () => {
+      const dataConsumerMarkEnabledSpy = jest.spyOn(
+        MobileEditorConfiguration.prototype,
+        'isDataConsumerMarkEnabled',
+      );
+      initEditor();
+      expect(dataConsumerMarkEnabledSpy).toBeCalled();
+    });
   });
 
   describe('Mobile Editor with Re Configuration', () => {

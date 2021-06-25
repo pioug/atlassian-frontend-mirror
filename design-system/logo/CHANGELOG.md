@@ -1,5 +1,11 @@
 # @atlaskit/logo
 
+## 13.4.2
+
+### Patch Changes
+
+- [`17770b662ac`](https://bitbucket.org/atlassian/atlassian-frontend/commits/17770b662ac) - NO-ISSUE reference existing file in af.exports['.']
+
 ## 13.4.1
 
 ### Patch Changes

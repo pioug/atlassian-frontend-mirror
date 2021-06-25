@@ -19,6 +19,9 @@ const Row = ({ row, head, testId, isFixedSize, isHighlighted }: Props) => {
     <TableBodyRow
       {...restRowProps}
       isHighlighted={isHighlighted}
+      {...(isHighlighted
+        ? { 'data-ts--dynamic-table--table-row--highlighted': true }
+        : null)}
       data-testid={testId && `${testId}--row-${restRowProps.key}`}
     >
       {cells.map((cell, cellIndex) => {

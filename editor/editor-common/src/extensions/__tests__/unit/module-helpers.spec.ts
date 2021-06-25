@@ -13,18 +13,25 @@ import {
   buildMenuItem,
   createAutoConverterRunner,
   getAutoConvertPatternsFromModule,
-  getContextualToolbarlItemsFromModule,
+  getContextualToolbarItemsFromModule,
   getQuickInsertItemsFromModule,
 } from '../../module-helpers';
 import {
+  ContextualToolbar,
+  ExtensionAPI,
   ExtensionManifest,
-  ExtensionModuleToolbarButton,
   MenuItem,
 } from '../../types';
+import {
+  ToolbarButton,
+  ToolbarItem,
+} from '../../types/extension-manifest-toolbar-item';
 
 describe('module-helpers', () => {
   let confluenceAwesomeMacro: ExtensionManifest;
   let forgeAmazingMacro: ExtensionManifest;
+
+  const mockAPI = {} as ExtensionAPI;
 
   const extension = bodiedExtension({
     extensionType: 'forge.extension',
@@ -329,6 +336,25 @@ describe('module-helpers', () => {
       const itemKey = 'item-1';
       const testAction = () => Promise.resolve();
 
+      const getTestExtensionButtonsMacro = (
+        contextualToolbars: ContextualToolbar[],
+      ): ExtensionManifest => {
+        return {
+          title: 'Table floating toolbar',
+          icons: {
+            '16': fakeIcon,
+            '24': fakeIcon,
+            '48': fakeIcon,
+          },
+          type: 'com.ext.test',
+          key: extensionKey,
+          description: 'test',
+          modules: {
+            contextualToolbars,
+          },
+        };
+      };
+
       it.each<[string, object, object]>([
         [
           'with icon and label by default',
@@ -370,50 +396,42 @@ describe('module-helpers', () => {
           },
         ],
       ])('%s', (_, item, expectedItem) => {
-        const testItem = {
-          context: {
-            type: 'node',
-            nodeType: 'table',
-          },
+        const toolbarButton: ToolbarButton = {
           label: 'test',
           key: 'test',
           action: testAction,
           ...item,
-        } as ExtensionModuleToolbarButton;
-
-        const extensionButtonsMacro: ExtensionManifest = {
-          title: 'Table floating toolbar',
-          icons: {
-            '16': fakeIcon,
-            '24': fakeIcon,
-            '48': fakeIcon,
-          },
-          type: 'com.ext.test',
-          key: extensionKey,
-          description: 'test',
-          modules: {
-            contextualToolbarItems: [testItem],
-          },
         };
 
-        const fakeNode = {
-          type: {
-            name: 'table',
+        const contextualToolbar = {
+          context: {
+            type: 'node',
+            nodeType: 'table',
           },
+          toolbarItems: [toolbarButton],
+        } as ContextualToolbar;
+
+        const extensionButtonsMacro: ExtensionManifest = getTestExtensionButtonsMacro(
+          [contextualToolbar],
+        );
+
+        const fakeNode = {
+          type: 'table',
           attrs: {
             extensionType: '',
             extensionKey: '',
           },
         } as any;
-        const toolbarItems = getContextualToolbarlItemsFromModule(
+        const toolbarItems = getContextualToolbarItemsFromModule(
           [extensionButtonsMacro],
           fakeNode,
+          mockAPI,
         );
 
         expect(toolbarItems).toEqual([
           {
-            key: `${extensionKey}:${testItem.key}`,
-            action: testItem.action,
+            key: `${extensionKey}:${toolbarButton.key}`,
+            action: toolbarButton.action,
             ...expectedItem,
           },
         ]);
@@ -427,9 +445,7 @@ describe('module-helpers', () => {
             nodeType: 'table',
           },
           {
-            type: {
-              name: 'table',
-            },
+            type: 'table',
             attrs: {
               extensionType: '',
               extensionKey: '',
@@ -445,9 +461,7 @@ describe('module-helpers', () => {
             extensionKey: 'test-key',
           },
           {
-            type: {
-              name: 'extension',
-            },
+            type: 'extension',
             attrs: {
               extensionKey: 'test-key',
             },
@@ -463,9 +477,7 @@ describe('module-helpers', () => {
             extensionType: 'test-type',
           },
           {
-            type: {
-              name: 'extension',
-            },
+            type: 'extension',
             attrs: {
               extensionKey: 'test-key',
               extensionType: 'test-another-type',
@@ -474,36 +486,88 @@ describe('module-helpers', () => {
           false,
         ],
       ])('%s', (_, context, nodeData, shouldAdd) => {
-        const testItem = {
-          context,
+        const toolbarItem: ToolbarItem = {
           key: itemKey,
           action: testAction,
           icon: fakeIcon,
           label: 'test label',
           tooltip: 'tooltip',
-        } as ExtensionModuleToolbarButton;
-
-        const extensionButtonsMacro: ExtensionManifest = {
-          title: 'Table floating toolbar',
-          icons: {
-            '16': fakeIcon,
-            '24': fakeIcon,
-            '48': fakeIcon,
-          },
-          type: 'com.ext.test',
-          key: extensionKey,
-          description: 'test',
-          modules: {
-            contextualToolbarItems: [testItem],
-          },
         };
 
-        const toolbarItems = getContextualToolbarlItemsFromModule(
+        const contextualToolbar = {
+          context,
+          toolbarItems: [toolbarItem],
+        } as ContextualToolbar;
+
+        const extensionButtonsMacro: ExtensionManifest = getTestExtensionButtonsMacro(
+          [contextualToolbar],
+        );
+
+        const toolbarItems = getContextualToolbarItemsFromModule(
           [extensionButtonsMacro],
           nodeData as any,
+          mockAPI,
         );
 
         expect(!!toolbarItems.length).toBe(shouldAdd);
+      });
+
+      it('returns an empty array when duplicate context is detected', () => {
+        const context = {
+          type: 'node',
+          nodeType: 'table',
+        };
+
+        const node = {
+          type: 'table',
+          attrs: {
+            extensionType: '',
+            extensionKey: '',
+          },
+        };
+
+        const contextualToolbars = [
+          {
+            context,
+            toolbarItems: [
+              {
+                key: 'key001',
+                action: testAction,
+                icon: fakeIcon,
+                label: 'key 1',
+              },
+            ],
+          },
+          {
+            context,
+            toolbarItems: [
+              {
+                key: 'key002',
+                action: testAction,
+                icon: fakeIcon,
+                label: 'key 2',
+              },
+            ],
+          },
+        ] as ContextualToolbar[];
+
+        jest.spyOn(global.console, 'error');
+        const extensionButtonsMacro: ExtensionManifest = getTestExtensionButtonsMacro(
+          contextualToolbars,
+        );
+
+        const toolbarItems = getContextualToolbarItemsFromModule(
+          [extensionButtonsMacro],
+          node,
+          mockAPI,
+        );
+
+        expect(toolbarItems).toEqual([]);
+
+        expect(global.console.error).toHaveBeenCalledWith(
+          '[contextualToolbars] Duplicate context detected - {"type":"node","nodeType":"table"}.',
+        );
+        (global.console.error as any).mockRestore();
       });
     });
   });

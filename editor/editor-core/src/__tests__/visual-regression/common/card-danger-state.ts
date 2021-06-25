@@ -32,7 +32,7 @@ describe('Card danger states', () => {
         height: 1020,
       },
       {
-        UNSAFE_cards: {
+        smartLinks: {
           resolveBeforeMacros: ['jira'],
           allowBlockCards: true,
           allowEmbeds: true,

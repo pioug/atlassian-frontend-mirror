@@ -1,3 +1,4 @@
+// eslint-disable-next-line @repo/internal/fs/filename-pattern-match
 jest.autoMockOff();
 
 import { renameBreadcrumbsStatelessToBreadcrumbs } from '../migrates/rename-bread-crumbs-stateless-to-bread-crumbs';

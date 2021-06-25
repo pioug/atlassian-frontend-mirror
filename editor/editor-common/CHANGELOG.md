@@ -1,5 +1,31 @@
 # @atlaskit/editor-common
 
+## 58.0.0
+
+### Major Changes
+
+- [`0b9318d5c23`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0b9318d5c23) - ED-11952 updated extension interface to allow dynamic toolbar buttons.
+  BREAKING CHANGE: `ExtensionModules.contextualToolbarItems` has been removed in favor of `ExtensionModules.contextualToolbars`.
+
+  `ExtensionModules.contextualToolbars` consist of a list of `ContextualToolbar` which has the following signature:
+
+  ```
+  type ContextualToolbar = {
+    context: ToolbarContext;
+    toolbarItems: ToolbarItem[] |
+      ((contextNode: ADFEntity, api: ExtensionAPI) => ToolbarItem[]);
+  };
+  ```
+
+### Minor Changes
+
+- [`a8b65e3ec2d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a8b65e3ec2d) - [ux] ED-13083: fixed serialize() for Tabs and Expand fields
+
+### Patch Changes
+
+- [`55ebaf7010d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/55ebaf7010d) - ED-13023 do not override code-block background in editor
+- Updated dependencies
+
 ## 57.2.0
 
 ### Minor Changes

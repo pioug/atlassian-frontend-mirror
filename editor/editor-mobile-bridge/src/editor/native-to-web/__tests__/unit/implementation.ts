@@ -3,6 +3,9 @@ import {
   dismissCommand,
   EditorActions,
   EventDispatcher,
+  updateStatusWithAnalytics,
+  insertDate,
+  dateToDateType,
 } from '@atlaskit/editor-core';
 import { DocBuilder, doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 import { createProsemirrorEditorFactory } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
@@ -49,6 +52,8 @@ jest.mock('@atlaskit/editor-core', () => ({
       };
     },
   },
+  updateStatusWithAnalytics: jest.fn(() => () => {}),
+  insertDate: jest.fn(() => () => {}),
 }));
 jest.mock('@atlaskit/editor-common', () => ({
   ...jest.requireActual<Object>('@atlaskit/editor-common'),
@@ -512,6 +517,22 @@ describe('perform edit action', () => {
     expect(bridge.mobileEditingToolbarActions.performEditAction).toBeCalledWith(
       '0',
       editorView,
+      null,
+    );
+  });
+
+  it('should delegate handling the action with the given value to the toolbar actions', () => {
+    let bridge: WebBridgeImpl = new WebBridgeImpl();
+    const editorView = {} as EditorViewWithComposition;
+    bridge.editorView = editorView;
+    bridge.mobileEditingToolbarActions.performEditAction = jest.fn();
+
+    bridge.performEditAction('0', 'value');
+
+    expect(bridge.mobileEditingToolbarActions.performEditAction).toBeCalledWith(
+      '0',
+      editorView,
+      'value',
     );
   });
 });
@@ -629,5 +650,30 @@ describe('fetchPayload', () => {
     let expectedURL = originURL.origin + '/payload/category/112233';
     expect(fetchSpy).toHaveBeenCalledWith(expectedURL);
     expect(returnValue).toEqual(someObject);
+  });
+});
+
+describe('insert node', () => {
+  it('should insert a status node', () => {
+    let bridge: WebBridgeImpl = new WebBridgeImpl();
+    const editorView = {} as EditorViewWithComposition;
+    bridge.editorView = editorView;
+    bridge.insertNode('status');
+
+    expect(updateStatusWithAnalytics).toBeCalledWith('toolbar', {
+      text: 'Status',
+      color: 'neutral',
+    });
+  });
+
+  it('should insert a date node', () => {
+    let bridge: WebBridgeImpl = new WebBridgeImpl();
+    const editorView = {} as EditorViewWithComposition;
+    bridge.editorView = editorView;
+    bridge.insertNode('date');
+
+    const dateType = dateToDateType(new Date());
+
+    expect(insertDate).toBeCalledWith(dateType, 'toolbar', 'picker');
   });
 });

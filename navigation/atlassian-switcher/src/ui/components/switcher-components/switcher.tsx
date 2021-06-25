@@ -13,8 +13,7 @@ import {
   ViewedTracker,
   NotRenderedTracker,
   getJoinableSitesRenderTracker,
-  getRecommendedProductsRenderTracker,
-  getDiscoverMoreRenderTracker,
+  getDiscoverSectionRenderTracker,
   getRecentContainersRenderTracker,
   getCustomLinksRenderTracker,
 } from '../../../common/utils/analytics';
@@ -28,7 +27,6 @@ import {
   ProviderResults,
   SyntheticProviderResults,
   FeatureMap,
-  DiscoverLinkItemKeys,
   GetExtendedAnalyticsAttributes,
   Product,
 } from '../../../types';
@@ -234,29 +232,6 @@ export default class Switcher extends React.Component<SwitcherProps> {
                   data={{ duration: this.timeSinceMounted() }}
                 />
               )}
-              {getJoinableSitesRenderTracker(
-                rawProviderResults.joinableSites,
-                joinableSiteLinks,
-                { duration: this.timeSinceMounted() },
-              )}
-              {getRecommendedProductsRenderTracker(
-                rawProviderResults.isXFlowEnabled,
-                rawProviderResults.provisionedProducts,
-                suggestedProductLinks,
-                isDiscoverMoreClickable,
-                { duration: this.timeSinceMounted() },
-              )}
-              {getDiscoverMoreRenderTracker(
-                rawProviderResults.addProductsPermission,
-                rawProviderResults.managePermission,
-                [...adminLinks, ...fixedLinks, ...discoverSectionLinks].filter(
-                  (item) =>
-                    item.key === DiscoverLinkItemKeys.DISCOVER_MORE ||
-                    item.key === DiscoverLinkItemKeys.GIT_TOOLS,
-                ),
-                isDiscoverMoreClickable,
-                { duration: this.timeSinceMounted() },
-              )}
             </React.Fragment>
           )}
           {hasLoadedInstanceProviders && (
@@ -297,14 +272,12 @@ export default class Switcher extends React.Component<SwitcherProps> {
               onDiscoverMoreClicked={this.props.onDiscoverMoreClicked}
               showStartLink={this.props.showStartLink}
               showNewHeading={this.props.showNewHeading}
-              suggestedProductLinks={suggestedProductLinks}
-              triggerXFlow={triggerXFlow}
               getExtendedAnalyticsAttributes={getExtendedAnalyticsAttributes}
             />
           )}
           <ErrorBoundary
             product={product as Product}
-            triggerSubject="nonCoreErrorBoundary"
+            triggerSubject="crossJoinErrorBoundary"
             hideFallbackUI
           >
             <CrossJoinSection
@@ -316,7 +289,18 @@ export default class Switcher extends React.Component<SwitcherProps> {
               onClose={onClose}
               rawProviderResults={rawProviderResults}
             />
-            {isDiscoverMoreClickable && (
+            {getJoinableSitesRenderTracker(
+              rawProviderResults.joinableSites,
+              joinableSiteLinks,
+              { duration: this.timeSinceMounted() },
+            )}
+          </ErrorBoundary>
+          {isDiscoverMoreClickable && (
+            <ErrorBoundary
+              product={product as Product}
+              triggerSubject="crossFlowErrorBoundary"
+              hideFallbackUI
+            >
               <CrossFlowSection
                 appearance={appearance}
                 onDiscoverMoreClicked={this.onDiscoverMoreClicked}
@@ -327,8 +311,28 @@ export default class Switcher extends React.Component<SwitcherProps> {
                 isSlackDiscoveryEnabled={features.isSlackDiscoveryEnabled}
                 slackDiscoveryClickHandler={slackDiscoveryClickHandler}
               />
-            )}
+              {getDiscoverSectionRenderTracker(
+                rawProviderResults.isXFlowEnabled,
+                rawProviderResults.provisionedProducts,
+                rawProviderResults.joinableSites,
+                rawProviderResults.productRecommendations,
+                suggestedProductLinks,
+                { duration: this.timeSinceMounted() },
+              )}
+            </ErrorBoundary>
+          )}
+          <ErrorBoundary
+            product={product as Product}
+            triggerSubject="recentSectionErrorBoundary"
+            hideFallbackUI
+          >
             <RecentSection appearance={appearance} recentLinks={recentLinks} />
+          </ErrorBoundary>
+          <ErrorBoundary
+            product={product as Product}
+            triggerSubject="customLinksErrorBoundary"
+            hideFallbackUI
+          >
             <CustomLinksSection
               appearance={appearance}
               customLinks={customLinks}

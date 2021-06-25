@@ -196,11 +196,7 @@ const decorateWithPluginOptions = (
         description: formatMessage(messages.placeholderTextDescription),
         priority: 1400,
         keywords: ['placeholder'],
-        icon: () => (
-          <MediaServicesTextIcon
-            label={formatMessage(messages.placeholderText)}
-          />
-        ),
+        icon: () => <MediaServicesTextIcon label="" />,
         action(insert, state) {
           const tr = insert(state.schema.nodes.placeholder.createChecked());
           tr.setMeta(pluginKey, { showInsertPanelAt: tr.selection.anchor });

@@ -102,6 +102,10 @@ export type { TaskDecisionInputMethod } from './plugins/tasks-and-decisions/type
 export { EventDispatcher } from './event-dispatcher';
 export { pluginKey as statusPluginKey } from './plugins/status/plugin';
 export type { StatusState, StatusType } from './plugins/status/plugin';
+export type { DatePluginState } from './plugins/date/pm-plugins/types';
+export { insertDate } from './plugins/date/actions';
+export { dateToDateType } from './plugins/date/utils/formatParse';
+export { pluginKey as datePluginKey } from './plugins/date/pm-plugins/plugin-key';
 export {
   commitStatusPicker,
   setStatusPickerAt,
@@ -158,6 +162,7 @@ export type {
   EditorPlugin,
   EditorProps,
   EditorInstance,
+  CommandDispatch,
 } from './types';
 export { default as EditorActions } from './actions';
 // Re-export from provider factory to not cause a breaking change
@@ -196,6 +201,11 @@ export type {
   FloatingToolbarButton,
   FloatingToolbarDropdown,
   FloatingToolbarSelect,
+  FloatingToolbarColorPicker,
+  FloatingToolbarDatePicker,
+  FloatingToolbarInput,
 } from './plugins/floating-toolbar/types';
 export type { DropdownOptionT } from './plugins/floating-toolbar/ui/types';
 export type { SelectOption } from './plugins/floating-toolbar/ui/Select';
+export type { PaletteColor } from './ui/ColorPalette/Palettes/type';
+export { DEFAULT_BORDER_COLOR } from './ui/ColorPalette/Palettes/common';

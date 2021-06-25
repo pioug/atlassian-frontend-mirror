@@ -1,7 +1,9 @@
+jest.mock('@atlaskit/media-ui/formatDate');
+
 import React from 'react';
-import { shallow } from 'enzyme';
-import { TitleBox } from '../titleBox';
-import { FormattedDate } from '../formattedDate';
+import { shallow, mount } from 'enzyme';
+import { IntlProvider } from 'react-intl';
+import { TitleBox, FormattedDate } from '../titleBox';
 import { Truncate } from '@atlaskit/media-ui/truncateText';
 import { Breakpoint } from '../../common';
 import {
@@ -11,6 +13,11 @@ import {
   TitleBoxIcon,
 } from '../styled';
 import LockIcon from '@atlaskit/icon/glyph/lock-filled';
+import { formatDate } from '@atlaskit/media-ui/formatDate';
+import {
+  asMockFunction,
+  expectFunctionToHaveBeenCalledWith,
+} from '@atlaskit/media-test-helpers';
 
 describe('TitleBox', () => {
   it('should render TitleBox properly', () => {
@@ -66,5 +73,21 @@ describe('TitleBox', () => {
 
     expect(component.find(TitleBoxIcon)).toHaveLength(1);
     expect(component.find(LockIcon)).toHaveLength(1);
+  });
+
+  it('should render a formatted date using LocalizationProvider', () => {
+    const locale = 'en';
+    const timestamp = 1621568300000;
+    asMockFunction(formatDate).mockReturnValue('some-formatted-date');
+    const component = mount(
+      <IntlProvider locale={locale}>
+        <FormattedDate timestamp={timestamp} />
+      </IntlProvider>,
+    );
+
+    const formatted = component.find(FormattedDate);
+    expect(formatted.text()).toEqual('some-formatted-date');
+
+    expectFunctionToHaveBeenCalledWith(formatDate, [timestamp, locale]);
   });
 });

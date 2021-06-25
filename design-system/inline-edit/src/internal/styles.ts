@@ -36,16 +36,14 @@ export const buttonsContainerStyles: CSSObject = {
   top: '100%',
 };
 
-export const getButtonStyles = (mode: ThemeModes): CSSObject => ({
+export const getButtonWrapperStyles = (mode: ThemeModes): CSSObject => ({
   ...getElevationStyleForMode(mode),
+  backgroundColor: '#FFFFFF',
   width: spacingUnit * 4,
   zIndex: 200,
-
-  backgroundColor: '#F5F6F8',
-
-  '&:hover': {
-    backgroundColor: '#ECEDF0',
-  },
+  borderRadius: spacingUnit / 2 - 1,
+  boxSizing: 'border-box',
+  fontSize: fontSizeUnit,
 
   '&:last-child': {
     marginLeft: spacingUnit / 2,

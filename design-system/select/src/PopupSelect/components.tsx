@@ -18,12 +18,15 @@ interface MenuDialogProps {
   minWidth: number;
   style: CSSProperties;
   children: ReactNode;
+  id: string;
 }
 
 export const MenuDialog: FC<MenuDialogProps> = ({
   maxWidth,
   minWidth,
-  ...props
+  children,
+  id,
+  style,
 }) => (
   <div
     css={{
@@ -34,8 +37,11 @@ export const MenuDialog: FC<MenuDialogProps> = ({
       minWidth,
       zIndex: layers.modal(),
     }}
-    {...props}
-  />
+    style={style}
+    id={id}
+  >
+    {children}
+  </div>
 );
 
 // ==============================

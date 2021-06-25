@@ -29,7 +29,7 @@ async function mountRenderer(
   page: WebdriverPage,
   props?: {
     withRendererActions?: boolean;
-    UNSAFE_cards?: any;
+    smartLinks?: any;
   },
   adf?: Object,
 ): Promise<boolean> {
@@ -269,7 +269,7 @@ BrowserTestCase(
       page,
       {
         withRendererActions: true,
-        UNSAFE_cards: {
+        smartLinks: {
           provider: cardProviderPromise,
           allowBlockCards: true,
         },
@@ -293,7 +293,7 @@ BrowserTestCase(
       page = await goToEditorTestingWDExample(client);
       await mountEditor(page, {
         appearance: fullpage.appearance,
-        UNSAFE_cards: {
+        smartLinks: {
           provider: cardProviderPromise,
           allowBlockCards: true,
         },

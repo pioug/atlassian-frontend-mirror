@@ -1,5 +1,6 @@
 import { PluginKey } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
+import { Node as PMNode, NodeType } from 'prosemirror-model';
 import {
   EventDispatcher,
   textFormattingStateKey,
@@ -25,21 +26,33 @@ import {
   QuickInsertItem,
   SelectionDataState,
   selectionPluginKey,
+  datePluginKey,
+  DatePluginState,
+  FloatingToolbarConfig,
+  INPUT_METHOD,
+  Command,
 } from '@atlaskit/editor-core';
 
 import { valueOf as valueOfListState } from '../web-to-native/listState';
 import { valueOf as valueOfMarkState } from '../web-to-native/markState';
 import WebBridgeImpl from '../native-to-web';
-import { toNativeBridge, EditorBridgeNames } from '../web-to-native';
+import { toNativeBridge } from '../web-to-native';
 import { hasValue } from '../../utils';
 import { createPromise } from '../../cross-platform-promise';
 import EditorConfiguration from '../editor-configuration';
 import { getSelectionObserverEnabled } from '../../query-param-reader';
+import { dateToDateType } from '@atlaskit/editor-core/src/plugins/date/utils/formatParse';
+import { insertDate } from '@atlaskit/editor-core/src/plugins/date/actions';
 
 interface BridgePluginListener<T> {
-  bridge: EditorBridgeNames;
+  bridge: string;
   pluginKey: PluginKey;
-  updater: (pluginState: T, view?: EditorView, initialPass?: boolean) => void;
+  updater: (
+    pluginState: T,
+    view?: EditorView,
+    initialPass?: boolean,
+    bridge?: WebBridgeImpl,
+  ) => void;
   sendInitialState?: boolean;
 }
 
@@ -60,6 +73,62 @@ export const configFactory = (
   editorConfiguration: EditorConfiguration,
 ): Array<BridgePluginListener<any>> => {
   const configs: Array<BridgePluginListener<any>> = [
+    createListenerConfig<DatePluginState>({
+      bridge: 'dateBridge',
+      pluginKey: datePluginKey,
+      updater: (pluginState, view, initialPass, bridge) => {
+        const { showDatePickerAt } = pluginState;
+        let timestamp: number | undefined;
+        let node: PMNode<any> | null | undefined;
+        let nodeType: NodeType | undefined;
+
+        if (view && showDatePickerAt) {
+          node = view.state.doc.nodeAt(showDatePickerAt);
+        }
+
+        if (node) {
+          nodeType = node.type;
+          timestamp = parseInt(node.attrs.timestamp);
+        }
+
+        if (timestamp !== undefined && nodeType) {
+          const toolbarConfig: FloatingToolbarConfig = {
+            title: 'Date',
+            nodeType,
+            items: [
+              {
+                id: 'editor.date.datePicker',
+                type: 'select',
+                selectType: 'date',
+                options: [],
+                defaultValue: timestamp,
+                onChange: (timestamp: number): Command => (state, dispatch) => {
+                  const dateType = dateToDateType(new Date(timestamp));
+                  if (dispatch) {
+                    return insertDate(
+                      dateType,
+                      INPUT_METHOD.TOOLBAR,
+                      INPUT_METHOD.PICKER,
+                      false,
+                    )(state, dispatch);
+                  }
+
+                  return true;
+                },
+              },
+            ],
+          };
+
+          bridge?.mobileEditingToolbarActions.notifyNativeBridgeForEditCapabilitiesChanges(
+            toolbarConfig,
+          );
+        } else if (!showDatePickerAt) {
+          bridge?.mobileEditingToolbarActions.notifyNativeBridgeForEditCapabilitiesChanges(
+            undefined,
+          );
+        }
+      },
+    }),
     createListenerConfig<StatusState>({
       bridge: 'statusBridge',
       pluginKey: statusPluginKey,
@@ -289,7 +358,7 @@ function initPluginListenersFactory(configs: Array<BridgePluginListener<any>>) {
       (bridge as any)[`${config.bridge}Listener`] = (
         pluginState: any,
         initialPass: boolean,
-      ) => updater(pluginState, view, initialPass);
+      ) => updater(pluginState, view, initialPass, bridge);
 
       if (config.sendInitialState && pluginState) {
         (bridge as any)[`${config.bridge}Listener`](pluginState, true);

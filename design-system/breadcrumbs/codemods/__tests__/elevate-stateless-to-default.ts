@@ -1,3 +1,4 @@
+// eslint-disable-next-line @repo/internal/fs/filename-pattern-match
 jest.autoMockOff();
 
 import { elevateStatelessToDefault } from '../migrates/elevate-stateless-to-default';

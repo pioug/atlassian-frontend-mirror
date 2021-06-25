@@ -21,7 +21,7 @@ import {
 import TableRow from './TableRow';
 
 export interface Props extends WithSortedPageRowsProps {
-  highlightedRowIndex?: number;
+  highlightedRowIndex?: number | number[];
   onRankStart: (rankStart: RankStart) => void;
   onRankEnd: (rankEnd: RankEnd) => void;
   isFixedSize: boolean;
@@ -127,7 +127,12 @@ export class RankableBody extends React.Component<Props, {}> {
                   rowIndex={rowIndex}
                   row={row}
                   isRankingDisabled={isRankingDisabled}
-                  isHighlighted={highlightedRowIndex === rowIndex}
+                  isHighlighted={
+                    !!highlightedRowIndex &&
+                    (typeof highlightedRowIndex === 'number'
+                      ? highlightedRowIndex === rowIndex
+                      : highlightedRowIndex.indexOf(rowIndex) > -1)
+                  }
                 />
               ))}
               {provided.placeholder}

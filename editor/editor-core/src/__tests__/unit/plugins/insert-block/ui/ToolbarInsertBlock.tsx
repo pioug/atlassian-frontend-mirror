@@ -98,10 +98,7 @@ const getToolbarButton = (
 ): ReactWrapper =>
   toolbarOption
     .find(ToolbarButton)
-    .filterWhere(
-      toolbarButton =>
-        toolbarButton.find('Memo(Icon)').find({ label: title }).length > 0,
-    )
+    .filterWhere(toolbarButton => toolbarButton.find('Memo(Icon)').length > 0)
     .find(Button);
 
 const getInsertMenuButton = (

@@ -33,7 +33,9 @@ const selectOption1 = {
 };
 
 const select: Item = {
+  id: 'id',
   type: 'select',
+  selectType: 'list',
   defaultValue: { label: 'Item 1', value: 'item-1' },
   options: [selectOption1],
   onChange: _ => createNoOpCommand(),

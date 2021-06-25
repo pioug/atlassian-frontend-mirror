@@ -97,6 +97,7 @@ export default {
   'fabric.media.learn_more': 'Další informace',
   'fabric.media.load_more_gifs': 'Nahrát více GIFů',
   'fabric.media.loading': 'Načítání…',
+  'fabric.media.loading_file': 'Načítání souboru…',
   'fabric.media.might_be_a_hiccup': 'Chybička se vloudila, ale nevíme kam.',
   'fabric.media.no_gifs_found': 'Haló? Hledali jste mě?',
   'fabric.media.no_gifs_found_suggestion':

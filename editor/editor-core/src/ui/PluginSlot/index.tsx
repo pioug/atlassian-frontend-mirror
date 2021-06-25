@@ -5,8 +5,12 @@ import { ProviderFactory } from '@atlaskit/editor-common';
 import { EditorAppearance, UIComponentFactory } from '../../types';
 import { EventDispatcher } from '../../event-dispatcher';
 import EditorActions from '../../actions';
-import { DispatchAnalyticsEvent } from '../../plugins/analytics';
+import {
+  DispatchAnalyticsEvent,
+  ACTION_SUBJECT,
+} from '../../plugins/analytics';
 import { whichTransitionEvent } from '../../utils';
+import { ErrorBoundary } from '../ErrorBoundary';
 
 const PluginsComponentsWrapper = styled.div`
   display: flex;
@@ -127,25 +131,30 @@ export default class PluginSlot extends React.Component<Props, any> {
     }
 
     return (
-      <PluginsComponentsWrapper>
-        {items.map((component, key) => {
-          const props: any = { key };
-          const element = component({
-            editorView: editorView as EditorView,
-            editorActions: editorActions as EditorActions,
-            eventDispatcher: eventDispatcher as EventDispatcher,
-            providerFactory,
-            dispatchAnalyticsEvent,
-            appearance: appearance!,
-            popupsMountPoint,
-            popupsBoundariesElement,
-            popupsScrollableElement,
-            containerElement,
-            disabled,
-          });
-          return element && React.cloneElement(element, props);
-        })}
-      </PluginsComponentsWrapper>
+      <ErrorBoundary
+        component={ACTION_SUBJECT.PLUGIN_SLOT}
+        fallbackComponent={null}
+      >
+        <PluginsComponentsWrapper>
+          {items.map((component, key) => {
+            const props: any = { key };
+            const element = component({
+              editorView: editorView as EditorView,
+              editorActions: editorActions as EditorActions,
+              eventDispatcher: eventDispatcher as EventDispatcher,
+              providerFactory,
+              dispatchAnalyticsEvent,
+              appearance: appearance!,
+              popupsMountPoint,
+              popupsBoundariesElement,
+              popupsScrollableElement,
+              containerElement,
+              disabled,
+            });
+            return element && React.cloneElement(element, props);
+          })}
+        </PluginsComponentsWrapper>
+      </ErrorBoundary>
     );
   }
 }

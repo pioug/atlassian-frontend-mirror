@@ -39,6 +39,59 @@ export class MarkdownSerializer extends PMMarkdownSerializer {
   }
 }
 
+/**
+ * Stubs for unsupported nodes
+ */
+const unsupportedNodes = {
+  table(state: MarkdownSerializerState, node: PMNode) {
+    state.write('[table]');
+    state.closeBlock(node);
+  },
+  blockCard(state: MarkdownSerializerState, node: PMNode) {
+    state.write('[block card]');
+    state.closeBlock(node);
+  },
+  embedCard(state: MarkdownSerializerState) {
+    state.write('[embeded card]');
+  },
+  inlineCard(state: MarkdownSerializerState) {
+    state.write('[inline card]');
+  },
+  inlineExtension(state: MarkdownSerializerState) {
+    state.write('[inline extension]');
+  },
+  extension(state: MarkdownSerializerState, node: PMNode) {
+    state.write('[extension]');
+    state.closeBlock(node);
+  },
+  bodiedExtension(state: MarkdownSerializerState, node: PMNode) {
+    state.write('[bodied extension]');
+    state.closeBlock(node);
+  },
+  taskList(state: MarkdownSerializerState, node: PMNode) {
+    state.write('[task list]');
+    state.closeBlock(node);
+  },
+  caption(state: MarkdownSerializerState) {
+    state.write('[caption]');
+  },
+  nestedExpand(state: MarkdownSerializerState) {
+    state.write('[nested expand]');
+  },
+  confluenceUnsupportedBlock(state: MarkdownSerializerState) {
+    state.write('');
+  },
+  confluenceUnsupportedInline(state: MarkdownSerializerState) {
+    state.write('');
+  },
+  unsupportedInline(state: MarkdownSerializerState) {
+    state.write('');
+  },
+  unsupportedBlock(state: MarkdownSerializerState) {
+    state.write('');
+  },
+};
+
 export const nodes = {
   blockquote(state: MarkdownSerializerState, node: PMNode) {
     state.wrapBlock('> ', undefined, node, () => state.renderContent(node));
@@ -149,7 +202,7 @@ export const nodes = {
     state.write(`@${node.attrs.id}${delimiter}`);
   },
   emoji(state: MarkdownSerializerState, node: PMNode) {
-    state.write(node.attrs.shortName);
+    state.write(node.attrs.text || node.attrs.shortName);
   },
   mediaGroup(state: MarkdownSerializerState, node: PMNode) {
     for (let i = 0; i < node.childCount; i++) {
@@ -190,27 +243,83 @@ export const nodes = {
       ).toDateString()}>`,
     );
   },
-  /**
-   * Stubs for unsupported nodes in Slack markdown
-   */
-  table(state: MarkdownSerializerState, node: PMNode) {
-    state.write('[table attached]');
-    state.closeBlock(node);
+  decisionList(state: MarkdownSerializerState, node: PMNode) {
+    for (let i = 0; i < node.childCount; i++) {
+      const child = node.child(i);
+
+      state.render(child, node, i);
+    }
+  },
+  decisionItem(
+    state: MarkdownSerializerState,
+    node: PMNode,
+    parent: PMNode,
+    index: number,
+  ) {
+    state.write('<> ');
+    state.renderInline(node);
+    state.write('\n');
+
+    if (index === parent.childCount - 1) {
+      state.write('\n');
+    }
+  },
+  layoutSection(state: MarkdownSerializerState, node: PMNode) {
+    for (let i = 0; i < node.childCount; i++) {
+      const child = node.child(i);
+
+      state.render(child, node, i);
+    }
+  },
+  layoutColumn(state: MarkdownSerializerState, node: PMNode) {
+    state.renderInline(node);
+  },
+  status(state: MarkdownSerializerState, node: PMNode) {
+    state.write(`*${node.attrs.text}*`);
   },
   panel(state: MarkdownSerializerState, node: PMNode) {
-    state.write('[panel attached]');
-    state.closeBlock(node);
+    state.renderInline(node);
   },
-  inlineCard(state: MarkdownSerializerState) {
-    state.write('[inline card attached]');
+  placeholder(state: MarkdownSerializerState, node: PMNode) {
+    state.write(node.attrs.text);
   },
-  taskList(state: MarkdownSerializerState, node: PMNode) {
-    state.write('[task attached]');
-    state.closeBlock(node);
+  confluenceJiraIssue(state: MarkdownSerializerState, node: PMNode) {
+    state.write(` JIRA | ${node.attrs.issueKey} `);
   },
-  decisionList(state: MarkdownSerializerState, node: PMNode) {
-    state.write('[decision attached]');
-    state.closeBlock(node);
+  ...unsupportedNodes,
+};
+
+/**
+ * Slack markdown does not have specific syntax for (sub|super)script, underline, text color.
+ */
+const unsupportedMarks = {
+  subsup: {
+    open: '',
+    close: '',
+  },
+  underline: {
+    open: '',
+    close: '',
+  },
+  textColor: {
+    open: '',
+    close: '',
+  },
+  typeAheadQuery: {
+    open: '',
+    close: '',
+  },
+  confluenceInlineComment: {
+    open: '',
+    close: '',
+  },
+  annotation: {
+    open: '',
+    close: '',
+  },
+  unsupportedMark: {
+    open: '',
+    close: '',
   },
 };
 
@@ -235,23 +344,5 @@ export const marks = {
     close: '>',
   },
   code: { open: '`', close: '`', escape: false },
-  /**
-   * Slack markdown does not have specific syntax for (sub|super)script, underline, text color.
-   */
-  subsup: {
-    open: '',
-    close: '',
-  },
-  underline: {
-    open: '',
-    close: '',
-  },
-  textColor: {
-    open: '',
-    close: '',
-  },
-  typeAheadQuery: {
-    open: '',
-    close: '',
-  },
+  ...unsupportedMarks,
 };

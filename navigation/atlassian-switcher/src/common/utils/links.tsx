@@ -1,6 +1,5 @@
 import React from 'react';
 import { FormattedMessage as FormattedMessageNamespace } from 'react-intl';
-import MarketplaceGlyph from '@atlaskit/icon/glyph/marketplace';
 import {
   AtlassianIcon,
   BitbucketIcon,
@@ -21,7 +20,6 @@ import {
   AvailableProduct,
   SwitcherProductType,
   ProductKey,
-  Product,
   ProvisionedProducts,
   CurrentSite,
   CollaborationGraphRecentContainer,
@@ -166,12 +164,6 @@ const PRODUCT_ORDER = [
   SwitcherProductType.AVOCADO,
 ];
 
-export const BROWSE_APPS_URL: { [Key in Product]?: string | undefined } = {
-  [Product.JIRA]: '/plugins/servlet/ac/com.atlassian.jira.emcee/discover',
-  [Product.CONFLUENCE]:
-    '/wiki/plugins/servlet/ac/com.atlassian.confluence.emcee/discover',
-};
-
 export const TO_SWITCHER_PRODUCT_KEY: {
   [Key in ProductKey]: SwitcherProductType;
 } = {
@@ -283,21 +275,6 @@ export const getAvailableProductLinks = (
       )
     );
   }).filter((link) => !!link);
-};
-
-export const getEmceeLink = (
-  product?: Product,
-): SwitcherItemType | undefined => {
-  const emceeLink = product && BROWSE_APPS_URL[product];
-
-  if (emceeLink) {
-    return {
-      key: 'browse-apps',
-      label: <FormattedMessage {...messages.browseApps} />,
-      Icon: createIcon(MarketplaceGlyph, { size: 'medium' }),
-      href: `${emceeLink}#!/discover?source=app_switcher`,
-    };
-  }
 };
 
 export const getProvisionedProducts = (

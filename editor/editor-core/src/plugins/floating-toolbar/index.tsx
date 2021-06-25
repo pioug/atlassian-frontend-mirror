@@ -10,12 +10,12 @@ import {
   AllSelection,
 } from 'prosemirror-state';
 import { findDomRefAtPos, findSelectedNodeOfType } from 'prosemirror-utils';
-import { Popup, ProviderFactory } from '@atlaskit/editor-common';
 import { Node } from 'prosemirror-model';
+import camelCase from 'lodash/camelCase';
+import { Popup, ProviderFactory } from '@atlaskit/editor-common';
 // AFP-2532 TODO: Fix automatic suppressions below
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { Position } from '@atlaskit/editor-common/src/ui/Popup/utils';
-import { pluginKey as extensionsPluginKey } from '../extension/plugin-key';
 
 import WithPluginState from '../../ui/WithPluginState';
 import { EditorPlugin } from '../../types';
@@ -24,13 +24,24 @@ import {
   DispatchAnalyticsEvent,
   AnalyticsEventPayload,
   CONTENT_COMPONENT,
+  FLOATING_CONTROLS_TITLE,
 } from '../analytics/types';
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../analytics';
+import { pluginKey as extensionsPluginKey } from '../extension/plugin-key';
 import { pluginKey as editorDisabledPluginKey } from '../editor-disabled';
+import { pluginKey as dataPluginKey } from './pm-plugins/toolbar-data/plugin-key';
+import { createPlugin as floatingToolbarDataPluginFactory } from './pm-plugins/toolbar-data/plugin';
+import { hideConfirmDialog } from './pm-plugins/toolbar-data/commands';
 
+import { ConfirmationModal } from './ui/ConfirmationModal';
 import { ToolbarLoader } from './ui/ToolbarLoader';
-import { FloatingToolbarHandler, FloatingToolbarConfig } from './types';
+import {
+  FloatingToolbarHandler,
+  FloatingToolbarConfig,
+  FloatingToolbarButton,
+} from './types';
 import { findNode } from './utils';
+import { ErrorBoundary } from '../../ui/ErrorBoundary';
 
 type ConfigWithNodeInfo = {
   config: FloatingToolbarConfig | undefined;
@@ -152,6 +163,10 @@ const floatingToolbarPlugin = (): EditorPlugin => ({
             providerFactory,
           }),
       },
+      {
+        name: 'floatingToolbarData',
+        plugin: ({ dispatch }) => floatingToolbarDataPluginFactory(dispatch),
+      },
     ];
   },
 
@@ -167,12 +182,14 @@ const floatingToolbarPlugin = (): EditorPlugin => ({
       <WithPluginState
         plugins={{
           floatingToolbarState: pluginKey,
+          floatingToolbarData: dataPluginKey,
           editorDisabledPlugin: editorDisabledPluginKey,
           extensionsState: extensionsPluginKey,
         }}
         render={({
           editorDisabledPlugin,
           floatingToolbarState,
+          floatingToolbarData,
           extensionsState,
         }) => {
           if (
@@ -216,40 +233,68 @@ const floatingToolbarPlugin = (): EditorPlugin => ({
             };
           }
 
+          const dispatchCommand = (fn?: Function) =>
+            fn && fn(editorView.state, editorView.dispatch, editorView);
+
+          // Confirm dialog
+          const { confirmDialogForItem } = floatingToolbarData || {};
+          const confirmButtonItem = confirmDialogForItem
+            ? (toolbarItems[confirmDialogForItem] as FloatingToolbarButton<
+                Function
+              >)
+            : undefined;
+
           return (
-            <Popup
-              ariaLabel={title}
-              offset={offset}
-              target={targetRef}
-              alignY="bottom"
-              forcePlacement={forcePlacement}
-              fitHeight={height}
-              fitWidth={width}
-              alignX={align}
-              stick={true}
-              mountTo={popupsMountPoint}
-              boundariesElement={popupsBoundariesElement}
-              scrollableElement={popupsScrollableElement}
-              onPositionCalculated={customPositionCalculation}
+            <ErrorBoundary
+              component={ACTION_SUBJECT.FLOATING_TOOLBAR_PLUGIN}
+              componentId={camelCase(title) as FLOATING_CONTROLS_TITLE}
+              dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+              fallbackComponent={null}
             >
-              <ToolbarLoader
+              <Popup
+                ariaLabel={title}
+                offset={offset}
                 target={targetRef}
-                items={toolbarItems}
-                node={floatingToolbarState.node}
-                dispatchCommand={(fn?: Function) =>
-                  fn && fn(editorView.state, editorView.dispatch, editorView)
-                }
-                editorView={editorView}
-                className={className}
-                focusEditor={() => editorView.focus()}
-                providerFactory={providerFactory}
-                popupsMountPoint={popupsMountPoint}
-                popupsBoundariesElement={popupsBoundariesElement}
-                popupsScrollableElement={popupsScrollableElement}
-                dispatchAnalyticsEvent={dispatchAnalyticsEvent}
-                extensionsProvider={extensionsState?.extensionProvider}
+                alignY="bottom"
+                forcePlacement={forcePlacement}
+                fitHeight={height}
+                fitWidth={width}
+                alignX={align}
+                stick={true}
+                mountTo={popupsMountPoint}
+                boundariesElement={popupsBoundariesElement}
+                scrollableElement={popupsScrollableElement}
+                onPositionCalculated={customPositionCalculation}
+              >
+                <ToolbarLoader
+                  target={targetRef}
+                  items={toolbarItems}
+                  node={floatingToolbarState.node}
+                  dispatchCommand={dispatchCommand}
+                  editorView={editorView}
+                  className={className}
+                  focusEditor={() => editorView.focus()}
+                  providerFactory={providerFactory}
+                  popupsMountPoint={popupsMountPoint}
+                  popupsBoundariesElement={popupsBoundariesElement}
+                  popupsScrollableElement={popupsScrollableElement}
+                  dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+                  extensionsProvider={extensionsState?.extensionProvider}
+                />
+              </Popup>
+
+              <ConfirmationModal
+                options={confirmButtonItem?.confirmDialog}
+                onConfirm={() => {
+                  dispatchCommand(confirmButtonItem!.onClick);
+                  dispatchCommand(hideConfirmDialog());
+                }}
+                // When closed without clicking OK or cancel buttons
+                onClose={() => {
+                  dispatchCommand(hideConfirmDialog());
+                }}
               />
-            </Popup>
+            </ErrorBoundary>
           );
         }}
       />
@@ -264,7 +309,6 @@ export default floatingToolbarPlugin;
  * ProseMirror Plugin
  *
  */
-
 // We throttle update of this plugin with RAF.
 // So from other plugins you will always get the previous state.
 export const pluginKey = new PluginKey<ConfigWithNodeInfo>(
@@ -326,6 +370,7 @@ function floatingToolbarPluginFactory(options: {
     key: pluginKey,
     state: {
       init: () => {
+        // Use this point to preload the UI
         ToolbarLoader.preload();
       },
       apply: rafApply,

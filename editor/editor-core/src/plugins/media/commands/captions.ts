@@ -62,7 +62,7 @@ export const insertAndSelectCaptionFromMediaSinglePos = (
     );
 
     tr.setMeta('scrollIntoView', false);
-    addAnalytics(state, state.tr, {
+    addAnalytics(state, tr, {
       action: ACTION.ADDED,
       eventType: EVENT_TYPE.TRACK,
       actionSubject: ACTION_SUBJECT.MEDIA_SINGLE,

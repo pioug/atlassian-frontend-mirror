@@ -110,7 +110,7 @@ export function getDefaultPresetOptionsFromEditorProps(
     createAnalyticsEvent,
     featureFlags: createFeatureFlagsFromProps(props),
     paste: {
-      cardOptions: props.UNSAFE_cards,
+      cardOptions: props.smartLinks || props.UNSAFE_cards,
       sanitizePrivateContent: props.sanitizePrivateContent,
       predictableLists: props.UNSAFE_predictableLists,
     },
@@ -149,7 +149,7 @@ export function getDefaultPresetOptionsFromEditorProps(
       headless: isMobile,
     },
     selection: { useLongPressSelection: false },
-    cardOptions: props.UNSAFE_cards,
+    cardOptions: props.smartLinks || props.UNSAFE_cards,
     codeBlock: { ...props.codeBlock, useLongPressSelection: false },
   };
 }
@@ -279,9 +279,11 @@ export default function createPluginsList(
       {
         createAnalyticsEvent,
         sanitizePrivateContent: props.sanitizePrivateContent,
-        mentionInsertDisplayName: props.mentionInsertDisplayName,
+        insertDisplayName:
+          props.mention?.insertDisplayName ?? props.mentionInsertDisplayName,
         useInlineWrapper: isMobile,
         allowZeroWidthSpaceAfter: !isMobile,
+        HighlightComponent: props.mention?.HighlightComponent,
       },
     ]);
   }
@@ -444,12 +446,13 @@ export default function createPluginsList(
     ]);
   }
 
-  if (props.UNSAFE_cards) {
+  if (props.smartLinks || props.UNSAFE_cards) {
     const fullWidthMode = props.appearance === 'full-width';
     preset.add([
       cardPlugin,
       {
         ...props.UNSAFE_cards,
+        ...props.smartLinks,
         platform: isMobile ? 'mobile' : 'web',
         fullWidthMode,
       },

@@ -71,6 +71,7 @@ export const getToolbarConfig = (
   const languageSelect: FloatingToolbarSelect<Command> = {
     id: 'editor.codeBlock.languageOptions',
     type: 'select',
+    selectType: 'list',
     onChange: option => changeLanguage(option.value),
     defaultValue,
     placeholder: formatMessage(messages.selectLanguage),

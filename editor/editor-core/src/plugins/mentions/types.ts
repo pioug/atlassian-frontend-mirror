@@ -9,10 +9,16 @@ export interface TeamInfoAttrAnalytics {
   memberCount: number;
 }
 
-export interface MentionPluginOptions {
+export interface MentionPluginConfig {
+  HighlightComponent?: React.ComponentType;
+  // flag to indicate display name instead of nick name should be inserted for mentions
+  // default: false, which inserts the nick name
+  insertDisplayName?: boolean;
+}
+
+export interface MentionPluginOptions extends MentionPluginConfig {
   createAnalyticsEvent?: CreateUIAnalyticsEvent;
   sanitizePrivateContent?: boolean;
-  mentionInsertDisplayName?: boolean;
   useInlineWrapper?: boolean;
   allowZeroWidthSpaceAfter?: boolean;
 }

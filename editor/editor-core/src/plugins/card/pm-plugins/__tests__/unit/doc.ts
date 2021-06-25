@@ -98,7 +98,7 @@ describe('card', () => {
           allowExtension: true,
           allowPanel: true,
           allowTasksAndDecisions: true,
-          UNSAFE_cards: {},
+          smartLinks: {},
         },
         createAnalyticsEvent: createAnalyticsEvent as any,
         pluginKey,

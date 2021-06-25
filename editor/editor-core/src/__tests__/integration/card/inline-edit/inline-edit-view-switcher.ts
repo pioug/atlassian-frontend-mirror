@@ -19,7 +19,7 @@ BrowserTestCase(
       appearance: 'full-page',
       allowTextAlignment: true,
       defaultValue: JSON.stringify(inlineCardAdf),
-      UNSAFE_cards: {
+      smartLinks: {
         allowBlockCards: true,
       },
     });

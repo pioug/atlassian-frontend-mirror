@@ -173,7 +173,7 @@ class ToolbarLists extends PureComponent<Props & InjectedIntlProps, State> {
                 <Wrapper>
                   <BulletListIcon label={labelLists} />
                   <ExpandIconWrapper>
-                    <ExpandIcon label={labelLists} />
+                    <ExpandIcon label="" />
                   </ExpandIconWrapper>
                 </Wrapper>
               }

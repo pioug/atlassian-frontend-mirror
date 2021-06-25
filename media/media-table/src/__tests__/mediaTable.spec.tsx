@@ -9,7 +9,7 @@ import { mount } from 'enzyme';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { DynamicTableStateless } from '@atlaskit/dynamic-table';
 import { HeadType } from '@atlaskit/dynamic-table/types';
-import ImageIcon from '@atlaskit/icon/glyph/media-services/image';
+import ImageIcon from '@atlaskit/icon-file-type/glyph/image/24';
 import {
   createFileStateSubject,
   FileState,

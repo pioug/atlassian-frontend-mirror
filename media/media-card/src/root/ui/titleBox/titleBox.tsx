@@ -1,5 +1,6 @@
 import React from 'react';
 import LockFilledIcon from '@atlaskit/icon/glyph/lock-filled';
+import { injectIntl } from 'react-intl';
 import { TitleBoxIcon as TitleBoxIconType } from '../../../index';
 import {
   TitleBoxWrapper,
@@ -9,7 +10,8 @@ import {
 } from './styled';
 import { Breakpoint } from '../common';
 import { Truncate } from '@atlaskit/media-ui/truncateText';
-import { FormattedDate } from './formattedDate';
+
+import { formatDate } from '@atlaskit/media-ui/formatDate';
 
 export type TitleBoxProps = {
   name: string;
@@ -18,6 +20,19 @@ export type TitleBoxProps = {
   titleBoxBgColor?: string;
   titleBoxIcon?: TitleBoxIconType;
 };
+
+type FormattedDateProps = { timestamp: number };
+
+type WithIntlProps = {
+  intl?: { locale?: string };
+};
+
+export const FormattedDate = injectIntl(
+  ({ timestamp, intl }: FormattedDateProps & WithIntlProps) => {
+    const { locale = 'en' } = intl || { locale: 'en' };
+    return <>{formatDate(timestamp, locale)}</>;
+  },
+);
 
 export const TitleBox = ({
   name,

@@ -36,10 +36,10 @@ const appearances: { [key: string]: { description: string; title: string } } = {
 
 const iconMap = (key: string) => {
   const icons: { [key: string]: ReactElement } = {
-    info: <Info label="Info icon" secondaryColor={N500} />,
+    info: <Info label="Info" secondaryColor={N500} />,
     success: <Tick label="Success" secondaryColor={G400} />,
-    warning: <Warning label="Warning icon" secondaryColor={Y300} />,
-    error: <Error label="Error icon" secondaryColor={R300} />,
+    warning: <Warning label="Warning" secondaryColor={Y300} />,
+    error: <Error label="Error" secondaryColor={R300} />,
   };
 
   return key ? icons[key] : icons;

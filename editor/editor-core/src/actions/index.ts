@@ -13,6 +13,7 @@ import { EventDispatcher, createDispatch } from '../event-dispatcher';
 import { safeInsert } from 'prosemirror-utils';
 import { AnalyticsEventPayload } from '@atlaskit/analytics-next/AnalyticsEvent';
 import { analyticsEventKey } from '@atlaskit/editor-common';
+import { findNodePosWithLocalId } from '../plugins/extension/utils';
 
 export type ContextUpdateHandler = (
   editorView: EditorView,
@@ -24,6 +25,7 @@ export interface EditorActionsOptions<T> {
   blur(): boolean;
   clear(): boolean;
   getValue(): Promise<T | JSONDocNode | undefined>;
+  getNodeByLocalId(id: string): Node | undefined;
   replaceDocument(rawValue: any): boolean;
   replaceSelection(rawValue: Node | Object | string): boolean;
   appendText(text: string): boolean;
@@ -164,6 +166,12 @@ export default class EditorActions<T = any> implements EditorActionsOptions<T> {
 
     const nodeSanitized = Node.fromJSON(this.editorView!.state.schema, json);
     return this.contentEncode(nodeSanitized);
+  }
+
+  getNodeByLocalId(id: string): Node | undefined {
+    if (this.editorView?.state) {
+      return findNodePosWithLocalId(this.editorView?.state, id)?.node;
+    }
   }
 
   isDocumentEmpty(): boolean {

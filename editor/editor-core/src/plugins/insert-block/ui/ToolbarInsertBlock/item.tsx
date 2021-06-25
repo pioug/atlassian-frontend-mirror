@@ -219,7 +219,7 @@ export const placeholder = mem((init: CreateInit) =>
     tooltipDescription: init.tooltipDescription,
     disabled: init.disabled,
     name: 'placeholder text',
-    Icon: PlaceholderTextIcon,
+    Icon: () => <PlaceholderTextIcon label="" />,
   }),
 );
 
@@ -239,6 +239,6 @@ export const more = mem((init: CreateInit) =>
     tooltipDescription: init.tooltipDescription,
     disabled: init.disabled,
     name: 'macro',
-    Icon: EditorMoreIcon,
+    Icon: () => <EditorMoreIcon label="" />,
   }),
 );

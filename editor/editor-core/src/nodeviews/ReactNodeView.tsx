@@ -9,6 +9,7 @@ import { EventDispatcher, createDispatch } from '../event-dispatcher';
 import {
   ACTION,
   ACTION_SUBJECT,
+  ACTION_SUBJECT_ID,
   EVENT_TYPE,
   AnalyticsDispatch,
   AnalyticsEventPayload,
@@ -22,6 +23,7 @@ import {
 } from './types';
 import { getParticipantsCount } from '../plugins/collab-edit/get-participants-count';
 import { getFeatureFlags } from '../plugins/feature-flags-context';
+import { ErrorBoundary } from '../ui/ErrorBoundary';
 
 const DEFAULT_SAMPLING_RATE = 100;
 const DEFAULT_SLOW_THRESHOLD = 7;
@@ -110,6 +112,7 @@ export default class ReactNodeView<P = ReactComponentProps>
     this.renderReactComponent(() =>
       this.render(this.reactComponentProps, this.handleRef),
     );
+
     trackingEnabled &&
       stopMeasure(`🦉${this.node.type.name}::ReactNodeView`, duration => {
         if (
@@ -139,7 +142,24 @@ export default class ReactNodeView<P = ReactComponentProps>
       return;
     }
 
-    this.portalProviderAPI.render(component, this.domRef!, this.hasContext);
+    const componentWithErrorBoundary = () => (
+      <ErrorBoundary
+        component={ACTION_SUBJECT.REACT_NODE_VIEW}
+        componentId={
+          (this?.node?.type?.name ??
+            ACTION_SUBJECT_ID.UNKNOWN_NODE) as ACTION_SUBJECT_ID
+        }
+        dispatchAnalyticsEvent={this.dispatchAnalyticsEvent}
+      >
+        {component()}
+      </ErrorBoundary>
+    );
+
+    this.portalProviderAPI.render(
+      componentWithErrorBoundary,
+      this.domRef!,
+      this.hasContext,
+    );
   }
 
   createDomRef(options?: CreateDomRefOptions): HTMLElement {
@@ -217,6 +237,7 @@ export default class ReactNodeView<P = ReactComponentProps>
     }
 
     this.node = node;
+
     this.renderReactComponent(() =>
       this.render(this.reactComponentProps, this.handleRef),
     );
@@ -280,7 +301,7 @@ export default class ReactNodeView<P = ReactComponentProps>
   }
 
   private dispatchAnalyticsEvent = (payload: AnalyticsEventPayload) => {
-    if (this.eventDispatcher && this.performanceOptions.enabled) {
+    if (this.eventDispatcher) {
       const dispatch: AnalyticsDispatch = createDispatch(this.eventDispatcher);
       dispatch(analyticsEventKey, {
         payload,

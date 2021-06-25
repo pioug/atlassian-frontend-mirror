@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/tag-group",
-  "version": "10.0.7",
+  "version": "10.0.8",
   "description": "A tag group controls the layout and alignment for a collection of tags.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -42,7 +42,7 @@
     "@testing-library/react": "^8.0.1",
     "exenv": "^1.2.2",
     "react-dom": "^16.8.0",
-    "storybook-addon-performance": "^0.15.1",
+    "storybook-addon-performance": "^0.16.0",
     "typescript": "3.9.6",
     "wait-for-expect": "^1.2.0"
   },

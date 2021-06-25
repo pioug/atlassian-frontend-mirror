@@ -36,5 +36,4 @@ export type OnInsert = ({ item }: { item: MenuItem }) => Transaction;
 
 export type SvgGetterParams = {
   name: string;
-  content: string;
 };

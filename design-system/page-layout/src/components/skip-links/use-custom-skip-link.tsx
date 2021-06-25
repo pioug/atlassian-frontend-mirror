@@ -10,12 +10,10 @@ export const useCustomSkipLink = (
 ) => {
   const { registerSkipLink, unregisterSkipLink } = useSkipLinks();
 
-  registerSkipLink({ id, skipLinkTitle, listIndex });
-
   useEffect(() => {
+    registerSkipLink({ id, skipLinkTitle, listIndex });
     return () => {
       unregisterSkipLink(id);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id, listIndex, skipLinkTitle]);
+  }, [id, listIndex, skipLinkTitle, registerSkipLink, unregisterSkipLink]);
 };

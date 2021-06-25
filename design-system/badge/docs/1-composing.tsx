@@ -35,7 +35,7 @@ import { Container } from '@atlaskit/badge';
   ${(
     <Props
       heading=""
-      props={require('!!extract-react-types-loader!../src/components/ContainerProps')}
+      props={require('!!extract-react-types-loader!../extract-react-types/container-props')}
     />
   )}
 
@@ -57,7 +57,7 @@ import { Container, Format } from '@atlaskit/badge';
   ${(
     <Props
       heading=""
-      props={require('!!extract-react-types-loader!../src/components/Format')}
+      props={require('!!extract-react-types-loader!../src/internal/components/format')}
     />
   )}
 `;

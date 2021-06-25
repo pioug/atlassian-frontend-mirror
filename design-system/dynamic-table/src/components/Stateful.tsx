@@ -108,6 +108,7 @@ export default class DynamicTable extends React.Component<
       onRankStart,
       onPageRowsUpdate,
       testId,
+      label,
     } = this.props;
 
     return (
@@ -133,6 +134,7 @@ export default class DynamicTable extends React.Component<
         onRankStart={onRankStart}
         onPageRowsUpdate={onPageRowsUpdate}
         testId={testId}
+        label={label}
       />
     );
   }

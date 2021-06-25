@@ -28,18 +28,24 @@ const PopupSelectExample = () => (
       <PopupSelect
         {...defaults}
         value={options[2]}
-        target={({ ref }) => <button ref={ref}>Target</button>}
+        target={({ isOpen, ...triggerProps }) => (
+          <button {...triggerProps}>Target</button>
+        )}
       />
       <PopupSelect
         {...defaults}
-        target={({ ref }) => <button ref={ref}>W/O Search</button>}
+        target={({ isOpen, ...triggerProps }) => (
+          <button {...triggerProps}>W/O Search</button>
+        )}
         popperProps={{ placement: 'bottom', strategy: 'fixed' }}
         searchThreshold={10}
       />
       <PopupSelect
         {...defaults}
-        target={({ ref }) => (
-          <button ref={ref}>Placement: &ldquo;right-start&rdquo; (flip)</button>
+        target={({ isOpen, ...triggerProps }) => (
+          <button {...triggerProps}>
+            Placement: &ldquo;right-start&rdquo; (flip)
+          </button>
         )}
         popperProps={{ placement: 'right-start' }}
       />
@@ -60,14 +66,16 @@ const PopupSelectExample = () => (
         <div css={{ height: 100 }} />
         <PopupSelect
           {...defaults}
-          target={({ ref }) => <button ref={ref}>Target</button>}
+          target={({ isOpen, ...triggerProps }) => (
+            <button {...triggerProps}>Target</button>
+          )}
         />
       </div>
       <div css={{ margin: '1em' }}>
         <PopupSelect
           {...defaults}
-          target={({ ref }) => (
-            <button ref={ref}>
+          target={({ isOpen, ...triggerProps }) => (
+            <button {...triggerProps}>
               <AppSwitcherIcon label="switcher" />
             </button>
           )}

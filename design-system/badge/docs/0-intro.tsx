@@ -39,7 +39,7 @@ ${(
   ${(
     <Props
       heading="Props"
-      props={require('!!extract-react-types-loader!../src/components')}
+      props={require('!!extract-react-types-loader!../src/badge')}
     />
   )}
 `;

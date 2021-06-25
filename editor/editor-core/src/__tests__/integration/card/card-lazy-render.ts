@@ -32,7 +32,7 @@ BrowserTestCase(
       appearance: 'full-page',
       allowTextAlignment: true,
       defaultValue: JSON.stringify(cardLazyAdf),
-      UNSAFE_cards: {
+      smartLinks: {
         allowBlockCards: true,
         allowEmbeds: true,
       },

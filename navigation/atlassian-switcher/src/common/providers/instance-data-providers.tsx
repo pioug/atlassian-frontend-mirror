@@ -91,7 +91,7 @@ export const UserPermissionProvider = withHandleOptionalCloudId(
 );
 
 // Xflow settings api
-const fetchXflowSettings = withCached(({ cloudId }: WithCloudId) =>
+export const fetchXflowSettings = withCached(({ cloudId }: WithCloudId) =>
   fetchJson<XFlowSettingsResponse>(
     `/gateway/api/site/${cloudId}/setting/xflow`,
   ).then((xFlowSettings) =>

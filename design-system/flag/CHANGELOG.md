@@ -1,5 +1,17 @@
 # @atlaskit/flag
 
+## 14.3.3
+
+### Patch Changes
+
+- [`bc7669cb402`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bc7669cb402) - [ux] Fixed flag labels to be more accurately describe their elements.
+
+## 14.3.2
+
+### Patch Changes
+
+- [`d6f7ff383cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d6f7ff383cf) - Updates to development dependency `storybook-addon-performance`
+
 ## 14.3.1
 
 ### Patch Changes

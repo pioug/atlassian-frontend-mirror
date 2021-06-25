@@ -8,7 +8,7 @@ import Flag from '../../src';
 export default function FlagDefault() {
   return (
     <Flag
-      icon={<SuccessIcon primaryColor={G300} label="Info" />}
+      icon={<SuccessIcon primaryColor={G300} label="Success" />}
       description="Bamboo will permanently delete all related configuration settings, artifacts, logos, and results. This can’t be undone."
       id="1"
       key="1"

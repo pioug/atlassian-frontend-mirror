@@ -29,12 +29,13 @@ import {
 import { messages } from '../insert-block/ui/ToolbarInsertBlock/messages';
 import { DateType } from './types';
 import { pluginKey as datePluginKey } from './pm-plugins/plugin-key';
+import type { Props as DatePickerProps } from './ui/DatePicker';
 
 const DatePicker = Loadable({
   loader: () =>
     import(
-      /* webpackChunkName:"@atlaskit-internal-editor-datepicker" */ './ui/DatePicker'
-    ),
+      /* webpackChunkName: "@atlaskit-internal_editor-datepicker" */ './ui/DatePicker'
+    ).then(mod => mod.default) as Promise<React.ComponentType<DatePickerProps>>,
   loading: () => null,
 });
 
@@ -161,7 +162,7 @@ const datePlugin = (): EditorPlugin => ({
         priority: 800,
         keywords: ['calendar', 'day', 'time', 'today', '/'],
         keyshortcut: '//',
-        icon: () => <IconDate label={formatMessage(messages.date)} />,
+        icon: () => <IconDate />,
         action(insert, state) {
           const tr = createDate()(insert, state);
 

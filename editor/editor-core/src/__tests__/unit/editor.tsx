@@ -605,7 +605,7 @@ describe(name, () => {
             )}
             autoformattingProvider={Promise.resolve(autoformattingProvider)}
             media={mediaOptions}
-            UNSAFE_cards={cardOptions}
+            smartLinks={cardOptions}
             quickInsert={quickInsert}
             extensionProviders={
               defineExtensionsProvider ? [extensionProviderProps] : undefined
@@ -755,6 +755,20 @@ describe(name, () => {
 
       it('should be populated with cardProvider', done => {
         const { providerFactory, cardProvider } = setup();
+        assertProvider(providerFactory, 'cardProvider', cardProvider, done);
+      });
+
+      it('should be populated with cardProvider on deprecated UNSAFE_cards', done => {
+        const cardProvider = {} as any;
+        const cardOptions: CardOptions = {
+          provider: Promise.resolve(cardProvider),
+        };
+
+        const component = mount(<Editor UNSAFE_cards={cardOptions} />);
+        const providerFactory = component
+          .find<EditorViewProps>(ReactEditorView)
+          .props().providerFactory;
+
         assertProvider(providerFactory, 'cardProvider', cardProvider, done);
       });
 

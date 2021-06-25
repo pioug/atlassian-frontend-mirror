@@ -1,5 +1,11 @@
 # @atlaskit/analytics-next
 
+## 8.1.4
+
+### Patch Changes
+
+- [`d6f7ff383cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d6f7ff383cf) - Updates to development dependency `storybook-addon-performance`
+
 ## 8.1.3
 
 ### Patch Changes

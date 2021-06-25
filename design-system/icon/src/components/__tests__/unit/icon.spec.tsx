@@ -90,6 +90,20 @@ describe('@atlaskit/icon', () => {
         expect(element.getAttribute('role')).toEqual('presentation');
         expect(element.getAttribute('aria-label')).toEqual(null);
       });
+
+      it('should be hidden for assistive technologies when label is an empty string', () => {
+        const testId = 'test-icon';
+        const { getByTestId } = r(
+          <Icon
+            testId="test-icon"
+            dangerouslySetGlyph={customGlyphString}
+            label=""
+          />,
+        );
+
+        const element = getByTestId(testId);
+        expect(element.getAttribute('aria-hidden')).toBe('true');
+      });
     });
 
     describe('exports', () => {

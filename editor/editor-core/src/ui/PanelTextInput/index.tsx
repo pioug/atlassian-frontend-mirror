@@ -22,6 +22,7 @@ export interface Props {
   maxLength?: number;
   testId?: string;
   ariaLabel?: string;
+  describedById?: string;
 }
 
 export interface State {
@@ -70,10 +71,18 @@ export default class PanelTextInput extends PureComponent<Props, State> {
   };
 
   render() {
-    const { placeholder, width, maxLength, testId, ariaLabel } = this.props;
+    const {
+      placeholder,
+      width,
+      maxLength,
+      testId,
+      ariaLabel,
+      describedById,
+    } = this.props;
     const { value } = this.state;
     return (
       <Input
+        aria-describedby={describedById}
         data-testid={testId || ''}
         type="text"
         placeholder={placeholder}

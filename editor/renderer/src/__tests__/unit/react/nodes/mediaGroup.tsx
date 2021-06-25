@@ -13,7 +13,11 @@ import {
   defaultImageCardDimensions,
 } from '@atlaskit/media-card';
 import { FilmstripView } from '@atlaskit/media-filmstrip';
-import { ProviderFactory, EventHandlers } from '@atlaskit/editor-common';
+import {
+  ProviderFactory,
+  EventHandlers,
+  UnsupportedBlock,
+} from '@atlaskit/editor-common';
 import { MediaFeatureFlags } from '@atlaskit/media-common';
 import Media from '../../../../react/nodes/media';
 import MediaGroup from '../../../../react/nodes/mediaGroup';
@@ -220,5 +224,14 @@ describe('MediaGroup', () => {
     expect(mediaGroup.find(MediaCardInternal).props().featureFlags).toEqual(
       featureFlags,
     );
+  });
+
+  it('should render unsupported content if there is unsupported content', () => {
+    const mediaGroup = shallow(
+      <MediaGroup>
+        <UnsupportedBlock />
+      </MediaGroup>,
+    );
+    expect(mediaGroup.find(UnsupportedBlock)).toHaveLength(1);
   });
 });

@@ -15,12 +15,12 @@ export default {
   'fabric.mention.error.loginAgain': 'Try logging out then in again',
   'fabric.mention.error.differentText': 'Try entering different text',
   'fabric.elements.mentions.team.member.count':
-    '{0, plural, one{1 member} other{{0} members}}',
+    '{0, plural, one{Team • 1 member} other{Team • {0} members}}',
   'fabric.elements.mentions.team.member.count.including.you':
-    '{0, plural, one{1 member, including you} other{{0} members, including you}}',
-  'fabric.elements.mentions.team.member.50plus': '50+ members',
+    '{0, plural, one{Team • 1 member, including you} other{Team • {0} members, including you}}',
+  'fabric.elements.mentions.team.member.50plus': 'Team • 50+ members',
   'fabric.elements.mentions.team.member.50plus.including.you':
-    '50+ members, including you',
+    'Team • 50+ members, including you',
   'fabric.elements.mentions.team.mention.highlight.title': 'Mention your team',
   'fabric.elements.mentions.team.mention.highlight.description':
     'Get everyone on the page with one click. No team?',

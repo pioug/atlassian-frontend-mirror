@@ -1,5 +1,28 @@
 # @atlaskit/modal-dialog
 
+## 11.7.0
+
+### Minor Changes
+
+- [`6679c172f59`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6679c172f59) - Trap the virtual cursor within the modal for screen reader
+
+### Patch Changes
+
+- [`0f7fd3e7c0d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0f7fd3e7c0d) - FIX: content focus and keylines only applied when the target DOM node exists
+- Updated dependencies
+
+## 11.6.3
+
+### Patch Changes
+
+- [`95f500da676`](https://bitbucket.org/atlassian/atlassian-frontend/commits/95f500da676) - [ux] Fixes a bug introduced in 11.4.0 – CSS property `left` is put back to the styles of modal dialog container so it doesn't push out floated elements in the background.
+
+## 11.6.2
+
+### Patch Changes
+
+- [`d6f7ff383cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d6f7ff383cf) - Updates to development dependency `storybook-addon-performance`
+
 ## 11.6.1
 
 ### Patch Changes

@@ -94,6 +94,7 @@ export default {
   'fabric.media.learn_more': 'Dowiedz się więcej',
   'fabric.media.load_more_gifs': 'Załaduj więcej plików GIF',
   'fabric.media.loading': 'Wczytywanie...',
+  'fabric.media.loading_file': 'Ładowanie pliku…',
   'fabric.media.might_be_a_hiccup': 'To może być przejściowy problem.',
   'fabric.media.no_gifs_found': 'Halo! Czy to mnie szukasz?',
   'fabric.media.no_gifs_found_suggestion':

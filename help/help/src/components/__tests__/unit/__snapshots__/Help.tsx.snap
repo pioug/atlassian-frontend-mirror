@@ -356,8 +356,7 @@ exports[`BackButton Should match snapshot 1`] = `
 }
 
 .emotion-8[disabled] {
-  -webkit-text-fill-color: unset;
-  -webkit-opacity: 1px;
+  -webkit-text-fill-color: #A5ADBA;
 }
 
 .emotion-8::-ms-clear {
@@ -532,6 +531,7 @@ exports[`BackButton Should match snapshot 1`] = `
             class="emotion-7"
           >
             <span
+              aria-hidden="true"
               class="emotion-6"
               role="presentation"
             >

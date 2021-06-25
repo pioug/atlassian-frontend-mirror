@@ -19,6 +19,7 @@ import {
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
   CONTENT_COMPONENT,
+  FLOATING_CONTROLS_TITLE,
 } from './enums';
 import { SimplifiedNode } from '../../../utils/document-logger';
 import { DateEventPayload } from './date-events';
@@ -146,10 +147,26 @@ type ContentComponentErrorAEP = OperationalAEP<
   undefined
 >;
 
+type ComponentCrashErrorAEP = OperationalAEP<
+  ACTION.EDITOR_CRASHED,
+  | ACTION_SUBJECT.FLOATING_CONTEXTUAL_BUTTON
+  | ACTION_SUBJECT.PLUGIN_SLOT
+  | ACTION_SUBJECT.REACT_NODE_VIEW
+  | ACTION_SUBJECT.TABLES_PLUGIN
+  | ACTION_SUBJECT.FLOATING_TOOLBAR_PLUGIN,
+  ACTION_SUBJECT_ID | FLOATING_CONTROLS_TITLE,
+  {
+    error: Error;
+    errorInfo: React.ErrorInfo;
+  },
+  undefined
+>;
+
 export type ErrorEventPayload =
   | InvalidTransactionErrorAEP
   | InvalidTransactionStepErrorAEP
   | FailedToUnmountErrorAEP
   | SynchronyErrorAEP
   | SynchronyEntityErrorAEP
-  | ContentComponentErrorAEP;
+  | ContentComponentErrorAEP
+  | ComponentCrashErrorAEP;

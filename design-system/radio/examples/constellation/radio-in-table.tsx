@@ -67,9 +67,9 @@ export default function RadioInputExample() {
         <thead>
           <tr>
             <th style={{ width: 0 }} />
-            <th>Branch</th>
-            <th>Last commit</th>
-            <th>Updated</th>
+            <th id="head-description">Branch</th>
+            <th id="head-commit">Last commit</th>
+            <th id="head-updated">Updated</th>
           </tr>
         </thead>
         <tbody>
@@ -88,11 +88,12 @@ export default function RadioInputExample() {
                   onChange={onChange}
                   name={item.name}
                   value={item.value}
+                  aria-labelledby={`head-description row-${item.id}-description head-commit row-${item.id}-commit head-updated row-${item.id}-updated`}
                 />
               </td>
-              <td>{item.description}</td>
-              <td>{item.commit}</td>
-              <td>{item.updated}</td>
+              <td id={`row-${item.id}-description`}>{item.description}</td>
+              <td id={`row-${item.id}-commit`}>{item.commit}</td>
+              <td id={`row-${item.id}-updated`}>{item.updated}</td>
             </tr>
           ))}
         </tbody>

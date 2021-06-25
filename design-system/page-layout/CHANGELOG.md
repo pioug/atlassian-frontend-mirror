@@ -1,5 +1,18 @@
 # @atlaskit/page-layout
 
+## 1.0.3
+
+### Patch Changes
+
+- [`f9cb2bcf689`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f9cb2bcf689) - SkipLink order is now stable after remounting slots.
+- [`0eb13e8b2d8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0eb13e8b2d8) - Fix "Cannot update a component from inside the function body of a different component" warnings related to skip links.
+
+## 1.0.2
+
+### Patch Changes
+
+- [`d6f7ff383cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d6f7ff383cf) - Updates to development dependency `storybook-addon-performance`
+
 ## 1.0.1
 
 ### Patch Changes

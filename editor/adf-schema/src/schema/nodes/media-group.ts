@@ -8,6 +8,7 @@ export interface MediaGroupDefinition {
   type: 'mediaGroup';
   /**
    * @minItems 1
+   *  @allowUnsupportedBlock true
    */
   content: Array<Media>;
 }
@@ -15,7 +16,7 @@ export interface MediaGroupDefinition {
 export const mediaGroup: NodeSpec = {
   inline: false,
   group: 'block',
-  content: 'media+',
+  content: '(media|unsupportedBlock)+',
   attrs: {},
   marks: 'unsupportedMark unsupportedNodeAttribute',
   selectable: false,

@@ -58,8 +58,11 @@ export default {
   'fabric.editor.configPanel.customSelect.createOption': 'Létrehozás',
   'fabric.editor.configPanel.dateRange.custom.from': 'Ettől',
   'fabric.editor.configPanel.dateRange.custom.to': 'Eddig',
+  'fabric.editor.configPanel.dateRange.grouping.collapse': 'Összecsukás',
+  'fabric.editor.configPanel.dateRange.grouping.expand': 'Kibontás',
   'fabric.editor.configPanel.dateRange.option.custom': 'Egyéni',
   'fabric.editor.configPanel.documentation': 'Dokumentáció',
+  'fabric.editor.configPanel.errorBoundary.title': 'Hiba történt.',
   'fabric.editor.configPanel.fieldTypeError.isMultipleAndRadio':
     'Az isMultiple nem kombinálható a „radio” stílussal',
   'fabric.editor.configPanel.formType.addField': 'Mező hozzáadása',

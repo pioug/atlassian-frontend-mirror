@@ -1,6 +1,5 @@
 import React, {
   ChangeEvent,
-  Fragment,
   SyntheticEvent,
   useCallback,
   useState,
@@ -35,6 +34,8 @@ export interface RadioGroupProps {
   name?: string;
   /** Additional information to be included in the `context` of analytics events that come from radio */
   analyticsContext?: Record<string, any>;
+  /** The id of the element that links to this radiogroup. */
+  'aria-labelledby'?: string;
 }
 
 const noop = () => {};
@@ -52,6 +53,7 @@ export default function RadioGroup(props: RadioGroupProps) {
     onInvalid = noop,
     name,
     analyticsContext,
+    ['aria-labelledby']: ariaLabelledBy,
   } = props;
 
   const [selectedValue, setSelectedValue] = useState<
@@ -72,7 +74,7 @@ export default function RadioGroup(props: RadioGroupProps) {
   // If not then act as an uncontrolled component using the value from state
   const value = typeof propValue !== 'undefined' ? propValue : selectedValue;
   return (
-    <Fragment>
+    <div role="radiogroup" aria-labelledby={ariaLabelledBy}>
       {options.map(({ ...optionProps }: OptionPropType, index: number) => {
         if (typeof isDisabled !== 'undefined') {
           optionProps.isDisabled = isDisabled;
@@ -92,6 +94,6 @@ export default function RadioGroup(props: RadioGroupProps) {
           />
         );
       })}
-    </Fragment>
+    </div>
   );
 }

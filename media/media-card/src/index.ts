@@ -94,3 +94,5 @@ export { CardLoading } from './utils/lightCards/cardLoading';
 export { CardError } from './utils/lightCards/cardError';
 export { defaultImageCardDimensions } from './utils/cardDimensions';
 export { fileCardImageViewSelector } from './files/cardImageView';
+export { inlinePlayerClassName } from './root/inlinePlayer';
+export { newFileExperienceClassName } from './root/cardView';

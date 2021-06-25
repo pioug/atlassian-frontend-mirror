@@ -23,7 +23,7 @@ describe('resolveWithProvider()', () => {
       providerFactory,
       editorProps: {
         allowPanel: true,
-        UNSAFE_cards: {},
+        smartLinks: {},
       },
       pluginKey,
     });

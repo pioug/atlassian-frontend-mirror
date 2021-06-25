@@ -8,7 +8,7 @@ import {
   ProductKey,
   SwitcherProductType,
   JoinableSite,
-  Product,
+  DiscoverLinkItemKeys,
 } from '../../../../types';
 
 import { resolveRecommendations } from '../../../../cross-flow/providers/recommendations';
@@ -184,47 +184,50 @@ describe('cross-flow-links', () => {
 
   describe('getDiscoverSectionLinks', () => {
     const mockClickHandler = jest.fn();
-    it('should return git tools link', () => {
+    it('should return discover more link and git tools link', () => {
       const result = getDiscoverSectionLinks({
-        isEmceeLinkEnabled: true,
-        product: Product.BITBUCKET,
-        canManagePermission: true,
-        canAddProducts: true,
         recommendationsFeatureFlags: {
           [SHOW_GIT_TOOLS_KEY]: true,
         },
       });
 
       expect(
+        result.filter(
+          (link) => link.key === DiscoverLinkItemKeys.DISCOVER_MORE,
+        ),
+      ).toHaveLength(1);
+      expect(
         result.filter((link) => link.key === SHOW_GIT_TOOLS_KEY),
       ).toHaveLength(1);
     });
 
-    it('should not return git tools link', () => {
+    it('should return discover more link but not return git tools link if Git FF is off', () => {
       const result = getDiscoverSectionLinks({
-        isEmceeLinkEnabled: true,
-        product: Product.BITBUCKET,
-        canManagePermission: true,
-        canAddProducts: true,
         recommendationsFeatureFlags: {
           [SHOW_GIT_TOOLS_KEY]: false,
         },
       });
 
       expect(
+        result.filter(
+          (link) => link.key === DiscoverLinkItemKeys.DISCOVER_MORE,
+        ),
+      ).toHaveLength(1);
+      expect(
         result.filter((link) => link.key === SHOW_GIT_TOOLS_KEY),
       ).toHaveLength(0);
     });
-    it('should return slack integration link if isSlackDiscoveryEnabled enabled', () => {
+    it('should return discover more link and slack integration link if isSlackDiscoveryEnabled enabled', () => {
       const result = getDiscoverSectionLinks({
         isSlackDiscoveryEnabled: true,
         slackDiscoveryClickHandler: mockClickHandler,
-        product: Product.CONFLUENCE,
-        isEmceeLinkEnabled: true,
-        canManagePermission: true,
-        canAddProducts: true,
       });
 
+      expect(
+        result.filter(
+          (link) => link.key === DiscoverLinkItemKeys.DISCOVER_MORE,
+        ),
+      ).toHaveLength(1);
       expect(
         result.filter((link) => link.key === 'slack-integration'),
       ).toHaveLength(1);

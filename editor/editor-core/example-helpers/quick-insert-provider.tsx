@@ -8,7 +8,7 @@ import {
 const items: Array<QuickInsertItem> = [
   {
     title: 'Inline extension',
-    icon: () => <DevIcon label="dev" />,
+    icon: () => <DevIcon label="" />,
     action(insert) {
       return insert({
         type: 'inlineExtension',
@@ -33,7 +33,7 @@ const items: Array<QuickInsertItem> = [
   },
   {
     title: 'Inline async extension',
-    icon: () => <DevIcon label="dev" />,
+    icon: () => <DevIcon label="" />,
     action(insert) {
       return insert({
         type: 'inlineExtension',
@@ -58,7 +58,7 @@ const items: Array<QuickInsertItem> = [
   },
   {
     title: 'Block extension',
-    icon: () => <DevIcon label="dev" />,
+    icon: () => <DevIcon label="" />,
     action(insert) {
       return insert({
         type: 'extension',
@@ -83,7 +83,7 @@ const items: Array<QuickInsertItem> = [
   },
   {
     title: 'Full width Block extension',
-    icon: () => <DevIcon label="dev" />,
+    icon: () => <DevIcon label="" />,
     action(insert) {
       return insert({
         type: 'extension',
@@ -109,7 +109,7 @@ const items: Array<QuickInsertItem> = [
   },
   {
     title: 'Minimum width extension',
-    icon: () => <DevIcon label="dev" />,
+    icon: () => <DevIcon label="" />,
     action(insert) {
       return insert({
         type: 'extension',
@@ -126,7 +126,7 @@ const items: Array<QuickInsertItem> = [
   },
   {
     title: 'iframe Block extension',
-    icon: () => <DevIcon label="dev" />,
+    icon: () => <DevIcon label="" />,
     action(insert) {
       return insert({
         type: 'extension',
@@ -151,7 +151,7 @@ const items: Array<QuickInsertItem> = [
   },
   {
     title: 'jql table block extension',
-    icon: () => <DevIcon label="dev" />,
+    icon: () => <DevIcon label="" />,
     action(insert) {
       return insert({
         type: 'extension',
@@ -176,7 +176,7 @@ const items: Array<QuickInsertItem> = [
   },
   {
     title: 'Lorem ipsum',
-    icon: () => <DevIcon label="dev" />,
+    icon: () => <DevIcon label="" />,
     action(insert) {
       return insert({
         type: 'paragraph',

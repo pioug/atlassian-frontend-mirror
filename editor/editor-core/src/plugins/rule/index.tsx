@@ -52,9 +52,7 @@ const rulePlugin = (): EditorPlugin => ({
         keywords: ['horizontal', 'rule', 'line', 'hr'],
         priority: 1200,
         keyshortcut: '---',
-        icon: () => (
-          <IconDivider label={formatMessage(messages.horizontalRule)} />
-        ),
+        icon: () => <IconDivider />,
         action(insert, state) {
           let tr: Transaction<any> | null = null;
           const { newInsertionBehaviour } = getFeatureFlags(state);

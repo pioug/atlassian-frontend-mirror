@@ -135,7 +135,7 @@ const emojiPlugin = (options?: EmojiPluginOptions): EditorPlugin => ({
         description: formatMessage(messages.emojiDescription),
         priority: 500,
         keyshortcut: ':',
-        icon: () => <IconEmoji label={formatMessage(messages.emoji)} />,
+        icon: () => <IconEmoji />,
         action(insert, state) {
           const mark = state.schema.mark('typeAheadQuery', {
             trigger: ':',

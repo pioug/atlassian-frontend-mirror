@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/menu",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "A collection of composable menu components that can be used anywhere.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -63,7 +63,7 @@
     "jest-emotion": "^10.0.32",
     "jscodeshift": "^0.11.0",
     "react-router-dom": "^4.2.2",
-    "storybook-addon-performance": "^0.15.1",
+    "storybook-addon-performance": "^0.16.0",
     "typescript": "3.9.6"
   },
   "keywords": [

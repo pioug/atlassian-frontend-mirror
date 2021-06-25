@@ -27,6 +27,7 @@ import {
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../../../analytics';
 import { tableFloatingCellButtonStyles } from './styles.css';
 import { Node as PMNode } from 'prosemirror-model';
+import { ErrorBoundary } from '../../../../ui/ErrorBoundary';
 
 export interface Props {
   editorView: EditorView;
@@ -46,7 +47,7 @@ const ButtonWrapper = styled.div`
   ${tableFloatingCellButtonStyles}
 `;
 
-class FloatingContextualButton extends React.Component<
+export class FloatingContextualButtonInner extends React.Component<
   Props & InjectedIntlProps,
   any
 > {
@@ -176,4 +177,16 @@ class FloatingContextualButton extends React.Component<
   };
 }
 
-export default injectIntl(FloatingContextualButton);
+const FloatingContextualButton = injectIntl(FloatingContextualButtonInner);
+
+export default function (props: Props) {
+  return (
+    <ErrorBoundary
+      component={ACTION_SUBJECT.FLOATING_CONTEXTUAL_BUTTON}
+      dispatchAnalyticsEvent={props.dispatchAnalyticsEvent}
+      fallbackComponent={null}
+    >
+      <FloatingContextualButton {...props} />
+    </ErrorBoundary>
+  );
+}

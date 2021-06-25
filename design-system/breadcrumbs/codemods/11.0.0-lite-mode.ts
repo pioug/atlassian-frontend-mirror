@@ -1,3 +1,4 @@
+// eslint-disable-next-line @repo/internal/fs/filename-pattern-match
 import { elevateStatelessToDefault } from './migrates/elevate-stateless-to-default';
 import { removeHasSeparator } from './migrates/remove-hasSeparator';
 import { renameBreadcrumbsStatelessToBreadcrumbs } from './migrates/rename-bread-crumbs-stateless-to-bread-crumbs';

@@ -109,7 +109,7 @@ export default function CommentWithJiraCardsExample() {
             allowHelpDialog={true}
             allowExtension={true}
             extensionHandlers={extensionHandlers}
-            UNSAFE_cards={{
+            smartLinks={{
               // This is how we pass in the provider for smart cards
               provider: Promise.resolve(cardProvider),
             }}

@@ -98,6 +98,7 @@ export default {
   'fabric.media.learn_more': 'Meer informatie',
   'fabric.media.load_more_gifs': "Meer GIF's laden",
   'fabric.media.loading': 'Laden...',
+  'fabric.media.loading_file': 'Bestand laden ...',
   'fabric.media.might_be_a_hiccup':
     'Het kan even een tijdelijke kink in de kabel zijn.',
   'fabric.media.no_gifs_found': 'Hallo? Was je naar mij op zoek?',

@@ -41,8 +41,8 @@ export type {
 } from './extension-manifest';
 
 export type {
-  ExtensionModuleToolbarItem,
-  ExtensionModuleToolbarButton,
+  ContextualToolbar,
+  ToolbarItem,
   ExtensionToolbarButton,
 } from './extension-manifest-toolbar-item';
 

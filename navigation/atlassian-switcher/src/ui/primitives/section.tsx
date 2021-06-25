@@ -44,10 +44,10 @@ type SectionAnalyticsContext = {
 };
 
 const Section = (props: SectionProps) => {
-  const { title, children, appearance } = props;
+  const { title, children, appearance, sectionId } = props;
 
   return React.Children.toArray(children).some(Boolean) ? (
-    <SectionContainer>
+    <SectionContainer data-testid={`${sectionId}__section`}>
       {title && (
         <FadeIn>
           <SectionTitle appearance={appearance}>{title}</SectionTitle>

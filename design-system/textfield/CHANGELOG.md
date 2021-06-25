@@ -1,5 +1,17 @@
 # @atlaskit/textfield
 
+## 5.0.3
+
+### Patch Changes
+
+- [`6f0bbf09744`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6f0bbf09744) - [ux] Fix disabled TextField text contrast on Safari/WebKit browsers
+
+## 5.0.2
+
+### Patch Changes
+
+- [`d6f7ff383cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d6f7ff383cf) - Updates to development dependency `storybook-addon-performance`
+
 ## 5.0.1
 
 ### Patch Changes

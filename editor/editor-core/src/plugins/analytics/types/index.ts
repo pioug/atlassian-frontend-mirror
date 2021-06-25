@@ -6,6 +6,7 @@ export {
   INPUT_METHOD,
   TRIGGER_METHOD,
   CONTENT_COMPONENT,
+  FLOATING_CONTROLS_TITLE,
 } from './enums';
 export type {
   AnalyticsDispatch,

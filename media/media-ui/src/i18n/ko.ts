@@ -89,6 +89,7 @@ export default {
   'fabric.media.learn_more': '자세히 알아보기',
   'fabric.media.load_more_gifs': '더 많은 GIF 로드',
   'fabric.media.loading': '로드 중...',
+  'fabric.media.loading_file': '파일 로드 중…',
   'fabric.media.might_be_a_hiccup': '일시적인 문제일 수 있습니다.',
   'fabric.media.no_gifs_found': '안녕하세요. 저를 찾고 계셨나요?',
   'fabric.media.no_gifs_found_suggestion':

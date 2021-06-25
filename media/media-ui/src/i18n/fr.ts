@@ -98,6 +98,7 @@ export default {
   'fabric.media.learn_more': 'En savoir plus',
   'fabric.media.load_more_gifs': 'Charger plus de GIF',
   'fabric.media.loading': 'Chargement…',
+  'fabric.media.loading_file': 'Chargement du fichier…',
   'fabric.media.might_be_a_hiccup': "Ce n'est sûrement qu'un contretemps.",
   'fabric.media.no_gifs_found': "Hello? Is it me you're looking for?",
   'fabric.media.no_gifs_found_suggestion':

@@ -1,5 +1,11 @@
 # @atlaskit/avatar
 
+## 20.3.1
+
+### Patch Changes
+
+- [`34992526ab4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/34992526ab4) - Removes duplicate dependency (@atlaskit/tooltip) from dependency array.
+
 ## 20.3.0
 
 ### Minor Changes

@@ -21,7 +21,7 @@ describe('card', () => {
     return createEditor({
       doc,
       editorProps: {
-        UNSAFE_cards: {
+        smartLinks: {
           allowEmbeds: true,
         },
       },

@@ -36,7 +36,7 @@ describe('card', () => {
       doc,
       providerFactory,
       editorProps: {
-        UNSAFE_cards: {
+        smartLinks: {
           allowBlockCards: true,
           allowEmbeds: true,
           allowResizing: true,
@@ -74,7 +74,34 @@ describe('card', () => {
       })(editorView.state, intl, providerFactory);
       const toolbarItems = getToolbarItems(toolbar!, editorView);
       expect(toolbar).toBeDefined();
-      expect(toolbarItems).toHaveLength(8);
+      expect(toolbarItems).toHaveLength(9);
+      expect(toolbarItems).toMatchSnapshot();
+    });
+
+    it('displays toolbar items in correct order for inlineCard on mobile', () => {
+      const { editorView } = editor(
+        doc(
+          p(
+            '{<node>}',
+            inlineCard({
+              url: 'http://www.atlassian.com/',
+            })(),
+          ),
+        ),
+      );
+
+      const toolbar = floatingToolbar(
+        {
+          allowBlockCards: true,
+          allowEmbeds: true,
+          allowResizing: true,
+        },
+        'mobile',
+      )(editorView.state, intl, providerFactory);
+      const toolbarItems = getToolbarItems(toolbar!, editorView);
+      expect(toolbarItems[2].type).not.toBe('custom');
+      expect(toolbar).toBeDefined();
+      expect(toolbarItems).toHaveLength(9);
       expect(toolbarItems).toMatchSnapshot();
     });
 

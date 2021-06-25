@@ -65,5 +65,5 @@ export default interface RendererBridge
   setCallbackToNotifyConfigChange: (
     callback: CallBackToNotifyConfigChange,
   ) => void;
-  updateSystemFontSize(fontSize: string): void;
+  updateSystemFontSize(relativeFontSize: string, actualFontSize?: string): void;
 }

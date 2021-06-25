@@ -95,6 +95,7 @@ export const floatingToolbar = (
       if (allowAnnotation) {
         toolbarButtons.push({
           type: 'custom',
+          fallback: [],
           render: renderAnnotationButton(pluginState, intl),
         });
       }
@@ -107,6 +108,7 @@ export const floatingToolbar = (
     if (allowLinking && shouldShowMediaLinkToolbar(state)) {
       toolbarButtons.push({
         type: 'custom',
+        fallback: [],
         render: (editorView, idx) => {
           if (editorView?.state) {
             const editLink = () => {

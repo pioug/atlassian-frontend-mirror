@@ -1,5 +1,17 @@
 # @atlaskit/breadcrumbs
 
+## 11.2.4
+
+### Patch Changes
+
+- [`cecc3efb15d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cecc3efb15d) - Added the design-system tech stacks to the package.json and fixed linting errors, also disabled some linting rules to prevent breaking changes
+
+## 11.2.3
+
+### Patch Changes
+
+- [`139a522574f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/139a522574f) - Change selector for checking if breadcrumbs where clicked with click-area-helper
+
 ## 11.2.2
 
 ### Patch Changes

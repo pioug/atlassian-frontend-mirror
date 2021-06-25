@@ -413,7 +413,7 @@ class ExampleEditorComponent extends React.Component<
                   allowIndentation={true}
                   allowDynamicTextSizing={true}
                   allowTemplatePlaceholders={{ allowInserting: true }}
-                  UNSAFE_cards={{
+                  smartLinks={{
                     provider: Promise.resolve(cardProvider),
                   }}
                   allowStatus={true}

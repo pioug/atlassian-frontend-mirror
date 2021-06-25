@@ -1,6 +1,7 @@
+import { getMediaTypeFromMimeType } from '@atlaskit/media-common/mediaTypeUtils';
+
 import { MediaType } from '../models/media';
 import { UploadableFile } from '../uploader';
-import { getMediaTypeFromMimeType } from './getMediaTypeFromMimeType';
 
 export const getMediaTypeFromUploadableFile = (
   file: UploadableFile,

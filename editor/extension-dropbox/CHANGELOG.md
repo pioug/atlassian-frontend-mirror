@@ -1,5 +1,13 @@
 # @atlaskit/editor-extension-dropbox
 
+## 0.2.18
+
+### Patch Changes
+
+- [`d05cb164f3f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d05cb164f3f) - NO-ISSUE dereference default export of async imported modules for better interop
+- [`94448f306ed`](https://bitbucket.org/atlassian/atlassian-frontend/commits/94448f306ed) - AK-330 Fix editor toolbar and quick insert menu items pronounced twice by screen readers
+- Updated dependencies
+
 ## 0.2.17
 
 ### Patch Changes

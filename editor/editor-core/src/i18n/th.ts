@@ -55,6 +55,8 @@ export default {
   'fabric.editor.configPanel.customSelect.createOption': 'สร้าง',
   'fabric.editor.configPanel.dateRange.custom.from': 'จาก',
   'fabric.editor.configPanel.dateRange.custom.to': 'ถึง',
+  'fabric.editor.configPanel.dateRange.grouping.collapse': 'ยุบรวม',
+  'fabric.editor.configPanel.dateRange.grouping.expand': 'ส่วนขยาย',
   'fabric.editor.configPanel.dateRange.option.custom': 'ปรับแต่ง',
   'fabric.editor.configPanel.documentation': 'เอกสารประกอบ',
   'fabric.editor.configPanel.fieldTypeError.isMultipleAndRadio':

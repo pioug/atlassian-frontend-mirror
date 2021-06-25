@@ -29,7 +29,9 @@ describe('Notify editing capabilities to the native bridge', () => {
         ],
       },
       {
+        id: 'id',
         type: 'select',
+        selectType: 'list',
         onChange: jest.fn(),
         options: [
           {
@@ -37,6 +39,46 @@ describe('Notify editing capabilities to the native bridge', () => {
             value: 'java',
           },
         ],
+      },
+      {
+        id: 'select.color.id',
+        type: 'select',
+        selectType: 'color',
+        onChange: jest.fn(),
+        options: [
+          {
+            label: 'white',
+            value: 'fffff',
+            border: 'ffff',
+          },
+        ],
+      },
+      {
+        id: 'input.id',
+        type: 'input',
+        onSubmit: jest.fn(),
+        onBlur: jest.fn(),
+      },
+      {
+        type: 'custom',
+        fallback: [
+          {
+            type: 'separator',
+          },
+          {
+            type: 'button',
+            title: 'info',
+            onClick: jest.fn(),
+          },
+        ],
+        render: jest.fn(),
+      },
+      {
+        id: 'dateId',
+        type: 'select',
+        selectType: 'date',
+        onChange: jest.fn(),
+        options: [],
       },
     ],
   };
@@ -65,7 +107,9 @@ describe('Notify editing capabilities to the native bridge', () => {
           ],
         },
         {
+          id: 'id',
           type: 'select',
+          selectType: 'list',
           onChange: jest.fn(),
           options: [
             {
@@ -106,7 +150,9 @@ describe('Notify editing capabilities to the native bridge', () => {
         key: '1',
       },
       {
+        id: 'id',
         type: 'select',
+        selectType: 'list',
         options: [
           {
             label: 'Java',
@@ -115,6 +161,40 @@ describe('Notify editing capabilities to the native bridge', () => {
           },
         ],
         key: '2',
+      },
+      {
+        id: 'select.color.id',
+        type: 'select',
+        selectType: 'color',
+        options: [
+          {
+            label: 'white',
+            value: 'fffff',
+            border: 'ffff',
+            key: '3.0',
+          },
+        ],
+        key: '3',
+      },
+      {
+        id: 'input.id',
+        type: 'input',
+        key: '4',
+      },
+      {
+        type: 'separator',
+      },
+      {
+        type: 'button',
+        title: 'info',
+        key: '6',
+      },
+      {
+        id: 'dateId',
+        type: 'select',
+        selectType: 'date',
+        options: [],
+        key: '7',
       },
     ];
 
@@ -150,7 +230,9 @@ describe('Notify editing capabilities to the native bridge', () => {
         key: '1',
       },
       {
+        id: 'id',
         type: 'select',
+        selectType: 'list',
         options: [
           {
             label: 'Java',
@@ -309,6 +391,7 @@ describe('Notify editing capabilities to the native bridge', () => {
         {
           id: 'select1',
           type: 'select',
+          selectType: 'list',
           onChange: jest.fn(),
           options: [
             {
@@ -485,7 +568,9 @@ describe('perform edit action', () => {
       nodeType: defaultSchema.nodes['panel'],
       items: [
         {
+          id: 'id',
           type: 'select',
+          selectType: 'list',
           onChange: selected => {
             return mockOnChange;
           },
@@ -507,5 +592,96 @@ describe('perform edit action', () => {
     toolbarActions.performEditAction('0.0', editorView);
 
     expect(mockOnChange).toBeCalled();
+  });
+
+  it('should perform change action for color picker', () => {
+    const mockOnChange = jest.fn();
+    const floatingToolbarConfig: FloatingToolbarConfig = {
+      title: 'floating',
+      nodeType: defaultSchema.nodes['panel'],
+      items: [
+        {
+          id: 'id',
+          type: 'select',
+          selectType: 'color',
+          onChange: () => {
+            return mockOnChange;
+          },
+          options: [
+            {
+              label: 'green',
+              value: 'fffff',
+              border: 'ffff',
+            },
+          ],
+        },
+      ],
+    };
+
+    toolbarActions.notifyNativeBridgeForEditCapabilitiesChanges(
+      floatingToolbarConfig,
+    );
+    const editorView = {} as EditorViewWithComposition;
+
+    toolbarActions.performEditAction('0.0', editorView);
+
+    expect(mockOnChange).toBeCalled();
+  });
+
+  it('should perform submit action for input', () => {
+    const mockOnChange = jest.fn(value => true);
+    const floatingToolbarConfig: FloatingToolbarConfig = {
+      title: 'floating',
+      nodeType: defaultSchema.nodes['panel'],
+      items: [
+        {
+          id: 'id',
+          type: 'input',
+          onSubmit: input => () => {
+            mockOnChange(input);
+            return true;
+          },
+          onBlur: () => () => {
+            return true;
+          },
+        },
+      ],
+    };
+
+    toolbarActions.notifyNativeBridgeForEditCapabilitiesChanges(
+      floatingToolbarConfig,
+    );
+    const editorView = {} as EditorViewWithComposition;
+
+    toolbarActions.performEditAction('0.0', editorView, 'value');
+
+    expect(mockOnChange).toBeCalledWith('value');
+  });
+
+  it('should perform change action for date select options', () => {
+    const mockCommand = jest.fn();
+    const mockOnChange = jest.fn(() => mockCommand);
+    const toolbarConfig: FloatingToolbarConfig = {
+      title: 'floating',
+      nodeType: defaultSchema.nodes['date'],
+      items: [
+        {
+          id: 'id',
+          type: 'select',
+          selectType: 'date',
+          onChange: mockOnChange,
+          options: [],
+        },
+      ],
+    };
+
+    toolbarActions.notifyNativeBridgeForEditCapabilitiesChanges(toolbarConfig);
+
+    const editorView = {} as EditorViewWithComposition;
+
+    toolbarActions.performEditAction('0', editorView, '0');
+
+    expect(mockOnChange).toBeCalledWith(0);
+    expect(mockCommand).toBeCalled();
   });
 });

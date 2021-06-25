@@ -14,7 +14,6 @@ describe('Polling Function', () => {
     poll_maxAttempts: 5,
     poll_backoffFactor: 1.25,
     poll_maxIntervalMs: 100,
-    poll_maxGlobalFailures: 10,
   } as PollingOptions;
 
   it('should use default options if none given', () => {
@@ -180,51 +179,10 @@ describe('Polling Function', () => {
     done();
   });
 
-  it('should not call executor if maxFailures has exceeded poll_maxGlobalFailures (hard kill)', async (done) => {
-    const poll = new PollingFunction({
-      ...options,
-      poll_maxGlobalFailures: 5,
-    });
-    const originalMaxFailures = PollingFunction.failures;
-    PollingFunction.failures = 5;
-    const executor = jest.fn();
-    const mockOnError = jest.fn();
-    poll.onError = mockOnError;
-    await poll.execute(executor);
-    expect(executor).not.toHaveBeenCalled();
-    expect(mockOnError).toHaveBeenCalledTimes(1);
-    const errorThrown = mockOnError.mock.calls[0][0] as Error;
-
-    if (!isPollingError(errorThrown)) {
-      return expect(isPollingError(errorThrown)).toBeTruthy();
-    }
-
-    expect(errorThrown.attributes.reason).toEqual('pollingMaxFailuresExceeded');
-    expect(errorThrown.attributes.attempts).toBe(1);
-
-    PollingFunction.failures = originalMaxFailures;
-    done();
-  });
-
-  it('should increment static failures count when fails', async (done) => {
-    const poll = new PollingFunction({
-      ...options,
-    });
-    const executor = jest.fn().mockImplementation(() => {
-      throw new Error('some-error');
-    });
-    PollingFunction.failures = 0;
-    await poll.execute(executor);
-    expect(PollingFunction.failures).toBe(1);
-    done();
-  });
-
   it('should detect a polling error', () => {
     const error2 = new PollingError('pollingMaxAttemptsExceeded', 1);
-    const error3 = new PollingError('pollingMaxFailuresExceeded', 3);
     const error4 = new Error();
     expect(isPollingError(error2)).toBeTruthy();
-    expect(isPollingError(error3)).toBeTruthy();
     expect(isPollingError(error4)).toBeFalsy();
   });
 });

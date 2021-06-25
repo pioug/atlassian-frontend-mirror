@@ -15,10 +15,12 @@ describe('@atlaskit/radio', () => {
     describe('props', () => {
       describe('options prop', () => {
         it('renders a Radio with correct props for each option in the array', () => {
-          const { container, getByLabelText } = render(
+          const { getByLabelText, getByRole } = render(
             <RadioGroup options={sampleOptions} />,
           );
-          expect(container.children.length).toBe(sampleOptions.length);
+          expect(getByRole('radiogroup').children.length).toBe(
+            sampleOptions.length,
+          );
 
           sampleOptions.forEach((option) => {
             const radio = getByLabelText(option.label) as HTMLInputElement;

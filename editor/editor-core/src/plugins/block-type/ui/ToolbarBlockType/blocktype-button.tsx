@@ -45,12 +45,12 @@ export const BlockTypeButton: React.StatelessComponent<BlockTypeButtonProps> = p
       disabled={props.disabled}
       onClick={props.onClick}
       title={labelTextStyles}
-      aria-label="Font style"
+      aria-label={labelTextStyles}
       iconAfter={
         <Wrapper isSmall={props.isSmall}>
           {props.isSmall && <TextStyleIcon label={labelTextStyles} />}
           <ExpandIconWrapper>
-            <ExpandIcon label={labelTextStyles} />
+            <ExpandIcon label="" />
           </ExpandIconWrapper>
         </Wrapper>
       }

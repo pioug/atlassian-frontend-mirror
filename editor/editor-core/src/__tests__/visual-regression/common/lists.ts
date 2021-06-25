@@ -72,7 +72,7 @@ describe('Lists', () => {
       smartLinksAdf,
       { width: 800, height: 300 },
       {
-        UNSAFE_cards: { provider: Promise.resolve(cardProvider) },
+        smartLinks: { provider: Promise.resolve(cardProvider) },
       },
     );
     await waitForResolvedInlineCard(page);

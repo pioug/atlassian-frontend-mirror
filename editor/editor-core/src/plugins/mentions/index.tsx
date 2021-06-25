@@ -191,7 +191,7 @@ const mentionsPlugin = (options?: MentionPluginOptions): EditorPlugin => {
           keywords: ['team', 'user'],
           priority: 400,
           keyshortcut: '@',
-          icon: () => <IconMention label={formatMessage(messages.mention)} />,
+          icon: () => <IconMention />,
           action(insert, state) {
             const mark = state.schema.mark('typeAheadQuery', {
               trigger: '@',
@@ -214,6 +214,11 @@ const mentionsPlugin = (options?: MentionPluginOptions): EditorPlugin => {
         // so it's possible to use it without needing to scan through all triggers again
         customRegex: '\\(?(@)',
         getHighlight: (state: EditorState) => {
+          const CustomHighlightComponent = options?.HighlightComponent;
+          if (CustomHighlightComponent) {
+            return <CustomHighlightComponent />;
+          }
+
           const pluginState = getMentionPluginState(state);
           const provider = pluginState.mentionProvider;
           if (provider) {
@@ -354,8 +359,7 @@ const mentionsPlugin = (options?: MentionPluginOptions): EditorPlugin => {
         selectItem(state, item, insert, { mode }) {
           const sanitizePrivateContent =
             options && options.sanitizePrivateContent;
-          const mentionInsertDisplayName =
-            options && options.mentionInsertDisplayName;
+          const mentionInsertDisplayName = options && options.insertDisplayName;
 
           const { schema } = state;
 

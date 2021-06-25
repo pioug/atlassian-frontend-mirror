@@ -11,9 +11,6 @@ export const defaultPollingOptions: Required<PollingOptions> = {
   poll_maxAttempts: getMediaFeatureFlag('poll_maxAttempts') as number,
   poll_backoffFactor: getMediaFeatureFlag('poll_backoffFactor') as number,
   poll_maxIntervalMs: getMediaFeatureFlag('poll_maxIntervalMs') as number,
-  poll_maxGlobalFailures: getMediaFeatureFlag(
-    'poll_maxGlobalFailures',
-  ) as number,
 };
 
 /**
@@ -35,11 +32,6 @@ export class PollingFunction {
   onError?: (error: Error) => void;
   timeoutId: number = 0;
 
-  // This static value tracks all failures of any invoker.
-  // poll_maxAttempts is per invoker, whereas this static value is global for the page.
-  // This limits overall polling on page instead of just one invoker.
-  static failures: number = 0;
-
   constructor(options?: Partial<PollingOptions>) {
     this.options = {
       ...defaultPollingOptions,
@@ -49,14 +41,9 @@ export class PollingFunction {
   }
 
   async execute(executor: Executor): Promise<void> {
-    const { poll_maxAttempts, poll_maxGlobalFailures } = this.options;
+    const { poll_maxAttempts } = this.options;
 
-    if (PollingFunction.failures >= poll_maxGlobalFailures) {
-      // hard kill, maximum failures on page allowed
-      return this.fail(
-        new PollingError('pollingMaxFailuresExceeded', this.attempt),
-      );
-    } else if (poll_maxAttempts === 0) {
+    if (poll_maxAttempts === 0) {
       // hard kill, polling disabled
       return this.fail(
         new PollingError('pollingMaxAttemptsExceeded', this.attempt),
@@ -92,7 +79,6 @@ export class PollingFunction {
 
   private fail(error: Error) {
     const { onError } = this;
-    PollingFunction.failures += 1;
     this.cancel();
     onError && onError(error);
   }

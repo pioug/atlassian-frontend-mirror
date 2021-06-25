@@ -39,7 +39,7 @@ describe('LinkToolbarAppearance', () => {
       providerFactory,
       editorProps: {
         allowPanel: true,
-        UNSAFE_cards: {},
+        smartLinks: {},
       },
       pluginKey,
     });

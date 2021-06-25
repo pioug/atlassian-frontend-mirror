@@ -44,6 +44,7 @@ import { hideLinkToolbar } from '../../commands';
 import { EditorView } from 'prosemirror-view';
 import { LinkInputType } from '../../types';
 import { hideLinkToolbar as cardHideLinkToolbar } from '../../../card/pm-plugins/actions';
+import { ScreenReaderText } from '../../styles';
 
 export const RECENT_SEARCH_LIST_SIZE = 5;
 
@@ -80,6 +81,18 @@ export const messages = defineMessages({
     id: 'fabric.editor.clearLink',
     defaultMessage: 'Clear link',
     description: 'Clears link in the link toolbar',
+  },
+  searchLinkAriaDescription: {
+    id: 'fabric.editor.hyperlink.searchLinkAriaDescription',
+    defaultMessage: 'Suggestions will appear below as you type into the field',
+    description:
+      'Describes what the search field does for screen reader users.',
+  },
+  searchLinkResults: {
+    id: 'fabric.editor.hyperlink.searchLinkResults',
+    defaultMessage:
+      '{count, plural, =0 {no results} one {# result} other {# results}} found',
+    description: 'Announce search results for screen-reader users.',
   },
 });
 
@@ -533,7 +546,7 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
     );
     const formatClearLinkText = formatMessage(messages.clearLink);
     const formatDisplayText = formatMessage(messages.displayText);
-
+    const screenReaderDescriptionId = 'search-recent-links-field-description';
     return (
       <div className="recent-list">
         <Container provider={!!activityProvider} innerRef={this.wrapperRef}>
@@ -543,7 +556,11 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
                 <LinkIcon label={formatLinkAddressText} />
               </Tooltip>
             </IconWrapper>
+            <ScreenReaderText aria-hidden="true" id={screenReaderDescriptionId}>
+              {formatMessage(messages.searchLinkAriaDescription)}
+            </ScreenReaderText>
             <PanelTextInput
+              describedById={screenReaderDescriptionId}
               ref={ele => (this.urlInputContainer = ele)}
               placeholder={placeholder}
               testId={'link-url'}
@@ -587,7 +604,17 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
               </Tooltip>
             )}
           </TextInputWrapper>
+          <ScreenReaderText
+            aria-live="assertive"
+            id="fabric.editor.hyperlink.suggested.results"
+          >
+            {displayUrl &&
+              formatMessage(messages.searchLinkResults, {
+                count: items.length,
+              })}
+          </ScreenReaderText>
           <LinkSearchList
+            ariaControls="fabric.editor.hyperlink.suggested.results"
             items={items}
             isLoading={isLoading}
             selectedIndex={selectedIndex}

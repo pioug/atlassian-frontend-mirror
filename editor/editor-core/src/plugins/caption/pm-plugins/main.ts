@@ -15,9 +15,10 @@ import {
 
 const fireAnalytic = (
   state: EditorState,
+  tr: Transaction,
   action: ACTION.DELETED | ACTION.EDITED,
 ) => {
-  addAnalytics(state, state.tr, {
+  addAnalytics(state, tr, {
     action,
     eventType: EVENT_TYPE.TRACK,
     actionSubject: ACTION_SUBJECT.MEDIA_SINGLE,
@@ -53,10 +54,10 @@ export default (
         if (oldSelectionCaption.node.childCount === 0) {
           tr.delete(oldSelectionCaption.start - 1, oldSelectionCaption.start);
           tr.setMeta('scrollIntoView', false);
-          fireAnalytic(newState, ACTION.DELETED);
+          fireAnalytic(newState, tr, ACTION.DELETED);
           return tr;
         } else {
-          fireAnalytic(newState, ACTION.EDITED);
+          fireAnalytic(newState, tr, ACTION.EDITED);
         }
       }
     },

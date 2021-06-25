@@ -14,11 +14,19 @@ import React from 'react';
 import { DropdownOptions, RenderOptionsPropsT } from './ui/types';
 import { DispatchAnalyticsEvent } from '../analytics/types/dispatch-analytics-event';
 import { CardOptions } from '@atlaskit/editor-common';
+import { PaletteColor } from '../../ui/ColorPalette/Palettes/type';
 
 export type Icon = React.ComponentType<{ label: string }>;
 export type RenderOptionsProps = RenderOptionsPropsT<Command>;
 
 export type AlignType = 'left' | 'center' | 'right';
+
+export interface ConfirmDialogOptions {
+  title?: string; // Defaults to "Are you sure?"
+  message: string;
+  okButtonLabel?: string; // Defaults to "OK"
+  cancelButtonLabel?: string; // Defaults to "Cancel"
+}
 
 export type FloatingToolbarButton<T> = {
   id?: string;
@@ -39,12 +47,16 @@ export type FloatingToolbarButton<T> = {
   tooltipContent?: React.ReactNode;
   testId?: string;
   hideTooltipOnClick?: boolean;
+  confirmDialog?: ConfirmDialogOptions;
   // For sending data over the mobile bridge
-  metadata?: { [key: string]: number | string };
+  metadata?: { [key: string]: string };
 };
 
 export type FloatingToolbarInput<T> = {
+  id: string;
   type: 'input';
+  title?: string;
+  description?: string;
   onSubmit: (...args: any[]) => T;
   onBlur: (...args: any[]) => T;
   defaultValue?: string;
@@ -52,8 +64,9 @@ export type FloatingToolbarInput<T> = {
   hidden?: boolean;
 };
 
-export type FloatingToolbarCustom = {
+export type FloatingToolbarCustom<T> = {
   type: 'custom';
+  fallback: Array<FloatingToolbarFallbackItem<T>>;
   // No superset of all these types yet
   render: (
     view?: EditorView,
@@ -63,16 +76,30 @@ export type FloatingToolbarCustom = {
   hidden?: boolean;
 };
 
-export type FloatingToolbarSelect<T> = {
-  id?: string;
+export type FloatingToolbarSelect<T, V = SelectOption> = {
+  id: string;
   type: 'select';
-  options: SelectOption[];
+  selectType: 'list' | 'color' | 'emoji' | 'date';
+  title?: string;
+  options: V[];
   hidden?: boolean;
   hideExpandIcon?: boolean;
-  defaultValue?: SelectOption;
+  defaultValue?: V;
   placeholder?: string;
-  onChange: (selected: SelectOption) => T;
-  filterOption?: ((option: SelectOption, rawInput: string) => boolean) | null;
+  onChange: (selected: V) => T;
+  filterOption?: ((option: V, rawInput: string) => boolean) | null;
+};
+
+export type FloatingToolbarColorPicker<T> = FloatingToolbarSelect<
+  T,
+  PaletteColor
+> & {
+  selectType: 'color';
+};
+
+export type FloatingToolbarDatePicker<T> = FloatingToolbarSelect<T, number> & {
+  selectType: 'date';
+  options: never[];
 };
 
 export type FloatingToolbarSeparator = {
@@ -98,12 +125,32 @@ type FloatingToolbarExtensionsPlaceholder = {
   separator?: 'start' | 'end' | 'both';
 };
 
+/**
+ * This additional type is introduced in order to prevent infinite loop due to
+ * `extract-react-types-loader`. The issue occurs when custom type `fallback` field
+ * is an array of FloatingToolbarItem. Since FloatingToolbarItem is a FloatingToolbarCustom
+ * type, it stucks in an infinite loop. Custom - Item -> Custom .... go on.
+ *
+ * This type is restricted with the items that can be used for fallback.
+ * Make sure that this type is not a FloatingToolbarCustom type.
+ */
+export type FloatingToolbarFallbackItem<T> =
+  | FloatingToolbarButton<T>
+  | FloatingToolbarDropdown<T>
+  | FloatingToolbarSelect<T>
+  | FloatingToolbarColorPicker<T>
+  | FloatingToolbarDatePicker<T>
+  | FloatingToolbarInput<T>
+  | FloatingToolbarSeparator;
+
 export type FloatingToolbarItem<T> =
   | FloatingToolbarButton<T>
   | FloatingToolbarDropdown<T>
   | FloatingToolbarSelect<T>
+  | FloatingToolbarColorPicker<T>
+  | FloatingToolbarDatePicker<T>
   | FloatingToolbarInput<T>
-  | FloatingToolbarCustom
+  | FloatingToolbarCustom<T>
   | FloatingToolbarSeparator
   | FloatingToolbarExtensionsPlaceholder;
 export interface FloatingToolbarConfig {

@@ -40,7 +40,7 @@ import {
   TARGET_SELECTION_SOURCE,
 } from '../analytics/types/extension-events';
 
-import { getSelectedExtension } from './utils';
+import { findExtensionWithLocalId } from './utils';
 import { getPluginState } from './pm-plugins/main';
 import {
   getEditInLegacyMacroBrowser,
@@ -217,8 +217,8 @@ export const editExtension = (
   if (!view) {
     return false;
   }
-
-  const nodeWithPos = getSelectedExtension(state, true);
+  const { localId } = getPluginState(state);
+  const nodeWithPos = findExtensionWithLocalId(state, localId);
 
   if (!nodeWithPos) {
     return false;

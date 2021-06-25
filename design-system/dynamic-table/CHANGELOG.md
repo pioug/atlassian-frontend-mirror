@@ -1,5 +1,16 @@
 # @atlaskit/dynamic-table
 
+## 14.3.0
+
+### Minor Changes
+
+- [`7da3e890032`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7da3e890032) - [ux] `highlightedRowIndex` now can be a list of numbers (`number[]`), as well as `number`. Also highlighted rows now have B50/B75 colour.
+- [`aa66648082f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aa66648082f) - Add support for aria attributes on the table
+
+### Patch Changes
+
+- [`bf041942c3a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bf041942c3a) - Added styles to `HeadCell` to be visible when windows high contrast mode is turned on.
+
 ## 14.2.3
 
 ### Patch Changes

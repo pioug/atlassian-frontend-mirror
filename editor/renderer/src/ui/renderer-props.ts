@@ -36,6 +36,7 @@ export interface RendererProps {
   disableActions?: boolean;
   allowDynamicTextSizing?: boolean;
   allowHeadingAnchorLinks?: HeadingAnchorLinksProps;
+  allowPlaceholderText?: boolean;
   maxHeight?: number;
   fadeOutHeight?: number;
   truncated?: boolean;

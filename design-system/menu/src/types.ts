@@ -211,6 +211,11 @@ export interface LinkItemProps extends BaseItemProps {
    * Generally you'll want to set this to "noopener noreferrer" when `target` is "_blank".
    */
   rel?: string;
+
+  /**
+   * Used to override the accessibility role for the element.
+   */
+  role?: string;
 }
 
 export interface CustomItemComponentProps {

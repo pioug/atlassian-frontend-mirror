@@ -1,5 +1,17 @@
 # @atlaskit/menu
 
+## 1.0.3
+
+### Patch Changes
+
+- [`3c1182fdf13`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3c1182fdf13) - added optional `role` prop to link item for a11y
+
+## 1.0.2
+
+### Patch Changes
+
+- [`d6f7ff383cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d6f7ff383cf) - Updates to development dependency `storybook-addon-performance`
+
 ## 1.0.1
 
 ### Patch Changes

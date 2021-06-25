@@ -3,8 +3,9 @@ import { getURL, setup, takeSnapshot } from '../__utils__/vr-helpers';
 
 describe('Block Card', () => {
   it.each([
-    ['shows collborators on block cards', 'vr-block-card-collaborators'],
+    ['shows collaborators on block cards', 'vr-block-card-collaborators'],
     ['shows default icon on block cards', 'vr-block-card-default-icon'],
+    ['renders lozenge correctly on block cards', 'vr-block-card-lozenge'],
   ])('%s', async (_: string, testName: string) => {
     const url = getURL(testName);
     const page = await setup(url);

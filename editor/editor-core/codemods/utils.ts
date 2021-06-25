@@ -88,3 +88,17 @@ export const findImportFromPackage = (
       .filter(name => Boolean(name))
   );
 };
+
+/**
+ * Renames a variable with the given name.
+ *
+ * @param from String
+ * @param toName String
+ */
+export const createRenameVariableTransform = (from: string, toName: string) => {
+  return (j: core.JSCodeshift, source: Collection<any>) => {
+    source.find(j.Identifier, { name: from }).forEach(x => {
+      x.replace(j.identifier(toName));
+    });
+  };
+};

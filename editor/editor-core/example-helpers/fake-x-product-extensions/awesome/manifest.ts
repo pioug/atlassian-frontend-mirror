@@ -9,16 +9,28 @@ const manifest: ExtensionManifest = {
   key: 'awesome',
   description: 'Extension that does awesome things',
   icons: {
-    '16': () => import('@atlaskit/icon/glyph/tray'),
-    '24': () => import('@atlaskit/icon/glyph/tray'),
-    '48': () => import('@atlaskit/icon/glyph/tray'),
+    '16': () =>
+      import(
+        /* webpackChunkName: "@atlaskit-internal_editor-tray" */ '@atlaskit/icon/glyph/tray'
+      ).then(mod => mod.default),
+    '24': () =>
+      import(
+        /* webpackChunkName: "@atlaskit-internal_editor-tray" */ '@atlaskit/icon/glyph/tray'
+      ).then(mod => mod.default),
+    '48': () =>
+      import(
+        /* webpackChunkName: "@atlaskit-internal_editor-tray" */ '@atlaskit/icon/glyph/tray'
+      ).then(mod => mod.default),
   },
   modules: {
     quickInsert: [
       {
         key: 'item',
         title: 'Awesome item',
-        icon: () => import('@atlaskit/icon/glyph/tray'),
+        icon: () =>
+          import(
+            /* webpackChunkName: "@atlaskit-internal_editor-tray" */ '@atlaskit/icon/glyph/tray'
+          ).then(mod => mod.default),
         action: {
           type: 'node',
           key: 'default',
@@ -31,7 +43,10 @@ const manifest: ExtensionManifest = {
       {
         key: 'list',
         title: 'Awesome list',
-        icon: () => import('@atlaskit/icon/glyph/tray'),
+        icon: () =>
+          import(
+            /* webpackChunkName: "@atlaskit-internal_editor-tray" */ '@atlaskit/icon/glyph/tray'
+          ).then(mod => mod.default),
         action: {
           type: 'node',
           key: 'list',
@@ -43,7 +58,10 @@ const manifest: ExtensionManifest = {
       {
         key: 'question',
         title: 'Awesome question',
-        icon: () => import('@atlaskit/icon/glyph/tray'),
+        icon: () =>
+          import(
+            /* webpackChunkName: "@atlaskit-internal_editor-tray" */ '@atlaskit/icon/glyph/tray'
+          ).then(mod => mod.default),
         action: {
           type: 'node',
           key: 'question',
@@ -53,7 +71,10 @@ const manifest: ExtensionManifest = {
       {
         key: 'daterange',
         title: 'Awesome date range',
-        icon: () => import('@atlaskit/icon/glyph/tray'),
+        icon: () =>
+          import(
+            /* webpackChunkName: "@atlaskit-internal_editor-tray" */ '@atlaskit/icon/glyph/tray'
+          ).then(mod => mod.default),
         action: {
           type: 'node',
           key: 'daterange',
@@ -74,7 +95,10 @@ const manifest: ExtensionManifest = {
     nodes: {
       default: {
         type: 'bodiedExtension',
-        render: () => import('./extension-handler'),
+        render: () =>
+          import(
+            /* webpackChunkName: "@atlaskit-internal_editor-tray" */ './extension-handler'
+          ),
         update: (data, actions) => {
           return new Promise(() => {
             actions!.editInContextPanel(

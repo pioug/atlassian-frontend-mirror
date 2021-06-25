@@ -82,7 +82,7 @@ const panelPlugin = (options: PanelPluginOptions = {}): EditorPlugin => ({
         keywords: ['panel'],
         description: formatMessage(messages.infoPanelDescription),
         priority: 800,
-        icon: () => <IconPanel label={formatMessage(messages.infoPanel)} />,
+        icon: () => <IconPanel />,
         action(insert, state) {
           return insertPanelTypeWithAnalytics(PanelType.INFO, state, insert);
         },
@@ -92,7 +92,7 @@ const panelPlugin = (options: PanelPluginOptions = {}): EditorPlugin => ({
         title: formatMessage(messages.notePanel),
         description: formatMessage(messages.notePanelDescription),
         priority: 1000,
-        icon: () => <IconPanelNote label={formatMessage(messages.notePanel)} />,
+        icon: () => <IconPanelNote />,
         action(insert, state) {
           return insertPanelTypeWithAnalytics(PanelType.NOTE, state, insert);
         },
@@ -103,9 +103,7 @@ const panelPlugin = (options: PanelPluginOptions = {}): EditorPlugin => ({
         description: formatMessage(messages.successPanelDescription),
         keywords: ['tip'],
         priority: 1000,
-        icon: () => (
-          <IconPanelSuccess label={formatMessage(messages.successPanel)} />
-        ),
+        icon: () => <IconPanelSuccess />,
         action(insert, state) {
           return insertPanelTypeWithAnalytics(PanelType.SUCCESS, state, insert);
         },
@@ -115,9 +113,7 @@ const panelPlugin = (options: PanelPluginOptions = {}): EditorPlugin => ({
         title: formatMessage(messages.warningPanel),
         description: formatMessage(messages.warningPanelDescription),
         priority: 1000,
-        icon: () => (
-          <IconPanelWarning label={formatMessage(messages.warningPanel)} />
-        ),
+        icon: () => <IconPanelWarning />,
         action(insert, state) {
           return insertPanelTypeWithAnalytics(PanelType.WARNING, state, insert);
         },
@@ -127,9 +123,7 @@ const panelPlugin = (options: PanelPluginOptions = {}): EditorPlugin => ({
         title: formatMessage(messages.errorPanel),
         description: formatMessage(messages.errorPanelDescription),
         priority: 1000,
-        icon: () => (
-          <IconPanelError label={formatMessage(messages.errorPanel)} />
-        ),
+        icon: () => <IconPanelError />,
         action(insert, state) {
           return insertPanelTypeWithAnalytics(PanelType.ERROR, state, insert);
         },

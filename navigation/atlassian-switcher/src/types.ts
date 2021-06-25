@@ -77,8 +77,6 @@ export enum Feature {
   enableRecentContainers = 'enableRecentContainers',
   disableSwitchToHeading = 'disableSwitchToHeading',
   xflow = 'xflow',
-  // EMCEE stands for Embedded Marketplace with in the product
-  isEmceeLinkEnabled = 'isEmceeLinkEnabled',
   // Show JSW first in product recommendations
   isProductStoreInTrelloJSWFirstEnabled = 'isProductStoreInTrelloJSWFirstEnabled',
   // Show Confluence first in product recommendations
@@ -96,8 +94,6 @@ export type FeatureFlagProps = {
   enableRecentContainers?: boolean;
   /** Remove Switch-To section header - useful in nav v3  */
   disableSwitchToHeading?: boolean;
-  /** Enable Embedded Marketplace within the product.  */
-  isEmceeLinkEnabled?: boolean;
   /** Enable Integrations discovery in the discover more section  */
   isSlackDiscoveryEnabled?: boolean;
   /** Enable Trusted Admin UI deprecation  */

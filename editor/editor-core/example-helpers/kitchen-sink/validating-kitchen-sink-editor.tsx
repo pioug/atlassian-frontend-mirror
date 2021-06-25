@@ -103,7 +103,7 @@ export class ValidatingKitchenSinkEditor extends React.Component<
           allowTextAlignment={true}
           allowIndentation={true}
           allowTemplatePlaceholders={{ allowInserting: true }}
-          UNSAFE_cards={{
+          smartLinks={{
             provider: this.cardProviderPromise,
             allowBlockCards: true,
             allowEmbeds: true,

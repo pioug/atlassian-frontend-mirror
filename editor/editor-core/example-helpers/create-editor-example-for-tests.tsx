@@ -242,7 +242,7 @@ function createProviders(
       useMediaPickerAuthProvider: false,
     });
   }
-  if (opts.cards || (props && props.UNSAFE_cards)) {
+  if (opts.cards || (props && (props.smartLinks || props.UNSAFE_cards))) {
     providers.cardsProvider = Promise.resolve(cardProvider);
   }
   if (opts.collab) {
@@ -263,7 +263,7 @@ export function mapPropsToProviders(
   providers: Record<string, boolean> = {},
   props: EditorProps,
 ): Record<string, boolean> {
-  if (props && props.UNSAFE_cards) {
+  if (props && (props.smartLinks || props.UNSAFE_cards)) {
     providers.cards = true;
   }
 
@@ -288,6 +288,13 @@ export function mapProvidersToProps(
   providers: Record<string, any> = {},
   props: EditorProps,
 ): EditorProps {
+  if (props && props.smartLinks) {
+    props.smartLinks = {
+      ...props.smartLinks,
+      provider: providers.cardsProvider,
+    };
+  }
+
   if (props && props.UNSAFE_cards) {
     props.UNSAFE_cards = {
       ...props.UNSAFE_cards,

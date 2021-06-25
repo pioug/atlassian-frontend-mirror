@@ -1,64 +1,87 @@
-import React from 'react';
+/** @jsx jsx */
+import { useState } from 'react';
+
+import { css, jsx } from '@emotion/core';
 
 import Button from '@atlaskit/button/standard-button';
+import { AtlaskitThemeProvider } from '@atlaskit/theme/components';
+import { gridSize } from '@atlaskit/theme/constants';
+import type { ThemeModes } from '@atlaskit/theme/types';
 
 import Blanket from '../src';
 
-type State = {
-  onEventResult: string;
-  canClickThrough: boolean;
-  isBlanketVisible: boolean;
-};
+const eventResultStyle = css({
+  borderStyle: 'dashed',
+  borderWidth: '1px',
+  borderColor: '#ccc',
+  padding: '0.5em',
+  color: '#ccc',
+  margin: '0.5em',
+});
 
-export default class BasicExample extends React.PureComponent<void, State> {
-  state = {
-    onEventResult: 'Blanket isTinted:false canClickThrough:true',
-    canClickThrough: true,
-    isBlanketVisible: false,
+const LIGHT = 'light';
+const DARK = 'dark';
+
+const BasicExample = () => {
+  const [themeMode, setThemeMode] = useState<ThemeModes>(LIGHT);
+
+  const [isBlanketVisible, setIsBlanketVisible] = useState(false);
+  const [canClickThrough, setCanClickThrough] = useState(true);
+  const [onEventResult, setOnEventResult] = useState(
+    'Blanket isTinted:false canClickThrough:true',
+  );
+
+  const toggleMode = () => {
+    setThemeMode(themeMode === LIGHT ? DARK : LIGHT);
   };
 
-  showBlanketClick = () => {
-    this.setState({
-      onEventResult: 'Blanket isTinted: true canClickThrough: false',
-      isBlanketVisible: true,
-      canClickThrough: false,
-    });
+  const showBlanketClick = () => {
+    setOnEventResult('Blanket isTinted: true canClickThrough: false');
+    setIsBlanketVisible(true);
+    setCanClickThrough(false);
   };
 
-  onBlanketClicked = () => {
-    this.setState({
-      onEventResult: 'onBlanketClicked called with canClickThrough: true',
-      isBlanketVisible: false,
-      canClickThrough: true,
-    });
+  const onBlanketClicked = () => {
+    setOnEventResult('onBlanketClicked called with canClickThrough: true');
+    setIsBlanketVisible(false);
+    setCanClickThrough(true);
   };
 
-  render() {
-    return (
+  return (
+    <AtlaskitThemeProvider mode={themeMode}>
       <div>
-        <Button appearance="default" onClick={this.showBlanketClick}>
+        <Button
+          appearance="default"
+          onClick={showBlanketClick}
+          testId="show-button"
+        >
           Show blanket
         </Button>
-        <p>Click to Open the blanket & click the blanket to dismiss it.</p>
+        <Button
+          style={{ marginLeft: gridSize() }}
+          testId="toggle-theme"
+          onClick={toggleMode}
+        >
+          Toggle theme
+        </Button>
+        <p>
+          Click "Show blanket" button to open the blanket & click the blanket to
+          dismiss it.
+        </p>
+        <p>
+          Click "Toggle theme" button to toggle between light and dark theme.
+        </p>
 
         <Blanket
-          onBlanketClicked={this.onBlanketClicked}
-          isTinted={this.state.isBlanketVisible}
-          canClickThrough={this.state.canClickThrough}
+          onBlanketClicked={onBlanketClicked}
+          isTinted={isBlanketVisible}
+          canClickThrough={canClickThrough}
+          testId="basic-blanket"
         />
-        <div
-          style={{
-            borderStyle: 'dashed',
-            borderWidth: '1px',
-            borderColor: '#ccc',
-            padding: '0.5em',
-            color: '#ccc',
-            margin: '0.5em',
-          }}
-        >
-          {this.state.onEventResult}
-        </div>
+        <div css={eventResultStyle}>{onEventResult}</div>
       </div>
-    );
-  }
-}
+    </AtlaskitThemeProvider>
+  );
+};
+
+export default BasicExample;

@@ -247,7 +247,7 @@ export function getMimeIcon(mimeType: string, fileName: string) {
     (file) => file.mimeTypes.indexOf(mimeType) > -1,
   );
 
-  //returnthe appropriate icon and its label if we have it
+  //return the appropriate icon and its label if we have it
   if (iconInfo) {
     return iconInfo;
   }

@@ -70,7 +70,7 @@ const helpDialog = (
         keywords: ['?'],
         priority: 4000,
         keyshortcut: tooltip(openHelp),
-        icon: () => <QuestionCircleIcon label={formatMessage(messages.help)} />,
+        icon: () => <QuestionCircleIcon label="" />,
         action(insert, state) {
           const tr = insert('');
           openHelpCommand(tr);

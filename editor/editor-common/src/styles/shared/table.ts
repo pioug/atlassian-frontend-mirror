@@ -161,7 +161,7 @@ const tableSharedStyle = css`
             }
 
             /* this is only relevant to the element taken care of by renderer */
-            [data-ds--code--code-block] {
+            > [data-ds--code--code-block] {
               background-image: ${overflowShadow({
                 background: themed({
                   light: 'rgb(235, 237, 240)',

@@ -120,4 +120,48 @@ describe('Popup Select', () => {
     fireEvent.click(getByText('Target'));
     expect(getByText('Select...')).toBeTruthy();
   });
+
+  describe('trigger button', () => {
+    const renderPopupSelect = () => {
+      const renderResult = render(
+        <PopupSelect
+          options={OPTIONS}
+          target={({ isOpen, ...triggerProps }) => (
+            <button {...triggerProps}>Target</button>
+          )}
+        />,
+      );
+
+      return { ...renderResult, trigger: renderResult.getByText('Target') };
+    };
+
+    it('should have aria-haspopup attribute', () => {
+      const { trigger } = renderPopupSelect();
+      expect(trigger.getAttribute('aria-haspopup')).toBe('true');
+    });
+
+    it('should have aria-expanded attribute', () => {
+      const { trigger } = renderPopupSelect();
+
+      expect(trigger.getAttribute('aria-expanded')).toBe('false');
+      fireEvent.click(trigger);
+      expect(trigger.getAttribute('aria-expanded')).toBe('true');
+    });
+
+    it('when open, should have aria-controls attribute which is equal to the popup container id', () => {
+      const { trigger, container } = renderPopupSelect();
+
+      expect(trigger.getAttribute('aria-controls')).toBeNull();
+      // opens popup
+      fireEvent.click(trigger);
+
+      const controledId = trigger.getAttribute('aria-controls');
+      expect(controledId).toBeDefined();
+
+      const body = container.parentElement as HTMLBodyElement;
+
+      const popupWrapper = body.querySelector(`#${controledId}`);
+      expect(popupWrapper).toBeDefined();
+    });
+  });
 });

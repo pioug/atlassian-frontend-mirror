@@ -1,9 +1,8 @@
 import React from 'react';
-import { IconProps } from '../types';
 
-export default function IconListOrdered({ label = '' }: IconProps) {
+export default function IconListOrdered() {
   return (
-    <svg aria-label={label} width={40} height={40}>
+    <svg focusable="false" aria-hidden width={40} height={40}>
       <g fill="none" fillRule="evenodd">
         <path fill="#FFF" d="M0 0h40v40H0z" />
         <g transform="translate(9 9)">

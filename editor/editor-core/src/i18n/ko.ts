@@ -54,8 +54,11 @@ export default {
   'fabric.editor.configPanel.customSelect.createOption': '만들기',
   'fabric.editor.configPanel.dateRange.custom.from': '시작',
   'fabric.editor.configPanel.dateRange.custom.to': '끝',
+  'fabric.editor.configPanel.dateRange.grouping.collapse': '축소',
+  'fabric.editor.configPanel.dateRange.grouping.expand': '확대',
   'fabric.editor.configPanel.dateRange.option.custom': '사용자 지정',
   'fabric.editor.configPanel.documentation': '설명서',
+  'fabric.editor.configPanel.errorBoundary.title': '문제가 발생했습니다.',
   'fabric.editor.configPanel.fieldTypeError.isMultipleAndRadio':
     'isMultiple과 스타일을 결합할 수 없음: 라디오',
   'fabric.editor.configPanel.formType.addField': '필드 추가',

@@ -1,4 +1,6 @@
-import { BetaBrowserTestCase } from '@atlaskit/webdriver-runner/runner';
+// TODO: please investigate why BrowserTestCase can fail those tests.
+// https://product-fabric.atlassian.net/browse/EDM-2171
+import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import { BrowserObject } from '@atlaskit/webdriver-runner/wd-wrapper';
 
 import { gotoCardFilesMockedPage } from '../_pages/card-files-mocked-page';
@@ -12,7 +14,7 @@ const cardHiddenWithCacheSelector =
 const cardHiddenWithoutCacheSelector =
   '[data-testid="media-card-hidden-card-without-cache"]';
 // Edge & Safari see https://product-fabric.atlassian.net/browse/BMPT-597
-BetaBrowserTestCase(
+BrowserTestCase(
   'MediaCard - load image',
   { skip: ['edge'] },
   async (client: BrowserObject) => {
@@ -22,7 +24,7 @@ BetaBrowserTestCase(
   },
 );
 
-BetaBrowserTestCase(
+BrowserTestCase(
   'MediaCard - load image with contextId',
   { skip: ['edge'] },
   async (client: BrowserObject) => {
@@ -34,7 +36,7 @@ BetaBrowserTestCase(
   },
 );
 
-// BetaBrowserTestCase(
+// BrowserTestCase(
 //   'MediaCard - load image and launch media viewer',
 //   { skip: ['edge'] },
 //   async (client: BrowserObject) => {
@@ -48,7 +50,7 @@ BetaBrowserTestCase(
 //   },
 // );
 
-BetaBrowserTestCase(
+BrowserTestCase(
   'MediaCard - renders loading card',
   { skip: ['edge'] },
   async (client: BrowserObject) => {
@@ -58,7 +60,7 @@ BetaBrowserTestCase(
   },
 );
 
-BetaBrowserTestCase(
+BrowserTestCase(
   'MediaCard - cards that is not in the viewport but is available in local cache',
   { skip: ['edge', 'safari'] },
   async (client: BrowserObject) => {
@@ -70,7 +72,7 @@ BetaBrowserTestCase(
   },
 );
 
-BetaBrowserTestCase(
+BrowserTestCase(
   'MediaCard - cards that is not in the viewport and no local cache available',
   { skip: ['edge', 'safari'] },
   async (client: BrowserObject) => {

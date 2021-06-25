@@ -6,8 +6,20 @@ import {
   getSelectedDomElement,
   getDataConsumerMark,
   getNodeTypesReferenced,
+  findExtensionWithLocalId,
+  findNodePosWithLocalId,
 } from '../../utils';
-import { EditorState } from 'prosemirror-state';
+import { EditorState, NodeSelection } from 'prosemirror-state';
+
+import {
+  doc,
+  DocBuilder,
+  p,
+  table,
+  td,
+  tr,
+} from '@atlaskit/editor-test-helpers/doc-builder';
+import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 
 describe('getSelectedDomElement', () => {
   const root = document.createElement('div');
@@ -241,5 +253,106 @@ describe('getNodeTypesReferenced', () => {
       'taskItem',
       'taskItem',
     ]);
+  });
+});
+
+describe('findExtensionWithLocalId', () => {
+  const testId = '7d2eda3a-d623-4560-bbe6-afac2da82112';
+  const nodeJson = {
+    type: 'doc',
+    content: [
+      {
+        type: 'paragraph',
+        content: [
+          {
+            type: 'text',
+            text: 'lorem ipsum',
+          },
+        ],
+      },
+      {
+        type: 'bodiedExtension',
+        attrs: {
+          layout: 'default',
+          extensionType: 'com.atlassian.confluence.macro.core',
+          extensionKey: 'test',
+          text: '',
+          parameters: {},
+          localId: testId,
+        },
+      },
+    ],
+  };
+  const doc: PMNode = PMNode.fromJSON(defaultSchema, nodeJson);
+
+  it('should return the extension with the correct localId when the extension node is selected', () => {
+    const state: EditorState = EditorState.create({
+      doc,
+      selection: NodeSelection.create(doc, 13),
+    });
+    const extensionNode = findExtensionWithLocalId(state, testId);
+    const selectedNode = state.selection as NodeSelection;
+
+    expect(selectedNode.node.type.name).toBe('bodiedExtension');
+    expect(extensionNode?.node.attrs.localId).toEqual(testId);
+  });
+
+  it('should return the extension with the correct localId when the extension node is not selected', () => {
+    const state: EditorState = EditorState.create({
+      doc,
+      selection: NodeSelection.create(doc, 1),
+    });
+    const extensionNode = findExtensionWithLocalId(state, testId);
+    const selectedNode = state.selection as NodeSelection;
+
+    expect(selectedNode.node.type.name).not.toBe('bodiedExtension');
+    expect(extensionNode?.node.attrs.localId).toEqual(testId);
+  });
+});
+
+describe('findNodePosWithLocalId', () => {
+  /**
+   * Use `createEditorFactory` here when `allowReferentiliaty: true`, as
+   * `createProsemirrorEditorFactory` has some issues with correctly mimicking
+   * old state for the unique localId plugin
+   */
+  const createEditorFn = createEditorFactory<{}>();
+  const createEditor = (doc: DocBuilder) => {
+    const { editorView } = createEditorFn({
+      doc,
+      editorProps: {
+        featureFlags: {
+          'local-id-generation-on-tables': true,
+          'data-consumer-mark': true,
+        },
+        allowExtension: true,
+        allowTables: true,
+        allowLayouts: true,
+        allowExpand: true,
+      },
+    });
+    return editorView;
+  };
+
+  it('should return undefined when localId is not found', () => {
+    const initDoc = doc(
+      table({ localId: 'tableId' })(tr(td({})(p()), td({})(p()), td({})(p()))),
+    );
+    const { state } = createEditor(initDoc);
+    const result = findNodePosWithLocalId(state, 'fakeId');
+
+    expect(result).toBeUndefined();
+  });
+
+  it('should return NodePos when localId is found', () => {
+    const initDoc = doc(
+      table({ localId: 'tableId' })(tr(td({})(p()), td({})(p()), td({})(p()))),
+    );
+    const { state } = createEditor(initDoc);
+    const result = findNodePosWithLocalId(state, 'tableId');
+
+    expect(result).not.toBeUndefined();
+    expect(result!.pos).toEqual(0);
+    expect(result!.node.type.name).toEqual('table');
   });
 });

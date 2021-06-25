@@ -17,7 +17,6 @@ export const relevantFeatureFlagNames: Array<keyof MediaFeatureFlags> = [
   'poll_maxAttempts',
   'poll_backoffFactor',
   'poll_maxIntervalMs',
-  'poll_maxGlobalFailures',
   'captions',
 ];
 

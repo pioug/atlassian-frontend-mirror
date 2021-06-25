@@ -98,7 +98,7 @@ const LayoutSelectors = {
   },
 };
 
-const mediaResizeSelectors = {
+export const mediaResizeSelectors = {
   [MediaResizeSide.right]: '.richMedia-resize-handle-right',
   [MediaResizeSide.left]: '.richMedia-resize-handle-left',
 };
@@ -173,7 +173,7 @@ export async function clickMediaInPosition(
   await page.waitForSelector(mediaImageSelected);
 }
 
-const pickupHandle = async (
+export const pickupHandle = async (
   page: PuppeteerPage,
   side: MediaResizeSide = MediaResizeSide.right,
 ) => {

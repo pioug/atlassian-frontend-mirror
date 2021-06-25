@@ -100,6 +100,13 @@ export const getToolbarConfig: FloatingToolbarHandler = (
         );
         const labelUnlink = formatMessage(linkToolbarCommonMessages.unlink);
         const editLink = formatMessage(linkToolbarCommonMessages.editLink);
+        let metadata = {
+          url: link,
+          title: '',
+        };
+        if (activeLinkMark.node.text) {
+          metadata.title = activeLinkMark.node.text;
+        }
 
         return {
           ...hyperLinkToolbar,
@@ -108,6 +115,7 @@ export const getToolbarConfig: FloatingToolbarHandler = (
           items: [
             {
               type: 'custom',
+              fallback: [],
               render: editorView => {
                 return (
                   <HyperlinkToolbarAppearance
@@ -130,6 +138,7 @@ export const getToolbarConfig: FloatingToolbarHandler = (
               selected: false,
               title: editLink,
               showTitle: true,
+              metadata: metadata,
             },
             {
               type: 'separator',
@@ -145,6 +154,7 @@ export const getToolbarConfig: FloatingToolbarHandler = (
               title: labelOpenLink,
               icon: OpenIcon,
               className: 'hyperlink-open-link',
+              metadata: metadata,
             },
             {
               type: 'separator',
@@ -182,6 +192,7 @@ export const getToolbarConfig: FloatingToolbarHandler = (
           items: [
             {
               type: 'custom',
+              fallback: [],
               render: (
                 view?: EditorView,
                 idx?: number,

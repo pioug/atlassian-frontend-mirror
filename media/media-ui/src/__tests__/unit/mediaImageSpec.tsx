@@ -175,7 +175,7 @@ describe('MediaImage', () => {
         });
 
         const { alt } = component.find('img').props();
-        expect(alt).toBeUndefined();
+        expect(alt).toBe('');
       });
     });
 

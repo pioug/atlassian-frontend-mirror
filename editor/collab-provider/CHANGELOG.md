@@ -1,5 +1,12 @@
 # @atlaskit/collab-provider
 
+## 6.4.1
+
+### Patch Changes
+
+- [`a87567a24b3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a87567a24b3) - fix catchup
+- Updated dependencies
+
 ## 6.4.0
 
 ### Minor Changes

@@ -1,5 +1,11 @@
 # @atlaskit/code
 
+## 14.1.1
+
+### Patch Changes
+
+- [`cd488f9d370`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cd488f9d370) - Bumps prismjs to address a security vulnerability in the underlying lib.
+
 ## 14.1.0
 
 ### Minor Changes

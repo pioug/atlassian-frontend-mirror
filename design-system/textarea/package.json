@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/textarea",
-  "version": "4.1.0",
+  "version": "4.1.1",
   "description": "A text area lets users enter long form text which spans over multiple lines.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -46,7 +46,7 @@
     "@testing-library/react": "^8.0.1",
     "jscodeshift": "^0.11.0",
     "react-dom": "^16.8.0",
-    "storybook-addon-performance": "^0.15.1",
+    "storybook-addon-performance": "^0.16.0",
     "typescript": "3.9.6",
     "wait-for-expect": "^1.2.0"
   },

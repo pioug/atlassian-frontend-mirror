@@ -8,7 +8,7 @@ import Flag from '../../src';
 export default function FlagDefault() {
   return (
     <Flag
-      icon={<SuccessIcon primaryColor={G300} label="Info" />}
+      icon={<SuccessIcon primaryColor={G300} label="Success" />}
       actions={[
         {
           content: 'Try it now',

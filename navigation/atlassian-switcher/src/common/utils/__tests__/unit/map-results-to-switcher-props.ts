@@ -24,7 +24,6 @@ const defaultFeatures = {
   enableRecentContainers: true,
   xflow: true,
   disableSwitchToHeading: false,
-  isEmceeLinkEnabled: false,
   isProductStoreInTrelloJSWFirstEnabled: false,
   isProductStoreInTrelloConfluenceFirstEnabled: false,
   isSlackDiscoveryEnabled: false,

@@ -19,7 +19,6 @@ import {
   DiscoverLinkItemKeys,
   DiscoverMoreCallback,
   GetExtendedAnalyticsAttributes,
-  TriggerXFlowCallback,
 } from '../../../types';
 import { AdminSubsection } from '../../../admin/components/admin-subsection';
 
@@ -34,8 +33,6 @@ type SwitchToSectionProps = {
   fixedLinks: SwitcherItemType[];
   licensedProductLinks: SwitcherItemType[];
   onDiscoverMoreClicked: DiscoverMoreCallback;
-  suggestedProductLinks: SwitcherItemType[];
-  triggerXFlow: TriggerXFlowCallback;
   getExtendedAnalyticsAttributes: GetExtendedAnalyticsAttributes;
 };
 
@@ -55,8 +52,6 @@ export const SwitchToSection = ({
   fixedLinks,
   licensedProductLinks,
   onDiscoverMoreClicked,
-  suggestedProductLinks,
-  triggerXFlow,
   getExtendedAnalyticsAttributes,
 }: SwitchToSectionProps) => {
   /** https://bitbucket.org/atlassian/atlaskit-mk-2/pull-requests/6522/issue-prst-13-adding-discover-more-button/

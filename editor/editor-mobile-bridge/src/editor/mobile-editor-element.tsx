@@ -7,7 +7,6 @@ import {
   EditorContext,
   WithPluginState,
   floatingToolbarPluginKey,
-  EditorFeatureFlags,
 } from '@atlaskit/editor-core';
 import FabricAnalyticsListeners, {
   AnalyticsWebClient,
@@ -155,9 +154,11 @@ export function MobileEditor(props: MobileEditorProps) {
 
   // Editor config overrides feature flags from props
   type Flags = { [key: string]: string | boolean };
-  const featureFlags: EditorFeatureFlags = {
+  const featureFlags = {
     ...props.featureFlags,
     useUnpredictableInputRule: editorConfiguration.isUnpredictableInputRuleEnabled(),
+    'local-id-generation-on-tables': editorConfiguration.isLocalIdGenerationOnTablesEnabled(),
+    'data-consumer-mark': editorConfiguration.isDataConsumerMarkEnabled(),
   };
 
   return (
@@ -175,7 +176,7 @@ export function MobileEditor(props: MobileEditorProps) {
               allowIndentation={editorConfiguration.isIndentationAllowed()}
               allowPanel={true}
               allowTables={tableOptions}
-              UNSAFE_cards={cardsOptions}
+              smartLinks={cardsOptions}
               allowExtension={true}
               allowTextColor={true}
               allowDate={true}

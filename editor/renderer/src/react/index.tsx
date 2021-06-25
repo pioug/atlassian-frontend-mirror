@@ -59,6 +59,7 @@ export interface ReactSerializerInit {
   surroundTextNodesWithTextWrapper?: boolean;
   media?: MediaOptions;
   allowCopyToClipboard?: boolean;
+  allowPlaceholderText?: boolean;
   allowCustomPanels?: boolean;
   allowAnnotations?: boolean;
   allowSelectAllTrap?: boolean;
@@ -139,6 +140,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
   private allowHeadingAnchorLinks?: HeadingAnchorLinksProps;
   private allowColumnSorting?: boolean;
   private allowCopyToClipboard?: boolean = false;
+  private allowPlaceholderText?: boolean = true;
   private allowCustomPanels?: boolean = false;
   private fireAnalyticsEvent?: (event: AnalyticsEventPayload) => void;
   private shouldOpenMediaViewer?: boolean;
@@ -163,6 +165,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
     this.allowDynamicTextSizing = init.allowDynamicTextSizing;
     this.allowHeadingAnchorLinks = init.allowHeadingAnchorLinks;
     this.allowCopyToClipboard = init.allowCopyToClipboard;
+    this.allowPlaceholderText = init.allowPlaceholderText;
     this.allowCustomPanels = init.allowCustomPanels;
     this.allowColumnSorting = init.allowColumnSorting;
     this.fireAnalyticsEvent = init.fireAnalyticsEvent;
@@ -562,6 +565,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
       allowDynamicTextSizing: this.allowDynamicTextSizing,
       allowHeadingAnchorLinks: this.allowHeadingAnchorLinks,
       allowCopyToClipboard: this.allowCopyToClipboard,
+      allowPlaceholderText: this.allowPlaceholderText,
       rendererAppearance: this.appearance,
       fireAnalyticsEvent: this.fireAnalyticsEvent,
       nodeType: node.type.name,

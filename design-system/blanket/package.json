@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/blanket",
-  "version": "11.3.0",
+  "version": "11.4.0",
   "description": "A React component that covers the underlying UI for a layered component.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -13,7 +13,7 @@
   "module:es2019": "dist/es2019/index.js",
   "types": "dist/types/index.d.ts",
   "sideEffects": false,
-  "atlaskit:src": "src/index.ts",
+  "atlaskit:src": "src/index.tsx",
   "atlaskit:designLink": "https://atlassian.design/guidelines/product/components/modal-dialog",
   "atlassian": {
     "team": "Design System Team",
@@ -24,13 +24,15 @@
     }
   },
   "af:exports": {
-    ".": "./src/index.ts"
+    ".": "./src/index.tsx",
+    "./types": "./src/entry-points/types.tsx"
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^8.0.0",
+    "@atlaskit/ds-lib": "^1.2.0",
     "@atlaskit/theme": "^11.1.0",
     "@babel/runtime": "^7.0.0",
-    "@emotion/styled": "^10.0.7"
+    "@emotion/core": "^10.0.9"
   },
   "peerDependencies": {
     "react": "^16.8.0"
@@ -40,11 +42,12 @@
     "@atlaskit/button": "^15.1.0",
     "@atlaskit/docs": "*",
     "@atlaskit/ssr": "*",
+    "@atlaskit/visual-regression": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@testing-library/dom": "^7.7.3",
-    "enzyme": "^3.10.0",
+    "@testing-library/react": "^8.0.1",
     "react-dom": "^16.8.0",
-    "storybook-addon-performance": "^0.15.1",
+    "storybook-addon-performance": "^0.16.0",
     "typescript": "3.9.6",
     "wait-for-expect": "^1.2.0"
   },
@@ -55,8 +58,23 @@
   ],
   "techstack": {
     "@atlassian/frontend": {
-      "design-system": "v1",
       "import-structure": "atlassian-conventions"
+    },
+    "@repo/internal": {
+      "design-system": "v1",
+      "styling": "emotion",
+      "ui-components": [
+        "lite-mode"
+      ],
+      "analytics": [
+        "analytics-next"
+      ],
+      "theming": [
+        "new-theming-api"
+      ],
+      "deprecation": [
+        "no-deprecated-imports"
+      ]
     }
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"

@@ -28,7 +28,7 @@ describe('Embed Cards:', () => {
         height: 4000,
       },
       {
-        UNSAFE_cards: {
+        smartLinks: {
           resolveBeforeMacros: ['jira'],
           allowBlockCards: true,
           allowEmbeds: true,
@@ -62,7 +62,7 @@ describe('Embed Cards:', () => {
         height: 4000,
       },
       {
-        UNSAFE_cards: {
+        smartLinks: {
           resolveBeforeMacros: ['jira'],
           allowBlockCards: true,
           allowEmbeds: true,
@@ -96,7 +96,7 @@ describe('Embed Cards:', () => {
             height: 2300,
           },
           {
-            UNSAFE_cards: {
+            smartLinks: {
               resolveBeforeMacros: ['jira'],
               allowBlockCards: true,
               allowEmbeds: true,
@@ -129,7 +129,7 @@ it('Seperators are in correct locations in the toolbar', async () => {
       height: 700,
     },
     {
-      UNSAFE_cards: {
+      smartLinks: {
         resolveBeforeMacros: ['jira'],
         allowBlockCards: true,
         allowEmbeds: true,

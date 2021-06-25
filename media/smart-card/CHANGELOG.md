@@ -1,5 +1,12 @@
 # @atlaskit/smart-card
 
+## 15.3.1
+
+### Patch Changes
+
+- [`d9cfa5c45dc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d9cfa5c45dc) - Render Polaris (Jira Product Discovery) view as an embed by default
+- Updated dependencies
+
 ## 15.3.0
 
 ### Minor Changes

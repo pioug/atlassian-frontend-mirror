@@ -133,6 +133,7 @@ function ModalDialogInner(props: ModalDialogInnerProps) {
                     aria-labelledby={`dialog-heading-${id}`}
                     data-testid={testId}
                     tabIndex={-1}
+                    aria-modal={true}
                   >
                     <Content
                       actions={actions}

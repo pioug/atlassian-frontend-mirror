@@ -36,7 +36,7 @@ export function mobileEditor() {
             appearance="mobile"
             mentionProvider={Promise.resolve(new MentionProviderImpl())}
             quickInsert={true}
-            UNSAFE_cards={{
+            smartLinks={{
               provider: Promise.resolve(cardProvider),
               allowBlockCards: true,
             }}

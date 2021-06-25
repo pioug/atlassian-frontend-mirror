@@ -31,7 +31,7 @@ export default class LanguagePicker extends Component<Props> {
           boundariesElement="scrollParent"
           triggerButtonProps={{
             iconBefore: <WorldIcon label="Language Picker" />,
-            iconAfter: <ChevronDownIcon label="Language Picker" />,
+            iconAfter: <ChevronDownIcon label="" />,
             shouldFitContainer: true,
           }}
           shouldFitContainer

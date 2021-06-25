@@ -32,7 +32,7 @@ import {
   timeoutPromise,
 } from '@atlaskit/media-test-helpers';
 import { observableToPromise } from '../../utils/observableToPromise';
-import { isMimeTypeSupportedByServer } from '../../utils/isMimeTypeSupportedByServer';
+import { isMimeTypeSupportedByServer } from '@atlaskit/media-common/mediaTypeUtils';
 import * as MediaStoreModule from '../../client/media-store';
 
 jest.mock('../../utils/getDimensionsFromBlob', () => {

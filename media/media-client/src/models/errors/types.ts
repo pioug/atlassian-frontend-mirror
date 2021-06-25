@@ -20,8 +20,7 @@ export type MediaClientErrorReason =
   | 'emptyItems'
   | 'zeroVersionFile'
   // PollingErrorReason ----------------------------
-  | 'pollingMaxAttemptsExceeded'
-  | 'pollingMaxFailuresExceeded';
+  | 'pollingMaxAttemptsExceeded';
 
 export interface MediaClientErrorAttributes {
   reason: MediaClientErrorReason;

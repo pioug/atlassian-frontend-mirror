@@ -20,7 +20,7 @@ BrowserTestCase(
       appearance: 'full-page',
       allowTextAlignment: true,
       defaultValue: JSON.stringify(cardFatalAdf),
-      UNSAFE_cards: {},
+      smartLinks: {},
     });
 
     // Assert that it falls back to regular blue link in browser

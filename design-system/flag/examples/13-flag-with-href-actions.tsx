@@ -34,14 +34,14 @@ const flagTypes: Array<FlagType> = [
     appearance: 'error',
     description: 'You need to take action, something has gone terribly wrong!',
     title: 'error flag',
-    icon: <Error label="Error icon" secondaryColor={R300} />,
+    icon: <Error label="Error" secondaryColor={R300} />,
   },
   {
     appearance: 'info',
     description:
       "This alert needs your attention, but it's not super important.",
     title: 'info flag',
-    icon: <Info label="Info icon" secondaryColor={N500} />,
+    icon: <Info label="Info" secondaryColor={N500} />,
   },
   {
     appearance: 'success',
@@ -53,7 +53,7 @@ const flagTypes: Array<FlagType> = [
     appearance: 'warning',
     description: 'Pay attention to me, things are not going according to plan.',
     title: 'warning flag',
-    icon: <Warning label="Warning icon" secondaryColor={Y300} />,
+    icon: <Warning label="Warning" secondaryColor={Y300} />,
   },
   {
     appearance: 'normal',

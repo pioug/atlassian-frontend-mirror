@@ -60,8 +60,6 @@ describe('SwitchToSection', () => {
                   onDiscoverMoreClicked={jest.fn()}
                   showStartLink={showStartLink}
                   showNewHeading={showNewHeading}
-                  suggestedProductLinks={[]}
-                  triggerXFlow={jest.fn()}
                   getExtendedAnalyticsAttributes={() => ({})}
                 />
               </IntlProvider>

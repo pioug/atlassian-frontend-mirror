@@ -1,5 +1,11 @@
 # @atlaskit/toggle
 
+## 12.2.1
+
+### Patch Changes
+
+- [`d6f7ff383cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d6f7ff383cf) - Updates to development dependency `storybook-addon-performance`
+
 ## 12.2.0
 
 ### Minor Changes

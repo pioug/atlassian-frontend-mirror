@@ -63,5 +63,6 @@ export default interface NativeToWebBridge {
   cancelTypeAhead(): void;
   configure(configs: string): void;
   performEditAction(payload: string): void;
-  updateSystemFontSize(fontSize: string): void;
+  updateSystemFontSize(relativeFontSize: string, actualFontSize?: string): void;
+  insertNode(nodeType: string): void;
 }

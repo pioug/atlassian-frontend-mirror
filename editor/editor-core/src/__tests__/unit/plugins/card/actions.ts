@@ -34,7 +34,7 @@ describe('card', () => {
       doc,
       pluginKey,
       createAnalyticsEvent: createAnalyticsEvent as any,
-      editorProps: { allowAnalyticsGASV3: true, UNSAFE_cards: {} },
+      editorProps: { allowAnalyticsGASV3: true, smartLinks: {} },
     });
     createAnalyticsEvent.mockClear();
     return wrapper;

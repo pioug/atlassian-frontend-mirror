@@ -1,66 +1,73 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Y200, P200, B300 } from '@atlaskit/theme/colors';
-import ImageIcon from '@atlaskit/icon/glyph/media-services/image';
-import AudioIcon from '@atlaskit/icon/glyph/media-services/audio';
-import VideoIcon from '@atlaskit/icon/glyph/media-services/video';
-import DocIcon from '@atlaskit/icon/glyph/media-services/document';
-import ArchiveIcon from '@atlaskit/icon/glyph/media-services/zip';
-import UnknownIcon from '@atlaskit/icon/glyph/media-services/unknown';
-import { Size } from '@atlaskit/icon/types';
+import ImageIcon from '@atlaskit/icon-file-type/glyph/image/24';
+import AudioIcon from '@atlaskit/icon-file-type/glyph/audio/24';
+import VideoIcon from '@atlaskit/icon-file-type/glyph/video/24';
+import DocIcon from '@atlaskit/icon-file-type/glyph/document/24';
+import ArchiveIcon from '@atlaskit/icon-file-type/glyph/archive/24';
+import GenericIcon from '@atlaskit/icon-file-type/glyph/generic/24';
+
+import ImageIconSmall from '@atlaskit/icon-file-type/glyph/image/16';
+import AudioIconSmall from '@atlaskit/icon-file-type/glyph/audio/16';
+import VideoIconSmall from '@atlaskit/icon-file-type/glyph/video/16';
+import DocIconSmall from '@atlaskit/icon-file-type/glyph/document/16';
+import ArchiveIconSmall from '@atlaskit/icon-file-type/glyph/archive/16';
+import GenericIconSmall from '@atlaskit/icon-file-type/glyph/generic/16';
 import { MediaType } from '@atlaskit/media-common';
 
 export interface IconWrapperProps {
   type: MediaType;
 }
 
-export const mediaTypeIconColors = {
-  image: Y200,
-  audio: P200,
-  video: '#ff7143',
-  doc: B300,
-  unknown: '#3dc7dc',
-  archive: '',
-};
+export interface FileIconProps {
+  testId?: string;
+  type?: MediaType;
+  size?: 'small' | 'large';
+}
 
 export const IconWrapper = styled.div`
   display: inline-flex;
-  color: ${({ type }: IconWrapperProps) =>
-    mediaTypeIconColors[type] || mediaTypeIconColors.unknown};
+  ${({ size }: { size: Required<FileIconProps['size']> }) =>
+    size === 'large' ? `padding: 4px;` : ''}
 `;
+IconWrapper.displayName = 'IconWrapper';
 
-const icons = {
+const largeIcons = {
   image: ImageIcon,
   audio: AudioIcon,
   video: VideoIcon,
   doc: DocIcon,
   archive: ArchiveIcon,
-  unknown: UnknownIcon,
+  unknown: GenericIcon,
 };
 
-export interface FileIconProps {
-  type?: MediaType;
-  size?: Size;
-}
+const smallIcons = {
+  image: ImageIconSmall,
+  audio: AudioIconSmall,
+  video: VideoIconSmall,
+  doc: DocIconSmall,
+  archive: ArchiveIconSmall,
+  unknown: GenericIconSmall,
+};
 
 const defaultType = 'unknown';
 
 export class MediaTypeIcon extends React.Component<FileIconProps, {}> {
   static defaultProps: FileIconProps = {
     type: defaultType,
+    testId: 'file-type-icon',
+    size: 'large',
   };
 
   render() {
-    const { type, size } = this.props;
+    const { type, size, testId } = this.props;
     const typeWithDefault = type || defaultType;
+    const icons = size === 'large' ? largeIcons : smallIcons;
     const Icon = icons[typeWithDefault] || icons[defaultType];
 
     return (
-      <IconWrapper
-        data-testid="media-viewer-file-type-icon"
-        type={typeWithDefault}
-      >
-        <Icon label="media-type" size={size || 'large'} />
+      <IconWrapper data-testid={testId} data-type={type} size={size}>
+        <Icon label="media-type" />
       </IconWrapper>
     );
   }

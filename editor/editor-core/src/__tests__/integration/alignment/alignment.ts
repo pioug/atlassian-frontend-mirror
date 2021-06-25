@@ -38,9 +38,10 @@ BrowserTestCase(
   },
 );
 
+// TODO: https://product-fabric.atlassian.net/browse/ED-13150
 BrowserTestCase(
   'alignment: should be able to add alignment to headings',
-  { skip: ['edge'] },
+  { skip: ['*'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 
@@ -60,7 +61,6 @@ BrowserTestCase(
     ).toMatchCustomDocSnapshot(testName);
   },
 );
-
 // https://product-fabric.atlassian.net/browse/ED-6802
 // TODO: test failing on safari and edge
 BrowserTestCase(

@@ -1,3 +1,4 @@
+// eslint-disable-next-line @repo/internal/fs/filename-pattern-match
 jest.autoMockOff();
 
 import transformer from '../11.0.0-lite-mode';

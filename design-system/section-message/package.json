@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/section-message",
-  "version": "6.0.0",
+  "version": "6.0.1",
   "description": "A section message is used to alert users to a particular section of the screen.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -55,7 +55,7 @@
     "jscodeshift": "^0.11.0",
     "react-dom": "^16.8.0",
     "react-test-renderer": "^16.8.0",
-    "storybook-addon-performance": "^0.15.1",
+    "storybook-addon-performance": "^0.16.0",
     "styled-components": "^3.2.6",
     "typescript": "3.9.6"
   },

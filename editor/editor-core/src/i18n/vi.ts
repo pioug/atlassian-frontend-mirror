@@ -55,8 +55,11 @@ export default {
   'fabric.editor.configPanel.customSelect.createOption': 'Tạo',
   'fabric.editor.configPanel.dateRange.custom.from': 'Từ',
   'fabric.editor.configPanel.dateRange.custom.to': 'đến',
+  'fabric.editor.configPanel.dateRange.grouping.collapse': 'Thu gọn',
+  'fabric.editor.configPanel.dateRange.grouping.expand': 'Mở rộng',
   'fabric.editor.configPanel.dateRange.option.custom': 'Tùy chỉnh',
   'fabric.editor.configPanel.documentation': 'Tài liệu',
+  'fabric.editor.configPanel.errorBoundary.title': 'Đã xảy ra lỗi.',
   'fabric.editor.configPanel.fieldTypeError.isMultipleAndRadio':
     'Không thể kết hợp isMultiple với kiểu: radio',
   'fabric.editor.configPanel.formType.addField': 'Thêm trường',

@@ -14,6 +14,8 @@ describe('Editor Configuration', () => {
     expect(editorConfig.isPredictableListEnabled()).toEqual(true);
     expect(editorConfig.isUnpredictableInputRuleEnabled()).toEqual(true);
     expect(editorConfig.isScrollGutterPersisted()).toEqual(false);
+    expect(editorConfig.isLocalIdGenerationOnTablesEnabled()).toEqual(false);
+    expect(editorConfig.isDataConsumerMarkEnabled()).toEqual(false);
   });
 
   it('should persist scroll gutter for compact editor', () => {
@@ -58,6 +60,8 @@ describe('Editor Configuration', () => {
     expect(editorConfig.isCollabProviderEnabled()).toEqual(false);
     expect(editorConfig.isPredictableListEnabled()).toEqual(true);
     expect(editorConfig.isUnpredictableInputRuleEnabled()).toEqual(true);
+    expect(editorConfig.isLocalIdGenerationOnTablesEnabled()).toEqual(false);
+    expect(editorConfig.isDataConsumerMarkEnabled()).toEqual(false);
   });
 
   it('should set the locale value and retain the rest with default values', () => {
@@ -70,6 +74,8 @@ describe('Editor Configuration', () => {
     expect(editorConfig.isCollabProviderEnabled()).toEqual(false);
     expect(editorConfig.isPredictableListEnabled()).toEqual(true);
     expect(editorConfig.isUnpredictableInputRuleEnabled()).toEqual(true);
+    expect(editorConfig.isLocalIdGenerationOnTablesEnabled()).toEqual(false);
+    expect(editorConfig.isDataConsumerMarkEnabled()).toEqual(false);
   });
 
   it('should set the isQuickInsertEnabled value and retain the rest with default values', () => {
@@ -84,6 +90,8 @@ describe('Editor Configuration', () => {
     expect(editorConfig.isCollabProviderEnabled()).toEqual(false);
     expect(editorConfig.isPredictableListEnabled()).toEqual(true);
     expect(editorConfig.isUnpredictableInputRuleEnabled()).toEqual(true);
+    expect(editorConfig.isLocalIdGenerationOnTablesEnabled()).toEqual(false);
+    expect(editorConfig.isDataConsumerMarkEnabled()).toEqual(false);
   });
 
   it('should set the isSelectionObserverEnabled value and retain the rest with default values', () => {
@@ -98,6 +106,8 @@ describe('Editor Configuration', () => {
     expect(editorConfig.isCollabProviderEnabled()).toEqual(false);
     expect(editorConfig.isPredictableListEnabled()).toEqual(true);
     expect(editorConfig.isUnpredictableInputRuleEnabled()).toEqual(true);
+    expect(editorConfig.isLocalIdGenerationOnTablesEnabled()).toEqual(false);
+    expect(editorConfig.isDataConsumerMarkEnabled()).toEqual(false);
   });
 
   it('should set the allowCollabProvider value and retain the rest with default values', () => {
@@ -112,6 +122,8 @@ describe('Editor Configuration', () => {
     expect(editorConfig.isCollabProviderEnabled()).toEqual(true);
     expect(editorConfig.isPredictableListEnabled()).toEqual(true);
     expect(editorConfig.isUnpredictableInputRuleEnabled()).toEqual(true);
+    expect(editorConfig.isLocalIdGenerationOnTablesEnabled()).toEqual(false);
+    expect(editorConfig.isDataConsumerMarkEnabled()).toEqual(false);
   });
 
   it('should set the allowPredictableList value and retain the rest with default values', () => {
@@ -126,6 +138,8 @@ describe('Editor Configuration', () => {
     expect(editorConfig.isCollabProviderEnabled()).toEqual(false);
     expect(editorConfig.isPredictableListEnabled()).toEqual(true);
     expect(editorConfig.isUnpredictableInputRuleEnabled()).toEqual(true);
+    expect(editorConfig.isLocalIdGenerationOnTablesEnabled()).toEqual(false);
+    expect(editorConfig.isDataConsumerMarkEnabled()).toEqual(false);
   });
 
   it('should set the allowPredictableList value and retain the rest with default values', () => {
@@ -140,6 +154,40 @@ describe('Editor Configuration', () => {
     expect(editorConfig.isCollabProviderEnabled()).toEqual(false);
     expect(editorConfig.isPredictableListEnabled()).toEqual(true);
     expect(editorConfig.isUnpredictableInputRuleEnabled()).toEqual(false);
+    expect(editorConfig.isLocalIdGenerationOnTablesEnabled()).toEqual(false);
+    expect(editorConfig.isDataConsumerMarkEnabled()).toEqual(false);
+  });
+
+  it('should set the localIdGenerationOnTables value and retain the rest with default values', () => {
+    const editorConfig = new MobileEditorConfiguration(
+      '{"localIdGenerationOnTables": true}',
+    );
+
+    expect(editorConfig.getMode()).toEqual('light');
+    expect(editorConfig.getLocale()).toEqual('en');
+    expect(editorConfig.isQuickInsertEnabled()).toEqual(false);
+    expect(editorConfig.isSelectionObserverEnabled()).toEqual(false);
+    expect(editorConfig.isCollabProviderEnabled()).toEqual(false);
+    expect(editorConfig.isPredictableListEnabled()).toEqual(true);
+    expect(editorConfig.isUnpredictableInputRuleEnabled()).toEqual(true);
+    expect(editorConfig.isLocalIdGenerationOnTablesEnabled()).toEqual(true);
+    expect(editorConfig.isDataConsumerMarkEnabled()).toEqual(false);
+  });
+
+  it('should set the dataConsumerMark value and retain the rest with default values', () => {
+    const editorConfig = new MobileEditorConfiguration(
+      '{"dataConsumerMark": true}',
+    );
+
+    expect(editorConfig.getMode()).toEqual('light');
+    expect(editorConfig.getLocale()).toEqual('en');
+    expect(editorConfig.isQuickInsertEnabled()).toEqual(false);
+    expect(editorConfig.isSelectionObserverEnabled()).toEqual(false);
+    expect(editorConfig.isCollabProviderEnabled()).toEqual(false);
+    expect(editorConfig.isPredictableListEnabled()).toEqual(true);
+    expect(editorConfig.isUnpredictableInputRuleEnabled()).toEqual(true);
+    expect(editorConfig.isLocalIdGenerationOnTablesEnabled()).toEqual(false);
+    expect(editorConfig.isDataConsumerMarkEnabled()).toEqual(true);
   });
 
   it('should clone and update the current configuartion with the new configuration', () => {
@@ -158,6 +206,8 @@ describe('Editor Configuration', () => {
     expect(newEditorConfig.isCollabProviderEnabled()).toEqual(false);
     expect(newEditorConfig.isPredictableListEnabled()).toEqual(true);
     expect(newEditorConfig.isUnpredictableInputRuleEnabled()).toEqual(true);
+    expect(newEditorConfig.isLocalIdGenerationOnTablesEnabled()).toEqual(false);
+    expect(newEditorConfig.isDataConsumerMarkEnabled()).toEqual(false);
   });
 
   it('should clone and update the default configuration with the new configuration', () => {
@@ -175,6 +225,8 @@ describe('Editor Configuration', () => {
     expect(newEditorConfig.isCollabProviderEnabled()).toEqual(false);
     expect(newEditorConfig.isPredictableListEnabled()).toEqual(true);
     expect(newEditorConfig.isUnpredictableInputRuleEnabled()).toEqual(true);
+    expect(newEditorConfig.isLocalIdGenerationOnTablesEnabled()).toEqual(false);
+    expect(newEditorConfig.isDataConsumerMarkEnabled()).toEqual(false);
   });
 
   it('should persist scroll gutter for compact editor', () => {

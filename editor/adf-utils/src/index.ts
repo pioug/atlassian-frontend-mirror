@@ -60,6 +60,7 @@ export {
   u,
   ul,
   underline,
+  dataConsumer,
 } from './builders';
 export { filter, map, reduce, traverse } from './traverse';
 export { scrubAdf } from './scrub';

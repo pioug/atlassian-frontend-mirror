@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/logo",
-  "version": "13.4.1",
+  "version": "13.4.2",
   "description": "A logo is a visual representation of a brand or product. It can be a word or an image, or a combination of both.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -38,7 +38,7 @@
     "./trello-icon": "./src/TrelloLogo/Icon.tsx",
     "./constants": "./src/constants.ts",
     "./Wrapper": "./src/Wrapper.tsx",
-    ".": "./src/index.tsx"
+    ".": "./src/index.ts"
   },
   "dependencies": {
     "@atlaskit/ds-lib": "^1.2.0",
@@ -55,7 +55,7 @@
     "@atlaskit/code": "^14.1.0",
     "@atlaskit/docs": "*",
     "@atlaskit/field-radio-group": "^8.0.0",
-    "@atlaskit/select": "^14.0.0",
+    "@atlaskit/select": "^14.1.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/theme": "^11.2.0",
     "@atlaskit/visual-regression": "*",

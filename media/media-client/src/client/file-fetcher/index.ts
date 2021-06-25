@@ -51,9 +51,11 @@ import {
   getDimensionsFromBlob,
   Dimensions,
 } from '../../utils/getDimensionsFromBlob';
-import { getMediaTypeFromMimeType } from '../../utils/getMediaTypeFromMimeType';
 import { createFileStateSubject } from '../../utils/createFileStateSubject';
-import { isMimeTypeSupportedByBrowser } from '../../utils/isMimeTypeSupportedByBrowser';
+import {
+  isMimeTypeSupportedByBrowser,
+  getMediaTypeFromMimeType,
+} from '@atlaskit/media-common/mediaTypeUtils';
 import {
   shouldFetchRemoteFileStates,
   shouldFetchRemoteFileStatesObservable,
@@ -199,10 +201,6 @@ export class FileFetcherImpl implements FileFetcher {
       ),
       poll_maxIntervalMs: getMediaFeatureFlag<number>(
         'poll_maxIntervalMs',
-        featureFlags,
-      ),
-      poll_maxGlobalFailures: getMediaFeatureFlag<number>(
-        'poll_maxGlobalFailures',
         featureFlags,
       ),
     };

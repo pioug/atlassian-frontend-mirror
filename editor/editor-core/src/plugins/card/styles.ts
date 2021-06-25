@@ -89,7 +89,7 @@ export const smartCardStyles = css`
 
     &.danger {
       .media-card-frame::after {
-        box-shadow: 0 0 0 3px ${akEditorDeleteBorder} !important;
+        box-shadow: 0 0 0 1px ${akEditorDeleteBorder} !important;
         background: ${akEditorDeleteBackground} !important;
       }
       .richMedia-resize-handle-right::after,

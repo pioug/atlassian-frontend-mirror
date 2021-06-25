@@ -55,3 +55,16 @@ export { withMediaAnalyticsContext } from './analytics/withMediaAnalyticsContext
 
 // Analytics constants
 export { ANALYTICS_MEDIA_CHANNEL } from './analytics/constants';
+
+export {
+  getMediaTypeFromMimeType,
+  isImageMimeTypeSupportedByBrowser,
+  isDocumentMimeTypeSupportedByBrowser,
+  isMimeTypeSupportedByBrowser,
+  isImageMimeTypeSupportedByServer,
+  isDocumentMimeTypeSupportedByServer,
+  isAudioMimeTypeSupportedByServer,
+  isVideoMimeTypeSupportedByServer,
+  isUnknownMimeTypeSupportedByServer,
+  isMimeTypeSupportedByServer,
+} from './mediaTypeUtils';

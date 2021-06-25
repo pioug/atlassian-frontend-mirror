@@ -1,5 +1,16 @@
 # @atlaskit/adf-utils
 
+## 14.1.0
+
+### Minor Changes
+
+- [`9fef23ee77c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9fef23ee77c) - ED-12477 Add unsupported node capability to Media Group
+- [`fc04f067e14`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fc04f067e14) - Fix DataConsumer mark builder type
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.0.0
 
 ### Major Changes

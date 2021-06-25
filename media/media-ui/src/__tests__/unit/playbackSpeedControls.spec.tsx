@@ -69,7 +69,12 @@ describe('<PlaybackSpeedControls />', () => {
         throw Error(); // For TS happiness. JEst would throw on prev. line anyway.
       }
       const myRef = React.createRef();
-      const elementFunc = target({ ref: myRef, isOpen });
+      const elementFunc = target({
+        ref: myRef,
+        isOpen,
+        'aria-haspopup': 'true',
+        'aria-expanded': isOpen,
+      });
       const Component = (): React.ReactElement => <>${elementFunc}</>;
 
       return {

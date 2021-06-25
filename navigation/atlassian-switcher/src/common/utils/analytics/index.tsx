@@ -21,6 +21,7 @@ import { SwitcherItemType } from '../links';
 import { getRenderBucket } from '../render-tracker-bucketing';
 import { JoinableSiteItemType } from '../../../cross-join/utils/cross-join-links';
 import {
+  hasLoaded,
   ProviderResult,
   ResultError,
   Status,
@@ -48,8 +49,7 @@ export const SWITCHER_TRELLO_HAS_NEW_FRIENDS_DISMISS_SUBJECT =
   'atlassianSwitcherTrelloHasNewFriendsDismiss';
 
 const SWITCHER_JOINABLE_SITES = 'atlassianSwitcherJoinableSites';
-const SWITCHER_RECOMMENDED_PRODUCTS = 'atlassianSwitcherRecommendedProducts';
-const SWITCHER_DISCOVER_MORE = 'atlassianSwitcherDiscoverMore';
+const SWITCHER_DISCOVER_SECTION = 'atlassianSwitcherDiscoverMore';
 const SWITCHER_RECENT_CONTAINERS = 'atlassianSwitcherRecentContainers';
 const SWITCHER_CUSTOM_LINKS = 'atlassianSwitcherCustomLinks';
 
@@ -259,53 +259,72 @@ export const getJoinableSitesRenderTracker = (
   });
 };
 
-export const getRecommendedProductsRenderTracker = (
+export const getDiscoverSectionRenderTracker = (
   xflowProviderResult: ProviderResults['isXFlowEnabled'],
   provisionedProductsProviderResult: SyntheticProviderResults['provisionedProducts'],
+  joinableSitesProviderResult: ProviderResults['joinableSites'],
+  productRecommendationsProviderResult: ProviderResults['productRecommendations'],
   suggestedProductLinks: SwitcherItemType[],
-  isDiscoverMoreClickable: boolean,
   data?: object,
 ) => {
-  if (!isDiscoverMoreClickable) {
+  const hasProviderNotReturnedExpectedData = (provider: ProviderResult<any>) =>
+    provider.data === null || provider.status === Status.ERROR;
+
+  const collectResults = (provider: ProviderResult<any>) => ({
+    failed: hasProviderNotReturnedExpectedData(provider),
+    loaded: hasLoaded(provider),
+  });
+  const emptyRenderExpected = suggestedProductLinks.length === 0;
+  const results = {
+    xflow: collectResults(xflowProviderResult),
+    provisionedProducts: collectResults(provisionedProductsProviderResult),
+    joinableSites: collectResults(joinableSitesProviderResult),
+    productRecommendations: collectResults(
+      productRecommendationsProviderResult,
+    ),
+  };
+  const providersLoaded =
+    results.joinableSites.loaded &&
+    results.provisionedProducts.loaded &&
+    results.xflow.loaded &&
+    results.productRecommendations.loaded;
+
+  if (!providersLoaded) {
     return null;
   }
-  // The render is only considered failed when one of the providers failed, and empty render is a valid case
-  const providerFailed =
-    xflowProviderResult.data === null ||
-    provisionedProductsProviderResult.data === null;
-  const emptyRenderExpected = suggestedProductLinks.length === 0;
+  const didProviderFail =
+    results.joinableSites.failed ||
+    results.provisionedProducts.failed ||
+    results.xflow.failed ||
+    results.productRecommendations.failed;
+  /**
+   * Stop tracking the SLO the moment one of the providers fail.
+   */
+  if (didProviderFail) {
+    return renderTracker({
+      subject: SWITCHER_DISCOVER_SECTION,
+      providerFailed: true,
+      emptyRenderExpected,
+      linksRendered: suggestedProductLinks,
+      data: {
+        ...data,
+        providerResults: {
+          joinableSites: joinableSitesProviderResult.status,
+          joinableSitesFailed: results.joinableSites.failed,
+          provisionedProducts: provisionedProductsProviderResult.status,
+          provisionedProductsFailed: results.provisionedProducts.failed,
+          xflow: xflowProviderResult.status,
+          xflowFailed: results.xflow.failed,
+        },
+      },
+    });
+  }
   return renderTracker({
-    subject: SWITCHER_RECOMMENDED_PRODUCTS,
-    providerFailed,
+    subject: SWITCHER_DISCOVER_SECTION,
+    providerFailed: false,
     emptyRenderExpected,
     linksRendered: suggestedProductLinks,
     data,
-  });
-};
-
-export const getDiscoverMoreRenderTracker = (
-  addProductsPermissionProviderResult: ProviderResults['addProductsPermission'],
-  managePermissionProviderResult: ProviderResults['managePermission'],
-  discoverMoreLink: SwitcherItemType[],
-  isDiscoverMoreClickable: boolean,
-  data?: object,
-) => {
-  if (!isDiscoverMoreClickable) {
-    return null;
-  }
-  const providerFailed =
-    addProductsPermissionProviderResult.data === null ||
-    managePermissionProviderResult.data === null;
-
-  return renderTracker({
-    subject: SWITCHER_DISCOVER_MORE,
-    providerFailed,
-    emptyRenderExpected: false,
-    linksRendered: discoverMoreLink,
-    data: {
-      ...data,
-      linkItems: discoverMoreLink.map((item) => item.key),
-    },
   });
 };
 

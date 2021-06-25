@@ -56,8 +56,11 @@ export default {
   'fabric.editor.configPanel.customSelect.createOption': 'Luo',
   'fabric.editor.configPanel.dateRange.custom.from': 'Alkaen',
   'fabric.editor.configPanel.dateRange.custom.to': '-',
+  'fabric.editor.configPanel.dateRange.grouping.collapse': 'Kutista',
+  'fabric.editor.configPanel.dateRange.grouping.expand': 'Laajenna',
   'fabric.editor.configPanel.dateRange.option.custom': 'Mukautettu',
   'fabric.editor.configPanel.documentation': 'Dokumentaatio',
+  'fabric.editor.configPanel.errorBoundary.title': 'Jotain meni pieleen.',
   'fabric.editor.configPanel.fieldTypeError.isMultipleAndRadio':
     'Ei voi yhdistää kohdetta isMultiple tyyliin: radio',
   'fabric.editor.configPanel.formType.addField': 'Lisää kenttä',

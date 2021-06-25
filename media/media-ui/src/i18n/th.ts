@@ -94,6 +94,7 @@ export default {
   'fabric.media.learn_more': 'เรียนรู้เพิ่มเติม',
   'fabric.media.load_more_gifs': 'โหลด GIF เพิ่มเติม',
   'fabric.media.loading': 'กำลังโหลด...',
+  'fabric.media.loading_file': 'กำลังโหลดไฟล์...',
   'fabric.media.might_be_a_hiccup': 'อาจจะมีอุปสรรคบางอย่าง',
   'fabric.media.no_gifs_found': 'สวัสดี คุณกำลังมองหาฉันอยู่หรือเปล่า',
   'fabric.media.no_gifs_found_suggestion':

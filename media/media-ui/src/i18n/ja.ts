@@ -96,6 +96,7 @@ export default {
   'fabric.media.learn_more': 'さらに詳しく',
   'fabric.media.load_more_gifs': 'さらに GIF を読み込む',
   'fabric.media.loading': '読み込み中…',
+  'fabric.media.loading_file': 'ファイルを読み込んでいます...',
   'fabric.media.might_be_a_hiccup': '一時的な障害の可能性があります。',
   'fabric.media.no_gifs_found':
     'もしもし? お探しの画像はこちらではありませんよね?',

@@ -370,21 +370,25 @@ const BasicGrid = () => {
           name="Banner"
           onChange={() => toggleShown('Banner')}
           value={gridState.isBannerShown}
+          id="toggle-banner"
         />
         <ToggleShown
           name="TopNavigation"
           onChange={() => toggleShown('TopNavigation')}
           value={gridState.isTopNavigationShown}
+          id="toggle-top-navigation"
         />
         <ToggleShown
           name="LeftPanel"
           onChange={() => toggleShown('LeftPanel')}
           value={gridState.isLeftPanelShown}
+          id="toggle-left-panel"
         />
         <ToggleShown
           name="LeftSidebar"
           onChange={() => toggleShown('LeftSidebar')}
           value={gridState.isLeftSidebarShown}
+          id="toggle-left-sidebar"
         />
         <ToggleShown
           name="Main"
@@ -396,11 +400,13 @@ const BasicGrid = () => {
           name="RightSidebar"
           onChange={() => toggleShown('RightSidebar')}
           value={gridState.isRightSidebarShown}
+          id="toggle-right-sidebar"
         />
         <ToggleShown
           name="RightPanel"
           onChange={() => toggleShown('RightPanel')}
           value={gridState.isRightPanelShown}
+          id="toggle-right-panel"
         />
       </div>
     </PageLayout>

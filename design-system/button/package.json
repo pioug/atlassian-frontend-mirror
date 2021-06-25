@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/button",
-  "version": "15.1.6",
+  "version": "15.1.7",
   "description": "A button triggers an event or action. They let users know what will happen next.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -61,7 +61,7 @@
     "react-dom": "^16.8.0",
     "react-router-dom": "^4.2.2",
     "react-test-renderer": "^16.8.0",
-    "storybook-addon-performance": "^0.15.1",
+    "storybook-addon-performance": "^0.16.0",
     "typescript": "3.9.6",
     "wait-for-expect": "^1.2.0"
   },

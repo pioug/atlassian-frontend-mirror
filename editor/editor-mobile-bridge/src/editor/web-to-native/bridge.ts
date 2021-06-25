@@ -91,6 +91,7 @@ export interface TypeAheadBridge {
 }
 
 export interface LinkBridge {
+  //This function is to be deprecated in favour of using metadata property implemented in EDM-1796 once the latter is stable
   currentSelection(
     text: string,
     url: string,

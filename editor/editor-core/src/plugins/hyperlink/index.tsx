@@ -57,7 +57,7 @@ const hyperlinkPlugin = (options?: CardOptions): EditorPlugin => ({
         keywords: ['hyperlink', 'url'],
         priority: 1200,
         keyshortcut: tooltip(addLink),
-        icon: () => <IconLink label={formatMessage(messages.link)} />,
+        icon: () => <IconLink />,
         action(_insert, state) {
           const pos = state.selection.from;
           const { nodeBefore } = state.selection.$from;

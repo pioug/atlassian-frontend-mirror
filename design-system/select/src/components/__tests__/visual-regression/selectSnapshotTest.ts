@@ -8,8 +8,8 @@ const openModalBtn = "[type='button']";
 const modalDialog = "[role='dialog']";
 const selectCheckbox = '.select__control';
 const selectCheckboxMenu = '.select__menu';
-const selectMenuItem = '.react-select__option:nth-child(4)';
-const menuMultiSelectValue = '.select__value-container';
+const selectMenuItem = '.select__option:nth-child(4)';
+const singleSelectMenuItem = '.react-select__option:nth-child(4)';
 const selectValidation = 'label';
 
 describe('Snapshot Test', () => {
@@ -30,8 +30,8 @@ describe('Snapshot Test', () => {
     const image = await takeElementScreenShot(page, selectSelector);
     expect(image).toMatchProdImageSnapshot();
 
-    await page.waitForSelector(selectMenuItem);
-    await page.click(selectMenuItem);
+    await page.waitForSelector(singleSelectMenuItem);
+    await page.click(singleSelectMenuItem);
 
     const image2 = await takeElementScreenShot(page, selectSelector);
     expect(image2).toMatchProdImageSnapshot();
@@ -97,9 +97,7 @@ describe('Snapshot Test', () => {
     expect(image).toMatchProdImageSnapshot();
   });
 
-  // There is an issue with the way to access the option and the css selectoor is not reliable.
-  // To re-enable when https://product-fabric.atlassian.net/browse/DST-2193 is done.
-  it.skip('Checkbox Select example should match production example', async () => {
+  it('Checkbox Select example should match production example', async () => {
     const url = getExampleUrl(
       'design-system',
       'select',
@@ -114,14 +112,15 @@ describe('Snapshot Test', () => {
     await page.click(selectCheckbox);
 
     await page.waitForSelector(selectCheckboxMenu);
-    await page.click(selectMenuItem);
 
-    const image1 = await takeElementScreenShot(page, menuMultiSelectValue);
+    // item is selected
+    await page.click(selectMenuItem);
+    const image1 = await takeElementScreenShot(page, '#examples');
     expect(image1).toMatchProdImageSnapshot();
 
+    // item is un-selected
     await page.click(selectMenuItem);
-
-    const image2 = await takeElementScreenShot(page, menuMultiSelectValue);
+    const image2 = await takeElementScreenShot(page, '#examples');
     expect(image2).toMatchProdImageSnapshot();
   });
 

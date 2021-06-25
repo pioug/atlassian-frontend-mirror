@@ -18,17 +18,24 @@ const extendRows = (
 };
 
 interface StatelessState {
-  highlightedRowIndex?: number;
+  highlightedRowIndex?: number[];
 }
 
 class RegularStatelessExample extends React.Component<{}, StatelessState> {
   state = {
-    highlightedRowIndex: undefined,
+    highlightedRowIndex: [],
   };
 
   onRowClick = (e: React.MouseEvent, rowIndex: number) => {
-    this.setState({
-      highlightedRowIndex: rowIndex,
+    this.setState(({ highlightedRowIndex }) => {
+      const newHighlightedRowIndex = [...(highlightedRowIndex || [])];
+      const existingIndex = newHighlightedRowIndex.indexOf(rowIndex);
+      if (existingIndex > -1) {
+        newHighlightedRowIndex.splice(existingIndex, 1);
+      } else {
+        newHighlightedRowIndex.push(rowIndex);
+      }
+      return { highlightedRowIndex: newHighlightedRowIndex };
     });
   };
 

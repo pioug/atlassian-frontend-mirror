@@ -133,6 +133,7 @@ export const getToolbarItems = (
     items.push(
       {
         type: 'custom',
+        fallback: [],
         render: (view, idx) => (
           <EmojiPickerButton
             key={idx}
@@ -160,6 +161,7 @@ export const getToolbarItems = (
       },
       {
         type: 'custom',
+        fallback: [],
         render: (view, idx) => {
           /*
             if the active panel type is custom, assign active panel color if available, otherwise get the 'info' panel color

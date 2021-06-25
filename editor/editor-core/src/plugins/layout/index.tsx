@@ -56,7 +56,7 @@ const layoutPlugin = (options: LayoutPluginOptions = {}): EditorPlugin => ({
         description: formatMessage(messages.columnsDescription),
         keywords: ['column', 'section'],
         priority: 1100,
-        icon: () => <IconLayout label={formatMessage(messages.columns)} />,
+        icon: () => <IconLayout />,
         action(insert, state) {
           const tr = insert(createDefaultLayoutSection(state));
           return addAnalytics(state, tr, {

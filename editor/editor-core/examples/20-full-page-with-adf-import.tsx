@@ -42,7 +42,7 @@ const FullPageWithAdfImport: React.FC = function FullPageWithAdfImport() {
         <DevTools />
         <FullPageEditor
           defaultValue={adfValue}
-          UNSAFE_cards={{ allowEmbeds: true, allowBlockCards: true }}
+          smartLinks={{ allowEmbeds: true, allowBlockCards: true }}
           customPrimaryToolbarComponents={
             <WithEditorActions
               key={1}

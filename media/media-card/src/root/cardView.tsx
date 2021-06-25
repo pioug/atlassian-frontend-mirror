@@ -49,6 +49,7 @@ import {
 import { LoadingRateLimited } from './ui/loadingRateLimited/loadingRateLimited';
 import { isRateLimitedError, isPollingError } from '@atlaskit/media-client';
 
+export const newFileExperienceClassName = 'new-file-experience-wrapper';
 export interface CardViewOwnProps extends SharedCardProps {
   readonly status: CardStatus;
   readonly mediaItemType: MediaItemType;
@@ -408,7 +409,12 @@ export class CardViewBase extends React.Component<
 
     return (
       <IconWrapper breakpoint={this.breakpoint} hasTitleBox={hasTitleBox}>
-        <MimeTypeIcon mediaType={mediaType} mimeType={mimeType} name={name} />
+        <MimeTypeIcon
+          testId={'media-card-file-type-icon'}
+          mediaType={mediaType}
+          mimeType={mimeType}
+          name={name}
+        />
         {this.renderRateLimitedText()}
         {this.renderCreatingPreviewText()}
         {this.renderPreviewUnavailableText()}
@@ -527,6 +533,7 @@ export class CardViewBase extends React.Component<
     const shouldDisplayTooltip = !!name && !disableOverlay;
     return (
       <NewFileExperienceWrapper
+        className={newFileExperienceClassName}
         data-testid={testId || 'media-card-view'}
         dimensions={dimensions}
         appearance={appearance}

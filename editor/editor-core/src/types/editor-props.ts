@@ -37,6 +37,7 @@ import { EditorOnChangeHandler } from './editor-onchange';
 import { PerformanceTracking } from './performance-tracking';
 import { PanelPluginConfig } from './../plugins/panel/types';
 import { EditorPlugin } from './editor-plugin';
+import { MentionPluginConfig } from './../plugins/mentions/types';
 
 export type ReactComponents = ReactElement<any> | ReactElement<any>[];
 
@@ -169,7 +170,10 @@ export interface EditorProps {
   // editor features e.g. Confluence uses this to provide its macros.
   quickInsert?: QuickInsertOptions;
 
+  /** @deprecated Use smartLinks instead. */
   UNSAFE_cards?: CardOptions;
+
+  smartLinks?: CardOptions;
 
   allowExpand?:
     | boolean
@@ -205,6 +209,7 @@ export interface EditorProps {
 
   legacyImageUploadProvider?: Providers['imageUploadProvider'];
   mentionProvider?: Promise<MentionProvider>;
+  mention?: MentionPluginConfig;
 
   // Allows you to define custom autoformatting rules.
   autoformattingProvider?: Providers['autoformattingProvider'];
@@ -282,8 +287,11 @@ export interface EditorProps {
   // Flag to remove private content such as mention names
   sanitizePrivateContent?: boolean;
 
-  // flag to indicate display name instead of nick name should be inserted for mentions
-  // default: false, which inserts the nick name
+  /**
+   * flag to indicate display name instead of nick name should be inserted for mentions
+   * default: false, which inserts the nick name
+   * @deprecated Use mention.mentionInsertDisplayName instead
+   */
   mentionInsertDisplayName?: boolean;
 
   /**

@@ -5,7 +5,7 @@ import { gridSize } from '@atlaskit/theme/constants';
 import { divide } from '@atlaskit/theme/math';
 
 import { ASC, DESC } from '../internal/constants';
-import { arrow } from '../theme';
+import { arrow, MSThemeColors } from '../theme';
 import { SortOrderType } from '../types';
 
 export interface TruncateStyleProps {
@@ -62,6 +62,10 @@ export const arrowsStyle = (props: {
     position: absolute;
     right: -${gridSize}px;
     width: 0;
+
+    @media (forced-colors: active) {
+      border: 3px solid ${MSThemeColors.Background};
+    }
   `;
 
   return css`
@@ -99,6 +103,38 @@ export const arrowsStyle = (props: {
           ${sortOrder === DESC
             ? arrow.selectedColor(props)
             : arrow.hoverColor(props)};
+      }
+    }
+
+    @media (forced-colors: active) {
+      & > span {
+        &::before {
+          border-bottom: 3px solid
+            ${sortOrder === ASC
+              ? MSThemeColors.SelectedBackground
+              : MSThemeColors.Text};
+        }
+        &::after {
+          border-top: 3px solid
+            ${sortOrder === DESC
+              ? MSThemeColors.SelectedBackground
+              : MSThemeColors.Text};
+        }
+      }
+
+      &:hover > span {
+        &::before {
+          border-bottom: 3px solid
+            ${sortOrder === ASC
+              ? MSThemeColors.SelectedBackground
+              : MSThemeColors.Text};
+        }
+        &::after {
+          border-top: 3px solid
+            ${sortOrder === DESC
+              ? MSThemeColors.SelectedBackground
+              : MSThemeColors.Text};
+        }
       }
     }
   `;

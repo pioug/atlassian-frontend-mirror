@@ -7,7 +7,7 @@ import {
   ExtensionIconModule,
   MaybeESModule,
 } from './extension-manifest-common';
-import { ExtensionModuleToolbarItem } from './extension-manifest-toolbar-item';
+import { ContextualToolbar } from './extension-manifest-toolbar-item';
 import { Parameters } from './extension-parameters';
 import { FieldDefinition, Option, UserFieldContext } from './field-definitions';
 
@@ -121,7 +121,7 @@ export type ExtensionModules<T extends Parameters = Parameters> = {
   // define how/when to convert pasted content to this extension
   autoConvert?: ExtensionModuleAutoConvert;
   // define buttons in toolbars for certain node types
-  contextualToolbarItems?: ExtensionModuleToolbarItem[];
+  contextualToolbars?: ContextualToolbar[];
 };
 
 export type ExtensionQuickInsertModule = 'quickInsert';

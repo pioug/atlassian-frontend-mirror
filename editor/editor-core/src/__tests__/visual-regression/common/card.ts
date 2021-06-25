@@ -45,7 +45,7 @@ describe('Cards:', () => {
           height: 4500,
         },
         {
-          UNSAFE_cards: {
+          smartLinks: {
             resolveBeforeMacros: ['jira'],
             allowBlockCards: true,
             allowEmbeds: true,
@@ -98,7 +98,7 @@ describe('Cards:', () => {
         height: 5300,
       },
       {
-        UNSAFE_cards: {
+        smartLinks: {
           resolveBeforeMacros: ['jira'],
           allowBlockCards: true,
           allowEmbeds: true,
@@ -128,7 +128,7 @@ describe('Cards:', () => {
         height: 1020,
       },
       {
-        UNSAFE_cards: {
+        smartLinks: {
           resolveBeforeMacros: ['jira'],
           allowBlockCards: true,
           allowEmbeds: true,
@@ -167,7 +167,7 @@ describe('Cards:', () => {
         height: 1020,
       },
       {
-        UNSAFE_cards: {
+        smartLinks: {
           resolveBeforeMacros: ['jira'],
           allowBlockCards: true,
           allowEmbeds: true,
@@ -201,7 +201,7 @@ describe('Cards:', () => {
           height: 1500,
         },
         {
-          UNSAFE_cards: {
+          smartLinks: {
             resolveBeforeMacros: ['jira'],
             allowBlockCards: true,
             allowEmbeds: true,

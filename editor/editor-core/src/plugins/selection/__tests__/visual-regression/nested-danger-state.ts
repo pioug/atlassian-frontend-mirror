@@ -32,7 +32,7 @@ describe('Danger for nested elements', () => {
         adf,
         viewport: { width: 1280, height: 550 },
         editorProps: {
-          UNSAFE_cards: { provider: Promise.resolve(cardProvider) },
+          smartLinks: { provider: Promise.resolve(cardProvider) },
         },
       });
       await waitForResolvedInlineCard(page);

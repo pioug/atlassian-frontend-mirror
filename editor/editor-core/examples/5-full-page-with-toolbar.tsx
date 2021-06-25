@@ -104,7 +104,7 @@ export class ExampleEditor extends React.Component<Props> {
                 allowDate={true}
                 allowLayouts={true}
                 allowTemplatePlaceholders={{ allowInserting: true }}
-                UNSAFE_cards={{
+                smartLinks={{
                   provider: Promise.resolve(cardProvider),
                 }}
                 activityProvider={activityProvider}

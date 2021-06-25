@@ -48,6 +48,9 @@ export const SELECTORS_WEB = {
   EDITOR: '#editor .ProseMirror',
 };
 export const EDITOR_CONTENT_AREA_ELEMENT = '.ak-editor-content-area';
+export const BLOCK_QUOTE_ELEMENT = 'blockquote';
+export const CODE_BLOCK_ELEMENT = '.code-block .code-content code';
+export const TABLE_HEADER_ELEMENT = '.pm-table-header-content-wrap p strong';
 
 /**
  * Load & start the editor within the WebView
@@ -169,6 +172,30 @@ export async function isDecisionPanelVisible(page: Page) {
       DECISION_PANEL_HELP_TEXT &&
     (await getDecisionPanelType(page)) === DECISION_PANEL_TYPE
   );
+}
+
+/**
+ * Verify the text added in block quote to validate the presence of block quote
+ */
+export async function isBlockQuoteAdded(page: Page, text: string) {
+  page.switchToWeb();
+  return (await page.getTextOfElement(BLOCK_QUOTE_ELEMENT)) === text;
+}
+
+/**
+ * Verify the text added in Code block to validate the presence of code block
+ */
+export async function isCodeBlockAdded(page: Page, text: string) {
+  page.switchToWeb();
+  return (await page.getTextOfElement(CODE_BLOCK_ELEMENT)) === text;
+}
+
+/**
+ * Verify the text added in table header to validate the presence of table
+ */
+export async function isTableAdded(page: Page, text: string) {
+  page.switchToWeb();
+  return (await page.getTextOfElement(TABLE_HEADER_ELEMENT)) === text;
 }
 
 /**

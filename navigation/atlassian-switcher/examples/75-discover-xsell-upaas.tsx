@@ -74,7 +74,6 @@ class JiraSwitcherExample extends React.Component {
             product="jira"
             cloudId="some-cloud-id"
             triggerXFlow={this.onTriggerXFlow}
-            isEmceeLinkEnabled
             onDiscoverMoreClicked={this.onDiscoverMoreClicked}
             recommendationsFeatureFlags={{
               'appswitcher.ranking.jsw.xflow': this.state.flagValue,

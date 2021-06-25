@@ -1,5 +1,17 @@
 # @atlaskit/radio
 
+## 5.2.0
+
+### Minor Changes
+
+- [`5c4717067dd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5c4717067dd) - [ux] Add aria-labelledby prop to RadioGroup
+
+## 5.1.1
+
+### Patch Changes
+
+- [`d6f7ff383cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d6f7ff383cf) - Updates to development dependency `storybook-addon-performance`
+
 ## 5.1.0
 
 ### Minor Changes

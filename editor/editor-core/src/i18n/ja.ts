@@ -54,8 +54,11 @@ export default {
   'fabric.editor.configPanel.customSelect.createOption': '作成',
   'fabric.editor.configPanel.dateRange.custom.from': '開始日',
   'fabric.editor.configPanel.dateRange.custom.to': '終了日',
+  'fabric.editor.configPanel.dateRange.grouping.collapse': '折りたたむ',
+  'fabric.editor.configPanel.dateRange.grouping.expand': '展開',
   'fabric.editor.configPanel.dateRange.option.custom': 'カスタム',
   'fabric.editor.configPanel.documentation': 'ドキュメント',
+  'fabric.editor.configPanel.errorBoundary.title': '問題が発生しました。',
   'fabric.editor.configPanel.fieldTypeError.isMultipleAndRadio':
     '「isMultiple」と「style: radio」を組み合わせることはできません',
   'fabric.editor.configPanel.formType.addField': 'フィールドを追加',

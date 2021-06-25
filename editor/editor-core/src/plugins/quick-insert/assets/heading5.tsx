@@ -1,9 +1,8 @@
 import React from 'react';
-import { IconProps } from '../types';
 
-export default function IconHeading5({ label = '' }: IconProps) {
+export default function IconHeading5() {
   return (
-    <svg aria-label={label} width={40} height={40}>
+    <svg focusable="false" aria-hidden width={40} height={40}>
       <g fill="none" fillRule="evenodd">
         <path fill="#FFF" d="M0 0h40v40H0z" />
         <rect fill="#C1C7D0" x={6} y={30} width={20} height={1} rx={0.5} />

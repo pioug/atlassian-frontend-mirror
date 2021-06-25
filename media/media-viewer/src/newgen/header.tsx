@@ -275,7 +275,12 @@ export class Header extends React.Component<Props & InjectedIntlProps, State> {
     fileName?: string,
   ) => {
     return (
-      <MimeTypeIcon mediaType={mediaType} mimeType={mimeType} name={fileName} />
+      <MimeTypeIcon
+        testId={'media-viewer-file-type-icon'}
+        mediaType={mediaType}
+        mimeType={mimeType}
+        name={fileName}
+      />
     );
   };
 

@@ -102,7 +102,9 @@ const getIcon = (macro: LegacyMacroManifest) => {
     return Promise.resolve(() => getIconComponent(macro.icon.location));
   }
 
-  return import('@atlaskit/icon/glyph/editor/code');
+  return import(
+    /* webpackChunkName: "@atlaskit-internal_editor-icon-code" */ '@atlaskit/icon/glyph/editor/code'
+  ).then(mod => mod.default);
 };
 
 const buildIconObject = (macro: LegacyMacroManifest) => {

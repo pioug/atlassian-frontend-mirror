@@ -121,6 +121,7 @@ interface ErrorBoundaryProps {
   appearance?: Appearance;
   triggerSubject?: string;
   hideFallbackUI?: boolean;
+  extraAnalyticProps?: object;
 }
 
 type ErrorBoundaryState = {
@@ -157,7 +158,10 @@ class ErrorBoundary extends React.Component<
       () => {
         this.fireOperationalEvent({
           action: ACTION_SUBJECT,
-          attributes: reason,
+          attributes: {
+            ...reason,
+            ...this.props.extraAnalyticProps,
+          },
         });
       },
     );

@@ -6,14 +6,14 @@ import { AtlassianIcon } from '@atlaskit/logo';
 
 import Breadcrumbs, { BreadcrumbsItem } from '../src';
 
-interface Props {
+interface RouterLinkProps {
   children: Node;
   className: string;
   href: Link;
   onMouseEnter: (e: React.MouseEvent) => any;
   onMouseLeave: (e: React.MouseEvent) => any;
 }
-class RouterLink extends React.PureComponent<Props, {}> {
+class RouterLink extends React.PureComponent<RouterLinkProps, {}> {
   render() {
     const {
       children,

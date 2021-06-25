@@ -407,7 +407,22 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
               CATCHUP_SUCCESS,
             );
             // Create StepMap from StepMap JSON
-            const stepMaps = serverStepMaps.map((map: any) => new StepMap(map));
+            // eslint-disable-next-line no-unused-vars
+            const stepMaps = serverStepMaps.map(
+              ({
+                ranges,
+                inverted,
+              }: {
+                ranges: [number, number, number];
+                inverted: boolean;
+              }) => {
+                // Due to @types/prosemirror-transform mismatch with the actual
+                // constructor, hack to set the `inverted`.
+                const stepMap = new StepMap(ranges);
+                (stepMap as any).inverted = inverted;
+                return stepMap;
+              },
+            );
             // create Mappng used for Step.map
             const mapping: Mapping = new Mapping(stepMaps);
             logger(

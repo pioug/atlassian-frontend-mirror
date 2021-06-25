@@ -73,8 +73,6 @@ export function MobileAppearance({
         const paddingVh = (mobilePaddingTop * 100) / windowHeight;
         minHeight = 100 - keyboardHeightVh - paddingVh;
       }
-      const GUTTER_PADDING = 8;
-
       return (
         <WithFlash animate={maxContentSizeReached}>
           <MobileEditor
@@ -87,12 +85,7 @@ export function MobileAppearance({
               persistScrollGutter={persistScrollGutter}
             >
               <ContentArea>
-                <div
-                  style={{ padding: `0 ${GUTTER_PADDING}px` }}
-                  className="ak-editor-content-area"
-                >
-                  {children}
-                </div>
+                <div className="ak-editor-content-area">{children}</div>
               </ContentArea>
             </ClickArea>
           </MobileEditor>

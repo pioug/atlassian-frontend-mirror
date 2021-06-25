@@ -53,8 +53,11 @@ export default {
   'fabric.editor.configPanel.customSelect.createOption': 'Opret',
   'fabric.editor.configPanel.dateRange.custom.from': 'Fra',
   'fabric.editor.configPanel.dateRange.custom.to': 'til',
+  'fabric.editor.configPanel.dateRange.grouping.collapse': 'Skjul',
+  'fabric.editor.configPanel.dateRange.grouping.expand': 'Udvid',
   'fabric.editor.configPanel.dateRange.option.custom': 'Brugerdefineret',
   'fabric.editor.configPanel.documentation': 'Dokumentation',
+  'fabric.editor.configPanel.errorBoundary.title': 'Noget gik galt.',
   'fabric.editor.configPanel.fieldTypeError.isMultipleAndRadio':
     'Kunne ikke kombinere isMultiple med stilen: alternativknap',
   'fabric.editor.configPanel.formType.addField': 'Tilføj felt',

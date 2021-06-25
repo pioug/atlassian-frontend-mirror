@@ -495,6 +495,7 @@ export default class Editor extends React.Component<EditorProps, State> {
       autoformattingProvider,
       searchProvider,
       UNSAFE_cards,
+      smartLinks,
     } = props;
 
     const { extensionProvider, quickInsertProvider } = this.state;
@@ -526,8 +527,11 @@ export default class Editor extends React.Component<EditorProps, State> {
     this.providerFactory.setProvider('presenceProvider', presenceProvider);
     this.providerFactory.setProvider('macroProvider', macroProvider);
 
-    if (UNSAFE_cards && UNSAFE_cards.provider) {
-      this.providerFactory.setProvider('cardProvider', UNSAFE_cards.provider);
+    const cardProvider =
+      (smartLinks && smartLinks.provider) ||
+      (UNSAFE_cards && UNSAFE_cards.provider);
+    if (cardProvider) {
+      this.providerFactory.setProvider('cardProvider', cardProvider);
     }
 
     this.providerFactory.setProvider(

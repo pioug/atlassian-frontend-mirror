@@ -27,10 +27,10 @@ const getRandomIcon = () => {
 
 const iconMap = (key?: string, color?: string) => {
   const icons: { [key: string]: ReactElement } = {
-    info: <Info label="Info icon" primaryColor={color || P300} />,
-    success: <Tick label="Success icon" primaryColor={color || G300} />,
-    warning: <Warning label="Warning icon" primaryColor={color || Y300} />,
-    error: <Error label="Error icon" primaryColor={color || R300} />,
+    info: <Info label="Info" primaryColor={color || P300} />,
+    success: <Tick label="Success" primaryColor={color || G300} />,
+    warning: <Warning label="Warning" primaryColor={color || Y300} />,
+    error: <Error label="Error" primaryColor={color || R300} />,
   };
 
   return key ? icons[key] : icons;

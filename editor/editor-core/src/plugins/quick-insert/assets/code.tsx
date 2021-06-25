@@ -1,9 +1,14 @@
 import React from 'react';
-import { IconProps } from '../types';
 
-export default function IconCode({ label = '' }: IconProps) {
+export default function IconCode() {
   return (
-    <svg aria-label={label} width={40} height={40} fillRule="evenodd">
+    <svg
+      focusable="false"
+      aria-hidden
+      width={40}
+      height={40}
+      fillRule="evenodd"
+    >
       <path fill="#fff" d="M0 0h40v40H0z" />
       <path fill="#ebecf0" d="M13 6h26v28H13z" />
       <path d="M9 6h4v28H9a2 2 0 01-2-2V8a2 2 0 012-2z" fill="#dfe1e6" />

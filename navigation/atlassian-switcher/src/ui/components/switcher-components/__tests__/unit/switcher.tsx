@@ -204,7 +204,23 @@ describe('Switcher', () => {
         </IntlProvider>,
       );
       expect(wrapper).toMatchSnapshot();
-      expect(wrapper.find(ErrorBoundary).html()).toEqual('');
+      expect(wrapper.find(ErrorBoundary).length).toEqual(4);
+      expect(wrapper.find(ErrorBoundary).at(0).html()).toEqual('');
+      expect(wrapper.find(ErrorBoundary).at(0).props().triggerSubject).toEqual(
+        'crossJoinErrorBoundary',
+      );
+      expect(wrapper.find(ErrorBoundary).at(1).html()).toEqual('');
+      expect(wrapper.find(ErrorBoundary).at(1).props().triggerSubject).toEqual(
+        'crossFlowErrorBoundary',
+      );
+      expect(wrapper.find(ErrorBoundary).at(2).html()).toEqual('');
+      expect(wrapper.find(ErrorBoundary).at(2).props().triggerSubject).toEqual(
+        'recentSectionErrorBoundary',
+      );
+      expect(wrapper.find(ErrorBoundary).at(3).html()).toEqual('');
+      expect(wrapper.find(ErrorBoundary).at(3).props().triggerSubject).toEqual(
+        'customLinksErrorBoundary',
+      );
     });
 
     it('should not render when there is no error in the non-core sections', () => {
@@ -243,7 +259,10 @@ describe('Switcher', () => {
       );
 
       expect(wrapper).toMatchSnapshot();
-      expect(wrapper.find(ErrorBoundary).html()).not.toEqual('');
+      expect(wrapper.find(ErrorBoundary).at(0).html()).toEqual('');
+      expect(wrapper.find(ErrorBoundary).at(1).html()).toEqual('');
+      expect(wrapper.find(ErrorBoundary).at(2).html()).toEqual('');
+      expect(wrapper.find(ErrorBoundary).at(3).html()).not.toEqual('');
     });
   });
 });

@@ -56,6 +56,7 @@ export const Icon = memo(function Icon(props: IconProps) {
           data-testid={testId}
           role={label ? 'img' : 'presentation'}
           aria-label={label ? label : undefined}
+          aria-hidden={!label ? 'true' : undefined}
           {...glyphProps}
           /**
            * The size dimensions on the span element have dubious value and can be removed

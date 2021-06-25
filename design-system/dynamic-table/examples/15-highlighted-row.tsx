@@ -14,7 +14,7 @@ enum ThemeMode {
 }
 
 interface State {
-  highlightedRow: number;
+  highlightedRows: number[];
   themeMode: ThemeMode;
 }
 
@@ -25,7 +25,7 @@ const paddingStyle = { padding: '8px 0' };
 // eslint-disable-next-line import/no-anonymous-default-export
 export default class extends React.Component<{}, State> {
   state = {
-    highlightedRow: 3,
+    highlightedRows: [3],
     themeMode: ThemeMode.LIGHT,
   };
 
@@ -36,9 +36,16 @@ export default class extends React.Component<{}, State> {
     });
   };
 
-  setHighlightedRow = (rowNumber: number) =>
-    this.setState({
-      highlightedRow: rowNumber,
+  toggleHighlightedRow = (rowNumber: number) =>
+    this.setState(({ highlightedRows }) => {
+      const newHighlightedRowIndex = [...highlightedRows];
+      const existingIndex = newHighlightedRowIndex.indexOf(rowNumber);
+      if (existingIndex > -1) {
+        newHighlightedRowIndex.splice(existingIndex, 1);
+      } else {
+        newHighlightedRowIndex.push(rowNumber);
+      }
+      return { highlightedRows: newHighlightedRowIndex };
     });
 
   render() {
@@ -48,9 +55,12 @@ export default class extends React.Component<{}, State> {
           Click on the buttons to highlight the corresponding row
         </h4>
         <ButtonGroup>
-          {[0, 2, 5, 6, 8, 9].map((nos) => (
-            <Button onClick={() => this.setHighlightedRow(nos)} key={nos}>
-              {nos}
+          {[0, 2, 5, 6, 8, 9].map((rowIndex) => (
+            <Button
+              onClick={() => this.toggleHighlightedRow(rowIndex)}
+              key={rowIndex}
+            >
+              {rowIndex}
             </Button>
           ))}
         </ButtonGroup>
@@ -62,7 +72,7 @@ export default class extends React.Component<{}, State> {
 
         <DynamicTableStateless
           head={head}
-          highlightedRowIndex={this.state.highlightedRow}
+          highlightedRowIndex={this.state.highlightedRows}
           rows={rows}
           rowsPerPage={40}
           page={1}

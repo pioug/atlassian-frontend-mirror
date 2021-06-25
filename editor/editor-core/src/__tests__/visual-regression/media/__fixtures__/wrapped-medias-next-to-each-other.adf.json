@@ -1,0 +1,67 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "mediaSingle",
+      "attrs": {
+        "width": 25,
+        "layout": "wrap-left"
+      },
+      "content": [
+        {
+          "type": "media",
+          "attrs": {
+            "id": "8550f88e-6be9-4141-9a36-30e74aaec3ab",
+            "type": "file",
+            "collection": "MediaServicesSample",
+            "width": 3496,
+            "height": 5277
+          }
+        }
+      ]
+    },
+    {
+      "type": "mediaSingle",
+      "attrs": {
+        "width": 25,
+        "layout": "wrap-left"
+      },
+      "content": [
+        {
+          "type": "media",
+          "attrs": {
+            "id": "8550f88e-6be9-4141-9a36-30e74aaec3ab",
+            "type": "file",
+            "collection": "MediaServicesSample",
+            "width": 3496,
+            "height": 5277
+          }
+        }
+      ]
+    },
+    {
+      "type": "mediaSingle",
+      "attrs": {
+        "width": 25,
+        "layout": "wrap-left"
+      },
+      "content": [
+        {
+          "type": "media",
+          "attrs": {
+            "id": "8550f88e-6be9-4141-9a36-30e74aaec3ab",
+            "type": "file",
+            "collection": "MediaServicesSample",
+            "width": 3496,
+            "height": 5277
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": []
+    }
+  ]
+}

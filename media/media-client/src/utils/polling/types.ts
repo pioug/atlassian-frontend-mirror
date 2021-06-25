@@ -1,8 +1,6 @@
 export type Executor = () => Promise<void>;
 
-export type PollingErrorReason =
-  | 'pollingMaxAttemptsExceeded'
-  | 'pollingMaxFailuresExceeded';
+export type PollingErrorReason = 'pollingMaxAttemptsExceeded';
 
 export type PollingErrorAttributes = {
   readonly reason: PollingErrorReason;

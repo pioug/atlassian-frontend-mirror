@@ -56,8 +56,11 @@ export default {
   'fabric.editor.configPanel.customSelect.createOption': 'Créer',
   'fabric.editor.configPanel.dateRange.custom.from': 'Du',
   'fabric.editor.configPanel.dateRange.custom.to': 'au',
+  'fabric.editor.configPanel.dateRange.grouping.collapse': 'Réduire',
+  'fabric.editor.configPanel.dateRange.grouping.expand': 'Développer',
   'fabric.editor.configPanel.dateRange.option.custom': 'Personnalisée',
   'fabric.editor.configPanel.documentation': 'Documentation',
+  'fabric.editor.configPanel.errorBoundary.title': "Une erreur s'est produite.",
   'fabric.editor.configPanel.fieldTypeError.isMultipleAndRadio':
     'Impossible de combiner isMultiple avec style: radio',
   'fabric.editor.configPanel.formType.addField': 'Ajouter un champ',

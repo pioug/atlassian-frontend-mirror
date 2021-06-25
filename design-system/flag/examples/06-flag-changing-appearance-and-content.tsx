@@ -52,7 +52,7 @@ const ConnectionDemo = () => {
   const getIcon = () => {
     switch (appearance) {
       case 'error':
-        return <ErrorIcon label="" secondaryColor={R400} />;
+        return <ErrorIcon label="Error" secondaryColor={R400} />;
       case 'info':
         // We wrap the Spinner in a div the same height as a standard Icon, to avoid
         // the flag height jumping when Flag.appearance is changed.
@@ -67,9 +67,9 @@ const ConnectionDemo = () => {
           </div>
         );
       case 'success':
-        return <SuccessIcon label="" secondaryColor={G400} />;
+        return <SuccessIcon label="Success" secondaryColor={G400} />;
       case 'warning':
-        return <WarningIcon label="" secondaryColor={Y200} />;
+        return <WarningIcon label="Warning" secondaryColor={Y200} />;
       default:
         return <SuccessIcon label="" secondaryColor={G400} />;
     }

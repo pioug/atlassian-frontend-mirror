@@ -1,9 +1,8 @@
 import React from 'react';
-import { IconProps } from '../types';
 
-export default function IconImages({ label = '' }: IconProps) {
+export default function IconImages() {
   return (
-    <svg aria-label={label} width={40} height={40}>
+    <svg focusable="false" aria-hidden width={40} height={40}>
       <defs>
         <linearGradient
           x1="46.315%"

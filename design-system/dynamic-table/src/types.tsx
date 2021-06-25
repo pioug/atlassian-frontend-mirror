@@ -128,9 +128,9 @@ export interface StatelessProps extends WithAnalyticsEventsProps {
   paginationi18n?: I18nShape;
 
   /**
-   * Will highlight a row of the table.
+   * Will highlight a row(s) of the table.
    */
-  highlightedRowIndex?: number;
+  highlightedRowIndex?: number | number[];
 
   /**
    A `testId` prop is provided for specified elements,
@@ -149,6 +149,13 @@ export interface StatelessProps extends WithAnalyticsEventsProps {
    * `${testId}--loadingSpinner` - The spinner overlaid when loading.
    **/
   testId?: string;
+
+  /**
+   * Used to provide a better description of the table for users with assistive technologies.
+   * Rather than a screen reader speaking "Entering table", passing in an label
+   * allows a custom message like "Entering Sample Numerical Data table".
+   **/
+  label?: string;
 }
 
 export interface StatefulProps extends WithAnalyticsEventsProps {
@@ -279,9 +286,9 @@ export interface StatefulProps extends WithAnalyticsEventsProps {
   paginationi18n?: I18nShape;
 
   /**
-   * Will highlight a row of the table.
+   * Will highlight a row(s) of the table.
    */
-  highlightedRowIndex?: number;
+  highlightedRowIndex?: number | number[];
 
   /**
    A `testId` prop is provided for specified elements,
@@ -300,6 +307,13 @@ export interface StatefulProps extends WithAnalyticsEventsProps {
    * `${testId}--loadingSpinner` - The spinner overlaid when loading.
    **/
   testId?: string;
+
+  /**
+   * Used to provide a better description of the table for users with assistive technologies.
+   * Rather than a screen reader speaking "Entering table", passing in an label
+   * allows a custom message like "Entering Sample Numerical Data table".
+   **/
+  label?: string;
 }
 
 export interface RowType extends React.ComponentPropsWithoutRef<'tr'> {

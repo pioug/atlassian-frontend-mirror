@@ -6,6 +6,11 @@ const isJiraRoadMap = (url: string) =>
     /^https:\/\/.*?\/jira\/software\/(c\/)?projects\/[^\/]+?\/boards\/.*?\/roadmap\/?/,
   );
 
+const isPolarisView = (url: string) =>
+  url.match(
+    /^https:\/\/.*?\/jira\/polaris\/projects\/[^\/]+?\/ideas\/view\/\d+/,
+  );
+
 const isSlackMessage = (url: string) =>
   url.match(
     /^https:\/\/.+?\.slack\.com\/archives\/[CG][A-Z0-9]+\/p[0-9]+(\?.*)?$/,
@@ -41,7 +46,7 @@ export class Transformer {
   }
 
   toAdf(url: string, appearance: CardAppearance): CardAdf {
-    if (isJiraRoadMap(url)) {
+    if (isJiraRoadMap(url) || isPolarisView(url)) {
       return this.buildEmbedAdf(url);
     } else if (isSlackMessage(url)) {
       return this.buildBlockAdf(url);

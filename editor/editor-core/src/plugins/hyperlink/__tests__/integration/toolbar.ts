@@ -168,3 +168,39 @@ BrowserTestCase(
     expect(doc).toMatchCustomDocSnapshot(testName);
   },
 );
+
+BrowserTestCase(
+  "doesn't close edit link toolbar when text is selected using the mouse and the click is released outside of the toolbar",
+  {},
+  async (client: any, testName: string) => {
+    const page = await goToEditorTestingWDExample(client);
+    await mountEditor(page, {
+      appearance: fullpage.appearance,
+      defaultValue: basicHyperlinkAdf,
+    });
+
+    await page.waitForSelector(hyperlinkSelectors.hyperlink);
+    await page.click(hyperlinkSelectors.hyperlink);
+    await page.waitForSelector(hyperlinkSelectors.editLinkBtn);
+    await page.click(hyperlinkSelectors.editLinkBtn);
+
+    const linkInputLocation = await page.getLocation(
+      hyperlinkSelectors.linkInput,
+    );
+    const floatingToolbarLocation = await page.getLocation(
+      '[aria-label="Floating Toolbar"]',
+    );
+    const floatingToolbarSize = await page.getElementSize(
+      '[aria-label="Floating Toolbar"]',
+    );
+    await page.simulateUserDragAndDrop(
+      linkInputLocation.x,
+      linkInputLocation.y,
+      floatingToolbarLocation.x + floatingToolbarSize.width,
+      floatingToolbarLocation.y + floatingToolbarSize.height,
+      1,
+    );
+
+    expect(await page.isExisting(hyperlinkSelectors.linkInput)).toBe(true);
+  },
+);

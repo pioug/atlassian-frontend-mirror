@@ -1,5 +1,11 @@
 # @atlaskit/banner
 
+## 11.2.2
+
+### Patch Changes
+
+- [`c7319dcdea9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c7319dcdea9) - Added the design system tech stacks to the package.json and fixed linting errors, also disabled some linting rules to prevent breaking changes
+
 ## 11.2.1
 
 ### Patch Changes

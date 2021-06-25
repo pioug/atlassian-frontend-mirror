@@ -1,5 +1,11 @@
 # @atlaskit/icon-object
 
+## 6.2.4
+
+### Patch Changes
+
+- [`df2bb5891ef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/df2bb5891ef) - Use named export of base icon in all icon-\* glyphs
+
 ## 6.2.3
 
 ### Patch Changes

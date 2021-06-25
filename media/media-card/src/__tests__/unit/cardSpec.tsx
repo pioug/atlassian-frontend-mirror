@@ -1524,7 +1524,6 @@ describe('Card', () => {
         poll_maxAttempts: 20,
         poll_backoffFactor: 30,
         poll_maxIntervalMs: 40,
-        poll_maxGlobalFailures: 50,
         captions: false,
       };
 

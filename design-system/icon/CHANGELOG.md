@@ -1,5 +1,11 @@
 # @atlaskit/icon
 
+## 21.6.1
+
+### Patch Changes
+
+- [`9f5d6ed95f0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9f5d6ed95f0) - Added aria-hidden to icon wrapper when there is no label provided
+
 ## 21.6.0
 
 ### Minor Changes

@@ -11,7 +11,7 @@ describe('Snapshot Test', () => {
 
     const { page } = global;
     await loadPage(page, url);
-    await page.waitForSelector('span[aria-label="Info"]');
+    await page.waitForSelector('span[aria-label="Success"]');
     const image = await page.screenshot();
 
     expect(image).toMatchProdImageSnapshot();
@@ -27,7 +27,7 @@ describe('Snapshot Test', () => {
 
     const { page } = global;
     await loadPage(page, url);
-    await page.waitForSelector('span[aria-label="Info"]');
+    await page.waitForSelector('span[aria-label="Success"]');
 
     // navigate to button
     await page.keyboard.press('Tab');
@@ -48,10 +48,10 @@ describe('Snapshot Test', () => {
 
     const { page } = global;
     await loadPage(page, url);
-    await page.waitForSelector('span[aria-label="Error icon"] > svg');
-    await page.waitForSelector('span[aria-label="Info icon"] > svg');
+    await page.waitForSelector('span[aria-label="Error"] > svg');
+    await page.waitForSelector('span[aria-label="Info"] > svg');
     await page.waitForSelector('span[aria-label="Success"] > svg');
-    await page.waitForSelector('span[aria-label="Warning icon"] > svg');
+    await page.waitForSelector('span[aria-label="Warning"] > svg');
     const image = await page.screenshot();
 
     expect(image).toMatchProdImageSnapshot();

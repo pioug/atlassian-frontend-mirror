@@ -1,5 +1,15 @@
 # @atlaskit/select
 
+## 14.1.0
+
+### Minor Changes
+
+- [`1ffa16e7d54`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1ffa16e7d54) - [ux] An argument of `PopupSelect`'s `target` render props was extended with `aria-haspopup`, `aria-expanded`, and `aria-controls` fields . You should pass this fields to custom trigger like `({isOpen, ...triggerProps}) => <button {...triggerProps}>Trigger</button>`. Provided aria attributes help users who use assistive technologies understand a component better.
+
+### Patch Changes
+
+- [`56dbb93df94`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56dbb93df94) - [ux] Fixed failing color contrast issues for the Checkbox and Radio icons in CheckboxSelect and RadioSelect respectively.
+
 ## 14.0.1
 
 ### Patch Changes

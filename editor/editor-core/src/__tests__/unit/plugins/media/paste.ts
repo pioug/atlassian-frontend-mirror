@@ -38,6 +38,17 @@ describe('Media plugin', () => {
         0,
       );
 
+    const sliceWithLimitedAttributes = (schema: Schema) =>
+      new Slice(
+        fragment(
+          p('some text'),
+          mediaSingle({ layout: 'align-start' })(temporaryMedia),
+          p('text after'),
+        )(schema),
+        0,
+        0,
+      );
+
     const sliceWithoutAttributes = (schema: Schema) =>
       new Slice(
         fragment(
@@ -62,7 +73,7 @@ describe('Media plugin', () => {
       const { selection, schema } = editorState;
       expect(
         transformSliceForMedia(sliceWithAttributes(schema), schema)(selection),
-      ).toEqual(sliceWithoutAttributes(schema));
+      ).toEqual(sliceWithLimitedAttributes(schema));
     });
 
     it('removes mediaSingle attributes when pasted into a table', () => {
@@ -73,7 +84,7 @@ describe('Media plugin', () => {
       const { selection, schema } = editorState;
       expect(
         transformSliceForMedia(sliceWithAttributes(schema), schema)(selection),
-      ).toEqual(sliceWithoutAttributes(schema));
+      ).toEqual(sliceWithLimitedAttributes(schema));
     });
 
     it('removes mediaSingle attributes when pasted into an ordered list', () => {

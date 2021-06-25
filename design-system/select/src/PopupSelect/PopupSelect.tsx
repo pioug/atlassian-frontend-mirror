@@ -1,6 +1,7 @@
 import React, { PureComponent, ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 import Select, { components as RSComponents } from 'react-select';
+import { uid } from 'react-uid';
 import createFocusTrap, { FocusTrap } from 'focus-trap';
 import { Manager, Reference, Popper, PopperProps } from 'react-popper';
 import { Placement } from '@popperjs/core';
@@ -39,6 +40,13 @@ type PopperPropsNoChildren<Modifiers> = Omit<
   'children'
 >;
 
+interface PopupSelectTriggerProps {
+  ref: any;
+  'aria-haspopup': 'true';
+  'aria-expanded': boolean;
+  'aria-controls'?: string;
+}
+
 export interface PopupSelectProps<
   Option = OptionType,
   IsMulti extends boolean = false,
@@ -48,7 +56,9 @@ export interface PopupSelectProps<
   footer?: ReactNode;
   popperProps?: PopperPropsNoChildren<Modifiers>;
   searchThreshold?: number;
-  target?: (options: { ref: any; isOpen: boolean }) => ReactNode;
+  target?: (
+    options: PopupSelectTriggerProps & { isOpen: boolean },
+  ) => ReactNode;
 }
 
 interface State<Modifiers = {}> {
@@ -100,6 +110,8 @@ export default class PopupSelect<
     mergedComponents: defaultComponents,
     mergedPopperProps: defaultPopperProps,
   };
+
+  popperWrapperId = `${uid({ options: this.props.options })}-popup-select`;
 
   static defaultProps = {
     closeMenuOnSelect: true,
@@ -356,7 +368,6 @@ export default class PopupSelect<
     if (!portalDestination || !isOpen) {
       return null;
     }
-
     const popper = (
       <Popper {...mergedPopperProps}>
         {({ placement, ref, style }) => {
@@ -367,6 +378,7 @@ export default class PopupSelect<
                 data-placement={placement}
                 minWidth={minMenuWidth}
                 maxWidth={maxMenuWidth}
+                id={this.popperWrapperId}
               >
                 <Select<Option, IsMulti>
                   backspaceRemovesValue={false}
@@ -403,7 +415,14 @@ export default class PopupSelect<
       <Manager>
         <Reference>
           {({ ref }) =>
-            target && target({ ref: this.resolveTargetRef(ref), isOpen })
+            target &&
+            target({
+              isOpen,
+              ref: this.resolveTargetRef(ref),
+              'aria-haspopup': 'true',
+              'aria-expanded': isOpen,
+              'aria-controls': isOpen ? this.popperWrapperId : undefined,
+            })
           }
         </Reference>
         {this.renderSelect()}

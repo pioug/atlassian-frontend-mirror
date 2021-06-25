@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 
 import { RadioGroup } from '../src';
 import { OptionsPropType } from '../src/types';
@@ -18,9 +18,12 @@ const options: OptionsPropType = [
 
 export default function BasicExample() {
   return (
-    <div>
-      <h4>Choose a color:</h4>
-      <RadioGroup options={options} />
-    </div>
+    <Fragment>
+      <h4 id="radiogroup-testing-label">Choose a color:</h4>
+      <RadioGroup
+        options={options}
+        aria-labelledby="radiogroup-testing-label"
+      />
+    </Fragment>
   );
 }

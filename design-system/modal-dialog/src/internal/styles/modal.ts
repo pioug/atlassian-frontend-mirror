@@ -43,6 +43,7 @@ export const getFillScreenStyles = (scrollDistance: number) => css`
   // children are properly positioned.
   position: absolute;
   top: ${scrollDistance}px;
+  left: 0;
 
   z-index: ${layers.modal()};
   overflow-y: auto; // Enables scroll outside.

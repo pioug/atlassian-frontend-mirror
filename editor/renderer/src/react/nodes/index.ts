@@ -33,111 +33,124 @@ import Loadable from 'react-loadable';
 import EmbedCard from './embedCard';
 import { UnsupportedBlock, UnsupportedInline } from '@atlaskit/editor-common';
 
+import type CodeBlockComponent from './codeBlock';
+import type TaskItemComponent from './taskItem';
+import type DecisionItemComponent from './decisionItem';
+import type DateComponent from './date';
+import type StatusComponent from './status';
+import type EmojiComponent from './emoji';
+import type InlineCardComponent from './inlineCard';
+import type BlockCardComponent from './blockCard';
+import type MediaComponent from './media';
+import type MediaGroupComponent from './mediaGroup';
+import type MentionComponent from './mention';
+import type ExpandComponent from '../../ui/Expand';
+
 const CodeBlock = Loadable({
   loader: () =>
     import(
-      /* webpackChunkName:"@atlaskit-internal-renderer-node_CodeBlock" */
+      /* webpackChunkName: "@atlaskit-internal_renderer-node_CodeBlock" */
       './codeBlock'
-    ),
+    ).then(mod => mod.default) as Promise<typeof CodeBlockComponent>,
   loading: () => null,
 });
 
 const TaskItem = Loadable({
   loader: () =>
     import(
-      /* webpackChunkName:"@atlaskit-internal-renderer-node_TaskItem" */
+      /* webpackChunkName: "@atlaskit-internal_renderer-node_TaskItem" */
       './taskItem'
-    ),
+    ).then(mod => mod.default) as Promise<typeof TaskItemComponent>,
   loading: () => null,
 });
 
 const DecisionItem = Loadable({
   loader: () =>
     import(
-      /* webpackChunkName:"@atlaskit-internal-renderer-node_DecisionItem" */
+      /* webpackChunkName: "@atlaskit-internal_renderer-node_DecisionItem" */
       './decisionItem'
-    ),
+    ).then(mod => mod.default) as Promise<typeof DecisionItemComponent>,
   loading: () => null,
 });
 
 const Date = Loadable({
   loader: () =>
     import(
-      /* webpackChunkName:"@atlaskit-internal-renderer-node_Date" */
+      /* webpackChunkName: "@atlaskit-internal_renderer-node_Date" */
       './date'
-    ),
+    ).then(mod => mod.default) as Promise<typeof DateComponent>,
   loading: () => null,
 });
 
 const Status = Loadable({
   loader: () =>
     import(
-      /* webpackChunkName:"@atlaskit-internal-renderer-node_Status" */
+      /* webpackChunkName: "@atlaskit-internal_renderer-node_Status" */
       './status'
-    ),
+    ).then(mod => mod.default) as Promise<typeof StatusComponent>,
   loading: () => null,
 });
 
 const Emoji = Loadable({
   loader: () =>
     import(
-      /* webpackChunkName:"@atlaskit-internal-renderer-node_Emoji" */
+      /* webpackChunkName: "@atlaskit-internal_renderer-node_Emoji" */
       './emoji'
-    ),
+    ).then(mod => mod.default) as Promise<typeof EmojiComponent>,
   loading: () => null,
 });
 
 const InlineCard = Loadable({
   loader: () =>
     import(
-      /* webpackChunkName:"@atlaskit-internal-renderer-node_InlineCard" */
+      /* webpackChunkName: "@atlaskit-internal_renderer-node_InlineCard" */
       './inlineCard'
-    ),
+    ).then(mod => mod.default) as Promise<typeof InlineCardComponent>,
   loading: () => null,
 });
 
 const BlockCard = Loadable({
   loader: () =>
     import(
-      /* webpackChunkName:"@atlaskit-internal-renderer-node_BlockCard" */
+      /* webpackChunkName: "@atlaskit-internal_renderer-node_BlockCard" */
       './blockCard'
-    ),
+    ).then(mod => mod.default) as Promise<typeof BlockCardComponent>,
   loading: () => null,
 });
 
 const Media = Loadable({
   loader: () =>
     import(
-      /* webpackChunkName:"@atlaskit-internal-renderer-node_Media" */
+      /* webpackChunkName: "@atlaskit-internal_renderer-node_Media" */
       './media'
-    ),
+    ).then(mod => mod.default) as Promise<typeof MediaComponent>,
   loading: () => null,
 });
 
 const MediaGroup = Loadable({
   loader: () =>
     import(
-      /* webpackChunkName:"@atlaskit-internal-renderer-node_MediaGroup" */
+      /* webpackChunkName: "@atlaskit-internal_renderer-node_MediaGroup" */
       './mediaGroup'
-    ),
+    ).then(mod => mod.default) as Promise<typeof MediaGroupComponent>,
   loading: () => null,
 });
 
 const Mention = Loadable({
   loader: () =>
     import(
-      /* webpackChunkName:"@atlaskit-internal-renderer-node_Mention" */
+      /* webpackChunkName: "@atlaskit-internal_renderer-node_Mention" */
       './mention'
-    ),
+    ).then(mod => mod.default) as Promise<typeof MentionComponent>,
   loading: () => null,
 });
 
 const Expand = Loadable({
   loader: () =>
     import(
-      /* webpackChunkName:"@atlaskit-internal-renderer-node_Expand" */
+      /* webpackChunkName: "@atlaskit-internal_renderer-node_Expand" */
       '../../ui/Expand'
-    ),
+    ).then(mod => mod.default) as Promise<typeof ExpandComponent>,
   loading: () => null,
 });
 

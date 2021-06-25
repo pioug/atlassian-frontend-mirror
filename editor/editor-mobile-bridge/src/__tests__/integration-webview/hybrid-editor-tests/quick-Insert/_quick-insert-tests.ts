@@ -6,30 +6,30 @@ import {
   isActionItemVisible,
   isActionItemHelpTextTranslatedToZH,
   focusOnWebView,
+  isBlockQuoteAdded,
+  isCodeBlockAdded,
+  isDecisionAdded,
+  isDecisionPanelVisible,
+  isInfoPanelVisible,
+  isWarningPanelVisible,
+  isErrorPanelVisible,
+  isMentionSymbolVisible,
 } from '../../_page-objects/hybrid-editor-page';
 import { SPECIAL_KEYS } from '@atlaskit/webdriver-runner/utils/mobile/keyboard/common-osk';
 import {
   ENABLE_QUICK_INSERT,
   ENABLE_QUICK_INSERT_AND_SET_LOCALE_TO_ZH,
 } from '../../_utils/configurations';
-import { ACTION_ITEM_QUICK_INSERT } from '../../_utils/quick-inserts';
 import {
-  isDecisionAdded,
-  isDecisionPanelVisible,
-} from '../../_page-objects/hybrid-editor-page';
-import { DECISION_QUICK_INSERT } from '../../_utils/quick-inserts';
-import {
-  isInfoPanelVisible,
-  isWarningPanelVisible,
-  isErrorPanelVisible,
-} from '../../_page-objects/hybrid-editor-page';
-import {
+  ACTION_ITEM_QUICK_INSERT,
+  BLOCK_QUOTE_QUICK_INSERT,
+  CODE_BLOCK_QUICK_INSERT,
+  DECISION_QUICK_INSERT,
   INFORMATION_PANEL_QUICK_INSERT,
   WARNING_PANEL_QUICK_INSERT,
   ERROR_PANEL_QUICK_INSERT,
+  MENTION_QUICK_INSERT,
 } from '../../_utils/quick-inserts';
-import { isMentionSymbolVisible } from '../../_page-objects/hybrid-editor-page';
-import { MENTION_QUICK_INSERT } from '../../_utils/quick-inserts';
 
 export default async () => {
   MobileTestCase(
@@ -130,6 +130,41 @@ export default async () => {
       await page.tapKeys(decisionText);
 
       expect(await isDecisionAdded(page, decisionText)).toBe(true);
+    },
+  );
+
+  MobileTestCase(
+    'Quick Insert - Block Quote: Users can add a block quote by typing ">" and pressing space',
+    {},
+    async (client: any, testName: string) => {
+      const page = await Page.create(client);
+      await loadEditor(page);
+      await configureEditor(page, ENABLE_QUICK_INSERT);
+      await page.tapKeys(BLOCK_QUOTE_QUICK_INSERT);
+      await page.tapKeys(SPECIAL_KEYS.SPACE);
+      const blockQuoteText = 'Quote';
+      await page.tapKeys(blockQuoteText);
+
+      expect(await isBlockQuoteAdded(page, blockQuoteText)).toBe(true);
+    },
+  );
+
+  MobileTestCase(
+    'Quick Insert - Code Block: Users can add a code block by typing "```"',
+    /**
+     * In iOS the '`'(Back Tick) is an extra key that shows up only upon long pressing a '''(Single quote).
+     * Need to find a way to select this extra key through appium
+     */
+    { skipPlatform: ['ios'] },
+    async (client: any, testName: string) => {
+      const page = await Page.create(client);
+      await loadEditor(page);
+      await configureEditor(page, ENABLE_QUICK_INSERT);
+      await page.tapKeys(CODE_BLOCK_QUICK_INSERT);
+      const codeBlockText = 'Code';
+      await page.tapKeys(codeBlockText);
+
+      expect(await isCodeBlockAdded(page, codeBlockText)).toBe(true);
     },
   );
 };

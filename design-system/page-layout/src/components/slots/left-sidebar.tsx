@@ -26,7 +26,7 @@ import {
 import {
   publishGridState,
   SidebarResizeContext,
-  useSkipLinks,
+  useSkipLink,
 } from '../../controllers';
 import ResizeControl from '../resize-control';
 
@@ -136,8 +136,6 @@ const LeftSidebar = (props: LeftSidebarProps) => {
     );
   }
 
-  const { registerSkipLink, unregisterSkipLink } = useSkipLinks();
-
   // Update state from cache on mount
   useEffect(() => {
     const cachedCollapsedState =
@@ -199,7 +197,6 @@ const LeftSidebar = (props: LeftSidebarProps) => {
     }
 
     return () => {
-      unregisterSkipLink(id);
       removeMouseOverListener();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -271,9 +268,7 @@ const LeftSidebar = (props: LeftSidebarProps) => {
       );
   };
 
-  if (id && skipLinkTitle) {
-    registerSkipLink({ id, skipLinkTitle });
-  }
+  useSkipLink(id, skipLinkTitle);
 
   const onMouseLeave = (event: ReactMouseEvent) => {
     const isMouseOnResizeButton =
@@ -309,7 +304,7 @@ const LeftSidebar = (props: LeftSidebarProps) => {
     >
       <SlotDimensions
         variableName={VAR_LEFT_SIDEBAR_WIDTH}
-        value={leftSidebarWidthOnMount}
+        value={notFirstRun.current ? leftSidebarWidth : leftSidebarWidthOnMount}
       />
       <div css={fixedLeftSidebarInnerStyles(isFixed, isFlyoutOpen)}>
         <div

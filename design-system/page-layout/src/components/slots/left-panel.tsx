@@ -12,7 +12,7 @@ import {
   getPageLayoutSlotSelector,
   resolveDimension,
 } from '../../common/utils';
-import { publishGridState, useSkipLinks } from '../../controllers';
+import { publishGridState, useSkipLink } from '../../controllers';
 
 import SlotDimensions from './slot-dimensions';
 import { leftPanelStyles } from './styles';
@@ -34,19 +34,15 @@ const LeftPanel = (props: SlotWidthProps) => {
     shouldPersistWidth,
   );
 
-  const { registerSkipLink, unregisterSkipLink } = useSkipLinks();
-
-  if (id && skipLinkTitle) {
-    registerSkipLink({ id, skipLinkTitle });
-  }
   useEffect(() => {
     publishGridState({ [VAR_LEFT_PANEL_WIDTH]: leftPanelWidth });
     return () => {
       publishGridState({ [VAR_LEFT_PANEL_WIDTH]: 0 });
-      unregisterSkipLink(id);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [leftPanelWidth, id]);
+  }, [leftPanelWidth]);
+
+  useSkipLink(id, skipLinkTitle);
 
   return (
     <div

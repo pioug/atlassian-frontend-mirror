@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import AppSwitcherIcon from '@atlaskit/icon/glyph/app-switcher';
+import Button from '@atlaskit/button';
 import { PopupSelect, OptionsType } from '../src';
 
 const options: OptionsType = [
@@ -26,18 +27,28 @@ const PopupSelectExample = () => (
       <PopupSelect
         {...defaults}
         value={options[2]}
-        target={({ ref }) => <button ref={ref}>Target</button>}
+        target={({ isOpen, ...triggerProps }) => (
+          <Button isSelected={isOpen} {...triggerProps}>
+            Target
+          </Button>
+        )}
       />
       <PopupSelect
         {...defaults}
-        target={({ ref }) => <button ref={ref}>W/O Search</button>}
+        target={({ isOpen, ...triggerProps }) => (
+          <Button isSelected={isOpen} {...triggerProps}>
+            Target
+          </Button>
+        )}
         popperProps={{ placement: 'bottom', strategy: 'fixed' }}
         searchThreshold={10}
       />
       <PopupSelect
         {...defaults}
-        target={({ ref }) => (
-          <button ref={ref}>Placement: &ldquo;right-start&rdquo; (flip)</button>
+        target={({ isOpen, ...triggerProps }) => (
+          <Button isSelected={isOpen} {...triggerProps}>
+            Placement: &ldquo;right-start&rdquo; (flip)
+          </Button>
         )}
         popperProps={{ placement: 'right-start' }}
       />
@@ -58,17 +69,23 @@ const PopupSelectExample = () => (
         <div style={{ height: 100 }} />
         <PopupSelect
           {...defaults}
-          target={({ ref }) => <button ref={ref}>Target</button>}
+          target={({ isOpen, ...triggerProps }) => (
+            <Button isSelected={isOpen} {...triggerProps}>
+              Target
+            </Button>
+          )}
         />
         <div style={{ height: 1000 }} />
       </div>
       <div style={{ margin: '1em' }}>
         <PopupSelect
           {...defaults}
-          target={({ ref }) => (
-            <button ref={ref}>
-              <AppSwitcherIcon label="switcher" />
-            </button>
+          target={({ isOpen, ...triggerProps }) => (
+            <Button
+              iconBefore={<AppSwitcherIcon label="switcher" />}
+              isSelected={isOpen}
+              {...triggerProps}
+            />
           )}
         />
       </div>

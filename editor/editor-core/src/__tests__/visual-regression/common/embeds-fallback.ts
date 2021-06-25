@@ -9,7 +9,7 @@ describe('Embed Cards:', () => {
     const page = global.page;
 
     await initFullPageEditorWithAdf(page, adf, Device.LaptopHiDPI, undefined, {
-      UNSAFE_cards: {
+      smartLinks: {
         resolveBeforeMacros: ['jira'],
         allowBlockCards: true,
         allowEmbeds: true,
@@ -37,7 +37,7 @@ describe('Embed Cards:', () => {
         height: 4000,
       },
       {
-        UNSAFE_cards: {
+        smartLinks: {
           resolveBeforeMacros: ['jira'],
           allowBlockCards: true,
           allowEmbeds: true,

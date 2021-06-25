@@ -16,7 +16,7 @@ describe('Embed Cards:', () => {
         height: 2300,
       },
       {
-        UNSAFE_cards: {
+        smartLinks: {
           resolveBeforeMacros: ['jira'],
           allowBlockCards: true,
           allowEmbeds: true,

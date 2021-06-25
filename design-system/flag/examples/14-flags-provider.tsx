@@ -23,7 +23,7 @@ const getFlagData = (
   const flagData: CreateFlagArgs = {
     actions,
     description: description,
-    icon: <Info label="Info icon" primaryColor={P300} />,
+    icon: <Info label="Info" primaryColor={P300} />,
     title: `${index + 1}: Whoa a new flag!`,
     isAutoDismiss: isAutoDismiss,
   };

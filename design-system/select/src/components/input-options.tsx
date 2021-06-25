@@ -39,11 +39,11 @@ const getPrimitiveStyles = (
   };
 
   // maintain react-select API
-  return [augmentedStyles, cx(null, bemClasses, className) as string];
+  return [augmentedStyles, cx(bemClasses, className) as string];
 };
 
 // maintains function shape
-const backgroundColor = themed({ light: colors.N40A, dark: colors.DN10 });
+const backgroundColor = themed({ light: colors.N0, dark: colors.DN10 });
 const transparent = themed({ light: 'transparent', dark: 'transparent' });
 
 // state of the parent option
@@ -142,6 +142,17 @@ class ControlOption<
             display: 'flex ',
             flexShrink: 0,
             paddingRight: '4px',
+            // Here we are adding a border to the Checkbox and Radio SVG icons
+            // THis is an a11y fix for Select only for now but it may be rolled
+            // into the `@atlaskit/icon` package's Checkbox and Radio SVGs later
+            '& svg rect, & svg circle:first-of-type': {
+              stroke:
+                this.state.isActive || this.props.isSelected
+                  ? colors.B400
+                  : colors.N100,
+              strokeWidth: '2px',
+              strokeLinejoin: 'round',
+            },
           }}
         >
           {!!Icon ? (

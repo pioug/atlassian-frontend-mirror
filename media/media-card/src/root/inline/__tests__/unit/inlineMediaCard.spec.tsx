@@ -95,9 +95,9 @@ describe('<InlineMediaCard />', () => {
       />,
     );
     const fileTypeIcon = await waitForElement(() =>
-      getByTestId('media-viewer-file-type-icon'),
+      getByTestId('inline-media-card-file-type-icon'),
     );
-    expect(fileTypeIcon.getAttribute('type')).toEqual('image');
+    expect(fileTypeIcon.getAttribute('data-type')).toEqual('image');
     expect(fileTypeIcon).toBeTruthy();
   });
 

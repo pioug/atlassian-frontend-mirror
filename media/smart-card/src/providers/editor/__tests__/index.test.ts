@@ -38,6 +38,16 @@ const mockProvidersResponse: ORSProvidersResponse = {
         },
       ],
     },
+    {
+      key: 'polaris-object-provider',
+      patterns: [
+        {
+          source:
+            '^https:\\/\\/.*?\\.jira-dev\\.com\\/jira\\/polaris\\/projects\\/[^\\/]+?\\/ideas\\/view\\/\\d+',
+          flags: '',
+        },
+      ],
+    },
   ],
 };
 
@@ -173,6 +183,24 @@ describe('providers > editor', () => {
       type: 'blockCard',
       attrs: {
         url,
+      },
+    });
+  });
+
+  it('returns embedCard when Polaris view link inserted, calling /providers endpoint', async () => {
+    const provider = new EditorCardProvider();
+    mockFetch.mockImplementationOnce(async () => ({
+      json: async () => mockProvidersResponse,
+      ok: true,
+    }));
+    const url =
+      'https://polaris-v0.jira-dev.com/jira/polaris/projects/CS10/ideas/view/8981';
+    const adf = await provider.resolve(url, 'inline');
+    expect(adf).toEqual({
+      type: 'embedCard',
+      attrs: {
+        url,
+        layout: 'wide',
       },
     });
   });

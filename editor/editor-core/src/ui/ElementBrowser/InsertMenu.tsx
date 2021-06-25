@@ -56,7 +56,6 @@ const InsertMenu = ({
       icon: () =>
         getSvgIconForItem({
           name: item.value.name,
-          content: item.content as string,
         }) || (item.elemBefore as ReactElement),
       action: () => onInsert({ item }),
       // "insertInsertMenuItem" expects these 2 properties.
@@ -162,7 +161,6 @@ const ViewMore = ({ item }: { item: QuickInsertItem }) => {
 
 const getSvgIconForItem = ({
   name,
-  content,
 }: SvgGetterParams): ReactElement | undefined => {
   type IconType = { [key: string]: ComponentClass<{ label: string }> };
 
@@ -177,7 +175,7 @@ const getSvgIconForItem = ({
     status: IconStatus,
   } as IconType)[name];
 
-  return Icon ? <Icon label={content} /> : undefined;
+  return Icon ? <Icon label="" /> : undefined;
 };
 
 const getInsertMenuHeight = ({ itemCount }: { itemCount: number }) => {

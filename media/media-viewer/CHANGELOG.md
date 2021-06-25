@@ -1,5 +1,12 @@
 # @atlaskit/media-viewer
 
+## 45.8.5
+
+### Patch Changes
+
+- [`8cba1694b5e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cba1694b5e) - Remove pollingMaxFailuresExceeded error from implementation and feature flags
+- Updated dependencies
+
 ## 45.8.4
 
 ### Patch Changes

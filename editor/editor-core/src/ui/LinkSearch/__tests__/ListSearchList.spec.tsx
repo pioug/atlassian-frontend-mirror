@@ -20,6 +20,7 @@ describe('ListSearchList', () => {
       onMouseLeave: jest.fn(),
       onSelect: jest.fn(),
       selectedIndex: -1,
+      ariaControls: '',
     };
     const options: Required<SetupOptions> = {
       ...defaultOptions,

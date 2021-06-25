@@ -1,5 +1,17 @@
 # @atlaskit/inline-edit
 
+## 12.0.8
+
+### Patch Changes
+
+- [`f9783cebfe6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f9783cebfe6) - Added action button wrapper back to fix transparent background color issue
+
+## 12.0.7
+
+### Patch Changes
+
+- [`d6f7ff383cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d6f7ff383cf) - Updates to development dependency `storybook-addon-performance`
+
 ## 12.0.6
 
 ### Patch Changes

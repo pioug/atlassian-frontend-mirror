@@ -7,5 +7,5 @@ export {
 } from './sidebar-resize-context';
 export { SidebarResizeController } from './sidebar-resize-controller';
 
-export { useSkipLinks } from './skip-link-context';
+export { useSkipLinks, useSkipLink } from './skip-link-context';
 export { SkipLinksController } from './skip-link-controller';

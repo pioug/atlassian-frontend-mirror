@@ -27,7 +27,6 @@ const ChevronContainer = styled.div`
   align-items: center;
 
   & > button {
-    padding: 0;
     width: ${multiply(gridSize, 3)}px;
     height: ${multiply(gridSize, 3)}px;
   }
@@ -66,13 +65,16 @@ function Expand({ field, children, isExpanded = false, intl }: Props) {
               setExpanded(!expanded);
             }}
             testId="form-expand-toggle"
-          >
-            {expanded ? (
-              <ChevronDownIcon label={intl.formatMessage(messages.collapse)} />
-            ) : (
-              <ChevronRightIcon label={intl.formatMessage(messages.expand)} />
-            )}
-          </Button>
+            iconBefore={
+              expanded ? (
+                <ChevronDownIcon
+                  label={intl.formatMessage(messages.collapse)}
+                />
+              ) : (
+                <ChevronRightIcon label={intl.formatMessage(messages.expand)} />
+              )
+            }
+          />
         </ChevronContainer>
       </ExpandControl>
       <ExpandContentContainer isHidden={!expanded}>

@@ -1,5 +1,6 @@
 import sharp, { OverlayOptions } from 'sharp';
 import Page from '@atlaskit/webdriver-runner/wd-app-wrapper';
+import kebabCase from 'lodash/kebabCase';
 
 /**
  * Takes a screenshot using Appium takeScreenshot command http://appium.io/docs/en/commands/session/screenshot
@@ -36,5 +37,11 @@ export const mobileSnapshot = async (page: Page) => {
   expect(resizedScreenshot).toMatchProdImageSnapshot({
     failureThreshold: `0.01`,
     failureThresholdType: 'percent',
+    // Remove file name from vr snapshot identifier to avoid creating duplicate snapshots
+    customSnapshotIdentifier: ({ currentTestName }) => {
+      const fileName = currentTestName.split(' ')[0];
+      const identifier = currentTestName.replace(`${fileName} `, '');
+      return kebabCase(identifier);
+    },
   });
 };

@@ -26,6 +26,7 @@ import {
   setKeyboardHeight,
   setMobilePaddingTop,
   StatusState,
+  StatusType,
   TextFormattingInputMethodBasic,
   TextFormattingState,
   toggleCodeWithAnalytics,
@@ -46,6 +47,8 @@ import {
   dismissCommand,
   getListCommands,
   isTextAtPos,
+  insertDate,
+  dateToDateType,
 } from '@atlaskit/editor-core';
 import { EditorViewWithComposition } from '../../types';
 import { EditorState, Selection } from 'prosemirror-state';
@@ -893,8 +896,14 @@ export default class WebBridgeImpl
     this.editorActions._privateUnregisterEditor();
   }
 
-  performEditAction(key: string) {
-    this.mobileEditingToolbarActions.performEditAction(key, this.editorView);
+  performEditAction(key: string, value: string | null = null) {
+    if (this.editorView) {
+      this.mobileEditingToolbarActions.performEditAction(
+        key,
+        this.editorView,
+        value,
+      );
+    }
   }
 
   /**
@@ -925,5 +934,37 @@ export default class WebBridgeImpl
     const defaultFontSize = window.webkit ? '17' : '16';
     const trueFontSize = actualFontSize ? actualFontSize : relativeFontSize;
     trackFontSizeUpdated(defaultFontSize, trueFontSize);
+  }
+
+  /**
+   * Inserts a node in the Hybrid Editor.
+   * Most node types are implemented on web, and we can use their implementation here.
+   * We only need to create a transaction for a node if it doesn't exist already.
+   * @param nodeType is the node we are inserting in the editor.
+   */
+  insertNode(nodeType: string) {
+    const { state, dispatch } = this.editorView!;
+    switch (nodeType) {
+      case 'status':
+        const status = {
+          text: 'Status',
+          color: 'neutral',
+        } as StatusType;
+        updateStatusWithAnalytics(INPUT_METHOD.TOOLBAR, status)(
+          state,
+          dispatch,
+        );
+        break;
+      case 'date':
+        const dateType = dateToDateType(new Date());
+        insertDate(
+          dateType,
+          INPUT_METHOD.TOOLBAR,
+          INPUT_METHOD.PICKER,
+        )(state, dispatch);
+        break;
+      default:
+        break;
+    }
   }
 }

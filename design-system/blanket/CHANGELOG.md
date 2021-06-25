@@ -1,5 +1,17 @@
 # @atlaskit/blanket
 
+## 11.4.0
+
+### Minor Changes
+
+- [`96fda7877a1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/96fda7877a1) - We converted blanket from class to functional component and replaced styled components with emotion
+
+## 11.3.1
+
+### Patch Changes
+
+- [`d6f7ff383cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d6f7ff383cf) - Updates to development dependency `storybook-addon-performance`
+
 ## 11.3.0
 
 ### Minor Changes

@@ -5,7 +5,6 @@ import {
 } from '@atlaskit/editor-common/extensions';
 import { ADFEntity } from '@atlaskit/adf-utils';
 import { Node as PMNode, NodeType, Fragment, Mark } from 'prosemirror-model';
-import { EditorState } from 'prosemirror-state';
 import type { EditorView } from 'prosemirror-view';
 import {
   insertMacroFromMacroBrowser,
@@ -14,8 +13,7 @@ import {
 } from '../macro';
 import { pluginKey as macroPluginKey } from '../macro/plugin-key';
 import { setEditingContextToContextPanel } from './commands';
-import { NodeWithPos } from 'prosemirror-utils';
-import { getSelectedExtension } from './utils';
+import { findNodePosWithLocalId, getSelectedExtension } from './utils';
 import {
   addAnalytics,
   ACTION,
@@ -59,31 +57,6 @@ interface CreateExtensionAPIOptions {
   editorView: EditorView;
   editInLegacyMacroBrowser?: () => void;
 }
-
-export const findNodePosWithLocalId = (
-  state: EditorState,
-  localId: string,
-): NodeWithPos | undefined => {
-  let node: PMNode | undefined;
-  let pos: number = 0;
-
-  state.doc.descendants((n: PMNode, nPos: number) => {
-    if (n.attrs.localId === localId) {
-      node = n;
-      pos = nPos;
-    }
-
-    // stop traversing once we found the node
-    return !node;
-  });
-
-  return !node
-    ? undefined
-    : {
-        node,
-        pos,
-      };
-};
 
 export const createExtensionAPI = (
   options: CreateExtensionAPIOptions,

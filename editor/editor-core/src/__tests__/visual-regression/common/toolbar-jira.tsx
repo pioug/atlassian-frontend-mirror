@@ -16,7 +16,7 @@ describe('Toolbar: Jira configurarion', () => {
     await initEditorWithAdf(page, {
       appearance: Appearance.comment,
       editorProps: {
-        UNSAFE_cards: {
+        smartLinks: {
           allowBlockCards: true,
           allowEmbeds: true,
         },

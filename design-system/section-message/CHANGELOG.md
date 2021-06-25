@@ -1,5 +1,11 @@
 # @atlaskit/section-message
 
+## 6.0.1
+
+### Patch Changes
+
+- [`d6f7ff383cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d6f7ff383cf) - Updates to development dependency `storybook-addon-performance`
+
 ## 6.0.0
 
 ### Major Changes

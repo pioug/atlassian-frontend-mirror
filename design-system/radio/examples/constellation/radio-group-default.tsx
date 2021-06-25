@@ -1,4 +1,4 @@
-import React, { SyntheticEvent, useCallback, useState } from 'react';
+import React, { Fragment, SyntheticEvent, useCallback, useState } from 'react';
 
 import { Checkbox } from '@atlaskit/checkbox';
 
@@ -33,12 +33,13 @@ export default function BasicExample() {
   );
 
   return (
-    <div>
-      <h4>Choose a color:</h4>
+    <Fragment>
+      <h4 id="radiogroup-label">Choose a color:</h4>
       <RadioGroup
         isDisabled={isDisabled}
         options={options}
         onChange={onChange}
+        aria-labelledby="radiogroup-label"
       />
       <div
         style={{
@@ -57,6 +58,6 @@ export default function BasicExample() {
         label="is disabled"
         onChange={toggleCheckbox}
       />
-    </div>
+    </Fragment>
   );
 }

@@ -83,6 +83,7 @@ export default {
   'fabric.media.learn_more': '了解更多',
   'fabric.media.load_more_gifs': '加载更多 GIF',
   'fabric.media.loading': '正在加载...',
+  'fabric.media.loading_file': '正在加载文件...',
   'fabric.media.might_be_a_hiccup': '它只是一个小问题。',
   'fabric.media.no_gifs_found': '您好？您在寻找我吗？',
   'fabric.media.no_gifs_found_suggestion': '找不到“{query}”的任何信息',

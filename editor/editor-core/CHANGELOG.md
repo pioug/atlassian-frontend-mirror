@@ -1,5 +1,71 @@
 # @atlaskit/editor-core
 
+## 145.0.0
+
+### Major Changes
+
+- [`0b9318d5c23`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0b9318d5c23) - ED-11952 updated extension interface to allow dynamic toolbar buttons.
+  BREAKING CHANGE: `ExtensionModules.contextualToolbarItems` has been removed in favor of `ExtensionModules.contextualToolbars`.
+
+  `ExtensionModules.contextualToolbars` consist of a list of `ContextualToolbar` which has the following signature:
+
+  ```
+  type ContextualToolbar = {
+    context: ToolbarContext;
+    toolbarItems: ToolbarItem[] |
+      ((contextNode: ADFEntity, api: ExtensionAPI) => ToolbarItem[]);
+  };
+  ```
+
+- [`2f3e5d1beb5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2f3e5d1beb5) - [ux] Fix media alignment lose when copy-and-paste into table/layout
+
+### Minor Changes
+
+- [`a8c2596ed8e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a8c2596ed8e) - Add smartLinks prop to Editor and mark UNSAFE_cards as deprecated
+- [`9fef23ee77c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9fef23ee77c) - ED-12477 Add unsupported node capability to Media Group
+- [`190b1333d06`](https://bitbucket.org/atlassian/atlassian-frontend/commits/190b1333d06) - [ux] EDM-1733: Add separator between unlink and remove button in smart card floating toolbar
+- [`1a880dc5cce`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1a880dc5cce) - ED-11853 Update extension plugin editExtension to rely on localId instead of current selection
+- [`a8b65e3ec2d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a8b65e3ec2d) - [ux] ED-13083: fixed serialize() for Tabs and Expand fields
+- [`5783530b152`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5783530b152) - Added a new DSL in the mobile bridge to interpret a FloatingToolbarDatePicker. This extends from the FloatingToolbarSelectType.
+- [`fa236537b70`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fa236537b70) - Allow the mobile bridge to insert a date node
+- [`19568bf5587`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19568bf5587) - Updated floating toolbar types to reflect new changes.Some of the floating toolbar types are adjusted and new ones are added. This was done to scale better and be more flexible to support the mobile editor.
+
+      - FloatingToolbarInput now has id, title and description. These are used to generate a proper UI.
+      - FloatingToolbarCustom has a mandatory fallback field. This is needed to support to mobile. Custom type uses a react render which has no metadata for the mobile. This is mandatory because we always want to have a fallback. For now, existing usages has an empty array but we will update them later on. Note that it is an array because fallback could be multiple items.
+      - FloatingToolbarSelect has an additional type parameter for the options. FloatingToolbarSelect is extended to support different pickers. i.e. Color picker, emoji picker. In addition to the new type parameter, selectType and title fields are added. selectType is used to determine which type of UI needs to be used. color, emoji, date or list. Default one is list.
+      - A new type is added. FloatingToolbarColorPicker. It extends select and selectType is color.
+
+- [`4a0479a7ac1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4a0479a7ac1) - [ux] Remove extra padding on the mobile editor
+- [`45de4805196`](https://bitbucket.org/atlassian/atlassian-frontend/commits/45de4805196) - [ux] Add mention prop to editor core. This prop accepts HighlightComponent which is a component rendered at the top of the mention list. It also accepts mentionInsertDisplayName which was moved from the top level editor core api.
+- [`66f17386ed6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/66f17386ed6) - [ux] ED-13022: Show a confirmation modal when clicking the delete button of a referenced table
+
+### Patch Changes
+
+- [`d05cb164f3f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d05cb164f3f) - NO-ISSUE dereference default export of async imported modules for better interop
+- [`9752e454eff`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9752e454eff) - Editor core => ColorPalette => add aria-label attribute to editor "text color" buttons
+- [`00411ef7712`](https://bitbucket.org/atlassian/atlassian-frontend/commits/00411ef7712) - Fix cursor going inside/behind inline SmartLinks on backspace when SmartLinks is the last element on the paragraph
+- [`d3e90d967f7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3e90d967f7) - ED-13002 Add error boundary around table context button component
+- [`053577a0aa5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/053577a0aa5) - fix MediaSingle videos danger hover styles
+- [`94448f306ed`](https://bitbucket.org/atlassian/atlassian-frontend/commits/94448f306ed) - AK-330 Fix editor toolbar and quick insert menu items pronounced twice by screen readers
+- [`8077212e27e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8077212e27e) - ED-13095 Config panel: Fixed initial params are not set for nested fields.
+  ED-13084 Config panel: Added a workaround for data lost in tabs when submitting.
+- [`11c23085db7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/11c23085db7) - [ED-11076] Fix lists paste cursor position
+- [`49026835944`](https://bitbucket.org/atlassian/atlassian-frontend/commits/49026835944) - Fix analytic events for captions
+- [`b7473d81e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b7473d81e1f) - [ux] ED-13053 Config panel: fixed mixed name/label on tabs
+- [`a8baf001d81`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a8baf001d81) - ED-12999 Add more granular error boundaries to the editor
+- [`5fca338c05d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5fca338c05d) - ED-12982 increase the expand chevron icon
+- [`b943d1e7584`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b943d1e7584) - EDM-1847: prevent toolbars closing when text is selected in the toolbar using a mouse and the click is released outside the toolbar
+- [`f94924f5fe3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f94924f5fe3) - EDM-1365 fix gap cursor clear:none
+- [`79a06f80717`](https://bitbucket.org/atlassian/atlassian-frontend/commits/79a06f80717) - Hyperlinks => HyperlinkAddToolbar add screenreader text to announce what "search recently viewed links" field does, add a possibility to announce search results
+- [`b0dd3dd331f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b0dd3dd331f) - Add metadata to hyperlink toolbar
+- Updated dependencies
+
+## 144.1.3
+
+### Patch Changes
+
+- [`139a522574f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/139a522574f) - Change selector for checking if breadcrumbs where clicked with click-area-helper
+
 ## 144.1.2
 
 ### Patch Changes

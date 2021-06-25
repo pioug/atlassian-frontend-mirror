@@ -175,10 +175,10 @@ export const inputStyles = (mode: ThemeModes): CSSObject => ({
     height: `${((gridSize * 4.5) / fontSize).toFixed(2)}em`,
   },
   '&[disabled]': {
-    // Safari puts on some difficult to remove styles, mainly for disabled inputs
-    // but we want full control so need to override them in all cases
-    WebkitTextFillColor: 'unset',
-    WebkitOpacity: 1,
+    // Safari (WebKit) adds a -webkit-text-fill-color style to disabled inputs
+    // which takes priority over color and makes the text unreadable. Need to
+    // override it with the color we want.
+    WebkitTextFillColor: disabledRules[mode].textColor,
   },
   // Hide the clear indicator on Edge (Windows only)
   '&::-ms-clear': {

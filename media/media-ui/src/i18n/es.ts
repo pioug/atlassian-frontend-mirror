@@ -99,6 +99,7 @@ export default {
   'fabric.media.learn_more': 'Más información',
   'fabric.media.load_more_gifs': 'Cargar más GIF',
   'fabric.media.loading': 'Cargando…',
+  'fabric.media.loading_file': 'Cargando archivo...',
   'fabric.media.might_be_a_hiccup': 'Tal vez sea solo un tropiezo.',
   'fabric.media.no_gifs_found': 'Hola, ¿me buscabas?',
   'fabric.media.no_gifs_found_suggestion':

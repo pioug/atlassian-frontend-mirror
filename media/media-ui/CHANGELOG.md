@@ -1,5 +1,22 @@
 # @atlaskit/media-ui
 
+## 16.3.0
+
+### Minor Changes
+
+- [`3592e304adc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3592e304adc) - [ux] Underlying icons used in MediaTypeIcon (that is also used as part of MimeTypeIcon) has been replaced. This mean they will change size (2px) and in some cases colour (like for audio file).
+
+  - Add `data-type` attribute for easier testing for both MediaTypeIcon and MimeTypeIcon components
+  - Add `testId` prop to both MediaTypeIcon and MimeTypeIcon
+
+- [`c74e598326e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c74e598326e) - Add new member `formatDate`. Also, available via own entry point.
+- [`b26fdd2ccbf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b26fdd2ccbf) - [ux] EDM-1191: fix lozenge positioning on Inline Smart Links.
+
+### Patch Changes
+
+- [`915288075cd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/915288075cd) - Accessibility improvements for media-image component: empty alt attribute by default
+- Updated dependencies
+
 ## 16.2.0
 
 ### Minor Changes

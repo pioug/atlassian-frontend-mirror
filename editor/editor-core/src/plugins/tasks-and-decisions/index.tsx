@@ -132,9 +132,7 @@ const tasksAndDecisionsPlugin = ({
         priority: 100,
         keywords: ['checkbox', 'task', 'todo'],
         keyshortcut: '[]',
-        icon: () => (
-          <IconAction label={formatMessage(insertBlockMessages.action)} />
-        ),
+        icon: () => <IconAction />,
         action(insert, state) {
           return quickInsertItem(insert, state, 'taskList');
         },
@@ -145,9 +143,7 @@ const tasksAndDecisionsPlugin = ({
         description: formatMessage(insertBlockMessages.decisionDescription),
         priority: 900,
         keyshortcut: '<>',
-        icon: () => (
-          <IconDecision label={formatMessage(insertBlockMessages.decision)} />
-        ),
+        icon: () => <IconDecision />,
         action(insert, state) {
           return quickInsertItem(insert, state, 'decisionList');
         },

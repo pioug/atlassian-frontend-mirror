@@ -138,6 +138,8 @@ export enum ACTION_SUBJECT {
   EXTENSION = 'extension',
   FEEDBACK_DIALOG = 'feedbackDialog',
   FIND_REPLACE_DIALOG = 'findReplaceDialog',
+  FLOATING_CONTEXTUAL_BUTTON = 'floatingContextualButton',
+  FLOATING_TOOLBAR_PLUGIN = 'floatingToolbarPlugin',
   HELP = 'help',
   LAYOUT = 'layout',
   LIST = 'list',
@@ -147,8 +149,11 @@ export enum ACTION_SUBJECT {
   PANEL = 'panel',
   PICKER = 'picker',
   PLUS_MENU = 'plusMenu',
+  PLUGIN_SLOT = 'pluginSlot',
+  REACT_NODE_VIEW = 'reactNodeView',
   SMART_LINK = 'smartLink',
   TABLE = 'table',
+  TABLES_PLUGIN = 'tablesPlugin',
   TEXT = 'text',
   TOOLBAR = 'toolbar',
   TYPEAHEAD = 'typeAhead',
@@ -261,11 +266,22 @@ export enum ACTION_SUBJECT_ID {
   UNSUPPORTED_BLOCK = 'unsupportedBlock',
   UNSUPPORTED_INLINE = 'unsupportedInline',
   UNSUPPORTED_MARK = 'unsupportedMark',
+  UNKNOWN_NODE = 'unknownNode',
   RECENT_ACTIVITIES = 'recentActivities',
   QUICK_SEARCH = 'quickSearch',
   LINK_SEARCH_INPUT = 'linkSearchInput',
   PRE_QUERY_SEARCH_RESULTS = 'preQuerySearchResults',
   POST_QUERY_SEARCH_RESULTS = 'postQuerySearchResults',
+}
+
+export enum FLOATING_CONTROLS_TITLE {
+  CODE_BLOCK = 'codeBlockFloatingControls',
+  EXTENSION = 'extensionFloatingControls',
+  HYPERLINK = 'hyperlinkFloatingControls',
+  MEDIA = 'mediaFloatingControls',
+  PANEL = 'panelFloatingControls',
+  TABLE = 'tableFloatingControls',
+  EXPAND = 'expandToolbar',
 }
 
 export enum CONTENT_COMPONENT {

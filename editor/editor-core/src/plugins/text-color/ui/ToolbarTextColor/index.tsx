@@ -170,7 +170,7 @@ class ToolbarTextColor extends React.Component<
                     />
                   </TextColorIconWrapper>
                   <ExpandIconWrapper>
-                    <ExpandIcon label={labelTextColor} />
+                    <ExpandIcon label="" />
                   </ExpandIconWrapper>
                 </TriggerWrapper>
               }

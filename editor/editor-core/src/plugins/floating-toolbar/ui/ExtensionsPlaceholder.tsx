@@ -8,7 +8,7 @@ import {
   ExtensionManifest,
 } from '@atlaskit/editor-common';
 import { ExtensionAPI } from '@atlaskit/editor-common/extensions';
-import { getContextualToolbarlItemsFromModule } from '@atlaskit/editor-common';
+import { getContextualToolbarItemsFromModule } from '@atlaskit/editor-common';
 import ButtonGroup from '@atlaskit/button/button-group';
 import { ADFEntity } from '@atlaskit/adf-utils';
 import { nodeToJSON } from '../../../utils';
@@ -29,13 +29,31 @@ type ExtensionButtonProps = {
   node: PMNode;
 };
 
+type ExtensionIconModule = ExtensionToolbarButton['icon'];
+
+const noop = () => null;
+
+const isDefaultExport = <T extends Object>(
+  mod: T | { default: T },
+): mod is { default: T } => {
+  return mod.hasOwnProperty('default');
+};
+
+const resolveExtensionIcon = async (getIcon: ExtensionIconModule) => {
+  if (!getIcon) {
+    return noop;
+  }
+  const maybeIcon = await getIcon();
+  return isDefaultExport(maybeIcon) ? maybeIcon.default : maybeIcon;
+};
+
 const ExtensionButton = (props: ExtensionButtonProps) => {
   const { item, node, editorView } = props;
 
   const ButtonIcon = item.icon
     ? Loadable<{ label: string }, never>({
-        loader: item.icon,
-        loading: () => null,
+        loader: async () => resolveExtensionIcon(item.icon),
+        loading: noop,
       })
     : undefined;
 
@@ -58,6 +76,7 @@ const ExtensionButton = (props: ExtensionButtonProps) => {
       icon={ButtonIcon ? <ButtonIcon label={item.label || ''} /> : undefined}
       onClick={onClick}
       tooltipContent={item.tooltip}
+      disabled={item.disabled}
     >
       {item.label}
     </Button>
@@ -67,6 +86,7 @@ const ExtensionButton = (props: ExtensionButtonProps) => {
 export const ExtensionsPlaceholder = (props: Props) => {
   const { node, editorView, extensionProvider, separator } = props;
   const [extensions, setExtensions] = useState<ExtensionManifest<any>[]>([]);
+
   useEffect(() => {
     if (extensionProvider) {
       getExtensions();
@@ -79,8 +99,12 @@ export const ExtensionsPlaceholder = (props: Props) => {
   }, []);
 
   const extensionItems = React.useMemo(() => {
-    return getContextualToolbarlItemsFromModule(extensions, node);
-  }, [extensions, node]);
+    return getContextualToolbarItemsFromModule(
+      extensions,
+      nodeToJSON(node),
+      createExtensionAPI({ editorView }),
+    );
+  }, [extensions, node, editorView]);
 
   if (!extensionItems.length) {
     return null;
@@ -92,7 +116,7 @@ export const ExtensionsPlaceholder = (props: Props) => {
   if (separator && ['start', 'both'].includes(separator)) {
     children.push(<Separator />);
   }
-  extensionItems.forEach((item: any, index) => {
+  extensionItems.forEach((item: any, index: number) => {
     children.push(
       <ExtensionButton node={node} item={item} editorView={editorView} />,
     );

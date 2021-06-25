@@ -90,7 +90,13 @@ export const InlineMediaCardInternal: FC<
   }
 
   const { mediaType, name } = fileState;
-  const linkIcon = <MediaTypeIcon size="small" type={mediaType} />;
+  const linkIcon = (
+    <MediaTypeIcon
+      testId={'inline-media-card-file-type-icon'}
+      size="small"
+      type={mediaType}
+    />
+  );
   const mediaViewer = renderMediaViewer();
 
   // [EDM-1948] TODO: add Tooltip

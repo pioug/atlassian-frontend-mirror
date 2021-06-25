@@ -24,7 +24,7 @@ import { editable, getDocFromElement } from '../_helpers';
         appearance: 'full-page',
         allowTextAlignment: true,
         defaultValue: JSON.stringify(embedCardAdf),
-        UNSAFE_cards: {
+        smartLinks: {
           allowBlockCards: true,
           allowEmbeds: true,
         },

@@ -1,5 +1,23 @@
 # @atlaskit/badge
 
+## 14.3.0
+
+### Minor Changes
+
+- [`ed3b6be05af`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ed3b6be05af) - - Expose 2 new entry points: badge and types
+  - Internal refactoring
+
+### Patch Changes
+
+- [`75b394efe89`](https://bitbucket.org/atlassian/atlassian-frontend/commits/75b394efe89) - Added the design-system tech stacks to the package.json and fixed linting errors, also disabled some linting rules to prevent breaking changes
+- [`e3205bce20d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e3205bce20d) - Internal change (migrated from styled-components to emotion)
+
+## 14.2.1
+
+### Patch Changes
+
+- [`d6f7ff383cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d6f7ff383cf) - Updates to development dependency `storybook-addon-performance`
+
 ## 14.2.0
 
 ### Minor Changes

@@ -17,11 +17,11 @@ exports[`TableRow on rendering should render default background color 1`] = `
 
 exports[`TableRow on rendering with highlighted prop should render with highlighted background color 1`] = `
 .c0 {
-  background-color: #F4F5F7;
+  background-color: #DEEBFF;
 }
 
 .c0:hover {
-  background-color: #EBECF0;
+  background-color: #B3D4FF;
 }
 
 .c0:focus {

@@ -52,8 +52,11 @@ export default {
   'fabric.editor.configPanel.customSelect.createOption': '创建',
   'fabric.editor.configPanel.dateRange.custom.from': '从',
   'fabric.editor.configPanel.dateRange.custom.to': '至',
+  'fabric.editor.configPanel.dateRange.grouping.collapse': '收起',
+  'fabric.editor.configPanel.dateRange.grouping.expand': '展开',
   'fabric.editor.configPanel.dateRange.option.custom': '自定义',
   'fabric.editor.configPanel.documentation': '文档',
+  'fabric.editor.configPanel.errorBoundary.title': '出错了。',
   'fabric.editor.configPanel.fieldTypeError.isMultipleAndRadio':
     '无法组合 isMultiple 与样式：radio',
   'fabric.editor.configPanel.formType.addField': '添加字段',

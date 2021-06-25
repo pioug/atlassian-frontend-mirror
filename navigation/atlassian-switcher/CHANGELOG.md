@@ -1,5 +1,11 @@
 # @atlaskit/atlassian-switcher
 
+## 13.0.0
+
+### Major Changes
+
+- [`eb4fb3f348f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eb4fb3f348f) - [ux] Removed marketplace. Removed isEmceeLinkEnabled prop. Improved instrumentation.
+
 ## 12.4.0
 
 ### Minor Changes

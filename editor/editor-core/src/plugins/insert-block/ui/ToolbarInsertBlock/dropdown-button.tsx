@@ -21,7 +21,7 @@ const DropDownButtonIcon: React.StatelessComponent<{
   <TriggerWrapper>
     <AddIcon label={props.label} />
     <ExpandIconWrapper>
-      <ExpandIcon label={props.label} />
+      <ExpandIcon label="" />
     </ExpandIconWrapper>
   </TriggerWrapper>
 ));

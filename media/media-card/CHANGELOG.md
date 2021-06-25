@@ -1,5 +1,17 @@
 # @atlaskit/media-card
 
+## 70.8.0
+
+### Minor Changes
+
+- [`42c7f13ac31`](https://bitbucket.org/atlassian/atlassian-frontend/commits/42c7f13ac31) - export inlinePlayerClassName
+  export newFileExperienceClassName
+
+### Patch Changes
+
+- [`8cba1694b5e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cba1694b5e) - Remove pollingMaxFailuresExceeded error from implementation and feature flags
+- Updated dependencies
+
 ## 70.7.3
 
 ### Patch Changes

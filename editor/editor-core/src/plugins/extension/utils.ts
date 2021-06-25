@@ -9,6 +9,7 @@ import {
   DomAtPos,
 } from 'prosemirror-utils';
 import { closestElement } from '../../utils/dom';
+import { findNodePosByLocalIds } from '../../utils/nodes-by-localIds';
 
 export const getSelectedExtension = (
   state: EditorState,
@@ -21,6 +22,33 @@ export const getSelectedExtension = (
     (searchParent && findParentNodeOfType(nodeTypes)(state.selection)) ||
     undefined
   );
+};
+
+export const findExtensionWithLocalId = (
+  state: EditorState,
+  localId?: string,
+) => {
+  const selectedExtension = getSelectedExtension(state, true);
+
+  if (!localId) {
+    return undefined;
+  }
+
+  if (selectedExtension && selectedExtension.node.attrs.localId === localId) {
+    return selectedExtension;
+  }
+
+  const { inlineExtension, extension, bodiedExtension } = state.schema.nodes;
+  const nodeTypes = [extension, bodiedExtension, inlineExtension];
+  let matched: NodeWithPos | undefined;
+
+  state.doc.descendants((node, pos) => {
+    if (nodeTypes.includes(node.type) && node.attrs.localId === localId) {
+      matched = { node, pos };
+    }
+  });
+
+  return matched;
 };
 
 export const getSelectedDomElement = (
@@ -58,18 +86,15 @@ export const getNodeTypesReferenced = (
   ids: string[],
   state: EditorState,
 ): string[] => {
-  const nodeTypesReferenced: string[] = [];
+  return findNodePosByLocalIds(state, ids, { includeDocNode: true }).map(
+    ({ node }) => node.type.name,
+  );
+};
 
-  ids.map((id: string) => {
-    if (state.doc.attrs.localId === id) {
-      nodeTypesReferenced.push(state.doc.type.name);
-    }
-    state.doc.descendants((node: PMNode) => {
-      if (node.attrs.localId === id) {
-        nodeTypesReferenced.push(node.type.name);
-      }
-      return true;
-    });
-  });
-  return nodeTypesReferenced;
+export const findNodePosWithLocalId = (
+  state: EditorState,
+  localId: string,
+): NodeWithPos | undefined => {
+  const nodes = findNodePosByLocalIds(state, [localId]);
+  return nodes.length >= 1 ? nodes[0] : undefined;
 };

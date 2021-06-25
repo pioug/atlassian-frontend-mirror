@@ -219,6 +219,7 @@ export class Renderer extends PureComponent<RendererProps> {
       allowCustomPanels: props.UNSAFE_allowCustomPanels,
       allowAnnotations: props.allowAnnotations,
       allowSelectAllTrap: props.allowSelectAllTrap,
+      allowPlaceholderText: props.allowPlaceholderText,
     };
   }
 
@@ -268,6 +269,7 @@ export class Renderer extends PureComponent<RendererProps> {
       fadeOutHeight,
       enableSsrInlineScripts,
       allowHeadingAnchorLinks,
+      allowPlaceholderText,
       allowColumnSorting,
       allowCopyToClipboard,
       UNSAFE_allowCustomPanels,
@@ -365,6 +367,7 @@ export class Renderer extends PureComponent<RendererProps> {
                       allowColumnSorting={allowColumnSorting}
                       allowCopyToClipboard={allowCopyToClipboard}
                       allowCustomPanels={UNSAFE_allowCustomPanels}
+                      allowPlaceholderText={allowPlaceholderText}
                       innerRef={this.editorRef}
                       onClick={handleWrapperOnClick}
                       onMouseDown={this.onMouseDownEditView}
@@ -406,6 +409,7 @@ export class Renderer extends PureComponent<RendererProps> {
           appearance={appearance}
           dynamicTextSizing={!!allowDynamicTextSizing}
           allowCopyToClipboard={allowCopyToClipboard}
+          allowPlaceholderText={allowPlaceholderText}
           allowColumnSorting={allowColumnSorting}
           allowNestedHeaderLinks={allowNestedHeaderLinks}
           onClick={handleWrapperOnClick}
@@ -454,6 +458,7 @@ type RendererWrapperProps = {
   innerRef?: React.RefObject<HTMLDivElement>;
   allowColumnSorting?: boolean;
   allowCopyToClipboard?: boolean;
+  allowPlaceholderText?: boolean;
   allowCustomPanels?: boolean;
   allowNestedHeaderLinks: boolean;
   onClick?: (event: React.MouseEvent) => void;

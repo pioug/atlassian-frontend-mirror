@@ -1,5 +1,18 @@
 # @atlaskit/editor-slack-transformer
 
+## 1.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.0.3
+
+### Patch Changes
+
+- [`b7d23a07930`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b7d23a07930) - Added/updated unsupported nodes/marks stubs. Added support for decisions, layouts, status, panel.
+  Emojis return text (an emoji itself) instead of a short name.
+
 ## 1.0.2
 
 ### Patch Changes

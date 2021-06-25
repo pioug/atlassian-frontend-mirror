@@ -10,7 +10,6 @@ exports[`Atlassian Switcher basic snapshot 1`] = `
             "disableCustomLinks": false,
             "disableSwitchToHeading": false,
             "enableRecentContainers": false,
-            "isEmceeLinkEnabled": false,
             "isProductStoreInTrelloConfluenceFirstEnabled": false,
             "isProductStoreInTrelloJSWFirstEnabled": false,
             "isSlackDiscoveryEnabled": false,
@@ -27,6 +26,11 @@ exports[`Atlassian Switcher basic snapshot 1`] = `
   >
     <WithAnalyticsEvents(InjectIntl(ErrorBoundary))
       appearance="drawer"
+      extraAnalyticProps={
+        Object {
+          "isDiscoverExpected": false,
+        }
+      }
       product="jira"
     >
       <LoadableComponent
@@ -37,7 +41,6 @@ exports[`Atlassian Switcher basic snapshot 1`] = `
             "disableCustomLinks": false,
             "disableSwitchToHeading": false,
             "enableRecentContainers": false,
-            "isEmceeLinkEnabled": false,
             "isProductStoreInTrelloConfluenceFirstEnabled": false,
             "isProductStoreInTrelloJSWFirstEnabled": false,
             "isSlackDiscoveryEnabled": false,

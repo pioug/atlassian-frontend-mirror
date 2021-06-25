@@ -100,7 +100,7 @@ export default function EditorExampleForIntegrationTests({ clipboard = true }) {
         createEditor()
       );
 
-      if (props && props.UNSAFE_cards) {
+      if (props && props.smartLinks) {
         return (
           <SmartCardProvider client={cardClient}>
             {editorContent}

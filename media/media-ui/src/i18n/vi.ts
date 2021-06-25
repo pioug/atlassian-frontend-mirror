@@ -96,6 +96,7 @@ export default {
   'fabric.media.learn_more': 'Tìm hiểu thêm',
   'fabric.media.load_more_gifs': 'Tải thêm GIF',
   'fabric.media.loading': 'Đang tải...',
+  'fabric.media.loading_file': 'Đang tải tệp...',
   'fabric.media.might_be_a_hiccup': 'Có thể do có chút sự cố.',
   'fabric.media.no_gifs_found': 'Xin chào? Bạn đang tìm tôi phải không nhỉ?',
   'fabric.media.no_gifs_found_suggestion':

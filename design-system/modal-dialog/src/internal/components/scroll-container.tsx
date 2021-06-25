@@ -53,43 +53,45 @@ const ScrollContainer = forwardRef<HTMLElement | null, ScrollContainerProps>(
 
     const setLazyContentFocus = useLazyCallback(
       rafSchedule(() => {
-        const target = scrollableRef.current!;
-        setContentFocus(target.scrollHeight > target.clientHeight);
+        const target = scrollableRef.current;
+        target && setContentFocus(target.scrollHeight > target.clientHeight);
       }),
     );
 
     const setLazyKeylines = useLazyCallback(
       rafSchedule(() => {
-        const target = scrollableRef.current!;
-        const scrollableDistance = target.scrollHeight - target.clientHeight;
+        const target = scrollableRef.current;
+        if (target) {
+          const scrollableDistance = target.scrollHeight - target.clientHeight;
 
-        if (hasSiblings.current.previous) {
-          setTopKeyline(target.scrollTop > keylineHeight);
-        }
+          if (hasSiblings.current.previous) {
+            setTopKeyline(target.scrollTop > keylineHeight);
+          }
 
-        if (hasSiblings.current.next) {
-          setBottomKeyline(
-            target.scrollTop <= scrollableDistance - keylineHeight,
-          );
+          if (hasSiblings.current.next) {
+            setBottomKeyline(
+              target.scrollTop <= scrollableDistance - keylineHeight,
+            );
+          }
         }
       }),
     );
 
     useEffect(() => {
-      const target = scrollableRef.current!;
+      const target = scrollableRef.current;
       window.addEventListener('resize', setLazyKeylines, false);
-      target.addEventListener('scroll', setLazyKeylines, false);
+      target?.addEventListener('scroll', setLazyKeylines, false);
 
       setLazyContentFocus();
       setLazyKeylines();
       setLazySiblings({
-        previous: Boolean(target.previousElementSibling),
-        next: Boolean(target.nextElementSibling),
+        previous: Boolean(target?.previousElementSibling),
+        next: Boolean(target?.nextElementSibling),
       });
 
       return () => {
         window.removeEventListener('resize', setLazyKeylines, false);
-        target.removeEventListener('scroll', setLazyKeylines, false);
+        target?.removeEventListener('scroll', setLazyKeylines, false);
       };
     }, [setLazyContentFocus, setLazyKeylines, setLazySiblings]);
 

@@ -45,8 +45,8 @@ describe('Compare Nodes', () => {
         allowTables: true,
         allowStatus: true,
         allowDate: true,
+        smartLinks: {},
         mentionProvider: Promise.resolve(mentionResourceProvider),
-        UNSAFE_cards: {},
       },
     }));
   });

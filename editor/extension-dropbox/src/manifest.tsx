@@ -108,9 +108,18 @@ const manifestFunction = ({
   key: 'dropbox',
   description: 'Embed Dropbox file to collaborate with your team',
   icons: {
-    '16': () => import('./icons/DropboxIcon'),
-    '24': () => import('./icons/DropboxIcon'),
-    '48': () => import('./icons/DropboxIcon'),
+    '16': () =>
+      import(
+        /* webpackChunkName: "@atlaskit-internal_editor-dropbox" */ './icons/DropboxIcon'
+      ).then(mod => mod.default),
+    '24': () =>
+      import(
+        /* webpackChunkName: "@atlaskit-internal_editor-dropbox" */ './icons/DropboxIcon'
+      ).then(mod => mod.default),
+    '48': () =>
+      import(
+        /* webpackChunkName: "@atlaskit-internal_editor-dropbox" */ './icons/DropboxIcon'
+      ).then(mod => mod.default),
   },
   modules: {
     quickInsert: [

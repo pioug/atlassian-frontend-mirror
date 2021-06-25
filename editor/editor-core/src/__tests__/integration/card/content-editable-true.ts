@@ -26,7 +26,7 @@ BrowserTestCase(
       appearance: 'full-page',
       allowTextAlignment: true,
       defaultValue: JSON.stringify(embedCardAdf),
-      UNSAFE_cards: {
+      smartLinks: {
         provider: cardProviderPromise,
         allowBlockCards: true,
         allowEmbeds: true,

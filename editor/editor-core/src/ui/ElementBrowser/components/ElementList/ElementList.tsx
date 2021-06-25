@@ -296,9 +296,7 @@ const itemStyleOverrides = {
 };
 
 const ElementBefore = memo(({ icon, title }: Partial<QuickInsertItem>) => (
-  <StyledItemIcon>
-    {icon ? icon() : <IconFallback label={title} />}
-  </StyledItemIcon>
+  <StyledItemIcon>{icon ? icon() : <IconFallback />}</StyledItemIcon>
 ));
 
 const ItemContent = memo(

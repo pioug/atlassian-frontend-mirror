@@ -44,7 +44,7 @@ describe('Snapshot Test: Media', () => {
         'ArrowLeft',
       ]);
     });
-
+    // TODO: https://product-fabric.atlassian.net/browse/EDM-2171
     it.skip('can switch layouts on media', async () => {
       // now we can insert media as necessary
       await insertMedia(page);
@@ -61,7 +61,7 @@ describe('Snapshot Test: Media', () => {
         await snapshot(page);
       }
     });
-
+    // TODO: https://product-fabric.atlassian.net/browse/EDM-2171
     it.skip('can switch layouts on individual media', async () => {
       // We need a bigger height to capture multiple large images in a row.
       await page.setViewport({ width: 1280, height: 1024 * 2 });
@@ -84,7 +84,8 @@ describe('Snapshot Test: Media', () => {
   });
 
   describe('layout columns', () => {
-    it('should hold big image in the middle layout column in fix-width mode', async () => {
+    // TODO: https://product-fabric.atlassian.net/browse/EDM-2171
+    it.skip('should hold big image in the middle layout column in fix-width mode', async () => {
       page = global.page;
       await initEditorWithAdf(page, {
         appearance: Appearance.fullPage,

@@ -147,6 +147,7 @@ exports[`BackButton Should match snapshot 1`] = `
       class="emotion-1"
     >
       <span
+        aria-hidden="true"
         class="emotion-0"
         role="presentation"
       >

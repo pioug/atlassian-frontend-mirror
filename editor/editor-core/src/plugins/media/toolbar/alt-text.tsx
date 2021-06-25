@@ -38,9 +38,10 @@ export const altTextButton = (
 
 export const altTextEditComponent = (
   options?: AltTextToolbarOptions,
-): FloatingToolbarCustom => {
+): FloatingToolbarCustom<Command> => {
   return {
     type: 'custom',
+    fallback: [],
     render: (view?: EditorView, idx?: number) => {
       if (!view) {
         return null;

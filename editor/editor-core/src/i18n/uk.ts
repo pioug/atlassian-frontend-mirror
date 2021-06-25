@@ -56,8 +56,11 @@ export default {
   'fabric.editor.configPanel.customSelect.createOption': 'Створити',
   'fabric.editor.configPanel.dateRange.custom.from': 'З',
   'fabric.editor.configPanel.dateRange.custom.to': 'по',
+  'fabric.editor.configPanel.dateRange.grouping.collapse': 'Згорнути',
+  'fabric.editor.configPanel.dateRange.grouping.expand': 'Розгорнути',
   'fabric.editor.configPanel.dateRange.option.custom': 'Користувацькі',
   'fabric.editor.configPanel.documentation': 'Документація',
+  'fabric.editor.configPanel.errorBoundary.title': 'Сталася помилка.',
   'fabric.editor.configPanel.fieldTypeError.isMultipleAndRadio':
     "Не можна поєднати об'єкт isMultiple зі стилем radio",
   'fabric.editor.configPanel.formType.addField': 'Додати поле',

@@ -42,7 +42,7 @@ describe('EmbedCard', () => {
           advanced: true,
           allowColumnResizing,
         },
-        UNSAFE_cards: {
+        smartLinks: {
           allowEmbeds: true,
           ...cardProps,
         },

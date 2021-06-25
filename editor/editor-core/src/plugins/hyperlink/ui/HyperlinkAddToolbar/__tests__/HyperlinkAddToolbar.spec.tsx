@@ -49,6 +49,7 @@ import {
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { hideLinkToolbar as cardHideLinkToolbar } from '../../../../card/pm-plugins/actions';
 import * as Commands from '../../../commands';
+import PanelTextInput from '../../../../../ui/PanelTextInput';
 interface SetupArgumentObject {
   recentItemsPromise?: ReturnType<ActivityProvider['getRecentItems']>;
   searchRecentPromise?: ReturnType<ActivityProvider['searchRecent']>;
@@ -1731,6 +1732,21 @@ describe('HyperlinkLinkAddToolbar', () => {
 
       expect(activityProvider.searchRecent).toHaveBeenCalledTimes(0);
       expect(searchProvider.quickSearch).toHaveBeenCalledTimes(0);
+    });
+
+    it('should render PanelTextInput (URL field) with correct describedById prop', async () => {
+      const screenReaderDescriptionId = 'search-recent-links-field-description';
+      const { component } = await setup();
+      expect(
+        component.find(PanelTextInput).first().prop('describedById'),
+      ).toEqual(screenReaderDescriptionId);
+    });
+    it('should render LinkSearchList component with correct ariaControls prop', async () => {
+      const ariaControlValue = 'fabric.editor.hyperlink.suggested.results';
+      const { component } = await setup();
+      expect(component.find(LinkSearchList).prop('ariaControls')).toEqual(
+        ariaControlValue,
+      );
     });
   });
 });

@@ -90,7 +90,11 @@ describe('mentionTypeahead', () => {
         ...editorProps,
         collabEdit: {},
         sanitizePrivateContent: true,
-        mentionInsertDisplayName: options.mentionInsertDisplayName,
+        mention: {
+          insertDisplayName:
+            options.mention?.insertDisplayName ??
+            options.mentionInsertDisplayName,
+        },
       };
       mentionProviderConfig = {
         mentionNameResolver,
@@ -104,10 +108,26 @@ describe('mentionTypeahead', () => {
       };
     }
 
-    if (options && options.mentionInsertDisplayName) {
+    if (
+      options &&
+      (options.mentionInsertDisplayName || options.mention?.insertDisplayName)
+    ) {
       editorProps = {
         ...editorProps,
-        mentionInsertDisplayName: options.mentionInsertDisplayName,
+        mention: {
+          insertDisplayName:
+            options.mention?.insertDisplayName ??
+            options.mentionInsertDisplayName,
+        },
+      };
+    }
+
+    if (options && options.mention?.HighlightComponent) {
+      editorProps = {
+        ...editorProps,
+        mention: {
+          HighlightComponent: options.mention.HighlightComponent,
+        },
       };
     }
 
@@ -673,6 +693,42 @@ describe('mentionTypeahead', () => {
               ),
             );
           },
+          {
+            sanitizePrivateContent: true,
+            mention: { insertDisplayName: true },
+          },
+        ),
+      );
+
+      it(
+        'should not insert mention name when collabEdit.sanitizePrivateContent is true and @depreciated mentionInsertDisplayName is true',
+        withMentionQuery(
+          'april',
+          ({ editorView, mockMentionNameResolver }) => {
+            selectCurrentItem()(editorView.state, editorView.dispatch);
+
+            expect(mockMentionNameResolver!.lookupName).toHaveBeenCalledTimes(
+              0,
+            );
+            expect(mockMentionNameResolver!.cacheName).toHaveBeenCalledTimes(1);
+            expect(mockMentionNameResolver!.cacheName).toHaveBeenCalledWith(
+              '6',
+              'Dorene Rieger',
+            );
+
+            // expect text in mention to be empty due to sanitization
+            expect(editorView.state.doc).toEqualDocument(
+              doc(
+                p(
+                  mention({
+                    id: '6',
+                    text: '',
+                  })(),
+                  ' ',
+                ),
+              ),
+            );
+          },
           { sanitizePrivateContent: true, mentionInsertDisplayName: true },
         ),
       );
@@ -712,6 +768,30 @@ describe('mentionTypeahead', () => {
 
       it(
         'should insert mention name when collabEdit.sanitizePrivateContent is falsy and mentionInsertDisplayName true',
+        withMentionQuery(
+          'april',
+          ({ editorView }) => {
+            selectCurrentItem()(editorView.state, editorView.dispatch);
+
+            // expect text in mention to be empty due to sanitization
+            expect(editorView.state.doc).toEqualDocument(
+              doc(
+                p(
+                  mention({
+                    id: '6',
+                    text: '@Dorene Rieger',
+                  })(),
+                  ' ',
+                ),
+              ),
+            );
+          },
+          { mention: { insertDisplayName: true } },
+        ),
+      );
+
+      it(
+        'should insert mention name when collabEdit.sanitizePrivateContent is falsy and @depreciated mentionInsertDisplayName true',
         withMentionQuery(
           'april',
           ({ editorView }) => {

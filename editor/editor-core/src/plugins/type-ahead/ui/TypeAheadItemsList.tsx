@@ -80,8 +80,8 @@ const ItemAfter = styled.div`
   flex: 0 0 auto;
 `;
 
-const fallbackIcon = (label: string) => {
-  return <IconFallback label={label} />;
+const fallbackIcon = () => {
+  return <IconFallback />;
 };
 
 export type TypeAheadItemsListProps = {
@@ -206,9 +206,7 @@ export class TypeAheadItemComponent extends React.Component<
         onClick={this.insertByIndex}
         onMouseMove={this.setCurrentIndex}
         elemBefore={
-          <ItemIcon>
-            {item.icon ? item.icon() : fallbackIcon(item.title)}
-          </ItemIcon>
+          <ItemIcon>{item.icon ? item.icon() : fallbackIcon()}</ItemIcon>
         }
         isSelected={this.isSelected(this.props)}
         aria-describedby={item.title}

@@ -54,12 +54,7 @@ const headingPluginOptions = (
       priority: 1300,
       keywords: [`h${level}`],
       keyshortcut,
-      icon: () => (
-        <IconHeading
-          level={level}
-          label={formatMessage(descriptionDescriptor)}
-        />
-      ),
+      icon: () => <IconHeading level={level} />,
       action(insert: QuickInsertActionInsert, state: EditorState) {
         const tr = insert(state.schema.nodes.heading.createChecked({ level }));
         return addAnalytics(state, tr, {
@@ -92,7 +87,7 @@ const blockquotePluginOptions = (
       description: formatMessage(messages.blockquoteDescription),
       priority: 1300,
       keyshortcut: keymaps.tooltip(keymaps.toggleBlockQuote),
-      icon: () => <IconQuote label={formatMessage(messages.blockquote)} />,
+      icon: () => <IconQuote />,
       action(insert, state) {
         const tr = insert(
           state.schema.nodes.blockquote.createChecked(

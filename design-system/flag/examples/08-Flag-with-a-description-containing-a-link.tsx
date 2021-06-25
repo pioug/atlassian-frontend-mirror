@@ -14,7 +14,7 @@ export default () => (
           <a href="https://ecosystem.atlassian.net/browse/AK-90210">AK-90210</a>
         </span>
       }
-      icon={<SuccessIcon primaryColor={G300} label="Info" />}
+      icon={<SuccessIcon primaryColor={G300} label="Success" />}
       id="1"
       key="1"
       title="I am a Flag"

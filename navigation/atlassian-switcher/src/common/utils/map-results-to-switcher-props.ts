@@ -265,17 +265,6 @@ export function mapResultsToSwitcherProps(
       ),
       [],
     ),
-    suggestedProductLinks: features.xflow
-      ? collect(
-          collectSuggestedLinks(
-            provisionedProducts,
-            productRecommendations,
-            isXFlowEnabled,
-            joinableSites,
-          ),
-          [],
-        )
-      : [],
     fixedLinks: [],
     adminLinks: features.isTrustedAdminUIDeprecationEnabled
       ? collect(collectAdminLinksNext(managePermission, adminUrl), [])
@@ -287,13 +276,20 @@ export function mapResultsToSwitcherProps(
     discoverSectionLinks: hasLoadedDiscoverSection
       ? collect(
           collectDiscoverSectionLinks(
-            managePermission,
-            addProductsPermission,
-            features.isEmceeLinkEnabled,
-            product,
             recommendationsFeatureFlags,
             features.isSlackDiscoveryEnabled,
             slackDiscoveryClickHandler,
+          ),
+          [],
+        )
+      : [],
+    suggestedProductLinks: features.xflow
+      ? collect(
+          collectSuggestedLinks(
+            provisionedProducts,
+            productRecommendations,
+            isXFlowEnabled,
+            joinableSites,
           ),
           [],
         )

@@ -87,7 +87,8 @@ export const gapCursorStyles = `
   ${wrapLeft} + ${gapCursor} + ${wrapRight},
   ${wrapLeft} + ${gapCursor} + span ${wrapRight},
   ${wrapRight} + ${gapCursor} + ${wrapLeft},
-  ${wrapRight} + ${gapCursor} + span + ${wrapLeft} {
+  ${wrapRight} + ${gapCursor} + span + ${wrapLeft},
+  ${wrapLeft} + ${gapCursor} {
     clear: none;
   }
 

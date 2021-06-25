@@ -214,7 +214,6 @@ export const MediaViewer = withMediaAnalyticsContext(
       'poll_maxAttempts',
       'poll_backoffFactor',
       'poll_maxIntervalMs',
-      'poll_maxGlobalFailures',
     ],
   },
 )(withAnalyticsEvents()(MediaViewerComponent));

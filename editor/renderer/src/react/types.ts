@@ -34,6 +34,7 @@ export interface NodeMeta {
   allowDynamicTextSizing?: boolean;
   allowHeadingAnchorLinks?: HeadingAnchorLinksProps;
   allowCopyToClipboard?: boolean;
+  allowPlaceholderText?: boolean;
   allowCustomPanels?: boolean;
   rendererAppearance?: RendererAppearance;
   fireAnalyticsEvent?: (event: AnalyticsEventPayload) => void;

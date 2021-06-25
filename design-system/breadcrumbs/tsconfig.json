@@ -6,10 +6,13 @@
     "./src/**/*.tsx",
     "./docs/**/*.ts",
     "./docs/**/*.tsx",
+    "./codemods/**/*.ts",
+    "./codemods/**/*.tsx",
     "./examples/**/*.ts",
     "./examples/**/*.tsx",
     "./example-helpers/**/*.ts",
-    "./example-helpers/**/*.tsx"
+    "./example-helpers/**/*.tsx",
+    "extract-react-types/breadcrumbs-props.tsx"
   ],
   "compilerOptions": {
     "baseUrl": "./"

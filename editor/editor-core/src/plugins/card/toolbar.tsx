@@ -143,14 +143,17 @@ const generateDeleteButton = (
     onClick: removeCard,
   };
   if (node.type === inlineCard) {
-    const unlinkButton: FloatingToolbarItem<Command> = {
-      id: 'editor.link.unlink',
-      type: 'button',
-      title: intl.formatMessage(linkToolbarMessages.unlink),
-      icon: UnlinkIcon,
-      onClick: unlinkCard(node, state),
-    };
-    return [unlinkButton, removeButton];
+    const unlinkButtonWithSeparator: Array<FloatingToolbarItem<Command>> = [
+      {
+        id: 'editor.link.unlink',
+        type: 'button',
+        title: intl.formatMessage(linkToolbarMessages.unlink),
+        icon: UnlinkIcon,
+        onClick: unlinkCard(node, state),
+      },
+      { type: 'separator' },
+    ];
+    return [...unlinkButtonWithSeparator, removeButton];
   }
 
   return [removeButton];
@@ -179,7 +182,8 @@ const generateToolbarItems = (
 
   const currentAppearance = appearanceForNodeType(node.type);
 
-  if (pluginState.showLinkingToolbar) {
+  /* mobile builds toolbar natively using toolbarItems */
+  if (pluginState.showLinkingToolbar && platform !== 'mobile') {
     return [
       buildEditLinkToolbar({
         providerFactory,
@@ -227,6 +231,7 @@ const generateToolbarItems = (
       toolbarItems.unshift(
         {
           type: 'custom',
+          fallback: [],
           render: editorView => (
             <LinkToolbarAppearance
               key="link-appearance"

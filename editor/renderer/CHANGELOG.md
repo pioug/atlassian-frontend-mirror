@@ -1,5 +1,18 @@
 # @atlaskit/renderer
 
+## 77.1.0
+
+### Minor Changes
+
+- [`9fef23ee77c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9fef23ee77c) - ED-12477 Add unsupported node capability to Media Group
+- [`b847a71298d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b847a71298d) - ED-8245 added optional ability to render placeholder text in renderer
+- [`9088388ab19`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9088388ab19) - [ux] ED-13080 revert implement a separate button for sorting table columns
+
+### Patch Changes
+
+- [`d05cb164f3f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d05cb164f3f) - NO-ISSUE dereference default export of async imported modules for better interop
+- Updated dependencies
+
 ## 77.0.1
 
 ### Patch Changes

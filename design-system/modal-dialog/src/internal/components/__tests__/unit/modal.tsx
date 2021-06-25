@@ -97,4 +97,16 @@ describe('Modal', () => {
 
     expect(callback).toHaveBeenCalled();
   });
+
+  it('should set aria modal attribute to the modal to trap the virtual cursor', () => {
+    const callback = jest.fn();
+    const { queryByTestId } = render(
+      <ModalDialog testId="test" onClose={callback} />,
+    );
+
+    const element = queryByTestId('test')!;
+    expect(element).not.toBeNull();
+
+    expect(element.getAttribute('aria-modal')).toEqual('true');
+  });
 });

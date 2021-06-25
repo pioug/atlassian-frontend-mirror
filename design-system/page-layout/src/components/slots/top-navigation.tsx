@@ -12,7 +12,7 @@ import {
   getPageLayoutSlotSelector,
   resolveDimension,
 } from '../../common/utils';
-import { publishGridState, useSkipLinks } from '../../controllers';
+import { publishGridState, useSkipLink } from '../../controllers';
 
 import SlotDimensions from './slot-dimensions';
 import { topNavigationStyles } from './styles';
@@ -34,20 +34,15 @@ const TopNavigation = (props: SlotHeightProps) => {
     shouldPersistHeight,
   );
 
-  const { registerSkipLink, unregisterSkipLink } = useSkipLinks();
-
   useEffect(() => {
     publishGridState({ [VAR_TOP_NAVIGATION_HEIGHT]: topNavigationHeight });
     return () => {
       publishGridState({ [VAR_TOP_NAVIGATION_HEIGHT]: 0 });
-      unregisterSkipLink(id);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [topNavigationHeight, id]);
+  }, [topNavigationHeight]);
 
-  if (id && skipLinkTitle) {
-    registerSkipLink({ id, skipLinkTitle });
-  }
+  useSkipLink(id, skipLinkTitle);
 
   return (
     <div

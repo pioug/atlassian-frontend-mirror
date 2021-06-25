@@ -10,16 +10,17 @@ import { themed } from '@atlaskit/theme/components';
 import { borderRadius, gridSize } from '@atlaskit/theme/constants';
 import { DN70 } from '@atlaskit/theme/colors';
 
+import { getFeatureFlags } from '../../feature-flags-context';
 import { DispatchAnalyticsEvent } from '../../analytics';
 import { FloatingToolbarItem } from '../types';
 import { compareArrays, shallowEqual } from '../utils';
+import { showConfirmDialog } from '../pm-plugins/toolbar-data/commands';
 import Button from './Button';
 import Dropdown from './Dropdown';
 import Select, { SelectOption } from './Select';
 import Separator from './Separator';
 import Input from './Input';
 import { ExtensionsPlaceholder } from './ExtensionsPlaceholder';
-import { getFeatureFlags } from '../../feature-flags-context';
 
 const akGridSize = gridSize();
 
@@ -189,6 +190,15 @@ export default class Toolbar extends Component<Props> {
               switch (item.type) {
                 case 'button':
                   const ButtonIcon = item.icon as React.ComponentClass<any>;
+
+                  const onClickHandler = () => {
+                    if (item.confirmDialog) {
+                      dispatchCommand(showConfirmDialog(idx));
+                    } else {
+                      dispatchCommand(item.onClick);
+                    }
+                  };
+
                   return (
                     <Button
                       className={item.className}
@@ -202,7 +212,7 @@ export default class Toolbar extends Component<Props> {
                       }
                       appearance={item.appearance}
                       target={item.target}
-                      onClick={() => dispatchCommand(item.onClick)}
+                      onClick={onClickHandler}
                       onMouseEnter={() => dispatchCommand(item.onMouseEnter)}
                       onMouseLeave={() => dispatchCommand(item.onMouseLeave)}
                       selected={item.selected}
@@ -251,23 +261,28 @@ export default class Toolbar extends Component<Props> {
                   );
 
                 case 'select':
-                  return (
-                    <Select
-                      key={idx}
-                      dispatchCommand={dispatchCommand}
-                      options={item.options}
-                      hideExpandIcon={item.hideExpandIcon}
-                      mountPoint={popupsMountPoint}
-                      boundariesElement={popupsBoundariesElement}
-                      scrollableElement={popupsScrollableElement}
-                      defaultValue={item.defaultValue}
-                      placeholder={item.placeholder}
-                      onChange={selected =>
-                        dispatchCommand(item.onChange(selected as SelectOption))
-                      }
-                      filterOption={item.filterOption}
-                    />
-                  );
+                  if (item.selectType === 'list') {
+                    return (
+                      <Select
+                        key={idx}
+                        dispatchCommand={dispatchCommand}
+                        options={item.options}
+                        hideExpandIcon={item.hideExpandIcon}
+                        mountPoint={popupsMountPoint}
+                        boundariesElement={popupsBoundariesElement}
+                        scrollableElement={popupsScrollableElement}
+                        defaultValue={item.defaultValue}
+                        placeholder={item.placeholder}
+                        onChange={selected =>
+                          dispatchCommand(
+                            item.onChange(selected as SelectOption),
+                          )
+                        }
+                        filterOption={item.filterOption}
+                      />
+                    );
+                  }
+                  return null;
                 case 'extensions-placeholder':
                   if (!editorView || !extensionsProvider) {
                     return null;

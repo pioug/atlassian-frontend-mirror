@@ -1,7 +1,8 @@
-import { Node as PMNode } from 'prosemirror-model';
+import { ADFEntity } from '@atlaskit/adf-utils';
 
 import { buildAction } from './manifest-helpers';
 import {
+  ExtensionAPI,
   ExtensionAutoConvertHandler,
   ExtensionManifest,
   ExtensionModule,
@@ -9,7 +10,11 @@ import {
   ExtensionToolbarButton,
   MenuItem,
 } from './types';
-import { ExtensionModuleToolbarItem } from './types/extension-manifest-toolbar-item';
+import {
+  ContextualToolbar,
+  ToolbarContext,
+  ToolbarItem,
+} from './types/extension-manifest-toolbar-item';
 
 export const groupBy = <T>(
   arr: T[],
@@ -103,99 +108,166 @@ export async function getExtensionAutoConvertersFromProvider(
   return createAutoConverterRunner(extensionAutoConverters);
 }
 
-export const getContextualToolbarlItemsFromModule = (
-  extensions: ExtensionManifest[],
-  node: PMNode,
-): ExtensionToolbarButton[] => {
-  return extensions
-    .filter(ext => ext.modules.contextualToolbarItems)
-    .reduce((acc, ext): ExtensionToolbarButton[] => {
-      const toolbarItems = (
-        ext.modules.contextualToolbarItems?.filter(item =>
-          shouldAddExtensionItemForNode(item, node),
-        ) || []
-      ).map(item => {
-        const { tooltip, key, label, icon, action } = item;
-        const itemKey = `${ext.key}:${key}`;
-        if (typeof action !== 'function') {
-          // eslint-disable-next-line no-console
-          console.error(
-            `Provided action is not a function for extension toolbar button: ${label} (${itemKey})`,
-          );
-        }
-        let labelAndIcon = {};
-        switch (item.display) {
-          case 'icon':
-            if (!icon) {
-              // eslint-disable-next-line no-console
-              console.error(
-                `icon should be provided for extension toolbar button (${itemKey}), when display is set to 'icon'`,
-              );
-            }
-            labelAndIcon = { icon };
-            break;
-          case 'label':
-            if (!label) {
-              // eslint-disable-next-line no-console
-              console.error(
-                `label should be provided for extension toolbar button (${itemKey}), when display is set to 'label'`,
-              );
-            }
-            labelAndIcon = { label };
-            break;
-          default:
-            if (!label || !icon) {
-              // eslint-disable-next-line no-console
-              console.error(
-                `label and icon should be provided for extension toolbar button (${itemKey}), when display is not set or set to 'icon-and-label'`,
-              );
-            }
-            labelAndIcon = { icon, label };
-            break;
-        }
-        return {
-          key: itemKey,
-          tooltip,
-          action,
-          ...labelAndIcon,
-        };
-      });
-      acc.push(...toolbarItems);
-      return acc;
-    }, [] as ExtensionToolbarButton[]);
+const logError = (msg: any, ...args: any[]) => {
+  // eslint-disable-next-line no-console
+  console.error(msg, ...args);
+};
 
-  // defines whether to add toolbar item for the given node
-  function shouldAddExtensionItemForNode(
-    item: ExtensionModuleToolbarItem,
-    node: PMNode,
-  ): boolean {
-    // if item type is a standard node - should match the nodeType
-    if (
-      item.context.type === 'node' &&
-      item.context.nodeType === node.type.name
-    ) {
+const toolbarItemToButtonConfig = (
+  toolbarItem: ToolbarItem,
+  parentKey?: string,
+): ExtensionToolbarButton => {
+  const { tooltip, key, label, icon, action, disabled } = toolbarItem;
+  const itemKey = [parentKey, key].join(':');
+  if (typeof action !== 'function') {
+    logError(
+      `Provided action is not a function for extension toolbar button: ${label} (${itemKey})`,
+    );
+  }
+  let labelAndIcon = {};
+  switch (toolbarItem.display) {
+    case 'icon':
+      if (!icon) {
+        logError(
+          `icon should be provided for extension toolbar button (${itemKey}), when display is set to 'icon'`,
+        );
+      }
+      labelAndIcon = { icon };
+      break;
+    case 'label':
+      if (!label) {
+        logError(
+          `label should be provided for extension toolbar button (${itemKey}), when display is set to 'label'`,
+        );
+      }
+      labelAndIcon = { label };
+      break;
+    default:
+      if (!label || !icon) {
+        logError(
+          `label and icon should be provided for extension toolbar button (${itemKey}), when display is not set or set to 'icon-and-label'`,
+        );
+      }
+      labelAndIcon = { icon, label };
+      break;
+  }
+  return {
+    key: itemKey,
+    tooltip,
+    action,
+    disabled,
+    ...labelAndIcon,
+  };
+};
+
+const compareContext = (
+  contextA: ToolbarContext,
+  contextB: ToolbarContext,
+): boolean => {
+  if (
+    contextA.type === contextB.type &&
+    contextA.nodeType === contextB.nodeType
+  ) {
+    if (contextA.type === 'node') {
       return true;
     }
-    // for other cases should be an extension and match the nodeType ("extension" | "inlineExtension" | "bodiedExtension")
-    if (
-      item.context.type !== 'extension' ||
-      node.type.name !== item.context.nodeType
-    ) {
-      return false;
+    if (contextA.type === 'extension' && contextB.type === 'extension') {
+      return (
+        contextA.extensionKey === contextB.extensionKey &&
+        contextA.extensionType === contextB.extensionType
+      );
     }
-    const { extensionType, extensionKey } = item.context;
-    // if extension type is given - should match extension type
-    if (extensionType && extensionType !== node.attrs.extensionType) {
-      return false;
-    }
-    // if extension key is a string
-    if (typeof extensionKey === 'string') {
-      return extensionKey === node.attrs.extensionKey;
-    }
-    // if extension key is an array
-    if (Array.isArray(extensionKey) && extensionKey.length) {
-      return extensionKey.includes(node.attrs.extensionKey);
-    }
-    return false;
+  }
+
+  return false;
+};
+
+const hasDuplicateContext = (
+  contextualToolbars: ContextualToolbar[],
+): ToolbarContext | undefined => {
+  if (contextualToolbars.length > 1) {
+    const contexts = contextualToolbars.map(
+      contextualToolbar => contextualToolbar.context,
+    );
+
+    return contexts.find(
+      (currentContext, currentIndex) =>
+        currentIndex !==
+        contexts.findIndex(context => compareContext(currentContext, context)),
+    );
   }
 };
+
+export const getContextualToolbarItemsFromModule = (
+  extensions: ExtensionManifest[],
+  node: ADFEntity,
+  api: ExtensionAPI,
+): ExtensionToolbarButton[] => {
+  return extensions
+    .map(extension => {
+      if (extension.modules.contextualToolbars) {
+        const duplicateContext = hasDuplicateContext(
+          extension.modules.contextualToolbars,
+        );
+        if (duplicateContext) {
+          logError(
+            `[contextualToolbars] Duplicate context detected - ${JSON.stringify(
+              duplicateContext,
+            )}.`,
+          );
+          return [];
+        }
+
+        return extension.modules.contextualToolbars
+          .map(contextualToolbar => {
+            if (shouldAddExtensionItemForNode(contextualToolbar, node)) {
+              const { toolbarItems } = contextualToolbar;
+              if (typeof toolbarItems === 'function') {
+                return toolbarItems(node, api);
+              }
+              return toolbarItems;
+            }
+            return [];
+          })
+          .flatMap(toolbarButtons =>
+            toolbarButtons.map(toolbarButton =>
+              toolbarItemToButtonConfig(toolbarButton, extension.key),
+            ),
+          );
+      }
+      return [];
+    })
+    .flatMap(extensionToolbarButtons => extensionToolbarButtons);
+};
+
+// defines whether to add toolbar item for the given node
+function shouldAddExtensionItemForNode(
+  item: ContextualToolbar,
+  node: ADFEntity,
+): boolean {
+  // if item type is a standard node - should match the nodeType
+  if (item.context.type === 'node' && item.context.nodeType === node.type) {
+    return true;
+  }
+  // for other cases should be an extension and match the nodeType ("extension" | "inlineExtension" | "bodiedExtension")
+  if (
+    item.context.type !== 'extension' ||
+    node.type !== item.context.nodeType
+  ) {
+    return false;
+  }
+  const { extensionType, extensionKey } = item.context;
+  // if extension type is given - should match extension type
+  if (extensionType && extensionType !== node.attrs?.extensionType) {
+    return false;
+  }
+  // if extension key is a string
+  if (typeof extensionKey === 'string') {
+    return extensionKey === node.attrs?.extensionKey;
+  }
+  // if extension key is an array
+  if (Array.isArray(extensionKey) && extensionKey.length) {
+    return extensionKey.includes(node.attrs?.extensionKey);
+  }
+  return false;
+}

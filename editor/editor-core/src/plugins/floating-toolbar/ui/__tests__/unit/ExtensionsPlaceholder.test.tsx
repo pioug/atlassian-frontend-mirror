@@ -233,8 +233,12 @@ describe('ExtensionsPlaceholder', () => {
         extensionProvider={createTestExtensionProvider(action, [
           {
             context: testContext || defaultContext,
-            action,
-            ...testItemProps,
+            toolbarItems: [
+              {
+                action,
+                ...testItemProps,
+              },
+            ],
           },
         ])}
       />,

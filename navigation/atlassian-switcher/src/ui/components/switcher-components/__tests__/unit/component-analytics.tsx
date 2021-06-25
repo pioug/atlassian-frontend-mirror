@@ -13,10 +13,11 @@ import { mapResultsToSwitcherProps } from '../../../../../common/utils/map-resul
 import { Status } from '../../../../../common/providers/as-data-provider';
 
 // Includes viewed and rendered events
-const EXPECTED_RENDER_EVENTS = 6;
+const EXPECTED_RENDER_EVENTS = 5;
 
 const DefaultAtlassianSwitcher = (props: any = {}) => {
   const stubIcon = () => <span />;
+
   const switcherLinks: Partial<ReturnType<typeof mapResultsToSwitcherProps>> = {
     getExtendedAnalyticsAttributes: () => ({}),
     licensedProductLinks: [
@@ -108,6 +109,9 @@ const DefaultAtlassianSwitcher = (props: any = {}) => {
     userSiteData: {
       data: {},
     },
+    productRecommendations: {
+      data: [],
+    },
     ...props.rawProviderResults,
   };
 
@@ -157,7 +161,7 @@ describe('Atlassian Switcher - SLIs', () => {
   });
 
   describe('Joinable sites rendered SLI', () => {
-    const PRECEDING_EVENTS = 2;
+    const PRECEDING_EVENTS = 3;
     it('fires not_rendered event when the provider fails', async () => {
       mount(
         <DefaultAtlassianSwitcher
@@ -253,8 +257,8 @@ describe('Atlassian Switcher - SLIs', () => {
         actionSubject: 'atlassianSwitcherJoinableSites',
       });
 
-      // Skip switcher rendered event
-      eventStream.skip(1);
+      // Skip atlassianSwitcherAvailableProducts and switcher rendered event
+      eventStream.skip(2);
 
       const { payload: renderJoinableSitesPayload } = await eventStream.next();
       expect(renderJoinableSitesPayload).toMatchObject({
@@ -305,32 +309,21 @@ describe('Atlassian Switcher - SLIs', () => {
     });
   });
 
-  describe('Recommended products rendered SLI', () => {
-    const PRECEDING_EVENTS = 3;
+  describe('Discover section rendered SLI', () => {
+    const PRECEDING_EVENTS = 4;
     it('fires rendered event none of the providers fail', async () => {
       mount(<DefaultAtlassianSwitcher onEventFired={eventStream} />);
       eventStream.skip(PRECEDING_EVENTS);
-
-      const {
-        payload: renderRecommendedProductsPayload,
-      } = await eventStream.next();
-      expect(renderRecommendedProductsPayload).toMatchObject({
+      const { payload: discoverPayload } = await eventStream.next();
+      expect(discoverPayload).toMatchObject({
         eventType: 'operational',
         action: 'rendered',
-        actionSubject: 'atlassianSwitcherRecommendedProducts',
+        actionSubject: 'atlassianSwitcherDiscoverMore',
       });
-      expect(renderRecommendedProductsPayload.attributes).toHaveProperty(
-        'duration',
-      );
-      expect(
-        renderRecommendedProductsPayload.attributes.duration,
-      ).toBeGreaterThanOrEqual(0);
-      expect(renderRecommendedProductsPayload.attributes).toHaveProperty(
-        'emptyRender',
-      );
-      expect(
-        renderRecommendedProductsPayload.attributes.emptyRender,
-      ).toBeFalsy();
+      expect(discoverPayload.attributes).toHaveProperty('duration');
+      expect(discoverPayload.attributes.duration).toBeGreaterThanOrEqual(0);
+      expect(discoverPayload.attributes).toHaveProperty('emptyRender');
+      expect(discoverPayload.attributes.emptyRender).toBeFalsy();
     });
 
     it('fires not_rendered when isXFlowEnabled provider fails', async () => {
@@ -346,26 +339,41 @@ describe('Atlassian Switcher - SLIs', () => {
       );
       eventStream.skip(PRECEDING_EVENTS);
 
-      const {
-        payload: renderRecommendedProductsPayload,
-      } = await eventStream.next();
-      expect(renderRecommendedProductsPayload).toMatchObject({
+      const { payload: discoverPayload } = await eventStream.next();
+      expect(discoverPayload).toMatchObject({
         eventType: 'operational',
         action: 'not_rendered',
-        actionSubject: 'atlassianSwitcherRecommendedProducts',
+        actionSubject: 'atlassianSwitcherDiscoverMore',
       });
-      expect(renderRecommendedProductsPayload.attributes).toHaveProperty(
-        'duration',
+      expect(discoverPayload.attributes).toHaveProperty('duration');
+      expect(discoverPayload.attributes.duration).toBeGreaterThanOrEqual(0);
+      expect(discoverPayload.attributes).toHaveProperty('providerFailed');
+      expect(discoverPayload.attributes.providerFailed).toBeTruthy();
+    });
+
+    it('fires not_rendered when joinableSites provider fails', async () => {
+      mount(
+        <DefaultAtlassianSwitcher
+          onEventFired={eventStream}
+          rawProviderResults={{
+            joinableSites: {
+              data: null,
+            },
+          }}
+        />,
       );
-      expect(
-        renderRecommendedProductsPayload.attributes.duration,
-      ).toBeGreaterThanOrEqual(0);
-      expect(renderRecommendedProductsPayload.attributes).toHaveProperty(
-        'providerFailed',
-      );
-      expect(
-        renderRecommendedProductsPayload.attributes.providerFailed,
-      ).toBeTruthy();
+      eventStream.skip(PRECEDING_EVENTS);
+
+      const { payload: discoverPayload } = await eventStream.next();
+      expect(discoverPayload).toMatchObject({
+        eventType: 'operational',
+        action: 'not_rendered',
+        actionSubject: 'atlassianSwitcherDiscoverMore',
+      });
+      expect(discoverPayload.attributes).toHaveProperty('duration');
+      expect(discoverPayload.attributes.duration).toBeGreaterThanOrEqual(0);
+      expect(discoverPayload.attributes).toHaveProperty('providerFailed');
+      expect(discoverPayload.attributes.providerFailed).toBeTruthy();
     });
 
     it('fires not_rendered when provisionedProducts provider fails', async () => {
@@ -381,200 +389,21 @@ describe('Atlassian Switcher - SLIs', () => {
       );
       eventStream.skip(PRECEDING_EVENTS);
 
-      const {
-        payload: renderRecommendedProductsPayload,
-      } = await eventStream.next();
-      expect(renderRecommendedProductsPayload).toMatchObject({
-        eventType: 'operational',
-        action: 'not_rendered',
-        actionSubject: 'atlassianSwitcherRecommendedProducts',
-      });
-      expect(renderRecommendedProductsPayload.attributes).toHaveProperty(
-        'duration',
-      );
-      expect(
-        renderRecommendedProductsPayload.attributes.duration,
-      ).toBeGreaterThanOrEqual(0);
-      expect(renderRecommendedProductsPayload.attributes).toHaveProperty(
-        'providerFailed',
-      );
-      expect(
-        renderRecommendedProductsPayload.attributes.providerFailed,
-      ).toBeTruthy();
-    });
-  });
-
-  describe('Discover more rendered SLI', () => {
-    const PRECEDING_EVENTS = 4;
-    it('discoverMoreForEveryone enabled - fires rendered event when the item is shown', async () => {
-      mount(
-        <DefaultAtlassianSwitcher onEventFired={eventStream} features={{}} />,
-      );
-      eventStream.skip(PRECEDING_EVENTS);
-
-      const {
-        payload: renderRecommendedProductsPayload,
-      } = await eventStream.next();
-      expect(renderRecommendedProductsPayload).toMatchObject({
-        eventType: 'operational',
-        action: 'rendered',
-        actionSubject: 'atlassianSwitcherDiscoverMore',
-      });
-      expect(renderRecommendedProductsPayload.attributes).toHaveProperty(
-        'duration',
-      );
-      expect(
-        renderRecommendedProductsPayload.attributes.duration,
-      ).toBeGreaterThanOrEqual(0);
-    });
-
-    it('discoverMoreForEveryone enabled - fires not_rendered event when the item is not rendered', async () => {
-      const overrideSwitcherLinks = {
-        adminLinks: [],
-      };
-      mount(
-        <DefaultAtlassianSwitcher
-          onEventFired={eventStream}
-          features={{}}
-          overrideSwitcherLinks={overrideSwitcherLinks}
-        />,
-      );
-      eventStream.skip(PRECEDING_EVENTS);
-
-      const {
-        payload: renderRecommendedProductsPayload,
-      } = await eventStream.next();
-      expect(renderRecommendedProductsPayload).toMatchObject({
+      const { payload: discoverPayload } = await eventStream.next();
+      expect(discoverPayload).toMatchObject({
         eventType: 'operational',
         action: 'not_rendered',
         actionSubject: 'atlassianSwitcherDiscoverMore',
       });
-      expect(renderRecommendedProductsPayload.attributes).toHaveProperty(
-        'duration',
-      );
-      expect(
-        renderRecommendedProductsPayload.attributes.duration,
-      ).toBeGreaterThanOrEqual(0);
-      expect(renderRecommendedProductsPayload.attributes).toHaveProperty(
-        'providerFailed',
-      );
-      expect(
-        renderRecommendedProductsPayload.attributes.providerFailed,
-      ).toBeFalsy();
-    });
-
-    it('permissions based - fires not_rendered if a permissions provider fails', async () => {
-      mount(
-        <DefaultAtlassianSwitcher
-          onEventFired={eventStream}
-          rawProviderResults={{
-            addProductsPermission: {
-              data: null,
-            },
-          }}
-        />,
-      );
-      eventStream.skip(PRECEDING_EVENTS);
-
-      const {
-        payload: renderRecommendedProductsPayload,
-      } = await eventStream.next();
-      expect(renderRecommendedProductsPayload).toMatchObject({
-        eventType: 'operational',
-        action: 'not_rendered',
-        actionSubject: 'atlassianSwitcherDiscoverMore',
-      });
-      expect(renderRecommendedProductsPayload.attributes).toHaveProperty(
-        'duration',
-      );
-      expect(
-        renderRecommendedProductsPayload.attributes.duration,
-      ).toBeGreaterThanOrEqual(0);
-      expect(renderRecommendedProductsPayload.attributes).toHaveProperty(
-        'providerFailed',
-      );
-      expect(
-        renderRecommendedProductsPayload.attributes.providerFailed,
-      ).toBeTruthy();
-    });
-
-    it('permissions based - fires not_rendered if one of the providers returns true but the item is not rendered', async () => {
-      const overrideSwitcherLinks = {
-        adminLinks: [],
-      };
-      mount(
-        <DefaultAtlassianSwitcher
-          onEventFired={eventStream}
-          rawProviderResults={{
-            addProductsPermission: {
-              data: true,
-            },
-          }}
-          overrideSwitcherLinks={overrideSwitcherLinks}
-        />,
-      );
-      eventStream.skip(PRECEDING_EVENTS);
-
-      const {
-        payload: renderRecommendedProductsPayload,
-      } = await eventStream.next();
-      expect(renderRecommendedProductsPayload).toMatchObject({
-        eventType: 'operational',
-        action: 'not_rendered',
-        actionSubject: 'atlassianSwitcherDiscoverMore',
-      });
-      expect(renderRecommendedProductsPayload.attributes).toHaveProperty(
-        'duration',
-      );
-      expect(
-        renderRecommendedProductsPayload.attributes.duration,
-      ).toBeGreaterThanOrEqual(0);
-      expect(renderRecommendedProductsPayload.attributes).toHaveProperty(
-        'providerFailed',
-      );
-      expect(
-        renderRecommendedProductsPayload.attributes.providerFailed,
-      ).toBeFalsy();
-    });
-
-    it('permissions based - fires rendered event if the item is rendered', async () => {
-      mount(
-        <DefaultAtlassianSwitcher
-          onEventFired={eventStream}
-          rawProviderResults={{
-            addProductsPermission: {
-              data: true,
-            },
-          }}
-        />,
-      );
-      eventStream.skip(PRECEDING_EVENTS);
-
-      const {
-        payload: renderRecommendedProductsPayload,
-      } = await eventStream.next();
-      expect(renderRecommendedProductsPayload).toMatchObject({
-        eventType: 'operational',
-        action: 'rendered',
-        actionSubject: 'atlassianSwitcherDiscoverMore',
-      });
-      expect(renderRecommendedProductsPayload.attributes).toHaveProperty(
-        'duration',
-      );
-      expect(
-        renderRecommendedProductsPayload.attributes.duration,
-      ).toBeGreaterThanOrEqual(0);
-      expect(renderRecommendedProductsPayload.attributes).toHaveProperty(
-        'emptyRender',
-      );
-      expect(
-        renderRecommendedProductsPayload.attributes.emptyRender,
-      ).toBeFalsy();
+      expect(discoverPayload.attributes).toHaveProperty('duration');
+      expect(discoverPayload.attributes.duration).toBeGreaterThanOrEqual(0);
+      expect(discoverPayload.attributes).toHaveProperty('providerFailed');
+      expect(discoverPayload.attributes.providerFailed).toBeTruthy();
     });
   });
 
   describe('Recent containers SLI', () => {
-    const PRECEDING_EVENTS = 5;
+    const PRECEDING_EVENTS = 2;
 
     it('collaboration graph recent containers - fires rendered event if provider returns an empty list', async () => {
       const overrideSwitcherLinks = {
@@ -759,7 +588,7 @@ describe('Atlassian Switcher - SLIs', () => {
   });
 
   describe('Custom links SLI', () => {
-    const PRECEDING_EVENTS = 5;
+    const PRECEDING_EVENTS = 2;
     it('fires rendered event when the provider returns an empty list', async () => {
       const overrideSwitcherLinks = {
         hasLoadedInstanceProviders: true,
@@ -922,7 +751,7 @@ describe('Atlassian Switcher - Component Analytics', () => {
     immediateIds.forEach((immediateId) => window.clearImmediate(immediateId));
   });
 
-  it('should fire "atlassianSwitcher rendered and "atlassianSwitcher viewed"', async () => {
+  it('should fire "atlassianSwitcher rendered" and "atlassianSwitcher viewed"', async () => {
     // UI event when the Switcher is viewed at all (before content load)
     const { payload: viewedPayload } = await eventStream.next();
     expect(viewedPayload).toMatchObject({
@@ -953,9 +782,6 @@ describe('Atlassian Switcher - Component Analytics', () => {
     expect(
       renderAvailableProductsPayload.attributes.duration,
     ).toBeGreaterThanOrEqual(0);
-
-    // Skip joinable sites and recommended products render event (covered in joinable sites SLO tests)
-    eventStream.skip(3);
 
     const { payload: renderSwitcherPayload } = await eventStream.next();
     expect(renderSwitcherPayload).toMatchObject({

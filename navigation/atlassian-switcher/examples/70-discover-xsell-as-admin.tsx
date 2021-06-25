@@ -61,7 +61,7 @@ class JiraSwitcherExample extends React.Component {
   };
 
   onDiscoverMoreClicked = () => {
-    console.log(`Triggering discover more!`);
+    console.log(`Triggering discover more.`);
   };
 
   render() {
@@ -72,7 +72,6 @@ class JiraSwitcherExample extends React.Component {
             product="jira"
             cloudId="some-cloud-id"
             triggerXFlow={this.onTriggerXFlow}
-            isEmceeLinkEnabled
             onDiscoverMoreClicked={this.onDiscoverMoreClicked}
           />
         </Drawer>

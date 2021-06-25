@@ -55,8 +55,11 @@ export default {
   'fabric.editor.configPanel.customSelect.createOption': 'Vytvořit',
   'fabric.editor.configPanel.dateRange.custom.from': 'Od',
   'fabric.editor.configPanel.dateRange.custom.to': 'Do',
+  'fabric.editor.configPanel.dateRange.grouping.collapse': 'Sbalit',
+  'fabric.editor.configPanel.dateRange.grouping.expand': 'Rozbalit',
   'fabric.editor.configPanel.dateRange.option.custom': 'Vlastní',
   'fabric.editor.configPanel.documentation': 'Dokumentace',
+  'fabric.editor.configPanel.errorBoundary.title': 'Něco se pokazilo.',
   'fabric.editor.configPanel.fieldTypeError.isMultipleAndRadio':
     '„isMultiple“ a „style: radio“ nelze kombinovat',
   'fabric.editor.configPanel.formType.addField': 'Přidat pole',

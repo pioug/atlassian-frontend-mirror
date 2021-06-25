@@ -79,9 +79,7 @@ const feedbackDialog = (feedbackInfo: FeedbackInfo): EditorPlugin => {
           description: formatMessage(messages.feedbackDialogDescription),
           priority: 400,
           keywords: ['bug'],
-          icon: () => (
-            <IconFeedback label={formatMessage(messages.feedbackDialog)} />
-          ),
+          icon: () => <IconFeedback />,
           action(insert, state) {
             const tr = insert('');
             openFeedbackDialog(feedbackInfo);

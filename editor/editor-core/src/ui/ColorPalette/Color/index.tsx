@@ -37,10 +37,15 @@ class Color extends PureComponent<Props & InjectedIntlProps> {
       intl: { formatMessage },
     } = this.props;
 
+    const ariaLabelText = isSelected
+      ? `${label} ${formatMessage(messages.selected)}`
+      : label;
+
     return (
       <Tooltip content={label}>
         <ButtonWrapper>
           <Button
+            aria-label={ariaLabelText}
             onClick={this.onClick}
             onMouseDown={this.onMouseDown}
             tabIndex={tabIndex}
@@ -51,10 +56,7 @@ class Color extends PureComponent<Props & InjectedIntlProps> {
             }}
           >
             {isSelected && (
-              <EditorDoneIcon
-                primaryColor={checkMarkColor}
-                label={formatMessage(messages.selected)}
-              />
+              <EditorDoneIcon primaryColor={checkMarkColor} label="" />
             )}
           </Button>
         </ButtonWrapper>

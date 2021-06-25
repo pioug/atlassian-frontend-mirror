@@ -85,6 +85,7 @@ export const buildEditLinkToolbar = ({
 }): FloatingToolbarItem<Command> => {
   return {
     type: 'custom',
+    fallback: [],
     render: (view, idx) => {
       if (!view || !providerFactory) {
         return null;

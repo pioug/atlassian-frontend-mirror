@@ -24,6 +24,7 @@ import {
 } from '@atlaskit/analytics-next';
 import { createAndFireMediaCardEvent } from '../utils/analytics';
 
+export const inlinePlayerClassName = 'media-card-inline-player';
 export interface InlinePlayerOwnProps {
   identifier: FileIdentifier;
   mediaClient: MediaClient;
@@ -206,6 +207,7 @@ export class InlinePlayerBase extends Component<
 
     return (
       <InlinePlayerWrapper
+        className={inlinePlayerClassName}
         data-testid={testId || 'media-card-inline-player'}
         selected={selected}
         onClick={onClick}

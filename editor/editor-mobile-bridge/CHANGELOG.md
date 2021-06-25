@@ -1,5 +1,38 @@
 # @atlaskit/editor-mobile-bridge
 
+## 26.5.0
+
+### Minor Changes
+
+- [`a8c2596ed8e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a8c2596ed8e) - Add smartLinks prop to Editor and mark UNSAFE_cards as deprecated
+- [`cc42416c77d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cc42416c77d) - [ME-1514] Add generic bridge API to insert a node in the Hybrid Editor.
+  This specific change inserts a 'status' node.
+- [`5783530b152`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5783530b152) - Added a new DSL in the mobile bridge to interpret a FloatingToolbarDatePicker. This extends from the FloatingToolbarSelectType.
+- [`fa236537b70`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fa236537b70) - Allow the mobile bridge to insert a date node
+- [`19568bf5587`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19568bf5587) - Updated floating toolbar types to reflect new changes.Some of the floating toolbar types are adjusted and new ones are added. This was done to scale better and be more flexible to support the mobile editor.
+
+      - FloatingToolbarInput now has id, title and description. These are used to generate a proper UI.
+      - FloatingToolbarCustom has a mandatory fallback field. This is needed to support to mobile. Custom type uses a react render which has no metadata for the mobile. This is mandatory because we always want to have a fallback. For now, existing usages has an empty array but we will update them later on. Note that it is an array because fallback could be multiple items.
+      - FloatingToolbarSelect has an additional type parameter for the options. FloatingToolbarSelect is extended to support different pickers. i.e. Color picker, emoji picker. In addition to the new type parameter, selectType and title fields are added. selectType is used to determine which type of UI needs to be used. color, emoji, date or list. Default one is list.
+      - A new type is added. FloatingToolbarColorPicker. It extends select and selectType is color.
+
+### Patch Changes
+
+- [`781ef939b83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/781ef939b83) - [ME-1519] Update font size bridge method definition.
+- Updated dependencies
+
+## 26.4.0
+
+### Minor Changes
+
+- [`0e54a14becf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0e54a14becf) - ED-13199 added localIdGenerationOnTables and dataConsumerMark flags to the mobile bridge
+
+## 26.3.8
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 26.3.7
 
 ### Patch Changes

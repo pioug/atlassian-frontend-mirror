@@ -5,6 +5,7 @@ import { MediaTypeIcon } from './media-type-icon';
 import { IconWrapper } from './media-type-icon';
 
 type MediaTypeProps = {
+  testId?: string;
   mediaType?: MediaType;
   mimeType?: string;
   name?: string;
@@ -18,6 +19,7 @@ export const MimeTypeIcon = ({
   mediaType = 'unknown',
   mimeType = 'unknown',
   name = 'unknown',
+  testId,
 }: MediaTypeProps) => {
   // retrieve mimetype icon and label
   const iconInfo = getMimeIcon(mimeType, name);
@@ -26,13 +28,17 @@ export const MimeTypeIcon = ({
   if (iconInfo) {
     const Icon = iconInfo.icon;
     return (
-      <IconWrapper data-testid="media-viewer-file-type-icon" type={mediaType}>
-        <Icon label={iconInfo.label} size="large" />
+      <IconWrapper
+        data-testid={testId}
+        data-type={iconInfo.label}
+        size={'large'}
+      >
+        <Icon label={iconInfo.label} />
       </IconWrapper>
     );
   }
 
   // no correponding mimetype icon/label was found.
   // Hence, return a mediatype (image/doc/audio/video/unknown) icon
-  return <MediaTypeIcon type={mediaType} />;
+  return <MediaTypeIcon testId={testId} type={mediaType} size={'large'} />;
 };

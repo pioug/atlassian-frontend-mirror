@@ -97,6 +97,7 @@ export default {
   'fabric.media.learn_more': 'Daha fazla bilgi',
   'fabric.media.load_more_gifs': 'Daha fazla GIF yükle',
   'fabric.media.loading': 'Yükleniyor...',
+  'fabric.media.loading_file': 'Dosya yükleniyor...',
   'fabric.media.might_be_a_hiccup': 'Kısa süreli bir sorun yaşanıyor olabilir.',
   'fabric.media.no_gifs_found': 'Aradığınız görseli bulamadınız mı?',
   'fabric.media.no_gifs_found_suggestion':

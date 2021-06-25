@@ -3,25 +3,30 @@ import { ADFEntity } from '@atlaskit/adf-utils';
 import { ExtensionAPI } from './extension-handler';
 import { ExtensionIconModule } from './extension-manifest-common';
 
-export type ExtensionModuleToolbarItem = ExtensionModuleToolbarButton;
-
 export type ToolbarButtonAction = (
-  adf: ADFEntity,
+  contextNode: ADFEntity,
   api: ExtensionAPI,
 ) => Promise<void>;
 
-export type ExtensionModuleToolbarButton = ExtensionModuleToolbarItemCommon &
-  ExtensionModuleToolbarButtonLabelOrIcon & {
-    tooltip?: string;
-    action: ToolbarButtonAction;
-    label: string;
-    icon?: () => ExtensionIconModule;
-    display?: 'icon' | 'label' | 'icon-and-label';
-  };
-
-export type ExtensionModuleToolbarItemCommon = {
-  context: ExtensionNodeContext | StandardNodeContext;
+export type ToolbarButton = ExtensionModuleToolbarButtonLabelOrIcon & {
   key: string;
+  action: ToolbarButtonAction;
+  label: string;
+  tooltip?: string;
+  icon?: () => ExtensionIconModule;
+  display?: 'icon' | 'label' | 'icon-and-label';
+  disabled?: boolean;
+};
+
+export type ToolbarItem = ToolbarButton;
+
+export type ToolbarContext = ExtensionNodeContext | StandardNodeContext;
+
+export type ContextualToolbar = {
+  context: ToolbarContext;
+  toolbarItems:
+    | ToolbarItem[]
+    | ((contextNode: ADFEntity, api: ExtensionAPI) => ToolbarItem[]);
 };
 
 export type ExtensionModuleToolbarButtonLabelOrIcon =
@@ -55,4 +60,5 @@ export type ExtensionToolbarButton = {
   tooltip?: string;
   icon?: () => ExtensionIconModule;
   action: ToolbarButtonAction;
+  disabled?: boolean;
 };

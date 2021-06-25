@@ -9,7 +9,7 @@ import TableRow from './TableRow';
 
 interface Props extends WithSortedPageRowsProps {
   head?: HeadType;
-  highlightedRowIndex?: number;
+  highlightedRowIndex?: number | number[];
   isFixedSize: boolean;
   testId?: string;
 }
@@ -32,7 +32,12 @@ class Body extends React.Component<Props, {}> {
             isFixedSize={isFixedSize}
             key={row.key || rowIndex}
             row={row}
-            isHighlighted={highlightedRowIndex === rowIndex}
+            isHighlighted={
+              !!highlightedRowIndex &&
+              (typeof highlightedRowIndex === 'number'
+                ? highlightedRowIndex === rowIndex
+                : highlightedRowIndex.indexOf(rowIndex) > -1)
+            }
             testId={testId}
           />
         ))}

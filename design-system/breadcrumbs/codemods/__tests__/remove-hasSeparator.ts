@@ -1,3 +1,4 @@
+// eslint-disable-next-line @repo/internal/fs/filename-pattern-match
 jest.autoMockOff();
 
 import { removeHasSeparator } from '../migrates/remove-hasSeparator';

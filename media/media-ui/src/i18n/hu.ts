@@ -97,6 +97,7 @@ export default {
   'fabric.media.learn_more': 'További információ',
   'fabric.media.load_more_gifs': 'További GIF-ek betöltése',
   'fabric.media.loading': 'Betöltés…',
+  'fabric.media.loading_file': 'Fájl betöltése...',
   'fabric.media.might_be_a_hiccup':
     'Valószínűleg csak átmeneti hibáról van szó.',
   'fabric.media.no_gifs_found': 'Hello? Engem keresett?',

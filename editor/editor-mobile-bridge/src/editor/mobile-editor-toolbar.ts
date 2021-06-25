@@ -9,6 +9,9 @@ import {
   FloatingToolbarSelect,
   DropdownOptionT,
   SelectOption,
+  FloatingToolbarColorPicker,
+  FloatingToolbarInput,
+  FloatingToolbarDatePicker,
 } from '@atlaskit/editor-core';
 import { NodeType, Node } from 'prosemirror-model';
 
@@ -86,9 +89,10 @@ export default class MobileEditorToolbarActions {
    * key is the new field. This is used to provide a unique identifier for each item.
    * key is an important value, because it is used to find the corresponding floating toolbar item when
    * performing an action.
-   * @param items is a list of floating toolbar items
+   * @param rawItems is a list of floating toolbar items
    */
-  private translateToMobileDSL(items: Array<FloatingToolbarItem<Command>>) {
+  private translateToMobileDSL(rawItems: Array<FloatingToolbarItem<Command>>) {
+    let items = this.sanitizeCustomType(rawItems);
     let index = 0;
     let visibleItemFound = false;
     let newItems = items
@@ -99,7 +103,19 @@ export default class MobileEditorToolbarActions {
             newItem = this.translateToolbarButton(item, index);
             break;
           case 'select':
-            newItem = this.translateToolbarSelect(item, index);
+            if (item.selectType === 'list') {
+              newItem = this.translateToolbarSelect(item, index);
+            } else if (item.selectType === 'color') {
+              newItem = this.translateColorPicker(
+                item as FloatingToolbarColorPicker<Command>,
+                index,
+              );
+            } else if (item.selectType === 'date') {
+              newItem = this.translateDatePicker(
+                item as FloatingToolbarDatePicker<Command>,
+                index,
+              );
+            }
             break;
           case 'dropdown':
             newItem = this.translateToolbarDropdown(item, index);
@@ -109,6 +125,9 @@ export default class MobileEditorToolbarActions {
               newItem = { ...item };
               visibleItemFound = false;
             }
+            break;
+          case 'input':
+            newItem = this.translateInput(item, index);
             break;
         }
         if (newItem) {
@@ -124,6 +143,17 @@ export default class MobileEditorToolbarActions {
       newItems.pop();
     }
     return newItems;
+  }
+
+  private sanitizeCustomType(
+    items: Array<FloatingToolbarItem<Command>>,
+  ): Array<FloatingToolbarItem<Command>> {
+    items.forEach((item: FloatingToolbarItem<Command>, index: number) => {
+      if (item.type === 'custom' && item.fallback) {
+        items.splice(index, 1, ...item.fallback);
+      }
+    });
+    return items;
   }
 
   /**
@@ -185,6 +215,62 @@ export default class MobileEditorToolbarActions {
     return;
   }
 
+  private translateColorPicker(
+    item: FloatingToolbarColorPicker<Command>,
+    index: number,
+  ): MobileEditorToolbarItem | undefined {
+    if (!this.isItemAllowed(item.id)) {
+      return;
+    }
+    const newItem: MobileEditorToolbarItem = { ...item };
+    newItem.key = this.generateKey(index);
+    newItem.options = newItem.options.map((option, optionIndex) => {
+      return {
+        ...option,
+        key: this.generateKey(index, optionIndex),
+        border: this.convertRGBAtoHex(option.border),
+      };
+    });
+    if (newItem.defaultValue) {
+      newItem.defaultValue.border = this.convertRGBAtoHex(
+        newItem.defaultValue.border,
+      );
+    }
+    return newItem;
+  }
+
+  private convertRGBAtoHex(rgba: string): string {
+    // TODO: border might come as rgba, if that's the case, convert it to hex
+    return rgba;
+  }
+
+  private translateDatePicker(
+    item: FloatingToolbarDatePicker<Command>,
+    index: number,
+  ): MobileEditorToolbarItem | undefined {
+    if (!this.isItemAllowed(item.id)) {
+      return;
+    }
+
+    return {
+      ...item,
+      key: this.generateKey(index),
+    };
+  }
+
+  private translateInput(
+    item: FloatingToolbarInput<Command>,
+    index: number,
+  ): MobileEditorToolbarItem | undefined {
+    if (!this.isItemAllowed(item.id)) {
+      return;
+    }
+    return {
+      ...item,
+      key: this.generateKey(index),
+    };
+  }
+
   private translateToolbarSelect(
     item: FloatingToolbarSelect<Command>,
     index: number,
@@ -220,8 +306,13 @@ export default class MobileEditorToolbarActions {
    *
    * @param key is the identifier to determine which floating toolbar item to find and perform the action.
    * @param editorView is the current editor instance
+   * @param value is the given input from the user. It could be any input in any format.
    */
-  performEditAction(key: string, editorView?: EditorView): void {
+  performEditAction(
+    key: string,
+    editorView: EditorView,
+    value?: string | null,
+  ): void {
     if (!editorView || !this.floatingToolbarItems) {
       return;
     }
@@ -240,7 +331,20 @@ export default class MobileEditorToolbarActions {
         this.performButtonClick(parentItem, editorView);
         break;
       case 'select':
-        this.performSelectChange(parentItem, optionIndex, editorView);
+        if (parentItem?.selectType === 'list') {
+          this.performSelectChange(parentItem, optionIndex, editorView);
+        } else if (parentItem?.selectType === 'color') {
+          const colorPicker = parentItem as FloatingToolbarColorPicker<Command>;
+          this.performColorPickerChange(colorPicker, optionIndex, editorView);
+        } else if (parentItem?.selectType === 'date') {
+          const datePicker = parentItem as FloatingToolbarDatePicker<Command>;
+          this.performDatePickerChange(datePicker, value, editorView);
+        }
+        break;
+      case 'input':
+        if (value) {
+          this.performInputSubmit(parentItem, value, editorView);
+        }
         break;
     }
   }
@@ -269,6 +373,38 @@ export default class MobileEditorToolbarActions {
     if (Array.isArray(dropdown.options)) {
       const childItem = dropdown.options[optionIndex];
       childItem.onClick(editorView.state, editorView.dispatch);
+    }
+  }
+
+  private performColorPickerChange(
+    colorPicker: FloatingToolbarColorPicker<Command>,
+    optionIndex: number,
+    editorView: EditorView,
+  ) {
+    const optionItem = colorPicker.options[optionIndex];
+    colorPicker.onChange(optionItem)(editorView.state, editorView.dispatch);
+  }
+
+  private performDatePickerChange(
+    datePicker: FloatingToolbarDatePicker<Command>,
+    value: string | null | undefined,
+    editorView: EditorView,
+  ) {
+    if (!value) {
+      return;
+    }
+
+    const timestamp = parseInt(value);
+    datePicker.onChange(timestamp)(editorView.state, editorView.dispatch);
+  }
+
+  private performInputSubmit(
+    picker: FloatingToolbarInput<Command>,
+    value: string | null,
+    editorView: EditorView,
+  ) {
+    if (value) {
+      picker.onSubmit(value)(editorView.state, editorView.dispatch);
     }
   }
 

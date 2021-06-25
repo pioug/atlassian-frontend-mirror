@@ -64,6 +64,7 @@ const TabGroupImpl = (props: Props) => {
     </TabWrapper>
   );
 };
+TabGroupImpl.displayName = 'TabGroup';
 
 const TabGroup = injectIntl(TabGroupImpl);
 export default TabGroup;

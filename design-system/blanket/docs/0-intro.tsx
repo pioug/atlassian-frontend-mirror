@@ -37,7 +37,7 @@ shown or hidden with its parent element.
 
   ${(
     <Props
-      props={require('!!extract-react-types-loader!../src/Blanket')}
+      props={require('!!extract-react-types-loader!../src/blanket')}
       heading="Blanket Props"
     />
   )}

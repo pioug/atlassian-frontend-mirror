@@ -17,6 +17,7 @@ import {
   GenericSwitcherLoader,
   TrelloSwitcherLoader,
 } from './loaders';
+import { getIsDiscoverMoreClickable } from '../../common/utils/get-is-discover-more-clickable';
 
 const getAnalyticsContext = (attributes: object) => ({
   source: SWITCHER_SOURCE,
@@ -50,12 +51,31 @@ const AtlassianSwitcher = (rawProps: AtlassianSwitcherProps) => {
 
   const features = mapPropsToFeatures(props);
 
+  function getDiscoverMoreClickableAnalyticProps() {
+    if (props.onDiscoverMoreClicked && props.triggerXFlow) {
+      const isDiscoverMoreClickable = getIsDiscoverMoreClickable(
+        props.onDiscoverMoreClicked,
+        props.triggerXFlow,
+      );
+      return {
+        isDiscoverExpected: !!isDiscoverMoreClickable,
+      };
+    }
+    return {
+      isDiscoverExpected: false,
+    };
+  }
+
   return (
     <IntlProvider>
       <NavigationAnalyticsContext
         data={getAnalyticsContext({ featureFlags: features })}
       >
-        <ErrorBoundary appearance={appearance} product={product as Product}>
+        <ErrorBoundary
+          appearance={appearance}
+          product={product as Product}
+          extraAnalyticProps={getDiscoverMoreClickableAnalyticProps()}
+        >
           <Switcher {...props} features={features} />
         </ErrorBoundary>
       </NavigationAnalyticsContext>

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/popup",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "A portalled popup primitive that is tied to a trigger element.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -58,7 +58,7 @@
     "jscodeshift": "^0.11.0",
     "raf-stub": "^2.0.1",
     "react-dom": "^16.8.0",
-    "storybook-addon-performance": "^0.15.1",
+    "storybook-addon-performance": "^0.16.0",
     "typescript": "3.9.6",
     "wait-for-expect": "^1.2.0"
   },

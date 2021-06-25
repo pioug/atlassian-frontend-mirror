@@ -26,7 +26,7 @@ describe('Cards:', () => {
     },
   ) => {
     await initFullPageEditorWithAdf(page, adf, Device.LaptopHiDPI, viewport, {
-      UNSAFE_cards: {
+      smartLinks: {
         resolveBeforeMacros: ['jira'],
         allowBlockCards: true,
         allowEmbeds: true,

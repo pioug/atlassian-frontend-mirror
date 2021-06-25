@@ -4,7 +4,7 @@ import { EditorProps } from '@atlaskit/editor-core';
 
 export function useSmartCards(
   cardProvider: Promise<CardProvider>,
-): EditorProps['UNSAFE_cards'] {
+): EditorProps['smartLinks'] {
   return useMemo(() => {
     return {
       provider: cardProvider,

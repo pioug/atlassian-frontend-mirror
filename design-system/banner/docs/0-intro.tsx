@@ -13,9 +13,9 @@ ${code`import Banner from '@atlaskit/banner';`}
 ${(
   <Example
     packageName="@atlaskit/banner"
-    Component={require('../examples/AnimationExample').default}
+    Component={require('../examples/animation-example').default}
     title="Animation"
-    source={require('!!raw-loader!../examples/AnimationExample')}
+    source={require('!!raw-loader!../examples/animation-example')}
   />
 )}
 
@@ -32,7 +32,7 @@ using [@atlaskit/navigation](./navigation) alongside it.
 ${(
   <Props
     heading="Banner Props"
-    props={require('!!extract-react-types-loader!../src/components/Banner')}
+    props={require('!!extract-react-types-loader!../src/components/banner')}
   />
 )}
 `;

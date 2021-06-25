@@ -34,11 +34,12 @@ export default function BasicExample() {
 
   return (
     <div>
-      <h4>Choose a color:</h4>
+      <h4 id="radiogroup-label">Choose a color:</h4>
       <RadioGroup
         isDisabled={isDisabled}
         options={options}
         onChange={onChange}
+        aria-labelledby="radiogroup-label"
       />
       <div
         style={{

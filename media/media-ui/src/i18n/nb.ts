@@ -97,6 +97,7 @@ export default {
   'fabric.media.learn_more': 'Les mer',
   'fabric.media.load_more_gifs': 'Last opp flere GIF-bilder',
   'fabric.media.loading': 'Laster …',
+  'fabric.media.loading_file': 'Laster inn filen …',
   'fabric.media.might_be_a_hiccup': 'Det kan være et midlertidig problem.',
   'fabric.media.no_gifs_found': 'Hei! Var det meg du lette etter?',
   'fabric.media.no_gifs_found_suggestion':

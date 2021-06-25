@@ -92,7 +92,7 @@ class TransformerPanels extends React.PureComponent<Props, State> {
                 getMockTaskDecisionResource(),
               )}
               onChange={this.handleChangeInTheEditor}
-              UNSAFE_cards={{
+              smartLinks={{
                 provider: this.cardProviderPromise,
               }}
             />

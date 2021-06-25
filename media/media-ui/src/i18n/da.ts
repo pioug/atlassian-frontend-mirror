@@ -93,6 +93,7 @@ export default {
   'fabric.media.learn_more': 'Få mere at vide',
   'fabric.media.load_more_gifs': "Indlæs flere GIF'er",
   'fabric.media.loading': 'Indlæser...',
+  'fabric.media.loading_file': 'Indlæser fil …',
   'fabric.media.might_be_a_hiccup': 'Det må være et midlertidigt problem.',
   'fabric.media.no_gifs_found': 'Hallo? Var det mig, du ledte efter?',
   'fabric.media.no_gifs_found_suggestion':

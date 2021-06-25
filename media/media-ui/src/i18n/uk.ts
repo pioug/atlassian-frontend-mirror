@@ -93,6 +93,7 @@ export default {
   'fabric.media.learn_more': 'Докладні відомості',
   'fabric.media.load_more_gifs': 'Завантажити більше файлів GIF',
   'fabric.media.loading': 'Завантаження...',
+  'fabric.media.loading_file': 'Завантаження файлу…',
   'fabric.media.might_be_a_hiccup': 'Можливо, це просто незначний збій.',
   'fabric.media.no_gifs_found': 'Що саме ви шукали?',
   'fabric.media.no_gifs_found_suggestion':

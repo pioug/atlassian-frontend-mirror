@@ -97,6 +97,7 @@ export default {
   'fabric.media.learn_more': 'Scopri di più',
   'fabric.media.load_more_gifs': 'Carica altre GIF',
   'fabric.media.loading': 'Caricamento in corso...',
+  'fabric.media.loading_file': 'Caricamento del file in corso...',
   'fabric.media.might_be_a_hiccup': 'Potrebbe essere un semplice contrattempo.',
   'fabric.media.no_gifs_found': 'Pronto? Stai davvero cercando me?',
   'fabric.media.no_gifs_found_suggestion':

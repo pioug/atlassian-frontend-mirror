@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-common",
-  "version": "2.7.0",
+  "version": "2.8.0",
   "description": "Includes common utilities used by other media packages",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -19,6 +19,7 @@
     "./mediaFeatureFlags": "./src/mediaFeatureFlags.ts",
     "./analytics": "./src/analytics/index.ts",
     "./docs": "./src/docs/index.ts",
+    "./mediaTypeUtils": "./src/mediaTypeUtils/index.ts",
     ".": "./src/index.ts"
   },
   "atlassian": {

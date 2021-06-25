@@ -93,6 +93,7 @@ export default {
   'fabric.media.learn_more': 'Подробнее…',
   'fabric.media.load_more_gifs': 'Другие файлы GIF',
   'fabric.media.loading': 'Загрузка…',
+  'fabric.media.loading_file': 'Загрузка файла…',
   'fabric.media.might_be_a_hiccup':
     'Скорее всего, это была небольшая техническая неполадка.',
   'fabric.media.no_gifs_found': 'Здравствуйте. Вы искали меня?',

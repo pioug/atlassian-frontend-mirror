@@ -52,7 +52,7 @@ class FullPageWithFF extends React.Component<
         {!this.state.reloadEditor && (
           <FullPageExample
             defaultValue={this.props.doc}
-            UNSAFE_cards={{
+            smartLinks={{
               // This is how we pass in the provider for smart cards
               provider: Promise.resolve(cardProvider),
               resolveBeforeMacros: this.state.resolveBeforeMacros,

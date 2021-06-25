@@ -67,7 +67,7 @@ export async function extensionProviderToQuickInsertProvider(
           return {
             title: item.title,
             description: item.description,
-            icon: () => <Icon label={item.title} />,
+            icon: () => <Icon label="" />,
             keywords: item.keywords,
             featured: item.featured,
             categories: item.categories,

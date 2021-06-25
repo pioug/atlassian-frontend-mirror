@@ -1,9 +1,8 @@
 import React from 'react';
-import { IconProps } from '../types';
 
-export default function IconFallback({ label = '' }: IconProps) {
+export default function IconFallback() {
   return (
-    <svg aria-label={label} width={40} height={40}>
+    <svg focusable="false" aria-hidden width={40} height={40}>
       <defs>
         <linearGradient
           x1="-26.046%"

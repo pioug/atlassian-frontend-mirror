@@ -49,6 +49,7 @@ export const CrossFlowSubsection: FunctionComponent<CrossFlowSubsection> = ({
           <SwitcherThemedItemWithEvents
             icon={<item.Icon theme={itemTheme} />}
             description={itemShowDescription && item.description}
+            data-testid="suggested-product__link"
             // deprecated — recommended products should be restricted to a single line
             shouldAllowMultiline={itemShowDescription}
             onClick={onRecommendedProductClick(item.key)}

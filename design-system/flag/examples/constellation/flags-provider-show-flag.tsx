@@ -24,7 +24,7 @@ const FlagGroupExample = () => {
     showFlag({
       actions,
       description: 'Added from the context.',
-      icon: <Info label="Info icon" primaryColor={P300} />,
+      icon: <Info label="Info" primaryColor={P300} />,
       id: id,
       title: `${id}: Whoa a new flag!`,
     });
@@ -34,7 +34,7 @@ const FlagGroupExample = () => {
     showFlag({
       actions,
       description: 'I was not given an id.',
-      icon: <Info label="Info icon" primaryColor={P300} />,
+      icon: <Info label="Info" primaryColor={P300} />,
       title: `${flagCount.current++}: Whoa a new flag!`,
     });
   };
@@ -43,7 +43,7 @@ const FlagGroupExample = () => {
     showFlag({
       actions,
       description: 'I will automatically dismiss after 8 seconds.',
-      icon: <Info label="Info icon" primaryColor={P300} />,
+      icon: <Info label="Info" primaryColor={P300} />,
       title: `${flagCount.current++}: Whoa a new flag!`,
       isAutoDismiss: true,
     });

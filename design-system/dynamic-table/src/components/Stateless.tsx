@@ -179,6 +179,7 @@ class DynamicTable extends React.Component<Props, State> {
       onPageRowsUpdate,
       testId,
       totalRows: passedDownTotalRows,
+      label,
     } = this.props;
 
     const rowsLength = rows && rows.length;
@@ -237,6 +238,7 @@ class DynamicTable extends React.Component<Props, State> {
           <Table
             isFixedSize={isFixedSize}
             data-testid={testId && `${testId}--table`}
+            aria-label={label}
           >
             {!!caption && <Caption>{caption}</Caption>}
             {head && (

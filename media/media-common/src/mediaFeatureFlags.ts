@@ -5,7 +5,6 @@ export interface PollingOptions {
   poll_maxAttempts?: number;
   poll_backoffFactor?: number;
   poll_maxIntervalMs?: number;
-  poll_maxGlobalFailures?: number;
 }
 
 // Media feature flags - type and defaults defined here in one source of truth
@@ -32,7 +31,6 @@ export const defaultMediaFeatureFlags: Required<MediaFeatureFlags> = {
   poll_maxAttempts: 30,
   poll_backoffFactor: 1.25,
   poll_maxIntervalMs: 200000,
-  poll_maxGlobalFailures: 10,
 };
 
 /**

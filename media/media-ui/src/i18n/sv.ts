@@ -95,6 +95,7 @@ export default {
   'fabric.media.learn_more': 'Mer information',
   'fabric.media.load_more_gifs': 'Läs in fler GIF:ar',
   'fabric.media.loading': 'Läser in ...',
+  'fabric.media.loading_file': 'Läser in filen …',
   'fabric.media.might_be_a_hiccup': 'Det är nog bara lite krångel.',
   'fabric.media.no_gifs_found': 'Hello? Var det mig du letade efter?',
   'fabric.media.no_gifs_found_suggestion':

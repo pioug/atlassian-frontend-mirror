@@ -14,10 +14,18 @@ const Wrapper = styled.div`
 
 export default () => {
   const [isLoading, setIsLoading] = useState(false);
+  const [selectedRows, setSelectedRows] = useState<number[]>([]);
+
   return (
     <Wrapper>
       <Button onClick={() => setIsLoading(!isLoading)}>
         Toggle loading state {isLoading ? 'off' : 'on'}
+      </Button>
+      <Button
+        onClick={() => setSelectedRows([1, 3])}
+        testId={'button-toggle-selected-rows'}
+      >
+        Toggle selected rows
       </Button>
       <DynamicTable
         caption={caption}
@@ -33,6 +41,7 @@ export default () => {
         onSort={() => console.log('onSort')}
         onSetPage={() => console.log('onSetPage')}
         testId="the-table"
+        highlightedRowIndex={selectedRows}
       />
     </Wrapper>
   );

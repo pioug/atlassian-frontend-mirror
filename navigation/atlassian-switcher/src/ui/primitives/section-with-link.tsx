@@ -75,10 +75,17 @@ type SectionAnalyticsContext = {
 };
 
 const SectionWithLinkItem = (props: SectionProps) => {
-  const { title, titleLink, children, appearance, actionSubject } = props;
+  const {
+    title,
+    titleLink,
+    children,
+    appearance,
+    actionSubject,
+    sectionId,
+  } = props;
 
   return React.Children.toArray(children).some(Boolean) ? (
-    <SectionContainer>
+    <SectionContainer data-testid={`${sectionId}__section`}>
       <TitleSectionFadeIn appearance={appearance}>
         {title && <SectionTitle>{title}</SectionTitle>}
         {titleLink && (

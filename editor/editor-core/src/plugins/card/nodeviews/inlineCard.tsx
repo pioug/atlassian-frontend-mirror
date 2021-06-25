@@ -68,6 +68,7 @@ export class InlineCardComponent extends React.PureComponent<SmartCardProps> {
             }
           />
         </span>
+        <span>{ZERO_WIDTH_SPACE}</span>
       </span>
     );
     // [WS-2307]: we only render card wrapped into a Provider when the value is ready,

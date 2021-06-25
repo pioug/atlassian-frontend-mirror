@@ -35,6 +35,7 @@ import {
   PluginConfig,
 } from './types';
 import { checkIfNumberColumnEnabled } from './utils';
+import { isReferencedSource } from './utils/referentiality';
 import { INPUT_METHOD } from '../analytics';
 import {
   findCellRectClosestToPos,
@@ -270,6 +271,19 @@ export const getToolbarConfig: FloatingToolbarHandler = (
 
     const cellItems = getCellItems(pluginConfig, state, { formatMessage });
 
+    // Check if we need to show confirm dialog for delete button
+    let confirmDialog;
+    const localId: string | undefined = tableState.tableNode?.attrs.localId;
+
+    if (localId && isReferencedSource(state, localId)) {
+      confirmDialog = {
+        okButtonLabel: formatMessage(
+          tableMessages.confirmDeleteLinkedModalOKButton,
+        ),
+        message: formatMessage(tableMessages.confirmDeleteLinkedModalMessage),
+      };
+    }
+
     return {
       title: 'Table floating controls',
       getDomRef: () => tableState.tableWrapperTarget!,
@@ -293,6 +307,7 @@ export const getToolbarConfig: FloatingToolbarHandler = (
           onMouseEnter: hoverTable(true),
           onMouseLeave: clearHoverSelection(),
           title: formatMessage(commonMessages.remove),
+          confirmDialog,
         },
       ],
     };

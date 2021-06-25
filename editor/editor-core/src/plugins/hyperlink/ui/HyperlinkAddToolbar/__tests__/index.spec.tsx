@@ -17,7 +17,7 @@ describe('HyperlinkAddToolbar (with ProviderFactory prop)', () => {
         allowTables: true,
         allowStatus: true,
         allowDate: true,
-        UNSAFE_cards: {},
+        smartLinks: {},
       },
     });
     const onSubmit = jest.fn();

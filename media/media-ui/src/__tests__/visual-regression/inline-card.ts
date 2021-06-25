@@ -2,8 +2,11 @@ import { waitForResolvedInlineCard } from '@atlaskit/media-integration-test-help
 import { getURL, setup, takeSnapshot } from '../__utils__/vr-helpers';
 
 describe('Inline Card', () => {
-  it('shows default icon on inline cards', async () => {
-    const url = getURL('vr-inline-card-default-icon');
+  it.each([
+    ['shows default icon on inline cards', 'vr-inline-card-default-icon'],
+    ['renders lozenge correctly on inline card', 'vr-inline-card-lozenge'],
+  ])('%s', async (_: string, testName: string) => {
+    const url = getURL(testName);
     const page = await setup(url);
 
     await waitForResolvedInlineCard(page);

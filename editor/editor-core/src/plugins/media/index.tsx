@@ -224,9 +224,7 @@ const mediaPlugin = (options?: MediaOptions): EditorPlugin => ({
         description: formatMessage(messages.filesAndImagesDescription),
         priority: 400,
         keywords: ['attachment', 'gif', 'media', 'picture'],
-        icon: () => (
-          <IconImages label={formatMessage(messages.filesAndImages)} />
-        ),
+        icon: () => <IconImages />,
         action(insert, state) {
           const pluginState = pluginKey.getState(state);
           pluginState.showMediaPicker();

@@ -1,5 +1,11 @@
 # @atlaskit/adf-schema
 
+## 18.1.0
+
+### Minor Changes
+
+- [`9fef23ee77c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9fef23ee77c) - ED-12477 Add unsupported node capability to Media Group
+
 ## 18.0.0
 
 ### Major Changes

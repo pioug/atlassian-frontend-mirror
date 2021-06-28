@@ -53,7 +53,7 @@ export const copyToClipboard = (textToCopy: string): Promise<void> =>
     if (clipboardApiSupported()) {
       navigator.clipboard.writeText(textToCopy).then(
         () => resolve(),
-        e => reject(e),
+        (e) => reject(e),
       );
     } else {
       reject('Clipboard api is not supported');

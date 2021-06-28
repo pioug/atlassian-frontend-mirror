@@ -84,7 +84,7 @@ describe('dropbox extension manifest', () => {
 
     let mockUnmount = asMock(
       ReactDOM.unmountComponentAtNode,
-    ).mockImplementation(targetDiv => {
+    ).mockImplementation((targetDiv) => {
       unMountPoint = targetDiv;
     });
 

@@ -62,7 +62,7 @@ export default function overflowShadow<P>(
     };
 
     updateShadows = () => {
-      this.setState(prevState => {
+      this.setState((prevState) => {
         if (!this.overflowContainer) {
           return;
         }

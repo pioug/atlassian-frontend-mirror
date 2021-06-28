@@ -19,7 +19,7 @@ export const BlockTypeMenuItem = styled.div<{
       margin-top: 0;
     }
   }
-  ${props => (props.selected ? `${props.tagName} { color: white }` : '')};
+  ${(props) => (props.selected ? `${props.tagName} { color: white }` : '')};
 `;
 
 export const KeyboardShortcut: ComponentClass<
@@ -27,6 +27,6 @@ export const KeyboardShortcut: ComponentClass<
     selected?: boolean;
   }
 > = styled(Shortcut)`
-  ${props => (props.selected ? `color: ${N400};` : '')}
+  ${(props) => (props.selected ? `color: ${N400};` : '')}
   margin-left: 16px;
 `;

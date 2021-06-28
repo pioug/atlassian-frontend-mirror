@@ -62,7 +62,7 @@ export default class EditorWithFeedback extends React.Component<Props, State> {
   }
 
   onFocus = () =>
-    this.setState(prevState => ({ isExpanded: !prevState.isExpanded }));
+    this.setState((prevState) => ({ isExpanded: !prevState.isExpanded }));
 
   render() {
     if (!this.state.hasJquery) {
@@ -73,7 +73,7 @@ export default class EditorWithFeedback extends React.Component<Props, State> {
       <EditorContext>
         <div>
           <WithEditorActions
-            render={actions => (
+            render={(actions) => (
               <ButtonGroup>
                 <Button
                   onClick={() => actions.replaceDocument(exampleDocument)}

@@ -40,7 +40,7 @@ function printColumnInfo(columnInfo: ColumnInfo) {
 
 function createColumnInfo(cellsInfo: CellStep[]): ColumnInfo {
   return new Map<number, CellStep>(
-    cellsInfo.map(cellInfo => [cellInfo.from, cellInfo]),
+    cellsInfo.map((cellInfo) => [cellInfo.from, cellInfo]),
   );
 }
 
@@ -219,7 +219,7 @@ export class AddColumnStep<S extends Schema = any> extends Step {
     // This is needed because the real pos of the cell in the generated document is affected by the previous operations.
     const newCellSteps: CellStep[] = Array.from(
       this.columnInfo.values(),
-      oldCellStep => {
+      (oldCellStep) => {
         const newCellStep = invertCellStep(
           originalDoc,
           getTableRectAndColumn,
@@ -295,7 +295,7 @@ export class AddColumnStep<S extends Schema = any> extends Step {
     const addColumnStepJson: AddColumnStepJson = {
       stepType: ADD_COLUMN_STEP,
       tablePos: this.tablePos,
-      cells: Array.from(this.columnInfo.values(), cellStep => {
+      cells: Array.from(this.columnInfo.values(), (cellStep) => {
         const cellStepJson: CellStepJson = {
           from: cellStep.from,
           to: cellStep.to,
@@ -330,7 +330,7 @@ export class AddColumnStep<S extends Schema = any> extends Step {
     json: AddColumnStepJson,
   ): Step<S> {
     // TODO: Add validation. Return null if it is invalid. Check in review if this is necessary
-    const cells = json.cells.map(cellsJson => {
+    const cells = json.cells.map((cellsJson) => {
       const cell: CellStep = {
         ...cellsJson,
         newCell: cellsJson.newCell

@@ -48,7 +48,7 @@ interface FullPageEditorContentAreaProps {
 export const CONTENT_AREA_TEST_ID = 'ak-editor-fp-content-area';
 
 export const FullPageContentArea: React.FunctionComponent<FullPageEditorContentAreaProps> = React.memo(
-  props => {
+  (props) => {
     return (
       <WidthConsumer>
         {({ width }) => (

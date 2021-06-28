@@ -273,7 +273,7 @@ export const findSelectableContainerParent = (
   selection: Selection,
 ): ContentNodeWithPos | undefined => {
   let foundNodeThatSupportsGapCursor = false;
-  const selectableNode = findParentNode(node => {
+  const selectableNode = findParentNode((node) => {
     const isSelectable = isSelectableContainerNode(node);
     if (!isSelectable && !isIgnoredByGapCursor(node)) {
       foundNodeThatSupportsGapCursor = true;
@@ -370,7 +370,7 @@ export const findFirstChildNodeToSelect = (
   parent: PmNode,
 ): NodeWithPos | undefined =>
   flatten(parent).find(
-    child =>
+    (child) =>
       isSelectableChildNode(child.node) || !isIgnoredByGapCursor(child.node),
   );
 

@@ -73,7 +73,7 @@ export default () => {
               >
                 <Button
                   isSelected={showInlineModal}
-                  onClick={() => setInlineModalVisibility(show => !show)}
+                  onClick={() => setInlineModalVisibility((show) => !show)}
                   testId="InlineElementBrowser__example__open_button"
                 >
                   {showInlineModal ? 'Close' : 'Open'} Inline Browser

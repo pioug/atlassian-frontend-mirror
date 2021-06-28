@@ -11,7 +11,7 @@ describe('Snapshot Test: Date', () => {
     page = global.page;
   });
 
-  describe.each(THEME_MODES)('Theme: %s', theme => {
+  describe.each(THEME_MODES)('Theme: %s', (theme) => {
     test('should render the date node properly', async () => {
       await initRendererWithADF(page, {
         adf: adfWithDate,

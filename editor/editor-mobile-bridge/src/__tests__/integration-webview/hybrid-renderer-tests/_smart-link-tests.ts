@@ -7,7 +7,7 @@ import smartLinkInlineAdf from '../__fixtures__/smart-link.adf.json';
 import { mobileSnapshot } from '../_utils/snapshot';
 
 export default () => {
-  MobileTestCase('SmartLinks Renderer: inline', {}, async client => {
+  MobileTestCase('SmartLinks Renderer: inline', {}, async (client) => {
     const page = await Page.create(client);
     await loadRenderer(page);
     await setADFContent(page, smartLinkInlineAdf, 'renderer');

@@ -224,7 +224,7 @@ export default class Resizer extends React.Component<
       ratio,
     } = this.props;
     const { isResizing } = this.state;
-    handleSides.forEach(side => {
+    handleSides.forEach((side) => {
       handles[side] = `richMedia-resize-handle-${side}`;
       handleStyles[side] = {
         width: '24px',

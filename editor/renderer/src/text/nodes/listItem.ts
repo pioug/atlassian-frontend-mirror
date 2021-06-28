@@ -4,7 +4,7 @@ import { reduce, NodeReducer } from './';
 const listItem: NodeReducer = (node: PMNode, schema: Schema) => {
   const result: string[] = [];
 
-  node.forEach(n => {
+  node.forEach((n) => {
     result.push(reduce(n, schema));
   });
 

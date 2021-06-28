@@ -38,7 +38,7 @@ export const findAllMediaSingleNodes = (
   const { mediaNodes } = mediaPluginState;
 
   return mediaNodes.filter(
-    nodeWithHandler =>
+    (nodeWithHandler) =>
       (nodeWithHandler.node.attrs as MediaAttributes).id === id,
   );
 };
@@ -83,7 +83,7 @@ export const updateAllMediaNodesAttrs = (
   // TODO: ED-7784 Clean media plugin state from having media that were previously removed.
   // Sanity check
   const mediaType = state.schema.nodes.media;
-  mediaNodes = mediaNodes.filter(nodeWithPos => {
+  mediaNodes = mediaNodes.filter((nodeWithPos) => {
     let node;
     try {
       node = state.doc.nodeAt(nodeWithPos.getPos());

@@ -6,23 +6,23 @@ import { removeMarks } from './remove-marks';
 
 export function sanitizeNode(json: JSONNode): JSONNode {
   const sanitizedJSON = traverse(json, {
-    text: node => {
+    text: (node) => {
       if (!node || !Array.isArray(node.marks)) {
         return node;
       }
 
       return {
         ...node,
-        marks: node.marks.filter(mark => mark.type !== 'typeAheadQuery'),
+        marks: node.marks.filter((mark) => mark.type !== 'typeAheadQuery'),
       };
     },
-    status: node => {
+    status: (node) => {
       if (node.attrs && !!node.attrs.text) {
         return removeMarks(node);
       }
       return false; // empty status
     },
-    caption: node => {
+    caption: (node) => {
       if (node.content) {
         return node;
       }

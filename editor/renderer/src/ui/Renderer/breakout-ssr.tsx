@@ -82,8 +82,8 @@ function applyBreakoutAfterSSR(
     return;
   }
 
-  const observer = new MutationObserver(mutationsList => {
-    mutationsList.forEach(item => {
+  const observer = new MutationObserver((mutationsList) => {
+    mutationsList.forEach((item) => {
       if (item.target.nodeType !== Node.ELEMENT_NODE) {
         return;
       }
@@ -91,7 +91,7 @@ function applyBreakoutAfterSSR(
       if (
         (item.target as HTMLElement).classList.contains('ak-renderer-document')
       ) {
-        item.addedNodes.forEach(maybeNode => {
+        item.addedNodes.forEach((maybeNode) => {
           const node = maybeNode as HTMLElement;
           const mode = node.dataset.mode || node.dataset.layout || '';
 

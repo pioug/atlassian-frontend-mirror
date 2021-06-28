@@ -47,7 +47,7 @@ export default class MentionWithProviders extends PureComponent<Props, State> {
     // rerendering
     if (props.profilecardProvider) {
       props.profilecardProvider
-        .then(profilecardProvider => {
+        .then((profilecardProvider) => {
           this.setState({ profilecardProvider });
         })
         .catch(() => {
@@ -74,7 +74,7 @@ export default class MentionWithProviders extends PureComponent<Props, State> {
     const actionHandlers: MentionEventHandlers = {} as any;
     (['onClick', 'onMouseEnter', 'onMouseLeave'] as Array<
       keyof MentionEventHandlers
-    >).forEach(handler => {
+    >).forEach((handler) => {
       actionHandlers[handler] =
         (eventHandlers && eventHandlers[handler]) || noop;
     });

@@ -46,7 +46,7 @@ export default class FullWidthToggle extends React.Component<Props, State> {
   ) => {
     e.preventDefault();
     this.setState(
-      prevState => ({ fullWidthMode: !prevState.fullWidthMode }),
+      (prevState) => ({ fullWidthMode: !prevState.fullWidthMode }),
       () => {
         localStorage.setItem(
           LOCALSTORAGE_defaultMode,

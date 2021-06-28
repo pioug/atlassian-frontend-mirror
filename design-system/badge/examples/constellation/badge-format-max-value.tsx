@@ -2,6 +2,8 @@ import React from 'react';
 
 import { Format } from '../../src';
 
-export default function Example() {
+const BadgeFormatMaxValueExample = () => {
   return <Format max={10}>{20}</Format>;
-}
+};
+
+export default BadgeFormatMaxValueExample;

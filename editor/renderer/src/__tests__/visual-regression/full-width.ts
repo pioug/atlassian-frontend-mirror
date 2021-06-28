@@ -32,7 +32,7 @@ describe.skip('Snapshot Test: Full Width', () => {
   [
     { width: 2000, height: 2700 },
     { width: 1420, height: 2500 },
-  ].forEach(viewport => {
+  ].forEach((viewport) => {
     it(`should correctly render ${viewport.width}`, async () => {
       await initRenderer(page, viewport, mixedAdf);
       await page.waitFor('.code-block');

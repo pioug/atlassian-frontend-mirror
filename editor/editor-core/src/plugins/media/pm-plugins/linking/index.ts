@@ -48,7 +48,7 @@ function onSelectionChanged(tr: Transaction): MediaLinkingState {
     return initialState;
   }
 
-  const mark = node.marks.find(mark => mark.type.name === 'link');
+  const mark = node.marks.find((mark) => mark.type.name === 'link');
   if (mark) {
     return {
       ...initialState,

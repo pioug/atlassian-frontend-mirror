@@ -238,7 +238,7 @@ function getMinColSpans(table: PMNode): number[] {
       bottom: map.height,
     });
     if (cellsPositions.length) {
-      const colspans = cellsPositions.map(cellPos => {
+      const colspans = cellsPositions.map((cellPos) => {
         const cell = table.nodeAt(cellPos);
         if (cell) {
           return cell.attrs.colspan;
@@ -260,7 +260,7 @@ function getMinColSpans(table: PMNode): number[] {
 export function removeEmptyColumns(table: PMNode): PMNode | null {
   const map = TableMap.get(table);
   const minColSpans = getMinColSpans(table);
-  if (!minColSpans.some(colspan => colspan > 1)) {
+  if (!minColSpans.some((colspan) => colspan > 1)) {
     return table;
   }
   const rows: PMNode[] = [];
@@ -296,7 +296,7 @@ export function removeEmptyColumns(table: PMNode): PMNode | null {
     }
 
     const rowCells: PMNode[] = Object.keys(cellsByCols).map(
-      col => cellsByCols[col],
+      (col) => cellsByCols[col],
     );
     const row = table.child(rowIndex);
     if (row) {

@@ -67,7 +67,7 @@ function useCreateEditor(
           return;
         }
 
-        setEditorSharedConfig(editorSharedConfig => {
+        setEditorSharedConfig((editorSharedConfig) => {
           if (!editorSharedConfig) {
             measureRender(
               measurements.PROSEMIRROR_RENDERED,
@@ -132,7 +132,7 @@ function useApplyEditorViewProps(
       } as DirectEditorProps);
 
       editorSharedConfig.editorView.setProps({
-        editable: _state => !disabled,
+        editable: (_state) => !disabled,
       } as DirectEditorProps);
     }
   }, [editorSharedConfig, disabled]);
@@ -206,13 +206,13 @@ export function useHandleEditorLifecycle(
       if (editorView) {
         // Prevent any transactions from coming through when unmounting
         editorView.setProps({
-          dispatchTransaction: _tr => {},
+          dispatchTransaction: (_tr) => {},
         } as DirectEditorProps);
 
         // Destroy plugin states and editor state
         // when the editor is being unmounted
         const editorState = editorView.state;
-        editorState.plugins.forEach(plugin => {
+        editorState.plugins.forEach((plugin) => {
           const state = plugin.getState(editorState);
           if (state && state.destroy) {
             state.destroy();

@@ -21,7 +21,7 @@ export const shouldAutoCloseBracket = (before: string, after: string) => {
 };
 
 export const getAutoClosingBracketInfo = (before: string, after: string) => {
-  const left = (Object.keys(BRACKET_MAP) as Array<BracketMapKey>).find(item =>
+  const left = (Object.keys(BRACKET_MAP) as Array<BracketMapKey>).find((item) =>
     before.endsWith(item),
   );
   const right = left ? (BRACKET_MAP[left] as string) : undefined;

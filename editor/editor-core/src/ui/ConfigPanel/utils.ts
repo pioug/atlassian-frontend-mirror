@@ -61,10 +61,10 @@ export const getOptionFromValue = (
   }
 
   if (Array.isArray(value)) {
-    return options.filter(option => value.includes(option.value));
+    return options.filter((option) => value.includes(option.value));
   }
 
-  return options.find(option => value === option.value);
+  return options.find((option) => value === option.value);
 };
 
 // Atlaskit uses final-form to power the form.

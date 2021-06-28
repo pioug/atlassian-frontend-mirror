@@ -9,7 +9,7 @@ export const findStickyHeaderForTable = (
     return undefined;
   }
 
-  const rowInfo = state.find(rowInfo => rowInfo.pos === tablePos + 1);
+  const rowInfo = state.find((rowInfo) => rowInfo.pos === tablePos + 1);
   if (!rowInfo) {
     return undefined;
   }

@@ -15,11 +15,11 @@ export class ReactNodeViewState {
   }
 
   unsubscribe(cb: StateChangeHandler) {
-    this.changeHandlers = this.changeHandlers.filter(ch => ch !== cb);
+    this.changeHandlers = this.changeHandlers.filter((ch) => ch !== cb);
   }
 
   notifyNewSelection(fromPos: number, toPos: number) {
-    this.changeHandlers.forEach(cb => cb(fromPos, toPos));
+    this.changeHandlers.forEach((cb) => cb(fromPos, toPos));
   }
 }
 

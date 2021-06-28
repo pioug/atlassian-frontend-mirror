@@ -24,7 +24,7 @@ export const SingleToolbarButtons: React.FC<{
   );
   return (
     <ButtonGroup width={isReducedSpacing ? 'small' : 'large'}>
-      {items.map(item => (
+      {items.map((item) => (
         <ToolbarButton
           key={item.key}
           buttonId={item.buttonId}

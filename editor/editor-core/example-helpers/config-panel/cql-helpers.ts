@@ -46,7 +46,7 @@ function serializeDateRange(fieldName: string, value: DateRangeResult): string {
 function deserializeDateRangeEntry(dateRange: string): Entry<DateRangeResult> {
   const expressions = dateRange.split(' and ');
   let fieldName: string = '';
-  const [from, to] = expressions.map(expression => {
+  const [from, to] = expressions.map((expression) => {
     const [key, value] = unescapeHtmlEntities(expression).split(
       new RegExp('>=|<='),
     );
@@ -70,8 +70,8 @@ function deserializeDateRangeEntry(dateRange: string): Entry<DateRangeResult> {
 
 export const cqlSerializer = (content: Parameters) => {
   const cql = toEntries(content)
-    .filter(entry => entry[1])
-    .map(entry => {
+    .filter((entry) => entry[1])
+    .map((entry) => {
       const [key, value] = entry;
 
       let joiner = '=';
@@ -103,7 +103,7 @@ export const cqlDeserializer = (
   const deserialized: Array<{
     [name: string]: string | string[] | DateRangeResult;
   }> = [];
-  value.split(' AND ').forEach(statement => {
+  value.split(' AND ').forEach((statement) => {
     const [key, separator, val] = statement.split(/\s(=|in)\s/);
 
     let resultKey = key;

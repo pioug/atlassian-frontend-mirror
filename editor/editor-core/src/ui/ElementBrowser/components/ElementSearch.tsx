@@ -90,10 +90,10 @@ const StyledShortcut = styled(Shortcut)`
 
 const Wrapper = styled.div<WrapperProps>`
   & > [data-ds--text-field--container] {
-    height: ${props =>
+    height: ${(props) =>
       props.mode === Modes.full ? GRID_SIZE * 6 : GRID_SIZE * 5}px;
     border-radius: ${GRID_SIZE}px;
-    flex: ${props => (props.mode === Modes.inline ? 'none' : '1 1 100%')};
+    flex: ${(props) => (props.mode === Modes.inline ? 'none' : '1 1 100%')};
     overflow: ${Modes.inline ? 'revert' : 'visible'};
     & > [data-ds--text-field--input] {
       margin-bottom: ${Modes.inline ? 3 : 2}px;

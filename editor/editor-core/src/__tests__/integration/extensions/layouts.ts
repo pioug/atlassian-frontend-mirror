@@ -16,7 +16,7 @@ import commonMessages from '../../../messages';
   commonMessages.layoutFixedWidth,
   commonMessages.layoutWide,
   commonMessages.layoutFullWidth,
-].forEach(layoutMessages => {
+].forEach((layoutMessages) => {
   const layoutName = layoutMessages.id.split('.').pop();
   BrowserTestCase(
     `layouts.ts: Extension: ${layoutName} layout`,

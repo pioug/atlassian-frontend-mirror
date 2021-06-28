@@ -56,7 +56,7 @@ BrowserTestCase(
     await page.type(editable, [' some']);
     await page.type(editable, [' text ']);
     const doc = await page.$eval(editable, getDocFromElement);
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    await new Promise((resolve) => setTimeout(resolve, 1000));
     expect(doc).toMatchCustomDocSnapshot(testName);
   },
 );

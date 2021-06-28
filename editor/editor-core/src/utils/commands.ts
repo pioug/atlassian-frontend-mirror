@@ -25,7 +25,7 @@ const filter = (predicates: Predicate[] | Predicate, cmd: Command): Command => {
       predicates = [predicates];
     }
 
-    if (predicates.some(pred => !pred(state, view))) {
+    if (predicates.some((pred) => !pred(state, view))) {
       return false;
     }
 
@@ -231,7 +231,7 @@ const withScrollIntoView: HigherOrderCommand = (command: Command): Command => (
 ) =>
   command(
     state,
-    tr => {
+    (tr) => {
       tr.scrollIntoView();
       if (dispatch) {
         dispatch(tr);
@@ -309,13 +309,13 @@ const insertContentDeleteRange = (
   insertions: [Fragment, number][],
   deletions: [number, number][],
 ) => {
-  insertions.forEach(contentInsert => {
+  insertions.forEach((contentInsert) => {
     let [content, pos] = contentInsert;
 
     tr.insert(tr.mapping.map(pos), content);
   });
 
-  deletions.forEach(deleteRange => {
+  deletions.forEach((deleteRange) => {
     let [firstPos, lastPos] = deleteRange;
 
     tr.delete(tr.mapping.map(firstPos), tr.mapping.map(lastPos));

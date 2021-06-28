@@ -290,7 +290,7 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
           preQueryRequestDurationMs: duration,
           searchSessionId: pluginState.searchSessionId ?? '',
           resultCount: items.length,
-          results: activityRecentItems.map(item => ({
+          results: activityRecentItems.map((item) => ({
             resultContentId: item.objectId,
             resultType: item.type ?? '',
           })),
@@ -421,7 +421,7 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
           postQueryRequestDurationMs: duration,
           searchSessionId: pluginState.searchSessionId ?? '',
           resultCount: searchProviderResultItems.length,
-          results: searchProviderResultItems.map(item => ({
+          results: searchProviderResultItems.map((item) => ({
             resultContentId: item.objectId,
             resultType: item.contentType,
           })),
@@ -561,7 +561,7 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
             </ScreenReaderText>
             <PanelTextInput
               describedById={screenReaderDescriptionId}
-              ref={ele => (this.urlInputContainer = ele)}
+              ref={(ele) => (this.urlInputContainer = ele)}
               placeholder={placeholder}
               testId={'link-url'}
               onSubmit={this.handleSubmit}
@@ -586,7 +586,7 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
               </Tooltip>
             </IconWrapper>
             <PanelTextInput
-              ref={ele => (this.displayTextInputContainer = ele)}
+              ref={(ele) => (this.displayTextInputContainer = ele)}
               placeholder={formatDisplayText}
               ariaLabel={'Link label'}
               testId={'link-label'}
@@ -666,9 +666,9 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
       onSubmit(href, title, displayText, inputType);
     }
 
-    if (this.isUrlPopulatedWithSelectedItem()) {
+    if (interaction === 'click' || this.isUrlPopulatedWithSelectedItem()) {
       /**
-       * When selectedItem.url matches displayUrl, we think
+       * When it's a mouse click even or the selectedItem.url matches displayUrl, we think
        * it's selected from the result list and fire the
        * analytic
        */
@@ -692,7 +692,7 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
   private handleMouseEnterResultItem = (objectId: string) => {
     const { items } = this.state;
 
-    const index = findIndex(items, item => item.objectId === objectId);
+    const index = findIndex(items, (item) => item.objectId === objectId);
     this.setState({
       selectedIndex: index,
     });
@@ -701,7 +701,7 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
   private handleMouseLeaveResultItem = (objectId: string) => {
     const { items, selectedIndex } = this.state;
 
-    const index = findIndex(items, item => item.objectId === objectId);
+    const index = findIndex(items, (item) => item.objectId === objectId);
     // This is to avoid updating index that was set by other mouseenter event
     if (selectedIndex === index) {
       this.setState({

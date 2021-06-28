@@ -123,13 +123,13 @@ function createEditorWindowBindings<T>(
                 state: { schema, tr },
               } = view!;
 
-              const stepsAsJSON = stepsAsString.map(s => JSON.parse(s));
-              const steps = stepsAsJSON.map(step =>
+              const stepsAsJSON = stepsAsString.map((s) => JSON.parse(s));
+              const steps = stepsAsJSON.map((step) =>
                 Step.fromJSON(schema, step),
               );
 
               if (tr) {
-                steps.forEach(step => tr.step(step));
+                steps.forEach((step) => tr.step(step));
 
                 tr.setMeta('addToHistory', false);
                 tr.setMeta('isRemote', true);
@@ -320,7 +320,7 @@ export function mapProvidersToProps(
         createComponent: ExampleCreateInlineCommentComponent,
         viewComponent: ExampleViewInlineCommentComponent,
         getState: async (ids: string[]) =>
-          ids.map(id => ({
+          ids.map((id) => ({
             annotationType: AnnotationTypes.INLINE_COMMENT,
             id,
             state: { resolved: false },
@@ -334,7 +334,7 @@ export function mapProvidersToProps(
 }
 
 function createWrappers(options: MountEditorOptions, RenderCmp: any) {
-  let Cmp: EditorExampleComponent<any> = props =>
+  let Cmp: EditorExampleComponent<any> = (props) =>
     RenderCmp(
       props.props,
       props.nonSerializableProps,
@@ -360,7 +360,7 @@ function createWrappers(options: MountEditorOptions, RenderCmp: any) {
 function withDarkMode(
   Wrapper: EditorExampleComponent<any>,
 ): EditorExampleComponent<any> {
-  return props => (
+  return (props) => (
     <AtlaskitThemeProvider mode={'dark'}>
       <Wrapper {...props} />
     </AtlaskitThemeProvider>
@@ -371,7 +371,7 @@ function withI18n(
   locale: string,
   Wrapper: EditorExampleComponent<any>,
 ): EditorExampleComponent<any> {
-  return props => (
+  return (props) => (
     <IntlProvider locale={locale}>
       <Wrapper {...props} />
     </IntlProvider>
@@ -384,11 +384,11 @@ function createLoadReactIntlLocale(win: WindowWithExtensionsForTesting) {
     done: (value?: any) => any,
   ) => {
     const modulesToLoad = locales.map(
-      locale => import(`react-intl/locale-data/${locale}`),
+      (locale) => import(`react-intl/locale-data/${locale}`),
     );
     Promise.all(modulesToLoad)
-      .then(localeData => {
-        localeData.forEach(data => addLocaleData(data.default));
+      .then((localeData) => {
+        localeData.forEach((data) => addLocaleData(data.default));
         done();
       })
       .catch(() => {

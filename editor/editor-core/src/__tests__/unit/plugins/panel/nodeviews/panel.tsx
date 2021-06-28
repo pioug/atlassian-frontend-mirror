@@ -67,7 +67,7 @@ describe('Panel - NodeView', () => {
 
   describe('PanelIcon', () => {
     const standardPanelTypes = Object.values(PanelType).filter(
-      panelType => panelType !== PanelType.CUSTOM,
+      (panelType) => panelType !== PanelType.CUSTOM,
     );
     let panelIcon: ShallowWrapper;
 
@@ -79,7 +79,7 @@ describe('Panel - NodeView', () => {
 
     it.each<PanelType>(standardPanelTypes)(
       'renders panelIcon according to standard panel type %s',
-      panelType => {
+      (panelType) => {
         panelIcon = shallow(
           <PanelIcon
             panelAttributes={{

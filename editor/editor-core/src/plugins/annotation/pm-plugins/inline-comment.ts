@@ -29,7 +29,7 @@ const fetchProviderStates = async (
 ): Promise<InlineCommentMap> => {
   const data = await provider.getState(annotationIds);
   let result: { [key: string]: boolean } = {};
-  data.forEach(annotation => {
+  data.forEach((annotation) => {
     if (annotation.annotationType === AnnotationTypes.INLINE_COMMENT) {
       result[annotation.id] = annotation.state.resolved;
     }
@@ -193,7 +193,7 @@ export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
           ).init(),
       },
       handleDOMEvents: {
-        mousedown: view => {
+        mousedown: (view) => {
           const pluginState = getPluginState(view.state);
           if (!pluginState.mouseData.isSelecting) {
             hideToolbar(view.state, view.dispatch)();

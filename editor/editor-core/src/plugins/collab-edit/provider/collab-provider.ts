@@ -112,7 +112,7 @@ export class CollabProvider implements CollabEditProvider {
        * the version we received from service. Keep steps that might be
        * newer.
        */
-      this.queue = this.queue.filter(data => data.version > version);
+      this.queue = this.queue.filter((data) => data.version > version);
 
       // We are too far behind - replace the entire document
       if (doc) {
@@ -178,7 +178,7 @@ export class CollabProvider implements CollabEditProvider {
     logger(`Processing data. Version: ${version}`);
 
     if (steps && steps.length) {
-      const userIds = steps.map(step => step.userId);
+      const userIds = steps.map((step) => step.userId);
       this.emit('data', { json: steps, version, userIds });
     }
 
@@ -242,10 +242,10 @@ export class CollabProvider implements CollabEditProvider {
 
     const now = new Date().getTime();
     const left = Array.from(this.participants.values()).filter(
-      p => (now - p.lastActive) / 1000 > 300,
+      (p) => (now - p.lastActive) / 1000 > 300,
     );
 
-    left.forEach(p => this.participants.delete(p.sessionId));
+    left.forEach((p) => this.participants.delete(p.sessionId));
 
     this.emit('presence', { joined, left });
   }

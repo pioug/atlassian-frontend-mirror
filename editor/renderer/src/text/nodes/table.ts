@@ -3,7 +3,7 @@ import { reduce, NodeReducer } from './';
 
 const table: NodeReducer = (node: PMNode, schema: Schema) => {
   const result: string[] = [];
-  node.forEach(n => {
+  node.forEach((n) => {
     result.push(tableRow(n, schema));
   });
 
@@ -13,7 +13,7 @@ const table: NodeReducer = (node: PMNode, schema: Schema) => {
 const tableRow: NodeReducer = (node: PMNode, schema: Schema): string => {
   const result: string[] = [];
   let separator: string = '|';
-  node.forEach(n => {
+  node.forEach((n) => {
     result.push(tableCell(n, schema));
   });
 
@@ -22,7 +22,7 @@ const tableRow: NodeReducer = (node: PMNode, schema: Schema): string => {
 
 const tableCell: NodeReducer = (node: PMNode, schema: Schema): string => {
   const result: string[] = [];
-  node.forEach(n => {
+  node.forEach((n) => {
     result.push(reduce(n, schema));
   });
 

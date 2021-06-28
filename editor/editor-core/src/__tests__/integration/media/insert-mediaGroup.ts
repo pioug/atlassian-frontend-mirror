@@ -5,7 +5,7 @@ import {
   goToEditorTestingWDExample,
 } from '../../__helpers/testing-example-helpers';
 
-[comment].forEach(editor => {
+[comment].forEach((editor) => {
   BrowserTestCase(
     `insert-mediaGroup.ts: Inserts a media group on ${editor.name}`,
     { skip: ['edge'] },

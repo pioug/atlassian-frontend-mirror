@@ -58,8 +58,8 @@ export const filterAnnotationIds = (marks: Array<Mark>): Array<string> => {
 
   const { annotation } = marks[0].type.schema.marks;
   return marks
-    .filter(mark => mark.type === annotation)
-    .map(mark => mark.attrs.id);
+    .filter((mark) => mark.type === annotation)
+    .map((mark) => mark.attrs.id);
 };
 
 /**
@@ -80,20 +80,20 @@ export const reorderAnnotations = (
 
   annotations.sort(
     (a, b) =>
-      sum(idSet, ids => ids.indexOf(a.id)) -
-      sum(idSet, ids => ids.indexOf(b.id)),
+      sum(idSet, (ids) => ids.indexOf(a.id)) -
+      sum(idSet, (ids) => ids.indexOf(b.id)),
   );
 };
 
 export const getAllAnnotations = (doc: Node): string[] => {
   const allAnnotationIds: Set<string> = new Set();
 
-  doc.descendants(node => {
+  doc.descendants((node) => {
     node.marks
-      .filter(mark => mark.type.name === 'annotation')
+      .filter((mark) => mark.type.name === 'annotation')
       // filter out annotations with invalid attribues as they cause errors when interacting with them
       .filter(validateAnnotationMark)
-      .forEach(m => allAnnotationIds.add(m.attrs.id));
+      .forEach((m) => allAnnotationIds.add(m.attrs.id));
     return true;
   });
 
@@ -156,7 +156,7 @@ export const getSelectionStartRect = (): ClientRect | null => {
   // Find first selection area that width is not 0
   // Sometimes there is a chance that user is selecting an empty DOM node.
   const firstRect = Array.from(rects).find(
-    rect => rect.width !== 0 && rect.height !== 0,
+    (rect) => rect.width !== 0 && rect.height !== 0,
   );
 
   return firstRect || null;
@@ -173,7 +173,7 @@ export const addDraftDecoration = (start: number, end: number) => {
 };
 
 export const getAnnotationViewKey = (annotations: AnnotationInfo[]): string => {
-  const keys = annotations.map(mark => mark.id).join('_');
+  const keys = annotations.map((mark) => mark.id).join('_');
   return `view-annotation-wrapper_${keys}`;
 };
 
@@ -204,8 +204,8 @@ export const findAnnotationsInSelection = (
   }
 
   const annotations = marks
-    .filter(mark => mark.type.name === 'annotation')
-    .map(mark => ({
+    .filter((mark) => mark.type.name === 'annotation')
+    .map((mark) => ({
       id: mark.attrs.id,
       type: mark.attrs.annotationType,
     }));
@@ -342,7 +342,7 @@ function isEmptyTextSelection(
 ) {
   const { text, paragraph } = schema.nodes;
   let hasContent = false;
-  selection.content().content.descendants(node => {
+  selection.content().content.descendants((node) => {
     // for empty paragraph - consider empty (nothing to comment on)
     if (node.type === paragraph && !node.content.size) {
       return false;
@@ -362,7 +362,7 @@ function isEmptyTextSelection(
  */
 export function hasWhitespaceNode(selection: TextSelection | AllSelection) {
   let foundWhitespace = false;
-  selection.content().content.descendants(node => {
+  selection.content().content.descendants((node) => {
     if (node.textContent.trim() === '') {
       foundWhitespace = true;
     }
@@ -414,14 +414,14 @@ export function containsAnyAnnotations(
     return false;
   }
   let hasAnnotation = false;
-  slice.content.forEach(node => {
+  slice.content.forEach((node) => {
     hasAnnotation = hasAnnotation || hasAnnotationMark(node, state);
     // return early if annotation found already
     if (hasAnnotation) {
       return true;
     }
     // check annotations in descendants
-    node.descendants(node => {
+    node.descendants((node) => {
       if (hasAnnotationMark(node, state)) {
         hasAnnotation = true;
         return false;
@@ -439,9 +439,9 @@ export function stripNonExistingAnnotations(slice: Slice, state: EditorState) {
   if (!slice.content.size) {
     return false;
   }
-  slice.content.forEach(node => {
+  slice.content.forEach((node) => {
     stripNonExistingAnnotationsFromNode(node, state);
-    node.content.descendants(node => {
+    node.content.descendants((node) => {
       stripNonExistingAnnotationsFromNode(node, state);
       return true;
     });
@@ -454,7 +454,7 @@ export function stripNonExistingAnnotations(slice: Slice, state: EditorState) {
  */
 function stripNonExistingAnnotationsFromNode(node: Node, state: EditorState) {
   if (hasAnnotationMark(node, state)) {
-    node.marks = node.marks.filter(mark => {
+    node.marks = node.marks.filter((mark) => {
       if (mark.type.name === 'annotation') {
         return annotationExists(mark.attrs.id, state);
       }

@@ -42,7 +42,7 @@ const countSupportedUnsupportedNodes = (validDocument: ADFEntity) => {
   let supportedNodes = 0;
 
   traverse(validDocument, {
-    any: node => {
+    any: (node) => {
       const unsupportedNodeTypes = [
         'unsupportedInline',
         'unsupportedBlock',

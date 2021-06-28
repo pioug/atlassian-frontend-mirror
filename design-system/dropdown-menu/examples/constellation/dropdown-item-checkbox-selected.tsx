@@ -5,15 +5,17 @@ import DropdownMenu, {
   DropdownItemGroupCheckbox,
 } from '../../src';
 
-const DropdownItemCheckboxSelectedExample = () => (
-  <DropdownMenu trigger="Filter cities" triggerType="button">
-    <DropdownItemGroupCheckbox id="cities">
-      <DropdownItemCheckbox id="adelaide">Adelaide</DropdownItemCheckbox>
-      <DropdownItemCheckbox id="sydney" isSelected>
-        Sydney
-      </DropdownItemCheckbox>
-    </DropdownItemGroupCheckbox>
-  </DropdownMenu>
-);
+const DropdownItemCheckboxSelectedExample = () => {
+  return (
+    <DropdownMenu trigger="Filter cities" triggerType="button">
+      <DropdownItemGroupCheckbox id="cities">
+        <DropdownItemCheckbox id="adelaide">Adelaide</DropdownItemCheckbox>
+        <DropdownItemCheckbox id="sydney" isSelected>
+          Sydney
+        </DropdownItemCheckbox>
+      </DropdownItemGroupCheckbox>
+    </DropdownMenu>
+  );
+};
 
 export default DropdownItemCheckboxSelectedExample;

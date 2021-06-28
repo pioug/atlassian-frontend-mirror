@@ -22,7 +22,7 @@ const idle = () => {
     );
   }
 
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     ((window as any).requestIdleCallback || window.requestAnimationFrame)(
       resolve,
     );
@@ -207,13 +207,13 @@ class EditorWithSidebar extends React.Component {
       <ExampleEditor
         onChange={this.onChange}
         defaultValue={defaultValue}
-        extensionProviders={editorActions => [
+        extensionProviders={(editorActions) => [
           getExampleExtensionProviders(editorActions),
         ]}
         allowExtension={{ allowAutoSave: true }}
         contextPanel={
           <WithEditorActions
-            render={actions => (
+            render={(actions) => (
               <TemplatePanel
                 actions={actions}
                 defaultValue={defaultValue ? JSON.parse(defaultValue) : null}

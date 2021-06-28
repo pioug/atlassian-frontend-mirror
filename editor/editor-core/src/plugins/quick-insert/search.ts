@@ -44,7 +44,7 @@ export const searchQuickInsertItems = (
   const providedItems = quickInsertState.providedItems;
 
   const items = providedItems
-    ? dedupe([...defaultItems, ...providedItems], item => item.title)
+    ? dedupe([...defaultItems, ...providedItems], (item) => item.title)
     : defaultItems;
 
   return find(
@@ -52,7 +52,7 @@ export const searchQuickInsertItems = (
     category === 'all' || !category
       ? items
       : items.filter(
-          item => item.categories && item.categories.includes(category),
+          (item) => item.categories && item.categories.includes(category),
         ),
   );
 };
@@ -65,8 +65,8 @@ export const getFeaturedQuickInsertItems = (
     options && options.disableDefaultItems ? [] : lazyDefaultItems();
 
   const items = providedItems
-    ? dedupe([...defaultItems, ...providedItems], item => item.title)
+    ? dedupe([...defaultItems, ...providedItems], (item) => item.title)
     : defaultItems;
 
-  return items.filter(item => item.featured);
+  return items.filter((item) => item.featured);
 };

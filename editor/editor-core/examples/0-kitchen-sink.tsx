@@ -18,7 +18,7 @@ export default function KitchenSinkExample() {
     <IntlProvider locale={locale.substring(0, 2)} messages={messages}>
       <EditorContext>
         <WithEditorActions
-          render={actions => (
+          render={(actions) => (
             <KitchenSink
               actions={actions}
               locale={locale}

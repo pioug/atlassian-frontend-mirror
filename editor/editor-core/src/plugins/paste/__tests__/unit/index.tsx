@@ -161,7 +161,7 @@ describe('paste plugins', () => {
     });
     const inlineCommentProvider: InlineCommentAnnotationProvider = {
       getState: async (ids: string[]) => {
-        return ids.map(id => ({
+        return ids.map((id) => ({
           annotationType: AnnotationTypes.INLINE_COMMENT,
           id,
           state: { resolved: false },

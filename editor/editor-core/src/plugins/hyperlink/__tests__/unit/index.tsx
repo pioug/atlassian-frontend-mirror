@@ -28,7 +28,7 @@ describe('hyperlink', () => {
 
   describe.each([true, false, undefined])(
     'when useUnpredictableInputRule is %s',
-    useUnpredictableInputRule => {
+    (useUnpredictableInputRule) => {
       let createAnalyticsEvent: CreateUIAnalyticsEvent;
 
       const editor = (

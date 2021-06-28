@@ -52,7 +52,7 @@ describe('ReactNodeView', () => {
         eventDispatcher,
       ).init();
 
-      expect(mark.mock.calls.map(item => item[0])).toEqual(
+      expect(mark.mock.calls.map((item) => item[0])).toEqual(
         expect.arrayContaining([
           `🦉${node.type.name}::ReactNodeView::start`,
           `🦉${node.type.name}::ReactNodeView::end`,

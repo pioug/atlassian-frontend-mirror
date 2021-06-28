@@ -33,7 +33,7 @@ describe('input-tule/handles/createInputEventHandler', () => {
 
     dispatchSpy = jest.spyOn(editorView, 'dispatch');
 
-    ruleHandlerMock = jest.fn().mockImplementation(state => {
+    ruleHandlerMock = jest.fn().mockImplementation((state) => {
       return state.tr;
     });
 
@@ -90,7 +90,7 @@ describe('input-tule/handles/createInputEventHandler', () => {
     beforeEach(() => {
       const RULE_AFTER = {
         match: /^(after).*/,
-        handler: jest.fn().mockImplementation(state => {
+        handler: jest.fn().mockImplementation((state) => {
           return state.tr;
         }),
       };
@@ -131,7 +131,7 @@ describe('input-tule/handles/createInputEventHandler', () => {
 
     describe.each([true, false])(
       'and when allowInsertTextOnDocument is %s',
-      allowInsertTextOnDocument => {
+      (allowInsertTextOnDocument) => {
         beforeEach(() => {
           const {
             selection: { from, to },

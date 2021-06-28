@@ -19,7 +19,7 @@ export const getActiveColor = (state: EditorState): string | null => {
       textColor.isInSet(state.storedMarks || $cursor.marks()) || undefined,
     );
   } else {
-    state.doc.nodesBetween($from.pos, $to.pos, currentNode => {
+    state.doc.nodesBetween($from.pos, $to.pos, (currentNode) => {
       if (currentNode.isLeaf) {
         const mark = textColor.isInSet(currentNode.marks) || undefined;
         marks.push(mark);
@@ -31,7 +31,7 @@ export const getActiveColor = (state: EditorState): string | null => {
 
   // Merge consecutive same color marks
   let prevMark: Mark | undefined;
-  marks = marks.filter(mark => {
+  marks = marks.filter((mark) => {
     if (mark && prevMark && mark.attrs.color === prevMark.attrs.color) {
       return false;
     }
@@ -39,7 +39,7 @@ export const getActiveColor = (state: EditorState): string | null => {
     return true;
   });
 
-  const marksWithColor = marks.filter(mark => !!mark) as Array<Mark>;
+  const marksWithColor = marks.filter((mark) => !!mark) as Array<Mark>;
   // When multiple colors are selected revert back to default color
   if (
     marksWithColor.length > 1 ||

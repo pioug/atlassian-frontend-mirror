@@ -53,7 +53,7 @@ export const getCellsRefsInColumn = (
     bottom: map.height,
   });
   const cells: HTMLElement[] = [];
-  cellsPositions.forEach(pos => {
+  cellsPositions.forEach((pos) => {
     const col = findDomRefAtPos(pos + tableStart, domAtPos) as HTMLElement;
     if (col) {
       cells.push(col);
@@ -74,7 +74,7 @@ export const calculateColumnWidth = (
   let maxColWidth = 0;
   let colSpanWidth = 0;
 
-  cells.forEach(cellRef => {
+  cells.forEach((cellRef) => {
     const css = getComputedStyle(cellRef);
     const colspan = Number(cellRef.getAttribute('colspan') || 1);
 

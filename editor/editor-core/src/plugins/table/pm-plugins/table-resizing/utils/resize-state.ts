@@ -41,7 +41,7 @@ export const getResizeState = ({
       index,
     }));
 
-    const widths = cols.map(col => col.width);
+    const widths = cols.map((col) => col.width);
     const tableWidth = widths.reduce((sum, width) => sum + width, 0);
     const overflow = tableWidth > maxSize;
 
@@ -60,7 +60,7 @@ export const getResizeState = ({
     return getColumnStateFromDOM(cellsRefs, index, minWidth);
   });
 
-  const widths = cols.map(col => col.width);
+  const widths = cols.map((col) => col.width);
   const tableWidth = widths.reduce((sum, width) => sum + width, 0);
 
   const overflow = tableWidth > maxSize;
@@ -80,7 +80,7 @@ export const updateColgroup = (
 ): void => {
   const cols = tableRef.querySelectorAll('col');
   state.cols
-    .filter(column => column && !!column.width) // if width is 0, we dont want to apply that.
+    .filter((column) => column && !!column.width) // if width is 0, we dont want to apply that.
     .forEach((column, i) => {
       if (cols[i]) {
         cols[i].style.width = `${column.width}px`;
@@ -107,7 +107,7 @@ export const adjustColumnsWidths = (
     let updated = false;
     return {
       ...resizeState,
-      cols: resizeState.cols.map(col => {
+      cols: resizeState.cols.map((col) => {
         if (!updated && col.width + diff > col.minWidth) {
           updated = true;
           return { ...col, width: col.width + diff };
@@ -123,7 +123,7 @@ export const adjustColumnsWidths = (
 export const evenAllColumnsWidths = (resizeState: ResizeState): ResizeState => {
   const maxSize = getTotalWidth(resizeState);
   const evenWidth = Math.floor(maxSize / resizeState.cols.length);
-  const cols = resizeState.cols.map(col => ({ ...col, width: evenWidth }));
+  const cols = resizeState.cols.map((col) => ({ ...col, width: evenWidth }));
 
   return adjustColumnsWidths({ ...resizeState, cols }, maxSize);
 };
@@ -131,7 +131,7 @@ export const evenAllColumnsWidths = (resizeState: ResizeState): ResizeState => {
 const getSpace = (columns: ColumnState[], start: number, end: number) =>
   columns
     .slice(start, end)
-    .map(col => col.width)
+    .map((col) => col.width)
     .reduce((sum, width) => sum + width, 0);
 
 export const evenSelectedColumnsWidths = (
@@ -151,7 +151,7 @@ export const evenSelectedColumnsWidths = (
     return {
       ...resizeState,
       widths: cols.map(() => width),
-      cols: resizeState.cols.map(col => ({
+      cols: resizeState.cols.map((col) => ({
         ...col,
         width: 0,
       })),
@@ -185,7 +185,7 @@ export const bulkColumnsResize = (
     [key: number]: { width: number; minWidth: number; index: number };
   } = {};
   const widthsDiffs: number[] = [];
-  const cols = resizeState.cols.map(col => {
+  const cols = resizeState.cols.map((col) => {
     if (columnsIndexes.indexOf(col.index) > -1) {
       const diff = col.width - sourceCol.width;
       if (diff !== 0) {
@@ -198,7 +198,7 @@ export const bulkColumnsResize = (
 
   let newState = {
     ...resizeState,
-    cols: cols.map(col => {
+    cols: cols.map((col) => {
       if (
         columnsIndexes.indexOf(col.index) > -1 ||
         // take from prev columns only if dragging the first handle to the left
@@ -244,7 +244,7 @@ export const bulkColumnsResize = (
       );
       newState = {
         ...resizeState,
-        cols: newState.cols.map(col => {
+        cols: newState.cols.map((col) => {
           if (col.index === sourceCol.index) {
             return col;
           }

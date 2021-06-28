@@ -6,7 +6,7 @@ import { PrintableOutput } from '../../../runner';
 import { badgeRed } from '../../../utils/console';
 
 export const compareVersionsTask: UpdateTask = {
-  title: ctx =>
+  title: (ctx) =>
     `Comparing versions of: ${chalk.yellow(
       '[' + Object.keys(ctx.packages).join(', ') + ']',
     )}`,
@@ -42,7 +42,7 @@ export const compareVersionsTask: UpdateTask = {
       task.abort();
       return task.format(
         `Packages [${Object.entries(ctx.packages)
-          .map(p => p[0])
+          .map((p) => p[0])
           .join(', ')}] are up-to-date. Use --force to force update.`,
       );
     }

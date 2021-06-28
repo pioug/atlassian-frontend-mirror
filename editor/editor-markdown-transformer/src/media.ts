@@ -112,7 +112,7 @@ function createRule() {
 
           const closingTokens = openingTokens
             .map(
-              token =>
+              (token) =>
                 new State.Token(
                   token.type.replace('_open', '_close'),
                   token.tag,
@@ -123,7 +123,7 @@ function createRule() {
 
           const matches = token.content.match(regx)!;
           let inlineContentStack = token.content;
-          matches.forEach(match => {
+          matches.forEach((match) => {
             const start = inlineContentStack.indexOf(match);
             const contentBefore = inlineContentStack.substr(0, start);
             inlineContentStack = inlineContentStack.substr(
@@ -154,7 +154,7 @@ function createRule() {
 
           processedTokens = [
             ...processedTokens,
-            ...closingTokens.map(c => c.type),
+            ...closingTokens.map((c) => c.type),
           ];
 
           tokens = [...tokens.slice(0, cursor), ...subTree];

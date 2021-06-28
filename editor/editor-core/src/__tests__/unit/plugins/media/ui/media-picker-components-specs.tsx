@@ -96,7 +96,7 @@ describe('MediaPickerComponents', () => {
 
   it('should change state when mediaState.onPopupToggle is called', () => {
     let callback: (isOpen: boolean) => void = () => {};
-    pluginState.onPopupToggle = cb => (callback = cb);
+    pluginState.onPopupToggle = (cb) => (callback = cb);
     wrapper = mount(
       <MediaPickerComponents
         editorDomElement={editorDomElement}

@@ -21,7 +21,7 @@ export const resolveWithProvider = (
 ) => {
   const handleResolve = provider
     .resolve(request.url, request.appearance)
-    .then(resolvedCard => {
+    .then((resolvedCard) => {
       delete outstandingRequests[request.url];
       return resolvedCard;
     })

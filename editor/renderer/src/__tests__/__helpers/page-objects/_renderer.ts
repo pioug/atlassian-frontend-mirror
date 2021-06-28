@@ -29,7 +29,7 @@ export async function animationFrame(page: any) {
 }
 
 export const addSentinels = async (page: Page) => {
-  return page.evaluate(selector => {
+  return page.evaluate((selector) => {
     const el = document.querySelector<HTMLElement>(selector);
     const beforeSentinel = document.createElement('div');
     beforeSentinel.textContent = 'Α';

@@ -50,7 +50,7 @@ export default class NumberColumn extends Component<Props, any> {
                   ? `${this.props.stickyTop}px`
                   : undefined,
             }}
-            onClick={event => this.selectRow(index, event)}
+            onClick={(event) => this.selectRow(index, event)}
             onMouseOver={() => this.hoverRows(index)}
             onMouseOut={this.clearHoverSelection}
           >

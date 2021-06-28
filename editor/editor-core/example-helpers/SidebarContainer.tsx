@@ -44,7 +44,7 @@ export default class SidebarContainer extends React.Component {
 export function withSidebarContainer<T>(
   Component: React.ComponentType<T>,
 ): React.ComponentType<T> {
-  return props => (
+  return (props) => (
     <SidebarContainer>
       <Component {...props} />
     </SidebarContainer>

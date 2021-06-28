@@ -41,10 +41,10 @@ const finish: Reducer<CustomAutoformatFinish> = (state, action) => {
   return {
     ...state,
     resolving: state.resolving.filter(
-      resolving => resolving.match[0] !== action.matchString,
+      (resolving) => resolving.match[0] !== action.matchString,
     ),
     matches: state.matches.filter(
-      matching => matching.matchString !== action.matchString,
+      (matching) => matching.matchString !== action.matchString,
     ),
   };
 };

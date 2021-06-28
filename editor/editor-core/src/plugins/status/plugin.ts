@@ -119,7 +119,7 @@ const createPlugin = (
       let tr = newEditorState.tr;
 
       // user leaves the StatusPicker with empty text and selects a new node
-      if (transactions.find(tr => tr.selectionSet)) {
+      if (transactions.find((tr) => tr.selectionSet)) {
         let oldStatus = mayGetStatusAtSelection(oldEditorState.selection);
         let newStatus = mayGetStatusAtSelection(newEditorState.selection);
         if (

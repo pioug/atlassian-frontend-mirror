@@ -51,7 +51,7 @@ export const cloneRowAt = (rowIndex: number) => (
       let cells: PMNode[] = [];
       let rowWidth = 0;
 
-      cloneRow.forEach(cell => {
+      cloneRow.forEach((cell) => {
         // If we're copying a row with rowspan somewhere, we dont want to copy that cell
         // We'll increment its span below.
         if (cell.attrs.rowspan === 1) {
@@ -83,7 +83,7 @@ export const cloneRowAt = (rowIndex: number) => (
         }
 
         if (rowSpanCells.length) {
-          rowSpanCells.forEach(cell => {
+          rowSpanCells.forEach((cell) => {
             tr = setCellAttrs(cell, {
               rowspan: cell.node.attrs.rowspan + 1,
             })(tr);

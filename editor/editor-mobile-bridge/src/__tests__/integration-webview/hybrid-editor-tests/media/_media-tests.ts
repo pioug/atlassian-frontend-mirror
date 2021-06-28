@@ -24,7 +24,7 @@ export default async () => {
   MobileTestCase(
     'Media: user can remove mediaSingle node',
     {},
-    async client => {
+    async (client) => {
       const page = await Page.create(client);
       await loadEditor(page);
       await setADFContent(page, mediaSingleAdf);
@@ -39,7 +39,7 @@ export default async () => {
     },
   );
 
-  MobileTestCase('Media: Upload media', {}, async client => {
+  MobileTestCase('Media: Upload media', {}, async (client) => {
     const page = await Page.create(client);
     await loadEditor(page);
     await page.switchToWeb();
@@ -50,7 +50,7 @@ export default async () => {
   MobileTestCase(
     'Media in Layouts: 2 column',
     { skipPlatform: ['android'] },
-    async client => {
+    async (client) => {
       const page = await Page.create(client);
 
       await loadEditor(page);
@@ -65,7 +65,7 @@ export default async () => {
     },
   );
 
-  MobileTestCase('Media in Layouts: 3 columns', {}, async client => {
+  MobileTestCase('Media in Layouts: 3 columns', {}, async (client) => {
     const page = await Page.create(client);
 
     await loadEditor(page);
@@ -77,7 +77,7 @@ export default async () => {
     await mobileSnapshot(page);
   });
 
-  MobileTestCase('Media: Load and delete MediaGroup', {}, async client => {
+  MobileTestCase('Media: Load and delete MediaGroup', {}, async (client) => {
     const page = await Page.create(client);
     await loadEditor(page);
     await page.switchToWeb();
@@ -113,7 +113,7 @@ export default async () => {
   MobileTestCase(
     'Media inside expand',
     { skipPlatform: ['android', 'ios'] },
-    async client => {
+    async (client) => {
       const page = await Page.create(client);
 
       await loadEditor(page, 'enableMediaResize=true');
@@ -128,7 +128,7 @@ export default async () => {
   MobileTestCase(
     'Media: Load ADF with a MediaSingle node',
     {},
-    async client => {
+    async (client) => {
       const page = await Page.create(client);
       await loadEditor(page, 'enableMediaResize=true');
       await page.switchToWeb();
@@ -142,7 +142,7 @@ export default async () => {
   MobileTestCase(
     'Media: Load ADF with media inside a table',
     {},
-    async client => {
+    async (client) => {
       const page = await Page.create(client);
       await loadEditor(page, 'enableMediaResize=true');
       await page.switchToWeb();
@@ -157,7 +157,7 @@ export default async () => {
     'Media: Resize a MediaSingle node',
     // TODO: Enable ios resizing test https://product-fabric.atlassian.net/browse/EDM-1845
     { skipPlatform: ['ios'] },
-    async client => {
+    async (client) => {
       const page = await Page.create(client);
       await loadEditor(page, 'enableMediaResize=true');
       await page.switchToWeb();
@@ -173,7 +173,7 @@ export default async () => {
     },
   );
 
-  MobileTestCase('Media: failed processing', {}, async client => {
+  MobileTestCase('Media: failed processing', {}, async (client) => {
     const page = await Page.create(client);
 
     await loadEditor(page);
@@ -183,7 +183,7 @@ export default async () => {
     await mobileSnapshot(page);
   });
 
-  MobileTestCase('Media: error', {}, async client => {
+  MobileTestCase('Media: error', {}, async (client) => {
     const page = await Page.create(client);
 
     await loadEditor(page);

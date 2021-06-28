@@ -23,7 +23,7 @@ describe('Snapshot Test: numbered table', () => {
     page = global.page;
   });
 
-  describe.each(THEME_MODES)('Theme: %s', theme => {
+  describe.each(THEME_MODES)('Theme: %s', (theme) => {
     const mode = theme === 'dark' ? 'dark' : 'light';
 
     it('looks correct for fullpage', async () => {

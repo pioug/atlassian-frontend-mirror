@@ -9,7 +9,7 @@ const manifest: ExtensionManifest = {
     '48': () =>
       import(
         /* webpackChunkName: "@atlaskit-internal_editor-code" */ '@atlaskit/icon/glyph/editor/code'
-      ).then(mod => mod.default),
+      ).then((mod) => mod.default),
   },
   modules: {
     quickInsert: [
@@ -18,7 +18,7 @@ const manifest: ExtensionManifest = {
         icon: () =>
           import(
             /* webpackChunkName: "@atlaskit-internal_editor-table" */ '@atlaskit/icon/glyph/table'
-          ).then(mod => mod.default),
+          ).then((mod) => mod.default),
         action: {
           type: 'node',
           key: 'default',

@@ -35,7 +35,7 @@ export const colors: Color[] = [
   themeColors.N70,
   themeColors.N200,
   themeColors.N800,
-].map(solid => ({
+].map((solid) => ({
   solid,
   selection: hexToRgba(solid, 0.2)!,
 }));

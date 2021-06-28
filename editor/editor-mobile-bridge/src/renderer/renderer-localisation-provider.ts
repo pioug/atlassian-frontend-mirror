@@ -4,7 +4,7 @@ export const geti18NMessages = async (
   return await Promise.all([
     import(`@atlaskit/renderer/src/i18n/${localeFileName}`),
     import(`@atlaskit/mention/src/i18n/${localeFileName}`),
-  ]).then(args =>
+  ]).then((args) =>
     args.reduce((acc, current) => ({ ...acc, ...current.default }), {}),
   );
 };

@@ -250,7 +250,7 @@ describe('table keymap', () => {
 
       const excludeNodes = ['doc', 'table', 'bodiedExtension'];
 
-      Object.keys(defaultSchema.nodes).forEach(nodeName => {
+      Object.keys(defaultSchema.nodes).forEach((nodeName) => {
         const node = defaultSchema.nodes[nodeName];
         if (
           node.spec.group !== 'block' ||
@@ -319,7 +319,7 @@ describe('table keymap', () => {
       });
     });
 
-    [0, 1, 2].forEach(index => {
+    [0, 1, 2].forEach((index) => {
       describe(`when row ${index + 1} is selected`, () => {
         it(`should empty cells in the row ${
           index + 1

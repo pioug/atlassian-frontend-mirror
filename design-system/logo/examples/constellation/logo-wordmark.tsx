@@ -4,4 +4,8 @@ import { B400 } from '@atlaskit/theme/colors';
 
 import { AtlassianWordmark } from '../../src';
 
-export default () => <AtlassianWordmark textColor={B400} />;
+const Wordmark = () => {
+  return <AtlassianWordmark textColor={B400} />;
+};
+
+export default Wordmark;

@@ -185,7 +185,7 @@ class Editor extends React.Component<
               {({ width }) => {
                 return (
                   <ContentArea
-                    innerRef={ref => (this.containerElement = ref)}
+                    innerRef={(ref) => (this.containerElement = ref)}
                     className={classnames('ak-editor-content-area', {
                       'less-margin': width < akEditorMobileBreakoutPoint,
                     })}

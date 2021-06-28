@@ -21,11 +21,11 @@ export interface Props {
   layout?: ExtensionLayout;
 }
 
-const BodiedExtension: React.FunctionComponent<Props> = props => {
+const BodiedExtension: React.FunctionComponent<Props> = (props) => {
   const { children, layout = 'default', path = [] } = props;
 
   const removeOverflow = React.Children.toArray<any>(children)
-    .map(child => child!.props.nodeType === 'table')
+    .map((child) => child!.props.nodeType === 'table')
     .every(Boolean);
 
   return (

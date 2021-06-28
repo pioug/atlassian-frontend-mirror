@@ -12,7 +12,7 @@ const breadcrumbs = (
   </Breadcrumbs>
 );
 
-const MyPageHeader = () => {
+const PageHeaderFocusHeadingExample = () => {
   const [ref, setRef] = useState<HTMLElement>();
 
   const onClick = () => {
@@ -35,4 +35,4 @@ const MyPageHeader = () => {
   );
 };
 
-export default () => <MyPageHeader />;
+export default PageHeaderFocusHeadingExample;

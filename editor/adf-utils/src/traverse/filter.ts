@@ -8,7 +8,7 @@ export function filter(
   const result: Array<ADFEntity> = [];
 
   traverse(adf, {
-    any: node => {
+    any: (node) => {
       if (callback(node)) {
         result.push(node);
       }

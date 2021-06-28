@@ -27,7 +27,7 @@ describe('Annotations: AnnotationsDraftContextWrapper', () => {
   let clearAnnotationDraft: Function;
   const mockComponent = jest.fn();
   beforeEach(() => {
-    const MyFakeComponent: React.FC<ChildrenProps> = props => {
+    const MyFakeComponent: React.FC<ChildrenProps> = (props) => {
       applyAnnotationDraftAt = props.applyAnnotationDraftAt;
       clearAnnotationDraft = props.clearAnnotationDraft;
       return (

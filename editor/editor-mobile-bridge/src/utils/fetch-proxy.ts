@@ -27,7 +27,7 @@ export class FetchProxy {
     window.fetch = (request, options) => {
       let url = typeof request === 'string' ? request : request.url;
       // Determine whether its a URL we want native to handle, otherwise continue as normal.
-      const shouldMock = this.urls.some(u => url.startsWith(u));
+      const shouldMock = this.urls.some((u) => url.startsWith(u));
       if (!shouldMock) {
         return this.globalFetch(request, options);
       }

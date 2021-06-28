@@ -11,7 +11,7 @@ describe('Snapshot Test: Divider', () => {
     page = global.page;
   });
 
-  describe.each(THEME_MODES)('Theme: %s', theme => {
+  describe.each(THEME_MODES)('Theme: %s', (theme) => {
     test('should render the divider node properly', async () => {
       await initFullPageEditorWithAdf(
         page,

@@ -103,14 +103,14 @@ export function findSearchIndex(
 ): number {
   if (backward) {
     let matchIndex =
-      matches.findIndex(match => match.start >= selectionPos) - 1;
+      matches.findIndex((match) => match.start >= selectionPos) - 1;
     if (matchIndex < 0) {
       matchIndex = matches.length - 1; // wrap around from the end
     }
     return matchIndex;
   }
   return Math.max(
-    matches.findIndex(match => match.start >= selectionPos),
+    matches.findIndex((match) => match.start >= selectionPos),
     0,
   );
 }
@@ -146,7 +146,7 @@ export const findDecorationFromMatch = (
     ? decorations.find(
         // decorationSet.find() returns any decorations that touch the specifided
         // positions, but we want to be stricter
-        decoration =>
+        (decoration) =>
           decoration.from === match.start && decoration.to === match.end,
       )
     : undefined;
@@ -163,7 +163,7 @@ export const removeDecorationsFromSet = (
   // prosemirror-view will update our decorationsToRemove array to contain nulls
   // instead of Decorations which ruins our check for lost decorations below
   decorationSet = decorationSet.remove(
-    decorationsToRemove.map(decoration =>
+    decorationsToRemove.map((decoration) =>
       // copy exists but isn't on the type definition
       (decoration as Decoration & {
         copy: (from: number, to: number) => Decoration;
@@ -194,9 +194,9 @@ export const removeMatchesFromSet = (
   doc: PmNode,
 ) => {
   const decorationsToRemove = matches
-    .filter(match => !!match)
-    .map(match => findDecorationFromMatch(decorationSet, match));
-  decorationsToRemove.forEach(decoration => {
+    .filter((match) => !!match)
+    .map((match) => findDecorationFromMatch(decorationSet, match));
+  decorationsToRemove.forEach((decoration) => {
     if (decoration) {
       decorationSet = removeDecorationsFromSet(
         decorationSet,
@@ -249,7 +249,7 @@ export const findLostAdjacentDecorations = (
       // this was a legit removal, skip and continue
       if (
         decorationsToRemove.find(
-          decoration => decoration.from === prevDecoration.from,
+          (decoration) => decoration.from === prevDecoration.from,
         )
       ) {
         newDecorationsIdxOffset -= 1;
@@ -294,9 +294,9 @@ export const findLostAdjacentDecorations = (
 
     // make sure we ignore any that we wanted to delete
     lostDecorations = uniqueInPrev.filter(
-      decoration =>
+      (decoration) =>
         !decorationsToRemove.find(
-          decorationToRemove => decoration.from === decorationToRemove.from,
+          (decorationToRemove) => decoration.from === decorationToRemove.from,
         ),
     );
   }

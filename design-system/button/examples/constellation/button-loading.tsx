@@ -2,8 +2,12 @@ import React from 'react';
 
 import { LoadingButton } from '../../src';
 
-export default () => (
-  <LoadingButton appearance="primary" isLoading>
-    Loading button
-  </LoadingButton>
-);
+const ButtonLoadingExample = () => {
+  return (
+    <LoadingButton appearance="primary" isLoading>
+      Loading button
+    </LoadingButton>
+  );
+};
+
+export default ButtonLoadingExample;

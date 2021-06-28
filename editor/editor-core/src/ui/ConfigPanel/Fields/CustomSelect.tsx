@@ -145,7 +145,7 @@ function CustomSelect({
       label={label}
       isRequired={isRequired}
       defaultValue={defaultValue as ValueType<Option, false>}
-      validate={value => validate(field, value)}
+      validate={(value) => validate(field, value)}
     >
       {({ fieldProps, error }) => (
         <>
@@ -153,7 +153,7 @@ function CustomSelect({
             <>
               <AsyncCreatableSelect
                 {...fieldProps}
-                onChange={value => {
+                onChange={(value) => {
                   fieldProps.onChange(value);
                   // We assume onChange is called whenever values actually changed
                   // for isDirty

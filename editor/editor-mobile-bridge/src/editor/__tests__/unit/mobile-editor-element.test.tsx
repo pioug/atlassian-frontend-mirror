@@ -27,7 +27,7 @@ jest.mock('../../../i18n/use-translations', () => ({
     messages: {},
   }),
 }));
-jest.mock('lodash/throttle', () => jest.fn(fn => fn));
+jest.mock('lodash/throttle', () => jest.fn((fn) => fn));
 
 const initialDocument = JSON.stringify({
   version: 1,

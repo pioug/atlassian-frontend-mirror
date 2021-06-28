@@ -59,7 +59,7 @@ export class JiraCardClient extends Client {
     // it to JSON-LD format. To read more about the format, please visit:
     //   https://product-fabric.atlassian.net/wiki/spaces/CS/pages/615126630/Task
     //
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       // We simulate a 2s load time
       window.setTimeout(() => {
         resolve({

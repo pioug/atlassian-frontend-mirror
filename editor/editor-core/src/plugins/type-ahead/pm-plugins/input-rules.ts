@@ -18,7 +18,7 @@ export function inputRulePlugin(
   featureFlags: FeatureFlags,
 ): Plugin | undefined {
   const triggersRegex = typeAheads
-    .map(t => t.customRegex || t.trigger)
+    .map((t) => t.customRegex || t.trigger)
     .join('|');
 
   if (!triggersRegex.length) {

@@ -128,7 +128,7 @@ describe('nodeview updating based on child count', () => {
     );
 
     // ensure that if it falls through to the default it returns false
-    nodeView['_viewShouldUpdate'] = jest.fn(_node => false);
+    nodeView['_viewShouldUpdate'] = jest.fn((_node) => false);
 
     expect(nodeView.viewShouldUpdate(node)).toBeFalsy();
   });
@@ -144,7 +144,7 @@ describe('nodeview updating based on child count', () => {
     const newNode = caption()(getSchemaBasedOnStage('stage0'));
 
     // ensure that if it falls through to the default it returns false
-    nodeView['_viewShouldUpdate'] = jest.fn(_node => false);
+    nodeView['_viewShouldUpdate'] = jest.fn((_node) => false);
 
     expect(nodeView.viewShouldUpdate(newNode)).toBeTruthy();
   });

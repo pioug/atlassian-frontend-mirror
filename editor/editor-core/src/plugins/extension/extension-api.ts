@@ -93,7 +93,7 @@ export const createExtensionAPI = (
       }
 
       const fragment = Fragment.fromJSON(schema, adf.content);
-      const marks = (adf.marks || []).map(markEntity =>
+      const marks = (adf.marks || []).map((markEntity) =>
         Mark.fromJSON(schema, markEntity),
       );
       const newNode = nodeType?.createChecked(adf.attrs, fragment, marks);
@@ -136,7 +136,7 @@ export const createExtensionAPI = (
         return true;
       });
 
-      nodesAdded.forEach(node => {
+      nodesAdded.forEach((node) => {
         const { extensionKey, extensionType } = node.attrs;
         const dataConsumerMark = getDataConsumerMark(node);
         const stringIds: string[] =

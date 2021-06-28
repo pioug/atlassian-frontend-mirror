@@ -109,7 +109,7 @@ export function createResizeFullPageForConfig(config: TestPageConfig) {
         });
 
         describe('center layout', () => {
-          [2, 6, 10].forEach(cols => {
+          [2, 6, 10].forEach((cols) => {
             it(`can make an image ${cols} columns wide`, async () => {
               const distance = -((editorWidth / 2) * ((12 - cols) / 12));
 
@@ -122,7 +122,7 @@ export function createResizeFullPageForConfig(config: TestPageConfig) {
         });
 
         describe('wrap-left layout', () => {
-          [2, 6, 10].forEach(cols => {
+          [2, 6, 10].forEach((cols) => {
             it(`can make an wrap-left image ${cols} columns wide`, async () => {
               const distance = -((editorWidth / 12) * (12 - cols));
 
@@ -137,7 +137,7 @@ export function createResizeFullPageForConfig(config: TestPageConfig) {
         });
 
         describe('wrap-right layout', () => {
-          [2, 6, 10].forEach(cols => {
+          [2, 6, 10].forEach((cols) => {
             it(`can make an wrap-right image ${cols} columns wide`, async () => {
               const distance = (editorWidth / 12) * (12 - cols);
               await insertMedia(page);
@@ -156,7 +156,7 @@ export function createResizeFullPageForConfig(config: TestPageConfig) {
         });
 
         describe('lists', () => {
-          [2, 6, 10].forEach(cols => {
+          [2, 6, 10].forEach((cols) => {
             it(`can make an image in a list ${cols} columns wide`, async () => {
               const distance = -((editorWidth / 12) * (12 - cols));
 

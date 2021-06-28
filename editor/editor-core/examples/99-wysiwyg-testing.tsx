@@ -44,7 +44,7 @@ function useWindowBinding(props: { [key: string]: Function }) {
   React.useEffect(() => {
     const win = window as any;
     Object.entries(props).map(([key, fn]) => (win[key] = fn));
-    return () => Object.keys(props).forEach(key => delete win[key]);
+    return () => Object.keys(props).forEach((key) => delete win[key]);
   }, [props]);
 }
 

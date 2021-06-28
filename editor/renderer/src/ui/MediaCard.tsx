@@ -74,7 +74,7 @@ export const getListOfIdentifiersFromDoc = (doc?: ADFEntity): Identifier[] => {
   if (!doc) {
     return [];
   }
-  return filter(doc, node => node.type === 'media').reduce(
+  return filter(doc, (node) => node.type === 'media').reduce(
     (identifierList: Identifier[], mediaNode) => {
       if (mediaNode.attrs) {
         const { type, url: dataURI, id } = mediaNode.attrs;
@@ -127,16 +127,18 @@ export class MediaCardInternal extends Component<MediaCardProps, State> {
       (id && mediaIdentifierMap.has(id)) ||
       (url && mediaIdentifierMap.has(url));
     if (rendererContext && rendererContext.adDoc && !nodeIsInCache) {
-      getListOfIdentifiersFromDoc(rendererContext.adDoc).forEach(identifier => {
-        if (identifier.mediaItemType === 'file') {
-          mediaIdentifierMap.set(identifier.id as string, {
-            ...identifier,
-            collectionName,
-          });
-        } else if (identifier.mediaItemType === 'external-image') {
-          mediaIdentifierMap.set(identifier.dataURI as string, identifier);
-        }
-      });
+      getListOfIdentifiersFromDoc(rendererContext.adDoc).forEach(
+        (identifier) => {
+          if (identifier.mediaItemType === 'file') {
+            mediaIdentifierMap.set(identifier.id as string, {
+              ...identifier,
+              collectionName,
+            });
+          } else if (identifier.mediaItemType === 'external-image') {
+            mediaIdentifierMap.set(identifier.dataURI as string, identifier);
+          }
+        },
+      );
     }
     this.setState({
       mediaClientConfig: mediaClientConfig,

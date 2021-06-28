@@ -26,7 +26,7 @@ describe('hyperlink', () => {
   const createEditor = createProsemirrorEditorFactory();
   describe.each([true, false])(
     'when useUnpredictableInputRule is %s',
-    useUnpredictableInputRule => {
+    (useUnpredictableInputRule) => {
       let createAnalyticsEvent: CreateUIAnalyticsEvent;
 
       const editor = (doc: DocBuilder) => {
@@ -193,7 +193,7 @@ describe('hyperlink', () => {
         });
 
         ['?', '!', ')', '(', '[', ']', ';', '{', '}', ',', '.'].forEach(
-          punctuation => {
+          (punctuation) => {
             it(`should not convert trailing '${punctuation}' in "https://www.atlassian.com${punctuation}" to hyperlink`, () => {
               const { editorView, sel } = editor(doc(p('{<>}')));
               insertText(
@@ -214,7 +214,7 @@ describe('hyperlink', () => {
         );
 
         ['?', '!', ')', '(', '[', ']', '{', '}', ',', '.'].forEach(
-          punctuation => {
+          (punctuation) => {
             it(`should not convert trailing '${punctuation}' in "https://www.atlassian.com/${punctuation}" to hyperlink`, () => {
               const { editorView, sel } = editor(doc(p('{<>}')));
               insertText(

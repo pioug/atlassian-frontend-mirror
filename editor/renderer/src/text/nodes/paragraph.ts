@@ -5,7 +5,7 @@ const paragraph: NodeReducer = (node: PMNode, schema: Schema) => {
   const result: string[] = [];
   let previousNodeType = '';
 
-  node.forEach(n => {
+  node.forEach((n) => {
     const text = reduce(n, schema);
     if (previousNodeType === 'mention' && !text.startsWith(' ')) {
       result.push(` ${text}`);

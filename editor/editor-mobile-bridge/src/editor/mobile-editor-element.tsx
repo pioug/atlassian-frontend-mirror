@@ -216,7 +216,7 @@ export function MobileEditor(props: MobileEditorProps) {
   );
 }
 
-const MobileEditorWithBridge: React.FC<MobileEditorProps> = props => {
+const MobileEditorWithBridge: React.FC<MobileEditorProps> = (props) => {
   return <MobileEditor {...props} />;
 };
 

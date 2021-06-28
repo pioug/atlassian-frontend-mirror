@@ -109,7 +109,7 @@ export default function CheckboxGroup({
       defaultValue={defaultValue}
       validate={(value?: string[]) => validate(value, isRequired)}
     >
-      {props => {
+      {(props) => {
         return (
           <CheckboxGroupInner
             label={label}

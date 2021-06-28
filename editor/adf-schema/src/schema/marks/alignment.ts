@@ -29,7 +29,7 @@ export const alignment: MarkSpec = {
   parseDOM: [
     {
       tag: 'div.fabric-editor-block-mark',
-      getAttrs: dom => {
+      getAttrs: (dom) => {
         const align = (dom as Element).getAttribute('data-align');
         return align ? { align } : false;
       },

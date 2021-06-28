@@ -6,9 +6,9 @@ import { setMediaClientConfig } from '../commands/media-editor';
 import { createPluginState, pluginKey } from './media-editor-plugin-factory';
 
 // handle mapping changes to providers -> plugin state
-const pluginView = (
-  providerFactory: ProviderFactory,
-): PluginSpec['view'] => view => {
+const pluginView = (providerFactory: ProviderFactory): PluginSpec['view'] => (
+  view,
+) => {
   const updateMediaProvider = async (
     name: string,
     provider?: Promise<MediaProvider>,

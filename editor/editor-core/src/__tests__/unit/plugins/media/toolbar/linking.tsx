@@ -206,7 +206,7 @@ describe('media', () => {
     if (toolbar?.items) {
       const customLinkingToolbar = (toolbar.items as FloatingToolbarItem<
         Command
-      >[]).find(item => item.type === 'custom') as FloatingToolbarCustom<
+      >[]).find((item) => item.type === 'custom') as FloatingToolbarCustom<
         Command
       >;
 
@@ -253,7 +253,7 @@ describe('media', () => {
     });
 
     const linkingToolbarComponent = getToolbarItems(toolbar!, editorView).find(
-      item => item.type === 'custom',
+      (item) => item.type === 'custom',
     ) as FloatingToolbarCustom<Command>;
 
     const linkingToolbar = mountWithIntl<LinkAddToolbarProps, any>(
@@ -441,7 +441,7 @@ describe('media', () => {
                 ['javascript://invalid.link'],
                 ['http//test/com'],
                 [''],
-              ])('should not allow <<%s>>', invalidValue => {
+              ])('should not allow <<%s>>', (invalidValue) => {
                 onSubmit(invalidValue);
                 linkingToolbar.update();
 
@@ -458,7 +458,7 @@ describe('media', () => {
                 ['https://www.atlassian.com'],
                 ['http://atlassian.com'],
                 ['atlassian.com'],
-              ])('should allow <<%s>>', validValue => {
+              ])('should allow <<%s>>', (validValue) => {
                 onSubmit(validValue);
 
                 linkingToolbar.update();

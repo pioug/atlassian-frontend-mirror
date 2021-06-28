@@ -2,7 +2,7 @@ import React from 'react';
 
 import Avatar, { AvatarItem } from '../../src';
 
-export default function AvatarItemIsTruncationDisabled() {
+const AvatarItemIsTruncationDisabled = () => {
   return (
     <div style={{ maxWidth: 120, border: '1px solid pink' }}>
       <AvatarItem
@@ -19,4 +19,6 @@ export default function AvatarItemIsTruncationDisabled() {
       />
     </div>
   );
-}
+};
+
+export default AvatarItemIsTruncationDisabled;

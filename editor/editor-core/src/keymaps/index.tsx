@@ -178,7 +178,7 @@ export function findKeymapByDescription(
   description: string,
 ): Keymap | undefined {
   const matches = ALL.filter(
-    keymap => keymap.description.toUpperCase() === description.toUpperCase(),
+    (keymap) => keymap.description.toUpperCase() === description.toUpperCase(),
   );
   return matches[0];
 }

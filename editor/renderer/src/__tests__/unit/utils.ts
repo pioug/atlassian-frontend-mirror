@@ -10,7 +10,7 @@ describe('Renderer - utils', () => {
 
     beforeEach(() => {
       transformer = { encode: jest.fn(), parse: jest.fn() };
-      transformerProvider = jest.fn(_schema => transformer);
+      transformerProvider = jest.fn((_schema) => transformer);
     });
 
     it('should pass the default schema to the transformer provider', () => {

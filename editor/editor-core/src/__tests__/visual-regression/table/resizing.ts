@@ -77,7 +77,7 @@ describe('Snapshot Test: table resizing', () => {
     describe.each([
       ['without tableOverflowShadowsOptimization', false],
       ['with tableOverflowShadowsOptimization', true],
-    ])('Overflow Table %s', tableOverflowShadowsOptimization => {
+    ])('Overflow Table %s', (tableOverflowShadowsOptimization) => {
       beforeEach(async () => {
         await initEditorWithTable({
           tableOverflowShadowsOptimization,
@@ -215,7 +215,7 @@ describe('Snapshot Test: table resize handle line', () => {
 
   it.each([1, 2, 3, 4, 5, 6])(
     'should display the resize handle line row %d',
-    async row => {
+    async (row) => {
       await grabResizeHandle(page, { colIdx: 1, row });
       await animationFrame(page);
       await waitToolbarThenSnapshot(page);

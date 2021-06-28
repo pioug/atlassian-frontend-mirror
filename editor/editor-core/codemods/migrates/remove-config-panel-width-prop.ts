@@ -17,7 +17,7 @@ const createRemoveComponentPropTransform = (
     );
 
     // Make the change on all instances of named imports found
-    importedNames.forEach(importedComponentName => {
+    importedNames.forEach((importedComponentName) => {
       source
         .findJSXElements(importedComponentName)
         .find(j.JSXAttribute, {
@@ -26,7 +26,7 @@ const createRemoveComponentPropTransform = (
             name: propName,
           },
         })
-        .forEach(x => j(x).remove());
+        .forEach((x) => j(x).remove());
     });
   };
 };

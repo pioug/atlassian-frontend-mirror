@@ -27,7 +27,7 @@ const ActiveHeaderIdConsumer = ({
 
   return (
     <Consumer>
-      {newActiveHeaderId => {
+      {(newActiveHeaderId) => {
         if (
           !newActiveHeaderId ||
           !nestedHeaderIds.includes(newActiveHeaderId)

@@ -4,8 +4,8 @@ export function findUniqueItemsIn<T>(
   comparator?: (firstItem: T, secondItem: T) => boolean,
 ): Array<T> {
   return findIn.filter(
-    firstItem =>
-      checkWith.findIndex(secondItem =>
+    (firstItem) =>
+      checkWith.findIndex((secondItem) =>
         comparator
           ? comparator(firstItem, secondItem)
           : firstItem === secondItem,
@@ -19,7 +19,7 @@ export function filterUniqueItems<T>(
 ): Array<T> {
   return arr.filter((firstItem, index, self) => {
     return (
-      self.findIndex(secondItem =>
+      self.findIndex((secondItem) =>
         comparator
           ? comparator(firstItem, secondItem)
           : firstItem === secondItem,

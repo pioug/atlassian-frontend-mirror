@@ -77,7 +77,7 @@ const listBackspaceCase2: BackspaceCommand = (tr, dispatch, $prev, $head) => {
 
   insertContentDeleteRange(
     tr,
-    tr => tr.doc.resolve(textInsertPos),
+    (tr) => tr.doc.resolve(textInsertPos),
     [
       [textContent, textInsertPos],
       [childrenGContent, childrenGInsertPos],
@@ -162,7 +162,7 @@ const listBackspaceCase3: BackspaceCommand = (tr, dispatch, $prev, $head) => {
 
   insertContentDeleteRange(
     tr,
-    tr => tr.doc.resolve(textInsertPos),
+    (tr) => tr.doc.resolve(textInsertPos),
     containsChildrenJ
       ? [
           [textContent, textInsertPos],
@@ -280,7 +280,7 @@ const listBackspaceCase4: BackspaceCommand = (
 
   insertContentDeleteRange(
     tr,
-    tr => tr.doc.resolve(textInsertPos),
+    (tr) => tr.doc.resolve(textInsertPos),
     containsChildrenO
       ? [
           [textContent, textInsertPos],

@@ -3,7 +3,7 @@ import { reduce, NodeReducer } from './';
 
 const bulletList: NodeReducer = (node: PMNode, schema: Schema) => {
   const result: string[] = [];
-  node.forEach(n => {
+  node.forEach((n) => {
     result.push(`* ${reduce(n, schema)}`);
   });
   return result.join('\n');

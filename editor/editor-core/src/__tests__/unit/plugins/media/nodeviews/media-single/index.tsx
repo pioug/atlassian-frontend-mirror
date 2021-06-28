@@ -318,7 +318,7 @@ describe('nodeviews/mediaSingle', () => {
       )(node, view, getPos);
 
       // ensure that if it falls through to the default it returns false
-      nodeView['_viewShouldUpdate'] = jest.fn(_node => false);
+      nodeView['_viewShouldUpdate'] = jest.fn((_node) => false);
 
       expect(nodeView.viewShouldUpdate(node)).toBeFalsy();
     });
@@ -339,7 +339,7 @@ describe('nodeviews/mediaSingle', () => {
       );
 
       // ensure that if it falls through to the default it returns false
-      nodeView['_viewShouldUpdate'] = jest.fn(_node => false);
+      nodeView['_viewShouldUpdate'] = jest.fn((_node) => false);
 
       expect(nodeView.viewShouldUpdate(newNode)).toBeTruthy();
     });

@@ -7,7 +7,7 @@ import { N500 } from '@atlaskit/theme/colors';
 
 import { AutoDismissFlag, FlagGroup } from '../../src';
 
-const AutoDismissFlagInfo = () => {
+const AutoDismissFlagInfoExample = () => {
   const [flags, setFlags] = React.useState<Array<number>>([]);
 
   const addFlag = () => {
@@ -47,4 +47,4 @@ const AutoDismissFlagInfo = () => {
   );
 };
 
-export default AutoDismissFlagInfo;
+export default AutoDismissFlagInfoExample;

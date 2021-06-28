@@ -204,7 +204,7 @@ describe('insertCells', () => {
     const map = TableMap.get(table);
     insertCells(
       state,
-      tr => (state = state.apply(tr)),
+      (tr) => (state = state.apply(tr)),
       0,
       map.findCell($cell.pos),
       pastedCells(cells.slice(cells.refs.a, cells.refs.b))!,

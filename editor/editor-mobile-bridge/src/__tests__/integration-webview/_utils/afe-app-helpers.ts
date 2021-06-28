@@ -52,7 +52,7 @@ export async function clearContent(page: Page) {
  * Mimic the flow of bridge calls to upload a media item
  */
 export async function uploadMedia(page: Page, id = testMediaFileId) {
-  const mediaFile = mockFiles.find(file => file.id === id);
+  const mediaFile = mockFiles.find((file) => file.id === id);
   if (!mediaFile) {
     throw new Error(`No mock file found with id ${id}`);
   }
@@ -66,7 +66,7 @@ export async function uploadMedia(page: Page, id = testMediaFileId) {
     },
   };
   await page.switchToWeb();
-  await page.execute<void>(defaultFileAttrs => {
+  await page.execute<void>((defaultFileAttrs) => {
     (window as any).bridge.onMediaPicked(
       'upload-preview-update',
       JSON.stringify({
@@ -80,7 +80,7 @@ export async function uploadMedia(page: Page, id = testMediaFileId) {
     publicId: id,
     collectionName: defaultCollectionName,
   };
-  await page.execute<void>(file => {
+  await page.execute<void>((file) => {
     (window as any).bridge.onMediaPicked(
       'upload-end',
       JSON.stringify({
@@ -118,19 +118,22 @@ export async function validateFontSizeOverride(
     updatedFontSize,
   );
   await setADFContent(page, adf, bridge);
-  const fontSize = await page.execute<{ p: string; h1: string }>(_selector => {
-    const paragraph = document.querySelector(`${_selector} > p`);
-    let pSize = '0';
-    let hSize = '0';
-    if (paragraph) {
-      pSize = getComputedStyle(paragraph).fontSize;
-    }
-    const heading = document.querySelector(`${_selector} > h1`);
-    if (heading) {
-      hSize = getComputedStyle(heading).fontSize;
-    }
-    return { p: pSize, h1: hSize };
-  }, selector);
+  const fontSize = await page.execute<{ p: string; h1: string }>(
+    (_selector) => {
+      const paragraph = document.querySelector(`${_selector} > p`);
+      let pSize = '0';
+      let hSize = '0';
+      if (paragraph) {
+        pSize = getComputedStyle(paragraph).fontSize;
+      }
+      const heading = document.querySelector(`${_selector} > h1`);
+      if (heading) {
+        hSize = getComputedStyle(heading).fontSize;
+      }
+      return { p: pSize, h1: hSize };
+    },
+    selector,
+  );
   if (Number(updatedFontSize) < 34) {
     expect(fontSize.p).toBe(`${updatedFontSize}px`);
     expect(Math.round(parseFloat(fontSize.h1))).toBe(

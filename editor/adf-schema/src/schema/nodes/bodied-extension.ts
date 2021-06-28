@@ -57,7 +57,7 @@ const createBodiedExtensionNodeSpec = (): NodeSpec => {
       },
       {
         tag: '[data-node-type="bodied-extension"]',
-        getAttrs: domNode => getExtensionAttrs(domNode as HTMLElement),
+        getAttrs: (domNode) => getExtensionAttrs(domNode as HTMLElement),
       },
     ],
     toDOM(node: PMNode) {

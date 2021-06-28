@@ -11,7 +11,7 @@ const underline = `span=${toolbarMessages.underline.defaultMessage}`;
 const clear = `span=${toolbarMessages.clearFormatting.defaultMessage}`;
 
 // https://product-fabric.atlassian.net/browse/ED-4531
-[comment, fullpage].forEach(editor => {
+[comment, fullpage].forEach((editor) => {
   BrowserTestCase(
     `toolbar-3.ts: should be able to select Clear Formatting on toolbar for ${editor.name} editor`,
     { skip: ['safari', 'edge'] },

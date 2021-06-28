@@ -22,7 +22,7 @@ export default () => {
     await page.waitForSelector(inlineCardSelector());
   };
 
-  MobileTestCase('SmartLinks: inline', {}, async client => {
+  MobileTestCase('SmartLinks: inline', {}, async (client) => {
     const page = await Page.create(client);
     await loadEditorWidthAdf(page, smartLinkAdf);
     await page.switchToNative();
@@ -32,7 +32,7 @@ export default () => {
     await mobileSnapshot(page);
   });
 
-  MobileTestCase('SmartLinks: expand', {}, async client => {
+  MobileTestCase('SmartLinks: expand', {}, async (client) => {
     const page = await Page.create(client);
     await loadEditorWidthAdf(page, smartLinkExpandAdf);
     if (page.isAndroid()) {
@@ -41,7 +41,7 @@ export default () => {
     await mobileSnapshot(page);
   });
 
-  MobileTestCase('SmartLinks: table', {}, async client => {
+  MobileTestCase('SmartLinks: table', {}, async (client) => {
     const page = await Page.create(client);
     await loadEditorWidthAdf(page, smartLinkTableAdf);
     if (page.isAndroid()) {
@@ -50,7 +50,7 @@ export default () => {
     await mobileSnapshot(page);
   });
 
-  MobileTestCase('SmartLinks: list', {}, async client => {
+  MobileTestCase('SmartLinks: list', {}, async (client) => {
     const page = await Page.create(client);
     await loadEditorWidthAdf(page, smartLinkListAdf);
     await page.waitForSelector('ul');
@@ -59,7 +59,7 @@ export default () => {
     await mobileSnapshot(page);
   });
 
-  MobileTestCase('SmartLinks: layout', {}, async client => {
+  MobileTestCase('SmartLinks: layout', {}, async (client) => {
     const page = await Page.create(client);
     await loadEditorWidthAdf(page, smartLinkLayoutAdf);
     const layout = await page.$('[data-layout-section="true"]');
@@ -70,7 +70,7 @@ export default () => {
     await mobileSnapshot(page);
   });
 
-  MobileTestCase('SmartLinks: blue link', {}, async client => {
+  MobileTestCase('SmartLinks: blue link', {}, async (client) => {
     const page = await Page.create(client);
     await loadEditor(page);
     await page.switchToWeb();

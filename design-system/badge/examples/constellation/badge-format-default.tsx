@@ -2,6 +2,8 @@ import React from 'react';
 
 import { Format } from '../../src';
 
-export default function Example() {
+const BadgeFormatDefaultExample = () => {
   return <Format>{8}</Format>;
-}
+};
+
+export default BadgeFormatDefaultExample;

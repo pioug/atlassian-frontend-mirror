@@ -23,7 +23,7 @@ interface PanelStyledProps {
 }
 
 const PanelStyled = styled.div<PanelStyledProps>`
-  ${props => {
+  ${(props) => {
     if (
       props['data-panel-type'] !== PanelType.CUSTOM ||
       !props.backgroundColor

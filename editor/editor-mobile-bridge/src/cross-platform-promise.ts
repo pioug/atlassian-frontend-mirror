@@ -108,8 +108,8 @@ function createHolder<T>(): Holder<T> {
   const holder: Partial<Holder<T>> = {};
 
   holder.promise = new Promise<T>((resolve, reject) => {
-    holder.resolve = data => resolve(data);
-    holder.reject = err => reject(err);
+    holder.resolve = (data) => resolve(data);
+    holder.reject = (err) => reject(err);
   });
 
   return holder as Holder<T>;

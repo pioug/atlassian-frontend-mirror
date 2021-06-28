@@ -13,7 +13,7 @@ import { processRawValue } from '../../../../utils/document';
 import schema from '@atlaskit/editor-test-helpers/schema';
 
 const getNodeNames = (plugin: EditorPlugin) =>
-  plugin.nodes ? plugin.nodes().map(node => node.name) : [];
+  plugin.nodes ? plugin.nodes().map((node) => node.name) : [];
 
 const getNode = (plugin: EditorPlugin, nodeName: string) =>
   plugin.nodes && plugin.nodes().find(({ name }) => name === nodeName);

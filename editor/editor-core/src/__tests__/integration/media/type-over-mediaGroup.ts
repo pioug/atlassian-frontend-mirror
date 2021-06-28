@@ -6,7 +6,7 @@ import {
   goToEditorTestingWDExample,
 } from '../../__helpers/testing-example-helpers';
 
-[comment].forEach(editor => {
+[comment].forEach((editor) => {
   BrowserTestCase(
     `type-over-mediaGroup.ts: Typeover the selected media item in a media group`,
     { skip: ['edge'] },

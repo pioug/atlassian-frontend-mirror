@@ -5,7 +5,7 @@ import Form, { CheckboxField, FormFooter } from '@atlaskit/form';
 
 import { Checkbox } from '../../src';
 
-export default () => {
+const CheckboxRequiredExample = () => {
   const [isChecked, setIsChecked] = useState(false);
 
   const onChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
@@ -40,3 +40,5 @@ export default () => {
     </Form>
   );
 };
+
+export default CheckboxRequiredExample;

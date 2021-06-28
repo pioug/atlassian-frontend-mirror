@@ -29,7 +29,7 @@ describe.skip('Snapshot Test: Dynamic Text Sizing', () => {
     { width: 1440, height: 3200 },
     { width: 1120, height: 3000 },
     { width: 1000, height: 3000 },
-  ].forEach(viewport => {
+  ].forEach((viewport) => {
     it(`should correctly render ${viewport.width}`, async () => {
       await initRenderer(page, viewport);
     });

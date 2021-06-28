@@ -66,7 +66,7 @@ const createPlugin = (dispatch: Dispatch) => {
       },
     },
     appendTransaction(transactions, oldState, newState) {
-      const scrollTr = transactions.find(tr => {
+      const scrollTr = transactions.find((tr) => {
         const mobileScrollAction = tr.getMeta(mobileScrollPluginKey);
         return (
           mobileScrollAction &&

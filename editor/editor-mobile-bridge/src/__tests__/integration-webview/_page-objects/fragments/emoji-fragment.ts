@@ -22,7 +22,7 @@ export async function isTextPresent(page: Page, text: string) {
  * Ensure elements using a `background-image` have finished loading their `url`.
  */
 export const isEmojiBackgroundImageLoaded = (page: Page, selector: string) =>
-  new Promise(async resolve => {
+  new Promise(async (resolve) => {
     await page.waitForSelector(selector);
     const { loaded } = await page.executeAsync(
       (nodeSelector, done) => {

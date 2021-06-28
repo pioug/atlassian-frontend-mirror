@@ -8,12 +8,12 @@ export default function Example() {
       <Editor
         appearance="comment"
         quickInsert={true}
-        onSave={actions =>
+        onSave={(actions) =>
           actions
             .getValue()
-            .then(value => alert(JSON.stringify(value, null, 2)))
+            .then((value) => alert(JSON.stringify(value, null, 2)))
         }
-        onCancel={actions => actions.clear()}
+        onCancel={(actions) => actions.clear()}
       />
     </EditorContext>
   );

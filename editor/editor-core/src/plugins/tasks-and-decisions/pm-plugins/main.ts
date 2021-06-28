@@ -89,7 +89,7 @@ export function createPlugin(
       },
       handleClickOn: createSelectionClickHandler(
         ['decisionItem'],
-        target =>
+        (target) =>
           target.hasAttribute('data-decision-wrapper') ||
           target.getAttribute('aria-label') === 'Decision',
         { useLongPressSelection },
@@ -132,7 +132,7 @@ export function createPlugin(
             );
           } else {
             (providerPromise as Promise<ContextIdentifierProvider>).then(
-              provider => {
+              (provider) => {
                 setContextIdentifierProvider(provider)(
                   editorView.state,
                   editorView.dispatch,
@@ -158,7 +158,7 @@ export function createPlugin(
     appendTransaction: (transactions, _oldState, newState) => {
       const tr = newState.tr;
       let modified = false;
-      transactions.forEach(transaction => {
+      transactions.forEach((transaction) => {
         if (!transaction.docChanged) {
           return;
         }

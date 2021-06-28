@@ -83,7 +83,7 @@ export const selectionContainsList = (tr: Transaction): PMNode | null => {
     selection: { from, to },
   } = tr;
   let foundListNode: PMNode | null = null;
-  tr.doc.nodesBetween(from, to, node => {
+  tr.doc.nodesBetween(from, to, (node) => {
     if (isListNode(node)) {
       foundListNode = node;
     }

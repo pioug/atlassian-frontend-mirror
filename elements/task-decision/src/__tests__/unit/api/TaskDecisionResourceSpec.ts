@@ -54,7 +54,7 @@ describe('TaskDecisionResource', () => {
 
       return ((resource as any).itemStateManager as ItemStateManager)
         .getTaskState(tasks)
-        .then(response => {
+        .then((response) => {
           expect(response).toEqual(tasks);
         });
     });

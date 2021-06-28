@@ -78,7 +78,7 @@ export const testHistory = (
 
   dispatch(firstTransaction(editorState, refs));
 
-  historyTransactions.forEach(createTransaction => {
+  historyTransactions.forEach((createTransaction) => {
     dispatch(
       createTransaction(editorState, refs).setMeta('addToHistory', false),
     );

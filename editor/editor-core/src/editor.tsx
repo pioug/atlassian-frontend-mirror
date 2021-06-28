@@ -423,7 +423,7 @@ export default class Editor extends React.Component<EditorProps, State> {
 
     (Object.keys(deprecatedProperties) as Array<
       keyof typeof deprecatedProperties
-    >).forEach(property => {
+    >).forEach((property) => {
       if (props.hasOwnProperty(property)) {
         const meta: { type?: string; message?: string } =
           deprecatedProperties[property];
@@ -569,7 +569,7 @@ export default class Editor extends React.Component<EditorProps, State> {
     return this.props.onSave(view);
   };
 
-  handleAnalyticsEvent: FireAnalyticsCallback = data =>
+  handleAnalyticsEvent: FireAnalyticsCallback = (data) =>
     fireAnalyticsEvent(this.createAnalyticsEvent)(data);
 
   render() {
@@ -594,7 +594,7 @@ export default class Editor extends React.Component<EditorProps, State> {
         }}
       >
         <WithCreateAnalyticsEvent
-          render={createAnalyticsEvent =>
+          render={(createAnalyticsEvent) =>
             (this.createAnalyticsEvent = createAnalyticsEvent) && (
               <ErrorBoundary
                 createAnalyticsEvent={createAnalyticsEvent}
@@ -608,7 +608,7 @@ export default class Editor extends React.Component<EditorProps, State> {
                         useAnalyticsContext={
                           this.props.UNSAFE_useAnalyticsContext
                         }
-                        render={portalProviderAPI => (
+                        render={(portalProviderAPI) => (
                           <>
                             <ReactEditorView
                               editorProps={overriddenEditorProps}

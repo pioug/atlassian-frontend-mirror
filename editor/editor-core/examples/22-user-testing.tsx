@@ -56,7 +56,7 @@ export default class ExampleEditor extends React.Component<Props> {
       onChange: this.handleOnChange,
       primaryToolbarComponents: (
         <WithEditorActions
-          render={actions => <SaveAndCancelButtons editorActions={actions} />}
+          render={(actions) => <SaveAndCancelButtons editorActions={actions} />}
         />
       ),
       onTitleChange: this.handleTitleChange,

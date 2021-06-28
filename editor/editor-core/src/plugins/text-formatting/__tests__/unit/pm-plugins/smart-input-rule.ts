@@ -12,7 +12,7 @@ import blockType from '../../../../block-type';
 function typeText(view: EditorView, text: string) {
   const { $from, $to } = view.state.selection;
   if (
-    !view.someProp('handleTextInput', f => f(view, $from.pos, $to.pos, text))
+    !view.someProp('handleTextInput', (f) => f(view, $from.pos, $to.pos, text))
   ) {
     view.dispatch(view.state.tr.insertText(text, $from.pos, $to.pos));
   }
@@ -23,7 +23,7 @@ describe('text-formatting input rules', () => {
 
   describe.each([true, false])(
     'when useUnpredictableInputRule is %s',
-    useUnpredictableInputRule => {
+    (useUnpredictableInputRule) => {
       const editor = (doc: DocBuilder) => {
         const editor = createEditor({
           doc,

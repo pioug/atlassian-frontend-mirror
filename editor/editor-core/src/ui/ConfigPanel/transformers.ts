@@ -30,7 +30,7 @@ const isOptions = (options: any): options is Option[] => {
 /** maps the typed-values from the Form values object */
 function extract(value: Parameters[string], field: FieldDefinition) {
   if (isOptions(value)) {
-    return value.map(item => item.value);
+    return value.map((item) => item.value);
   } else if (isOption(value)) {
     return value.value;
   } else if (isDateRange(value)) {
@@ -56,7 +56,7 @@ export const serialize = async (
   if (data) {
     for (const name in data) {
       const field = fields.find(
-        field => field.name === getNameFromDuplicateField(name),
+        (field) => field.name === getNameFromDuplicateField(name),
       );
       if (field === undefined) {
         continue;
@@ -116,7 +116,7 @@ export const serialize = async (
 
   // when there are duplicate fields we return an array eg. [{ title: 'one' }, { title: 'two' }]
   // when there aren't we return an object eg. { title: 'one' }
-  const hasDuplicateFields = !!Object.keys(data).find(key =>
+  const hasDuplicateFields = !!Object.keys(data).find((key) =>
     isDuplicateField(key),
   );
   if (hasDuplicateFields) {
@@ -185,7 +185,7 @@ export const deserialize = async (
     const [name, originalValue] = Object.entries(item)[0];
 
     const field = fields.find(
-      field => field.name === getNameFromDuplicateField(name),
+      (field) => field.name === getNameFromDuplicateField(name),
     );
     if (field === undefined) {
       continue;

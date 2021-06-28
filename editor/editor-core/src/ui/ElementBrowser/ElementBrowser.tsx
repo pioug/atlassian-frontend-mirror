@@ -55,9 +55,9 @@ export default class ElementBrowser extends PureComponent<Props, State> {
       return [];
     }
     return categories.filter(
-      category =>
+      (category) =>
         category.name === 'all' ||
-        items.some(item => (item.categories || []).includes(category.name)),
+        items.some((item) => (item.categories || []).includes(category.name)),
     );
   };
 

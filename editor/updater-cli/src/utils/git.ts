@@ -32,7 +32,7 @@ export function commit(title: string, msg: PrintableOutput) {
   let msgByLine =
     '-m ' +
     processPrintableOutput(msg)
-      .map(line => `"${line}"`)
+      .map((line) => `"${line}"`)
       .join(' -m ');
   return pexec(`git commit -m "${title}" ${msgByLine}`);
 }

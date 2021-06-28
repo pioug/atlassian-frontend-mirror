@@ -19,7 +19,7 @@ import { withScrollIntoView } from '../../utils/commands';
 import batchDecorations from './utils/batch-decorations';
 
 export const activate = () =>
-  createCommand(state => {
+  createCommand((state) => {
     const { selection } = state;
     let findText: string | undefined;
     let matches: Match[] | undefined;
@@ -48,7 +48,7 @@ export const find = (
 ) =>
   withScrollIntoView(
     createCommand(
-      state => {
+      (state) => {
         const { selection } = state;
         const { shouldMatchCase } = getPluginState(state);
         const matches =
@@ -62,9 +62,9 @@ export const find = (
         batchDecorations.applyAllSearchDecorations(
           editorView,
           containerElement,
-          decorations =>
+          (decorations) =>
             addDecorations(decorations)(editorView.state, editorView.dispatch),
-          decorations =>
+          (decorations) =>
             removeDecorations(decorations)(
               editorView.state,
               editorView.dispatch,
@@ -99,7 +99,7 @@ export const find = (
 export const findNext = () =>
   withScrollIntoView(
     createCommand(
-      state => findInDirection(state, 'next'),
+      (state) => findInDirection(state, 'next'),
       (tr, state) => {
         const { matches, index } = getPluginState(state);
         // can't use index from plugin state because if the cursor has moved, it will still be the
@@ -120,7 +120,7 @@ export const findNext = () =>
 export const findPrevious = () =>
   withScrollIntoView(
     createCommand(
-      state => findInDirection(state, 'previous'),
+      (state) => findInDirection(state, 'previous'),
       (tr, state) => {
         const { matches } = getPluginState(state);
         // can't use index from plugin state because if the cursor has moved, it will still be the
@@ -179,7 +179,7 @@ const findInDirection = (
 export const replace = (replaceText: string) =>
   withScrollIntoView(
     createCommand(
-      state => {
+      (state) => {
         const pluginState = getPluginState(state);
         const { findText } = pluginState;
         let { decorationSet, matches, index } = pluginState;
@@ -241,7 +241,7 @@ export const replaceAll = (replaceText: string) =>
     },
     (tr, state) => {
       const pluginState = getPluginState(state);
-      pluginState.matches.forEach(match => {
+      pluginState.matches.forEach((match) => {
         tr.insertText(
           replaceText,
           tr.mapping.map(match.start),
@@ -254,7 +254,7 @@ export const replaceAll = (replaceText: string) =>
   );
 
 export const addDecorations = (decorations: Decoration[]) =>
-  createCommand(state => {
+  createCommand((state) => {
     const { decorationSet } = getPluginState(state);
     return {
       type: FindReplaceActionTypes.UPDATE_DECORATIONS,
@@ -263,7 +263,7 @@ export const addDecorations = (decorations: Decoration[]) =>
   });
 
 export const removeDecorations = (decorations: Decoration[]) =>
-  createCommand(state => {
+  createCommand((state) => {
     const { decorationSet } = getPluginState(state);
     return {
       type: FindReplaceActionTypes.UPDATE_DECORATIONS,

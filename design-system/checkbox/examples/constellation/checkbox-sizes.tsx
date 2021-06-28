@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Checkbox } from '../../src';
 
-export default function BasicUsageExample() {
+const CheckboxSizesExample = () => {
   return (
     <div>
       <Checkbox
@@ -32,4 +32,6 @@ export default function BasicUsageExample() {
       />
     </div>
   );
-}
+};
+
+export default CheckboxSizesExample;

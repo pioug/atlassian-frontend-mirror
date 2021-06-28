@@ -91,7 +91,7 @@ function buildInlineCommentQuerySelector(inlineCommentId: string): string {
   });
 
   return Object.entries(dataAttributes)
-    .map(attribute => `[${attribute[0]}="${attribute[1]}"]`)
+    .map((attribute) => `[${attribute[0]}="${attribute[1]}"]`)
     .join('');
 }
 

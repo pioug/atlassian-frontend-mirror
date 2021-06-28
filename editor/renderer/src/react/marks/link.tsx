@@ -50,7 +50,7 @@ export default function Link(props: MarkProps<LinkProps>) {
 
   return (
     <StyledAnchor
-      onClick={e => {
+      onClick={(e) => {
         if (fireAnalyticsEvent) {
           fireAnalyticsEvent({
             action: ACTION.VISITED,

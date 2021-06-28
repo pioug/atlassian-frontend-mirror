@@ -55,7 +55,7 @@ describe('FormErrorBoundary', () => {
     expect(
       wrapper
         .findWhere(
-          el =>
+          (el) =>
             el.name() === 'p' &&
             el.text() === messages.errorBoundaryNote.defaultMessage,
         )
@@ -65,7 +65,7 @@ describe('FormErrorBoundary', () => {
     expect(
       wrapper
         .findWhere(
-          el =>
+          (el) =>
             el.name() === 'i' &&
             el.text() === `Cannot read property 'provider' of undefined`,
         )

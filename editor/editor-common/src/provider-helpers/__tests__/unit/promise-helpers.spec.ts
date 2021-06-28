@@ -6,7 +6,7 @@ import {
 } from '../../promise-helpers';
 
 const resolvesIn = (timeout: number, value: any) =>
-  new Promise(resolve => {
+  new Promise((resolve) => {
     setTimeout(() => resolve(value), timeout);
   });
 

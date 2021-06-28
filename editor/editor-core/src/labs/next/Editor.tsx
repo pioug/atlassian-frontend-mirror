@@ -35,7 +35,7 @@ function Editor(props: EditorProps) {
     <IntlProvider locale="en">
       <PortalProvider
         onAnalyticsEvent={props.onAnalyticsEvent}
-        render={portalProviderAPI => (
+        render={(portalProviderAPI) => (
           <>
             <EditorInternal
               {...props}

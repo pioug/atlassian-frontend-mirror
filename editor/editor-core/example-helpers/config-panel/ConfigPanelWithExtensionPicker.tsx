@@ -29,7 +29,7 @@ const ExampleWrapper = styled.div`
 `;
 
 const Column = styled.div<{ width: number | string }>`
-  width: ${props => props.width}px;
+  width: ${(props) => props.width}px;
   margin: ${multiply(gridSize, 2)}px;
 
   h3 {
@@ -187,7 +187,7 @@ export default function ConfigPanelWithExtensionPicker({
             selectedExtension={extensionKey}
             selectedNode={nodeKey}
             extensionProvider={extensionProvider}
-            onSelect={params => {
+            onSelect={(params) => {
               setNodeAndParameters(params);
               setItem(params.item);
 

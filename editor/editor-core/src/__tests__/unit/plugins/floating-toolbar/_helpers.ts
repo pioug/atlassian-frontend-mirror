@@ -23,5 +23,5 @@ export const findToolbarBtn = (
   title: string,
 ): FloatingToolbarButton<Command> =>
   items.find(
-    item => item.type === 'button' && item.title === title,
+    (item) => item.type === 'button' && item.title === title,
   ) as FloatingToolbarButton<Command>;

@@ -72,10 +72,10 @@ describe('Media plugin', () => {
           fileMimeType: 'image/jpeg',
           status: 'preview',
         },
-        evt => evts.push(evt),
+        (evt) => evts.push(evt),
       );
       jest.runOnlyPendingTimers();
-      evts.forEach(cb =>
+      evts.forEach((cb) =>
         cb({
           id: 'foo',
           fileName: 'foo.jpg',
@@ -102,7 +102,7 @@ describe('Media plugin', () => {
           fileMimeType: 'image/jpeg',
           status: 'preview',
         },
-        evt => fooEvents.push(evt),
+        (evt) => fooEvents.push(evt),
       );
       pluginState.insertFile(
         {
@@ -110,14 +110,14 @@ describe('Media plugin', () => {
           fileMimeType: 'image/jpeg',
           status: 'preview',
         },
-        evt => barEvents.push(evt),
+        (evt) => barEvents.push(evt),
       );
 
       expect(pluginState.allUploadsFinished).toBe(false);
       jest.runOnlyPendingTimers();
       expect(pluginState.allUploadsFinished).toBe(false);
 
-      fooEvents.forEach(cb =>
+      fooEvents.forEach((cb) =>
         cb({
           id: 'foo',
           fileName: 'foo.jpg',
@@ -131,7 +131,7 @@ describe('Media plugin', () => {
       jest.runOnlyPendingTimers();
       expect(pluginState.allUploadsFinished).toBe(false);
 
-      barEvents.forEach(cb =>
+      barEvents.forEach((cb) =>
         cb({
           id: 'bar',
           fileName: 'bar.jpg',

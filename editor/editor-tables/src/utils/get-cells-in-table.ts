@@ -23,7 +23,7 @@ export const getCellsInTable = (
   });
 
   return positions
-    .map(cellPos => {
+    .map((cellPos) => {
       const node = table.node.nodeAt(cellPos);
       if (node) {
         const pos = cellPos + table.start;

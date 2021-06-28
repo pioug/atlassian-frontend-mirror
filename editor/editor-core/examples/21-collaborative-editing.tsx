@@ -40,7 +40,7 @@ const SaveAndCancelButtons = (props: { editorActions: EditorActions }) => (
       onClick={() =>
         props.editorActions
           .getValue()
-          .then(value => console.log(value.toJSON()))
+          .then((value) => console.log(value.toJSON()))
       }
     >
       Publish
@@ -153,7 +153,7 @@ export default class Example extends React.Component<Props, State> {
         {this.renderErrorFlag()}
         {this.renderDocumentId()}
         <DropzoneEditorWrapper>
-          {parentContainer => (
+          {(parentContainer) => (
             <EditorContext>
               <Editor
                 appearance="full-page"
@@ -198,7 +198,7 @@ export default class Example extends React.Component<Props, State> {
                 shouldFocus={false}
                 primaryToolbarComponents={
                   <WithEditorActions
-                    render={actions => (
+                    render={(actions) => (
                       <SaveAndCancelButtons editorActions={actions} />
                     )}
                   />

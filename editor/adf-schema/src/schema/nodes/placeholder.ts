@@ -21,7 +21,7 @@ export const placeholder: NodeSpec = {
   parseDOM: [
     {
       tag: 'span[data-placeholder]',
-      getAttrs: dom => ({
+      getAttrs: (dom) => ({
         text:
           (dom as HTMLElement).getAttribute('data-placeholder') ||
           placeholder.attrs!.text.default,

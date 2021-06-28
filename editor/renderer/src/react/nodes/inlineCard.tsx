@@ -18,7 +18,7 @@ export interface InlineCardProps {
 
 const InlineCard: React.FunctionComponent<
   InlineCardProps & WithSmartCardStorageProps
-> = props => {
+> = (props) => {
   const { url, data, eventHandlers, portal } = props;
   const onClick = getCardClickHandler(eventHandlers, url);
 
@@ -36,7 +36,7 @@ const InlineCard: React.FunctionComponent<
         <Card
           appearance="inline"
           {...cardProps}
-          onResolve={data => {
+          onResolve={(data) => {
             if (!data.url || !data.title) {
               return;
             }

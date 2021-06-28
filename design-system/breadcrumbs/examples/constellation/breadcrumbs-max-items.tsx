@@ -2,7 +2,7 @@ import React from 'react';
 
 import Breadcrumbs, { BreadcrumbsItem } from '../../src';
 
-export default function Example() {
+const BreadcrumbsMaxItemsExample = () => {
   return (
     <Breadcrumbs maxItems={3}>
       <BreadcrumbsItem href="/item" text="Item 1" />
@@ -13,4 +13,6 @@ export default function Example() {
       <BreadcrumbsItem href="/item" text="Item 6" />
     </Breadcrumbs>
   );
-}
+};
+
+export default BreadcrumbsMaxItemsExample;

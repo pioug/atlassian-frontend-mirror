@@ -44,13 +44,13 @@ export class CommentEditorJiraBento extends React.Component<Props, State> {
   };
 
   onFocus = () =>
-    this.setState(prevState => ({ isExpanded: !prevState.isExpanded }));
+    this.setState((prevState) => ({ isExpanded: !prevState.isExpanded }));
 
   render() {
     return (
       <EditorContext>
         <WithEditorActions
-          render={actions => (
+          render={(actions) => (
             <CollapsedEditor
               isExpanded={this.state.isExpanded}
               onFocus={this.onFocus}

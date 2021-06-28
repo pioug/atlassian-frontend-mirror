@@ -68,7 +68,7 @@ const createSaveAndCancelButtons = (collectionName: string) => (props: {
           return;
         }
 
-        props.editorActions.getValue().then(value => {
+        props.editorActions.getValue().then((value) => {
           // eslint-disable-next-line no-console
           console.log(value);
           localStorage.setItem(
@@ -300,7 +300,7 @@ class ExampleEditorComponent extends React.Component<
   async componentDidMount() {
     const { mediaOptions } = this.state;
     // Simulate adding mediaProvider async
-    await new Promise(resolve => {
+    await new Promise((resolve) => {
       this.mediaProviderTimeoutId = window.setTimeout(resolve, 1000);
     });
     mediaOptions.set(
@@ -386,7 +386,7 @@ class ExampleEditorComponent extends React.Component<
           <h2>Editor ({collectionName})</h2>
           <SmartCardProvider>
             <WithEditorActions
-              render={actions => (
+              render={(actions) => (
                 <Editor
                   analyticsHandler={analyticsHandler}
                   allowAnalyticsGASV3={true}

@@ -138,7 +138,7 @@ const extendQuickInsertAction = (
   if (!extendedActions) {
     return quickInsertItems;
   }
-  return quickInsertItems.map(quickInsertItem => {
+  return quickInsertItems.map((quickInsertItem) => {
     const quickInsertId = quickInsertItem.id;
     if (quickInsertId && extendedActions[quickInsertId]) {
       const originalAction = quickInsertItem.action;
@@ -185,7 +185,7 @@ function quickInsertPluginFactory(
         const meta = tr.getMeta(pluginKey);
         if (meta) {
           const keys = Object.keys(meta) as Array<QuickInsertPluginStateKeys>;
-          const changed = keys.some(key => {
+          const changed = keys.some((key) => {
             return pluginState[key] !== meta[key];
           });
 

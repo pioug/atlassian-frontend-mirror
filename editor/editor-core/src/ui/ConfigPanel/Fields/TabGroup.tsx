@@ -32,7 +32,7 @@ const TabGroupImpl = (props: Props) => {
 
   const [activeTab, setActiveTab] = useState<number>(() => {
     const activeTabName = field.defaultTab || fields[0].name;
-    const index = fields.findIndex(f => f.name === activeTabName);
+    const index = fields.findIndex((f) => f.name === activeTabName);
     return Math.max(index, 0);
   });
 
@@ -55,7 +55,7 @@ const TabGroupImpl = (props: Props) => {
             <Tab key={`tab-${name}`}>{label}</Tab>
           ))}
         </TabList>
-        {fields.map(field => (
+        {fields.map((field) => (
           <TabPanel key={`panel-${field.name}`}>
             <PanelWrapper>{renderPanel(field)}</PanelWrapper>
           </TabPanel>

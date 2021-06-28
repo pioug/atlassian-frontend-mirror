@@ -19,7 +19,7 @@ export const Input: ComponentClass<
     font-size: ${relativeFontSizeToBase16(13)};
     line-height: 20px;
     padding: 0;
-    ${props => (props.width ? `width: ${props.width}px` : '')};
+    ${(props) => (props.width ? `width: ${props.width}px` : '')};
     min-width: 145px;
 
     /* Hides IE10+ built-in [x] clear input button */

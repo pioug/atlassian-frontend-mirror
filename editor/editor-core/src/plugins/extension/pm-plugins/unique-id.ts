@@ -11,7 +11,7 @@ const createPlugin = () =>
       const tr = newState.tr;
       const selectionBookmark = tr.selection.getBookmark();
       let modified = false;
-      transactions.forEach(transaction => {
+      transactions.forEach((transaction) => {
         if (!transaction.docChanged) {
           return;
         }

@@ -137,7 +137,7 @@ class Example extends Component<ExampleProps, ExampleState> {
         <Content>
           <EditorContext>
             <WithEditorActions
-              render={actions => (
+              render={(actions) => (
                 <Editor
                   appearance="full-page"
                   allowTextColor={true}
@@ -154,7 +154,7 @@ class Example extends Component<ExampleProps, ExampleState> {
                   allowDate={true}
                   {...providers}
                   media={{ provider: mediaProvider, allowMediaSingle: true }}
-                  contentTransformerProvider={schema =>
+                  contentTransformerProvider={(schema) =>
                     new ConfluenceTransformer(schema)
                   }
                   placeholder="Write something..."
@@ -169,7 +169,7 @@ class Example extends Component<ExampleProps, ExampleState> {
                   }
                   primaryToolbarComponents={
                     <WithEditorActions
-                      render={actions => (
+                      render={(actions) => (
                         <SaveAndCancelButtons editorActions={actions} />
                       )}
                     />
@@ -226,7 +226,7 @@ export default class ExampleWrapper extends Component<
     // eslint-disable-next-line no-console
     console.log('Change');
 
-    editorActions.getValue().then(value => {
+    editorActions.getValue().then((value) => {
       // eslint-disable-next-line no-console
       console.log('Value has been resolved', value);
       this.setState({

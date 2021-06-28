@@ -26,7 +26,7 @@ export const shouldAutoCloseQuote = (before: string, after: string) => {
 };
 
 export const getAutoClosingQuoteInfo = (before: string, after: string) => {
-  const left = (Object.keys(QUOTE_MAP) as Array<QuoteMapKey>).find(item =>
+  const left = (Object.keys(QUOTE_MAP) as Array<QuoteMapKey>).find((item) =>
     before.endsWith(item),
   );
   const right = left ? (QUOTE_MAP[left] as string) : undefined;

@@ -31,8 +31,8 @@ const baseADF = {
 const panelSelector = '.ak-editor-panel__content p';
 const gapCursorSelector = '.ProseMirror-gapcursor span';
 
-['comment', 'full-page'].forEach(editor => {
-  ['Left', 'Right'].forEach(direction => {
+['comment', 'full-page'].forEach((editor) => {
+  ['Left', 'Right'].forEach((direction) => {
     BrowserTestCase(
       `gap-cursor: should display to ${direction} of block node after hitting ${direction} key for ${editor} editor`,
       { skip: ['edge'] },

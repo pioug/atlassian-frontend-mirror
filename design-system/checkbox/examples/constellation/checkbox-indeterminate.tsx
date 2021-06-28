@@ -27,7 +27,7 @@ const getIsParentIndeterminate = (checkedItems: CheckedItems) => {
   return checkedChildrenCount > 0 && checkedChildrenCount < 3;
 };
 
-const IndeterminateCheckbox = () => {
+const IndeterminateCheckboxExample = () => {
   const initialCheckedItems: Record<string, boolean> = {
     [PARENT_ID]: false,
     [CHILD_1_ID]: false,
@@ -106,4 +106,4 @@ const IndeterminateCheckbox = () => {
   );
 };
 
-export default IndeterminateCheckbox;
+export default IndeterminateCheckboxExample;

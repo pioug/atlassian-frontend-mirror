@@ -31,7 +31,7 @@ describe('Snapshot Test: Media', () => {
     page = global.page;
   });
 
-  editors.forEach(editor => {
+  editors.forEach((editor) => {
     describe(`${editor.appearance} editor`, () => {
       beforeEach(async () => {
         await initEditorWithAdf(page, {

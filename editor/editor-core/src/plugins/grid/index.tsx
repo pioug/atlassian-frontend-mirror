@@ -87,7 +87,7 @@ const gutterGridLines = (
 
   const wideSpacing =
     (editorMaxWidth * breakoutWideScaleRatio - editorMaxWidth) / 2;
-  sides.forEach(side => {
+  sides.forEach((side) => {
     gridLines.push(
       <div
         key={side}

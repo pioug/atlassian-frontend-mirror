@@ -66,7 +66,7 @@ const listDeleteCase1: DeleteCommand = (tr, dispatch, $next, $head) => {
 
   insertContentDeleteRange(
     tr,
-    tr => tr.doc.resolve(textInsertPos),
+    (tr) => tr.doc.resolve(textInsertPos),
     [[textContent, textInsertPos]],
     [[beforeParagraphE, afterParagraphE]],
   );
@@ -125,7 +125,7 @@ const listDeleteCase2: DeleteCommand = (tr, dispatch, $next, $head) => {
 
   insertContentDeleteRange(
     tr,
-    tr => tr.doc.resolve(textInsertPos),
+    (tr) => tr.doc.resolve(textInsertPos),
     [
       [textContent, textInsertPos],
       [childrenGContent, childrenGInsertPos],
@@ -215,7 +215,7 @@ const listDeleteCase3: DeleteCommand = (tr, dispatch, $next, $head) => {
 
   insertContentDeleteRange(
     tr,
-    tr => tr.doc.resolve(textInsertPos),
+    (tr) => tr.doc.resolve(textInsertPos),
     containsChildrenJ
       ? [
           [textContent, textInsertPos],
@@ -323,7 +323,7 @@ const listDeleteCase4: DeleteCommand = (tr, dispatch, $next, $head) => {
 
   insertContentDeleteRange(
     tr,
-    tr => tr.doc.resolve(textInsertPos),
+    (tr) => tr.doc.resolve(textInsertPos),
     containsChildrenO
       ? [
           [textContent, textInsertPos],

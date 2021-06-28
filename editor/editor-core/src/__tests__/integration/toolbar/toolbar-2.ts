@@ -11,7 +11,7 @@ const changeFormatting = `[aria-label="${blockTypeMessages.textStyles.defaultMes
 const input = 'helloworld';
 
 // https://product-fabric.atlassian.net/browse/ED-4531
-[comment, fullpage].forEach(editor => {
+[comment, fullpage].forEach((editor) => {
   BrowserTestCase(
     `toolbar-2.ts: should be able to select heading1 for ${editor.name} editor`,
     { skip: ['safari', 'edge'] },

@@ -56,7 +56,7 @@ describe('@atlaskit/editor-core/ui/ToolbarBlockType', () => {
     const toolbarOption = mountWithIntl(
       <ToolbarBlockType
         pluginState={pluginState}
-        setBlockType={name => setBlockType(name)(state, dispatch)}
+        setBlockType={(name) => setBlockType(name)(state, dispatch)}
         isDisabled={true}
       />,
     );
@@ -70,7 +70,7 @@ describe('@atlaskit/editor-core/ui/ToolbarBlockType', () => {
     const toolbarOption = mountWithIntl(
       <ToolbarBlockType
         pluginState={pluginState}
-        setBlockType={name => setBlockType(name)(state, dispatch)}
+        setBlockType={(name) => setBlockType(name)(state, dispatch)}
         isDisabled={true}
       />,
     );
@@ -85,7 +85,7 @@ describe('@atlaskit/editor-core/ui/ToolbarBlockType', () => {
     const toolbarOption = mountWithIntl(
       <ToolbarBlockType
         pluginState={pluginState}
-        setBlockType={name => setBlockType(name)(state, dispatch)}
+        setBlockType={(name) => setBlockType(name)(state, dispatch)}
       />,
     );
     expect(toolbarOption.find(AkButton).prop('isDisabled')).toBe(false);
@@ -100,7 +100,7 @@ describe('@atlaskit/editor-core/ui/ToolbarBlockType', () => {
     const toolbarOption = mountWithIntl(
       <ToolbarBlockType
         pluginState={pluginState}
-        setBlockType={name => setBlockType(name)(state, dispatch)}
+        setBlockType={(name) => setBlockType(name)(state, dispatch)}
         isDisabled={true}
       />,
     );
@@ -114,7 +114,7 @@ describe('@atlaskit/editor-core/ui/ToolbarBlockType', () => {
     const toolbarOption = mountWithIntl(
       <ToolbarBlockType
         pluginState={pluginState}
-        setBlockType={name => setBlockType(name)(state, dispatch)}
+        setBlockType={(name) => setBlockType(name)(state, dispatch)}
         isReducedSpacing={true}
       />,
     );
@@ -128,7 +128,7 @@ describe('@atlaskit/editor-core/ui/ToolbarBlockType', () => {
     const toolbarOption = mountWithIntl(
       <ToolbarBlockType
         pluginState={pluginState}
-        setBlockType={name => setBlockType(name)(state, dispatch)}
+        setBlockType={(name) => setBlockType(name)(state, dispatch)}
         isSmall={true}
       />,
     );
@@ -144,7 +144,7 @@ describe('@atlaskit/editor-core/ui/ToolbarBlockType', () => {
     const toolbarOption = mountWithIntl(
       <ToolbarBlockType
         pluginState={pluginState}
-        setBlockType={name => setBlockType(name)(state, dispatch)}
+        setBlockType={(name) => setBlockType(name)(state, dispatch)}
       />,
     );
     expect(toolbarOption.find(ToolbarButton).first().text()).toContain(
@@ -161,7 +161,7 @@ describe('@atlaskit/editor-core/ui/ToolbarBlockType', () => {
       toolbarOption = mountWithIntl(
         <ToolbarBlockType
           pluginState={pluginState}
-          setBlockType={name => setBlockType(name)(state, dispatch)}
+          setBlockType={(name) => setBlockType(name)(state, dispatch)}
         />,
       );
       toolbarOption.find('button').simulate('click');
@@ -179,13 +179,13 @@ describe('@atlaskit/editor-core/ui/ToolbarBlockType', () => {
       HEADING_4,
       HEADING_5,
       HEADING_6,
-    ].forEach(blockType => {
+    ].forEach((blockType) => {
       it(`should have tagName ${blockType.tagName} present`, () => {
         expect(
           toolbarOption
             .find(Item)
             .findWhere(
-              n =>
+              (n) =>
                 n.type() === blockType.tagName &&
                 n.text() === blockType.title.defaultMessage,
             ).length,

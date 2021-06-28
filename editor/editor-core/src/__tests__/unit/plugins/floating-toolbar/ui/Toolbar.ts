@@ -38,7 +38,7 @@ const select: Item = {
   selectType: 'list',
   defaultValue: { label: 'Item 1', value: 'item-1' },
   options: [selectOption1],
-  onChange: _ => createNoOpCommand(),
+  onChange: (_) => createNoOpCommand(),
 };
 
 describe('isSameItem', () => {

@@ -45,7 +45,7 @@ const handleDocChanged = (
   decorationSet = decorationSet.map(tr.mapping, tr.doc);
   const numDecorations = decorationSet.find().length;
 
-  const mappedMatches = matches.map(match => ({
+  const mappedMatches = matches.map((match) => ({
     start: tr.mapping.map(match.start),
     end: tr.mapping.map(match.end),
   }));
@@ -60,14 +60,14 @@ const handleDocChanged = (
   } else if (newMatches.length > 0 || numDecorations > 0) {
     // go through tr steps and find any new matches from user adding content or
     // any dead matches from user deleting content
-    tr.steps.forEach(step => {
+    tr.steps.forEach((step) => {
       if (stepHasSlice(step)) {
         // add all matches that are between the affected positions and don't already have
         // corresponding decorations
         matchesToAdd = [
           ...matchesToAdd,
           ...newMatches.filter(
-            match =>
+            (match) =>
               isMatchAffectedByStep(match, step, tr) &&
               !findDecorationFromMatch(decorationSet, match),
           ),
@@ -79,7 +79,7 @@ const handleDocChanged = (
           ...matchesToDelete,
           ...findUniqueItemsIn<Match>(
             mappedMatches.filter(
-              match =>
+              (match) =>
                 isMatchAffectedByStep(match, step, tr) &&
                 !!findDecorationFromMatch(decorationSet, match),
             ),
@@ -120,7 +120,7 @@ const handleDocChanged = (
   const selectedMatch = mappedMatches[index];
   if (selectedMatch) {
     newIndex = newMatches.findIndex(
-      match => match.start === selectedMatch.start,
+      (match) => match.start === selectedMatch.start,
     );
   }
   if (newIndex === undefined || newIndex === -1) {

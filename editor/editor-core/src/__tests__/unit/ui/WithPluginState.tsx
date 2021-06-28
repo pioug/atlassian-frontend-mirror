@@ -35,7 +35,7 @@ describe(name, () => {
   const pluginKey2 = new PluginKey('plugin2');
 
   const setTimeoutPromise = (cb: Function, delay: number) =>
-    new Promise(resolve => window.setTimeout(() => resolve(cb()), delay));
+    new Promise((resolve) => window.setTimeout(() => resolve(cb()), delay));
   const createPlugin = (state: any, key: PluginKey): EditorPlugin => {
     return {
       name: 'withPluginState',
@@ -282,7 +282,7 @@ describe(name, () => {
     dispatch(pluginKey, { cheese: '🧀' });
 
     return setTimeoutPromise(() => {}, 0).then(() => {
-      expect(mark.mock.calls.map(item => item[0])).not.toEqual(
+      expect(mark.mock.calls.map((item) => item[0])).not.toEqual(
         expect.arrayContaining([
           `🦉${key}::WithPluginState::start`,
           `🦉${key}::WithPluginState::end`,
@@ -327,7 +327,7 @@ describe(name, () => {
     dispatch(pluginKey, { cheese: '🧀' });
 
     return setTimeoutPromise(() => {}, 0).then(() => {
-      expect(mark.mock.calls.map(item => item[0])).toEqual(
+      expect(mark.mock.calls.map((item) => item[0])).toEqual(
         expect.arrayContaining([
           `🦉${key}::WithPluginState::start`,
           `🦉${key}::WithPluginState::end`,

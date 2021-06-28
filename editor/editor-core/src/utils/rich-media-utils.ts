@@ -131,13 +131,13 @@ export function calculateSnapPoints({
   const columns = wrappedLayout || insideInlineLike ? 1 : 2;
   const minimumWidth = calcPxFromColumns(columns, lineLength, gridSize);
 
-  let snapPoints = snapTargets.filter(width => width >= minimumWidth);
+  let snapPoints = snapTargets.filter((width) => width >= minimumWidth);
   if (!$pos) {
     return snapPoints;
   }
 
   snapPoints = isVideoFile
-    ? snapPoints.filter(width => width > 320)
+    ? snapPoints.filter((width) => width > 320)
     : snapPoints;
 
   const isTopLevel = $pos.parent.type.name === 'doc';

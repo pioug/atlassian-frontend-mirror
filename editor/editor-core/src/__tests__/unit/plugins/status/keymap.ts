@@ -19,7 +19,7 @@ describe('status - keymaps', () => {
     });
 
   describe('Consume Enter/Tab keys in status node', () => {
-    ['Tab', 'Enter'].forEach(key => {
+    ['Tab', 'Enter'].forEach((key) => {
       it(`When status node is selected and ${key} key is pressed then the node should not move`, () => {
         const adf = doc(
           p('boo something'),

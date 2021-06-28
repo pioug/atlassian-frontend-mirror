@@ -30,19 +30,19 @@ function md(str: string) {
 
 export function getLogDetails(changelogs: Log[], currentVersion: string) {
   const logs = changelogs.filter(
-    log =>
+    (log) =>
       satisfies(log.version, `>${coerce(currentVersion)}`) &&
       log.details.length,
   );
 
   const majorChanges = logs
-    .filter(log => log.type === 'major')
+    .filter((log) => log.type === 'major')
     .map(printLogDetails);
   const minorChanges = logs
-    .filter(log => log.type === 'minor')
+    .filter((log) => log.type === 'minor')
     .map(printLogDetails);
   const patchChanges = logs
-    .filter(log => log.type === 'patch')
+    .filter((log) => log.type === 'patch')
     .map(printLogDetails);
 
   return {
@@ -69,8 +69,8 @@ const isJiraTicket = (str: string) => str.match(jiraRegex);
 
 function sortChanges(logs: Log[]) {
   return logs.sort((a, b) => {
-    const aHas = a.details.some(d => !!d.link);
-    const bHas = b.details.some(d => !!d.link);
+    const aHas = a.details.some((d) => !!d.link);
+    const bHas = b.details.some((d) => !!d.link);
     if (aHas === bHas) {
       return 0;
     }
@@ -108,7 +108,7 @@ function parseChangelog(raw: string): Log[] {
       const updated: string[] = [];
       let isIndented = false;
 
-      lines.forEach(line => {
+      lines.forEach((line) => {
         const text = line
           .trim()
           .replace(/^-(\s)?(\[(major|minor|patch)\])?/, '')

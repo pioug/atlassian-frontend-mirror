@@ -119,7 +119,7 @@ describe('layout toolbar', () => {
 
     it('displays only 2 original layout buttons', () => {
       stdLayoutButtons.forEach(assertToolbarButtonPresent);
-      sidebarLayoutButtons.forEach(button => {
+      sidebarLayoutButtons.forEach((button) => {
         expect(
           findToolbarBtn(items, intl.formatMessage(button.message)),
         ).not.toBeDefined();
@@ -147,7 +147,7 @@ describe('layout toolbar', () => {
       items = getToolbarItems(toolbar, editorView);
     });
 
-    [...stdLayoutButtons, ...sidebarLayoutButtons].forEach(button => {
+    [...stdLayoutButtons, ...sidebarLayoutButtons].forEach((button) => {
       describe(`for "${button.name}" layout`, () => {
         let previousLayout: LAYOUT_TYPE;
 

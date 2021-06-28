@@ -67,7 +67,7 @@ describe('layout', () => {
           expect(pluginState.pos).toBe(0);
         });
 
-        layouts.forEach(layout => {
+        layouts.forEach((layout) => {
           it(`should set selectedLayout to "${layout.name}"`, () => {
             const document = doc(buildLayoutForWidths(layout.widths, true))(
               defaultSchema,
@@ -119,7 +119,7 @@ describe('layout', () => {
           expect(pluginKey.getState(editorView.state).pos).toEqual(2);
         });
 
-        layouts.forEach(layout => {
+        layouts.forEach((layout) => {
           it(`should set selectedLayout to "${layout.name}"`, () => {
             const document = doc(
               p('{<>}'),

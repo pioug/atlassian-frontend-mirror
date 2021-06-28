@@ -53,7 +53,7 @@ const testIt = async (
   const listNode = docNode.firstChild;
   const inlineNodes: PMNode[] = [];
 
-  listNode!.descendants(n => {
+  listNode!.descendants((n) => {
     if (!['paragraph', 'text', 'listItem', 'list'].includes(n.type.name)) {
       inlineNodes.push(n);
     }

@@ -1,5 +1,5 @@
 export function isDuplicateMark(node: { marks?: Array<any> }, type: string) {
-  if (node.marks && node.marks.some(mark => mark.type === type)) {
+  if (node.marks && node.marks.some((mark) => mark.type === type)) {
     return true;
   }
   return false;

@@ -248,7 +248,7 @@ const items: Array<QuickInsertItem> = [
 export default function quickInsertProviderFactory(): QuickInsertProvider {
   return {
     getItems() {
-      return new Promise(resolve => {
+      return new Promise((resolve) => {
         window.setTimeout(() => resolve(items), 1000);
       });
     },

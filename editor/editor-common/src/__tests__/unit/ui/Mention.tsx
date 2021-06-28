@@ -87,7 +87,7 @@ describe('@atlaskit/editor-core/ui/Mention', () => {
     mention.unmount();
   });
 
-  ['HipChat', 'all', 'here'].forEach(genericUserId => {
+  ['HipChat', 'all', 'here'].forEach((genericUserId) => {
     it(`should not render ResourcedMentionWithProfilecard if id is generic (${genericUserId})`, async () => {
       const providerFactory = new ProviderFactory();
       const profilecardProvider = Promise.resolve({} as ProfilecardProvider);

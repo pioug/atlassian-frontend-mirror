@@ -4,7 +4,7 @@ import Tooltip from '@atlaskit/tooltip';
 
 import Avatar from '../../src';
 
-export default function AvatarTooltipExample() {
+const AvatarTooltipExample = () => {
   const presence = 'online';
   const name = 'Mike Cannon-Brookes';
   const label = `${name} (${presence})`;
@@ -20,4 +20,6 @@ export default function AvatarTooltipExample() {
       />
     </Tooltip>
   );
-}
+};
+
+export default AvatarTooltipExample;

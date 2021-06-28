@@ -73,7 +73,7 @@ export class OverflowShadowsObserver {
 
       this.tableIntersectionObserver = new IntersectionObserver(
         (entries: IntersectionObserverEntry[], _: IntersectionObserver) => {
-          entries.forEach(entry => intersectonOnbserverCallback(entry));
+          entries.forEach((entry) => intersectonOnbserverCallback(entry));
         },
         {
           threshold: [0, 1],

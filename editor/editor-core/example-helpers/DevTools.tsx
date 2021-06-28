@@ -25,7 +25,7 @@ export function DevTools() {
   if (process.env.NODE_ENV !== 'test') {
     return (
       <WithEditorActions
-        render={actions => {
+        render={(actions) => {
           const editorView = actions._privateGetEditorView();
           if (editorView) {
             import(

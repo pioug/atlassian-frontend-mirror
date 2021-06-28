@@ -101,7 +101,7 @@ export const getValidDocument = (
 };
 
 const wrapInlineNodes = (nodes: ADNode[] = []): ADNode[] => {
-  return nodes.map(node =>
+  return nodes.map((node) =>
     inlineNodes.has(node.type) ? { type: 'paragraph', content: [node] } : node,
   );
 };
@@ -111,7 +111,7 @@ export const getValidContent = (
   schema: Schema = defaultSchema,
   adfStage: ADFStage = 'final',
 ): ADNode[] => {
-  return content.map(node => getValidNode(node, schema, adfStage));
+  return content.map((node) => getValidNode(node, schema, adfStage));
 };
 
 const TEXT_COLOR_PATTERN = /^#[0-9a-fA-F]{6}$/;
@@ -429,7 +429,10 @@ export const getValidNode = (
         break;
       }
       case 'mediaGroup': {
-        if (Array.isArray(content) && !content.some(e => e.type !== 'media')) {
+        if (
+          Array.isArray(content) &&
+          !content.some((e) => e.type !== 'media')
+        ) {
           return {
             type,
             content,
@@ -658,7 +661,7 @@ export const getValidNode = (
         if (
           Array.isArray(content) &&
           content.length > 0 &&
-          !content.some(e => e.type !== 'tableRow')
+          !content.some((e) => e.type !== 'tableRow')
         ) {
           if (adfStage === 'stage0') {
             return {
@@ -682,7 +685,9 @@ export const getValidNode = (
         if (
           Array.isArray(content) &&
           content.length > 0 &&
-          !content.some(e => e.type !== 'tableCell' && e.type !== 'tableHeader')
+          !content.some(
+            (e) => e.type !== 'tableCell' && e.type !== 'tableHeader',
+          )
         ) {
           return {
             type,

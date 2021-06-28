@@ -29,7 +29,7 @@ describe('annotation', () => {
         { from: -1, to: 10 },
         { from: -1, to: -1 },
         { from: -1, to: 10 },
-      ])('should return false', selection => {
+      ])('should return false', (selection) => {
         const { doc: docNode, schema } = createEditorState(doc(p('Corsair')));
 
         expect(

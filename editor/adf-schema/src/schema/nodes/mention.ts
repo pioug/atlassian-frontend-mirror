@@ -36,7 +36,7 @@ export const mention: NodeSpec = {
   parseDOM: [
     {
       tag: 'span[data-mention-id]',
-      getAttrs: domNode => {
+      getAttrs: (domNode) => {
         const dom = domNode as HTMLElement;
         const attrs: MentionAttributes = {
           id: dom.getAttribute('data-mention-id') || mention.attrs!.id.default,

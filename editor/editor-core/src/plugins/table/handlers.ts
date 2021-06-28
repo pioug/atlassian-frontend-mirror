@@ -16,7 +16,7 @@ const nextTableSorting = (
   table?: ContentNodeWithPos,
 ): TableColumnOrdering | undefined => {
   const tableSortStep: TableSortStep = tr.steps.find(
-    step => step instanceof TableSortStep,
+    (step) => step instanceof TableSortStep,
   ) as TableSortStep;
 
   return tableSortStep && table && table.pos === tableSortStep.pos
@@ -65,10 +65,9 @@ const updateTargetCellPosition: BuilderTablePluginState = ({ tr, table }) => (
   };
 };
 
-const updateTableNodePluginState: BuilderTablePluginState = ({
-  tr,
-  table,
-}) => pluginState => {
+const updateTableNodePluginState: BuilderTablePluginState = ({ tr, table }) => (
+  pluginState,
+) => {
   const tableNode = table && table.node;
 
   if (!tableNode || isTextInput(tr)) {
@@ -89,7 +88,7 @@ const updateTableNodePluginState: BuilderTablePluginState = ({
 
 const buildPluginState = (
   builders: Array<BuilderTablePluginState>,
-): BuilderTablePluginState => props => pluginState => {
+): BuilderTablePluginState => (props) => (pluginState) => {
   if (!props.table) {
     return pluginState.targetCellPosition
       ? { ...pluginState, targetCellPosition: undefined }

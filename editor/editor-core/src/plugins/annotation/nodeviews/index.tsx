@@ -32,7 +32,9 @@ export class AnnotationNodeView extends ReactNodeView {
 
           const id = this.node.attrs.id;
           const isUnresolved = annotations[id] === false;
-          const annotationHasFocus = selectedAnnotations.some(x => x.id === id);
+          const annotationHasFocus = selectedAnnotations.some(
+            (x) => x.id === id,
+          );
           const className = getAnnotationViewClassname(
             isUnresolved,
             annotationHasFocus,

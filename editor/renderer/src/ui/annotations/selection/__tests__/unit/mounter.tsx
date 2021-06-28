@@ -94,7 +94,7 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
     });
 
     describe('when keepNativeSelection is true', () => {
-      it('should update the native selection in the next animation frame', done => {
+      it('should update the native selection in the next animation frame', (done) => {
         const { applyDraftModeCallback } = renderMounter();
 
         expect(
@@ -114,7 +114,7 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
     });
 
     describe('when keepNativeSelection is false', () => {
-      it('should remove the native selection in the next animation frame', done => {
+      it('should remove the native selection in the next animation frame', (done) => {
         const onSelectionMock = jest.spyOn(window, 'getSelection');
         const removeAllRangesMock = jest.fn();
         (onSelectionMock as any).mockReturnValue({

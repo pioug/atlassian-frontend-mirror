@@ -70,7 +70,7 @@ export default class ExtensionLozenge extends Component<Props, any> {
         {params && !isBlockExtension && (
           <PlaceholderFallbackParams>
             {Object.keys(params).map(
-              key => key && ` | ${key} = ${params[key].value}`,
+              (key) => key && ` | ${key} = ${params[key].value}`,
             )}
           </PlaceholderFallbackParams>
         )}

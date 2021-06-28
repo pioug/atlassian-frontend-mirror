@@ -71,15 +71,15 @@ describe('extension context panel', () => {
 
   const ExtensionHandlerComponent = () => <div>Awesome Extension</div>;
 
-  const transformBefore: TransformBefore = parameters =>
+  const transformBefore: TransformBefore = (parameters) =>
     parameters && parameters.macroParams;
-  const transformAfter: TransformAfter = parameters =>
+  const transformAfter: TransformAfter = (parameters) =>
     Promise.resolve({
       macroParams: parameters,
     });
 
   const extensionUpdater: UpdateExtension = (data, actions) =>
-    new Promise(resolve => {
+    new Promise((resolve) => {
       actions!.editInContextPanel(transformBefore, transformAfter);
     });
 

@@ -101,7 +101,7 @@ describe('Renderer', () => {
           ids: AnnotationId[],
         ): Promise<AnnotationState<AnnotationTypes.INLINE_COMMENT>[]> => {
           getStateCallbackMock(ids);
-          return ids.map(id => ({
+          return ids.map((id) => ({
             id,
             annotationType: AnnotationTypes.INLINE_COMMENT,
             state: AnnotationMarkStates.ACTIVE,
@@ -489,7 +489,7 @@ describe('unsupported content levels severity', () => {
         ) => {
           expect(
             (createAnalyticsEvent as jest.Mock).mock.calls.filter(
-              callArgs =>
+              (callArgs) =>
                 callArgs[0].action ===
                 'unsupportedContentLevelsTrackingSucceeded',
             ).length,
@@ -522,7 +522,7 @@ describe('unsupported content levels severity', () => {
         ) => {
           expect(
             (createAnalyticsEvent as jest.Mock).mock.calls.filter(
-              callArgs =>
+              (callArgs) =>
                 callArgs[0].action ===
                   'unsupportedContentLevelsTrackingSucceeded' &&
                 callArgs[0].attributes.appearance === appearance,

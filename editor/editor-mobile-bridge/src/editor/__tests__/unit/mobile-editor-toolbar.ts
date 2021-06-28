@@ -86,7 +86,7 @@ describe('Notify editing capabilities to the native bridge', () => {
   const floatingToolbarConfigWithCallback: FloatingToolbarConfig = {
     title: 'blockCard',
     nodeType: defaultSchema.nodes['blockCard'],
-    items: node => {
+    items: (node) => {
       if (!node) {
         return [];
       }
@@ -571,7 +571,7 @@ describe('perform edit action', () => {
           id: 'id',
           type: 'select',
           selectType: 'list',
-          onChange: selected => {
+          onChange: (selected) => {
             return mockOnChange;
           },
           options: [
@@ -629,7 +629,7 @@ describe('perform edit action', () => {
   });
 
   it('should perform submit action for input', () => {
-    const mockOnChange = jest.fn(value => true);
+    const mockOnChange = jest.fn((value) => true);
     const floatingToolbarConfig: FloatingToolbarConfig = {
       title: 'floating',
       nodeType: defaultSchema.nodes['panel'],
@@ -637,7 +637,7 @@ describe('perform edit action', () => {
         {
           id: 'id',
           type: 'input',
-          onSubmit: input => () => {
+          onSubmit: (input) => () => {
             mockOnChange(input);
             return true;
           },

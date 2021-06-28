@@ -23,7 +23,7 @@ export function asOption(label: string): Option {
 }
 
 export function asOptions(labels: string[]) {
-  return labels.map(x => asOption(x));
+  return labels.map((x) => asOption(x));
 }
 
 export type Wrapper<T = any> = ReactWrapper<T, any, any>;
@@ -137,11 +137,11 @@ export function createOptionResolver(
 
     if (searchTerm) {
       const regex = new RegExp(searchTerm, 'i');
-      result = result.filter(x => regex.test(x.label) || regex.test(x.value));
+      result = result.filter((x) => regex.test(x.label) || regex.test(x.value));
     }
 
     if (filter) {
-      result = result.filter(x => filter(x, parameters));
+      result = result.filter((x) => filter(x, parameters));
     }
 
     return result;
@@ -207,14 +207,14 @@ export function createProvider(
       fields: {
         fieldset: {
           'json-group': {
-            serializer: value => JSON.stringify(value),
-            deserializer: value => JSON.parse(value),
+            serializer: (value) => JSON.stringify(value),
+            deserializer: (value) => JSON.parse(value),
           },
           'broken-group': {
-            serializer: params => {
+            serializer: (params) => {
               throw new Error('Something is broken');
             },
-            deserializer: result => {
+            deserializer: (result) => {
               throw new Error('Something is broken');
             },
           },
@@ -282,7 +282,7 @@ export async function updateParameters(wrapper: any, parameters: Parameters) {
   }
 
   // TODO: what are we waiting for
-  await new Promise(resolve => setTimeout(resolve, 100));
+  await new Promise((resolve) => setTimeout(resolve, 100));
 }
 
 // silences act() related warnings and errors

@@ -324,7 +324,7 @@ export default class ResizableMediaSingle extends React.Component<
     }
 
     const enable: EnabledHandles = {};
-    handleSides.forEach(side => {
+    handleSides.forEach((side) => {
       const oppositeSide = side === 'left' ? 'right' : 'left';
       enable[side] =
         ['full-width', 'wide', 'center']

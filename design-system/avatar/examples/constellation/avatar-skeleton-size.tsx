@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Skeleton } from '../../src';
 
-export default function AvatarSkeletonSizeExample() {
+const AvatarSkeletonSizeExample = () => {
   return (
     <div>
       <Skeleton size="xsmall" />
@@ -13,4 +13,6 @@ export default function AvatarSkeletonSizeExample() {
       <Skeleton size="xxlarge" />
     </div>
   );
-}
+};
+
+export default AvatarSkeletonSizeExample;

@@ -27,10 +27,10 @@ describe('selection plugin: utils', () => {
 
     it('combines multiple styles', () => {
       const allStyles = selectionStyles.map(
-        selectionStyle => selectionStyle.style,
+        (selectionStyle) => selectionStyle.style,
       );
       const allRegex = selectionStyles.map(
-        selectionStyle => selectionStyle.regex,
+        (selectionStyle) => selectionStyle.regex,
       );
 
       const css = getSelectionStyles(allStyles);

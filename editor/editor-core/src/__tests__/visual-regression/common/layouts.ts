@@ -61,7 +61,7 @@ describe('Layouts:', () => {
     await page.mouse.move(0, 0);
   });
 
-  layouts.forEach(layout => {
+  layouts.forEach((layout) => {
     describe(layout.name, () => {
       it('should correctly render layout on laptop', async () => {
         await initEditor(layout.adf, largeViewport);

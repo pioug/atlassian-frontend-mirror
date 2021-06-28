@@ -74,14 +74,14 @@ describe('Config panel', () => {
         fields: {
           fieldset: {
             'json-group': {
-              serializer: value => JSON.stringify(value),
-              deserializer: value => JSON.parse(value),
+              serializer: (value) => JSON.stringify(value),
+              deserializer: (value) => JSON.parse(value),
             },
             'broken-group': {
-              serializer: params => {
+              serializer: (params) => {
                 throw new Error('Something is broken');
               },
-              deserializer: result => {
+              deserializer: (result) => {
                 throw new Error('Something is broken');
               },
             },

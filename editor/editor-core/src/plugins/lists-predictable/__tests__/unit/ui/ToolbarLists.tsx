@@ -17,7 +17,7 @@ import { ReactWrapper } from 'enzyme';
 function clickToolbarOption(toolbarOption: ReactWrapper, title: string) {
   toolbarOption
     .find(ToolbarButton)
-    .filterWhere(toolbarButton =>
+    .filterWhere((toolbarButton) =>
       toolbarButton.find('Memo(Icon)').prop('label')!.includes(title),
     )
     .find('button')
@@ -68,7 +68,7 @@ describe('ToolbarLists', () => {
   it('should render disabled ToolbarButtons if disabled property is true', () => {
     const { toolbarLists } = setup({ disabled: true });
 
-    toolbarLists.find(ToolbarButton).forEach(node => {
+    toolbarLists.find(ToolbarButton).forEach((node) => {
       expect(node.prop('disabled')).toBe(true);
     });
   });

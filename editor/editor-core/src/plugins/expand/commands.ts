@@ -28,7 +28,7 @@ export const setExpandRef = (ref?: HTMLDivElement | null): Command =>
         ref,
       },
     },
-    tr => tr.setMeta('addToHistory', false),
+    (tr) => tr.setMeta('addToHistory', false),
   );
 
 export const deleteExpandAtPos = (

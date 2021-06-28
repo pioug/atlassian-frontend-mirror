@@ -73,7 +73,7 @@ const ToolbarButton = React.forwardRef<ToolbarButtonRef, Props>(
 
         if (buttonId) {
           analyticsEvent
-            .update(payload => ({
+            .update((payload) => ({
               ...payload,
               action: ACTION.CLICKED,
               actionSubject: ACTION_SUBJECT.TOOLBAR_BUTTON,

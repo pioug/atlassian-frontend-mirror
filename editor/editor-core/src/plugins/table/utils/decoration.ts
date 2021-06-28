@@ -24,7 +24,11 @@ const filterDecorationByKey = (
   key: TableDecorations,
   decorationSet: DecorationSet,
 ): Decoration[] =>
-  decorationSet.find(undefined, undefined, spec => spec.key.indexOf(key) > -1);
+  decorationSet.find(
+    undefined,
+    undefined,
+    (spec) => spec.key.indexOf(key) > -1,
+  );
 
 export const findColumnControlSelectedDecoration = (
   decorationSet: DecorationSet,
@@ -40,7 +44,7 @@ export const createCellHoverDecoration = (
   cells: Cell[],
   type: 'warning',
 ): Decoration[] =>
-  cells.map(cell =>
+  cells.map((cell) =>
     Decoration.node(
       cell.pos,
       cell.pos + cell.node.nodeSize,
@@ -58,7 +62,7 @@ export const createControlsHoverDecoration = (
   type: 'row' | 'column' | 'table',
   danger?: boolean,
 ): Decoration[] =>
-  cells.map(cell => {
+  cells.map((cell) => {
     const classes = [ClassName.HOVERED_CELL];
     if (danger) {
       classes.push(ClassName.HOVERED_CELL_IN_DANGER);
@@ -132,7 +136,7 @@ export const createColumnControlsDecoration = (
 ): Decoration[] => {
   const cells: ContentNodeWithPos[] = getCellsInRow(0)(selection) || [];
   let index = 0;
-  return cells.map(cell => {
+  return cells.map((cell) => {
     const colspan = (cell.node.attrs as CellAttributes).colspan || 1;
     const element = document.createElement('div');
     element.classList.add(ClassName.COLUMN_CONTROLS_DECORATIONS);
@@ -419,7 +423,7 @@ export const createColumnLineResize = (
   const map = TableMap.get(table.node);
 
   const cellPositions = makeArray(map.height)
-    .map(rowIndex => map.map[map.width * rowIndex + columnIndex])
+    .map((rowIndex) => map.map[map.width * rowIndex + columnIndex])
     .filter((cellPosition, rowIndex) => {
       if (columnIndex === map.width) {
         return true; // If is the last column no filter applied
@@ -428,7 +432,7 @@ export const createColumnLineResize = (
       return cellPosition !== nextPosition; // Removed it if next position is merged
     });
 
-  const cells = cellPositions.map(pos => ({
+  const cells = cellPositions.map((pos) => ({
     pos: pos + table.start,
     node: table.node.nodeAt(pos),
   }));

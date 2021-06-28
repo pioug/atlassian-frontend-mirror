@@ -2,7 +2,7 @@ import React from 'react';
 
 import Breadcrumbs, { BreadcrumbsItem } from '../../src';
 
-export default function Example() {
+const BreadcrumbsItemTruncationExample = () => {
   return (
     <Breadcrumbs>
       <BreadcrumbsItem text="Confluence" />
@@ -12,4 +12,6 @@ export default function Example() {
       />
     </Breadcrumbs>
   );
-}
+};
+
+export default BreadcrumbsItemTruncationExample;

@@ -51,9 +51,9 @@ export function createKeymapPlugin(
   return keymap(list);
 }
 
-const mayConvertLastWordToHyperlink: (
-  skipAnalytics: boolean,
-) => Command = skipAnalytics => {
+const mayConvertLastWordToHyperlink: (skipAnalytics: boolean) => Command = (
+  skipAnalytics,
+) => {
   return function (state, dispatch) {
     const nodeBefore = state.selection.$from.nodeBefore;
     if (!nodeBefore || !nodeBefore.isText) {

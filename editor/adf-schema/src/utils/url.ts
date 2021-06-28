@@ -37,7 +37,7 @@ const whitelistedURLPatterns = [
 ];
 
 export const isSafeUrl = (url: string): boolean => {
-  return whitelistedURLPatterns.some(p => p.test(url.trim()) === true);
+  return whitelistedURLPatterns.some((p) => p.test(url.trim()) === true);
 };
 
 export interface Match {

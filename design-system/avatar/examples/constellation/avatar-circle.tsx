@@ -2,7 +2,7 @@ import React from 'react';
 
 import Avatar from '../../src';
 
-export default function AvatarCircleExample() {
+const AvatarCircleExample = () => {
   return (
     <Avatar
       appearance="circle"
@@ -11,4 +11,6 @@ export default function AvatarCircleExample() {
       name="John Doe"
     />
   );
-}
+};
+
+export default AvatarCircleExample;

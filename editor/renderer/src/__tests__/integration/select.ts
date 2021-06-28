@@ -73,7 +73,7 @@ BrowserTestCase(
     await renderer.click();
     await page.keyboard.type('A', ['Mod']);
 
-    const rendererSelected = await page.evaluate(selector => {
+    const rendererSelected = await page.evaluate((selector) => {
       const el = document.querySelector(selector);
       const selection = window.getSelection();
       const range = selection?.getRangeAt(0);
@@ -248,7 +248,7 @@ BrowserTestCase(
 
     await page.keyboard.type('A', ['Mod']);
 
-    const rendererSelected = await page.evaluate(selector => {
+    const rendererSelected = await page.evaluate((selector) => {
       const el = document.querySelector(selector);
       const selection = window.getSelection();
       const range = selection?.getRangeAt(0);

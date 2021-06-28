@@ -47,7 +47,7 @@ export default class ExtensionRenderer extends React.Component<Props, State> {
 
   handleProvider = (name: keyof State, providerPromise?: Promise<any>) => {
     providerPromise &&
-      providerPromise.then(provider => {
+      providerPromise.then((provider) => {
         if (this.mounted) {
           this.setState({ [name]: provider });
         }

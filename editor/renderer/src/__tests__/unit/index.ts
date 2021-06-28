@@ -76,7 +76,7 @@ describe('Renderer', () => {
         },
       ];
 
-      unexpectedContent.forEach(content => {
+      unexpectedContent.forEach((content) => {
         expect(renderDocument(content, serializer).result).toEqual(null);
       });
     });

@@ -20,7 +20,7 @@ export const joinListItemWithParagraph: DeleteAction = ({
   if ($head.parent.content.size < 1) {
     insertContentDeleteRange(
       tr,
-      tr => tr.doc.resolve($head.pos),
+      (tr) => tr.doc.resolve($head.pos),
       [],
       [[$head.pos - 1, $head.pos]],
     );
@@ -95,7 +95,7 @@ export const joinListItemWithParagraph: DeleteAction = ({
 
     insertContentDeleteRange(
       tr,
-      tr => tr.doc.resolve($head.pos),
+      (tr) => tr.doc.resolve($head.pos),
       insertions,
       deletions,
     );
@@ -117,7 +117,7 @@ export const joinListItemWithParagraph: DeleteAction = ({
 
     insertContentDeleteRange(
       tr,
-      tr => tr.doc.resolve($head.pos),
+      (tr) => tr.doc.resolve($head.pos),
       insertions,
       deletions,
     );
@@ -154,7 +154,7 @@ export const joinListItemWithParagraph: DeleteAction = ({
 
   insertContentDeleteRange(
     tr,
-    tr => tr.doc.resolve($head.pos),
+    (tr) => tr.doc.resolve($head.pos),
     insertions,
     deletions,
   );

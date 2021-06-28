@@ -64,7 +64,7 @@ export default class Color extends PureComponent<ColorProps> {
     return (
       <ButtonWrapper>
         <FormattedMessage {...messages[`${value}Color`]}>
-          {label => (
+          {(label) => (
             <Button
               onClick={this.onClick}
               onMouseEnter={this.onMouseEnter}
@@ -109,11 +109,11 @@ export default class Color extends PureComponent<ColorProps> {
     this.hoverStartTime = 0;
   };
 
-  onMouseDown: React.MouseEventHandler<HTMLButtonElement> = e => {
+  onMouseDown: React.MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
   };
 
-  onClick: React.MouseEventHandler<HTMLButtonElement> = e => {
+  onClick: React.MouseEventHandler<HTMLButtonElement> = (e) => {
     const { onClick, value } = this.props;
     e.preventDefault();
     onClick(value);

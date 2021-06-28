@@ -158,13 +158,13 @@ describe('Feature Flags from Props', () => {
       'mouseMoveOptimization',
       'tableRenderOptimization',
       'tableOverflowShadowsOptimization',
-    ])('%s', flagName => {
+    ])('%s', (flagName) => {
       it.each<{ actual?: any; expected?: any }>([
         { actual: true, expected: true },
         { actual: false, expected: false },
         { actual: undefined, expected: false },
         { actual: null, expected: false },
-      ])(`set ${flagName} to %s based on feature flag`, testData => {
+      ])(`set ${flagName} to %s based on feature flag`, (testData) => {
         const { actual, expected } = testData;
         const flags = createFeatureFlagsFromProps({
           featureFlags: {

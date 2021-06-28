@@ -5,7 +5,7 @@ import ToolbarButton from '../../../ui/ToolbarButton';
 import { InviteTeamWrapper } from './styles';
 import { InviteToEditComponentProps } from '../types';
 
-const ID: React.StatelessComponent = props => <>{props.children}</>;
+const ID: React.StatelessComponent = (props) => <>{props.children}</>;
 
 export interface InviteToEditButtonProps {
   onClick?: React.MouseEventHandler;
@@ -14,7 +14,9 @@ export interface InviteToEditButtonProps {
   title: string;
 }
 
-export const InviteToEditButton: React.StatelessComponent<InviteToEditButtonProps> = props => {
+export const InviteToEditButton: React.StatelessComponent<InviteToEditButtonProps> = (
+  props,
+) => {
   const { Component, onClick, selected, title } = props;
 
   const iconBefore = React.useMemo(() => <InviteTeamIcon label={title} />, [

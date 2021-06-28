@@ -56,7 +56,7 @@ export const getToolbarConfig = (
 
   const language = node?.attrs?.language;
 
-  const options = languageList.map(lang => ({
+  const options = languageList.map((lang) => ({
     label: lang.name,
     value: getLanguageIdentifier(lang),
     alias: lang.alias,
@@ -64,15 +64,15 @@ export const getToolbarConfig = (
 
   // If language is not undefined search for it in the value and then search in the aliases
   const defaultValue = language
-    ? options.find(option => option.value === language) ||
-      options.find(option => option.alias.includes(language as never))
+    ? options.find((option) => option.value === language) ||
+      options.find((option) => option.alias.includes(language as never))
     : undefined;
 
   const languageSelect: FloatingToolbarSelect<Command> = {
     id: 'editor.codeBlock.languageOptions',
     type: 'select',
     selectType: 'list',
-    onChange: option => changeLanguage(option.value),
+    onChange: (option) => changeLanguage(option.value),
     defaultValue,
     placeholder: formatMessage(messages.selectLanguage),
     options,
@@ -117,7 +117,7 @@ export const getToolbarConfig = (
 
   return {
     title: 'CodeBlock floating controls',
-    getDomRef: view =>
+    getDomRef: (view) =>
       findDomRefAtPos(pos, view.domAtPos.bind(view)) as HTMLElement,
     nodeType,
     items: [languageSelect, separator, ...copyToClipboardItems, deleteButton],

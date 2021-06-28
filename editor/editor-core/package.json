@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-core",
-  "version": "145.0.0",
+  "version": "145.0.1",
   "description": "A package contains Atlassian editor core functionality",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -165,7 +165,7 @@
     "@atlaskit/util-data-test": "^15.0.0",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
-    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
+    "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@atlassian/search-provider": "2.1.13",
     "@testing-library/react": "^8.0.1",
     "@testing-library/react-hooks": "^1.0.4",
@@ -201,5 +201,5 @@
       ]
     }
   },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
 }

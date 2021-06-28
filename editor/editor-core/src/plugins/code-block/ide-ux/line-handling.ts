@@ -49,7 +49,7 @@ export const forEachLine = (
   callback: (line: string, offset: number) => void,
 ) => {
   let offset = 0;
-  text.split('\n').forEach(line => {
+  text.split('\n').forEach((line) => {
     callback(line, offset);
     offset += line.length + 1;
   });

@@ -99,7 +99,7 @@ function createSpec(nodes?: Array<string>, marks?: Array<string>) {
           spec.props.content = {
             type: 'array',
             items: ((spec.props.content || []) as Array<ValidatorContent>).map(
-              arr => arr.items,
+              (arr) => arr.items,
             ),
           };
         } else {
@@ -111,7 +111,7 @@ function createSpec(nodes?: Array<string>, marks?: Array<string>) {
         >)
           // ['inline'] => [['emoji', 'hr', ...]]
           // ['media'] => [['media']]
-          .map(item =>
+          .map((item) =>
             isString(item)
               ? Array.isArray((specs as any)[item])
                 ? (specs as any)[item]
@@ -121,7 +121,7 @@ function createSpec(nodes?: Array<string>, marks?: Array<string>) {
           // [['emoji', 'hr', 'inline_code']] => [['emoji', 'hr', ['text', { marks: {} }]]]
           .map((item: Array<string>) =>
             item
-              .map(subItem =>
+              .map((subItem) =>
                 Array.isArray((specs as any)[subItem])
                   ? (specs as any)[subItem]
                   : isString(subItem)
@@ -131,7 +131,7 @@ function createSpec(nodes?: Array<string>, marks?: Array<string>) {
               )
               // Remove unsupported nodes & marks
               // Filter nodes
-              .filter(subItem => {
+              .filter((subItem) => {
                 if (nodes) {
                   // Node with overrides
                   // ['mediaSingle', { props: { content: { items: [ 'media', 'caption' ] } }}]
@@ -152,7 +152,7 @@ function createSpec(nodes?: Array<string>, marks?: Array<string>) {
                 return true;
               })
               // Filter marks
-              .map(subItem =>
+              .map((subItem) =>
                 Array.isArray(subItem) && marks
                   ? /**
                      * TODO: Probably try something like immer, but it's 3.3kb gzipped.
@@ -470,7 +470,7 @@ export function validator(
     validator: ValidatorSpec,
   ): MarkValidationResult[] {
     return entity.marks
-      ? entity.marks.map(mark => {
+      ? entity.marks.map((mark) => {
           const isAKnownMark = marks ? marks.indexOf(mark.type) > -1 : true;
           if (mode === 'strict' && isAKnownMark) {
             const finalResult = validateNode(
@@ -708,10 +708,10 @@ export function validator(
     const validatorAttrs = invalidAttributesResult.validatorAttrs;
 
     const attrs = Object.keys(attributes).filter(
-      k => !(allowPrivateAttributes && k.startsWith('__')),
+      (k) => !(allowPrivateAttributes && k.startsWith('__')),
     );
 
-    const redundantAttrs = attrs.filter(a => !validatorAttrs.props![a]);
+    const redundantAttrs = attrs.filter((a) => !validatorAttrs.props![a]);
     const hasRedundantAttrs = redundantAttrs.length > 0;
 
     const hasUnsupportedAttrs = invalidAttrs.length || hasRedundantAttrs;
@@ -842,7 +842,7 @@ export function validator(
     type: string,
   ): NodeValidationResult {
     let result: NodeValidationResult = { valid: true, entity: prevEntity };
-    const [requiredProps, redundantProps] = partitionObject(prevEntity, k =>
+    const [requiredProps, redundantProps] = partitionObject(prevEntity, (k) =>
       isDefined((validatorSpec.props as any)[k]),
     );
     if (redundantProps.length) {
@@ -1014,10 +1014,10 @@ export function validator(
             let marksAreValid = true;
             if (childEntity && childEntity.marks && marksValidationOutput) {
               const validMarks = marksValidationOutput.filter(
-                mark => mark.valid,
+                (mark) => mark.valid,
               );
               const finalMarks = marksValidationOutput!
-                .map(mr => {
+                .map((mr) => {
                   if (mr.valid) {
                     return mr.newMark;
                   } else {
@@ -1078,11 +1078,11 @@ export function validator(
 
           // Only go inside valid branch
           const allowedSpecsForEntity = contentValidatorSpec.items.filter(
-            item =>
+            (item) =>
               Array.isArray(item)
                 ? item.some(
                     // [p, hr, ...] or [p, [text, {}], ...]
-                    spec =>
+                    (spec) =>
                       (Array.isArray(spec) ? spec[0] : spec) === child.type,
                   )
                 : true,
@@ -1095,7 +1095,7 @@ export function validator(
 
             const maybeArray = makeArray(allowedSpecsForEntity[0]);
             const allowedSpecsForChild = maybeArray.filter(
-              item => (Array.isArray(item) ? item[0] : item) === child.type,
+              (item) => (Array.isArray(item) ? item[0] : item) === child.type,
             );
 
             if (allowedSpecsForChild.length === 0) {
@@ -1135,7 +1135,7 @@ export function validator(
                     (entity &&
                       entity.marks &&
                       entity.marks.filter(
-                        mark => mark.type === 'unsupportedMark',
+                        (mark) => mark.type === 'unsupportedMark',
                       )) ||
                     [];
                   if (marksAreValid && !unsupportedMarks.length) {

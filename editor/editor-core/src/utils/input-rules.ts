@@ -136,7 +136,7 @@ export const createPlugin = (
   return createInputRulePlugin(pluginName, rules, {
     allowInsertTextOnDocument,
     onInputEvent,
-    onBeforeRegexMatch: tr => {
+    onBeforeRegexMatch: (tr) => {
       closeHistory(tr);
     },
   });
@@ -335,7 +335,7 @@ function createUnpredictableInputRulePlugin(
       node.type === marks.code ||
       node.type === marks.link ||
       node.type === marks.typeAheadQuery;
-    doc.nodesBetween(start, end, node => {
+    doc.nodesBetween(start, end, (node) => {
       unsupportedMarksPresent =
         unsupportedMarksPresent ||
         node.marks.filter(isUnsupportedMark).length > 0;
@@ -354,7 +354,7 @@ function createUnpredictableInputRulePlugin(
     } = state;
     let unsupportedMarksPresent = false;
     const isCodemark = (mark: PMMark) => mark.type === marks.code;
-    doc.nodesBetween(start, end, node => {
+    doc.nodesBetween(start, end, (node) => {
       unsupportedMarksPresent =
         unsupportedMarksPresent || node.marks.filter(isCodemark).length > 0;
     });
@@ -450,7 +450,7 @@ function createUnpredictableInputRulePlugin(
     return rule;
   };
 
-  const unpredictableRules: UnpredictableInputRule[] = rules.map(rule => {
+  const unpredictableRules: UnpredictableInputRule[] = rules.map((rule) => {
     const { match, handler, onHandlerApply } = rule;
     const unpredictableRule = createUnpredictableRule(
       match,

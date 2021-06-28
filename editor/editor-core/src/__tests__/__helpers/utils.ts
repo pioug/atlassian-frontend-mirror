@@ -8,7 +8,7 @@ export const isVisualRegression = () => !!process.env.VISUAL_REGRESSION;
 export const waitForProvider = (providerFactory: ProviderFactory) => (
   providerName: ProviderName,
 ) =>
-  new Promise(resolve => {
+  new Promise((resolve) => {
     const handler = (name: string, provider: any) => {
       if (providerName === name) {
         providerFactory.unsubscribe(providerName, handler);
@@ -19,7 +19,7 @@ export const waitForProvider = (providerFactory: ProviderFactory) => (
   });
 
 export const flushPromises = () =>
-  new Promise(resolve => setImmediate(resolve));
+  new Promise((resolve) => setImmediate(resolve));
 
 interface BoundingRect {
   left: number;

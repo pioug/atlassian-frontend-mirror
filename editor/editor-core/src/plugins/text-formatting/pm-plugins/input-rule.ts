@@ -91,7 +91,7 @@ function addMark(
 
     // Prevent autoformatting across hardbreaks
     let containsHardBreak: boolean | undefined;
-    doc.nodesBetween(start, end, node => {
+    doc.nodesBetween(start, end, (node) => {
       if (node.type === schema.nodes.hardBreak) {
         containsHardBreak = true;
         return null;
@@ -188,7 +188,7 @@ class ReverseRegexExp extends RegExp {
 const buildRegex = (char: ValidAutoformatChars) => {
   const escapedChar = char.replace(/(\W)/g, '\\$1');
   const combinations = ValidCombinations[char]
-    .map(c => c.replace(/(\W)/g, '\\$1'))
+    .map((c) => c.replace(/(\W)/g, '\\$1'))
     .join('|');
 
   // Single X - https://regex101.com/r/McT3yq/14/

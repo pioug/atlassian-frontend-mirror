@@ -61,7 +61,7 @@ describe('getSelectionRangeInColumn', () => {
         expect(range.$head.pos).toEqual(headCell - 2);
       });
 
-      Array.from(Array(4).keys()).forEach(columnIndex => {
+      Array.from(Array(4).keys()).forEach((columnIndex) => {
         it(`columnIndex: ${columnIndex + 1}`, () => {
           const input = doc(
             table()(
@@ -149,7 +149,7 @@ describe('getSelectionRangeInColumn', () => {
         expect(range.$head.pos).toEqual(headCell - 2);
       });
 
-      Array.from(Array(4).keys()).forEach(columnIndex => {
+      Array.from(Array(4).keys()).forEach((columnIndex) => {
         it(`columnIndex: ${columnIndex + 1}`, () => {
           const input = doc(
             table()(
@@ -239,7 +239,7 @@ describe('getSelectionRangeInColumn', () => {
         expect(range.$head.pos).toEqual(headCell - 2);
       });
 
-      Array.from(Array(3).keys()).forEach(columnIndex => {
+      Array.from(Array(3).keys()).forEach((columnIndex) => {
         it(`columnIndex: ${columnIndex + 1}`, () => {
           const input = doc(
             table()(
@@ -327,7 +327,7 @@ describe('getSelectionRangeInColumn', () => {
         expect(range.$head.pos).toEqual(headCell - 2);
       });
 
-      Array.from(Array(3).keys()).forEach(columnIndex => {
+      Array.from(Array(3).keys()).forEach((columnIndex) => {
         it(`columnIndex: ${columnIndex + 1}`, () => {
           const input = doc(
             table()(

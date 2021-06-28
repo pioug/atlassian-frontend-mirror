@@ -104,7 +104,7 @@ const getIcon = (macro: LegacyMacroManifest) => {
 
   return import(
     /* webpackChunkName: "@atlaskit-internal_editor-icon-code" */ '@atlaskit/icon/glyph/editor/code'
-  ).then(mod => mod.default);
+  ).then((mod) => mod.default);
 };
 
 const buildIconObject = (macro: LegacyMacroManifest) => {
@@ -136,11 +136,11 @@ const transformLegacyMacrosToExtensionManifest = (
   const extensionKey = safeGetMacroName(macro);
 
   const hasAnyMissingParameterRequired = macro.formDetails.parameters.some(
-    param => param.required && param.defaultValue === null,
+    (param) => param.required && param.defaultValue === null,
   );
 
   const defaultParameters = macro.formDetails.parameters
-    .filter(param => param.defaultValue)
+    .filter((param) => param.defaultValue)
     .reduce<Parameters>((curr, next) => {
       if (next.defaultValue !== null) {
         curr[next.name] = next.defaultValue;
@@ -268,18 +268,18 @@ const transformLegacyMacrosToExtensionManifest = (
       // the context panel for editing, and then wraps it back after saving.
       return new Promise(() => {
         actions!.editInContextPanel(
-          parameters => parameters.macroParams,
-          parameters => Promise.resolve({ macroParams: parameters }),
+          (parameters) => parameters.macroParams,
+          (parameters) => Promise.resolve({ macroParams: parameters }),
         );
       });
     };
 
     nodes.default.getFieldsDefinition = () =>
-      new Promise(resolve => {
+      new Promise((resolve) => {
         setTimeout(
           () =>
             resolve(
-              macro.formDetails.parameters.map(params =>
+              macro.formDetails.parameters.map((params) =>
                 transformFormDetailsIntoFields(params, {
                   pluginKey: macro.pluginKey,
                   macroName: safeGetMacroName(macro),
@@ -304,7 +304,7 @@ const transformLegacyMacrosToExtensionManifest = (
       quickInsert,
       autoConvert: {
         url: [
-          text => {
+          (text) => {
             if (text.startsWith(`http://${extensionKey}-convert`)) {
               return {
                 type: 'extension',
@@ -568,7 +568,7 @@ const transformFormDetailsIntoFields = (
       ...baseAttributes,
       type: 'enum',
       style: 'select',
-      items: (params.enumValues || []).map(item => ({
+      items: (params.enumValues || []).map((item) => ({
         label: item,
         value: item,
       })),

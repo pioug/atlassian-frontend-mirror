@@ -52,7 +52,7 @@ describe('table plugin: commands', () => {
       const columnSelectedDecorations = decorationSet.find(
         undefined,
         undefined,
-        spec => spec.key.indexOf(TableDecorations.COLUMN_SELECTED) > -1,
+        (spec) => spec.key.indexOf(TableDecorations.COLUMN_SELECTED) > -1,
       );
 
       expect(columnSelectedDecorations).toHaveLength(1);

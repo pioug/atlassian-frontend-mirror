@@ -20,7 +20,7 @@ export function stepAdds(step: Step, nodeType: NodeType): boolean {
     return adds;
   }
 
-  step.slice.content.descendants(node => {
+  step.slice.content.descendants((node) => {
     if (node.type === nodeType) {
       adds = true;
     }

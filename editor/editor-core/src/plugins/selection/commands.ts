@@ -22,7 +22,7 @@ import {
 import { RelativeSelectionPos, SelectionDirection } from './types';
 
 export const setDecorations = () =>
-  createCommand(state => ({
+  createCommand((state) => ({
     type: SelectionActionTypes.SET_DECORATIONS,
     selection: state.tr.selection,
     decorationSet: getDecorations(state.tr),
@@ -37,7 +37,7 @@ export const setSelectionRelativeToNode = (
       type: SelectionActionTypes.SET_RELATIVE_SELECTION,
       selectionRelativeToNode,
     },
-    tr => {
+    (tr) => {
       if (selection) {
         return tr.setSelection(selection);
       }

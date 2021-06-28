@@ -49,7 +49,7 @@ describe.skip('Headings with links', () => {
   });
 
   // Test alignment options (center and right add a wrapper element)
-  describe.each(['left', 'center', 'right'])('aligned %s', alignment => {
+  describe.each(['left', 'center', 'right'])('aligned %s', (alignment) => {
     beforeAll(async () => {
       await initRendererWithADF(page, {
         adf: getAlignmentADF(alignment as Alignment, true),
@@ -74,7 +74,7 @@ describe.skip('Headings with links', () => {
     // Test heading levels 1-6
     test.each([1, 2, 3, 4, 5, 6])(
       'should render anchor link on h%s hover',
-      async headingLevel => {
+      async (headingLevel) => {
         // Note: some of these may end up showing a tooltip on hover because Puppeteer's
         // element.click uses the center of the element and for some of these that ends
         // up being over the top of the copy link button since headings are block (full width).

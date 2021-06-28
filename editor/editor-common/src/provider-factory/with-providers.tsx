@@ -16,7 +16,7 @@ export class WithProviders extends PureComponent<Props, { providers: any }> {
     super(props);
 
     const providers: Record<string, Promise<any> | undefined> = {};
-    this.props.providers.forEach(name => {
+    this.props.providers.forEach((name) => {
       providers[name] = undefined;
     });
 
@@ -28,7 +28,7 @@ export class WithProviders extends PureComponent<Props, { providers: any }> {
   UNSAFE_componentWillMount() {
     const { providers, providerFactory } = this.props;
 
-    providers.forEach(name => {
+    providers.forEach((name) => {
       providerFactory.subscribe(name, this.handleProvider);
     });
   }
@@ -36,7 +36,7 @@ export class WithProviders extends PureComponent<Props, { providers: any }> {
   componentWillUnmount() {
     const { providers, providerFactory } = this.props;
 
-    providers.forEach(name => {
+    providers.forEach((name) => {
       providerFactory.unsubscribe(name, this.handleProvider);
     });
   }

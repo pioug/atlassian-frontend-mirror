@@ -196,10 +196,10 @@ export default class PickerFacade {
     };
 
     this.eventListeners[file.id] = [];
-    this.onStartListeners.forEach(cb =>
+    this.onStartListeners.forEach((cb) =>
       cb(
         state,
-        evt => this.subscribeStateChanged(file, evt),
+        (evt) => this.subscribeStateChanged(file, evt),
         this.analyticsName || this.pickerType,
       ),
     );
@@ -225,7 +225,7 @@ export default class PickerFacade {
       return;
     }
 
-    listeners.forEach(cb =>
+    listeners.forEach((cb) =>
       cb({
         id: fileId,
         status: 'error',
@@ -245,7 +245,7 @@ export default class PickerFacade {
       return;
     }
 
-    listeners.forEach(cb =>
+    listeners.forEach((cb) =>
       cb({
         id: file.id,
         status: 'mobile-upload-end',
@@ -264,7 +264,7 @@ export default class PickerFacade {
       return;
     }
 
-    listeners.forEach(cb =>
+    listeners.forEach((cb) =>
       cb({
         id: file.id,
         status: 'ready',

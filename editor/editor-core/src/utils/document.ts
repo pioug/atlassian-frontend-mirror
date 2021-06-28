@@ -69,14 +69,14 @@ export function isNodeEmpty(node?: Node): boolean {
   const block: Node[] = [];
   const nonBlock: Node[] = [];
 
-  node.forEach(child => {
+  node.forEach((child) => {
     child.isInline ? nonBlock.push(child) : block.push(child);
   });
 
   return (
     !nonBlock.length &&
     !block.filter(
-      childNode =>
+      (childNode) =>
         (!!childNode.childCount &&
           !(
             childNode.childCount === 1 && isEmptyParagraph(childNode.firstChild)
@@ -253,7 +253,7 @@ export const getStepRange = (
   let from = -1;
   let to = -1;
 
-  transaction.steps.forEach(step => {
+  transaction.steps.forEach((step) => {
     step.getMap().forEach((_oldStart, _oldEnd, newStart, newEnd) => {
       from = newStart < from || from === -1 ? newStart : from;
       to = newEnd < to || to === -1 ? newEnd : to;
@@ -350,7 +350,7 @@ export function nodesBetweenChanged(
 export function getNodesCount(node: Node): Record<string, number> {
   let count: Record<string, number> = {};
 
-  node.nodesBetween(0, node.nodeSize - 2, node => {
+  node.nodesBetween(0, node.nodeSize - 2, (node) => {
     count[node.type.name] = (count[node.type.name] || 0) + 1;
   });
 

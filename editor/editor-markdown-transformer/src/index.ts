@@ -121,7 +121,7 @@ export class MarkdownTransformer implements Transformer<Markdown> {
   private markdownParser: MarkdownParser;
   constructor(schema: Schema = defaultSchema, tokenizer: MarkdownIt = md) {
     // Enable markdown plugins based on schema
-    (['nodes', 'marks'] as (keyof SchemaMapping)[]).forEach(key => {
+    (['nodes', 'marks'] as (keyof SchemaMapping)[]).forEach((key) => {
       for (const idx in pmSchemaToMdMapping[key]) {
         if (schema[key][idx]) {
           tokenizer.enable(pmSchemaToMdMapping[key][idx]);

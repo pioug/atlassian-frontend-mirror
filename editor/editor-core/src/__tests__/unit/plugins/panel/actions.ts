@@ -90,7 +90,7 @@ describe('panel actions', () => {
 
     const panelTypes: PanelType[] = Object.values(PanelType);
 
-    panelTypes.forEach(type => {
+    panelTypes.forEach((type) => {
       it(`trigger GAS3 analytics when changing panel type to ${type}`, () => {
         let startType =
           type === PanelType.INFO ? PanelType.NOTE : PanelType.INFO;

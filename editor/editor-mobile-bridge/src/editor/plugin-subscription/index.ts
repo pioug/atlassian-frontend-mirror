@@ -159,7 +159,7 @@ export const configFactory = (
     createListenerConfig<TextFormattingState>({
       bridge: 'textFormatBridge',
       pluginKey: textFormattingStateKey,
-      updater: pluginState => {
+      updater: (pluginState) => {
         toNativeBridge.call('textFormatBridge', 'updateTextFormat', {
           states: JSON.stringify(valueOfMarkState(pluginState)),
         });
@@ -168,7 +168,7 @@ export const configFactory = (
     createListenerConfig<BlockTypeState>({
       bridge: 'blockFormatBridge',
       pluginKey: blockPluginStateKey,
-      updater: pluginState => {
+      updater: (pluginState) => {
         /**
          * Currently `updateBlockState` is on different bridges in native land.
          * We have a ticket to align on the naming.
@@ -223,7 +223,7 @@ export const configFactory = (
     createListenerConfig<TypeAheadPluginState>({
       bridge: 'typeAheadBridge',
       pluginKey: typeAheadPluginKey,
-      updater: pluginState => {
+      updater: (pluginState) => {
         const { active, query, trigger, items } = pluginState;
 
         if (active === false) {
@@ -283,8 +283,8 @@ export const configFactory = (
           message.text = linkText || '';
           message.url =
             activeLinkMark.node.marks
-              .filter(mark => mark.type === linkType)
-              .map(link => link.attrs.href)
+              .filter((mark) => mark.type === linkType)
+              .map((link) => link.attrs.href)
               .pop() || '';
         }
 
@@ -329,7 +329,7 @@ export const configFactory = (
   >({
     bridge: 'listBridge',
     pluginKey: allowPredictableList ? listsPredictableStateKey : listsStateKey,
-    updater: pluginState => {
+    updater: (pluginState) => {
       toNativeBridge.call('listBridge', 'updateListState', {
         states: JSON.stringify(valueOfListState(pluginState)),
       });
@@ -346,7 +346,7 @@ function initPluginListenersFactory(configs: Array<BridgePluginListener<any>>) {
     bridge: WebBridgeImpl,
     view: EditorView,
   ) {
-    configs.forEach(config => {
+    configs.forEach((config) => {
       const { updater, pluginKey } = config;
       const pluginState = pluginKey.getState(view.state);
 
@@ -388,7 +388,7 @@ function destroyPluginListenersFactory(
       return;
     }
 
-    configs.forEach(config => {
+    configs.forEach((config) => {
       (bridge as any)[`${config.bridge}State`] = undefined;
       eventDispatcher.off(
         (config.pluginKey as any).key,

@@ -117,7 +117,7 @@ export class Renderer extends PureComponent<RendererProps> {
     });
 
     this.rafID = requestAnimationFrame(() => {
-      stopMeasure(`Renderer Render Time: ${this.id}`, duration => {
+      stopMeasure(`Renderer Render Time: ${this.id}`, (duration) => {
         const { analyticsEventSeverityTracking } = this.props;
         const forceSeverityTracking =
           typeof analyticsEventSeverityTracking === 'undefined' &&
@@ -445,7 +445,7 @@ const RendererWithAnalytics = React.memo((props: RendererProps) => (
     }}
   >
     <WithCreateAnalyticsEvent
-      render={createAnalyticsEvent => (
+      render={(createAnalyticsEvent) => (
         <Renderer {...props} createAnalyticsEvent={createAnalyticsEvent} />
       )}
     />

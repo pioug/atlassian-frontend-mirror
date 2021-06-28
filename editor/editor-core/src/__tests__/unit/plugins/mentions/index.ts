@@ -213,7 +213,7 @@ describe('mentionTypeahead', () => {
    * @return Promise resolving with `MentionDescription[]`
    */
   const subscribe = (mentionProvider: MentionProvider, query = '') => {
-    return new Promise<MentionDescription[]>(resolve => {
+    return new Promise<MentionDescription[]>((resolve) => {
       const subscribeKey = 'mentionPluginTest';
       mentionProvider.subscribe(subscribeKey, (mentions, resultQuery) => {
         if (query === resultQuery) {
@@ -234,7 +234,7 @@ describe('mentionTypeahead', () => {
       fire: jest.fn().mockName('event.fire') as any,
     } as UIAnalyticsEvent;
     const createAnalyticsEvent = jest
-      .fn(payload =>
+      .fn((payload) =>
         // We're only interested in recording events for 'mentionTypeahead'
         // ignoring all others
         payload.actionSubject === expectedActionSubject
@@ -506,7 +506,7 @@ describe('mentionTypeahead', () => {
               duration: 200,
               userIds: null,
               teams: expect.arrayContaining(
-                allTeamIds.map(teamId => ({
+                allTeamIds.map((teamId) => ({
                   teamId,
                   includesYou: expect.anything(),
                   memberCount: expect.anything(),
@@ -987,7 +987,7 @@ describe('mentionTypeahead', () => {
 
         it.each([2, 1, 0])(
           'should show invite item if there is %i mentionable users/teams returned',
-          noOfResults => {
+          (noOfResults) => {
             let query: string = 'doesNotExist';
 
             switch (noOfResults) {

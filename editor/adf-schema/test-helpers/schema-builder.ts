@@ -188,7 +188,7 @@ export function flatten<T>(deep: (T | T[])[]): T[] {
  * Coerce builder content into ref nodes.
  */
 export function coerce(content: BuilderContent[], schema: Schema) {
-  const refsContent = content.map(item =>
+  const refsContent = content.map((item) =>
     typeof item === 'string' ? text(item, schema) : item,
   ) as (RefsContentItem | RefsContentItem[])[];
   return sequence(...flatten<RefsContentItem>(refsContent));
@@ -213,7 +213,7 @@ export function markFactory(type: MarkType, attrs = {}) {
   const mark = type.create(attrs);
   return (...content: BuilderContent[]): RefsNode[] => {
     const { nodes } = coerce(content, type.schema);
-    return nodes.map(node => {
+    return nodes.map((node) => {
       if (mark.type.isInSet(node.marks)) {
         return node;
       } else {

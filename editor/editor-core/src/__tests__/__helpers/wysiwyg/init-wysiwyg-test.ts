@@ -35,8 +35,8 @@ export async function initWysiwygTest(
   });
 
   const [editorId, rendererId] = await Promise.all([
-    $editor.getProperty('id').then(p => p.jsonValue()),
-    $renderer.getProperty('id').then(p => p.jsonValue()),
+    $editor.getProperty('id').then((p) => p.jsonValue()),
+    $renderer.getProperty('id').then((p) => p.jsonValue()),
   ]);
 
   const [$editorElement, $rendererElement] = await Promise.all([

@@ -42,7 +42,7 @@ export default function Example() {
     <EditorContext>
       <div>
         <WithEditorActions
-          render={actions => (
+          render={(actions) => (
             <ButtonGroup>
               <Button onClick={() => actions.replaceDocument(exampleDocument)}>
                 Load Document

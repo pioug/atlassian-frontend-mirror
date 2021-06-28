@@ -165,7 +165,7 @@ export const waitForText = async (
         document.querySelectorAll<HTMLElement>(selector),
       );
       if (items) {
-        return items.some(item => {
+        return items.some((item) => {
           return item.innerText && item.innerText.includes(text);
         });
       }

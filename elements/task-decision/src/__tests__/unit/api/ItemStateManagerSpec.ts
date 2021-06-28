@@ -111,7 +111,7 @@ describe('ItemStateManager', () => {
     });
 
     describe('#onTaskUpdatedEvent', () => {
-      it('should notify handlers of update if cached and event is more recent than cached version', done => {
+      it('should notify handlers of update if cached and event is more recent than cached version', (done) => {
         const mockHandler = jest.fn();
 
         const creationDate = new Date();
@@ -151,7 +151,7 @@ describe('ItemStateManager', () => {
         jest.runAllTimers();
       });
 
-      it('should update cached value if cached and event is more recent than cached version', done => {
+      it('should update cached value if cached and event is more recent than cached version', (done) => {
         const mockHandler = jest.fn();
 
         const creationDate = new Date();
@@ -191,7 +191,7 @@ describe('ItemStateManager', () => {
         jest.runAllTimers();
       });
 
-      it('should not notify handlers of update if cached but event is older than cached version', done => {
+      it('should not notify handlers of update if cached but event is older than cached version', (done) => {
         const mockHandler = jest.fn();
 
         const creationDate = new Date();

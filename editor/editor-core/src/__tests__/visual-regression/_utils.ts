@@ -126,13 +126,13 @@ async function attachCursorIndicator(page: PuppeteerPage) {
     );
     cursorIndicator.appendChild(mouseIndicator);
 
-    window.addEventListener('mousemove', event => {
+    window.addEventListener('mousemove', (event) => {
       cursorIndicator.style.display = 'block';
       cursorIndicator.style.top = `${event.clientY - cursorDiameter / 2}px`;
       cursorIndicator.style.left = `${event.clientX - cursorDiameter / 2}px`;
     });
 
-    window.addEventListener('mousedown', event => {
+    window.addEventListener('mousedown', (event) => {
       mouseIndicator.style.display = 'block';
       switch (event.button) {
         case 0:
@@ -147,7 +147,7 @@ async function attachCursorIndicator(page: PuppeteerPage) {
       }
     });
 
-    window.addEventListener('mouseup', event => {
+    window.addEventListener('mouseup', (event) => {
       mouseIndicator.style.display = 'none';
     });
   });
@@ -237,7 +237,7 @@ export async function mountEditor(
 ) {
   await page.evaluate(
     (props: EditorProps, mountOptions: MountOptions) => {
-      return new Promise<void>(resolve => {
+      return new Promise<void>((resolve) => {
         function waitAndCall() {
           if ((window as any).__mountEditor) {
             (window as any).__mountEditor(props, mountOptions);
@@ -587,7 +587,7 @@ export const retryUntil = (
   condition: () => Promise<boolean>,
   ms: number = 1000,
 ) => {
-  return new Promise(async resolve => {
+  return new Promise(async (resolve) => {
     const intervalId = setInterval(async () => {
       await work();
       if (await condition()) {

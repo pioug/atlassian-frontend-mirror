@@ -47,7 +47,7 @@ describe('resolveOption', () => {
       <AsyncSelect
         onChange={spy}
         loadOptions={async () => {
-          await new Promise(resolve => setTimeout(resolve, 200));
+          await new Promise((resolve) => setTimeout(resolve, 200));
           return [OPTION];
         }}
       />,

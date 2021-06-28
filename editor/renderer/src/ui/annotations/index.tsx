@@ -18,7 +18,9 @@ const LoadAnnotations: React.FC<Record<
   return null;
 });
 
-export const AnnotationsWrapper: React.FC<AnnotationsWrapperProps> = props => {
+export const AnnotationsWrapper: React.FC<AnnotationsWrapperProps> = (
+  props,
+) => {
   const { children, annotationProvider, rendererRef, adfDocument } = props;
   const updateSubscriber =
     annotationProvider &&

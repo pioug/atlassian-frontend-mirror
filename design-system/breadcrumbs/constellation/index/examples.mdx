@@ -7,8 +7,8 @@ import BreadcrumbsLong from '../../examples/constellation/breadcrumbs-long';
 import BreadcrumbsMaxItems from '../../examples/constellation/breadcrumbs-max-items';
 import BreadcrumbsExpanded from '../../examples/constellation/breadcrumbs-expanded';
 
-import BreadcrumbsStatelessCollapsed from '../../examples/constellation/breadcrumbs-stateless-collapsed';
-import BreadcrumbsStatelessExpanded from '../../examples/constellation/breadcrumbs-stateless-expanded';
+import BreadcrumbsBeforeAfterCollapseExample from '../../examples/constellation/breadcrumbs-before-after-collapse';
+import BreadcrumbsControlled from '../../examples/constellation/breadcrumbs-controlled';
 
 import BreadcrumbsItemIconBefore from '../../examples/constellation/breadcrumbs-item-icon-before';
 import BreadcrumbsItemIconAfter from '../../examples/constellation/breadcrumbs-item-icon-after';
@@ -46,7 +46,7 @@ The number of items shown before or after auto-collapse can be customized. This 
 To reduce screen clutter, it's best practice to only display the first and last items when collapsing.
 
 <Example
-  Component={BreadcrumbsStatelessCollapsed}
+  Component={BreadcrumbsBeforeAfterCollapseExample}
   packageName="@atlaskit/breadcrumbs"
 />
 
@@ -56,7 +56,7 @@ Set `isExpanded` to `true` to expand the breadcrumbs.
 Use the `onExpand` prop to expand the breadcrumbs, when a user interacts with the ellipsis button.
 
 <Example
-  Component={BreadcrumbsStatelessExpanded}
+  Component={BreadcrumbsControlled}
   packageName="@atlaskit/breadcrumbs"
 />
 

@@ -18,7 +18,7 @@ export const getCellsInRow = (rowIndex: number | number[]) => (
   const indexes = Array.isArray(rowIndex) ? rowIndex : [rowIndex];
 
   return indexes
-    .filter(index => index >= 0 && index <= map.height - 1)
+    .filter((index) => index >= 0 && index <= map.height - 1)
     .reduce<ContentNodeWithPos[]>((acc, index) => {
       const cells = map.cellsInRect({
         left: 0,
@@ -27,7 +27,7 @@ export const getCellsInRow = (rowIndex: number | number[]) => (
         bottom: index + 1,
       });
       return acc.concat(
-        cells.map(nodePos => {
+        cells.map((nodePos) => {
           const node = table.node.nodeAt(nodePos)!;
           const pos = nodePos + table.start;
           return { pos, start: pos + 1, node, depth: table.depth + 2 };

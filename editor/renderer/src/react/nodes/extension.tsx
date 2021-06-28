@@ -66,9 +66,9 @@ export const renderExtension = (
   );
 };
 
-const Extension: React.FunctionComponent<
-  Props & OverflowShadowProps
-> = props => {
+const Extension: React.FunctionComponent<Props & OverflowShadowProps> = (
+  props,
+) => {
   const {
     text,
     layout = 'default',

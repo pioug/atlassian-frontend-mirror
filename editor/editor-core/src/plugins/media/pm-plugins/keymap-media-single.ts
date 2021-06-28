@@ -187,7 +187,7 @@ const maybeRemoveMediaSingleNode = (schema: Schema): Command => {
 
     if (dispatch) {
       // Select media single, and remove paragraph if it's empty.
-      selectNodeBackward(state, tr => {
+      selectNodeBackward(state, (tr) => {
         if (isEmptyNodeInSchema($from.parent) && !atTheEndOfDoc(state)) {
           tr.replace($from.pos - 1, $from.pos + $from.parent.nodeSize - 1); // Remove node
         }

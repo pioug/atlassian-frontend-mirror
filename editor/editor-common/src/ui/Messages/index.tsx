@@ -11,7 +11,7 @@ import { h200 } from '@atlaskit/theme/typography';
 
 const Message = styled.div<{ error?: boolean; valid?: boolean }>`
   ${h200} font-weight: normal;
-  color: ${props => {
+  color: ${(props) => {
     if (props.error) {
       return R400;
     }

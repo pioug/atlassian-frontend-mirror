@@ -174,12 +174,12 @@ const emojiPlugin = (options?: EmojiPluginOptions): EditorPlugin => ({
           });
         }
 
-        return emojis.map(emoji => memoizedToItem.call(emoji, emojiProvider));
+        return emojis.map((emoji) => memoizedToItem.call(emoji, emojiProvider));
       },
       forceSelect(query: string, items: Array<TypeAheadItem>) {
         const normalizedQuery = ':' + query;
         const matchedItem = isFullShortName(normalizedQuery)
-          ? items.find(item => item.title.toLowerCase() === normalizedQuery)
+          ? items.find((item) => item.title.toLowerCase() === normalizedQuery)
           : undefined;
         return matchedItem;
       },
@@ -347,7 +347,7 @@ export function emojiPluginFactory(
             }
 
             providerPromise
-              .then(provider => {
+              .then((provider) => {
                 if (emojiProvider && emojiProviderChangeHandler) {
                   emojiProvider.unsubscribe(emojiProviderChangeHandler);
                 }

@@ -43,8 +43,12 @@ const CustomTitleComponent = () => {
   );
 };
 
-export default () => (
-  <PageHeader disableTitleStyles>
-    <CustomTitleComponent />
-  </PageHeader>
-);
+const PageHeaderCustomTitleExample = () => {
+  return (
+    <PageHeader disableTitleStyles>
+      <CustomTitleComponent />
+    </PageHeader>
+  );
+};
+
+export default PageHeaderCustomTitleExample;

@@ -182,7 +182,7 @@ describe('Annotations: Hooks/useLoadAnnotations', () => {
     });
 
     describe('when the getState is resolved', () => {
-      it('should emit SET_ANNOTATION_STATE event on updateSubscriber', done => {
+      it('should emit SET_ANNOTATION_STATE event on updateSubscriber', (done) => {
         expect(updateSubscriberFake.emit).toHaveBeenCalledTimes(0);
         act(() => {
           render(

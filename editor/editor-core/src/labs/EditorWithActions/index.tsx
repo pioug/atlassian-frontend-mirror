@@ -56,7 +56,7 @@ export default class EditorWithActions extends React.Component<
     return (
       <EditorContext>
         <WithEditorActions
-          render={actions => (
+          render={(actions) => (
             <Editor
               {...this.props}
               onSave={this.props.onSave ? this.handleSave(actions) : undefined}

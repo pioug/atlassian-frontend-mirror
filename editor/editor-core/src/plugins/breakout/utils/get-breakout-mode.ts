@@ -13,7 +13,7 @@ export function getBreakoutMode(state: EditorState): BreakoutMode | undefined {
     return;
   }
 
-  const breakoutMark = node.node.marks.find(m => m.type.name === 'breakout');
+  const breakoutMark = node.node.marks.find((m) => m.type.name === 'breakout');
 
   if (!breakoutMark) {
     return;

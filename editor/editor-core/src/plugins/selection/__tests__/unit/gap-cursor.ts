@@ -81,7 +81,7 @@ describe('gap-cursor', () => {
     });
 
     describe('when selection moving to preceding block node', () => {
-      (Object.keys(blockNodes) as BlockNodesKeys).forEach(nodeName => {
+      (Object.keys(blockNodes) as BlockNodesKeys).forEach((nodeName) => {
         describe(nodeName, () => {
           it(`should create TextSelection on preceding ${nodeName}`, () => {
             const { editorView } = editor(
@@ -100,7 +100,7 @@ describe('gap-cursor', () => {
     });
 
     describe('when selection moving to following block node', () => {
-      (Object.keys(blockNodes) as BlockNodesKeys).forEach(nodeName => {
+      (Object.keys(blockNodes) as BlockNodesKeys).forEach((nodeName) => {
         describe(nodeName, () => {
           it(`should create TextSelection on following ${nodeName}`, () => {
             const { editorView } = editor(
@@ -120,12 +120,12 @@ describe('gap-cursor', () => {
   });
 
   describe('when block nodes allow gap cursor', () => {
-    ['ArrowLeft', 'ArrowRight'].forEach(direction => {
+    ['ArrowLeft', 'ArrowRight'].forEach((direction) => {
       describe(`when pressing ${direction}`, () => {
         describe('when cursor is inside of a content block node', () => {
           (Object.keys(blockNodes) as BlockNodesKeys)
-            .filter(blockNode => blockNode !== 'table') // table has custom behaviour to set a cell selection in this case
-            .forEach(nodeName => {
+            .filter((blockNode) => blockNode !== 'table') // table has custom behaviour to set a cell selection in this case
+            .forEach((nodeName) => {
               describe(nodeName, () => {
                 it('should set GapCursorSelection', () => {
                   const { editorView } = editor(
@@ -146,7 +146,7 @@ describe('gap-cursor', () => {
             });
 
           (Object.keys(blockContainerNodes) as BlockContainerNodesKeys).forEach(
-            nodeName => {
+            (nodeName) => {
               describe(nodeName, () => {
                 it('should set GapCursorSelection', () => {
                   const { editorView } = editor(
@@ -171,7 +171,7 @@ describe('gap-cursor', () => {
 
         describe('when cursor is before or after a leaf block node', () => {
           (Object.keys(leafBlockNodes) as LeafBlockNodesKeys).forEach(
-            nodeName => {
+            (nodeName) => {
               describe(nodeName, () => {
                 it('should set GapCursorSelection', () => {
                   const content =
@@ -199,7 +199,7 @@ describe('gap-cursor', () => {
 
       describe('when cursor is after a block node', () => {
         describe(`when pressing Backspace`, () => {
-          (Object.keys(blockNodes) as BlockNodesKeys).forEach(nodeName => {
+          (Object.keys(blockNodes) as BlockNodesKeys).forEach((nodeName) => {
             describe(nodeName, () => {
               it(`should delete the ${nodeName}`, () => {
                 const { editorView, refs } = editor(
@@ -216,7 +216,7 @@ describe('gap-cursor', () => {
             });
           });
           (Object.keys(leafBlockNodes) as LeafBlockNodesKeys).forEach(
-            nodeName => {
+            (nodeName) => {
               describe(nodeName, () => {
                 it(`should delete the ${nodeName}`, () => {
                   const { editorView, refs } = editor(
@@ -238,7 +238,7 @@ describe('gap-cursor', () => {
 
       describe('when cursor is before a block node', () => {
         describe(`when pressing Delete`, () => {
-          (Object.keys(blockNodes) as BlockNodesKeys).forEach(nodeName => {
+          (Object.keys(blockNodes) as BlockNodesKeys).forEach((nodeName) => {
             describe(nodeName, () => {
               it(`should delete the ${nodeName}`, () => {
                 const { editorView, refs } = editor(
@@ -255,7 +255,7 @@ describe('gap-cursor', () => {
             });
           });
           (Object.keys(leafBlockNodes) as LeafBlockNodesKeys).forEach(
-            nodeName => {
+            (nodeName) => {
               describe(nodeName, () => {
                 it(`should delete the ${nodeName}`, () => {
                   const { editorView, refs } = editor(
@@ -278,7 +278,7 @@ describe('gap-cursor', () => {
 
     describe('when pressing ArrowUp', () => {
       describe('when cursor is inside first content block node of document', () => {
-        (Object.keys(blockNodes) as BlockNodesKeys).forEach(nodeName => {
+        (Object.keys(blockNodes) as BlockNodesKeys).forEach((nodeName) => {
           describe(nodeName, () => {
             it('should set GapCursorSelection', () => {
               const { editorView } = editor(
@@ -300,8 +300,8 @@ describe('gap-cursor', () => {
     describe('when pressing ArrowLeft', () => {
       describe('when cursor is inside first content block node of document', () => {
         (Object.keys(blockNodes) as BlockNodesKeys)
-          .filter(blockNode => blockNode !== 'table') // table has custom behaviour to set a cell selection in this case
-          .forEach(nodeName => {
+          .filter((blockNode) => blockNode !== 'table') // table has custom behaviour to set a cell selection in this case
+          .forEach((nodeName) => {
             describe(nodeName, () => {
               it('should set GapCursorSelection', () => {
                 const { editorView } = editor(
@@ -324,7 +324,7 @@ describe('gap-cursor', () => {
   describe('when inside of a table', () => {
     describe('when cursor is at a cell to the right', () => {
       describe('when pressing ArrowLeft', () => {
-        (Object.keys(blockNodes) as BlockNodesKeys).forEach(nodeName => {
+        (Object.keys(blockNodes) as BlockNodesKeys).forEach((nodeName) => {
           if (!/table|bodiedExtension/.test(nodeName)) {
             describe(nodeName, () => {
               it('should set GapCursorSelection', () => {
@@ -348,7 +348,7 @@ describe('gap-cursor', () => {
         });
 
         (Object.keys(leafBlockNodes) as LeafBlockNodesKeys).forEach(
-          nodeName => {
+          (nodeName) => {
             describe(nodeName, () => {
               it('should set GapCursorSelection', () => {
                 const { editorView } = editor(
@@ -370,7 +370,7 @@ describe('gap-cursor', () => {
 
     describe('when cursor is at a cell to the left', () => {
       describe('when pressing ArrowRight', () => {
-        (Object.keys(blockNodes) as BlockNodesKeys).forEach(nodeName => {
+        (Object.keys(blockNodes) as BlockNodesKeys).forEach((nodeName) => {
           if (!/table|bodiedExtension/.test(nodeName)) {
             describe(nodeName, () => {
               it('should set GapCursorSelection', () => {
@@ -399,7 +399,7 @@ describe('gap-cursor', () => {
         });
 
         (Object.keys(leafBlockNodes) as LeafBlockNodesKeys).forEach(
-          nodeName => {
+          (nodeName) => {
             describe(nodeName, () => {
               it('should set GapCursorSelection', () => {
                 const { editorView, refs } = editor(
@@ -451,7 +451,7 @@ describe('gap-cursor', () => {
   describe('when inside of a code block', () => {
     it.each(['ArrowUp', 'ArrowDown'])(
       'should not create gap cursor when pressing %s in the middle of code block',
-      key => {
+      (key) => {
         const { editorView } = editor(
           doc(code_block({})('1\n2\n3\n4\n{<>}5\n6\n')),
         );
@@ -472,7 +472,7 @@ describe('gap-cursor', () => {
     afterEach(() => {
       uuid.setStatic(false);
     });
-    (Object.keys(blockNodes) as BlockNodesKeys).forEach(nodeName => {
+    (Object.keys(blockNodes) as BlockNodesKeys).forEach((nodeName) => {
       describe(nodeName, () => {
         it(`should create a paragraph below the ${nodeName}`, () => {
           const { editorView, refs } = editor(

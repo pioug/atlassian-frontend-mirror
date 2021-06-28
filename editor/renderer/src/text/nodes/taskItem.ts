@@ -6,7 +6,7 @@ const taskItem: NodeReducer = (node: PMNode, schema: Schema) => {
   let previousNodeType = '';
   const state = node.attrs.state === 'DONE' ? '[x]' : '[]';
 
-  node.forEach(n => {
+  node.forEach((n) => {
     const text = reduce(n, schema);
     if (previousNodeType === 'mention' && !text.startsWith(' ')) {
       result.push(` ${text}`);

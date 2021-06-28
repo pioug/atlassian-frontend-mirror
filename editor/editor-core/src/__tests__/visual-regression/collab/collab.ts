@@ -22,7 +22,7 @@ async function waitForCollabAvatars(page: PuppeteerPage) {
     `span[aria-label="Summer Smith"][role="img"]`,
   ];
 
-  avatarSelectors.forEach(async selector => {
+  avatarSelectors.forEach(async (selector) => {
     await waitForElementCount(page, selector, 2);
     await waitForLoadedBackgroundImages(page, selector);
   });

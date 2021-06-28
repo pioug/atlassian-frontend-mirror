@@ -78,7 +78,7 @@ export const createPlugin = (
     view: (editorView: EditorView) => {
       const domAtPos = editorView.domAtPos.bind(editorView);
       return {
-        update: view => {
+        update: (view) => {
           const pluginState = getPluginState(view.state);
           const panelNode = findPanel(view.state, view.state.selection);
           const panelRef = panelNode
@@ -115,7 +115,7 @@ export const createPlugin = (
       },
       handleClickOn: createSelectionClickHandler(
         ['panel'],
-        target => !!target.closest(`.${PanelSharedCssClassName.prefix}`),
+        (target) => !!target.closest(`.${PanelSharedCssClassName.prefix}`),
         { useLongPressSelection },
       ),
       handleDOMEvents: {

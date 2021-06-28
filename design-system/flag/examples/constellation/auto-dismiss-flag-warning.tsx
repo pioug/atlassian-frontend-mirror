@@ -6,7 +6,7 @@ import WarningIcon from '@atlaskit/icon/glyph/warning';
 import { Y200 } from '@atlaskit/theme/colors';
 import { AutoDismissFlag, FlagGroup } from '../../src';
 
-const AutoDismissFlagWarning = () => {
+const AutoDismissFlagWarningExample = () => {
   const [flags, setFlags] = React.useState<Array<number>>([]);
 
   const addFlag = () => {
@@ -46,4 +46,4 @@ const AutoDismissFlagWarning = () => {
   );
 };
 
-export default AutoDismissFlagWarning;
+export default AutoDismissFlagWarningExample;

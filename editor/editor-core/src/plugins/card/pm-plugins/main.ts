@@ -81,7 +81,7 @@ export const createPlugin = (
             const newRequests = getNewRequests(oldState, currentState);
             // Ask the CardProvider to resolve all new requests.
             const { provider } = currentState;
-            newRequests.forEach(request => {
+            newRequests.forEach((request) => {
               /**
                * Queue each asynchronous resolve request on separate frames.
                * ---
@@ -107,12 +107,12 @@ export const createPlugin = (
 
         destroy() {
           // Cancel all outstanding requests
-          Object.keys(outstandingRequests).forEach(url =>
+          Object.keys(outstandingRequests).forEach((url) =>
             Promise.reject(outstandingRequests[url]),
           );
 
           // Cancel any outstanding raf callbacks.
-          rafCancellationCallbacks.forEach(cancellationCallback =>
+          rafCancellationCallbacks.forEach((cancellationCallback) =>
             cancellationCallback(),
           );
 

@@ -41,7 +41,7 @@ export const createPlugin = (
     key: selectionPluginKey,
     state: createPluginState(dispatch, getInitialState),
     view: () => ({
-      update: editorView => {
+      update: (editorView) => {
         const { state, dispatch } = editorView;
 
         if (!shouldRecalcDecorations(getPluginState(state), state)) {

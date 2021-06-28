@@ -162,7 +162,7 @@ export function createPlugin(
 
           // Fetch type ahead items if handler returned a promise.
           if (pluginState.active && pluginState.itemsLoader) {
-            pluginState.itemsLoader.promise.then(items =>
+            pluginState.itemsLoader.promise.then((items) =>
               itemsListUpdated(items)(editorView.state, dispatch),
             );
           }
@@ -186,7 +186,7 @@ export function createPlugin(
           let newTr;
           selectByIndex(items.indexOf(matchedItem))(
             newState,
-            tr => (newTr = tr),
+            (tr) => (newTr = tr),
           );
           return newTr;
         }
@@ -219,7 +219,7 @@ export function createPlugin(
           const { selection, schema } = state;
 
           const triggers = typeAhead.map(
-            typeAheadHandler => typeAheadHandler.trigger,
+            (typeAheadHandler) => typeAheadHandler.trigger,
           );
 
           if (
@@ -263,8 +263,8 @@ export function createItemsLoader(
   return {
     promise: new Promise((resolve, reject) => {
       promiseOfItems
-        .then(result => !canceled && resolve(result))
-        .catch(error => !canceled && reject(error));
+        .then((result) => !canceled && resolve(result))
+        .catch((error) => !canceled && reject(error));
     }),
     cancel() {
       canceled = true;
@@ -343,7 +343,7 @@ export function defaultActionHandler({
     .replace(/^([^\x00-\xFF]|[\s\n])+/g, '')
     .replace(trigger, '');
 
-  const typeAheadHandler = typeAhead.find(t => t.trigger === trigger)!;
+  const typeAheadHandler = typeAhead.find((t) => t.trigger === trigger)!;
 
   let typeAheadItems: Array<TypeAheadItem> | Promise<Array<TypeAheadItem>> = [];
   let itemsLoader: TypeAheadItemsLoader = null;

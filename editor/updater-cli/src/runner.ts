@@ -62,10 +62,10 @@ export class TaskWrapper<C = any, P = any> {
 
   format(
     text: PrintableOutput,
-    formatter: (text: string) => string = item => chalk.dim(`→ ${item}`),
+    formatter: (text: string) => string = (item) => chalk.dim(`→ ${item}`),
   ): PrintableOutput {
     if (Array.isArray(text)) {
-      return text.map(item => {
+      return text.map((item) => {
         if (Array.isArray(item)) {
           return this.format(item, formatter);
         } else {
@@ -86,7 +86,7 @@ export class TaskWrapper<C = any, P = any> {
     }
 
     if (Array.isArray(text)) {
-      text.forEach(item => {
+      text.forEach((item) => {
         if (Array.isArray(item)) {
           this.print(item, level + 1);
         } else {
@@ -110,7 +110,7 @@ export class TaskWrapper<C = any, P = any> {
 
   prompt(text: string) {
     this.spinner.stop();
-    return prompt(text).then(result => {
+    return prompt(text).then((result) => {
       this.spinner.start();
       return result;
     });

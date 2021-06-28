@@ -31,7 +31,7 @@ describe('Full-width mode', () => {
   // In full-width mode we cap the max-width at 1800px, for sizes greater than this the
   // content will be left-aligned. so we want to test a size < 1800 and a size > 1800
   const widths = [2000, 1200];
-  widths.forEach(width => {
+  widths.forEach((width) => {
     describe(`(${width}px)`, () => {
       beforeEach(async () => {
         page = global.page;

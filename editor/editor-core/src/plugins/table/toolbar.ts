@@ -105,7 +105,7 @@ export const getToolbarMenuConfig = (
     id: 'editor.table.tableOptions',
     type: 'dropdown',
     title: formatMessage(messages.tableOptions),
-    hidden: options.every(option => option.hidden),
+    hidden: options.every((option) => option.hidden),
     options,
   };
 };

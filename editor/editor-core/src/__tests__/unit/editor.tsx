@@ -83,7 +83,7 @@ describe(name, () => {
             <Editor onSave={handleSave} appearance="comment" />,
           );
 
-          const saveButton = wrapper.find(Button).findWhere(node => {
+          const saveButton = wrapper.find(Button).findWhere((node) => {
             return node.type() !== undefined && node.text() === 'Save';
           });
 
@@ -97,7 +97,7 @@ describe(name, () => {
             <Editor onCancel={cancelled} appearance="comment" />,
           );
 
-          const cancelButton = wrapper.find(Button).findWhere(node => {
+          const cancelButton = wrapper.find(Button).findWhere((node) => {
             return node.type() !== undefined && node.text() === 'Cancel';
           });
 
@@ -204,8 +204,8 @@ describe(name, () => {
           analyticsAppearance: EDITOR_APPEARANCE_CONTEXT.FULL_WIDTH,
         },
       ];
-      appearances.forEach(appearance => {
-        it(`adds appearance analytics context to all editor events for ${appearance.appearance} editor`, done => {
+      appearances.forEach((appearance) => {
+        it(`adds appearance analytics context to all editor events for ${appearance.appearance} editor`, (done) => {
           // editor fires an editor started event that should trigger the listener from
           // just mounting the component
           mount(
@@ -218,7 +218,7 @@ describe(name, () => {
         });
       });
 
-      it('should update appearance used in events when change appearance prop', done => {
+      it('should update appearance used in events when change appearance prop', (done) => {
         const wrapper = mount(
           <FabricAnalyticsListeners
             client={mockAnalyticsClient(
@@ -237,7 +237,7 @@ describe(name, () => {
         });
       });
 
-      it('should dispatch an tti (time-to-interactive) editor event after the editor has mounted', done => {
+      it('should dispatch an tti (time-to-interactive) editor event after the editor has mounted', (done) => {
         const nowTime = 100;
         const { cleanup } = setupMockPerformanceObserver(nowTime);
         const mockAnalyticsClient = (
@@ -292,7 +292,7 @@ describe(name, () => {
           const wrapper = mount<Editor>(
             <EditorContext editorActions={editorActions}>
               <Editor
-                onEditorReady={localEditorActions =>
+                onEditorReady={(localEditorActions) =>
                   (onReadyEditorActions = localEditorActions)
                 }
                 {...editorProps}
@@ -459,7 +459,7 @@ describe(name, () => {
         });
       });
       describe('onEditorReady prop', () => {
-        it('should dispatch an onEditorReadyCallback event after the editor has called the onEditorReady callback', done => {
+        it('should dispatch an onEditorReadyCallback event after the editor has called the onEditorReady callback', (done) => {
           const mockAnalyticsClient = (
             done: jest.DoneCallback,
           ): AnalyticsWebClient => {
@@ -495,7 +495,7 @@ describe(name, () => {
           );
         });
 
-        it('should not dispatch an onEditorReadyCallback event if disabled', done => {
+        it('should not dispatch an onEditorReadyCallback event if disabled', (done) => {
           const mockAnalyticsClient = (
             done: jest.DoneCallback,
           ): AnalyticsWebClient => {
@@ -648,7 +648,7 @@ describe(name, () => {
         });
       };
 
-      it('should be populated with activityProvider', done => {
+      it('should be populated with activityProvider', (done) => {
         const { providerFactory, activityProvider } = setup();
         assertProvider(
           providerFactory,
@@ -658,12 +658,12 @@ describe(name, () => {
         );
       });
 
-      it('should be populated with emojiProvider', done => {
+      it('should be populated with emojiProvider', (done) => {
         const { providerFactory, emojiProvider } = setup();
         assertProvider(providerFactory, 'emojiProvider', emojiProvider, done);
       });
 
-      it('should be populated with mentionProvider', done => {
+      it('should be populated with mentionProvider', (done) => {
         const { providerFactory, mentionProvider } = setup();
         assertProvider(
           providerFactory,
@@ -673,7 +673,7 @@ describe(name, () => {
         );
       });
 
-      it('should be populated with taskDecisionProvider', done => {
+      it('should be populated with taskDecisionProvider', (done) => {
         const { providerFactory, taskDecisionProvider } = setup();
         assertProvider(
           providerFactory,
@@ -683,7 +683,7 @@ describe(name, () => {
         );
       });
 
-      it('should be populated with contextIdentifierProvider', done => {
+      it('should be populated with contextIdentifierProvider', (done) => {
         const { providerFactory, contextIdentifierProvider } = setup();
         assertProvider(
           providerFactory,
@@ -693,7 +693,7 @@ describe(name, () => {
         );
       });
 
-      it('should be populated with collabEditProvider', done => {
+      it('should be populated with collabEditProvider', (done) => {
         const { providerFactory, collabEditProvider } = setup();
         assertProvider(
           providerFactory,
@@ -703,7 +703,7 @@ describe(name, () => {
         );
       });
 
-      it('should be populated with collabEditProvider via collabEdit object', done => {
+      it('should be populated with collabEditProvider via collabEdit object', (done) => {
         const { providerFactory, collabEditDotProvider } = setup(true);
         assertProvider(
           providerFactory,
@@ -713,7 +713,7 @@ describe(name, () => {
         );
       });
 
-      it('should be populated with presenceProvider', done => {
+      it('should be populated with presenceProvider', (done) => {
         const { providerFactory, presenceProvider } = setup();
         assertProvider(
           providerFactory,
@@ -723,12 +723,12 @@ describe(name, () => {
         );
       });
 
-      it('should be populated with macroProvider', done => {
+      it('should be populated with macroProvider', (done) => {
         const { providerFactory, macroProvider } = setup();
         assertProvider(providerFactory, 'macroProvider', macroProvider, done);
       });
 
-      it('should be populated with legacyImageUploadProvider', done => {
+      it('should be populated with legacyImageUploadProvider', (done) => {
         const { providerFactory, legacyImageUploadProvider } = setup();
         assertProvider(
           providerFactory,
@@ -738,7 +738,7 @@ describe(name, () => {
         );
       });
 
-      it('should be populated with autoformattingProvider', done => {
+      it('should be populated with autoformattingProvider', (done) => {
         const { providerFactory, autoformattingProvider } = setup();
         assertProvider(
           providerFactory,
@@ -748,17 +748,17 @@ describe(name, () => {
         );
       });
 
-      it('should be populated with mediaProvider', done => {
+      it('should be populated with mediaProvider', (done) => {
         const { providerFactory, mediaProvider } = setup();
         assertProvider(providerFactory, 'mediaProvider', mediaProvider, done);
       });
 
-      it('should be populated with cardProvider', done => {
+      it('should be populated with cardProvider', (done) => {
         const { providerFactory, cardProvider } = setup();
         assertProvider(providerFactory, 'cardProvider', cardProvider, done);
       });
 
-      it('should be populated with cardProvider on deprecated UNSAFE_cards', done => {
+      it('should be populated with cardProvider on deprecated UNSAFE_cards', (done) => {
         const cardProvider = {} as any;
         const cardOptions: CardOptions = {
           provider: Promise.resolve(cardProvider),
@@ -772,7 +772,7 @@ describe(name, () => {
         assertProvider(providerFactory, 'cardProvider', cardProvider, done);
       });
 
-      it('should be populated with quickInsertProvider', done => {
+      it('should be populated with quickInsertProvider', (done) => {
         const { providerFactory, quickInsertProvider } = setup(false, false);
         assertProvider(
           providerFactory,

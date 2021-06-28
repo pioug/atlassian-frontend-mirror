@@ -14,7 +14,7 @@ describe('<Heading />', () => {
 
   test.each([1, 2, 3, 4, 5, 6])(
     'should wrap content with <h%s>-tag',
-    headingLevel => {
+    (headingLevel) => {
       heading = mountWithIntl(
         <Heading
           level={headingLevel as HeadingLevels}

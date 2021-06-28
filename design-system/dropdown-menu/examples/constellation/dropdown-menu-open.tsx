@@ -6,7 +6,7 @@ import DropdownMenu, {
 } from '../../src';
 import { OnOpenChangeArgs } from '../../src/types';
 
-export default function StatelessMenuExample() {
+const DropdownOpenExample = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -26,4 +26,6 @@ export default function StatelessMenuExample() {
       </DropdownMenu>
     </div>
   );
-}
+};
+
+export default DropdownOpenExample;

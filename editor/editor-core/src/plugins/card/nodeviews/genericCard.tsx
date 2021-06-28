@@ -66,7 +66,7 @@ export function Card(
           return (
             <a
               href={url}
-              onClick={e => {
+              onClick={(e) => {
                 e.preventDefault();
               }}
             >

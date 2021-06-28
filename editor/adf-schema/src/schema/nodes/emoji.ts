@@ -27,7 +27,7 @@ export const emoji: NodeSpec = {
   parseDOM: [
     {
       tag: 'span[data-emoji-short-name]',
-      getAttrs: domNode => {
+      getAttrs: (domNode) => {
         const dom = domNode as HTMLElement;
         return {
           shortName:
@@ -42,7 +42,7 @@ export const emoji: NodeSpec = {
     // Handle copy/paste from old <ac:emoticon />
     {
       tag: 'img[data-emoticon-name]',
-      getAttrs: dom =>
+      getAttrs: (dom) =>
         acNameToEmoji(
           (dom as Element).getAttribute('data-emoticon-name') as any,
         ),
@@ -50,7 +50,7 @@ export const emoji: NodeSpec = {
     // Handle copy/paste from old <ac:hipchat-emoticons />
     {
       tag: 'img[data-hipchat-emoticon]',
-      getAttrs: dom =>
+      getAttrs: (dom) =>
         acShortcutToEmoji(
           (dom as Element).getAttribute('data-hipchat-emoticon')!,
         ),
@@ -58,7 +58,7 @@ export const emoji: NodeSpec = {
     // Handle copy/paste from bitbucket's <img class="emoji" />
     {
       tag: 'img.emoji[data-emoji-short-name]',
-      getAttrs: domNode => {
+      getAttrs: (domNode) => {
         const dom = domNode as HTMLElement;
         return {
           shortName:

@@ -205,7 +205,7 @@ describe('LinkToolbarAppearance', () => {
     const options = getDropdownOptions(toolbar);
 
     options
-      .find(option => option.testId === 'block-appearance')!
+      .find((option) => option.testId === 'block-appearance')!
       .onClick(editorView.state, editorView.dispatch);
 
     expect(editorView.state.doc).toEqualDocument(
@@ -241,7 +241,7 @@ describe('LinkToolbarAppearance', () => {
     );
     const options = getDropdownOptions(toolbar);
     options
-      .find(option => option.testId === 'block-appearance')!
+      .find((option) => option.testId === 'block-appearance')!
       .onClick(editorView.state, editorView.dispatch);
 
     expect(editorView.state.doc).toEqualDocument(
@@ -278,7 +278,7 @@ describe('LinkToolbarAppearance', () => {
     );
     const options = getDropdownOptions(toolbar);
     options
-      .find(option => option.testId === 'url-appearance')!
+      .find((option) => option.testId === 'url-appearance')!
       .onClick(editorView.state, editorView.dispatch);
 
     expect(changeSelectedCardToLink).toBeCalledTimes(1);
@@ -310,7 +310,7 @@ describe('LinkToolbarAppearance', () => {
     );
     const options = getDropdownOptions(toolbar);
     const urlAppearance = options.find(
-      option => option.testId === 'url-appearance',
+      (option) => option.testId === 'url-appearance',
     );
     expect(urlAppearance!.selected).toBeTruthy();
   });

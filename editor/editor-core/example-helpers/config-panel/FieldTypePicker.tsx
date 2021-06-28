@@ -29,7 +29,7 @@ export default function ExtensionNodePicker({
       <MenuGroup>
         <Section>
           <HeadingItem>Select a field</HeadingItem>
-          {(fields || []).map(field => {
+          {(fields || []).map((field) => {
             const isSelected = selectedField === field.name;
 
             const doSelect = () => onSelect(field);

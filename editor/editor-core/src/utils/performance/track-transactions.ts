@@ -123,7 +123,7 @@ export class TransactionTracker {
       }
 
       // Call each subscribed listener
-      this.measureListeners.forEach(listener =>
+      this.measureListeners.forEach((listener) =>
         listener({ name: measureName, duration, startTime }),
       );
     }

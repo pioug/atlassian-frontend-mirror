@@ -82,9 +82,9 @@ function repairParagraph(p: HTMLParagraphElement) {
 
   if (paragraphs.length > 1) {
     const fragment = document.createDocumentFragment();
-    paragraphs.forEach(childP => {
+    paragraphs.forEach((childP) => {
       const innerP = document.createElement('p');
-      childP.forEach(child => innerP.appendChild(child));
+      childP.forEach((child) => innerP.appendChild(child));
       fragment.appendChild(innerP);
     });
 

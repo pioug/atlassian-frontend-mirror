@@ -20,7 +20,7 @@ export function transformToCodeBlockAction(
 
   const codeBlockSlice = mapSlice(
     state.doc.slice(startOfCodeBlockText.pos, endLinePosition),
-    node => {
+    (node) => {
       if (node.type === state.schema.nodes.hardBreak) {
         return state.schema.text('\n');
       }

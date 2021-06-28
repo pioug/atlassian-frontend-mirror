@@ -95,7 +95,7 @@ describe('mediaSingle', () => {
 
     // can't use toHaveBeenCalledWith as it treats two different promises as the same
     expect(
-      addPendingTaskMock.mock.calls.some(arg => arg.includes(myPromise)),
+      addPendingTaskMock.mock.calls.some((arg) => arg.includes(myPromise)),
     ).toBeTruthy();
   });
 
@@ -130,7 +130,7 @@ describe('mediaSingle', () => {
 
     // can't use toHaveBeenCalledWith as it treats two different promises as the same
     expect(
-      addPendingTaskMock.mock.calls.some(arg => arg.includes(myPromise)),
+      addPendingTaskMock.mock.calls.some((arg) => arg.includes(myPromise)),
     ).toBeTruthy();
   });
 

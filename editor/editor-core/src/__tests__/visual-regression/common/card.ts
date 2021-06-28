@@ -34,7 +34,7 @@ describe('Cards:', () => {
     page = global.page;
   });
 
-  describe.each(themes)('Theme: %s', theme => {
+  describe.each(themes)('Theme: %s', (theme) => {
     it('displays links with correct appearance', async () => {
       await initFullPageEditorWithAdf(
         page,
@@ -190,7 +190,7 @@ describe('Cards:', () => {
   [
     [cardAdfBlock, 'regular length title'],
     [cardAdfBlockLongTitle, 'long length title'],
-  ].forEach(adf =>
+  ].forEach((adf) =>
     it(`displays preview with correct appearance for ${adf[1]}`, async () => {
       await initFullPageEditorWithAdf(
         page,

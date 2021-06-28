@@ -23,9 +23,9 @@ const handleSelectionChanged = (
   const selectedAnnotations = findAnnotationsInSelection(tr.selection, tr.doc);
   const changed =
     selectedAnnotations.length !== pluginState.selectedAnnotations.length ||
-    selectedAnnotations.some(annotationInfo => {
+    selectedAnnotations.some((annotationInfo) => {
       return !pluginState.selectedAnnotations.some(
-        aInfo => aInfo.type === annotationInfo.id,
+        (aInfo) => aInfo.type === annotationInfo.id,
       );
     });
 

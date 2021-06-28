@@ -31,8 +31,8 @@ describe('languageList utils', () => {
   });
 
   it('should filter supported languages', () => {
-    const mockSupportedLanguageStrings = mockSupportedLanguages.map(language =>
-      language.name.toLowerCase(),
+    const mockSupportedLanguageStrings = mockSupportedLanguages.map(
+      (language) => language.name.toLowerCase(),
     );
     expect(filterSupportedLanguages([])).toEqual(DEFAULT_LANGUAGES);
     expect(filterSupportedLanguages(mockSupportedLanguageStrings)).toEqual([

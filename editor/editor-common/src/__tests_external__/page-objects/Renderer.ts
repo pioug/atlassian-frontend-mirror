@@ -9,7 +9,7 @@ export class RendererPageObject {
     return this.cy
       .get('.rich-media-item')
       .should('have.length', numOfMedia)
-      .each(element => {
+      .each((element) => {
         this.cy
           .wrap(element)
           .should('have.attr', 'data-layout', 'center')

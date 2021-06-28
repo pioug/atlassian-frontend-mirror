@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Checkbox } from '../../src';
 
-export default () => (
+const CheckboxDisabledExample = () => (
   <Checkbox
     isDisabled
     label="Disabled checkbox"
@@ -11,3 +11,4 @@ export default () => (
     testId="cb-disabled"
   />
 );
+export default CheckboxDisabledExample;

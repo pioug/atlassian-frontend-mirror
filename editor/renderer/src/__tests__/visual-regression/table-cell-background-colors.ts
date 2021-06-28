@@ -19,7 +19,7 @@ describe('Snapshot Test: Render all Table Cell Background Colors', () => {
     page = global.page;
   });
 
-  describe.each(THEME_MODES)('Theme: %s', theme => {
+  describe.each(THEME_MODES)('Theme: %s', (theme) => {
     it('should render all table cell background colors correctly', async () => {
       await initRenderer(page, theme);
       await snapshot(page);

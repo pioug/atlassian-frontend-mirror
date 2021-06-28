@@ -7,7 +7,7 @@ export function calcTableColumnWidths(node: PmNode): number[] {
   if (firstRow) {
     // Sanity validation, but it should always have a first row
     // Iterate for the cells in the first row
-    firstRow.forEach(colNode => {
+    firstRow.forEach((colNode) => {
       let colwidth = colNode.attrs.colwidth || [0];
 
       // If we have colwidth, we added it
@@ -23,7 +23,7 @@ export function calcTableColumnWidths(node: PmNode): number[] {
 export function hasMergedCell(tableNode: PmNode): boolean {
   let hasSpan = false;
 
-  tableNode.descendants(node => {
+  tableNode.descendants((node) => {
     if (node.type.name === 'tableRow') {
       return true;
     }
@@ -45,10 +45,10 @@ export function convertProsemirrorTableNodeToArrayOfRows(
 ): Array<Array<PmNode | null>> {
   const result: Array<Array<PmNode>> = [];
 
-  tableNode.forEach(rowNode => {
+  tableNode.forEach((rowNode) => {
     if (rowNode.type.name === 'tableRow') {
       const row: Array<PmNode> = [];
-      rowNode.forEach(n => row.push(n));
+      rowNode.forEach((n) => row.push(n));
       result.push(row);
     }
   });

@@ -29,7 +29,7 @@ export const panelBackgroundPalette: PaletteColor[] = [
   { label: 'Pub mix', value: colors.Y200 },
   { label: 'Alexandria', value: colors.R100 },
   { label: 'Herky jerky', value: colors.P100 },
-].map(color => ({
+].map((color) => ({
   ...color,
   border: DEFAULT_BORDER_COLOR,
 }));

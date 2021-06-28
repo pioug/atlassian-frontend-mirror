@@ -46,7 +46,7 @@ export class AnalyticsQueue {
 
     this.running = true;
 
-    this.request(deadline => {
+    this.request((deadline) => {
       while (
         deadline.timeRemaining() > 0 &&
         this.tasks.length > 0 &&

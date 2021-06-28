@@ -119,7 +119,7 @@ describe('text-formatting input rules', () => {
 
   describe.each([true, false])(
     'when useUnpredictableInputRule is %s',
-    useUnpredictableInputRule => {
+    (useUnpredictableInputRule) => {
       const editor = (doc: DocBuilder, disableCode = false) => {
         createAnalyticsEvent = createAnalyticsEventMock();
         const editorWrapper = createEditor({
@@ -192,7 +192,7 @@ describe('text-formatting input rules', () => {
       function typeText(view: EditorView, text: string) {
         const { $from, $to } = view.state.selection;
         if (
-          !view.someProp('handleTextInput', f =>
+          !view.someProp('handleTextInput', (f) =>
             f(view, $from.pos, $to.pos, text),
           )
         ) {
@@ -206,7 +206,7 @@ describe('text-formatting input rules', () => {
       ) => {
         it(`should autoformat combinations: ${strings}`, () => {
           const { editorView } = editor(doc(p('{<>}')));
-          strings.forEach(str => {
+          strings.forEach((str) => {
             insertText(editorView, str, editorView.state.selection.$from.pos);
           });
           expect(editorView.state.doc).toEqualDocument(doc(p(editorContent)));
@@ -772,20 +772,20 @@ describe('text-formatting input rules', () => {
             );
           });
         };
-        autoFormatPatterns.forEach(pattern => {
+        autoFormatPatterns.forEach((pattern) => {
           autoformatsNotRightInclusive(pattern.string, pattern.doc);
         });
       });
 
       describe('valid autoformatting', () => {
         describe('simple single word', () => {
-          autoFormatPatterns.forEach(pattern => {
+          autoFormatPatterns.forEach((pattern) => {
             autoformats(pattern.string, p(pattern.doc));
           });
         });
 
         describe('simple single word in heading', () => {
-          autoFormatPatterns.forEach(pattern => {
+          autoFormatPatterns.forEach((pattern) => {
             autoformats(
               pattern.string,
               h1(pattern.doc),
@@ -837,7 +837,7 @@ describe('text-formatting input rules', () => {
         });
 
         describe('after other works', () => {
-          autoFormatPatterns.forEach(pattern => {
+          autoFormatPatterns.forEach((pattern) => {
             autoformats(
               `abc abc abc ${pattern.string}`,
               p('abc abc abc ', pattern.doc),
@@ -846,7 +846,7 @@ describe('text-formatting input rules', () => {
         });
 
         describe('` not in beginning of the word', () => {
-          autoFormatPatterns.forEach(pattern => {
+          autoFormatPatterns.forEach((pattern) => {
             if (pattern.name !== 'code') {
               autoformats(`\`test ${pattern.string}`, p('`test ', pattern.doc));
               autoformats(`\` ${pattern.string}`, p('` ', pattern.doc));
@@ -864,7 +864,7 @@ describe('text-formatting input rules', () => {
               );
             });
           };
-          autoFormatPatterns.forEach(pattern => {
+          autoFormatPatterns.forEach((pattern) => {
             notautoformatsAfterInCodeBlock(pattern.string);
           });
         });
@@ -882,7 +882,7 @@ describe('text-formatting input rules', () => {
               );
             });
           };
-          autoFormatPatterns.forEach(pattern => {
+          autoFormatPatterns.forEach((pattern) => {
             autoformatsAfterCodeMark(pattern.string, pattern.doc);
           });
         });
@@ -926,7 +926,7 @@ describe('text-formatting input rules', () => {
           // these strings can not ne testes using notautoformats function
           // as they autoformat as soon as '__test__' is entered and does not waits for following space
           // space after
-          autoFormatPatterns.forEach(pattern => {
+          autoFormatPatterns.forEach((pattern) => {
             checkInvalidStrings(
               pattern.regex,
               `${pattern.string} `,
@@ -941,7 +941,7 @@ describe('text-formatting input rules', () => {
         });
 
         describe('text before', () => {
-          autoFormatPatterns.forEach(pattern => {
+          autoFormatPatterns.forEach((pattern) => {
             notautoformats(`abc${pattern.string}`);
           });
         });
@@ -977,7 +977,7 @@ describe('text-formatting input rules', () => {
         });
 
         describe('backtick before', () => {
-          autoFormatPatterns.forEach(pattern => {
+          autoFormatPatterns.forEach((pattern) => {
             notautoformats(`\`${pattern.string}`);
           });
         });

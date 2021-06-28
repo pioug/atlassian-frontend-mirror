@@ -42,8 +42,8 @@ const populateFromParameters = (
 ): string[] | undefined => {
   if (Object.keys(parameters).length) {
     const keys = Object.keys(parameters);
-    const existingFieldKeys = keys.filter(key =>
-      fields.find(field => field.name === getNameFromDuplicateField(key)),
+    const existingFieldKeys = keys.filter((key) =>
+      fields.find((field) => field.name === getNameFromDuplicateField(key)),
     );
 
     if (existingFieldKeys.length > 0) {
@@ -54,7 +54,7 @@ const populateFromParameters = (
 const populateFromRequired = (
   fields: FieldDefinition[],
 ): string[] | undefined => {
-  return fields.filter(field => field.isRequired).map(field => field.name);
+  return fields.filter((field) => field.isRequired).map((field) => field.name);
 };
 
 const getInitialFields = (
@@ -63,7 +63,7 @@ const getInitialFields = (
   isDynamic?: boolean,
 ): Set<string> => {
   if (!isDynamic) {
-    return new Set(fields.map(field => field.name));
+    return new Set(fields.map((field) => field.name));
   }
   const dynamicFields: string[] = [];
 
@@ -128,9 +128,9 @@ class FieldsetField extends React.Component<Props, State> {
   getSelectedFields = (visibleFields: Set<string>) => {
     const { field } = this.props;
 
-    return [...visibleFields].map(fieldName => {
+    return [...visibleFields].map((fieldName) => {
       const originalFieldDef = field.fields.find(
-        field => field.name === getNameFromDuplicateField(fieldName),
+        (field) => field.name === getNameFromDuplicateField(fieldName),
       ) as FieldDefinition;
       const fieldDef = {
         ...originalFieldDef,
@@ -159,7 +159,7 @@ class FieldsetField extends React.Component<Props, State> {
   };
 
   setIsAdding = (value: boolean) => {
-    this.setState(state => ({
+    this.setState((state) => ({
       ...state,
       isAdding: value,
     }));
@@ -167,7 +167,7 @@ class FieldsetField extends React.Component<Props, State> {
 
   setCurrentParameters = (parameters: Parameters) => {
     this.setState(
-      state => ({
+      (state) => ({
         ...state,
         currentParameters: parameters,
       }),
@@ -178,7 +178,7 @@ class FieldsetField extends React.Component<Props, State> {
   };
 
   setVisibleFields = (fields: Set<string>) => {
-    this.setState(state => ({
+    this.setState((state) => ({
       ...state,
       visibleFields: fields,
       selectedFields: this.getSelectedFields(fields),
@@ -191,7 +191,7 @@ class FieldsetField extends React.Component<Props, State> {
 
     let newItem = option.value;
     const duplicates = [...visibleFields].filter(
-      field => getNameFromDuplicateField(field) === newItem,
+      (field) => getNameFromDuplicateField(field) === newItem,
     );
     if (duplicates.length > 0) {
       newItem += `:${duplicates.length}`;
@@ -242,7 +242,7 @@ class FieldsetField extends React.Component<Props, State> {
             autoFocus
             placeholder={intl.formatMessage(messages.addField)}
             options={selectOptions}
-            onChange={option => {
+            onChange={(option) => {
               if (option) {
                 this.onSelectItem(option as OptionType);
               }

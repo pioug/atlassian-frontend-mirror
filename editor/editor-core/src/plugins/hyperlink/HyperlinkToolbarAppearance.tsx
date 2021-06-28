@@ -39,7 +39,7 @@ export class HyperlinkToolbarAppearance extends Component<
       return this.cardProvider;
     }
 
-    return new Promise<CardProvider>(resolve => {
+    return new Promise<CardProvider>((resolve) => {
       const { providerFactory } = this.props;
       providerFactory.subscribe('cardProvider', async (_, cardProvider) => {
         if (!cardProvider) {

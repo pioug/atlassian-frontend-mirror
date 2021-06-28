@@ -34,7 +34,7 @@ type ArrayOfRows = Array<PMNode | null>[];
 // ```
 export const transpose = (array: Array<any>): Array<any> => {
   return array[0].map((_: any, i: number) => {
-    return array.map(column => column[i]);
+    return array.map((column) => column[i]);
   });
 };
 

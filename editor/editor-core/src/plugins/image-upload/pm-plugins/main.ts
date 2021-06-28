@@ -119,7 +119,7 @@ export const createPlugin = ({
             currentState.activeUpload &&
             uploadHandler
           ) {
-            uploadHandler(currentState.activeUpload.event, options =>
+            uploadHandler(currentState.activeUpload.event, (options) =>
               insertExternalImage(options)(view.state, view.dispatch),
             );
           }

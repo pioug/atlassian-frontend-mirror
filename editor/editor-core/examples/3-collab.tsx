@@ -78,7 +78,7 @@ const SaveAndCancelButtons = (props: { editorActions: EditorActions }) => (
     <Button
       appearance="primary"
       onClick={() =>
-        props.editorActions.getValue().then(value => console.log(value))
+        props.editorActions.getValue().then((value) => console.log(value))
       }
     >
       Publish
@@ -91,7 +91,7 @@ const SaveAndCancelButtons = (props: { editorActions: EditorActions }) => (
 
 const shareClient = {
   getConfig: () =>
-    new Promise<ConfigResponse>(resolve => {
+    new Promise<ConfigResponse>((resolve) => {
       setTimeout(() => {
         resolve({
           allowComment: true,
@@ -101,7 +101,7 @@ const shareClient = {
       }, 1000);
     }),
   share: () =>
-    new Promise<ShareResponse>(resolve => {
+    new Promise<ShareResponse>((resolve) => {
       setTimeout(
         () =>
           resolve({
@@ -129,7 +129,7 @@ const loadUserOptions = (searchText?: string): OptionData[] => {
     }))
     .filter((user: User) => {
       const searchTextInLowerCase = searchText.toLowerCase();
-      return userPropertiesToSearch.some(property => {
+      return userPropertiesToSearch.some((property) => {
         const value = property && user[property];
         return !!(value && value.toLowerCase().includes(searchTextInLowerCase));
       });
@@ -239,7 +239,7 @@ const editorProps = ({
   allowTables: {
     advanced: true,
   },
-  extensionProviders: editorActions => [
+  extensionProviders: (editorActions) => [
     getExampleExtensionProviders(editorActions),
   ],
   allowExtension: { allowAutoSave: true, allowBreakout: true },
@@ -270,10 +270,10 @@ const editorProps = ({
   placeholder: 'Write something...',
   shouldFocus: false,
   quickInsert: { provider: Promise.resolve(quickInsertProvider) },
-  contentComponents: <TitleInput innerRef={ref => ref && ref.focus()} />,
+  contentComponents: <TitleInput innerRef={(ref) => ref && ref.focus()} />,
   primaryToolbarComponents: (
     <WithEditorActions
-      render={actions => <SaveAndCancelButtons editorActions={actions} />}
+      render={(actions) => <SaveAndCancelButtons editorActions={actions} />}
     />
   ),
   insertMenuItems: customInsertMenuItems,
@@ -287,7 +287,7 @@ export default class Example extends React.Component<Props> {
         <Columns>
           <Column>
             <DropzoneEditorWrapper>
-              {parentContainer => (
+              {(parentContainer) => (
                 <EditorContext>
                   <Editor
                     {...editorProps({
@@ -303,7 +303,7 @@ export default class Example extends React.Component<Props> {
           </Column>
           <Column>
             <DropzoneEditorWrapper>
-              {parentContainer => (
+              {(parentContainer) => (
                 <EditorContext>
                   <Editor
                     {...editorProps({

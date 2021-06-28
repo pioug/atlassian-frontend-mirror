@@ -201,12 +201,12 @@ export default class ToolsDrawer extends React.Component<Props & any, State> {
   };
 
   private toggleDisabled = () =>
-    this.setState(prevState => ({ editorEnabled: !prevState.editorEnabled }));
+    this.setState((prevState) => ({ editorEnabled: !prevState.editorEnabled }));
 
   private toggleMediaMock = () => {
     // eslint-disable-next-line no-unused-expressions
     this.state.mediaMockEnabled ? mediaMock.disable() : mediaMock.enable();
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       mediaMockEnabled: !prevState.mediaMockEnabled,
     }));
   };
@@ -218,7 +218,7 @@ export default class ToolsDrawer extends React.Component<Props & any, State> {
   };
 
   private toggleFeature = (name: keyof ToolbarFeatures) => {
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       ...prevState,
 
       enabledFeatures: {
@@ -283,12 +283,12 @@ export default class ToolsDrawer extends React.Component<Props & any, State> {
                   })}
               <div className="toolsDrawer">
                 {(Object.keys(providers) as Array<keyof typeof providers>).map(
-                  providerKey => (
+                  (providerKey) => (
                     <div key={providerKey}>
                       <ButtonGroup>
                         <label>{providerKey}: </label>
                         {Object.keys(providers[providerKey]).map(
-                          providerStateName => (
+                          (providerStateName) => (
                             <Button
                               key={`${providerKey}-${providerStateName}`}
                               onClick={this.switchProvider.bind(
@@ -331,7 +331,7 @@ export default class ToolsDrawer extends React.Component<Props & any, State> {
 
                     {(Object.keys(enabledFeatureNames) as Array<
                       keyof typeof enabledFeatureNames
-                    >).map(key => (
+                    >).map((key) => (
                       <Button
                         key={key}
                         onClick={() => this.toggleFeature(key)}

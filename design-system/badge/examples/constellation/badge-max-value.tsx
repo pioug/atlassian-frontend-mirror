@@ -2,10 +2,12 @@ import React from 'react';
 
 import Badge from '../../src';
 
-export default function Example() {
+const BadgeMaxValueExample = () => {
   return (
     <Badge appearance="added" max={500}>
       {1000}
     </Badge>
   );
-}
+};
+
+export default BadgeMaxValueExample;

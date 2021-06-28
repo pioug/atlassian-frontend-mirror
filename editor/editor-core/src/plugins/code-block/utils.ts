@@ -13,7 +13,7 @@ function joinCodeBlocks(left: Node, right: Node) {
 
 function mergeAdjacentCodeBlocks(fragment: Fragment): Fragment {
   const children = [] as Node[];
-  fragment.forEach(maybeCodeBlock => {
+  fragment.forEach((maybeCodeBlock) => {
     if (maybeCodeBlock.type === maybeCodeBlock.type.schema.nodes.codeBlock) {
       const peekAtPrevious = children[children.length - 1];
       if (peekAtPrevious && peekAtPrevious.type === maybeCodeBlock.type) {
@@ -26,7 +26,7 @@ function mergeAdjacentCodeBlocks(fragment: Fragment): Fragment {
 }
 
 export function transformSliceToJoinAdjacentCodeBlocks(slice: Slice): Slice {
-  slice = mapSlice(slice, node => {
+  slice = mapSlice(slice, (node) => {
     return node.isBlock && !node.isTextblock
       ? node.copy(mergeAdjacentCodeBlocks(node.content))
       : node;

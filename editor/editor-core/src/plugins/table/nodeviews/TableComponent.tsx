@@ -149,7 +149,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
     // Disable inline table editing and resizing controls in Firefox
     // https://github.com/ProseMirror/prosemirror/issues/432
     if ('execCommand' in document) {
-      ['enableObjectResizing', 'enableInlineTableEditing'].forEach(cmd => {
+      ['enableObjectResizing', 'enableInlineTableEditing'].forEach((cmd) => {
         if (document.queryCommandSupported(cmd)) {
           document.execCommand(cmd, false, 'false');
         }
@@ -388,7 +388,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 
     const shadowStyle = tableOverflowShadowsOptimization
       ? memoizeOne(
-          visible =>
+          (visible) =>
             ({ visibility: visible ? 'visible' : 'hidden' } as CSSProperties),
         )
       : NOOP;
@@ -441,7 +441,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 
         <div
           className={classnames(ClassName.TABLE_NODE_WRAPPER)}
-          ref={elem => {
+          ref={(elem) => {
             this.wrapper = elem;
             if (elem) {
               this.props.contentDOM(elem);

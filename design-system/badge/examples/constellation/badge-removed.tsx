@@ -2,6 +2,8 @@ import React from 'react';
 
 import Badge from '../../src';
 
-export default function Example() {
+const BadgeRemovedExample = () => {
   return <Badge appearance="removed">-100</Badge>;
-}
+};
+
+export default BadgeRemovedExample;

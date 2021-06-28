@@ -35,7 +35,9 @@ export const messages = defineMessages({
   },
 });
 
-export const BlockTypeButton: React.StatelessComponent<BlockTypeButtonProps> = props => {
+export const BlockTypeButton: React.StatelessComponent<BlockTypeButtonProps> = (
+  props,
+) => {
   const labelTextStyles = props.formatMessage(messages.textStyles);
   return (
     <ToolbarButton

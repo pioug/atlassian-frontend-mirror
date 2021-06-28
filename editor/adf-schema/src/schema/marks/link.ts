@@ -64,7 +64,7 @@ export const link: MarkSpec = {
     {
       tag: '[data-block-link]',
       getAttrs: getLinkAttrs('data-block-link'),
-      contentElement: node => {
+      contentElement: (node) => {
         const clone = node.cloneNode(true);
         (clone as HTMLElement).removeAttribute('data-block-link');
         const wrapper = document.createElement('div');

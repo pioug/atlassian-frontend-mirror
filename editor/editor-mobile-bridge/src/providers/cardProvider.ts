@@ -45,8 +45,8 @@ export class MobileSmartCardClient extends Client {
     return createPromise('getResolvedLink', { url })
       .submit()
       .then(
-        response => response,
-        error => error,
+        (response) => response,
+        (error) => error,
       );
   }
 }
@@ -97,7 +97,7 @@ if (IS_DEV && IS_DUMMY) {
       // it to JSON-LD format. To read more about the format, please visit:
       //   https://product-fabric.atlassian.net/wiki/spaces/CS/pages/609257121/Document
       //
-      return new Promise(resolve => {
+      return new Promise((resolve) => {
         // We simulate a 2s load time
         window.setTimeout(() => {
           resolve({

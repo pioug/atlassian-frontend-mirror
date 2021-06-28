@@ -73,7 +73,7 @@ describe('RowControls', () => {
       pluginKey,
     });
 
-  [1, 2, 3].forEach(row => {
+  [1, 2, 3].forEach((row) => {
     describe(`when table has ${row} rows`, () => {
       it(`should render ${row} row header buttons`, () => {
         const rows = [tr(tdCursor)];
@@ -126,7 +126,7 @@ describe('RowControls', () => {
     });
   });
 
-  [0, 1, 2].forEach(row => {
+  [0, 1, 2].forEach((row) => {
     describe(`when HeaderButton in row ${row + 1} is clicked`, () => {
       it('should not move the cursor when hovering controls', () => {
         const { editorView, refs } = editor(
@@ -198,7 +198,7 @@ describe('RowControls', () => {
         }}
         hoveredRows={[0, 1]}
         isInDanger={true}
-        selectRow={row => {
+        selectRow={(row) => {
           editorView.dispatch(selectRow(row)(editorView.state.tr));
         }}
       />,
@@ -207,7 +207,7 @@ describe('RowControls', () => {
     floatingControls
       .find(RowControlsButtonWrap)
       .slice(0, 2)
-      .forEach(buttonWrap => {
+      .forEach((buttonWrap) => {
         expect(buttonWrap.hasClass('danger')).toBe(true);
       });
   });

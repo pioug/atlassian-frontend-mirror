@@ -46,7 +46,7 @@ describe('Snapshot Test: Expand', () => {
     await page.waitForSelector(selectors.expand);
   });
 
-  describe.each(['default', 'wide', 'full-width'])('Breakout: %s', mode => {
+  describe.each(['default', 'wide', 'full-width'])('Breakout: %s', (mode) => {
     test(`should render a ${mode} collapsed top level expand`, async () => {
       await initRenderer(page, expandADF(mode));
       await page.waitForSelector(selectors.expand);

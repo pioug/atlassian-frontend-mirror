@@ -109,15 +109,17 @@ class BatchDecorations {
     }
 
     const matchesBetween = matches.filter(
-      m => m.start >= startPos && (endPos === undefined || m.start < endPos),
+      (m) => m.start >= startPos && (endPos === undefined || m.start < endPos),
     );
-    const selectionMatch = matches.find(match => match.start >= selection.from);
+    const selectionMatch = matches.find(
+      (match) => match.start >= selection.from,
+    );
     const selectionIndex = matchesBetween.findIndex(
-      match => match === selectionMatch,
+      (match) => match === selectionMatch,
     );
 
     return await this.batchRequests(
-      counter => {
+      (counter) => {
         let matchesToDecorate = matchesBetween.slice(
           counter,
           counter + batchIncrement,
@@ -166,7 +168,7 @@ class BatchDecorations {
     }
 
     return await this.batchRequests(
-      counter => {
+      (counter) => {
         let decorationsToRemove = decorations.slice(
           counter,
           counter + batchIncrement,
@@ -251,7 +253,7 @@ class BatchDecorations {
     let counter = 0;
     const { increment, until } = opts;
 
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       const batchedFn = () => {
         let result = fn(counter);
         while (result === false && counter < until) {

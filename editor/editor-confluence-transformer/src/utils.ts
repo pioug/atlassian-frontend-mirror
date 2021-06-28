@@ -77,7 +77,7 @@ export function getNodeMarkOfType(
     return null;
   }
   const foundMarks = node.marks.filter(
-    mark => mark.type.name === markType.name,
+    (mark) => mark.type.name === markType.name,
   );
   return foundMarks.length ? foundMarks[foundMarks.length - 1] : null;
 }
@@ -239,7 +239,7 @@ export function getMacroParameters(node: Element): any {
 
   getMacroAttribute(node, 'parameters')
     .split('|')
-    .forEach(paramStr => {
+    .forEach((paramStr) => {
       const param = paramStr.split('=');
       if (param.length) {
         params[param[0]] = param[1];
@@ -351,7 +351,7 @@ export function parseMacro(node: Element): Macro {
 
 export const getExtensionMacroParams = (params: Record<string, any>) => {
   const macroParams: Record<string, { value: any }> = {};
-  Object.keys(params).forEach(key => {
+  Object.keys(params).forEach((key) => {
     /** Safe check for empty keys */
     if (key) {
       macroParams[key] = { value: params[key] };
@@ -393,7 +393,7 @@ export const encodeMacroParams = (
   },
 ) => {
   const elem = doc.createDocumentFragment();
-  Object.keys(params).forEach(name => {
+  Object.keys(params).forEach((name) => {
     const el = doc.createElementNS(AC_XMLNS, 'ac:parameter');
     el.setAttributeNS(AC_XMLNS, 'ac:name', name);
     el.textContent = params[name].value;

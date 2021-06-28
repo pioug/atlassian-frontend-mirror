@@ -21,9 +21,9 @@ export const analyticsBridgeClient = (
   };
 
   return {
-    sendUIEvent: event => handleEvent('ui', event),
-    sendOperationalEvent: event => handleEvent('operational', event),
-    sendTrackEvent: event => handleEvent('track', event),
-    sendScreenEvent: event => handleEvent('screen', event),
+    sendUIEvent: (event) => handleEvent('ui', event),
+    sendOperationalEvent: (event) => handleEvent('operational', event),
+    sendTrackEvent: (event) => handleEvent('track', event),
+    sendScreenEvent: (event) => handleEvent('screen', event),
   };
 };

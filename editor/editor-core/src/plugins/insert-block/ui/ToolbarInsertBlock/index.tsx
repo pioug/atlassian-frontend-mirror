@@ -147,7 +147,7 @@ class ToolbarInsertBlock extends React.PureComponent<
     inputMethod: TOOLBAR_MENU_TYPE = INPUT_METHOD.TOOLBAR,
   ) => {
     this.setState(
-      prevState => ({ emojiPickerOpen: !prevState.emojiPickerOpen }),
+      (prevState) => ({ emojiPickerOpen: !prevState.emojiPickerOpen }),
       () => {
         if (this.state.emojiPickerOpen) {
           const { dispatchAnalyticsEvent } = this.props;
@@ -261,7 +261,7 @@ class ToolbarInsertBlock extends React.PureComponent<
 
     return (
       <ButtonGroup width={isReducedSpacing ? 'small' : 'large'}>
-        {buttons.map(btn => (
+        {buttons.map((btn) => (
           <ToolbarButton
             item={btn}
             ref={btn.value.name === 'emoji' ? this.handleEmojiButtonRef : noop}

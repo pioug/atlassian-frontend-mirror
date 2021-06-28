@@ -19,7 +19,7 @@ export interface KitchenSinkRendererProps {
 }
 
 export const KitchenSinkRenderer: React.StatelessComponent<KitchenSinkRendererProps> = React.memo(
-  props => {
+  (props) => {
     const smartCardClient = React.useMemo(() => new SmartCardClient('stg'), []);
 
     return (

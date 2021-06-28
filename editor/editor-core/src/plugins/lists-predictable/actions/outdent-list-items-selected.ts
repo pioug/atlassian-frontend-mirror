@@ -48,7 +48,7 @@ export const outdentListItemsSelected = (tr: Transaction) => {
   let hasNormalizedFromPositionLiftedOut = false;
   const { from: oldFrom, to: oldTo } = normalizedSelection;
   const nodeRanges = splitRangeSelection(normalizedSelection);
-  nodeRanges.forEach(range => {
+  nodeRanges.forEach((range) => {
     const $from = tr.doc.resolve(tr.mapping.map(range.from));
     const $to = tr.doc.resolve(tr.mapping.map(range.to));
     const mappedRange = $from.blockRange($to, isListNode);

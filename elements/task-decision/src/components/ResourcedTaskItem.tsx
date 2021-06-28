@@ -84,7 +84,7 @@ export default class ResourcedTaskItem extends PureComponent<Props, State> {
     isDone?: boolean,
   ) {
     if (taskDecisionProvider && objectAri) {
-      taskDecisionProvider.then(provider => {
+      taskDecisionProvider.then((provider) => {
         if (!this.mounted) {
           return;
         }
@@ -104,7 +104,7 @@ export default class ResourcedTaskItem extends PureComponent<Props, State> {
   private unsubscribe() {
     const { taskDecisionProvider, taskId, objectAri } = this.props;
     if (taskDecisionProvider && objectAri) {
-      taskDecisionProvider.then(provider => {
+      taskDecisionProvider.then((provider) => {
         provider.unsubscribe({ localId: taskId, objectAri }, this.onUpdate);
       });
     }
@@ -121,7 +121,7 @@ export default class ResourcedTaskItem extends PureComponent<Props, State> {
 
     if (taskDecisionProvider && objectAri) {
       // Call provider to update task
-      taskDecisionProvider.then(provider => {
+      taskDecisionProvider.then((provider) => {
         if (!this.mounted) {
           return;
         }

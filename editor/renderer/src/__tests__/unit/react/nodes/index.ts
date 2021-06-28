@@ -38,7 +38,7 @@ const createMockFragment = (fragment: any) => {
     mock.content = createMockFragment(fragment.content);
     mock.forEach = (fn: Function) => mock.content.forEach(fn);
   }
-  Object.keys(fragment).forEach(key => (mock[key] = fragment[key]));
+  Object.keys(fragment).forEach((key) => (mock[key] = fragment[key]));
   return mock;
 };
 

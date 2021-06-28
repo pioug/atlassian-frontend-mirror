@@ -26,7 +26,7 @@ const undoSelector = 'ak-editor-toolbar-button-undo';
 const redoSelector = 'ak-editor-toolbar-button-redo';
 
 // @ts-ignore
-const mockIntl = { formatMessage: text => text };
+const mockIntl = { formatMessage: (text) => text };
 
 describe('ToolbarUndoRedo', () => {
   const createEditor = createProsemirrorEditorFactory();

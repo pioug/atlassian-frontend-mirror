@@ -443,7 +443,7 @@ describe('AddColumnStep', () => {
         [
           'add the column in the correct position after adding text at the beginning',
           doc('{table}', table()(tr(tdColorA, tdColorB, tdColorC))),
-          editorState => editorState.tr.insertText('foo', 0),
+          (editorState) => editorState.tr.insertText('foo', 0),
           addColumnAtFactory('table', 3),
           doc(p('foo'), table()(tr(tdColorA, tdColorB, tdColorC, tdEmpty))),
         ],
@@ -471,7 +471,7 @@ describe('AddColumnStep', () => {
         [
           'add the column in the correct position after adding text inside one column',
           doc('{table}', table()(tr(td()(p('foo{<>}')), tdColorB, tdColorC))),
-          editorState => editorState.tr.insertText('bar'),
+          (editorState) => editorState.tr.insertText('bar'),
           addColumnAtFactory('table', 2),
           doc(table()(tr(td()(p('foobar')), tdColorB, tdEmpty, tdColorC))),
         ],

@@ -124,7 +124,7 @@ const blockTypePlugin = (options?: BlockTypePluginOptions): EditorPlugin => ({
       const exclude = options.allowBlockType.exclude
         ? options.allowBlockType.exclude
         : [];
-      return nodes.filter(node => exclude.indexOf(node.name) === -1);
+      return nodes.filter((node) => exclude.indexOf(node.name) === -1);
     }
 
     return nodes;
@@ -198,7 +198,7 @@ const blockTypePlugin = (options?: BlockTypePluginOptions): EditorPlugin => ({
   },
 
   pluginsOptions: {
-    quickInsert: intl => {
+    quickInsert: (intl) => {
       const exclude =
         options && options.allowBlockType && options.allowBlockType.exclude
           ? options.allowBlockType.exclude

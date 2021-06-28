@@ -66,7 +66,7 @@ export const getSelectedWordDecorations = (state: EditorState) => {
   return decorationSet
     .find()
     .filter(
-      decoration =>
+      (decoration) =>
         (decoration as any).type.attrs.class.indexOf(
           selectedSearchMatchClass,
         ) >= 0,

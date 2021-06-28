@@ -2,7 +2,7 @@ import React, { ChangeEvent, useCallback, useState } from 'react';
 
 import { Checkbox } from '../../src';
 
-export default function ControlledExample() {
+const CheckboxControlledExample = () => {
   const [isChecked, setIsChecked] = useState(true);
   const [onChangeResult, setOnChangeResult] = useState('true');
 
@@ -22,4 +22,6 @@ export default function ControlledExample() {
       />
     </div>
   );
-}
+};
+
+export default CheckboxControlledExample;

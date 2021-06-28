@@ -198,7 +198,7 @@ describe('media', () => {
       expect(toolbar).toBeDefined();
       expect(toolbar!.items.length).toEqual(9);
       const item = getToolbarItems(toolbar!, editorView).find(
-        cmd => cmd.type === 'custom',
+        (cmd) => cmd.type === 'custom',
       );
       expect(item).toBeDefined();
     });
@@ -433,7 +433,7 @@ describe('media', () => {
         const annotateToolbarComponent = getToolbarItems(
           toolbar!,
           editorView,
-        ).find(item => item.type === 'custom') as FloatingToolbarCustom<
+        ).find((item) => item.type === 'custom') as FloatingToolbarCustom<
           Command
         >;
 

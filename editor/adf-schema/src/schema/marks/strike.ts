@@ -17,7 +17,7 @@ export const strike: MarkSpec = {
     { tag: 'del' },
     {
       style: 'text-decoration',
-      getAttrs: value => value === 'line-through' && null,
+      getAttrs: (value) => value === 'line-through' && null,
     },
   ],
   toDOM(): [string] {

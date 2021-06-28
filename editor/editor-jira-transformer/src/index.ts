@@ -218,7 +218,7 @@ export class JIRATransformer implements Transformer<string> {
 
   private encodeFragment(fragment: Fragment) {
     const documentFragment = this.doc.createDocumentFragment();
-    fragment.forEach(node =>
+    fragment.forEach((node) =>
       documentFragment.appendChild(this.encodeNode(node)!),
     );
     return documentFragment;
@@ -230,7 +230,7 @@ export class JIRATransformer implements Transformer<string> {
       const uriEncoded = encodeURIComponent(noSpaces);
       const specialsEncoded = uriEncoded.replace(
         /[!'()*]/g,
-        c => '%' + c.charCodeAt(0).toString(16),
+        (c) => '%' + c.charCodeAt(0).toString(16),
       );
       return specialsEncoded;
     }
@@ -357,7 +357,7 @@ export class JIRATransformer implements Transformer<string> {
     const elem = this.doc.createElement('li');
     if (node.content.childCount) {
       let hasBlocks = false;
-      node.content.forEach(childNode => {
+      node.content.forEach((childNode) => {
         if (
           childNode.type === this.schema.nodes.bulletList ||
           childNode.type === this.schema.nodes.orderedList
@@ -559,10 +559,10 @@ export class JIRATransformer implements Transformer<string> {
     const elem = this.doc.createElement('table');
     const tbody = this.doc.createElement('tbody');
 
-    node.descendants(rowNode => {
+    node.descendants((rowNode) => {
       const rowElement = this.doc.createElement('tr');
 
-      rowNode.descendants(colNode => {
+      rowNode.descendants((colNode) => {
         const cellType =
           colNode.type === this.schema.nodes.tableCell ? 'd' : 'h';
         const cellElement = this.doc.createElement(`t${cellType}`);

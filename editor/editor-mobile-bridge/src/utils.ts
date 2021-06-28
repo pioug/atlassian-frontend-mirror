@@ -25,7 +25,7 @@ export interface DeferredValue<T> extends Promise<T> {
 export const createDeferred = <T>(): DeferredValue<T> => {
   let resolve = (value: T) => {};
   let isResolved = false;
-  const p = new Promise(r => (resolve = r));
+  const p = new Promise((r) => (resolve = r));
   (p as any).resolve = (value: T) => {
     if (!isResolved) {
       isResolved = true;

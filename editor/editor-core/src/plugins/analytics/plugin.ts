@@ -49,7 +49,7 @@ function createPlugin(options: AnalyticsPluginOptions) {
                 payload.action !== ACTION.DELETED
               ) {
                 const measureName = `${payload.actionSubject}:${payload.action}:${payload.actionSubjectId}`;
-                measureRender(measureName, duration => {
+                measureRender(measureName, (duration) => {
                   fireAnalyticsEvent(pluginState.createAnalyticsEvent)({
                     payload: extendPayload(payload, duration),
                     channel,
@@ -94,7 +94,7 @@ const analyticsPlugin = (options: AnalyticsPluginOptions): EditorPlugin => ({
           .filter(
             (step): step is AnalyticsStep<any> => step instanceof AnalyticsStep,
           )
-          .map(x => x.analyticsEvents)
+          .map((x) => x.analyticsEvents)
           .reduce((acc, val) => acc.concat(val), []);
 
         acc.push(...payloads);

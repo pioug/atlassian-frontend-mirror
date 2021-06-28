@@ -7,7 +7,7 @@ export const editorTypingTestCase = (opts?: TestCaseOpts) =>
   new EditorTestCase({
     title: 'typing in Editor works',
     id: 'editor-typing',
-    assertions: cy => {
+    assertions: (cy) => {
       const editor = new EditorPageObject(cy);
       editor.getEditorArea().type('abcdef');
       editor.getEditorArea().contains('abcdef');

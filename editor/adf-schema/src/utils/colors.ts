@@ -77,7 +77,7 @@ export function normalizeHexColor(
     if (color.length === 4) {
       color = color
         .split('')
-        .map(c => (c === '#' ? '#' : `${c}${c}`))
+        .map((c) => (c === '#' ? '#' : `${c}${c}`))
         .join('');
     }
   } else if (isRgb(color)) {
@@ -141,7 +141,7 @@ export function hexToRgba(rawColor: string, alpha: number) {
     return null;
   }
   const hex2rgb = (color: string) =>
-    color.match(/[a-z0-9]{2}/gi)!.map(hex => parseInt(hex, 16));
+    color.match(/[a-z0-9]{2}/gi)!.map((hex) => parseInt(hex, 16));
   return `rgba(${hex2rgb(color).concat(alpha).join(',')})`;
 }
 

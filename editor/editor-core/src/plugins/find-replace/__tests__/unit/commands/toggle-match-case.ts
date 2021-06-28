@@ -33,7 +33,7 @@ describe('find/replace commands: toggleMatchCase', () => {
     matchPositions: MatchPositionTuple[],
     refs: { [name: string]: number },
   ) =>
-    matchPositions.map(refPair => ({
+    matchPositions.map((refPair) => ({
       start: refs[refPair[0]],
       end: refs[refPair[1]],
     }));

@@ -56,7 +56,7 @@ describe('layout actions', () => {
     };
 
     describe('detecting exact layout', () => {
-      layouts.forEach(layout => {
+      layouts.forEach((layout) => {
         it(`should detect "${layout.name}" layout`, () => {
           expect(getLayoutForWidths(layout.widths)).toBe(layout.name);
         });
@@ -65,8 +65,8 @@ describe('layout actions', () => {
   });
 
   describe('#setPresetLayout', () => {
-    layouts.forEach(currentLayout => {
-      layouts.forEach(newLayout => {
+    layouts.forEach((currentLayout) => {
+      layouts.forEach((newLayout) => {
         if (currentLayout.name !== newLayout.name) {
           it(`handles switching from "${currentLayout.name}" to "${newLayout.name}"`, () => {
             ({ editorView } = editor(

@@ -102,7 +102,7 @@ export class EmojiNodeView implements NodeView {
     provider
       ?.then(() => (this.hasProvider = true))
       .then(() => this.findEmoji())
-      .then(emoji => this.update(this.node, null, emoji));
+      .then((emoji) => this.update(this.node, null, emoji));
   };
 
   private async findEmoji(
@@ -145,7 +145,7 @@ export class EmojiNodeView implements NodeView {
     if (changed) {
       this.emoji = undefined;
       this.node = node;
-      this.findEmoji().then(emoji => this.update(this.node, _, emoji));
+      this.findEmoji().then((emoji) => this.update(this.node, _, emoji));
       return true;
     }
 

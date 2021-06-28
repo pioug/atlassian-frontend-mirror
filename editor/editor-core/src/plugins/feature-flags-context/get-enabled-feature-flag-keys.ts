@@ -7,6 +7,6 @@ import type { FeatureFlags, FeatureFlagKey } from '../../types/feature-flags';
  */
 export function getEnabledFeatureFlagKeys(featureFlags: FeatureFlags) {
   return (Object.keys(featureFlags) as FeatureFlagKey[]).filter(
-    key => featureFlags[key] === true,
+    (key) => featureFlags[key] === true,
   );
 }

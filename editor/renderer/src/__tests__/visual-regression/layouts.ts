@@ -41,7 +41,7 @@ describe('Snapshot Test: Layouts', () => {
   });
 
   describe('Columns', () => {
-    layouts.forEach(layout => {
+    layouts.forEach((layout) => {
       it(`should correctly render "${layout.name}" layout`, async () => {
         // Wait for action list (within ADF) to render
         await initRenderer(page, layout.adf);

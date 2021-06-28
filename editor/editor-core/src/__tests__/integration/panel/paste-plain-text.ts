@@ -37,7 +37,7 @@ BrowserTestCase(
 
     await page.paste();
     const doc = await page.$eval(editable, getDocFromElement);
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    await new Promise((resolve) => setTimeout(resolve, 2000));
 
     expect(doc).toMatchCustomDocSnapshot(testName);
   },

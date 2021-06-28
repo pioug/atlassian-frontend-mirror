@@ -22,7 +22,7 @@ export const getSelectionStyles = (
   selectionStyles: Array<SelectionStyle>,
 ): string =>
   selectionStyles
-    .map(selectionStyle => getSelectionStyle(selectionStyle))
+    .map((selectionStyle) => getSelectionStyle(selectionStyle))
     .concat(hideNativeBrowserTextSelectionStyles)
     .join('\n');
 

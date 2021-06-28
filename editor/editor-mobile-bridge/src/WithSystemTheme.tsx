@@ -16,7 +16,7 @@ interface WithSystemThemeModeProps {
 
 const WithSystemTheme: React.FunctionComponent<
   ReactNode & WithSystemThemeModeProps
-> = props => {
+> = (props) => {
   const { children, mode } = props;
 
   return (
@@ -29,7 +29,7 @@ const WithSystemTheme: React.FunctionComponent<
 export const withSystemTheme = <P extends object>(
   Component: React.ComponentType<P>,
   enableLightDarkTheming?: boolean,
-): React.FC<P> => props => {
+): React.FC<P> => (props) => {
   const mode = enableLightDarkTheming ? useSystemTheme() : 'light';
   return (
     <WithSystemTheme mode={mode}>

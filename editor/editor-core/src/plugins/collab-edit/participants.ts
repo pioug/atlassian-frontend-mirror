@@ -20,7 +20,7 @@ export class Participants implements ReadOnlyParticipants {
 
   add(data: CollabParticipant[]) {
     const newSet = new Map<string, CollabParticipant>(this.participants);
-    data.forEach(participant => {
+    data.forEach((participant) => {
       newSet.set(participant.sessionId, participant);
     });
     return new Participants(newSet);
@@ -28,7 +28,7 @@ export class Participants implements ReadOnlyParticipants {
 
   remove(sessionIds: string[]) {
     const newSet = new Map<string, CollabParticipant>(this.participants);
-    sessionIds.forEach(sessionId => {
+    sessionIds.forEach((sessionId) => {
       newSet.delete(sessionId);
     });
 
@@ -64,12 +64,12 @@ export class Participants implements ReadOnlyParticipants {
 
   eq(other: Participants) {
     const left = this.toArray()
-      .map(p => p.sessionId)
+      .map((p) => p.sessionId)
       .sort((a, b) => (a > b ? -1 : 1))
       .join('');
     const right = other
       .toArray()
-      .map(p => p.sessionId)
+      .map((p) => p.sessionId)
       .sort((a, b) => (a > b ? -1 : 1))
       .join('');
 

@@ -30,14 +30,14 @@ function hasRightAlignmentMark(marks?: PMNode['marks']) {
     return false;
   }
   return marks.some(
-    mark => mark.type.name === 'alignment' && mark.attrs.align === 'end',
+    (mark) => mark.type.name === 'alignment' && mark.attrs.align === 'end',
   );
 }
 
 function WrapChildTextInSpan(children: React.ReactNode) {
   // We wrap the text in a span so that we can apply CSS pseudo elements
   // to each text node within the heading element.
-  return React.Children.map(children, child => {
+  return React.Children.map(children, (child) => {
     return typeof child === 'string' && !/^\s*$/.test(child) ? (
       <span>{child}</span>
     ) : (

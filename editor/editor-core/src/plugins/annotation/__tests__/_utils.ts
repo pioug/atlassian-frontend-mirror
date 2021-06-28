@@ -11,7 +11,7 @@ export const annotationSelectors = {
 export const selectorById = (id: string) => `[data-testid="${id}"]`;
 
 export const getState = async (ids: string[]) => {
-  return ids.map(id => ({
+  return ids.map((id) => ({
     annotationType: AnnotationTypes.INLINE_COMMENT,
     id,
     state: { resolved: false },

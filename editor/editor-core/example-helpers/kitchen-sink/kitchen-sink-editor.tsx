@@ -25,7 +25,7 @@ export interface KitchenSinkEditorProps {
 }
 
 export const KitchenSinkEditor: React.StatelessComponent<KitchenSinkEditorProps> = React.memo(
-  props => {
+  (props) => {
     const { actions, locale, loadLocale } = props;
 
     const primaryToolbarComponents = React.useMemo(

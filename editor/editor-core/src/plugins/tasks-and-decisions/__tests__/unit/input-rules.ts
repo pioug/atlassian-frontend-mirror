@@ -48,7 +48,7 @@ describe('tasks and decisions - input rules', () => {
 
   describe.each([true, false])(
     'when useUnpredictableInputRule is %s',
-    useUnpredictableInputRule => {
+    (useUnpredictableInputRule) => {
       const editorFactory = (doc: DocBuilder) => {
         createAnalyticsEvent = jest.fn(
           () => ({ fire() {} } as UIAnalyticsEvent),

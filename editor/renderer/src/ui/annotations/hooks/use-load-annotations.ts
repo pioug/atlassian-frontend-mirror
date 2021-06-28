@@ -32,7 +32,7 @@ export const useLoadAnnotations = ({ adfDocument }: Props) => {
     if (!annotations.length) {
       return;
     }
-    const ids = annotations.map(mark => mark.attrs.id);
+    const ids = annotations.map((mark) => mark.attrs.id);
     const cb = (data: AnnotationState<AnnotationTypes.INLINE_COMMENT>[]) => {
       if (!updateSubscriberInlineComment) {
         return;

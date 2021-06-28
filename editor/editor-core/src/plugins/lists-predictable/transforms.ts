@@ -24,7 +24,7 @@ function liftListItem(selection: Selection, tr: Transaction): Transaction {
   const nodeType = tr.doc.type.schema.nodes.listItem;
   let range = $from.blockRange(
     $to,
-    node =>
+    (node) =>
       !!node.childCount &&
       !!node.firstChild &&
       node.firstChild.type === nodeType,
@@ -161,7 +161,7 @@ const extractListFromParagraph = (
   schema: Schema,
 ): Fragment => {
   const { hardBreak, bulletList, orderedList } = schema.nodes;
-  const content: Array<Node> = mapChildren(node.content, node => node);
+  const content: Array<Node> = mapChildren(node.content, (node) => node);
 
   const listTypes = [bulletList, orderedList];
 
@@ -245,7 +245,7 @@ const extractListFromParagraph = (
       // Return false to prevent replaceWith from wrapping the text node in a paragraph
       // paragraph since that will be done later. If it's done here, it will fail
       // the paragraph.validContent check.
-      if (listified.some(node => node.isText)) {
+      if (listified.some((node) => node.isText)) {
         return false;
       }
 
@@ -288,7 +288,7 @@ const splitIntoParagraphs = ({
 
   const { hardBreak, paragraph } = schema.nodes;
 
-  fragment.forEach(node => {
+  fragment.forEach((node) => {
     if (lastNode && lastNode.type === hardBreak && node.type === hardBreak) {
       // double hardbreak
 
@@ -325,9 +325,10 @@ export const splitParagraphs = (slice: Slice, schema: Schema): Slice => {
   // exclude Text nodes with a code mark, since we transform those later
   // into a codeblock
   let hasCodeMark = false;
-  slice.content.forEach(child => {
+  slice.content.forEach((child) => {
     hasCodeMark =
-      hasCodeMark || child.marks.some(mark => mark.type === schema.marks.code);
+      hasCodeMark ||
+      child.marks.some((mark) => mark.type === schema.marks.code);
   });
 
   // slice might just be a raw text string
@@ -336,7 +337,7 @@ export const splitParagraphs = (slice: Slice, schema: Schema): Slice => {
     return new Slice(replSlice, slice.openStart + 1, slice.openEnd + 1);
   }
 
-  return mapSlice(slice, node => {
+  return mapSlice(slice, (node) => {
     if (node.type === schema.nodes.paragraph) {
       return splitIntoParagraphs({
         fragment: node.content,

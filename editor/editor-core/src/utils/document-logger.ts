@@ -93,7 +93,7 @@ function compactStringifier(node: SimplifiedNode): string {
   } else if (isContentEmpty) {
     content = '';
   } else if (isContentArray) {
-    content = node.content!.map(node => compactStringifier(node)).join(',');
+    content = node.content!.map((node) => compactStringifier(node)).join(',');
   }
   return marks(`${shortHash(node.type, false)}(${content})`);
 }
@@ -146,7 +146,7 @@ const getBlockNodeContent = (
   if (content[0].isBlock) {
     // children are block nodes
     let prevNode: PMNode;
-    blockNodeContent = content.map(node => {
+    blockNodeContent = content.map((node) => {
       pos += prevNode ? prevNode.nodeSize : 1;
       prevNode = node;
       return getBlockNode(node, pos);
@@ -165,7 +165,7 @@ const getInlineNodes = (
   nodes: PMNode[],
   pos: number,
 ): { inlineNodes: SimplifiedNode[]; pos: number } => {
-  let inlineNodes: SimplifiedNode[] = nodes.map(node => {
+  let inlineNodes: SimplifiedNode[] = nodes.map((node) => {
     const { nodeSize } = node;
     const inlineNode: SimplifiedNode = {
       type: node.type.name,
@@ -184,4 +184,4 @@ const getInlineNodes = (
 };
 
 const getMarks = (node: PMNode): string[] =>
-  node.marks.map(mark => mark.type.name);
+  node.marks.map((mark) => mark.type.name);

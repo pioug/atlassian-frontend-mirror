@@ -88,8 +88,8 @@ export const createPlugin = (
   let elementContentRects: ElementContentRects = {};
 
   const observer = window?.ResizeObserver
-    ? new ResizeObserver(entries => {
-        entries.forEach(entry => {
+    ? new ResizeObserver((entries) => {
+        entries.forEach((entry) => {
           if (!entry.target.id) {
             entry.target.id = uuid();
           }
@@ -127,13 +127,13 @@ export const createPlugin = (
       oldState: EditorState,
       newState: EditorState,
     ) => {
-      const tr = transactions.find(tr => tr.getMeta('uiEvent') === 'cut');
+      const tr = transactions.find((tr) => tr.getMeta('uiEvent') === 'cut');
       if (tr) {
         // "fixTables" removes empty rows as we don't allow that in schema
         const updatedTr = handleCut(tr, oldState, newState);
         return fixTables(updatedTr) || updatedTr;
       }
-      if (transactions.find(tr => tr.docChanged)) {
+      if (transactions.find((tr) => tr.docChanged)) {
         return fixTables(newState.tr);
       }
     },

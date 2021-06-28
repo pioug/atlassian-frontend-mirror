@@ -43,7 +43,7 @@ export const dataConsumer: MarkSpec = {
   parseDOM: [
     {
       tag: '[data-mark-type="dataConsumer"]',
-      getAttrs: maybeValue => parseDataConsumer(maybeValue),
+      getAttrs: (maybeValue) => parseDataConsumer(maybeValue),
     },
   ],
   toDOM(mark: Mark, inline) {
@@ -79,7 +79,7 @@ export const toJSON = (mark: Mark) => {
     type: mark.type.name,
     attrs: Object.keys(mark.attrs)
       .filter(
-        key =>
+        (key) =>
           key === 'sources' &&
           mark.attrs[key].length > 0 &&
           mark.attrs[key] !== null,

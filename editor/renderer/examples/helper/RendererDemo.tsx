@@ -93,7 +93,7 @@ const providerFactory = ProviderFactory.create({
 });
 
 const extensionHandlers: ExtensionHandlers = {
-  'com.atlassian.fabric': ext => {
+  'com.atlassian.fabric': (ext) => {
     const { extensionKey } = ext;
 
     switch (extensionKey) {
@@ -251,7 +251,7 @@ export default class RendererDemo extends React.Component<
   }
 
   private toggleTruncated = () => {
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       truncated: !prevState.truncated,
     }));
   };
@@ -273,7 +273,7 @@ export default class RendererDemo extends React.Component<
               height: 320,
               resize: 'vertical',
             }}
-            ref={ref => {
+            ref={(ref) => {
               this.inputBox = ref;
             }}
             onChange={this.onDocumentChange}
@@ -293,7 +293,7 @@ export default class RendererDemo extends React.Component<
           {this.props.showHowManyCopies && (
             <input
               type="number"
-              ref={ref => {
+              ref={(ref) => {
                 this.inputCopies = ref;
               }}
               onChange={this.onCopiesChange}
@@ -432,11 +432,11 @@ export default class RendererDemo extends React.Component<
   };
 
   private toggleSidebar = () => {
-    this.setState(prevState => ({ showSidebar: !prevState.showSidebar }));
+    this.setState((prevState) => ({ showSidebar: !prevState.showSidebar }));
   };
 
   private toggleEventHandlers = () => {
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       shouldUseEventHandlers: !prevState.shouldUseEventHandlers,
     }));
   };

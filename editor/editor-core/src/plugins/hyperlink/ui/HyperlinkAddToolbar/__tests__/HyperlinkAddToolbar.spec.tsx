@@ -493,8 +493,12 @@ describe('HyperlinkLinkAddToolbar', () => {
     });
 
     it('should submit with selected activity item when clicked', async () => {
-      const { component, onSubmit } = await setup();
+      const { searchRecentPromise, component, onSubmit } = await setup();
 
+      await searchRecentPromise;
+      component.update();
+
+      component.find(LinkSearchListItem).at(1).simulate('mouseenter');
       component.find(LinkSearchListItem).at(1).simulate('click');
 
       expect(onSubmit).toHaveBeenCalledTimes(1);
@@ -1143,6 +1147,7 @@ describe('HyperlinkLinkAddToolbar', () => {
         searchRecentItems.length,
       );
 
+      firstQuickSearchItem.simulate('mouseenter');
       firstQuickSearchItem.simulate('click');
 
       expectFunctionToHaveBeenCalledWith(onSubmit, [
@@ -1420,6 +1425,36 @@ describe('HyperlinkLinkAddToolbar', () => {
           source: 'createLinkInlineDialog',
           searchSessionId: 'a-unique-id',
           trigger: 'keyboard',
+          resultCount: 5,
+          selectedResultId: 'object-id-1',
+          selectedRelativePosition: 0,
+        },
+        eventType: 'ui',
+      });
+    });
+
+    it('should trigger the UI Event of "selected searchResult" when an item is selected through mouse click to insert', async () => {
+      const {
+        component,
+        searchRecentPromise,
+        createAnalyticsEvent,
+      } = await setup({
+        waitForResolves: true,
+      });
+
+      await searchRecentPromise;
+      component.update();
+
+      component.find(LinkSearchListItem).at(0).simulate('mouseenter');
+      component.find(LinkSearchListItem).at(0).simulate('click');
+
+      expect(createAnalyticsEvent).toHaveBeenCalledWith({
+        action: 'selected',
+        actionSubject: 'searchResult',
+        attributes: {
+          source: 'createLinkInlineDialog',
+          searchSessionId: 'a-unique-id',
+          trigger: 'click',
           resultCount: 5,
           selectedResultId: 'object-id-1',
           selectedRelativePosition: 0,

@@ -225,7 +225,7 @@ describe('AddColumnStep', () => {
         [
           'add the column in the correct position after adding text at the beginning',
           originalDoc,
-          editorState => editorState.tr.insertText('foo', 0),
+          (editorState) => editorState.tr.insertText('foo', 0),
           addColumnAtFactory('table', 3),
           doc(
             p('foo'),

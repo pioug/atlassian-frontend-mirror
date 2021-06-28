@@ -7,7 +7,7 @@ export const updateShadowListForStickyStyles = (
 
   shadows: HTMLCollection,
 ) => {
-  Array.from(shadows).forEach(shadow => {
+  Array.from(shadows).forEach((shadow) => {
     if (shadow.classList.contains(ClassName.TABLE_STICKY_SHADOW)) {
       if (
         shadow instanceof HTMLElement &&

@@ -95,7 +95,7 @@ export const scrubLink = (
   marks: Array<{ [key: string]: any }>,
   { valueReplacements }: ScrubLinkOptions,
 ) => {
-  return marks.map(mark => {
+  return marks.map((mark) => {
     if (mark.type === 'link' && mark.attrs.href) {
       return {
         ...mark,
@@ -150,7 +150,7 @@ export const scrubAttrs = (
   }
 
   if (Array.isArray(attrsObj)) {
-    return attrsObj.map(el => {
+    return attrsObj.map((el) => {
       return typeof el === 'object'
         ? scrubObj(nodeType, el)
         : scrubAttrs(nodeType, el);

@@ -17,7 +17,7 @@ export default <P>(providers: (P | Promise<P>)[]) => {
 
   const getFulfilledProviders = async () => {
     const results = await waitForAllPromises<P>(
-      providers.map(result => Promise.resolve(result)),
+      providers.map((result) => Promise.resolve(result)),
     );
 
     return getOnlyFulfilled<P>(results);
@@ -26,7 +26,7 @@ export default <P>(providers: (P | Promise<P>)[]) => {
   const runInAllProviders = async <T>(
     mapFunction: (provider: P) => Promise<T>,
   ) => {
-    return (await getFulfilledProviders()).map(provider =>
+    return (await getFulfilledProviders()).map((provider) =>
       mapFunction(provider),
     );
   };
@@ -66,7 +66,7 @@ export default <P>(providers: (P | Promise<P>)[]) => {
     );
     const fulfilledResults = getOnlyFulfilled<T[]>(results);
 
-    return flatten<T>(fulfilledResults).filter(result => result);
+    return flatten<T>(fulfilledResults).filter((result) => result);
   };
 
   return {

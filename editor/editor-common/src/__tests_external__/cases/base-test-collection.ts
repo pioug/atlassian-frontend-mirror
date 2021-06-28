@@ -19,7 +19,7 @@ export class EditorTestCollection {
 
   public test(cy: Cypress.cy) {
     context(this.title, () => {
-      this.testCases.forEach(testCase => {
+      this.testCases.forEach((testCase) => {
         testCase.test(cy);
       });
     });

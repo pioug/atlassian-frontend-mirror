@@ -4,7 +4,7 @@ import Button from '@atlaskit/button/standard-button';
 
 import Breadcrumbs, { BreadcrumbsItem } from '../../src';
 
-export default function Example() {
+const BreadcrumbsControlledExample = () => {
   const [isExpanded, setExpanse] = useState(false);
   return (
     <div>
@@ -28,4 +28,6 @@ export default function Example() {
       </Button>
     </div>
   );
-}
+};
+
+export default BreadcrumbsControlledExample;

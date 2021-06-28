@@ -95,11 +95,11 @@ export class PluginState {
         left = [] as { sessionId: string }[],
       } = presenceData;
 
-      participants = participants.remove(left.map(i => i.sessionId));
+      participants = participants.remove(left.map((i) => i.sessionId));
       participants = participants.add(joined);
 
       // Remove telepointers for users that left
-      left.forEach(i => {
+      left.forEach((i) => {
         const pointers = findPointers(i.sessionId, this.decorationSet);
         if (pointers) {
           remove = remove.concat(pointers);
@@ -154,7 +154,7 @@ export class PluginState {
       try {
         this.decorationSet = this.decorationSet.map(tr.mapping, tr.doc, {
           // Reapplies decorators those got removed by the state change
-          onRemove: spec => {
+          onRemove: (spec) => {
             if (spec.pointer && spec.pointer.sessionId) {
               const step = tr.steps.filter(isReplaceStep)[0];
               if (step) {
@@ -191,7 +191,7 @@ export class PluginState {
 
       // Remove any selection decoration within the change range,
       // takes care of the issue when after pasting we end up with a dead selection
-      tr.steps.filter(isReplaceStep).forEach(s => {
+      tr.steps.filter(isReplaceStep).forEach((s) => {
         const { from, to } = s as any;
         this.decorationSet.find(from, to).forEach((deco: any) => {
           // `type` is private, `from` and `to` are public in latest version

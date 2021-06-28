@@ -49,7 +49,7 @@ function concatAncestorHierarchy(node: PMNode, ancestoryHierarchy?: string) {
 
 const sanitizeMarks = (marks: { [key: string]: any }[] = []) => {
   let sanitizedMarks: { [key: string]: any }[] = [];
-  marks.forEach(mark => {
+  marks.forEach((mark) => {
     if (mark.attrs) {
       const attrs = sanitizeAttributes(mark.attrs);
       sanitizedMarks.push({ ...mark, attrs });
@@ -63,8 +63,8 @@ const sanitizeMarks = (marks: { [key: string]: any }[] = []) => {
 const sanitizeAttributes = (attrs: {} = {}) => {
   let sanitizedAttrs: { [key: string]: any } = Object.assign({}, attrs);
   Object.keys(attrs)
-    .filter(key => !whitelistedAttributes.includes(key))
-    .forEach(key => {
+    .filter((key) => !whitelistedAttributes.includes(key))
+    .forEach((key) => {
       sanitizedAttrs[key] !== null
         ? (sanitizedAttrs[key] = '')
         : (sanitizedAttrs[key] = 'null');
@@ -104,7 +104,7 @@ export const findAndTrackUnsupportedContentNodes = (
   const { unsupportedInline, unsupportedBlock } = schema.nodes;
   const parentType = ancestorHierarchy.split(' ').pop() || '';
   if (nodeMarks.length) {
-    nodeMarks.forEach(mark => {
+    nodeMarks.forEach((mark) => {
       if (mark.type === unsupportedMark) {
         const { originalValue } = mark.attrs || {};
         const sanitizedAttrs = sanitizeAttributes(originalValue.attrs) || {};
@@ -162,7 +162,7 @@ export const findAndTrackUnsupportedContentNodes = (
     );
   } else {
     // Recursive check for nested content
-    node.content.forEach(childNode =>
+    node.content.forEach((childNode) =>
       findAndTrackUnsupportedContentNodes(
         childNode,
         schema,

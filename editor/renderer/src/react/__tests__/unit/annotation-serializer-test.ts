@@ -33,7 +33,7 @@ describe('Renderer - ReactSerializer - AnnotationMark', () => {
 
       const components = testInstance.findAllByType(AnnotationComponent);
 
-      components.forEach(component => {
+      components.forEach((component) => {
         const id = component.props.id;
         const children = component.children[0] as ReactTestInstance;
 
@@ -65,7 +65,7 @@ describe('Renderer - ReactSerializer - AnnotationMark', () => {
       const testInstance = reactRenderer.root;
 
       const components = testInstance.findAllByType(AnnotationComponent);
-      components.forEach(component => {
+      components.forEach((component) => {
         const children = component.children[0] as ReactTestInstance;
 
         expect(children.type).toBe(AnnotationMark);

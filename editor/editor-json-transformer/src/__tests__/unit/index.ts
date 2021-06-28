@@ -618,7 +618,7 @@ describe('JSONTransformer:', () => {
           ],
         });
       });
-      [[0], [200], [100, 200], [100, 0]].forEach(colwidth => {
+      [[0], [200], [100, 200], [100, 0]].forEach((colwidth) => {
         describe(`when colwidth=${JSON.stringify(colwidth)}`, () => {
           it(`should preserve valid colwidth attributes as an array of widths`, () => {
             const { editorView } = editor(

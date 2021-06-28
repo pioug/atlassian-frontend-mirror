@@ -12,15 +12,15 @@ const manifest: ExtensionManifest = {
     '16': () =>
       import(
         /* webpackChunkName: "@atlaskit-internal_editor-tray" */ '@atlaskit/icon/glyph/tray'
-      ).then(mod => mod.default),
+      ).then((mod) => mod.default),
     '24': () =>
       import(
         /* webpackChunkName: "@atlaskit-internal_editor-tray" */ '@atlaskit/icon/glyph/tray'
-      ).then(mod => mod.default),
+      ).then((mod) => mod.default),
     '48': () =>
       import(
         /* webpackChunkName: "@atlaskit-internal_editor-tray" */ '@atlaskit/icon/glyph/tray'
-      ).then(mod => mod.default),
+      ).then((mod) => mod.default),
   },
   modules: {
     quickInsert: [
@@ -30,7 +30,7 @@ const manifest: ExtensionManifest = {
         icon: () =>
           import(
             /* webpackChunkName: "@atlaskit-internal_editor-tray" */ '@atlaskit/icon/glyph/tray'
-          ).then(mod => mod.default),
+          ).then((mod) => mod.default),
         action: {
           type: 'node',
           key: 'default',
@@ -46,7 +46,7 @@ const manifest: ExtensionManifest = {
         icon: () =>
           import(
             /* webpackChunkName: "@atlaskit-internal_editor-tray" */ '@atlaskit/icon/glyph/tray'
-          ).then(mod => mod.default),
+          ).then((mod) => mod.default),
         action: {
           type: 'node',
           key: 'list',
@@ -61,7 +61,7 @@ const manifest: ExtensionManifest = {
         icon: () =>
           import(
             /* webpackChunkName: "@atlaskit-internal_editor-tray" */ '@atlaskit/icon/glyph/tray'
-          ).then(mod => mod.default),
+          ).then((mod) => mod.default),
         action: {
           type: 'node',
           key: 'question',
@@ -74,7 +74,7 @@ const manifest: ExtensionManifest = {
         icon: () =>
           import(
             /* webpackChunkName: "@atlaskit-internal_editor-tray" */ '@atlaskit/icon/glyph/tray'
-          ).then(mod => mod.default),
+          ).then((mod) => mod.default),
         action: {
           type: 'node',
           key: 'daterange',
@@ -102,8 +102,8 @@ const manifest: ExtensionManifest = {
         update: (data, actions) => {
           return new Promise(() => {
             actions!.editInContextPanel(
-              parameters => parameters,
-              parameters => Promise.resolve(parameters),
+              (parameters) => parameters,
+              (parameters) => Promise.resolve(parameters),
             );
           });
         },
@@ -287,8 +287,8 @@ const manifest: ExtensionManifest = {
         update: (data, actions) => {
           return new Promise(() => {
             actions!.editInContextPanel(
-              parameters => parameters,
-              parameters => Promise.resolve(parameters),
+              (parameters) => parameters,
+              (parameters) => Promise.resolve(parameters),
             );
           });
         },
@@ -315,8 +315,8 @@ const manifest: ExtensionManifest = {
         update: (data, actions) => {
           return new Promise(() => {
             actions!.editInContextPanel(
-              parameters => parameters,
-              parameters => Promise.resolve(parameters),
+              (parameters) => parameters,
+              (parameters) => Promise.resolve(parameters),
             );
           });
         },
@@ -330,10 +330,10 @@ const manifest: ExtensionManifest = {
     fields: {
       fieldset: {
         'json-group': {
-          serializer: value => {
+          serializer: (value) => {
             return JSON.stringify(value);
           },
-          deserializer: value => {
+          deserializer: (value) => {
             return JSON.parse(value);
           },
         },

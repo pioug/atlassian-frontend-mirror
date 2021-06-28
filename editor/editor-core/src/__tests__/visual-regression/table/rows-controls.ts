@@ -35,7 +35,7 @@ describe('Snapshot Test: hover rows controlls', () => {
   describe('when there are merged cells at first column', () => {
     it.each([2, 3, 4])(
       'should display insert button on top for row %i ',
-      async a => {
+      async (a) => {
         await initFullPageEditorWithAdf(page, adf);
 
         await clickFirstCell(page);
@@ -54,7 +54,7 @@ describe('Snapshot Test: hover rows controlls', () => {
 
     it.each([2, 3, 4])(
       'should display insert button on bottom for row %i ',
-      async a => {
+      async (a) => {
         await initFullPageEditorWithAdf(page, adf);
 
         await clickFirstCell(page);

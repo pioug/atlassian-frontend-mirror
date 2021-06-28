@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Checkbox } from '../../src';
 
-export default () => (
+const CheckboxUncontrolledExample = () => (
   <Checkbox
     defaultChecked
     label="Uncontrolled checkbox"
@@ -10,3 +10,5 @@ export default () => (
     name="uncontrolled-checkbox"
   />
 );
+
+export default CheckboxUncontrolledExample;

@@ -3,7 +3,7 @@ import React from 'react';
 import { RANDOM_USERS } from '../../examples-util/data';
 import AvatarGroup from '../../src';
 
-export default () => {
+const AvatarGroupBorderColorExample = () => {
   const data = RANDOM_USERS.map((d) => ({
     email: d.email,
     key: d.email,
@@ -13,3 +13,5 @@ export default () => {
 
   return <AvatarGroup data={data} borderColor="#FF6347" />;
 };
+
+export default AvatarGroupBorderColorExample;

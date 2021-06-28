@@ -37,7 +37,7 @@ export default class LanguagePicker extends Component<Props> {
           shouldFitContainer
         >
           <DropdownItemGroup>
-            {Object.keys(languages).map(l => (
+            {Object.keys(languages).map((l) => (
               <DropdownItem key={l} onClick={() => this.handleClick(l)}>
                 {languages[l]}
               </DropdownItem>

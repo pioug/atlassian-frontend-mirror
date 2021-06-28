@@ -17,7 +17,7 @@ const ElementBrowserLoader = Loadable({
   loader: () =>
     import(
       /* webpackChunkName: "@atlaskit-internal_editor-element-browser" */ '../ElementBrowser'
-    ).then(module => module.default) as Promise<
+    ).then((module) => module.default) as Promise<
       React.ComponentType<ElementBrowserProps>
     >,
   loading: () => (

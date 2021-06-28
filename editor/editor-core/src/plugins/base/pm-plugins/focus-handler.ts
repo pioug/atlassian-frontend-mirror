@@ -20,7 +20,7 @@ export default (dispatch: Dispatch) =>
     },
     props: {
       handleDOMEvents: {
-        click: view => {
+        click: (view) => {
           const isEditorFocused = focusStateKey.getState(view.state);
           if (!isEditorFocused) {
             view.dispatch(
@@ -29,14 +29,14 @@ export default (dispatch: Dispatch) =>
           }
           return false;
         },
-        focus: view => {
+        focus: (view) => {
           const isEditorFocused = focusStateKey.getState(view.state);
           if (!isEditorFocused) {
             view.dispatch(view.state.tr.setMeta(focusStateKey, true));
           }
           return false;
         },
-        blur: view => {
+        blur: (view) => {
           const isEditorFocused = focusStateKey.getState(view.state);
           if (isEditorFocused) {
             view.dispatch(view.state.tr.setMeta(focusStateKey, false));

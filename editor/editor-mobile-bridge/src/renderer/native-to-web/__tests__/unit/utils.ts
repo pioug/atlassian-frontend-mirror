@@ -183,7 +183,7 @@ describe('utils', () => {
   describe('#isValidNodeTypeForScroll', () => {
     it.each(Object.values(ScrollToContentNode))(
       'should validate %s ScrollToContentNode value',
-      nodeType => {
+      (nodeType) => {
         expect(isValidNodeTypeForScroll(nodeType)).toBe(true);
       },
     );

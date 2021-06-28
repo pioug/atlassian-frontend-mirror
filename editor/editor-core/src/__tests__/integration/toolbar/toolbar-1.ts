@@ -10,7 +10,7 @@ import { messages as blockTypeMessages } from '../../../plugins/block-type/messa
 
 const input = 'helloworld ';
 // https://product-fabric.atlassian.net/browse/ED-4531
-[comment, fullpage].forEach(editor => {
+[comment, fullpage].forEach((editor) => {
   BrowserTestCase(
     `toolbar-1.ts: should be able to select normal text, bold, italics, underline style for ${editor.name} editor`,
     { skip: ['safari', 'edge'] },

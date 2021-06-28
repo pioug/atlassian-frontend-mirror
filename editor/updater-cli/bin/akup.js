@@ -13,7 +13,7 @@ if (dev) {
 
 require(path.join('..', dev ? 'src' : 'dist/cjs'))
   .run()
-  .catch(error => {
+  .catch((error) => {
     if (typeof error === 'number') {
       process.exit(error);
     }

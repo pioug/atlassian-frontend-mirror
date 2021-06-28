@@ -265,7 +265,7 @@ describe('KeyboardNavigation for item listSize 10', () => {
       expect(focusedItemIndex).toBe(expectedState.focusedItemIndex);
     });
 
-    if (keys.find(k => k === 'enter')) {
+    if (keys.find((k) => k === 'enter')) {
       it(`calls back onInsertItem with selected item at index: ${expectedState.selectedItemIndex}`, () => {
         expect(testProps.onInsertItem).toHaveBeenCalledWith(
           testProps.items[expectedState.selectedItemIndex],

@@ -94,7 +94,7 @@ export default function encode(node: PMNode, schema: Schema) {
 
   function encodeFragment(fragment: Fragment) {
     const documentFragment = doc.createDocumentFragment();
-    fragment.forEach(node => {
+    fragment.forEach((node) => {
       const domNode = encodeNode(node);
       if (domNode) {
         documentFragment.appendChild(domNode);
@@ -172,7 +172,7 @@ export default function encode(node: PMNode, schema: Schema) {
     const { isNumberColumnEnabled } = node.attrs;
     const tableColumnWidths = calcTableColumnWidths(node);
 
-    node.content.forEach(rowNode => {
+    node.content.forEach((rowNode) => {
       const rowElement = doc.createElement('tr');
 
       rowNode.content.forEach((colNode, _, j) => {
@@ -215,7 +215,7 @@ export default function encode(node: PMNode, schema: Schema) {
     });
 
     // now we have all the column widths, assign them to each <col> in the <colgroup>
-    tableColumnWidths.forEach(colwidth => {
+    tableColumnWidths.forEach((colwidth) => {
       const colInfoElement = document.createElement('col');
       if (colwidth) {
         colInfoElement.style.width = colwidth + 'px';
@@ -229,7 +229,7 @@ export default function encode(node: PMNode, schema: Schema) {
     const tableClasses = ['wrapped'];
     if (
       tableColumnWidths.length &&
-      tableColumnWidths.every(width => width > 0)
+      tableColumnWidths.every((width) => width > 0)
     ) {
       tableClasses.push('fixed-table');
     }
@@ -374,7 +374,7 @@ export default function encode(node: PMNode, schema: Schema) {
         const suffix = isLast ? '' : ']]';
         return doc.createCDATASection(prefix + value + suffix);
       })
-      .forEach(cdata => fragment.appendChild(cdata));
+      .forEach((cdata) => fragment.appendChild(cdata));
 
     plainTextBody.appendChild(fragment);
     elem.appendChild(plainTextBody);
@@ -481,7 +481,7 @@ export default function encode(node: PMNode, schema: Schema) {
   function encodeTaskList(node: PMNode): Element {
     const elem = doc.createElementNS(AC_XMLNS, 'ac:task-list');
 
-    node.descendants(item => {
+    node.descendants((item) => {
       if (item.type === schema.nodes.taskItem) {
         const taskItem = doc.createElementNS(AC_XMLNS, 'ac:task');
         const id = doc.createElementNS(AC_XMLNS, 'ac:task-id');

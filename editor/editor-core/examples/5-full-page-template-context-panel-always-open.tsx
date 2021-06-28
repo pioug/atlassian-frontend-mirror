@@ -93,7 +93,7 @@ class TemplatePanel extends React.Component<
     const actions = this.props.actions;
     const adf = await actions.getValue();
 
-    this.setState(state => ({
+    this.setState((state) => ({
       ...state,
 
       adf,
@@ -147,13 +147,13 @@ class EditorWithSidebar extends React.Component {
       <ExampleEditor
         onChange={this.onChange}
         defaultValue={defaultValue}
-        extensionProviders={editorActions => [
+        extensionProviders={(editorActions) => [
           getExampleExtensionProviders(editorActions),
         ]}
         allowExtension={{ allowAutoSave: true }}
         contextPanel={
           <WithEditorActions
-            render={actions => (
+            render={(actions) => (
               <TemplatePanel
                 actions={actions}
                 defaultValue={defaultValue ? JSON.parse(defaultValue) : null}

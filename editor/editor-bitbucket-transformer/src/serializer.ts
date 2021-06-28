@@ -62,7 +62,7 @@ export class MarkdownSerializerState extends PMMarkdownSerializerState {
 
     const progress = (node: PMNode | null, _?: any, index?: number) => {
       let marks = node
-        ? node.marks.filter(mark => this.marks[mark.type.name as any])
+        ? node.marks.filter((mark) => this.marks[mark.type.name as any])
         : [];
 
       let leading = trailing;
@@ -72,7 +72,7 @@ export class MarkdownSerializerState extends PMMarkdownSerializerState {
       if (
         node &&
         node.isText &&
-        marks.some(mark => {
+        marks.some((mark) => {
           let info = this.marks[mark.type.name as any];
           return info && (info as any).expelEnclosingWhitespace;
         })

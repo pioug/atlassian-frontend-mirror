@@ -127,7 +127,7 @@ export const textColor: MarkSpec = {
   parseDOM: [
     {
       style: 'color',
-      getAttrs: maybeValue => {
+      getAttrs: (maybeValue) => {
         const value = maybeValue as string;
         let hexColor;
         if (value.match(/^rgb/i)) {

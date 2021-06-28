@@ -57,7 +57,7 @@ export const nestedExpand: NodeSpec = {
     },
     {
       tag: 'div[data-node-type="nestedExpand"]',
-      getAttrs: domNode => {
+      getAttrs: (domNode) => {
         const dom = domNode as HTMLElement;
         return {
           title: dom.getAttribute('data-title'),

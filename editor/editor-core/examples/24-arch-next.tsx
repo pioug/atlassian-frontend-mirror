@@ -39,7 +39,7 @@ export const SaveAndCancelButtons = (props: {
           return;
         }
 
-        props.editorActions.getValue().then(value => {
+        props.editorActions.getValue().then((value) => {
           console.log(value);
           localStorage.setItem(
             LOCALSTORAGE_defaultDocKey,
@@ -77,7 +77,7 @@ export default function Example() {
   const onMount = React.useCallback(() => {
     console.log('on mount');
   }, []);
-  const handleEvent = React.useCallback(evt => {
+  const handleEvent = React.useCallback((evt) => {
     console.groupCollapsed('gasv3 event:', evt.payload.action);
     console.log(evt.payload);
     console.groupEnd();
@@ -120,7 +120,7 @@ export default function Example() {
                     <WithEditorActions
                       key="editor-actions-save"
                       // tslint:disable-next-line:jsx-no-lambda
-                      render={actions => (
+                      render={(actions) => (
                         <SaveAndCancelButtons editorActions={actions} />
                       )}
                     />,

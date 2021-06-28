@@ -23,7 +23,7 @@ export const date: NodeSpec = {
   parseDOM: [
     {
       tag: 'span[data-node-type="date"]',
-      getAttrs: dom => ({
+      getAttrs: (dom) => ({
         timestamp: (dom as HTMLElement).getAttribute('data-timestamp'),
       }),
     },

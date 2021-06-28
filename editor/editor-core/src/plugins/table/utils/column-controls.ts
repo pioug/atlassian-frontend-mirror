@@ -120,7 +120,7 @@ const mapTableColwidthsToRow = (
   let curColIdx = 0;
   const colWidths: number[] = [];
 
-  rowColSpans.forEach(cellColSpan => {
+  rowColSpans.forEach((cellColSpan) => {
     const colWidth = tableColWidths
       .slice(curColIdx, curColIdx + cellColSpan)
       .reduce((acc, val) => acc + val, 0);
@@ -160,14 +160,14 @@ const getRelativeDomCellWidths = ({
   // returned cellWidths = [303 * (201/303), 303 * (102/303)]
 
   // For merged cells we get back colwidth as `201,102`
-  const cellColWidths = colwidth.split(',').map(colwidth => Number(colwidth));
+  const cellColWidths = colwidth.split(',').map((colwidth) => Number(colwidth));
   const totalCalculatedCellWidth = cellColWidths.reduce(
     (acc, cellColWidth) => acc + cellColWidth,
     0,
   );
 
   return cellColWidths.map(
-    cellColWidth => width * (cellColWidth / totalCalculatedCellWidth),
+    (cellColWidth) => width * (cellColWidth / totalCalculatedCellWidth),
   );
 };
 
@@ -176,7 +176,7 @@ export const colWidthsForRow = (
   tr: HTMLTableRowElement,
 ) => {
   // get the colspans
-  const rowColSpans = maphElem(tr, cell =>
+  const rowColSpans = maphElem(tr, (cell) =>
     Number(cell.getAttribute('colspan') || 1 /* default to span of 1 */),
   );
 
@@ -193,7 +193,7 @@ export const colWidthsForRow = (
 
   if (copyTarget) {
     // either from the first row while it's still in the table
-    const cellInfos = maphElem(copyTarget, cell => ({
+    const cellInfos = maphElem(copyTarget, (cell) => ({
       width: cell.offsetWidth,
       colspan: Number(cell.getAttribute('colspan') || 1),
       colwidth: cell.dataset.colwidth,
@@ -207,7 +207,7 @@ export const colWidthsForRow = (
 
     if (cellInfos.reduce((acc, cell) => acc + cell.width, 0) !== 0) {
       const newWidths = mapTableColwidthsToRow(rowColSpans, domBasedCellWidths);
-      return newWidths.map(px => `${px}px`).join(' ');
+      return newWidths.map((px) => `${px}px`).join(' ');
     }
   }
 
@@ -216,8 +216,8 @@ export const colWidthsForRow = (
   const visualColCount = rowColSpans.reduce((acc, val) => acc + val, 0);
 
   const pctWidths = rowColSpans.map(
-    cellColSpan => (cellColSpan / visualColCount) * 100,
+    (cellColSpan) => (cellColSpan / visualColCount) * 100,
   );
 
-  return pctWidths.map(pct => `${pct}%`).join(' ');
+  return pctWidths.map((pct) => `${pct}%`).join(' ');
 };

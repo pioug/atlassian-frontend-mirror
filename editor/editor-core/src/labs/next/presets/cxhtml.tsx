@@ -52,7 +52,7 @@ export function useCXHTMLPreset({
     {
       allowInlineCursorTarget: true,
       allowScrollGutter: {
-        getScrollElement: _view =>
+        getScrollElement: (_view) =>
           document.querySelector('.fabric-editor-popup-scroll-parent') || null,
       },
     },

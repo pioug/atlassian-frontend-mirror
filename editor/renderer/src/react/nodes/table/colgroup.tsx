@@ -36,7 +36,7 @@ const getTableLayoutWidth = (layout: TableLayout, opts?: TableWidthOptions) => {
 };
 
 const isTableResized = (columnWidths: Array<number>) => {
-  const filteredWidths = columnWidths.filter(width => width !== 0);
+  const filteredWidths = columnWidths.filter((width) => width !== 0);
   return !!filteredWidths.length;
 };
 
@@ -110,7 +110,7 @@ export const Colgroup = (props: SharedTableProps) => {
   let minTableWidth = tableWidth;
   let zeroWidthColumnsCount = 0;
 
-  columnWidths.forEach(width => {
+  columnWidths.forEach((width) => {
     if (width) {
       tableWidth += Math.ceil(width);
     } else {

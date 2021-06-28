@@ -127,7 +127,7 @@ describe('card', () => {
       },
     ];
 
-    linkTypes.forEach(type => {
+    linkTypes.forEach((type) => {
       describe(`Toolbar ${type.name}`, () => {
         let editorView: EditorView;
         let refs: Refs;

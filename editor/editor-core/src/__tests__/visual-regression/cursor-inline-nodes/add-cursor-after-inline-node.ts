@@ -25,7 +25,7 @@ describe('Cursor/status:', () => {
 
   describe.each(['status', 'emoji', 'inlineExtension', 'mention', 'date'])(
     'when mouse is clicked after the %s node and the backspace key is pressed',
-    inlineNode => {
+    (inlineNode) => {
       it('should delete the inline node', async () => {
         const adfWithInlineNode = adfs[inlineNode];
         await initEditor(adfWithInlineNode, page);

@@ -529,7 +529,7 @@ describe('Renderer - TextSerializer', () => {
     expect(render(doc)).toEqual('1. 1\n2. 2');
   });
 
-  [1, 2, 3, 4, 5, 6].forEach(level => {
+  [1, 2, 3, 4, 5, 6].forEach((level) => {
     it(`should render heading level ${level}`, () => {
       const doc = {
         type: 'doc',

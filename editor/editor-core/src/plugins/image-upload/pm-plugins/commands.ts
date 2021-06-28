@@ -8,7 +8,7 @@ import { stateKey } from './plugin-key';
 
 export const insertExternalImage: (
   options: InsertedImageProperties,
-) => Command = options => (state, dispatch) => {
+) => Command = (options) => (state, dispatch) => {
   const pluginState: ImageUploadPluginState = stateKey.getState(state);
   if (!pluginState.enabled || !options.src) {
     return false;
@@ -27,7 +27,7 @@ export const insertExternalImage: (
   return true;
 };
 
-export const startImageUpload: (event?: Event) => Command = event => (
+export const startImageUpload: (event?: Event) => Command = (event) => (
   state,
   dispatch,
 ) => {

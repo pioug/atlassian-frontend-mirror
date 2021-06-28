@@ -1,5 +1,11 @@
 # @atlaskit/editor-core
 
+## 145.0.1
+
+### Patch Changes
+
+- [`d316627b838`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d316627b838) - Fix mouse click event on hyperlinktoolbar
+
 ## 145.0.0
 
 ### Major Changes

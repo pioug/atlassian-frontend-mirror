@@ -185,7 +185,7 @@ const convertSelectedList = ({
 
       return acc;
     }, [])
-    .forEach(item => {
+    .forEach((item) => {
       tr.setNodeMarkup(item.pos, nextListNodeType);
     });
 };

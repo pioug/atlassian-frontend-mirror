@@ -117,13 +117,13 @@ export const buildToolbar = (
 
     return {
       title: layoutToolbarTitle,
-      getDomRef: view =>
+      getDomRef: (view) =>
         findDomRefAtPos(pos, view.domAtPos.bind(view)) as HTMLElement,
       nodeType,
       items: [
-        ...LAYOUT_TYPES.map(i => buildLayoutButton(intl, i, currentLayout)),
+        ...LAYOUT_TYPES.map((i) => buildLayoutButton(intl, i, currentLayout)),
         ...(addSidebarLayouts
-          ? SIDEBAR_LAYOUT_TYPES.map(i =>
+          ? SIDEBAR_LAYOUT_TYPES.map((i) =>
               buildLayoutButton(intl, i, currentLayout),
             )
           : []),

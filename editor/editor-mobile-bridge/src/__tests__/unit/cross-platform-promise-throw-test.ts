@@ -11,7 +11,7 @@ describe('exception handling', () => {
 
   test('does not throw synchronously', async () => {
     expect(
-      () => promise.submit().catch(err => {}), // black-hole async errors
+      () => promise.submit().catch((err) => {}), // black-hole async errors
     ).not.toThrow();
   });
 

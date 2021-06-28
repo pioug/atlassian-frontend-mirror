@@ -76,7 +76,7 @@ class TransformerPanels extends React.PureComponent<Props, State> {
             allowTables={true}
             emojiProvider={emojiProvider}
             mentionProvider={mentionProvider}
-            contentTransformerProvider={schema =>
+            contentTransformerProvider={(schema) =>
               new JIRATransformer(schema, { mention: mentionEncoder })
             }
             onChange={this.handleChangeInTheEditor}
@@ -99,7 +99,7 @@ class TransformerPanels extends React.PureComponent<Props, State> {
 export default () => (
   <EditorContext>
     <WithEditorActions
-      render={actions => <TransformerPanels actions={actions} />}
+      render={(actions) => <TransformerPanels actions={actions} />}
     />
   </EditorContext>
 );

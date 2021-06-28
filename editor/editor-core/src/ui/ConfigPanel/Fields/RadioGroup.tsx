@@ -33,11 +33,11 @@ export default function RadioField({
         <Fragment>
           <RadioGroup
             {...fieldProps}
-            options={(field.items || []).map(option => ({
+            options={(field.items || []).map((option) => ({
               ...option,
               name: field.name,
             }))}
-            onChange={value => {
+            onChange={(value) => {
               fieldProps.onChange(value);
               onFieldChange(field.name, true);
             }}

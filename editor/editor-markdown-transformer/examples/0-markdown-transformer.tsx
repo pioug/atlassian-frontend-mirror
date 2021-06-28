@@ -66,7 +66,9 @@ class Example extends React.PureComponent<Props, State> {
           media={{
             allowMediaSingle: true,
           }}
-          contentTransformerProvider={schema => new MarkdownTransformer(schema)}
+          contentTransformerProvider={(schema) =>
+            new MarkdownTransformer(schema)
+          }
           taskDecisionProvider={Promise.resolve(getMockTaskDecisionResource())}
         />
       </Container>
@@ -76,6 +78,6 @@ class Example extends React.PureComponent<Props, State> {
 
 export default () => (
   <EditorContext>
-    <WithEditorActions render={actions => <Example actions={actions} />} />
+    <WithEditorActions render={(actions) => <Example actions={actions} />} />
   </EditorContext>
 );

@@ -6,10 +6,12 @@ import Breadcrumbs, { BreadcrumbsItem } from '../../src';
 
 const TestIcon = <AtlassianIcon label="Test icon" size="small" />;
 
-export default function Example() {
+const BreadcrumbsItemIconBeforeExample = () => {
   return (
     <Breadcrumbs>
       <BreadcrumbsItem iconBefore={TestIcon} text="Atlassian" />
     </Breadcrumbs>
   );
-}
+};
+
+export default BreadcrumbsItemIconBeforeExample;

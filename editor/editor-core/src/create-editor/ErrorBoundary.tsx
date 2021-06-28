@@ -41,7 +41,7 @@ export default class ErrorBoundary extends React.Component<
   fireAnalytics = (analyticsErrorPayload: AnalyticsErrorBoundaryAttributes) => {
     const { createAnalyticsEvent } = this.props;
     this.getProductName()
-      .then(product => {
+      .then((product) => {
         if (createAnalyticsEvent) {
           const { error, errorInfo, errorStack } = analyticsErrorPayload;
           const sharedId = uuid();
@@ -81,7 +81,7 @@ export default class ErrorBoundary extends React.Component<
           );
         }
       })
-      .catch(e => {
+      .catch((e) => {
         // eslint-disable-next-line no-console
         console.error(
           'Failed to resolve product name from contextIdentifierProvider.',

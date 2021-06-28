@@ -6,7 +6,7 @@ import ErrorIcon from '@atlaskit/icon/glyph/error';
 import { R400 } from '@atlaskit/theme/colors';
 import { AutoDismissFlag, FlagGroup } from '../../src';
 
-const AutoDismissFlagError = () => {
+const AutoDismissFlagErrorExample = () => {
   const [flags, setFlags] = React.useState<Array<number>>([]);
 
   const addFlag = () => {
@@ -46,4 +46,4 @@ const AutoDismissFlagError = () => {
   );
 };
 
-export default AutoDismissFlagError;
+export default AutoDismissFlagErrorExample;

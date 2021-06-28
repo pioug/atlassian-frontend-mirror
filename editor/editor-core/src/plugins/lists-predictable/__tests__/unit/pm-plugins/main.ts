@@ -39,7 +39,7 @@ describe('lists', () => {
       const decorationAttrs = decorations.map(
         (decoration: any) => decoration.type.attrs['data-indent-level'],
       );
-      ['1', '2', '3', '4'].forEach(level => {
+      ['1', '2', '3', '4'].forEach((level) => {
         expect(decorationAttrs).toContain(level);
       });
     });
@@ -105,7 +105,7 @@ describe('lists', () => {
       const decorations = getDecorations(state.doc).find();
       expect(decorations).toHaveLength(3);
 
-      decorations.forEach(decoration => {
+      decorations.forEach((decoration) => {
         const indentLevelAttr = (decoration as any).type.attrs;
         expect(indentLevelAttr['data-indent-level']).toEqual('1');
       });

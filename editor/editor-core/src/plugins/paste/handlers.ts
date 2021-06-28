@@ -56,7 +56,7 @@ import { insertSliceForLists } from './edge-cases';
 
 // remove text attribute from mention for copy/paste (GDPR)
 export function handleMention(slice: Slice, schema: Schema): Slice {
-  return mapSlice(slice, node => {
+  return mapSlice(slice, (node) => {
     if (node.type.name === schema.nodes.mention.name) {
       const mention = node.attrs as MentionAttributes;
       const newMention = { ...mention, text: '' };
@@ -153,7 +153,7 @@ export function handlePasteLinkOnSelectedText(slice: Slice): Command {
         isText(paragraph.content.child(0), schema)
       ) {
         const text = paragraph.content.child(0);
-        linkMark = text.marks.find(mark => isLinkMark(mark, schema));
+        linkMark = text.marks.find((mark) => isLinkMark(mark, schema));
       }
     }
 
@@ -199,7 +199,7 @@ export function handlePasteAsPlainText(
         tr.replaceSelection(slice);
       }
 
-      (state.storedMarks || []).forEach(mark => {
+      (state.storedMarks || []).forEach((mark) => {
         tr.addMark(selection.from, selection.from + slice.size, mark);
       });
       tr.scrollIntoView();
@@ -392,7 +392,7 @@ export function handleMacroAutoConvert(
         }
 
         isLinkSmart(text, 'inline', cardsOptions)
-          .then(cardData => {
+          .then((cardData) => {
             if (!view) {
               throw new Error('Missing view');
             }
@@ -487,7 +487,7 @@ export function handleExpand(slice: Slice): Command {
     let { tr } = state;
     let hasExpand = false;
 
-    const newSlice = mapSlice(slice, maybeNode => {
+    const newSlice = mapSlice(slice, (maybeNode) => {
       if (maybeNode.type === expand) {
         hasExpand = true;
         try {
@@ -554,7 +554,7 @@ function hasInlineCode(state: EditorState, slice: Slice) {
 }
 
 function rollupLeafListItems(list: PMNode, leafListItems: PMNode[]) {
-  list.content.forEach(child => {
+  list.content.forEach((child) => {
     if (
       isListNode(child) ||
       (isListItemNode(child) && isListNode(child.firstChild))
@@ -578,7 +578,7 @@ function shouldFlattenList(state: EditorState, slice: Slice) {
 
 function sliceHasTopLevelMarks(slice: Slice) {
   let hasTopLevelMarks = false;
-  slice.content.descendants(node => {
+  slice.content.descendants((node) => {
     if (node.marks.length > 0) {
       hasTopLevelMarks = true;
     }
@@ -589,10 +589,10 @@ function sliceHasTopLevelMarks(slice: Slice) {
 
 function getTopLevelMarkTypesInSlice(slice: Slice) {
   const markTypes = new Set<MarkType>();
-  slice.content.descendants(node => {
+  slice.content.descendants((node) => {
     node.marks
-      .map(mark => mark.type)
-      .forEach(markType => markTypes.add(markType));
+      .map((mark) => mark.type)
+      .forEach((markType) => markTypes.add(markType));
     return false;
   });
   return markTypes;
@@ -643,12 +643,12 @@ export function handleParagraphBlockMarks(state: EditorState, slice: Slice) {
 
   // If the paragraph contains marks forbidden by the parent node (e.g. alignment/indentation),
   // drop those marks from the slice
-  return mapSlice(slice, node => {
+  return mapSlice(slice, (node) => {
     if (node.type === schema.nodes.paragraph) {
       return schema.nodes.paragraph.createChecked(
         undefined,
         node.content,
-        node.marks.filter(mark => !forbiddenMarkTypes.includes(mark.type)),
+        node.marks.filter((mark) => !forbiddenMarkTypes.includes(mark.type)),
       );
     }
     return node;

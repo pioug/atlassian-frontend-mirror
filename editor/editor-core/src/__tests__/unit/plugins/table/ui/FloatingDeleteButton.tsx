@@ -110,7 +110,7 @@ describe('Floating Delete Button', () => {
 
     test.each([[1], [2], [3]])(
       'should renders a delete button with column %d selected',
-      column => {
+      (column) => {
         // Select columns start from 0
         selectColumns([column - 1])(editorView.state, editorView.dispatch);
 
@@ -135,7 +135,7 @@ describe('Floating Delete Button', () => {
   describe('Rows', () => {
     test.each([[1], [2], [3]])(
       'renders a delete button with row %d selected',
-      row => {
+      (row) => {
         selectRows([row - 1])(editorView.state, editorView.dispatch);
 
         wrapper.setProps({ selection: editorView.state.selection });

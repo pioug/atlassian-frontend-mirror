@@ -31,7 +31,7 @@ export const createPMPlugin = ({ providerFactory }: PMPluginFactoryParams) => {
         // remap positions
         const remappedPluginState: CustomAutoformatState = {
           ...prevPluginState,
-          resolving: prevPluginState.resolving.map(candidate => ({
+          resolving: prevPluginState.resolving.map((candidate) => ({
             ...candidate,
             start: tr.mapping.map(candidate.start),
             end: tr.mapping.map(candidate.end, -1),
@@ -74,10 +74,10 @@ export const createPMPlugin = ({ providerFactory }: PMPluginFactoryParams) => {
           return;
         }
 
-        provider.then(async autoformattingProvider => {
+        provider.then(async (autoformattingProvider) => {
           const ruleset = await autoformattingProvider.getRules();
 
-          Object.keys(ruleset).forEach(rule => {
+          Object.keys(ruleset).forEach((rule) => {
             const inputRule: InputRule = {
               matchTyping: new RegExp('(\\s+|^)' + rule + '(\\s|,|.)$'),
               matchEnter: new RegExp('(\\s+|^)' + rule + '()$'),

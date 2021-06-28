@@ -13,7 +13,7 @@ import { messages } from '../messages';
 
 const RemovableFieldWrapper = styled.div<{ hasMarginBottom: Boolean }>`
   position: relative;
-  margin-bottom: ${props =>
+  margin-bottom: ${(props) =>
     props.hasMarginBottom ? multiply(gridSize, 2) : 0}px;
 `;
 

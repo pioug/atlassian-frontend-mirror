@@ -179,7 +179,9 @@ class ToolbarTextColor extends React.Component<
         >
           <ColorPalette
             palette={palette}
-            onClick={color => this.changeTextColor(color, pluginState.disabled)}
+            onClick={(color) =>
+              this.changeTextColor(color, pluginState.disabled)
+            }
             selectedColor={pluginState.color}
           />
           {showMoreColorsToggle && (
@@ -212,11 +214,11 @@ class ToolbarTextColor extends React.Component<
 
       // we store color names in analytics
       const swatch = (paletteExpanded || palette).find(
-        sw => sw.value === color,
+        (sw) => sw.value === color,
       );
       const isNewColor =
         color !== defaultColor &&
-        !originalTextColors.some(col => col.value === color);
+        !originalTextColors.some((col) => col.value === color);
 
       this.dispatchAnalyticsEvent(
         this.buildAnalyticsSelectColor({
@@ -251,7 +253,7 @@ class ToolbarTextColor extends React.Component<
 
     // pre-expand if a non-standard colour has been selected
     const isExtendedPaletteSelected: boolean = !palette.find(
-      swatch => swatch.value === color,
+      (swatch) => swatch.value === color,
     );
 
     this.setState({
@@ -295,7 +297,7 @@ class ToolbarTextColor extends React.Component<
     e.stopPropagation();
     e.nativeEvent.stopImmediatePropagation();
 
-    this.setState(state => {
+    this.setState((state) => {
       this.dispatchAnalyticsEvent(
         this.buildAnalyticsShowMore(
           state.isShowingMoreColors ? ACTION.CLOSED : ACTION.OPENED,

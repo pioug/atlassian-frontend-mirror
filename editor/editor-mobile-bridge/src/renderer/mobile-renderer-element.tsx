@@ -177,7 +177,7 @@ const withSmartCard = <P extends BasicRendererProps>(
   // See https://product-fabric.atlassian.net/browse/FM-2149 for details.
   const authFlow = 'disabled';
   const renderCallback = useCallback(
-    createAnalyticsEvent => (
+    (createAnalyticsEvent) => (
       <SmartCardProvider client={smartCardClient} authFlow={authFlow}>
         <Component
           createAnalyticsEvent={createAnalyticsEvent}

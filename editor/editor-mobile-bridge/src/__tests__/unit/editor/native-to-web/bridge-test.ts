@@ -372,7 +372,7 @@ describe('styling', () => {
   });
 
   it('sets padding', () => {
-    const expectedPadding = defaultPadding.map(p => `${p}px`).join(' ');
+    const expectedPadding = defaultPadding.map((p) => `${p}px`).join(' ');
     expect(mockRootEl.style.padding).toBe(expectedPadding);
   });
 

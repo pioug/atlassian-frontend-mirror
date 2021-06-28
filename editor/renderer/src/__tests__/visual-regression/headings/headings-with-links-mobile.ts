@@ -15,7 +15,7 @@ describe('Headings with links on mobile', () => {
   let page: PuppeteerPage;
 
   // Test alignment options (center and right add a wrapper element)
-  describe.each(['left', 'center', 'right'])('aligned %s', alignment => {
+  describe.each(['left', 'center', 'right'])('aligned %s', (alignment) => {
     // Mobile heading levels 1-6
     it('should render persistently visible anchor link', async () => {
       page = global.page;

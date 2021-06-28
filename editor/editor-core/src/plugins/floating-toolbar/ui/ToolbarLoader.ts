@@ -6,6 +6,6 @@ export const ToolbarLoader = Loadable({
     import(
       /* webpackChunkName: "@atlaskit-internal_editor-core-floating-toolbar" */
       './Toolbar'
-    ).then(mod => mod.default) as Promise<React.ComponentType<Props>>,
+    ).then((mod) => mod.default) as Promise<React.ComponentType<Props>>,
   loading: () => null,
 });

@@ -9,7 +9,7 @@ export const isMarkAllowedInRange = (
   for (let i = 0; i < ranges.length; i++) {
     const { $from, $to } = ranges[i];
     let can = $from.depth === 0 ? doc.type.allowsMarkType(type) : false;
-    doc.nodesBetween($from.pos, $to.pos, node => {
+    doc.nodesBetween($from.pos, $to.pos, (node) => {
       if (can) {
         return false;
       }
@@ -28,7 +28,7 @@ export const isMarkExcluded = (
   marks?: Array<Mark> | null,
 ): boolean => {
   if (marks) {
-    return marks.some(mark => mark.type !== type && mark.type.excludes(type));
+    return marks.some((mark) => mark.type !== type && mark.type.excludes(type));
   }
   return false;
 };
@@ -108,15 +108,15 @@ export const sanitiseMarksInSelection = (
     ) {
       return true;
     }
-    node.marks.forEach(mark => {
+    node.marks.forEach((mark) => {
       if (
         !parent.type.allowsMarkType(mark.type) ||
         (newParentType && !newParentType.allowsMarkType(mark.type))
       ) {
-        const filteredMarks = node.marks.filter(m => m.type !== mark.type);
+        const filteredMarks = node.marks.filter((m) => m.type !== mark.type);
         const position = pos > 0 ? pos : 0;
 
-        const marksRemoved = node.marks.filter(m => m.type === mark.type);
+        const marksRemoved = node.marks.filter((m) => m.type === mark.type);
         nodesSanitized.push({
           node,
           marksRemoved,

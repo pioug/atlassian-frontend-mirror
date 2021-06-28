@@ -53,7 +53,7 @@ describe('tables: column resizing decorations', () => {
       return decorationSet.find(
         cells[0].pos,
         lastCell.pos + lastCell.node.nodeSize,
-        spec => spec.key.indexOf(key) > -1,
+        (spec) => spec.key.indexOf(key) > -1,
       );
     }
 
@@ -82,7 +82,7 @@ describe('tables: column resizing decorations', () => {
           const decorations = nextDecorationSet.find(
             undefined,
             undefined,
-            spec => spec.key.indexOf(decorationKey) > -1,
+            (spec) => spec.key.indexOf(decorationKey) > -1,
           );
 
           expect(decorations).toHaveLength(expectedDecorations);

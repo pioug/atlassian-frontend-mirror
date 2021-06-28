@@ -43,7 +43,7 @@ BrowserTestCase(
     await page.simulateUserSelection(
       selector,
       `${selector}:nth-of-type(2)`,
-      element => (element === 'start' ? CHAR_WIDTH * 20 : 0),
+      (element) => (element === 'start' ? CHAR_WIDTH * 20 : 0),
     );
 
     const result = await annotate(page, '1234');

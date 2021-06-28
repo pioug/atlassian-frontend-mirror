@@ -78,7 +78,7 @@ export const getToolbarConfig: FloatingToolbarHandler = (
         state.schema.nodes.taskItem,
         state.schema.nodes.decisionItem,
         state.schema.nodes.caption,
-      ].filter(nodeType => !!nodeType), // Use only the node types existing in the schema ED-6745
+      ].filter((nodeType) => !!nodeType), // Use only the node types existing in the schema ED-6745
       align: 'left' as AlignType,
       className: activeLinkMark.type.match('INSERT|EDIT_INSERTED')
         ? 'hyperlink-floating-toolbar'
@@ -89,7 +89,7 @@ export const getToolbarConfig: FloatingToolbarHandler = (
       case 'EDIT': {
         const { pos, node } = activeLinkMark;
         const linkMark = node.marks.filter(
-          mark => mark.type === state.schema.marks.link,
+          (mark) => mark.type === state.schema.marks.link,
         );
         const link = linkMark[0] && (linkMark[0].attrs as LinkAttributes).href;
         const isValidUrl = isSafeUrl(link);
@@ -116,7 +116,7 @@ export const getToolbarConfig: FloatingToolbarHandler = (
             {
               type: 'custom',
               fallback: [],
-              render: editorView => {
+              render: (editorView) => {
                 return (
                   <HyperlinkToolbarAppearance
                     key="link-appearance"

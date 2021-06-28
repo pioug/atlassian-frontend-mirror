@@ -45,7 +45,7 @@ export function setupProvider(cardAdf: object = paragraphAdf): ProviderWrapper {
   let promises: Promise<any>[] = [];
   let provider: CardProvider = new (class implements CardProvider {
     resolve(): Promise<any> {
-      const promise = new Promise(resolve => resolve(cardAdf));
+      const promise = new Promise((resolve) => resolve(cardAdf));
       promises.push(promise);
       return promise;
     }

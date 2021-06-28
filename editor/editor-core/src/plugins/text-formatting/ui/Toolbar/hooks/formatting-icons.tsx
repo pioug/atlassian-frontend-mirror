@@ -277,7 +277,7 @@ export const useHasFormattingActived = ({
     }
 
     return iconTypeList.some(
-      iconType =>
+      (iconType) =>
         textFormattingPluginState[
           `${iconType}Active` as keyof TextFormattingState
         ],

@@ -240,9 +240,9 @@ export default class RendererActions
     }
     const marks: Mark[] = [];
 
-    doc.descendants(node => {
+    doc.descendants((node) => {
       const annotationsMark = node.marks.filter(
-        m => m.type === annotationMarkType,
+        (m) => m.type === annotationMarkType,
       );
       if (!annotationsMark || !annotationsMark.length) {
         return true;
@@ -254,7 +254,7 @@ export default class RendererActions
     });
 
     const uniqueMarks: Map<AnnotationId, Mark> = new Map();
-    marks.forEach(m => {
+    marks.forEach((m) => {
       uniqueMarks.set(m.attrs.id, m);
     });
 

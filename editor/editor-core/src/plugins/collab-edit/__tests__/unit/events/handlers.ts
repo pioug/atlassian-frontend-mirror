@@ -151,7 +151,7 @@ describe('collab-edit: handlers.ts', () => {
 
     it.each(['connected', 'presence', 'telepointer'])(
       'should call external listener on %s event',
-      event => {
+      (event) => {
         provider.sendMessage({
           type: event,
         });

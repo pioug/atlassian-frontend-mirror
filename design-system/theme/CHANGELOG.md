@@ -1,5 +1,11 @@
 # @atlaskit/theme
 
+## 11.3.0
+
+### Minor Changes
+
+- [`e6b210c7e2e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e6b210c7e2e) - Removes styled-components from common entrypoints "typography" and "constants" in favour of using a syntax that is compatible between both emotion and styled-components.
+
 ## 11.2.1
 
 ### Patch Changes

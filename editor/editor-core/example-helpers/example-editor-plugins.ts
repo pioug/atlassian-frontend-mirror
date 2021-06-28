@@ -21,7 +21,7 @@ export const exampleSelectionDebugger = () => {
           plugin() {
             return new Plugin({
               props: {
-                decorations: state =>
+                decorations: (state) =>
                   DecorationSet.create(state.doc, [
                     Decoration.widget(0, render('start')),
                     Decoration.widget(0, render('end')),

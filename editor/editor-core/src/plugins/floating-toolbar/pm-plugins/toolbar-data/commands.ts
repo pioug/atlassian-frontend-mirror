@@ -9,7 +9,7 @@ export const showConfirmDialog = (buttonIndex: number): Command =>
         buttonIndex,
       },
     },
-    tr => tr.setMeta('addToHistory', false),
+    (tr) => tr.setMeta('addToHistory', false),
   );
 
 export const hideConfirmDialog = (): Command =>
@@ -17,5 +17,5 @@ export const hideConfirmDialog = (): Command =>
     {
       type: 'HIDE_CONFIRM_DIALOG',
     },
-    tr => tr.setMeta('addToHistory', false),
+    (tr) => tr.setMeta('addToHistory', false),
   );

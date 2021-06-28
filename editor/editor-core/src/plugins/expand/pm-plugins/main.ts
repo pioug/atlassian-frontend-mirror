@@ -51,7 +51,7 @@ export const createPlugin = (
       },
       handleClickOn: createSelectionClickHandler(
         ['expand', 'nestedExpand'],
-        target => target.classList.contains(expandClassNames.prefix),
+        (target) => target.classList.contains(expandClassNames.prefix),
         { useLongPressSelection },
       ),
     },

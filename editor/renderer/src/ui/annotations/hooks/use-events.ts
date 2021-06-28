@@ -134,7 +134,7 @@ export const useAnnotationClickEvent = (
     }
 
     const cb = ({ annotationIds, eventTarget }: OnAnnotationClickPayload) => {
-      const annotationsByType = annotationIds.map(id => ({
+      const annotationsByType = annotationIds.map((id) => ({
         id,
         type: AnnotationTypes.INLINE_COMMENT,
       }));

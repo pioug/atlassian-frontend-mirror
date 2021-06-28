@@ -18,7 +18,7 @@ const undoRedoPlugin = (): EditorPlugin => ({
       },
       {
         name: 'undoRedoPlugin',
-        plugin: options => createPlugin(options),
+        plugin: (options) => createPlugin(options),
       },
     ];
   },

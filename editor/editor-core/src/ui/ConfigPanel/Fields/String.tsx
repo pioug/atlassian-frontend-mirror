@@ -42,7 +42,7 @@ export default function String({
               <TextArea
                 {...restFieldProps}
                 {...options}
-                onChange={e => onChange(e.currentTarget.value)}
+                onChange={(e) => onChange(e.currentTarget.value)}
                 onBlur={() => {
                   fieldProps.onBlur();
                   onFieldChange(name, meta.dirty);

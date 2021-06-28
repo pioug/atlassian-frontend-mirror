@@ -42,7 +42,7 @@ describe('full page editor', () => {
       />,
     );
     fullPage
-      .findWhere(elm => elm.name() === 'ClickWrapper')
+      .findWhere((elm) => elm.name() === 'ClickWrapper')
       .simulate('click', { clientY: 200 });
     expect(editorView.state.doc).toEqualDocument(
       doc(p('Hello world'), p('Hello world'), p('')),
@@ -68,7 +68,7 @@ describe('full page editor', () => {
       />,
     );
     fullPage
-      .findWhere(elm => elm.name() === 'ClickWrapper')
+      .findWhere((elm) => elm.name() === 'ClickWrapper')
       .simulate('click', { clientY: 200 });
     expect(editorView.state.doc).toEqualDocument(
       doc(
@@ -93,7 +93,7 @@ describe('full page editor', () => {
       />,
     );
     fullPage
-      .findWhere(elm => elm.name() === 'ClickWrapper')
+      .findWhere((elm) => elm.name() === 'ClickWrapper')
       .simulate('click', { clientY: 200 })
       .simulate('click', { clientY: 200 });
     expect(editorView.state.doc).toEqualDocument(doc(p('Hello world'), p('')));
@@ -122,7 +122,7 @@ describe('full page editor', () => {
       />,
     );
     fullPage
-      .findWhere(elm => elm.name() === 'ClickWrapper')
+      .findWhere((elm) => elm.name() === 'ClickWrapper')
       .simulate('click', { clientY: 300 });
     const { selection } = editorView.state;
     expect(selection.empty).toEqual(true);
@@ -139,7 +139,7 @@ describe('full page editor', () => {
       />,
     );
     fullPage
-      .findWhere(elm => elm.name() === 'ClickWrapper')
+      .findWhere((elm) => elm.name() === 'ClickWrapper')
       .simulate('click', { clientY: 300 });
     const { selection } = editorView.state;
     expect(selection.empty).toEqual(true);
@@ -156,20 +156,20 @@ describe('full page editor', () => {
       />,
     );
     fullPage
-      .findWhere(elm => elm.name() === 'ClickWrapper')
+      .findWhere((elm) => elm.name() === 'ClickWrapper')
       .simulate('click', { clientY: 200 });
     expect(editorView.state.doc).toEqualDocument(
       doc(p('Hello world'), p('Hello world'), p('')),
     );
     (editorView.dom as HTMLElement).click();
     fullPage
-      .findWhere(elm => elm.name() === 'ClickWrapper')
+      .findWhere((elm) => elm.name() === 'ClickWrapper')
       .simulate('click', { clientY: 200 });
     expect(editorView.state.doc).toEqualDocument(
       doc(p('Hello world'), p('Hello world'), p('')),
     );
     fullPage
-      .findWhere(elm => elm.name() === 'ClickWrapper')
+      .findWhere((elm) => elm.name() === 'ClickWrapper')
       .simulate('click', { clientY: 200 });
     expect(editorView.state.doc).toEqualDocument(
       doc(p('Hello world'), p('Hello world'), p('')),

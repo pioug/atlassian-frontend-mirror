@@ -36,7 +36,7 @@ async function printDeps(
       const logs = await getChangelog(name, versions[1]);
       const { majorChanges } = await getLogDetails(logs, versions[0]);
       listItem = listItem.concat(
-        task.format(majorChanges, item => chalk.dim(item)),
+        task.format(majorChanges, (item) => chalk.dim(item)),
         '',
       );
       listWithBreaking = listWithBreaking.concat(listItem);

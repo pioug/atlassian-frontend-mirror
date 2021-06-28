@@ -26,7 +26,7 @@ function makeCompat(defaultValue: FieldValue): DefaultValue {
     return null;
   }
   if (Array.isArray(defaultValue)) {
-    return defaultValue.map(id => ({ type: 'user', id }));
+    return defaultValue.map((id) => ({ type: 'user', id }));
   }
   return { type: 'user', id: defaultValue };
 }
@@ -184,7 +184,7 @@ export default function UserSelect({
       label={label}
       isRequired={isRequired}
       defaultValue={defaultValue}
-      validate={value => validate(field, value)}
+      validate={(value) => validate(field, value)}
     >
       {({ fieldProps, error }) => {
         // if any of these don't exists, the provider is missing

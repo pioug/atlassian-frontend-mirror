@@ -5,7 +5,7 @@ import { Y200 } from '@atlaskit/theme/colors';
 
 import Flag from '../../src';
 
-export default function FlagWarning() {
+const FlagWarningExample = () => {
   return (
     <Flag
       appearance="warning"
@@ -20,4 +20,6 @@ export default function FlagWarning() {
       ]}
     />
   );
-}
+};
+
+export default FlagWarningExample;

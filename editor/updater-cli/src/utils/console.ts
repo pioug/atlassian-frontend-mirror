@@ -2,7 +2,7 @@ import * as readline from 'readline';
 import chalk from 'chalk';
 
 export function prompt(message: string): Promise<boolean> {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     const rl = readline.createInterface({
       input: process.stdin,
       output: process.stdout,
@@ -10,7 +10,7 @@ export function prompt(message: string): Promise<boolean> {
 
     rl.question(
       chalk.blue(`❯ ${message} ${chalk.dim('[yes|y|n|no]')}: `),
-      answer => {
+      (answer) => {
         rl.close();
 
         if (answer === 'y' || answer === 'yes') {

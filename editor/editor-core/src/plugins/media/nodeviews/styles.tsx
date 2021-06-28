@@ -21,7 +21,7 @@ type ForcedDimensionsProps = {
 const ForcedDimensions = styled.div<ForcedDimensionsProps>`
   width: 100%;
   position: relative;
-  padding-bottom: ${props =>
+  padding-bottom: ${(props) =>
     (props.dimensions.height / props.dimensions.width) * 100}%;
 `;
 

@@ -399,7 +399,7 @@ export class ExampleEditorComponent extends React.Component<
                 }
                 contentComponents={
                   <WithEditorActions
-                    render={actions => (
+                    render={(actions) => (
                       <>
                         <BreadcrumbsMiscActions
                           appearance={this.state.appearance}
@@ -422,7 +422,7 @@ export class ExampleEditorComponent extends React.Component<
                 primaryToolbarComponents={[
                   <WithEditorActions
                     key={1}
-                    render={actions => {
+                    render={(actions) => {
                       this.editorActions = actions;
 
                       return (
@@ -679,7 +679,7 @@ const Renderer = (props: {
           UNSAFE_allowCustomPanels={props.allowCustomPanel}
           eventHandlers={{
             onUnhandledClick: props.clickToEdit
-              ? e => {
+              ? (e) => {
                   console.log('onUnhandledClick called');
                   props.setMode(true);
                 }

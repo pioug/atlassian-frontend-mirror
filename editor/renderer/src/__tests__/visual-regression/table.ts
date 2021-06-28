@@ -67,7 +67,7 @@ describe('Snapshot Test: Table scaling', () => {
     await snapshot(page);
   });
 
-  describe.each(THEME_MODES)('Theme: %s', theme => {
+  describe.each(THEME_MODES)('Theme: %s', (theme) => {
     const mode = theme === 'dark' ? 'dark' : 'light';
 
     it(`should NOT render a right shadow`, async () => {
@@ -129,7 +129,7 @@ describe('Snapshot Test: wrapping inline nodes inside table cells', () => {
     await snapshot(page);
   });
 
-  describe.each(THEME_MODES)('Theme: %s', theme => {
+  describe.each(THEME_MODES)('Theme: %s', (theme) => {
     const mode = theme === 'dark' ? 'dark' : 'light';
 
     // ED-7785

@@ -32,7 +32,7 @@ export const createEditorFactory = () => {
     testRenderer = create(<TestEditor {...props} />, {
       createNodeMock:
         createNodeMock ||
-        (element => document.createElement(element.type as any)),
+        ((element) => document.createElement(element.type as any)),
     });
 
     return testRenderer;

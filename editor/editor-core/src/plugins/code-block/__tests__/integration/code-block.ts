@@ -13,7 +13,7 @@ import { codeBlockSelectors } from '../__helpers__/code-block-selectors';
 
 const floatingToolbarLanguageSelector = 'div[aria-label="Floating Toolbar"]';
 
-['comment', 'full-page'].forEach(editor => {
+['comment', 'full-page'].forEach((editor) => {
   BrowserTestCase(
     `code-block: produces correct ADF after language change for ${editor}`,
     { skip: ['safari', 'edge'] },
@@ -176,7 +176,7 @@ BrowserTestCase(
 
     const highlightedCode = await page.$eval(
       '.code-highlighting',
-      el => el?.innerText,
+      (el) => el?.innerText,
     );
     expect(highlightedCode).toBe('');
   },

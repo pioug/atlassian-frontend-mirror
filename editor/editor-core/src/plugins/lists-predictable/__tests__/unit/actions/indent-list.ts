@@ -162,7 +162,7 @@ describe('lists plugin: actions', () => {
       ],
     ])(
       'should not indent list items in a top-level list if selection contains the first list item (no-op)',
-      originalDoc => {
+      (originalDoc) => {
         const indentedDoc = originalDoc;
         testIndentation(originalDoc, indentedDoc);
       },
@@ -197,7 +197,7 @@ describe('lists plugin: actions', () => {
       ],
     ])(
       'should not indent a list item more than one level past its parent (no-op)',
-      originalDoc => {
+      (originalDoc) => {
         const indentedDoc = originalDoc;
         testIndentation(originalDoc, indentedDoc);
       },

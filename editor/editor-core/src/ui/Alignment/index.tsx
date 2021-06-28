@@ -29,7 +29,7 @@ class Alignment extends PureComponent<Props & InjectedIntlProps> {
 
     return (
       <AlignmentWrapper className={className} style={{ maxWidth: 3 * 32 }}>
-        {alignmentOptions.map(alignment => {
+        {alignmentOptions.map((alignment) => {
           const { value, title } = alignment;
           const message = intl.formatMessage(title);
           return (

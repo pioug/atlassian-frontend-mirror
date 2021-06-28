@@ -12,7 +12,7 @@ export const getMergedCellsPositions = (tr: Transaction): number[] => {
   const cellPositions = new Set();
   const mergedCells: number[] = [];
 
-  map.map.forEach(value => {
+  map.map.forEach((value) => {
     if (cellPositions.has(value)) {
       mergedCells.push(value);
     } else {

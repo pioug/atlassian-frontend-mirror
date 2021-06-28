@@ -15,7 +15,7 @@ const TestCases = () => {
   MobileTestCase(
     'Media Group: Load MediaGroup that contains multiple files',
     {},
-    async client => {
+    async (client) => {
       const page = await Page.create(client);
       await loadEditor(page);
       await page.switchToWeb();
@@ -34,7 +34,7 @@ const TestCases = () => {
   MobileTestCase(
     'Media Group: Select the file in media group',
     {},
-    async client => {
+    async (client) => {
       const page = await Page.create(client);
       await loadEditor(page);
       await page.switchToWeb();
@@ -58,7 +58,7 @@ const TestCases = () => {
   MobileTestCase(
     'Media Group: Remove a file from the media group',
     {},
-    async client => {
+    async (client) => {
       const page = await Page.create(client);
       await loadEditor(page);
       await page.switchToWeb();
@@ -80,7 +80,7 @@ const TestCases = () => {
   MobileTestCase(
     'Media Group: Upload multiple files should group into a media group',
     {},
-    async client => {
+    async (client) => {
       const page = await Page.create(client);
       await loadEditor(page);
       await page.switchToWeb();

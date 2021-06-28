@@ -71,7 +71,7 @@ export class CommentEditorWithFeedback extends React.Component<Props, State> {
   }
 
   onFocus = () =>
-    this.setState(prevState => ({ isExpanded: !prevState.isExpanded }));
+    this.setState((prevState) => ({ isExpanded: !prevState.isExpanded }));
 
   render() {
     if (!this.state.hasJquery) {
@@ -82,7 +82,7 @@ export class CommentEditorWithFeedback extends React.Component<Props, State> {
       <EditorContext>
         <div>
           <WithEditorActions
-            render={actions => (
+            render={(actions) => (
               <ButtonGroup>
                 <Button
                   onClick={() =>

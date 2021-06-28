@@ -17,7 +17,7 @@ export default class ProviderFactory {
   ): ProviderFactory {
     const providerFactory = new ProviderFactory();
     const keys = Object.keys(providers) as Array<ProviderName>;
-    keys.forEach(name => {
+    keys.forEach((name) => {
       providerFactory.setProvider(name, providers[name]);
     });
     return providerFactory;
@@ -112,7 +112,7 @@ export default class ProviderFactory {
       return;
     }
 
-    handlers.forEach(handler => {
+    handlers.forEach((handler) => {
       handler(name, provider);
     });
   }

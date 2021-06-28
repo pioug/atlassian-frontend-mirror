@@ -49,7 +49,7 @@ describe('decorations plugin', () => {
       const columnSelectedDecorations = decorationSet.find(
         undefined,
         undefined,
-        spec => spec.key.indexOf(TableDecorations.COLUMN_SELECTED) > -1,
+        (spec) => spec.key.indexOf(TableDecorations.COLUMN_SELECTED) > -1,
       );
 
       expect(columnSelectedDecorations).toHaveLength(0);
@@ -104,7 +104,7 @@ describe('decorations plugin', () => {
       const decorations = expectedDecorationSet.find(
         undefined,
         undefined,
-        spec =>
+        (spec) =>
           spec.key.indexOf(TableDecorations.COLUMN_CONTROLS_DECORATIONS) > -1,
       );
 

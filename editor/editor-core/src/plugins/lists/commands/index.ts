@@ -313,7 +313,7 @@ function splitListItem(itemType: NodeType): Command {
 function mergeLists(listItem: NodeType, range: NodeRange) {
   return (command: Command): Command => {
     return (state, dispatch) =>
-      command(state, tr => {
+      command(state, (tr) => {
         /* we now need to handle the case that we lifted a sublist out,
          * and any listItems at the current level get shifted out to
          * their own new list; e.g.:
@@ -381,7 +381,7 @@ export function outdentList(
       // to clear will include everything
       let range = $from.blockRange(
         $to,
-        node => node.childCount > 0 && node.firstChild!.type === listItem,
+        (node) => node.childCount > 0 && node.firstChild!.type === listItem,
       );
 
       if (!range) {
@@ -810,7 +810,7 @@ const countListItemsInSelection = (editorState: EditorState): number => {
   nodePositions.reduce((acc: ContentNodeWithPos[], pos: number) => {
     const closestParentListNode = findParentNodeClosestToPos(
       doc.resolve(pos),
-      node => node.type === schema.nodes.listItem,
+      (node) => node.type === schema.nodes.listItem,
     );
     if (!closestParentListNode) {
       return acc;

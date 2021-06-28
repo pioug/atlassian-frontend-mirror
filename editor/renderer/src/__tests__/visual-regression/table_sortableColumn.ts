@@ -130,7 +130,7 @@ describe('Snapshot Test: Table sorting', () => {
 
   describe('when there is no header row', () => {
     describe('when the table has number column', () => {
-      describe.each([1, 2, 3])('when hover %d th row', rowNth => {
+      describe.each([1, 2, 3])('when hover %d th row', (rowNth) => {
         it('should not display any message', async () => {
           await initRenderer(page, tableWithHeaderColumnButWithoutHeaderRow);
 
@@ -145,7 +145,7 @@ describe('Snapshot Test: Table sorting', () => {
     });
 
     describe('when the table has not number column', () => {
-      describe.each([1, 2, 3])('when hover %d th row', rowNth => {
+      describe.each([1, 2, 3])('when hover %d th row', (rowNth) => {
         it('should not display any message', async () => {
           await initRenderer(
             page,

@@ -32,7 +32,7 @@ export const createTransformer = (
     return fileInfo.source;
   }
 
-  migrations.forEach(transform => transform(j, source));
+  migrations.forEach((transform) => transform(j, source));
 
   return source.toSource(options.printOptions || { quote: 'single' });
 };
@@ -64,7 +64,7 @@ export const findImportFromPackage = (
       })
       // narrow down to imports related to 'component'
       .filter(
-        importDeclaration =>
+        (importDeclaration) =>
           j(importDeclaration).find(j.ImportSpecifier, {
             imported: {
               type: 'Identifier',
@@ -85,7 +85,7 @@ export const findImportFromPackage = (
 
         return importSpecifier.local?.name || '';
       })
-      .filter(name => Boolean(name))
+      .filter((name) => Boolean(name))
   );
 };
 
@@ -97,7 +97,7 @@ export const findImportFromPackage = (
  */
 export const createRenameVariableTransform = (from: string, toName: string) => {
   return (j: core.JSCodeshift, source: Collection<any>) => {
-    source.find(j.Identifier, { name: from }).forEach(x => {
+    source.find(j.Identifier, { name: from }).forEach((x) => {
       x.replace(j.identifier(toName));
     });
   };

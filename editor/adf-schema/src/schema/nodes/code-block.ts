@@ -83,7 +83,7 @@ export const codeBlock: NodeSpec = {
     {
       tag: 'pre',
       preserveWhitespace: 'full',
-      getAttrs: domNode => {
+      getAttrs: (domNode) => {
         let dom = domNode as HTMLElement;
         const language =
           getLanguageFromBitbucketStyle(dom.parentElement!) ||
@@ -99,7 +99,7 @@ export const codeBlock: NodeSpec = {
     {
       tag: 'div[style]',
       preserveWhitespace: 'full',
-      getAttrs: domNode => {
+      getAttrs: (domNode) => {
         const dom = domNode as HTMLElement;
         if (
           dom.style.whiteSpace === 'pre' ||
@@ -114,8 +114,8 @@ export const codeBlock: NodeSpec = {
       getContent: (domNode, schema) => {
         const dom = domNode as HTMLElement;
         const code = Array.from(dom.children)
-          .map(child => child.textContent)
-          .filter(x => x !== undefined)
+          .map((child) => child.textContent)
+          .filter((x) => x !== undefined)
           .join('\n');
         return code ? Fragment.from(schema.text(code)) : Fragment.empty;
       },
@@ -124,7 +124,7 @@ export const codeBlock: NodeSpec = {
     {
       tag: 'table[style]',
       preserveWhitespace: 'full',
-      getAttrs: dom => {
+      getAttrs: (dom) => {
         if ((dom as HTMLElement).querySelector('td[class*="blob-code"]')) {
           return {};
         }
@@ -134,7 +134,7 @@ export const codeBlock: NodeSpec = {
     {
       tag: 'div.code-block',
       preserveWhitespace: 'full',
-      getAttrs: domNode => {
+      getAttrs: (domNode) => {
         const dom = domNode as HTMLElement;
         // TODO: ED-5604 Fix it inside `react-syntax-highlighter`
         // Remove line numbers
@@ -145,7 +145,7 @@ export const codeBlock: NodeSpec = {
         if (lineNumber.length > 0) {
           // It's possible to copy without the line numbers too hence this
           // `react-syntax-highlighter-line-number` check, so that we don't remove real code
-          lineNumber.forEach(line => line.remove());
+          lineNumber.forEach((line) => line.remove());
         }
         return {};
       },

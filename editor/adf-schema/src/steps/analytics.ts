@@ -124,10 +124,10 @@ export class AnalyticsStep<P extends AnalyticsPayload> extends Step {
   invert() {
     const analyticsEvents: AnalyticsInvert[] = this.analyticsEvents
       .filter(
-        analyticsEvent =>
+        (analyticsEvent) =>
           this.actionsToIgnore.indexOf(analyticsEvent.payload.action) === -1,
       )
-      .map(analyticsEvent => {
+      .map((analyticsEvent) => {
         if (isHistoryAnalyticsEvent(analyticsEvent)) {
           return toggleEventAction(analyticsEvent);
         } else {

@@ -67,7 +67,7 @@ export const ExpandIconWrapper = styled.div<{ expanded: boolean }>`
   }
 
   svg {
-    ${props => (props.expanded ? 'transform: rotate(90deg);' : '')}
+    ${(props) => (props.expanded ? 'transform: rotate(90deg);' : '')}
     transition: transform 0.2s ${akEditorSwoopCubicBezier};
   }
 `;
@@ -86,7 +86,7 @@ const ContainerStyles = css<StyleProps>`
   min-height: 25px;
   background: ${({ expanded }) =>
     !expanded ? EXPAND_COLLAPSED_BACKGROUND : EXPAND_SELECTED_BACKGROUND};
-  margin: ${props =>
+  margin: ${(props) =>
     `${gridSize() / 2 / fontSize()}rem ${
       // Only only these margins if the expand isn't editable
       // and is the root level expand.

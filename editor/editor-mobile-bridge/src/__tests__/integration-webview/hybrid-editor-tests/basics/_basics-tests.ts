@@ -11,7 +11,7 @@ export default async () => {
   MobileTestCase(
     'Editor Text: Load ADF with different text nodes displayed',
     {},
-    async client => {
+    async (client) => {
       const page = await Page.create(client);
       await loadEditor(page);
       await setADFContent(page, basicAdf);
@@ -21,7 +21,7 @@ export default async () => {
   MobileTestCase(
     'Editor Text: Validate font size change at runtime',
     {},
-    async client => {
+    async (client) => {
       const page = await Page.create(client);
       await loadEditor(page);
       await validateFontSizeOverride(page, fontSizeAdf, '.ProseMirror', '24');
@@ -30,7 +30,7 @@ export default async () => {
   MobileTestCase(
     'Editor Text: Validate font size larger than 34px is set to max font size of 34px.',
     {},
-    async client => {
+    async (client) => {
       const page = await Page.create(client);
       await loadEditor(page);
       await validateFontSizeOverride(page, fontSizeAdf, '.ProseMirror', '35');

@@ -19,7 +19,7 @@ import { Rect } from '@atlaskit/editor-tables/table-map';
 jest.mock('@atlaskit/editor-tables/utils');
 jest.mock('../../transforms');
 
-const formatMessage: (t: unknown) => string = id => 'Lorem ipsum';
+const formatMessage: (t: unknown) => string = (id) => 'Lorem ipsum';
 const ctx = { formatMessage };
 
 describe('getToolbarMenuConfig', () => {
@@ -47,7 +47,7 @@ describe('getToolbarMenuConfig', () => {
 describe('getToolbarCellOptionsConfig', () => {
   const state = createEditorState(doc(table()(row(td()(p('1{cursor}'))))));
 
-  const formatMessage: (t: { id: string }) => string = message =>
+  const formatMessage: (t: { id: string }) => string = (message) =>
     `${message.id}`;
   const rect = new Rect(1, 1, 1, 1);
   const cellOptionsMenu = getToolbarCellOptionsConfig(state, rect, {
@@ -106,7 +106,9 @@ describe('getToolbarCellOptionsConfig', () => {
       formatMessage,
     });
     const items = cellOptionsMenu.options as Array<DropdownOptionT<Command>>;
-    const item = items.find(item => item.title === 'fabric.editor.mergeCells');
+    const item = items.find(
+      (item) => item.title === 'fabric.editor.mergeCells',
+    );
 
     expect(item).toMatchObject({
       disabled: false,
@@ -123,7 +125,7 @@ describe('getToolbarCellOptionsConfig', () => {
     });
     const items = cellOptionsMenu.options as Array<DropdownOptionT<Command>>;
     const splitCellItem = items.find(
-      item => item.title === 'fabric.editor.splitCell',
+      (item) => item.title === 'fabric.editor.splitCell',
     );
 
     expect(splitCellItem).toMatchObject({

@@ -126,7 +126,7 @@ function scaleTableTo(state: ResizeState, maxSize: number): ResizeState {
   let newState = {
     ...state,
     maxSize,
-    cols: state.cols.map(col => {
+    cols: state.cols.map((col) => {
       const { minWidth, width } = col;
       let newColWidth = Math.floor(width * scaleFactor);
       if (newColWidth < minWidth) {

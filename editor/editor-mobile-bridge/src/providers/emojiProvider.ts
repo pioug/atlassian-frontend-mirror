@@ -15,7 +15,7 @@ const elementsConfigPromise = createPromise('getConfig');
 export function createEmojiProvider(fetchProxy: FetchProxy) {
   return elementsConfigPromise
     .submit()
-    .then(elementsConfig => {
+    .then((elementsConfig) => {
       const emojiConfig = createEmojiConfig(elementsConfig);
 
       /**
@@ -27,7 +27,7 @@ export function createEmojiProvider(fetchProxy: FetchProxy) {
        *       to be as consistent as possible.
        */
       if (window.webkit) {
-        emojiConfig.providers.forEach(p => fetchProxy.add(p.url));
+        emojiConfig.providers.forEach((p) => fetchProxy.add(p.url));
       }
 
       return new EmojiResource(emojiConfig);

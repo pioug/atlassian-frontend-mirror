@@ -32,7 +32,7 @@ const DeleteButton = ({
       title={formatMessage(removeLabel, { 0: 1 })}
       className={ClassName.CONTROLS_DELETE_BUTTON}
       onMouseDown={onClick}
-      onMouseMove={e => e.preventDefault()}
+      onMouseMove={(e) => e.preventDefault()}
     >
       <svg className={ClassName.CONTROLS_BUTTON_ICON}>
         <path

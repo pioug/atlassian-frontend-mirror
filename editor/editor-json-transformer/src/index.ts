@@ -122,7 +122,7 @@ const toJSON = (node: PMNode): JSONNode => {
   if (node.marks.length) {
     // Run any custom mark serialisers
     const parsedMarks = node.marks
-      .map(mark => {
+      .map((mark) => {
         if (isUnsupportedMark(mark)) {
           return canOverrideMark(mark, node.marks)
             ? null
@@ -141,7 +141,7 @@ const toJSON = (node: PMNode): JSONNode => {
           return mark.toJSON();
         }
       })
-      .filter(maybeMark => maybeMark !== null);
+      .filter((maybeMark) => maybeMark !== null);
 
     // Only set if we have a non-empty array, otherwise explicitly undefine it (as we only run this path if `node.marks.length`)
     obj.marks = parsedMarks?.length > 0 ? parsedMarks : undefined;
@@ -160,7 +160,9 @@ const toJSON = (node: PMNode): JSONNode => {
 };
 
 const canOverrideMark = (mark: PMMark, existingMarks: PMMark[]): boolean => {
-  if (existingMarks.some(e => mark.attrs.originalValue.type === e.type.name)) {
+  if (
+    existingMarks.some((e) => mark.attrs.originalValue.type === e.type.name)
+  ) {
     return markOverrideRuleFor(
       mark.attrs.originalValue.type,
     ).canOverrideUnsupportedMark();
@@ -196,7 +198,7 @@ export class JSONTransformer implements Transformer<JSONDocNode> {
   encode(node: PMNode): JSONDocNode {
     const content: JSONNode[] = [];
 
-    node.content.forEach(child => {
+    node.content.forEach((child) => {
       content.push(sanitizeNode(toJSON(child)));
     });
 

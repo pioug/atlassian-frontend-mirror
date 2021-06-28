@@ -1,5 +1,11 @@
 # @atlaskit/atlassian-switcher
 
+## 13.0.1
+
+### Patch Changes
+
+- [`a42f0304700`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a42f0304700) - Update dependencies.
+
 ## 13.0.0
 
 ### Major Changes

@@ -7,7 +7,7 @@ export default function Example() {
   return (
     <AnalyticsListener
       channel={FabricChannel.atlaskit}
-      onEvent={evt => console.log('atlaskit channel', evt)}
+      onEvent={(evt) => console.log('atlaskit channel', evt)}
     >
       <FullPageExample UNSAFE_useAnalyticsContext={true} />
     </AnalyticsListener>

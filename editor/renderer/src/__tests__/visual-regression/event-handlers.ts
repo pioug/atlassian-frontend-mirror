@@ -3,7 +3,7 @@ import { snapshot, initRendererWithADF, getBoundingClientRect } from './_utils';
 import { editorPlaceholderSelector } from '../../../examples/helper/testing-setup';
 
 function sleep(ms: number) {
-  return new Promise(resolve => setTimeout(resolve, ms));
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 const multipleParaADF = {

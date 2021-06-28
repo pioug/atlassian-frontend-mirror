@@ -61,7 +61,7 @@ export const deleteRows = (
         // decrement rowspans for row-spanning cells that overlap deleted rows
         if (cellsInRow.indexOf(cellPos) > -1) {
           let overlappingRows = 0;
-          rowsToDelete.forEach(rowIndexToDelete => {
+          rowsToDelete.forEach((rowIndexToDelete) => {
             if (
               rowIndex < rowIndexToDelete &&
               cell.attrs.rowspan + rowIndex - 1 >= rowIndexToDelete

@@ -15,7 +15,7 @@ export const useSelectAllTrap = <
     typeof navigator !== 'undefined' ? /Mac/.test(navigator.platform) : false;
 
   const onKeyDown = React.useCallback(
-    e => {
+    (e) => {
       const el = ref.current;
 
       if (!el) {
@@ -57,7 +57,7 @@ export const useSelectAllTrap = <
   );
 
   const onClick = React.useCallback(
-    e => {
+    (e) => {
       clicked.current = ref.current?.contains(e.target) ?? false;
     },
     [ref, clicked],

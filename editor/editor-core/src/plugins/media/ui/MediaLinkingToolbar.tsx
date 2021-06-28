@@ -168,7 +168,7 @@ export class LinkAddToolbar extends React.PureComponent<
               autoFocus={true}
               onCancel={this.handleCancel}
               defaultValue={value}
-              onSubmit={inputValue => {
+              onSubmit={(inputValue) => {
                 const validationErrors = this.getValidationErrors(
                   inputValue,
                   currentInputMethod,
@@ -178,7 +178,7 @@ export class LinkAddToolbar extends React.PureComponent<
                   onSubmit();
                 }
               }}
-              onChange={value => {
+              onChange={(value) => {
                 this.setState({ validationErrors: [] });
                 onChange(value);
               }}

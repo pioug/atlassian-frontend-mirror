@@ -40,7 +40,7 @@ describe('card', () => {
   };
 
   beforeAll(() => {
-    (closeHistory as jest.Mock).mockImplementation(tr => {
+    (closeHistory as jest.Mock).mockImplementation((tr) => {
       return tr;
     });
   });
@@ -66,7 +66,7 @@ describe('card', () => {
       beforeEach(() => {
         provider = new (class implements CardProvider {
           resolve(): Promise<any> {
-            const promise = new Promise(resolve => resolve(cardAdf));
+            const promise = new Promise((resolve) => resolve(cardAdf));
             promises.push(promise);
             return promise;
           }

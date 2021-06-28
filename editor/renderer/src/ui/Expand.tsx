@@ -42,13 +42,13 @@ const Title = styled.span`
 const Container = styled.div<StyleProps>`
   ${sharedExpandStyles.ContainerStyles}
   padding: 0;
-  padding-bottom: ${props => (props.expanded ? gridSize() : 0)}px;
+  padding-bottom: ${(props) => (props.expanded ? gridSize() : 0)}px;
 `;
 
 const TitleContainer = styled.button<StyleProps>`
   ${sharedExpandStyles.TitleContainerStyles}
   padding: ${gridSize()}px;
-  padding-bottom: ${props => (!props.expanded ? gridSize() : 0)}px;
+  padding-bottom: ${(props) => (!props.expanded ? gridSize() : 0)}px;
 `;
 
 TitleContainer.displayName = 'TitleContainerButton';

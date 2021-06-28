@@ -6,7 +6,7 @@ import {
 import tableLayoutAdf from './__fixtures__/table-layout.adf.json';
 
 const sleep = (time: number) =>
-  new Promise(resolve => setTimeout(resolve, time));
+  new Promise((resolve) => setTimeout(resolve, time));
 
 BrowserTestCase(
   'Addapts full-width table after scrolling to resizing',

@@ -416,7 +416,7 @@ describe('Renderer - ReactSerializer', () => {
           const schemaWithUnsupportedNodes = createSchema({
             ...defaultSchemaConfig,
             nodes: defaultSchemaConfig.nodes.filter(
-              node =>
+              (node) =>
                 [
                   'expand',
                   'nestedExpand',

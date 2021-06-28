@@ -16,7 +16,7 @@ export function useHeadingLinks(
 ): HeadingAnchorLinksProps {
   const [activeHeadingId, setActiveHeadingId] = useState<undefined | string>();
 
-  const receiveNewActiveHeadingId = useCallback(headingId => {
+  const receiveNewActiveHeadingId = useCallback((headingId) => {
     setActiveHeadingId(headingId);
   }, []);
 

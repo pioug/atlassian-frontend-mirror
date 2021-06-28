@@ -95,7 +95,7 @@ export const replaceQueuedUrlWithCard = (
   }
 
   // find the requests for this URL
-  const requests = state.requests.filter(req => req.url === url);
+  const requests = state.requests.filter((req) => req.url === url);
 
   // try to transform response to ADF
   const schema: Schema = editorState.schema;
@@ -106,13 +106,13 @@ export const replaceQueuedUrlWithCard = (
   if (cardAdf) {
     // Should prevent any other node than cards? [inlineCard, blockCard].includes(cardAdf.type)
     const nodeContexts: Array<string | undefined> = requests
-      .map(request => replaceLinksToCards(tr, cardAdf, schema, request))
-      .filter(context => !!context); // context exist
+      .map((request) => replaceLinksToCards(tr, cardAdf, schema, request))
+      .filter((context) => !!context); // context exist
 
     // Send analytics information
     if (nodeContexts.length) {
       const nodeContext = nodeContexts.every(
-        context => context === nodeContexts[0],
+        (context) => context === nodeContexts[0],
       )
         ? nodeContexts[0]
         : 'mixed';
@@ -179,7 +179,7 @@ export const queueCardsFromChangedTr = (
       return true;
     }
 
-    const linkMark = node.marks.find(mark => mark.type === link);
+    const linkMark = node.marks.find((mark) => mark.type === link);
 
     if (linkMark) {
       if (!shouldReplaceLink(node, normalizeLinkText)) {
@@ -215,7 +215,7 @@ export const convertHyperlinkToSmartCard = (
     state.selection.from,
     state.selection.to,
     (node, pos) => {
-      const linkMark = node.marks.find(mark => mark.type === link);
+      const linkMark = node.marks.find((mark) => mark.type === link);
       if (linkMark) {
         const request: Request = {
           url: linkMark.attrs.href,
@@ -340,7 +340,7 @@ export const changeSelectedCardToText = (text: string): Command => (
 
 export const setSelectedCardAppearance: (
   appearance: CardAppearance,
-) => Command = appearance => (state, dispatch) => {
+) => Command = (appearance) => (state, dispatch) => {
   const selectedNode =
     state.selection instanceof NodeSelection && state.selection.node;
 

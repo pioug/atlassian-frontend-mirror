@@ -206,7 +206,7 @@ export default class ResizableEmbedCard extends React.Component<Props, State> {
       this.props.gridSize,
     );
 
-    let snapPoints = snapTargets.filter(width => width >= minimumWidth);
+    let snapPoints = snapTargets.filter((width) => width >= minimumWidth);
     const $pos = this.$pos;
     if (!$pos) {
       return snapPoints;
@@ -373,7 +373,7 @@ export default class ResizableEmbedCard extends React.Component<Props, State> {
       this.calcPxWidth() - akEditorMediaResizeHandlerPaddingWide;
 
     const enable: EnabledHandles = {};
-    handleSides.forEach(side => {
+    handleSides.forEach((side) => {
       const oppositeSide = side === 'left' ? 'right' : 'left';
       enable[side] =
         ['full-width', 'wide', 'center']

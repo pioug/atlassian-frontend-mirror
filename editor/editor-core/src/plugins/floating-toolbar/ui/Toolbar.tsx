@@ -68,8 +68,8 @@ const compareItemWithKeys = <T, U extends keyof T>(
   excludedKeys: Array<U> = [],
 ): boolean =>
   (Object.keys(leftItem) as Array<U>)
-    .filter(key => excludedKeys.indexOf(key) === -1)
-    .every(key =>
+    .filter((key) => excludedKeys.indexOf(key) === -1)
+    .every((key) =>
       leftItem[key] instanceof Object
         ? shallowEqual(leftItem[key], rightItem[key])
         : leftItem[key] === rightItem[key],
@@ -185,7 +185,7 @@ export default class Toolbar extends Component<Props> {
       >
         <ButtonGroup>
           {items
-            .filter(item => !item.hidden)
+            .filter((item) => !item.hidden)
             .map((item, idx) => {
               switch (item.type) {
                 case 'button':
@@ -233,8 +233,10 @@ export default class Toolbar extends Component<Props> {
                       boundariesElement={popupsBoundariesElement}
                       defaultValue={item.defaultValue}
                       placeholder={item.placeholder}
-                      onSubmit={value => dispatchCommand(item.onSubmit(value))}
-                      onBlur={value => dispatchCommand(item.onBlur(value))}
+                      onSubmit={(value) =>
+                        dispatchCommand(item.onSubmit(value))
+                      }
+                      onBlur={(value) => dispatchCommand(item.onBlur(value))}
                     />
                   );
 
@@ -273,7 +275,7 @@ export default class Toolbar extends Component<Props> {
                         scrollableElement={popupsScrollableElement}
                         defaultValue={item.defaultValue}
                         placeholder={item.placeholder}
-                        onChange={selected =>
+                        onChange={(selected) =>
                           dispatchCommand(
                             item.onChange(selected as SelectOption),
                           )

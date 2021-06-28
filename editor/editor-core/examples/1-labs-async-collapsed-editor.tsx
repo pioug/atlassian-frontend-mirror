@@ -8,7 +8,7 @@ export default class Example extends React.Component<{}, State> {
   state = { isExpanded: false };
 
   toggleExpanded = () => {
-    this.setState(prevState => ({ isExpanded: !prevState.isExpanded }));
+    this.setState((prevState) => ({ isExpanded: !prevState.isExpanded }));
   };
 
   render() {
@@ -17,7 +17,7 @@ export default class Example extends React.Component<{}, State> {
         placeholder="What would you like to say?"
         isExpanded={this.state.isExpanded}
         onClickToExpand={this.toggleExpanded}
-        renderEditor={Editor => (
+        renderEditor={(Editor) => (
           <Editor
             appearance="comment"
             quickInsert={true}

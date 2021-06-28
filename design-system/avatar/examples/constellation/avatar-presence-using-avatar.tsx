@@ -2,7 +2,7 @@ import React from 'react';
 
 import Avatar from '../../src';
 
-export default function AvatarPresenceUsingAvatarExample() {
+const AvatarPresenceUsingAvatarExample = () => {
   return (
     <div>
       <Avatar presence="online" />
@@ -11,4 +11,6 @@ export default function AvatarPresenceUsingAvatarExample() {
       <Avatar presence="offline" />
     </div>
   );
-}
+};
+
+export default AvatarPresenceUsingAvatarExample;

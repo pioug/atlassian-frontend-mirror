@@ -53,7 +53,7 @@ export const getAnnotationIdsFromRange = (
   const { from, to } = rangeSelection;
   let annotations = new Set<string>();
 
-  doc.nodesBetween(from, to, node => {
+  doc.nodesBetween(from, to, (node) => {
     if (!node.marks) {
       return true;
     }

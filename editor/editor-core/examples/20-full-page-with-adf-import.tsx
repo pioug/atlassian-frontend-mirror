@@ -46,7 +46,7 @@ const FullPageWithAdfImport: React.FC = function FullPageWithAdfImport() {
           customPrimaryToolbarComponents={
             <WithEditorActions
               key={1}
-              render={actions => {
+              render={(actions) => {
                 return (
                   <>
                     <Button
@@ -71,11 +71,11 @@ const FullPageWithAdfImport: React.FC = function FullPageWithAdfImport() {
           contextPanel={
             <WithEditorActions
               key={1}
-              render={actions => (
+              render={(actions) => (
                 <AdfPanel
                   open={panelOpen}
                   value={adfValue}
-                  onInput={value => {
+                  onInput={(value) => {
                     setAdfValue(value);
                     try {
                       // Don't try to set document if no valid json
@@ -130,7 +130,7 @@ const AdfPanel: React.FC<AdfPanelProps> = function AdfPanel(props) {
         id="adf-input"
         contentEditable
         ref={ref}
-        onInput={e => {
+        onInput={(e) => {
           const el = e.target instanceof HTMLElement ? e.target : undefined;
           el && props.onInput(el.textContent!);
         }}

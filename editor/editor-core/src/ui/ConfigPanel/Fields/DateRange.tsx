@@ -102,7 +102,7 @@ const DateRange = function ({
         label: intl.formatMessage(messages.custom),
         value: 'custom',
       },
-    ].map(option => ({
+    ].map((option) => ({
       ...option,
       name,
     }));
@@ -137,7 +137,7 @@ const DateRange = function ({
             <RadioGroup
               {...fieldProps}
               options={items}
-              onChange={event => {
+              onChange={(event) => {
                 fieldProps.onChange(event.target.value);
                 setCurrentValue(event.target.value);
               }}

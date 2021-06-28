@@ -45,9 +45,9 @@ export const FixedTableDiv = styled.div.attrs<FixedProps>({
     width: wrapperWidth,
   }),
 })`
-  ${props => (props.mode === 'stick' ? 'position: fixed' : '')};
-  ${props => (props.mode === 'pin-bottom' ? 'position: absolute' : '')};
-  ${props => (props.mode === 'none' ? 'display: none' : '')};
+  ${(props) => (props.mode === 'stick' ? 'position: fixed' : '')};
+  ${(props) => (props.mode === 'pin-bottom' ? 'position: absolute' : '')};
+  ${(props) => (props.mode === 'none' ? 'display: none' : '')};
 
   z-index: ${akEditorStickyHeaderZIndex};
 

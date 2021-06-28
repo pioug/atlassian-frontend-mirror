@@ -26,7 +26,7 @@ function liftListItem(
   const nodeType = state.schema.nodes.listItem;
   let range = $from.blockRange(
     $to,
-    node =>
+    (node) =>
       !!node.childCount &&
       !!node.firstChild &&
       node.firstChild.type === nodeType,
@@ -164,7 +164,7 @@ const extractListFromParagaph = (
   schema: Schema,
 ): Fragment => {
   const { hardBreak, bulletList, orderedList } = schema.nodes;
-  const content: Array<Node> = mapChildren(node.content, node => node);
+  const content: Array<Node> = mapChildren(node.content, (node) => node);
 
   const listTypes = [bulletList, orderedList];
 
@@ -276,7 +276,7 @@ const splitIntoParagraphs = (fragment: Fragment, schema: Schema): Fragment => {
 
   const { hardBreak, paragraph } = schema.nodes;
 
-  fragment.forEach(node => {
+  fragment.forEach((node) => {
     if (lastNode && lastNode.type === hardBreak && node.type === hardBreak) {
       // double hardbreak
 
@@ -307,9 +307,10 @@ export const splitParagraphs = (slice: Slice, schema: Schema): Slice => {
   // exclude Text nodes with a code mark, since we transform those later
   // into a codeblock
   let hasCodeMark = false;
-  slice.content.forEach(child => {
+  slice.content.forEach((child) => {
     hasCodeMark =
-      hasCodeMark || child.marks.some(mark => mark.type === schema.marks.code);
+      hasCodeMark ||
+      child.marks.some((mark) => mark.type === schema.marks.code);
   });
 
   // slice might just be a raw text string

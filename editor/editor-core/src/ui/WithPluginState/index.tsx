@@ -159,7 +159,7 @@ export default class WithPluginState<
 
       this.setState(this.notAppliedState, () => {
         performanceOptions.trackingEnabled &&
-          stopMeasure(measure, duration => {
+          stopMeasure(measure, (duration) => {
             // Each WithPluginState component will fire analytics event no more than once every `samplingLimit` times
             if (
               ++this.callsCount % performanceOptions.samplingRate === 0 &&
@@ -240,7 +240,7 @@ export default class WithPluginState<
     const pluginsStates = this.getPluginsStates(plugins, editorView);
     this.setState(pluginsStates);
 
-    Object.keys(plugins).forEach(propName => {
+    Object.keys(plugins).forEach((propName) => {
       const pluginKey = plugins[propName as keyof P];
 
       if (!pluginKey) {
@@ -275,7 +275,7 @@ export default class WithPluginState<
       return;
     }
 
-    Object.keys(this.listeners).forEach(key => {
+    Object.keys(this.listeners).forEach((key) => {
       const pluginState = (this.listeners as any)[key].pluginKey.getState(
         editorView.state,
       );

@@ -34,7 +34,7 @@ describe('Renderer - ReactSerializer - TextWrapperComponent', () => {
       expect(createElementSpy).toHaveBeenCalled();
       const keys = new Set();
 
-      createElementSpy.mock.calls.forEach(call => {
+      createElementSpy.mock.calls.forEach((call) => {
         if (!call || !call[1] || !call[1].key) {
           return;
         }

@@ -17,7 +17,7 @@ const isIndentationAllowed = (schema: Schema, node: PmNode) => {
   if ([paragraph, heading].indexOf(node.type) > -1) {
     if (alignment) {
       const hasAlignment = node.marks.filter(
-        mark => mark.type === alignment,
+        (mark) => mark.type === alignment,
       )[0];
       return !hasAlignment;
     }

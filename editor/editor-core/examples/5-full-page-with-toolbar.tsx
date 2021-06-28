@@ -38,7 +38,7 @@ const SaveAndCancelButtons = (props: { editorActions: EditorActions }) => {
           props.editorActions
             .getValue()
             // eslint-disable-next-line no-console
-            .then(value => console.log(value))
+            .then((value) => console.log(value))
         }
       >
         Publish
@@ -125,7 +125,7 @@ export class ExampleEditor extends React.Component<Props> {
                 disabled={disabled}
                 primaryToolbarComponents={
                   <WithEditorActions
-                    render={actions => (
+                    render={(actions) => (
                       <SaveAndCancelButtons editorActions={actions} />
                     )}
                   />

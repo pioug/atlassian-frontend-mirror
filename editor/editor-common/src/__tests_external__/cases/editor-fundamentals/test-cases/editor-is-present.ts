@@ -7,7 +7,7 @@ export const editorIsPresentTestCase = (opts?: TestCaseOpts) =>
     testOptions: opts,
     title: 'content-area, title of Editor are visible',
     id: 'editor-is-present',
-    assertions: cy => {
+    assertions: (cy) => {
       const editor = new EditorPageObject(cy);
       editor.getTitleArea().should('be.visible');
       editor.getEditorArea().should('be.visible');

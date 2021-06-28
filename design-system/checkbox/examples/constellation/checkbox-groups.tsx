@@ -8,7 +8,7 @@ import Toggle from '@atlaskit/toggle';
 
 import { Checkbox } from '../../src';
 
-const CheckboxGroups = () => {
+const CheckboxGroupsExample = () => {
   const [flexDirection, setFlexDirection] = useState<'column' | 'row'>(
     'column',
   );
@@ -67,4 +67,4 @@ const CheckboxGroups = () => {
   );
 };
 
-export default CheckboxGroups;
+export default CheckboxGroupsExample;

@@ -67,7 +67,9 @@ export class EditorSharedConfigConsumer extends React.Component<{
   render() {
     return (
       <EditorSharedConfigContext.Consumer>
-        {value => this.props.children(this.context.editorSharedConfig || value)}
+        {(value) =>
+          this.props.children(this.context.editorSharedConfig || value)
+        }
       </EditorSharedConfigContext.Consumer>
     );
   }

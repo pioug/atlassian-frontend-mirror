@@ -34,7 +34,7 @@ const getPluginState = (
  * Traverses a transaction's steps to see if we're inserting any tables
  */
 const checkIsAddingTable = (transaction: Transaction, nodeType: NodeType) => {
-  return transaction.steps.some(step => stepAdds(step, nodeType));
+  return transaction.steps.some((step) => stepAdds(step, nodeType));
 };
 
 /**
@@ -55,7 +55,7 @@ const createPlugin = (dispatch: Dispatch) =>
           const keys = Object.keys(meta) as Array<
             keyof TableLocalIdPluginState
           >;
-          const changed = keys.some(key => {
+          const changed = keys.some((key) => {
             return pluginState[key] !== meta[key];
           });
 
@@ -142,7 +142,7 @@ const createPlugin = (dispatch: Dispatch) =>
 
       const idsObserved = new Set<string>();
 
-      transactions.forEach(transaction => {
+      transactions.forEach((transaction) => {
         if (!transaction.docChanged) {
           return;
         }

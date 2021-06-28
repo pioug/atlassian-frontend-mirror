@@ -77,7 +77,7 @@ describe('shouldTrackTransaction', () => {
         tracker.bumpDispatchCounter(options);
         return tracker.shouldTrackTransaction(options);
       })
-      .filter(bool => bool);
+      .filter((bool) => bool);
 
     expect(results).toHaveLength(4);
   });
@@ -98,7 +98,7 @@ describe('shouldTrackTransaction', () => {
         tracker.bumpDispatchCounter(options);
         return tracker.shouldTrackTransaction(options);
       })
-      .filter(bool => bool);
+      .filter((bool) => bool);
 
     expect(results).toHaveLength(1);
   });
@@ -113,7 +113,7 @@ describe('shouldTrackTransaction', () => {
         tracker.bumpDispatchCounter(options);
         return tracker.shouldTrackTransaction(options);
       })
-      .filter(bool => bool);
+      .filter((bool) => bool);
 
     expect(results).toHaveLength(2);
   });
@@ -181,7 +181,7 @@ describe('simple startMeasure and stopMeasure', () => {
   it('should measure timing between function calls', () => {
     const timeInMs = 8;
     const getTimeSinceMock = jest.spyOn(timingUtils, 'getTimeSince');
-    getTimeSinceMock.mockImplementation(startTime => timeInMs);
+    getTimeSinceMock.mockImplementation((startTime) => timeInMs);
 
     simpleStartMeasure('test1');
     simpleStopMeasure('test1', (duration: number, startTime: number) => {

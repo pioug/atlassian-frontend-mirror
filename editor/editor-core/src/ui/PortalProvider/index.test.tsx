@@ -41,7 +41,7 @@ describe('PortalProvider', () => {
           <PortalProvider
             onAnalyticsEvent={handleAnalyticsEvent}
             useAnalyticsContext={true}
-            render={api => {
+            render={(api) => {
               portalProviderAPI = api;
               return <PortalRenderer portalProviderAPI={api} />;
             }}

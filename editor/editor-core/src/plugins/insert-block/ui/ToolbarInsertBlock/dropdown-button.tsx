@@ -17,7 +17,7 @@ export interface DropDownButtonProps {
 
 const DropDownButtonIcon: React.StatelessComponent<{
   label: string;
-}> = React.memo(props => (
+}> = React.memo((props) => (
   <TriggerWrapper>
     <AddIcon label={props.label} />
     <ExpandIconWrapper>
@@ -27,7 +27,7 @@ const DropDownButtonIcon: React.StatelessComponent<{
 ));
 
 export const DropDownButton: React.StatelessComponent<DropDownButtonProps> = React.memo(
-  props => (
+  (props) => (
     <ToolbarButton
       ref={props.handleRef}
       selected={props.selected}

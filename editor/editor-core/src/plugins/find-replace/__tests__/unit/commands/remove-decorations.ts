@@ -107,7 +107,7 @@ describe('find/replace commands: removeDecorations', () => {
       const decorationToRemove = decorationSet.find(1, 4);
       const expected = decorationSet
         .find()
-        .filter(decoration => decoration.from !== 1);
+        .filter((decoration) => decoration.from !== 1);
 
       removeDecorations(decorationToRemove)(
         editorView.state,
@@ -125,7 +125,7 @@ describe('find/replace commands: removeDecorations', () => {
       const [thirdDecorationToRemove] = decorationSet.find(61, 64);
       const expected = decorationSet
         .find()
-        .filter(decoration => [1, 31, 61].indexOf(decoration.from) === -1);
+        .filter((decoration) => [1, 31, 61].indexOf(decoration.from) === -1);
 
       removeDecorations([
         firstDecorationToRemove,

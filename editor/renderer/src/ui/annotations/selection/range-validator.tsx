@@ -14,7 +14,7 @@ type Props = {
   createAnalyticsEvent?: CreateUIAnalyticsEvent;
 };
 
-export const SelectionRangeValidator: React.FC<Props> = props => {
+export const SelectionRangeValidator: React.FC<Props> = (props) => {
   const {
     selectionComponent,
     rendererRef,

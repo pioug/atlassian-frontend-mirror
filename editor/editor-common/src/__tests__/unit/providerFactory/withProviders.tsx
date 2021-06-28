@@ -33,7 +33,7 @@ describe('WithProviders', () => {
     );
     const providers: Providers = component.state('providers');
     const nonEmptyProviders = Object.keys(providers).filter(
-      providerName => providers[providerName as keyof Providers],
+      (providerName) => providers[providerName as keyof Providers],
     );
 
     expect(nonEmptyProviders.length).toBe(2);

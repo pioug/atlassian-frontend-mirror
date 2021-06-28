@@ -174,7 +174,7 @@ export const updateResizeHandles = (tableRef?: HTMLElement) => {
     return;
   }
 
-  nodes.forEach(node => {
+  nodes.forEach((node) => {
     node.style.height = `${height}px`;
   });
 };

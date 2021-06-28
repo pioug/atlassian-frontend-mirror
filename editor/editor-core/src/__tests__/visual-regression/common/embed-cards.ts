@@ -79,7 +79,7 @@ describe('Embed Cards:', () => {
     await snapshot(page);
   });
 
-  [true, false].forEach(allowResizing =>
+  [true, false].forEach((allowResizing) =>
     it.each(embedCombinationsWithTitle)(
       `should render embeds with and without dynamic height control when resizing is ${
         !allowResizing ? 'not' : ''

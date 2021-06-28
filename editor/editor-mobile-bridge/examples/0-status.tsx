@@ -25,7 +25,7 @@ const Container: React.ComponentClass<
     height?: string;
   }
 > = styled.div`
-  height: ${props => (props.height ? props.height : 'auto')};
+  height: ${(props) => (props.height ? props.height : 'auto')};
   border: 1px solid #ddd;
   margin: 16px 0;
   padding: 8px;

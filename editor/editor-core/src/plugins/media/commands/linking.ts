@@ -25,7 +25,7 @@ import { checkMediaType } from '../utils/check-media-type';
 import { getMediaPluginState } from '../pm-plugins/main';
 import { Command } from '../../../types';
 
-export const showLinkingToolbar = createMediaLinkingCommand(state => {
+export const showLinkingToolbar = createMediaLinkingCommand((state) => {
   const mediaLinkingState = getMediaLinkingState(state);
   if (mediaLinkingState && mediaLinkingState.mediaPos !== null) {
     const mediaSingle = state.doc.nodeAt(mediaLinkingState.mediaPos);
@@ -56,7 +56,7 @@ export const showLinkingToolbarWithMediaTypeCheck: Command = (
       return false;
     }
 
-    checkMediaType(mediaNode, mediaClientConfig).then(mediaType => {
+    checkMediaType(mediaNode, mediaClientConfig).then((mediaType) => {
       if (
         (mediaType === 'external' || mediaType === 'image') &&
         // We make sure the selection and the node hasn't changed.
@@ -110,7 +110,7 @@ function getCurrentUrl(state: EditorState): string | undefined {
   if (!hasLink) {
     return;
   }
-  const link = node.marks.find(mark => mark.type === linkType)!; // Already check exist
+  const link = node.marks.find((mark) => mark.type === linkType)!; // Already check exist
   const url = (link.attrs as LinkAttributes).href;
 
   return url;

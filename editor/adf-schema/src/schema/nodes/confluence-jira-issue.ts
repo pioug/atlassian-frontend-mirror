@@ -16,7 +16,7 @@ export const confluenceJiraIssue: NodeSpec = {
   parseDOM: [
     {
       tag: `span[data-node-type="${name}"]`,
-      getAttrs: domNode => {
+      getAttrs: (domNode) => {
         const dom = domNode as HTMLElement;
         return {
           issueKey: dom.textContent,

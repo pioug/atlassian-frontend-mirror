@@ -7,7 +7,7 @@ import {
 const icon = () =>
   import(
     /* webpackChunkName: "@atlaskit-internal_editor-success" */ '@atlaskit/icon/glyph/editor/success'
-  ).then(mod => mod.default);
+  ).then((mod) => mod.default);
 
 export const createTestExtensionProvider = (
   action: any,

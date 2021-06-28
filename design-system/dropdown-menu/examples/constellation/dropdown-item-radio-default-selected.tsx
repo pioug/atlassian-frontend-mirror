@@ -5,15 +5,17 @@ import DropdownMenu, {
   DropdownItemRadio,
 } from '../../src';
 
-const DropDownItemRadioDefaultSelectedExample = () => (
-  <DropdownMenu trigger="Filter city" triggerType="button">
-    <DropdownItemGroupRadio id="cities">
-      <DropdownItemRadio id="adelaide" defaultSelected>
-        Adelaide
-      </DropdownItemRadio>
-      <DropdownItemRadio id="sydney">Sydney</DropdownItemRadio>
-    </DropdownItemGroupRadio>
-  </DropdownMenu>
-);
+const DropDownItemRadioDefaultSelectedExample = () => {
+  return (
+    <DropdownMenu trigger="Filter city" triggerType="button">
+      <DropdownItemGroupRadio id="cities">
+        <DropdownItemRadio id="adelaide" defaultSelected>
+          Adelaide
+        </DropdownItemRadio>
+        <DropdownItemRadio id="sydney">Sydney</DropdownItemRadio>
+      </DropdownItemGroupRadio>
+    </DropdownMenu>
+  );
+};
 
 export default DropDownItemRadioDefaultSelectedExample;

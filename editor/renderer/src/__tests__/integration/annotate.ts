@@ -49,7 +49,7 @@ BrowserTestCase(
 
     const selector = `${selectors.document} > p`;
     await page.waitForSelector(selector);
-    await page.simulateUserSelection(selector, selector, element =>
+    await page.simulateUserSelection(selector, selector, (element) =>
       element === 'start' ? CHAR_WIDTH : 0,
     );
 
@@ -93,7 +93,7 @@ BrowserTestCase(
 
     const selector = `${selectors.document} > p`;
     await page.waitForSelector(selector);
-    await page.simulateUserSelection(selector, selector, element =>
+    await page.simulateUserSelection(selector, selector, (element) =>
       element === 'start' ? CHAR_WIDTH * 3 : 0,
     );
 
@@ -130,7 +130,7 @@ BrowserTestCase(
     const selector = `${selectors.document} > p`;
 
     await page.waitForSelector(selector);
-    await page.simulateUserSelection(selector, selector, element =>
+    await page.simulateUserSelection(selector, selector, (element) =>
       element === 'start' ? CHAR_WIDTH : 0,
     );
 
@@ -181,7 +181,7 @@ BrowserTestCase(
     await page.simulateUserSelection(
       selector,
       `${selector}:nth-child(2)`,
-      element => (element === 'start' ? CHAR_WIDTH : -(CHAR_WIDTH * 5)),
+      (element) => (element === 'start' ? CHAR_WIDTH : -(CHAR_WIDTH * 5)),
     );
 
     const result = await annotate(page, '1234');
@@ -199,7 +199,7 @@ BrowserTestCase(
     const selector = `${selectors.document} [data-decision-local-id] [data-renderer-start-pos]`;
 
     await page.waitForSelector(selector);
-    await page.simulateUserSelection(selector, selector, element =>
+    await page.simulateUserSelection(selector, selector, (element) =>
       element === 'start' ? CHAR_WIDTH : 0,
     );
 
@@ -218,7 +218,7 @@ BrowserTestCase(
     const selector = `${selectors.document} [data-task-local-id] [data-renderer-start-pos]`;
 
     await page.waitForSelector(selector);
-    await page.simulateUserSelection(selector, selector, element =>
+    await page.simulateUserSelection(selector, selector, (element) =>
       element === 'start' ? CHAR_WIDTH : 0,
     );
 

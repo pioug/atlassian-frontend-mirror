@@ -10,19 +10,19 @@ import { UpdateTask } from '../types';
 const SKIP_AUTOMATIC_UPDATES = ['react', 'react-dom', 'styled-components'];
 
 export const getDependenciesTask: UpdateTask = {
-  title: ctx =>
+  title: (ctx) =>
     `Getting dependencies of ${chalk.yellow(
       '[' + Object.keys(ctx.packages).join(', ') + ']',
     )}`,
   async task(ctx, params, task) {
     const packages: DependenciesList = Object.entries(ctx.packages).map(
-      pkg => ({
+      (pkg) => ({
         name: pkg[0],
         version: pkg[1][1],
       }),
     );
     const skipAutomatic = SKIP_AUTOMATIC_UPDATES.filter(
-      pkg => params.packages.indexOf(pkg) === -1,
+      (pkg) => params.packages.indexOf(pkg) === -1,
     );
     const flatDeps = await getFlatDependenciesList(
       packages,

@@ -30,7 +30,7 @@ export type LanguageMapKeys = keyof typeof LANGUAGE_MAP;
 
 export const supportedLanguages = (Object.keys(LANGUAGE_MAP) as Array<
   LanguageMapKeys
->).map(name => LANGUAGE_MAP[name]);
+>).map((name) => LANGUAGE_MAP[name]);
 
 export function mapCodeLanguage(language: LanguageMapKeys): string {
   return LANGUAGE_MAP[language] || language.toLowerCase();

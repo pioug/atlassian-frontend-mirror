@@ -36,7 +36,7 @@ describe('ScrollGutter Plugin', () => {
     // plugin manually creates scroll gutter div element
     // mock scrollIntoView as it won't exist by default and plugin will crash
     const _createElement = document.createElement.bind(document);
-    jest.spyOn(document, 'createElement').mockImplementation(tagName => {
+    jest.spyOn(document, 'createElement').mockImplementation((tagName) => {
       const el = _createElement(tagName);
       el.scrollIntoView = scrollIntoViewSpy;
       return el;

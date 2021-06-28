@@ -12,7 +12,7 @@ describe('Snapshot Test: render all table cell background colors', () => {
     page = global.page;
   });
 
-  describe.each(THEME_MODES)('Theme: %s', theme => {
+  describe.each(THEME_MODES)('Theme: %s', (theme) => {
     beforeEach(async () => {
       await initFullPageEditorWithAdf(
         page,

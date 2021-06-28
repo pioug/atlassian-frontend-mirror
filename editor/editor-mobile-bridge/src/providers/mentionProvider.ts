@@ -13,7 +13,7 @@ export async function createMentionProvider() {
     return new MentionResource({
       // Required attrib. Requests will happen natively.
       url: 'http://',
-      shouldHighlightMention: mention => accountId === mention.id,
+      shouldHighlightMention: (mention) => accountId === mention.id,
     });
   } catch (err) {
     // eslint-disable-next-line no-console

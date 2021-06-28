@@ -15,7 +15,7 @@ describe('UnsupportedMark Override Rule', () => {
       'alignment',
       'indentation',
     ];
-    marksWhichAllowOverride.forEach(markType => {
+    marksWhichAllowOverride.forEach((markType) => {
       it(`should return true for ${markType} mark`, () => {
         const overrideRule = markOverrideRuleFor(
           markType,

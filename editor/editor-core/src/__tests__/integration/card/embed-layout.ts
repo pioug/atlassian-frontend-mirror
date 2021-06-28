@@ -11,7 +11,7 @@ import { editable, getDocFromElement } from '../_helpers';
   { type: 'align right', value: 'button[aria-label="Align right"]' },
   { type: 'wrap left', value: 'button[aria-label="Wrap left"]' },
   { type: 'wrap right', value: 'button[aria-label="Wrap right"]' },
-].forEach(layout => {
+].forEach((layout) => {
   BrowserTestCase(
     `embed-layout.ts: Layout ${layout.type} selector for embed Card`,
     { skip: ['edge', 'safari', 'firefox'] },

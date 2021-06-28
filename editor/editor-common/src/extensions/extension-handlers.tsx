@@ -68,7 +68,7 @@ export function getNodeRenderer<T>(
         extensionProvider,
         extensionType,
         extensionKey,
-      ).then(node => resolveImport(node.render()));
+      ).then((node) => resolveImport(node.render()));
     },
     loading: ExtensionLoading,
   });

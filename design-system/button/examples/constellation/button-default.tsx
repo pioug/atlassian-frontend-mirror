@@ -2,4 +2,8 @@ import React from 'react';
 
 import Button from '../../src';
 
-export default () => <Button>Default button</Button>;
+const ButtonDefaultExample = () => {
+  return <Button>Default button</Button>;
+};
+
+export default ButtonDefaultExample;

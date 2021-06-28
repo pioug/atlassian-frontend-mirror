@@ -86,7 +86,7 @@ function renderRenderer({
                 eventHandlers={
                   setMode
                     ? {
-                        onUnhandledClick: e => setMode(true),
+                        onUnhandledClick: (e) => setMode(true),
                       }
                     : undefined
                 }
@@ -175,7 +175,7 @@ export function createRendererWindowBindings(
       content = (
         <RendererContext>
           <WithRendererActions
-            render={actions => {
+            render={(actions) => {
               (win as any).__rendererActions = actions;
               return render;
             }}
@@ -193,7 +193,7 @@ export function createRendererWindowBindings(
 function mockAnnotationProps(props: MountProps) {
   const annotationInlineCommentProvider = {
     getState: async (annotationIds: AnnotationId[]) => {
-      return annotationIds.map(id => ({
+      return annotationIds.map((id) => ({
         id,
         annotationType: AnnotationTypes.INLINE_COMMENT,
         state: AnnotationMarkStates.ACTIVE,

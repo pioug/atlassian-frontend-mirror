@@ -1,5 +1,11 @@
 # @atlaskit/page-header
 
+## 10.0.11
+
+### Patch Changes
+
+- [`44e6c77d533`](https://bitbucket.org/atlassian/atlassian-frontend/commits/44e6c77d533) - Renames exports in page header examples to be more descriptive. For example, Example is renamed to PageHeaderDefaultExample.
+
 ## 10.0.10
 
 ### Patch Changes

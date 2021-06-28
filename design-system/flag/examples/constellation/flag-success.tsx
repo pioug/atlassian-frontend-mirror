@@ -5,7 +5,7 @@ import { G400 } from '@atlaskit/theme/colors';
 
 import Flag from '../../src';
 
-export default function FlagSuccess() {
+const FlagSuccessExample = () => {
   return (
     <Flag
       appearance="success"
@@ -17,4 +17,6 @@ export default function FlagSuccess() {
       actions={[{ content: 'Join the conversation', onClick: () => {} }]}
     />
   );
-}
+};
+
+export default FlagSuccessExample;

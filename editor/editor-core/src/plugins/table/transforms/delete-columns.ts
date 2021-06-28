@@ -87,7 +87,7 @@ const deleteColumnsLegacy = (rect: Rect) => (tr: Transaction): Transaction => {
         // decrement colspans for col-spanning cells that overlap deleted columns
         if (cellsInColumn.indexOf(cellPos) > -1 && !seen[cellPos]) {
           let overlappingCols = 0;
-          columnsToDelete.forEach(colIndexToDelete => {
+          columnsToDelete.forEach((colIndexToDelete) => {
             if (
               colIndex < colIndexToDelete &&
               cell.attrs.colspan + colIndex - 1 >= colIndexToDelete
@@ -203,7 +203,7 @@ function getMinRowSpans(table: PMNode): number[] {
 function fixRowSpans(table: PMNode): PMNode | null {
   const map = TableMap.get(table);
   const minRowSpans = getMinRowSpans(table);
-  if (!minRowSpans.some(rowspan => rowspan > 1)) {
+  if (!minRowSpans.some((rowspan) => rowspan > 1)) {
     return table;
   }
 

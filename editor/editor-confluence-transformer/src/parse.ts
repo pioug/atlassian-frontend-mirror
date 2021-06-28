@@ -167,7 +167,7 @@ function converter(
       case 'H5':
       case 'H6':
         const level = Number(tag.charAt(1));
-        const supportedMarks = [schema.marks.link].filter(mark => !!mark);
+        const supportedMarks = [schema.marks.link].filter((mark) => !!mark);
         return schema.nodes.heading.createChecked(
           { level },
           schema.nodes.heading.validContent(content)
@@ -212,7 +212,7 @@ function converter(
           return schema.nodes.paragraph.createChecked({}, content);
         }
 
-        content.forEach(childNode => {
+        content.forEach((childNode) => {
           textNodes.push(childNode);
         });
 
@@ -282,7 +282,7 @@ function converter(
           );
         }
 
-        content.forEach(childNode => {
+        content.forEach((childNode) => {
           if (childNode.type === schema.nodes.media) {
             mediaNodes.push(childNode);
           } else {
@@ -397,7 +397,7 @@ function converter(
           const codeHeader = schema.text(node.textContent || '', [
             schema.marks.strong.create(),
           ]);
-          const supportedMarks = [schema.marks.link].filter(mark => !!mark);
+          const supportedMarks = [schema.marks.link].filter((mark) => !!mark);
           return schema.nodes.heading.createChecked(
             { level: 5 },
             ensureInline(
@@ -678,7 +678,7 @@ function convertTable(schema: Schema, node: HTMLTableElement) {
       const attrs = {
         colspan,
         colwidth:
-          colwidth && colwidth.length && colwidth.every(width => width > 0)
+          colwidth && colwidth.length && colwidth.every((width) => width > 0)
             ? colwidth
             : null,
         background,
@@ -695,7 +695,7 @@ function convertTable(schema: Schema, node: HTMLTableElement) {
     {
       isNumberColumnEnabled,
       __autoSize:
-        columnSizes.length === 0 || columnSizes.every(width => width === 0),
+        columnSizes.length === 0 || columnSizes.every((width) => width === 0),
     },
     Fragment.from(rowNodes),
   );
@@ -722,8 +722,8 @@ function convertTaskItem(schema: Schema, node: Element) {
 
   if (body) {
     const { content } = parseDomNode(schema, body);
-    content.forEach(child => {
-      child.descendants(node => {
+    content.forEach((child) => {
+      child.descendants((node) => {
         // only nested inline nodes are supported (for now)
         if (node.isInline) {
           nodes.push(node);

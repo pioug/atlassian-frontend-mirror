@@ -40,7 +40,7 @@ const createInlineExtensionNodeSpec = (): NodeSpec => {
     parseDOM: [
       {
         tag: 'span[data-extension-type]',
-        getAttrs: domNode => getExtensionAttrs(domNode as HTMLElement, true),
+        getAttrs: (domNode) => getExtensionAttrs(domNode as HTMLElement, true),
       },
     ],
     toDOM(node: PMNode) {

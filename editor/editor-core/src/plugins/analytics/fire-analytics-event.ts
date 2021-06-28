@@ -16,10 +16,9 @@ export type FireAnalyticsEventPayload = {
   channel?: string;
 };
 
-export const fireAnalyticsEvent: FireAnalyticsEvent = createAnalyticsEvent => ({
-  payload,
-  channel = editorAnalyticsChannel,
-}) => {
+export const fireAnalyticsEvent: FireAnalyticsEvent = (
+  createAnalyticsEvent,
+) => ({ payload, channel = editorAnalyticsChannel }) => {
   if (!createAnalyticsEvent) {
     return;
   }

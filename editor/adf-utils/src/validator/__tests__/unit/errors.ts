@@ -5,7 +5,7 @@ describe('Validator Errors', () => {
   const validate = validator();
 
   async function validateAndGetError(doc: ADFEntity) {
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       validate(doc, (entity, error) => {
         resolve(error);
         return entity;
@@ -67,7 +67,7 @@ describe('Validator Errors', () => {
     const validate = validator(['doc', 'mediaSingle', 'media']);
 
     async function validateAndGetError(doc: ADFEntity) {
-      return new Promise(resolve => {
+      return new Promise((resolve) => {
         validate(doc, (entity, error) => {
           resolve(error);
           return entity;

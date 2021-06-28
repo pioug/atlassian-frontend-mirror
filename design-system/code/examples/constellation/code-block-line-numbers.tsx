@@ -18,6 +18,8 @@ ReactDOM.render(
   mountNode
 );`;
 
-export default function CodeBlockLineNumbersExample() {
+const CodeBlockLineNumbersExample = () => {
   return <CodeBlock language="jsx" text={exampleCodeBlock} />;
-}
+};
+
+export default CodeBlockLineNumbersExample;

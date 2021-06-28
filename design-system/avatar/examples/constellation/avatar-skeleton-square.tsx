@@ -2,6 +2,8 @@ import React from 'react';
 
 import { Skeleton } from '../../src';
 
-export default function AvatarSkeletonSquareExample() {
+const AvatarSkeletonSquareExample = () => {
   return <Skeleton appearance="square" />;
-}
+};
+
+export default AvatarSkeletonSquareExample;

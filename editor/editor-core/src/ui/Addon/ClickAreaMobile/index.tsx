@@ -13,7 +13,7 @@ const ClickWrapper = styled.div<{
   persistScrollGutter?: boolean;
 }>`
   height: 100%;
-  ${props =>
+  ${(props) =>
     props.persistScrollGutter !== true && `min-height: ${props.minHeight}vh`}
 `;
 ClickWrapper.displayName = 'ClickWrapper';

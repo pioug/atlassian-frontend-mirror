@@ -50,7 +50,7 @@ export class CodeBlockView {
 
   private ensureLineNumbers = rafSchedule(() => {
     let lines = 1;
-    this.node.forEach(node => {
+    this.node.forEach((node) => {
       const text = node.text;
       if (text) {
         lines += (node.text!.match(MATCH_NEWLINES) || []).length;

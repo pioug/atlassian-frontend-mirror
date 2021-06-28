@@ -27,7 +27,7 @@ describe(`${name}/schema data-consumer mark`, () => {
 
   it.each(['div', 'span'])(
     'parses annotation correctly from html for %s',
-    wrapperType => {
+    (wrapperType) => {
       const doc = fromHTML(
         `<${wrapperType} data-mark-type="dataConsumer" data-sources="[${dataSourceString}]">foo</${wrapperType}>`,
         schema,

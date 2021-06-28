@@ -17,7 +17,7 @@ describe('WithSystemTheme', () => {
 
   describe('when theming is enabled', () => {
     it('should read light mode from media query', () => {
-      window.matchMedia = jest.fn().mockImplementation(query => {
+      window.matchMedia = jest.fn().mockImplementation((query) => {
         return {
           matches: query === '(prefers-color-scheme: light)',
           media: '',
@@ -36,7 +36,7 @@ describe('WithSystemTheme', () => {
     });
 
     it('should read dark mode from media query', () => {
-      window.matchMedia = jest.fn().mockImplementation(query => {
+      window.matchMedia = jest.fn().mockImplementation((query) => {
         return {
           matches: query === '(prefers-color-scheme: dark)',
           media: '',

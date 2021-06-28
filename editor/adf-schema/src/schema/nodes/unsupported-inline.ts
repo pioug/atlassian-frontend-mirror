@@ -10,7 +10,7 @@ export const unsupportedInline: NodeSpec = {
   parseDOM: [
     {
       tag: '[data-node-type="unsupportedInline"]',
-      getAttrs: dom => ({
+      getAttrs: (dom) => ({
         originalValue: JSON.parse(
           (dom as HTMLElement).getAttribute('data-original-value') || '{}',
         ),

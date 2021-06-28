@@ -57,7 +57,7 @@ export const waitForFirstFulfilledPromise = <T>(
   return new Promise((resolve, reject) => {
     promises.forEach((promise: Promise<T>) =>
       promise
-        .then(value => {
+        .then((value) => {
           if (typeof value === 'undefined' || value === null) {
             throw new Error(
               `Result was not found but the method didn't reject/throw. Please ensure that it doesn't return null or undefined.`,
@@ -66,7 +66,7 @@ export const waitForFirstFulfilledPromise = <T>(
 
           resolve(value);
         })
-        .catch(reason => {
+        .catch((reason) => {
           rejectReasons.push(reason);
           if (rejectReasons.length === promises.length) {
             reject(reason);
@@ -82,4 +82,4 @@ export const waitForFirstFulfilledPromise = <T>(
  */
 export const getOnlyFulfilled = <T>(
   results: (FulfiledResult<T> | RejectedResult)[],
-): T[] => results.filter(isFullfilled).map(result => result.value);
+): T[] => results.filter(isFullfilled).map((result) => result.value);

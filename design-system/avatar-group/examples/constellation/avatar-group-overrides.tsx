@@ -13,7 +13,7 @@ const ButtonGroup = styled.div`
   text-align: center;
 `;
 
-const Example = () => {
+const AvatarGroupOverridesExample = () => {
   const data = RANDOM_USERS.slice(0, 8).map((d) => ({
     email: d.email,
     key: d.email,
@@ -52,4 +52,4 @@ const Example = () => {
   );
 };
 
-export default Example;
+export default AvatarGroupOverridesExample;

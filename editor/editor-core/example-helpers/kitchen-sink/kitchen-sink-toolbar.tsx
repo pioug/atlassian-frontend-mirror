@@ -11,7 +11,7 @@ export interface KitchenSinkToolbarProps {
 }
 
 export const KitchenSinkToolbar: React.StatelessComponent<KitchenSinkToolbarProps> = React.memo(
-  props => {
+  (props) => {
     return (
       <React.Fragment>
         <LanguagePicker

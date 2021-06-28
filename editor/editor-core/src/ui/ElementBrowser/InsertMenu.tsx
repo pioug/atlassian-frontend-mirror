@@ -70,7 +70,7 @@ const InsertMenu = ({
   const viewMoreItem = quickInsertDropdownItems.pop();
 
   const onInsertItem = useCallback(
-    item => {
+    (item) => {
       toggleVisiblity();
       if (!editorView.hasFocus()) {
         editorView.focus();

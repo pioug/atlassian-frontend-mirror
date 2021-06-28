@@ -47,7 +47,7 @@ export interface KitchenSinkControlsProps {
 }
 
 export const KitchenSinkControls: React.FunctionComponent<KitchenSinkControlsProps> = React.memo(
-  props => {
+  (props) => {
     const {
       adfEnabled,
       editorEnabled,
@@ -126,7 +126,7 @@ export const KitchenSinkControls: React.FunctionComponent<KitchenSinkControlsPro
               onChange={(opt: any) => props.onThemeChange(opt.value)}
               spacing="compact"
               defaultValue={props.themeOptions.find(
-                opt => opt.value === props.theme,
+                (opt) => opt.value === props.theme,
               )}
               className="theme-select"
               styles={selectStyles}

@@ -13,7 +13,7 @@ export const findTable = (
   selection: Selection,
 ): ContentNodeWithPos | undefined =>
   findParentNode(
-    node => node.type.spec.tableRole && node.type.spec.tableRole === 'table',
+    (node) => node.type.spec.tableRole && node.type.spec.tableRole === 'table',
   )(selection);
 
 // Iterates over parent nodes, returning a table node closest to a given `$pos`.

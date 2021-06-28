@@ -2,11 +2,13 @@ import React from 'react';
 
 import Avatar from '../../src';
 
-export default function AvatarXXLargeExample() {
+const AvatarXXLargeExample = () => {
   return (
     <div>
       <Avatar size="xxlarge" />
       <Avatar size="xxlarge" appearance="square" />
     </div>
   );
-}
+};
+
+export default AvatarXXLargeExample;

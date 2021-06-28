@@ -53,7 +53,7 @@ describe('Status', () => {
     }
 
     const colors = Object.keys(colorToLozengeAppearanceMap) as Color[];
-    colors.forEach(color =>
+    colors.forEach((color) =>
       checkColorMapping(color, colorToLozengeAppearanceMap[color]),
     );
   });

@@ -82,13 +82,13 @@ const FieldDefinitionsPromiseResolver = (
     }
 
     promiseFn(extensionParameters)
-      .catch(err => {
+      .catch((err) => {
         if (err && typeof err.message === 'string') {
           setErrorMessage(err.message);
         }
         setFields(undefined);
       })
-      .then(value => {
+      .then((value) => {
         if (Array.isArray(value)) {
           // value: FieldDefinition[]
           setFields(value);
@@ -144,7 +144,7 @@ export default function FieldsLoader({
       nodeKey={nodeKey}
       extensionParameters={extensionParameters}
     >
-      {fields => (
+      {(fields) => (
         <ConfigPanel
           extensionManifest={extensionManifest}
           isLoading={!extensionManifest || (errorMessage === null && !fields)}

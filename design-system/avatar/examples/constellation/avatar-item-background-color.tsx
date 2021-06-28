@@ -2,8 +2,10 @@ import React from 'react';
 
 import Avatar, { AvatarItem } from '../../src';
 
-export default function AvatarItemBackgroundColorExample() {
+const AvatarItemBackgroundColorExample = () => {
   return (
     <AvatarItem backgroundColor="pink" avatar={<Avatar presence="online" />} />
   );
-}
+};
+
+export default AvatarItemBackgroundColorExample;

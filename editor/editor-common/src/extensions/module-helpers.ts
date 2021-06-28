@@ -57,10 +57,10 @@ export const getQuickInsertItemsFromModule = <T>(
   extensions: ExtensionManifest[],
   transformFunction: (value: MenuItem, index: number) => T,
 ): T[] => {
-  const items = extensions.map(manifest => {
+  const items = extensions.map((manifest) => {
     const modules = manifest.modules.quickInsert || [];
 
-    return modules.map(extensionModule =>
+    return modules.map((extensionModule) =>
       buildMenuItem(manifest, extensionModule),
     );
   });
@@ -74,7 +74,7 @@ export async function getAutoConvertPatternsFromModule<T>(
   extensions: ExtensionManifest<T>[],
 ): Promise<ExtensionAutoConvertHandler[]> {
   const items = await Promise.all(
-    extensions.map(async manifest => {
+    extensions.map(async (manifest) => {
       if (manifest.modules.autoConvert && manifest.modules.autoConvert.url) {
         return manifest.modules.autoConvert.url;
       }
@@ -187,13 +187,15 @@ const hasDuplicateContext = (
 ): ToolbarContext | undefined => {
   if (contextualToolbars.length > 1) {
     const contexts = contextualToolbars.map(
-      contextualToolbar => contextualToolbar.context,
+      (contextualToolbar) => contextualToolbar.context,
     );
 
     return contexts.find(
       (currentContext, currentIndex) =>
         currentIndex !==
-        contexts.findIndex(context => compareContext(currentContext, context)),
+        contexts.findIndex((context) =>
+          compareContext(currentContext, context),
+        ),
     );
   }
 };
@@ -204,7 +206,7 @@ export const getContextualToolbarItemsFromModule = (
   api: ExtensionAPI,
 ): ExtensionToolbarButton[] => {
   return extensions
-    .map(extension => {
+    .map((extension) => {
       if (extension.modules.contextualToolbars) {
         const duplicateContext = hasDuplicateContext(
           extension.modules.contextualToolbars,
@@ -219,7 +221,7 @@ export const getContextualToolbarItemsFromModule = (
         }
 
         return extension.modules.contextualToolbars
-          .map(contextualToolbar => {
+          .map((contextualToolbar) => {
             if (shouldAddExtensionItemForNode(contextualToolbar, node)) {
               const { toolbarItems } = contextualToolbar;
               if (typeof toolbarItems === 'function') {
@@ -229,15 +231,15 @@ export const getContextualToolbarItemsFromModule = (
             }
             return [];
           })
-          .flatMap(toolbarButtons =>
-            toolbarButtons.map(toolbarButton =>
+          .flatMap((toolbarButtons) =>
+            toolbarButtons.map((toolbarButton) =>
               toolbarItemToButtonConfig(toolbarButton, extension.key),
             ),
           );
       }
       return [];
     })
-    .flatMap(extensionToolbarButtons => extensionToolbarButtons);
+    .flatMap((extensionToolbarButtons) => extensionToolbarButtons);
 };
 
 // defines whether to add toolbar item for the given node

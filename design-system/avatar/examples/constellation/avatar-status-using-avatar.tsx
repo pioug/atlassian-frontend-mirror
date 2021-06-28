@@ -2,7 +2,7 @@ import React from 'react';
 
 import Avatar from '../../src';
 
-export default function AvatarStatusUsingAvatarExample() {
+const AvatarStatusUsingAvatarExample = () => {
   return (
     <div>
       <Avatar status="approved" />
@@ -10,4 +10,6 @@ export default function AvatarStatusUsingAvatarExample() {
       <Avatar status="locked" />
     </div>
   );
-}
+};
+
+export default AvatarStatusUsingAvatarExample;

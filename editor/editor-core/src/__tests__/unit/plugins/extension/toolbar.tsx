@@ -81,7 +81,7 @@ describe('extension toolbar', () => {
       );
       expect(toolbar).toBeDefined();
       const removeButton = getToolbarItems(toolbar!, editorView).find(
-        item => item.type === 'button' && item.title === removeTitle,
+        (item) => item.type === 'button' && item.title === removeTitle,
       );
 
       expect(removeButton).toBeDefined();
@@ -106,7 +106,7 @@ describe('extension toolbar', () => {
       );
       expect(toolbar).toBeDefined();
       const editButton = getToolbarItems(toolbar!, editorView).find(
-        item => item.type === 'button' && item.title === 'Edit',
+        (item) => item.type === 'button' && item.title === 'Edit',
       );
 
       expect(editButton).toBeDefined();
@@ -130,7 +130,7 @@ describe('extension toolbar', () => {
       );
       expect(toolbar).toBeDefined();
       const breakoutButtons = getToolbarItems(toolbar!, editorView).filter(
-        item =>
+        (item) =>
           item.type === 'button' &&
           [
             defaultBreakoutTitle,
@@ -158,7 +158,7 @@ describe('extension toolbar', () => {
       );
       expect(toolbar).toBeDefined();
       const breakoutButtons = getToolbarItems(toolbar!, editorView).filter(
-        item =>
+        (item) =>
           item.type === 'button' &&
           [
             defaultBreakoutTitle,
@@ -479,7 +479,7 @@ describe('extension toolbar', () => {
         await flushPromises();
 
         const editButton = getToolbarItems(toolbar!, editorView).find(
-          item => item.type === 'button' && item.title === 'Edit',
+          (item) => item.type === 'button' && item.title === 'Edit',
         );
         expect(editButton).toBeDefined();
 

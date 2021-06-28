@@ -354,7 +354,7 @@ describe('@atlaskit/renderer/ui/Renderer', () => {
         analyticsAppearance: EDITOR_APPEARANCE_CONTEXT.FULL_WIDTH,
       },
     ];
-    appearances.forEach(appearance => {
+    appearances.forEach((appearance) => {
       it(`adds appearance to analytics events for ${appearance.appearance} renderer`, () => {
         renderer = initRendererWithAnalytics({
           appearance: appearance.appearance,

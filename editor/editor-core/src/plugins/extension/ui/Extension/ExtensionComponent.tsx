@@ -96,7 +96,7 @@ export default class ExtensionComponent extends Component<Props, State> {
     promise?: Promise<any>,
   ) => {
     promise &&
-      promise.then(p => {
+      promise.then((p) => {
         if (!this.mounted) {
           return;
         }

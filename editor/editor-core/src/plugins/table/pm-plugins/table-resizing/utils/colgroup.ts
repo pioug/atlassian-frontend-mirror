@@ -7,19 +7,19 @@ type Col = Array<string | { [name: string]: string }>;
 export const generateColgroup = (table: PmNode): Col[] => {
   const cols: Col[] = [];
 
-  table.content.firstChild!.content.forEach(cell => {
+  table.content.firstChild!.content.forEach((cell) => {
     const colspan = cell.attrs.colspan || 1;
     if (Array.isArray(cell.attrs.colwidth)) {
       // We slice here to guard against our colwidth array having more entries
       // Than the we actually span. We'll patch the document at a later point.
-      cell.attrs.colwidth.slice(0, colspan).forEach(width => {
+      cell.attrs.colwidth.slice(0, colspan).forEach((width) => {
         cols.push(['col', { style: `width: ${width}px;` }]);
       });
     } else {
       // When we have merged cells on the first row (firstChild),
       // We want to ensure we're creating the appropriate amount of
       // cols the table still has.
-      cols.push(...Array.from({ length: colspan }, _ => ['col', {}]));
+      cols.push(...Array.from({ length: colspan }, (_) => ['col', {}]));
     }
   });
 
@@ -43,7 +43,7 @@ export const insertColgroupFromNode = (
 
 export const hasTableBeenResized = (table: PmNode) => {
   return !!getFragmentBackingArray(table.content.firstChild!.content).find(
-    cell => cell.attrs.colwidth,
+    (cell) => cell.attrs.colwidth,
   );
 };
 

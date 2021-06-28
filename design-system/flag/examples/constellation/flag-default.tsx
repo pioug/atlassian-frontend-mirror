@@ -5,7 +5,7 @@ import { G300 } from '@atlaskit/theme/colors';
 
 import Flag from '../../src';
 
-export default function FlagDefault() {
+const FlagDefaultExample = () => {
   return (
     <Flag
       icon={<SuccessIcon primaryColor={G300} label="Success" />}
@@ -15,4 +15,6 @@ export default function FlagDefault() {
       title="Delete the Newtown repository"
     />
   );
-}
+};
+
+export default FlagDefaultExample;

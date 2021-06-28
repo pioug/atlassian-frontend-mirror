@@ -38,7 +38,9 @@ function removeSpecialCharacters(node: Node) {
     node.textContent = node.textContent.replace(SPECIAL_CHARACTERS, '');
   }
 
-  Array.from(node.childNodes).forEach(child => removeSpecialCharacters(child));
+  Array.from(node.childNodes).forEach((child) =>
+    removeSpecialCharacters(child),
+  );
 }
 
 /**
@@ -148,7 +150,7 @@ export function transformHtml(
           a.getAttribute('data-inline-card') === null,
       )
       .forEach((a: HTMLAnchorElement) => {
-        Array.from(a.childNodes).forEach(child => {
+        Array.from(a.childNodes).forEach((child) => {
           a.parentNode!.insertBefore(child, a);
         });
         a.parentNode!.removeChild(a);
@@ -159,7 +161,7 @@ export function transformHtml(
   // Not using :pseudo because of IE11 bug:
   // https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/16104908/
   Array.from(el.querySelectorAll('img'))
-    .filter(img => !img.classList.contains('emoji'))
+    .filter((img) => !img.classList.contains('emoji'))
     .forEach((img: HTMLImageElement) => {
       const { parentNode } = img;
 

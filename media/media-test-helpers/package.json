@@ -14,7 +14,7 @@
   "types": "dist/types/index.d.ts",
   "atlaskit:src": "src/index.tsx",
   "atlassian": {
-    "team": "Media Platform",
+    "team": "Media Experience",
     "inPublicMirror": true,
     "releaseModel": "scheduled"
   },

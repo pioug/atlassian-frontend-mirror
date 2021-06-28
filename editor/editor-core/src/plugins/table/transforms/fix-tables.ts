@@ -45,7 +45,7 @@ export const removeExtraneousColumnWidths = (
 ): boolean => {
   let hasProblems = false;
 
-  tr = replaceCells(tr, node, basePos, cell => {
+  tr = replaceCells(tr, node, basePos, (cell) => {
     const { colwidth, colspan } = cell.attrs;
 
     if (colwidth && colwidth.length > colspan) {
@@ -129,7 +129,9 @@ export const fixAutoSizedTable = (
     scale = maxLayoutSize / totalContentWidth;
   }
 
-  const scaledColumnWidths = colWidths.map(width => Math.floor(width * scale));
+  const scaledColumnWidths = colWidths.map((width) =>
+    Math.floor(width * scale),
+  );
 
   tr = replaceCells(tr, tableNode, tablePos, (cell, _rowIndex, colIndex) => {
     const newColWidths = scaledColumnWidths.slice(

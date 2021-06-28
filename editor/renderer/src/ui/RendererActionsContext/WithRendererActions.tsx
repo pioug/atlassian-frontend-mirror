@@ -9,7 +9,7 @@ export interface WithRendererActionsProps {
 export function WithRendererActions({ render }: WithRendererActionsProps) {
   return (
     <RendererActionsContextConsumer>
-      {actions => render(actions)}
+      {(actions) => render(actions)}
     </RendererActionsContextConsumer>
   );
 }

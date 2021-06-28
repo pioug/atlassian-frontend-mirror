@@ -158,7 +158,7 @@ function ElementList({
   );
 }
 
-const getStyles = memoizeOne(mode => {
+const getStyles = memoizeOne((mode) => {
   return {
     ...(mode === Modes.full && {
       '-ms-flex': 'auto',

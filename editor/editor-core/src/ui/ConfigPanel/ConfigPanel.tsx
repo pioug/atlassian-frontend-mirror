@@ -400,7 +400,7 @@ class ConfigPanel extends React.Component<Props, State> {
               getState={getState}
               handleSubmit={handleSubmit}
             >
-              {onFieldChange => {
+              {(onFieldChange) => {
                 this.onFieldChange = onFieldChange;
                 return (
                   <form

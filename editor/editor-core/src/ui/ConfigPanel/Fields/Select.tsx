@@ -48,7 +48,7 @@ export default function SelectField({
         <Fragment>
           <Select
             {...fieldProps}
-            onChange={value => {
+            onChange={(value) => {
               fieldProps.onChange(value);
               onFieldChange(name, true);
             }}

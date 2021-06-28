@@ -136,7 +136,7 @@ export default class MobileEditorToolbarActions {
         }
         return newItem;
       })
-      .filter(item => !!item);
+      .filter((item) => !!item);
 
     // Removes the trailing separators
     while (newItems[newItems.length - 1]?.type === 'separator') {
@@ -320,7 +320,7 @@ export default class MobileEditorToolbarActions {
     const items = this.floatingToolbarItems;
     const [parentIndex, optionIndex] = key
       .split('.')
-      .map(key => Number.parseInt(key, 10));
+      .map((key) => Number.parseInt(key, 10));
     const parentItem = items[parentIndex];
 
     switch (parentItem?.type) {

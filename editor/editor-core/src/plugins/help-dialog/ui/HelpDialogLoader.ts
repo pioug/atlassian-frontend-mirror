@@ -6,6 +6,8 @@ export const HelpDialogLoader = Loadable({
     import(
       /* webpackChunkName: "@atlaskit-internal_editor-core-helpdialog" */
       './index'
-    ).then(mod => mod.default) as Promise<React.ComponentType<HelpDialogProps>>,
+    ).then((mod) => mod.default) as Promise<
+      React.ComponentType<HelpDialogProps>
+    >,
   loading: () => null,
 });

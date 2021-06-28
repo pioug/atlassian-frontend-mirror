@@ -46,7 +46,7 @@ describe('PickerFacadeProvider', () => {
     (global.console.error as jest.Mock).mockRestore();
     jest.clearAllMocks();
   });
-  it('should initialize PickerFacade properly', done => {
+  it('should initialize PickerFacade properly', (done) => {
     mount(
       <PickerFacadeProvider
         mediaState={pluginState}

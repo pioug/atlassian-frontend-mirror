@@ -113,7 +113,7 @@ function withCurrentHeadingLevel(
 }
 
 export function setNormalTextWithAnalytics(inputMethod: InputMethod): Command {
-  return withCurrentHeadingLevel(previousHeadingLevel =>
+  return withCurrentHeadingLevel((previousHeadingLevel) =>
     withAnalytics({
       action: ACTION.FORMATTED,
       actionSubject: ACTION_SUBJECT.TEXT,
@@ -147,7 +147,7 @@ export const setHeadingWithAnalytics = (
   newHeadingLevel: HeadingLevelsAndNormalText,
   inputMethod: InputMethod,
 ) => {
-  return withCurrentHeadingLevel(previousHeadingLevel =>
+  return withCurrentHeadingLevel((previousHeadingLevel) =>
     withAnalytics({
       action: ACTION.FORMATTED,
       actionSubject: ACTION_SUBJECT.TEXT,

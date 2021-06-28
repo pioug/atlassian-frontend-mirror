@@ -834,7 +834,7 @@ export default class WebBridgeImpl
 
   setTitle(title: string) {
     if (this.collabProviderPromise) {
-      this.collabProviderPromise.then(collabProvider =>
+      this.collabProviderPromise.then((collabProvider) =>
         collabProvider.setTitle(title, true),
       );
     }
@@ -848,14 +848,14 @@ export default class WebBridgeImpl
         toNativeBridge.updateTitle(title);
       }
     };
-    const setupPromise = provider.then(provider => {
+    const setupPromise = provider.then((provider) => {
       provider.on('metadata:changed', onMetadataChange);
       return () => {
         provider.off('metadata:changed', onMetadataChange);
       };
     });
     return () => {
-      setupPromise.then(destroy => destroy());
+      setupPromise.then((destroy) => destroy());
     };
   }
 

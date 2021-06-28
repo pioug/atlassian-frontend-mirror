@@ -17,7 +17,7 @@ describe('input-tule/plugin/createInputRulePlugin', () => {
 
   function insertText(view: EditorView, text: string) {
     const { $from, $to } = view.state.selection;
-    view.someProp('handleTextInput', f => f(view, $from.pos, $to.pos, text));
+    view.someProp('handleTextInput', (f) => f(view, $from.pos, $to.pos, text));
   }
 
   function createEditorView(lol: DocBuilder, customInputRule: Plugin) {
@@ -60,7 +60,7 @@ describe('input-tule/plugin/createInputRulePlugin', () => {
     describe('when the handler is called', () => {
       describe('during the textInput flow', () => {
         it('should call the handler only once', () => {
-          jest.spyOn(editorView, 'dispatch').mockImplementation(tr => {});
+          jest.spyOn(editorView, 'dispatch').mockImplementation((tr) => {});
           insertText(editorView, '`');
 
           expect(handlerMock).toHaveBeenCalledTimes(1);
@@ -128,7 +128,7 @@ describe('input-tule/plugin/createInputRulePlugin', () => {
     describe('when the handler is called', () => {
       describe('during the textInput flow', () => {
         it('should call the handler only once', () => {
-          jest.spyOn(editorView, 'dispatch').mockImplementation(tr => {});
+          jest.spyOn(editorView, 'dispatch').mockImplementation((tr) => {});
           insertText(editorView, '```');
 
           expect(handlerMock).toHaveBeenCalledTimes(1);

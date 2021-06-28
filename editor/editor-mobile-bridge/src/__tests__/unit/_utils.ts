@@ -3,7 +3,7 @@ import { EditorViewWithComposition } from '../../types';
 const InputEvent = (window as any).InputEvent;
 
 const androidCompose = (view: EditorViewWithComposition, events: Event[]) =>
-  events.forEach(event => view.dom.dispatchEvent(event));
+  events.forEach((event) => view.dom.dispatchEvent(event));
 
 export function androidComposeStart(
   view: EditorViewWithComposition,

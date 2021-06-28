@@ -27,7 +27,7 @@ const areParametersEqual = (
     const secondKeys = Object.keys(secondParameters);
     return (
       firstKeys.length === secondKeys.length &&
-      firstKeys.every(key => firstParameters[key] === secondParameters[key])
+      firstKeys.every((key) => firstParameters[key] === secondParameters[key])
     );
   }
 
@@ -74,7 +74,7 @@ export const getContextPanel = (allowAutoSave?: boolean) => (
         {({ onSaveStarted, onSaveEnded }) => {
           return (
             <WithEditorActions
-              render={actions => {
+              render={(actions) => {
                 const editorView = actions._privateGetEditorView();
 
                 if (!editorView) {
@@ -93,7 +93,7 @@ export const getContextPanel = (allowAutoSave?: boolean) => (
                     extensionProvider={extensionProvider}
                     autoSave={allowAutoSave}
                     autoSaveTrigger={autoSaveResolve}
-                    onChange={async updatedParameters => {
+                    onChange={async (updatedParameters) => {
                       await onChangeAction(
                         editorView,
                         updatedParameters,
@@ -115,7 +115,7 @@ export const getContextPanel = (allowAutoSave?: boolean) => (
                     }}
                     onCancel={async () => {
                       if (allowAutoSave) {
-                        await new Promise(resolve => {
+                        await new Promise((resolve) => {
                           forceAutoSave(resolve)(
                             editorView.state,
                             editorView.dispatch,

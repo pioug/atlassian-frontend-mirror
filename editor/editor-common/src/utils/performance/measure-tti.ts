@@ -27,7 +27,7 @@ export function measureTTI(
     duration: 0,
   };
   let cancelAfterMs = cancelAfter * 1000;
-  const observer = new (PerfObserver || PerformanceObserver)(list => {
+  const observer = new (PerfObserver || PerformanceObserver)((list) => {
     const entries = list.getEntries();
     if (entries.length) {
       prevLongTask = lastLongTask;

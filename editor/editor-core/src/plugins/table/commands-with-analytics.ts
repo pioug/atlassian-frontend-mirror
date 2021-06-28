@@ -203,7 +203,7 @@ export const insertRowWithAnalytics = (
   inputMethod: InsertRowMethods,
   options: InsertRowOptions,
 ) =>
-  withAnalytics(state => {
+  withAnalytics((state) => {
     const { totalRowCount, totalColumnCount } = getSelectedTableInfo(
       state.selection,
     );
@@ -229,7 +229,7 @@ export const insertColumnWithAnalytics = (
     | INPUT_METHOD.FLOATING_TB,
   position: number,
 ) =>
-  withAnalytics(state => {
+  withAnalytics((state) => {
     const { totalRowCount, totalColumnCount } = getSelectedTableInfo(
       state.selection,
     );
@@ -340,7 +340,7 @@ export const deleteTableIfSelectedWithAnalytics = (
   )(deleteTableIfSelected);
 
 export const toggleHeaderRowWithAnalytics = () =>
-  withAnalytics(state => {
+  withAnalytics((state) => {
     const { totalRowCount, totalColumnCount } = getSelectedTableInfo(
       state.selection,
     );
@@ -360,7 +360,7 @@ export const toggleHeaderRowWithAnalytics = () =>
   })(toggleHeaderRow);
 
 export const toggleHeaderColumnWithAnalytics = () =>
-  withAnalytics(state => {
+  withAnalytics((state) => {
     const { totalRowCount, totalColumnCount } = getSelectedTableInfo(
       state.selection,
     );
@@ -380,7 +380,7 @@ export const toggleHeaderColumnWithAnalytics = () =>
   })(toggleHeaderColumn);
 
 export const toggleNumberColumnWithAnalytics = () =>
-  withAnalytics(state => {
+  withAnalytics((state) => {
     const { totalRowCount, totalColumnCount } = getSelectedTableInfo(
       state.selection,
     );
@@ -398,7 +398,7 @@ export const toggleNumberColumnWithAnalytics = () =>
   })(toggleNumberColumn);
 
 export const toggleTableLayoutWithAnalytics = () =>
-  withAnalytics(state => {
+  withAnalytics((state) => {
     const { table, totalRowCount, totalColumnCount } = getSelectedTableInfo(
       state.selection,
     );
@@ -426,7 +426,7 @@ export const sortColumnWithAnalytics = (
   columnIndex: number,
   sortOrder: SortOrder,
 ) =>
-  withAnalytics(state => {
+  withAnalytics((state) => {
     const { totalRowCount, totalColumnCount } = getSelectedTableInfo(
       state.selection,
     );

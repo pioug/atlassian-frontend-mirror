@@ -26,7 +26,7 @@ export class MediaPickerComponents extends React.Component<Props, State> {
 
   componentDidMount() {
     const { mediaState } = this.props;
-    mediaState.onPopupToggle(isPopupOpened => {
+    mediaState.onPopupToggle((isPopupOpened) => {
       this.setState({
         isPopupOpened,
       });

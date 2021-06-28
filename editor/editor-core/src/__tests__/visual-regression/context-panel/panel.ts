@@ -26,7 +26,7 @@ describe('Context panel', () => {
   };
 
   const widths = [2000, 500];
-  widths.forEach(width => {
+  widths.forEach((width) => {
     describe(`full page (${width}px)`, () => {
       beforeEach(async () => {
         page = global.page;
@@ -70,7 +70,7 @@ describe('Context panel', () => {
     });
   });
 
-  widths.forEach(width => {
+  widths.forEach((width) => {
     describe(`full width mode (${width}px)`, () => {
       beforeEach(async () => {
         page = global.page;

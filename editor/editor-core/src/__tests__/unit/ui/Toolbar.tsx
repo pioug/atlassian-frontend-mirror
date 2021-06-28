@@ -28,7 +28,7 @@ type mockWidthObserver = typeof WidthObserver;
 
 jest.mock('@atlaskit/width-detector', () => {
   return {
-    WidthObserver: (props => {
+    WidthObserver: ((props) => {
       mockInnerSetWidth = props.setWidth;
       return null;
     }) as mockWidthObserver,

@@ -37,7 +37,7 @@ export const hasCode = (state: EditorState, pos: number): boolean => {
   const { code } = state.schema.marks;
   const node = pos >= 0 && state.doc.nodeAt(pos);
   if (node) {
-    return !!node.marks.filter(mark => mark.type === code).length;
+    return !!node.marks.filter((mark) => mark.type === code).length;
   }
 
   return false;
@@ -56,7 +56,7 @@ export const markActive = (state: EditorState, mark: PMMark): boolean => {
   }
   // For a non-collapsed selection, the marks on the nodes matter.
   let found = false;
-  state.doc.nodesBetween(from, to, node => {
+  state.doc.nodesBetween(from, to, (node) => {
     found = found || mark.isInSet(node.marks);
   });
   return found;
@@ -93,7 +93,7 @@ export const anyMarkActive = (
 const blockStylingIsPresent = (state: EditorState): boolean => {
   let { from, to } = state.selection;
   let isBlockStyling = false;
-  state.doc.nodesBetween(from, to, node => {
+  state.doc.nodesBetween(from, to, (node) => {
     if (FORMATTING_NODE_TYPES.indexOf(node.type.name) !== -1) {
       isBlockStyling = true;
       return false;
@@ -104,7 +104,7 @@ const blockStylingIsPresent = (state: EditorState): boolean => {
 };
 
 const marksArePresent = (state: EditorState) => {
-  const activeMarkTypes = FORMATTING_MARK_TYPES.filter(mark => {
+  const activeMarkTypes = FORMATTING_MARK_TYPES.filter((mark) => {
     if (!!state.schema.marks[mark]) {
       const { $from, empty } = state.selection;
       const { marks } = state.schema;

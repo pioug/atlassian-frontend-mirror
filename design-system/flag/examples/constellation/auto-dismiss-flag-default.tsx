@@ -6,7 +6,7 @@ import { gridSize } from '@atlaskit/theme/constants';
 
 import { AutoDismissFlag, FlagGroup } from '../../src';
 
-const AutoDismissFlagDefault = () => {
+const AutoDismissFlagDefaultExample = () => {
   const [flags, setFlags] = React.useState<Array<number>>([]);
 
   const addFlag = () => {
@@ -45,4 +45,4 @@ const AutoDismissFlagDefault = () => {
   );
 };
 
-export default AutoDismissFlagDefault;
+export default AutoDismissFlagDefaultExample;

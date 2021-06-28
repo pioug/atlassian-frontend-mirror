@@ -76,7 +76,7 @@ export function isCode(str: string) {
     return false;
   }
   let weight = 0;
-  lines.forEach(line => {
+  lines.forEach((line) => {
     // Ends with : or ;
     if (/[:;]$/.test(line)) {
       weight++;
@@ -112,7 +112,7 @@ export function isCode(str: string) {
 // @see https://product-fabric.atlassian.net/browse/ED-3159
 // @see https://github.com/markdown-it/markdown-it/issues/38
 export function escapeLinks(text: string) {
-  return text.replace(/(\[([^\]]+)\]\()?((https?|ftp):\/\/[^\s]+)/g, str => {
+  return text.replace(/(\[([^\]]+)\]\()?((https?|ftp):\/\/[^\s]+)/g, (str) => {
     return str.match(/^(https?|ftp):\/\/[^\s]+$/) ? `<${str}>` : str;
   });
 }
@@ -159,7 +159,7 @@ export function applyTextMarksToSlice(
           // and exclude all marks that are not allowed to be pasted
           ...((node.marks &&
             !codeMark.isInSet(marks) &&
-            node.marks.filter(mark =>
+            node.marks.filter((mark) =>
               allowedMarksToPaste.includes(mark.type),
             )) ||
             []),
@@ -167,7 +167,7 @@ export function applyTextMarksToSlice(
           // and exclude link marks
           ...parent.type
             .allowedMarks(marks)
-            .filter(mark => mark.type !== linkMark),
+            .filter((mark) => mark.type !== linkMark),
         ];
         return false;
       }

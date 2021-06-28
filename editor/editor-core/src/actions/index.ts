@@ -70,7 +70,7 @@ export default class EditorActions<T = any> implements EditorActionsOptions<T> {
 
     if (!this.editorView && editorView) {
       this.editorView = editorView;
-      this.listeners.forEach(cb => cb(editorView, eventDispatcher));
+      this.listeners.forEach((cb) => cb(editorView, eventDispatcher));
     } else if (this.editorView !== editorView) {
       throw new Error(
         "Editor has already been registered! It's not allowed to re-register editor with the new Editor instance.",
@@ -103,7 +103,7 @@ export default class EditorActions<T = any> implements EditorActionsOptions<T> {
   }
 
   _privateUnsubscribe(cb: ContextUpdateHandler): void {
-    this.listeners = this.listeners.filter(c => c !== cb);
+    this.listeners = this.listeners.filter((c) => c !== cb);
   }
   //#endregion
 

@@ -25,8 +25,8 @@ export function useStateFromPromise<S>(
   const [value, setValue] = useState<S | undefined>(initialValue);
 
   useAbortableEffect(
-    signal => {
-      Promise.resolve(fn()).then(result => {
+    (signal) => {
+      Promise.resolve(fn()).then((result) => {
         if (signal.aborted) {
           return;
         }

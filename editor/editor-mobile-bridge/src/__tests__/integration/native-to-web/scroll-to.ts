@@ -20,7 +20,7 @@ async function loadExampleDocument(client: any): Promise<Page> {
   // Wait for rendered document.
   await browser.waitForSelector('.ak-renderer-document');
 
-  await browser.executeAsync(done => {
+  await browser.executeAsync((done) => {
     window.requestAnimationFrame(done);
   });
 
@@ -47,7 +47,7 @@ async function checkScrollTo(
    */
   const initialScrollY = await getScrollY(browser);
   await fn();
-  await browser.executeAsync(done => {
+  await browser.executeAsync((done) => {
     window.requestAnimationFrame(done);
   });
   const finalScrollY = await getScrollY(browser);
@@ -166,7 +166,7 @@ BrowserTestCase(
       },
     );
     expect(finalScrollY).toBeGreaterThan(initialScrollY);
-    await browser.executeAsync(done => {
+    await browser.executeAsync((done) => {
       window.requestAnimationFrame(done);
     });
 
@@ -191,7 +191,7 @@ BrowserTestCase(
       );
     });
 
-    await browser.executeAsync(done => {
+    await browser.executeAsync((done) => {
       window.requestAnimationFrame(done);
     });
 

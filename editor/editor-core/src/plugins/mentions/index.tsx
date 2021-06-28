@@ -277,7 +277,7 @@ const mentionsPlugin = (options?: MentionPluginOptions): EditorPlugin => {
             pluginState.mentionProvider.filter(query || '', mentionContext);
           }
 
-          const mentionItems = mentions.map(mention =>
+          const mentionItems = mentions.map((mention) =>
             memoizedToItem.call(mention),
           );
 
@@ -667,7 +667,7 @@ function mentionPluginFactory(
             }
 
             (providerPromise as Promise<MentionProvider>)
-              .then(provider => {
+              .then((provider) => {
                 if (mentionProvider) {
                   mentionProvider.unsubscribe('mentionPlugin');
                 }
@@ -688,13 +688,13 @@ function mentionPluginFactory(
                       // is from primary mention endpoint which could be just user mentions or user/team mentions
                       duration = stats && stats.duration;
                       teams = null;
-                      userOrTeamIds = mentions.map(mention => mention.id);
+                      userOrTeamIds = mentions.map((mention) => mention.id);
                     } else {
                       // is from dedicated team-only mention endpoint
                       duration = stats && stats.teamMentionDuration;
                       userOrTeamIds = null;
                       teams = mentions
-                        .map(mention =>
+                        .map((mention) =>
                           isTeamType(mention.userType)
                             ? {
                                 teamId: mention.id,
@@ -703,7 +703,7 @@ function mentionPluginFactory(
                               }
                             : null,
                         )
-                        .filter(m => !!m) as TeamInfoAttrAnalytics[];
+                        .filter((m) => !!m) as TeamInfoAttrAnalytics[];
                     }
 
                     const payload = buildTypeAheadRenderedPayload(
@@ -733,7 +733,7 @@ function mentionPluginFactory(
               );
             }
             (providerPromise as Promise<ContextIdentifierProvider>).then(
-              provider => {
+              (provider) => {
                 setContext(provider)(editorView.state, editorView.dispatch);
               },
             );

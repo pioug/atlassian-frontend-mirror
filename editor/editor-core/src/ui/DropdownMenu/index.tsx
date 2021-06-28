@@ -144,7 +144,7 @@ export default class DropdownMenuWrapper extends PureComponent<Props, State> {
           <div style={{ height: 0, minWidth: fitWidth || 0 }} />
           {items.map((group, index) => (
             <ItemGroup key={index}>
-              {group.items.map(item => this.renderItem(item))}
+              {group.items.map((item) => this.renderItem(item))}
             </ItemGroup>
           ))}
         </DropListWithOutsideListeners>

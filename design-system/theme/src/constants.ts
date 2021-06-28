@@ -1,4 +1,3 @@
-import { css } from 'styled-components';
 import { B100, N30A, skeleton as skeletonColor } from './colors';
 import type { Layers } from './types';
 
@@ -63,16 +62,7 @@ export const visuallyHidden = () => ({
  * Use visuallyHidden instead.
  * @deprecated
  */
-export const assistive = () => css`
-  border: 0 !important;
-  clip: rect(1px, 1px, 1px, 1px) !important;
-  height: 1px !important;
-  overflow: hidden !important;
-  padding: 0 !important;
-  position: absolute !important;
-  width: 1px !important;
-  white-space: nowrap !important;
-`;
+export const assistive = visuallyHidden;
 
 export const skeletonShimmer = () =>
   ({

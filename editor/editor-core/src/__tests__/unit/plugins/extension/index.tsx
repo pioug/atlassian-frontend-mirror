@@ -771,9 +771,9 @@ describe('extension', () => {
   });
 
   describe('Config Panel', () => {
-    const transformBefore: TransformBefore = parameters =>
+    const transformBefore: TransformBefore = (parameters) =>
       parameters.macroParams;
-    const transformAfter: TransformAfter = parameters =>
+    const transformAfter: TransformAfter = (parameters) =>
       Promise.resolve({
         macroParams: parameters,
       });

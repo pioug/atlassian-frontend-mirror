@@ -36,7 +36,7 @@ const register = (state: CardPluginState, action: Register) => {
   return {
     ...state,
     cards: state.cards
-      .filter(card => card.pos !== action.info.pos)
+      .filter((card) => card.pos !== action.info.pos)
       .concat(action.info),
   };
 };

@@ -37,7 +37,7 @@ describe('Traverse', () => {
   it('should replace a node when visitor returns a new adf node', () => {
     expect(
       traverse(mentionsDoc, {
-        mention: node => ({
+        mention: (node) => ({
           ...node,
           attrs: { ...node.attrs, text: `${node.attrs!.text} – updated` },
         }),
@@ -114,7 +114,7 @@ describe('Traverse', () => {
 
     // collect all mentions
     traverse(doc, {
-      mention: node => {
+      mention: (node) => {
         mentions.push(node);
         return node;
       },

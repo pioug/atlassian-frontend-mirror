@@ -213,7 +213,7 @@ describe('AddColumnStep', () => {
               tr(createCellColorC(3)),
             ),
           ),
-          editorState => editorState.tr.insertText('foo', 0),
+          (editorState) => editorState.tr.insertText('foo', 0),
           addColumnAtFactory('table', 3),
           doc(
             p('foo'),

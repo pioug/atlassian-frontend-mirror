@@ -55,7 +55,7 @@ export default class Example extends React.Component<{}, AdfState> {
         <Wrapper>
           <div>
             <WithEditorActions
-              render={actions => {
+              render={(actions) => {
                 this.editorActions = actions;
                 return (
                   <Editor
@@ -119,7 +119,7 @@ export default class Example extends React.Component<{}, AdfState> {
       return;
     }
 
-    this.editorActions.getValue().then(value => {
+    this.editorActions.getValue().then((value) => {
       if (this.adfTextArea) {
         this.adfTextArea.value = JSON.stringify(value, null, 2);
       }

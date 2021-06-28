@@ -4,7 +4,7 @@ import { HigherOrderCommand } from '../../types/command';
 import { InputSource } from './enums';
 
 type AttachInputMeta = (inputSource: InputSource) => HigherOrderCommand;
-export const attachInputMeta: AttachInputMeta = inputSource => command => (
+export const attachInputMeta: AttachInputMeta = (inputSource) => (command) => (
   state,
   dispatch,
 ) => {

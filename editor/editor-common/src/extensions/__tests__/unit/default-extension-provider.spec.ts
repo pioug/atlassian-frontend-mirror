@@ -101,7 +101,7 @@ describe('default-extension-provider', () => {
       'http://awesome-foo/test',
       'http://awesome-bar/bear',
       'http://amazing-baz/app',
-    ].forEach(url => {
+    ].forEach((url) => {
       const result = runner(url);
       expect(result).toBeDefined();
       expect(result).toMatchObject({
@@ -160,7 +160,7 @@ describe('default-extension-provider', () => {
     [
       'http://jira-legacy-macro/jira-roadmap/1234',
       'http://jira-legacy-macro/jira-issue/1234',
-    ].forEach(url => {
+    ].forEach((url) => {
       const result = runner(url);
       expect(result).toBeDefined();
       expect(result).toMatchObject({

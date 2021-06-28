@@ -12,7 +12,7 @@ export const waitForMenuIconsToLoad = async (
   await page.waitForFunction(
     (selector: string, minItems: number) => {
       const els = Array.from(document.querySelectorAll(selector));
-      const visibleEls = els.filter(el => {
+      const visibleEls = els.filter((el) => {
         const rect = el.getBoundingClientRect();
         return (
           rect.top >= 0 &&

@@ -130,6 +130,6 @@ type CellColourPreviewProps = {
 
 export const CellColourPreview = styled.div<CellColourPreviewProps>`
   &::before {
-    background: ${props => props.selectedColor};
+    background: ${(props) => props.selectedColor};
   }
 `;

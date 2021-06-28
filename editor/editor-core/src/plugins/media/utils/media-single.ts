@@ -238,7 +238,7 @@ export function transformSliceForMedia(slice: Slice, schema: Schema) {
         expand,
       ])(selection)
     ) {
-      newSlice = mapSlice(newSlice, node => {
+      newSlice = mapSlice(newSlice, (node) => {
         const attrs = hasParentNodeOfType([layoutSection, table])(selection)
           ? { layout: node.attrs.layout }
           : {};
@@ -249,7 +249,7 @@ export function transformSliceForMedia(slice: Slice, schema: Schema) {
       });
     }
 
-    newSlice = mapSlice(newSlice, node =>
+    newSlice = mapSlice(newSlice, (node) =>
       node.type.name === 'media' && node.attrs.type === 'external'
         ? media.createChecked(
             { ...node.attrs, __external: true },

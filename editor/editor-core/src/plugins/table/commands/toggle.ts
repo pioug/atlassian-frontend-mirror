@@ -30,14 +30,14 @@ export const getNextLayout = (currentLayout: TableLayout): TableLayout => {
 
 // #region Actions
 export const toggleHeaderRow: Command = (state, dispatch): boolean =>
-  toggleHeader('row')(state, tr =>
+  toggleHeader('row')(state, (tr) =>
     createCommand({ type: 'TOGGLE_HEADER_ROW' }, () =>
       tr.setMeta('scrollIntoView', false),
     )(state, dispatch),
   );
 
 export const toggleHeaderColumn: Command = (state, dispatch): boolean =>
-  toggleHeader('column')(state, tr =>
+  toggleHeader('column')(state, (tr) =>
     createCommand({ type: 'TOGGLE_HEADER_COLUMN' }, () =>
       tr.setMeta('scrollIntoView', false),
     )(state, dispatch),
@@ -88,6 +88,6 @@ export const toggleContextualMenu = () =>
     {
       type: 'TOGGLE_CONTEXTUAL_MENU',
     },
-    tr => tr.setMeta('addToHistory', false),
+    (tr) => tr.setMeta('addToHistory', false),
   );
 // #endregion

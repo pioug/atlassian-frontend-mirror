@@ -23,7 +23,7 @@ const defaultDoNotAllowOverrideBehaviour: MarkOverrideRule = {
   },
 };
 
-export const markOverrideRuleFor: MarkOverrideRules = type => {
+export const markOverrideRuleFor: MarkOverrideRules = (type) => {
   switch (type) {
     case 'link':
     case 'em':

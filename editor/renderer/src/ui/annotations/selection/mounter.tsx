@@ -32,7 +32,7 @@ type Props = {
 };
 
 export const SelectionInlineCommentMounter: React.FC<Props> = React.memo(
-  props => {
+  (props) => {
     const {
       component: Component,
       range,

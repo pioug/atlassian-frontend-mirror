@@ -93,7 +93,7 @@ export default class RowControls extends Component<Props> {
                     className={`${ClassName.ROW_CONTROLS_BUTTON}
                   ${ClassName.CONTROLS_BUTTON}
                 `}
-                    onClick={event =>
+                    onClick={(event) =>
                       this.props.selectRow(startIndex, event.shiftKey)
                     }
                     onMouseOver={() => this.props.hoverRows([startIndex])}

@@ -16,7 +16,7 @@ export interface Props {
 export default class DropdownWrapper extends React.Component<Props, any> {
   render() {
     // adding onClick handler to each DropdownItem component
-    const children = React.Children.map(this.props.children, child =>
+    const children = React.Children.map(this.props.children, (child) =>
       React.cloneElement(child as React.ReactElement<any>, {
         onClick: this.handleClick,
       }),

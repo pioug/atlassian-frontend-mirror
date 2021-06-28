@@ -88,7 +88,7 @@ const getPosition = (
 ): number | undefined => {
   if (mentionList) {
     const index = mentionList.findIndex(
-      mention => mention.id === selectedMention.id,
+      (mention) => mention.id === selectedMention.id,
     );
     return index === -1 ? undefined : index;
   }

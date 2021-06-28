@@ -36,7 +36,7 @@ const createPlugin = (dispatch: Dispatch) =>
     appendTransaction: (transactions, oldState, newState) => {
       if (
         transactions.find(
-          tr => tr.docChanged && tr.getMeta('addToHistory') !== false,
+          (tr) => tr.docChanged && tr.getMeta('addToHistory') !== false,
         )
       ) {
         const pmHistoryPluginState = getPmHistoryPluginState(newState);

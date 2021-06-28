@@ -29,7 +29,7 @@ describe('next/Editor', () => {
           actions.appendText('hello');
         },
         onChange: handleChange,
-        transformer: schema => ({
+        transformer: (schema) => ({
           encode: () => 'encoded document',
           parse: () => doc(p(''))(schema),
         }),

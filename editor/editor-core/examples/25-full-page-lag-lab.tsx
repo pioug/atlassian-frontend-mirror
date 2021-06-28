@@ -183,7 +183,7 @@ const LatencyPanel = (props: LatencyPanelProps) => {
       lagInit: initLatency,
       lagFocus: focusLatency,
     };
-    Object.keys(data).forEach(key => params.set(key, data[key]));
+    Object.keys(data).forEach((key) => params.set(key, data[key]));
     params.delete('lagPanel');
 
     const url = format({
@@ -193,7 +193,7 @@ const LatencyPanel = (props: LatencyPanelProps) => {
     window.parent.history.pushState(data, window.parent.document.title, url);
 
     // this relies on autoFocus on #latency-type-fixed to suceed
-    navigator.clipboard.writeText(url).catch(error => {
+    navigator.clipboard.writeText(url).catch((error) => {
       alert(`Copy failed! ${error}`);
     });
   };

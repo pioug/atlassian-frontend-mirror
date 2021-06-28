@@ -47,8 +47,8 @@ export function createDispatchTransaction(
       // If invalid document, send analytics event with the structure of the nodes
       if (dispatch) {
         const invalidNodes = nodes
-          .filter(node => !validNode(node))
-          .map(node => getDocStructure(node));
+          .filter((node) => !validNode(node))
+          .map((node) => getDocStructure(node));
 
         dispatchAnalytics(dispatch, {
           action: ACTION.DISPATCHED_INVALID_TRANSACTION,
@@ -71,7 +71,7 @@ export function getEditorValue(
   transformer?: Transformer<any>,
 ) {
   return compose(
-    doc =>
+    (doc) =>
       transformer && transformer.encode
         ? transformer.encode(Node.fromJSON(editorView.state.schema, doc))
         : doc,

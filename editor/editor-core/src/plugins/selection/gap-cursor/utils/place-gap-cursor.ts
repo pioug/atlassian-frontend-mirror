@@ -12,7 +12,7 @@ const nestedCases: Record<string, string> = {
   'mediaSingleView-content-wrap': '.rich-media-item',
 };
 const computeNestedStyle = (dom: HTMLElement) => {
-  const foundKey = Object.keys(nestedCases).find(className =>
+  const foundKey = Object.keys(nestedCases).find((className) =>
     dom.classList.contains(className),
   );
   const nestedSelector = foundKey && nestedCases[foundKey];
@@ -54,7 +54,7 @@ const measureValue = (
 
   const boxSizing = style.getPropertyValue('box-sizing');
   if (boxSizing === 'content-box') {
-    contentBoxValues.forEach(value => {
+    contentBoxValues.forEach((value) => {
       measures.push(style.getPropertyValue(value));
     });
   }

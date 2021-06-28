@@ -131,7 +131,7 @@ const markGroupDeclarations = [
 ];
 
 const markGroupDeclarationsNames = markGroupDeclarations.map(
-  groupMark => groupMark.name,
+  (groupMark) => groupMark.name,
 );
 
 const nodesInOrder: SchemaBuiltInItem[] = [
@@ -237,12 +237,12 @@ export function sanitizeNodes(
   supportedMarks: { [key: string]: MarkSpec },
 ): { [key: string]: NodeSpec } {
   const nodeNames = Object.keys(nodes);
-  nodeNames.forEach(nodeKey => {
+  nodeNames.forEach((nodeKey) => {
     const nodeSpec = { ...nodes[nodeKey] };
     if (nodeSpec.marks && nodeSpec.marks !== '_') {
       nodeSpec.marks = nodeSpec.marks
         .split(' ')
-        .filter(mark => !!supportedMarks[mark])
+        .filter((mark) => !!supportedMarks[mark])
         .join(' ');
     }
     if (nodeSpec.content) {
@@ -260,7 +260,7 @@ export function sanitizeNodeSpecContent(
   const content = rawContent.replace(/\W/g, ' ');
   const contentKeys = content.split(' ');
   const unsupportedContentKeys = contentKeys.filter(
-    contentKey => !isContentSupported(nodes, contentKey),
+    (contentKey) => !isContentSupported(nodes, contentKey),
   );
   return unsupportedContentKeys.reduce(
     (newContent, nodeName) => sanitizedContent(newContent, nodeName),

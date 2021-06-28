@@ -19,7 +19,7 @@ export const sendTransaction = ({
   newEditorState,
   useNativePlugin,
 }: Props) => (provider: CollabEditProvider) => {
-  const docChangedTransaction = transactions.find(tr => tr.docChanged);
+  const docChangedTransaction = transactions.find((tr) => tr.docChanged);
   const currentPluginState = pluginKey.getState(newEditorState);
 
   if (!currentPluginState.isReady) {

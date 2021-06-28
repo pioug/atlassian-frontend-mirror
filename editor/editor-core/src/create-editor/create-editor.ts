@@ -18,14 +18,14 @@ export function fixExcludes(marks: {
   [key: string]: MarkSpec;
 }): { [key: string]: MarkSpec } {
   const markKeys = Object.keys(marks);
-  const markGroups = new Set(markKeys.map(mark => marks[mark].group));
+  const markGroups = new Set(markKeys.map((mark) => marks[mark].group));
 
-  markKeys.forEach(markKey => {
+  markKeys.forEach((markKey) => {
     const mark = marks[markKey];
     if (mark.excludes) {
       mark.excludes = mark.excludes
         .split(' ')
-        .filter(group => markGroups.has(group))
+        .filter((group) => markGroups.has(group))
         .join(' ');
     }
   });
@@ -38,7 +38,7 @@ export function processPluginsList(plugins: EditorPlugin[]): EditorConfig {
    */
   const pluginsOptions = plugins.reduce<PluginsOptions>((acc, plugin) => {
     if (plugin.pluginsOptions) {
-      Object.keys(plugin.pluginsOptions).forEach(pluginName => {
+      Object.keys(plugin.pluginsOptions).forEach((pluginName) => {
         if (!acc[pluginName]) {
           acc[pluginName] = [];
         }

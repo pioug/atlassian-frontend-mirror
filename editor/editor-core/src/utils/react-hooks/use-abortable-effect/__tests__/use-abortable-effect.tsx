@@ -21,7 +21,7 @@ const TestComponent = ({
   const [value, setValue] = useState<string | undefined>();
 
   useAbortableEffect(
-    signal => {
+    (signal) => {
       async function getValue() {
         const value = await asyncOperation();
 

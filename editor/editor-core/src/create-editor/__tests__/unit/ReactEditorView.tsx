@@ -315,7 +315,7 @@ describe('@atlaskit/editor-core', () => {
           const { dispatchValidTransactionNthTimes } = setupEditor();
           dispatchValidTransactionNthTimes(1);
           const onChangeEvents = (mockFire as jest.Mock).mock.calls.filter(
-            mockCall => mockCall[0].payload.action === 'onChangeCalled',
+            (mockCall) => mockCall[0].payload.action === 'onChangeCalled',
           );
           expect(onChangeEvents.length).toBe(0);
         });
@@ -326,7 +326,7 @@ describe('@atlaskit/editor-core', () => {
           });
           dispatchValidTransactionNthTimes(1);
           const onChangeEvents = (mockFire as jest.Mock).mock.calls.filter(
-            mockCall => mockCall[0].payload.action === 'onChangeCalled',
+            (mockCall) => mockCall[0].payload.action === 'onChangeCalled',
           );
           expect(onChangeEvents.length).toBe(0);
         });
@@ -338,7 +338,7 @@ describe('@atlaskit/editor-core', () => {
           });
           dispatchValidTransactionNthTimes(1);
           const onChangeEvents = (mockFire as jest.Mock).mock.calls.filter(
-            mockCall => mockCall[0].payload.action === 'onChangeCalled',
+            (mockCall) => mockCall[0].payload.action === 'onChangeCalled',
           );
           expect(onChangeEvents.length).toBe(1);
           expect(onChangeEvents[0]).toEqual([

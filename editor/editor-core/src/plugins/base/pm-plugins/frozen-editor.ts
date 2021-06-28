@@ -184,7 +184,7 @@ export default (
       }
       let observer: PerformanceObserver | undefined;
       try {
-        const observer = new PerformanceObserver(list => {
+        const observer = new PerformanceObserver((list) => {
           const perfEntries = list.getEntries();
           for (let i = 0; i < perfEntries.length; i++) {
             const { duration } = perfEntries[i];

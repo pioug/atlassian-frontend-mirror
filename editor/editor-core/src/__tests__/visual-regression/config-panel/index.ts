@@ -46,7 +46,7 @@ describe('Snapshot Test', () => {
     const dateInputSelector = 'input[name="date-start"]';
     const page = await goToConfigPanelWithParameters();
     const dateInputElement = await page.$(dateInputSelector);
-    await page.evaluateHandle(el => {
+    await page.evaluateHandle((el) => {
       const dateFieldElement = el.nextElementSibling;
       dateFieldElement.click();
     }, dateInputElement);

@@ -2,4 +2,8 @@ import React from 'react';
 
 import Button from '../../src';
 
-export default () => <Button appearance="link">Link button</Button>;
+const ButtonLinkExample = () => {
+  return <Button appearance="link">Link button</Button>;
+};
+
+export default ButtonLinkExample;

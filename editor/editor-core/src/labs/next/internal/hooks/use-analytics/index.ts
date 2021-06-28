@@ -21,7 +21,7 @@ export function useAnalyticsHandler(
       channel?: string;
     }) => void
   >(
-    payload => {
+    (payload) => {
       const handleAnalyticsEvent =
         editorSharedConfig && editorSharedConfig.dispatchAnalyticsEvent;
 

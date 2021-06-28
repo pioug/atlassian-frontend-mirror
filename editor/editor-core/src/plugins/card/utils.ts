@@ -56,7 +56,7 @@ export const displayInfoForCard = (node: Node, info?: CardInfo) =>
 export const findCardInfo = (state: EditorState) => {
   const pluginState: CardPluginState = pluginKey.getState(state);
   return pluginState.cards.find(
-    cardInfo => cardInfo.pos === state.selection.from,
+    (cardInfo) => cardInfo.pos === state.selection.from,
   );
 };
 

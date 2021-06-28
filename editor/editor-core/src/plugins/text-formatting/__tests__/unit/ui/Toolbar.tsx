@@ -30,7 +30,7 @@ import { ToolbarSize } from '../../../../../ui/Toolbar/types';
 
 describe('@atlaskit/editor-core/ui/Toolbar', () => {
   describe('when pluginStateTextFormatting is undefined', () => {
-    describe.each(['Bold', 'Italic'])('the %s toolbar button', buttonName => {
+    describe.each(['Bold', 'Italic'])('the %s toolbar button', (buttonName) => {
       it('should render disabled ToolbarButton', () => {
         const editorState = createEditorState(doc(p('A')));
         const editorView = new EditorView(undefined, { state: editorState });
@@ -62,10 +62,10 @@ describe('@atlaskit/editor-core/ui/Toolbar', () => {
 
     describe.each([ToolbarSize.S, ToolbarSize.XXXS])(
       'when the toolbar size is %s',
-      toolbarSize => {
+      (toolbarSize) => {
         it.each(['Bold', 'Italic'])(
           'should not display %s icon as single button',
-          buttonName => {
+          (buttonName) => {
             const { editorView } = editor(doc(p('text')));
             const { queryByLabelText } = render(
               <IntlProvider locale="en">
@@ -90,10 +90,10 @@ describe('@atlaskit/editor-core/ui/Toolbar', () => {
       ToolbarSize.L,
       ToolbarSize.XL,
       ToolbarSize.XXL,
-    ])('when the toolbar size is %s', toolbarSize => {
+    ])('when the toolbar size is %s', (toolbarSize) => {
       it.each(['Bold', 'Italic'])(
         'should display %s inside as single button',
-        buttonName => {
+        (buttonName) => {
           const { editorView } = editor(doc(p('text')));
           const { getByLabelText } = render(
             <IntlProvider locale="en">
@@ -129,22 +129,25 @@ describe('@atlaskit/editor-core/ui/Toolbar', () => {
       createAnalyticsEvent = jest.fn(() => ({ fire() {} } as UIAnalyticsEvent));
     });
 
-    it.each(['Bold', 'Italic'])('should have %s toolbar button', buttonName => {
-      const { editorView } = editor(doc(p('text')));
-      const { getByLabelText } = render(
-        <IntlProvider locale="en">
-          <Toolbar
-            isToolbarDisabled={false}
-            toolbarSize={ToolbarSize.M}
-            isReducedSpacing={false}
-            shouldUseResponsiveToolbar={false}
-            editorView={editorView}
-            editorState={editorView.state}
-          />
-        </IntlProvider>,
-      );
-      expect(getByLabelText(buttonName)).toBeInTheDocument();
-    });
+    it.each(['Bold', 'Italic'])(
+      'should have %s toolbar button',
+      (buttonName) => {
+        const { editorView } = editor(doc(p('text')));
+        const { getByLabelText } = render(
+          <IntlProvider locale="en">
+            <Toolbar
+              isToolbarDisabled={false}
+              toolbarSize={ToolbarSize.M}
+              isReducedSpacing={false}
+              shouldUseResponsiveToolbar={false}
+              editorView={editorView}
+              editorState={editorView.state}
+            />
+          </IntlProvider>,
+        );
+        expect(getByLabelText(buttonName)).toBeInTheDocument();
+      },
+    );
 
     it('should open the button group when more formatting is clicked', () => {
       const { editorView } = editor(doc(p('text')));
@@ -188,7 +191,7 @@ describe('@atlaskit/editor-core/ui/Toolbar', () => {
     describe('when formatting is not allowed', () => {
       it.each(['Bold', 'Italic'])(
         'should disable the %s toolbar button',
-        buttonName => {
+        (buttonName) => {
           const { editorView } = editor(
             doc(codeBlock({ language: 'js' })('Hello {<>}world')),
           );
@@ -217,7 +220,7 @@ describe('@atlaskit/editor-core/ui/Toolbar', () => {
         'Strikethrough',
       ])(
         'should disable the %s button inside more button group',
-        buttonName => {
+        (buttonName) => {
           const { editorView } = editor(
             doc(codeBlock({ language: 'js' })('Hello {<>}world')),
           );
@@ -250,7 +253,7 @@ describe('@atlaskit/editor-core/ui/Toolbar', () => {
       'Superscript',
       'Strikethrough',
       'Clear formatting',
-    ])('should show %s button inside more button group', buttonName => {
+    ])('should show %s button inside more button group', (buttonName) => {
       const { editorView } = editor(doc(p('text')));
       const { getByLabelText, getByRole } = render(
         <IntlProvider locale="en">

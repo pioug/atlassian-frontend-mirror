@@ -331,7 +331,7 @@ class FloatingDeleteButton extends Component<Props, State> {
         const rect = headerRow!.getBoundingClientRect();
 
         const calculatePosition =
-          popupOpts.onPositionCalculated || (pos => pos);
+          popupOpts.onPositionCalculated || ((pos) => pos);
         const pos = calculatePosition({
           left: this.state.left,
           top: this.state.top,

@@ -42,13 +42,13 @@ describe('Renderer - Validator', () => {
     ];
 
     it('should return true if URL starts with http://, https://, ftp://, ftps:// etc', () => {
-      safeURLs.forEach(url => {
+      safeURLs.forEach((url) => {
         expect(isSafeUrl(url)).toBe(true);
       });
     });
 
     it('should return false for "unsafe" URLs', () => {
-      unsafeURLs.forEach(url => {
+      unsafeURLs.forEach((url) => {
         expect(isSafeUrl(url)).toBe(false);
       });
     });
@@ -1103,7 +1103,7 @@ describe('Renderer - Validator', () => {
       });
     });
 
-    ['tableCell', 'tableHeader'].forEach(nodeName => {
+    ['tableCell', 'tableHeader'].forEach((nodeName) => {
       describe(nodeName, () => {
         const cellAttrs = {
           colspan: 2,

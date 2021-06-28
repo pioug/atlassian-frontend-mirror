@@ -21,7 +21,7 @@ BrowserTestCase(
     await page.type(editable, '* abc');
     await page.keys('Return');
     await page.type(editable, '123');
-    await page.keys(Array.from({ length: 3 }, _ => 'Backspace'));
+    await page.keys(Array.from({ length: 3 }, (_) => 'Backspace'));
 
     const doc = await page.$eval(editable, getDocFromElement);
     expect(doc).toMatchCustomDocSnapshot(testName);

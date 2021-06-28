@@ -27,7 +27,7 @@ function listenForGutterVisibilityChanges(
   if (supportsIntersectionObserver()) {
     const observer = new IntersectionObserver(
       (entries: IntersectionObserverEntry[], _: IntersectionObserver) => {
-        entries.forEach(entry => {
+        entries.forEach((entry) => {
           gutterIsVisible(entry.intersectionRatio > 0);
         });
       },

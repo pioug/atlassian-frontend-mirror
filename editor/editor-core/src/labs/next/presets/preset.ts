@@ -11,7 +11,7 @@ export class Preset<T extends { name: string }> {
   }
 
   has(plugin: () => T): boolean {
-    return this.plugins.some(pluginPreset => {
+    return this.plugins.some((pluginPreset) => {
       if (Array.isArray(pluginPreset)) {
         return pluginPreset[0] === plugin;
       }
@@ -27,7 +27,7 @@ export class Preset<T extends { name: string }> {
 
   private processEditorPlugins() {
     const cache = new Map();
-    this.plugins.forEach(pluginEntry => {
+    this.plugins.forEach((pluginEntry) => {
       if (Array.isArray(pluginEntry)) {
         const [fn, options] = pluginEntry;
         cache.set(fn, options);
@@ -57,7 +57,7 @@ export class Preset<T extends { name: string }> {
 
   private removeExcludedPlugins(plugins: Array<T>, excludes?: Set<string>) {
     if (excludes) {
-      return plugins.filter(plugin => !plugin || !excludes.has(plugin.name));
+      return plugins.filter((plugin) => !plugin || !excludes.has(plugin.name));
     }
     return plugins;
   }

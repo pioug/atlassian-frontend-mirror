@@ -47,7 +47,7 @@ describe('Date:', () => {
   });
 
   describe('keyboard accessible picker', () => {
-    describe.each(THEME_MODES)('Theme: %s', theme => {
+    describe.each(THEME_MODES)('Theme: %s', (theme) => {
       it('should autofocus textfield and select text when creating new date', async () => {
         await initEditor(page, defaultViewPort, theme);
 
@@ -239,7 +239,7 @@ describe('Date:', () => {
   });
 
   describe('standard picker', () => {
-    describe.each(THEME_MODES)('Theme: %s', theme => {
+    describe.each(THEME_MODES)('Theme: %s', (theme) => {
       it('should render and stay within bounds', async () => {
         const viewport = { width: 1280, height: 600 };
 

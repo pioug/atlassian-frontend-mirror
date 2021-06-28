@@ -39,7 +39,7 @@ export default (
       newState: EditorState,
     ): Transaction | void {
       // only run for transactions that change selection
-      if (!transactions.find(tr => tr.selectionSet)) {
+      if (!transactions.find((tr) => tr.selectionSet)) {
         return;
       }
 

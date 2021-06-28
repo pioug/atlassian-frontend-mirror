@@ -17,7 +17,7 @@ export const editorUploadMediaTestCase = ({
   new EditorTestCase({
     title: 'media upload and publish works',
     id: 'media-file-upload',
-    assertions: cy => {
+    assertions: (cy) => {
       const editor = new EditorPageObject(cy);
       const renderer = new RendererPageObject(cy);
       const mediaCard = new MediaCardPageObject(cy);

@@ -96,7 +96,7 @@ export default class TableView extends ReactNodeView<Props> {
       !this.resizeObserver &&
       window?.ResizeObserver
     ) {
-      this.resizeObserver = new ResizeObserver(entries => {
+      this.resizeObserver = new ResizeObserver((entries) => {
         for (let entry of entries) {
           const height = entry.contentRect
             ? entry.contentRect.height
@@ -124,7 +124,7 @@ export default class TableView extends ReactNodeView<Props> {
       node,
       this.reactComponentProps?.options?.allowLocalIdGeneration ?? false,
     );
-    (Object.keys(attrs) as Array<keyof typeof attrs>).forEach(attr => {
+    (Object.keys(attrs) as Array<keyof typeof attrs>).forEach((attr) => {
       this.table!.setAttribute(attr, attrs[attr]);
     });
   }
@@ -142,7 +142,7 @@ export default class TableView extends ReactNodeView<Props> {
           tableResizingPluginState: tableResizingPluginKey,
         }}
         editorView={props.view}
-        render={pluginStates => {
+        render={(pluginStates) => {
           const {
             tableResizingPluginState,
             pluginState,
@@ -191,7 +191,7 @@ export default class TableView extends ReactNodeView<Props> {
       if (attrKeys.length !== nextAttrKeys.length) {
         return true;
       }
-      return attrKeys.some(key => {
+      return attrKeys.some((key) => {
         return node.attrs[key] !== nextNode.attrs[key];
       });
     }

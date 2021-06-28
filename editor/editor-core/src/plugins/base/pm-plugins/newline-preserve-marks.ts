@@ -11,7 +11,7 @@ export const newlinePreserveMarksKey = new PluginKey(
 
 const isSelectionAligned = (state: EditorState): boolean =>
   !!state.selection.$to.parent.marks.find(
-    m => m.type === state.schema.marks.alignment,
+    (m) => m.type === state.schema.marks.alignment,
   );
 
 const isTypeaheadNotDisplaying = (state: EditorState): boolean =>

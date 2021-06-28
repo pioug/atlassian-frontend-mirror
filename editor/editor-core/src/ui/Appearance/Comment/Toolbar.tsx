@@ -33,7 +33,7 @@ MainToolbarWrapper.displayName = 'MainToolbar';
 const StickyToolbarWrapper = styled(MainToolbarWrapper)<{ top: number }>`
   position: relative;
   position: sticky;
-  top: ${props => `${props.top}px`};
+  top: ${(props) => `${props.top}px`};
   padding-bottom: ${gridSize()}px;
   z-index: ${akEditorGridLineZIndex + akEditorMenuZIndex};
   transition: box-shadow ease-in-out 0.2s;
@@ -47,7 +47,7 @@ type StickyToolbarProps = {
   externalToolbarRef?: RefObject<HTMLElement>;
 };
 
-const StickyToolbar: React.FC<StickyToolbarProps> = props => {
+const StickyToolbar: React.FC<StickyToolbarProps> = (props) => {
   const [top, setTop] = useState(0);
 
   useEffect(() => {
@@ -65,7 +65,7 @@ const StickyToolbar: React.FC<StickyToolbarProps> = props => {
   );
 };
 
-const FixedToolbar: React.FC = props => (
+const FixedToolbar: React.FC = (props) => (
   <MainToolbarWrapper data-testid="ak-editor-main-toolbar">
     {props.children}
   </MainToolbarWrapper>

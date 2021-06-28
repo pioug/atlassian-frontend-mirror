@@ -15,7 +15,7 @@ import { ToolTipContent, findKeymapByDescription } from '../../../keymaps';
 const ToolbarButtonWrapper = styled.div<{ takeFullWidth: boolean }>`
   display: flex;
   flex: 1 1 auto;
-  flex-grow: ${props => (props.takeFullWidth ? 1 : 0)};
+  flex-grow: ${(props) => (props.takeFullWidth ? 1 : 0)};
   justify-content: flex-end;
   align-items: center;
   padding: 0 8px;

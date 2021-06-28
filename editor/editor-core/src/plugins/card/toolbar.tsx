@@ -232,7 +232,7 @@ const generateToolbarItems = (
         {
           type: 'custom',
           fallback: [],
-          render: editorView => (
+          render: (editorView) => (
             <LinkToolbarAppearance
               key="link-appearance"
               url={url}
@@ -289,7 +289,7 @@ export const floatingToolbar = (
       title: intl.formatMessage(messages.card),
       nodeType,
       ...toolbarOffset,
-      getDomRef: view => {
+      getDomRef: (view) => {
         const element = findDomRefAtPos(
           view.state.selection.from,
           view.domAtPos.bind(view),

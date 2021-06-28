@@ -19,7 +19,7 @@ export function sanitizeNodeForPrivacy(
   const mentionNames = new Map<string, string>();
   let hasCacheableMentions = false;
   const sanitizedJSON = traverse(json as any, {
-    mention: node => {
+    mention: (node) => {
       if (node.attrs && node.attrs.text) {
         hasCacheableMentions = true;
         // Remove @ prefix
@@ -43,7 +43,7 @@ export function sanitizeNodeForPrivacy(
       providerPromise?: Promise<MentionProvider>,
     ) => {
       if (providerPromise) {
-        providerPromise.then(provider => {
+        providerPromise.then((provider) => {
           if (isResolvingMentionProvider(provider)) {
             mentionNames.forEach((name, id) => {
               provider.cacheMentionName(id, name);

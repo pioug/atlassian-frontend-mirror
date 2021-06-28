@@ -47,7 +47,7 @@ export const DateLozenge = styled.span<Props>`
   white-space: nowrap;
   cursor: ${(props: Props) => (props.onClick ? 'pointer' : 'unset')};
 
-  ${props => {
+  ${(props) => {
     var colors = themed(resolveColors(props.color))(props);
     if (colors === '') {
       colors = ['', '', ''];

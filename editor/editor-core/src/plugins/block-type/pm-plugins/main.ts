@@ -83,9 +83,9 @@ const detectBlockType = (
   }
   let blockType: BlockType | undefined;
   const { $from, $to } = state.selection;
-  state.doc.nodesBetween($from.pos, $to.pos, node => {
+  state.doc.nodesBetween($from.pos, $to.pos, (node) => {
     const nodeBlockType = availableBlockTypes.filter(
-      blockType => blockType === blockTypeForNode(node, state.schema),
+      (blockType) => blockType === blockTypeForNode(node, state.schema),
     );
     if (nodeBlockType.length > 0) {
       if (!blockType) {
@@ -146,11 +146,11 @@ export const createPlugin = (
 
     state: {
       init(_config, state: EditorState) {
-        const availableBlockTypes = TEXT_BLOCK_TYPES.filter(blockType =>
+        const availableBlockTypes = TEXT_BLOCK_TYPES.filter((blockType) =>
           isBlockTypeSchemaSupported(blockType, state),
         );
         const availableWrapperBlockTypes = WRAPPER_BLOCK_TYPES.filter(
-          blockType => isBlockTypeSchemaSupported(blockType, state),
+          (blockType) => isBlockTypeSchemaSupported(blockType, state),
         );
 
         return {

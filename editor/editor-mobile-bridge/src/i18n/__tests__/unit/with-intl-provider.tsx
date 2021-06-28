@@ -5,7 +5,7 @@ import { injectIntl } from 'react-intl';
 import * as UseTranslationsHook from '../../use-translations';
 
 const TestComponent = withIntlProvider(
-  injectIntl(props => {
+  injectIntl((props) => {
     return (
       <div>
         <span>default locale: {props.intl.locale}</span>
@@ -88,7 +88,7 @@ describe('i18n', () => {
       );
       geti18NMessages = jest.fn(() => Promise.resolve({ messages: {} }));
       TestComponentWithMessageCallback = withIntlProvider(
-        injectIntl(props => {
+        injectIntl((props) => {
           return (
             <div>
               <span>default locale: {props.intl.locale}</span>

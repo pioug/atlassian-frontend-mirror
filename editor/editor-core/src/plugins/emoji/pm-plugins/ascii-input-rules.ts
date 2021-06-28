@@ -44,8 +44,8 @@ function initMatcher(providerFactory: ProviderFactory) {
       return;
     }
 
-    provider.then(emojiProvider => {
-      emojiProvider.getAsciiMap().then(map => {
+    provider.then((emojiProvider) => {
+      emojiProvider.getAsciiMap().then((map) => {
         matcher = new RecordingAsciiEmojiMatcher(emojiProvider, map);
       });
     });
@@ -84,7 +84,7 @@ function isEnabled(state: EditorState) {
   const typeAheadQuery = state.schema.marks.typeAheadQuery;
   const isTypeAheadQueryActive = state.selection.$from
     .marks()
-    .some(mark => mark.type === typeAheadQuery);
+    .some((mark) => mark.type === typeAheadQuery);
   return (
     isTypeAheadQueryActive ||
     isMarkTypeAllowedInCurrentSelection(typeAheadQuery, state)
@@ -295,7 +295,7 @@ const plugins = (
   featureFlags: FeatureFlags,
 ) => {
   return [inputRulePlugin(schema, providerFactory, featureFlags)].filter(
-    plugin => !!plugin,
+    (plugin) => !!plugin,
   ) as Plugin[];
 };
 

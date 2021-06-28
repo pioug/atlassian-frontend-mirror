@@ -130,7 +130,9 @@ export function shouldReconfigureState(
 
   if (
     nextPlugins.length !== prevPlugins.length ||
-    prevPlugins.some(p => nextPlugins.some(n => n.name === p.name && n !== p))
+    prevPlugins.some((p) =>
+      nextPlugins.some((n) => n.name === p.name && n !== p),
+    )
   ) {
     return true;
   }
@@ -221,7 +223,7 @@ export default class ReactEditorView<T = {}> extends React.Component<
     );
 
     this.transactionTracker = new TransactionTracker();
-    this.pluginPerformanceObserver = new PluginPerformanceObserver(report =>
+    this.pluginPerformanceObserver = new PluginPerformanceObserver((report) =>
       this.onPluginObservation(report, this.editorState),
     )
       .withPlugins(() => this.getPluginNames())
@@ -282,7 +284,7 @@ export default class ReactEditorView<T = {}> extends React.Component<
     ) {
       // Disables the contentEditable attribute of the editor if the editor is disabled
       this.view.setProps({
-        editable: _state => !nextProps.editorProps.disabled,
+        editable: (_state) => !nextProps.editorProps.disabled,
       } as DirectEditorProps);
 
       if (
@@ -413,7 +415,7 @@ export default class ReactEditorView<T = {}> extends React.Component<
     if (this.view) {
       // Destroy the state if the Editor is being unmounted
       const editorState = this.view.state;
-      editorState.plugins.forEach(plugin => {
+      editorState.plugins.forEach((plugin) => {
         const state = plugin.getState(editorState);
         if (state && state.destroy) {
           state.destroy();
@@ -543,7 +545,7 @@ export default class ReactEditorView<T = {}> extends React.Component<
   }) => {
     const { enabled: trackinEnabled } = this.transactionTracking;
 
-    this.config.onEditorViewStateUpdatedCallbacks.forEach(entry => {
+    this.config.onEditorViewStateUpdatedCallbacks.forEach((entry) => {
       trackinEnabled &&
         startMeasure(`🦉 ${entry.pluginName}::onEditorViewStateUpdated`);
       entry.callback({
@@ -650,8 +652,8 @@ export default class ReactEditorView<T = {}> extends React.Component<
       this.editorState = editorState;
     } else {
       const invalidNodes = nodes
-        .filter(node => !validNode(node))
-        .map<SimplifiedNode | string>(node =>
+        .filter((node) => !validNode(node))
+        .map<SimplifiedNode | string>((node) =>
           getDocStructure(node, { compact: true }),
         );
 
@@ -683,7 +685,7 @@ export default class ReactEditorView<T = {}> extends React.Component<
         }
       },
       // Disables the contentEditable attribute of the editor if the editor is disabled
-      editable: _state => !this.props.editorProps.disabled,
+      editable: (_state) => !this.props.editorProps.disabled,
       attributes: { 'data-gramm': 'false' },
     };
   };

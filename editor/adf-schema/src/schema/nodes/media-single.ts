@@ -70,7 +70,7 @@ export const mediaSingle: NodeSpec = {
   parseDOM: [
     {
       tag: 'div[data-node-type="mediaSingle"]',
-      getAttrs: dom => ({
+      getAttrs: (dom) => ({
         layout: (dom as HTMLElement).getAttribute('data-layout') || 'center',
         width: Number((dom as HTMLElement).getAttribute('data-width')) || null,
       }),

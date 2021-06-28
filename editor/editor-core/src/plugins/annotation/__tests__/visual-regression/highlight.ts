@@ -69,7 +69,7 @@ describe('highlight', () => {
       'annotation-taskItem',
       'annotation-listItem',
       'annotation-panel',
-    ])('on %s', async elementId => {
+    ])('on %s', async (elementId) => {
       await page.click(pmSelector);
       await page.click(`#${elementId}`);
       await snapshot(page);

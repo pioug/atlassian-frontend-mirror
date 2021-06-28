@@ -2,4 +2,8 @@ import React from 'react';
 
 import Button from '../../src';
 
-export default () => <Button isSelected>Selected button</Button>;
+const ButtonSelectedExample = () => {
+  return <Button isSelected>Selected button</Button>;
+};
+
+export default ButtonSelectedExample;

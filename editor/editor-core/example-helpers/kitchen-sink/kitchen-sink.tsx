@@ -486,7 +486,7 @@ export class KitchenSink extends React.Component<
                 disabled={this.state.disabled}
                 featureFlags={parseSafely(this.state.featureFlagInput)}
                 editorPlugins={this.editorPlugins()}
-                extensionProviders={editorActions => [
+                extensionProviders={(editorActions) => [
                   getExampleExtensionProviders(editorActions),
                 ]}
               />

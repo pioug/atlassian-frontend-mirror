@@ -195,7 +195,7 @@ const createMediaFileNodes = (
   collection: string,
   media: NodeType,
 ): PMNode[] => {
-  const nodes = mediaStates.map(mediaState => {
+  const nodes = mediaStates.map((mediaState) => {
     const { id } = mediaState;
     const node = media.create({
       id,
@@ -238,7 +238,7 @@ export const getPosInList = (state: EditorState): number | undefined => {
   } = state;
 
   // 1. Check if I am inside a list.
-  if (hasParentNode(node => node.type === listItem)(state.selection)) {
+  if (hasParentNode((node) => node.type === listItem)(state.selection)) {
     // 2. Get end position of root list
     const rootListNode = findRootListNode(state);
 

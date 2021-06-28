@@ -39,13 +39,13 @@ export function keymapPlugin(options?: MediaOptions): Plugin {
   return keymap(list);
 }
 
-const ignoreLinksInSteps: Command = state => {
+const ignoreLinksInSteps: Command = (state) => {
   const mediaPluginState = stateKey.getState(state) as MediaPluginState;
   mediaPluginState.ignoreLinks = true;
   return false;
 };
 
-const splitMediaGroup: Command = state => {
+const splitMediaGroup: Command = (state) => {
   const mediaPluginState = stateKey.getState(state) as MediaPluginState;
   return mediaPluginState.splitMediaGroup();
 };

@@ -39,12 +39,12 @@ export const subsup: MarkSpec = {
       // Google Docs uses vertical align to denote subscript and super script
       tag: 'span',
       style: 'vertical-align=super',
-      getAttrs: node => getAttrFromVerticalAlign(node as HTMLElement),
+      getAttrs: (node) => getAttrFromVerticalAlign(node as HTMLElement),
     },
     {
       tag: 'span',
       style: 'vertical-align=sub',
-      getAttrs: node => getAttrFromVerticalAlign(node as HTMLElement),
+      getAttrs: (node) => getAttrFromVerticalAlign(node as HTMLElement),
     },
   ],
   toDOM(mark) {

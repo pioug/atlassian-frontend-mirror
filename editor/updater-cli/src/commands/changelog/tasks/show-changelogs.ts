@@ -9,7 +9,7 @@ export function getUpdated(logs: Log[], currentVersion: string): string[] {
     new Set(
       logs
         .filter(
-          log =>
+          (log) =>
             satisfies(log.version, `>${currentVersion}`) && log.updated.length,
         )
         .reduce((acc, cur) => {

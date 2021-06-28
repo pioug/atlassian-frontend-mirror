@@ -33,7 +33,7 @@ export const status: NodeSpec = {
   parseDOM: [
     {
       tag: 'span[data-node-type="status"]',
-      getAttrs: domNode => {
+      getAttrs: (domNode) => {
         const dom = domNode as HTMLElement;
         return {
           text: dom.textContent!.replace(/\n/, '').trim(),

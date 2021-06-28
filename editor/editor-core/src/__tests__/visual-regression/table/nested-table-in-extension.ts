@@ -35,7 +35,7 @@ describe('Snapshot Test: Nested table inside bodied extension', () => {
   });
 
   describe('resizing table when changing breakout mode', () => {
-    breakoutModes.forEach(breakout => {
+    breakoutModes.forEach((breakout) => {
       it(`should resize when changing to ${breakout.name} layout`, async () => {
         const layoutBtnSelector = `[aria-label="${breakout.label}"]`;
         await page.waitForSelector(layoutBtnSelector);

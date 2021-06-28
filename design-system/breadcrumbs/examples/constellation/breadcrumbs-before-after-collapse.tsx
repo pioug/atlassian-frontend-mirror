@@ -2,7 +2,7 @@ import React from 'react';
 
 import Breadcrumbs, { BreadcrumbsItem } from '../../src';
 
-export default function Example() {
+const BreadcrumbsBeforeAfterCollapseExample = () => {
   return (
     <div>
       <Breadcrumbs itemsBeforeCollapse={3} itemsAfterCollapse={2}>
@@ -19,4 +19,6 @@ export default function Example() {
       </Breadcrumbs>
     </div>
   );
-}
+};
+
+export default BreadcrumbsBeforeAfterCollapseExample;

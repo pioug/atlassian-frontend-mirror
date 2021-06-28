@@ -14,7 +14,7 @@ const initCollab = (
 ) => {
   collabEditProvider.initialize(
     () => view.state,
-    json => Step.fromJSON(view.state.schema, json),
+    (json) => Step.fromJSON(view.state.schema, json),
   );
 };
 

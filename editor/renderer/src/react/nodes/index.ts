@@ -51,7 +51,7 @@ const CodeBlock = Loadable({
     import(
       /* webpackChunkName: "@atlaskit-internal_renderer-node_CodeBlock" */
       './codeBlock'
-    ).then(mod => mod.default) as Promise<typeof CodeBlockComponent>,
+    ).then((mod) => mod.default) as Promise<typeof CodeBlockComponent>,
   loading: () => null,
 });
 
@@ -60,7 +60,7 @@ const TaskItem = Loadable({
     import(
       /* webpackChunkName: "@atlaskit-internal_renderer-node_TaskItem" */
       './taskItem'
-    ).then(mod => mod.default) as Promise<typeof TaskItemComponent>,
+    ).then((mod) => mod.default) as Promise<typeof TaskItemComponent>,
   loading: () => null,
 });
 
@@ -69,7 +69,7 @@ const DecisionItem = Loadable({
     import(
       /* webpackChunkName: "@atlaskit-internal_renderer-node_DecisionItem" */
       './decisionItem'
-    ).then(mod => mod.default) as Promise<typeof DecisionItemComponent>,
+    ).then((mod) => mod.default) as Promise<typeof DecisionItemComponent>,
   loading: () => null,
 });
 
@@ -78,7 +78,7 @@ const Date = Loadable({
     import(
       /* webpackChunkName: "@atlaskit-internal_renderer-node_Date" */
       './date'
-    ).then(mod => mod.default) as Promise<typeof DateComponent>,
+    ).then((mod) => mod.default) as Promise<typeof DateComponent>,
   loading: () => null,
 });
 
@@ -87,7 +87,7 @@ const Status = Loadable({
     import(
       /* webpackChunkName: "@atlaskit-internal_renderer-node_Status" */
       './status'
-    ).then(mod => mod.default) as Promise<typeof StatusComponent>,
+    ).then((mod) => mod.default) as Promise<typeof StatusComponent>,
   loading: () => null,
 });
 
@@ -96,7 +96,7 @@ const Emoji = Loadable({
     import(
       /* webpackChunkName: "@atlaskit-internal_renderer-node_Emoji" */
       './emoji'
-    ).then(mod => mod.default) as Promise<typeof EmojiComponent>,
+    ).then((mod) => mod.default) as Promise<typeof EmojiComponent>,
   loading: () => null,
 });
 
@@ -105,7 +105,7 @@ const InlineCard = Loadable({
     import(
       /* webpackChunkName: "@atlaskit-internal_renderer-node_InlineCard" */
       './inlineCard'
-    ).then(mod => mod.default) as Promise<typeof InlineCardComponent>,
+    ).then((mod) => mod.default) as Promise<typeof InlineCardComponent>,
   loading: () => null,
 });
 
@@ -114,7 +114,7 @@ const BlockCard = Loadable({
     import(
       /* webpackChunkName: "@atlaskit-internal_renderer-node_BlockCard" */
       './blockCard'
-    ).then(mod => mod.default) as Promise<typeof BlockCardComponent>,
+    ).then((mod) => mod.default) as Promise<typeof BlockCardComponent>,
   loading: () => null,
 });
 
@@ -123,7 +123,7 @@ const Media = Loadable({
     import(
       /* webpackChunkName: "@atlaskit-internal_renderer-node_Media" */
       './media'
-    ).then(mod => mod.default) as Promise<typeof MediaComponent>,
+    ).then((mod) => mod.default) as Promise<typeof MediaComponent>,
   loading: () => null,
 });
 
@@ -132,7 +132,7 @@ const MediaGroup = Loadable({
     import(
       /* webpackChunkName: "@atlaskit-internal_renderer-node_MediaGroup" */
       './mediaGroup'
-    ).then(mod => mod.default) as Promise<typeof MediaGroupComponent>,
+    ).then((mod) => mod.default) as Promise<typeof MediaGroupComponent>,
   loading: () => null,
 });
 
@@ -141,7 +141,7 @@ const Mention = Loadable({
     import(
       /* webpackChunkName: "@atlaskit-internal_renderer-node_Mention" */
       './mention'
-    ).then(mod => mod.default) as Promise<typeof MentionComponent>,
+    ).then((mod) => mod.default) as Promise<typeof MentionComponent>,
   loading: () => null,
 });
 
@@ -150,7 +150,7 @@ const Expand = Loadable({
     import(
       /* webpackChunkName: "@atlaskit-internal_renderer-node_Expand" */
       '../../ui/Expand'
-    ).then(mod => mod.default) as Promise<typeof ExpandComponent>,
+    ).then((mod) => mod.default) as Promise<typeof ExpandComponent>,
   loading: () => null,
 });
 
@@ -323,7 +323,7 @@ export const isEmojiDoc = (doc: Fragment): boolean => {
     return false;
   }
   const parentNodes: Node[] = [];
-  doc.forEach(child => parentNodes.push(child));
+  doc.forEach((child) => parentNodes.push(child));
   const node = parentNodes[0];
   return node.type.name === 'paragraph' && isEmojiBlock(node.content);
 };
@@ -334,7 +334,7 @@ const isEmojiBlock = (pnode: Fragment): boolean => {
   if (pnode.childCount > 7) {
     return false;
   }
-  pnode.forEach(child => content.push(child));
+  pnode.forEach((child) => content.push(child));
   let emojiCount = 0;
   for (let i = 0; i < content.length; ++i) {
     const node = content[i];

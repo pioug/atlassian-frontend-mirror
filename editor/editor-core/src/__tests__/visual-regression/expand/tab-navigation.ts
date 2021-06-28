@@ -21,7 +21,7 @@ describe('Expand: tab navigation', () => {
   });
 
   beforeEach(async () => {
-    await page.evaluate(data => {
+    await page.evaluate((data) => {
       // window.matchMedia('(any-hover: hover)').matches returns false on headless chrome
       // @ts-ignore
       window.matchMedia = () => ({ matches: true });

@@ -19,7 +19,7 @@ export function isShouldUpdateDep(oldVersion: string, newVersion: string) {
 }
 
 export function getLatest(packageName: string) {
-  return show(packageName, ['versions']).then(response => response.pop());
+  return show(packageName, ['versions']).then((response) => response.pop());
 }
 
 export function getDependencies(
@@ -50,7 +50,7 @@ export function postProcessDependeciesList(
 }
 
 function toDepsList(list: Array<[string, string]>) {
-  return list.map(dep => ({ name: dep[0], version: dep[1] }));
+  return list.map((dep) => ({ name: dep[0], version: dep[1] }));
 }
 
 export async function getFlatDependenciesList(
@@ -60,7 +60,7 @@ export async function getFlatDependenciesList(
 ): Promise<DependenciesList> {
   const dependencies = (
     await Promise.all(
-      packages.map(async pkg => {
+      packages.map(async (pkg) => {
         const rawDeps = await getDependencies(
           pkg.name,
           (semver as any).coerce(pkg.version),

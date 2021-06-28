@@ -2,8 +2,8 @@ import * as plugins from '../../../plugins';
 
 test('Plugins have unique EditorPlugin names', () => {
   const names = Object.keys(plugins)
-    .filter(key => key.endsWith('Plugin'))
-    .map(pluginKey => {
+    .filter((key) => key.endsWith('Plugin'))
+    .map((pluginKey) => {
       // @ts-ignore
       const p = plugins[pluginKey]({});
       return p.name;

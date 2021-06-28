@@ -89,12 +89,12 @@ const orderChildren = (
     sortedTable.unshift(headerRow);
   }
 
-  return sortedTable.map(elem => elem.rowReact);
+  return sortedTable.map((elem) => elem.rowReact);
 };
 
 const hasRowspan = (row: PMNode) => {
   let hasRowspan = false;
-  row.forEach(cell => (hasRowspan = hasRowspan || cell.attrs.rowspan > 1));
+  row.forEach((cell) => (hasRowspan = hasRowspan || cell.attrs.rowspan > 1));
   return hasRowspan;
 };
 
@@ -510,7 +510,7 @@ const TableWithWidth: React.FunctionComponent<
   {
     renderWidth?: number;
   } & Omit<React.ComponentProps<typeof TableWithShadows>, 'renderWidth'>
-> = props => (
+> = (props) => (
   <WidthConsumer>
     {({ width }) => {
       const renderWidth =

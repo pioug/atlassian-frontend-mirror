@@ -175,7 +175,7 @@ export const ensureInline = (
   content.forEach((node: PMNode) => {
     if (node.isInline) {
       const filteredMarks = node.marks.filter(
-        mark => !supportedMarks || mark.isInSet(supportedMarks),
+        (mark) => !supportedMarks || mark.isInSet(supportedMarks),
       );
       result.push(node.mark(filteredMarks));
       return;

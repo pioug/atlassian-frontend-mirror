@@ -6,7 +6,7 @@ import { default as FullPageExample } from './5-full-page';
 export default () => (
   <FullPageExample
     macroProvider={undefined}
-    extensionProviders={editorActions => [
+    extensionProviders={(editorActions) => [
       getExampleExtensionProviders(editorActions),
     ]}
     allowExtension={{

@@ -135,7 +135,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
             const provider = createProvider([]);
 
             // never resolves the manifest
-            provider.getExtension = () => new Promise(resolve => {});
+            provider.getExtension = () => new Promise((resolve) => {});
 
             const wrapper = await mount(
               <IntlProvider locale="en">
@@ -1419,7 +1419,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
         }
 
         const getAllExistingVisibleFieldNames = (wrapper: Wrapper) => {
-          return wrapper.find('Field').map(node => node.prop('name'));
+          return wrapper.find('Field').map((node) => node.prop('name'));
         };
 
         describe('All', () => {
@@ -1771,7 +1771,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
             });
 
             const removeFields = (fieldNames: string[]) => {
-              fieldNames.forEach(fieldName => {
+              fieldNames.forEach((fieldName) => {
                 const fieldElement = wrapper
                   .find('RemovableField')
                   .find(`[testId="remove-field-${fieldName}"]`)

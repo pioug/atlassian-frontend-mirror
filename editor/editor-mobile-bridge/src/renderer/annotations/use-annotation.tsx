@@ -107,7 +107,7 @@ const useAnnotationProvider = (
             },
           ]);
 
-          return annotationIds.map(id => {
+          return annotationIds.map((id) => {
             return {
               id,
               annotationType: AnnotationTypes.INLINE_COMMENT,

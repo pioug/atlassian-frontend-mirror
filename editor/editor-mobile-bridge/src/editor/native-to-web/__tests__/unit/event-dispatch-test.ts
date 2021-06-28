@@ -15,7 +15,7 @@ describe('event dispatcher', () => {
     eventEmitter = new BridgeEventEmitter();
   });
 
-  it('should emit a single event', done => {
+  it('should emit a single event', (done) => {
     eventEmitter.on(eventType, (payload: allowListPayloadType) => {
       expect(payload).toBe(testData);
       done();
@@ -24,7 +24,7 @@ describe('event dispatcher', () => {
     eventEmitter.emit(eventType, testData);
   });
 
-  it('emits multiple calls to event ', done => {
+  it('emits multiple calls to event ', (done) => {
     const callBack = sinon.spy(completed);
     eventEmitter.on(eventType, callBack);
     eventEmitter.emit(eventType, testData);

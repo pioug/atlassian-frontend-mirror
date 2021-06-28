@@ -5,7 +5,7 @@ import { N500 } from '@atlaskit/theme/colors';
 
 import Flag from '../../src';
 
-export default function FlagInfo() {
+const FlagInfoExample = () => {
   return (
     <Flag
       appearance="info"
@@ -17,4 +17,6 @@ export default function FlagInfo() {
       actions={[{ content: 'Dismiss', onClick: () => {} }]}
     />
   );
-}
+};
+
+export default FlagInfoExample;

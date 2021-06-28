@@ -285,7 +285,7 @@ describe('Media plugin', () => {
       });
 
       it('should be true when an inserted file is ready', async () => {
-        mediaPluginState.insertFile(foo, listener => {
+        mediaPluginState.insertFile(foo, (listener) => {
           listener({ status: 'ready', id: 'dummy-id' });
         });
 
@@ -316,7 +316,7 @@ describe('Media plugin', () => {
         });
 
         it('should invoke it with allUploadsFinished true when an inserted image is ready', async () => {
-          mediaPluginState.insertFile(foo, listener => {
+          mediaPluginState.insertFile(foo, (listener) => {
             listener({ status: 'ready', id: 'dummy-id' });
           });
 
@@ -590,7 +590,7 @@ describe('Media plugin', () => {
     await pluginState.setMediaProvider(mediaProvider1);
     await mediaProvider1;
 
-    pluginState.pickers.forEach(picker => {
+    pluginState.pickers.forEach((picker) => {
       picker.setUploadParams = jest.fn();
     });
 
@@ -598,7 +598,7 @@ describe('Media plugin', () => {
     await pluginState.setMediaProvider(mediaProvider2);
     await mediaProvider2;
 
-    pluginState.pickers.forEach(picker => {
+    pluginState.pickers.forEach((picker) => {
       expect(picker.setUploadParams as any).toHaveBeenCalledTimes(1);
     });
   });
@@ -1084,7 +1084,7 @@ describe('Media plugin', () => {
               expectedFromRef: '<',
               expectedToRef: '>',
             },
-          ].forEach(testCase => {
+          ].forEach((testCase) => {
             it(testCase.name, () => {
               const editorInstance = editor(testCase.doc);
               const { onClickHandler } = setupWrapper(editorInstance);
@@ -1470,7 +1470,7 @@ describe('Media plugin', () => {
 
     describe('#alignAttributes', () => {
       describe('with <100% image', () => {
-        wrappedLayouts.forEach(newAlignment => {
+        wrappedLayouts.forEach((newAlignment) => {
           it(`should maintain width on ${newAlignment}`, () => {
             const centerNode: MediaSingleAttributes = {
               width: 70,
@@ -1512,7 +1512,7 @@ describe('Media plugin', () => {
           });
         });
 
-        wrappedLayouts.forEach(newAlignment => {
+        wrappedLayouts.forEach((newAlignment) => {
           it(`should resize to half width for ${newAlignment}`, () => {
             const centerNode: MediaSingleAttributes = {
               width: 100,
@@ -1534,9 +1534,9 @@ describe('Media plugin', () => {
         });
       });
 
-      nonCenterNonWrappedLayouts.forEach(oldAlignment => {
+      nonCenterNonWrappedLayouts.forEach((oldAlignment) => {
         describe(`with ${oldAlignment} and 70% width`, () => {
-          wrappedLayouts.forEach(newAlignment => {
+          wrappedLayouts.forEach((newAlignment) => {
             it(`should resize to 50 for ${newAlignment}`, () => {
               const centerNode: MediaSingleAttributes = {
                 width: 70,
@@ -1560,7 +1560,7 @@ describe('Media plugin', () => {
       });
 
       describe('with unresized image', () => {
-        wrappedLayouts.forEach(newAlignment => {
+        wrappedLayouts.forEach((newAlignment) => {
           it(`should resize to half width for ${newAlignment}`, () => {
             const centerNode: MediaSingleAttributes = { layout: 'center' };
             expect(
@@ -1579,7 +1579,7 @@ describe('Media plugin', () => {
         });
       });
 
-      nonCenterNonWrappedLayouts.forEach(oldAlignment => {
+      nonCenterNonWrappedLayouts.forEach((oldAlignment) => {
         it(`should drop width for center from ${oldAlignment}`, () => {
           const centerNode: MediaSingleAttributes = {
             layout: oldAlignment,
@@ -1600,7 +1600,7 @@ describe('Media plugin', () => {
       });
 
       describe('with small image', () => {
-        wrappedLayouts.forEach(newAlignment => {
+        wrappedLayouts.forEach((newAlignment) => {
           it(`should not add 50% width when alignment changed to ${newAlignment}`, () => {
             const centerNode: MediaSingleAttributes = { layout: 'center' };
             expect(
@@ -1638,7 +1638,7 @@ describe('Media plugin', () => {
           });
         });
 
-        wrappedLayouts.forEach(newAlignment => {
+        wrappedLayouts.forEach((newAlignment) => {
           it(`should maintain width on ${newAlignment}`, () => {
             const centerNode: MediaSingleAttributes = {
               layout: 'center',

@@ -9,7 +9,7 @@ export function reduce<T = any>(
   let result = initial;
 
   traverse(adf, {
-    any: node => {
+    any: (node) => {
       result = callback(result, node);
     },
   });

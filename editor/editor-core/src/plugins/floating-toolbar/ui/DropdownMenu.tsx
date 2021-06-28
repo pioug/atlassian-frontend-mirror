@@ -57,7 +57,7 @@ export default class Dropdown extends Component<Props> {
       <ThemeProvider theme={{ [itemThemeNamespace]: editorItemTheme }}>
         <MenuContainer>
           {items
-            .filter(item => !item.hidden)
+            .filter((item) => !item.hidden)
             .map((item, idx) => {
               const itemContent = (
                 <Item

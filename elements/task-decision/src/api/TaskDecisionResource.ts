@@ -96,7 +96,7 @@ export class RecentUpdates {
       if (idsToFilter) {
         this.idsByContainer.set(
           objectAri,
-          idsToFilter.filter(id => id !== unsubscribeId),
+          idsToFilter.filter((id) => id !== unsubscribeId),
         );
       }
     }
@@ -106,7 +106,7 @@ export class RecentUpdates {
     const { objectAri } = recentUpdateContext;
     const subscriberIds = this.idsByContainer.get(objectAri);
     if (subscriberIds) {
-      subscriberIds.forEach(subscriberId => {
+      subscriberIds.forEach((subscriberId) => {
         const listenerDetail = this.listenersById.get(subscriberId);
         if (listenerDetail) {
           const { listener } = listenerDetail;
@@ -160,7 +160,7 @@ export class ItemStateManager {
       clearTimeout(this.debouncedTaskStateQuery);
     }
 
-    this.debouncedTaskToggle.forEach(timeout => {
+    this.debouncedTaskToggle.forEach((timeout) => {
       clearTimeout(timeout);
     });
 
@@ -207,7 +207,7 @@ export class ItemStateManager {
           utils
             .requestService<ServiceTask>(this.serviceConfig, options)
             .then(convertServiceTaskToTask)
-            .then(task => {
+            .then((task) => {
               this.updateCache(task);
               resolve(state);
               // Notify subscribers that the task have been updated so that they can re-render accordingly
@@ -269,7 +269,7 @@ export class ItemStateManager {
       return;
     }
 
-    const index = findIndex(handlers, h => h === handler);
+    const index = findIndex(handlers, (h) => h === handler);
 
     if (index !== -1) {
       handlers.splice(index, 1);
@@ -310,7 +310,7 @@ export class ItemStateManager {
       return;
     }
 
-    handlers.forEach(handler => {
+    handlers.forEach((handler) => {
       handler(state);
     });
   }
@@ -398,8 +398,8 @@ export class ItemStateManager {
     }
 
     this.debouncedTaskStateQuery = window.setTimeout(() => {
-      this.getTaskState(Array.from(this.batchedKeys.values())).then(tasks => {
-        tasks.forEach(task => {
+      this.getTaskState(Array.from(this.batchedKeys.values())).then((tasks) => {
+        tasks.forEach((task) => {
           const { objectAri, localId } = task;
           const objectKey = { objectAri, localId };
           this.updateCache(convertServiceTaskStateToBaseItem(task));

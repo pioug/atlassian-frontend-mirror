@@ -134,7 +134,7 @@ describe('renderer bridge: links', () => {
   } as unknown) as InjectedIntl;
   const rendererBridge = new RendererBridgeImplementation();
   beforeEach(() => {
-    jest.spyOn(window, 'requestAnimationFrame').mockImplementation(cb => {
+    jest.spyOn(window, 'requestAnimationFrame').mockImplementation((cb) => {
       cb(1);
       return 1;
     });
@@ -162,7 +162,7 @@ describe('renderer bridge: links', () => {
     mobileRenderer.unmount();
   });
 
-  it('should prevent WebView redirection when clicking smart links', async done => {
+  it('should prevent WebView redirection when clicking smart links', async (done) => {
     const mobileRenderer = mount(
       <MobileRenderer
         document={smartLinkADF}
@@ -176,7 +176,7 @@ describe('renderer bridge: links', () => {
     );
 
     // Wait 100ms for the smart link provider to resolve the url's data and re-render
-    await new Promise(resolve => {
+    await new Promise((resolve) => {
       setTimeout(() => {
         mobileRenderer.update();
         resolve();

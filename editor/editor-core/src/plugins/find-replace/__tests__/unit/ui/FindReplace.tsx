@@ -57,7 +57,7 @@ describe('FindReplace', () => {
       .value;
     wrapper.simulate('compositionstart');
 
-    steps.forEach(step => {
+    steps.forEach((step) => {
       wrapper.simulate('compositionupdate', { data: currentText + step });
       wrapper.simulate('change', { target: { value: currentText + step } });
     });

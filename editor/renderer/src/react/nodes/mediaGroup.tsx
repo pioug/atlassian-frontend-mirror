@@ -119,11 +119,11 @@ export default class MediaGroup extends PureComponent<
   renderStrip() {
     const { children } = this.props;
     const { animate, offset } = this.state;
-    const surroundingItems = React.Children.map(children, child =>
+    const surroundingItems = React.Children.map(children, (child) =>
       this.mapMediaPropsToIdentifier(
         (child as React.ReactElement<MediaProps>).props,
       ),
-    ).filter(identifier => !!identifier);
+    ).filter((identifier) => !!identifier);
 
     return (
       <FilmstripView
@@ -132,7 +132,7 @@ export default class MediaGroup extends PureComponent<
         onSize={this.handleSize}
         onScroll={this.handleScroll}
       >
-        {React.Children.map(children, rawChild => {
+        {React.Children.map(children, (rawChild) => {
           const child = rawChild as React.ReactElement<MediaProps>;
           switch (child.props.type) {
             case 'file':

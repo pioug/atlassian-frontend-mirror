@@ -271,7 +271,7 @@ export const createToggleBlockMarkOnRange = <T = object>(
           : allowedBlocks(state.schema, node, parent))) &&
       parent.type.allowsMarkType(markType)
     ) {
-      const oldMarks = node.marks.filter(mark => mark.type === markType);
+      const oldMarks = node.marks.filter((mark) => mark.type === markType);
 
       const prevAttrs = oldMarks.length ? (oldMarks[0].attrs as T) : undefined;
       const newAttrs = getAttrs(prevAttrs, node);
@@ -282,7 +282,7 @@ export const createToggleBlockMarkOnRange = <T = object>(
           node.type,
           node.attrs,
           node.marks
-            .filter(mark => !markType.excludes(mark.type))
+            .filter((mark) => !markType.excludes(mark.type))
             .concat(newAttrs === false ? [] : markType.create(newAttrs)),
         );
         markApplied = true;

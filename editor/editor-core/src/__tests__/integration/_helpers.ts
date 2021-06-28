@@ -429,7 +429,7 @@ export const toggleBreakout = async (page: any, times: number) => {
     messages.layoutWide.defaultMessage,
     messages.layoutFullWidth.defaultMessage,
   ]
-    .map(label => `[aria-label="${label}"]`)
+    .map((label) => `[aria-label="${label}"]`)
     .join();
 
   for (let _iter of timesArray) {

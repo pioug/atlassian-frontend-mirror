@@ -230,7 +230,7 @@ export const editExtension = (
   });
 
   if (updateExtension) {
-    updateExtension.then(updateMethod => {
+    updateExtension.then((updateMethod) => {
       if (updateMethod && view) {
         const actions = createExtensionAPI({
           editorView: view,

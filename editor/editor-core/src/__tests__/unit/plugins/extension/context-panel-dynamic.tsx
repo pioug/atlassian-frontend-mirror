@@ -134,7 +134,7 @@ const changeChartType = async (configForm: ReactWrapper, chartType: string) => {
     .find('RadioGroup')
     .find('Consumer')
     .findWhere(
-      c =>
+      (c) =>
         c.name() === 'input' &&
         c.prop('type') === 'radio' &&
         c.prop('value') === chartType,
@@ -161,7 +161,7 @@ describe('Dynamic ConfigPanelFieldsLoader', () => {
       // "ReactWrapper::setProps() can only be called on the root" issue
       // https://github.com/enzymejs/enzyme/issues/1925#issuecomment-463248558
       React.createElement(
-        props => (
+        (props) => (
           <IntlProvider locale="en">
             <ConfigPanelFieldsLoader
               extensionProvider={extensionProvider}

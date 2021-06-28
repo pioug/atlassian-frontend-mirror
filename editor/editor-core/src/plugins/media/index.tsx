@@ -60,7 +60,7 @@ const mediaPlugin = (options?: MediaOptions): EditorPlugin => ({
       { name: 'mediaGroup', node: mediaGroup },
       { name: 'mediaSingle', node: mediaSingleNode },
       { name: 'media', node: media },
-    ].filter(node => {
+    ].filter((node) => {
       if (node.name === 'mediaGroup') {
         return allowMediaGroup;
       }

@@ -135,7 +135,7 @@ function createMockPerformanceObserver(): [
   }
 
   return [
-    event => callback({ getEntries: () => [event] }),
+    (event) => callback({ getEntries: () => [event] }),
     MockPerformanceObserver,
   ];
 }

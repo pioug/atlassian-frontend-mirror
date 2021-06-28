@@ -50,7 +50,7 @@ export function createInputRulePlugin(
     },
 
     appendTransaction: (transactions, oldState, newState) => {
-      const transactionWithInputRuleMeta = transactions.find(tr =>
+      const transactionWithInputRuleMeta = transactions.find((tr) =>
         tr.getMeta(pluginKey),
       );
 
@@ -93,7 +93,7 @@ export function createInputRulePlugin(
         });
       },
       handleDOMEvents: {
-        compositionend: view => {
+        compositionend: (view) => {
           setTimeout(() => {
             const selection = view.state.selection;
             if (!(selection instanceof TextSelection)) {

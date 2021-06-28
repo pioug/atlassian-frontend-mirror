@@ -181,7 +181,7 @@ describe('media-single', () => {
           createMediaState(temporaryFileId),
           createMediaState(temporaryFileId + '1'),
           createMediaState(temporaryFileId + '2'),
-        ] as Array<MediaState>).forEach(state =>
+        ] as Array<MediaState>).forEach((state) =>
           insertMediaSingleNode(
             editorView,
             state,

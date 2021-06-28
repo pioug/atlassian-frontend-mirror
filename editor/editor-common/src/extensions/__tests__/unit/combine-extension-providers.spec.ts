@@ -144,7 +144,7 @@ describe('combine-extension-providers', () => {
       'http://awesome-foo/test',
       'http://awesome-bar/bear',
       'http://amazing-baz/app',
-    ].forEach(url => {
+    ].forEach((url) => {
       const result = autoConvertRunner(url);
       expect(result).toMatchObject({
         type: 'extension',

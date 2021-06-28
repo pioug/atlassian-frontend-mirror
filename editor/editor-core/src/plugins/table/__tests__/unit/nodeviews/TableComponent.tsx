@@ -88,7 +88,7 @@ describe('table -> nodeviews -> TableComponent.tsx', () => {
       toggleNumberColumn(state, dispatch);
       requestAnimationFrame.step();
 
-      editorView.state.doc.nodesBetween(3, 14, node => {
+      editorView.state.doc.nodesBetween(3, 14, (node) => {
         if (node.type === tableCell) {
           columnWidths.push(node.attrs.colwidth);
         }

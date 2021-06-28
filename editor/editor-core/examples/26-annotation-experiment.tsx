@@ -72,7 +72,7 @@ export default class ExampleAnnotationExperiment extends React.Component<
 
   inlineCommentGetState = async (annotationsIds: string[]) => {
     const { annotationStates } = this.state;
-    return annotationsIds.map(id => ({
+    return annotationsIds.map((id) => ({
       id,
       annotationType: AnnotationTypes.INLINE_COMMENT,
       state: { resolved: annotationStates.get(id) || false },

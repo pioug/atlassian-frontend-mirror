@@ -31,7 +31,7 @@ const unsupportedInlineWithContents: any = {
 
 const marks: string[] = ['indentation'];
 
-const validateMock: jest.MockedFunction<Validate> = jest.fn(x => ({
+const validateMock: jest.MockedFunction<Validate> = jest.fn((x) => ({
   valid: true,
   entity: x,
 }));

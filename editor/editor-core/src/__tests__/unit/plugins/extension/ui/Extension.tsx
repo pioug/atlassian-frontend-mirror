@@ -43,7 +43,7 @@ describe('@atlaskit/editor-core/ui/Extension', () => {
     const GalleryComponent = () => <div>Gallery Extension</div>;
 
     const extensionHandlers: ExtensionHandlers = {
-      'com.atlassian.confluence.macro.core': ext => {
+      'com.atlassian.confluence.macro.core': (ext) => {
         if (ext.extensionKey === 'gallery') {
           return <GalleryComponent />;
         }
@@ -85,7 +85,7 @@ describe('@atlaskit/editor-core/ui/Extension', () => {
       throw new Error('invalid extension');
     };
     const extensionHandlers: ExtensionHandlers = {
-      'com.atlassian.confluence.macro.core': ext => {
+      'com.atlassian.confluence.macro.core': (ext) => {
         if (ext.extensionKey === 'gallery') {
           expect(invalidExtensions).toThrow('invalid extension');
         }
@@ -129,7 +129,7 @@ describe('@atlaskit/editor-core/ui/Extension', () => {
     );
 
     const extensionHandlers: ExtensionHandlers = {
-      'com.atlassian.editor': ext => {
+      'com.atlassian.editor': (ext) => {
         if (ext.extensionKey === 'example-inline') {
           return <InlineCompontent node={ext} />;
         }
@@ -181,7 +181,7 @@ describe('@atlaskit/editor-core/ui/Extension', () => {
     );
 
     const extensionHandlers: ExtensionHandlers = {
-      'com.atlassian.editor': ext => {
+      'com.atlassian.editor': (ext) => {
         if (ext.extensionKey === 'example-extension') {
           return <ExtensionCompontent node={ext} />;
         }
@@ -292,7 +292,7 @@ describe('@atlaskit/editor-core/ui/Extension', () => {
       }) => <div>Extension handler: {node.content}</div>;
 
       const extensionHandlers: ExtensionHandlers = {
-        'fake.confluence': ext => {
+        'fake.confluence': (ext) => {
           if (ext.extensionKey === 'expand') {
             return <ExtensionCompontent node={ext} />;
           }

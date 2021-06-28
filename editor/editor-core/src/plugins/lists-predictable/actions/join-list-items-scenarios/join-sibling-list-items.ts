@@ -55,7 +55,7 @@ export const joinSiblingListItems: DeleteAction = ({ tr, $next, $head }) => {
 
   insertContentDeleteRange(
     tr,
-    tr => tr.doc.resolve(textInsertPos),
+    (tr) => tr.doc.resolve(textInsertPos),
     [
       [textContent, textInsertPos],
       [childrenGContent, childrenGInsertPos],

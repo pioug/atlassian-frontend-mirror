@@ -1,8 +1,8 @@
-import React, { FC, useState } from 'react';
+import React, { useState } from 'react';
 
 import { Status } from '../../src';
 
-const AvatarStatusWidthExample: FC = () => {
+const AvatarStatusWidthExample = () => {
   const [width, setWidth] = useState(60);
 
   return (

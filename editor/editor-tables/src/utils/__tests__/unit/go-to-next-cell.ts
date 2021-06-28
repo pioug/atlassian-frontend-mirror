@@ -30,7 +30,7 @@ function testCommandSelection(
   let state = EditorState.create({ doc, selection: selectionFor(doc) });
 
   const newSelection = selection || state.selection;
-  command(state, tr => (state = state.apply(tr)));
+  command(state, (tr) => (state = state.apply(tr)));
 
   expect(state.selection.eq(newSelection)).toBeTruthy();
 }

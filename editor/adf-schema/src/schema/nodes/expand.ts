@@ -91,7 +91,7 @@ export const expand: NodeSpec = {
 
 export const toJSON = (node: PMNode) => ({
   attrs: Object.keys(node.attrs)
-    .filter(key => !key.startsWith('__'))
+    .filter((key) => !key.startsWith('__'))
     .reduce<typeof node.attrs>((obj, key) => {
       obj[key] = node.attrs[key];
       return obj;

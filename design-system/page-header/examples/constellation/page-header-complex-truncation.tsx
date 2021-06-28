@@ -36,13 +36,17 @@ const barContent = (
   </div>
 );
 
-export default () => (
-  <PageHeader
-    breadcrumbs={breadcrumbs}
-    actions={actionsContent}
-    bottomBar={barContent}
-    truncateTitle
-  >
-    Title describing what page content to expect
-  </PageHeader>
-);
+const PageHeaderComplexTruncationExample = () => {
+  return (
+    <PageHeader
+      breadcrumbs={breadcrumbs}
+      actions={actionsContent}
+      bottomBar={barContent}
+      truncateTitle
+    >
+      Title describing what page content to expect
+    </PageHeader>
+  );
+};
+
+export default PageHeaderComplexTruncationExample;

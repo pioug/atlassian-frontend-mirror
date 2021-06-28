@@ -16,11 +16,11 @@ export const getPluginStateWithUpdatedPos = (
   tr: Transaction,
 ) => ({
   ...pluginState,
-  requests: pluginState.requests.map(request => ({
+  requests: pluginState.requests.map((request) => ({
     ...request,
     pos: tr.mapping.map(request.pos),
   })),
-  cards: pluginState.cards.map(card => ({
+  cards: pluginState.cards.map((card) => ({
     ...card,
     pos: tr.mapping.map(card.pos),
   })),
@@ -32,7 +32,7 @@ export const getNewRequests = (
 ) => {
   if (oldState) {
     return currentState.requests.filter(
-      req => !oldState.requests.find(oldReq => isSameRequest(oldReq, req)),
+      (req) => !oldState.requests.find((oldReq) => isSameRequest(oldReq, req)),
     );
   }
   return currentState.requests;

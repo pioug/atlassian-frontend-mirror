@@ -20,7 +20,7 @@ const createCustomFieldResolver = (items: Option[], lazyItems?: Option[]) => (
         return items;
       }
       return items.filter(
-        item =>
+        (item) =>
           item.label.search(new RegExp(term, 'i')) !== -1 ||
           item.value.search(new RegExp(term, 'i')) !== -1,
       );

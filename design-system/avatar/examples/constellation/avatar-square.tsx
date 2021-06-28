@@ -2,7 +2,7 @@ import React from 'react';
 
 import Avatar from '../../src';
 
-export default function AvatarSquareExample() {
+const AvatarSquareExample = () => {
   return (
     <Avatar
       appearance="square"
@@ -11,4 +11,6 @@ export default function AvatarSquareExample() {
       name="Rocket image"
     />
   );
-}
+};
+
+export default AvatarSquareExample;

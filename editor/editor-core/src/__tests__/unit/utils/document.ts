@@ -80,7 +80,7 @@ describe(name, () => {
         hardBreak(),
       ];
 
-      nodesWithVisibleContent.forEach(nodeBuilder => {
+      nodesWithVisibleContent.forEach((nodeBuilder) => {
         const node = nodeBuilder(schema);
         it(`should return true for none empty node: ${JSON.stringify(
           node.toJSON(),
@@ -89,7 +89,7 @@ describe(name, () => {
         });
       });
 
-      nodesWithoutVisibleContent.forEach(nodeBuilder => {
+      nodesWithoutVisibleContent.forEach((nodeBuilder) => {
         const node = nodeBuilder(schema);
         it(`should return false for empty node: ${JSON.stringify(
           node.toJSON(),

@@ -96,7 +96,7 @@ describe('table toolbar', () => {
       expect(tableElement.getAttribute('data-layout')).toBe('full-width');
     });
 
-    ['default', 'wide', 'full-width'].forEach(currentLayout => {
+    ['default', 'wide', 'full-width'].forEach((currentLayout) => {
       describe(`#toggleTableLayout`, () => {
         it('should toggle table layout attribute', () => {
           const { editorView } = editor(
@@ -140,7 +140,7 @@ describe('table toolbar', () => {
   });
 
   describe('#isLayoutSupported', () => {
-    (['default', 'wide', 'full-width'] as TableLayout[]).forEach(layout => {
+    (['default', 'wide', 'full-width'] as TableLayout[]).forEach((layout) => {
       describe(`when called with "${layout}"`, () => {
         it('returns true if permittedLayouts="all"', () => {
           const { editorView } = editor(

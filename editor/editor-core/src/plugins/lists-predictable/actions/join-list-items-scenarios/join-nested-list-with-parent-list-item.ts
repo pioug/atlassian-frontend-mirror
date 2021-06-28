@@ -86,7 +86,7 @@ export const joinNestedListWithParentListItem: DeleteAction = ({
 
   insertContentDeleteRange(
     tr,
-    tr => tr.doc.resolve(textInsertPos),
+    (tr) => tr.doc.resolve(textInsertPos),
     containsChildrenJ
       ? [
           [textContent, textInsertPos],

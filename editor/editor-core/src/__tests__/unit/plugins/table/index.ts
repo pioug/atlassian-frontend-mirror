@@ -398,7 +398,7 @@ describe('table plugin', () => {
 
   describe('selectColumn(number)', () => {
     describe('when table has 3 columns', () => {
-      [0, 1, 2].forEach(column => {
+      [0, 1, 2].forEach((column) => {
         describe(`when called with ${column}`, () => {
           it(`it should select ${column} column`, () => {
             const { editorView } = editor(
@@ -424,7 +424,7 @@ describe('table plugin', () => {
 
   describe('selectRow(number)', () => {
     describe('when table has 3 rows', () => {
-      [0, 1, 2].forEach(row => {
+      [0, 1, 2].forEach((row) => {
         describe(`when called with ${row}`, () => {
           it(`it should select ${row} row`, () => {
             const { editorView } = editor(

@@ -12,7 +12,7 @@ export default class TextSerializer implements Serializer<string> {
   serializeFragment(fragment: Fragment): string {
     const result: string[] = [];
 
-    fragment.forEach(n => {
+    fragment.forEach((n) => {
       result.push(reduce(n, this.schema));
     });
 

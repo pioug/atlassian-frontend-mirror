@@ -506,8 +506,8 @@ describe('annotation', () => {
       commands.createAnnotation(id)(editorView.state, editorView.dispatch);
 
       let inlineCommentTransactionCalls = 0;
-      dispatchSpy.mock.calls.forEach(call => {
-        call.forEach(tr => {
+      dispatchSpy.mock.calls.forEach((call) => {
+        call.forEach((tr) => {
           tr.getMeta(inlineCommentPluginKey) && inlineCommentTransactionCalls++;
         });
       });

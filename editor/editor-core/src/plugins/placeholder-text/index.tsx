@@ -67,7 +67,7 @@ export function createPlugin(
       },
     },
     appendTransaction(transactions, oldState, newState) {
-      if (transactions.some(txn => txn.docChanged)) {
+      if (transactions.some((txn) => txn.docChanged)) {
         const didPlaceholderExistBeforeTxn =
           oldState.selection.$head.nodeAfter ===
           newState.selection.$head.nodeAfter;

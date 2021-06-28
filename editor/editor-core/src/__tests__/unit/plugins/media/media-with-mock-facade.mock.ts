@@ -2,7 +2,7 @@
 export const removeOnCloseListener = jest.fn();
 export const spies = {} as any;
 
-const mockMediaPickerFacade = jest.fn(pickerType => {
+const mockMediaPickerFacade = jest.fn((pickerType) => {
   const picker: any = {
     on: jest.fn(),
     onClose: jest.fn().mockReturnValue(removeOnCloseListener),

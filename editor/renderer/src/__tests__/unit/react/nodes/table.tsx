@@ -712,7 +712,7 @@ describe('Renderer - React/Nodes/Table', () => {
           const sortPosition = wrap
             .find(TableRowWithOriginalPos)
             .map(
-              tableRowWithOriginalPos =>
+              (tableRowWithOriginalPos) =>
                 tableRowWithOriginalPos.props().originalIndex,
             );
 

@@ -18,7 +18,7 @@ export { fromHTML, toContext, toDOM, toHTML } from './html-helpers';
 
 export const textWithMarks = (obj: PMNode, text: string, marks: Mark[]) => {
   let matched = false;
-  obj.descendants(node => {
+  obj.descendants((node) => {
     if (node.isText && node.text === text) {
       if (Mark.sameSet(node.marks, marks)) {
         matched = true;

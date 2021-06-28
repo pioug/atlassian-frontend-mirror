@@ -84,7 +84,7 @@ class AlignmentToolbar extends React.Component<
           }
         >
           <Alignment
-            onClick={align => this.changeAlignment(align)}
+            onClick={(align) => this.changeAlignment(align)}
             selectedAlignment={pluginState.align}
           />
         </Dropdown>

@@ -553,11 +553,11 @@ describe('annotation', () => {
       const slice = new Slice(Fragment.from(testNode), 0, 0);
       const annotationNode = slice.content.firstChild!.firstChild!;
       expect(
-        annotationNode.marks.some(mark => mark.type.name === 'annotation'),
+        annotationNode.marks.some((mark) => mark.type.name === 'annotation'),
       ).toBe(true);
       stripNonExistingAnnotations(slice, state);
       expect(
-        annotationNode.marks.some(mark => mark.type.name === 'annotation'),
+        annotationNode.marks.some((mark) => mark.type.name === 'annotation'),
       ).toBe(expected);
     }
 

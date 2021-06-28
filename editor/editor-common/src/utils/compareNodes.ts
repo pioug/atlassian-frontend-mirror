@@ -37,7 +37,7 @@ type NodeMeta =
   | NodeMetaGenerator<ContentType.LINK, string>;
 
 function getLinkMark(node: PMNode): Mark | null {
-  const [linkMark] = node.marks.filter(mark => mark.type.name === 'link');
+  const [linkMark] = node.marks.filter((mark) => mark.type.name === 'link');
   return linkMark || null;
 }
 

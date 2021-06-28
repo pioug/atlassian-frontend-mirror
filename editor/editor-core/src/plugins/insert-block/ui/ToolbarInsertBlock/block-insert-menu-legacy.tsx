@@ -19,7 +19,9 @@ export interface BlockInsertMenuLegacyProps {
   onOpenChange(attrs: any): void;
 }
 
-export const BlockInsertMenuLegacy: React.FC<BlockInsertMenuLegacyProps> = props => {
+export const BlockInsertMenuLegacy: React.FC<BlockInsertMenuLegacyProps> = (
+  props,
+) => {
   const { items } = props;
   const dropdownItems = React.useMemo(() => [{ items }], [items]);
 

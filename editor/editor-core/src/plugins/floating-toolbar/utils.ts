@@ -56,7 +56,7 @@ export function findNode(
 ): Node | undefined {
   let matchedNode: Node | undefined;
 
-  parent.descendants(node => {
+  parent.descendants((node) => {
     // dont run predicate if node already found
     if (matchedNode) {
       return false;

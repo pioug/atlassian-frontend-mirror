@@ -82,7 +82,7 @@ export const applyRemoteSteps = (
     state: { schema },
   } = view;
 
-  const steps = json.map(step => Step.fromJSON(schema, step));
+  const steps = json.map((step) => Step.fromJSON(schema, step));
 
   let tr: Transaction;
 
@@ -90,7 +90,7 @@ export const applyRemoteSteps = (
     tr = receiveTransaction(state, steps, userIds);
   } else {
     tr = state.tr;
-    steps.forEach(step => tr.step(step));
+    steps.forEach((step) => tr.step(step));
   }
 
   if (tr) {

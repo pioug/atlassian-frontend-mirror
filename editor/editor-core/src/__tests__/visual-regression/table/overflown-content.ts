@@ -17,7 +17,7 @@ describe('Overflown content', () => {
     page = global.page;
   });
 
-  describe.each(THEME_MODES)('Theme: %s', theme => {
+  describe.each(THEME_MODES)('Theme: %s', (theme) => {
     describe('when content is wider than a cell', () => {
       beforeEach(async () => {
         await initFullPageEditorWithAdf(

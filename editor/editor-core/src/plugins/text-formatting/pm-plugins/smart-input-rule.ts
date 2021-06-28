@@ -57,7 +57,7 @@ function createReplacementRules(
     replacement: string,
   ) => (rule: InputRuleWrapper) => InputRuleWrapper,
 ): Array<InputRuleWrapper> {
-  return Object.keys(replMap).map(replacement => {
+  return Object.keys(replMap).map((replacement) => {
     const regex = replMap[replacement];
     const rule = createReplacementRule(replacement, regex);
 
@@ -198,7 +198,7 @@ function getPunctuationRules() {
   return [
     ...dashEllipsisRules,
     ...doubleQuoteRules,
-    ...singleQuoteRules.map(rule =>
+    ...singleQuoteRules.map((rule) =>
       punctuationRuleWithAnalytics(PUNC.QUOTE_SINGLE)(rule),
     ),
   ];

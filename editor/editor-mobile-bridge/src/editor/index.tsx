@@ -22,7 +22,7 @@ interface AppProps {
   defaultValue?: Node | string | Object;
 }
 
-export const App: React.FC<AppProps> = props => {
+export const App: React.FC<AppProps> = (props) => {
   const isIOS = !!window.webkit;
   if (isIOS) {
     return (
@@ -34,7 +34,7 @@ export const App: React.FC<AppProps> = props => {
   return <Editor defaultValue={props.defaultValue}></Editor>;
 };
 
-const Editor: React.FC<AppProps> = props => {
+const Editor: React.FC<AppProps> = (props) => {
   const fetchProxy = useFetchProxy();
   const bridge = getBridge();
   const editorConfiguration = useEditorConfiguration(bridge);

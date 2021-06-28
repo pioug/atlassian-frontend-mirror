@@ -44,7 +44,7 @@ export interface FullPageToolbarProps {
 }
 
 export const FullPageToolbar: React.FunctionComponent<FullPageToolbarProps> = React.memo(
-  props => {
+  (props) => {
     return (
       <ContextPanelConsumer>
         {({ width: contextPanelWidth }) => (

@@ -72,7 +72,7 @@ const Main = styled.main`
 const useAnnotationsProvider = (setDocument: (doc: any) => void) => {
   const { dispatch } = React.useContext(annotationsStore);
   const createNewAnnotationAndReplaceDocument = React.useCallback(
-    doc => {
+    (doc) => {
       setDocument(doc);
     },
     [setDocument],
@@ -81,7 +81,7 @@ const useAnnotationsProvider = (setDocument: (doc: any) => void) => {
   const annotationInlineCommentProvider = React.useMemo(
     () => ({
       getState: async (annotationIds: AnnotationId[]) => {
-        return annotationIds.map(id => {
+        return annotationIds.map((id) => {
           dispatch({ type: 'add', id });
 
           return {

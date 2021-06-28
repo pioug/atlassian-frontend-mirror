@@ -444,16 +444,16 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
       marks: { link },
     } = node.type.schema;
     const blockNodeNames = [expand, nestedExpand, layoutColumn]
-      .filter(node => Boolean(node)) // Check if the node exist first
-      .map(node => node.name);
+      .filter((node) => Boolean(node)) // Check if the node exist first
+      .map((node) => node.name);
     const isInsideOfBlockNode =
       path &&
-      path.some(n => n.type && blockNodeNames.indexOf(n.type.name) > -1);
+      path.some((n) => n.type && blockNodeNames.indexOf(n.type.name) > -1);
     const isLinkMark = (mark: Mark) => mark.type === link;
     const childHasLink =
       node.firstChild &&
       node.firstChild.marks.filter(
-        m => isLinkMark(m) || this.allowMediaLinking === true,
+        (m) => isLinkMark(m) || this.allowMediaLinking === true,
       ).length;
 
     return {
@@ -474,7 +474,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
     return {
       ...this.getProps(node),
       marks: node.marks.filter(
-        m => !isLinkMark(m) || this.allowMediaLinking === true,
+        (m) => !isLinkMark(m) || this.allowMediaLinking === true,
       ),
       isLinkMark,
       allowAltTextOnImages: this.allowAltTextOnImages,
@@ -488,11 +488,11 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
       nodes: { expand, nestedExpand, layoutColumn },
     } = node.type.schema;
     const blockNodeNames = [expand, nestedExpand, layoutColumn]
-      .filter(node => Boolean(node)) // Check if the node exist first
-      .map(node => node.name);
+      .filter((node) => Boolean(node)) // Check if the node exist first
+      .map((node) => node.name);
     const isInsideOfBlockNode =
       path &&
-      path.some(n => n.type && blockNodeNames.indexOf(n.type.name) > -1);
+      path.some((n) => n.type && blockNodeNames.indexOf(n.type.name) > -1);
     return {
       ...this.getProps(node),
       isInsideOfBlockNode,
@@ -722,7 +722,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 
   static getChildNodes(fragment: Fragment): (Node | TextWrapper)[] {
     const children: Node[] = [];
-    fragment.forEach(node => {
+    fragment.forEach((node) => {
       children.push(node);
     });
     return mergeTextNodes(children) as Node[];
@@ -738,7 +738,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 
   static buildMarkStructure(content: Node[]) {
     return mergeMarks(
-      content.map(node => {
+      content.map((node) => {
         const nodeMarks = this.getMarks(node);
         if (nodeMarks.length === 0) {
           return node;

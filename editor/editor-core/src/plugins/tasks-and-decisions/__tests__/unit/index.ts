@@ -62,7 +62,7 @@ describe('tasks and decisions', () => {
     uuid.setStatic(false);
   });
 
-  scenarios.forEach(scenario => {
+  scenarios.forEach((scenario) => {
     describe('quick insert', () => {
       let editorView: EditorView;
       let sel: number;
@@ -104,7 +104,7 @@ describe('tasks and decisions', () => {
         { name: 'ol', list: ol },
       ];
 
-      listTypes.forEach(listType => {
+      listTypes.forEach((listType) => {
         const list = listType.list;
         describe(`${listType.name} with single list item`, () => {
           let editorView: EditorView;

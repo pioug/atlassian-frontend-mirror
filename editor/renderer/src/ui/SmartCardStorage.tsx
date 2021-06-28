@@ -18,7 +18,7 @@ export const withSmartCardStorage = <Props extends WithSmartCardStorageProps>(
     render() {
       return (
         <Context.Consumer>
-          {storage => (
+          {(storage) => (
             <WrappedComponent
               {...(this.props as Props)}
               smartCardStorage={storage}

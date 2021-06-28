@@ -57,7 +57,7 @@ describe('Mobile Scroll Plugin', () => {
     jest.spyOn(window, 'requestAnimationFrame').mockImplementation(rafStub.add);
 
     ({ editorView, plugin, contentComponents } = editor());
-    contentComponents.forEach(component => {
+    contentComponents.forEach((component) => {
       component({ editorView });
     });
     appendTrSpy = jest.spyOn(plugin.spec, 'appendTransaction');

@@ -79,7 +79,7 @@ export function clearFormatting(
     const { tr } = state;
     const formattingCleared: string[] = [];
 
-    FORMATTING_MARK_TYPES.forEach(mark => {
+    FORMATTING_MARK_TYPES.forEach((mark) => {
       const { from, to } = tr.selection;
       const markType = state.schema.marks[mark];
 
@@ -114,7 +114,7 @@ export function clearFormatting(
       }
     });
 
-    FORMATTING_NODE_TYPES.forEach(nodeName => {
+    FORMATTING_NODE_TYPES.forEach((nodeName) => {
       const formattedNodeType = state.schema.nodes[nodeName];
       const { $from, $to } = tr.selection;
       if (tr.selection instanceof CellSelection) {

@@ -69,7 +69,7 @@ const getCellAttrs = (dom: HTMLElement, defaultValues: CellAttributes = {}) => {
   const widthAttr = dom.getAttribute('data-colwidth');
   const width =
     widthAttr && /^\d+(,\d+)*$/.test(widthAttr)
-      ? widthAttr.split(',').map(str => Number(str))
+      ? widthAttr.split(',').map((str) => Number(str))
       : null;
   const colspan = Number(dom.getAttribute('colspan') || 1);
   let { backgroundColor } = dom.style;
@@ -334,7 +334,7 @@ export const tableWithLocalId = createTableSpec(true);
 
 export const tableToJSON = (node: PmNode) => ({
   attrs: Object.keys(node.attrs)
-    .filter(key => !key.startsWith('__'))
+    .filter((key) => !key.startsWith('__'))
     .reduce<typeof node.attrs>((obj, key) => {
       obj[key] = node.attrs[key];
       return obj;

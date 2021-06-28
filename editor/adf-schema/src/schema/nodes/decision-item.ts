@@ -33,7 +33,7 @@ export const decisionItem: NodeSpec = {
       // also used by list-item we need to make sure that we run this parser first.
       priority: 100,
 
-      getAttrs: dom => ({
+      getAttrs: (dom) => ({
         localId: uuid.generate(),
         state: (dom as HTMLElement).getAttribute('data-decision-state')!,
       }),

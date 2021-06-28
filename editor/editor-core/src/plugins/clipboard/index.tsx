@@ -8,7 +8,7 @@ const clipboard = (): EditorPlugin => ({
     return [
       {
         name: 'clipboard',
-        plugin: options => createPlugin(options),
+        plugin: (options) => createPlugin(options),
       },
     ];
   },

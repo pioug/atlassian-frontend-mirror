@@ -188,7 +188,7 @@ describe('validate', () => {
     };
 
     const run = () => {
-      const result = validate(invalidDoc, x => {
+      const result = validate(invalidDoc, (x) => {
         expect(x).not.toBe(invalidNode);
         expect(x).toEqual(invalidNode);
         return {
@@ -228,7 +228,7 @@ describe('validate', () => {
     };
 
     const run = () => {
-      const result = validate(doc, _ => undefined);
+      const result = validate(doc, (_) => undefined);
       expect(result.entity).toMatchSnapshot();
     };
 
@@ -262,7 +262,7 @@ describe('validate', () => {
     };
 
     const run = () => {
-      const result = validate(invalidDoc, x => {
+      const result = validate(invalidDoc, (x) => {
         return {
           type: 'unknown',
           attrs: {
@@ -293,7 +293,7 @@ describe('validator', () => {
     };
 
     const run = () => {
-      const result = validate(invalidDoc, x => {
+      const result = validate(invalidDoc, (x) => {
         expect(x).not.toBe(invalidNode);
         expect(x).toEqual(invalidNode);
         return {

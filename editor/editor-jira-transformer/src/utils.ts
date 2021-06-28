@@ -55,7 +55,7 @@ export function ensureBlocks(
     blockNodes.push(schema.nodes.paragraph.createAndFill() as PMNode);
   }
 
-  fragment.forEach(child => {
+  fragment.forEach((child) => {
     if (child.isBlock) {
       blockNodes.push(child);
     } else {
@@ -77,7 +77,7 @@ export const ensureInline = (
   const result: PMNode[] = [];
   content.forEach((node: PMNode) => {
     if (node.isInline) {
-      const filteredMarks = node.marks.filter(mark =>
+      const filteredMarks = node.marks.filter((mark) =>
         mark.isInSet(supportedMarks),
       );
       result.push(node.mark(filteredMarks));
@@ -246,7 +246,7 @@ export function convert(
       case 'H5':
       case 'H6':
         const level = Number(tag.charAt(1));
-        const supportedMarks = [schema.marks.link].filter(mark => !!mark);
+        const supportedMarks = [schema.marks.link].filter((mark) => !!mark);
         return schema.nodes.heading.createChecked(
           // @see ED-4708
           { level: level === 6 ? 5 : level },
@@ -268,7 +268,7 @@ export function convert(
           const contentArray: Array<PMNode> = [];
           const fragmentArray: Array<PMNode> = [];
           let hasNonMediaChildren = false;
-          content.forEach(child => {
+          content.forEach((child) => {
             if (child.type === schema.nodes.media) {
               mediaArray.push(child);
               return;

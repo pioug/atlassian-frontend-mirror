@@ -146,7 +146,7 @@ const mapIconsToToolbarItem = (
   intl: InjectedIntl,
   nodeType: NodeType,
 ) =>
-  icons.map<FloatingToolbarItem<Command>>(toolbarItem => {
+  icons.map<FloatingToolbarItem<Command>>((toolbarItem) => {
     const { id, value } = toolbarItem;
 
     return {

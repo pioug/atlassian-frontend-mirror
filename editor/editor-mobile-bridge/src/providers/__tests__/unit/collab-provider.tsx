@@ -132,7 +132,7 @@ function setupFactory() {
     bridge: WebBridgeImpl;
     createCollabProvider: (bridge: WebBridgeImpl) => Promise<CollabProvider>;
   }
-  const TestComponent: React.FC<Props> = props => {
+  const TestComponent: React.FC<Props> = (props) => {
     const collabProvider = useCollabProvider(
       props.bridge,
       props.createCollabProvider,
@@ -182,7 +182,7 @@ describe('useCollabProvider', () => {
 
     expect(
       renderResult.root.findAll(
-        node => node.props['data-test-id'] === 'has-collab',
+        (node) => node.props['data-test-id'] === 'has-collab',
       ).length,
     ).toEqual(1);
   });
@@ -199,7 +199,7 @@ describe('useCollabProvider', () => {
 
     expect(
       renderResult.root.findAll(
-        node => node.props['data-test-id'] === 'no-collab',
+        (node) => node.props['data-test-id'] === 'no-collab',
       ).length,
     ).toEqual(1);
   });

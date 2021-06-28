@@ -6,7 +6,7 @@ export const getmobileScrollPluginState = (
   state: EditorState,
 ): MobileScrollPluginState | undefined => {
   const mobileScrollPlugin = state.plugins.find(
-    plugin => (plugin as any).key === (mobileScrollPluginKey as any).key,
+    (plugin) => (plugin as any).key === (mobileScrollPluginKey as any).key,
   );
   if (!mobileScrollPlugin) {
     return;

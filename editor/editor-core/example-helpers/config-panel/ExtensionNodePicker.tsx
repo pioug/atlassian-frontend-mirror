@@ -126,7 +126,7 @@ export default function ExtensionNodePicker({
                     );
                   }
                 })
-                .filter(a => a)
+                .filter((a) => a)
             );
           })}
         </Section>

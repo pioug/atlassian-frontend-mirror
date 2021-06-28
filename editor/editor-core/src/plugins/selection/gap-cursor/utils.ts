@@ -103,7 +103,7 @@ export function getBreakoutModeFromTargetNode(node: PMNode): string {
 
   if (node.marks && node.marks.length) {
     layout = (
-      node.marks.find(mark => mark.type.name === 'breakout') || {
+      node.marks.find((mark) => mark.type.name === 'breakout') || {
         attrs: { mode: '' },
       }
     ).attrs.mode;

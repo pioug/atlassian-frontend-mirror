@@ -54,7 +54,7 @@ export const SaveAndCancelButtons = (props: {
           return;
         }
 
-        props.editorActions.getValue().then(value => {
+        props.editorActions.getValue().then((value) => {
           console.log(value);
         });
       }}

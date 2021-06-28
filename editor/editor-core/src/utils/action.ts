@@ -15,7 +15,7 @@ export async function __temporaryFixForConfigPanel(editorView: EditorView) {
     (extensionPluginKey.getState(editorView.state) as ExtensionState);
 
   if (extensionPluginState && extensionPluginState.showContextPanel) {
-    await new Promise(resolve => {
+    await new Promise((resolve) => {
       forceAutoSave(resolve)(editorView.state, editorView.dispatch);
     });
   }
@@ -45,13 +45,13 @@ export function cascadeCommands(cmds: Command[]): Command {
     const onDispatchAction = (tr: Transaction) => {
       const selectionJSON = tr.selection.toJSON();
       baseTr.setSelection(Selection.fromJSON(baseTr.doc, selectionJSON));
-      tr.steps.forEach(st => {
+      tr.steps.forEach((st) => {
         baseTr.step(st);
       });
       shouldDispatch = true;
     };
 
-    cmds.forEach(cmd => cmd(state, onDispatchAction));
+    cmds.forEach((cmd) => cmd(state, onDispatchAction));
 
     if (dispatch && shouldDispatch) {
       dispatch(baseTr);

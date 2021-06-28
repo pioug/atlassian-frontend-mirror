@@ -114,7 +114,7 @@ export default class ReactNodeView<P = ReactComponentProps>
     );
 
     trackingEnabled &&
-      stopMeasure(`🦉${this.node.type.name}::ReactNodeView`, duration => {
+      stopMeasure(`🦉${this.node.type.name}::ReactNodeView`, (duration) => {
         if (
           ++nodeViewEventsCounter % samplingRate === 0 &&
           duration > slowThreshold
@@ -258,7 +258,7 @@ export default class ReactNodeView<P = ReactComponentProps>
    * @param node The Prosemirror Node from which to source the attributes
    */
   setDomAttrs(node: PMNode, element: HTMLElement) {
-    Object.keys(node.attrs || {}).forEach(attr => {
+    Object.keys(node.attrs || {}).forEach((attr) => {
       element.setAttribute(attr, node.attrs[attr]);
     });
   }

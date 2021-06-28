@@ -327,8 +327,8 @@ export class MediaPluginStateImplementation implements MediaPluginState {
     if (!isEndState(mediaStateWithContext)) {
       // Chain the previous promise with a new one for this media item
       this.addPendingTask(
-        new Promise<MediaState | null>(resolve => {
-          onMediaStateChanged(newState => {
+        new Promise<MediaState | null>((resolve) => {
+          onMediaStateChanged((newState) => {
             // When media item reaches its final state, remove listener and resolve
             if (isEndState(newState)) {
               resolve(newState);
@@ -429,7 +429,7 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 
     return Promise.race([
       timeoutPromise,
-      chainedPromise.then(value => {
+      chainedPromise.then((value) => {
         clearTimeout(rejectTimeout);
         return value;
       }),
@@ -490,7 +490,7 @@ export class MediaPluginStateImplementation implements MediaPluginState {
   };
 
   private destroyAllPickers = (pickers: Array<PickerFacade>) => {
-    pickers.forEach(picker => picker.destroy());
+    pickers.forEach((picker) => picker.destroy());
     this.pickers.splice(0, this.pickers.length);
   };
 
@@ -503,7 +503,7 @@ export class MediaPluginStateImplementation implements MediaPluginState {
     if (pickerPromises.length === pickers.length) {
       this.destroyAllPickers(this.pickers);
     } else {
-      Promise.all(pickerPromises).then(resolvedPickers =>
+      Promise.all(pickerPromises).then((resolvedPickers) =>
         this.destroyAllPickers(resolvedPickers),
       );
     }
@@ -557,13 +557,13 @@ export class MediaPluginStateImplementation implements MediaPluginState {
         );
       }
 
-      pickers.forEach(picker => {
+      pickers.forEach((picker) => {
         picker.onNewMedia(this.insertFile);
       });
     }
 
     // set new upload params for the pickers
-    pickers.forEach(picker => picker.setUploadParams(uploadParams));
+    pickers.forEach((picker) => picker.setUploadParams(uploadParams));
   }
 
   private getInputMethod = (
@@ -605,7 +605,7 @@ export class MediaPluginStateImplementation implements MediaPluginState {
     );
   }
 
-  private handleMediaState: MediaStateEventListener = state => {
+  private handleMediaState: MediaStateEventListener = (state) => {
     switch (state.status) {
       case 'error':
         const { uploadErrorHandler } = this.options;
@@ -698,7 +698,7 @@ export class MediaPluginStateImplementation implements MediaPluginState {
     props: Partial<Pick<this, 'allowsUploads' | 'allUploadsFinished'>>,
   ) {
     // update plugin state
-    Object.keys(props).forEach(_key => {
+    Object.keys(props).forEach((_key) => {
       const key = _key as keyof typeof props;
       const value = props[key];
       if (value !== undefined) {
@@ -778,7 +778,7 @@ export const createPlugin = (
       );
     },
     key: stateKey,
-    view: view => {
+    view: (view) => {
       const pluginState = getMediaPluginState(view.state);
       pluginState.setView(view);
       pluginState.updateElement();
@@ -790,7 +790,7 @@ export const createPlugin = (
       };
     },
     props: {
-      decorations: state => {
+      decorations: (state) => {
         const pluginState = getMediaPluginState(state);
         if (!pluginState.showDropzone) {
           return;

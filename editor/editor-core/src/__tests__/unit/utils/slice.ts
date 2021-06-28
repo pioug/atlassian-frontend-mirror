@@ -10,7 +10,7 @@ describe('@atlaskit/editor-core slice utils', () => {
   describe('mapFragment', () => {
     it('should return an equivalent node when given an identity function', () => {
       const content = fragment(p('start'), p('middle'), p('end'));
-      expect(mapFragment(content, i => i).eq(content)).toBe(true);
+      expect(mapFragment(content, (i) => i).eq(content)).toBe(true);
     });
 
     it('should support mutating child nodes', () => {
@@ -27,7 +27,7 @@ describe('@atlaskit/editor-core slice utils', () => {
 
     it('should call callback with (node, parent, offset)', () => {
       const content = fragment(p('content'));
-      const spy = jest.fn(i => i);
+      const spy = jest.fn((i) => i);
       mapFragment(content, spy);
       expect(spy).toHaveBeenCalledTimes(2);
       expect(spy.mock.calls[0]).toEqual([
@@ -41,7 +41,7 @@ describe('@atlaskit/editor-core slice utils', () => {
     it('should allow replacing one node with multiple nodes', () => {
       const content = fragment(p('content'));
       const replaceMultiple = () =>
-        [p('start'), p('end')].map(i => clean(i)(defaultSchema)) as Node[];
+        [p('start'), p('end')].map((i) => clean(i)(defaultSchema)) as Node[];
       expect(mapFragment(content, replaceMultiple)).toEqual(
         fragment(p('start'), p('end')),
       );

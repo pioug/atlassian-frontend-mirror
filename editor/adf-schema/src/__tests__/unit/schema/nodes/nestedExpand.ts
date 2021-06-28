@@ -5,7 +5,7 @@ import { Schema, Node } from 'prosemirror-model';
 
 const findNestedExpand = (doc: Node, schema: Schema) => {
   let expand: Node | null = null;
-  doc.nodesBetween(0, doc.nodeSize - 2, node => {
+  doc.nodesBetween(0, doc.nodeSize - 2, (node) => {
     if (!expand && node.type === schema.nodes.nestedExpand) {
       expand = node;
     }

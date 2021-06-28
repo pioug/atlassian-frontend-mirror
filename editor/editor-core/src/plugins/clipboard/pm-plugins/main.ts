@@ -29,9 +29,9 @@ export const createPlugin = ({
     key: clipboardPluginKey,
     props: {
       handleDOMEvents: {
-        cut: view =>
+        cut: (view) =>
           sendClipboardAnalytics(view, dispatchAnalyticsEvent, ACTION.CUT),
-        copy: view =>
+        copy: (view) =>
           sendClipboardAnalytics(view, dispatchAnalyticsEvent, ACTION.COPIED),
       },
     },

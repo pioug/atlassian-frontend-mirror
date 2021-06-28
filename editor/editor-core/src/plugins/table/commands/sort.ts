@@ -47,7 +47,7 @@ export const sortByColumn = (
   order: SortOrder = SortOrder.DESC,
 ): Command =>
   createCommand(
-    state => ({
+    (state) => ({
       type: 'SORT_TABLE',
       data: {
         ordering: {

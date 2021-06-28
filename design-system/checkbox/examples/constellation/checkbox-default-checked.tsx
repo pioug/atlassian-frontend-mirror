@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Checkbox } from '../../src';
 
-const ControlledExample = () => {
+const CheckboxDefaultCheckedExample = () => {
   return (
     <div>
       Default Checked Checkbox
@@ -16,4 +16,4 @@ const ControlledExample = () => {
   );
 };
 
-export default ControlledExample;
+export default CheckboxDefaultCheckedExample;

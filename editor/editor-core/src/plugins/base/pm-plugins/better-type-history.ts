@@ -17,7 +17,7 @@ const getEnterKeyboardActionStep = (trs: Transaction[]): Step | null => {
   }
   const { selection, steps } = firstTr;
   const replaceSteps = steps.filter(
-    step => step instanceof ReplaceStep || step instanceof ReplaceAroundStep,
+    (step) => step instanceof ReplaceStep || step instanceof ReplaceAroundStep,
   );
 
   if (!selection.$cursor || replaceSteps.length !== 1) {
@@ -64,7 +64,7 @@ export default () => {
     key: pluginKey,
 
     appendTransaction: (transactions, oldState, newState) => {
-      const hasHandlePasteMeta = transactions.find(tran =>
+      const hasHandlePasteMeta = transactions.find((tran) =>
         tran.getMeta(pluginKey),
       );
       if (hasHandlePasteMeta) {

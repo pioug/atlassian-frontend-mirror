@@ -43,7 +43,7 @@ describe('SimpleMeasurementLogger', () => {
 
     expect(callback).toBeCalledTimes(1);
     const entries = getEntryList(callback, 0).getEntries();
-    expect(entries.map(entry => entry.name)).toEqual([
+    expect(entries.map((entry) => entry.name)).toEqual([
       EVENT_NAME_STATE_APPLY,
       EVENT_NAME_UPDATE_STATE,
       EVENT_NAME_VIEW_STATE_UPDATED,
@@ -68,14 +68,14 @@ describe('SimpleMeasurementLogger', () => {
     expect(callback).toBeCalledTimes(2);
     const entries1 = getEntryList(callback, 0).getEntries();
     const entries2 = getEntryList(callback, 1).getEntries();
-    expect(entries1.map(entry => entry.name)).toEqual([
+    expect(entries1.map((entry) => entry.name)).toEqual([
       EVENT_NAME_STATE_APPLY,
       EVENT_NAME_UPDATE_STATE,
       EVENT_NAME_VIEW_STATE_UPDATED,
       EVENT_NAME_ON_CHANGE,
       EVENT_NAME_DISPATCH_TRANSACTION,
     ]);
-    expect(entries2.map(entry => entry.name)).toEqual([
+    expect(entries2.map((entry) => entry.name)).toEqual([
       EVENT_NAME_STATE_APPLY,
       EVENT_NAME_UPDATE_STATE,
       EVENT_NAME_VIEW_STATE_UPDATED,
@@ -98,7 +98,7 @@ describe('SimpleMeasurementLogger', () => {
 
     expect(callback).toBeCalledTimes(1);
     const entries = getEntryList(callback, 0).getEntries();
-    expect(entries.map(entry => entry.name)).toEqual([
+    expect(entries.map((entry) => entry.name)).toEqual([
       EVENT_NAME_STATE_APPLY,
       EVENT_NAME_UPDATE_STATE,
       '🦉pluginA::apply',
@@ -117,7 +117,7 @@ describe('SimpleMeasurementLogger', () => {
 
     expect(callback).toBeCalledTimes(1);
     const entries = getEntryList(callback, 0).getEntries();
-    expect(entries.map(entry => entry.name)).toEqual([
+    expect(entries.map((entry) => entry.name)).toEqual([
       EVENT_NAME_STATE_APPLY,
       EVENT_NAME_DISPATCH_TRANSACTION,
     ]);
@@ -130,7 +130,7 @@ describe('SimpleMeasurementLogger', () => {
 
     expect(callback).toBeCalledTimes(1);
     const entries = getEntryList(callback, 0).getEntries();
-    expect(entries.map(entry => entry.name)).toEqual([
+    expect(entries.map((entry) => entry.name)).toEqual([
       EVENT_NAME_DISPATCH_TRANSACTION,
     ]);
   });
@@ -153,7 +153,7 @@ describe('SimpleMeasurementLogger', () => {
 
     expect(callback).toBeCalledTimes(1);
     const entries = getEntryList(callback, 0).getEntries();
-    expect(entries.map(entry => entry.name)).toEqual([
+    expect(entries.map((entry) => entry.name)).toEqual([
       EVENT_NAME_STATE_APPLY,
       EVENT_NAME_DISPATCH_TRANSACTION,
     ]);

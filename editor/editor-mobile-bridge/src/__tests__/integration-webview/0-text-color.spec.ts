@@ -20,7 +20,7 @@ import { GREEN_RGB_CODE, GREEN_HEX_CODE } from './_utils/test-data';
 MobileTestCase(
   'Color: User can choose text color',
   { keyboards: ['apple', 'samsung'] },
-  async client => {
+  async (client) => {
     const page = await Page.create(client);
     await loadEditor(page);
     await callNativeBridge(page, SET_TEXT_COLOR, GREEN_HEX_CODE);

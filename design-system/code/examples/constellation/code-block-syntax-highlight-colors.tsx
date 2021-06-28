@@ -39,7 +39,7 @@ const coords = { x: 12, y: 26 };
 ReactDOM.render(<PointLogger message="Position {point}" point={coords} />, mountNode);
 `;
 
-export default function CodeBlockHighlightColorsExample() {
+const CodeBlockHighlightColorsExample = () => {
   const [mode, setMode] = useState<ThemeModes>('light');
 
   return (
@@ -56,4 +56,6 @@ export default function CodeBlockHighlightColorsExample() {
       <CodeBlock language="tsx" text={exampleCodeBlock} />
     </GlobalTheme.Provider>
   );
-}
+};
+
+export default CodeBlockHighlightColorsExample;

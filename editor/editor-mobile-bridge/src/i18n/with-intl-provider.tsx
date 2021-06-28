@@ -15,7 +15,7 @@ interface Props extends WithIntlProviderProps {
   geti18NMessages: geti18NMessagesType;
 }
 
-const IntlProviderWrapper: React.FC<Props> = props => {
+const IntlProviderWrapper: React.FC<Props> = (props) => {
   const { locale, messages } = useTranslations(
     props.locale,
     props.geti18NMessages,

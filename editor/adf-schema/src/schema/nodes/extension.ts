@@ -42,7 +42,7 @@ const createExtensionNodeSpec = (): NodeSpec => {
     parseDOM: [
       {
         tag: '[data-node-type="extension"]',
-        getAttrs: domNode => getExtensionAttrs(domNode as HTMLElement),
+        getAttrs: (domNode) => getExtensionAttrs(domNode as HTMLElement),
       },
     ],
     toDOM(node: PMNode) {

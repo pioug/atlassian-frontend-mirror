@@ -61,9 +61,9 @@ export const getCurrentIndentLevel = (selection: Selection) => {
   const { $from } = selection;
   const { taskList } = $from.doc.type.schema.nodes;
 
-  const furthestParent = findFarthestParentNode(node => node.type === taskList)(
-    $from,
-  );
+  const furthestParent = findFarthestParentNode(
+    (node) => node.type === taskList,
+  )($from);
   if (!furthestParent) {
     return null;
   }
@@ -107,7 +107,7 @@ export const subtreeHeight = (
   $to: ResolvedPos,
   types: NodeType[],
 ): number => {
-  const root = findFarthestParentNode(node => types.indexOf(node.type) > -1)(
+  const root = findFarthestParentNode((node) => types.indexOf(node.type) > -1)(
     $from,
   );
   if (!root) {

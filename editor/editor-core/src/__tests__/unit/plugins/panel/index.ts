@@ -225,7 +225,7 @@ describe('@atlaskit/editor-core ui/PanelPlugin', () => {
       PanelType.ERROR,
       PanelType.WARNING,
       PanelType.NOTE,
-    ].forEach(panelType => {
+    ].forEach((panelType) => {
       it(`should fire analytics event when ${panelType} panel inserted`, () => {
         const { editorView, sel } = editor(doc(p('{<>}')));
         insertText(editorView, `/${panelType}`, sel);

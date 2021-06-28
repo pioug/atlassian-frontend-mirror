@@ -24,7 +24,7 @@ export const updateInlineCommentResolvedState = (
     data: partialNewState,
   };
 
-  const allResolved = Object.values(partialNewState).every(state => state);
+  const allResolved = Object.values(partialNewState).every((state) => state);
 
   if (resolveMethod && allResolved) {
     return createCommand(command, transform.addResolveAnalytics(resolveMethod));
@@ -55,7 +55,7 @@ export const removeInlineCommentNearSelection = (id: string): Command => (
 
   const hasAnnotation = $from
     .marks()
-    .some(mark => mark.type === annotationMarkType);
+    .some((mark) => mark.type === annotationMarkType);
 
   if (!hasAnnotation) {
     return false;

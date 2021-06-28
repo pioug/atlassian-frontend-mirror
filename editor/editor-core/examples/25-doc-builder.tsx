@@ -26,7 +26,7 @@ const nodeTypes: Record<string, NodeMapping> = {
   doc: { name: 'doc' },
   paragraph: { name: 'p' },
   blockquote: { name: 'blockquote' },
-  heading: { name: node => `h${node.attrs.level}` },
+  heading: { name: (node) => `h${node.attrs.level}` },
   listItem: { name: 'li' },
   bulletList: { name: 'ul' },
   orderedList: { name: 'ol' },
@@ -263,10 +263,10 @@ export default class Example extends React.Component<any, DocBuilderState> {
           <DevTools />
           <div style={{ gridArea: '1 / 1 / 3 / 3' }}>
             <WithEditorActions
-              render={actions => {
+              render={(actions) => {
                 this.editorActions = actions;
                 return (
-                  <FullPageEditor onChange={e => this.handleEditorChange()} />
+                  <FullPageEditor onChange={(e) => this.handleEditorChange()} />
                 );
               }}
             />
@@ -274,7 +274,7 @@ export default class Example extends React.Component<any, DocBuilderState> {
           <div style={{ gridArea: '1 / 3 / 2 / 4' }}>
             <h2>ADF</h2>
             <TextArea
-              onChange={e => this.handleAdfChange(e.target.value)}
+              onChange={(e) => this.handleAdfChange(e.target.value)}
               isInvalid={!this.state.adfValid}
               ref={(ref: any) => (this.adfTextArea = ref)}
               placeholder='{"version": 1...'
@@ -285,7 +285,7 @@ export default class Example extends React.Component<any, DocBuilderState> {
           <div style={{ gridArea: '2 / 3 / 3 / 4' }}>
             <h2>Doc Builder</h2>
             <TextArea
-              onChange={e => this.handleDocBuilderChange(e.target.value)}
+              onChange={(e) => this.handleDocBuilderChange(e.target.value)}
               isInvalid={!this.state.docBuilderValid}
               ref={(ref: any) => (this.docBuilderTextArea = ref)}
               placeholder="doc(..."
@@ -331,7 +331,7 @@ export default class Example extends React.Component<any, DocBuilderState> {
 
     const activeElement = document.activeElement;
 
-    this.editorActions.getValue().then(value => {
+    this.editorActions.getValue().then((value) => {
       if (this.adfTextArea && activeElement !== this.adfTextArea) {
         this.adfTextArea.value = JSON.stringify(value, null, 2);
       }

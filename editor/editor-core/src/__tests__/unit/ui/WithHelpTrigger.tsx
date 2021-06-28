@@ -41,7 +41,7 @@ describe(name, () => {
         mount(
           <EditorContext>
             <WithHelpTrigger
-              render={openHelp => {
+              render={(openHelp) => {
                 openHelp();
                 return null;
               }}

@@ -69,7 +69,7 @@ export class SimpleMeasurementLogger {
       getEntries: (): PerformanceEntryList => batch,
       // We ignore type because we only store type of mark in batch
       getEntriesByName: (name: string, type?: string): PerformanceEntryList =>
-        batch.filter(entry => entry.name === name),
+        batch.filter((entry) => entry.name === name),
       getEntriesByType: (type: string): PerformanceEntryList => batch,
     };
   };

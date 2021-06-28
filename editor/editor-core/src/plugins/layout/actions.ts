@@ -52,7 +52,7 @@ const getWidthsForPreset = (presetLayout: PresetLayout): number[] => {
  * inside the layoutSection node
  */
 export const getPresetLayout = (section: Node): PresetLayout | undefined => {
-  const widths = mapChildren(section, column => column.attrs.width).join(',');
+  const widths = mapChildren(section, (column) => column.attrs.width).join(',');
 
   switch (widths) {
     case '33.33,33.33,33.33':
@@ -160,7 +160,7 @@ function forceColumnStructure(
 
 function columnWidth(node: Node, schema: Schema, widths: number[]): Fragment {
   const { layoutColumn } = schema.nodes;
-  const truncatedWidths: number[] = widths.map(w => Number(w.toFixed(2)));
+  const truncatedWidths: number[] = widths.map((w) => Number(w.toFixed(2)));
 
   return flatmap(node.content, (column, idx) => {
     if (column.type === layoutColumn) {

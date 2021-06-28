@@ -5,7 +5,7 @@ import { R400 } from '@atlaskit/theme/colors';
 
 import Flag from '../../src';
 
-export default function FlagError() {
+const FlagErrorExample = () => {
   return (
     <Flag
       appearance="error"
@@ -17,4 +17,6 @@ export default function FlagError() {
       actions={[{ content: 'Try again', onClick: () => {} }]}
     />
   );
-}
+};
+
+export default FlagErrorExample;

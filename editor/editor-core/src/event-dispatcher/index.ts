@@ -35,7 +35,7 @@ export class EventDispatcher<T = any> {
       return;
     }
 
-    this.listeners[event].forEach(cb => cb(data));
+    this.listeners[event].forEach((cb) => cb(data));
   }
 
   destroy(): void {

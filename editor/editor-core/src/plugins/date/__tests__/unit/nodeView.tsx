@@ -87,7 +87,7 @@ describe('date plugin', () => {
           />,
         );
         expect(
-          dateNode.findWhere(n => n.prop('color') === 'red').length,
+          dateNode.findWhere((n) => n.prop('color') === 'red').length,
         ).toBeGreaterThan(1);
       });
 

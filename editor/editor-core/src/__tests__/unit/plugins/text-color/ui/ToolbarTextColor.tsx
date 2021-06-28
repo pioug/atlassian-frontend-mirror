@@ -67,7 +67,7 @@ function clickColor(
 
   toolbarTextColor
     .find(`ColorPalette Color`)
-    .filterWhere(n => n.prop('value') === color.hexCode)
+    .filterWhere((n) => n.prop('value') === color.hexCode)
     .find('button')
     .simulate('click');
 }

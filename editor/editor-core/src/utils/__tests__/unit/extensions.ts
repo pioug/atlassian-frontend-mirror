@@ -120,7 +120,7 @@ describe('#extensionProviderToQuickInsertProvider', () => {
       items[2].action(jest.fn(), {} as EditorState);
 
       // We need to wait for the next tick, to resolve the external module.
-      await new Promise(resolve => process.nextTick(resolve));
+      await new Promise((resolve) => process.nextTick(resolve));
 
       expect(createAnalyticsEvent).toHaveBeenCalledWith(
         expect.objectContaining({

@@ -10,7 +10,7 @@ import {
 
 const hasInvalidSteps = (tr: Transaction) =>
   ((tr.steps || []) as (Step & { from: number; to: number })[]).some(
-    step => step.from > step.to,
+    (step) => step.from > step.to,
   );
 
 export default (dispatchAnalyticsEvent: DispatchAnalyticsEvent) => {

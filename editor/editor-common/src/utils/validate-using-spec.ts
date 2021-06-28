@@ -134,7 +134,7 @@ function getEntityForInvalidContentLength(
     }
     entity.content = entity
       .content!.filter((x): x is ADFEntity => !!x)
-      .map(child => {
+      .map((child) => {
         return child.type !== 'unsupportedBlock'
           ? wrapWithUnsupported(child)
           : child;

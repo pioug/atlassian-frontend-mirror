@@ -13,7 +13,7 @@ import { nativeFields, customFields } from './fields';
 
 const exampleFields = [...nativeFields, ...customFields];
 
-const quickInsert: ExtensionModule[] = exampleFields.map(field => ({
+const quickInsert: ExtensionModule[] = exampleFields.map((field) => ({
   key: field.name,
   title: field.label,
   description: `type: ${field.type} (${field.name})`,

@@ -162,7 +162,7 @@ const createPlugin = (
 
   return new Plugin({
     state,
-    view: editorView => {
+    view: (editorView) => {
       const domAtPos = editorView.domAtPos.bind(editorView);
       const extensionProviderHandler = createExtensionProviderHandler(
         editorView,
@@ -178,7 +178,7 @@ const createPlugin = (
       );
 
       return {
-        update: view => {
+        update: (view) => {
           const { state, dispatch } = view;
           const {
             element,
@@ -288,7 +288,7 @@ const createPlugin = (
       },
       handleClickOn: createSelectionClickHandler(
         ['extension', 'bodiedExtension'],
-        target => !target.closest('.extension-content'),
+        (target) => !target.closest('.extension-content'),
         { useLongPressSelection },
       ),
     },

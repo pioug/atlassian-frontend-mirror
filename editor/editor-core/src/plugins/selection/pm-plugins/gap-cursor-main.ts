@@ -27,7 +27,7 @@ const plugin = new Plugin({
       return newState.selection instanceof GapCursorSelection;
     },
   },
-  view: view => {
+  view: (view) => {
     /**
      * If the selection is at the beginning of a document and is a NodeSelection,
      * convert to a GapCursor selection. This is to stop users accidentally replacing

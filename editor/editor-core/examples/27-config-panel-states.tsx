@@ -74,7 +74,7 @@ const exampleManifest: ExtensionManifest = {
         type: 'extension',
         render: () => Promise.resolve(() => null),
         getFieldsDefinition: () => {
-          return new Promise(resolve => {
+          return new Promise((resolve) => {
             // never resolves
           });
         },

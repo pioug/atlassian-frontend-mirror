@@ -37,7 +37,7 @@ const parse = (html: string) => transformer.parse(html);
 
 export const textWithMarks = (obj: PMNode, text: string, marks: Mark[]) => {
   let matched = false;
-  obj.descendants(node => {
+  obj.descendants((node) => {
     if (node.isText && node.text === text) {
       if (Mark.sameSet(node.marks, marks)) {
         matched = true;
@@ -587,7 +587,7 @@ describe('BitbucketTransformer: parser', () => {
   });
 
   describe('mentions', () => {
-    ['mention', 'ap-mention'].forEach(mentionClass => {
+    ['mention', 'ap-mention'].forEach((mentionClass) => {
       it(`should be parsed preserving display name and user id for ${mentionClass}`, () => {
         expect(
           parse(
@@ -612,7 +612,7 @@ describe('BitbucketTransformer: parser', () => {
       });
     });
 
-    ['mention', 'ap-mention'].forEach(mentionClass => {
+    ['mention', 'ap-mention'].forEach((mentionClass) => {
       it(`should prefer Atlassian ID over username if present, for ${mentionClass}`, () => {
         expect(
           parse(

@@ -132,7 +132,7 @@ export default (options: LayoutPluginOptions) =>
       }),
       handleClickOn: createSelectionClickHandler(
         ['layoutColumn'],
-        target =>
+        (target) =>
           target.hasAttribute('data-layout-section') ||
           target.hasAttribute('data-layout-column'),
         {
@@ -144,9 +144,9 @@ export default (options: LayoutPluginOptions) =>
     },
     appendTransaction: (transactions, _oldState, newState) => {
       let changes: Change[] = [];
-      transactions.forEach(prevTr => {
+      transactions.forEach((prevTr) => {
         // remap change segments across the transaction set
-        changes.forEach(change => {
+        changes.forEach((change) => {
           return {
             from: prevTr.mapping.map(change.from),
             to: prevTr.mapping.map(change.to),
@@ -169,7 +169,7 @@ export default (options: LayoutPluginOptions) =>
         let tr = newState.tr;
         const selection = newState.selection.toJSON();
 
-        changes.forEach(change => {
+        changes.forEach((change) => {
           tr.replaceRange(change.from, change.to, change.slice);
         });
 

@@ -3,7 +3,7 @@ import RendererDemo from './helper/RendererDemo';
 import { createSchema, defaultSchemaConfig } from '@atlaskit/adf-schema';
 
 const schemaWithoutExpand = createSchema({
-  nodes: defaultSchemaConfig.nodes.filter(node => node !== 'expand'),
+  nodes: defaultSchemaConfig.nodes.filter((node) => node !== 'expand'),
 });
 
 export default function Example() {

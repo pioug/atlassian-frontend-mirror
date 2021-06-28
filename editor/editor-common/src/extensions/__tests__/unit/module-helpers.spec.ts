@@ -92,7 +92,7 @@ describe('module-helpers', () => {
     test('should return all quick insert items', async () => {
       const quickInsertItems = getQuickInsertItemsFromModule(
         [confluenceAwesomeMacro, forgeAmazingMacro],
-        item => item.key,
+        (item) => item.key,
       );
 
       expect(quickInsertItems).toEqual([
@@ -106,12 +106,12 @@ describe('module-helpers', () => {
 
     test('should build an ADF node based on actions that point to nodes', async () => {
       forgeAmazingMacro.modules.quickInsert!.find(
-        item => item.key === 'async-node',
+        (item) => item.key === 'async-node',
       )!.action = createFakeModule(extension);
 
       const quickInsertItems = getQuickInsertItemsFromModule(
         [confluenceAwesomeMacro, forgeAmazingMacro],
-        item => item,
+        (item) => item,
       );
 
       expect(await quickInsertItems[0].node).toEqual({
@@ -168,10 +168,10 @@ describe('module-helpers', () => {
     test('should be able to filter featured items', async () => {
       const featuredItems = getQuickInsertItemsFromModule(
         [confluenceAwesomeMacro, forgeAmazingMacro],
-        item => item,
-      ).filter(item => item.featured);
+        (item) => item,
+      ).filter((item) => item.featured);
 
-      expect(featuredItems.map(item => item.key)).toEqual([
+      expect(featuredItems.map((item) => item.key)).toEqual([
         'awesome:list',
         'amazing:async-node',
       ]);
@@ -277,14 +277,14 @@ describe('module-helpers', () => {
           'http://awesome-foo/test',
           'http://awesome-bar/bear',
           'http://amazing-baz/app',
-        ].forEach(url =>
+        ].forEach((url) =>
           expect(
-            autoConvertHandlers.some(handler => handler(url)),
+            autoConvertHandlers.some((handler) => handler(url)),
           ).toBeTruthy(),
         );
 
         expect(
-          autoConvertHandlers.some(handler => handler('unknown')),
+          autoConvertHandlers.some((handler) => handler('unknown')),
         ).toBeFalsy();
       });
     });
@@ -302,7 +302,7 @@ describe('module-helpers', () => {
           'http://awesome-foo/test',
           'http://awesome-bar/bear',
           'http://amazing-baz/app',
-        ].forEach(url => {
+        ].forEach((url) => {
           const result = runner(url);
           expect(result).toMatchObject({
             type: 'extension',

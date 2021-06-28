@@ -211,7 +211,7 @@ class JiraSidebarEditor extends PureComponent<any, any> {
 const CANCEL_ACTION = () => console.log('Cancel');
 const SAVE_ACTION = () => console.log('Save');
 
-const mentionProvider = new Promise<any>(resolve =>
+const mentionProvider = new Promise<any>((resolve) =>
   resolve(mentionResourceProvider),
 );
 const emojiProvider = getEmojiProvider();

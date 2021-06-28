@@ -61,7 +61,7 @@ export default class TableFloatingControls extends Component<Props, State> {
       !this.resizeObserver &&
       window?.ResizeObserver
     ) {
-      this.resizeObserver = new ResizeObserver(entries => {
+      this.resizeObserver = new ResizeObserver((entries) => {
         for (let entry of entries) {
           const tableHeight = entry.contentRect.height;
           this.setState({ tableHeight });
@@ -141,7 +141,7 @@ export default class TableFloatingControls extends Component<Props, State> {
         ? stickyHeader.top
         : undefined;
     return (
-      <div onMouseDown={e => e.preventDefault()}>
+      <div onMouseDown={(e) => e.preventDefault()}>
         {isNumberColumnEnabled ? (
           <NumberColumn
             editorView={editorView}

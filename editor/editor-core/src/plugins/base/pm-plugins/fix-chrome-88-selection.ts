@@ -11,7 +11,7 @@ export default () =>
     key: fixChromeSelectionKey,
     props: {
       handleDOMEvents: {
-        focus: view => {
+        focus: (view) => {
           // We don't need to reset when there's a NodeSelection
           // It creates other problem. @see HOT-94478
           if (

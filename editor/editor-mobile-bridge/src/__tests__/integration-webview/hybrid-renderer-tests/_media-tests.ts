@@ -16,7 +16,7 @@ export default async () => {
   MobileTestCase(
     'Renderer Media: Load ADF with a MediaGroup node',
     {},
-    async client => {
+    async (client) => {
       const page = await Page.create(client);
       await loadRenderer(page);
       await setADFContent(page, mediaGroupAdf, 'renderer');
@@ -28,7 +28,7 @@ export default async () => {
   MobileTestCase(
     'Renderer Media: Load ADF with a MediaSingle node',
     {},
-    async client => {
+    async (client) => {
       const page = await Page.create(client);
       await loadRenderer(page);
       await setADFContent(page, mediaSingleAdf, 'renderer');
@@ -39,7 +39,7 @@ export default async () => {
   MobileTestCase(
     'Renderer Media in Layouts: 2 column',
     { skipPlatform: ['android'] },
-    async client => {
+    async (client) => {
       const page = await Page.create(client);
 
       await loadRenderer(page);
@@ -54,7 +54,7 @@ export default async () => {
     },
   );
 
-  MobileTestCase('Renderer Media in Layouts: 3 columns', {}, async client => {
+  MobileTestCase('Renderer Media in Layouts: 3 columns', {}, async (client) => {
     const page = await Page.create(client);
 
     await loadRenderer(page);
@@ -66,7 +66,7 @@ export default async () => {
     await mobileSnapshot(page);
   });
 
-  MobileTestCase('Renderer Media inside expand', {}, async client => {
+  MobileTestCase('Renderer Media inside expand', {}, async (client) => {
     const page = await Page.create(client);
 
     await loadRenderer(page);
@@ -76,20 +76,24 @@ export default async () => {
     await mobileSnapshot(page);
   });
 
-  MobileTestCase('Renderer Media: MediaSingle video file', {}, async client => {
-    const page = await Page.create(client);
-    await loadRenderer(page);
-    await page.switchToWeb();
-    await setADFContent(page, mediaSingleVideoAdf, 'renderer');
-    await waitForMedia(page);
-    await page.waitForSelector('[data-testid="media-card-play-button"]');
-    await mobileSnapshot(page);
-  });
+  MobileTestCase(
+    'Renderer Media: MediaSingle video file',
+    {},
+    async (client) => {
+      const page = await Page.create(client);
+      await loadRenderer(page);
+      await page.switchToWeb();
+      await setADFContent(page, mediaSingleVideoAdf, 'renderer');
+      await waitForMedia(page);
+      await page.waitForSelector('[data-testid="media-card-play-button"]');
+      await mobileSnapshot(page);
+    },
+  );
 
   MobileTestCase(
     'Renderer Media: Load ADF with a MediaSingle with caption node',
     {},
-    async client => {
+    async (client) => {
       const page = await Page.create(client);
       await loadRenderer(page, 'allowCaptions=true');
       await setADFContent(page, mediaSingleWithCaptionAdf, 'renderer');
@@ -101,7 +105,7 @@ export default async () => {
   MobileTestCase(
     'Renderer Media: Should not render caption when caption is turned off',
     {},
-    async client => {
+    async (client) => {
       const page = await Page.create(client);
       await loadRenderer(page);
       await setADFContent(page, mediaSingleWithCaptionAdf, 'renderer');

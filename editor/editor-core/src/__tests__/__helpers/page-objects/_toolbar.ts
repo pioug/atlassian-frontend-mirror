@@ -75,7 +75,7 @@ export const waitForFloatingControl = async (
   // e.g. floating toolbar and breakout controls on a layout.
   const popupSelector = '[data-editor-popup="true"]';
   const forceLayout = async (selector: string, page: PuppeteerPage) =>
-    page.$eval<ClientRect>(selector, el => el && el.getBoundingClientRect());
+    page.$eval<ClientRect>(selector, (el) => el && el.getBoundingClientRect());
 
   // Case insensitive fuzzy matching
   const ariaLabelSelector = `[aria-label*="${ariaLabel}" i]`;
@@ -93,7 +93,7 @@ export const waitForFloatingControl = async (
     // Wait for next frame
     await page.$eval(
       selector,
-      () => new Promise(resolve => requestAnimationFrame(resolve)),
+      () => new Promise((resolve) => requestAnimationFrame(resolve)),
     );
   }
 };
@@ -113,7 +113,7 @@ export const retryUntilStablePosition = async (
   // retries too.
   stableTextSelection?: boolean,
 ) => {
-  return new Promise(async resolve => {
+  return new Promise(async (resolve) => {
     let [prevLeft, prevTop] = [0, 0];
     let textSelection = await getTextSelection(page);
     const intervalId = setInterval(async () => {

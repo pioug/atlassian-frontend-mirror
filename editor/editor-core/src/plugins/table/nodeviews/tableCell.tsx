@@ -58,14 +58,14 @@ export default class TableCellNodeView implements NodeView {
     );
 
     const removedAttrs = Object.keys(attrs).filter(
-      key => !nextAttrs.hasOwnProperty(key),
+      (key) => !nextAttrs.hasOwnProperty(key),
     );
 
     if (addedAttrs.length || removedAttrs.length) {
       addedAttrs.forEach(([key, value]) =>
         this.dom.setAttribute(key, value || ''),
       );
-      removedAttrs.forEach(key => this.dom.removeAttribute(key));
+      removedAttrs.forEach((key) => this.dom.removeAttribute(key));
       return true;
     }
 

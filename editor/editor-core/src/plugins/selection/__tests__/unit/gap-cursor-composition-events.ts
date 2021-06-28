@@ -41,7 +41,7 @@ describe('gap-cursor: composition events', () => {
 
   describe('when cursor is after a block node', () => {
     describe(`when pressing Backspace`, () => {
-      (Object.keys(blockNodes) as BlockNodesKeys).forEach(nodeName => {
+      (Object.keys(blockNodes) as BlockNodesKeys).forEach((nodeName) => {
         describe(nodeName, () => {
           it(`should delete the ${nodeName}`, () => {
             const { editorView, refs } = editor(
@@ -55,19 +55,21 @@ describe('gap-cursor: composition events', () => {
         });
       });
 
-      (Object.keys(leafBlockNodes) as LeafBlockNodesKeys).forEach(nodeName => {
-        describe(nodeName, () => {
-          it(`should delete the ${nodeName}`, () => {
-            const { editorView, refs } = editor(
-              doc(leafBlockNodes[nodeName], '{pos}'),
-            );
-            setGapCursorSelection(editorView, refs.pos, Side.RIGHT);
-            deleteContentBackward(editorView);
+      (Object.keys(leafBlockNodes) as LeafBlockNodesKeys).forEach(
+        (nodeName) => {
+          describe(nodeName, () => {
+            it(`should delete the ${nodeName}`, () => {
+              const { editorView, refs } = editor(
+                doc(leafBlockNodes[nodeName], '{pos}'),
+              );
+              setGapCursorSelection(editorView, refs.pos, Side.RIGHT);
+              deleteContentBackward(editorView);
 
-            expect(editorView.state.doc).toEqualDocument(doc(p('')));
+              expect(editorView.state.doc).toEqualDocument(doc(p('')));
+            });
           });
-        });
-      });
+        },
+      );
     });
   });
 });

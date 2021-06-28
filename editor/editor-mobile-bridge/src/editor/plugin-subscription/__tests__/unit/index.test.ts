@@ -53,7 +53,7 @@ describe('Plugin Subscription', () => {
             const configs = configFactory(
               new MobileEditorConfiguration(newConfig),
             );
-            const listConfig = configs.find(c => {
+            const listConfig = configs.find((c) => {
               return c.bridge === 'listBridge';
             });
 

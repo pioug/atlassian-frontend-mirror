@@ -27,7 +27,7 @@ export interface BlockInsertMenuProps {
   togglePlusMenuVisibility(): void;
 }
 
-export const BlockInsertMenu: React.FC<BlockInsertMenuProps> = props => {
+export const BlockInsertMenu: React.FC<BlockInsertMenuProps> = (props) => {
   if (props.items.length === 0) {
     return null;
   }

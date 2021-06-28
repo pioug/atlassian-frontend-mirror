@@ -8,7 +8,7 @@ export const selectionPluginKey = new PluginKey('mobile-selection');
 
 export const createProseMirrorPlugin = (dispatch: Dispatch): Plugin => {
   return new Plugin({
-    view: editorView => {
+    view: (editorView) => {
       const domAtPos = editorView.domAtPos.bind(editorView);
       return {
         update: (view, previousState) => {

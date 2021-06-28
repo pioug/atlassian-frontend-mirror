@@ -54,7 +54,7 @@ function Checkbox({
     <Field<boolean>
       name={name}
       isRequired={isRequired}
-      validate={value => validate(value, isRequired)}
+      validate={(value) => validate(value, isRequired)}
       defaultValue={defaultValue}
     >
       {({ fieldProps, error }) => {
@@ -64,7 +64,7 @@ function Checkbox({
             <AKCheckbox
               {...restFieldProps}
               label={label}
-              onChange={event =>
+              onChange={(event) =>
                 handleOnChange(fieldProps.onChange, onFieldChange, event)
               }
               isChecked={isChecked}
@@ -97,7 +97,7 @@ function Toggle({
     <Field<boolean>
       name={name}
       isRequired={isRequired}
-      validate={value => validate(value, isRequired)}
+      validate={(value) => validate(value, isRequired)}
       defaultValue={defaultValue}
     >
       {({ fieldProps, error }) => {
@@ -113,7 +113,7 @@ function Toggle({
               </ToggleLabel>
               <AKToggle
                 {...restFieldProps}
-                onChange={event =>
+                onChange={(event) =>
                   handleOnChange(fieldProps.onChange, onFieldChange, event)
                 }
                 isChecked={isChecked}

@@ -95,11 +95,11 @@ export const createMediaSpec = (
   parseDOM: [
     {
       tag: 'div[data-node-type="media"]',
-      getAttrs: dom => {
+      getAttrs: (dom) => {
         const attrs = {} as MutableMediaAttributes;
 
         if (attributes) {
-          Object.keys(attributes).forEach(k => {
+          Object.keys(attributes).forEach((k) => {
             const key = camelCaseToKebabCase(k).replace(/^__/, '');
             const value =
               (dom as HTMLElement).getAttribute(`data-${key}`) || '';
@@ -134,7 +134,7 @@ export const createMediaSpec = (
     },
     {
       tag: 'img:not(.smart-link-icon)',
-      getAttrs: dom => {
+      getAttrs: (dom) => {
         return {
           type: 'external',
           url: (dom as HTMLElement).getAttribute('src') || '',
@@ -166,7 +166,7 @@ export const createMediaSpec = (
     copyPrivateAttributes(
       node.attrs,
       attrs,
-      key => `data-${camelCaseToKebabCase(key.slice(2))}`,
+      (key) => `data-${camelCaseToKebabCase(key.slice(2))}`,
     );
 
     return ['div', attrs];
@@ -184,7 +184,7 @@ export const copyPrivateAttributes = (
   map?: (str: string) => string,
 ) => {
   if (media.attrs) {
-    Object.keys(media.attrs).forEach(key => {
+    Object.keys(media.attrs).forEach((key) => {
       if (key[0] === '_' && key[1] === '_' && from[key]) {
         to[map ? map(key) : key] = from[key];
       }
@@ -201,7 +201,7 @@ const externalOnlyAttributes = ['type', 'url', 'width', 'height', 'alt'];
 
 export const toJSON = (node: PMNode) => ({
   attrs: Object.keys(node.attrs)
-    .filter(key => !(key[0] === '_' && key[1] === '_'))
+    .filter((key) => !(key[0] === '_' && key[1] === '_'))
     .reduce<Record<string, any>>((obj, key) => {
       if (
         node.attrs.type === 'external' &&

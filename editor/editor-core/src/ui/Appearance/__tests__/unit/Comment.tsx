@@ -30,7 +30,7 @@ describe('comment editor', () => {
       />,
     );
     fullPage
-      .findWhere(elm => elm.name() === 'ClickWrapper')
+      .findWhere((elm) => elm.name() === 'ClickWrapper')
       .simulate('click', { clientY: 200 });
     expect(editorView.state.doc).toEqualDocument(
       doc(p('Hello world'), p('Hello world'), p('')),
@@ -47,7 +47,7 @@ describe('comment editor', () => {
       />,
     );
     fullPage
-      .findWhere(elm => elm.name() === 'ClickWrapper')
+      .findWhere((elm) => elm.name() === 'ClickWrapper')
       .simulate('click', { clientY: 200 })
       .simulate('click', { clientY: 200 });
     expect(editorView.state.doc).toEqualDocument(doc(p('Hello world'), p('')));
@@ -63,7 +63,7 @@ describe('comment editor', () => {
       />,
     );
     fullPage
-      .findWhere(elm => elm.name() === 'ContentArea')
+      .findWhere((elm) => elm.name() === 'ContentArea')
       .childAt(0)
       .simulate('click');
     expect(editorView.state.doc).toEqualDocument(doc(p('Hello world')));
@@ -154,11 +154,11 @@ describe('comment editor', () => {
         />,
       );
       fullPage
-        .findWhere(elm => elm.name() === 'ContentArea')
+        .findWhere((elm) => elm.name() === 'ContentArea')
         .childAt(0)
         .simulate('click');
       expect(
-        fullPage.findWhere(elm => elm.name() === 'SecondaryToolbar').exists(),
+        fullPage.findWhere((elm) => elm.name() === 'SecondaryToolbar').exists(),
       ).toBe(true);
     });
     it('should render the secondary toolbar if there is a cancel button', () => {
@@ -172,11 +172,11 @@ describe('comment editor', () => {
         />,
       );
       fullPage
-        .findWhere(elm => elm.name() === 'ContentArea')
+        .findWhere((elm) => elm.name() === 'ContentArea')
         .childAt(0)
         .simulate('click');
       expect(
-        fullPage.findWhere(elm => elm.name() === 'SecondaryToolbar').exists(),
+        fullPage.findWhere((elm) => elm.name() === 'SecondaryToolbar').exists(),
       ).toBe(true);
     });
     it('should render the secondary toolbar if there is a custom secondary toolbar button', () => {
@@ -190,11 +190,11 @@ describe('comment editor', () => {
         />,
       );
       fullPage
-        .findWhere(elm => elm.name() === 'ContentArea')
+        .findWhere((elm) => elm.name() === 'ContentArea')
         .childAt(0)
         .simulate('click');
       expect(
-        fullPage.findWhere(elm => elm.name() === 'SecondaryToolbar').exists(),
+        fullPage.findWhere((elm) => elm.name() === 'SecondaryToolbar').exists(),
       ).toBe(true);
     });
     it('should not render the secondary toolbar if there is no save, cancel or custom button', () => {
@@ -207,11 +207,11 @@ describe('comment editor', () => {
         />,
       );
       fullPage
-        .findWhere(elm => elm.name() === 'ContentArea')
+        .findWhere((elm) => elm.name() === 'ContentArea')
         .childAt(0)
         .simulate('click');
       expect(
-        fullPage.findWhere(elm => elm.name() === 'SecondaryToolbar').exists(),
+        fullPage.findWhere((elm) => elm.name() === 'SecondaryToolbar').exists(),
       ).toBe(false);
     });
   });

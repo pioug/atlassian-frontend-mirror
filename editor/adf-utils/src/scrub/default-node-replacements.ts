@@ -21,10 +21,10 @@ const card: NodeReplacer = (node, { valueReplacements }) => ({
   },
 });
 
-const mediaParent: NodeReplacer = node => ({
+const mediaParent: NodeReplacer = (node) => ({
   type: node.type,
   attrs: node.attrs ? (scrubAttrs(node.type, node.attrs) as any) : undefined,
-  content: node.content?.filter(c => c?.type === 'media'),
+  content: node.content?.filter((c) => c?.type === 'media'),
 });
 
 export const defaultNodeReplacements: NodeReplacements = {

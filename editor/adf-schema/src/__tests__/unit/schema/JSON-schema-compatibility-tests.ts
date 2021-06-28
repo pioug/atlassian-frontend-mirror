@@ -101,7 +101,7 @@ const getNodeMatches = (
   depth = 0,
 ): Function[] => {
   const matches: Function[] = [];
-  nodes.forEach(n => {
+  nodes.forEach((n) => {
     if (
       n.name !== nodeType.name &&
       nodeType.contentMatch.matchType(n) &&
@@ -121,7 +121,7 @@ const getNodeMatches = (
         } else {
           // add all the various combinations of child and its further children.
           matches.push(
-            ...childNodes.map(c => (factory as any)[nodeType.name](c)),
+            ...childNodes.map((c) => (factory as any)[nodeType.name](c)),
           );
         }
       }
@@ -151,7 +151,8 @@ const getDisplayName = (node: Node) => {
   }
   let displayName: string = `${getDisplayName(node.firstChild!)} -> `;
   const markDisplayText =
-    node.marks && node.marks.map(mark => mark.type && mark.type.name).join(',');
+    node.marks &&
+    node.marks.map((mark) => mark.type && mark.type.name).join(',');
   if (markDisplayText) {
     displayName += `${markDisplayText} -> `;
   }
@@ -164,7 +165,7 @@ describe('ProseMirror and JSON schema tests', () => {
   const dataSet = getNodeMatches(defaultSchema.nodes.doc, 4, 4);
   const transformer = new JSONTransformer();
 
-  dataSet.forEach(editorData => {
+  dataSet.forEach((editorData) => {
     const editorDoc = editorData(defaultSchema);
     const editorJson = transformer.encode(editorDoc);
     it(`should validate JSON schema for ${getDisplayName(editorDoc)}`, () => {

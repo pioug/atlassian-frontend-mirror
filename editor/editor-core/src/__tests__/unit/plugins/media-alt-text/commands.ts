@@ -118,7 +118,7 @@ describe('commands', () => {
       it('should set meta attribute scrollIntoView to false', () => {
         const { editorView } = editor(defaultDoc);
 
-        updateAltText('lol')(editorView.state, tr => {
+        updateAltText('lol')(editorView.state, (tr) => {
           expect(tr.getMeta('scrollIntoView')).toBeFalsy();
           editorView.dispatch(tr);
         });
@@ -160,7 +160,7 @@ describe('commands', () => {
         it('should set meta attribute scrollIntoView to false', () => {
           const { editorView } = editor(defaultDoc);
 
-          openMediaAltTextMenu(editorView.state, tr => {
+          openMediaAltTextMenu(editorView.state, (tr) => {
             expect(tr.getMeta('scrollIntoView')).toBeFalsy();
             editorView.dispatch(tr);
           });

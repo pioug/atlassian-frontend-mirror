@@ -15,7 +15,7 @@ export const underline: MarkSpec = {
     { tag: 'u' },
     {
       style: 'text-decoration',
-      getAttrs: value => value === 'underline' && null,
+      getAttrs: (value) => value === 'underline' && null,
     },
   ],
   toDOM(): [string] {

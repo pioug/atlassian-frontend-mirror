@@ -72,10 +72,10 @@ export class PluginPerformanceObserver implements PerformanceObserver {
     return this;
   }
 
-  private onObserveration: PerformanceObserverCallback = entries => {
+  private onObserveration: PerformanceObserverCallback = (entries) => {
     const reports: PluginPerformanceReportData[] = entries
       .getEntriesByName(EVENT_NAME_DISPATCH_TRANSACTION)
-      .map(entry =>
+      .map((entry) =>
         PluginPerformanceReport.fromEntry(entry)
           .withCount(++this.reportCount)
           .withEntryList(entries)
@@ -86,14 +86,14 @@ export class PluginPerformanceObserver implements PerformanceObserver {
       );
 
     reports
-      .filter(report => report.trigger !== 'none')
-      .forEach(report => this.callback(report));
+      .filter((report) => report.trigger !== 'none')
+      .forEach((report) => this.callback(report));
   };
 
   public observe() {
     if (this.isSimpleTracking) {
       this.simpleObserver.setPluginNames(this.getPlugins());
-      this.simpleObserver.setOnObservation(entries => {
+      this.simpleObserver.setOnObservation((entries) => {
         this.onObserveration(entries, this.observer);
       });
 

@@ -2,7 +2,7 @@ import React from 'react';
 
 import Breadcrumbs, { BreadcrumbsItem } from '../../src';
 
-export default function Example() {
+const BreadcrumbsExpandedExample = () => {
   return (
     <div
       style={{
@@ -22,4 +22,6 @@ export default function Example() {
       </Breadcrumbs>
     </div>
   );
-}
+};
+
+export default BreadcrumbsExpandedExample;

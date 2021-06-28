@@ -2,7 +2,7 @@ import { name } from '../../../version.json';
 import { code as codeBase, createSchema, sanitizeNodes } from '../../..';
 import { sanitizeNodeSpecContent } from '../../../schema/create-schema';
 const filterGroupDecMark = (marks: Array<string>) =>
-  marks.filter(mark => mark[0] !== '_' || mark[1] !== '_');
+  marks.filter((mark) => mark[0] !== '_' || mark[1] !== '_');
 
 describe(`${name}/schema createSchema helper`, () => {
   it('should add only defined marks and nodes to the schema', () => {

@@ -3,7 +3,7 @@ import { ToolbarProps } from './toolbar-types';
 import { ToolbarInner } from './ToolbarInner';
 import { ToolbarSize } from './types';
 
-export const Toolbar: React.FunctionComponent<ToolbarProps> = props => {
+export const Toolbar: React.FunctionComponent<ToolbarProps> = (props) => {
   return (
     <ToolbarInner
       items={props.items}

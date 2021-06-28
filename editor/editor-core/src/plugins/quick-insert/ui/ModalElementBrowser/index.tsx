@@ -37,7 +37,7 @@ const Modal = ({
   }, [editorView]);
 
   const onInsertItem = useCallback(
-    item => {
+    (item) => {
       closeElementBrowserModal()(editorView.state, editorView.dispatch);
       focusInEditor();
       insertItem(item)(editorView.state, editorView.dispatch);

@@ -28,7 +28,7 @@ export default class EditorWithFeedback extends React.Component<Props, State> {
   }
 
   onFocus = () =>
-    this.setState(prevState => ({ isExpanded: !prevState.isExpanded }));
+    this.setState((prevState) => ({ isExpanded: !prevState.isExpanded }));
 
   render() {
     if (!this.state.hasJquery) {
@@ -57,7 +57,7 @@ export default class EditorWithFeedback extends React.Component<Props, State> {
                     onChange={onChange}
                     onSave={SAVE_ACTION}
                     onCancel={CANCEL_ACTION}
-                    contentTransformerProvider={schema =>
+                    contentTransformerProvider={(schema) =>
                       new JIRATransformer(schema)
                     }
                   />

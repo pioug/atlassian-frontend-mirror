@@ -276,7 +276,7 @@ export const copyOptionalAttrsFromMediaState = (
 ) => {
   Object.keys(node.attrs)
     .filter(isOptionalAttr)
-    .forEach(key => {
+    .forEach((key) => {
       const mediaStateKey = key.substring(2);
       const attrValue = mediaState[mediaStateKey as keyof typeof mediaState];
       if (attrValue !== undefined) {
@@ -349,7 +349,7 @@ export const unwrapNestedMediaElements = (html: string) => {
     return html;
   }
 
-  imageTags.forEach(imageTag => {
+  imageTags.forEach((imageTag) => {
     // Capture the immediate parent, we may remove the media from here later.
     const mediaParent = imageTag.parentElement;
     if (!mediaParent) {
@@ -371,7 +371,7 @@ export const unwrapNestedMediaElements = (html: string) => {
 
     // Find the top most element that the parent has a valid container for the image.
     // Stop just before found the wrapper
-    const insertBeforeElement = walkUpTreeUntil(mediaParent, element => {
+    const insertBeforeElement = walkUpTreeUntil(mediaParent, (element) => {
       // If is at the top just use this element as reference
       if (element.parentElement === wrapper) {
         return true;

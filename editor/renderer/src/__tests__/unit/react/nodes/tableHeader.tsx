@@ -58,7 +58,7 @@ describe('Renderer - React/Nodes/TableHeader', () => {
     beforeEach(() => {
       const O = withSortableColumn(TestComp);
 
-      WithSortableColumn = props => <O {...props} isHeaderRow />;
+      WithSortableColumn = (props) => <O {...props} isHeaderRow />;
     });
 
     describe('when allowColumnSorting is the default value', () => {

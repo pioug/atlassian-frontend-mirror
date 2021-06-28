@@ -208,9 +208,9 @@ const createInsertBlockItems = (
   }
 
   const blockTypes = availableWrapperBlockTypes || [];
-  const codeblockData = blockTypes.find(type => type.name === 'codeblock');
-  const panelData = blockTypes.find(type => type.name === 'panel');
-  const blockquoteData = blockTypes.find(type => type.name === 'blockquote');
+  const codeblockData = blockTypes.find((type) => type.name === 'codeblock');
+  const panelData = blockTypes.find((type) => type.name === 'panel');
+  const blockquoteData = blockTypes.find((type) => type.name === 'blockquote');
 
   if (codeblockData) {
     items.push(

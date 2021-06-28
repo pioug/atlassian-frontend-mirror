@@ -2,8 +2,12 @@ import React from 'react';
 
 import Button from '../../src';
 
-export default () => (
-  <Button appearance="primary" isDisabled>
-    Disabled button
-  </Button>
-);
+const ButtonDisabledExample = () => {
+  return (
+    <Button appearance="primary" isDisabled>
+      Disabled button
+    </Button>
+  );
+};
+
+export default ButtonDisabledExample;

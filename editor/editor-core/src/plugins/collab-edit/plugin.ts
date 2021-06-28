@@ -70,7 +70,7 @@ export const createPlugin = (
         destroy() {
           providerFactory.unsubscribeAll('collabEditProvider');
           if (cleanup) {
-            cleanup.then(unsubscribe => {
+            cleanup.then((unsubscribe) => {
               if (unsubscribe) {
                 unsubscribe();
               }

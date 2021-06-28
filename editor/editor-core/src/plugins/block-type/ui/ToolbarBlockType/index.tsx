@@ -59,7 +59,7 @@ class ToolbarBlockType extends React.PureComponent<
     } = this.props;
 
     const isHeadingDisabled = !availableBlockTypes.some(
-      blockType => blockType.nodeName === 'heading',
+      (blockType) => blockType.nodeName === 'heading',
     );
 
     if (isHeadingDisabled) {
@@ -67,8 +67,8 @@ class ToolbarBlockType extends React.PureComponent<
     }
 
     const blockTypeTitles = availableBlockTypes
-      .filter(blockType => blockType.name === currentBlockType.name)
-      .map(blockType => blockType.title);
+      .filter((blockType) => blockType.name === currentBlockType.name)
+      .map((blockType) => blockType.title);
 
     const longestDropdownMenuItem = [
       NORMAL_TEXT,

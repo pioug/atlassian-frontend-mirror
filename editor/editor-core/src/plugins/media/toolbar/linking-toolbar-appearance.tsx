@@ -59,7 +59,7 @@ export const LinkToolbarAppearance: React.FC<LinkingToolbarProps> = ({
       return;
     }
 
-    checkMediaType(mediaNode, mediaClientConfig).then(mediaType => {
+    checkMediaType(mediaNode, mediaClientConfig).then((mediaType) => {
       if (mediaType === 'external' || mediaType === 'image') {
         setShowLinkingControls(true);
       }

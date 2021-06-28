@@ -20,7 +20,7 @@ describe('Table context menu: cells background', () => {
     page = global.page;
   });
 
-  describe.each(THEME_MODES)('Theme: %s', theme => {
+  describe.each(THEME_MODES)('Theme: %s', (theme) => {
     beforeEach(async () => {
       await initFullPageEditorWithAdf(
         page,

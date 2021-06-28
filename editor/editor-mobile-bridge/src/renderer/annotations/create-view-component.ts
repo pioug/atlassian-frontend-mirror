@@ -27,7 +27,7 @@ export const createViewComponent = (nativeToWebAPI: RendererBridge) =>
       const payload: AnnotationPayloadsByType[] = [
         {
           annotationType: AnnotationTypes.INLINE_COMMENT,
-          annotationIds: annotations.map(annotation => annotation.id),
+          annotationIds: annotations.map((annotation) => annotation.id),
         },
       ];
       webToNativeBridgeAPI.onAnnotationClick(payload);
@@ -39,7 +39,7 @@ export const createViewComponent = (nativeToWebAPI: RendererBridge) =>
         const geomPayload: AnnotationWithRectPayloadsByType[] = [
           {
             annotationType: AnnotationTypes.INLINE_COMMENT,
-            annotations: annotations.map(annotation => ({
+            annotations: annotations.map((annotation) => ({
               id: annotation.id,
               rect,
               text,

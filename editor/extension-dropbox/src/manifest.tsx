@@ -77,7 +77,7 @@ async function pickFromDropbox(appKey: string, canMountinIframe: boolean) {
     return;
   }
 
-  const newNodes = files.map(file => inlineCard({ url: file.link }));
+  const newNodes = files.map((file) => inlineCard({ url: file.link }));
 
   if (newNodes.length === 1) {
     node = newNodes[0];
@@ -111,15 +111,15 @@ const manifestFunction = ({
     '16': () =>
       import(
         /* webpackChunkName: "@atlaskit-internal_editor-dropbox" */ './icons/DropboxIcon'
-      ).then(mod => mod.default),
+      ).then((mod) => mod.default),
     '24': () =>
       import(
         /* webpackChunkName: "@atlaskit-internal_editor-dropbox" */ './icons/DropboxIcon'
-      ).then(mod => mod.default),
+      ).then((mod) => mod.default),
     '48': () =>
       import(
         /* webpackChunkName: "@atlaskit-internal_editor-dropbox" */ './icons/DropboxIcon'
-      ).then(mod => mod.default),
+      ).then((mod) => mod.default),
   },
   modules: {
     quickInsert: [

@@ -39,7 +39,7 @@ const getTotalNodeSizeAndNodes = (
   while (!queue.isEmpty()) {
     const node = queue.front();
 
-    node.content?.forEach(content => {
+    node.content?.forEach((content) => {
       if (content) {
         queue.enqueue(content);
       }
@@ -66,7 +66,7 @@ export function measureContentRenderedPerformance(
 ) {
   measureRender(
     measurements.PROSEMIRROR_CONTENT_RENDERED,
-    actualRenderingDuration => {
+    (actualRenderingDuration) => {
       const { totalNodeSize, nodes } = getTotalNodeSizeAndNodes(docNode);
 
       callback(totalNodeSize, nodes, actualRenderingDuration);

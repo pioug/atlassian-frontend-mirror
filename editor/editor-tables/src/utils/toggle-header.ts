@@ -72,7 +72,7 @@ export function toggleHeader(type: ToggleType): Command {
         newType = types.cell;
       }
 
-      rect.map.cellsInRect(cellsRect).forEach(relativeCellPos => {
+      rect.map.cellsInRect(cellsRect).forEach((relativeCellPos) => {
         const cellPos = relativeCellPos + rect.tableStart;
         const cell = tr.doc.nodeAt(cellPos);
 

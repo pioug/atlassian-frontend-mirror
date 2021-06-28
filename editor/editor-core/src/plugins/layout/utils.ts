@@ -8,12 +8,12 @@ const isLayoutNode = (node: Node) =>
 export function unwrapContentFromLayout(
   maybeLayoutSection: Node,
 ): Node | Node[] {
-  const fragment = mapFragment(Fragment.from(maybeLayoutSection), node => {
+  const fragment = mapFragment(Fragment.from(maybeLayoutSection), (node) => {
     return isLayoutNode(node) ? node.content : node;
   });
 
   const nodes = [] as Node[];
-  fragment.forEach(i => nodes.push(i));
+  fragment.forEach((i) => nodes.push(i));
   return nodes;
 }
 

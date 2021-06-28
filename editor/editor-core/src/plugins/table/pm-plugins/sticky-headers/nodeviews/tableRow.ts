@@ -29,12 +29,13 @@ import { getFeatureFlags } from '../../../../feature-flags-context';
 export const supportedHeaderRow = (node: PmNode) => {
   const allHeaders = mapChildren(
     node,
-    child => child.type.name === 'tableHeader',
+    (child) => child.type.name === 'tableHeader',
   ).every(Boolean);
 
-  const someMerged = mapChildren(node, child => child.attrs.rowspan || 0).some(
-    rowspan => rowspan > 1,
-  );
+  const someMerged = mapChildren(
+    node,
+    (child) => child.attrs.rowspan || 0,
+  ).some((rowspan) => rowspan > 1);
 
   return allHeaders && !someMerged;
 };
@@ -180,7 +181,7 @@ export class TableRowNodeView implements NodeView {
         this.sentinels.bottom = tableContainer
           .getElementsByClassName(ClassName.TABLE_STICKY_SENTINEL_BOTTOM)
           .item(0) as HTMLElement;
-        [this.sentinels.top, this.sentinels.bottom].forEach(el => {
+        [this.sentinels.top, this.sentinels.bottom].forEach((el) => {
           // skip if already observed for another row on this table
           if (el && !el.dataset.isObserved) {
             el.dataset.isObserved = 'true';
@@ -194,12 +195,12 @@ export class TableRowNodeView implements NodeView {
   // updating bottom sentinel position if sticky header height changes
   // to allocate for new header height
   private createResizeObserver() {
-    this.resizeObserver = new ResizeObserver(entries => {
+    this.resizeObserver = new ResizeObserver((entries) => {
       if (!this.tree) {
         return;
       }
       const { table } = this.tree;
-      entries.forEach(entry => {
+      entries.forEach((entry) => {
         const newHeight = entry.contentRect
           ? entry.contentRect.height
           : (entry.target as HTMLElement).offsetHeight;
@@ -228,7 +229,7 @@ export class TableRowNodeView implements NodeView {
           return;
         }
         const { table } = this.tree;
-        entries.forEach(entry => {
+        entries.forEach((entry) => {
           const target = entry.target as HTMLElement;
 
           // if the rootBounds has 0 height, e.g. confluence preview mode, we do nothing.
@@ -395,7 +396,7 @@ export class TableRowNodeView implements NodeView {
 
     // when header rows are toggled off - mark sentinels as unobserved
     if (!state.isHeaderRowEnabled) {
-      [this.sentinels.top, this.sentinels.bottom].forEach(el => {
+      [this.sentinels.top, this.sentinels.bottom].forEach((el) => {
         if (el) {
           delete el.dataset.isObserved;
         }

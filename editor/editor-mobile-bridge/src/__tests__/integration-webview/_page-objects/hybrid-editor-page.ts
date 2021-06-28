@@ -222,7 +222,7 @@ export async function isEmojiAdded(
       await isEmojiTextPresent(page, text),
       await isEmojiBackgroundImageLoaded(page, EMOJI_BACKGROUND_IMAGE_ELEMENT),
     ])
-  ).every(value => value);
+  ).every((value) => value);
 }
 
 /**

@@ -198,7 +198,7 @@ describe('card', () => {
       const toolbarItems = getToolbarItems(toolbar!, editorView);
       expect(toolbar).toBeDefined();
       expect(
-        toolbarItems.filter(object => object.hasOwnProperty('metadata')),
+        toolbarItems.filter((object) => object.hasOwnProperty('metadata')),
       ).toMatchSnapshot();
     });
 
@@ -222,7 +222,7 @@ describe('card', () => {
       expect(toolbar).toBeDefined();
 
       const unlinkButton = getToolbarItems(toolbar!, editorView).find(
-        item => item.type === 'button' && item.title === unlinkTitle,
+        (item) => item.type === 'button' && item.title === unlinkTitle,
       );
 
       expect(unlinkButton).toBeDefined();
@@ -249,7 +249,7 @@ describe('card', () => {
       expect(toolbar).toBeDefined();
 
       const removeButton = getToolbarItems(toolbar!, editorView).find(
-        item => item.type === 'button' && item.title === removeTitle,
+        (item) => item.type === 'button' && item.title === removeTitle,
       );
 
       expect(removeButton).toBeDefined();
@@ -278,7 +278,7 @@ describe('card', () => {
       expect(toolbar).toBeDefined();
 
       const removeButton = getToolbarItems(toolbar!, editorView).find(
-        item => item.type === 'button' && item.title === removeTitle,
+        (item) => item.type === 'button' && item.title === removeTitle,
       );
 
       expect(removeButton).toBeDefined();
@@ -308,7 +308,7 @@ describe('card', () => {
       expect(toolbar).toBeDefined();
 
       const visitButton = getToolbarItems(toolbar!, editorView).find(
-        item => item.type === 'button' && item.title === visitTitle,
+        (item) => item.type === 'button' && item.title === visitTitle,
       );
 
       expect(visitButton).toBeDefined();
@@ -339,7 +339,7 @@ describe('card', () => {
       );
 
       const visitButton = getToolbarItems(toolbar!, editorView).find(
-        item => item.type === 'button' && item.title === visitTitle,
+        (item) => item.type === 'button' && item.title === visitTitle,
       ) as FloatingToolbarButton<Command>;
 
       visitButton.onClick(editorView.state, editorView.dispatch);
@@ -369,7 +369,7 @@ describe('card', () => {
         providerFactory,
       );
       const visitButton = getToolbarItems(toolbar!, editorView).find(
-        item => item.type === 'button' && item.title === visitTitle,
+        (item) => item.type === 'button' && item.title === visitTitle,
       ) as FloatingToolbarButton<Command>;
 
       visitButton.onClick(editorView.state, editorView.dispatch);
@@ -394,7 +394,7 @@ describe('card', () => {
         providerFactory,
       );
       const removeButton = getToolbarItems(toolbar!, editorView).find(
-        item => item.type === 'button' && item.title === removeTitle,
+        (item) => item.type === 'button' && item.title === removeTitle,
       ) as FloatingToolbarButton<Command>;
 
       removeButton.onClick(editorView.state, editorView.dispatch);
@@ -424,7 +424,7 @@ describe('card', () => {
         providerFactory,
       );
       const unlinkButton = getToolbarItems(toolbar!, editorView).find(
-        item => item.type === 'button' && item.title === unlinkTitle,
+        (item) => item.type === 'button' && item.title === unlinkTitle,
       ) as FloatingToolbarButton<Command>;
 
       unlinkButton.onClick(editorView.state, editorView.dispatch);
@@ -452,7 +452,7 @@ describe('card', () => {
         providerFactory,
       );
       const removeButton = getToolbarItems(toolbar!, editorView).find(
-        item => item.type === 'button' && item.title === removeTitle,
+        (item) => item.type === 'button' && item.title === removeTitle,
       ) as FloatingToolbarButton<Command>;
 
       removeButton.onClick(editorView.state, editorView.dispatch);

@@ -57,7 +57,7 @@ describe('typeahead plugin -> commands -> select-item', () => {
 
   describe('selectCurrentItem', () => {
     it("should call handler's selectItem method", () => {
-      const fn = jest.fn(state => state.tr);
+      const fn = jest.fn((state) => state.tr);
       const plugin = createTypeAheadPlugin({ selectItem: fn });
       const { editorView } = createEditor({
         doc: doc(p(typeAheadQuery({ trigger: '/' })('/query{<>}'))),

@@ -59,7 +59,7 @@ describe('commands', () => {
 
   const nextTick = async () => {
     // Let the getState promise resolve
-    await new Promise(resolve => {
+    await new Promise((resolve) => {
       process.nextTick(resolve);
     });
   };
@@ -224,8 +224,8 @@ describe('commands', () => {
         editorView.dispatch,
       );
       let inlineCommentTransactionCalls = 0;
-      dispatchSpy.mock.calls.forEach(call => {
-        call.forEach(tr => {
+      dispatchSpy.mock.calls.forEach((call) => {
+        call.forEach((tr) => {
           tr.getMeta(inlineCommentPluginKey) && inlineCommentTransactionCalls++;
         });
       });
@@ -310,8 +310,8 @@ describe('commands', () => {
         RESOLVE_METHOD.COMPONENT,
       )(editorView.state, editorView.dispatch);
       let inlineCommentTransactionCalls = 0;
-      dispatchSpy.mock.calls.forEach(call => {
-        call.forEach(tr => {
+      dispatchSpy.mock.calls.forEach((call) => {
+        call.forEach((tr) => {
           tr.getMeta(inlineCommentPluginKey) && inlineCommentTransactionCalls++;
         });
       });

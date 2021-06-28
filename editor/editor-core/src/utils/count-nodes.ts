@@ -5,7 +5,7 @@ type NodeCount = Record<string, number>;
 export function countNodes(state: EditorState): NodeCount {
   const nodes: NodeCount = {};
 
-  state.doc.descendants(node => {
+  state.doc.descendants((node) => {
     if (node.type.name in nodes) {
       nodes[node.type.name]++;
     } else {

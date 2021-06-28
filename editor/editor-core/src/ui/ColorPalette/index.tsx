@@ -54,7 +54,7 @@ const ColorPalette = (props: Props & InjectedIntlProps) => {
 
   return (
     <>
-      {colorsPerRow.map(row => (
+      {colorsPerRow.map((row) => (
         <ColorPaletteWrapper
           className={className}
           key={`row-first-color-${row[0].value}`}

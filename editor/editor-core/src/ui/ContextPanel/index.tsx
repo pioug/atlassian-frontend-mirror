@@ -86,20 +86,20 @@ const panelSlideStyles = ({ positionPanelOverEditor }: PanelProps) => {
 };
 
 export const Panel = styled.div<PanelProps>`
-  width: ${p => (p.visible ? p.panelWidth : 0)}px;
+  width: ${(p) => (p.visible ? p.panelWidth : 0)}px;
   height: 100%;
   transition: width ${ANIM_SPEED_MS}ms ${akEditorSwoopCubicBezier};
   overflow: hidden;
   box-shadow: inset 2px 0 0 0 ${N30};
 
-  ${props => panelSlideStyles(props)};
+  ${(props) => panelSlideStyles(props)};
 `;
 
 export const Content = styled.div<StyleProps>`
   transition: width 600ms ${akEditorSwoopCubicBezier};
   box-sizing: border-box;
   padding: 16px 16px 0px;
-  width: ${p => (p.visible ? p.panelWidth : 0)}px;
+  width: ${(p) => (p.visible ? p.panelWidth : 0)}px;
   height: 100%;
   overflow-y: auto;
 `;
@@ -229,7 +229,7 @@ export default class ContextPanel extends React.Component<Props> {
   render() {
     return (
       <WithEditorActions
-        render={actions => {
+        render={(actions) => {
           const eventDispatcher = actions._privateGetEventDispatcher();
           const editorView = actions._privateGetEditorView();
 

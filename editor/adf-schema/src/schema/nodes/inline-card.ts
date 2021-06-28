@@ -36,7 +36,7 @@ export const inlineCard: NodeSpec = {
       // bump priority higher than hyperlink
       priority: 100,
 
-      getAttrs: dom => {
+      getAttrs: (dom) => {
         const anchor = dom as HTMLAnchorElement;
         const data = anchor.getAttribute('data-card-data');
 
@@ -55,7 +55,7 @@ export const inlineCard: NodeSpec = {
     {
       tag: 'div[data-inline-card]',
 
-      getAttrs: dom => {
+      getAttrs: (dom) => {
         const anchor = dom as HTMLDivElement;
         const data = anchor.getAttribute('data-card-data');
 

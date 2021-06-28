@@ -280,7 +280,7 @@ const findErrorsRecursively = (
   const { unsupportedMark, unsupportedNodeAttribute } = schema.marks;
   const { unsupportedInline, unsupportedBlock } = schema.nodes;
   if (entityMarks) {
-    entityMarks.forEach(mark => {
+    entityMarks.forEach((mark) => {
       if (
         mark.type === unsupportedMark.name ||
         mark.type === unsupportedNodeAttribute.name
@@ -295,7 +295,7 @@ const findErrorsRecursively = (
   ) {
     errorCallback(getAttr(entity, 'error'), getAttr(entity, 'entity'));
   } else {
-    (entity.content || []).forEach(childEntity =>
+    (entity.content || []).forEach((childEntity) =>
       findErrorsRecursively(childEntity as ADFEntity, schema, errorCallback),
     );
   }

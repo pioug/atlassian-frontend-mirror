@@ -29,7 +29,7 @@ export const embedCard: NodeSpec = {
   parseDOM: [
     {
       tag: 'div[data-embed-card]',
-      getAttrs: dom => ({
+      getAttrs: (dom) => ({
         url: (dom as HTMLElement).getAttribute('data-card-url'),
         layout: (dom as HTMLElement).getAttribute('data-layout') || 'center',
         width: Number((dom as HTMLElement).getAttribute('data-width')) || null,

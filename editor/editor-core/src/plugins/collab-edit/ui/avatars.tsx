@@ -12,11 +12,11 @@ export interface AvatarsProps {
 }
 
 export const Avatars: React.StatelessComponent<AvatarsProps> = React.memo(
-  props => {
+  (props) => {
     const { sessionId } = props;
     const participants = props.participants.toArray() as CollabParticipant[];
     const avatars = participants
-      .sort(p => (p.sessionId === sessionId ? -1 : 1))
+      .sort((p) => (p.sessionId === sessionId ? -1 : 1))
       .map(toAvatar);
 
     if (!avatars.length) {

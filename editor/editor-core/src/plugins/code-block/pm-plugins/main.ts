@@ -61,7 +61,7 @@ export const createPlugin = (useLongPressSelection: boolean = false) =>
       },
       handleClickOn: createSelectionClickHandler(
         ['codeBlock'],
-        target =>
+        (target) =>
           !!(
             target.closest(`.${codeBlockClassNames.gutter}`) ||
             target.classList.contains(codeBlockClassNames.content)

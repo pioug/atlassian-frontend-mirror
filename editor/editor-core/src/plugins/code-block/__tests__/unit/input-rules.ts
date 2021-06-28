@@ -25,7 +25,7 @@ describe('inputrules', () => {
 
   describe.each([true, false])(
     'when useUnpredictableInputRule is %s',
-    useUnpredictableInputRule => {
+    (useUnpredictableInputRule) => {
       const editor = (doc: DocBuilder) => {
         return createEditor({
           featureFlags: {

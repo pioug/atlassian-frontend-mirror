@@ -332,7 +332,7 @@ describe('Annotations: Hooks/useEvents', () => {
         });
 
         const expected = {
-          annotations: annotationIds.map(id => ({
+          annotations: annotationIds.map((id) => ({
             id,
             type: AnnotationTypes.INLINE_COMMENT,
           })),

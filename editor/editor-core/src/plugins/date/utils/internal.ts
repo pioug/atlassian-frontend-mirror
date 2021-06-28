@@ -108,7 +108,7 @@ export function findDateSegmentByPosition(
     keyToSegment[strippedPlaceholder[strippedPlaceholder.length - 1]];
   const allPossibleSegments: DateSegment[] = ['day', 'month', 'year'];
   const middleSegment: DateSegment = allPossibleSegments.filter(
-    s => s !== firstSegment && s !== lastSegment,
+    (s) => s !== firstSegment && s !== lastSegment,
   )[0];
 
   if (isCursorInFirstDateSegment(position, date)) {

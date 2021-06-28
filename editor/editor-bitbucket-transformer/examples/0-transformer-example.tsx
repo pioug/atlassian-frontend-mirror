@@ -85,7 +85,7 @@ class TransformerPanels extends React.PureComponent<Props, State> {
               mentionProvider={Promise.resolve(mentionResourceProvider)}
               allowTables={{ isHeaderRowRequired: true }}
               legacyImageUploadProvider={Promise.resolve(imageUploadHandler)}
-              contentTransformerProvider={schema =>
+              contentTransformerProvider={(schema) =>
                 new BitbucketTransformer(schema)
               }
               taskDecisionProvider={Promise.resolve(
@@ -112,7 +112,7 @@ class TransformerPanels extends React.PureComponent<Props, State> {
 export default () => (
   <EditorContext>
     <WithEditorActions
-      render={actions => <TransformerPanels actions={actions} />}
+      render={(actions) => <TransformerPanels actions={actions} />}
     />
   </EditorContext>
 );

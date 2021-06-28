@@ -45,7 +45,7 @@ const findPosForDOM = (sel: Selection) => {
     !node &&
     $from.nodeBefore &&
     $from.nodeBefore.isText &&
-    $from.nodeBefore.marks.find(mark => mark.type.name === 'annotation')
+    $from.nodeBefore.marks.find((mark) => mark.type.name === 'annotation')
   ) {
     return from - 1;
   }
@@ -121,7 +121,7 @@ export function InlineCommentView({
         <CreateComponent
           dom={dom}
           textSelection={textSelection}
-          onCreate={id => {
+          onCreate={(id) => {
             createAnnotation(id)(editorView.state, editorView.dispatch);
             !editorView.hasFocus() && editorView.focus();
           }}
@@ -139,7 +139,7 @@ export function InlineCommentView({
 
   // View Component
   const activeAnnotations = selectedAnnotations.filter(
-    mark => annotations[mark.id] === false,
+    (mark) => annotations[mark.id] === false,
   );
   if (!ViewComponent || activeAnnotations.length === 0) {
     return null;
@@ -175,8 +175,8 @@ export function InlineCommentView({
       <ViewComponent
         annotations={activeAnnotations}
         dom={dom}
-        onDelete={id => removeInlineCommentNearSelection(id)(state, dispatch)}
-        onResolve={id =>
+        onDelete={(id) => removeInlineCommentNearSelection(id)(state, dispatch)}
+        onResolve={(id) =>
           updateInlineCommentResolvedState(
             { [id]: true },
             RESOLVE_METHOD.COMPONENT,

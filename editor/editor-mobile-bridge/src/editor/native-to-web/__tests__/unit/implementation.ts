@@ -160,7 +160,7 @@ describe('AllowList Bridge methods', () => {
   it('should return modifed data set when removeQuickInsertAllowListItem is called', () => {
     const removeList = ['heading1', 'heading2'];
     const newListExpected = [...defaultSetList].filter(
-      item => !removeList.includes(item),
+      (item) => !removeList.includes(item),
     );
     bridgeVer.removeQuickInsertAllowListItem(JSON.stringify(removeList));
     expect(bridgeVer.getQuickInsertAllowList()).toBe(
@@ -196,7 +196,7 @@ describe('PageTitle Bridge', () => {
 
     bridgeVer.setTitle(title);
 
-    await new Promise(resolve => process.nextTick(() => resolve()));
+    await new Promise((resolve) => process.nextTick(() => resolve()));
 
     expect(provider.setTitle).toHaveBeenCalledWith(title, true);
   });
@@ -207,7 +207,7 @@ describe('PageTitle Bridge', () => {
 
     bridgeVer.setTitle(title);
 
-    await new Promise(resolve => process.nextTick(() => resolve()));
+    await new Promise((resolve) => process.nextTick(() => resolve()));
 
     expect(provider.setTitle).not.toHaveBeenCalledWith(title, true);
   });
@@ -217,7 +217,7 @@ describe('PageTitle Bridge', () => {
     const title = 'foo';
 
     bridgeVer.setupTitle(Promise.resolve(provider));
-    await new Promise(resolve => process.nextTick(() => resolve()));
+    await new Promise((resolve) => process.nextTick(() => resolve()));
 
     // Simulate the emit event from collab provider
     (provider.on as jest.MockedFunction<any>).mock.calls[0][1]({ title });
@@ -229,7 +229,7 @@ describe('PageTitle Bridge', () => {
     const provider = createMockCollabProvider();
 
     bridgeVer.setupTitle(Promise.resolve(provider));
-    await new Promise(resolve => process.nextTick(() => resolve()));
+    await new Promise((resolve) => process.nextTick(() => resolve()));
 
     expect(provider.on).toHaveBeenCalledWith(
       'metadata:changed',
@@ -242,7 +242,7 @@ describe('PageTitle Bridge', () => {
 
     const destroy = bridgeVer.setupTitle(Promise.resolve(provider));
     destroy();
-    await new Promise(resolve => process.nextTick(() => resolve()));
+    await new Promise((resolve) => process.nextTick(() => resolve()));
 
     expect(provider.off).toHaveBeenCalledWith(
       'metadata:changed',

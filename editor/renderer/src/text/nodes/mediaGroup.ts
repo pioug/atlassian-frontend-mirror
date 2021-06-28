@@ -6,7 +6,7 @@ const mediaGroup: NodeReducer = (node: PMNode) => {
   // ignore card links
   let childMediaFilesCount = 0;
 
-  node.content.forEach(childNode => {
+  node.content.forEach((childNode) => {
     if (childNode.attrs.type === 'file') {
       childMediaFilesCount += 1;
     }

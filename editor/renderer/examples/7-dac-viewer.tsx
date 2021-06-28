@@ -88,16 +88,16 @@ export default class Example extends PureComponent<{}, State> {
     fetch(
       'https://unpkg.com/@atlaskit/adf-schema@latest/dist/json-schema/v1/full.json',
     )
-      .then(res => {
+      .then((res) => {
         return res.json();
       })
-      .then(v1schema => {
+      .then((v1schema) => {
         this.setState({
           fetchingSchema: false,
           validator: ajv.compile(v1schema),
         });
       })
-      .catch(err => {
+      .catch((err) => {
         this.setState({
           err,
           fetchingSchema: false,

@@ -76,7 +76,7 @@ describe('Snapshot Test: Media', () => {
   });
 
   describe('resize', () => {
-    devices.forEach(device => {
+    devices.forEach((device) => {
       it(`should correctly render for ${device}`, async () => {
         await initRenderer(page, resizeAdf, device);
         await waitForAllMedia(page, 17);
@@ -86,7 +86,7 @@ describe('Snapshot Test: Media', () => {
   });
 
   describe('layout', () => {
-    devices.forEach(device => {
+    devices.forEach((device) => {
       it(`should correctly render for ${device}`, async () => {
         await initRenderer(page, layoutAdf, device);
         await waitForAllMedia(page, 16);

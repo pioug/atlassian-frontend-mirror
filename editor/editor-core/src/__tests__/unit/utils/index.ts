@@ -469,7 +469,7 @@ describe('@atlaskit/editore-core/utils', () => {
         },
       ];
 
-      expect(dedupe(l, item => item.item)).toEqual(deduped);
+      expect(dedupe(l, (item) => item.item)).toEqual(deduped);
     });
   });
 

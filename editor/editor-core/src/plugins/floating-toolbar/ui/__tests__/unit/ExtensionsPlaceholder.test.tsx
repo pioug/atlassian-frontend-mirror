@@ -109,7 +109,7 @@ describe('ExtensionsPlaceholder', () => {
       await flushPromises();
       wrapper.update();
 
-      Object.keys(testItemSelectors).forEach(key => {
+      Object.keys(testItemSelectors).forEach((key) => {
         expect(wrapper.find(testItemSelectors[key]).length === 1).toBe(
           shouldRender,
         );

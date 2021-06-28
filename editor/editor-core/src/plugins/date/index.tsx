@@ -35,7 +35,9 @@ const DatePicker = Loadable({
   loader: () =>
     import(
       /* webpackChunkName: "@atlaskit-internal_editor-datepicker" */ './ui/DatePicker'
-    ).then(mod => mod.default) as Promise<React.ComponentType<DatePickerProps>>,
+    ).then((mod) => mod.default) as Promise<
+      React.ComponentType<DatePickerProps>
+    >,
   loading: () => null,
 });
 
@@ -50,7 +52,7 @@ const datePlugin = (): EditorPlugin => ({
     return [
       {
         name: 'date',
-        plugin: options => {
+        plugin: (options) => {
           DatePicker.preload();
           return createDatePlugin(options);
         },

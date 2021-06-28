@@ -101,7 +101,7 @@ export default class MentionWithProfileCard extends PureComponent<
     const { profilecardProvider } = this.props;
     const actions = profilecardProvider.getActions(id, text, accessLevel);
 
-    return actions.map(action => {
+    return actions.map((action) => {
       return {
         ...action,
         callback: () => {

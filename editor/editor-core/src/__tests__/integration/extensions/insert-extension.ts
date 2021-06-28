@@ -25,7 +25,7 @@ BrowserTestCase(
     await page.click(`[aria-label="${messages.table.defaultMessage}"]`);
     await page.waitForSelector('table td p');
 
-    await forEach(['Inline', 'Block'], async extensionType => {
+    await forEach(['Inline', 'Block'], async (extensionType) => {
       await insertBlockMenuItem(page, `${extensionType} macro (EH)`);
     });
 

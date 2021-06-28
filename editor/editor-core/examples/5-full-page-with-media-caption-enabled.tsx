@@ -39,7 +39,7 @@ export default class ExampleEditor extends React.Component<Props, State> {
           media={mediaOptions}
           primaryToolbarComponents={
             <WithEditorActions
-              render={actions => (
+              render={(actions) => (
                 <React.Fragment>
                   <LanguagePicker
                     languages={languages}
@@ -65,7 +65,7 @@ export default class ExampleEditor extends React.Component<Props, State> {
     const messages = await Promise.all([
       import(`../src/i18n/${locale}`),
       import(`@atlaskit/mention/src/i18n/${locale}`),
-    ]).then(args => ({
+    ]).then((args) => ({
       ...args[0].default,
       ...args[1].default,
     }));

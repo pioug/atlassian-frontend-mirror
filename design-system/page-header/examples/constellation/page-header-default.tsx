@@ -11,8 +11,12 @@ const breadcrumbs = (
   </Breadcrumbs>
 );
 
-export default () => (
-  <PageHeader breadcrumbs={breadcrumbs}>
-    Title describing what content to expect on the page
-  </PageHeader>
-);
+const PageHeaderDefaultExample = () => {
+  return (
+    <PageHeader breadcrumbs={breadcrumbs}>
+      Title describing what content to expect on the page
+    </PageHeader>
+  );
+};
+
+export default PageHeaderDefaultExample;

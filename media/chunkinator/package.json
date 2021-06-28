@@ -18,7 +18,7 @@
     ".": "./src/index.ts"
   },
   "atlassian": {
-    "team": "Media Platform",
+    "team": "Media Experience",
     "inPublicMirror": true,
     "releaseModel": "scheduled",
     "website": {

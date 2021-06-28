@@ -17,7 +17,7 @@ describe('Headings', () => {
   beforeEach(setPage);
 
   // Test alignment options (center and right add a wrapper element)
-  describe.each(['left', 'center', 'right'])('aligned %s', alignment => {
+  describe.each(['left', 'center', 'right'])('aligned %s', (alignment) => {
     beforeAll(async () => {
       await initRendererWithADF(page, {
         adf: getAlignmentADF(alignment as Alignment),

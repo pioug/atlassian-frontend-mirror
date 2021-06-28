@@ -79,22 +79,22 @@ export const subscribe = effect<
     };
 
     const handlers: CollabHandlers = {
-      initHandler: data => {
+      initHandler: (data) => {
         view.dispatch(view.state.tr.setMeta('collabInitialised', true));
         handleInit(data, view, options);
       },
-      connectedHandler: data => handleConnection(data, view),
-      dataHandler: data => applyRemoteData(data, view, options),
-      presenceHandler: data => handlePresence(data, view),
-      telepointerHandler: data => handleTelePointer(data, view),
-      localStepsHandler: data => {
+      connectedHandler: (data) => handleConnection(data, view),
+      dataHandler: (data) => applyRemoteData(data, view, options),
+      presenceHandler: (data) => handlePresence(data, view),
+      telepointerHandler: (data) => handleTelePointer(data, view),
+      localStepsHandler: (data) => {
         const { steps } = data;
         const { state } = view;
         const { tr } = state;
-        steps.forEach(step => tr.step(step));
+        steps.forEach((step) => tr.step(step));
         view.dispatch(tr);
       },
-      errorHandler: error => {
+      errorHandler: (error) => {
         addSynchronyErrorAnalytics(view.state, view.state.tr)(error);
       },
       entityHandler: ({ entity }) => {

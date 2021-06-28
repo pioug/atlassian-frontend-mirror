@@ -59,7 +59,7 @@ export default function Example() {
             {headings ? (
               <RadioGroup
                 options={headings}
-                onChange={event =>
+                onChange={(event) =>
                   setActiveHeadingId(event.currentTarget.value)
                 }
               />

@@ -21,7 +21,7 @@ interface AppProps {
 
 const initialDocSerialized = JSON.stringify(getEmptyADF());
 
-export const App: React.FC<AppProps> = props => {
+export const App: React.FC<AppProps> = (props) => {
   const content = useRef<Serialized<JSONDocNode>>('');
   const fetchProxy = useFetchProxy();
   const rendererBridge = getBridge();

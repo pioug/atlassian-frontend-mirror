@@ -64,8 +64,8 @@ describe('Expand: full-page', () => {
   /**
    * All tests in the `describe.each(themes)` block below are executed twice for both light and dark themes.
    */
-  describe.each(themes)('Theme: %s', theme => {
-    describe.each(['default', 'wide', 'full-width'])('Breakout: %s', mode => {
+  describe.each(themes)('Theme: %s', (theme) => {
+    describe.each(['default', 'wide', 'full-width'])('Breakout: %s', (mode) => {
       it(`should render a ${mode} collapsed top level expand`, async () => {
         await initFullPageEditorWithAdf(
           page,
@@ -176,7 +176,7 @@ describe('Expand: Selection', () => {
   /**
    * All tests in the `describe.each(themes)` block below are executed twice for both light and dark themes.
    */
-  describe.each(themes)('Theme: %s', theme => {
+  describe.each(themes)('Theme: %s', (theme) => {
     beforeEach(async () => {
       await initFullPageEditorWithAdf(
         page,

@@ -28,7 +28,7 @@ BrowserTestCase(
     await page.simulateUserSelection(
       `${selectors.document} > p:first-child`,
       `${selectors.document} > p:nth-child(3)`,
-      element => (element === 'start' ? CHAR_WIDTH : 0),
+      (element) => (element === 'start' ? CHAR_WIDTH : 0),
     );
 
     const result = await validateRange(page);
@@ -50,7 +50,7 @@ BrowserTestCase(
     await page.simulateUserSelection(
       `${selectors.document} > p:first-child`,
       `${selectors.document} > p:first-child`,
-      element => (element === 'start' ? CHAR_WIDTH : 0),
+      (element) => (element === 'start' ? CHAR_WIDTH : 0),
     );
 
     const result = await validateRange(page);
@@ -72,7 +72,7 @@ BrowserTestCase(
     await page.simulateUserSelection(
       `${selectors.document} > p:nth-child(2)`,
       `${selectors.document} > p:nth-child(2)`,
-      element => (element === 'start' ? CHAR_WIDTH : 0),
+      (element) => (element === 'start' ? CHAR_WIDTH : 0),
     );
 
     const result = await validateRange(page);
@@ -94,7 +94,7 @@ BrowserTestCase(
     await page.simulateUserSelection(
       `${selectors.document} > p:nth-child(3)`,
       `${selectors.document} > p:nth-child(3)`,
-      element => (element === 'start' ? CHAR_WIDTH : 0),
+      (element) => (element === 'start' ? CHAR_WIDTH : 0),
     );
 
     const result = await validateRange(page);

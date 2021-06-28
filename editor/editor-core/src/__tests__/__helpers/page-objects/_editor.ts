@@ -263,7 +263,7 @@ async function scrollToTopBottom(
  * right, bottom) of a specific editor position.
  */
 export const evaluateCoordinates = async (page: PuppeteerPage, pos: number) => {
-  return await page.evaluate(p => {
+  return await page.evaluate((p) => {
     const editor = (window as any).__editorView as EditorView;
     const coords = editor.coordsAtPos(p);
 

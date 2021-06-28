@@ -61,7 +61,7 @@ export default class WebToNativeReporter extends React.Component<Props, State> {
           height: '180px',
         }}
       >
-        {this.state.logs.map(logItem => (
+        {this.state.logs.map((logItem) => (
           <p key={logItem.id}>{logItem.log}</p>
         ))}
       </div>

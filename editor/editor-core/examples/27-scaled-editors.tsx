@@ -58,7 +58,7 @@ const EditorWrapper = styled.div`
 
 const InlineCommentEditor: React.FunctionComponent<{
   editor: JSX.Element;
-}> = props => (
+}> = (props) => (
   <Frame>
     <Author />
     <EditorWrapper>{props.editor}</EditorWrapper>

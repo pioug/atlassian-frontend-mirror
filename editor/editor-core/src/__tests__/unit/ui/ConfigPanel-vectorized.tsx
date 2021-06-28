@@ -77,7 +77,7 @@ jest.mock(
       if (!query) {
         return [];
       }
-      return MOCK_FAKE_USERS.filter(x => x.name.includes(query));
+      return MOCK_FAKE_USERS.filter((x) => x.name.includes(query));
     },
   }),
 );

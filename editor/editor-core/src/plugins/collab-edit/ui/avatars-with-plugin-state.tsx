@@ -16,7 +16,7 @@ export type AvatarsWithPluginStateProps = {
 
 const AvatarsWithPluginState: React.StatelessComponent<
   AvatarsWithPluginStateProps & InjectedIntlProps
-> = props => {
+> = (props) => {
   const title = props.intl.formatMessage(messages.inviteToEditButtonTitle);
 
   const {

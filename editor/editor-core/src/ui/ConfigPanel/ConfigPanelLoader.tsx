@@ -7,6 +7,6 @@ export default Loadable<PublicProps, any>({
     import(
       /* webpackChunkName: "@atlaskit-internal_editor-core-config-panel" */
       './ConfigPanelFieldsLoader'
-    ).then(module => module.default),
+    ).then((module) => module.default),
   loading: LoadingState,
 });

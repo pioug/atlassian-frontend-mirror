@@ -23,7 +23,7 @@ export default async () => {
   MobileTestCase(
     'Renderer Text: Validate font size change at runtime',
     {},
-    async client => {
+    async (client) => {
       const page = await Page.create(client);
       await loadRenderer(page);
       await validateFontSizeOverride(
@@ -39,7 +39,7 @@ export default async () => {
   MobileTestCase(
     'Renderer Text: Validate font size larger than 34px is set to max font size of 34px.',
     {},
-    async client => {
+    async (client) => {
       const page = await Page.create(client);
       await loadRenderer(page);
       await validateFontSizeOverride(

@@ -68,7 +68,7 @@ class FormErrorBoundaryInner extends React.Component<
     const { createAnalyticsEvent, extensionKey, fields } = this.props;
 
     this.getProductName()
-      .then(product => {
+      .then((product) => {
         if (!createAnalyticsEvent) {
           // eslint-disable-next-line no-console
           console.error(
@@ -100,7 +100,7 @@ class FormErrorBoundaryInner extends React.Component<
 
         createAnalyticsEvent(payload).fire(editorAnalyticsChannel);
       })
-      .catch(e => {
+      .catch((e) => {
         // eslint-disable-next-line no-console
         console.error(
           'Failed to resolve product name from contextIdentifierProvider.',

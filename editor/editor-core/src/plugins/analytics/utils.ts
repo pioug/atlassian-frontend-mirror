@@ -120,7 +120,7 @@ export function findInsertLocation(state: EditorState): string {
 
   // Text selection
   const parentNodeInfo = findParentNode(
-    node => node.type !== state.schema.nodes.paragraph,
+    (node) => node.type !== state.schema.nodes.paragraph,
   )(state.selection);
 
   return parentNodeInfo ? parentNodeInfo.node.type.name : state.doc.type.name;
@@ -172,10 +172,10 @@ export function withAnalytics(
   payload: AnalyticsEventPayload | AnalyticsEventPayloadCallback,
   channel?: string,
 ): HigherOrderCommand {
-  return command => (state, dispatch, view) =>
+  return (command) => (state, dispatch, view) =>
     command(
       state,
-      tr => {
+      (tr) => {
         if (dispatch) {
           if (payload instanceof Function) {
             const dynamicPayload = payload(state);

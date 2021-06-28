@@ -192,7 +192,7 @@ describe('ContextPanelWidthProvider', () => {
     }
   });
   it('should broadcast width', () => {
-    let broadCast: (wdith: number) => void = width => {};
+    let broadCast: (wdith: number) => void = (width) => {};
     wrapper = mount(
       <ContextPanelWidthProvider>
         <ContextPanelConsumer>
@@ -209,9 +209,9 @@ describe('ContextPanelWidthProvider', () => {
   });
 
   it('should broadcast positionedOverEditor', () => {
-    let broadCast: (
-      positionedOverEditor: boolean,
-    ) => void = positionedOverEditor => {};
+    let broadCast: (positionedOverEditor: boolean) => void = (
+      positionedOverEditor,
+    ) => {};
     wrapper = mount(
       <ContextPanelWidthProvider>
         <ContextPanelConsumer>
@@ -298,7 +298,7 @@ const editorFactory = createEditorFactory();
 const mockContextPanelPlugin: EditorPlugin = {
   name: 'mockContextPanelPlugin',
   pluginsOptions: {
-    contextPanel: state => <p>mario saxaphone</p>,
+    contextPanel: (state) => <p>mario saxaphone</p>,
   },
 };
 

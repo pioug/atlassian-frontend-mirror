@@ -14,7 +14,7 @@ export interface Props {
   parameters?: any;
 }
 
-const InlineExtension: React.StatelessComponent<Props> = props => {
+const InlineExtension: React.StatelessComponent<Props> = (props) => {
   const { text } = props;
 
   return (

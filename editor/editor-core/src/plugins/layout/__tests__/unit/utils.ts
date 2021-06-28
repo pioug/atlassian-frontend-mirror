@@ -24,12 +24,12 @@ describe('layout', () => {
   describe('#flatmap', () => {
     it('should return an equal fragment when the callback is an identity fn', () => {
       const content = fragment(p('hello'), p('world'), p('!'));
-      expect(flatmap(content, n => n).eq(content)).toBe(true);
+      expect(flatmap(content, (n) => n).eq(content)).toBe(true);
     });
 
     it('should invoke the callback fn with the node, index & original fragment', () => {
       const content = fragment(p('hello'), p('world'), p('!'));
-      const callbackSpy = jest.fn(i => i);
+      const callbackSpy = jest.fn((i) => i);
 
       flatmap(content, callbackSpy);
       expect(callbackSpy).toHaveBeenCalledTimes(3);
@@ -43,7 +43,7 @@ describe('layout', () => {
     it('should flatten any array returned from the callback fn', () => {
       const content = fragment(p('hello'), p('world'), p('!'));
 
-      const actualFragment = flatmap(content, n => [n, n]);
+      const actualFragment = flatmap(content, (n) => [n, n]);
       const expected = fragment(
         p('hello'),
         p('hello'),

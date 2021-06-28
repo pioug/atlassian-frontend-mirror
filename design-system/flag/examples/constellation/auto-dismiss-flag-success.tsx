@@ -6,7 +6,7 @@ import SuccessIcon from '@atlaskit/icon/glyph/check-circle';
 import { G400 } from '@atlaskit/theme/colors';
 import { AutoDismissFlag, FlagGroup } from '../../src';
 
-const AutoDismissFlagSuccess = () => {
+const AutoDismissFlagSuccessExample = () => {
   const [flags, setFlags] = React.useState<Array<number>>([]);
 
   const addFlag = () => {
@@ -46,4 +46,4 @@ const AutoDismissFlagSuccess = () => {
   );
 };
 
-export default AutoDismissFlagSuccess;
+export default AutoDismissFlagSuccessExample;

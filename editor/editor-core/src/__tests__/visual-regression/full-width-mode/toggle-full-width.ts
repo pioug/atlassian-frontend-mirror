@@ -180,7 +180,7 @@ describe('Snapshot Test: Toggle between full-width and default mode', () => {
         { name: 'wide', adf: resizedTableWideAdf },
         { name: 'full-width', adf: resizedTableFullWidthAdf },
       ];
-      breakoutModes.forEach(breakout => {
+      breakoutModes.forEach((breakout) => {
         it(`scales a ${breakout.name} layout table through modes correctly`, async () => {
           await initEditor(breakout.adf, tableViewport);
           await toggleFullWidthModeForTable();

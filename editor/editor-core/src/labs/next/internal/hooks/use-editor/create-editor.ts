@@ -88,7 +88,7 @@ export function createEditor({
       dispatchTransaction: () => {},
 
       // Disables the contentEditable attribute of the editor if the editor is disabled
-      editable: _state => !!disabled,
+      editable: (_state) => !!disabled,
     },
   );
 

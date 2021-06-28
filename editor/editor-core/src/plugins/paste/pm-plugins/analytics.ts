@@ -239,8 +239,8 @@ export function createPasteAnalyticsPayload(
   // If we have a link among the pasted content, grab the
   // domain and send it up with the analytics event
   if (content === PasteContents.url || content === PasteContents.mixed) {
-    mapSlice(slice, node => {
-      const linkMark = node.marks.find(mark => mark.type.name === 'link');
+    mapSlice(slice, (node) => {
+      const linkMark = node.marks.find((mark) => mark.type.name === 'link');
       if (linkMark) {
         linkUrls.push(linkMark.attrs.href);
       }
@@ -434,7 +434,7 @@ export const getContentNodeTypes = (content: Fragment): string[] => {
   let nodeTypes = new Set<string>();
 
   if (content.size) {
-    content.forEach(node => {
+    content.forEach((node) => {
       if (node.content && node.content.size) {
         nodeTypes = new Set([
           ...nodeTypes,

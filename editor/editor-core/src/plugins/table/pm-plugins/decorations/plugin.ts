@@ -62,7 +62,7 @@ export const createPlugin = () => {
     },
     key: pluginKey,
     props: {
-      decorations: state => getDecorations(state),
+      decorations: (state) => getDecorations(state),
     },
   });
 };

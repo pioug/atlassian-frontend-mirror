@@ -3,7 +3,7 @@ import { pmHistoryPluginKey, PmHistoryPluginState } from './pm-history-types';
 
 export const getPmHistoryPlugin = (state: EditorState): Plugin | undefined => {
   return state.plugins.find(
-    plugin => (plugin as any).key === pmHistoryPluginKey,
+    (plugin) => (plugin as any).key === pmHistoryPluginKey,
   );
 };
 

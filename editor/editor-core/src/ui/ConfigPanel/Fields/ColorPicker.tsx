@@ -45,7 +45,7 @@ const colorPalette: PaletteColor[] = [
   { label: 'Darker Yellow', value: '#946104FF' }, // 1000
   { label: 'Darker Red', value: '#A32000FF' }, // 1000
   { label: 'Darker Purple', value: '#44368BFF' }, // 1000
-].map(color => ({
+].map((color) => ({
   ...color,
   border: DEFAULT_BORDER_COLOR,
 }));

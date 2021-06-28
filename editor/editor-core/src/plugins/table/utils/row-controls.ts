@@ -217,7 +217,7 @@ export const copyPreviousRow = (schema: Schema) => (
     i++;
   }
 
-  fixRowspans.forEach(cell => {
+  fixRowspans.forEach((cell) => {
     tr.setNodeMarkup(cell.pos, undefined, {
       ...cell.node.attrs,
       rowspan: cell.node.attrs.rowspan + 1,

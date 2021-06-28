@@ -57,8 +57,8 @@ export async function pressKeyUp(page: PuppeteerPage, key: KeyboardKey) {
 // simulate press of keys combination
 export async function pressKeyCombo(page: PuppeteerPage, keys: KeyboardKey[]) {
   // dispatch key down events in parallel
-  await Promise.all(keys.map(key => page.keyboard.down(key)));
+  await Promise.all(keys.map((key) => page.keyboard.down(key)));
   // dispatch key up events in parallel after short delay
   await page.waitFor(5);
-  await Promise.all(keys.map(key => page.keyboard.up(key)));
+  await Promise.all(keys.map((key) => page.keyboard.up(key)));
 }

@@ -33,7 +33,7 @@ export default class DefaultExtensionProvider<T = Parameters>
 
   async getExtension(type: ExtensionType, key: ExtensionKey) {
     const extension = (await this.manifestsPromise).find(
-      manifest => manifest.type === type && manifest.key === key,
+      (manifest) => manifest.type === type && manifest.key === key,
     );
 
     if (!extension) {
@@ -46,7 +46,7 @@ export default class DefaultExtensionProvider<T = Parameters>
   }
 
   async search(keyword: string) {
-    const extensions = (await this.manifestsPromise).filter(manifest =>
+    const extensions = (await this.manifestsPromise).filter((manifest) =>
       manifest.title.toLowerCase().includes(keyword.toLowerCase()),
     );
     return extensions;

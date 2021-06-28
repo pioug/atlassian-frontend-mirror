@@ -26,8 +26,8 @@ function AnnotationSelect({
   }
   let options: any[] = [];
   const ids: string[] = [];
-  doc.descendants(node => {
-    node.marks.forEach(mark => {
+  doc.descendants((node) => {
+    node.marks.forEach((mark) => {
       if (mark.type.name === 'annotation' && !ids.includes(mark.attrs.id)) {
         ids.push(mark.attrs.id);
       }
@@ -36,7 +36,7 @@ function AnnotationSelect({
   });
 
   if (ids.length) {
-    options = ids.map(id => <option value={id}>{id}</option>);
+    options = ids.map((id) => <option value={id}>{id}</option>);
   }
 
   if (!options.length) {
@@ -46,7 +46,7 @@ function AnnotationSelect({
   return (
     <span>
       <select
-        onChange={e => {
+        onChange={(e) => {
           setSelected(e.target.value);
         }}
       >
@@ -79,7 +79,7 @@ export default function Example() {
   return (
     <RendererActionsContext>
       <WithRendererActions
-        render={actions => {
+        render={(actions) => {
           return (
             <Wrapper>
               <RendererDemo
@@ -132,7 +132,7 @@ export default function Example() {
                   </span>,
                   <AnnotationSelect
                     doc={transformer.parse(document)}
-                    onDelete={annotationId => {
+                    onDelete={(annotationId) => {
                       const result = actions.deleteAnnotation(
                         annotationId,
                         'inlineComment',

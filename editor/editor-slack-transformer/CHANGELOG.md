@@ -1,5 +1,11 @@
 # @atlaskit/editor-slack-transformer
 
+## 1.0.5
+
+### Patch Changes
+
+- [`5eb1f5c3eb6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5eb1f5c3eb6) - Moved @atlaskit/editor-common to devDependencies. Extracted Transformer interface from it.
+
 ## 1.0.4
 
 ### Patch Changes

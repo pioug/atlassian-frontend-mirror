@@ -18,9 +18,7 @@ import { ReactionSummary } from '../types/ReactionSummary';
 import { Counter } from './Counter';
 import { FlashAnimation } from './FlashAnimation';
 import { ReactionTooltip } from './ReactionTooltip';
-import { isLeftClick } from './utils';
-
-export const akHeight = '24px';
+import { isLeftClick, akHeight } from './utils';
 
 /**
  * Styling Note:
@@ -40,7 +38,7 @@ const reactionStyle = style({
   flexDirection: 'row',
   alignItems: 'flex-start',
   minWidth: '36px',
-  height: akHeight,
+  height: `${akHeight}px`,
   background: 'transparent',
   border: `1px solid ${N40}`,
   boxSizing: 'border-box',
@@ -57,7 +55,7 @@ const flashStyle = style({
   display: 'flex',
   flexDirection: 'row',
   borderRadius: '10px',
-  height: akHeight,
+  height: `${akHeight}px`,
 });
 
 const counterStyle = style({

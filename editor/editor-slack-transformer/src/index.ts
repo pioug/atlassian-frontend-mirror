@@ -1,6 +1,9 @@
 import { Node as PMNode } from 'prosemirror-model';
 
-import { Transformer } from '@atlaskit/editor-common';
+interface Transformer<T> {
+  encode(node: PMNode): T;
+  parse(content: T): PMNode;
+}
 
 import { MarkdownSerializer, marks, nodes } from './serializer';
 

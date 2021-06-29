@@ -4,7 +4,7 @@ import React from 'react';
 import { CSSTransition } from 'react-transition-group';
 import { keyframes, style } from 'typestyle';
 
-import { akHeight } from './Reaction';
+import { akHeight } from './utils';
 
 const animationTime = 300;
 
@@ -12,7 +12,7 @@ export const countStyle = style({
   fontSize: '11px',
   color: N90,
   overflow: 'hidden',
-  height: akHeight,
+  height: `${akHeight}px`,
   transition: `width ${animationTime}ms ease-in-out`,
 });
 

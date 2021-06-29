@@ -1,5 +1,7 @@
 import { EmojiId } from '@atlaskit/emoji/types';
 
+export const akHeight = 24;
+
 export const isLeftClick = (event: React.MouseEvent<HTMLElement>) =>
   event.button === 0 &&
   !event.altKey &&

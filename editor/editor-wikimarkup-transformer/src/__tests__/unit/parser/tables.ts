@@ -93,6 +93,14 @@ this is a new line text, not in the table`,
       'ADFS-700 Should not consider trailing spaces as a cell at the end of row',
       '|a| \n|b|',
     ],
+    [
+      'ADFS-80 Pipes inside invalid links do not close a table cell',
+      `
+|test|
+|test|
+|asdasd[{color:red}test{color}|test]asdasdasd|
+|test|`,
+    ],
   ];
 
   const context = {

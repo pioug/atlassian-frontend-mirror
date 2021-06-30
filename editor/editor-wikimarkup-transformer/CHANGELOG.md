@@ -1,5 +1,11 @@
 # @atlaskit/editor-wikimarkup-transformer
 
+## 9.4.0
+
+### Minor Changes
+
+- [`99ad5d22649`](https://bitbucket.org/atlassian/atlassian-frontend/commits/99ad5d22649) - Scope control characters inside of invalid links
+
 ## 9.3.3
 
 ### Patch Changes

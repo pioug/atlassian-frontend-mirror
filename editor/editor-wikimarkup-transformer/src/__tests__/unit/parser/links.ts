@@ -92,6 +92,10 @@ describe('JIRA wiki markup - Links', () => {
       '[CS-787] should convert back to inline card',
       'This is a smart link [https://www.dropbox.com/s/2mh79iuglsnmbwf/Get%20Started%20with%20Dropbox.pdf?dl=0|https://www.dropbox.com/s/2mh79iuglsnmbwf/Get%20Started%20with%20Dropbox.pdf?dl=0|smart-link]',
     ],
+    [
+      '[ADFS-80] should render color in links',
+      'asdasd[{color:red}test{color}|test]asdasdasd',
+    ],
   ];
 
   for (const [testCaseDescription, markup] of testCases) {

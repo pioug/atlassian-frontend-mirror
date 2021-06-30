@@ -40,7 +40,7 @@ export function resolveLink(
   link: ContentLink,
   schema: Schema,
   context: Context,
-): Token {
+): Token | undefined {
   const length = link.originalLinkText.length + 2;
 
   for (const resolver of linkResolverStrategies) {
@@ -55,9 +55,5 @@ export function resolveLink(
     }
   }
 
-  return {
-    length: 1,
-    type: 'text',
-    text: `[`,
-  };
+  return undefined;
 }

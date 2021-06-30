@@ -1,5 +1,11 @@
 # @atlaskit/editor-core
 
+## 145.0.2
+
+### Patch Changes
+
+- [`e780cc4e0cb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e780cc4e0cb) - Breadcrumb clicking fix
+
 ## 145.0.1
 
 ### Patch Changes

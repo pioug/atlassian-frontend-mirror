@@ -1,5 +1,11 @@
 # @atlaskit/editor-core
 
+## 145.0.3
+
+### Patch Changes
+
+- [`c48b38bf577`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c48b38bf577) - ED-13281 - Hotfix to ensure insert toolbar popup renders into popupMountPoint dom node when passed
+
 ## 145.0.2
 
 ### Patch Changes

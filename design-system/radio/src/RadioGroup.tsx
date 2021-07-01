@@ -15,7 +15,7 @@ export interface RadioGroupProps {
   value?: RadioValue | null;
   /** Sets the initial selected value on the `RadioGroup` */
   defaultValue?: RadioValue | null;
-  /** Sets the disabled state of all `Radio` elements in the group */
+  /** Sets the disabled state of all `Radio` elements in the group. Overrides the `isDisabled` setting of all child `Radio` items. */
   isDisabled?: boolean;
   /** Sets the required state of all `Radio` elements in the group */
   isRequired?: boolean;

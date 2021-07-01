@@ -598,36 +598,12 @@ describe('SmartUserPicker', () => {
     expect(getUserRecommendationsMock).toHaveBeenCalledTimes(1);
 
     // expect filterOptions to be called, mocks the response of a guest user
-    expect(filterOptions).toHaveBeenCalledTimes(1);
+    expect(filterOptions).toHaveBeenCalled();
 
     await component.update();
     // expect the user picker options prop to match the mock guest user data
     expect(component.find(UserPicker).prop('options')).toEqual(
       mockConfluenceGuestUserAndGroupOptions,
-    );
-  });
-
-  it('should filter options from suggested options', async () => {
-    getUserRecommendationsMock.mockReturnValue(
-      Promise.resolve(mockReturnOptions),
-    );
-    const filterOptions = jest.fn((options: OptionData[]) => {
-      return options.filter((option) => option.type === 'user');
-    });
-
-    let component = smartUserPickerWrapper({ filterOptions });
-    expect(component.find(UserPicker).props().options).toEqual([]);
-
-    await component.find(UserPicker).props().onFocus('new-session');
-    await component
-      .find(UserPicker)
-      .props()
-      .onInputChange('user', 'new-session');
-    await flushPromises();
-    component.update();
-    expect(filterOptions).toHaveBeenCalledWith(mockReturnOptions, 'user');
-    expect(component.find(UserPicker).prop('options')).toEqual(
-      filterOptions(mockReturnOptions),
     );
   });
 
@@ -657,13 +633,11 @@ describe('SmartUserPicker', () => {
     getUserRecommendationsMock.mockImplementation(() => {
       throw mockError;
     });
-    const filterOptions = jest.fn(() => mockReturnOptions);
     const onError = jest.fn((error) => {
       expect(error).toEqual(mockError);
       return Promise.resolve(mockReturnOptions);
     });
     const component = smartUserPickerWrapper({
-      filterOptions,
       onError,
     });
     expect(component.find(UserPicker).prop('options')).toEqual([]);
@@ -671,7 +645,6 @@ describe('SmartUserPicker', () => {
     await flushPromises();
 
     expect(onError).toHaveBeenCalledWith(mockError, request);
-    expect(filterOptions).toHaveBeenCalledTimes(1);
 
     component.update();
     expect(component.find(UserPicker).prop('options')).toEqual(
@@ -727,9 +700,7 @@ describe('SmartUserPicker', () => {
   });
 
   it('should use provided promise onEmpty', async () => {
-    getUserRecommendationsMock.mockReturnValue(
-      Promise.resolve(mockReturnOptions),
-    );
+    getUserRecommendationsMock.mockReturnValue(Promise.resolve([]));
 
     const user3: OptionData = {
       id: 'user3',
@@ -737,10 +708,8 @@ describe('SmartUserPicker', () => {
       type: 'user',
     };
     const onEmpty = jest.fn(() => Promise.resolve([user3]));
-    const filterOptions = jest.fn(() => []);
 
     const component = smartUserPickerWrapper({
-      filterOptions,
       onEmpty,
     });
 
@@ -752,14 +721,138 @@ describe('SmartUserPicker', () => {
     // expect load items from server
     expect(getUserRecommendationsMock).toHaveBeenCalledTimes(1);
 
-    // expect filter is applied
-    expect(filterOptions).toHaveBeenCalledTimes(1);
-
     // expect on Empty to be called
     expect(onEmpty).toHaveBeenCalledTimes(1);
 
     await component.update();
     expect(component.find(UserPicker).prop('options')).toEqual([user3]);
+  });
+
+  describe('filterOptions', () => {
+    it('should filter options from suggested options', async () => {
+      getUserRecommendationsMock.mockReturnValue(
+        Promise.resolve(mockReturnOptions),
+      );
+      const filterOptions = jest.fn((options: OptionData[]) => {
+        return options.filter((option) => option.type === 'user');
+      });
+
+      let component = smartUserPickerWrapper({ filterOptions });
+      expect(component.find(UserPicker).props().options).toEqual([]);
+
+      await component.find(UserPicker).props().onFocus('new-session');
+      await component
+        .find(UserPicker)
+        .props()
+        .onInputChange('user', 'new-session');
+      await flushPromises();
+      component.update();
+      expect(filterOptions).toHaveBeenCalledWith(mockReturnOptions, 'user');
+      expect(component.find(UserPicker).prop('options')).toEqual(
+        filterOptions(mockReturnOptions),
+      );
+    });
+
+    it('should apply new filterOptions if filterOptions changes', async () => {
+      getUserRecommendationsMock.mockReturnValue(
+        Promise.resolve(mockReturnOptions),
+      );
+      const filterOptions = jest.fn((options: OptionData[]) => {
+        return options.filter((option) => option.type === 'user');
+      });
+      const changedFilterOptions = jest.fn((options: OptionData[]) => {
+        return options.filter((option) => option.type === 'team');
+      });
+
+      let component = smartUserPickerWrapper({ filterOptions });
+
+      await component.find(UserPicker).props().onFocus('new-session');
+      await component
+        .find(UserPicker)
+        .props()
+        .onInputChange('user', 'new-session');
+      await flushPromises();
+      component.update();
+
+      expect(changedFilterOptions).toHaveBeenCalledTimes(0);
+
+      component.setProps({ filterOptions: changedFilterOptions });
+      component.update();
+
+      expect(component.find(UserPicker).prop('options')).toEqual(
+        changedFilterOptions(mockReturnOptions),
+      );
+    });
+
+    it('should override onError when recommendations client returns with error', async () => {
+      const mockError = new Error();
+      getUserRecommendationsMock.mockImplementation(() => {
+        throw mockError;
+      });
+      const filterOptions = jest.fn(() => mockReturnOptions);
+      const onError = jest.fn((error) => {
+        expect(error).toEqual(mockError);
+        return Promise.resolve([]);
+      });
+      const component = smartUserPickerWrapper({
+        filterOptions,
+        onError,
+      });
+      await component.find(UserPicker).props().onFocus('new-session');
+      await flushPromises();
+
+      expect(onError).toHaveBeenCalled();
+      expect(filterOptions).toHaveBeenCalled();
+
+      component.update();
+      expect(component.find(UserPicker).prop('options')).toEqual(
+        mockReturnOptions,
+      );
+    });
+
+    it('should apply filter to onEmpty results', async () => {
+      getUserRecommendationsMock.mockReturnValue(
+        Promise.resolve(mockReturnOptions),
+      );
+
+      const user3: OptionData = {
+        id: 'user3',
+        name: 'user3',
+        type: 'user',
+      };
+      const onEmpty = jest.fn(() => Promise.resolve([user3]));
+      const filterOptions = jest.fn(() => []);
+
+      const component = smartUserPickerWrapper({
+        filterOptions,
+        onEmpty,
+      });
+
+      // trigger on focus
+      await component.find(UserPicker).props().onFocus('new-session');
+      await flushPromises();
+      await component.update();
+
+      expect(component.find(UserPicker).prop('options')).toEqual([]);
+    });
+
+    it('should apply filterOptions to bootstrap', () => {
+      const bootstrapOptions = mockReturnOptions;
+      const filterOptions = jest.fn((options: OptionData[]) => {
+        return options.filter((option) => option.type === 'user');
+      });
+
+      const component = smartUserPickerWrapper({
+        bootstrapOptions,
+        filterOptions,
+      });
+
+      expect(getUserRecommendationsMock).toHaveBeenCalledTimes(0);
+      expect(filterOptions).toHaveBeenCalled();
+      expect(component.find(UserPicker).prop('options')).toEqual(
+        filterOptions(mockReturnOptions),
+      );
+    });
   });
 
   it('should pass default principalId if principalId not provided as props', async () => {
@@ -909,7 +1002,6 @@ describe('SmartUserPicker', () => {
             'usersRequest',
             {
               users: mockReturnOptionsForAnalytics,
-              filteredUsers: [{ id: 'user1', type: 'user' }],
               productAttributes,
             },
           ),

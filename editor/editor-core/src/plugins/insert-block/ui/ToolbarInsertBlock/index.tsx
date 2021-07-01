@@ -277,6 +277,9 @@ class ToolbarInsertBlock extends React.PureComponent<
         <Wrapper>
           {this.renderPopup()}
           <BlockInsertMenu
+            popupsMountPoint={this.props.popupsMountPoint}
+            popupsBoundariesElement={this.props.popupsBoundariesElement}
+            popupsScrollableElement={this.props.popupsScrollableElement}
             disabled={this.props.isDisabled ?? false}
             editorView={this.props.editorView}
             spacing={this.props.isReducedSpacing ? 'none' : 'default'}

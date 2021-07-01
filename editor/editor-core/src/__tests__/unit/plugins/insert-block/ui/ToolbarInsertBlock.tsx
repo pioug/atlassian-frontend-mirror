@@ -411,6 +411,30 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
           expect(toolbarOption.find(DropdownMenu).length).toEqual(1);
           expect(toolbarOption.find(InsertMenu).length).toEqual(0);
         });
+
+        it('should render dropdown content into popupsMountPoint dom node if passed', () => {
+          const customItems = [
+            {
+              content: 'Some help text',
+              value: { name: 'slash-onboarding' },
+            },
+          ];
+
+          const popupTarget = document.createElement('div');
+          popupTarget.classList.add('popup-target');
+          document.body.appendChild(popupTarget);
+
+          buildToolbar({
+            insertMenuItems: customItems,
+            replacePlusMenuWithElementBrowser: false,
+            popupsMountPoint: popupTarget,
+          });
+
+          toolbarOption.setState({ isPlusMenuOpen: true });
+          toolbarOption.update();
+
+          expect(popupTarget.innerText).toContain(customItems[0].content);
+        });
       });
     });
 

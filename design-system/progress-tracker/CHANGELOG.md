@@ -1,5 +1,11 @@
 # @atlaskit/progress-tracker
 
+## 8.0.1
+
+### Patch Changes
+
+- [`8ae29c21d55`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8ae29c21d55) - Removed the `!important` declaration from the top margin style.
+
 ## 8.0.0
 
 ### Major Changes

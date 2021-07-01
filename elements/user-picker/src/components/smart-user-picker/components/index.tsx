@@ -5,6 +5,7 @@ import {
   withAnalyticsEvents,
   WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
+import memoizeOne from 'memoize-one';
 import { InjectedIntlProps, injectIntl } from 'react-intl';
 
 import {
@@ -383,10 +384,13 @@ class SmartUserPicker extends React.Component<
     }
   };
 
-  filterOptions = (users: OptionData[]) =>
-    this.props.filterOptions
-      ? this.props.filterOptions(users, this.state.query)
-      : users;
+  filterOptions = (
+    users: OptionData[],
+    query: string,
+    propFilterOptions?: FilterOptions,
+  ) => (propFilterOptions ? propFilterOptions(users, query) : users);
+
+  memoizedFilterOptions = memoizeOne(this.filterOptions);
 
   getUsers = debounce(async () => {
     const { query, sessionId } = this.state;
@@ -438,12 +442,10 @@ class SmartUserPicker extends React.Component<
       );
       const elapsedTimeMilli = window.performance.now() - startTime;
 
-      const filteredUsers = this.filterOptions(recommendedUsers);
-
       const displayedUsers =
-        filteredUsers.length === 0 && onEmpty
+        recommendedUsers.length === 0 && onEmpty
           ? (await onEmpty(query)) ?? []
-          : filteredUsers;
+          : recommendedUsers;
 
       this.setState((state) => {
         const applicable = state.query === query;
@@ -452,7 +454,6 @@ class SmartUserPicker extends React.Component<
 
         this.fireEvent(successfulRequestUsersEvent, {
           users: getUsersForAnalytics(recommendedUsers),
-          filteredUsers: getUsersForAnalytics(filteredUsers),
           elapsedTimeMilli,
           displayedUsers: getUsersForAnalytics(displayedUsers),
           productAttributes,
@@ -471,7 +472,7 @@ class SmartUserPicker extends React.Component<
         : Promise.resolve([]));
       const elapsedTimeMilli = window.performance.now() - startTime;
       this.setState({
-        users: this.filterOptions(defaultUsers),
+        users: defaultUsers,
         loading: false,
       });
       this.fireEvent(failedRequestUsersEvent, {
@@ -497,27 +498,37 @@ class SmartUserPicker extends React.Component<
 
   filterUsers = () => {
     const { loading, users, query } = this.state;
+    const filteredUsers = this.memoizedFilterOptions(
+      users,
+      query,
+      this.props.filterOptions,
+    );
     //If bootstrapOptions have been passed in and it is bootstrap
     if (
       this.props.bootstrapOptions &&
       this.props.bootstrapOptions.length !== 0 &&
       query === ''
     ) {
+      const bootstrapFilteredUsers = this.memoizedFilterOptions(
+        this.props.bootstrapOptions,
+        query,
+        this.props.filterOptions,
+      );
       this.fireEvent(filterUsersEvent, {
-        filtered: getUsersForAnalytics(this.state.bootstrapOptions),
-        all: getUsersForAnalytics(this.state.bootstrapOptions),
+        filtered: getUsersForAnalytics(bootstrapFilteredUsers),
+        all: getUsersForAnalytics(this.props.bootstrapOptions),
       });
-      return this.props.bootstrapOptions;
+      return bootstrapFilteredUsers;
     }
     // while when not loading just return already filtered result from server.
     if (!loading) {
-      return users;
+      return filteredUsers;
     }
-    const filteredUsers = users.filter((user: OptionData) =>
+    const queryFilteredUsers = filteredUsers.filter((user: OptionData) =>
       stringContains(user.name, query),
     );
     this.fireEvent(filterUsersEvent, {
-      filtered: getUsersForAnalytics(filteredUsers),
+      filtered: getUsersForAnalytics(queryFilteredUsers),
       all: getUsersForAnalytics(users),
     });
 

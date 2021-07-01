@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 7.13.0
+
+### Minor Changes
+
+- [`869e1fdef2f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/869e1fdef2f) - [ux] Prioritize filterOptions prop over onEmpty. Now, filterOptions is called AFTER onEmpty is applied to URS suggestions. This means that SUP can show empty results if filterOptions filters out all results. This fixes a bug where updated filterOptions does not get applied to suggestions.
+
 ## 7.12.0
 
 ### Minor Changes

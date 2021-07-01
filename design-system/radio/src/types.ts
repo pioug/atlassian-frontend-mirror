@@ -22,7 +22,7 @@ export type RadioValue = string;
 type OwnProps = {
   /** the aria-label attribute associated with the radio element */
   ariaLabel?: string;
-  /** Field disabled */
+  /** Makes a `Radio` field unselectable when true. Overridden by `isDisabled` prop of `RadioGroup`. */
   isDisabled?: boolean;
   /** Marks this as a required field */
   isRequired?: boolean;

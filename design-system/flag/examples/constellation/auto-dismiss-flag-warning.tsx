@@ -36,7 +36,7 @@ const AutoDismissFlagWarningExample = () => {
               id={flagId}
               icon={<WarningIcon label="Warning" secondaryColor={Y200} />}
               key={flagId}
-              title={`#${flagId} Having trouble connecting…`}
+              title={`#${flagId} I'm a warning`}
               description="I will auto dismiss after 8 seconds."
             />
           );

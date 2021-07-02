@@ -3817,7 +3817,7 @@ exports[`Atlassian Switcher - ItemWithDropdown renders single site item correctl
                                                   <div
                                                     className="c7"
                                                   >
-                                                    <OpsGenieIcon
+                                                    <OpsgenieIcon
                                                       iconColor="#FFFFFF"
                                                       iconGradientStart="inherit"
                                                       iconGradientStop="inherit"
@@ -3924,7 +3924,7 @@ exports[`Atlassian Switcher - ItemWithDropdown renders single site item correctl
                                                           />
                                                         </styled.span>
                                                       </Wrapper>
-                                                    </OpsGenieIcon>
+                                                    </OpsgenieIcon>
                                                   </div>
                                                 </styled.div>
                                               </Component>

@@ -36,7 +36,7 @@ const AutoDismissFlagErrorExample = () => {
               id={flagId}
               icon={<ErrorIcon label="Error" secondaryColor={R400} />}
               key={flagId}
-              title={`#${flagId} The internet may be out to lunch`}
+              title={`#${flagId} I'm an error`}
               description="I will auto dismiss after 8 seconds."
             />
           );

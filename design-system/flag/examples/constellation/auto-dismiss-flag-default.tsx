@@ -2,6 +2,7 @@ import React from 'react';
 
 import Button from '@atlaskit/button/standard-button';
 import SuccessIcon from '@atlaskit/icon/glyph/check-circle';
+import { G300 } from '@atlaskit/theme/colors';
 import { gridSize } from '@atlaskit/theme/constants';
 
 import { AutoDismissFlag, FlagGroup } from '../../src';
@@ -33,9 +34,15 @@ const AutoDismissFlagDefaultExample = () => {
           return (
             <AutoDismissFlag
               id={flagId}
-              icon={<SuccessIcon label="Success" size="medium" />}
+              icon={
+                <SuccessIcon
+                  primaryColor={G300}
+                  label="Success"
+                  size="medium"
+                />
+              }
               key={flagId}
-              title={`#${flagId} Delete the Newtown repository`}
+              title={`#${flagId} Your changes were saved`}
               description="I will auto dismiss after 8 seconds."
             />
           );

@@ -12,11 +12,11 @@ const FlagWarningExample = () => {
       icon={<WarningIcon label="Warning" secondaryColor={Y200} />}
       id="warning"
       key="warning"
-      title="Having trouble connecting…"
-      description="We’re running into some difficulties connecting to Jira right now."
+      title="This page is visible to people outside your organization"
+      description="Are you sure you want to publish?"
       actions={[
-        { content: 'Try again', onClick: () => {} },
-        { content: 'Check status page', onClick: () => {} },
+        { content: 'Publish', onClick: () => {} },
+        { content: 'Go back', onClick: () => {} },
       ]}
     />
   );

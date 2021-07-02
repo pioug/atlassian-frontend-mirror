@@ -11,12 +11,21 @@ import FlagActions from '../../examples/constellation/flag-actions';
 
 ## Default
 
-The default flag type. All flags require a `title` and an `icon`.
-In most situations, you can use flags within a [flag group](./flag-group/examples).
+The default flag type includes a dismiss button. All flags require a `title` and an `icon`. Make sure the icon and color match the intent of your message, such as warning, error, information, or success.
+
+Flags are often used within a [flag group](./flag-group/examples).
 
 <Example Component={FlagDefault} packageName="@atlaskit/flag" />
 
+## Actions
+
+Use `actions` to show a clickable action at the bottom of the flag. For flags where the appearance is `normal`, the action will show as a link. For all other appearances the actions will be buttons.
+
+<Example Component={FlagActions} packageName="@atlaskit/flag" />
+
 ## Appearance
+
+Unlike normal flags, setting an `appearance` gives the flag a bold color. Bold appearance flags don't have a dismiss button, so they require a more direct interaction from the user.
 
 ### Information
 
@@ -41,9 +50,3 @@ Error messages let the user know that something has gone wrong after they've tri
 Success messages let people know they have completed an action. For these messages, it's best to confirm the outcome and let people continue. If they have just created something, give them an option to view it.
 
 <Example Component={FlagSuccess} packageName="@atlaskit/flag" />
-
-## Actions
-
-Use `actions` to show a clickable action at the bottom of the flag. For flags where the appearance is normal, the action will be shown as a link. For all other appearances the action will be shown as a button.
-
-<Example Component={FlagActions} packageName="@atlaskit/flag" />

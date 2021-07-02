@@ -7,8 +7,7 @@ import {
   JiraSoftwareIcon,
   JiraServiceManagementIcon,
   JiraWorkManagementIcon,
-  JiraCoreIcon,
-  OpsGenieIcon,
+  OpsgenieIcon,
   StatuspageIcon,
   TrelloIcon,
 } from '@atlaskit/logo';
@@ -90,7 +89,7 @@ export const AVAILABLE_PRODUCT_DATA_MAP: {
   },
   [SwitcherProductType.JIRA_BUSINESS]: {
     label: 'Jira Core',
-    Icon: createIcon(JiraCoreIcon, { size: 'small' }),
+    Icon: createIcon(JiraWorkManagementIcon, { size: 'small' }),
     href: '/secure/BrowseProjects.jspa?selectedProjectType=business',
   },
   [SwitcherProductType.JIRA_WORK_MANAGEMENT]: {
@@ -134,7 +133,7 @@ export const AVAILABLE_PRODUCT_DATA_MAP: {
   },
   [SwitcherProductType.OPSGENIE]: {
     label: 'Opsgenie',
-    Icon: createIcon(OpsGenieIcon, { size: 'small' }),
+    Icon: createIcon(OpsgenieIcon, { size: 'small' }),
     href: 'https://app.opsgenie.com',
     description: <FormattedMessage {...messages.productDescriptionOpsgenie} />,
   },

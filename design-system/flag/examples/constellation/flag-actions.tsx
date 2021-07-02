@@ -9,22 +9,21 @@ const FlagActionsExample = () => {
   return (
     <Flag
       icon={<SuccessIcon primaryColor={G300} label="Success" />}
+      id="1"
+      key="1"
+      title="Issue START-42 was created successfully"
       actions={[
         {
-          content: 'Try it now',
+          content: 'View issue',
           onClick: () => {
             console.log('flag action clicked');
           },
         },
         {
-          content: 'Learn more',
+          content: 'Add to next sprint',
           href: '/components/flag/examples#actions',
         },
       ]}
-      description="We’ve turbocharged your search results so you can get back to doing what you do best."
-      id="1"
-      key="1"
-      title="Test drive your new search"
     />
   );
 };

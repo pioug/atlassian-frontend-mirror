@@ -12,9 +12,12 @@ const FlagInfoExample = () => {
       icon={<InfoIcon label="Info" secondaryColor={N500} />}
       id="info"
       key="info"
-      title="Where is everybody?"
-      description="There’s no one in this project. Add yourself or your team to get the party started."
-      actions={[{ content: 'Dismiss', onClick: () => {} }]}
+      title="There’s no one in this project"
+      description="Add yourself or your team to get the party started."
+      actions={[
+        { content: 'Add teammates', onClick: () => {} },
+        { content: 'Close', onClick: () => {} },
+      ]}
     />
   );
 };

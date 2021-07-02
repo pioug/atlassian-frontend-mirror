@@ -245,6 +245,9 @@ export const getJoinableSitesRenderTracker = (
   joinableSiteLinks: JoinableSiteItemType[],
   data?: object,
 ) => {
+  if (!hasLoaded(providerResult)) {
+    return null;
+  }
   // The render is considered failed when either the provider failed, or the provider returned a non-empty result but nothing was rendered
   const emptyRenderExpected = Boolean(
     providerResult.data && providerResult.data.sites.length === 0,

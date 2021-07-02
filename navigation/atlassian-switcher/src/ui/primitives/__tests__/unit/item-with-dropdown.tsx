@@ -1,5 +1,5 @@
 import React from 'react';
-import { BitbucketIcon, JiraSoftwareIcon, OpsGenieIcon } from '@atlaskit/logo';
+import { BitbucketIcon, JiraSoftwareIcon, OpsgenieIcon } from '@atlaskit/logo';
 import { mount } from 'enzyme';
 import { SwitcherItemWithDropdown } from '../..';
 import { createIcon } from '../../../../common/utils/icon-themes';
@@ -24,7 +24,7 @@ describe('Atlassian Switcher - ItemWithDropdown', () => {
   });
 
   it('renders single site item correctly', async () => {
-    const Icon = createIcon(OpsGenieIcon, { size: 'small' });
+    const Icon = createIcon(OpsgenieIcon, { size: 'small' });
     const props = {
       icon: <Icon theme="product" />,
       childIcon: <Icon theme="subtle" />,

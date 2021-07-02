@@ -289,11 +289,12 @@ export default class Switcher extends React.Component<SwitcherProps> {
               onClose={onClose}
               rawProviderResults={rawProviderResults}
             />
-            {getJoinableSitesRenderTracker(
-              rawProviderResults.joinableSites,
-              joinableSiteLinks,
-              { duration: this.timeSinceMounted() },
-            )}
+            {hasLoadedCritical &&
+              getJoinableSitesRenderTracker(
+                rawProviderResults.joinableSites,
+                joinableSiteLinks,
+                { duration: this.timeSinceMounted() },
+              )}
           </ErrorBoundary>
           {isDiscoverMoreClickable && (
             <ErrorBoundary

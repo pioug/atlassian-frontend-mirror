@@ -1,5 +1,11 @@
 # @atlaskit/atlassian-switcher
 
+## 13.0.2
+
+### Patch Changes
+
+- [`12c6d09b26e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/12c6d09b26e) - Fixed duplicate joinable sites SLI bug
+
 ## 13.0.1
 
 ### Patch Changes

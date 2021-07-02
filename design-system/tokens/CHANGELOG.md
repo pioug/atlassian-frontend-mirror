@@ -1,0 +1,83 @@
+# @atlaskit/tokens
+
+## 0.0.13
+
+### Patch Changes
+
+- [`769ea83469c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/769ea83469c) - Moves tokens and eslint-plugin-design-system to the public namespace.
+
+## 0.0.12
+
+### Patch Changes
+
+- [`6cde35b66d9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6cde35b66d9) - Updates the figma synchronizer with the ability to rename tokens
+
+## 0.0.11
+
+### Patch Changes
+
+- [`170b971ce50`](https://bitbucket.org/atlassian/atlassian-frontend/commits/170b971ce50) - Exposes token names as an entrypoint.
+
+## 0.0.10
+
+### Patch Changes
+
+- [`eb05da78cd0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eb05da78cd0) - Figma sync now can set spread property for effect styles.
+
+## 0.0.9
+
+### Patch Changes
+
+- [`76836669a4c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/76836669a4c) - Global theme CSS custom properties are now scoped to the html element.
+
+## 0.0.8
+
+### Patch Changes
+
+- [`be2a49c8e04`](https://bitbucket.org/atlassian/atlassian-frontend/commits/be2a49c8e04) - Focus ring token is now a shadow.
+
+## 0.0.7
+
+### Patch Changes
+
+- [`f06c9466af2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f06c9466af2) - Color palette has been updated with new values.
+
+## 0.0.6
+
+### Patch Changes
+
+- [`5fccc343a1b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5fccc343a1b) - Subtle accent colors added to token set.
+
+## 0.0.5
+
+### Patch Changes
+
+- [`2106cf48ddb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2106cf48ddb) - Adds token "getter" to allow users to fetch and use tokens in their components
+
+## 0.0.4
+
+### Patch Changes
+
+- [`202cf0733de`](https://bitbucket.org/atlassian/atlassian-frontend/commits/202cf0733de) - Tokens are now built using style dictionary with three outputs:
+
+  1. CSS
+  1. Figma synchronizers
+  1. Token name map
+
+## 0.0.3
+
+### Patch Changes
+
+- [`931f6fc633a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/931f6fc633a) - Updates token schema shape.
+
+## 0.0.2
+
+### Patch Changes
+
+- [`9eaba799050`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9eaba799050) - Adds theme tokens and script to add tokens to figma.
+
+## 0.0.1
+
+### Patch Changes
+
+- [`73aaa81802a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/73aaa81802a) - Initial setup & release

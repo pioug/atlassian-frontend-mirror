@@ -1,18 +1,18 @@
 import React from 'react';
 
-import SuccessIcon from '@atlaskit/icon/glyph/check-circle';
-import { G300 } from '@atlaskit/theme/colors';
+import InfoIcon from '@atlaskit/icon/glyph/info';
+import { B300 } from '@atlaskit/theme/colors';
 
 import Flag from '../../src';
 
 const FlagDefaultExample = () => {
   return (
     <Flag
-      icon={<SuccessIcon primaryColor={G300} label="Success" />}
-      description="Bamboo will permanently delete all related configuration settings, artifacts, logos, and results. This can’t be undone."
+      icon={<InfoIcon primaryColor={B300} label="Info" />}
+      description="Scott Farquhar published a new version of this page. Refresh to see the changes."
       id="1"
       key="1"
-      title="Delete the Newtown repository"
+      title="New version published"
     />
   );
 };

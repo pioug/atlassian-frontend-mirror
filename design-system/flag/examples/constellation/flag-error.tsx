@@ -12,8 +12,8 @@ const FlagErrorExample = () => {
       icon={<ErrorIcon label="Error" secondaryColor={R400} />}
       id="error"
       key="error"
-      title="The internet may be out to lunch"
-      description="Check your internet connection."
+      title="We're having trouble connecting"
+      description="Check your internet connection and try again."
       actions={[{ content: 'Try again', onClick: () => {} }]}
     />
   );

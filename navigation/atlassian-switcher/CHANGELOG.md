@@ -1,5 +1,11 @@
 # @atlaskit/atlassian-switcher
 
+## 13.0.3
+
+### Patch Changes
+
+- [`b098043e99e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b098043e99e) - Added product recommendations to the operational event.
+
 ## 13.0.2
 
 ### Patch Changes

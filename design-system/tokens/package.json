@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/tokens",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "author": "Atlassian Pty Ltd",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

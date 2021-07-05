@@ -5,10 +5,8 @@ export const rules = {
 };
 
 export const configs = {
+  plugins: ['@atlaskit/design-system'],
   recommended: {
-    rules: {
-      '@atlaskit/design-system-eslint-plugin/ensure-design-token-usage':
-        'error',
-    },
+    rules: {},
   },
 };

@@ -318,6 +318,8 @@ export const getDiscoverSectionRenderTracker = (
           provisionedProductsFailed: results.provisionedProducts.failed,
           xflow: xflowProviderResult.status,
           xflowFailed: results.xflow.failed,
+          productRecommendations: productRecommendationsProviderResult.status,
+          productRecommendationsFailed: results.productRecommendations.failed,
         },
       },
     });

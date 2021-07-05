@@ -41,7 +41,7 @@ const color: TextColorTokenSchema = {
       attributes: { group: 'paint' },
     },
     textWarning: {
-      value: 'Y800',
+      value: 'O800',
       attributes: { group: 'paint' },
     },
     textDanger: {

@@ -15,3 +15,19 @@ export const isParentGlobalToken = (node: Rule.Node): boolean => {
 
   return false;
 };
+
+export const isAnyParentOfType = (
+  node: Rule.Node,
+  type: Rule.Node['type'],
+  skipNode = true,
+): boolean => {
+  if (!skipNode && node.type === type) {
+    return true;
+  }
+
+  if (node.parent) {
+    return isAnyParentOfType(node.parent, type, false);
+  }
+
+  return false;
+};

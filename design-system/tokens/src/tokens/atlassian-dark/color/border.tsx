@@ -21,7 +21,7 @@ const color: BorderColorTokenSchema = {
       ],
       attributes: { group: 'shadow' },
     },
-    borderTextHighlighted: {
+    borderTextSelected: {
       value: 'B400',
       attributes: { group: 'paint' },
     },
@@ -31,6 +31,10 @@ const color: BorderColorTokenSchema = {
     },
     borderDisabled: {
       value: 'N100A',
+      attributes: { group: 'paint' },
+    },
+    borderOverlay: {
+      value: 'DN100A',
       attributes: { group: 'paint' },
     },
   },

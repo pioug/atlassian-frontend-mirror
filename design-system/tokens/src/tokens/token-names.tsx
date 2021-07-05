@@ -8,6 +8,11 @@ const tokens = {
   'color.accentPurpleSubtle': '--accentPurpleSubtle',
   'color.accentRedSubtle': '--accentRedSubtle',
   'color.accentTealSubtle': '--accentTealSubtle',
+  'color.backgroundSunken': '--backgroundSunken',
+  'color.backgroundDefault': '--backgroundDefault',
+  'color.backgroundCard': '--backgroundCard',
+  'color.backgroundOverlay': '--backgroundOverlay',
+  'color.backgroundSelected': '--backgroundSelected',
   'color.backgroundBlanket': '--backgroundBlanket',
   'color.backgroundDisabled': '--backgroundDisabled',
   'color.backgroundBoldBrand.resting': '--backgroundBoldBrand-resting',
@@ -57,9 +62,10 @@ const tokens = {
   'color.backgroundSubtleBorderedNeutral.pressed':
     '--backgroundSubtleBorderedNeutral-pressed',
   'color.borderFocus': '--borderFocus',
-  'color.borderTextHighlighted': '--borderTextHighlighted',
+  'color.borderTextSelected': '--borderTextSelected',
   'color.borderNeutral': '--borderNeutral',
   'color.borderDisabled': '--borderDisabled',
+  'color.borderOverlay': '--borderOverlay',
   'color.iconBorderBrand': '--iconBorderBrand',
   'color.iconBorderDanger': '--iconBorderDanger',
   'color.iconBorderWarning': '--iconBorderWarning',
@@ -79,14 +85,8 @@ const tokens = {
   'color.textSuccess': '--textSuccess',
   'color.textDiscovery': '--textDiscovery',
   'color.textDisabled': '--textDisabled',
-  'elevation.borderFlatPrimary': '--borderFlatPrimary',
-  'elevation.flatSecondary': '--flatSecondary',
-  'elevation.base': '--base',
-  'elevation.backgroundCard': '--backgroundCard',
-  'elevation.shadowCard': '--shadowCard',
-  'elevation.backgroundOverlay': '--backgroundOverlay',
-  'elevation.shadowOverlay': '--shadowOverlay',
-  'elevation.borderOverlay': '--borderOverlay',
+  'shadow.card': '--card',
+  'shadow.overlay': '--overlay',
 } as const;
 
 export type CSSTokenMap = {
@@ -97,6 +97,11 @@ export type CSSTokenMap = {
   'color.accentPurpleSubtle': 'var(--accentPurpleSubtle)';
   'color.accentRedSubtle': 'var(--accentRedSubtle)';
   'color.accentTealSubtle': 'var(--accentTealSubtle)';
+  'color.backgroundSunken': 'var(--backgroundSunken)';
+  'color.backgroundDefault': 'var(--backgroundDefault)';
+  'color.backgroundCard': 'var(--backgroundCard)';
+  'color.backgroundOverlay': 'var(--backgroundOverlay)';
+  'color.backgroundSelected': 'var(--backgroundSelected)';
   'color.backgroundBlanket': 'var(--backgroundBlanket)';
   'color.backgroundDisabled': 'var(--backgroundDisabled)';
   'color.backgroundBoldBrand.resting': 'var(--backgroundBoldBrand-resting)';
@@ -140,9 +145,10 @@ export type CSSTokenMap = {
   'color.backgroundSubtleBorderedNeutral.resting': 'var(--backgroundSubtleBorderedNeutral-resting)';
   'color.backgroundSubtleBorderedNeutral.pressed': 'var(--backgroundSubtleBorderedNeutral-pressed)';
   'color.borderFocus': 'var(--borderFocus)';
-  'color.borderTextHighlighted': 'var(--borderTextHighlighted)';
+  'color.borderTextSelected': 'var(--borderTextSelected)';
   'color.borderNeutral': 'var(--borderNeutral)';
   'color.borderDisabled': 'var(--borderDisabled)';
+  'color.borderOverlay': 'var(--borderOverlay)';
   'color.iconBorderBrand': 'var(--iconBorderBrand)';
   'color.iconBorderDanger': 'var(--iconBorderDanger)';
   'color.iconBorderWarning': 'var(--iconBorderWarning)';
@@ -162,14 +168,8 @@ export type CSSTokenMap = {
   'color.textSuccess': 'var(--textSuccess)';
   'color.textDiscovery': 'var(--textDiscovery)';
   'color.textDisabled': 'var(--textDisabled)';
-  'elevation.borderFlatPrimary': 'var(--borderFlatPrimary)';
-  'elevation.flatSecondary': 'var(--flatSecondary)';
-  'elevation.base': 'var(--base)';
-  'elevation.backgroundCard': 'var(--backgroundCard)';
-  'elevation.shadowCard': 'var(--shadowCard)';
-  'elevation.backgroundOverlay': 'var(--backgroundOverlay)';
-  'elevation.shadowOverlay': 'var(--shadowOverlay)';
-  'elevation.borderOverlay': 'var(--borderOverlay)';
+  'shadow.card': 'var(--card)';
+  'shadow.overlay': 'var(--overlay)';
 };
 
 export type CSSToken = CSSTokenMap[keyof CSSTokenMap];

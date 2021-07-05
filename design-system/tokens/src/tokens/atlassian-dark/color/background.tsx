@@ -2,6 +2,26 @@ import type { BackgroundColorTokenSchema } from '../../../types';
 
 const color: BackgroundColorTokenSchema = {
   color: {
+    backgroundSunken: {
+      value: 'DN-100A',
+      attributes: { group: 'paint' },
+    },
+    backgroundDefault: {
+      value: 'DN0',
+      attributes: { group: 'paint' },
+    },
+    backgroundCard: {
+      value: 'DN100',
+      attributes: { group: 'paint' },
+    },
+    backgroundOverlay: {
+      value: 'DN200',
+      attributes: { group: 'paint' },
+    },
+    backgroundSelected: {
+      value: 'DN200A',
+      attributes: { group: 'paint' },
+    },
     backgroundBlanket: {
       value: 'DN-100A',
       attributes: { group: 'paint' },

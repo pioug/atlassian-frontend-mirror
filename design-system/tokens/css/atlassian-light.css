@@ -8,6 +8,11 @@
   --accentPurpleSubtle: #DFD8FD;
   --accentRedSubtle: #FFD2CC;
   --accentTealSubtle: #ADEEF5;
+  --backgroundSunken: #091E4204;
+  --backgroundDefault: #FFFFFF;
+  --backgroundCard: #FFFFFF;
+  --backgroundOverlay: #FFFFFF;
+  --backgroundSelected: #E9F2FF;
   --backgroundBlanket: #091E4230;
   --backgroundDisabled: #091E4206;
   --backgroundBoldBrand-resting: #0C66E4;
@@ -51,12 +56,13 @@
   --backgroundSubtleBorderedNeutral-resting: #091E4204;
   --backgroundSubtleBorderedNeutral-pressed: #091E4206;
   --borderFocus: 0px 0px 0px 2px #FFFFFF, 0px 0px 0px 4px #388BFF;
-  --borderTextHighlighted: #0C66E4;
+  --borderTextSelected: #0C66E4;
   --borderNeutral: #091E420E;
   --borderDisabled: #091E4204;
+  --borderOverlay: #FFFFFF;
   --iconBorderBrand: #1D7AFC;
   --iconBorderDanger: #E8422C;
-  --iconBorderWarning: #B38600;
+  --iconBorderWarning: #DB6E00;
   --iconBorderSuccess: #22A06B;
   --iconBorderDiscovery: #8270DB;
   --textHighEmphasis: #172B4D;
@@ -68,17 +74,11 @@
   --textLink-hover: #0055CC;
   --textLink-pressed: #09326C;
   --textBrand: #0055CC;
-  --textWarning: #7F5F01;
+  --textWarning: #974F0C;
   --textDanger: #B22515;
   --textSuccess: #216E4E;
   --textDiscovery: #5E4DB2;
   --textDisabled: #8993A5;
-  --borderFlatPrimary: #091E420E;
-  --flatSecondary: #091E4204;
-  --base: #FFFFFF;
-  --backgroundCard: #FFFFFF;
-  --shadowCard: 0px 1px 1px #091E4219, 0px 0px 1px #091E421E;
-  --backgroundOverlay: #FFFFFF;
-  --shadowOverlay: 0px 8px 12px #091E420F, 0px 0px 1px #091E421E;
-  --borderOverlay: #FFFFFF;
+  --card: 0px 1px 1px #091E4219, 0px 0px 1px #091E421E;
+  --overlay: 0px 8px 12px #091E420F, 0px 0px 1px #091E421E;
 }

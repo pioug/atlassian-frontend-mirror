@@ -1,5 +1,8 @@
 import tokens from './token-names';
 
+type Token = keyof typeof tokens | string;
+type RenameMapping = Partial<Record<Token, Token>>;
+
 /**
  * This file is intended to help create automation on top of renaming of tokens.
  *
@@ -19,8 +22,15 @@ import tokens from './token-names';
  * 5. The artifact containing the automation should now be available in the `/dist` folder. i.e. packages/design-system/tokens/dist/figma/atlassian-light/sync-figma-tokens.js
  * 6. After building make sure to remove the mapping from this file before checking it in
  */
-type RenameMapping = Partial<Record<keyof typeof tokens, string>>;
-
-const renameMapping: RenameMapping = {};
+const renameMapping: RenameMapping = {
+  'color.borderTextHighlighted': 'color.borderTextSelected',
+  'elevation.base': 'color.backgroundDefault',
+  'elevation.flatSecondary': 'color.backgroundSunken',
+  'elevation.backgroundCard': 'color.backgroundCard',
+  'elevation.backgroundOverlay': 'color.backgroundOverlay',
+  'elevation.borderOverlay': 'color.borderOverlay',
+  'elevation.shadowCard': 'shadow.card',
+  'elevation.shadowOverlay': 'shadow.overlay',
+};
 
 export default renameMapping;

@@ -1,4 +1,4 @@
-# Design System Eslint Plugin
+# Design System ESLint Plugin
 
 This plugin contains rules that should be used when working with the [Atlassian Design System](https://atlassian.design).
 

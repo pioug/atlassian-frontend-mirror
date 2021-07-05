@@ -152,6 +152,11 @@ export interface PaletteColorTokenSchema {
 
 export interface BackgroundColorTokenSchema {
   color: {
+    backgroundDefault: PaintToken;
+    backgroundSunken: PaintToken;
+    backgroundCard: PaintToken;
+    backgroundOverlay: PaintToken;
+    backgroundSelected: PaintToken;
     backgroundDisabled: PaintToken;
     backgroundBlanket: PaintToken;
     backgroundBoldBrand: {
@@ -227,10 +232,11 @@ export interface BackgroundColorTokenSchema {
 
 export interface BorderColorTokenSchema {
   color: {
-    borderTextHighlighted: PaintToken;
+    borderTextSelected: PaintToken;
     borderFocus: ShadowToken;
     borderNeutral: PaintToken;
     borderDisabled: PaintToken;
+    borderOverlay: PaintToken;
   };
 }
 
@@ -277,20 +283,10 @@ export interface AccentColorTokenSchema {
   };
 }
 
-export interface ElevationTokenSchema {
-  elevation: {
-    base: PaintToken;
-
-    flatSecondary: PaintToken;
-
-    borderFlatPrimary: PaintToken;
-    borderOverlay: PaintToken;
-
-    backgroundCard: PaintToken;
-    backgroundOverlay: PaintToken;
-
-    shadowCard: ShadowToken;
-    shadowOverlay: ShadowToken;
+export interface ShadowTokenSchema {
+  shadow: {
+    card: ShadowToken;
+    overlay: ShadowToken;
   };
 }
 
@@ -302,4 +298,4 @@ export type ColorTokenSchema = BackgroundColorTokenSchema &
 
 export type TokenSchema = PaletteColorTokenSchema &
   ColorTokenSchema &
-  ElevationTokenSchema;
+  ShadowTokenSchema;

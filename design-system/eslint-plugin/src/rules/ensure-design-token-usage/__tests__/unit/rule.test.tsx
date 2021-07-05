@@ -4,13 +4,16 @@ import rule from '../../index';
 tester.run('ensure-design-token-usage', rule, {
   valid: [
     `
+      import { B100 } from '@atlaskit/theme/colors';
+    `,
+    `
       css({
-        boxShadow: token('elevation.shadowCard'),
+        boxShadow: token('shadow.card'),
       })
     `,
     `
       css\`
-        box-shadow: \${token('elevation.shadowCard')};
+        box-shadow: \${token('shadow.card')};
       \`
     `,
     `
@@ -43,8 +46,8 @@ tester.run('ensure-design-token-usage', rule, {
       `,
       output: `
         css\`
-          background-color: $\{token('elevation.backgroundCard')};
-          box-shadow: \${token('elevation.shadowCard')};
+          background-color: $\{token('color.backgroundCard')};
+          box-shadow: \${token('shadow.card')};
         \`
       `,
       errors: [

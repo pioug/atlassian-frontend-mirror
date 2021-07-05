@@ -8,7 +8,7 @@ import {
   isLegacyColor,
 } from './utils/is-color';
 import { isLegacyElevation } from './utils/is-elevation';
-import { isParentGlobalToken } from './utils/is-node';
+import { isAnyParentOfType, isParentGlobalToken } from './utils/is-node';
 
 const getNodeColumn = (node: Rule.Node) => {
   if (node.loc) {
@@ -71,7 +71,11 @@ token('color.background.blanket');
   create(context) {
     return {
       Identifier(node) {
-        if (!isParentGlobalToken(node) && isLegacyColor(node.name)) {
+        if (
+          !isParentGlobalToken(node) &&
+          !isAnyParentOfType(node, 'ImportDeclaration') &&
+          isLegacyColor(node.name)
+        ) {
           context.report({
             messageId: 'hardCodedColor',
             node,

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/eslint-plugin-design-system",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "author": "Atlassian Pty Ltd",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

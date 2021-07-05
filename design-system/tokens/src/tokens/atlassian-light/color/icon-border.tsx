@@ -11,7 +11,7 @@ const color: IconBorderColorTokenSchema = {
       attributes: { group: 'paint' },
     },
     iconBorderWarning: {
-      value: 'Y600',
+      value: 'O600',
       attributes: { group: 'paint' },
     },
     iconBorderSuccess: {

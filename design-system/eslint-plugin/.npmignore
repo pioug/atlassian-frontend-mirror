@@ -8,4 +8,4 @@ __tests__/
 tsconfig.json
 dist/figma/
 scripts/
-./index.js
+/index.js

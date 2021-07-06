@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 0.0.15
+
+### Patch Changes
+
+- [`e11b3e4e1ee`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e11b3e4e1ee) - Restructures tokens into the following format {group}{property}{variant}{state}
+
 ## 0.0.14
 
 ### Patch Changes

@@ -1,0 +1,102 @@
+---
+order: 0
+---
+
+import InlineEditDefault from '../../examples/constellation/inline-edit-default';
+import InlineEditCustomSelect from '../../examples/constellation/inline-edit-custom-select';
+import InlineEditCustomTextarea from '../../examples/constellation/inline-edit-custom-textarea';
+import InlineEditValidation from '../../examples/constellation/inline-edit-validation';
+import InlineEditLargerTextSize from '../../examples/constellation/inline-edit-larger-text-size';
+import InlineEditNoActionButtons from '../../examples/constellation/inline-edit-no-action-buttons';
+import InlineEditStartWithEdit from '../../examples/constellation/inline-edit-start-with-edit';
+import InlineEditRequiredField from '../../examples/constellation/inline-edit-required-field';
+import InlineEditStateless from '../../examples/constellation/inline-edit-stateless';
+
+## Default
+
+Inline edit is a wrapper around a custom input component such as a [text field](/components/textfield/). It starts in a read-only view called `readView` and users can click the field to edit it.
+
+To prevent an inconsistent transition between read and edit mode, pass in custom `readView` and `editView` as props. Not doing this will result in
+a buggy user experience where the inline edit views do not align.
+
+You can use various types of input fields such as [text area](/components/textarea/examples) and [select](/components/select/examples). The appearance of the inline edit will vary depending on the input component it is used with.
+
+### Text field
+
+If you need a standard editable text field with the views already set up, consider using [inline editable textfield](/components/inline-edit/inline-editable-textfield/).
+
+<Example Component={InlineEditDefault} packageName="@atlaskit/inline-edit" />
+
+### Text area
+
+<Example
+  Component={InlineEditCustomTextarea}
+  packageName="@atlaskit/inline-edit"
+/>
+
+### Select
+
+<Example
+  Component={InlineEditCustomSelect}
+  packageName="@atlaskit/inline-edit"
+/>
+
+## Custom text
+
+When using a [text field](/components/textfield/examples), the font size can be made larger. You can also change the line height.
+
+<Example
+  Component={InlineEditLargerTextSize}
+  packageName="@atlaskit/inline-edit"
+/>
+
+## No action buttons
+
+Action buttons include a confirm (checkmark) and a cancel (cross) button. These indicate the completion of editing and the cancellation of editing respectively.
+
+Use `hideActionButtons` to remove the buttons and leave the field by itself. Use this when the action buttons obstruct other contents below - this is commonly seen on mobile.
+
+If there is no obstruction, keep action buttons for accessibility purposes. The contents in the field are saved when the user navigates away from the element.
+
+<Example
+  Component={InlineEditNoActionButtons}
+  packageName="@atlaskit/inline-edit"
+/>
+
+## Start with edit view
+
+Inline edit starts in `readView` by default. You must click into the field to start editing.
+
+Use `startWithEditViewOpen` to set it to start in `editView` instead.
+
+<Example
+  Component={InlineEditStartWithEdit}
+  packageName="@atlaskit/inline-edit"
+/>
+
+## Validation
+
+Validation displays an error message related to the restrictions of the inline edit.
+
+These error and warning messages disappear when the criteria is met.
+
+Try to keep the helper text as short as possible. For complex information, provide a link to more information in a new browser tab (see [messaging guidelines](/content/messaging-guidelines) for more information).
+
+<Example Component={InlineEditValidation} packageName="@atlaskit/inline-edit" />
+
+## Required field
+
+Set `isRequired` when an inline edit field needs to be filled out.
+
+<Example
+  Component={InlineEditRequiredField}
+  packageName="@atlaskit/inline-edit"
+/>
+
+## Stateless
+
+In a stateless inline edit, you can manage the checked state of the input by using the `isEditing` prop.
+
+This requires the `setEditing` handler to control the state value that you pass into the `isEditing` prop.
+
+<Example Component={InlineEditStateless} packageName="@atlaskit/inline-edit" />

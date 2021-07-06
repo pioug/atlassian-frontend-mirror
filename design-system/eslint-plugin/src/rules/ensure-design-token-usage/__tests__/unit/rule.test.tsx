@@ -19,22 +19,22 @@ tester.run('ensure-design-token-usage', rule, {
     `
       css\`
         color: inherit;
-        color: token('color.backgroundBlanket');
+        color: token('color.background.blanket');
       \`
     `,
     `
     styled.div\`
       color: inherit;
-      color: token('color.backgroundBlanket');
+      color: token('color.background.blanket');
     \`
   `,
     `
-      token('color.backgroundBlanket', 'red');
-      token('color.backgroundBlanket', B100);
-      token('color.backgroundBlanket', colors.B200);
+      token('color.background.blanket', 'red');
+      token('color.background.blanket', B100);
+      token('color.background.blanket', colors.B200);
     `,
     `
-    token('color.backgroundBlanket');
+    token('color.background.blanket');
   `,
   ],
   invalid: [
@@ -46,7 +46,7 @@ tester.run('ensure-design-token-usage', rule, {
       `,
       output: `
         css\`
-          background-color: $\{token('color.backgroundCard')};
+          background-color: $\{token('color.background.card')};
           box-shadow: \${token('shadow.card')};
         \`
       `,
@@ -81,8 +81,8 @@ tester.run('ensure-design-token-usage', rule, {
       ],
     },
     {
-      code: `'var(--accentBlueSubtle)';`,
-      output: `token('color.accentBlueSubtle');`,
+      code: `'var(--accent-blueSubtle)';`,
+      output: `token('color.accent.blueSubtle');`,
       errors: [
         {
           messageId: 'directTokenUsage',
@@ -90,7 +90,7 @@ tester.run('ensure-design-token-usage', rule, {
       ],
     },
     {
-      code: `'--accentBlueSubtle';`,
+      code: `'--accent-blueSubtle';`,
       errors: [
         {
           messageId: 'directTokenUsage',
@@ -100,7 +100,7 @@ tester.run('ensure-design-token-usage', rule, {
     {
       code: `
         css\`
-          color: var(--accentBlueSubtle);
+          color: var(--accent-blueSubtle);
         \`;
       `,
       errors: [
@@ -112,7 +112,7 @@ tester.run('ensure-design-token-usage', rule, {
     {
       code: `
         styled.div\`
-          color: var(--accentBlueSubtle);
+          color: var(--accent-blueSubtle);
         \`;
       `,
       errors: [

@@ -3,19 +3,19 @@ import token from '../../get-token';
 describe('getToken', () => {
   it('returns a token', () => {
     // TS: Function should have specific return type
-    const testToken: 'var(--backgroundBoldBrand-resting)' = token(
-      'color.backgroundBoldBrand.resting',
+    const testToken: 'var(--background-boldBrand-resting)' = token(
+      'color.background.boldBrand.resting',
     );
-    expect(testToken).toEqual('var(--backgroundBoldBrand-resting)');
+    expect(testToken).toEqual('var(--background-boldBrand-resting)');
   });
 
   it('returns a token with fallback', () => {
     // TS: Fallback shouldn't be included in return type
-    const testToken: 'var(--backgroundBoldBrand-resting)' = token(
-      'color.backgroundBoldBrand.resting',
+    const testToken: 'var(--background-boldBrand-resting)' = token(
+      'color.background.boldBrand.resting',
       '#000',
     );
-    expect(testToken).toEqual('var(--backgroundBoldBrand-resting, #000)');
+    expect(testToken).toEqual('var(--background-boldBrand-resting, #000)');
   });
 
   it('should throw when a token is not found', () => {

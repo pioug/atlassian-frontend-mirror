@@ -1,5 +1,12 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 0.0.5
+
+### Patch Changes
+
+- [`e11b3e4e1ee`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e11b3e4e1ee) - Restructures tokens into the following format {group}{property}{variant}{state}
+- Updated dependencies
+
 ## 0.0.4
 
 ### Patch Changes

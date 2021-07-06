@@ -152,134 +152,144 @@ export interface PaletteColorTokenSchema {
 
 export interface BackgroundColorTokenSchema {
   color: {
-    backgroundDefault: PaintToken;
-    backgroundSunken: PaintToken;
-    backgroundCard: PaintToken;
-    backgroundOverlay: PaintToken;
-    backgroundSelected: PaintToken;
-    backgroundDisabled: PaintToken;
-    backgroundBlanket: PaintToken;
-    backgroundBoldBrand: {
-      resting: PaintToken;
-      hover: PaintToken;
-      pressed: PaintToken;
-    };
-    backgroundSubtleBrand: {
-      resting: PaintToken;
-      hover: PaintToken;
-      pressed: PaintToken;
-    };
-    backgroundBoldDanger: {
-      resting: PaintToken;
-      hover: PaintToken;
-      pressed: PaintToken;
-    };
-    backgroundSubtleDanger: {
-      resting: PaintToken;
-      hover: PaintToken;
-      pressed: PaintToken;
-    };
-    backgroundBoldWarning: {
-      resting: PaintToken;
-      hover: PaintToken;
-      pressed: PaintToken;
-    };
-    backgroundSubtleWarning: {
-      resting: PaintToken;
-      hover: PaintToken;
-      pressed: PaintToken;
-    };
-    backgroundBoldSuccess: {
-      resting: PaintToken;
-      hover: PaintToken;
-      pressed: PaintToken;
-    };
-    backgroundSubtleSuccess: {
-      resting: PaintToken;
-      hover: PaintToken;
-      pressed: PaintToken;
-    };
-    backgroundBoldDiscovery: {
-      resting: PaintToken;
-      hover: PaintToken;
-      pressed: PaintToken;
-    };
-    backgroundSubtleDiscovery: {
-      resting: PaintToken;
-      hover: PaintToken;
-      pressed: PaintToken;
-    };
-    backgroundBoldNeutral: {
-      resting: PaintToken;
-      hover: PaintToken;
-      pressed: PaintToken;
-    };
-    backgroundTransparentNeutral: {
-      hover: PaintToken;
-      pressed: PaintToken;
-    };
-    backgroundSubtleNeutral: {
-      resting: PaintToken;
-      hover: PaintToken;
-      pressed: PaintToken;
-    };
-    backgroundSubtleBorderedNeutral: {
-      resting: PaintToken;
-      pressed: PaintToken;
+    background: {
+      default: PaintToken;
+      sunken: PaintToken;
+      card: PaintToken;
+      overlay: PaintToken;
+      selected: PaintToken;
+      disabled: PaintToken;
+      blanket: PaintToken;
+      boldBrand: {
+        resting: PaintToken;
+        hover: PaintToken;
+        pressed: PaintToken;
+      };
+      subtleBrand: {
+        resting: PaintToken;
+        hover: PaintToken;
+        pressed: PaintToken;
+      };
+      boldDanger: {
+        resting: PaintToken;
+        hover: PaintToken;
+        pressed: PaintToken;
+      };
+      subtleDanger: {
+        resting: PaintToken;
+        hover: PaintToken;
+        pressed: PaintToken;
+      };
+      boldWarning: {
+        resting: PaintToken;
+        hover: PaintToken;
+        pressed: PaintToken;
+      };
+      subtleWarning: {
+        resting: PaintToken;
+        hover: PaintToken;
+        pressed: PaintToken;
+      };
+      boldSuccess: {
+        resting: PaintToken;
+        hover: PaintToken;
+        pressed: PaintToken;
+      };
+      subtleSuccess: {
+        resting: PaintToken;
+        hover: PaintToken;
+        pressed: PaintToken;
+      };
+      boldDiscovery: {
+        resting: PaintToken;
+        hover: PaintToken;
+        pressed: PaintToken;
+      };
+      subtleDiscovery: {
+        resting: PaintToken;
+        hover: PaintToken;
+        pressed: PaintToken;
+      };
+      boldNeutral: {
+        resting: PaintToken;
+        hover: PaintToken;
+        pressed: PaintToken;
+      };
+      transparentNeutral: {
+        hover: PaintToken;
+        pressed: PaintToken;
+      };
+      subtleNeutral: {
+        resting: PaintToken;
+        hover: PaintToken;
+        pressed: PaintToken;
+      };
+      subtleBorderedNeutral: {
+        resting: PaintToken;
+        pressed: PaintToken;
+      };
     };
   };
 }
 
 export interface BorderColorTokenSchema {
   color: {
-    borderTextSelected: PaintToken;
-    borderFocus: ShadowToken;
-    borderNeutral: PaintToken;
-    borderDisabled: PaintToken;
-    borderOverlay: PaintToken;
+    border: {
+      focus: ShadowToken;
+      neutral: PaintToken;
+      disabled: PaintToken;
+      overlay: PaintToken;
+    };
   };
 }
 
 export interface IconBorderColorTokenSchema {
   color: {
-    iconBorderBrand: PaintToken;
-    iconBorderDanger: PaintToken;
-    iconBorderWarning: PaintToken;
-    iconBorderSuccess: PaintToken;
-    iconBorderDiscovery: PaintToken;
+    iconBorder: {
+      brand: PaintToken;
+      danger: PaintToken;
+      warning: PaintToken;
+      success: PaintToken;
+      discovery: PaintToken;
+    };
   };
 }
 
 export interface TextColorTokenSchema {
   color: {
-    textHighEmphasis: PaintToken;
-    textMediumEmphasis: PaintToken;
-    textLowEmphasis: PaintToken;
-    textOnBold: PaintToken;
-    textOnBoldWarning: PaintToken;
-    textLink: {
-      resting: PaintToken;
-      hover: PaintToken;
-      pressed: PaintToken;
+    text: {
+      selected: PaintToken;
+      highEmphasis: PaintToken;
+      mediumEmphasis: PaintToken;
+      lowEmphasis: PaintToken;
+      onBold: PaintToken;
+      onBoldWarning: PaintToken;
+      link: {
+        resting: PaintToken;
+        hover: PaintToken;
+        pressed: PaintToken;
+      };
+      brand: PaintToken;
+      warning: PaintToken;
+      danger: PaintToken;
+      success: PaintToken;
+      discovery: PaintToken;
+      disabled: PaintToken;
     };
-    textBrand: PaintToken;
-    textWarning: PaintToken;
-    textDanger: PaintToken;
-    textSuccess: PaintToken;
-    textDiscovery: PaintToken;
-    textDisabled: PaintToken;
   };
 }
 
 export interface AccentColorTokenSchema {
   color: {
-    accentBlueSubtle: PaintToken;
-    accentRedSubtle: PaintToken;
-    accentGreenSubtle: PaintToken;
-    accentOrangeSubtle: PaintToken;
-    accentTealSubtle: PaintToken;
-    accentPurpleSubtle: PaintToken;
-    accentMagentaSubtle: PaintToken;
+    accent: {
+      blueSubtle: PaintToken;
+      redSubtle: PaintToken;
+      greenSubtle: PaintToken;
+      orangeSubtle: PaintToken;
+      tealSubtle: PaintToken;
+      purpleSubtle: PaintToken;
+      magentaSubtle: PaintToken;
+    };
   };
 }
 

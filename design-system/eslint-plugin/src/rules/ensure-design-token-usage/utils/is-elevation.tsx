@@ -5,23 +5,23 @@ const legacyElevation: Record<
   { background: keyof typeof tokens; shadow: keyof typeof tokens }
 > = {
   e100: {
-    background: 'color.backgroundCard',
+    background: 'color.background.card',
     shadow: 'shadow.card',
   },
   e200: {
-    background: 'color.backgroundOverlay',
+    background: 'color.background.overlay',
     shadow: 'shadow.overlay',
   },
   e300: {
-    background: 'color.backgroundOverlay',
+    background: 'color.background.overlay',
     shadow: 'shadow.overlay',
   },
   e400: {
-    background: 'color.backgroundOverlay',
+    background: 'color.background.overlay',
     shadow: 'shadow.overlay',
   },
   e500: {
-    background: 'color.backgroundOverlay',
+    background: 'color.background.overlay',
     shadow: 'shadow.overlay',
   },
 };

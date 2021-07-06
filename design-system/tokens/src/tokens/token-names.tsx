@@ -1,173 +1,182 @@
 // THIS IS AN AUTO-GENERATED FILE DO NOT MODIFY DIRECTLY
 // Re-generate by running `yarn build tokens`.
 const tokens = {
-  'color.accentBlueSubtle': '--accentBlueSubtle',
-  'color.accentGreenSubtle': '--accentGreenSubtle',
-  'color.accentMagentaSubtle': '--accentMagentaSubtle',
-  'color.accentOrangeSubtle': '--accentOrangeSubtle',
-  'color.accentPurpleSubtle': '--accentPurpleSubtle',
-  'color.accentRedSubtle': '--accentRedSubtle',
-  'color.accentTealSubtle': '--accentTealSubtle',
-  'color.backgroundSunken': '--backgroundSunken',
-  'color.backgroundDefault': '--backgroundDefault',
-  'color.backgroundCard': '--backgroundCard',
-  'color.backgroundOverlay': '--backgroundOverlay',
-  'color.backgroundSelected': '--backgroundSelected',
-  'color.backgroundBlanket': '--backgroundBlanket',
-  'color.backgroundDisabled': '--backgroundDisabled',
-  'color.backgroundBoldBrand.resting': '--backgroundBoldBrand-resting',
-  'color.backgroundBoldBrand.hover': '--backgroundBoldBrand-hover',
-  'color.backgroundBoldBrand.pressed': '--backgroundBoldBrand-pressed',
-  'color.backgroundSubtleBrand.resting': '--backgroundSubtleBrand-resting',
-  'color.backgroundSubtleBrand.hover': '--backgroundSubtleBrand-hover',
-  'color.backgroundSubtleBrand.pressed': '--backgroundSubtleBrand-pressed',
-  'color.backgroundBoldDanger.resting': '--backgroundBoldDanger-resting',
-  'color.backgroundBoldDanger.hover': '--backgroundBoldDanger-hover',
-  'color.backgroundBoldDanger.pressed': '--backgroundBoldDanger-pressed',
-  'color.backgroundSubtleDanger.resting': '--backgroundSubtleDanger-resting',
-  'color.backgroundSubtleDanger.hover': '--backgroundSubtleDanger-hover',
-  'color.backgroundSubtleDanger.pressed': '--backgroundSubtleDanger-pressed',
-  'color.backgroundBoldWarning.resting': '--backgroundBoldWarning-resting',
-  'color.backgroundBoldWarning.hover': '--backgroundBoldWarning-hover',
-  'color.backgroundBoldWarning.pressed': '--backgroundBoldWarning-pressed',
-  'color.backgroundSubtleWarning.resting': '--backgroundSubtleWarning-resting',
-  'color.backgroundSubtleWarning.hover': '--backgroundSubtleWarning-hover',
-  'color.backgroundSubtleWarning.pressed': '--backgroundSubtleWarning-pressed',
-  'color.backgroundBoldSuccess.resting': '--backgroundBoldSuccess-resting',
-  'color.backgroundBoldSuccess.hover': '--backgroundBoldSuccess-hover',
-  'color.backgroundBoldSuccess.pressed': '--backgroundBoldSuccess-pressed',
-  'color.backgroundSubtleSuccess.resting': '--backgroundSubtleSuccess-resting',
-  'color.backgroundSubtleSuccess.hover': '--backgroundSubtleSuccess-hover',
-  'color.backgroundSubtleSuccess.pressed': '--backgroundSubtleSuccess-pressed',
-  'color.backgroundBoldDiscovery.resting': '--backgroundBoldDiscovery-resting',
-  'color.backgroundBoldDiscovery.hover': '--backgroundBoldDiscovery-hover',
-  'color.backgroundBoldDiscovery.pressed': '--backgroundBoldDiscovery-pressed',
-  'color.backgroundSubtleDiscovery.resting':
-    '--backgroundSubtleDiscovery-resting',
-  'color.backgroundSubtleDiscovery.hover': '--backgroundSubtleDiscovery-hover',
-  'color.backgroundSubtleDiscovery.pressed':
-    '--backgroundSubtleDiscovery-pressed',
-  'color.backgroundBoldNeutral.resting': '--backgroundBoldNeutral-resting',
-  'color.backgroundBoldNeutral.hover': '--backgroundBoldNeutral-hover',
-  'color.backgroundBoldNeutral.pressed': '--backgroundBoldNeutral-pressed',
-  'color.backgroundTransparentNeutral.hover':
-    '--backgroundTransparentNeutral-hover',
-  'color.backgroundTransparentNeutral.pressed':
-    '--backgroundTransparentNeutral-pressed',
-  'color.backgroundSubtleNeutral.resting': '--backgroundSubtleNeutral-resting',
-  'color.backgroundSubtleNeutral.hover': '--backgroundSubtleNeutral-hover',
-  'color.backgroundSubtleNeutral.pressed': '--backgroundSubtleNeutral-pressed',
-  'color.backgroundSubtleBorderedNeutral.resting':
-    '--backgroundSubtleBorderedNeutral-resting',
-  'color.backgroundSubtleBorderedNeutral.pressed':
-    '--backgroundSubtleBorderedNeutral-pressed',
-  'color.borderFocus': '--borderFocus',
-  'color.borderTextSelected': '--borderTextSelected',
-  'color.borderNeutral': '--borderNeutral',
-  'color.borderDisabled': '--borderDisabled',
-  'color.borderOverlay': '--borderOverlay',
-  'color.iconBorderBrand': '--iconBorderBrand',
-  'color.iconBorderDanger': '--iconBorderDanger',
-  'color.iconBorderWarning': '--iconBorderWarning',
-  'color.iconBorderSuccess': '--iconBorderSuccess',
-  'color.iconBorderDiscovery': '--iconBorderDiscovery',
-  'color.textHighEmphasis': '--textHighEmphasis',
-  'color.textMediumEmphasis': '--textMediumEmphasis',
-  'color.textLowEmphasis': '--textLowEmphasis',
-  'color.textOnBold': '--textOnBold',
-  'color.textOnBoldWarning': '--textOnBoldWarning',
-  'color.textLink.resting': '--textLink-resting',
-  'color.textLink.hover': '--textLink-hover',
-  'color.textLink.pressed': '--textLink-pressed',
-  'color.textBrand': '--textBrand',
-  'color.textWarning': '--textWarning',
-  'color.textDanger': '--textDanger',
-  'color.textSuccess': '--textSuccess',
-  'color.textDiscovery': '--textDiscovery',
-  'color.textDisabled': '--textDisabled',
+  'color.accent.blueSubtle': '--accent-blueSubtle',
+  'color.accent.greenSubtle': '--accent-greenSubtle',
+  'color.accent.magentaSubtle': '--accent-magentaSubtle',
+  'color.accent.orangeSubtle': '--accent-orangeSubtle',
+  'color.accent.purpleSubtle': '--accent-purpleSubtle',
+  'color.accent.redSubtle': '--accent-redSubtle',
+  'color.accent.tealSubtle': '--accent-tealSubtle',
+  'color.background.sunken': '--background-sunken',
+  'color.background.default': '--background-default',
+  'color.background.card': '--background-card',
+  'color.background.overlay': '--background-overlay',
+  'color.background.selected': '--background-selected',
+  'color.background.blanket': '--background-blanket',
+  'color.background.disabled': '--background-disabled',
+  'color.background.boldBrand.resting': '--background-boldBrand-resting',
+  'color.background.boldBrand.hover': '--background-boldBrand-hover',
+  'color.background.boldBrand.pressed': '--background-boldBrand-pressed',
+  'color.background.subtleBrand.resting': '--background-subtleBrand-resting',
+  'color.background.subtleBrand.hover': '--background-subtleBrand-hover',
+  'color.background.subtleBrand.pressed': '--background-subtleBrand-pressed',
+  'color.background.boldDanger.resting': '--background-boldDanger-resting',
+  'color.background.boldDanger.hover': '--background-boldDanger-hover',
+  'color.background.boldDanger.pressed': '--background-boldDanger-pressed',
+  'color.background.subtleDanger.resting': '--background-subtleDanger-resting',
+  'color.background.subtleDanger.hover': '--background-subtleDanger-hover',
+  'color.background.subtleDanger.pressed': '--background-subtleDanger-pressed',
+  'color.background.boldWarning.resting': '--background-boldWarning-resting',
+  'color.background.boldWarning.hover': '--background-boldWarning-hover',
+  'color.background.boldWarning.pressed': '--background-boldWarning-pressed',
+  'color.background.subtleWarning.resting':
+    '--background-subtleWarning-resting',
+  'color.background.subtleWarning.hover': '--background-subtleWarning-hover',
+  'color.background.subtleWarning.pressed':
+    '--background-subtleWarning-pressed',
+  'color.background.boldSuccess.resting': '--background-boldSuccess-resting',
+  'color.background.boldSuccess.hover': '--background-boldSuccess-hover',
+  'color.background.boldSuccess.pressed': '--background-boldSuccess-pressed',
+  'color.background.subtleSuccess.resting':
+    '--background-subtleSuccess-resting',
+  'color.background.subtleSuccess.hover': '--background-subtleSuccess-hover',
+  'color.background.subtleSuccess.pressed':
+    '--background-subtleSuccess-pressed',
+  'color.background.boldDiscovery.resting':
+    '--background-boldDiscovery-resting',
+  'color.background.boldDiscovery.hover': '--background-boldDiscovery-hover',
+  'color.background.boldDiscovery.pressed':
+    '--background-boldDiscovery-pressed',
+  'color.background.subtleDiscovery.resting':
+    '--background-subtleDiscovery-resting',
+  'color.background.subtleDiscovery.hover':
+    '--background-subtleDiscovery-hover',
+  'color.background.subtleDiscovery.pressed':
+    '--background-subtleDiscovery-pressed',
+  'color.background.boldNeutral.resting': '--background-boldNeutral-resting',
+  'color.background.boldNeutral.hover': '--background-boldNeutral-hover',
+  'color.background.boldNeutral.pressed': '--background-boldNeutral-pressed',
+  'color.background.transparentNeutral.hover':
+    '--background-transparentNeutral-hover',
+  'color.background.transparentNeutral.pressed':
+    '--background-transparentNeutral-pressed',
+  'color.background.subtleNeutral.resting':
+    '--background-subtleNeutral-resting',
+  'color.background.subtleNeutral.hover': '--background-subtleNeutral-hover',
+  'color.background.subtleNeutral.pressed':
+    '--background-subtleNeutral-pressed',
+  'color.background.subtleBorderedNeutral.resting':
+    '--background-subtleBorderedNeutral-resting',
+  'color.background.subtleBorderedNeutral.pressed':
+    '--background-subtleBorderedNeutral-pressed',
+  'color.border.focus': '--border-focus',
+  'color.border.neutral': '--border-neutral',
+  'color.border.disabled': '--border-disabled',
+  'color.border.overlay': '--border-overlay',
+  'color.iconBorder.brand': '--iconBorder-brand',
+  'color.iconBorder.danger': '--iconBorder-danger',
+  'color.iconBorder.warning': '--iconBorder-warning',
+  'color.iconBorder.success': '--iconBorder-success',
+  'color.iconBorder.discovery': '--iconBorder-discovery',
+  'color.text.selected': '--text-selected',
+  'color.text.highEmphasis': '--text-highEmphasis',
+  'color.text.mediumEmphasis': '--text-mediumEmphasis',
+  'color.text.lowEmphasis': '--text-lowEmphasis',
+  'color.text.onBold': '--text-onBold',
+  'color.text.onBoldWarning': '--text-onBoldWarning',
+  'color.text.link.resting': '--text-link-resting',
+  'color.text.link.hover': '--text-link-hover',
+  'color.text.link.pressed': '--text-link-pressed',
+  'color.text.brand': '--text-brand',
+  'color.text.warning': '--text-warning',
+  'color.text.danger': '--text-danger',
+  'color.text.success': '--text-success',
+  'color.text.discovery': '--text-discovery',
+  'color.text.disabled': '--text-disabled',
   'shadow.card': '--card',
   'shadow.overlay': '--overlay',
 } as const;
 
 export type CSSTokenMap = {
-  'color.accentBlueSubtle': 'var(--accentBlueSubtle)';
-  'color.accentGreenSubtle': 'var(--accentGreenSubtle)';
-  'color.accentMagentaSubtle': 'var(--accentMagentaSubtle)';
-  'color.accentOrangeSubtle': 'var(--accentOrangeSubtle)';
-  'color.accentPurpleSubtle': 'var(--accentPurpleSubtle)';
-  'color.accentRedSubtle': 'var(--accentRedSubtle)';
-  'color.accentTealSubtle': 'var(--accentTealSubtle)';
-  'color.backgroundSunken': 'var(--backgroundSunken)';
-  'color.backgroundDefault': 'var(--backgroundDefault)';
-  'color.backgroundCard': 'var(--backgroundCard)';
-  'color.backgroundOverlay': 'var(--backgroundOverlay)';
-  'color.backgroundSelected': 'var(--backgroundSelected)';
-  'color.backgroundBlanket': 'var(--backgroundBlanket)';
-  'color.backgroundDisabled': 'var(--backgroundDisabled)';
-  'color.backgroundBoldBrand.resting': 'var(--backgroundBoldBrand-resting)';
-  'color.backgroundBoldBrand.hover': 'var(--backgroundBoldBrand-hover)';
-  'color.backgroundBoldBrand.pressed': 'var(--backgroundBoldBrand-pressed)';
-  'color.backgroundSubtleBrand.resting': 'var(--backgroundSubtleBrand-resting)';
-  'color.backgroundSubtleBrand.hover': 'var(--backgroundSubtleBrand-hover)';
-  'color.backgroundSubtleBrand.pressed': 'var(--backgroundSubtleBrand-pressed)';
-  'color.backgroundBoldDanger.resting': 'var(--backgroundBoldDanger-resting)';
-  'color.backgroundBoldDanger.hover': 'var(--backgroundBoldDanger-hover)';
-  'color.backgroundBoldDanger.pressed': 'var(--backgroundBoldDanger-pressed)';
-  'color.backgroundSubtleDanger.resting': 'var(--backgroundSubtleDanger-resting)';
-  'color.backgroundSubtleDanger.hover': 'var(--backgroundSubtleDanger-hover)';
-  'color.backgroundSubtleDanger.pressed': 'var(--backgroundSubtleDanger-pressed)';
-  'color.backgroundBoldWarning.resting': 'var(--backgroundBoldWarning-resting)';
-  'color.backgroundBoldWarning.hover': 'var(--backgroundBoldWarning-hover)';
-  'color.backgroundBoldWarning.pressed': 'var(--backgroundBoldWarning-pressed)';
-  'color.backgroundSubtleWarning.resting': 'var(--backgroundSubtleWarning-resting)';
-  'color.backgroundSubtleWarning.hover': 'var(--backgroundSubtleWarning-hover)';
-  'color.backgroundSubtleWarning.pressed': 'var(--backgroundSubtleWarning-pressed)';
-  'color.backgroundBoldSuccess.resting': 'var(--backgroundBoldSuccess-resting)';
-  'color.backgroundBoldSuccess.hover': 'var(--backgroundBoldSuccess-hover)';
-  'color.backgroundBoldSuccess.pressed': 'var(--backgroundBoldSuccess-pressed)';
-  'color.backgroundSubtleSuccess.resting': 'var(--backgroundSubtleSuccess-resting)';
-  'color.backgroundSubtleSuccess.hover': 'var(--backgroundSubtleSuccess-hover)';
-  'color.backgroundSubtleSuccess.pressed': 'var(--backgroundSubtleSuccess-pressed)';
-  'color.backgroundBoldDiscovery.resting': 'var(--backgroundBoldDiscovery-resting)';
-  'color.backgroundBoldDiscovery.hover': 'var(--backgroundBoldDiscovery-hover)';
-  'color.backgroundBoldDiscovery.pressed': 'var(--backgroundBoldDiscovery-pressed)';
-  'color.backgroundSubtleDiscovery.resting': 'var(--backgroundSubtleDiscovery-resting)';
-  'color.backgroundSubtleDiscovery.hover': 'var(--backgroundSubtleDiscovery-hover)';
-  'color.backgroundSubtleDiscovery.pressed': 'var(--backgroundSubtleDiscovery-pressed)';
-  'color.backgroundBoldNeutral.resting': 'var(--backgroundBoldNeutral-resting)';
-  'color.backgroundBoldNeutral.hover': 'var(--backgroundBoldNeutral-hover)';
-  'color.backgroundBoldNeutral.pressed': 'var(--backgroundBoldNeutral-pressed)';
-  'color.backgroundTransparentNeutral.hover': 'var(--backgroundTransparentNeutral-hover)';
-  'color.backgroundTransparentNeutral.pressed': 'var(--backgroundTransparentNeutral-pressed)';
-  'color.backgroundSubtleNeutral.resting': 'var(--backgroundSubtleNeutral-resting)';
-  'color.backgroundSubtleNeutral.hover': 'var(--backgroundSubtleNeutral-hover)';
-  'color.backgroundSubtleNeutral.pressed': 'var(--backgroundSubtleNeutral-pressed)';
-  'color.backgroundSubtleBorderedNeutral.resting': 'var(--backgroundSubtleBorderedNeutral-resting)';
-  'color.backgroundSubtleBorderedNeutral.pressed': 'var(--backgroundSubtleBorderedNeutral-pressed)';
-  'color.borderFocus': 'var(--borderFocus)';
-  'color.borderTextSelected': 'var(--borderTextSelected)';
-  'color.borderNeutral': 'var(--borderNeutral)';
-  'color.borderDisabled': 'var(--borderDisabled)';
-  'color.borderOverlay': 'var(--borderOverlay)';
-  'color.iconBorderBrand': 'var(--iconBorderBrand)';
-  'color.iconBorderDanger': 'var(--iconBorderDanger)';
-  'color.iconBorderWarning': 'var(--iconBorderWarning)';
-  'color.iconBorderSuccess': 'var(--iconBorderSuccess)';
-  'color.iconBorderDiscovery': 'var(--iconBorderDiscovery)';
-  'color.textHighEmphasis': 'var(--textHighEmphasis)';
-  'color.textMediumEmphasis': 'var(--textMediumEmphasis)';
-  'color.textLowEmphasis': 'var(--textLowEmphasis)';
-  'color.textOnBold': 'var(--textOnBold)';
-  'color.textOnBoldWarning': 'var(--textOnBoldWarning)';
-  'color.textLink.resting': 'var(--textLink-resting)';
-  'color.textLink.hover': 'var(--textLink-hover)';
-  'color.textLink.pressed': 'var(--textLink-pressed)';
-  'color.textBrand': 'var(--textBrand)';
-  'color.textWarning': 'var(--textWarning)';
-  'color.textDanger': 'var(--textDanger)';
-  'color.textSuccess': 'var(--textSuccess)';
-  'color.textDiscovery': 'var(--textDiscovery)';
-  'color.textDisabled': 'var(--textDisabled)';
+  'color.accent.blueSubtle': 'var(--accent-blueSubtle)';
+  'color.accent.greenSubtle': 'var(--accent-greenSubtle)';
+  'color.accent.magentaSubtle': 'var(--accent-magentaSubtle)';
+  'color.accent.orangeSubtle': 'var(--accent-orangeSubtle)';
+  'color.accent.purpleSubtle': 'var(--accent-purpleSubtle)';
+  'color.accent.redSubtle': 'var(--accent-redSubtle)';
+  'color.accent.tealSubtle': 'var(--accent-tealSubtle)';
+  'color.background.sunken': 'var(--background-sunken)';
+  'color.background.default': 'var(--background-default)';
+  'color.background.card': 'var(--background-card)';
+  'color.background.overlay': 'var(--background-overlay)';
+  'color.background.selected': 'var(--background-selected)';
+  'color.background.blanket': 'var(--background-blanket)';
+  'color.background.disabled': 'var(--background-disabled)';
+  'color.background.boldBrand.resting': 'var(--background-boldBrand-resting)';
+  'color.background.boldBrand.hover': 'var(--background-boldBrand-hover)';
+  'color.background.boldBrand.pressed': 'var(--background-boldBrand-pressed)';
+  'color.background.subtleBrand.resting': 'var(--background-subtleBrand-resting)';
+  'color.background.subtleBrand.hover': 'var(--background-subtleBrand-hover)';
+  'color.background.subtleBrand.pressed': 'var(--background-subtleBrand-pressed)';
+  'color.background.boldDanger.resting': 'var(--background-boldDanger-resting)';
+  'color.background.boldDanger.hover': 'var(--background-boldDanger-hover)';
+  'color.background.boldDanger.pressed': 'var(--background-boldDanger-pressed)';
+  'color.background.subtleDanger.resting': 'var(--background-subtleDanger-resting)';
+  'color.background.subtleDanger.hover': 'var(--background-subtleDanger-hover)';
+  'color.background.subtleDanger.pressed': 'var(--background-subtleDanger-pressed)';
+  'color.background.boldWarning.resting': 'var(--background-boldWarning-resting)';
+  'color.background.boldWarning.hover': 'var(--background-boldWarning-hover)';
+  'color.background.boldWarning.pressed': 'var(--background-boldWarning-pressed)';
+  'color.background.subtleWarning.resting': 'var(--background-subtleWarning-resting)';
+  'color.background.subtleWarning.hover': 'var(--background-subtleWarning-hover)';
+  'color.background.subtleWarning.pressed': 'var(--background-subtleWarning-pressed)';
+  'color.background.boldSuccess.resting': 'var(--background-boldSuccess-resting)';
+  'color.background.boldSuccess.hover': 'var(--background-boldSuccess-hover)';
+  'color.background.boldSuccess.pressed': 'var(--background-boldSuccess-pressed)';
+  'color.background.subtleSuccess.resting': 'var(--background-subtleSuccess-resting)';
+  'color.background.subtleSuccess.hover': 'var(--background-subtleSuccess-hover)';
+  'color.background.subtleSuccess.pressed': 'var(--background-subtleSuccess-pressed)';
+  'color.background.boldDiscovery.resting': 'var(--background-boldDiscovery-resting)';
+  'color.background.boldDiscovery.hover': 'var(--background-boldDiscovery-hover)';
+  'color.background.boldDiscovery.pressed': 'var(--background-boldDiscovery-pressed)';
+  'color.background.subtleDiscovery.resting': 'var(--background-subtleDiscovery-resting)';
+  'color.background.subtleDiscovery.hover': 'var(--background-subtleDiscovery-hover)';
+  'color.background.subtleDiscovery.pressed': 'var(--background-subtleDiscovery-pressed)';
+  'color.background.boldNeutral.resting': 'var(--background-boldNeutral-resting)';
+  'color.background.boldNeutral.hover': 'var(--background-boldNeutral-hover)';
+  'color.background.boldNeutral.pressed': 'var(--background-boldNeutral-pressed)';
+  'color.background.transparentNeutral.hover': 'var(--background-transparentNeutral-hover)';
+  'color.background.transparentNeutral.pressed': 'var(--background-transparentNeutral-pressed)';
+  'color.background.subtleNeutral.resting': 'var(--background-subtleNeutral-resting)';
+  'color.background.subtleNeutral.hover': 'var(--background-subtleNeutral-hover)';
+  'color.background.subtleNeutral.pressed': 'var(--background-subtleNeutral-pressed)';
+  'color.background.subtleBorderedNeutral.resting': 'var(--background-subtleBorderedNeutral-resting)';
+  'color.background.subtleBorderedNeutral.pressed': 'var(--background-subtleBorderedNeutral-pressed)';
+  'color.border.focus': 'var(--border-focus)';
+  'color.border.neutral': 'var(--border-neutral)';
+  'color.border.disabled': 'var(--border-disabled)';
+  'color.border.overlay': 'var(--border-overlay)';
+  'color.iconBorder.brand': 'var(--iconBorder-brand)';
+  'color.iconBorder.danger': 'var(--iconBorder-danger)';
+  'color.iconBorder.warning': 'var(--iconBorder-warning)';
+  'color.iconBorder.success': 'var(--iconBorder-success)';
+  'color.iconBorder.discovery': 'var(--iconBorder-discovery)';
+  'color.text.selected': 'var(--text-selected)';
+  'color.text.highEmphasis': 'var(--text-highEmphasis)';
+  'color.text.mediumEmphasis': 'var(--text-mediumEmphasis)';
+  'color.text.lowEmphasis': 'var(--text-lowEmphasis)';
+  'color.text.onBold': 'var(--text-onBold)';
+  'color.text.onBoldWarning': 'var(--text-onBoldWarning)';
+  'color.text.link.resting': 'var(--text-link-resting)';
+  'color.text.link.hover': 'var(--text-link-hover)';
+  'color.text.link.pressed': 'var(--text-link-pressed)';
+  'color.text.brand': 'var(--text-brand)';
+  'color.text.warning': 'var(--text-warning)';
+  'color.text.danger': 'var(--text-danger)';
+  'color.text.success': 'var(--text-success)';
+  'color.text.discovery': 'var(--text-discovery)';
+  'color.text.disabled': 'var(--text-disabled)';
   'shadow.card': 'var(--card)';
   'shadow.overlay': 'var(--overlay)';
 };

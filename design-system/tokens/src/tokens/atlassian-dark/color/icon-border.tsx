@@ -2,25 +2,27 @@ import type { IconBorderColorTokenSchema } from '../../../types';
 
 const color: IconBorderColorTokenSchema = {
   color: {
-    iconBorderBrand: {
-      value: 'B500',
-      attributes: { group: 'paint' },
-    },
-    iconBorderDanger: {
-      value: 'R500',
-      attributes: { group: 'paint' },
-    },
-    iconBorderWarning: {
-      value: 'Y500',
-      attributes: { group: 'paint' },
-    },
-    iconBorderSuccess: {
-      value: 'G500',
-      attributes: { group: 'paint' },
-    },
-    iconBorderDiscovery: {
-      value: 'P500',
-      attributes: { group: 'paint' },
+    iconBorder: {
+      brand: {
+        value: 'B500',
+        attributes: { group: 'paint' },
+      },
+      danger: {
+        value: 'R500',
+        attributes: { group: 'paint' },
+      },
+      warning: {
+        value: 'Y500',
+        attributes: { group: 'paint' },
+      },
+      success: {
+        value: 'G500',
+        attributes: { group: 'paint' },
+      },
+      discovery: {
+        value: 'P500',
+        attributes: { group: 'paint' },
+      },
     },
   },
 };

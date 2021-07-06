@@ -1,7 +1,7 @@
 {
   "name": "@atlaskit/inline-edit",
-  "version": "12.0.8",
-  "description": "A base component used to build inline-editable components that match the Atlassian Design Guidelines",
+  "version": "12.0.6",
+  "description": "An inline edit displays a custom input component that switches between reading and editing on the same page.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
@@ -14,13 +14,13 @@
   "types": "dist/types/index.d.ts",
   "sideEffects": false,
   "atlaskit:src": "src/index.ts",
-  "atlaskit:designLink": "https://atlassian.design/patterns/inline-edit",
+  "homepage": "https://atlassian.design/components/inline-edit/",
   "atlassian": {
     "team": "Design System Team",
     "inPublicMirror": true,
     "releaseModel": "scheduled",
     "website": {
-      "name": "Inline Edit"
+      "name": "Inline edit"
     }
   },
   "dependencies": {

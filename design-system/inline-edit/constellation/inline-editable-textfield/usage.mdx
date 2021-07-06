@@ -1,0 +1,63 @@
+---
+title: Inline editable textfield
+description: An inline editable textfield displays a textfield that switches between reading and editing on the same page.
+order: 2
+---
+
+import DoDont from '@atlaskit/gatsby-theme-brisk/src/components/do-dont';
+import inlineEditTextfieldDo from '../index/images/inline-edit-textfield-do.png';
+import inlineEditTextfieldDont from '../index/images/inline-edit-textfield-dont.png';
+
+## Usage
+
+Most inline edit use cases use a standard text field. Use an inline editable textfield to let users switch between reading and editing text in a simple [text field](/components/textfield) out of the box.
+
+Use an [inline edit](/components/inline-edit) if you require more customisation and need to pass in your own custom input components. Remember to pass in custom read view and edit view components to match the input components' size.
+
+## Anatomy
+
+### Read view
+
+![Inline editable textfield read view anatomy](/images/inline-editable-textfield-anatomy-read.png)
+
+1. ** Label: ** Labels are sentence case and are as short as possible, while clearly describing the content of the field.
+
+2. ** Text field: ** When in read view, the field is hidden and the text remains aligned with the label. When in an empty state, this field text can be customized.
+
+### Edit view
+
+![Inline editable textfield edit view anatomy](/images/inline-editable-textfield-anatomy-edit.png)
+
+1. ** Label: ** Labels are sentence case and are as short as possible, while clearly describing the content of the field.
+
+2. ** Text field: ** When in edit view, the field snaps to the width of the column and the text remains aligned with the label.
+
+3. ** Controls: ** Always appear to the right of the field.
+
+## Behavior
+
+Inline editable textfield has the same features as [inline edit](/components/inline-edit). This includes the action buttons and validation features.
+
+## Best practices
+
+- Use an inline editable textfield for when there is existing content in a textfield that may need to be tweaked.
+
+<DoDont
+  type="do"
+  image={{
+    url: inlineEditTextfieldDo,
+    alt: 'Inline edit textfields in a side drawer.'
+  }}
+>
+  Use an inline editable text field for where there are multiple items on a page that can be edited at once.
+</DoDont>
+
+<DoDont
+  type="dont"
+  image={{
+    url: inlineEditTextfieldDont,
+    alt: 'Inline edit textfields in a modal form.'
+  }}
+>
+  Do not use an inline editable textfield if the main function of the screen is editing. You may look into a text area.
+</DoDont>

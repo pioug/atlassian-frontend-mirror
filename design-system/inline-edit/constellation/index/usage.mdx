@@ -1,0 +1,66 @@
+---
+order: 2
+---
+
+import DoDont from '@atlaskit/gatsby-theme-brisk/src/components/do-dont';
+import inlineEditDo from './images/inline-edit-do.png';
+import inlineEditDont from './images/inline-edit-dont.png';
+
+## Usage
+
+Use inline edit on screens where information needs to be updated often, such as a view issue page. Users can toggle between read view and edit view without leaving the page.
+
+Use this instead of a [form](https://atlaskit.atlassian.com/packages/design-system/form) when you have information that may already exist that will need to be edited.
+
+Inline edit can use but is not limited to a [text field](/components/textfield), [select](/components/select) and [datetime picker](https://atlaskit.atlassian.com/packages/design-system/datetime-picker). The appearance of the inline edit will vary depending on which components it is used with.
+
+## Anatomy
+
+### Read view
+
+![Inline edit read anatomy](/images/inline-edit-anatomy-read.png)
+
+1. ** Label: ** Labels are sentence case and are as short as possible, while clearly describing the content of the field.
+
+2. ** Field: ** When in read view, the field is hidden and aligned with the label. When in an empty state, this field text can be customized.
+
+### Edit view
+
+![Inline edit edit anatomy](/images/inline-edit-anatomy-edit.png)
+
+1. ** Label: ** Labels are sentence case and are as short as possible, while clearly describing the content of the field.
+
+2. ** Field: ** When in edit view, the field snaps to the width of the column and the text remains aligned with the label.
+
+3. ** Controls: ** Always appear to the right of the field.
+
+## Behavior
+
+Inline edit wraps around any standard text field. Any styling of the text field component is handled outside of this component. If you are placing a custom inline edit on a component like a header, ensure that the font and box size line up properly.
+
+Since inline edit is used when entering content, it is optimized for use with keyboard inputs (use return to save and esc to cancel). When using a mouse, controls should always display on the bottom right of the field.
+
+
+## Best practices
+
+- Use inline edit for an editable field that is not part of a [form](https://atlassian.design/patterns/forms). Do not use inline edit inside of a form.
+
+<DoDont
+  type="do"
+  image={{
+    url: inlineEditDo,
+    alt: 'Inline edit header in read view and edit view with the same styling and layout.'
+  }}
+>
+  Ensure read view and edit view components have identical styling. This avoids confusing the user.
+</DoDont>
+
+<DoDont
+  type="dont"
+  image={{
+    url: inlineEditDont,
+    alt: 'Inline edit header in read view and edit view with the same styling.'
+  }}
+>
+  Pass in read view and edit view components that have different styling.
+</DoDont>

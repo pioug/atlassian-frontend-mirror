@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 0.0.16
+
+### Patch Changes
+
+- [`8418348bf66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8418348bf66) - Revert focus ring token from a shadow to border
+
 ## 0.0.15
 
 ### Patch Changes

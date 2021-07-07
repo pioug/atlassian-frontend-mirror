@@ -1,7 +1,7 @@
 {
   "name": "@atlaskit/range",
-  "version": "5.0.8",
-  "description": "A styled version of the native input[range] element.",
+  "version": "5.0.9",
+  "description": "A range lets users choose an approximate value on a slider.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
@@ -14,6 +14,7 @@
   "types": "dist/types/index.d.ts",
   "sideEffects": false,
   "atlaskit:src": "src/index.ts",
+  "homepage": "https://atlassian.design/components/range/",
   "atlassian": {
     "team": "Design System Team",
     "deprecatedAutoEntryPoints": true,

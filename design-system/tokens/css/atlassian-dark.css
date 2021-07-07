@@ -55,7 +55,7 @@ html[data-theme="dark"] {
   --background-subtleNeutral-pressed: #BFDBF81C;
   --background-subtleBorderedNeutral-resting: #BCD6F004;
   --background-subtleBorderedNeutral-pressed: #A1BDD908;
-  --border-focus: 0px 0px 0px 2px #161A1D, 0px 0px 0px 4px #85B8FF;
+  --border-focus: #85B8FF;
   --border-neutral: #A6C5E210;
   --border-disabled: #091E4204;
   --border-overlay: #BCD6F004;

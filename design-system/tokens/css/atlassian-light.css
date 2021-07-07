@@ -55,7 +55,7 @@
   --background-subtleNeutral-pressed: #091E421F;
   --background-subtleBorderedNeutral-resting: #091E4204;
   --background-subtleBorderedNeutral-pressed: #091E4206;
-  --border-focus: 0px 0px 0px 2px #FFFFFF, 0px 0px 0px 4px #388BFF;
+  --border-focus: #388BFF;
   --border-neutral: #091E420E;
   --border-disabled: #091E4204;
   --border-overlay: #FFFFFF;

@@ -235,7 +235,7 @@ export interface BackgroundColorTokenSchema {
 export interface BorderColorTokenSchema {
   color: {
     border: {
-      focus: ShadowToken;
+      focus: PaintToken;
       neutral: PaintToken;
       disabled: PaintToken;
       overlay: PaintToken;

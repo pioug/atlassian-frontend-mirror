@@ -6,26 +6,26 @@ import { Input } from './styled';
 import { Theme, ThemeTokens } from './theme';
 
 export type OwnProps = {
-  /** if the field range needs to be disabled */
-  isDisabled?: boolean;
-  /** Maximum value of the range */
-  max?: number;
-  /** Minimum value of the range */
-  min?: number;
-  /** Step value for the range */
-  step?: number;
-  /** Hook to be invoked on change of the range */
-  onChange?: (value: number) => void;
-  /** Value of the range */
-  value?: number;
-  /** The default value */
+  /** Sets the default value if range is not set. */
   defaultValue?: number;
+  /** Sets whether the field range is disabled. */
+  isDisabled?: boolean;
+  /** Sets the maximum value of the range. */
+  max?: number;
+  /** Sets the minimum value of the range.*/
+  min?: number;
+  /** Hook to be invoked on change of the range. */
+  onChange?: (value: number) => void;
+  /** Sets the step value for the range.  */
+  step?: number;
+  /** A `testId` prop is provided for specific elements. This is a unique string that appears as a data attribute `data-testid` in the rendered code and serves as a hook for automated tests. */
+  testId?: string;
   /** The theme object to be passed down. See
-  [@atlaskit/theme](https://atlaskit.atlassian.com/packages/design-system/theme) for more details on themeing.
+  [@atlaskit/theme](https://atlaskit.atlassian.com/packages/design-system/theme) for more details on theming.
   */
   theme?: ThemeProp<any, any>;
-  /** A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests */
-  testId?: string;
+  /** Sets the value of the range. */
+  value?: number;
 };
 
 // Combine omits the keys of the second from the first so in case of overlap the props of the second are used.

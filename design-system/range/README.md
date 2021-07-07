@@ -1,6 +1,6 @@
-# Field-range
+# Range
 
-Component which renders a Slider and is a substitute of the native input["range"] element.
+A range lets users choose an approximate value on a slider.
 
 ## Installation
 
@@ -10,4 +10,4 @@ yarn add @atlaskit/range
 
 ## Usage
 
-Detailed docs and example usage can be found [here](https://atlaskit.atlassian.com/packages/design-system/range).
+For more information, see our [detailed range docs and examples](https://atlassian.design/components/range/).

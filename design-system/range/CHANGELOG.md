@@ -1,5 +1,11 @@
 # @atlaskit/range
 
+## 5.0.9
+
+### Patch Changes
+
+- [`b0183dd2972`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b0183dd2972) - Updated package.json decriptions and documentation. Docs have moved from atlaskit.atlassian.com to atlassian.design
+
 ## 5.0.8
 
 ### Patch Changes

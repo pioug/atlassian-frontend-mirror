@@ -1,0 +1,39 @@
+---
+order: 0
+---
+
+import RangeDefault from '../../examples/constellation/range-default';
+import RangeForm from '../../examples/constellation/range-form';
+import RangeControlled from '../../examples/constellation/range-controlled';
+import RangeUncontrolled from '../../examples/constellation/range-uncontrolled';
+import RangeDisabled from '../../examples/constellation/range-disabled';
+
+## Default
+
+The default form of a range.
+
+<Example Component={RangeDefault} packageName="@atlaskit/range" />
+
+## Form
+
+Range used with the [Form](https://atlaskit.atlassian.com/packages/design-system/form) component.
+
+<Example Component={RangeForm} packageName="@atlaskit/range" />
+
+## Controlled
+
+In a controlled range, the state is managed by the React component. Use the `onChange` handler to set the value.
+
+<Example Component={RangeControlled} packageName="@atlaskit/range" />
+
+## Uncontrolled
+
+In an uncontrolled range, the state is managed by the DOM.
+
+<Example Component={RangeUncontrolled} packageName="@atlaskit/range" />
+
+## Disabled
+
+Set `isDisabled` to disable a range when another action has to be completed before the range is usable.
+
+<Example Component={RangeDisabled} packageName="@atlaskit/range" />

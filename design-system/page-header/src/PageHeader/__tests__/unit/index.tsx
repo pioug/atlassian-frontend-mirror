@@ -93,4 +93,15 @@ describe('@atlaskit/page-header', () => {
 
     expect(wrapper.find('h1')).toHaveStyleRule('text-overflow', 'ellipsis');
   });
+
+  it('should set received id prop as id of inner h1 element', () => {
+    const wrapper = mount(
+      <PageHeader id="page-heading">Long heading text</PageHeader>,
+    );
+
+    expect(wrapper.find('h1').getDOMNode()).toHaveAttribute(
+      'id',
+      'page-heading',
+    );
+  });
 });

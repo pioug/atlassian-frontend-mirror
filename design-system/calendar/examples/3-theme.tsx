@@ -14,24 +14,25 @@ export default function ThemeExample() {
   const toggleMode = () => {
     setThemeMode(themeMode === LIGHT ? DARK : LIGHT);
   };
-  const log = (msg: string) => (e: any) => console.log(msg, e);
+
+  const disabled = ['2020-12-04'];
+  const defaultPreviouslySelected = ['2020-12-06'];
+  const defaultSelected = ['2020-12-08'];
+  const style = {
+    border: '1px solid red',
+    display: 'inline-block',
+  };
+
   return (
     <AtlaskitThemeProvider mode={themeMode}>
       <div>
         <Calendar
-          defaultDisabled={['2020-12-04']}
-          defaultPreviouslySelected={['2020-12-06']}
-          defaultSelected={['2020-12-08']}
+          disabled={disabled}
+          defaultPreviouslySelected={defaultPreviouslySelected}
+          defaultSelected={defaultSelected}
           defaultMonth={12}
           defaultYear={2020}
-          style={{
-            border: '1px solid red',
-            display: 'inline-block',
-          }}
-          onBlur={() => log('blur')}
-          onChange={() => log('change')}
-          onFocus={() => log('focus')}
-          onSelect={() => log('select')}
+          style={style}
           testId={'calendar'}
         />
         <div style={{ marginTop: gridSize() }}>

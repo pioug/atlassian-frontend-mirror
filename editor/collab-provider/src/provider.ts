@@ -197,13 +197,14 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
         : optionsOrGetState.clientId;
 
     this.channel
-      .on('connected', ({ sid }) => {
+      .on('connected', ({ sid, initialized }) => {
         this.sessionId = sid;
         this.emit('connected', { sid });
-      })
-      .on('reconnected', () => {
-        this.sendPresence();
-        this.throttledCatchup();
+        // If already initialized, `connected` means reconnected
+        if (initialized) {
+          this.sendPresence();
+          this.throttledCatchup();
+        }
       })
       .on('init', ({ doc, version, userId, metadata }) => {
         this.userId = userId;
@@ -394,7 +395,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
             metadata,
             reserveCursor: true,
           });
-          if (metadata) {
+          if (metadata && Object.keys(metadata).length > 0) {
             this.metadata = metadata;
             this.emit('metadata:changed', metadata);
           }

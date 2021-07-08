@@ -1,5 +1,11 @@
 # @atlaskit/media-client
 
+## 13.3.0
+
+### Minor Changes
+
+- [`10932f6ae07`](https://bitbucket.org/atlassian/atlassian-frontend/commits/10932f6ae07) - SPFE-561: Remove the URLSearchParams polyfill
+
 ## 13.2.1
 
 ### Patch Changes

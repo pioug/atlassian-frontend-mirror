@@ -73,17 +73,17 @@ describe('User Option', () => {
         />
       ),
       primaryText: [
-        <TextWrapper key="name" color={colors.N0}>
+        <TextWrapper key="name" color={colors.B400}>
           <HighlightText>Jace Beleren</HighlightText>
         </TextWrapper>,
         <React.Fragment key="publicName">
           {' '}
-          <TextWrapper color={colors.N50}>
+          <TextWrapper color={colors.B400}>
             (<HighlightText>jbeleren</HighlightText>)
           </TextWrapper>
         </React.Fragment>,
       ],
-      secondaryText: <TextWrapper color={colors.N50}>Teammate</TextWrapper>,
+      secondaryText: <TextWrapper color={colors.B400}>Teammate</TextWrapper>,
     });
   });
 

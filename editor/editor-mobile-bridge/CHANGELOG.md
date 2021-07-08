@@ -1,5 +1,27 @@
 # @atlaskit/editor-mobile-bridge
 
+## 27.0.0
+
+### Major Changes
+
+- [`fef8103dc44`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fef8103dc44) - [ux] Media inserted now defaults to left aligned on the mobile editor
+
+### Minor Changes
+
+- [`dc5951fa724`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dc5951fa724) - Allows the editor mobile bridge plugin subscription listeners to optionally only update once the dom has been rendered. Also adds fix for inserting a date not triggering a toolbar update.
+
+### Patch Changes
+
+- [`97d8dd0e3a3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/97d8dd0e3a3) - [ux] Fix hybrid renderer selection issue where selection is cleared on mouseup
+- [`fd2b3ba4574`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd2b3ba4574) - ED-13032 Add Focus after editor loads
+- Updated dependencies
+
+## 26.5.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 26.5.4
 
 ### Patch Changes

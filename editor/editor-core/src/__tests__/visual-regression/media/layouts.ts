@@ -102,7 +102,8 @@ describe('Snapshot Test: Media', () => {
       await snapshot(page);
     });
 
-    it('should hold big image in the middle layout column in full-width mode', async () => {
+    // TODO: https://product-fabric.atlassian.net/browse/EDM-2171
+    it.skip('should hold big image in the middle layout column in full-width mode', async () => {
       page = global.page;
       await initEditorWithAdf(page, {
         appearance: Appearance.fullWidth,

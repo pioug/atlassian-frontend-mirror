@@ -32,7 +32,7 @@ export default md`
   ${(
     <Props
       heading="InlineMessage Props"
-      props={require('!!extract-react-types-loader!../src/components/InlineMessage')}
+      props={require('!!extract-react-types-loader!../src/components/inline-message')}
     />
   )}
 `;

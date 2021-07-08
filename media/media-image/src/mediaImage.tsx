@@ -68,11 +68,14 @@ export class MediaImageInternal extends Component<
       newApiConfig.height > apiConfig.height;
 
     const isNewDimensionsBigger = isWidthBigger || isHeightBigger;
+    const isDifferentAuth =
+      otherNewProps.mediaClient.mediaClientConfig.authProvider !==
+      mediaClient.mediaClientConfig.authProvider;
 
     if (
       (!!newIdentifier && isDifferentIdentifier(newIdentifier, identifier)) ||
       isNewDimensionsBigger ||
-      otherNewProps.mediaClient !== mediaClient
+      isDifferentAuth
     ) {
       this.subscribe({
         identifier: newIdentifier,
@@ -94,7 +97,7 @@ export class MediaImageInternal extends Component<
     }
   };
 
-  private async subscribe(props: MediaImageInternalProps) {
+  private subscribe(props: MediaImageInternalProps) {
     const {
       mediaClient,
       identifier: { id, collectionName },
@@ -103,10 +106,8 @@ export class MediaImageInternal extends Component<
     this.unsubscribe();
     this.setState({ status: 'loading' });
 
-    const fileId = await id;
-
     this.subscription = mediaClient.file
-      .getFileState(fileId, { collectionName })
+      .getFileState(id, { collectionName })
       .subscribe({
         next: async (fileState: FileState) => {
           if (fileState.status === 'error' || fileState.mediaType !== 'image') {
@@ -136,7 +137,7 @@ export class MediaImageInternal extends Component<
           }
 
           if (fileState.status === 'processed') {
-            const blob = await mediaClient.getImage(fileId, {
+            const blob = await mediaClient.getImage(id, {
               collection: collectionName,
               ...apiConfig,
             });

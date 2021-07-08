@@ -11,7 +11,10 @@ import {
 } from '@atlaskit/analytics-next';
 import { withMediaAnalyticsContext } from '@atlaskit/media-common';
 import DownloadIcon from '@atlaskit/icon/glyph/download';
-import { FileAttributes } from '@atlaskit/media-common';
+import {
+  FileAttributes,
+  isMimeTypeSupportedByBrowser,
+} from '@atlaskit/media-common';
 import {
   addFileAttrsToUrl,
   FileDetails,
@@ -21,7 +24,6 @@ import {
   Identifier,
   isDifferentIdentifier,
   isFileIdentifier,
-  isMimeTypeSupportedByBrowser,
   isErrorFileState,
   MediaClient,
   MediaViewedEventPayload,
@@ -46,7 +48,7 @@ import {
   getCardPreviewFromFileState,
   getCardPreviewFromBackend,
 } from './getCardPreview';
-import { extendMetadata } from '../../utils/metadata';
+import { getFileDetails } from '../../utils/metadata';
 import { isBigger } from '../../utils/dimensionComparer';
 import { createObjectURLCache } from '../../utils/objectURLCache';
 import { getCardStatus, extractCardStatusParams } from './getCardStatus';
@@ -191,15 +193,10 @@ export class CardBase extends Component<
   static getDerivedStateFromProps = (props: CardProps) => {
     const { identifier } = props;
     if (identifier.mediaItemType === 'external-image') {
-      const { dataURI, name, mediaItemType } = identifier;
+      const { dataURI } = identifier;
 
       return {
         status: 'complete',
-        metadata: {
-          id: mediaItemType,
-          name: name || dataURI,
-          mediaType: 'image',
-        },
         cardPreview: {
           dataURI,
           orientation: 1,
@@ -363,12 +360,11 @@ export class CardBase extends Component<
           this.lastFileState = fileState;
 
           const thisCardStatusUpdateTimestamp = (performance || Date).now();
-          const metadata = extendMetadata(fileState, this.state.metadata);
           let status = getCardStatus(
             fileState.status,
             extractCardStatusParams(fileState, this.props.featureFlags),
           );
-          this.safeSetState({ metadata });
+          this.safeSetState({ fileState });
 
           let cardPreview: CardPreview | undefined;
           let error: MediaCardError | undefined;
@@ -377,7 +373,7 @@ export class CardBase extends Component<
               mediaClient,
               identifier,
               fileState,
-              metadata,
+              getFileDetails(fileState),
             );
           } catch (e) {
             const wrappedError = ensureMediaCardError('preview-fetch', e);
@@ -447,12 +443,15 @@ export class CardBase extends Component<
 
   private get metadata(): FileDetails {
     const { identifier } = this.props;
-    return (
-      this.state.metadata ||
-      (isFileIdentifier(identifier)
-        ? { id: identifier.id }
-        : { id: identifier.mediaItemType })
-    );
+    return isFileIdentifier(identifier)
+      ? this.state.fileState
+        ? getFileDetails(this.state.fileState)
+        : { id: identifier.id }
+      : {
+          id: identifier.mediaItemType,
+          name: identifier.name || identifier.dataURI,
+          mediaType: 'image',
+        };
   }
 
   private get fileAttributes(): FileAttributes {
@@ -494,7 +493,8 @@ export class CardBase extends Component<
 
   get actions(): CardAction[] {
     const { actions = [], identifier, shouldEnableDownloadButton } = this.props;
-    const { status, metadata } = this.state;
+    const { status } = this.state;
+    const { metadata } = this;
 
     if (
       isFileIdentifier(identifier) &&
@@ -521,7 +521,8 @@ export class CardBase extends Component<
     analyticsEvent?: UIAnalyticsEvent,
   ) => {
     const { identifier, useInlinePlayer, shouldOpenMediaViewer } = this.props;
-    const { metadata, cardPreview } = this.state;
+    const { cardPreview } = this.state;
+    const { metadata } = this;
 
     this.onClick(event, analyticsEvent);
 
@@ -676,7 +677,6 @@ export class CardBase extends Component<
     const { mediaItemType } = identifier;
     const {
       status,
-      metadata,
       progress,
       cardPreview: { dataURI, orientation } = {
         dataURI: undefined,
@@ -685,6 +685,7 @@ export class CardBase extends Component<
       error,
       cardRef,
     } = this.state;
+    const { metadata } = this;
     const { onCardViewClick, onDisplayImage, actions, onMouseEnter } = this;
 
     const card = (
@@ -757,7 +758,7 @@ export class CardBase extends Component<
     analyticsEvent?: UIAnalyticsEvent,
   ) => {
     const { onClick } = this.props;
-    const { metadata } = this.state;
+    const { metadata } = this;
     if (onClick) {
       const cardEvent = {
         event,
@@ -769,7 +770,7 @@ export class CardBase extends Component<
 
   onMouseEnter = (event: React.MouseEvent<HTMLDivElement>) => {
     const { onMouseEnter } = this.props;
-    const { metadata } = this.state;
+    const { metadata } = this;
     if (onMouseEnter) {
       const cardEvent = {
         event,

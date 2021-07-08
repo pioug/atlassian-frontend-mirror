@@ -20,7 +20,7 @@ const svg = `<canvas height="32" width="158" aria-hidden="true"></canvas>
 </svg>`;
 
 export class AtlassianWordmark extends Component<Props> {
-  static defaultProps = DefaultProps;
+  static defaultProps = { ...DefaultProps, label: 'Atlassian' };
 
   render() {
     return <Wrapper {...this.props} svg={svg} />;

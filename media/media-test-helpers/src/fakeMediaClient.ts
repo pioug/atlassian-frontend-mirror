@@ -37,7 +37,8 @@ export const fakeMediaClient = (
     mediaClient.file = fileFetcher;
     mediaClient.collection = collectionFetcher;
     mediaClient.stargate = stargateClient;
-    mediaClient.config = config;
+    mediaClient.config = config; // <- deprecated
+    mediaClient.mediaClientConfig = config;
     mediaClient.mediaStore = mockMediaStore;
     mediaClient.mediaStore.getItems = jest
       .fn()

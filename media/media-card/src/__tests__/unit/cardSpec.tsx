@@ -45,7 +45,6 @@ import {
 import {
   MediaClient,
   FileState,
-  FileDetails,
   FileIdentifier,
   ExternalImageIdentifier,
   Identifier,
@@ -85,6 +84,7 @@ import {
 import { IntlProvider } from 'react-intl';
 import { getFileAttributes } from '../../utils/analytics';
 import { FileAttributesProvider } from '../../utils/fileAttributesContext';
+import { getFileDetails } from '../../utils/metadata';
 import { getCardStatus } from '../../root/card/getCardStatus';
 import { fireOperationalEvent } from '../../root/card/cardAnalytics';
 import { isMediaCardError, MediaCardError } from '../../errors';
@@ -375,11 +375,7 @@ describe('Card', () => {
     const clickHandler = jest.fn();
     const hoverHandler = jest.fn();
 
-    const subject = new ReplaySubject<FileState>(1);
-    const mediaClient = fakeMediaClient();
-    asMockReturnValue(mediaClient.file.getFileState, subject);
-
-    const { component } = setup(mediaClient, {
+    const { component } = setup(undefined, {
       onMouseEnter: hoverHandler,
       onClick: clickHandler,
     });
@@ -391,13 +387,13 @@ describe('Card', () => {
     expect(clickHandler).toHaveBeenCalledTimes(1);
     const clickHandlerArg = clickHandler.mock.calls[0][0];
     expect(clickHandlerArg.mediaItemDetails).toEqual(
-      component.state().metadata,
+      getFileDetails(component.state('fileState')!),
     );
 
     expect(hoverHandler).toBeCalledTimes(1);
     const hoverHandlerArg = hoverHandler.mock.calls[0][0];
     expect(hoverHandlerArg.mediaItemDetails).toEqual(
-      component.state().metadata,
+      getFileDetails(component.state('fileState')!),
     );
   });
 
@@ -558,23 +554,18 @@ describe('Card', () => {
   });
 
   it('should set right state when file is uploading', async () => {
-    const mediaClient = createMediaClientWithGetFile({
+    const fileState: FileState = {
       ...defaultFileState,
       status: 'uploading',
       progress: 0.2,
       preview: {
         value: new Blob([]),
       },
-    });
+    };
+    const mediaClient = createMediaClientWithGetFile(fileState);
     const { component } = setup(mediaClient);
 
-    expectToEqual(component.state().metadata, {
-      id: defaultFileId,
-      mediaType: 'image',
-      mimeType: 'image/png',
-      name: 'file-name',
-      size: 10,
-    });
+    expectToEqual(component.state().fileState, fileState);
 
     await nextTick();
     await nextTick();
@@ -824,7 +815,9 @@ describe('Card', () => {
       name: 'file-name',
       mimeType: 'image/png',
       mediaType: 'image',
-    } as FileDetails);
+      processingStatus: 'failed',
+      createdAt: undefined,
+    });
   });
 
   it('should render error card when getFileState fails', () => {
@@ -1066,6 +1059,8 @@ describe('Card', () => {
       name: 'file-name',
       mimeType: 'image/png',
       size: 10,
+      processingStatus: 'succeeded',
+      createdAt: undefined,
     });
   });
 
@@ -1239,9 +1234,7 @@ describe('Card', () => {
     });
     component.setState({
       status: 'failed-processing',
-      metadata: {
-        id: 'some-id',
-      },
+      fileState: defaultFileState,
     });
     component.update();
     const actions = component.find(CardView).prop('actions')!;
@@ -1254,10 +1247,7 @@ describe('Card', () => {
     const { component, mediaClient } = setup();
     component.setState({
       status: 'failed-processing',
-      metadata: {
-        id: 'some-id',
-        name: 'some-file-name',
-      },
+      fileState: defaultFileState,
     });
     component.update();
     const actions = component.find(CardView).prop('actions')!;
@@ -1265,7 +1255,7 @@ describe('Card', () => {
 
     expect(mediaClient.file.downloadBinary).toHaveBeenCalledWith(
       identifier.id,
-      'some-file-name',
+      'file-name',
       identifier.collectionName,
     );
   });
@@ -1341,7 +1331,15 @@ describe('Card', () => {
       const { component } = setup(undefined, { useInlinePlayer: true });
       component.setState({
         cardPreview: { dataURI: 'data-uri' },
-        metadata: { id: 'some-id', mediaType: 'video' },
+        fileState: {
+          id: 'some-id',
+          name: 'some-video.mp4',
+          mediaType: 'video',
+          mimeType: 'video/mp4',
+          size: 12345,
+          status: 'processed',
+          artifacts: {},
+        },
       });
       component.find(CardView).simulate('click');
       expect(component.state('isPlayingFile')).toBeTruthy();
@@ -1349,7 +1347,7 @@ describe('Card', () => {
 
     it("shouldn't set isPlayingFile=true when clicking on a non-viewable video file", () => {
       const { component } = setup(undefined, { useInlinePlayer: true });
-      component.setState({ metadata: { id: 'some-id', mediaType: 'video' } });
+      component.setState({ fileState: defaultFileState });
       component.find(CardView).simulate('click');
       expect(component.state('isPlayingFile')).toBeFalsy();
     });
@@ -1358,7 +1356,7 @@ describe('Card', () => {
   describe('MediaViewer integration', () => {
     it('should render MV when shouldOpenMediaViewer=true', () => {
       const { component } = setup(undefined, { shouldOpenMediaViewer: true });
-      component.setState({ metadata: { id: 'some-id', mediaType: 'image' } });
+      component.setState({ fileState: defaultFileState });
       component.find(CardView).simulate('click');
 
       const MV = component.find(MediaViewer);
@@ -1379,7 +1377,7 @@ describe('Card', () => {
         shouldOpenMediaViewer: true,
         mediaViewerDataSource: { list: [identifier, identifier] },
       });
-      component.setState({ metadata: { id: 'some-id', mediaType: 'image' } });
+      component.setState({ fileState: defaultFileState });
       component.find(CardView).simulate('click');
 
       expect(component.find(MediaViewer).prop('dataSource')).toEqual({
@@ -1472,12 +1470,12 @@ describe('Card', () => {
 
     it('should attach FileAttributes Context', () => {
       const mediaClient = fakeMediaClient();
-      const metadata: FileDetails = {
+      const fileState = {
         id: defaultFileId,
         mediaType: 'video',
         size: 12345,
-        processingStatus: 'succeeded',
-      };
+        status: 'processed',
+      } as FileState;
 
       const featureFlags: MediaFeatureFlags = {
         newCardExperience: true,
@@ -1490,14 +1488,16 @@ describe('Card', () => {
           featureFlags={featureFlags}
         />,
       );
-      card.setState({ metadata });
+      card.setState({ fileState });
       card.update();
 
       const dataProvider = card.find(FileAttributesProvider);
       expect(dataProvider).toBeDefined();
       const contextData = card.find(FileAttributesProvider).at(0).props().data;
 
-      expect(contextData).toMatchObject(getFileAttributes(metadata));
+      expect(contextData).toMatchObject(
+        getFileAttributes(getFileDetails(fileState)),
+      );
     });
 
     it('should attach package attributes to Analytics Context', () => {
@@ -1739,26 +1739,20 @@ describe('Card', () => {
         fire: () => {},
       })) as unknown) as CreateUIAnalyticsEvent;
       const { component } = setup(fakeMediaClient(), { createAnalyticsEvent });
-      const metadata: FileDetails = {
-        id: 'some-file-id',
-        mediaType: 'image',
-        mimeType: 'image/png',
-        name: 'file-name',
-        size: 10,
-      };
+      const fileState: FileState = defaultFileState;
       const params = ({
         cardPreview: 'some-card-preview',
         error: 'some-error',
       } as unknown) as CardState;
 
-      component.setState({ metadata, ...params });
+      component.setState({ fileState, ...params });
 
       component.setState({ status: 'some-status' as CardStatus });
       expect(fireOperationalEvent).toBeCalledTimes(1);
       expect(fireOperationalEvent).toHaveBeenLastCalledWith(
         createAnalyticsEvent,
         'some-status',
-        getFileAttributes(metadata),
+        getFileAttributes(getFileDetails(fileState)),
         params,
       );
 
@@ -1767,7 +1761,7 @@ describe('Card', () => {
       expect(fireOperationalEvent).toHaveBeenLastCalledWith(
         createAnalyticsEvent,
         'another-status',
-        getFileAttributes(metadata),
+        getFileAttributes(getFileDetails(fileState)),
         params,
       );
     });

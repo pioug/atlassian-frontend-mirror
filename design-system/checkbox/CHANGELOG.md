@@ -1,5 +1,16 @@
 # @atlaskit/checkbox
 
+## 12.2.0
+
+### Minor Changes
+
+- [`987e2fc4ddd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/987e2fc4ddd) - Add configuration to eslint rule label-has-associated-control
+
+### Patch Changes
+
+- [`3c67db1a6e9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3c67db1a6e9) - Fix for checkbox to account for a change in the @atlaskit/icon API
+- Updated dependencies
+
 ## 12.1.3
 
 ### Patch Changes

@@ -11,7 +11,7 @@ import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 
 BrowserTestCase(
   'card: changing the link label of an inline link should convert it to a "dumb" link',
-  { skip: ['safari', 'edge', 'chrome', 'firefox'] },
+  { skip: ['safari', 'edge', 'firefox'] },
   async (client: ConstructorParameters<typeof Page>[0], testName: string) => {
     const page = new Page(client);
 
@@ -21,6 +21,7 @@ BrowserTestCase(
     await gotoEditor(page);
     // Paste the link
     await page.paste();
+    await page.keys('Enter');
 
     await waitForInlineCardSelection(page);
     await page.click('button[aria-label="Edit link"]');

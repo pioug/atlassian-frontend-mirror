@@ -14,6 +14,9 @@ import {
   ConfluenceIcon,
   ConfluenceLogo,
   ConfluenceWordmark,
+  HalpIcon,
+  HalpLogo,
+  HalpWordmark,
   JiraIcon,
   JiraLogo,
   JiraServiceManagementIcon,
@@ -84,6 +87,17 @@ export default () => (
           </td>
           <td>
             <CompassIcon />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <HalpLogo />
+          </td>
+          <td>
+            <HalpWordmark />
+          </td>
+          <td>
+            <HalpIcon />
           </td>
         </tr>
         <tr>

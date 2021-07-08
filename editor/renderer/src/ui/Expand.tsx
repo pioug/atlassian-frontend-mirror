@@ -57,6 +57,7 @@ const ContentContainer = styled.div<StyleProps>`
   ${sharedExpandStyles.ContentStyles};
   padding-right: ${gridSize() * 2}px;
   padding-left: ${gridSize() * 5 - gridSize() / 2}px;
+  visibility: ${(props) => (props.expanded ? 'visible' : 'hidden')};
 `;
 
 const ExpandLayoutWrapperWithRef = forwardRef<

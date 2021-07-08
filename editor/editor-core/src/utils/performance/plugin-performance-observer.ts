@@ -1,4 +1,5 @@
 import {
+  NodesCount,
   PluginPerformanceReportData,
   PluginPerformanceReport,
   PluginPerformanceReportOptions,
@@ -9,10 +10,9 @@ import {
   TransactionTracker,
 } from './track-transactions';
 import { SimpleMeasurementLogger } from './simple-measure-to-entries';
-
 export class PluginPerformanceObserver implements PerformanceObserver {
-  private getNodeCounts: () => [{ [name: string]: number }, number] = () => [
-    {},
+  private getNodeCounts: () => [NodesCount, number] = () => [
+    { nodeCount: {}, extensionNodeCount: {} },
     0,
   ];
   private getPlugins: () => string[] = () => [];
@@ -44,7 +44,7 @@ export class PluginPerformanceObserver implements PerformanceObserver {
     return !usePerformanceMarks;
   }
 
-  public withNodeCounts(getNodeCounts: () => { [name: string]: number }): this {
+  public withNodeCounts(getNodeCounts: () => NodesCount): this {
     this.getNodeCounts = () => {
       const start = performance.now();
       const result = getNodeCounts();

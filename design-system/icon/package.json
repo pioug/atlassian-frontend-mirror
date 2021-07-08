@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/icon",
-  "version": "21.6.1",
+  "version": "21.7.0",
   "description": "An icon is used as a visual representation of common actions and commands to provide context.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -13,7 +13,7 @@
   "module:es2019": "dist/es2019/index.js",
   "types": "dist/types/index.d.ts",
   "sideEffects": false,
-  "atlaskit:src": "src/index.ts",
+  "atlaskit:src": "src/index.tsx",
   "atlassian": {
     "team": "Design System Team",
     "inPublicMirror": true,
@@ -23,16 +23,16 @@
     }
   },
   "af:exports": {
-    "./base": "./src/entry-points/base.ts",
-    "./constants": "./src/entry-points/constants.ts",
-    "./metadata": "./src/entry-points/metadata.ts",
-    "./svg": "./src/entry-points/svg.ts",
-    "./types": "./src/entry-points/types.ts",
+    "./base": "./src/entry-points/base.tsx",
+    "./constants": "./src/entry-points/constants.tsx",
+    "./metadata": "./src/entry-points/metadata.tsx",
+    "./svg": "./src/entry-points/svg.tsx",
+    "./types": "./src/entry-points/types.tsx",
     "./glyph": "./glyph",
-    ".": "./src/index.ts"
+    ".": "./src/index.tsx"
   },
   "scripts": {
-    "build-glyphs": "ts-node --project ../../../tsconfig.node.json ./build/index.ts"
+    "build-glyphs": "ts-node --project ../../../tsconfig.node.json ./build/index.tsx"
   },
   "dependencies": {
     "@atlaskit/theme": "^11.0.0",
@@ -51,12 +51,12 @@
     "@atlaskit/icon-file-type": "^6.3.0",
     "@atlaskit/icon-object": "^6.2.0",
     "@atlaskit/icon-priority": "^6.2.0",
-    "@atlaskit/logo": "^13.1.0",
+    "@atlaskit/logo": "^13.5.0",
     "@atlaskit/modal-dialog": "^11.7.0",
     "@atlaskit/section-message": "^6.0.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/textfield": "^5.0.0",
-    "@atlaskit/tooltip": "^17.2.0",
+    "@atlaskit/tooltip": "^17.3.0",
     "@atlaskit/visual-regression": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@babel/core": "^7.12.3",
@@ -79,18 +79,12 @@
   ],
   "techstack": {
     "@repo/internal": {
-      "ui-components": [
-        "lite-mode"
-      ],
-      "analytics": [
-        "analytics-next"
-      ],
-      "theming": [
-        "new-theming-api"
-      ],
-      "deprecation": [
-        "no-deprecated-imports"
-      ]
+      "design-system": "v1",
+      "styling": "emotion",
+      "ui-components": "lite-mode",
+      "analytics": "analytics-next",
+      "theming": "new-theming-api",
+      "deprecation": "no-deprecated-imports"
     }
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"

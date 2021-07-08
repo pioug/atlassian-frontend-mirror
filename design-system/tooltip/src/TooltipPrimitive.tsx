@@ -15,24 +15,29 @@ export interface TooltipPrimitiveProps {
   testId?: string;
   placement: PositionType;
   ref: React.Ref<any>;
+  onMouseOver?: (e: React.MouseEvent<HTMLElement>) => void;
+  onMouseOut?: (e: React.MouseEvent<HTMLElement>) => void;
 }
 
 const primitiveCss = css`
   z-index: ${layers.tooltip()};
-  pointer-events: none;
+  cursor: default;
 `;
 
 const TooltipPrimitive = forwardRef<HTMLDivElement, TooltipPrimitiveProps>(
   function TooltipPrimitive(
-    { style, className, children, placement, testId },
+    { style, className, children, placement, testId, onMouseOut, onMouseOver },
     ref,
   ) {
     return (
+      // eslint-disable-next-line jsx-a11y/mouse-events-have-key-events
       <div
         role="tooltip"
         ref={ref}
         style={style}
         className={className}
+        onMouseOut={onMouseOut}
+        onMouseOver={onMouseOver}
         css={primitiveCss}
         data-placement={placement}
         data-testid={testId}

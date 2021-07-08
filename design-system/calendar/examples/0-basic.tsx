@@ -4,21 +4,26 @@ import Calendar from '../src';
 
 const log = (msg: string) => (e: any) => console.log(msg, e);
 
+const disabledArray = ['2020-12-04'];
+const defaultPreviouslySelected = ['2020-12-06'];
+const defaultSelected = ['2020-12-08'];
+const onBlur = () => log('Blur');
+const onChange = () => log('Change');
+const onFocus = () => log('Focus');
+const onSelect = () => log('Select');
+
 export default () => (
   <Calendar
-    defaultDisabled={['2020-12-04']}
-    defaultPreviouslySelected={['2020-12-06']}
-    defaultSelected={['2020-12-08']}
+    disabled={disabledArray}
+    maxDate={'2020-12-25'}
+    defaultPreviouslySelected={defaultPreviouslySelected}
+    defaultSelected={defaultSelected}
     defaultMonth={12}
     defaultYear={2020}
-    style={{
-      border: '1px solid red',
-      display: 'inline-block',
-    }}
-    onBlur={() => log('blur')}
-    onChange={() => log('change')}
-    onFocus={() => log('focus')}
-    onSelect={() => log('select')}
+    onBlur={onBlur}
+    onChange={onChange}
+    onFocus={onFocus}
+    onSelect={onSelect}
     testId={'calendar'}
   />
 );

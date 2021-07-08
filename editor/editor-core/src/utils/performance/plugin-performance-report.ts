@@ -24,7 +24,8 @@ export interface PluginsReport {
 export interface PluginPerformanceReportData {
   trigger: string;
   duration: number;
-  nodes: { [name: string]: number };
+  nodes: NodeCount;
+  extensionNodes: NodeCount;
   plugins: PluginsReport;
   slowPlugins: PluginsReport;
   stepDurations: {
@@ -44,6 +45,13 @@ export interface PluginPerformanceReportOptions {
   outlierFactor: number;
 }
 
+type NodeCount = Record<string, number>;
+
+export type NodesCount = {
+  nodeCount: NodeCount;
+  extensionNodeCount: NodeCount;
+};
+
 export class PluginPerformanceReport {
   private count = 0;
   private pluginNames: string[] = [];
@@ -54,7 +62,8 @@ export class PluginPerformanceReport {
   private onChangeCalled?: PerformanceEntry;
   private onEditorViewStateUpdatedCalled?: PerformanceEntry;
 
-  private nodes: { [name: string]: number } = {};
+  private nodes: NodeCount = {};
+  private extensionNodes: NodeCount = {};
   private nodesDuration: number = 0;
 
   private plugins: PluginsReport = {};
@@ -198,11 +207,9 @@ export class PluginPerformanceReport {
     return this;
   }
 
-  public withNodes(
-    nodes: { [name: string]: number },
-    nodesDuration: number = 0,
-  ): this {
-    this.nodes = nodes;
+  public withNodes(nodesCount: NodesCount, nodesDuration: number = 0): this {
+    this.nodes = nodesCount.nodeCount;
+    this.extensionNodes = nodesCount.extensionNodeCount;
     this.nodesDuration = nodesDuration;
     return this;
   }
@@ -222,6 +229,7 @@ export class PluginPerformanceReport {
       trigger: this.trigger,
       duration: this.entry.duration,
       nodes: this.nodes,
+      extensionNodes: this.extensionNodes,
       plugins: this.plugins,
       slowPlugins: this.slowPlugins,
       stepDurations: {

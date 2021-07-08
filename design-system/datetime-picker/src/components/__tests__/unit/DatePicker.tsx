@@ -129,6 +129,22 @@ describe('DatePicker', () => {
     expect(onChangeSpy).toBeCalledWith('2018-08-07');
   });
 
+  it('should not call onChange when clicking disabled dates', () => {
+    const onChangeSpy = jest.fn();
+    const { getByTestId, getByText } = render(
+      <DatePicker
+        value={'2018/08/06'}
+        disabled={['2018-08-16']}
+        onChange={onChangeSpy}
+        testId="test"
+      />,
+    );
+
+    fireEvent.click(getByTestId('test--container'));
+    fireEvent.click(getByText('16'));
+    expect(onChangeSpy).not.toHaveBeenCalled();
+  });
+
   it('onCalendarChange if the iso date is greater than the last day of the month, focus the last day of the month instead', () => {
     const date = '2018-02-31';
     const fallbackDate = '2018-02-28';

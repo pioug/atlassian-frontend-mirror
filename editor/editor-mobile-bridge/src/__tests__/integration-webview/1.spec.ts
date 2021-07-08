@@ -11,10 +11,12 @@ import emojiEditorTests from './hybrid-editor-tests/emoji/_emoji-tests';
 import basicEditorTests from './hybrid-editor-tests/basics/_basics-tests';
 import quickInsertEditorTests from './hybrid-editor-tests/quick-Insert/_quick-insert-tests';
 import unsupportedContentEditorTests from './hybrid-editor-tests/unsupported-content/_unsupported-content-tests';
+import typeAheadEditorTests from './hybrid-editor-tests/type-ahead/_type-ahead-tests';
 
 // compositionEditorTests();
 mediaEditorTests();
 emojiEditorTests();
 basicEditorTests();
 quickInsertEditorTests();
+typeAheadEditorTests();
 unsupportedContentEditorTests();

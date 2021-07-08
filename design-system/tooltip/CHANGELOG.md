@@ -1,5 +1,16 @@
 # @atlaskit/tooltip
 
+## 17.3.0
+
+### Minor Changes
+
+- [`152d0955271`](https://bitbucket.org/atlassian/atlassian-frontend/commits/152d0955271) - Impelemented hiding the tooltip when escape pressed
+- [`a5d452bcb30`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a5d452bcb30) - [ux] Tooltip now stays visible when hovering over it, previously it would disappear. This is one of the many accessibility improvements we're rolling out to the Atlassian Design System.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 17.2.2
 
 ### Patch Changes

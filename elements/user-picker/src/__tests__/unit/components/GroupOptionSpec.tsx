@@ -2,7 +2,7 @@ import { shallow } from 'enzyme';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { N800, N200, N0, N50 } from '@atlaskit/theme/colors';
+import { N800, N200, B400 } from '@atlaskit/theme/colors';
 import PeopleIcon from '@atlaskit/icon/glyph/people';
 
 import {
@@ -59,12 +59,12 @@ describe('GroupOption', () => {
     expect(avatarItemOption.props()).toMatchObject(
       expect.objectContaining({
         primaryText: [
-          <TextWrapper key="name" color={N0}>
+          <TextWrapper key="name" color={B400}>
             <HighlightText>dead-jedi-admins</HighlightText>
           </TextWrapper>,
         ],
         secondaryText: (
-          <TextWrapper color={N50}>
+          <TextWrapper color={B400}>
             <FormattedMessage
               id="fabric.elements.user-picker.group.byline"
               defaultMessage="Admin-managed group"

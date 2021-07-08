@@ -35,7 +35,7 @@ const svg = (iconGradientStart: string, iconGradientStop: string) => {
 };
 
 export class AtlassianLogo extends Component<Props> {
-  static defaultProps = DefaultProps;
+  static defaultProps = { ...DefaultProps, label: 'Atlassian' };
 
   render() {
     return <Wrapper {...this.props} svg={svg} />;

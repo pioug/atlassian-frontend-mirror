@@ -1,5 +1,15 @@
 # @atlaskit/smart-card
 
+## 15.4.0
+
+### Minor Changes
+
+- [`3c79bfd15b4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3c79bfd15b4) - Add sideEffects false for better tree-shaking support
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 15.3.1
 
 ### Patch Changes

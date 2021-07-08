@@ -177,4 +177,24 @@ describe('Snapshot Test', () => {
     const image = await page.screenshot();
     expect(image).toMatchProdImageSnapshot();
   });
+
+  it('The edit button should have focus after edit is confirmed by pressing Enter', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'inline-edit',
+      'basic-usage',
+      global.__BASEURL__,
+    );
+    const { page } = global;
+    await loadPage(page, url);
+    await page.waitForSelector(readView);
+    await page.keyboard.press('Tab');
+    await page.keyboard.press('Enter');
+    await page.waitForSelector(inlineEdit);
+    await page.keyboard.press('Enter');
+    await page.waitForSelector(readView);
+    await page.waitFor(500);
+    const image = await page.screenshot();
+    expect(image).toMatchProdImageSnapshot();
+  });
 });

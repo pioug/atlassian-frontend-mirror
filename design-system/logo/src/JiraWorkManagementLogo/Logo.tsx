@@ -44,7 +44,7 @@ const svg = (iconGradientStart: string, iconGradientStop: string) => {
 };
 
 export class JiraWorkManagementLogo extends Component<Props> {
-  static defaultProps = DefaultProps;
+  static defaultProps = { ...DefaultProps, label: 'Jira Work Management' };
 
   render() {
     return <Wrapper {...this.props} svg={svg} />;

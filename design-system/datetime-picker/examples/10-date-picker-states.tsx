@@ -27,10 +27,7 @@ export default () => {
       <DatePicker isDisabled onChange={console.log} />
 
       <Label label="Disabled dates" />
-      <DatePicker
-        disabled={[now(31), now(30), now(10), now(11), now(12)]}
-        onChange={console.log}
-      />
+      <DatePicker minDate={now(8)} maxDate={now(28)} onChange={console.log} />
 
       <Label label="Custom date format" />
       <DatePicker

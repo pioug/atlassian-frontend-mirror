@@ -448,7 +448,7 @@ describe('paste plugins', () => {
     });
 
     describe('paste in hyperlink', () => {
-      it('should add link mark to selected text if slice is a link', () => {
+      it('should add link mark to selected text if slice is a link and text is matching', () => {
         const href = 'https://www.atlassian.com';
         const { editorView } = editor(
           doc(p('This is the {<}selected text{>} here')),
@@ -464,6 +464,27 @@ describe('paste plugins', () => {
         ).toBeTruthy();
         expect(editorView.state.doc).toEqualDocument(
           doc(p('This is the ', a({ href })('selected text'), ' here')),
+        );
+      });
+
+      it('should not add link mark to selected text if slice is a link and text is different', () => {
+        const href = 'https://www.atlassian.com';
+        const { editorView } = editor(
+          doc(p('This is the {<}selected text{>} here')),
+        );
+        expect(
+          handlePasteLinkOnSelectedText(
+            new Slice(
+              doc(p(link({ href })('copied text')))(
+                editorView.state.schema,
+              ).content,
+              1,
+              1,
+            ),
+          )(editorView.state, editorView.dispatch),
+        ).toBeFalsy();
+        expect(editorView.state.doc).toEqualDocument(
+          doc(p('This is the {<}selected text{>} here')),
         );
       });
 
@@ -1656,6 +1677,52 @@ describe('paste plugins', () => {
       };
     };
 
+    describe('should convert pasted content to link on selected text', () => {
+      it('links text instead of pasting a macro', async () => {
+        const macroProvider = Promise.resolve(new MockMacroProvider({}));
+        const { editorView } = editor(
+          doc(p('This is the {<}selected text{>} here')),
+        );
+        const href = 'http://www.dumbmacro.com?paramA=CFE';
+        await setMacroProvider(macroProvider)(editorView);
+        await flushPromises();
+
+        dispatchPasteEvent(editorView, {
+          plain: href,
+        });
+        expect(editorView.state.doc).toEqualDocument(
+          doc(p('This is the ', a({ href })('selected text'), ' here')),
+        );
+      });
+
+      it('links text instead of pasting inline card', async () => {
+        const macroProvider = Promise.resolve(new MockMacroProvider({}));
+        const { editorView } = editor(
+          doc(p('This is the {<}selected text{>} here')),
+          extensionProps({ resolveBeforeMacros: ['jira'] }),
+        );
+        const href = 'https://jdog.jira-dev.com/browse/BENTO-3677';
+
+        await setMacroProvider(macroProvider)(editorView);
+        await flushPromises();
+
+        await dispatchPasteEvent(editorView, {
+          plain: href,
+        });
+
+        // let the card resolve
+        const resolvedProvider = await cardProvider;
+        await resolvedProvider.resolve(
+          'https://jdog.jira-dev.com/browse/BENTO-3677',
+          'inline',
+        );
+
+        expect(editorView.state.doc).toEqualDocument(
+          doc(p('This is the ', a({ href })('selected text'), ' here')),
+        );
+      });
+    });
+
     describe('should convert pasted content to inlineExtension (confluence macro)', () => {
       beforeEach(() => {
         uuid.setStatic('testId');
@@ -1688,7 +1755,7 @@ describe('paste plugins', () => {
       it('inserts inline card when FF for resolving links over extensions is enabled', async () => {
         const macroProvider = Promise.resolve(new MockMacroProvider({}));
         const { editorView } = editor(
-          doc(p('{<}Hello world{>}')),
+          doc(p('Hello world{<>}')),
           extensionProps({ resolveBeforeMacros: ['jira'] }),
         );
 
@@ -1709,6 +1776,7 @@ describe('paste plugins', () => {
         expect(editorView.state.doc).toEqualDocument(
           doc(
             p(
+              'Hello world',
               inlineCard({
                 url: 'https://jdog.jira-dev.com/browse/BENTO-3677',
               })(),

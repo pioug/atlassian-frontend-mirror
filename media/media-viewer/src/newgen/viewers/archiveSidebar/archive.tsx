@@ -31,7 +31,11 @@ import {
   WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
 import { fireAnalytics } from '../../analytics';
-import { ArchiveViewerErrorReason, ArchiveViewerError } from '../../errors';
+import {
+  ArchiveViewerErrorReason,
+  ArchiveViewerError,
+  isMediaViewerError,
+} from '../../errors';
 import { createZipEntryLoadSucceededEvent } from '../../analytics/events/operational/zipEntryLoadSucceeded';
 import { createZipEntryLoadFailedEvent } from '../../analytics/events/operational/zipEntryLoadFailed';
 
@@ -156,11 +160,22 @@ export class ArchiveViewerBase extends BaseViewer<Content, Props> {
   private onViewerError = (
     primaryErrorReason: ArchiveViewerErrorReason,
     selectedArchiveEntry: ZipEntry,
-  ) => (error?: Error) => {
-    this.onError(
-      new ArchiveViewerError(primaryErrorReason, error, selectedArchiveEntry),
-    );
-  };
+  ) => (error?: Error) =>
+    error && isMediaViewerError(error)
+      ? this.onError(
+          new ArchiveViewerError(
+            primaryErrorReason,
+            error.secondaryError,
+            selectedArchiveEntry,
+          ),
+        )
+      : this.onError(
+          new ArchiveViewerError(
+            primaryErrorReason,
+            error,
+            selectedArchiveEntry,
+          ),
+        );
 
   private onSidebarLoaded = () => {
     this.setState({

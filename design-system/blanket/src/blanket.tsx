@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React, { forwardRef, memo } from 'react';
+import React, { forwardRef, memo, MouseEvent, useCallback } from 'react';
 
 import { css, jsx } from '@emotion/core';
 
@@ -23,16 +23,17 @@ const analyticsAttributes = {
 
 const baseStyle = css({
   position: 'fixed',
+  zIndex: layers.blanket(),
+  top: 0,
+  right: 0,
   bottom: 0,
   left: 0,
-  right: 0,
-  top: 0,
-  pointerEvents: 'initial',
   opacity: 1,
-  zIndex: layers.blanket(),
+  overflowY: 'auto',
+  pointerEvents: 'initial',
 });
 
-const canClickThroughStyle = css({
+const shouldAllowClickThroughStyle = css({
   pointerEvents: 'none',
 });
 
@@ -63,22 +64,35 @@ const backgroundStyle: { [index in ThemeModes]: ReturnType<typeof css> } = {
 const Blanket = memo(
   forwardRef(function Blanket(
     {
-      canClickThrough = false,
+      shouldAllowClickThrough = false,
       isTinted = false,
       onBlanketClicked = noop,
       testId,
+      children,
       analyticsContext,
     }: BlanketProps,
     ref: React.Ref<HTMLDivElement>,
   ) {
     const { mode }: { mode: ThemeModes } = useGlobalTheme();
+
     const onBlanketClickedWithAnalytics = usePlatformLeafEventHandler({
       fn: onBlanketClicked,
       action: 'clicked',
       analyticsData: analyticsContext,
       ...analyticsAttributes,
     });
-    const onClick = canClickThrough ? undefined : onBlanketClickedWithAnalytics;
+
+    const blanketClickOutsideChildren = useCallback(
+      (e: MouseEvent<HTMLDivElement>) =>
+        e.currentTarget === e.target
+          ? onBlanketClickedWithAnalytics(e)
+          : undefined,
+      [onBlanketClickedWithAnalytics],
+    );
+
+    const onClick = shouldAllowClickThrough
+      ? undefined
+      : blanketClickOutsideChildren;
 
     return (
       <div
@@ -86,13 +100,15 @@ const Blanket = memo(
         css={[
           baseStyle,
           !isTinted && invisible,
-          canClickThrough && canClickThroughStyle,
+          shouldAllowClickThrough && shouldAllowClickThroughStyle,
           backgroundStyle[mode],
         ]}
         onClick={onClick}
         data-testid={testId}
         ref={ref}
-      ></div>
+      >
+        {children}
+      </div>
     );
   }),
 );

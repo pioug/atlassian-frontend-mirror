@@ -273,6 +273,24 @@ export type FeatureFlags = {
    * @default false
    */
   localIdGenerationOnTables?: boolean;
+
+  /**
+   * @description
+   * Enables docStructure for unhandleErrorEvents
+   *
+   * @see https://product-fabric.atlassian.net/browse/ED-12998
+   * @default false
+   */
+  errorBoundaryDocStructure?: boolean;
+
+  /**
+   * @description
+   * Enables docStructure for synchronyError
+   *
+   * @see https://product-fabric.atlassian.net/browse/ED-12998
+   * @default false
+   */
+  synchronyErrorDocStructure?: boolean;
 };
 
 export type FeatureFlagKey = keyof FeatureFlags;

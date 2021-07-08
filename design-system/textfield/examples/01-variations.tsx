@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+import { ErrorMessage } from '@atlaskit/form';
+
 import Textfield from '../src';
 
 const eventResultStyle = {
@@ -67,6 +69,7 @@ export default function VariationsExample() {
       {/* eslint-disable-next-line jsx-a11y/label-has-associated-control,jsx-a11y/label-has-for */}
       <label htmlFor="invalid">Invalid</label>
       <Textfield testId="invalid" id="invalid" isInvalid />
+      <ErrorMessage>Invalid</ErrorMessage>
 
       {/* eslint-disable-next-line jsx-a11y/label-has-associated-control,jsx-a11y/label-has-for */}
       <label htmlFor="placeholder">Placeholder</label>

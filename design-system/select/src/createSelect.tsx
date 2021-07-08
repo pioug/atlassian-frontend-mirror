@@ -1,6 +1,5 @@
 import React, { Component, ComponentType } from 'react';
 import Select, { mergeStyles } from 'react-select';
-import makeAnimated from 'react-select/animated';
 import memoizeOne from 'memoize-one';
 import isEqual from 'react-fast-compare';
 
@@ -22,11 +21,10 @@ export default function createSelect(WrappedComponent: ComponentType<any>) {
       this.cacheComponents = memoizeOne(this.cacheComponents, isEqual).bind(
         this,
       );
-      this.cacheComponents(props.components || {}, props.enableAnimation);
+      this.cacheComponents(props.components || {});
     }
 
     static defaultProps = {
-      enableAnimation: true,
       validationState: 'default',
       spacing: 'default',
       onClickPreventDefault: true,
@@ -36,22 +34,14 @@ export default function createSelect(WrappedComponent: ComponentType<any>) {
     };
 
     UNSAFE_componentWillReceiveProps(nextProps: SelectProps<Option, IsMulti>) {
-      this.cacheComponents(nextProps.components!, nextProps.enableAnimation);
+      this.cacheComponents(nextProps.components!);
     }
 
-    cacheComponents = (
-      components: SelectComponentsConfig<Option, IsMulti>,
-      enableAnimation: boolean,
-    ) => {
-      this.components = enableAnimation
-        ? makeAnimated<Option, IsMulti>({
-            ...defaultComponents,
-            ...components,
-          })
-        : {
-            ...defaultComponents,
-            ...components,
-          };
+    cacheComponents = (components: SelectComponentsConfig<Option, IsMulti>) => {
+      this.components = {
+        ...defaultComponents,
+        ...components,
+      };
     };
 
     focus() {

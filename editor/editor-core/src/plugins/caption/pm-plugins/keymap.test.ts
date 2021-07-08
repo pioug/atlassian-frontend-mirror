@@ -7,6 +7,7 @@ import {
   mediaSingle,
   p,
   RefsNode,
+  panel,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { Schema } from 'prosemirror-model';
 import { NodeSelection, TextSelection } from 'prosemirror-state';
@@ -18,6 +19,7 @@ const editor = (doc: (schema: Schema<any, any>) => RefsNode) =>
   createEditorTestingLibrary({
     doc,
     editorProps: {
+      allowPanel: true,
       media: { allowMediaSingle: true, featureFlags: { captions: true } },
     },
   });
@@ -196,6 +198,12 @@ describe('caption keymap', () => {
         p(),
       ),
     );
+  });
+
+  it('should not create paragraph below panel on enter', () => {
+    const { editorView } = editor(doc(panel()(p('text{<>}'))));
+    sendKeyToPm(editorView, 'Enter');
+    expect(editorView.state.doc).toEqualDocument(doc(panel()(p('text'), p())));
   });
 
   it('should move to paragraph below caption on arrow down', () => {

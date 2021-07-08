@@ -4,7 +4,7 @@ import {
   editable,
   copyToClipboard,
   gotoEditor,
-  manuallyEmptyLinkToolbar,
+  clearLinkToolbarUrl,
   linkUrlSelector,
 } from '../../_helpers';
 
@@ -14,7 +14,7 @@ import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 BrowserTestCase(
   `card: selecting an inline card and choosing a new page from edit-link menu should update title and url for unsupported link`,
   {
-    skip: ['edge', 'chrome', 'firefox', 'safari'],
+    skip: ['edge', 'firefox', 'safari'],
   },
   async (client: ConstructorParameters<typeof Page>[0], testName: string) => {
     const page = new Page(client);
@@ -25,13 +25,12 @@ BrowserTestCase(
     await gotoEditor(page);
     // Paste the link
     await page.paste();
+    await page.keys('Enter');
 
     await waitForInlineCardSelection(page);
     await page.click('button[aria-label="Edit link"]');
 
-    // Links chosen from edit-link menu require both URL and label to have changed
-    // to resolve as Smartlinks
-    await manuallyEmptyLinkToolbar(page);
+    await clearLinkToolbarUrl(page);
 
     // Choosing an unsupported link
     await page.type(linkUrlSelector, 'FAB-1166');

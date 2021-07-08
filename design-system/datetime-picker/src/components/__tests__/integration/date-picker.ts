@@ -12,6 +12,7 @@ const datePicker = '[data-testid="datePicker--container"]';
 const menu = `[aria-label="calendar"]`;
 const date = '[role=gridcell]:nth-child(6)';
 const input = 'input#react-select-datepicker-input';
+const toggle = 'label[for="toggle"]';
 
 const value = `${datePicker} > div`;
 
@@ -75,5 +76,33 @@ BrowserTestCase(
 
     expect(await page.getText(value)).not.toBe(previousDate);
     await page.checkConsoleErrors();
+  },
+);
+
+BrowserTestCase(
+  'Clicking a disabled datepicker should not toggle its internal open state, resulting in it being open once enabled',
+  {},
+  async (client: any) => {
+    const url = getExampleUrl(
+      'design-system',
+      'datetime-picker',
+      'disable-toggle',
+    );
+
+    const page = new Page(client);
+
+    await page.goto(url);
+
+    /* Clicking on the disabled date picker does not open it */
+    await page.click(datePicker);
+    expect(await page.waitForSelector(menu, {}, true)).toBe(true);
+
+    /* Un-disabling the date picker after its been clicked does not open it */
+    await page.click(toggle);
+    expect(await page.waitForSelector(menu, {}, true)).toBe(true);
+
+    /* After un-disabling the date picker can be opened by clicking */
+    await page.click(datePicker);
+    expect(await page.waitForSelector(menu)).toBe(true);
   },
 );

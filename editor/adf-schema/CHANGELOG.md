@@ -1,5 +1,11 @@
 # @atlaskit/adf-schema
 
+## 18.1.1
+
+### Patch Changes
+
+- [`d9e3deda557`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d9e3deda557) - ED-12545 We are adding compatibility test for ADF Schema with ProseMirror Schema
+
 ## 18.1.0
 
 ### Minor Changes

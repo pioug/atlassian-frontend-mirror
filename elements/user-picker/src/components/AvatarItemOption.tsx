@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import styled from 'styled-components';
-import { N200, N900 } from '@atlaskit/theme/colors';
+import { B400 } from '@atlaskit/theme/colors';
 import Lozenge from '@atlaskit/lozenge';
 import Tooltip from '@atlaskit/tooltip';
 import { LozengeProps } from '../types';
@@ -18,11 +18,11 @@ const Wrapper = styled.span`
 
 const Text = styled.span<{ secondary?: boolean }>`
   margin: 0;
-  color: ${N900};
+  color: ${B400};
   overflow-x: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  ${({ secondary }) => secondary && `color: ${N200}; font-size: 0.85em;`}
+  ${({ secondary }) => secondary && `color: ${B400}; font-size: 0.85em;`}
 `;
 
 const AdditionalInfo = styled.span<{ withTooltip?: boolean }>`

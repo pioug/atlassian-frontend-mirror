@@ -11,7 +11,7 @@ import { waitForBlockCardSelection } from '@atlaskit/media-integration-test-help
 type ClientType = Parameters<typeof goToEditorTestingWDExample>[0];
 
 BrowserTestCase(
-  'card: changing the link URL of a block link should convert it to a "dumb" link',
+  'card: changing the link URL of a block link to an unsupported link should convert it to a "dumb" link',
   { skip: ['safari', 'edge'] },
   async (client: ClientType, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
@@ -36,7 +36,7 @@ BrowserTestCase(
     await page.clear('[data-testid="link-url"]');
     // Change the 'link address' field to another link and press enter
     await page.type('[data-testid="link-url"]', [
-      'https://www.atlassian-new.com',
+      'https://product-fabric.atlassian.net/wiki/spaces/E/overview',
       'Return',
     ]);
 

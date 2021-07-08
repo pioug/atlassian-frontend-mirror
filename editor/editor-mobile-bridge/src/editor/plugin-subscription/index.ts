@@ -1,6 +1,7 @@
 import { PluginKey } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import { Node as PMNode, NodeType } from 'prosemirror-model';
+import rafSchedule from 'raf-schd';
 import {
   EventDispatcher,
   textFormattingStateKey,
@@ -47,6 +48,7 @@ import { insertDate } from '@atlaskit/editor-core/src/plugins/date/actions';
 interface BridgePluginListener<T> {
   bridge: string;
   pluginKey: PluginKey;
+  updateAfterDom?: boolean;
   updater: (
     pluginState: T,
     view?: EditorView,
@@ -76,6 +78,7 @@ export const configFactory = (
     createListenerConfig<DatePluginState>({
       bridge: 'dateBridge',
       pluginKey: datePluginKey,
+      updateAfterDom: true,
       updater: (pluginState, view, initialPass, bridge) => {
         const { showDatePickerAt } = pluginState;
         let timestamp: number | undefined;
@@ -358,7 +361,13 @@ function initPluginListenersFactory(configs: Array<BridgePluginListener<any>>) {
       (bridge as any)[`${config.bridge}Listener`] = (
         pluginState: any,
         initialPass: boolean,
-      ) => updater(pluginState, view, initialPass, bridge);
+      ) => {
+        if (config.updateAfterDom) {
+          rafSchedule(() => updater(pluginState, view, initialPass, bridge))();
+        } else {
+          updater(pluginState, view, initialPass, bridge);
+        }
+      };
 
       if (config.sendInitialState && pluginState) {
         (bridge as any)[`${config.bridge}Listener`](pluginState, true);

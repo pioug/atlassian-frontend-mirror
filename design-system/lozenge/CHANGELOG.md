@@ -1,5 +1,16 @@
 # @atlaskit/lozenge
 
+## 10.1.3
+
+### Patch Changes
+
+- [`9c98e8227f6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9c98e8227f6) - Internal refactor for style declarations.
+- [`42e722938da`](https://bitbucket.org/atlassian/atlassian-frontend/commits/42e722938da) - Converted class components to functional components
+- [`8f0e5cbea57`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8f0e5cbea57) - Migrated from `@compiled` to `@emotion`
+- [`f84de8233f3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f84de8233f3) - Add Techstacks rules to package.json
+- [`7bb3268f2c8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7bb3268f2c8) - Removed version.json and unused dependency - `react-test-renderer`
+- [`f78ced42525`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f78ced42525) - Wrapped the root component in `React.memo()` to memorize the rendered lozenge
+
 ## 10.1.2
 
 ### Patch Changes

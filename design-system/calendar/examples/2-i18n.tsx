@@ -28,10 +28,21 @@ export default () => {
     [],
   );
 
+  const onBlur = () => log('Blur');
+  const onChange = () => log('Change');
+  const onFocus = () => log('Focus');
+  const onSelect = () => log('Select');
+
+  const styles = {
+    container: (css: {}) => ({ ...css, width: 300, margin: '0.5em 0' }),
+    dropdownIndicator: (css: {}) => ({ ...css, paddingLeft: 0 }),
+    menu: (css: {}) => ({ ...css, width: 300 }),
+  };
+
   return (
     <div>
       <Calendar
-        defaultDisabled={['2020-12-04']}
+        disabled={['2020-12-04']}
         defaultPreviouslySelected={['2020-12-06']}
         defaultSelected={['2020-12-08']}
         defaultMonth={12}
@@ -40,10 +51,10 @@ export default () => {
           border: '1px solid red',
           display: 'inline-block',
         }}
-        onBlur={() => log('blur')}
-        onChange={() => log('change')}
-        onFocus={() => log('focus')}
-        onSelect={() => log('select')}
+        onBlur={onBlur}
+        onChange={onChange}
+        onFocus={onFocus}
+        onSelect={onSelect}
         locale={locale}
         weekStartDay={weekStartDay}
         testId="test"
@@ -51,11 +62,7 @@ export default () => {
       <LocaleSelect onLocaleChange={handleLocaleChange} />
       <Select<WeekStartDayOption>
         inputId="week-start-day"
-        styles={{
-          container: (css: {}) => ({ ...css, width: 300, margin: '0.5em 0' }),
-          dropdownIndicator: (css: {}) => ({ ...css, paddingLeft: 0 }),
-          menu: (css: {}) => ({ ...css, width: 300 }),
-        }}
+        styles={styles}
         options={[
           { label: 'Sunday', value: 0 },
           { label: 'Monday', value: 1 },

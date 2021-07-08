@@ -98,11 +98,11 @@ export const dateCellStyle = (mode: ThemeModes): CSSObject => ({
     backgroundColor: hoverPreviouslySelectedBackground[mode],
     color: textHoverSelected[mode],
   },
+  '&[data-sibling]:hover': {
+    color: textSibling[mode],
+  },
   '&[data-disabled]:hover': {
     backgroundColor: transparent[mode],
     color: textDisabled[mode],
-  },
-  '&[data-sibling]:hover': {
-    color: textSibling[mode],
   },
 });

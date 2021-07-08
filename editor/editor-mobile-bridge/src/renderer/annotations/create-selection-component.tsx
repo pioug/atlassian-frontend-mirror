@@ -62,14 +62,6 @@ export const createSelectionComponent = (nativeToWebAPI: RendererBridge) =>
     }, [isAnnotationAllowed]);
 
     useLayoutEffect(() => {
-      const onMouseUp = () => {
-        if (!isDraftMode) {
-          onClose();
-        }
-      };
-
-      document.addEventListener('mouseup', onMouseUp);
-
       mobileBridgeEventDispatcher.on(
         EmitterEvents.CREATE_ANNOTATION_ON_SELECTION,
         onNativeSideCreatesAnnotation,
@@ -84,8 +76,6 @@ export const createSelectionComponent = (nativeToWebAPI: RendererBridge) =>
       );
 
       return () => {
-        document.removeEventListener('mouseup', onMouseUp);
-
         mobileBridgeEventDispatcher.off(
           EmitterEvents.CREATE_ANNOTATION_ON_SELECTION,
           onNativeSideCreatesAnnotation,

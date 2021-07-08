@@ -15,10 +15,10 @@ import fileTypeIconMetadata from '@atlaskit/icon-file-type/metadata';
 import priorityIconMetadata from '@atlaskit/icon-priority/metadata';
 
 import metadata from '../src/metadata';
-import IconExplorerCell from './utils/IconExplorerCell';
-import logoIcons from '../utils/logoIcons';
+import IconExplorerCell from './utils/icon-explorer-cell';
+import logoIcons from '../utils/logo-icons';
 
-type IconsList = Record<string, IconType>;
+type IconsList = Record<string, IconData>;
 
 // WARNING
 // It is going to be very tempting to move these into some higher level abstraction
@@ -131,16 +131,17 @@ const getAllIcons = async (): Promise<IconsList> => {
     ...priorityData,
   };
 };
-interface IconType {
+interface IconData {
   keywords: string[];
   component: ComponentType<any>;
   componentName: string;
   package?: string;
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   divider?: boolean;
 }
 
 interface LogoMap {
-  [key: string]: Pick<IconType, Exclude<keyof IconType, 'component'>>;
+  [key: string]: Pick<IconData, Exclude<keyof IconData, 'component'>>;
 }
 
 const getKeywords = (logoMap: LogoMap) =>
@@ -152,22 +153,22 @@ const getKeywords = (logoMap: LogoMap) =>
     [],
   );
 
-const gridWrapper = css`
-  padding: 10px 5px 0;
-`;
+const gridWrapper = css({
+  padding: '10px 5px 0',
+});
 
-const iconExplorerGrid = css`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  margin-top: 10px;
-`;
+const iconExplorerGrid = css({
+  display: 'flex',
+  marginTop: 10,
+  justifyContent: 'flex-start',
+  flexDirection: 'row',
+  flexWrap: 'wrap',
+});
 
-const noIcons = css`
-  margin-top: 10px;
-  padding: 10px;
-`;
+const noIcons = css({
+  marginTop: 10,
+  padding: 10,
+});
 
 const filterIcons = (icons: IconsList, query: string) => {
   const regex = new RegExp(query);
@@ -203,7 +204,7 @@ const IconAllExample: React.FC = () => {
     if (!allIcons) {
       return <div>Loading Icons...</div>;
     }
-    const icons: IconType[] = filterIcons(allIcons, query);
+    const icons: IconData[] = filterIcons(allIcons, query);
     return icons.length ? (
       <div css={iconExplorerGrid}>
         {icons.map((icon) => (

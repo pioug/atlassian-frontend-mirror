@@ -20,7 +20,7 @@ const svg = `<canvas height="32" width="110" aria-hidden="true"></canvas>
 </svg>`;
 
 export class CompassWordmark extends Component<Props> {
-  static defaultProps = DefaultProps;
+  static defaultProps = { ...DefaultProps, label: 'Compass' };
 
   render() {
     return <Wrapper {...this.props} svg={svg} />;

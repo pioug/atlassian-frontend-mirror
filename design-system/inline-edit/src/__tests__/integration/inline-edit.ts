@@ -21,8 +21,6 @@ const editButton = 'button[aria-label="Edit"]';
 const confirmButton = 'button[aria-label="Confirm"]';
 const cancelButton = 'button[aria-label="Cancel"]';
 const errorMessage = 'div#error-message';
-const label = 'label';
-const body = 'body';
 
 BrowserTestCase(
   'Should not focus and showing buttons when focus out',
@@ -38,8 +36,8 @@ BrowserTestCase(
     await inlineEditTest.click('input');
     await inlineEditTest.type(input, 'hello');
 
-    await inlineEditTest.click(body);
-
+    await inlineEditTest.click(confirmButton);
+    await inlineEditTest.waitForSelector(readViewContentWrapper);
     const isInputExist = await inlineEditTest.isExisting(input);
     expect(isInputExist).toBe(false);
 
@@ -54,43 +52,22 @@ BrowserTestCase(
 );
 
 BrowserTestCase(
-  'The edit button should have focus after edit is confirmed by pressing Enter',
-  { skip: ['firefox', 'safari'] },
-  async (client: any) => {
-    const inlineEditTest = new Page(client);
-    await inlineEditTest.goto(inlineEditExampleUrl);
-    await inlineEditTest.click(label);
-
-    await inlineEditTest.waitForSelector(editButton);
-    await inlineEditTest.safariCompatibleTab();
-    await inlineEditTest.keys('\uE007');
-
-    await inlineEditTest.waitForSelector(input);
-    await inlineEditTest.keys('\uE007');
-
-    await inlineEditTest.waitForSelector(editButton);
-    expect(await inlineEditTest.hasFocus(editButton)).toBe(true);
-    await inlineEditTest.checkConsoleErrors();
-  },
-);
-
-BrowserTestCase(
   'The edit button should not have focus after edit is confirmed by clicking on the confirm button',
-  { skip: ['firefox', 'safari'] },
+  {},
   async (client: any) => {
     const inlineEditTest = new Page(client);
     await inlineEditTest.goto(inlineEditExampleUrl);
 
-    await inlineEditTest.waitForSelector(editButton);
-    await inlineEditTest.click(label);
-    await inlineEditTest.safariCompatibleTab();
-    await inlineEditTest.keys('\uE007');
-
+    await inlineEditTest.waitForSelector(readViewContentWrapper);
+    await inlineEditTest.click(readViewContentWrapper);
     await inlineEditTest.waitForSelector(confirmButton);
-    await inlineEditTest.click(confirmButton);
 
+    expect(await inlineEditTest.isVisible(confirmButton)).toBe(true);
+
+    await inlineEditTest.click(confirmButton);
     await inlineEditTest.waitForSelector(editButton);
     expect(await inlineEditTest.hasFocus(editButton)).toBe(false);
+
     await inlineEditTest.checkConsoleErrors();
   },
 );
@@ -116,25 +93,23 @@ BrowserTestCase(
 
 BrowserTestCase(
   'The edit view should remain open when tab is pressed in the input and when tab is pressed on the confirm button',
-  { skip: ['firefox', 'safari'] },
+  { skip: ['safari'] }, // TODO unskip safari
   async (client: any) => {
     const inlineEditTest = new Page(client);
     await inlineEditTest.goto(inlineEditExampleUrl);
 
     await inlineEditTest.waitForSelector(readViewContentWrapper);
-    await inlineEditTest.click(readViewContentWrapper);
-
-    await inlineEditTest.waitForSelector(input);
-
     await inlineEditTest.safariCompatibleTab();
+
+    await inlineEditTest.keys('\uE007');
     await inlineEditTest.waitForSelector(confirmButton);
+    await inlineEditTest.safariCompatibleTab();
     expect(await inlineEditTest.hasFocus(confirmButton)).toBe(true);
 
     await inlineEditTest.safariCompatibleTab();
     await inlineEditTest.waitForSelector(cancelButton);
     expect(await inlineEditTest.hasFocus(cancelButton)).toBe(true);
     expect(await inlineEditTest.isVisible(input)).toBe(true);
-
     await inlineEditTest.checkConsoleErrors();
   },
 );

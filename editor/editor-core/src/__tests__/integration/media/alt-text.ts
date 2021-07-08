@@ -45,6 +45,10 @@ BrowserTestCase(
   async (client: any, testName: string) => {
     const page = await setupEditorWithMedia(client);
 
+    // Make keydown to focus on the media
+    // await page.keys(['ArrowDown']);
+    // await page.click(exampleClaimBtn);
+    await page.click(`.ProseMirror .${richMediaClassName}`);
     await page.waitForSelector(altTextButtonSelector);
     await page.waitForVisible(altTextButtonSelector);
 

@@ -131,34 +131,51 @@ export default function baseStyles<Option, IsMulti extends boolean>(
       paddingRight: paddingExcludingBorder - ICON_PADDING,
     }),
     option: (css, { isFocused, isSelected, isDisabled }) => {
-      let color;
+      let color = colors.N800;
       if (isDisabled) {
         color = colors.N70;
       } else if (isSelected) {
-        color = colors.N0;
+        color = colors.B400;
       }
 
+      let boxShadow;
       let backgroundColor;
       if (isDisabled) {
         backgroundColor = undefined;
       } else if (isSelected) {
-        backgroundColor = colors.N500;
+        backgroundColor = colors.B50;
       } else if (isFocused) {
-        backgroundColor = colors.N30;
+        backgroundColor = colors.N20;
+      }
+      if (!isDisabled && (isFocused || isSelected)) {
+        boxShadow = `inset 2px 0px 0px ${colors.B400}`;
       }
 
       const cursor = isDisabled ? 'not-allowed' : undefined;
 
       return {
         ...css,
-        paddingTop: '6px',
-        paddingBottom: '6px',
+        padding: '6px 12px',
         backgroundColor,
         color,
         cursor,
+        boxShadow,
+        ':active': {
+          backgroundColor: !isDisabled
+            ? isSelected
+              ? colors.N20
+              : colors.N30
+            : undefined,
+        },
+        '@media screen and (-ms-high-contrast: active)': {
+          borderLeft:
+            !isDisabled && (isFocused || isSelected)
+              ? '2px solid transparent'
+              : '',
+        },
       };
     },
-    placeholder: (css) => ({ ...css, color: colors.N100 }),
+    placeholder: (css) => ({ ...css, color: colors.N300 }),
     singleValue: (css, { isDisabled }) => ({
       ...css,
       color: isDisabled ? colors.N70 : colors.N800,
@@ -169,12 +186,15 @@ export default function baseStyles<Option, IsMulti extends boolean>(
       paddingTop: gridSize(),
       paddingBottom: gridSize(),
     }),
-    multiValue: (css) => ({
+    multiValue: (css, { isFocused }) => ({
       ...css,
       borderRadius: '2px',
       backgroundColor: colors.N40,
       color: colors.N500,
       maxWidth: '100%',
+      '@media screen and (-ms-high-contrast: active)': {
+        border: isFocused ? '1px solid transparent' : 'none',
+      },
     }),
     multiValueLabel: (css) => ({
       ...css,
@@ -197,6 +217,9 @@ export default function baseStyles<Option, IsMulti extends boolean>(
       ':hover': {
         color: colors.R400,
         backgroundColor: colors.R75,
+      },
+      '@media screen and (-ms-high-contrast: active)': {
+        svg: { color: 'white' },
       },
     }),
   };

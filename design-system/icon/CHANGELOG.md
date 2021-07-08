@@ -1,5 +1,16 @@
 # @atlaskit/icon
 
+## 21.7.0
+
+### Minor Changes
+
+- [`662739d8c28`](https://bitbucket.org/atlassian/atlassian-frontend/commits/662739d8c28) - Icon now uses internal techstack "design-system: v1" and "styling: emotion".
+
+### Patch Changes
+
+- [`2368dfabe46`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2368dfabe46) - fix Icon appearance in windows high contrast mode
+- [`54b0730475e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54b0730475e) - Fixed an a11y bug associated with the role of the SVGIcon component. The role now correctly adapts to whether a user provides a label or not.
+
 ## 21.6.1
 
 ### Patch Changes

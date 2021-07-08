@@ -1,5 +1,16 @@
 # @atlaskit/editor-common
 
+## 58.1.0
+
+### Minor Changes
+
+- [`1075019cefe`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1075019cefe) - Add NodeProps to Caption
+
+### Patch Changes
+
+- [`6720f568f2b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6720f568f2b) - EDM-983: Fix media max width when inside nested nodes
+- Updated dependencies
+
 ## 58.0.0
 
 ### Major Changes

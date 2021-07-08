@@ -1,5 +1,13 @@
 # @atlaskit/media-viewer
 
+## 45.8.6
+
+### Patch Changes
+
+- [`ce9b9a7f44a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ce9b9a7f44a) - Fixed errorDetail on failures of type "archiveviewer-docviewer-onerror"
+- [`10932f6ae07`](https://bitbucket.org/atlassian/atlassian-frontend/commits/10932f6ae07) - SPFE-561: Remove the URLSearchParams polyfill
+- Updated dependencies
+
 ## 45.8.5
 
 ### Patch Changes

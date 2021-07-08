@@ -51,6 +51,8 @@ export const EDITOR_CONTENT_AREA_ELEMENT = '.ak-editor-content-area';
 export const BLOCK_QUOTE_ELEMENT = 'blockquote';
 export const CODE_BLOCK_ELEMENT = '.code-block .code-content code';
 export const TABLE_HEADER_ELEMENT = '.pm-table-header-content-wrap p strong';
+export const MENTION_VIEW_ELEMENT =
+  '.inline-node--mobile.mentionView-content-wrap';
 
 /**
  * Load & start the editor within the WebView
@@ -196,6 +198,22 @@ export async function isCodeBlockAdded(page: Page, text: string) {
 export async function isTableAdded(page: Page, text: string) {
   page.switchToWeb();
   return (await page.getTextOfElement(TABLE_HEADER_ELEMENT)) === text;
+}
+
+/**
+ * Verify the mention nickname and mention id added in the page to validate the bridge method: insertTypeAheadItem
+ */
+export async function isMentionTypeAheadItemAdded(
+  page: Page,
+  mentionName: string,
+  mentionId: string,
+) {
+  page.switchToWeb();
+  return (
+    (await page.getAttributeValue(MENTION_VIEW_ELEMENT, 'text')) ===
+      mentionName &&
+    (await page.getAttributeValue(MENTION_VIEW_ELEMENT, 'id')) === mentionId
+  );
 }
 
 /**

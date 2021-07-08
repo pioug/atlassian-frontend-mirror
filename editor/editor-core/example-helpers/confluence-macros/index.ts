@@ -236,9 +236,9 @@ const transformLegacyMacrosToExtensionManifest = (
       type: getExtensionBodyType(macro),
       render: () =>
         import(
-          /* webpackChunkName:"@atlaskit-internal-editor-example-macro-component" */
+          /* webpackChunkName: "@atlaskit-internal_editor-example-macro-component" */
           './MacroComponent'
-        ),
+        ).then((mod) => mod.default),
     } as ExtensionModuleNode,
   };
 

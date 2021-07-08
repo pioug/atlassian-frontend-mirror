@@ -14,9 +14,18 @@ const manifest: ExtensionManifest = {
 
   description: 'Extension that adds toolbar items to a table',
   icons: {
-    '16': () => import('@atlaskit/icon/glyph/graph-bar'),
-    '24': () => import('@atlaskit/icon/glyph/graph-bar'),
-    '48': () => import('@atlaskit/icon/glyph/graph-bar'),
+    '24': () =>
+      import(
+        /* webpackChunkName: "@atlaskit-internal_icon-graph-bar" */ '@atlaskit/icon/glyph/graph-bar'
+      ).then((mod) => mod.default),
+    '48': () =>
+      import(
+        /* webpackChunkName: "@atlaskit-internal_icon-graph-bar" */ '@atlaskit/icon/glyph/graph-bar'
+      ).then((mod) => mod.default),
+    '16': () =>
+      import(
+        /* webpackChunkName: "@atlaskit-internal_icon-graph-bar" */ '@atlaskit/icon/glyph/graph-bar'
+      ).then((mod) => mod.default),
   },
 
   modules: {
@@ -24,7 +33,10 @@ const manifest: ExtensionManifest = {
       {
         key: 'item',
         title: 'Table chart',
-        icon: () => import('@atlaskit/icon/glyph/graph-bar'),
+        icon: () =>
+          import(
+            /* webpackChunkName: "@atlaskit-internal_icon-graph-bar" */ '@atlaskit/icon/glyph/graph-bar'
+          ).then((mod) => mod.default),
         action: {
           type: 'node',
           key: 'chart',
@@ -35,7 +47,10 @@ const manifest: ExtensionManifest = {
     nodes: {
       chart: {
         type: 'extension',
-        render: () => import('./extension-handler'),
+        render: () =>
+          import(
+            /* webpackChunkName: "@atlaskit-internal_table-chart-extension-handler" */ './extension-handler'
+          ).then((mod) => mod.default),
         getFieldsDefinition: async () => {
           const getDynamicFieldsDef: DynamicFieldDefinitions<Parameters> = (
             currentParams?: Parameters,
@@ -207,7 +222,10 @@ const manifest: ExtensionManifest = {
             label: 'Insert chart object',
             display: 'icon',
             tooltip: 'This was added by the extension to the table node',
-            icon: () => import('@atlaskit/icon/glyph/graph-bar'),
+            icon: () =>
+              import(
+                /* webpackChunkName: "@atlaskit-internal_icon-graph-bar" */ '@atlaskit/icon/glyph/graph-bar'
+              ).then((mod) => mod.default),
             action: async (adf: ADFEntity, api: ExtensionAPI) => {
               const localId: string = adf.attrs?.localId || '';
               const chartADF: ADFEntity = {
@@ -236,7 +254,10 @@ const manifest: ExtensionManifest = {
             label: 'Hide data source',
             tooltip: 'This was added by the extension to the table node',
             disabled: true,
-            icon: () => import('@atlaskit/icon/glyph/stopwatch'),
+            icon: () =>
+              import(
+                /* webpackChunkName: "@atlaskit-internal_icon-stopwatch" */ '@atlaskit/icon/glyph/stopwatch'
+              ).then((mod) => mod.default),
             action: (adf: ADFEntity, api: ExtensionAPI) =>
               new Promise((resolve, reject) => {
                 if (confirm(`Clicked ${adf.type} button`)) {
@@ -260,7 +281,10 @@ const manifest: ExtensionManifest = {
             key: 'item-3',
             label: 'Extension button',
             tooltip: 'This was added by the extension to the extension node',
-            icon: () => import('@atlaskit/icon/glyph/stopwatch'),
+            icon: () =>
+              import(
+                /* webpackChunkName: "@atlaskit-internal_icon-stopwatch" */ '@atlaskit/icon/glyph/stopwatch'
+              ).then((mod) => mod.default),
             action: (adf: ADFEntity, api: ExtensionAPI) =>
               new Promise((resolve, reject) => {
                 if (confirm(`Clicked ${adf.type} button`)) {
@@ -275,7 +299,10 @@ const manifest: ExtensionManifest = {
             display: 'icon',
             label: 'Extension button',
             tooltip: 'This was added by the extension to the extension node',
-            icon: () => import('@atlaskit/icon/glyph/warning'),
+            icon: () =>
+              import(
+                /* webpackChunkName: "@atlaskit-internal_icon-warning" */ '@atlaskit/icon/glyph/warning'
+              ).then((mod) => mod.default),
             action: () => Promise.resolve(),
           },
           {
@@ -283,7 +310,10 @@ const manifest: ExtensionManifest = {
             display: 'icon',
             label: 'Extension button',
             tooltip: 'This was added by the extension to the extension node',
-            icon: () => import('@atlaskit/icon/glyph/editor/success'),
+            icon: () =>
+              import(
+                /* webpackChunkName: "@atlaskit-internal_icon-editor-success" */ '@atlaskit/icon/glyph/editor/success'
+              ).then((mod) => mod.default),
             action: () => Promise.resolve(),
           },
         ],

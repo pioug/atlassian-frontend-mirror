@@ -32,9 +32,9 @@ export function mapping(
     return pluginState;
   }
 
-  const { pos, deleted } = tr.mapping.mapResult(pluginState.showDatePickerAt);
+  const { pos } = tr.mapping.mapResult(pluginState.showDatePickerAt);
   return {
-    showDatePickerAt: deleted ? null : pos,
+    showDatePickerAt: pos,
     isNew: pluginState.isNew,
     isDateEmpty: pluginState.isDateEmpty,
     focusDateInput: pluginState.focusDateInput,
@@ -46,12 +46,16 @@ export function onSelectionChanged(
   pluginState: DatePluginState,
 ): DatePluginState {
   if (!isDateNodeSelection(tr.selection)) {
-    return {
-      showDatePickerAt: null,
-      isNew: false,
-      isDateEmpty: false,
-      focusDateInput: false,
-    };
+    if (pluginState.showDatePickerAt) {
+      return {
+        showDatePickerAt: null,
+        isNew: false,
+        isDateEmpty: false,
+        focusDateInput: false,
+      };
+    }
+
+    return pluginState;
   }
   // create new object to force a re-render
   return {

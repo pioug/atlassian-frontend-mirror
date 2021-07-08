@@ -13,8 +13,10 @@ describe('Snapshot Test', () => {
       global.__BASEURL__,
     );
     const { page } = global;
+    page.setViewport({ width: 800, height: 650 });
+
     await loadPage(page, url);
-    await page.waitForSelector('td > span[role="presentation"] > svg');
+    await page.waitForSelector('td > span[role="img"] > svg');
     const image = await page.screenshot();
     expect(image).toMatchProdImageSnapshot();
   });
@@ -27,6 +29,8 @@ describe('Snapshot Test', () => {
       global.__BASEURL__,
     );
     const { page } = global;
+    page.setViewport({ width: 800, height: 650 });
+
     await loadPage(page, url);
     await waitForElementCount(page, 'svg', 5);
     const image = await page.screenshot();

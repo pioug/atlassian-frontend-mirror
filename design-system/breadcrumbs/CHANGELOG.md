@@ -1,5 +1,12 @@
 # @atlaskit/breadcrumbs
 
+## 11.2.5
+
+### Patch Changes
+
+- [`d797e84b724`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d797e84b724) - SPFE-561: Update the `react-loosely-lazy` dependency. The previous version was using a broken ESM build.
+- Updated dependencies
+
 ## 11.2.4
 
 ### Patch Changes

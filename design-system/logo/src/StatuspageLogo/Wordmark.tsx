@@ -12,7 +12,7 @@ const svg = `<canvas height="32" width="129" aria-hidden="true"></canvas>
 </svg>`;
 
 export class StatuspageWordmark extends Component<Props> {
-  static defaultProps = DefaultProps;
+  static defaultProps = { ...DefaultProps, label: 'Statuspage' };
 
   render() {
     return <Wrapper {...this.props} svg={svg} />;

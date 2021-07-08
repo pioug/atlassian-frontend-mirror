@@ -21,8 +21,8 @@ const background: Property = {
 const color = {
   danger: {
     default: { light: colors.N400, dark: colors.DN400 },
-    hover: { light: colors.R300, dark: colors.R300 },
-    active: { light: colors.R300, dark: colors.R300 },
+    hover: { light: colors.R400, dark: colors.R400 },
+    active: { light: colors.R400, dark: colors.R400 },
   },
 };
 

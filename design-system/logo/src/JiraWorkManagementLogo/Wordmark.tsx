@@ -19,7 +19,7 @@ const svg = `<canvas height="32" width="278" aria-hidden="true"></canvas>
   </svg>`;
 
 export class JiraWorkManagementWordmark extends Component<Props> {
-  static defaultProps = DefaultProps;
+  static defaultProps = { ...DefaultProps, label: 'Jira Work Management' };
 
   render() {
     return <Wrapper {...this.props} svg={svg} />;

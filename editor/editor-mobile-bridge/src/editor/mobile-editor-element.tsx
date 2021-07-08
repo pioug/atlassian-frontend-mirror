@@ -99,6 +99,7 @@ export function MobileEditor(props: MobileEditorProps) {
     allowResizing: getMediaImageResize(),
     allowResizingInTables: getMediaImageResize(),
     featureFlags: { captions: getAllowCaptions() },
+    alignLeftOnInsert: true,
   };
   const cardsOptions = useSmartCards(props.cardProvider);
   const taskDecisionProvider = useTaskAndDecision();

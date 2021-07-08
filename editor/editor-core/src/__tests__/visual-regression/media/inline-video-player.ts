@@ -62,8 +62,8 @@ describe('Snapshot Test: Media inline video player', () => {
     );
     await snapshot(page);
   });
-
-  it('danger styles', async () => {
+  // FIXME: flakey test
+  it.skip('danger styles', async () => {
     await page.waitForSelector('[data-testid="media-file-card-view"]');
     await page.click('[data-testid="media-file-card-view"]');
     await waitForMediaFloatingToolbar(page);

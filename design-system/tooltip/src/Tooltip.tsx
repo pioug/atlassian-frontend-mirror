@@ -6,6 +6,7 @@ import { jsx } from '@emotion/core';
 import { bind } from 'bind-event-listener';
 
 import { usePlatformLeafSyntheticEventHandler } from '@atlaskit/analytics-next';
+import useCloseOnEscapePress from '@atlaskit/ds-lib/use-close-on-escape-press';
 import { ExitingPersistence, FadeIn, Transition } from '@atlaskit/motion';
 import { Popper, PopperProps } from '@atlaskit/popper';
 import Portal from '@atlaskit/portal';
@@ -168,6 +169,15 @@ function Tooltip({
     [abort, done, start],
   );
 
+  const hideTooltipOnEsc = useCallback(() => {
+    apiRef.current?.requestHide({ isImmediate: true });
+  }, [apiRef]);
+
+  useCloseOnEscapePress({
+    onClose: hideTooltipOnEsc,
+    isDisabled: state === 'hide' || state === 'fade-out',
+  });
+
   useEffect(() => {
     if (state === 'hide') {
       return noop;
@@ -253,6 +263,13 @@ function Tooltip({
     }
   }, []);
 
+  const onMouseOverTooltip = useCallback(() => {
+    if (apiRef.current && apiRef.current.isActive()) {
+      apiRef.current.keep();
+      return;
+    }
+  }, []);
+
   const onFocus = useCallback(() => {
     showTooltip({ type: 'keyboard' });
   }, [showTooltip]);
@@ -327,6 +344,7 @@ function Tooltip({
                     duration={state === 'show-immediate' ? 0 : undefined}
                   >
                     {({ className }) => (
+                      // eslint-disable-next-line jsx-a11y/mouse-events-have-key-events
                       <Container
                         ref={ref}
                         className={`Tooltip ${className}`}
@@ -334,6 +352,8 @@ function Tooltip({
                         truncate={truncate}
                         placement={tooltipPosition}
                         testId={testId}
+                        onMouseOut={onMouseOut}
+                        onMouseOver={onMouseOverTooltip}
                       >
                         {typeof content === 'function'
                           ? content({ update })

@@ -1,5 +1,12 @@
 # @atlaskit/media-test-helpers
 
+## 28.7.3
+
+### Patch Changes
+
+- [`6810728cd53`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6810728cd53) - Ehance test for new auth provider in media-image to prevent re-subscription
+- Updated dependencies
+
 ## 28.7.2
 
 ### Patch Changes

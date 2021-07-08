@@ -7,6 +7,7 @@ import {
   RenderResult,
   within,
 } from '@testing-library/react';
+import parse from 'date-fns/parse';
 import cases from 'jest-in-case';
 
 import Calendar, { CalendarProps } from '../../index';
@@ -46,10 +47,15 @@ const getHeaderElements = (renderResult: RenderResult, values: string[]) =>
 const getAnnouncerElementTextContent = (container: HTMLElement) =>
   getById(container, 'announce-react-uid')?.textContent;
 
+const weekendFilter = (date: string) => {
+  const dayOfWeek = parse(date).getDay();
+  return dayOfWeek === 0 || dayOfWeek === 6;
+};
+
 describe('Calendar', () => {
   const setup = (calendarProps: Partial<CalendarProps> = {}) => {
     const props = {
-      defaultDisabled: ['2019-12-04'],
+      disabled: ['2019-12-04'],
       defaultPreviouslySelected: ['2019-12-06'],
       defaultSelected: ['2019-12-08'],
       defaultDay: 1,
@@ -181,16 +187,45 @@ describe('Calendar', () => {
       );
     });
 
-    it('should not select day if disabled', () => {
-      const { renderResult, props } = setup();
+    it('should be correctly disabled via disabled array props', () => {
+      const { renderResult } = setup();
 
       const disabledDayElement = getDayElement(renderResult, '4');
-      const disabledDayInnerElement = within(disabledDayElement).getByText('4');
+      expect(disabledDayElement).toHaveAttribute('data-disabled', 'true');
+    });
 
-      expect(disabledDayInnerElement).toHaveAttribute('data-disabled', 'true');
+    it('should be correctly disabled via minDate and maxDate props', () => {
+      const { renderResult } = setup({
+        minDate: '2019-12-03',
+        maxDate: '2019-12-19',
+      });
 
+      const outOfRangeDates = ['2', '20'];
+      outOfRangeDates.forEach((date) => {
+        const disabledDayElement = getDayElement(renderResult, date);
+        expect(disabledDayElement).toHaveAttribute('data-disabled', 'true');
+      });
+
+      const inRangeDates = ['3', '19'];
+      inRangeDates.forEach((date) => {
+        const disabledDayElement = getDayElement(renderResult, date);
+        expect(disabledDayElement).not.toHaveAttribute('data-disabled', 'true');
+      });
+    });
+
+    it('should be correctly disabled via disabledDateFilter props', () => {
+      const { renderResult } = setup({
+        disabledDateFilter: weekendFilter,
+      });
+
+      const disabledDayElement = getDayElement(renderResult, '14');
+      expect(disabledDayElement).toHaveAttribute('data-disabled', 'true');
+    });
+
+    it('should not select day if disabled', () => {
+      const { renderResult, props } = setup();
+      const disabledDayElement = getDayElement(renderResult, '4');
       fireEvent.click(disabledDayElement);
-
       expect(props.onSelect).not.toHaveBeenCalled();
     });
   });

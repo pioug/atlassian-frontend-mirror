@@ -53,7 +53,12 @@ const CheckboxIcon = memo<{
   isIndeterminate: boolean;
   isChecked: boolean;
 }>(({ size, isIndeterminate, isChecked }) => (
-  <PrimitiveSVGIcon label="" size={size}>
+  <PrimitiveSVGIcon
+    label=""
+    size={size}
+    primaryColor="var(--checkbox-background-color)"
+    secondaryColor="var(--checkbox-tick-color)"
+  >
     <g fillRule="evenodd">
       <rect fill="currentColor" x="6" y="6" width="12" height="12" rx="2" />
       {getIcon(isIndeterminate, isChecked)}

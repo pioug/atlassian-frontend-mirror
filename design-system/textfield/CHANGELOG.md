@@ -1,5 +1,12 @@
 # @atlaskit/textfield
 
+## 5.0.4
+
+### Patch Changes
+
+- [`a7d1415e5e6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a7d1415e5e6) - [ux] add high contrast mode supporting for Textfield
+- Updated dependencies
+
 ## 5.0.3
 
 ### Patch Changes

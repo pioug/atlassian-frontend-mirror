@@ -1,5 +1,13 @@
 # @atlaskit/media-card
 
+## 70.8.1
+
+### Patch Changes
+
+- [`99d444aac1b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/99d444aac1b) - Replaced metadata object for fileState in Card internal state.
+- [`99411613963`](https://bitbucket.org/atlassian/atlassian-frontend/commits/99411613963) - Render spinner while waiting for card component to mount
+- Updated dependencies
+
 ## 70.8.0
 
 ### Minor Changes

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/task-decision",
-  "version": "17.1.0",
+  "version": "17.2.0",
   "description": "Tasks and decisions react components",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -27,8 +27,8 @@
   },
   "dependencies": {
     "@atlaskit/analytics-namespaced-context": "^6.2.0",
-    "@atlaskit/analytics-next": "^8.0.0",
-    "@atlaskit/icon": "^21.6.0",
+    "@atlaskit/analytics-next": "^8.2.0",
+    "@atlaskit/icon": "^21.7.0",
     "@atlaskit/theme": "^11.2.0",
     "@atlaskit/util-service-support": "^6.0.0",
     "@babel/runtime": "^7.0.0",
@@ -45,9 +45,9 @@
     "@atlaskit/analytics-listeners": "^8.0.0",
     "@atlaskit/avatar": "^20.3.0",
     "@atlaskit/docs": "*",
-    "@atlaskit/editor-common": "^58.0.0",
+    "@atlaskit/editor-common": "^58.1.0",
     "@atlaskit/elements-test-helpers": "^0.7.0",
-    "@atlaskit/renderer": "^77.1.0",
+    "@atlaskit/renderer": "^78.0.0",
     "@atlaskit/util-data-test": "^15.0.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@types/url-search-params": "^0.10.0",

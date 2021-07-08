@@ -102,22 +102,20 @@ export const buildEditLinkToolbar = ({
           text={displayInfo.title || ''}
           node={node}
           onSubmit={(newHref: string, newText?: string) => {
-            // Completely new link - could be a Smart Link, the title and href point
-            // to different destinations.
-            if (newText !== displayInfo.title && newHref !== displayInfo.url) {
-              return updateCard(newHref)(view.state, view.dispatch);
-            } else if (
-              newText !== displayInfo.title ||
-              newHref !== displayInfo.url
-            ) {
-              // we don't support changing link text or href on a smart link,
-              // downgrade to hyperlink
+            const urlChanged = newHref !== displayInfo.url;
+            const titleChanged = newText !== displayInfo.title;
+
+            // If the title is changed in a smartlink, convert to standard blue hyperlink
+            // (even if the url was also changed) - we don't want to lose the custom title.
+            if (titleChanged) {
               return changeSelectedCardToLink(newText, newHref)(
                 view.state,
                 view.dispatch,
               );
+            } else if (urlChanged) {
+              // If *only* the url is changed in a smart link, reresolve
+              return updateCard(newHref)(view.state, view.dispatch);
             }
-
             return;
           }}
         />

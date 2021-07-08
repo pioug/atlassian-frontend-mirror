@@ -15,15 +15,20 @@ const getPrimitiveStyles = (
 
   const styles = {
     alignItems: 'center',
-    backgroundColor: isFocused ? colors.N30 : 'transparent',
+    backgroundColor: isFocused ? colors.N20 : 'transparent',
     color: 'inherit',
     display: 'flex ',
     paddingBottom: 4,
     paddingLeft: `${gridSize() * 2}px`,
     paddingTop: 4,
+    boxShadow: isFocused ? `inset 2px 0px 0px ${colors.B400};` : '',
 
     ':active': {
-      backgroundColor: colors.B50,
+      backgroundColor: colors.N30,
+    },
+
+    '@media screen and (-ms-high-contrast: active)': {
+      borderLeft: isFocused ? '2px solid transparent' : '',
     },
   };
 
@@ -72,7 +77,7 @@ const getPrimaryColor = ({
   } else if (isFocused && isSelected) {
     color = themed({ light: colors.B300, dark: colors.B75 });
   } else if (isFocused) {
-    color = themed({ light: colors.N50A, dark: colors.DN30 });
+    color = themed({ light: colors.N0, dark: colors.DN30 });
   } else if (isSelected) {
     color = colors.blue;
   }
@@ -143,7 +148,7 @@ class ControlOption<
             flexShrink: 0,
             paddingRight: '4px',
             // Here we are adding a border to the Checkbox and Radio SVG icons
-            // THis is an a11y fix for Select only for now but it may be rolled
+            // This is an a11y fix for Select only for now but it may be rolled
             // into the `@atlaskit/icon` package's Checkbox and Radio SVGs later
             '& svg rect, & svg circle:first-of-type': {
               stroke:

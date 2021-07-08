@@ -1,5 +1,12 @@
 # @atlaskit/user-picker
 
+## 7.13.1
+
+### Patch Changes
+
+- [`1648ac429ee`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1648ac429ee) - [ux] Updated to use the new `@atlaskit/select` design.
+- Updated dependencies
+
 ## 7.13.0
 
 ### Minor Changes

@@ -5,7 +5,7 @@ exports[`Wordmark should render correctly 1`] = `
   iconColor="inherit"
   iconGradientStart="inherit"
   iconGradientStop="inherit"
-  label=""
+  label="Jira"
   size="medium"
   textColor="currentColor"
 />

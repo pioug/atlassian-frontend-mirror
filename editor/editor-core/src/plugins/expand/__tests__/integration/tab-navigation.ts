@@ -106,7 +106,8 @@ describe('given the gap cursor is on the left of the expand', () => {
       BrowserTestCase(
         'should focus outside',
         // TODO: Unskip Safari as part of https://product-fabric.atlassian.net/browse/ED-11351
-        { skip: ['edge', 'safari'] },
+        // TODO: unskip chrome and firefox https://product-fabric.atlassian.net/browse/ED-13164
+        { skip: ['edge', 'safari', 'chrome', 'firefox'] },
         async (client: any, testName: string) => {
           const page = await startEditor(client, true);
           await page.keys('Tab');

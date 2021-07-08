@@ -4,11 +4,11 @@ import React from 'react';
 import Blanket from '../src';
 
 const BlanketPerformance = () => {
-  return <Blanket isTinted={true} canClickThrough={true} />;
+  return <Blanket isTinted={true} shouldAllowClickThrough={true} />;
 };
 
 BlanketPerformance.story = {
-  name: 'Blanket with canClickThrough enabled',
+  name: 'Blanket with shouldAllowClickThrough enabled',
 };
 
 export default BlanketPerformance;

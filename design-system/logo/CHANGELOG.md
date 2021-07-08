@@ -1,5 +1,15 @@
 # @atlaskit/logo
 
+## 13.5.0
+
+### Minor Changes
+
+- [`83a089fe0cc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/83a089fe0cc) - Halp has been added to logos. This includes the logo, wordmark and icon.
+
+### Patch Changes
+
+- [`cc0c678724c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cc0c678724c) - Add default label for Logo
+
 ## 13.4.2
 
 ### Patch Changes

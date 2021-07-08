@@ -43,8 +43,8 @@ describe('Danger for nested elements', () => {
     afterEach(async () => {
       await snapshot(page);
     });
-
-    it(`should show danger for table and all nested elements`, async () => {
+    // FIXME: flakey test
+    it.skip(`should show danger for table and all nested elements`, async () => {
       await page.waitForSelector(tableSelectors.removeTable);
       await page.hover(tableSelectors.removeTable);
       await page.waitForSelector(tableSelectors.removeDanger);

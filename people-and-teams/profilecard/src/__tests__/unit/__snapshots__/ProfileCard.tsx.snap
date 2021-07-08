@@ -23,15 +23,12 @@ exports[`Profilecard ProfileCard customLozenges property should match snapshot w
             appearance="new"
             isBold={true}
             key="0"
-            maxWidth={200}
           >
             Guest
           </Lozenge>
           <Lozenge
             appearance="removed"
-            isBold={false}
             key="1"
-            maxWidth={200}
           >
             Cool Bean
           </Lozenge>
@@ -39,7 +36,6 @@ exports[`Profilecard ProfileCard customLozenges property should match snapshot w
             appearance="inprogress"
             isBold={true}
             key="2"
-            maxWidth={200}
           >
             <div>
               Another Role
@@ -127,7 +123,6 @@ exports[`Profilecard ProfileCard customLozenges property should match snapshot w
             appearance="new"
             isBold={true}
             key="0"
-            maxWidth={200}
           >
             Guest
           </Lozenge>
@@ -289,7 +284,6 @@ exports[`Profilecard ProfileCard status property should match snapshot when stat
           <Lozenge
             appearance="default"
             isBold={true}
-            maxWidth={200}
           >
             <FormattedMessage
               defaultMessage="Account deleted"
@@ -375,7 +369,6 @@ exports[`Profilecard ProfileCard status property should match snapshot when stat
           <Lozenge
             appearance="default"
             isBold={true}
-            maxWidth={200}
           >
             <FormattedMessage
               defaultMessage="Account deleted"
@@ -431,7 +424,6 @@ exports[`Profilecard ProfileCard status property should match snapshot when stat
           <Lozenge
             appearance="default"
             isBold={true}
-            maxWidth={200}
           >
             <FormattedMessage
               defaultMessage="Account deleted"
@@ -487,7 +479,6 @@ exports[`Profilecard ProfileCard status property should match snapshot when stat
           <Lozenge
             appearance="default"
             isBold={true}
-            maxWidth={200}
           >
             <FormattedMessage
               defaultMessage="Account deactivated"
@@ -583,7 +574,6 @@ exports[`Profilecard ProfileCard status property should match snapshot when stat
           <Lozenge
             appearance="default"
             isBold={true}
-            maxWidth={200}
           >
             <FormattedMessage
               defaultMessage="Account deactivated"
@@ -644,7 +634,6 @@ exports[`Profilecard ProfileCard status property should match snapshot when stat
           <Lozenge
             appearance="default"
             isBold={true}
-            maxWidth={200}
           >
             <FormattedMessage
               defaultMessage="Account deactivated"

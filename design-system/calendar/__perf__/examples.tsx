@@ -23,7 +23,7 @@ const getLastElement = (
 const CalendarPerformance = () => {
   return (
     <Calendar
-      defaultDisabled={['2020-12-04']}
+      disabled={['2020-12-04']}
       defaultPreviouslySelected={['2020-12-06']}
       defaultSelected={['2020-12-18']}
       defaultMonth={12}

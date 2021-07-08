@@ -20,74 +20,68 @@ describe('ak-blanket', () => {
   describe('props', () => {
     describe('isTinted', () => {
       it('should not get tint styling by default', () => {
-        const { getByTestId } = render(<Blanket testId="blanket" />);
-        const blanket = getByTestId('blanket');
+        const { getByRole } = render(<Blanket />);
+        const blanket = getByRole('presentation');
 
         expect(getComputedStyle(blanket).opacity).toBe('0');
       });
 
       it('should get tint styling when prop set', () => {
-        const { getByTestId } = render(
-          <Blanket isTinted={true} testId="blanket" />,
-        );
-        const blanket = getByTestId('blanket');
+        const { getByRole } = render(<Blanket isTinted={true} />);
+        const blanket = getByRole('presentation');
 
         expect(getComputedStyle(blanket).opacity).toBe('1');
       });
 
       it('should not get tint styling when prop set to false', () => {
-        const { getByTestId } = render(
-          <Blanket isTinted={false} testId="blanket" />,
-        );
-        const blanket = getByTestId('blanket');
+        const { getByRole } = render(<Blanket isTinted={false} />);
+        const blanket = getByRole('presentation');
 
         expect(getComputedStyle(blanket).opacity).toBe('0');
       });
     });
 
-    describe('canClickThrough', () => {
+    describe('shouldAllowClickThrough', () => {
       it('should have pointer-events initial by default', () => {
-        const { getByTestId } = render(<Blanket testId="blanket" />);
-        const blanket = getByTestId('blanket');
+        const { getByRole } = render(<Blanket testId="blanket" />);
+        const blanket = getByRole('presentation');
 
         expect(getComputedStyle(blanket).pointerEvents).toBe('initial');
       });
-      it('should set correct pointer-events values for different canClickThrough prop value', () => {
-        const { getByTestId, rerender } = render(
-          <Blanket canClickThrough={false} testId="blanket" />,
+      it('should set correct pointer-events values for different shouldAllowClickThrough prop value', () => {
+        const { getByRole, rerender } = render(
+          <Blanket shouldAllowClickThrough={false} />,
         );
-        const blanket = getByTestId('blanket');
+        const blanket = getByRole('presentation');
 
         expect(getComputedStyle(blanket).pointerEvents).toBe('initial');
 
-        rerender(<Blanket canClickThrough={true} testId="blanket" />);
+        rerender(<Blanket shouldAllowClickThrough={true} />);
 
         expect(getComputedStyle(blanket).pointerEvents).toBe('none');
       });
-      it('should trigger onBlanketClicked when canClickThrough is false', () => {
+      it('should trigger onBlanketClicked when shouldAllowClickThrough is false', () => {
         const onBlanketClicked = jest.fn();
-        const { getByTestId } = render(
+        const { getByRole } = render(
           <Blanket
-            canClickThrough={false}
+            shouldAllowClickThrough={false}
             onBlanketClicked={onBlanketClicked}
-            testId="blanket"
           />,
         );
-        const blanket = getByTestId('blanket');
+        const blanket = getByRole('presentation');
         fireEvent.click(blanket);
 
         expect(onBlanketClicked).toHaveBeenCalled();
       });
-      it('should not trigger onBlanketClicked when canClickThrough is true', () => {
+      it('should not trigger onBlanketClicked when shouldAllowClickThrough is true', () => {
         const onBlanketClicked = jest.fn();
-        const { getByTestId } = render(
+        const { getByRole } = render(
           <Blanket
-            canClickThrough={true}
+            shouldAllowClickThrough={true}
             onBlanketClicked={onBlanketClicked}
-            testId="blanket"
           />,
         );
-        const blanket = getByTestId('blanket');
+        const blanket = getByRole('presentation');
         fireEvent.click(blanket);
 
         expect(onBlanketClicked).not.toHaveBeenCalled();
@@ -97,20 +91,33 @@ describe('ak-blanket', () => {
     describe('onBlanketClicked', () => {
       it('should trigger when blanket clicked', () => {
         const onBlanketClicked = jest.fn();
-        const { getByTestId } = render(
-          <Blanket onBlanketClicked={onBlanketClicked} testId="blanket" />,
+        const { getByRole } = render(
+          <Blanket onBlanketClicked={onBlanketClicked} />,
         );
-        const blanket = getByTestId('blanket');
+        const blanket = getByRole('presentation');
         fireEvent.click(blanket);
 
         expect(onBlanketClicked).toHaveBeenCalled();
       });
     });
 
+    describe('children', () => {
+      it('should render children when the children prop is passed to blanket', () => {
+        const { getByRole } = render(
+          <Blanket>
+            <p>blanket with children</p>
+          </Blanket>,
+        );
+        const blanket = getByRole('presentation');
+
+        expect(blanket.innerText).toBe('blanket with children');
+      });
+    });
+
     describe('testId', () => {
       it('should be passed as data-testid attribute of the blanket', () => {
-        const { getByTestId } = render(<Blanket testId="blanket-test" />);
-        const blanket = getByTestId('blanket-test');
+        const { getByRole } = render(<Blanket testId="blanket-test" />);
+        const blanket = getByRole('presentation');
 
         expect(blanket.getAttribute('data-testid')).toBe('blanket-test');
       });

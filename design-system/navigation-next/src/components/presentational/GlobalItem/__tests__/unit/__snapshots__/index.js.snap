@@ -265,7 +265,7 @@ exports[`GlobalItem should render correctly 1`] = `
                                       iconColor="inherit"
                                       iconGradientStart="inherit"
                                       iconGradientStop="inherit"
-                                      label=""
+                                      label="Atlassian"
                                       size="medium"
                                       textColor="currentColor"
                                     >
@@ -273,12 +273,13 @@ exports[`GlobalItem should render correctly 1`] = `
                                         iconColor="inherit"
                                         iconGradientStart="inherit"
                                         iconGradientStop="inherit"
-                                        label=""
+                                        label="Atlassian"
                                         size="medium"
                                         svg={[Function]}
                                         textColor="currentColor"
                                       >
                                         <styled.span
+                                          aria-label="Atlassian"
                                           dangerouslySetInnerHTML={
                                             Object {
                                               "__html": "<canvas height=\\"32\\" width=\\"32\\" aria-hidden=\\"true\\"></canvas>
@@ -297,11 +298,12 @@ exports[`GlobalItem should render correctly 1`] = `
                                           iconColor="inherit"
                                           iconGradientStart="inherit"
                                           iconGradientStop="inherit"
-                                          role="presentation"
+                                          role="img"
                                           size="medium"
                                           textColor="currentColor"
                                         >
                                           <span
+                                            aria-label="Atlassian"
                                             className="c0"
                                             dangerouslySetInnerHTML={
                                               Object {
@@ -318,7 +320,7 @@ exports[`GlobalItem should render correctly 1`] = `
   </svg>",
                                               }
                                             }
-                                            role="presentation"
+                                            role="img"
                                             size="medium"
                                           />
                                         </styled.span>

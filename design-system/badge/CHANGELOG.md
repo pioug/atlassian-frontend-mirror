@@ -1,5 +1,11 @@
 # @atlaskit/badge
 
+## 14.3.1
+
+### Patch Changes
+
+- [`9c98e8227f6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9c98e8227f6) - Internal refactor for style declarations.
+
 ## 14.3.0
 
 ### Minor Changes

@@ -18,6 +18,7 @@ type KeyboardKey =
   | 'End'
   | 'Control'
   | 'KeyZ'
+  | 'KeyX'
   | 'Alt'
   | 'y'
   | 'Meta'

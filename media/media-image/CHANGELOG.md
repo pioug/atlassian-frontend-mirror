@@ -1,5 +1,13 @@
 # @atlaskit/media-image
 
+## 17.1.8
+
+### Patch Changes
+
+- [`6810728cd53`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6810728cd53) - Ehance test for new auth provider in media-image to prevent re-subscription
+- [`0b201786d9c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0b201786d9c) - Render children as loading for media-image loader while fetching bundle
+- Updated dependencies
+
 ## 17.1.7
 
 ### Patch Changes

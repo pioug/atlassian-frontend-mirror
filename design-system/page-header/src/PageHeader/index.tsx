@@ -24,6 +24,8 @@ type Props = {
   innerRef?: (element: HTMLElement) => void;
   /** Prevent the title from wrapping across lines. This should be avoided. */
   truncateTitle?: boolean;
+  /** Used as id of inner h1 tag. This is exposed so the header text can be used as label of other element by aria-labeledby */
+  id?: string;
 };
 
 const PageHeader = ({
@@ -32,6 +34,7 @@ const PageHeader = ({
   actions,
   bottomBar,
   children,
+  id,
   disableTitleStyles = false,
   truncateTitle = false,
 }: Props) => {
@@ -47,6 +50,7 @@ const PageHeader = ({
               innerRef={innerRef}
               tabIndex={-1}
               truncate={truncateTitle}
+              id={id}
             >
               {children}
             </StyledTitle>

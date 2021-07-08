@@ -1,5 +1,34 @@
 # @atlaskit/editor-core
 
+## 146.0.0
+
+### Minor Changes
+
+- [`dc5951fa724`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dc5951fa724) - Allows the editor mobile bridge plugin subscription listeners to optionally only update once the dom has been rendered. Also adds fix for inserting a date not triggering a toolbar update.
+- [`bc3a0ad32d3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bc3a0ad32d3) - ED-12998 Add docStructured to ErrorBoundary
+- [`6a0a7c704cd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6a0a7c704cd) - ED-12998 Add docStructure to synchrony error analytic events
+- [`bfef6a174d1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bfef6a174d1) - Stop date plugin from firing a plugin state update for every selection, even if it is not date related.
+
+### Patch Changes
+
+- [`fdb1b30696a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fdb1b30696a) - [ux][ed-13102] Add in an override for list-style-type for ul within the toolbar to ensure no styles from the 'wiki-content' class in Confluence override styles the toolbar.
+- [`95f09e76dd8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/95f09e76dd8) - Updated paste link over text rules to always be prioritised
+- [`8bc06ca395f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8bc06ca395f) - [ux] EDM-2086 Re-resolve smart link when changing URL
+- [`7ae504a8679`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7ae504a8679) - Changes the message in the linking toolbar
+- [`e2a10bdf7ea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e2a10bdf7ea) - [ux] Floating toolbar - Change active color for delete button
+- [`7a608fd13b2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7a608fd13b2) - Pin re-resizable version since later minor versions are causing trouble
+- [`bb3f2dac40b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bb3f2dac40b) - ED-12467: include extension name for type performance analytics events
+- [`1648ac429ee`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1648ac429ee) - [ux] Updated to use the new `@atlaskit/select` design.
+- [`6720f568f2b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6720f568f2b) - EDM-983: Fix media max width when inside nested nodes
+- [`b7209ee597c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b7209ee597c) - No longer make a new paragraph for nodes other than a caption
+- Updated dependencies
+
+## 145.0.4
+
+### Patch Changes
+
+- [`2725933f7ba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2725933f7ba) - [ux] ED-13331 Fix autoformatting being triggered after any keypress
+
 ## 145.0.3
 
 ### Patch Changes

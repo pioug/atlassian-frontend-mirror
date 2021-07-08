@@ -1,5 +1,17 @@
 # @atlaskit/renderer
 
+## 78.0.0
+
+### Minor Changes
+
+- [`f3ccd83b464`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f3ccd83b464) - [ux] AK-271 - Implement a separate focusable button for sorting table columns
+- [`1075019cefe`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1075019cefe) - Add NodeProps to Caption
+
+### Patch Changes
+
+- [`a3718b3de35`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a3718b3de35) - AK-280 - Expand - Fix collapsed content is announced by screen readers
+- Updated dependencies
+
 ## 77.1.0
 
 ### Minor Changes

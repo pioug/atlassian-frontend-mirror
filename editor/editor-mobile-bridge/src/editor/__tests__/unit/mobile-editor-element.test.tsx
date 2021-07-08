@@ -18,6 +18,7 @@ import * as UsePluginListenersModule from '../../hooks/use-plugin-listeners';
 import MobileEditorConfiguration from '../../editor-configuration';
 import WebBridgeImpl from '../../native-to-web/implementation';
 import { toNativeBridge } from '../../web-to-native';
+import { Editor } from '@atlaskit/editor-core';
 
 jest.mock('../../../query-param-reader');
 jest.mock('../../web-to-native');
@@ -118,6 +119,17 @@ describe('mobile editor element', () => {
     const mobileEditor = initEditor();
 
     expect(mobileEditor.find(IntlProvider).prop('locale')).toBe('fr');
+  });
+
+  describe('should have correct default configurations', () => {
+    it('should align media left on insert', () => {
+      const editor = initEditor(
+        new MobileEditorConfiguration(
+          JSON.stringify({ editorAppearance: 'compact' }),
+        ),
+      ).find(Editor);
+      expect((editor.prop('media') as any).alignLeftOnInsert).toBeTruthy();
+    });
   });
 
   describe('when the mobile editor is mounted', () => {

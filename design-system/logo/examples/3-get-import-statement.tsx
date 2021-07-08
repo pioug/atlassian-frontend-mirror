@@ -21,6 +21,7 @@ const products: Product[] = [
   { label: 'Bitbucket', value: 'Bitbucket' },
   { label: 'Compass', value: 'Compass' },
   { label: 'Confluence', value: 'Confluence' },
+  { label: 'Halp', value: 'Halp' },
   { label: 'Jira', value: 'Jira' },
   { label: 'JiraServiceManagement', value: 'JiraServiceManagement' },
   { label: 'JiraSoftware', value: 'JiraSoftware' },

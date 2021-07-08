@@ -74,9 +74,14 @@ export const messages = defineMessages({
     defaultMessage: 'Cancel',
     description: 'verb - button label to cancel operation',
   },
+  searchPlaceholder: {
+    id: 'fabric.emoji.search.placeholder',
+    defaultMessage: 'Search',
+    description: 'Placeholder for search emoji field',
+  },
   searchLabel: {
     id: 'fabric.emoji.search.label',
-    defaultMessage: 'Search',
+    defaultMessage: 'Search emoji',
     description: 'verb - button label to search',
   },
   categoriesSearchResults: {

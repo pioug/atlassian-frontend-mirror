@@ -23,8 +23,6 @@ export interface CalendarBaseProps extends WithAnalyticsEventsProps {
   day?: number;
   /** Default for `day`. */
   defaultDay?: number;
-  /** Default for `disabled`. */
-  defaultDisabled?: Array<string>;
   /** Default for `month`. */
   defaultMonth?: number;
   /** Default for `previouslySelected`. */
@@ -36,6 +34,12 @@ export interface CalendarBaseProps extends WithAnalyticsEventsProps {
   /** Takes an array of dates as string in the format 'YYYY-MM-DD'. All dates provided are greyed out.
    This does not prevent these dates being selected. */
   disabled?: Array<string>;
+  /** A filter function that takes a date string in the format 'YYYY-MM-DD' and returns true if that date should be disabled. */
+  disabledDateFilter?: (date: string) => boolean;
+  /** The latest enabled date */
+  maxDate?: string;
+  /** The earliest enabled date */
+  minDate?: string;
   /** The number of the month (from 1 to 12) which the calendar should be on. */
   month?: number;
   /** Function which is called when the calendar is no longer focused. */

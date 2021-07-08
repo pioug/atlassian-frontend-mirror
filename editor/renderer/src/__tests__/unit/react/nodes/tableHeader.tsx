@@ -51,8 +51,8 @@ describe('Renderer - React/Nodes/TableHeader', () => {
 
   describe('withSortableColumn', () => {
     let WithSortableColumn: React.ComponentType<CellWithSortingProps>;
-    const TestComp = ({ onClick, children }: CellWithSortingProps) => (
-      <button onClick={onClick}>{children}</button>
+    const TestComp = ({ children }: CellWithSortingProps) => (
+      <th>{children}</th>
     );
 
     beforeEach(() => {
@@ -131,7 +131,9 @@ describe('Renderer - React/Nodes/TableHeader', () => {
 
         it('should call onSorting on click', () => {
           wrapper = mountWrapper();
-          wrapper.find('button').simulate('click');
+          wrapper
+            .find(`.${RendererCssClassName.SORTABLE_COLUMN_BUTTON}`)
+            .simulate('click');
           expect(onSorting).toHaveBeenCalled();
         });
 
@@ -184,7 +186,9 @@ describe('Renderer - React/Nodes/TableHeader', () => {
             />,
           );
 
-          wrapper.find('button').simulate('click');
+          wrapper
+            .find(`.${RendererCssClassName.SORTABLE_COLUMN_BUTTON}`)
+            .simulate('click');
 
           expect(onSorting).toBeCalledWith(0, to);
         });
@@ -205,7 +209,9 @@ describe('Renderer - React/Nodes/TableHeader', () => {
           />,
         );
 
-        tableCell.simulate('click');
+        tableCell
+          .find(`.${RendererCssClassName.SORTABLE_COLUMN_BUTTON}`)
+          .simulate('click');
 
         expect(fireAnalyticsEvent).toHaveBeenCalledWith({
           action: ACTION.SORT_COLUMN_NOT_ALLOWED,
@@ -233,7 +239,9 @@ describe('Renderer - React/Nodes/TableHeader', () => {
           />,
         );
 
-        tableCell.simulate('click');
+        tableCell
+          .find(`.${RendererCssClassName.SORTABLE_COLUMN_BUTTON}`)
+          .simulate('click');
 
         expect(fireAnalyticsEvent).toHaveBeenCalledWith({
           action: ACTION.SORT_COLUMN,
@@ -262,7 +270,9 @@ describe('Renderer - React/Nodes/TableHeader', () => {
           />,
         );
 
-        tableCell.simulate('click');
+        tableCell
+          .find(`.${RendererCssClassName.SORTABLE_COLUMN_BUTTON}`)
+          .simulate('click');
 
         expect(fireAnalyticsEvent).toHaveBeenCalledWith({
           action: ACTION.SORT_COLUMN_NOT_ALLOWED,

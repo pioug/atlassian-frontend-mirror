@@ -997,10 +997,7 @@
               "type": "tableHeader",
               "attrs": {
                 "colspan": 2,
-                "colwidth": [
-                  233,
-                  100
-                ]
+                "colwidth": [233, 100]
               },
               "content": [
                 {

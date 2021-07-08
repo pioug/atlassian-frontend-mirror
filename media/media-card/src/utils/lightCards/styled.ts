@@ -33,6 +33,9 @@ export const Wrapper = styled.div<WrapperProps>`
       width: ${props.dimensions.width};
       height: ${props.dimensions.height};
     `}
+`;
+
+export const AnimatedWrapper = styled(Wrapper)`
   > span {
     animation: ${blinkLoadingAnimation} 0.8s infinite;
   }

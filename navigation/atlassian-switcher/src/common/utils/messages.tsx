@@ -70,16 +70,17 @@ const messages = defineMessages({
     description:
       'The text of a link redirecting the user to Discover More Atlassian products',
   },
-  moreProductsLink: {
-    id: 'fabric.atlassianSwitcher.moreProductsLink',
-    defaultMessage: 'More products',
-    description:
-      'The text of a link redirecting the user to Discover More products',
-  },
   slackIntegrationLink: {
     id: 'fabric.atlassianSwitcher.slackIntegrationLink',
-    defaultMessage: 'Slack for Atlassian',
-    description: 'The text of a link which opens the bulk integration modal',
+    defaultMessage: 'Slack',
+    description:
+      'The text of a link which opens the Slack Authentication popup',
+  },
+  slackIntegrationLinkDescription: {
+    id: 'fabric.atlassianSwitcher.slackIntegrationLinkDescription',
+    defaultMessage: 'Integrate Slack with your Atlassian products',
+    description:
+      'The description of a link which opens the Slack Authentication popup',
   },
   browseApps: {
     id: 'fabric.atlassianSwitcher.browseApps',

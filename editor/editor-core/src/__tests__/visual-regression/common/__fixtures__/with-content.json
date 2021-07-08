@@ -962,10 +962,7 @@
               "type": "tableHeader",
               "attrs": {
                 "colspan": 2,
-                "colwidth": [
-                  233,
-                  100
-                ]
+                "colwidth": [233, 100]
               },
               "content": [
                 {
@@ -982,9 +979,7 @@
             {
               "type": "tableHeader",
               "attrs": {
-                "colwidth": [
-                  347
-                ],
+                "colwidth": [347],
                 "background": "rgb(222, 235, 255)"
               },
               "content": [
@@ -1007,9 +1002,7 @@
             {
               "type": "tableCell",
               "attrs": {
-                "colwidth": [
-                  233
-                ]
+                "colwidth": [233]
               },
               "content": [
                 {
@@ -1026,9 +1019,7 @@
             {
               "type": "tableCell",
               "attrs": {
-                "colwidth": [
-                  100
-                ]
+                "colwidth": [100]
               },
               "content": [
                 {
@@ -1045,9 +1036,7 @@
             {
               "type": "tableCell",
               "attrs": {
-                "colwidth": [
-                  347
-                ]
+                "colwidth": [347]
               },
               "content": [
                 {
@@ -1069,9 +1058,7 @@
             {
               "type": "tableCell",
               "attrs": {
-                "colwidth": [
-                  233
-                ]
+                "colwidth": [233]
               },
               "content": [
                 {
@@ -1088,9 +1075,7 @@
             {
               "type": "tableCell",
               "attrs": {
-                "colwidth": [
-                  100
-                ]
+                "colwidth": [100]
               },
               "content": [
                 {
@@ -1107,9 +1092,7 @@
             {
               "type": "tableCell",
               "attrs": {
-                "colwidth": [
-                  347
-                ]
+                "colwidth": [347]
               },
               "content": [
                 {

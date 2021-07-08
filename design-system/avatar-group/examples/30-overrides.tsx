@@ -30,6 +30,7 @@ export default () => {
       appearance="stack"
       data={data}
       size="large"
+      // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
       overrides={{
         AvatarGroupItem: {
           render: (Component, props, index) => {

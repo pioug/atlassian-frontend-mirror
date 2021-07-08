@@ -96,81 +96,6 @@ describe('Mobile Renderer: Annotations/create-selection-component', () => {
           expect.any(Function),
         );
       });
-
-      it('should attach a listener at the mouseup event on document', () => {
-        expect(document.addEventListener).toHaveBeenCalledTimes(0);
-
-        renderSelectionComponent();
-
-        expect(document.addEventListener).toHaveBeenCalledTimes(1);
-        expect(document.addEventListener).toHaveBeenCalledWith(
-          'mouseup',
-          expect.any(Function),
-        );
-      });
-    });
-
-    describe('when the mouseup happens', () => {
-      beforeEach(() => {
-        onCloseMock.mockClear();
-      });
-
-      it('should call the onClose prop', () => {
-        expect(onCloseMock).toHaveBeenCalledTimes(0);
-
-        renderSelectionComponent();
-
-        act(() => {
-          const event = new Event('mouseup');
-          document.dispatchEvent(event);
-        });
-
-        expect(onCloseMock).toHaveBeenCalledTimes(1);
-      });
-
-      it('should call the onClose prop after "APPLY_DRAFT_ANNOTATION"', () => {
-        expect(onCloseMock).toHaveBeenCalledTimes(0);
-
-        renderSelectionComponent();
-
-        act(() => {
-          mobileBridgeEventDispatcher.emit(
-            EmitterEvents.APPLY_DRAFT_ANNOTATION,
-          );
-        });
-
-        act(() => {
-          const event = new Event('mouseup');
-          document.dispatchEvent(event);
-        });
-
-        expect(onCloseMock).toHaveBeenCalledTimes(0);
-      });
-
-      it('should call the onClose prop after cancel an annotation ', () => {
-        expect(onCloseMock).toHaveBeenCalledTimes(0);
-
-        renderSelectionComponent();
-
-        act(() => {
-          mobileBridgeEventDispatcher.emit(
-            EmitterEvents.APPLY_DRAFT_ANNOTATION,
-          );
-        });
-
-        act(() => {
-          mobileBridgeEventDispatcher.emit(
-            EmitterEvents.REMOVE_DRAFT_ANNOTATION,
-          );
-        });
-
-        act(() => {
-          const event = new Event('mouseup');
-          document.dispatchEvent(event);
-        });
-
-        expect(onCloseMock).toHaveBeenCalledTimes(1);
-      });
     });
 
     describe('when the create annotation event happens', () => {
@@ -194,20 +119,6 @@ describe('Mobile Renderer: Annotations/create-selection-component', () => {
     });
 
     describe('when this component is unmounted', () => {
-      it('should remove the listen from document', () => {
-        expect(document.removeEventListener).toHaveBeenCalledTimes(0);
-        renderSelectionComponent();
-
-        act(() => {
-          unmountComponentAtNode(container!);
-        });
-        expect(document.removeEventListener).toHaveBeenCalledTimes(1);
-        expect(document.removeEventListener).toHaveBeenCalledWith(
-          'mouseup',
-          expect.any(Function),
-        );
-      });
-
       it('should remove the listeners from the mobile bridge events', () => {
         expect(mobileBridgeEventDispatcher.off).toHaveBeenCalledTimes(0);
 

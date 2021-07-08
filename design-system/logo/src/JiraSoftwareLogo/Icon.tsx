@@ -33,7 +33,7 @@ const svg = (iconGradientStart: string, iconGradientStop: string) => {
 };
 
 export class JiraSoftwareIcon extends Component<Props> {
-  static defaultProps = DefaultProps;
+  static defaultProps = { ...DefaultProps, label: 'Jira Software' };
 
   render() {
     return <Wrapper {...this.props} svg={svg} />;

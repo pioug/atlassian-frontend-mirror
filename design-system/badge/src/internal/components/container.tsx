@@ -6,13 +6,13 @@ import { css, jsx } from '@emotion/core';
 import type { ThemeTokens } from '../theme';
 
 const containerStyles = css({
-  borderRadius: '24px',
   display: 'inline-block',
+  minWidth: '1px',
+  padding: '2px 6px',
+  borderRadius: '24px',
   fontSize: '12px',
   fontWeight: 'normal',
   lineHeight: 1,
-  minWidth: '1px',
-  padding: '2px 6px',
   textAlign: 'center',
 });
 

@@ -148,28 +148,49 @@ exports[`BackButton Should match snapshot 1`] = `
 
 .emotion-1 {
   display: inline-block;
-  height: 24px;
-  width: 24px;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
   line-height: 1;
+  width: 24px;
+  height: 24px;
 }
 
 .emotion-1 > svg {
-  height: 24px;
-  width: 24px;
-  max-height: 100%;
-  max-width: 100%;
-  vertical-align: bottom;
   overflow: hidden;
   pointer-events: none;
-  color: currentColor;
-  fill: #FFFFFF;
+  max-width: 100%;
+  max-height: 100%;
+  color: var(--icon-primary-color);
+  fill: var(--icon-secondary-color);
+  vertical-align: bottom;
 }
 
 .emotion-1 > svg stop {
   stop-color: currentColor;
+}
+
+@media screen and (-ms-high-contrast:white-on-black) {
+  .emotion-1 > svg {
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+    color: #fff;
+    fill: #000;
+  }
+}
+
+@media screen and (-ms-high-contrast:black-on-white) {
+  .emotion-1 > svg {
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+    color: #000;
+    fill: #fff;
+  }
+}
+
+.emotion-1 > svg {
+  width: 24px;
+  height: 24px;
 }
 
 .emotion-16 {
@@ -292,6 +313,20 @@ exports[`BackButton Should match snapshot 1`] = `
   background-color: #EBECF0;
 }
 
+@media screen and (-ms-high-contrast:active) {
+  .emotion-10[data-invalid]:focus-within {
+    border-color: Highlight;
+  }
+
+  .emotion-10:focus-within {
+    border-color: Highlight;
+  }
+
+  .emotion-10[data-disabled] {
+    border-color: GrayText;
+  }
+}
+
 .emotion-7 {
   width: 24px;
   height: 24px;
@@ -314,17 +349,35 @@ exports[`BackButton Should match snapshot 1`] = `
 }
 
 .emotion-6 > svg {
-  max-height: 100%;
-  max-width: 100%;
-  vertical-align: bottom;
   overflow: hidden;
   pointer-events: none;
-  color: currentColor;
-  fill: #FFFFFF;
+  max-width: 100%;
+  max-height: 100%;
+  color: var(--icon-primary-color);
+  fill: var(--icon-secondary-color);
+  vertical-align: bottom;
 }
 
 .emotion-6 > svg stop {
   stop-color: currentColor;
+}
+
+@media screen and (-ms-high-contrast:white-on-black) {
+  .emotion-6 > svg {
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+    color: #fff;
+    fill: #000;
+  }
+}
+
+@media screen and (-ms-high-contrast:black-on-white) {
+  .emotion-6 > svg {
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+    color: #000;
+    fill: #fff;
+  }
 }
 
 .emotion-8 {
@@ -385,6 +438,12 @@ exports[`BackButton Should match snapshot 1`] = `
 
 .emotion-8::placeholder:disabled {
   color: #A5ADBA;
+}
+
+@media screen and (-ms-high-contrast:active) {
+  .emotion-8[disabled] {
+    color: GrayText;
+  }
 }
 
 .emotion-9 {
@@ -498,6 +557,7 @@ exports[`BackButton Should match snapshot 1`] = `
                 aria-label="Close"
                 class="emotion-1"
                 role="img"
+                style="--icon-primary-color: currentColor; --icon-secondary-color: #FFFFFF;"
               >
                 <svg
                   height="24"
@@ -534,6 +594,7 @@ exports[`BackButton Should match snapshot 1`] = `
               aria-hidden="true"
               class="emotion-6"
               role="presentation"
+              style="--icon-primary-color: currentColor; --icon-secondary-color: #FFFFFF;"
             >
               <svg
                 height="24"

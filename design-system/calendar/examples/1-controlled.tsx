@@ -4,6 +4,8 @@ import Calendar from '../src';
 import type { DateObj } from '../src/internal/types';
 
 const log = (msg: string) => (e: any) => console.log(msg, e);
+const onBlur = () => log('Blur');
+const onFocus = () => log('Focus');
 
 const reducer = (
   prevState: State,
@@ -61,13 +63,9 @@ export default () => {
       day={state.day}
       month={state.month}
       year={state.year}
-      style={{
-        border: '1px solid red',
-        display: 'inline-block',
-      }}
-      onBlur={() => log('blur')}
+      onBlur={onBlur}
       onChange={handleChange}
-      onFocus={() => log('focus')}
+      onFocus={onFocus}
       onSelect={handleSelect}
       testId="test"
     />

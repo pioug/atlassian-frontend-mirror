@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/share",
-  "version": "0.26.7",
+  "version": "0.26.8",
   "description": "Fabric Share Element",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -25,18 +25,18 @@
     "access": "private"
   },
   "dependencies": {
-    "@atlaskit/analytics-next": "^8.0.0",
+    "@atlaskit/analytics-next": "^8.2.0",
     "@atlaskit/button": "^15.1.0",
     "@atlaskit/dropdown-menu": "^10.0.6",
     "@atlaskit/field-text-area": "^8.0.0",
     "@atlaskit/form": "^8.1.0",
-    "@atlaskit/icon": "^21.6.0",
+    "@atlaskit/icon": "^21.7.0",
     "@atlaskit/popup": "^1.0.0",
     "@atlaskit/portal": "^4.0.0",
     "@atlaskit/section-message": "^6.0.0",
-    "@atlaskit/select": "^14.0.0",
+    "@atlaskit/select": "^15.0.0",
     "@atlaskit/theme": "^11.0.0",
-    "@atlaskit/tooltip": "^17.0.0",
+    "@atlaskit/tooltip": "^17.3.0",
     "@atlaskit/user-picker": "^7.10.7",
     "@atlaskit/util-service-support": "^6.0.0",
     "@babel/runtime": "^7.0.0",

@@ -19,7 +19,10 @@ const quickInsert: ExtensionModule[] = [
   {
     key,
     title: 'All fields',
-    icon: () => import('@atlaskit/icon/glyph/editor/code'),
+    icon: () =>
+      import(
+        /* webpackChunkName: "@atlaskit-internal_icon-code" */ '@atlaskit/icon/glyph/editor/code'
+      ).then((mod) => mod.default),
     action: {
       type: 'node',
       key,
@@ -42,7 +45,10 @@ const manifest: ExtensionManifest = {
   key: 'example-fields',
   description: 'Example of fields supported by the editor',
   icons: {
-    '48': () => import('@atlaskit/icon/glyph/editor/code'),
+    '48': () =>
+      import(
+        /* webpackChunkName: "@atlaskit-internal_icon-code" */ '@atlaskit/icon/glyph/editor/code'
+      ).then((mod) => mod.default),
   },
   modules: {
     quickInsert,

@@ -15,9 +15,7 @@
             {
               "type": "tableHeader",
               "attrs": {
-                "colwidth": [
-                  60
-                ]
+                "colwidth": [60]
               },
               "content": [
                 {
@@ -29,9 +27,7 @@
             {
               "type": "tableHeader",
               "attrs": {
-                "colwidth": [
-                  944
-                ]
+                "colwidth": [944]
               },
               "content": [
                 {
@@ -43,9 +39,7 @@
             {
               "type": "tableHeader",
               "attrs": {
-                "colwidth": [
-                  61
-                ]
+                "colwidth": [61]
               },
               "content": [
                 {
@@ -62,9 +56,7 @@
             {
               "type": "tableCell",
               "attrs": {
-                "colwidth": [
-                  60
-                ]
+                "colwidth": [60]
               },
               "content": [
                 {
@@ -76,9 +68,7 @@
             {
               "type": "tableCell",
               "attrs": {
-                "colwidth": [
-                  944
-                ]
+                "colwidth": [944]
               },
               "content": [
                 {
@@ -90,9 +80,7 @@
             {
               "type": "tableCell",
               "attrs": {
-                "colwidth": [
-                  61
-                ]
+                "colwidth": [61]
               },
               "content": [
                 {
@@ -109,9 +97,7 @@
             {
               "type": "tableCell",
               "attrs": {
-                "colwidth": [
-                  60
-                ]
+                "colwidth": [60]
               },
               "content": [
                 {
@@ -123,9 +109,7 @@
             {
               "type": "tableCell",
               "attrs": {
-                "colwidth": [
-                  944
-                ]
+                "colwidth": [944]
               },
               "content": [
                 {
@@ -137,9 +121,7 @@
             {
               "type": "tableCell",
               "attrs": {
-                "colwidth": [
-                  61
-                ]
+                "colwidth": [61]
               },
               "content": [
                 {

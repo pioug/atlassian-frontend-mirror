@@ -105,28 +105,33 @@ export default class EmojiPickerListSearch extends PureComponent<Props> {
 
     return (
       <div className={styles.pickerSearch} style={style}>
-        <FormattedMessage {...messages.searchLabel}>
-          {(searchLabel) => (
+        <FormattedMessage {...messages.searchPlaceholder}>
+          {(searchPlaceholder) => (
             <AkFieldBase
               appearance="standard"
               isCompact
               isFitContainerWidthEnabled
             >
               <span className={styles.searchIcon}>
-                <SearchIcon label={searchLabel as string} />
+                <SearchIcon label="" />
               </span>
-              <input
-                className={styles.input}
-                autoComplete="off"
-                disabled={false}
-                name="search"
-                placeholder={`${searchLabel as string}...`}
-                required={false}
-                onChange={this.onChange}
-                value={query || ''}
-                ref={this.handleInputRef}
-                onBlur={this.onBlur}
-              />
+              <FormattedMessage {...messages.searchLabel}>
+                {(searchLabel) => (
+                  <input
+                    aria-label={searchLabel as string}
+                    className={styles.input}
+                    autoComplete="off"
+                    disabled={false}
+                    name="search"
+                    placeholder={`${searchPlaceholder as string}...`}
+                    required={false}
+                    onChange={this.onChange}
+                    value={query || ''}
+                    ref={this.handleInputRef}
+                    onBlur={this.onBlur}
+                  />
+                )}
+              </FormattedMessage>
             </AkFieldBase>
           )}
         </FormattedMessage>

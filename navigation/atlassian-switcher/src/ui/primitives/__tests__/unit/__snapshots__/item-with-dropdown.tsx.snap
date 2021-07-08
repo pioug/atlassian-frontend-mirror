@@ -434,7 +434,7 @@ exports[`Atlassian Switcher - ItemWithDropdown renders Bitbucket snapshot correc
                                                       iconColor="#FFFFFF"
                                                       iconGradientStart="inherit"
                                                       iconGradientStop="inherit"
-                                                      label=""
+                                                      label="Bitbucket"
                                                       primaryColor="#FFFFFF"
                                                       size="small"
                                                       textColor="currentColor"
@@ -443,13 +443,14 @@ exports[`Atlassian Switcher - ItemWithDropdown renders Bitbucket snapshot correc
                                                         iconColor="#FFFFFF"
                                                         iconGradientStart="inherit"
                                                         iconGradientStop="inherit"
-                                                        label=""
+                                                        label="Bitbucket"
                                                         primaryColor="#FFFFFF"
                                                         size="small"
                                                         svg={[Function]}
                                                         textColor="currentColor"
                                                       >
                                                         <styled.span
+                                                          aria-label="Bitbucket"
                                                           dangerouslySetInnerHTML={
                                                             Object {
                                                               "__html": "<canvas height=\\"32\\" width=\\"32\\" aria-hidden=\\"true\\"></canvas>
@@ -471,11 +472,12 @@ exports[`Atlassian Switcher - ItemWithDropdown renders Bitbucket snapshot correc
                                                           iconGradientStart="inherit"
                                                           iconGradientStop="inherit"
                                                           primaryColor="#FFFFFF"
-                                                          role="presentation"
+                                                          role="img"
                                                           size="small"
                                                           textColor="currentColor"
                                                         >
                                                           <span
+                                                            aria-label="Bitbucket"
                                                             className="c8"
                                                             dangerouslySetInnerHTML={
                                                               Object {
@@ -494,7 +496,7 @@ exports[`Atlassian Switcher - ItemWithDropdown renders Bitbucket snapshot correc
   </svg>",
                                                               }
                                                             }
-                                                            role="presentation"
+                                                            role="img"
                                                             size="small"
                                                           />
                                                         </styled.span>
@@ -553,17 +555,35 @@ exports[`Atlassian Switcher - ItemWithDropdown renders an item with multiple sit
 }
 
 .emotion-0 > svg {
-  max-height: 100%;
-  max-width: 100%;
-  vertical-align: bottom;
   overflow: hidden;
   pointer-events: none;
-  color: currentColor;
-  fill: #FFFFFF;
+  max-width: 100%;
+  max-height: 100%;
+  color: var(--icon-primary-color);
+  fill: var(--icon-secondary-color);
+  vertical-align: bottom;
 }
 
 .emotion-0 > svg stop {
   stop-color: currentColor;
+}
+
+@media screen and (-ms-high-contrast:white-on-black) {
+  .emotion-0 > svg {
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+    color: #fff;
+    fill: #000;
+  }
+}
+
+@media screen and (-ms-high-contrast:black-on-white) {
+  .emotion-0 > svg {
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+    color: #000;
+    fill: #fff;
+  }
 }
 
 .c8 {
@@ -1134,7 +1154,7 @@ exports[`Atlassian Switcher - ItemWithDropdown renders an item with multiple sit
                                                       iconColor="#FFFFFF"
                                                       iconGradientStart="inherit"
                                                       iconGradientStop="inherit"
-                                                      label=""
+                                                      label="Jira Software"
                                                       primaryColor="#FFFFFF"
                                                       size="small"
                                                       textColor="currentColor"
@@ -1143,13 +1163,14 @@ exports[`Atlassian Switcher - ItemWithDropdown renders an item with multiple sit
                                                         iconColor="#FFFFFF"
                                                         iconGradientStart="inherit"
                                                         iconGradientStop="inherit"
-                                                        label=""
+                                                        label="Jira Software"
                                                         primaryColor="#FFFFFF"
                                                         size="small"
                                                         svg={[Function]}
                                                         textColor="currentColor"
                                                       >
                                                         <styled.span
+                                                          aria-label="Jira Software"
                                                           dangerouslySetInnerHTML={
                                                             Object {
                                                               "__html": "<canvas height=\\"32\\" width=\\"32\\" aria-hidden=\\"true\\"></canvas>
@@ -1176,11 +1197,12 @@ exports[`Atlassian Switcher - ItemWithDropdown renders an item with multiple sit
                                                           iconGradientStart="inherit"
                                                           iconGradientStop="inherit"
                                                           primaryColor="#FFFFFF"
-                                                          role="presentation"
+                                                          role="img"
                                                           size="small"
                                                           textColor="currentColor"
                                                         >
                                                           <span
+                                                            aria-label="Jira Software"
                                                             className="c8"
                                                             dangerouslySetInnerHTML={
                                                               Object {
@@ -1204,7 +1226,7 @@ exports[`Atlassian Switcher - ItemWithDropdown renders an item with multiple sit
   </svg>",
                                                               }
                                                             }
-                                                            role="presentation"
+                                                            role="img"
                                                             size="small"
                                                           />
                                                         </styled.span>
@@ -1435,18 +1457,22 @@ exports[`Atlassian Switcher - ItemWithDropdown renders an item with multiple sit
                                                           dangerouslySetGlyph="<svg width=\\"24\\" height=\\"24\\" viewBox=\\"0 0 24 24\\" role=\\"presentation\\"><path d=\\"M8.292 10.293a1.009 1.009 0 000 1.419l2.939 2.965c.218.215.5.322.779.322s.556-.107.769-.322l2.93-2.955a1.01 1.01 0 000-1.419.987.987 0 00-1.406 0l-2.298 2.317-2.307-2.327a.99.99 0 00-1.406 0z\\" fill=\\"currentColor\\" fill-rule=\\"evenodd\\"/></svg>"
                                                           label="Expand"
                                                         >
-                                                          <Consumer>
-                                                            <span
-                                                              aria-label="Expand"
-                                                              className="emotion-0"
-                                                              dangerouslySetInnerHTML={
-                                                                Object {
-                                                                  "__html": "<svg width=\\"24\\" height=\\"24\\" viewBox=\\"0 0 24 24\\" role=\\"presentation\\"><path d=\\"M8.292 10.293a1.009 1.009 0 000 1.419l2.939 2.965c.218.215.5.322.779.322s.556-.107.769-.322l2.93-2.955a1.01 1.01 0 000-1.419.987.987 0 00-1.406 0l-2.298 2.317-2.307-2.327a.99.99 0 00-1.406 0z\\" fill=\\"currentColor\\" fill-rule=\\"evenodd\\"/></svg>",
-                                                                }
+                                                          <span
+                                                            aria-label="Expand"
+                                                            className="emotion-0"
+                                                            dangerouslySetInnerHTML={
+                                                              Object {
+                                                                "__html": "<svg width=\\"24\\" height=\\"24\\" viewBox=\\"0 0 24 24\\" role=\\"presentation\\"><path d=\\"M8.292 10.293a1.009 1.009 0 000 1.419l2.939 2.965c.218.215.5.322.779.322s.556-.107.769-.322l2.93-2.955a1.01 1.01 0 000-1.419.987.987 0 00-1.406 0l-2.298 2.317-2.307-2.327a.99.99 0 00-1.406 0z\\" fill=\\"currentColor\\" fill-rule=\\"evenodd\\"/></svg>",
                                                               }
-                                                              role="img"
-                                                            />
-                                                          </Consumer>
+                                                            }
+                                                            role="img"
+                                                            style={
+                                                              Object {
+                                                                "--icon-primary-color": "currentColor",
+                                                                "--icon-secondary-color": "#FFFFFF",
+                                                              }
+                                                            }
+                                                          />
                                                         </Memo(Icon)>
                                                       </ChevronDownIcon>
                                                     </div>
@@ -1501,17 +1527,35 @@ exports[`Atlassian Switcher - ItemWithDropdown renders an item with multiple sit
 }
 
 .emotion-0 > svg {
-  max-height: 100%;
-  max-width: 100%;
-  vertical-align: bottom;
   overflow: hidden;
   pointer-events: none;
-  color: currentColor;
-  fill: #FFFFFF;
+  max-width: 100%;
+  max-height: 100%;
+  color: var(--icon-primary-color);
+  fill: var(--icon-secondary-color);
+  vertical-align: bottom;
 }
 
 .emotion-0 > svg stop {
   stop-color: currentColor;
+}
+
+@media screen and (-ms-high-contrast:white-on-black) {
+  .emotion-0 > svg {
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+    color: #fff;
+    fill: #000;
+  }
+}
+
+@media screen and (-ms-high-contrast:black-on-white) {
+  .emotion-0 > svg {
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+    color: #000;
+    fill: #fff;
+  }
 }
 
 .c8 {
@@ -2082,7 +2126,7 @@ exports[`Atlassian Switcher - ItemWithDropdown renders an item with multiple sit
                                                       iconColor="#FFFFFF"
                                                       iconGradientStart="inherit"
                                                       iconGradientStop="inherit"
-                                                      label=""
+                                                      label="Jira Software"
                                                       primaryColor="#FFFFFF"
                                                       size="small"
                                                       textColor="currentColor"
@@ -2091,13 +2135,14 @@ exports[`Atlassian Switcher - ItemWithDropdown renders an item with multiple sit
                                                         iconColor="#FFFFFF"
                                                         iconGradientStart="inherit"
                                                         iconGradientStop="inherit"
-                                                        label=""
+                                                        label="Jira Software"
                                                         primaryColor="#FFFFFF"
                                                         size="small"
                                                         svg={[Function]}
                                                         textColor="currentColor"
                                                       >
                                                         <styled.span
+                                                          aria-label="Jira Software"
                                                           dangerouslySetInnerHTML={
                                                             Object {
                                                               "__html": "<canvas height=\\"32\\" width=\\"32\\" aria-hidden=\\"true\\"></canvas>
@@ -2124,11 +2169,12 @@ exports[`Atlassian Switcher - ItemWithDropdown renders an item with multiple sit
                                                           iconGradientStart="inherit"
                                                           iconGradientStop="inherit"
                                                           primaryColor="#FFFFFF"
-                                                          role="presentation"
+                                                          role="img"
                                                           size="small"
                                                           textColor="currentColor"
                                                         >
                                                           <span
+                                                            aria-label="Jira Software"
                                                             className="c8"
                                                             dangerouslySetInnerHTML={
                                                               Object {
@@ -2152,7 +2198,7 @@ exports[`Atlassian Switcher - ItemWithDropdown renders an item with multiple sit
   </svg>",
                                                               }
                                                             }
-                                                            role="presentation"
+                                                            role="img"
                                                             size="small"
                                                           />
                                                         </styled.span>
@@ -2383,18 +2429,22 @@ exports[`Atlassian Switcher - ItemWithDropdown renders an item with multiple sit
                                                           dangerouslySetGlyph="<svg width=\\"24\\" height=\\"24\\" viewBox=\\"0 0 24 24\\" role=\\"presentation\\"><path d=\\"M8.292 10.293a1.009 1.009 0 000 1.419l2.939 2.965c.218.215.5.322.779.322s.556-.107.769-.322l2.93-2.955a1.01 1.01 0 000-1.419.987.987 0 00-1.406 0l-2.298 2.317-2.307-2.327a.99.99 0 00-1.406 0z\\" fill=\\"currentColor\\" fill-rule=\\"evenodd\\"/></svg>"
                                                           label="Expand"
                                                         >
-                                                          <Consumer>
-                                                            <span
-                                                              aria-label="Expand"
-                                                              className="emotion-0"
-                                                              dangerouslySetInnerHTML={
-                                                                Object {
-                                                                  "__html": "<svg width=\\"24\\" height=\\"24\\" viewBox=\\"0 0 24 24\\" role=\\"presentation\\"><path d=\\"M8.292 10.293a1.009 1.009 0 000 1.419l2.939 2.965c.218.215.5.322.779.322s.556-.107.769-.322l2.93-2.955a1.01 1.01 0 000-1.419.987.987 0 00-1.406 0l-2.298 2.317-2.307-2.327a.99.99 0 00-1.406 0z\\" fill=\\"currentColor\\" fill-rule=\\"evenodd\\"/></svg>",
-                                                                }
+                                                          <span
+                                                            aria-label="Expand"
+                                                            className="emotion-0"
+                                                            dangerouslySetInnerHTML={
+                                                              Object {
+                                                                "__html": "<svg width=\\"24\\" height=\\"24\\" viewBox=\\"0 0 24 24\\" role=\\"presentation\\"><path d=\\"M8.292 10.293a1.009 1.009 0 000 1.419l2.939 2.965c.218.215.5.322.779.322s.556-.107.769-.322l2.93-2.955a1.01 1.01 0 000-1.419.987.987 0 00-1.406 0l-2.298 2.317-2.307-2.327a.99.99 0 00-1.406 0z\\" fill=\\"currentColor\\" fill-rule=\\"evenodd\\"/></svg>",
                                                               }
-                                                              role="img"
-                                                            />
-                                                          </Consumer>
+                                                            }
+                                                            role="img"
+                                                            style={
+                                                              Object {
+                                                                "--icon-primary-color": "currentColor",
+                                                                "--icon-secondary-color": "#FFFFFF",
+                                                              }
+                                                            }
+                                                          />
                                                         </Memo(Icon)>
                                                       </ChevronDownIcon>
                                                     </div>
@@ -2449,17 +2499,35 @@ exports[`Atlassian Switcher - ItemWithDropdown renders an item with multiple sit
 }
 
 .emotion-0 > svg {
-  max-height: 100%;
-  max-width: 100%;
-  vertical-align: bottom;
   overflow: hidden;
   pointer-events: none;
-  color: currentColor;
-  fill: #FFFFFF;
+  max-width: 100%;
+  max-height: 100%;
+  color: var(--icon-primary-color);
+  fill: var(--icon-secondary-color);
+  vertical-align: bottom;
 }
 
 .emotion-0 > svg stop {
   stop-color: currentColor;
+}
+
+@media screen and (-ms-high-contrast:white-on-black) {
+  .emotion-0 > svg {
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+    color: #fff;
+    fill: #000;
+  }
+}
+
+@media screen and (-ms-high-contrast:black-on-white) {
+  .emotion-0 > svg {
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+    color: #000;
+    fill: #fff;
+  }
 }
 
 .c8 {
@@ -3030,7 +3098,7 @@ exports[`Atlassian Switcher - ItemWithDropdown renders an item with multiple sit
                                                       iconColor="#FFFFFF"
                                                       iconGradientStart="inherit"
                                                       iconGradientStop="inherit"
-                                                      label=""
+                                                      label="Jira Software"
                                                       primaryColor="#FFFFFF"
                                                       size="small"
                                                       textColor="currentColor"
@@ -3039,13 +3107,14 @@ exports[`Atlassian Switcher - ItemWithDropdown renders an item with multiple sit
                                                         iconColor="#FFFFFF"
                                                         iconGradientStart="inherit"
                                                         iconGradientStop="inherit"
-                                                        label=""
+                                                        label="Jira Software"
                                                         primaryColor="#FFFFFF"
                                                         size="small"
                                                         svg={[Function]}
                                                         textColor="currentColor"
                                                       >
                                                         <styled.span
+                                                          aria-label="Jira Software"
                                                           dangerouslySetInnerHTML={
                                                             Object {
                                                               "__html": "<canvas height=\\"32\\" width=\\"32\\" aria-hidden=\\"true\\"></canvas>
@@ -3072,11 +3141,12 @@ exports[`Atlassian Switcher - ItemWithDropdown renders an item with multiple sit
                                                           iconGradientStart="inherit"
                                                           iconGradientStop="inherit"
                                                           primaryColor="#FFFFFF"
-                                                          role="presentation"
+                                                          role="img"
                                                           size="small"
                                                           textColor="currentColor"
                                                         >
                                                           <span
+                                                            aria-label="Jira Software"
                                                             className="c8"
                                                             dangerouslySetInnerHTML={
                                                               Object {
@@ -3100,7 +3170,7 @@ exports[`Atlassian Switcher - ItemWithDropdown renders an item with multiple sit
   </svg>",
                                                               }
                                                             }
-                                                            role="presentation"
+                                                            role="img"
                                                             size="small"
                                                           />
                                                         </styled.span>
@@ -3331,18 +3401,22 @@ exports[`Atlassian Switcher - ItemWithDropdown renders an item with multiple sit
                                                           dangerouslySetGlyph="<svg width=\\"24\\" height=\\"24\\" viewBox=\\"0 0 24 24\\" role=\\"presentation\\"><path d=\\"M8.292 10.293a1.009 1.009 0 000 1.419l2.939 2.965c.218.215.5.322.779.322s.556-.107.769-.322l2.93-2.955a1.01 1.01 0 000-1.419.987.987 0 00-1.406 0l-2.298 2.317-2.307-2.327a.99.99 0 00-1.406 0z\\" fill=\\"currentColor\\" fill-rule=\\"evenodd\\"/></svg>"
                                                           label="Expand"
                                                         >
-                                                          <Consumer>
-                                                            <span
-                                                              aria-label="Expand"
-                                                              className="emotion-0"
-                                                              dangerouslySetInnerHTML={
-                                                                Object {
-                                                                  "__html": "<svg width=\\"24\\" height=\\"24\\" viewBox=\\"0 0 24 24\\" role=\\"presentation\\"><path d=\\"M8.292 10.293a1.009 1.009 0 000 1.419l2.939 2.965c.218.215.5.322.779.322s.556-.107.769-.322l2.93-2.955a1.01 1.01 0 000-1.419.987.987 0 00-1.406 0l-2.298 2.317-2.307-2.327a.99.99 0 00-1.406 0z\\" fill=\\"currentColor\\" fill-rule=\\"evenodd\\"/></svg>",
-                                                                }
+                                                          <span
+                                                            aria-label="Expand"
+                                                            className="emotion-0"
+                                                            dangerouslySetInnerHTML={
+                                                              Object {
+                                                                "__html": "<svg width=\\"24\\" height=\\"24\\" viewBox=\\"0 0 24 24\\" role=\\"presentation\\"><path d=\\"M8.292 10.293a1.009 1.009 0 000 1.419l2.939 2.965c.218.215.5.322.779.322s.556-.107.769-.322l2.93-2.955a1.01 1.01 0 000-1.419.987.987 0 00-1.406 0l-2.298 2.317-2.307-2.327a.99.99 0 00-1.406 0z\\" fill=\\"currentColor\\" fill-rule=\\"evenodd\\"/></svg>",
                                                               }
-                                                              role="img"
-                                                            />
-                                                          </Consumer>
+                                                            }
+                                                            role="img"
+                                                            style={
+                                                              Object {
+                                                                "--icon-primary-color": "currentColor",
+                                                                "--icon-secondary-color": "#FFFFFF",
+                                                              }
+                                                            }
+                                                          />
                                                         </Memo(Icon)>
                                                       </ChevronDownIcon>
                                                     </div>
@@ -3821,7 +3895,7 @@ exports[`Atlassian Switcher - ItemWithDropdown renders single site item correctl
                                                       iconColor="#FFFFFF"
                                                       iconGradientStart="inherit"
                                                       iconGradientStop="inherit"
-                                                      label=""
+                                                      label="Opsgenie"
                                                       primaryColor="#FFFFFF"
                                                       size="small"
                                                       textColor="currentColor"
@@ -3830,13 +3904,14 @@ exports[`Atlassian Switcher - ItemWithDropdown renders single site item correctl
                                                         iconColor="#FFFFFF"
                                                         iconGradientStart="inherit"
                                                         iconGradientStop="inherit"
-                                                        label=""
+                                                        label="Opsgenie"
                                                         primaryColor="#FFFFFF"
                                                         size="small"
                                                         svg={[Function]}
                                                         textColor="currentColor"
                                                       >
                                                         <styled.span
+                                                          aria-label="Opsgenie"
                                                           dangerouslySetInnerHTML={
                                                             Object {
                                                               "__html": "<canvas height=\\"32\\" width=\\"32\\" aria-hidden=\\"true\\"></canvas>
@@ -3877,11 +3952,12 @@ exports[`Atlassian Switcher - ItemWithDropdown renders single site item correctl
                                                           iconGradientStart="inherit"
                                                           iconGradientStop="inherit"
                                                           primaryColor="#FFFFFF"
-                                                          role="presentation"
+                                                          role="img"
                                                           size="small"
                                                           textColor="currentColor"
                                                         >
                                                           <span
+                                                            aria-label="Opsgenie"
                                                             className="c8"
                                                             dangerouslySetInnerHTML={
                                                               Object {
@@ -3919,7 +3995,7 @@ exports[`Atlassian Switcher - ItemWithDropdown renders single site item correctl
   </svg>",
                                                               }
                                                             }
-                                                            role="presentation"
+                                                            role="img"
                                                             size="small"
                                                           />
                                                         </styled.span>

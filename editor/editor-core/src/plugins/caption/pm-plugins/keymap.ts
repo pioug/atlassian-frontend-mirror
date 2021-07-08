@@ -11,12 +11,12 @@ export function captionKeymap(): Plugin {
 
   keymaps.bindKeymapWithCommand(
     keymaps.moveDown.common!,
-    createNewParagraphBelow,
+    createNewParagraphBelowCaption,
     list,
   );
   keymaps.bindKeymapWithCommand(
     keymaps.enter.common!,
-    createNewParagraphBelow,
+    createNewParagraphBelowCaption,
     list,
   );
 
@@ -50,6 +50,16 @@ export function captionKeymap(): Plugin {
 
   return keymap(list);
 }
+
+const createNewParagraphBelowCaption: Command = (state, dispatch) => {
+  const caption = findParentNodeOfType(state.schema.nodes.caption)(
+    state.selection,
+  );
+  if (caption) {
+    return createNewParagraphBelow(state, dispatch);
+  }
+  return false;
+};
 
 const getOutOfCaption: Command = (state, dispatch) => {
   const caption = findParentNodeOfType(state.schema.nodes.caption)(

@@ -1,5 +1,27 @@
 # @atlaskit/datetime-picker
 
+## 10.4.0
+
+### Minor Changes
+
+- [`b162da59aac`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b162da59aac) - ### New Features:
+
+  Three props were added to `@atlaskit/calendar` and `@atlaskit/datetime-picker` to make disabling dates more practical, performant and expressive:
+
+  - `minDate` for the minimum valid date
+  - `maxDate` for the maximum valid date
+  - `disabledDateFilter`, a function that takes a date string, and returns whether or not it should be disabled.
+
+  ### Bugs
+
+  - DatePicker: Disabled dates that lie outside of the currently selected month now have correct hover styles
+
+### Patch Changes
+
+- [`c406245d637`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c406245d637) - [ux] Prevents the clear button appearing on disabled DateTimePickers.
+- [`4db7f1e42b2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4db7f1e42b2) - [ux] Fixed a bug which caused clicks on disabled date pickers to modify internal state. This led to an issue where clicking on a disabled date picker, and then enabling it, would result in an opened date picker.
+- Updated dependencies
+
 ## 10.3.0
 
 ### Minor Changes

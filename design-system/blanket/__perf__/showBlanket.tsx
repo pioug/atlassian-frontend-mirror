@@ -21,7 +21,7 @@ const BlanketPerformance = () => {
       <button onClick={toggleBlanketVisibility} data-testid="toggleButton">
         Toggle blanket
       </button>
-      <Blanket isTinted={isBlanketVisible} canClickThrough={true} />
+      <Blanket isTinted={isBlanketVisible} shouldAllowClickThrough={true} />
     </>
   );
 };

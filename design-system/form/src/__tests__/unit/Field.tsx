@@ -428,9 +428,7 @@ test('select reset should work', async () => {
   );
 
   // starts with default value (and not placeholder text)
-  expect(wrapper.getByText('a default value').style).toMatchObject({
-    opacity: '1',
-  });
+  expect(wrapper.queryAllByText('a default value')).toHaveLength(1);
   expect(wrapper.queryAllByText('select a value')).toHaveLength(0);
 
   // clear the default value
@@ -441,9 +439,7 @@ test('select reset should work', async () => {
 
   // placeholder text appears after default value has been cleared
   expect(wrapper.getByText('select a value')).toBeTruthy();
-  expect(wrapper.getByText('a default value').style).toMatchObject({
-    opacity: '0',
-  });
+  expect(wrapper.queryAllByText('a default value')).toHaveLength(0);
 });
 
 test('should associate messages with field', () => {

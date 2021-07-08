@@ -1,9 +1,6 @@
 import { css } from 'styled-components';
 
-import {
-  tableMarginTop,
-  tableSharedStyle,
-} from '@atlaskit/editor-common';
+import { tableMarginTop, tableSharedStyle } from '@atlaskit/editor-common';
 import { fontSize } from '@atlaskit/theme/constants';
 import { N40A, B300, N300, N20A, N0, R500 } from '@atlaskit/theme/colors';
 import {
@@ -72,7 +69,9 @@ const rangeSelectionStyles = `
 `;
 
 const sentinelStyles = `.${ClassName.TABLE_CONTAINER} {
-  > .${ClassName.TABLE_STICKY_SENTINEL_TOP}, > .${ClassName.TABLE_STICKY_SENTINEL_BOTTOM} {
+  > .${ClassName.TABLE_STICKY_SENTINEL_TOP}, > .${
+  ClassName.TABLE_STICKY_SENTINEL_BOTTOM
+} {
     position: absolute;
     width: 100%;
     height: 0px;
@@ -81,7 +80,9 @@ const sentinelStyles = `.${ClassName.TABLE_CONTAINER} {
     top: ${columnControlsDecorationHeight}px;
   }
   > .${ClassName.TABLE_STICKY_SENTINEL_BOTTOM} {
-      bottom: ${tableScrollbarOffset + stickyRowOffsetTop + tablePadding*2 + 23}px;
+      bottom: ${
+        tableScrollbarOffset + stickyRowOffsetTop + tablePadding * 2 + 23
+      }px;
   }
   &.${ClassName.WITH_CONTROLS} {
     > .${ClassName.TABLE_STICKY_SENTINEL_TOP} {
@@ -106,7 +107,6 @@ export const tableStyles = css`
     cursor: pointer;
   }
 
-
   .ProseMirror {
     ${tableSharedStyle};
     ${columnControlsLineMarker};
@@ -121,8 +121,7 @@ export const tableStyles = css`
     }
 
     .${ClassName.TABLE_NODE_WRAPPER} {
-      td.${ClassName.TABLE_CELL},
-      th.${ClassName.TABLE_HEADER_CELL} {
+      td.${ClassName.TABLE_CELL}, th.${ClassName.TABLE_HEADER_CELL} {
         position: relative;
         overflow: visible;
       }
@@ -179,7 +178,9 @@ export const tableStyles = css`
       z-index: 0;
     }
 
-    .${ClassName.TABLE_STICKY} .${ClassName.ROW_CONTROLS} .${ClassName.ROW_CONTROLS_BUTTON_WRAP}.sticky {
+    .${ClassName.TABLE_STICKY}
+      .${ClassName.ROW_CONTROLS}
+      .${ClassName.ROW_CONTROLS_BUTTON_WRAP}.sticky {
       position: fixed !important;
       z-index: ${akEditorStickyHeaderZIndex} !important;
       display: flex;
@@ -221,12 +222,14 @@ export const tableStyles = css`
       z-index: ${stickyRowZIndex + 1};
     }
 
-    .${ClassName.WITH_CONTROLS}.${ClassName.TABLE_STICKY} .${ClassName.TABLE_STICKY_SHADOW} {
+    .${ClassName.WITH_CONTROLS}.${ClassName.TABLE_STICKY}
+      .${ClassName.TABLE_STICKY_SHADOW} {
       padding-bottom: ${tableToolbarSize}px;
     }
 
     tr.sticky th {
-      border-bottom: ${stickyHeaderBorderBottomWidth}px solid ${tableBorderColor};
+      border-bottom: ${stickyHeaderBorderBottomWidth}px solid
+        ${tableBorderColor};
       margin-right: -1px;
     }
 
@@ -252,24 +255,30 @@ export const tableStyles = css`
 
     /* move resize line a little in sticky bar */
     .${ClassName.TABLE_CONTAINER}.${ClassName.TABLE_STICKY} {
-      tr.sticky td.${ClassName.WITH_RESIZE_LINE},
-      tr.sticky th.${ClassName.WITH_RESIZE_LINE} {
+      tr.sticky
+        td.${ClassName.WITH_RESIZE_LINE},
+        tr.sticky
+        th.${ClassName.WITH_RESIZE_LINE} {
         .${ClassName.RESIZE_HANDLE_DECORATION}::after {
-          right: ${((resizeHandlerAreaWidth - resizeLineWidth) / 2) + 1}px;
+          right: ${(resizeHandlerAreaWidth - resizeLineWidth) / 2 + 1}px;
         }
       }
 
       /* when selected put it back to normal -- :not selector would be nicer */
-      tr.sticky td.${ClassName.WITH_RESIZE_LINE}.${ClassName.SELECTED_CELL},
-      tr.sticky th.${ClassName.WITH_RESIZE_LINE}.${ClassName.SELECTED_CELL} {
+      tr.sticky
+        td.${ClassName.WITH_RESIZE_LINE}.${ClassName.SELECTED_CELL},
+        tr.sticky
+        th.${ClassName.WITH_RESIZE_LINE}.${ClassName.SELECTED_CELL} {
         .${ClassName.RESIZE_HANDLE_DECORATION}::after {
-          right: ${((resizeHandlerAreaWidth - resizeLineWidth) / 2)}px;
+          right: ${(resizeHandlerAreaWidth - resizeLineWidth) / 2}px;
         }
       }
     }
 
-    tr.sticky .${ClassName.HOVERED_CELL},
-    tr.sticky .${ClassName.SELECTED_CELL} {
+    tr.sticky
+      .${ClassName.HOVERED_CELL},
+      tr.sticky
+      .${ClassName.SELECTED_CELL} {
       z-index: 1;
     }
 
@@ -277,7 +286,9 @@ export const tableStyles = css`
       padding-top: ${tableControlsSpacing}px;
     }
 
-    .${ClassName.WITH_CONTROLS}.${ClassName.TABLE_STICKY} .${ClassName.NUMBERED_COLUMN} .${ClassName.NUMBERED_COLUMN_BUTTON}:first-child {
+    .${ClassName.WITH_CONTROLS}.${ClassName.TABLE_STICKY}
+      .${ClassName.NUMBERED_COLUMN}
+      .${ClassName.NUMBERED_COLUMN_BUTTON}:first-child {
       margin-top: ${tableControlsSpacing + 2}px;
     }
 
@@ -285,7 +296,8 @@ export const tableStyles = css`
       border-top: ${tableControlsSpacing - tableToolbarSize + 2}px solid white;
     }
 
-    ${props => props.featureFlags?.stickyHeadersOptimization ? sentinelStyles : ''}
+    ${(props) =>
+      props.featureFlags?.stickyHeadersOptimization ? sentinelStyles : ''}
 
     ${OverflowShadow}
     .${ClassName.TABLE_STICKY} .${ClassName.TABLE_STICKY_SHADOW} {
@@ -379,8 +391,7 @@ export const tableStyles = css`
       background: ${tableToolbarSelectedColor};
     }
     .${ClassName.TABLE_CONTAINER}[data-number-column='true'] {
-      .${ClassName.CORNER_CONTROLS},
-      .${ClassName.CONTROLS_CORNER_BUTTON} {
+      .${ClassName.CORNER_CONTROLS}, .${ClassName.CONTROLS_CORNER_BUTTON} {
         width: ${akEditorTableToolbarSize + akEditorTableNumberColumnWidth}px;
       }
       .${ClassName.ROW_CONTROLS} .${ClassName.CONTROLS_BUTTON} {
@@ -392,7 +403,8 @@ export const tableStyles = css`
       background: ${tableToolbarSelectedColor};
       cursor: pointer;
     }
-    :not(.${ClassName.IS_RESIZING}) .${ClassName.CONTROLS_CORNER_BUTTON}.${ClassName.HOVERED_CELL_IN_DANGER} {
+    :not(.${ClassName.IS_RESIZING})
+      .${ClassName.CONTROLS_CORNER_BUTTON}.${ClassName.HOVERED_CELL_IN_DANGER} {
       border-color: ${tableBorderDeleteColor};
       background: ${tableToolbarDeleteColor};
     }
@@ -421,8 +433,8 @@ export const tableStyles = css`
         margin-top: -1px;
       }
       .${ClassName.ROW_CONTROLS_BUTTON_WRAP}:hover,
-      .${ClassName.ROW_CONTROLS_BUTTON_WRAP}.active,
-      .${ClassName.CONTROLS_BUTTON}:hover {
+        .${ClassName.ROW_CONTROLS_BUTTON_WRAP}.active,
+        .${ClassName.CONTROLS_BUTTON}:hover {
         z-index: ${akEditorUnitZIndex};
       }
 
@@ -479,13 +491,12 @@ export const tableStyles = css`
       }
     }
     .${ClassName.WITH_CONTROLS} {
-      .${ClassName.CORNER_CONTROLS},
-      .${ClassName.ROW_CONTROLS} {
+      .${ClassName.CORNER_CONTROLS}, .${ClassName.ROW_CONTROLS} {
         display: block;
       }
       .${ClassName.NUMBERED_COLUMN} {
         padding-left: 1px;
-         .${ClassName.NUMBERED_COLUMN_BUTTON} {
+        .${ClassName.NUMBERED_COLUMN_BUTTON} {
           border-left: 0 none;
         }
 
@@ -529,13 +540,12 @@ export const tableStyles = css`
         margin-top: 0;
       }
 
-      .${ClassName.SELECTED_CELL},
-      .${ClassName.HOVERED_CELL_IN_DANGER} {
+      .${ClassName.SELECTED_CELL}, .${ClassName.HOVERED_CELL_IN_DANGER} {
         position: relative;
       }
       /* Give selected cells a blue overlay */
       .${ClassName.SELECTED_CELL}::after,
-      .${ClassName.HOVERED_CELL_IN_DANGER}::after {
+        .${ClassName.HOVERED_CELL_IN_DANGER}::after {
         z-index: ${akEditorSmallZIndex};
         position: absolute;
         content: '';
@@ -552,7 +562,8 @@ export const tableStyles = css`
       .${ClassName.SELECTED_CELL}::after {
         background: ${tableCellSelectedColor};
       }
-      th.${ClassName.HOVERED_CELL_IN_DANGER}::after, td.${ClassName.HOVERED_CELL_IN_DANGER}::after {
+      th.${ClassName.HOVERED_CELL_IN_DANGER}::after,
+        td.${ClassName.HOVERED_CELL_IN_DANGER}::after {
         background: ${tableCellDeleteColor};
       }
     }
@@ -594,7 +605,6 @@ export const tableStyles = css`
   .ProseMirror.${ClassName.RESIZE_CURSOR} {
     cursor: col-resize;
   }
-
 `;
 
 export const tableFullPageEditorStyles = css`

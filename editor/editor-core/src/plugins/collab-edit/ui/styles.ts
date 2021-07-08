@@ -17,6 +17,14 @@ export const AvatarContainer = styled.div`
   margin-right: ${gridSize()}px;
   display: flex;
   align-items: center;
+
+  // ED-13102: This is to override list styles that come from the
+  // .wiki-content class in Confluence that should not apply within
+  // the toolbar. Has to be extra specific to override.
+  && > ul {
+    list-style-type: none;
+  }
+
   div:last-child button.invite-to-edit {
     border-radius: 50%;
     height: 32px;

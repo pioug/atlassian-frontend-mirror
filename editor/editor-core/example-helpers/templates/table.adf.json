@@ -1903,9 +1903,7 @@
             {
               "type": "tableHeader",
               "attrs": {
-                "colwidth": [
-                  128
-                ]
+                "colwidth": [128]
               },
               "content": [
                 {
@@ -1922,9 +1920,7 @@
             {
               "type": "tableHeader",
               "attrs": {
-                "colwidth": [
-                  128
-                ]
+                "colwidth": [128]
               },
               "content": [
                 {
@@ -1941,9 +1937,7 @@
             {
               "type": "tableHeader",
               "attrs": {
-                "colwidth": [
-                  128
-                ]
+                "colwidth": [128]
               },
               "content": [
                 {
@@ -1980,9 +1974,7 @@
             {
               "type": "tableCell",
               "attrs": {
-                "colwidth": [
-                  128
-                ]
+                "colwidth": [128]
               },
               "content": [
                 {
@@ -1999,9 +1991,7 @@
             {
               "type": "tableCell",
               "attrs": {
-                "colwidth": [
-                  128
-                ]
+                "colwidth": [128]
               },
               "content": [
                 {
@@ -2018,9 +2008,7 @@
             {
               "type": "tableCell",
               "attrs": {
-                "colwidth": [
-                  128
-                ]
+                "colwidth": [128]
               },
               "content": [
                 {

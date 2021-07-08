@@ -103,7 +103,7 @@ export { EventDispatcher } from './event-dispatcher';
 export { pluginKey as statusPluginKey } from './plugins/status/plugin';
 export type { StatusState, StatusType } from './plugins/status/plugin';
 export type { DatePluginState } from './plugins/date/pm-plugins/types';
-export { insertDate } from './plugins/date/actions';
+export { insertDate, openDatePicker } from './plugins/date/actions';
 export { dateToDateType } from './plugins/date/utils/formatParse';
 export { pluginKey as datePluginKey } from './plugins/date/pm-plugins/plugin-key';
 export {

@@ -1,5 +1,11 @@
 # @atlaskit/container-picker
 
+## 1.1.9
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.1.8
 
 ### Patch Changes

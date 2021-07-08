@@ -5,7 +5,7 @@ Object {
   "content": Array [
     Object {
       "attrs": Object {
-        "layout": "center",
+        "layout": "align-start",
         "width": null,
       },
       "content": Array [
@@ -44,7 +44,7 @@ Object {
   "content": Array [
     Object {
       "attrs": Object {
-        "layout": "center",
+        "layout": "align-start",
         "width": null,
       },
       "content": Array [
@@ -83,7 +83,7 @@ Object {
   "content": Array [
     Object {
       "attrs": Object {
-        "layout": "center",
+        "layout": "align-start",
         "width": null,
       },
       "content": Array [
@@ -122,7 +122,7 @@ Object {
   "content": Array [
     Object {
       "attrs": Object {
-        "layout": "center",
+        "layout": "align-start",
         "width": null,
       },
       "content": Array [
@@ -161,7 +161,7 @@ Object {
   "content": Array [
     Object {
       "attrs": Object {
-        "layout": "center",
+        "layout": "align-start",
         "width": null,
       },
       "content": Array [
@@ -200,7 +200,7 @@ Object {
   "content": Array [
     Object {
       "attrs": Object {
-        "layout": "center",
+        "layout": "align-start",
         "width": null,
       },
       "content": Array [
@@ -239,7 +239,7 @@ Object {
   "content": Array [
     Object {
       "attrs": Object {
-        "layout": "center",
+        "layout": "align-start",
         "width": null,
       },
       "content": Array [
@@ -278,7 +278,7 @@ Object {
   "content": Array [
     Object {
       "attrs": Object {
-        "layout": "center",
+        "layout": "align-start",
         "width": null,
       },
       "content": Array [

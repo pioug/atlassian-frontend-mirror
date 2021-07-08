@@ -3,8 +3,8 @@ import { imageFileId } from '@atlaskit/media-test-helpers';
 import { MediaFeatureFlags } from '@atlaskit/media-common';
 import Media, { MediaProps } from '../../../../react/nodes/media';
 import MediaSingle, {
-  Props as MediaSingleProps,
   getMediaContainerWidth,
+  Props as MediaSingleProps,
 } from '../../../../react/nodes/mediaSingle';
 import Caption from '../../../../react/nodes/caption';
 import { MediaCardInternal } from '../../../../ui/MediaCard';
@@ -37,7 +37,16 @@ describe('MediaSingle', () => {
             collection={imageFileId.collectionName}
             {...mediaProps}
           />
-          {showCaption && <Caption>This is a caption</Caption>}
+          {showCaption && (
+            <Caption
+              marks={[]}
+              serializer={{} as any}
+              nodeType="caption"
+              dataAttributes={{ 'data-renderer-start-pos': 0 }}
+            >
+              This is a caption
+            </Caption>
+          )}
         </MediaSingle>
       </WidthProvider>,
     );
@@ -227,7 +236,16 @@ describe('MediaSingle', () => {
         <WidthProvider>
           <MediaSingle layout={'center'} rendererAppearance={'full-page'}>
             {unsupportedBlock}
-            {<Caption>This is a caption</Caption>}
+            {
+              <Caption
+                marks={[]}
+                serializer={{} as any}
+                nodeType="caption"
+                dataAttributes={{ 'data-renderer-start-pos': 0 }}
+              >
+                This is a caption
+              </Caption>
+            }
           </MediaSingle>
         </WidthProvider>,
       );

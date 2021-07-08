@@ -50,4 +50,14 @@ describe('CaptionComponent', () => {
     const { queryByText } = renderWithIntl(<Caption hasContent={true} />);
     expect(queryByText(messages.placeholder.defaultMessage)).toBeNull();
   });
+
+  it('should have data-renderer-start-pos if provided', () => {
+    const { getByTestId } = renderWithIntl(
+      <Caption dataAttributes={{ 'data-renderer-start-pos': 5 }} />,
+    );
+
+    const caption = getByTestId('media-caption');
+
+    expect(caption.getAttribute('data-renderer-start-pos')).toEqual('5');
+  });
 });

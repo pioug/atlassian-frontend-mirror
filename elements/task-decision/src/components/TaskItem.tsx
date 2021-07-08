@@ -82,6 +82,7 @@ export class TaskItem extends PureComponent<
       <CheckBoxWrapper contentEditable={false}>
         <input
           id={this.checkBoxId}
+          aria-labelledby={`${this.checkBoxId}-wrapper`}
           name={this.checkBoxId}
           type="checkbox"
           onChange={this.handleOnChange}
@@ -102,6 +103,7 @@ export class TaskItem extends PureComponent<
         showPlaceholder={showPlaceholder}
         itemType="TASK"
         dataAttributes={dataAttributes}
+        checkBoxId={this.checkBoxId}
       >
         {children}
       </Item>

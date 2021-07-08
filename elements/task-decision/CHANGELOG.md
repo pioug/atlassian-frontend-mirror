@@ -1,5 +1,15 @@
 # @atlaskit/task-decision
 
+## 17.2.0
+
+### Minor Changes
+
+- [`ab7db4ccc25`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ab7db4ccc25) - Wrap checkbox text with label
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 17.1.0
 
 ### Minor Changes

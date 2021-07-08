@@ -1,5 +1,17 @@
 # @atlaskit/inline-message
 
+## 11.1.0
+
+### Minor Changes
+
+- [`1489097139d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1489097139d) - Added iconLabel prop to provide useful information to users with screen readers
+- [`65388bb777d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/65388bb777d) - Removes the `styled-components` dependency from the package. Still has a transitive reliance on `styled-components` via `inline-dialog`. There should be no visual or UX change.
+
+### Patch Changes
+
+- [`9c98e8227f6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9c98e8227f6) - Internal refactor for style declarations.
+- Updated dependencies
+
 ## 11.0.8
 
 ### Patch Changes

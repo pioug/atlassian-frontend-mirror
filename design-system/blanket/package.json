@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/blanket",
-  "version": "11.4.0",
+  "version": "12.0.0",
   "description": "A React component that covers the underlying UI for a layered component.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -28,9 +28,10 @@
     "./types": "./src/entry-points/types.tsx"
   },
   "dependencies": {
-    "@atlaskit/analytics-next": "^8.0.0",
+    "@atlaskit/analytics-next": "^8.2.0",
+    "@atlaskit/codemod-utils": "^3.2.0",
     "@atlaskit/ds-lib": "^1.2.0",
-    "@atlaskit/theme": "^11.1.0",
+    "@atlaskit/theme": "^11.2.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/core": "^10.0.9"
   },
@@ -46,7 +47,9 @@
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@testing-library/dom": "^7.7.3",
     "@testing-library/react": "^8.0.1",
+    "jscodeshift": "^0.11.0",
     "react-dom": "^16.8.0",
+    "react-lorem-component": "^0.13.0",
     "storybook-addon-performance": "^0.16.0",
     "typescript": "3.9.6",
     "wait-for-expect": "^1.2.0"
@@ -63,18 +66,10 @@
     "@repo/internal": {
       "design-system": "v1",
       "styling": "emotion",
-      "ui-components": [
-        "lite-mode"
-      ],
-      "analytics": [
-        "analytics-next"
-      ],
-      "theming": [
-        "new-theming-api"
-      ],
-      "deprecation": [
-        "no-deprecated-imports"
-      ]
+      "ui-components": "lite-mode",
+      "analytics": "analytics-next",
+      "theming": "new-theming-api",
+      "deprecation": "no-deprecated-imports"
     }
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"

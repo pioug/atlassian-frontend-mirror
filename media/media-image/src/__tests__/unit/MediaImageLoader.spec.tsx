@@ -6,6 +6,7 @@ import {
   MediaImageLoader,
   MediaImageWithMediaClientConfigProps,
   AsyncMediaImageState,
+  MediaImageLoaderChildrenProps,
 } from '../../MediaImageLoader';
 
 const identifier: FileIdentifier = {
@@ -24,6 +25,14 @@ const props = {
     height: 10,
   },
   children: () => null,
+};
+
+const propsWithChildren = {
+  ...props,
+  children: (childProps: MediaImageLoaderChildrenProps) => {
+    const { loading, data } = childProps;
+    return loading ? 'some-loading' : data;
+  },
 };
 
 describe('Async Media Image Loader', () => {
@@ -65,6 +74,15 @@ describe('Async Media Image Loader', () => {
   describe('When the async import returns with success', () => {
     beforeEach(() => {
       jest.unmock('../../mediaImage');
+    });
+
+    it('should pass dimensions to the loading component if the async components were NOT resolved', async () => {
+      const wrapper = mount<
+        MediaImageWithMediaClientConfigProps,
+        AsyncMediaImageState
+      >(<MediaImageLoader {...propsWithChildren} />);
+
+      expect(wrapper.html()).toEqual('some-loading');
     });
 
     it('should render Media Image component', async () => {

@@ -29,15 +29,15 @@ export default md`
   ${(
     <Example
       packageName="@atlaskit/avatar-group"
-      Component={require('../examples/02-basicAvatarGroup').default}
-      source={require('!!raw-loader!../examples/02-basicAvatarGroup')}
+      Component={require('../examples/02-basic-avatar-group').default}
+      source={require('!!raw-loader!../examples/02-basic-avatar-group')}
     />
   )}
 
   ${(
     <Props
       heading="Props"
-      props={require('!!extract-react-types-loader!../src/components/AvatarGroup')}
+      props={require('!!extract-react-types-loader!../src/components/avatar-group')}
     />
   )}
 `;

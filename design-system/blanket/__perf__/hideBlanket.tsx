@@ -22,7 +22,7 @@ const BlanketPerformance = () => {
         Toggle blanket
       </button>
 
-      <Blanket isTinted={isBlanketVisible} canClickThrough={true} />
+      <Blanket isTinted={isBlanketVisible} shouldAllowClickThrough={true} />
     </>
   );
 };

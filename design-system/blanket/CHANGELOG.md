@@ -1,5 +1,54 @@
 # @atlaskit/blanket
 
+## 12.0.0
+
+### Major Changes
+
+- [`f166f5398b2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f166f5398b2) - In this version we made **Blanket** faster and lighter
+
+  - General performance improvements
+
+  - **BREAKING** **Blanket** now accepts a `children` prop whose value is of type `ReactElement`.
+
+  - **BREAKING** `canClickThrough` prop is now renamed to `shouldAllowClickThrough`.
+
+  **Running the codemod cli**
+
+  To run the codemod: **You first need to have the latest version installed**
+
+  ```bash
+  yarn upgrade @atlaskit/blanket@^12.0.0
+  ```
+
+  Once upgraded,
+  use `@atlaskit/codemod-cli`:
+
+  ```bash
+  npx @atlaskit/codemod-cli --parser babel --extensions ts,tsx,js [relativePath]
+  ```
+
+  The CLI will show a list of components and versions so select `@atlaskit/blanket@^12.0.0` and you will automatically be upgraded.
+
+  What will be changed:
+
+  - It will rename the `canClickThrough` prop to `shouldAllowClickThrough`.
+
+  Run `npx @atlaskit/codemod-cli -h` for more details on usage.
+
+  For Atlassians,
+  refer to the [documentation](https://developer.atlassian.com/cloud/framework/atlassian-frontend/codemods/01-atlassian-codemods/) for more details on the codemod CLI.
+
+### Patch Changes
+
+- [`9c98e8227f6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9c98e8227f6) - Internal refactor for style declarations.
+- Updated dependencies
+
+## 11.4.1
+
+### Patch Changes
+
+- [`dd89416d229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dd89416d229) - Updated dependency of `@atlaskit/theme` to 11.2.0
+
 ## 11.4.0
 
 ### Minor Changes

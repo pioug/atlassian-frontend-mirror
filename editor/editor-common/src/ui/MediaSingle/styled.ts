@@ -138,9 +138,13 @@ export const MediaSingleDimensionHelper = ({
   pctWidth,
   width,
 }: MediaSingleWrapperProps) => css`
-  tr & {
+  /* For nested rich media items, set max-width to 100% */
+  tr &,
+  [data-layout-column] &,
+  [data-node-type='expand'] & {
     max-width: 100%;
   }
+
   width: ${pctWidth
     ? calcResizedWidth(layout, width || 0, containerWidth)
     : calcLegacyWidth(

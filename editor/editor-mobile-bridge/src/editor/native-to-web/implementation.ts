@@ -48,6 +48,7 @@ import {
   getListCommands,
   isTextAtPos,
   insertDate,
+  openDatePicker,
   dateToDateType,
 } from '@atlaskit/editor-core';
 import { EditorViewWithComposition } from '../../types';
@@ -943,25 +944,25 @@ export default class WebBridgeImpl
    * @param nodeType is the node we are inserting in the editor.
    */
   insertNode(nodeType: string) {
-    const { state, dispatch } = this.editorView!;
+    const apply = (command: Command) => {
+      const { state, dispatch } = this.editorView!;
+      command(state, dispatch);
+    };
+
     switch (nodeType) {
       case 'status':
         const status = {
           text: 'Status',
           color: 'neutral',
         } as StatusType;
-        updateStatusWithAnalytics(INPUT_METHOD.TOOLBAR, status)(
-          state,
-          dispatch,
-        );
+
+        apply(updateStatusWithAnalytics(INPUT_METHOD.TOOLBAR, status));
         break;
       case 'date':
         const dateType = dateToDateType(new Date());
-        insertDate(
-          dateType,
-          INPUT_METHOD.TOOLBAR,
-          INPUT_METHOD.PICKER,
-        )(state, dispatch);
+
+        apply(insertDate(dateType, INPUT_METHOD.TOOLBAR, INPUT_METHOD.PICKER));
+        apply(openDatePicker());
         break;
       default:
         break;

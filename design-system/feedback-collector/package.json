@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/feedback-collector",
-  "version": "6.1.9",
+  "version": "6.1.10",
   "description": "A component that collects feedback across Atlassian products.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -28,12 +28,12 @@
   },
   "dependencies": {
     "@atlaskit/button": "^15.1.0",
-    "@atlaskit/checkbox": "^12.0.0",
+    "@atlaskit/checkbox": "^12.2.0",
     "@atlaskit/flag": "^14.0.0",
     "@atlaskit/form": "^8.1.0",
-    "@atlaskit/icon": "^21.6.0",
+    "@atlaskit/icon": "^21.7.0",
     "@atlaskit/modal-dialog": "^11.6.0",
-    "@atlaskit/select": "^14.0.0",
+    "@atlaskit/select": "^15.0.0",
     "@atlaskit/textarea": "^4.1.0",
     "@atlaskit/theme": "^11.0.0",
     "@babel/runtime": "^7.0.0",
@@ -46,7 +46,7 @@
     "@atlaskit/build-utils": "*",
     "@atlaskit/docs": "*",
     "@atlaskit/global-navigation": "^11.0.0",
-    "@atlaskit/logo": "^13.0.0",
+    "@atlaskit/logo": "^13.5.0",
     "@atlaskit/navigation-next": "^9.0.0",
     "@atlaskit/ssr": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",

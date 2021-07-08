@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { mount } from 'enzyme';
 
@@ -60,6 +60,63 @@ describe('AnalyticsErrorBoundary', () => {
     });
 
     const error = new Error('Error');
+    const Something = () => {
+      useEffect(() => {
+        throw error;
+      }, []);
+      // this is just a placeholder
+      return <div className="child-component" />;
+    };
+
+    const wrapper = mount(
+      <BaseAnalyticsErrorBoundary
+        {...props}
+        createAnalyticsEvent={createAnalyticsEvent}
+      >
+        <Something />
+      </BaseAnalyticsErrorBoundary>,
+    );
+
+    expect(createAnalyticsEvent).toHaveBeenNthCalledWith(
+      1,
+      expect.objectContaining({
+        action: 'UnhandledError',
+        attributes: expect.objectContaining({
+          browserInfo: expect.any(String),
+          componentName: 'button',
+          componentVersion: '999.9.9',
+          error,
+          info: expect.objectContaining({
+            componentStack: expect.any(String),
+          }),
+          packageName: '@atlaskit/button',
+        }),
+        eventType: 'ui',
+      }),
+    );
+
+    expect(analyticsEvent.fire).toHaveBeenNthCalledWith(1, 'atlaskit');
+    expect(wrapper.find('Something').exists()).toBe(true);
+  });
+
+  it('should render error component when error occurs', () => {
+    const analyticsEvent = new UIAnalyticsEvent({
+      context: [],
+      handlers: [],
+      payload: {
+        action: 'click',
+        a: { b: 'c' },
+      },
+    });
+
+    jest.spyOn(analyticsEvent, 'fire');
+    const onError = jest.fn();
+
+    createAnalyticsEvent.mockImplementation(() => {
+      return analyticsEvent;
+    });
+
+    const error = new Error('Error');
     const Something = (p: { error: boolean }) => {
       if (p.error) {
         throw error;
@@ -68,10 +125,16 @@ describe('AnalyticsErrorBoundary', () => {
       return <div className="child-component" />;
     };
 
-    mount(
+    const ErrorScreen = () => {
+      return <div>Error occurred</div>;
+    };
+
+    const wrapper = mount(
       <BaseAnalyticsErrorBoundary
         {...props}
         createAnalyticsEvent={createAnalyticsEvent}
+        ErrorComponent={ErrorScreen}
+        onError={onError}
       >
         <Something error />
       </BaseAnalyticsErrorBoundary>,
@@ -95,5 +158,8 @@ describe('AnalyticsErrorBoundary', () => {
       }),
     );
     expect(analyticsEvent.fire).toHaveBeenNthCalledWith(1, 'atlaskit');
+    expect(onError).toHaveBeenCalledTimes(1);
+    expect(wrapper.find('Something').exists()).toBe(false);
+    expect(wrapper.find('ErrorScreen').exists()).toBe(true);
   });
 });

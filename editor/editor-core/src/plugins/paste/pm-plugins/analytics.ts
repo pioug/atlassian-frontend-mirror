@@ -404,11 +404,12 @@ export const handlePasteLinkOnSelectedTextWithAnalytics = (
   view: EditorView,
   event: ClipboardEvent,
   slice: Slice,
+  type: PasteType,
 ): Command =>
   pipe(
     handlePasteLinkOnSelectedText,
     pasteCommandWithAnalytics(view, event, slice, {
-      type: PasteTypes.richText,
+      type,
     }),
   )(slice);
 

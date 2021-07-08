@@ -10,8 +10,8 @@ const OPTIONS = [
   { label: '3', value: 'three' },
   { label: '4', value: 'four' },
 ];
-// temporarily skip this test as part of AK-5758 resolution
-test('loading the animated component as default', () => {
+// temporarily skip this test as part of DST-2476 resolution
+test.skip('loading the animated component as default', () => {
   const atlaskitSelectWrapper = mount(<AtlaskitSelect />);
   expect(atlaskitSelectWrapper.find('Transition').exists()).toBeTruthy();
 });

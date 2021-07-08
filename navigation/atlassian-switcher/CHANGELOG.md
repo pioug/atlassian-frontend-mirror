@@ -1,5 +1,11 @@
 # @atlaskit/atlassian-switcher
 
+## 13.0.4
+
+### Patch Changes
+
+- [`d951f5fb93f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d951f5fb93f) - Update copy for the Slack integration
+
 ## 13.0.3
 
 ### Patch Changes

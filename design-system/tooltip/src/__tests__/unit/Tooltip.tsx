@@ -329,6 +329,30 @@ describe('Tooltip', () => {
     expect(queryByTestId('tooltip')).toBeNull();
   });
 
+  it('should be hidden after Escape pressed', () => {
+    const { getByTestId, queryByTestId } = render(
+      <Tooltip testId="tooltip" content="hello world" hideTooltipOnMouseDown>
+        <button data-testid="trigger">focus me</button>
+      </Tooltip>,
+    );
+
+    const trigger = getByTestId('trigger');
+
+    act(() => {
+      fireEvent.mouseOver(trigger);
+      jest.runAllTimers();
+    });
+
+    expect(getByTestId('tooltip').textContent).toEqual('hello world');
+
+    act(() => {
+      fireEvent.keyDown(trigger, { key: 'Escape' });
+      jest.runAllTimers();
+    });
+
+    expect(queryByTestId('tooltip')).toBeNull();
+  });
+
   it('should render whatever is passed to component prop', () => {
     const CustomTooltip = forwardRef<HTMLDivElement, TooltipPrimitiveProps>(
       ({ style, testId }, ref) => (
@@ -633,6 +657,37 @@ describe('Tooltip', () => {
     expect(getByTestId('tooltip').getAttribute('data-placement')).toEqual(
       'left',
     );
+  });
+
+  it('should stay visible when hover tooltip', () => {
+    const { queryByTestId, getByTestId } = render(
+      <Tooltip testId="tooltip" content="Tooltip">
+        <button data-testid="trigger">click me</button>
+      </Tooltip>,
+    );
+
+    const trigger = getByTestId('trigger');
+
+    // Trigger showing tooltip
+    fireEvent.mouseOver(trigger);
+    act(() => {
+      jest.runAllTimers();
+    });
+    expect(queryByTestId('tooltip')).toBeTruthy();
+
+    // Trigger hiding tooltip
+    fireEvent.mouseOut(trigger);
+    // flush delay
+    act(() => {
+      jest.runOnlyPendingTimers();
+    });
+    // flush motion
+    act(() => {
+      fireEvent.mouseOver(queryByTestId('tooltip')!);
+      jest.runOnlyPendingTimers();
+    });
+
+    expect(queryByTestId('tooltip')).not.toBeNull();
   });
 
   it('should send analytics event when tooltip becomes visible', () => {

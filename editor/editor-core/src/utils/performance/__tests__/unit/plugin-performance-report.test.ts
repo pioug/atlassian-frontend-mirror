@@ -208,7 +208,10 @@ describe('PluginPerformanceReport.prototype.withNodes', () => {
   it('exposes on nodes field', () => {
     const entry = MockPerformanceEntry.default();
     const report = PluginPerformanceReport.fromEntry(entry).withNodes({
-      doc: 1,
+      nodeCount: {
+        doc: 1,
+      },
+      extensionNodeCount: {},
     });
 
     expect(report.toJSON().nodes).toEqual({ doc: 1 });

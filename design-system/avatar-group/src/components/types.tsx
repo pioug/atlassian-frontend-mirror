@@ -5,7 +5,7 @@ import { Interpolation } from '@emotion/styled';
 import { AnalyticsEvent } from '@atlaskit/analytics-next';
 import { AvatarPropTypes } from '@atlaskit/avatar';
 
-import { AvatarGroupItemProps } from './AvatarGroupItem';
+import { AvatarGroupItemProps } from './avatar-group-item';
 
 export type DeepRequired<T> = {
   [P in keyof T]-?: Required<T[P]>;
@@ -13,6 +13,7 @@ export type DeepRequired<T> = {
 
 export type AvatarProps = AvatarPropTypes & {
   name: string;
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   enableTooltip?: boolean;
   key?: string | number;
 };

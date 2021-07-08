@@ -10,21 +10,24 @@ import ArrowDownIcon from '../glyph/arrow-down';
 import ArrowLeftIcon from '../glyph/arrow-left';
 import ArrowRightIcon from '../glyph/arrow-right';
 
-const containerStyles = (isColorFlipped: boolean) => css`
-  align-items: center;
-  background-color: ${isColorFlipped ? 'white' : B500};
-  display: flex;
-  flex-wrap: wrap;
-  height: 100%;
-  justify-content: center;
-  transition: color 0.2s, background-color 0.2s;
-`;
+const backgroundWhite = css({ backgroundColor: 'white' });
+const backgroundBlue = css({ backgroundColor: B500 });
+const colorInherit = css({ backgroundColor: 'inherit' });
+const colorWhite = css({ backgroundColor: 'white' });
 
-const textStyles = (isColorFlipped: boolean) => css`
-  flex-basis: 100%;
-  text-align: center;
-  color: ${isColorFlipped ? 'inherit' : 'white'};
-`;
+const containerStyles = css({
+  display: 'flex',
+  height: '100%',
+  alignItems: 'center',
+  justifyContent: 'center',
+  flexWrap: 'wrap',
+  transition: 'color 0.2s, background-color 0.2s',
+});
+
+const textStyles = css({
+  flexBasis: '100%',
+  textAlign: 'center',
+});
 
 const exampleIcons = [
   [BookIcon, 'BookIcon'],
@@ -38,8 +41,10 @@ export default () => {
   const [isColorFlipped, setIsColorFlipped] = useState(false);
 
   return (
-    <div css={containerStyles(isColorFlipped)}>
-      <p css={textStyles(isColorFlipped)}>
+    <div
+      css={[containerStyles, isColorFlipped ? backgroundWhite : backgroundBlue]}
+    >
+      <p css={[textStyles, isColorFlipped ? colorInherit : colorWhite]}>
         Icon colors can be set via the primaryColor and secondaryColor props.
       </p>
       {exampleIcons.map(([Icon, label]) => (
@@ -51,7 +56,7 @@ export default () => {
           />
         </Tooltip>
       ))}
-      <p css={textStyles(isColorFlipped)}>
+      <p css={[textStyles, isColorFlipped ? colorInherit : colorWhite]}>
         <Button
           appearance="subtle-link"
           onClick={() => setIsColorFlipped((old) => !old)}

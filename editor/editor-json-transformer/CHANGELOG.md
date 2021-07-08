@@ -1,5 +1,11 @@
 # @atlaskit/editor-json-transformer
 
+## 8.6.5
+
+### Patch Changes
+
+- [`55e64e9e8d6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/55e64e9e8d6) - COLLAB-754: remove react peerDependency
+
 ## 8.6.4
 
 ### Patch Changes

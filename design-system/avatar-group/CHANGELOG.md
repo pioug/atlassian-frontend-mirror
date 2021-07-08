@@ -1,5 +1,19 @@
 # @atlaskit/avatar-group
 
+## 8.3.0
+
+### Minor Changes
+
+- [`5ba523fc937`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5ba523fc937) - Now the `AvatarGroup` is marked with ul and li elements. This makes it easier for users with assistive technologies to distinguish `AvatarGroup` ( which is a list of avatars ) among other page components. The default label that the screen reader announces when a user selects the AvatarGroup is `list avatar group x items`. When one of AvatarGroupItems is selected screen reader announcement is `[avatar label], i of n` where `i` - index of a selected item, `n` - the length of the list.
+
+  To change the label of a list you can use `label` props.
+
+### Patch Changes
+
+- [`c056ee44d4b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c056ee44d4b) - Added the design system tech stacks to the package.json and fixed linting errors, disabled some rules to prevent bringing breaking changes
+- [`4121ef822c4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4121ef822c4) - Fixing issue where AvatarGroup list-style-type style would get overridden by product styles.
+- Updated dependencies
+
 ## 8.2.0
 
 ### Minor Changes

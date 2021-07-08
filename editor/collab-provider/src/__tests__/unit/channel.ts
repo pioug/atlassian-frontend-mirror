@@ -97,7 +97,10 @@ describe('channel unit tests', () => {
 
     channel.on('connected', (data: any) => {
       try {
-        expect(data).toEqual({ sid: channel.getSocket()!.id });
+        expect(data).toEqual({
+          sid: channel.getSocket()!.id,
+          initialized: false,
+        });
         expect(channel.getConnected()).toBe(true);
         done();
       } catch (err) {
@@ -114,7 +117,10 @@ describe('channel unit tests', () => {
 
     channel.on('connected', (data: any) => {
       try {
-        expect(data).toEqual({ sid: channel.getSocket()!.id });
+        expect(data).toEqual({
+          sid: channel.getSocket()!.id,
+          initialized: false,
+        });
         expect(channel.getConnected()).toBe(true);
         channel.on('disconnect', (data: any) => {
           try {
@@ -376,7 +382,10 @@ describe('channel unit tests', () => {
         ).toEqual({
           'x-token': 'old-token',
         });
-        expect(data).toEqual({ sid: channel.getSocket()!.id });
+        expect(data).toEqual({
+          sid: channel.getSocket()!.id,
+          initialized: false,
+        });
         expect(channel.getConnected()).toBe(true);
         channel.on('disconnect', (data: any) => {
           try {

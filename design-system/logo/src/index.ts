@@ -16,6 +16,7 @@ export {
   ConfluenceWordmark,
 } from './ConfluenceLogo';
 export type { Props as LogoProps } from './constants';
+export { HalpIcon, HalpLogo, HalpWordmark } from './HalpLogo';
 export { HipchatIcon, HipchatLogo, HipchatWordmark } from './HipchatLogo';
 export { JiraCoreIcon, JiraCoreLogo, JiraCoreWordmark } from './JiraCoreLogo';
 export { JiraIcon, JiraLogo, JiraWordmark } from './JiraLogo';

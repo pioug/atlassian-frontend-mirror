@@ -27,7 +27,7 @@ import Icon from '@atlaskit/icon/base';
 
   ${(
     <Props
-      props={require('!!extract-react-types-loader!../src/components/Icon')}
+      props={require('!!extract-react-types-loader!../src/components/icon')}
     />
   )}
 `;

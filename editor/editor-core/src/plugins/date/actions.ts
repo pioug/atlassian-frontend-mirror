@@ -81,7 +81,7 @@ export const insertDate = (
   inputMethod?: TOOLBAR_MENU_TYPE,
   commitMethod?: INPUT_METHOD.PICKER | INPUT_METHOD.KEYBOARD,
   enterPressed: boolean = true,
-) => (state: EditorState, dispatch: (tr: Transaction) => void): boolean => {
+): Command => (state, dispatch) => {
   const { schema } = state;
   let timestamp: string;
   if (date) {
@@ -136,11 +136,13 @@ export const insertDate = (
         NodeSelection.create(tr.doc, from),
       );
     }
-    dispatch(
-      tr.scrollIntoView().setMeta(pluginKey, {
-        isNew: true,
-      }),
-    );
+    if (dispatch) {
+      dispatch(
+        tr.scrollIntoView().setMeta(pluginKey, {
+          isNew: true,
+        }),
+      );
+    }
     return true;
   }
 
@@ -160,11 +162,13 @@ export const insertDate = (
         timestamp,
       })
       .setMeta(pluginKey, {
-        showDatePickerAt,
         isNew: false,
       })
       .scrollIntoView();
-    dispatch(tr);
+
+    if (dispatch) {
+      dispatch(tr);
+    }
     return true;
   }
 

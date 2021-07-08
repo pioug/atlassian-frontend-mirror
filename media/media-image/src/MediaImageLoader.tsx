@@ -1,6 +1,16 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { WithMediaClientConfigProps } from '@atlaskit/media-client';
-import { MediaImageInternalProps } from './mediaImage';
+import { MediaImageInternalProps, MediaImageState } from './mediaImage';
+
+export interface MediaImageLoaderChildrenProps {
+  loading: boolean;
+  error: boolean;
+  data: MediaImageState | undefined;
+}
+export type MediaImageLoaderProps = MediaImageWithMediaClientConfigProps &
+  AsyncMediaImageState & {
+    children: (props: MediaImageLoaderChildrenProps) => ReactNode;
+  };
 
 export type MediaImageWithMediaClientConfigProps = WithMediaClientConfigProps<
   MediaImageInternalProps
@@ -15,7 +25,7 @@ export interface AsyncMediaImageState {
 }
 
 export class MediaImageLoader extends React.PureComponent<
-  MediaImageWithMediaClientConfigProps & AsyncMediaImageState,
+  MediaImageLoaderProps,
   AsyncMediaImageState
 > {
   static displayName = 'AsyncMediaImage';
@@ -56,7 +66,11 @@ export class MediaImageLoader extends React.PureComponent<
     const { MediaImage } = this.state;
 
     if (!MediaImage) {
-      return null;
+      return this.props.children({
+        loading: true,
+        error: false,
+        data: undefined,
+      });
     }
 
     return <MediaImage {...this.props} />;

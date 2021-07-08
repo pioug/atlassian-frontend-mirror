@@ -74,10 +74,12 @@
             {
               "type": "tableCell",
               "attrs": {},
-              "content": [{
-                "type": "paragraph",
-                "content": []
-              }]
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": []
+                }
+              ]
             }
           ]
         },
@@ -107,10 +109,12 @@
             {
               "type": "tableCell",
               "attrs": {},
-              "content": [{
-                "type": "paragraph",
-                "content": []
-              }]
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": []
+                }
+              ]
             }
           ]
         }

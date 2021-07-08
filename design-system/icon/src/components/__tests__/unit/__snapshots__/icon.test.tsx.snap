@@ -1,0 +1,119 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`@atlaskit/icon Glyph should match snapshot 1`] = `
+.emotion-0 {
+  display: inline-block;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.emotion-0 > svg {
+  overflow: hidden;
+  pointer-events: none;
+  max-width: 100%;
+  max-height: 100%;
+  color: var(--icon-primary-color);
+  fill: var(--icon-secondary-color);
+  vertical-align: bottom;
+}
+
+.emotion-0 > svg stop {
+  stop-color: currentColor;
+}
+
+@media screen and (-ms-high-contrast:white-on-black) {
+  .emotion-0 > svg {
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+    color: #fff;
+    fill: #000;
+  }
+}
+
+@media screen and (-ms-high-contrast:black-on-white) {
+  .emotion-0 > svg {
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+    color: #000;
+    fill: #fff;
+  }
+}
+
+<span
+  aria-label="test-label"
+  class="emotion-0"
+  data-testid="test"
+  role="img"
+  style="--icon-primary-color: currentColor; --icon-secondary-color: #FFFFFF;"
+>
+  <svg
+    height="24"
+    role="presentation"
+    viewBox="0 0 24 24"
+    width="24"
+  >
+    <path
+      d="M13 11V3.993A.997.997 0 0012 3c-.556 0-1 .445-1 .993V11H3.993A.997.997 0 003 12c0 .557.445 1 .993 1H11v7.007c0 .548.448.993 1 .993.556 0 1-.445 1-.993V13h7.007A.997.997 0 0021 12c0-.556-.445-1-.993-1H13z"
+      fill="currentColor"
+      fill-rule="evenodd"
+    />
+  </svg>
+</span>
+`;
+
+exports[`@atlaskit/icon Icon should match the DOM Snapshot 1`] = `
+.emotion-0 {
+  display: inline-block;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.emotion-0 > svg {
+  overflow: hidden;
+  pointer-events: none;
+  max-width: 100%;
+  max-height: 100%;
+  color: var(--icon-primary-color);
+  fill: var(--icon-secondary-color);
+  vertical-align: bottom;
+}
+
+.emotion-0 > svg stop {
+  stop-color: currentColor;
+}
+
+@media screen and (-ms-high-contrast:white-on-black) {
+  .emotion-0 > svg {
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+    color: #fff;
+    fill: #000;
+  }
+}
+
+@media screen and (-ms-high-contrast:black-on-white) {
+  .emotion-0 > svg {
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+    color: #000;
+    fill: #fff;
+  }
+}
+
+<span
+  aria-label="My icon"
+  class="emotion-0"
+  role="img"
+  style="--icon-primary-color: currentColor; --icon-secondary-color: #FFFFFF;"
+>
+  <svg
+    role="presentation"
+  >
+    Icon
+  </svg>
+</span>
+`;

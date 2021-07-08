@@ -1,5 +1,13 @@
 # @atlaskit/emoji
 
+## 63.1.5
+
+### Patch Changes
+
+- [`351177c316c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/351177c316c) - Emoji component: add aria-label attr to the Search Emoji input field
+- [`10932f6ae07`](https://bitbucket.org/atlassian/atlassian-frontend/commits/10932f6ae07) - SPFE-561: Remove the URLSearchParams polyfill
+- Updated dependencies
+
 ## 63.1.4
 
 ### Patch Changes

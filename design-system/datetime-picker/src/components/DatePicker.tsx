@@ -57,6 +57,12 @@ export interface Props extends WithAnalyticsEventsProps {
   defaultValue?: string;
   /** An array of ISO dates that should be disabled on the calendar. */
   disabled?: string[];
+  /** A filter function that takes a date string in the format 'YYYY-MM-DD' and returns true if that date should be disabled. */
+  disabledDateFilter?: (date: string) => boolean;
+  /** The latest enabled date */
+  maxDate?: string;
+  /** The earliest enabled date */
+  minDate?: string;
   /** The icon to show in the field. */
   icon?: IndicatorComponentType<OptionType>;
   /** The id of the field. Currently, react-select transforms this to have a "react-select-" prefix, and an "--input" suffix when applied to the input. For example, the id "my-input" would be transformed to "react-select-my-input--input". Keep this in mind when needing to refer to the ID. This will be fixed in an upcoming release. */
@@ -90,7 +96,7 @@ export interface Props extends WithAnalyticsEventsProps {
   isInvalid?: boolean;
   /** Hides icon for dropdown indicator. */
   hideIcon?: boolean;
-  /** Format the date with a string that is accepted by [date-fns's format function](https://date-fns.org/v1.29.0/docs/format). */
+  /** Format the date with a string that is accepted by [date-fn's format function](https://date-fns.org/v1.29.0/docs/format). */
   dateFormat?: string;
   /** Placeholder text displayed in input */
   placeholder?: string;
@@ -176,6 +182,9 @@ const Menu = ({
           {...getValidDate(selectProps.calendarValue)}
           {...getValidDate(selectProps.calendarView)}
           disabled={selectProps.calendarDisabled}
+          disabledDateFilter={selectProps.calendarDisabledDateFilter}
+          minDate={selectProps.calendarMinDate}
+          maxDate={selectProps.calendarMaxDate}
           onChange={selectProps.onCalendarChange}
           onSelect={selectProps.onCalendarSelect}
           calendarRef={selectProps.calendarRef}
@@ -196,6 +205,7 @@ const datePickerDefaultProps = {
   defaultIsOpen: false,
   defaultValue: '',
   disabled: [] as string[],
+  disabledDateFilter: (_: string) => false,
   hideIcon: false,
   icon: (CalendarIcon as unknown) as React.ComponentType<
     IndicatorProps<OptionType>
@@ -299,7 +309,7 @@ class DatePicker extends React.Component<DatePickerProps, State> {
   };
 
   onInputClick = () => {
-    if (!this.getSafeState().isOpen) {
+    if (!this.props.isDisabled && !this.getSafeState().isOpen) {
       this.setState({ isOpen: true });
     }
   };
@@ -514,6 +524,9 @@ class DatePicker extends React.Component<DatePickerProps, State> {
       id,
       innerProps,
       isDisabled,
+      disabledDateFilter,
+      maxDate,
+      minDate,
       isInvalid,
       name,
       selectProps,
@@ -553,6 +566,9 @@ class DatePicker extends React.Component<DatePickerProps, State> {
       calendarContainerRef: this.containerRef,
       calendarRef: this.refCalendar,
       calendarDisabled: disabled,
+      calendarDisabledDateFilter: disabledDateFilter,
+      calendarMaxDate: maxDate,
+      calendarMinDate: minDate,
       calendarValue: value && format(parse(value), 'YYYY-MM-DD'),
       calendarView: view,
       onCalendarChange: this.onCalendarChange,

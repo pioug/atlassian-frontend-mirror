@@ -72,9 +72,7 @@
                     {
                       "type": "tableHeader",
                       "attrs": {
-                        "colwidth": [
-                          336
-                        ]
+                        "colwidth": [336]
                       },
                       "content": [
                         {
@@ -86,9 +84,7 @@
                     {
                       "type": "tableHeader",
                       "attrs": {
-                        "colwidth": [
-                          48
-                        ]
+                        "colwidth": [48]
                       },
                       "content": [
                         {
@@ -100,9 +96,7 @@
                     {
                       "type": "tableHeader",
                       "attrs": {
-                        "colwidth": [
-                          48
-                        ]
+                        "colwidth": [48]
                       },
                       "content": [
                         {
@@ -119,9 +113,7 @@
                     {
                       "type": "tableCell",
                       "attrs": {
-                        "colwidth": [
-                          336
-                        ]
+                        "colwidth": [336]
                       },
                       "content": [
                         {
@@ -133,9 +125,7 @@
                     {
                       "type": "tableCell",
                       "attrs": {
-                        "colwidth": [
-                          48
-                        ]
+                        "colwidth": [48]
                       },
                       "content": [
                         {
@@ -147,9 +137,7 @@
                     {
                       "type": "tableCell",
                       "attrs": {
-                        "colwidth": [
-                          48
-                        ]
+                        "colwidth": [48]
                       },
                       "content": [
                         {
@@ -166,9 +154,7 @@
                     {
                       "type": "tableCell",
                       "attrs": {
-                        "colwidth": [
-                          336
-                        ]
+                        "colwidth": [336]
                       },
                       "content": [
                         {
@@ -180,9 +166,7 @@
                     {
                       "type": "tableCell",
                       "attrs": {
-                        "colwidth": [
-                          48
-                        ]
+                        "colwidth": [48]
                       },
                       "content": [
                         {
@@ -194,9 +178,7 @@
                     {
                       "type": "tableCell",
                       "attrs": {
-                        "colwidth": [
-                          48
-                        ]
+                        "colwidth": [48]
                       },
                       "content": [
                         {
@@ -230,9 +212,7 @@
             {
               "type": "tableHeader",
               "attrs": {
-                "colwidth": [
-                  1051
-                ]
+                "colwidth": [1051]
               },
               "content": [
                 {
@@ -244,9 +224,7 @@
             {
               "type": "tableHeader",
               "attrs": {
-                "colwidth": [
-                  48
-                ]
+                "colwidth": [48]
               },
               "content": [
                 {
@@ -258,9 +236,7 @@
             {
               "type": "tableHeader",
               "attrs": {
-                "colwidth": [
-                  48
-                ]
+                "colwidth": [48]
               },
               "content": [
                 {
@@ -277,9 +253,7 @@
             {
               "type": "tableCell",
               "attrs": {
-                "colwidth": [
-                  1051
-                ]
+                "colwidth": [1051]
               },
               "content": [
                 {
@@ -291,9 +265,7 @@
             {
               "type": "tableCell",
               "attrs": {
-                "colwidth": [
-                  48
-                ]
+                "colwidth": [48]
               },
               "content": [
                 {
@@ -305,9 +277,7 @@
             {
               "type": "tableCell",
               "attrs": {
-                "colwidth": [
-                  48
-                ]
+                "colwidth": [48]
               },
               "content": [
                 {
@@ -324,9 +294,7 @@
             {
               "type": "tableCell",
               "attrs": {
-                "colwidth": [
-                  1051
-                ]
+                "colwidth": [1051]
               },
               "content": [
                 {
@@ -338,9 +306,7 @@
             {
               "type": "tableCell",
               "attrs": {
-                "colwidth": [
-                  48
-                ]
+                "colwidth": [48]
               },
               "content": [
                 {
@@ -352,9 +318,7 @@
             {
               "type": "tableCell",
               "attrs": {
-                "colwidth": [
-                  48
-                ]
+                "colwidth": [48]
               },
               "content": [
                 {

@@ -1,34 +1,31 @@
 import {
   FileState,
   FileDetails,
-  getMediaTypeFromMimeType,
+  isErrorFileState,
 } from '@atlaskit/media-client';
 
-export const extendMetadata = (
-  state: FileState,
-  metadata?: FileDetails,
-): FileDetails => {
-  const { id } = state;
-  const currentMediaType = metadata && metadata.mediaType;
-  if (state.status !== 'error') {
-    return {
-      id,
-      name: state.name,
-      size: state.size,
-      mimeType: state.mimeType,
-      createdAt: state.createdAt,
-      // We preserve the initial mediaType
-      // in case file subscription returns 'unknown' we try to deduce it from mimeType
-      mediaType:
-        currentMediaType && currentMediaType !== 'unknown'
-          ? currentMediaType
-          : state.mimeType
-          ? getMediaTypeFromMimeType(state.mimeType)
-          : 'unknown',
-    };
-  } else {
-    return {
-      id,
-    };
+const getProcessingStatusFromFileState = (status: FileState['status']) => {
+  switch (status) {
+    case 'processed':
+      return 'succeeded';
+    case 'processing':
+      return 'running';
+    case 'failed-processing':
+      return 'failed';
   }
 };
+
+export const getFileDetails = (state: FileState): FileDetails =>
+  !isErrorFileState(state)
+    ? {
+        id: state.id,
+        name: state.name,
+        size: state.size,
+        mimeType: state.mimeType,
+        createdAt: state.createdAt,
+        mediaType: state.mediaType,
+        processingStatus: getProcessingStatusFromFileState(state.status),
+      }
+    : {
+        id: state.id,
+      };

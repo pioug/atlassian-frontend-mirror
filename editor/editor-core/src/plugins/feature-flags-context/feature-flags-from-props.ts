@@ -109,5 +109,15 @@ export function createFeatureFlagsFromProps(props: EditorProps): FeatureFlags {
         ? !!props.featureFlags?.showAvatarGroupAsPlugin
         : false,
     ),
+    errorBoundaryDocStructure: Boolean(
+      typeof props.featureFlags?.useErrorBoundaryDocStructure === 'boolean'
+        ? !!props.featureFlags?.useErrorBoundaryDocStructure
+        : false,
+    ),
+    synchronyErrorDocStructure: Boolean(
+      typeof props.featureFlags?.synchronyErrorDocStructure === 'boolean'
+        ? !!props.featureFlags?.synchronyErrorDocStructure
+        : false,
+    ),
   };
 }

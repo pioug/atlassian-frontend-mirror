@@ -11,7 +11,10 @@ import {
   waitForDatePicker,
   waitForNoDatePicker,
 } from '../../../../__tests__/__helpers/page-objects/_date';
-import { pressKey } from '../../../../__tests__/__helpers/page-objects/_keyboard';
+import {
+  pressKey,
+  pressKeyCombo,
+} from '../../../../__tests__/__helpers/page-objects/_keyboard';
 import {
   animationFrame,
   typeInEditorAtEndOfDocument,
@@ -234,6 +237,42 @@ describe('Date:', () => {
       await typeInEditorAtEndOfDocument(page, 'world!');
 
       // Text is all that remains
+      await snapshot(page);
+    });
+
+    it('should dismiss the date picker when deleting the date', async () => {
+      await initEditor(page, defaultViewPort, 'light');
+
+      await typeInEditorAtEndOfDocument(page, '//');
+      await waitForTypeAheadMenu(page);
+      await pressKey(page, 'Enter');
+
+      await waitForDatePicker(page);
+      await pressKey(page, 'Enter');
+      await waitForNoDatePicker(page);
+      await clickOnDate(page);
+      await waitForDatePicker(page);
+
+      await pressKey(page, 'Backspace');
+
+      await snapshot(page);
+    });
+
+    it('should dismiss the date picker when cutting a date', async () => {
+      await initEditor(page, defaultViewPort, 'light');
+
+      await typeInEditorAtEndOfDocument(page, '//');
+      await waitForTypeAheadMenu(page);
+      await pressKey(page, 'Enter');
+
+      await waitForDatePicker(page);
+      await pressKey(page, 'Enter');
+      await waitForNoDatePicker(page);
+      await clickOnDate(page);
+      await waitForDatePicker(page);
+
+      await pressKeyCombo(page, ['Control', 'KeyX']);
+
       await snapshot(page);
     });
   });

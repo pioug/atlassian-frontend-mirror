@@ -27,8 +27,8 @@ export const linkToolbarMessages = defineMessages({
   },
   placeholder: {
     id: 'fabric.editor.hyperlinkToolbarPlaceholder',
-    defaultMessage: 'Paste link or search recently viewed',
-    description: 'Paste link or search recently viewed',
+    defaultMessage: 'Paste or search for link',
+    description: 'Paste or search for link',
   },
   linkPlaceholder: {
     id: 'fabric.editor.linkPlaceholder',

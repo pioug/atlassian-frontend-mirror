@@ -141,6 +141,7 @@ export default class InteractiveLogo extends Component<Props, State> {
         {sizeRange(logos.BitbucketLogo, colorPreset, sizePreset, useProps)}
         {sizeRange(logos.CompassLogo, colorPreset, sizePreset, useProps)}
         {sizeRange(logos.ConfluenceLogo, colorPreset, sizePreset, useProps)}
+        {sizeRange(logos.HalpLogo, colorPreset, sizePreset, useProps)}
         {sizeRange(logos.JiraLogo, colorPreset, sizePreset, useProps)}
         {sizeRange(
           logos.JiraServiceManagementLogo,

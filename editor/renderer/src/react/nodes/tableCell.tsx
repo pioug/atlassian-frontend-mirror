@@ -15,6 +15,7 @@ type CellProps = CellAttributes & {
   className?: string;
   colGroupWidth?: string;
   offsetTop?: number;
+  ariaSort?: string;
 };
 const IgnoreSorting = ['LABEL', 'INPUT'];
 
@@ -38,6 +39,19 @@ const nextStatusOrder = (currentSortOrder?: SortOrder): SortOrder => {
   }
 
   return SortOrder.NO_ORDER;
+};
+
+const getSortOrderLabel = (currentSortOrder?: SortOrder): string => {
+  switch (currentSortOrder) {
+    case SortOrder.NO_ORDER:
+      return 'none';
+    case SortOrder.ASC:
+      return 'ascending';
+    case SortOrder.DESC:
+      return 'descending';
+    default:
+      return 'none';
+  }
 };
 
 const getDataAttributes = (colwidth?: number[]): any => {
@@ -84,6 +98,7 @@ const withCellProps = (WrapperComponent: React.ElementType) => {
         colspan,
         background,
         offsetTop,
+        ariaSort,
       } = this.props;
 
       const colorName = background
@@ -99,6 +114,7 @@ const withCellProps = (WrapperComponent: React.ElementType) => {
           onClick={onClick}
           className={className}
           {...getDataAttributes(colwidth)}
+          aria-sort={ariaSort}
         >
           {children}
         </WrapperComponent>
@@ -142,11 +158,19 @@ export const withSortableColumn = (WrapperComponent: React.ElementType) => {
         <WrapperComponent
           {...this.props}
           className={className}
-          onClick={this.onClick}
+          ariaSort={getSortOrderLabel(sortOrdered)}
         >
-          <>
+          <div
+            className={RendererCssClassName.SORTABLE_COLUMN_BUTTON}
+            role="button"
+            tabIndex={onSorting ? 0 : -1}
+            onClick={this.onClick}
+            onKeyDown={this.onKeyPress}
+            aria-disabled={!onSorting}
+          >
             {children}
             <figure
+              aria-hidden
               className={`${RendererCssClassName.SORTABLE_COLUMN_ICON} ${sortOrderedClassName}`}
             >
               <SortingIcon
@@ -154,12 +178,22 @@ export const withSortableColumn = (WrapperComponent: React.ElementType) => {
                 sortOrdered={sortOrdered}
               />
             </figure>
-          </>
+          </div>
         </WrapperComponent>
       );
     }
 
-    onClick = (event: React.MouseEvent<HTMLElement>) => {
+    onKeyPress = (event: React.KeyboardEvent<HTMLElement>) => {
+      const keys = [' ', 'Enter', 'Spacebar'];
+      if (keys.includes(event.key)) {
+        event.preventDefault();
+        this.onClick(event);
+      }
+    };
+
+    onClick = (
+      event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>,
+    ) => {
       // ignore sorting when specific elements are clicked
       const { tagName } = event.target as HTMLElement;
       if (IgnoreSorting.includes(tagName)) {

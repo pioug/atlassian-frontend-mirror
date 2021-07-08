@@ -43,6 +43,8 @@ const dispatchLongTaskEvent = (
 ) => {
   const { state } = view;
 
+  const nodesCount = allowCountNodes ? countNodes(view.state) : {};
+
   return dispatchAnalyticsEvent({
     action: ACTION.BROWSER_FREEZE,
     actionSubject: ACTION_SUBJECT.EDITOR,
@@ -50,7 +52,7 @@ const dispatchLongTaskEvent = (
       objectId: getContextIdentifier(state)?.objectId,
       freezeTime: time,
       nodeSize: state.doc.nodeSize,
-      nodeCount: allowCountNodes ? countNodes(view.state) : undefined,
+      ...nodesCount,
       participants: getParticipantsCount(view.state),
       interactionType,
       severity,
@@ -113,6 +115,9 @@ export default (
               const diff = getTimeSince(now);
 
               if (samplingRate && ++keystrokeCount === samplingRate) {
+                const nodesCount = allowCountNodes
+                  ? countNodes(view.state)
+                  : {};
                 keystrokeCount = 0;
 
                 const payload: AnalyticsEventPayload = {
@@ -121,9 +126,7 @@ export default (
                   attributes: {
                     time: diff,
                     nodeSize: state.doc.nodeSize,
-                    nodeCount: allowCountNodes
-                      ? countNodes(view.state)
-                      : undefined,
+                    ...nodesCount,
                     participants: getParticipantsCount(state),
                     objectId: getContextIdentifier(state)?.objectId,
                   },
@@ -142,15 +145,17 @@ export default (
               }
 
               if (diff > slowThreshold) {
+                const nodesCount = allowCountNodes
+                  ? countNodes(view.state)
+                  : {};
+
                 dispatchAnalyticsEvent({
                   action: ACTION.SLOW_INPUT,
                   actionSubject: ACTION_SUBJECT.EDITOR,
                   attributes: {
                     time: diff,
                     nodeSize: state.doc.nodeSize,
-                    nodeCount: allowCountNodes
-                      ? countNodes(view.state)
-                      : undefined,
+                    ...nodesCount,
                     participants: getParticipantsCount(state),
                     objectId: getContextIdentifier(state)?.objectId,
                   },

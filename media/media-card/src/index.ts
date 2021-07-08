@@ -4,6 +4,7 @@ import {
   MediaClient,
   Identifier,
   ImageResizeMode,
+  FileState,
 } from '@atlaskit/media-client';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import {
@@ -83,7 +84,7 @@ export interface CardState {
   isCardVisible: boolean;
   isPlayingFile: boolean;
   mediaViewerSelectedItem?: Identifier;
-  metadata?: FileDetails;
+  fileState?: FileState;
   progress?: number;
   cardPreview?: CardPreview;
   error?: MediaCardError;

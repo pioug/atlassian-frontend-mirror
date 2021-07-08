@@ -9,6 +9,7 @@ type ConfirmationDialogProps = {
   onConfirm: () => void;
   onClose: () => void;
   options?: ConfirmDialogOptions;
+  testId?: string;
 };
 
 const ConfirmationModalImpl = (
@@ -19,6 +20,7 @@ const ConfirmationModalImpl = (
     onClose,
     options,
     intl: { formatMessage },
+    testId,
   } = props;
 
   const heading =
@@ -33,11 +35,13 @@ const ConfirmationModalImpl = (
       text: cancelButtonLabel,
       appearance: 'default',
       onClick: onClose,
+      testId: testId ? `${testId}-cancel-button` : undefined,
     },
     {
       text: okButtonLabel,
       appearance: 'warning',
       onClick: onConfirm,
+      testId: testId ? `${testId}-confirm-button` : undefined,
     },
   ];
 
@@ -49,6 +53,7 @@ const ConfirmationModalImpl = (
           onClose={onClose}
           heading={heading}
           appearance="warning"
+          testId={testId}
         >
           <p>{options.message}</p>
         </Modal>

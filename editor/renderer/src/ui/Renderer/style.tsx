@@ -31,6 +31,7 @@ import {
   richMediaClassName,
   tasksAndDecisionsStyles,
   smartCardSharedStyles,
+  tableCellPadding,
 } from '@atlaskit/editor-common';
 import {
   editorFontSize,
@@ -224,11 +225,42 @@ const tableSortableColumnStyle = ({
   }
   return `
     .${RendererCssClassName.SORTABLE_COLUMN} {
-      cursor: pointer;
+      padding: 0;
 
-      ${headingsCss}
+      .${RendererCssClassName.SORTABLE_COLUMN_BUTTON} {
+        width: 100%;
+        height: 100%;
+        cursor: pointer;
+        padding: ${tableCellPadding}px;
+        border-width: 1.5px;
+        border-style: solid;
+        border-color: transparent;
 
-      &.${RendererCssClassName.SORTABLE_COLUMN_NOT_ALLOWED} {
+        > *:first-child {
+          margin-top: 0;
+        }
+
+        > .ProseMirror-gapcursor.-right:first-child + * {
+          margin-top: 0;
+        }
+
+        > .ProseMirror-gapcursor:first-child + span + * {
+          margin-top: 0;
+        }
+
+        @supports selector(:focus-visible) {
+          &:focus {
+            outline: unset;
+          }
+          &:focus-visible {
+            border-color: ${colors.B300};
+          }
+        }
+
+        ${headingsCss}
+      }
+
+      &.${RendererCssClassName.SORTABLE_COLUMN_NOT_ALLOWED} .${RendererCssClassName.SORTABLE_COLUMN_BUTTON} {
         cursor: default;
       }
 
@@ -456,15 +488,25 @@ export const Wrapper = styled.div<RendererWrapperProps & HTMLAttributes<{}>>`
       z-index: ${akEditorStickyHeaderZIndex};
     }
 
+    /**
+     * A hack for making all the <th /> heights equal in case some have shorter
+     * content than others.
+     *
+     * This is done to make sort buttons fill entire <th />.
+     */
     table {
+      height: 1px; /* will be ignored */
       ${tableSortableColumnStyle};
       margin-left: 0;
       margin-right: 0;
     }
 
-    table tr:first-child td,
-    table tr:first-child th {
-      position: relative;
+    table tr:first-child {
+      height: 100%;
+
+      td, th {
+        position: relative;
+      }
     }
 
     table[data-number-column='true'] {

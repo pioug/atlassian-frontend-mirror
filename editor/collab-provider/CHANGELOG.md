@@ -1,5 +1,12 @@
 # @atlaskit/collab-provider
 
+## 6.4.2
+
+### Patch Changes
+
+- [`ae910a43cf9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ae910a43cf9) - COLLAB-537: fix reconnect fail to trigger
+- Updated dependencies
+
 ## 6.4.1
 
 ### Patch Changes

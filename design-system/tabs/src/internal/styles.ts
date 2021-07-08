@@ -19,7 +19,7 @@ const underlineHeight = '2px';
 const highContrastFocusRing = {
   '@media screen and (forced-colors: active), screen and (-ms-high-contrast: active)': {
     '&:focus': {
-      boxShadow: `0 0 0 2px currentColor inset !important`,
+      outline: '1px solid',
     },
   },
 };

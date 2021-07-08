@@ -15,6 +15,8 @@ export interface AnalyticsErrorBoundaryProps extends WithAnalyticsEventsProps {
   children: ReactNode;
   channel: string;
   data: {};
+  ErrorComponent?: React.ComponentType;
+  onError?: (error: Error, info?: AnalyticsErrorBoundaryErrorInfo) => void;
 }
 
 type AnalyticsErrorBoundaryPayload = {
@@ -23,11 +25,20 @@ type AnalyticsErrorBoundaryPayload = {
   [key: string]: any;
 };
 
+type AnalyticsErrorBoundaryState = {
+  hasError: boolean;
+};
+
 // eslint-disable-next-line @repo/internal/react/no-class-components
 export class BaseAnalyticsErrorBoundary extends Component<
   AnalyticsErrorBoundaryProps,
-  {}
+  AnalyticsErrorBoundaryState
 > {
+  constructor(props: AnalyticsErrorBoundaryProps) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
   fireAnalytics = (analyticsErrorPayload: AnalyticsErrorBoundaryPayload) => {
     const { createAnalyticsEvent, channel, data } = this.props;
 
@@ -49,16 +60,29 @@ export class BaseAnalyticsErrorBoundary extends Component<
     error: Error,
     info?: AnalyticsErrorBoundaryErrorInfo,
   ): void {
+    const { onError } = this.props;
     const payload: AnalyticsErrorBoundaryPayload = {
       error,
       info,
     };
 
     this.fireAnalytics(payload);
+    onError && onError(error, info);
+    this.setState({ hasError: true });
   }
 
   render() {
-    const { data, children } = this.props;
+    const { data, children, ErrorComponent } = this.props;
+    const { hasError } = this.state;
+
+    if (hasError && ErrorComponent) {
+      return (
+        <AnalyticsContext data={data}>
+          <ErrorComponent />
+        </AnalyticsContext>
+      );
+    }
+
     return <AnalyticsContext data={data}>{children}</AnalyticsContext>;
   }
 }

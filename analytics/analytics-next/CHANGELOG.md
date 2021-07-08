@@ -1,5 +1,11 @@
 # @atlaskit/analytics-next
 
+## 8.2.0
+
+### Minor Changes
+
+- [`0dbf0427287`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0dbf0427287) - [ux] Added new optional props to allow executing on catching error and rendering an error screen on error
+
 ## 8.1.4
 
 ### Patch Changes

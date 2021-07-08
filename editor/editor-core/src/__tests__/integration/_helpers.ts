@@ -80,8 +80,7 @@ export const editable = selectors.editor;
 export const LONG_WAIT_FOR = 5000;
 export const typeAheadPicker = '.fabric-editor-typeahead';
 export const lozenge = '[data-mention-id="0"]';
-export const linkToolbar =
-  '[placeholder="Paste link or search recently viewed"]';
+export const linkToolbar = '[placeholder="Paste or search for link"]';
 export const linkUrlSelector = '[data-testid="link-url"]';
 export const linkLabelSelector = '[data-testid="link-label"]';
 export const linkRecentList = '.recent-list';
@@ -103,9 +102,20 @@ export const gotoEditor = async (browser: any) => {
   await browser.waitForSelector(editable);
 };
 
+/** Empty title and url fields of link toolbar */
 export const manuallyEmptyLinkToolbar = async (page: WebDriverPage) => {
   await page.emptyTextFieldByBackspacing(linkLabelSelector);
   await page.emptyTextFieldByBackspacing(linkUrlSelector);
+};
+
+/** Empty url field of link toolbar */
+export const clearLinkToolbarUrl = async (page: WebDriverPage) => {
+  await page.emptyTextFieldByBackspacing(linkUrlSelector);
+};
+
+/** Empty title field of link toolbar */
+export const clearLinkToolbarTitle = async (page: WebDriverPage) => {
+  await page.emptyTextFieldByBackspacing(linkLabelSelector);
 };
 
 export const insertMentionUsingClick = async (

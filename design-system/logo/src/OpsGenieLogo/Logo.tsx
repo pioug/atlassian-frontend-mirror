@@ -59,7 +59,7 @@ export class OpsGenieLogo extends Component<Props> {
 }
 
 export class OpsgenieLogo extends Component<Props> {
-  static defaultProps = DefaultProps;
+  static defaultProps = { ...DefaultProps, label: 'Opsgenie' };
 
   render() {
     return <Wrapper {...this.props} svg={svg} />;

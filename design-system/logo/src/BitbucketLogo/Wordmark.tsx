@@ -12,7 +12,7 @@ const svg = `<canvas height="32" width="105" aria-hidden="true"></canvas>
 </svg>`;
 
 export class BitbucketWordmark extends Component<Props> {
-  static defaultProps = DefaultProps;
+  static defaultProps = { ...DefaultProps, label: 'Bitbucket' };
 
   render() {
     return <Wrapper {...this.props} svg={svg} />;

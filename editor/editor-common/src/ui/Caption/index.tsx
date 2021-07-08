@@ -25,6 +25,9 @@ type Props = {
   selected?: boolean;
   hasContent?: boolean;
   children?: React.ReactNode;
+  dataAttributes?: {
+    'data-renderer-start-pos': number;
+  };
 };
 
 export class CaptionComponent extends React.Component<
@@ -35,13 +38,14 @@ export class CaptionComponent extends React.Component<
       selected,
       hasContent,
       children,
+      dataAttributes,
       intl: { formatMessage },
     } = this.props;
 
     const showPlaceholder = !selected && !hasContent;
 
     return (
-      <CaptionWrapper data-testid="media-caption">
+      <CaptionWrapper data-testid="media-caption" {...dataAttributes}>
         {showPlaceholder ? (
           <Placeholder>{formatMessage(messages.placeholder)}</Placeholder>
         ) : null}

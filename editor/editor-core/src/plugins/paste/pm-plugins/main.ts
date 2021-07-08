@@ -254,21 +254,34 @@ export function createPlugin(
             slice.openEnd,
           );
 
-          // run macro autoconvert prior to other conversions
-          if (
-            markdownSlice &&
-            handleMacroAutoConvert(
-              text,
-              markdownSlice,
-              cardOptions,
-              extensionAutoConverter,
-            )(state, dispatch, view)
-          ) {
-            // TODO: handleMacroAutoConvert dispatch twice, so we can't use the helper
-            sendPasteAnalyticsEvent(view, event, markdownSlice, {
-              type: PasteTypes.markdown,
-            });
-            return true;
+          if (markdownSlice) {
+            // linkify text prior to converting to macro
+            if (
+              handlePasteLinkOnSelectedTextWithAnalytics(
+                view,
+                event,
+                markdownSlice,
+                PasteTypes.markdown,
+              )(state, dispatch)
+            ) {
+              return true;
+            }
+
+            // run macro autoconvert prior to other conversions
+            if (
+              handleMacroAutoConvert(
+                text,
+                markdownSlice,
+                cardOptions,
+                extensionAutoConverter,
+              )(state, dispatch, view)
+            ) {
+              // TODO: handleMacroAutoConvert dispatch twice, so we can't use the helper
+              sendPasteAnalyticsEvent(view, event, markdownSlice, {
+                type: PasteTypes.markdown,
+              });
+              return true;
+            }
           }
         }
 
@@ -327,16 +340,6 @@ export function createPlugin(
             return true;
           }
 
-          if (
-            handlePasteLinkOnSelectedTextWithAnalytics(
-              view,
-              event,
-              markdownSlice,
-            )(state, dispatch)
-          ) {
-            return true;
-          }
-
           return handleMarkdownWithAnalytics(
             view,
             event,
@@ -348,6 +351,18 @@ export function createPlugin(
         if (isRichText) {
           // linkify the text where possible
           slice = linkifyContent(state.schema)(slice);
+
+          if (
+            handlePasteLinkOnSelectedTextWithAnalytics(
+              view,
+              event,
+              slice,
+              PasteTypes.richText,
+            )(state, dispatch)
+          ) {
+            return true;
+          }
+
           // run macro autoconvert prior to other conversions
           if (
             handleMacroAutoConvert(

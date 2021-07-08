@@ -1,8 +1,7 @@
+import useControlled from '@atlaskit/ds-lib/use-controlled';
 import useLazyRef from '@atlaskit/ds-lib/use-lazy-ref';
 
 import pad from '../utils/pad';
-
-import useControlled from './use-controlled';
 
 export default function useControlledDateState({
   day,
@@ -12,8 +11,6 @@ export default function useControlledDateState({
   year,
   defaultYear,
   today,
-  disabled,
-  defaultDisabled,
   selected,
   defaultSelected,
   previouslySelected,
@@ -26,8 +23,6 @@ export default function useControlledDateState({
   year?: number;
   defaultYear: number;
   today?: string;
-  disabled?: Array<string>;
-  defaultDisabled: Array<string>;
   selected?: Array<string>;
   defaultSelected: Array<string>;
   previouslySelected?: Array<string>;
@@ -68,7 +63,6 @@ export default function useControlledDateState({
     () => today || `${thisYear}-${pad(thisMonth)}-${pad(thisDay)}`,
   );
 
-  const [disabledValue] = useControlled(disabled, () => defaultDisabled);
   const [selectedValue, setSelectedValue] = useControlled(
     selected,
     () => defaultSelected,
@@ -84,7 +78,6 @@ export default function useControlledDateState({
     month: [monthValue, setMonthValue],
     year: [yearValue, setYearValue],
     today: [todayValue],
-    disabled: [disabledValue],
     selected: [selectedValue, setSelectedValue],
     previous: [previouslySelectedValue, setPreviouslySelectedValue],
   } as const;

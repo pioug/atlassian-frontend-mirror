@@ -2,6 +2,7 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import FileIcon from '@atlaskit/icon/glyph/file';
 import WarningIcon from '@atlaskit/icon/glyph/editor/warning';
+import SpinnerIcon from '@atlaskit/spinner';
 
 import { CardLoading } from '../../lightCards/cardLoading';
 import { CardError } from '../../lightCards/cardError';
@@ -9,6 +10,14 @@ import { getDimensionsWithDefault } from '../../lightCards/getDimensionsWithDefa
 import { ErrorIcon } from '../../../../src/utils/errorIcon';
 
 describe('<CardLoading />', () => {
+  it('should render spinner when newCardExperience feature flag in on', () => {
+    const fileLoading = shallow(
+      <CardLoading featureFlags={{ newCardExperience: true }} />,
+    );
+
+    expect(fileLoading.find(SpinnerIcon)).toHaveLength(1);
+  });
+
   it('should render the right icon based on the itemType', () => {
     const fileLoading = shallow(<CardLoading />);
 

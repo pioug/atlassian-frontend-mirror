@@ -6,6 +6,7 @@ import {
   updateStatusWithAnalytics,
   insertDate,
   dateToDateType,
+  openDatePicker,
 } from '@atlaskit/editor-core';
 import { DocBuilder, doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 import { createProsemirrorEditorFactory } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
@@ -54,6 +55,7 @@ jest.mock('@atlaskit/editor-core', () => ({
   },
   updateStatusWithAnalytics: jest.fn(() => () => {}),
   insertDate: jest.fn(() => () => {}),
+  openDatePicker: jest.fn(() => () => {}),
 }));
 jest.mock('@atlaskit/editor-common', () => ({
   ...jest.requireActual<Object>('@atlaskit/editor-common'),
@@ -675,5 +677,6 @@ describe('insert node', () => {
     const dateType = dateToDateType(new Date());
 
     expect(insertDate).toBeCalledWith(dateType, 'toolbar', 'picker');
+    expect(openDatePicker).toBeCalled();
   });
 });

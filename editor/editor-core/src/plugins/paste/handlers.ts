@@ -153,7 +153,9 @@ export function handlePasteLinkOnSelectedText(slice: Slice): Command {
         isText(paragraph.content.child(0), schema)
       ) {
         const text = paragraph.content.child(0);
-        linkMark = text.marks.find((mark) => isLinkMark(mark, schema));
+        linkMark = text.marks.find(
+          (mark) => isLinkMark(mark, schema) && mark.attrs.href === text.text,
+        );
       }
     }
 

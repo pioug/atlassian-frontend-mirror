@@ -64,6 +64,7 @@ export type ErrorPayload = {
 export type ChannelEvent = {
   connected: {
     sid: string;
+    initialized: boolean;
   };
   init: InitPayload;
   reconnected: null;
@@ -106,10 +107,10 @@ export class Channel extends Emitter<ChannelEvent> {
       `${url}/session/${documentAri}`,
       this.config.permissionToken?.initializationToken,
     );
+    // Due to https://github.com/socketio/socket.io-client/issues/1473,
+    // reconnect no longer fired on the socket.
+    // We should use `connect` for better cross platform compatibility(Mobile/Web).
     this.socket.on('connect', this.onConnect);
-    this.socket.on('reconnect', () => {
-      this.emit('reconnected', null);
-    });
     this.socket.on('data', this.onReceiveData);
     this.socket.on('steps:added', (data: StepsPayload) => {
       this.emit('steps:added', data);
@@ -179,7 +180,10 @@ export class Channel extends Emitter<ChannelEvent> {
     this.connected = true;
     logger('Connected.', this.socket!.id);
 
-    this.emit('connected', { sid: this.socket!.id });
+    this.emit('connected', {
+      sid: this.socket!.id,
+      initialized: this.initialized,
+    });
   };
 
   private onReceiveData = (data: any) => {

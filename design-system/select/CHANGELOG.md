@@ -1,5 +1,16 @@
 # @atlaskit/select
 
+## 15.0.0
+
+### Major Changes
+
+- [`8c9055949d4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8c9055949d4) - [ux] Options and Placeholders are now easier to see for users with low vision. We have also improved the experience in Windows High Contrast Mode.
+
+### Patch Changes
+
+- [`d5a9d28e06a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d5a9d28e06a) - Removed animated functionality as the exit animation on multi-values isn’t working well in `react-select`
+- Updated dependencies
+
 ## 14.1.0
 
 ### Minor Changes

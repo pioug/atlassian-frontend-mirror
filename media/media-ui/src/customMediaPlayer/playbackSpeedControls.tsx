@@ -7,7 +7,7 @@ import {
   ValueType,
   GroupedOptionsType,
 } from '@atlaskit/select';
-import { N600, N900 } from '@atlaskit/theme/colors';
+import { B200, N900, N0, N600 } from '@atlaskit/theme/colors';
 import { NumericalCardDimensions } from '@atlaskit/media-common';
 import { FormattedMessage, InjectedIntlProps, injectIntl } from 'react-intl';
 import Tooltip from '@atlaskit/tooltip';
@@ -57,6 +57,14 @@ export class PlaybackSpeedControls extends Component<
 
   private popupCustomStyles: StylesConfig = {
     container: (styles) => ({ ...styles, backgroundColor: N900 }),
+    // added these overrides to keep the look of the current design
+    // however this does not benefit from the DS a11y changes
+    menuList: (styles) => ({ ...styles, padding: '4px 0px' }),
+    option: (styles, { isFocused, isSelected }) => ({
+      ...styles,
+      color: isSelected ? N0 : 'inherit',
+      backgroundColor: isSelected ? B200 : isFocused ? N600 : N900,
+    }),
   };
 
   private onResize = (width: number) => {

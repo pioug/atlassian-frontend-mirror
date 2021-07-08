@@ -1,6 +1,30 @@
 import { createFeatureFlagsFromProps } from '../../feature-flags-from-props';
 
 describe('Feature Flags from Props', () => {
+  describe('errorBoundaryDocStructure', () => {
+    it('should default errorBoundaryDocStructure to false if no FF is passed', () => {
+      const flags = createFeatureFlagsFromProps({});
+      expect(flags.errorBoundaryDocStructure).toBe(false);
+    });
+
+    it('should default errorBoundaryDocStructure to true if FF is passed to true', () => {
+      const flags = createFeatureFlagsFromProps({
+        featureFlags: {
+          useErrorBoundaryDocStructure: true,
+        },
+      });
+      expect(flags.errorBoundaryDocStructure).toBe(true);
+    });
+
+    it('should default errorBoundaryDocStructure to false if FF is passed to false', () => {
+      const flags = createFeatureFlagsFromProps({
+        featureFlags: {
+          useErrorBoundaryDocStructure: false,
+        },
+      });
+      expect(flags.errorBoundaryDocStructure).toBe(false);
+    });
+  });
   describe('interactiveExpand', () => {
     it('should default interactiveExpand to true if allowExpand is true', () => {
       const flags = createFeatureFlagsFromProps({ allowExpand: true });
@@ -220,6 +244,22 @@ describe('Feature Flags from Props', () => {
           },
         }),
       ).toEqual(createFeatureFlagsFromProps({}));
+    });
+  });
+
+  describe('synchronyErrorDocStructure', () => {
+    it('should add the FF value', () => {
+      expect(
+        createFeatureFlagsFromProps({
+          featureFlags: {
+            synchronyErrorDocStructure: true,
+          },
+        }),
+      ).toEqual(
+        expect.objectContaining({
+          synchronyErrorDocStructure: true,
+        }),
+      );
     });
   });
 });

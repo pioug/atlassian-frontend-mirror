@@ -53,6 +53,9 @@ const getSlackIntegrationLink = (): SwitcherItemType => ({
   // The Slack integration link href is intentionally empty to prioritise the slackDiscoveryClickHandler callback
   key: DiscoverLinkItemKeys.SLACK_INTEGRATION,
   label: <FormattedMessage {...messages.slackIntegrationLink} />,
+  description: (
+    <FormattedMessage {...messages.slackIntegrationLinkDescription} />
+  ),
   Icon: createIcon(SlackIcon, { size: 'medium' }),
   href: '',
 });

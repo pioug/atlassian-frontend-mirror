@@ -75,7 +75,7 @@ describe('Snapshot Test: Media', () => {
         await page.keyboard.press('KeyK');
         await page.keyboard.up('Control');
 
-        const selector = `input[placeholder="Paste link or search recently viewed"]`;
+        const selector = `input[placeholder="Paste or search for link"]`;
         await page.waitForSelector(selector);
         const input = await page.$(selector);
 

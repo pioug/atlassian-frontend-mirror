@@ -1,17 +1,34 @@
-import { addAnalytics, ACTION, EVENT_TYPE, ACTION_SUBJECT } from '../analytics';
+import {
+  addAnalytics,
+  ACTION,
+  EVENT_TYPE,
+  ACTION_SUBJECT,
+  ErrorEventPayload,
+} from '../analytics';
 import { EditorState, Transaction } from 'prosemirror-state';
+import { getFeatureFlags } from '../feature-flags-context';
+import { getDocStructure } from '../../utils/document-logger';
 
 export const addSynchronyErrorAnalytics = (
   state: EditorState,
   tr: Transaction,
 ) => {
-  return (error: Error) =>
-    addAnalytics(state, tr, {
+  return (error: Error) => {
+    const payload: ErrorEventPayload = {
       action: ACTION.SYNCHRONY_ERROR,
       actionSubject: ACTION_SUBJECT.EDITOR,
       eventType: EVENT_TYPE.OPERATIONAL,
       attributes: { error },
-    });
+    };
+
+    if (getFeatureFlags(state).synchronyErrorDocStructure) {
+      payload.attributes!.docStructure = getDocStructure(state.doc, {
+        compact: true,
+      });
+    }
+
+    return addAnalytics(state, tr, payload);
+  };
 };
 
 export type EntityEventType = 'error' | 'disconnected';

@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
 import { css, jsx } from '@emotion/core';
 
@@ -11,12 +11,12 @@ import type { ThemeModes } from '@atlaskit/theme/types';
 import Blanket from '../src';
 
 const eventResultStyle = css({
+  margin: '0.5em',
+  padding: '0.5em',
+  borderColor: '#ccc',
   borderStyle: 'dashed',
   borderWidth: '1px',
-  borderColor: '#ccc',
-  padding: '0.5em',
   color: '#ccc',
-  margin: '0.5em',
 });
 
 const LIGHT = 'light';
@@ -26,26 +26,28 @@ const BasicExample = () => {
   const [themeMode, setThemeMode] = useState<ThemeModes>(LIGHT);
 
   const [isBlanketVisible, setIsBlanketVisible] = useState(false);
-  const [canClickThrough, setCanClickThrough] = useState(true);
+  const [shouldAllowClickThrough, setShouldAllowClickThrough] = useState(true);
   const [onEventResult, setOnEventResult] = useState(
-    'Blanket isTinted:false canClickThrough:true',
+    'Blanket isTinted:false shouldAllowClickThrough:true',
   );
 
-  const toggleMode = () => {
-    setThemeMode(themeMode === LIGHT ? DARK : LIGHT);
-  };
+  const toggleMode = useCallback(() => {
+    setThemeMode((themeMode) => (themeMode === LIGHT ? DARK : LIGHT));
+  }, [setThemeMode]);
 
-  const showBlanketClick = () => {
-    setOnEventResult('Blanket isTinted: true canClickThrough: false');
+  const showBlanketClick = useCallback(() => {
+    setOnEventResult('Blanket isTinted: true shouldAllowClickThrough: false');
     setIsBlanketVisible(true);
-    setCanClickThrough(false);
-  };
+    setShouldAllowClickThrough(false);
+  }, []);
 
-  const onBlanketClicked = () => {
-    setOnEventResult('onBlanketClicked called with canClickThrough: true');
+  const onBlanketClicked = useCallback(() => {
+    setOnEventResult(
+      'onBlanketClicked called with shouldAllowClickThrough: true',
+    );
     setIsBlanketVisible(false);
-    setCanClickThrough(true);
-  };
+    setShouldAllowClickThrough(true);
+  }, []);
 
   return (
     <AtlaskitThemeProvider mode={themeMode}>
@@ -75,7 +77,7 @@ const BasicExample = () => {
         <Blanket
           onBlanketClicked={onBlanketClicked}
           isTinted={isBlanketVisible}
-          canClickThrough={canClickThrough}
+          shouldAllowClickThrough={shouldAllowClickThrough}
           testId="basic-blanket"
         />
         <div css={eventResultStyle}>{onEventResult}</div>

@@ -16,6 +16,7 @@ export interface Props {
   placeholder?: string;
   showPlaceholder?: boolean;
   dataAttributes?: { [key: string]: string | number };
+  checkBoxId?: string;
 }
 
 export default class Item extends PureComponent<Props, {}> {
@@ -38,11 +39,18 @@ export default class Item extends PureComponent<Props, {}> {
   }
 
   renderMessageAppearance() {
-    const { contentRef, children, icon, itemType, dataAttributes } = this.props;
+    const {
+      contentRef,
+      children,
+      icon,
+      itemType,
+      dataAttributes,
+      checkBoxId,
+    } = this.props;
 
     if (itemType === 'TASK') {
       return (
-        <TaskWrapper>
+        <TaskWrapper id={`${checkBoxId}-wrapper`}>
           {icon}
           {this.renderPlaceholder()}
           <ContentWrapper {...dataAttributes} innerRef={contentRef}>

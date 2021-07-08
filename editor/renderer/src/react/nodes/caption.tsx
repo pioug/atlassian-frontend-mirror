@@ -1,8 +1,13 @@
 import React from 'react';
 import { Caption } from '@atlaskit/editor-common';
+import { NodeProps } from '../types';
 
-const RenderCaption = ({ children }: { children: React.ReactNode }) => {
-  return <Caption hasContent={true}>{children}</Caption>;
+const RenderCaption = ({ children, dataAttributes }: NodeProps) => {
+  return (
+    <Caption hasContent={true} dataAttributes={dataAttributes}>
+      {children}
+    </Caption>
+  );
 };
 
 export default RenderCaption;

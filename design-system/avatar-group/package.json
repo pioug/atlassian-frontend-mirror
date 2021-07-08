@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/avatar-group",
-  "version": "8.2.0",
+  "version": "8.3.0",
   "description": "An avatar group displays a number of avatars grouped together in a stack or grid.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -13,7 +13,7 @@
   "module:es2019": "dist/es2019/index.js",
   "types": "dist/types/index.d.ts",
   "sideEffects": false,
-  "atlaskit:src": "src/index.ts",
+  "atlaskit:src": "src/index.tsx",
   "atlassian": {
     "team": "Design System Team",
     "deprecatedAutoEntryPoints": true,
@@ -28,7 +28,7 @@
     "@atlaskit/menu": "^1.0.0",
     "@atlaskit/popup": "^1.0.0",
     "@atlaskit/theme": "^11.2.0",
-    "@atlaskit/tooltip": "^17.0.0",
+    "@atlaskit/tooltip": "^17.3.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/core": "^10.0.9"
   },
@@ -36,13 +36,13 @@
     "react": "^16.8.0"
   },
   "devDependencies": {
-    "@atlaskit/analytics-next": "^8.0.0",
+    "@atlaskit/analytics-next": "^8.2.0",
     "@atlaskit/build-utils": "*",
     "@atlaskit/button": "^15.1.0",
     "@atlaskit/code": "^14.1.0",
     "@atlaskit/docs": "*",
     "@atlaskit/field-base": "^15.0.0",
-    "@atlaskit/icon": "^21.6.0",
+    "@atlaskit/icon": "^21.7.0",
     "@atlaskit/modal-dialog": "^11.6.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/toggle": "^12.1.0",
@@ -66,18 +66,11 @@
       "import-structure": "atlassian-conventions"
     },
     "@repo/internal": {
-      "ui-components": [
-        "lite-mode"
-      ],
-      "analytics": [
-        "analytics-next"
-      ],
-      "theming": [
-        "new-theming-api"
-      ],
-      "deprecation": [
-        "no-deprecated-imports"
-      ]
+      "design-system": "v1",
+      "ui-components": "lite-mode",
+      "analytics": "analytics-next",
+      "theming": "new-theming-api",
+      "deprecation": "no-deprecated-imports"
     }
   },
   "homepage": "https://atlassian.design/components/avatar-group/",

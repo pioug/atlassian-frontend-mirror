@@ -40,7 +40,7 @@ const svg = (iconGradientStart: string, iconGradientStop: string) => {
 };
 
 export class CompassIcon extends Component<Props> {
-  static defaultProps = DefaultProps;
+  static defaultProps = { ...DefaultProps, label: 'Compass' };
 
   render() {
     return <Wrapper {...this.props} svg={svg} />;

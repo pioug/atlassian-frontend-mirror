@@ -28,7 +28,7 @@ const svg = (iconGradientStart: string, iconGradientStop: string) => {
 };
 
 export class JiraLogo extends Component<Props> {
-  static defaultProps = DefaultProps;
+  static defaultProps = { ...DefaultProps, label: 'Jira' };
 
   render() {
     return <Wrapper {...this.props} svg={svg} />;

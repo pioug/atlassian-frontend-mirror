@@ -14,6 +14,7 @@ const ItemWrapper = styled.div`
   small {
     margin: 0;
     display: block;
+    color: currentColor;
   }
 `;
 

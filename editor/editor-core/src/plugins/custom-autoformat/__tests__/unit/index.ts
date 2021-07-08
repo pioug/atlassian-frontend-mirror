@@ -168,6 +168,24 @@ describe('custom-autoformat', () => {
       expect(editorView.state.doc).toEqualDocument(doc(p('hello nice.after')));
     });
 
+    it('does not autoformat after pressing any other character', async () => {
+      const { editorView } = editor(doc(p('hello {<>}')));
+
+      // await the provider to resolve
+      await autoformattingProvider;
+      await niceProvider.getRules();
+
+      // should queue the format
+      insertText(editorView, 'za*');
+
+      // resolve the autoformatting
+      await Promise.all(promises);
+
+      insertText(editorView, 'after');
+
+      expect(editorView.state.doc).toEqualDocument(doc(p('hello za*after')));
+    });
+
     it('does not autoformat if text changes', async () => {
       const { editorView } = editor(doc(p('hello {<>}')));
 

@@ -12,7 +12,7 @@ describe('Logo component', () => {
 
   describe('when it is unlabelled', () => {
     it('should have a presentation role', () => {
-      const { getByRole } = render(<AtlassianLogo />);
+      const { getByRole } = render(<AtlassianLogo label="" />);
       expect(getByRole('presentation')).toBeInTheDocument();
     });
   });

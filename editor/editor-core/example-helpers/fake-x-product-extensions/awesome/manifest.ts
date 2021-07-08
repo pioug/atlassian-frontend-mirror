@@ -84,7 +84,10 @@ const manifest: ExtensionManifest = {
       {
         key: 'configError',
         title: 'Awesome config error',
-        icon: () => import('@atlaskit/icon/glyph/cross'),
+        icon: () =>
+          import(
+            /* webpackChunkName: "@atlaskit-internal_icon-cross" */ '@atlaskit/icon/glyph/cross'
+          ).then((mod) => mod.default),
         action: {
           type: 'node',
           key: 'configError',
@@ -241,7 +244,10 @@ const manifest: ExtensionManifest = {
       },
       list: {
         type: 'extension',
-        render: () => import('./extension-handler'),
+        render: () =>
+          import(
+            /* webpackChunkName: "@atlaskit-internal_awesome-extension-handler" */ './extension-handler'
+          ).then((mod) => mod.default),
         getFieldsDefinition: () =>
           Promise.resolve([
             {
@@ -264,7 +270,10 @@ const manifest: ExtensionManifest = {
       },
       question: {
         type: 'extension',
-        render: () => import('./extension-handler'),
+        render: () =>
+          import(
+            /* webpackChunkName: "@atlaskit-internal_awesome-extension-handler" */ './extension-handler'
+          ).then((mod) => mod.default),
         getFieldsDefinition: () =>
           Promise.resolve([
             {
@@ -283,7 +292,10 @@ const manifest: ExtensionManifest = {
       },
       daterange: {
         type: 'extension',
-        render: () => import('./extension-handler'),
+        render: () =>
+          import(
+            /* webpackChunkName: "@atlaskit-internal_awesome-extension-handler" */ './extension-handler'
+          ).then((mod) => mod.default),
         update: (data, actions) => {
           return new Promise(() => {
             actions!.editInContextPanel(
@@ -311,7 +323,10 @@ const manifest: ExtensionManifest = {
       },
       configError: {
         type: 'extension',
-        render: () => import('./extension-handler'),
+        render: () =>
+          import(
+            /* webpackChunkName: "@atlaskit-internal_awesome-extension-handler" */ './extension-handler'
+          ).then((mod) => mod.default),
         update: (data, actions) => {
           return new Promise(() => {
             actions!.editInContextPanel(

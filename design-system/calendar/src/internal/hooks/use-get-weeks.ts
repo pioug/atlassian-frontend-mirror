@@ -1,5 +1,7 @@
 import { useMemo } from 'react';
 
+import parse from 'date-fns/parse';
+
 import type { WeekDay } from '../../types';
 import { daysPerWeek } from '../constants';
 import type { CalendarDate, Week } from '../types';
@@ -42,6 +44,9 @@ export default function useGetWeeks({
   year,
   today,
   disabled,
+  disabledDateFilter,
+  minDate: minDateString,
+  maxDate: maxDateString,
   selected,
   previouslySelected,
   weekStartDay,
@@ -50,7 +55,10 @@ export default function useGetWeeks({
   month: number;
   year: number;
   today: string;
-  disabled: string[];
+  disabled?: string[];
+  disabledDateFilter?: (date: string) => boolean;
+  minDate?: string;
+  maxDate?: string;
   selected: string[];
   previouslySelected: string[];
   weekStartDay: WeekDay;
@@ -70,14 +78,18 @@ export default function useGetWeeks({
     calendar.push(...calendarWithSixthWeek);
   }
 
+  const minDate = minDateString ? parse(minDateString) : undefined;
+  const maxDate = maxDateString ? parse(maxDateString) : undefined;
+  const needJsDate = minDateString || maxDateString;
+
   return useMemo(() => {
     const weeks: Week[] = [];
 
     calendar.forEach((date) => {
       const dateAsString = dateToString(date, { fixMonth: true });
+      const JSDate = needJsDate ? parse(dateAsString) : undefined;
 
       let week;
-
       if (date.weekDay === weekStartDay) {
         week = { id: dateAsString, values: [] };
         weeks.push(week);
@@ -85,7 +97,21 @@ export default function useGetWeeks({
         week = weeks[weeks.length - 1];
       }
 
-      const isDisabled = disabled.indexOf(dateAsString) > -1;
+      // Define a bunch of `const`s
+      const isDisabledByArray = disabled
+        ? disabled.indexOf(dateAsString) > -1
+        : false;
+      const isDisabledByFilter = disabledDateFilter
+        ? disabledDateFilter(dateAsString)
+        : false;
+      const isDisabledByMin = minDate && JSDate ? JSDate < minDate : false;
+      const isDisabledByMax = maxDate && JSDate ? JSDate > maxDate : false;
+      const isDisabled =
+        isDisabledByArray ||
+        isDisabledByFilter ||
+        isDisabledByMin ||
+        isDisabledByMax;
+
       const isFocused = day === date.day && !date.siblingMonth;
       const isPreviouslySelected =
         !isDisabled && previouslySelected.indexOf(dateAsString) > -1;
@@ -112,6 +138,10 @@ export default function useGetWeeks({
     calendar,
     day,
     disabled,
+    disabledDateFilter,
+    minDate,
+    maxDate,
+    needJsDate,
     previouslySelected,
     selected,
     today,

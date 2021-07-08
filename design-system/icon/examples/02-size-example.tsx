@@ -18,16 +18,16 @@ import ArrowLeftIcon from '../glyph/arrow-left';
 import ArrowRightIcon from '../glyph/arrow-right';
 import ArrowUpIcon from '../glyph/arrow-up';
 
-const iconRow = css`
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  margin-top: 8px;
-`;
+const iconRow = css({
+  display: 'flex',
+  marginTop: 8,
+  justifyContent: 'flex-start',
+  flexDirection: 'row',
+});
 
-const iconWrapper = css`
-  margin: 4px;
-`;
+const iconWrapper = css({
+  margin: 4,
+});
 
 const demoIcons = [
   ActivityIcon,

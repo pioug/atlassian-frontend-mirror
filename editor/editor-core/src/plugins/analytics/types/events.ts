@@ -117,6 +117,7 @@ type SynchronyErrorAEP = OperationalAEP<
   undefined,
   {
     error: Error;
+    docStructure?: string | SimplifiedNode;
   },
   undefined
 >;
@@ -153,11 +154,16 @@ type ComponentCrashErrorAEP = OperationalAEP<
   | ACTION_SUBJECT.PLUGIN_SLOT
   | ACTION_SUBJECT.REACT_NODE_VIEW
   | ACTION_SUBJECT.TABLES_PLUGIN
-  | ACTION_SUBJECT.FLOATING_TOOLBAR_PLUGIN,
+  | ACTION_SUBJECT.FLOATING_TOOLBAR_PLUGIN
+  | ACTION_SUBJECT.EDITOR,
   ACTION_SUBJECT_ID | FLOATING_CONTROLS_TITLE,
   {
     error: Error;
     errorInfo: React.ErrorInfo;
+    product?: string;
+    browserInfo?: string;
+    errorId?: string;
+    docStructure?: string | SimplifiedNode;
   },
   undefined
 >;

@@ -1,5 +1,12 @@
 # @atlaskit/media-ui
 
+## 16.3.1
+
+### Patch Changes
+
+- [`1648ac429ee`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1648ac429ee) - [ux] Updated to use the new `@atlaskit/select` design.
+- Updated dependencies
+
 ## 16.3.0
 
 ### Minor Changes

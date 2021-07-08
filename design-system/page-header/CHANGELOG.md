@@ -1,5 +1,11 @@
 # @atlaskit/page-header
 
+## 10.1.0
+
+### Minor Changes
+
+- [`169a082e5b4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/169a082e5b4) - Added id prop to the `PageHeader` component. Now header text can be used as label of other component via aria-labelledby attribute
+
 ## 10.0.11
 
 ### Patch Changes

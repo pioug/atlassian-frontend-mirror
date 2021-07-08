@@ -24,8 +24,6 @@ export const labelCSS = (): CSSObject => ({
 export default function Label({ children, isDisabled, testId }: LabelProps) {
   const styles = useMemo(() => labelCSS(), []);
   return (
-    // https://product-fabric.atlassian.net/browse/DST-1973
-    // eslint-disable-next-line jsx-a11y/label-has-associated-control,jsx-a11y/label-has-for
     <label
       css={styles}
       data-testid={testId}

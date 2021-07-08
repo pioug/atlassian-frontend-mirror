@@ -16,9 +16,7 @@
               "type": "tableHeader",
               "attrs": {
                 "rowspan": 2,
-                "colwidth": [
-                  113
-                ]
+                "colwidth": [113]
               },
               "content": [
                 {
@@ -31,9 +29,7 @@
               "type": "tableHeader",
               "attrs": {
                 "rowspan": 2,
-                "colwidth": [
-                  80
-                ]
+                "colwidth": [80]
               },
               "content": [
                 {
@@ -46,11 +42,7 @@
               "type": "tableHeader",
               "attrs": {
                 "colspan": 3,
-                "colwidth": [
-                  48,
-                  211,
-                  113
-                ]
+                "colwidth": [48, 211, 113]
               },
               "content": [
                 {
@@ -62,9 +54,7 @@
             {
               "type": "tableHeader",
               "attrs": {
-                "colwidth": [
-                  114
-                ]
+                "colwidth": [114]
               },
               "content": [
                 {
@@ -81,9 +71,7 @@
             {
               "type": "tableCell",
               "attrs": {
-                "colwidth": [
-                  48
-                ]
+                "colwidth": [48]
               },
               "content": [
                 {
@@ -100,9 +88,7 @@
             {
               "type": "tableCell",
               "attrs": {
-                "colwidth": [
-                  211
-                ]
+                "colwidth": [211]
               },
               "content": [
                 {
@@ -114,9 +100,7 @@
             {
               "type": "tableCell",
               "attrs": {
-                "colwidth": [
-                  113
-                ]
+                "colwidth": [113]
               },
               "content": [
                 {
@@ -128,9 +112,7 @@
             {
               "type": "tableCell",
               "attrs": {
-                "colwidth": [
-                  114
-                ]
+                "colwidth": [114]
               },
               "content": [
                 {
@@ -147,9 +129,7 @@
             {
               "type": "tableCell",
               "attrs": {
-                "colwidth": [
-                  113
-                ]
+                "colwidth": [113]
               },
               "content": [
                 {
@@ -161,9 +141,7 @@
             {
               "type": "tableCell",
               "attrs": {
-                "colwidth": [
-                  80
-                ]
+                "colwidth": [80]
               },
               "content": [
                 {
@@ -175,9 +153,7 @@
             {
               "type": "tableCell",
               "attrs": {
-                "colwidth": [
-                  48
-                ]
+                "colwidth": [48]
               },
               "content": [
                 {
@@ -189,9 +165,7 @@
             {
               "type": "tableCell",
               "attrs": {
-                "colwidth": [
-                  211
-                ]
+                "colwidth": [211]
               },
               "content": [
                 {
@@ -203,9 +177,7 @@
             {
               "type": "tableCell",
               "attrs": {
-                "colwidth": [
-                  113
-                ]
+                "colwidth": [113]
               },
               "content": [
                 {
@@ -217,9 +189,7 @@
             {
               "type": "tableCell",
               "attrs": {
-                "colwidth": [
-                  114
-                ]
+                "colwidth": [114]
               },
               "content": [
                 {

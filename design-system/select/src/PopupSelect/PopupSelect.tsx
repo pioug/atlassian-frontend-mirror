@@ -1,6 +1,6 @@
 import React, { PureComponent, ReactNode } from 'react';
 import { createPortal } from 'react-dom';
-import Select, { components as RSComponents } from 'react-select';
+import Select, { components as RSComponents, mergeStyles } from 'react-select';
 import { uid } from 'react-uid';
 import createFocusTrap, { FocusTrap } from 'focus-trap';
 import { Manager, Reference, Popper, PopperProps } from 'react-popper';
@@ -10,6 +10,7 @@ import shallowEqualObjects from 'shallow-equal/objects';
 import { N80 } from '@atlaskit/theme/colors';
 
 import { MenuDialog, DummyControl, defaultComponents } from './components';
+import baseStyles from '../styles';
 import {
   GroupType,
   OptionType,
@@ -101,9 +102,12 @@ export default class PopupSelect<
   selectRef: Select<Option, IsMulti> | null = null;
   targetRef: HTMLElement | null = null;
 
-  defaultStyles: StylesConfig<Option, IsMulti> = {
-    groupHeading: (provided) => ({ ...provided, color: N80 }),
-  };
+  defaultStyles: StylesConfig<Option, IsMulti> = mergeStyles(
+    baseStyles(this.props.validationState, this.props.spacing === 'compact'),
+    {
+      groupHeading: (provided) => ({ ...provided, color: N80 }),
+    },
+  );
 
   state = {
     isOpen: false,

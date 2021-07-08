@@ -11,9 +11,9 @@ import SVG from '@atlaskit/icon/svg';
   ${(
     <Example
       packageName="@atlaskit/icon"
-      Component={require('../examples/14-SVG').default}
+      Component={require('../examples/14-svg').default}
       title=""
-      source={require('!!raw-loader!../examples/14-SVG')}
+      source={require('!!raw-loader!../examples/14-svg')}
     />
   )}
 
@@ -25,7 +25,7 @@ import SVG from '@atlaskit/icon/svg';
 
   ${(
     <Props
-      props={require('!!extract-react-types-loader!../src/components/SVG')}
+      props={require('!!extract-react-types-loader!../src/components/svg')}
     />
   )}
   `;

@@ -99,6 +99,9 @@ describe('Cards:', () => {
       await page.hover('[data-testid="block-appearance"]');
       await waitForTooltip(page);
       await snapshot(page);
+      // move mouse away and wait until tooltip disappear.
+      await page.hover('[aria-label="Expand dropdown menu"]');
+      await page.waitFor(500);
       await page.hover('[data-testid="embed-appearance"]');
       await waitForTooltip(page);
       await snapshot(page);

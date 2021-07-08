@@ -1,5 +1,29 @@
 # @atlaskit/calendar
 
+## 12.0.0
+
+### Major Changes
+
+- [`4ab5a7e9069`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ab5a7e9069) - ### Major:
+
+  Removes `defaultDisabled` prop, a stateless/uncontrolled variant of the `disabled` prop. As a stateless calendar would never change its disabled dates, this prop was unnecessary.
+
+  ### New Features:
+
+  Adds three props to make disabling dates more practical, performant and expressive in `@atlaskit/calendar`. These features are also available for DatePicker:
+
+  - `minDate` for the minimum valid date
+  - `maxDate` for the maximum valid date
+  - `disabledDateFilter`, a function that takes a date string, and returns whether or not it should be disabled.
+
+  ### Bugs
+
+  - Disabled dates that lie outside of the currently selected month now have correct hover styles
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.1.1
 
 ### Patch Changes

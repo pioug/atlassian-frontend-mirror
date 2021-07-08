@@ -1,5 +1,12 @@
 # @atlaskit/reactions
 
+## 19.1.2
+
+### Patch Changes
+
+- [`4adcd7f3f2b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4adcd7f3f2b) - Fixing small bug related to 19.0.0 change
+- Updated dependencies
+
 ## 19.1.1
 
 ### Patch Changes

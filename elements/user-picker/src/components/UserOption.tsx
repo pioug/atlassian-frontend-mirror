@@ -1,4 +1,4 @@
-import { N0, N800, N50, N200 } from '@atlaskit/theme/colors';
+import { B400, N800, N200 } from '@atlaskit/theme/colors';
 import React from 'react';
 import { User } from '../types';
 import { AvatarItemOption, TextWrapper } from './AvatarItemOption';
@@ -19,7 +19,7 @@ export class UserOption extends React.PureComponent<UserOptionProps> {
     } = this.props;
 
     const result = [
-      <TextWrapper key="name" color={this.props.isSelected ? N0 : N800}>
+      <TextWrapper key="name" color={this.props.isSelected ? B400 : N800}>
         <HighlightText highlights={highlight && highlight.name}>
           {name}
         </HighlightText>
@@ -29,7 +29,7 @@ export class UserOption extends React.PureComponent<UserOptionProps> {
       result.push(
         <React.Fragment key="publicName">
           {' '}
-          <TextWrapper color={this.props.isSelected ? N50 : N200}>
+          <TextWrapper color={this.props.isSelected ? B400 : N200}>
             (
             <HighlightText highlights={highlight && highlight.publicName}>
               {publicName}
@@ -44,7 +44,7 @@ export class UserOption extends React.PureComponent<UserOptionProps> {
 
   renderSecondaryText = () =>
     this.props.user.byline ? (
-      <TextWrapper color={this.props.isSelected ? N50 : N200}>
+      <TextWrapper color={this.props.isSelected ? B400 : N200}>
         {this.props.user.byline}
       </TextWrapper>
     ) : undefined;

@@ -32,18 +32,30 @@ const truncateCss = css`
 
 const TooltipContainer = forwardRef<HTMLDivElement, TooltipContainerProps>(
   function TooltipContainer(
-    { style, className, children, truncate, placement, testId },
+    {
+      style,
+      className,
+      children,
+      truncate,
+      placement,
+      testId,
+      onMouseOut,
+      onMouseOver,
+    },
     ref,
   ) {
     return (
       <GlobalTheme.Consumer>
         {({ mode }: GlobalThemeTokens) => (
+          // eslint-disable-next-line jsx-a11y/mouse-events-have-key-events
           <TooltipPrimitive
             ref={ref}
             style={style}
             className={className}
             placement={placement}
             testId={testId}
+            onMouseOut={onMouseOut}
+            onMouseOver={onMouseOver}
             css={[
               baseCss,
               truncate ? truncateCss : null,

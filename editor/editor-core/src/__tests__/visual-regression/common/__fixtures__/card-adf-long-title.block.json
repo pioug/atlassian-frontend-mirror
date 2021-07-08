@@ -1,12 +1,12 @@
 {
-    "version": 1,
-    "type": "doc",
-    "content": [
-      {
-        "type": "blockCard",
-        "attrs": {
-          "url": "https://blockCardLongTestUrl"
-        }
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "blockCard",
+      "attrs": {
+        "url": "https://blockCardLongTestUrl"
       }
-    ]
-  }
+    }
+  ]
+}

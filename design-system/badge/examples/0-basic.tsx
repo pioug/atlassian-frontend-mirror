@@ -7,16 +7,15 @@ import { borderRadius } from '@atlaskit/theme/constants';
 import Badge from '../src';
 
 const itemStyles = css({
+  display: 'flex',
+  maxWidth: '300px',
+  marginBottom: '4px',
+  padding: '0.6em 1em',
   alignItems: 'center',
+  justifyContent: 'space-between',
   background: 'none',
   borderRadius: `${borderRadius()}px`,
   color: 'inherit',
-  display: 'flex',
-  justifyContent: 'space-between',
-  marginBottom: '4px',
-  maxWidth: '300px',
-  padding: '0.6em 1em',
-
   '&:hover': {
     backgroundColor: N20,
   },

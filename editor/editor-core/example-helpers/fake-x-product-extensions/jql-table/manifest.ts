@@ -39,7 +39,10 @@ const manifest: ExtensionManifest = {
     nodes: {
       default: {
         type: 'extension',
-        render: () => import('./extension-handler'),
+        render: () =>
+          import(
+            /* webpackChunkName: "@atlaskit-internal_jql-table-extension-handler" */ './extension-handler'
+          ).then((mod) => mod.default),
         update: async (parameters: { id?: string }) => {
           console.log({ parameters });
           return parameters;

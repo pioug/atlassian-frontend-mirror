@@ -115,6 +115,17 @@ const getContainerTextBgAndBorderColor = (
   '&[data-invalid]:hover': {
     backgroundColor: invalidRules[mode].backgroundColorHover,
   },
+  '@media screen and (-ms-high-contrast: active)': {
+    '&[data-invalid]:focus-within': {
+      borderColor: 'Highlight',
+    },
+    '&:focus-within': {
+      borderColor: 'Highlight',
+    },
+    '&[data-disabled]': {
+      borderColor: 'GrayText',
+    },
+  },
 });
 
 const widthMap: { [key: string]: number } = {
@@ -191,6 +202,11 @@ export const inputStyles = (mode: ThemeModes): CSSObject => ({
     color: componentTokens.placeholderTextColor[mode],
     '&:disabled': {
       color: disabledRules[mode].textColor,
+    },
+  },
+  '@media screen and (-ms-high-contrast: active)': {
+    '&[disabled]': {
+      color: 'GrayText',
     },
   },
 });

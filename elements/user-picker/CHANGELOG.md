@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 7.14.0
+
+### Minor Changes
+
+- [`de907e45ad1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/de907e45ad1) - Removed the tag component to address accessibility isssues
+
 ## 7.13.1
 
 ### Patch Changes

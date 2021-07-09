@@ -65,7 +65,7 @@
     "classnames": "^2.2.5",
     "fs-extra": "^4.0.2",
     "jest-emotion": "^10.0.32",
-    "jscodeshift": "^0.11.0",
+    "jscodeshift": "^0.13.0",
     "lodash": "^4.17.15",
     "nullthrows": "^1.1.1",
     "pkg-dir": "^4.2.0",

@@ -47,7 +47,7 @@
     "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@testing-library/react": "^8.0.1",
-    "jscodeshift": "^0.11.0",
+    "jscodeshift": "^0.13.0",
     "react-dom": "^16.8.0",
     "storybook-addon-performance": "^0.16.0",
     "typescript": "3.9.6",

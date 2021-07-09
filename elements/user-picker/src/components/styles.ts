@@ -125,11 +125,17 @@ export const getStyles = memoizeOne(
       multiValue: (css: any) => ({
         ...css,
         borderRadius: 24,
+        cursor: 'default',
+      }),
+      multiValueLabel: (css: any) => ({
+        ...css,
+        fontSize: '100%',
+        display: 'flex',
       }),
       multiValueRemove: (css: any) => ({
         ...css,
-        backgroundColor: 'transparent',
-        '&:hover': { backgroundColor: 'transparent' },
+        borderRadius: 24,
+        cursor: 'pointer',
       }),
       placeholder: (css: any, state: any) => {
         const avatarSize = getAvatarSize(state.selectProps.appearance);

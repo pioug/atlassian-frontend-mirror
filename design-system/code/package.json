@@ -47,7 +47,7 @@
     "@types/jscodeshift": "^0.11.0",
     "@types/react-syntax-highlighter": "^13.5.0",
     "color-contrast-checker": "^1.5.0",
-    "jscodeshift": "^0.11.0",
+    "jscodeshift": "^0.13.0",
     "prismjs": "^1.23.0",
     "react-dom": "^16.8.0",
     "typescript": "3.9.6"

@@ -1,16 +1,14 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
+import { components, OptionType } from '@atlaskit/select';
 import styled from 'styled-components';
-
 import { AddOptionAvatar } from './AddOptionAvatar';
 import { SizeableAvatar } from './SizeableAvatar';
 import { messages } from './i18n';
 import { getAvatarUrl, isEmail, isGroup } from './utils';
 import { Option, UserPickerProps } from '../types';
-
-import Tag from '@atlaskit/tag';
 import PeopleIcon from '@atlaskit/icon/glyph/people';
-import { B100 } from '@atlaskit/theme/colors';
+import { MultiValueProps } from '@atlaskit/select/types';
 
 export const scrollToValue = (
   valueContainer: HTMLDivElement,
@@ -18,34 +16,31 @@ export const scrollToValue = (
 ) => {
   const { top, height } = valueContainer.getBoundingClientRect();
   const { height: controlHeight } = control.getBoundingClientRect();
+
   if (top - height < 0) {
     valueContainer.scrollIntoView();
   }
+
   if (top + height > controlHeight) {
     valueContainer.scrollIntoView(false);
   }
 };
 
-const TagContainer = styled.div`
-  button {
-    &:focus {
-      box-shadow: 0 0 0 2px ${B100};
-    }
-  }
-  position: relative;
-  right: 6px;
-`;
-
 const GroupTagContainer = styled.div`
   padding-left: 2px;
 `;
 
-type Props = {
+const NameWrapper = styled.span`
+  padding-left: 5px;
+`;
+
+type Props = MultiValueProps<OptionType> & {
   isFocused?: boolean;
   data: Option;
   innerProps: any;
   removeProps: { onClick: Function };
   selectProps: UserPickerProps;
+  ref?: React.RefObject<HTMLDivElement>;
 };
 
 export class MultiValue extends React.Component<Props> {
@@ -126,32 +121,16 @@ export class MultiValue extends React.Component<Props> {
   };
 
   render() {
-    const {
-      data: { label, data },
-      innerProps,
-      removeProps: { onClick: onRemove },
-      isFocused,
-      selectProps: { isDisabled },
-    } = this.props;
+    const { children, innerProps, ...rest } = this.props;
 
     return (
-      <div ref={this.containerRef}>
-        <FormattedMessage {...messages.remove}>
-          {(remove) => (
-            <TagContainer>
-              <Tag
-                {...innerProps}
-                appearance="rounded"
-                text={label}
-                elemBefore={this.getElemBefore()}
-                removeButtonText={data.fixed || isDisabled ? undefined : remove}
-                onAfterRemoveAction={onRemove}
-                color={isFocused ? 'blueLight' : undefined}
-              />
-            </TagContainer>
-          )}
-        </FormattedMessage>
-      </div>
+      <components.MultiValue
+        {...rest}
+        innerProps={{ ref: this.containerRef }}
+        cropWithEllipsis={false}
+      >
+        {this.getElemBefore()} <NameWrapper>{children}</NameWrapper>
+      </components.MultiValue>
     );
   }
 }

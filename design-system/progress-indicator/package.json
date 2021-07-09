@@ -41,7 +41,7 @@
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@types/jscodeshift": "^0.11.0",
     "enzyme": "^3.10.0",
-    "jscodeshift": "^0.11.0",
+    "jscodeshift": "^0.13.0",
     "react-dom": "^16.8.0",
     "react-lorem-component": "^0.13.0",
     "typescript": "3.9.6"

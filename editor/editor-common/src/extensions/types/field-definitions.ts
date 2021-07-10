@@ -32,6 +32,7 @@ interface BaseFieldDefinition {
   name: string;
   isRequired?: boolean;
   allowDuplicates?: boolean;
+  isHidden?: boolean;
 }
 
 interface BaseEnumField extends BaseFieldDefinition {
@@ -88,7 +89,6 @@ export interface StringOneLineField extends BaseFieldDefinition {
   style?: 'oneline';
   defaultValue?: string;
   placeholder?: string;
-  isHidden?: boolean;
 }
 
 export interface StringMultilineField extends BaseFieldDefinition {
@@ -96,7 +96,6 @@ export interface StringMultilineField extends BaseFieldDefinition {
   style: 'multiline';
   defaultValue?: string;
   placeholder?: string;
-  isHidden?: boolean;
   options?: {
     minimumRows: number;
   };

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-mobile-bridge",
-  "version": "27.0.0",
+  "version": "27.0.1",
   "description": "Mobile distribution of the Editor",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -33,11 +33,11 @@
     "@atlaskit/analytics-listeners": "8.1.2",
     "@atlaskit/analytics-next": "^8.2.0",
     "@atlaskit/collab-provider": "^6.4.0",
-    "@atlaskit/editor-common": "58.1.0",
+    "@atlaskit/editor-common": "58.1.1",
     "@atlaskit/editor-core": "146.0.0",
     "@atlaskit/editor-json-transformer": "8.6.5",
     "@atlaskit/emoji": "63.1.5",
-    "@atlaskit/legacy-mobile-macros": "0.3.13",
+    "@atlaskit/legacy-mobile-macros": "0.3.14",
     "@atlaskit/mention": "19.6.3",
     "@atlaskit/renderer": "78.0.0",
     "@atlaskit/smart-card": "15.4.0",

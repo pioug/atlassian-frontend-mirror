@@ -1,5 +1,11 @@
 # @atlaskit/editor-common
 
+## 58.1.1
+
+### Patch Changes
+
+- [`799eae9351d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/799eae9351d) - Updating BaseFieldDefiniton type to include isHidden on it.
+
 ## 58.1.0
 
 ### Minor Changes

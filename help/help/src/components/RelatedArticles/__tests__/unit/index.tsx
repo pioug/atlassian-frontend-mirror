@@ -25,8 +25,8 @@ const messageEndpointErrorButtonLabel = intl.formatMessage(
 );
 const messageTitle = intl.formatMessage(messages.help_related_article_title);
 const messageShowMore = intl.formatMessage(
-  messages.help_article_list_show_more,
-  { numberOfRelatedArticlesLeft: '2' },
+  messages.help_show_more_button_label_more,
+  { numberOfItemsLeft: '2', itemsType: 'articles' },
 );
 const messageLoading = intl.formatMessage(messages.help_loading);
 
@@ -45,7 +45,7 @@ const relativeArticlesPromise: (
     }
   });
 
-const mockOnGetRelatedArticle = jest
+const mockOnGetRelatedArticles = jest
   .fn()
   .mockImplementation(relativeArticlesPromise);
 const mockOnRelatedArticlesListItemClick = jest.fn();
@@ -68,8 +68,8 @@ describe('RelatedArticles', () => {
         <RelatedArticles
           routeGroup="test"
           routeName="test"
-          onGetRelatedArticle={() =>
-            mockOnGetRelatedArticle(NUMBER_OF_ARTICLES)
+          onGetRelatedArticles={() =>
+            mockOnGetRelatedArticles(NUMBER_OF_ARTICLES)
           }
           onRelatedArticlesListItemClick={mockOnRelatedArticlesListItemClick}
           onRelatedArticlesShowMoreClick={mockOnRelatedArticlesShowMoreClick}
@@ -79,7 +79,7 @@ describe('RelatedArticles', () => {
 
     jest.advanceTimersByTime(200);
 
-    await wait(() => expect(mockOnGetRelatedArticle).toHaveBeenCalled());
+    await wait(() => expect(mockOnGetRelatedArticles).toHaveBeenCalled());
 
     expect(container.firstChild).toMatchSnapshot();
   });
@@ -90,8 +90,8 @@ describe('RelatedArticles', () => {
         <RelatedArticles
           routeGroup="test"
           routeName="test"
-          onGetRelatedArticle={() =>
-            mockOnGetRelatedArticle(NUMBER_OF_ARTICLES)
+          onGetRelatedArticles={() =>
+            mockOnGetRelatedArticles(NUMBER_OF_ARTICLES)
           }
           onRelatedArticlesListItemClick={mockOnRelatedArticlesListItemClick}
           onRelatedArticlesShowMoreClick={mockOnRelatedArticlesShowMoreClick}
@@ -101,9 +101,9 @@ describe('RelatedArticles', () => {
 
     jest.advanceTimersByTime(200);
 
-    await wait(() => expect(mockOnGetRelatedArticle).toHaveBeenCalled());
+    await wait(() => expect(mockOnGetRelatedArticles).toHaveBeenCalled());
 
-    expect(mockOnGetRelatedArticle).toHaveBeenCalledTimes(1);
+    expect(mockOnGetRelatedArticles).toHaveBeenCalledTimes(1);
   });
 
   it('Should show loading state', () => {
@@ -112,8 +112,8 @@ describe('RelatedArticles', () => {
         <RelatedArticles
           routeGroup="test"
           routeName="test"
-          onGetRelatedArticle={() =>
-            mockOnGetRelatedArticle(NUMBER_OF_ARTICLES)
+          onGetRelatedArticles={() =>
+            mockOnGetRelatedArticles(NUMBER_OF_ARTICLES)
           }
           onRelatedArticlesListItemClick={mockOnRelatedArticlesListItemClick}
           onRelatedArticlesShowMoreClick={mockOnRelatedArticlesShowMoreClick}
@@ -121,7 +121,7 @@ describe('RelatedArticles', () => {
       </IntlProvider>,
     );
 
-    wait(() => expect(mockOnGetRelatedArticle).toHaveBeenCalled());
+    wait(() => expect(mockOnGetRelatedArticles).toHaveBeenCalled());
 
     expect(getByLabelText(messageLoading)).not.toBeNull();
   });
@@ -132,8 +132,8 @@ describe('RelatedArticles', () => {
         <RelatedArticles
           routeGroup="test"
           routeName="test"
-          onGetRelatedArticle={() =>
-            mockOnGetRelatedArticle(NUMBER_OF_ARTICLES)
+          onGetRelatedArticles={() =>
+            mockOnGetRelatedArticles(NUMBER_OF_ARTICLES)
           }
           onRelatedArticlesListItemClick={mockOnRelatedArticlesListItemClick}
           onRelatedArticlesShowMoreClick={mockOnRelatedArticlesShowMoreClick}
@@ -143,7 +143,7 @@ describe('RelatedArticles', () => {
 
     jest.advanceTimersByTime(200);
 
-    await wait(() => expect(mockOnGetRelatedArticle).toHaveBeenCalled());
+    await wait(() => expect(mockOnGetRelatedArticles).toHaveBeenCalled());
 
     expect(getAllByText(mockArticleItem.title).length).toBeGreaterThan(0);
   });
@@ -154,8 +154,8 @@ describe('RelatedArticles', () => {
         <RelatedArticles
           routeGroup="test"
           routeName="test"
-          onGetRelatedArticle={() =>
-            mockOnGetRelatedArticle(NUMBER_OF_ARTICLES)
+          onGetRelatedArticles={() =>
+            mockOnGetRelatedArticles(NUMBER_OF_ARTICLES)
           }
           onRelatedArticlesListItemClick={mockOnRelatedArticlesListItemClick}
           onRelatedArticlesShowMoreClick={mockOnRelatedArticlesShowMoreClick}
@@ -165,7 +165,7 @@ describe('RelatedArticles', () => {
 
     jest.advanceTimersByTime(200);
 
-    await wait(() => expect(mockOnGetRelatedArticle).toHaveBeenCalled());
+    await wait(() => expect(mockOnGetRelatedArticles).toHaveBeenCalled());
 
     const firstItem = getAllByText(mockArticleItem.title)[0].closest('a');
 
@@ -184,8 +184,8 @@ describe('RelatedArticles', () => {
         <RelatedArticles
           routeGroup="test"
           routeName="test"
-          onGetRelatedArticle={() =>
-            mockOnGetRelatedArticle(NUMBER_OF_ARTICLES)
+          onGetRelatedArticles={() =>
+            mockOnGetRelatedArticles(NUMBER_OF_ARTICLES)
           }
           onRelatedArticlesListItemClick={mockOnRelatedArticlesListItemClick}
           onRelatedArticlesShowMoreClick={mockOnRelatedArticlesShowMoreClick}
@@ -195,7 +195,7 @@ describe('RelatedArticles', () => {
 
     jest.advanceTimersByTime(200);
 
-    await wait(() => expect(mockOnGetRelatedArticle).toHaveBeenCalled());
+    await wait(() => expect(mockOnGetRelatedArticles).toHaveBeenCalled());
 
     const showMoreButton = getByText(messageShowMore).closest('button');
 
@@ -214,8 +214,8 @@ describe('RelatedArticles', () => {
         <RelatedArticles
           routeGroup="test"
           routeName="test"
-          onGetRelatedArticle={() =>
-            mockOnGetRelatedArticle(NUMBER_OF_ARTICLES)
+          onGetRelatedArticles={() =>
+            mockOnGetRelatedArticles(NUMBER_OF_ARTICLES)
           }
           onRelatedArticlesListItemClick={mockOnRelatedArticlesListItemClick}
           onRelatedArticlesShowMoreClick={mockOnRelatedArticlesShowMoreClick}
@@ -225,7 +225,7 @@ describe('RelatedArticles', () => {
 
     jest.advanceTimersByTime(200);
 
-    await wait(() => expect(mockOnGetRelatedArticle).toHaveBeenCalled());
+    await wait(() => expect(mockOnGetRelatedArticles).toHaveBeenCalled());
 
     expect(queryByText(messageTitle)).toBeNull();
   });
@@ -237,8 +237,8 @@ describe('RelatedArticles', () => {
           style="secondary"
           routeGroup="test"
           routeName="test"
-          onGetRelatedArticle={() =>
-            mockOnGetRelatedArticle(NUMBER_OF_ARTICLES)
+          onGetRelatedArticles={() =>
+            mockOnGetRelatedArticles(NUMBER_OF_ARTICLES)
           }
           onRelatedArticlesListItemClick={mockOnRelatedArticlesListItemClick}
           onRelatedArticlesShowMoreClick={mockOnRelatedArticlesShowMoreClick}
@@ -248,18 +248,18 @@ describe('RelatedArticles', () => {
 
     jest.advanceTimersByTime(200);
 
-    await wait(() => expect(mockOnGetRelatedArticle).toHaveBeenCalled());
+    await wait(() => expect(mockOnGetRelatedArticles).toHaveBeenCalled());
 
     expect(getByText(messageTitle)).not.toBeNull();
   });
 
-  it('It should display the error text if the onGetRelatedArticle fails', async () => {
+  it('It should display the error text if the onGetRelatedArticles fails', async () => {
     const { queryByText } = render(
       <IntlProvider locale="en">
         <RelatedArticles
           routeGroup="test"
           routeName="test"
-          onGetRelatedArticle={() => mockOnGetRelatedArticle(0)}
+          onGetRelatedArticles={() => mockOnGetRelatedArticles(0)}
           onRelatedArticlesListItemClick={mockOnRelatedArticlesListItemClick}
           onRelatedArticlesShowMoreClick={mockOnRelatedArticlesShowMoreClick}
         />
@@ -268,29 +268,29 @@ describe('RelatedArticles', () => {
 
     jest.advanceTimersByTime(200);
 
-    await wait(() => expect(mockOnGetRelatedArticle).toHaveBeenCalled());
+    await wait(() => expect(mockOnGetRelatedArticles).toHaveBeenCalled());
 
     expect(queryByText(messageEndpointErrorTitle)).not.toBeNull();
     expect(queryByText(messageEndpointErrorDescription)).not.toBeNull();
   });
 
-  it('If display the error screen and the user clicks the button "try again", It should execute onGetRelatedArticle again', async () => {
+  it('If display the error screen and the user clicks the button "try again", It should execute onGetRelatedArticles again', async () => {
     const { queryByText, getByText } = render(
       <IntlProvider locale="en">
         <RelatedArticles
           routeGroup="test"
           routeName="test"
-          onGetRelatedArticle={() => mockOnGetRelatedArticle(0)}
+          onGetRelatedArticles={() => mockOnGetRelatedArticles(0)}
           onRelatedArticlesListItemClick={mockOnRelatedArticlesListItemClick}
           onRelatedArticlesShowMoreClick={mockOnRelatedArticlesShowMoreClick}
         />
       </IntlProvider>,
     );
-    expect(mockOnGetRelatedArticle).toHaveBeenCalledTimes(1);
+    expect(mockOnGetRelatedArticles).toHaveBeenCalledTimes(1);
 
     jest.advanceTimersByTime(200);
 
-    await wait(() => expect(mockOnGetRelatedArticle).toHaveBeenCalled());
+    await wait(() => expect(mockOnGetRelatedArticles).toHaveBeenCalled());
 
     expect(queryByText(messageEndpointErrorTitle)).not.toBeNull();
     expect(queryByText(messageEndpointErrorDescription)).not.toBeNull();
@@ -301,9 +301,9 @@ describe('RelatedArticles', () => {
 
     expect(tryAgainButton).not.toBeNull();
     if (tryAgainButton) {
-      expect(mockOnGetRelatedArticle).toHaveBeenCalledTimes(1);
+      expect(mockOnGetRelatedArticles).toHaveBeenCalledTimes(1);
       fireEvent.click(tryAgainButton);
-      expect(mockOnGetRelatedArticle).toHaveBeenCalledTimes(2);
+      expect(mockOnGetRelatedArticles).toHaveBeenCalledTimes(2);
     }
   });
 });

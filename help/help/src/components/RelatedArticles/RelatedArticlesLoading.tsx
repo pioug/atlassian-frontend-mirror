@@ -3,8 +3,7 @@ import { injectIntl, InjectedIntlProps } from 'react-intl';
 
 import { messages } from '../../messages';
 
-import { LoadingRectangle } from '../Article/styled';
-import { DividerLine } from '../styled';
+import { DividerLine, LoadingRectangle } from '../../util/styled';
 
 import {
   LoadignRelatedArticleList,

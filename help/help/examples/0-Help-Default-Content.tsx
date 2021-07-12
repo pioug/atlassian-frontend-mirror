@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import Page from '@atlaskit/page';
 
 import LocaleIntlProvider from '../example-helpers/LocaleIntlProvider';
-import Help from '../src';
+import Help, { ARTICLE_TYPE } from '../src';
+import type { Article, articleId } from '../src';
 
 import { getArticle } from './utils/mockData';
 import {
@@ -20,8 +21,12 @@ const handleEvent = (analyticsEvent: { payload: any; context: any }) => {
 };
 
 const Example: React.FC = () => {
-  const onGetArticle = (articleId: string): Promise<any> => {
-    return new Promise((resolve) => resolve(getArticle(articleId)));
+  const [articleId, setArticleId] = useState<articleId>({
+    id: '',
+    type: ARTICLE_TYPE.HELP_ARTICLE,
+  });
+  const onGetHelpArticle = (articleId: articleId): Promise<Article> => {
+    return new Promise((resolve) => resolve(getArticle(articleId.id)));
   };
 
   return (
@@ -32,8 +37,13 @@ const Example: React.FC = () => {
             <AnalyticsListener channel="atlaskit" onEvent={handleEvent}>
               <LocaleIntlProvider locale={'en'}>
                 <Help
-                  articleId=""
-                  onGetArticle={onGetArticle}
+                  navigation={{
+                    articleId,
+                    articleIdSetter: setArticleId,
+                  }}
+                  helpArticle={{
+                    onGetHelpArticle,
+                  }}
                   footer={
                     <FooterContent>
                       <span>Footer</span>

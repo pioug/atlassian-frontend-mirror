@@ -11,7 +11,7 @@ import {
 } from './styled';
 
 export interface Props {
-  onSearch(value?: string): void;
+  onSearch?(value?: string): void;
 }
 
 export const SearchResultsError: React.FC<Props & InjectedIntlProps> = ({
@@ -33,11 +33,13 @@ export const SearchResultsError: React.FC<Props & InjectedIntlProps> = ({
     <SearchResultEmptyMessageText>
       <p>{formatMessage(messages.help_search_error_line_two)}</p>
     </SearchResultEmptyMessageText>
-    <SearchResultEmptyMessageText>
-      <Button onClick={() => onSearch()} appearance="primary">
-        {formatMessage(messages.help_search_error_button_label)}
-      </Button>
-    </SearchResultEmptyMessageText>
+    {onSearch && (
+      <SearchResultEmptyMessageText>
+        <Button onClick={() => onSearch()} appearance="primary">
+          {formatMessage(messages.help_search_error_button_label)}
+        </Button>
+      </SearchResultEmptyMessageText>
+    )}
   </>
 );
 

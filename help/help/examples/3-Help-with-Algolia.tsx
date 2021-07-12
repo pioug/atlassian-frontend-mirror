@@ -3,21 +3,35 @@ import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import algoliasearch from 'algoliasearch';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
+import { NotificationLogClient } from '@atlaskit/notification-log-client';
 import Page from '@atlaskit/page';
 import Textfield from '@atlaskit/textfield';
+import ShipIcon from '@atlaskit/icon/glyph/ship';
+import * as colors from '@atlaskit/theme/colors';
 
 import LocaleIntlProvider from '../example-helpers/LocaleIntlProvider';
+
 import {
   ExampleWrapper,
   HelpWrapper,
   ControlsWrapper,
   FooterContent,
-  ExampleDefaultContent,
   HelpContainer,
 } from './utils/styled';
 
-import Help, { RelatedArticles } from '../src';
-import { ArticleItem, ArticleFeedback } from '../src/model/Article';
+import {
+  searchWhatsNewArticles as searchWhatsNewArticlesCPAPI,
+  getWhatsNewArticle as getWhatsNewArticleCPAPI,
+} from './utils/services/cpapi';
+
+import Help, { RelatedArticles, ARTICLE_TYPE } from '../src';
+import type {
+  ArticleItem,
+  ArticleFeedback,
+  WhatsNewArticleItem,
+  WhatsNewArticle,
+  articleId,
+} from '../src';
 
 const SEARCH_EXTERNAL_URL = 'https://support.atlassian.com/';
 
@@ -28,9 +42,21 @@ const handleEvent = (analyticsEvent: { payload: any; context: any }) => {
 
 // Algolia configuration
 let client = algoliasearch('8K6J5OJIQW', 'c982b4b1a6ca921131d35edb63359b8c');
-var index = client.initIndex('product_help_dev');
+var index = client.initIndex('product_help_uat');
 
-// Footer
+// Mockup notification Promise
+class MockNotificationLogClient extends NotificationLogClient {
+  constructor() {
+    super('', '');
+  }
+
+  public async countUnseenNotifications() {
+    return Promise.resolve({ count: 100 });
+  }
+}
+
+const notificationsClient = new MockNotificationLogClient();
+
 const Footer = (
   <FooterContent>
     <span>Footer</span>
@@ -38,27 +64,48 @@ const Footer = (
 );
 
 const Example: React.FC = () => {
-  const [articleId, setArticleId] = useState<string>();
+  const [algoliaIndex, setAlgoliaIndex] = useState<string>(index.indexName);
+  const [articleId, setArticleId] = useState<articleId>({
+    id: '',
+    type: ARTICLE_TYPE.HELP_ARTICLE,
+  });
+
   const [routeGroup, setRouteGroup] = useState<string>(
     'project-settings-software',
   );
-  const [routeName, setRouteName] = useState<string>(
+  const [routeName, setRouteName] = useState<string | undefined>(
     'project-settings-software-access',
   );
+  const [productName, setProductName] = useState<string>('Jira Software');
+  const [productExperience, setProductExperience] = useState<string>(
+    'Next-gen',
+  );
+  const [showComponent, setShowComponent] = useState<boolean>(true);
+  const [algoliaParameters, setAlgoliaParameters] = useState({
+    routeGroup,
+    routeName,
+    productName,
+    productExperience,
+  });
 
-  const openDrawer = (articleId: string = '') => {
-    setArticleId(articleId);
+  const openDrawer = (
+    articleId: string = '',
+    type: ARTICLE_TYPE = ARTICLE_TYPE.HELP_ARTICLE,
+  ) => {
+    setArticleId({ id: articleId, type });
+    setShowComponent(true);
   };
 
   const closeDrawer = (): void => {
-    setArticleId('');
+    setArticleId({ id: '', type: ARTICLE_TYPE.HELP_ARTICLE });
+    setShowComponent(false);
   };
 
-  const onGetArticle = async (articleId: string): Promise<any> => {
+  const onGetHelpArticle = async (articleId: articleId): Promise<any> => {
     return new Promise((resolve, reject) => {
       index.search(
         {
-          filters: `objectID:${articleId}`,
+          filters: `objectID:${articleId.id}`,
         },
         (err, res) => {
           if (err) {
@@ -89,21 +136,19 @@ const Example: React.FC = () => {
       console.log(routeGroup);
       const facetFilters = [
         [
-          `routeGroup:${routeGroup || ''}<score=10>`,
-          `_tags:route_group_is_not_defined<score=1>`,
+          `routes.routeGroup:${routeGroup || ''}<score=10>`,
+          'routes.hasGroup:false<score=1>',
         ],
-        routeName
+        routeName != null
           ? [
-              `routeName:${routeName || ''}<score=5>`,
-              `_tags:route_name_is_not_defined<score=1>`,
+              `routes.routeName:${routeName || ''}<score=5>`,
+              'routes.hasName:false<score=1>',
             ]
-          : [`_tags:route_name_is_not_defined<score=1>`],
-        `routeGroup:-hide`,
-        `routeName:-hide`,
-        [
-          `_tags:-route_group_is_not_defined`,
-          `_tags:-route_name_is_not_defined`,
-        ],
+          : ['routes.hasName:false<score=1>'],
+        `productName:${algoliaParameters.productName}`,
+        'routes.routeGroup:-hide',
+        'routes.routeName:-hide',
+        `productExperience:${algoliaParameters.productExperience}`,
       ];
 
       index.search(
@@ -137,6 +182,24 @@ const Example: React.FC = () => {
     });
   };
 
+  const onSearchWhatsNewArticles = async (
+    filter: string = '',
+    numberOfItems: number,
+    page: string = '',
+  ): Promise<{
+    articles: WhatsNewArticleItem[];
+    nextPage: string;
+    hasNextPage: boolean;
+  }> => {
+    console.log('onSearchWhatsNewArticles');
+    return searchWhatsNewArticlesCPAPI(filter, numberOfItems, page);
+  };
+
+  const onGetWhatsNewArticle = (articleId: articleId): Promise<any> => {
+    console.log(articleId);
+    return getWhatsNewArticleCPAPI(articleId);
+  };
+
   const handleOnSearchResultItemClick = (
     event: React.MouseEvent<HTMLElement, MouseEvent>,
     analyticsEvent: UIAnalyticsEvent,
@@ -149,8 +212,8 @@ const Example: React.FC = () => {
     analyticsEvent.fire('help');
   };
 
-  const articleIdSetter = (id: string): void => {
-    setArticleId(id);
+  const articleIdSetter = (articleId: articleId): void => {
+    setArticleId(articleId);
   };
 
   const handleOnWasHelpfulNoButtonClick = (
@@ -220,6 +283,17 @@ const Example: React.FC = () => {
     closeDrawer();
   };
 
+  const handleOnRelatedArticlesShowMoreClick = (
+    event: React.MouseEvent<HTMLElement, MouseEvent>,
+    analyticsEvent: UIAnalyticsEvent,
+    isCollapsed: boolean,
+  ) => {
+    console.log('onRelatedArticlesShowMoreClickOfOpenArticle');
+    console.log(event);
+    console.log(analyticsEvent);
+    console.log(isCollapsed);
+  };
+
   const handleOnWasHelpfulSubmit = (
     analyticsEvent: UIAnalyticsEvent,
     articleFeedback: ArticleFeedback,
@@ -232,7 +306,7 @@ const Example: React.FC = () => {
     return new Promise((resolve, rejects) => {
       let wait = setTimeout(() => {
         clearTimeout(wait);
-        resolve();
+        resolve(true);
       }, 200);
     });
   };
@@ -258,15 +332,44 @@ const Example: React.FC = () => {
     console.log(articleData);
   };
 
-  const handleOnArticleLoadingFailTryAgainButtonClick = (
+  const handleOnHelpArticleLoadingFailTryAgainButtonClick = (
     event: React.MouseEvent<HTMLElement, MouseEvent>,
     analyticsEvent: UIAnalyticsEvent,
-    articleId: string,
+    articleId: articleId,
   ) => {
-    console.log('onArticleLoadingFailTryAgainButtonClick');
+    console.log('onHelpArticleLoadingFailTryAgainButtonClick');
     console.log(event);
     console.log(analyticsEvent);
     console.log(articleId);
+  };
+
+  const handleOnWhatsNewButtonClick = (
+    event: React.MouseEvent<HTMLElement, MouseEvent>,
+    analyticsEvent: UIAnalyticsEvent,
+  ) => {
+    console.log('handleOnWhatsNewButtonClick');
+    console.log(event);
+    console.log(analyticsEvent);
+  };
+
+  const handleOnSearchWhatsNewShowMoreClick = (
+    event: React.MouseEvent<HTMLElement, MouseEvent>,
+    analyticsEvent: UIAnalyticsEvent,
+  ) => {
+    console.log('handleOnSearchWhatsNewShowMoreClick');
+    console.log(event);
+    console.log(analyticsEvent);
+  };
+
+  const handleOnWhatsNewResultItemClick = (
+    event: React.MouseEvent<HTMLElement, MouseEvent>,
+    analyticsEvent: UIAnalyticsEvent,
+    whatsNewArticleData: WhatsNewArticle,
+  ) => {
+    console.log('handleOnWhatsNewResultItemClick');
+    console.log(event);
+    console.log(analyticsEvent);
+    console.log(whatsNewArticleData);
   };
 
   return (
@@ -278,12 +381,21 @@ const Example: React.FC = () => {
               display: 'inline-block',
               height: '100%',
               verticalAlign: 'top',
+              width: 'Calc(100% - 400px)',
             }}
           >
             <ControlsWrapper>
               <ButtonGroup>
                 <Button appearance="primary" onClick={() => openDrawer()}>
                   Open drawer - no ID
+                </Button>
+
+                <Button
+                  appearance="primary"
+                  type="button"
+                  onClick={closeDrawer}
+                >
+                  Close drawer
                 </Button>
 
                 <Button
@@ -306,18 +418,60 @@ const Example: React.FC = () => {
                 >
                   Open drawer - wrong id
                 </Button>
+              </ButtonGroup>
+            </ControlsWrapper>
+            <ControlsWrapper>
+              <ButtonGroup>
+                <Button
+                  appearance="primary"
+                  onClick={() => openDrawer('', ARTICLE_TYPE.WHATS_NEW)}
+                >
+                  Open drawer - What's New
+                </Button>
 
                 <Button
                   appearance="primary"
-                  type="button"
-                  onClick={closeDrawer}
+                  onClick={() => openDrawer('01', ARTICLE_TYPE.WHATS_NEW)}
                 >
-                  Close drawer
+                  Open drawer - What's new Article
                 </Button>
               </ButtonGroup>
             </ControlsWrapper>
             <ControlsWrapper>
-              <label htmlFor="route-group">Route Group</label>
+              <label htmlFor="route-name">Algolia Index *</label>
+              <Textfield
+                value={algoliaIndex}
+                width="large"
+                name="route-name"
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setAlgoliaIndex(e.target.value)
+                }
+              />
+            </ControlsWrapper>
+            <ControlsWrapper>
+              <label htmlFor="route-name">Product Name *</label>
+              <Textfield
+                value={productName}
+                width="large"
+                name="route-name"
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setProductName(e.target.value)
+                }
+              />
+            </ControlsWrapper>
+            <ControlsWrapper>
+              <label htmlFor="route-name">Product Experience *</label>
+              <Textfield
+                value={productExperience}
+                width="large"
+                name="route-name"
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setProductExperience(e.target.value)
+                }
+              />
+            </ControlsWrapper>
+            <ControlsWrapper>
+              <label htmlFor="route-group">Route Group *</label>
               <Textfield
                 value={routeGroup}
                 width="large"
@@ -338,45 +492,91 @@ const Example: React.FC = () => {
                 }
               />
             </ControlsWrapper>
+            <ControlsWrapper>
+              <Button
+                appearance="primary"
+                onClick={() => {
+                  closeDrawer();
+                  setAlgoliaParameters({
+                    routeGroup,
+                    routeName: routeName !== '' ? routeName : undefined,
+                    productName,
+                    productExperience,
+                  });
+                  index.indexName = algoliaIndex;
+                  setTimeout(() => openDrawer(), 0);
+                }}
+              >
+                Save
+              </Button>
+            </ControlsWrapper>
           </div>
-          <HelpContainer>
-            <HelpWrapper>
-              <LocaleIntlProvider locale={'en'}>
-                <Help
-                  articleIdSetter={articleIdSetter}
-                  onCloseButtonClick={handleOnCloseButtonClick}
-                  articleId={articleId}
-                  onGetArticle={onGetArticle}
-                  onWasHelpfulYesButtonClick={handleOnWasHelpfulYesButtonClick}
-                  onWasHelpfulNoButtonClick={handleOnWasHelpfulNoButtonClick}
-                  footer={Footer}
-                  onSearch={onSearch}
-                  searchExternalUrl={SEARCH_EXTERNAL_URL}
-                  onSearchInputChanged={handleOnSearchInputChanged}
-                  onSearchInputCleared={handleOnSearchInputCleared}
-                  onSearchResultItemClick={handleOnSearchResultItemClick}
-                  onRelatedArticlesListItemClick={
-                    handleOnRelatedArticlesListItemClick
-                  }
-                  onArticleLoadingFailTryAgainButtonClick={
-                    handleOnArticleLoadingFailTryAgainButtonClick
-                  }
-                  onGetRelatedArticleOfOpenArticle={getRelatedArticle}
-                  onSearchExternalUrlClick={handleOnSearchExternalUrlClick}
-                  onWasHelpfulSubmit={handleOnWasHelpfulSubmit}
-                  onBackButtonClick={handleOnBackButtonClick}
-                  onRelatedArticlesShowMoreClickOfOpenArticle={(
-                    event,
-                    analytics,
-                    isCollapsed,
-                  ) => {
-                    console.log('onRelatedArticlesShowMoreClickOfOpenArticle');
-                    console.log(event);
-                    console.log(analytics);
-                    console.log(isCollapsed);
-                  }}
-                >
-                  <ExampleDefaultContent>
+          {showComponent && (
+            <HelpContainer>
+              <HelpWrapper>
+                <LocaleIntlProvider locale={'en'}>
+                  <Help
+                    home={{
+                      homeOptions: [
+                        {
+                          id: 'test-button',
+                          onClick: (id: string) => {
+                            console.log('test button');
+                          },
+                          text: `Test Button`,
+                          href: 'https://www.google.com',
+                          icon: (
+                            <ShipIcon
+                              primaryColor={colors.N600}
+                              size="medium"
+                              label=""
+                            />
+                          ),
+                        },
+                      ],
+                    }}
+                    footer={Footer}
+                    helpArticle={{
+                      onGetHelpArticle,
+                      onHelpArticleLoadingFailTryAgainButtonClick: handleOnHelpArticleLoadingFailTryAgainButtonClick,
+                      onWasHelpfulSubmit: handleOnWasHelpfulSubmit,
+                      onWasHelpfulYesButtonClick: handleOnWasHelpfulYesButtonClick,
+                      onWasHelpfulNoButtonClick: handleOnWasHelpfulNoButtonClick,
+                    }}
+                    navigation={{
+                      articleId,
+                      articleIdSetter,
+                    }}
+                    search={{
+                      onSearch,
+                      onSearchInputChanged: handleOnSearchInputChanged,
+                      onSearchInputCleared: handleOnSearchInputCleared,
+                      onSearchResultItemClick: handleOnSearchResultItemClick,
+                      onSearchExternalUrlClick: handleOnSearchExternalUrlClick,
+                      searchExternalUrl: SEARCH_EXTERNAL_URL,
+                    }}
+                    relatedArticles={{
+                      routeGroup: algoliaParameters.routeGroup,
+                      routeName: algoliaParameters.routeName,
+                      onGetRelatedArticles: getRelatedArticle,
+                      onRelatedArticlesShowMoreClick: handleOnRelatedArticlesShowMoreClick,
+                      onRelatedArticlesListItemClick: handleOnRelatedArticlesListItemClick,
+                    }}
+                    whatsNew={{
+                      whatsNewGetNotificationProvider: Promise.resolve(
+                        notificationsClient,
+                      ),
+                      onWhatsNewButtonClick: handleOnWhatsNewButtonClick,
+                      onSearchWhatsNewShowMoreClick: handleOnSearchWhatsNewShowMoreClick,
+                      onSearchWhatsNewArticles: onSearchWhatsNewArticles,
+                      onGetWhatsNewArticle,
+                      onWhatsNewResultItemClick: handleOnWhatsNewResultItemClick,
+                    }}
+                    header={{
+                      onCloseButtonClick: handleOnCloseButtonClick,
+                      onBackButtonClick: handleOnBackButtonClick,
+                    }}
+                  >
                     <RelatedArticles
                       onRelatedArticlesListItemClick={(
                         event,
@@ -387,7 +587,10 @@ const Example: React.FC = () => {
                         console.log(event);
                         console.log(analytics);
                         console.log(article);
-                        articleIdSetter(article.id);
+                        articleIdSetter({
+                          id: article.id,
+                          type: ARTICLE_TYPE.HELP_ARTICLE,
+                        });
                       }}
                       onRelatedArticlesShowMoreClick={(
                         event,
@@ -399,15 +602,15 @@ const Example: React.FC = () => {
                         console.log(analytics);
                         console.log(isCollapsed);
                       }}
-                      onGetRelatedArticle={getRelatedArticle}
-                      routeGroup={routeGroup}
-                      routeName={routeName}
+                      onGetRelatedArticles={getRelatedArticle}
+                      routeGroup={algoliaParameters.routeGroup}
+                      routeName={algoliaParameters.routeName}
                     />
-                  </ExampleDefaultContent>
-                </Help>
-              </LocaleIntlProvider>
-            </HelpWrapper>
-          </HelpContainer>
+                  </Help>
+                </LocaleIntlProvider>
+              </HelpWrapper>
+            </HelpContainer>
+          )}
         </Page>
       </ExampleWrapper>
     </AnalyticsListener>

@@ -1,7 +1,47 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`BackButton Should match snapshot 1`] = `
-.emotion-18 {
+@keyframes animation-0 {
+  0% {
+    background-position: -300px 0;
+  }
+
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+@keyframes animation-0 {
+  0% {
+    background-position: -300px 0;
+  }
+
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+@keyframes animation-0 {
+  0% {
+    background-position: -300px 0;
+  }
+
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+@keyframes animation-0 {
+  0% {
+    background-position: -300px 0;
+  }
+
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.emotion-42 {
   position: absolute;
   top: 0;
   bottom: 0;
@@ -17,7 +57,7 @@ exports[`BackButton Should match snapshot 1`] = `
   background-color: #ffffff;
 }
 
-.emotion-17 {
+.emotion-41 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -32,7 +72,7 @@ exports[`BackButton Should match snapshot 1`] = `
   min-height: 0;
 }
 
-.emotion-5 {
+.emotion-17 {
   background-color: #FAFBFC;
   border-bottom: 2px solid #EBECF0;
   -webkit-box-pack: justify;
@@ -42,7 +82,7 @@ exports[`BackButton Should match snapshot 1`] = `
   position: relative;
 }
 
-.emotion-0 {
+.emotion-5 {
   color: #42526E;
   text-align: center;
   font-size: 1rem;
@@ -56,19 +96,19 @@ exports[`BackButton Should match snapshot 1`] = `
   vertical-align: middle;
 }
 
-.emotion-4 {
+.emotion-9 {
   position: absolute;
   right: 8px;
   top: 12px;
 }
 
-.emotion-3,
-.emotion-3:hover,
-.emotion-3:active,
-.emotion-3:focus,
-.emotion-3:visited,
-.emotion-3:disabled,
-.emotion-3[disabled] {
+.emotion-8,
+.emotion-8:hover,
+.emotion-8:active,
+.emotion-8:focus,
+.emotion-8:visited,
+.emotion-8:disabled,
+.emotion-8[disabled] {
   -webkit-align-items: baseline;
   -webkit-box-align: baseline;
   -ms-flex-align: baseline;
@@ -107,19 +147,19 @@ exports[`BackButton Should match snapshot 1`] = `
   outline: none;
 }
 
-.emotion-3::-moz-focus-inner,
-.emotion-3:hover::-moz-focus-inner,
-.emotion-3:active::-moz-focus-inner,
-.emotion-3:focus::-moz-focus-inner,
-.emotion-3:visited::-moz-focus-inner,
-.emotion-3:disabled::-moz-focus-inner,
-.emotion-3[disabled]::-moz-focus-inner {
+.emotion-8::-moz-focus-inner,
+.emotion-8:hover::-moz-focus-inner,
+.emotion-8:active::-moz-focus-inner,
+.emotion-8:focus::-moz-focus-inner,
+.emotion-8:visited::-moz-focus-inner,
+.emotion-8:disabled::-moz-focus-inner,
+.emotion-8[disabled]::-moz-focus-inner {
   border: 0;
   margin: 0;
   padding: 0;
 }
 
-.emotion-2 {
+.emotion-1 {
   -webkit-transition: opacity 0.3s;
   transition: opacity 0.3s;
   opacity: 1;
@@ -146,7 +186,7 @@ exports[`BackButton Should match snapshot 1`] = `
   margin: 0 2px;
 }
 
-.emotion-1 {
+.emotion-0 {
   display: inline-block;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
@@ -156,7 +196,7 @@ exports[`BackButton Should match snapshot 1`] = `
   height: 24px;
 }
 
-.emotion-1 > svg {
+.emotion-0 > svg {
   overflow: hidden;
   pointer-events: none;
   max-width: 100%;
@@ -166,12 +206,12 @@ exports[`BackButton Should match snapshot 1`] = `
   vertical-align: bottom;
 }
 
-.emotion-1 > svg stop {
+.emotion-0 > svg stop {
   stop-color: currentColor;
 }
 
 @media screen and (-ms-high-contrast:white-on-black) {
-  .emotion-1 > svg {
+  .emotion-0 > svg {
     -webkit-filter: grayscale(100%);
     filter: grayscale(100%);
     color: #fff;
@@ -180,7 +220,7 @@ exports[`BackButton Should match snapshot 1`] = `
 }
 
 @media screen and (-ms-high-contrast:black-on-white) {
-  .emotion-1 > svg {
+  .emotion-0 > svg {
     -webkit-filter: grayscale(100%);
     filter: grayscale(100%);
     color: #000;
@@ -188,45 +228,16 @@ exports[`BackButton Should match snapshot 1`] = `
   }
 }
 
-.emotion-1 > svg {
+.emotion-0 > svg {
   width: 24px;
   height: 24px;
 }
 
 .emotion-16 {
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  min-height: 0;
-  position: relative;
-  overflow-y: auto;
-  overflow-x: hidden;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  -webkit-flex-wrap: nowrap;
-  -ms-flex-wrap: nowrap;
-  flex-wrap: nowrap;
-  -webkit-box-pack: start;
-  -webkit-justify-content: flex-start;
-  -ms-flex-pack: start;
-  justify-content: flex-start;
-  -webkit-align-content: stretch;
-  -ms-flex-line-pack: stretch;
-  align-content: stretch;
-  -webkit-align-items: flex-start;
-  -webkit-box-align: flex-start;
-  -ms-flex-align: flex-start;
-  align-items: flex-start;
+  padding: 0 16px 16px 16px;
 }
 
-.emotion-11 {
-  padding: 24px 16px 8px 16px;
+.emotion-15 {
   -webkit-order: 0;
   -ms-flex-order: 0;
   order: 0;
@@ -240,7 +251,7 @@ exports[`BackButton Should match snapshot 1`] = `
   box-sizing: border-box;
 }
 
-.emotion-10 {
+.emotion-14 {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -274,73 +285,73 @@ exports[`BackButton Should match snapshot 1`] = `
   pointer-events: auto;
 }
 
-.emotion-10:hover {
+.emotion-14:hover {
   background-color: #EBECF0;
 }
 
-.emotion-10:focus-within {
+.emotion-14:focus-within {
   background-color: #FFFFFF;
   border-color: #4C9AFF;
 }
 
-.emotion-10[data-disabled] {
+.emotion-14[data-disabled] {
   background-color: #FAFBFC;
   border-color: #FAFBFC;
   color: #A5ADBA;
   cursor: not-allowed;
 }
 
-.emotion-10[data-disabled]:focus-within {
+.emotion-14[data-disabled]:focus-within {
   background-color: #F4F5F7;
   border-color: #4C9AFF;
 }
 
-.emotion-10[data-disabled]:hover {
+.emotion-14[data-disabled]:hover {
   background-color: #F4F5F7;
 }
 
-.emotion-10[data-invalid] {
+.emotion-14[data-invalid] {
   background-color: #FAFBFC;
   border-color: #DE350B;
 }
 
-.emotion-10[data-invalid]:focus-within {
+.emotion-14[data-invalid]:focus-within {
   background-color: #FFFFFF;
   border-color: #4C9AFF;
 }
 
-.emotion-10[data-invalid]:hover {
+.emotion-14[data-invalid]:hover {
   background-color: #EBECF0;
 }
 
 @media screen and (-ms-high-contrast:active) {
-  .emotion-10[data-invalid]:focus-within {
+  .emotion-14[data-invalid]:focus-within {
     border-color: Highlight;
   }
 
-  .emotion-10:focus-within {
+  .emotion-14:focus-within {
     border-color: Highlight;
   }
 
-  .emotion-10[data-disabled] {
+  .emotion-14[data-disabled] {
     border-color: GrayText;
   }
 }
 
-.emotion-7 {
+.emotion-11 {
   width: 24px;
   height: 24px;
   padding-left: 4px;
 }
 
-.emotion-7 > span {
+.emotion-11 > span {
   padding-left: 4px;
   height: 24px;
   width: 24px;
   box-sizing: border-box;
 }
 
-.emotion-6 {
+.emotion-10 {
   display: inline-block;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
@@ -348,7 +359,7 @@ exports[`BackButton Should match snapshot 1`] = `
   line-height: 1;
 }
 
-.emotion-6 > svg {
+.emotion-10 > svg {
   overflow: hidden;
   pointer-events: none;
   max-width: 100%;
@@ -358,12 +369,12 @@ exports[`BackButton Should match snapshot 1`] = `
   vertical-align: bottom;
 }
 
-.emotion-6 > svg stop {
+.emotion-10 > svg stop {
   stop-color: currentColor;
 }
 
 @media screen and (-ms-high-contrast:white-on-black) {
-  .emotion-6 > svg {
+  .emotion-10 > svg {
     -webkit-filter: grayscale(100%);
     filter: grayscale(100%);
     color: #fff;
@@ -372,7 +383,7 @@ exports[`BackButton Should match snapshot 1`] = `
 }
 
 @media screen and (-ms-high-contrast:black-on-white) {
-  .emotion-6 > svg {
+  .emotion-10 > svg {
     -webkit-filter: grayscale(100%);
     filter: grayscale(100%);
     color: #000;
@@ -380,7 +391,7 @@ exports[`BackButton Should match snapshot 1`] = `
   }
 }
 
-.emotion-8 {
+.emotion-12 {
   background-color: transparent;
   border: 0;
   box-sizing: border-box;
@@ -394,76 +405,108 @@ exports[`BackButton Should match snapshot 1`] = `
   font-family: -apple-system,BlinkMacSystemFont,'Segoe UI','Roboto','Oxygen','Ubuntu','Fira Sans','Droid Sans','Helvetica Neue',sans-serif;
 }
 
-.emotion-8[data-monospaced] {
+.emotion-12[data-monospaced] {
   font-family: 'SFMono-Medium','SF Mono','Segoe UI Mono','Roboto Mono','Ubuntu Mono',Menlo,Consolas,Courier,monospace;
 }
 
-.emotion-8[data-compact] {
+.emotion-12[data-compact] {
   padding: 4px 6px;
   height: 2.00em;
 }
 
-.emotion-8:not([data-compact]) {
+.emotion-12:not([data-compact]) {
   padding: 8px 6px;
   height: 2.57em;
 }
 
-.emotion-8[disabled] {
+.emotion-12[disabled] {
   -webkit-text-fill-color: #A5ADBA;
 }
 
-.emotion-8::-ms-clear {
+.emotion-12::-ms-clear {
   display: none;
 }
 
-.emotion-8:invalid {
+.emotion-12:invalid {
   box-shadow: none;
 }
 
-.emotion-8::placeholder {
+.emotion-12::placeholder {
   color: #7A869A;
 }
 
-.emotion-8::-webkit-input-placeholder:disabled {
+.emotion-12::-webkit-input-placeholder:disabled {
   color: #A5ADBA;
 }
 
-.emotion-8::-moz-placeholder:disabled {
+.emotion-12::-moz-placeholder:disabled {
   color: #A5ADBA;
 }
 
-.emotion-8:-ms-input-placeholder:disabled {
+.emotion-12:-ms-input-placeholder:disabled {
   color: #A5ADBA;
 }
 
-.emotion-8::placeholder:disabled {
+.emotion-12::placeholder:disabled {
   color: #A5ADBA;
 }
 
 @media screen and (-ms-high-contrast:active) {
-  .emotion-8[disabled] {
+  .emotion-12[disabled] {
     color: GrayText;
   }
 }
 
-.emotion-9 {
+.emotion-13 {
   font-size: 0;
   padding-right: 8px;
   position: relative;
   white-space: nowrap;
 }
 
-.emotion-9 > span {
+.emotion-13 > span {
   padding-right: 4px;
 }
 
-.emotion-9 > button,
-.emotion-9 > span {
+.emotion-13 > button,
+.emotion-13 > span {
   display: inline-block;
   vertical-align: middle;
 }
 
-.emotion-15 {
+.emotion-40 {
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  min-height: 0;
+  position: relative;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-flex-wrap: nowrap;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-align-content: stretch;
+  -ms-flex-line-pack: stretch;
+  align-content: stretch;
+  -webkit-align-items: flex-start;
+  -webkit-box-align: flex-start;
+  -ms-flex-align: flex-start;
+  align-items: flex-start;
+}
+
+.emotion-27 {
   width: 100%;
   box-sizing: border-box;
   -webkit-order: 0;
@@ -480,7 +523,7 @@ exports[`BackButton Should match snapshot 1`] = `
   overflow-y: scroll;
 }
 
-.emotion-12 {
+.emotion-18 {
   position: absolute;
   height: 100%;
   width: 100%;
@@ -499,7 +542,7 @@ exports[`BackButton Should match snapshot 1`] = `
   padding: 0 16px;
 }
 
-.emotion-13 {
+.emotion-24 {
   padding: 16px 24px;
   position: absolute;
   height: 100%;
@@ -516,46 +559,464 @@ exports[`BackButton Should match snapshot 1`] = `
   box-sizing: border-box;
   overflow-x: hidden;
   overflow-y: auto;
-  z-index: 1;
+  z-index: 2;
 }
 
-.emotion-14 {
+.emotion-39 {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  background-color: #ffffff;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  overflow-y: auto;
+  z-index: 1;
+  padding: 16px;
+}
+
+.emotion-37 {
+  width: 152px;
+}
+
+.emotion-38 {
+  padding-top: 16px;
+}
+
+.emotion-4 {
+  position: absolute;
+  top: 12px;
+  left: 8px;
+}
+
+.emotion-3,
+.emotion-3:hover,
+.emotion-3:active,
+.emotion-3:focus,
+.emotion-3:visited,
+.emotion-3:disabled,
+.emotion-3[disabled] {
+  -webkit-align-items: baseline;
+  -webkit-box-align: baseline;
+  -ms-flex-align: baseline;
+  align-items: baseline;
+  border-width: 0;
+  border-radius: 3px;
+  box-sizing: border-box;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-size: inherit;
+  font-style: normal;
+  font-family: inherit;
+  font-weight: 500;
+  max-width: 100%;
+  position: relative;
+  text-align: center;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  -webkit-transition: background 0.1s ease-out,box-shadow 0.15s cubic-bezier(0.47,0.03,0.49,1.38);
+  transition: background 0.1s ease-out,box-shadow 0.15s cubic-bezier(0.47,0.03,0.49,1.38);
+  white-space: nowrap;
+  background: none;
+  color: #42526E;
+  cursor: pointer;
+  height: 2.2857142857142856em;
+  line-height: 2.2857142857142856em;
+  padding: 0 10px;
+  vertical-align: middle;
+  width: auto;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  outline: none;
+}
+
+.emotion-3::-moz-focus-inner,
+.emotion-3:hover::-moz-focus-inner,
+.emotion-3:active::-moz-focus-inner,
+.emotion-3:focus::-moz-focus-inner,
+.emotion-3:visited::-moz-focus-inner,
+.emotion-3:disabled::-moz-focus-inner,
+.emotion-3[disabled]::-moz-focus-inner {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.emotion-2 {
+  -webkit-transition: opacity 0.3s;
+  transition: opacity 0.3s;
+  opacity: 1;
+  margin: 0 2px;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  -webkit-flex-shrink: 1;
+  -ms-flex-negative: 1;
+  flex-shrink: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.emotion-19 {
+  display: inline-block;
+  vertical-align: middle;
+  position: relative;
+  height: 20px;
+  margin-top: 0;
+  width: 100%;
+  border-radius: 2px;
+  -webkit-animation-duration: 1.2s;
+  animation-duration: 1.2s;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-name: animation-0;
+  animation-name: animation-0;
+  -webkit-animation-timing-function: linear;
+  animation-timing-function: linear;
+  background-color: #EBECF0;
+  background-image: linear-gradient( to right, #EBECF0 10%, #DFE1E6 20%, #EBECF0 30% );
+  background-repeat: no-repeat;
+}
+
+.emotion-20 {
+  display: inline-block;
+  vertical-align: middle;
+  position: relative;
+  height: 1rem;
+  margin-top: 8px;
+  width: 90%;
+  border-radius: 2px;
+  -webkit-animation-duration: 1.2s;
+  animation-duration: 1.2s;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-name: animation-0;
+  animation-name: animation-0;
+  -webkit-animation-timing-function: linear;
+  animation-timing-function: linear;
+  background-color: #EBECF0;
+  background-image: linear-gradient( to right, #EBECF0 10%, #DFE1E6 20%, #EBECF0 30% );
+  background-repeat: no-repeat;
+}
+
+.emotion-21 {
+  display: inline-block;
+  vertical-align: middle;
+  position: relative;
+  height: 1rem;
+  margin-top: 8px;
+  width: 80%;
+  border-radius: 2px;
+  -webkit-animation-duration: 1.2s;
+  animation-duration: 1.2s;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-name: animation-0;
+  animation-name: animation-0;
+  -webkit-animation-timing-function: linear;
+  animation-timing-function: linear;
+  background-color: #EBECF0;
+  background-image: linear-gradient( to right, #EBECF0 10%, #DFE1E6 20%, #EBECF0 30% );
+  background-repeat: no-repeat;
+}
+
+.emotion-23 {
+  display: inline-block;
+  vertical-align: middle;
+  position: relative;
+  height: 1rem;
+  margin-top: 8px;
+  width: 70%;
+  border-radius: 2px;
+  -webkit-animation-duration: 1.2s;
+  animation-duration: 1.2s;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-name: animation-0;
+  animation-name: animation-0;
+  -webkit-animation-timing-function: linear;
+  animation-timing-function: linear;
+  background-color: #EBECF0;
+  background-image: linear-gradient( to right, #EBECF0 10%, #DFE1E6 20%, #EBECF0 30% );
+  background-repeat: no-repeat;
+}
+
+.emotion-26 {
   display: block;
   height: 100%;
-  overflow: auto;
+  overflow: hidden;
+  padding: 16px;
+}
+
+.emotion-36 {
+  pointer-events: all;
+  position: relative;
+  box-sizing: border-box;
+  font-family: -apple-system,BlinkMacSystemFont,'Segoe UI','Roboto','Oxygen','Ubuntu','Fira Sans','Droid Sans','Helvetica Neue',sans-serif;
+}
+
+
+
+.emotion-28 {
+  z-index: 9999;
+  border: 0;
+  clip: rect(1px, 1px, 1px, 1px);
+  height: 1px;
+  width: 1px;
+  position: absolute;
+  overflow: hidden;
+  padding: 0;
+  white-space: nowrap;
+}
+
+.emotion-35 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background-color: #F4F5F7;
+  border-color: #F4F5F7;
+  border-radius: 3px;
+  border-style: solid;
+  border-width: 2px;
+  box-shadow: none;
+  cursor: default;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+  min-height: 40px;
+  outline: 0!important;
+  position: relative;
+  -webkit-transition: background-color 200ms ease-in-out,border-color 200ms ease-in-out;
+  transition: background-color 200ms ease-in-out,border-color 200ms ease-in-out;
+  box-sizing: border-box;
+  padding: 0;
+}
+
+.emotion-35:hover {
+  border-color: hsl(0, 0%, 70%);
+}
+
+.emotion-35::-webkit-scrollbar {
+  height: 8px;
+  width: 8px;
+}
+
+.emotion-35::-webkit-scrollbar-corner {
+  display: none;
+}
+
+.emotion-35:hover {
+  cursor: pointer;
+  background-color: #EBECF0;
+  border-color: #EBECF0;
+}
+
+.emotion-35:hover::-webkit-scrollbar-thumb {
+  background-color: rgba(0,0,0,0.2);
+}
+
+.emotion-35::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0,0,0,0.4);
+}
+
+.emotion-31 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  -webkit-box-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  padding: 2px 8px;
+  -webkit-overflow-scrolling: touch;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+  padding-left: 6px;
+  padding-right: 6px;
+  padding-bottom: 2px;
+  padding-top: 2px;
+}
+
+.emotion-29 {
+  color: #172B4D;
+  margin-left: 2px;
+  margin-right: 2px;
+  max-width: calc(100% - 8px);
+  overflow: hidden;
+  position: absolute;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  box-sizing: border-box;
+  line-height: 16px;
+}
+
+.emotion-30 {
+  margin: 2px;
+  padding-bottom: 2px;
+  padding-top: 2px;
+  visibility: visible;
+  color: hsl(0, 0%, 20%);
+  box-sizing: border-box;
+}
+
+.emotion-34 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  padding-right: 4px;
+}
+
+.emotion-33 {
+  color: #42526E;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 8px;
+  -webkit-transition: color 150ms;
+  transition: color 150ms;
+  box-sizing: border-box;
+  padding-left: 2px;
+  padding-right: 2px;
+  padding-bottom: 6px;
+  padding-top: 6px;
+}
+
+.emotion-33:hover {
+  color: #6B778C;
 }
 
 <div
-  class="emotion-18"
+  class="emotion-42"
 >
   <div
-    class="emotion-17"
+    class="emotion-41"
   >
     <div
-      class="emotion-5"
+      class="emotion-17"
     >
       <div
-        class="emotion-0"
+        class="emotion-4"
+        style="transition: left 220ms, opacity 220ms; left: 24px; opacity: 0;"
+      >
+        <button
+          class="emotion-3"
+          tabindex="0"
+          type="button"
+        >
+          <span
+            class="emotion-1"
+          >
+            <span
+              aria-hidden="true"
+              class="emotion-0"
+              role="presentation"
+              style="--icon-primary-color: currentColor; --icon-secondary-color: #FFFFFF;"
+            >
+              <svg
+                height="24"
+                role="presentation"
+                viewBox="0 0 24 24"
+                width="24"
+              >
+                <path
+                  d="M0 0h24v24H0z"
+                  fill="#fff"
+                  fill-opacity=".01"
+                />
+                <path
+                  clip-rule="evenodd"
+                  d="M12.207 5.793a1 1 0 010 1.414L8.414 11H18a1 1 0 110 2H8.414l3.793 3.793a1 1 0 11-1.415 1.414l-5.499-5.5A.997.997 0 015 12.028v-.057a.996.996 0 01.293-.678l5.499-5.5a1 1 0 011.415 0z"
+                  fill="currentColor"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+          </span>
+          <span
+            class="emotion-2"
+          >
+            Back
+          </span>
+        </button>
+      </div>
+      <div
+        class="emotion-5"
       >
         Help
       </div>
       <div
-        class="emotion-4"
+        class="emotion-9"
       >
         <div
           role="presentation"
         >
           <button
-            class="emotion-3"
+            class="emotion-8"
             tabindex="0"
             type="button"
           >
             <span
-              class="emotion-2"
+              class="emotion-1"
             >
               <span
                 aria-label="Close"
-                class="emotion-1"
+                class="emotion-0"
                 role="img"
                 style="--icon-primary-color: currentColor; --icon-secondary-color: #FFFFFF;"
               >
@@ -576,71 +1037,230 @@ exports[`BackButton Should match snapshot 1`] = `
           </button>
         </div>
       </div>
-    </div>
-    <div
-      class="emotion-16"
-    >
       <div
-        class="emotion-11"
+        class="emotion-16"
       >
         <div
-          class="emotion-10"
-          data-ds--text-field--container="true"
+          class="emotion-15"
         >
           <div
-            class="emotion-7"
+            class="emotion-14"
+            data-ds--text-field--container="true"
           >
-            <span
-              aria-hidden="true"
-              class="emotion-6"
-              role="presentation"
-              style="--icon-primary-color: currentColor; --icon-secondary-color: #FFFFFF;"
+            <div
+              class="emotion-11"
             >
-              <svg
-                height="24"
+              <span
+                aria-hidden="true"
+                class="emotion-10"
                 role="presentation"
-                viewBox="0 0 24 24"
-                width="24"
+                style="--icon-primary-color: currentColor; --icon-secondary-color: #FFFFFF;"
               >
-                <path
-                  d="M16.436 15.085l3.94 4.01a1 1 0 01-1.425 1.402l-3.938-4.006a7.5 7.5 0 111.423-1.406zM10.5 16a5.5 5.5 0 100-11 5.5 5.5 0 000 11z"
-                  fill="currentColor"
-                  fill-rule="evenodd"
-                />
-              </svg>
-            </span>
+                <svg
+                  height="24"
+                  role="presentation"
+                  viewBox="0 0 24 24"
+                  width="24"
+                >
+                  <path
+                    d="M16.436 15.085l3.94 4.01a1 1 0 01-1.425 1.402l-3.938-4.006a7.5 7.5 0 111.423-1.406zM10.5 16a5.5 5.5 0 100-11 5.5 5.5 0 000 11z"
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </div>
+            <input
+              autocomplete="off"
+              class="emotion-12"
+              data-ds--text-field--input="true"
+              name="help-search-input"
+              placeholder="Search help articles"
+              value=""
+            />
+            <div
+              class="emotion-13"
+            />
           </div>
-          <input
-            autocomplete="off"
-            class="emotion-8"
-            data-ds--text-field--input="true"
-            name="help-search-input"
-            placeholder="Search help articles"
-            value=""
-          />
-          <div
-            class="emotion-9"
-          />
         </div>
       </div>
+    </div>
+    <div
+      class="emotion-40"
+    >
       <div
-        class="emotion-15"
+        class="emotion-27"
       >
         <div
-          class="emotion-12"
+          class="emotion-18"
           style="transition: opacity 440ms; opacity: 0; visibility: hidden;"
         />
         <div
-          class="emotion-13"
-          style="left: 100%; transition: left 300ms cubic-bezier(0.2, 0, 0, 1) 0s;"
-        />
+          class="emotion-24"
+          style="left: 0px;"
+        >
+          <div
+            aria-label="Loading"
+            role="img"
+          >
+            <div
+              class="emotion-19"
+            />
+            <div
+              class="emotion-20"
+            />
+            <div
+              class="emotion-21"
+            />
+            <div
+              class="emotion-21"
+            />
+            <div
+              class="emotion-23"
+            />
+          </div>
+        </div>
         <div
-          class="emotion-14"
+          class="emotion-26"
         >
           <div>
             Default content
           </div>
+          <a
+            class="sc-keVrkP knRxbO"
+            id="whats-new"
+          >
+            <div
+              class="sc-gVLVqr fdEBcy"
+            >
+              <span
+                aria-hidden="true"
+                class="emotion-0"
+                role="presentation"
+                style="--icon-primary-color: #344563; --icon-secondary-color: #FFFFFF;"
+              >
+                <svg
+                  height="24"
+                  role="presentation"
+                  viewBox="0 0 24 24"
+                  width="24"
+                >
+                  <g
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                  >
+                    <path
+                      d="M6 12h8v-2H6v2zM4 8.99C4 8.445 4.456 8 5.002 8h9.996C15.55 8 16 8.451 16 8.99V14H4V8.99z"
+                      fill-rule="nonzero"
+                    />
+                    <path
+                      d="M6 7.005C6 5.898 6.898 5 7.998 5h2.004C11.106 5 12 5.894 12 7.005V10H6V7.005zm4 0V7H7.999c.005 0 .002.003.002.005V8h2v-.995z"
+                    />
+                    <path
+                      d="M4.5 17h13.994l1.002-3H4.14l.36 3zm-2.495-4.012A.862.862 0 012.883 12h18.393c.55 0 .857.417.681.944l-1.707 5.112c-.174.521-.758.944-1.315.944H3.725a1.149 1.149 0 01-1.118-.988l-.602-5.024z"
+                      fill-rule="nonzero"
+                    />
+                  </g>
+                </svg>
+              </span>
+            </div>
+            <div
+              class="sc-cBdUnI eOxeml"
+            >
+              Whats's new
+              <div
+                class="sc-kcDeIU jMcahr"
+              />
+            </div>
+          </a>
         </div>
+      </div>
+      <div
+        class="emotion-39"
+        style="transition: opacity 440ms; opacity: 0; visibility: hidden;"
+      >
+        <div
+          class="emotion-37"
+        >
+          <div
+            class="single-select emotion-36"
+          >
+            <span
+              aria-atomic="false"
+              aria-live="polite"
+              aria-relevant="additions text"
+              class="emotion-28"
+            />
+            <div
+              class="react-select__control emotion-35"
+            >
+              <div
+                class="react-select__value-container react-select__value-container--has-value emotion-31"
+              >
+                <div
+                  class="react-select__single-value emotion-29"
+                >
+                  All release types
+                </div>
+                <div
+                  class="emotion-30"
+                >
+                  <div
+                    class="react-select__input"
+                    style="display: inline-block;"
+                  >
+                    <input
+                      aria-autocomplete="list"
+                      autocapitalize="none"
+                      autocomplete="off"
+                      autocorrect="off"
+                      id="react-select-2-input"
+                      spellcheck="false"
+                      style="box-sizing: content-box; width: 2px; border: 0px; opacity: 1; outline: 0; padding: 0px;"
+                      tabindex="0"
+                      type="text"
+                      value=""
+                    />
+                    <div
+                      style="position: absolute; top: 0px; left: 0px; visibility: hidden; height: 0px; overflow: scroll; white-space: pre; font-family: -webkit-small-control; letter-spacing: normal; text-transform: none;"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div
+                class="react-select__indicators emotion-34"
+              >
+                <div
+                  aria-hidden="true"
+                  class="react-select__indicator react-select__dropdown-indicator emotion-33"
+                >
+                  <span
+                    aria-label="open"
+                    class="emotion-10"
+                    role="img"
+                    style="--icon-primary-color: currentColor; --icon-secondary-color: #FFFFFF;"
+                  >
+                    <svg
+                      height="24"
+                      role="presentation"
+                      viewBox="0 0 24 24"
+                      width="24"
+                    >
+                      <path
+                        d="M8.292 10.293a1.009 1.009 0 000 1.419l2.939 2.965c.218.215.5.322.779.322s.556-.107.769-.322l2.93-2.955a1.01 1.01 0 000-1.419.987.987 0 00-1.406 0l-2.298 2.317-2.307-2.327a.99.99 0 00-1.406 0z"
+                        fill="currentColor"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="emotion-38"
+        />
       </div>
     </div>
   </div>

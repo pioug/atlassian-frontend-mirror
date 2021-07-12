@@ -5,7 +5,7 @@ import ArticlesList from '../../ArticlesList';
 import { ArticleItem } from '../../../model/Article';
 
 export interface Props {
-  searchResult?: ArticleItem[];
+  searchResult?: ArticleItem[] | null;
   onSearchResultItemClick(
     event: React.MouseEvent<HTMLElement, MouseEvent>,
     analyticsEvent: UIAnalyticsEvent,

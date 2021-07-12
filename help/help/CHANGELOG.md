@@ -1,5 +1,15 @@
 # @atlaskit/help
 
+## 4.0.0
+
+### Major Changes
+
+- [`bc46b0b34ed`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bc46b0b34ed) - [ux] @atlaskit/help-article: Updated component interfaze and removed unused props onArticleRenderBegin and onArticleRenderDone. @atlaskit/help-artilce: major changes in the component interfaze, added "What's new" articles search and articles view. Moved the search input to the header. Updated navigation logic and unit tests
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.1.3
 
 ### Patch Changes

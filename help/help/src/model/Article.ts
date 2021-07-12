@@ -1,12 +1,14 @@
+import { BODY_FORMAT_TYPES } from '@atlaskit/help-article';
+import type { AdfDoc } from '@atlaskit/help-article';
 export interface Article extends ArticleItem {
-  body: string;
+  body: string | AdfDoc;
+  bodyFormat?: BODY_FORMAT_TYPES;
   relatedArticles?: ArticleItem[];
 }
 
+// TODO - Check if we need to delete this
 export enum ARTICLE_ITEM_TYPES {
   topicInProduct = 'topicInProduct',
-  whatsNew = 'whatsNew',
-  helpArticle = 'helpArticle',
 }
 export interface ArticleItem {
   description?: string;

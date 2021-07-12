@@ -2,10 +2,9 @@
 
 import styled from '@emotion/styled';
 import { gridSize } from '@atlaskit/theme/constants';
-import * as colors from '@atlaskit/theme/colors';
 
 type HelpBodyProps = {
-  isArticleVisible?: boolean;
+  isOverlayVisible?: boolean;
 };
 
 export const HelpBodyContainer = styled.div<HelpBodyProps>`
@@ -33,22 +32,14 @@ export const HelpBody = styled.div<HelpBodyProps>`
   overflow-y: scroll;
 `;
 
-type DefaultContentProps = {
-  isArticleFullyVisible?: boolean;
-  isArticleVisible?: boolean;
+type HomeProps = {
+  isOverlayFullyVisible?: boolean;
+  isOverlayVisible?: boolean;
 };
 
-export const DefaultContent = styled.div<DefaultContentProps>`
-  display: ${(props) => (props.isArticleFullyVisible ? 'none' : 'block')};
+export const Home = styled.div<HomeProps>`
+  display: ${(props) => (props.isOverlayFullyVisible ? 'none' : 'block')};
   height: 100%;
-  overflow: ${(props) => (props.isArticleVisible ? 'hidden' : 'auto')};
-`;
-
-export const DividerLine = styled.div`
-  background-color: ${colors.N30A};
-  height: 2px;
-  width: 100%;
-  padding: 0 ${2 * gridSize()}px;
-  margin-top: ${gridSize() * 2}px;
-  box-sizing: border-box;
+  overflow: ${(props) => (props.isOverlayVisible ? 'hidden' : 'auto')};
+  padding: ${gridSize() * 2}px;
 `;

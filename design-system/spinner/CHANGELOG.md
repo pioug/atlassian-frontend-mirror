@@ -1,5 +1,14 @@
 # @atlaskit/spinner
 
+## 15.0.10
+
+### Patch Changes
+
+- [`d2cf99ba208`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d2cf99ba208) - [ux] Fixes two regressions introduced in v15.0.8:
+
+  - There was a bug in the `xsmall` size variant of Spinner where the Spinner path appeared flipped, making the rotation look like the axis was off.
+  - The addition of a wrapping span and layout change from `inline` to `inline-block` in v15.0.8 shifted the spinner down slightly, causing potential flickers when scrollbars appear as content overflows in very tight layout scenarios. Please note that if you are using a Spinner in the `iconBefore`, `iconAfter` or `overlay` props of `@atlaskit/button` to create custom loading experiences, you are encouraged to move to using our dedicated [LoadingButton](https://atlassian.design/components/button/examples#loading-button) component; this takes care of all UX concerns for you, and ensures a smooth upgrade path for you in the future.
+
 ## 15.0.9
 
 ### Patch Changes

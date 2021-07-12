@@ -1,0 +1,169 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`WhatsNewResultListItem Should match snapshot 1`] = `
+.emotion-4 {
+  position: relative;
+  box-sizing: border-box;
+  padding: 8px;
+  display: block;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  cursor: pointer;
+  color: #6B778C;
+  border-radius: 3px;
+}
+
+.emotion-4:hover,
+.emotion-4:focus,
+.emotion-4:visited,
+.emotion-4:active {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  outline: none;
+  outline-offset: none;
+}
+
+.emotion-4:focus {
+  box-shadow: #4C9AFF 0px 0px 0px 2px inset;
+}
+
+.emotion-4:hover {
+  background-color: #EBECF0;
+}
+
+.emotion-4:active {
+  background-color: #DEEBFF;
+}
+
+.emotion-2 {
+  width: 100%;
+  white-space: nowrap;
+  margin-bottom: 4px;
+}
+
+.emotion-0 {
+  display: inline-block;
+  vertical-align: middle;
+  position: relative;
+  height: 32px;
+  width: 32px;
+  border-radius: 50%;
+  background-color: #36B37E;
+}
+
+.emotion-0 > div {
+  width: 16px;
+  height: 16px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+}
+
+.emotion-0 > div > svg {
+  height: 100%;
+  width: 100%;
+}
+
+.emotion-1 {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  color: #172B4D;
+  font-size: 14px;
+  font-weight: 600;
+  display: inline-block;
+  vertical-align: middle;
+  padding-left: 4px;
+  line-height: 20px;
+  white-space: normal;
+  overflow-x: hidden;
+}
+
+.emotion-3 {
+  display: block;
+  line-height: 20px;
+  color: #505F79;
+  margin: 0;
+}
+
+<a
+  aria-disabled="false"
+  class="emotion-4"
+  role="button"
+>
+  <div
+    class="emotion-2"
+  >
+    <div
+      class="emotion-0"
+      type="Announcement"
+    >
+      <div>
+        <svg
+          fill="none"
+          height="12"
+          viewBox="0 0 17 12"
+          width="17"
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+        >
+          
+
+          <rect
+            fill="url(#pattern0)"
+            height="12"
+            width="17"
+          />
+          
+
+          <defs>
+            
+
+            <pattern
+              height="1"
+              id="pattern0"
+              patternContentUnits="objectBoundingBox"
+              width="1"
+            >
+              
+
+              <use
+                transform="translate(-0.00117647) scale(0.0141176 0.02)"
+                xlink:href="#image0"
+              />
+              
+
+            </pattern>
+            
+
+            <image
+              height="50"
+              id="image0"
+              width="71"
+              xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEcAAAAyCAYAAAAOX8ZtAAAACXBIWXMAABYlAAAWJQFJUiTwAAADIElEQVRo3u1boXLbQBTczWimggoTVFACHdSyul8Qh4U1YYXJJ4QVuqxF9R/UZSmqWQMNwyqooqrMbAv8PNUop1S2JUWWtTMey2frfFq/3ffuTgb2HJIiSdeSvkj6Iely9Z63p4QMALwFMAQwsOYFgA8AIkkhycTbI0JGAM6MkMjxkQcjCPZ+d8mRFABYETIqccqvzPEJgHuvg3IZmmQGa56eZI7DTniOpGEmOqItuoozx74k39thuby256CCblNHW+jtCCFRjpCq4SIn8FruH/l0WxfaT06JdFsX/rgavZb4x1lNcimLhaMt8p5JLpum27qQPFvkVJhuG4VXs1yqTLdNozpZNZBu60RcGDkW9inJeYvTbfOykvTdLg6SxiRvWppuGwclKVsMkTxsabqtE7dlDDlocbp9/mwl6WfX5VKmxgGAA1cK27MAWaxDTo+enJ6cnpyenJ6cnpyenJ6cnpyenCwOAVwBmMK9ZdE1FE6X8ksWIMncRDS7utfVeddtUeTEmdeTR+yRU5I3JI8AnFpH832QFW0x6xrLha5x2RMlXWO55nOM5S0bnYscbtqb3R62kplvEfgSu7nbcFtntloAuCN5ZcuspwDGKFjVbyHCxlI5yXnGp44A3ACYtZgc39GW1F7nkIxJjkm+2bEyYXFQd2jmiEpJTkiem/yuANy3gCinR26z4xnn6p4Tu9B1kAD4Zo/QBnmM5nc8gqpllTfbyLaEy2a7IEdCAmBM8tR8aiW/JvCiUlmRjB1yGEnyS3Zx4TDCecanJiTPzafOrUCtS34uS0i39ZyZIzwvJYVPRIwv6Z1jQDOSiwKfmtZcJrh+0JTb9porBvNR8JC5iNB8aeAYTAJg4iLnP98d4d9W9bDiQnBcBTk+gMsy2eqJAnJCMtlyHEGOqHWr9E/4t/u5IPmeVcSkEXSxwaw9ATDdlpiCMa27mvA1M6Feel7FA3plv5pf0q/u15XShuMaZKKqqEyYG0Er/5uxhoH45i0nFtoruaUWKTGAeROkPOFTQzy+pSbF8i9FAPCxjmjeKUgKJI0kfZb0W9KdLcUAAP4CGrc9WziY2VsAAAAASUVORK5CYII="
+            />
+            
+
+          </defs>
+          
+
+        </svg>
+        
+
+      </div>
+    </div>
+    <span
+      class="emotion-1"
+    >
+      New
+    </span>
+  </div>
+  <p
+    class="emotion-3"
+  >
+    Mock What's New article title
+  </p>
+</a>
+`;

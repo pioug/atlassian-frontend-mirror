@@ -47,10 +47,6 @@ export const ArticleBody = (props: Props) => {
           currentIframe.style.height = contentHeight + 10 + 'px';
           currentIframe.contentWindow.document.body.style.height =
             contentHeight + 'px';
-
-          if (onArticleRenderDone) {
-            onArticleRenderDone();
-          }
         }
       }
     }

@@ -8,7 +8,7 @@ Spinners indicate that a system process is going on that will end with content b
 
 ## Best practices
 
-- If a spinner is triggered by a button, place the spinner in the button, and disable the button while the spinner is visible.
+- If you want a spinner that is triggered by a button, place the spinner in the button, and disable the button while the spinner is visible. If you're using the [Button](/components/button/) component, you should use the `LoadingButton` export as all of this is taken care of for you.
 - If only a portion of a page is displaying new content or being updated, place the spinner in that part of the page.
 - If you are unsure where to place the spinner, place it where you want the user's attention to be when loading is finished.
 - Only show a spinner if the expected wait time is more than a second.
@@ -17,3 +17,7 @@ Spinners indicate that a system process is going on that will end with content b
 ## Server
 
 Consult [AUI](https://docs.atlassian.com/aui/latest/docs/spinner.html) for implementation details.
+
+## Related
+
+- [Loading button](/components/button/examples#loading-button) is the recommended approach in situations where you want to show a spinner as an overlay on a button.

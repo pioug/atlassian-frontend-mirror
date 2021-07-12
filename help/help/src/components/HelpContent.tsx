@@ -1,65 +1,104 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import HelpLayout from '@atlaskit/help-layout';
 import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 
-import { useHelpContext } from './HelpContext';
+import { HIDE_CONTENT_DELAY } from './constants';
+import { useNavigationContext } from './contexts/navigationContext';
+import { useHomeContext } from './contexts/homeContext';
+import { useHeaderContext } from './contexts/headerContext';
+import { useSearchContext } from './contexts/searchContext';
 import SearchInput from './Search/SearchInput';
 import SearchResults from './Search/SearchResults';
 import ArticleComponent from './Article';
+import WhatsNewButton from './WhatsNew/WhatsNewButton';
+import WhatsNewResults from './WhatsNew/WhatsNewResults';
+import HelpContentButton from './HelpContentButton';
+import type { Props as HelpContentButtonProps } from './HelpContentButton';
 
-import { HelpBodyContainer, HelpBody, DefaultContent } from './styled';
+import { HelpBodyContainer, HelpBody, Home } from './styled';
 
-export const HelpContent: React.FC = () => {
+interface HelpContentInterface {
+  footer?: React.ReactNode;
+}
+
+export const HelpContent: React.FC<HelpContentInterface> = ({ footer }) => {
+  const { homeContent, homeOptions } = useHomeContext();
   const {
-    help: {
-      footer,
-      isSearchVisible,
-      searchResultsVisible,
-      articleFullyVisible,
-      isArticleVisible,
-      defaultContent,
-      onBackButtonClick,
-      navigateBack,
-      isBackbuttonVisible,
-      onCloseButtonClick,
-    },
-  } = useHelpContext();
+    isOverlayVisible,
+    navigateBack,
+    canNavigateBack,
+    onClose,
+  } = useNavigationContext();
+  const { onSearch } = useSearchContext();
+  const { onBackButtonClick } = useHeaderContext();
 
-  const handleOnBackButtonClick = (
-    event: React.MouseEvent<HTMLElement, MouseEvent>,
-    analyticsEvent: UIAnalyticsEvent,
-  ): void => {
-    if (onBackButtonClick) {
-      onBackButtonClick(event, analyticsEvent);
+  const isOverlayVisibleValue = isOverlayVisible();
+  const [isOverlayFullyVisible, setIsOverlayFullyVisible] = useState(
+    isOverlayVisibleValue,
+  );
+
+  const handleOnBackButtonClick = useCallback(
+    (
+      event: React.MouseEvent<HTMLElement, MouseEvent>,
+      analyticsEvent: UIAnalyticsEvent,
+    ): void => {
+      if (onBackButtonClick) {
+        onBackButtonClick(event, analyticsEvent);
+      }
+      if (navigateBack) {
+        navigateBack();
+      }
+    },
+    [navigateBack, onBackButtonClick],
+  );
+
+  useEffect(() => {
+    let handler: ReturnType<typeof setTimeout>;
+    if (isOverlayVisibleValue) {
+      handler = setTimeout(() => {
+        setIsOverlayFullyVisible(isOverlayVisibleValue);
+      }, HIDE_CONTENT_DELAY);
+    } else {
+      setIsOverlayFullyVisible(isOverlayVisibleValue);
     }
-    if (navigateBack) {
-      navigateBack();
-    }
-  };
+
+    return () => {
+      if (handler) {
+        clearTimeout(handler);
+      }
+    };
+  }, [isOverlayVisibleValue]);
 
   return (
     <HelpLayout
       onBackButtonClick={handleOnBackButtonClick}
-      onCloseButtonClick={onCloseButtonClick}
-      isBackbuttonVisible={isBackbuttonVisible()}
+      onCloseButtonClick={onClose}
+      isBackbuttonVisible={canNavigateBack()}
       footer={footer}
+      headerContent={onSearch && <SearchInput />}
     >
       <HelpBodyContainer>
-        {isSearchVisible() && <SearchInput />}
         <HelpBody>
           <SearchResults />
-          {!searchResultsVisible && (
-            <>
-              <ArticleComponent />
-              <DefaultContent
-                isArticleFullyVisible={articleFullyVisible}
-                isArticleVisible={isArticleVisible()}
-              >
-                {defaultContent}
-              </DefaultContent>
-            </>
-          )}
+          <ArticleComponent />
+          <Home
+            isOverlayFullyVisible={isOverlayFullyVisible}
+            isOverlayVisible={isOverlayVisibleValue}
+          >
+            {homeContent}
+            {<WhatsNewButton />}
+            {homeOptions &&
+              homeOptions.map((defaultOption: HelpContentButtonProps) => {
+                return (
+                  <HelpContentButton
+                    key={defaultOption.id}
+                    {...defaultOption}
+                  />
+                );
+              })}
+          </Home>
         </HelpBody>
+        <WhatsNewResults />
       </HelpBodyContainer>
     </HelpLayout>
   );

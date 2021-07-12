@@ -17,7 +17,7 @@ import { ArticleItem } from '../../model/Article';
 import ArticlesList from '../ArticlesList';
 
 import RelatedArticlesLoading from './RelatedArticlesLoading';
-import { DividerLine } from '../styled';
+import { DividerLine } from '../../util/styled';
 import { RelatedArticlesTitle } from './styled';
 import useCancellablePromise from '../../util/hooks/cancellablePromise';
 import { usePrevious } from '../../util/hooks/previous';
@@ -30,7 +30,7 @@ export interface Props {
   // routeName used to get the related articles. This prop is optional.
   routeName?: string;
   // Function used to get related articles. This prop is optional, if is not defined the related articles will not be displayed
-  onGetRelatedArticle?(
+  onGetRelatedArticles?(
     routeGroup?: string,
     routeName?: string,
   ): Promise<ArticleItem[]>;
@@ -52,7 +52,7 @@ export const RelatedArticles: React.FC<Props & InjectedIntlProps> = ({
   style = 'primary',
   routeGroup,
   routeName,
-  onGetRelatedArticle,
+  onGetRelatedArticles,
   onRelatedArticlesListItemClick,
   onRelatedArticlesShowMoreClick,
   intl: { formatMessage },
@@ -64,11 +64,26 @@ export const RelatedArticles: React.FC<Props & InjectedIntlProps> = ({
   const prevRouteGroup = usePrevious(routeGroup);
   const prevRouteName = usePrevious(routeName);
 
+  const handleOnRelatedArticlesShowMoreClick = (
+    event: React.MouseEvent<HTMLElement>,
+    analyticsEvent: UIAnalyticsEvent,
+    isCollapsed: boolean,
+  ) => {
+    analyticsEvent.payload.attributes = {
+      componentName: 'RelatedArticles',
+      packageName,
+      packageVersion,
+    };
+    if (onRelatedArticlesShowMoreClick) {
+      onRelatedArticlesShowMoreClick(event, analyticsEvent, isCollapsed);
+    }
+  };
+
   const updateRelatedArticles = useCallback(async () => {
-    if (onGetRelatedArticle) {
+    if (onGetRelatedArticles) {
       try {
         const relatedArticles: ArticleItem[] = await cancellablePromise(
-          onGetRelatedArticle(routeGroup, routeName),
+          onGetRelatedArticles(routeGroup, routeName),
         );
         setRelatedArticles(relatedArticles);
         setIsLoading(false);
@@ -80,7 +95,7 @@ export const RelatedArticles: React.FC<Props & InjectedIntlProps> = ({
       setIsLoading(false);
       setHasError(false);
     }
-  }, [cancellablePromise, onGetRelatedArticle, routeGroup, routeName]);
+  }, [cancellablePromise, onGetRelatedArticles, routeGroup, routeName]);
 
   useEffect(() => {
     if (routeGroup !== prevRouteGroup || routeName !== prevRouteName) {
@@ -139,7 +154,7 @@ export const RelatedArticles: React.FC<Props & InjectedIntlProps> = ({
             style={style}
             articles={relatedArticles}
             onArticlesListItemClick={onRelatedArticlesListItemClick}
-            onToggleArticlesList={onRelatedArticlesShowMoreClick}
+            onToggleArticlesList={handleOnRelatedArticlesShowMoreClick}
           />
         )}
       </>

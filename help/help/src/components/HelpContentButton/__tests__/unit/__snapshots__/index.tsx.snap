@@ -1,0 +1,198 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HelpContentButton Should match snapshot 1`] = `
+.emotion-0 {
+  display: inline-block;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  line-height: 1;
+  width: 24px;
+  height: 24px;
+}
+
+.emotion-0 > svg {
+  overflow: hidden;
+  pointer-events: none;
+  max-width: 100%;
+  max-height: 100%;
+  color: var(--icon-primary-color);
+  fill: var(--icon-secondary-color);
+  vertical-align: bottom;
+}
+
+.emotion-0 > svg stop {
+  stop-color: currentColor;
+}
+
+@media screen and (-ms-high-contrast:white-on-black) {
+  .emotion-0 > svg {
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+    color: #fff;
+    fill: #000;
+  }
+}
+
+@media screen and (-ms-high-contrast:black-on-white) {
+  .emotion-0 > svg {
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+    color: #000;
+    fill: #fff;
+  }
+}
+
+.emotion-0 > svg {
+  width: 24px;
+  height: 24px;
+}
+
+.emotion-2 {
+  display: inline-block;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  line-height: 1;
+  width: 16px;
+  height: 16px;
+}
+
+.emotion-2 > svg {
+  overflow: hidden;
+  pointer-events: none;
+  max-width: 100%;
+  max-height: 100%;
+  color: var(--icon-primary-color);
+  fill: var(--icon-secondary-color);
+  vertical-align: bottom;
+}
+
+.emotion-2 > svg stop {
+  stop-color: currentColor;
+}
+
+@media screen and (-ms-high-contrast:white-on-black) {
+  .emotion-2 > svg {
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+    color: #fff;
+    fill: #000;
+  }
+}
+
+@media screen and (-ms-high-contrast:black-on-white) {
+  .emotion-2 > svg {
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+    color: #000;
+    fill: #fff;
+  }
+}
+
+.emotion-2 > svg {
+  width: 16px;
+  height: 16px;
+}
+
+.emotion-1 {
+  display: inline-block;
+  min-width: 1px;
+  padding: 2px 6px;
+  border-radius: 24px;
+  font-size: 12px;
+  font-weight: normal;
+  line-height: 1;
+  text-align: center;
+}
+
+<a
+  class="sc-htpNat ciRLS"
+  href="https://www.atlassian.com/"
+  id="testHelpContentButton"
+  target="_blank"
+>
+  <div
+    class="sc-bxivhb VMuiA"
+  >
+    <span
+      aria-hidden="true"
+      class="emotion-0"
+      role="presentation"
+      style="--icon-primary-color: currentColor; --icon-secondary-color: #FFFFFF;"
+    >
+      <svg
+        height="24"
+        role="presentation"
+        viewBox="0 0 24 24"
+        width="24"
+      >
+        <g
+          fill="currentColor"
+          fill-rule="evenodd"
+        >
+          <path
+            d="M6 12h8v-2H6v2zM4 8.99C4 8.445 4.456 8 5.002 8h9.996C15.55 8 16 8.451 16 8.99V14H4V8.99z"
+            fill-rule="nonzero"
+          />
+          <path
+            d="M6 7.005C6 5.898 6.898 5 7.998 5h2.004C11.106 5 12 5.894 12 7.005V10H6V7.005zm4 0V7H7.999c.005 0 .002.003.002.005V8h2v-.995z"
+          />
+          <path
+            d="M4.5 17h13.994l1.002-3H4.14l.36 3zm-2.495-4.012A.862.862 0 012.883 12h18.393c.55 0 .857.417.681.944l-1.707 5.112c-.174.521-.758.944-1.315.944H3.725a1.149 1.149 0 01-1.118-.988l-.602-5.024z"
+            fill-rule="nonzero"
+          />
+        </g>
+      </svg>
+    </span>
+  </div>
+  <div
+    class="sc-ifAKCX irKKIl"
+  >
+    Test Content Button
+    <div
+      class="sc-bZQynM gBnZaY"
+    >
+      <div
+        data-test-selector="NotificationIndicator"
+      >
+        <span
+          class="emotion-1"
+          style="background-color: rgb(0, 82, 204); color: rgb(255, 255, 255);"
+        >
+          5
+        </span>
+      </div>
+    </div>
+    <div
+      class="sc-EHOje iOUHrI"
+      data-testid="shortcutIcon"
+    >
+      <span
+        aria-hidden="true"
+        class="emotion-2"
+        role="presentation"
+        style="--icon-primary-color: currentColor; --icon-secondary-color: #FFFFFF;"
+      >
+        <svg
+          height="24"
+          role="presentation"
+          viewBox="0 0 24 24"
+          width="24"
+        >
+          <g
+            fill="currentColor"
+          >
+            <path
+              d="M19.005 19c-.003 0-.005.002-.005.002l.005-.002zM5 19.006c0-.004-.002-.006-.005-.006H5v.006zM5 4.994V5v-.006zM19 19v-6h2v6.002A1.996 1.996 0 0119.005 21H4.995A1.996 1.996 0 013 19.006V4.994C3 3.893 3.896 3 4.997 3H11v2H5v14h14zM5 4.994V5v-.006zm0 14.012c0-.004-.002-.006-.005-.006H5v.006zM11 5H5v14h14v-6h2v6.002A1.996 1.996 0 0119.005 21H4.995A1.996 1.996 0 013 19.006V4.994C3 3.893 3.896 3 4.997 3H11v2zm8 0v3a1 1 0 002 0V4a1 1 0 00-1-1h-4a1 1 0 000 2h3z"
+            />
+            <path
+              d="M12.707 12.707l8-8a1 1 0 10-1.414-1.414l-8 8a1 1 0 001.414 1.414z"
+            />
+          </g>
+        </svg>
+      </span>
+    </div>
+  </div>
+</a>
+`;

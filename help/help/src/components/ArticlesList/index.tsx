@@ -5,7 +5,7 @@ import { itemThemeNamespace } from '@atlaskit/item';
 import { gridSize } from '@atlaskit/theme/constants';
 
 import ArticlesList from './ArticlesList';
-import ShowMoreArticlesButton from './ShowMoreArticlesButton';
+import ShowMoreButton from '../ShowMoreButton';
 import { ArticlesListContainer } from './styled';
 import { ArticlesList as ArticlesListInterface } from './model/ArticlesListItem';
 import { MIN_ITEMS_TO_DISPLAY } from './constants';
@@ -71,11 +71,12 @@ const ArticleList: React.FC<ArticlesListInterface> = ({
             )}
           />
           {articles.length > getMinItemsToDisplay() && (
-            <ShowMoreArticlesButton
+            <ShowMoreButton
               minItemsToDisplay={getMinItemsToDisplay()}
               maxItemsToDisplay={getMaxItemsToDisplay()}
               showMoreToggeled={showMoreToggled}
-              onToggleArticlesList={toggleArticlesList}
+              onToggle={toggleArticlesList}
+              itemsType="articles"
             />
           )}
         </>

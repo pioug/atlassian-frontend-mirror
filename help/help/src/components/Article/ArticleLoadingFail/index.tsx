@@ -16,9 +16,15 @@ import SomethingWrongImageFile from '../../../assets/SomethingWrong';
 
 import { LoadingErrorMessage, LoadingErrorButtonContainer } from './styled';
 
+const ANALYTICS_CONTEXT_DATA = {
+  componentName: 'ArticleLoadingFail',
+  packageName,
+  packageVersion,
+};
+
 interface Props {
   // Function executed when the user click "try again"
-  onTryAgainButtonClick(
+  onTryAgainButtonClick?(
     event: React.MouseEvent<HTMLElement, MouseEvent>,
     analyticsEvent: UIAnalyticsEvent,
   ): void;
@@ -30,17 +36,15 @@ export const ArticleLoadingFail: React.FC<InjectedIntlProps & Props> = ({
 }) => {
   const { createAnalyticsEvent } = useAnalyticsEvents();
 
-  const handleOnTryAgainButtonClick = (
-    event: React.MouseEvent<HTMLElement, MouseEvent>,
-  ): void => {
-    if (onTryAgainButtonClick) {
+  const handleOnTryAgainButtonClick =
+    onTryAgainButtonClick &&
+    ((event: React.MouseEvent<HTMLElement, MouseEvent>): void => {
       const analyticsEvent: UIAnalyticsEvent = createAnalyticsEvent({
         action: 'clicked',
       });
 
       onTryAgainButtonClick(event, analyticsEvent);
-    }
-  };
+    });
 
   return (
     <LoadingErrorMessage>
@@ -52,9 +56,11 @@ export const ArticleLoadingFail: React.FC<InjectedIntlProps & Props> = ({
       <h2>{formatMessage(messages.help_article_error_title)}</h2>
       <p>{formatMessage(messages.help_article_error_text)}</p>
       <LoadingErrorButtonContainer>
-        <Button onClick={handleOnTryAgainButtonClick}>
-          {formatMessage(messages.help_article_error_button_label)}
-        </Button>
+        {handleOnTryAgainButtonClick && (
+          <Button onClick={handleOnTryAgainButtonClick}>
+            {formatMessage(messages.help_article_error_button_label)}
+          </Button>
+        )}
       </LoadingErrorButtonContainer>
     </LoadingErrorMessage>
   );
@@ -64,13 +70,7 @@ const ArticleLoadingFailWithContext: React.FC<Props & InjectedIntlProps> = (
   props,
 ) => {
   return (
-    <AnalyticsContext
-      data={{
-        componentName: 'ArticleLoadingFail',
-        packageName,
-        packageVersion,
-      }}
-    >
+    <AnalyticsContext data={ANALYTICS_CONTEXT_DATA}>
       <ArticleLoadingFail {...props} />
     </AnalyticsContext>
   );

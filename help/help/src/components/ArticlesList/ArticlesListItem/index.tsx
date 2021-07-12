@@ -13,7 +13,7 @@ import {
   version as packageVersion,
 } from '../../../version.json';
 import { ArticleItem, ARTICLE_ITEM_TYPES } from '../../../model/Article';
-import { messages } from '../../../messages';
+// import { messages } from '../../../messages';
 
 import {
   ArticlesListItemTypeTitle,
@@ -24,8 +24,13 @@ import {
   ArticlesListItemLinkIcon,
 } from './styled';
 
+const ANALYTICS_CONTEXT_DATA = {
+  componentName: 'ArticlesListItem',
+  packageName,
+  packageVersion,
+};
+
 interface Props {
-  // Aditional Styles
   styles?: {};
   /* Function executed when the user clicks the related article */
   onClick?: (
@@ -36,12 +41,8 @@ interface Props {
 
 export const getTypeTitle = (itemType?: ARTICLE_ITEM_TYPES) => {
   switch (itemType) {
-    case ARTICLE_ITEM_TYPES.helpArticle:
-      return messages.help_article_list_item_type_help_article;
-
-    case ARTICLE_ITEM_TYPES.whatsNew:
-      return messages.help_article_list_item_type_whats_new;
-
+    // case ARTICLE_ITEM_TYPES.topicInProduct:
+    //   return messages.help_article_list_item_type_help_article;
     default:
       return null;
   }
@@ -107,13 +108,7 @@ const ArticlesListItemWithContext: React.FC<
   Props & Partial<ArticleItem> & InjectedIntlProps
 > = (props) => {
   return (
-    <AnalyticsContext
-      data={{
-        componentName: 'ArticlesListItem',
-        packageName,
-        packageVersion,
-      }}
-    >
+    <AnalyticsContext data={ANALYTICS_CONTEXT_DATA}>
       <ArticlesListItem {...props} />
     </AnalyticsContext>
   );

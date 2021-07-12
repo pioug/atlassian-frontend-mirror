@@ -1,17 +1,22 @@
-import React, { useState, useLayoutEffect, useRef, ReactElement } from 'react';
+import React, {
+  useState,
+  useLayoutEffect,
+  useRef,
+  useEffect,
+  useCallback,
+} from 'react';
 import { Transition } from 'react-transition-group';
-import RelatedArticles from '../RelatedArticles';
 import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 
-import { useHelpContext } from '../HelpContext';
-import { TRANSITION_DURATION_MS, TRANSITION_STATUS } from '../constants';
-import { REQUEST_STATE } from '../../model/Requests';
-import { ArticleFeedback, ArticleItem } from '../../model/Article';
-
-import ArticleContent from './ArticleContent';
-import ArticleWasHelpfulForm from './ArticleWasHelpfulForm';
-import ArticleLoadingFail from './ArticleLoadingFail';
+import { useNavigationContext } from '../contexts/navigationContext';
+import { useHelpArticleContext } from '../contexts/helpArticleContext';
+import {
+  SLIDEIN_OVERLAY_TRANSITION_DURATION_MS,
+  TRANSITION_STATUS,
+  VIEW,
+} from '../constants';
 import { ArticleContainer } from './styled';
+import ArticleContent from './ArticleContent';
 
 // Animation
 const defaultStyle = {
@@ -20,7 +25,7 @@ const defaultStyle = {
 
 const enableTransition: { [id: string]: React.CSSProperties } = {
   enabled: {
-    transition: `left ${TRANSITION_DURATION_MS}ms cubic-bezier(0.2, 0, 0, 1) 0s`,
+    transition: `left ${SLIDEIN_OVERLAY_TRANSITION_DURATION_MS}ms cubic-bezier(0.2, 0, 0, 1) 0s`,
   },
 };
 
@@ -31,31 +36,27 @@ const transitionStyles: { [id: string]: React.CSSProperties } = {
 
 export const Article: React.FC = () => {
   const {
-    help: {
-      articleId,
-      isArticleVisible,
-      isSearchVisible,
-      setArticleFullyVisible,
-      setArticleId,
-      onRelatedArticlesListItemClick,
-      onArticleLoadingFailTryAgainButtonClick,
-      loadArticle,
-      getCurrentArticleItemData,
-      onWasHelpfulNoButtonClick,
-      onWasHelpfulYesButtonClick,
-      onWasHelpfulSubmit,
-      getCurrentArticle,
-      onArticleRenderBegin,
-      onArticleRenderDone,
-      onGetRelatedArticleOfOpenArticle,
-      onRelatedArticlesShowMoreClickOfOpenArticle,
-      history,
-    },
-  } = useHelpContext();
+    view,
+    articleId,
+    history,
+    getCurrentArticle,
+    reloadHelpArticle,
+    reloadWhatsNewArticle,
+  } = useNavigationContext();
+  const {
+    onHelpArticleLoadingFailTryAgainButtonClick,
+  } = useHelpArticleContext();
+
   const [
     skipArticleSlideInAnimation,
     setSkipArticleSlideInAnimation,
-  ] = useState<boolean>(articleId !== '' || history.length > 0);
+  ] = useState<boolean>(
+    articleId?.id !== '' || (history ? history.length : []) > 0,
+  );
+  const [showArticle, setShowArticle] = useState<boolean>(
+    skipArticleSlideInAnimation,
+  );
+  const currentArticle = getCurrentArticle();
   const articleContainerRef = useRef<HTMLDivElement>(null);
   const onArticleEnteredTimeout = useRef<number>();
 
@@ -73,156 +74,110 @@ export const Article: React.FC = () => {
       if (skipArticleSlideInAnimation) {
         setSkipArticleSlideInAnimation(false);
       }
-
-      setArticleFullyVisible(true);
-    }, TRANSITION_DURATION_MS);
+    }, SLIDEIN_OVERLAY_TRANSITION_DURATION_MS);
   };
 
   const onArticleExit = (): void => {
     clearTimeout(onArticleEnteredTimeout.current);
-    setArticleFullyVisible(false);
   };
 
-  const handleOnRelatedArticlesListItemClick = (
-    event: React.MouseEvent<HTMLElement, MouseEvent>,
-    analyticsEvent: UIAnalyticsEvent,
-    articleData: ArticleItem,
-  ): void => {
-    if (onRelatedArticlesListItemClick) {
-      onRelatedArticlesListItemClick(event, analyticsEvent, articleData);
-    }
-
-    if (setArticleId) {
-      setArticleId(articleData.id);
-    }
-  };
-
-  const handleOnArticleLoadingFailTryAgainButtonClick = (
-    event: React.MouseEvent<HTMLElement, MouseEvent>,
-    analyticsEvent: UIAnalyticsEvent,
-  ): void => {
-    if (onArticleLoadingFailTryAgainButtonClick) {
-      onArticleLoadingFailTryAgainButtonClick(event, analyticsEvent, articleId);
-    }
-
-    loadArticle();
-  };
-
-  const handleOnWasHelpfulNoButtonClick = (
-    event: React.MouseEvent<HTMLElement, MouseEvent>,
-    analyticsEvent: UIAnalyticsEvent,
-  ): void => {
-    const currentArticleItemData = getCurrentArticleItemData();
-    if (onWasHelpfulNoButtonClick && currentArticleItemData) {
-      onWasHelpfulNoButtonClick(event, analyticsEvent, currentArticleItemData);
-    }
-  };
-
-  const handleOnWasHelpfulYesButtonClick = (
-    event: React.MouseEvent<HTMLElement, MouseEvent>,
-    analyticsEvent: UIAnalyticsEvent,
-  ): void => {
-    const currentArticleItemData = getCurrentArticleItemData();
-    if (onWasHelpfulYesButtonClick && currentArticleItemData) {
-      onWasHelpfulYesButtonClick(event, analyticsEvent, currentArticleItemData);
-    }
-  };
-
-  const handleOnWasHelpfulSubmit = (
-    analyticsEvent: UIAnalyticsEvent,
-    articleFeedback: ArticleFeedback,
-  ): Promise<boolean> => {
-    const currentArticleItemData = getCurrentArticleItemData();
-    if (onWasHelpfulSubmit && currentArticleItemData) {
-      return onWasHelpfulSubmit(
-        analyticsEvent,
-        articleFeedback,
-        currentArticleItemData,
-      );
-    }
-
-    return Promise.resolve(false);
-  };
-
-  const renderArticleContent = (): ReactElement | null => {
-    const currentArticle = getCurrentArticle();
-
-    if (currentArticle) {
-      const { article } = currentArticle;
-
-      if (currentArticle.state === REQUEST_STATE.error) {
-        return (
-          <ArticleLoadingFail
-            onTryAgainButtonClick={
-              handleOnArticleLoadingFailTryAgainButtonClick
-            }
-          />
+  const handleOnHelpArticleLoadingFailTryAgainButtonClick = useCallback(
+    (
+      event: React.MouseEvent<HTMLElement, MouseEvent>,
+      analyticsEvent: UIAnalyticsEvent,
+    ): void => {
+      if (onHelpArticleLoadingFailTryAgainButtonClick) {
+        onHelpArticleLoadingFailTryAgainButtonClick(
+          event,
+          analyticsEvent,
+          articleId,
         );
-      } else if (article && currentArticle.state === REQUEST_STATE.done) {
-        return (
-          <>
-            <ArticleContent
-              title={article.title}
-              body={article.body}
-              titleLinkUrl={article.href}
-              onArticleRenderBegin={onArticleRenderBegin}
-              onArticleRenderDone={onArticleRenderDone}
-            />
-            <ArticleWasHelpfulForm
-              onWasHelpfulNoButtonClick={handleOnWasHelpfulNoButtonClick}
-              onWasHelpfulYesButtonClick={handleOnWasHelpfulYesButtonClick}
-              onWasHelpfulSubmit={
-                onWasHelpfulSubmit && handleOnWasHelpfulSubmit
-              }
-            />
-            {onGetRelatedArticleOfOpenArticle &&
-              onRelatedArticlesListItemClick && (
-                <RelatedArticles
-                  style="secondary"
-                  onRelatedArticlesListItemClick={
-                    handleOnRelatedArticlesListItemClick
-                  }
-                  onGetRelatedArticle={onGetRelatedArticleOfOpenArticle}
-                  routeGroup={article.routeGroup}
-                  routeName={article.routeName}
-                  onRelatedArticlesShowMoreClick={
-                    onRelatedArticlesShowMoreClickOfOpenArticle
-                  }
-                />
-              )}
-          </>
-        );
-      } else {
-        return <ArticleContent isLoading />;
       }
-    }
 
-    return null;
-  };
+      if (reloadHelpArticle && currentArticle) {
+        reloadHelpArticle(currentArticle);
+      }
+    },
+    [
+      articleId,
+      currentArticle,
+      onHelpArticleLoadingFailTryAgainButtonClick,
+      reloadHelpArticle,
+    ],
+  );
+
+  const handleOnWhatsNewArticleLoadingFailTryAgainButtonClick = useCallback(
+    (
+      event: React.MouseEvent<HTMLElement, MouseEvent>,
+      analyticsEvent: UIAnalyticsEvent,
+    ): void => {
+      if (onHelpArticleLoadingFailTryAgainButtonClick) {
+        onHelpArticleLoadingFailTryAgainButtonClick(
+          event,
+          analyticsEvent,
+          articleId,
+        );
+      }
+      if (reloadWhatsNewArticle && currentArticle) {
+        reloadWhatsNewArticle(currentArticle);
+      }
+    },
+    [
+      currentArticle,
+      articleId,
+      onHelpArticleLoadingFailTryAgainButtonClick,
+      reloadWhatsNewArticle,
+    ],
+  );
+
+  useEffect(() => {
+    if (showArticle) {
+      setShowArticle(
+        view === VIEW.ARTICLE ||
+          view === VIEW.SEARCH ||
+          view === VIEW.WHATS_NEW_ARTICLE,
+      );
+    } else {
+      setShowArticle(view === VIEW.ARTICLE || view === VIEW.WHATS_NEW_ARTICLE);
+    }
+  }, [view, showArticle]);
 
   return (
     <Transition
-      in={isArticleVisible()}
-      timeout={TRANSITION_DURATION_MS}
+      in={showArticle}
+      timeout={SLIDEIN_OVERLAY_TRANSITION_DURATION_MS}
       enter={!skipArticleSlideInAnimation}
       onEntered={onArticleEntered}
       onExit={onArticleExit}
+      unmountOnExit
+      mountOnEnter
     >
-      {(state: TRANSITION_STATUS) => (
-        <ArticleContainer
-          ref={articleContainerRef}
-          isSearchVisible={isSearchVisible()}
-          style={{
-            ...defaultStyle,
-            ...transitionStyles[state],
-            ...enableTransition[
-              !skipArticleSlideInAnimation ? 'enabled' : 'disabled'
-            ],
-          }}
-        >
-          {renderArticleContent()}
-        </ArticleContainer>
-      )}
+      {(state: TRANSITION_STATUS) => {
+        return (
+          <ArticleContainer
+            ref={articleContainerRef}
+            style={{
+              ...defaultStyle,
+              ...transitionStyles[state],
+              ...enableTransition[
+                !skipArticleSlideInAnimation ? 'enabled' : 'disabled'
+              ],
+            }}
+          >
+            <ArticleContent
+              currentArticle={currentArticle}
+              onHelpArticleLoadingFailTryAgainButtonClick={
+                reloadHelpArticle &&
+                handleOnHelpArticleLoadingFailTryAgainButtonClick
+              }
+              onWhatsNewArticleLoadingFailTryAgainButtonClick={
+                reloadWhatsNewArticle &&
+                handleOnWhatsNewArticleLoadingFailTryAgainButtonClick
+              }
+            />
+          </ArticleContainer>
+        );
+      }}
     </Transition>
   );
 };

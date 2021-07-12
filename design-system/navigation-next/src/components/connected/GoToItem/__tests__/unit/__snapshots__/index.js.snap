@@ -46,7 +46,10 @@ exports[`GoToItemBase Default After prop should show a spinner if the incoming v
   animation-timing-function: cubic-bezier(0.4,0.15,0.6,0.85);
   height: 16px;
   width: 16px;
-  display: inline-block;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
   vertical-align: middle;
 }
 

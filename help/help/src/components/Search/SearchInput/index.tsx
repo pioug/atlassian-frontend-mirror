@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useCallback } from 'react';
 import {
   useAnalyticsEvents,
   UIAnalyticsEvent,
@@ -11,14 +11,14 @@ import Spinner from '@atlaskit/spinner';
 import SearchIcon from '@atlaskit/icon/glyph/search';
 import EditorCloseIcon from '@atlaskit/icon/glyph/editor/close';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
+
 import {
   name as packageName,
   version as packageVersion,
 } from '../../../version.json';
-
 import { REQUEST_STATE } from '../../../model/Requests';
 
-import { useHelpContext } from '../../HelpContext';
+import { useSearchContext } from '../../contexts/searchContext';
 import { messages } from '../../../messages';
 
 import {
@@ -27,53 +27,71 @@ import {
   CloseButtonAndSpinnerContainer,
 } from './styled';
 
+const ANALYTICS_CONTEXT_DATA = {
+  componentName: 'searchInput',
+  packageName,
+  packageVersion,
+};
+
 export const SearchInput: React.FC<InjectedIntlProps> = ({
   intl: { formatMessage },
 }) => {
-  const { help } = useHelpContext();
+  const {
+    searchValue,
+    searchState,
+    onSearch,
+    onSearchInputChanged,
+    onSearchInputCleared,
+  } = useSearchContext();
   const inputRef = useRef<HTMLInputElement>(null);
   const { createAnalyticsEvent } = useAnalyticsEvents();
 
-  const onInputChange = (
-    event: React.KeyboardEvent<HTMLInputElement>,
-  ): void => {
-    const value = (event.target as any).value;
-    help.onSearch(value);
-    if (help.onSearchInputChanged) {
-      const analyticsEvent: UIAnalyticsEvent = createAnalyticsEvent({
-        action: 'inputChanged',
-        attributes: {
-          value,
-        },
-      });
-      help.onSearchInputChanged(event, analyticsEvent, value);
-    }
-  };
+  const handleOnInputChange = useCallback(
+    (event: React.KeyboardEvent<HTMLInputElement>): void => {
+      if (onSearch) {
+        const value = (event.target as any).value;
+        onSearch(value);
+        if (onSearchInputChanged) {
+          const analyticsEvent: UIAnalyticsEvent = createAnalyticsEvent({
+            action: 'inputChanged',
+            attributes: {
+              value,
+            },
+          });
+          onSearchInputChanged(event, analyticsEvent, value);
+        }
+      }
+    },
+    [createAnalyticsEvent, onSearch, onSearchInputChanged],
+  );
 
   const handleOnKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
-      onInputChange(event);
+      handleOnInputChange(event);
     }
   };
 
-  const onClearButtonClick = (
-    event: React.MouseEvent<HTMLElement, MouseEvent>,
-  ): void => {
-    if (inputRef && inputRef.current) {
-      inputRef.current.value = '';
-      help.onSearch('');
-    }
+  const handleOnClearButtonClick = useCallback(
+    (event: React.MouseEvent<HTMLElement, MouseEvent>): void => {
+      if (onSearch) {
+        if (inputRef && inputRef.current) {
+          inputRef.current.value = '';
+          onSearch('');
+        }
 
-    if (help.onSearchInputCleared) {
-      const analyticsEvent: UIAnalyticsEvent = createAnalyticsEvent({
-        action: 'clicked',
-      });
-      help.onSearchInputCleared(event, analyticsEvent);
-    }
-  };
+        if (onSearchInputCleared) {
+          const analyticsEvent: UIAnalyticsEvent = createAnalyticsEvent({
+            action: 'clicked',
+          });
+          onSearchInputCleared(event, analyticsEvent);
+        }
+      }
+    },
+    [createAnalyticsEvent, onSearch, onSearchInputCleared],
+  );
 
   if (inputRef && inputRef.current) {
-    inputRef.current.value = help.searchValue;
+    inputRef.current.value = searchValue;
   }
 
   return (
@@ -89,17 +107,15 @@ export const SearchInput: React.FC<InjectedIntlProps> = ({
         }
         elemAfterInput={
           <CloseButtonAndSpinnerContainer>
-            {help.searchState === REQUEST_STATE.loading && (
-              <Spinner size="small" />
-            )}
-            {help.searchValue !== '' && (
+            {searchState === REQUEST_STATE.loading && <Spinner size="small" />}
+            {searchValue !== '' && (
               <Button
                 css={{
                   width: `${gridSize() * 3}px`,
                   height: `${gridSize() * 3}px`,
                 }}
                 appearance="subtle"
-                onClick={onClearButtonClick}
+                onClick={handleOnClearButtonClick}
                 spacing="none"
               >
                 <EditorCloseIcon label="" />
@@ -108,9 +124,9 @@ export const SearchInput: React.FC<InjectedIntlProps> = ({
           </CloseButtonAndSpinnerContainer>
         }
         placeholder={formatMessage(messages.help_search_placeholder)}
-        onChange={onInputChange}
+        onChange={handleOnInputChange}
         onKeyPress={handleOnKeyPress}
-        value={help.searchValue}
+        value={searchValue}
       />
     </SearchInputContainer>
   );
@@ -118,13 +134,7 @@ export const SearchInput: React.FC<InjectedIntlProps> = ({
 
 const SearchInputWithContext: React.FC<InjectedIntlProps> = (props) => {
   return (
-    <AnalyticsContext
-      data={{
-        componentName: 'searchInput',
-        packageName,
-        packageVersion,
-      }}
-    >
+    <AnalyticsContext data={ANALYTICS_CONTEXT_DATA}>
       <SearchInput {...props} />
     </AnalyticsContext>
   );

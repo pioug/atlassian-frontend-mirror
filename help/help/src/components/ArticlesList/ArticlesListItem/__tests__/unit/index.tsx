@@ -7,7 +7,6 @@ import { IntlProvider } from 'react-intl';
 import { getMockArticleItem } from '../../../../../util/testing/mock';
 
 import { ArticlesListItem } from '../../index';
-import { ARTICLE_ITEM_TYPES } from '../../../../../model/Article';
 import { messages } from '../../../../../messages';
 
 const intlProvider = new IntlProvider({ locale: 'en' });
@@ -47,20 +46,21 @@ describe('ArticlesListItem', () => {
     expect(TypeHelpArticleElm).toBeNull();
   });
 
-  it(`Should display the text ${messageTypeHelpArticle} if the type is "helpArticle" `, () => {
-    const { queryByText } = render(
-      <ArticlesListItem
-        intl={intl}
-        {...mockArticleItem}
-        onClick={mockOnClick}
-        type={ARTICLE_ITEM_TYPES.helpArticle}
-      />,
-    );
+  // For now we are not going to show the ArticlesListItem type title
+  // it(`Should display the text ${messageTypeHelpArticle} if the type is "topicInProduct" `, () => {
+  //   const { queryByText } = render(
+  //     <ArticlesListItem
+  //       intl={intl}
+  //       {...mockArticleItem}
+  //       onClick={mockOnClick}
+  //       type={ARTICLE_ITEM_TYPES.topicInProduct}
+  //     />,
+  //   );
 
-    const TypeHelpArticleElm = queryByText(messageTypeHelpArticle);
+  //   const TypeHelpArticleElm = queryByText(messageTypeHelpArticle);
 
-    expect(TypeHelpArticleElm).not.toBeNull();
-  });
+  //   expect(TypeHelpArticleElm).not.toBeNull();
+  // });
 
   it(`mockOnClick should be executed when the user clicks in the component`, () => {
     const { queryByRole } = render(

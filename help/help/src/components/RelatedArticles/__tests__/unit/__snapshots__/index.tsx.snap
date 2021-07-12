@@ -285,9 +285,7 @@ exports[`RelatedArticles Should match snapshot 1`] = `
       <span
         class="emotion-20"
       >
-        <span>
-          Show 2 more articles
-        </span>
+        Show 2 more articles
       </span>
     </button>
   </div>

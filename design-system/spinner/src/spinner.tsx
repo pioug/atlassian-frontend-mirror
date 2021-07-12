@@ -84,10 +84,11 @@ export default React.memo(
                 animation-timing-function: cubic-bezier(0.4, 0.15, 0.6, 0.85);
                 height: ${size}px;
                 width: ${size}px;
-                display: inline-block;
+                display: inline-flex;
                 /* align better inline with text */
                 vertical-align: middle;
               `}
+              data-testid={testId && `${testId}-wrapper`}
             >
               <svg
                 height={size}

@@ -18,6 +18,14 @@ export const truncate = (width: string = '100%') => css`
   width: ${width};
 `;
 
+export const RelatedArticlesTitle = styled.div`
+  ${baseHeading(16, 20)}
+  color: ${colors.heading};
+  font-weight: 600;
+  letter-spacing: -0.006em;
+  padding: ${gridSize() * 2}px 0;
+`;
+
 /**
  * Loading styled-components
  */
@@ -38,12 +46,4 @@ export const LoadignRelatedArticleListItem = styled.li`
   padding: ${gridSize()}px;
   margin-bottom: ${gridSize() * 2}px;
   box-sizing: border-box;
-`;
-
-export const RelatedArticlesTitle = styled.div`
-  ${baseHeading(16, 20)}
-  color: ${colors.heading};
-  font-weight: 600;
-  letter-spacing: -0.006em;
-  padding: ${gridSize() * 2}px 0;
 `;

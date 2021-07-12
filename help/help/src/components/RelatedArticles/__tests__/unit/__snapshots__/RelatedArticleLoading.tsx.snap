@@ -47,6 +47,8 @@ exports[`RelatedArticlesLoading Should match snapshot 1`] = `
 }
 
 .emotion-0 {
+  display: inline-block;
+  vertical-align: middle;
   position: relative;
   height: 11px;
   margin-top: 0;
@@ -68,6 +70,8 @@ exports[`RelatedArticlesLoading Should match snapshot 1`] = `
 }
 
 .emotion-1 {
+  display: inline-block;
+  vertical-align: middle;
   position: relative;
   height: 1rem;
   margin-top: 4px;
@@ -89,6 +93,8 @@ exports[`RelatedArticlesLoading Should match snapshot 1`] = `
 }
 
 .emotion-2 {
+  display: inline-block;
+  vertical-align: middle;
   position: relative;
   height: 1rem;
   margin-top: 8px;

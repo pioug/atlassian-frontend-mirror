@@ -50,9 +50,10 @@ const expectSidebarFlyout = async (page: Page) => {
   ).toHaveProperty('value', 'visible');
 };
 
+// FIXME: https://product-fabric.atlassian.net/browse/DSP-1284 in Safari.
 BrowserTestCase(
   'Hovering the sidebar opens the flyout',
-  {},
+  { skip: ['safari'] },
   async (client: any) => {
     const page = new Page(client);
     await page.goto(exampleUrl);
@@ -86,10 +87,10 @@ BrowserTestCase(
     await expectSidebarCollapsed(page);
   },
 );
-
+// FIXME: https://product-fabric.atlassian.net/browse/DSP-1284 in Safari.
 BrowserTestCase(
   'The lock prevents the flyout state from automatically collapsing',
-  {},
+  { skip: ['safari'] },
   async (client: any) => {
     const page = new Page(client);
     await page.goto(exampleUrl);
@@ -108,10 +109,10 @@ BrowserTestCase(
     await expectSidebarFlyout(page);
   },
 );
-
+// FIXME: https://product-fabric.atlassian.net/browse/DSP-1284 in Safari.
 BrowserTestCase(
   'Releasing the lock while the cursor is outside of the sidebar will make the flyout collapse',
-  {},
+  { skip: ['safari'] },
   async (client: WebdriverIO.BrowserObject) => {
     const page = new Page(client);
     await page.goto(exampleUrl);

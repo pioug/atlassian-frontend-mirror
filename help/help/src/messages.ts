@@ -11,6 +11,11 @@ export const messages = defineMessages({
     defaultMessage: 'Help',
     description: 'Header text',
   },
+  help_header_whats_new: {
+    id: 'help.header_whats_new',
+    defaultMessage: `What's new`,
+    description: `Header text in "What's New" mode`,
+  },
   help_close: {
     id: 'help.close',
     defaultMessage: 'Close',
@@ -102,16 +107,6 @@ export const messages = defineMessages({
     defaultMessage: `HELP ARTICLE`,
     description: 'Help article article type title',
   },
-  help_article_list_show_more: {
-    id: 'help.article_list.show_more',
-    defaultMessage: 'Show {numberOfRelatedArticlesLeft} more articles',
-    description: '"Show more" text',
-  },
-  help_article_list_show_less: {
-    id: 'help.article_list.show_less',
-    defaultMessage: 'Show less',
-    description: '"Show less" text',
-  },
   help_related_article_title: {
     id: 'help.related_article.title',
     defaultMessage: 'Related articles',
@@ -186,5 +181,60 @@ export const messages = defineMessages({
     id: 'help.search_error.button_label',
     defaultMessage: `Retry`,
     description: 'text for the retry button displayed when the search fails',
+  },
+  help_whats_new_button_label: {
+    id: 'help.whats_new.button_label',
+    defaultMessage: `Whats's new`,
+    description: `text for the "What's New" button`,
+  },
+  help_whats_new_filter_select_option_all: {
+    id: 'help.whats_new.filter_select_option_all',
+    defaultMessage: `All release types`,
+    description: `text for the "Release types" dropdown`,
+  },
+  help_whats_new_filter_select_option_new: {
+    id: 'help.whats_new.filter_select_option_new',
+    defaultMessage: `New`,
+    description: `text for the "Release types" dropdown option "New"`,
+  },
+  help_whats_new_filter_select_option_improvement: {
+    id: 'help.whats_new.filter_select_option_improvement',
+    defaultMessage: `Improvement`,
+    description: `text for the "Release types" dropdown option "Improvement"`,
+  },
+  help_whats_new_filter_select_option_fix: {
+    id: 'help.whats_new.filter_select_option_fix',
+    defaultMessage: `Fix`,
+    description: `text for the "Release types" dropdown option "Fix"`,
+  },
+  help_whats_new_filter_select_option_removed: {
+    id: 'help.whats_new.filter_select_option_removed',
+    defaultMessage: `Removed`,
+    description: `text for the "Release types" dropdown option "Removed"`,
+  },
+  help_whats_new_filter_select_option_experiment: {
+    id: 'help.whats_new.filter_select_option_experiment',
+    defaultMessage: `Experiment`,
+    description: `text for the "Release types" dropdown option "Experiment"`,
+  },
+  help_whats_new_related_link_support: {
+    id: 'help.whats_new.related_links.support',
+    defaultMessage: `Support documentation`,
+    description: `text for the "Support documentation" link in the related links section of "what's new" articles`,
+  },
+  help_whats_new_related_link_community: {
+    id: 'help.whats_new.related_links.community',
+    defaultMessage: `Discuss with community`,
+    description: `text for the "Discuss with community" link in the related links section of "what's new" articles`,
+  },
+  help_show_more_button_label_more: {
+    id: 'help.show_more_button.label_more',
+    defaultMessage: 'Show {numberOfItemsLeft} more {itemsType}',
+    description: '"Show more" text',
+  },
+  help_show_more_button_label_less: {
+    id: 'help.show_more_button.label_less',
+    defaultMessage: 'Show less',
+    description: '"Show less" text',
   },
 });

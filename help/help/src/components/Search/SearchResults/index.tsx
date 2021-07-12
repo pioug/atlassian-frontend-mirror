@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Transition } from 'react-transition-group';
 import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 
@@ -6,10 +6,13 @@ import { REQUEST_STATE } from '../../../model/Requests';
 import { ArticleItem } from '../../../model/Article';
 
 import {
-  SEARCH_RESULTS_FADEIN_TRANSITION_DURATION_MS,
+  FADEIN_OVERLAY_TRANSITION_DURATION_MS,
   TRANSITION_STATUS,
+  VIEW,
 } from '../../constants';
-import { useHelpContext } from '../../HelpContext';
+import { useSearchContext } from '../../contexts/searchContext';
+import { useNavigationContext } from '../../contexts/navigationContext';
+import { ARTICLE_TYPE } from '../../../model/Help';
 
 import SearchResultsList from './SearchResults';
 import SearchExternalSite from './SearchExternalSite';
@@ -18,7 +21,7 @@ import SearchResultsError from './SearchResultsError';
 import { SearchResultsContainer } from './styled';
 
 const defaultStyle: Partial<React.CSSProperties> = {
-  transition: `opacity ${SEARCH_RESULTS_FADEIN_TRANSITION_DURATION_MS}ms`,
+  transition: `opacity ${FADEIN_OVERLAY_TRANSITION_DURATION_MS}ms`,
   opacity: 0,
   visibility: 'hidden',
 };
@@ -32,41 +35,38 @@ const transitionStyles: { [id: string]: React.CSSProperties } = {
 
 export const SearchResults: React.FC = () => {
   const {
-    help: {
-      setArticleId,
-      searchMode,
-      setSearchMode,
-      searchResult,
-      searchState,
-      setSearchResultsVisible,
-      onSearchResultItemClick,
-      onSearch,
-      searchExternalUrl,
-      onSearchExternalUrlClick,
-    },
-  } = useHelpContext();
+    searchState,
+    searchResult,
+    searchExternalUrl,
+    isSearchResultVisible,
+    onSearch,
+    onSearchResultItemClick,
+    onSearchExternalUrlClick,
+  } = useSearchContext();
+  const { setArticleId, view } = useNavigationContext();
 
-  const handleOnSearchResultItemClick = (
-    event: React.MouseEvent<HTMLElement, MouseEvent>,
-    analyticsEvent: UIAnalyticsEvent,
-    articleData: ArticleItem,
-  ): void => {
-    if (setArticleId) {
-      setArticleId(articleData.id);
-      setSearchMode(false);
-    }
+  const handleOnSearchResultItemClick = useCallback(
+    (
+      event: React.MouseEvent<HTMLElement, MouseEvent>,
+      analyticsEvent: UIAnalyticsEvent,
+      articleData: ArticleItem,
+    ): void => {
+      if (setArticleId) {
+        setArticleId({
+          id: articleData.id,
+          type: ARTICLE_TYPE.HELP_ARTICLE,
+        });
+      }
 
-    if (onSearchResultItemClick) {
       onSearchResultItemClick(event, analyticsEvent, articleData);
-    }
-  };
+    },
+    [onSearchResultItemClick, setArticleId],
+  );
 
   return (
     <Transition
-      in={searchMode}
-      timeout={SEARCH_RESULTS_FADEIN_TRANSITION_DURATION_MS}
-      onEntered={() => setSearchResultsVisible(true)}
-      onExited={() => setSearchResultsVisible(false)}
+      in={view === VIEW.SEARCH && isSearchResultVisible}
+      timeout={FADEIN_OVERLAY_TRANSITION_DURATION_MS}
     >
       {(state: TRANSITION_STATUS) => (
         <SearchResultsContainer

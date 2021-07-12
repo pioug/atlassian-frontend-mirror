@@ -3,8 +3,6 @@ import styled from '@emotion/styled';
 import { gridSize } from '@atlaskit/theme/constants';
 
 export const SearchInputContainer = styled.div`
-  padding: ${gridSize() * 3}px ${gridSize() * 2}px ${gridSize()}px
-    ${gridSize() * 2}px;
   order: 0;
   flex: 0 1 auto;
   align-self: auto;

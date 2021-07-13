@@ -158,4 +158,9 @@ describe('ADF => WikiMarkup - Paragraph', () => {
     const node = doc(p('this is not a [~mention]'))(defaultSchema);
     expect(transformer.encode(node)).toMatchSnapshot();
   });
+
+  test('[ADFS-725] should strip null chars', () => {
+    const node = doc(p('Hello \0 World'))(defaultSchema);
+    expect(transformer.encode(node)).toMatchSnapshot();
+  });
 });

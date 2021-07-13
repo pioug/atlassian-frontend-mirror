@@ -1,5 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`ADF => WikiMarkup - Paragraph [ADFS-725] should strip null chars 1`] = `"Hello  World"`;
+
 exports[`ADF => WikiMarkup - Paragraph [CS-206] should convert mixed text format 1`] = `"*Some* {color:#6554c0}*text with* {color}{color:#6554c0}+*bold and*+{color}{color:#6554c0} *underline and*{color} +*_color_*+"`;
 
 exports[`ADF => WikiMarkup - Paragraph [CS-293] escape link/mention/file link formatter characters 1`] = `"this is not a \\\\[~mention]"`;

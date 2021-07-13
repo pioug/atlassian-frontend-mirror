@@ -17,12 +17,26 @@ export class WikiMarkupTransformer implements Transformer<string> {
     this.schema = schema;
   }
 
+  // [ADFS-725] Jira breaks if there are null chars it is easier to remove them here
+  // The following has to be a regex to remove all instances of null instead of the first
+  private sanitizeWikiMarkup(wikiMarkup: string): string {
+    return wikiMarkup.replace(/\0/g, '');
+  }
+
   encode(node: PMNode, context?: Context): string {
-    return encode(node, normalizeContextObject(context));
+    const wikiMarkup = encode(node, normalizeContextObject(context));
+
+    // [ADFS-725] Jira breaks if there are null chars it is easier to remove them here
+    const sanitizedWikiMarkup = this.sanitizeWikiMarkup(wikiMarkup);
+
+    return sanitizedWikiMarkup;
   }
 
   parse(wikiMarkup: string, context?: Context): PMNode {
-    const tree = new AbstractTree(this.schema, wikiMarkup);
+    // [ADFS-725] Jira breaks if there are null chars it is easier to remove them here
+    const sanitizedWikiMarkup = this.sanitizeWikiMarkup(wikiMarkup);
+
+    const tree = new AbstractTree(this.schema, sanitizedWikiMarkup);
 
     return tree.getProseMirrorModel(
       this.buildContext(normalizeContextObject(context)),

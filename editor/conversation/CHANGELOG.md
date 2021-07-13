@@ -1,5 +1,11 @@
 # @atlaskit/conversation
 
+## 16.0.30
+
+### Patch Changes
+
+- [`3aacbbc04b4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3aacbbc04b4) - Update conversation docs to reflect deprecation of conversation service
+
 ## 16.0.29
 
 ### Patch Changes

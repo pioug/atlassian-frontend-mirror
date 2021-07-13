@@ -1,5 +1,11 @@
 # @atlaskit/editor-wikimarkup-transformer
 
+## 9.5.0
+
+### Minor Changes
+
+- [`d3945f52eeb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3945f52eeb) - Remove nulls when parsing and encoding wiki
+
 ## 9.4.0
 
 ### Minor Changes

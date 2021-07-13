@@ -1,5 +1,11 @@
 # @atlaskit/code
 
+## 14.1.2
+
+### Patch Changes
+
+- [`d827fec15b2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d827fec15b2) - Fixes a regression in ^14.0.0 that meant the function `getCodeStyles` didn't work correctly with interpolations using the `styled-components` theming.
+
 ## 14.1.1
 
 ### Patch Changes

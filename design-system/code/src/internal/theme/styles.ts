@@ -292,8 +292,12 @@ export const getCodeBlockStyles = (theme: CodeBlockTheme) => (
   },
 });
 
-export const getCodeStyles = (globalTheme: Theme): CSSObject => {
-  const theme = getBaseTheme(globalTheme);
+export const getCodeStyles = (
+  globalTheme: Theme | { theme: Theme },
+): CSSObject => {
+  // Required to have proper compatibility with styled components interpolations
+  const akTheme = 'theme' in globalTheme ? globalTheme.theme : globalTheme;
+  const theme = getBaseTheme(akTheme);
   const baseStyles = getBaseCodeStyles(theme);
   return {
     ...baseStyles,

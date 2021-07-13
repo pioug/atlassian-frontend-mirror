@@ -29,6 +29,7 @@ This is a text`,
       '------------- ---------------- ------------------',
     ],
     ['[EX-500] should handle escape correctly', '\\* \\m'],
+    ['[ADFS-725] should strip null chars', 'Hello \0 World!'],
   ];
 
   for (const [testCaseDescription, markup] of testCases) {

@@ -1,31 +1,27 @@
 import fs from 'fs';
 import path from 'path';
-import cheerio from 'cheerio'; // eslint-disable-line import/no-extraneous-dependencies
+import { JSDOM } from 'jsdom';
 import { name } from '../../../../package.json';
 import expectedSvgIds from '../../../internal/iconIds';
 
-const icons = fs.readFileSync(
-  path.join(__dirname, '../../../icons-sprite.svg'),
-  {
-    encoding: 'utf-8',
-  },
-);
-
 describe(name, () => {
-  it('icon export should contain expected SVG symbol ids', () => {
+  it('icon export should contain expected SVG symbol ids', async () => {
+    const iconsPath = path.join(__dirname, '../../../icons-sprite.svg');
+    const icons = await fs.promises.readFile(iconsPath, 'utf-8');
+
     // NOTE Please remember:
     // An addition is a feature
     // a removal or rename is a BREAKING CHANGE
 
     // Load the spritesheet
-    const $ = cheerio.load(icons);
+    const { window } = new JSDOM(icons);
+    const { document } = window;
 
     // Get the id of each symbol in the spritesheet
-    const symbolIds = $('symbol')
-      .map((i, symbol) => $(symbol).attr('id'))
-      .get();
+    const actual = [...document.querySelectorAll('symbol')]
+      .map((symbol) => symbol.id)
+      .sort();
 
-    const actual = symbolIds.sort();
     const expected = expectedSvgIds.sort();
     expect(actual).toEqual(expected);
 

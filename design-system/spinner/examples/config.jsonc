@@ -1,0 +1,15 @@
+/**
+ * This file is used by the test scaling project to optimise test result caching
+ * Examples that are used by tests affect the outcome of tests so must be included when hashing
+ * They are defined here so the hashing algorithm doesn't need to search test files for example usage each time
+ */
+{
+  "testExamples": [
+    "99-testing.tsx",
+    "vr-basic.tsx",
+    "vr-loading-buttons.tsx",
+    "vr-sizes.tsx",
+    "vr-table-cell-alignment.tsx",
+    "vr-text-alignment.tsx"
+  ]
+}

@@ -1,0 +1,15 @@
+/**
+ * This file is used by the test scaling project to optimise test result caching
+ * Examples that are used by tests affect the outcome of tests so must be included when hashing
+ * They are defined here so the hashing algorithm doesn't need to search test files for example usage each time
+ */
+{
+  "testExamples": [
+    "exif-orientations-vr.tsx",
+    "vr-block-card-collaborators.tsx",
+    "vr-block-card-default-icon.tsx",
+    "vr-block-card-lozenge.tsx",
+    "vr-inline-card-default-icon.tsx",
+    "vr-inline-card-lozenge.tsx"
+  ]
+}

@@ -1,0 +1,12 @@
+/**
+ * This file is used by the test scaling project to optimise test result caching
+ * Examples that are used by tests affect the outcome of tests so must be included when hashing
+ * They are defined here so the hashing algorithm doesn't need to search test files for example usage each time
+ */
+{
+  "testExamples": [
+    "05-drawer-widths.tsx",
+    "20-drawer-with-fixed-contents.tsx",
+    "30-themed-drawer-with-search.tsx"
+  ]
+}

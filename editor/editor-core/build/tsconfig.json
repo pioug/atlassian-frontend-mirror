@@ -5,10 +5,13 @@
     "target": "es5",
     "paths": {}
   },
-  "include": ["../src/**/*.ts", "../src/**/*.tsx"],
+  "include": [
+    "../src/**/*.ts",
+    "../src/**/*.tsx"
+  ],
   "exclude": [
     "../src/**/__tests__/*",
-    "../src/**/*.test.ts",
-    "../src/**/*.test.tsx"
+    "../src/**/*.test.*",
+    "../src/**/test.*"
   ]
 }

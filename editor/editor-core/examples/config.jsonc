@@ -1,0 +1,24 @@
+/**
+ * This file is used by the test scaling project to optimise test result caching
+ * Examples that are used by tests affect the outcome of tests so must be included when hashing
+ * They are defined here so the hashing algorithm doesn't need to search test files for example usage each time
+ */
+{
+  "testExamples": [
+    "1-basic.tsx",
+    "1-clipboard-helper.tsx",
+    "2-comment.tsx",
+    "20-full-page-with-adf-import.tsx",
+    "27-config-panel-with-parameters.tsx",
+    "29-element-browser.tsx",
+    "30-element-browser-modal-dialog.tsx",
+    "32-full-page-click-to-edit.tsx",
+    "5-full-page-with-content-disabled-flexi-tables.tsx",
+    "5-full-page-with-toolbar.tsx",
+    "5-full-page-with-x-extensions.tsx",
+    "5-full-page.tsx",
+    "99-testing.tsx",
+    "99-vr-testing.tsx",
+    "99-wysiwyg-testing.tsx"
+  ]
+}

@@ -9,5 +9,10 @@
     "../src/**/*.ts",
     "../src/**/*.tsx"
   ],
-  "exclude": ["../src/**/__tests__/*", "../src/**/__tests_external__/*"]
+  "exclude": [
+    "../src/**/__tests__/*",
+    "../src/**/__tests_external__/*",
+    "../src/**/*.test.*",
+    "../src/**/test.*"
+  ]
 }

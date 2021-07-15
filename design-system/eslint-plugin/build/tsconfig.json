@@ -1,6 +1,17 @@
 {
   "extends": "../tsconfig",
-  "compilerOptions": { "target": "es5", "paths": {} },
-  "include": ["../src/**/*.ts", "../src/**/*.tsx"],
-  "exclude": ["../src/**/__tests__/*", "../__tests__/*"]
+  "compilerOptions": {
+    "target": "es5",
+    "paths": {}
+  },
+  "include": [
+    "../src/**/*.ts",
+    "../src/**/*.tsx"
+  ],
+  "exclude": [
+    "../src/**/__tests__/*",
+    "../__tests__/*",
+    "../src/**/*.test.*",
+    "../src/**/test.*"
+  ]
 }

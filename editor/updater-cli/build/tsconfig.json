@@ -4,6 +4,8 @@
     "paths": {}
   },
   "exclude": [
-    "../src/**/__tests__/*"
+    "../src/**/__tests__/*",
+    "../src/**/*.test.*",
+    "../src/**/test.*"
   ]
 }

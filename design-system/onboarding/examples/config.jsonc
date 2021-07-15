@@ -1,0 +1,16 @@
+/**
+ * This file is used by the test scaling project to optimise test result caching
+ * Examples that are used by tests affect the outcome of tests so must be included when hashing
+ * They are defined here so the hashing algorithm doesn't need to search test files for example usage each time
+ */
+{
+  "testExamples": [
+    "00-different-spotlights.tsx",
+    "101-modal-wide-button-text.tsx",
+    "102-spotlight-with-conditional-targets.tsx",
+    "20-spotlight-autoscroll.tsx",
+    "30-spotlight-dialog-placement.tsx",
+    "90-spotlight-button-appearance.tsx",
+    "99-modal-basic.tsx"
+  ]
+}

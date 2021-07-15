@@ -1,0 +1,17 @@
+/**
+ * This file is used by the test scaling project to optimise test result caching
+ * Examples that are used by tests affect the outcome of tests so must be included when hashing
+ * They are defined here so the hashing algorithm doesn't need to search test files for example usage each time
+ */
+{
+  "testExamples": [
+    "00-nested-side-navigation.tsx",
+    "01-sidebar-with-rbd.tsx",
+    "02-customised-components.tsx",
+    "03-simple-sidebar.tsx",
+    "10-with-spotlight.tsx",
+    "loading-skeletons-nested.tsx",
+    "loading-skeletons.tsx",
+    "side-navigation.tsx"
+  ]
+}

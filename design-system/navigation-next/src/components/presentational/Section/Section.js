@@ -33,10 +33,10 @@ export default class Section extends PureComponent {
     traversalDirection: null,
   };
 
-  isMounted = false;
+  _isMounted = false;
 
   componentDidMount() {
-    this.isMounted = true;
+    this._isMounted = true;
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
@@ -72,7 +72,7 @@ export default class Section extends PureComponent {
       >
         <Transition
           key={id}
-          timeout={this.isMounted ? transitionDurationMs : 0}
+          timeout={this._isMounted ? transitionDurationMs : 0}
         >
           {(state) => {
             const { traversalDirection } = this.state;

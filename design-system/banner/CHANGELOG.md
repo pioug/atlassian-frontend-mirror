@@ -1,5 +1,11 @@
 # @atlaskit/banner
 
+## 11.2.3
+
+### Patch Changes
+
+- [`378d1cef00f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/378d1cef00f) - Bump `@atlaskit/theme` to version `^11.3.0`.
+
 ## 11.2.2
 
 ### Patch Changes

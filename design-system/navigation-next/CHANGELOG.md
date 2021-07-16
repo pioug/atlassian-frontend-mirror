@@ -1,5 +1,12 @@
 # @atlaskit/navigation-next
 
+## 9.0.14
+
+### Patch Changes
+
+- [`378d1cef00f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/378d1cef00f) - Bump `@atlaskit/theme` to version `^11.3.0`.
+- [`5a662703e55`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5a662703e55) - Renamed usage of `isMounted` to `_isMounted` to remove naming conflict.
+
 ## 9.0.13
 
 ### Patch Changes

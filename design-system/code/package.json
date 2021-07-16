@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/code",
-  "version": "14.1.2",
+  "version": "14.1.3",
   "description": "Code highlights short strings of code snippets inline with body text.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "@atlaskit/codemod-utils": "^3.2.0",
-    "@atlaskit/theme": "^11.2.0",
+    "@atlaskit/theme": "^11.3.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/core": "^10.0.9",
     "memoize-one": "^5.1.0",

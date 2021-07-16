@@ -1,5 +1,11 @@
 # @atlaskit/select
 
+## 15.0.1
+
+### Patch Changes
+
+- [`378d1cef00f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/378d1cef00f) - Bump `@atlaskit/theme` to version `^11.3.0`.
+
 ## 15.0.0
 
 ### Major Changes

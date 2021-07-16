@@ -42,10 +42,10 @@ export default class ResizeTransition extends PureComponent {
     onCollapseEnd: NOOP,
   };
 
-  isMounted = false;
+  _isMounted = false;
 
   componentDidMount() {
-    this.isMounted = true;
+    this._isMounted = true;
   }
 
   getTarget = (ref) => {
@@ -75,12 +75,12 @@ export default class ResizeTransition extends PureComponent {
         onExiting={onCollapseStart}
         onExited={onCollapseEnd}
         in={inProp}
-        timeout={this.isMounted ? DURATION : 0}
+        timeout={this._isMounted ? DURATION : 0}
       >
         {(transitionState) => {
           // transitions interupt manual resize behaviour
           const cssTransition =
-            !userIsDragging && this.isMounted ? getTransition(properties) : {};
+            !userIsDragging && this._isMounted ? getTransition(properties) : {};
 
           // `from` and `to` styles tweened by the transition
           const dynamicProperties = {

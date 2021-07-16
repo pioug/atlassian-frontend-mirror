@@ -1,5 +1,11 @@
 # @atlaskit/inline-edit
 
+## 12.0.7
+
+### Patch Changes
+
+- [`378d1cef00f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/378d1cef00f) - Bump `@atlaskit/theme` to version `^11.3.0`.
+
 ## 12.0.8
 
 ### Patch Changes

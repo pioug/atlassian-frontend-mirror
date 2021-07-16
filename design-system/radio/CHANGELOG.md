@@ -1,5 +1,11 @@
 # @atlaskit/radio
 
+## 5.2.1
+
+### Patch Changes
+
+- [`378d1cef00f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/378d1cef00f) - Bump `@atlaskit/theme` to version `^11.3.0`.
+
 ## 5.2.0
 
 ### Minor Changes

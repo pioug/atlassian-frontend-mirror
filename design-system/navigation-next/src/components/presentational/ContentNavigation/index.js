@@ -36,14 +36,14 @@ const containerNavigationAnalytics = {
 };
 
 export default class ContentNavigation extends Component {
-  isMounted = false;
+  _isMounted = false;
 
   state = {
     cachedContainer: null,
   };
 
   componentDidMount() {
-    this.isMounted = true;
+    this._isMounted = true;
   }
 
   shouldComponentUpdate(nextProps) {
@@ -89,7 +89,7 @@ export default class ContentNavigation extends Component {
         </ProductNavigation>
         <Transition
           in={shouldRenderContainer}
-          timeout={this.isMounted ? transitionDurationMs : 0}
+          timeout={this._isMounted ? transitionDurationMs : 0}
           mountOnEnter
           unmountOnExit
         >

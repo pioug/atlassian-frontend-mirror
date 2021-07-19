@@ -1,0 +1,67 @@
+---
+title: Time picker
+description: A time picker allows the user to select a specific time.  
+order: 0
+---
+
+import TimePickerDefault from '../../examples/constellation/time-picker-default';
+import TimePickerForm from '../../examples/constellation/time-picker-form';
+import TimePickerValidation from '../../examples/constellation/time-picker-validation';
+import TimePickerLocale from '../../examples/constellation/time-picker-locale';
+import TimePickerFormatting from '../../examples/constellation/time-picker-formatting';
+import TimePickerEditable from '../../examples/constellation/time-picker-editable';
+
+
+
+## Default
+
+By default, the time field is used to select a time from the [select](/components/select) menu. The current time text is bold, underlined, and highlighted blue. 
+
+<Example Component={TimePickerDefault} packageName="@atlaskit/datetime-picker" />
+
+## Form
+
+Time picker used with the [form](https://atlaskit.atlassian.com/packages/design-system/form) component includes a field label and helper text. 
+
+<Example Component={TimePickerForm} packageName="@atlaskit/datetime-picker" />
+
+### Validation
+
+This is how time picker behaves within [forms](https://atlaskit.atlassian.com/packages/design-system/form).
+
+Validation displays an error message related to the restrictions of the time picker.
+
+When a user selects the time picker area, the focus color changes to blue. When validating time pickers in real-time, message icons switch based on the message type. 
+
+For example, helper text becomes an error message when the input content doesn't meet the criteria. Error and warning messages disappear when the criteria is met.
+
+Keep helper text as short as possible. For complex information, provide a link to more information in a new browser tab. Use the [messaging guidelines](/content/messaging-guidelines) for more help.
+
+<Example Component={TimePickerValidation} packageName="@atlaskit/datetime-picker" />
+
+## Internationalization
+
+### Locale
+
+Use `locale` to display times in a format which is appropriate to users.
+
+<Example Component={TimePickerLocale} packageName="@atlaskit/datetime-picker" />
+
+
+## Time formats
+
+`TimePicker` supports customizing the format of times. Formats are given as strings and use the syntax specified at Modern JavaScript Date Utility Library.
+
+- `timeFormat` determined how times are formatted. 
+
+Where possible use locale for time formatting, instead of a custom format.
+
+Time formats should be informed by the user’s locale and the use case. 
+
+<Example Component={TimePickerFormatting} packageName="@atlaskit/datetime-picker" />
+
+## Time editable
+
+This allows the time field to be edited via keyboard prompts.
+
+<Example Component={TimePickerEditable} packageName="@atlaskit/datetime-picker" />

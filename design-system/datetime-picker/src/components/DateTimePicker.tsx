@@ -27,17 +27,25 @@ const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
 /* eslint-disable react/no-unused-prop-types */
 export interface Props extends WithAnalyticsEventsProps {
-  /** Defines the appearance which can be default or subtle - no borders or background. */
+  /**
+    Set the appearance of the picker.
+   
+    `subtle` will remove the borders and background.
+   */
   appearance?: Appearance;
-  /** Whether or not to auto-focus the field. */
+  /** Set the picker to autofocus on mount. */
   autoFocus?: boolean;
-  /** Default for `value`. */
+  /** The default for `value`. */
   defaultValue?: string;
-  /** The id of the field. Currently, react-select transforms this to have a "react-select-" prefix, and an "--input" suffix when applied to the input. For example, the id "my-input" would be transformed to "react-select-my-input--input". Keep this in mind when needing to refer to the ID. This will be fixed in an upcoming release. */
+  /**
+    The id of the field. Currently, react-select transforms this to have a `react-select-` prefix, and an `--input` suffix when applied to the input. For example, the id `my-input` would be transformed to `react-select-my-input--input`.
+   
+    Keep this in mind when needing to refer to the ID. This will be fixed in an upcoming release.
+   */
   id?: string;
   /** Props to apply to the container. **/
   innerProps?: React.AllHTMLAttributes<HTMLElement>;
-  /** Whether or not the field is disabled. */
+  /** Set if the field is disabled. */
   isDisabled?: boolean;
   /** The name of the field. */
   name?: string;
@@ -49,33 +57,40 @@ export interface Props extends WithAnalyticsEventsProps {
   onFocus?: React.FocusEventHandler<HTMLInputElement>;
   /** The ISO time that should be used as the input value. */
   value?: string;
-  /** Allow users to edit the input and add a time. */
+  /** Set if users can edit the input, allowing them to add custom times. */
   timeIsEditable?: boolean;
-  /** Indicates current value is invalid & changes border color. */
+  /** Set if the picker has an invalid value. */
   isInvalid?: boolean;
   /** DEPRECATED - This is here only for backwards compatibility and doesn't do anything. It will be removed in the next MAJOR. */
   hideIcon?: boolean;
   /** Format the date with a string that is accepted by [date-fns's format function](https://date-fns.org/v1.29.0/docs/format). */
   dateFormat?: string;
+  /** Props applied to the `DatePicker`. */
   datePickerProps?: DatePickerProps;
+  /** Props applied to the `TimePicker`. */
   timePickerProps?: TimePickerProps;
-  /** Function to parse passed in dateTimePicker value into the requisite sub values date, time and zone. **/
+  /** Function used to parse datetime values into their date, time and timezone sub-values. **/
   parseValue?: (
     dateTimeValue: string,
     date: string,
     time: string,
     timezone: string,
   ) => { dateValue: string; timeValue: string; zoneValue: string };
-  /** [Select props](/packages/design-system/select) to pass onto the DatePicker component. This can be used to set options such as placeholder text. */
+  /** [Select props](/components/select) to pass onto the `DatePicker` component's `Select`. This can be used to set options such as placeholder text. */
   datePickerSelectProps?: SelectProps<any>;
-  /** [Select props](/packages/design-system/select) to pass onto the TimePicker component. This can be used to set options such as placeholder text. */
+  /** [Select props](/components/select) to pass onto the `TimePicker` component's `Select`. This can be used to set options such as placeholder text. */
   timePickerSelectProps?: SelectProps<any>;
-  /** The times to show in the times dropdown. */
+  /** The times shown by the `TimePicker`. */
   times?: Array<string>;
-  /** Time format that is accepted by [date-fns's format function](https://date-fns.org/v1.29.0/docs/format)*/
+  /** The format that times are displayed in. Values should be those accepted by [date-fns's format function](https://date-fns.org/v1.29.0/docs/format). */
   timeFormat?: string;
-  /* This prop affects the height of the select control. Compact is gridSize() * 4, default is gridSize * 5  */
+  /**
+    The spacing for the select control.
+   
+    Compact is `gridSize() * 4`, default is `gridSize * 5`.
+   */
   spacing?: Spacing;
+  /** Locale used for formatting dates and times. See [DateTimeFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DateTimeFormat). */
   locale?: string;
   /**
    * A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests

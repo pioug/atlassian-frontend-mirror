@@ -1,0 +1,38 @@
+---
+title: Time picker
+description: A time picker allows the user to select a specific time.  
+order: 2
+---
+
+## Usage
+
+Time pickers help users navigate specific times.
+
+Time picker is commonly used in [forms](/patterns/forms).
+
+## Anatomy
+
+![Time picker anatomy](/images/time-picker-anatomy.png)
+
+1. ** Label: ** Labels should indicate what information the field requires. The label is left-aligned above the input area.
+
+2. ** Time input field: ** Selecting this field opens the select menu showing available times on the selected date. Once a time is selected, the option will be shown in the text input. This example shows time formatted in AM/PM but this can be customized using the `timeFormat` prop. 
+
+3.  ** Time dropdown: ** Contains the list of all selectable times. This example shows time increments of 30 minutes but can be customized using the `times` prop. 
+
+## Content guidelines
+
+- Ensure that locale is appropriately set so that users see times in a familiar format.
+- If helper text is necessary, place helper text above the input (below the area label).
+- Use a concise label to indicate what the time selection refers to.
+
+## Accessibility
+
+- Label attributes for screen readers should be included for users who use screen readers to understand what the time picker relates to.
+
+Follow the [accessibility](/foundations/accessibility) foundations for more guidance on accessible design.
+
+## Related
+
+- If you need to specify date and time, see [date time picker](/components/date-time-picker).
+- If you need to specify date only, see [date picker](/components/date-picker).

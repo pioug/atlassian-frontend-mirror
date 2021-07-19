@@ -12,6 +12,7 @@ const Example = () => {
           onChange={console.log}
           onInputChange={onInputChange}
           isMulti
+          maxPickerHeight={120}
         />
       )}
     </ExampleWrapper>

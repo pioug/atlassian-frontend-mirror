@@ -45,33 +45,44 @@ const packageVersion = process.env._PACKAGE_VERSION_ as string;
 /* eslint-disable react/no-unused-prop-types */
 export interface Props extends WithAnalyticsEventsProps {
   /**
-   * Defines the appearance which can be default or subtle - no borders, background or icon.
-   * Appearance values will be ignored if styles are parsed via the selectProps.
+    Set the appearance of the picker.
+
+    `subtle` will remove the borders, background, and icon.
+
+    **NOTE:** Appearance values will be ignored if styles are parsed through `selectProps`.
    */
   appearance?: Appearance;
-  /** Whether or not to auto-focus the field. */
+  /** Set the picker to autofocus on mount. */
   autoFocus?: boolean;
-  /** Default for `isOpen`. */
+  /** The default for `isOpen`. Will be `false` if not provided. */
   defaultIsOpen?: boolean;
-  /** Default for `value`. */
+  /** The default for `value`. */
   defaultValue?: string;
-  /** An array of ISO dates that should be disabled on the calendar. */
+  /** An array of ISO dates that should be disabled on the calendar. This does not affect what users can type into the picker. */
   disabled?: string[];
-  /** A filter function that takes a date string in the format 'YYYY-MM-DD' and returns true if that date should be disabled. */
+  /**
+    A filter function for disabling dates on the calendar. This does not affect what users can type into the picker.
+   
+    The function is called with a date string in the format `YYYY-MM-DD` and should return `true` if the date should be disabled.
+   */
   disabledDateFilter?: (date: string) => boolean;
-  /** The latest enabled date */
+  /** The latest enabled date. Dates after this are disabled on the calendar. This does not affect what users can type into the picker. */
   maxDate?: string;
-  /** The earliest enabled date */
+  /** The earliest enabled date. Dates before this are disabled on the calendar. This does not affect what users can type into the picker. */
   minDate?: string;
-  /** The icon to show in the field. */
+  /** The icon shown in the picker. */
   icon?: IndicatorComponentType<OptionType>;
-  /** The id of the field. Currently, react-select transforms this to have a "react-select-" prefix, and an "--input" suffix when applied to the input. For example, the id "my-input" would be transformed to "react-select-my-input--input". Keep this in mind when needing to refer to the ID. This will be fixed in an upcoming release. */
+  /**
+    The id of the field. Currently, react-select transforms this to have a `react-select-` prefix, and an `--input` suffix when applied to the input. For example, the id `my-input` would be transformed to `react-select-my-input--input`.
+
+    Keep this in mind when needing to refer to the ID. This will be fixed in an upcoming release.
+   */
   id?: string;
   /** Props to apply to the container. **/
   innerProps?: React.AllHTMLAttributes<HTMLElement>;
-  /** Whether or not the field is disabled. */
+  /** Set if the picker is disabled. */
   isDisabled?: boolean;
-  /** Whether or not the dropdown is open. */
+  /** Set if the picker is open. */
   isOpen?: boolean;
   /** The name of the field. */
   name?: string;
@@ -81,18 +92,22 @@ export interface Props extends WithAnalyticsEventsProps {
   onChange?: (value: string) => void;
   /** Called when the field is focused. */
   onFocus?: React.FocusEventHandler<HTMLInputElement>;
-  /** A function for parsing input characters and transforming them into a Date object. By default parses the date string based off the locale */
+  /** A function for parsing input characters and transforming them into a Date object. By default parses the date string based off the locale. */
   parseInputValue?: (date: string, dateFormat: string) => Date;
-  /** A function for formatting the date displayed in the input. By default composes together [date-fn's parse method](https://date-fns.org/v1.29.0/docs/parse) and [date-fn's format method](https://date-fns.org/v1.29.0/docs/format) to return a correctly formatted date string*/
+  /** A function for formatting the date displayed in the input. By default composes together [date-fn's parse method](https://date-fns.org/v1.29.0/docs/parse) and [date-fn's format method](https://date-fns.org/v1.29.0/docs/format) to return a correctly formatted date string. */
   formatDisplayLabel?: (value: string, dateFormat: string) => string;
   /** Props to apply to the select. This can be used to set options such as placeholder text.
-   *  See [here](/packages/design-system/select) for documentation on select props. */
+   *  See [the `Select` documentation for further information](/components/select). */
   selectProps?: SelectProps;
-  /* This prop affects the height of the select control. Compact is gridSize() * 4, default is gridSize * 5  */
+  /**
+    The spacing for the select control.
+   
+    Compact is `gridSize() * 4`, default is `gridSize * 5`.
+   */
   spacing?: Spacing;
-  /** The ISO time that should be used as the input value. */
+  /** The ISO time used as the input value. */
   value?: string;
-  /** Indicates current value is invalid & changes border color */
+  /** Set if the picker has an invalid value. */
   isInvalid?: boolean;
   /** Hides icon for dropdown indicator. */
   hideIcon?: boolean;
@@ -100,7 +115,7 @@ export interface Props extends WithAnalyticsEventsProps {
   dateFormat?: string;
   /** Placeholder text displayed in input */
   placeholder?: string;
-  /** Locale used to format the the date and calendar. See [DateTimeFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DateTimeFormat) */
+  /** Locale used to format the date and calendar. See [DateTimeFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DateTimeFormat). */
   locale?: string;
   /**
    * A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests

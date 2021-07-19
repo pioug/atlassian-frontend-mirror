@@ -1,5 +1,11 @@
 # @atlaskit/focused-task-close-account
 
+## 0.14.2
+
+### Patch Changes
+
+- [`eb0dc29d09b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eb0dc29d09b) - Declarative entry points, removes messages, types EPs
+
 ## 0.14.1
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @atlaskit/share
 
+## 0.26.9
+
+### Patch Changes
+
+- [`c74cf22db0e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c74cf22db0e) - Declarative entry points, removes auto-generated i18n entry point
+
 ## 0.26.8
 
 ### Patch Changes

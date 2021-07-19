@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/share",
-  "version": "0.26.8",
+  "version": "0.26.9",
   "description": "Fabric Share Element",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -13,9 +13,11 @@
   "module:es2019": "dist/es2019/index.js",
   "types": "dist/types/index.d.ts",
   "atlaskit:src": "src/index.ts",
+  "af:exports": {
+    ".": "./src/index.ts"
+  },
   "atlassian": {
     "team": "People and Teams Collective",
-    "deprecatedAutoEntryPoints": true,
     "releaseModel": "continuous",
     "website": {
       "name": "Share"

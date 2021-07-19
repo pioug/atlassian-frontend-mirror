@@ -36,6 +36,7 @@
     "@atlaskit/build-utils": "*",
     "@atlaskit/button": "^15.1.0",
     "@atlaskit/docs": "*",
+    "@atlaskit/icon": "^21.7.0",
     "@atlaskit/lozenge": "^10.0.0",
     "@atlaskit/motion": "^1.0.0",
     "@atlaskit/select": "^15.0.0",

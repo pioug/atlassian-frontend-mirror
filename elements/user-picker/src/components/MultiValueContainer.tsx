@@ -1,19 +1,22 @@
-import { components } from '@atlaskit/select';
+import { components, ValueContainerProps } from '@atlaskit/select';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { FormattedMessage } from 'react-intl';
 import { messages } from './i18n';
 import { isChildInput } from './utils';
+import { User, Option } from '../types';
 
 export type State = {
   valueSize: number;
   previousValueSize: number;
 };
 
-type Props = {
-  children: React.ReactChild;
-  getValue: () => any[];
-  selectProps: any;
+type Props = ValueContainerProps<Option<User>[], true> & {
+  innerProps?: ValueContainerInnerProps;
+};
+
+type ValueContainerInnerProps = {
+  ref: React.RefObject<HTMLDivElement>;
 };
 
 export class MultiValueContainer extends React.PureComponent<Props, State> {
@@ -24,7 +27,7 @@ export class MultiValueContainer extends React.PureComponent<Props, State> {
     };
   }
 
-  private containerRef: React.RefObject<MultiValueContainer>;
+  private valueContainerInnerProps: ValueContainerInnerProps;
   private timeoutId: number | null = null;
 
   constructor(props: Props) {
@@ -33,7 +36,7 @@ export class MultiValueContainer extends React.PureComponent<Props, State> {
       valueSize: 0,
       previousValueSize: 0,
     };
-    this.containerRef = React.createRef();
+    this.valueContainerInnerProps = { ref: React.createRef() };
   }
 
   componentDidUpdate() {
@@ -57,7 +60,9 @@ export class MultiValueContainer extends React.PureComponent<Props, State> {
 
   scrollToBottom = () => {
     this.timeoutId = window.setTimeout(() => {
-      const { current } = this.containerRef;
+      const {
+        ref: { current },
+      } = this.valueContainerInnerProps;
       if (current !== null) {
         const container = ReactDOM.findDOMNode(current);
         if (container instanceof HTMLDivElement) {
@@ -76,12 +81,10 @@ export class MultiValueContainer extends React.PureComponent<Props, State> {
   };
 
   private addPlaceholder = (placeholder: string) =>
-    React.Children.map<React.ReactChild, React.ReactChild>(
-      this.props.children,
-      (child) =>
-        isChildInput(child) && this.showPlaceholder()
-          ? React.cloneElement(child, { placeholder })
-          : child,
+    React.Children.map(this.props.children, (child) =>
+      isChildInput(child as React.ReactChild) && this.showPlaceholder()
+        ? React.cloneElement(child as React.ReactElement, { placeholder })
+        : child,
     );
 
   private renderChildren = () => {
@@ -103,13 +106,13 @@ export class MultiValueContainer extends React.PureComponent<Props, State> {
   };
 
   render() {
-    const { children, ...valueContainerProps } = this.props;
+    const { children, innerProps, ...valueContainerProps } = this.props;
+    const props = {
+      ...valueContainerProps,
+      innerProps: this.valueContainerInnerProps,
+    };
     return (
-      <components.ValueContainer
-        // TODO: Remove any and pass correct types to component
-        {...(valueContainerProps as any)}
-        ref={this.containerRef}
-      >
+      <components.ValueContainer {...props}>
         {this.renderChildren()}
       </components.ValueContainer>
     );

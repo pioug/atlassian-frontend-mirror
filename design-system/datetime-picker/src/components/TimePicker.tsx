@@ -49,25 +49,29 @@ interface Option {
 
 /* eslint-disable react/no-unused-prop-types */
 export interface Props extends WithAnalyticsEventsProps {
-  /** Defines the appearance which can be default or subtle - no borders or background.
-   *  Appearance values will be ignored if styles are parsed via the selectProps.
+  /**
+    Set the appearance of the picker.
+   
+    `subtle` will remove the borders, background, and icon.
+   
+    **NOTE:** Appearance values will be ignored if styles are parsed through `selectProps`.
    */
   appearance?: Appearance;
-  /** Whether or not to auto-focus the field. */
+  /** Set the picker to autofocus on mount. */
   autoFocus?: boolean;
-  /** Default for `isOpen`. */
+  /** The default for `isOpen`. */
   defaultIsOpen?: boolean;
-  /** Default for `value`. */
+  /** The default for `value`. */
   defaultValue?: string;
-  /** DEPRECATED - Use locale instead. Function for formatting the displayed time value in the input. By default parses with an internal time parser, and formats using the [date-fns format function]((https://date-fns.org/v1.29.0/docs/format)) */
+  /** DEPRECATED - Use locale instead. Function for formatting the displayed time value in the input. By default parses with an internal time parser, and formats using the [date-fns format function]((https://date-fns.org/v1.29.0/docs/format)). */
   formatDisplayLabel?: (time: string, timeFormat: string) => string;
-  /** The id of the field. Currently, react-select transforms this to have a "react-select-" prefix, and an "--input" suffix when applied to the input. For example, the id "my-input" would be transformed to "react-select-my-input--input". Keep this in mind when needing to refer to the ID. This will be fixed in an upcoming release. */
+  /** The id of the field. Currently, react-select transforms this to have a `react-select-` prefix, and an `--input` suffix when applied to the input. For example, the id `my-input` would be transformed to `react-select-my-input--input`. Keep this in mind when needing to refer to the ID. This will be fixed in an upcoming release. */
   id?: string;
   /** Props to apply to the container. **/
   innerProps?: React.AllHTMLAttributes<HTMLElement>;
-  /** Whether or not the field is disabled. */
+  /** Set if the field is disabled. */
   isDisabled?: boolean;
-  /** Whether or not the dropdown is open. */
+  /** Set if the dropdown is open. Will be `false` if not provided. */
   isOpen?: boolean;
   /** The name of the field. */
   name?: string;
@@ -80,25 +84,30 @@ export interface Props extends WithAnalyticsEventsProps {
   parseInputValue?: (time: string, timeFormat: string) => string | Date;
   /** Props to apply to the select. */
   selectProps?: SelectProps<any>;
-  /* This prop affects the height of the select control. Compact is gridSize() * 4, default is gridSize * 5  */
+  /**
+    The spacing for the select control.
+   
+    Compact is `gridSize() * 4`, default is `gridSize * 5`.
+   */
   spacing?: Spacing;
-  /** The times to show in the dropdown. */
+  /** The times shown in the dropdown. */
   times?: string[];
-  /** Allow users to edit the input and add a time */
+  /** Set if users can edit the input, allowing them to add custom times. */
   timeIsEditable?: boolean;
   /** The ISO time that should be used as the input value. */
   value?: string;
-  /** Indicates current value is invalid & changes border color. */
+  /** Set if the picker has an invalid value. */
   isInvalid?: boolean;
   /** Hides icon for dropdown indicator. */
   hideIcon?: boolean;
-  /** Time format that is accepted by [date-fns's format function](https://date-fns.org/v1.29.0/docs/format)*/
+  /** Time format that is accepted by [date-fns's format function](https://date-fns.org/v1.29.0/docs/format). */
   timeFormat?: string;
-  /** Placeholder text displayed in input */
+  /** Placeholder text displayed in input. */
   placeholder?: string;
+  /** Locale used to format the time. See [DateTimeFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DateTimeFormat). */
   locale?: string;
   /**
-   * A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests
+   * A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests:
    *  - `{testId}--container` wrapping element of time-picker
    **/
   testId?: string;

@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 7.14.1
+
+### Patch Changes
+
+- [`f8630220e88`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f8630220e88) - Fix typing in MultiValueContainer
+
 ## 7.14.0
 
 ### Minor Changes

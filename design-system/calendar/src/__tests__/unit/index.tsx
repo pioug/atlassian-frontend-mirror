@@ -7,7 +7,8 @@ import {
   RenderResult,
   within,
 } from '@testing-library/react';
-import parse from 'date-fns/parse';
+// eslint-disable-next-line no-restricted-imports
+import { parseISO } from 'date-fns';
 import cases from 'jest-in-case';
 
 import Calendar, { CalendarProps } from '../../index';
@@ -48,7 +49,7 @@ const getAnnouncerElementTextContent = (container: HTMLElement) =>
   getById(container, 'announce-react-uid')?.textContent;
 
 const weekendFilter = (date: string) => {
-  const dayOfWeek = parse(date).getDay();
+  const dayOfWeek = parseISO(date).getDay();
   return dayOfWeek === 0 || dayOfWeek === 6;
 };
 

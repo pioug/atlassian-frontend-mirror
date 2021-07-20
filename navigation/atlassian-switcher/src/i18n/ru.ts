@@ -33,7 +33,6 @@ export default {
   'fabric.atlassianSwitcher.manageList': 'Изменить список',
   'fabric.atlassianSwitcher.more': 'Еще',
   'fabric.atlassianSwitcher.moreAtlassianProducts': 'Другие продукты Atlassian',
-  'fabric.atlassianSwitcher.moreProductsLink': 'Другие продукты',
   'fabric.atlassianSwitcher.product.description.confluence':
     'Совместная работа над документами',
   'fabric.atlassianSwitcher.product.description.jsm':
@@ -52,7 +51,9 @@ export default {
     'Подключить {productLabel}',
   'fabric.atlassianSwitcher.sign.up.to.join.image':
     'Команда смотрит на несколько голографических экранов',
-  'fabric.atlassianSwitcher.slackIntegrationLink': 'Slack для Atlassian',
+  'fabric.atlassianSwitcher.slackIntegrationLink': 'Slack',
+  'fabric.atlassianSwitcher.slackIntegrationLinkDescription':
+    'Интегрировать Slack с продуктами Atlassian',
   'fabric.atlassianSwitcher.start': 'Начальная страница Atlassian',
   'fabric.atlassianSwitcher.switchTo': 'Переключиться на',
   'fabric.atlassianSwitcher.switchToTooltip': 'Переключиться на…',

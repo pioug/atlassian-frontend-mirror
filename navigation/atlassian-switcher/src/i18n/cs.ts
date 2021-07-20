@@ -32,7 +32,6 @@ export default {
   'fabric.atlassianSwitcher.manageList': 'Spravovat seznam',
   'fabric.atlassianSwitcher.more': 'Více',
   'fabric.atlassianSwitcher.moreAtlassianProducts': 'Další produkty Atlassian',
-  'fabric.atlassianSwitcher.moreProductsLink': 'Další produkty',
   'fabric.atlassianSwitcher.product.description.confluence':
     'Spolupráce na dokumentech',
   'fabric.atlassianSwitcher.product.description.jsm':
@@ -51,7 +50,9 @@ export default {
     'Připojte se k {productLabel}',
   'fabric.atlassianSwitcher.sign.up.to.join.image':
     'Tým sleduje několik holografických obrazovek',
-  'fabric.atlassianSwitcher.slackIntegrationLink': 'Slack pro Atlassian',
+  'fabric.atlassianSwitcher.slackIntegrationLink': 'Slack',
+  'fabric.atlassianSwitcher.slackIntegrationLinkDescription':
+    'Integrujte Slack se svými produkty Atlassian',
   'fabric.atlassianSwitcher.start': 'Výchozí web Atlassian',
   'fabric.atlassianSwitcher.switchTo': 'Přepnout na',
   'fabric.atlassianSwitcher.switchToTooltip': 'Přepnout na...',

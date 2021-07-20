@@ -1,21 +1,20 @@
 import React from 'react';
 
 // eslint-disable-next-line no-restricted-imports
-import format from 'date-fns/format';
-import parse from 'date-fns/parse';
+import { parseISO } from 'date-fns';
 
 import { DatePicker } from '../src';
 
 function now(day: number) {
   const date = new Date();
   date.setDate(day);
-  return format(date, 'YYYY-MM-DD');
+  return date.toISOString();
 }
 
 // Make sure your filter callback has a stable reference to avoid necessary re-renders,
 // either by defining it outside of the render function's scope or using useCallback
 const weekendFilter = (date: string) => {
-  const dayOfWeek = parse(date).getDay();
+  const dayOfWeek = parseISO(date).getDay();
   return dayOfWeek === 0 || dayOfWeek === 6;
 };
 

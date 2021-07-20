@@ -1,5 +1,11 @@
 # @atlaskit/email-renderer
 
+## 6.2.4
+
+### Patch Changes
+
+- [`414b6216adf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/414b6216adf) - Upgrade date-fns to ^2.17
+
 ## 6.2.3
 
 ### Patch Changes

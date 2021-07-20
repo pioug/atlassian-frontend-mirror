@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 
-import parse from 'date-fns/parse';
+// eslint-disable-next-line no-restricted-imports
+import { parseISO } from 'date-fns';
 
 import type { WeekDay } from '../../types';
 import { daysPerWeek } from '../constants';
@@ -78,8 +79,8 @@ export default function useGetWeeks({
     calendar.push(...calendarWithSixthWeek);
   }
 
-  const minDate = minDateString ? parse(minDateString) : undefined;
-  const maxDate = maxDateString ? parse(maxDateString) : undefined;
+  const minDate = minDateString ? parseISO(minDateString) : undefined;
+  const maxDate = maxDateString ? parseISO(maxDateString) : undefined;
   const needJsDate = minDateString || maxDateString;
 
   return useMemo(() => {
@@ -87,7 +88,7 @@ export default function useGetWeeks({
 
     calendar.forEach((date) => {
       const dateAsString = dateToString(date, { fixMonth: true });
-      const JSDate = needJsDate ? parse(dateAsString) : undefined;
+      const JSDate = needJsDate ? parseISO(dateAsString) : undefined;
 
       let week;
       if (date.weekDay === weekStartDay) {

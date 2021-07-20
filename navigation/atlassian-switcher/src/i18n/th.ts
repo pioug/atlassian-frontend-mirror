@@ -8,7 +8,7 @@
 export default {
   'fabric.atlassianSwitcher.administration': 'ฝ่ายดูแลระบบ',
   'fabric.atlassianSwitcher.browseApps': 'เรียกดูแอป Marketplace',
-  'fabric.atlassianSwitcher.confluenceSpace': 'พื้นที่ร่วม',
+  'fabric.atlassianSwitcher.confluenceSpace': 'พื้นที่ Confluence',
   'fabric.atlassianSwitcher.discover': 'สำรวจ',
   'fabric.atlassianSwitcher.errorHeading': 'มีบางอย่างผิดพลาด',
   'fabric.atlassianSwitcher.errorHeadingLoggedOut':
@@ -35,7 +35,6 @@ export default {
   'fabric.atlassianSwitcher.more': 'เพิ่มเติม',
   'fabric.atlassianSwitcher.moreAtlassianProducts':
     'ผลิตภัณฑ์อื่น ๆ ของ Atlassian',
-  'fabric.atlassianSwitcher.moreProductsLink': 'ผลิตภัณฑ์อื่น ๆ',
   'fabric.atlassianSwitcher.product.description.confluence': 'การรวบรวมเอกสาร',
   'fabric.atlassianSwitcher.product.description.jsm':
     'การจัดการบริการด้าน IT แบบร่วมกัน',
@@ -51,7 +50,9 @@ export default {
   'fabric.atlassianSwitcher.sign.up.to.join.header': 'เข้าร่วม {productLabel}',
   'fabric.atlassianSwitcher.sign.up.to.join.image':
     'กลุ่มคนที่กำลังมองดูและจัดการหน้าจอฮอโลแกรมหลายหน้า',
-  'fabric.atlassianSwitcher.slackIntegrationLink': 'Slack สำหรับ Atlassian',
+  'fabric.atlassianSwitcher.slackIntegrationLink': 'Slack',
+  'fabric.atlassianSwitcher.slackIntegrationLinkDescription':
+    'รวม Slack เข้ากับผลิตภัณฑ์ Atlassian ของคุณ',
   'fabric.atlassianSwitcher.start': 'หน้าแรกของ Atlassian',
   'fabric.atlassianSwitcher.switchTo': 'เปลี่ยนเป็น',
   'fabric.atlassianSwitcher.switchToTooltip': 'เปลี่ยนเป็น...',

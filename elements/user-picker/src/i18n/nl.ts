@@ -16,6 +16,10 @@ export default {
   'fabric.elements.user-picker.google.provider': 'Google',
   'fabric.elements.user-picker.group.byline': 'Door beheerder beheerde groep',
   'fabric.elements.user-picker.guest.lozenge.text': 'GAST',
+  'fabric.elements.user-picker.guest.lozenge.tooltip.group':
+    'Gastgroepen hebben alleen toegang tot bepaalde spaces en hebben beperkte toegang tot gebruikersinformatie.',
+  'fabric.elements.user-picker.guest.lozenge.tooltip.user':
+    'Gasten hebben alleen toegang tot bepaalde spaces en hebben beperkte toegang tot gebruikersinformatie.',
   'fabric.elements.user-picker.member.lozenge.text': 'LID',
   'fabric.elements.user-picker.microsoft.provider': 'Microsoft',
   'fabric.elements.user-picker.multi.remove-item': 'Verwijderen',

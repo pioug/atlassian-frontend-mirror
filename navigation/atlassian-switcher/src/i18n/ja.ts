@@ -33,7 +33,6 @@ export default {
   'fabric.atlassianSwitcher.manageList': 'リストの管理',
   'fabric.atlassianSwitcher.more': 'その他',
   'fabric.atlassianSwitcher.moreAtlassianProducts': 'その他のアトラシアン製品',
-  'fabric.atlassianSwitcher.moreProductsLink': 'その他の製品',
   'fabric.atlassianSwitcher.product.description.confluence':
     'ドキュメント コラボレーション',
   'fabric.atlassianSwitcher.product.description.jsm':
@@ -51,7 +50,9 @@ export default {
     '{productLabel} に参加する',
   'fabric.atlassianSwitcher.sign.up.to.join.image':
     '複数のホログラフィック画面を見ているチーム',
-  'fabric.atlassianSwitcher.slackIntegrationLink': 'Slack とアトラシアンの連携',
+  'fabric.atlassianSwitcher.slackIntegrationLink': 'Slack',
+  'fabric.atlassianSwitcher.slackIntegrationLinkDescription':
+    'Slack を Atlassian 製品と連携',
   'fabric.atlassianSwitcher.start': 'Atlassian Start サイト',
   'fabric.atlassianSwitcher.switchTo': '切り替え先',
   'fabric.atlassianSwitcher.switchToTooltip': '切り替え先...',

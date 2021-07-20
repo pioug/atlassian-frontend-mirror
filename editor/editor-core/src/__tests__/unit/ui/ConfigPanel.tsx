@@ -73,7 +73,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
         extensionKey: 'just-for-tests',
         nodeKey: 'test-item',
       };
-
+      const creationDate = new Date('02/22/2020').toISOString();
       // TODO: there are many warnings due to hooks usage and async code,
       //   these should be resolved by the next react update
       silenceActErrors();
@@ -611,7 +611,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
                 },
               ]),
               parameters: {
-                creationDate: '02/22/2020',
+                creationDate,
               },
             });
           });
@@ -628,7 +628,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
             await trySubmit();
 
             expect(onChange).toHaveBeenCalledWith({
-              creationDate: '02/22/2020',
+              creationDate,
             });
           });
 
@@ -1894,7 +1894,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
             parameters: {
               t: 'abcd',
               n: 1234,
-              d: '02/02/2020',
+              d: creationDate,
               b: true,
               esm: ['a', 'c'],
               ess: 'b',
@@ -1907,7 +1907,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
           expect(onChange).toHaveBeenCalledWith({
             t: 'abcd',
             n: 1234,
-            d: '02/02/2020',
+            d: creationDate,
             b: true,
             esm: ['a', 'c'],
             ess: 'b',

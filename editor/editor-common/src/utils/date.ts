@@ -1,5 +1,5 @@
-import differenceInCalendarDays from 'date-fns/difference_in_calendar_days';
-import isBefore from 'date-fns/is_before';
+import differenceInCalendarDays from 'date-fns/differenceInCalendarDays';
+import isBefore from 'date-fns/isBefore';
 import { InjectedIntl } from 'react-intl';
 
 enum FORMATS {
@@ -77,8 +77,8 @@ export const timestampToIsoFormat = (timestamp: string | number): string => {
 
 export const isPastDate = (timestamp: string | number): boolean => {
   return isBefore(
-    timestampToIsoFormat(Number(timestamp)),
-    timestampToIsoFormat(Number(todayTimestampInUTC())),
+    new Date(Number(timestamp)),
+    new Date(Number(todayTimestampInUTC())),
   );
 };
 

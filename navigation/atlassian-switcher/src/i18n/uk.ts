@@ -8,7 +8,7 @@
 export default {
   'fabric.atlassianSwitcher.administration': 'Адміністрування',
   'fabric.atlassianSwitcher.browseApps': 'Програми в Marketplace',
-  'fabric.atlassianSwitcher.confluenceSpace': 'Область Confluence',
+  'fabric.atlassianSwitcher.confluenceSpace': 'Розділ Confluence',
   'fabric.atlassianSwitcher.discover': 'Відкривайте нові ресурси',
   'fabric.atlassianSwitcher.errorHeading': 'Щось не так',
   'fabric.atlassianSwitcher.errorHeadingLoggedOut':
@@ -33,7 +33,6 @@ export default {
   'fabric.atlassianSwitcher.manageList': 'Настроїти список',
   'fabric.atlassianSwitcher.more': 'Більше',
   'fabric.atlassianSwitcher.moreAtlassianProducts': 'Інші продукти Atlassian',
-  'fabric.atlassianSwitcher.moreProductsLink': 'Інші продукти',
   'fabric.atlassianSwitcher.product.description.confluence':
     'Спільна робота з документами',
   'fabric.atlassianSwitcher.product.description.jsm':
@@ -52,7 +51,9 @@ export default {
     'Використовувати {productLabel}',
   'fabric.atlassianSwitcher.sign.up.to.join.image':
     'Команда, яка дивиться на кілька голографічних екранів',
-  'fabric.atlassianSwitcher.slackIntegrationLink': 'Slack для Atlassian',
+  'fabric.atlassianSwitcher.slackIntegrationLink': 'Slack',
+  'fabric.atlassianSwitcher.slackIntegrationLinkDescription':
+    'Інтегрувати Slack у ваші продукти Atlassian',
   'fabric.atlassianSwitcher.start': 'Головна сторінка Atlassian',
   'fabric.atlassianSwitcher.switchTo': 'Перейти:',
   'fabric.atlassianSwitcher.switchToTooltip': 'Перехід на інший продукт',

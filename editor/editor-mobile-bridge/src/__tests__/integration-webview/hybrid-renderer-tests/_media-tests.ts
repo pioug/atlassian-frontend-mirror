@@ -92,7 +92,8 @@ export default async () => {
 
   MobileTestCase(
     'Renderer Media: Load ADF with a MediaSingle with caption node',
-    {},
+    // TODO: https://product-fabric.atlassian.net/browse/ME-1641
+    { skipPlatform: ['*'] },
     async (client) => {
       const page = await Page.create(client);
       await loadRenderer(page, 'allowCaptions=true');
@@ -104,7 +105,8 @@ export default async () => {
 
   MobileTestCase(
     'Renderer Media: Should not render caption when caption is turned off',
-    {},
+    // TODO: https://product-fabric.atlassian.net/browse/ME-1641
+    { skipPlatform: ['*'] },
     async (client) => {
       const page = await Page.create(client);
       await loadRenderer(page);

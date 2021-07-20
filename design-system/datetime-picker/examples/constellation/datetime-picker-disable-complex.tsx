@@ -1,11 +1,12 @@
 import React from 'react';
 
-import parse from 'date-fns/parse';
+// eslint-disable-next-line no-restricted-imports
+import { parseISO } from 'date-fns';
 
 import { DateTimePicker } from '../../src';
 
 const weekendFilter = (date: string) => {
-  const dayOfWeek = parse(date).getDay();
+  const dayOfWeek = parseISO(date).getDay();
   return dayOfWeek === 0 || dayOfWeek === 6;
 };
 

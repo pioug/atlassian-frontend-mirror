@@ -35,7 +35,6 @@ export default {
   'fabric.atlassianSwitcher.more': 'Más',
   'fabric.atlassianSwitcher.moreAtlassianProducts':
     'Más productos de Atlassian',
-  'fabric.atlassianSwitcher.moreProductsLink': 'Más productos',
   'fabric.atlassianSwitcher.product.description.confluence':
     'Colaboración en documentos',
   'fabric.atlassianSwitcher.product.description.jsm':
@@ -53,7 +52,9 @@ export default {
   'fabric.atlassianSwitcher.sign.up.to.join.header': 'Únete a {productLabel}',
   'fabric.atlassianSwitcher.sign.up.to.join.image':
     'Un equipo mirando a varias pantallas holográficas',
-  'fabric.atlassianSwitcher.slackIntegrationLink': 'Slack para Atlassian',
+  'fabric.atlassianSwitcher.slackIntegrationLink': 'Slack',
+  'fabric.atlassianSwitcher.slackIntegrationLinkDescription':
+    'Integra Slack con tus productos de Atlassian',
   'fabric.atlassianSwitcher.start': 'Inicio de Atlassian',
   'fabric.atlassianSwitcher.switchTo': 'Cambiar a',
   'fabric.atlassianSwitcher.switchToTooltip': 'Cambiar a…',

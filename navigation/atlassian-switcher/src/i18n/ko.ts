@@ -33,7 +33,6 @@ export default {
   'fabric.atlassianSwitcher.manageList': '목록 관리',
   'fabric.atlassianSwitcher.more': '더 보기',
   'fabric.atlassianSwitcher.moreAtlassianProducts': '더 많은 Atlassian 제품',
-  'fabric.atlassianSwitcher.moreProductsLink': '더 많은 제품',
   'fabric.atlassianSwitcher.product.description.confluence': '문서 공동 작업',
   'fabric.atlassianSwitcher.product.description.jsm': '협업 IT 서비스 관리',
   'fabric.atlassianSwitcher.product.description.jsw': '프로젝트 및 이슈 추적',
@@ -47,7 +46,9 @@ export default {
     '{productLabel}에 가입하기',
   'fabric.atlassianSwitcher.sign.up.to.join.image':
     '여러 홀로그램 화면을 보고 있는 팀',
-  'fabric.atlassianSwitcher.slackIntegrationLink': 'Atlassian용 Slack',
+  'fabric.atlassianSwitcher.slackIntegrationLink': 'Slack',
+  'fabric.atlassianSwitcher.slackIntegrationLinkDescription':
+    'Slack을 Atlassian 제품과 통합하세요',
   'fabric.atlassianSwitcher.start': 'Atlassian 시작',
   'fabric.atlassianSwitcher.switchTo': '다음으로 전환',
   'fabric.atlassianSwitcher.switchToTooltip': '다음으로 전환...',

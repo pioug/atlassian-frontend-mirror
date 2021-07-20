@@ -35,7 +35,6 @@ export default {
   'fabric.atlassianSwitcher.more': 'Khác',
   'fabric.atlassianSwitcher.moreAtlassianProducts':
     'Sản phẩm khác của Atlassian',
-  'fabric.atlassianSwitcher.moreProductsLink': 'Sản phẩm khác',
   'fabric.atlassianSwitcher.product.description.confluence':
     'Cộng tác tài liệu',
   'fabric.atlassianSwitcher.product.description.dragonfruit':
@@ -53,7 +52,9 @@ export default {
   'fabric.atlassianSwitcher.sign.up.to.join.header': 'Tham gia {productLabel}',
   'fabric.atlassianSwitcher.sign.up.to.join.image':
     'Một nhóm nhìn vào nhiều màn hình 3D',
-  'fabric.atlassianSwitcher.slackIntegrationLink': 'Slack dành cho Atlassian',
+  'fabric.atlassianSwitcher.slackIntegrationLink': 'Slack',
+  'fabric.atlassianSwitcher.slackIntegrationLinkDescription':
+    'Tích hợp Slack với sản phẩm Atlassian của bạn',
   'fabric.atlassianSwitcher.start': 'Bắt đầu sử dụng sản phẩm Atlassian',
   'fabric.atlassianSwitcher.switchTo': 'Chuyển sang',
   'fabric.atlassianSwitcher.switchToTooltip': 'Chuyển sang…',

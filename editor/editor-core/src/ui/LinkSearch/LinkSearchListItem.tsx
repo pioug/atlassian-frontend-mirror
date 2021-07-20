@@ -7,8 +7,8 @@ import { fontSizeSmall } from '@atlaskit/theme';
 import { N20, N800, N100 } from '@atlaskit/theme/colors';
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 import { LinkSearchListItemData } from './types';
-import distanceInWords from 'date-fns/distance_in_words';
-import differenceInCalendarDays from 'date-fns/difference_in_calendar_days';
+import formatDistance from 'date-fns/formatDistance';
+import differenceInCalendarDays from 'date-fns/differenceInCalendarDays';
 import format from 'date-fns/format';
 
 import { injectIntl, InjectedIntlProps } from 'react-intl';
@@ -143,12 +143,12 @@ class LinkSearchListItem extends React.PureComponent<
     if (differenceInCalendarDays(timeStamp, Date.now()) < -7) {
       return this.renderWithSpaces(
         pageActionText,
-        format(timeStamp, 'MMMM DD, YYYY'),
+        format(timeStamp, 'MMMM dd, yyyy'),
       );
     }
     return this.renderWithSpaces(
       pageActionText,
-      distanceInWords(timeStamp, Date.now()),
+      formatDistance(timeStamp, Date.now()),
       intl.formatMessage(messages.timeAgo),
     );
   }

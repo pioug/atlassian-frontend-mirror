@@ -1,7 +1,7 @@
 import React from 'react';
 
-import format from 'date-fns/format';
-import parse from 'date-fns/parse';
+// eslint-disable-next-line no-restricted-imports
+import { parseISO } from 'date-fns';
 
 import { Label } from '@atlaskit/field-base';
 
@@ -11,7 +11,7 @@ function getRelativeDate(daysAfter: number) {
   const date = new Date();
   date.setDate(date.getDate() + daysAfter);
   // date-fns version 2 uses a new formatting system
-  return format(date, 'YYYY-MM-DD');
+  return date.toISOString();
 }
 
 // In this example, range can't be earlier than 30 days ago, and can't be on weekends
@@ -19,7 +19,7 @@ const earliestDateString = getRelativeDate(-30);
 const latestDateString = getRelativeDate(0);
 
 const weekendFilter = (date: string) => {
-  const dayOfWeek = parse(date).getDay();
+  const dayOfWeek = parseISO(date).getDay();
   return dayOfWeek === 0 || dayOfWeek === 6;
 };
 

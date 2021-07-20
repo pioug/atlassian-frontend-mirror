@@ -127,7 +127,8 @@ export default async () => {
 
   MobileTestCase(
     'Media: Load ADF with a MediaSingle node',
-    {},
+    // TODO: https://product-fabric.atlassian.net/browse/ME-1641
+    { skipPlatform: ['*'] },
     async (client) => {
       const page = await Page.create(client);
       await loadEditor(page, 'enableMediaResize=true');
@@ -156,7 +157,8 @@ export default async () => {
   MobileTestCase(
     'Media: Resize a MediaSingle node',
     // TODO: Enable ios resizing test https://product-fabric.atlassian.net/browse/EDM-1845
-    { skipPlatform: ['ios'] },
+    // TODO: https://product-fabric.atlassian.net/browse/ME-1641
+    { skipPlatform: ['*'] },
     async (client) => {
       const page = await Page.create(client);
       await loadEditor(page, 'enableMediaResize=true');

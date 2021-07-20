@@ -35,7 +35,6 @@ export default {
   'fabric.atlassianSwitcher.more': 'Továbbiak',
   'fabric.atlassianSwitcher.moreAtlassianProducts':
     'További Atlassian-termékek',
-  'fabric.atlassianSwitcher.moreProductsLink': 'További termékek',
   'fabric.atlassianSwitcher.product.description.confluence':
     'Együttműködés dokumentumokon',
   'fabric.atlassianSwitcher.product.description.jsm':
@@ -53,7 +52,9 @@ export default {
     'Csatlakozz a(z) {productLabel} rendszerhez',
   'fabric.atlassianSwitcher.sign.up.to.join.image':
     'Több holografikus képernyőt figyelő csapat',
-  'fabric.atlassianSwitcher.slackIntegrationLink': 'Slack az Atlassianhoz',
+  'fabric.atlassianSwitcher.slackIntegrationLink': 'Slack',
+  'fabric.atlassianSwitcher.slackIntegrationLinkDescription':
+    'A Slack integrációja az Atlassian-termékeiddel',
   'fabric.atlassianSwitcher.start': 'Atlassian kezdőoldal',
   'fabric.atlassianSwitcher.switchTo': 'Átváltás erre:',
   'fabric.atlassianSwitcher.switchToTooltip': 'Átváltás erre…',

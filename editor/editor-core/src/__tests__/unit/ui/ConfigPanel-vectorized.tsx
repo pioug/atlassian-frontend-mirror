@@ -168,8 +168,8 @@ const fieldTests: FieldTest[] = [
   {
     type: 'date',
     selector: 'Date',
-    defaultValue: '2020/02/17',
-    defaultValue2: '2021/04/19',
+    defaultValue: new Date('2020/02/17').toISOString(),
+    defaultValue2: new Date('2021/04/19').toISOString(),
     tests: [
       // TODO: add interactive tests
     ],

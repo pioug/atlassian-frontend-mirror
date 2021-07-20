@@ -1,5 +1,18 @@
 # @atlaskit/editor-core
 
+## 146.0.2
+
+### Patch Changes
+
+- [`a572da3653e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a572da3653e) - HOT-96031 Extension with no localId were not showing context panel
+
+## 146.0.1
+
+### Patch Changes
+
+- [`414b6216adf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/414b6216adf) - Upgrade date-fns to ^2.17
+- Updated dependencies
+
 ## 146.0.0
 
 ### Minor Changes

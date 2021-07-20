@@ -39,6 +39,8 @@ import FixedLayer from '../internal/FixedLayer';
 import parseTime from '../internal/parseTime';
 import { Appearance, Spacing } from '../types';
 
+import { convertTokens } from './utils';
+
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
@@ -232,14 +234,14 @@ class TimePicker extends React.Component<TimePickerProps, State> {
   onCreateOption = (inputValue: any): void => {
     if (this.props.timeIsEditable) {
       const { parseInputValue, timeFormat } = this.props;
-      // TODO parseInputValue doesn't accept `timeFormat` as an function arg yet...
-      const value =
+      const formattedValue =
         format(
-          parseInputValue(inputValue, timeFormat || defaultTimeFormat),
+          parseInputValue(inputValue, timeFormat || defaultTimeFormat) as Date,
           'HH:mm',
         ) || '';
-      this.setState({ value });
-      this.props.onChange(value);
+
+      this.setState({ value: formattedValue });
+      this.props.onChange(formattedValue);
     } else {
       this.onChange(inputValue);
     }
@@ -322,6 +324,7 @@ class TimePicker extends React.Component<TimePickerProps, State> {
     }
 
     const date = parseTime(time);
+
     if (!(date instanceof Date)) {
       return '';
     }
@@ -331,7 +334,7 @@ class TimePicker extends React.Component<TimePickerProps, State> {
     }
 
     if (timeFormat) {
-      return format(date, timeFormat);
+      return format(date, convertTokens(timeFormat));
     }
 
     return l10n.formatTime(date);
@@ -397,13 +400,11 @@ class TimePicker extends React.Component<TimePickerProps, State> {
       menu: (base: any) => ({
         ...base,
         ...menuStyles,
-        ...{
-          // Fixed positioned elements no longer inherit width from their parent, so we must explicitly set the
-          // menu width to the width of our container
-          width: this.containerRef
-            ? this.containerRef.getBoundingClientRect().width
-            : 'auto',
-        },
+        // Fixed positioned elements no longer inherit width from their parent, so we must explicitly set the
+        // menu width to the width of our container
+        width: this.containerRef
+          ? this.containerRef.getBoundingClientRect().width
+          : 'auto',
       }),
       indicatorsContainer: (base) => ({
         ...base,

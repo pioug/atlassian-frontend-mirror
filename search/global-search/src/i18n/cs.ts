@@ -17,7 +17,8 @@ export default {
   'global_search.confluence.no_results_in_space':
     "Žádné výsledky v prostoru '{'spaceTitle'}'",
   'global_search.confluence.recent_pages_heading': 'Nedávné stránky a blogy',
-  'global_search.confluence.recent_spaces_heading': 'Nedávné prostory',
+  'global_search.confluence.recent_spaces_heading':
+    'Naposledy použité prostory',
   'global_search.confluence.remove_space_filter': 'Odstranit filtr prostoru',
   'global_search.confluence.search_placeholder': 'Vyhledat v rámci Confluence',
   'global_search.confluence.space_filter': 'Filtrovat výsledky podle prostoru',

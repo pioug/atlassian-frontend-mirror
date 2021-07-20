@@ -2,7 +2,7 @@ import React, { CSSProperties } from 'react';
 
 import styled from '@emotion/styled';
 // eslint-disable-next-line no-restricted-imports
-import { format, isValid, lastDayOfMonth, parse } from 'date-fns';
+import { format, isValid, lastDayOfMonth, parseISO } from 'date-fns';
 import pick from 'lodash/pick';
 
 import {
@@ -38,6 +38,8 @@ import {
 } from '../internal';
 import FixedLayer from '../internal/FixedLayer';
 import { Appearance, SelectProps, Spacing } from '../types';
+
+import { convertTokens } from './utils';
 
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
@@ -169,8 +171,7 @@ function getDateObj(date: Date): DateObj {
 }
 
 function getValidDate(iso: string) {
-  const date: Date = parse(iso);
-
+  const date = parseISO(iso);
   return isValid(date) ? getDateObj(date) : {};
 }
 
@@ -241,10 +242,9 @@ const datePickerDefaultProps = {
 };
 
 class DatePicker extends React.Component<DatePickerProps, State> {
+  static defaultProps = datePickerDefaultProps;
   calendarRef: CalendarRef | null = null;
   containerRef: HTMLElement | null = null;
-
-  static defaultProps = datePickerDefaultProps;
 
   constructor(props: any) {
     super(props);
@@ -364,7 +364,9 @@ class DatePicker extends React.Component<DatePickerProps, State> {
       if (parsed && isValid(parsed)) {
         // We format the parsed date to YYYY-MM-DD here because
         // this is the format expected by the @atlaskit/calendar component
-        this.setState({ view: format(parsed, 'YYYY-MM-DD') });
+        this.setState({
+          view: format(parsed, convertTokens('YYYY-MM-DD')),
+        });
       }
     }
 
@@ -429,7 +431,9 @@ class DatePicker extends React.Component<DatePickerProps, State> {
     let changedState: {} = {
       selectedValue: '',
       value: '',
-      view: this.props.defaultValue || format(new Date(), 'YYYY-MM-DD'),
+      view:
+        this.props.defaultValue ||
+        format(new Date(), convertTokens('YYYY-MM-DD')),
     };
 
     if (!this.props.hideIcon) {
@@ -484,7 +488,7 @@ class DatePicker extends React.Component<DatePickerProps, State> {
    *   1. parseInputValue
    *   2. locale
    */
-  parseDate = (date: string): Date | null => {
+  parseDate = (date: string) => {
     const { parseInputValue, dateFormat } = this.props;
 
     if (parseInputValue) {
@@ -503,7 +507,7 @@ class DatePicker extends React.Component<DatePickerProps, State> {
    *   2. dateFormat
    *   3. locale
    */
-  formatDate = (value: string): string => {
+  formatDate = (value: string) => {
     const { formatDisplayLabel, dateFormat } = this.props;
     const { l10n } = this.getSafeState();
 
@@ -511,12 +515,11 @@ class DatePicker extends React.Component<DatePickerProps, State> {
       return formatDisplayLabel(value, dateFormat || defaultDateFormat);
     }
 
-    const date = parse(value);
-    if (dateFormat) {
-      return format(date, dateFormat);
-    }
+    const date = parseISO(value);
 
-    return l10n.formatDate(date);
+    return dateFormat
+      ? format(date, convertTokens(dateFormat))
+      : l10n.formatDate(date);
   };
 
   getPlaceholder = () => {
@@ -584,7 +587,8 @@ class DatePicker extends React.Component<DatePickerProps, State> {
       calendarDisabledDateFilter: disabledDateFilter,
       calendarMaxDate: maxDate,
       calendarMinDate: minDate,
-      calendarValue: value && format(parse(value), 'YYYY-MM-DD'),
+      calendarValue:
+        value && format(parseISO(value), convertTokens('YYYY-MM-DD')),
       calendarView: view,
       onCalendarChange: this.onCalendarChange,
       onCalendarSelect: this.onCalendarSelect,

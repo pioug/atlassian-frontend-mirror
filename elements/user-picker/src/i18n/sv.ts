@@ -15,6 +15,10 @@ export default {
   'fabric.elements.user-picker.google.provider': 'Google',
   'fabric.elements.user-picker.group.byline': 'Administratörshanterad grupp',
   'fabric.elements.user-picker.guest.lozenge.text': 'GÄST',
+  'fabric.elements.user-picker.guest.lozenge.tooltip.group':
+    'Gästgrupper kan endast komma åt vissa utrymmen och har begränsad åtkomst till användarinformation.',
+  'fabric.elements.user-picker.guest.lozenge.tooltip.user':
+    'Gästerna kan endast komma åt vissa utrymmen och har begränsad åtkomst till användarinformation.',
   'fabric.elements.user-picker.member.lozenge.text': 'medlem',
   'fabric.elements.user-picker.microsoft.provider': 'Microsoft',
   'fabric.elements.user-picker.multi.remove-item': 'Ta bort',

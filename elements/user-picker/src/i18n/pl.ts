@@ -16,6 +16,10 @@ export default {
   'fabric.elements.user-picker.group.byline':
     'Grupa zarządzana przez administratora',
   'fabric.elements.user-picker.guest.lozenge.text': 'GOŚĆ',
+  'fabric.elements.user-picker.guest.lozenge.tooltip.group':
+    'Grupy gości mają dostęp wyłącznie do określonych przestrzeni i ograniczony dostęp do informacji o użytkownikach.',
+  'fabric.elements.user-picker.guest.lozenge.tooltip.user':
+    'Goście mają dostęp wyłącznie do określonych przestrzeni i ograniczony dostęp do informacji o użytkownikach.',
   'fabric.elements.user-picker.member.lozenge.text': 'CZŁONEK',
   'fabric.elements.user-picker.microsoft.provider': 'Microsoft',
   'fabric.elements.user-picker.multi.remove-item': 'Usuń',

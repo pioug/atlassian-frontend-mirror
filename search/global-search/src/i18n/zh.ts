@@ -13,7 +13,7 @@ export default {
   'global_search.confluence.more_filters': '更多筛选器选项',
   'global_search.confluence.no_results_in_space': "'{'spaceTitle'}' 中没有结果",
   'global_search.confluence.recent_pages_heading': '最近搜索的网页和博客',
-  'global_search.confluence.recent_spaces_heading': '最近使用的空间',
+  'global_search.confluence.recent_spaces_heading': '最近空间',
   'global_search.confluence.remove_space_filter': '移除空间筛选器',
   'global_search.confluence.search_placeholder': '在 Confluence 中搜索',
   'global_search.confluence.space_filter': '按空间筛选结果',

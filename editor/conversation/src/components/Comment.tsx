@@ -8,7 +8,7 @@ import { WithProviders } from '@atlaskit/editor-common';
 import { Editor as AkEditor, EditorProps } from '@atlaskit/editor-core';
 import { ConnectedReactionsView } from '@atlaskit/reactions';
 import { ReactRenderer } from '@atlaskit/renderer';
-import distanceInWordsToNow from 'date-fns/distance_in_words_to_now';
+import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import React from 'react';
 import styled from 'styled-components';
 import { HttpError } from '../api/HttpError';
@@ -674,7 +674,7 @@ export default class Comment extends React.Component<Props, State> {
             onClick={this.handleTimeClick}
             href={disableScrollTo ? undefined : `#${commentId}`}
           >
-            {distanceInWordsToNow(new Date(comment.createdAt), {
+            {formatDistanceToNow(new Date(comment.createdAt), {
               addSuffix: true,
             })}
           </CommentTime>

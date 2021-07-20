@@ -34,7 +34,6 @@ export default {
   'fabric.atlassianSwitcher.more': 'Diğer',
   'fabric.atlassianSwitcher.moreAtlassianProducts':
     'Daha fazla Atlassian ürünü',
-  'fabric.atlassianSwitcher.moreProductsLink': 'Daha fazla ürün',
   'fabric.atlassianSwitcher.product.description.confluence': 'Belge paylaşımı',
   'fabric.atlassianSwitcher.product.description.jsm':
     'İş birliğine dayalı BT hizmeti yönetimi',
@@ -50,7 +49,6 @@ export default {
     '{productLabel} ürününe katılın',
   'fabric.atlassianSwitcher.sign.up.to.join.image':
     'Birden fazla holografik ekrana bakan bir ekip',
-  'fabric.atlassianSwitcher.slackIntegrationLink': 'Atlassian için Slack',
   'fabric.atlassianSwitcher.start': 'Atlassian Başlangıç',
   'fabric.atlassianSwitcher.switchTo': 'Şuna geçin',
   'fabric.atlassianSwitcher.switchToTooltip': 'Şuna geçin…',

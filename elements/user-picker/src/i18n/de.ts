@@ -17,6 +17,10 @@ export default {
   'fabric.elements.user-picker.group.byline':
     'Vom Administrator verwaltete Gruppe',
   'fabric.elements.user-picker.guest.lozenge.text': 'GAST',
+  'fabric.elements.user-picker.guest.lozenge.tooltip.group':
+    'Gästegruppen können ausschließlich auf ausgewählte Bereiche zugreifen und verfügen über eingeschränkten Zugriff auf Benutzerinformationen.',
+  'fabric.elements.user-picker.guest.lozenge.tooltip.user':
+    'Gäste können ausschließlich auf ausgewählte Bereiche zugreifen und verfügen über eingeschränkten Zugriff auf Benutzerinformationen.',
   'fabric.elements.user-picker.member.lozenge.text': 'Mitglied',
   'fabric.elements.user-picker.microsoft.provider': 'Microsoft',
   'fabric.elements.user-picker.multi.remove-item': 'Entfernen',

@@ -33,7 +33,6 @@ export default {
   'fabric.atlassianSwitcher.manageList': 'Hallinnoi luetteloa',
   'fabric.atlassianSwitcher.more': 'Lisää',
   'fabric.atlassianSwitcher.moreAtlassianProducts': 'Lisää Atlassian-tuotteita',
-  'fabric.atlassianSwitcher.moreProductsLink': 'Lisää tuotteita',
   'fabric.atlassianSwitcher.product.description.confluence':
     'Asiakirjojen yhteiskäyttö',
   'fabric.atlassianSwitcher.product.description.jsm':
@@ -51,7 +50,9 @@ export default {
     'Liity käyttämään tuotetta {productLabel}',
   'fabric.atlassianSwitcher.sign.up.to.join.image':
     'Tiimi katselemassa useita hologramminäyttöjä',
-  'fabric.atlassianSwitcher.slackIntegrationLink': 'Slack Atlassianille',
+  'fabric.atlassianSwitcher.slackIntegrationLink': 'Slack',
+  'fabric.atlassianSwitcher.slackIntegrationLinkDescription':
+    'Integroi Slack Atlassian-tuotteidesi kanssa',
   'fabric.atlassianSwitcher.start': 'Atlassian-aloitussivu',
   'fabric.atlassianSwitcher.switchTo': 'Vaihda kohteeseen',
   'fabric.atlassianSwitcher.switchToTooltip': 'Vaihda kohteeseen...',

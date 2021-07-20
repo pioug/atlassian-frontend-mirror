@@ -1,5 +1,13 @@
 # @atlaskit/datetime-picker
 
+## 11.0.0
+
+### Major Changes
+
+- [`414b6216adf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/414b6216adf) - [ux] BREAKING CHANGE: Datetime picker now uses date-fns@2.17 (previously <2.0). This change has tightened the requirements of users to provide ISO dates. This was never explicitly supported, but now will cause an error to be thrown for non-ISO dates. For an abundance of caution we're calling this a breaking change to protect users relying on the previous behaviour.
+
+  To upgrade you'll need to ensure any dates passed to the `DateTimePicker` are in ISO format.
+
 ## 10.4.2
 
 ### Patch Changes

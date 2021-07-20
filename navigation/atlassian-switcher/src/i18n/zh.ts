@@ -31,7 +31,6 @@ export default {
   'fabric.atlassianSwitcher.manageList': '管理列表',
   'fabric.atlassianSwitcher.more': '更多',
   'fabric.atlassianSwitcher.moreAtlassianProducts': '更多 Atlassian 产品',
-  'fabric.atlassianSwitcher.moreProductsLink': '更多产品',
   'fabric.atlassianSwitcher.product.description.confluence': '文档协作',
   'fabric.atlassianSwitcher.product.description.jsm': '协作式 IT 服务管理',
   'fabric.atlassianSwitcher.product.description.jsw': '项目和事务跟踪',
@@ -43,7 +42,9 @@ export default {
   'fabric.atlassianSwitcher.sign.up.to.join.cta': '使用您的电子邮件加入',
   'fabric.atlassianSwitcher.sign.up.to.join.header': '加入 {productLabel}',
   'fabric.atlassianSwitcher.sign.up.to.join.image': '查看多个全息屏幕的团队',
-  'fabric.atlassianSwitcher.slackIntegrationLink': '适用于 Atlassian 的 Slack',
+  'fabric.atlassianSwitcher.slackIntegrationLink': 'Slack',
+  'fabric.atlassianSwitcher.slackIntegrationLinkDescription':
+    '将 Slack 与您的 Atlassian 产品集成',
   'fabric.atlassianSwitcher.start': 'Atlassian 开始',
   'fabric.atlassianSwitcher.switchTo': '切换到',
   'fabric.atlassianSwitcher.switchToTooltip': '切换到...',

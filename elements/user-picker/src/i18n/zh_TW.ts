@@ -14,6 +14,10 @@ export default {
   'fabric.elements.user-picker.google.provider': 'Google',
   'fabric.elements.user-picker.group.byline': '由系統管理員所管理的群組',
   'fabric.elements.user-picker.guest.lozenge.text': '訪客',
+  'fabric.elements.user-picker.guest.lozenge.tooltip.group':
+    '訪客群組只能存取特定空間，而且只能存取有限的使用者資訊。',
+  'fabric.elements.user-picker.guest.lozenge.tooltip.user':
+    '訪客只能存取特定空間，而且只能存取有限的使用者資訊。',
   'fabric.elements.user-picker.member.lozenge.text': '成員',
   'fabric.elements.user-picker.microsoft.provider': 'Microsoft',
   'fabric.elements.user-picker.multi.remove-item': '移除',

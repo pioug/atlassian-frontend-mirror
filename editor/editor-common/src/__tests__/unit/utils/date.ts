@@ -177,7 +177,6 @@ describe('@atlaskit/editor-common date utils', () => {
         describe('given dates in UTC -7', () => {
           beforeEach(() => {
             // Sunday June 14, 9:20pm (LA)
-            dateUTCMockFn.mockImplementation(() => UTCMinus7);
             dateNowMockFn.mockImplementation(() => UTCMinus7);
           });
 

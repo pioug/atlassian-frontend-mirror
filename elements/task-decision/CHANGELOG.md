@@ -1,5 +1,11 @@
 # @atlaskit/task-decision
 
+## 17.2.1
+
+### Patch Changes
+
+- [`414b6216adf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/414b6216adf) - Upgrade date-fns to ^2.17
+
 ## 17.2.0
 
 ### Minor Changes

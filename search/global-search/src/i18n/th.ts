@@ -17,11 +17,11 @@ export default {
   'global_search.confluence.no_results_in_space':
     "ไม่พบผลลัพธ์ใน '{'spaceTitle'}'",
   'global_search.confluence.recent_pages_heading': 'หน้าข้อมูลและบล็อกล่าสุด',
-  'global_search.confluence.recent_spaces_heading': 'พื้นที่ว่างล่าสุด',
-  'global_search.confluence.remove_space_filter': 'ลบตัวกรองพื้นที่ว่างออก',
+  'global_search.confluence.recent_spaces_heading': 'พื้นที่ต่างๆ ล่าสุด',
+  'global_search.confluence.remove_space_filter': 'ลบตัวกรองพื้นที่ออก',
   'global_search.confluence.search_placeholder': 'ค้นหา Confluence',
-  'global_search.confluence.space_filter': 'ผลลัพธ์ตัวกรองตามพื้นที่ว่าง',
-  'global_search.confluence.spaces_heading': 'พื้นที่ว่าง',
+  'global_search.confluence.space_filter': 'ผลลัพธ์ตัวกรองตามพื้นที่',
+  'global_search.confluence.spaces_heading': 'พื้นที่ต่างๆ',
   'global_search.confluence.subtext_with_modified_date':
     '{containerName} · อัปเดตแล้วเมื่อ {friendlyLastModified}',
   'global_search.give_feedback': 'ให้ข้อคิดเห็น',

@@ -1,8 +1,8 @@
 import { formatDateType, dateTypeToDate, dateToDateType } from './formatParse';
 import { DateType } from '../types';
-import addDays from 'date-fns/add_days';
-import addMonths from 'date-fns/add_months';
-import addYears from 'date-fns/add_years';
+import addDays from 'date-fns/addDays';
+import addMonths from 'date-fns/addMonths';
+import addYears from 'date-fns/addYears';
 
 import { DateSegment } from '../types';
 

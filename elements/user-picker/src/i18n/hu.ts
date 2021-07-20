@@ -17,6 +17,10 @@ export default {
   'fabric.elements.user-picker.group.byline':
     'Adminisztrátor által kezelt csoport',
   'fabric.elements.user-picker.guest.lozenge.text': 'VENDÉG',
+  'fabric.elements.user-picker.guest.lozenge.tooltip.group':
+    'A vendégcsoportok csak bizonyos munkaterekhez kapnak hozzáférést, és korlátozottan érik el a felhasználói adatokat.',
+  'fabric.elements.user-picker.guest.lozenge.tooltip.user':
+    'A vendégek csak bizonyos munkaterekhez kapnak hozzáférést, és korlátozottan érik el a felhasználói adatokat.',
   'fabric.elements.user-picker.member.lozenge.text': 'TAG',
   'fabric.elements.user-picker.microsoft.provider': 'Microsoft',
   'fabric.elements.user-picker.multi.remove-item': 'Eltávolítás',

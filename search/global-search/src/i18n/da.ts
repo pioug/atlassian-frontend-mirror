@@ -17,11 +17,11 @@ export default {
   'global_search.confluence.no_results_in_space':
     "Ingen resultater i '{'spaceTitle'}'",
   'global_search.confluence.recent_pages_heading': 'Seneste sider og blogs',
-  'global_search.confluence.recent_spaces_heading': 'Seneste rum',
-  'global_search.confluence.remove_space_filter': 'Fjern rumfilter',
+  'global_search.confluence.recent_spaces_heading': 'Seneste områder',
+  'global_search.confluence.remove_space_filter': 'Fjern områdefilter',
   'global_search.confluence.search_placeholder': 'Søg i Confluence',
-  'global_search.confluence.space_filter': 'Filtrér resultater efter rum',
-  'global_search.confluence.spaces_heading': 'Rum',
+  'global_search.confluence.space_filter': 'Filtrér resultater efter område',
+  'global_search.confluence.spaces_heading': 'Område',
   'global_search.confluence.subtext_with_modified_date':
     '{containerName}  ·  Opdateret {friendlyLastModified}',
   'global_search.give_feedback': 'Giv feedback',

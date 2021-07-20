@@ -16,6 +16,10 @@ export default {
   'fabric.elements.user-picker.group.byline':
     'Gruppe administrert av administrator',
   'fabric.elements.user-picker.guest.lozenge.text': 'GJEST',
+  'fabric.elements.user-picker.guest.lozenge.tooltip.group':
+    'Gjestegrupper har bare tilgang til enkelte områder, og har begrenset tilgang til brukeropplysninger.',
+  'fabric.elements.user-picker.guest.lozenge.tooltip.user':
+    'Gjester har bare tilgang til enkelte områder, og har begrenset tilgang til brukeropplysninger.',
   'fabric.elements.user-picker.member.lozenge.text': 'Medlem',
   'fabric.elements.user-picker.microsoft.provider': 'Microsoft',
   'fabric.elements.user-picker.multi.remove-item': 'Fjern',

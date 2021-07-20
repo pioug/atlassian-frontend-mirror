@@ -17,6 +17,10 @@ export default {
   'fabric.elements.user-picker.group.byline':
     'Skupina spravovaná administrátorem',
   'fabric.elements.user-picker.guest.lozenge.text': 'HOST',
+  'fabric.elements.user-picker.guest.lozenge.tooltip.group':
+    'Skupiny hostů mají přístup pouze k určitým prostorům a mají omezený přístup k uživatelským údajům.',
+  'fabric.elements.user-picker.guest.lozenge.tooltip.user':
+    'Hosté mají přístup pouze k určitým prostorům a mají omezený přístup k uživatelským údajům.',
   'fabric.elements.user-picker.member.lozenge.text': 'ČLEN',
   'fabric.elements.user-picker.microsoft.provider': 'Microsoft',
   'fabric.elements.user-picker.multi.remove-item': 'Odstranit',

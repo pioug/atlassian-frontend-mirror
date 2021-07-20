@@ -16,6 +16,10 @@ export default {
   'fabric.elements.user-picker.group.byline':
     'Група, яку модерує адміністратор',
   'fabric.elements.user-picker.guest.lozenge.text': 'ГІСТЬ',
+  'fabric.elements.user-picker.guest.lozenge.tooltip.group':
+    'Групи гостей мають доступ лише до певних розділів, а також обмежений доступ до інформації про користувачів.',
+  'fabric.elements.user-picker.guest.lozenge.tooltip.user':
+    'Гості мають доступ лише до певних розділів, а також обмежений доступ до інформації про користувачів.',
   'fabric.elements.user-picker.member.lozenge.text': 'Учасник',
   'fabric.elements.user-picker.microsoft.provider': 'Microsoft',
   'fabric.elements.user-picker.multi.remove-item': 'Видалити',

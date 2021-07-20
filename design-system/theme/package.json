@@ -34,7 +34,7 @@
   "devDependencies": {
     "@atlaskit/build-utils": "*",
     "@atlaskit/button": "^15.1.0",
-    "@atlaskit/datetime-picker": "^10.2.0",
+    "@atlaskit/datetime-picker": "^11.0.0",
     "@atlaskit/docs": "*",
     "@atlaskit/lozenge": "^10.0.0",
     "@atlaskit/section-message": "^6.0.0",

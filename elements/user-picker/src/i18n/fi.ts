@@ -15,6 +15,10 @@ export default {
   'fabric.elements.user-picker.google.provider': 'Google',
   'fabric.elements.user-picker.group.byline': 'Ylläpitäjän hallitsema ryhmä',
   'fabric.elements.user-picker.guest.lozenge.text': 'VIERAS',
+  'fabric.elements.user-picker.guest.lozenge.tooltip.group':
+    'Vierasryhmillä on pääsy vain tiettyihin työtiloihin ja rajoitettu pääsy käyttäjätietoihin.',
+  'fabric.elements.user-picker.guest.lozenge.tooltip.user':
+    'Vierailla on pääsy vain tiettyihin työtiloihin ja rajoitettu pääsy käyttäjätietoihin.',
   'fabric.elements.user-picker.member.lozenge.text': 'Jäsen',
   'fabric.elements.user-picker.microsoft.provider': 'Microsoft',
   'fabric.elements.user-picker.multi.remove-item': 'Poista',

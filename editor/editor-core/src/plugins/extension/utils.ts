@@ -31,7 +31,7 @@ export const findExtensionWithLocalId = (
   const selectedExtension = getSelectedExtension(state, true);
 
   if (!localId) {
-    return undefined;
+    return selectedExtension;
   }
 
   if (selectedExtension && selectedExtension.node.attrs.localId === localId) {

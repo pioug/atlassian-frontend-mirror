@@ -17,11 +17,11 @@ export default {
   'global_search.confluence.no_results_in_space':
     "Inga resultat i '{'spaceTitle'}'",
   'global_search.confluence.recent_pages_heading': 'Senaste sidor och bloggar',
-  'global_search.confluence.recent_spaces_heading': 'Senaste ytorna',
-  'global_search.confluence.remove_space_filter': 'Ta bort yta-filter',
+  'global_search.confluence.recent_spaces_heading': 'Senaste utrymmena',
+  'global_search.confluence.remove_space_filter': 'Ta bort utrymmesfilter',
   'global_search.confluence.search_placeholder': 'Sök Confluence',
-  'global_search.confluence.space_filter': 'Filtrera resultat efter yta',
-  'global_search.confluence.spaces_heading': 'Ytor',
+  'global_search.confluence.space_filter': 'Filtrera resultat efter utrymme',
+  'global_search.confluence.spaces_heading': 'Utrymmen',
   'global_search.confluence.subtext_with_modified_date':
     '{containerName}  ·  Uppdaterad {friendlyLastModified}',
   'global_search.give_feedback': 'Ge feedback',

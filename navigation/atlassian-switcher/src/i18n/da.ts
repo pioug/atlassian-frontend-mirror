@@ -33,7 +33,6 @@ export default {
   'fabric.atlassianSwitcher.manageList': 'Administrér liste',
   'fabric.atlassianSwitcher.more': 'Mere',
   'fabric.atlassianSwitcher.moreAtlassianProducts': 'Flere Atlassian-produkter',
-  'fabric.atlassianSwitcher.moreProductsLink': 'Flere produkter',
   'fabric.atlassianSwitcher.product.description.confluence':
     'Dokumentsamarbejde',
   'fabric.atlassianSwitcher.product.description.jsm':
@@ -51,7 +50,9 @@ export default {
     'Tilmeld dig {productLabel}',
   'fabric.atlassianSwitcher.sign.up.to.join.image':
     'Et team, der kigger på flere forskellige holografiske skærme',
-  'fabric.atlassianSwitcher.slackIntegrationLink': 'Slack til Atlassian',
+  'fabric.atlassianSwitcher.slackIntegrationLink': 'Slack',
+  'fabric.atlassianSwitcher.slackIntegrationLinkDescription':
+    'Integrer Slack med dine Atlassian-produkter',
   'fabric.atlassianSwitcher.start': 'Atlassians startside',
   'fabric.atlassianSwitcher.switchTo': 'Skift til',
   'fabric.atlassianSwitcher.switchToTooltip': 'Skift til ...',

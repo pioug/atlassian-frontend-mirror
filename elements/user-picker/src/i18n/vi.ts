@@ -14,6 +14,10 @@ export default {
   'fabric.elements.user-picker.google.provider': 'Google',
   'fabric.elements.user-picker.group.byline': 'Nhóm có quản trị viên',
   'fabric.elements.user-picker.guest.lozenge.text': 'KHÁCH',
+  'fabric.elements.user-picker.guest.lozenge.tooltip.group':
+    'Các nhóm khách chỉ có thể vào một số không gian nhất định và có quyền truy cập hạn chế vào thông tin người dùng.',
+  'fabric.elements.user-picker.guest.lozenge.tooltip.user':
+    'Khách chỉ có thể vào một số không gian nhất định và có quyền truy cập hạn chế vào thông tin người dùng.',
   'fabric.elements.user-picker.member.lozenge.text': 'Thành viên',
   'fabric.elements.user-picker.microsoft.provider': 'Microsoft',
   'fabric.elements.user-picker.multi.remove-item': 'Xóa',

@@ -2,16 +2,17 @@ import React from 'react';
 
 import { fireEvent, render } from '@testing-library/react';
 // eslint-disable-next-line no-restricted-imports
-import { format, parse } from 'date-fns';
+import { format, parseISO } from 'date-fns';
 import { mount, shallow } from 'enzyme';
 
 import Select from '@atlaskit/select';
 
 import { DatePickerWithoutAnalytics as DatePicker } from '../../../components/DatePicker';
+import { convertTokens } from '../../../components/utils';
 
 describe('DatePicker', () => {
   it('should format the date using the default format', () => {
-    const dateValue = new Date('06/08/2018').toUTCString();
+    const dateValue = new Date('06/08/2018').toISOString();
     const { getByTestId } = render(
       <DatePicker value={dateValue} testId="test" />,
     );
@@ -21,7 +22,7 @@ describe('DatePicker', () => {
   });
 
   it('should manually format the display label', () => {
-    const dateValue = new Date('06/08/2018').toUTCString();
+    const dateValue = new Date('06/08/2018').toISOString();
     const { getByTestId } = render(
       <DatePicker
         formatDisplayLabel={() => 'hello world'}
@@ -36,11 +37,11 @@ describe('DatePicker', () => {
   });
 
   it('should manually format the display label using the default dateFormat', () => {
-    const dateValue = new Date('06/08/2018').toUTCString();
+    const dateValue = new Date('06/08/2018').toISOString();
     const { getByTestId } = render(
       <DatePicker
         formatDisplayLabel={(date, dateFormat) =>
-          format(parse(date), dateFormat)
+          format(parseISO(date), convertTokens(dateFormat))
         }
         value={dateValue}
         testId="test"
@@ -53,11 +54,11 @@ describe('DatePicker', () => {
   });
 
   it('should manually format the display label using custom dateFormat', () => {
-    const dateValue = new Date('06/08/2018').toUTCString();
+    const dateValue = new Date('06/08/2018').toISOString();
     const { getByTestId } = render(
       <DatePicker
         formatDisplayLabel={(date, dateFormat) =>
-          format(parse(date), dateFormat)
+          format(parseISO(date), convertTokens(dateFormat))
         }
         dateFormat="MMMM/DD"
         value={dateValue}
@@ -71,7 +72,7 @@ describe('DatePicker', () => {
   });
 
   it('should correctly render values in a custom format', () => {
-    const dateValue = new Date('06/08/2018').toUTCString();
+    const dateValue = new Date('06/08/2018').toISOString();
     const { getByTestId } = render(
       <DatePicker dateFormat="MMMM/DD" value={dateValue} testId="test" />,
     );
@@ -82,7 +83,7 @@ describe('DatePicker', () => {
   });
 
   it('should correctly render values in a complex custom format', () => {
-    const dateValue = new Date('06/08/2018').toUTCString();
+    const dateValue = new Date('06/08/2018').toISOString();
     const { getByTestId } = render(
       <DatePicker
         dateFormat="DDDo---dddd---YYYY---hh:mm:ss"
@@ -99,7 +100,7 @@ describe('DatePicker', () => {
   it('should call onChange when a new date is selected', () => {
     const onChangeSpy = jest.fn();
     const { getByTestId } = render(
-      <DatePicker value={'2018/08/06'} onChange={onChangeSpy} testId="test" />,
+      <DatePicker value={'2018-08-06'} onChange={onChangeSpy} testId="test" />,
     );
 
     fireEvent.click(getByTestId('test--container'));
@@ -114,7 +115,7 @@ describe('DatePicker', () => {
     const onChangeSpy = jest.fn();
     const { getByTestId } = render(
       <DatePicker
-        value={'2018/08/06'}
+        value={'2018-08-06'}
         dateFormat="DDDo-dddd-YYYY"
         onChange={onChangeSpy}
         testId="test"
@@ -133,7 +134,7 @@ describe('DatePicker', () => {
     const onChangeSpy = jest.fn();
     const { getByTestId, getByText } = render(
       <DatePicker
-        value={'2018/08/06'}
+        value={'2018-08-06'}
         disabled={['2018-08-16']}
         onChange={onChangeSpy}
         testId="test"
@@ -152,15 +153,6 @@ describe('DatePicker', () => {
     datePickerWrapper.instance().onCalendarChange({ iso: date });
     datePickerWrapper.update();
     expect(datePickerWrapper.instance().state.view).toEqual(fallbackDate);
-  });
-
-  it('onCalendarChange picks a correct date if it is calculated wrong and comes malformed', () => {
-    const date = '2018-5-1';
-    const resultDate = '2018-05-01';
-    const datePickerWrapper = mount<DatePicker>(<DatePicker value={date} />);
-    datePickerWrapper.instance().onCalendarChange({ iso: date });
-    datePickerWrapper.update();
-    expect(datePickerWrapper.instance().state.view).toEqual(resultDate);
   });
 
   it('supplying a custom parseInputValue prop, produces the expected result', () => {
@@ -228,7 +220,7 @@ describe('DatePicker', () => {
   });
 
   it('pressing the Backspace key to empty the input should clear the value', () => {
-    const dateValue = new Date('06/08/2018').toUTCString();
+    const dateValue = new Date('06/08/2018').toISOString();
     const onChangeSpy = jest.fn();
     const testId = 'clear--test';
     const datePickerWrapper = render(
@@ -242,7 +234,7 @@ describe('DatePicker', () => {
   });
 
   it('pressing the Delete key to empty the input should clear the value', () => {
-    const dateValue = new Date('06/08/2018').toUTCString();
+    const dateValue = new Date('06/08/2018').toISOString();
     const onChangeSpy = jest.fn();
     const datePickerWrapper = render(
       <DatePicker value={dateValue} onChange={onChangeSpy} />,
@@ -255,7 +247,7 @@ describe('DatePicker', () => {
   });
 
   it('pressing the clear button while menu is closed should clear the value and not open the menu', () => {
-    const dateValue = new Date('06/08/2018').toUTCString();
+    const dateValue = new Date('06/08/2018').toISOString();
     const onChangeSpy = jest.fn();
     const testId = 'clear--test';
     const datePickerWrapper = render(
@@ -277,7 +269,7 @@ describe('DatePicker', () => {
   });
 
   it('pressing the clear button while menu is open should clear the value and leave the menu open', () => {
-    const dateValue = new Date('06/08/2018').toUTCString();
+    const dateValue = new Date('06/08/2018').toISOString();
     const onChangeSpy = jest.fn();
     const testId = 'clear--test';
     const datePickerWrapper = render(

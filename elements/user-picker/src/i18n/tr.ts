@@ -16,6 +16,10 @@ export default {
   'fabric.elements.user-picker.group.byline':
     'Yönetici tarafından yönetilen grup',
   'fabric.elements.user-picker.guest.lozenge.text': 'KONUK',
+  'fabric.elements.user-picker.guest.lozenge.tooltip.group':
+    'Konuk gruplar yalnızca bazı alanlara erişebilir ve kullanıcı bilgilerine erişimleri de kısıtlıdır.',
+  'fabric.elements.user-picker.guest.lozenge.tooltip.user':
+    'Konuklar yalnızca bazı alanlara erişebilir ve kullanıcı bilgilerine erişimleri de kısıtlıdır.',
   'fabric.elements.user-picker.member.lozenge.text': 'ÜYE',
   'fabric.elements.user-picker.microsoft.provider': 'Microsoft',
   'fabric.elements.user-picker.multi.remove-item': 'Kaldır',

@@ -1,6 +1,7 @@
 import React from 'react';
 
-import parse from 'date-fns/parse';
+// eslint-disable-next-line no-restricted-imports
+import { parseISO } from 'date-fns';
 
 import { DateTimePicker } from '../../src';
 
@@ -10,7 +11,7 @@ const DateTimePickerFormattingExample = () => (
     timeFormat="HH:mm"
     datePickerProps={{
       placeholder: '2021-06-10',
-      parseInputValue: (date: string) => parse(date),
+      parseInputValue: (date: string) => parseISO(date),
     }}
     timePickerProps={{
       placeholder: '13:30',

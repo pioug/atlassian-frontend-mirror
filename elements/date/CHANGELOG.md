@@ -1,5 +1,11 @@
 # @atlaskit/date
 
+## 0.8.8
+
+### Patch Changes
+
+- [`414b6216adf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/414b6216adf) - Upgrade date-fns to ^2.17
+
 ## 0.8.7
 
 ### Patch Changes

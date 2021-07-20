@@ -17,7 +17,7 @@ describe('Date', () => {
     });
 
     it('should use custom format', () => {
-      const component = shallowDate({ format: 'MM/DD/YYYY' });
+      const component = shallowDate({ format: 'MM/dd/yyyy' });
 
       expect(getText(component)).toEqual('07/29/1988');
     });

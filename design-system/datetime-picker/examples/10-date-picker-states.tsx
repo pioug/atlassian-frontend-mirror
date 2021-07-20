@@ -1,7 +1,6 @@
 import React from 'react';
 
-// eslint-disable-next-line no-restricted-imports
-import { format } from 'date-fns';
+// import { format, parseISO } from 'date-fns';
 
 import { Label } from '@atlaskit/field-base';
 
@@ -10,7 +9,7 @@ import { DatePicker } from '../src';
 function now(day: number) {
   const date = new Date();
   date.setDate(day);
-  return format(date, 'YYYY-MM-DD');
+  return date.toISOString();
 }
 
 export default () => {

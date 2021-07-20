@@ -1,6 +1,7 @@
 import React from 'react';
 
-import parse from 'date-fns/parse';
+// eslint-disable-next-line no-restricted-imports
+import { parseISO } from 'date-fns';
 
 import { DatePicker } from '../../src';
 
@@ -8,7 +9,7 @@ const DatePickerFormattingExample = () => (
   <DatePicker
     dateFormat="YYYY-MM-DD"
     placeholder="2021-06-10"
-    parseInputValue={(date: string) => parse(date)}
+    parseInputValue={(date: string) => parseISO(date)}
   />
 );
 

@@ -10,6 +10,7 @@ import {
   OpsgenieIcon,
   StatuspageIcon,
   TrelloIcon,
+  CompassIcon,
 } from '@atlaskit/logo';
 import WorldIcon from '@atlaskit/icon/glyph/world';
 
@@ -113,13 +114,11 @@ export const AVAILABLE_PRODUCT_DATA_MAP: {
       <FormattedMessage {...messages.productDescriptionJiraServiceManagement} />
     ),
   },
-  [SwitcherProductType.DRAGONFRUIT]: {
-    label: 'Dragonfruit',
-    Icon: createIcon(AtlassianIcon, { size: 'small' }),
-    href: '/dragonfruit',
-    description: (
-      <FormattedMessage {...messages.productDescriptionDragonfruit} />
-    ),
+  [SwitcherProductType.COMPASS]: {
+    label: 'Compass',
+    Icon: createIcon(CompassIcon, { size: 'small' }),
+    href: '/compass',
+    description: <FormattedMessage {...messages.productDescriptionCompass} />,
   },
   [SwitcherProductType.TEAM_CENTRAL]: {
     label: 'Team Central (Beta)',
@@ -154,7 +153,7 @@ const PRODUCT_ORDER = [
   SwitcherProductType.JIRA_SERVICE_DESK,
   SwitcherProductType.JIRA_BUSINESS,
   SwitcherProductType.CONFLUENCE,
-  SwitcherProductType.DRAGONFRUIT,
+  SwitcherProductType.COMPASS,
   SwitcherProductType.OPSGENIE,
   SwitcherProductType.BITBUCKET,
   SwitcherProductType.STATUSPAGE,
@@ -174,7 +173,7 @@ export const TO_SWITCHER_PRODUCT_KEY: {
   [ProductKey.BITBUCKET]: SwitcherProductType.BITBUCKET,
   [ProductKey.STATUSPAGE]: SwitcherProductType.STATUSPAGE,
   [ProductKey.TRELLO]: SwitcherProductType.TRELLO,
-  [ProductKey.DRAGONFRUIT]: SwitcherProductType.DRAGONFRUIT,
+  [ProductKey.COMPASS]: SwitcherProductType.COMPASS,
   [ProductKey.TEAM_CENTRAL]: SwitcherProductType.TEAM_CENTRAL,
   [ProductKey.AVOCADO]: SwitcherProductType.AVOCADO,
 };

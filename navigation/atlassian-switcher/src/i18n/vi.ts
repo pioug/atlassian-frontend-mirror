@@ -37,7 +37,7 @@ export default {
     'Sản phẩm khác của Atlassian',
   'fabric.atlassianSwitcher.product.description.confluence':
     'Cộng tác tài liệu',
-  'fabric.atlassianSwitcher.product.description.dragonfruit':
+  'fabric.atlassianSwitcher.product.description.compass':
     'Nhà quản lý thành phần',
   'fabric.atlassianSwitcher.product.description.jsm':
     'Quản lý dịch vụ CNTT cộng tác',

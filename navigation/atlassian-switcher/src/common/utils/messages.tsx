@@ -174,10 +174,10 @@ const messages = defineMessages({
     defaultMessage: 'Modern incident management',
     description: 'Text displayed under the Opsgenie product recommendation.',
   },
-  productDescriptionDragonfruit: {
-    id: 'fabric.atlassianSwitcher.product.description.dragonfruit',
+  productDescriptionCompass: {
+    id: 'fabric.atlassianSwitcher.product.description.compass',
     defaultMessage: 'Component manager',
-    description: 'Text displayed under the Dragonfruit product recommendation.',
+    description: 'Text displayed under the Compass product recommendation.',
   },
   join: {
     id: 'fabric.atlassianSwitcher.join',
@@ -224,18 +224,6 @@ const messages = defineMessages({
     defaultMessage: 'Got it!',
     description:
       'Text in the button used to dismiss the Trello has new friends banner.',
-  },
-  gitToolsLabel: {
-    id: 'fabric.atlassianSwitcher.gittools.label',
-    defaultMessage: 'Git integrations for Jira',
-    description:
-      'The text of a link redirecting the user to Git integrations benefits page',
-  },
-  gitToolsDescription: {
-    id: 'fabric.atlassianSwitcher.gittools.description',
-    defaultMessage: 'Bitbucket, GitHub, and more',
-    description:
-      'The description of a link redirecting the user to Git integrations benefits page',
   },
 });
 

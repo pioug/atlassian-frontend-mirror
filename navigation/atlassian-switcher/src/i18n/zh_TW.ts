@@ -33,7 +33,7 @@ export default {
   'fabric.atlassianSwitcher.more': '更多',
   'fabric.atlassianSwitcher.moreAtlassianProducts': '更多 Atlassian 產品',
   'fabric.atlassianSwitcher.product.description.confluence': '文件共同作業',
-  'fabric.atlassianSwitcher.product.description.dragonfruit': '元件管理員',
+  'fabric.atlassianSwitcher.product.description.compass': '元件管理員',
   'fabric.atlassianSwitcher.product.description.jsm': '協作 IT 服務管理',
   'fabric.atlassianSwitcher.product.description.jsw': '專案追蹤與問題追蹤',
   'fabric.atlassianSwitcher.product.description.opsgenie': '新式事件管理',

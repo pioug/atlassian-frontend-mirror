@@ -11,5 +11,3 @@ export const UPAAS_EXPERIMENT_VARIATIONS: string[] = [
   'variation5',
   'variation6',
 ];
-
-export const SHOW_GIT_TOOLS_KEY: string = 'appswitcher.git.tools';

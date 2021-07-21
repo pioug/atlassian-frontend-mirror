@@ -189,6 +189,16 @@ linebreaks{noformat}`,
 
       '{color:default}foo{color}',
     ],
+    [
+      'ADFS-719 should place invalid adf macro inside a code block w/err msg',
+
+      '{adf}{"invalid": "foobar"}{adf}',
+    ],
+    [
+      'ADFS-719 should not blow up when a valid adf macro is passed in',
+
+      '{adf}{"type":"paragraph","content":[]}{adf}',
+    ],
   ];
 
   const context = {

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { cities } from '../common/data';
 import { AsyncSelect } from '../../src';
 
@@ -30,7 +30,15 @@ export default class WithPromises extends Component<{}, State> {
 
   render() {
     return (
-      <AsyncSelect cacheOptions defaultOptions loadOptions={promiseOptions} />
+      <Fragment>
+        <label htmlFor="async-select-example">What city do you live in?</label>
+        <AsyncSelect
+          inputId="async-select-example"
+          cacheOptions
+          defaultOptions
+          loadOptions={promiseOptions}
+        />
+      </Fragment>
     );
   }
 }

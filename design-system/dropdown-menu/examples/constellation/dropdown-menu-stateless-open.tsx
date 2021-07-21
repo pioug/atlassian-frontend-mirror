@@ -15,12 +15,12 @@ const StatelessMenuOpenExample = () => {
       onOpenChange={(attrs: OnOpenChangeArgs) => {
         setIsOpen(attrs.isOpen);
       }}
-      trigger="Filter city"
+      trigger="Page actions"
       triggerType="button"
     >
-      <DropdownItemGroupRadio id="cities">
-        <DropdownItemRadio id="sydney">Sydney</DropdownItemRadio>
-        <DropdownItemRadio id="melbourne">Melbourne</DropdownItemRadio>
+      <DropdownItemGroupRadio id="actions">
+        <DropdownItemRadio id="edit">Edit</DropdownItemRadio>
+        <DropdownItemRadio id="move">Move</DropdownItemRadio>
       </DropdownItemGroupRadio>
     </DropdownMenuStateless>
   );

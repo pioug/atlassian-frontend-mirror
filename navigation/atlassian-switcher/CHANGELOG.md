@@ -1,5 +1,18 @@
 # @atlaskit/atlassian-switcher
 
+## 14.0.0
+
+### Major Changes
+
+- [`067be785ddc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/067be785ddc) - Remove recommendation flag for Git tools from the Switcher.
+  Remove the exported constant - DiscoverLinkItemKeys.GIT_TOOLS
+
+## 13.0.5
+
+### Patch Changes
+
+- [`e5e50e2a1fd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e5e50e2a1fd) - [ux] Update copy of dragonfruit to Compass
+
 ## 13.0.4
 
 ### Patch Changes

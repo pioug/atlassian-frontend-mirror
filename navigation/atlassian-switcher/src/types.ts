@@ -140,7 +140,7 @@ export enum SwitcherProductType {
   BITBUCKET = 'BITBUCKET',
   STATUSPAGE = 'STATUSPAGE',
   TRELLO = 'TRELLO',
-  DRAGONFRUIT = 'DRAGONFRUIT',
+  COMPASS = 'COMPASS',
   TEAM_CENTRAL = 'TEAM_CENTRAL',
   AVOCADO = 'AVOCADO',
 }
@@ -162,7 +162,7 @@ export type AvailableProduct =
         | SwitcherProductType.JIRA_SERVICE_DESK
         | SwitcherProductType.JIRA_SOFTWARE
         | SwitcherProductType.CONFLUENCE
-        | SwitcherProductType.DRAGONFRUIT;
+        | SwitcherProductType.COMPASS;
     }
   | AvailableProductWithUrl;
 
@@ -260,7 +260,7 @@ export enum ProductKey {
   OPSGENIE = 'opsgenie',
   STATUSPAGE = 'statuspage',
   TRELLO = 'trello',
-  DRAGONFRUIT = 'dragonfruit',
+  COMPASS = 'compass',
   TEAM_CENTRAL = 'townsquare',
   AVOCADO = 'avocado',
 }
@@ -357,7 +357,6 @@ export type AtlassianSwitcherProps = WithTheme &
 
 export enum DiscoverLinkItemKeys {
   DISCOVER_MORE = 'discover-more',
-  GIT_TOOLS = 'appswitcher.git.tools',
   SLACK_INTEGRATION = 'slack-integration',
 }
 

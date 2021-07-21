@@ -12,7 +12,6 @@ import {
 } from '../../../../types';
 
 import { resolveRecommendations } from '../../../../cross-flow/providers/recommendations';
-import { SHOW_GIT_TOOLS_KEY } from '../../../../cross-flow/providers/recommendations/constants';
 
 import mockJoinableSites from '../../../../../test-helpers/mockJoinableSites';
 
@@ -184,39 +183,7 @@ describe('cross-flow-links', () => {
 
   describe('getDiscoverSectionLinks', () => {
     const mockClickHandler = jest.fn();
-    it('should return discover more link and git tools link', () => {
-      const result = getDiscoverSectionLinks({
-        recommendationsFeatureFlags: {
-          [SHOW_GIT_TOOLS_KEY]: true,
-        },
-      });
 
-      expect(
-        result.filter(
-          (link) => link.key === DiscoverLinkItemKeys.DISCOVER_MORE,
-        ),
-      ).toHaveLength(1);
-      expect(
-        result.filter((link) => link.key === SHOW_GIT_TOOLS_KEY),
-      ).toHaveLength(1);
-    });
-
-    it('should return discover more link but not return git tools link if Git FF is off', () => {
-      const result = getDiscoverSectionLinks({
-        recommendationsFeatureFlags: {
-          [SHOW_GIT_TOOLS_KEY]: false,
-        },
-      });
-
-      expect(
-        result.filter(
-          (link) => link.key === DiscoverLinkItemKeys.DISCOVER_MORE,
-        ),
-      ).toHaveLength(1);
-      expect(
-        result.filter((link) => link.key === SHOW_GIT_TOOLS_KEY),
-      ).toHaveLength(0);
-    });
     it('should return discover more link and slack integration link if isSlackDiscoveryEnabled enabled', () => {
       const result = getDiscoverSectionLinks({
         isSlackDiscoveryEnabled: true,

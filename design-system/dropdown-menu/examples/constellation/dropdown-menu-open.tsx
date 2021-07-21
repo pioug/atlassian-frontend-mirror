@@ -16,12 +16,12 @@ const DropdownOpenExample = () => {
         onOpenChange={(attrs: OnOpenChangeArgs) => {
           setIsOpen(attrs.isOpen);
         }}
-        trigger="Filter City"
+        trigger="Page actions"
         triggerType="button"
       >
-        <DropdownItemGroupRadio id="cities">
-          <DropdownItemRadio id="sydney">Sydney</DropdownItemRadio>
-          <DropdownItemRadio id="melbourne">Melbourne</DropdownItemRadio>
+        <DropdownItemGroupRadio id="actions">
+          <DropdownItemRadio id="edit">Edit</DropdownItemRadio>
+          <DropdownItemRadio id="move">Move</DropdownItemRadio>
         </DropdownItemGroupRadio>
       </DropdownMenu>
     </div>

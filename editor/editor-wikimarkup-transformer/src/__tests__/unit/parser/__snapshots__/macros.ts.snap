@@ -153,6 +153,38 @@ Object {
 }
 `;
 
+exports[`JIRA wiki markup - Macros ADFS-719 should place invalid adf macro inside a code block w/err msg 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "language": null,
+        "uniqueId": null,
+      },
+      "content": Array [
+        Object {
+          "text": "Invalid ADF Macro: {\\"invalid\\": \\"foobar\\"}",
+          "type": "text",
+        },
+      ],
+      "type": "codeBlock",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Macros ADFS-719 should not blow up when a valid adf macro is passed in 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
 exports[`JIRA wiki markup - Macros Should take only first occurrence of attribute into account 1`] = `
 Object {
   "content": Array [

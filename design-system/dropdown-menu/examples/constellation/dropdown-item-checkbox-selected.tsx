@@ -7,11 +7,11 @@ import DropdownMenu, {
 
 const DropdownItemCheckboxSelectedExample = () => {
   return (
-    <DropdownMenu trigger="Filter cities" triggerType="button">
-      <DropdownItemGroupCheckbox id="cities">
-        <DropdownItemCheckbox id="adelaide">Adelaide</DropdownItemCheckbox>
-        <DropdownItemCheckbox id="sydney" isSelected>
-          Sydney
+    <DropdownMenu trigger="Page actions" triggerType="button">
+      <DropdownItemGroupCheckbox id="actions">
+        <DropdownItemCheckbox id="edit">Edit</DropdownItemCheckbox>
+        <DropdownItemCheckbox id="move" isSelected>
+          Move
         </DropdownItemCheckbox>
       </DropdownItemGroupCheckbox>
     </DropdownMenu>

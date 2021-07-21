@@ -4,7 +4,6 @@ import AddIcon from '@atlaskit/icon/glyph/add';
 import { createIcon } from '../../common/utils/icon-themes';
 import messages from '../../common/utils/messages';
 import DiscoverFilledGlyph from '@atlaskit/icon/glyph/discover-filled';
-import CodeIcon from '@atlaskit/icon/glyph/code';
 import {
   ProvisionedProducts,
   RecommendationsEngineResponse,
@@ -38,17 +37,6 @@ const getDiscoverMoreLink = (
   };
 };
 
-const getGitToolsLink = (): SwitcherItemType => {
-  const icon = CodeIcon;
-  return {
-    key: DiscoverLinkItemKeys.GIT_TOOLS,
-    label: <FormattedMessage {...messages.gitToolsLabel} />,
-    description: <FormattedMessage {...messages.gitToolsDescription} />,
-    Icon: createIcon(icon, { size: 'medium' }),
-    href: '',
-  };
-};
-
 const getSlackIntegrationLink = (): SwitcherItemType => ({
   // The Slack integration link href is intentionally empty to prioritise the slackDiscoveryClickHandler callback
   key: DiscoverLinkItemKeys.SLACK_INTEGRATION,
@@ -61,7 +49,6 @@ const getSlackIntegrationLink = (): SwitcherItemType => ({
 });
 
 export function getDiscoverSectionLinks({
-  recommendationsFeatureFlags,
   isSlackDiscoveryEnabled,
   slackDiscoveryClickHandler,
 }: {
@@ -74,15 +61,6 @@ export function getDiscoverSectionLinks({
 
   const slackIntegrationLink = getSlackIntegrationLink();
 
-  const gitToolsLink =
-    recommendationsFeatureFlags &&
-    // recommendationsFeatureFlags[Feature.showGitTools] &&
-    recommendationsFeatureFlags[DiscoverLinkItemKeys.GIT_TOOLS] &&
-    getGitToolsLink();
-
-  if (gitToolsLink) {
-    discoverLinks.push(gitToolsLink);
-  }
   if (isSlackDiscoveryEnabled && Boolean(slackDiscoveryClickHandler)) {
     discoverLinks.push(slackIntegrationLink);
   }

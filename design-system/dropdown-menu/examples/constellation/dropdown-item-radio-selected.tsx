@@ -7,11 +7,11 @@ import DropdownMenu, {
 
 const DropdownItemRadioSelectedExample = () => {
   return (
-    <DropdownMenu trigger="Filter city" triggerType="button">
-      <DropdownItemGroupRadio id="cities">
-        <DropdownItemRadio id="adelaide">Adelaide</DropdownItemRadio>
-        <DropdownItemRadio id="sydney" isSelected>
-          Sydney
+    <DropdownMenu trigger="Page actions" triggerType="button">
+      <DropdownItemGroupRadio id="actions">
+        <DropdownItemRadio id="edit">Edit</DropdownItemRadio>
+        <DropdownItemRadio id="move" isSelected>
+          Move
         </DropdownItemRadio>
       </DropdownItemGroupRadio>
     </DropdownMenu>

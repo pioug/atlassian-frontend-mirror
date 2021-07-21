@@ -18,7 +18,7 @@ const options: OptionsType = [
 const onChange = console.log;
 const defaults = {
   options,
-  placeholder: 'Choose a City',
+  placeholder: 'Choose a city',
   onChange,
 };
 

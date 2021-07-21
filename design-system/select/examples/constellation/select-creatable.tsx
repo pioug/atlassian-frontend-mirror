@@ -58,15 +58,21 @@ export default class CreatableAdvanced extends Component<{}, State> {
   render() {
     const { isLoading, options, value } = this.state;
     return (
-      <CreatableSelect
-        isClearable
-        isDisabled={isLoading}
-        isLoading={isLoading}
-        onChange={this.handleChange}
-        onCreateOption={this.handleCreate}
-        options={options}
-        value={value}
-      />
+      <>
+        <label htmlFor="createable-select-example">
+          What city do you live in?
+        </label>
+        <CreatableSelect
+          inputId="createable-select-example"
+          isClearable
+          isDisabled={isLoading}
+          isLoading={isLoading}
+          onChange={this.handleChange}
+          onCreateOption={this.handleCreate}
+          options={options}
+          value={value}
+        />
+      </>
     );
   }
 }

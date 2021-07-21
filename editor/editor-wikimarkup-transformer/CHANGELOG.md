@@ -1,5 +1,11 @@
 # @atlaskit/editor-wikimarkup-transformer
 
+## 9.5.1
+
+### Patch Changes
+
+- [`cdfde784f56`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cdfde784f56) - [ux] When converting from wikimarkup to ADF, if there is a parse error in an adf macro, put it in a code block with an error message instead of crashing (ADFS-719)
+
 ## 9.5.0
 
 ### Minor Changes

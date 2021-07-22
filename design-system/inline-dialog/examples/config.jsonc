@@ -7,5 +7,10 @@
   "testExamples": [
     "01-basic.tsx",
     "99-testing.tsx"
+  ],
+  "exampleDependencies": [
+    "@atlaskit/datetime-picker",
+    "@atlaskit/select",
+    "react-lorem-component"
   ]
 }

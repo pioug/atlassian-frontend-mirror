@@ -60,7 +60,7 @@ describe('@atlaskit/editor-core/ui/Toolbar', () => {
         preset: new Preset<LightEditorPlugin>().add(textFormattingPlugin),
       });
 
-    describe.each([ToolbarSize.S, ToolbarSize.XXXS])(
+    describe.each([ToolbarSize.S, ToolbarSize.XXXS, ToolbarSize.M])(
       'when the toolbar size is %s',
       (toolbarSize) => {
         it.each(['Bold', 'Italic'])(
@@ -85,32 +85,30 @@ describe('@atlaskit/editor-core/ui/Toolbar', () => {
       },
     );
 
-    describe.each([
-      ToolbarSize.M,
-      ToolbarSize.L,
-      ToolbarSize.XL,
-      ToolbarSize.XXL,
-    ])('when the toolbar size is %s', (toolbarSize) => {
-      it.each(['Bold', 'Italic'])(
-        'should display %s inside as single button',
-        (buttonName) => {
-          const { editorView } = editor(doc(p('text')));
-          const { getByLabelText } = render(
-            <IntlProvider locale="en">
-              <Toolbar
-                isToolbarDisabled={false}
-                toolbarSize={toolbarSize}
-                isReducedSpacing={false}
-                shouldUseResponsiveToolbar={true}
-                editorView={editorView}
-                editorState={editorView.state}
-              />
-            </IntlProvider>,
-          );
-          expect(getByLabelText(buttonName)).toBeInTheDocument();
-        },
-      );
-    });
+    describe.each([ToolbarSize.L, ToolbarSize.XL, ToolbarSize.XXL])(
+      'when the toolbar size is %s',
+      (toolbarSize) => {
+        it.each(['Bold', 'Italic'])(
+          'should display %s inside as single button',
+          (buttonName) => {
+            const { editorView } = editor(doc(p('text')));
+            const { getByLabelText } = render(
+              <IntlProvider locale="en">
+                <Toolbar
+                  isToolbarDisabled={false}
+                  toolbarSize={toolbarSize}
+                  isReducedSpacing={false}
+                  shouldUseResponsiveToolbar={true}
+                  editorView={editorView}
+                  editorState={editorView.state}
+                />
+              </IntlProvider>,
+            );
+            expect(getByLabelText(buttonName)).toBeInTheDocument();
+          },
+        );
+      },
+    );
   });
 
   describe('when shouldUseResponsiveToolbar is false', () => {

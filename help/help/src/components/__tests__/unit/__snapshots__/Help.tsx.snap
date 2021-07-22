@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`BackButton Should match snapshot 1`] = `
+exports[`Help Should match snapshot 1`] = `
 @keyframes animation-0 {
   0% {
     background-position: -300px 0;
@@ -41,7 +41,7 @@ exports[`BackButton Should match snapshot 1`] = `
   }
 }
 
-.emotion-42 {
+.emotion-41 {
   position: absolute;
   top: 0;
   bottom: 0;
@@ -57,7 +57,7 @@ exports[`BackButton Should match snapshot 1`] = `
   background-color: #ffffff;
 }
 
-.emotion-41 {
+.emotion-40 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -474,7 +474,7 @@ exports[`BackButton Should match snapshot 1`] = `
   vertical-align: middle;
 }
 
-.emotion-40 {
+.emotion-39 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -506,7 +506,7 @@ exports[`BackButton Should match snapshot 1`] = `
   align-items: flex-start;
 }
 
-.emotion-27 {
+.emotion-26 {
   width: 100%;
   box-sizing: border-box;
   -webkit-order: 0;
@@ -562,7 +562,7 @@ exports[`BackButton Should match snapshot 1`] = `
   z-index: 2;
 }
 
-.emotion-39 {
+.emotion-38 {
   position: absolute;
   height: 100%;
   width: 100%;
@@ -581,11 +581,11 @@ exports[`BackButton Should match snapshot 1`] = `
   padding: 16px;
 }
 
-.emotion-37 {
+.emotion-36 {
   width: 152px;
 }
 
-.emotion-38 {
+.emotion-37 {
   padding-top: 16px;
 }
 
@@ -761,14 +761,15 @@ exports[`BackButton Should match snapshot 1`] = `
   background-repeat: no-repeat;
 }
 
-.emotion-26 {
+.emotion-25 {
   display: block;
   height: 100%;
   overflow: hidden;
   padding: 16px;
+  box-sizing: border-box;
 }
 
-.emotion-36 {
+.emotion-35 {
   pointer-events: all;
   position: relative;
   box-sizing: border-box;
@@ -777,7 +778,7 @@ exports[`BackButton Should match snapshot 1`] = `
 
 
 
-.emotion-28 {
+.emotion-27 {
   z-index: 9999;
   border: 0;
   clip: rect(1px, 1px, 1px, 1px);
@@ -789,7 +790,7 @@ exports[`BackButton Should match snapshot 1`] = `
   white-space: nowrap;
 }
 
-.emotion-35 {
+.emotion-34 {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -821,34 +822,34 @@ exports[`BackButton Should match snapshot 1`] = `
   padding: 0;
 }
 
-.emotion-35:hover {
+.emotion-34:hover {
   border-color: hsl(0, 0%, 70%);
 }
 
-.emotion-35::-webkit-scrollbar {
+.emotion-34::-webkit-scrollbar {
   height: 8px;
   width: 8px;
 }
 
-.emotion-35::-webkit-scrollbar-corner {
+.emotion-34::-webkit-scrollbar-corner {
   display: none;
 }
 
-.emotion-35:hover {
+.emotion-34:hover {
   cursor: pointer;
   background-color: #EBECF0;
   border-color: #EBECF0;
 }
 
-.emotion-35:hover::-webkit-scrollbar-thumb {
+.emotion-34:hover::-webkit-scrollbar-thumb {
   background-color: rgba(0,0,0,0.2);
 }
 
-.emotion-35::-webkit-scrollbar-thumb:hover {
+.emotion-34::-webkit-scrollbar-thumb:hover {
   background-color: rgba(0,0,0,0.4);
 }
 
-.emotion-31 {
+.emotion-30 {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -875,7 +876,7 @@ exports[`BackButton Should match snapshot 1`] = `
   padding-top: 2px;
 }
 
-.emotion-29 {
+.emotion-28 {
   color: #172B4D;
   margin-left: 2px;
   margin-right: 2px;
@@ -893,7 +894,7 @@ exports[`BackButton Should match snapshot 1`] = `
   line-height: 16px;
 }
 
-.emotion-30 {
+.emotion-29 {
   margin: 2px;
   padding-bottom: 2px;
   padding-top: 2px;
@@ -902,7 +903,7 @@ exports[`BackButton Should match snapshot 1`] = `
   box-sizing: border-box;
 }
 
-.emotion-34 {
+.emotion-33 {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -921,7 +922,7 @@ exports[`BackButton Should match snapshot 1`] = `
   padding-right: 4px;
 }
 
-.emotion-33 {
+.emotion-32 {
   color: #42526E;
   display: -webkit-box;
   display: -webkit-flex;
@@ -937,15 +938,15 @@ exports[`BackButton Should match snapshot 1`] = `
   padding-top: 6px;
 }
 
-.emotion-33:hover {
+.emotion-32:hover {
   color: #6B778C;
 }
 
 <div
-  class="emotion-42"
+  class="emotion-41"
 >
   <div
-    class="emotion-41"
+    class="emotion-40"
   >
     <div
       class="emotion-17"
@@ -1086,10 +1087,10 @@ exports[`BackButton Should match snapshot 1`] = `
       </div>
     </div>
     <div
-      class="emotion-40"
+      class="emotion-39"
     >
       <div
-        class="emotion-27"
+        class="emotion-26"
       >
         <div
           class="emotion-18"
@@ -1121,89 +1122,42 @@ exports[`BackButton Should match snapshot 1`] = `
           </div>
         </div>
         <div
-          class="emotion-26"
+          class="emotion-25"
         >
           <div>
             Default content
           </div>
-          <a
-            class="sc-keVrkP knRxbO"
-            id="whats-new"
-          >
-            <div
-              class="sc-gVLVqr fdEBcy"
-            >
-              <span
-                aria-hidden="true"
-                class="emotion-0"
-                role="presentation"
-                style="--icon-primary-color: #344563; --icon-secondary-color: #FFFFFF;"
-              >
-                <svg
-                  height="24"
-                  role="presentation"
-                  viewBox="0 0 24 24"
-                  width="24"
-                >
-                  <g
-                    fill="currentColor"
-                    fill-rule="evenodd"
-                  >
-                    <path
-                      d="M6 12h8v-2H6v2zM4 8.99C4 8.445 4.456 8 5.002 8h9.996C15.55 8 16 8.451 16 8.99V14H4V8.99z"
-                      fill-rule="nonzero"
-                    />
-                    <path
-                      d="M6 7.005C6 5.898 6.898 5 7.998 5h2.004C11.106 5 12 5.894 12 7.005V10H6V7.005zm4 0V7H7.999c.005 0 .002.003.002.005V8h2v-.995z"
-                    />
-                    <path
-                      d="M4.5 17h13.994l1.002-3H4.14l.36 3zm-2.495-4.012A.862.862 0 012.883 12h18.393c.55 0 .857.417.681.944l-1.707 5.112c-.174.521-.758.944-1.315.944H3.725a1.149 1.149 0 01-1.118-.988l-.602-5.024z"
-                      fill-rule="nonzero"
-                    />
-                  </g>
-                </svg>
-              </span>
-            </div>
-            <div
-              class="sc-cBdUnI eOxeml"
-            >
-              Whats's new
-              <div
-                class="sc-kcDeIU jMcahr"
-              />
-            </div>
-          </a>
         </div>
       </div>
       <div
-        class="emotion-39"
+        class="emotion-38"
         style="transition: opacity 440ms; opacity: 0; visibility: hidden;"
       >
         <div
-          class="emotion-37"
+          class="emotion-36"
         >
           <div
-            class="single-select emotion-36"
+            class="single-select emotion-35"
           >
             <span
               aria-atomic="false"
               aria-live="polite"
               aria-relevant="additions text"
-              class="emotion-28"
+              class="emotion-27"
             />
             <div
-              class="react-select__control emotion-35"
+              class="react-select__control emotion-34"
             >
               <div
-                class="react-select__value-container react-select__value-container--has-value emotion-31"
+                class="react-select__value-container react-select__value-container--has-value emotion-30"
               >
                 <div
-                  class="react-select__single-value emotion-29"
+                  class="react-select__single-value emotion-28"
                 >
                   All release types
                 </div>
                 <div
-                  class="emotion-30"
+                  class="emotion-29"
                 >
                   <div
                     class="react-select__input"
@@ -1228,11 +1182,11 @@ exports[`BackButton Should match snapshot 1`] = `
                 </div>
               </div>
               <div
-                class="react-select__indicators emotion-34"
+                class="react-select__indicators emotion-33"
               >
                 <div
                   aria-hidden="true"
-                  class="react-select__indicator react-select__dropdown-indicator emotion-33"
+                  class="react-select__indicator react-select__dropdown-indicator emotion-32"
                 >
                   <span
                     aria-label="open"
@@ -1259,7 +1213,7 @@ exports[`BackButton Should match snapshot 1`] = `
           </div>
         </div>
         <div
-          class="emotion-38"
+          class="emotion-37"
         />
       </div>
     </div>

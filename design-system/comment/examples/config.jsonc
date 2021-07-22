@@ -6,5 +6,8 @@
 {
   "testExamples": [
     "01-example-comment.tsx"
+  ],
+  "exampleDependencies": [
+    "@atlaskit/editor-core"
   ]
 }

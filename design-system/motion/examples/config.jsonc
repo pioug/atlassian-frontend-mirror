@@ -6,5 +6,8 @@
 {
   "testExamples": [
     "resizing-height.tsx"
+  ],
+  "exampleDependencies": [
+    "react-router-dom"
   ]
 }

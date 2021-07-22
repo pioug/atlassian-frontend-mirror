@@ -16,5 +16,9 @@
     "75-with-focus-on-secondary-button.tsx",
     "80-with-footer-and-select-option.tsx",
     "90-with-layered-components.tsx"
+  ],
+  "exampleDependencies": [
+    "@atlaskit/inline-dialog",
+    "react-beautiful-dnd"
   ]
 }

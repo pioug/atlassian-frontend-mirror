@@ -6,5 +6,8 @@
 {
   "testExamples": [
     "14-with-keyboard-interaction.tsx"
+  ],
+  "exampleDependencies": [
+    "@atlaskit/lozenge"
   ]
 }

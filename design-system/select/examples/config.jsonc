@@ -14,5 +14,8 @@
     "11-select-in-modal-dialog.tsx",
     "18-popup-select.tsx",
     "24-disabled.tsx"
+  ],
+  "exampleDependencies": [
+    "@atlaskit/drawer"
   ]
 }

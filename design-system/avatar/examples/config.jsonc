@@ -10,5 +10,8 @@
     "04-basicPresence.tsx",
     "05-basicStatus.tsx",
     "15-skeleton.tsx"
+  ],
+  "exampleDependencies": [
+    "@atlaskit/button"
   ]
 }

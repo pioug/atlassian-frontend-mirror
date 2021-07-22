@@ -7,5 +7,9 @@
   "testExamples": [
     "component-prop.tsx",
     "defaultTooltip.tsx"
+  ],
+  "exampleDependencies": [
+    "@atlaskit/icon",
+    "react-redux"
   ]
 }

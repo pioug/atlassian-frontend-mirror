@@ -1,5 +1,11 @@
 # @atlaskit/editor-core
 
+## 146.0.3
+
+### Patch Changes
+
+- [`1a2d907b45f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1a2d907b45f) - [ux][ed-13470] Hotfix to increase the moment the toolbar begins to collapse / scroll to medium instead of small due to an increase in width of toolbar contents.
+
 ## 146.0.2
 
 ### Patch Changes

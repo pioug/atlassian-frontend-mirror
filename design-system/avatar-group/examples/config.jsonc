@@ -9,5 +9,8 @@
     "10-avatar-group-playground.tsx",
     "30-overrides.tsx",
     "40-within-modal.tsx"
+  ],
+  "exampleDependencies": [
+    "lodash"
   ]
 }

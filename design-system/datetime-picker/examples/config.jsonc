@@ -13,5 +13,11 @@
     "30-time-picker-states.tsx",
     "999-disable-toggle.tsx",
     "theme-fix.tsx"
+  ],
+  "exampleDependencies": [
+    "@atlaskit/field-range",
+    "@atlaskit/modal-dialog",
+    "@atlaskit/textfield",
+    "react-lorem-component"
   ]
 }

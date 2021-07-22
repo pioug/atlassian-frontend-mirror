@@ -8,5 +8,12 @@
     "5-inline-video-card.tsx",
     "99-test-card-files-mocked.tsx",
     "card-view-vr.tsx"
+  ],
+  "exampleDependencies": [
+    "@atlaskit/button",
+    "@atlaskit/checkbox",
+    "@atlaskit/field-radio-group",
+    "@atlaskit/field-range",
+    "@atlaskit/toggle"
   ]
 }

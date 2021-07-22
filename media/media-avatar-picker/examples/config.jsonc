@@ -6,5 +6,9 @@
 {
   "testExamples": [
     "4-avatar-picker-with-predefined-avatar.tsx"
+  ],
+  "exampleDependencies": [
+    "@atlaskit/page",
+    "react-intl"
   ]
 }

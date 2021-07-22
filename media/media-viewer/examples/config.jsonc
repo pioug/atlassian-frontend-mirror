@@ -6,5 +6,9 @@
 {
   "testExamples": [
     "5-mocked-viewer.tsx"
+  ],
+  "exampleDependencies": [
+    "@atlaskit/media-card",
+    "@atlaskit/modal-dialog"
   ]
 }

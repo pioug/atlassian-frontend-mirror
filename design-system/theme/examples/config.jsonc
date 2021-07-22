@@ -7,5 +7,8 @@
   "testExamples": [
     "colors.tsx",
     "with-emotion-theme-provider.tsx"
+  ],
+  "exampleDependencies": [
+    "@atlaskit/button"
   ]
 }

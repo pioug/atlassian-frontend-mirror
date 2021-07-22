@@ -38,7 +38,7 @@ export const ToolbarWithSizeDetector: React.FunctionComponent<ToolbarWithSizeDet
       ? undefined
       : widthToToolbarSize((width || elementWidth)!, props.appearance);
 
-  const toolbarMinWidth = toolbarSizeToWidth(ToolbarSize.S, props.appearance);
+  const toolbarMinWidth = toolbarSizeToWidth(ToolbarSize.M, props.appearance);
 
   return (
     <StyledToolBar

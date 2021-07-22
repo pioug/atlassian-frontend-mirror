@@ -8,5 +8,9 @@
     "01-flag-without-flagGroup.tsx",
     "11-bold-flag-component.tsx",
     "99-testing.tsx"
+  ],
+  "exampleDependencies": [
+    "@atlaskit/radio",
+    "@atlaskit/spinner"
   ]
 }

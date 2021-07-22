@@ -13,5 +13,9 @@
     "5-with-markup.tsx",
     "7-many-in-container.tsx",
     "99-testing.tsx"
+  ],
+  "exampleDependencies": [
+    "react-router",
+    "react-router-dom"
   ]
 }

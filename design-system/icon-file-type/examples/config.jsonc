@@ -6,5 +6,8 @@
 {
   "testExamples": [
     "icon-examples.tsx"
+  ],
+  "exampleDependencies": [
+    "@atlaskit/button"
   ]
 }

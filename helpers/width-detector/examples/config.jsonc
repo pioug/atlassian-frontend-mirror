@@ -6,5 +6,9 @@
 {
   "testExamples": [
     "3-scrolling.tsx"
+  ],
+  "exampleDependencies": [
+    "@atlaskit/button",
+    "lodash"
   ]
 }

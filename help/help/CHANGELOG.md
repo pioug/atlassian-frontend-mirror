@@ -1,5 +1,17 @@
 # @atlaskit/help
 
+## 4.0.2
+
+### Patch Changes
+
+- [`f4d35d25719`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f4d35d25719) - [ux] Hide "What's New" button if the props "onSearchWhatsNewArticles" and "onGetWhatsNewArticle" are not defined
+
+## 4.0.1
+
+### Patch Changes
+
+- [`b0b740e2657`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b0b740e2657) - [ux] Fix double scroll in the content area
+
 ## 4.0.0
 
 ### Major Changes

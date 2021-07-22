@@ -6,5 +6,8 @@
 {
   "testExamples": [
     "progressIndicatorDefault.tsx"
+  ],
+  "exampleDependencies": [
+    "react-lorem-component"
   ]
 }

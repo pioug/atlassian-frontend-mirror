@@ -3,7 +3,6 @@ import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import algoliasearch from 'algoliasearch';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
-import { NotificationLogClient } from '@atlaskit/notification-log-client';
 import Page from '@atlaskit/page';
 import Textfield from '@atlaskit/textfield';
 import ShipIcon from '@atlaskit/icon/glyph/ship';
@@ -19,19 +18,8 @@ import {
   HelpContainer,
 } from './utils/styled';
 
-import {
-  searchWhatsNewArticles as searchWhatsNewArticlesCPAPI,
-  getWhatsNewArticle as getWhatsNewArticleCPAPI,
-} from './utils/services/cpapi';
-
 import Help, { RelatedArticles, ARTICLE_TYPE } from '../src';
-import type {
-  ArticleItem,
-  ArticleFeedback,
-  WhatsNewArticleItem,
-  WhatsNewArticle,
-  articleId,
-} from '../src';
+import type { ArticleItem, ArticleFeedback, articleId } from '../src';
 
 const SEARCH_EXTERNAL_URL = 'https://support.atlassian.com/';
 
@@ -43,19 +31,6 @@ const handleEvent = (analyticsEvent: { payload: any; context: any }) => {
 // Algolia configuration
 let client = algoliasearch('8K6J5OJIQW', 'c982b4b1a6ca921131d35edb63359b8c');
 var index = client.initIndex('product_help_uat');
-
-// Mockup notification Promise
-class MockNotificationLogClient extends NotificationLogClient {
-  constructor() {
-    super('', '');
-  }
-
-  public async countUnseenNotifications() {
-    return Promise.resolve({ count: 100 });
-  }
-}
-
-const notificationsClient = new MockNotificationLogClient();
 
 const Footer = (
   <FooterContent>
@@ -180,24 +155,6 @@ const Example: React.FC = () => {
           reject(error.message);
         });
     });
-  };
-
-  const onSearchWhatsNewArticles = async (
-    filter: string = '',
-    numberOfItems: number,
-    page: string = '',
-  ): Promise<{
-    articles: WhatsNewArticleItem[];
-    nextPage: string;
-    hasNextPage: boolean;
-  }> => {
-    console.log('onSearchWhatsNewArticles');
-    return searchWhatsNewArticlesCPAPI(filter, numberOfItems, page);
-  };
-
-  const onGetWhatsNewArticle = (articleId: articleId): Promise<any> => {
-    console.log(articleId);
-    return getWhatsNewArticleCPAPI(articleId);
   };
 
   const handleOnSearchResultItemClick = (
@@ -341,35 +298,6 @@ const Example: React.FC = () => {
     console.log(event);
     console.log(analyticsEvent);
     console.log(articleId);
-  };
-
-  const handleOnWhatsNewButtonClick = (
-    event: React.MouseEvent<HTMLElement, MouseEvent>,
-    analyticsEvent: UIAnalyticsEvent,
-  ) => {
-    console.log('handleOnWhatsNewButtonClick');
-    console.log(event);
-    console.log(analyticsEvent);
-  };
-
-  const handleOnSearchWhatsNewShowMoreClick = (
-    event: React.MouseEvent<HTMLElement, MouseEvent>,
-    analyticsEvent: UIAnalyticsEvent,
-  ) => {
-    console.log('handleOnSearchWhatsNewShowMoreClick');
-    console.log(event);
-    console.log(analyticsEvent);
-  };
-
-  const handleOnWhatsNewResultItemClick = (
-    event: React.MouseEvent<HTMLElement, MouseEvent>,
-    analyticsEvent: UIAnalyticsEvent,
-    whatsNewArticleData: WhatsNewArticle,
-  ) => {
-    console.log('handleOnWhatsNewResultItemClick');
-    console.log(event);
-    console.log(analyticsEvent);
-    console.log(whatsNewArticleData);
   };
 
   return (
@@ -561,16 +489,6 @@ const Example: React.FC = () => {
                       onGetRelatedArticles: getRelatedArticle,
                       onRelatedArticlesShowMoreClick: handleOnRelatedArticlesShowMoreClick,
                       onRelatedArticlesListItemClick: handleOnRelatedArticlesListItemClick,
-                    }}
-                    whatsNew={{
-                      whatsNewGetNotificationProvider: Promise.resolve(
-                        notificationsClient,
-                      ),
-                      onWhatsNewButtonClick: handleOnWhatsNewButtonClick,
-                      onSearchWhatsNewShowMoreClick: handleOnSearchWhatsNewShowMoreClick,
-                      onSearchWhatsNewArticles: onSearchWhatsNewArticles,
-                      onGetWhatsNewArticle,
-                      onWhatsNewResultItemClick: handleOnWhatsNewResultItemClick,
                     }}
                     header={{
                       onCloseButtonClick: handleOnCloseButtonClick,

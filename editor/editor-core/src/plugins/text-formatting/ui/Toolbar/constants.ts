@@ -18,7 +18,7 @@ export const ResponsiveCustomButtonToolbar: Record<ToolbarSize, IconTypes[]> = {
   [ToolbarSize.XXL]: DefaultButtonsToolbar,
   [ToolbarSize.XL]: DefaultButtonsToolbar,
   [ToolbarSize.L]: DefaultButtonsToolbar,
-  [ToolbarSize.M]: DefaultButtonsToolbar,
+  [ToolbarSize.M]: [],
   [ToolbarSize.S]: [],
   [ToolbarSize.XXXS]: [],
 };
@@ -27,7 +27,7 @@ export const ResponsiveCustomMenu: Record<ToolbarSize, IconTypes[]> = {
   [ToolbarSize.XXL]: DefaultButtonsMenu,
   [ToolbarSize.XL]: DefaultButtonsMenu,
   [ToolbarSize.L]: DefaultButtonsMenu,
-  [ToolbarSize.M]: DefaultButtonsMenu,
+  [ToolbarSize.M]: [IconTypes.strong, IconTypes.em, ...DefaultButtonsMenu],
   [ToolbarSize.S]: [IconTypes.strong, IconTypes.em, ...DefaultButtonsMenu],
   [ToolbarSize.XXXS]: [IconTypes.strong, IconTypes.em, ...DefaultButtonsMenu],
 };

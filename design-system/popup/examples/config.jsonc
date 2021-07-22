@@ -9,5 +9,9 @@
     "11-asynchronous-popup.tsx",
     "13-setting-focus.tsx",
     "popup-disable-autofocus.tsx"
+  ],
+  "exampleDependencies": [
+    "@atlaskit/menu",
+    "@atlaskit/select"
   ]
 }

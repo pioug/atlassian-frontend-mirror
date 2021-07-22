@@ -11,5 +11,8 @@
     "05-elements-before-and-after.tsx",
     "08-customisation.tsx",
     "99-testing.tsx"
+  ],
+  "exampleDependencies": [
+    "@atlaskit/toggle"
   ]
 }

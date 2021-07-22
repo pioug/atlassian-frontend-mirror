@@ -12,5 +12,9 @@
     "50-theming-example.tsx",
     "80-skeleton-buttons.tsx",
     "themed-navigation.tsx"
+  ],
+  "exampleDependencies": [
+    "@atlaskit/analytics-next",
+    "@atlaskit/badge"
   ]
 }

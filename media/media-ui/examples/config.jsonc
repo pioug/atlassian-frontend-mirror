@@ -11,5 +11,8 @@
     "vr-block-card-lozenge.tsx",
     "vr-inline-card-default-icon.tsx",
     "vr-inline-card-lozenge.tsx"
+  ],
+  "exampleDependencies": [
+    "@atlaskit/checkbox"
   ]
 }

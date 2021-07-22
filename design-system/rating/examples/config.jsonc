@@ -6,5 +6,8 @@
 {
   "testExamples": [
     "uncontrolled.tsx"
+  ],
+  "exampleDependencies": [
+    "@atlaskit/button"
   ]
 }

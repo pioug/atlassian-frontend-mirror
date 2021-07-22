@@ -11,5 +11,12 @@
     "13-ssr-icons.tsx",
     "14-svg.tsx",
     "99-invalid-custom-glyphs.tsx"
+  ],
+  "exampleDependencies": [
+    "@atlaskit/icon-file-type",
+    "@atlaskit/icon-object",
+    "@atlaskit/icon-priority",
+    "lodash",
+    "nullthrows"
   ]
 }

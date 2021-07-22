@@ -68,7 +68,7 @@ const mockOnBackButtonClick = jest.fn();
 
 const defaultContentText = 'Default content';
 
-describe('BackButton', () => {
+describe('Help', () => {
   // jest.useFakeTimers();
 
   beforeEach(() => {

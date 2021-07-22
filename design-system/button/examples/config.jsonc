@@ -8,5 +8,10 @@
     "10-Button.tsx",
     "30-Appearances.tsx",
     "99-Testing.tsx"
+  ],
+  "exampleDependencies": [
+    "@atlaskit/logo",
+    "@atlaskit/select",
+    "react-router-dom"
   ]
 }

@@ -10,5 +10,9 @@
     "06-create-repository.tsx",
     "09-submit-form.tsx",
     "10-submission-validation.tsx"
+  ],
+  "exampleDependencies": [
+    "@atlaskit/datetime-picker",
+    "@atlaskit/modal-dialog"
   ]
 }

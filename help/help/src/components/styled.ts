@@ -42,4 +42,5 @@ export const Home = styled.div<HomeProps>`
   height: 100%;
   overflow: ${(props) => (props.isOverlayVisible ? 'hidden' : 'auto')};
   padding: ${gridSize() * 2}px;
+  box-sizing: border-box;
 `;

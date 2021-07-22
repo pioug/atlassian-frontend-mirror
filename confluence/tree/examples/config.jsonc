@@ -6,5 +6,9 @@
 {
   "testExamples": [
     "0-static-tree.tsx"
+  ],
+  "exampleDependencies": [
+    "@atlaskit/button",
+    "@atlaskit/spinner"
   ]
 }

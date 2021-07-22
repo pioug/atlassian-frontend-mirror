@@ -7,6 +7,7 @@ import { useNavigationContext } from './contexts/navigationContext';
 import { useHomeContext } from './contexts/homeContext';
 import { useHeaderContext } from './contexts/headerContext';
 import { useSearchContext } from './contexts/searchContext';
+import { useWhatsNewArticleContext } from './contexts/whatsNewArticleContext';
 import SearchInput from './Search/SearchInput';
 import SearchResults from './Search/SearchResults';
 import ArticleComponent from './Article';
@@ -23,6 +24,10 @@ interface HelpContentInterface {
 
 export const HelpContent: React.FC<HelpContentInterface> = ({ footer }) => {
   const { homeContent, homeOptions } = useHomeContext();
+  const {
+    onSearchWhatsNewArticles,
+    onGetWhatsNewArticle,
+  } = useWhatsNewArticleContext();
   const {
     isOverlayVisible,
     navigateBack,
@@ -86,7 +91,9 @@ export const HelpContent: React.FC<HelpContentInterface> = ({ footer }) => {
             isOverlayVisible={isOverlayVisibleValue}
           >
             {homeContent}
-            {<WhatsNewButton />}
+            {onSearchWhatsNewArticles && onGetWhatsNewArticle && (
+              <WhatsNewButton />
+            )}
             {homeOptions &&
               homeOptions.map((defaultOption: HelpContentButtonProps) => {
                 return (

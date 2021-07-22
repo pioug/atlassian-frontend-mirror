@@ -13,5 +13,8 @@
     "loading-skeletons-nested.tsx",
     "loading-skeletons.tsx",
     "side-navigation.tsx"
+  ],
+  "exampleDependencies": [
+    "@atlaskit/select"
   ]
 }

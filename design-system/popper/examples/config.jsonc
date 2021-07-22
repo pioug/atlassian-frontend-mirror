@@ -6,5 +6,9 @@
 {
   "testExamples": [
     "02-advanced-behaviors.tsx"
+  ],
+  "exampleDependencies": [
+    "@atlaskit/button",
+    "react-lorem-component"
   ]
 }

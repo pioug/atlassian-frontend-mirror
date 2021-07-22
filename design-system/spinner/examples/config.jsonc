@@ -11,5 +11,11 @@
     "vr-sizes.tsx",
     "vr-table-cell-alignment.tsx",
     "vr-text-alignment.tsx"
+  ],
+  "exampleDependencies": [
+    "@atlaskit/avatar",
+    "@atlaskit/lozenge",
+    "@atlaskit/motion",
+    "@atlaskit/select"
   ]
 }

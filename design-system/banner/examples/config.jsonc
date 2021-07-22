@@ -8,5 +8,8 @@
     "announcement-banner.tsx",
     "basic-usage.tsx",
     "testing.tsx"
+  ],
+  "exampleDependencies": [
+    "@atlaskit/button"
   ]
 }

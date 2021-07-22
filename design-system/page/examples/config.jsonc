@@ -6,5 +6,11 @@
 {
   "testExamples": [
     "00-basic-usage.tsx"
+  ],
+  "exampleDependencies": [
+    "@atlaskit/banner",
+    "@atlaskit/button",
+    "@atlaskit/logo",
+    "@atlaskit/navigation"
   ]
 }

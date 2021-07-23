@@ -120,6 +120,7 @@ export const getStyles = memoizeOne(
             width: 0,
             background: 'transparent',
           },
+          position: 'relative',
         };
       },
       multiValue: (css: any) => ({

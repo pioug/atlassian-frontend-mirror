@@ -1,4 +1,6 @@
-export default `<?xml version="1.0" encoding="UTF-8"?>
+import React from 'react';
+
+export const svg = `<?xml version="1.0" encoding="UTF-8"?>
 <svg width="100" height="116" viewBox="0 0 100 116" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M0 0H100V116H0V0Z" fill="white"/>
 <g opacity="0.3">
@@ -29,3 +31,7 @@ export default `<?xml version="1.0" encoding="UTF-8"?>
 </defs>
 </svg>
 `;
+
+export default function NotFoundImage() {
+  return <span dangerouslySetInnerHTML={{ __html: svg }} />;
+}

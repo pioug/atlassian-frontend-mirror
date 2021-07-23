@@ -12,7 +12,7 @@ import {
   version as packageVersion,
 } from '../../../version.json';
 import { messages } from '../../../messages';
-import SomethingWrongImageFile from '../../../assets/SomethingWrong';
+import SomethingWrongImage from '../../../assets/SomethingWrongImage';
 
 import { LoadingErrorMessage, LoadingErrorButtonContainer } from './styled';
 
@@ -48,11 +48,7 @@ export const ArticleLoadingFail: React.FC<InjectedIntlProps & Props> = ({
 
   return (
     <LoadingErrorMessage>
-      <div
-        dangerouslySetInnerHTML={{
-          __html: SomethingWrongImageFile,
-        }}
-      />
+      <SomethingWrongImage />
       <h2>{formatMessage(messages.help_article_error_title)}</h2>
       <p>{formatMessage(messages.help_article_error_text)}</p>
       <LoadingErrorButtonContainer>

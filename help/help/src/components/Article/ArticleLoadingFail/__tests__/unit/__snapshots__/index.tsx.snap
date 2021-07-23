@@ -83,7 +83,7 @@ exports[`ArticleLoadingFail Should match snapshot 1`] = `
 <div
   class="emotion-2"
 >
-  <div>
+  <span>
     <!--?xml version="1.0" encoding="UTF-8"?-->
     
 
@@ -3023,7 +3023,7 @@ exports[`ArticleLoadingFail Should match snapshot 1`] = `
       
 
     </svg>
-  </div>
+  </span>
   <h2>
     Something's gone wrong
   </h2>

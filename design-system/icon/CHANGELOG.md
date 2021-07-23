@@ -1,5 +1,11 @@
 # @atlaskit/icon
 
+## 21.7.2
+
+### Patch Changes
+
+- [`0c0c4315085`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0c0c4315085) - [ux] Fixed a regression where Icons used static colors in High Contrast Mode when they should actually dynamically respond to changes to the `primaryColor` and `secondaryColor` props.
+
 ## 21.7.1
 
 ### Patch Changes

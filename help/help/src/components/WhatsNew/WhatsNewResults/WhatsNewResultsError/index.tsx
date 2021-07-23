@@ -3,7 +3,7 @@ import Button from '@atlaskit/button/custom-theme-button';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
 import { WHATS_NEW_ITEM_TYPES } from '../../../../model/WhatsNew';
 
-import ErrorImage from '../../../../assets/Error';
+import ErrorImage from '../../../../assets/ErrorImage';
 import { messages } from '../../../../messages';
 
 import {
@@ -25,11 +25,7 @@ export const WhatsNewResultsError: React.FC<Props & InjectedIntlProps> = ({
 }) => (
   <>
     <SearchResultEmptyMessageImage>
-      <div
-        dangerouslySetInnerHTML={{
-          __html: ErrorImage,
-        }}
-      />
+      <ErrorImage />
     </SearchResultEmptyMessageImage>
 
     <SearchResultEmptyMessageText>

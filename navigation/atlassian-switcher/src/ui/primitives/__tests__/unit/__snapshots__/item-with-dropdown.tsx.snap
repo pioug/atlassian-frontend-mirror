@@ -568,21 +568,12 @@ exports[`Atlassian Switcher - ItemWithDropdown renders an item with multiple sit
   stop-color: currentColor;
 }
 
-@media screen and (-ms-high-contrast:white-on-black) {
+@media screen and (forced-colors:active) {
   .emotion-0 > svg {
-    -webkit-filter: grayscale(100%);
-    filter: grayscale(100%);
-    color: #fff;
-    fill: #000;
-  }
-}
-
-@media screen and (-ms-high-contrast:black-on-white) {
-  .emotion-0 > svg {
-    -webkit-filter: grayscale(100%);
-    filter: grayscale(100%);
-    color: #000;
-    fill: #fff;
+    -webkit-filter: grayscale(1);
+    filter: grayscale(1);
+    --icon-primary-color: CanvasText;
+    --icon-secondary-color: Canvas;
   }
 }
 
@@ -1540,21 +1531,12 @@ exports[`Atlassian Switcher - ItemWithDropdown renders an item with multiple sit
   stop-color: currentColor;
 }
 
-@media screen and (-ms-high-contrast:white-on-black) {
+@media screen and (forced-colors:active) {
   .emotion-0 > svg {
-    -webkit-filter: grayscale(100%);
-    filter: grayscale(100%);
-    color: #fff;
-    fill: #000;
-  }
-}
-
-@media screen and (-ms-high-contrast:black-on-white) {
-  .emotion-0 > svg {
-    -webkit-filter: grayscale(100%);
-    filter: grayscale(100%);
-    color: #000;
-    fill: #fff;
+    -webkit-filter: grayscale(1);
+    filter: grayscale(1);
+    --icon-primary-color: CanvasText;
+    --icon-secondary-color: Canvas;
   }
 }
 
@@ -2512,21 +2494,12 @@ exports[`Atlassian Switcher - ItemWithDropdown renders an item with multiple sit
   stop-color: currentColor;
 }
 
-@media screen and (-ms-high-contrast:white-on-black) {
+@media screen and (forced-colors:active) {
   .emotion-0 > svg {
-    -webkit-filter: grayscale(100%);
-    filter: grayscale(100%);
-    color: #fff;
-    fill: #000;
-  }
-}
-
-@media screen and (-ms-high-contrast:black-on-white) {
-  .emotion-0 > svg {
-    -webkit-filter: grayscale(100%);
-    filter: grayscale(100%);
-    color: #000;
-    fill: #fff;
+    -webkit-filter: grayscale(1);
+    filter: grayscale(1);
+    --icon-primary-color: CanvasText;
+    --icon-secondary-color: Canvas;
   }
 }
 

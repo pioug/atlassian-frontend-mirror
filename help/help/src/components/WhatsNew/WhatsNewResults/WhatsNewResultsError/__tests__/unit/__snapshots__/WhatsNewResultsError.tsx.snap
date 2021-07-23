@@ -9,7 +9,7 @@ exports[`WhatsNewResultsError Should match snapshot 1`] = `
 <div
   class="emotion-0"
 >
-  <div>
+  <span>
     <!--?xml version="1.0" encoding="UTF-8"?-->
     
 
@@ -145,6 +145,6 @@ exports[`WhatsNewResultsError Should match snapshot 1`] = `
     </svg>
     
 
-  </div>
+  </span>
 </div>
 `;

@@ -50,17 +50,12 @@ export const WhatsNewArticle: React.FC<Props & InjectedIntlProps> = ({
     const typeTitle = article.type
       ? formatMessage(getTypeTitle(article.type))
       : '';
-    const typeIcon = getTypeIcon(article.type);
 
     return (
       <>
         <WhatsNewIconContainer>
           <WhatsNewTypeIcon type={article.type}>
-            <div
-              dangerouslySetInnerHTML={{
-                __html: typeIcon,
-              }}
-            />
+            {getTypeIcon(article.type)}
           </WhatsNewTypeIcon>
           <WhatsNewTypeTitle>{typeTitle}</WhatsNewTypeTitle>
         </WhatsNewIconContainer>

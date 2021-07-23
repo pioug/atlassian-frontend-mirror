@@ -2,7 +2,7 @@ import React from 'react';
 import Button from '@atlaskit/button/custom-theme-button';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
 
-import ErrorImage from '../../../assets/Error';
+import ErrorImage from '../../../assets/ErrorImage';
 import { messages } from '../../../messages';
 
 import {
@@ -20,11 +20,7 @@ export const SearchResultsError: React.FC<Props & InjectedIntlProps> = ({
 }) => (
   <>
     <SearchResultEmptyMessageImage>
-      <div
-        dangerouslySetInnerHTML={{
-          __html: ErrorImage,
-        }}
-      />
+      <ErrorImage />
     </SearchResultEmptyMessageImage>
 
     <SearchResultEmptyMessageText>

@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 7.14.2
+
+### Patch Changes
+
+- [`7ca4b74ff54`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7ca4b74ff54) - [ux] Bugfix for removing a weird box blip that extends outside of the avatar for user picker in Safari.
+
 ## 7.14.1
 
 ### Patch Changes

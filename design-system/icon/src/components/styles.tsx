@@ -13,20 +13,6 @@ export const commonSVGStyles = {
   stop: {
     stopColor: 'currentColor',
   },
-
-  /**
-   * For windows high contrast mode
-   */
-  '@media screen and (-ms-high-contrast: white-on-black)': {
-    filter: ' grayscale(100%)',
-    color: '#fff', // N0
-    fill: '#000', // DN0
-  },
-  '@media screen and (-ms-high-contrast: black-on-white)': {
-    filter: 'grayscale(100%)',
-    color: '#000', // DN0
-    fill: '#fff', // N0
-  },
 } as CSSObject;
 
 const small = css(dimensions.small);

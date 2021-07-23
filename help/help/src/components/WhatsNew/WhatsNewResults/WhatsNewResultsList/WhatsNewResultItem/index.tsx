@@ -52,8 +52,6 @@ export const WhatsNewResultListItem: React.FC<
   const { createAnalyticsEvent } = useAnalyticsEvents();
   const typeTitle = type ? formatMessage(getTypeTitle(type)) : '';
 
-  const typeIcon = getTypeIcon(type);
-
   const handleOnClick = (event: React.MouseEvent<HTMLElement>): void => {
     event.preventDefault();
     if (onClick) {
@@ -73,13 +71,7 @@ export const WhatsNewResultListItem: React.FC<
       onClick={handleOnClick}
     >
       <WhatsNewResultListItemTitleContainer>
-        <WhatsNewTypeIcon type={type}>
-          <div
-            dangerouslySetInnerHTML={{
-              __html: typeIcon,
-            }}
-          />
-        </WhatsNewTypeIcon>
+        <WhatsNewTypeIcon type={type}>{getTypeIcon(type)}</WhatsNewTypeIcon>
         <WhatsNewResultListItemTitleText>
           {typeTitle}
         </WhatsNewResultListItemTitleText>

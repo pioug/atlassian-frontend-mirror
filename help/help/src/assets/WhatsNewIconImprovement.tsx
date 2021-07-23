@@ -1,4 +1,6 @@
-export default `<svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+import React from 'react';
+
+export const svg = `<svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <rect width="16" height="17" fill="url(#pattern0)"/>
 <defs>
 <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
@@ -8,3 +10,7 @@ export default `<svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmln
 </defs>
 </svg>
 `;
+
+export default function WhatsNewIconImprovement() {
+  return <span dangerouslySetInnerHTML={{ __html: svg }} />;
+}

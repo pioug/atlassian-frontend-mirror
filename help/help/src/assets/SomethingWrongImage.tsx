@@ -1,4 +1,6 @@
-export default `<?xml version="1.0" encoding="UTF-8"?>
+import React from 'react';
+
+export const svg = `<?xml version="1.0" encoding="UTF-8"?>
 <svg width="162px" height="153px" viewBox="0 0 162 153" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <!-- Generator: Sketch 55 (78076) - https://sketchapp.com -->
     <title>Something's Wrong</title>
@@ -370,3 +372,7 @@ export default `<?xml version="1.0" encoding="UTF-8"?>
         </g>
     </g>
 </svg>`;
+
+export default function SomethingWrongImage() {
+  return <span dangerouslySetInnerHTML={{ __html: svg }} />;
+}

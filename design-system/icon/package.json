@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/icon",
-  "version": "21.7.1",
+  "version": "21.7.2",
   "description": "An icon is used as a visual representation of common actions and commands to provide context.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

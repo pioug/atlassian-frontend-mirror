@@ -1,5 +1,11 @@
 # @atlaskit/help
 
+## 4.0.3
+
+### Patch Changes
+
+- [`4941423cb4e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4941423cb4e) - [ux] Change how we load svg images
+
 ## 4.0.2
 
 ### Patch Changes

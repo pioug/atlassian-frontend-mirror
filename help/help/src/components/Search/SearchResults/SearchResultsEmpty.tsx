@@ -9,7 +9,7 @@ import Button from '@atlaskit/button/custom-theme-button';
 import ShortcutIcon from '@atlaskit/icon/glyph/shortcut';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
 
-import NotFoundImage from '../../../assets/NotFound';
+import NotFoundImage from '../../../assets/NotFoundImage';
 import { messages } from '../../../messages';
 
 import {
@@ -45,11 +45,7 @@ export const SearchResultsEmpty: React.FC<Props & InjectedIntlProps> = ({
   return (
     <>
       <SearchResultEmptyMessageImage>
-        <div
-          dangerouslySetInnerHTML={{
-            __html: NotFoundImage,
-          }}
-        />
+        <NotFoundImage />
       </SearchResultEmptyMessageImage>
 
       <SearchResultEmptyMessageText>

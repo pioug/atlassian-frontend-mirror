@@ -1,5 +1,11 @@
 # @atlaskit/media-client
 
+## 13.3.1
+
+### Patch Changes
+
+- [`f50b26327dd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f50b26327dd) - Remove Expired check from Media Client
+
 ## 13.3.0
 
 ### Minor Changes

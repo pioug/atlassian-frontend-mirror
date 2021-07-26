@@ -1,6 +1,4 @@
-import resolveAuth, {
-  TOKEN_MINIMUM_LIFETIME,
-} from '../../client/media-store/resolveAuth';
+import resolveAuth from '../../client/media-store/resolveAuth';
 import { MediaStoreError } from '../../client/media-store/error';
 import { AsapBasedAuth } from '@atlaskit/media-core';
 
@@ -10,28 +8,14 @@ const token =
 
 const auth: AsapBasedAuth = {
   asapIssuer: 'some-issuer',
-  token: token,
+  token,
   baseUrl: 'some-url',
 };
 
 describe('resolveAuth', () => {
   it('should return resolved Auth from provider', async () => {
     const provider = async () => auth;
-    // token near to expire within the threshold
-    const now = 1619827800000 - TOKEN_MINIMUM_LIFETIME - 1;
-    expect(await resolveAuth(provider, {}, now)).toBe(auth);
-  });
-
-  it('should throw tokenExpired error if token expires within the threshold', async () => {
-    const provider = async () => auth;
-    const now = 1619827800000 - TOKEN_MINIMUM_LIFETIME;
-    try {
-      await resolveAuth(provider, {}, now);
-    } catch (e) {
-      expect(e).toBeInstanceOf(MediaStoreError);
-      expect((e as MediaStoreError).reason).toBe('tokenExpired');
-    }
-    expect.assertions(2);
+    expect(await resolveAuth(provider, {})).toBe(auth);
   });
 
   it('should throw failedAuthProvider error if provider rejects', async () => {

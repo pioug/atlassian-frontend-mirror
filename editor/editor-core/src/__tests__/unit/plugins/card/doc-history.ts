@@ -112,11 +112,9 @@ describe('card', () => {
           await Promise.all(promises);
 
           expect(closeHistory).toBeCalledTimes(1);
-          expect(rafSchd).toBeCalledTimes(2);
-          // // From floating toolbar.
-          expect(rafSchd).nthCalledWith(1, expect.any(Function));
+          expect(rafSchd).toBeCalledTimes(1);
           // // From Smart Link Node View.
-          expect(rafSchd).nthCalledWith(2, expect.any(Function));
+          expect(rafSchd).nthCalledWith(1, expect.any(Function));
         });
       });
     });

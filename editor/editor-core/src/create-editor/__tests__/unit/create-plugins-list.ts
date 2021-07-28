@@ -305,12 +305,12 @@ describe('createPluginsList', () => {
       expect(scrollGutterOptions?.persistScrollGutter).toBe(true);
     });
 
-    it('should return ScrollGutterPluginOptions with gutterSize as 50', () => {
+    it('should return ScrollGutterPluginOptions with gutterSize as 36', () => {
       const scrollGutterOptions = getScrollGutterOptions({
         appearance: 'mobile',
       });
 
-      expect(scrollGutterOptions?.gutterSize).toBe(50);
+      expect(scrollGutterOptions?.gutterSize).toBe(36);
     });
   });
 });

@@ -63,6 +63,7 @@ export interface AvatarGroupProps {
    * Array of avatar data passed to each `avatar` component.
    * These props will be spread on to the component passed into avatar.
    */
+  // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
   data: Array<AvatarProps>;
 
   /**
@@ -109,6 +110,7 @@ export interface AvatarGroupProps {
   /**
    * Custom overrides for the composed components.
    */
+  // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
   overrides?: AvatarGroupOverrides;
   /**
    * Disables tooltips
@@ -173,8 +175,7 @@ const AvatarGroup = ({
   size = 'medium',
   testId,
   label = 'avatar group',
-}: // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
-AvatarGroupProps) => {
+}: AvatarGroupProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const onClose = useCallback(() => setIsOpen(false), []);
 
@@ -186,9 +187,7 @@ AvatarGroupProps) => {
     const renderMoreButton = (
       props: {
         'aria-controls'?: string;
-        // eslint-disable-next-line @typescript-eslint/naming-convention
         'aria-expanded'?: boolean;
-        // eslint-disable-next-line @typescript-eslint/naming-convention
         'aria-haspopup'?: boolean;
       } & {
         onClick: MouseEventHandler;

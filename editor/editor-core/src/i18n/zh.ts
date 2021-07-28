@@ -145,6 +145,10 @@ export default {
   'fabric.editor.helpDialogTips': '点击 {keyMap} 可以随时快速打开此对话',
   'fabric.editor.horizontalRule': '分隔条',
   'fabric.editor.horizontalRule.description': '使用水平线分隔内容',
+  'fabric.editor.hyperlink.searchLinkAriaDescription':
+    '在字段中输入内容时，下方会显示建议内容',
+  'fabric.editor.hyperlink.searchLinkResults':
+    '{count, plural, =0 {未找到结果} other {找到 {count,number} 个结果}}',
   'fabric.editor.hyperlinkToolbarPlaceholder': '粘贴链接或搜索最近查看的内容',
   'fabric.editor.image': '图片',
   'fabric.editor.info': '信息',

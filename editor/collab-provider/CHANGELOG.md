@@ -1,5 +1,17 @@
 # @atlaskit/collab-provider
 
+## 6.5.0
+
+### Minor Changes
+
+- [`91a481d1b7d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/91a481d1b7d) - Add analytics for catchup
+
+### Patch Changes
+
+- [`ae79161f6dc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ae79161f6dc) - COLLAB-808: fix error handle
+- [`bea14ccfb27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bea14ccfb27) - NONE: fix throttledCommit and error counter
+- Updated dependencies
+
 ## 6.4.2
 
 ### Patch Changes

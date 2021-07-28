@@ -53,6 +53,7 @@ export {
   SEVERITY,
   UNSUPPORTED_CONTENT_LEVEL_SEVERITY,
   shouldForceTracking,
+  sniffUserBrowserExtensions,
 } from './utils';
 
 export type {
@@ -72,6 +73,7 @@ export type {
   UnsupportedContentPayload,
   UnsupportedContentTooltipPayload,
   UnsupportedContentLevelsTracking,
+  UserBrowserExtensionResults,
 } from './utils';
 
 export {
@@ -114,6 +116,7 @@ export {
   combineExtensionProviders,
   getExtensionKeyAndNodeKey,
   getExtensionModuleNode,
+  getExtensionModuleNodePrivateProps,
   getQuickInsertItemsFromModule,
   getNodeRenderer,
   getContextualToolbarItemsFromModule,

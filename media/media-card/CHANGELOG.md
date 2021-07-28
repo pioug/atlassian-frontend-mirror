@@ -1,5 +1,17 @@
 # @atlaskit/media-card
 
+## 70.9.0
+
+### Minor Changes
+
+- [`fb1ca71dd2c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fb1ca71dd2c) - Render a spinner in the background of CardView component when card status is loading
+
+### Patch Changes
+
+- [`254c7ae04bc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/254c7ae04bc) - Refactor CardView in Media Card to group UI elements by status
+- [`8f76b747198`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8f76b747198) - fix: default return for internal render config function
+- Updated dependencies
+
 ## 70.8.1
 
 ### Patch Changes

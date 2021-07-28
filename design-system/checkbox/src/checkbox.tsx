@@ -3,9 +3,11 @@ import {
   ChangeEvent,
   forwardRef,
   memo,
+  MouseEvent,
   Ref,
   useCallback,
   useMemo,
+  useRef,
   useState,
 } from 'react';
 
@@ -13,6 +15,7 @@ import { jsx } from '@emotion/core';
 
 import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
+import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import PrimitiveSVGIcon from '@atlaskit/icon/svg';
 import GlobalTheme from '@atlaskit/theme/components';
@@ -29,6 +32,11 @@ import { CheckboxProps, Size } from './types';
 type InnerProps = CheckboxProps & {
   mode: ThemeModes;
 };
+
+// firefox doesn't handle cmd+click/ctrl+click properly
+const isFirefox: boolean =
+  typeof navigator !== 'undefined' &&
+  navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
 
 function getIcon(isIndeterminate: boolean, isChecked: boolean) {
   if (isIndeterminate) {
@@ -111,6 +119,16 @@ const CheckboxWithMode = forwardRef(function Checkbox(
     packageVersion: process.env._PACKAGE_VERSION_ as string,
   });
 
+  const internalRef = useRef<HTMLInputElement>(null);
+  const mergedRefs = mergeRefs([internalRef, ref]);
+
+  // firefox doesn't properly dispatch events from label to its child input elements
+  const onClickLabel = (event: MouseEvent<HTMLElement>) => {
+    if (event.ctrlKey || event.metaKey || event.shiftKey) {
+      internalRef.current?.click();
+    }
+  };
+
   // Use isChecked from the state if it is controlled
   const isChecked =
     isCheckedProp === undefined ? isCheckedState : isCheckedProp;
@@ -124,11 +142,12 @@ const CheckboxWithMode = forwardRef(function Checkbox(
     <Label
       isDisabled={isDisabled}
       testId={testId && `${testId}--checkbox-label`}
+      onClick={isFirefox ? onClickLabel : undefined}
     >
       <input
         {...rest}
         type="checkbox"
-        ref={ref}
+        ref={mergedRefs}
         disabled={isDisabled}
         checked={isChecked}
         value={value}

@@ -29,7 +29,6 @@ import { FlagProps } from './types';
 import Expander from './expander';
 import Actions from './flag-actions';
 import { useFlagGroup } from './flag-group';
-import { onMouseDownBlur } from './utils';
 
 function noop() {}
 
@@ -199,78 +198,98 @@ const Flag = (props: FlagProps) => {
         const mode = tokens.mode;
         const textColour = getFlagTextColor(appearance, mode);
         return (
-          // https://product-fabric.atlassian.net/browse/DST-1972
-          // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
           <div
             css={css`
               background-color: ${getFlagBackgroundColor(appearance, mode)};
               border-radius: ${borderRadius()}px;
-              box-sizing: border-box;
               box-shadow: ${boxShadow};
               color: ${textColour};
-              padding: ${doubleGridSize}px;
               transition: background-color 200ms;
               width: 100%;
               z-index: ${layers.flag()};
-
-              &:focus {
-                outline: none;
-                box-shadow: 0 0 0 2px ${getFlagFocusRingColor(appearance, mode)};
-              }
             `}
             role="alert"
-            // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
-            tabIndex={0}
-            onMouseDown={onMouseDownBlur}
             data-testid={testId}
             {...autoDismissProps}
           >
             <div
               css={css`
-                display: flex;
-                align-items: center;
-                height: ${headerHeight}px;
+                width: 100%;
+                padding: ${doubleGridSize}px;
+                box-sizing: border-box;
+                border-radius: ${borderRadius()}px;
+
+                &:focus-visible {
+                  outline: none;
+                  box-shadow: 0 0 0 2px
+                    ${getFlagFocusRingColor(appearance, mode)};
+                }
+
+                @supports not selector(*:focus-visible) {
+                  &:focus {
+                    outline: none;
+                    box-shadow: 0 0 0 2px
+                      ${getFlagFocusRingColor(appearance, mode)};
+                  }
+                }
+
+                @media screen and (forced-colors: active),
+                  screen and (-ms-high-contrast: active) {
+                  &:focus-visible {
+                    outline: 1px solid;
+                  }
+                }
               `}
+              // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
+              tabIndex={0}
             >
-              {icon}
-              <span
+              <div
                 css={css`
-                  color: ${textColour};
-                  font-weight: 600;
-                  flex: 1;
-                  overflow: hidden;
-                  text-overflow: ellipsis;
-                  white-space: nowrap;
-                  padding: 0 0 0 ${doubleGridSize}px;
+                  display: flex;
+                  align-items: center;
+                  height: ${headerHeight}px;
                 `}
               >
-                {title}
-              </span>
-              <OptionalDismissButton mode={mode} />
-            </div>
-            {/* Normal appearance can't be expanded so isExpanded is always true */}
-            <Expander isExpanded={!isBold || isExpanded} testId={testId}>
-              {description && (
-                <div
+                {icon}
+                <span
                   css={css`
                     color: ${textColour};
-                    word-wrap: break-word;
-                    overflow: auto;
-                    max-height: 100px; /* height is defined as 5 lines maximum by design */
+                    font-weight: 600;
+                    flex: 1;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    padding: 0 0 0 ${doubleGridSize}px;
                   `}
-                  data-testid={testId && `${testId}-description`}
                 >
-                  {description}
-                </div>
-              )}
-              <Actions
-                actions={actions}
-                appearance={appearance}
-                linkComponent={linkComponent}
-                testId={testId}
-                mode={mode}
-              />
-            </Expander>
+                  {title}
+                </span>
+                <OptionalDismissButton mode={mode} />
+              </div>
+              {/* Normal appearance can't be expanded so isExpanded is always true */}
+              <Expander isExpanded={!isBold || isExpanded} testId={testId}>
+                {description && (
+                  <div
+                    css={css`
+                      color: ${textColour};
+                      word-wrap: break-word;
+                      overflow: auto;
+                      max-height: 100px; /* height is defined as 5 lines maximum by design */
+                    `}
+                    data-testid={testId && `${testId}-description`}
+                  >
+                    {description}
+                  </div>
+                )}
+                <Actions
+                  actions={actions}
+                  appearance={appearance}
+                  linkComponent={linkComponent}
+                  testId={testId}
+                  mode={mode}
+                />
+              </Expander>
+            </div>
           </div>
         );
       }}

@@ -37,12 +37,18 @@ export const messages = defineMessages({
     defaultMessage: 'Choose file',
     description: 'Choose custom emoji file',
   },
-  emojiChooseFileAriaLabel: {
-    id: 'fabric.emoji.choose.file.ariaLabel',
+  emojiChooseFileScreenReaderDescription: {
+    id: 'fabric.emoji.choose.file.screenReaderDescription',
     defaultMessage:
       'Choose a file for the emoji. JPG, PNG or GIF. Max size 1 MB.',
     description:
       'Message indicating the purpose of choosing the file and requirements for the file',
+  },
+  emojiSelectSkinToneButtonAriaLabelText: {
+    id: 'fabric.emoji.select.skin.tone.ariaLabel',
+    defaultMessage: 'Select skin tone, {selectedTone}',
+    description:
+      'Message indicating the purpose of the skin tone selection button and the selected tone',
   },
   emojiImageRequirements: {
     id: 'fabric.emoji.image.requirements',

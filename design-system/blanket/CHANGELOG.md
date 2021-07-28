@@ -1,5 +1,16 @@
 # @atlaskit/blanket
 
+## 12.1.0
+
+### Minor Changes
+
+- [`6071d362abb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6071d362abb) - [ux] Colors now sourced from tokens.
+
+### Patch Changes
+
+- [`8279380176b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8279380176b) - Internal code changes.
+- Updated dependencies
+
 ## 12.0.1
 
 ### Patch Changes

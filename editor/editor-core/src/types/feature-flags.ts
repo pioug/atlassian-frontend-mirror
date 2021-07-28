@@ -119,15 +119,6 @@ export type FeatureFlags = {
 
   /**
    * @description
-   * Enable new list behaviors
-   *
-   * @see https://product-fabric.atlassian.net/browse/ED-9438
-   * @default true
-   */
-  predictableLists?: boolean;
-
-  /**
-   * @description
    * Enable undo/redo buttons and functionality within the editor
    *
    * @see https://product-fabric.atlassian.net/browse/ED-9537

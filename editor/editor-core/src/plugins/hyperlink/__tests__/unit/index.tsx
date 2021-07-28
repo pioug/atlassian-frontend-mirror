@@ -1,4 +1,3 @@
-import createStub from 'raf-stub';
 import {
   createProsemirrorEditorFactory,
   Preset,
@@ -13,11 +12,11 @@ import {
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
-import * as Toolbar from '../../Toolbar';
-import { FloatingToolbarConfig } from '../../../floating-toolbar/types';
 import analyticsPlugin from '../../../analytics';
 import tasksAndDecisionsPlugin from '../../../tasks-and-decisions';
-import floatingToolbarPlugin from '../../../floating-toolbar';
+import floatingToolbarPlugin, {
+  pluginKey as floatingToolbarPluginKey,
+} from '../../../floating-toolbar';
 import hyperlinkPlugin from '../../index';
 import blockTypePlugin from '../../../block-type';
 import typeAheadPlugin from '../../../type-ahead';
@@ -84,66 +83,41 @@ describe('hyperlink', () => {
       });
 
       describe('floating toolbar', () => {
-        let waitForAnimationFrame: any;
-        let getFloatingToolbarSpy: jest.SpyInstance<
-          FloatingToolbarConfig | undefined
-        >;
-
-        beforeAll(() => {
-          let stub = createStub();
-          waitForAnimationFrame = stub.flush;
-          jest
-            .spyOn(window, 'requestAnimationFrame')
-            .mockImplementation(stub.add);
-          getFloatingToolbarSpy = jest.spyOn(Toolbar, 'getToolbarConfig');
-        });
-
-        beforeEach(() => {
-          getFloatingToolbarSpy.mockClear();
-          ((window.requestAnimationFrame as any) as jest.SpyInstance<
-            any
-          >).mockClear();
-        });
-
-        afterAll(() => {
-          ((window.requestAnimationFrame as any) as jest.SpyInstance<
-            any
-          >).mockRestore();
-          getFloatingToolbarSpy.mockRestore();
-        });
-
         it('should only add text, paragraph and heading, if no task/decision in schema', () => {
-          editor(doc(p(a({ href: 'google.com' })('web{<>}site'))));
-
-          waitForAnimationFrame();
-
-          expect(getFloatingToolbarSpy).toHaveLastReturnedWith(
-            expect.objectContaining({
-              nodeType: [
-                expect.objectContaining({ name: 'text' }),
-                expect.objectContaining({ name: 'paragraph' }),
-                expect.objectContaining({ name: 'heading' }),
-              ],
-            }),
+          const { editorView } = editor(
+            doc(p(a({ href: 'google.com' })('web{<>}site'))),
           );
+          const { state } = editorView;
+          const { getConfigWithNodeInfo } = floatingToolbarPluginKey.getState(
+            state,
+          )!;
+
+          expect(getConfigWithNodeInfo(state).config).toMatchObject({
+            nodeType: [
+              expect.objectContaining({ name: 'text' }),
+              expect.objectContaining({ name: 'paragraph' }),
+              expect.objectContaining({ name: 'heading' }),
+            ],
+          });
         });
 
         it('should include task and decision items from node type, if they exist in schema', () => {
-          editor(
+          const { editorView } = editor(
             doc(p(a({ href: 'google.com' })('web{<>}site'))),
             new Preset<LightEditorPlugin>().add(tasksAndDecisionsPlugin),
           );
 
-          waitForAnimationFrame();
+          const { state } = editorView;
+          const { getConfigWithNodeInfo } = floatingToolbarPluginKey.getState(
+            state,
+          )!;
 
-          expect(getFloatingToolbarSpy).toHaveLastReturnedWith(
-            expect.objectContaining({
-              nodeType: expect.arrayContaining([
-                expect.objectContaining({ name: 'taskItem' }),
-                expect.objectContaining({ name: 'decisionItem' }),
-              ]),
-            }),
-          );
+          expect(getConfigWithNodeInfo(state).config).toMatchObject({
+            nodeType: expect.arrayContaining([
+              expect.objectContaining({ name: 'taskItem' }),
+              expect.objectContaining({ name: 'decisionItem' }),
+            ]),
+          });
         });
       });
 

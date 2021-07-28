@@ -27,7 +27,7 @@ import { Command } from '../../../types';
 import { isParagraph, isTextSelection } from '../../../utils';
 import { closestElement } from '../../../utils/dom';
 import { mapSlice } from '../../../utils/slice';
-import { outdentList } from '../../lists/commands';
+import { outdentList } from '../../list/commands';
 import { getDecorations } from '../pm-plugins/decorations/plugin';
 import { buildColumnResizingDecorations } from '../pm-plugins/decorations/utils';
 import { createCommand, getPluginState } from '../pm-plugins/plugin-factory';

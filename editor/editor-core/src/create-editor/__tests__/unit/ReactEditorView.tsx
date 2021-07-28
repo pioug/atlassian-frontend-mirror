@@ -1043,10 +1043,10 @@ describe('@atlaskit/editor-core', () => {
       expect(actual).toBe(true);
     });
 
-    it('should return TRUE when UNSAFE_predictableLists changed', () => {
+    it('should return TRUE when UNSAFE_allowUndoRedoButtons is changed', () => {
       const nextProps: EditorProps = {
         ...props,
-        UNSAFE_predictableLists: false,
+        UNSAFE_allowUndoRedoButtons: true,
       };
 
       const actual = shouldReconfigureState(props, nextProps);

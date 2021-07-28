@@ -7,12 +7,12 @@ import {
   ConfluenceLogo,
   JiraIcon,
   JiraLogo,
-  JiraServiceDeskIcon,
-  JiraServiceDeskLogo,
+  JiraServiceManagementIcon,
+  JiraServiceManagementLogo,
   JiraSoftwareIcon,
   JiraSoftwareLogo,
-  OpsGenieIcon,
-  OpsGenieLogo,
+  OpsgenieIcon,
+  OpsgenieLogo,
 } from '@atlaskit/logo';
 
 import { CustomProductHome, ProductHome } from '../../src';
@@ -48,11 +48,11 @@ export const JiraProductHome = () => (
   />
 );
 
-export const JiraServiceDeskProductHome = () => (
+export const JiraServiceManagementProductHome = () => (
   <ProductHome
     siteTitle="Extranet"
-    icon={JiraServiceDeskIcon}
-    logo={JiraServiceDeskLogo}
+    icon={JiraServiceManagementIcon}
+    logo={JiraServiceManagementLogo}
     href="#"
   />
 );
@@ -70,8 +70,8 @@ export const OpsGenieProductHome = () => (
   <ProductHome
     siteTitle="Extranet"
     onClick={console.log}
-    icon={OpsGenieIcon}
-    logo={OpsGenieLogo}
+    icon={OpsgenieIcon}
+    logo={OpsgenieLogo}
   />
 );
 

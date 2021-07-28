@@ -1,14 +1,16 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import React, { useState } from 'react';
+import { getIframeSandboxAttribute } from '../../util';
 
 export interface FrameProps {
   url?: string;
+  isTrusted?: boolean;
   testId?: string;
 }
 
 export const Frame = React.forwardRef<HTMLIFrameElement, FrameProps>(
-  ({ url, testId }, iframeRef) => {
+  ({ url, isTrusted = false, testId }, iframeRef) => {
     const [isIframeLoaded, setIframeLoaded] = useState(false);
     if (!url) {
       return null;
@@ -34,6 +36,7 @@ export const Frame = React.forwardRef<HTMLIFrameElement, FrameProps>(
         scrolling="yes"
         allow="autoplay; encrypted-media"
         onLoad={() => setIframeLoaded(true)}
+        sandbox={getIframeSandboxAttribute(isTrusted)}
       />
     );
   },

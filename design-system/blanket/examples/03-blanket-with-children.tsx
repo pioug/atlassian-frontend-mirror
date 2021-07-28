@@ -9,17 +9,19 @@ import { DN50, N0 } from '@atlaskit/theme/colors';
 import { AtlaskitThemeProvider } from '@atlaskit/theme/components';
 import { gridSize } from '@atlaskit/theme/constants';
 import type { ThemeModes } from '@atlaskit/theme/types';
+import { token } from '@atlaskit/tokens';
 
 import Blanket from '../src';
 
-const blanketChildStyle = css({
+const blanketChildStyles = css({
   width: '50%',
   margin: `${gridSize() * 3}px auto`,
   padding: `${gridSize() * 5}px`,
-  backgroundColor: N0,
+  backgroundColor: token('color.background.default', N0),
 });
-const blanketChildStyleDark = css({
-  backgroundColor: DN50,
+
+const darkBackgroundStyles = css({
+  backgroundColor: token('color.background.default', DN50),
 });
 
 const LIGHT = 'light';
@@ -79,8 +81,8 @@ const BasicExample = () => {
         >
           <Lorem
             css={[
-              blanketChildStyle,
-              themeMode === DARK && blanketChildStyleDark,
+              blanketChildStyles,
+              themeMode === DARK && darkBackgroundStyles,
             ]}
             count={20}
           />

@@ -23,6 +23,7 @@ import {
   ExampleViewInlineCommentComponent,
 } from '@atlaskit/editor-test-helpers/example-inline-comment-component';
 import { createEditorMediaMock } from '@atlaskit/editor-test-helpers/media-mock';
+import { TestExtensionProviders } from '@atlaskit/editor-test-helpers/vr-utils';
 
 import {
   JSONTransformer,
@@ -35,7 +36,8 @@ import { withSidebarContainer } from './SidebarContainer';
 import quickInsertProviderFactory from './quick-insert-provider';
 
 import { EditorProps } from '../src';
-import { createTestExtensionProvider } from '../src/plugins/floating-toolbar/ui/__tests__/__helpers/extensions';
+import { createTestExtensionProvider } from '../src/plugins/floating-toolbar/__tests__/_helpers';
+import { createExtensionFramesProvider } from '../src/__tests__/visual-regression/common/__helpers__/extensionFrameManifest';
 
 const mediaMockServer = createEditorMediaMock();
 /**
@@ -82,7 +84,10 @@ function createEditorWindowBindings<T>(
     }
 
     options.providers = mapPropsToProviders(options.providers, props);
-    const providers = createProviders(options.providers);
+    const providers = createProviders(options.providers, {
+      editorProps: {},
+      withTestExtensionProviders: options.withTestExtensionProviders,
+    });
 
     const Wrapper = MaybeWrapper || createWrappers(options, render);
     const extensionHandlers = createExtensionHandlers(
@@ -222,7 +227,13 @@ function addDummyMediaAltTextValidator(
 
 function createProviders(
   opts: Record<string, any> = {},
-  props: EditorProps = {},
+  {
+    withTestExtensionProviders = {},
+    editorProps: props = {},
+  }: {
+    withTestExtensionProviders?: TestExtensionProviders;
+    editorProps?: EditorProps;
+  },
 ) {
   const providers: Record<string, any> = {
     emojiProvider: getEmojiProvider({
@@ -250,7 +261,15 @@ function createProviders(
   }
 
   if (opts.extensionProviders) {
-    providers.extensionProviders = [createTestExtensionProvider(() => {})];
+    const extensionProvidersArr = [];
+    if (withTestExtensionProviders.extensionFrameManifest) {
+      extensionProvidersArr.push(createExtensionFramesProvider());
+    }
+    if (withTestExtensionProviders.floatingToolbarManifest) {
+      extensionProvidersArr.push(createTestExtensionProvider(() => {}));
+    }
+
+    providers.extensionProviders = extensionProvidersArr;
   }
 
   return providers;
@@ -471,6 +490,8 @@ export type MountEditorOptions = {
   i18n?: { locale: string };
   mode?: 'dark';
   withSidebar?: boolean;
+  /** Toggles chosen extension providers */
+  withTestExtensionProviders?: TestExtensionProviders;
   withContextPanel?: boolean;
   providers?: Record<string, boolean>;
   extensionHandlers?: boolean;

@@ -2,12 +2,17 @@ import React from 'react';
 import { EditorView, NodeView } from 'prosemirror-view';
 import { Node as PmNode } from 'prosemirror-model';
 import { ProviderFactory, ExtensionHandlers } from '@atlaskit/editor-common';
+import { EditorAppearance } from '../../../types/editor-appearance';
 import { ReactNodeView } from '../../../nodeviews';
 import Extension from '../ui/Extension';
 import ExtensionNodeWrapper from '../ui/Extension/ExtensionNodeWrapper';
 import { PortalProviderAPI } from '../../../ui/PortalProvider';
 import { ForwardRef, getPosHandler } from '../../../nodeviews/';
 import { EventDispatcher } from '../../../event-dispatcher';
+
+interface ExtensionNodeViewOptions {
+  appearance?: EditorAppearance;
+}
 
 export interface Props {
   node: PmNode;
@@ -44,6 +49,8 @@ export class ExtensionNode extends ReactNodeView {
     props: {
       providerFactory: ProviderFactory;
       extensionHandlers: ExtensionHandlers;
+      // referentiality plugin won't utilise appearance just yet
+      extensionNodeViewOptions?: ExtensionNodeViewOptions;
     },
     forwardRef: ForwardRef,
   ) {
@@ -55,6 +62,7 @@ export class ExtensionNode extends ReactNodeView {
           providerFactory={props.providerFactory}
           handleContentDOMRef={forwardRef}
           extensionHandlers={props.extensionHandlers}
+          editorAppearance={props.extensionNodeViewOptions?.appearance}
         />
       </ExtensionNodeWrapper>
     );
@@ -66,6 +74,7 @@ export default function ExtensionNodeView(
   eventDispatcher: EventDispatcher,
   providerFactory: ProviderFactory,
   extensionHandlers: ExtensionHandlers,
+  extensionNodeViewOptions: ExtensionNodeViewOptions,
 ) {
   return (node: PmNode, view: EditorView, getPos: getPosHandler): NodeView => {
     return new ExtensionNode(
@@ -77,6 +86,7 @@ export default function ExtensionNodeView(
       {
         providerFactory,
         extensionHandlers,
+        extensionNodeViewOptions,
       },
     ).init();
   };

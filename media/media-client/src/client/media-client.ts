@@ -53,6 +53,13 @@ export class MediaClient {
     return this.mediaStore.getFileImageURL(id, params);
   }
 
+  public getImageUrlSync(
+    id: string,
+    params?: MediaStoreGetFileImageParams,
+  ): string {
+    return this.mediaStore.getFileImageURLSync(id, params);
+  }
+
   public async getImageMetadata(
     id: string,
     params?: MediaStoreGetFileImageParams,

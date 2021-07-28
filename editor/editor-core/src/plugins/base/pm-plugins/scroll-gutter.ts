@@ -4,7 +4,7 @@ import { isEmptyDocument } from '../../../utils';
 import { getmobileScrollPluginState } from '../../mobile-scroll/utils';
 
 export const GUTTER_SIZE_IN_PX = 120; // Default gutter size
-export const GUTTER_SIZE_MOBILE_IN_PX = 50; // Gutter size for Mobile
+export const GUTTER_SIZE_MOBILE_IN_PX = 36; // Gutter size for Mobile
 export const GUTTER_SELECTOR = '#editor-scroll-gutter';
 const MIN_TAP_SIZE_IN_PX = 40;
 

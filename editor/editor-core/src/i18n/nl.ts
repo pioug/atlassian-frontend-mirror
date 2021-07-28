@@ -165,6 +165,10 @@ export default {
   'fabric.editor.horizontalRule': 'Scheidingslijn',
   'fabric.editor.horizontalRule.description':
     'Inhoud scheiden met een horizontale lijn',
+  'fabric.editor.hyperlink.searchLinkAriaDescription':
+    'Suggesties verschijnen hieronder zodra je in het veld typt',
+  'fabric.editor.hyperlink.searchLinkResults':
+    '{count, plural, =0 {geen resultaten gevonden} one {{count,number} resultaat gevonden} other {{count,number} resultaten gevonden}}',
   'fabric.editor.hyperlinkToolbarPlaceholder':
     'Link plakken of recent bekeken zoeken',
   'fabric.editor.image': 'Afbeelding',

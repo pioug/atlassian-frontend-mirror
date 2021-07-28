@@ -46,9 +46,6 @@ export function createFeatureFlagsFromProps(props: EditorProps): FeatureFlags {
         ? false
         : Boolean(props.allowTables.allowAddColumnWithCustomStep),
 
-    // Predictable lists are defaulted to enabled unless specifically set to false (opt out)
-    predictableLists: props.UNSAFE_predictableLists !== false,
-
     undoRedoButtons: props.UNSAFE_allowUndoRedoButtons,
 
     catchAllTracking: props.performanceTracking?.catchAllTracking?.enabled,

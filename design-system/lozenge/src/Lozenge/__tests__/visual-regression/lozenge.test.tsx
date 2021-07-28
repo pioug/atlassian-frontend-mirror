@@ -20,4 +20,23 @@ describe('Snapshot Test', () => {
     const image = await page.screenshot();
     expect(image).toMatchProdImageSnapshot();
   });
+
+  it('Lozenge inside overflow container example should match production example', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'lozenge',
+      'inside-overflow-container',
+      global.__BASEURL__,
+    );
+    const { page } = global;
+    await loadPage(page, url);
+    await page.waitForSelector(
+      'span[data-testid="lozenge-truncated-by-maxWidth"]',
+    );
+    await page.waitForSelector(
+      'span[data-testid="lozenge-truncated-by-container-size"]',
+    );
+    const image = await page.screenshot();
+    expect(image).toMatchProdImageSnapshot();
+  });
 });

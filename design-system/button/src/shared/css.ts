@@ -122,6 +122,7 @@ export function getCss({
   });
 
   return {
+    // 0px margin added to css-reset
     alignItems: 'baseline',
     borderWidth: 0,
     borderRadius,
@@ -132,6 +133,7 @@ export function getCss({
     // Chrome recently changed button so that they use 'arial' as the font family
     fontFamily: 'inherit',
     fontWeight: 500,
+    // margin for button has been applied to css reset
     maxWidth: '100%',
     // Needed to position overlay
     position: 'relative',

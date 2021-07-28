@@ -1,18 +1,33 @@
 /** @jsx jsx */
 import { forwardRef, useMemo, useState } from 'react';
 
-import { jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/core';
 
 import { Popper } from '@atlaskit/popper';
+import { N0, N50A, N60A } from '@atlaskit/theme/colors';
+import { borderRadius, layers } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 import { RepositionOnUpdate } from './RepositionOnUpdate';
-import { popupCSS } from './styles';
 import { PopperWrapperProps, PopupComponentProps } from './types';
 import { useCloseManager } from './useCloseManager';
 import { useFocusManager } from './useFocusManager';
 
+const popupStyles = css({
+  display: 'block',
+  boxSizing: 'border-box',
+  zIndex: layers.layer(),
+  flex: '1 1 auto',
+  backgroundColor: token('color.background.overlay', N0),
+  borderRadius: `${borderRadius()}px`,
+  boxShadow: token('shadow.overlay', `0 4px 8px -2px ${N50A}, 0 0 1px ${N60A}`),
+  overflow: 'auto',
+  ':focus': {
+    outline: 'none',
+  },
+});
 const DefaultPopupComponent = forwardRef<HTMLDivElement, PopupComponentProps>(
-  (props, ref) => <div css={popupCSS} ref={ref} {...props} />,
+  (props, ref) => <div css={popupStyles} ref={ref} {...props} />,
 );
 
 function PopperWrapper({

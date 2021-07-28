@@ -1,59 +1,89 @@
-import React from 'react';
+/** @jsx jsx */
 
-import styled, { css } from 'styled-components';
+import { css, jsx, SerializedStyles } from '@emotion/core';
 
 import { sizes, WrapperProps } from './constants';
 
-type SpanProps = Partial<WrapperProps>;
+const CSS_VAR_COLOR = '--logo-color';
+const CSS_VAR_FILL = '--logo-fill';
 
-const Span = styled.span<SpanProps>`
-  color: ${(p) => p.iconColor};
-  display: inline-block;
-  fill: ${(p) => p.textColor};
-  height: ${(p) => p.size && sizes[p.size]}px;
-  position: relative;
-  user-select: none;
+const baseWrapperStyles = css({
+  display: 'inline-block',
+  position: 'relative',
+  color: `var(${CSS_VAR_COLOR})`,
+  fill: `var(${CSS_VAR_FILL})`,
+  userSelect: 'none',
+  '> svg': {
+    width: '100%',
+    height: '100%',
+    position: 'absolute',
+    top: '0',
+    left: '0',
+    fill: 'inherit',
+  },
+  '> canvas': {
+    display: 'block',
+    height: '100%',
+    visibility: 'hidden',
+  },
+});
 
-  > svg {
-    fill: inherit;
-    height: 100%;
-    left: 0;
-    position: absolute;
-    top: 0;
-    width: 100%;
-  }
-  > canvas {
-    display: block;
-    height: 100%;
-    visibility: hidden;
-  }
-  ${(p) =>
-    /* Only apply this if our stop-colors are inherit, if they aren't we don't need to set stop-color via css */
-    p.iconGradientStart === 'inherit' &&
-    p.iconGradientStop === 'inherit' &&
-    css`
-      /* Stop-color doesn't properly apply in chrome when the inherited/current color changes.
-      * We have to initially set stop-color to inherit (either via DOM attribute or an initial CSS
-      * rule) and then override it with currentColor for the color changes to be picked up.
-      */
-      stop {
-        stop-color: currentColor;
+const stopColorStyles = css({
+  stop: {
+    stopColor: 'currentColor',
+  },
+});
+
+type Size = keyof typeof sizes;
+type SizeStyles = Record<Size, SerializedStyles>;
+const sizeStyles = Object.entries(sizes).reduce((acc, [key, val]) => {
+  acc[key as Size] = css({
+    height: `${val}px`,
+  });
+  return acc;
+}, {} as Partial<SizeStyles>) as SizeStyles;
+
+/**
+ * __Wrapper__
+ *
+ * An internal component used by `@atlaskit/logo` to render logo SVGs with correct styles.
+ */
+const Wrapper = ({
+  label,
+  svg,
+  iconGradientStart,
+  iconGradientStop,
+  size,
+  iconColor,
+  textColor,
+  ...rest
+}: WrapperProps) => {
+  const shouldApplyStopColor =
+    iconGradientStart === 'inherit' && iconGradientStop === 'inherit';
+  return (
+    <span
+      css={[
+        baseWrapperStyles,
+        shouldApplyStopColor && stopColorStyles,
+        size && sizeStyles[size],
+      ]}
+      style={
+        {
+          [CSS_VAR_COLOR]: iconColor,
+          [CSS_VAR_FILL]: textColor,
+        } as React.CSSProperties
       }
-    `};
-`;
-
-const Wrapper = ({ label, svg, ...rest }: WrapperProps) => (
-  <Span
-    aria-label={label ? label : undefined}
-    role={label ? 'img' : 'presentation'}
-    dangerouslySetInnerHTML={{
-      __html:
-        typeof svg === 'function'
-          ? svg(String(rest.iconGradientStart), String(rest.iconGradientStop))
-          : svg,
-    }}
-    {...rest}
-  />
-);
+      aria-label={label ? label : undefined}
+      role={label ? 'img' : 'presentation'}
+      dangerouslySetInnerHTML={{
+        __html:
+          typeof svg === 'function'
+            ? svg(String(iconGradientStart), String(iconGradientStop))
+            : svg,
+      }}
+      {...rest}
+    />
+  );
+};
 
 export default Wrapper;

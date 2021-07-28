@@ -3,7 +3,7 @@ import { shallow, ReactWrapper } from 'enzyme';
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { FieldComponent, FieldComponentProps } from '../../FormContent';
 import ColorPickerField from '../../Fields/ColorPicker';
-import ColorPickerButton from '../../../ColorPickerButton/color-picker-button';
+import ColorPickerButton from '../../../ColorPickerButton';
 
 describe('ColorField', () => {
   it('should render a color field when given the props with type: "color"', () => {

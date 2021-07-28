@@ -1,5 +1,11 @@
 # @atlaskit/logo
 
+## 13.5.2
+
+### Patch Changes
+
+- [`545d363ca28`](https://bitbucket.org/atlassian/atlassian-frontend/commits/545d363ca28) - Convert usage of `styled-components` to `emotion`.
+
 ## 13.5.1
 
 ### Patch Changes

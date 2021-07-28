@@ -1,5 +1,17 @@
 # @atlaskit/atlassian-navigation
 
+## 1.1.0
+
+### Minor Changes
+
+- [`e1bac029e02`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e1bac029e02) - [ux] Added notification badge to the Help button
+
+### Patch Changes
+
+- [`956eeeed790`](https://bitbucket.org/atlassian/atlassian-frontend/commits/956eeeed790) - [ux] Styles for the product icon and logo have been slightly refactored.
+- [`88a19402c24`](https://bitbucket.org/atlassian/atlassian-frontend/commits/88a19402c24) - Updates to internal tests.
+- Updated dependencies
+
 ## 1.0.0
 
 ### Major Changes

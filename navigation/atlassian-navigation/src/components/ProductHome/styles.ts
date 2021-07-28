@@ -52,8 +52,8 @@ const heightCSS = {
 export const productIconCSS = {
   // Ensure anything passed into
   // productHome is aligned correctly
+  display: 'flex',
   '& > *': {
-    display: 'flex',
     maxHeight: 24,
   },
   [`@media (min-width: ${PRODUCT_HOME_BREAKPOINT}px)`]: {
@@ -77,19 +77,13 @@ export const customProductIconCSS = {
 export const productLogoCSS = (logoMaxWidth: number) => ({
   // Ensure anything passed into
   // productHome is aligned correctly
+  display: 'flex',
   maxWidth: logoMaxWidth,
   '& > *': {
-    display: 'flex',
     maxHeight: 24,
-    maxWidth: logoMaxWidth,
   },
   [`@media (max-width: ${PRODUCT_HOME_BREAKPOINT - 1}px)`]: {
     display: 'none',
-  },
-  // Continue to display custom logo
-  // if custom icon is missing.
-  '&:only-child': {
-    display: 'flex',
   },
 });
 

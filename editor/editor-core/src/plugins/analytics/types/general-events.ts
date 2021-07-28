@@ -11,6 +11,10 @@ import {
   INPUT_METHOD,
 } from './enums';
 import { PluginPerformanceReportData } from '../../../utils/performance/plugin-performance-report';
+import {
+  ShallowPropsDifference,
+  PropsDifference,
+} from '../../../utils/compare';
 import { FeatureFlagKey } from '../../../types/feature-flags';
 import { AnnotationAEP } from './inline-comment-events';
 import { RichMediaLayout } from '@atlaskit/adf-schema';
@@ -121,6 +125,17 @@ type EditorContentRetrievalPerformedAEP = OperationalAEP<
     success: boolean;
     errorInfo?: string;
     errorStack?: string;
+  },
+  undefined
+>;
+
+type EditorRenderedAEP<T> = OperationalAEP<
+  ACTION.RE_RENDERED,
+  ACTION_SUBJECT.EDITOR | ACTION_SUBJECT.REACT_EDITOR_VIEW,
+  undefined,
+  {
+    propsDifference: PropsDifference<T> | ShallowPropsDifference<T>;
+    count: number;
   },
   undefined
 >;
@@ -392,7 +407,7 @@ type CodeBlockLanguageSelectedAEP = TrackAEP<
   undefined
 >;
 
-export type GeneralEventPayload =
+export type GeneralEventPayload<T = void> =
   | AnnotateButtonAEP
   | AnnotationAEP
   | BrowserFreezePayload
@@ -401,6 +416,7 @@ export type GeneralEventPayload =
   | ColorPickerAEP
   | DispatchedTransactionAEP
   | EditorPerfAEP
+  | EditorRenderedAEP<T>
   | EditorStartAEP
   | EditorStopAEP
   | EditorTTIAEP

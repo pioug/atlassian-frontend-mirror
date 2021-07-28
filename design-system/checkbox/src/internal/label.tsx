@@ -21,13 +21,19 @@ export const labelCSS = (): CSSObject => ({
   },
 });
 
-export default function Label({ children, isDisabled, testId }: LabelProps) {
+export default function Label({
+  children,
+  isDisabled,
+  testId,
+  onClick,
+}: LabelProps) {
   const styles = useMemo(() => labelCSS(), []);
   return (
     <label
       css={styles}
       data-testid={testId}
       data-disabled={isDisabled || undefined}
+      onClick={onClick}
     >
       {children}
     </label>

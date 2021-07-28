@@ -1,6 +1,9 @@
 import { BaseMediaClientError } from '../../models/errors';
 
-export type MediaStoreErrorReason = 'failedAuthProvider' | 'tokenExpired';
+export type MediaStoreErrorReason =
+  | 'failedAuthProvider'
+  | 'tokenExpired'
+  | 'missingInitialAuth';
 
 export type MediaStoreErrorAttributes = {
   readonly reason: MediaStoreErrorReason;

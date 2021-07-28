@@ -1,11 +1,24 @@
-import React from 'react';
+/** @jsx jsx */
+import { memo } from 'react';
 
-import GlobalTheme, { GlobalThemeTokens } from '@atlaskit/theme/components';
+import { css, jsx } from '@emotion/core';
 
-import Container from './internal/components/container';
-import Format from './internal/components/format';
-import { Theme, ThemeTokens } from './internal/theme';
+import { useGlobalTheme } from '@atlaskit/theme/components';
+
+import { backgroundColors, textColors } from './internal/theme';
+import { formatValue } from './internal/utils';
 import type { BadgeProps } from './types';
+
+const badgeStyles = css({
+  display: 'inline-block',
+  minWidth: '1px',
+  padding: '2px 6px',
+  borderRadius: '8px',
+  fontSize: '12px',
+  fontWeight: 'normal',
+  lineHeight: 1,
+  textAlign: 'center',
+});
 
 /**
  * __Badge__
@@ -16,34 +29,31 @@ import type { BadgeProps } from './types';
  * - [Code](https://atlassian.design/components/badge/code)
  * - [Usage](https://atlassian.design/components/badge/usage)
  */
-function Badge({
-  theme,
+const Badge = memo(function Badge({
   appearance = 'default',
   children = 0,
   max = 99,
+  style,
   testId,
-}: // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
-BadgeProps) {
+}: BadgeProps) {
+  const { mode } = useGlobalTheme();
+  const backgroundColor =
+    style?.backgroundColor ?? backgroundColors[appearance][mode];
+  const textColor = style?.color ?? textColors[appearance][mode];
+
   return (
-    <Theme.Provider value={theme}>
-      <GlobalTheme.Consumer>
-        {({ mode }: GlobalThemeTokens) => (
-          <Theme.Consumer appearance={appearance} mode={mode}>
-            {(tokens: ThemeTokens) => (
-              <Container {...tokens} data-testid={testId}>
-                {typeof children === 'string' ? (
-                  children
-                ) : (
-                  <Format max={max}>{children}</Format>
-                )}
-              </Container>
-            )}
-          </Theme.Consumer>
-        )}
-      </GlobalTheme.Consumer>
-    </Theme.Provider>
+    <span
+      data-testid={testId}
+      css={badgeStyles}
+      style={{
+        backgroundColor,
+        color: textColor,
+      }}
+    >
+      {typeof children === 'number' ? formatValue(children, max) : children}
+    </span>
   );
-}
+});
 
 Badge.displayName = 'Badge';
 

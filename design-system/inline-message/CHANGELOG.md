@@ -1,5 +1,12 @@
 # @atlaskit/inline-message
 
+## 11.1.2
+
+### Patch Changes
+
+- [`8279380176b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8279380176b) - Internal code changes.
+- Updated dependencies
+
 ## 11.1.1
 
 ### Patch Changes

@@ -8,7 +8,7 @@ import Tooltip from '@atlaskit/tooltip';
 import { gridSize } from '@atlaskit/theme/constants';
 import { N30A } from '@atlaskit/theme/colors';
 
-const iconExplorerLink = css({
+const iconExplorerLinkStyles = css({
   '&,&:hover,&:active,&:focus': {
     display: 'block',
     padding: 10,
@@ -22,7 +22,7 @@ const iconExplorerLink = css({
   },
 });
 
-const iconModalHeader = css({
+const iconModalHeaderStyles = css({
   display: 'flex',
   padding: 20,
   alignItems: 'center',
@@ -31,33 +31,33 @@ const iconModalHeader = css({
 });
 
 const IconModalHeader: FC = (props) => (
-  <h3 css={iconModalHeader} {...props}>
+  <h3 css={iconModalHeaderStyles} {...props}>
     {props.children}
   </h3>
 );
 
-const divider = css({
+const dividerStyles = css({
   width: '100%',
   textAlign: 'center',
 });
 
 const Divider: FC = (props) => (
-  <h4 css={divider} {...props}>
+  <h4 css={dividerStyles} {...props}>
     {props.children}
   </h4>
 );
 
 interface IconExplorerCellProps {
+  // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
   component: ComponentType<any>;
   componentName: string;
   package?: string;
-  // eslint-disable-next-line @typescript-eslint/naming-convention
+  // eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
   divider?: boolean;
-  // eslint-disable-next-line @typescript-eslint/naming-convention
+  // eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
   namedImport?: boolean;
 }
 
-// eslint-disable-next-line @repo/internal/react/consistent-props-definitions
 const IconExplorerCell: FC<IconExplorerCellProps> = ({
   component: Icon,
   componentName,
@@ -134,7 +134,7 @@ const IconExplorerCell: FC<IconExplorerCellProps> = ({
     <div>
       <Tooltip content={componentName}>
         {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions, jsx-a11y/anchor-is-valid */}
-        <a css={iconExplorerLink} onClick={openModal}>
+        <a css={iconExplorerLinkStyles} onClick={openModal}>
           <Icon label={componentName} size="medium" />
         </a>
       </Tooltip>

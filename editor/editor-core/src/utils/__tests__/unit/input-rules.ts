@@ -13,7 +13,7 @@ import {
   LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import listPlugin from '../../../plugins/lists-predictable';
+import listPlugin from '../../../plugins/list';
 import basePlugin from '../../../plugins/base';
 import mediaPlugin from '../../../plugins/media';
 import hyperlinkPlugin from '../../../plugins/hyperlink';

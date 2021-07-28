@@ -78,7 +78,11 @@ export {
   buildMenuItem,
 } from './module-helpers';
 
-export { getExtensionModuleNode, getNodeRenderer } from './extension-handlers';
+export {
+  getExtensionModuleNode,
+  getExtensionModuleNodePrivateProps,
+  getNodeRenderer,
+} from './extension-handlers';
 
 export { default as combineExtensionProviders } from './combine-extension-providers';
 

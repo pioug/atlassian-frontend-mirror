@@ -5,13 +5,11 @@ import { CardOptions } from '@atlaskit/editor-common';
 export type PastePluginOptions = {
   cardOptions?: CardOptions;
   sanitizePrivateContent?: boolean;
-  predictableLists?: boolean;
 };
 
 const pastePlugin = ({
   cardOptions,
   sanitizePrivateContent,
-  predictableLists,
 }: PastePluginOptions): EditorPlugin => ({
   name: 'paste',
 
@@ -25,7 +23,6 @@ const pastePlugin = ({
             dispatchAnalyticsEvent,
             cardOptions,
             sanitizePrivateContent,
-            predictableLists,
             providerFactory,
           ),
       },

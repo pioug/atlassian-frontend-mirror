@@ -12,8 +12,13 @@ if (!require.extensions['.ts']) {
   });
 }
 
-// We programatically register tsconfig paths here so it picks up the tsconfig here
-// instead of in root CWD.
-paths.register(paths.loadConfig(__dirname));
+try {
+  // We programatically register tsconfig paths here so it picks up the tsconfig here
+  // instead of in root CWD.
+  paths.register(paths.loadConfig(__dirname));
+} catch (e) {
+  // eslint-disable-next-line no-console
+  console.log(e);
+}
 
 module.exports = require('./src/index');

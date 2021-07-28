@@ -1,22 +1,22 @@
 /** @jsx jsx */
 import { FC, Fragment, useState } from 'react';
 
-import { jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/core';
 
 import Button from '@atlaskit/button/standard-button';
 
 import Popup from '../src';
 
-const spacerCSS = {
+const spacerStyles = css({
   margin: '250px',
-};
+});
 
-const sizedContentCSS = {
-  alignItems: 'center',
+const sizedContentStyles = css({
   padding: '10px',
+  alignItems: 'center',
   textAlign: 'center',
   verticalAlign: 'center',
-} as const;
+});
 
 const OtherItems: FC = () => {
   return (
@@ -33,13 +33,13 @@ const OtherItems: FC = () => {
 const PopupContent: FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <div id="popup-content" css={sizedContentCSS}>
+    <div id="popup-content" css={sizedContentStyles}>
       <Popup
         isOpen={isOpen}
         placement="right-start"
         onClose={() => setIsOpen(false)}
         content={() => (
-          <div id="popup-content-2" css={sizedContentCSS}>
+          <div id="popup-content-2" css={sizedContentStyles}>
             <div>A second pop-up</div>
             <OtherItems />
           </div>
@@ -67,7 +67,7 @@ export default () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div css={spacerCSS}>
+    <div css={spacerStyles}>
       <Popup
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}

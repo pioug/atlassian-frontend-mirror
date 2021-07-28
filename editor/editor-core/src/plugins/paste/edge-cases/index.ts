@@ -6,7 +6,7 @@ import {
   insertSliceAtNodeEdge,
   insertSliceIntoEmptyNode,
 } from './lists';
-import { isListNode } from '../../lists-predictable/utils/node';
+import { isListNode } from '../../list/utils/node';
 import {
   isSelectionInsidePanel,
   isEmptyNode,

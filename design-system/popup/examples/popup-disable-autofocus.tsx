@@ -1,28 +1,28 @@
 /** @jsx jsx */
 import { FC, useEffect, useState } from 'react';
 
-import { jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/core';
 
 import Button from '@atlaskit/button/standard-button';
 
 import Popup from '../src';
 
-const spacerCSS = {
+const spacerStyles = css({
   margin: '250px',
-};
+});
 
-const sizedContentCSS = {
-  alignItems: 'center',
+const sizedContentStyles = css({
   height: '80px',
-  overflow: 'auto',
   padding: '30px',
+  alignItems: 'center',
+  overflow: 'auto',
   textAlign: 'center',
   verticalAlign: 'center',
-} as const;
+});
 
 const PopupContent: FC = () => {
   return (
-    <div id="popup-content" css={sizedContentCSS}>
+    <div id="popup-content" css={sizedContentStyles}>
       Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum fugit aut
       reiciendis fuga praesentium illo rerum, libero, placeat deleniti inventore
       odit incidunt laborum qui nam voluptatum iusto voluptas sapiente magnam?
@@ -39,7 +39,7 @@ export default () => {
   });
 
   return (
-    <div id="container" css={spacerCSS}>
+    <div id="container" css={spacerStyles}>
       <Popup
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}

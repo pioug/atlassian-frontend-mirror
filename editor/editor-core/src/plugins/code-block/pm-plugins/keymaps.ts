@@ -75,6 +75,12 @@ export function keymapPlugin(schema: Schema): Plugin | undefined {
         return true;
       }
 
+      // Handle not nested empty code block
+      if (isEmptyNode(schema)($cursor.node())) {
+        dispatch(deleteCurrentItem($cursor)(state?.tr));
+        return true;
+      }
+
       return false;
     },
   });

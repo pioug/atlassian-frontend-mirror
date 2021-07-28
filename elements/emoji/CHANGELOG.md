@@ -1,5 +1,14 @@
 # @atlaskit/emoji
 
+## 63.1.6
+
+### Patch Changes
+
+- [`81c07c8a095`](https://bitbucket.org/atlassian/atlassian-frontend/commits/81c07c8a095) - AK-340: add screen reader description text to the Choose custom emoji button
+- [`6f94f8032cd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6f94f8032cd) - AK-95: fetch emoji as images in order to fix Windows High Contrast mode issues
+- [`e7d86570528`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e7d86570528) - AK-110, Emoji picker: make skin tone selection accessible for screen-reader and keyboard users
+- Updated dependencies
+
 ## 63.1.5
 
 ### Patch Changes

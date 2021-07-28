@@ -9,7 +9,6 @@ import { Command } from '../../types';
 import { SelectionActionTypes } from './actions';
 import { createCommand, getPluginState } from './plugin-factory';
 import {
-  getDecorations,
   isSelectableContainerNode,
   isSelectionAtEndOfParentNode,
   findSelectableContainerParent,
@@ -20,13 +19,6 @@ import {
   findLastChildNodeToSelect,
 } from './utils';
 import { RelativeSelectionPos, SelectionDirection } from './types';
-
-export const setDecorations = () =>
-  createCommand((state) => ({
-    type: SelectionActionTypes.SET_DECORATIONS,
-    selection: state.tr.selection,
-    decorationSet: getDecorations(state.tr),
-  }));
 
 export const setSelectionRelativeToNode = (
   selectionRelativeToNode?: RelativeSelectionPos,

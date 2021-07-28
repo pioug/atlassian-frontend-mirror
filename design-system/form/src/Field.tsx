@@ -69,13 +69,15 @@ interface Props<FieldValue, Element extends SupportedElements> {
     meta: Meta;
   }) => React.ReactNode;
   /* The default value of the field. If a function is provided it is called with the current default value of the field. */
-  defaultValue: FieldValue | ((currentDefaultValue?: FieldValue) => FieldValue);
+  defaultValue?:
+    | FieldValue
+    | ((currentDefaultValue?: FieldValue) => FieldValue);
   /* Passed to the ID attribute of the field. Randomly generated if not specified */
   id?: string;
   /* Whether the field is required for submission */
   isRequired?: boolean;
   /* Whether the field is disabled. If the parent Form component is disabled, then the field will always be disabled */
-  isDisabled: boolean;
+  isDisabled?: boolean;
   /* Label displayed above the field */
   label?: ReactNode;
   /* The name of the field */
@@ -148,13 +150,13 @@ function isShallowEqual<FieldValue>(
   return false;
 }
 
-function Field<
+export default function Field<
   FieldValue = string,
   Element extends SupportedElements = HTMLInputElement
 >(props: Props<FieldValue, Element>) {
   const registerField = useContext(FormContext);
-  const isDisabled = useContext(IsDisabledContext) || props.isDisabled;
-  const defaultValue = isFunction(props.defaultValue)
+  const isDisabled = useContext(IsDisabledContext) || props.isDisabled || false;
+  const defaultValue = isFunction<FieldValue | undefined>(props.defaultValue)
     ? props.defaultValue()
     : props.defaultValue;
 
@@ -163,6 +165,13 @@ function Field<
       onChange: () => {},
       onBlur: () => {},
       onFocus: () => {},
+      /* Previously, defaultValue was being set as undefined in Field.defaultProps, which
+       * effectively made it an optional prop to external consumers of Field. However the
+       * prop types defined defaultValue as required, so inside the component it was not
+       * valid for defaultValue to be undefined. We need to suppress the error
+       * after changing defaultValue to explictly be an optional prop.
+       */
+      // @ts-ignore
       value: defaultValue,
     },
     error: undefined,
@@ -219,6 +228,7 @@ function Field<
 
     const unregister = registerField<FieldValue>(
       latestPropsRef.current.name,
+      // @ts-ignore
       latestPropsRef.current.defaultValue,
       (fieldState) => {
         /** Do not update dirtySinceLastSubmit until submission has finished. */
@@ -370,10 +380,3 @@ function Field<
     </FieldWrapper>
   );
 }
-
-Field.defaultProps = {
-  defaultValue: undefined,
-  isDisabled: false,
-};
-
-export default Field;

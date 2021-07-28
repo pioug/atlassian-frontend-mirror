@@ -9,6 +9,7 @@ import {
   ExtensionHandlers,
   Providers,
 } from '@atlaskit/editor-common';
+import { EditorAppearance } from '../../../../types/editor-appearance';
 import ExtensionComponent from './ExtensionComponent';
 
 export interface Props {
@@ -18,6 +19,7 @@ export interface Props {
   handleContentDOMRef: (node: HTMLElement | null) => void;
   extensionHandlers: ExtensionHandlers;
   refNode?: ADFEntity;
+  editorAppearance?: EditorAppearance;
 }
 
 export default class Extension extends Component<Props, any> {
@@ -45,6 +47,7 @@ export default class Extension extends Component<Props, any> {
       handleContentDOMRef,
       extensionHandlers,
       refNode,
+      editorAppearance,
     } = this.props;
 
     return (
@@ -55,6 +58,7 @@ export default class Extension extends Component<Props, any> {
         extensionProvider={extensionProvider}
         handleContentDOMRef={handleContentDOMRef}
         extensionHandlers={extensionHandlers}
+        editorAppearance={editorAppearance}
       />
     );
   };

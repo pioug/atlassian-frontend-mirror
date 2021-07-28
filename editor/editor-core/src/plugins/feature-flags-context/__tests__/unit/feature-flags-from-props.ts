@@ -231,7 +231,6 @@ describe('Feature Flags from Props', () => {
             extensionLocalIdGeneration: true,
             keyboardAccessibleDatepicker: true,
             addColumnWithCustomStep: true,
-            predictableLists: true,
             undoRedoButtons: true,
             catchAllTracking: true,
             showAvatarGroupAsPlugin: false,

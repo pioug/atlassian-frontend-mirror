@@ -139,6 +139,9 @@ export default {
   'fabric.editor.findNext': 'Найти далее',
   'fabric.editor.findPrevious': 'Найти ранее',
   'fabric.editor.findReplaceToolbarButton': 'Найти и заменить',
+  'fabric.editor.floatingToolbar.confirmModalCancel': 'Отмена',
+  'fabric.editor.floatingToolbar.confirmModalHeading': 'Вы уверены?',
+  'fabric.editor.floatingToolbar.confirmModalOK': 'ОК',
   'fabric.editor.headerColumn': 'Столбец заголовков',
   'fabric.editor.headerRow': 'Строка заголовков',
   'fabric.editor.heading1': 'Заголовок 1',
@@ -160,6 +163,10 @@ export default {
   'fabric.editor.horizontalRule': 'Разделитель',
   'fabric.editor.horizontalRule.description':
     'Разделение содержимого горизонтальной линией',
+  'fabric.editor.hyperlink.searchLinkAriaDescription':
+    'Предложения будут появляться по мере ввода текста в поле',
+  'fabric.editor.hyperlink.searchLinkResults':
+    '{count, plural, =0 {нет результатов} one {найден {count,number} результат} few {найдено {count,number} результата} many {найдено {count,number} результатов} other {найдено {count,number} результата}}',
   'fabric.editor.hyperlinkToolbarPlaceholder':
     'Вставьте ссылку или выполните поиск по недавно просмотренным страницам',
   'fabric.editor.image': 'Изображение',
@@ -244,6 +251,10 @@ export default {
   'fabric.editor.table': 'Таблица',
   'fabric.editor.table.description': 'Вставка таблицы',
   'fabric.editor.tableOptions': 'Параметры таблицы',
+  'fabric.editor.tables.confirmDeleteLinkedModalMessage':
+    'При удалении этой таблицы будут также удалены все данные во всех связанных диаграммах.',
+  'fabric.editor.tables.confirmDeleteLinkedModalOKButton':
+    'Удалить таблицу и данные',
   'fabric.editor.taskPlaceholder':
     'Укажите задание и назначьте исполнителя с помощью значка «@».',
   'fabric.editor.textColor': 'Цвет текста',

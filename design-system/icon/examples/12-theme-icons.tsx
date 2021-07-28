@@ -20,14 +20,14 @@ import { useState } from 'react';
 import Button from '@atlaskit/button';
 import { background, text } from '@atlaskit/theme/colors';
 
-const iconRow = css({
+const iconRowStyles = css({
   display: 'flex',
   padding: '8px 0',
   justifyContent: 'flex-start',
   flexDirection: 'row',
 });
 
-const iconWrapper = css({
+const iconWrapperStyles = css({
   margin: 4,
 });
 
@@ -81,15 +81,15 @@ const IconSizeExample = () => {
                   color: text({ theme: { mode } }),
                   backgroundColor: background({ theme: { mode } }),
                 }}
-                css={iconRow}
+                css={iconRowStyles}
               >
                 {demoIcons.map((Icon, i) => (
                   // eslint-disable-next-line react/no-array-index-key
-                  <span css={iconWrapper} key={i}>
+                  <span css={iconWrapperStyles} key={i}>
                     <Icon label={`Icon ${i}`} size="medium" />
                   </span>
                 ))}
-                <span css={iconWrapper}>
+                <span css={iconWrapperStyles}>
                   <IconCustomExample />
                 </span>
               </div>

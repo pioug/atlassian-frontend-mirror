@@ -137,6 +137,9 @@ export default {
   'fabric.editor.findNext': 'Localizar próxima',
   'fabric.editor.findPrevious': 'Localizar anterior',
   'fabric.editor.findReplaceToolbarButton': 'Localizar e substituir',
+  'fabric.editor.floatingToolbar.confirmModalCancel': 'Cancelar',
+  'fabric.editor.floatingToolbar.confirmModalHeading': 'Tem certeza?',
+  'fabric.editor.floatingToolbar.confirmModalOK': 'OK',
   'fabric.editor.headerColumn': 'Coluna do cabeçalho',
   'fabric.editor.headerRow': 'Linha do cabeçalho',
   'fabric.editor.heading1': 'Título 1',
@@ -163,6 +166,10 @@ export default {
   'fabric.editor.horizontalRule': 'Divisória',
   'fabric.editor.horizontalRule.description':
     'Separar conteúdo com uma linha horizontal',
+  'fabric.editor.hyperlink.searchLinkAriaDescription':
+    'As sugestões vão aparecendo abaixo conforme você digita no campo',
+  'fabric.editor.hyperlink.searchLinkResults':
+    '{count, plural, =0 {nenhum resultado encontrado} one {{count,number} resultado encontrado} other {{count,number} resultados encontrados}}',
   'fabric.editor.hyperlinkToolbarPlaceholder':
     'Colar link ou pesquisar páginas visualizadas recentemente',
   'fabric.editor.image': 'Imagem',
@@ -229,7 +236,7 @@ export default {
     '{selectedMatchPosition} de {totalResultsCount}',
   'fabric.editor.rightSidebar': 'Barra lateral direita',
   'fabric.editor.saveButton': 'Salvar',
-  'fabric.editor.selectLanguage': 'Selecione a linguagem',
+  'fabric.editor.selectLanguage': 'Selecione o idioma',
   'fabric.editor.selected': 'Selecionado',
   'fabric.editor.sortColumnASC': 'Ordenar coluna A → Z',
   'fabric.editor.sortColumnDESC': 'Ordenar coluna Z → A',
@@ -250,6 +257,10 @@ export default {
   'fabric.editor.table': 'Tabela',
   'fabric.editor.table.description': 'Inserir uma tabela',
   'fabric.editor.tableOptions': 'Opções de tabela',
+  'fabric.editor.tables.confirmDeleteLinkedModalMessage':
+    'A remoção desta tabela também vai remover todos os dados contidos em qualquer gráfico conectado.',
+  'fabric.editor.tables.confirmDeleteLinkedModalOKButton':
+    'Remover tabela e dados',
   'fabric.editor.taskPlaceholder':
     'Digite sua ação e use "@" para atribuí-la a alguém.',
   'fabric.editor.textColor': 'Cor do texto',

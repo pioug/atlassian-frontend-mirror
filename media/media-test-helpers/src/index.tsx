@@ -177,7 +177,6 @@ export { dataURItoBlob } from './mockData/utils';
 export { mapDataUriToBlob } from './utils/index';
 
 export {
-  createPollingMaxFailuresError,
   createPollingMaxAttemptsError,
   createRateLimitedError,
 } from './mediaClientErrors';

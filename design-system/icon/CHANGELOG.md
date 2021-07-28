@@ -1,5 +1,14 @@
 # @atlaskit/icon
 
+## 21.7.3
+
+### Patch Changes
+
+- [`0d0ecc6e790`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0d0ecc6e790) - Corrects eslint supressions.
+- [`8279380176b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8279380176b) - Internal code changes.
+- [`9a84a3ceb82`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9a84a3ceb82) - Internal code changes.
+- Updated dependencies
+
 ## 21.7.2
 
 ### Patch Changes

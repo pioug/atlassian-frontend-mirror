@@ -1,10 +1,12 @@
-import type { ThemeProp } from '@atlaskit/theme/components';
+import type { CSSProperties, ReactNode } from 'react';
 
-import type {
-  ThemeAppearance,
-  ThemeProps,
-  ThemeTokens,
-} from './internal/theme';
+type ThemeAppearance =
+  | 'added'
+  | 'default'
+  | 'important'
+  | 'primary'
+  | 'primaryInverted'
+  | 'removed';
 
 export interface BadgeProps {
   /**
@@ -13,12 +15,12 @@ export interface BadgeProps {
   appearance?: ThemeAppearance;
 
   /**
-   * Supersedes the `value` props. The value displayed within the badge. A string can be provided for
-   * custom-formatted numbers, however badge should only be used in cases where you want to represent
+   * The value displayed within the badge. A `ReactNode` can be provided for
+   * custom-formatted numbers, however, badge should only be used in cases where you want to represent
    * a number.
    * Use a [lozenge](/packages/design-system/lozenge) for non-numeric information.
    */
-  children?: number | string;
+  children?: number | ReactNode;
 
   /**
    * The maximum value to display. Defaults to `99`. If the value is 100, and max is 50, "50+" will be displayed.
@@ -27,9 +29,9 @@ export interface BadgeProps {
   max?: number;
 
   /**
-   * The theme the component should use.
+   * Style customization to apply to the badge. Only `backgroundColor` and `color` are supported.
    */
-  theme?: ThemeProp<ThemeTokens, ThemeProps>;
+  style?: Pick<CSSProperties, 'backgroundColor' | 'color'>;
 
   /**
    * A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests

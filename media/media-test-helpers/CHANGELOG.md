@@ -1,5 +1,12 @@
 # @atlaskit/media-test-helpers
 
+## 28.7.4
+
+### Patch Changes
+
+- [`254c7ae04bc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/254c7ae04bc) - Refactor CardView in Media Card to group UI elements by status
+- Updated dependencies
+
 ## 28.7.3
 
 ### Patch Changes

@@ -16,6 +16,7 @@ import {
 import { messages } from '../i18n';
 import * as styles from './styles';
 import ToneSelector from './ToneSelector';
+import { setSkinToneAriaLabelText } from './setSkinToneAriaLabelText';
 
 export interface Props {
   emoji?: EmojiDescription;
@@ -38,7 +39,7 @@ export default class EmojiPreview extends PureComponent<Props, State> {
 
   onToneButtonClick = () => {
     this.setState({
-      selectingTone: true,
+      selectingTone: !this.state.selectingTone,
     });
   };
 
@@ -71,29 +72,38 @@ export default class EmojiPreview extends PureComponent<Props, State> {
       return null;
     }
 
-    if (this.state.selectingTone) {
-      return (
-        <div className={styles.toneSelectorContainer}>
-          <ToneSelector
-            emoji={toneEmoji}
-            onToneSelected={this.onToneSelected}
-          />
-        </div>
-      );
-    }
-
     let previewEmoji = toneEmoji;
     if (selectedTone && previewEmoji.skinVariations) {
       previewEmoji = previewEmoji.skinVariations[(selectedTone || 1) - 1];
     }
 
     return (
-      <div className={styles.buttons}>
-        <EmojiButton
-          emoji={previewEmoji}
-          onSelected={() => this.onToneButtonClick()}
-          selectOnHover={true}
-        />
+      <div className={styles.toneSelectorContainer}>
+        {this.state.selectingTone && (
+          <ToneSelector
+            emoji={toneEmoji}
+            onToneSelected={this.onToneSelected}
+            previewEmojiId={previewEmoji.id as string}
+          />
+        )}
+        <FormattedMessage
+          {...messages.emojiSelectSkinToneButtonAriaLabelText}
+          values={{
+            selectedTone: `${setSkinToneAriaLabelText(
+              previewEmoji.name as string,
+            )} selected`,
+          }}
+        >
+          {(ariaLabel) => (
+            <EmojiButton
+              ariaExpanded={this.state.selectingTone}
+              emoji={previewEmoji}
+              selectOnHover={true}
+              onSelected={this.onToneButtonClick}
+              ariaLabelText={ariaLabel as string}
+            />
+          )}
+        </FormattedMessage>
       </div>
     );
   }

@@ -27,7 +27,7 @@
   "dependencies": {
     "@atlaskit/analytics-next": "^8.0.0",
     "@atlaskit/field-base": "^15.0.0",
-    "@atlaskit/theme": "^11.3.0",
+    "@atlaskit/theme": "^11.4.0",
     "@babel/runtime": "^7.0.0"
   },
   "peerDependencies": {
@@ -36,7 +36,7 @@
   },
   "devDependencies": {
     "@atlaskit/build-utils": "*",
-    "@atlaskit/button": "^15.1.0",
+    "@atlaskit/button": "^16.0.0",
     "@atlaskit/docs": "*",
     "@atlaskit/section-message": "^6.0.0",
     "@atlaskit/ssr": "*",

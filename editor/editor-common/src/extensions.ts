@@ -7,6 +7,7 @@ export {
   getExtensionModuleNode,
   getQuickInsertItemsFromModule,
   getNodeRenderer,
+  getExtensionModuleNodePrivateProps,
   getContextualToolbarItemsFromModule,
   resolveImport,
   getCustomFieldResolver,

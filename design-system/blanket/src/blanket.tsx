@@ -9,6 +9,7 @@ import { DN90A, N100A } from '@atlaskit/theme/colors';
 import { useGlobalTheme } from '@atlaskit/theme/components';
 import { layers } from '@atlaskit/theme/constants';
 import type { ThemeModes } from '@atlaskit/theme/types';
+import { token } from '@atlaskit/tokens';
 
 import type { BlanketProps } from './types';
 
@@ -21,7 +22,7 @@ const analyticsAttributes = {
   packageVersion,
 };
 
-const baseStyle = css({
+const baseStyles = css({
   position: 'fixed',
   zIndex: layers.blanket(),
   top: 0,
@@ -33,25 +34,25 @@ const baseStyle = css({
   pointerEvents: 'initial',
 });
 
-const shouldAllowClickThroughStyle = css({
+const shouldAllowClickThroughStyles = css({
   pointerEvents: 'none',
 });
 
-const invisible = css({
+const invisibleStyles = css({
   opacity: 0,
 });
 
-const lightBg = css({
-  backgroundColor: N100A,
+const lightBgStyles = css({
+  backgroundColor: token('color.background.blanket', N100A),
 });
 
-const darkBg = css({
-  backgroundColor: DN90A,
+const darkBgStyles = css({
+  backgroundColor: token('color.background.blanket', DN90A),
 });
 
 const backgroundStyle: { [index in ThemeModes]: ReturnType<typeof css> } = {
-  light: lightBg,
-  dark: darkBg,
+  light: lightBgStyles,
+  dark: darkBgStyles,
 };
 
 /**
@@ -98,9 +99,9 @@ const Blanket = memo(
       <div
         role="presentation"
         css={[
-          baseStyle,
-          !isTinted && invisible,
-          shouldAllowClickThrough && shouldAllowClickThroughStyle,
+          baseStyles,
+          !isTinted && invisibleStyles,
+          shouldAllowClickThrough && shouldAllowClickThroughStyles,
           backgroundStyle[mode],
         ]}
         onClick={onClick}

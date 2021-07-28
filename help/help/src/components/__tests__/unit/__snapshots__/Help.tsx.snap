@@ -651,6 +651,14 @@ exports[`Help Should match snapshot 1`] = `
   white-space: nowrap;
 }
 
+.emotion-25 {
+  display: block;
+  height: 100%;
+  overflow: hidden;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
 .emotion-19 {
   display: inline-block;
   vertical-align: middle;
@@ -741,14 +749,6 @@ exports[`Help Should match snapshot 1`] = `
   background-color: #EBECF0;
   background-image: linear-gradient( to right, #EBECF0 10%, #DFE1E6 20%, #EBECF0 30% );
   background-repeat: no-repeat;
-}
-
-.emotion-25 {
-  display: block;
-  height: 100%;
-  overflow: hidden;
-  padding: 16px;
-  box-sizing: border-box;
 }
 
 .emotion-35 {
@@ -1123,7 +1123,7 @@ exports[`Help Should match snapshot 1`] = `
           >
             <span
               aria-atomic="false"
-              aria-live="polite"
+              aria-live="assertive"
               aria-relevant="additions text"
               class="emotion-27"
             />

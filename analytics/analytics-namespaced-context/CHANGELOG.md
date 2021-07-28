@@ -1,5 +1,11 @@
 # @atlaskit/analytics-namespaced-context
 
+## 6.3.0
+
+### Minor Changes
+
+- [`450a8582760`](https://bitbucket.org/atlassian/atlassian-frontend/commits/450a8582760) - Added editor re-render analytics event.
+
 ## 6.2.0
 
 ### Minor Changes

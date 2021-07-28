@@ -84,7 +84,7 @@ describe('media link:', () => {
 
     await waitForAllMedia(page, 1);
 
-    await page.click('button[aria-label="Expand content"]');
+    await page.click('button[aria-labelledby^="expand-title"]');
 
     await page.waitForSelector('a[href="https://www.atlassian.com/"]', {
       visible: true,
@@ -101,7 +101,7 @@ describe('media link:', () => {
 
     await waitForAllMedia(page, 1);
 
-    await page.click('button[aria-label="Expand content"]');
+    await page.click('button[aria-labelledby^="expand-title"]');
 
     await page.waitForSelector('a[href="https://www.atlassian.com/"]', {
       visible: true,

@@ -1,5 +1,12 @@
 # @atlaskit/tabs
 
+## 13.1.4
+
+### Patch Changes
+
+- [`9a84a3ceb82`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9a84a3ceb82) - Internal code changes.
+- Updated dependencies
+
 ## 13.1.3
 
 ### Patch Changes

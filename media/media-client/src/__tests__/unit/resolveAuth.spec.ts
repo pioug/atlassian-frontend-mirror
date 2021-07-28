@@ -1,4 +1,7 @@
-import resolveAuth from '../../client/media-store/resolveAuth';
+import {
+  resolveAuth,
+  resolveInitialAuth,
+} from '../../client/media-store/resolveAuth';
 import { MediaStoreError } from '../../client/media-store/error';
 import { AsapBasedAuth } from '@atlaskit/media-core';
 
@@ -29,5 +32,21 @@ describe('resolveAuth', () => {
       expect((e as MediaStoreError).innerError).toBe(someError);
     }
     expect.assertions(3);
+  });
+});
+
+describe('resolveInitialAuth', () => {
+  it(`should return the auth if it's defined`, () => {
+    expect(resolveInitialAuth(auth)).toBe(auth);
+  });
+
+  it('should throw missingInitialAuth if the auth is undefined', () => {
+    try {
+      resolveInitialAuth();
+    } catch (e) {
+      expect(e).toBeInstanceOf(MediaStoreError);
+      expect((e as MediaStoreError).reason).toBe('missingInitialAuth');
+    }
+    expect.assertions(2);
   });
 });

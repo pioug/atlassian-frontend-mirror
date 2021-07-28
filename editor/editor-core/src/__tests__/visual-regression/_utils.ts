@@ -12,7 +12,10 @@ import { EditorProps } from '../../types';
 import { animationFrame } from '../__helpers/page-objects/_editor';
 import { GUTTER_SELECTOR } from '../../plugins/base/pm-plugins/scroll-gutter';
 import { CreateCollabProviderOptions } from '@atlaskit/synchrony-test-helpers';
-import { getBoundingClientRect } from '@atlaskit/editor-test-helpers/vr-utils';
+import {
+  TestExtensionProviders,
+  getBoundingClientRect,
+} from '@atlaskit/editor-test-helpers/vr-utils';
 
 export { getBoundingClientRect };
 export const editorSelector = '.akEditor';
@@ -224,6 +227,8 @@ export type MountOptions = {
   i18n?: {
     locale: string;
   };
+  /** Toggles chosen extension providers */
+  withTestExtensionProviders?: TestExtensionProviders;
   withContextPanel?: boolean;
   invalidAltTextValues?: string[];
   withCollab?: boolean;
@@ -275,6 +280,8 @@ type InitEditorWithADFOptions = {
   withSidebar?: boolean;
   withCollab?: boolean;
   withContextPanel?: boolean;
+  /** Toggles chosen extension providers */
+  withTestExtensionProviders?: TestExtensionProviders;
   forceReload?: boolean;
   invalidAltTextValues?: string[];
   hooks?: EventHooks;
@@ -293,6 +300,7 @@ async function setupEditor(
     editorProps = {},
     allowSideEffects = {},
     withContextPanel,
+    withTestExtensionProviders,
     forceReload,
   } = options;
 
@@ -331,7 +339,14 @@ async function setupEditor(
       ...getEditorProps(appearance),
       ...editorProps,
     },
-    { mode, withSidebar, withContextPanel, invalidAltTextValues, withCollab },
+    {
+      mode,
+      withSidebar,
+      withContextPanel,
+      invalidAltTextValues,
+      withCollab,
+      withTestExtensionProviders,
+    },
   );
 
   // For any actions to be taken prior straight after mounting of the editor.

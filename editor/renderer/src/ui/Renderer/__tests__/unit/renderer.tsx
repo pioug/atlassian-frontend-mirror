@@ -29,10 +29,17 @@ import { RendererAppearance } from '../../types';
 import { SelectionComponentWrapper } from '../../../annotations/selection';
 import { Paragraph } from '../../../../react/nodes';
 
-jest.mock('@atlaskit/editor-common', () => ({
-  ...jest.requireActual<Object>('@atlaskit/editor-common'),
-  stopMeasure: jest.fn(),
-}));
+let mockCreateAnalyticsEvent = jest.fn(() => ({ fire() {} }));
+
+jest.mock('@atlaskit/editor-common', () => {
+  const WithCreateAnalyticsEventMock = (props: any) =>
+    props.render(mockCreateAnalyticsEvent);
+  return {
+    ...jest.requireActual<Object>('@atlaskit/editor-common'),
+    stopMeasure: jest.fn(),
+    WithCreateAnalyticsEvent: WithCreateAnalyticsEventMock,
+  };
+});
 
 describe('Renderer', () => {
   const annotationsId: string[] = ['id_1', 'id_2', 'id_3'];
@@ -94,6 +101,7 @@ describe('Renderer', () => {
   let getStateCallbackMock: jest.Mock;
   let annotationProvider: AnnotationProviders;
   beforeEach(() => {
+    mockCreateAnalyticsEvent.mockClear();
     getStateCallbackMock = jest.fn();
     annotationProvider = {
       [AnnotationTypes.INLINE_COMMENT]: {
@@ -161,6 +169,32 @@ describe('Renderer', () => {
       });
 
       expect(wrapper!.find(SelectionComponentWrapper)).toHaveLength(0);
+    });
+  });
+
+  describe('error boundary', () => {
+    it('should log error on Renderer render errors', () => {
+      let wrapper: ReactWrapper;
+      wrapper = mount(<RendererDefaultComponent document={adf} />);
+      const rendererWrapper = wrapper.find(Renderer);
+      expect(() =>
+        rendererWrapper.simulateError(new Error('Oh no!')),
+      ).toThrow();
+
+      expect(mockCreateAnalyticsEvent).toHaveBeenLastCalledWith(
+        expect.objectContaining({
+          action: 'unhandledErrorCaught',
+          actionSubject: 'renderer',
+          actionSubjectId: undefined,
+          attributes: expect.objectContaining({
+            platform: 'web',
+            errorMessage: 'Oh no!',
+            errorStack: expect.any(String),
+            componentStack: expect.any(String),
+            errorRethrown: true,
+          }),
+        }),
+      );
     });
   });
 });

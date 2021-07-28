@@ -84,6 +84,7 @@ export default function createSelect(WrappedComponent: ComponentType<any>) {
         <WrappedComponent
           ref={this.onSelectRef}
           isMulti={isMulti}
+          aria-live="assertive"
           {...props}
           components={this.components}
           styles={mergeStyles(

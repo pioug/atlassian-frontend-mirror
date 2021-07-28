@@ -1,5 +1,20 @@
 # @atlaskit/editor-mobile-bridge
 
+## 28.0.0
+
+### Minor Changes
+
+- [`5e55b55d035`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5e55b55d035) - [ux][ed-9961] Remove the predictable lists feature flag and the legacy lists plugin so that predictable lists is default.
+
+  Doing this by removing the lists plugin, removing the predictableLists feature flag, renaming lists-predictable to just list, refactoring any areas of the code that used the feature flag or the legacy lists still.
+
+  This is a breaking change but has been thoroughly tested locally & with a team blitz on the branch deploy, on both web & mobile.
+
+### Patch Changes
+
+- [`9dd40e58f82`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9dd40e58f82) - Allow beautiful panel customisation on android
+- Updated dependencies
+
 ## 27.0.4
 
 ### Patch Changes

@@ -5,17 +5,10 @@ import * as stageZeroSchema from '../../../../json-schema/v1/stage-0.json';
 import { getSchemaBasedOnStage } from '../../../schema/default-schema';
 import { DocNode } from '../../../schema/nodes/doc';
 
-const TMP_EXCLUDED_NODES = [
-  'mediaGroup',
-  'tableCell',
-  'tableHeader',
-  'layoutColumn',
-];
+const TMP_EXCLUDED_NODES = ['tableCell', 'tableHeader'];
 /**
  * This is temporary fix, to be able to merge this tests until:
- *  * https://product-fabric.atlassian.net/browse/ED-12891
  *  * https://product-fabric.atlassian.net/browse/ED-12889
- *  * https://product-fabric.atlassian.net/browse/EDM-2024
  *
  *  are fixed.
  *

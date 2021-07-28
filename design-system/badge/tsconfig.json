@@ -10,7 +10,7 @@
     "./examples/**/*.tsx",
     "./example-helpers/**/*.ts",
     "./example-helpers/**/*.tsx",
-    "./extract-react-types/container-props.tsx"
+    "./codemods/**/*.tsx"
   ],
   "compilerOptions": {
     "baseUrl": "./"

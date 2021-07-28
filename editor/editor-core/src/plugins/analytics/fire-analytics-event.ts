@@ -3,16 +3,16 @@ import { AnalyticsEventPayload } from './types';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { AnalyticsQueue } from './analytics-queue';
 
-export type FireAnalyticsCallback = (
-  payload: FireAnalyticsEventPayload,
+export type FireAnalyticsCallback = <T>(
+  payload: FireAnalyticsEventPayload<T>,
 ) => void | undefined;
 
 export type FireAnalyticsEvent = (
   createAnalyticsEvent?: CreateUIAnalyticsEvent,
 ) => FireAnalyticsCallback;
 
-export type FireAnalyticsEventPayload = {
-  payload: AnalyticsEventPayload;
+export type FireAnalyticsEventPayload<T = void> = {
+  payload: AnalyticsEventPayload<T>;
   channel?: string;
 };
 

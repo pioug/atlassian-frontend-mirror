@@ -145,6 +145,10 @@ export default {
     '您可以隨時按下 {keyMap} 來快速開啟此對話方塊',
   'fabric.editor.horizontalRule': '分隔線',
   'fabric.editor.horizontalRule.description': '使用水平線來區隔內容',
+  'fabric.editor.hyperlink.searchLinkAriaDescription':
+    '當您在欄位中輸入內容時，建議會顯示在下方',
+  'fabric.editor.hyperlink.searchLinkResults':
+    '{count, plural, =0 {沒有找到任何結果} other {找到 {count,number} 個結果}}',
   'fabric.editor.hyperlinkToolbarPlaceholder': '貼上連結或搜尋最近檢視過的內容',
   'fabric.editor.image': '影像',
   'fabric.editor.info': '資訊',

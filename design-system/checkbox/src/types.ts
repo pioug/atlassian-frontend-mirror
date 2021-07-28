@@ -127,6 +127,11 @@ export interface LabelProps extends React.HTMLProps<HTMLInputElement> {
   isDisabled?: boolean;
   /** A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests */
   testId?: string;
+  /**
+   * Click handler that is conditionally applied for Firefox
+   * as Firefox does not dispatch modified click events (e.g. Ctrl+Click) down to the underlying input element
+   */
+  onClick?: React.MouseEventHandler;
 }
 
 export interface RequiredIndicatorProps

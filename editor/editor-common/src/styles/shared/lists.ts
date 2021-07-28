@@ -22,7 +22,7 @@ export const listsSharedStyles = css`
       @see ED-7015 - follow up issue.
       @see ED-7447 - flow-root change.
 
-      We use 'display: table' (old clear fix / new block formatting context hack) 
+      We use 'display: table' (old clear fix / new block formatting context hack)
       for older browsers and 'flow-root' for modern browsers.
 
       @see https://css-tricks.com/display-flow-root/

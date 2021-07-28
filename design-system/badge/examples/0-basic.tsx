@@ -3,6 +3,7 @@ import { css, jsx } from '@emotion/core';
 
 import { B400, B500, N0, N20 } from '@atlaskit/theme/colors';
 import { borderRadius } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 import Badge from '../src';
 
@@ -17,15 +18,15 @@ const itemStyles = css({
   borderRadius: `${borderRadius()}px`,
   color: 'inherit',
   '&:hover': {
-    backgroundColor: N20,
+    backgroundColor: token('color.background.subtleNeutral.hover', N20),
   },
 });
 
 const invertedItemStyles = css({
-  background: B400,
-  color: N0,
+  background: token('color.background.boldBrand.resting', B400),
+  color: token('color.text.onBold', N0),
   '&:hover': {
-    backgroundColor: B500,
+    backgroundColor: token('color.background.boldBrand.hover', B500),
   },
 });
 

@@ -139,6 +139,9 @@ export default {
   'fabric.editor.findNext': 'Buscar siguiente',
   'fabric.editor.findPrevious': 'Buscar anterior',
   'fabric.editor.findReplaceToolbarButton': 'Buscar y reemplazar',
+  'fabric.editor.floatingToolbar.confirmModalCancel': 'Cancelar',
+  'fabric.editor.floatingToolbar.confirmModalHeading': '¿Seguro?',
+  'fabric.editor.floatingToolbar.confirmModalOK': 'Aceptar',
   'fabric.editor.headerColumn': 'Columna de encabezado',
   'fabric.editor.headerRow': 'Fila de encabezado',
   'fabric.editor.heading1': 'Título 1',
@@ -163,6 +166,10 @@ export default {
   'fabric.editor.horizontalRule': 'Divisor',
   'fabric.editor.horizontalRule.description':
     'Separar el contenido con una línea horizontal',
+  'fabric.editor.hyperlink.searchLinkAriaDescription':
+    'Las sugerencias aparecerán abajo a medida que escribas en el campo',
+  'fabric.editor.hyperlink.searchLinkResults':
+    '{count, plural, =0 {no hay resultados} one {{count,number} resultado encontrado} other {{count,number} resultados encontrados}}',
   'fabric.editor.hyperlinkToolbarPlaceholder':
     'Pegar enlace o buscar en vistos recientemente',
   'fabric.editor.image': 'Imagen',
@@ -250,6 +257,10 @@ export default {
   'fabric.editor.table': 'Tabla',
   'fabric.editor.table.description': 'Insertar una tabla',
   'fabric.editor.tableOptions': 'Opciones de tabla',
+  'fabric.editor.tables.confirmDeleteLinkedModalMessage':
+    'Al eliminar esta tabla también se eliminarán todos los datos incluidos en los gráficos conectados.',
+  'fabric.editor.tables.confirmDeleteLinkedModalOKButton':
+    'Eliminar tabla y datos',
   'fabric.editor.taskPlaceholder':
     'Escribe la acción y usa "@" para asignársela a alguien.',
   'fabric.editor.textColor': 'Color del texto',

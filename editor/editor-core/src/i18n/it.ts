@@ -164,6 +164,10 @@ export default {
   'fabric.editor.horizontalRule': 'Divisore',
   'fabric.editor.horizontalRule.description':
     'Contenuti separati con una riga orizzontale',
+  'fabric.editor.hyperlink.searchLinkAriaDescription':
+    'I suggerimenti vengono visualizzati durante la digitazione nel campo',
+  'fabric.editor.hyperlink.searchLinkResults':
+    '{count, plural, =0 {nessun risultato trovato} one {{count,number} risultato trovato} other {{count,number} risultati trovati}}',
   'fabric.editor.hyperlinkToolbarPlaceholder':
     'Incolla link o cerca tra i visualizzati di recente',
   'fabric.editor.image': 'Immagine',

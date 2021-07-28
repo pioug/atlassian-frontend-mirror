@@ -103,7 +103,7 @@ export const isTableContainerOrWrapper = (node: HTMLElement | null): boolean =>
 
 export const getMousePositionHorizontalRelativeByElement = (
   mouseEvent: MouseEvent,
-  tableCellOptimization?: boolean,
+  mouseMoveOptimization?: boolean,
   elementContentRects?: ElementContentRects,
   gapInPixels?: number,
 ): 'left' | 'right' | null => {
@@ -113,7 +113,7 @@ export const getMousePositionHorizontalRelativeByElement = (
     let width, x;
     const closestCell = element.closest(SELECTOR_TABLE_LEAFS);
 
-    if (tableCellOptimization) {
+    if (mouseMoveOptimization) {
       const id = closestCell?.id ?? '';
       width = elementContentRects?.[id]?.width ?? 0;
       x = mouseEvent.offsetX;

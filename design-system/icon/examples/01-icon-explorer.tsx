@@ -136,7 +136,6 @@ interface IconData {
   component: ComponentType<any>;
   componentName: string;
   package?: string;
-  // eslint-disable-next-line @typescript-eslint/naming-convention
   divider?: boolean;
 }
 
@@ -153,11 +152,11 @@ const getKeywords = (logoMap: LogoMap) =>
     [],
   );
 
-const gridWrapper = css({
+const gridWrapperStyles = css({
   padding: '10px 5px 0',
 });
 
-const iconExplorerGrid = css({
+const iconExplorerGridStyles = css({
   display: 'flex',
   marginTop: 10,
   justifyContent: 'flex-start',
@@ -165,7 +164,7 @@ const iconExplorerGrid = css({
   flexWrap: 'wrap',
 });
 
-const noIcons = css({
+const noIconsStyles = css({
   marginTop: 10,
   padding: 10,
 });
@@ -206,14 +205,14 @@ const IconAllExample: React.FC = () => {
     }
     const icons: IconData[] = filterIcons(allIcons, query);
     return icons.length ? (
-      <div css={iconExplorerGrid}>
+      <div css={iconExplorerGridStyles}>
         {icons.map((icon) => (
           <IconExplorerCell {...icon} key={icon.componentName} />
         ))}
       </div>
     ) : (
       <div
-        css={noIcons}
+        css={noIconsStyles}
       >{`Sorry, we couldn't find any icons matching "${query}".`}</div>
     );
   };
@@ -228,7 +227,7 @@ const IconAllExample: React.FC = () => {
           updateQuery(event.currentTarget.value)
         }
       />
-      <div css={gridWrapper}>
+      <div css={gridWrapperStyles}>
         <p>
           <Button
             appearance="subtle-link"

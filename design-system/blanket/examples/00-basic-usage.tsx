@@ -7,16 +7,17 @@ import Button from '@atlaskit/button/standard-button';
 import { AtlaskitThemeProvider } from '@atlaskit/theme/components';
 import { gridSize } from '@atlaskit/theme/constants';
 import type { ThemeModes } from '@atlaskit/theme/types';
+import { token } from '@atlaskit/tokens';
 
 import Blanket from '../src';
 
-const eventResultStyle = css({
+const eventResultStyles = css({
   margin: '0.5em',
   padding: '0.5em',
-  borderColor: '#ccc',
+  borderColor: token('color.border.neutral', '#ccc'),
   borderStyle: 'dashed',
   borderWidth: '1px',
-  color: '#ccc',
+  color: token('color.text.lowEmphasis', '#ccc'),
 });
 
 const LIGHT = 'light';
@@ -80,7 +81,7 @@ const BasicExample = () => {
           shouldAllowClickThrough={shouldAllowClickThrough}
           testId="basic-blanket"
         />
-        <div css={eventResultStyle}>{onEventResult}</div>
+        <div css={eventResultStyles}>{onEventResult}</div>
       </div>
     </AtlaskitThemeProvider>
   );

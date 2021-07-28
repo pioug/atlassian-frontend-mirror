@@ -287,6 +287,20 @@ export type PasteTracking = {
   enabled: boolean;
 };
 
+export type RenderTracking = {
+  /**
+   * @description Control whether editor render tracking should be enabled.
+   * @default false
+   */
+  editor: {
+    enabled: boolean;
+    useShallow?: boolean;
+  };
+  reactEditorView: {
+    enabled: boolean;
+    useShallow?: boolean;
+  };
+};
 export type PerformanceTracking = {
   /**
    * @description Control whether measurements for all analytics events are performed
@@ -341,12 +355,17 @@ export type PerformanceTracking = {
   onChangeCallbackTracking?: OnChangeCallbackTracking;
 
   /**
-   * @description Control wether onEditorReady callback is tracked.
+   * @description Control whether onEditorReady callback is tracked.
    */
   onEditorReadyCallbackTracking?: OnEditorReadyCallbackTracking;
 
   /**
-   * @description Control wether paste is tracked.
+   * @description Control whether paste is tracked.
    */
   pasteTracking?: PasteTracking;
+
+  /**
+   * @description Control whether render of different component is tracked.
+   */
+  renderTracking?: RenderTracking;
 };

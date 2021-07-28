@@ -33,6 +33,7 @@ import { extractActions } from '../common/actions/extractActions';
 import { ExtractBlockOpts } from './types';
 import { extractPreviewAction } from '../common/actions/extractPreviewAction';
 import { CardProviderRenderers } from '../../state/context/types';
+import { extractIsTrusted } from '../common/meta/extractIsTrusted';
 
 const extractBlockIcon = (
   jsonLd: JsonLd.Data.BaseData,
@@ -102,6 +103,7 @@ export const extractBlockUsers = (
 
 export const extractBlockProps = (
   jsonLd: JsonLd.Data.BaseData,
+  meta?: JsonLd.Meta.BaseMeta,
   opts?: ExtractBlockOpts,
   renderers?: CardProviderRenderers,
 ): BlockCardResolvedViewProps => {
@@ -117,6 +119,7 @@ export const extractBlockProps = (
     thumbnail: extractImage(jsonLd),
     users: extractBlockUsers(jsonLd),
     titlePrefix: extractTitlePrefix(jsonLd, renderers, 'block'),
+    isTrusted: extractIsTrusted(meta),
   };
   return { ...props, actions: extractBlockActions(props, jsonLd, opts) };
 };

@@ -48,8 +48,7 @@ import {
 import { replaceSelectedTable } from '../table/transforms/replace-table';
 
 import { applyTextMarksToSlice, hasOnlyNodesOfType } from './util';
-import { getFeatureFlags } from '../feature-flags-context';
-import { isListNode, isListItemNode } from '../lists-predictable/utils/node';
+import { isListNode, isListItemNode } from '../list/utils/node';
 import { canLinkBeCreatedInRange } from '../hyperlink/pm-plugins/main';
 
 import { insertSliceForLists } from './edge-cases';
@@ -740,9 +739,6 @@ export function handleRichText(slice: Slice): Command {
 
     closeHistory(tr);
 
-    const featureFlags = getFeatureFlags(state);
-    const allowPredictableLists = featureFlags && featureFlags.predictableLists;
-
     let panelParentOverCurrentSelection = findParentNodeOfType(panel)(
       tr.selection,
     );
@@ -754,10 +750,7 @@ export function handleRichText(slice: Slice): Command {
       panelParentOverCurrentSelection &&
       panelParentOverCurrentSelection.node?.content.size === 2;
 
-    if (
-      allowPredictableLists &&
-      (isSliceContentListNodes || isTargetPanelEmpty)
-    ) {
+    if (isSliceContentListNodes || isTargetPanelEmpty) {
       insertSliceForLists({ tr, slice });
     } else {
       // if inside an empty panel, try and insert content inside it rather than replace it

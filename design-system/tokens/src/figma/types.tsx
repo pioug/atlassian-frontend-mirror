@@ -3,7 +3,6 @@ export interface FigmaPaint {
   color: { r: number; g: number; b: number };
   opacity: number;
   type: 'SOLID';
-  // eslint-disable-next-line @typescript-eslint/naming-convention
   visible: boolean;
 }
 
@@ -21,7 +20,6 @@ export interface FigmaEffect {
   radius: number;
   spread?: number;
   type: 'DROP_SHADOW';
-  // eslint-disable-next-line @typescript-eslint/naming-convention
   visible: boolean;
 }
 

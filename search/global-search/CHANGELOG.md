@@ -1,5 +1,11 @@
 # @atlaskit/global-search
 
+## 13.0.12
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.0.11
 
 ### Patch Changes

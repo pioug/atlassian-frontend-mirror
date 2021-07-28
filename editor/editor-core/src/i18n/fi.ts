@@ -138,6 +138,9 @@ export default {
   'fabric.editor.findNext': 'Etsi seuraava',
   'fabric.editor.findPrevious': 'Etsi edellinen',
   'fabric.editor.findReplaceToolbarButton': 'Etsi ja korvaa',
+  'fabric.editor.floatingToolbar.confirmModalCancel': 'Peruuta',
+  'fabric.editor.floatingToolbar.confirmModalHeading': 'Oletko varma?',
+  'fabric.editor.floatingToolbar.confirmModalOK': 'OK',
   'fabric.editor.headerColumn': 'Otsikkosarake',
   'fabric.editor.headerRow': 'Otsikkorivi',
   'fabric.editor.heading1': 'Otsikko 1',
@@ -161,6 +164,10 @@ export default {
     'Paina {keyMap}-näppäintä, jotta voit nopeasti avata tämän dialogin koska tahansa',
   'fabric.editor.horizontalRule': 'Jakaja',
   'fabric.editor.horizontalRule.description': 'Erota sisältö vaakaviivalla',
+  'fabric.editor.hyperlink.searchLinkAriaDescription':
+    'Ehdotukset näytetään alla, kun alat kirjoittaa kenttään',
+  'fabric.editor.hyperlink.searchLinkResults':
+    '{count, plural, =0 {tuloksia ei löytynyt} one {{count,number} tulos löytyi} other {{count,number} tulosta löytyi}}',
   'fabric.editor.hyperlinkToolbarPlaceholder':
     'Liitä linkki tai hae äskettäin katsotuista',
   'fabric.editor.image': 'Kuva',
@@ -246,6 +253,10 @@ export default {
   'fabric.editor.table': 'Taulu',
   'fabric.editor.table.description': 'Lisää taulukko',
   'fabric.editor.tableOptions': 'Taulukkovaihtoehdot',
+  'fabric.editor.tables.confirmDeleteLinkedModalMessage':
+    'Tämän taulukon poistaminen poistaa myös kaikkien yhdistettyjen kaavioiden sisältämät tiedot.',
+  'fabric.editor.tables.confirmDeleteLinkedModalOKButton':
+    'Poista taulukko ja tiedot',
   'fabric.editor.taskPlaceholder':
     "Kirjoita toimintasi, käytä '@'-merkkiä määrätäksesi sen jollekin henkilölle.",
   'fabric.editor.textColor': 'Tekstin väri',

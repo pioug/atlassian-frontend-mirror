@@ -21,6 +21,9 @@ import Select, { SelectOption } from './Select';
 import Separator from './Separator';
 import Input from './Input';
 import { ExtensionsPlaceholder } from './ExtensionsPlaceholder';
+import ColorPickerButton from '../../../ui/ColorPickerButton';
+import { PaletteColor } from '../../../ui/ColorPalette/Palettes';
+import { EmojiPickerButton } from './EmojiPickerButton';
 
 const akGridSize = gridSize();
 
@@ -169,6 +172,7 @@ export default class Toolbar extends Component<Props> {
       editorView,
       node,
       extensionsProvider,
+      providerFactory,
     } = this.props;
     if (!items || !items.length) {
       return null;
@@ -284,7 +288,39 @@ export default class Toolbar extends Component<Props> {
                       />
                     );
                   }
+                  if (item.selectType === 'color') {
+                    return (
+                      <ColorPickerButton
+                        key={idx}
+                        title={item.title}
+                        onChange={(selected) => {
+                          dispatchCommand(item.onChange(selected));
+                        }}
+                        colorPalette={item.options as PaletteColor[]}
+                        currentColor={
+                          item.defaultValue
+                            ? item.defaultValue.value
+                            : undefined
+                        }
+                        placement="Panels"
+                      />
+                    );
+                  }
                   return null;
+
+                case 'emoji-picker':
+                  return (
+                    <EmojiPickerButton
+                      key={idx}
+                      view={editorView}
+                      title={item.title}
+                      providerFactory={providerFactory}
+                      onChange={(selected) =>
+                        dispatchCommand(item.onChange(selected.shortName))
+                      }
+                    />
+                  );
+
                 case 'extensions-placeholder':
                   if (!editorView || !extensionsProvider) {
                     return null;

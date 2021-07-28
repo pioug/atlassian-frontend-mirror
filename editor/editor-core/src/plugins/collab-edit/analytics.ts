@@ -8,17 +8,22 @@ import {
 import { EditorState, Transaction } from 'prosemirror-state';
 import { getFeatureFlags } from '../feature-flags-context';
 import { getDocStructure } from '../../utils/document-logger';
+import { sniffUserBrowserExtensions } from '@atlaskit/editor-common';
 
 export const addSynchronyErrorAnalytics = (
   state: EditorState,
   tr: Transaction,
 ) => {
   return (error: Error) => {
+    const browserExtensions = sniffUserBrowserExtensions({
+      extensions: ['grammarly'],
+    });
+
     const payload: ErrorEventPayload = {
       action: ACTION.SYNCHRONY_ERROR,
       actionSubject: ACTION_SUBJECT.EDITOR,
       eventType: EVENT_TYPE.OPERATIONAL,
-      attributes: { error },
+      attributes: { error, browserExtensions },
     };
 
     if (getFeatureFlags(state).synchronyErrorDocStructure) {

@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef, useRef, useCallback } from 'react';
 import styled from 'styled-components';
 import { gridSize, fontSize } from '@atlaskit/theme/constants';
 import ChevronRightIcon from '@atlaskit/icon/glyph/chevron-right';
@@ -19,9 +19,11 @@ import { AnalyticsEventPayload, PLATFORM, MODE } from '../analytics/events';
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../analytics/enums';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
 import { ActiveHeaderIdConsumer } from './active-header-id-provider';
+import _uniqueId from 'lodash/uniqueId';
 
 export interface StyleProps {
   expanded?: boolean;
+  focused?: boolean;
   'data-node-type'?: 'expand' | 'nestedExpand';
   'data-title'?: string;
 }
@@ -109,9 +111,15 @@ function Expand({
   nestedHeaderIds,
 }: ExpandProps & InjectedIntlProps) {
   const [expanded, setExpanded] = React.useState(false);
+  const [focused, setFocused] = React.useState(false);
   const label = intl.formatMessage(
     expanded ? expandMessages.collapseNode : expandMessages.expandNode,
   );
+
+  const { current: id } = useRef(_uniqueId('expand-title-'));
+
+  const handleFocus = useCallback(() => setFocused(true), []);
+  const handleBlur = useCallback(() => setFocused(false), []);
 
   return (
     <Container
@@ -119,6 +127,7 @@ function Expand({
       data-title={title}
       data-expanded={expanded}
       expanded={expanded}
+      focused={focused}
     >
       {nestedHeaderIds && nestedHeaderIds.length > 0 ? (
         <ActiveHeaderIdConsumer
@@ -131,8 +140,14 @@ function Expand({
           e.stopPropagation();
           fireExpandToggleAnalytics(nodeType, expanded, fireAnalyticsEvent);
           setExpanded(!expanded);
+          e.persist();
+          // @ts-ignore detail doesn't exist on type
+          e.detail ? handleBlur() : handleFocus();
         }}
-        aria-label={label}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
+        aria-labelledby={id}
+        aria-expanded={expanded}
         contentEditable={false}
         expanded={expanded}
       >
@@ -145,7 +160,7 @@ function Expand({
             <ChevronRightIcon label={label} />
           </ExpandIconWrapper>
         </Tooltip>
-        <Title>
+        <Title id={id}>
           {title || intl.formatMessage(expandMessages.expandDefaultTitle)}
         </Title>
       </TitleContainer>

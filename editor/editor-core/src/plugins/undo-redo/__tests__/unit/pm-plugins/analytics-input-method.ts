@@ -23,7 +23,7 @@ import analyticsPlugin, {
   INPUT_METHOD,
   EVENT_TYPE,
 } from '../../../../analytics';
-import listPlugin from '../../../../lists-predictable';
+import listPlugin from '../../../../list';
 import { pluginKey as undoPluginKey } from '../../../pm-plugins/plugin-key';
 import { attachInputMeta } from '../../../attach-input-meta';
 import { InputSource } from '../../../enums';

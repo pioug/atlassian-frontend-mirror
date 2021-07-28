@@ -1,5 +1,4 @@
-import React from 'react';
-import { PureComponent } from 'react';
+import React, { createRef, PureComponent } from 'react';
 
 import {
   EmojiDescription,
@@ -17,10 +16,12 @@ import {
   toneSelectedEvent,
   toneSelectorOpenedEvent,
 } from '../../util/analytics';
+import { setSkinToneAriaLabelText } from './setSkinToneAriaLabelText';
 
 export interface Props {
   emoji: EmojiDescriptionWithVariations;
   onToneSelected: OnToneSelected;
+  previewEmojiId?: string;
 }
 
 const extractAllTones = (
@@ -44,9 +45,15 @@ export class ToneSelectorInternal extends PureComponent<
     }
   }
 
+  componentDidMount() {
+    this.firstToneButtonRef?.current?.focus();
+  }
+
   public UNSAFE_componentWillMount() {
     this.fireEvent(toneSelectorOpenedEvent({}));
   }
+
+  firstToneButtonRef = createRef<HTMLButtonElement>();
 
   private onToneSelectedHandler = (skinTone: number) => {
     const { onToneSelected } = this.props;
@@ -68,19 +75,30 @@ export class ToneSelectorInternal extends PureComponent<
   };
 
   render() {
-    const { emoji } = this.props;
+    const { emoji, previewEmojiId } = this.props;
     const toneEmojis: EmojiDescription[] = extractAllTones(emoji);
+    let isRefAlreadySet = false;
 
     return (
       <div>
-        {toneEmojis.map((tone, i) => (
-          <EmojiButton
-            key={`${tone.id}`}
-            onSelected={() => this.onToneSelectedHandler(i)}
-            emoji={tone}
-            selectOnHover={true}
-          />
-        ))}
+        {toneEmojis.map((tone, i) => {
+          const shouldSetRef = !isRefAlreadySet && tone.id !== previewEmojiId;
+          if (shouldSetRef) {
+            isRefAlreadySet = true;
+          }
+
+          return (
+            <EmojiButton
+              ref={shouldSetRef ? this.firstToneButtonRef : null}
+              shouldHideButton={tone.id === previewEmojiId}
+              ariaLabelText={setSkinToneAriaLabelText(tone.name as string)}
+              key={`${tone.id}`}
+              onSelected={() => this.onToneSelectedHandler(i)}
+              emoji={tone}
+              selectOnHover={true}
+            />
+          );
+        })}
       </div>
     );
   }

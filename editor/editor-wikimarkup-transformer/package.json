@@ -24,21 +24,21 @@
     }
   },
   "dependencies": {
-    "@atlaskit/adf-schema": "^18.1.0",
+    "@atlaskit/adf-schema": "^18.2.0",
     "@atlaskit/editor-json-transformer": "^8.6.0",
-    "@atlaskit/theme": "^11.2.0",
+    "@atlaskit/theme": "^11.4.0",
     "@babel/runtime": "^7.0.0",
     "prosemirror-model": "1.11.0"
   },
   "devDependencies": {
     "@atlaskit/activity": "^1.0.1",
     "@atlaskit/docs": "*",
-    "@atlaskit/editor-common": "^58.1.0",
-    "@atlaskit/editor-core": "^146.0.0",
+    "@atlaskit/editor-common": "^59.0.0",
+    "@atlaskit/editor-core": "^147.0.0",
     "@atlaskit/editor-test-helpers": "^15.3.0",
     "@atlaskit/mention": "^19.6.0",
     "@atlaskit/profilecard": "^15.0.0",
-    "@atlaskit/renderer": "^78.0.0",
+    "@atlaskit/renderer": "^79.0.0",
     "@atlaskit/util-data-test": "^15.0.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@types/prosemirror-model": "^1.11.0",

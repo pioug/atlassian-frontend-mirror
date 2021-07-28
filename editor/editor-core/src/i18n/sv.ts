@@ -161,6 +161,10 @@ export default {
   'fabric.editor.horizontalRule': 'Avgränsare',
   'fabric.editor.horizontalRule.description':
     'Separera innehåll med en horisontell linje',
+  'fabric.editor.hyperlink.searchLinkAriaDescription':
+    'Förslag visas nedan när du skriver i fältet',
+  'fabric.editor.hyperlink.searchLinkResults':
+    '{count, plural, =0 {inga resultat hittades} one {{count,number} resultat hittades} other {{count,number} resultat hittades}}',
   'fabric.editor.hyperlinkToolbarPlaceholder':
     'Klistra in länk eller sök senaste visade',
   'fabric.editor.image': 'Bild',

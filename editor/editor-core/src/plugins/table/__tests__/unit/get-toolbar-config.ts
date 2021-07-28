@@ -25,7 +25,7 @@ const formatMessage: (t: { id: string }) => string = (message) =>
 describe('getToolbarConfig', () => {
   const getButton = (editorView: EditorView) => {
     const { state } = editorView;
-    const config = getToolbarConfig(
+    const config = getToolbarConfig({})(
       state,
       { formatMessage } as any,
       {} as any,

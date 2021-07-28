@@ -266,13 +266,36 @@ const legacyColors: string[] = [
   'DN10A',
 ];
 
-export const isLegacyColor = (value: string): boolean => {
-  if (legacyColors.includes(value)) {
-    return true;
-  }
+const legacyColorMixins = [
+  'background',
+  'backgroundActive',
+  'backgroundHover',
+  'backgroundOnLayer',
+  'text',
+  'textHover',
+  'textActive',
+  'subtleText',
+  'placeholderText',
+  'heading',
+  'subtleHeading',
+  'codeBlock',
+  'link',
+  'linkHover',
+  'linkActive',
+  'linkOutline',
+  'primary',
+  'blue',
+  'teal',
+  'purple',
+  'red',
+  'yellow',
+  'green',
+  'skeleton',
+];
 
-  return false;
-};
+export const isLegacyColor = (value: string) => legacyColors.includes(value);
+export const isLegacyNamedColor = (value: string) =>
+  legacyColorMixins.includes(value);
 
 export const includesHardCodedColor = (raw: string): boolean => {
   const value = raw.toLowerCase();

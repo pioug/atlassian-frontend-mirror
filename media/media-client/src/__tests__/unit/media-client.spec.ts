@@ -1,7 +1,7 @@
 jest.mock('../../uploader');
 
 import uuid from 'uuid/v4';
-import { AuthProvider } from '@atlaskit/media-core';
+import { AuthProvider, Auth } from '@atlaskit/media-core';
 import {
   asMockFunction,
   asMockFunctionResolvedValue,
@@ -23,18 +23,19 @@ import {
   UploadableFile,
   UploadController,
   getFileStreamsCache,
+  MediaStoreGetFileImageParams,
 } from '../..';
 import { uploadFile } from '../../uploader';
 
-const authProvider: AuthProvider = () =>
-  Promise.resolve({
-    token: 'some-token-that-does-not-really-matter-in-this-tests',
-    clientId: 'some-clientId',
-    baseUrl: 'some-base-url',
-  });
+const auth = {
+  token: 'some-token-that-does-not-really-matter-in-this-tests',
+  clientId: 'some-clientId',
+  baseUrl: 'some-base-url',
+};
+const authProvider: AuthProvider = () => Promise.resolve(auth);
 
-const createMediaClient = () => {
-  const mediaClient = new MediaClient({ authProvider });
+const createMediaClient = (initialAuth?: Auth) => {
+  const mediaClient = new MediaClient({ authProvider, initialAuth });
   const { MediaStore: MockMediaStore } = jest.genMockFromModule(
     '@atlaskit/media-client',
   );
@@ -43,6 +44,7 @@ const createMediaClient = () => {
     poll_intervalMs: 1,
     poll_backoffFactor: 1,
   };
+  (fakeStore.getFileImageURLSync as jest.Mock).mockReturnValue('some-url');
   (mediaClient as any).mediaStore = fakeStore;
   (mediaClient as any).file = new FileFetcherImpl(fakeStore);
   return mediaClient;
@@ -558,6 +560,23 @@ describe('MediaClient', () => {
       mediaClient.emit('file-added', fileState);
 
       expect(onFileUploaded).toBeCalledTimes(1);
+    });
+  });
+
+  describe('Sync Operations', () => {
+    describe('getFileImageURLSync', () => {
+      it('should return the file image preview url based on the file id', () => {
+        const mediaClient = createMediaClient(auth);
+        const params = { some: 'params' } as MediaStoreGetFileImageParams;
+        const fileId = '1234';
+        const url = mediaClient.getImageUrlSync(fileId, params);
+        expect(mediaClient.mediaStore.getFileImageURLSync).toBeCalledWith(
+          fileId,
+          params,
+        );
+        expect(url).toEqual('some-url');
+        expect.assertions(2);
+      });
     });
   });
 });

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/icon",
-  "version": "21.7.2",
+  "version": "21.7.3",
   "description": "An icon is used as a visual representation of common actions and commands to provide context.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -35,7 +35,7 @@
     "build-glyphs": "ts-node --project ../../../tsconfig.node.json ./build/index.tsx"
   },
   "dependencies": {
-    "@atlaskit/theme": "^11.3.0",
+    "@atlaskit/theme": "^11.4.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/core": "^10.0.9"
   },
@@ -45,7 +45,7 @@
   "devDependencies": {
     "@af/icon-build-process": "^0.3.0",
     "@atlaskit/build-utils": "*",
-    "@atlaskit/button": "^15.1.0",
+    "@atlaskit/button": "^16.0.0",
     "@atlaskit/docs": "*",
     "@atlaskit/dynamic-table": "^14.3.0",
     "@atlaskit/icon-file-type": "^6.3.0",

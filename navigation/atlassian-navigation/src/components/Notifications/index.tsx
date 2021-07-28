@@ -2,17 +2,19 @@ import React, { forwardRef, Ref } from 'react';
 
 import NotificationIcon from '@atlaskit/icon/glyph/notification';
 
-import { BadgeContainer, NOTIFICATIONS_BADGE_ID } from '../BadgeContainer';
+import { BadgeContainer } from '../BadgeContainer';
 import { IconButton } from '../IconButton';
 
 import { NotificationsProps } from './types';
+
+const NOTIFICATIONS_BADGE_ID = 'atlassian-navigation-notification-count';
 
 export const Notifications = forwardRef(
   (props: NotificationsProps, ref: Ref<any>) => {
     const { badge, tooltip, ...iconButtonProps } = props;
 
     return (
-      <BadgeContainer badge={badge}>
+      <BadgeContainer id={NOTIFICATIONS_BADGE_ID} badge={badge}>
         <IconButton
           icon={
             <NotificationIcon

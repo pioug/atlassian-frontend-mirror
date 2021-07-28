@@ -62,7 +62,7 @@ import {
   testCollectionName,
 } from '../_utils';
 import safeUnmount from '../../../../__helpers/safeUnmount';
-import { getToolbarItems } from '../../floating-toolbar/_helpers';
+import { getToolbarItems } from '../../../../../plugins/floating-toolbar/__tests__/_helpers';
 import { MediaFloatingToolbarOptions } from '../../../../../plugins/media/types';
 import PanelTextInput from '../../../../../ui/PanelTextInput';
 import { MediaPluginState } from '../../../../../plugins/media/pm-plugins/types';

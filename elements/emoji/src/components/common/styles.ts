@@ -109,9 +109,21 @@ export const emojiButton = style({
           height: '24px',
           width: '24px',
         },
+        // Scale image to fit regardless of default emoji size
+        [`&>img`]: {
+          height: '24px',
+          width: '24px',
+        },
       },
     },
   },
+});
+
+export const hiddenToneButton = style({
+  // Hide currently selected tone that rendered in the ToneSelector to avoid duplication
+  // Set $ unique: true to be able to apply the ccs property to an element as described here https://github.com/typestyle/typestyle/issues/253
+  display: 'none',
+  $unique: true,
 });
 
 // Emoji Preview
@@ -238,7 +250,8 @@ export const emojiPreview = style({
 
     [`.${toneSelectorContainer}`]: {
       flex: 1,
-      textAlign: 'right',
+      display: 'flex',
+      justifyContent: 'flex-end',
       margin: '6px',
     },
 

@@ -19,7 +19,7 @@ import { LAYOUT_TYPE } from '../../../analytics/types/node-events';
 import {
   getToolbarItems,
   findToolbarBtn,
-} from '../../../../__tests__/unit/plugins/floating-toolbar/_helpers';
+} from '../../../floating-toolbar/__tests__/_helpers';
 
 describe('layout toolbar', () => {
   let createAnalyticsEvent: CreateUIAnalyticsEvent;

@@ -137,6 +137,10 @@ export default {
   'fabric.editor.findNext': 'Tìm tiếp theo',
   'fabric.editor.findPrevious': 'Tìm trước đó',
   'fabric.editor.findReplaceToolbarButton': 'Tìm kiếm và thay thế',
+  'fabric.editor.floatingToolbar.confirmModalCancel': 'Hủy',
+  'fabric.editor.floatingToolbar.confirmModalHeading':
+    'Bạn có chắc chắn không?',
+  'fabric.editor.floatingToolbar.confirmModalOK': 'OK',
   'fabric.editor.headerColumn': 'Cột tiêu đề',
   'fabric.editor.headerRow': 'Hàng tiêu đề',
   'fabric.editor.heading1': 'Heading 1',
@@ -164,6 +168,10 @@ export default {
   'fabric.editor.horizontalRule': 'Trình phân chia',
   'fabric.editor.horizontalRule.description':
     'Chia tách nội dung bằng một đường ngang',
+  'fabric.editor.hyperlink.searchLinkAriaDescription':
+    'Các đề xuất sẽ xuất hiện bên dưới khi bạn nhập thông tin vào trường',
+  'fabric.editor.hyperlink.searchLinkResults':
+    '{count, plural, =0 {không tìm thấy kết quả} other {Đã tìm thấy {count,number} kết quả}}',
   'fabric.editor.hyperlinkToolbarPlaceholder':
     'Dán liên kết hoặc tìm nội dung đã xem gần đây',
   'fabric.editor.image': 'hình ảnh',
@@ -243,6 +251,10 @@ export default {
   'fabric.editor.table': 'Bảng',
   'fabric.editor.table.description': 'Chèn bảng',
   'fabric.editor.tableOptions': 'Tùy chọn bảng',
+  'fabric.editor.tables.confirmDeleteLinkedModalMessage':
+    'Việc xóa bảng này cũng sẽ xóa mọi dữ liệu có trong bất kỳ biểu đồ được kết nối nào.',
+  'fabric.editor.tables.confirmDeleteLinkedModalOKButton':
+    'Xóa bảng và dữ liệu',
   'fabric.editor.taskPlaceholder':
     "Nhập thao tác của bạn, sử dụng '@' để chỉ định cho người nào đó.",
   'fabric.editor.textColor': 'Màu văn bản',

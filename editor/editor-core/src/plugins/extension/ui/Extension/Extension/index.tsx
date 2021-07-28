@@ -18,6 +18,7 @@ import {
 import { Overlay } from '../styles';
 import ExtensionLozenge from '../Lozenge';
 import { pluginKey as widthPluginKey } from '../../../../width';
+import { EditorAppearance } from '../../../../../types/editor-appearance';
 import WithPluginState from '../../../../../ui/WithPluginState';
 import classnames from 'classnames';
 export interface Props {
@@ -27,6 +28,8 @@ export interface Props {
   handleContentDOMRef: (node: HTMLElement | null) => void;
   children?: React.ReactNode;
   refNode?: ADFEntity;
+  hideFrame?: boolean;
+  editorAppearance?: EditorAppearance;
 }
 
 const Extension = (props: Props & OverflowShadowProps) => {
@@ -37,10 +40,14 @@ const Extension = (props: Props & OverflowShadowProps) => {
     view,
     handleRef,
     shadowClassNames,
+    hideFrame,
+    editorAppearance,
   } = props;
 
   const hasBody = node.type.name === 'bodiedExtension';
+  const isMobile = editorAppearance === 'mobile';
   const hasChildren = !!children;
+  const removeBorder = (hideFrame && !isMobile && !hasBody) || false;
 
   const classNames = classnames(
     'extension-container',
@@ -48,11 +55,17 @@ const Extension = (props: Props & OverflowShadowProps) => {
     shadowClassNames,
     {
       'with-overlay': !hasBody,
+      'without-frame': removeBorder,
       [widerLayoutClassName]: ['full-width', 'wide'].includes(
         node.attrs.layout,
       ),
     },
   );
+
+  const headerClassNames = classnames({
+    'with-children': hasChildren,
+    'without-frame': removeBorder,
+  });
 
   return (
     <WithPluginState
@@ -77,11 +90,8 @@ const Extension = (props: Props & OverflowShadowProps) => {
               }`}
             >
               <Overlay className="extension-overlay" />
-              <Header
-                contentEditable={false}
-                className={hasChildren ? 'with-children' : ''}
-              >
-                <ExtensionLozenge node={node} />
+              <Header contentEditable={false} className={headerClassNames}>
+                {!removeBorder && <ExtensionLozenge node={node} />}
                 {children}
               </Header>
               {hasBody && (

@@ -40,7 +40,7 @@ import typeAheadPlugin from '../../../type-ahead';
 import codeBlockPlugin from '../../../code-block';
 import hyperlinkPlugin from '../../../hyperlink';
 import tasksAndDecisionsPlugin from '../../../tasks-and-decisions';
-import listPlugin from '../../../lists-predictable';
+import listPlugin from '../../../list';
 import textFormattingPlugin from '../../../text-formatting';
 import emojiPlugin from '../../../emoji';
 import basePlugin from '../../../base';

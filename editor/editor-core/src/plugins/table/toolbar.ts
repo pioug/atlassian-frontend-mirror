@@ -24,21 +24,22 @@ import {
   emptyMultipleCellsWithAnalytics,
   insertColumnWithAnalytics,
 } from './commands-with-analytics';
-import { getPluginState, pluginKey } from './pm-plugins/plugin-factory';
+import { getPluginState } from './pm-plugins/plugin-factory';
 import { pluginKey as tableResizingPluginKey } from './pm-plugins/table-resizing';
 import {
   ColumnResizingPluginState,
-  TablePluginState,
   ToolbarMenuConfig,
   ToolbarMenuState,
   ToolbarMenuContext,
   PluginConfig,
+  TableCssClassName,
 } from './types';
 import { checkIfNumberColumnEnabled } from './utils';
 import { isReferencedSource } from './utils/referentiality';
 import { INPUT_METHOD } from '../analytics';
 import {
   findCellRectClosestToPos,
+  findTable,
   getSelectionRect,
   isSelectionType,
 } from '@atlaskit/editor-tables/utils';
@@ -48,6 +49,9 @@ import { splitCell } from '@atlaskit/editor-tables/utils';
 import tableMessages from './ui/messages';
 import { messages as ContextualMenuMessages } from './ui/FloatingContextualMenu/ContextualMenu';
 import { Rect } from '@atlaskit/editor-tables/table-map';
+import { findParentDomRefOfType } from 'prosemirror-utils';
+import { EditorView } from 'prosemirror-view';
+import { closestElement } from '../../utils/dom';
 
 export const messages = defineMessages({
   tableOptions: {
@@ -242,52 +246,69 @@ const getClosestSelectionRect = (state: EditorState): Rect | undefined => {
     : findCellRectClosestToPos(selection.$from);
 };
 
-export const getToolbarConfig: FloatingToolbarHandler = (
-  state,
-  { formatMessage },
-) => {
-  const tableState: TablePluginState | undefined = pluginKey.getState(state);
+export const getToolbarConfig = (
+  config: PluginConfig,
+): FloatingToolbarHandler => (state, intl) => {
+  const tableObject = findTable(state.selection);
+  const pluginState = getPluginState(state);
   const resizeState:
     | ColumnResizingPluginState
     | undefined = tableResizingPluginKey.getState(state);
-
-  if (tableState && tableState.tableRef && tableState.pluginConfig) {
-    const { pluginConfig } = tableState;
+  if (tableObject && pluginState.editorHasFocus) {
+    const nodeType = state.schema.nodes.table;
     const menu = getToolbarMenuConfig(
+      config,
       {
-        allowHeaderRow: pluginConfig.allowHeaderRow,
-        allowHeaderColumn: pluginConfig.allowHeaderColumn,
-        allowNumberColumn: pluginConfig.allowNumberColumn,
-      },
-      {
-        isHeaderColumnEnabled: tableState.isHeaderColumnEnabled,
-        isHeaderRowEnabled: tableState.isHeaderRowEnabled,
+        ...pluginState,
         isNumberColumnEnabled: checkIfNumberColumnEnabled(state),
       },
-      {
-        formatMessage,
-      },
+      intl,
     );
 
-    const cellItems = getCellItems(pluginConfig, state, { formatMessage });
+    const cellItems = getCellItems(config, state, intl);
 
     // Check if we need to show confirm dialog for delete button
     let confirmDialog;
-    const localId: string | undefined = tableState.tableNode?.attrs.localId;
+    const localId: string | undefined = tableObject.node.attrs.localId;
 
     if (localId && isReferencedSource(state, localId)) {
       confirmDialog = {
-        okButtonLabel: formatMessage(
+        okButtonLabel: intl.formatMessage(
           tableMessages.confirmDeleteLinkedModalOKButton,
         ),
-        message: formatMessage(tableMessages.confirmDeleteLinkedModalMessage),
+        message: intl.formatMessage(
+          tableMessages.confirmDeleteLinkedModalMessage,
+        ),
       };
     }
 
+    const getDomRef = (editorView: EditorView) => {
+      let element: HTMLElement | undefined;
+      const domAtPos = editorView.domAtPos.bind(editorView);
+      const parent = findParentDomRefOfType(
+        nodeType,
+        domAtPos,
+      )(state.selection);
+      if (parent) {
+        const tableRef =
+          (parent as HTMLElement).querySelector<HTMLTableElement>('table') ||
+          undefined;
+        if (tableRef) {
+          element =
+            closestElement(
+              tableRef,
+              `.${TableCssClassName.TABLE_NODE_WRAPPER}`,
+            ) || undefined;
+        }
+      }
+
+      return element;
+    };
+
     return {
       title: 'Table floating controls',
-      getDomRef: () => tableState.tableWrapperTarget!,
-      nodeType: state.schema.nodes.table,
+      getDomRef,
+      nodeType,
       offset: [0, 3],
       items: [
         menu,
@@ -306,7 +327,7 @@ export const getToolbarConfig: FloatingToolbarHandler = (
           disabled: !!resizeState && !!resizeState.dragging,
           onMouseEnter: hoverTable(true),
           onMouseLeave: clearHoverSelection(),
-          title: formatMessage(commonMessages.remove),
+          title: intl.formatMessage(commonMessages.remove),
           confirmDialog,
         },
       ],

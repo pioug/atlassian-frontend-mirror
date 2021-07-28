@@ -1,13 +1,19 @@
-import React, { memo, ReactNode } from 'react';
+/** @jsx jsx */
+import { CSSProperties, memo, ReactNode } from 'react';
 
-import { ThemeProp } from '@atlaskit/theme/components';
+import { css, jsx } from '@emotion/core';
 
-import { Theme, ThemeAppearance, ThemeProps, ThemeTokens } from '../theme';
+import { borderRadius, gridSize } from '@atlaskit/theme/constants';
 
-import Container from './container';
-import Content from './content';
+import {
+  boldBackgroundColor,
+  boldTextColor,
+  defaultBackgroundColor,
+  defaultTextColor,
+  ThemeAppearance,
+} from '../theme';
 
-interface LozengeProps {
+export interface LozengeProps {
   /**
    * The appearance type.
    */
@@ -29,9 +35,9 @@ interface LozengeProps {
   maxWidth?: number | string;
 
   /**
-   * The theme the component should use.
+   * Style customization to apply to the badge. Only `backgroundColor` and `color` are supported.
    */
-  theme?: ThemeProp<ThemeTokens, ThemeProps>;
+  style?: Pick<CSSProperties, 'backgroundColor' | 'color'>;
 
   /**
    * A `testId` prop is provided for specified elements, which is a unique
@@ -40,6 +46,30 @@ interface LozengeProps {
    */
   testId?: string;
 }
+
+const containerStyles = css({
+  display: 'inline-block',
+  boxSizing: 'border-box',
+  maxWidth: '100%',
+  padding: '2px 0 3px 0',
+  borderRadius: borderRadius(),
+  fontSize: '11px',
+  fontWeight: 700,
+  lineHeight: 1,
+  textTransform: 'uppercase',
+  verticalAlign: 'baseline',
+});
+
+const contentStyles = css({
+  display: 'inline-block',
+  boxSizing: 'border-box',
+  width: '100%',
+  padding: `0 ${gridSize() / 2}px`,
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  verticalAlign: 'top',
+  whiteSpace: 'nowrap',
+});
 
 /**
  * __Lozenge__
@@ -52,25 +82,33 @@ interface LozengeProps {
  */
 const Lozenge = memo(
   ({
-    theme,
     children,
     testId,
     isBold = false,
     appearance = 'default',
     maxWidth = 200,
-  }: // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
-  LozengeProps) => {
-    const props = { theme, children, testId, isBold, appearance, maxWidth };
+    style = {},
+  }: LozengeProps) => {
+    const backgroundColor =
+      style.backgroundColor ||
+      (isBold
+        ? boldBackgroundColor[appearance]
+        : defaultBackgroundColor[appearance]
+      ).light;
+    const color =
+      style.color ||
+      (isBold ? boldTextColor[appearance] : defaultTextColor[appearance]).light;
+
     return (
-      <Theme.Provider value={theme}>
-        <Theme.Consumer {...props}>
-          {(themeTokens) => (
-            <Container testId={testId} {...themeTokens}>
-              <Content {...themeTokens}>{children}</Content>
-            </Container>
-          )}
-        </Theme.Consumer>
-      </Theme.Provider>
+      <span
+        style={{ backgroundColor, color }}
+        css={containerStyles}
+        data-testid={testId}
+      >
+        <span style={{ maxWidth }} css={contentStyles}>
+          {children}
+        </span>
+      </span>
     );
   },
 );

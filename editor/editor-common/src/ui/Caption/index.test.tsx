@@ -60,4 +60,12 @@ describe('CaptionComponent', () => {
 
     expect(caption.getAttribute('data-renderer-start-pos')).toEqual('5');
   });
+
+  it('should have data-media-caption', () => {
+    const { getByTestId } = renderWithIntl(<Caption />);
+
+    const caption = getByTestId('media-caption');
+
+    expect(caption.getAttribute('data-media-caption')).toEqual('true');
+  });
 });

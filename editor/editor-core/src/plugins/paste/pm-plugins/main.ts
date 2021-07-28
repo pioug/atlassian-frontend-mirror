@@ -72,11 +72,7 @@ import {
   transformSliceToRemoveColumnsWidths,
   transformSliceRemoveCellBackgroundColor,
 } from '../../table/commands/misc';
-import { upgradeTextToLists, splitParagraphs } from '../../lists/transforms';
-import {
-  upgradeTextToLists as upgradeTextToListsPredictable,
-  splitParagraphs as splitParagraphsPredictable,
-} from '../../lists-predictable/transforms';
+import { upgradeTextToLists, splitParagraphs } from '../../list/transforms';
 import { md } from '../md';
 import { getPluginState as getTablePluginState } from '../../table/pm-plugins/plugin-factory';
 import { transformUnsupportedBlockCardToInline } from '../../card/utils';
@@ -110,7 +106,6 @@ export function createPlugin(
   dispatchAnalyticsEvent: DispatchAnalyticsEvent,
   cardOptions?: CardOptions,
   sanitizePrivateContent?: boolean,
-  predictableLists?: boolean,
   providerFactory?: ProviderFactory,
 ) {
   const atlassianMarkDownParser = new MarkdownTransformer(schema, md);
@@ -480,14 +475,8 @@ export function createPlugin(
         slice = transformSliceToDecisionList(slice, schema);
 
         // splitting linebreaks into paragraphs must happen before upgrading text to lists
-        // TODO: remove predictableLists check during rollout - https://product-fabric.atlassian.net/browse/ED-10611
-        if (predictableLists) {
-          slice = splitParagraphsPredictable(slice, schema);
-          slice = upgradeTextToListsPredictable(slice, schema);
-        } else {
-          slice = splitParagraphs(slice, schema);
-          slice = upgradeTextToLists(slice, schema);
-        }
+        slice = splitParagraphs(slice, schema);
+        slice = upgradeTextToLists(slice, schema);
 
         if (
           slice.content.childCount &&

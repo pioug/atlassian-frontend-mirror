@@ -1,5 +1,26 @@
 # @atlaskit/media-client
 
+## 14.0.0
+
+### Minor Changes
+
+- [`531dcf9459d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/531dcf9459d) - Media Client allows sync operations by using initial Auth credentials when the consumer needs it _inmediatelly_ after instantiation (e.g., Server Side Rendering).
+  MediaClientConfig requires the "initialAuth" attribute to provide an Auth object that does not come from an async Auth provider.
+  Example:
+
+  ```
+  const mediaClientConfig = {
+    authProvider: myAuthProvider,
+    initialAuth: myAuth
+  }
+  const mediaClient = new MediaClient(mediaClientConfig);
+  const imageUrl = mediaClient.getImageUrlSync(myFileId, myParams);
+  ```
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.3.1
 
 ### Patch Changes

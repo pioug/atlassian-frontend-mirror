@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 0.0.17
+
+### Patch Changes
+
+- [`0d0ecc6e790`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0d0ecc6e790) - Corrects eslint supressions.
+
 ## 0.0.16
 
 ### Patch Changes

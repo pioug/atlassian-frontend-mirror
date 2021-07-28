@@ -17,6 +17,7 @@ type FabricEditorAnalyticsContextProps = Props & {
     packageName: string;
     packageVersion: string;
     componentName: 'renderer' | 'editorCore';
+    editorSessionId: string;
   };
 };
 

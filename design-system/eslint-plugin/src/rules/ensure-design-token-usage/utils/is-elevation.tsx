@@ -27,9 +27,8 @@ const legacyElevation: Record<
 };
 
 export const isLegacyElevation = (name: string) => {
-  const elevation = legacyElevation[name];
-  if (elevation) {
-    return elevation;
+  if (Object.keys(legacyElevation).includes(name)) {
+    return legacyElevation[name];
   }
 
   return false;

@@ -25,7 +25,7 @@ import { setTextSelection } from '../../../../../utils';
 import hyperlinkPlugin from '../../../index';
 import layoutPlugin from '../../../../layout';
 import { PluginKey } from 'prosemirror-state';
-import listPlugin from '../../../../lists';
+import listPlugin from '../../../../list';
 
 describe('hyperlink', () => {
   const createEditor = createProsemirrorEditorFactory();

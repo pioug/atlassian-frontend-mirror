@@ -11,7 +11,6 @@ import { browser } from '@atlaskit/editor-common';
 import { Dispatch } from '../../../event-dispatcher';
 import { DispatchAnalyticsEvent } from '../../analytics';
 
-import { setDecorations } from '../commands';
 import { createPluginState, getPluginState } from '../plugin-factory';
 import {
   selectionPluginKey,
@@ -26,6 +25,7 @@ import {
   getAllSelectionAnalyticsPayload,
   getCellSelectionAnalyticsPayload,
 } from '../utils';
+import { SelectionActionTypes } from '../actions';
 
 export const getInitialState = (state: EditorState): SelectionPluginState => ({
   decorationSet: getDecorations(state.tr),
@@ -41,10 +41,12 @@ export const createPlugin = (
     key: selectionPluginKey,
     state: createPluginState(dispatch, getInitialState),
     view: () => ({
-      update: (editorView) => {
-        const { state, dispatch } = editorView;
+      update: (editorView, oldEditorState) => {
+        const { state } = editorView;
 
-        if (!shouldRecalcDecorations(getPluginState(state), state)) {
+        if (
+          !shouldRecalcDecorations({ oldEditorState, newEditorState: state })
+        ) {
           return;
         }
 
@@ -65,10 +67,23 @@ export const createPlugin = (
         if (analyticsPayload) {
           dispatchAnalyticsEvent(analyticsPayload);
         }
-
-        setDecorations()(state, dispatch);
       },
     }),
+
+    appendTransaction(_transactions, oldEditorState, newEditorState) {
+      if (!shouldRecalcDecorations({ oldEditorState, newEditorState })) {
+        return;
+      }
+
+      const { tr } = newEditorState;
+      tr.setMeta(selectionPluginKey, {
+        type: SelectionActionTypes.SET_DECORATIONS,
+        selection: tr.selection,
+        decorationSet: getDecorations(tr),
+      });
+
+      return tr;
+    },
 
     filterTransaction(tr, state) {
       // Prevent single click selecting atom nodes on mobile (we want to select with long press gesture instead)

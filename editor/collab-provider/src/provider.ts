@@ -1,7 +1,7 @@
 import { getVersion, sendableSteps } from 'prosemirror-collab';
 import { EditorState, Transaction } from 'prosemirror-state';
 import { Step, StepMap, Mapping } from 'prosemirror-transform';
-import { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
+import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import throttle from 'lodash/throttle';
 
 import { Emitter } from './emitter';
@@ -27,31 +27,32 @@ import {
 } from '@atlaskit/editor-common/collab';
 import { Config } from './types';
 
-import { buildAnalyticsPayload, createLogger, getParticipant } from './utils';
-import { GasPurePayload } from '@atlaskit/analytics-gas-types';
-import {
-  CATCHUP_FAILURE,
-  CATCHUP_SUCCESS,
-  STEPS_REJECTED,
-  STEPS_ADDED,
-  ACK_MAX_TRY,
-} from './const';
+import { createLogger, getParticipant, sleep } from './helpers/utils';
+import { ACK_MAX_TRY } from './helpers/const';
+import { startMeasure, stopMeasure } from './analytics/performance';
 import { ErrorCodeMapper } from './error-code-mapper';
+import {
+  triggerAnalyticsForCatchupFailed,
+  triggerAnalyticsForCatchupSuccessfulWithLatency,
+  triggerAnalyticsForStepsRejected,
+  triggerAnalyticsForStepsAddedSuccessfully,
+} from './analytics';
 
-const logger = createLogger('Provider', 'yellow');
+const logger = createLogger('Provider', 'black');
 
-const PARTICIPANT_UPDATE_INTERVAL = 300; // seconds
-const SEND_PRESENCE_INTERVAL = 150; // seconds
-export const MAX_STEP_REJECTED_ERROR = 10;
-export const CATCHUP_THROTTLE_TIMEOUT = 5000; // 5 seconds
-const SEND_STEPS_THROTTLE = 0.1; // seconds
-const FIVE_HUNDRED_MILLISECONDS = SEND_STEPS_THROTTLE * 500; // 500 ms
+const PARTICIPANT_UPDATE_INTERVAL = 300 * 1000; // 300 seconds
+const SEND_PRESENCE_INTERVAL = 150 * 1000; // 150 seconds
+const SEND_STEPS_THROTTLE = 500; // 0.5 second
+export const CATCHUP_THROTTLE = 1 * 1000; // 1 second
 
-const CATCHUP_THROTTLE = 1; // One seconds
-const TEN_SECONDS = CATCHUP_THROTTLE * 1000; // 10 seconds
+export const MAX_STEP_REJECTED_ERROR = 15;
 
 export type CollabConnectedPayload = EditorCollabConnetedData;
-export type CollabErrorPayload = ErrorPayload;
+export interface CollabErrorPayload {
+  status: number;
+  code: string;
+  message: string;
+}
 export interface CollabInitPayload extends EditorCollabInitData {
   doc: any;
   version: number;
@@ -110,7 +111,7 @@ const commitStep = ({
   });
 };
 
-const throttledCommitStep = throttle(commitStep, FIVE_HUNDRED_MILLISECONDS, {
+const throttledCommitStep = throttle(commitStep, SEND_STEPS_THROTTLE, {
   leading: false,
   trailing: true,
 });
@@ -153,7 +154,6 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
   private getState: (() => EditorState) | undefined;
   private metadata: Metadata = {};
   private stepRejectCounter: number = 0;
-  private catchupTimeout?: NodeJS.Timeout;
   private analyticsClient?: AnalyticsWebClient;
 
   // SessionID is the unique socket-session.
@@ -279,29 +279,6 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
     });
   }
 
-  private fireAnalyticsEvent = (analyticsEvent?: GasPurePayload) => {
-    if (!this.analyticsClient || !analyticsEvent) {
-      return;
-    }
-
-    const client = this.analyticsClient;
-    const requestIdleCallbackFunction = (window as any).requestIdleCallback;
-    const runItLater =
-      typeof requestIdleCallbackFunction === 'function'
-        ? requestIdleCallbackFunction
-        : window.requestAnimationFrame;
-
-    // Let the browser figure out
-    // when it should send those events
-    runItLater(() => {
-      client.sendOperationalEvent({
-        action: 'collab',
-        ...analyticsEvent,
-        source: analyticsEvent.source || 'unknown',
-      });
-    });
-  };
-
   /**
    * Called when we receive steps from the service
    */
@@ -337,7 +314,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
     return getVersion(this.getState!());
   };
 
-  private throttledCatchup = throttle(() => this.catchup(), TEN_SECONDS, {
+  private throttledCatchup = throttle(() => this.catchup(), CATCHUP_THROTTLE, {
     leading: false,
     trailing: true,
   });
@@ -354,12 +331,19 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
     }
     this.pauseQueue = true;
     try {
+      startMeasure('callingCatchupApi');
       const {
         doc,
         stepMaps: serverStepMaps,
         version: serverVersion,
         metadata,
       } = await this.channel.fetchCatchup(this.getCurrentPmVersion());
+      stopMeasure('callingCatchupApi', (duration, startTime) => {
+        triggerAnalyticsForCatchupSuccessfulWithLatency(
+          this.analyticsClient,
+          duration,
+        );
+      });
       if (doc) {
         const currentPmVersion = this.getCurrentPmVersion();
         if (typeof serverVersion === 'undefined') {
@@ -404,9 +388,6 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
           // those steps since their position could be changed after replacing.
           // https://prosemirror.net/docs/guide/#transform.rebasing
           if (unconfirmedSteps.length) {
-            const catchupAnalytics: GasPurePayload = buildAnalyticsPayload(
-              CATCHUP_SUCCESS,
-            );
             // Create StepMap from StepMap JSON
             // eslint-disable-next-line no-unused-vars
             const stepMaps = serverStepMaps.map(
@@ -446,87 +427,82 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
             );
             // Re-aply local steps
             this.emit('local-steps', { steps: newUnconfirmedSteps });
-            this.fireAnalyticsEvent(catchupAnalytics);
           }
         }
       }
     } catch (err) {
-      const catchupFailureAnalytics: GasPurePayload = buildAnalyticsPayload(
-        CATCHUP_FAILURE,
-        err,
-      );
-      this.fireAnalyticsEvent(catchupFailureAnalytics);
+      triggerAnalyticsForCatchupFailed(this.analyticsClient, err);
       logger(`Catch-Up Failed:`, err.message);
     } finally {
       this.pauseQueue = false;
       this.processQueue();
       this.sendStepsFromCurrentState();
       this.stepRejectCounter = 0;
-      if (this.catchupTimeout) {
-        clearTimeout(this.catchupTimeout);
-        this.catchupTimeout = undefined;
+    }
+  };
+
+  private errorCodeMapper = (
+    error: ErrorPayload,
+  ): CollabErrorPayload | undefined => {
+    if (error.data) {
+      switch (error.data.code) {
+        case 'INSUFFICIENT_EDITING_PERMISSION':
+          return {
+            status: 403,
+            code: ErrorCodeMapper.noPermissionError.code,
+            message: ErrorCodeMapper.noPermissionError.message,
+          };
+        case 'DOCUMENT_NOT_FOUND':
+          return {
+            status: 404,
+            code: ErrorCodeMapper.documentNotFound.code,
+            message: ErrorCodeMapper.documentNotFound.message,
+          };
+        case 'FAILED_ON_S3':
+        case 'DYNAMO_ERROR':
+          return {
+            status: 500,
+            code: ErrorCodeMapper.failToSave.code,
+            message: ErrorCodeMapper.failToSave.message,
+          };
+        case 'CATCHUP_FAILED':
+        case 'GET_QUERY_TIME_OUT':
+          return {
+            status: 500,
+            code: ErrorCodeMapper.internalError.code,
+            message: ErrorCodeMapper.internalError.message,
+          };
+        default:
+          break;
       }
     }
   };
 
-  private errorCodeMapper = (error: ErrorPayload | string) => {
-    switch ((error as ErrorPayload).code) {
-      case 'INSUFFICIENT_EDITING_PERMISSION':
-        return {
-          status: 403,
-          code: ErrorCodeMapper.noPermissionError.code,
-          message: ErrorCodeMapper.noPermissionError.message,
-        };
-      case 'DOCUMENT_NOT_FOUND':
-        return {
-          status: 404,
-          code: ErrorCodeMapper.documentNotFound.code,
-          message: ErrorCodeMapper.documentNotFound.message,
-        };
-      case 'FAILED_ON_S3':
-      case 'DYNAMO_ERROR':
-        return {
-          status: 500,
-          code: ErrorCodeMapper.failToSave.code,
-          message: ErrorCodeMapper.failToSave.message,
-        };
-      case 'CATCHUP_FAILED':
-      case 'GET_QUERY_TIME_OUT':
-        return {
-          status: 500,
-          code: ErrorCodeMapper.internalError.code,
-          message: ErrorCodeMapper.internalError.message,
-        };
-      default:
-        break;
-    }
-  };
-
-  private onErrorHandled = (error: ErrorPayload | string) => {
-    if (
-      error &&
-      ((error as ErrorPayload).code === 'HEAD_VERSION_UPDATE_FAILED' ||
-        (error as ErrorPayload).code === 'VERSION_NUMBER_ALREADY_EXISTS')
-    ) {
-      const stepRejectAnalytics: GasPurePayload = buildAnalyticsPayload(
-        STEPS_REJECTED,
-        error,
-      );
-      this.fireAnalyticsEvent(stepRejectAnalytics);
-      this.stepRejectCounter++;
-      if (!this.catchupTimeout) {
-        this.catchupTimeout = setTimeout(() => {
-          this.throttledCatchup();
-        }, CATCHUP_THROTTLE_TIMEOUT);
+  private onErrorHandled = (error: ErrorPayload) => {
+    if (error && error.data) {
+      if (
+        error.data.code === 'HEAD_VERSION_UPDATE_FAILED' ||
+        error.data.code === 'VERSION_NUMBER_ALREADY_EXISTS'
+      ) {
+        triggerAnalyticsForStepsRejected(
+          this.analyticsClient,
+          error as ErrorPayload,
+        );
+        this.stepRejectCounter++;
+      }
+      logger(`The stepRejectCounter("${this.stepRejectCounter}")`);
+      if (this.stepRejectCounter >= MAX_STEP_REJECTED_ERROR) {
+        logger(
+          `The stepRejected("${this.stepRejectCounter}") exceed maximun("${MAX_STEP_REJECTED_ERROR}"), trigger catch`,
+        );
+        this.throttledCatchup();
+      }
+      const errorToEmit = this.errorCodeMapper(error);
+      if (errorToEmit) {
+        this.emit('error', errorToEmit);
       }
     }
-    if (this.stepRejectCounter >= MAX_STEP_REJECTED_ERROR) {
-      this.throttledCatchup();
-    }
-    const errorToEmit = this.errorCodeMapper(error);
-    if (errorToEmit) {
-      this.emit('error', errorToEmit);
-    }
+
     logger(`Error from collab service`, error);
   };
 
@@ -566,15 +542,14 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 
   private processSteps(data: StepsPayload, forceApply?: boolean) {
     const { version, steps } = data;
-    const stepAddedAnalyticsEvent: GasPurePayload = buildAnalyticsPayload(
-      STEPS_ADDED,
-    );
     logger(`Processing data. Version "${version}".`);
 
     if (steps && steps.length) {
       const clientIds = steps.map(({ clientId }) => clientId);
       this.emit('data', { json: steps, version, userIds: clientIds });
-      this.fireAnalyticsEvent(stepAddedAnalyticsEvent);
+      // If steps can apply to local editor sucessfully, no need to accumulate the error counter.
+      this.stepRejectCounter = 0;
+      triggerAnalyticsForStepsAddedSuccessfully(this.analyticsClient);
       this.emitTelepointersFromSteps(steps);
 
       // Resend local steps if none of the received steps originated with us!
@@ -619,7 +594,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 
     this.presenceUpdateTimeout = setTimeout(
       () => this.sendPresence(),
-      SEND_PRESENCE_INTERVAL * 1000,
+      SEND_PRESENCE_INTERVAL,
     );
   };
 
@@ -770,7 +745,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
     const left = Array.from(this.participants.values()).filter(
       (p) =>
         p.sessionId !== this.sessionId &&
-        (now - p.lastActive) / 1000 > PARTICIPANT_UPDATE_INTERVAL,
+        now - p.lastActive > PARTICIPANT_UPDATE_INTERVAL,
     );
 
     left.forEach((p) => this.participants.delete(p.sessionId));
@@ -784,7 +759,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 
     this.participantUpdateTimeout = setTimeout(
       () => this.updateParticipants(),
-      PARTICIPANT_UPDATE_INTERVAL * 1000,
+      PARTICIPANT_UPDATE_INTERVAL,
     );
   };
 
@@ -892,10 +867,4 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
     this.channel.disconnect();
     return this;
   }
-}
-
-function sleep(ms: number) {
-  return new Promise((resolve) => {
-    setTimeout(resolve, ms);
-  });
 }

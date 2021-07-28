@@ -431,7 +431,7 @@ describe('SiteEmojiResource', () => {
 
       fetchMock.mock({
         method: 'GET',
-        matcher: 'end:?altScale=XHDPI',
+        matcher: 'end:?altScale=XHDPI&preferredRepresentation=IMAGE',
         response: serviceResponse,
         name: 'fetch-site-emoji',
       });
@@ -457,7 +457,7 @@ describe('SiteEmojiResource', () => {
 
       fetchMock.mock({
         method: 'GET',
-        matcher: 'end:?altScale=XHDPI',
+        matcher: 'end:?altScale=XHDPI&preferredRepresentation=IMAGE',
         response: serviceResponse,
         name: 'fetch-site-emoji',
       });
@@ -484,7 +484,7 @@ describe('SiteEmojiResource', () => {
 
       fetchMock.mock({
         method: 'GET',
-        matcher: 'end:?altScale=XHDPI',
+        matcher: 'end:?altScale=XHDPI&preferredRepresentation=IMAGE',
         response: serviceResponse,
         name: 'fetch-site-emoji',
       });
@@ -502,7 +502,7 @@ describe('SiteEmojiResource', () => {
 
       fetchMock.mock({
         method: 'GET',
-        matcher: 'end:?altScale=XHDPI',
+        matcher: 'end:?altScale=XHDPI&preferredRepresentation=IMAGE',
         response: 403,
         name: 'fetch-site-emoji',
       });

@@ -1,5 +1,12 @@
 # @atlaskit/portal
 
+## 4.2.3
+
+### Patch Changes
+
+- [`ea086afdc2d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ea086afdc2d) - Fix bug where Portal was attached to the body after the children were rendered. Now Portal is attached before it's children are rendered.
+- Updated dependencies
+
 ## 4.2.2
 
 ### Patch Changes

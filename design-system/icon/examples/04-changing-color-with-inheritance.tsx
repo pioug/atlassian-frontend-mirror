@@ -10,10 +10,10 @@ import ArrowDownIcon from '../glyph/arrow-down';
 import ArrowLeftIcon from '../glyph/arrow-left';
 import ArrowRightIcon from '../glyph/arrow-right';
 
-const backgroundWhite = css({ backgroundColor: 'white' });
-const backgroundBlue = css({ backgroundColor: B500 });
-const colorInherit = css({ backgroundColor: 'inherit' });
-const colorWhite = css({ backgroundColor: 'white' });
+const backgroundWhiteStyles = css({ backgroundColor: 'white' });
+const backgroundBlueStyles = css({ backgroundColor: B500 });
+const colorInheritStyles = css({ backgroundColor: 'inherit' });
+const colorWhiteStyles = css({ backgroundColor: 'white' });
 
 const containerStyles = css({
   display: 'flex',
@@ -34,9 +34,17 @@ const ChangingColorWithInheritance = () => {
 
   return (
     <div
-      css={[containerStyles, isColorFlipped ? backgroundWhite : backgroundBlue]}
+      css={[
+        containerStyles,
+        isColorFlipped ? backgroundWhiteStyles : backgroundBlueStyles,
+      ]}
     >
-      <p css={[textStyles, isColorFlipped ? colorInherit : colorWhite]}>
+      <p
+        css={[
+          textStyles,
+          isColorFlipped ? colorInheritStyles : colorWhiteStyles,
+        ]}
+      >
         Icons inherit color from their parent by default.
       </p>
       <BookIcon size="xlarge" label="book" />
@@ -44,7 +52,12 @@ const ChangingColorWithInheritance = () => {
       <ArrowDownIcon size="xlarge" label="arrowdown" />
       <ArrowLeftIcon size="xlarge" label="arrowleft" />
       <ArrowRightIcon size="xlarge" label="arrowright" />
-      <p css={[textStyles, isColorFlipped ? colorInherit : colorWhite]}>
+      <p
+        css={[
+          textStyles,
+          isColorFlipped ? colorInheritStyles : colorWhiteStyles,
+        ]}
+      >
         <Button
           appearance="subtle-link"
           onClick={() => setIsColorFlipped((old) => !old)}

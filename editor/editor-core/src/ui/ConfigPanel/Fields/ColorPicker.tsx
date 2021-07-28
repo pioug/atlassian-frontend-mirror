@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Field, FieldProps } from '@atlaskit/form';
 import { ColorField } from '@atlaskit/editor-common/extensions';
-import ColorPickerButton from '../../ColorPickerButton/color-picker-button';
 import { PaletteColor } from '../../../ui/ColorPalette/Palettes';
 import { DEFAULT_BORDER_COLOR } from '../../../ui/ColorPalette/Palettes/common';
 import { OnFieldChange } from '../types';
@@ -12,6 +11,7 @@ import { gridSize } from '@atlaskit/theme/constants';
 import { RequiredIndicator } from './common/RequiredIndicator';
 import { headingSizes } from '@atlaskit/theme/typography';
 import FieldMessages from '../FieldMessages';
+import ColorPickerButton from '../../ColorPickerButton';
 
 /*
     NOTE: color used here are not yet in atlaskit code
@@ -84,14 +84,15 @@ const ColorPicker = (props: Props) => {
     onFieldChange,
   } = props;
 
-  const onColorChange = (color: string) => {
-    if (isValidHex(color) === false) {
+  const onColorChange = (color: PaletteColor) => {
+    const colorValue = color.value;
+    if (!isValidHex(colorValue)) {
       throw new Error('invalid hex value');
     }
 
-    onChange(color);
-    fieldProps.onChange(color);
-    onFieldChange(name, currentColor !== color);
+    onChange(colorValue);
+    fieldProps.onChange(colorValue);
+    onFieldChange(name, currentColor !== colorValue);
   };
 
   return (

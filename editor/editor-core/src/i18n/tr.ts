@@ -141,6 +141,8 @@ export default {
   'fabric.editor.findNext': 'Sonrakini bul',
   'fabric.editor.findPrevious': 'Öncekini bul',
   'fabric.editor.findReplaceToolbarButton': 'Bul ve değiştir',
+  'fabric.editor.floatingToolbar.confirmModalCancel': 'İptal',
+  'fabric.editor.floatingToolbar.confirmModalOK': 'Tamam',
   'fabric.editor.headerColumn': 'Başlık sütunu',
   'fabric.editor.headerRow': 'Başlık satırı',
   'fabric.editor.heading1': 'Başlık 1',
@@ -168,6 +170,10 @@ export default {
     'Bu iletişim kutusunu istediğiniz zaman açmak için lütfen {keyMap} düğmesine basın',
   'fabric.editor.horizontalRule': 'Ayırıcı',
   'fabric.editor.horizontalRule.description': 'İçeriği yatay çizgiyle ayırın',
+  'fabric.editor.hyperlink.searchLinkAriaDescription':
+    'Alana yazmaya başladığınızda öneriler aşağıda görünecek',
+  'fabric.editor.hyperlink.searchLinkResults':
+    '{count, plural, =0 {sonuç bulunamadı} one {{count,number} sonuç bulundu} other {{count,number} sonuç bulundu}}',
   'fabric.editor.hyperlinkToolbarPlaceholder':
     'Bağlantıyı yapıştırın veya son görüntülenenleri arayın',
   'fabric.editor.image': 'Görsel',

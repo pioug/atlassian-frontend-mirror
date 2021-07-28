@@ -8,10 +8,8 @@ import {
   TextFormattingState,
   blockPluginStateKey,
   BlockTypeState,
-  listsStateKey,
-  ListsState,
-  listsPredictableStateKey,
-  ListsPredictableState,
+  listStateKey,
+  ListState,
   statusPluginKey,
   StatusState,
   StatusType,
@@ -326,12 +324,9 @@ export const configFactory = (
     );
   }
 
-  const allowPredictableList = editorConfiguration.isPredictableListEnabled();
-  const listConfiguration = createListenerConfig<
-    ListsState | ListsPredictableState
-  >({
+  const listConfiguration = createListenerConfig<ListState>({
     bridge: 'listBridge',
-    pluginKey: allowPredictableList ? listsPredictableStateKey : listsStateKey,
+    pluginKey: listStateKey,
     updater: (pluginState) => {
       toNativeBridge.call('listBridge', 'updateListState', {
         states: JSON.stringify(valueOfListState(pluginState)),

@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { FC, useEffect, useState } from 'react';
 
-import { jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/core';
 
 import Button from '@atlaskit/button/standard-button';
 import { Placement } from '@atlaskit/popper';
@@ -17,26 +17,25 @@ type PopupProps = {
   buttonWidth: number;
 };
 
-const containerCSS = {
+const containerStyles = css({
   margin: '250px',
-};
+});
 
-const loadingCSS = {
-  textAlign: 'center',
+const loadingStyles = css({
   padding: '30px',
-} as const;
+  textAlign: 'center',
+});
 
-const contentCSS = {
+const contentStyles = css({
+  maxWidth: '300px',
+  padding: '30px',
   alignItems: 'center',
   textAlign: 'center',
   verticalAlign: 'center',
-  padding: '30px',
-  maxWidth: '300px',
-} as const;
+});
 
-const expanderCSS = ({ width }: { width: number }) => ({
+const expanderStyles = css({
   display: 'inline-block',
-  width: width ? `${width}px` : 0,
 });
 
 const PopupContent: FC<PopupProps> = ({
@@ -65,11 +64,11 @@ const PopupContent: FC<PopupProps> = ({
   };
 
   return loading ? (
-    <div id="spinner" css={loadingCSS}>
+    <div id="spinner" css={loadingStyles}>
       Loading...
     </div>
   ) : (
-    <div id="popup-content" css={contentCSS}>
+    <div id="popup-content" css={contentStyles}>
       <Button onClick={() => setPosition()}>Toggle Position</Button>
       <p>
         Current position: <strong>{position}</strong>
@@ -129,7 +128,7 @@ export default () => {
   };
 
   return (
-    <div css={containerCSS}>
+    <div css={containerStyles}>
       <Popup
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
@@ -151,7 +150,10 @@ export default () => {
             onClick={() => setIsOpen(!isOpen)}
           >
             {isOpen ? 'Close' : 'Open'} Popup{' '}
-            <div css={expanderCSS({ width: buttonWidth })} />
+            <div
+              style={{ width: buttonWidth ? `${buttonWidth}px` : 0 }}
+              css={expanderStyles}
+            />
           </Button>
         )}
         placement={position}

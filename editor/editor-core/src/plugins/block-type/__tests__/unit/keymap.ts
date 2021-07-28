@@ -39,7 +39,7 @@ import tablesPlugin from '../../../table';
 import mentionsPlugin from '../../../mentions';
 import rulePlugin from '../../../rule';
 import codeBlockPlugin from '../../../code-block';
-import listsPlugin from '../../../lists';
+import listPlugin from '../../../list';
 
 const codeBlockGASV3Payload = {
   action: 'formatted',
@@ -71,7 +71,7 @@ describe('codeBlock - keymaps', () => {
         .add(rulePlugin)
         .add(mentionsPlugin)
         .add(codeBlockPlugin)
-        .add(listsPlugin)
+        .add(listPlugin)
         .add(typeAheadPlugin),
       providerFactory,
     });

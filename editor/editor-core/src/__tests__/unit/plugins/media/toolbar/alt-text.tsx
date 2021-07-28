@@ -28,7 +28,7 @@ import {
 import {
   findToolbarBtn,
   getToolbarItems,
-} from '../../floating-toolbar/_helpers';
+} from '../../../../../plugins/floating-toolbar/__tests__/_helpers';
 import { MediaPluginState } from '../../../../../plugins/media/pm-plugins/types';
 
 interface ToolbarWrapper {

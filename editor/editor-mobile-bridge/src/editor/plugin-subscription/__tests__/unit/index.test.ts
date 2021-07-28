@@ -1,11 +1,7 @@
-import {
-  EventDispatcher,
-  listsPredictableStateKey,
-  listsStateKey,
-} from '@atlaskit/editor-core';
+import { EventDispatcher } from '@atlaskit/editor-core';
 import { PluginKey } from 'prosemirror-state';
 import WebBridgeImpl from '../../../native-to-web';
-import { initPluginListeners, configFactory } from '../..';
+import { initPluginListeners } from '../..';
 import MobileEditorConfiguration from '../../../editor-configuration';
 import { EditorView } from 'prosemirror-view';
 
@@ -36,32 +32,5 @@ describe('Plugin Subscription', () => {
     });
 
     expect(isQuickInsertEnabled).toHaveBeenCalledTimes(1);
-  });
-
-  describe('#configFactory', () => {
-    describe('#predictableList', () => {
-      describe.each<[string, boolean, PluginKey]>([
-        ['predictable list', true, listsPredictableStateKey],
-        ['legacy list', false, listsStateKey],
-      ])(
-        'when the %s feature flag is %b',
-        (_listType, isEnabled, pluginKey) => {
-          it('should use the right plugin key', () => {
-            const newConfig = JSON.stringify({
-              allowPredictableList: isEnabled,
-            });
-            const configs = configFactory(
-              new MobileEditorConfiguration(newConfig),
-            );
-            const listConfig = configs.find((c) => {
-              return c.bridge === 'listBridge';
-            });
-
-            expect(listConfig).toBeDefined();
-            expect(listConfig!.pluginKey).toBe(pluginKey);
-          });
-        },
-      );
-    });
   });
 });

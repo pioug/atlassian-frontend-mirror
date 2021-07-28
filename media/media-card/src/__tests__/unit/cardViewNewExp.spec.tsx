@@ -37,7 +37,6 @@ import {
 } from '../../root/ui/iconMessage';
 import { LoadingRateLimited } from '../../root/ui/loadingRateLimited/loadingRateLimited';
 import {
-  createPollingMaxFailuresError,
   createPollingMaxAttemptsError,
   createRateLimitedError,
 } from '@atlaskit/media-test-helpers';
@@ -153,16 +152,28 @@ describe('CardView New Experience', () => {
       const component = shallowCardViewBase({ status: 'loading' });
       expect(component.find(SpinnerIcon)).toHaveLength(1);
       expect(component.find(IconWrapper)).toHaveLength(1);
-    });
 
-    it(`should not render Spinner when dataURI is defined`, () => {
-      const component = shallowCardViewBase({
+      const componentB = shallowCardViewBase({
         dataURI: 'some-data-uri',
         status: 'loading',
       });
-      expect(component.find(SpinnerIcon)).toHaveLength(0);
-      expect(component.find(IconWrapper)).toHaveLength(0);
+      expect(componentB.find(SpinnerIcon)).toHaveLength(1);
+      expect(componentB.find(IconWrapper)).toHaveLength(1);
     });
+
+    it.each([
+      'uploading',
+      'processing',
+      'complete',
+      'failed-processing',
+      'error',
+    ] as Array<CardStatus>)(
+      `should not render Spinner when status is %s`,
+      (status: CardStatus) => {
+        const component = shallowCardViewBase({ status });
+        expect(component.find(SpinnerIcon)).toHaveLength(0);
+      },
+    );
 
     it(`should render PlayButton when status is dataURI is defined`, () => {
       const metadata: FileDetails = { id: 'some-id', mediaType: 'video' };
@@ -179,40 +190,51 @@ describe('CardView New Experience', () => {
       expect(component.find(PlayButton)).toHaveLength(0);
     });
 
-    (['uploading', 'complete', 'failed-processing', 'error'] as Array<
-      CardStatus
-    >).map((status) =>
+    ([
+      'uploading',
+      'processing',
+      'complete',
+      'failed-processing',
+      'error',
+    ] as Array<CardStatus>).map((status) =>
       it(`should render a MediaTypeIcon when the dataURI is undefined and the status is ${status}`, () => {
         const metadata: FileDetails = { id: 'some-id', mediaType: 'video' };
         const component = shallowCardViewBase({
           metadata,
           dataURI: undefined,
-          status: 'complete',
+          status,
         });
         expect(component.find(MimeTypeIcon)).toHaveLength(1);
         expect(component.find(MimeTypeIcon).prop('mediaType')).toEqual('video');
       }),
     );
 
-    it(`should not render a MediaTypeIcon when the dataURI is defined`, () => {
+    it(`should not render a MediaTypeIcon when the dataURI is undefined and status is loading`, () => {
       const metadata: FileDetails = { id: 'some-id', mediaType: 'video' };
       const component = shallowCardViewBase({
         metadata,
-        dataURI: 'some-datauri',
-        status: 'complete',
       });
       expect(component.find(MediaTypeIcon)).toHaveLength(0);
     });
 
-    it(`should not render a MediaTypeIcon when the status is loading`, () => {
-      const metadata: FileDetails = { id: 'some-id', mediaType: 'video' };
-      const component = shallowCardViewBase({
-        metadata,
-        dataURI: undefined,
-        status: 'loading',
-      });
-      expect(component.find(MediaTypeIcon)).toHaveLength(0);
-    });
+    ([
+      'uploading',
+      'loading',
+      'processing',
+      'complete',
+      'failed-processing',
+      'error',
+    ] as Array<CardStatus>).map((status) =>
+      it(`should not render a MediaTypeIcon when the dataURI is defined and the status is ${status}`, () => {
+        const metadata: FileDetails = { id: 'some-id', mediaType: 'video' };
+        const component = shallowCardViewBase({
+          metadata,
+          dataURI: 'some-data-uri',
+          status,
+        });
+        expect(component.find(MediaTypeIcon)).toHaveLength(0);
+      }),
+    );
 
     it(`should render Blanket when overlay is enabled or status is uploading (except for video)`, () => {
       // Hoverable blanket
@@ -311,7 +333,7 @@ describe('CardView New Experience', () => {
       expect(failedTitleBoxB.props().breakpoint).toBeDefined();
     });
 
-    it.each([createPollingMaxAttemptsError(), createPollingMaxFailuresError()])(
+    it.each([createPollingMaxAttemptsError()])(
       `should not render FailedTitleBox when there is the polling error "%s"`,
       (error: Error) => {
         const metadata: FileDetails = {
@@ -323,7 +345,7 @@ describe('CardView New Experience', () => {
         // With broken dataURI
         const componentB = shallowCardViewBase({
           metadata,
-          status: 'processing',
+          status: 'error',
           dataURI: 'some-data-uri',
           error,
         });
@@ -390,6 +412,7 @@ describe('CardView New Experience', () => {
 
       const component = shallowCardViewBase({
         error,
+        status: 'error',
         metadata: undefined,
         disableOverlay: false,
       });
@@ -412,7 +435,7 @@ describe('CardView New Experience', () => {
       expect(previewUnavailable).toHaveLength(1);
     });
 
-    it.each([createPollingMaxAttemptsError(), createPollingMaxFailuresError()])(
+    it.each([createPollingMaxAttemptsError()])(
       `should render PreviewCurrentlyUnavailable when there is the polling error "%s"`,
       (error: Error) => {
         const metadata: FileDetails = {
@@ -422,7 +445,7 @@ describe('CardView New Experience', () => {
         };
 
         const component = shallowCardViewBase({
-          status: 'processing',
+          status: 'error',
           metadata: metadata,
           error,
         });

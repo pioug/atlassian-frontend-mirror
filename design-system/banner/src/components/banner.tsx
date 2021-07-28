@@ -1,6 +1,77 @@
+/** @jsx jsx */
 import React from 'react';
 
-import { Container, Content, Icon, Text, Visibility } from '../styled';
+import { css, jsx } from '@emotion/core';
+
+import { gridSize } from '@atlaskit/theme/constants';
+
+import {
+  getBackgroundColor,
+  getTextColor,
+  TRANSITION_DURATION,
+} from '../styles';
+
+const iconStyles = css({
+  display: 'flex',
+  alignItems: 'center',
+  flex: '0 0 auto',
+  flexDirection: 'column',
+  '@media: screen and (-ms-high-contrast: white-on-black)': {
+    fill: '#000',
+    filter: 'grayscale(100%)',
+  },
+  '@media screen and (-ms-high-contrast: black-on-white)': {
+    fill: '#fff',
+    filter: 'grayscale(100%)',
+  },
+});
+
+const visibilityStyles = css({
+  overflow: 'hidden',
+  transition: `max-height ${TRANSITION_DURATION}`,
+});
+
+const contentStyles = css({
+  display: 'flex',
+  margin: 'auto',
+  padding: gridSize() * 1.5,
+  alignItems: 'center',
+  justifyContent: 'center',
+  color: 'currentColor',
+  fontWeight: 500,
+  textAlign: 'center',
+  transition: `color ${TRANSITION_DURATION}`,
+  'a, a:visited, a:hover, a:focus, a:active': {
+    color: 'currentColor',
+    textDecoration: 'underline',
+  },
+});
+
+const cappedWidthStyles = css({
+  maxWidth: 876,
+});
+
+const childrenTextStyles = css({
+  padding: gridSize() / 2,
+  flex: '0 1 auto',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  whiteSpace: 'nowrap',
+});
+
+const noOverflowStyles = css({
+  textOverflow: 'none',
+});
+
+const containerStyles = css({
+  maxHeight: 52,
+  overflow: 'visible',
+});
+
+const scrollStyles = css({
+  maxHeight: 88,
+  overflow: 'scroll',
+});
 
 interface BannerProps {
   /**
@@ -47,7 +118,10 @@ class Banner extends React.Component<BannerProps, { height: number }> {
     }
   };
 
-  innerRef = (ref: HTMLElement) => {
+  innerRef = (ref: HTMLElement | null) => {
+    if (!ref) {
+      return;
+    }
     this.containerRef = ref;
     if (this.props.innerRef) {
       this.props.innerRef(ref);
@@ -59,7 +133,6 @@ class Banner extends React.Component<BannerProps, { height: number }> {
     appearance?: 'warning' | 'error' | 'announcement',
   ): {
     role: string;
-    // eslint-disable-next-line @typescript-eslint/naming-convention
     'aria-hidden': boolean;
     tabIndex?: number;
     'aria-label'?: string;
@@ -85,21 +158,47 @@ class Banner extends React.Component<BannerProps, { height: number }> {
   render() {
     const { appearance, children, icon, isOpen, testId } = this.props;
     const allyProps = this.getA11yProps(appearance);
+    const isAnnouncementAppearance = appearance === 'announcement';
+    const backgroundColorByAppearance = getBackgroundColor({ appearance });
+    const textColorByAppearance = getTextColor({ appearance });
 
     return (
-      <Visibility bannerHeight={this.state.height} isOpen={isOpen}>
-        <Container
-          innerRef={this.innerRef}
-          appearance={appearance}
+      <div
+        css={visibilityStyles}
+        style={{ maxHeight: `${isOpen ? this.state.height : 0}px` }}
+      >
+        <div
+          css={[containerStyles, isAnnouncementAppearance && scrollStyles]}
+          style={{
+            backgroundColor: backgroundColorByAppearance,
+            color: textColorByAppearance,
+          }}
+          ref={this.innerRef}
           data-testid={testId}
           {...allyProps}
         >
-          <Content appearance={appearance}>
-            <Icon>{icon}</Icon>
-            <Text appearance={appearance}>{children}</Text>
-          </Content>
-        </Container>
-      </Visibility>
+          <div
+            css={[contentStyles, isAnnouncementAppearance && cappedWidthStyles]}
+          >
+            <span
+              css={iconStyles}
+              style={{
+                fill: backgroundColorByAppearance,
+              }}
+            >
+              {icon}
+            </span>
+            <div
+              css={[
+                childrenTextStyles,
+                isAnnouncementAppearance && noOverflowStyles,
+              ]}
+            >
+              {children}
+            </div>
+          </div>
+        </div>
+      </div>
     );
   }
 }

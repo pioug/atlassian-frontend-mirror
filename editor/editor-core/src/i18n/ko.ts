@@ -133,6 +133,9 @@ export default {
   'fabric.editor.findNext': '다음 찾기',
   'fabric.editor.findPrevious': '이전 찾기',
   'fabric.editor.findReplaceToolbarButton': '찾기 및 바꾸기',
+  'fabric.editor.floatingToolbar.confirmModalCancel': '취소',
+  'fabric.editor.floatingToolbar.confirmModalHeading': '계속하시겠습니까?',
+  'fabric.editor.floatingToolbar.confirmModalOK': '확인',
   'fabric.editor.headerColumn': '헤더 열',
   'fabric.editor.headerRow': '헤더 행',
   'fabric.editor.heading1': '머릿글 1',
@@ -154,6 +157,10 @@ export default {
     '언제든 {keyMap}을(를) 눌러 이 대화상자를 빠르게 시작합니다',
   'fabric.editor.horizontalRule': '구분선',
   'fabric.editor.horizontalRule.description': '가로선으로 콘텐츠 구분',
+  'fabric.editor.hyperlink.searchLinkAriaDescription':
+    '필드에 입력할 때 제안 사항이 아래에 표시됩니다',
+  'fabric.editor.hyperlink.searchLinkResults':
+    '{count, plural, =0 {결과를 찾을 수 없습니다} other {{count,number}개의 결과를 찾았습니다}}',
   'fabric.editor.hyperlinkToolbarPlaceholder':
     '링크 붙여넣기 또는 최근에 본 링크 검색',
   'fabric.editor.image': '이미지',
@@ -232,6 +239,9 @@ export default {
   'fabric.editor.table': '표',
   'fabric.editor.table.description': '표 삽입',
   'fabric.editor.tableOptions': '표 옵션',
+  'fabric.editor.tables.confirmDeleteLinkedModalMessage':
+    '이 표를 제거하면 연결된 차트에 포함된 데이터도 모두 제거됩니다.',
+  'fabric.editor.tables.confirmDeleteLinkedModalOKButton': '표 및 데이터 제거',
   'fabric.editor.taskPlaceholder': "작업을 입력하고 '@'를 사용하여 할당합니다.",
   'fabric.editor.textColor': '텍스트 색상',
   'fabric.editor.textColor.lessColors': '더 적은 색',

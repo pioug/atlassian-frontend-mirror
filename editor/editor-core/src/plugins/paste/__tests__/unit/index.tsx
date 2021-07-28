@@ -95,11 +95,10 @@ import cardPlugin from '../../../card';
 import { CardOptions } from '@atlaskit/editor-common';
 import pastePlugin from '../../index';
 import mediaPlugin from '../../../media';
-import featureFlags from '../../../feature-flags-context';
 import { PluginConfig as TablePluginConfig } from '../../../table/types';
 import blockTypePlugin from '../../../block-type';
 import hyperlinkPlugin from '../../../hyperlink';
-import listPlugin from '../../../lists';
+import listPlugin from '../../../list';
 import codeBlockPlugin from '../../../code-block';
 import textFormattingPlugin from '../../../text-formatting';
 import layoutPlugin from '../../../layout';
@@ -238,7 +237,6 @@ describe('paste plugins', () => {
             ? { platform: 'web', ...pasteOptions.cardOptions }
             : { platform: 'web' },
         ])
-        .add([featureFlags, { predictableLists: true }])
         .add([
           mediaPlugin,
           {
@@ -2567,21 +2565,27 @@ describe('paste plugins', () => {
         (_, content, html, plain = '', linkDomain = []) => {
           dispatchPasteEvent(editorView, { html, plain });
 
-          expect(createAnalyticsEvent).toHaveBeenCalledWith({
-            action: 'pasted',
-            actionSubject: 'document',
-            actionSubjectId,
-            eventType: 'track',
-            attributes: expect.objectContaining({
-              content,
-              inputMethod: 'keyboard',
-              source: 'uncategorized',
-              type: 'richText',
+          expect(createAnalyticsEvent).toHaveBeenCalledWith(
+            expect.objectContaining({
+              action: 'pasted',
+              actionSubject: 'document',
+              actionSubjectId,
+              eventType: 'track',
+              attributes: expect.objectContaining({
+                content,
+                inputMethod: 'keyboard',
+                source: 'uncategorized',
+                type: 'richText',
+              }),
+              ...(linkDomain && linkDomain.length > 0
+                ? {
+                    nonPrivacySafeAttributes: {
+                      linkDomain: expect.arrayContaining(linkDomain),
+                    },
+                  }
+                : {}),
             }),
-            ...(linkDomain && linkDomain.length > 0
-              ? { nonPrivacySafeAttributes: { linkDomain } }
-              : {}),
-          });
+          );
         },
       );
     });

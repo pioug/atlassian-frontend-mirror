@@ -19,10 +19,8 @@ const AKTooltip = lazyForPaint(
       /* webpackChunkName: "@atlaskit-internal_Tooltip" */ '@atlaskit/tooltip'
     ),
   { ssr: false },
-  // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
 ) as ComponentType<TooltipProps>;
 
-// eslint-disable-next-line @repo/internal/react/consistent-props-definitions
 const BreadcrumbsItem = memo((props: BreadcrumbsItemProps) => {
   const buttonRef = useRef<HTMLButtonElement | null>(null);
 

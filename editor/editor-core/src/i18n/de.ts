@@ -170,6 +170,10 @@ export default {
   'fabric.editor.horizontalRule': 'Trennlinie',
   'fabric.editor.horizontalRule.description':
     'Inhalte mithilfe einer horizontalen Linie unterteilen',
+  'fabric.editor.hyperlink.searchLinkAriaDescription':
+    'Während Ihrer Eingabe in das Feld werden Vorschläge angezeigt',
+  'fabric.editor.hyperlink.searchLinkResults':
+    '{count, plural, =0 {Keine Ergebnisse gefunden} one {{count,number} Ergebnis gefunden} other {{count,number} Ergebnisse gefunden}}',
   'fabric.editor.hyperlinkToolbarPlaceholder':
     'Link einfügen oder kürzlich angesehene suchen',
   'fabric.editor.image': 'Bild',

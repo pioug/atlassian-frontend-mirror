@@ -4,7 +4,8 @@ import {
   removeSelectedNode,
   findParentNodeOfType,
 } from 'prosemirror-utils';
-import { EditorState, NodeSelection } from 'prosemirror-state';
+import { NodeSelection } from 'prosemirror-state';
+import { Node as PMNode } from 'prosemirror-model';
 import { PanelType } from '@atlaskit/adf-schema';
 import { getPanelTypeBackground } from '@atlaskit/editor-common';
 import { Command } from '../../types';
@@ -16,7 +17,6 @@ import {
   EVENT_TYPE,
   addAnalytics,
 } from '../analytics';
-import { pluginKey } from './types';
 import { findPanel } from './utils';
 import { PanelOptions } from './pm-plugins/main';
 
@@ -52,15 +52,15 @@ export const removePanel = (): Command => (state, dispatch) => {
 };
 
 const getNewPanelData = (
-  state: EditorState,
+  node: PMNode,
   newPanelType: PanelType,
   panelOptions: PanelOptions = {},
 ): { panelIcon: string; panelColor: string; panelType: PanelType } => {
   let {
-    activePanelIcon: previousIcon,
-    activePanelColor: previousColor,
-    activePanelType: previousType,
-  } = pluginKey.getState(state);
+    panelIcon: previousIcon,
+    panelColor: previousColor,
+    panelType: previousType,
+  } = node.attrs;
   const { emoji, color } = panelOptions;
 
   let panelIcon = previousIcon;
@@ -103,11 +103,11 @@ export const changePanelType = (
   }
 
   let newType = panelType;
-  let previousType = pluginKey.getState(state).activePanelType;
+  let previousType = panelNode.node.attrs.panelType;
 
   if (UNSAFE_allowCustomPanel) {
     const { panelType: newPanelType } = getNewPanelData(
-      state,
+      panelNode.node,
       panelType,
       panelOptions,
     );
@@ -125,26 +125,18 @@ export const changePanelType = (
   let newTr;
   if (UNSAFE_allowCustomPanel) {
     const { panelIcon, panelColor, panelType: newPanelType } = getNewPanelData(
-      state,
+      panelNode.node,
       panelType,
       panelOptions,
     );
 
-    newTr = tr
-      .setNodeMarkup(panelNode.pos, nodes.panel, {
-        panelType: newPanelType,
-        panelIcon,
-        panelColor,
-      })
-      .setMeta(pluginKey, {
-        activePanelType: newPanelType,
-        activePanelIcon: panelIcon,
-        activePanelColor: panelColor,
-      });
+    newTr = tr.setNodeMarkup(panelNode.pos, nodes.panel, {
+      panelType: newPanelType,
+      panelIcon,
+      panelColor,
+    });
   } else {
-    newTr = tr
-      .setNodeMarkup(panelNode.pos, nodes.panel, { panelType })
-      .setMeta(pluginKey, { activePanelType: panelType });
+    newTr = tr.setNodeMarkup(panelNode.pos, nodes.panel, { panelType });
   }
 
   // Select the panel if it was previously selected

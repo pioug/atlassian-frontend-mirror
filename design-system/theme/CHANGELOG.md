@@ -1,5 +1,15 @@
 # @atlaskit/theme
 
+## 11.4.0
+
+### Minor Changes
+
+- [`950a744a150`](https://bitbucket.org/atlassian/atlassian-frontend/commits/950a744a150) - [ux] Typography colors now use tokens.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.3.0
 
 ### Minor Changes

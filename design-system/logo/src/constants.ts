@@ -27,10 +27,10 @@ export type WrapperProps = Props & {
   svg: string | ((a: string, b: string) => string);
 };
 
-export const sizes: { [key: string]: number } = {
+export const sizes = {
   xsmall: 16,
   small: 24,
   medium: 32,
   large: 40,
   xlarge: 48,
-};
+} as const;

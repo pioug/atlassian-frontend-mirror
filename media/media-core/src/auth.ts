@@ -41,6 +41,7 @@ export const authToOwner = (auth: Auth): ClientAltBasedAuth | AsapBasedAuth => {
 };
 export interface MediaClientConfig {
   readonly authProvider: AuthProvider;
+  readonly initialAuth?: Auth;
   readonly stargateBaseUrl?: string;
   readonly userAuthProvider?: AuthProvider;
   readonly getAuthFromContext?: AuthFromContextProvider;
@@ -56,4 +57,5 @@ export type AuthFromContextProvider = (contextId: string) => Promise<Auth>;
 
 export type MediaApiConfig = {
   authProvider: AuthProvider;
+  initialAuth?: Auth;
 };

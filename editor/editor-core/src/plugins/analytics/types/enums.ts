@@ -34,6 +34,7 @@ export enum ACTION {
   EDITOR_MOUNTED = 'mounted',
   EDITOR_TTI = 'tti',
   EDITOR_CONTENT_RETRIEVAL_PERFORMED = 'contentRetrievalPerformed',
+  RE_RENDERED = 'reRendered',
   ENTERED = 'entered',
   ERRORED = 'errored',
   FAILED_TO_UNMOUNT = 'failedToUnmount',
@@ -162,6 +163,7 @@ export enum ACTION_SUBJECT {
   SEARCH_RESULT = 'searchResult',
   CREATE_LINK_INLINE_DIALOG = 'createLinkInlineDialog',
   CODE_BLOCK = 'codeBlock',
+  REACT_EDITOR_VIEW = 'reactEditorView',
 }
 
 export enum ACTION_SUBJECT_ID {

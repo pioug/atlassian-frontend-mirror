@@ -490,6 +490,16 @@ export class ExampleEditorComponent extends React.Component<
                   },
                   onEditorReadyCallbackTracking: { enabled: true },
                   pasteTracking: { enabled: true },
+                  renderTracking: {
+                    editor: {
+                      enabled: true,
+                      useShallow: false,
+                    },
+                    reactEditorView: {
+                      enabled: true,
+                      useShallow: false,
+                    },
+                  },
                 }}
                 {...this.props}
                 featureFlags={{

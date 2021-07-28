@@ -1,6 +1,6 @@
 import type { Rule } from 'eslint';
 
-export const isParentGlobalToken = (node: Rule.Node): boolean => {
+export const isDecendantOfGlobalToken = (node: Rule.Node): boolean => {
   if (
     node.type === 'CallExpression' &&
     node.callee.type === 'Identifier' &&
@@ -10,13 +10,13 @@ export const isParentGlobalToken = (node: Rule.Node): boolean => {
   }
 
   if (node.parent) {
-    return isParentGlobalToken(node.parent);
+    return isDecendantOfGlobalToken(node.parent);
   }
 
   return false;
 };
 
-export const isAnyParentOfType = (
+export const isDecendantOfType = (
   node: Rule.Node,
   type: Rule.Node['type'],
   skipNode = true,
@@ -26,8 +26,11 @@ export const isAnyParentOfType = (
   }
 
   if (node.parent) {
-    return isAnyParentOfType(node.parent, type, false);
+    return isDecendantOfType(node.parent, type, false);
   }
 
   return false;
 };
+
+export const isChildOfType = (node: Rule.Node, type: Rule.Node['type']) =>
+  node.parent.type === type;

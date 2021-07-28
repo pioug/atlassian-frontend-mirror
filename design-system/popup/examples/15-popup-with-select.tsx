@@ -1,13 +1,18 @@
 /** @jsx jsx */
 import { Fragment, useState } from 'react';
 
-import { jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/core';
 
 import Button from '@atlaskit/button/standard-button';
 import MediaServicesAddCommentIcon from '@atlaskit/icon/glyph/media-services/add-comment';
 import Select from '@atlaskit/select';
 
 import Popup from '../src';
+
+const selectContainerStyles = css({
+  minWidth: 175,
+  minHeight: 250,
+});
 
 export default () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -21,12 +26,7 @@ export default () => {
         onClose={() => setIsOpen(false)}
         placement="bottom-start"
         content={() => (
-          <div
-            css={{
-              minWidth: 175,
-              minHeight: 250,
-            }}
-          >
+          <div css={selectContainerStyles}>
             <Select
               defaultValue={{ label: 'Brisbane', value: 'brisbane' }}
               options={[

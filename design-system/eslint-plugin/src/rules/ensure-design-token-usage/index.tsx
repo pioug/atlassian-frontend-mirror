@@ -6,9 +6,14 @@ import {
   includesHardCodedColor,
   isHardCodedColor,
   isLegacyColor,
+  isLegacyNamedColor,
 } from './utils/is-color';
 import { isLegacyElevation } from './utils/is-elevation';
-import { isAnyParentOfType, isParentGlobalToken } from './utils/is-node';
+import {
+  isChildOfType,
+  isDecendantOfGlobalToken,
+  isDecendantOfType,
+} from './utils/is-node';
 
 const getNodeColumn = (node: Rule.Node) => {
   if (node.loc) {
@@ -30,6 +35,16 @@ const isTokenValue = (value: string): string | false => {
 
   return false;
 };
+
+const getTokenSuggestion = (
+  node: Rule.Node,
+  reference: string,
+): Rule.SuggestionReportDescriptor[] => [
+  {
+    desc: `Convert to token with fallback`,
+    fix: (fixer) => fixer.replaceText(node, `token('', ${reference})`),
+  },
+];
 
 const rule: Rule.RuleModule = {
   meta: {
@@ -70,23 +85,33 @@ token('color.background.blanket');
   },
   create(context) {
     return {
+      'TemplateLiteral > Identifier': (node: Rule.Node) => {
+        if (node.type === 'Identifier' && isLegacyNamedColor(node.name)) {
+          context.report({
+            messageId: 'hardCodedColor',
+            node,
+            suggest: getTokenSuggestion(node, node.name),
+          });
+          return;
+        }
+      },
+
       Identifier(node) {
         if (
-          !isParentGlobalToken(node) &&
-          !isAnyParentOfType(node, 'ImportDeclaration') &&
+          !isDecendantOfGlobalToken(node) &&
+          !isDecendantOfType(node, 'ImportDeclaration') &&
           isLegacyColor(node.name)
         ) {
           context.report({
             messageId: 'hardCodedColor',
             node,
+            suggest: getTokenSuggestion(node, node.name),
           });
+          return;
         }
 
         const elevation = isLegacyElevation(node.name);
-        if (elevation) {
-          const isParentTemplateLiteral =
-            node.parent.type === 'TemplateLiteral';
-
+        if (!isDecendantOfType(node, 'ImportDeclaration') && elevation) {
           context.report({
             messageId: 'legacyElevation',
             node,
@@ -101,7 +126,7 @@ css({
 \`\`\``,
             },
             fix: (fixer) => {
-              if (isParentTemplateLiteral && node.range) {
+              if (isChildOfType(node, 'TemplateLiteral') && node.range) {
                 return fixer.replaceTextRange(
                   [node.range[0] - 2, node.range[1] + 1],
                   `background-color: \${token('${elevation.background}')};
@@ -146,18 +171,23 @@ ${' '.repeat(getNodeColumn(node) - 2)}box-shadow: \${token('${
         }
       },
 
-      Literal(node) {
+      'ObjectExpression > Property > Literal': (node: Rule.Node) => {
+        if (node.type !== 'Literal') {
+          return;
+        }
+
         if (typeof node.value !== 'string') {
           return;
         }
 
         if (
-          !isParentGlobalToken(node) &&
+          !isDecendantOfGlobalToken(node) &&
           (isHardCodedColor(node.value) || includesHardCodedColor(node.value))
         ) {
           context.report({
             messageId: 'hardCodedColor',
             node,
+            suggest: getTokenSuggestion(node, `'${node.value}'`),
           });
           return;
         }
@@ -180,6 +210,28 @@ ${' '.repeat(getNodeColumn(node) - 2)}box-shadow: \${token('${
           });
           return;
         }
+      },
+
+      CallExpression(node) {
+        if (
+          node.type !== 'CallExpression' ||
+          node.callee.type !== 'Identifier'
+        ) {
+          return;
+        }
+
+        if (
+          !isLegacyNamedColor(node.callee.name) ||
+          isDecendantOfGlobalToken(node)
+        ) {
+          return;
+        }
+
+        context.report({
+          messageId: 'hardCodedColor',
+          node,
+          suggest: getTokenSuggestion(node, `${node.callee.name}()`),
+        });
       },
 
       'CallExpression[callee.name="token"]': (node: Rule.Node) => {

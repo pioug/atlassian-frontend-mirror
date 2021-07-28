@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^8.2.0",
-    "@atlaskit/theme": "^11.3.0",
+    "@atlaskit/theme": "^11.4.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/core": "^10.0.9"
   },
@@ -37,7 +37,7 @@
   "devDependencies": {
     "@atlaskit/avatar": "^20.1.0",
     "@atlaskit/build-utils": "*",
-    "@atlaskit/button": "^15.1.0",
+    "@atlaskit/button": "^16.0.0",
     "@atlaskit/docs": "*",
     "@atlaskit/form": "^8.1.0",
     "@atlaskit/icon": "^21.7.0",

@@ -1,5 +1,6 @@
 import { N200, N300 } from '@atlaskit/theme/colors';
 import { ThemeModes } from '@atlaskit/theme/types';
+import { token } from '@atlaskit/tokens';
 
 export type BreadcrumbsContainerColors = {
   textColor: string;
@@ -8,12 +9,12 @@ export type BreadcrumbsContainerColors = {
 
 const colorMap = {
   light: {
-    textColor: N200,
-    separatorColor: N200,
+    textColor: token('color.text.lowEmphasis', N200),
+    separatorColor: token('color.text.lowEmphasis', N200),
   },
   dark: {
-    textColor: N300,
-    separatorColor: N300,
+    textColor: token('color.text.lowEmphasis', N300),
+    separatorColor: token('color.text.lowEmphasis', N300),
   },
 };
 

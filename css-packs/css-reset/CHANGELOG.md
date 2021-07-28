@@ -1,5 +1,16 @@
 # @atlaskit/css-reset
 
+## 6.1.0
+
+### Minor Changes
+
+- [`92620c3aa0d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/92620c3aa0d) - [ux] Reduced motion support has been added to the CSS reset.
+- [`950a744a150`](https://bitbucket.org/atlassian/atlassian-frontend/commits/950a744a150) - [ux] Color values now sourced through tokens.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.0.5
 
 ### Patch Changes

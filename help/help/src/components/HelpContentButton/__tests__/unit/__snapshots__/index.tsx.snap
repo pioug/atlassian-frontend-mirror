@@ -81,7 +81,7 @@ exports[`HelpContentButton Should match snapshot 1`] = `
   display: inline-block;
   min-width: 1px;
   padding: 2px 6px;
-  border-radius: 24px;
+  border-radius: 8px;
   font-size: 12px;
   font-weight: normal;
   line-height: 1;
@@ -140,7 +140,6 @@ exports[`HelpContentButton Should match snapshot 1`] = `
       >
         <span
           class="emotion-1"
-          style="background-color: rgb(0, 82, 204); color: rgb(255, 255, 255);"
         >
           5
         </span>

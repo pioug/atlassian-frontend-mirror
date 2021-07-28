@@ -305,11 +305,6 @@ export interface EditorProps {
   // This eventually is going to replace `quickInsert.provider`, `extensionHandlers`, `macroProvider`.
   extensionProviders?: ExtensionProvidersProp;
 
-  // New work on replacing list behaviours with a more predictable experience
-  // Eventually this will be removed and turned on permanently
-  // default: false, which falls back on the current list behaviour
-  UNSAFE_predictableLists?: boolean;
-
   // Experimental support for modern React Context for @atlaskit/analytics-next.
   // Enables re-providing of AnalyticsContext for all ReactNodeViews.
   UNSAFE_useAnalyticsContext?: boolean;

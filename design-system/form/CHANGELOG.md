@@ -1,5 +1,12 @@
 # @atlaskit/form
 
+## 8.2.4
+
+### Patch Changes
+
+- [`f701489305f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f701489305f) - Export Field directly for types to be exported explicitly.
+- Updated dependencies
+
 ## 8.2.3
 
 ### Patch Changes

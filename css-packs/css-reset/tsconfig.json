@@ -1,11 +1,10 @@
 {
   "extends": "../../../tsconfig.json",
   "include": [
-    "./src/**/*.ts",
+    "__tests__",
+    "./build/*.tsx",
     "./src/**/*.tsx",
-    "./docs/**/*.ts",
     "./docs/**/*.tsx",
-    "./examples/**/*.ts",
     "./examples/**/*.tsx"
   ],
   "compilerOptions": {
@@ -17,5 +16,7 @@
     "transpileOnly": true,
     // We must load files for third party defs - https://typestrong.org/ts-node/docs/types
     "files": true,
+    // This enables accessing af entrypoints in a node environment before they've been built.
+    "require": ["tsconfig-paths/register"]
   }
 }

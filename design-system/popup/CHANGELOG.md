@@ -1,5 +1,15 @@
 # @atlaskit/popup
 
+## 1.1.0
+
+### Minor Changes
+
+- [`04cf9c3d28c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/04cf9c3d28c) - [ux] Colors now sourced from tokens.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.0.8
 
 ### Patch Changes

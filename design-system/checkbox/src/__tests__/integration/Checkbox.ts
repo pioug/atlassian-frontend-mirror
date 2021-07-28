@@ -18,7 +18,21 @@ BrowserTestCase(
     await testPage.waitFor(checkboxLabelQuery, 5000);
     await testPage.click(checkboxLabelQuery);
     const checkbox = await testPage.$(hiddenCheckboxQuery);
-    const isChecked = checkbox.getProperty('checked');
-    expect(isChecked).toBeDefined();
+    const isChecked = await checkbox.getProperty('checked');
+    expect(isChecked).toBe(true);
+  },
+);
+
+BrowserTestCase(
+  'Checkbox should be checked when clicked with a modifier such as shift+click',
+  { skip: ['chrome'] }, // modified clicks requires the browser.performActions() method, but this function does not exist when running in Chrome
+  async (client: any) => {
+    const testPage = new Page(client);
+    await testPage.goto(exampleUrl);
+    await testPage.waitFor(checkboxLabelQuery, 5000);
+    await testPage.modifierClick('Shift'); // shift is chosen here as it is OS-agnostic unlike cmd+click, and should behave in the same way
+    const checkbox = await testPage.$(hiddenCheckboxQuery);
+    const isChecked = await checkbox.getProperty('checked');
+    expect(isChecked).toBe(true);
   },
 );

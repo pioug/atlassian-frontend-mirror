@@ -81,6 +81,21 @@ export interface CardViewState {
 
 export type CardViewProps = CardViewOwnProps & WithAnalyticsEventsProps;
 
+export interface RenderConfigByStatus {
+  renderTypeIcon?: boolean;
+  iconMessage?: JSX.Element;
+  renderImageRenderer?: boolean;
+  renderPlayButton?: boolean;
+  renderTitleBox?: boolean;
+  renderBlanket?: boolean;
+  isFixedBlanket?: boolean;
+  renderProgressBar?: boolean;
+  renderSpinner?: boolean;
+  renderFailedTitleBox?: boolean;
+  renderLoadingRateLimited?: boolean;
+  renderTickBox?: boolean;
+}
+
 /**
  * This is classic vanilla CardView class. To create an instance of class one would need to supply
  * `createAnalyticsEvent` prop to satisfy it's Analytics Events needs.
@@ -189,13 +204,7 @@ export class CardViewBase extends React.Component<
     );
   }
 
-  private renderSpinner() {
-    const { status, dataURI } = this.props;
-    if (!['loading'].includes(status) || dataURI) {
-      return null;
-    }
-    const hasTitleBox = this.showTitleBox() || this.showFailedTitleBox();
-
+  private renderSpinner(hasTitleBox: boolean) {
     return (
       <IconWrapper breakpoint={this.breakpoint} hasTitleBox={hasTitleBox}>
         <SpinnerIcon />
@@ -212,151 +221,53 @@ export class CardViewBase extends React.Component<
     return true;
   }
 
-  private renderPlayButton = () => {
-    if (!this.shouldRenderPlayButton()) {
-      return null;
-    }
-    const hasTitleBox = this.showTitleBox() || this.showFailedTitleBox();
+  private renderPlayButton(hasTitleBox: boolean) {
     return (
       <IconWrapper breakpoint={this.breakpoint} hasTitleBox={hasTitleBox}>
         <PlayButton />;
       </IconWrapper>
     );
-  };
+  }
 
-  private renderBlanket() {
-    const { disableOverlay, status, metadata } = this.props;
-    const { mediaType } = metadata || {};
-    if (disableOverlay && (status !== 'uploading' || mediaType === 'video')) {
-      return null;
-    }
-    const isFixed = status === 'uploading';
-
+  //This Blanket will provide a shadow backround for uploading status by
+  //setting isFixed.
+  private renderBlanket(isFixed: boolean) {
     return <Blanket isFixed={isFixed} />;
-  }
-
-  private showTitleBox(): boolean {
-    const { isImageFailedToLoad } = this.state;
-    const { metadata, disableOverlay, status, dataURI, error } = this.props;
-    const { name } = metadata || {};
-
-    if (error && isPollingError(error)) {
-      return true;
-    }
-
-    const noErrorWithUri = !!dataURI || status !== 'error';
-
-    return (
-      (!!name && !isImageFailedToLoad && !disableOverlay && noErrorWithUri) ||
-      isRateLimitedError(error)
-    );
-  }
-
-  private showFailedTitleBox(): boolean {
-    const { isImageFailedToLoad } = this.state;
-    const { status, dataURI, metadata, error } = this.props;
-
-    if (error && isPollingError(error)) {
-      return false;
-    }
-
-    const failedProcessingWithMetadata = !!(
-      status === 'failed-processing' && metadata
-    );
-
-    const nonFailingStates = [
-      'loading',
-      'processing',
-      'uploading',
-      'complete',
-    ].includes(status);
-
-    return (
-      isImageFailedToLoad ||
-      (!dataURI && !(nonFailingStates || failedProcessingWithMetadata))
-    );
   }
 
   private renderTitleBox() {
     const { metadata, titleBoxBgColor, titleBoxIcon } = this.props;
     const { name, createdAt } = metadata || {};
 
-    if (!this.showTitleBox() || !name) {
-      return null;
-    }
     return (
-      <TitleBox
-        name={name}
-        createdAt={createdAt}
-        breakpoint={this.breakpoint}
-        titleBoxBgColor={titleBoxBgColor}
-        titleBoxIcon={titleBoxIcon}
-      />
-    );
-  }
-
-  private renderFailedTitleBox() {
-    if (!this.showFailedTitleBox()) {
-      return null;
-    }
-    return <FailedTitleBox breakpoint={this.breakpoint} />;
-  }
-
-  private renderProgressBar() {
-    const { status, progress } = this.props;
-    return (
-      status === 'uploading' && (
-        <ProgressBar
-          progress={progress}
+      !!name && (
+        <TitleBox
+          name={name}
+          createdAt={createdAt}
           breakpoint={this.breakpoint}
-          positionBottom={!this.showTitleBox()}
+          titleBoxIcon={titleBoxIcon}
+          titleBoxBgColor={titleBoxBgColor}
         />
       )
     );
   }
 
-  private renderCreatingPreviewText() {
-    const { isImageFailedToLoad } = this.state;
-    const { status, dataURI, metadata } = this.props;
-    const isZeroSize =
-      !!(metadata && metadata.size === 0) && status === 'processing';
-    if (
-      (!isImageFailedToLoad && (dataURI || status === 'loading')) ||
-      isZeroSize
-    ) {
-      return null;
-    }
-
-    return status === 'processing' && <CreatingPreview />;
+  private renderFailedTitleBox() {
+    return <FailedTitleBox breakpoint={this.breakpoint} />;
   }
 
-  private renderPreviewUnavailableText() {
-    const { status, metadata, error } = this.props;
-
-    const isZeroSize = !!(metadata && metadata.size === 0);
-
-    if (!metadata || isZeroSize) {
-      return null;
-    }
-
-    if (error && isPollingError(error)) {
-      return <PreviewCurrentlyUnavailable />;
-    }
-    return status === 'failed-processing' && <PreviewUnavailable />;
+  private renderProgressBar(positionBottom: boolean) {
+    const { progress } = this.props;
+    return (
+      <ProgressBar
+        progress={progress}
+        breakpoint={this.breakpoint}
+        positionBottom={positionBottom}
+      />
+    );
   }
-
-  private renderRateLimitedText = () => {
-    const { metadata, error, disableOverlay } = this.props;
-    const shouldRender =
-      isRateLimitedError(error) && !disableOverlay && metadata;
-    if (!shouldRender) {
-      return null;
-    }
-    return <RateLimited />;
-  };
 
   private renderImageRenderer() {
-    const { isImageFailedToLoad } = this.state;
     const {
       dataURI,
       metadata: { mediaType = 'unknown' } = {},
@@ -368,8 +279,7 @@ export class CardViewBase extends React.Component<
     } = this.props;
 
     return (
-      dataURI &&
-      !isImageFailedToLoad && (
+      !!dataURI && (
         <ImageRenderer
           dataURI={dataURI}
           mediaType={mediaType}
@@ -384,28 +294,17 @@ export class CardViewBase extends React.Component<
     );
   }
 
-  private shouldRenderTickBox(): boolean {
-    const { selectable, disableOverlay } = this.props;
-    return !disableOverlay && !!selectable;
-  }
-
   private renderTickBox() {
     const { selected } = this.props;
-    return this.shouldRenderTickBox() && <TickBox selected={selected} />;
+    return <TickBox selected={selected} />;
   }
 
-  private renderMediaTypeIcon() {
-    const { isImageFailedToLoad } = this.state;
-    const { status, dataURI, metadata, error } = this.props;
+  private renderMediaTypeIcon(
+    hasTitleBox: boolean,
+    iconMessage: JSX.Element | undefined,
+  ) {
+    const { metadata } = this.props;
     const { mediaType, mimeType, name } = metadata || {};
-    if (!isImageFailedToLoad && (dataURI || status === 'loading')) {
-      return null;
-    }
-
-    const hasTitleBox =
-      this.showTitleBox() ||
-      this.showFailedTitleBox() ||
-      isRateLimitedError(error);
 
     return (
       <IconWrapper breakpoint={this.breakpoint} hasTitleBox={hasTitleBox}>
@@ -415,9 +314,7 @@ export class CardViewBase extends React.Component<
           mimeType={mimeType}
           name={name}
         />
-        {this.renderRateLimitedText()}
-        {this.renderCreatingPreviewText()}
-        {this.renderPreviewUnavailableText()}
+        {iconMessage}
       </IconWrapper>
     );
   }
@@ -433,73 +330,6 @@ export class CardViewBase extends React.Component<
     }
     return <ActionsBar actions={actionsWithDetails} />;
   }
-
-  private renderFileNewExperienceContents = () => {
-    const {
-      progress,
-      selected,
-      status,
-      metadata,
-      disableOverlay,
-      error,
-    } = this.props;
-    const { name } = metadata || {};
-
-    /***
-     * TODO:
-     * Having UI elements rendering completely independent from each other
-     * and having their own conditions to render is becoming hard to handle.
-     * We should group them into specific views coming from the card flow designs found in
-     * https://product-fabric.atlassian.net/wiki/spaces/FIL/pages/1751948766/Error+and+Failure+states+documentation
-     * */
-
-    if (error && isPollingError(error)) {
-      // do nothing, render regular card
-      // TODO: send fail event with proper failReason?
-      // perhaps part of https://product-fabric.atlassian.net/browse/BMPT-970
-    } else if (isRateLimitedError(error) && !disableOverlay) {
-      // When a card is rate limited
-      // disableOverlay so that media-image isn't accounted for
-      // the reason being, media-image is not affected by rate limitation, and does not need these custom
-      // rate limited states
-      // If theres metadata, we signify to the user that they can still preview the card in the viewer
-      if (metadata) {
-        return (
-          <CardImageContainer>
-            {this.renderMediaTypeIcon()}
-            {this.renderTitleBox()}
-          </CardImageContainer>
-        );
-      }
-      // cannot preview in the viewer: card is completely borked
-      else {
-        return <LoadingRateLimited />;
-      }
-    }
-    return (
-      <>
-        <CardImageContainer
-          className="media-file-card-view"
-          data-testid="media-file-card-view"
-          data-test-media-name={name}
-          data-test-status={status}
-          data-test-progress={progress}
-          data-test-selected={selected ? true : undefined}
-        >
-          {this.renderSpinner()}
-          {this.renderMediaTypeIcon()}
-          {this.renderImageRenderer()}
-          {this.renderPlayButton()}
-          {this.renderBlanket()}
-          {this.renderTickBox()}
-          {this.renderProgressBar()}
-          {this.renderFailedTitleBox()}
-          {this.renderTitleBox()}
-        </CardImageContainer>
-        {this.renderActionsBar()}
-      </>
-    );
-  };
 
   private renderFileNewExperience = () => {
     const {
@@ -522,15 +352,12 @@ export class CardViewBase extends React.Component<
     const isPlayButtonClickable = !!(
       this.shouldRenderPlayButton() && disableOverlay
     );
-    const isTickBoxSelectable = !!(
-      this.shouldRenderTickBox() &&
-      selectable &&
-      !selected
-    );
+    const isTickBoxSelectable = !disableOverlay && !!selectable && !selected;
     // Make tooltip optional for media singles - images, videos.
     // Intention is to show full file name when it's truncate in titlebox,
     // and to hide it when no titlebox exists.
     const shouldDisplayTooltip = !!name && !disableOverlay;
+
     return (
       <NewFileExperienceWrapper
         className={newFileExperienceClassName}
@@ -552,10 +379,10 @@ export class CardViewBase extends React.Component<
       >
         {shouldDisplayTooltip ? (
           <Tooltip content={name} position="bottom" tag={'div'}>
-            {this.renderFileNewExperienceContents()}
+            {this.renderNewExperienceCard()}
           </Tooltip>
         ) : (
-          this.renderFileNewExperienceContents()
+          this.renderNewExperienceCard()
         )}
       </NewFileExperienceWrapper>
     );
@@ -606,6 +433,138 @@ export class CardViewBase extends React.Component<
         previewOrientation={previewOrientation}
         alt={alt}
       />
+    );
+  };
+
+  private getRenderConfigByStatus = (): RenderConfigByStatus => {
+    const {
+      dataURI,
+      status,
+      metadata,
+      disableOverlay,
+      error,
+      selectable,
+    } = this.props;
+    const { name, mediaType } = metadata || {};
+    const { isImageFailedToLoad } = this.state;
+    const isZeroSize = !!(metadata && metadata.size === 0);
+
+    const defaultConfig: RenderConfigByStatus = {
+      renderTypeIcon: isImageFailedToLoad || !dataURI,
+      renderImageRenderer: !!dataURI && !isImageFailedToLoad,
+      renderPlayButton: !!dataURI && mediaType === 'video',
+      renderBlanket: !disableOverlay,
+      renderTitleBox: !!name && !isImageFailedToLoad && !disableOverlay,
+      renderFailedTitleBox: !!isImageFailedToLoad,
+      renderTickBox: !disableOverlay && !!selectable,
+    };
+
+    switch (status) {
+      case 'uploading':
+        return {
+          ...defaultConfig,
+          renderBlanket: !disableOverlay || mediaType !== 'video',
+          isFixedBlanket: true,
+          renderProgressBar: true,
+        };
+      case 'processing':
+        return {
+          ...defaultConfig,
+          iconMessage:
+            (isImageFailedToLoad || !dataURI) && !isZeroSize ? (
+              <CreatingPreview />
+            ) : undefined,
+        };
+      case 'complete':
+        return {
+          ...defaultConfig,
+        };
+      case 'error':
+        if (error && isPollingError(error)) {
+          return {
+            ...defaultConfig,
+            renderTitleBox: !!name,
+            renderFailedTitleBox: false,
+            iconMessage:
+              !!metadata && !isZeroSize ? (
+                <PreviewCurrentlyUnavailable />
+              ) : undefined,
+          };
+        } else if (isRateLimitedError(error) && !disableOverlay) {
+          return {
+            renderTypeIcon: !!metadata && (isImageFailedToLoad || !dataURI),
+            renderTitleBox: !!metadata,
+            iconMessage: !!metadata ? <RateLimited /> : undefined,
+            renderLoadingRateLimited: !metadata,
+          };
+        } else {
+          return {
+            ...defaultConfig,
+            renderTitleBox: defaultConfig.renderTitleBox && !!dataURI,
+            renderFailedTitleBox: !!isImageFailedToLoad || !dataURI,
+          };
+        }
+      case 'failed-processing':
+        return {
+          ...defaultConfig,
+          renderFailedTitleBox:
+            !!isImageFailedToLoad || (!dataURI && !metadata),
+          iconMessage:
+            !!metadata && !isZeroSize ? <PreviewUnavailable /> : undefined,
+        };
+      case 'loading':
+      default:
+        return {
+          ...defaultConfig,
+          renderTypeIcon: false,
+          renderSpinner: true,
+        };
+    }
+  };
+
+  private renderNewExperienceCard = () => {
+    const {
+      renderTypeIcon,
+      iconMessage,
+      renderImageRenderer,
+      renderSpinner,
+      renderPlayButton,
+      renderBlanket,
+      renderProgressBar,
+      renderTitleBox,
+      renderFailedTitleBox,
+      renderTickBox,
+      isFixedBlanket,
+      renderLoadingRateLimited,
+    } = this.getRenderConfigByStatus();
+    const { progress, selected, status, metadata } = this.props;
+
+    const { name } = metadata || {};
+    const hasTitleBox = !!renderTitleBox || !!renderFailedTitleBox;
+
+    return (
+      <>
+        <CardImageContainer
+          className="media-file-card-view"
+          data-testid="media-file-card-view"
+          data-test-media-name={name}
+          data-test-status={status}
+          data-test-progress={progress}
+          data-test-selected={selected ? true : undefined}
+        >
+          {renderTypeIcon && this.renderMediaTypeIcon(hasTitleBox, iconMessage)}
+          {renderSpinner && this.renderSpinner(hasTitleBox)}
+          {renderImageRenderer && this.renderImageRenderer()}
+          {renderPlayButton && this.renderPlayButton(hasTitleBox)}
+          {renderBlanket && this.renderBlanket(!!isFixedBlanket)}
+          {renderTitleBox && this.renderTitleBox()}
+          {renderFailedTitleBox && this.renderFailedTitleBox()}
+          {renderProgressBar && this.renderProgressBar(!renderTitleBox)}
+          {renderLoadingRateLimited && <LoadingRateLimited />}
+          {renderTickBox && this.renderTickBox()}
+        </CardImageContainer>
+        {this.renderActionsBar()}
+      </>
     );
   };
 }

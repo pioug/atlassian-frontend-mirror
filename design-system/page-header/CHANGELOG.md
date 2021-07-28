@@ -1,5 +1,12 @@
 # @atlaskit/page-header
 
+## 10.1.2
+
+### Patch Changes
+
+- [`ec0abf56583`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ec0abf56583) - Fixes internal test snapshots.
+- Updated dependencies
+
 ## 10.1.1
 
 ### Patch Changes

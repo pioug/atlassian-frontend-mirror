@@ -12,6 +12,7 @@ import {
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { ContextIdentifierProvider } from '@atlaskit/editor-common';
 
+import { EditorAppearance } from '../../../types/editor-appearance';
 import { Dispatch, EventDispatcher } from '../../../event-dispatcher';
 import { PortalProviderAPI } from '../../../ui/PortalProvider';
 import { createSelectionClickHandler } from '../../selection/utils';
@@ -153,12 +154,19 @@ const createPlugin = (
   portalProviderAPI: PortalProviderAPI,
   eventDispatcher: EventDispatcher,
   useLongPressSelection: boolean = false,
+  options: {
+    appearance?: EditorAppearance;
+  } = {},
 ) => {
   const state = createPluginState(dispatch, {
     layout: 'default',
     showEditButton: false,
     showContextPanel: false,
   });
+
+  const extensionNodeViewOptions = {
+    appearance: options.appearance,
+  };
 
   return new Plugin({
     state,
@@ -272,18 +280,21 @@ const createPlugin = (
           eventDispatcher,
           providerFactory,
           extensionHandlers,
+          extensionNodeViewOptions,
         ),
         bodiedExtension: ExtensionNodeView(
           portalProviderAPI,
           eventDispatcher,
           providerFactory,
           extensionHandlers,
+          extensionNodeViewOptions,
         ),
         inlineExtension: ExtensionNodeView(
           portalProviderAPI,
           eventDispatcher,
           providerFactory,
           extensionHandlers,
+          extensionNodeViewOptions,
         ),
       },
       handleClickOn: createSelectionClickHandler(

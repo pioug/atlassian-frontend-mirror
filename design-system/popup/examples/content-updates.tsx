@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { useEffect, useState } from 'react';
 
-import { jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/core';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
@@ -18,6 +18,12 @@ const data = [
   `Be careful what you say to someone today.`,
 ];
 
+const quoteStyles = css({
+  maxWidth: 300,
+  padding: 16,
+  textAlign: 'center',
+});
+
 const Quotes = ({ onUpdate }: { onUpdate: () => void }) => {
   const [textIndex, setTextIndex] = useState(0);
 
@@ -30,17 +36,7 @@ const Quotes = ({ onUpdate }: { onUpdate: () => void }) => {
     return () => clearInterval(intervalId);
   }, [onUpdate]);
 
-  return (
-    <div
-      css={{
-        padding: 16,
-        maxWidth: 300,
-        textAlign: 'center',
-      }}
-    >
-      {data[textIndex]}
-    </div>
-  );
+  return <div css={quoteStyles}>{data[textIndex]}</div>;
 };
 
 export default () => {

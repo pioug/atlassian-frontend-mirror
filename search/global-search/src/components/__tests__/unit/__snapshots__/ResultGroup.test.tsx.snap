@@ -116,11 +116,11 @@ exports[`<ResultGroup /> should render total if showTotalSize is true and there 
         Some title
       </span>
       <styled.span>
-        <Badge
+        <Memo(Badge)
           max={99}
         >
           9999
-        </Badge>
+        </Memo(Badge)>
       </styled.span>
     </React.Fragment>
   }

@@ -15,17 +15,17 @@ export const commonSVGStyles = {
   },
 } as CSSObject;
 
-const small = css(dimensions.small);
-const medium = css(dimensions.medium);
-const large = css(dimensions.large);
-const xlarge = css(dimensions.xlarge);
+const smallStyles = css(dimensions.small);
+const mediumStyles = css(dimensions.medium);
+const largeStyles = css(dimensions.large);
+const xlargeStyles = css(dimensions.xlarge);
 
 // pre-built css style-size map
 export const sizeStyleMap = {
-  small,
-  medium,
-  large,
-  xlarge,
+  small: smallStyles,
+  medium: mediumStyles,
+  large: largeStyles,
+  xlarge: xlargeStyles,
 };
 
 /**

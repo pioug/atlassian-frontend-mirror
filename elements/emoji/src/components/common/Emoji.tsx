@@ -260,8 +260,14 @@ const renderAsImage = (props: Props) => {
 
   // Pass src attribute as key to force React to rerender img node since browser does not
   // change preview image until loaded
+
+  // We currently have the following error: property 'loading' does not exist on type 'DetailedHTMLProps<ImgHTMLAttributes, HTMLImageElement>'
+  // The fix for this was added as a part of @types/react@16.9.20 - https://github.com/facebook/react/issues/16942
+  // TODO: remove @ts-ignore for the <img> below when the @types/react will be bumped from v16.8.0 to v16.9.20 or higher.
   const emojiNode = (
     <img
+      // @ts-ignore
+      loading="lazy"
       src={src}
       key={src}
       alt={emoji.shortName}

@@ -27,7 +27,7 @@ import tablesPlugin from '../../../table';
 import blockTypePlugin from '../../../block-type';
 import hyperlinkPlugin from '../../../hyperlink';
 import { textFormattingPlugin } from '../../../index';
-import listPlugin from '../../../lists';
+import listPlugin from '../../../list';
 import codeBlockPlugin from '../../../code-block';
 
 describe('paste plugin: third-party', () => {

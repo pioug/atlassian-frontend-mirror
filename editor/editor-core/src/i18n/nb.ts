@@ -135,6 +135,9 @@ export default {
   'fabric.editor.findNext': 'Finn neste',
   'fabric.editor.findPrevious': 'Finn forrige',
   'fabric.editor.findReplaceToolbarButton': 'Finn og erstatt',
+  'fabric.editor.floatingToolbar.confirmModalCancel': 'Avbryt',
+  'fabric.editor.floatingToolbar.confirmModalHeading': 'Er du sikker?',
+  'fabric.editor.floatingToolbar.confirmModalOK': 'OK',
   'fabric.editor.headerColumn': 'Overskriftskolonne',
   'fabric.editor.headerRow': 'Overskriftsrad',
   'fabric.editor.heading1': '1. overskrift',
@@ -160,6 +163,10 @@ export default {
   'fabric.editor.horizontalRule': 'Deler',
   'fabric.editor.horizontalRule.description':
     'Atskill innhold med en horisontal linje',
+  'fabric.editor.hyperlink.searchLinkAriaDescription':
+    'Forslag vises nedenfor etter hvert som du skriver inn i feltet',
+  'fabric.editor.hyperlink.searchLinkResults':
+    '{count, plural, =0 {fant ingen resultater} one {fant {count,number} resultat} other {fant {count,number} resultater}}',
   'fabric.editor.hyperlinkToolbarPlaceholder':
     'Lim inn kobling eller søk etter nylig vist',
   'fabric.editor.image': 'Bilde',
@@ -225,7 +232,7 @@ export default {
     '{selectedMatchPosition} av {totalResultsCount}',
   'fabric.editor.rightSidebar': 'Sidelinje til høyre',
   'fabric.editor.saveButton': 'Lagre',
-  'fabric.editor.selectLanguage': 'Velg språk',
+  'fabric.editor.selectLanguage': 'Velg programmeringsspråk',
   'fabric.editor.selected': 'Valgt',
   'fabric.editor.sortColumnASC': 'Sorter kolonne A → Å',
   'fabric.editor.sortColumnDESC': 'Sorter kolonne Å → A',
@@ -244,6 +251,10 @@ export default {
   'fabric.editor.table': 'Tabell',
   'fabric.editor.table.description': 'Sett inn en tavle',
   'fabric.editor.tableOptions': 'Tabellalternativer',
+  'fabric.editor.tables.confirmDeleteLinkedModalMessage':
+    'Hvis du fjerner denne tabellen, fjernes også alle dataene i eventuelle tilkoblede diagrammer.',
+  'fabric.editor.tables.confirmDeleteLinkedModalOKButton':
+    'Fjern tabell og data',
   'fabric.editor.taskPlaceholder':
     'Skriv inn handlingen. Bruk @ for å tilordne den til noen.',
   'fabric.editor.textColor': 'Tekstfarge',

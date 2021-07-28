@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { EditorView } from 'prosemirror-view';
 import { intlShape, IntlShape, IntlProvider } from 'react-intl';
 import memoizeOne from 'memoize-one';
+import uuid from 'uuid/v4';
 import { name, version } from './version-wrapper';
 import {
   ProviderFactory,
@@ -53,6 +54,7 @@ import {
   QuickInsertOptions,
 } from './plugins/quick-insert/types';
 import { createFeatureFlagsFromProps } from './plugins/feature-flags-context/feature-flags-from-props';
+import { RenderTracking } from './utils/react-hooks/use-component-renderer-tracking';
 
 export type {
   AllowedBlockTypes,
@@ -115,6 +117,7 @@ export default class Editor extends React.Component<EditorProps, State> {
   private providerFactory: ProviderFactory;
   private editorActions: EditorActions;
   private createAnalyticsEvent?: CreateUIAnalyticsEvent;
+  private editorSessionId: string;
 
   constructor(props: EditorProps, context: Context) {
     super(props);
@@ -125,6 +128,7 @@ export default class Editor extends React.Component<EditorProps, State> {
     this.onEditorDestroyed = this.onEditorDestroyed.bind(this);
     this.editorActions = (context || {}).editorActions || new EditorActions();
     this.trackEditorActions(this.editorActions, props);
+    this.editorSessionId = uuid();
 
     startMeasure(measurements.EDITOR_MOUNTED);
     if (
@@ -583,6 +587,10 @@ export default class Editor extends React.Component<EditorProps, State> {
     };
 
     const featureFlags = createFeatureFlagsFromProps(this.props);
+    const renderTracking = this.props.performanceTracking?.renderTracking
+      ?.editor;
+    const renderTrackingEnabled = renderTracking?.enabled;
+    const useShallow = renderTracking?.useShallow;
 
     const editor = (
       <FabricEditorAnalyticsContext
@@ -591,130 +599,150 @@ export default class Editor extends React.Component<EditorProps, State> {
           packageVersion: version,
           componentName: 'editorCore',
           appearance: getAnalyticsAppearance(this.props.appearance),
+          editorSessionId: this.editorSessionId,
         }}
       >
         <WithCreateAnalyticsEvent
           render={(createAnalyticsEvent) =>
             (this.createAnalyticsEvent = createAnalyticsEvent) && (
-              <ErrorBoundary
-                createAnalyticsEvent={createAnalyticsEvent}
-                contextIdentifierProvider={this.props.contextIdentifierProvider}
-              >
-                <WidthProviderFullHeight>
-                  <EditorContext editorActions={this.editorActions}>
-                    <ContextAdapter>
-                      <PortalProvider
-                        onAnalyticsEvent={this.handleAnalyticsEvent}
-                        useAnalyticsContext={
-                          this.props.UNSAFE_useAnalyticsContext
-                        }
-                        render={(portalProviderAPI) => (
-                          <>
-                            <ReactEditorView
-                              editorProps={overriddenEditorProps}
-                              createAnalyticsEvent={createAnalyticsEvent}
-                              portalProviderAPI={portalProviderAPI}
-                              providerFactory={this.providerFactory}
-                              onEditorCreated={this.onEditorCreated}
-                              onEditorDestroyed={this.onEditorDestroyed}
-                              allowAnalyticsGASV3={
-                                this.props.allowAnalyticsGASV3
-                              }
-                              disabled={this.props.disabled}
-                              render={({
-                                editor,
-                                view,
-                                eventDispatcher,
-                                config,
-                                dispatchAnalyticsEvent,
-                              }) => (
-                                <BaseTheme
-                                  dynamicTextSizing={
-                                    this.props.allowDynamicTextSizing &&
-                                    this.props.appearance !== 'full-width'
-                                  }
-                                  baseFontSize={this.getBaseFontSize()}
-                                >
-                                  <Component
-                                    appearance={this.props.appearance!}
-                                    disabled={this.props.disabled}
-                                    editorActions={this.editorActions}
-                                    editorDOMElement={editor}
-                                    editorView={view}
-                                    providerFactory={this.providerFactory}
-                                    eventDispatcher={eventDispatcher}
-                                    dispatchAnalyticsEvent={
-                                      dispatchAnalyticsEvent
+              <>
+                {renderTrackingEnabled && (
+                  <RenderTracking
+                    componentProps={this.props}
+                    action={ACTION.RE_RENDERED}
+                    actionSubject={ACTION_SUBJECT.EDITOR}
+                    handleAnalyticsEvent={this.handleAnalyticsEvent}
+                    propsToIgnore={['defaultValue']}
+                    useShallow={useShallow}
+                  />
+                )}
+                <ErrorBoundary
+                  createAnalyticsEvent={createAnalyticsEvent}
+                  contextIdentifierProvider={
+                    this.props.contextIdentifierProvider
+                  }
+                >
+                  <WidthProviderFullHeight>
+                    <EditorContext editorActions={this.editorActions}>
+                      <ContextAdapter>
+                        <PortalProvider
+                          onAnalyticsEvent={this.handleAnalyticsEvent}
+                          useAnalyticsContext={
+                            this.props.UNSAFE_useAnalyticsContext
+                          }
+                          render={(portalProviderAPI) => (
+                            <>
+                              <ReactEditorView
+                                editorProps={overriddenEditorProps}
+                                createAnalyticsEvent={createAnalyticsEvent}
+                                portalProviderAPI={portalProviderAPI}
+                                providerFactory={this.providerFactory}
+                                onEditorCreated={this.onEditorCreated}
+                                onEditorDestroyed={this.onEditorDestroyed}
+                                allowAnalyticsGASV3={
+                                  this.props.allowAnalyticsGASV3
+                                }
+                                disabled={this.props.disabled}
+                                render={({
+                                  editor,
+                                  view,
+                                  eventDispatcher,
+                                  config,
+                                  dispatchAnalyticsEvent,
+                                }) => (
+                                  <BaseTheme
+                                    dynamicTextSizing={
+                                      this.props.allowDynamicTextSizing &&
+                                      this.props.appearance !== 'full-width'
                                     }
-                                    maxHeight={this.props.maxHeight}
-                                    onSave={
-                                      this.props.onSave
-                                        ? this.handleSave
-                                        : undefined
-                                    }
-                                    onCancel={this.props.onCancel}
-                                    popupsMountPoint={
-                                      this.props.popupsMountPoint
-                                    }
-                                    popupsBoundariesElement={
-                                      this.props.popupsBoundariesElement
-                                    }
-                                    popupsScrollableElement={
-                                      this.props.popupsScrollableElement
-                                    }
-                                    contentComponents={config.contentComponents}
-                                    primaryToolbarComponents={
-                                      config.primaryToolbarComponents
-                                    }
-                                    primaryToolbarIconBefore={
-                                      this.props.primaryToolbarIconBefore
-                                    }
-                                    secondaryToolbarComponents={
-                                      config.secondaryToolbarComponents
-                                    }
-                                    insertMenuItems={this.props.insertMenuItems}
-                                    customContentComponents={
-                                      this.props.contentComponents
-                                    }
-                                    customPrimaryToolbarComponents={
-                                      this.props.primaryToolbarComponents
-                                    }
-                                    customSecondaryToolbarComponents={
-                                      this.props.secondaryToolbarComponents
-                                    }
-                                    contextPanel={this.props.contextPanel}
-                                    collabEdit={this.props.collabEdit}
-                                    allowAnnotation={
-                                      !!this.props.annotationProviders
-                                    }
-                                    persistScrollGutter={
-                                      this.props.persistScrollGutter
-                                    }
-                                    enableToolbarMinWidth={
-                                      this.props.featureFlags
-                                        ?.toolbarMinWidthOverflow != null
-                                        ? !!this.props.featureFlags
-                                            ?.toolbarMinWidthOverflow
-                                        : this.props.UNSAFE_allowUndoRedoButtons
-                                    }
-                                    useStickyToolbar={
-                                      this.props.useStickyToolbar
-                                    }
-                                    featureFlags={featureFlags}
-                                  />
-                                </BaseTheme>
-                              )}
-                            />
-                            <PortalRenderer
-                              portalProviderAPI={portalProviderAPI}
-                            />
-                          </>
-                        )}
-                      />
-                    </ContextAdapter>
-                  </EditorContext>
-                </WidthProviderFullHeight>
-              </ErrorBoundary>
+                                    baseFontSize={this.getBaseFontSize()}
+                                  >
+                                    <Component
+                                      appearance={this.props.appearance!}
+                                      disabled={this.props.disabled}
+                                      editorActions={this.editorActions}
+                                      editorDOMElement={editor}
+                                      editorView={view}
+                                      providerFactory={this.providerFactory}
+                                      eventDispatcher={eventDispatcher}
+                                      dispatchAnalyticsEvent={
+                                        dispatchAnalyticsEvent
+                                      }
+                                      maxHeight={this.props.maxHeight}
+                                      onSave={
+                                        this.props.onSave
+                                          ? this.handleSave
+                                          : undefined
+                                      }
+                                      onCancel={this.props.onCancel}
+                                      popupsMountPoint={
+                                        this.props.popupsMountPoint
+                                      }
+                                      popupsBoundariesElement={
+                                        this.props.popupsBoundariesElement
+                                      }
+                                      popupsScrollableElement={
+                                        this.props.popupsScrollableElement
+                                      }
+                                      contentComponents={
+                                        config.contentComponents
+                                      }
+                                      primaryToolbarComponents={
+                                        config.primaryToolbarComponents
+                                      }
+                                      primaryToolbarIconBefore={
+                                        this.props.primaryToolbarIconBefore
+                                      }
+                                      secondaryToolbarComponents={
+                                        config.secondaryToolbarComponents
+                                      }
+                                      insertMenuItems={
+                                        this.props.insertMenuItems
+                                      }
+                                      customContentComponents={
+                                        this.props.contentComponents
+                                      }
+                                      customPrimaryToolbarComponents={
+                                        this.props.primaryToolbarComponents
+                                      }
+                                      customSecondaryToolbarComponents={
+                                        this.props.secondaryToolbarComponents
+                                      }
+                                      contextPanel={this.props.contextPanel}
+                                      collabEdit={this.props.collabEdit}
+                                      allowAnnotation={
+                                        !!this.props.annotationProviders
+                                      }
+                                      persistScrollGutter={
+                                        this.props.persistScrollGutter
+                                      }
+                                      enableToolbarMinWidth={
+                                        this.props.featureFlags
+                                          ?.toolbarMinWidthOverflow != null
+                                          ? !!this.props.featureFlags
+                                              ?.toolbarMinWidthOverflow
+                                          : this.props
+                                              .UNSAFE_allowUndoRedoButtons
+                                      }
+                                      useStickyToolbar={
+                                        this.props.useStickyToolbar
+                                      }
+                                      featureFlags={featureFlags}
+                                    />
+                                  </BaseTheme>
+                                )}
+                              />
+                              <PortalRenderer
+                                portalProviderAPI={portalProviderAPI}
+                              />
+                            </>
+                          )}
+                        />
+                      </ContextAdapter>
+                    </EditorContext>
+                  </WidthProviderFullHeight>
+                </ErrorBoundary>
+              </>
             )
           }
         />

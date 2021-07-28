@@ -3,7 +3,7 @@ import { MediaStoreError } from './error';
 
 export const TOKEN_MINIMUM_LIFETIME = 10000; // 10 sec
 
-export default async (
+export const resolveAuth = async (
   authProvider: AuthProvider,
   authContext?: AuthContext,
 ): Promise<Auth> => {
@@ -22,5 +22,12 @@ export default async (
     https://gist.github.com/timvisee/fcda9bbdff88d45cc9061606b4b923ca
   */
 
+  return auth;
+};
+
+export const resolveInitialAuth = (auth?: Auth) => {
+  if (!auth) {
+    throw new MediaStoreError('missingInitialAuth');
+  }
   return auth;
 };

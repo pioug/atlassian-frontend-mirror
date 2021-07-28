@@ -1,15 +1,12 @@
+/** @jsx jsx */
 import React from 'react';
 
-import styled from 'styled-components';
+import { css, jsx } from '@emotion/core';
 
 import Button from '@atlaskit/button/standard-button';
 import WarningIcon from '@atlaskit/icon/glyph/warning';
 
 import Banner from '../src';
-
-interface ItemProps {
-  isOpen: boolean;
-}
 
 const Icon = <WarningIcon label="" secondaryColor="inherit" />;
 
@@ -19,11 +16,15 @@ const WarningBanner = ({ isOpen = true }: { isOpen: boolean }) => (
   </Banner>
 );
 
-const ButtonWrapper = styled.div`
-  padding-bottom: ${(p: ItemProps) => (p.isOpen ? 8 : 0)}px;
-  transition: padding 0.25s ease-in-out;
-  will-change: padding;
-`;
+const buttonWrapperStyles = css({
+  paddingBottom: 0,
+  transition: 'padding 0.25s ease-in-out',
+  willChange: 'padding',
+});
+
+const bottomPaddingStyles = css({
+  paddingBottom: 8,
+});
 
 export default class ToggleBanner extends React.Component<
   {},
@@ -38,11 +39,11 @@ export default class ToggleBanner extends React.Component<
 
     return (
       <div>
-        <ButtonWrapper isOpen={isOpen}>
+        <div css={[buttonWrapperStyles, isOpen && bottomPaddingStyles]}>
           <Button appearance="primary" onClick={this.toggleBanner}>
             {isOpen ? 'Hide' : 'Show'} banner
           </Button>
-        </ButtonWrapper>
+        </div>
         <WarningBanner isOpen={isOpen} />
       </div>
     );

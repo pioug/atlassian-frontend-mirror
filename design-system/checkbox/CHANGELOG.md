@@ -1,5 +1,12 @@
 # @atlaskit/checkbox
 
+## 12.2.2
+
+### Patch Changes
+
+- [`18c128f6b73`](https://bitbucket.org/atlassian/atlassian-frontend/commits/18c128f6b73) - [ux] Fix bug in which modified click events (e.g. Ctrl+Click) would not get passed down to the underlying input element in Firefox.
+- Updated dependencies
+
 ## 12.2.1
 
 ### Patch Changes

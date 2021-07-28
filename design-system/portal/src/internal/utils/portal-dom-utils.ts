@@ -6,7 +6,8 @@ import {
 } from '../constants';
 
 /**
- * Creates a new portal container element with provided z-index and class name 'atlaskit-portal'
+ * Creates a new portal container element with provided z-index and class name 'atlaskit-portal',
+ * it is not be attached to any DOM node at this stage.
  * @param {number | string} zIndex - the z-index value of the newly created portal container element
  * @return {number} - The newly created container element
  */
@@ -59,11 +60,15 @@ export const removePortalContainer = (container: HTMLDivElement): void => {
 };
 
 /**
- * Appends portal container to portal parent container
+ * Appends portal container to portal parent container if it hasn't already been done
  *  @param {HTMLDivElement | undefined} container - portal container to be added to portal parent container
  */
-export const appendPortalContainer = (container: HTMLDivElement): void => {
-  getPortalParent().appendChild(container);
+export const appendPortalContainerIfNotAppended = (
+  container: HTMLDivElement,
+): void => {
+  if (!container.parentElement) {
+    getPortalParent().appendChild(container);
+  }
 };
 
 /**

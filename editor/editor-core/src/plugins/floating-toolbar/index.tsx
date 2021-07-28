@@ -1,6 +1,5 @@
 import React from 'react';
 import { EditorView } from 'prosemirror-view';
-import rafSchedule from 'raf-schd';
 import {
   Plugin,
   PluginKey,
@@ -43,6 +42,10 @@ import {
 import { findNode } from './utils';
 import { ErrorBoundary } from '../../ui/ErrorBoundary';
 
+export type FloatingToolbarPluginState = Record<
+  'getConfigWithNodeInfo',
+  (state: EditorState) => ConfigWithNodeInfo | null | undefined
+>;
 type ConfigWithNodeInfo = {
   config: FloatingToolbarConfig | undefined;
   pos: number;
@@ -157,8 +160,8 @@ const floatingToolbarPlugin = (): EditorPlugin => ({
         name: 'floatingToolbar',
         plugin: ({ dispatch, reactContext, providerFactory }) =>
           floatingToolbarPluginFactory({
-            dispatch,
             floatingToolbarHandlers,
+            dispatch,
             reactContext,
             providerFactory,
           }),
@@ -192,15 +195,19 @@ const floatingToolbarPlugin = (): EditorPlugin => ({
           floatingToolbarData,
           extensionsState,
         }) => {
+          const configWithNodeInfo = floatingToolbarState?.getConfigWithNodeInfo(
+            editorView.state,
+          );
           if (
-            !floatingToolbarState ||
-            !floatingToolbarState.config ||
-            (typeof floatingToolbarState.config.visible !== 'undefined' &&
-              !floatingToolbarState.config.visible)
+            !configWithNodeInfo ||
+            !configWithNodeInfo.config ||
+            (typeof configWithNodeInfo.config?.visible !== 'undefined' &&
+              !configWithNodeInfo.config?.visible)
           ) {
             return null;
           }
 
+          const { config, node } = configWithNodeInfo;
           const {
             title,
             getDomRef = getDomRefFromSelection,
@@ -212,7 +219,7 @@ const floatingToolbarPlugin = (): EditorPlugin => ({
             offset = [0, 12],
             forcePlacement,
             onPositionCalculated,
-          } = floatingToolbarState.config;
+          } = config;
           const targetRef = getDomRef(editorView, dispatchAnalyticsEvent);
 
           if (
@@ -223,9 +230,7 @@ const floatingToolbarPlugin = (): EditorPlugin => ({
           }
 
           let customPositionCalculation;
-          const toolbarItems = Array.isArray(items)
-            ? items
-            : items(floatingToolbarState.node);
+          const toolbarItems = Array.isArray(items) ? items : items(node);
 
           if (onPositionCalculated) {
             customPositionCalculation = (nextPos: Position): Position => {
@@ -269,7 +274,7 @@ const floatingToolbarPlugin = (): EditorPlugin => ({
                 <ToolbarLoader
                   target={targetRef}
                   items={toolbarItems}
-                  node={floatingToolbarState.node}
+                  node={node}
                   dispatchCommand={dispatchCommand}
                   editorView={editorView}
                   className={className}
@@ -311,7 +316,7 @@ export default floatingToolbarPlugin;
  */
 // We throttle update of this plugin with RAF.
 // So from other plugins you will always get the previous state.
-export const pluginKey = new PluginKey<ConfigWithNodeInfo>(
+export const pluginKey = new PluginKey<FloatingToolbarPluginState>(
   'floatingToolbarPluginKey',
 );
 
@@ -334,7 +339,7 @@ function sanitizeFloatingToolbarConfig(
 
 function floatingToolbarPluginFactory(options: {
   floatingToolbarHandlers: Array<FloatingToolbarHandler>;
-  dispatch: Dispatch<ConfigWithNodeInfo | undefined>;
+  dispatch: Dispatch<FloatingToolbarPluginState>;
   reactContext: () => { [key: string]: any };
   providerFactory: ProviderFactory;
 }) {
@@ -344,27 +349,23 @@ function floatingToolbarPluginFactory(options: {
     reactContext,
     providerFactory,
   } = options;
-
-  const apply = (
-    _tr: Transaction,
-    _pluginState: any,
-    _oldState: EditorState<any>,
-    newState: EditorState<any>,
-  ) => {
-    const { intl } = reactContext();
+  const { intl } = reactContext();
+  const getConfigWithNodeInfo = (editorState: EditorState) => {
     const activeConfigs = floatingToolbarHandlers
-      .map((handler) => handler(newState, intl, providerFactory))
+      .map((handler) => handler(editorState, intl, providerFactory))
       .filter(filterUndefined)
       .map((config) => sanitizeFloatingToolbarConfig(config));
 
     const relevantConfig =
-      activeConfigs && getRelevantConfig(newState.selection, activeConfigs);
-
-    dispatch(pluginKey, relevantConfig);
+      activeConfigs && getRelevantConfig(editorState.selection, activeConfigs);
     return relevantConfig;
   };
 
-  const rafApply = rafSchedule(apply);
+  const apply = (tr: Transaction, pluginState: any) => {
+    const newPluginState = { getConfigWithNodeInfo };
+    dispatch(pluginKey, newPluginState);
+    return newPluginState;
+  };
 
   return new Plugin({
     key: pluginKey,
@@ -372,13 +373,9 @@ function floatingToolbarPluginFactory(options: {
       init: () => {
         // Use this point to preload the UI
         ToolbarLoader.preload();
+        return { getConfigWithNodeInfo };
       },
-      apply: rafApply,
+      apply,
     },
-    view: () => ({
-      destroy: () => {
-        rafApply.cancel();
-      },
-    }),
   });
 }

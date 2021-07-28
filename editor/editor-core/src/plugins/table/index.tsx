@@ -311,7 +311,7 @@ const tablesPlugin = (options?: TablePluginOptions): EditorPlugin => ({
         },
       },
     ],
-    floatingToolbar: getToolbarConfig,
+    floatingToolbar: getToolbarConfig(pluginConfig(options?.tableOptions)),
   },
 });
 

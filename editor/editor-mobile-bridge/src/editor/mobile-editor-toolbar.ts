@@ -12,6 +12,7 @@ import {
   FloatingToolbarColorPicker,
   FloatingToolbarInput,
   FloatingToolbarDatePicker,
+  FloatingToolbarEmojiPicker,
 } from '@atlaskit/editor-core';
 import { NodeType, Node } from 'prosemirror-model';
 
@@ -105,14 +106,14 @@ export default class MobileEditorToolbarActions {
           case 'select':
             if (item.selectType === 'list') {
               newItem = this.translateToolbarSelect(item, index);
-            } else if (item.selectType === 'color') {
-              newItem = this.translateColorPicker(
-                item as FloatingToolbarColorPicker<Command>,
-                index,
-              );
             } else if (item.selectType === 'date') {
               newItem = this.translateDatePicker(
                 item as FloatingToolbarDatePicker<Command>,
+                index,
+              );
+            } else if (item.selectType === 'color') {
+              newItem = this.translateColorPicker(
+                item as FloatingToolbarColorPicker<Command>,
                 index,
               );
             }
@@ -125,6 +126,9 @@ export default class MobileEditorToolbarActions {
               newItem = { ...item };
               visibleItemFound = false;
             }
+            break;
+          case 'emoji-picker':
+            newItem = this.translateEmojiPicker(item, index);
             break;
           case 'input':
             newItem = this.translateInput(item, index);
@@ -146,8 +150,9 @@ export default class MobileEditorToolbarActions {
   }
 
   private sanitizeCustomType(
-    items: Array<FloatingToolbarItem<Command>>,
+    rawItems: Array<FloatingToolbarItem<Command>>,
   ): Array<FloatingToolbarItem<Command>> {
+    const items = [...rawItems];
     items.forEach((item: FloatingToolbarItem<Command>, index: number) => {
       if (item.type === 'custom' && item.fallback) {
         items.splice(index, 1, ...item.fallback);
@@ -178,7 +183,12 @@ export default class MobileEditorToolbarActions {
     if (!this.isItemAllowed(item.id)) {
       return;
     }
-    const newItem: MobileEditorToolbarItem = { ...item };
+    const newItem: MobileEditorToolbarItem = {
+      ...item,
+      // Overriding this as it can cause circular references when we stringify it
+      // above. This is because it is a ReactNode.
+      tooltipContent: undefined,
+    };
     newItem.key = this.generateKey(index);
     if (item.icon && item.icon.displayName) {
       newItem.iconName = item.icon.displayName;
@@ -242,6 +252,18 @@ export default class MobileEditorToolbarActions {
   private convertRGBAtoHex(rgba: string): string {
     // TODO: border might come as rgba, if that's the case, convert it to hex
     return rgba;
+  }
+
+  private translateEmojiPicker(
+    item: FloatingToolbarEmojiPicker<Command>,
+    index: number,
+  ): MobileEditorToolbarItem | undefined {
+    if (!this.isItemAllowed(item.id)) {
+      return;
+    }
+    const newItem: MobileEditorToolbarItem = { ...item };
+    newItem.key = this.generateKey(index);
+    return newItem;
   }
 
   private translateDatePicker(
@@ -333,18 +355,22 @@ export default class MobileEditorToolbarActions {
       case 'select':
         if (parentItem?.selectType === 'list') {
           this.performSelectChange(parentItem, optionIndex, editorView);
-        } else if (parentItem?.selectType === 'color') {
-          const colorPicker = parentItem as FloatingToolbarColorPicker<Command>;
-          this.performColorPickerChange(colorPicker, optionIndex, editorView);
         } else if (parentItem?.selectType === 'date') {
           const datePicker = parentItem as FloatingToolbarDatePicker<Command>;
           this.performDatePickerChange(datePicker, value, editorView);
+        } else if (parentItem?.selectType === 'color') {
+          const colorPicker = parentItem as FloatingToolbarColorPicker<Command>;
+          this.performColorPickerChange(colorPicker, optionIndex, editorView);
         }
         break;
       case 'input':
         if (value) {
           this.performInputSubmit(parentItem, value, editorView);
         }
+        break;
+
+      case 'emoji-picker':
+        this.performEmojiPicker(parentItem, value, editorView);
         break;
     }
   }
@@ -383,6 +409,16 @@ export default class MobileEditorToolbarActions {
   ) {
     const optionItem = colorPicker.options[optionIndex];
     colorPicker.onChange(optionItem)(editorView.state, editorView.dispatch);
+  }
+
+  private performEmojiPicker(
+    picker: FloatingToolbarEmojiPicker<Command>,
+    value: string | null | undefined,
+    editorView: EditorView,
+  ) {
+    if (value) {
+      picker.onChange(value)(editorView.state, editorView.dispatch);
+    }
   }
 
   private performDatePickerChange(

@@ -35,11 +35,11 @@
     "react": "^16.8.0"
   },
   "devDependencies": {
-    "@atlaskit/button": "^15.1.0",
+    "@atlaskit/button": "^16.0.0",
     "@atlaskit/docs": "^9.0.0",
     "@atlaskit/field-text": "^11.0.0",
-    "@atlaskit/lozenge": "^10.0.0",
-    "@atlaskit/theme": "^11.0.0",
+    "@atlaskit/lozenge": "^11.0.0",
+    "@atlaskit/theme": "^11.4.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "es6-promise": "^4.0.5",
     "fetch-mock": "^8.0.0",

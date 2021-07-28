@@ -79,6 +79,16 @@ describe('Media Card New Experience', () => {
       );
 
       it.each(['uploading', 'complete', 'failed-processing', 'error'])(
+        'with disableOverlay and  filestate %s',
+        async (status) => {
+          const url = getURL(`&disableOverlay=true&status=${status}`);
+
+          const { image } = await setup(url);
+          expect(image).toMatchProdImageSnapshot();
+        },
+      );
+
+      it.each(['uploading', 'complete', 'failed-processing', 'error'])(
         'and is selected with filestate %s',
         async (status) => {
           const url = getURL(`&status=${status}&selected=true`);
@@ -94,6 +104,18 @@ describe('Media Card New Experience', () => {
         'with filestate %s',
         async (status) => {
           const url = getURL(`&disableMetadata=true&status=${status}`);
+
+          const { image } = await setup(url);
+          expect(image).toMatchProdImageSnapshot();
+        },
+      );
+
+      it.each(['uploading', 'complete', 'failed-processing', 'error'])(
+        'with disableOverlay and filestate %s',
+        async (status) => {
+          const url = getURL(
+            `&disableOverlay=true&disableMetadata=true&status=${status}`,
+          );
 
           const { image } = await setup(url);
           expect(image).toMatchProdImageSnapshot();
@@ -122,6 +144,13 @@ describe('Media Card New Experience', () => {
         const { image } = await setup(url);
         expect(image).toMatchProdImageSnapshot();
       });
+      it('renders error state when disableOverlay', async () => {
+        const url = getURL(
+          `&isRateLimited=true&disableOverlay=true&status=error`,
+        );
+        const { image } = await setup(url);
+        expect(image).toMatchProdImageSnapshot();
+      });
     });
     describe('no metadata', () => {
       it('renders a borked state with no retry button with dataURI', async () => {
@@ -138,6 +167,21 @@ describe('Media Card New Experience', () => {
         const { image } = await setup(url);
         expect(image).toMatchProdImageSnapshot();
       });
+      it('renders error state when disableOverlay', async () => {
+        const url = getURL(
+          `&disableMetadata=true&isRateLimited=true&disableOverlay=true&status=error`,
+        );
+        const { image } = await setup(url);
+        expect(image).toMatchProdImageSnapshot();
+      });
+    });
+  });
+
+  describe('is polling error', () => {
+    it('has metadata', async () => {
+      const url = getURL(`&isPollingMaxAttemptsExceeded=true&status=error`);
+      const { image } = await setup(url);
+      expect(image).toMatchProdImageSnapshot();
     });
   });
 });

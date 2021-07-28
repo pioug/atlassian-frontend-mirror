@@ -3,6 +3,12 @@ import rule from '../../index';
 
 tester.run('ensure-design-token-usage', rule, {
   valid: [
+    `token('shadow.card', background())`,
+    `const background = 'hey';`,
+    `import { e100 } from 'lib';`,
+    `
+    css({background:'none'})
+    `,
     `
       import { B100 } from '@atlaskit/theme/colors';
     `,
@@ -36,6 +42,18 @@ tester.run('ensure-design-token-usage', rule, {
     `
     token('color.background.blanket');
   `,
+    `
+    const number = 123;
+    const aString = number.toString();
+  `,
+    `
+    css({
+      backgroundColor: token('color.background.blanket', background())
+    })
+    `,
+    `
+    wrapper.find('#eeeeee').exists()
+    `,
   ],
   invalid: [
     {
@@ -81,16 +99,8 @@ tester.run('ensure-design-token-usage', rule, {
       ],
     },
     {
-      code: `'var(--accent-blueSubtle)';`,
-      output: `token('color.accent.blueSubtle');`,
-      errors: [
-        {
-          messageId: 'directTokenUsage',
-        },
-      ],
-    },
-    {
-      code: `'--accent-blueSubtle';`,
+      code: `css({ color: 'var(--accent-blueSubtle)' });`,
+      output: `css({ color: token('color.accent.blueSubtle') });`,
       errors: [
         {
           messageId: 'directTokenUsage',
@@ -118,40 +128,48 @@ tester.run('ensure-design-token-usage', rule, {
       errors: [
         {
           messageId: 'directTokenUsage',
+        },
+      ],
+    },
+    {
+      code: `css({ color: 'red' })`,
+      errors: [
+        {
+          messageId: 'hardCodedColor',
+        },
+      ],
+    },
+    {
+      code: `
+        css\`
+          color: red;
+          background-color: #ccc;
+        \`;
+      `,
+      errors: [
+        {
+          messageId: 'hardCodedColor',
+        },
+      ],
+    },
+    {
+      code: `
+        styled.div\`
+          color: red;
+          background-color: #ccc;
+        \`;
+      `,
+      errors: [
+        {
+          messageId: 'hardCodedColor',
         },
       ],
     },
     {
       code: `
         css({
-          color: 'red',
-        })
-      `,
-      errors: [
-        {
-          messageId: 'hardCodedColor',
-        },
-      ],
-    },
-    {
-      code: `
-        css\`
-          color: red;
-          background-color: #ccc;
-        \`;
-      `,
-      errors: [
-        {
-          messageId: 'hardCodedColor',
-        },
-      ],
-    },
-    {
-      code: `
-        styled.div\`
-          color: red;
-          background-color: #ccc;
-        \`;
+          backgroundColor: background(),
+        });
       `,
       errors: [
         {
@@ -175,8 +193,10 @@ tester.run('ensure-design-token-usage', rule, {
     },
     {
       code: `
-        'red';
-        'orange';
+        css({
+          color: 'red',
+          color: 'orange',
+        });
       `,
       errors: [
         {
@@ -189,8 +209,10 @@ tester.run('ensure-design-token-usage', rule, {
     },
     {
       code: `
-        'hsl(30, 100%, 50%, 0.6)';
-        'hsla(30, 100%, 50%, 0.6)';
+        css({
+          color: 'hsl(30, 100%, 50%, 0.6)',
+          color: 'hsla(30, 100%, 50%, 0.6)',
+        });
       `,
       errors: [
         {
@@ -203,8 +225,10 @@ tester.run('ensure-design-token-usage', rule, {
     },
     {
       code: `
-        'rgb(0, 0, 0)';
-        'rgba(0, 0, 0, 0.5)';
+        css({
+          color: 'rgb(0, 0, 0)',
+          color: 'rgba(0, 0, 0, 0.5)',
+        });
       `,
       errors: [
         {
@@ -217,9 +241,11 @@ tester.run('ensure-design-token-usage', rule, {
     },
     {
       code: `
-        '#ccc';
-        '#cccaaa';
-        '#cccaaaff';
+        css({
+          color: '#ccc',
+          color: '#cccaaa',
+          color: '#cccaaaff'
+        })
       `,
       errors: [
         {

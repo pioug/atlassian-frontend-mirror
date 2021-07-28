@@ -64,11 +64,9 @@ export {
   stateKey as hyperlinkStateKey,
 } from './plugins/hyperlink/pm-plugins/main';
 export type { HyperlinkState } from './plugins/hyperlink/pm-plugins/main';
-export { pluginKey as listsStateKey } from './plugins/lists/pm-plugins/main';
-export type { ListsPluginState as ListsState } from './plugins/lists/pm-plugins/main';
-export { pluginKey as listsPredictableStateKey } from './plugins/lists-predictable/pm-plugins/main';
-export type { ListsPluginState as ListsPredictableState } from './plugins/lists-predictable/types';
-export type { InputMethod as ListInputMethod } from './plugins/lists/commands';
+export { pluginKey as listStateKey } from './plugins/list/pm-plugins/main';
+export type { ListState } from './plugins/list/types';
+export type { InputMethod as ListInputMethod } from './plugins/list/commands';
 export {
   toggleSuperscript,
   toggleSuperscriptWithAnalytics,
@@ -195,6 +193,7 @@ export { insertExpand } from './plugins/expand/commands';
 
 export { default as WithPluginState } from './ui/WithPluginState';
 export { pluginKey as floatingToolbarPluginKey } from './plugins/floating-toolbar';
+export type { FloatingToolbarPluginState } from './plugins/floating-toolbar';
 export type {
   FloatingToolbarConfig,
   FloatingToolbarItem,
@@ -204,6 +203,7 @@ export type {
   FloatingToolbarColorPicker,
   FloatingToolbarDatePicker,
   FloatingToolbarInput,
+  FloatingToolbarEmojiPicker,
 } from './plugins/floating-toolbar/types';
 export type { DropdownOptionT } from './plugins/floating-toolbar/ui/types';
 export type { SelectOption } from './plugins/floating-toolbar/ui/Select';

@@ -504,6 +504,8 @@ describe('<EmojiPicker />', () => {
       const toneSelectorOpener = toneEmoji.prop('onSelected');
       expect(toneSelectorOpener).toBeDefined();
       toneSelectorOpener!();
+      const toneSelectorOpenerSelectedTone = toneEmoji.prop('emoji').shortName;
+      expect(toneSelectorOpenerSelectedTone).toBe(':raised_hand:');
 
       await waitUntil(
         () => component.update() && component.find(ToneSelector).length > 0,

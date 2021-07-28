@@ -1,5 +1,11 @@
 # @atlaskit/media-core
 
+## 32.2.0
+
+### Minor Changes
+
+- [`531dcf9459d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/531dcf9459d) - Updated MediaClientConfig to accept Auth object for sync operation (see Media Client logs for more info)
+
 ## 32.1.3
 
 ### Patch Changes

@@ -26,7 +26,7 @@
   "dependencies": {
     "@atlaskit/icon": "^21.0.0",
     "@atlaskit/motion": "^1.0.0",
-    "@atlaskit/theme": "^11.3.0",
+    "@atlaskit/theme": "^11.4.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/core": "^10.0.9",
     "raf-schd": "^2.1.0"
@@ -36,10 +36,10 @@
     "react-dom": "^16.8.0"
   },
   "devDependencies": {
-    "@atlaskit/atlassian-navigation": "^1.0.0",
+    "@atlaskit/atlassian-navigation": "^1.1.0",
     "@atlaskit/atlassian-notifications": "^0.3.0",
     "@atlaskit/build-utils": "*",
-    "@atlaskit/button": "^15.1.5",
+    "@atlaskit/button": "^16.0.0",
     "@atlaskit/docs": "*",
     "@atlaskit/drawer": "^6.0.0",
     "@atlaskit/icon": "*",
@@ -48,7 +48,7 @@
     "@atlaskit/notification-indicator": "^8.0.0",
     "@atlaskit/notification-log-client": "^5.0.0",
     "@atlaskit/onboarding": "^10.2.0",
-    "@atlaskit/popup": "^1.0.0",
+    "@atlaskit/popup": "^1.1.0",
     "@atlaskit/section-message": "^6.0.0",
     "@atlaskit/side-navigation": "^1.0.0",
     "@atlaskit/ssr": "*",

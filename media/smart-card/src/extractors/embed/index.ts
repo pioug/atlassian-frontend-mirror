@@ -5,6 +5,7 @@ import { CardPlatform } from '../../view/Card/types';
 import { extractLink, extractTitle } from '../common/primitives';
 import { extractProvider } from '../common/context';
 import { extractPreview, LinkPreview } from '../common/preview/extractPreview';
+import { extractIsTrusted } from '../common/meta/extractIsTrusted';
 
 const extractEmbedPreview = (
   jsonLd: JsonLd.Data.BaseData,
@@ -18,10 +19,12 @@ const extractEmbedPreview = (
 
 export const extractEmbedProps = (
   jsonLd: JsonLd.Data.BaseData,
+  meta?: JsonLd.Meta.BaseMeta,
   platform?: CardPlatform,
 ): EmbedCardResolvedViewProps => ({
   link: extractLink(jsonLd) || '',
   title: extractTitle(jsonLd),
   context: extractProvider(jsonLd),
   preview: extractEmbedPreview(jsonLd, platform),
+  isTrusted: extractIsTrusted(meta),
 });

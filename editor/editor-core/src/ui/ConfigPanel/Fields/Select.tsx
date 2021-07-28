@@ -24,10 +24,10 @@ export default function SelectField({
   fieldDefaultValue?: string | string[];
 }) {
   //ignore arrays as mutli-value select fields are always clearable
-  const hasValidSignleDefaultValue =
+  const hasValidSingleDefaultValue =
     !Array.isArray(fieldDefaultValue) && fieldDefaultValue !== undefined;
 
-  const isClearable = !hasValidSignleDefaultValue || field.isMultiple;
+  const isClearable = !hasValidSingleDefaultValue || field.isMultiple;
 
   return (
     <Field<ValueType<Option>>

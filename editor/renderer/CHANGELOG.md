@@ -1,5 +1,17 @@
 # @atlaskit/renderer
 
+## 79.0.0
+
+### Minor Changes
+
+- [`450a8582760`](https://bitbucket.org/atlassian/atlassian-frontend/commits/450a8582760) - Added editor re-render analytics event.
+- [`797ffbdcd7f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/797ffbdcd7f) - Update focus style for expand button, change aria-label to aria-labelled by
+
+### Patch Changes
+
+- [`db4a92b9e61`](https://bitbucket.org/atlassian/atlassian-frontend/commits/db4a92b9e61) - ED-11460: Add Renderer Error Boundary
+- Updated dependencies
+
 ## 78.0.0
 
 ### Minor Changes

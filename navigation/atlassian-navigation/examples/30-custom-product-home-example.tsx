@@ -16,7 +16,7 @@ import {
   ConfluenceProductHome,
   DefaultCustomProductHome,
   JiraProductHome,
-  JiraServiceDeskProductHome,
+  JiraServiceManagementProductHome,
   JiraSoftwareProductHome,
   OpsGenieProductHome,
 } from './shared/ProductHome';
@@ -73,7 +73,7 @@ const CustomProductHomeExample = () => (
       renderCreate={DefaultCreate}
       renderHelp={HelpPopup}
       renderNotifications={NotificationsPopup}
-      renderProductHome={JiraServiceDeskProductHome}
+      renderProductHome={JiraServiceManagementProductHome}
       renderProfile={ProfilePopup}
       renderSearch={DefaultSearch}
       renderSettings={DefaultSettings}

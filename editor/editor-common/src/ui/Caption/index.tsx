@@ -45,7 +45,11 @@ export class CaptionComponent extends React.Component<
     const showPlaceholder = !selected && !hasContent;
 
     return (
-      <CaptionWrapper data-testid="media-caption" {...dataAttributes}>
+      <CaptionWrapper
+        data-media-caption
+        data-testid="media-caption"
+        {...dataAttributes}
+      >
         {showPlaceholder ? (
           <Placeholder>{formatMessage(messages.placeholder)}</Placeholder>
         ) : null}

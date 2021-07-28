@@ -3,6 +3,7 @@ import {
   AuthContext,
   ClientAltBasedAuth,
   MediaApiConfig,
+  Auth,
 } from '@atlaskit/media-core';
 import { MediaFeatureFlags } from '@atlaskit/media-common';
 import { FILE_CACHE_MAX_AGE, MAX_RESOLUTION } from '../../constants';
@@ -28,7 +29,7 @@ import {
   RequestMetadata,
   CreateUrlOptions,
 } from '../../utils/request/types';
-import resolveAuth from './resolveAuth';
+import { resolveAuth, resolveInitialAuth } from './resolveAuth';
 
 export type { MediaStoreErrorReason, MediaStoreErrorAttributes } from './error';
 export { MediaStoreError, isMediaStoreError } from './error';
@@ -284,12 +285,26 @@ export class MediaStore {
   ): Promise<string> {
     const { collection: collectionName } = params || {};
     const auth = await this.resolveAuth({ collectionName });
+    return this.createFileImageURL(id, auth, params);
+  }
 
+  getFileImageURLSync(
+    id: string,
+    params?: MediaStoreGetFileImageParams,
+  ): string {
+    const auth = this.resolveInitialAuth();
+    return this.createFileImageURL(id, auth, params);
+  }
+
+  private createFileImageURL(
+    id: string,
+    auth: Auth,
+    params?: MediaStoreGetFileImageParams,
+  ): string {
     const options: CreateUrlOptions = {
       params: extendImageParams(params),
       auth,
     };
-
     return createUrl(`${auth.baseUrl}/file/${id}/image`, options);
   }
 
@@ -489,6 +504,8 @@ export class MediaStore {
 
   resolveAuth = (authContext?: AuthContext) =>
     resolveAuth(this.config.authProvider, authContext);
+
+  resolveInitialAuth = () => resolveInitialAuth(this.config.initialAuth);
 }
 
 function updateMediaRegion(region: string | null) {

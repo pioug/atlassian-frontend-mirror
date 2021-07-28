@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/banner",
-  "version": "11.2.3",
+  "version": "11.3.0",
   "description": "A banner displays a prominent message at the top of the screen.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -26,16 +26,16 @@
     ".": "./src/index.tsx"
   },
   "dependencies": {
-    "@atlaskit/theme": "^11.3.0",
-    "@babel/runtime": "^7.0.0"
+    "@atlaskit/theme": "^11.4.0",
+    "@babel/runtime": "^7.0.0",
+    "@emotion/core": "^10.0.9"
   },
   "peerDependencies": {
-    "react": "^16.8.0",
-    "styled-components": "^3.2.6"
+    "react": "^16.8.0"
   },
   "devDependencies": {
     "@atlaskit/build-utils": "*",
-    "@atlaskit/button": "^15.1.0",
+    "@atlaskit/button": "^16.0.0",
     "@atlaskit/docs": "*",
     "@atlaskit/icon": "^21.6.0",
     "@atlaskit/ssr": "*",
@@ -56,7 +56,8 @@
       "import-structure": "atlassian-conventions"
     },
     "@repo/internal": {
-      "design-system": "v1"
+      "design-system": "v1",
+      "styling": "emotion"
     }
   },
   "homepage": "https://atlassian.design/components/banner/",

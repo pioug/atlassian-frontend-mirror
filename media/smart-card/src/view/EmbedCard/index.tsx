@@ -43,6 +43,7 @@ export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
   ) => {
     const data =
       ((details && details.data) as JsonLd.Data.BaseData) || getEmptyJsonLd();
+    const meta = (details && details.meta) as JsonLd.Meta.BaseMeta;
     switch (status) {
       case 'pending':
       case 'resolving':
@@ -54,7 +55,7 @@ export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
           />
         );
       case 'resolved':
-        const resolvedViewProps = extractEmbedProps(data, platform);
+        const resolvedViewProps = extractEmbedProps(data, meta, platform);
         if (onResolve) {
           onResolve({
             title: resolvedViewProps.title,
@@ -85,7 +86,7 @@ export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
               />
             );
           }
-          const resolvedBlockViewProps = extractBlockProps(data, {
+          const resolvedBlockViewProps = extractBlockProps(data, meta, {
             handleAnalytics,
             handleInvoke,
             definitionId: getDefinitionId(details),
@@ -101,7 +102,7 @@ export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
           );
         }
       case 'unauthorized':
-        const unauthorisedViewProps = extractEmbedProps(data, platform);
+        const unauthorisedViewProps = extractEmbedProps(data, meta, platform);
         return (
           <EmbedCardUnauthorisedView
             {...unauthorisedViewProps}
@@ -112,7 +113,7 @@ export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
           />
         );
       case 'forbidden':
-        const forbiddenViewProps = extractEmbedProps(data, platform);
+        const forbiddenViewProps = extractEmbedProps(data, meta, platform);
         const cardMetadata = details?.meta ?? getUnauthorizedJsonLd().meta;
         const requestAccessContext = extractRequestAccessContext({
           jsonLd: cardMetadata,
@@ -130,7 +131,7 @@ export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
           />
         );
       case 'not_found':
-        const notFoundViewProps = extractEmbedProps(data, platform);
+        const notFoundViewProps = extractEmbedProps(data, meta, platform);
         return (
           <EmbedCardNotFoundView
             {...notFoundViewProps}

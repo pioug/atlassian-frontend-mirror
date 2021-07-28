@@ -177,15 +177,6 @@ describe('mobile editor element', () => {
       );
     });
 
-    it('should have called isPredictableListEnabled', () => {
-      const mockedAllowPredictableList = jest.spyOn(
-        MobileEditorConfiguration.prototype,
-        'isPredictableListEnabled',
-      );
-      initEditor();
-      expect(mockedAllowPredictableList).toBeCalled();
-    });
-
     it('should have called isUnpredictableInputRuleEnabled', () => {
       const mockedUseUnpredictableInputRule = jest.spyOn(
         MobileEditorConfiguration.prototype,
@@ -237,16 +228,6 @@ describe('mobile editor element', () => {
   });
 
   describe('Mobile Editor with Re Configuration', () => {
-    it('should have called isPredictableListEnabled', () => {
-      const mockedAllowPredictableList = jest.spyOn(
-        MobileEditorConfiguration.prototype,
-        'isPredictableListEnabled',
-      );
-      initEditor();
-      bridge.configure('{"allowPredictableList": true}');
-      expect(mockedAllowPredictableList).toBeCalled();
-    });
-
     it('should have called isUnpredictableInputRuleEnabled', () => {
       const mockedUseUnpredictableInputRule = jest.spyOn(
         MobileEditorConfiguration.prototype,

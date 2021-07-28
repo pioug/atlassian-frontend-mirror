@@ -189,7 +189,6 @@ export function MobileEditor(props: MobileEditorProps) {
               codeBlock={codeBlockOptions}
               allowTemplatePlaceholders={templatePlaceholdersOptions}
               persistScrollGutter={editorConfiguration.isScrollGutterPersisted()}
-              UNSAFE_predictableLists={editorConfiguration.isPredictableListEnabled()}
               taskDecisionProvider={taskDecisionProvider}
               quickInsert={quickInsert}
               collabEdit={collabEdit}
@@ -203,9 +202,18 @@ export function MobileEditor(props: MobileEditorProps) {
             <WithPluginState
               plugins={{ floatingToolbar: floatingToolbarPluginKey }}
               render={({ floatingToolbar }) => {
+                if (!floatingToolbar || !bridge.editorView) {
+                  return null;
+                }
+
+                const { getConfigWithNodeInfo } = floatingToolbar;
+                const configWithNodeInfo = getConfigWithNodeInfo(
+                  bridge.editorView.state,
+                );
+
                 bridge.mobileEditingToolbarActions.notifyNativeBridgeForEditCapabilitiesChanges(
-                  floatingToolbar?.config,
-                  floatingToolbar?.node,
+                  configWithNodeInfo?.config,
+                  configWithNodeInfo?.node,
                 );
                 return null;
               }}

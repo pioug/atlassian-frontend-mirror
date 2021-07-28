@@ -158,6 +158,10 @@ export default {
   'fabric.editor.horizontalRule': 'Dílčí příčka',
   'fabric.editor.horizontalRule.description':
     'Rozdělit obsah horizontální čárou',
+  'fabric.editor.hyperlink.searchLinkAriaDescription':
+    'Níže se objeví návrhy na základě vámi napsaného textu v poli',
+  'fabric.editor.hyperlink.searchLinkResults':
+    '{count, plural, =0 {nebyly nalezeny žádné výsledky} one {{count,number} nalezený výsledek} few {{count,number} nalezené výsledky} many {{count,number} nalezeného výsledku} other {{count,number} nalezených výsledků}}',
   'fabric.editor.hyperlinkToolbarPlaceholder':
     'Vložit nedávno zobrazený odkaz nebo vyhledávání',
   'fabric.editor.image': 'Obrázek',
@@ -222,7 +226,7 @@ export default {
   'fabric.editor.resultsCount': '{selectedMatchPosition} z {totalResultsCount}',
   'fabric.editor.rightSidebar': 'Pravý postranní panel',
   'fabric.editor.saveButton': 'Uložit',
-  'fabric.editor.selectLanguage': 'Vyberte jazyk',
+  'fabric.editor.selectLanguage': 'Vyberte programovací jazyk',
   'fabric.editor.selected': 'Vybrané',
   'fabric.editor.sortColumnASC': 'Seřadit sloupec A → Z',
   'fabric.editor.sortColumnDESC': 'Seřadit sloupec Z → A',

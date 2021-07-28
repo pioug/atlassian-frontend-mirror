@@ -1,6 +1,7 @@
+/** @jsx jsx */
 import React, { Fragment } from 'react';
 
-import styled from 'styled-components';
+import { css, jsx } from '@emotion/core';
 
 import { B500, DN10, N40, P300, Y300 } from '@atlaskit/theme/colors';
 
@@ -43,20 +44,35 @@ interface WrapperDivProps {
   background: string;
 }
 
-const WrapperDiv = styled.div<WrapperDivProps>`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  height: 40px;
-  width: 40px;
-  margin-right: 20px;
-  color: ${(props) => props.color};
-  background: ${(props) => props.background};
-`;
-/* eslint-disable */
-/* prettier-ignore */
-const Wrapper: React.FC<WrapperDivProps> = props => (
+const wrapperDivStyles = css({
+  display: 'flex',
+  width: '40px',
+  height: '40px',
+  marginRight: '20px',
+  alignItems: 'center',
+  justifyContent: 'center',
+  background: 'var(--background)',
+  borderRadius: '50%',
+  color: 'var(--color)',
+});
+
+const WrapperDiv: React.FC<WrapperDivProps> = ({
+  color,
+  background,
+  ...rest
+}) => {
+  return (
+    <div
+      css={wrapperDivStyles}
+      style={
+        { '--color': color, '--background': background } as React.CSSProperties
+      }
+      {...rest}
+    />
+  );
+};
+
+const Wrapper: React.FC<WrapperDivProps> = (props) => (
   <Fragment>
     <WrapperDiv {...props}>{props.children}</WrapperDiv>
     <br />

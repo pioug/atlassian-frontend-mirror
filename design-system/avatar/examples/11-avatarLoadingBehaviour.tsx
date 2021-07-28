@@ -8,7 +8,6 @@ import { gridSize } from '@atlaskit/theme/constants';
 import { Note } from '../examples-util/helpers';
 import Avatar from '../src';
 
-// eslint-disable-next-line @repo/internal/react/consistent-props-definitions
 const Btn = (props: ButtonProps) => (
   <span style={{ marginLeft: gridSize() }}>
     <Button type="button" {...props} />

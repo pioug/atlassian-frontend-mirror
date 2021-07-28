@@ -9,12 +9,13 @@ import {
   getExtensionRenderer,
   getNodeRenderer,
   ExtensionProvider,
+  getExtensionModuleNodePrivateProps,
 } from '@atlaskit/editor-common';
 import { ADFEntity } from '@atlaskit/adf-utils';
 
 import Extension from './Extension';
 import InlineExtension from './InlineExtension';
-
+import { EditorAppearance } from '../../../../types/editor-appearance';
 export interface Props {
   editorView: EditorView;
   node: PMNode;
@@ -22,14 +23,20 @@ export interface Props {
   extensionHandlers: ExtensionHandlers;
   extensionProvider?: Promise<ExtensionProvider>;
   refNode?: ADFEntity;
+  editorAppearance?: EditorAppearance;
 }
 
 export interface State {
   extensionProvider?: ExtensionProvider;
   extensionHandlersFromProvider?: ExtensionHandlers;
+  _privateProps?: {
+    __hideFrame?: boolean;
+  };
 }
 
 export default class ExtensionComponent extends Component<Props, State> {
+  private privatePropsParsed = false;
+
   state: State = {};
   mounted = false;
 
@@ -43,6 +50,10 @@ export default class ExtensionComponent extends Component<Props, State> {
     if (extensionProvider) {
       this.setStateFromPromise('extensionProvider', extensionProvider);
     }
+  }
+
+  componentDidUpdate() {
+    this.parsePrivateNodePropsIfNeeded();
   }
 
   componentWillUnmount() {
@@ -61,9 +72,18 @@ export default class ExtensionComponent extends Component<Props, State> {
 
   // memoized to avoid rerender on extension state changes
   getNodeRenderer = memoizeOne(getNodeRenderer);
+  getExtensionModuleNodePrivateProps = memoizeOne(
+    getExtensionModuleNodePrivateProps,
+  );
 
   render() {
-    const { node, handleContentDOMRef, editorView, refNode } = this.props;
+    const {
+      node,
+      handleContentDOMRef,
+      editorView,
+      refNode,
+      editorAppearance,
+    } = this.props;
     const extensionHandlerResult = this.tryExtensionHandler();
 
     switch (node.type.name) {
@@ -76,6 +96,8 @@ export default class ExtensionComponent extends Component<Props, State> {
             extensionProvider={this.state.extensionProvider}
             handleContentDOMRef={handleContentDOMRef}
             view={editorView}
+            editorAppearance={editorAppearance}
+            hideFrame={this.state._privateProps?.__hideFrame}
           >
             {extensionHandlerResult}
           </Extension>
@@ -105,6 +127,43 @@ export default class ExtensionComponent extends Component<Props, State> {
           [stateKey]: p,
         });
       });
+  };
+
+  /**
+   * Parses any private nodes once an extension provider is available.
+   *
+   * We do this separately from resolving a node renderer component since the
+   * private props come from extension provider, rather than an extension
+   * handler which only handles `render`/component concerns.
+   */
+  private parsePrivateNodePropsIfNeeded = async () => {
+    if (this.privatePropsParsed || !this.state.extensionProvider) {
+      return;
+    }
+    this.privatePropsParsed = true;
+
+    const { extensionType, extensionKey } = this.props.node.attrs;
+
+    /**
+     * getExtensionModuleNodePrivateProps can throw if there are issues in the
+     * manifest
+     */
+    try {
+      const privateProps = await this.getExtensionModuleNodePrivateProps(
+        this.state.extensionProvider,
+        extensionType,
+        extensionKey,
+      );
+
+      this.setState({
+        _privateProps: privateProps,
+      });
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.error('Provided extension handler has thrown an error\n', e);
+      /** We don't want this error to block renderer */
+      /** We keep rendering the default content */
+    }
   };
 
   private tryExtensionHandler() {

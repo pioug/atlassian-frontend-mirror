@@ -40,9 +40,9 @@ describe('ReactEditorView/reconfigureState', () => {
           {...requiredProps()}
           {...analyticsProps()}
           editorProps={{
-            UNSAFE_predictableLists: false,
+            UNSAFE_allowUndoRedoButtons: false,
             featureFlags: {
-              predictableLists: false,
+              undoRedoButtons: false,
             },
           }}
         />,
@@ -50,7 +50,7 @@ describe('ReactEditorView/reconfigureState', () => {
       expect(textFormattingInputRulePlugin).toHaveBeenNthCalledWith(
         1,
         expect.anything(),
-        expect.objectContaining({ predictableLists: false }),
+        expect.objectContaining({ undoRedoButtons: false }),
       );
     });
   });
@@ -61,25 +61,25 @@ describe('ReactEditorView/reconfigureState', () => {
           {...requiredProps()}
           {...analyticsProps()}
           editorProps={{
-            UNSAFE_predictableLists: false,
+            UNSAFE_allowUndoRedoButtons: false,
             featureFlags: {
-              predictableLists: false,
+              undoRedoButtons: false,
             },
           }}
         />,
       );
       wrapper.setProps({
         editorProps: {
-          UNSAFE_predictableLists: true,
+          UNSAFE_allowUndoRedoButtons: true,
           featureFlags: {
-            predictableLists: true,
+            undoRedoButtons: true,
           },
         },
       });
       expect(textFormattingInputRulePlugin).toHaveBeenNthCalledWith(
         2,
         expect.anything(),
-        expect.objectContaining({ predictableLists: true }),
+        expect.objectContaining({ undoRedoButtons: true }),
       );
       wrapper.unmount();
     });

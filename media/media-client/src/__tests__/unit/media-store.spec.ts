@@ -23,7 +23,11 @@ import {
   MediaStoreError,
 } from '../..';
 import { FILE_CACHE_MAX_AGE } from '../../constants';
-import resolveAuth from '../../client/media-store/resolveAuth';
+import {
+  resolveAuth,
+  resolveInitialAuth,
+} from '../../client/media-store/resolveAuth';
+import { Auth } from '@atlaskit/media-core';
 
 interface ExtendedGlobal extends NodeJS.Global {
   fetch: FetchMock;
@@ -34,11 +38,13 @@ const extendedGlobal: ExtendedGlobal = global;
 const baseUrl = 'http://some-host';
 const clientId = 'some-client-id';
 const token = 'some-token';
-(resolveAuth as jest.Mock).mockResolvedValue({
+const auth = {
   baseUrl,
   clientId,
   token,
-});
+};
+(resolveAuth as jest.Mock).mockResolvedValue(auth);
+(resolveInitialAuth as jest.Mock).mockImplementation((auth: Auth) => auth);
 const authProvider = jest.fn();
 let mediaStore: MediaStore;
 
@@ -1080,6 +1086,30 @@ describe('MediaStore', () => {
         }
 
         expect.assertions(1);
+      });
+    });
+
+    describe('Sync Operations', () => {
+      let mediaStoreSync: MediaStore;
+
+      beforeEach(() => {
+        mediaStoreSync = new MediaStore({
+          authProvider,
+          initialAuth: auth,
+        });
+      });
+
+      describe('getFileImageURLSync', () => {
+        it('should return the file image preview url based on the file id', () => {
+          const collection = 'some-collection';
+          const url = mediaStoreSync.getFileImageURLSync('1234', {
+            collection,
+          });
+          expect(resolveInitialAuth).toHaveBeenCalledWith(auth);
+          expect(url).toEqual(
+            `${baseUrl}/file/1234/image?allowAnimated=true&client=some-client-id&collection=${collection}&max-age=${FILE_CACHE_MAX_AGE}&mode=crop&token=${token}`,
+          );
+        });
       });
     });
   });

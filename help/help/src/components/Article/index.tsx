@@ -17,6 +17,7 @@ import {
 } from '../constants';
 import { ArticleContainer } from './styled';
 import ArticleContent from './ArticleContent';
+import type { HistoryItem } from '../../model/Help';
 
 // Animation
 const defaultStyle = {
@@ -56,9 +57,15 @@ export const Article: React.FC = () => {
   const [showArticle, setShowArticle] = useState<boolean>(
     skipArticleSlideInAnimation,
   );
-  const currentArticle = getCurrentArticle();
+
+  const currentArticleValue: HistoryItem | undefined = getCurrentArticle();
+  const [currentArticle, setCurrentArticle] = useState<HistoryItem | undefined>(
+    currentArticleValue,
+  );
+
   const articleContainerRef = useRef<HTMLDivElement>(null);
   const onArticleEnteredTimeout = useRef<number>();
+  const onCurrentArticleChangedTimeout = useRef<number>();
 
   useLayoutEffect(() => {
     if (articleContainerRef.current) {
@@ -129,6 +136,17 @@ export const Article: React.FC = () => {
       reloadWhatsNewArticle,
     ],
   );
+
+  useEffect(() => {
+    clearTimeout(onCurrentArticleChangedTimeout.current);
+    if (currentArticleValue) {
+      setCurrentArticle(currentArticleValue);
+    } else {
+      onCurrentArticleChangedTimeout.current = window.setTimeout(() => {
+        setCurrentArticle(currentArticleValue);
+      }, SLIDEIN_OVERLAY_TRANSITION_DURATION_MS);
+    }
+  }, [currentArticleValue]);
 
   useEffect(() => {
     if (showArticle) {

@@ -1,12 +1,13 @@
-import React, { Component, ComponentType } from 'react';
+/** @jsx jsx */
+import { Component, ComponentType } from 'react';
 
-import styled from 'styled-components';
+import { css, jsx } from '@emotion/core';
 
 import CodeBlock from '@atlaskit/code/block';
 import Select, { ValueType } from '@atlaskit/select';
 
 import * as Logos from '../src';
-import { Props as ConstantProps } from '../src/constants';
+import type { Props as ConstantProps } from '../src/constants';
 
 interface Product {
   label: string;
@@ -37,11 +38,15 @@ const files: File[] = [
   { label: 'Wordmark', value: 'Wordmark' },
 ];
 
-const SelectWrapper = styled.div`
-  width: 200px;
-  display: inline-block;
-  padding: 20px;
-`;
+const selectWrapperStyles = css({
+  display: 'inline-block',
+  width: '200px',
+  padding: '20px',
+});
+
+const SelectWrapper = ({ ...rest }) => {
+  return <div css={selectWrapperStyles} {...rest} />;
+};
 
 export default class GetPath extends Component<any, any> {
   state = {

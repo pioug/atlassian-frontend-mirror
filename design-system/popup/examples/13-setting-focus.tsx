@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { FC, useState } from 'react';
 
-import { jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/core';
 
 import Button from '@atlaskit/button/standard-button';
 import { RadioGroup } from '@atlaskit/radio';
@@ -15,16 +15,16 @@ const radioValues = [
   { name: 'Button 2', value: '2', label: 'Button 2' },
 ];
 
-const spacerCSS = {
+const spacerStyles = css({
   margin: '20px',
-};
+});
 
-const sizedContentCSS = {
-  alignItems: 'center',
+const sizedContentStyles = css({
   padding: '30px',
+  alignItems: 'center',
   textAlign: 'center',
   verticalAlign: 'center',
-} as const;
+});
 
 type PopupProps = {
   buttonToFocus: string;
@@ -44,7 +44,7 @@ const PopupContent: FC<PopupProps> = ({
   };
 
   return (
-    <div id="popup-content" css={sizedContentCSS}>
+    <div id="popup-content" css={sizedContentStyles}>
       {Array.from({ length: 3 }, (_, index) => (
         <Button key={index} ref={getRef(index)}>
           Button {index}
@@ -59,7 +59,7 @@ export default () => {
   const [buttonToFocus, setButtonToFocus] = useState('-1');
 
   return (
-    <div css={spacerCSS}>
+    <div css={spacerStyles}>
       <p>
         <strong>Choose a button to focus initially:</strong>
       </p>

@@ -1,15 +1,15 @@
 /** @jsx jsx */
 import { FC, useCallback, useState } from 'react';
 
-import { jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/core';
 
 import Button from '@atlaskit/button/standard-button';
 
 import Popup from '../src';
 
-const contentCSS = {
+const contentStyles = css({
   margin: '1rem',
-};
+});
 
 type PopupExampleProps = {
   name: string;
@@ -32,7 +32,7 @@ const PopupExample: FC<PopupExampleProps> = ({ name }) => {
     <Popup
       isOpen={isOpen}
       onClose={onClose}
-      content={() => <div css={contentCSS}>content</div>}
+      content={() => <div css={contentStyles}>content</div>}
       trigger={(triggerProps) => (
         <Button {...triggerProps} onClick={onClick}>
           {isOpen ? 'Close' : 'Open'} {name} popup
@@ -43,12 +43,12 @@ const PopupExample: FC<PopupExampleProps> = ({ name }) => {
   );
 };
 
-const containerCSS = {
+const containerStyles = css({
   display: 'flex',
-};
+});
 
 export default () => (
-  <div css={containerCSS}>
+  <div css={containerStyles}>
     <PopupExample name="foo" />
     <PopupExample name="bar" />
     <PopupExample name="baz" />

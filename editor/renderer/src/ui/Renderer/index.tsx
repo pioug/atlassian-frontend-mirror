@@ -53,6 +53,7 @@ import { findInTree } from '../../utils';
 import { isInteractiveElement } from './click-to-edit';
 import { RendererContextProvider } from '../../renderer-context';
 import memoizeOne from 'memoize-one';
+import { ErrorBoundary } from './ErrorBoundary';
 
 export const NORMAL_SEVERITY_THRESHOLD = 2000;
 export const DEGRADED_SEVERITY_THRESHOLD = 3000;
@@ -442,12 +443,22 @@ const RendererWithAnalytics = React.memo((props: RendererProps) => (
       packageName: name,
       packageVersion: version,
       componentName: 'renderer',
+      editorSessionId: uuid(),
     }}
   >
     <WithCreateAnalyticsEvent
-      render={(createAnalyticsEvent) => (
-        <Renderer {...props} createAnalyticsEvent={createAnalyticsEvent} />
-      )}
+      render={(createAnalyticsEvent) => {
+        return (
+          <ErrorBoundary
+            component={ACTION_SUBJECT.RENDERER}
+            rethrowError
+            fallbackComponent={null}
+            createAnalyticsEvent={createAnalyticsEvent}
+          >
+            <Renderer {...props} createAnalyticsEvent={createAnalyticsEvent} />
+          </ErrorBoundary>
+        );
+      }}
     />
   </FabricEditorAnalyticsContext>
 ));

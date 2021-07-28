@@ -48,6 +48,20 @@ type RendererRenderedAEP = AEP<
   EVENT_TYPE.OPERATIONAL
 >;
 
+export type ComponentCrashErrorAEP = AEP<
+  ACTION.CRASHED,
+  ACTION_SUBJECT.RENDERER,
+  ACTION_SUBJECT_ID,
+  {
+    platform: PLATFORM.WEB;
+    errorMessage?: string;
+    errorStack?: string;
+    componentStack?: string;
+    errorRethrown?: boolean;
+  },
+  EVENT_TYPE.OPERATIONAL
+>;
+
 type RendererUnsupportedContentLevelsTrackingSucceeded = AEP<
   ACTION.UNSUPPORTED_CONTENT_LEVELS_TRACKING_SUCCEEDED,
   ACTION_SUBJECT.RENDERER,
@@ -223,6 +237,7 @@ export type AnnotationAEP = AEP<
 export type AnalyticsEventPayload =
   | RendererStartAEP
   | RendererRenderedAEP
+  | ComponentCrashErrorAEP
   | RendererUnsupportedContentLevelsTrackingSucceeded
   | RendererUnsupportedContentLevelsTrackingErrored
   | RendererSelectAllCaughtAEP

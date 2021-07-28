@@ -30,7 +30,7 @@ import analyticsPlugin, { INPUT_METHOD } from '../../../analytics';
 import typeAheadPlugin from '../../../type-ahead';
 import quickInsertPlugin from '../../../quick-insert';
 import blockTypePlugin from '../../../block-type';
-import listPlugin from '../../../lists';
+import listPlugin from '../../../list';
 
 const emojiProvider = getTestEmojiResource();
 

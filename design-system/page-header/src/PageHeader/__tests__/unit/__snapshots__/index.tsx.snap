@@ -9,7 +9,7 @@ exports[`@atlaskit/page-header should render correctly 1`] = `
   font-size: 1.7142857142857142em;
   font-style: inherit;
   line-height: 1.1666666666666667;
-  color: #172B4D;
+  color: var(--text-highEmphasis,#172B4D);
   font-weight: 500;
   -webkit-letter-spacing: -0.01em;
   -moz-letter-spacing: -0.01em;

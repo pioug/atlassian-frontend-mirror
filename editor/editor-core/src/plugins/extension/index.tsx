@@ -4,7 +4,7 @@ import {
   inlineExtension,
 } from '@atlaskit/adf-schema';
 import { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
-import { EditorPlugin } from '../../types';
+import { EditorPlugin, EditorAppearance } from '../../types';
 import { LongPressSelectionPluginOptions } from '../selection/types';
 import { createPlugin } from './pm-plugins/main';
 import keymapPlugin from './pm-plugins/keymap';
@@ -18,6 +18,7 @@ interface ExtensionPluginOptions extends LongPressSelectionPluginOptions {
   extensionHandlers?: ExtensionHandlers;
   // TODO: Remove this @see ED-8585
   stickToolbarToBottom?: boolean;
+  appearance?: EditorAppearance;
 }
 
 const extensionPlugin = (
@@ -61,6 +62,9 @@ const extensionPlugin = (
             portalProviderAPI,
             eventDispatcher,
             options.useLongPressSelection,
+            {
+              appearance: options.appearance,
+            },
           );
         },
       },

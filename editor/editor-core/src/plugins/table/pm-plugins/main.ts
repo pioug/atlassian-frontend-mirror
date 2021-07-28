@@ -1,4 +1,3 @@
-import uuid from 'uuid';
 import {
   EditorState,
   Plugin,
@@ -50,14 +49,11 @@ import { defaultTableSelection } from './default-table-selection';
 import { createPluginState, getPluginState, pluginKey } from './plugin-factory';
 import TableCellNodeView from '../nodeviews/tableCell';
 import { getPosHandler } from '../../../nodeviews';
-import { getFeatureFlags } from '../../feature-flags-context';
 
 let isBreakoutEnabled: boolean | undefined;
 let isDynamicTextSizingEnabled: boolean | undefined;
 let isFullWidthModeEnabled: boolean | undefined;
 let wasFullWidthModeEnabled: boolean | undefined;
-
-const TABLE_LEAFS = `th, td, .${ClassName.TABLE_HEADER_CELL}, .${ClassName.TABLE_CELL}`;
 
 export const createPlugin = (
   dispatch: Dispatch,
@@ -91,18 +87,12 @@ export const createPlugin = (
     ? new ResizeObserver((entries) => {
         entries.forEach((entry) => {
           if (!entry.target.id) {
-            entry.target.id = uuid();
+            return;
           }
           elementContentRects[entry.target.id] = entry.contentRect;
         });
       })
     : undefined;
-
-  const request =
-    (window as any).requestIdleCallback || window.requestAnimationFrame;
-  const cancel =
-    (window as any).cancelIdleCallback || window.cancelAnimationFrame;
-  let handle: any;
 
   const tableCellNodeview = pluginConfig.tableCellOptimization
     ? {
@@ -139,17 +129,6 @@ export const createPlugin = (
     },
     view: (editorView: EditorView) => {
       const domAtPos = editorView.domAtPos.bind(editorView);
-
-      const { mouseMoveOptimization } = getFeatureFlags(editorView.state) || {};
-      // Cleanup once tableCellOptimization prop is permanently enabled
-      // observation will then happen in tableCellNodeview
-      if (mouseMoveOptimization && !pluginConfig.tableCellOptimization) {
-        handle = request(() => {
-          document.querySelectorAll(TABLE_LEAFS).forEach((cell: Element) => {
-            observer?.observe(cell);
-          });
-        });
-      }
 
       return {
         update: (view: EditorView) => {
@@ -198,10 +177,6 @@ export const createPlugin = (
         destroy: () => {
           if (observer) {
             observer.disconnect();
-          }
-
-          if (handle) {
-            cancel(handle);
           }
         },
       };

@@ -86,6 +86,8 @@ class ChooseEmojiFile extends PureComponent<ChooseEmojiFileProps, {}> {
       errorMessage,
     } = this.props;
     const disableChooser = !name;
+    const fileChooserButtonDescriptionId =
+      'choose.emoji.file.button.screen.reader.description.id';
 
     // Note: FileChooser.accept does not work in Electron due to a bug: https://product-fabric.atlassian.net/browse/FS-1626
     return (
@@ -126,16 +128,23 @@ class ChooseEmojiFile extends PureComponent<ChooseEmojiFileProps, {}> {
           <span className={styles.uploadChooseFileBrowse}>
             <FormattedMessage {...messages.emojiChooseFileTitle}>
               {(message) => (
-                <FormattedMessage {...messages.emojiChooseFileAriaLabel}>
-                  {(ariaLabel) => (
-                    <FileChooser
-                      label={message as string}
-                      onChange={onChooseFile}
-                      onClick={onClick}
-                      accept="image/png,image/jpeg,image/gif"
-                      ariaLabel={ariaLabel as string}
-                      isDisabled={disableChooser}
-                    />
+                <FormattedMessage
+                  {...messages.emojiChooseFileScreenReaderDescription}
+                >
+                  {(screenReaderDescription) => (
+                    <>
+                      <span hidden id={fileChooserButtonDescriptionId}>
+                        {screenReaderDescription}
+                      </span>
+                      <FileChooser
+                        label={message as string}
+                        onChange={onChooseFile}
+                        onClick={onClick}
+                        accept="image/png,image/jpeg,image/gif"
+                        ariaDescribedBy={fileChooserButtonDescriptionId}
+                        isDisabled={disableChooser}
+                      />
+                    </>
                   )}
                 </FormattedMessage>
               )}

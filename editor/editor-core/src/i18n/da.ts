@@ -161,6 +161,10 @@ export default {
   'fabric.editor.horizontalRule': 'Rumdeler',
   'fabric.editor.horizontalRule.description':
     'Adskil indhold med en vandret linje',
+  'fabric.editor.hyperlink.searchLinkAriaDescription':
+    'Der vises forslag nedenfor, når du skriver i feltet',
+  'fabric.editor.hyperlink.searchLinkResults':
+    '{count, plural, =0 {ingen resultater fundet} one {Der blev fundet {count,number} resultat} other {Der blev fundet {count,number} resultater}}',
   'fabric.editor.hyperlinkToolbarPlaceholder':
     'Indsæt link, eller søg efter senest viste',
   'fabric.editor.image': 'Billeder',

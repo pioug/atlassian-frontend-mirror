@@ -1,0 +1,166 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "paragraph",
+      "content": []
+    },
+    {
+      "type": "extension",
+      "attrs": {
+        "extensionType": "com.atlassian.mochi",
+        "extensionKey": "fluffy:list",
+        "parameters": {
+          "items": [
+            "a",
+            "b",
+            "c",
+            "d"
+          ]
+        },
+        "layout": "default"
+      },
+      "marks": [
+        {
+          "type": "dataConsumer",
+          "attrs": {
+            "sources": [
+              "132017fa-dcdd-4c9f-80e7-9fefbde3974f"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "type": "extension",
+      "attrs": {
+        "extensionType": "com.atlassian.mochi",
+        "extensionKey": "fluffy:framelessList",
+        "parameters": {
+          "items": [
+            "a",
+            "b",
+            "c",
+            "d"
+          ]
+        },
+        "layout": "default"
+      },
+      "marks": [
+        {
+          "type": "dataConsumer",
+          "attrs": {
+            "sources": [
+              "132017fa-dcdd-4c9f-80e7-9fefbde3974f"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "type": "extension",
+      "attrs": {
+        "extensionType": "com.atlassian.mochi",
+        "extensionKey": "fluffy:list",
+        "parameters": {
+          "items": [
+            "a",
+            "b",
+            "c",
+            "d"
+          ]
+        },
+        "layout": "wide"
+      },
+      "marks": [
+        {
+          "type": "dataConsumer",
+          "attrs": {
+            "sources": [
+              "132017fa-dcdd-4c9f-80e7-9fefbde3974f"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "type": "extension",
+      "attrs": {
+        "extensionType": "com.atlassian.mochi",
+        "extensionKey": "fluffy:framelessList",
+        "parameters": {
+          "items": [
+            "a",
+            "b",
+            "c",
+            "d"
+          ]
+        },
+        "layout": "wide"
+      },
+      "marks": [
+        {
+          "type": "dataConsumer",
+          "attrs": {
+            "sources": [
+              "132017fa-dcdd-4c9f-80e7-9fefbde3974f"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "type": "extension",
+      "attrs": {
+        "extensionType": "com.atlassian.mochi",
+        "extensionKey": "fluffy:list",
+        "parameters": {
+          "items": [
+            "a",
+            "b",
+            "c",
+            "d"
+          ]
+        },
+        "layout": "full-width"
+      },
+      "marks": [
+        {
+          "type": "dataConsumer",
+          "attrs": {
+            "sources": [
+              "132017fa-dcdd-4c9f-80e7-9fefbde3974f"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "type": "extension",
+      "attrs": {
+        "extensionType": "com.atlassian.mochi",
+        "extensionKey": "fluffy:framelessList",
+        "parameters": {
+          "items": [
+            "a",
+            "b",
+            "c",
+            "d"
+          ]
+        },
+        "layout": "full-width"
+      },
+      "marks": [
+        {
+          "type": "dataConsumer",
+          "attrs": {
+            "sources": [
+              "132017fa-dcdd-4c9f-80e7-9fefbde3974f"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

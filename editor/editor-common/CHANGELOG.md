@@ -1,5 +1,26 @@
 # @atlaskit/editor-common
 
+## 59.0.0
+
+### Minor Changes
+
+- [`adccfcdafd8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/adccfcdafd8) - [ux] ED-13043 Add experimental `__hideFrame` option in extension manifest for extension nodes. This removes the border in edit mode to bring it closer to WYSIWYG. This cannot be opted into for the 'mobile' appearance & frames will continue to always show.
+- [`5e55b55d035`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5e55b55d035) - [ux][ed-9961] Remove the predictable lists feature flag and the legacy lists plugin so that predictable lists is default.
+
+  Doing this by removing the lists plugin, removing the predictableLists feature flag, renaming lists-predictable to just list, refactoring any areas of the code that used the feature flag or the legacy lists still.
+
+  This is a breaking change but has been thoroughly tested locally & with a team blitz on the branch deploy, on both web & mobile.
+
+- [`abf8b155d75`](https://bitbucket.org/atlassian/atlassian-frontend/commits/abf8b155d75) - [ME-1416] Remove multi dispatch occurance from the panels plugin. Make the floating toolbar items rely only on the node not what is in the plugin state.
+- [`797ffbdcd7f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/797ffbdcd7f) - Update focus style for expand button, change aria-label to aria-labelled by
+
+### Patch Changes
+
+- [`3d363ebc5e7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3d363ebc5e7) - ED-13000: Capture browser extension usage in error analytics
+- [`66ea628bcea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/66ea628bcea) - Add data-media-caption attribute to Caption
+- [`a7d6732987f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a7d6732987f) - ED-13471 Fix nested list styles in table of contents extension being incorrect
+- Updated dependencies
+
 ## 58.1.2
 
 ### Patch Changes

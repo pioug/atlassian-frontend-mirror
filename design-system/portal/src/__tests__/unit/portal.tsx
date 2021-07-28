@@ -1,11 +1,14 @@
 import React, { ReactNode, useEffect } from 'react';
 
-import { cleanup, render } from '@testing-library/react';
+import { act, cleanup, render } from '@testing-library/react';
+import { replaceRaf } from 'raf-stub';
 
 import { PORTAL_MOUNT_EVENT, PORTAL_UNMOUNT_EVENT } from '../../constants';
 import Portal from '../../index';
 import { portalParentSelector } from '../../internal/constants';
 import * as domUtils from '../../internal/utils/portal-dom-utils';
+
+replaceRaf();
 
 const App = ({ children }: { children: ReactNode }) => <div>{children}</div>;
 
@@ -14,13 +17,7 @@ const zIndex = (elem: HTMLElement | void) =>
 
 const onMountListener = jest.fn();
 const onUnmountListener = jest.fn();
-const appendPortalContainerSpy = jest.spyOn(domUtils, 'appendPortalContainer');
-const removePortalContainerSpy = jest.spyOn(domUtils, 'removePortalContainer');
 const createContainerSpy = jest.spyOn(domUtils, 'createContainer');
-const removePortalParentIfNoMorePortalsSpy = jest.spyOn(
-  domUtils,
-  'removePortalParentContainerIfNoMorePortals',
-);
 
 const getElementByText = (text: string, elements: HTMLCollectionOf<Element>) =>
   [...((elements as unknown) as Array<HTMLElement>)].find(
@@ -265,66 +262,143 @@ describe('Portal container', () => {
     );
   });
 
-  test('should delete old portal container and append new portal container on z-index change', () => {
-    const PortalWrapper = ({ zIndex }: { zIndex: number }) => (
-      <Portal zIndex={zIndex}>
+  test('should create a container in the body', () => {
+    render(
+      <Portal zIndex={200}>
         <div>Hi</div>
-      </Portal>
+      </Portal>,
     );
-    const { rerender } = render(<PortalWrapper zIndex={100} />);
-    expect(appendPortalContainerSpy).toHaveBeenCalledTimes(1);
-    expect(createContainerSpy).toHaveBeenCalledTimes(1);
-    jest.clearAllMocks();
-    rerender(<PortalWrapper zIndex={200} />);
-    expect(removePortalContainerSpy).toHaveBeenCalledTimes(1);
-    expect(appendPortalContainerSpy).toHaveBeenCalledTimes(1);
-    expect(createContainerSpy).toHaveBeenCalledTimes(1);
+
+    const portalParent = document.querySelector(portalParentSelector);
+    expect(portalParent).toBeInTheDocument();
   });
 
-  test('should delete old portal parent container when no more portals are there and append new portal portal container when new portal is created', () => {
-    const PortalWrapper = ({ zIndex }: { zIndex: number }) => (
-      <Portal zIndex={zIndex}>
+  test('should set z-index correctly', () => {
+    render(
+      <Portal zIndex={200}>
         <div>Hi</div>
-      </Portal>
+      </Portal>,
     );
-    const { rerender } = render(<PortalWrapper zIndex={100} />);
-    expect(document.querySelector(portalParentSelector)).toBeInTheDocument();
-    rerender(<PortalWrapper zIndex={200} />);
-    expect(removePortalParentIfNoMorePortalsSpy).toHaveBeenCalledTimes(1);
-    expect(document.querySelector(portalParentSelector)).toBeInTheDocument();
+
+    const portalParent = document.querySelector(portalParentSelector);
+    expect(portalParent).toBeInTheDocument();
+    expect(portalParent?.childElementCount).toBe(1);
+    const portalContainer = portalParent?.firstChild;
+    expect(portalContainer).toHaveStyle('z-index: 200');
   });
-  test('should memoize container creation and not create new portal container when portal is re rendered with same z-index', () => {
-    const PortalWrapper = ({ zIndex }: { zIndex: number }) => (
-      <Portal zIndex={zIndex}>
-        <div>Hi</div>
-      </Portal>
-    );
-    const { rerender } = render(<PortalWrapper zIndex={100} />);
-    jest.clearAllMocks();
-    rerender(<PortalWrapper zIndex={100} />);
-    expect(removePortalParentIfNoMorePortalsSpy).toHaveBeenCalledTimes(0);
-    expect(createContainerSpy).toHaveBeenCalledTimes(0);
-    expect(removePortalContainerSpy).toHaveBeenCalledTimes(0);
-    expect(appendPortalContainerSpy).toHaveBeenCalledTimes(0);
-  });
-  test('should memoize container creation and not create new portal container when portal is re rendered with different children', () => {
-    const PortalWrapper = ({ children }: { children: JSX.Element }) => (
-      <Portal zIndex={100}>{children}</Portal>
-    );
+
+  test('should change z-index when zIndex prop changes', () => {
     const { rerender } = render(
-      <PortalWrapper>
-        <div>Lorem Ipsum</div>
-      </PortalWrapper>,
+      <Portal zIndex={200}>
+        <div>Hi</div>
+      </Portal>,
     );
+
+    rerender(
+      <Portal zIndex={100}>
+        <div>Hi</div>
+      </Portal>,
+    );
+
+    const portalParent = document.querySelector(portalParentSelector);
+    expect(portalParent).toBeInTheDocument();
+    expect(portalParent?.childElementCount).toBe(1);
+    const portalContainer = portalParent?.firstChild;
+    expect(portalContainer).toHaveStyle('z-index: 100');
+  });
+
+  test('should delete old portal parent container when portals are removed', () => {
+    const { rerender } = render(
+      <Portal zIndex={100}>
+        <div>Hi</div>
+      </Portal>,
+    );
+
+    rerender(<div />);
+
+    // Required because of useLayoutEffect
+    act(() => {
+      (window.requestAnimationFrame as any).step();
+    });
+
+    const portalParent = document.querySelector(portalParentSelector);
+    expect(portalParent).not.toBeInTheDocument();
+  });
+
+  test('should append new portal portal container when new portal is created, after one is removed', () => {
+    const { rerender } = render(
+      <Portal zIndex={100}>
+        <div>Hi</div>
+      </Portal>,
+    );
+
+    rerender(<div />);
+
+    act(() => {
+      (window.requestAnimationFrame as any).step();
+    });
+
+    rerender(
+      <Portal zIndex={200}>
+        <div>Hi</div>
+      </Portal>,
+    );
+
+    const portalParent = document.querySelector(portalParentSelector);
+    expect(portalParent).toBeInTheDocument();
+  });
+
+  test('should memoize container creation and not create new portal container when portal is re rendered with same z-index', () => {
+    const { rerender } = render(
+      <Portal zIndex={100}>
+        <div>Hi</div>
+      </Portal>,
+    );
+
+    // No way to check that this has been memoized besides spying on this function
+    // Avoid this in other tests
     jest.clearAllMocks();
     rerender(
-      <PortalWrapper>
-        <p>Dolor Sit</p>
-      </PortalWrapper>,
+      <Portal zIndex={100}>
+        <div>Hi</div>
+      </Portal>,
     );
-    expect(removePortalParentIfNoMorePortalsSpy).toHaveBeenCalledTimes(0);
+
     expect(createContainerSpy).toHaveBeenCalledTimes(0);
-    expect(removePortalContainerSpy).toHaveBeenCalledTimes(0);
-    expect(appendPortalContainerSpy).toHaveBeenCalledTimes(0);
+  });
+
+  test('should memoize container creation and not create new portal container when portal is re rendered with different children', () => {
+    const { rerender } = render(
+      <Portal zIndex={100}>
+        <div>Lorem Ipsum</div>
+      </Portal>,
+    );
+
+    jest.clearAllMocks();
+    rerender(
+      <Portal zIndex={100}>
+        <p>Dolor Sit</p>
+      </Portal>,
+    );
+
+    expect(createContainerSpy).toHaveBeenCalledTimes(0);
+  });
+
+  test('children should be added to the body before they are rendered', () => {
+    let childrenInBody = false;
+    const Child = () => {
+      const ref = (node: HTMLDivElement) => {
+        childrenInBody = Boolean(document.body.contains(node));
+      };
+
+      return <div ref={ref}>Hi</div>;
+    };
+    render(
+      <Portal zIndex={100}>
+        <Child />
+      </Portal>,
+    );
+
+    expect(childrenInBody).toBeTruthy();
   });
 });

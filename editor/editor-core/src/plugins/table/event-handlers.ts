@@ -67,6 +67,7 @@ import {
   isTableContainerOrWrapper,
 } from './utils';
 import { getAllowAddColumnCustomStep } from './utils/get-allow-add-column-custom-step';
+import { getFeatureFlags } from '../feature-flags-context';
 
 const isFocusingCalendar = (event: Event) =>
   event instanceof FocusEvent &&
@@ -339,10 +340,16 @@ export const handleMouseMove = (
     }
   }
 
+  const { mouseMoveOptimization } = getFeatureFlags(view.state) || {};
+  // we only want to allow mouseMoveOptimisation when tableCellOptimization is enabled
+  // because it relies on tableCell node view that is added  via tableCellOptimization
+  const useMouseMoveOptimisation =
+    tableCellOptimization && mouseMoveOptimization;
+
   if (!isResizeHandleDecoration(element) && isCell(element)) {
     const positionColumn = getMousePositionHorizontalRelativeByElement(
       event as MouseEvent,
-      tableCellOptimization,
+      useMouseMoveOptimisation,
       elementContentRects,
       RESIZE_HANDLE_AREA_DECORATION_GAP,
     );

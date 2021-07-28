@@ -7,6 +7,7 @@ import { FileDetails, MediaType } from '@atlaskit/media-client';
 import {
   tallImage,
   createRateLimitedError,
+  createPollingMaxAttemptsError,
 } from '@atlaskit/media-test-helpers';
 import { IntlProvider } from 'react-intl';
 
@@ -90,8 +91,14 @@ function renderCardImageView(
   const dataUri = urlParams.get('dataUri') === 'true' ? tallImage : undefined;
   const selected = urlParams.get('selected') === 'true';
   const isRateLimited = urlParams.get('isRateLimited') === 'true';
-  const disableOverlay = urlParams.get('disabledOverlay') === 'true';
-  const error = isRateLimited ? createRateLimitedError() : undefined;
+  const isPollingError =
+    urlParams.get('isPollingMaxAttemptsExceeded') === 'true';
+  const disableOverlay = urlParams.get('disableOverlay') === 'true';
+  const error = isRateLimited
+    ? createRateLimitedError()
+    : isPollingError
+    ? createPollingMaxAttemptsError()
+    : undefined;
 
   return (
     <CardWrapper key={key} {...wrapperDimensionsSmall}>

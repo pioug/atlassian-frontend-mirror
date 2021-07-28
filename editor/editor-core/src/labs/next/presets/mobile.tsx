@@ -11,7 +11,7 @@ import datePlugin from '../../../plugins/date';
 import emojiPlugin from '../../../plugins/emoji';
 import extensionPlugin from '../../../plugins/extension';
 import layoutPlugin from '../../../plugins/layout';
-import listsPlugin from '../../../plugins/lists';
+import listPlugin from '../../../plugins/list';
 import mediaPlugin, { CustomMediaPicker } from '../../../plugins/media';
 import mentionsPlugin from '../../../plugins/mentions';
 import mobileScrollPlugin from '../../../plugins/mobile-scroll';
@@ -66,7 +66,7 @@ export function useMobilePreset({
   preset.add([analyticsPlugin, createAnalyticsEvent]);
   preset.add([tablesPlugin, { tableOptions: { allowControls: false } }]);
   preset.add(panelPlugin);
-  preset.add(listsPlugin);
+  preset.add(listPlugin);
   preset.add(textColorPlugin);
   preset.add(extensionPlugin);
   preset.add(rulePlugin);

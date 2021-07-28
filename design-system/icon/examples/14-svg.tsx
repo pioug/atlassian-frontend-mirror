@@ -6,7 +6,7 @@ import type { SVGProps } from '@atlaskit/icon/types';
 
 import SVG from '../src/entry-points/svg';
 
-const container = css({ display: 'inline-block' });
+const containerStyles = css({ display: 'inline-block' });
 
 const CanonicalGlyph = (props: SVGProps) => (
   <SVG {...props}>
@@ -18,7 +18,7 @@ const CanonicalGlyph = (props: SVGProps) => (
 );
 
 const CustomSVG = () => (
-  <span css={container} id="svg">
+  <span css={containerStyles} id="svg">
     <CanonicalGlyph primaryColor={B300} size="small" label="spinner" />
     <CanonicalGlyph primaryColor={B300} size="medium" label="spinner" />
     <CanonicalGlyph primaryColor={B300} size="large" label="spinner" />

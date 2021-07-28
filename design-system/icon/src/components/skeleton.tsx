@@ -10,11 +10,11 @@ const skeletonStyles = css({
   borderRadius: '50%',
 });
 
-const subtleOpacity = css({
+const subtleOpacityStyles = css({
   opacity: 0.15,
 });
 
-const strongOpacity = css({
+const strongOpacityStyles = css({
   opacity: 0.3,
 });
 
@@ -33,7 +33,7 @@ const Skeleton = memo(function Skeleton({
       style={{ backgroundColor: color }}
       css={[
         skeletonStyles,
-        weight === 'strong' ? strongOpacity : subtleOpacity,
+        weight === 'strong' ? strongOpacityStyles : subtleOpacityStyles,
         sizeStyleMap[size],
       ]}
     />

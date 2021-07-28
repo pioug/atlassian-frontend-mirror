@@ -1,5 +1,12 @@
 # @atlaskit/atlassian-switcher
 
+## 14.0.1
+
+### Patch Changes
+
+- [`ec0abf56583`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ec0abf56583) - Fixes internal test snapshots.
+- Updated dependencies
+
 ## 14.0.0
 
 ### Major Changes

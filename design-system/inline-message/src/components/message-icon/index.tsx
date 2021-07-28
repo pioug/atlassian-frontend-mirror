@@ -30,7 +30,7 @@ const iconWrapperStyles = css({
   color: 'var(--icon-color)',
 });
 
-const iconColorStyle = css({
+const iconColorStyles = css({
   color: 'var(--icon-accent-color)',
 });
 
@@ -53,7 +53,7 @@ const SelectedIcon: FC<MessageIconProps> = ({ appearance, isOpen, label }) => {
       style={
         { '--icon-color': iconColor({ appearance, theme }) } as CSSProperties
       }
-      css={[iconWrapperStyles, isOpen && iconColorStyle]}
+      css={[iconWrapperStyles, isOpen && iconColorStyles]}
     >
       <SelectedIcon
         testId="inline-message-icon"

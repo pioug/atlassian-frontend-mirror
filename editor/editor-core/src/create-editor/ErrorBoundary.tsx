@@ -3,7 +3,11 @@ import uuid from 'uuid';
 import { EditorView } from 'prosemirror-view';
 import memoizeOne from 'memoize-one';
 
-import { ContextIdentifierProvider } from '@atlaskit/editor-common';
+import {
+  ContextIdentifierProvider,
+  sniffUserBrowserExtensions,
+  UserBrowserExtensionResults,
+} from '@atlaskit/editor-common';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 import {
@@ -44,6 +48,8 @@ export class ErrorBoundaryWithEditorView extends React.Component<
   ErrorBoundaryProps,
   ErrorBoundaryState
 > {
+  browserExtensions?: UserBrowserExtensionResults = undefined;
+
   static defaultProps = {
     rethrow: true,
   };
@@ -73,6 +79,7 @@ export class ErrorBoundaryWithEditorView extends React.Component<
         if (createAnalyticsEvent) {
           const { error, errorInfo, errorStack } = analyticsErrorPayload;
           const sharedId = uuid();
+
           const event: ErrorEventPayload = {
             action: ACTION.EDITOR_CRASHED,
             actionSubject: ACTION_SUBJECT.EDITOR,
@@ -86,6 +93,7 @@ export class ErrorBoundaryWithEditorView extends React.Component<
               error: (error as any) as Error,
               errorInfo,
               errorId: sharedId,
+              browserExtensions: this.browserExtensions,
             },
           };
 
@@ -100,6 +108,7 @@ export class ErrorBoundaryWithEditorView extends React.Component<
             );
           }
           createAnalyticsEvent(event).fire(editorAnalyticsChannel);
+
           createAnalyticsEvent({
             action: ACTION.EDITOR_CRASHED_ADDITIONAL_INFORMATION,
             actionSubject: ACTION_SUBJECT.EDITOR,
@@ -161,6 +170,14 @@ export class ErrorBoundaryWithEditorView extends React.Component<
         // to this component, instead of the original component which threw it.
         throw error;
       }
+    });
+  }
+
+  async componentDidMount() {
+    this.browserExtensions = await sniffUserBrowserExtensions({
+      extensions: ['grammarly'],
+      async: true,
+      asyncTimeoutMs: 20000,
     });
   }
 

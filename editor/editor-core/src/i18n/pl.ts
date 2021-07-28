@@ -139,6 +139,8 @@ export default {
   'fabric.editor.findNext': 'Znajdź następne',
   'fabric.editor.findPrevious': 'Znajdź poprzednie',
   'fabric.editor.findReplaceToolbarButton': 'Znajdź i zamień',
+  'fabric.editor.floatingToolbar.confirmModalCancel': 'Anuluj',
+  'fabric.editor.floatingToolbar.confirmModalOK': 'OK',
   'fabric.editor.headerColumn': 'Kolumna nagłówka',
   'fabric.editor.headerRow': 'Wiersz nagłówka',
   'fabric.editor.heading1': 'Nagłówek 1',
@@ -163,6 +165,10 @@ export default {
     'Naciśnij {keyMap}, aby szybko otworzyć okno dialogowe w dowolnym momencie',
   'fabric.editor.horizontalRule': 'Separator',
   'fabric.editor.horizontalRule.description': 'Oddziel treści linią poziomą',
+  'fabric.editor.hyperlink.searchLinkAriaDescription':
+    'Sugestie będą pojawiały się poniżej w miarę wpisywania tekstu w polu',
+  'fabric.editor.hyperlink.searchLinkResults':
+    '{count, plural, =0 {nie znaleziono wyników} one {znaleziono {count,number} wynik} few {znaleziono {count,number} wyniki} many {znaleziono {count,number} wyników} other {znaleziono {count,number} wyniku}}',
   'fabric.editor.hyperlinkToolbarPlaceholder':
     'Wklej łącze lub przeszukaj ostatnio przeglądane strony',
   'fabric.editor.image': 'Obraz',

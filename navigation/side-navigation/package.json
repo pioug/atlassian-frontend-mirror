@@ -27,7 +27,7 @@
     "@atlaskit/icon": "^21.7.0",
     "@atlaskit/menu": "^1.0.0",
     "@atlaskit/motion": "^1.0.0",
-    "@atlaskit/theme": "^11.1.0",
+    "@atlaskit/theme": "^11.4.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/core": "^10.0.9"
   },
@@ -35,8 +35,8 @@
     "react": "^16.8.0"
   },
   "devDependencies": {
-    "@atlaskit/atlassian-navigation": "^1.0.0",
-    "@atlaskit/button": "^15.1.0",
+    "@atlaskit/atlassian-navigation": "^1.1.0",
+    "@atlaskit/button": "^16.0.0",
     "@atlaskit/docs": "*",
     "@atlaskit/logo": "^13.5.0",
     "@atlaskit/onboarding": "^10.1.0",

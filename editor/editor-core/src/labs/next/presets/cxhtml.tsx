@@ -5,7 +5,7 @@ import { MentionProvider } from '@atlaskit/mention/resource';
 import {
   tablesPlugin,
   panelPlugin,
-  listsPlugin,
+  listPlugin,
   textColorPlugin,
   breakoutPlugin,
   jiraIssuePlugin,
@@ -59,7 +59,7 @@ export function useCXHTMLPreset({
   ]);
   preset.add([tablesPlugin, { tableOptions: { advanced: true } }]);
   preset.add([panelPlugin, { UNSAFE_allowCustomPanel: true }]);
-  preset.add(listsPlugin);
+  preset.add(listPlugin);
   preset.add(textColorPlugin);
   preset.add(breakoutPlugin);
   preset.add(jiraIssuePlugin);

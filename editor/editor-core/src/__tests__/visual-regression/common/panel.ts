@@ -4,6 +4,7 @@ import {
   getBoundingClientRect,
 } from '../_utils';
 import * as panel from './__fixtures__/panel-adf.json';
+import * as basicPanel from './__fixtures__/basic-panel-adf.json';
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import {
   waitForFloatingControl,
@@ -14,15 +15,19 @@ import {
   PanelSharedSelectors,
 } from '@atlaskit/editor-common';
 import { waitForNoTooltip } from '@atlaskit/visual-regression/helper';
+import { wait } from '@testing-library/react';
 
 describe('Panel:', () => {
   let page: PuppeteerPage;
+  let adfContent: Object;
 
   beforeAll(() => {
     page = global.page;
+    adfContent = panel;
   });
+
   beforeEach(async () => {
-    await initFullPageEditorWithAdf(page, panel, undefined, {
+    await initFullPageEditorWithAdf(page, adfContent, undefined, {
       width: 800,
       height: 720,
     });
@@ -65,5 +70,25 @@ describe('Panel:', () => {
     // buttons don't have any different selectors we can wait for. However, the snapshot importantly
     // shows the new panel colour, icon and node selection intact
     await waitForNoTooltip(page);
+  });
+
+  // More basic panels to stop test flakiness
+  describe('with basic content', () => {
+    beforeAll(() => {
+      adfContent = basicPanel;
+    });
+
+    it('updates the toolbar when changing from one panel to another', async () => {
+      await page.click(PanelSharedSelectors.errorPanel);
+      await page.click(PanelSharedSelectors.successPanel);
+      // await so that the toolbar has time to move
+      await wait(undefined, { interval: 1000 });
+    });
+
+    it('removes the panel when clicking on remove icon', async () => {
+      await page.click(`.${PanelSharedCssClassName.icon}`);
+      await page.click(PanelSharedSelectors.removeButton);
+      await waitForNoTooltip(page);
+    });
   });
 });

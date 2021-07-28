@@ -74,9 +74,7 @@ const getButtonStyles = (
 export interface MoreIndicatorProps extends AvatarPropTypes {
   count: number;
   'aria-controls'?: string;
-  // eslint-disable-next-line @typescript-eslint/naming-convention
   'aria-expanded'?: boolean;
-  // eslint-disable-next-line @typescript-eslint/naming-convention
   'aria-haspopup'?: boolean;
   buttonProps: Partial<React.HTMLAttributes<HTMLElement>>;
   onClick: AvatarClickEventHandler;

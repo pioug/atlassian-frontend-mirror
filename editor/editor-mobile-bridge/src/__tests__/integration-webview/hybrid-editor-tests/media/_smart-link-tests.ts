@@ -76,6 +76,9 @@ export default () => {
     await page.switchToWeb();
     await setADFContent(page, blueLinkAdf);
     await page.waitForSelector('a');
+    if (page.isAndroid()) {
+      await focusOnWebView(page);
+    }
     await mobileSnapshot(page);
   });
 };

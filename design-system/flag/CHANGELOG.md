@@ -1,5 +1,15 @@
 # @atlaskit/flag
 
+## 14.4.0
+
+### Minor Changes
+
+- [`230e1862182`](https://bitbucket.org/atlassian/atlassian-frontend/commits/230e1862182) - Fix a11y eslint error in Flag component
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.3.4
 
 ### Patch Changes

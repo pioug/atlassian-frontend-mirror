@@ -1,5 +1,11 @@
 # @atlaskit/mobile-header
 
+## 5.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.0.5
 
 ### Patch Changes

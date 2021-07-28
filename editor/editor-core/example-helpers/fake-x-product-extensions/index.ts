@@ -1,6 +1,7 @@
 import { manifest as jqlTable } from './jql-table';
 import { manifest as loremIpsum } from './lorem-ipsum';
 import { manifest as awesomeExtension } from './awesome';
+import { default as awesomeMochi } from './mochi';
 import { manifest as tableCharts } from './table-charts';
 import dropbox from '@atlaskit/editor-extension-dropbox';
 
@@ -12,6 +13,7 @@ export const getXProductExtensionProvider = () =>
       jqlTable,
       loremIpsum,
       awesomeExtension,
+      awesomeMochi,
       tableCharts,
       // BC: This API key currently only gives permission to me to access dropbox
       // If you need to test this, lmk, and I will add you, or you can make your own app

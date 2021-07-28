@@ -1,5 +1,163 @@
 # @atlaskit/badge
 
+## 15.0.0
+
+### Major Changes
+
+- [`942dd25df09`](https://bitbucket.org/atlassian/atlassian-frontend/commits/942dd25df09) - In this version we made **Badge** dramatically faster and lighter.
+
+  - General performance improvements.
+
+  - We are now exporting a new `style` prop which you can use to pass a custom `backgroundColor` and `color`.
+
+  - You can now pass `ReactNode` instead of `string` as children; however, **Badge** should only be used in cases where you want to represent a number. If the value is `number`, we will use existing formatting based on the `max` prop, otherwise the value will get rendered as it is.
+
+  - [**BREAKING**] We have removed the deprecated `theme` prop. Please use a combination of `appearance` and `style` prop for custom theming.
+
+  **Before**:
+
+  ```tsx
+  import Badge from '@atlaskit/badge';
+
+  type GetThemeTokensFn<ThemeTokens, ThemeProps> = (
+    props: ThemeProps,
+  ) => ThemeTokens;
+
+  function themeGetterFunction<ThemeTokens, ThemeProps>(
+    getTokens: GetThemeTokensFn<ThemeTokens, ThemeProps>,
+    themeProps: ThemeProps,
+  ): ThemeTokens {
+    const defaultTokens = getTokens(themeProps);
+
+    if (themeProps.appearance === 'removed') {
+      return {
+        ...defaultTokens,
+        textColor: 'grey',
+      };
+    }
+
+    return defaultTokens;
+  }
+
+  <Badge appearance="removed" theme={themeGetterFunction}>
+    {10}
+  </Badge>;
+  ```
+
+  **After**:
+
+  ```tsx
+  import Badge, { BadgeProps } from '@atlaskit/badge';
+
+  function getStyle(appearance: BadgeProps['appearance']) {
+    if (appearance === 'removed') {
+      return {
+        color: 'grey',
+      };
+    }
+
+    return undefined;
+  }
+
+  const appearance = 'removed';
+
+  <Badge appearance={appearance} style={getStyle(appearance)}>
+    {10}
+  </Badge>;
+  ```
+
+  - [**BREAKING**] We have removed `Container` and `Format` components. Please use a combination of `style` and `ReactNode` type `children` prop for customization.
+
+  **Before**:
+
+  ```tsx
+  import { Container, Format } from '@atlaskit/badge';
+
+  <Container backgroundColor="red" textColor="blue">
+    <em>
+      <Format>{10}</Format>
+    </em>
+  </Container>;
+  ```
+
+  **After**:
+
+  ```tsx
+  import Badge from '@atlaskit/badge';
+
+  <Badge style={{ backgroundColor: 'red', color: 'blue' }}>
+    <em>
+      {10}
+    </em>
+  </Badge>
+
+  // or if you are passing `max` prop so that formatting logic should work
+
+  <em>
+    <Badge style={{ backgroundColor: 'red', color: 'blue' }} max={5}>
+      {10}
+    </Badge>
+  </em>
+  ```
+
+  - [**BREAKING**] We have removed the support of `appearance` prop object value. Please use `style` prop for customization.
+
+  **Before**:
+
+  ```tsx
+  import Badge from '@atlaskit/badge';
+
+  <Badge appearance={{ backgroundColor: 'red', textColor: 'blue' }}>
+    {10}
+  </Badge>;
+  ```
+
+  **After**:
+
+  ```tsx
+  import Badge from '@atlaskit/badge';
+
+  <Badge style={{ backgroundColor: 'red', color: 'blue' }}>{10}</Badge>;
+  ```
+
+  **Running the codemod cli**
+
+  To run the codemod: **You first need to have the latest version installed**
+
+  ```bash
+
+  yarn upgrade @atlaskit/badge@^15.0.0
+
+  ```
+
+  Once upgraded, use `@atlaskit/codemod-cli` via `npx`:
+
+  ```bash
+
+  npx @atlaskit/codemod-cli --parser babel --extensions ts,tsx,js [relativePath]
+
+  ```
+
+  The CLI will show a list of components and versions so select `@atlaskit/badge@^15.0.0` and you will automatically be upgraded.
+
+  What will be changed:
+
+  - It will move `backgroundColor` and `textColor` from `appearance` prop (if object is passed as `appearance` prop value) to `style` prop.
+
+  Run `npx @atlaskit/codemod-cli -h` for more details on usage.
+
+  For Atlassians,
+
+  refer to the [documentation](https://developer.atlassian.com/cloud/framework/atlassian-frontend/codemods/01-atlassian-codemods/) for more details on the codemod CLI.
+
+### Minor Changes
+
+- [`0ced21f8470`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0ced21f8470) - [ux] Colors are now sourced through tokens.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.3.2
 
 ### Patch Changes

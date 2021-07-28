@@ -36,6 +36,7 @@ export const BlockCard: FC<BlockCardProps> = ({
 }) => {
   const data =
     ((details && details.data) as JsonLd.Data.BaseData) || getEmptyJsonLd();
+  const meta = (details && details.meta) as JsonLd.Meta.BaseMeta;
   const extractorOpts: ExtractBlockOpts = {
     handleAnalytics: handlePreviewAnalytics,
     handleInvoke,
@@ -49,6 +50,7 @@ export const BlockCard: FC<BlockCardProps> = ({
     case 'resolved':
       const resolvedViewProps = extractBlockProps(
         data,
+        meta,
         extractorOpts,
         renderers,
       );
@@ -68,7 +70,11 @@ export const BlockCard: FC<BlockCardProps> = ({
         />
       );
     case 'unauthorized':
-      const unauthorizedViewProps = extractBlockProps(data, extractorOpts);
+      const unauthorizedViewProps = extractBlockProps(
+        data,
+        meta,
+        extractorOpts,
+      );
       return (
         <BlockCardUnauthorisedView
           {...unauthorizedViewProps}
@@ -80,7 +86,7 @@ export const BlockCard: FC<BlockCardProps> = ({
         />
       );
     case 'forbidden':
-      const forbiddenViewProps = extractBlockProps(data, extractorOpts);
+      const forbiddenViewProps = extractBlockProps(data, meta, extractorOpts);
       const cardMetadata = details?.meta ?? getUnauthorizedJsonLd().meta;
       const requestAccessContext = extractRequestAccessContext({
         jsonLd: cardMetadata,
@@ -98,7 +104,7 @@ export const BlockCard: FC<BlockCardProps> = ({
         />
       );
     case 'not_found':
-      const notFoundViewProps = extractBlockProps(data, extractorOpts);
+      const notFoundViewProps = extractBlockProps(data, meta, extractorOpts);
       return (
         <BlockCardNotFoundView
           {...notFoundViewProps}

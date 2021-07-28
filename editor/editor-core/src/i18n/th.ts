@@ -59,6 +59,7 @@ export default {
   'fabric.editor.configPanel.dateRange.grouping.expand': 'ส่วนขยาย',
   'fabric.editor.configPanel.dateRange.option.custom': 'ปรับแต่ง',
   'fabric.editor.configPanel.documentation': 'เอกสารประกอบ',
+  'fabric.editor.configPanel.errorBoundary.title': 'เกิดข้อผิดพลาดบางอย่าง',
   'fabric.editor.configPanel.fieldTypeError.isMultipleAndRadio':
     'ไม่สามารถรวม isMultiple กับรูปแบบได้: radio',
   'fabric.editor.configPanel.formType.addField': 'เพิ่มฟิลด์',
@@ -157,6 +158,10 @@ export default {
     'กด {keyMap} เพื่อเปิดกรอบโต้ตอบนี้ได้ทุกเมื่อ',
   'fabric.editor.horizontalRule': 'ตัวแบ่งคั่น',
   'fabric.editor.horizontalRule.description': 'แบ่งคั่นเนื้อหาด้วยเส้นแนวนอน',
+  'fabric.editor.hyperlink.searchLinkAriaDescription':
+    'ข้อเสนอแนะจะปรากฏด้านล่างเมื่อคุณพิมพ์ลงในช่อง',
+  'fabric.editor.hyperlink.searchLinkResults':
+    '{count, plural, =0 {ไม่พบผลลัพธ์} other {พบผลลัพธ์ {count,number} รายการ}}',
   'fabric.editor.hyperlinkToolbarPlaceholder':
     'วางลิงก์หรือค้นหารายการที่เพิ่งดูล่าสุด',
   'fabric.editor.image': 'รูปภาพ',

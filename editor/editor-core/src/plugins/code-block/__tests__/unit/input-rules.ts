@@ -18,7 +18,7 @@ import blockTypePlugin from '../../../block-type';
 import codeBlockPlugin from '../../';
 import panelPlugin from '../../../panel';
 import textFormattingPlugin from '../../../text-formatting';
-import listPlugin from '../../../lists';
+import listPlugin from '../../../list';
 
 describe('inputrules', () => {
   const createEditor = createProsemirrorEditorFactory();

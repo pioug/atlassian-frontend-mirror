@@ -32,4 +32,21 @@ const mediaClient = new MediaClient({ authProvider });
   ${code`import { MediaClient } from '@atlaskit/media-client';
 const mediaClient = new MediaClient({ authProvider, stargateBaseUrl: 'http://stargate.url' });
   `}
+  
+  ### Sync Operations
+  
+  Media Client allows sync operations by using initial Auth credentials when the consumer needs it _inmediatelly_ after instantiation (e.g., Server Side Rendering).
+  MediaClientConfig requires the "initialAuth" attribute to provide an Auth object that does not come from an async Auth provider.
+  
+  Example:
+
+  ${code`import { MediaClient } from '@atlaskit/media-client';
+
+const mediaClientConfig = {
+  authProvider: myAuthProvider,
+  initialAuth: myAuth
+}
+const mediaClient = new MediaClient(mediaClientConfig);
+const imageUrl = mediaClient.getImageUrlSync(myFileId, myParams);
+  `}
 `;

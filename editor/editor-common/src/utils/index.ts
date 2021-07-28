@@ -90,3 +90,5 @@ export { ZERO_WIDTH_SPACE } from './whitespace';
 export type { Diff } from './types';
 export { shouldForceTracking } from './should-force-tracking';
 export { getModeFromTheme } from './getModeFromTheme';
+export type { UserBrowserExtensionResults } from './browser-extensions';
+export { sniffUserBrowserExtensions } from './browser-extensions';

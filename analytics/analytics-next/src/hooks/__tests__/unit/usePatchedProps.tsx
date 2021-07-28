@@ -37,6 +37,27 @@ const FakeContextProvider = ({
   );
 };
 
+const Button = memo(
+  ({
+    onClick,
+    onMouseOver,
+  }: {
+    onClick: () => void;
+    onMouseOver: () => void;
+  }) => {
+    const renderCounter = useRenderCounter();
+    return (
+      <button
+        data-render-count={renderCounter}
+        onClick={onClick}
+        onMouseOver={onMouseOver}
+      >
+        Button
+      </button>
+    );
+  },
+);
+
 const ComponentUsingHook = memo(
   <Props extends Record<string, any>>({
     createEventMap,
@@ -44,12 +65,12 @@ const ComponentUsingHook = memo(
   }: {
     createEventMap: CreateEventMap;
   } & Props) => {
-    const renderCounter = useRenderCounter();
     const { patchedEventProps } = usePatchedProps(createEventMap, rest);
     return (
-      <button data-render-count={renderCounter} {...patchedEventProps}>
-        Button
-      </button>
+      <Button
+        onClick={patchedEventProps.onClick as () => void}
+        onMouseOver={patchedEventProps.onMouseOver as () => void}
+      />
     );
   },
 );
@@ -346,6 +367,83 @@ describe('usePatchedProps', () => {
     expect(updatedCallback).toBeCalledWith(
       { action: 'click' },
       [{ ticket: 'AFP-234' }],
+      'atlaskit',
+    );
+  });
+
+  it('should not cause re-renders in children when a not analytic wrapped callback prop changes', () => {
+    const initialCallback = jest.fn();
+
+    const initialOnEvent = (
+      analyticsEvt: UIAnalyticsEvent,
+      channel: string,
+    ) => {
+      initialCallback(analyticsEvt.payload, analyticsEvt.context, channel);
+    };
+
+    const initialContextData = { ticket: 'AFP-123' };
+
+    const initialComponentProps = {
+      onClick: (
+        _clickEvt: React.MouseEvent<HTMLButtonElement>,
+        analyticsEvt: UIAnalyticsEvent,
+      ) => {
+        analyticsEvt.fire('atlaskit');
+      },
+      onMouseOver: (
+        _moEvent: React.MouseEvent<HTMLButtonElement>,
+        analyticsEvt: UIAnalyticsEvent,
+      ) => {
+        analyticsEvt.fire('media');
+      },
+      style: { color: 'blue' },
+    };
+
+    const createEventMap: CreateEventMap = {
+      onClick: { action: 'click' },
+    };
+
+    const { getByText, rerender } = render(
+      <UnderTest
+        contextData={initialContextData}
+        onEvent={initialOnEvent}
+        createEventMap={createEventMap}
+        componentProps={initialComponentProps}
+      />,
+    );
+    expect(getByText('Button').dataset.renderCount).toBe('1');
+
+    fireEvent.click(getByText('Button'));
+
+    expect(initialCallback).toBeCalledWith(
+      { action: 'click' },
+      [{ ticket: 'AFP-123' }],
+      'atlaskit',
+    );
+    initialCallback.mockReset();
+
+    const updatedComponentProps = {
+      onClick: initialComponentProps.onClick,
+      onMouseOver: initialComponentProps.onMouseOver,
+      style: { color: 'red' },
+    };
+
+    rerender(
+      <UnderTest
+        contextData={initialContextData}
+        onEvent={initialOnEvent}
+        createEventMap={createEventMap}
+        componentProps={updatedComponentProps}
+      />,
+    );
+
+    expect(getByText('Button').dataset.renderCount).toBe('1');
+
+    fireEvent.click(getByText('Button'));
+
+    expect(initialCallback).toBeCalledWith(
+      { action: 'click' },
+      [{ ticket: 'AFP-123' }],
       'atlaskit',
     );
   });

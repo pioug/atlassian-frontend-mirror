@@ -6,6 +6,7 @@ import ModalDialog, {
 import { Header } from './ModalHeader';
 import { IconProps } from './Icon';
 import { MetadataListProps } from './MetadataList';
+import { getIframeSandboxAttribute } from '../../util';
 
 const iframeStyles = {
   width: `100%`,
@@ -44,6 +45,8 @@ export interface ModalProps {
   download?: string;
   /* Summary, description, or details about the resource */
   byline?: React.ReactNode;
+  /* A flag that determines whether link source can be trusted in iframe */
+  isTrusted?: boolean;
   /* Hook for when secondary action is clicked */
   onViewActionClick?: () => void;
   /* Hook for when primary action is clicked */
@@ -79,10 +82,13 @@ const Modal = ({
   url,
   download,
   byline,
+  isTrusted = false,
   onViewActionClick,
   onDownloadActionClick,
 }: ModalProps) => {
   let [isOpen, setIsOpen] = useState(showModal);
+
+  const sandbox = getIframeSandboxAttribute(isTrusted);
 
   return (
     <ModalTransition>
@@ -121,9 +127,15 @@ const Modal = ({
               name={iframeName}
               frameBorder={0}
               src={src}
+              sandbox={sandbox}
             />
           ) : (
-            <iframe style={iframeStyles} name={iframeName} frameBorder={0} />
+            <iframe
+              style={iframeStyles}
+              name={iframeName}
+              frameBorder={0}
+              sandbox={sandbox}
+            />
           )}
         </ModalDialog>
       )}

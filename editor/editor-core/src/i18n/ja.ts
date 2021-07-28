@@ -135,6 +135,9 @@ export default {
   'fabric.editor.findNext': '次を検索',
   'fabric.editor.findPrevious': '前を検索',
   'fabric.editor.findReplaceToolbarButton': '検索と置換',
+  'fabric.editor.floatingToolbar.confirmModalCancel': 'キャンセル',
+  'fabric.editor.floatingToolbar.confirmModalHeading': '実行しますか?',
+  'fabric.editor.floatingToolbar.confirmModalOK': 'OK',
   'fabric.editor.headerColumn': 'ヘッダーの列',
   'fabric.editor.headerRow': 'ヘッダーの行',
   'fabric.editor.heading1': '見出し 1',
@@ -157,6 +160,10 @@ export default {
     '{keyMap} を押すと、このダイアログをいつでもすぐに開けます',
   'fabric.editor.horizontalRule': '分割線',
   'fabric.editor.horizontalRule.description': '横線を使用してコンテンツを分割',
+  'fabric.editor.hyperlink.searchLinkAriaDescription':
+    'フィールドに入力すると、以下に候補が表示されます',
+  'fabric.editor.hyperlink.searchLinkResults':
+    '{count, plural, =0 {検索結果がありませんでした} other {{count,number} 件の検索結果が見つかりました}}',
   'fabric.editor.hyperlinkToolbarPlaceholder':
     'リンクを貼り付けるか最近表示したページを検索',
   'fabric.editor.image': '画像',
@@ -237,6 +244,10 @@ export default {
   'fabric.editor.table': '表',
   'fabric.editor.table.description': '表を挿入',
   'fabric.editor.tableOptions': '表のオプション',
+  'fabric.editor.tables.confirmDeleteLinkedModalMessage':
+    'このテーブルを削除すると、接続されているグラフに含まれるすべてのデータも削除されます。',
+  'fabric.editor.tables.confirmDeleteLinkedModalOKButton':
+    'テーブルとデータを削除',
   'fabric.editor.taskPlaceholder':
     'アクションを入力し、「@」を使用して担当者を割り当てます。',
   'fabric.editor.textColor': 'テキストの色',

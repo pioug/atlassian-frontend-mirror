@@ -5,7 +5,7 @@ import AkButton from '@atlaskit/button/custom-theme-button';
 
 export interface Props {
   label: string;
-  ariaLabel?: string;
+  ariaDescribedBy?: string;
   onChange?: ChangeEventHandler<any>;
   onClick?: () => void;
   accept?: string;
@@ -25,13 +25,13 @@ export default class FileChooser extends PureComponent<Props, {}> {
   };
 
   render() {
-    const { accept, ariaLabel, isDisabled, label, onChange } = this.props;
+    const { accept, ariaDescribedBy, isDisabled, label, onChange } = this.props;
     return (
       <span>
         <AkButton
           onClick={this.onChooseFile}
           isDisabled={isDisabled}
-          aria-label={ariaLabel || label}
+          aria-describedby={ariaDescribedBy}
         >
           {label}
         </AkButton>

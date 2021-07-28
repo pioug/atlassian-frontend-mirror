@@ -7,6 +7,10 @@ export const ErrorCodeMapper = {
     code: 'DOCUMENT_NOT_FOUND',
     message: 'The requested document is not found',
   },
+  hasToLogin: {
+    code: 'HAS_TO_LOGIN',
+    message: 'The user needs to login',
+  },
   catchupFail: {
     code: 'CATCHUP_FAILED',
     message: 'Cannot fetch catchup from collab service',

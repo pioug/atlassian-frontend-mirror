@@ -6,7 +6,7 @@ import {
 } from '@atlaskit/analytics-next';
 
 export interface BreadcrumbsProps extends WithAnalyticsEventsProps {
-  // eslint-disable-next-line @typescript-eslint/naming-convention
+  // eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
   defaultExpanded?: boolean;
   /**
    * Override collapsing of the nav when there are more than maxItems
@@ -91,6 +91,7 @@ export interface BreadcrumbsItemProps extends WithAnalyticsEventsProps {
   /**
    * The text to appear within the breadcrumb as a link.
    */
+  // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
   text: string;
   /**
    * The maximum width in pixels that an item can have before it is truncated.
@@ -104,6 +105,7 @@ export interface BreadcrumbsItemProps extends WithAnalyticsEventsProps {
    *  The custom component should accept a className prop so it can be styled
    *  and possibly all action handlers
    */
+  // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
   component?: React.ClassType<any, any, any>;
 
   /**

@@ -94,7 +94,7 @@ export default function Example() {
   const bridge = getBridge();
   const editorConfiguration = useEditorConfiguration(
     bridge,
-    new MobileEditorConfiguration('{ "allowPredictableList": "true" }'),
+    new MobileEditorConfiguration(),
   );
 
   return (

@@ -20,6 +20,7 @@ import {
 
 import { createDispatch, Dispatch, EventDispatcher } from '../event-dispatcher';
 import { processRawValue } from '../utils';
+import { RenderTracking } from '../utils/react-hooks/use-component-renderer-tracking';
 import {
   findChangedNodesFromTransaction,
   validateNodes,
@@ -78,7 +79,7 @@ import {
   DEFAULT_SAMPLING_RATE_VALID_TRANSACTIONS,
 } from './consts';
 import { getContextIdentifier } from '../plugins/base/pm-plugins/context-identifier';
-import { FireAnalyticsEventPayload } from '../plugins/analytics/fire-analytics-event';
+import { FireAnalyticsCallback } from '../plugins/analytics/fire-analytics-event';
 
 export interface EditorViewProps {
   editorProps: EditorProps;
@@ -140,7 +141,7 @@ export function shouldReconfigureState(
   const properties: Array<keyof EditorProps> = [
     'appearance',
     'persistScrollGutter',
-    'UNSAFE_predictableLists',
+    'UNSAFE_allowUndoRedoButtons',
     'placeholder',
   ];
 
@@ -375,7 +376,7 @@ export default class ReactEditorView<T = {}> extends React.Component<
     return this.view.update({ ...this.view.props, state: newState });
   };
 
-  handleAnalyticsEvent = (payload: FireAnalyticsEventPayload) => {
+  handleAnalyticsEvent: FireAnalyticsCallback = (payload) => {
     if (!this.props.allowAnalyticsGASV3) {
       return;
     }
@@ -788,16 +789,34 @@ export default class ReactEditorView<T = {}> extends React.Component<
   );
 
   render() {
-    return this.props.render
-      ? this.props.render({
-          editor: this.editor,
-          view: this.view,
-          config: this.config,
-          eventDispatcher: this.eventDispatcher,
-          transformer: this.contentTransformer,
-          dispatchAnalyticsEvent: this.dispatchAnalyticsEvent,
-        })
-      : this.editor;
+    const renderTracking = this.props.editorProps.performanceTracking
+      ?.renderTracking?.reactEditorView;
+    const renderTrackingEnabled = renderTracking?.enabled;
+    const useShallow = renderTracking?.useShallow;
+
+    return (
+      <React.Fragment>
+        {renderTrackingEnabled && (
+          <RenderTracking
+            componentProps={this.props}
+            action={ACTION.RE_RENDERED}
+            actionSubject={ACTION_SUBJECT.REACT_EDITOR_VIEW}
+            handleAnalyticsEvent={this.handleAnalyticsEvent}
+            useShallow={useShallow}
+          />
+        )}
+        {this.props.render
+          ? this.props.render({
+              editor: this.editor,
+              view: this.view,
+              config: this.config,
+              eventDispatcher: this.eventDispatcher,
+              transformer: this.contentTransformer,
+              dispatchAnalyticsEvent: this.dispatchAnalyticsEvent,
+            })
+          : this.editor}
+      </React.Fragment>
+    );
   }
 }
 

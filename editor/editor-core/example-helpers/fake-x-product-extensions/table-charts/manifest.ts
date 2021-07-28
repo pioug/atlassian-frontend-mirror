@@ -322,4 +322,8 @@ const manifest: ExtensionManifest = {
   },
 };
 
+if ((manifest as any)?.modules?.nodes?.chart) {
+  (manifest as any).modules.nodes.chart.__hideFrame = true;
+}
+
 export default manifest;

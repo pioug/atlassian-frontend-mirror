@@ -23,7 +23,8 @@ export interface LayoutColumnDefinition {
 export const layoutColumn: NodeSpec = {
   content: '(block|unsupportedBlock)+',
   isolating: true,
-  marks: 'link alignment dataConsumer unsupportedMark unsupportedNodeAttribute',
+  marks:
+    'link alignment indentation dataConsumer unsupportedMark unsupportedNodeAttribute',
   selectable: false,
   attrs: {
     width: {

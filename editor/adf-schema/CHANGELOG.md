@@ -1,5 +1,15 @@
 # @atlaskit/adf-schema
 
+## 18.2.0
+
+### Minor Changes
+
+- [`489e4d18bc1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/489e4d18bc1) - ED-12891 Enable indentation as a valid mark on headings in layouts to align PM schema with ADF schema
+
+### Patch Changes
+
+- [`18a96c228f8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/18a96c228f8) - EDM-2024: fix MediaGroup Prosemirror Schema incompatibility
+
 ## 18.1.1
 
 ### Patch Changes

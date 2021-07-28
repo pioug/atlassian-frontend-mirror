@@ -1,6 +1,7 @@
-import React, { Component, ComponentType } from 'react';
+/** @jsx jsx */
+import { Component, ComponentType } from 'react';
 
-import styled from 'styled-components';
+import { css, jsx } from '@emotion/core';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
@@ -8,17 +9,22 @@ import RadioGroup from '@atlaskit/field-radio-group';
 import * as colors from '@atlaskit/theme/colors';
 
 import * as logos from '../src';
-import { Props as ConstantProps } from '../src/constants';
+import type { Props as ConstantProps } from '../src/constants';
 
-const Centered = styled.div`
-  display: flex;
-  > * {
-    margin: 8px 0;
-  }
-`;
-const InlineFlex = styled.div`
-  display: inline-flex;
-`;
+const centeredStyles = css({
+  display: 'flex',
+  '> *': {
+    margin: '8px 0',
+  },
+});
+
+const Centered = ({ ...rest }) => <div css={centeredStyles} {...rest} />;
+
+const inlineFlexStyles = css({
+  display: 'inline-flex',
+});
+
+const InlineFlex = ({ ...rest }) => <div css={inlineFlexStyles} {...rest} />;
 
 const sizePresets: ConstantProps['size'][] = [
   'xsmall',

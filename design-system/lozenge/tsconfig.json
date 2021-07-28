@@ -9,7 +9,8 @@
     "./examples/**/*.ts",
     "./examples/**/*.tsx",
     "./example-helpers/**/*.ts",
-    "./example-helpers/**/*.tsx"
+    "./example-helpers/**/*.tsx",
+    "./codemods/**/*.tsx",
   ],
   "compilerOptions": {
     "baseUrl": "./"

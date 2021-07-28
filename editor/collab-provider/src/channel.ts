@@ -2,7 +2,7 @@ import { utils } from '@atlaskit/util-service-support';
 import { Emitter } from './emitter';
 import { ErrorCodeMapper } from './error-code-mapper';
 import { Config, Socket } from './types';
-import { createLogger } from './utils';
+import { createLogger } from './helpers/utils';
 
 const logger = createLogger('Channel', 'green');
 
@@ -55,10 +55,12 @@ export type EditorWidthPayload = {
 };
 
 export type ErrorPayload = {
-  status: number;
-  code?: string;
-  message?: string;
-  meta?: string;
+  message: string;
+  data?: {
+    status: number;
+    code?: string;
+    meta?: string;
+  };
 };
 
 export type ChannelEvent = {
@@ -76,7 +78,7 @@ export type ChannelEvent = {
   'steps:added': StepsPayload;
   'title:changed': TitlePayload;
   'width:changed': EditorWidthPayload;
-  error: ErrorPayload | string;
+  error: ErrorPayload;
   disconnect: { reason: string };
 };
 
@@ -167,12 +169,18 @@ export class Channel extends Emitter<ChannelEvent> {
       }
     });
 
-    this.socket.on('error', (error: ErrorPayload | string) => {
+    // `error`'s paramter is plain JSON object.
+    this.socket.on('error', (error: ErrorPayload) => {
       this.emit('error', error);
     });
 
-    this.socket.on('connect_error', (error: ErrorPayload | string) => {
-      this.emit('error', error);
+    // `connect_error`'s paramter type is `Error`.
+    // Ensure the error emit to the provider has the same structure, so we can handle them unified.
+    this.socket.on('connect_error', (error: Error) => {
+      this.emit('error', {
+        message: error.message,
+        data: (error as ErrorPayload).data,
+      });
     });
   }
 
@@ -235,9 +243,11 @@ export class Channel extends Emitter<ChannelEvent> {
     } catch (err) {
       logger("Can't fetch the catchup", err.message);
       const errorCatchup: ErrorPayload = {
-        status: err.status,
-        code: ErrorCodeMapper.catchupFail.code,
         message: ErrorCodeMapper.catchupFail.message,
+        data: {
+          status: err.status,
+          code: ErrorCodeMapper.catchupFail.code,
+        },
       };
       this.emit('error', errorCatchup);
       return {};

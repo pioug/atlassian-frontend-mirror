@@ -18,7 +18,7 @@ import {
   isLinkAtPos,
   LinkInputMethod,
   ListInputMethod,
-  ListsState,
+  ListState,
   MentionPluginState,
   QuickInsertItem,
   selectItem as selectTypeAheadItem,
@@ -136,7 +136,7 @@ export default class WebBridgeImpl
   textFormatBridgeState: TextFormattingState | null = null;
   statusBridgeState: StatusState | null = null;
   blockFormatBridgeState: BlockTypeState | null = null;
-  listBridgeState: ListsState | null = null;
+  listBridgeState: ListState | null = null;
   mentionsPluginState: MentionPluginState | null = null;
   editorView?: EditorViewWithComposition;
   transformer: JSONTransformer = new JSONTransformer();
@@ -430,25 +430,19 @@ export default class WebBridgeImpl
 
   onOrderedListSelected(inputMethod: ListInputMethod = INPUT_METHOD.TOOLBAR) {
     if (this.listBridgeState && this.editorView) {
-      getListCommands(
-        this.editorConfiguration.isPredictableListEnabled(),
-      ).toggleOrderedList(this.editorView, inputMethod);
+      getListCommands().toggleOrderedList(this.editorView, inputMethod);
     }
   }
 
   onBulletListSelected(inputMethod: ListInputMethod = INPUT_METHOD.TOOLBAR) {
     if (this.listBridgeState && this.editorView) {
-      getListCommands(
-        this.editorConfiguration.isPredictableListEnabled(),
-      ).toggleBulletList(this.editorView, inputMethod);
+      getListCommands().toggleBulletList(this.editorView, inputMethod);
     }
   }
 
   onIndentList(inputMethod: ListInputMethod = INPUT_METHOD.TOOLBAR) {
     if (this.listBridgeState && this.editorView) {
-      getListCommands(
-        this.editorConfiguration.isPredictableListEnabled(),
-      ).indentList(inputMethod)(
+      getListCommands().indentList(inputMethod)(
         this.editorView.state,
         this.editorView.dispatch,
       );
@@ -457,9 +451,7 @@ export default class WebBridgeImpl
 
   onOutdentList(inputMethod: ListInputMethod = INPUT_METHOD.TOOLBAR) {
     if (this.listBridgeState && this.editorView) {
-      getListCommands(
-        this.editorConfiguration.isPredictableListEnabled(),
-      ).outdentList(inputMethod)(
+      getListCommands().outdentList(inputMethod)(
         this.editorView.state,
         this.editorView.dispatch,
       );

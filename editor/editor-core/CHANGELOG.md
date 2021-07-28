@@ -1,5 +1,36 @@
 # @atlaskit/editor-core
 
+## 147.0.0
+
+### Major Changes
+
+- [`5e55b55d035`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5e55b55d035) - [ux][ed-9961] Remove the predictable lists feature flag and the legacy lists plugin so that predictable lists is default.
+
+  Doing this by removing the lists plugin, removing the predictableLists feature flag, renaming lists-predictable to just list, refactoring any areas of the code that used the feature flag or the legacy lists still.
+
+  This is a breaking change but has been thoroughly tested locally & with a team blitz on the branch deploy, on both web & mobile.
+
+### Minor Changes
+
+- [`3aa96b1de23`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3aa96b1de23) - [ME-1416] Show the floating toolbar based on the state and not the plugin state
+- [`adccfcdafd8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/adccfcdafd8) - [ux] ED-13043 Add experimental `__hideFrame` option in extension manifest for extension nodes. This removes the border in edit mode to bring it closer to WYSIWYG. This cannot be opted into for the 'mobile' appearance & frames will continue to always show.
+- [`5ad6ec7af6f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5ad6ec7af6f) - Change selection plugin multi dispatch to append transaction
+- [`450a8582760`](https://bitbucket.org/atlassian/atlassian-frontend/commits/450a8582760) - Added editor re-render analytics event.
+- [`abf8b155d75`](https://bitbucket.org/atlassian/atlassian-frontend/commits/abf8b155d75) - [ME-1416] Remove multi dispatch occurance from the panels plugin. Make the floating toolbar items rely only on the node not what is in the plugin state.
+- [`3faba8bc192`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3faba8bc192) - Refactor floating toolbar plugin to now store a function to retrieve current toolbar config
+
+### Patch Changes
+
+- [`ef89f94969d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ef89f94969d) - ED-13262 Fix and unskip integration table auto size
+- [`b7ceb849775`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b7ceb849775) - ED-12977 allow mouseMoveOptimization only when tableCellOptimization is on
+- [`121b8280a98`](https://bitbucket.org/atlassian/atlassian-frontend/commits/121b8280a98) - Fixed typo
+- [`3d363ebc5e7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3d363ebc5e7) - ED-13000: Capture browser extension usage in error analytics
+- [`b015fe86197`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b015fe86197) - [ux] Gutter size for mobile editor lowered from 50px to 36px
+- [`6881fe2f483`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6881fe2f483) - ED-9828 additional empty codeblock check for backspace keymap
+- [`9dd40e58f82`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9dd40e58f82) - Allow beautiful panel customisation on android
+- [`6c0fb7a0bd1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c0fb7a0bd1) - Change default placeholder color
+- Updated dependencies
+
 ## 146.0.3
 
 ### Patch Changes

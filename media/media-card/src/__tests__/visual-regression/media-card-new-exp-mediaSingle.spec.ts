@@ -37,7 +37,7 @@ describe('Media Card Singles', () => {
     it.each(['uploading', 'complete', 'failed-processing', 'error'])(
       'with filestate %s',
       async (status) => {
-        const url = getURL(`&disabledOverlay=true&status=${status}`);
+        const url = getURL(`&disableOverlay=true&status=${status}`);
         const { page } = global;
 
         await page.goto(url);

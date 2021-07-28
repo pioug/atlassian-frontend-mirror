@@ -8,6 +8,9 @@ const dataConsumerSelector = '[data-mark-type="dataConsumer"]';
 export const widerLayoutClassName = 'wider-layout';
 
 export const Wrapper = styled(WrapperDefault)<{ extensionWidth: String }>`
+  &.without-frame {
+    background: transparent;
+  }
   cursor: pointer;
   width: 100%;
 
@@ -33,8 +36,11 @@ export const Header = styled.div`
   padding: ${padding / 2}px ${padding / 2}px ${padding / 4}px;
   vertical-align: middle;
 
-  &.with-children {
+  &.with-children:not(.without-frame) {
     padding: 4px 8px 8px;
+  }
+  &.without-frame {
+    padding: 0;
   }
 `;
 

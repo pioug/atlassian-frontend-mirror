@@ -1,5 +1,11 @@
 # @atlaskit/analytics-next
 
+## 8.2.1
+
+### Patch Changes
+
+- [`a4420ad5104`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a4420ad5104) - Improves referential stability of analytics-next wrapped callbacks
+
 ## 8.2.0
 
 ### Minor Changes

@@ -139,6 +139,9 @@ export default {
   'fabric.editor.findNext': 'Következő keresése',
   'fabric.editor.findPrevious': 'Előző keresése',
   'fabric.editor.findReplaceToolbarButton': 'Keresés és csere',
+  'fabric.editor.floatingToolbar.confirmModalCancel': 'Mégse',
+  'fabric.editor.floatingToolbar.confirmModalHeading': 'Biztos vagy benne?',
+  'fabric.editor.floatingToolbar.confirmModalOK': 'OK',
   'fabric.editor.headerColumn': 'Fejlécoszlop',
   'fabric.editor.headerRow': 'Fejlécsor',
   'fabric.editor.heading1': '1. szintű címsor',
@@ -165,6 +168,10 @@ export default {
   'fabric.editor.horizontalRule': 'Elválasztó',
   'fabric.editor.horizontalRule.description':
     'Tartalom elválasztása egy vízszintes vonallal',
+  'fabric.editor.hyperlink.searchLinkAriaDescription':
+    'A rendszer a beírt szövegnek megfelelően jeleníti meg lent a javaslatokat',
+  'fabric.editor.hyperlink.searchLinkResults':
+    '{count, plural, =0 {nincs találat} one {{count,number} találat} other {{count,number} találat}}',
   'fabric.editor.hyperlinkToolbarPlaceholder':
     'Hivatkozás beillesztése vagy keresés a legutóbb megtekintett lapokon',
   'fabric.editor.image': 'Kép',
@@ -247,6 +254,10 @@ export default {
   'fabric.editor.table': 'Táblázat',
   'fabric.editor.table.description': 'Táblázat beszúrása',
   'fabric.editor.tableOptions': 'Táblázatbeállítások',
+  'fabric.editor.tables.confirmDeleteLinkedModalMessage':
+    'A táblázat törlésével a kapcsolódó diagramokból is eltávolítod az összes adatot.',
+  'fabric.editor.tables.confirmDeleteLinkedModalOKButton':
+    'Táblázat és adatok eltávolítása',
   'fabric.editor.taskPlaceholder':
     'Írja be a műveletet. Az „@” jellel hozzárendelheti valakihez.',
   'fabric.editor.textColor': 'Szövegszín',

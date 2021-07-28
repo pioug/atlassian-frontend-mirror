@@ -161,6 +161,10 @@ export default {
   'fabric.editor.horizontalRule': 'Роздільник',
   'fabric.editor.horizontalRule.description':
     'Відокремити інформацію горизонтальною лінією',
+  'fabric.editor.hyperlink.searchLinkAriaDescription':
+    'Коли ви будете набирати у полі текст, нижче з’явиться список варіантів',
+  'fabric.editor.hyperlink.searchLinkResults':
+    '{count, plural, =0 {нічого не знайдено} one {{count,number} результат} few {{count,number} результати} many {{count,number} результатів} other {{count,number} результатів}}',
   'fabric.editor.hyperlinkToolbarPlaceholder':
     'Вставте посилання або пошукайте серед нещодавно переглянутих',
   'fabric.editor.image': 'зображення',

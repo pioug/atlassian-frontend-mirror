@@ -1,5 +1,17 @@
 # @atlaskit/breadcrumbs
 
+## 11.3.0
+
+### Minor Changes
+
+- [`c37fc2898ff`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c37fc2898ff) - [ux] Colors now sourced from tokens.
+
+### Patch Changes
+
+- [`0d0ecc6e790`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0d0ecc6e790) - Corrects eslint supressions.
+- [`9a84a3ceb82`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9a84a3ceb82) - Internal code changes.
+- Updated dependencies
+
 ## 11.2.6
 
 ### Patch Changes

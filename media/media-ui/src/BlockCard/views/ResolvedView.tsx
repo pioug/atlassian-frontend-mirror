@@ -60,6 +60,8 @@ export interface ResolvedViewProps {
   showActions?: boolean;
   /* The Emoji prefix component that was added to the title text via Add emoji button */
   titlePrefix?: React.ReactNode;
+  /* A flag that determines whether link source can be trusted in iframe */
+  isTrusted?: boolean;
 }
 
 export const ResolvedView = ({

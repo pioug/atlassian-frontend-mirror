@@ -4,6 +4,7 @@ import {
   takeElementScreenShot,
 } from '@atlaskit/visual-regression/helper';
 
+import { getBoundingClientRect } from '../_utils';
 import { extensionSelectors } from '../../../__tests__/__helpers/page-objects/_extensions';
 
 export async function goToConfigPanelWithParameters() {
@@ -21,7 +22,7 @@ export async function goToConfigPanelWithParameters() {
 }
 
 describe('Snapshot Test', () => {
-  it.skip('should display config panels with fields correctly', async () => {
+  it('should display config panels with fields correctly', async () => {
     const page = await goToConfigPanelWithParameters();
 
     const image = await takeElementScreenShot(
@@ -42,18 +43,35 @@ describe('Snapshot Test', () => {
     expect(image).toMatchProdImageSnapshot();
   });
 
-  it.skip('should position calendar for datefield correctly', async () => {
+  it('should position calendar for datefield correctly', async () => {
     const dateInputSelector = 'input[name="date-start"]';
     const page = await goToConfigPanelWithParameters();
     const dateInputElement = await page.$(dateInputSelector);
+
+    // Resize the viewport to screenshot elements outside of the viewport
+    const configPanelForm = await page.$(
+      'form[data-testid="extension-config-panel"]',
+    );
+    const bodyBox = await configPanelForm!.boundingBox();
+    const newViewport = {
+      width: Math.ceil(bodyBox!.width) + Math.ceil(bodyBox!.x),
+      height: Math.ceil(bodyBox!.height) + Math.ceil(bodyBox!.y),
+    };
+    await page.setViewport(newViewport);
+
     await page.evaluateHandle((el) => {
       const dateFieldElement = el.nextElementSibling;
       dateFieldElement.click();
     }, dateInputElement);
-    const image = await takeElementScreenShot(
+
+    // Clip the screenshot to just the date picker
+    const { top: y, left: x, width } = await getBoundingClientRect(
       page,
-      extensionSelectors.configPanel,
+      `${extensionSelectors.configPanel} .field-wrapper-date`,
     );
+    const image = await page.screenshot({
+      clip: { x, y, width, height: 380 },
+    });
     expect(image).toMatchProdImageSnapshot();
   });
 });

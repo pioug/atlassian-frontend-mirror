@@ -13,8 +13,7 @@ import {
   insertBlockPlugin,
   jiraIssuePlugin,
   layoutPlugin,
-  listsPlugin,
-  listsPredictablePlugin,
+  listPlugin,
   macroPlugin,
   maxContentSizePlugin,
   mediaPlugin,
@@ -112,7 +111,6 @@ export function getDefaultPresetOptionsFromEditorProps(
     paste: {
       cardOptions: props.smartLinks || props.UNSAFE_cards,
       sanitizePrivateContent: props.sanitizePrivateContent,
-      predictableLists: props.UNSAFE_predictableLists,
     },
     base: {
       allowInlineCursorTarget: !isMobile,
@@ -212,13 +210,7 @@ export default function createPluginsList(
   }
 
   // Needs to be after allowTextColor as order of buttons in toolbar depends on it
-  // UNSAFE_predictableLists is now opt out only.
-  // Once legacy lists are removed, the option to opt out will also be removed.
-  if (props.UNSAFE_predictableLists !== false) {
-    preset.add(listsPredictablePlugin);
-  } else {
-    preset.add(listsPlugin);
-  }
+  preset.add(listPlugin);
 
   if (props.allowRule) {
     preset.add(rulePlugin);
@@ -411,6 +403,7 @@ export default function createPluginsList(
         allowAutoSave: extensionConfig.allowAutoSave,
         extensionHandlers: props.extensionHandlers,
         useLongPressSelection: false,
+        appearance,
       },
     ]);
   }

@@ -47,6 +47,27 @@ export async function getExtensionModuleNode(
   return node;
 }
 
+/**
+ * Gets `__` prefixed properties from an extension node module definition
+ */
+export async function getExtensionModuleNodePrivateProps(
+  extensionProvider: ExtensionProvider,
+  extensionType: ExtensionType,
+  extensionKey: ExtensionKey,
+) {
+  const moduleNode = await getExtensionModuleNode(
+    extensionProvider,
+    extensionType,
+    extensionKey,
+  );
+  return Object.keys(moduleNode)
+    .filter((key) => key.startsWith('__'))
+    .reduce((acc, key) => {
+      acc[key] = (moduleNode as any)[key];
+      return acc;
+    }, {} as any);
+}
+
 function ExtensionLoading(props: LoadingComponentProps) {
   if (props.error || props.timedOut) {
     // eslint-disable-next-line no-console

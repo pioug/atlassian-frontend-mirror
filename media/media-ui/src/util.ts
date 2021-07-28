@@ -271,3 +271,8 @@ export function getMimeIcon(mimeType: string, fileName: string) {
   // cannot find a corresponding mimeType icon.
   return undefined;
 }
+
+export const getIframeSandboxAttribute = (isTrusted: boolean) =>
+  isTrusted
+    ? undefined
+    : 'allow-downloads allow-forms allow-popups allow-popups-to-escape-sandbox allow-presentation allow-same-origin allow-scripts';

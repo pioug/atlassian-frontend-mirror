@@ -149,6 +149,7 @@ describe('create-editor/error-boundary', () => {
       attributes: {
         product: mockCtxIdentifierProvider.product,
         browserInfo: expect.any(String),
+        browserExtensions: undefined,
         error: 'Error: Triggered error boundary',
         errorInfo: expect.objectContaining({
           componentStack: expect.any(String),

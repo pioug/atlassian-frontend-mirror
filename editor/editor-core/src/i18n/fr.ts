@@ -139,6 +139,10 @@ export default {
   'fabric.editor.findNext': 'Suivant',
   'fabric.editor.findPrevious': 'Précédent',
   'fabric.editor.findReplaceToolbarButton': 'Rechercher et remplacer',
+  'fabric.editor.floatingToolbar.confirmModalCancel': 'Annuler',
+  'fabric.editor.floatingToolbar.confirmModalHeading':
+    'Voulez-vous vraiment continuer ?',
+  'fabric.editor.floatingToolbar.confirmModalOK': 'OK',
   'fabric.editor.headerColumn': "Colonne de l'en-tête",
   'fabric.editor.headerRow': "Ligne d'en-tête",
   'fabric.editor.heading1': 'En-tête 1',
@@ -167,6 +171,10 @@ export default {
   'fabric.editor.horizontalRule': 'Séparateur',
   'fabric.editor.horizontalRule.description':
     'Séparer du contenu avec une ligne horizontale',
+  'fabric.editor.hyperlink.searchLinkAriaDescription':
+    'Les suggestions apparaîtront au fur et à mesure que vous saisissez du texte dans le champ',
+  'fabric.editor.hyperlink.searchLinkResults':
+    '{count, plural, =0 {aucun résultat} one {{count,number} résultat trouvé} other {{count,number} résultats trouvés}}',
   'fabric.editor.hyperlinkToolbarPlaceholder':
     'Coller un lien ou rechercher les pages récemment consultées',
   'fabric.editor.image': 'Image',
@@ -234,7 +242,7 @@ export default {
     '{selectedMatchPosition} sur {totalResultsCount}',
   'fabric.editor.rightSidebar': 'Barre latérale de droite',
   'fabric.editor.saveButton': 'Enregistrer',
-  'fabric.editor.selectLanguage': 'Sélectionner la langue',
+  'fabric.editor.selectLanguage': 'Sélectionner le langage',
   'fabric.editor.selected': 'Sélectionné',
   'fabric.editor.sortColumnASC': 'Trier la colonne de A à Z',
   'fabric.editor.sortColumnDESC': 'Trier la colonne de Z à A',
@@ -255,6 +263,10 @@ export default {
   'fabric.editor.table': 'Tableau',
   'fabric.editor.table.description': 'Insérer un tableau',
   'fabric.editor.tableOptions': 'Options du tableau',
+  'fabric.editor.tables.confirmDeleteLinkedModalMessage':
+    'La suppression de ce tableau supprime également toutes les données contenues dans les graphiques connectés.',
+  'fabric.editor.tables.confirmDeleteLinkedModalOKButton':
+    'Supprimer le tableau et les données',
   'fabric.editor.taskPlaceholder':
     "Saisissez votre action, utilisez « @ » pour l'assigner à quelqu'un.",
   'fabric.editor.textColor': 'Couleur du texte',

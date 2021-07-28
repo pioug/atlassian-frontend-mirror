@@ -1,5 +1,12 @@
 # @atlaskit/modal-dialog
 
+## 11.7.3
+
+### Patch Changes
+
+- [`f75544b8b57`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f75544b8b57) - [ux] As a part of DSP-895, a 0px margin was applied to button to fix a regression in Safari. This has been reverted as the 0px margin will be moved to css-reset instead. As a part of that same ticket, the specificity of the footer buttons in modal dialog was updated. This has also been reverted now that the 0px margin is being moved to css-reset.
+- Updated dependencies
+
 ## 11.7.2
 
 ### Patch Changes

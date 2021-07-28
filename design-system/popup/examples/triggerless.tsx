@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/core';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
@@ -10,12 +10,17 @@ import { B75 } from '@atlaskit/theme/colors';
 
 import Popup from '../src';
 
+const triggerStyles = css({
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+  backgroundColor: B75,
+});
+const popupStyles = css({ padding: 4 });
 const HighlightPopup = (props: { children: React.ReactNode }) => (
   <Popup
     isOpen
     placement="bottom"
     content={() => (
-      <div css={{ padding: 4 }}>
+      <div css={popupStyles}>
         <ButtonGroup>
           <Button iconBefore={<AddCommentIcon label="Add comment" />} />
           <Button iconBefore={<AddItemIcon label="Add item" />} />
@@ -24,12 +29,7 @@ const HighlightPopup = (props: { children: React.ReactNode }) => (
       </div>
     )}
     trigger={(triggerProps) => (
-      <span
-        css={{
-          backgroundColor: B75,
-        }}
-        {...triggerProps}
-      >
+      <span css={triggerStyles} {...triggerProps}>
         {props.children}
       </span>
     )}

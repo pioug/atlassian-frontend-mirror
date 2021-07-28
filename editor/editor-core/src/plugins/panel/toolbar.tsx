@@ -1,5 +1,5 @@
-import React from 'react';
 import {
+  FloatingToolbarColorPicker,
   FloatingToolbarConfig,
   FloatingToolbarItem,
 } from './../floating-toolbar/types';
@@ -15,21 +15,24 @@ import { PanelType } from '@atlaskit/adf-schema';
 
 import commonMessages from '../../messages';
 import { removePanel, changePanelType } from './actions';
-import { getPluginState } from './pm-plugins/main';
 import { hoverDecoration } from '../base/pm-plugins/decoration';
 import { EditorState } from 'prosemirror-state';
 import { NodeType } from 'prosemirror-model';
 
 import { Command } from '../../types';
 import { panelBackgroundPalette } from '../../ui/ColorPalette/Palettes/panelBackgroundPalette';
-import ColorPickerButton from '../../ui/ColorPickerButton/color-picker-button';
-import { EmojiPickerButton } from './ui/emoji-picker-button';
 import {
   ProviderFactory,
   getPanelTypeBackground,
 } from '@atlaskit/editor-common';
 import { FormattedMessage } from 'react-intl';
-import { EmojiId } from '@atlaskit/emoji';
+import { findPanel } from './utils';
+import { EditorView } from 'prosemirror-view';
+import { findDomRefAtPos } from 'prosemirror-utils';
+import {
+  DEFAULT_BORDER_COLOR,
+  PaletteColor,
+} from '../../ui/ColorPalette/Palettes';
 
 export const messages = defineMessages({
   info: {
@@ -128,77 +131,61 @@ export const getToolbarItems = (
     },
   ];
 
-  // Add custom panel buttons
   if (isCustomPanelEnabled) {
+    const changeColor = (color: string): Command => (state, dispatch) => {
+      changePanelType(PanelType.CUSTOM, { color }, true)(state, dispatch);
+      return false;
+    };
+
+    const changeEmoji = (emoji: string): Command => (state, dispatch) => {
+      changePanelType(
+        PanelType.CUSTOM,
+        { emoji: emoji },
+        true,
+      )(state, dispatch);
+      return false;
+    };
+
+    const panelColor =
+      activePanelType === PanelType.CUSTOM
+        ? activePanelColor || getPanelTypeBackground(PanelType.INFO)
+        : getPanelTypeBackground(
+            activePanelType as Exclude<PanelType, PanelType.CUSTOM>,
+          );
+
+    const defaultPalette =
+      panelBackgroundPalette.find((item) => item.value === panelColor) ||
+      ({
+        label: 'Custom',
+        value: panelColor,
+        border: DEFAULT_BORDER_COLOR,
+      } as PaletteColor);
+
+    const colorPicker: FloatingToolbarColorPicker<Command> = {
+      id: 'editor.panel.colorPicker',
+      title: formatMessage(messages.backgroundColor),
+      type: 'select',
+      selectType: 'color',
+      defaultValue: defaultPalette,
+      options: panelBackgroundPalette,
+      onChange: (option) => changeColor(option.value),
+    };
+
     items.push(
-      {
-        type: 'custom',
-        fallback: [],
-        render: (view, idx) => (
-          <EmojiPickerButton
-            key={idx}
-            view={view}
-            title={formatMessage(messages.emoji)}
-            providerFactory={providerFactory}
-            isSelected={
-              activePanelType === PanelType.CUSTOM && !!activePanelIcon
-            }
-            onChange={(emoji: EmojiId) => {
-              if (!view) {
-                return;
-              }
-              changePanelType(
-                PanelType.CUSTOM,
-                { emoji: emoji.shortName },
-                isCustomPanelEnabled,
-              )(view.state, view.dispatch);
-            }}
-          />
-        ),
-      },
       {
         type: 'separator',
       },
+      colorPicker,
       {
-        type: 'custom',
-        fallback: [],
-        render: (view, idx) => {
-          /*
-            if the active panel type is custom, assign active panel color if available, otherwise get the 'info' panel color
-            if the active panel type is not custom, get and assign the color of the current panel
-          */
-          const panelColor =
-            activePanelType === PanelType.CUSTOM
-              ? activePanelColor || getPanelTypeBackground(PanelType.INFO)
-              : getPanelTypeBackground(
-                  activePanelType as Exclude<PanelType, PanelType.CUSTOM>,
-                );
-
-          return (
-            <ColorPickerButton
-              key={idx}
-              title={formatMessage(messages.backgroundColor)}
-              currentColor={panelColor}
-              colorPalette={panelBackgroundPalette}
-              onChange={(color: string) => {
-                if (!view) {
-                  return;
-                }
-                changePanelType(
-                  PanelType.CUSTOM,
-                  { color },
-                  isCustomPanelEnabled,
-                )(view.state, view.dispatch);
-              }}
-              placement="Panels"
-            />
-          );
-        },
+        id: 'editor.panel.emojiPicker',
+        title: formatMessage(messages.emoji),
+        type: 'emoji-picker',
+        selected: activePanelType === PanelType.CUSTOM,
+        onChange: (emoji) => changeEmoji(emoji),
       },
     );
   }
 
-  // Add delete button
   items.push(
     {
       type: 'separator',
@@ -225,24 +212,34 @@ export const getToolbarConfig = (
   providerFactory: ProviderFactory,
 ): FloatingToolbarConfig | undefined => {
   const { formatMessage } = intl;
-  const panelState = getPluginState(state);
-  if (panelState && panelState.toolbarVisible && panelState.element) {
-    const { activePanelType, activePanelColor, activePanelIcon } = panelState;
+  const panelObject = findPanel(state);
+  if (panelObject) {
     const nodeType = state.schema.nodes.panel;
+    const { panelType, panelColor, panelIcon } = panelObject.node.attrs;
 
+    // force toolbar to be turned on
     const items = getToolbarItems(
       formatMessage,
       nodeType,
       options.UNSAFE_allowCustomPanel || false,
       providerFactory,
-      activePanelType,
-      activePanelColor,
-      activePanelIcon,
+      panelType,
+      options.UNSAFE_allowCustomPanel ? panelColor : undefined,
+      options.UNSAFE_allowCustomPanel ? panelIcon : undefined,
     );
+
+    const getDomRef = (editorView: EditorView) => {
+      const domAtPos = editorView.domAtPos.bind(editorView);
+      const element = findDomRefAtPos(
+        panelObject.pos,
+        domAtPos,
+      ) as HTMLDivElement;
+      return element;
+    };
 
     return {
       title: 'Panel floating controls',
-      getDomRef: () => panelState.element,
+      getDomRef,
       nodeType,
       items,
     };

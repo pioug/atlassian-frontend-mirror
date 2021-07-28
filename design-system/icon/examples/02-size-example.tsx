@@ -18,14 +18,14 @@ import ArrowLeftIcon from '../glyph/arrow-left';
 import ArrowRightIcon from '../glyph/arrow-right';
 import ArrowUpIcon from '../glyph/arrow-up';
 
-const iconRow = css({
+const iconRowStyles = css({
   display: 'flex',
   marginTop: 8,
   justifyContent: 'flex-start',
   flexDirection: 'row',
 });
 
-const iconWrapper = css({
+const iconWrapperStyles = css({
   margin: 4,
 });
 
@@ -63,10 +63,10 @@ const IconSizeExample = () => {
           </div>
         ))}
       </ButtonGroup>
-      <div id="size-example" css={iconRow}>
+      <div id="size-example" css={iconRowStyles}>
         {demoIcons.map((Icon, i) => (
           // eslint-disable-next-line react/no-array-index-key
-          <span css={iconWrapper} key={i}>
+          <span css={iconWrapperStyles} key={i}>
             <Icon label={`Icon ${i}`} size={size} />
           </span>
         ))}

@@ -42,6 +42,7 @@ export const emojiRequest = (
     queryParams: {
       ...scaleQueryParams,
       ...queryParams,
+      preferredRepresentation: 'IMAGE',
     },
   };
   return serviceUtils.requestService<EmojiServiceResponse>(

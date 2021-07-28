@@ -42,6 +42,7 @@ const EXPAND_SELECTED_BACKGROUND = themed({
   dark: 'rgba(9, 10, 11, 0.29)',
 });
 
+const EXPAND_FOCUSED_BORDER_COLOR = colors.B300;
 const EXPAND_COLLAPSED_BORDER_COLOR = 'transparent';
 const EXPAND_EXPANDED_BORDER_COLOR = themed({
   light: colors.N40A,
@@ -50,6 +51,7 @@ const EXPAND_EXPANDED_BORDER_COLOR = themed({
 
 export interface StyleProps {
   expanded?: boolean;
+  focused?: boolean;
   'data-node-type'?: 'expand' | 'nestedExpand';
   'data-title'?: string;
 }
@@ -80,8 +82,12 @@ export const ExpandLayoutWrapper = styled.div`
 const ContainerStyles = css<StyleProps>`
   border-width: 1px;
   border-style: solid;
-  border-color: ${({ expanded }) =>
-    !expanded ? EXPAND_COLLAPSED_BORDER_COLOR : EXPAND_EXPANDED_BORDER_COLOR};
+  border-color: ${({ expanded, focused }) => {
+    const expandedBorderColor = expanded
+      ? EXPAND_EXPANDED_BORDER_COLOR
+      : EXPAND_COLLAPSED_BORDER_COLOR;
+    return focused ? EXPAND_FOCUSED_BORDER_COLOR : expandedBorderColor;
+  }};
   border-radius: ${BORDER_RADIUS}px;
   min-height: 25px;
   background: ${({ expanded }) =>
@@ -175,7 +181,6 @@ const TitleContainerStyles = css`
   // Prevent browser selection being inside the title container
   user-select: none;
 
-  /* TODO: Fix outline for keyboard navigation */
   &:focus {
     outline: 0;
   }

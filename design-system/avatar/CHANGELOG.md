@@ -1,5 +1,12 @@
 # @atlaskit/avatar
 
+## 20.3.3
+
+### Patch Changes
+
+- [`0d0ecc6e790`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0d0ecc6e790) - Corrects eslint supressions.
+- Updated dependencies
+
 ## 20.3.2
 
 ### Patch Changes

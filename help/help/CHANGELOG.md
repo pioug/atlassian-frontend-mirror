@@ -1,5 +1,17 @@
 # @atlaskit/help
 
+## 4.0.5
+
+### Patch Changes
+
+- [`0845b2c831a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0845b2c831a) - [ux] Fix articles slide-out animation
+
+## 4.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.0.3
 
 ### Patch Changes

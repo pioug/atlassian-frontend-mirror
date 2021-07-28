@@ -1,45 +1,62 @@
-import * as colors from '@atlaskit/theme/colors';
-import { createTheme } from '@atlaskit/theme/components';
-
+import {
+  B400,
+  B50,
+  B500,
+  G400,
+  G50,
+  G500,
+  N0,
+  N40,
+  N500,
+  N800,
+  P400,
+  P50,
+  P500,
+  R400,
+  R50,
+  R500,
+  Y500,
+  Y75,
+} from '@atlaskit/theme/colors';
 /**
  * Note:
  * Lozenge does not support dark mode at the moment.
  * Hence, color values are the same.
  */
 export const defaultBackgroundColor = {
-  default: { light: colors.N40, dark: colors.N40 },
-  inprogress: { light: colors.B50, dark: colors.B50 },
-  moved: { light: colors.Y75, dark: colors.Y75 },
-  new: { light: colors.P50, dark: colors.P50 },
-  removed: { light: colors.R50, dark: colors.R50 },
-  success: { light: colors.G50, dark: colors.G50 },
+  default: { light: N40, dark: N40 },
+  inprogress: { light: B50, dark: B50 },
+  moved: { light: Y75, dark: Y75 },
+  new: { light: P50, dark: P50 },
+  removed: { light: R50, dark: R50 },
+  success: { light: G50, dark: G50 },
 };
 
 export const defaultTextColor = {
-  default: { light: colors.N500, dark: colors.N500 },
-  inprogress: { light: colors.B500, dark: colors.B500 },
-  moved: { light: colors.N800, dark: colors.N800 },
-  new: { light: colors.P500, dark: colors.P500 },
-  removed: { light: colors.R500, dark: colors.R500 },
-  success: { light: colors.G500, dark: colors.G500 },
+  default: { light: N500, dark: N500 },
+  inprogress: { light: B500, dark: B500 },
+  moved: { light: N800, dark: N800 },
+  new: { light: P500, dark: P500 },
+  removed: { light: R500, dark: R500 },
+  success: { light: G500, dark: G500 },
 };
 
 export const boldBackgroundColor = {
-  default: { light: colors.N500, dark: colors.N500 },
-  inprogress: { light: colors.B400, dark: colors.B400 },
-  moved: { light: colors.Y500, dark: colors.Y500 },
-  new: { light: colors.P400, dark: colors.P400 },
-  removed: { light: colors.R400, dark: colors.R400 },
-  success: { light: colors.G400, dark: colors.G400 },
+  default: { light: N500, dark: N500 },
+  inprogress: { light: B400, dark: B400 },
+  moved: { light: Y500, dark: Y500 },
+  new: { light: P400, dark: P400 },
+  removed: { light: R400, dark: R400 },
+  success: { light: G400, dark: G400 },
 };
 
 export const boldTextColor = {
-  default: { light: colors.N0, dark: colors.N0 },
-  inprogress: { light: colors.N0, dark: colors.N0 },
-  moved: { light: colors.N800, dark: colors.N800 },
-  new: { light: colors.N0, dark: colors.N0 },
-  removed: { light: colors.N0, dark: colors.N0 },
-  success: { light: colors.N0, dark: colors.N0 },
+  default: { light: N0, dark: N0 },
+  inprogress: { light: N0, dark: N0 },
+  moved: { light: N800, dark: N800 },
+  new: { light: N0, dark: N0 },
+  removed: { light: N0, dark: N0 },
+  success: { light: N0, dark: N0 },
 };
 
 export type ThemeAppearance =
@@ -48,47 +65,4 @@ export type ThemeAppearance =
   | 'moved'
   | 'new'
   | 'removed'
-  | 'success'
-  | Record<string, any>;
-
-export interface ThemeProps {
-  appearance: ThemeAppearance | Record<string, any>;
-  isBold: boolean;
-  maxWidth: number | string;
-}
-
-export interface ThemeTokens {
-  backgroundColor: string;
-  maxWidth: number | string;
-  textColor: string;
-}
-
-/**
- * __Theme__
- *
- * A theme returns a set of Providers and Consumers for theming lozenges.
- */
-export const Theme = createTheme<ThemeTokens, ThemeProps>(
-  ({ appearance, isBold, maxWidth }) => ({
-    ...(typeof appearance === 'object'
-      ? {
-          backgroundColor: (isBold
-            ? boldBackgroundColor
-            : defaultBackgroundColor
-          ).default.light,
-          textColor: (isBold ? boldTextColor : defaultTextColor).default.light,
-          ...appearance,
-        }
-      : {
-          backgroundColor: (isBold
-            ? boldBackgroundColor[appearance]
-            : defaultBackgroundColor[appearance]
-          ).light,
-          textColor: (isBold
-            ? boldTextColor[appearance]
-            : defaultTextColor[appearance]
-          ).light,
-        }),
-    maxWidth,
-  }),
-);
+  | 'success';

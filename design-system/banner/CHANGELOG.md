@@ -1,5 +1,17 @@
 # @atlaskit/banner
 
+## 11.3.0
+
+### Minor Changes
+
+- [`33f360c4517`](https://bitbucket.org/atlassian/atlassian-frontend/commits/33f360c4517) - Changed styled-components of Banner to emotion.
+
+### Patch Changes
+
+- [`0d0ecc6e790`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0d0ecc6e790) - Corrects eslint supressions.
+- [`8279380176b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8279380176b) - Internal code changes.
+- Updated dependencies
+
 ## 11.2.3
 
 ### Patch Changes

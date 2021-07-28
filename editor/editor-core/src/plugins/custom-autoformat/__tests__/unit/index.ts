@@ -22,7 +22,7 @@ import { pluginKey } from '../../utils';
 // Editor plugins
 import customAutoformatPlugin from '../../index';
 import basePlugin from '../../../base';
-import listPlugin from '../../../lists';
+import listPlugin from '../../../list';
 
 describe('custom-autoformat', () => {
   const createEditor = createProsemirrorEditorFactory();

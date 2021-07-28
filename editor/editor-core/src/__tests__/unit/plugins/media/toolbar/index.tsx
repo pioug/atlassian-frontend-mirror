@@ -68,7 +68,7 @@ import { ProviderFactory } from '@atlaskit/editor-common';
 import {
   getToolbarItems,
   findToolbarBtn,
-} from '../../floating-toolbar/_helpers';
+} from '../../../../../plugins/floating-toolbar/__tests__/_helpers';
 import { Command } from '../../../../../types';
 import { MediaPluginState } from '../../../../../plugins/media/pm-plugins/types';
 

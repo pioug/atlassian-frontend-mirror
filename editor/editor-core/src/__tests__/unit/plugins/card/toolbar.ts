@@ -24,7 +24,7 @@ import UnlinkIcon from '@atlaskit/icon/glyph/editor/unlink';
 
 import { FloatingToolbarButton } from '../../../../plugins/floating-toolbar/types';
 import { Command } from '../../../../types';
-import { getToolbarItems } from '../floating-toolbar/_helpers';
+import { getToolbarItems } from '../../../../plugins/floating-toolbar/__tests__/_helpers';
 import * as CardUtils from '../../../../plugins/card/utils';
 
 describe('card', () => {

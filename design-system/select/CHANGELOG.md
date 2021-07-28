@@ -1,5 +1,12 @@
 # @atlaskit/select
 
+## 15.0.2
+
+### Patch Changes
+
+- [`ce350569ced`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ce350569ced) - The `aria-live` prop is now `assertive` by default to help option selection to stay in sync with screen reader announcements.
+- Updated dependencies
+
 ## 15.0.1
 
 ### Patch Changes

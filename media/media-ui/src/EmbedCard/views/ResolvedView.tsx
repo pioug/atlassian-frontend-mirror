@@ -22,6 +22,8 @@ export interface EmbedCardResolvedViewProps {
   isFrameVisible?: boolean;
   /** The src to be used for the `iframe` */
   preview?: { src: string; aspectRatio?: number };
+  /** A flag that determines whether link source can be trusted in iframe **/
+  isTrusted?: boolean;
   /** The optional click handler */
   onClick?: (evt: React.MouseEvent) => void;
   /** For testing purposes only. */
@@ -43,6 +45,7 @@ export const EmbedCardResolvedView = React.forwardRef<
       isFrameVisible,
       preview,
       title,
+      isTrusted,
       testId = 'embed-card-resolved-view',
       inheritDimensions,
     },
@@ -70,7 +73,12 @@ export const EmbedCardResolvedView = React.forwardRef<
         onClick={onClick}
         inheritDimensions={inheritDimensions}
       >
-        <Frame url={preview?.src} testId={testId} ref={embedIframeRef} />
+        <Frame
+          url={preview?.src}
+          isTrusted={isTrusted}
+          testId={testId}
+          ref={embedIframeRef}
+        />
       </ExpandedFrame>
     );
   },

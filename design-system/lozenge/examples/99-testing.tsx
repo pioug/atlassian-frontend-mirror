@@ -18,11 +18,8 @@ export default function Example() {
           </Lozenge>
         </p>
         <p>
-          appearance: {`{ backgroundColor: 'green' }`}{' '}
-          <Lozenge
-            appearance={{ backgroundColor: 'green' }}
-            testId="themed-lozenge"
-          >
+          style: {`{ backgroundColor: 'green' }`}{' '}
+          <Lozenge style={{ backgroundColor: 'green' }} testId="themed-lozenge">
             Success
           </Lozenge>
         </p>

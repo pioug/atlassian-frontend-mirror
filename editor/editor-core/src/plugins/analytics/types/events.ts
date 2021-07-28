@@ -26,12 +26,15 @@ import { DateEventPayload } from './date-events';
 import { SelectionEventPayload } from './selection-events';
 import { CreateLinkInlineDialogEventPayload } from './link-tool-bar-events';
 import { ExtensionEventPayload } from './extension-events';
-import { UnsupportedContentPayload } from '@atlaskit/editor-common';
+import {
+  UnsupportedContentPayload,
+  UserBrowserExtensionResults,
+} from '@atlaskit/editor-common';
 import { AvatarEventPayload } from './avatar';
 
-export type AnalyticsEventPayload =
+export type AnalyticsEventPayload<T = void> =
   | AvatarEventPayload
-  | GeneralEventPayload
+  | GeneralEventPayload<T>
   | FormatEventPayload
   | SubstituteEventPayload
   | InsertEventPayload
@@ -118,6 +121,7 @@ type SynchronyErrorAEP = OperationalAEP<
   {
     error: Error;
     docStructure?: string | SimplifiedNode;
+    browserExtensions?: UserBrowserExtensionResults;
   },
   undefined
 >;
@@ -164,6 +168,7 @@ type ComponentCrashErrorAEP = OperationalAEP<
     browserInfo?: string;
     errorId?: string;
     docStructure?: string | SimplifiedNode;
+    browserExtensions?: UserBrowserExtensionResults;
   },
   undefined
 >;

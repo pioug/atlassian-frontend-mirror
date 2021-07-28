@@ -25,7 +25,7 @@ import {
   codeBlockStyles,
   highlightingCodeBlockStyles,
 } from '../../plugins/code-block/styles';
-import { listsStyles } from '../../plugins/lists/styles';
+import { listsStyles } from '../../plugins/list/styles';
 import { ruleStyles } from '../../plugins/rule/styles';
 import { mediaStyles } from '../../plugins/media/styles';
 import { layoutStyles } from '../../plugins/layout/styles';

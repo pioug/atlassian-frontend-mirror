@@ -1,25 +1,25 @@
 /** @jsx jsx */
 import { FC, useState } from 'react';
 
-import { jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/core';
 
 import Button from '@atlaskit/button/standard-button';
 import { Placement } from '@atlaskit/popper';
 
 import Popup from '../src';
 
-const spacerCSS = {
+const spacerStyles = css({
   margin: '250px',
-};
+});
 
-const sizedContentCSS = {
-  alignItems: 'center',
+const sizedContentStyles = css({
   height: '80px',
-  overflow: 'auto',
   padding: '30px',
+  alignItems: 'center',
+  overflow: 'auto',
   textAlign: 'center',
   verticalAlign: 'center',
-} as const;
+});
 
 type PopupProps = {
   setPosition(): void;
@@ -28,7 +28,7 @@ type PopupProps = {
 
 const PopupContent: FC<PopupProps> = ({ setPosition, placement }) => {
   return (
-    <div id="popup-content" css={sizedContentCSS}>
+    <div id="popup-content" css={sizedContentStyles}>
       <Button testId="popup-position" onClick={() => setPosition()}>
         Toggle Position
       </Button>
@@ -76,7 +76,7 @@ export default () => {
   };
 
   return (
-    <div css={spacerCSS}>
+    <div css={spacerStyles}>
       <Popup
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}

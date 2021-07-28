@@ -25,6 +25,7 @@ const getResolvedProps = (overrides = {}): EmbedCardResolvedViewProps => ({
     text: 'Dropbox',
     icon: 'https://www.dropbox.com/static/30168/images/favicon.ico',
   },
+  isTrusted: true,
   onClick: mockOnClick,
   ...overrides,
 });
@@ -90,6 +91,26 @@ describe('EmbedCard Views', () => {
       );
       const iframeEl = await container.querySelector('iframe');
       expect(iframeEl).toBe(ref.current);
+    });
+
+    it('renders sandbox prop on <iframe> element on untrusted link', async () => {
+      const props = getResolvedProps({ isTrusted: false });
+      const { container } = render(
+        <EmbedCardResolvedView testId="embed-card-resolved-view" {...props} />,
+      );
+      const iframeEl = await container.querySelector('iframe');
+      expect(iframeEl?.getAttribute('sandbox')).toBe(
+        'allow-downloads allow-forms allow-popups allow-popups-to-escape-sandbox allow-presentation allow-same-origin allow-scripts',
+      );
+    });
+
+    it('does not renders sandbox prop on <iframe> element on trusted link', async () => {
+      const props = getResolvedProps({ isTrusted: true });
+      const { container } = render(
+        <EmbedCardResolvedView testId="embed-card-resolved-view" {...props} />,
+      );
+      const iframeEl = await container.querySelector('iframe');
+      expect(iframeEl?.getAttribute('sandbox')).toBeNull();
     });
   });
 

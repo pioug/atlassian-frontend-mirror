@@ -39,7 +39,7 @@ import tasksDecisionsPlugin from '../../../../plugins/tasks-and-decisions';
 import selectionPlugin from '../../../../plugins/selection';
 import mediaPlugin from '../../../../plugins/media';
 import analyticsPlugin from '../../../../plugins/analytics';
-import listsPlugin from '../../../../plugins/lists';
+import listPlugin from '../../../../plugins/list';
 import blockTypePlugin from '../../../../plugins/block-type';
 import codeBlockPlugin from '../../../../plugins/code-block';
 import rulePlugin from '../../../../plugins/rule';
@@ -67,7 +67,7 @@ describe('table keymap', () => {
     .add(expandPlugin)
     .add(tasksDecisionsPlugin)
     .add(panelPlugin)
-    .add(listsPlugin)
+    .add(listPlugin)
     .add(blockTypePlugin)
     .add(codeBlockPlugin)
     .add(rulePlugin)

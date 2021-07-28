@@ -79,7 +79,7 @@ export type FloatingToolbarCustom<T> = {
 export type FloatingToolbarSelect<T, V = SelectOption> = {
   id: string;
   type: 'select';
-  selectType: 'list' | 'color' | 'emoji' | 'date';
+  selectType: 'list' | 'emoji' | 'date' | 'color';
   title?: string;
   options: V[];
   hidden?: boolean;
@@ -95,6 +95,16 @@ export type FloatingToolbarColorPicker<T> = FloatingToolbarSelect<
   PaletteColor
 > & {
   selectType: 'color';
+};
+
+export type FloatingToolbarEmojiPicker<T> = {
+  id: string;
+  type: 'emoji-picker';
+  title?: string;
+  hidden?: boolean;
+  defaultValue?: string;
+  selected?: boolean;
+  onChange: (selected: string) => T;
 };
 
 export type FloatingToolbarDatePicker<T> = FloatingToolbarSelect<T, number> & {
@@ -139,6 +149,7 @@ export type FloatingToolbarFallbackItem<T> =
   | FloatingToolbarDropdown<T>
   | FloatingToolbarSelect<T>
   | FloatingToolbarColorPicker<T>
+  | FloatingToolbarEmojiPicker<T>
   | FloatingToolbarDatePicker<T>
   | FloatingToolbarInput<T>
   | FloatingToolbarSeparator;
@@ -148,6 +159,7 @@ export type FloatingToolbarItem<T> =
   | FloatingToolbarDropdown<T>
   | FloatingToolbarSelect<T>
   | FloatingToolbarColorPicker<T>
+  | FloatingToolbarEmojiPicker<T>
   | FloatingToolbarDatePicker<T>
   | FloatingToolbarInput<T>
   | FloatingToolbarCustom<T>

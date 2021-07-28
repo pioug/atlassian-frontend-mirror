@@ -33,6 +33,7 @@ const getMetadataFromResolvedProps = (props: BlockCardResolvedViewProps) => ({
   icon: props.icon,
   url: props.link,
   byline: props.byline,
+  isTrusted: props.isTrusted,
 });
 
 const getInvokeOpts = (

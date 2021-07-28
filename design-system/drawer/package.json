@@ -26,11 +26,11 @@
   "dependencies": {
     "@atlaskit/analytics-next": "^8.2.0",
     "@atlaskit/avatar": "^20.0.0",
-    "@atlaskit/blanket": "^12.0.0",
+    "@atlaskit/blanket": "^12.1.0",
     "@atlaskit/icon": "^21.7.0",
     "@atlaskit/item": "^12.0.0",
     "@atlaskit/portal": "^4.0.0",
-    "@atlaskit/theme": "^11.3.0",
+    "@atlaskit/theme": "^11.4.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/core": "^10.0.9",
     "chromatism": "^2.6.0",
@@ -45,7 +45,7 @@
   },
   "devDependencies": {
     "@atlaskit/build-utils": "*",
-    "@atlaskit/button": "^15.1.0",
+    "@atlaskit/button": "^16.0.0",
     "@atlaskit/docs": "*",
     "@atlaskit/dropdown-menu": "^10.1.0",
     "@atlaskit/quick-search": "^8.0.0",

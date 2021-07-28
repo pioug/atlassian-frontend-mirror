@@ -5,7 +5,6 @@ interface EditorConfigurationProvider {
   isQuickInsertEnabled(): boolean;
   isSelectionObserverEnabled(): boolean;
   isCollabProviderEnabled(): boolean;
-  isPredictableListEnabled(): boolean;
   isScrollGutterPersisted(): boolean;
 }
 
@@ -23,7 +22,6 @@ interface EditorConfig {
   enableQuickInsert?: boolean;
   selectionObserverEnabled?: boolean;
   allowCollabProvider?: boolean;
-  allowPredictableList?: boolean;
   useUnpredictableInputRule?: boolean;
   placeholder?: string;
   allowEmptyADFCheck?: boolean;
@@ -39,7 +37,6 @@ export default class MobileEditorConfiguration
   private enableQuickInsert: boolean = false;
   private selectionObserverEnabled: boolean = false;
   private allowCollabProvider: boolean = false;
-  private allowPredictableList: boolean = true;
   private useUnpredictableInputRule: boolean = true;
   private placeholder?: string | undefined;
   private allowEmptyADFCheck: boolean = false;
@@ -70,10 +67,6 @@ export default class MobileEditorConfiguration
       config.allowCollabProvider !== undefined
         ? config.allowCollabProvider
         : this.allowCollabProvider;
-    this.allowPredictableList =
-      config.allowPredictableList !== undefined
-        ? config.allowPredictableList
-        : this.allowPredictableList;
     this.useUnpredictableInputRule =
       config.useUnpredictableInputRule !== undefined
         ? config.useUnpredictableInputRule
@@ -116,10 +109,6 @@ export default class MobileEditorConfiguration
 
   isCollabProviderEnabled(): boolean {
     return this.allowCollabProvider;
-  }
-
-  isPredictableListEnabled(): boolean {
-    return this.allowPredictableList;
   }
 
   isUnpredictableInputRuleEnabled(): boolean {

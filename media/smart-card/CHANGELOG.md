@@ -1,5 +1,16 @@
 # @atlaskit/smart-card
 
+## 15.5.0
+
+### Minor Changes
+
+- [`96b6fb1c6b9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/96b6fb1c6b9) - Add sandbox property to Smart Links embed
+- [`c0fa45830e1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c0fa45830e1) - Add sandbox prop to Smart Links block card preview iframe
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 15.4.0
 
 ### Minor Changes

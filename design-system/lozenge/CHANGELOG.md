@@ -1,5 +1,107 @@
 # @atlaskit/lozenge
 
+## 11.0.0
+
+### Major Changes
+
+- [`1cd379a2199`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1cd379a2199) - - In this version we made `Lozenge` dramatically faster and lighter. 🤩
+
+  - General performance improvements.
+
+  - We are now exporting a new `style` prop which you can use to pass a custom `backgroundColor` and `color`.
+
+  - **BREAKING** We have removed the deprecated `theme` prop. Don't worry if you do use the theming API, you can now use the new `style` prop for custom styling.
+
+  **Before**:
+
+  ```tsx
+  import Lozenge from '@atlaskit/lozenge';
+
+  type GetThemeTokensFn<ThemeTokens, ThemeProps> = (
+    props: ThemeProps,
+  ) => ThemeTokens;
+
+  const lozengeTheme = (
+    getTokens: GetThemeTokensFn<ThemeTokens, ThemeProps>,
+    themeProps: ThemeProps,
+  ): ThemeTokens => {
+    const defaultTokens = getTokens(themeProps);
+
+    if (themeProps.appearance === 'removed') {
+      return {
+        ...defaultTokens,
+        textColor: 'grey',
+      };
+      return defaultTokens;
+    }
+  };
+
+  <Lozenge appearance="removed" theme={lozengeTheme}>
+    removed
+  </Lozenge>;
+  ```
+
+  **After**:
+
+  ```tsx
+  import Badge, { BadgeProps } from '@atlaskit/badge';
+
+  <Lozenge appearance="removed" style={{ color: 'grey' }}>
+    removed
+  </Lozenge>;
+  ```
+
+  - **BREAKING** We have removed the support of `appearance` prop object value. Please use `style` prop for customization.
+
+  **Before**:
+
+  ```tsx
+  import Lozenge from '@atlaskit/lozenge';
+
+  <Lozenge appearance={{ backgroundColor: 'blue', textColor: 'white' }}>
+    custom
+  </Lozenge>;
+  ```
+
+  **After**:
+
+  ```tsx
+  import Lozenge from '@atlaskit/lozenge';
+
+  <Lozenge style={{ backgroundColor: 'blue', color: 'white' }}>custom</Lozenge>;
+  ```
+
+  **Running the codemod cli**
+
+  To run the codemod: **You first need to have the latest version installed**
+
+  ```bash
+  yarn upgrade @atlaskit/lozenge@^11.0.0
+  ```
+
+  Once upgraded, use `@atlaskit/codemod-cli` via `npx`:
+
+  ```bash
+  npx @atlaskit/codemod-cli --parser babel --extensions ts,tsx,js [relativePath]
+  ```
+
+  The CLI will show a list of components and versions so select `@atlaskit/lozenge@^11.0.0` and you will automatically be upgraded.
+
+  What will be changed:
+
+  - It will move `backgroundColor` and `textColor` from `appearance` prop (if object is passed as `appearance` prop value) to `style` prop.
+
+  Run `npx @atlaskit/codemod-cli -h` for more details on usage.
+
+  For Atlassians,
+
+  refer to the [documentation](https://developer.atlassian.com/cloud/framework/atlassian-frontend/codemods/01-atlassian-codemods/) for more details on the codemod CLI.
+
+### Patch Changes
+
+- [`0d0ecc6e790`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0d0ecc6e790) - Corrects eslint supressions.
+- Updated dependencies
+
 ## 10.1.4
 
 ### Patch Changes

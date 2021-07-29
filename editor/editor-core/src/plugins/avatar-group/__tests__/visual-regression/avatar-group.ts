@@ -28,13 +28,13 @@ describe('Avatar Group:', () => {
 
   it('should render avatar-group as plugin when showAvatarGroupAsPlugin feature flag is set true', async () => {
     await initEditor(adf, { width: 1000, height: 300 }, true);
-    await page.waitFor('[data-testid="avatar-group-in-plugin"]');
+    await page.waitForSelector('[data-testid="avatar-group-in-plugin"]');
     await snapshot(page, undefined, '[data-testid="avatar-group-in-plugin"]');
   });
 
   it('should not render avatar-group as plugin when showAvatarGroupAsPlugin feature flag is not set true', async () => {
     await initEditor(adf, { width: 1000, height: 300 }, false);
-    await page.waitFor('[data-testid="avatar-group-outside-plugin"]');
+    await page.waitForSelector('[data-testid="avatar-group-outside-plugin"]');
     await snapshot(
       page,
       undefined,

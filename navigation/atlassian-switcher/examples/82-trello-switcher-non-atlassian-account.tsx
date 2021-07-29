@@ -13,7 +13,7 @@ import { getAvailableProductsUrl } from '../src/common/providers/trello/products
 import { FakeTrelloChrome } from './helpers/FakeTrelloChrome';
 import {
   createJoinableSitesProvider,
-  defaultJoinableSitesFetch,
+  fetchProductRecommendations,
 } from '../src/index';
 
 const mockEndpointsDataTransformer: DataTransformer = (originalMockData) => {
@@ -35,7 +35,7 @@ const mockEndpointsDataTransformer: DataTransformer = (originalMockData) => {
 };
 
 const joinableSitesDataProvider = createJoinableSitesProvider(
-  defaultJoinableSitesFetch('/gateway/api'),
+  fetchProductRecommendations('/gateway/api/invitations'),
 );
 
 class InlineDialogSwitcherExample extends React.Component {

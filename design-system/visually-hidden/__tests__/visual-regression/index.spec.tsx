@@ -13,7 +13,7 @@ describe('Snapshot Test', () => {
     const element = await page.waitForSelector(
       '[data-testid="visually-hidden"]',
     );
-    const image = await element.screenshot();
+    const image = await element?.screenshot();
     expect(image).toMatchProdImageSnapshot();
   });
 });

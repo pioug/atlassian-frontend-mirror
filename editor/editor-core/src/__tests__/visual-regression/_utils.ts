@@ -458,18 +458,13 @@ async function takeSnapshot(
   const editor = await page.$(selector);
 
   // Wait for a frame because we are using RAF to throttle floating toolbar render
-  animationFrame(page);
+  await animationFrame(page);
 
   // Try to take a screenshot of only the editor.
   // Otherwise take the whole page.
-  let image: string;
-  if (editor) {
-    image = await editor.screenshot();
-  } else {
-    image = await page.screenshot();
-  }
+  const image = editor ? await editor.screenshot() : await page.screenshot();
 
-  return compareScreenshot(image, tolerance, {
+  return compareScreenshot(image as string, tolerance, {
     useUnsafeThreshold,
     customSnapshotIdentifier,
   });
@@ -602,7 +597,7 @@ export const retryUntil = (
   condition: () => Promise<boolean>,
   ms: number = 1000,
 ) => {
-  return new Promise(async (resolve) => {
+  return new Promise<void>(async (resolve) => {
     const intervalId = setInterval(async () => {
       await work();
       if (await condition()) {

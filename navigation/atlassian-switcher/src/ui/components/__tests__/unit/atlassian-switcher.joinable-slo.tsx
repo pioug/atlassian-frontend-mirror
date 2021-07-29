@@ -14,7 +14,7 @@ import { enrichFetchError } from '../../../../common/utils/fetch';
 import {
   createAvailableProductsProvider,
   createJoinableSitesProvider,
-  defaultJoinableSitesFetch,
+  fetchProductRecommendations,
 } from '../../../../create-custom-provider';
 import { flushAsyncOperations } from '../../../../../test-helpers/flushPromises';
 import { createAnalyticsListenerEventsSpy } from '../../../../../test-helpers/createAnalyticsListenerEventsSpy';
@@ -73,7 +73,9 @@ type Providers = {
 };
 
 function createDefaultJoinableSitesProvider() {
-  return createJoinableSitesProvider(defaultJoinableSitesFetch('/gateway/api'));
+  return createJoinableSitesProvider(
+    fetchProductRecommendations('/gateway/api/invitations'),
+  );
 }
 
 async function executeTest(
@@ -139,19 +141,21 @@ async function executeTest(
     beforeEach(() => {
       mockEndpoints(product, (originalData) => ({
         ...originalData,
-        JOINABLE_SITES_DATA: {
-          sites: [
-            {
-              cloudId: 'cloud-1',
-              url: 'https://teamsinspace.com',
-              products: {
-                'jira-software.ondemand': [],
+        PRODUCT_RECOMMENDATIONS_DATA: {
+          capability: {
+            DIRECT_ACCESS: [
+              {
+                resourceId: 'ari:cloud:jira-software::site/example-cloud-id',
+                userAccessLevel: 'EXTERNAL',
+                roleAri: 'ari:cloud:jira-software::role/product/member',
+                url:
+                  'https://example0.jira-dev.com/secure/BrowseProjects.jspa?selectedProjectType=software',
+                displayName: 'example0',
+                avatarUrl:
+                  'https://site-admin-avatar-cdn.staging.public.atl-paas.net/avatars/240/lightbulb.png',
               },
-              displayName: 'Example',
-              avatarUrl: 'http://avatarSite/avatar',
-              relevance: 0,
-            },
-          ],
+            ],
+          },
         },
       }));
       __setSwitchToShouldThrowException(false);
@@ -160,7 +164,7 @@ async function executeTest(
     test('If joinable sites data provider fails, then emit bad joinable site SLI', async () => {
       mockEndpoints(product, (originalData) => ({
         ...originalData,
-        JOINABLE_SITES_DATA: new Promise((_, reject) => {
+        PRODUCT_RECOMMENDATIONS_DATA: new Promise((_, reject) => {
           setTimeout(
             () => reject(enrichFetchError(new Error('Error'), 500)),
             5000,

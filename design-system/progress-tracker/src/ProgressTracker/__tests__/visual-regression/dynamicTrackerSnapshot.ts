@@ -33,7 +33,7 @@ describe.skip('Snapshot Test for Progress Tracker', () => {
     page.click(add);
     page.click(next);
 
-    await page.waitFor(500);
+    await page.waitForTimeout(500);
     const image = await takeElementScreenShot(page, tracker);
     expect(image).toMatchProdImageSnapshot();
   });
@@ -62,7 +62,7 @@ describe.skip('Snapshot Test for Progress Tracker', () => {
     page.click(remove);
     page.click(remove);
 
-    await page.waitFor(500);
+    await page.waitForTimeout(500);
     const image = await takeElementScreenShot(page, tracker);
     expect(image).toMatchProdImageSnapshot();
   });

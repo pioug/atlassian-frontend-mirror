@@ -4,11 +4,10 @@
 
 ### Major Changes
 
-- [`1f9aa6747c7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1f9aa6747c7) - [ux] This fixes a regression in Safari where 2px padding is added to the Button component. Before you upgrade, please ensure you are not relying on overriding styles in the Button element such as applying your own margin. Also ensure you do not have a group of two or more buttons that are not enclosed within a ButtonGroup. This is a breaking change - please ensure you are using a ButtonGroup or robust layout styles that do not rely on Button internals.
+- An accidental release occurred, you can safely upgrade without making any changes as there is no difference between 15.1.8 and 16.0.0.
 
 ### Patch Changes
 
-- [`f75544b8b57`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f75544b8b57) - [ux] As a part of DSP-895, a 0px margin was applied to button to fix a regression in Safari. This has been reverted as the 0px margin will be moved to css-reset instead. As a part of that same ticket, the specificity of the footer buttons in modal dialog was updated. This has also been reverted now that the 0px margin is being moved to css-reset.
 - Updated dependencies
 
 ## 15.1.8

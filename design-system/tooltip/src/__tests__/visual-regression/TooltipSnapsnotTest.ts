@@ -24,7 +24,7 @@ describe('Snapshot Test', () => {
     await page.click(tooltipBtn);
     await page.waitForSelector('.atlaskit-portal > .Tooltip');
     // The tooltip is visible after 300 ms
-    await page.waitFor(400);
+    await page.waitForTimeout(400);
     await page.setViewport({ width: 150, height: 100 });
     const image = await page.screenshot();
     expect(image).toMatchProdImageSnapshot();

@@ -99,29 +99,32 @@ export const Heading = ({
   </h6>
 );
 
-export default () =>
-  Object.entries(colorGroups).map(([groupName, groupColors], index) => (
-    <div key={groupName}>
-      <Heading>{separateWords(groupName)}</Heading>
+export default () => (
+  <div id="colors">
+    {Object.entries(colorGroups).map(([groupName, groupColors]) => (
+      <div key={groupName}>
+        <Heading>{separateWords(groupName)}</Heading>
 
-      <div data-testid="color-palette">
-        {groupColors.map((colorData) => {
-          const actualColor =
-            typeof colorData.value === 'string'
-              ? colorData.value
-              : colorData.value();
+        <div data-testid="color-palette">
+          {groupColors.map((colorData) => {
+            const actualColor =
+              typeof colorData.value === 'string'
+                ? colorData.value
+                : colorData.value();
 
-          return (
-            <ColorPill
-              key={colorData.name}
-              name={colorData.name}
-              primary={actualColor}
-              secondary={
-                color(actualColor).isLight() ? colors.N800 : colors.N10
-              }
-            />
-          );
-        })}
+            return (
+              <ColorPill
+                key={colorData.name}
+                name={colorData.name}
+                primary={actualColor}
+                secondary={
+                  color(actualColor).isLight() ? colors.N800 : colors.N10
+                }
+              />
+            );
+          })}
+        </div>
       </div>
-    </div>
-  ));
+    ))}
+  </div>
+);

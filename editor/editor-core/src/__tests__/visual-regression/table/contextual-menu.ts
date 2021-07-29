@@ -25,7 +25,9 @@ describe('Table contextual menu: fullpage', () => {
     beforeAll(async () => {
       await pageInit();
     });
-    it('toggles the context menu correctly', async () => {
+    // FIXME: Inconsistent doing the Puppeteer's upgrade
+    // https://product-fabric.atlassian.net/browse/ED-13503
+    it.skip('toggles the context menu correctly', async () => {
       await clickCellOptions(page);
       await snapshot(page);
       await clickCellOptions(page);

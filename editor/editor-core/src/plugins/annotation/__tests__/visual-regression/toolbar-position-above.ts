@@ -51,7 +51,7 @@ describe('Annotation toolbar positioning (above)', () => {
       page = global.page;
       await init(page, adf);
       await scrollToBottom(page);
-      await page.waitFor(3000);
+      await page.waitForTimeout(3000);
       await selectAtPosWithProseMirror(page, 1654, 1666);
 
       // ensure it is disabled

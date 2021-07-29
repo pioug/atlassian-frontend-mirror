@@ -1,5 +1,11 @@
 # @atlaskit/navigation-next
 
+## 9.0.15
+
+### Patch Changes
+
+- [`81b02457010`](https://bitbucket.org/atlassian/atlassian-frontend/commits/81b02457010) - Adjust internal use of isMounted component instance variable to \_isMounted
+
 ## 9.0.14
 
 ### Patch Changes

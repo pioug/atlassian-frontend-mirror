@@ -21,7 +21,7 @@ export const loadFullPageEditorWithAdf = async (
     'full-page-with-adf-import',
   );
   await loadExampleUrl(page, url);
-  const $el = await page.waitForSelector(adfInputSelector);
+  const $el = (await page.waitForSelector(adfInputSelector))!;
   await $el.click();
   await $el.evaluate(
     (el: any, content: any) => (el.textContent = content),
@@ -29,8 +29,8 @@ export const loadFullPageEditorWithAdf = async (
   );
   await $el.type(' ');
   const $button = await page.waitForSelector(toggleSelector);
-  await $button.click();
-  await page.waitFor(1000);
+  await $button?.click();
+  await page.waitForTimeout(1000);
 };
 
 export const snapshot = async (
@@ -53,5 +53,5 @@ export const snapshot = async (
     image = await page.screenshot();
   }
 
-  return compareScreenshot(image, tolerance, { useUnsafeThreshold });
+  return compareScreenshot(image as string, tolerance, { useUnsafeThreshold });
 };

@@ -35,7 +35,7 @@ describe.skip('Snapshot Test: Full Width', () => {
   ].forEach((viewport) => {
     it(`should correctly render ${viewport.width}`, async () => {
       await initRenderer(page, viewport, mixedAdf);
-      await page.waitFor('.code-block');
+      await page.waitForSelector('.code-block');
       await animationFrame(page);
     });
 

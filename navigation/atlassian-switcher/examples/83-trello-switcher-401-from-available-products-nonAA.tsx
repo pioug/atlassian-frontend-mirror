@@ -10,7 +10,7 @@ import AtlassianSwitcher, { createAvailableProductsProvider } from '../src';
 import { FakeTrelloChrome } from './helpers/FakeTrelloChrome';
 import {
   createJoinableSitesProvider,
-  defaultJoinableSitesFetch,
+  fetchProductRecommendations,
 } from '../src/index';
 
 const NEW_AVAILABLE_PRODUCTS_ENDPOINT =
@@ -24,7 +24,7 @@ const mockEndpointsDataTransformer: DataTransformer = (originalMockData) => {
 };
 
 const joinableSitesDataProvider = createJoinableSitesProvider(
-  defaultJoinableSitesFetch('/gateway/api'),
+  fetchProductRecommendations('/gateway/api/invitations'),
 );
 const availableProductsDataProvider = createAvailableProductsProvider(
   NEW_AVAILABLE_PRODUCTS_ENDPOINT,

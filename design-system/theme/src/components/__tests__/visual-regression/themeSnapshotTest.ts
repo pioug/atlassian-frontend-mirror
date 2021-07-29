@@ -10,7 +10,8 @@ describe('Snapshot Test', () => {
     const url = getExampleUrl('design-system', 'theme', 'colors', __BASEURL__);
     await loadPage(page, url);
     await waitForElementCount(page, 'div[data-testid="color-palette"]', 9);
-    const image = await page.screenshot({ fullPage: true });
+    const example = await page.waitForSelector('#colors');
+    const image = await example?.screenshot();
     expect(image).toMatchProdImageSnapshot();
   });
 
@@ -30,8 +31,8 @@ describe('Snapshot Test', () => {
 
       await page.waitForSelector(lightThemeDatePicker);
       await page.click(lightThemeDatePicker);
-      const image = await page.screenshot({ fullPage: true });
-
+      const example = await page.waitForSelector('#emotion-theming');
+      const image = await example?.screenshot();
       expect(image).toMatchProdImageSnapshot();
     });
 
@@ -50,8 +51,8 @@ describe('Snapshot Test', () => {
 
       await page.waitForSelector(darkThemeDatePicker);
       await page.click(darkThemeDatePicker);
-      const image = await page.screenshot({ fullPage: true });
-
+      const example = await page.waitForSelector('#emotion-theming');
+      const image = await example?.screenshot();
       expect(image).toMatchProdImageSnapshot();
     });
 
@@ -70,8 +71,8 @@ describe('Snapshot Test', () => {
 
       await page.waitForSelector(otherThemeDatePicker);
       await page.click(otherThemeDatePicker);
-      const image = await page.screenshot({ fullPage: true });
-
+      const example = await page.waitForSelector('#emotion-theming');
+      const image = await example?.screenshot();
       expect(image).toMatchProdImageSnapshot();
     });
   });

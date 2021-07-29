@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/renderer",
-  "version": "79.0.0",
+  "version": "79.0.1",
   "description": "Renderer component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -93,7 +93,7 @@
     "ajv": "^6.12.6",
     "enzyme": "^3.10.0",
     "jsdom": "^16.2.2",
-    "puppeteer": "3.0.4",
+    "puppeteer": "10.1.0",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
     "react-live-clock": "^4.0.0",

@@ -64,7 +64,7 @@ describe('Snapshot Test: numbered table', () => {
       await clickFirstCell(page, true);
       await waitForFloatingControl(page, 'Table floating controls');
       await page.hover(tableSelectors.nthRowControl(2));
-      await page.waitFor(tableSelectors.insertRowButton);
+      await page.waitForSelector(tableSelectors.insertRowButton);
       await snapshot(page);
     });
 

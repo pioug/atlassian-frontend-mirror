@@ -1,5 +1,11 @@
 # @atlaskit/renderer
 
+## 79.0.1
+
+### Patch Changes
+
+- [`21618e887d2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/21618e887d2) - Updates puppeteer to v10.
+
 ## 79.0.0
 
 ### Minor Changes

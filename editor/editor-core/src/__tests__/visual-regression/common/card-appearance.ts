@@ -101,7 +101,7 @@ describe('Cards:', () => {
       await snapshot(page);
       // move mouse away and wait until tooltip disappear.
       await page.hover('[aria-label="Expand dropdown menu"]');
-      await page.waitFor(500);
+      await page.waitForTimeout(500);
       await page.hover('[data-testid="embed-appearance"]');
       await waitForTooltip(page);
       await snapshot(page);
@@ -127,6 +127,7 @@ describe('Cards:', () => {
     await takeSnapshot();
   });
 
+  // FIXME These tests were flakey in the Puppeteer v10 Upgrade
   it('should show allowed options for blue link inside a list', async () => {
     await initEditor(cardListBlueLinkAppearanceAdf);
     await page.waitForSelector('a[href="https://inlineCardTestUrl"]');

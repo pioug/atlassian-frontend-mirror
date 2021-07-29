@@ -116,8 +116,8 @@ describe('Embed Cards:', () => {
     ),
   );
 });
-
-it('Seperators are in correct locations in the toolbar', async () => {
+// FIXME: Test became inconsistent after Puppeteer's upgrade
+it.skip('Seperators are in correct locations in the toolbar', async () => {
   const page = global.page;
 
   await initFullPageEditorWithAdf(

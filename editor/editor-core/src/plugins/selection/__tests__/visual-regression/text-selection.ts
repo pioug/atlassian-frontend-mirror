@@ -91,7 +91,7 @@ describe('Selection:', () => {
         beforeSnapshot: async (page: PuppeteerPage) => {
           // Need to wait for min-width to be calculated
           // and applied on inline-extension
-          await page.waitFor(1000);
+          await page.waitForTimeout(1000);
         },
       },
     ],
@@ -141,7 +141,7 @@ describe('Selection:', () => {
         // Unfortunately need to wait not just for decoration classes to apply,
 
         // but also for the selection styles to paint
-        await page.waitFor(1000);
+        await page.waitForTimeout(1000);
 
         if (beforeSnapshot) {
           await beforeSnapshot(page);

@@ -135,7 +135,7 @@ export async function clickOnToolbarButton(
 
 export async function waitForActivityItems(page: PuppeteerPage, items: number) {
   const itemsSelector = `[aria-label="Media floating controls"] .recent-list ul li`;
-  await page.waitFor(
+  await page.waitForFunction(
     (selector: string, items: number) =>
       document.querySelectorAll(selector).length === items,
     {},

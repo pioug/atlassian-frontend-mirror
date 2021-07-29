@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/atlassian-switcher-test-utils",
-  "version": "0.6.2",
+  "version": "1.0.0",
   "description": "App switcher test utilities.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

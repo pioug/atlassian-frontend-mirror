@@ -48,8 +48,8 @@ describe('onboarding spotlight visual regression', () => {
     await page.waitForSelector(spotlightDialogSelector);
 
     await page.setViewport({
-      height: page.viewport().height,
-      width: page.viewport().width * 0.8,
+      height: page.viewport()!.height,
+      width: page.viewport()!.width * 0.8,
     });
     await page.waitForSelector(focusLockSelector);
     const image = await takeElementScreenShot(page, 'body');

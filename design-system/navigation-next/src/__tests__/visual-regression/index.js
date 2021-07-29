@@ -21,32 +21,6 @@ describe('Snapshot Test', () => {
     });
   });
 
-  it('Basic navigation next should match prod', async () => {
-    const url = getExampleUrl(
-      'design-system',
-      'navigation-next',
-      'navigation-app',
-      global.__BASEURL__,
-    );
-    const { page } = global;
-
-    // Avoids `DOMException: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.`
-    // by loading the page twice. The first load enables the localStorage usage. The 2nd load leverages the pre-set value.
-    // This is only problematic because it's the first test in this file.
-    await loadPage(page, url);
-    await page.evaluate(() => {
-      localStorage.setItem(
-        'ATLASKIT_NAVIGATION_UI_STATE',
-        '{"isCollapsed":false,"productNavWidth":240}',
-      );
-    });
-    await loadPage(page, url);
-    await waitForPageFrame(page);
-
-    const image = await page.screenshot();
-    expect(image).toMatchProdImageSnapshot();
-  });
-
   it('Should match product nav', async () => {
     const url = getExampleUrl(
       'design-system',
@@ -150,7 +124,7 @@ describe('Snapshot Test', () => {
     await page.waitForSelector(button);
     await page.click(button);
     // Ensure the shadow element is removed
-    await page.waitFor(
+    await page.waitForFunction(
       (selector) => document.querySelector(selector) === null,
       shadow,
     );

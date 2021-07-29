@@ -65,10 +65,11 @@ export async function mountRenderer(
       if (el) {
         el.innerHTML = '';
       }
+      // @ts-ignore
       ((window as unknown) as WindowOverride).__mountRenderer(props, adf);
     },
-    props,
-    adf,
+    props as any,
+    adf as any,
   );
   await page.waitForSelector('.ak-renderer-document');
 }
@@ -139,12 +140,9 @@ export async function snapshot(
 
   // Try to take a screenshot of only the renderer.
   // Otherwise take the whole page.
-  let image;
-  if (renderer) {
-    image = await renderer.screenshot(screenshotOptions);
-  } else {
-    image = await page.screenshot(screenshotOptions);
-  }
+  const image = renderer
+    ? await renderer.screenshot(screenshotOptions)
+    : await page.screenshot(screenshotOptions);
 
   return compareScreenshot(image as string, tolerance, { useUnsafeThreshold });
 }

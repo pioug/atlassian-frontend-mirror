@@ -37,7 +37,11 @@ describe('Placeholder', () => {
     await clickToolbarMenu(page, ToolbarMenuItem.alignmentRight);
 
     await waitForNoTooltip(page);
-    await snapshot(page, undefined, editorSelector);
+    await snapshot(
+      page,
+      { useUnsafeThreshold: true, tolerance: 0.01 },
+      editorSelector,
+    );
   });
 
   it('shifts on center align', async () => {
@@ -46,6 +50,10 @@ describe('Placeholder', () => {
     await clickToolbarMenu(page, ToolbarMenuItem.alignmentCenter);
 
     await waitForNoTooltip(page);
-    await snapshot(page, undefined, editorSelector);
+    await snapshot(
+      page,
+      { useUnsafeThreshold: true, tolerance: 0.01 },
+      editorSelector,
+    );
   });
 });

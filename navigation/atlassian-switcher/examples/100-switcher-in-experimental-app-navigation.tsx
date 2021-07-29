@@ -15,11 +15,11 @@ import Popup from '@atlaskit/popup';
 import { withAnalyticsLogger, withIntlProvider } from './helpers';
 import AtlassianSwitcher, {
   createJoinableSitesProvider,
-  defaultJoinableSitesFetch,
+  fetchProductRecommendations,
 } from '../src';
 
 const joinableSitesDataProvider = createJoinableSitesProvider(
-  defaultJoinableSitesFetch('/gateway/api'),
+  fetchProductRecommendations('/gateway/api/invitations'),
 );
 
 const AppSwitcherExample = () => {

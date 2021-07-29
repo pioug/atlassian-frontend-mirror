@@ -19,5 +19,6 @@ export const waitForAllMedia = async (
     '[data-testid="media-file-card-view"][data-test-status="complete"]',
     mediaItemsNum,
   );
-  await waitForLoadedImageElements(page, 3000);
+  // FIXME These tests were flakey in the Puppeteer v10 Upgrade
+  await waitForLoadedImageElements(page, 5000);
 };

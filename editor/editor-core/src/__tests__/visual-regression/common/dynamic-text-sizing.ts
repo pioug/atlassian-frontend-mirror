@@ -30,7 +30,7 @@ describe('Dynamic Text Sizing', () => {
   for (const viewSize of dynamicTextViewportSizes) {
     it(`should correctly render ${viewSize.width}`, async () => {
       await page.setViewport(viewSize);
-      await page.waitFor(1000); // waiting for resize to occur :(
+      await page.waitForTimeout(1000); // waiting for resize to occur :(
       await snapshot(page);
     });
   }

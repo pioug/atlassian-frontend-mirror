@@ -29,7 +29,7 @@ describe('Gutter:', () => {
     await waitForScrollGutter(page);
   });
 
-  it('should add gutter if a table is added at the end of the editor', async () => {
+  it.skip('should add gutter if a table is added at the end of the editor', async () => {
     await typeInEditorAtEndOfDocument(page, '/');
     await waitForTypeAhead(page);
     await typeInEditorAtEndOfDocument(page, 'table');
@@ -40,7 +40,7 @@ describe('Gutter:', () => {
     await waitForScrollGutter(page);
   });
 
-  it('should add gutter if a panel is added at the end of the editor', async () => {
+  it.skip('should add gutter if a panel is added at the end of the editor', async () => {
     await typeInEditorAtEndOfDocument(page, '/');
     await waitForTypeAhead(page);
     await typeInEditorAtEndOfDocument(page, 'info');
@@ -50,7 +50,7 @@ describe('Gutter:', () => {
     await waitForScrollGutter(page);
   });
 
-  it('should add gutter if a decision is added at the end of the editor', async () => {
+  it.skip('should add gutter if a decision is added at the end of the editor', async () => {
     await typeInEditorAtEndOfDocument(page, '/');
     await waitForTypeAhead(page);
     await typeInEditorAtEndOfDocument(page, 'decision');

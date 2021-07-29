@@ -139,7 +139,7 @@ describe('Snapshot Test', () => {
     await page.click(selectValidation);
 
     await page.keyboard.press('Tab');
-    await page.waitFor(1000);
+    await page.waitForTimeout(1000);
     const cityDiv = `#examples > form > div:nth-child(1)`;
     const image = await takeElementScreenShot(page, cityDiv);
     expect(image).toMatchProdImageSnapshot();

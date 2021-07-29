@@ -22,6 +22,6 @@ describe('Snapshot Test: Overflow shadows', () => {
 
   it('should render right shadows', async () => {
     await initRenderer(page, document);
-    await page.waitFor('.code-block');
+    await page.waitForSelector('.code-block');
   });
 });

@@ -24,7 +24,7 @@ describe('Snapshot Test', () => {
     await loadPage(page, url);
     await waitForInlineCode(page);
     const example = await page.waitForSelector('#inline-examples');
-    const image = await example.screenshot();
+    const image = await example?.screenshot();
 
     expect(image).toMatchProdImageSnapshot();
   });
@@ -39,7 +39,7 @@ describe('Snapshot Test', () => {
     await loadPage(page, url);
     await waitForInlineCode(page);
     const example = await page.waitForSelector('#inline-examples');
-    const image = await example.screenshot();
+    const image = await example?.screenshot();
 
     expect(image).toMatchProdImageSnapshot();
   });
@@ -53,7 +53,8 @@ describe('Snapshot Test', () => {
     const { page } = global;
     await loadPage(page, url);
     await waitForCodeblock(page);
-    const image = await page.screenshot({ fullPage: true });
+    const example = await page.waitForSelector('#examples > div');
+    const image = await example?.screenshot();
 
     expect(image).toMatchProdImageSnapshot();
   });
@@ -68,7 +69,8 @@ describe('Snapshot Test', () => {
     const { page } = global;
     await loadPage(page, url);
     await waitForCodeblock(page);
-    const image = await page.screenshot({ fullPage: true });
+    const example = await page.waitForSelector('#examples > div');
+    const image = await example?.screenshot();
 
     expect(image).toMatchProdImageSnapshot();
   });
@@ -99,7 +101,7 @@ describe('Snapshot Test', () => {
       await loadPage(page, url);
       await waitForCodeblock(page);
       const example = await page.waitForSelector('#examples > div');
-      const image = await example.screenshot();
+      const image = await example?.screenshot();
 
       expect(image).toMatchProdImageSnapshot();
     });

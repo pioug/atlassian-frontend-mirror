@@ -137,7 +137,7 @@ describe('Snapshot Test: Table sorting', () => {
           await page.hover(`table tr:nth-child(${rowNth}) th`);
 
           // No tooltip is expected, but wait before snapshotting just to be sure.
-          await page.waitFor(300);
+          await page.waitForTimeout(300);
           await animationFrame(page);
           await animationFrame(page);
         });
@@ -155,7 +155,7 @@ describe('Snapshot Test: Table sorting', () => {
           await page.hover(`table tr:nth-child(${rowNth}) th`);
 
           // No tooltip is expected, but wait before snapshotting just to be sure.
-          await page.waitFor(300);
+          await page.waitForTimeout(300);
           await animationFrame(page);
           await animationFrame(page);
         });

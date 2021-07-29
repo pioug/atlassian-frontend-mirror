@@ -85,7 +85,7 @@ export const waitForFloatingControl = async (
     // Additional time buffer to account for repositional shifts while
     // centering underneath the anchoring element. This reduces the
     // amount of flaky test failures due to non centered toolbars.
-    await page.waitFor(options.waitDuration);
+    await page.waitForTimeout(options.waitDuration);
 
     // Force layout
     await forceLayout(selector, page);
@@ -113,7 +113,7 @@ export const retryUntilStablePosition = async (
   // retries too.
   stableTextSelection?: boolean,
 ) => {
-  return new Promise(async (resolve) => {
+  return new Promise<void>(async (resolve) => {
     let [prevLeft, prevTop] = [0, 0];
     let textSelection = await getTextSelection(page);
     const intervalId = setInterval(async () => {

@@ -73,7 +73,7 @@ describe('Snapshot Test: Table scaling', () => {
     it(`should NOT render a right shadow`, async () => {
       await initRenderer(page, wideTableResized, mode);
       await waitForTableWithCards(page);
-      await page.waitFor(
+      await page.waitForSelector(
         '#renderer-container [data-testid="inline-card-resolved-view"]',
       );
     });
@@ -111,7 +111,7 @@ describe('Snapshot Test: Table scaling', () => {
     it('should render table content correctly in mobile appearance', async () => {
       await initRenderer(page, wideTableResized, mode, 'mobile');
       await page.waitForSelector(tableContainerSelector);
-      await page.waitFor(
+      await page.waitForSelector(
         '#renderer-container [data-testid="inline-card-resolved-view"]',
       );
     });

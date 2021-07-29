@@ -65,7 +65,7 @@ describe('Snapshot Test', () => {
     await page.waitForSelector(pagination);
     await page.click(pagination);
     // We need to wait for the animation to finish.
-    await page.waitFor(1000);
+    await page.waitForTimeout(1000);
     await page.waitForSelector(tableHeadCell);
     await page.click(tableHeadParty);
     const tableAfter = await takeElementScreenShot(page, table);

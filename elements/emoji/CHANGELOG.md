@@ -1,5 +1,11 @@
 # @atlaskit/emoji
 
+## 63.1.7
+
+### Patch Changes
+
+- [`252a76e7f61`](https://bitbucket.org/atlassian/atlassian-frontend/commits/252a76e7f61) - Updated comment reference to moved xregexp-transformer package
+
 ## 63.1.6
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @atlaskit/atlassian-switcher-test-utils
 
+## 1.0.0
+
+### Major Changes
+
+- [`3010fcb00f4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3010fcb00f4) - Removed Joinable Sites fetch, a helper function for a deprecated experimental endpoint. Switcher examples and mocks updated to refer to the permanent Product Recommendations endpoint.
+
 ## 0.6.2
 
 ### Patch Changes

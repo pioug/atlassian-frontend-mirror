@@ -4,7 +4,7 @@ import { colorPalettes } from '../src';
 
 export default () => {
   return (
-    <div>
+    <div id="colors">
       <Heading index={0}>8 colors (base)</Heading>
       {colorPalettes.colorPalette('8').map((color, index) => (
         <ColorPill

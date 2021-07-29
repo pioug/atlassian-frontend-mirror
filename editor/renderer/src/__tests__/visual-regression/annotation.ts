@@ -54,14 +54,14 @@ describe('Snapshot Test: Annotation in renderer', () => {
     await page.waitForSelector(selectors.annotation);
     await selectTextToAnnotate(page);
     const commentButton = await page.waitForSelector(selectors.commentButton);
-    await commentButton.click();
+    await commentButton?.click();
     await page.waitForSelector(selectors.draftAnnotation);
 
     // click textarea inside comment popup to remove browser selection from highlighted text
     const textarea = await page.waitForSelector(
       `${selectors.commentPopup} ${rendererSelectors.editor}`,
     );
-    await textarea.click();
+    await textarea?.click();
 
     await snapshot(page, undefined, selectors.draftAnnotation);
   });

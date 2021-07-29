@@ -6,11 +6,11 @@ import { withAnalyticsLogger, withIntlProvider } from './helpers';
 import AtlassianSwitcher from '../src';
 import {
   createJoinableSitesProvider,
-  defaultJoinableSitesFetch,
+  fetchProductRecommendations,
 } from '../src/index';
 
 const joinableSitesDataProvider = createJoinableSitesProvider(
-  defaultJoinableSitesFetch('/gateway/api'),
+  fetchProductRecommendations('/gateway/api/invitations'),
 );
 
 class GenericSwitcherWithJoinExample extends React.Component {

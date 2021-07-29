@@ -22,9 +22,9 @@ describe('<LeftSidebar />', () => {
     }
 
     await page.hover(resizeControl);
-    await page.waitFor(300);
+    await page.waitForTimeout(300);
     await page.click(resizeControl);
-    await page.waitFor(500);
+    await page.waitForTimeout(500);
   };
 
   const openExamplesAndWaitFor = async (
@@ -60,7 +60,7 @@ describe('<LeftSidebar />', () => {
     await controlSidebar('expand');
 
     await page.hover(resizeControl);
-    await page.waitFor(1000);
+    await page.waitForTimeout(1000);
 
     const screenshot = await takeElementScreenShot(global.page, content);
 
@@ -76,7 +76,7 @@ describe('<LeftSidebar />', () => {
     await controlSidebar('expand');
 
     await page.hover(grabArea);
-    await page.waitFor(500);
+    await page.waitForTimeout(500);
 
     const screenshot = await takeElementScreenShot(global.page, content);
 
@@ -92,7 +92,7 @@ describe('<LeftSidebar />', () => {
     await controlSidebar('expand');
 
     await page.hover(leftSidebar);
-    await page.waitFor(500);
+    await page.waitForTimeout(500);
 
     const screenshot = await takeElementScreenShot(global.page, content);
 
@@ -117,7 +117,7 @@ describe('<LeftSidebar />', () => {
       }
     }
 
-    await page.waitFor(300);
+    await page.waitForTimeout(300);
 
     const screenshot = await takeElementScreenShot(global.page, content);
 
@@ -142,7 +142,7 @@ describe('<LeftSidebar />', () => {
       }
     }
 
-    await page.waitFor(300);
+    await page.waitForTimeout(300);
 
     const screenshot = await takeElementScreenShot(global.page, content);
 
@@ -202,14 +202,14 @@ describe('<LeftSidebar />', () => {
     }
     const { x, y } = boundingBox;
     await page.mouse.move(x + 1, y + 200);
-    await page.waitFor(500);
+    await page.waitForTimeout(500);
 
     const screenshot1 = await takeElementScreenShot(global.page, content);
     expect(screenshot1).toMatchProdImageSnapshot();
 
     // close flyout by moving the mouse outside the left-sidbar
     page.mouse.move(400, 200);
-    await page.waitFor(300);
+    await page.waitForTimeout(300);
 
     const screenshot2 = await takeElementScreenShot(global.page, content);
     expect(screenshot2).toMatchProdImageSnapshot();
@@ -234,7 +234,7 @@ describe('<LeftSidebar />', () => {
     await openExamplesAndWaitFor('controlled-left-sidebar', content);
 
     await page.hover(resizeControl);
-    await page.waitFor(1000);
+    await page.waitForTimeout(1000);
 
     const screenshot = await takeElementScreenShot(global.page, content);
 
@@ -249,7 +249,7 @@ describe('<LeftSidebar />', () => {
     await openExamplesAndWaitFor('controlled-left-sidebar', content);
 
     await page.hover(grabArea);
-    await page.waitFor(500);
+    await page.waitForTimeout(500);
 
     const screenshotWithFlyout = await takeElementScreenShot(
       global.page,

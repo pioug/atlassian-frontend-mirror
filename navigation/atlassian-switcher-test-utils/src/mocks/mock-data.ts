@@ -8,7 +8,7 @@ export interface MockData {
     'add-products': any;
   };
   XFLOW_SETTINGS: object;
-  JOINABLE_SITES_DATA: object | number;
+  PRODUCT_RECOMMENDATIONS_DATA: object;
   COLLABORATION_GRAPH_CONTAINERS: object;
 }
 // Mock data can be overriden in the story so be careful when testing.
@@ -219,27 +219,30 @@ const ORIGINAL_MOCK_DATA: MockData = {
     },
   },
   XFLOW_SETTINGS: {},
-  JOINABLE_SITES_DATA: {
-    sites: [
-      {
-        cloudId: 'cloud-1',
-        url: 'https://teamsinspace.com',
-        products: {
-          'jira-software.ondemand': [],
+  PRODUCT_RECOMMENDATIONS_DATA: {
+    capability: {
+      DIRECT_ACCESS: [
+        {
+          resourceId: 'ari:cloud:jira-software::site/example-cloud-id',
+          userAccessLevel: 'EXTERNAL',
+          roleAri: 'ari:cloud:jira-software::role/product/member',
+          url:
+            'https://example0.jira-dev.com/secure/BrowseProjects.jspa?selectedProjectType=software',
+          displayName: 'example0',
+          avatarUrl:
+            'https://site-admin-avatar-cdn.staging.public.atl-paas.net/avatars/240/lightbulb.png',
         },
-        displayName: 'Example',
-        avatarUrl: 'http://avatarSite/avatar',
-        relevance: 0,
-      },
-      {
-        cloudId: 'cloud-2',
-        url: 'https://teamsinspace2.com',
-        products: {},
-        displayName: 'Example 2',
-        avatarUrl: 'http://avatarSite/avatar',
-        relevance: 0,
-      },
-    ],
+        {
+          resourceId: 'ari:cloud:confluence::site/example-cloud-id',
+          userAccessLevel: 'EXTERNAL',
+          roleAri: 'ari:cloud:confluence::role/product/member',
+          url: 'https://example0.jira-dev.com/wiki',
+          displayName: 'example0',
+          avatarUrl:
+            'https://site-admin-avatar-cdn.staging.public.atl-paas.net/avatars/240/lightbulb.png',
+        },
+      ],
+    },
   },
   COLLABORATION_GRAPH_CONTAINERS: {
     collaborationGraphEntities: [

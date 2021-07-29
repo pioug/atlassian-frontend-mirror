@@ -44,10 +44,10 @@ describe.skip('Snapshot Tests', () => {
     await animationFrame(page);
 
     const element1 = await waitForElementWithText(page, '--Text start--', 'p');
-    const box1 = await element1.boundingBox();
+    const box1 = await element1?.boundingBox();
 
     const element2 = await waitForElementWithText(page, 'Heading 3', 'h3');
-    const box2 = await element2.boundingBox();
+    const box2 = await element2?.boundingBox();
 
     if (box1 && box2) {
       await setSelection(
@@ -63,7 +63,7 @@ describe.skip('Snapshot Tests', () => {
       selectorById(AnnotationTestIds.floatingToolbarCreateButton),
       { visible: true },
     );
-    await createButton.click();
+    await createButton?.click();
     await page.waitForSelector(
       selectorById(AnnotationTestIds.floatingComponent),
     );

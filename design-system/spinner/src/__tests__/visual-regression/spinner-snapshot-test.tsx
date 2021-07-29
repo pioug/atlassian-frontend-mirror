@@ -15,7 +15,7 @@ describe('Spinner snapshot test', () => {
     const element = await page.waitForSelector(
       '[data-testid="spinner-wrapper"]',
     );
-    const image = await element.screenshot();
+    const image = await element?.screenshot();
     expect(image).toMatchProdImageSnapshot();
   });
 
@@ -31,7 +31,7 @@ describe('Spinner snapshot test', () => {
     const element = await page.waitForSelector(
       '[data-testid="spinner-sizes-container"]',
     );
-    const image = await element.screenshot();
+    const image = await element?.screenshot();
     expect(image).toMatchProdImageSnapshot();
   });
 
@@ -47,7 +47,7 @@ describe('Spinner snapshot test', () => {
     const element = await page.waitForSelector(
       '[data-testid="spinner-text-container"]',
     );
-    const image = await element.screenshot();
+    const image = await element?.screenshot();
     expect(image).toMatchProdImageSnapshot();
   });
 
@@ -61,7 +61,7 @@ describe('Spinner snapshot test', () => {
     const { page } = global;
     await loadPage(page, url, { disabledSideEffects: { animation: true } });
     const element = await page.waitForSelector('[data-testid="spinner-table"]');
-    const image = await element.screenshot();
+    const image = await element?.screenshot();
     expect(image).toMatchProdImageSnapshot();
   });
 
@@ -77,7 +77,7 @@ describe('Spinner snapshot test', () => {
     const element = await page.waitForSelector(
       '[data-testid="spinner-buttons-container"]',
     );
-    const image = await element.screenshot();
+    const image = await element?.screenshot();
     expect(image).toMatchProdImageSnapshot();
   });
 });

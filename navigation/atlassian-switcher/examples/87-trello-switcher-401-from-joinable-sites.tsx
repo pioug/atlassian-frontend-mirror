@@ -10,12 +10,11 @@ import AtlassianSwitcher, { createAvailableProductsProvider } from '../src';
 import { FakeTrelloChrome } from './helpers/FakeTrelloChrome';
 import {
   createJoinableSitesProvider,
-  defaultJoinableSitesFetch,
+  fetchProductRecommendations,
 } from '../src/index';
 import { AvailableSite, AvailableProductsResponse } from '../src/types';
 
-const JOINABLE_SITES_ENDPOINT =
-  '/proxy/experiment-api/trello-cross-product-join/recommended-sites';
+const JOINABLE_SITES_ENDPOINT = '/gateway/api/invitations';
 const NEW_AVAILABLE_PRODUCTS_ENDPOINT =
   '/proxy/experiment-api/trello-cross-product-join/available-sites';
 
@@ -39,7 +38,7 @@ const mockEndpointsDataTransformer: DataTransformer = (originalMockData) => {
 };
 
 const joinableSitesDataProvider = createJoinableSitesProvider(
-  defaultJoinableSitesFetch(JOINABLE_SITES_ENDPOINT),
+  fetchProductRecommendations(JOINABLE_SITES_ENDPOINT),
 );
 
 const availableProductsDataProvider = createAvailableProductsProvider(

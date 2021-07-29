@@ -104,7 +104,7 @@ describe('Snapshot test', () => {
 
     // When scroll is at the bottom, only top keyline is displayed.
     await page.click(scrollToBottomBtn);
-    await page.waitFor(1000);
+    await page.waitForTimeout(1000);
     const scrollToBottom = await takeElementScreenShot(page, 'body');
     expect(scrollToBottom).toMatchProdImageSnapshot();
   });
@@ -217,21 +217,21 @@ describe('Snapshot test', () => {
       triggerSelector: largeModalBtn,
     });
 
-    await page.waitFor(1000);
+    await page.waitForTimeout(1000);
     const image = await page.screenshot();
     expect(image).toMatchProdImageSnapshot();
 
     //open second stacked modal
     await page.keyboard.press('Tab');
     await page.keyboard.press('Enter');
-    await page.waitFor(1000);
+    await page.waitForTimeout(1000);
     const image2 = await page.screenshot();
     expect(image2).toMatchProdImageSnapshot();
 
     //open third stacked modal
     await page.keyboard.press('Tab');
     await page.keyboard.press('Enter');
-    await page.waitFor(1000);
+    await page.waitForTimeout(1000);
     const image3 = await page.screenshot();
     expect(image3).toMatchProdImageSnapshot();
   });
@@ -254,21 +254,21 @@ describe('Snapshot test', () => {
     await page.click(largeModalBtn);
     await page.waitForSelector(modalDialog);
 
-    await page.waitFor(1000);
+    await page.waitForTimeout(1000);
     const image = await page.screenshot();
     expect(image).toMatchProdImageSnapshot();
 
     //open second stacked modal
     await page.keyboard.press('Tab');
     await page.keyboard.press('Enter');
-    await page.waitFor(1000);
+    await page.waitForTimeout(1000);
     const image2 = await page.screenshot();
     expect(image2).toMatchProdImageSnapshot();
 
     //open third stacked modal
     await page.keyboard.press('Tab');
     await page.keyboard.press('Enter');
-    await page.waitFor(1000);
+    await page.waitForTimeout(1000);
     const image3 = await page.screenshot();
     expect(image3).toMatchProdImageSnapshot();
   });

@@ -36,7 +36,7 @@ describe('Snapshot Test', () => {
     await page.click(button1);
     await page.waitForSelector(menu);
     // The motionanimation takes 0.2s but due to the rendering it takes more time to load.
-    await page.waitFor(500);
+    await page.waitForTimeout(500);
     const image = await takeElementScreenShot(page, menu);
     // Threshold is there to avoid false-positive with the fade.
     expect(image).toMatchProdImageSnapshot({
@@ -51,7 +51,7 @@ describe('Snapshot Test', () => {
     await page.click(button2);
     await page.waitForSelector(menu);
     // The motionanimation takes 0.2s but due to the rendering it takes more time to load.
-    await page.waitFor(500);
+    await page.waitForTimeout(500);
     const image = await takeElementScreenShot(page, menu);
     // Threshold is there to avoid false-positive with the fade.
     expect(image).toMatchProdImageSnapshot({
@@ -66,7 +66,7 @@ describe('Snapshot Test', () => {
     await page.click(button3);
     await page.waitForSelector(menu);
     // The motionanimation takes 0.2s but due to the rendering it takes more time to load.
-    await page.waitFor(500);
+    await page.waitForTimeout(500);
     const image = await takeElementScreenShot(page, menu);
     // Threshold is there to avoid false-positive with the fade.
     // It increased with the number of elements in the menu.
@@ -82,7 +82,7 @@ describe('Snapshot Test', () => {
     await page.click(button4);
     await page.waitForSelector(menu);
     // The motionanimation takes 0.2s but due to the rendering it takes more time to load more elements.
-    await page.waitFor(800);
+    await page.waitForTimeout(800);
     const image = await takeElementScreenShot(page, menu);
     // Threshold is there to avoid false-positive with the fade.
     // It increased with the number of elements in the menu.
@@ -98,7 +98,7 @@ describe('Snapshot Test', () => {
     await page.click(button5);
     await page.waitForSelector(menu);
     // The motionanimation takes 0.2s but due to the rendering it takes more time to more elements.
-    await page.waitFor(800);
+    await page.waitForTimeout(800);
     const image = await takeElementScreenShot(page, menu);
     // Threshold is there to avoid false-positive with the fade.
     // It increased with the number of elements in the menu.

@@ -26,10 +26,10 @@ export async function mountWysiwygTest(
     { editorProps, rendererProps },
   );
 
-  const [$renderer, $editor] = await Promise.all([
+  const [$renderer, $editor] = (await Promise.all([
     page.waitForSelector('#renderer-container'),
     page.waitForSelector('#editor-container'),
-  ]);
+  ])) as PuppeteerElementHandle<Element>[];
 
   return { $renderer, $editor };
 }

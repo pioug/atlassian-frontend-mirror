@@ -85,7 +85,7 @@ describe('Snapshot Test', () => {
     const { page } = global;
 
     await loadPage(page, url);
-    await page.waitFor(button);
+    await page.waitForSelector(button);
 
     await page.click(button);
     await page.waitForSelector(popup);
@@ -114,7 +114,7 @@ describe('Snapshot Test', () => {
 
     await loadPage(page, url);
 
-    await page.waitFor(container);
+    await page.waitForSelector(container);
 
     const popupInputeWithFocus = await page.screenshot();
     expect(popupInputeWithFocus).toMatchProdImageSnapshot();

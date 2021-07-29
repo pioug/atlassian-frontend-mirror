@@ -21,7 +21,7 @@ describe.skip('Snapshot Test: Dynamic Text Sizing', () => {
   });
 
   afterEach(async () => {
-    await page.waitFor(100); // wait for dynamic text sizing to occur
+    await page.waitForTimeout(100); // wait for dynamic text sizing to occur
     await snapshot(page);
   });
 

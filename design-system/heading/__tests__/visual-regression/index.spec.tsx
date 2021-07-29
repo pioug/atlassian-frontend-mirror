@@ -6,7 +6,7 @@ describe('Snapshot Test', () => {
     const url = getExampleUrl('design-system', 'heading', 'basic', __BASEURL__);
     await loadPage(page, url);
     const element = await page.waitForSelector('#headings');
-    const image = await element.screenshot();
+    const image = await element?.screenshot();
     expect(image).toMatchProdImageSnapshot();
   });
 });

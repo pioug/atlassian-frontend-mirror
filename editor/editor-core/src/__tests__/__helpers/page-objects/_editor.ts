@@ -74,7 +74,7 @@ export const clickElementWithText = async ({
   const target = await page.waitForXPath(elementPath, {
     timeout: timeouts.DEFAULT,
   });
-  await target.click();
+  await target?.click();
 };
 
 export const selectElementWithText = async ({
@@ -91,7 +91,7 @@ export const selectElementWithText = async ({
     timeout: timeouts.DEFAULT,
   });
 
-  const box = await target.boundingBox();
+  const box = await target?.boundingBox();
   if (box) {
     const { x, y, width, height } = box;
     await setSelection(

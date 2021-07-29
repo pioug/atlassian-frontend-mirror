@@ -9,6 +9,7 @@ import {
   propsWithHeadingLinksEnabled,
 } from './_heading-utils';
 import { selectors } from '../../__helpers/page-objects/_renderer';
+import { Viewport } from 'puppeteer';
 
 // Headings with anchor links enabled
 describe('Headings with links on mobile', () => {
@@ -29,7 +30,7 @@ describe('Headings with links on mobile', () => {
        * retain the correct size.
        */
       const disableEmulation = await emulateDevice(page, 'iPhone X');
-      const { width, height } = page.viewport();
+      const { width, height } = page.viewport() || ({} as Viewport);
 
       // Init editor
       await initRendererWithADF(page, {

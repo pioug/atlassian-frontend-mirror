@@ -20,8 +20,9 @@ describe('Snapshot Test', () => {
     // Wait for lock icon and action buttons
     await page.waitForSelector('span[role="presentation"] > svg');
     await page.waitForSelector('button[type="button"]');
+    const element = await page.waitForSelector('[data-testid="comment"]');
 
-    const image = await page.screenshot();
+    const image = await element?.screenshot();
     expect(image).toMatchProdImageSnapshot();
   });
 });

@@ -34,14 +34,14 @@ export async function initWysiwygTest(
     rendererProps: options.rendererProps,
   });
 
-  const [editorId, rendererId] = await Promise.all([
-    $editor.getProperty('id').then((p) => p.jsonValue()),
-    $renderer.getProperty('id').then((p) => p.jsonValue()),
+  const [editorId, rendererId] = await Promise.all<string>([
+    $editor.getProperty('id').then((p) => p!.jsonValue()),
+    $renderer.getProperty('id').then((p) => p!.jsonValue()),
   ]);
 
   const [$editorElement, $rendererElement] = await Promise.all([
-    await page.waitForSelector(`#${editorId} ${options.editorSelector}`),
-    await page.waitForSelector(`#${rendererId} ${options.rendererSelector}`),
+    (await page.waitForSelector(`#${editorId} ${options.editorSelector}`))!,
+    (await page.waitForSelector(`#${rendererId} ${options.rendererSelector}`))!,
   ]);
 
   return {

@@ -11,7 +11,7 @@ describe('Snapshot Test', () => {
     );
     await loadPage(page, url);
     const element = await page.waitForSelector('[data-testid="outerDiv"]');
-    const image = await element.screenshot();
+    const image = await element?.screenshot();
     expect(image).toMatchProdImageSnapshot();
   });
 });

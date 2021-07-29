@@ -12,7 +12,7 @@ import Comment, {
 import avatarImg from './utils/sample-avatar.png';
 
 export default () => (
-  <div>
+  <div data-testid="comment">
     <Comment
       avatar={<Avatar src={avatarImg} size="medium" />}
       author={<CommentAuthor>John Smith</CommentAuthor>}

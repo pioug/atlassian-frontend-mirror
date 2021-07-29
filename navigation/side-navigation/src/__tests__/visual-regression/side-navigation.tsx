@@ -101,7 +101,7 @@ describe('<SideNavigation /> integration tests', () => {
     await page.click(filterNestingItem);
 
     // Wait for the animation to finish
-    await page.waitFor(1000);
+    await page.waitForTimeout(1000);
 
     expect(
       await takeElementScreenShot(page, sideNavigation),
@@ -122,7 +122,7 @@ describe('<SideNavigation /> integration tests', () => {
     await page.click(filterNestingItem);
 
     // Wait for the animation to finish
-    await page.waitFor(1000);
+    await page.waitForTimeout(1000);
 
     expect(
       await takeElementScreenShot(global.page, sideNavigation),

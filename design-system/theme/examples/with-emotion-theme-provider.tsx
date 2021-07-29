@@ -14,7 +14,7 @@ const Description = styled.p`
 `;
 
 export default () => (
-  <div>
+  <div id="emotion-theming">
     <h2>Components wrapped in emotion theme provider</h2>
     <ThemeProvider theme={{}}>
       <Description>

@@ -1,4 +1,4 @@
-import { PuppeteerPage } from './_types';
+import { PuppeteerPage, PuppeteerKeyInput } from './_types';
 
 export enum KEY {
   CONTROL = '\uE051',
@@ -43,23 +43,27 @@ export async function pressKey(
   const keys = Array.isArray(key) ? key : [key];
 
   for (let key of keys) {
-    await page.keyboard.press(key, options);
+    await page.keyboard.press(key as PuppeteerKeyInput, options);
   }
 }
 
 export async function pressKeyDown(page: PuppeteerPage, key: KeyboardKey) {
-  await page.keyboard.down(key);
+  await page.keyboard.down(key as PuppeteerKeyInput);
 }
 
 export async function pressKeyUp(page: PuppeteerPage, key: KeyboardKey) {
-  await page.keyboard.up(key);
+  await page.keyboard.up(key as PuppeteerKeyInput);
 }
 
 // simulate press of keys combination
 export async function pressKeyCombo(page: PuppeteerPage, keys: KeyboardKey[]) {
   // dispatch key down events in parallel
-  await Promise.all(keys.map((key) => page.keyboard.down(key)));
+  await Promise.all(
+    keys.map((key) => page.keyboard.down(key as PuppeteerKeyInput)),
+  );
   // dispatch key up events in parallel after short delay
-  await page.waitFor(5);
-  await Promise.all(keys.map((key) => page.keyboard.up(key)));
+  await page.waitForTimeout(5);
+  await Promise.all(
+    keys.map((key) => page.keyboard.up(key as PuppeteerKeyInput)),
+  );
 }

@@ -97,7 +97,7 @@ describe('Snapshot Test: Media with alt text', () => {
             '[data-testid="alt-text-edit-button"]',
             { visible: true },
           );
-          await altTextButton.click();
+          await altTextButton?.click();
           await snapshot(page);
         });
       });
@@ -109,12 +109,12 @@ describe('Snapshot Test: Media with alt text', () => {
             '[data-testid="alt-text-edit-button"]',
             { visible: true },
           );
-          await altTextButton.click();
+          await altTextButton?.click();
 
-          altTextInput = await page.waitForSelector(
+          altTextInput = (await page.waitForSelector(
             '[data-testid="alt-text-input"]',
             { visible: true },
-          );
+          ))!;
         });
 
         describe('when valid value is entered', () => {

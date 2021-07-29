@@ -63,7 +63,7 @@ describe.skip('Snapshot Test', () => {
     await page.focus(submissionValidationEmail);
     await page.keyboard.type('jsmith@abc.com');
     await page.click(submitBtn);
-    await page.waitFor(2000);
+    await page.waitForTimeout(2000);
     const image = await takeElementScreenShot(page, submissionValidationError);
     expect(image).toMatchProdImageSnapshot();
   });

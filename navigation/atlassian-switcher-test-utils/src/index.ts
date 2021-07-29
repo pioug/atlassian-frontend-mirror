@@ -1,5 +1,5 @@
 export {
-  mockJoinableSitesEndpoint,
+  mockProductRecommendationsEndpoint,
   mockAvailableProductsEndpoint,
   mockEndpoints,
   REQUEST_SLOW,
@@ -7,6 +7,6 @@ export {
   REQUEST_FAST,
   getMockData,
   availableProductsUrlRegex,
-  joinableSitesUrlRegex,
+  productRecommendationsUrlRegex,
 } from './mocks/mock-endpoints';
 export type { DataTransformer } from './mocks/mock-endpoints';

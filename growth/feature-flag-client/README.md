@@ -74,6 +74,8 @@ client.getRawValue('my.delimited.flag', {
 }); // > dashboard,issue-view,classic-board,next-gen-board
 ```
 
+**NOTE**: For performance reasons, the client will only run validation checks once and then cache this result for subsequent calls. It is important that you always use the same method and `oneOf` values whenever retrieving the value for your flag.
+
 ### Setting flags asynchronously?
 
 If you load your flags after the app bootstrap, you set the to the client through the 'setFlags' method.
@@ -89,7 +91,6 @@ client.setFlags({
   },
 });
 ```
-
 ### How to send exposure events for all feature flags?
 
 You can call the `setAutomaticExposuresMode(enableAutomaticExposures: boolean, automaticAnalyticsHandler: AutomaticAnalyticsHandler) ` method after initialising the client in your app. When this mode is enabled, exposure events will be handled in the following circumstances: sent for all simple flags (ie. flags without an explanation), and for all evalulated (ie. flags with evalauation details) with the `shouldTrackExposureEvent` option set to false.

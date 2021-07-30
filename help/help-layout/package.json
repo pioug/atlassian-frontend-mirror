@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/help-layout",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "description": "Layout for the atlaskit/help component.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -15,7 +15,7 @@
   "sideEffects": false,
   "atlaskit:src": "src/index.ts",
   "atlassian": {
-    "team": "Jira Platform: SPA / Endeavour (Help squad)",
+    "team": "In Product Help",
     "deprecatedAutoEntryPoints": true,
     "releaseModel": "continuous",
     "website": {

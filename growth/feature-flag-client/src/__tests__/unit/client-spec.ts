@@ -342,6 +342,104 @@ describe('Feature Flag Client', () => {
           }),
         ).toThrow(new TypeError(errorMessage));
       });
+
+      test('should return the same value on repeated calls where the flag is in a valid state', () => {
+        const client = new FeatureFlagClient({
+          analyticsHandler,
+          flags: {
+            'my.test.flag': { value: true },
+          },
+        });
+
+        const firstEvalResult = client.getBooleanValue('my.test.flag', {
+          default: false,
+        });
+        const secondEvalResult = client.getBooleanValue('my.test.flag', {
+          default: false,
+        });
+
+        expect(firstEvalResult).toBe(true);
+        expect(secondEvalResult).toBe(true);
+      });
+
+      test('should return the passed in default value for repeated calls when the flag is in an invalid state', () => {
+        const client = new FeatureFlagClient({
+          analyticsHandler,
+          flags: {
+            'my.test.flag': { value: 'experiment' },
+          },
+        });
+
+        // Same flag key, same validation rules, but different defaults
+        const firstEvalResult = client.getBooleanValue('my.test.flag', {
+          default: false,
+        });
+        const secondEvalResult = client.getBooleanValue('my.test.flag', {
+          default: true,
+        });
+
+        expect(firstEvalResult).toBe(false);
+        expect(secondEvalResult).toBe(true);
+      });
+
+      test('should return the cached result of the first evaluation for the flag key, even if it does not match the type we are asking for', () => {
+        const client = new FeatureFlagClient({
+          analyticsHandler,
+          flags: {
+            'my.test.flag': { value: 'experiment' },
+          },
+        });
+
+        const firstEvalResult = client.getVariantValue('my.test.flag', {
+          oneOf: ['control', 'experiment'],
+          default: 'control',
+        });
+        const secondEvalResult = client.getBooleanValue('my.test.flag', {
+          default: false,
+        });
+
+        expect(firstEvalResult).toBe('experiment');
+        expect(secondEvalResult).toBe('experiment');
+      });
+
+      test('should allow exposure events to be suppressed on the initial call, and fired in a later call instead', () => {
+        const client = new FeatureFlagClient({
+          analyticsHandler,
+          flags: {
+            'my.test.flag': {
+              value: true,
+              explanation: {
+                kind: 'RULE_MATCH',
+                ruleId: '111-bbbbb-ccc',
+              },
+            },
+          },
+        });
+
+        client.getBooleanValue('my.test.flag', {
+          default: false,
+          shouldTrackExposureEvent: false,
+        });
+        expect(analyticsHandler).not.toHaveBeenCalled();
+        client.getBooleanValue('my.test.flag', {
+          default: false,
+          shouldTrackExposureEvent: true,
+        });
+        expect(analyticsHandler).toHaveBeenCalledTimes(1);
+        expect(analyticsHandler).toHaveBeenCalledWith({
+          action: 'exposed',
+          actionSubject: 'feature',
+          attributes: {
+            flagKey: 'my.test.flag',
+            reason: 'RULE_MATCH',
+            ruleId: '111-bbbbb-ccc',
+            value: true,
+          },
+          tags: ['measurement'],
+          highPriority: true,
+          source: '@atlaskit/feature-flag-client',
+        });
+      });
     });
 
     describe('getVariantValue', () => {
@@ -604,6 +702,110 @@ describe('Feature Flag Client', () => {
           });
         });
       });
+
+      test('should return the same value on repeated calls where the flag is in a valid state', () => {
+        const client = new FeatureFlagClient({
+          analyticsHandler,
+          flags: {
+            'my.test.flag': { value: 'experiment' },
+          },
+        });
+
+        const firstEvalResult = client.getVariantValue('my.test.flag', {
+          oneOf: ['control', 'experiment'],
+          default: 'control',
+        });
+        const secondEvalResult = client.getVariantValue('my.test.flag', {
+          oneOf: ['control', 'experiment'],
+          default: 'control',
+        });
+
+        expect(firstEvalResult).toBe('experiment');
+        expect(secondEvalResult).toBe('experiment');
+      });
+
+      test('should return the passed in default value for repeated calls when the flag is in an invalid state', () => {
+        const client = new FeatureFlagClient({
+          analyticsHandler,
+          flags: {
+            'my.test.flag': { value: true },
+          },
+        });
+
+        // Same flag key, same validation rules, but different defaults
+        const firstEvalResult = client.getVariantValue('my.test.flag', {
+          oneOf: ['control', 'experiment'],
+          default: 'control',
+        });
+        const secondEvalResult = client.getVariantValue('my.test.flag', {
+          oneOf: ['control', 'experiment'],
+          default: 'experiment',
+        });
+
+        expect(firstEvalResult).toBe('control');
+        expect(secondEvalResult).toBe('experiment');
+      });
+
+      test('should return the cached result of the first evaluation for the flag key, even if it does not match the type we are asking for', () => {
+        const client = new FeatureFlagClient({
+          analyticsHandler,
+          flags: {
+            'my.test.flag': { value: true },
+          },
+        });
+
+        const firstEvalResult = client.getBooleanValue('my.test.flag', {
+          default: false,
+        });
+        const secondEvalResult = client.getVariantValue('my.test.flag', {
+          oneOf: ['control', 'experiment'],
+          default: 'control',
+        });
+
+        expect(firstEvalResult).toBe(true);
+        expect(secondEvalResult).toBe(true);
+      });
+
+      test('should allow exposure events to be suppressed on the initial call, and fired in a later call instead', () => {
+        const client = new FeatureFlagClient({
+          analyticsHandler,
+          flags: {
+            'my.test.flag': {
+              value: 'experiment',
+              explanation: {
+                kind: 'RULE_MATCH',
+                ruleId: '111-bbbbb-ccc',
+              },
+            },
+          },
+        });
+
+        client.getVariantValue('my.test.flag', {
+          default: 'control',
+          oneOf: ['control', 'experiment'],
+          shouldTrackExposureEvent: false,
+        });
+        expect(analyticsHandler).not.toHaveBeenCalled();
+        client.getVariantValue('my.test.flag', {
+          default: 'control',
+          oneOf: ['control', 'experiment'],
+          shouldTrackExposureEvent: true,
+        });
+        expect(analyticsHandler).toHaveBeenCalledTimes(1);
+        expect(analyticsHandler).toHaveBeenCalledWith({
+          action: 'exposed',
+          actionSubject: 'feature',
+          attributes: {
+            flagKey: 'my.test.flag',
+            reason: 'RULE_MATCH',
+            ruleId: '111-bbbbb-ccc',
+            value: 'experiment',
+          },
+          tags: ['measurement'],
+          highPriority: true,
+          source: '@atlaskit/feature-flag-client',
+        });
+      });
     });
 
     describe('getJSONValue', () => {
@@ -678,6 +880,49 @@ describe('Feature Flag Client', () => {
           footer: 'black',
         });
         expect(analyticsHandler).toHaveBeenCalledTimes(0);
+      });
+
+      test('should return the same value on repeated calls where the flag is in a valid state', () => {
+        const client = new FeatureFlagClient({
+          analyticsHandler,
+          flags: {
+            'my.test.flag': {
+              value: {
+                nav: 'blue',
+                footer: 'black',
+              },
+            },
+          },
+        });
+
+        const firstEvalResult = client.getJSONValue('my.test.flag');
+        const secondEvalResult = client.getJSONValue('my.test.flag');
+
+        expect(firstEvalResult).toEqual({
+          nav: 'blue',
+          footer: 'black',
+        });
+        expect(secondEvalResult).toEqual({
+          nav: 'blue',
+          footer: 'black',
+        });
+      });
+
+      test('should return the cached result of the first evaluation for the flag key, even if it does not match the type we are asking for', () => {
+        const client = new FeatureFlagClient({
+          analyticsHandler,
+          flags: {
+            'my.test.flag': { value: true },
+          },
+        });
+
+        const firstEvalResult = client.getBooleanValue('my.test.flag', {
+          default: false,
+        });
+        const secondEvalResult = client.getJSONValue('my.test.flag');
+
+        expect(firstEvalResult).toBe(true);
+        expect(secondEvalResult).toBe(true);
       });
     });
 
@@ -902,6 +1147,82 @@ describe('Feature Flag Client', () => {
             value: 'experiment',
             permissions: 'read',
             container: 'space',
+          },
+          tags: ['measurement'],
+          highPriority: true,
+          source: '@atlaskit/feature-flag-client',
+        });
+      });
+
+      test('should return the same value on repeated calls where the flag is in a valid state', () => {
+        const client = new FeatureFlagClient({
+          analyticsHandler,
+          flags: {
+            'my.test.flag': { value: true },
+          },
+        });
+
+        const firstEvalResult = client.getRawValue('my.test.flag', {
+          default: false,
+        });
+        const secondEvalResult = client.getRawValue('my.test.flag', {
+          default: false,
+        });
+
+        expect(firstEvalResult).toBe(true);
+        expect(secondEvalResult).toBe(true);
+      });
+
+      test('should return the passed in default value for repeated calls when the flag is in an invalid state', () => {
+        const client = new FeatureFlagClient({
+          analyticsHandler,
+          flags: {},
+        });
+
+        // Same flag key, same validation rules, but different defaults
+        const firstEvalResult = client.getRawValue('my.test.flag', {
+          default: false,
+        });
+        const secondEvalResult = client.getRawValue('my.test.flag', {
+          default: 'experiment',
+        });
+
+        expect(firstEvalResult).toBe(false);
+        expect(secondEvalResult).toBe('experiment');
+      });
+
+      test('should allow exposure events to be suppressed on the initial call, and fired in a later call instead', () => {
+        const client = new FeatureFlagClient({
+          analyticsHandler,
+          flags: {
+            'my.test.flag': {
+              value: true,
+              explanation: {
+                kind: 'RULE_MATCH',
+                ruleId: '111-bbbbb-ccc',
+              },
+            },
+          },
+        });
+
+        client.getRawValue('my.test.flag', {
+          default: false,
+          shouldTrackExposureEvent: false,
+        });
+        expect(analyticsHandler).not.toHaveBeenCalled();
+        client.getRawValue('my.test.flag', {
+          default: false,
+          shouldTrackExposureEvent: true,
+        });
+        expect(analyticsHandler).toHaveBeenCalledTimes(1);
+        expect(analyticsHandler).toHaveBeenCalledWith({
+          action: 'exposed',
+          actionSubject: 'feature',
+          attributes: {
+            flagKey: 'my.test.flag',
+            reason: 'RULE_MATCH',
+            ruleId: '111-bbbbb-ccc',
+            value: true,
           },
           tags: ['measurement'],
           highPriority: true,

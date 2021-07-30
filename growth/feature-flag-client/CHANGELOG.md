@@ -1,5 +1,11 @@
 # @atlaskit/feature-flag-client
 
+## 4.3.0
+
+### Minor Changes
+
+- [`b74ad8c4eed`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b74ad8c4eed) - Cache the result of the first evaluation for each flag key to skip un-necessary validation checks on subsequent calls
+
 ## 4.2.1
 
 ### Patch Changes

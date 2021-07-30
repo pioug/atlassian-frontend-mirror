@@ -1,5 +1,11 @@
 # @atlaskit/help-layout
 
+## 3.0.2
+
+### Patch Changes
+
+- [`df9dc928897`](https://bitbucket.org/atlassian/atlassian-frontend/commits/df9dc928897) - Update the team information in the packages maintained by the In Product Help team
+
 ## 3.0.1
 
 ### Patch Changes

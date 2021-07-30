@@ -1,20 +1,4 @@
-import { FlagShape, CustomAttributes, FlagType, Flags } from './types';
-
-export const getFlagType = (value: any): FlagType => {
-  switch (typeof value) {
-    case 'boolean':
-      return FlagType.BOOLEAN;
-    case 'string':
-      return FlagType.STRING;
-    case 'object':
-      if (value === null) {
-        return FlagType.UNKNOWN;
-      }
-      return FlagType.JSON;
-    default:
-      return FlagType.UNKNOWN;
-  }
-};
+import { FlagShape, CustomAttributes, Flags } from './types';
 
 export const isObject = (value: any) => typeof value === 'object';
 

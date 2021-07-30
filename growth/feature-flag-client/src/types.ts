@@ -37,13 +37,6 @@ export type AutomaticExposureHandler = (
   flagExplanation?: FlagShape['explanation'],
 ) => void;
 
-export enum FlagType {
-  BOOLEAN,
-  JSON,
-  STRING,
-  UNKNOWN,
-}
-
 export type Flags = {
   [flagName: string]: FlagShape;
 };
@@ -105,4 +98,10 @@ export type FlagStats = {
   [flagKey: string]: {
     evaluationCount: number;
   };
+};
+
+export type EvaluationResult = {
+  value: FlagValue;
+  explanation?: FlagExplanation;
+  didFallbackToDefaultValue: boolean;
 };

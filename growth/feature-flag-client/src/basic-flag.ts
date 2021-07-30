@@ -1,13 +1,11 @@
-import { getFlagType } from './lib';
 import {
   FlagWrapper,
   FlagShape,
-  FlagType,
   AutomaticExposureHandler,
   FlagValue,
   CustomAttributes,
   TriggeredExposureHandler,
-  FlagExplanation,
+  EvaluationResult,
 } from './types';
 
 /**
@@ -16,7 +14,6 @@ import {
 export default class BasicFlag implements FlagWrapper {
   flagKey: string;
   flag: FlagShape;
-  type: FlagType;
   /**
    * @todo The value is only required for backwards compatibility, since
    * the object returned from client.getFlag has always contained this field.
@@ -28,6 +25,8 @@ export default class BasicFlag implements FlagWrapper {
   trackExposure: TriggeredExposureHandler;
   sendAutomaticExposure: AutomaticExposureHandler;
 
+  _evaluationResult?: EvaluationResult;
+
   constructor(
     flagKey: string,
     flag: FlagShape,
@@ -37,49 +36,72 @@ export default class BasicFlag implements FlagWrapper {
     this.flagKey = flagKey;
     this.flag = flag;
     this.value = flag.value;
-    this.type = getFlagType(flag.value);
     this.evaluationCount = 0;
     this.trackExposure = trackExposure;
     this.sendAutomaticExposure = sendAutomaticExposure;
   }
 
-  private evaluate<T extends FlagValue>(
-    expectedType: FlagType,
-    defaultValue: T,
+  private getCachedResultOrCompute(
+    defaultValue: FlagValue,
     shouldTrackExposureEvent: boolean,
     exposureData?: CustomAttributes,
-    oneOf?: T[],
-  ): T {
-    let value: T = this.flag.value as T;
-    let explanation: FlagExplanation | undefined = this.flag.explanation;
-    if (this.type !== expectedType) {
-      shouldTrackExposureEvent = false;
+    oneOf?: FlagValue[],
+  ): FlagValue {
+    // It is very common for products to call this method many times for the same flag key,
+    // as flag evaluations are often done inside action callbacks and/or inside components with many instances.
+    // We can cache the result of the first evaluation to avoid doing the same validation checks on every call.
+    let result = this._evaluationResult;
+    if (result === undefined) {
+      result = this._evaluationResult = this.computeWithValidation(
+        defaultValue,
+        oneOf,
+      );
+    }
+
+    let value = result.value;
+    if (result.didFallbackToDefaultValue) {
+      // Use the default that was passed in, just in case it's different to what it was in the initial evaluation
       value = defaultValue;
-      explanation = {
-        ...(explanation || {}),
+    } else if (shouldTrackExposureEvent) {
+      // For backwards compability, only fire the opt-in exposure event in valid evaluations.
+      this.trackExposure(this.flagKey, this.flag, exposureData);
+    }
+
+    this.sendAutomaticExposure(this.flagKey, value, result.explanation);
+
+    this.evaluationCount++;
+    return value;
+  }
+
+  private computeWithValidation(
+    defaultValue: FlagValue,
+    oneOf?: FlagValue[],
+  ): EvaluationResult {
+    let result: EvaluationResult = {
+      value: this.flag.value,
+      explanation: this.flag.explanation,
+      didFallbackToDefaultValue: false,
+    };
+
+    if (typeof this.flag.value !== typeof defaultValue) {
+      result.value = defaultValue;
+      result.didFallbackToDefaultValue = true;
+      result.explanation = {
+        ...(result.explanation || {}),
         kind: 'ERROR',
         errorKind: 'WRONG_TYPE',
       };
-    } else if (oneOf !== undefined && !oneOf.includes(value)) {
-      shouldTrackExposureEvent = false;
-      value = defaultValue;
-      explanation = {
-        ...(explanation || {}),
+    } else if (oneOf !== undefined && !oneOf.includes(this.flag.value)) {
+      result.value = defaultValue;
+      result.didFallbackToDefaultValue = true;
+      result.explanation = {
+        ...(result.explanation || {}),
         kind: 'ERROR',
         errorKind: 'VALIDATION_ERROR',
       };
     }
 
-    // For backwards compability, we only fire the opt-in exposure event in valid evaluations.
-    // The automatic exposures can fire in all scenarios including errors.
-    if (shouldTrackExposureEvent) {
-      this.trackExposure(this.flagKey, this.flag, exposureData);
-    }
-
-    this.sendAutomaticExposure(this.flagKey, value, explanation);
-
-    this.evaluationCount++;
-    return value;
+    return result;
   }
 
   getBooleanValue(options: {
@@ -91,12 +113,14 @@ export default class BasicFlag implements FlagWrapper {
       options.shouldTrackExposureEvent !== undefined
         ? options.shouldTrackExposureEvent
         : true;
-    return this.evaluate<boolean>(
-      FlagType.BOOLEAN,
+
+    const value = this.getCachedResultOrCompute(
       options.default,
       shouldTrackExposureEvent,
       options.exposureData,
     );
+
+    return value as boolean;
   }
 
   getVariantValue(options: {
@@ -109,17 +133,19 @@ export default class BasicFlag implements FlagWrapper {
       options.shouldTrackExposureEvent !== undefined
         ? options.shouldTrackExposureEvent
         : true;
-    return this.evaluate<string>(
-      FlagType.STRING,
+
+    const value = this.getCachedResultOrCompute(
       options.default,
       shouldTrackExposureEvent,
       options.exposureData,
       options.oneOf,
     );
+
+    return value as string;
   }
 
   getJSONValue(): object {
-    return this.evaluate<object>(FlagType.JSON, {}, false);
+    return this.getCachedResultOrCompute({}, false) as object;
   }
 
   getRawValue(options: {
@@ -131,8 +157,8 @@ export default class BasicFlag implements FlagWrapper {
       options.shouldTrackExposureEvent !== undefined
         ? options.shouldTrackExposureEvent
         : true;
-    return this.evaluate<FlagValue>(
-      this.type,
+
+    return this.getCachedResultOrCompute(
       options.default,
       shouldTrackExposureEvent,
       options.exposureData,

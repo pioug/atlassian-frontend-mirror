@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/help",
-  "version": "4.0.5",
+  "version": "4.0.6",
   "description": "A cross-product help component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -15,7 +15,7 @@
   "sideEffects": false,
   "atlaskit:src": "src/index.ts",
   "atlassian": {
-    "team": "Jira Platform: SPA / Endeavour (Help squad)",
+    "team": "In Product Help",
     "deprecatedAutoEntryPoints": true,
     "releaseModel": "continuous",
     "website": {

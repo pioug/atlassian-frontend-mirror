@@ -59,8 +59,8 @@ describe('Snapshot Test', () => {
     const image = await page.screenshot();
     expect(image).toMatchProdImageSnapshot();
   });
-  // FIXME These tests were flakey in the Puppeteer v10 Upgrade
-  it.skip(`Portal should create portals with different stacking context for different layers`, async () => {
+
+  it(`Portal should create portals with different stacking context for different layers`, async () => {
     const url = getExampleUrl(
       'design-system',
       'portal',

@@ -4,9 +4,9 @@ const overflowMenuTriggerSelector =
   '[data-testid="within-modal--overflow-menu--trigger"]';
 const overflowMenuItem = '[data-testid="within-modal--avatar-group-item-4"]';
 
-describe('avatar group within-modal snapshots', () => {
-  // FIXME These tests were flakey in the Puppeteer v10 Upgrade
-  it.skip('should match the snapshot of the avatar group within a modal', async () => {
+// TODO: DSP-1663 fix flakey VR
+describe.skip('avatar group within-modal snapshots', () => {
+  it('should match the snapshot of the avatar group within a modal', async () => {
     const { __BASEURL__, page } = global;
     const url = getExampleUrl(
       'design-system',

@@ -44,5 +44,5 @@ export const waitForTooltip = async (page: PuppeteerPage, textContent = '') => {
   });
 
   // The tooltip takes 350 ms to animate in (plus some buffer)
-  await page.waitForTimeout(600);
+  await page.waitForTimeout(350);
 };

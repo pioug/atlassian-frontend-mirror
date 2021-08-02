@@ -68,8 +68,7 @@ describe('Snapshot Test', () => {
     });
   });
 
-  // FIXME These tests were flakey in the Puppeteer v10 Upgrade
-  it.skip('Select usage should match production example', async () => {
+  it('Select usage should match production example', async () => {
     const url = getExampleUrl(
       'design-system',
       'inline-edit',
@@ -168,7 +167,8 @@ describe('Snapshot Test', () => {
     });
   });
 
-  it('Validation - should show error message when input is invalid', async () => {
+  // TODO: DSP-1663 fix flakey VR
+  it.skip('Validation - should show error message when input is invalid', async () => {
     const url = getExampleUrl(
       'design-system',
       'inline-edit',
@@ -196,11 +196,7 @@ describe('Snapshot Test', () => {
     await page.waitForSelector(errorMessage);
 
     const image = await page.screenshot();
-    // FIXME These tests were flakey in the Puppeteer v10 Upgrade
-    expect(image).toMatchProdImageSnapshot({
-      failureThreshold: '0.03',
-      failureThresholdType: 'percent',
-    });
+    expect(image).toMatchProdImageSnapshot();
   });
 
   it('The edit button should have focus after edit is confirmed by pressing Enter', async () => {
@@ -220,10 +216,6 @@ describe('Snapshot Test', () => {
     await page.waitForSelector(readView);
     await page.waitForTimeout(500);
     const image = await page.screenshot();
-    // FIXME These tests were flakey in the Puppeteer v10 Upgrade
-    expect(image).toMatchProdImageSnapshot({
-      failureThreshold: '0.03',
-      failureThresholdType: 'percent',
-    });
+    expect(image).toMatchProdImageSnapshot();
   });
 });

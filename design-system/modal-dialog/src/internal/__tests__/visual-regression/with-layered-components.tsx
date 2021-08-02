@@ -38,8 +38,7 @@ describe('<Modal />', () => {
     expect(image).toMatchProdImageSnapshot();
   });
 
-  // FIXME These tests were flakey in the Puppeteer v10 Upgrade
-  it.skip('with Tooltip', async () => {
+  it('with Tooltip', async () => {
     const page = await openModal(url, options);
 
     await page.click(scrollToMiddle);
@@ -134,7 +133,7 @@ describe('<Modal />', () => {
     const image = await takeElementScreenShot(page, 'body');
     expect(image).toMatchProdImageSnapshot();
   });
-  // FIXME These tests were flakey in the Puppeteer v10 Upgrade
+  // TODO: DSP-1663 fix flakey VR
   it.skip('with DatePicker', async () => {
     const page = await openModal(url, options);
 

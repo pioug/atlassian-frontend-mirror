@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/help",
-  "version": "4.0.6",
+  "version": "4.0.8",
   "description": "A cross-product help component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -44,7 +44,6 @@
     "@babel/runtime": "^7.0.0",
     "@emotion/core": "^10.0.9",
     "@emotion/styled": "^10.0.7",
-    "@testing-library/react": "^8.0.1",
     "lodash": "^4.17.15",
     "react-animate-height": "^2.0.5",
     "react-transition-group": "^4.4.1"
@@ -60,6 +59,7 @@
     "@atlaskit/navigation": "^37.0.0",
     "@atlaskit/page": "^12.0.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
+    "@testing-library/react": "^8.0.1",
     "algoliasearch": "^3.33.0",
     "enzyme": "^3.10.0",
     "react-test-renderer": "^16.8.0",

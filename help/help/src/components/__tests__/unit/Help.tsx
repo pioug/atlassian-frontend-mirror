@@ -22,10 +22,7 @@ const { intl } = intlProvider.getChildContext();
 const messageBack = intl.formatMessage(messages.help_navigation_back);
 
 // Mock props
-let articleId = { id: '1', type: ARTICLE_TYPE.HELP_ARTICLE };
-const mockArticleIdSetter = jest
-  .fn()
-  .mockImplementation((id) => (articleId = id));
+const mockArticleIdSetter = jest.fn().mockImplementation((id) => id);
 const mockOnGetHelpArticle = jest.fn().mockImplementation(
   (id) =>
     new Promise((resolve, reject) => {
@@ -69,54 +66,8 @@ const mockOnBackButtonClick = jest.fn();
 const defaultContentText = 'Default content';
 
 describe('Help', () => {
-  // jest.useFakeTimers();
-
-  beforeEach(() => {
-    //   jest.clearAllTimers();
-    articleId = { id: '1', type: ARTICLE_TYPE.HELP_ARTICLE };
-  });
-
   afterEach(() => {
     jest.clearAllMocks();
-  });
-
-  it('Should match snapshot', () => {
-    const { container } = render(
-      <IntlProvider locale="en">
-        <Help
-          header={{
-            onCloseButtonClick: mockOnCloseButtonClick,
-            onBackButtonClick: mockOnBackButtonClick,
-          }}
-          navigation={{
-            articleId,
-            articleIdSetter: mockArticleIdSetter,
-          }}
-          helpArticle={{
-            onGetHelpArticle: mockOnGetHelpArticle,
-            onHelpArticleLoadingFailTryAgainButtonClick: mockOnHelpArticleLoadingFailTryAgainButtonClick,
-            onWasHelpfulYesButtonClick: mockOnWasHelpfulYesButtonClick,
-            onWasHelpfulNoButtonClick: mockOnWasHelpfulNoButtonClick,
-          }}
-          relatedArticles={{
-            onGetRelatedArticles: mockOnGetRelatedArticles,
-            onRelatedArticlesListItemClick: mockOnRelatedArticlesListItemClick,
-          }}
-          search={{
-            onSearch: mockOnSearch,
-            onSearchInputChanged: mockOnSearchInputChanged,
-            onSearchInputCleared: mockOnSearchInputCleared,
-            onSearchResultItemClick: mockOnSearchResultItemClick,
-            searchExternalUrl: mockSearchExternalUrl,
-            onSearchExternalUrlClick: mockOnSearchExternalUrlClick,
-          }}
-        >
-          <div>{defaultContentText}</div>
-        </Help>
-      </IntlProvider>,
-    );
-
-    expect(container.firstChild).toMatchSnapshot();
   });
 
   it('Should load and display an article if the articleId != ""', async () => {

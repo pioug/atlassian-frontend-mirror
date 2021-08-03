@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/global-search",
-  "version": "13.0.12",
+  "version": "13.0.13",
   "description": "A cross-product search component (batteries included)",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -35,13 +35,11 @@
     "@atlaskit/icon-file-type": "^6.3.0",
     "@atlaskit/icon-object": "^6.2.0",
     "@atlaskit/item": "^12.0.0",
-    "@atlaskit/logo": "^13.0.0",
     "@atlaskit/quick-search": "^8.0.0",
     "@atlaskit/theme": "^11.4.0",
     "@atlaskit/util-service-support": "^6.0.0",
     "@babel/runtime": "^7.0.0",
     "deep-equal": "^1.0.1",
-    "keycode": "^2.1.7",
     "lodash": "^4.17.15",
     "memoize-one": "^5.1.0",
     "react-intl": "^2.6.0",
@@ -57,6 +55,7 @@
     "@atlaskit/docs": "*",
     "@atlaskit/drawer": "^6.0.0",
     "@atlaskit/global-navigation": "^11.0.0",
+    "@atlaskit/logo": "^13.5.1",
     "@atlaskit/navigation-next": "^9.0.0",
     "@atlaskit/page": "^12.0.0",
     "@atlaskit/quick-search": "^8.0.0",
@@ -65,6 +64,7 @@
     "@types/seedrandom": "^2.4.27",
     "enzyme": "^3.10.0",
     "fetch-mock": "^8.0.0",
+    "keycode": "^2.1.7",
     "mockdate": "^3.0.2",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",

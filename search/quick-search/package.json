@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/quick-search",
-  "version": "8.0.6",
+  "version": "8.0.7",
   "description": "A quick-search component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -24,7 +24,6 @@
   "dependencies": {
     "@atlaskit/analytics": "^8.0.0",
     "@atlaskit/avatar": "^20.3.0",
-    "@atlaskit/icon": "^21.6.0",
     "@atlaskit/item": "^12.0.0",
     "@atlaskit/spinner": "^15.0.0",
     "@atlaskit/theme": "^11.0.0",
@@ -39,6 +38,7 @@
     "@atlaskit/avatar": "^20.3.0",
     "@atlaskit/docs": "*",
     "@atlaskit/drawer": "^6.0.0",
+    "@atlaskit/icon": "^21.7.1",
     "@atlaskit/navigation": "^37.0.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "enzyme": "^3.10.0",

@@ -45,6 +45,9 @@ type OnValueError = (
 ) => Promise<OptionData[]> | void;
 type OnEmpty = (query: string) => Promise<OptionData[]>;
 
+/**
+ * @deprecated Please use @atlassian/smart-user-picker
+ */
 export type SupportedProduct =
   | 'jira'
   | 'confluence'
@@ -52,10 +55,16 @@ export type SupportedProduct =
   | 'bitbucket'
   | 'compass';
 
+/**
+ * @deprecated Please use @atlassian/smart-user-picker
+ */
 export type ProductAttributes = BitbucketAttributes | ConfluenceAttributes;
 
 type FilterOptions = (options: OptionData[], query: string) => OptionData[];
 
+/**
+ * @deprecated Please use @atlassian/smart-user-picker
+ */
 export interface BitbucketAttributes {
   /**
    * Identifies whether this is a public repository or not.
@@ -71,6 +80,9 @@ export interface BitbucketAttributes {
   emailDomain?: string;
 }
 
+/**
+ * @deprecated Please use @atlassian/smart-user-picker
+ */
 export interface ConfluenceAttributes {
   /**
    * Identifies whether this user is a confluence guest
@@ -78,6 +90,9 @@ export interface ConfluenceAttributes {
   isEntitledConfluenceExternalCollaborator?: boolean;
 }
 
+/**
+ * @deprecated Please use @atlassian/smart-user-picker
+ */
 export interface SmartProps {
   /**
    * The base URL of the site eg: hello.atlassian.net
@@ -127,6 +142,9 @@ export interface SmartProps {
   siteId: string;
 }
 
+/**
+ * @deprecated Please use @atlassian/smart-user-picker
+ */
 export interface Props
   extends SmartProps,
     UserPickerProps,
@@ -188,6 +206,9 @@ export interface Props
   searchQueryFilter?: string;
 }
 
+/**
+ * @deprecated Please use @atlassian/smart-user-picker
+ */
 export interface State {
   users: OptionData[];
   loading: boolean;
@@ -199,6 +220,9 @@ export interface State {
   bootstrapOptions: OptionData[];
 }
 
+/**
+ * @deprecated Please use @atlassian/smart-user-picker
+ */
 export interface RecommendationRequest {
   baseUrl?: string;
   context: Context;
@@ -264,6 +288,9 @@ function isOptionData(
   return (option as OptionData).name !== undefined;
 }
 
+/**
+ * @deprecated Please use @atlassian/smart-user-picker
+ */
 export async function hydrateDefaultValues(
   value: DefaultValue,
   productKey: SupportedProduct,
@@ -305,6 +332,9 @@ export async function hydrateDefaultValues(
   return sortResults(results, accountIds);
 }
 
+/**
+ * @deprecated
+ */
 class SmartUserPicker extends React.Component<
   Props & InjectedIntlProps,
   State
@@ -589,6 +619,9 @@ const WrappedSmartUserPicker = withAnalyticsEvents()(
   injectIntl(SmartUserPicker),
 );
 
+/**
+ * @deprecated
+ */
 const SmartUserPickerWithIntlProvider: React.FunctionComponent<Props> = (
   props,
 ) => (
@@ -597,4 +630,8 @@ const SmartUserPickerWithIntlProvider: React.FunctionComponent<Props> = (
   </MessagesIntlProvider>
 );
 
+/**
+ * Please use AK/SUP instead
+ * @deprecated
+ */
 export default SmartUserPickerWithIntlProvider;

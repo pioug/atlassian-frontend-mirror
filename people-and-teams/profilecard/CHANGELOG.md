@@ -1,5 +1,11 @@
 # @atlaskit/profilecard
 
+## 15.6.0
+
+### Minor Changes
+
+- [`d07a1ced0bd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d07a1ced0bd) - Pass orgId on to service when querying team
+
 ## 15.5.12
 
 ### Patch Changes

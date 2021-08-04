@@ -1,5 +1,5 @@
 import { MobileTestCase } from '@atlaskit/webdriver-runner/runner';
-import { SPECIAL_KEYS } from '@atlaskit/webdriver-runner/utils/mobile/keyboard/common-osk';
+import { SPECIAL_KEYS } from '@atlaskit/webdriver-runner/lib/appium/keyboard/common-osk';
 import Page from '@atlaskit/webdriver-runner/wd-app-wrapper';
 import { getADFContent } from '../../_utils/afe-app-helpers';
 import { loadEditor } from '../../_page-objects/hybrid-editor-page';

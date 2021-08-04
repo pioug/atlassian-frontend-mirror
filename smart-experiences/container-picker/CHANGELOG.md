@@ -1,5 +1,11 @@
 # @atlaskit/container-picker
 
+## 1.1.10
+
+### Patch Changes
+
+- [`ccda387eede`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ccda387eede) - smart-user-picker extracted out from user-picker to smart-user-picker package. smart-user-picker in user-picker is now deprecated but still backwards compatible. Please use @atlassian/smart-user-picker for smart-user-picker.
+
 ## 1.1.9
 
 ### Patch Changes

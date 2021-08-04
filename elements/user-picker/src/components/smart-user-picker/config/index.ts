@@ -31,10 +31,16 @@ const PRD_CONFIG: Config = {
       : `/wiki/rest/api/user/bulk`;
   },
 };
-
+/**
+ * @deprecated Please use @atlassian/smart-user-picker
+ */
 export const setSmartUserPickerEnv = (newEnv: 'prod' | 'local') =>
   (env = newEnv);
-
+/**
+ * @deprecated Please use @atlassian/smart-user-picker
+ */
 export const getConfig = () => (env === 'local' ? LOCAL_CONFIG : PRD_CONFIG);
-
+/**
+ * @deprecated Please use @atlassian/smart-user-picker
+ */
 export const JDOG_CLOUD_ID = '49d8b9d6-ee7d-4931-a0ca-7fcae7d1c3b5';

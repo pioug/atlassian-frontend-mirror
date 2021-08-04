@@ -128,6 +128,9 @@ const transformUser = (
   return;
 };
 
+/**
+ * @deprecated Please use @atlassian/smart-user-picker
+ */
 export const transformUsers = (
   serverResponse: ServerResponse,
   intl: InjectedIntl,

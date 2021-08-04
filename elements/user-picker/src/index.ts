@@ -32,6 +32,7 @@ export type {
   AtlaskitSelectValue,
   DefaultValue,
   InputActionTypes,
+  LozengeProps,
   OnChange,
   OnInputChange,
   OnOption,

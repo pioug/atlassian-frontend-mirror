@@ -1,6 +1,9 @@
 import { getConfig } from '../config';
 import { User, UserType } from '../../../types';
 
+/**
+ * @deprecated Please use @atlassian/smart-user-picker
+ */
 export interface UsersRequest {
   accountIds: string[];
   productKey: 'jira' | 'confluence';
@@ -108,4 +111,8 @@ const transformConfluenceUser = (item: ConfluenceUserItem): User | null => {
     email: item.email,
   };
 };
+
+/**
+ * @deprecated Please use @atlassian/smart-user-picker
+ */
 export default getUsersById;

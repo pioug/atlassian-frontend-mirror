@@ -7,6 +7,10 @@ import {
   RecommendationRequest,
 } from '../components';
 import { InjectedIntl } from 'react-intl';
+
+/**
+ * @deprecated Please use @atlassian/smart-user-picker
+ */
 export interface Context {
   containerId?: string;
   contextType: string;
@@ -70,4 +74,7 @@ const getUserRecommendations = (
     .then((response) => transformUsers(response, intl));
 };
 
+/**
+ * @deprecated Please use @atlassian/smart-user-picker
+ */
 export default getUserRecommendations;

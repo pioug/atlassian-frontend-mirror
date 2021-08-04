@@ -5,30 +5,33 @@ import { getPageTime } from '../util/performance';
 import CachingClient from './CachingClient';
 import { GraphQLError, graphqlQuery } from './graphqlUtils';
 
+const QUERY = `query Team($teamId: String!, $organizationId: String) {
+  Team: Team(teamId: $teamId, organizationId: $organizationId) {
+    id,
+    description,
+    displayName,
+    largeHeaderImageUrl,
+    smallHeaderImageUrl,
+    largeAvatarImageUrl,
+    smallAvatarImageUrl,
+    members {
+      id,
+      fullName,
+      avatarUrl,
+    },
+  }
+}`;
+
 /**
  * @param  {string} userId
  * @param  {string} cloudId
  * @return {string} GraphQL Query String
  */
-const buildTeamQuery = (teamId: string) => ({
-  query: `query Team($teamId: String!) {
-    Team: Team(teamId: $teamId) {
-      id,
-      description,
-      displayName,
-      largeHeaderImageUrl,
-      smallHeaderImageUrl,
-      largeAvatarImageUrl,
-      smallAvatarImageUrl,
-      members {
-        id,
-        fullName,
-        avatarUrl,
-      },
-    }
-  }`,
+const buildTeamQuery = (teamId: string, orgId: string | undefined) => ({
+  query: QUERY,
   variables: {
     teamId,
+    organizationId: orgId || '',
   },
 });
 
@@ -40,12 +43,12 @@ export default class TeamProfileCardClient extends CachingClient<Team> {
     this.options = options;
   }
 
-  makeRequest(teamId: string): Promise<Team> {
+  makeRequest(teamId: string, orgId: string | undefined): Promise<Team> {
     if (!this.options.url) {
       throw new Error('config.url is a required parameter for fetching teams');
     }
 
-    const query = buildTeamQuery(teamId);
+    const query = buildTeamQuery(teamId, orgId);
 
     return graphqlQuery<{ Team: Team }>(this.options.url, query).then(
       (data) => data.Team,
@@ -54,7 +57,7 @@ export default class TeamProfileCardClient extends CachingClient<Team> {
 
   getProfile(
     teamId: string,
-    orgId?: string,
+    orgId: string | undefined,
     analytics?: (event: Record<string, any>) => void,
   ): Promise<Team> {
     if (!teamId) {
@@ -74,7 +77,7 @@ export default class TeamProfileCardClient extends CachingClient<Team> {
         analytics(teamRequestAnalytics('triggered'));
       }
 
-      this.makeRequest(teamId)
+      this.makeRequest(teamId, orgId)
         .then((data: Team) => {
           if (this.cache) {
             this.setCachedProfile(teamId, data);

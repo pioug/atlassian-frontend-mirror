@@ -5,9 +5,19 @@ import {
   Props,
   code,
   AtlassianInternalWarning,
+  DevPreviewWarning,
 } from '@atlaskit/docs';
 export default md`
-  ${(<AtlassianInternalWarning />)}
+  ${(
+    <>
+      <div style={{ marginBottom: '0.5rem' }}>
+        <AtlassianInternalWarning />
+      </div>
+      <div style={{ marginTop: '0.5rem' }}>
+        <DevPreviewWarning />
+      </div>
+    </>
+  )}
 
   This is a container picker for jira projects and confluence spaces.
 

@@ -15,7 +15,7 @@ import {
   isErrorPanelVisible,
   isMentionSymbolVisible,
 } from '../../_page-objects/hybrid-editor-page';
-import { SPECIAL_KEYS } from '@atlaskit/webdriver-runner/utils/mobile/keyboard/common-osk';
+import { SPECIAL_KEYS } from '@atlaskit/webdriver-runner/lib/appium/keyboard/common-osk';
 import {
   ENABLE_QUICK_INSERT,
   ENABLE_QUICK_INSERT_AND_SET_LOCALE_TO_ZH,

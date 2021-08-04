@@ -1,29 +1,18 @@
 import React from 'react';
-import { code, md, Props, AtlassianInternalWarning } from '@atlaskit/docs';
+import { md } from '@atlaskit/docs';
+import SectionMessage from '@atlaskit/section-message';
 
 export default md`
-  ${(<AtlassianInternalWarning />)}
-
-  Smart User Picker extends on the User Picker component by providing a ML-backed list of suggested users
-   when queried.
-
-  Smart User Picker has the ability to accept all User Picker props.
-
-  ## Usage
-
-  Import the component in your React app as follows:
-
-  ${code`import { SmartUserPicker } from '@atlaskit/user-picker';`}
-
   ${(
-    <Props
-      heading="Smart User Picker Props"
-      props={require('!!extract-react-types-loader!../src/components/smart-user-picker/components/index')}
-      overrides={{
-        createAnalyticsEvent: () => null,
-      }}
-    />
+    <SectionMessage
+      appearance="warning"
+      title="Note: @atlaskit/user-picker/smart-user-picker is deprecated."
+    >
+      Please use{' '}
+      <a href="https://statlas.prod.atl-paas.net/atlassian-frontend/master#packages/smart-experiences/smart-user-picker">
+        @atlassian/smart-user-picker
+      </a>{' '}
+      instead.
+    </SectionMessage>
   )}
-
-
 `;

@@ -4,7 +4,7 @@ import {
   loadEditor,
   isEmojiAdded,
 } from '../../_page-objects/hybrid-editor-page';
-import { SPECIAL_KEYS } from '@atlaskit/webdriver-runner/utils/mobile/keyboard/common-osk';
+import { SPECIAL_KEYS } from '@atlaskit/webdriver-runner/lib/appium/keyboard/common-osk';
 import { ANGRY_EMOJI, SLIGHT_SMILE_EMOJI } from '../../_utils/emoji';
 
 export default async () => {

@@ -16,7 +16,7 @@ export default class JdogProjectPicker extends React.Component {
     return (
       <AnalyticsListener onEvent={this.onEvent} channel="fabric-elements">
         <ProjectPicker
-          cloudId="497ea592-beb4-43c3-9137-a6e5fa301088"
+          cloudId="49d8b9d6-ee7d-4931-a0ca-7fcae7d1c3b5"
           contextType="jiraProjectPicker"
         />
       </AnalyticsListener>

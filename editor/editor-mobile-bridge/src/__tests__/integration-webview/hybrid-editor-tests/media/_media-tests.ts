@@ -4,7 +4,7 @@ import { setADFContent } from '../../_utils/afe-app-helpers';
 import { loadEditor } from '../../_page-objects/hybrid-editor-page';
 import { uploadMedia } from '../../_utils/afe-app-helpers';
 import mediaSingleAdf from '../../__fixtures__/media-single.adf.json';
-import { SPECIAL_KEYS } from '@atlaskit/webdriver-runner/utils/mobile/keyboard/common-osk';
+import { SPECIAL_KEYS } from '@atlaskit/webdriver-runner/lib/appium/keyboard/common-osk';
 import media2ColumnLayoutAdf from '../../__fixtures__/media-2-column-layout.adf.json';
 import media3ColumnLayoutAdf from '../../__fixtures__/media-3-column-layout.adf.json';
 import mediaGroupAdf from '../../__fixtures__/media-group.adf.json';

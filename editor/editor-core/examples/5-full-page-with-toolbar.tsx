@@ -55,6 +55,9 @@ export type Props = {
 };
 
 const quickInsertProvider = quickInsertProviderFactory();
+const quickInsert = {
+  provider: Promise.resolve(quickInsertProvider),
+};
 export class ExampleEditor extends React.Component<Props> {
   render() {
     return (
@@ -76,9 +79,7 @@ export class ExampleEditor extends React.Component<Props> {
                 defaultValue={this.props.defaultValue}
                 appearance="full-page"
                 allowAnalyticsGASV3={true}
-                quickInsert={{
-                  provider: Promise.resolve(quickInsertProvider),
-                }}
+                quickInsert={quickInsert}
                 allowBreakout={true}
                 allowTextColor={true}
                 allowTextAlignment={true}

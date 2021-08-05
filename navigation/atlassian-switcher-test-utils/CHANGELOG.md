@@ -1,5 +1,11 @@
 # @atlaskit/atlassian-switcher-test-utils
 
+## 1.0.1
+
+### Patch Changes
+
+- [`ddd10963b5a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ddd10963b5a) - remove `add-products` permission from the mocks as it was only used by trusted-admin check and this feature doesn't exist anymore
+
 ## 1.0.0
 
 ### Major Changes

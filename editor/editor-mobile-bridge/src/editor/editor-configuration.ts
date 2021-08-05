@@ -40,8 +40,8 @@ export default class MobileEditorConfiguration
   private useUnpredictableInputRule: boolean = true;
   private placeholder?: string | undefined;
   private allowEmptyADFCheck: boolean = false;
-  private localIdGenerationOnTables: boolean = false;
-  private dataConsumerMark: boolean = false;
+  private localIdGenerationOnTables: boolean = true;
+  private dataConsumerMark: boolean = true;
 
   constructor(editorConfig?: string) {
     if (editorConfig) {

@@ -172,7 +172,6 @@ class TrelloSwitcher extends React.Component<TrelloSwitcherProps> {
                       productRecommendations,
                       collaborationGraphRecentContainers: emptyCollaborationGraphRecentContainers,
                       managePermission: createResultComplete(false),
-                      addProductsPermission: createResultComplete(false),
                       isXFlowEnabled: createResultComplete(true),
                     },
                     features,

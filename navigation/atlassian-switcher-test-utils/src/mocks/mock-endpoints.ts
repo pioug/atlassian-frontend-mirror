@@ -99,9 +99,7 @@ export const mockEndpoints = (
           () =>
             res(
               USER_PERMISSION_DATA[
-                JSON.parse(options.body).permissionId as
-                  | 'manage'
-                  | 'add-products'
+                JSON.parse(options.body).permissionId as 'manage'
               ],
             ),
           loadTimes && loadTimes.permitted,

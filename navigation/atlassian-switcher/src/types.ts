@@ -58,7 +58,6 @@ export interface CustomLink {
 export enum Permissions {
   MANAGE = 'manage',
   CAN_INVITE_USERS = 'invite-users',
-  ADD_PRODUCTS = 'add-products',
 }
 
 export enum Product {
@@ -67,7 +66,6 @@ export enum Product {
   HOME = 'home',
   JIRA = 'jira',
   SITE_ADMIN = 'site-admin',
-  TRUSTED_ADMIN = 'trusted-admin',
   TRELLO = 'trello',
   START = 'start',
 }
@@ -83,8 +81,6 @@ export enum Feature {
   isProductStoreInTrelloConfluenceFirstEnabled = 'isProductStoreInTrelloConfluenceFirstEnabled',
   // Integrations discovery button and copy changes to More products
   isSlackDiscoveryEnabled = 'isSlackDiscoveryEnabled',
-  // Trusted Admin button removal
-  isTrustedAdminUIDeprecationEnabled = 'isTrustedAdminUIDeprecationEnabled',
 }
 
 export type FeatureFlagProps = {
@@ -96,8 +92,6 @@ export type FeatureFlagProps = {
   disableSwitchToHeading?: boolean;
   /** Enable Integrations discovery in the discover more section  */
   isSlackDiscoveryEnabled?: boolean;
-  /** Enable Trusted Admin UI deprecation  */
-  isTrustedAdminUIDeprecationEnabled?: boolean;
 };
 
 export type FeatureMap = { [key in Feature]: boolean };
@@ -311,7 +305,6 @@ export interface ProviderResults {
   availableProducts: ProviderResult<AvailableProductsResponse>;
   joinableSites: ProviderResult<JoinableSitesResponse>;
   managePermission: ProviderResult<boolean>;
-  addProductsPermission: ProviderResult<boolean>;
   isXFlowEnabled: ProviderResult<boolean>;
   productRecommendations: ProviderResult<RecommendationsEngineResponse>;
   collaborationGraphRecentContainers: ProviderResult<

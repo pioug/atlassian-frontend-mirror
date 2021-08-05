@@ -1,5 +1,11 @@
 # @atlaskit/editor-core
 
+## 147.0.1
+
+### Patch Changes
+
+- [`61eabb132cd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/61eabb132cd) - [ux][ed-13498] This solves a regression that has popped up in the editor-mobile-bridge version 28.0.0 where changes made to feature flags in the editor config are not triggering the shouldReconfigureState function which updates the state and applies the feature flag change.
+
 ## 147.0.0
 
 ### Major Changes

@@ -27,7 +27,6 @@ const defaultFeatures = {
   isProductStoreInTrelloJSWFirstEnabled: false,
   isProductStoreInTrelloConfluenceFirstEnabled: false,
   isSlackDiscoveryEnabled: false,
-  isTrustedAdminUIDeprecationEnabled: false,
 };
 
 describe('map-results-to-switcher-props', () => {
@@ -120,7 +119,6 @@ describe('map-results-to-switcher-props', () => {
           ...loadingProvidersResult,
           isXFlowEnabled: asCompletedProvider(true),
           managePermission: asCompletedProvider(true),
-          addProductsPermission: asCompletedProvider(true),
           productRecommendations: asCompletedProvider([]),
         },
         defaultFeatures,
@@ -139,7 +137,6 @@ describe('map-results-to-switcher-props', () => {
           ...loadingProvidersResult,
           isXFlowEnabled: asFailedProvider(),
           managePermission: asFailedProvider(),
-          addProductsPermission: asFailedProvider(),
           productRecommendations: asFailedProvider(),
         },
         defaultFeatures,
@@ -157,7 +154,6 @@ describe('map-results-to-switcher-props', () => {
         {
           ...loadingProvidersResult,
           managePermission: asCompletedProvider(true),
-          addProductsPermission: asFailedProvider(),
         },
         {
           ...defaultFeatures,
@@ -894,8 +890,8 @@ describe('map-results-to-switcher-props', () => {
     });
   });
 
-  describe('Trusted Admin deprecation', () => {
-    it('should return Administration link if the user is an Admin and isTrustedAdminUIDeprecationEnabled is passed', () => {
+  describe('render admininstration button correctly', () => {
+    it('should return Administration link if the user is an Admin', () => {
       const props = mapResultsToSwitcherProps(
         CLOUD_ID,
         {
@@ -906,10 +902,7 @@ describe('map-results-to-switcher-props', () => {
             sites: [generateSite(CLOUD_ID, SwitcherProductType.JIRA_SOFTWARE)],
           }),
         },
-        {
-          ...defaultFeatures,
-          isTrustedAdminUIDeprecationEnabled: true,
-        },
+        defaultFeatures,
         () => {},
         () => {},
         Product.JIRA,
@@ -922,21 +915,17 @@ describe('map-results-to-switcher-props', () => {
         },
       ]);
     });
-    it('should NOT return Administration link if the user is a trusted user and isTrustedAdminUIDeprecationEnabled is passed', () => {
+    it('should NOT return Administration link if the user is not an Admin', () => {
       const props = mapResultsToSwitcherProps(
         CLOUD_ID,
         {
           ...completedProvidersResult,
-          addProductsPermission: asCompletedProvider(true),
           availableProducts: asCompletedProvider<AvailableProductsResponse>({
             isPartial: false,
             sites: [generateSite(CLOUD_ID, SwitcherProductType.JIRA_SOFTWARE)],
           }),
         },
-        {
-          ...defaultFeatures,
-          isTrustedAdminUIDeprecationEnabled: true,
-        },
+        defaultFeatures,
         () => {},
         () => {},
         Product.JIRA,
@@ -998,7 +987,6 @@ const loadingProvidersResult = {
   customLinks: loadingProviderResultObject,
   recentContainers: loadingProviderResultObject,
   managePermission: loadingProviderResultObject,
-  addProductsPermission: loadingProviderResultObject,
   isXFlowEnabled: loadingProviderResultObject,
   productRecommendations: loadingProviderResultObject,
   collaborationGraphRecentContainers: loadingProviderResultObject,
@@ -1014,7 +1002,6 @@ const loadingProvidersResult = {
 const completedProvidersResult = {
   customLinks: asCompletedProvider<CustomLinksResponse>([]),
   managePermission: asCompletedProvider(false),
-  addProductsPermission: asCompletedProvider(false),
   isXFlowEnabled: asCompletedProvider(false),
   productRecommendations: asCompletedProvider<RecommendationsEngineResponse>(
     [],

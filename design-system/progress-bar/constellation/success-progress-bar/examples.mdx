@@ -1,0 +1,28 @@
+---
+title: Success progress bar
+description: A success progress bar indicates the completion of a process.
+order: 0
+---
+
+import SuccessProgressBarComplete from '../../examples/constellation/success-progress-bar-complete';
+import SuccessProgressBarIncomplete from '../../examples/constellation/success-progress-bar-incomplete';
+import SuccessProgressBarIndeterminate from '../../examples/constellation/success-progress-bar-indeterminate';
+
+
+## Complete
+
+A success progress bar turns green when progress is completed.
+
+<Example Component={SuccessProgressBarComplete} packageName="@atlaskit/progress-bar" />
+
+## Incomplete
+
+When a success progress bar is incomplete (any value below `1`), it looks and behaves exactly like a standard [progress bar](/components/progress-bar).
+
+<Example Component={SuccessProgressBarIncomplete} packageName="@atlaskit/progress-bar" />
+
+## Indeterminate
+
+A success progress bar can be indeterminate, just like a standard [progress bar](/components/progress-bar).
+
+<Example Component={SuccessProgressBarIndeterminate} packageName="@atlaskit/progress-bar" />

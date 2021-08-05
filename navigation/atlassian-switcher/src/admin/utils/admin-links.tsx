@@ -6,21 +6,6 @@ import { createIcon } from '../../common/utils/icon-themes';
 import messages from '../../common/utils/messages';
 
 export const getAdministrationLinks = (
-  isAdmin: boolean,
-  adminUrl?: string,
-): SwitcherItemType[] => {
-  const adminBaseUrl = isAdmin ? `/admin` : '/trusted-admin';
-  return [
-    {
-      key: 'administration',
-      label: <FormattedMessage {...messages.administration} />,
-      Icon: createIcon(SettingsGlyph, { size: 'medium' }),
-      href: adminUrl || adminBaseUrl,
-    },
-  ];
-};
-
-export const getAdministrationLinksNext = (
   adminUrl?: string,
 ): SwitcherItemType[] => {
   return [

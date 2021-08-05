@@ -1,5 +1,11 @@
 # @atlaskit/atlassian-switcher
 
+## 16.0.0
+
+### Major Changes
+
+- [`9c09be4b085`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9c09be4b085) - remove isTrustedAdminUIDeprecationEnabled feature flag which now is the default behavior
+
 ## 15.0.0
 
 ### Major Changes

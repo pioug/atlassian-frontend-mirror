@@ -112,10 +112,6 @@ export const XFlowSettingsProvider = withHandleOptionalCloudId(
 
 export const prefetchAll = ({ cloudId }: WithCloudId) => {
   fetchXflowSettings({ cloudId });
-  fetchPermission({
-    cloudId,
-    permissionId: Permissions.ADD_PRODUCTS,
-  });
   fetchPermission({ cloudId, permissionId: Permissions.MANAGE });
 };
 

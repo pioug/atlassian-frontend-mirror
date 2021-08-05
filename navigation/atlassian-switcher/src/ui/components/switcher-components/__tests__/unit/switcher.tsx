@@ -32,10 +32,6 @@ const providerResults: ProviderResults & SyntheticProviderResults = {
     data: {},
     status: Status.COMPLETE,
   },
-  addProductsPermission: {
-    data: false,
-    status: Status.COMPLETE,
-  },
   managePermission: {
     data: false,
     status: Status.COMPLETE,

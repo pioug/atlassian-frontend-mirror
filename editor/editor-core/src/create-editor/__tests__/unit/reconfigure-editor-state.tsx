@@ -40,9 +40,8 @@ describe('ReactEditorView/reconfigureState', () => {
           {...requiredProps()}
           {...analyticsProps()}
           editorProps={{
-            UNSAFE_allowUndoRedoButtons: false,
             featureFlags: {
-              undoRedoButtons: false,
+              useUnpredictableInputRule: true,
             },
           }}
         />,
@@ -50,36 +49,60 @@ describe('ReactEditorView/reconfigureState', () => {
       expect(textFormattingInputRulePlugin).toHaveBeenNthCalledWith(
         1,
         expect.anything(),
-        expect.objectContaining({ undoRedoButtons: false }),
+        expect.objectContaining({ useUnpredictableInputRule: true }),
       );
     });
   });
   describe('when the editor props flag changes', () => {
-    it('should reconfigure the state using the new feature flags', () => {
+    it('should reconfigure the state using new UNSAFE_allowUndoRedoButtons', () => {
       const wrapper = mountWithIntl(
         <ReactEditorView
           {...requiredProps()}
           {...analyticsProps()}
           editorProps={{
             UNSAFE_allowUndoRedoButtons: false,
-            featureFlags: {
-              undoRedoButtons: false,
-            },
           }}
         />,
       );
       wrapper.setProps({
         editorProps: {
           UNSAFE_allowUndoRedoButtons: true,
-          featureFlags: {
-            undoRedoButtons: true,
-          },
         },
       });
       expect(textFormattingInputRulePlugin).toHaveBeenNthCalledWith(
         2,
         expect.anything(),
         expect.objectContaining({ undoRedoButtons: true }),
+      );
+      wrapper.unmount();
+    });
+  });
+  describe('when the editor props flag changes on mobile appearance', () => {
+    it('should reconfigure the state using the new feature flag', () => {
+      const wrapper = mountWithIntl(
+        <ReactEditorView
+          {...requiredProps()}
+          {...analyticsProps()}
+          editorProps={{
+            featureFlags: {
+              useUnpredictableInputRule: true,
+            },
+            appearance: 'mobile',
+          }}
+        />,
+      );
+      wrapper.setProps({
+        editorProps: {
+          featureFlags: {
+            useUnpredictableInputRule: false,
+            appearance: 'mobile',
+          },
+        },
+      });
+      expect(textFormattingInputRulePlugin).toHaveBeenNthCalledWith(
+        2,
+        expect.anything(),
+        expect.objectContaining({ useUnpredictableInputRule: false }),
       );
       wrapper.unmount();
     });

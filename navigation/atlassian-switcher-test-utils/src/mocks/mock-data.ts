@@ -5,7 +5,6 @@ export interface MockData {
   CUSTOM_LINKS_DATA_ERROR?: object;
   USER_PERMISSION_DATA: {
     manage: any;
-    'add-products': any;
   };
   XFLOW_SETTINGS: object;
   PRODUCT_RECOMMENDATIONS_DATA: object;
@@ -212,9 +211,6 @@ const ORIGINAL_MOCK_DATA: MockData = {
   ],
   USER_PERMISSION_DATA: {
     manage: {
-      permitted: true,
-    },
-    'add-products': {
       permitted: true,
     },
   },

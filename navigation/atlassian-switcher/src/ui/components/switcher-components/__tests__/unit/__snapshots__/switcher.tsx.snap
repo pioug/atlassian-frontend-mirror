@@ -42,10 +42,6 @@ exports[`Switcher Non-Core ErrorBoundary should not render when there is no erro
     onDiscoverMoreClicked={[Function]}
     rawProviderResults={
       Object {
-        "addProductsPermission": Object {
-          "data": false,
-          "status": "complete",
-        },
         "availableProducts": Object {
           "data": Object {
             "isPartial": false,
@@ -308,10 +304,6 @@ exports[`Switcher Non-Core ErrorBoundary should not render when there is no erro
                           licensedProductLinks={Array []}
                           rawProviderResults={
                             Object {
-                              "addProductsPermission": Object {
-                                "data": false,
-                                "status": "complete",
-                              },
                               "availableProducts": Object {
                                 "data": Object {
                                   "isPartial": false,
@@ -482,10 +474,6 @@ exports[`Switcher Non-Core ErrorBoundary should not render when there is no erro
                           onDiscoverMoreClicked={[Function]}
                           rawProviderResults={
                             Object {
-                              "addProductsPermission": Object {
-                                "data": false,
-                                "status": "complete",
-                              },
                               "availableProducts": Object {
                                 "data": Object {
                                   "isPartial": false,
@@ -821,10 +809,6 @@ exports[`Switcher Non-Core ErrorBoundary should render when there is an error in
     onDiscoverMoreClicked={[Function]}
     rawProviderResults={
       Object {
-        "addProductsPermission": Object {
-          "data": false,
-          "status": "complete",
-        },
         "availableProducts": Object {
           "data": Object {
             "isPartial": false,
@@ -1087,10 +1071,6 @@ exports[`Switcher Non-Core ErrorBoundary should render when there is an error in
                           licensedProductLinks={Array []}
                           rawProviderResults={
                             Object {
-                              "addProductsPermission": Object {
-                                "data": false,
-                                "status": "complete",
-                              },
                               "availableProducts": Object {
                                 "data": Object {
                                   "isPartial": false,
@@ -1261,10 +1241,6 @@ exports[`Switcher Non-Core ErrorBoundary should render when there is an error in
                           onDiscoverMoreClicked={[Function]}
                           rawProviderResults={
                             Object {
-                              "addProductsPermission": Object {
-                                "data": false,
-                                "status": "complete",
-                              },
                               "availableProducts": Object {
                                 "data": Object {
                                   "isPartial": false,
@@ -1603,10 +1579,6 @@ exports[`Switcher should be able to disable switch to section header with "disab
         licensedProductLinks={Array []}
         rawProviderResults={
           Object {
-            "addProductsPermission": Object {
-              "data": false,
-              "status": "complete",
-            },
             "availableProducts": Object {
               "data": Object {
                 "isPartial": false,
@@ -1678,10 +1650,6 @@ exports[`Switcher should be able to disable switch to section header with "disab
         onDiscoverMoreClicked={[Function]}
         rawProviderResults={
           Object {
-            "addProductsPermission": Object {
-              "data": false,
-              "status": "complete",
-            },
             "availableProducts": Object {
               "data": Object {
                 "isPartial": false,
@@ -1830,10 +1798,6 @@ exports[`Switcher should render discover more section 1`] = `
         licensedProductLinks={Array []}
         rawProviderResults={
           Object {
-            "addProductsPermission": Object {
-              "data": false,
-              "status": "complete",
-            },
             "availableProducts": Object {
               "data": Object {
                 "isPartial": false,
@@ -1918,10 +1882,6 @@ exports[`Switcher should render discover more section 1`] = `
         onDiscoverMoreClicked={[Function]}
         rawProviderResults={
           Object {
-            "addProductsPermission": Object {
-              "data": false,
-              "status": "complete",
-            },
             "availableProducts": Object {
               "data": Object {
                 "isPartial": false,
@@ -2069,10 +2029,6 @@ exports[`Switcher should render sections with headers by default 1`] = `
         licensedProductLinks={Array []}
         rawProviderResults={
           Object {
-            "addProductsPermission": Object {
-              "data": false,
-              "status": "complete",
-            },
             "availableProducts": Object {
               "data": Object {
                 "isPartial": false,
@@ -2144,10 +2100,6 @@ exports[`Switcher should render sections with headers by default 1`] = `
         onDiscoverMoreClicked={[Function]}
         rawProviderResults={
           Object {
-            "addProductsPermission": Object {
-              "data": false,
-              "status": "complete",
-            },
             "availableProducts": Object {
               "data": Object {
                 "isPartial": false,

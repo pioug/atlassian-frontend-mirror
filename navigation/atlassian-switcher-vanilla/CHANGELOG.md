@@ -1,5 +1,11 @@
 # @atlaskit/atlassian-switcher-vanilla
 
+## 3.0.14
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.0.13
 
 ### Patch Changes

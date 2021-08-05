@@ -16,7 +16,6 @@ interface CommonDataProviderProps {
   recommendationsFeatureFlags?: RecommendationsFeatureFlags;
   children: (props: {
     managePermission: ProviderResults['managePermission'];
-    addProductsPermission: ProviderResults['addProductsPermission'];
     isXFlowEnabled: ProviderResults['isXFlowEnabled'];
     productRecommendations: ProviderResults['productRecommendations'];
     collaborationGraphRecentContainers: ProviderResults['collaborationGraphRecentContainers'];
@@ -40,30 +39,22 @@ export default ({
           permissionId={Permissions.MANAGE}
         >
           {(managePermission) => (
-            <UserPermissionProvider
-              cloudId={cloudId}
-              permissionId={Permissions.ADD_PRODUCTS}
-            >
-              {(addProductsPermission) => (
-                <XFlowSettingsProvider cloudId={cloudId}>
-                  {(isXFlowEnabled) => (
-                    <RecommendationsEngineProvider
-                      featureFlags={recommendationsFeatureFlags}
-                    >
-                      {(productRecommendations) =>
-                        children({
-                          managePermission,
-                          addProductsPermission,
-                          isXFlowEnabled,
-                          productRecommendations,
-                          collaborationGraphRecentContainers,
-                        })
-                      }
-                    </RecommendationsEngineProvider>
-                  )}
-                </XFlowSettingsProvider>
+            <XFlowSettingsProvider cloudId={cloudId}>
+              {(isXFlowEnabled) => (
+                <RecommendationsEngineProvider
+                  featureFlags={recommendationsFeatureFlags}
+                >
+                  {(productRecommendations) =>
+                    children({
+                      managePermission,
+                      isXFlowEnabled,
+                      productRecommendations,
+                      collaborationGraphRecentContainers,
+                    })
+                  }
+                </RecommendationsEngineProvider>
               )}
-            </UserPermissionProvider>
+            </XFlowSettingsProvider>
           )}
         </UserPermissionProvider>
       )}

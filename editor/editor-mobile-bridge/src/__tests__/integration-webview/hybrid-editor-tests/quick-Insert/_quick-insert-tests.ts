@@ -39,6 +39,7 @@ export default async () => {
       const page = await Page.create(client);
       await loadEditor(page);
       await configureEditor(page, ENABLE_QUICK_INSERT);
+      await focusOnWebView(page);
       await page.tapKeys(ACTION_ITEM_QUICK_INSERT[1]);
       await page.tapKeys(SPECIAL_KEYS.ENTER);
 
@@ -68,6 +69,7 @@ export default async () => {
       const page = await Page.create(client);
       await loadEditor(page);
       await configureEditor(page, ENABLE_QUICK_INSERT);
+      await focusOnWebView(page);
       await page.tapKeys(INFORMATION_PANEL_QUICK_INSERT);
       await page.tapKeys(SPECIAL_KEYS.ENTER);
       expect(await isInfoPanelVisible(page)).toBe(true);
@@ -81,6 +83,7 @@ export default async () => {
       const page = await Page.create(client);
       await loadEditor(page);
       await configureEditor(page, ENABLE_QUICK_INSERT);
+      await focusOnWebView(page);
       await page.tapKeys(WARNING_PANEL_QUICK_INSERT);
       await page.tapKeys(SPECIAL_KEYS.ENTER);
       expect(await isWarningPanelVisible(page)).toBe(true);
@@ -94,6 +97,7 @@ export default async () => {
       const page = await Page.create(client);
       await loadEditor(page);
       await configureEditor(page, ENABLE_QUICK_INSERT);
+      await focusOnWebView(page);
       await page.tapKeys(ERROR_PANEL_QUICK_INSERT);
       await page.tapKeys(SPECIAL_KEYS.ENTER);
       expect(await isErrorPanelVisible(page)).toBe(true);
@@ -107,6 +111,7 @@ export default async () => {
       const page = await Page.create(client);
       await loadEditor(page);
       await configureEditor(page, ENABLE_QUICK_INSERT);
+      await focusOnWebView(page);
       await page.tapKeys(MENTION_QUICK_INSERT);
       await page.tapKeys(SPECIAL_KEYS.ENTER);
 
@@ -121,6 +126,7 @@ export default async () => {
       const page = await Page.create(client);
       await loadEditor(page);
       await configureEditor(page, ENABLE_QUICK_INSERT);
+      await focusOnWebView(page);
       await page.tapKeys(DECISION_QUICK_INSERT);
       await page.tapKeys(SPECIAL_KEYS.ENTER);
 
@@ -140,6 +146,7 @@ export default async () => {
       const page = await Page.create(client);
       await loadEditor(page);
       await configureEditor(page, ENABLE_QUICK_INSERT);
+      await focusOnWebView(page);
       await page.tapKeys(BLOCK_QUOTE_QUICK_INSERT);
       await page.tapKeys(SPECIAL_KEYS.SPACE);
       const blockQuoteText = 'Quote';
@@ -160,6 +167,7 @@ export default async () => {
       const page = await Page.create(client);
       await loadEditor(page);
       await configureEditor(page, ENABLE_QUICK_INSERT);
+      await focusOnWebView(page);
       await page.tapKeys(CODE_BLOCK_QUICK_INSERT);
       const codeBlockText = 'Code';
       await page.tapKeys(codeBlockText);

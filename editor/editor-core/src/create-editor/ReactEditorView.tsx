@@ -138,11 +138,15 @@ export function shouldReconfigureState(
     return true;
   }
 
+  const mobileProperties: Array<keyof EditorProps> =
+    props.appearance === 'mobile' ? ['featureFlags', 'quickInsert'] : [];
+
   const properties: Array<keyof EditorProps> = [
     'appearance',
     'persistScrollGutter',
     'UNSAFE_allowUndoRedoButtons',
     'placeholder',
+    ...mobileProperties,
   ];
 
   return properties.reduce(

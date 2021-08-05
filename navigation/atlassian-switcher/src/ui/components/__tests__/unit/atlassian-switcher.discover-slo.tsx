@@ -62,7 +62,6 @@ const Selectors = {
   Product.HOME,
   Product.JIRA,
   Product.SITE_ADMIN,
-  Product.TRUSTED_ADMIN,
   Product.TRELLO,
   Product.START,
 ].forEach((product) => {

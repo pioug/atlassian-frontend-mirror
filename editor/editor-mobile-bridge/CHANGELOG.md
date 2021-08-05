@@ -1,5 +1,17 @@
 # @atlaskit/editor-mobile-bridge
 
+## 28.0.4
+
+### Patch Changes
+
+- [`f987b3578a6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f987b3578a6) - Address an issue with schema related feature flags conflicting with mobile bridge re-configuration
+
+## 28.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 28.0.2
 
 ### Patch Changes

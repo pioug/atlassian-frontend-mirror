@@ -24,10 +24,7 @@ import {
   TriggerXFlowCallback,
 } from '../../types';
 import { createCollector } from './create-collector';
-import {
-  collectAdminLinks,
-  collectAdminLinksNext,
-} from '../../admin/utils/admin-link-collector';
+import { collectAdminLinks } from '../../admin/utils/admin-link-collector';
 import {
   collectDiscoverSectionLinks,
   collectSuggestedLinks,
@@ -207,7 +204,6 @@ export function mapResultsToSwitcherProps(
     joinableSites,
     isXFlowEnabled,
     managePermission,
-    addProductsPermission,
     customLinks,
     productRecommendations,
     collaborationGraphRecentContainers,
@@ -227,8 +223,7 @@ export function mapResultsToSwitcherProps(
   );
   const provisionedProducts = asProvisionedProductsResult(availableProducts);
   const hasLoadedAvailableProducts = hasLoaded(availableProducts);
-  const hasLoadedAdminLinks =
-    hasLoaded(managePermission) && hasLoaded(addProductsPermission);
+  const hasLoadedAdminLinks = hasLoaded(managePermission);
   const hasLoadedSuggestedProducts = features.xflow
     ? hasLoaded(productRecommendations) && hasLoaded(isXFlowEnabled)
     : true;
@@ -266,12 +261,7 @@ export function mapResultsToSwitcherProps(
       [],
     ),
     fixedLinks: [],
-    adminLinks: features.isTrustedAdminUIDeprecationEnabled
-      ? collect(collectAdminLinksNext(managePermission, adminUrl), [])
-      : collect(
-          collectAdminLinks(managePermission, addProductsPermission, adminUrl),
-          [],
-        ),
+    adminLinks: collect(collectAdminLinks(managePermission, adminUrl), []),
     joinableSiteLinks: collect(collectJoinableSiteLinks(joinableSites), []),
     discoverSectionLinks: hasLoadedDiscoverSection
       ? collect(
@@ -320,7 +310,6 @@ export function mapResultsToSwitcherProps(
       joinableSites,
       productRecommendations,
       isXFlowEnabled,
-      addProductsPermission,
       managePermission,
       collaborationGraphRecentContainers,
       customLinks,

@@ -91,9 +91,6 @@ const DefaultAtlassianSwitcher = (props: any = {}) => {
     provisionedProducts: {
       data: [],
     },
-    addProductsPermission: {
-      data: false,
-    },
     managePermission: {
       data: false,
     },

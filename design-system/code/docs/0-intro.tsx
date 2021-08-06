@@ -1,35 +1,13 @@
 import React from 'react';
 
-import { code, Example, md, Props } from '@atlaskit/docs';
+import { md } from '@atlaskit/docs';
+import SectionMessage from '@atlaskit/section-message';
 
 export default md`
-
-  ## Usage
-
-  ${code`import { Code, CodeBlock } from '@atlaskit/code'`}
-
-  ${(
-    <Example
-      language="jsx"
-      packageName="@atlaskit/code"
-      Component={require('../examples/00-basic').default}
-      title="Basic"
-      highlight="19,24,30,36"
-      source={require('!!raw-loader!../examples/00-basic')}
-    />
-  )}
-
-  ${(
-    <Props
-      heading="Code Props"
-      props={require('!!extract-react-types-loader!../src/extract-react-types/code')}
-    />
-  )}
-
-  ${(
-    <Props
-      heading="CodeBlock Props"
-      props={require('!!extract-react-types-loader!../src/extract-react-types/code-block')}
-    />
-  )}
+${(
+  <SectionMessage appearance="information">
+    This component is now documented on{' '}
+    <a href="https://atlassian.design/components">atlassian.design</a>
+  </SectionMessage>
+)}
 `;

@@ -36,6 +36,7 @@
     "@atlaskit/build-utils": "*",
     "@atlaskit/button": "*",
     "@atlaskit/docs": "*",
+    "@atlaskit/section-message": "^6.0.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",

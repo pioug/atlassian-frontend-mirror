@@ -1,24 +1,13 @@
 import React from 'react';
 
-import { code, Example, md, Props } from '@atlaskit/docs';
+import { md } from '@atlaskit/docs';
+import SectionMessage from '@atlaskit/section-message';
 
 export default md`
-  Use lozenges to highlight an item's status for quick recognition. Use
-  subtle lozenges by default and in instances where they may dominate the
-  screen, such as in long tables.
-
-  ## Usage
-
-  ${code`import Lozenge from '@atlaskit/lozenge';`}
-
-  ${(
-    <Example
-      packageName="@atlaskit/lozenge"
-      Component={require('../examples/0-basic').default}
-      title="Basic"
-      source={require('!!raw-loader!../examples/0-basic')}
-    />
-  )}
-
-  ${(<Props props={require('!!extract-react-types-loader!../src/Lozenge')} />)}
+${(
+  <SectionMessage appearance="information">
+    This component is now documented on{' '}
+    <a href="https://atlassian.design/components">atlassian.design</a>
+  </SectionMessage>
+)}
 `;

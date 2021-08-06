@@ -39,6 +39,7 @@
     "@atlaskit/icon": "^21.7.0",
     "@atlaskit/lozenge": "^11.0.0",
     "@atlaskit/motion": "^1.0.0",
+    "@atlaskit/section-message": "^6.0.0",
     "@atlaskit/select": "^15.0.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",

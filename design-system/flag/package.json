@@ -41,6 +41,7 @@
     "@atlaskit/docs": "*",
     "@atlaskit/field-radio-group": "^8.0.0",
     "@atlaskit/radio": "^5.2.0",
+    "@atlaskit/section-message": "^6.0.0",
     "@atlaskit/spinner": "^15.0.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/theme": "^11.4.0",

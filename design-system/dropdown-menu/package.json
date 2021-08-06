@@ -48,6 +48,7 @@
     "@atlaskit/docs": "*",
     "@atlaskit/lozenge": "11.0.0",
     "@atlaskit/modal-dialog": "^11.5.0",
+    "@atlaskit/section-message": "^6.0.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/tooltip": "^17.3.0",
     "@atlaskit/visual-regression": "*",

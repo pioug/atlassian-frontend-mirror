@@ -1,0 +1,174 @@
+---
+order: 3
+---
+
+## v11 to v12
+
+In this version we bring significant performance improvements as well as improving the experience of using `inline-edit`.
+
+- removed dynamic loading of inline dialog allowing consumers to compose their own experiences
+- merged controlled & uncontrolled inline edit components
+- split `InlineEditableTextfield` to its own entry-point
+
+### Handling errors with inline edit
+
+You can now customise `editView` when its content is invalid. For example, use the `errorMessage` and `isInvalid` props to show errors with inline dialog:
+
+```
+editView={({ errorMessage, ...fieldProps }) => (
+    <InlineDialog
+        isOpen={fieldProps.isInvalid}
+        content={<div>{errorMessage}</div>}
+        placement="right"
+    >
+        <TextField {...fieldProps} autoFocus />
+    </InlineDialog>
+)}
+```
+
+### Controlled and uncontrolled component
+
+From this version, inline edit will act as either controlled or uncontrolled based on the props passed in. Please refer to [this example](https://atlassian.design/components/inline-edit/examples#stateless) for more details.
+
+When in controlled, you can control the state by setting `isEditing` through `onCancel`, `onConfirm` and `onEdit` callbacks.
+
+### InlineEditableTextfield
+
+From this version, `InlineEditableTextfield` now has its own entrypoint so you can import only what you use. Like so:
+
+```
+import InlineEditableTextfield from '@atlaskit/inline-edit/inline-editable-textfield';
+```
+
+**Running the codemod cli**
+To run the codemod: **You first need to have the latest version installed before you can run the codemod**
+
+```
+yarn upgrade @atlaskit/inline-edit@^12.0.0
+```
+
+Once upgraded, use the Atlaskit codemod-cli;
+
+```
+npx @atlaskit/codemod-cli --parser [PARSER] --extensions [FILE_EXTENSIONS] [TARGET_PATH]
+```
+
+The CLI will show a list of components and versions so select `@atlaskit/inline-edit@^12.0.0` and you will automatically be upgraded. If your usage of PACKAGE cannot be upgraded a comment will be left that a manual change is required.
+
+Run `npx @atlaskit/codemod-cli -h` for more details on usage.
+For Atlassians, refer to [this doc](https://developer.atlassian.com/cloud/framework/atlassian-frontend/codemods/01-atlassian-codemods/) for more details on the codemod CLI.
+
+## v8 to v9
+
+### Highlights
+
+- **New API:** The exposed named exports are now InlineEdit and InlineEditableTextfield. These components
+  are built to be standalone, not used within a Form, but rather, updating data individually. The props API for each
+  of these components is similar in some ways, but simplified and clarified.
+  - **InlineEdit** is a controlled component which receives a read view and an edit view as props, and facilitates
+    the changing of editing state. It is designed to be simple but flexible.
+  - **InlineEditableTextfield** is a component which abstracts away most of the complexity of the InlineEdit
+    component and simply switches between a single line of text and a textfield.
+- **Underlying technical improvements:**
+  - First-class support of Textfield and Textarea components (as an improvement over the
+    soon-to-be deprecated Field-text and Field-text-area components).
+  - No longer relies on FieldBase, which is being deprecated as part of the Form v5 release.
+  - Includes validation with an inline dialog which is not loaded if a validate function
+    is not provided, reducing unnecessary bundle size for inline edit usage without validation by almost half.
+- **Typescript**: Inline Edit is now written in Typescript. The props are exported as Typescript types. This also
+  means we are dropping support for Flow in this component.
+
+**Note: the most major conceptual API change is that the new value is now only passed to the consumer
+in the onConfirm handler, rather than in the input's onChange handler.**
+
+### Upgrading
+
+In v8, we used to create inline edit components as follows:
+
+```
+  <InlineEdit
+    editView={
+      <SingleLineTextInput
+        isEditing
+        isInitiallySelected
+        onChange={e => this.setState({ editValue: e.target.value })}
+      />
+    }
+    readView={
+      <SingleLineTextInput
+        isEditing={false}
+        value={this.state.editValue || 'Click to enter value'}
+      />
+    }
+    onConfirm={this.onConfirm}
+    onCancel={this.onCancel}
+  />
+```
+
+The above code could be written in v9 as:
+
+```
+  <InlineEdit
+    defaultValue={this.state.editValue}
+    editView={fieldProps => <Textfield {...fieldProps} autoFocus />}
+    readView={() => (
+      <ReadViewContainer>
+        {this.state.editValue || 'Click to enter value'}
+      </ReadViewContainer>
+    )}
+    onConfirm={value => this.setState({ editValue: value })}
+  />
+```
+
+Or even as:
+
+```
+  <InlineEditableTextfield
+    defaultValue={this.state.editValue}
+    onConfirm={value => this.setState({ editValue: value })}
+    placeholder="Click to enter value"
+  />
+```
+
+### Added props
+
+- `defaultValue` **(required)**: The value which the input starts with when entering the edit view.
+  Should be updated in the `onConfirm` handler. 
+- `startWithEditViewOpen`: Mount the component in an editing state.
+- `keepEditViewOpenOnBlur`: Determines whether `onConfirm` handler is called when user clicks
+  away from the inline edit (default) or not.
+- `validate`: A function which takes a value and returns an error message, or undefined if
+  valid. You can find more information about this validate function in the
+  [Form package](/packages/design-system/form/docs/validation).
+- `hideActionButtons`: Hides the confirm and cancel buttons from the edit view. Generally,
+  depending on the type of input used in the edit view, users may press Enter or Ctrl + Enter
+  to confirm, or focus away from the input (unless `keepEditViewOpenOnBlur` is true) to confirm,
+  and press Esc to cancel.
+- `readViewFitContainerWidth`: Determines whether the readView fits content (default) or
+  stretches to fit its parent.
+
+### Deprecated props
+
+- `isFitContainerWidthReadView`: Renamed to `readViewFitContainerWidth`.
+- `isWaiting`: Not implemented. Can be implemented in the read view by the consumer.
+- `isInvalid`: Validation handled by `validate` prop. Please use this instead.
+- `isLabelHidden`: This is not required as `label` prop is optional.
+- `areActionButtonsHidden`: Renamed to `hideActionButtons`.
+- `isConfirmOnBlurDisabled`: Renamed to `keepEditViewOpenOnBlur`.
+- `onCancel`: Not exposed.
+- `labelHtmlFor`: Label already references corresponding input (name is spread through `editViewProps`).
+- `shouldConfirmOnEnter`: Implemented by a combination of the Form component used internally
+  and the type of input used by the consumer in the edit view. Fields like textfield, select and
+  textarea have this functionality built in.
+- `disableEditViewFieldBase`: Obsolete (component no longer uses field-base).
+- `invalidMessage`: The validation message should be the return value of the function passed through
+  the `validate` prop.
+- `isEditing`: The InlineEdit component now fully controls the editing state. An uncontrolled
+  version is not currently exported.
+- `onEditRequested`: Not exposed.
+
+### Updated props
+
+- `readView`: The function signature has been updated to `() => React.ReactNode`
+- `editView`: The function signature has been updated to `(editViewProps) => React.ReactNode`, where `editViewProps` should be spread onto the returned input node
+- `onConfirm`: The function signature has been updated to `(value: any, analyticsEvent: UIAnalyticsEvent) => void`

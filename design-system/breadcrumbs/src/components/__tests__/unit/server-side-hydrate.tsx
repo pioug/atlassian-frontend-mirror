@@ -16,7 +16,8 @@ afterEach(() => {
   jest.resetAllMocks();
 });
 
-test('should ssr then hydrate breadcrumbs correctly', async () => {
+// https://product-fabric.atlassian.net/browse/DSP-1740
+test.skip('should ssr then hydrate breadcrumbs correctly', async () => {
   const [example] = await getExamplesFor('breadcrumbs');
   const Example = require(example.filePath).default; // eslint-disable-line import/no-dynamic-require
 

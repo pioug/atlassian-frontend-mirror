@@ -38,6 +38,7 @@
     "@atlaskit/button": "^16.0.0",
     "@atlaskit/docs": "*",
     "@atlaskit/form": "^8.2.2",
+    "@atlaskit/section-message": "^6.0.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",

@@ -44,6 +44,7 @@
     "@atlaskit/field-base": "^15.0.0",
     "@atlaskit/icon": "^21.7.0",
     "@atlaskit/modal-dialog": "^11.6.0",
+    "@atlaskit/section-message": "^6.0.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/toggle": "^12.1.0",
     "@atlaskit/visual-regression": "*",

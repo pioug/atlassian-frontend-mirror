@@ -1,42 +1,13 @@
 import React from 'react';
 
-import { code, Example, md, Props } from '@atlaskit/docs';
+import { md } from '@atlaskit/docs';
+import SectionMessage from '@atlaskit/section-message';
 
 export default md`
-  The progress tracker is used to display the steps and progress through a journey.
-
-  The tracker is most commonly used for the focus task pattern.
-
-  The default visited links support href and onClick passed through stage data.
-
-  ## Usage
-
-  ${code`import { ProgressTracker } from '@atlaskit/progress-tracker';`}
-
-  ${(
-    <Example
-      packageName="@atlaskit/progress-tracker"
-      Component={require('../examples/progressTrackerDefault').default}
-      source={require('!!raw-loader!../examples/progressTrackerDefault')}
-      title="With Default Link"
-    />
-  )}
-
-  They can be replaced with a custom component which will receieve stage data as a prop.
-
-  ${(
-    <Example
-      packageName="@atlaskit/progress-tracker"
-      Component={require('../examples/custom').default}
-      source={require('!!raw-loader!../examples/custom')}
-      title="With React Router Link"
-    />
-  )}
-
-  ${(
-    <Props
-      heading="ProgressTracker Props"
-      props={require('!!extract-react-types-loader!../src/ProgressTracker')}
-    />
-  )}
+${(
+  <SectionMessage appearance="information">
+    This component is now documented on{' '}
+    <a href="https://atlassian.design/components">atlassian.design</a>
+  </SectionMessage>
+)}
 `;

@@ -37,7 +37,11 @@ const MessagesIntlProvider: React.FC<MessagesIntlProviderProps> = (props) => {
   const { intl, children } = props;
   const messages = useI18n(intl.locale);
 
-  return <IntlProvider messages={messages}>{children}</IntlProvider>;
+  return (
+    <IntlProvider messages={{ ...intl.messages, ...messages }}>
+      {children}
+    </IntlProvider>
+  );
 };
 
 export default injectIntl(MessagesIntlProvider);

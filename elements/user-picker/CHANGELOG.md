@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 7.15.1
+
+### Patch Changes
+
+- [`7cc3a4c74a2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7cc3a4c74a2) - Pass on parent IntlProvider messages so components passed as props from the parent (such as a placeholder) will have i18n
+
 ## 7.15.0
 
 ### Minor Changes

@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 0.0.18
+
+### Patch Changes
+
+- [`2bda3783615`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2bda3783615) - License information added to package.json
+
 ## 0.0.17
 
 ### Patch Changes

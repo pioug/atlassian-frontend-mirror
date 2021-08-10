@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 7.15.2
+
+### Patch Changes
+
+- [`5c34064da77`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5c34064da77) - Utilising useMemo hook to avoid re-merging i18n messages with parent provider on render
+
 ## 7.15.1
 
 ### Patch Changes

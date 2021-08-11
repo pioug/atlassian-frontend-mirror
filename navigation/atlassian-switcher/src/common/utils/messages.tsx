@@ -40,6 +40,12 @@ const messages = defineMessages({
     description:
       'This text appears as a way to encourage the user to try a new Atlassian product.',
   },
+  free: {
+    id: 'fabric.atlassianSwitcher.free',
+    defaultMessage: 'Free',
+    description:
+      'This text appears as a way to encourage the user to access an Atlassian product they have access to for free.',
+  },
   manageList: {
     id: 'fabric.atlassianSwitcher.manageList',
     defaultMessage: 'Manage list',

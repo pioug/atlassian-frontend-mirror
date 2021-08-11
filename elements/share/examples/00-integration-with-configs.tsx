@@ -1,5 +1,5 @@
 import React from 'react';
-import { IntlProvider } from 'react-intl';
+import { IntlProvider, addLocaleData } from 'react-intl';
 import styled from 'styled-components';
 import Select from '@atlaskit/select';
 import WorldIcon from '@atlaskit/icon/glyph/world';
@@ -40,6 +40,48 @@ import {
 } from '../src/clients/AtlassianUrlShortenerClient';
 import SlackIcon from '../src/components/monochromeSlackIcon';
 import Icon from '@atlaskit/icon';
+
+const supportedLocales = [
+  'en-US',
+  'cs-CZ',
+  'da-DK',
+  'de-DE',
+  'es-ES',
+  'et-EE',
+  'fi-FI',
+  'fr-FR',
+  'hu-HU',
+  'is-IS',
+  'it-IT',
+  'ja-JP',
+  'ko-KR',
+  'nb-NB',
+  'nl-NL',
+  'pl-PL',
+  'pt-BR',
+  'pt-PT',
+  'ro-RO',
+  'ru-RU',
+  'sk-SK',
+  'sv-SE',
+  'tr-TR',
+  'th-TH',
+  'uk-UK',
+  'vi-VI',
+  'zh-TW',
+  'zh-HK',
+  'zh-ZH',
+  'zh-CN',
+];
+
+const loadReactLocaleData = () => {
+  supportedLocales.forEach((locale: string) => {
+    const languageCode = locale.split('-')[0];
+    const data = require(`react-intl/locale-data/${languageCode}`);
+    addLocaleData(data);
+  });
+};
+loadReactLocaleData();
 
 type UserData = {
   avatarUrl?: string;
@@ -192,6 +234,8 @@ type ExampleState = {
   isPublicLink: boolean;
   isSplitButton: boolean;
   shareIntegrations: Array<Integration>;
+  locales: string[];
+  locale: string;
 };
 
 type State = ConfigResponse & {
@@ -314,6 +358,8 @@ export default class Example extends React.Component<{}, State> {
     isPublicLink: false,
     isSplitButton: false,
     shareIntegrations: [],
+    locales: supportedLocales,
+    locale: 'en-US',
   };
 
   key: number = 0;
@@ -383,12 +429,19 @@ export default class Example extends React.Component<{}, State> {
       isPublicLink,
       isSplitButton,
       shareIntegrations,
+      locales,
+      locale,
     } = this.state;
+
+    const localeOptions = locales.map((l) => ({
+      label: l,
+      value: l,
+    }));
 
     this.key++;
     return (
       <AnalyticsListener onEvent={listenerHandler} channel="fabric-elements">
-        <IntlProvider locale="en">
+        <IntlProvider locale={locale}>
           <App>
             {(showFlags) => (
               <>
@@ -716,6 +769,21 @@ export default class Example extends React.Component<{}, State> {
                       onChange={(option: any) =>
                         this.setState({
                           product: option.value,
+                        })
+                      }
+                    />
+                  </WrapperWithMarginTop>
+                  <WrapperWithMarginTop>
+                    Locale
+                    <Select
+                      value={{
+                        label: locale,
+                        value: locale,
+                      }}
+                      options={localeOptions}
+                      onChange={(option: any) =>
+                        this.setState({
+                          locale: option.value,
                         })
                       }
                     />

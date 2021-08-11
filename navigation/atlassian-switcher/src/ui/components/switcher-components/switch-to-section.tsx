@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useRef } from 'react';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import {
   FormattedMessage,
@@ -6,6 +6,8 @@ import {
   SectionWithLinkItem,
   SwitcherItemWithDropdown,
   SwitcherThemedItemWithEvents,
+  NotificationDot,
+  TryLozenge,
 } from '../../primitives';
 import messages from '../../../common/utils/messages';
 import { SwitcherItemType } from '../../../common/utils/links';
@@ -19,10 +21,15 @@ import {
   DiscoverLinkItemKeys,
   DiscoverMoreCallback,
   GetExtendedAnalyticsAttributes,
+  SwitcherProductType,
+  WithRecommendationsFeatureFlags,
+  WithConfluenceNotificationDot,
 } from '../../../types';
 import { AdminSubsection } from '../../../admin/components/admin-subsection';
 
 const noop = () => void 0;
+const DOT_CHASING_FLAG =
+  'jira.frontend.growth.experiments.switcher.dot.chasing';
 
 type SwitchToSectionProps = {
   adminLinks: SwitcherItemType[];
@@ -53,7 +60,16 @@ export const SwitchToSection = ({
   licensedProductLinks,
   onDiscoverMoreClicked,
   getExtendedAnalyticsAttributes,
-}: SwitchToSectionProps) => {
+  recommendationsFeatureFlags,
+  switcherConfluenceNotificationDot,
+}: Partial<WithConfluenceNotificationDot> &
+  Partial<WithRecommendationsFeatureFlags> &
+  SwitchToSectionProps) => {
+  const switcherConfluenceRef = useRef(switcherConfluenceNotificationDot);
+  const dotChasingFlagValue = recommendationsFeatureFlags?.[
+    DOT_CHASING_FLAG
+  ] as string;
+
   /** https://bitbucket.org/atlassian/atlaskit-mk-2/pull-requests/6522/issue-prst-13-adding-discover-more-button/
    * Currently Atlaskit's Item prioritises the usage of href over onClick in the case the href is a valid value.
    *
@@ -66,6 +82,36 @@ export const SwitchToSection = ({
     },
     [onDiscoverMoreClicked],
   );
+
+  const onDotChasingClickedCallback = useCallback(() => {
+    switcherConfluenceRef.current?.setConfluenceLinkClicked();
+  }, []);
+
+  const isDotChasingExperiment = useCallback(
+    (productType?: SwitcherProductType): boolean => {
+      switcherConfluenceRef.current?.setSwitcherNotificationDot();
+      return (
+        ['variation1', 'variation2', 'variation3'].includes(
+          dotChasingFlagValue,
+        ) && productType === SwitcherProductType.CONFLUENCE
+      );
+    },
+    [dotChasingFlagValue],
+  );
+
+  const shouldShowNotificationDot = useCallback((): boolean => {
+    return (
+      !!switcherConfluenceRef.current &&
+      switcherConfluenceRef.current.showConfluenceNotificationDot
+    );
+  }, []);
+
+  const shouldLinkToEditor = useCallback((): boolean => {
+    return (
+      !!switcherConfluenceRef.current &&
+      switcherConfluenceRef.current.linkToConfluenceEditor
+    );
+  }, []);
 
   const renderChildren = () => {
     return [
@@ -80,16 +126,52 @@ export const SwitchToSection = ({
             getExtendedAnalyticsAttributes(item.productType),
           )}
         >
-          <SwitcherItemWithDropdown
-            icon={<item.Icon theme="product" />}
-            childIcon={<item.Icon theme="subtle" />}
-            description={item.description}
-            href={item.href}
-            childItems={item.childItems}
-            tooltipContent={<FormattedMessage {...messages.showMoreSites} />}
-          >
-            {item.label}
-          </SwitcherItemWithDropdown>
+          {isDotChasingExperiment(item.productType) ? (
+            <SwitcherItemWithDropdown
+              icon={
+                shouldShowNotificationDot() ? (
+                  <NotificationDot>
+                    <item.Icon theme="highlightedProduct" />
+                  </NotificationDot>
+                ) : (
+                  <item.Icon theme="product" />
+                )
+              }
+              childIcon={<item.Icon theme="subtle" />}
+              description={
+                shouldShowNotificationDot()
+                  ? 'Document Collaboration'
+                  : item.description
+              }
+              href={
+                shouldLinkToEditor()
+                  ? '/wiki/welcome?createBlankFabricPage=true'
+                  : item.href
+              }
+              onItemClick={onDotChasingClickedCallback}
+              shouldShowNotificationDot={shouldShowNotificationDot()}
+              childItems={item.childItems}
+              tooltipContent={<FormattedMessage {...messages.showMoreSites} />}
+            >
+              {item.label}
+              {shouldShowNotificationDot() && (
+                <TryLozenge isBold={false}>
+                  <FormattedMessage {...messages.free} />
+                </TryLozenge>
+              )}
+            </SwitcherItemWithDropdown>
+          ) : (
+            <SwitcherItemWithDropdown
+              icon={<item.Icon theme="product" />}
+              childIcon={<item.Icon theme="subtle" />}
+              description={item.description}
+              href={item.href}
+              childItems={item.childItems}
+              tooltipContent={<FormattedMessage {...messages.showMoreSites} />}
+            >
+              {item.label}
+            </SwitcherItemWithDropdown>
+          )}
         </NavigationAnalyticsContext>
       )),
       fixedLinks.map((item, groupIndex) => (

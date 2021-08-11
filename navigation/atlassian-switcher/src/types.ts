@@ -274,6 +274,17 @@ export interface WithRecommendationsFeatureFlags {
   recommendationsFeatureFlags: RecommendationsFeatureFlags;
 }
 
+export type ConfluenceNotificationDot = {
+  showConfluenceNotificationDot: boolean;
+  linkToConfluenceEditor: boolean;
+  setConfluenceLinkClicked: () => void;
+  setSwitcherNotificationDot: () => void;
+};
+
+export interface WithConfluenceNotificationDot {
+  switcherConfluenceNotificationDot: ConfluenceNotificationDot;
+}
+
 export interface SwitcherChildItem {
   href: string;
   label: string;
@@ -318,35 +329,50 @@ export interface SyntheticProviderResults {
   userSiteData: ProviderResult<UserSiteDataResponse>;
 }
 
+export type SwitcherCallbackProps = {
+  // Optional callback to be exectuted after an XFlow event is triggered.
+  triggerXFlow?: TriggerXFlowCallback;
+  // Optional callback to be exectuted after a user clicks on discover more.
+  onDiscoverMoreClicked?: DiscoverMoreCallback;
+  // Optional function allowing to close the switcher, e.g. after a joinable site link is clicked
+  onClose?: () => void;
+  // Optional callback to be exectuted after a user clicks on Slack for Atlassian.
+  slackDiscoveryClickHandler?: DiscoverMoreCallback;
+  // Optional callback to be executed for adding Origin Tracing info onto switcher links.
+  customizeLinks?: CustomizeLinks;
+};
+
+export type SwitcherDataProviderProps = {
+  // Optional custom provider for available products
+  availableProductsDataProvider?: AvailableProductsDataProvider;
+  // Optional custom provider for joinable sites
+  joinableSitesDataProvider?: JoinableSitesDataProvider;
+};
+
+export type SwitcherPrimitiveProps = {
+  // Product name used for analytics events
+  product: string;
+  // Optional cloudID, should be provided for tenanted applications.
+  cloudId?: string;
+  // Optional ability to highlight a joinable site
+  highlightedJoinableItemHref?: string;
+  // Optional parameter to indicate that the user does not have a linked Atlassian account (Trello specific)
+  nonAaMastered?: boolean;
+  // Optional user email (Trello specific)
+  defaultSignupEmail?: string;
+  // Optional admin URl (required for Statuspage)
+  adminUrl?: string;
+};
+
+export type SwitcherSimpleProps = Partial<WithRecommendationsFeatureFlags> &
+  Partial<WithConfluenceNotificationDot> &
+  SwitcherPrimitiveProps &
+  FeatureFlagProps;
+
 export type AtlassianSwitcherProps = WithTheme &
-  Partial<WithRecommendationsFeatureFlags> & {
-    // Product name used for analytics events
-    product: string;
-    // Optional cloudID, should be provided for tenanted applications.
-    cloudId?: string;
-    // Optional callback to be exectuted after an XFlow event is triggered.
-    triggerXFlow?: TriggerXFlowCallback;
-    // Optional callback to be exectuted after a user clicks on discover more.
-    onDiscoverMoreClicked?: DiscoverMoreCallback;
-    // Optional custom provider for available products
-    availableProductsDataProvider?: AvailableProductsDataProvider;
-    // Optional custom provider for joinable sites
-    joinableSitesDataProvider?: JoinableSitesDataProvider;
-    // Optional ability to highlight a joinable site
-    highlightedJoinableItemHref?: string;
-    // Optional function allowing to close the switcher, e.g. after a joinable site link is clicked
-    onClose?: () => void;
-    // Optional parameter to indicate that the user does not have a linked Atlassian account (Trello specific)
-    nonAaMastered?: boolean;
-    // Optional user email (Trello specific)
-    defaultSignupEmail?: string;
-    // Optional admin URl (required for Statuspage)
-    adminUrl?: string;
-    // Optional callback to be exectuted after a user clicks on Slack for Atlassian.
-    slackDiscoveryClickHandler?: DiscoverMoreCallback;
-    // Optional callback to be executed for adding Origin Tracing info onto switcher links.
-    customizeLinks?: CustomizeLinks;
-  } & FeatureFlagProps;
+  SwitcherDataProviderProps &
+  SwitcherCallbackProps &
+  SwitcherSimpleProps;
 
 export enum DiscoverLinkItemKeys {
   DISCOVER_MORE = 'discover-more',

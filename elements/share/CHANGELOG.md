@@ -1,5 +1,17 @@
 # @atlaskit/share
 
+## 0.26.13
+
+### Patch Changes
+
+- [`e178114aea5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e178114aea5) - Merging parent intl-provider messages with share intl-provider - to support i18n in components passed as props such as a custom footer
+
+## 0.26.12
+
+### Patch Changes
+
+- [`5995bf12959`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5995bf12959) - Merging parent intl-provider messages with share intl-provider - to support i18n in components passed as props such as a custom footer
+
 ## 0.26.11
 
 ### Patch Changes

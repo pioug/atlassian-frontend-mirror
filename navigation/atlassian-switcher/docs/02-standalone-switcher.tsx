@@ -4,7 +4,7 @@ import { md, code, Example } from '@atlaskit/docs';
 export default md`
 
   To implement the switcher in any container other than the drawer, specify the appearance property to be standalone.
- 
+
   ${code`import AtlassianSwitcher  from '@atlaskit/atlassian-switcher';`}
 
   ${(
@@ -13,6 +13,18 @@ export default md`
       Component={require('../examples/11-standalone-switcher').default}
       title="Standalone switcher example"
       source={require('!!raw-loader!../examples/11-standalone-switcher')}
+    />
+  )}
+
+  ${(
+    <Example
+      packageName="@atlaskit/atlassian-switcher"
+      Component={
+        require('../examples/102-standalone-switcher-with-notification-dot')
+          .default
+      }
+      title="Standalone switcher with experimental notification dot on Confluence"
+      source={require('!!raw-loader!../examples/102-standalone-switcher-with-notification-dot')}
     />
   )}
 

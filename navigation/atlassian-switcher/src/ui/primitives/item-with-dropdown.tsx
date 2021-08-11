@@ -61,6 +61,7 @@ interface Props extends WithAnalyticsEventsProps {
   isDisabled?: boolean;
   childIcon?: React.ReactNode;
   childItems?: SwitcherChildItem[];
+  shouldShowNotificationDot?: boolean;
 }
 
 interface State {
@@ -82,6 +83,7 @@ class SwitcherItemWithDropDown extends React.Component<Props, State> {
       childIcon,
       onItemClick,
       onChildItemClick,
+      shouldShowNotificationDot,
       ...rest
     } = this.props;
     const { showChildItems, itemHovered } = this.state;
@@ -97,7 +99,11 @@ class SwitcherItemWithDropDown extends React.Component<Props, State> {
             <ItemWrapper isParentHovered={itemHovered}>
               <SwitcherThemedItem
                 icon={icon}
-                description={childItemsExist ? description : null}
+                description={
+                  childItemsExist || shouldShowNotificationDot
+                    ? description
+                    : null
+                }
                 onClick={onItemClick}
                 {...rest}
               />

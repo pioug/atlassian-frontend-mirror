@@ -1,5 +1,12 @@
 # @atlaskit/atlassian-switcher
 
+## 16.1.0
+
+### Minor Changes
+
+- [`de4f4818066`](https://bitbucket.org/atlassian/atlassian-frontend/commits/de4f4818066) - [ux] - Rolling out a short Red Dot Switcher Growth experiment for Jira -> Confluence
+  See: https://product-fabric.atlassian.net/browse/YWJSD-18
+
 ## 16.0.0
 
 ### Major Changes

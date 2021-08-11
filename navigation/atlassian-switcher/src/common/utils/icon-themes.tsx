@@ -68,6 +68,12 @@ export const themes: IconThemeMap = {
     primaryColor: colors.N0,
     iconElevation: elevation.e100,
   },
+  highlightedProduct: {
+    iconColor: colors.B400,
+    backgroundColor: colors.N0,
+    primaryColor: colors.B400,
+    iconElevation: elevation.e100,
+  },
   admin: {
     backgroundColor: colors.DN70,
     primaryColor: colors.N0,

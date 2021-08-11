@@ -8,6 +8,7 @@ export {
   createJoinableSitesProvider,
   fetchProductRecommendations,
 } from './create-custom-provider';
+export { defaultAvailableProductsFetch } from './common/providers/default-available-products-provider';
 export { createProviderWithCustomFetchData } from './common/providers/create-data-provider';
 export type {
   DataProvider,

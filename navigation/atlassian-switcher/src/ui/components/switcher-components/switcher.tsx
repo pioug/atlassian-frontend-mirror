@@ -29,6 +29,8 @@ import {
   FeatureMap,
   GetExtendedAnalyticsAttributes,
   Product,
+  WithRecommendationsFeatureFlags,
+  WithConfluenceNotificationDot,
 } from '../../../types';
 import { CrossJoinSection } from '../../../cross-join/components/cross-join-section';
 import { CrossFlowSection } from '../../../cross-flow/components/cross-flow-section';
@@ -83,7 +85,8 @@ export type SwitcherProps = {
   slackDiscoveryClickHandler?: DiscoverMoreCallback;
   getExtendedAnalyticsAttributes: GetExtendedAnalyticsAttributes;
   isDiscoverMoreClickable: boolean;
-};
+} & Partial<WithConfluenceNotificationDot> &
+  Partial<WithRecommendationsFeatureFlags>;
 
 const getAnalyticsContext = (itemsCount: number) => ({
   ...analyticsAttributes({
@@ -273,6 +276,12 @@ export default class Switcher extends React.Component<SwitcherProps> {
               showStartLink={this.props.showStartLink}
               showNewHeading={this.props.showNewHeading}
               getExtendedAnalyticsAttributes={getExtendedAnalyticsAttributes}
+              recommendationsFeatureFlags={
+                this.props.recommendationsFeatureFlags
+              }
+              switcherConfluenceNotificationDot={
+                this.props.switcherConfluenceNotificationDot
+              }
             />
           )}
           <ErrorBoundary

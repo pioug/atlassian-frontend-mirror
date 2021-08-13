@@ -1,5 +1,11 @@
 # @atlaskit/select
 
+## 15.1.0
+
+### Minor Changes
+
+- [`1dfc276fa55`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1dfc276fa55) - Expose InputActionMeta in atlaskit/select. Convert withSmarts from class to function component. Fix analytics.
+
 ## 15.0.2
 
 ### Patch Changes

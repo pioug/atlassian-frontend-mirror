@@ -9,6 +9,7 @@ import {
   SelectComponentsConfig as RSSelectComponentsConfig,
   IndicatorComponentType as RSIndicatorComponentType,
   StylesConfig as RSStylesConfig,
+  InputActionMeta as RSInputActionMeta,
   IndicatorProps as RSIndicatorProps,
   ControlProps as RSControlProps,
   GroupProps as RSGroupProps,
@@ -62,6 +63,8 @@ export interface SelectProps<OptionType, IsMulti extends boolean = false>
 }
 
 export type ActionMeta<Option = OptionType> = RSActionMeta<Option>;
+
+export type InputActionMeta = RSInputActionMeta;
 
 export type ControlProps<
   OptionType,

@@ -3,6 +3,7 @@ import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import algoliasearch from 'algoliasearch';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
+import { NotificationLogClient } from '@atlaskit/notification-log-client';
 import Page from '@atlaskit/page';
 import Textfield from '@atlaskit/textfield';
 import ShipIcon from '@atlaskit/icon/glyph/ship';
@@ -14,12 +15,21 @@ import {
   ExampleWrapper,
   HelpWrapper,
   ControlsWrapper,
+  ButtonsWrapper,
   FooterContent,
   HelpContainer,
 } from './utils/styled';
 
-import Help, { RelatedArticles, ARTICLE_TYPE } from '../src';
-import type { ArticleItem, ArticleFeedback, articleId } from '../src';
+import { useContentPlatformApi } from './utils/services/cpapi';
+
+import Help, { RelatedArticles, ARTICLE_TYPE, DividerLine } from '../src';
+import type {
+  ArticleItem,
+  ArticleFeedback,
+  articleId,
+  WhatsNewArticleItem,
+  WhatsNewArticle,
+} from '../src';
 
 const SEARCH_EXTERNAL_URL = 'https://support.atlassian.com/';
 
@@ -32,6 +42,19 @@ const handleEvent = (analyticsEvent: { payload: any; context: any }) => {
 let client = algoliasearch('8K6J5OJIQW', 'c982b4b1a6ca921131d35edb63359b8c');
 var index = client.initIndex('product_help_uat');
 
+// Mockup notification Promise
+class MockNotificationLogClient extends NotificationLogClient {
+  constructor() {
+    super('', '');
+  }
+
+  public async countUnseenNotifications() {
+    return Promise.resolve({ count: 100 });
+  }
+}
+
+const notificationsClient = new MockNotificationLogClient();
+
 const Footer = (
   <FooterContent>
     <span>Footer</span>
@@ -39,6 +62,12 @@ const Footer = (
 );
 
 const Example: React.FC = () => {
+  const {
+    token,
+    setToken,
+    searchWhatsNewArticles,
+    getWhatsNewArticle,
+  } = useContentPlatformApi();
   const [algoliaIndex, setAlgoliaIndex] = useState<string>(index.indexName);
   const [articleId, setArticleId] = useState<articleId>({
     id: '',
@@ -167,6 +196,24 @@ const Example: React.FC = () => {
     console.log(analyticsEvent);
     console.log(articleData);
     analyticsEvent.fire('help');
+  };
+
+  const onSearchWhatsNewArticles = async (
+    filter: string = '',
+    numberOfItems: number,
+    page: string = '',
+  ): Promise<{
+    articles: WhatsNewArticleItem[];
+    nextPage: string;
+    hasNextPage: boolean;
+  }> => {
+    console.log('onSearchWhatsNewArticles');
+    return searchWhatsNewArticles(filter, numberOfItems, page);
+  };
+
+  const onGetWhatsNewArticle = (articleId: articleId): Promise<any> => {
+    console.log(articleId);
+    return getWhatsNewArticle(articleId);
   };
 
   const articleIdSetter = (articleId: articleId): void => {
@@ -300,6 +347,35 @@ const Example: React.FC = () => {
     console.log(articleId);
   };
 
+  const handleOnWhatsNewButtonClick = (
+    event: React.MouseEvent<HTMLElement, MouseEvent>,
+    analyticsEvent: UIAnalyticsEvent,
+  ) => {
+    console.log('handleOnWhatsNewButtonClick');
+    console.log(event);
+    console.log(analyticsEvent);
+  };
+
+  const handleOnSearchWhatsNewShowMoreClick = (
+    event: React.MouseEvent<HTMLElement, MouseEvent>,
+    analyticsEvent: UIAnalyticsEvent,
+  ) => {
+    console.log('handleOnSearchWhatsNewShowMoreClick');
+    console.log(event);
+    console.log(analyticsEvent);
+  };
+
+  const handleOnWhatsNewResultItemClick = (
+    event: React.MouseEvent<HTMLElement, MouseEvent>,
+    analyticsEvent: UIAnalyticsEvent,
+    whatsNewArticleData: WhatsNewArticle,
+  ) => {
+    console.log('handleOnWhatsNewResultItemClick');
+    console.log(event);
+    console.log(analyticsEvent);
+    console.log(whatsNewArticleData);
+  };
+
   return (
     <AnalyticsListener channel="help" onEvent={handleEvent}>
       <ExampleWrapper>
@@ -310,9 +386,11 @@ const Example: React.FC = () => {
               height: '100%',
               verticalAlign: 'top',
               width: 'Calc(100% - 400px)',
+              boxSizing: 'border-box',
+              padding: '10px',
             }}
           >
-            <ControlsWrapper>
+            <ButtonsWrapper>
               <ButtonGroup>
                 <Button appearance="primary" onClick={() => openDrawer()}>
                   Open drawer - no ID
@@ -347,8 +425,8 @@ const Example: React.FC = () => {
                   Open drawer - wrong id
                 </Button>
               </ButtonGroup>
-            </ControlsWrapper>
-            <ControlsWrapper>
+            </ButtonsWrapper>
+            <ButtonsWrapper>
               <ButtonGroup>
                 <Button
                   appearance="primary"
@@ -359,67 +437,81 @@ const Example: React.FC = () => {
 
                 <Button
                   appearance="primary"
-                  onClick={() => openDrawer('01', ARTICLE_TYPE.WHATS_NEW)}
+                  onClick={() =>
+                    openDrawer('11NZoqDJSUhapI6leC1M9C', ARTICLE_TYPE.WHATS_NEW)
+                  }
                 >
                   Open drawer - What's new Article
                 </Button>
               </ButtonGroup>
-            </ControlsWrapper>
-            <ControlsWrapper>
-              <label htmlFor="route-name">Algolia Index *</label>
-              <Textfield
-                value={algoliaIndex}
-                width="large"
-                name="route-name"
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setAlgoliaIndex(e.target.value)
-                }
-              />
-            </ControlsWrapper>
-            <ControlsWrapper>
-              <label htmlFor="route-name">Product Name *</label>
-              <Textfield
-                value={productName}
-                width="large"
-                name="route-name"
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setProductName(e.target.value)
-                }
-              />
-            </ControlsWrapper>
-            <ControlsWrapper>
-              <label htmlFor="route-name">Product Experience *</label>
-              <Textfield
-                value={productExperience}
-                width="large"
-                name="route-name"
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setProductExperience(e.target.value)
-                }
-              />
-            </ControlsWrapper>
-            <ControlsWrapper>
-              <label htmlFor="route-group">Route Group *</label>
-              <Textfield
-                value={routeGroup}
-                width="large"
-                name="route-group"
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setRouteGroup(e.target.value)
-                }
-              />
-            </ControlsWrapper>
-            <ControlsWrapper>
-              <label htmlFor="route-name">Route Name</label>
-              <Textfield
-                value={routeName}
-                width="large"
-                name="route-name"
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setRouteName(e.target.value)
-                }
-              />
-            </ControlsWrapper>
+            </ButtonsWrapper>
+            <DividerLine />
+            <div>
+              <ControlsWrapper>
+                <label htmlFor="route-name">Algolia Index *</label>
+                <Textfield
+                  value={algoliaIndex}
+                  name="route-name"
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    setAlgoliaIndex(e.target.value)
+                  }
+                />
+              </ControlsWrapper>
+              <ControlsWrapper>
+                <label htmlFor="route-name">Product Name *</label>
+                <Textfield
+                  value={productName}
+                  name="route-name"
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    setProductName(e.target.value)
+                  }
+                />
+              </ControlsWrapper>
+              <ControlsWrapper>
+                <label htmlFor="route-name">Product Experience *</label>
+                <Textfield
+                  value={productExperience}
+                  name="route-name"
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    setProductExperience(e.target.value)
+                  }
+                />
+              </ControlsWrapper>
+              <ControlsWrapper>
+                <label htmlFor="route-group">Route Group *</label>
+                <Textfield
+                  value={routeGroup}
+                  name="route-group"
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    setRouteGroup(e.target.value)
+                  }
+                />
+              </ControlsWrapper>
+              <ControlsWrapper>
+                <label htmlFor="route-name">Route Name</label>
+                <Textfield
+                  value={routeName}
+                  name="route-name"
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    setRouteName(e.target.value)
+                  }
+                />
+              </ControlsWrapper>
+            </div>
+            <DividerLine />
+            <div>
+              <ControlsWrapper>
+                <label htmlFor="token">Token</label>
+                <Textfield
+                  value={token}
+                  name="token"
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    setToken(e.target.value)
+                  }
+                />
+              </ControlsWrapper>
+            </div>
+            <DividerLine />
             <ControlsWrapper>
               <Button
                 appearance="primary"
@@ -489,6 +581,16 @@ const Example: React.FC = () => {
                       onGetRelatedArticles: getRelatedArticle,
                       onRelatedArticlesShowMoreClick: handleOnRelatedArticlesShowMoreClick,
                       onRelatedArticlesListItemClick: handleOnRelatedArticlesListItemClick,
+                    }}
+                    whatsNew={{
+                      whatsNewGetNotificationProvider: Promise.resolve(
+                        notificationsClient,
+                      ),
+                      onWhatsNewButtonClick: handleOnWhatsNewButtonClick,
+                      onSearchWhatsNewShowMoreClick: handleOnSearchWhatsNewShowMoreClick,
+                      onSearchWhatsNewArticles: onSearchWhatsNewArticles,
+                      onGetWhatsNewArticle,
+                      onWhatsNewResultItemClick: handleOnWhatsNewResultItemClick,
                     }}
                     header={{
                       onCloseButtonClick: handleOnCloseButtonClick,

@@ -1,5 +1,11 @@
 # @atlaskit/help
 
+## 4.1.0
+
+### Minor Changes
+
+- [`69b577202b6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/69b577202b6) - [ux] Fixed the "What's New" section. Changed the icon for the "What's New" button. Update examples to showcase the What's new section
+
 ## 4.0.8
 
 ### Patch Changes

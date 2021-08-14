@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { UIAnalyticsEvent, AnalyticsContext } from '@atlaskit/analytics-next';
 import * as colors from '@atlaskit/theme/colors';
-import ShipIcon from '@atlaskit/icon/glyph/ship';
+import LightbulbIcon from '@atlaskit/icon/glyph/lightbulb';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
 import {
   name as packageName,
@@ -53,7 +53,7 @@ export const WhatsNewButton: React.FC<InjectedIntlProps> = ({
       notificationLogProvider={whatsNewGetNotificationProvider}
       onClick={handleOnButtonClick}
       text={formatMessage(messages.help_whats_new_button_label)}
-      icon={<ShipIcon primaryColor={colors.N600} size="medium" label="" />}
+      icon={<LightbulbIcon primaryColor={colors.N600} size="medium" label="" />}
     />
   );
 };

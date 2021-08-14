@@ -20,8 +20,18 @@ export const FooterContent = styled.div`
   color: ${colors.N200};
 `;
 
+export const ButtonsWrapper = styled.div`
+  padding: ${gridSize() * 2}px;
+  box-sizing: border-box;
+  display: inline-block;
+  width: 100%;
+`;
+
 export const ControlsWrapper = styled.div`
   padding: ${gridSize() * 2}px;
+  box-sizing: border-box;
+  display: inline-block;
+  width: 50%;
 `;
 
 export const HelpWrapper = styled.div`

@@ -54,7 +54,7 @@ exports[`WhatsNewResultsList Should match snapshot 1`] = `
   background-color: #36B37E;
 }
 
-.emotion-0 > div {
+.emotion-0 > img {
   width: 16px;
   height: 16px;
   position: absolute;
@@ -65,7 +65,7 @@ exports[`WhatsNewResultsList Should match snapshot 1`] = `
   transform: translate(-50%,-50%);
 }
 
-.emotion-0 > div > svg {
+.emotion-0 > img > svg {
   height: 100%;
   width: 100%;
 }
@@ -102,7 +102,11 @@ exports[`WhatsNewResultsList Should match snapshot 1`] = `
     <div
       class="emotion-0"
       type="Announcement"
-    />
+    >
+      <img
+        src="test-file-stub"
+      />
+    </div>
     <span
       class="emotion-1"
     >

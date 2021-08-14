@@ -9,19 +9,19 @@ import { messages } from '../messages';
 export const getTypeIcon = (itemType?: WHATS_NEW_ITEM_TYPES) => {
   switch (itemType) {
     case WHATS_NEW_ITEM_TYPES.NEW_FEATURE:
-      return WhatsNewIconNew;
+      return WhatsNewIconNew();
 
     case WHATS_NEW_ITEM_TYPES.EXPERIMENT:
-      return WhatsNewIconExperiment;
+      return WhatsNewIconExperiment();
 
     case WHATS_NEW_ITEM_TYPES.FIX:
-      return WhatsNewIconFix;
+      return WhatsNewIconFix();
 
     case WHATS_NEW_ITEM_TYPES.IMPROVEMENT:
-      return WhatsNewIconImprovement;
+      return WhatsNewIconImprovement();
 
     case WHATS_NEW_ITEM_TYPES.REMOVED:
-      return WhatsNewIconRemoved;
+      return WhatsNewIconRemoved();
 
     default:
       return '';

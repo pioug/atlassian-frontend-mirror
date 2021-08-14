@@ -125,7 +125,7 @@ export const WhatsNewTypeIcon = styled.div<WhatsNewTypeIconProps>`
     }
   }};
 
-  & > div {
+  & > img {
     width: ${gridSize() * 2}px;
     height: ${gridSize() * 2}px;
     position: absolute;

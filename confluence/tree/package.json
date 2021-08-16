@@ -15,7 +15,7 @@
   "sideEffects": false,
   "atlaskit:src": "src/index.ts",
   "atlassian": {
-    "team": "Confluence Backbone",
+    "team": "Confluence Discovery & Organization",
     "deprecatedAutoEntryPoints": true,
     "releaseModel": "continuous",
     "website": {

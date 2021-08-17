@@ -298,6 +298,7 @@ describe('UserPickerField', () => {
         config,
         fieldProps.value,
         false,
+        undefined,
       );
     });
 
@@ -319,6 +320,20 @@ describe('UserPickerField', () => {
       const message = helperMessage.find(FormattedMessage);
       expect(message).toHaveLength(1);
       expect(message.props()).toMatchObject(messages.infoMessagePendingInvite);
+    });
+
+    it('should display appropriate if invite disabled', () => {
+      (getInviteWarningType as jest.Mock).mockReturnValueOnce('NO-INVITE');
+      const { component } = setUpInviteWarningTest();
+
+      expect(getInviteWarningType).toHaveBeenCalledTimes(1);
+      const helperMessage = component.find(HelperMessage);
+      expect(helperMessage).toHaveLength(1);
+      const message = helperMessage.find(FormattedMessage);
+      expect(message).toHaveLength(1);
+      expect(message.props()).toMatchObject(
+        messages.infoMessageNoInviteConfluence,
+      );
     });
 
     it('should not display warning message if public link is on', () => {

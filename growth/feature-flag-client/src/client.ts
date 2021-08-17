@@ -10,6 +10,7 @@ import {
   FlagWrapper,
   FlagStats,
   FlagValue,
+  ExposureTriggerReason,
 } from './types';
 
 import {
@@ -126,7 +127,7 @@ export default class FeatureFlagClient {
       wrapper = new BasicFlag(
         flagKey,
         flag,
-        this.trackExposure,
+        this._trackExposure,
         this.sendAutomaticExposure,
       );
     } else {
@@ -192,6 +193,19 @@ export default class FeatureFlagClient {
     flagKey: string,
     flag: FlagShape,
     exposureData: CustomAttributes = {},
+  ) =>
+    this._trackExposure(
+      flagKey,
+      flag,
+      ExposureTriggerReason.Manual,
+      exposureData,
+    );
+
+  private _trackExposure = (
+    flagKey: string,
+    flag: FlagShape,
+    exposureTriggerReason: ExposureTriggerReason,
+    exposureData: CustomAttributes = {},
   ) => {
     if (
       this.trackedFlags.has(flagKey) ||
@@ -215,7 +229,7 @@ export default class FeatureFlagClient {
       action: 'exposed',
       actionSubject: 'feature',
       attributes: Object.assign(exposureData, flagAttributes),
-      tags: ['measurement'],
+      tags: [exposureTriggerReason, 'measurement'],
       highPriority: true,
       source: '@atlaskit/feature-flag-client',
     };
@@ -232,6 +246,7 @@ export default class FeatureFlagClient {
   ) => {
     if (
       this.automaticExposuresCache.has(flagKey) ||
+      !flagExplanation ||
       !this.isAutomaticExposuresEnabled ||
       this.trackedFlags.has(flagKey) ||
       !this.automaticAnalyticsHandler
@@ -245,17 +260,15 @@ export default class FeatureFlagClient {
       reason: 'SIMPLE_EVAL',
     };
 
-    if (flagExplanation) {
-      flagAttributes.reason = flagExplanation.kind;
-      flagAttributes.ruleId = flagExplanation.ruleId;
-      flagAttributes.errorKind = flagExplanation.errorKind;
-    }
+    flagAttributes.reason = flagExplanation.kind;
+    flagAttributes.ruleId = flagExplanation.ruleId;
+    flagAttributes.errorKind = flagExplanation.errorKind;
 
     const exposureEvent: ExposureEvent = {
       action: 'exposed',
       actionSubject: 'feature',
       attributes: flagAttributes as ExposureEventAttributes,
-      tags: ['autoExposure', 'measurement'],
+      tags: [ExposureTriggerReason.AutoExposure, 'measurement'],
       highPriority: false,
       source: '@atlaskit/feature-flag-client',
     };

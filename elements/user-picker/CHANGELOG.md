@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 7.16.0
+
+### Minor Changes
+
+- [`b6fa102efa0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b6fa102efa0) - [ux] Updated appearance of email options to use mail icon
+
 ## 7.15.2
 
 ### Patch Changes

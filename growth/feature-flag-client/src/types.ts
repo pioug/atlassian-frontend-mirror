@@ -9,6 +9,13 @@ export type Reason =
 
 export type ErrorKind = 'WRONG_TYPE' | 'FLAG_NOT_FOUND' | 'VALIDATION_ERROR';
 
+export enum ExposureTriggerReason {
+  OptIn = 'optInExposure', // Consumer sets shouldTrackExposure to true
+  Manual = 'manualExposure', // Consumer manually fires the event using client.trackExposure
+  Default = 'defaultExposure', // Consumer does not specify shouldTrackExposure (default behaviour)
+  AutoExposure = 'autoExposure', // Consumer sets shouldTrackExposure to false (fired as part of TAC)
+}
+
 export type RuleId = string;
 
 export type FlagValue = boolean | string | object;
@@ -28,6 +35,13 @@ export type FlagShape = {
 export type TriggeredExposureHandler = (
   flagKey: string,
   flag: FlagShape,
+  exposureData?: CustomAttributes,
+) => void;
+
+export type InternalTriggeredExposureHandler = (
+  flagKey: string,
+  flag: FlagShape,
+  exposureTriggerReason: ExposureTriggerReason,
   exposureData?: CustomAttributes,
 ) => void;
 

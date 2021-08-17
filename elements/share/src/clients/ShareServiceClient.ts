@@ -44,10 +44,14 @@ export const DEFAULT_SHARE_PATH = 'share';
 export const SHARE_CONFIG_PATH = 'share/config';
 export const DEFAULT_SHARE_SERVICE_URL = '/gateway/api';
 
-export class ShareServiceClient implements ShareClient {
-  private serviceConfig: ServiceConfig;
+interface ShareServiceConfig extends ServiceConfig {
+  disableInviteCapabilities?: boolean;
+}
 
-  constructor(serviceConfig?: ServiceConfig) {
+export class ShareServiceClient implements ShareClient {
+  private serviceConfig: ShareServiceConfig;
+
+  constructor(serviceConfig?: ShareServiceConfig) {
     this.serviceConfig = serviceConfig || {
       url: DEFAULT_SHARE_SERVICE_URL,
     };
@@ -82,6 +86,13 @@ export class ShareServiceClient implements ShareClient {
   }
 
   public getConfig(product: string, cloudId: string): Promise<ConfigResponse> {
+    if (this.serviceConfig.disableInviteCapabilities) {
+      return Promise.resolve({
+        mode: 'ANYONE',
+        allowComment: true,
+      });
+    }
+
     const options = {
       path: SHARE_CONFIG_PATH,
       queryParams: { product, cloudId },

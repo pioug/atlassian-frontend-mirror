@@ -17,7 +17,7 @@ import {
   UserWithEmail,
 } from '../types';
 
-type InviteWarningType = 'ADMIN' | 'DIRECT';
+type InviteWarningType = 'ADMIN' | 'DIRECT' | 'NO-INVITE';
 
 const matchAllowedDomains = memoizeOne(
   (domain: string, config: ConfigResponse | undefined) => {
@@ -103,8 +103,14 @@ export const showAdminNotifiedFlag = (
   config: ConfigResponse | undefined,
   selectedUsers: Value,
   isPublicLink: boolean,
+  disableInviteCapabilities?: boolean,
 ): boolean =>
-  getInviteWarningType(config, selectedUsers, isPublicLink) === 'ADMIN';
+  getInviteWarningType(
+    config,
+    selectedUsers,
+    isPublicLink,
+    disableInviteCapabilities,
+  ) === 'ADMIN';
 
 const extractUsersByEmail = (users: Value): Email[] => {
   if (users == null) {
@@ -120,11 +126,13 @@ const extractUsersByEmail = (users: Value): Email[] => {
  * @param config share configuration object
  * @param selectedUsers selected users in the user picker
  * @param isPublicLink if the shared link is publicly accessible
+ * @param disableInviteCapabilities if invite capabilities for share should be disabled
  */
 export const getInviteWarningType = (
   config: ConfigResponse | undefined,
   selectedUsers: Value,
   isPublicLink: boolean,
+  disableInviteCapabilities?: boolean,
 ): InviteWarningType | null => {
   if (!isPublicLink && config && selectedUsers) {
     const mode: ConfigResponseMode = config.mode;
@@ -132,6 +140,10 @@ export const getInviteWarningType = (
 
     if (!selectedEmails.length) {
       return null;
+    }
+
+    if (disableInviteCapabilities) {
+      return 'NO-INVITE';
     }
 
     const isDomainBasedMode =

@@ -86,6 +86,7 @@ export type Props = {
   shouldCloseOnEscapePress?: boolean;
   showFlags: (flags: Array<Flag>) => void;
   enableSmartUserPicker?: boolean;
+  disableInviteCapabilities?: boolean;
   loggedInAccountId?: string;
   cloudId?: string;
   triggerButtonAppearance?: Appearance;
@@ -217,6 +218,7 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
     const {
       intl: { formatMessage },
       isPublicLink = false,
+      disableInviteCapabilities,
     } = this.props;
 
     const flags: Array<Flag> = [];
@@ -224,6 +226,7 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
       config,
       data.users,
       isPublicLink,
+      disableInviteCapabilities,
     );
 
     if (shouldShowAdminNotifiedFlag) {
@@ -539,6 +542,7 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
       product,
       customFooter,
       enableSmartUserPicker,
+      disableInviteCapabilities,
       loggedInAccountId,
       cloudId,
       shareFieldsFooter,
@@ -589,6 +593,7 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
                       submitButtonLabel={submitButtonLabel}
                       product={product}
                       enableSmartUserPicker={enableSmartUserPicker}
+                      disableInviteCapabilities={disableInviteCapabilities}
                       loggedInAccountId={loggedInAccountId}
                       cloudId={cloudId}
                       onUserSelectionChange={onUserSelectionChange}

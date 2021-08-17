@@ -44,6 +44,7 @@ export type Props = {
   product: ProductName;
   onInputChange?: (query?: string, sessionId?: string) => void;
   enableSmartUserPicker?: boolean;
+  disableInviteCapabilities?: boolean;
   loggedInAccountId?: string;
   cloudId?: string;
   onChange?: (value: Value) => void;
@@ -149,12 +150,15 @@ export class UserPickerField extends React.Component<Props> {
       infoMessagePendingInvite,
       infoMessageDirectInvite,
       isPublicLink = false,
+      disableInviteCapabilities,
+      product,
     } = this.props;
 
     const inviteWarningType = getInviteWarningType(
       config,
       selectedUsers,
       isPublicLink,
+      disableInviteCapabilities,
     );
 
     if (inviteWarningType === 'ADMIN') {
@@ -171,6 +175,14 @@ export class UserPickerField extends React.Component<Props> {
           <FormattedMessage {...messages.infoMessageDirectInvite} />
         )
       );
+    }
+
+    if (inviteWarningType === 'NO-INVITE') {
+      if (product === 'jira') {
+        return <FormattedMessage {...messages.infoMessageNoInviteJira} />;
+      }
+
+      return <FormattedMessage {...messages.infoMessageNoInviteConfluence} />;
     }
 
     return null;
@@ -229,7 +241,6 @@ export class UserPickerField extends React.Component<Props> {
         />
       ),
       allowEmail: allowEmails(config),
-      emailLabel: isPublicLink ? '' : undefined,
       isValidEmail: isValidEmailUsingConfig(config),
       noOptionsMessage: getNoOptionsMessage(config, isPublicLink),
       isLoading,

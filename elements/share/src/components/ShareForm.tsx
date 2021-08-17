@@ -80,6 +80,7 @@ export type Props = {
   product: ProductName;
   onUserInputChange?: (query?: string, sessionId?: string) => void;
   enableSmartUserPicker?: boolean;
+  disableInviteCapabilities?: boolean;
   loggedInAccountId?: string;
   cloudId?: string;
   onUserSelectionChange?: (value: Value) => void;
@@ -167,6 +168,7 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
       product,
       onUserInputChange,
       enableSmartUserPicker,
+      disableInviteCapabilities,
       loggedInAccountId,
       cloudId,
       onUserSelectionChange,
@@ -189,6 +191,7 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
               isLoading={isFetchingConfig}
               product={product}
               enableSmartUserPicker={enableSmartUserPicker}
+              disableInviteCapabilities={disableInviteCapabilities}
               loggedInAccountId={loggedInAccountId}
               cloudId={cloudId}
               selectPortalRef={selectPortalRef}

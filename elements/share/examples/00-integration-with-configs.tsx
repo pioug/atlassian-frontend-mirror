@@ -229,6 +229,7 @@ type ExampleState = {
   product: ProductName;
   hasFooter: boolean;
   enableSmartUserPicker: boolean;
+  disableInviteCapabilities: boolean;
   hasShareFieldsFooter: boolean;
   isCopyDisabled: boolean;
   isPublicLink: boolean;
@@ -353,6 +354,7 @@ export default class Example extends React.Component<{}, State> {
     product: 'confluence',
     hasFooter: false,
     enableSmartUserPicker: false,
+    disableInviteCapabilities: true,
     hasShareFieldsFooter: false,
     isCopyDisabled: false,
     isPublicLink: false,
@@ -424,6 +426,7 @@ export default class Example extends React.Component<{}, State> {
       useUrlShortener,
       shortLinkData,
       enableSmartUserPicker,
+      disableInviteCapabilities,
       hasShareFieldsFooter,
       isCopyDisabled,
       isPublicLink,
@@ -470,6 +473,7 @@ export default class Example extends React.Component<{}, State> {
                     shouldCloseOnEscapePress={escapeOnKeyPress}
                     showFlags={showFlags}
                     enableSmartUserPicker={enableSmartUserPicker}
+                    disableInviteCapabilities={disableInviteCapabilities}
                     triggerButtonAppearance={triggerButtonAppearance}
                     triggerButtonIcon={
                       customTriggerButtonIcon ? WorldIcon : undefined
@@ -659,6 +663,17 @@ export default class Example extends React.Component<{}, State> {
                           enableSmartUserPicker: !enableSmartUserPicker,
                         })
                       }
+                    />
+                  </WrapperWithMarginTop>
+                  <WrapperWithMarginTop>
+                    Disable invite capabilities
+                    <Toggle
+                      isChecked={disableInviteCapabilities}
+                      onChange={() => {
+                        this.setState({
+                          disableInviteCapabilities: !disableInviteCapabilities,
+                        });
+                      }}
                     />
                   </WrapperWithMarginTop>
                   <WrapperWithMarginTop>

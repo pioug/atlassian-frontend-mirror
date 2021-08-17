@@ -146,6 +146,26 @@ describe('utils functions', () => {
       );
     });
 
+    it('should give NO-INVITE when disableInviteCapabilities = true', () => {
+      expect(
+        getInviteWarningType(
+          createConfig('ANYONE'),
+          emailUsersSelected,
+          false,
+          true,
+        ),
+      ).toEqual('NO-INVITE');
+
+      expect(
+        getInviteWarningType(
+          createConfig('ANYONE'),
+          emailUsersSelected,
+          false,
+          true,
+        ),
+      ).toEqual('NO-INVITE');
+    });
+
     it('should return null for public links', () => {
       expect(
         getInviteWarningType(

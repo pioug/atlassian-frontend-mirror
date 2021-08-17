@@ -1,5 +1,15 @@
 # @atlaskit/share
 
+## 0.27.0
+
+### Minor Changes
+
+- [`adf513ae754`](https://bitbucket.org/atlassian/atlassian-frontend/commits/adf513ae754) - [ux] Removing invitation capabilities of the Share component
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.26.13
 
 ### Patch Changes

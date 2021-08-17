@@ -140,6 +140,19 @@ export const messages = defineMessages({
     defaultMessage: 'People without access will be sent an invitation to join',
     description: 'Info text when invitees will invited directly',
   },
+  infoMessageNoInviteConfluence: {
+    id: 'fabric.elements.share.form.info.message.no.invite.confluence',
+    defaultMessage: 'Recipients will see the name of the page and your message',
+    description:
+      'Message indicating the recipients of the email share will be able to see the Confluence page title and the included message',
+  },
+  infoMessageNoInviteJira: {
+    id: 'fabric.elements.share.form.info.message.no.invite.jira',
+    defaultMessage:
+      'Recipients will see the name of the issue and your message',
+    description:
+      'Message indicating the recipients of the email share will be able to see the Jira issue title and the included message',
+  },
   shareFailureIconLabel: {
     id: 'fabric.elements.share.failure.icon.label',
     defaultMessage: 'Error icon',

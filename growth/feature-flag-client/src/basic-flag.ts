@@ -4,8 +4,9 @@ import {
   AutomaticExposureHandler,
   FlagValue,
   CustomAttributes,
-  TriggeredExposureHandler,
+  InternalTriggeredExposureHandler,
   EvaluationResult,
+  ExposureTriggerReason,
 } from './types';
 
 /**
@@ -22,7 +23,7 @@ export default class BasicFlag implements FlagWrapper {
    */
   value: FlagValue;
   evaluationCount: number;
-  trackExposure: TriggeredExposureHandler;
+  trackExposure: InternalTriggeredExposureHandler;
   sendAutomaticExposure: AutomaticExposureHandler;
 
   _evaluationResult?: EvaluationResult;
@@ -30,7 +31,7 @@ export default class BasicFlag implements FlagWrapper {
   constructor(
     flagKey: string,
     flag: FlagShape,
-    trackExposure: TriggeredExposureHandler,
+    trackExposure: InternalTriggeredExposureHandler,
     sendAutomaticExposure: AutomaticExposureHandler,
   ) {
     this.flagKey = flagKey;
@@ -43,10 +44,16 @@ export default class BasicFlag implements FlagWrapper {
 
   private getCachedResultOrCompute(
     defaultValue: FlagValue,
-    shouldTrackExposureEvent: boolean,
+    shouldTrackExposureEvent?: boolean,
     exposureData?: CustomAttributes,
     oneOf?: FlagValue[],
   ): FlagValue {
+    let exposureTriggerReason = ExposureTriggerReason.OptIn;
+    if (shouldTrackExposureEvent === undefined) {
+      shouldTrackExposureEvent = true;
+      exposureTriggerReason = ExposureTriggerReason.Default;
+    }
+
     // It is very common for products to call this method many times for the same flag key,
     // as flag evaluations are often done inside action callbacks and/or inside components with many instances.
     // We can cache the result of the first evaluation to avoid doing the same validation checks on every call.
@@ -64,7 +71,12 @@ export default class BasicFlag implements FlagWrapper {
       value = defaultValue;
     } else if (shouldTrackExposureEvent) {
       // For backwards compability, only fire the opt-in exposure event in valid evaluations.
-      this.trackExposure(this.flagKey, this.flag, exposureData);
+      this.trackExposure(
+        this.flagKey,
+        this.flag,
+        exposureTriggerReason,
+        exposureData,
+      );
     }
 
     this.sendAutomaticExposure(this.flagKey, value, result.explanation);
@@ -109,14 +121,9 @@ export default class BasicFlag implements FlagWrapper {
     shouldTrackExposureEvent?: boolean;
     exposureData?: CustomAttributes;
   }): boolean {
-    const shouldTrackExposureEvent =
-      options.shouldTrackExposureEvent !== undefined
-        ? options.shouldTrackExposureEvent
-        : true;
-
     const value = this.getCachedResultOrCompute(
       options.default,
-      shouldTrackExposureEvent,
+      options.shouldTrackExposureEvent,
       options.exposureData,
     );
 
@@ -129,14 +136,9 @@ export default class BasicFlag implements FlagWrapper {
     shouldTrackExposureEvent?: boolean;
     exposureData?: CustomAttributes;
   }): string {
-    const shouldTrackExposureEvent =
-      options.shouldTrackExposureEvent !== undefined
-        ? options.shouldTrackExposureEvent
-        : true;
-
     const value = this.getCachedResultOrCompute(
       options.default,
-      shouldTrackExposureEvent,
+      options.shouldTrackExposureEvent,
       options.exposureData,
       options.oneOf,
     );
@@ -153,14 +155,9 @@ export default class BasicFlag implements FlagWrapper {
     shouldTrackExposureEvent?: boolean;
     exposureData?: CustomAttributes;
   }): FlagValue {
-    const shouldTrackExposureEvent =
-      options.shouldTrackExposureEvent !== undefined
-        ? options.shouldTrackExposureEvent
-        : true;
-
     return this.getCachedResultOrCompute(
       options.default,
-      shouldTrackExposureEvent,
+      options.shouldTrackExposureEvent,
       options.exposureData,
     );
   }

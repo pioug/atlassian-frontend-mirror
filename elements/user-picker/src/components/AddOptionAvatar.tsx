@@ -1,14 +1,22 @@
-import InviteTeamIcon from '@atlaskit/icon/glyph/invite-team';
+import EmailIcon from '@atlaskit/icon/glyph/email';
 import MentionIcon from '@atlaskit/icon/glyph/mention';
-import { N50, N200 } from '@atlaskit/theme/colors';
+import { N40, N50, N200 } from '@atlaskit/theme/colors';
 import React from 'react';
 import styled from 'styled-components';
 
-const AddOptionAvatarWrapper = styled.span<{ suggestion?: boolean }>`
+const AddOptionAvatarWrapper = styled.span`
   color: black;
   padding: 2px;
 
   background-color: ${N50};
+  border-radius: 50%;
+`;
+
+const EmailAvatarWrapper = styled.span`
+  color: black;
+  padding: 2px;
+
+  background-color: ${N40};
   border-radius: 50%;
 `;
 
@@ -25,15 +33,22 @@ export const AddOptionAvatar: React.FunctionComponent<AddOptionAvatarProps> = ({
   suggestion,
   invalidOption,
 }) => {
-  const Icon = invalidOption ? MentionIcon : InviteTeamIcon;
+  if (invalidOption) {
+    return (
+      <AddOptionAvatarWrapper>
+        <MentionIcon
+          label={label}
+          size={size}
+          primaryColor={suggestion ? N200 : 'white'}
+        />
+      </AddOptionAvatarWrapper>
+    );
+  }
+
   return (
-    <AddOptionAvatarWrapper>
-      <Icon
-        label={label}
-        size={size}
-        primaryColor={suggestion ? N200 : 'white'}
-      />
-    </AddOptionAvatarWrapper>
+    <EmailAvatarWrapper>
+      <EmailIcon label={label} size={size} primaryColor={N200} />
+    </EmailAvatarWrapper>
   );
 };
 

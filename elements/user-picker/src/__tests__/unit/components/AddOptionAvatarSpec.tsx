@@ -1,4 +1,4 @@
-import InviteTeamIcon from '@atlaskit/icon/glyph/invite-team';
+import EmailIcon from '@atlaskit/icon/glyph/email';
 import { N200 } from '@atlaskit/theme/colors';
 import { shallow } from 'enzyme';
 import React from 'react';
@@ -11,29 +11,13 @@ describe('AddOptionAvatar', () => {
   const shallowAddOptionAvatar = (props: AddOptionAvatarProps) =>
     shallow(<AddOptionAvatar {...props} />);
 
-  it('should render add avatar Icon', () => {
+  it('should render email Icon', () => {
     const component = shallowAddOptionAvatar({
       label: 'Invite',
       size: 'small',
     });
 
-    const inviteIcon = component.find(InviteTeamIcon);
-    expect(inviteIcon).toHaveLength(1);
-    expect(inviteIcon.props()).toMatchObject({
-      label: 'Invite',
-      size: 'small',
-      primaryColor: 'white',
-    });
-  });
-
-  it('should render add avatar Icon when it is a suggestion', () => {
-    const component = shallowAddOptionAvatar({
-      label: 'Invite',
-      size: 'small',
-      suggestion: true,
-    });
-
-    const inviteIcon = component.find(InviteTeamIcon);
+    const inviteIcon = component.find(EmailIcon);
     expect(inviteIcon).toHaveLength(1);
     expect(inviteIcon.props()).toMatchObject({
       label: 'Invite',

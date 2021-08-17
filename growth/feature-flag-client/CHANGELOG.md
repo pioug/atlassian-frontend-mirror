@@ -1,5 +1,17 @@
 # @atlaskit/feature-flag-client
 
+## 4.4.0
+
+### Minor Changes
+
+- [`3b893b75e05`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3b893b75e05) - Prevent sending automatic exposures when evaluating flags with no explanation
+
+## 4.3.1
+
+### Patch Changes
+
+- [`a0e3bec2bda`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a0e3bec2bda) - Explicilty set exposure trigger reason to exposure event tags
+
 ## 4.3.0
 
 ### Minor Changes

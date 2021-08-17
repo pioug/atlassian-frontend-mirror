@@ -142,6 +142,12 @@ export type Props = {
    */
   enableSmartUserPicker?: boolean;
   /**
+   * As part of Share simplification work (PTC-4493) we'll be removing the
+   * invite capabilities of Share. This prop is for feature flags to control
+   * whether these invite capabilities are disabled.
+   */
+  disableInviteCapabilities?: boolean;
+  /**
    * The userId of the sharer. If not provided, smart user picker
    * defaults it to the value 'Context'
    * which will tell the recommendation service to extract the
@@ -553,6 +559,7 @@ export class ShareDialogContainerInternal extends React.Component<
       shouldCloseOnEscapePress,
       showFlags,
       enableSmartUserPicker,
+      disableInviteCapabilities,
       loggedInAccountId,
       triggerButtonAppearance,
       triggerButtonIcon,
@@ -596,6 +603,7 @@ export class ShareDialogContainerInternal extends React.Component<
             shouldCloseOnEscapePress={shouldCloseOnEscapePress}
             showFlags={showFlags}
             enableSmartUserPicker={enableSmartUserPicker}
+            disableInviteCapabilities={disableInviteCapabilities}
             loggedInAccountId={loggedInAccountId}
             cloudId={cloudId}
             triggerButtonAppearance={triggerButtonAppearance}

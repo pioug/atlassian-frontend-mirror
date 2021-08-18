@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-mobile-bridge",
-  "version": "28.0.5",
+  "version": "28.0.6",
   "description": "Mobile distribution of the Editor",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/progress-bar",
-  "version": "0.3.7",
+  "version": "0.3.8",
   "description": "A progress bar displays the status of a given process.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -14,6 +14,7 @@
   "types": "dist/types/index.d.ts",
   "sideEffects": false,
   "atlaskit:src": "src/index.ts",
+  "homepage": "https://atlassian.design/components/progress-bar/",
   "atlassian": {
     "team": "Design System Team",
     "deprecatedAutoEntryPoints": true,

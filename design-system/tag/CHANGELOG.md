@@ -1,5 +1,11 @@
 # @atlaskit/tag
 
+## 11.1.3
+
+### Patch Changes
+
+- [`c5785203506`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c5785203506) - Updated homepage in package.json
+
 ## 11.1.2
 
 ### Patch Changes

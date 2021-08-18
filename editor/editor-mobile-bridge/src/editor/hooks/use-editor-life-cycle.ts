@@ -55,7 +55,6 @@ export const useEditorLifecycle = (
         );
       }
       setEditorReady(true);
-      editorView?.focus();
     },
     [bridge, mediaOptions],
   );

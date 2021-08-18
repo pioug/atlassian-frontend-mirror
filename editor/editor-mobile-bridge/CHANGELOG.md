@@ -1,5 +1,11 @@
 # @atlaskit/editor-mobile-bridge
 
+## 28.0.6
+
+### Patch Changes
+
+- [`12d2ef24248`](https://bitbucket.org/atlassian/atlassian-frontend/commits/12d2ef24248) - [ux][me-1713] Remove setting focus in editorReady lifecycle.
+
 ## 28.0.5
 
 ### Patch Changes

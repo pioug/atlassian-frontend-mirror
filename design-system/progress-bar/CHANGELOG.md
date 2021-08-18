@@ -1,5 +1,11 @@
 # @atlaskit/progress-bar
 
+## 0.3.8
+
+### Patch Changes
+
+- [`c5785203506`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c5785203506) - Updated homepage in package.json
+
 ## 0.3.7
 
 ### Patch Changes

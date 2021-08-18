@@ -85,16 +85,6 @@ describe('useEditorLifecycle hook', () => {
     expect(result.current.editorReady).toBe(true);
   });
 
-  it('should have called focus when handleEditorReady is called and editorView is set', () => {
-    const { result } = renderHook(() => useEditorLifecycle(bridge));
-    const editorActions = new EditorActions();
-    const editorView = editorActions._privateGetEditorView()!;
-    const focus = jest.spyOn(editorView, 'focus');
-    act(() => result.current.handleEditorReady(editorActions));
-
-    expect(focus).toBeCalled();
-  });
-
   it('should have set editorReady flag to false when handleEditorDestroyed is called and editoView is unset', () => {
     const { result } = renderHook(() => useEditorLifecycle(bridge));
     act(() => result.current.handleEditorReady(new EditorActions()));

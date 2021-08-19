@@ -3,7 +3,7 @@ import React from 'react';
 import TextArea from '../../src';
 
 export default () => (
-  <div css={{ '> *': { margin: '24px 0' } }}>
+  <div>
     <TextArea
       resize="auto"
       maxHeight="20vh"

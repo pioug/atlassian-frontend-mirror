@@ -2,11 +2,12 @@
 // eslint-disable-next-line @repo/internal/fs/filename-pattern-match
 import { FC, useEffect, useMemo, useState } from 'react';
 
-import { jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/core';
 
 import PersonIcon from '@atlaskit/icon/glyph/person';
 import ShipIcon from '@atlaskit/icon/glyph/ship';
 import { background, N90 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import { AVATAR_RADIUS, AVATAR_SIZES } from './constants';
 import { AppearanceType, SizeType } from './types';
@@ -19,8 +20,26 @@ interface AvatarImageProps {
   testId?: string;
 }
 
-export const ICON_BACKGROUND = background();
-export const ICON_COLOR = N90;
+export const ICON_BACKGROUND = token('color.text.onBold', background());
+export const ICON_COLOR = token('color.text.lowEmphasis', N90);
+
+const avatarImageStyles = css({
+  display: 'block',
+  width: '100%',
+  height: '100%',
+  backgroundColor: ICON_COLOR,
+});
+
+const loadingImageStyles = css({
+  display: 'flex',
+  width: '100%',
+  height: '100%',
+  flex: '1 1 100%',
+  backgroundColor: 'transparent',
+  backgroundPosition: 'center',
+  backgroundRepeat: 'no-repeat',
+  backgroundSize: 'cover',
+});
 
 /**
  * __Avatar image__
@@ -67,28 +86,29 @@ const AvatarImage: FC<AvatarImageProps> = ({
   if (!imageHasLoaded) {
     return (
       <span
-        css={{
-          backgroundColor: ICON_COLOR,
-          width: '100%',
-          height: '100%',
-          display: 'block',
-          '& svg': {
-            height: `${AVATAR_SIZES[size]}px`,
-            width: `${AVATAR_SIZES[size]}px`,
+        css={[
+          avatarImageStyles,
+          // TODO: These dynamic SVG styles can't be set in 'style'. On a refactor, use a css custom property to pass down the size
+          // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
+          {
+            '& svg': {
+              width: `${AVATAR_SIZES[size]}px`,
+              height: `${AVATAR_SIZES[size]}px`,
+            },
           },
-        }}
+        ]}
       >
         {appearance === 'circle' ? (
           <PersonIcon
             label={alt}
-            primaryColor={background()}
+            primaryColor={ICON_BACKGROUND}
             secondaryColor={ICON_COLOR}
             testId={testId && `${testId}--person`}
           />
         ) : (
           <ShipIcon
             label={alt}
-            primaryColor={background()}
+            primaryColor={ICON_BACKGROUND}
             secondaryColor={ICON_COLOR}
             testId={testId && `${testId}--ship`}
           />
@@ -99,17 +119,10 @@ const AvatarImage: FC<AvatarImageProps> = ({
 
   return (
     <span
-      css={{
-        backgroundColor: 'transparent',
-        backgroundImage: `url(${src})`,
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-        backgroundSize: 'cover',
-        borderRadius,
-        display: 'flex',
-        flex: '1 1 100%',
-        height: '100%',
-        width: '100%',
+      css={loadingImageStyles}
+      style={{
+        backgroundImage: `url("${src}")`,
+        borderRadius: borderRadius,
       }}
       role="img"
       aria-label={alt}

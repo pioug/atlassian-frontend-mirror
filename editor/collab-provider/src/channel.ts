@@ -105,10 +105,33 @@ export class Channel extends Emitter<ChannelEvent> {
   connect() {
     const { documentAri, url } = this.config;
     const { createSocket } = this.config;
-    this.socket = createSocket(
-      `${url}/session/${documentAri}`,
-      this.config.permissionToken?.initializationToken,
-    );
+    const { permissionTokenRefresh } = this.config;
+    if (permissionTokenRefresh) {
+      const authCb = (cb: (data: object) => void) => {
+        permissionTokenRefresh()
+          .then((token) => {
+            cb({
+              // The permission token.
+              token,
+              // The initialized status. If false, BE will send document, otherwise not.
+              initialized: this.initialized,
+            });
+          })
+          .catch((err) => {
+            this.emit('error', err);
+          });
+      };
+      this.socket = createSocket(`${url}/session/${documentAri}`, authCb);
+    } else {
+      const authCb = (cb: (data: object) => void) => {
+        cb({
+          // The initialized status. If false, BE will send document, otherwise not.
+          initialized: this.initialized,
+        });
+      };
+      this.socket = createSocket(`${url}/session/${documentAri}`, authCb);
+    }
+
     // Due to https://github.com/socketio/socket.io-client/issues/1473,
     // reconnect no longer fired on the socket.
     // We should use `connect` for better cross platform compatibility(Mobile/Web).
@@ -153,23 +176,15 @@ export class Channel extends Emitter<ChannelEvent> {
     });
     this.socket.on('disconnect', async (reason: string) => {
       this.connected = false;
-
-      // refresh permission token for all disconnect event
-      if (this.config.permissionToken?.tokenRefresh && this.socket) {
-        (this.socket as any).io.opts.transportOptions.polling.extraHeaders = {
-          'x-token': await this.config.permissionToken.tokenRefresh(),
-        };
-      }
-
-      logger(`disconnect: ${reason}`);
+      logger(`disconnect reason: ${reason}`);
       this.emit('disconnect', { reason });
       if (reason === 'io server disconnect' && this.socket) {
-        // the disconnection was initiated by the server, we need to reconnect manually
+        // The disconnection was initiated by the server, we need to reconnect manually.
         this.socket.connect();
       }
     });
 
-    // `error`'s paramter is plain JSON object.
+    // Socket error, including errors from `packetMiddleware`, `controllers` and `onconnect` and more. Paramter is a plain JSON object.
     this.socket.on('error', (error: ErrorPayload) => {
       this.emit('error', error);
     });
@@ -177,6 +192,13 @@ export class Channel extends Emitter<ChannelEvent> {
     // `connect_error`'s paramter type is `Error`.
     // Ensure the error emit to the provider has the same structure, so we can handle them unified.
     this.socket.on('connect_error', (error: Error) => {
+      // If error received with `data`, it means the connection is rejected
+      // by the server on purpose for example no permission, so no need to
+      // keep the underneath connection, need to close. But some error like
+      // `xhr polling error` needs to retry.
+      if (!!(error as ErrorPayload).data) {
+        this.socket?.close();
+      }
       this.emit('error', {
         message: error.message,
         data: (error as ErrorPayload).data,
@@ -224,11 +246,11 @@ export class Channel extends Emitter<ChannelEvent> {
         queryParams: {
           version: fromVersion,
         },
-        ...(this.config.permissionToken
+        ...(this.config.permissionTokenRefresh
           ? {
               requestInit: {
                 headers: {
-                  'x-token': await this.config.permissionToken.tokenRefresh(),
+                  'x-token': await this.config.permissionTokenRefresh(),
                 },
               },
             }

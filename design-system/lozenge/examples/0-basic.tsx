@@ -11,6 +11,7 @@ const Col: React.FunctionComponent<ReactNode> = ({ children }) => (
 );
 
 const Hr = () => (
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   <div style={{ height: '1px', backgroundColor: '#ddd', margin: '2em 0' }} />
 );
 

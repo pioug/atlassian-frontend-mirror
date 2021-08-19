@@ -23,21 +23,23 @@ describe('ak-blanket', () => {
         const { getByRole } = render(<Blanket />);
         const blanket = getByRole('presentation');
 
-        expect(getComputedStyle(blanket).opacity).toBe('0');
+        expect(getComputedStyle(blanket).backgroundColor).toBe('transparent');
       });
 
       it('should get tint styling when prop set', () => {
         const { getByRole } = render(<Blanket isTinted={true} />);
         const blanket = getByRole('presentation');
 
-        expect(getComputedStyle(blanket).opacity).toBe('1');
+        expect(getComputedStyle(blanket).backgroundColor).not.toBe(
+          'transparent',
+        );
       });
 
       it('should not get tint styling when prop set to false', () => {
         const { getByRole } = render(<Blanket isTinted={false} />);
         const blanket = getByRole('presentation');
 
-        expect(getComputedStyle(blanket).opacity).toBe('0');
+        expect(getComputedStyle(blanket).backgroundColor).toBe('transparent');
       });
     });
 

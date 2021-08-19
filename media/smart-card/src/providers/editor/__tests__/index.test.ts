@@ -254,4 +254,18 @@ describe('providers > editor', () => {
     const promise = provider.resolve(url, 'inline');
     await expect(promise).rejects.toEqual(undefined);
   });
+
+  it('calls /providers endpoint only once', async () => {
+    const provider = new EditorCardProvider();
+    mockFetch.mockImplementationOnce(async () => ({
+      json: async () => mockProvidersResponse,
+      ok: true,
+    }));
+    await Promise.all([
+      provider.resolve('https://drive.google.com/file/d/123/view', 'inline'),
+      provider.resolve('https://drive.google.com/file/d/456/view', 'inline'),
+      provider.resolve('https://drive.google.com/file/d/789/view', 'inline'),
+    ]);
+    expect(mockFetch).toHaveBeenCalledTimes(1);
+  });
 });

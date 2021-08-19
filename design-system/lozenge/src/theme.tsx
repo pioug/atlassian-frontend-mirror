@@ -1,3 +1,5 @@
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
+// TODO: DSP-1392 this file will be removed, don't import anything from this file elsewhere.
 import {
   B400,
   B50,
@@ -18,10 +20,9 @@ import {
   Y500,
   Y75,
 } from '@atlaskit/theme/colors';
+
 /**
- * Note:
- * Lozenge does not support dark mode at the moment.
- * Hence, color values are the same.
+ * @deprecated
  */
 export const defaultBackgroundColor = {
   default: { light: N40, dark: N40 },
@@ -32,6 +33,9 @@ export const defaultBackgroundColor = {
   success: { light: G50, dark: G50 },
 };
 
+/**
+ * @deprecated
+ */
 export const defaultTextColor = {
   default: { light: N500, dark: N500 },
   inprogress: { light: B500, dark: B500 },
@@ -41,6 +45,9 @@ export const defaultTextColor = {
   success: { light: G500, dark: G500 },
 };
 
+/**
+ * @deprecated
+ */
 export const boldBackgroundColor = {
   default: { light: N500, dark: N500 },
   inprogress: { light: B400, dark: B400 },
@@ -50,6 +57,9 @@ export const boldBackgroundColor = {
   success: { light: G400, dark: G400 },
 };
 
+/**
+ * @deprecated
+ */
 export const boldTextColor = {
   default: { light: N0, dark: N0 },
   inprogress: { light: N0, dark: N0 },
@@ -59,6 +69,9 @@ export const boldTextColor = {
   success: { light: N0, dark: N0 },
 };
 
+/**
+ * @deprecated
+ */
 export type ThemeAppearance =
   | 'default'
   | 'inprogress'

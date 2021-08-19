@@ -1,5 +1,15 @@
 # @atlaskit/feedback-collector
 
+## 6.2.0
+
+### Minor Changes
+
+- [`d8083af448f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d8083af448f) - Updated flexibility for localisation and copy custimisation through additional optional props: description, title, submitButtonLabel, cancelButtonLabel, selectOptionDetails
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.1.12
 
 ### Patch Changes

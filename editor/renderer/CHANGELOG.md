@@ -1,5 +1,20 @@
 # @atlaskit/renderer
 
+## 80.0.0
+
+### Minor Changes
+
+- [`ea1cb28fb03`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ea1cb28fb03) - CETI-3 User is able to change emoji and background color when selected
+- [`86aeb07cae3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/86aeb07cae3) - EDM-2264: allow embed resize events from all domains
+
+  **Note:**
+
+  The breaking change in this commit is a rename from `IframelyResizeMessageListener` to `EmbedResizeMessageListener`. The functionality of the component itself remains the same for all consumers.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 79.0.1
 
 ### Patch Changes

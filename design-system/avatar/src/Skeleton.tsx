@@ -50,6 +50,8 @@ const Skeleton: FC<SkeletonProps> = ({
   weight,
 }: SkeletonProps) => (
   <div
+    // TODO: Refactor styles to follow css prop rules
+    // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
     css={getStyles({
       size,
       appearance,

@@ -6,6 +6,7 @@ import { TableSortOrder as SortOrder } from '@atlaskit/adf-schema/steps';
 export enum TABLE_ACTION {
   DELETED = 'deleted',
   CLEARED = 'cleared',
+  COLLAPSED = 'collapsed',
   MERGED = 'merged',
   SPLIT = 'split',
   COLORED = 'colored',
@@ -185,6 +186,12 @@ type TableAttemptedResizeAEP = UIAEP<
   undefined
 >;
 
+type TableCollapsedAEP = TableAEP<
+  TABLE_ACTION.COLLAPSED,
+  TotalRowAndColCount,
+  undefined
+>;
+
 //#endregion
 
 export type TableEventPayload =
@@ -200,4 +207,5 @@ export type TableEventPayload =
   | TableDeleteRowOrColumnAEP
   | TableReplaceAEP
   | TableAttemptedResizeAEP
-  | TableDistributeColumnsWidthsAEP;
+  | TableDistributeColumnsWidthsAEP
+  | TableCollapsedAEP;

@@ -1,14 +1,13 @@
 import styled from 'styled-components';
 
 import { gridSize } from '@atlaskit/theme/constants';
-import { multiply } from '@atlaskit/theme/math';
 import { h600 } from '@atlaskit/theme/typography';
 
 /**
  * Provide a styled container for form sections.
  */
 const FormSectionWrapper = styled.div`
-  margin-top: ${multiply(gridSize, 3)}px;
+  margin-top: ${gridSize() * 3}px;
 `;
 
 /**
@@ -16,8 +15,8 @@ const FormSectionWrapper = styled.div`
  */
 const FormSectionTitle = styled.h3`
   ${h600};
-  line-height: ${multiply(gridSize, 4)}px;
-  margin-right: ${multiply(gridSize, 4)}px;
+  line-height: ${gridSize() * 4}px;
+  margin-right: ${gridSize() * 4}px;
   margin-top: 0;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -28,7 +27,7 @@ const FormSectionTitle = styled.h3`
  * Provide a styled container for form section content.
  */
 const FormSectionDescription = styled.div`
-  margin-top: ${gridSize}px;
+  margin-top: ${gridSize()}px;
 `;
 
 export default FormSectionWrapper;

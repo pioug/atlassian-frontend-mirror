@@ -142,11 +142,12 @@ describe('codeBlock - keymaps', () => {
     });
 
     it('should remove empty code block if it is inside of a table', () => {
+      const TABLE_LOCAL_ID = 'test-table-local-id';
       const { editorView } = editor(
-        doc(table()(tr(td()(code_block()('{<>}'))))),
+        doc(table({ localId: TABLE_LOCAL_ID })(tr(td()(code_block()('{<>}'))))),
       );
 
-      const expectedDoc = doc(table()(tr(tdEmpty)));
+      const expectedDoc = doc(table({ localId: TABLE_LOCAL_ID })(tr(tdEmpty)));
 
       sendKeyToPm(editorView, 'Backspace');
       expect(editorView.state.doc).toEqualDocument(expectedDoc);

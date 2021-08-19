@@ -25,7 +25,6 @@ describe('useSmartCardState()', () => {
     }).result;
     expect(current).toEqual({
       status: 'pending',
-      lastUpdatedAt: expect.anything(),
     });
   });
 
@@ -37,10 +36,6 @@ describe('useSmartCardState()', () => {
     }).result;
 
     expect(current).toEqual({
-      // The timestamp 1502841600000 is Wed Aug 16 00:00:00 2017 +0000, the value of date set in
-      // the global unit test mock
-      // See: build/jest-config/setup-dates.js
-      lastUpdatedAt: 1502841600000,
       status: 'pending',
     });
   });
@@ -49,7 +44,6 @@ describe('useSmartCardState()', () => {
     const initialState: CardStore = {
       'some.url': {
         status: 'resolved',
-        lastUpdatedAt: Date.now(),
         details: {
           meta: {
             auth: [],

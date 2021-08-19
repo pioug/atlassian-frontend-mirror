@@ -24,7 +24,7 @@ const stateToSelectorMap: Partial<InteractionMap> = {
 
 // Mapping the new clean css back to the legacy theme format.
 // The legacy theme format has all styles at the top level (no nested selectors)
-// and uses `getSpecifiers()` to apply the style to all psudeo states
+// and uses `getSpecifiers()` to apply the style to all pseudo states
 export function getCustomCss({
   appearance = 'default',
   spacing = 'default',
@@ -45,7 +45,7 @@ export function getCustomCss({
   });
 
   // we need to disable the default browser focus styles always
-  // this is because we are not expressing that we can have two pesduo states at a time
+  // this is because we are not expressing that we can have two pseudo states at a time
   result.outline = 'none';
 
   // Pulling relevant styles up to the top level
@@ -82,7 +82,7 @@ export function getCustomCss({
 }
 
 // This styling approach works by generating a 'style' and applying with maximum specificity
-// To do this we are overwriting all psuedo selectors
+// To do this we are overwriting all pseudo selectors
 export function getSpecifiers(styles: CSSObject): CSSObject {
   return {
     '&, &:hover, &:active, &:focus, &:visited, &:disabled, &[disabled]': styles,

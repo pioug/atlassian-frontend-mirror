@@ -5,7 +5,8 @@ import { css, jsx, keyframes } from '@emotion/core';
 
 import { DN500, DN900, N0, N500 } from '@atlaskit/theme/colors';
 import GlobalTheme from '@atlaskit/theme/components';
-import { GlobalThemeTokens, ThemeModes } from '@atlaskit/theme/types';
+import { ThemeModes } from '@atlaskit/theme/types';
+import { token } from '@atlaskit/tokens';
 
 import { presetSizes } from './constants';
 import { Appearance, SpinnerProps } from './types';
@@ -39,11 +40,14 @@ function getStrokeColor({
   appearance: Appearance;
 }): string {
   if (mode === 'light') {
-    return appearance === 'inherit' ? N500 : N0;
+    return appearance === 'inherit'
+      ? token('color.text.mediumEmphasis', N500)
+      : token('color.text.onBold', N0);
   }
 
-  // Dark mode: colours provided by Jake Miller
-  return appearance === 'inherit' ? DN900 : DN500;
+  return appearance === 'inherit'
+    ? token('color.text.mediumEmphasis', DN900)
+    : token('color.text.onBold', DN500);
 }
 
 export default React.memo(
@@ -63,7 +67,7 @@ export default React.memo(
 
     return (
       <GlobalTheme.Consumer>
-        {(tokens: GlobalThemeTokens) => {
+        {(tokens) => {
           const strokeColor = getStrokeColor({
             mode: tokens.mode,
             appearance,
@@ -100,7 +104,6 @@ export default React.memo(
                 css={css`
                   /* We are going to animate this in */
                   opacity: 0;
-
                   animation: ${loadIn} 1s ease-in-out;
                   /* When the animation completes, stay at the last frame of the animation */
                   animation-fill-mode: forwards;
@@ -111,13 +114,9 @@ export default React.memo(
                   stroke-linecap: round;
                   stroke-dasharray: 60;
                   stroke-dashoffset: inherit;
-                  @media screen and (-ms-high-contrast: white-on-black) {
+                  @media screen and (forced-colors: active) {
                     filter: grayscale(100%);
-                    stroke: ${N0};
-                  }
-                  @media screen and (-ms-high-contrast: black-on-white) {
-                    filter: grayscale(100%);
-                    stroke: #000000;
+                    stroke: CanvasText;
                   }
                 `}
               >

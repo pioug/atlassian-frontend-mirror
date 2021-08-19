@@ -97,14 +97,31 @@ export const getTabStyles = (mode: ThemeModes): CSSObject => {
     textOverflow: 'ellipsis',
 
     '&:hover': {
+      // TODO: interaction states will be reviewed in DSP-1438
       color: colors.hoverLabelColor,
+      '&::after': {
+        ...tabLineStyles,
+        borderBottom: `${underlineHeight} solid ${
+          getTabLineColor(mode).hoveredColor
+        }`,
+        height: 0,
+      },
     },
-    '&:active, &:active::before': {
+
+    '&:active': {
+      // TODO: interaction states will be reviewed in DSP-1438
       color: colors.activeLabelColor,
+      '&::after': {
+        ...tabLineStyles,
+        borderBottom: `${underlineHeight} solid ${
+          getTabLineColor(mode).activeColor
+        }`,
+        height: 0,
+      },
     },
 
     '&:focus': {
-      boxShadow: `0 0 0 2px ${colors.focusColor} inset`,
+      boxShadow: `0 0 0 2px ${colors.focusBorderColor} inset`,
       borderRadius: borderRadius,
       outline: 'none',
       // Hide TabLine on focus

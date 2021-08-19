@@ -1,3 +1,6 @@
+// import setimmediate to temporary fix dataloader 2.0.0 bug
+// @see https://github.com/graphql/dataloader/issues/249
+import 'setimmediate';
 import DataLoader from 'dataloader';
 import { JsonLd } from 'json-ld-types';
 import retry, { Options } from 'async-retry';
@@ -8,10 +11,7 @@ import { CardClient as CardClientInterface, EnvironmentsKeys } from './types';
 
 import { getResolverUrl } from './utils/environments';
 
-// @ts-ignore
-import BottleneckLight from 'bottleneck/light';
-import BottleneckType from 'bottleneck';
-const Bottleneck = BottleneckLight as typeof BottleneckType;
+import pThrottle from 'p-throttle';
 
 import { InvokePayload } from '../model/invoke-opts';
 import {
@@ -44,7 +44,9 @@ export default class CardClient implements CardClientInterface {
     this.resolvedCache = {};
   }
 
-  private async batchResolve(urls: string[]): Promise<BatchResponse> {
+  private batchResolve = async (
+    urls: ReadonlyArray<string>,
+  ): Promise<BatchResponse> => {
     // De-duplicate requested URLs (see `this.createLoader` for more detail).
     const deDuplicatedUrls = [...new Set(urls)];
     let resolvedUrls: BatchResponse = [];
@@ -80,19 +82,21 @@ export default class CardClient implements CardClientInterface {
 
     // Reconvert list back into the original order in which it was given to us.
     return urls.map((originalUrl) => map[originalUrl]);
-  }
+  };
 
   private createLoader() {
-    const limiter = new Bottleneck({
-      minTime: MIN_TIME_BETWEEN_BATCHES,
+    const batchResolveThrottler = pThrottle({
+      limit: 1,
+      interval: MIN_TIME_BETWEEN_BATCHES,
     });
+    const throttledBatchResolve = batchResolveThrottler(this.batchResolve);
 
     return new DataLoader(
       // We place all calls to `batchResolve` in a limiter so we don't send off several simultaneous batch requests.
       // This is for two reasons:
       //  1: we want to avoid getting rate limited upstream (eg: forge and other APIs)
       //  2: we want to avoid sending out heaps of requests from the client at once
-      (urls: string[]) => limiter.schedule(() => this.batchResolve(urls)),
+      (urls: ReadonlyArray<string>) => throttledBatchResolve(urls),
       {
         maxBatchSize: MAX_BATCH_SIZE,
         // NOTE: we turn off DataLoader's cache because it doesn't work for our use-case. Consider the following:

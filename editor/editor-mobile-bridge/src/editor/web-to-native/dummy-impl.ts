@@ -8,12 +8,12 @@ import { Serialized } from '../../types';
 const callsFromDummyBridge = new Map<string, any[][]>();
 
 const saveToDummyBridge = (name: string, args: any[]) => {
-  const findExitingItem = callsFromDummyBridge.get(name);
+  const existingCalls = callsFromDummyBridge.get(name);
 
-  if (findExitingItem) {
-    callsFromDummyBridge.set(name, findExitingItem.concat([args]));
+  if (existingCalls) {
+    existingCalls.push(args);
   } else {
-    callsFromDummyBridge.set(name, [[args]]);
+    callsFromDummyBridge.set(name, [args]);
   }
 };
 
@@ -163,9 +163,11 @@ export default class DummyBridge implements NativeBridge {
 
   onNodeSelected(nodeType: string, items: string) {
     this.log(`onNodeSelected(${nodeType} -> ${items}`);
+    saveToDummyBridge('onNodeSelected', [nodeType, items]);
   }
 
   onNodeDeselected() {
     this.log('onNodeDeselected()');
+    saveToDummyBridge('onNodeDeselected', []);
   }
 }

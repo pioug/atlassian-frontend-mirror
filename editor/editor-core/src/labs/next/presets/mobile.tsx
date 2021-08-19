@@ -14,7 +14,7 @@ import layoutPlugin from '../../../plugins/layout';
 import listPlugin from '../../../plugins/list';
 import mediaPlugin, { CustomMediaPicker } from '../../../plugins/media';
 import mentionsPlugin from '../../../plugins/mentions';
-import mobileScrollPlugin from '../../../plugins/mobile-scroll';
+import mobileDimensionsPlugin from '../../../plugins/mobile-dimensions';
 import panelPlugin from '../../../plugins/panel';
 import placeholderPlugin from '../../../plugins/placeholder';
 import rulePlugin from '../../../plugins/rule';
@@ -78,7 +78,7 @@ export function useMobilePreset({
   ]);
   preset.add([statusPlugin, { menuDisabled: false, useInlineWrapper: true }]);
   preset.add([placeholderPlugin, { placeholder }]);
-  preset.add(mobileScrollPlugin);
+  preset.add(mobileDimensionsPlugin);
   preset.add(expandPlugin);
   preset.add([selectionPlugin, { useLongPressSelection: false }]);
   // Begin -> This would be exclude if the provider doesnt exist in the factory

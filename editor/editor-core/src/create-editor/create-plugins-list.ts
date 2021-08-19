@@ -37,13 +37,14 @@ import {
   expandPlugin,
   isExpandInsertionEnabled,
   scrollIntoViewPlugin,
-  mobileScrollPlugin,
+  mobileDimensionsPlugin,
   findReplacePlugin,
   contextPanelPlugin,
   mobileSelectionPlugin,
   annotationPlugin,
   captionPlugin,
   avatarGroupPlugin,
+  viewUpdateSubscriptionPlugin,
 } from '../plugins';
 import { isFullPage as fullPageCheck } from '../utils/is-full-page';
 import {
@@ -171,7 +172,6 @@ export default function createPluginsList(
     getDefaultPresetOptionsFromEditorProps(props, createAnalyticsEvent),
   );
   const featureFlags = createFeatureFlagsFromProps(props);
-  const allowLocalIdGenerationOnTables = featureFlags.localIdGenerationOnTables;
 
   if (props.allowAnalyticsGASV3) {
     const { performanceTracking } = props;
@@ -196,14 +196,7 @@ export default function createPluginsList(
     preset.add(alignmentPlugin);
   }
 
-  if (featureFlags.dataConsumerMark) {
-    preset.add([
-      dataConsumerMarkPlugin,
-      {
-        allowDataConsumerMarks: true,
-      },
-    ]);
-  }
+  preset.add(dataConsumerMarkPlugin);
 
   if (props.allowTextColor) {
     preset.add([textColorPlugin, props.allowTextColor]);
@@ -305,7 +298,6 @@ export default function createPluginsList(
         fullWidthEnabled: props.appearance === 'full-width',
         wasFullWidthEnabled: prevProps && prevProps.appearance === 'full-width',
         dynamicSizingEnabled: props.allowDynamicTextSizing,
-        allowLocalIdGeneration: allowLocalIdGenerationOnTables,
       },
     ]);
   }
@@ -448,6 +440,7 @@ export default function createPluginsList(
         ...props.smartLinks,
         platform: isMobile ? 'mobile' : 'web',
         fullWidthMode,
+        createAnalyticsEvent,
       },
     ]);
   }
@@ -489,7 +482,7 @@ export default function createPluginsList(
   }
 
   if (isMobile) {
-    preset.add(mobileScrollPlugin);
+    preset.add(mobileDimensionsPlugin);
     preset.add(mobileSelectionPlugin);
   }
 
@@ -506,7 +499,6 @@ export default function createPluginsList(
         (props.elementBrowser && props.elementBrowser.showModal) || false,
       replacePlusMenuWithElementBrowser:
         (props.elementBrowser && props.elementBrowser.replacePlusMenu) || false,
-      allowLocalIdGenerationOnTables: allowLocalIdGenerationOnTables,
     },
   ]);
 
@@ -526,6 +518,10 @@ export default function createPluginsList(
         takeFullWidth: !!props.featureFlags?.showAvatarGroupAsPlugin === false,
       },
     ]);
+  }
+
+  if (featureFlags.enableViewUpdateSubscription) {
+    preset.add([viewUpdateSubscriptionPlugin]);
   }
 
   const excludes = new Set<string>();

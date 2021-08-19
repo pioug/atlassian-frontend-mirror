@@ -10,6 +10,7 @@ import {
   tdEmpty,
   DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+import { uuid } from '@atlaskit/adf-schema';
 import { TablePluginState } from '../../../../../plugins/table/types';
 import { deleteColumns } from '../../../../../plugins/table/transforms';
 import { getSelectionRect } from '@atlaskit/editor-tables/utils';
@@ -22,7 +23,17 @@ const colsToRect = (cols: Array<number>, noOfRows: number): Rect => ({
   bottom: noOfRows,
 });
 
+const TABLE_LOCAL_ID = 'test-table-local-id';
+
 describe('table plugin -> transforms -> delete columns', () => {
+  beforeAll(() => {
+    uuid.setStatic(TABLE_LOCAL_ID);
+  });
+
+  afterAll(() => {
+    uuid.setStatic(false);
+  });
+
   const createEditor = createEditorFactory<TablePluginState>();
 
   const editor = (doc: DocBuilder) =>
@@ -53,7 +64,12 @@ describe('table plugin -> transforms -> delete columns', () => {
         const { state, dispatch } = editorView;
         dispatch(deleteColumns(colsToRect([0], 1))(state.tr));
         expect(editorView.state.doc).toEqualDocument(
-          doc(p('text'), table()(tr(td({})(p('c2')), td()(p('c3'))))),
+          doc(
+            p('text'),
+            table({ localId: TABLE_LOCAL_ID })(
+              tr(td({})(p('c2')), td()(p('c3'))),
+            ),
+          ),
         );
         expect(editorView.state.selection.from).toEqual(nextCursorPos);
       });
@@ -79,7 +95,10 @@ describe('table plugin -> transforms -> delete columns', () => {
         const { state, dispatch } = editorView;
         dispatch(deleteColumns(colsToRect([1], 1))(state.tr));
         expect(editorView.state.doc).toEqualDocument(
-          doc(p('text'), table()(tr(tdEmpty, td()(p('c3'))))),
+          doc(
+            p('text'),
+            table({ localId: TABLE_LOCAL_ID })(tr(tdEmpty, td()(p('c3')))),
+          ),
         );
         expect(editorView.state.selection.from).toEqual(nextCursorPos);
       });
@@ -96,7 +115,7 @@ describe('table plugin -> transforms -> delete columns', () => {
         const { state, dispatch } = editorView;
         dispatch(deleteColumns(colsToRect([0, 1], 1))(state.tr));
         expect(editorView.state.doc).toEqualDocument(
-          doc(p('text'), table()(tr(td()(p('c2'))))),
+          doc(p('text'), table({ localId: TABLE_LOCAL_ID })(tr(td()(p('c2'))))),
         );
       });
     });
@@ -118,7 +137,7 @@ describe('table plugin -> transforms -> delete columns', () => {
       expect(editorView.state.doc).toEqualDocument(
         doc(
           p('text'),
-          table()(
+          table({ localId: TABLE_LOCAL_ID })(
             tr(td({})(p('a1')), td({})(p('a3'))),
             tr(td({})(p('b1')), td({})(p('b3'))),
           ),
@@ -141,7 +160,13 @@ describe('table plugin -> transforms -> delete columns', () => {
       const { state, dispatch } = editorView;
       dispatch(deleteColumns(getSelectionRect(state.selection)!)(state.tr));
       expect(editorView.state.doc).toEqualDocument(
-        doc(p('text'), table()(tr(td({})(p('a3'))), tr(td({})(p('b3'))))),
+        doc(
+          p('text'),
+          table({ localId: TABLE_LOCAL_ID })(
+            tr(td({})(p('a3'))),
+            tr(td({})(p('b3'))),
+          ),
+        ),
       );
     });
   });
@@ -162,7 +187,7 @@ describe('table plugin -> transforms -> delete columns', () => {
       expect(editorView.state.doc).toEqualDocument(
         doc(
           p('text'),
-          table()(
+          table({ localId: TABLE_LOCAL_ID })(
             tr(td({ colspan: 1 })(p('c2'))),
             tr(td({ colspan: 1 })(p('c5'))),
           ),
@@ -196,7 +221,10 @@ describe('table plugin -> transforms -> delete columns', () => {
         expect(editorView.state.doc).toEqualDocument(
           doc(
             p('text'),
-            table()(tr(tdEmpty, tdEmpty), tr(td({})(p('b1')), td({})(p('b2')))),
+            table({ localId: TABLE_LOCAL_ID })(
+              tr(tdEmpty, tdEmpty),
+              tr(td({})(p('b1')), td({})(p('b2'))),
+            ),
           ),
         );
       });
@@ -223,7 +251,10 @@ describe('table plugin -> transforms -> delete columns', () => {
         expect(editorView.state.doc).toEqualDocument(
           doc(
             p('text'),
-            table()(tr(tdEmpty, tdEmpty), tr(td({})(p('b2')), td({})(p('b3')))),
+            table({ localId: TABLE_LOCAL_ID })(
+              tr(tdEmpty, tdEmpty),
+              tr(td({})(p('b2')), td({})(p('b3'))),
+            ),
           ),
         );
       });
@@ -253,7 +284,7 @@ describe('table plugin -> transforms -> delete columns', () => {
           dispatch(deleteColumns(colsToRect([0], 3))(state.tr));
           expect(editorView.state.doc).toEqualDocument(
             doc(
-              table()(
+              table({ localId: TABLE_LOCAL_ID })(
                 tr(
                   td({ colwidth: [120] })(p('a2')),
                   td({ colwidth: [130] })(p('a3')),
@@ -303,7 +334,7 @@ describe('table plugin -> transforms -> delete columns', () => {
           dispatch(deleteColumns(colsToRect([0], 4))(state.tr));
           expect(editorView.state.doc).toEqualDocument(
             doc(
-              table()(
+              table({ localId: TABLE_LOCAL_ID })(
                 tr(
                   td({ colwidth: [120] })(p('a2')),
                   td({ colwidth: [130] })(p('a3')),
@@ -355,7 +386,7 @@ describe('table plugin -> transforms -> delete columns', () => {
           dispatch(deleteColumns(colsToRect([1], 3))(state.tr));
           expect(editorView.state.doc).toEqualDocument(
             doc(
-              table()(
+              table({ localId: TABLE_LOCAL_ID })(
                 tr(
                   td({ colwidth: [110] })(p('a1')),
                   td({ colwidth: [130] })(p('a3')),
@@ -402,7 +433,7 @@ describe('table plugin -> transforms -> delete columns', () => {
           dispatch(deleteColumns(colsToRect([1], 4))(state.tr));
           expect(editorView.state.doc).toEqualDocument(
             doc(
-              table()(
+              table({ localId: TABLE_LOCAL_ID })(
                 tr(
                   td({ colwidth: [110] })(p('a1')),
                   td({ colwidth: [130] })(p('a3')),
@@ -448,7 +479,7 @@ describe('table plugin -> transforms -> delete columns', () => {
         dispatch(deleteColumns(colsToRect([1, 2], 3))(state.tr));
         expect(editorView.state.doc).toEqualDocument(
           doc(
-            table()(
+            table({ localId: TABLE_LOCAL_ID })(
               tr(td({ colwidth: [110] })(p('a1'))),
               tr(td({ colwidth: [110] })(p('b1'))),
               tr(td({ colwidth: [110] })(p('c1'))),

@@ -11,20 +11,14 @@ import {
 } from '@atlaskit/theme/colors';
 import { borderRadius, fontSize, gridSize } from '@atlaskit/theme/constants';
 import { ThemeModes } from '@atlaskit/theme/types';
+import { token } from '@atlaskit/tokens';
 
 const spacingUnit = gridSize();
 const fontSizeUnit = fontSize();
 
 const elevations = {
-  light: [N50A, N60A],
-  dark: [DN50A, DN60A],
-};
-
-const getElevationStyleForMode = (mode: ThemeModes): CSSObject => {
-  const colors = elevations[mode];
-  return {
-    boxShadow: `0 4px 8px -2px ${colors[0]}, 0 0 1px ${colors[1]}`,
-  };
+  light: token('shadow.overlay', `0 4px 8px -2px ${N50A}, 0 0 1px ${N60A}`),
+  dark: token('shadow.overlay', `0 4px 8px -2px ${DN50A}, 0 0 1px ${DN60A}`),
 };
 
 export const buttonsContainerStyles: CSSObject = {
@@ -37,8 +31,8 @@ export const buttonsContainerStyles: CSSObject = {
 };
 
 export const getButtonWrapperStyles = (mode: ThemeModes): CSSObject => ({
-  ...getElevationStyleForMode(mode),
-  backgroundColor: '#FFFFFF',
+  boxShadow: elevations[mode],
+  backgroundColor: token('color.background.overlay', N0),
   width: spacingUnit * 4,
   zIndex: 200,
   borderRadius: spacingUnit / 2 - 1,
@@ -61,8 +55,7 @@ export const editButtonStyles = {
   outline: '0',
 
   '&:focus + div': {
-    border: `2px solid ${B100}`,
-    background: N0,
+    border: `2px solid ${token('color.border.focus', B100)}`,
   },
 };
 
@@ -105,6 +98,6 @@ export const readViewWrapperStyles: CSSObject = {
   },
 
   '&:hover': {
-    background: N30,
+    background: token('color.background.transparentNeutral.hover', N30),
   },
 };

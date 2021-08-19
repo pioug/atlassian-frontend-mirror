@@ -116,5 +116,10 @@ export function createFeatureFlagsFromProps(props: EditorProps): FeatureFlags {
         ? !!props.featureFlags?.synchronyErrorDocStructure
         : false,
     ),
+    enableViewUpdateSubscription: Boolean(
+      typeof props.featureFlags?.enableViewUpdateSubscription === 'boolean'
+        ? !!props.featureFlags?.enableViewUpdateSubscription
+        : false,
+    ),
   };
 }

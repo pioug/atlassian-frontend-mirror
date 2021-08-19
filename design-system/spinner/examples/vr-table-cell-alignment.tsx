@@ -2,6 +2,8 @@
 
 import { css, jsx } from '@emotion/core';
 
+import { token } from '@atlaskit/tokens';
+
 import Spinner from '../src';
 
 export default function TableCellAlignment() {
@@ -13,7 +15,7 @@ export default function TableCellAlignment() {
         margin: 8px;
 
         td {
-          border: 1px solid black;
+          border: 1px solid ${token('color.border.neutral', 'black')};
           text-align: center;
         }
         // For VR testing purposes we are overriding the animation timing

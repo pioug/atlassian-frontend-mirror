@@ -57,10 +57,8 @@ export function onSelectionChanged(
 
     return pluginState;
   }
-  // create new object to force a re-render
-  return {
-    ...pluginState,
-  };
+
+  return pluginState;
 }
 
 const isDateNodeSelection = (selection: Selection) => {

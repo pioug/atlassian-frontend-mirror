@@ -2,21 +2,15 @@ import styled from '@emotion/styled';
 
 import { N500, Y500 } from '@atlaskit/theme/colors';
 import { gridSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 import { actionsPadding } from './constants';
-
-const ThemeColor = {
-  text: {
-    default: N500,
-    error: Y500,
-  },
-};
 
 export const ActionsItem = styled.div`
   display: flex;
 
   & + &::before {
-    color: ${ThemeColor.text.default};
+    color: ${token('color.text.mediumEmphasis', N500)};
     content: '·';
     display: inline-block;
     text-align: center;
@@ -26,7 +20,7 @@ export const ActionsItem = styled.div`
 `;
 
 export const ErrorIcon = styled.span`
-  color: ${ThemeColor.text.error};
+  color: ${token('color.text.warning', Y500)};
   padding-right: ${gridSize()}px;
 `;
 

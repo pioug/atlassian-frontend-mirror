@@ -44,6 +44,7 @@ export const PanelIcon: React.FC<PanelIconAttributes> = (
     providerFactory,
     panelAttributes: { panelType, panelIcon },
   } = props;
+
   if (allowCustomPanel && panelIcon && panelType === PanelType.CUSTOM) {
     return (
       <Emoji

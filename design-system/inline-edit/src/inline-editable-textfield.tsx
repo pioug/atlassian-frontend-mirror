@@ -5,6 +5,7 @@ import ErrorIcon from '@atlaskit/icon/glyph/error';
 import InlineDialog from '@atlaskit/inline-dialog';
 import Textfield from '@atlaskit/textfield';
 import { R400 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import InlineEdit from './inline-edit';
 import {
@@ -31,7 +32,10 @@ const InlineEditableTextfield = (props: InlineEditableTextfieldProps) => {
             elemAfterInput={
               isInvalid && (
                 <div css={errorIconContainerStyles}>
-                  <ErrorIcon label="error" primaryColor={R400} />
+                  <ErrorIcon
+                    label="error"
+                    primaryColor={token('color.iconBorder.danger', R400)}
+                  />
                 </div>
               )
             }

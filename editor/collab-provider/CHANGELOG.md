@@ -1,5 +1,16 @@
 # @atlaskit/collab-provider
 
+## 7.0.0
+
+### Major Changes
+
+- [`6090cc1cf57`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6090cc1cf57) - COLLAB-820: use `permissionTokenRefresh` for custom JWT token
+
+### Patch Changes
+
+- [`66404f5a168`](https://bitbucket.org/atlassian/atlassian-frontend/commits/66404f5a168) - NONE: only proactively catchup after offline enough
+- Updated dependencies
+
 ## 6.5.0
 
 ### Minor Changes

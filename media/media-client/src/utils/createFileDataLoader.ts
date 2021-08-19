@@ -1,3 +1,6 @@
+// import setimmediate to temporary fix dataloader 2.0.0 bug
+// @see https://github.com/graphql/dataloader/issues/249
+import 'setimmediate';
 import Dataloader from 'dataloader';
 
 import { MediaStore, ResponseFileItem } from '../client/media-store';
@@ -30,7 +33,7 @@ const makeCacheKey = (id: string, collection?: string) =>
 type DataloaderMap = { [id: string]: DataloaderResult | Error };
 
 export const getItemsFromKeys = (
-  dataloaderKeys: DataloaderKey[],
+  dataloaderKeys: ReadonlyArray<DataloaderKey>,
   fileItems: Array<ResponseFileItem | BatchLoadingErrorResult>,
 ): Array<DataloaderResult | Error> => {
   const itemsByKey = fileItems.reduce<DataloaderMap>((prev, fileItem) => {
@@ -65,7 +68,7 @@ export type FileIdsByCollection = { [collectionName: string]: string[] };
  */
 export function createBatchLoadingFunc(mediaStore: MediaStore) {
   return async (
-    keys: DataloaderKey[],
+    keys: ReadonlyArray<DataloaderKey>,
   ): Promise<Array<DataloaderResult | Error>> => {
     const nonCollectionName = '__media-single-file-collection__';
     const fileIdsByCollection = keys.reduce<FileIdsByCollection>((acc, key) => {

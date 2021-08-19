@@ -3,6 +3,10 @@ import { css, jsx } from '@emotion/core';
 
 import Tabs, { Tab, TabList, useTabPanel } from '../src';
 
+const customPanelStyles = css({
+  padding: '20px',
+});
+
 const CustomTabPanel = ({
   heading,
   body,
@@ -13,12 +17,7 @@ const CustomTabPanel = ({
   const tabPanelAttributes = useTabPanel();
 
   return (
-    <span
-      css={css`
-        padding: 20px;
-      `}
-      {...tabPanelAttributes}
-    >
+    <span css={customPanelStyles} {...tabPanelAttributes}>
       <h3>{heading}</h3>
       <p>{body}</p>
     </span>

@@ -20,7 +20,9 @@ import {
   R300,
 } from '@atlaskit/theme/colors';
 import { ThemeModes } from '@atlaskit/theme/types';
+import { token } from '@atlaskit/tokens';
 
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 const checkboxStyles = css`
   /* Make the input invisible */
   -webkit-appearance: none;
@@ -120,19 +122,18 @@ const checkboxStyles = css`
     --checkbox-tick-color: var(--local-tick-disabled);
   }
 
-  /** Edge high contrast mode styles */
-  @media (-ms-high-contrast: white-on-black) {
+  @media screen and (forced-colors: active) {
     & + svg {
-      --checkbox-background-color: #000000;
-      --checkbox-border-color: #ffffff;
-      --checkbox-tick-color: #ffffff;
+      --checkbox-background-color: Canvas;
+      --checkbox-border-color: CanvasText;
+      --checkbox-tick-color: CanvasText;
     }
 
     &:checked + svg,
     &:checked:hover + svg {
-      --checkbox-background-color: #ffffff;
-      --checkbox-border-color: #ffffff;
-      --checkbox-tick-color: #000000;
+      --checkbox-background-color: Canvas;
+      --checkbox-border-color: CanvasText;
+      --checkbox-tick-color: CanvasText;
     }
 
     &:focus + svg rect:first-of-type {
@@ -151,45 +152,9 @@ const checkboxStyles = css`
     &:disabled:focus + svg,
     &:disabled:active + svg,
     &:disabled[data-invalid] + svg {
-      --checkbox-background-color: #000000;
+      --checkbox-background-color: Canvas;
       --checkbox-border-color: GrayText;
-      --checkbox-tick-color: #ffffff;
-    }
-  }
-
-  @media screen and (-ms-high-contrast: black-on-white) {
-    & + svg {
-      --checkbox-background-color: #ffffff;
-      --checkbox-border-color: #000000;
-      --checkbox-tick-color: #ffffff;
-    }
-
-    &:checked + svg,
-    &:checked:hover + svg {
-      --checkbox-background-color: #000000;
-      --checkbox-border-color: #000000;
-      --checkbox-tick-color: #ffffff;
-    }
-
-    &:focus + svg rect:first-of-type {
-      stroke: Highlight;
-    }
-
-    &[data-invalid] + svg {
-      --checkbox-border-color: Highlight;
-    }
-    &:checked[data-invalid] + svg {
-      --checkbox-border-color: Highlight;
-    }
-
-    &:disabled + svg,
-    &:disabled:hover + svg,
-    &:disabled:focus + svg,
-    &:disabled:active + svg,
-    &:disabled[data-invalid] + svg {
-      --checkbox-background-color: #ffffff;
-      --checkbox-border-color: GrayText;
-      --checkbox-tick-color: #000000;
+      --checkbox-tick-color: GrayText;
     }
   }
 `;
@@ -197,54 +162,54 @@ const checkboxStyles = css`
 const checkboxThemeColors = {
   light: {
     borderColor: {
-      rest: N40,
-      disabled: N20,
-      checked: B400,
-      active: B50,
-      invalid: R300,
-      invalidAndChecked: R300,
-      focused: B100,
-      hovered: N40,
-      hoveredAndChecked: B300,
+      rest: token('color.border.neutral', N40),
+      hovered: token('color.border.neutral', N40),
+      disabled: token('color.background.disabled', N20),
+      checked: token('color.background.boldBrand.resting', B400),
+      active: token('color.border.neutral', B50),
+      invalid: token('color.iconBorder.danger', R300),
+      invalidAndChecked: token('color.iconBorder.danger', R300),
+      focused: token('color.border.focus', B100),
+      hoveredAndChecked: token('color.background.boldBrand.hover', B300),
     },
     boxColor: {
-      rest: N10,
-      disabled: N20,
-      active: B50,
-      hoveredAndChecked: B300,
-      hovered: N30,
-      checked: B400,
+      rest: token('color.background.subtleBorderedNeutral.resting', N10),
+      hovered: token('color.background.default', N30),
+      disabled: token('color.background.disabled', N20),
+      active: token('color.background.subtleBorderedNeutral.pressed', B50),
+      hoveredAndChecked: token('color.background.boldBrand.hover', B300),
+      checked: token('color.background.boldBrand.resting', B400),
     },
     tickColor: {
-      disabledAndChecked: N70,
-      activeAndChecked: B400,
-      checked: N10,
+      disabledAndChecked: token('color.text.disabled', N70),
+      activeAndChecked: token('color.text.onBold', B400),
+      checked: token('color.text.onBold', N10),
     },
   },
   dark: {
     borderColor: {
-      rest: DN80,
-      disabled: DN10,
-      checked: B400,
-      active: B200,
-      invalid: R300,
-      invalidAndChecked: R300,
-      focused: B75,
-      hovered: DN200,
-      hoveredAndChecked: B75,
+      rest: token('color.border.neutral', DN80),
+      hovered: token('color.border.neutral', DN200),
+      disabled: token('color.background.disabled', DN10),
+      checked: token('color.background.boldBrand.resting', B400),
+      active: token('color.border.neutral', B200),
+      invalid: token('color.iconBorder.danger', R300),
+      invalidAndChecked: token('color.iconBorder.danger', R300),
+      focused: token('color.border.focus', B75),
+      hoveredAndChecked: token('color.background.boldBrand.hover', B75),
     },
     boxColor: {
-      rest: DN10,
-      disabled: DN10,
-      active: B200,
-      hoveredAndChecked: B75,
-      hovered: DN30,
-      checked: B400,
+      rest: token('color.background.subtleBorderedNeutral.resting', DN10),
+      hovered: token('color.background.default', DN30),
+      disabled: token('color.background.disabled', DN10),
+      active: token('color.background.subtleBorderedNeutral.pressed', B200),
+      hoveredAndChecked: token('color.background.boldBrand.hover', B75),
+      checked: token('color.background.boldBrand.resting', B400),
     },
     tickColor: {
-      disabledAndChecked: DN90,
-      activeAndChecked: DN10,
-      checked: DN10,
+      disabledAndChecked: token('color.text.disabled', DN90),
+      activeAndChecked: token('color.text.onBold', DN10),
+      checked: token('color.text.onBold', DN10),
     },
   },
 };

@@ -181,7 +181,7 @@ describe('AltTextEditComponent', () => {
       wrapper.find('button[aria-label="Clear alt text"]').simulate('click');
 
       expect(closeMediaAltTextMenu).not.toBeCalled();
-      expect(updateAltText).toBeCalledWith(null);
+      expect(updateAltText).toBeCalledWith('');
     });
   });
 
@@ -364,7 +364,7 @@ describe('AltTextEditComponent', () => {
 
           expect(wrapper.state('validationErrors')).toHaveLength(0);
           expect(wrapper.find(ErrorMessage)).toHaveLength(0);
-          expect(updateAltText).toBeCalledWith(null);
+          expect(updateAltText).toBeCalledWith('');
           expect(wrapper.find(PanelTextInput).prop('defaultValue')).toBe('');
         });
       });

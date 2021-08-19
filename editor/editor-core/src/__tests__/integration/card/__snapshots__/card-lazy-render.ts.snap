@@ -315,6 +315,7 @@ Object {
         "__autoSize": false,
         "isNumberColumnEnabled": false,
         "layout": "wide",
+        "localId": "abc-123",
       },
       "content": Array [
         Object {

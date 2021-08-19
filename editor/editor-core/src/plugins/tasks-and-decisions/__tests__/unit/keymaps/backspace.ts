@@ -178,7 +178,11 @@ describe('tasks and decisions - keymaps', () => {
                   ),
                 ),
               ),
-              doc(table()(tr(tdEmpty, tdCursor, tdEmpty))),
+              doc(
+                table({ localId: 'local-uuid' })(
+                  tr(tdEmpty, tdCursor, tdEmpty),
+                ),
+              ),
               ['Backspace'],
             );
           });

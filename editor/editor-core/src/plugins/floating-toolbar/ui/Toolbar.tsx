@@ -219,6 +219,8 @@ export default class Toolbar extends Component<Props> {
                       onClick={onClickHandler}
                       onMouseEnter={() => dispatchCommand(item.onMouseEnter)}
                       onMouseLeave={() => dispatchCommand(item.onMouseLeave)}
+                      onFocus={() => dispatchCommand(item.onFocus)}
+                      onBlur={() => dispatchCommand(item.onBlur)}
                       selected={item.selected}
                       disabled={item.disabled}
                       tooltipContent={item.tooltipContent}
@@ -306,20 +308,21 @@ export default class Toolbar extends Component<Props> {
                       />
                     );
                   }
+                  if (item.selectType === 'emoji') {
+                    return (
+                      <EmojiPickerButton
+                        key={idx}
+                        view={editorView}
+                        title={item.title}
+                        providerFactory={providerFactory}
+                        isSelected={item.selected}
+                        onChange={(selected) =>
+                          dispatchCommand(item.onChange(selected.shortName))
+                        }
+                      />
+                    );
+                  }
                   return null;
-
-                case 'emoji-picker':
-                  return (
-                    <EmojiPickerButton
-                      key={idx}
-                      view={editorView}
-                      title={item.title}
-                      providerFactory={providerFactory}
-                      onChange={(selected) =>
-                        dispatchCommand(item.onChange(selected.shortName))
-                      }
-                    />
-                  );
 
                 case 'extensions-placeholder':
                   if (!editorView || !extensionsProvider) {

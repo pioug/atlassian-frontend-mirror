@@ -109,7 +109,7 @@ describe('tasks and decisions - input rules', () => {
             insertText(editorView, input, sel);
 
             const expectedDoc = doc(
-              table()(
+              table({ localId: 'local-uuid' })(
                 tr(th({})(list(listProps)(item(itemProps)('{<>}')))),
                 tr(tdEmpty),
                 tr(tdEmpty),
@@ -127,7 +127,7 @@ describe('tasks and decisions - input rules', () => {
             insertText(editorView, input, sel);
 
             const expectedDoc = doc(
-              table()(
+              table({ localId: 'local-uuid' })(
                 tr(thEmpty),
                 tr(
                   td({})(
@@ -155,7 +155,7 @@ describe('tasks and decisions - input rules', () => {
             insertText(editorView, input, sel);
 
             const expectedDoc = doc(
-              table()(
+              table({ localId: 'local-uuid' })(
                 tr(thEmpty),
                 tr(
                   td({})(p('Hello'), list(listProps)(item(itemProps)('{<>}'))),

@@ -44,7 +44,6 @@ export interface InsertBlockOptions {
   nativeStatusSupported?: boolean;
   replacePlusMenuWithElementBrowser?: boolean;
   showElementBrowserLink?: boolean;
-  allowLocalIdGenerationOnTables?: boolean;
 }
 
 /**
@@ -152,9 +151,6 @@ const insertBlockPlugin = (options: InsertBlockOptions = {}): EditorPlugin => ({
               }
               showElementBrowserLink={options.showElementBrowserLink}
               showSeparator={!isLastItem && toolbarSize <= ToolbarSize.S}
-              allowLocalIdGenerationOnTables={
-                options.allowLocalIdGenerationOnTables
-              }
             />
           )}
         />

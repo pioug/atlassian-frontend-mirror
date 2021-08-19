@@ -71,7 +71,7 @@ export const defaultAttrs: DefaultAttributes<MediaADFAttrs> = {
   type: { default: 'file' },
   collection: { default: '' },
   occurrenceKey: { default: null },
-  alt: { default: null },
+  alt: { default: '' },
   width: { default: null },
   height: { default: null },
   url: { default: null },

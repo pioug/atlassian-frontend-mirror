@@ -20,6 +20,7 @@ import {
   DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { MockMentionResource } from '@atlaskit/util-data-test/mock-mention-resource';
+import { uuid } from '@atlaskit/adf-schema';
 import {
   insertMediaGroupNode,
   getPosInList,
@@ -35,7 +36,16 @@ import {
 } from './_utils';
 import { ProviderFactory } from '@atlaskit/editor-common';
 
+const TABLE_LOCAL_ID = 'test-table-local-id';
+
 describe('media-files', () => {
+  beforeAll(() => {
+    uuid.setStatic(TABLE_LOCAL_ID);
+  });
+
+  afterAll(() => {
+    uuid.setStatic(false);
+  });
   const createEditor = createEditorFactory();
   const providerFactory = new ProviderFactory();
   const mediaProvider = getFreshMediaProvider();
@@ -665,7 +675,11 @@ describe('media-files', () => {
       );
 
       expect(editorView.state.doc).toEqualDocument(
-        doc(table()(row(td({})(temporaryMediaGroup, p(), p())))),
+        doc(
+          table({ localId: TABLE_LOCAL_ID })(
+            row(td({})(temporaryMediaGroup, p(), p())),
+          ),
+        ),
       );
     });
 
@@ -679,7 +693,11 @@ describe('media-files', () => {
       );
 
       expect(editorView.state.doc).toEqualDocument(
-        doc(table()(row(th({})(temporaryMediaGroup, p(), p())))),
+        doc(
+          table({ localId: TABLE_LOCAL_ID })(
+            row(th({})(temporaryMediaGroup, p(), p())),
+          ),
+        ),
       );
     });
 

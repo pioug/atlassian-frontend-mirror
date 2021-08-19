@@ -1,5 +1,26 @@
 # @atlaskit/editor-mobile-bridge
 
+## 28.1.0
+
+### Minor Changes
+
+- [`c796dfa0ae4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c796dfa0ae4) - [ME-1589] Rearchitect the adaptive toolbar solution for the editor mobile bridge.
+
+  - Add a new plugin to editor-core that allows you to subscribe to events when the editor view is updated.
+  - Created a subscription that allows you to listen to toolbar and picker plugin updates.
+
+- [`86503f6d38f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/86503f6d38f) - [ux] Fixup the divider being inserted below the cursor on mobile using quick insert and when using shortcuts in web editor
+- [`e2e02bf0bd7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e2e02bf0bd7) - Removed mobile auto scrolling as it has been fixed elsewhere and renamed the mobile scroll plugin to mobile dimensions plugin to better represent its purpose.
+- [`dc859557c47`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dc859557c47) - Add allowCustomPanel configuration option to editor-mobile-bridge
+
+### Patch Changes
+
+- [`aa6f29f8c3d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aa6f29f8c3d) - Setting up empty string value for alt attribute (images) by default
+- [`2aef13b22d8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2aef13b22d8) - ED-12604: add localId for tables and dataConsumer mark for extensions in full schema
+- [`bbe08522556`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bbe08522556) - Fix some failing editor-mobile-bridge tests
+- [`501650d5d6c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/501650d5d6c) - Change type of emoji-picker to select with selectType of emoji
+- Updated dependencies
+
 ## 28.0.6
 
 ### Patch Changes

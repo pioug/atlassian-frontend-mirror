@@ -16,6 +16,7 @@ import {
 
 import { setResizeHandlePos } from '../../../../plugins/table/pm-plugins/table-resizing/commands';
 import { pluginKey as tablePluginKey } from '../../../../plugins/table/pm-plugins/plugin-factory';
+const TABLE_LOCAL_ID = 'test-table-local-id';
 
 describe('Tables with Collab editing', () => {
   const createEditor = createEditorFactory<TablePluginState>();
@@ -40,7 +41,7 @@ describe('Tables with Collab editing', () => {
   it('applies colwidths to cells and sets autosize to false', () => {
     const { editorView: view } = editor(
       doc(
-        table()(
+        table({ localId: TABLE_LOCAL_ID })(
           tr(th()(p('{<>}1')), th()(p('2')), th()(p('3'))),
           tr(td()(p('4')), td()(p('5')), td()(p('6'))),
           tr(td()(p('7')), td()(p('8')), td()(p('9'))),
@@ -63,7 +64,7 @@ describe('Tables with Collab editing', () => {
 
     expect(view.state.doc).toEqualDocument(
       doc(
-        table()(
+        table({ localId: TABLE_LOCAL_ID })(
           tr(th()(p('1')), th()(p('3'))),
           tr(td()(p('4')), td()(p('6'))),
           tr(td()(p('7')), td()(p('9'))),

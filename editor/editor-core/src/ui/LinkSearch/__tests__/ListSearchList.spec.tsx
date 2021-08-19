@@ -48,7 +48,7 @@ describe('ListSearchList', () => {
   it('should render iconUrl in an img tag', () => {
     const { component, items } = setup();
     expect(component.find(LinkSearchListItem).at(0).html()).toMatch(
-      `<img src="${items[0].iconUrl}">`,
+      `<img src="${items[0].iconUrl}" alt="List item">`,
     );
   });
 

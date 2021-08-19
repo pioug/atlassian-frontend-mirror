@@ -153,6 +153,7 @@ export enum ACTION_SUBJECT {
   PLUGIN_SLOT = 'pluginSlot',
   REACT_NODE_VIEW = 'reactNodeView',
   SMART_LINK = 'smartLink',
+  HYPERLINK = 'hyperlink',
   TABLE = 'table',
   TABLES_PLUGIN = 'tablesPlugin',
   TEXT = 'text',
@@ -274,6 +275,11 @@ export enum ACTION_SUBJECT_ID {
   LINK_SEARCH_INPUT = 'linkSearchInput',
   PRE_QUERY_SEARCH_RESULTS = 'preQuerySearchResults',
   POST_QUERY_SEARCH_RESULTS = 'postQuerySearchResults',
+  EDIT_LINK = 'editLink',
+  UNLINK = 'unlink',
+  OPEN_LINK = 'openLink',
+  EMBEDS = 'embeds',
+  HYPERLINK = 'hyperlink',
 }
 
 export enum FLOATING_CONTROLS_TITLE {

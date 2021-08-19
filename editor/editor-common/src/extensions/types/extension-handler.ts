@@ -35,6 +35,7 @@ export type ExtensionAPI<T extends Parameters = Parameters> = {
 
   doc: {
     insertAfter: (localId: string, adf: ADFEntity) => void;
+    scrollTo: (localId: string) => void;
   };
 };
 

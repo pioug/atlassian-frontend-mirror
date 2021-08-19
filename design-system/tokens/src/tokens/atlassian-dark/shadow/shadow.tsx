@@ -6,14 +6,16 @@ const shadow: ShadowTokenSchema = {
       value: [
         {
           radius: 1,
-          offset: { x: 0, y: 0 },
-          color: 'DN100',
-          opacity: 0.36,
+          offset: { x: 0, y: 1 },
+          color: 'DN-100A',
+          // This opacity overrides the color alpha.
+          opacity: 0.5,
         },
         {
           radius: 1,
-          offset: { x: 0, y: 1 },
-          color: 'DN100',
+          offset: { x: 0, y: 0 },
+          color: 'DN-100A',
+          // This opacity overrides the color alpha.
           opacity: 0.5,
         },
       ],
@@ -22,15 +24,25 @@ const shadow: ShadowTokenSchema = {
     overlay: {
       value: [
         {
-          radius: 1,
+          radius: 0,
+          spread: 1,
+          color: 'DN100A',
           offset: { x: 0, y: 0 },
-          color: 'DN0',
-          opacity: 0.5,
+          opacity: 0.04,
+          inset: true,
         },
         {
           radius: 12,
           offset: { x: 0, y: 8 },
-          color: 'DN0',
+          color: 'DN-100A',
+          // This opacity overrides the color alpha.
+          opacity: 0.36,
+        },
+        {
+          radius: 1,
+          offset: { x: 0, y: 0 },
+          color: 'DN-100A',
+          // This opacity overrides the color alpha.
           opacity: 0.5,
         },
       ],

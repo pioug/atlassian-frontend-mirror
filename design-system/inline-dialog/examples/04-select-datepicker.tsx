@@ -10,7 +10,10 @@ interface State {
   isDialogOpen: boolean;
 }
 
-export default class SingleSelectDialog extends Component<{}, State> {
+export default class InlineDialogDatepickerExample extends Component<
+  {},
+  State
+> {
   state = {
     isDialogOpen: true,
   };

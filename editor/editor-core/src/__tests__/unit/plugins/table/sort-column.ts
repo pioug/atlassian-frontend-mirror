@@ -14,11 +14,22 @@ import {
   TablePluginState,
   PluginConfig,
 } from '../../../../plugins/table/types';
+import { uuid } from '@atlaskit/adf-schema';
 import { TableSortOrder as SortOrder } from '@atlaskit/adf-schema/steps';
 import { sortByColumn } from '../../../../plugins/table/commands';
 import { pluginKey as tablePluginKey } from '../../../../plugins/table/pm-plugins/plugin-factory';
 
+const TABLE_LOCAL_ID = 'test-table-local-id';
+
 describe('table plugin', () => {
+  beforeEach(() => {
+    uuid.setStatic(TABLE_LOCAL_ID);
+  });
+
+  afterEach(() => {
+    uuid.setStatic(false);
+  });
+
   const createEditor = createEditorFactory<TablePluginState>();
 
   const editor = (doc: DocBuilder) => {
@@ -104,7 +115,11 @@ describe('table plugin', () => {
 
         expect(editorView.state.doc).toEqualDocument(
           doc(
-            table({ isNumberColumnEnabled: false, layout: 'default' })(
+            table({
+              isNumberColumnEnabled: false,
+              layout: 'default',
+              localId: TABLE_LOCAL_ID,
+            })(
               tr(
                 th({})(p(strong('1'))),
                 th({})(p(strong('2'))),
@@ -221,7 +236,11 @@ describe('table plugin', () => {
 
         expect(editorView.state.doc).toEqualDocument(
           doc(
-            table({ isNumberColumnEnabled: false, layout: 'default' })(
+            table({
+              isNumberColumnEnabled: false,
+              layout: 'default',
+              localId: TABLE_LOCAL_ID,
+            })(
               tr(
                 th({})(p(strong('1'))),
                 th({})(p(strong('2'))),
@@ -338,7 +357,11 @@ describe('table plugin', () => {
 
         expect(editorView.state.doc).toEqualDocument(
           doc(
-            table({ isNumberColumnEnabled: false, layout: 'default' })(
+            table({
+              isNumberColumnEnabled: false,
+              layout: 'default',
+              localId: TABLE_LOCAL_ID,
+            })(
               tr(
                 th({})(h1(strong('asdasdasd'))),
                 th({})(p(strong('asdasd'))),

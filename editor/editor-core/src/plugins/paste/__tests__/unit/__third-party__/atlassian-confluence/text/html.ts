@@ -34,7 +34,7 @@ export default `<meta charset='utf-8'>
     <a href="https://google.co">GoogleLink</a>
   </span>
 </p>
-<table class="confluenceTable">
+<table data-table-local-id="test-table-local-id" class="confluenceTable">
   <colgroup>
     <col />
     <col />

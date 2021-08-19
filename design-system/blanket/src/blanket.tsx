@@ -29,7 +29,6 @@ const baseStyles = css({
   right: 0,
   bottom: 0,
   left: 0,
-  opacity: 1,
   overflowY: 'auto',
   pointerEvents: 'initial',
 });
@@ -39,7 +38,7 @@ const shouldAllowClickThroughStyles = css({
 });
 
 const invisibleStyles = css({
-  opacity: 0,
+  backgroundColor: 'transparent',
 });
 
 const lightBgStyles = css({
@@ -100,9 +99,9 @@ const Blanket = memo(
         role="presentation"
         css={[
           baseStyles,
-          !isTinted && invisibleStyles,
           shouldAllowClickThrough && shouldAllowClickThroughStyles,
           backgroundStyle[mode],
+          !isTinted && invisibleStyles,
         ]}
         onClick={onClick}
         data-testid={testId}

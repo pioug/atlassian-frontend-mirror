@@ -81,7 +81,8 @@ describe('media link:', () => {
     await snapshot(page);
   });
 
-  it(`should render a linked media image inside an expand correctly`, async () => {
+  // TODO: https://product-fabric.atlassian.net/browse/ED-13527
+  it.skip(`should render a linked media image inside an expand correctly`, async () => {
     await loadAdf(page, mediaLinkInsideExpand);
 
     await waitForAllMedia(page, 1);

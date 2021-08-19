@@ -1,5 +1,53 @@
 # @atlaskit/smart-card
 
+## 16.0.0
+
+### Major Changes
+
+- [`86aeb07cae3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/86aeb07cae3) - EDM-2264: allow embed resize events from all domains
+
+  **Note:**
+
+  The breaking change in this commit is a rename from `IframelyResizeMessageListener` to `EmbedResizeMessageListener`. The functionality of the component itself remains the same for all consumers.
+
+### Minor Changes
+
+- [`b6aabf0bfe4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b6aabf0bfe4) - Expose useSmartLinkEvents hook from smart-card
+- [`00de5482a5a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/00de5482a5a) - # expose smart-link selectors
+
+  Documentation with visual examples: https://hello.atlassian.net/wiki/spaces/~hzarcogarcia/pages/1250247546/How+to+use+smart+link+classnames
+
+  ```
+  import {
+    contentFooterClassName,
+    metadataListClassName,
+    blockCardResolvingViewClassName,
+    blockCardResolvedViewClassName,
+    blockCardForbiddenViewClassName,
+    blockCardIconImageClassName,
+    loadingPlaceholderClassName
+  } from '@atlaskit/smart-card';
+
+  // Example usage:
+
+  css`
+    .${contentFooterClassName} {
+      background-color: red;
+    }
+  `
+  ```
+
+- [`17776bda189`](https://bitbucket.org/atlassian/atlassian-frontend/commits/17776bda189) - - Improve Smart Links providers and batch requests mechanism
+  - Remove non-functional props that impact reloading
+- [`8e6a1034cfd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8e6a1034cfd) - EDM-1730: added in-product Cypress tests for Smart Links
+
+### Patch Changes
+
+- [`5c5f3cccdd0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5c5f3cccdd0) - Revert changes to fix a regression CEMS-2063
+- [`ab8f0df38a0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ab8f0df38a0) - Replacing bottleneck library with p-throttle
+- [`c0d4f38bf63`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c0d4f38bf63) - Fix regexp for Polaris (Jira Product Discovery) View links.
+- Updated dependencies
+
 ## 15.5.0
 
 ### Minor Changes

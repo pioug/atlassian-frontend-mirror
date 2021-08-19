@@ -20,8 +20,18 @@ const color: BackgroundColorTokenSchema = {
         attributes: { group: 'paint' },
       },
       selected: {
-        value: 'DN200A',
-        attributes: { group: 'paint' },
+        resting: {
+          value: 'DN200A',
+          attributes: { group: 'paint' },
+        },
+        hover: {
+          value: 'DN300A',
+          attributes: { group: 'paint' },
+        },
+        pressed: {
+          value: 'DN400A',
+          attributes: { group: 'paint' },
+        },
       },
       blanket: {
         value: 'DN-100A',

@@ -4,7 +4,8 @@ import React from 'react';
 // eslint-disable-next-line no-restricted-imports
 import styled from '@emotion/styled';
 
-// @ts-ignore
+import { token } from '@atlaskit/tokens';
+
 import tickInlineSvg from '../examples-util/tick.svg';
 import WithAllAvatarSizes from '../examples-util/withAllAvatarSizes';
 
@@ -22,8 +23,11 @@ const Tick = () => (
 
 const DivPresence = styled.div`
   align-items: center;
-  background-color: rebeccapurple;
-  color: white;
+  background-color: ${token(
+    'color.background.boldDiscovery.resting',
+    'rebeccapurple',
+  )};
+  color: ${token('color.text.onBold', 'white')};
   display: flex;
   font-size: 0.75em;
   font-weight: 500;

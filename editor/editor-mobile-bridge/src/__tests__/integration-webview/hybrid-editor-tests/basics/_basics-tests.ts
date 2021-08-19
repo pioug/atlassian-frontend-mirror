@@ -36,4 +36,18 @@ export default async () => {
       await validateFontSizeOverride(page, fontSizeAdf, '.ProseMirror', '35');
     },
   );
+  MobileTestCase(
+    'Clickable Area: Mobile does not scroll when clicking in clickable area',
+    {},
+    async (client) => {
+      const page = await Page.create(client);
+      await loadEditor(page);
+      await setADFContent(page, fontSizeAdf);
+      await page.execute(() => {
+        window.bridge?.setKeyboardControlsHeight('300');
+      });
+      await page.click('.editor-click-wrapper');
+      await mobileSnapshot(page);
+    },
+  );
 };

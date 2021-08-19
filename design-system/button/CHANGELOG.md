@@ -1,5 +1,16 @@
 # @atlaskit/button
 
+## 16.1.0
+
+### Minor Changes
+
+- [`e267e790d38`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e267e790d38) - [ux] Colors are now sourced through tokens.
+
+### Patch Changes
+
+- [`2d7cc544696`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2d7cc544696) - Updates token usage to match the latest token set
+- Updated dependencies
+
 ## 16.0.0
 
 ### Major Changes

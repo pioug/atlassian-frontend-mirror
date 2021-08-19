@@ -19,7 +19,10 @@ const styles: React.CSSProperties = {
   width: '100%',
 };
 
-export default class InlineDialogExample extends Component<{}, State> {
+export default class InlineDialogPositioningExample extends Component<
+  {},
+  State
+> {
   state = {
     placementIndex: 0,
   };

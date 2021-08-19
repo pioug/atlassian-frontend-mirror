@@ -145,15 +145,6 @@ export type FeatureFlags = {
 
   /**
    * @description
-   * Enables context menu to disribute columns inside table
-   *
-   * @see https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8394
-   * @default false
-   */
-  distributeColumns?: boolean;
-
-  /**
-   * @description
    * Enables performance optimization for sticky headers in tables
    *
    * @see https://product-fabric.atlassian.net/browse/ED-11807
@@ -244,28 +235,6 @@ export type FeatureFlags = {
   showAvatarGroupAsPlugin?: boolean;
 
   /**
-   * @decsription
-   * Enables the marking up of nodes with data consumer marks
-   *
-   * @see https://product-fabric.atlassian.net/browse/ED-12102
-   * &&
-   * @see https://product-fabric.atlassian.net/browse/ED-12570
-   * @default false
-   */
-  dataConsumerMark?: boolean;
-
-  /**
-   * @decsription
-   * Enables local IDs on tables
-   *
-   * @see https://product-fabric.atlassian.net/browse/ED-12102
-   * &&
-   * @see https://product-fabric.atlassian.net/browse/ED-12570
-   * @default false
-   */
-  localIdGenerationOnTables?: boolean;
-
-  /**
    * @description
    * Enables docStructure for unhandleErrorEvents
    *
@@ -282,6 +251,14 @@ export type FeatureFlags = {
    * @default false
    */
   synchronyErrorDocStructure?: boolean;
+
+  /**
+   * @decsription
+   * Enables the view update subscription plugin
+   *
+   * @default false
+   */
+  enableViewUpdateSubscription?: boolean;
 };
 
 export type FeatureFlagKey = keyof FeatureFlags;

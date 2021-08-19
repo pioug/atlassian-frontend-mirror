@@ -37,10 +37,6 @@ describe('ExtensionAPI', () => {
     const { editorView } = createEditorFn({
       doc,
       editorProps: {
-        featureFlags: {
-          'local-id-generation-on-tables': true,
-          'data-consumer-mark': true,
-        },
         allowExtension: true,
         allowTables: true,
         allowLayouts: true,
@@ -97,11 +93,7 @@ describe('ExtensionAPI', () => {
       const api = createAPI(editorView);
 
       expect(() => {
-        api.doc.insertAfter(
-          // @ts-ignore
-          {},
-          ParagraphADF,
-        );
+        api.doc.insertAfter({} as any, ParagraphADF);
       }).toThrowError("insertAfter(): Invalid localId '[object Object]'.");
     });
 
@@ -121,8 +113,7 @@ describe('ExtensionAPI', () => {
       const api = createAPI(editorView);
 
       expect(() => {
-        // @ts-ignore
-        api.doc.insertAfter('tableId', []);
+        api.doc.insertAfter('tableId', [] as any);
       }).toThrowError('insertAfter(): Invalid ADF given.');
     });
 
@@ -422,6 +413,89 @@ describe('ExtensionAPI', () => {
           expectedNodeInsertionPayload,
         );
       });
+    });
+  });
+
+  describe('doc.scrollTo()', () => {
+    const createTableWithLocalId = (localId: string) =>
+      doc(
+        table({ localId })(tr(td({})(p()), td({})(p()), td({})(p()))),
+        p('hello API!{<>}'),
+      );
+    it('should shift cursor to the table source', () => {
+      // Cursor is placed on the last index on the doc
+      const initDoc = createTableWithLocalId('tableId');
+      const editorView = createEditor(initDoc);
+      const api = createAPI(editorView);
+      api.doc.scrollTo('tableId');
+
+      /*
+          doc         - 0
+          table       - 1
+          tableRow    - 2
+          tableHeader - 3
+          paragraph   - 4 (expected cursor position after the function call)
+      */
+      expect(editorView.state.selection.from).toBe(4);
+    });
+
+    it('should throw error when given an empty string', () => {
+      const initDoc = createTableWithLocalId('');
+      const editorView = createEditor(initDoc);
+      const api = createAPI(editorView);
+
+      expect(() => {
+        api.doc.scrollTo('');
+      }).toThrowError("scrollTo(): Invalid localId ''.");
+    });
+
+    it('should throw error when given an undefined', () => {
+      const initDoc = createTableWithLocalId('tableId');
+      const editorView = createEditor(initDoc);
+      const api = createAPI(editorView);
+
+      expect(() => {
+        api.doc.scrollTo(undefined as any);
+      }).toThrow();
+    });
+
+    it('should throw error when given a number', () => {
+      const initDoc = createTableWithLocalId('tableId');
+      const editorView = createEditor(initDoc);
+      const api = createAPI(editorView);
+      expect(() => {
+        api.doc.scrollTo(42 as any);
+      }).toThrow();
+    });
+
+    it('should throw error when given a mismatched id', () => {
+      const initDoc = createTableWithLocalId('tableId');
+      const editorView = createEditor(initDoc);
+      const api = createAPI(editorView);
+      expect(() => {
+        api.doc.scrollTo('fakeId');
+      }).toThrowError("scrollTo(): Could not find node with ID 'fakeId'.");
+    });
+
+    it('should fire off correct analytics', () => {
+      const localId = 'abcd';
+      const expectedApiCallPayload = {
+        action: ACTION.INVOKED,
+        actionSubject: ACTION_SUBJECT.EXTENSION,
+        actionSubjectId: ACTION_SUBJECT_ID.EXTENSION_API,
+        attributes: expect.objectContaining({
+          functionName: 'scrollTo',
+        }),
+        eventType: EVENT_TYPE.TRACK,
+      };
+
+      const initDoc = doc(
+        table({ localId })(tr(td({})(p()), td({})(p()), td({})(p()))),
+      );
+      const editorView = createEditor(initDoc);
+      const api = createAPI(editorView);
+      api.doc.scrollTo(localId);
+      expect(createAnalyticsEvent).toBeCalledWith(expectedApiCallPayload);
     });
   });
 });

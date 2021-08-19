@@ -4,6 +4,7 @@ import {
   UIAnalyticsEvent,
   WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
+import { ThemeModes } from '@atlaskit/theme/types';
 
 import type { ArrowKeys, DateObj, ISODate } from './internal/types';
 
@@ -18,7 +19,7 @@ export type SelectEvent = {
   iso: ISODate;
 } & DateObj;
 
-export interface CalendarBaseProps extends WithAnalyticsEventsProps {
+export interface CalendarProps extends WithAnalyticsEventsProps {
   /** The number of the day currently focused. Places border around the date. 0 highlights no date. */
   day?: number;
   /** Default for `day`. */
@@ -97,13 +98,15 @@ export interface CalendarBaseProps extends WithAnalyticsEventsProps {
    * Style customization to apply to the calendar
    */
   style?: CSSProperties;
-}
-
-export interface CalendarProps extends CalendarBaseProps {
-  /** ⚠️ An additional ref which exposes Calendar's internal api's. We kept this for
+  /**
+   * @internal An additional ref which exposes Calendar's internal api's. We kept this for
    * backward compatibility. PLEASE DO NOT USE THIS.
    */
   calendarRef?: React.Ref<CalendarRef>;
+  /**
+   * @internal Legacy theme mode, can be either 'light' or 'dark'
+   */
+  mode?: ThemeModes;
 }
 
 export interface CalendarRef {

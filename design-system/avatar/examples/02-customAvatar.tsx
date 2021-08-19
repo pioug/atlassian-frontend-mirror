@@ -2,6 +2,7 @@
 import React, { CSSProperties } from 'react';
 
 import { primary } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
 import { Block } from '../examples-util/helpers';
@@ -10,8 +11,8 @@ import Avatar from '../src';
 const customStyles: CSSProperties = {
   textAlign: 'center',
   fontWeight: 600,
-  color: 'white',
-  backgroundColor: primary(),
+  color: token('color.text.onBold', 'white'),
+  backgroundColor: token('color.background.boldBrand.resting', primary()),
 };
 
 export default () => (

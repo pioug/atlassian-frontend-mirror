@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React, {
+import {
   forwardRef,
   memo,
   useCallback,
@@ -13,7 +13,7 @@ import { jsx } from '@emotion/core';
 import noop from '@atlaskit/ds-lib/noop';
 import { ThemeModes } from '@atlaskit/theme/types';
 
-import { dateCellStyle as getDateCellStyle } from '../styles/date';
+import { dateCellStyles as getDateCellStyles } from '../styles/date';
 import type { DateObj } from '../types';
 
 interface Props {
@@ -27,12 +27,12 @@ interface Props {
   isSelected?: boolean;
   isSibling?: boolean;
   year: number;
-  mode: ThemeModes;
+  mode?: ThemeModes;
   testId?: string;
 }
 
 const Date = memo(
-  forwardRef(function Date(
+  forwardRef<HTMLButtonElement, Props>(function Date(
     {
       children: day,
       isDisabled = false,
@@ -46,15 +46,10 @@ const Date = memo(
       year,
       mode,
       testId,
-    }: Props,
-    ref: React.Ref<HTMLButtonElement>,
+    },
+    ref,
   ) {
-    const dateRef = useRef({
-      day,
-      month,
-      year,
-      isDisabled,
-    });
+    const dateRef = useRef({ day, month, year, isDisabled });
 
     useEffect(() => {
       dateRef.current = {
@@ -82,26 +77,23 @@ const Date = memo(
       }
     }, [onClick]);
 
-    const cellControlProps = {
-      'data-disabled': isDisabled || undefined,
-      'data-focused': isFocused || undefined,
-      'data-prev-selected': isPreviouslySelected || undefined,
-      'data-selected': isSelected || undefined,
-      'data-sibling': isSibling || undefined,
-      'data-today': isToday || undefined,
-    };
-
-    const dateCellStyle = useMemo(() => getDateCellStyle(mode), [mode]);
+    const dateCellStyles = useMemo(() => getDateCellStyles(mode), [mode]);
 
     return (
       <button
-        css={dateCellStyle}
+        // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
+        css={dateCellStyles}
         aria-selected={isSelected ? 'true' : 'false'}
         tabIndex={isSelected ? 0 : -1}
         role="gridcell"
         onClick={handleClick}
         ref={ref}
-        {...cellControlProps}
+        data-disabled={isDisabled || undefined}
+        data-focused={isFocused || undefined}
+        data-prev-selected={isPreviouslySelected || undefined}
+        data-selected={isSelected || undefined}
+        data-sibling={isSibling || undefined}
+        data-today={isToday || undefined}
         data-testid={
           testId && isSelected ? `${testId}--selected-day` : undefined
         }

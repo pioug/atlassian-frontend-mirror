@@ -13,10 +13,12 @@ export default function Example() {
       </p>
       <p>
         style: {`{ backgroundColor: 'green' }`}{' '}
+        {/* eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage */}
         <Lozenge style={{ backgroundColor: 'green' }}>Success</Lozenge>
       </p>
       <p>
         style: {`{ backgroundColor: 'yellow', color: 'blue' }`}{' '}
+        {/* eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage */}
         <Lozenge style={{ backgroundColor: 'yellow', color: 'blue' }}>
           Custom
         </Lozenge>

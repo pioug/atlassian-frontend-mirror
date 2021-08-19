@@ -8,6 +8,7 @@ Object {
         "__autoSize": false,
         "isNumberColumnEnabled": false,
         "layout": "default",
+        "localId": "",
       },
       "content": Array [
         Object {
@@ -39,7 +40,7 @@ Object {
                         "__fileMimeType": null,
                         "__fileName": null,
                         "__fileSize": null,
-                        "alt": null,
+                        "alt": "",
                         "collection": "",
                         "height": null,
                         "id": "abc-123",
@@ -58,7 +59,7 @@ Object {
                         "__fileMimeType": null,
                         "__fileName": null,
                         "__fileSize": null,
-                        "alt": null,
+                        "alt": "",
                         "collection": "",
                         "height": null,
                         "id": "abc-456",
@@ -91,7 +92,7 @@ Object {
                         "__fileMimeType": null,
                         "__fileName": null,
                         "__fileSize": null,
-                        "alt": null,
+                        "alt": "",
                         "collection": "",
                         "height": null,
                         "id": "abc-123",
@@ -110,7 +111,7 @@ Object {
                         "__fileMimeType": null,
                         "__fileName": null,
                         "__fileSize": null,
-                        "alt": null,
+                        "alt": "",
                         "collection": "",
                         "height": null,
                         "id": "abc-456",
@@ -166,6 +167,7 @@ Object {
         "__autoSize": false,
         "isNumberColumnEnabled": false,
         "layout": "default",
+        "localId": "",
       },
       "content": Array [
         Object {
@@ -300,6 +302,7 @@ Object {
         "__autoSize": false,
         "isNumberColumnEnabled": false,
         "layout": "default",
+        "localId": "",
       },
       "content": Array [
         Object {
@@ -368,6 +371,7 @@ Object {
         "__autoSize": false,
         "isNumberColumnEnabled": false,
         "layout": "default",
+        "localId": "",
       },
       "content": Array [
         Object {
@@ -462,6 +466,7 @@ Object {
         "__autoSize": false,
         "isNumberColumnEnabled": false,
         "layout": "default",
+        "localId": "",
       },
       "content": Array [
         Object {
@@ -556,6 +561,7 @@ Object {
         "__autoSize": false,
         "isNumberColumnEnabled": false,
         "layout": "default",
+        "localId": "",
       },
       "content": Array [
         Object {
@@ -644,6 +650,7 @@ Object {
         "__autoSize": false,
         "isNumberColumnEnabled": false,
         "layout": "default",
+        "localId": "",
       },
       "content": Array [
         Object {
@@ -766,6 +773,7 @@ Object {
         "__autoSize": false,
         "isNumberColumnEnabled": false,
         "layout": "default",
+        "localId": "",
       },
       "content": Array [
         Object {
@@ -902,6 +910,7 @@ Object {
         "__autoSize": false,
         "isNumberColumnEnabled": false,
         "layout": "default",
+        "localId": "",
       },
       "content": Array [
         Object {
@@ -1230,6 +1239,7 @@ Object {
         "__autoSize": false,
         "isNumberColumnEnabled": false,
         "layout": "default",
+        "localId": "",
       },
       "content": Array [
         Object {
@@ -1273,6 +1283,7 @@ Object {
         "__autoSize": false,
         "isNumberColumnEnabled": false,
         "layout": "default",
+        "localId": "",
       },
       "content": Array [
         Object {
@@ -1320,6 +1331,7 @@ Object {
         "__autoSize": false,
         "isNumberColumnEnabled": false,
         "layout": "default",
+        "localId": "",
       },
       "content": Array [
         Object {
@@ -1374,6 +1386,7 @@ Object {
         "__autoSize": false,
         "isNumberColumnEnabled": false,
         "layout": "default",
+        "localId": "",
       },
       "content": Array [
         Object {
@@ -1421,6 +1434,7 @@ Object {
         "__autoSize": false,
         "isNumberColumnEnabled": false,
         "layout": "default",
+        "localId": "",
       },
       "content": Array [
         Object {
@@ -1472,6 +1486,7 @@ Object {
         "__autoSize": false,
         "isNumberColumnEnabled": false,
         "layout": "default",
+        "localId": "",
       },
       "content": Array [
         Object {
@@ -1520,6 +1535,7 @@ Object {
         "__autoSize": false,
         "isNumberColumnEnabled": false,
         "layout": "default",
+        "localId": "",
       },
       "content": Array [
         Object {
@@ -1733,6 +1749,7 @@ Object {
         "__autoSize": false,
         "isNumberColumnEnabled": false,
         "layout": "default",
+        "localId": "",
       },
       "content": Array [
         Object {
@@ -1949,6 +1966,7 @@ Object {
         "__autoSize": false,
         "isNumberColumnEnabled": false,
         "layout": "default",
+        "localId": "",
       },
       "content": Array [
         Object {
@@ -2078,6 +2096,7 @@ Object {
         "__autoSize": false,
         "isNumberColumnEnabled": false,
         "layout": "default",
+        "localId": "",
       },
       "content": Array [
         Object {
@@ -2150,6 +2169,7 @@ Object {
         "__autoSize": false,
         "isNumberColumnEnabled": false,
         "layout": "default",
+        "localId": "",
       },
       "content": Array [
         Object {
@@ -2213,6 +2233,7 @@ Object {
         "__autoSize": false,
         "isNumberColumnEnabled": false,
         "layout": "default",
+        "localId": "",
       },
       "content": Array [
         Object {
@@ -2395,6 +2416,7 @@ Object {
         "__autoSize": false,
         "isNumberColumnEnabled": false,
         "layout": "default",
+        "localId": "",
       },
       "content": Array [
         Object {
@@ -2533,6 +2555,7 @@ Object {
         "__autoSize": false,
         "isNumberColumnEnabled": false,
         "layout": "default",
+        "localId": "",
       },
       "content": Array [
         Object {
@@ -2559,7 +2582,7 @@ Object {
                         "__fileMimeType": null,
                         "__fileName": null,
                         "__fileSize": null,
-                        "alt": null,
+                        "alt": "",
                         "collection": "",
                         "height": 400,
                         "id": "abc-789",
@@ -2595,6 +2618,7 @@ Object {
         "__autoSize": false,
         "isNumberColumnEnabled": false,
         "layout": "default",
+        "localId": "",
       },
       "content": Array [
         Object {
@@ -2703,6 +2727,7 @@ Object {
         "__autoSize": false,
         "isNumberColumnEnabled": false,
         "layout": "default",
+        "localId": "",
       },
       "content": Array [
         Object {
@@ -2811,6 +2836,7 @@ Object {
         "__autoSize": false,
         "isNumberColumnEnabled": false,
         "layout": "default",
+        "localId": "",
       },
       "content": Array [
         Object {

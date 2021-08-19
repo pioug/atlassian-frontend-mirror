@@ -123,3 +123,11 @@ export const clearEditor = async (browser: any) => {
     dom.innerHTML = '<p><br /></p>';
   });
 };
+
+export const getDummyBridgeCalls = (browser: any, name: string) => {
+  return browser.execute((name: string) => {
+    // @ts-ignore
+    const callsFromDummy = window.callsFromDummyBridge;
+    return callsFromDummy.get(name);
+  }, name);
+};

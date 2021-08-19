@@ -125,6 +125,7 @@ const TabsWithMode = (props: InnerProps) => {
   const tabsStyles = useMemo(() => getTabsStyles(mode), [mode]);
 
   return (
+    // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
     <div data-testid={testId} css={tabsStyles}>
       <TabListContext.Provider
         value={{ selected, onChange: onChangeAnalytics, tabsId: id }}

@@ -1,3 +1,4 @@
+import { uuid } from '../../../../utils';
 import { createSchema } from '../../../../schema/create-schema';
 import {
   table,
@@ -43,7 +44,17 @@ const makeSchema = () =>
     marks: ['unsupportedMark', 'unsupportedNodeAttribute'],
   });
 
+const TABLE_LOCAL_ID = 'test-table-local-id';
+
 describe(`${name}/schema table node`, () => {
+  beforeAll(() => {
+    uuid.setStatic(TABLE_LOCAL_ID);
+  });
+
+  afterAll(() => {
+    uuid.setStatic(false);
+  });
+
   const schema = makeSchema();
 
   it('should have isolating property to be true', () => {
@@ -63,6 +74,7 @@ describe(`${name}/schema table node`, () => {
         __autoSize: false,
         isNumberColumnEnabled: false,
         layout: 'default',
+        localId: TABLE_LOCAL_ID,
       });
     });
 
@@ -75,6 +87,7 @@ describe(`${name}/schema table node`, () => {
         __autoSize: false,
         isNumberColumnEnabled: true,
         layout: 'default',
+        localId: TABLE_LOCAL_ID,
       });
     });
 
@@ -87,6 +100,7 @@ describe(`${name}/schema table node`, () => {
         __autoSize: false,
         isNumberColumnEnabled: false,
         layout: 'wide',
+        localId: TABLE_LOCAL_ID,
       });
     });
 
@@ -99,6 +113,7 @@ describe(`${name}/schema table node`, () => {
         __autoSize: false,
         isNumberColumnEnabled: false,
         layout: 'full-width',
+        localId: TABLE_LOCAL_ID,
       });
     });
   });
@@ -120,6 +135,7 @@ describe(`${name}/schema table node`, () => {
           __autoSize: false,
           isNumberColumnEnabled: false,
           layout: 'default',
+          localId: TABLE_LOCAL_ID,
         });
       });
 
@@ -188,6 +204,7 @@ describe(`${name}/schema table node`, () => {
           __autoSize: false,
           isNumberColumnEnabled: false,
           layout: 'full-width',
+          localId: TABLE_LOCAL_ID,
         });
       });
     });
@@ -222,6 +239,7 @@ describe(`${name}/schema table node`, () => {
           __autoSize: false,
           isNumberColumnEnabled: false,
           layout: 'default',
+          localId: TABLE_LOCAL_ID,
         });
       });
 
@@ -243,6 +261,7 @@ describe(`${name}/schema table node`, () => {
           __autoSize: false,
           isNumberColumnEnabled: false,
           layout: 'default',
+          localId: TABLE_LOCAL_ID,
         });
       });
 
@@ -264,6 +283,7 @@ describe(`${name}/schema table node`, () => {
           __autoSize: false,
           isNumberColumnEnabled: false,
           layout: 'default',
+          localId: TABLE_LOCAL_ID,
         });
       });
       it('should parse a full 2x1 table selection (only headers)', () => {
@@ -284,6 +304,7 @@ describe(`${name}/schema table node`, () => {
           __autoSize: false,
           isNumberColumnEnabled: false,
           layout: 'default',
+          localId: TABLE_LOCAL_ID,
         });
       });
       it('should parse a partial 2x1 cell selection', () => {
@@ -304,6 +325,7 @@ describe(`${name}/schema table node`, () => {
           __autoSize: false,
           isNumberColumnEnabled: false,
           layout: 'default',
+          localId: TABLE_LOCAL_ID,
         });
       });
       it('should parse a partial 2x1 header/cell selection', () => {
@@ -324,6 +346,7 @@ describe(`${name}/schema table node`, () => {
           __autoSize: false,
           isNumberColumnEnabled: false,
           layout: 'default',
+          localId: TABLE_LOCAL_ID,
         });
       });
       it('should parse a paragraph/full table/p selection range', () => {
@@ -344,6 +367,7 @@ describe(`${name}/schema table node`, () => {
           __autoSize: false,
           isNumberColumnEnabled: false,
           layout: 'default',
+          localId: TABLE_LOCAL_ID,
         });
       });
       it('should parse a paragraph/partial table selection range', () => {
@@ -364,6 +388,7 @@ describe(`${name}/schema table node`, () => {
           __autoSize: false,
           isNumberColumnEnabled: false,
           layout: 'default',
+          localId: TABLE_LOCAL_ID,
         });
       });
     });
@@ -384,6 +409,7 @@ describe(`${name}/schema table node`, () => {
           __autoSize: false,
           isNumberColumnEnabled: false,
           layout: 'default',
+          localId: TABLE_LOCAL_ID,
         });
       });
     });
@@ -405,7 +431,7 @@ describe(`${name}/schema table node`, () => {
       it('should convert default table', () => {
         const table = schema.nodes.table.create();
         expect(toHTML(table, schema)).toEqual(
-          '<table data-number-column="false" data-layout="default" data-autosize="false"><tbody></tbody></table>',
+          '<table data-number-column="false" data-layout="default" data-autosize="false" data-table-local-id=""><tbody></tbody></table>',
         );
       });
 
@@ -413,7 +439,7 @@ describe(`${name}/schema table node`, () => {
         const attrs = { layout: 'full-width' } as TableAttributes;
         const table = schema.nodes.table.create(attrs);
         expect(toHTML(table, schema)).toEqual(
-          '<table data-number-column="false" data-layout="full-width" data-autosize="false"><tbody></tbody></table>',
+          '<table data-number-column="false" data-layout="full-width" data-autosize="false" data-table-local-id=""><tbody></tbody></table>',
         );
       });
 
@@ -421,7 +447,7 @@ describe(`${name}/schema table node`, () => {
         const attrs = { isNumberColumnEnabled: true } as TableAttributes;
         const table = schema.nodes.table.create(attrs);
         expect(toHTML(table, schema)).toEqual(
-          '<table data-number-column="true" data-layout="default" data-autosize="false"><tbody></tbody></table>',
+          '<table data-number-column="true" data-layout="default" data-autosize="false" data-table-local-id=""><tbody></tbody></table>',
         );
       });
 
@@ -429,7 +455,7 @@ describe(`${name}/schema table node`, () => {
         const attrs = { __autoSize: true } as TableAttributes;
         const table = schema.nodes.table.create(attrs);
         expect(toHTML(table, schema)).toEqual(
-          '<table data-number-column="false" data-layout="default" data-autosize="true"><tbody></tbody></table>',
+          '<table data-number-column="false" data-layout="default" data-autosize="true" data-table-local-id=""><tbody></tbody></table>',
         );
       });
     });

@@ -36,7 +36,9 @@ describe('text-formatting', () => {
 
   let createAnalyticsEvent: CreateUIAnalyticsEvent;
   const editor = (doc: DocBuilder) => {
-    createAnalyticsEvent = jest.fn().mockReturnValue({ fire() {} });
+    createAnalyticsEvent = jest.fn().mockReturnValue({
+      fire() {},
+    });
     return createEditor({
       doc,
       editorProps: {
@@ -392,6 +394,64 @@ describe('text-formatting', () => {
       expect(commands.toggleCode()(editorView.state, editorView.dispatch));
       expect(editorView.state.doc).toEqualDocument(
         doc(p('... -> <- -- " " \' \'')),
+      );
+    });
+
+    it('should convert smart characters to normal ascii in the middle of a paragraph', () => {
+      const { editorView } = editor(
+        doc(p(''), p('{<}hello … → ← – “ ” ‘ ’ world{>}')),
+      );
+      expect(commands.toggleCode()(editorView.state, editorView.dispatch));
+      expect(editorView.state.doc).toEqualDocument(
+        doc(p(''), p(code('hello ... -> <- -- " " \' \' world'))),
+      );
+      expect(commands.toggleCode()(editorView.state, editorView.dispatch));
+      expect(editorView.state.doc).toEqualDocument(
+        doc(p(''), p('hello ... -> <- -- " " \' \' world')),
+      );
+    });
+
+    it('should convert smart characters to normal ascii in the middle of a paragraph and way down the document', () => {
+      const { editorView } = editor(
+        doc(p(''), p(''), p(''), p(''), p('{<}hello … → ← – “ ” ‘ ’ world{>}')),
+      );
+      expect(commands.toggleCode()(editorView.state, editorView.dispatch));
+      expect(editorView.state.doc).toEqualDocument(
+        doc(
+          p(''),
+          p(''),
+          p(''),
+          p(''),
+          p(code('hello ... -> <- -- " " \' \' world')),
+        ),
+      );
+      expect(commands.toggleCode()(editorView.state, editorView.dispatch));
+      expect(editorView.state.doc).toEqualDocument(
+        doc(
+          p(''),
+          p(''),
+          p(''),
+          p(''),
+          p('hello ... -> <- -- " " \' \' world'),
+        ),
+      );
+    });
+
+    it('should convert smart characters to normal ascii in the middle of a word', () => {
+      const { editorView } = editor(
+        doc(p(''), p(''), p('he{<}llo … → ← – “ ” ‘ ’ wor{>}ld')),
+      );
+      expect(commands.toggleCode()(editorView.state, editorView.dispatch));
+      expect(editorView.state.doc).toEqualDocument(
+        doc(
+          p(''),
+          p(''),
+          p('he', code('llo ... -> <- -- " " \' \' wor'), 'ld'),
+        ),
+      );
+      expect(commands.toggleCode()(editorView.state, editorView.dispatch));
+      expect(editorView.state.doc).toEqualDocument(
+        doc(p(''), p(''), p('hello ... -> <- -- " " \' \' world')),
       );
     });
   });

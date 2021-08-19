@@ -1,4 +1,3 @@
-// A seperate export which is only types
 export type { Appearance, Spacing, BaseOwnProps } from '../types';
 export type { ButtonProps } from './standard-button';
 export type {

@@ -19,7 +19,7 @@ export interface FigmaEffect {
   offset: { x: number; y: number };
   radius: number;
   spread?: number;
-  type: 'DROP_SHADOW';
+  type: 'DROP_SHADOW' | 'INNER_SHADOW';
   visible: boolean;
 }
 

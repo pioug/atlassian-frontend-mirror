@@ -5,6 +5,7 @@ import { css, jsx } from '@emotion/core';
 import { ReactNode } from 'react-redux';
 
 import { N20, N60A } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import Tooltip from '../src';
 
@@ -15,15 +16,18 @@ function capitalize(str: string) {
 }
 
 const color = {
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   relative: 'green',
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   absolute: 'yellow',
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   fixed: 'red',
 };
 
-const boxShadow = `
-  0 4px 8px -2px ${N60A},
-  0 0 1px ${N60A}
-`;
+const boxShadow = token(
+  'shadow.overlay',
+  `0 4px 8px -2px ${N60A}, 0 0 1px ${N60A}`,
+);
 
 interface PosTypes {
   children?: ReactNode;
@@ -36,7 +40,10 @@ const Position = forwardRef<HTMLDivElement, PosTypes>(
   ({ children, pos, pinned, top = 0 }, ref) => (
     <div
       css={css`
-        background-color: ${N20};
+        background-color: ${token(
+          'color.background.subtleNeutral.resting',
+          N20,
+        )};
         border-radius: 5px;
         height: 60px;
         padding: 8px;

@@ -21,8 +21,6 @@ describe('Provider', () => {
     expect(render).toBeCalledWith(
       expect.objectContaining({
         config: {
-          maxAge: 60000,
-          maxLoadingDelay: 1200,
           authFlow: 'oauth2',
         },
         connections: {
@@ -36,18 +34,13 @@ describe('Provider', () => {
     const render = jest.fn();
     const client = new CardClient();
     mount(
-      <SmartCardProvider
-        client={client}
-        cacheOptions={{ maxAge: 100, maxLoadingDelay: 100 }}
-      >
+      <SmartCardProvider client={client}>
         <Context.Consumer>{render}</Context.Consumer>
       </SmartCardProvider>,
     );
     expect(render).toBeCalledWith(
       expect.objectContaining({
         config: {
-          maxAge: 100,
-          maxLoadingDelay: 100,
           authFlow: 'oauth2',
         },
         connections: {
@@ -61,10 +54,7 @@ describe('Provider', () => {
     const render = jest.fn();
     const client = new CardClient();
     mount(
-      <SmartCardProvider
-        client={client}
-        cacheOptions={{ maxAge: 100, maxLoadingDelay: 100 }}
-      >
+      <SmartCardProvider client={client}>
         <SmartCardProvider client={client}>
           <Context.Consumer>{render}</Context.Consumer>
         </SmartCardProvider>
@@ -73,8 +63,6 @@ describe('Provider', () => {
     expect(render).toBeCalledWith(
       expect.objectContaining({
         config: {
-          maxAge: 100,
-          maxLoadingDelay: 100,
           authFlow: 'oauth2',
         },
         connections: {
@@ -96,7 +84,6 @@ describe('Provider', () => {
       'some-url': {
         status: 'resolved',
         details: {} as any,
-        lastUpdatedAt: 1,
       },
     };
 

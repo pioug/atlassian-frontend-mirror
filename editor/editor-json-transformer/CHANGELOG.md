@@ -1,5 +1,12 @@
 # @atlaskit/editor-json-transformer
 
+## 8.6.6
+
+### Patch Changes
+
+- [`2aef13b22d8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2aef13b22d8) - ED-12604: add localId for tables and dataConsumer mark for extensions in full schema
+- Updated dependencies
+
 ## 8.6.5
 
 ### Patch Changes

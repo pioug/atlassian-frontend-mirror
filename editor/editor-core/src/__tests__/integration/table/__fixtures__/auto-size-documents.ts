@@ -8,6 +8,7 @@ const autoSizeToDefaultLayout = {
         isNumberColumnEnabled: false,
         layout: 'default',
         __autoSize: true,
+        localId: 'abc-123',
       },
       content: [
         {
@@ -153,6 +154,7 @@ const autoSizeToWideLayout = {
         isNumberColumnEnabled: false,
         layout: 'default',
         __autoSize: true,
+        localId: 'abc-123',
       },
       content: [
         {
@@ -299,6 +301,7 @@ const autoSizeToFullWidthLayout = {
         isNumberColumnEnabled: false,
         layout: 'default',
         __autoSize: true,
+        localId: 'abc-123',
       },
       content: [
         {

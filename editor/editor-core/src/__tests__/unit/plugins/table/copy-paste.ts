@@ -24,6 +24,7 @@ import {
   DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
+import { uuid } from '@atlaskit/adf-schema';
 import {
   TablePluginState,
   PluginConfig,
@@ -38,6 +39,7 @@ import {
 import { pluginKey as tablePluginKey } from '../../../../plugins/table/pm-plugins/plugin-factory';
 import { transformSliceToRemoveOpenExpand } from '../../../../plugins/expand/utils';
 
+const TABLE_LOCAL_ID = 'test-table-local-id';
 const array = (...args: any): Node[] => args.map((i: any) => i(defaultSchema));
 const fragment = (...args: any) =>
   Fragment.from(args.map((i: any) => i(defaultSchema)));
@@ -52,6 +54,13 @@ const selectCell = (cell: {
 };
 
 describe('table plugin', () => {
+  beforeAll(() => {
+    uuid.setStatic(TABLE_LOCAL_ID);
+  });
+
+  afterAll(() => {
+    uuid.setStatic(false);
+  });
   const createEditor = createEditorFactory<TablePluginState>();
 
   const editor = (doc: DocBuilder) => {
@@ -110,7 +119,7 @@ describe('table plugin', () => {
 
         expect(editorView.state.doc).toEqualDocument(
           doc(
-            table()(
+            table({ localId: TABLE_LOCAL_ID })(
               tr(th()(p('1')), th()(p('2')), th()(p('3'))),
               tr(td()(p('4')), td()(p('5')), td()(p('6'))),
               tr(td()(p('7')), th()(p('1')), td()(p('9'))),
@@ -158,7 +167,7 @@ describe('table plugin', () => {
 
         expect(editorView.state.doc).toEqualDocument(
           doc(
-            table()(
+            table({ localId: TABLE_LOCAL_ID })(
               tr(th()(p('1')), th()(p('2')), th()(p('2'))),
               tr(td()(p('4')), td()(p('5')), td()(p('5'))),
               tr(td()(p('7')), td()(p('8')), td()(p('8'))),
@@ -175,6 +184,7 @@ describe('table plugin', () => {
           doc(
             table({
               layout: 'wide',
+              localId: TABLE_LOCAL_ID,
             })(
               tr(th()(p('{<>}1')), th()(p('2')), th()(p('3'))),
               tr(
@@ -209,7 +219,7 @@ describe('table plugin', () => {
 
         expect(editorView.state.doc).toEqualDocument(
           doc(
-            table({ layout: 'wide' })(
+            table({ layout: 'wide', localId: TABLE_LOCAL_ID })(
               tr(th()(p('1')), th()(p('2')), th()(p('3'))),
               tr(
                 td({ background: '#fffcf2' })(p('4')),
@@ -218,7 +228,7 @@ describe('table plugin', () => {
               ),
               tr(td()(p('7')), td()(p('8')), td()(p('9'))),
             ),
-            table({ layout: 'wide' })(
+            table({ layout: 'wide', localId: TABLE_LOCAL_ID })(
               tr(th()(p('1')), th()(p('2')), th()(p('3'))),
               tr(
                 td({ background: '#fffcf2' })(p('4')),

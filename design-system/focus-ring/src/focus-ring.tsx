@@ -1,16 +1,25 @@
 /** @jsx jsx */
-import { Children, cloneElement } from 'react';
+import { Children, cloneElement, FC } from 'react';
 
 import { ClassNames, css, jsx } from '@emotion/core';
 
-import { B100 } from '@atlaskit/theme/colors';
+import { B100, N0 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import type { FocusRingProps } from './types';
 
-const baseFocusStyles = {
-  boxShadow: `0 0 0 2px white, 0 0 0 4px ${B100}`,
+const baseFocusStyles = css({
+  boxShadow: `0 0 0 2px ${token(
+    'color.background.default',
+    N0,
+  )}, 0 0 0 4px ${token('color.border.focus', B100)}`,
   outline: 'none',
-};
+});
+
+const baseInsetStyles = css({
+  boxShadow: `inset 0px 0px 0px 2px ${token('color.border.focus', B100)}`,
+  outline: 'none',
+});
 
 const focusRingStyles = css({
   '&:focus-visible': baseFocusStyles,
@@ -20,6 +29,19 @@ const focusRingStyles = css({
   '@media screen and (forced-colors: active), screen and (-ms-high-contrast: active)': {
     '&:focus-visible': {
       outline: '1px solid',
+    },
+  },
+});
+
+const insetFocusRingStyles = css({
+  '&:focus-visible': baseInsetStyles,
+  '@supports not selector(*:focus-visible)': {
+    '&:focus': baseInsetStyles,
+  },
+  '@media screen and (forced-colors: active), screen and (-ms-high-contrast: active)': {
+    '&:focus-visible': {
+      outline: '1px solid',
+      outlineOffset: '-1px',
     },
   },
 });
@@ -40,13 +62,16 @@ const focusRingStyles = css({
  * );
  * ```
  */
-const FocusRing = (props: FocusRingProps) => (
+const FocusRing: FC<FocusRingProps> = ({ children, isInset }) => (
   <ClassNames>
     {({ css }) =>
       Children.only(
         // eslint-disable-next-line @repo/internal/react/no-clone-element
-        cloneElement(props.children, {
-          className: css([focusRingStyles, (props.children as any).className]),
+        cloneElement(children, {
+          className: css([
+            isInset ? insetFocusRingStyles : focusRingStyles,
+            (children as any).className,
+          ]),
         }),
       )
     }

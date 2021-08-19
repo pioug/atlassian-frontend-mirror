@@ -40,6 +40,7 @@ export const documentWithExpandAndTables = {
           attrs: {
             isNumberColumnEnabled: false,
             layout: 'default',
+            localId: 'abc-123',
           },
           content: [
             {
@@ -163,6 +164,7 @@ export const tableWithPanel = {
       attrs: {
         isNumberColumnEnabled: false,
         layout: 'default',
+        localId: 'abc-123',
       },
       content: [
         {

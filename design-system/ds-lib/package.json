@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/ds-lib",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "Reusable utilities and hooks specific to design system.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -24,6 +24,7 @@
     }
   },
   "af:exports": {
+    "./keycodes": "./src/utils/keycodes.tsx",
     "./noop": "./src/utils/noop.ts",
     "./warn-once": "./src/utils/warn-once.ts",
     "./merge-refs": "./src/utils/merge-refs.ts",
@@ -32,7 +33,9 @@
     "./use-lazy-callback": "./src/hooks/use-lazy-callback.ts",
     "./use-state-ref": "./src/hooks/use-state-ref.ts",
     "./use-element-event": "./src/hooks/use-element-event.ts",
+    "./use-focus-event": "./src/hooks/use-focus-event.tsx",
     "./use-document-event": "./src/hooks/use-document-event.ts",
+    "./use-keydown-event": "./src/hooks/use-keydown-event.tsx",
     "./use-window-event": "./src/hooks/use-window-event.ts",
     "./use-scrollbar-width": "./src/hooks/use-scrollbar-width.ts",
     "./use-previous-value": "./src/hooks/use-previous-value.ts",

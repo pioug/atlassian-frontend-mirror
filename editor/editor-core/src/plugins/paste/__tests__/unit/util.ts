@@ -16,6 +16,8 @@ import {
   isSingleLine,
   htmlContainsSingleFile,
   isEmptyNode,
+  htmlHasInvalidLinkTags,
+  removeDuplicateInvalidLinks,
 } from '../../util';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
 
@@ -376,6 +378,68 @@ describe('paste util', () => {
       const paragraph = Node.fromJSON(defaultSchema, content);
       const nonEmptyPanel = panel.createAndFill(null, paragraph);
       expect(isEmptyNode(nonEmptyPanel)).toBe(false);
+    });
+  });
+
+  describe('htmlHasInvalidLinkTags()', () => {
+    it('should return true if there is a nested link tag', () => {
+      const html =
+        '<li><a href="http://www.atlassian.com"<a> href="http://www.atlassian.com"http://www.atlassian.com</a></a></li>';
+      expect(htmlHasInvalidLinkTags(html)).toBe(true);
+    });
+
+    it('should return false if there are no nested link tags', () => {
+      const html =
+        '<li><a href="http://www.atlassian.com"http://www.atlassian.com</a></li>';
+      expect(htmlHasInvalidLinkTags(html)).toBe(false);
+    });
+
+    it('should return true if there are is an invalid link duplicating a valid link', () => {
+      const html =
+        '<li><a href="https://www.atlassian.com"></a><a href="https://www.atlassian.com">https://www.atlassian.com</a></li>';
+      expect(htmlHasInvalidLinkTags(html)).toBe(true);
+    });
+  });
+
+  describe('removeDuplicateInvalidLinks()', () => {
+    describe('when content is pasted from a Notion bullet list item block', () => {
+      it('should return parseable code when it contains a single link', () => {
+        const before = `<meta charset='utf-8'><ul><li><a href="http://www.atlassian.com"><a href="http://www.atlassian.com">http://www.atlassian.com</a></a></li></ul>`;
+        const after = `<meta charset='utf-8'><ul><li><a href="http://www.atlassian.com">http://www.atlassian.com</a></li></ul>`;
+        expect(removeDuplicateInvalidLinks(before)).toBe(after);
+      });
+
+      it('should return parseable code when it contains multiple links', () => {
+        const before = `"<meta charset='utf-8'><ul><li><a href="http://www.atlassian.com"><a href="http://www.atlassian.com">http://www.atlassian.com</a></a> <a href="http://www.atlassian.com"><a href="http://www.atlassian.com">http://www.atlassian.com</a></a>  <a href="http://www.atlassian.com"><a href="http://www.atlassian.com">http://www.atlassian.com</a></a></li></ul>"`;
+        const after = `"<meta charset='utf-8'><ul><li><a href="http://www.atlassian.com">http://www.atlassian.com</a> <a href="http://www.atlassian.com">http://www.atlassian.com</a>  <a href="http://www.atlassian.com">http://www.atlassian.com</a></li></ul>"`;
+        expect(removeDuplicateInvalidLinks(before)).toBe(after);
+      });
+
+      it('should return parseable code when it contains a single and the list item is followed by an image', () => {
+        const before = `<ul>\n<li><a href=\"https://www.atlassian.com\"></a><a href=\"https://www.atlassian.com\">https://www.atlassian.com</a></li>\n</ul>\n<img src=\"https://s3-us-west-2.amazonaws.com/secure.notion-static.com/bc523b49-2022-4707-8ba1-7864c19d84bc/Screen_Shot_2021-07-13_at_8.08.19_am.png\" alt=\"https://s3-us-west-2.amazonaws.com/secure.notion-static.com/bc523b49-2022-4707-8ba1-7864c19d84bc/Screen_Shot_2021-07-13_at_8.08.19_am.png\">\n`;
+        const after = `<ul>\n<li><a href=\"https://www.atlassian.com\">https://www.atlassian.com</a></li>\n</ul>\n<img src=\"https://s3-us-west-2.amazonaws.com/secure.notion-static.com/bc523b49-2022-4707-8ba1-7864c19d84bc/Screen_Shot_2021-07-13_at_8.08.19_am.png\" alt=\"https://s3-us-west-2.amazonaws.com/secure.notion-static.com/bc523b49-2022-4707-8ba1-7864c19d84bc/Screen_Shot_2021-07-13_at_8.08.19_am.png\">\n`;
+        expect(removeDuplicateInvalidLinks(before)).toBe(after);
+      });
+    });
+
+    describe('when content is pasted from a Notion numbered list item block', () => {
+      it('should return parseable code when it contains multiple links and ends with text', () => {
+        const before = `<meta charset='utf-8'><ul>\n<li><a href=\"http://www.atlassian.com\"><a href=\"http://www.atlassian.com\">http://www.atlassian.com</a></a> <a href=\"http://www.atlassian.com\"><a href=\"http://www.atlassian.com\">http://www.atlassian.com</a></a> <a href=\"http://www.atlassian.com\"><a href=\"http://www.atlassian.com\">http://www.atlassian.com</a></a> test</li>\n</ul>\n`;
+        const after = `<meta charset='utf-8'><ul>\n<li><a href=\"http://www.atlassian.com\">http://www.atlassian.com</a> <a href=\"http://www.atlassian.com\">http://www.atlassian.com</a> <a href=\"http://www.atlassian.com\">http://www.atlassian.com</a> test</li>\n</ul>\n`;
+        expect(removeDuplicateInvalidLinks(before)).toBe(after);
+      });
+
+      it('should return parseable code when it contains multiple links with text in between', () => {
+        const before = `<meta charset='utf-8'><ul><li><a href="http://www.atlassian.com"><a href="http://www.atlassian.com">http://www.atlassian.com</a></a> one <a href="http://www.atlassian.com"><a href="http://www.atlassian.com">http://www.atlassian.com</a></a>  two <a href="http://www.atlassian.com"><a href="http://www.atlassian.com">http://www.atlassian.com</a></a> three</li></ul>`;
+        const after = `<meta charset='utf-8'><ul><li><a href="http://www.atlassian.com">http://www.atlassian.com</a> one <a href="http://www.atlassian.com">http://www.atlassian.com</a>  two <a href="http://www.atlassian.com">http://www.atlassian.com</a> three</li></ul>`;
+        expect(removeDuplicateInvalidLinks(before)).toBe(after);
+      });
+
+      it('should return parseable code when it contains a link with a comma in it', () => {
+        const before = `<meta charset='utf-8'><ul>\n<li><a href=\"https://www.atlassian.com/?test,hello\"><a href=\"https://www.atlassian.com/?test,hello\">https://www.atlassian.com/?test,hello</a></a></li>\n</ul>\n`;
+        const after = `<meta charset='utf-8'><ul>\n<li><a href=\"https://www.atlassian.com/?test,hello\">https://www.atlassian.com/?test,hello</a></li>\n</ul>\n`;
+        expect(removeDuplicateInvalidLinks(before)).toBe(after);
+      });
     });
   });
 });

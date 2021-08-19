@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/comment",
-  "version": "10.1.2",
+  "version": "10.2.0",
   "description": "Comments enable discussions on an entity such as a page, blog post, issue or pull request",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -25,10 +25,11 @@
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^8.2.0",
-    "@atlaskit/button": "^16.0.0",
+    "@atlaskit/button": "^16.1.0",
     "@atlaskit/icon": "^21.7.0",
-    "@atlaskit/lozenge": "^11.0.0",
+    "@atlaskit/lozenge": "^11.1.0",
     "@atlaskit/theme": "^11.4.0",
+    "@atlaskit/tokens": "^0.1.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/core": "^10.0.9",
     "@emotion/styled": "^10.0.7"
@@ -37,10 +38,10 @@
     "react": "^16.8.0"
   },
   "devDependencies": {
-    "@atlaskit/avatar": "^20.3.0",
+    "@atlaskit/avatar": "^20.4.0",
     "@atlaskit/build-utils": "*",
     "@atlaskit/docs": "*",
-    "@atlaskit/editor-core": "^147.0.0",
+    "@atlaskit/editor-core": "^148.0.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
@@ -56,7 +57,8 @@
   ],
   "techstack": {
     "@atlassian/frontend": {
-      "import-structure": "atlassian-conventions"
+      "import-structure": "atlassian-conventions",
+      "theme": "tokens"
     }
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"

@@ -1,5 +1,11 @@
 # @atlaskit/motion
 
+## 1.0.3
+
+### Patch Changes
+
+- [`cd34d8ca8ea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cd34d8ca8ea) - Internal wiring up to the tokens techstack, no code changes.
+
 ## 1.0.2
 
 ### Patch Changes

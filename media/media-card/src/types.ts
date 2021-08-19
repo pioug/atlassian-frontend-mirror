@@ -4,4 +4,12 @@ export type CardStatus =
   | 'processing'
   | 'complete'
   | 'error'
-  | 'failed-processing';
+  | 'failed-processing'
+  | 'loading-preview';
+
+export type FilePreviewStatus = {
+  hasFilesize: boolean;
+  isPreviewable: boolean;
+  hasPreview: boolean;
+  isSupportedByBrowser: boolean;
+};

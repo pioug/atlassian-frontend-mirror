@@ -2,6 +2,7 @@ import { css } from 'styled-components';
 
 import {
   tableCellContentDomSelector,
+  tableCellSelector,
   TableLayout,
   tablePrefixSelector,
 } from '@atlaskit/adf-schema';
@@ -42,6 +43,7 @@ export const TableSharedCssClassName = {
   TABLE_STICKY_SENTINEL_TOP: `${tablePrefixSelector}-sticky-sentinel-top`,
   TABLE_STICKY_SENTINEL_BOTTOM: `${tablePrefixSelector}-sticky-sentinel-bottom`,
   TABLE_CELL_NODEVIEW_CONTENT_DOM: tableCellContentDomSelector,
+  TABLE_CELL_WRAPPER: tableCellSelector,
 };
 
 const tableSharedStyle = css`

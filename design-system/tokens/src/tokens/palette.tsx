@@ -324,7 +324,8 @@ const palette: PaletteColorTokenSchema = {
         attributes: { group: 'paint', isPalette: true },
       },
       'DN-100A': {
-        value: '#03040421',
+        // #030404 33%
+        value: '#03040454',
         attributes: { group: 'paint', isPalette: true },
       },
       DN0: {
@@ -336,7 +337,8 @@ const palette: PaletteColorTokenSchema = {
         attributes: { group: 'paint', isPalette: true },
       },
       DN100A: {
-        value: '#BCD6F004',
+        // #BCD6F0 4%
+        value: '#BCD6F00A',
         attributes: { group: 'paint', isPalette: true },
       },
       DN200: {
@@ -344,7 +346,8 @@ const palette: PaletteColorTokenSchema = {
         attributes: { group: 'paint', isPalette: true },
       },
       DN200A: {
-        value: '#A1BDD908',
+        // #A1BDD9 8%
+        value: '#A1BDD914',
         attributes: { group: 'paint', isPalette: true },
       },
       DN300: {
@@ -352,7 +355,8 @@ const palette: PaletteColorTokenSchema = {
         attributes: { group: 'paint', isPalette: true },
       },
       DN300A: {
-        value: '#A6C5E210',
+        // #A6C5E2 16%
+        value: '#A6C5E229',
         attributes: { group: 'paint', isPalette: true },
       },
       DN400: {
@@ -360,7 +364,8 @@ const palette: PaletteColorTokenSchema = {
         attributes: { group: 'paint', isPalette: true },
       },
       DN400A: {
-        value: '#BFDBF81C',
+        // #BFDBF8 28%
+        value: '#BFDBF847',
         attributes: { group: 'paint', isPalette: true },
       },
       DN500: {
@@ -368,15 +373,12 @@ const palette: PaletteColorTokenSchema = {
         attributes: { group: 'paint', isPalette: true },
       },
       DN500A: {
-        value: '#A3C0DB30',
+        // #A3C0DB 48%
+        value: '#A3C0DB7A',
         attributes: { group: 'paint', isPalette: true },
       },
       DN600: {
         value: '#738496',
-        attributes: { group: 'paint', isPalette: true },
-      },
-      DN600A: {
-        value: '#BDD9F538',
         attributes: { group: 'paint', isPalette: true },
       },
       DN700: {
@@ -405,7 +407,8 @@ const palette: PaletteColorTokenSchema = {
         attributes: { group: 'paint', isPalette: true },
       },
       N100A: {
-        value: '#091E4204',
+        // #091E42 3%
+        value: '#091E4208',
         attributes: { group: 'paint', isPalette: true },
       },
       N200: {
@@ -413,7 +416,8 @@ const palette: PaletteColorTokenSchema = {
         attributes: { group: 'paint', isPalette: true },
       },
       N200A: {
-        value: '#091E4206',
+        // #091E42 6%
+        value: '#091E420F',
         attributes: { group: 'paint', isPalette: true },
       },
       N300: {
@@ -421,7 +425,8 @@ const palette: PaletteColorTokenSchema = {
         attributes: { group: 'paint', isPalette: true },
       },
       N300A: {
-        value: '#091E420E',
+        // #091E42 14%
+        value: '#091E4224',
         attributes: { group: 'paint', isPalette: true },
       },
       N400: {
@@ -429,7 +434,8 @@ const palette: PaletteColorTokenSchema = {
         attributes: { group: 'paint', isPalette: true },
       },
       N400A: {
-        value: '#091E421F',
+        // #091E42 31%
+        value: '#091E424F',
         attributes: { group: 'paint', isPalette: true },
       },
       N500: {
@@ -437,7 +443,8 @@ const palette: PaletteColorTokenSchema = {
         attributes: { group: 'paint', isPalette: true },
       },
       N500A: {
-        value: '#091E4230',
+        // #091E42 48%
+        value: '#091E427A',
         attributes: { group: 'paint', isPalette: true },
       },
       N600: {

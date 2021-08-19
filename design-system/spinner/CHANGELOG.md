@@ -1,5 +1,19 @@
 # @atlaskit/spinner
 
+## 15.1.0
+
+### Minor Changes
+
+- [`97d5fe7100c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/97d5fe7100c) - Instrumented Spinner with the new theming package, `@atlaskit/tokens`.
+
+  Tokens will be visible only in applications configured to use the new Tokens API (currently in alpha).
+
+  These changes are intended to be interoperable with the legacy theme implementation. Legacy dark mode users should expect no visual or breaking changes.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 15.0.11
 
 ### Patch Changes

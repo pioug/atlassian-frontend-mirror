@@ -20,8 +20,18 @@ const color: BackgroundColorTokenSchema = {
         attributes: { group: 'paint' },
       },
       selected: {
-        value: 'B100',
-        attributes: { group: 'paint' },
+        resting: {
+          value: 'B100',
+          attributes: { group: 'paint' },
+        },
+        hover: {
+          value: 'B200',
+          attributes: { group: 'paint' },
+        },
+        pressed: {
+          value: 'B300',
+          attributes: { group: 'paint' },
+        },
       },
       blanket: {
         value: 'N500A',

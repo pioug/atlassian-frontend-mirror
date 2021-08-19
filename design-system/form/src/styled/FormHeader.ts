@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 import { fontFamily, gridSize } from '@atlaskit/theme/constants';
-import { multiply } from '@atlaskit/theme/math';
 import { h700 } from '@atlaskit/theme/typography';
 
 /**
@@ -16,8 +15,8 @@ const FormHeaderWrapper = styled.div`
  */
 const FormHeaderTitle = styled.h2`
   ${h700};
-  line-height: ${multiply(gridSize, 4)}px;
-  margin-right: ${multiply(gridSize, 4)}px;
+  line-height: ${gridSize() * 4}px;
+  margin-right: ${gridSize() * 4}px;
   margin-top: 0;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -28,7 +27,7 @@ const FormHeaderTitle = styled.h2`
  * Provide a styled container for form header title.
  */
 const FormHeaderDescription = styled.div`
-  margin-top: ${gridSize}px;
+  margin-top: ${gridSize()}px;
 `;
 
 /**
@@ -36,7 +35,7 @@ const FormHeaderDescription = styled.div`
  */
 const FormHeaderContent = styled.div`
   min-width: 100%;
-  margin-top: ${gridSize}px;
+  margin-top: ${gridSize()}px;
 `;
 
 export default FormHeaderWrapper;

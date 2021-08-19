@@ -24,16 +24,16 @@ import {
 } from '../commands-with-analytics';
 import { addColumnAfter, addColumnBefore } from '../commands/insert';
 
-const createTableWithAnalytics = (allowLocalIdGeneration?: boolean) =>
+const createTableWithAnalytics = () =>
   withAnalytics({
     action: ACTION.INSERTED,
     actionSubject: ACTION_SUBJECT.DOCUMENT,
     actionSubjectId: ACTION_SUBJECT_ID.TABLE,
     attributes: { inputMethod: INPUT_METHOD.SHORTCUT },
     eventType: EVENT_TYPE.TRACK,
-  })(createTable(allowLocalIdGeneration));
+  })(createTable());
 
-export function keymapPlugin(allowLocalIdGeneration?: boolean): Plugin {
+export function keymapPlugin(): Plugin {
   const list = {};
 
   keymaps.bindKeymapWithCommand(
@@ -48,7 +48,7 @@ export function keymapPlugin(allowLocalIdGeneration?: boolean): Plugin {
   );
   keymaps.bindKeymapWithCommand(
     keymaps.toggleTable.common!,
-    createTableWithAnalytics(allowLocalIdGeneration),
+    createTableWithAnalytics(),
     list,
   );
   keymaps.bindKeymapWithCommand(

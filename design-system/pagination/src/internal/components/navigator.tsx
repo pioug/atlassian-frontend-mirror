@@ -14,6 +14,7 @@ export type NavigatorPropsType<T> = {
   isDisabled?: boolean;
   iconBefore: ReactElement;
   pages: T[];
+  testId?: string;
   /** This function is called with the when user clicks on navigator */
   onClick?: (event: SyntheticEvent) => void;
   component?: React.ElementType<any>;

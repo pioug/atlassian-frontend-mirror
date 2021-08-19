@@ -172,7 +172,7 @@ BrowserTestCase(
     const page = await goToEditorTestingWDExample(client);
 
     const data =
-      '<table data-number-column="false" data-layout="default" data-autosize="false" data-pm-slice="1 1 []"><tbody><tr><th class="pm-table-header-content-wrap"><p></p></th></tr><tr><td class="pm-table-cell-content-wrap"><div data-node-type="nestedExpand" data-title="title" data-expanded="true"><p>content</p></div></td></tr></tbody></table>';
+      '<table data-number-column="false" data-layout="default" data-table-local-id=="abc-123" data-autosize="false" data-pm-slice="1 1 []"><tbody><tr><th class="pm-table-header-content-wrap"><p></p></th></tr><tr><td class="pm-table-cell-content-wrap"><div data-node-type="nestedExpand" data-title="title" data-expanded="true"><p>content</p></div></td></tr></tbody></table>';
     await copyAsHTML(page, data);
 
     await mountEditor(page, {
@@ -197,7 +197,7 @@ BrowserTestCase(
     const page = await goToEditorTestingWDExample(client);
 
     const data =
-      '<div data-node-type="expand" data-title="title 1" data-expanded="true" data-pm-slice="0 0 []"><table data-number-column="false" data-layout="default" data-autosize="false"><tbody><tr><td class="pm-table-cell-content-wrap"><div data-node-type="nestedExpand" data-title="title 2" data-expanded="true"><p>content</p></div></td></tr></tbody></table></div>';
+      '<div data-node-type="expand" data-title="title 1" data-expanded="true" data-pm-slice="0 0 []"><table data-table-local-id=="abc-123" data-number-column="false" data-layout="default" data-autosize="false"><tbody><tr><td class="pm-table-cell-content-wrap"><div data-node-type="nestedExpand" data-title="title 2" data-expanded="true"><p>content</p></div></td></tr></tbody></table></div>';
     await copyAsHTML(page, data);
 
     await mountEditor(page, {
@@ -222,7 +222,7 @@ BrowserTestCase(
     const page = await goToEditorTestingWDExample(client);
 
     const data =
-      '<table data-number-column="false" data-layout="default" data-autosize="false" data-pm-slice="1 1 []"><tbody><tr><th class="pm-table-header-content-wrap"><p></p></th><th class="pm-table-header-content-wrap"><p></p></th><th class="pm-table-header-content-wrap"><p></p></th></tr><tr><td class="pm-table-cell-content-wrap"><div data-node-type="nestedExpand" data-title="111" data-expanded="true"><p>content</p></div></td><td class="pm-table-cell-content-wrap"><p></p></td><td class="pm-table-cell-content-wrap"><p></p></td></tr><tr><td class="pm-table-cell-content-wrap"><p></p></td><td class="pm-table-cell-content-wrap"><p></p></td><td class="pm-table-cell-content-wrap"><p></p></td></tr></tbody></table>';
+      '<table  data-table-local-id="abc-123" data-number-column="false" data-layout="default" data-autosize="false" data-pm-slice="1 1 []"><tbody><tr><th class="pm-table-header-content-wrap"><p></p></th><th class="pm-table-header-content-wrap"><p></p></th><th class="pm-table-header-content-wrap"><p></p></th></tr><tr><td class="pm-table-cell-content-wrap"><div data-node-type="nestedExpand" data-title="111" data-expanded="true"><p>content</p></div></td><td class="pm-table-cell-content-wrap"><p></p></td><td class="pm-table-cell-content-wrap"><p></p></td></tr><tr><td class="pm-table-cell-content-wrap"><p></p></td><td class="pm-table-cell-content-wrap"><p></p></td><td class="pm-table-cell-content-wrap"><p></p></td></tr></tbody></table>';
     await copyAsHTML(page, data);
 
     await mountEditor(page, {

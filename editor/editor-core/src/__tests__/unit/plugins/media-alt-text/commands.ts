@@ -87,7 +87,7 @@ describe('commands', () => {
         const { editorView } = editor(notSelectedMedia);
 
         expect(
-          updateAltText(null)(editorView.state, editorView.dispatch),
+          updateAltText('')(editorView.state, editorView.dispatch),
         ).toBeFalsy();
       });
     });
@@ -97,7 +97,7 @@ describe('commands', () => {
         it('should update the node attribute', () => {
           const { editorView } = editor(defaultDoc);
 
-          updateAltText(null)(editorView.state, editorView.dispatch);
+          updateAltText('')(editorView.state, editorView.dispatch);
 
           expect(editorView.state.doc).toEqualDocument(
             doc(

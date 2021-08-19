@@ -5,6 +5,7 @@ import { FC, ReactNode } from 'react';
 import { CSSObject, jsx } from '@emotion/core';
 
 import { N200, N900 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 const getStyles = (
   isSecondary: boolean | undefined,
@@ -12,7 +13,7 @@ const getStyles = (
 ): CSSObject => ({
   display: 'block',
   margin: 0,
-  color: N900,
+  color: token('color.text.highEmphasis', N900),
 
   ...(shouldTruncate && {
     overflowX: 'hidden',
@@ -21,7 +22,7 @@ const getStyles = (
   }),
 
   ...(isSecondary && {
-    color: N200,
+    color: token('color.text.lowEmphasis', N200),
     fontSize: '0.85em',
   }),
 });
@@ -36,6 +37,8 @@ const Text: FC<{
   children: ReactNode;
   shouldTruncate: boolean;
 }> = ({ isSecondary, children, shouldTruncate }) => (
+  // TODO: Refactor styles to follow css prop rules
+  // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
   <span css={getStyles(isSecondary, shouldTruncate)}>{children}</span>
 );
 

@@ -49,7 +49,6 @@ import {
 import tableMessages from '../messages';
 import { contextualMenuDropdownWidth } from '../consts';
 import { getNewResizeStateFromSelectedColumns } from '../../pm-plugins/table-resizing/utils/resize-state';
-import { getFeatureFlags } from '../../../../plugins/feature-flags-context';
 
 export const messages = defineMessages({
   cellBackground: {
@@ -176,7 +175,10 @@ class ContextualMenu extends Component<Props & InjectedIntlProps, State> {
     const items: any[] = [];
     const { isSubmenuOpen } = this.state;
     // TargetCellPosition could be outdated: https://product-fabric.atlassian.net/browse/ED-8129
-    const { targetCellPosition } = getPluginState(editorView.state);
+    const {
+      targetCellPosition,
+      pluginConfig: { allowDistributeColumns },
+    } = getPluginState(editorView.state);
     if (allowBackgroundColor) {
       const node =
         isOpen && targetCellPosition
@@ -253,7 +255,7 @@ class ContextualMenu extends Component<Props & InjectedIntlProps, State> {
       });
     }
 
-    if (getFeatureFlags(state)?.distributeColumns) {
+    if (allowDistributeColumns) {
       const newResizeState = getNewResizeStateFromSelectedColumns(
         selectionRect,
         state,
@@ -340,6 +342,7 @@ class ContextualMenu extends Component<Props & InjectedIntlProps, State> {
           state,
           editorView.domAtPos.bind(editorView),
         );
+
         if (newResizeStateWithAnalytics) {
           distributeColumnsWidthsWithAnalytics(
             INPUT_METHOD.CONTEXT_MENU,

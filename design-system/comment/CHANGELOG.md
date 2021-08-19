@@ -1,5 +1,15 @@
 # @atlaskit/comment
 
+## 10.2.0
+
+### Minor Changes
+
+- [`a92e5a614ce`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a92e5a614ce) - Comment is now instrumented with the new tokens theme implementation.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.1.2
 
 ### Patch Changes

@@ -148,7 +148,7 @@ export default `<meta charset="utf-8" /><meta charset="utf-8" /><b
   </p>
   <br />
   <div dir="ltr" style="margin-left:0pt;" align="left">
-    <table style="border:none;border-collapse:collapse;">
+    <table data-table-local-id="test-table-local-id" style="border:none;border-collapse:collapse;">
       <colgroup>
         <col width="190" />
         <col width="223" />

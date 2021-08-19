@@ -79,9 +79,11 @@ const rootStyles = css({
     outline: '1px solid',
   },
   '&:hover': {
+    // eslint-disable-next-line @repo/internal/styles/no-nested-styles
     '[data-ds--inline-message--icon]': {
       color: 'var(--icon-accent-color)',
     },
+    // eslint-disable-next-line @repo/internal/styles/no-nested-styles
     '[data-ds--inline-message--button]': {
       textDecoration: 'underline',
     },

@@ -9,7 +9,7 @@ import {
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import basePlugin from '../../';
 import { GUTTER_SELECTOR } from '../../pm-plugins/scroll-gutter';
-import * as mobileScrollUtils from '../../../mobile-scroll/utils';
+import * as mobileDimensionsUtils from '../../../mobile-dimensions/utils';
 
 function createScrollContainer(height: number) {
   const scrollableContent = document.createElement('div');
@@ -139,7 +139,7 @@ describe('Mobile scenarios', () => {
 
   it('should not add the scroll gutter when the content is not inserted', () => {
     jest
-      .spyOn(mobileScrollUtils, 'getmobileScrollPluginState')
+      .spyOn(mobileDimensionsUtils, 'getMobileDimensionsPluginState')
       .mockReturnValue({
         keyboardHeight: 345,
         heightDiff: -1,
@@ -165,7 +165,7 @@ describe('Mobile scenarios', () => {
 
   it('should add the scroll gutter when the content is inserted just above the keyboard', () => {
     jest
-      .spyOn(mobileScrollUtils, 'getmobileScrollPluginState')
+      .spyOn(mobileDimensionsUtils, 'getMobileDimensionsPluginState')
       .mockReturnValue({
         keyboardHeight: 345,
         heightDiff: -1,
@@ -192,7 +192,7 @@ describe('Mobile scenarios', () => {
 
   it('should add gutter when content is added, when persistScrollGutter is true', () => {
     jest
-      .spyOn(mobileScrollUtils, 'getmobileScrollPluginState')
+      .spyOn(mobileDimensionsUtils, 'getMobileDimensionsPluginState')
       .mockReturnValue({
         keyboardHeight: 345,
         heightDiff: -1,
@@ -220,7 +220,7 @@ describe('Mobile scenarios', () => {
 
   it('should not add the gutter when content is empty, when persistScrollGutter is true', () => {
     jest
-      .spyOn(mobileScrollUtils, 'getmobileScrollPluginState')
+      .spyOn(mobileDimensionsUtils, 'getMobileDimensionsPluginState')
       .mockReturnValue({
         keyboardHeight: 345,
         heightDiff: -1,

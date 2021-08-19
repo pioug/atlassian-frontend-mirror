@@ -42,7 +42,6 @@ import {
   updateStatusWithAnalytics,
   updateLink,
   insertExpand,
-  insertRule,
   QuickInsertItemId,
   dismissCommand,
   getListCommands,
@@ -50,6 +49,7 @@ import {
   insertDate,
   openDatePicker,
   dateToDateType,
+  insertHorizontalRule,
 } from '@atlaskit/editor-core';
 import { EditorViewWithComposition } from '../../types';
 import { EditorState, Selection } from 'prosemirror-state';
@@ -191,7 +191,7 @@ export default class WebBridgeImpl
   ) {
     super.setPadding(top, right, bottom, left);
     /**
-     * We need to dispatch an action to save this value on the mobileScroll plugin,
+     * We need to dispatch an action to save this value on the mobileDimensions plugin,
      * so that it can be used in `ClickAreaMobile` to calculate css rules properly.
      */
     if (this.editorView) {
@@ -544,7 +544,10 @@ export default class WebBridgeImpl
         )(state, dispatch);
         return;
       case 'divider':
-        insertRule()(state, dispatch);
+        insertHorizontalRule(inputMethod as InsertBlockInputMethodToolbar)(
+          state,
+          dispatch,
+        );
         return;
       case 'expand':
         insertExpand(state, dispatch);
@@ -615,6 +618,16 @@ export default class WebBridgeImpl
                 );
                 return;
               }
+
+              if (quickInsertItem.id === 'status') {
+                const status = state.schema.nodes.status.createChecked({
+                  text: '',
+                  color: 'neutral',
+                });
+
+                return insert(status, { selectInlineNode: true });
+              }
+
               return enableQuickInsert && quickInsertItem.action(insert, state);
             }
             case 'mention': {
@@ -944,7 +957,7 @@ export default class WebBridgeImpl
     switch (nodeType) {
       case 'status':
         const status = {
-          text: 'Status',
+          text: '',
           color: 'neutral',
         } as StatusType;
 

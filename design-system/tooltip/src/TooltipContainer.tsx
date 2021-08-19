@@ -4,8 +4,9 @@ import { forwardRef } from 'react';
 import { css, jsx } from '@emotion/core';
 
 import { DN0, DN600, N0, N800 } from '@atlaskit/theme/colors';
-import GlobalTheme, { GlobalThemeTokens } from '@atlaskit/theme/components';
+import GlobalTheme from '@atlaskit/theme/components';
 import { borderRadius } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 import TooltipPrimitive, { TooltipPrimitiveProps } from './TooltipPrimitive';
 
@@ -46,7 +47,7 @@ const TooltipContainer = forwardRef<HTMLDivElement, TooltipContainerProps>(
   ) {
     return (
       <GlobalTheme.Consumer>
-        {({ mode }: GlobalThemeTokens) => (
+        {({ mode }) => (
           // eslint-disable-next-line jsx-a11y/mouse-events-have-key-events
           <TooltipPrimitive
             ref={ref}
@@ -60,8 +61,12 @@ const TooltipContainer = forwardRef<HTMLDivElement, TooltipContainerProps>(
               baseCss,
               truncate ? truncateCss : null,
               css`
-                background-color: ${mode === 'light' ? N800 : DN0};
-                color: ${mode === 'light' ? N0 : DN600};
+                background-color: ${mode === 'light'
+                  ? token('color.background.boldNeutral.resting', N800)
+                  : token('color.background.boldNeutral.resting', DN0)};
+                color: ${mode === 'light'
+                  ? token('color.text.onBold', N0)
+                  : token('color.text.onBold', DN600)};
               `,
             ]}
           >

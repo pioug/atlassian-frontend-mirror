@@ -1,5 +1,15 @@
 # @atlaskit/page-header
 
+## 10.2.0
+
+### Minor Changes
+
+- [`6b76b1ceab3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6b76b1ceab3) - This change removes the dependency `styled components`. It has been refactored to use `@emotion/core` instead. Some examples have also been updated. There should be no UI or UX change.
+
+### Patch Changes
+
+- [`cd34d8ca8ea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cd34d8ca8ea) - Internal wiring up to the tokens techstack, no code changes.
+
 ## 10.1.3
 
 ### Patch Changes

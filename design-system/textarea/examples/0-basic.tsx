@@ -1,9 +1,12 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/core';
 
 import { docsText } from '../common';
 import TextArea from '../src';
 
+const wrapperStyles = css({
+  maxWidth: 500,
+});
 export default () => {
   let textareaElement: HTMLTextAreaElement | undefined;
 
@@ -14,11 +17,7 @@ export default () => {
   };
 
   return (
-    <div
-      css={{
-        maxWidth: 500,
-      }}
-    >
+    <div css={wrapperStyles}>
       <p>Disabled:</p>
       <TextArea
         value="hello"

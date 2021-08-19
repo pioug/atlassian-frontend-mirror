@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 /** @jsx jsx */
 import React from 'react';
 
@@ -7,15 +8,13 @@ import { P100 } from '@atlaskit/theme/colors';
 
 import SectionMessage, { SectionMessageAction } from '../src';
 
+const CustomLinkStyles = css({
+  backgroundColor: `${P100} !important`,
+});
+
 const CustomLink = React.forwardRef(
   (props = {}, ref: React.Ref<HTMLButtonElement>) => (
-    <button
-      css={css`
-        background-color: ${P100} !important;
-      `}
-      ref={ref}
-      {...props}
-    />
+    <button css={CustomLinkStyles} ref={ref} {...props} />
   ),
 );
 

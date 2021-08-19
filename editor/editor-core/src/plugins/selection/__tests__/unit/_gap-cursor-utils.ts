@@ -30,7 +30,7 @@ const cursorIfSelected = (selected?: boolean) => (selected ? '{<>}' : '');
 
 export const blockNodes = {
   table: (opts: { selected?: boolean } = {}) =>
-    table()(tr(opts.selected ? tdCursor : tdEmpty)),
+    table({ localId: 'uniqueId' })(tr(opts.selected ? tdCursor : tdEmpty)),
   taskList: (opts: { id?: string; selected?: boolean } = {}) =>
     taskList({ localId: opts.id })(
       taskItem({ localId: opts.id })(cursorIfSelected(opts.selected)),

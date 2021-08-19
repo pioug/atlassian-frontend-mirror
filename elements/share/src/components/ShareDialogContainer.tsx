@@ -246,7 +246,11 @@ export class ShareDialogContainerInternal extends React.Component<
       !(props as any).client,
       'elements/share: Breaking change, please update your props!',
     );
-    this.shareClient = props.shareClient || new ShareServiceClient();
+    this.shareClient =
+      props.shareClient ||
+      new ShareServiceClient({
+        disableInviteCapabilities: !!props.disableInviteCapabilities,
+      });
 
     this.urlShortenerClient =
       props.urlShortenerClient || new AtlassianUrlShortenerClient();

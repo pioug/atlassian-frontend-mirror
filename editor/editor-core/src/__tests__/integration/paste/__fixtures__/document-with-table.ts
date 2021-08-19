@@ -7,6 +7,7 @@ export const document = {
       attrs: {
         isNumberColumnEnabled: false,
         layout: 'default',
+        localId: 'abc-123',
       },
       content: [
         {

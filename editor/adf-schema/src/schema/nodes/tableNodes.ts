@@ -191,7 +191,6 @@ export interface TableAttributes {
   layout?: Layout;
   __autoSize?: boolean;
   /**
-   * @stage 0
    * @minLength 1
    */
   localId?: string;
@@ -263,21 +262,16 @@ export interface TableHeader {
 }
 
 // TODO: Fix any, potential issue. ED-5048
-const createTableSpec = (allowLocalId: boolean = false): NodeSpec => {
+const createTableSpec = (): NodeSpec => {
   const attrs = {
     isNumberColumnEnabled: { default: false },
     layout: { default: 'default' },
     __autoSize: { default: false },
+    localId: { default: '' },
   };
-  const finalAttrs = allowLocalId
-    ? {
-        ...attrs,
-        localId: { default: '' },
-      }
-    : attrs;
   const tableNodeSpec: NodeSpec = {
     content: 'tableRow+',
-    attrs: finalAttrs,
+    attrs: attrs,
     marks: 'unsupportedMark unsupportedNodeAttribute',
     tableRole: 'table',
     isolating: true,
@@ -290,13 +284,6 @@ const createTableSpec = (allowLocalId: boolean = false): NodeSpec => {
           const dom = node as HTMLElement;
           const breakoutWrapper = dom.parentElement?.parentElement;
 
-          const localIdAttr = allowLocalId
-            ? {
-                localId:
-                  dom.getAttribute('data-table-local-id') || uuid.generate(),
-              }
-            : {};
-
           return {
             isNumberColumnEnabled:
               dom.getAttribute('data-number-column') === 'true' ? true : false,
@@ -308,20 +295,17 @@ const createTableSpec = (allowLocalId: boolean = false): NodeSpec => {
               'default',
             __autoSize:
               dom.getAttribute('data-autosize') === 'true' ? true : false,
-            ...localIdAttr,
+            localId: dom.getAttribute('data-table-local-id') || uuid.generate(),
           };
         },
       },
     ],
     toDOM(node: PmNode) {
-      const localIdAttr = allowLocalId
-        ? { 'data-table-local-id': node.attrs.localId }
-        : {};
       const attrs = {
         'data-number-column': node.attrs.isNumberColumnEnabled,
         'data-layout': node.attrs.layout,
         'data-autosize': node.attrs.__autoSize,
-        ...localIdAttr,
+        'data-table-local-id': node.attrs.localId,
       };
       return ['table', attrs, ['tbody', 0]];
     },
@@ -329,12 +313,13 @@ const createTableSpec = (allowLocalId: boolean = false): NodeSpec => {
   return tableNodeSpec;
 };
 
-export const table = createTableSpec(false);
-export const tableWithLocalId = createTableSpec(true);
+export const table = createTableSpec();
+const shouldIncludeAttribute = (key: string, value?: string) =>
+  !key.startsWith('__') && (key !== 'localId' || !!value);
 
 export const tableToJSON = (node: PmNode) => ({
   attrs: Object.keys(node.attrs)
-    .filter((key) => !key.startsWith('__'))
+    .filter((key) => shouldIncludeAttribute(key, node.attrs[key]))
     .reduce<typeof node.attrs>((obj, key) => {
       obj[key] = node.attrs[key];
       return obj;

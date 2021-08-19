@@ -14,6 +14,12 @@ const TooltipTab = ({ label, tooltip }: { label: string; tooltip: string }) => (
   </Tooltip>
 );
 
+const lintTabStyles = css({
+  textDecoration: 'none',
+  '&:hover': {
+    textDecoration: 'none',
+  },
+});
 /** This custom component makes the tab items function like regular links */
 const LinkTab = ({ label, href }: { label: string; href: string }) => {
   // We also remove the onKeyDown handler and tabIndex attribute
@@ -21,16 +27,7 @@ const LinkTab = ({ label, href }: { label: string; href: string }) => {
   const { onKeyDown, tabIndex, ...tabAttributes } = useTab();
 
   return (
-    <a
-      href={href}
-      css={css`
-        text-decoration: none;
-        &:hover {
-          text-decoration: none;
-        }
-      `}
-      {...tabAttributes}
-    >
+    <a href={href} css={lintTabStyles} {...tabAttributes}>
       {label}
     </a>
   );

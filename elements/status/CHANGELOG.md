@@ -1,5 +1,12 @@
 # @atlaskit/status
 
+## 0.11.2
+
+### Patch Changes
+
+- [`3dd496d620b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3dd496d620b) - Remove unneeded css prop from status component.
+- Updated dependencies
+
 ## 0.11.1
 
 ### Patch Changes

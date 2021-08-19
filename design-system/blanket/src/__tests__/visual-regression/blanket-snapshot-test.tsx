@@ -69,4 +69,19 @@ describe('Snapshot Test', () => {
     const image = await page.screenshot();
     expect(image).toMatchProdImageSnapshot();
   });
+
+  it('should show children even when not tinted', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'blanket',
+      'blanket-with-children',
+      global.__BASEURL__,
+    );
+    const { page } = global;
+    await loadPage(page, url);
+
+    await page.waitForSelector(blanketWithChildrenSelector);
+    const image = await page.screenshot();
+    expect(image).toMatchProdImageSnapshot();
+  });
 });

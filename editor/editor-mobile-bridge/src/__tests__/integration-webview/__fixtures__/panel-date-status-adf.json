@@ -1,0 +1,51 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "asdfasdf"
+        }
+      ]
+    },
+    {
+      "type": "panel",
+      "attrs": {
+        "panelType": "info"
+      },
+      "content": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "Lorem ipsum"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "date",
+          "attrs": {
+            "timestamp": "0"
+          }
+        },
+        {
+          "type": "status",
+          "attrs": {
+            "text": "STATUS",
+            "color": "neutral",
+            "style": ""
+          }
+        }
+      ]
+    }
+  ]
+}

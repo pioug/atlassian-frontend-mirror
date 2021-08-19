@@ -1,15 +1,14 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/core';
 
 import TextArea from '../src';
 
+const wrapperStyles = css({
+  maxWidth: 500,
+});
+
 export default () => (
-  <div
-    id="appearance"
-    css={{
-      maxWidth: 500,
-    }}
-  >
+  <div id="appearance" css={wrapperStyles}>
     <TextArea
       placeholder="standard"
       appearance="standard"

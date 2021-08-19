@@ -26,6 +26,8 @@ import {
   TextColorPluginState,
 } from '../pm-plugins/main';
 
+const TABLE_LOCAL_ID = 'test-table-local-id';
+
 describe('#changeColor', () => {
   const createEditor = createProsemirrorEditorFactory();
 
@@ -99,7 +101,7 @@ describe('#changeColor', () => {
   it('changeColor should remove the text colour in a cell selection', () => {
     const { editorView, pluginState } = editor(
       doc(
-        table()(
+        table({ localId: TABLE_LOCAL_ID })(
           tr(
             td()(p(textColor({ color: testColor1 })('{<cell}One'))),
             td()(p(textColor({ color: testColor1 })('two{cell>}'))),
@@ -113,14 +115,18 @@ describe('#changeColor', () => {
     changeColor(pluginState.defaultColor)(state, dispatch);
 
     expect(editorView.state.doc).toEqualDocument(
-      doc(table()(tr(td()(p('{<cell}One')), td()(p('two{cell>}'))))),
+      doc(
+        table({ localId: TABLE_LOCAL_ID })(
+          tr(td()(p('{<cell}One')), td()(p('two{cell>}'))),
+        ),
+      ),
     );
   });
 
   it('changeColor should remove all text colours in a cell selection', () => {
     const { editorView, pluginState } = editor(
       doc(
-        table()(
+        table({ localId: TABLE_LOCAL_ID })(
           tr(
             td()(p(textColor({ color: testColor1 })('{<cell}One'))),
             td()(p(textColor({ color: testColor2 })('two{cell>}'))),
@@ -134,7 +140,11 @@ describe('#changeColor', () => {
     changeColor(pluginState.defaultColor)(state, dispatch);
 
     expect(editorView.state.doc).toEqualDocument(
-      doc(table()(tr(td()(p('{<cell}One')), td()(p('two{cell>}'))))),
+      doc(
+        table({ localId: TABLE_LOCAL_ID })(
+          tr(td()(p('{<cell}One')), td()(p('two{cell>}'))),
+        ),
+      ),
     );
   });
 });

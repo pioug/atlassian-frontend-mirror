@@ -1,6 +1,7 @@
-import React from 'react';
+/** @jsx jsx */
+import { FC } from 'react';
 
-import styled from 'styled-components';
+import { css, jsx } from '@emotion/core';
 
 import Button from '@atlaskit/button/standard-button';
 import { N20 } from '@atlaskit/theme/colors';
@@ -9,10 +10,12 @@ import EmptyState from '../src';
 
 import exampleImage from './img/example-image.png';
 
-const Container = styled.div`
-  width: 300px;
-  background-color: ${N20};
-`;
+const containerStyles = css({
+  width: '300px',
+  backgroundColor: N20,
+});
+
+const Container: FC = (props) => <div css={containerStyles} {...props} />;
 
 const primaryAction = (
   <Button

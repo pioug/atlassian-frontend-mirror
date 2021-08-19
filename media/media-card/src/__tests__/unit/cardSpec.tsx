@@ -11,7 +11,8 @@ jest.mock('../../root/card/getCardPreview', () => {
   return {
     __esModule: true,
     ...actualModule,
-    getCardPreviewFromFileState: jest.fn(),
+    getCardPreview: jest.fn(),
+    getCardPreviewFromCache: jest.fn(),
   };
 });
 jest.mock('../../root/card/getCardStatus', () => {
@@ -33,7 +34,7 @@ jest.mock('../../root/card/cardAnalytics', () => {
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 import React from 'react';
 import uuid from 'uuid/v4';
-import { shallow, mount, ReactWrapper } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import { MediaFeatureFlags } from '@atlaskit/media-common';
 import { FabricChannel } from '@atlaskit/analytics-listeners';
 import { MEDIA_CONTEXT } from '@atlaskit/analytics-namespaced-context/MediaAnalyticsContext';
@@ -63,7 +64,6 @@ import {
   expectFunctionToHaveBeenCalledWith,
   asMockFunction,
   expectToEqual,
-  flushPromises,
 } from '@atlaskit/media-test-helpers';
 
 import {
@@ -78,7 +78,8 @@ import { CardView } from '../../root/cardView';
 import { InlinePlayer } from '../../root/inlinePlayer';
 import { ViewportDetector } from '../../utils/viewportDetector';
 import {
-  getCardPreviewFromFileState,
+  getCardPreview,
+  getCardPreviewFromCache,
   CardPreview,
 } from '../../root/card/getCardPreview';
 import { IntlProvider } from 'react-intl';
@@ -111,16 +112,6 @@ type AnalyticsHandlerArgumentsType = Parameters<
 const getAnalyticsHandlerMock = () =>
   jest.fn<AnalyticsHandlerResultType, AnalyticsHandlerArgumentsType>();
 
-const isCardLoaded = (
-  reactWrapper: ReactWrapper<CardWithAnalyticsEventsProps, CardState, CardBase>,
-) => {
-  return (
-    reactWrapper.find(CardView).prop('status') === 'complete' &&
-    reactWrapper.find(CardView).prop('dataURI') !== undefined &&
-    reactWrapper.find(CardView).prop('metadata') !== undefined
-  );
-};
-
 describe('Card', () => {
   let identifier: Identifier;
   let defaultFileId: string;
@@ -128,22 +119,25 @@ describe('Card', () => {
   let defaultFileState: ProcessedFileState;
   let mediaClient: MediaClient;
 
-  const defaultCardPreview: Promise<CardPreview> = Promise.resolve({
+  const defaultCardPreview: CardPreview = {
     dataURI: 'some-data-uri',
     orientation: 6,
-  });
+    source: 'remote',
+  };
 
   const defaultImageBlob: Promise<Blob> = Promise.resolve(new Blob());
-
-  const emptyPreview = Promise.resolve(undefined);
 
   const setup = (
     mediaClient: MediaClient = createMediaClientWithGetFile(),
     props: Partial<CardWithAnalyticsEventsProps> = {},
-    cardPreview: Promise<CardPreview | undefined> = defaultCardPreview,
+    cardPreview: CardPreview | false = defaultCardPreview,
   ) => {
-    asMockFunction(getCardPreviewFromFileState).mockReset();
-    asMockFunction(getCardPreviewFromFileState).mockReturnValue(cardPreview);
+    asMockFunction(getCardPreview).mockReset();
+    if (!!cardPreview) {
+      asMockFunction(getCardPreview).mockResolvedValue(cardPreview);
+    } else {
+      asMockFunction(getCardPreview).mockRejectedValue(new Error('some-error'));
+    }
 
     props = { isLazy: false, ...props };
 
@@ -209,11 +203,9 @@ describe('Card', () => {
       representations: { image: {} },
     };
     jest.spyOn(globalMediaEventEmitter, 'emit');
-    asMock(getCardPreviewFromFileState).mockReturnValue(defaultCardPreview);
   });
 
   afterEach(() => {
-    asMockFunction(getCardPreviewFromFileState).mockReset();
     jest.restoreAllMocks();
   });
 
@@ -268,7 +260,7 @@ describe('Card', () => {
           originalDimensions: initialOriginalDimensions,
           dimensions: initialDimensions,
         },
-        emptyPreview,
+        false,
       );
       component = setupResult.component;
       mediaClient = setupResult.mediaClient;
@@ -278,7 +270,7 @@ describe('Card', () => {
       // Resolve all promises to get to getImage call
       await nextTick();
 
-      expect(mediaClient.getImage).toHaveBeenCalledTimes(1);
+      expect(getCardPreview).toHaveBeenCalledTimes(1);
 
       await nextTick();
       await nextTick();
@@ -299,14 +291,15 @@ describe('Card', () => {
 
       await setNewDimensionViaProps(newDimensions);
 
-      expect(mediaClient.getImage).toHaveBeenCalledTimes(2);
-      expect(mediaClient.getImage).toHaveBeenLastCalledWith(fileIdentifier.id, {
-        allowAnimated: true,
-        collection: 'some-collection-name',
-        mode: 'crop',
-        width: 1000,
-        height: 200,
-      });
+      expect(getCardPreview).toHaveBeenCalledTimes(2);
+      expect(getCardPreview).toHaveBeenLastCalledWith(
+        expect.objectContaining({
+          id: fileIdentifier.id,
+          collectionName: 'some-collection-name',
+          resizeMode: 'crop',
+          requestedDimensions: { width: 1000, height: 200 },
+        }),
+      );
     });
 
     it('should refetch the image when height changes to a higher value', async () => {
@@ -317,15 +310,19 @@ describe('Card', () => {
 
       await setNewDimensionViaProps(newDimensions);
 
-      expect(mediaClient.getImage).toHaveBeenCalledTimes(2);
+      expect(getCardPreview).toHaveBeenCalledTimes(2);
 
-      expect(mediaClient.getImage).toHaveBeenLastCalledWith(fileIdentifier.id, {
-        allowAnimated: true,
-        collection: 'some-collection-name',
-        mode: 'crop',
-        width: 100,
-        height: 2000,
-      });
+      expect(getCardPreview).toHaveBeenLastCalledWith(
+        expect.objectContaining({
+          id: fileIdentifier.id,
+          collectionName: 'some-collection-name',
+          resizeMode: 'crop',
+          requestedDimensions: {
+            width: 100,
+            height: 2000,
+          },
+        }),
+      );
     });
 
     it('should not refetch the image when width changes to a smaller value', async () => {
@@ -336,7 +333,7 @@ describe('Card', () => {
 
       await setNewDimensionViaProps(newDimensions);
 
-      expect(mediaClient.getImage).toHaveBeenCalledTimes(1);
+      expect(getCardPreview).toHaveBeenCalledTimes(1);
     });
 
     it('should not refetch the image when height changes to a smaller value', async () => {
@@ -347,7 +344,7 @@ describe('Card', () => {
 
       await setNewDimensionViaProps(newDimensions);
 
-      expect(mediaClient.getImage).toHaveBeenCalledTimes(1);
+      expect(getCardPreview).toHaveBeenCalledTimes(1);
     });
   });
 
@@ -536,7 +533,8 @@ describe('Card', () => {
     const { component } = setup();
     await nextTick();
     await nextTick();
-    expect(getCardPreviewFromFileState).toHaveBeenCalledTimes(1);
+    await nextTick();
+    expect(getCardPreview).toHaveBeenCalledTimes(1);
     expect(component.state('cardPreview')).toMatchObject({
       dataURI: 'some-data-uri',
     });
@@ -544,6 +542,7 @@ describe('Card', () => {
 
   it('should set preview orientation and pass it down do view', async () => {
     const { component } = setup();
+    await nextTick();
     await nextTick();
     await nextTick();
     component.update();
@@ -569,6 +568,7 @@ describe('Card', () => {
 
     await nextTick();
     await nextTick();
+    await nextTick();
 
     expectToEqual(
       component.state(),
@@ -579,6 +579,7 @@ describe('Card', () => {
         cardPreview: {
           dataURI: 'some-data-uri',
           orientation: 6,
+          source: 'remote',
         },
         isPlayingFile: false,
       } as Partial<CardState>),
@@ -603,9 +604,11 @@ describe('Card', () => {
     const mediaClient = createMediaClientWithGetFile({
       ...defaultFileState,
       status: 'processing',
+      representations: undefined,
     });
-    const { component } = setup(mediaClient);
+    const { component } = setup(mediaClient, undefined, false);
 
+    await nextTick();
     await nextTick();
     await nextTick();
 
@@ -628,6 +631,7 @@ describe('Card', () => {
 
     await nextTick();
     await nextTick();
+    await nextTick();
 
     const { status, progress } = component.state();
 
@@ -636,7 +640,7 @@ describe('Card', () => {
   });
 
   it('should set right state when file is processed', async () => {
-    const { component } = setup(undefined, undefined, emptyPreview);
+    const { component } = setup();
 
     await nextTick();
     await nextTick();
@@ -649,32 +653,27 @@ describe('Card', () => {
     }
 
     expectToEqual(status, 'complete');
-    expectToEqual(
-      cardPreviewFromBackend.dataURI,
-      'mock result of URL.createObjectURL()',
-    );
+    expectToEqual(cardPreviewFromBackend.dataURI, 'some-data-uri');
   });
 
   it('should not render older cardStatus after a newer one', async () => {
     const mockMediaClient = fakeMediaClient();
 
-    // We want to hold off first result of first getCardPreviewFromFileState until it's time later in the test
+    // We want to hold off first result of first getCardPreview until it's time later in the test
     let resolveFirstCardPreviewFromFileState: (
       preview: CardPreview,
     ) => void = () => {};
-    asMockFunction(getCardPreviewFromFileState).mockReset();
+    asMockFunction(getCardPreview).mockReset();
 
     // This will be returned during first ('uploading') next() call
-    const firstGetCardPreviewFromFileStatePromise = new Promise<CardPreview>(
+    const firstgetCardPreviewPromise = new Promise<CardPreview>(
       (_resolve) => (resolveFirstCardPreviewFromFileState = _resolve),
     );
-    asMockFunction(getCardPreviewFromFileState).mockReturnValueOnce(
-      firstGetCardPreviewFromFileStatePromise,
+    asMockFunction(getCardPreview).mockReturnValueOnce(
+      firstgetCardPreviewPromise,
     );
     // This will be returned during second ('processing') next() call
-    asMockFunction(getCardPreviewFromFileState).mockReturnValueOnce(
-      defaultCardPreview,
-    );
+    asMockFunction(getCardPreview).mockResolvedValueOnce(defaultCardPreview);
 
     const uploadingFileState = createFileStateSubject({
       ...defaultFileState,
@@ -699,7 +698,7 @@ describe('Card', () => {
       />,
     );
 
-    // It will be paused by first unresolved getCardPreviewFromFileState result
+    // It will be paused by first unresolved getCardPreview result
 
     // Fire second fileState
     uploadingFileState.next({
@@ -710,7 +709,8 @@ describe('Card', () => {
       },
     });
 
-    // will resolve second getCardPreviewFromFileState call
+    // will resolve second getCardPreview call
+    await nextTick();
     await nextTick();
     await nextTick();
 
@@ -731,12 +731,14 @@ describe('Card', () => {
     expectToEqual(statusAfterSecondFileState, 'complete');
     expectToEqual(progressAfterSecondFileState, 1);
 
-    // This will resolve first getCardPreviewFromFileState call
+    // This will resolve first getCardPreview call
     resolveFirstCardPreviewFromFileState({
       orientation: 5,
       dataURI: 'some-other-data-uri',
+      source: 'local',
     });
 
+    await nextTick();
     await nextTick();
     await nextTick();
 
@@ -799,7 +801,7 @@ describe('Card', () => {
       ...defaultFileState,
       status: 'failed-processing',
     });
-    const { component } = setup(mediaClient, undefined, emptyPreview);
+    const { component } = setup(mediaClient, undefined, false);
 
     await nextTick();
     await nextTick();
@@ -864,18 +866,19 @@ describe('Card', () => {
         image: {},
       },
     });
-    setup(mediaClient, undefined, emptyPreview);
+    setup(mediaClient, undefined, false);
 
     await nextTick();
 
-    expect(mediaClient.getImage).toHaveBeenCalledTimes(1);
-    expect(mediaClient.getImage).toBeCalledWith(fileIdentifier.id, {
-      collection: 'some-collection-name',
-      height: 125,
-      width: 156,
-      allowAnimated: true,
-      mode: 'crop',
-    });
+    expect(getCardPreview).toHaveBeenCalledTimes(1);
+    expect(getCardPreview).toBeCalledWith(
+      expect.objectContaining({
+        id: fileIdentifier.id,
+        collectionName: 'some-collection-name',
+        requestedDimensions: { height: 125, width: 156 },
+        resizeMode: 'crop',
+      }),
+    );
   });
 
   it('should fetch remote preview for documents with new design', async () => {
@@ -896,14 +899,15 @@ describe('Card', () => {
 
     await nextTick();
 
-    expect(mediaClient.getImage).toHaveBeenCalledTimes(1);
-    expect(mediaClient.getImage).toBeCalledWith(fileIdentifier.id, {
-      collection: 'some-collection-name',
-      height: 125,
-      width: 156,
-      allowAnimated: true,
-      mode: 'crop',
-    });
+    expect(getCardPreview).toHaveBeenCalledTimes(1);
+    expect(getCardPreview).toBeCalledWith(
+      expect.objectContaining({
+        id: fileIdentifier.id,
+        collectionName: 'some-collection-name',
+        requestedDimensions: { height: 125, width: 156 },
+        resizeMode: 'crop',
+      }),
+    );
   });
 
   it('should not fetch remote preview for documents with classic design', async () => {
@@ -924,113 +928,34 @@ describe('Card', () => {
 
     await nextTick();
 
-    expect(mediaClient.getImage).toHaveBeenCalledTimes(0);
-  });
-
-  it('should not fetch remote preview when there is local preview', async () => {
-    const subject = new ReplaySubject<FileState>(1);
-    const baseState: FileState = {
-      id: defaultFileId,
-      mediaType: 'image',
-      status: 'processing',
-      mimeType: 'image/png',
-      name: 'file-name',
-      size: 10,
-      representations: {
-        image: {},
-      },
-    };
-    subject.next(baseState);
-    const mediaClient = fakeMediaClient();
-    asMockReturnValue(mediaClient.file.getFileState, subject);
-    const { component } = setup(mediaClient);
-
-    await nextTick();
-    await nextTick();
-
-    expect(component.state('cardPreview')).toMatchObject({
-      dataURI: 'some-data-uri',
-    });
-
-    expect(mediaClient.getImage).toHaveBeenCalledTimes(0);
-
-    subject.next({
-      ...baseState,
-      status: 'processed',
-      artifacts: {},
-    });
-    const cardPreviewFromFileStateResult = Promise.resolve({
-      dataURI: 'fooo',
-      orientation: 6,
-    });
-
-    asMockReturnValue(
-      getCardPreviewFromFileState,
-      cardPreviewFromFileStateResult,
-    );
-
-    await nextTick();
-    await nextTick();
-
-    // We want to make sure that when transition from "processing" to "processed" we still don't call getImage if we already have preview
-    expect(component.state('cardPreview')).toEqual({
-      dataURI: 'some-data-uri',
-      orientation: 6,
-    });
-    expect(component.state('status')).toEqual('complete');
-    expect(mediaClient.getImage).toHaveBeenCalledTimes(0);
+    expect(getCardPreview).toHaveBeenCalledTimes(0);
   });
 
   it('should pass resize mode down to getImage call', async () => {
-    const { mediaClient } = setup(
+    setup(
       undefined,
       {
         resizeMode: 'full-fit',
       },
-      emptyPreview,
+      false,
     );
 
-    await emptyPreview;
-
-    expect(mediaClient.getImage).toBeCalledWith(
-      fileIdentifier.id,
+    expect(getCardPreview).toBeCalledWith(
       expect.objectContaining({
-        mode: 'full-fit',
-      }),
-    );
-  });
-
-  it('should change mode from stretchy-fit to full-fit while passing down to getImage call', async () => {
-    const { mediaClient } = setup(
-      undefined,
-      {
-        resizeMode: 'stretchy-fit',
-      },
-      emptyPreview,
-    );
-
-    await emptyPreview;
-
-    expect(mediaClient.getImage).toBeCalledWith(
-      fileIdentifier.id,
-      expect.objectContaining({
-        mode: 'full-fit',
+        id: fileIdentifier.id,
+        resizeMode: 'full-fit',
       }),
     );
   });
 
   it('should render CardView with expected props', async () => {
-    const { component } = setup(
-      undefined,
-      {
-        dimensions: { width: 10, height: 20 },
-        selectable: true,
-        selected: true,
-        resizeMode: 'fit',
-        disableOverlay: true,
-      },
-      emptyPreview,
-    );
+    const { component } = setup(undefined, {
+      dimensions: { width: 10, height: 20 },
+      selectable: true,
+      selected: true,
+      resizeMode: 'fit',
+      disableOverlay: true,
+    });
 
     await nextTick();
     await nextTick();
@@ -1042,7 +967,7 @@ describe('Card', () => {
     expect(component.find(CardView).props()).toEqual(
       expect.objectContaining({
         appearance: 'auto',
-        dataURI: 'mock result of URL.createObjectURL()',
+        dataURI: 'some-data-uri',
         dimensions: { width: 10, height: 20 },
         disableOverlay: true,
         progress: 1,
@@ -1080,27 +1005,23 @@ describe('Card', () => {
   });
 
   it('should reuse cached dataURI even after unmounting', async () => {
-    const { component, mediaClient } = setup(
-      undefined,
-      undefined,
-      emptyPreview,
-    );
+    const { component, mediaClient } = setup(undefined, undefined, false);
 
     await nextTick();
     await nextTick();
     await nextTick();
 
-    expect(mediaClient.getImage).toHaveBeenCalledTimes(1);
+    expect(getCardPreview).toHaveBeenCalledTimes(1);
 
     component.unmount();
 
-    setup(mediaClient, undefined, emptyPreview);
+    setup(mediaClient, undefined, false);
 
     await nextTick();
     await nextTick();
     await nextTick();
 
-    expect(mediaClient.getImage).toHaveBeenCalledTimes(1);
+    expect(getCardPreview).toHaveBeenCalledTimes(1);
   });
 
   it('should retrieve cardPreview from cache if it was already generated by id', async () => {
@@ -1111,55 +1032,25 @@ describe('Card', () => {
     await nextTick();
     component.update();
 
-    expect(getCardPreviewFromFileState).toHaveBeenCalledTimes(1);
+    expect(getCardPreview).toHaveBeenCalledTimes(1);
     const currentCardPreview = component.state('cardPreview');
     component.setProps({ dimensions: { width: 50, height: 50 } });
 
-    expect(getCardPreviewFromFileState).toHaveBeenCalledTimes(1);
+    expect(getCardPreview).toHaveBeenCalledTimes(1);
 
     const newCardPreview = component.state('cardPreview');
     expect(currentCardPreview).toEqual(newCardPreview);
   });
 
-  it('should subscribe to file state immediately if the component was remounted', async () => {
-    const onVisibleMock = mockViewportDetectorOnce();
-    const props = {
-      dimensions: { width: 50, height: 50 },
-    };
-
-    // We mount the card for the first time
-    const component = mount<CardBase, CardWithAnalyticsEventsProps, CardState>(
-      <CardBase mediaClient={mediaClient} identifier={identifier} {...props} />,
+  it('should not lazy load if the preview was cached', async () => {
+    asMockFunction(getCardPreviewFromCache).mockReturnValueOnce(
+      await defaultCardPreview,
     );
-    await flushPromises();
-    expect(isCardLoaded(component)).toEqual(false);
-
-    // We let the IntersectionObserver kicks in and it should start
-    // subscribing to the fileState and populate all the neccesary
-    // data to redner the image
-    onVisibleMock.onVisible();
-    await flushPromises();
-    component.update();
-    await flushPromises();
-    expect(isCardLoaded(component)).toEqual(true);
-
-    // Unmount the component
-    component.unmount();
-
-    // We mount the component second time and expecting
-    // the image will be loaded without IntersectionObserver
-    // kicks in
-    const remountedComponent = mount<
-      CardBase,
-      CardWithAnalyticsEventsProps,
-      CardState
-    >(
-      <CardBase mediaClient={mediaClient} identifier={identifier} {...props} />,
-    );
-    await flushPromises();
-    remountedComponent.update();
-    await flushPromises();
-    expect(isCardLoaded(remountedComponent)).toEqual(true);
+    const { component, mediaClient } = setup(undefined, { isLazy: true });
+    /* Card is visible even though the ViewportDetector didn't trigger onVisible callback */
+    expect(component.state('isCardVisible')).toEqual(true);
+    /* File state subscription must have been triggered */
+    expect(mediaClient.file.getFileState).toBeCalled();
   });
 
   it('should keep orientation in the state if it was already acquired', async () => {
@@ -1169,11 +1060,13 @@ describe('Card', () => {
 
     await nextTick();
     await nextTick();
+    await nextTick();
 
     const cardPreview = component.state('cardPreview');
 
     component.setProps({ dimensions: { width: 100, height: 100 } });
 
+    await nextTick();
     await nextTick();
     await nextTick();
 
@@ -1330,7 +1223,7 @@ describe('Card', () => {
     it('should set isPlayingFile=true when clicking on a viewable video file', () => {
       const { component } = setup(undefined, { useInlinePlayer: true });
       component.setState({
-        cardPreview: { dataURI: 'data-uri' },
+        cardPreview: { dataURI: 'data-uri', source: 'remote' },
         fileState: {
           id: 'some-id',
           name: 'some-video.mp4',
@@ -1404,6 +1297,7 @@ describe('Card', () => {
 
       await nextTick();
       await nextTick();
+      await nextTick();
 
       component.find(CardView).simulate('click');
 
@@ -1450,15 +1344,18 @@ describe('Card', () => {
   });
 
   it('should not change card status if local preview throws an error', async () => {
-    asMockFunction(getCardPreviewFromFileState).mockRejectedValueOnce(
-      new MediaCardError('local-preview-get', new Error('some kind of error')),
+    asMockFunction(getCardPreview).mockRejectedValueOnce(
+      new MediaCardError(
+        'local-preview-image',
+        new Error('some kind of error'),
+      ),
     );
     const mediaClient = createMediaClientWithGetFile();
     const { component } = setup(mediaClient, { isLazy: false });
     await nextTick();
     await nextTick();
     await nextTick();
-    expect(getCardPreviewFromFileState).toHaveBeenCalled();
+    expect(getCardPreview).toHaveBeenCalled();
     expect(component.state('status')).toBe('complete');
   });
 

@@ -51,7 +51,8 @@ describe('Snapshot Test: Cards', () => {
     await waitForResolvedInlineCard(page);
   });
 
-  it('displays links with correct appearance', async () => {
+  // TODO: https://product-fabric.atlassian.net/browse/ED-13527
+  it.skip('displays links with correct appearance', async () => {
     await initRenderer(page, cardAdf, {
       width: 800,
       height: 5000,

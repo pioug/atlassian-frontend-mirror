@@ -1,5 +1,16 @@
 # @atlaskit/avatar-group
 
+## 8.4.0
+
+### Minor Changes
+
+- [`c79bc186958`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c79bc186958) - [ux] Colors are now sourced through tokens.
+
+### Patch Changes
+
+- [`2d7cc544696`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2d7cc544696) - Updates token usage to match the latest token set
+- Updated dependencies
+
 ## 8.3.2
 
 ### Patch Changes

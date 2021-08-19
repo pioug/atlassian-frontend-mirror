@@ -4,7 +4,7 @@ import {
   renameThemeAppearanceImport,
   renamethemeTokensImport,
 } from '../migrations/rename-imports';
-import { createTransformer } from '../utils';
+import { createTransformer } from '../migrations/utils';
 
 const transformer = createTransformer('@atlaskit/textfield', [
   renamethemeTokensImport,

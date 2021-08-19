@@ -16,7 +16,6 @@ describe('EmbedCard view component', () => {
     const setup = () => {
       const cardState: CardState = {
         status: 'resolved',
-        lastUpdatedAt: 42,
         details: {
           meta: {
             access: 'granted',

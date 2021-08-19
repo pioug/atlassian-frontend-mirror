@@ -1,7 +1,12 @@
 // We don't statically export these so we supress the error.
 // This is done so we can copy and paste the script to run it in Figma.
-// @ts-ignore
-import { createPaint } from '../../synchronize-figma-tokens';
+import {
+  // @ts-ignore
+  createPaint as create,
+  CreatePaint,
+} from '../../synchronize-figma-tokens';
+
+const createPaint: CreatePaint = create;
 
 describe('createPaint', () => {
   it('should generate a paint object from hex', () => {
@@ -15,6 +20,22 @@ describe('createPaint', () => {
         r: 0,
       },
       opacity: 1,
+      type: 'SOLID',
+      visible: true,
+    });
+  });
+
+  it('should parse an opaque color opacity to a value between zero and one', () => {
+    const value = createPaint('#03040454');
+
+    expect(value).toEqual({
+      blendMode: 'NORMAL',
+      color: {
+        r: 0.011764705882352941,
+        g: 0.01568627450980392,
+        b: 0.01568627450980392,
+      },
+      opacity: 0.33,
       type: 'SOLID',
       visible: true,
     });
@@ -46,7 +67,7 @@ describe('createPaint', () => {
         g: 0.01568627450980392,
         r: 0.011764705882352941,
       },
-      opacity: 0.33,
+      opacity: 0.13,
       type: 'SOLID',
       visible: true,
     });

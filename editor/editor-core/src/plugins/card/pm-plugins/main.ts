@@ -18,6 +18,7 @@ import { EmbedCard, EmbedCardNodeViewProps } from '../nodeviews/embedCard';
 import { BlockCard, BlockCardNodeViewProps } from '../nodeviews/blockCard';
 import { InlineCard, InlineCardNodeViewProps } from '../nodeviews/inlineCard';
 import { ProviderHandler } from '@atlaskit/editor-common/provider-factory';
+import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 export { pluginKey } from './plugin-key';
 
@@ -26,6 +27,7 @@ export const createPlugin = (
   allowResizing: boolean,
   useAlternativePreloader: boolean,
   fullWidthMode?: boolean,
+  createAnalyticsEvent?: CreateUIAnalyticsEvent,
 ) => ({
   portalProviderAPI,
   eventDispatcher,
@@ -40,6 +42,8 @@ export const createPlugin = (
           provider: null,
           cards: [],
           showLinkingToolbar: false,
+          smartLinkEvents: undefined,
+          createAnalyticsEvent,
         };
       },
 

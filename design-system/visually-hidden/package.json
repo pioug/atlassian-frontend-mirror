@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/visually-hidden",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A composable element that hides elements from the screen while keeping them accessible.",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -54,7 +54,7 @@
       "styling": "emotion",
       "ui-components": "lite-mode",
       "analytics": "analytics-next",
-      "theming": "new-theming-api",
+      "theming": "tokens",
       "deprecation": "no-deprecated-imports"
     }
   },

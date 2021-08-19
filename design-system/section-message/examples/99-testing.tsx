@@ -5,9 +5,9 @@ import { css, jsx } from '@emotion/core';
 
 import SectionMessage, { SectionMessageAction } from '../src';
 
-const spacingStyles = css`
-  padding: 8px;
-`;
+const spacingStyles = css({
+  padding: '8px',
+});
 
 const Example = () => (
   <React.Fragment>

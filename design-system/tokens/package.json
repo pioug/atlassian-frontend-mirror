@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/tokens",
-  "version": "0.0.18",
+  "version": "0.1.0",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
   "publishConfig": {
@@ -19,7 +19,8 @@
   "atlaskit:src": "src/index.tsx",
   "af:exports": {
     ".": "./src/index.tsx",
-    "./token-names": "./src/entry-points/token-names.tsx"
+    "./token-names": "./src/entry-points/token-names.tsx",
+    "./rename-mapping": "./src/entry-points/rename-mapping.tsx"
   },
   "scripts": {
     "ak-postbuild": "yarn codegen-tokens && yarn check-clean-git",

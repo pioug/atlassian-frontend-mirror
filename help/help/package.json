@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/help",
-  "version": "4.1.0",
+  "version": "4.1.1",
   "description": "A cross-product help component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -22,24 +22,27 @@
       "name": "Help"
     }
   },
+  "scripts": {
+    "ak-postbuild": "ls -d dist/* | xargs -n 1 copyfiles -u 1 -V src/**/*.svg"
+  },
   "dependencies": {
     "@atlaskit/analytics": "^8.0.0",
     "@atlaskit/analytics-next": "^8.0.0",
-    "@atlaskit/button": "^16.0.0",
-    "@atlaskit/checkbox": "^12.0.0",
-    "@atlaskit/form": "^8.0.0",
+    "@atlaskit/button": "^16.1.0",
+    "@atlaskit/checkbox": "^12.3.0",
+    "@atlaskit/form": "^8.3.0",
     "@atlaskit/help-article": "^4.0.0",
     "@atlaskit/help-layout": "^3.0.0",
     "@atlaskit/icon": "^21.2.0",
     "@atlaskit/item": "^12.0.0",
     "@atlaskit/notification-indicator": "^8.0.0",
     "@atlaskit/notification-log-client": "^5.0.0",
-    "@atlaskit/radio": "^5.0.0",
-    "@atlaskit/section-message": "^6.0.0",
+    "@atlaskit/radio": "^5.3.0",
+    "@atlaskit/section-message": "^6.1.0",
     "@atlaskit/select": "^15.0.0",
-    "@atlaskit/spinner": "^15.0.0",
-    "@atlaskit/textarea": "^4.0.0",
-    "@atlaskit/textfield": "^5.0.0",
+    "@atlaskit/spinner": "^15.1.0",
+    "@atlaskit/textarea": "^4.2.0",
+    "@atlaskit/textfield": "^5.1.0",
     "@atlaskit/theme": "^11.4.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/core": "^10.0.9",

@@ -5,7 +5,6 @@ import {
   queryByAttribute,
   render,
   RenderResult,
-  within,
 } from '@testing-library/react';
 // eslint-disable-next-line no-restricted-imports
 import { parseISO } from 'date-fns';
@@ -157,26 +156,16 @@ describe('Calendar', () => {
       const { renderResult, props } = setup();
 
       const selectedDayElement = getDayElement(renderResult, '8');
-      const nextUnSelectedDayElement = selectedDayElement.nextSibling as HTMLTableDataCellElement;
-      const nextUnSelectedDayInnerElement = within(
-        nextUnSelectedDayElement,
-      ).getByText('9');
+      const nextUnselectedDayElement = selectedDayElement.nextSibling as HTMLTableDataCellElement;
 
-      expect(nextUnSelectedDayElement).toHaveAttribute(
+      expect(nextUnselectedDayElement).toHaveAttribute(
         'aria-selected',
         'false',
       );
-      expect(nextUnSelectedDayInnerElement).toHaveStyle(
-        'background-color: transparent',
-      );
 
-      fireEvent.click(nextUnSelectedDayElement);
+      fireEvent.click(nextUnselectedDayElement);
 
-      expect(nextUnSelectedDayElement).toHaveAttribute('aria-selected', 'true');
-      expect(nextUnSelectedDayInnerElement).toHaveStyle(
-        'background-color: rgb(66, 82, 110)',
-      );
-
+      expect(nextUnselectedDayElement).toHaveAttribute('aria-selected', 'true');
       expect(props.onSelect).toHaveBeenCalledWith(
         {
           day: 9,
@@ -287,39 +276,20 @@ describe('Calendar', () => {
       });
 
       const currentSelectedDayElement = getDayElement(renderResult, '8');
-      const currentSelectedDayInnerElement = within(
-        currentSelectedDayElement,
-      ).getByText('8');
 
       expect(currentSelectedDayElement).toHaveAttribute(
         'aria-selected',
         'true',
       );
-      expect(currentSelectedDayInnerElement).toHaveStyle(
-        'background-color: rgb(66, 82, 110)',
-      );
 
       const isPrevented = fireEvent.keyDown(
         renderResult.container.firstChild as HTMLDivElement,
-        {
-          key,
-          code,
-        },
-      );
-
-      expect(currentSelectedDayInnerElement).toHaveStyle(
-        'background-color: rgb(222, 235, 255)',
+        { key, code },
       );
 
       const newSelectedDayElement = getDayElement(renderResult, '10');
-      const newSelectedDayInnerElement = within(
-        newSelectedDayElement,
-      ).getByText('10');
 
       expect(newSelectedDayElement).toHaveAttribute('aria-selected', 'true');
-      expect(newSelectedDayInnerElement).toHaveStyle(
-        'background-color: rgb(66, 82, 110)',
-      );
 
       expect(isPrevented).toBe(false);
       expect(props.onSelect).toHaveBeenCalledWith(
@@ -358,38 +328,9 @@ describe('Calendar', () => {
         defaultDay: 15,
       });
 
-      const currentHighlightedDayElement = getDayElement(renderResult, '15');
-      const currentHighlightedDayInnerElement = within(
-        currentHighlightedDayElement,
-      ).getByText('15');
-
-      expect(currentHighlightedDayInnerElement).toHaveStyle(
-        'border: 2px solid #4c9aff',
-      );
-
       const isPrevented = fireEvent.keyDown(
         renderResult.container.firstChild as HTMLDivElement,
-        {
-          key,
-          code,
-        },
-      );
-
-      expect(currentHighlightedDayInnerElement).toHaveStyle(
-        'border: 2px solid transparent',
-      );
-
-      const stringifiedDay = date.day.toString();
-      const newHighlightedDayElement = getDayElement(
-        renderResult,
-        stringifiedDay,
-      );
-      const newHighlightedDayInnerElement = within(
-        newHighlightedDayElement,
-      ).getByText(stringifiedDay);
-
-      expect(newHighlightedDayInnerElement).toHaveStyle(
-        'border: 2px solid #4c9aff',
+        { key, code },
       );
 
       expect(isPrevented).toBe(false);
@@ -452,34 +393,12 @@ describe('Calendar', () => {
       defaultDay: 1,
     });
 
-    const currentHighlightedDayElement = getDayElement(renderResult, '1');
-    const currentHighlightedDayInnerElement = within(
-      currentHighlightedDayElement,
-    ).getByText('1');
-
-    expect(currentHighlightedDayInnerElement).toHaveStyle(
-      'border: 2px solid #4c9aff',
-    );
-
     const isPrevented = fireEvent.keyDown(
       renderResult.container.firstChild as HTMLDivElement,
       {
         key: 'ArrowUp',
         code: 'ArrowUp',
       },
-    );
-
-    expect(currentHighlightedDayInnerElement).toHaveStyle(
-      'border: 2px solid transparent',
-    );
-
-    const newHighlightedDayElement = getDayElement(renderResult, '24');
-    const newHighlightedDayInnerElement = within(
-      newHighlightedDayElement,
-    ).getByText('24');
-
-    expect(newHighlightedDayInnerElement).toHaveStyle(
-      'border: 2px solid #4c9aff',
     );
 
     expect(isPrevented).toBe(false);

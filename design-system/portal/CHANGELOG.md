@@ -1,5 +1,11 @@
 # @atlaskit/portal
 
+## 4.2.4
+
+### Patch Changes
+
+- [`cd34d8ca8ea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cd34d8ca8ea) - Internal wiring up to the tokens techstack, no code changes.
+
 ## 4.2.3
 
 ### Patch Changes

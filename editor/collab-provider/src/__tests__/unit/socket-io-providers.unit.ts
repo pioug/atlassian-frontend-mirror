@@ -7,23 +7,20 @@ describe('socket io provider', () => {
     expect((socket as any).io.engine.opts.path).toEqual('/ccollab/socket.io/');
   });
 
-  it('attach x-token if tokenRefresh function exist', () => {
+  it('attach `auth` tokenRefresh if tokenRefresh function exist', (done) => {
     const url = 'http://localhost:8080/ccollab/sessionId/123';
-    const permissionToken = {
-      initializationToken: 'blablabla',
-      tokenRefresh: jest
-        .fn()
-        .mockResolvedValue('a-token-for-embedded-confluence'),
-    };
-    const socket = createSocketIOSocket(
-      url,
-      permissionToken.initializationToken,
-    );
+    const mockToken = 'a-token-for-embedded-confluence';
+    const permissionTokenRefresh = async () => mockToken;
+    const socket = createSocketIOSocket(url, (cb: (data: object) => void) => {
+      permissionTokenRefresh().then((token: string) => {
+        cb({ token });
+      });
+    });
     expect((socket as any).io.engine.opts.path).toEqual('/ccollab/socket.io/');
-    expect(
-      (socket as any).io.opts.transportOptions.polling.extraHeaders,
-    ).toEqual({
-      'x-token': 'blablabla',
+    expect((socket as any).io.opts.auth).toBeDefined();
+    (socket as any).io.opts.auth((token: string) => {
+      expect(token).toEqual({ token: mockToken });
+      done();
     });
   });
 });

@@ -27,9 +27,11 @@ export default function UncontrolledExample() {
         css={{
           borderStyle: 'dashed',
           borderWidth: '1px',
+          // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
           borderColor: '#ccc',
           padding: '0.5em',
           margin: '0.5em',
+          // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
           color: '#ccc',
         }}
       >

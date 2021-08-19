@@ -6,7 +6,8 @@
       "type": "table",
       "attrs": {
         "isNumberColumnEnabled": false,
-        "layout": "default"
+        "layout": "default",
+        "localId": "abc-123"
       },
       "content": [
         {

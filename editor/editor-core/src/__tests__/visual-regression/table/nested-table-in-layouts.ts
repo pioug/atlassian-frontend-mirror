@@ -77,7 +77,8 @@ describe('Snapshot Test: Nested table inside layouts', () => {
       await clickFirstCell(page);
     });
     ['wide', 'full-width'].forEach((breakout, idx) => {
-      it(`should display correctly for layout in ${breakout} breakout mode`, async () => {
+      // TODO: https://product-fabric.atlassian.net/browse/ED-13527
+      it.skip(`should display correctly for layout in ${breakout} breakout mode`, async () => {
         await toggleBreakout(page, idx + 1);
         await waitForBreakoutNestedLayout(
           page,

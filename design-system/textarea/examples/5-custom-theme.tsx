@@ -1,9 +1,14 @@
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/core';
 
 import { B50, G50, P50, P500, R50, R500, Y50 } from '@atlaskit/theme/colors';
 
 import TextArea, { ThemeProps, ThemeTokens } from '../src';
+
+const wrapperStyles = css({
+  maxWidth: 500,
+});
 
 export default () => {
   function ourTheme(
@@ -24,11 +29,7 @@ export default () => {
   }
 
   return (
-    <div
-      css={{
-        maxWidth: 500,
-      }}
-    >
+    <div css={wrapperStyles}>
       <p>Theme:</p>
       <TextArea
         theme={ourTheme}

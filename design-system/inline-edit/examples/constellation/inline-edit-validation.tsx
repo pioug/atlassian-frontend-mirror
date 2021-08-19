@@ -11,6 +11,7 @@ import {
   fontSize as getFontSize,
   gridSize as getGridSize,
 } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 import InlineEdit from '../../src';
 
@@ -92,7 +93,10 @@ const InlineEditValidationExample = () => {
                       lineHeight: '100%',
                     }}
                   >
-                    <ErrorIcon label="error" primaryColor={R400} />
+                    <ErrorIcon
+                      label="error"
+                      primaryColor={token('color.iconBorder.danger', R400)}
+                    />
                   </div>
                 )
               }

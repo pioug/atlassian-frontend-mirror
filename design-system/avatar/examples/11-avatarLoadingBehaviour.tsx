@@ -21,6 +21,7 @@ type State = {
 
 const initialState = {
   inputValue:
+    //eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
     'https://pbs.twimg.com/profile_images/568401563538841600/2eTVtXXO_400x400.jpeg',
   imageUrl: '',
 };

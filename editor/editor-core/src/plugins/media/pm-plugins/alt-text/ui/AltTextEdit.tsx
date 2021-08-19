@@ -237,7 +237,7 @@ export class AltTextEditComponent extends React.Component<
 
   private updateAltText = (newAltText: string) => {
     const { view } = this.props;
-    const newValue = newAltText.length === 0 ? null : newAltText;
+    const newValue = newAltText.length === 0 ? '' : newAltText;
     updateAltText(newValue)(view.state, view.dispatch);
   };
 

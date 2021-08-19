@@ -188,7 +188,7 @@ Object {
             "__fileMimeType": null,
             "__fileName": null,
             "__fileSize": null,
-            "alt": null,
+            "alt": "",
             "collection": "",
             "height": 183,
             "id": "abc-123",
@@ -588,6 +588,7 @@ Object {
         "__autoSize": false,
         "isNumberColumnEnabled": false,
         "layout": "default",
+        "localId": "",
       },
       "content": Array [
         Object {

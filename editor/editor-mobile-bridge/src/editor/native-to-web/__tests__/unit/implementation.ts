@@ -663,7 +663,7 @@ describe('insert node', () => {
     bridge.insertNode('status');
 
     expect(updateStatusWithAnalytics).toBeCalledWith('toolbar', {
-      text: 'Status',
+      text: '',
       color: 'neutral',
     });
   });

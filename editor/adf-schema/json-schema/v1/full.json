@@ -396,6 +396,37 @@
       ],
       "additionalProperties": false
     },
+    "dataConsumer_mark": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "dataConsumer"
+          ]
+        },
+        "attrs": {
+          "type": "object",
+          "properties": {
+            "sources": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            }
+          },
+          "required": [
+            "sources"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "type",
+        "attrs"
+      ],
+      "additionalProperties": false
+    },
     "hardBreak_node": {
       "type": "object",
       "properties": {
@@ -549,6 +580,25 @@
             "marks": {
               "type": "array",
               "maxItems": 0
+            }
+          },
+          "additionalProperties": true
+        }
+      ]
+    },
+    "inlineExtension_with_marks_node": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/inlineExtension_node"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "marks": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/dataConsumer_mark"
+              }
             }
           },
           "additionalProperties": true
@@ -823,6 +873,9 @@
         },
         {
           "$ref": "#/definitions/inlineExtension_with_no_marks_node"
+        },
+        {
+          "$ref": "#/definitions/inlineExtension_with_marks_node"
         },
         {
           "$ref": "#/definitions/date_node"
@@ -1626,6 +1679,25 @@
         }
       ]
     },
+    "extension_with_marks_node": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/extension_node"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "marks": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/dataConsumer_mark"
+              }
+            }
+          },
+          "additionalProperties": true
+        }
+      ]
+    },
     "embedCard_node": {
       "type": "object",
       "properties": {
@@ -1761,6 +1833,10 @@
                 "full-width",
                 "default"
               ]
+            },
+            "localId": {
+              "type": "string",
+              "minLength": 1
             }
           },
           "additionalProperties": false
@@ -1861,6 +1937,9 @@
           },
           {
             "$ref": "#/definitions/extension_with_no_marks_node"
+          },
+          {
+            "$ref": "#/definitions/extension_with_marks_node"
           },
           {
             "$ref": "#/definitions/embedCard_node"
@@ -1993,6 +2072,9 @@
         },
         {
           "$ref": "#/definitions/extension_with_no_marks_node"
+        },
+        {
+          "$ref": "#/definitions/extension_with_marks_node"
         },
         {
           "$ref": "#/definitions/embedCard_node"
@@ -2149,6 +2231,25 @@
         }
       ]
     },
+    "bodiedExtension_with_marks_node": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/bodiedExtension_node"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "marks": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/dataConsumer_mark"
+              }
+            }
+          },
+          "additionalProperties": true
+        }
+      ]
+    },
     "block_content": {
       "anyOf": [
         {
@@ -2203,6 +2304,9 @@
           "$ref": "#/definitions/extension_with_no_marks_node"
         },
         {
+          "$ref": "#/definitions/extension_with_marks_node"
+        },
+        {
           "$ref": "#/definitions/embedCard_node"
         },
         {
@@ -2213,6 +2317,9 @@
         },
         {
           "$ref": "#/definitions/bodiedExtension_with_no_marks_node"
+        },
+        {
+          "$ref": "#/definitions/bodiedExtension_with_marks_node"
         }
       ]
     },
@@ -2357,6 +2464,9 @@
                 "$ref": "#/definitions/extension_with_no_marks_node"
               },
               {
+                "$ref": "#/definitions/extension_with_marks_node"
+              },
+              {
                 "$ref": "#/definitions/embedCard_node"
               },
               {
@@ -2370,6 +2480,9 @@
               },
               {
                 "$ref": "#/definitions/bodiedExtension_with_no_marks_node"
+              },
+              {
+                "$ref": "#/definitions/bodiedExtension_with_marks_node"
               },
               {
                 "$ref": "#/definitions/layoutSection_node"

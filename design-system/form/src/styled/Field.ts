@@ -2,8 +2,8 @@ import styled from 'styled-components';
 
 import { R400 } from '@atlaskit/theme/colors';
 import { fontFamily, gridSize } from '@atlaskit/theme/constants';
-import { multiply } from '@atlaskit/theme/math';
 import { h200 } from '@atlaskit/theme/typography';
+import { token } from '@atlaskit/tokens';
 
 /**
  * Provide a styled container for field components
@@ -16,16 +16,17 @@ const FieldWrapper = styled.div`
  * Provide a styled Label for field components
  */
 export const Label = styled.label`
-  ${h200()} display: inline-block;
+  ${h200()}
+  display: inline-block;
   font-family: ${fontFamily()};
-  margin-bottom: ${multiply(gridSize, 0.5)}px;
+  margin-bottom: ${gridSize() * 0.5}px;
   margin-top: 0;
 `;
 
 export const RequiredIndicator = styled.span`
-  color: ${R400};
+  color: ${token('color.text.danger', R400)};
   font-family: ${fontFamily()};
-  padding-left: ${multiply(gridSize, 0.25)}px;
+  padding-left: ${gridSize() * 0.25}px;
 `;
 
 export default FieldWrapper;

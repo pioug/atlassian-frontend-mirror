@@ -2,10 +2,7 @@ import React from 'react';
 import { Provider, Card, Client } from '../src';
 
 export default () => (
-  <Provider
-    client={new Client('stg')}
-    cacheOptions={{ maxLoadingDelay: 100, maxAge: 15000 }}
-  >
+  <Provider client={new Client('stg')}>
     <div style={{ width: '680px', margin: '0 auto', marginTop: '64px' }}>
       {/* Resolved */}
       <Card

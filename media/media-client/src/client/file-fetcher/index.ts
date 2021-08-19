@@ -4,6 +4,9 @@ import { of } from 'rxjs/observable/of';
 import { map } from 'rxjs/operators/map';
 import { concatMap } from 'rxjs/operators/concatMap';
 import uuid from 'uuid/v4';
+// import setimmediate to temporary fix dataloader 2.0.0 bug
+// @see https://github.com/graphql/dataloader/issues/249
+import 'setimmediate';
 import Dataloader from 'dataloader';
 import { AuthProvider, authToOwner } from '@atlaskit/media-core';
 import { downloadUrl } from '@atlaskit/media-common/downloadUrl';

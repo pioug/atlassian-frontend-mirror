@@ -1,5 +1,11 @@
 # @atlaskit/popper
 
+## 5.2.2
+
+### Patch Changes
+
+- [`cd34d8ca8ea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cd34d8ca8ea) - Internal wiring up to the tokens techstack, no code changes.
+
 ## 5.2.1
 
 ### Patch Changes

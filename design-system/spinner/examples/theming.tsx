@@ -9,12 +9,13 @@ import { N0, N500 } from '@atlaskit/theme/colors';
 import GlobalTheme from '@atlaskit/theme/components';
 import { gridSize } from '@atlaskit/theme/constants';
 import { ThemeModes } from '@atlaskit/theme/types';
+import { token } from '@atlaskit/tokens';
 
 import Spinner from '../src';
 
 const grid: number = gridSize();
-const dark: string = N500;
-const light: string = N0;
+const dark: string = token('color.text.highEmphasis', N500);
+const light: string = token('color.text.highEmphasis', N0);
 
 const container = css`
   width: 100px;

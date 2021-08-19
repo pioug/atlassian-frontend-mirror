@@ -15,8 +15,8 @@ export function usePluginListeners(
 
     const eventDispatcher = bridge.editorActions._privateGetEventDispatcher()!;
     const editorView = bridge.editorActions._privateGetEditorView()!;
-
     const configs = configFactory(editorConfiguration);
+
     return initPluginListeners(configs)(eventDispatcher, bridge, editorView);
   }, [bridge, editorConfiguration, editorReady]);
 }

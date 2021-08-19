@@ -1,7 +1,7 @@
 jest.autoMockOff();
 
 import { removeThemeImports } from '../migrations/remove-imports';
-import { createTransformer } from '../utils';
+import { createTransformer } from '../migrations/utils';
 
 const transformer = createTransformer('@atlaskit/textfield', [
   removeThemeImports,

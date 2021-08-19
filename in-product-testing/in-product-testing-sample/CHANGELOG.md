@@ -1,5 +1,11 @@
 # @atlaskit/in-product-testing-sample
 
+## 0.2.0
+
+### Minor Changes
+
+- [`8e6a1034cfd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8e6a1034cfd) - EDM-1730: added in-product Cypress tests for Smart Links
+
 ## 0.1.1
 
 ### Patch Changes

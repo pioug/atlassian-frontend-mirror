@@ -43,6 +43,8 @@ import {
   insertRow,
 } from '../../../../plugins/table/commands';
 import { setNodeSelection } from '../../../../utils';
+import { uuid } from '@atlaskit/adf-schema';
+import { uuid as tablesUuid } from '@atlaskit/editor-tables';
 import {
   checkIfNumberColumnEnabled,
   checkIfHeaderColumnEnabled,
@@ -55,7 +57,18 @@ import {
   pluginKey,
 } from '../../../../plugins/table/pm-plugins/plugin-factory';
 
+const TABLE_LOCAL_ID = 'test-table-local-id';
+
 describe('table plugin', () => {
+  beforeAll(() => {
+    uuid.setStatic(TABLE_LOCAL_ID);
+    tablesUuid.setStatic(TABLE_LOCAL_ID);
+  });
+
+  afterAll(() => {
+    uuid.setStatic(false);
+    tablesUuid.setStatic(false);
+  });
   const createEditor = createEditorFactory<TablePluginState>();
 
   const editor = (doc: DocBuilder) => {
@@ -79,14 +92,14 @@ describe('table plugin', () => {
     });
   };
 
-  describe('insertTable()', () => {
+  describe('createTable()', () => {
     describe('when the cursor is outside the table', () => {
       it('it should create a new table and return true', () => {
         const { editorView } = editor(doc(p('{<>}')));
         expect(createTable()(editorView.state, editorView.dispatch)).toEqual(
           true,
         );
-        const tableNode = table()(
+        const tableNode = table({ localId: TABLE_LOCAL_ID })(
           tr(thEmpty, thEmpty, thEmpty),
           tr(tdEmpty, tdEmpty, tdEmpty),
           tr(tdEmpty, tdEmpty, tdEmpty),
@@ -104,7 +117,7 @@ describe('table plugin', () => {
         expect(editorView.state.doc).toEqualDocument(
           doc(
             p(strong('text')),
-            table()(
+            table({ localId: TABLE_LOCAL_ID })(
               tr(thEmpty, thEmpty, thEmpty),
               tr(tdEmpty, tdEmpty, tdEmpty),
               tr(tdEmpty, tdEmpty, tdEmpty),
@@ -135,7 +148,9 @@ describe('table plugin', () => {
           expect(editorView.state.doc).toEqualDocument(
             doc(
               p('text'),
-              table()(tr(tdCursor, td({})(p('c1')), td({})(p('c2')))),
+              table({ localId: TABLE_LOCAL_ID })(
+                tr(tdCursor, td({})(p('c1')), td({})(p('c2'))),
+              ),
             ),
           );
           expect(editorView.state.selection.$from.pos).toEqual(10);
@@ -152,7 +167,9 @@ describe('table plugin', () => {
           expect(editorView.state.doc).toEqualDocument(
             doc(
               p('text'),
-              table()(tr(td({})(p('c1')), tdCursor, td({})(p('c2')))),
+              table({ localId: TABLE_LOCAL_ID })(
+                tr(td({})(p('c1')), tdCursor, td({})(p('c2'))),
+              ),
             ),
           );
           expect(editorView.state.selection.$from.pos).toEqual(16);
@@ -169,7 +186,9 @@ describe('table plugin', () => {
           expect(editorView.state.doc).toEqualDocument(
             doc(
               p('text'),
-              table()(tr(td({})(p('c1')), td({})(p('c2')), tdCursor)),
+              table({ localId: TABLE_LOCAL_ID })(
+                tr(td({})(p('c1')), td({})(p('c2')), tdCursor),
+              ),
             ),
           );
           expect(editorView.state.selection.$from.pos).toEqual(22);
@@ -199,7 +218,7 @@ describe('table plugin', () => {
         expect(editorView.state).toEqualDocumentAndSelection(
           doc(
             p('text'),
-            table()(
+            table({ localId: TABLE_LOCAL_ID })(
               tr(tdEmpty),
               tr(td({})(p('row1'))),
               tr(td({})(p('row2{<>}'))),
@@ -226,7 +245,7 @@ describe('table plugin', () => {
           expect(editorView.state.doc).toEqualDocument(
             doc(
               p('text'),
-              table()(
+              table({ localId: TABLE_LOCAL_ID })(
                 tr(tdCursor),
                 tr(td({})(p('row1'))),
                 tr(td({})(p('row2'))),
@@ -253,7 +272,7 @@ describe('table plugin', () => {
           expect(editorView.state.doc).toEqualDocument(
             doc(
               p('text'),
-              table()(
+              table({ localId: TABLE_LOCAL_ID })(
                 tr(td({})(p('row1'))),
                 tr(tdCursor),
                 tr(td({})(p('row2'))),
@@ -282,7 +301,7 @@ describe('table plugin', () => {
           expect(editorView.state.doc).toEqualDocument(
             doc(
               p('text'),
-              table()(
+              table({ localId: TABLE_LOCAL_ID })(
                 tr(td({})(p('row1'))),
                 tr(td({})(p('row2'))),
                 tr(tdCursor),
@@ -313,7 +332,7 @@ describe('table plugin', () => {
 
           expect(editorView.state.doc).toEqualDocument(
             doc(
-              table()(
+              table({ localId: TABLE_LOCAL_ID })(
                 tr(td({})(p('row1')), td()(p())),
                 tr(td({ colspan: 2, background: '#e6fcff' })(p('row2'))),
                 tr(td({ colspan: 2, background: '#e6fcff' })(p('{<>}'))),
@@ -341,7 +360,7 @@ describe('table plugin', () => {
 
         expect(editorView.state.doc).toEqualDocument(
           doc(
-            table()(
+            table({ localId: TABLE_LOCAL_ID })(
               tr(th({})(p()), th({})(p())),
               tr(td({ background: '#e6fcff' })(p('row1')), td()(p())),
               tr(td({ background: '#e6fcff' })(p('{<>}')), td()(p())),
@@ -382,7 +401,7 @@ describe('table plugin', () => {
 
         expect(editorView.state.doc).toEqualDocument(
           doc(
-            table()(
+            table({ localId: TABLE_LOCAL_ID })(
               tr(th({})(p('row1')), th()(p()), th()(p())),
               tr(
                 th({ colspan: 2, background: '#e6fcff' })(p('row2')),
@@ -464,7 +483,7 @@ describe('table plugin', () => {
         const cell = hasHeaderRow ? th : td;
         return doc(
           p('text'),
-          table()(
+          table({ localId: TABLE_LOCAL_ID })(
             tr(cell({ colspan: 2 })(p('')), cell({ rowspan: 2 })(p(''))),
             tr(tdEmpty, tdEmpty),
             tr(tdEmpty, tdEmpty, tdEmpty),
@@ -497,7 +516,13 @@ describe('table plugin', () => {
         );
         toggleHeaderRow(editorView.state, editorView.dispatch);
         expect(editorView.state.doc).toEqualDocument(
-          doc(p('text'), table()(tr(thEmpty, thEmpty), tr(tdEmpty, tdEmpty))),
+          doc(
+            p('text'),
+            table({ localId: TABLE_LOCAL_ID })(
+              tr(thEmpty, thEmpty),
+              tr(tdEmpty, tdEmpty),
+            ),
+          ),
         );
       });
 
@@ -511,7 +536,13 @@ describe('table plugin', () => {
           );
           toggleHeaderRow(editorView.state, editorView.dispatch);
           expect(editorView.state.doc).toEqualDocument(
-            doc(p('text'), table()(tr(thEmpty, thEmpty), tr(thEmpty, tdEmpty))),
+            doc(
+              p('text'),
+              table({ localId: TABLE_LOCAL_ID })(
+                tr(thEmpty, thEmpty),
+                tr(thEmpty, tdEmpty),
+              ),
+            ),
           );
         });
       });
@@ -524,7 +555,13 @@ describe('table plugin', () => {
         );
         toggleHeaderRow(editorView.state, editorView.dispatch);
         expect(editorView.state.doc).toEqualDocument(
-          doc(p('text'), table()(tr(tdEmpty, tdEmpty), tr(tdEmpty, tdEmpty))),
+          doc(
+            p('text'),
+            table({ localId: TABLE_LOCAL_ID })(
+              tr(tdEmpty, tdEmpty),
+              tr(tdEmpty, tdEmpty),
+            ),
+          ),
         );
       });
 
@@ -538,7 +575,13 @@ describe('table plugin', () => {
           );
           toggleHeaderRow(editorView.state, editorView.dispatch);
           expect(editorView.state.doc).toEqualDocument(
-            doc(p('text'), table()(tr(thEmpty, tdEmpty), tr(thEmpty, tdEmpty))),
+            doc(
+              p('text'),
+              table({ localId: TABLE_LOCAL_ID })(
+                tr(thEmpty, tdEmpty),
+                tr(thEmpty, tdEmpty),
+              ),
+            ),
           );
         });
       });
@@ -554,7 +597,13 @@ describe('table plugin', () => {
         );
         toggleHeaderColumn(editorView.state, editorView.dispatch);
         expect(editorView.state.doc).toEqualDocument(
-          doc(p('text'), table()(tr(thEmpty, tdEmpty), tr(thEmpty, tdEmpty))),
+          doc(
+            p('text'),
+            table({ localId: TABLE_LOCAL_ID })(
+              tr(thEmpty, tdEmpty),
+              tr(thEmpty, tdEmpty),
+            ),
+          ),
         );
       });
 
@@ -565,7 +614,13 @@ describe('table plugin', () => {
           );
           toggleHeaderColumn(editorView.state, editorView.dispatch);
           expect(editorView.state.doc).toEqualDocument(
-            doc(p('text'), table()(tr(thEmpty, thEmpty), tr(thEmpty, tdEmpty))),
+            doc(
+              p('text'),
+              table({ localId: TABLE_LOCAL_ID })(
+                tr(thEmpty, thEmpty),
+                tr(thEmpty, tdEmpty),
+              ),
+            ),
           );
         });
       });
@@ -578,7 +633,13 @@ describe('table plugin', () => {
         );
         toggleHeaderColumn(editorView.state, editorView.dispatch);
         expect(editorView.state.doc).toEqualDocument(
-          doc(p('text'), table()(tr(tdEmpty, tdEmpty), tr(tdEmpty, tdEmpty))),
+          doc(
+            p('text'),
+            table({ localId: TABLE_LOCAL_ID })(
+              tr(tdEmpty, tdEmpty),
+              tr(tdEmpty, tdEmpty),
+            ),
+          ),
         );
       });
 
@@ -589,7 +650,13 @@ describe('table plugin', () => {
           );
           toggleHeaderColumn(editorView.state, editorView.dispatch);
           expect(editorView.state.doc).toEqualDocument(
-            doc(p('text'), table()(tr(thEmpty, thEmpty), tr(tdEmpty, tdEmpty))),
+            doc(
+              p('text'),
+              table({ localId: TABLE_LOCAL_ID })(
+                tr(thEmpty, thEmpty),
+                tr(tdEmpty, tdEmpty),
+              ),
+            ),
           );
         });
       });
@@ -625,7 +692,7 @@ describe('table plugin', () => {
 
       expect(editorView.state.doc).toEqualDocument(
         doc(
-          table()(
+          table({ localId: TABLE_LOCAL_ID })(
             tr(
               td()(
                 mediaGroup(
@@ -675,7 +742,7 @@ describe('table plugin', () => {
 
       expect(editorView.state.doc).toEqualDocument(
         doc(
-          table()(
+          table({ localId: TABLE_LOCAL_ID })(
             tr(
               td()(
                 p(''),
@@ -699,7 +766,7 @@ describe('table plugin', () => {
 
     it('should not add a paragraph, if there already is a paragraph below when arrow down is pressed', () => {
       const docWithTable = doc(
-        table()(
+        table({ localId: TABLE_LOCAL_ID })(
           tr(
             td()(
               mediaGroup(
@@ -730,7 +797,7 @@ describe('table plugin', () => {
 
     it('should not add a paragraph, if there already is a paragraph above when arrow up is pressed', () => {
       const docWithTable = doc(
-        table()(
+        table({ localId: TABLE_LOCAL_ID })(
           tr(
             td()(
               p('1'),
@@ -790,7 +857,7 @@ describe('table plugin', () => {
       expect(editorView.state.doc).toEqualDocument(
         doc(
           p('1'),
-          table()(
+          table({ localId: TABLE_LOCAL_ID })(
             tr(
               td()(
                 p('2'),

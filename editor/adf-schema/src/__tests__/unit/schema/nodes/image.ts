@@ -9,7 +9,7 @@ const srcDataURI = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAY)';
 describe(`${name}/schema image node`, () => {
   it('serializes to <img>', () => {
     const html = toHTML(schema.nodes.image.create({ src }), schema);
-    expect(html).toContain(`<img src="${src}">`);
+    expect(html).toContain(`<img src="${src}" alt="">`);
   });
 
   it('matches <img src="...">', () => {

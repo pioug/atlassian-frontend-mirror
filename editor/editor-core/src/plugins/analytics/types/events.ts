@@ -24,7 +24,11 @@ import {
 import { SimplifiedNode } from '../../../utils/document-logger';
 import { DateEventPayload } from './date-events';
 import { SelectionEventPayload } from './selection-events';
-import { CreateLinkInlineDialogEventPayload } from './link-tool-bar-events';
+import {
+  CreateLinkInlineDialogEventPayload,
+  UnlinkToolbarAEP,
+  EditLinkToolbarAEP,
+} from './link-tool-bar-events';
 import { ExtensionEventPayload } from './extension-events';
 import {
   UnsupportedContentPayload,
@@ -54,7 +58,9 @@ export type AnalyticsEventPayload<T = void> =
   | CreateLinkInlineDialogEventPayload
   | UnsupportedContentPayload
   | ExtensionEventPayload
-  | TransactionEventPayload;
+  | TransactionEventPayload
+  | UnlinkToolbarAEP
+  | EditLinkToolbarAEP;
 
 export type AnalyticsEventPayloadWithChannel = {
   channel: string;

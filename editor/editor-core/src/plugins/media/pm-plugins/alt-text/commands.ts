@@ -52,7 +52,7 @@ export const openMediaAltTextMenu = createCommandWithAnalytics(
   (tr: Transaction) => tr.setMeta('scrollIntoView', false),
 );
 
-export const updateAltText = (newAltText: string | null) =>
+export const updateAltText = (newAltText: string) =>
   createCommand(
     (state) =>
       isSelectionMediaSingleNode(state) ? { type: 'updateAltText' } : false,

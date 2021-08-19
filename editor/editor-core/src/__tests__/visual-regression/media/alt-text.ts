@@ -92,7 +92,8 @@ describe('Snapshot Test: Media with alt text', () => {
       });
 
       describe('when the alt text button is clicked', () => {
-        it('should display the alt text description', async () => {
+        // TODO: https://product-fabric.atlassian.net/browse/ED-13527
+        it.skip('should display the alt text description', async () => {
           const altTextButton = await page.waitForSelector(
             '[data-testid="alt-text-edit-button"]',
             { visible: true },
@@ -126,7 +127,8 @@ describe('Snapshot Test: Media with alt text', () => {
             await snapshot(page);
           });
 
-          it('clears alt text when the user click the alt text button', async () => {
+          // TODO: https://product-fabric.atlassian.net/browse/ED-13527
+          it.skip('clears alt text when the user click the alt text button', async () => {
             await page.waitForSelector('button[aria-label="Clear alt text"]');
             await page.click('button[aria-label="Clear alt text"]');
             await animationFrame(page);

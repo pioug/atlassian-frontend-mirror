@@ -1,6 +1,8 @@
-import React from 'react';
+/** @jsx jsx */
+import { jsx } from '@emotion/core';
 
 import { G300, Y300 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import InlineDialog from '../src';
 
@@ -10,11 +12,11 @@ const centeredContainerStyles = {
 };
 
 const targetStyles = {
-  background: G300,
+  background: token('color.background.boldSuccess.resting', G300),
   padding: '10px',
 };
 
-const scrollContainer = {
+const scrollContainerStyles = {
   maxHeight: 'inherit',
   maxWidth: 'inherit',
   overflow: 'auto',
@@ -23,11 +25,11 @@ const scrollContainer = {
 const oversizedStyles = {
   height: '2000px',
   width: '2000px',
-  background: Y300,
+  background: token('color.background.boldWarning.resting', Y300),
 };
 
-const dialogContent = (
-  <div style={scrollContainer}>
+const dialogContentStyles = (
+  <div style={scrollContainerStyles}>
     <div style={oversizedStyles}>
       The orange box and the scrollable area should not break out of the
       inline-dialog area.
@@ -35,10 +37,12 @@ const dialogContent = (
   </div>
 );
 
-export default () => (
+const InlineDialogOversizedExample = () => (
   <div style={centeredContainerStyles}>
-    <InlineDialog content={dialogContent} isOpen>
+    <InlineDialog content={dialogContentStyles} isOpen>
       <div style={targetStyles}>I am the target</div>
     </InlineDialog>
   </div>
 );
+
+export default InlineDialogOversizedExample;

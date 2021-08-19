@@ -16,6 +16,7 @@ export interface FrameProps {
   /* Set whether the height is fixed or auto (according to content) */
   isFluidHeight?: boolean;
   testId?: string;
+  className?: string;
   inheritDimensions?: boolean;
 }
 
@@ -40,6 +41,7 @@ export const ExpandedFrame = ({
   isSelected,
   isHoverable,
   testId,
+  className,
   isFluidHeight,
 }: FrameProps) => {
   return (
@@ -60,6 +62,7 @@ export const ExpandedFrame = ({
         boxShadow: `0 1px 1px ${N50A}, 0 0 1px 1px ${N40A};`,
       })}
       data-testid={testId}
+      className={className}
       data-trello-do-not-use-override={testId}
     >
       {children}
@@ -72,6 +75,7 @@ export const CompactFrame = ({
   isHoverable,
   isSelected,
   testId,
+  className,
   inheritDimensions,
 }: FrameProps) => {
   return (
@@ -93,6 +97,7 @@ export const CompactFrame = ({
         padding: [`0px ${gs(1)}`, '0'],
       })}
       data-testid={testId}
+      className={className}
     >
       {children}
     </div>

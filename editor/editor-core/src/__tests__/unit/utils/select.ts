@@ -24,6 +24,8 @@ import { Side as GapCursorSide } from '../../../plugins/selection/gap-cursor-sel
 import rulePlugin from '../../../plugins/rule';
 import tablePlugin from '../../../plugins/table';
 
+const TABLE_LOCAL_ID = 'test-table-local-id';
+
 describe('toEqualDocumentAndSelection matches', () => {
   const createEditor = createProsemirrorEditorFactory();
   const preset = new Preset<LightEditorPlugin>()
@@ -85,7 +87,7 @@ describe('toEqualDocumentAndSelection matches', () => {
   it('cell selections', () => {
     const { editorView, refs } = editor(
       doc(
-        table()(
+        table({ localId: TABLE_LOCAL_ID })(
           tr('{firstCell}', td()(p('1{<>}')), td()(p('2')), td()(p('3'))),
           tr(td()(p('4')), td()(p('5')), '{lastCell}', td()(p('6'))),
         ),
@@ -95,7 +97,7 @@ describe('toEqualDocumentAndSelection matches', () => {
 
     expect(editorView.state).toEqualDocumentAndSelection(
       doc(
-        table()(
+        table({ localId: TABLE_LOCAL_ID })(
           tr(td()(p('{<cell}1')), td()(p('2')), td()(p('3'))),
           tr(td()(p('4')), td()(p('5')), td()(p('6{cell>}'))),
         ),

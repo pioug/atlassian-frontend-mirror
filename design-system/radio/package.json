@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/radio",
-  "version": "5.2.1",
+  "version": "5.3.0",
   "description": "A radio input allows people to select only one option from a number of choices. Radio is generally displayed in a radio group.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -31,6 +31,7 @@
   "dependencies": {
     "@atlaskit/analytics-next": "^8.0.0",
     "@atlaskit/theme": "^11.4.0",
+    "@atlaskit/tokens": "^0.1.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/core": "^10.0.9"
   },
@@ -39,11 +40,11 @@
   },
   "devDependencies": {
     "@atlaskit/build-utils": "*",
-    "@atlaskit/button": "^16.0.0",
-    "@atlaskit/checkbox": "^12.0.0",
+    "@atlaskit/button": "^16.1.0",
+    "@atlaskit/checkbox": "^12.3.0",
     "@atlaskit/docs": "^9.0.0",
-    "@atlaskit/form": "^8.1.0",
-    "@atlaskit/section-message": "^6.0.0",
+    "@atlaskit/form": "^8.3.0",
+    "@atlaskit/section-message": "^6.1.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
@@ -63,18 +64,11 @@
       "import-structure": "atlassian-conventions"
     },
     "@repo/internal": {
-      "ui-components": [
-        "lite-mode"
-      ],
-      "analytics": [
-        "analytics-next"
-      ],
-      "theming": [
-        "new-theming-api"
-      ],
-      "deprecation": [
-        "no-deprecated-imports"
-      ]
+      "ui-components": "lite-mode",
+      "analytics": "analytics-next",
+      "styling": "emotion",
+      "theming": "tokens",
+      "deprecation": "no-deprecated-imports"
     }
   },
   "homepage": "https://atlassian.design/components/radio/",

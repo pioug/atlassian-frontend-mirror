@@ -4,13 +4,18 @@ import React from 'react';
 // eslint-disable-next-line no-restricted-imports
 import styled from '@emotion/styled';
 
+import { token } from '@atlaskit/tokens';
+
 import { Block } from '../examples-util/helpers';
 import Avatar from '../src';
 
 const DivPresence = styled.div`
   align-items: center;
-  background-color: rebeccapurple;
-  color: white;
+  background-color: ${token(
+    'color.background.boldDiscovery.resting',
+    'rebeccapurple',
+  )};
+  color: ${token('color.background.default', 'white')};
   display: flex;
   font-size: 0.75em;
   font-weight: 500;

@@ -23,6 +23,13 @@ export const useCloseManager = ({
       }
     };
 
+    // This check is required for cases where components like
+    // Select or DDM are placed inside a Popup. A click
+    // on a MenuItem or Option would close the Popup, without registering
+    // a click on DDM/Select.
+    // Users would have to call `onClose` manually to close the Popup in these cases.
+    // You can see the bug in action here:
+    // https://codesandbox.io/s/atlaskitpopup-default-forked-2eb87?file=/example.tsx:0-1788
     const onClick = ({ target }: MouseEvent) => {
       const doesDomNodeExist = document.body.contains(target as Node);
 

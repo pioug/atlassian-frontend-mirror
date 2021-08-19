@@ -25,3 +25,4 @@
 export { TableMap, Rect } from './table-map';
 export { CellSelection } from './cell-selection';
 export { findTable } from './utils/find';
+export { uuid } from './utils/uuid';

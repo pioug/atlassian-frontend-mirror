@@ -17,6 +17,8 @@ import { queueCardsFromChangedTr } from '../card/pm-plugins/doc';
 import { LinkInputType } from './types';
 import { getLinkCreationAnalyticsEvent } from './analytics';
 import { LinkAttributes } from '@atlaskit/adf-schema';
+import { buildEditLinkPayload, unlinkPayload } from '../../utils/linking-utils';
+import { UnlinkToolbarAEP } from '../analytics/types/link-tool-bar-events';
 
 export function isTextAtPos(pos: number): Predicate {
   return (state: EditorState) => {
@@ -62,6 +64,12 @@ export function setLinkHref(
           ...((mark && mark.attrs) || {}),
           href: url,
         }),
+      );
+    } else {
+      addAnalytics(
+        state,
+        tr,
+        unlinkPayload(ACTION_SUBJECT_ID.HYPERLINK) as UnlinkToolbarAEP,
       );
     }
     if (!isTabPressed) {
@@ -207,10 +215,14 @@ export function editInsertedLink(): Command {
   return (state, dispatch) => {
     if (dispatch) {
       dispatch(
-        state.tr.setMeta(stateKey, {
-          type: LinkAction.EDIT_INSERTED_TOOLBAR,
-          inputMethod: INPUT_METHOD.FLOATING_TB,
-        }),
+        addAnalytics(
+          state,
+          state.tr.setMeta(stateKey, {
+            type: LinkAction.EDIT_INSERTED_TOOLBAR,
+            inputMethod: INPUT_METHOD.FLOATING_TB,
+          }),
+          buildEditLinkPayload(ACTION_SUBJECT_ID.HYPERLINK),
+        ),
       );
     }
     return true;

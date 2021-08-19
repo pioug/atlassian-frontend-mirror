@@ -78,6 +78,7 @@ export const PanelSharedSelectors = {
   successPanel: `.${prefix}[data-panel-type=${PanelType.SUCCESS}]`,
   noteButton: `button[aria-label="Note"]`,
   removeButton: `button[aria-label="Remove"]`,
+  emojiIcon: `span[aria-label="emoji"]`,
 };
 
 const iconDynamicStyles = (panelType: Exclude<PanelType, PanelType.CUSTOM>) => (

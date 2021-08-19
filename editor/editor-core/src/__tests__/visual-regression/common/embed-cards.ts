@@ -80,7 +80,8 @@ describe('Embed Cards:', () => {
   });
 
   [true, false].forEach((allowResizing) =>
-    it.each(embedCombinationsWithTitle)(
+    // TODO: https://product-fabric.atlassian.net/browse/ED-13527
+    it.skip.each(embedCombinationsWithTitle)(
       `should render embeds with and without dynamic height control when resizing is ${
         !allowResizing ? 'not' : ''
       } allowed with %s`,

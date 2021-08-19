@@ -17,7 +17,7 @@ import {
   pressKeyUp,
 } from '../../__helpers/page-objects/_keyboard';
 
-describe('Distribute Columns with feature flag', () => {
+describe('Distribute Columns', () => {
   let page: PuppeteerPage;
   const pageInit = async (adf?: Object) => {
     page = global.page;
@@ -25,7 +25,7 @@ describe('Distribute Columns with feature flag', () => {
       adf,
       appearance: Appearance.fullPage,
       editorProps: {
-        featureFlags: { 'distribute-columns': true },
+        allowTables: { advanced: true, allowDistributeColumns: true },
       },
     });
     await clickFirstCell(page);

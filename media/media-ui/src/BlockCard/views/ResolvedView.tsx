@@ -64,6 +64,8 @@ export interface ResolvedViewProps {
   isTrusted?: boolean;
 }
 
+export const blockCardResolvedViewClassName = 'block-card-resolved-view';
+
 export const ResolvedView = ({
   icon = {},
   actions = [],
@@ -100,7 +102,11 @@ export const ResolvedView = ({
   const hasActions = showActions && actions.length > 0;
 
   return (
-    <Frame isSelected={isSelected} testId={testId}>
+    <Frame
+      isSelected={isSelected}
+      testId={testId}
+      className={blockCardResolvedViewClassName}
+    >
       <Content>
         <div>
           <div

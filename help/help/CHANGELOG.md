@@ -1,5 +1,12 @@
 # @atlaskit/help
 
+## 4.1.1
+
+### Patch Changes
+
+- [`13cba790f49`](https://bitbucket.org/atlassian/atlassian-frontend/commits/13cba790f49) - Internal test refactor.
+- Updated dependencies
+
 ## 4.1.0
 
 ### Minor Changes

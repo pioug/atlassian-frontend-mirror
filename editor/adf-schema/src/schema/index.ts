@@ -49,7 +49,6 @@ export {
   setCellAttrs,
   status,
   table,
-  tableWithLocalId,
   tableBackgroundBorderColor,
   tableBackgroundColorNames,
   tableBackgroundColorPalette,

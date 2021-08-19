@@ -20,6 +20,7 @@ export function MyTagGroup({ alignment }: Props) {
 
   const handleRemoveComplete = (text: string) => {
     setTags(tags.filter((str) => str !== text));
+    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
     console.log(`Removed ${text}.`);
   };
 

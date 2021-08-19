@@ -71,7 +71,8 @@ describe('Table contextual menu: fullpage', () => {
     beforeEach(async () => {
       await pageInit({ width: 768, height: 768 });
     });
-    it('ensures context menu is positioned correctly when there is not enought space right side of menu button ', async () => {
+    // TODO: https://product-fabric.atlassian.net/browse/ED-13527
+    it.skip('ensures context menu is positioned correctly when there is not enought space right side of menu button ', async () => {
       await navigateToTableCell(page, 1, 3);
       await clickCellOptions(page);
       await snapshot(page);

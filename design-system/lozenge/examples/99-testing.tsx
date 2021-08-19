@@ -19,6 +19,7 @@ export default function Example() {
         </p>
         <p>
           style: {`{ backgroundColor: 'green' }`}{' '}
+          {/* eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage */}
           <Lozenge style={{ backgroundColor: 'green' }} testId="themed-lozenge">
             Success
           </Lozenge>

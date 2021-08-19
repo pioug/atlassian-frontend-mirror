@@ -31,6 +31,7 @@ import {
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
+import { uuid } from '@atlaskit/adf-schema';
 import { pluginKey as clearFormattingPluginKey } from '../../../../plugins/text-formatting/pm-plugins/clear-formatting';
 import {
   clearFormatting,
@@ -43,7 +44,17 @@ import {
 } from '@atlaskit/analytics-next';
 import { INPUT_METHOD } from '../../../../plugins/analytics';
 
+const TABLE_LOCAL_ID = 'test-table-local-id';
+
 describe('clear-formatting', () => {
+  beforeAll(() => {
+    uuid.setStatic(TABLE_LOCAL_ID);
+  });
+
+  afterAll(() => {
+    uuid.setStatic(false);
+  });
+
   const createEditor = createEditorFactory();
   let createAnalyticsEvent: CreateUIAnalyticsEvent;
 
@@ -339,7 +350,7 @@ describe('clear-formatting', () => {
       clearFormatting()(editorView.state, editorView.dispatch);
       expect(editorView.state.doc).toEqualDocument(
         doc(
-          table()(
+          table({ localId: TABLE_LOCAL_ID })(
             tr(td()(p('{<cell}One')), td()(p('two'))),
             tr(td()(p('One')), td()(p('two{cell>}'))),
           ),
@@ -355,7 +366,7 @@ describe('clear-formatting', () => {
         ),
       );
       const result = doc(
-        table()(
+        table({ localId: TABLE_LOCAL_ID })(
           tr(td()(p('{<cell}One')), th()(p('two{cell>}'))),
           tr(td()(h3(em('Three'))), td()(h4(strong('Four')))),
         ),

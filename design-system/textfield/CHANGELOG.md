@@ -1,5 +1,22 @@
 # @atlaskit/textfield
 
+## 5.1.0
+
+### Minor Changes
+
+- [`78ba9e045b8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/78ba9e045b8) - Internal refactor to align to the design system techstack.
+- [`4d34d35270e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4d34d35270e) - Instrumented text field with the new theming package, `@atlaskit/tokens`.
+
+  New tokens will be visible only in applications configured to use the new Tokens API (currently in alpha).
+  These changes are intended to be interoperable with the legacy theme implementation.
+  Legacy dark mode users should expect no visual or breaking changes.
+
+### Patch Changes
+
+- [`af4bca32ad4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/af4bca32ad4) - Internal changes to supress eslint rules.
+- [`ac656b4875e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ac656b4875e) - Internal style refactor with no visual change.
+- Updated dependencies
+
 ## 5.0.5
 
 ### Patch Changes

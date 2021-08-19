@@ -116,7 +116,8 @@ describe('Expand: full-page', () => {
       await page.click(tableSelectors.firstRowControl);
     });
 
-    it('expands should hide their overflow content', async () => {
+    // TODO: https://product-fabric.atlassian.net/browse/ED-13527
+    it.skip('expands should hide their overflow content', async () => {
       await initFullPageEditorWithAdf(
         page,
         nestedExpandOverflowInTable,
@@ -255,7 +256,8 @@ describe('Expand: Media', () => {
     page = global.page;
   });
 
-  it('should allow wrapped media to flow correctly', async () => {
+  // TODO: https://product-fabric.atlassian.net/browse/ED-13527
+  it.skip('should allow wrapped media to flow correctly', async () => {
     await initFullPageEditorWithAdf(page, wrappingMediaADF, Device.LaptopMDPI);
     await page.waitForSelector(selectors.expand);
     await waitForMediaToBeLoaded(page);

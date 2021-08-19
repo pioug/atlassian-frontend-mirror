@@ -1,5 +1,11 @@
 # @atlaskit/editor-tables
 
+## 2.0.1
+
+### Patch Changes
+
+- [`96c6146eef1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/96c6146eef1) - ED-13187: localId optional & empty values filtered
+
 ## 2.0.0
 
 ### Major Changes

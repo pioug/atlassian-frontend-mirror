@@ -9,6 +9,7 @@ import SmartCardClient from '..';
 import { isSuccessfulResponse, SuccessResponse } from '../types/responses';
 import { APIError } from '../errors';
 import { NetworkError } from '../api';
+import { flushPromises } from '@atlaskit/media-test-helpers';
 
 // Mock response quick-references:
 const errorResponse = {
@@ -28,6 +29,7 @@ describe('Smart Card: Client', () => {
   });
 
   afterEach(() => {
+    jest.useRealTimers();
     jest.clearAllMocks();
   });
 
@@ -121,6 +123,42 @@ describe('Smart Card: Client', () => {
     expect(responseFirst).toBe(mocks.success);
     expect(responseSecond).toBe(mocks.unauthorized);
     expect(responseThird).toBe(mocks.notFound);
+  });
+
+  it('should throttle batch requests', async () => {
+    jest.useFakeTimers();
+    mockRequest.mockResolvedValue([
+      successfulResponse,
+      successfulResponse,
+      successfulResponse,
+    ]);
+
+    const client = new SmartCardClient('stg');
+    const hostname = 'https://www.google.com';
+    Promise.all([
+      client.fetchData(`${hostname}/1`),
+      client.fetchData(`${hostname}/2`),
+      client.fetchData(`${hostname}/3`),
+    ]);
+
+    await flushPromises();
+    jest.runOnlyPendingTimers();
+
+    Promise.all([
+      client.fetchData(`${hostname}/4`),
+      client.fetchData(`${hostname}/5`),
+      client.fetchData(`${hostname}/6`),
+    ]);
+
+    await flushPromises();
+
+    expect(mockRequest).toBeCalledTimes(1);
+    expect(mockRequest.mock.calls[0][2]).toHaveLength(3);
+
+    jest.advanceTimersToNextTimer();
+    await flushPromises();
+
+    expect(mockRequest).toBeCalledTimes(2);
   });
 
   it('should handle errors in /batch endpoint', async () => {

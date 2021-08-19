@@ -9,7 +9,7 @@ import {
   Ref,
 } from 'react';
 
-import { ClassNames, Interpolation, jsx } from '@emotion/core';
+import { ClassNames, css, Interpolation, jsx } from '@emotion/core';
 
 import {
   B200,
@@ -17,11 +17,20 @@ import {
   backgroundHover,
 } from '@atlaskit/theme/colors';
 import { borderRadius, gridSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 import { BORDER_WIDTH } from './constants';
 import Text from './Text';
 import { AvatarClickEventHandler } from './types';
 import { getButtonProps, getCustomElement, getLinkProps } from './utilities';
+
+const avatarItemStyles = css({
+  minWidth: 0,
+  maxWidth: '100%',
+  paddingLeft: `${gridSize()}px`,
+  flex: '1 1 100%',
+  lineHeight: '1.4',
+});
 
 export interface CustomAvatarItemProps {
   testId?: string;
@@ -129,18 +138,24 @@ const getStyles = (
     ${isInteractive &&
     `
         :hover {
-          background-color: ${backgroundHover()};
+          background-color: ${token(
+            'color.background.transparentNeutral.hover',
+            backgroundHover(),
+          )};
           cursor: pointer;
           text-decoration: none;
         }
 
         :focus {
           outline: none;
-          border-color: ${B200};
+          border-color: ${token('color.border.focus', B200)};
         }
 
         :active {
-          background-color: ${backgroundActive()};
+          background-color: ${token(
+            'color.background.transparentNeutral.pressed',
+            backgroundActive(),
+          )};
         }
       `}
 
@@ -185,7 +200,7 @@ const AvatarItem = forwardRef<HTMLElement, AvatarItemProps>(
 
     const componentProps = () => {
       if (isDisabled) {
-        return { disabled: 'true' };
+        return { disabled: true };
       }
 
       // return only relevant props for either anchor or button elements
@@ -211,15 +226,7 @@ const AvatarItem = forwardRef<HTMLElement, AvatarItemProps>(
             children: (
               <Fragment>
                 {avatar}
-                <div
-                  css={{
-                    maxWidth: '100%',
-                    minWidth: 0,
-                    flex: '1 1 100%',
-                    lineHeight: '1.4',
-                    paddingLeft: `${gridSize()}px`,
-                  }}
-                >
+                <div css={avatarItemStyles}>
                   <Text shouldTruncate={!isTruncationDisabled!}>
                     {primaryText}
                   </Text>

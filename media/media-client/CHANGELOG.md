@@ -1,5 +1,16 @@
 # @atlaskit/media-client
 
+## 14.1.0
+
+### Minor Changes
+
+- [`17776bda189`](https://bitbucket.org/atlassian/atlassian-frontend/commits/17776bda189) - - Improve Smart Links providers and batch requests mechanism
+  - Remove non-functional props that impact reloading
+
+### Patch Changes
+
+- [`7d869388cfe`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7d869388cfe) - Added timeout to auth provider
+
 ## 14.0.0
 
 ### Minor Changes

@@ -18,6 +18,7 @@ import {
   DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
+import { uuid } from '@atlaskit/adf-schema';
 
 import selectionPlugin from '../../../../selection';
 import panelPlugin from '../../../../panel';
@@ -26,7 +27,16 @@ import tablePlugin from '../../../index';
 import { TablePluginState } from '../../../types';
 import { pluginKey } from '../../../pm-plugins/plugin-factory';
 
+const TABLE_LOCAL_ID = 'test-table-local-id';
 describe('table selection keymap', () => {
+  beforeAll(() => {
+    uuid.setStatic(TABLE_LOCAL_ID);
+  });
+
+  afterAll(() => {
+    uuid.setStatic(false);
+  });
+
   const createEditor = createProsemirrorEditorFactory();
   const preset = new Preset<LightEditorPlugin>()
     .add(selectionPlugin)
@@ -72,7 +82,7 @@ describe('table selection keymap', () => {
       it('sets cell selection for whole table when user hits right arrow', () => {
         expect(editorView.state).toEqualDocumentAndSelection(
           doc(
-            table()(
+            table({ localId: TABLE_LOCAL_ID })(
               tr(td()(p('{cell>}1')), td()(p('2')), td()(p('3'))),
               tr(td()(p('4')), td()(p('5')), td()(p('6{<cell}'))),
             ),
@@ -95,7 +105,7 @@ describe('table selection keymap', () => {
           sendKeyToPm(editorView, 'ArrowRight');
           expect(editorView.state).toEqualDocumentAndSelection(
             doc(
-              table()(
+              table({ localId: TABLE_LOCAL_ID })(
                 tr(td()(p('{<>}1')), td()(p('2')), td()(p('3'))),
                 tr(td()(p('4')), td()(p('5')), td()(p('6'))),
               ),
@@ -119,7 +129,7 @@ describe('table selection keymap', () => {
           sendKeyToPm(editorView, 'ArrowRight');
           expect(editorView.state).toEqualDocumentAndSelection(
             doc(
-              table()(
+              table({ localId: TABLE_LOCAL_ID })(
                 tr(
                   td()('{<gap|>}', panel()(p('1'))),
                   td()(p('2')),
@@ -150,7 +160,7 @@ describe('table selection keymap', () => {
         it('sets cell selection for whole table when user hits right arrow', () => {
           expect(editorView.state).toEqualDocumentAndSelection(
             doc(
-              table()(
+              table({ localId: TABLE_LOCAL_ID })(
                 tr(td()(p('{<cell}1')), td()(p('2')), td()(p('3'))),
                 tr(td()(p('4')), td()(p('5')), td()(p('6{cell>}'))),
               ),
@@ -162,7 +172,7 @@ describe('table selection keymap', () => {
           sendKeyToPm(editorView, 'ArrowRight');
           expect(editorView.state).toEqualDocumentAndSelection(
             doc(
-              table()(
+              table({ localId: TABLE_LOCAL_ID })(
                 tr(td()(p('1')), td()(p('2')), td()(p('3'))),
                 tr(td()(p('4')), td()(p('5')), td()(p('6'))),
               ),
@@ -202,7 +212,7 @@ describe('table selection keymap', () => {
 
           expect(editorView.state).toEqualDocumentAndSelection(
             doc(
-              table()(
+              table({ localId: TABLE_LOCAL_ID })(
                 tr(td()(p('1')), td()(p('2')), td()(p('3'))),
                 tr(td()(p('4')), td()(p('5')), td()(panel()(p()), '{<|gap>}')),
               ),
@@ -231,7 +241,7 @@ describe('table selection keymap', () => {
         it('sets cell selection for whole table when user hits right arrow', () => {
           expect(editorView.state).toEqualDocumentAndSelection(
             doc(
-              table()(
+              table({ localId: TABLE_LOCAL_ID })(
                 tr(td()(p('{<cell}1')), td()(p('2')), td()(p('3'))),
                 tr(td()(p('4')), td()(p('5')), td()(panel()(p('6{cell>}')))),
               ),
@@ -243,7 +253,7 @@ describe('table selection keymap', () => {
           sendKeyToPm(editorView, 'ArrowRight');
           expect(editorView.state).toEqualDocumentAndSelection(
             doc(
-              table()(
+              table({ localId: TABLE_LOCAL_ID })(
                 tr(td()(p('1')), td()(p('2')), td()(p('3'))),
                 tr(td()(p('4')), td()(p('5')), td()(panel()(p('6')))),
               ),
@@ -269,7 +279,7 @@ describe('table selection keymap', () => {
 
         expect(editorView.state).toEqualDocumentAndSelection(
           doc(
-            table()(
+            table({ localId: TABLE_LOCAL_ID })(
               tr(td()(p('1')), td()(p('2')), td()(p('3'))),
               tr(td()(p('4')), td()(p('5')), td()(p('6'))),
             ),
@@ -298,7 +308,7 @@ describe('table selection keymap', () => {
       it('sets cell selection for whole table when user hits left arrow', () => {
         expect(editorView.state).toEqualDocumentAndSelection(
           doc(
-            table()(
+            table({ localId: TABLE_LOCAL_ID })(
               tr(td()(p('{<cell}1')), td()(p('2')), td()(p('3'))),
               tr(td()(p('4')), td()(p('5')), td()(p('6{cell>}'))),
             ),
@@ -322,7 +332,7 @@ describe('table selection keymap', () => {
 
           expect(editorView.state).toEqualDocumentAndSelection(
             doc(
-              table()(
+              table({ localId: TABLE_LOCAL_ID })(
                 tr(td()(p('1')), td()(p('2')), td()(p('3'))),
                 tr(td()(p('4')), td()(p('5')), td()(p('6{<>}'))),
               ),
@@ -347,7 +357,7 @@ describe('table selection keymap', () => {
 
           expect(editorView.state).toEqualDocumentAndSelection(
             doc(
-              table()(
+              table({ localId: TABLE_LOCAL_ID })(
                 tr(td()(p('1')), td()(p('2')), td()(p('3'))),
                 tr(
                   td()(p('4')),
@@ -378,7 +388,7 @@ describe('table selection keymap', () => {
         it('sets cell selection for whole table when user hits left arrow', () => {
           expect(editorView.state).toEqualDocumentAndSelection(
             doc(
-              table()(
+              table({ localId: TABLE_LOCAL_ID })(
                 tr(td()(p('{cell>}1')), td()(p('2')), td()(p('3'))),
                 tr(td()(p('4')), td()(p('5')), td()(p('6{<cell}'))),
               ),
@@ -391,7 +401,7 @@ describe('table selection keymap', () => {
           expect(editorView.state).toEqualDocumentAndSelection(
             doc(
               '{<gap|>}',
-              table()(
+              table({ localId: TABLE_LOCAL_ID })(
                 tr(td()(p('1')), td()(p('2')), td()(p('3'))),
                 tr(td()(p('4')), td()(p('5')), td()(p('6'))),
               ),
@@ -436,7 +446,7 @@ describe('table selection keymap', () => {
         it('sets cell selection for whole table when user hits left arrow', () => {
           expect(editorView.state).toEqualDocumentAndSelection(
             doc(
-              table()(
+              table({ localId: TABLE_LOCAL_ID })(
                 tr(td()(panel()(p('{cell>}1'))), td()(p('2')), td()(p('3'))),
                 tr(td()(p('4')), td()(p('5')), td()(p('6{<cell}'))),
               ),
@@ -449,7 +459,7 @@ describe('table selection keymap', () => {
           expect(editorView.state).toEqualDocumentAndSelection(
             doc(
               '{<gap|>}',
-              table()(
+              table({ localId: TABLE_LOCAL_ID })(
                 tr(td()(panel()(p('1'))), td()(p('2')), td()(p('3'))),
                 tr(td()(p('4')), td()(p('5')), td()(p('6'))),
               ),
@@ -477,7 +487,7 @@ describe('table selection keymap', () => {
         it('sets selection at start of first cell when user hits left arrow', () => {
           expect(editorView.state).toEqualDocumentAndSelection(
             doc(
-              table()(
+              table({ localId: TABLE_LOCAL_ID })(
                 tr(td()(p('{<>}1')), td()(p('2')), td()(p('3'))),
                 tr(td()(p('4')), td()(p('5')), td()(p('6'))),
               ),
@@ -490,7 +500,7 @@ describe('table selection keymap', () => {
           expect(editorView.state).toEqualDocumentAndSelection(
             doc(
               '{<gap|>}',
-              table()(
+              table({ localId: TABLE_LOCAL_ID })(
                 tr(td()(p('1')), td()(p('2')), td()(p('3'))),
                 tr(td()(p('4')), td()(p('5')), td()(p('6'))),
               ),
@@ -521,7 +531,7 @@ describe('table selection keymap', () => {
         it('sets selection at start of first cell when user hits left arrow', () => {
           expect(editorView.state).toEqualDocumentAndSelection(
             doc(
-              table()(
+              table({ localId: TABLE_LOCAL_ID })(
                 tr(
                   td()('{<gap|>}', panel()(p('1'))),
                   td()(p('2')),
@@ -538,7 +548,7 @@ describe('table selection keymap', () => {
           expect(editorView.state).toEqualDocumentAndSelection(
             doc(
               '{<gap|>}',
-              table()(
+              table({ localId: TABLE_LOCAL_ID })(
                 tr(td()(panel()(p('1'))), td()(p('2')), td()(p('3'))),
                 tr(td()(p('4')), td()(p('5')), td()(p('6'))),
               ),

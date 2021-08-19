@@ -3,6 +3,7 @@ import { CardProvider } from '@atlaskit/editor-common/provider-factory';
 
 import { pluginKey } from './plugin-key';
 import { CardPluginAction, Request, CardInfo } from '../types';
+import { SmartLinkEvents } from '@atlaskit/smart-card';
 
 export const cardAction = (
   tr: Transaction,
@@ -27,6 +28,14 @@ export const registerCard = (info: CardInfo) => (tr: Transaction) =>
   cardAction(tr, {
     type: 'REGISTER',
     info,
+  });
+
+export const registerSmartCardEvents = (smartLinkEvents: SmartLinkEvents) => (
+  tr: Transaction,
+) =>
+  cardAction(tr, {
+    type: 'REGISTER_EVENTS',
+    smartLinkEvents,
   });
 
 export const setProvider = (cardProvider: CardProvider | null) => (

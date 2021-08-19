@@ -107,7 +107,8 @@ describe('Snapshot Test: table resizing', () => {
           await unselectTable(page);
         });
 
-        test('should show overflow in both side when scroll is in the middle', async () => {
+        // TODO: https://product-fabric.atlassian.net/browse/ED-13527
+        test.skip('should show overflow in both side when scroll is in the middle', async () => {
           await scrollTable(page, 0.5); // Scroll to the middle of the table
           await snapshot(page);
         });

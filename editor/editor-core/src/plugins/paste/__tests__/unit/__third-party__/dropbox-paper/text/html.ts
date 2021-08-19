@@ -69,7 +69,7 @@ export default `<meta charset='utf-8'>
   </span>
 </div>
 <div>
-  <table style="width: 100%;border-spacing: 0;border: 1px solid #c1c7cd;word-break: break-word;border-radius: 5px">
+  <table data-table-local-id="test-table-local-id" style="width: 100%;border-spacing: 0;border: 1px solid #c1c7cd;word-break: break-word;border-radius: 5px">
     <tbody>
       <tr>
         <td style="border-color: #c1c7cd;border-style: solid;border-top-width: 0;border-bottom-width: 0;border-right-width: 0;border-left-width: 0;min-width: 50px;min-height: 20px;word-break: normal;vertical-align: top;">

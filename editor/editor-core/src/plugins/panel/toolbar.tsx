@@ -1,6 +1,7 @@
 import {
   FloatingToolbarColorPicker,
   FloatingToolbarConfig,
+  FloatingToolbarEmojiPicker,
   FloatingToolbarItem,
 } from './../floating-toolbar/types';
 import { PanelPluginOptions } from './types';
@@ -11,7 +12,6 @@ import NoteIcon from '@atlaskit/icon/glyph/editor/note';
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 import WarningIcon from '@atlaskit/icon/glyph/editor/warning';
 import ErrorIcon from '@atlaskit/icon/glyph/editor/error';
-import { PanelType } from '@atlaskit/adf-schema';
 
 import commonMessages from '../../messages';
 import { removePanel, changePanelType } from './actions';
@@ -33,6 +33,7 @@ import {
   DEFAULT_BORDER_COLOR,
   PaletteColor,
 } from '../../ui/ColorPalette/Palettes';
+import { PanelType } from '@atlaskit/adf-schema';
 
 export const messages = defineMessages({
   info: {
@@ -138,11 +139,7 @@ export const getToolbarItems = (
     };
 
     const changeEmoji = (emoji: string): Command => (state, dispatch) => {
-      changePanelType(
-        PanelType.CUSTOM,
-        { emoji: emoji },
-        true,
-      )(state, dispatch);
+      changePanelType(PanelType.CUSTOM, { emoji }, true)(state, dispatch);
       return false;
     };
 
@@ -171,18 +168,22 @@ export const getToolbarItems = (
       onChange: (option) => changeColor(option.value),
     };
 
+    const emojiPicker: FloatingToolbarEmojiPicker<Command> = {
+      id: 'editor.panel.emojiPicker',
+      title: formatMessage(messages.emoji),
+      type: 'select',
+      selectType: 'emoji',
+      options: [],
+      selected: activePanelType === PanelType.CUSTOM,
+      onChange: (emojiShortName) => changeEmoji(emojiShortName),
+    };
+
     items.push(
+      emojiPicker,
       {
         type: 'separator',
       },
       colorPicker,
-      {
-        id: 'editor.panel.emojiPicker',
-        title: formatMessage(messages.emoji),
-        type: 'emoji-picker',
-        selected: activePanelType === PanelType.CUSTOM,
-        onChange: (emoji) => changeEmoji(emoji),
-      },
     );
   }
 
@@ -198,6 +199,8 @@ export const getToolbarItems = (
       onClick: removePanel(),
       onMouseEnter: hoverDecoration(panelNodeType, true),
       onMouseLeave: hoverDecoration(panelNodeType, false),
+      onFocus: hoverDecoration(panelNodeType, true),
+      onBlur: hoverDecoration(panelNodeType, false),
       title: formatMessage(commonMessages.remove),
     },
   );

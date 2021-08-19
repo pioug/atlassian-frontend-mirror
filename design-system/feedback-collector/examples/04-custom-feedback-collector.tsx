@@ -85,17 +85,41 @@ class DisplayFeedback extends Component<{}, State> {
             requestTypeId={REQUEST_TYPE_ID}
             embeddableKey={EMBEDDABLE_KEY}
             feedbackTitle="Give feedback"
-            showTypeField={false}
+            showTypeField={true}
             feedbackTitleDetails={<FeedbackPreamble />}
             canBeContactedLabel={<CanContactLabel />}
             enrolInResearchLabel={<EnrolLabel />}
             summaryPlaceholder="Let us know what's on your mind"
+            cancelButtonLabel="Cancel Button Label"
+            submitButtonLabel="Submit Button Label"
+            feedbackGroupLabels={{
+              bug: {
+                fieldLabel: 'bug field label',
+                selectOptionLabel: 'bug select option label',
+              },
+              comment: {
+                fieldLabel: 'comment field label',
+                selectOptionLabel: 'comment select option label',
+              },
+              suggestion: {
+                fieldLabel: 'suggestion field label',
+                selectOptionLabel: 'suggestion select option label',
+              },
+              question: {
+                fieldLabel: 'question field label',
+                selectOptionLabel: 'question select option label',
+              },
+              empty: {
+                fieldLabel: 'empty field label',
+                selectOptionLabel: 'empty select option label',
+              },
+            }}
           />
         )}
 
         {displayFlag && (
           <FlagGroup onDismissed={this.hideFlag}>
-            <FeedbackFlag />
+            <FeedbackFlag description="Flag Description" title="Flag Title" />
           </FlagGroup>
         )}
       </div>

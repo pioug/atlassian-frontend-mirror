@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/focus-ring",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "A focus ring is used to apply accessibile styles to a focusable element.",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "@atlaskit/theme": "^11.4.0",
+    "@atlaskit/tokens": "^0.1.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/core": "^10.0.9"
   },
@@ -55,7 +56,7 @@
       "styling": "emotion",
       "ui-components": "lite-mode",
       "analytics": "analytics-next",
-      "theming": "new-theming-api",
+      "theming": "tokens",
       "deprecation": "no-deprecated-imports"
     }
   },

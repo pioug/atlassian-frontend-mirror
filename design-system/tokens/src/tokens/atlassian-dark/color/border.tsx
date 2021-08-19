@@ -11,14 +11,6 @@ const color: BorderColorTokenSchema = {
         value: 'DN300A',
         attributes: { group: 'paint' },
       },
-      disabled: {
-        value: 'N100A',
-        attributes: { group: 'paint' },
-      },
-      overlay: {
-        value: 'DN100A',
-        attributes: { group: 'paint' },
-      },
     },
   },
 };

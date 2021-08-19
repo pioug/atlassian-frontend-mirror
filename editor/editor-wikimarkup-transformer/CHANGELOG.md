@@ -1,5 +1,12 @@
 # @atlaskit/editor-wikimarkup-transformer
 
+## 9.5.2
+
+### Patch Changes
+
+- [`aa6f29f8c3d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aa6f29f8c3d) - Setting up empty string value for alt attribute (images) by default
+- Updated dependencies
+
 ## 9.5.1
 
 ### Patch Changes

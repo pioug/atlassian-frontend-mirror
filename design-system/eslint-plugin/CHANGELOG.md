@@ -1,5 +1,15 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 1.0.0
+
+### Minor Changes
+
+- [`6cc9dc02de1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6cc9dc02de1) - Adds token renaming rule (with autofix) to ensure-design-token-usage
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.0.6
 
 ### Patch Changes

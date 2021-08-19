@@ -2,19 +2,14 @@ import styled from '@emotion/styled';
 
 import { N100A } from '@atlaskit/theme/colors';
 import { gridSize } from '@atlaskit/theme/constants';
-
-const ThemeColor = {
-  Restricted: {
-    text: N100A,
-  },
-};
+import { token } from '@atlaskit/tokens';
 
 export const BulletSpacer = styled.span`
   padding-right: ${gridSize() / 2}px;
 `;
 
 export const Restricted = styled.div`
-  color: ${ThemeColor.Restricted.text};
+  color: ${token('color.text.lowEmphasis', N100A)};
   display: flex;
 `;
 

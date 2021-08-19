@@ -148,11 +148,8 @@ BrowserTestCase(
         actionSubject: 'document',
         actionSubjectId: 'status',
       },
-      'onStatusUpdate',
-      'test-text',
-      'red',
-      'test-uuid',
-      INPUT_METHOD.TOOLBAR,
+      'insertNode',
+      'status',
     );
 
     await validateAnalyticsTrackEventAfterNativeBridgeMethod(

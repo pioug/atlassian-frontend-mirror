@@ -46,7 +46,7 @@ export type FloatingToolbarPluginState = Record<
   'getConfigWithNodeInfo',
   (state: EditorState) => ConfigWithNodeInfo | null | undefined
 >;
-type ConfigWithNodeInfo = {
+export type ConfigWithNodeInfo = {
   config: FloatingToolbarConfig | undefined;
   pos: number;
   node: Node;

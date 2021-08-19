@@ -36,11 +36,10 @@ const replaceSmartCharsToAscii = (
   textContent: string,
   tr: Transaction,
 ): void => {
-  const textExtracted = textContent.substr(position - 1);
   const { schema } = tr.doc.type;
   let match: RegExpExecArray | null;
 
-  while ((match = FIND_SMART_CHAR.exec(textExtracted))) {
+  while ((match = FIND_SMART_CHAR.exec(textContent))) {
     const { 0: smartChar, index: offset } = match;
     const replacePos = tr.mapping.map(position + offset);
     const replacementText = schema.text(
@@ -86,8 +85,10 @@ export const transformSmartCharsMentionsAndEmojis = (
       );
     } else if (node.type === text && node.text) {
       const replacePosition = pos > from ? pos : from;
+      const textToReplace =
+        pos > from ? node.text : node.text.substr(from - pos);
 
-      replaceSmartCharsToAscii(replacePosition, node.text, tr);
+      replaceSmartCharsToAscii(replacePosition, textToReplace, tr);
     }
   });
 };

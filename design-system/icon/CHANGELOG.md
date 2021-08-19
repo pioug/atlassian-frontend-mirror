@@ -1,5 +1,11 @@
 # @atlaskit/icon
 
+## 21.7.4
+
+### Patch Changes
+
+- [`af4bca32ad4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/af4bca32ad4) - Internal changes to supress eslint rules.
+
 ## 21.7.3
 
 ### Patch Changes

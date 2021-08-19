@@ -5,8 +5,6 @@ import {
   EditorProps,
   MentionProvider,
   EditorContext,
-  WithPluginState,
-  floatingToolbarPluginKey,
 } from '@atlaskit/editor-core';
 import FabricAnalyticsListeners, {
   AnalyticsWebClient,
@@ -42,6 +40,7 @@ import { useEditorLifecycle } from './hooks/use-editor-life-cycle';
 import { usePluginListeners } from './hooks/use-plugin-listeners';
 import EditorConfiguration from './editor-configuration';
 import { hasVisibleContent } from '@atlaskit/editor-core';
+import { useToolbarSubscription } from './hooks/use-toolbar-subscription';
 export interface MobileEditorProps extends EditorProps {
   createCollabProvider: (bridge: WebBridgeImpl) => Promise<CollabProvider>;
   cardProvider: Promise<EditorCardProvider>;
@@ -59,6 +58,10 @@ export interface MobileEditorProps extends EditorProps {
 const layoutOptions = {
   allowBreakout: true,
   UNSAFE_addSidebarLayouts: true,
+};
+
+const customPanelOptions = {
+  UNSAFE_allowCustomPanel: true,
 };
 
 const tableOptions = {
@@ -132,6 +135,7 @@ export function MobileEditor(props: MobileEditorProps) {
   } = useEditorLifecycle(bridge, mediaOptions);
 
   usePluginListeners(editorReady, editorConfiguration, bridge);
+  useToolbarSubscription(editorReady, editorConfiguration, bridge, props.intl);
 
   // @ts-expect-error: this one is needed for passing tests
   const mode = editorConfiguration.getMode();
@@ -142,6 +146,10 @@ export function MobileEditor(props: MobileEditorProps) {
   // Temporarily opting out of the default oauth2 flow for phase 1 of Smart Links
   // See https://product-fabric.atlassian.net/browse/FM-2149 for details.
   const authFlow = 'disabled';
+
+  const panelConfiguration = editorConfiguration.isCustomPanelEnabled()
+    ? customPanelOptions
+    : true;
 
   // This is used to enable a specific performance tracking event which is typing performance.
   // Sampling rate is 10 because mobile users don't type many characters.
@@ -158,67 +166,45 @@ export function MobileEditor(props: MobileEditorProps) {
   const featureFlags = {
     ...props.featureFlags,
     useUnpredictableInputRule: editorConfiguration.isUnpredictableInputRuleEnabled(),
-    'local-id-generation-on-tables': editorConfiguration.isLocalIdGenerationOnTablesEnabled(),
-    'data-consumer-mark': editorConfiguration.isDataConsumerMarkEnabled(),
+    enableViewUpdateSubscription: true,
   };
 
   return (
     <FabricAnalyticsListeners client={analyticsClient}>
       <SmartCardProvider client={props.cardClient} authFlow={authFlow}>
         <EditorContext>
-          <>
-            <Editor
-              appearance="mobile"
-              onEditorReady={handleEditorReady}
-              onDestroy={handleEditorDestroyed}
-              media={mediaOptions}
-              allowConfluenceInlineComment={true}
-              onChange={handleChange}
-              allowIndentation={editorConfiguration.isIndentationAllowed()}
-              allowPanel={true}
-              allowTables={tableOptions}
-              smartLinks={cardsOptions}
-              allowExtension={true}
-              allowTextColor={true}
-              allowDate={true}
-              allowRule={true}
-              allowStatus={true}
-              allowLayouts={layoutOptions}
-              allowAnalyticsGASV3={true}
-              allowExpand={expandOptions}
-              codeBlock={codeBlockOptions}
-              allowTemplatePlaceholders={templatePlaceholdersOptions}
-              persistScrollGutter={editorConfiguration.isScrollGutterPersisted()}
-              taskDecisionProvider={taskDecisionProvider}
-              quickInsert={quickInsert}
-              collabEdit={collabEdit}
-              performanceTracking={performanceTracking}
-              {...props}
-              featureFlags={featureFlags as Flags}
-              mentionProvider={props.mentionProvider}
-              emojiProvider={props.emojiProvider}
-              placeholder={editorConfiguration.getPlaceholder()}
-            />
-            <WithPluginState
-              plugins={{ floatingToolbar: floatingToolbarPluginKey }}
-              render={({ floatingToolbar }) => {
-                if (!floatingToolbar || !bridge.editorView) {
-                  return null;
-                }
-
-                const { getConfigWithNodeInfo } = floatingToolbar;
-                const configWithNodeInfo = getConfigWithNodeInfo(
-                  bridge.editorView.state,
-                );
-
-                bridge.mobileEditingToolbarActions.notifyNativeBridgeForEditCapabilitiesChanges(
-                  configWithNodeInfo?.config,
-                  configWithNodeInfo?.node,
-                );
-                return null;
-              }}
-            ></WithPluginState>
-          </>
+          <Editor
+            appearance="mobile"
+            onEditorReady={handleEditorReady}
+            onDestroy={handleEditorDestroyed}
+            media={mediaOptions}
+            allowConfluenceInlineComment={true}
+            onChange={handleChange}
+            allowIndentation={editorConfiguration.isIndentationAllowed()}
+            allowPanel={panelConfiguration}
+            allowTables={tableOptions}
+            smartLinks={cardsOptions}
+            allowExtension={true}
+            allowTextColor={true}
+            allowDate={true}
+            allowRule={true}
+            allowStatus={true}
+            allowLayouts={layoutOptions}
+            allowAnalyticsGASV3={true}
+            allowExpand={expandOptions}
+            codeBlock={codeBlockOptions}
+            allowTemplatePlaceholders={templatePlaceholdersOptions}
+            persistScrollGutter={editorConfiguration.isScrollGutterPersisted()}
+            taskDecisionProvider={taskDecisionProvider}
+            quickInsert={quickInsert}
+            collabEdit={collabEdit}
+            performanceTracking={performanceTracking}
+            {...props}
+            featureFlags={featureFlags as Flags}
+            mentionProvider={props.mentionProvider}
+            emojiProvider={props.emojiProvider}
+            placeholder={editorConfiguration.getPlaceholder()}
+          />
         </EditorContext>
       </SmartCardProvider>
     </FabricAnalyticsListeners>

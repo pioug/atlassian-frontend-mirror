@@ -1,9 +1,13 @@
 /** @jsx jsx */
 import { useEffect, useRef } from 'react';
 
-import { jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/core';
 
 import TextArea from '../src';
+
+const wrapperStyles = css({
+  maxWidth: 500,
+});
 
 export default () => {
   const ref = useRef<HTMLTextAreaElement>(null);
@@ -12,11 +16,7 @@ export default () => {
   }, [ref]);
 
   return (
-    <div
-      css={{
-        maxWidth: 500,
-      }}
-    >
+    <div css={wrapperStyles}>
       <p>Basic:</p>
       <TextArea
         ref={ref}

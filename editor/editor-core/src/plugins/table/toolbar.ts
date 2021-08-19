@@ -23,6 +23,7 @@ import {
   deleteColumnsWithAnalytics,
   emptyMultipleCellsWithAnalytics,
   insertColumnWithAnalytics,
+  wrapTableInExpandWithAnalytics,
 } from './commands-with-analytics';
 import { getPluginState } from './pm-plugins/plugin-factory';
 import { pluginKey as tableResizingPluginKey } from './pm-plugins/table-resizing';
@@ -74,6 +75,11 @@ export const messages = defineMessages({
     defaultMessage: 'Numbered column',
     description: 'Adds an auto-numbering column to your table',
   },
+  collapseTable: {
+    id: 'fabric.editor.collapseTable',
+    defaultMessage: 'Collapse table',
+    description: 'Wraps table in an expand',
+  },
 });
 
 export const getToolbarMenuConfig = (
@@ -102,6 +108,14 @@ export const getToolbarMenuConfig = (
       onClick: toggleNumberColumnWithAnalytics(),
       selected: state.isNumberColumnEnabled,
       hidden: !config.allowNumberColumn,
+    },
+    {
+      id: 'editor.table.collapseTable',
+      title: formatMessage(messages.collapseTable),
+      onClick: wrapTableInExpandWithAnalytics(),
+      selected: !!state.isTableCollapsed,
+      disabled: !state.canCollapseTable,
+      hidden: !config.allowCollapse,
     },
   ];
 

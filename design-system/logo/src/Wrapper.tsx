@@ -13,6 +13,7 @@ const baseWrapperStyles = css({
   color: `var(${CSS_VAR_COLOR})`,
   fill: `var(${CSS_VAR_FILL})`,
   userSelect: 'none',
+  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
   '> svg': {
     width: '100%',
     height: '100%',
@@ -21,6 +22,7 @@ const baseWrapperStyles = css({
     left: '0',
     fill: 'inherit',
   },
+  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
   '> canvas': {
     display: 'block',
     height: '100%',
@@ -29,6 +31,7 @@ const baseWrapperStyles = css({
 });
 
 const stopColorStyles = css({
+  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
   stop: {
     stopColor: 'currentColor',
   },

@@ -4,6 +4,7 @@ import {
   bitbucketSchema,
   confluenceSchema,
   createJIRASchema,
+  uuid,
 } from '@atlaskit/adf-schema';
 import { BitbucketTransformer } from '@atlaskit/editor-bitbucket-transformer';
 import { ProviderFactory } from '@atlaskit/editor-common';
@@ -67,6 +68,7 @@ const transformer = new JSONTransformer();
 const toJSON = (node: PMNode) => transformer.encode(node);
 const parseJSON = (node: JSONDocNode) => transformer.parse(node);
 const emojiProvider = getTestEmojiResource();
+const TABLE_LOCAL_ID = 'test-table-local-id';
 
 describe('JSONTransformer:', () => {
   const createEditor = createEditorFactory();
@@ -75,10 +77,15 @@ describe('JSONTransformer:', () => {
     // @ts-ignore
     global['fetch'] = () => Promise.resolve();
     (sanitizeNode as jest.Mock).mockImplementation((node: JSONNode) => node);
+    uuid.setStatic(TABLE_LOCAL_ID);
   });
 
   beforeEach(() => {
     (sanitizeNode as jest.Mock).mockClear();
+  });
+
+  afterAll(() => {
+    uuid.setStatic(false);
   });
 
   describe('encode', () => {
@@ -304,6 +311,7 @@ describe('JSONTransformer:', () => {
             attrs: {
               isNumberColumnEnabled: false,
               layout: 'default',
+              localId: TABLE_LOCAL_ID,
             },
             content: [
               {
@@ -554,6 +562,7 @@ describe('JSONTransformer:', () => {
               attrs: {
                 isNumberColumnEnabled: false,
                 layout: 'default',
+                localId: TABLE_LOCAL_ID,
               },
               content: [
                 {
@@ -633,6 +642,7 @@ describe('JSONTransformer:', () => {
                   attrs: {
                     isNumberColumnEnabled: false,
                     layout: 'default',
+                    localId: TABLE_LOCAL_ID,
                   },
                   content: [
                     {
@@ -1674,9 +1684,6 @@ describe('JSONTransformer:', () => {
           ),
           {
             editorProps: {
-              featureFlags: {
-                'data-consumer-mark': true,
-              },
               allowExtension: true,
             },
           },
@@ -1709,9 +1716,6 @@ describe('JSONTransformer:', () => {
           ),
           {
             editorProps: {
-              featureFlags: {
-                'data-consumer-mark': true,
-              },
               allowExtension: true,
             },
           },

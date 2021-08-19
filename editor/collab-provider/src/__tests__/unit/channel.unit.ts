@@ -364,67 +364,13 @@ describe('channel unit tests', () => {
     });
   });
 
-  it('should refresh permissionToken after disconnect', (done) => {
-    const tokenRefresh = jest.fn().mockResolvedValue('new-token');
-    const channel = getChannel({
-      ...testChannelConfig,
-      permissionToken: {
-        tokenRefresh,
-        initializationToken: 'old-token',
-      },
-    });
-
-    channel.on('connected', (data: any) => {
-      try {
-        expect(
-          (channel.getSocket() as any).io.opts.transportOptions.polling
-            .extraHeaders,
-        ).toEqual({
-          'x-token': 'old-token',
-        });
-        expect(data).toEqual({
-          sid: channel.getSocket()!.id,
-          initialized: false,
-        });
-        expect(channel.getConnected()).toBe(true);
-        channel.on('disconnect', (data: any) => {
-          try {
-            expect(data).toEqual({
-              reason: 'User disconnect for some reason',
-            });
-            expect(channel.getConnected()).toBe(false);
-            expect(
-              (channel.getSocket() as any).io.opts.transportOptions.polling
-                .extraHeaders,
-            ).toEqual({
-              'x-token': 'new-token',
-            });
-            done();
-          } catch (err) {
-            done(err);
-          }
-        });
-        expect(channel.getConnected()).toBe(true);
-        channel
-          .getSocket()!
-          .emit('disconnect', 'User disconnect for some reason');
-      } catch (err) {
-        done(err);
-      }
-    });
-
-    expect(channel.getConnected()).toBe(false);
-    channel.getSocket()!.emit('connect');
-  });
-
   it('should send x-token when making catchup call if tokenRefresh exist', async () => {
-    const tokenRefresh = jest.fn().mockResolvedValue('new-token');
+    const permissionTokenRefresh = jest
+      .fn()
+      .mockResolvedValue(Promise.resolve('new-token'));
     const configuration = {
       ...testChannelConfig,
-      permissionToken: {
-        tokenRefresh,
-        initializationToken: 'old-token',
-      },
+      permissionTokenRefresh,
     };
     const spy = jest.spyOn(utils, 'requestService').mockResolvedValue({
       doc: 'doc',
@@ -436,6 +382,7 @@ describe('channel unit tests', () => {
     const channel = getChannel(configuration);
     await channel.fetchCatchup(1);
 
+    expect(permissionTokenRefresh).toBeCalledTimes(1);
     expect(spy).toHaveBeenCalledWith(expect.anything(), {
       path: expect.any(String),
       queryParams: {

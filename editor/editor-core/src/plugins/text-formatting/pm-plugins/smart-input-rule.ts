@@ -76,12 +76,26 @@ function createSingleQuotesRules(): Array<InputRuleWrapper> {
   return [
     // wrapped text
     createRule(
-      /(\s+|^)'(\S+.*\S+)'$/,
+      /(\s|^)'(\S+.*\S+)'$/,
       (state, match, start, end): Transaction => {
+        const OPEN_SMART_QUOTE_CHAR = '‘';
+        const CLOSED_SMART_QUOTE_CHAR = '’';
         const [, spacing, innerContent] = match;
-        const replacement = spacing + '‘' + innerContent + '’';
-
-        return state.tr.insertText(replacement, start, end);
+        // Edge case where match begins with some spacing. We need to add
+        // it back to the document
+        const openQuoteReplacement = spacing + OPEN_SMART_QUOTE_CHAR;
+        // End is not always where the closed quote is, edge case exists
+        // when there is spacing after the closed quote. We need to
+        // determine position of closed quote from the start position.
+        const positionOfClosedQuote =
+          start + openQuoteReplacement.length + innerContent.length;
+        return state.tr
+          .insertText(CLOSED_SMART_QUOTE_CHAR, positionOfClosedQuote, end)
+          .insertText(
+            openQuoteReplacement,
+            start,
+            start + openQuoteReplacement.length,
+          );
       },
     ),
 

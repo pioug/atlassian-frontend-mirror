@@ -4,11 +4,13 @@ import { ContentNodeWithPos, findParentNodeOfType } from 'prosemirror-utils';
 import { findTable } from '@atlaskit/editor-tables/utils';
 
 import { isTextInput } from '../../utils/is-text-input';
+import { collapseSelectedTable } from './utils/collapse';
 
 import { defaultTableSelection } from './pm-plugins/default-table-selection';
 import { pluginKey as tableResizingPluginKey } from './pm-plugins/table-resizing';
 import { TablePluginState } from './types';
 import { TableColumnOrdering, TableSortStep } from '@atlaskit/adf-schema/steps';
+import { NodeType } from 'prosemirror-model';
 // #endregion
 
 const nextTableSorting = (
@@ -86,6 +88,51 @@ const updateTableNodePluginState: BuilderTablePluginState = ({ tr, table }) => (
   };
 };
 
+const updateCollapseHandler: BuilderTablePluginState = ({ tr, table }) => (
+  pluginState,
+) => {
+  const tableNode = table && table.node;
+  const schema = tr.doc.type.schema;
+  const allowCollapse = pluginState.pluginConfig.allowCollapse;
+  const isExpandInSchema = schema.nodes.expand !== undefined;
+  const isCollapseEnabled = allowCollapse && isExpandInSchema;
+
+  /**
+   * If we don't have focus, or collapse isn't allowed, or a table node doesn't
+   * exist, we don't need to waste extra checks below
+   */
+  if (!pluginState.editorHasFocus || !isCollapseEnabled || !tableNode) {
+    return pluginState;
+  }
+
+  const expandNodeType = schema.nodes.expand as NodeType;
+  const isTableCollapsed =
+    expandNodeType && !!findParentNodeOfType(expandNodeType)(tr.selection);
+
+  // check result of wrapping without applying it
+  const trCanBeCollapsed = collapseSelectedTable(tr);
+
+  // We're focused on a table + we're not inside an expand
+  const canCollapseTable: boolean =
+    !!pluginState.tableNode &&
+    // is it already collapsed?
+    !isTableCollapsed &&
+    !!trCanBeCollapsed;
+
+  if (
+    pluginState.isTableCollapsed !== isTableCollapsed ||
+    pluginState.canCollapseTable !== canCollapseTable
+  ) {
+    return {
+      ...pluginState,
+      isTableCollapsed,
+      canCollapseTable,
+    };
+  }
+
+  return pluginState;
+};
+
 const buildPluginState = (
   builders: Array<BuilderTablePluginState>,
 ): BuilderTablePluginState => (props) => (pluginState) => {
@@ -104,7 +151,11 @@ export const handleDocOrSelectionChanged = (
   tr: Transaction,
   pluginState: TablePluginState,
 ): TablePluginState =>
-  buildPluginState([updateTargetCellPosition, updateTableNodePluginState])({
+  buildPluginState([
+    updateTargetCellPosition,
+    updateTableNodePluginState,
+    updateCollapseHandler,
+  ])({
     tr,
     table: findTable(tr.selection),
   })(pluginState);

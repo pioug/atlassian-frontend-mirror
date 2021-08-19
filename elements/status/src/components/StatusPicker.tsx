@@ -39,7 +39,6 @@ export class StatusPicker extends PureComponent<Props, any> {
       <React.Fragment>
         <FieldTextWrapper key={this.fieldTextWrapperKey}>
           <TextField
-            css={null}
             value={text}
             isCompact
             ref={this.handleInputRef}

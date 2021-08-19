@@ -105,7 +105,8 @@ describe('Snapshot Test: Toggle between full-width and default mode', () => {
   });
 
   describe('Breakout', () => {
-    it('hides breakout buttons in full-width mode and shows them in default mode', async () => {
+    // TODO: https://product-fabric.atlassian.net/browse/ED-13527
+    it.skip('hides breakout buttons in full-width mode and shows them in default mode', async () => {
       await initEditor(breakoutAdf);
       await page.waitForSelector(codeBlockSelectors.codeBlock);
       await page.click(codeBlockSelectors.codeBlock);
@@ -156,7 +157,8 @@ describe('Snapshot Test: Toggle between full-width and default mode', () => {
         },
       });
 
-    it('scales columns up correctly when going default -> full-width', async () => {
+    // TODO: https://product-fabric.atlassian.net/browse/ED-13527
+    it.skip('scales columns up correctly when going default -> full-width', async () => {
       await initEditor(resizedTableAdf, tableViewport);
       await toggleFullWidthModeForTable();
     });

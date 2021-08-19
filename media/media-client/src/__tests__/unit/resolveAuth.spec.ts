@@ -1,9 +1,11 @@
 import {
   resolveAuth,
   resolveInitialAuth,
+  AUTH_PROVIDER_TIMEOUT,
 } from '../../client/media-store/resolveAuth';
 import { MediaStoreError } from '../../client/media-store/error';
-import { AsapBasedAuth } from '@atlaskit/media-core';
+import { AsapBasedAuth, AuthProvider } from '@atlaskit/media-core';
+import { resolveTimeout } from '../../utils/setTimeoutPromise';
 
 // expires in 1619827800000
 const token =
@@ -32,6 +34,30 @@ describe('resolveAuth', () => {
       expect((e as MediaStoreError).innerError).toBe(someError);
     }
     expect.assertions(3);
+  });
+
+  it('should throw authProviderTimedOut error if provider times out', async () => {
+    const provider = () => resolveTimeout(AUTH_PROVIDER_TIMEOUT + 1, auth);
+    try {
+      await resolveAuth(provider);
+    } catch (e) {
+      expect(e).toBeInstanceOf(MediaStoreError);
+      expect((e as MediaStoreError).reason).toBe('authProviderTimedOut');
+    }
+    expect.assertions(2);
+  });
+
+  // This test is verifying if the consumer bypassed TS checks and managed to provide
+  // an Auth provider that actually does not resolve an Auth object.
+  it('should throw emptyAuth error if provider resolves undefined', async () => {
+    const provider = ((async () => {}) as unknown) as AuthProvider;
+    try {
+      await resolveAuth(provider);
+    } catch (e) {
+      expect(e).toBeInstanceOf(MediaStoreError);
+      expect((e as MediaStoreError).reason).toBe('emptyAuth');
+    }
+    expect.assertions(2);
   });
 });
 

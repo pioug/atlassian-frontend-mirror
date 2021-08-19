@@ -125,16 +125,12 @@ export const insertRow = (
   return true;
 };
 
-export const createTable = (allowLocalIdGeneration?: boolean): Command => (
-  state,
-  dispatch,
-) => {
+export const createTable = (): Command => (state, dispatch) => {
   if (!getPluginState(state)) {
     return false;
   }
   const table = createTableNode({
     schema: state.schema,
-    allowLocalId: allowLocalIdGeneration,
   });
 
   if (dispatch) {

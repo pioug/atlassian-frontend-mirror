@@ -1,7 +1,7 @@
 import { Plugin, EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import { isEmptyDocument } from '../../../utils';
-import { getmobileScrollPluginState } from '../../mobile-scroll/utils';
+import { getMobileDimensionsPluginState } from '../../mobile-dimensions/utils';
 
 export const GUTTER_SIZE_IN_PX = 120; // Default gutter size
 export const GUTTER_SIZE_MOBILE_IN_PX = 36; // Gutter size for Mobile
@@ -263,11 +263,14 @@ export default (pluginOptions: ScrollGutterPluginOptions = {}) => {
             return;
           }
           // Determine whether we need to consider Keyboard Height
-          const mobileScrollPluginState = getmobileScrollPluginState(state);
+          const mobileDimensionsPluginState = getMobileDimensionsPluginState(
+            state,
+          );
           const viewportHeight =
             scrollElement.offsetHeight -
-            (mobileScrollPluginState && mobileScrollPluginState.keyboardHeight
-              ? mobileScrollPluginState.keyboardHeight
+            (mobileDimensionsPluginState &&
+            mobileDimensionsPluginState.keyboardHeight
+              ? mobileDimensionsPluginState.keyboardHeight
               : 0);
           const contentHeight =
             editorParentElement.offsetHeight - (gutterMounted ? gutterSize : 0);

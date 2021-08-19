@@ -96,7 +96,8 @@ describe('Find/replace:', () => {
     await snapshot(page, undefined, editorSelector);
   });
 
-  it('should render find/replace popup below any other editor popups', async () => {
+  // TODO: https://product-fabric.atlassian.net/browse/ED-13527
+  it.skip('should render find/replace popup below any other editor popups', async () => {
     await initEditor(findReplaceAdf, { width: 1000, height: 300 });
 
     await page.click(toolbarMenuItemsSelectors[ToolbarMenuItem.emoji]);

@@ -11,6 +11,7 @@ export default function withFlexContent() {
       style={{
         height: 200,
         margin: '16px auto',
+        // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
         border: `1px dashed ${N100}`,
         display: 'flex',
       }}

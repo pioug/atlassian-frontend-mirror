@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/inline-dialog",
-  "version": "13.0.11",
+  "version": "13.1.0",
   "description": "An inline dialog is a pop-up container for small amounts of information. It can also contain controls.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -13,7 +13,7 @@
   "module:es2019": "dist/es2019/index.js",
   "types": "dist/types/index.d.ts",
   "sideEffects": false,
-  "atlaskit:src": "src/index.ts",
+  "atlaskit:src": "src/index.tsx",
   "atlassian": {
     "team": "Design System Team",
     "deprecatedAutoEntryPoints": true,
@@ -27,20 +27,21 @@
     "@atlaskit/analytics-next": "^8.2.0",
     "@atlaskit/popper": "^5.0.0",
     "@atlaskit/theme": "^11.4.0",
+    "@atlaskit/tokens": "^0.1.0",
     "@babel/runtime": "^7.0.0",
+    "@emotion/core": "^10.0.9",
     "react-node-resolver": "^1.0.1"
   },
   "peerDependencies": {
-    "react": "^16.8.0",
-    "styled-components": "^3.2.6"
+    "react": "^16.8.0"
   },
   "devDependencies": {
     "@atlaskit/build-utils": "*",
-    "@atlaskit/button": "^16.0.0",
+    "@atlaskit/button": "^16.1.0",
     "@atlaskit/datetime-picker": "^11.0.0",
     "@atlaskit/docs": "*",
     "@atlaskit/icon": "^21.7.0",
-    "@atlaskit/section-message": "^6.0.0",
+    "@atlaskit/section-message": "^6.1.0",
     "@atlaskit/select": "^15.0.0",
     "@atlaskit/single-select": "^10.0.0",
     "@atlaskit/ssr": "*",
@@ -62,6 +63,16 @@
   "techstack": {
     "@atlassian/frontend": {
       "import-structure": "atlassian-conventions"
+    },
+    "@repo/internal": {
+      "analytics": "analytics-next",
+      "theming": [
+        "new-theming-api",
+        "tokens"
+      ],
+      "styling": "emotion",
+      "design-system": "v1",
+      "deprecation": "no-deprecated-imports"
     }
   },
   "homepage": "https://atlassian.design/components/inline-dialog/",

@@ -1,5 +1,5 @@
 import { BitbucketTransformer } from '../..';
-import { bitbucketSchema as schema } from '@atlaskit/adf-schema';
+import { bitbucketSchema as schema, uuid } from '@atlaskit/adf-schema';
 import {
   a,
   blockquote,
@@ -34,6 +34,7 @@ import { Mark, Node as PMNode } from 'prosemirror-model';
 
 const transformer = new BitbucketTransformer(schema);
 const parse = (html: string) => transformer.parse(html);
+const TABLE_LOCAL_ID = 'test-table-local-id';
 
 export const textWithMarks = (obj: PMNode, text: string, marks: Mark[]) => {
   let matched = false;
@@ -50,6 +51,14 @@ export const textWithMarks = (obj: PMNode, text: string, marks: Mark[]) => {
 
 // Based on https://bitbucket.org/tutorials/markdowndemo
 describe('BitbucketTransformer: parser', () => {
+  beforeAll(() => {
+    uuid.setStatic(TABLE_LOCAL_ID);
+  });
+
+  afterAll(() => {
+    uuid.setStatic(false);
+  });
+
   describe('block elements', () => {
     it('should support level 1 to 6 headings', () => {
       expect(parse('<h1>text</h1>')).toEqualDocument(doc(h1('text')));
@@ -413,7 +422,7 @@ describe('BitbucketTransformer: parser', () => {
         ),
       ).toEqualDocument(
         doc(
-          table()(
+          table({ localId: TABLE_LOCAL_ID })(
             tr(
               th({})(p('First Header')),
               th({})(p('Second Header')),
@@ -455,7 +464,7 @@ describe('BitbucketTransformer: parser', () => {
 
       expect(result).toEqualDocument(
         doc(
-          table()(
+          table({ localId: TABLE_LOCAL_ID })(
             tr(th({})(p('First Header'))),
             tr(td({})(p('Content Cell'))),
             tr(td({})(p('Content Cell'))),
@@ -484,7 +493,13 @@ describe('BitbucketTransformer: parser', () => {
       );
 
       expect(result).toEqualDocument(
-        doc(table()(tr(th({})(p())), tr(td({})(p())), tr(td({})(p())))),
+        doc(
+          table({ localId: TABLE_LOCAL_ID })(
+            tr(th({})(p())),
+            tr(td({})(p())),
+            tr(td({})(p())),
+          ),
+        ),
       );
     });
 
@@ -509,7 +524,7 @@ describe('BitbucketTransformer: parser', () => {
 
       expect(result).toEqualDocument(
         doc(
-          table()(
+          table({ localId: TABLE_LOCAL_ID })(
             tr(th({})(p(strong('testing')))),
             tr(td({})(p(em('testing')))),
             tr(td({})(p(strike('testing')))),
@@ -536,7 +551,7 @@ describe('BitbucketTransformer: parser', () => {
 
       expect(result).toEqualDocument(
         doc(
-          table()(
+          table({ localId: TABLE_LOCAL_ID })(
             tr(
               th({})(
                 p('Hello there'),

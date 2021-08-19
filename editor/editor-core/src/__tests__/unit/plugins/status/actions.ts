@@ -293,8 +293,13 @@ describe('status plugin: actions', () => {
         );
       });
       it('should insert status outside of codeblock inside same table cell', () => {
+        const TABLE_LOCAL_ID = 'test-table-local-id';
         const { editorView } = editor(
-          doc(table()(tr(td({})(code_block()('I am{<>} codeblock'))))),
+          doc(
+            table({ localId: TABLE_LOCAL_ID })(
+              tr(td({})(code_block()('I am{<>} codeblock'))),
+            ),
+          ),
         );
 
         updateStatus({
@@ -305,7 +310,7 @@ describe('status plugin: actions', () => {
 
         expect(editorView.state.tr.doc).toEqualDocument(
           doc(
-            table()(
+            table({ localId: TABLE_LOCAL_ID })(
               tr(
                 td()(
                   code_block()('I am codeblock'),

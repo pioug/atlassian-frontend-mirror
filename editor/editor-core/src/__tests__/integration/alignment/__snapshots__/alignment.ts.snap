@@ -1,33 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`alignment: should be able to add alignment to headings 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
-        "level": 1,
-      },
-      "content": Array [
-        Object {
-          "text": "hello",
-          "type": "text",
-        },
-      ],
-      "marks": Array [
-        Object {
-          "attrs": Object {
-            "align": "end",
-          },
-          "type": "alignment",
-        },
-      ],
-      "type": "heading",
-    },
-  ],
-  "type": "doc",
-}
-`;
-
 exports[`alignment: should be able to add alignment to paragraphs 1`] = `
 Object {
   "content": Array [
@@ -61,6 +33,7 @@ Object {
         "__autoSize": false,
         "isNumberColumnEnabled": false,
         "layout": "default",
+        "localId": "abc-123",
       },
       "content": Array [
         Object {

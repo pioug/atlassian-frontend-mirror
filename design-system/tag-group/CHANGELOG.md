@@ -1,5 +1,11 @@
 # @atlaskit/tag-group
 
+## 10.0.10
+
+### Patch Changes
+
+- [`cd34d8ca8ea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cd34d8ca8ea) - Internal wiring up to the tokens techstack, no code changes.
+
 ## 10.0.9
 
 ### Patch Changes

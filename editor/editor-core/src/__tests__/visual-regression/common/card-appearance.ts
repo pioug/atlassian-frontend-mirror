@@ -62,7 +62,8 @@ describe('Cards:', () => {
     await snapshot(page);
   });
 
-  it('can switch to URL appearance', async () => {
+  // TODO: https://product-fabric.atlassian.net/browse/ED-13527
+  it.skip('can switch to URL appearance', async () => {
     await initEditor(cardAppearanceAdf);
     // we first render a smart inline link
     await waitForResolvedInlineCard(page);
@@ -93,7 +94,8 @@ describe('Cards:', () => {
   });
 
   // [EDM-1679]
-  it('should show a tooltip when hovering a disabled appeareance', async () => {
+  // TODO: https://product-fabric.atlassian.net/browse/ED-13527
+  it.skip('should show a tooltip when hovering a disabled appeareance', async () => {
     const takeSnapshot = async () => {
       await appearanceSwitcherClick(page);
       await page.hover('[data-testid="block-appearance"]');
@@ -127,8 +129,8 @@ describe('Cards:', () => {
     await takeSnapshot();
   });
 
-  // FIXME These tests were flakey in the Puppeteer v10 Upgrade
-  it('should show allowed options for blue link inside a list', async () => {
+  // TODO: https://product-fabric.atlassian.net/browse/ED-13527
+  it.skip('should show allowed options for blue link inside a list', async () => {
     await initEditor(cardListBlueLinkAppearanceAdf);
     await page.waitForSelector('a[href="https://inlineCardTestUrl"]');
     await page.click('a[href="https://inlineCardTestUrl"]');

@@ -1,3 +1,11 @@
 export { EditorPageObject } from './page-objects/Editor';
-export { editorFundamentalsTestCollection } from './cases/editor-fundamentals/editor-fundamentals-collection';
-export { editorUploadMediaTestCase } from './cases/editor-upload-media';
+
+export { fundamentalsTestCollection } from './cases/fundamentals/collection';
+export {
+  inlineSmartLinksTestCollection,
+  blockSmartLinksTestCollection,
+  embedSmartLinksTestCollection,
+  blueLinksTestCollection,
+} from './cases/smart-links';
+
+export { mediaTestCollection } from './cases/media/test-cases';

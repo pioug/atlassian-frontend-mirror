@@ -2,6 +2,7 @@ import {
   getToolbarMenuConfig,
   getToolbarCellOptionsConfig,
 } from '../../toolbar';
+import { ToolbarMenuConfig, ToolbarMenuState } from '../../types';
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
 import {
   doc,
@@ -12,6 +13,7 @@ import {
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { Command } from '../../../../types/command';
 import { DropdownOptionT } from '../../../floating-toolbar/ui/types';
+import { FloatingToolbarDropdown } from '../../../floating-toolbar/types';
 import { splitCell } from '@atlaskit/editor-tables/utils';
 import { canMergeCells } from '../../transforms';
 import { Rect } from '@atlaskit/editor-tables/table-map';
@@ -41,6 +43,68 @@ describe('getToolbarMenuConfig', () => {
   it('visible for allowNumberColumn', () => {
     const menu = getToolbarMenuConfig({ allowNumberColumn: true }, {}, ctx);
     expect(menu.hidden).toBe(false);
+  });
+
+  it('visible for allowCollapse', () => {
+    const menu = getToolbarMenuConfig({ allowCollapse: true }, {}, ctx);
+    expect(menu.hidden).toBe(false);
+  });
+
+  describe('collapse button states', () => {
+    const getCollapseItem = (
+      config: ToolbarMenuConfig,
+      state: ToolbarMenuState,
+    ) => {
+      const menu = getToolbarMenuConfig(config, state, ctx);
+      const options = (menu as FloatingToolbarDropdown<Command>).options;
+
+      if (Array.isArray(options)) {
+        return options.find(
+          (option) => option.id === 'editor.table.collapseTable',
+        );
+      }
+    };
+
+    it('should show tick if table is collapsed', () => {
+      const item = getCollapseItem(
+        { allowCollapse: true },
+        { isTableCollapsed: true },
+      )!;
+
+      expect(item.selected).toBe(true);
+    });
+    it('should not show tick if table is not collapsed', () => {
+      const item = getCollapseItem(
+        { allowCollapse: true },
+        { isTableCollapsed: false },
+      )!;
+
+      expect(item.selected).toBe(false);
+    });
+
+    it('should be enabled if table can be collapsed', () => {
+      const item = getCollapseItem(
+        { allowCollapse: true },
+        { canCollapseTable: true },
+      )!;
+
+      expect(item.disabled).toBe(false);
+    });
+
+    it('should be disabled if table cannot be collapsed', () => {
+      const item = getCollapseItem(
+        { allowCollapse: true },
+        { canCollapseTable: false },
+      )!;
+
+      expect(item.disabled).toBe(true);
+    });
+
+    it('should be hidden if collapse feature flag is disabled', () => {
+      const item = getCollapseItem({ allowCollapse: false }, {})!;
+
+      expect(item.hidden).toBe(true);
+    });
   });
 });
 

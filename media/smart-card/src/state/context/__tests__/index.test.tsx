@@ -14,10 +14,9 @@ describe('useSmartCardContext()', () => {
   });
 
   it('provides correct context to consumers', () => {
+    const client = new CardClient();
     const wrapper: RenderHookOptions<{}>['wrapper'] = ({ children }) => (
-      <SmartCardProvider client={new CardClient()}>
-        {children}
-      </SmartCardProvider>
+      <SmartCardProvider client={client}>{children}</SmartCardProvider>
     );
 
     const { current } = renderHook(() => useSmartLinkContext(), {
@@ -27,12 +26,10 @@ describe('useSmartCardContext()', () => {
     expect(current).toEqual(
       expect.objectContaining({
         config: {
-          maxAge: 60000,
-          maxLoadingDelay: 1200,
           authFlow: 'oauth2',
         },
         connections: {
-          client: new CardClient(),
+          client,
         },
       }),
     );

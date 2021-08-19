@@ -2,7 +2,7 @@ import {
   createSchema,
   defaultSchema,
   defaultSchemaConfig,
-  tableWithLocalId,
+  table as tableSchema,
 } from '@atlaskit/adf-schema';
 import {
   p,
@@ -17,6 +17,13 @@ import { createTable } from '../../create-table';
 import { uuid } from '../../uuid';
 
 describe('createTable', () => {
+  const TABLE_LOCAL_ID = 'test-table-local-id';
+  uuid.setStatic(TABLE_LOCAL_ID);
+
+  afterAll(() => {
+    uuid.setStatic(false);
+  });
+
   it('should create a table node of size 3x3 by default', () => {
     const table = createTable({ schema: defaultSchema });
     expect(table.content.childCount).toEqual(3);
@@ -68,7 +75,7 @@ describe('createTable', () => {
       expect(tableResult.content.childCount).toEqual(3);
 
       expect(tableResult).toEqualDocument(
-        table()(
+        table({ localId: TABLE_LOCAL_ID })(
           row(thWithRandomText, thWithRandomText, thWithRandomText),
           row(tdWithRandomText, tdWithRandomText, tdWithRandomText),
           row(tdWithRandomText, tdWithRandomText, tdWithRandomText),
@@ -87,7 +94,7 @@ describe('createTable', () => {
       });
       expect(tableResult.content.childCount).toEqual(3);
       expect(tableResult).toEqualDocument(
-        table()(
+        table({ localId: TABLE_LOCAL_ID })(
           row(hEmpty, hEmpty, hEmpty),
           row(cEmpty, cEmpty, cEmpty),
           row(cEmpty, cEmpty, cEmpty),
@@ -99,35 +106,17 @@ describe('createTable', () => {
   describe('localId', () => {
     const config = defaultSchemaConfig;
     config.customNodeSpecs = {
-      table: tableWithLocalId,
+      table: tableSchema,
     };
     const schema = createSchema(config);
 
-    beforeEach(() => {
-      uuid.setStatic('123');
-    });
-
-    afterEach(() => {
-      uuid.setStatic(false);
-    });
-
-    it('it should set localId attribute when allowLocalId is true', () => {
+    it('it should set localId attribute', () => {
       const table = createTable({
         schema,
-        allowLocalId: true,
       });
 
-      expect(table.attrs).toEqual(expect.objectContaining({ localId: '123' }));
-    });
-
-    it('it should not set localId attribute when allowLocalId is false', () => {
-      const table = createTable({
-        schema,
-        allowLocalId: false,
-      });
-
-      expect(table.attrs).not.toEqual(
-        expect.objectContaining({ localId: '123' }),
+      expect(table.attrs).toEqual(
+        expect.objectContaining({ localId: TABLE_LOCAL_ID }),
       );
     });
   });

@@ -8,11 +8,22 @@ import {
   td,
   tdEmpty,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+import { uuid } from '@atlaskit/adf-schema';
 import { TablePluginState } from '../../../../../plugins/table/types';
 import { mergeCells } from '../../../../../plugins/table/transforms';
 import { pluginKey } from '../../../../../plugins/table/pm-plugins/plugin-factory';
 
+const TABLE_LOCAL_ID = 'test-table-local-id';
+
 describe('table plugin -> transforms -> merge cells', () => {
+  beforeAll(() => {
+    uuid.setStatic(TABLE_LOCAL_ID);
+  });
+
+  afterAll(() => {
+    uuid.setStatic(false);
+  });
+
   const createEditor = createEditorFactory<TablePluginState>();
 
   const editor = (doc: DocBuilder) =>
@@ -39,7 +50,7 @@ describe('table plugin -> transforms -> merge cells', () => {
       expect(editorView.state.doc).toEqualDocument(
         doc(
           p('text'),
-          table()(
+          table({ localId: TABLE_LOCAL_ID })(
             tr(td({ rowspan: 3 })(p('')), tdEmpty),
             tr(tdEmpty),
             tr(tdEmpty),
@@ -70,7 +81,7 @@ describe('table plugin -> transforms -> merge cells', () => {
           expect(editorView.state.doc).toEqualDocument(
             doc(
               p('text'),
-              table()(
+              table({ localId: TABLE_LOCAL_ID })(
                 tr(tdEmpty, tdEmpty, tdEmpty),
                 tr(td({})(p('b1')), td({})(p('b2')), td({})(p('b3'), p('c3'))),
               ),
@@ -99,7 +110,7 @@ describe('table plugin -> transforms -> merge cells', () => {
           expect(editorView.state.doc).toEqualDocument(
             doc(
               p('text'),
-              table()(
+              table({ localId: TABLE_LOCAL_ID })(
                 tr(tdEmpty, tdEmpty, tdEmpty),
                 tr(td({})(p('b1'), p('c1')), td({})(p('b2')), td({})(p('b3'))),
               ),
@@ -129,7 +140,7 @@ describe('table plugin -> transforms -> merge cells', () => {
           expect(editorView.state.doc).toEqualDocument(
             doc(
               p('text'),
-              table()(
+              table({ localId: TABLE_LOCAL_ID })(
                 tr(td({ rowspan: 2 })(p('a1')), td({})(p('a2'), p('c2'))),
                 tr(tdEmpty),
                 tr(tdEmpty, tdEmpty),
@@ -158,7 +169,7 @@ describe('table plugin -> transforms -> merge cells', () => {
           expect(editorView.state.doc).toEqualDocument(
             doc(
               p('text'),
-              table()(
+              table({ localId: TABLE_LOCAL_ID })(
                 tr(td({})(p('a1')), td({ rowspan: 2 })(p('a2'))),
                 tr(tdEmpty),
               ),
@@ -186,7 +197,7 @@ describe('table plugin -> transforms -> merge cells', () => {
           expect(editorView.state.doc).toEqualDocument(
             doc(
               p('text'),
-              table()(
+              table({ localId: TABLE_LOCAL_ID })(
                 tr(td({ rowspan: 2 })(p('a1')), td({})(p('a2'))),
                 tr(tdEmpty),
               ),
@@ -212,7 +223,10 @@ describe('table plugin -> transforms -> merge cells', () => {
         expect(editorView.state.doc).toEqualDocument(
           doc(
             p('text'),
-            table()(tr(td({ colspan: 2 })(p(''))), tr(tdEmpty, tdEmpty)),
+            table({ localId: TABLE_LOCAL_ID })(
+              tr(td({ colspan: 2 })(p(''))),
+              tr(tdEmpty, tdEmpty),
+            ),
           ),
         );
       });
@@ -235,7 +249,7 @@ describe('table plugin -> transforms -> merge cells', () => {
         expect(editorView.state.doc).toEqualDocument(
           doc(
             p('text'),
-            table()(
+            table({ localId: TABLE_LOCAL_ID })(
               tr(tdEmpty, td({ colspan: 2 })(p(''))),
               tr(tdEmpty, td({ colspan: 2 })(p(''))),
               tr(tdEmpty, tdEmpty, tdEmpty),
@@ -263,7 +277,7 @@ describe('table plugin -> transforms -> merge cells', () => {
         expect(editorView.state.doc).toEqualDocument(
           doc(
             p('text'),
-            table()(
+            table({ localId: TABLE_LOCAL_ID })(
               tr(tdEmpty, td({ colspan: 3 })(p(''))),
               tr(tdEmpty, td({ colspan: 3 })(p(''))),
               tr(tdEmpty, td({ colspan: 2 })(p('')), tdEmpty),
@@ -291,7 +305,7 @@ describe('table plugin -> transforms -> merge cells', () => {
         expect(editorView.state.doc).toEqualDocument(
           doc(
             p('text'),
-            table()(
+            table({ localId: TABLE_LOCAL_ID })(
               tr(td({})(p('1')), td({})(p('2'))),
               tr(td({ colspan: 2 })(p('1'), p('2'))),
             ),
@@ -330,7 +344,7 @@ describe('table plugin -> transforms -> merge cells', () => {
         expect(editorView.state.doc).toEqualDocument(
           doc(
             p('text'),
-            table()(
+            table({ localId: TABLE_LOCAL_ID })(
               tr(
                 td({})(p('1')),
                 td({})(p('2')),

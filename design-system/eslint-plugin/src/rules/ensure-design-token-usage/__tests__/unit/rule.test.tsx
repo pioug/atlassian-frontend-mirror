@@ -1,5 +1,16 @@
+import renameMapping from '@atlaskit/tokens/rename-mapping';
+
 import { tester } from '../../../__tests__/utils/_tester';
 import rule from '../../index';
+
+// Mock rename mapping in case it changes
+jest.mock('@atlaskit/tokens/rename-mapping', () => ({
+  __esModule: true,
+  default: { 'tokenName.old': 'tokenName.new' },
+}));
+
+const oldTokenName = Object.keys(renameMapping)[0];
+const newTokenName = renameMapping[oldTokenName];
 
 tester.run('ensure-design-token-usage', rule, {
   valid: [
@@ -99,8 +110,8 @@ tester.run('ensure-design-token-usage', rule, {
       ],
     },
     {
-      code: `css({ color: 'var(--accent-blueSubtle)' });`,
-      output: `css({ color: token('color.accent.blueSubtle') });`,
+      code: `css({ color: 'var(--accent-subtleBlue)' });`,
+      output: `css({ color: token('color.accent.subtleBlue') });`,
       errors: [
         {
           messageId: 'directTokenUsage',
@@ -110,7 +121,7 @@ tester.run('ensure-design-token-usage', rule, {
     {
       code: `
         css\`
-          color: var(--accent-blueSubtle);
+          color: var(--accent-subtleBlue);
         \`;
       `,
       errors: [
@@ -122,7 +133,7 @@ tester.run('ensure-design-token-usage', rule, {
     {
       code: `
         styled.div\`
-          color: var(--accent-blueSubtle);
+          color: var(--accent-subtleBlue);
         \`;
       `,
       errors: [
@@ -276,6 +287,42 @@ tester.run('ensure-design-token-usage', rule, {
       errors: [
         {
           message: 'The token "dont-exist" does not exist.',
+        },
+      ],
+    },
+    {
+      code: `css({ color: token('${oldTokenName}', fallback) })`,
+      output: `css({ color: token('${newTokenName}', fallback) })`,
+      errors: [
+        {
+          messageId: 'tokenRenamed',
+        },
+      ],
+    },
+    {
+      code: `css({ color: token('${oldTokenName}', getColor()) })`,
+      output: `css({ color: token('${newTokenName}', getColor()) })`,
+      errors: [
+        {
+          messageId: 'tokenRenamed',
+        },
+      ],
+    },
+    {
+      code: `css({ color: token('${oldTokenName}', 'blue') })`,
+      output: `css({ color: token('${newTokenName}', 'blue') })`,
+      errors: [
+        {
+          messageId: 'tokenRenamed',
+        },
+      ],
+    },
+    {
+      code: `css({ color: token('${oldTokenName}') })`,
+      output: `css({ color: token('${newTokenName}') })`,
+      errors: [
+        {
+          messageId: 'tokenRenamed',
         },
       ],
     },

@@ -227,13 +227,22 @@ describe('lists', () => {
     });
 
     it('should untoggle list item in the last column of a table cell', () => {
+      const TABLE_LOCAL_ID = 'test-table-local-id';
       const { editorView } = editor(
-        doc(table()(tr(td()(p('')), td()(ol(li(p('One{<>}'))))))),
+        doc(
+          table({ localId: TABLE_LOCAL_ID })(
+            tr(td()(p('')), td()(ol(li(p('One{<>}'))))),
+          ),
+        ),
       );
 
       toggleOrderedList(editorView);
       expect(editorView.state.doc).toEqualDocument(
-        doc(table()(tr(td()(p('')), td()(p('One{<>}'))))),
+        doc(
+          table({ localId: TABLE_LOCAL_ID })(
+            tr(td()(p('')), td()(p('One{<>}'))),
+          ),
+        ),
       );
     });
   });

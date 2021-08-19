@@ -8,6 +8,7 @@ Object {
         "__autoSize": false,
         "isNumberColumnEnabled": false,
         "layout": "default",
+        "localId": "abc-123",
       },
       "content": Array [
         Object {
@@ -211,6 +212,7 @@ Object {
         "__autoSize": false,
         "isNumberColumnEnabled": false,
         "layout": "full-width",
+        "localId": "abc-123",
       },
       "content": Array [
         Object {
@@ -406,6 +408,7 @@ Object {
         "__autoSize": false,
         "isNumberColumnEnabled": false,
         "layout": "wide",
+        "localId": "abc-123",
       },
       "content": Array [
         Object {

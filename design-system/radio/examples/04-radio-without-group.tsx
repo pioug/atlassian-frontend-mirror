@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import React, { SyntheticEvent, useCallback, useState } from 'react';
 
 import { css } from '@emotion/core';
@@ -50,6 +51,15 @@ const items: Array<RadioOptions> = [
   },
 ];
 
+const tableStyles = css({
+  margin: '1em 0',
+  padding: '0.5em',
+  borderColor: '#ccc',
+  borderStyle: 'dashed',
+  borderWidth: '1px',
+  color: '#ccc',
+});
+
 export default function RadioInputExample() {
   const [value, setValue] = useState<string>('1');
 
@@ -76,10 +86,10 @@ export default function RadioInputExample() {
             <tr
               onClick={() => setValue(item.value)}
               key={`${item.value}${item.name}${item.id}`}
-              css={css`
-                background-color: ${item.value === value ? B50 : 'transparent'};
-                transition: background-color 200ms ease-in-out;
-              `}
+              style={{
+                backgroundColor: item.value === value ? B50 : 'transparent',
+                transition: 'background-color 200ms ease-in-out',
+              }}
             >
               <td style={{ width: 24, paddingRight: 0 }}>
                 <Radio
@@ -97,18 +107,7 @@ export default function RadioInputExample() {
           ))}
         </tbody>
       </table>
-      <div
-        css={css`
-          border-style: dashed;
-          border-width: 1px;
-          border-color: #ccc;
-          padding: 0.5em;
-          color: #ccc;
-          margin: 1em 0;
-        `}
-      >
-        currently selected value: {value}
-      </div>
+      <div css={tableStyles}>currently selected value: {value}</div>
     </div>
   );
 }

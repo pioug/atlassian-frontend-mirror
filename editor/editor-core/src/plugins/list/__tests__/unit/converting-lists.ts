@@ -19,6 +19,7 @@ import {
   LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+import { uuid } from '@atlaskit/adf-schema';
 import listPlugin from '../..';
 import textFormattingPlugin from '../../../text-formatting';
 import panelPlugin from '../../../panel';
@@ -26,7 +27,17 @@ import tablePlugin from '../../../table';
 import statusInlineBlockTypePlugin from '../../../status';
 import { toggleOrderedList, toggleBulletList } from '../../commands';
 
+const TABLE_LOCAL_ID = 'test-table-local-id';
+
 describe('lists plugin -> converting lists', () => {
+  beforeAll(() => {
+    uuid.setStatic(TABLE_LOCAL_ID);
+  });
+
+  afterAll(() => {
+    uuid.setStatic(false);
+  });
+
   const createEditor = createProsemirrorEditorFactory();
 
   const editor = (doc: DocBuilder) => {
@@ -553,7 +564,7 @@ describe('lists plugin -> converting lists', () => {
   it('should convert selection to a list when the selection is inside a table and contains a list but starts and end with paragraphs', () => {
     // prettier-ignore
     const expectedOutput = doc(
-      table({ isNumberColumnEnabled: false, layout: "default" })(
+      table({ isNumberColumnEnabled: false, layout: "default", localId: TABLE_LOCAL_ID })(
         tr(th({})(p()), th({})(p()), th({})(p())),
         tr(
           td({})(
@@ -717,7 +728,11 @@ describe('lists plugin -> converting lists', () => {
 
     toggleOrderedList(editorView);
     expect(editorView.state.doc).toEqualDocument(
-      doc(table()(tr(td()(p('')), td()(ol(li(p('One{<>}'))))))),
+      doc(
+        table({ localId: TABLE_LOCAL_ID })(
+          tr(td()(p('')), td()(ol(li(p('One{<>}'))))),
+        ),
+      ),
     );
   });
 });

@@ -1,5 +1,17 @@
 # @atlaskit/tooltip
 
+## 17.4.0
+
+### Minor Changes
+
+- [`45e06ed2420`](https://bitbucket.org/atlassian/atlassian-frontend/commits/45e06ed2420) - Instrumented Tooltip with the new theming package, `@atlaskit/tokens`.
+  Tokens will be visible only in applications configured to use the new Tokens API (currently in alpha).
+  These changes are intended to be interoperable with the legacy theme implementation. Legacy dark mode users should expect no visual or breaking changes.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 17.3.1
 
 ### Patch Changes

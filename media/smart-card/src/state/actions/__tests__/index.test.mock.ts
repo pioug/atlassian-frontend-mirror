@@ -16,7 +16,7 @@ jest.doMock('@atlaskit/outbound-auth-flow-client', () => ({
 }));
 
 export const mockGetContext = () => ({
-  config: { maxAge: 100, maxLoadingDelay: 100 },
+  config: {},
   connections: {
     client: {
       prefetchData: jest.fn(),

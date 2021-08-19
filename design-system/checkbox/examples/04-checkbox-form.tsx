@@ -10,12 +10,7 @@ const formTestUrl = '//httpbin.org/get';
 export default function CheckboxGroupExample() {
   return (
     <div>
-      <form
-        action={formTestUrl}
-        method="get"
-        style={{ backgroundColor: 'white' }}
-        target="submitFrame"
-      >
+      <form action={formTestUrl} method="get" target="submitFrame">
         <span>
           <Checkbox label="One" value="One" name="one" />
           <Checkbox label="Two" value="two" name="two" />
@@ -61,9 +56,11 @@ export default function CheckboxGroupExample() {
           height: '300px',
           borderStyle: 'dashed',
           borderWidth: '1px',
+          // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
           borderColor: '#ccc',
           boxSizing: 'border-box',
           padding: '0.5em',
+          // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
           color: '#ccc',
           margin: '0.5em',
         }}

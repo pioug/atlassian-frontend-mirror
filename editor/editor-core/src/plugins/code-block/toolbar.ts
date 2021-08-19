@@ -6,7 +6,7 @@ import {
   FloatingToolbarHandler,
   FloatingToolbarButton,
   FloatingToolbarSeparator,
-  FloatingToolbarSelect,
+  FloatingToolbarListPicker,
 } from '../floating-toolbar/types';
 import {
   removeCodeBlock,
@@ -68,7 +68,7 @@ export const getToolbarConfig = (
       options.find((option) => option.alias.includes(language as never))
     : undefined;
 
-  const languageSelect: FloatingToolbarSelect<Command> = {
+  const languageSelect: FloatingToolbarListPicker<Command> = {
     id: 'editor.codeBlock.languageOptions',
     type: 'select',
     selectType: 'list',
@@ -111,6 +111,8 @@ export const getToolbarConfig = (
     icon: RemoveIcon,
     onMouseEnter: hoverDecoration(nodeType, true),
     onMouseLeave: hoverDecoration(nodeType, false),
+    onFocus: hoverDecoration(nodeType, true),
+    onBlur: hoverDecoration(nodeType, false),
     onClick: removeCodeBlock,
     title: formatMessage(commonMessages.remove),
   };

@@ -1,5 +1,16 @@
 # @atlaskit/focus-ring
 
+## 0.2.0
+
+### Minor Changes
+
+- [`c765dce3afb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c765dce3afb) - [ux] Focus Ring now exposes an additional prop `isInset` to support inset focus states; for example on inputs, or textfields.
+- [`0dac09c47b6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0dac09c47b6) - [ux] Colors are now sourced through tokens.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.1.1
 
 ### Patch Changes

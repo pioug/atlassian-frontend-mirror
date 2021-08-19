@@ -32,12 +32,8 @@ const color: TextColorTokenSchema = {
           value: 'B400',
           attributes: { group: 'paint' },
         },
-        hover: {
-          value: 'B300',
-          attributes: { group: 'paint' },
-        },
         pressed: {
-          value: 'B200',
+          value: 'B300',
           attributes: { group: 'paint' },
         },
       },

@@ -59,6 +59,7 @@ export const documentWithListAndTable = {
       attrs: {
         isNumberColumnEnabled: false,
         layout: 'default',
+        localId: 'abc-123',
       },
       content: [
         {

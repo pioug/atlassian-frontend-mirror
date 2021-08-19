@@ -5,6 +5,7 @@ import {
 } from '@atlaskit/visual-regression/helper';
 
 const tabs = "[data-testid='default']";
+const tab = `div[aria-controls="default-2-tab"]`;
 
 describe('Snapshot Test', () => {
   it(`Basic example should match prod`, async () => {
@@ -18,6 +19,37 @@ describe('Snapshot Test', () => {
     await loadPage(page, url);
     await page.waitForSelector('div[role="tablist"]');
     await page.waitForSelector('div[role="tabpanel"]');
+    const tabsImage = await takeElementScreenShot(page, tabs);
+    expect(tabsImage).toMatchProdImageSnapshot();
+  });
+
+  it(`On hovered tab should match prod example`, async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'tabs',
+      'defaultTabs',
+      global.__BASEURL__,
+    );
+    const { page } = global;
+    await loadPage(page, url);
+    await page.waitForSelector(tab);
+    await page.hover(tab);
+    const tabsImage = await takeElementScreenShot(page, tabs);
+    expect(tabsImage).toMatchProdImageSnapshot();
+  });
+
+  it(`On hovered tab in light mode should match prod example`, async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'tabs',
+      'defaultTabs',
+      global.__BASEURL__,
+      'light',
+    );
+    const { page } = global;
+    await loadPage(page, url);
+    await page.waitForSelector(tab);
+    await page.hover(tab);
     const tabsImage = await takeElementScreenShot(page, tabs);
     expect(tabsImage).toMatchProdImageSnapshot();
   });

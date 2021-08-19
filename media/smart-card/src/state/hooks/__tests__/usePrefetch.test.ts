@@ -103,7 +103,6 @@ describe('usePrefetch', () => {
       [mockUrl]: {
         status: 'pending',
         details: mocks.success,
-        lastUpdatedAt: Date.now(),
       },
     }));
 

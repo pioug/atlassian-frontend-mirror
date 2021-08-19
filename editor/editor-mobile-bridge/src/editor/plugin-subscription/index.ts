@@ -1,6 +1,5 @@
 import { PluginKey } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
-import { Node as PMNode, NodeType } from 'prosemirror-model';
 import rafSchedule from 'raf-schd';
 import {
   EventDispatcher,
@@ -10,9 +9,6 @@ import {
   BlockTypeState,
   listStateKey,
   ListState,
-  statusPluginKey,
-  StatusState,
-  StatusType,
   textColorPluginKey,
   TextColorPluginState,
   typeAheadPluginKey,
@@ -25,13 +21,7 @@ import {
   QuickInsertItem,
   SelectionDataState,
   selectionPluginKey,
-  datePluginKey,
-  DatePluginState,
-  FloatingToolbarConfig,
-  INPUT_METHOD,
-  Command,
 } from '@atlaskit/editor-core';
-
 import { valueOf as valueOfListState } from '../web-to-native/listState';
 import { valueOf as valueOfMarkState } from '../web-to-native/markState';
 import WebBridgeImpl from '../native-to-web';
@@ -40,8 +30,6 @@ import { hasValue } from '../../utils';
 import { createPromise } from '../../cross-platform-promise';
 import EditorConfiguration from '../editor-configuration';
 import { getSelectionObserverEnabled } from '../../query-param-reader';
-import { dateToDateType } from '@atlaskit/editor-core/src/plugins/date/utils/formatParse';
-import { insertDate } from '@atlaskit/editor-core/src/plugins/date/actions';
 
 interface BridgePluginListener<T> {
   bridge: string;
@@ -73,90 +61,6 @@ export const configFactory = (
   editorConfiguration: EditorConfiguration,
 ): Array<BridgePluginListener<any>> => {
   const configs: Array<BridgePluginListener<any>> = [
-    createListenerConfig<DatePluginState>({
-      bridge: 'dateBridge',
-      pluginKey: datePluginKey,
-      updateAfterDom: true,
-      updater: (pluginState, view, initialPass, bridge) => {
-        const { showDatePickerAt } = pluginState;
-        let timestamp: number | undefined;
-        let node: PMNode<any> | null | undefined;
-        let nodeType: NodeType | undefined;
-
-        if (view && showDatePickerAt) {
-          node = view.state.doc.nodeAt(showDatePickerAt);
-        }
-
-        if (node) {
-          nodeType = node.type;
-          timestamp = parseInt(node.attrs.timestamp);
-        }
-
-        if (timestamp !== undefined && nodeType) {
-          const toolbarConfig: FloatingToolbarConfig = {
-            title: 'Date',
-            nodeType,
-            items: [
-              {
-                id: 'editor.date.datePicker',
-                type: 'select',
-                selectType: 'date',
-                options: [],
-                defaultValue: timestamp,
-                onChange: (timestamp: number): Command => (state, dispatch) => {
-                  const dateType = dateToDateType(new Date(timestamp));
-                  if (dispatch) {
-                    return insertDate(
-                      dateType,
-                      INPUT_METHOD.TOOLBAR,
-                      INPUT_METHOD.PICKER,
-                      false,
-                    )(state, dispatch);
-                  }
-
-                  return true;
-                },
-              },
-            ],
-          };
-
-          bridge?.mobileEditingToolbarActions.notifyNativeBridgeForEditCapabilitiesChanges(
-            toolbarConfig,
-          );
-        } else if (!showDatePickerAt) {
-          bridge?.mobileEditingToolbarActions.notifyNativeBridgeForEditCapabilitiesChanges(
-            undefined,
-          );
-        }
-      },
-    }),
-    createListenerConfig<StatusState>({
-      bridge: 'statusBridge',
-      pluginKey: statusPluginKey,
-      updater: (pluginState, view) => {
-        const { showStatusPickerAt, isNew } = pluginState;
-        let status: StatusType | undefined;
-
-        if (view && showStatusPickerAt) {
-          const node = view.state.doc.nodeAt(showStatusPickerAt);
-          if (node && node.type === view.state.schema.nodes.status) {
-            status = {
-              ...node.attrs,
-            } as StatusType;
-          }
-        }
-        if (status) {
-          toNativeBridge.call('statusBridge', 'showStatusPicker', {
-            text: status.text,
-            color: status.color,
-            uuid: status.localId,
-            isNew,
-          });
-        } else if (!showStatusPickerAt) {
-          toNativeBridge.call('statusBridge', 'dismissStatusPicker', { isNew });
-        }
-      },
-    }),
     createListenerConfig<TextFormattingState>({
       bridge: 'textFormatBridge',
       pluginKey: textFormattingStateKey,

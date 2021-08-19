@@ -5,7 +5,7 @@ import { findParentNodeOfType } from 'prosemirror-utils';
 import { isRowSelected } from '@atlaskit/editor-tables/utils';
 import { EditorView } from 'prosemirror-view';
 
-import { defaultSchema } from '@atlaskit/adf-schema';
+import { defaultSchema, uuid } from '@atlaskit/adf-schema';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import {
   doc,
@@ -15,8 +15,12 @@ import {
   td,
   tdCursor,
   tdEmpty,
+  thCursor,
+  thEmpty,
   th,
   tr,
+  expand,
+  bodiedExtension,
   DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
@@ -39,11 +43,22 @@ import {
   transformSliceToAddTableHeaders,
 } from '../../commands';
 import { splitCell } from '../../commands/split-cell';
+import { wrapTableInExpand } from '../../commands/collapse';
 import { handleCut } from '../../event-handlers';
 import { getPluginState, pluginKey } from '../../pm-plugins/plugin-factory';
 import { TablePluginState } from '../../types';
 
+const TABLE_LOCAL_ID = 'test-table-local-id';
+
 describe('table plugin: actions', () => {
+  beforeAll(() => {
+    uuid.setStatic(TABLE_LOCAL_ID);
+  });
+
+  afterAll(() => {
+    uuid.setStatic(false);
+  });
+
   const createEditor = createEditorFactory<TablePluginState>();
 
   const editor = (doc: DocBuilder, props: Partial<EditorProps> = {}) =>
@@ -103,7 +118,10 @@ describe('table plugin: actions', () => {
     });
 
     it('transforms only the table within the slice', () => {
-      const preTable = table({ isNumberColumnEnabled: true })(
+      const preTable = table({
+        isNumberColumnEnabled: true,
+        localId: TABLE_LOCAL_ID,
+      })(
         tr(
           td()(p('r1')),
           th({ colspan: 2 })(p('r2')),
@@ -113,7 +131,10 @@ describe('table plugin: actions', () => {
         tableBody,
       );
 
-      const postTable = table({ isNumberColumnEnabled: true })(
+      const postTable = table({
+        isNumberColumnEnabled: true,
+        localId: TABLE_LOCAL_ID,
+      })(
         tr(
           th()(p('r1')),
           th({ colspan: 2 })(p('r2')),
@@ -141,7 +162,10 @@ describe('table plugin: actions', () => {
     });
 
     it('transforms any table within the slice', () => {
-      const preTableA = table({ isNumberColumnEnabled: true })(
+      const preTableA = table({
+        isNumberColumnEnabled: true,
+        localId: TABLE_LOCAL_ID,
+      })(
         tr(
           td()(p('r1')),
           th({ colspan: 2 })(p('r2')),
@@ -151,7 +175,10 @@ describe('table plugin: actions', () => {
         tableBody,
       );
 
-      const postTableA = table({ isNumberColumnEnabled: true })(
+      const postTableA = table({
+        isNumberColumnEnabled: true,
+        localId: TABLE_LOCAL_ID,
+      })(
         tr(
           th()(p('r1')),
           th({ colspan: 2 })(p('r2')),
@@ -161,13 +188,19 @@ describe('table plugin: actions', () => {
         tableBody,
       );
 
-      const preTableB = table({ isNumberColumnEnabled: true })(
+      const preTableB = table({
+        isNumberColumnEnabled: true,
+        localId: TABLE_LOCAL_ID,
+      })(
         tr(td()(p('b1')), th()(p('b2')), th()(p('b3'))),
 
         tableBody,
       );
 
-      const postTableB = table({ isNumberColumnEnabled: true })(
+      const postTableB = table({
+        isNumberColumnEnabled: true,
+        localId: TABLE_LOCAL_ID,
+      })(
         tr(th()(p('b1')), th()(p('b2')), th()(p('b3'))),
 
         tableBody,
@@ -216,7 +249,13 @@ describe('table plugin: actions', () => {
       selectColumn(0)(state, dispatch);
       clearMultipleCells()(editorView.state, dispatch);
       expect(editorView.state.doc).toEqualDocument(
-        doc(p('text'), table()(tr(tdEmpty, tdEmpty), tr(tdEmpty, tdEmpty))),
+        doc(
+          p('text'),
+          table({ localId: TABLE_LOCAL_ID })(
+            tr(tdEmpty, tdEmpty),
+            tr(tdEmpty, tdEmpty),
+          ),
+        ),
       );
     });
 
@@ -236,7 +275,10 @@ describe('table plugin: actions', () => {
       expect(editorView.state.doc).toEqualDocument(
         doc(
           p('text'),
-          table()(tr(td()(p('c1')), tdEmpty), tr(tdEmpty, tdEmpty)),
+          table({ localId: TABLE_LOCAL_ID })(
+            tr(td()(p('c1')), tdEmpty),
+            tr(tdEmpty, tdEmpty),
+          ),
         ),
       );
     });
@@ -262,7 +304,7 @@ describe('table plugin: actions', () => {
       expect(editorView.state.doc).toEqualDocument(
         doc(
           p('text'),
-          table()(
+          table({ localId: TABLE_LOCAL_ID })(
             tr(td({ background: 'purple' })(p('c1')), td()(p('c2'))),
             tr(td({ background: 'purple' })(p('c3')), td()(p('c4'))),
           ),
@@ -287,7 +329,7 @@ describe('table plugin: actions', () => {
       expect(editorView.state.doc).toEqualDocument(
         doc(
           p('text'),
-          table()(
+          table({ localId: TABLE_LOCAL_ID })(
             tr(tdEmpty, tdEmpty, tdEmpty),
             tr(td({ colspan: 2 })(panelNote(p('text'))), tdEmpty),
           ),
@@ -422,7 +464,7 @@ describe('table plugin: actions', () => {
         const newTr = handleCut(oldState.tr, oldState, editorView.state);
         expect(newTr.doc).toEqualDocument(
           doc(
-            table()(
+            table({ localId: TABLE_LOCAL_ID })(
               tr(td()(p('a1')), td()(p('a4'))),
               tr(td()(p('b1')), td()(p('b4'))),
             ),
@@ -461,7 +503,7 @@ describe('table plugin: actions', () => {
         const newTr = handleCut(oldState.tr, oldState, editorView.state);
         expect(newTr.doc).toEqualDocument(
           doc(
-            table()(
+            table({ localId: TABLE_LOCAL_ID })(
               tr(td()(p('a1')), td()(p('a2')), td()(p('a3'))),
               tr(td()(p('d1')), td()(p('d2')), td()(p('d3'))),
             ),
@@ -474,7 +516,7 @@ describe('table plugin: actions', () => {
   describe('#toggleHeaderColumn', () => {
     let editorView: EditorView;
     const tableDoc = doc(
-      table()(
+      table({ localId: TABLE_LOCAL_ID })(
         tr(td()(p('c1')), td()(p('c2'))),
         tr(td({ rowspan: 2 })(p('c3')), td()(p('c4'))),
         tr(td()(p('c6'))),
@@ -490,7 +532,7 @@ describe('table plugin: actions', () => {
     it('should convert all cells including rowspans to table headers', () => {
       expect(editorView.state.doc).toEqualDocument(
         doc(
-          table()(
+          table({ localId: TABLE_LOCAL_ID })(
             tr(th()(p('c1')), td()(p('c2'))),
             tr(th({ rowspan: 2 })(p('c3')), td()(p('c4'))),
             tr(td()(p('c6'))),
@@ -525,7 +567,7 @@ describe('table plugin: actions', () => {
   describe('#toggleHeaderRow', () => {
     let editorView: EditorView;
     const tableDoc = doc(
-      table()(
+      table({ localId: TABLE_LOCAL_ID })(
         tr(th()(p('c1')), th()(p('c2'))),
         tr(td({ rowspan: 2 })(p('c3')), td()(p('c4'))),
         tr(td()(p('c6'))),
@@ -541,7 +583,7 @@ describe('table plugin: actions', () => {
     it('should convert all rows including to table normal', () => {
       expect(editorView.state.doc).toEqualDocument(
         doc(
-          table()(
+          table({ localId: TABLE_LOCAL_ID })(
             tr(td()(p('c1')), td()(p('c2'))),
             tr(td({ rowspan: 2 })(p('c3')), td()(p('c4'))),
             tr(td()(p('c6'))),
@@ -596,7 +638,7 @@ describe('table plugin: actions', () => {
       describe('and the cell is empty', () => {
         it('should add strong mark on storedMarks', () => {
           const { editorView } = editor(
-            doc(table()(tr(th()(p('{<>}'))), tr(td()(p(''))))),
+            doc(table()(tr(thCursor), tr(td()(p(''))))),
           );
           const { state, dispatch } = editorView;
 
@@ -613,7 +655,7 @@ describe('table plugin: actions', () => {
         describe('and the user removed the strong mark', () => {
           it('should not add strong mark on storedMarks', () => {
             const { editorView } = editor(
-              doc(table()(tr(th()(p('{<>}'))), tr(td()(p(''))))),
+              doc(table()(tr(thCursor), tr(td()(p(''))))),
             );
             const { state, dispatch } = editorView;
 
@@ -675,7 +717,7 @@ describe('table plugin: actions', () => {
 
       expect(editorView.state.doc).toEqualDocument(
         doc(
-          table()(
+          table({ localId: TABLE_LOCAL_ID })(
             tr(th()(p('')), th()(p('foo')), th()(p(''))),
             tr(td()(p('')), td()(p('')), td()(p(''))),
           ),
@@ -707,40 +749,158 @@ describe('table plugin: actions', () => {
 
       expect(editorView.state.doc).toEqualDocument(
         doc(
-          table()(
+          table({ localId: TABLE_LOCAL_ID })(
             tr(th()(p('')), th()(p('')), th()(p(''))),
             tr(th()(p('foo')), td()(p('')), td()(p(''))),
           ),
         ),
       );
     });
+
+    test('should split cell with media selected', () => {
+      const { editorView } = editor(
+        doc(
+          table()(
+            tr(th()(p('')), th()(p('')), th()(p(''))),
+            tr(
+              td({ colspan: 2 })('{<node>}', temporaryMediaGroup),
+              td()(p('')),
+            ),
+          ),
+        ),
+        {
+          media: {
+            allowMediaSingle: true,
+            provider: getFreshMediaProvider(),
+          },
+        },
+      );
+
+      splitCell(editorView.state, editorView.dispatch);
+
+      expect(editorView.state.doc).toEqualDocument(
+        doc(
+          table({ localId: TABLE_LOCAL_ID })(
+            tr(th()(p('')), th()(p('')), th()(p(''))),
+            tr(td()(temporaryMediaGroup), td()(p('')), td()(p(''))),
+          ),
+        ),
+      );
+    });
   });
 
-  test('should split cell with media selected', () => {
-    const { editorView } = editor(
-      doc(
-        table()(
-          tr(th()(p('')), th()(p('')), th()(p(''))),
-          tr(td({ colspan: 2 })('{<node>}', temporaryMediaGroup), td()(p(''))),
+  describe('#wrapTableInExpand', () => {
+    it('should not wrap if selection is not on a table', () => {
+      const { editorView } = editor(
+        doc(
+          p('Cursor here{<>}'),
+          table()(tr(thEmpty, thEmpty, thEmpty), tr(tdEmpty, tdEmpty, tdEmpty)),
         ),
-      ),
-      {
-        media: {
-          allowMediaSingle: true,
-          provider: getFreshMediaProvider(),
-        },
-      },
-    );
+        { allowExpand: true, allowTables: { allowCollapse: true } },
+      );
 
-    splitCell(editorView.state, editorView.dispatch);
+      const result = wrapTableInExpand(editorView.state, editorView.dispatch);
 
-    expect(editorView.state.doc).toEqualDocument(
-      doc(
-        table()(
-          tr(th()(p('')), th()(p('')), th()(p(''))),
-          tr(td()(temporaryMediaGroup), td()(p('')), td()(p(''))),
+      expect(result).toBeFalsy();
+      expect(editorView.state.doc).toEqualDocument(
+        doc(
+          p('Cursor {<>}here'),
+          table({ localId: 'test-table-local-id' })(
+            tr(thEmpty, thEmpty, thEmpty),
+            tr(tdEmpty, tdEmpty, tdEmpty),
+          ),
         ),
-      ),
-    );
+      );
+    });
+
+    it('should be able to wrap a root level table', () => {
+      const { editorView } = editor(
+        doc(
+          table()(
+            tr(thCursor, thEmpty, thEmpty),
+            tr(tdEmpty, tdEmpty, tdEmpty),
+          ),
+        ),
+        { allowExpand: true },
+      );
+
+      const result = wrapTableInExpand(editorView.state, editorView.dispatch);
+
+      expect(result).toBeTruthy();
+      expect(editorView.state.doc).toEqualDocument(
+        doc(
+          expand()(
+            table({ localId: 'test-table-local-id' })(
+              tr(thEmpty, thEmpty, thEmpty),
+              tr(tdEmpty, tdEmpty, tdEmpty),
+            ),
+          ),
+        ),
+      );
+    });
+
+    it('should not wrap a table under an expand', () => {
+      const { editorView } = editor(
+        doc(
+          expand()(
+            table()(
+              tr(thCursor, thEmpty, thEmpty),
+              tr(tdEmpty, tdEmpty, tdEmpty),
+            ),
+          ),
+        ),
+        { allowExpand: true },
+      );
+
+      const result = wrapTableInExpand(editorView.state, editorView.dispatch);
+
+      expect(result).toBeFalsy();
+      expect(editorView.state.doc).toEqualDocument(
+        doc(
+          expand()(
+            table({ localId: 'test-table-local-id' })(
+              tr(thEmpty, thEmpty, thEmpty),
+              tr(tdEmpty, tdEmpty, tdEmpty),
+            ),
+          ),
+        ),
+      );
+    });
+
+    it('should not wrap a table inside a bodiedExtension', () => {
+      const { editorView } = editor(
+        doc(
+          bodiedExtension({
+            extensionKey: 'key',
+            extensionType: 'type',
+            localId: 'localId',
+          })(
+            table()(
+              tr(thCursor, thEmpty, thEmpty),
+              tr(tdEmpty, tdEmpty, tdEmpty),
+            ),
+          ),
+        ),
+        { allowExpand: true, allowExtension: true },
+      );
+
+      const result = wrapTableInExpand(editorView.state, editorView.dispatch);
+
+      expect(result).toBeFalsy();
+      expect(editorView.state.doc).toEqualDocument(
+        doc(
+          bodiedExtension({
+            extensionKey: 'key',
+            extensionType: 'type',
+            localId: 'localId',
+          })(
+            table({ localId: 'test-table-local-id' })(
+              tr(thEmpty, thEmpty, thEmpty),
+              tr(tdEmpty, tdEmpty, tdEmpty),
+            ),
+          ),
+        ),
+      );
+    });
   });
 });

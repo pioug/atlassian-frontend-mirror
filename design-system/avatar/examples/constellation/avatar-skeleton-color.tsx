@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import React from 'react';
 
 import { B300 } from '@atlaskit/theme/colors';

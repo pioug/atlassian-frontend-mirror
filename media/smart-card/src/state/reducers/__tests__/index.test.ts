@@ -23,7 +23,6 @@ describe('Smart Card: Reducers', () => {
     store = {
       [url]: {
         status: 'pending',
-        lastUpdatedAt: 121,
       },
     };
     reducer = cardReducer;
@@ -41,7 +40,6 @@ describe('Smart Card: Reducers', () => {
       store = reducer(store, cardAction(ACTION_PENDING, mockActionParams));
       expect(store).toHaveProperty('/some/url', {
         status: 'pending',
-        lastUpdatedAt: 123,
       });
     });
   });
@@ -51,7 +49,6 @@ describe('Smart Card: Reducers', () => {
       store = reducer(store, cardAction(ACTION_RESOLVING, mockActionParams));
       expect(store).toHaveProperty('/some/url', {
         status: 'resolving',
-        lastUpdatedAt: 121,
       });
     });
   });
@@ -61,7 +58,6 @@ describe('Smart Card: Reducers', () => {
       store = reducer(store, cardAction(ACTION_ERROR, mockActionParams));
       expect(store).toHaveProperty('/some/url', {
         status: 'errored',
-        lastUpdatedAt: 121,
       });
     });
   });
@@ -93,7 +89,6 @@ describe('Smart Card: Reducers', () => {
       expect(store).toHaveProperty('/some/url', {
         status: 'resolved',
         details: mockPayload,
-        lastUpdatedAt: 123,
       });
     });
   });
@@ -126,7 +121,6 @@ describe('Smart Card: Reducers', () => {
       store[url] = {
         status: 'resolved',
         details: mockPayload,
-        lastUpdatedAt: 456,
       };
       store = reducer(
         store,
@@ -135,29 +129,6 @@ describe('Smart Card: Reducers', () => {
       expect(store).toHaveProperty('/some/url', {
         status: 'resolved',
         details: mockPayload,
-        lastUpdatedAt: 456,
-      });
-    });
-
-    it('successfully updates URL state when expired', () => {
-      mockDateNow.mockImplementationOnce(() => 456);
-      store[url] = {
-        status: 'resolved',
-        details: mockPayload,
-        lastUpdatedAt: 0,
-      };
-      store = reducer(
-        store,
-        cardAction(
-          ACTION_RESOLVED,
-          { ...mockActionParams, hasExpired: true },
-          mockOtherPayload,
-        ),
-      );
-      expect(store).toHaveProperty('/some/url', {
-        status: 'resolved',
-        details: mockOtherPayload,
-        lastUpdatedAt: 456,
       });
     });
 
@@ -170,7 +141,6 @@ describe('Smart Card: Reducers', () => {
       expect(store).toHaveProperty('/some/url', {
         status: 'resolved',
         details: mockPayload,
-        lastUpdatedAt: 123,
       });
     });
 
@@ -182,7 +152,6 @@ describe('Smart Card: Reducers', () => {
       );
       expect(store).toHaveProperty('/some/url', {
         status: 'resolved',
-        lastUpdatedAt: 123,
       });
     });
   });

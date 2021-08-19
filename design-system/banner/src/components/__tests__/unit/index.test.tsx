@@ -5,12 +5,7 @@ import { axe, JestAxeConfigureOptions, toHaveNoViolations } from 'jest-axe';
 
 import WarningIcon from '@atlaskit/icon/glyph/warning';
 
-import {
-  getBackgroundColor,
-  getTextColor,
-  testErrorBackgroundColor,
-  testErrorTextColor,
-} from '../../../styles';
+import { getBackgroundColor } from '../../../styles';
 import Banner from '../../banner';
 
 const axeRules: JestAxeConfigureOptions = {
@@ -33,9 +28,8 @@ describe('banner', () => {
       it('should apply error styles when error appearance supplied', () => {
         const appearance = 'error';
         expect(getBackgroundColor({ appearance })).toBe(
-          testErrorBackgroundColor,
+          `var(--background-boldDanger-resting, #DE350B)`,
         );
-        expect(getTextColor({ appearance })).toBe(testErrorTextColor);
       });
     });
 

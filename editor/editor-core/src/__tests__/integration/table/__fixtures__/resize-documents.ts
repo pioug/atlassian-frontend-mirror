@@ -7,6 +7,7 @@ export const tableWithRowSpan = {
       attrs: {
         isNumberColumnEnabled: false,
         layout: 'default',
+        localId: 'abc-123',
       },
       content: [
         {
@@ -132,6 +133,7 @@ export const twoColFullWidthTableWithContent = {
       attrs: {
         isNumberColumnEnabled: true,
         layout: 'full-width',
+        localId: 'abc-123',
       },
       content: [
         {
@@ -344,6 +346,7 @@ export const tableWithRowSpanAndColSpan = {
       attrs: {
         isNumberColumnEnabled: false,
         layout: 'default',
+        localId: 'abc-123',
       },
       content: [
         {
@@ -472,6 +475,7 @@ export const tableWithDynamicLayoutSizing = {
       attrs: {
         isNumberColumnEnabled: false,
         layout: 'default',
+        localId: 'abc-123',
       },
       content: [
         {
@@ -606,6 +610,7 @@ export const tableInsideColumns = {
               attrs: {
                 isNumberColumnEnabled: false,
                 layout: 'default',
+                localId: 'abc-123',
               },
               content: [
                 {
@@ -761,6 +766,7 @@ export const resizedTableWithStackedColumns = {
       attrs: {
         isNumberColumnEnabled: false,
         layout: 'default',
+        localId: 'abc-123',
       },
       content: [
         {
@@ -972,6 +978,7 @@ export const tableForBulkResize = {
       attrs: {
         isNumberColumnEnabled: false,
         layout: 'default',
+        localId: 'abc-123',
       },
       content: [
         {
@@ -1255,6 +1262,7 @@ export const tableForBulkResize3Cols = {
       attrs: {
         isNumberColumnEnabled: false,
         layout: 'default',
+        localId: 'abc-123',
       },
       content: [
         {
@@ -1430,6 +1438,7 @@ export const tableForBulkResizeWithNumberCol = {
       attrs: {
         isNumberColumnEnabled: true,
         layout: 'default',
+        localId: 'abc-123',
       },
       content: [
         {

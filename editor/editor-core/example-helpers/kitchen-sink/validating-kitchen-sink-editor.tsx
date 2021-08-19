@@ -85,6 +85,7 @@ export class ValidatingKitchenSinkEditor extends React.Component<
           allowTextColor={true}
           allowTables={{
             advanced: true,
+            allowDistributeColumns: true,
           }}
           allowBreakout={true}
           allowJiraIssue={true}
@@ -136,12 +137,7 @@ export class ValidatingKitchenSinkEditor extends React.Component<
           onChange={() => this.onEditorChanged(actions)}
           popupsMountPoint={popupMountPoint}
           primaryToolbarComponents={primaryToolbarComponents}
-          featureFlags={{
-            'local-id-generation-on-tables': true,
-            'data-consumer-mark': true,
-            // Spread here as we want to make sure we can still override flags added above
-            ...this.props.featureFlags,
-          }}
+          featureFlags={this.props.featureFlags}
           dangerouslyAppendPlugins={{
             __plugins: this.props.editorPlugins ?? EMPTY,
           }}

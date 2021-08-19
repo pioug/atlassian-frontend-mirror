@@ -64,7 +64,6 @@ export const createPlugin = (
   breakoutEnabled?: boolean,
   fullWidthModeEnabled?: boolean,
   previousFullWidthModeEnabled?: boolean,
-  allowLocalIdGeneration?: boolean,
 ) => {
   isBreakoutEnabled = breakoutEnabled;
   isDynamicTextSizingEnabled = dynamicTextSizing;
@@ -137,6 +136,7 @@ export const createPlugin = (
           const pluginState = getPluginState(state);
           let tableRef: HTMLTableElement | undefined;
           let tableNode;
+
           if (pluginState.editorHasFocus) {
             const parent = findParentDomRefOfType(
               state.schema.nodes.table,
@@ -240,7 +240,6 @@ export const createPlugin = (
               dynamicTextSizing: isDynamicTextSizingEnabled,
               isFullWidthModeEnabled,
               wasFullWidthModeEnabled,
-              allowLocalIdGeneration,
             },
           ),
       },

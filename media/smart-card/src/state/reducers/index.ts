@@ -7,7 +7,7 @@ import { getStatus } from '../helpers';
 
 const cardReducerMap: CardReducerMap<CardState, JsonLd.Response> = {
   [actions.ACTION_PENDING]: (_state, { type }) => {
-    return { status: type, lastUpdatedAt: Date.now() };
+    return { status: type };
   },
   [actions.ACTION_RESOLVING]: (state, { type }) => {
     return { ...state, status: type };
@@ -23,7 +23,6 @@ const cardReducerMap: CardReducerMap<CardState, JsonLd.Response> = {
       // is no data, the UI should handle this gracefully.
       nextState.status = type;
     }
-    nextState.lastUpdatedAt = Date.now();
     return nextState;
   },
   [actions.ACTION_ERROR]: (state, { type, error }) => {
@@ -43,10 +42,7 @@ export const cardReducer: CardReducer<CardStore, JsonLd.Response> = (
     // Card may have reached the same state on account of multiple of the same
     // URL being present in an editor session. E.g. page with N links to one resource.
     const hasSameStatus = cardState && cardState.status === action.type;
-    // Card needs to be refreshed. In this case, we ignore the same status pragma which
-    // is described above - this forces a rerender for all links of the same status.
-    const hasExpired = action.hasExpired;
-    if (!hasExpired && hasSameStatus) {
+    if (hasSameStatus) {
       return state;
     } else {
       const nextState = cardReducerMap[action.type](cardState, action);

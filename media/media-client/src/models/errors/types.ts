@@ -16,6 +16,8 @@ export type MediaClientErrorReason =
   | 'failedAuthProvider'
   | 'tokenExpired'
   | 'missingInitialAuth'
+  | 'emptyAuth'
+  | 'authProviderTimedOut'
   // FileFetcherErrorReason ----------------------------
   | 'invalidFileId'
   | 'emptyItems'

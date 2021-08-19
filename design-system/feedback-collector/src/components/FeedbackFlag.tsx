@@ -6,14 +6,20 @@ import { G300 } from '@atlaskit/theme/colors';
 
 interface AkProps {
   isDismissAllowed?: boolean;
+  description?: React.ReactText;
+  title?: React.ReactText;
   onDismissed?: (...args: Array<any>) => void;
 }
 const FeedbackFlag = (props: AkProps) => (
   <AutoDismissFlag
     icon={<SuccessIcon primaryColor={G300} label="Success" />}
     id="feedbackSent"
-    description="Your valuable feedback helps us continually improve our products."
-    title="Thanks!"
+    description={
+      props.description
+        ? props.description
+        : 'Your valuable feedback helps us continually improve our products.'
+    }
+    title={props.title ? props.title : 'Thanks!'}
     {...props}
   />
 );

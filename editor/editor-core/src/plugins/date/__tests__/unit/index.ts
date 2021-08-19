@@ -183,12 +183,17 @@ describe('date plugin', () => {
           expect(view.state.tr.doc).toEqualDocument(expected);
         });
         it('should insert date outside of codeblock inside same table cell', () => {
+          const TABLE_LOCAL_ID = 'test-table-local-id';
           const { editorView: view } = editor(
-            doc(table()(tr(td({})(code_block()('I am{<>} codeblock'))))),
+            doc(
+              table({ localId: TABLE_LOCAL_ID })(
+                tr(td({})(code_block()('I am{<>} codeblock'))),
+              ),
+            ),
           );
 
           const expected = doc(
-            table()(
+            table({ localId: TABLE_LOCAL_ID })(
               tr(
                 td()(
                   code_block()('I am codeblock'),
@@ -376,6 +381,44 @@ describe('date plugin', () => {
             isToday: false,
           }),
         });
+      });
+
+      it('should keep the selection when enterPressed is false', () => {
+        const { editorView: view } = editor(
+          doc(paragraph('{<>}', date(attrs))),
+        );
+
+        openDatePicker()(view.state, view.dispatch);
+        insertDate(
+          { year: 2021, month: 9, day: 27 },
+          undefined,
+          undefined,
+          false,
+        )(view.state, view.dispatch);
+
+        const pluginState = pluginKey.getState(view.state);
+        expect(pluginState.showDatePickerAt).toBeTruthy();
+        expect(pluginState.isNew).toBe(false);
+        expect(view.state.selection instanceof NodeSelection).toEqual(true);
+      });
+
+      it('should move the selection enterPressed is true', () => {
+        const { editorView: view } = editor(
+          doc(paragraph('{<>}', date(attrs), 'asfdasd')),
+        );
+
+        openDatePicker()(view.state, view.dispatch);
+        insertDate(
+          { year: 2021, month: 9, day: 27 },
+          undefined,
+          undefined,
+          true,
+        )(view.state, view.dispatch);
+
+        const pluginState = pluginKey.getState(view.state);
+        expect(pluginState.showDatePickerAt).toBeFalsy();
+        expect(pluginState.isNew).toBe(false);
+        expect(view.state.selection instanceof NodeSelection).toEqual(false);
       });
     });
 

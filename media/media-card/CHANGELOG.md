@@ -1,5 +1,17 @@
 # @atlaskit/media-card
 
+## 70.10.0
+
+### Minor Changes
+
+- [`710e03c4b58`](https://bitbucket.org/atlassian/atlassian-frontend/commits/710e03c4b58) - Revert Image Render Analytics Refactoring
+- [`8e6a1034cfd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8e6a1034cfd) - EDM-1730: added in-product Cypress tests for Smart Links
+
+### Patch Changes
+
+- [`6869256538b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6869256538b) - Handling card preview fetch from a separated internal module
+- Updated dependencies
+
 ## 70.9.0
 
 ### Minor Changes

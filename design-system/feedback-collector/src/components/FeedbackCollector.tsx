@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import truncate from 'lodash/truncate';
 
-import { FormFields, SelectValue } from '../types';
+import { FormFields, SelectOptionDetails, SelectValue } from '../types';
 
 import FeedbackForm from './FeedbackForm';
 
@@ -80,6 +80,12 @@ export interface Props {
   canBeContactedLabel?: React.ReactChild;
   /**  Message which will be shown inside the summary text field **/
   summaryPlaceholder?: string;
+  /**  Message for submit button label **/
+  submitButtonLabel?: string;
+  /**  Message for cancel button label **/
+  cancelButtonLabel?: string;
+  /**  Message for select option labels and field labels **/
+  feedbackGroupLabels?: Record<SelectValue, SelectOptionDetails>;
   /** Function that will be called to initiate the exit transition. */
   onClose: () => void;
   /** Function that will be called optimistically after a delay when the feedback is submitted. */
@@ -245,6 +251,9 @@ export default class FeedbackCollector extends Component<Props> {
         canBeContactedLabel={this.props.canBeContactedLabel}
         enrolInResearchLabel={this.props.enrolInResearchLabel}
         summaryPlaceholder={this.props.summaryPlaceholder}
+        submitButtonLabel={this.props.submitButtonLabel}
+        cancelButtonLabel={this.props.cancelButtonLabel}
+        feedbackGroupLabels={this.props.feedbackGroupLabels}
         onSubmit={this.postFeedback}
         onClose={this.props.onClose}
       />

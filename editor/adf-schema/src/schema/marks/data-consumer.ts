@@ -15,7 +15,6 @@ export interface DataConsumerAttributes {
 
 /**
  * @name dataConsumer_mark
- * @stage 0
  * @description This mark is used for metadata surrounding a node consuming data
  * from a given source node
  */

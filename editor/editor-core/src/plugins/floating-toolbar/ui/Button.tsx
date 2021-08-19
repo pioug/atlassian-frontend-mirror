@@ -11,6 +11,8 @@ export interface Props {
   onClick?: React.MouseEventHandler;
   onMouseEnter?: <T>(event: React.MouseEvent<T>) => void;
   onMouseLeave?: <T>(event: React.MouseEvent<T>) => void;
+  onFocus?: <T>(event: React.FocusEvent<T>) => void;
+  onBlur?: <T>(event: React.FocusEvent<T>) => void;
   selected?: boolean;
   disabled?: boolean;
   appearance?: ButtonAppearance;
@@ -30,6 +32,8 @@ export default ({
   onClick,
   onMouseEnter,
   onMouseLeave,
+  onFocus,
+  onBlur,
   selected,
   disabled,
   href,
@@ -82,6 +86,8 @@ export default ({
           isSelected={selected}
           isDisabled={disabled}
           testId={testId}
+          onFocus={onFocus}
+          onBlur={onBlur}
         >
           {children}
         </Button>

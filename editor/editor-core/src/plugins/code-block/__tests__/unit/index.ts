@@ -85,13 +85,18 @@ describe('code-block', () => {
       });
 
       it('should be possible to remove code block with no text inside table', () => {
+        const TABLE_LOCAL_ID = 'test-table-local-id';
         const { pluginState, editorView, refs } = editor(
-          doc(table()(tr(td({})('{codeBlockPos}', code_block()('{<>}'))))),
+          doc(
+            table({ localId: TABLE_LOCAL_ID })(
+              tr(td({})('{codeBlockPos}', code_block()('{<>}'))),
+            ),
+          ),
         );
         expect(pluginState.pos).toEqual(refs.codeBlockPos);
         removeCodeBlock(editorView.state, editorView.dispatch);
         expect(editorView.state.doc).toEqualDocument(
-          doc(table()(tr(td({})(p())))),
+          doc(table({ localId: TABLE_LOCAL_ID })(tr(td({})(p())))),
         );
       });
 

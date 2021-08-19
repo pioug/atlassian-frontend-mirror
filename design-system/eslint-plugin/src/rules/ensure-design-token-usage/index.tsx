@@ -1,5 +1,6 @@
 import type { Rule } from 'eslint';
 
+import renameMapping from '@atlaskit/tokens/rename-mapping';
 import tokens from '@atlaskit/tokens/token-names';
 
 import {
@@ -81,6 +82,7 @@ token('color.background.blanket');
 \`\`\`
 `,
       invalidToken: 'The token "{{name}}" does not exist.',
+      tokenRenamed: 'The token "{{name}}" has been renamed.',
     },
   },
   create(context) {
@@ -247,8 +249,27 @@ ${' '.repeat(getNodeColumn(node) - 2)}box-shadow: \${token('${
           return;
         }
 
-        const anyTokens = tokens as any;
         const tokenKey = node.arguments[0].value;
+        if (
+          tokenKey &&
+          typeof tokenKey === 'string' &&
+          tokenKey in renameMapping
+        ) {
+          context.report({
+            messageId: 'tokenRenamed',
+            node,
+            data: {
+              name: tokenKey + '',
+            },
+            fix: (fixer) => {
+              const newTokenName = renameMapping[tokenKey];
+              return fixer.replaceText(node.arguments[0], `'${newTokenName}'`);
+            },
+          });
+          return;
+        }
+
+        const anyTokens = tokens as any;
         if (typeof tokenKey !== 'string' || !anyTokens[tokenKey]) {
           context.report({
             messageId: 'invalidToken',

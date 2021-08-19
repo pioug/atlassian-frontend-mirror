@@ -1,0 +1,184 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`@atlaskit/page-header should render correctly 1`] = `
+.emotion-5 {
+  margin: 24px 0 16px 0;
+}
+
+.emotion-3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: flex-start;
+  -webkit-box-align: flex-start;
+  -ms-flex-align: flex-start;
+  align-items: flex-start;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.emotion-1 {
+  min-width: 0;
+  max-width: 100%;
+  margin-bottom: 8px;
+  -webkit-flex: 1 0 auto;
+  -ms-flex: 1 0 auto;
+  flex: 1 0 auto;
+}
+
+.emotion-0 {
+  margin-top: 0;
+  line-height: 32px;
+  outline: none;
+  font-size: 1.7142857142857142em;
+  font-style: inherit;
+  line-height: 1.1666666666666667;
+  color: var(--text-highEmphasis,#172B4D);
+  font-weight: 500;
+  -webkit-letter-spacing: -0.01em;
+  -moz-letter-spacing: -0.01em;
+  -ms-letter-spacing: -0.01em;
+  letter-spacing: -0.01em;
+  margin-top: 40px;
+}
+
+.emotion-2 {
+  max-width: 100%;
+  margin-bottom: 8px;
+  margin-left: auto;
+  padding-left: 32px;
+  -webkit-flex: 0 0 auto;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+
+.emotion-2 > {
+  text-align: right;
+}
+
+.emotion-4 {
+  margin-top: 16px;
+}
+
+<div
+  className="emotion-5"
+>
+  <div>
+    Breadcrumb
+  </div>
+  <div
+    className="emotion-3"
+  >
+    <div
+      className="emotion-1"
+    >
+      <h1
+        className="emotion-0"
+        tabIndex={-1}
+      >
+        Test
+      </h1>
+    </div>
+    <div
+      className="emotion-2"
+    >
+      <div>
+        Action
+      </div>
+    </div>
+  </div>
+  <div
+    className="emotion-4"
+  >
+     
+    <div>
+      Bar
+    </div>
+     
+  </div>
+</div>
+`;
+
+exports[`@atlaskit/page-header should render correctly with disableTitleStyles prop 1`] = `
+.emotion-4 {
+  margin: 24px 0 16px 0;
+}
+
+.emotion-2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: flex-start;
+  -webkit-box-align: flex-start;
+  -ms-flex-align: flex-start;
+  align-items: flex-start;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.emotion-0 {
+  min-width: 0;
+  max-width: 100%;
+  margin-bottom: 8px;
+  -webkit-flex: 1 0 auto;
+  -ms-flex: 1 0 auto;
+  flex: 1 0 auto;
+}
+
+.emotion-1 {
+  max-width: 100%;
+  margin-bottom: 8px;
+  margin-left: auto;
+  padding-left: 32px;
+  -webkit-flex: 0 0 auto;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+
+.emotion-1 > {
+  text-align: right;
+}
+
+.emotion-3 {
+  margin-top: 16px;
+}
+
+<div
+  className="emotion-4"
+>
+  <div>
+    Breadcrumb
+  </div>
+  <div
+    className="emotion-2"
+  >
+    <div
+      className="emotion-0"
+    >
+      Test
+    </div>
+    <div
+      className="emotion-1"
+    >
+      <div>
+        Action
+      </div>
+    </div>
+  </div>
+  <div
+    className="emotion-3"
+  >
+     
+    <div>
+      Bar
+    </div>
+     
+  </div>
+</div>
+`;

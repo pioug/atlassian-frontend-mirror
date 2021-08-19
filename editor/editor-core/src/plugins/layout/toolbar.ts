@@ -113,6 +113,8 @@ export const buildToolbar = (
       onClick: deleteActiveLayoutNode,
       onMouseEnter: hoverDecoration(nodeType, true),
       onMouseLeave: hoverDecoration(nodeType, false),
+      onFocus: hoverDecoration(nodeType, true),
+      onBlur: hoverDecoration(nodeType, false),
     };
 
     return {

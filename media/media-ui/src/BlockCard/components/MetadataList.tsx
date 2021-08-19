@@ -9,6 +9,8 @@ export interface MetadataListProps {
   testId?: string;
 }
 
+export const metadataListClassName = 'smart-link-metadata-list';
+
 export const MetadataList = ({ items, testId }: MetadataListProps) => {
   return (
     <div
@@ -21,6 +23,7 @@ export const MetadataList = ({ items, testId }: MetadataListProps) => {
         },
       }}
       data-testid={testId}
+      className={metadataListClassName}
     >
       {items.map((item) => (
         <Metadata key={item.text} {...item} />

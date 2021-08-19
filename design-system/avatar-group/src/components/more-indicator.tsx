@@ -21,6 +21,7 @@ import {
   N30A,
   N500,
 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import { CssCallback } from './types';
 
@@ -39,29 +40,35 @@ const getButtonStyles = (
 ) => {
   // eslint-disable-next-line @repo/internal/react/no-css-string-literals
   const activeStyles = css`
-    background-color: ${B50};
+    background-color: ${token('color.background.selected.resting', B50)};
     transform: scale(${ACTIVE_SCALE_FACTOR});
-    box-shadow: 0 0 0 ${BORDER_WIDTH}px ${B300};
-    color: ${B400};
+    box-shadow: 0 0 0 ${BORDER_WIDTH}px ${token('color.text.selected', B300)};
+    color: ${token('color.text.selected', B400)};
   `;
 
   // eslint-disable-next-line @repo/internal/react/no-css-string-literals
   return css`
-    color: ${N500};
-    background-color: ${N20};
+    color: ${token('color.text.highEmphasis', N500)};
+    background-color: ${token('color.background.subtleNeutral.resting', N20)};
     font-size: ${FONT_SIZE[size]}px;
     font-family: inherit;
     font-weight: 500;
 
     &:hover {
-      background-color: ${N30};
+      background-color: ${token('color.background.subtleNeutral.hover', N30)};
+      color: ${token('color.text.highEmphasis', N500)};
       &:after {
-        background-color: ${N30A};
+        background-color: ${token(
+          'color.background.subtleNeutral.hover',
+          N30A,
+        )};
+        opacity: 1;
       }
     }
 
     &:active {
-      ${activeStyles}
+      background-color: ${token('color.background.subtleNeutral.pressed', B50)};
+      color: ${token('color.text.highEmphasis', B400)};
       &:after {
         background-color: transparent;
       }
@@ -87,7 +94,7 @@ const MoreIndicator = forwardRef<HTMLButtonElement, MoreIndicatorProps>(
   (
     {
       appearance = 'circle' as AppearanceType,
-      borderColor = background(),
+      borderColor = token('color.background.overlay', background()),
       size = 'medium' as SizeType,
       count = 0,
       testId,

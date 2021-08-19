@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/textfield",
-  "version": "5.0.5",
+  "version": "5.1.0",
   "description": "A text field is an input that allows a user to write or edit text.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -13,7 +13,7 @@
   "module:es2019": "dist/es2019/index.js",
   "types": "dist/types/index.d.ts",
   "sideEffects": false,
-  "atlaskit:src": "src/index.ts",
+  "atlaskit:src": "src/index.tsx",
   "atlassian": {
     "team": "Design System Team",
     "inPublicMirror": true,
@@ -23,11 +23,12 @@
     }
   },
   "af:exports": {
-    ".": "./src/index.ts"
+    ".": "./src/index.tsx"
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^8.2.0",
     "@atlaskit/theme": "^11.4.0",
+    "@atlaskit/tokens": "^0.1.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/core": "^10.0.9"
   },
@@ -35,13 +36,13 @@
     "react": "^16.8.0"
   },
   "devDependencies": {
-    "@atlaskit/avatar": "^20.1.0",
+    "@atlaskit/avatar": "^20.4.0",
     "@atlaskit/build-utils": "*",
-    "@atlaskit/button": "^16.0.0",
+    "@atlaskit/button": "^16.1.0",
     "@atlaskit/docs": "*",
-    "@atlaskit/form": "^8.1.0",
+    "@atlaskit/form": "^8.3.0",
     "@atlaskit/icon": "^21.7.0",
-    "@atlaskit/section-message": "^6.0.0",
+    "@atlaskit/section-message": "^6.1.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/toggle": "^12.0.0",
     "@atlaskit/visual-regression": "*",
@@ -65,18 +66,12 @@
       "import-structure": "atlassian-conventions"
     },
     "@repo/internal": {
-      "ui-components": [
-        "lite-mode"
-      ],
-      "analytics": [
-        "analytics-next"
-      ],
-      "theming": [
-        "new-theming-api"
-      ],
-      "deprecation": [
-        "no-deprecated-imports"
-      ]
+      "ui-components": "lite-mode",
+      "styling": "emotion",
+      "analytics": "analytics-next",
+      "theming": "tokens",
+      "design-system": "v1",
+      "deprecation": "no-deprecated-imports"
     }
   },
   "homepage": "https://atlassian.design/components/textfield/",

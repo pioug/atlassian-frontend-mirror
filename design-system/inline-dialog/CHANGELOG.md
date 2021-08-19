@@ -1,5 +1,16 @@
 # @atlaskit/inline-dialog
 
+## 13.1.0
+
+### Minor Changes
+
+- [`5a049f800d3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5a049f800d3) - Integrates the new tokens package to add support for our new theming solution. This change is fully backwards compatible with our existing theming solution
+- [`caec2cee6e0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/caec2cee6e0) - Removes `styled-components` dependency from the package. Also uses ThemeV2 API now. There should be no visual or UX change.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.0.11
 
 ### Patch Changes

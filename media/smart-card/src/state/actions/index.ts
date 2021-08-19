@@ -33,15 +33,13 @@ export const useSmartCardActions = (
 ) => {
   const { store, connections, config } = useSmartLinkContext();
   const { getState, dispatch } = store;
-  const { details, lastUpdatedAt, status } = getState()[url] || {
+  const { details, status } = getState()[url] || {
     status: 'pending',
-    lastUpdatedAt: Date.now(),
     details: undefined,
   };
 
   const hasAuthFlowSupported = config.authFlow !== 'disabled';
   const hasData = !!(details && details.data);
-  const hasExpired = Date.now() - lastUpdatedAt >= config.maxAge;
 
   const handleResolvedLinkError = useCallback(
     (url: string, error: APIError) => {
@@ -101,21 +99,9 @@ export const useSmartCardActions = (
       }
 
       // Dispatch Analytics and resolved card action - including unauthorized states.
-      dispatch(
-        cardAction(
-          ACTION_RESOLVED,
-          { url: resourceUrl, hasExpired: hasExpired && !hasData },
-          response,
-        ),
-      );
+      dispatch(cardAction(ACTION_RESOLVED, { url: resourceUrl }, response));
     },
-    [
-      dispatch,
-      handleResolvedLinkError,
-      hasData,
-      hasExpired,
-      hasAuthFlowSupported,
-    ],
+    [dispatch, handleResolvedLinkError, hasAuthFlowSupported],
   );
 
   const resolve = useCallback(
@@ -123,7 +109,7 @@ export const useSmartCardActions = (
       // Request JSON-LD data for the card from ORS, iff it has extended
       // its cache lifespan OR there is no data for it currently. Once the data
       // has come back asynchronously, dispatch the resolved action for the card.
-      if (isReloading || hasExpired || !hasData) {
+      if (isReloading || !hasData) {
         return connections.client
           .fetchData(resourceUrl)
           .then((response) => handleResolvedLinkResponse(resourceUrl, response))
@@ -133,7 +119,6 @@ export const useSmartCardActions = (
     [
       url,
       hasData,
-      hasExpired,
       connections.client,
       handleResolvedLinkResponse,
       handleResolvedLinkError,

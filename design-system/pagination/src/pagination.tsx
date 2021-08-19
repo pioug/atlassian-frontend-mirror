@@ -71,7 +71,7 @@ function InnerPagination<T>(
     ...analyticsAttributes,
   });
 
-  const transform = (page: T, currPageIndex: number) => {
+  const transform = (page: T, currPageIndex: number, testId?: string) => {
     const selectedPage = pages[selectedIndexValue];
     return (
       <PageComponent
@@ -84,6 +84,12 @@ function InnerPagination<T>(
         }
         isSelected={page === selectedPage}
         page={page}
+        testId={
+          testId &&
+          `${testId}--${
+            page === selectedPage ? 'current-' : ''
+          }page-${currPageIndex}`
+        }
       >
         {getPageLabel ? getPageLabel(page, currPageIndex) : page}
       </PageComponent>
@@ -110,12 +116,18 @@ function InnerPagination<T>(
         iconBefore={<ChevronLeftLargeIcon label="" />}
         aria-label={previousLabel}
         pages={pages}
+        testId={testId && `${testId}--left-navigator`}
       />
-      {collapseRange(pages, selectedIndexValue, {
-        max: max!,
-        ellipsis: renderEllipsis!,
-        transform,
-      })}
+      {collapseRange(
+        pages,
+        selectedIndexValue,
+        {
+          max: max!,
+          ellipsis: renderEllipsis!,
+          transform,
+        },
+        testId,
+      )}
       <Navigator
         key="right-navigator"
         component={components!.Next}
@@ -129,6 +141,7 @@ function InnerPagination<T>(
         iconBefore={<ChevronRightLargeIcon label="" />}
         aria-label={nextLabel}
         pages={pages}
+        testId={testId && `${testId}--right-navigator`}
       />
     </nav>
   );

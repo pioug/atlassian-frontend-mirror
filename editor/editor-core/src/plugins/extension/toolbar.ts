@@ -174,6 +174,8 @@ export const getToolbarConfig = (
           onClick: removeExtension(),
           onMouseEnter: hoverDecoration(nodeType, true),
           onMouseLeave: hoverDecoration(nodeType, false),
+          onFocus: hoverDecoration(nodeType, true),
+          onBlur: hoverDecoration(nodeType, false),
           title: formatMessage(commonMessages.remove),
         },
       ],

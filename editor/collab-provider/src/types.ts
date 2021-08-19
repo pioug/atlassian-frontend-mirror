@@ -13,17 +13,17 @@ export interface Config {
   documentAri: string;
   lifecycle?: Lifecycle;
   storage?: Storage;
-  createSocket(path: string, initializationToken?: string): Socket;
+  createSocket(
+    path: string,
+    auth?: (cb: (data: object) => void) => void,
+  ): Socket;
   analyticsClient?: AnalyticsWebClient;
   getUser?(
     userId: string,
   ): Promise<
     Pick<CollabParticipant, 'avatar' | 'email' | 'name'> & { userId: string }
   >;
-  permissionToken?: {
-    initializationToken: string;
-    tokenRefresh(): Promise<string>;
-  };
+  permissionTokenRefresh?: () => Promise<string>;
 }
 
 interface SimpleEventEmitter {

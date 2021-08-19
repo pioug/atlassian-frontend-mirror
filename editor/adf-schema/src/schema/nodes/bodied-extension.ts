@@ -26,7 +26,6 @@ export type BodiedExtensionDefinition = BodiedExtensionBaseDefinition & NoMark;
 
 /**
  * @name bodiedExtension_with_marks_node
- * @stage 0
  */
 export type BodiedExtensionWithMarksDefinition = BodiedExtensionBaseDefinition &
   MarksObject<DataConsumerDefinition>;

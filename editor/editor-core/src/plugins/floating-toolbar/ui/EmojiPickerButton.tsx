@@ -17,7 +17,7 @@ const EmojiPickerButtonWrapper = styled.div`
   position: relative;
 `;
 
-export type Props = {
+export const EmojiPickerButton: React.FunctionComponent<{
   className?: string;
   view?: EditorView;
   idx?: number;
@@ -25,14 +25,7 @@ export type Props = {
   title?: string;
   onChange?: (emoji: EmojiId) => void;
   isSelected?: boolean;
-};
-
-export type State = {
-  isPopupOpen?: Boolean;
-  activeIcon?: string;
-};
-
-export const EmojiPickerButton = (props: Props) => {
+}> = (props) => {
   const buttonRef = React.useRef<HTMLButtonElement>(null);
   const [isPopupOpen, setIsPopupOpen] = React.useState(false);
 

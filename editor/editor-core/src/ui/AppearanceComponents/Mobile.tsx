@@ -4,8 +4,8 @@ import {
   pluginKey as maxContentSizePluginKey,
   MaxContentSizePluginState,
 } from '../../plugins/max-content-size';
-import { MobileScrollPluginState } from '../../plugins/mobile-scroll/types';
-import { mobileScrollPluginKey } from '../../plugins/mobile-scroll/plugin-factory';
+import { MobileDimensionsPluginState } from '../../plugins/mobile-dimensions/types';
+import { mobileDimensionsPluginKey } from '../../plugins/mobile-dimensions/plugin-factory';
 import WithPluginState from '../WithPluginState';
 import WithFlash from '../WithFlash';
 import ContentStyles from '../ContentStyles';
@@ -51,18 +51,22 @@ export function MobileAppearance({
   const render = useCallback(
     ({
       maxContentSize,
-      mobileScroll,
+      mobileDimensions,
     }: {
       maxContentSize?: MaxContentSizePluginState;
-      mobileScroll?: MobileScrollPluginState;
+      mobileDimensions?: MobileDimensionsPluginState;
     }) => {
       const maxContentSizeReached = Boolean(
         maxContentSize?.maxContentSizeReached,
       );
 
       let minHeight = 100;
-      if (mobileScroll) {
-        const { keyboardHeight, windowHeight, mobilePaddingTop } = mobileScroll;
+      if (mobileDimensions) {
+        const {
+          keyboardHeight,
+          windowHeight,
+          mobilePaddingTop,
+        } = mobileDimensions;
         /*
           We calculate the min-height based on the windowHeight - keyboardHeight - paddingTop.
           This is needed due to scrolling issues when there is no content to scroll (like, only having 1 paragraph),
@@ -99,7 +103,7 @@ export function MobileAppearance({
     <WithPluginState
       plugins={{
         maxContentSize: maxContentSizePluginKey,
-        mobileScroll: mobileScrollPluginKey,
+        mobileDimensions: mobileDimensionsPluginKey,
       }}
       render={render}
     />

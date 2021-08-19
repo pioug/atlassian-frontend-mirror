@@ -228,3 +228,30 @@ export function isSelectionInsidePanel(selection: Selection): PMNode | null {
 
   return null;
 }
+
+// https://product-fabric.atlassian.net/browse/ED-11714
+// Checks for broken html that comes from links in a list item copied from Notion
+export const htmlHasInvalidLinkTags = (html?: string): boolean => {
+  return !!html && (html.includes('</a></a>') || html.includes('"></a><a'));
+};
+
+// https://product-fabric.atlassian.net/browse/ED-11714
+// Example of broken html edge case we're solving
+// <li><a href="http://www.atlassian.com\"<a> href="http://www.atlassian.com\"http://www.atlassian.com</a></a></li>">
+export const removeDuplicateInvalidLinks = (html: string): string => {
+  if (htmlHasInvalidLinkTags(html)) {
+    const htmlArray = html.split(/(?=<a)/);
+    const htmlArrayWithoutInvalidLinks = htmlArray.filter((item) => {
+      return (
+        !(item.includes('<a') && item.includes('"></a>')) &&
+        !(item.includes('<a') && !item.includes('</a>'))
+      );
+    });
+    const fixedHtml = htmlArrayWithoutInvalidLinks
+      .join('')
+      .replace(/<\/a><\/a>/gi, '</a>')
+      .replace(/<a>/gi, '<a');
+    return fixedHtml;
+  }
+  return html;
+};

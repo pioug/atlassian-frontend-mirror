@@ -16,7 +16,10 @@ const content = (
   </div>
 );
 
-export default class InlineDialogExample extends Component<{}, State> {
+export default class InlineDialogParentClippingExample extends Component<
+  {},
+  State
+> {
   state = {
     dialogOpen: false,
   };

@@ -67,7 +67,7 @@ describe('action paste handler', () => {
   const createNestedExpandDoc = (nodes: Array<any>) => {
     return doc(
       expand({ title: 'expand' })(
-        table()(
+        table({ localId: 'local-uuid' })(
           tr(thEmpty, thEmpty, thEmpty),
           tr(
             td()(nestedExpand({ title: 'nestedExpand' })(...nodes)),

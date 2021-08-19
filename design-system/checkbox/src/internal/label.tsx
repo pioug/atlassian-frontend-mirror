@@ -5,6 +5,7 @@ import { CSSObject, jsx } from '@emotion/core';
 
 import { N80, N900 } from '@atlaskit/theme/colors';
 import { fontFamily as getFontFamily } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 import { LabelProps } from '../types';
 
@@ -13,10 +14,10 @@ export const labelCSS = (): CSSObject => ({
   fontFamily: fontFamily,
   alignItems: 'center',
   display: 'flex',
-  color: N900,
+  color: token('color.text.highEmphasis', N900),
   cursor: 'default',
   '&[data-disabled]': {
-    color: N80,
+    color: token('color.text.disabled', N80),
     cursor: 'not-allowed',
   },
 });

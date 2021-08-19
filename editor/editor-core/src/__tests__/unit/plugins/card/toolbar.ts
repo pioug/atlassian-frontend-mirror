@@ -1,6 +1,7 @@
 import { ProviderFactory } from '@atlaskit/editor-common';
 import { IntlProvider } from 'react-intl';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
 import {
   doc,
   p,
@@ -30,7 +31,7 @@ import * as CardUtils from '../../../../plugins/card/utils';
 describe('card', () => {
   const createEditor = createEditorFactory();
   const providerFactory = new ProviderFactory();
-
+  let createAnalyticsEvent = createAnalyticsEventMock();
   const editor = (doc: DocBuilder) => {
     return createEditor({
       doc,
@@ -42,8 +43,10 @@ describe('card', () => {
           allowResizing: true,
         },
         allowExpand: true,
+        allowAnalyticsGASV3: true,
       },
       pluginKey,
+      createAnalyticsEvent,
     });
   };
 
@@ -343,6 +346,15 @@ describe('card', () => {
       ) as FloatingToolbarButton<Command>;
 
       visitButton.onClick(editorView.state, editorView.dispatch);
+      expect(createAnalyticsEvent).toBeCalledWith({
+        action: 'visited',
+        actionSubject: 'smartLink',
+        actionSubjectId: 'inlineCard',
+        attributes: expect.objectContaining({
+          inputMethod: 'toolbar',
+        }),
+        eventType: 'track',
+      });
       expect(open).toBeCalledWith('http://www.atlassian.com/');
     });
 
@@ -428,6 +440,15 @@ describe('card', () => {
       ) as FloatingToolbarButton<Command>;
 
       unlinkButton.onClick(editorView.state, editorView.dispatch);
+      expect(createAnalyticsEvent).toBeCalledWith({
+        action: 'unlinked',
+        actionSubject: 'smartLink',
+        actionSubjectId: 'inlineCard',
+        attributes: expect.objectContaining({
+          inputMethod: 'toolbar',
+        }),
+        eventType: 'track',
+      });
       expect(editorView.state.doc).toEqualDocument(
         doc(p('abWelcome to Atlassian!cd')),
       );

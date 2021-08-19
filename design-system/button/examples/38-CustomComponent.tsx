@@ -5,12 +5,11 @@ import { jsx } from '@emotion/core';
 
 import Switcher from '@atlaskit/icon/glyph/app-switcher';
 
-import Button, { ButtonProps } from '../src';
+import Button from '../src';
 
-const Component = React.forwardRef<HTMLElement, ButtonProps>((props, ref) => (
-  // TODO: fix
-  // @ts-ignore
-  <header {...props} ref={ref} css={{ backgroundColor: 'pink' }} />
+const Component = React.forwardRef((props, ref: React.Ref<HTMLElement>) => (
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+  <header {...props} ref={ref} style={{ backgroundColor: 'pink' }} />
 ));
 
 export default () => (

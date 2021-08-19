@@ -1,5 +1,19 @@
 # @atlaskit/tabs
 
+## 13.2.0
+
+### Minor Changes
+
+- [`cc54bf994d6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cc54bf994d6) - Instrumented Tabs with the new theming package, `@atlaskit/tokens`.
+
+  New tokens will be visible only in applications configured to use the new Tokens API (currently in alpha).
+  These changes are intended to be interoperable with the legacy theme implementation. Legacy dark mode users should expect no visual or breaking changes.
+
+### Patch Changes
+
+- [`af4bca32ad4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/af4bca32ad4) - Internal changes to supress eslint rules.
+- Updated dependencies
+
 ## 13.1.4
 
 ### Patch Changes

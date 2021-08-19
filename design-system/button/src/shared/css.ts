@@ -215,7 +215,7 @@ export function getCss({
     // Giving disabled styles preference over active by listing them after.
     // Not using '&:disabled' because :disabled is not a valid state for all element types
     // so we are targeting the attribute
-    // Attributes have the same specificity a pesudo classes so we are overriding :disabled here
+    // Attributes have the same specificity a pseudo classes so we are overriding :disabled here
     '&[disabled]': {
       // always using 'disabled' even when selected
       ...getColors({ appearance, key: 'disabled', mode }),

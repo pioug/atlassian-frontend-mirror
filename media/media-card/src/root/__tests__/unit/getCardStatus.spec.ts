@@ -7,24 +7,15 @@ jest.mock('@atlaskit/media-client', () => {
     isPreviewableFileState: jest.fn(() => 'isPreviewableFileState-return'),
   };
 });
-import {
-  FileStatus,
-  FileState,
-  isPreviewableType,
-  isPreviewableFileState,
-  MediaType,
-} from '@atlaskit/media-client';
-import { MediaFeatureFlags } from '@atlaskit/media-common';
-import {
-  getCardStatus,
-  GetCardStatusParams,
-  extractCardStatusParams,
-} from '../../card/getCardStatus';
+import { FileStatus } from '@atlaskit/media-client';
+import { getCardStatus } from '../../card/getCardStatus';
+import { FilePreviewStatus } from '../../../types';
 
-const defaultOptions: GetCardStatusParams = {
-  isPreviewableType: true,
+const defaultOptions: FilePreviewStatus = {
   hasFilesize: true,
-  isPreviewableFileState: false,
+  hasPreview: false,
+  isSupportedByBrowser: false,
+  isPreviewable: true,
 };
 
 describe('getCardStatus()', () => {
@@ -35,29 +26,43 @@ describe('getCardStatus()', () => {
     },
   );
 
-  it('should return `complete` if the file status is `processed`', () => {
-    expect(getCardStatus('processed', defaultOptions)).toEqual('complete');
+  it('should return `complete` if the file status is `processed` and file is not previewable', () => {
+    expect(
+      getCardStatus('processed', { ...defaultOptions, isPreviewable: false }),
+    ).toEqual('complete');
+  });
+
+  it('should return `complete` if the file status is `processed` and file has no preview', () => {
+    expect(
+      getCardStatus('processed', { ...defaultOptions, hasPreview: false }),
+    ).toEqual('complete');
+  });
+
+  it('should return `loading-preview` if the file status is `processed` and file is previewable with preview', () => {
+    expect(
+      getCardStatus('processed', { ...defaultOptions, hasPreview: true }),
+    ).toEqual('loading-preview');
   });
 
   it('should return `complete` if the non-empty file status is `processing` and preview is disabled', () => {
     expect(
       getCardStatus('processing', {
-        isPreviewableType: false,
+        isPreviewable: false,
         // File has to be non-empty
         // TODO: improve/remove this check https://product-fabric.atlassian.net/browse/BMPT-1247
         hasFilesize: true,
-      } as GetCardStatusParams),
+      } as FilePreviewStatus),
     ).toEqual('complete');
   });
 
   it('should return `complete` if the non-empty file status is `processing` and file state has preview', () => {
     expect(
       getCardStatus('processing', {
-        isPreviewableFileState: true,
+        hasPreview: true,
         // File has to be non-empty
         // TODO: improve/remove this check https://product-fabric.atlassian.net/browse/BMPT-1247
         hasFilesize: true,
-      } as GetCardStatusParams),
+      } as FilePreviewStatus),
     ).toEqual('complete');
   });
 
@@ -66,7 +71,7 @@ describe('getCardStatus()', () => {
       getCardStatus('processing', {
         // TODO: improve/remove this check https://product-fabric.atlassian.net/browse/BMPT-1247
         hasFilesize: false,
-      } as GetCardStatusParams),
+      } as FilePreviewStatus),
     ).toEqual('processing');
   });
 
@@ -76,58 +81,9 @@ describe('getCardStatus()', () => {
     expect(
       getCardStatus(
         'unhandled-file-status' as FileStatus,
-        {} as GetCardStatusParams,
+        {} as FilePreviewStatus,
       ),
     ).toEqual('loading');
-  });
-});
-
-describe('extractCardStatusParams()', () => {
-  const dummyFeatureFlags = {} as MediaFeatureFlags;
-
-  it('should check if a local preview is available and the media type is listed as previewable', () => {
-    const dummyMediaType = 'some-mediaType' as MediaType;
-    const dummyFileStateWithMediaType = {
-      mediaType: dummyMediaType,
-    } as FileState;
-    expect(
-      extractCardStatusParams(dummyFileStateWithMediaType, dummyFeatureFlags),
-    ).toMatchObject(
-      expect.objectContaining({
-        isPreviewableType: isPreviewableType(dummyMediaType),
-        isPreviewableFileState: isPreviewableFileState(
-          dummyFileStateWithMediaType,
-        ),
-      }),
-    );
-    // Common helpers should be used for this operation
-    expect(isPreviewableType).toBeCalledWith(dummyMediaType, dummyFeatureFlags);
-    expect(isPreviewableFileState).toBeCalledWith(dummyFileStateWithMediaType);
-  });
-
-  it(`should use file state's file size`, () => {
-    const dummyFileStateWithoutSize = ({
-      size: undefined,
-    } as unknown) as FileState;
-    const dummyFileStateWithSize = ({
-      size: 1,
-    } as unknown) as FileState;
-
-    expect(
-      extractCardStatusParams(dummyFileStateWithoutSize, dummyFeatureFlags),
-    ).toMatchObject(
-      expect.objectContaining({
-        hasFilesize: false,
-      }),
-    );
-
-    expect(
-      extractCardStatusParams(dummyFileStateWithSize, dummyFeatureFlags),
-    ).toMatchObject(
-      expect.objectContaining({
-        hasFilesize: true,
-      }),
-    );
   });
 
   it('should return loading by default', () => {
@@ -136,7 +92,7 @@ describe('extractCardStatusParams()', () => {
     expect(
       getCardStatus(
         'unhandled-file-status' as FileStatus,
-        {} as GetCardStatusParams,
+        {} as FilePreviewStatus,
       ),
     ).toEqual('loading');
   });

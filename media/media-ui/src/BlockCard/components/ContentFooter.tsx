@@ -7,6 +7,8 @@ export interface ContentFooterProps {
   hasSpaceBetween?: boolean;
 }
 
+export const contentFooterClassName = 'smart-link-content-footer';
+
 export const ContentFooter = ({
   children,
   hasSpaceBetween = false,
@@ -23,6 +25,7 @@ export const ContentFooter = ({
       alignItems: ['unset', 'center'],
       marginTop: [gs(1), gs(1.5)],
     })}
+    className={contentFooterClassName}
   >
     {children}
   </div>

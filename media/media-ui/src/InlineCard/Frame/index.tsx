@@ -13,6 +13,7 @@ export interface FrameViewProps {
   onClick?: React.EventHandler<React.MouseEvent | React.KeyboardEvent>;
   /** A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests */
   testId?: string;
+  className?: string;
 }
 
 export class Frame extends React.Component<FrameViewProps> {
@@ -51,8 +52,10 @@ export class Frame extends React.Component<FrameViewProps> {
       withoutBackground,
       withoutHover,
       testId,
+      className,
     } = this.props;
     const isInteractive = Boolean(onClick);
+
     return (
       <Wrapper
         href={link}
@@ -66,6 +69,7 @@ export class Frame extends React.Component<FrameViewProps> {
         onMouseDown={this.handleMouseDown}
         onKeyPress={this.handleKeyPress}
         data-testid={testId}
+        className={className}
       >
         {children}
       </Wrapper>

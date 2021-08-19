@@ -19,11 +19,15 @@ function assertPageButtonRendering(
     expect(pageElement).toBeInTheDocument();
 
     if (isSelected) {
-      expect(pageElement).toHaveStyle('color:rgb(244, 245, 247) !important');
-      expect(pageElement).toHaveStyle('background:rgb(37, 56, 88)');
+      expect(pageElement).toHaveAttribute(
+        'data-testId',
+        expect.stringContaining(`pagination--current-page`),
+      );
     } else {
-      expect(pageElement).toHaveStyle('color:rgb(66, 82, 110) !important');
-      expect(pageElement).toHaveStyle('background:none');
+      expect(pageElement).toHaveAttribute(
+        'data-testId',
+        expect.stringContaining(`pagination--page`),
+      );
     }
   } catch (error) {
     Error.captureStackTrace(error, assertPageButtonRendering);
@@ -44,13 +48,9 @@ function assertNavigationButtonRendering(
     if (isEnabled) {
       expect(navigationButton).not.toHaveAttribute('disabled');
       expect(navigationButton).toHaveStyle('cursor: pointer');
-      expect(navigationButton).toHaveStyle('color:rgb(66, 82, 110) !important');
     } else {
       expect(navigationButton).toHaveAttribute('disabled');
       expect(navigationButton).toHaveStyle('cursor: not-allowed');
-      expect(navigationButton).toHaveStyle(
-        'color:rgb(165, 173, 186) !important',
-      );
     }
   } catch (error) {
     Error.captureStackTrace(error, assertNavigationButtonRendering);
@@ -67,6 +67,7 @@ describe('Pagination', () => {
   ) => {
     const props = {
       pages: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] as T[],
+      testId: 'pagination',
     };
 
     const renderResult = render(

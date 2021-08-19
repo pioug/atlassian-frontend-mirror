@@ -20,7 +20,6 @@ export type InlineExtensionDefinition = InlineExtensionBaseDefinition & NoMark;
 
 /**
  * @name inlineExtension_with_marks_node
- * @stage 0
  */
 export type InlineExtensionWithMarksDefinition = InlineExtensionBaseDefinition &
   MarksObject<DataConsumerDefinition>;

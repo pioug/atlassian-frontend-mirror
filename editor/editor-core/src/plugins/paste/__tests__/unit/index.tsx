@@ -116,6 +116,8 @@ import { measureRender as measureRenderMocked } from '@atlaskit/editor-common';
 import { createPasteMeasurePayload as createPasteMeasurePayloadMocked } from '../../pm-plugins/analytics';
 import unsupportedContentPlugin from '../../../unsupported-content';
 
+const TABLE_LOCAL_ID = 'test-table-local-id';
+
 jest.mock('@atlaskit/editor-common', () => ({
   ...jest.requireActual<Object>('@atlaskit/editor-common'),
   measureRender: jest.fn(
@@ -350,7 +352,9 @@ describe('paste plugins', () => {
 
       describe('when pasted inside table', () => {
         it('should set a GapCursor after it', () => {
-          const { editorView } = editor(doc(table({})(tr(td()(p('{<>}'))))));
+          const { editorView } = editor(
+            doc(table({ localId: TABLE_LOCAL_ID })(tr(td()(p('{<>}'))))),
+          );
 
           dispatchPasteEvent(editorView, {
             html: `<meta charset='utf-8'><div data-node-type="mediaSingle" data-layout="center" data-width=""><div data-id="9b5c6412-6de0-42cb-837f-bc08c24b4383" data-node-type="media" data-type="file" data-collection="MediaServicesSample" data-width="490" data-height="288" title="Attachment" style="display: inline-block; border-radius: 3px; background: #EBECF0; box-shadow: 0 1px 1px rgba(9, 30, 66, 0.2), 0 0 1px 0 rgba(9, 30, 66, 0.24);" data-file-name="image-20190325-222039.png" data-file-size="29502" data-file-mime-type="image/png"></div></div>`,
@@ -358,7 +362,7 @@ describe('paste plugins', () => {
 
           expect(editorView.state.doc).toEqualDocument(
             doc(
-              table({})(
+              table({ localId: TABLE_LOCAL_ID })(
                 tr(
                   td()(
                     mediaSingle({ layout: 'center' })(
@@ -388,7 +392,9 @@ describe('paste plugins', () => {
         });
 
         it('should transform images into mediaSingles', () => {
-          const { editorView } = editor(doc(table({})(tr(td()(p('{<>}'))))));
+          const { editorView } = editor(
+            doc(table({ localId: TABLE_LOCAL_ID })(tr(td()(p('{<>}'))))),
+          );
 
           dispatchPasteEvent(editorView, {
             html: `"<meta charset='utf-8'><meta charset="utf-8"><img src="http://atlassian.com" width="624" height="416" style="margin-left: 0px; margin-top: 0px;" />"`,
@@ -396,7 +402,7 @@ describe('paste plugins', () => {
 
           expect(editorView.state.doc).toEqualDocument(
             doc(
-              table({})(
+              table({ localId: TABLE_LOCAL_ID })(
                 tr(
                   td()(
                     p('"'),
@@ -565,7 +571,7 @@ describe('paste plugins', () => {
       const mediaHTML = `<meta charset='utf-8'><div style="box-sizing: border-box; color: rgb(51, 51, 51); font-family: droid_sansregular; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial; padding-top: 20px; padding-bottom: 20px;"><p style="box-sizing: border-box; margin-top: 0px; margin-bottom: 1rem; font-size: 18px; line-height: 34px;">ulum stress. These signaling pathways regulate a variety of cellular activities including proliferation, differentiation, survival, and death.</p></div><div style="box-sizing: border-box; color: rgb(51, 51, 51); font-family: droid_sansregular; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial;"><img src="https://www.biorbyt.com/pub/media/wysiwyg/MAPK_signaling_pathway.jpg" alt="MAPK Signaling Pathway" style="box-sizing: border-box; border: 0px; height: 854px; max-width: 100%; width: 982px; background-size: cover;"></div><div style="box-sizing: border-box; color: rgb(51, 51, 51); font-family: droid_sansregular; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial; margin-bottom: 3rem;"> </div><div style="box-sizing: border-box; color: rgb(51, 51, 51); font-family: droid_sansregular; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial;"><p style="box-sizing: border-box; margin-top: 0px; margin-bottom: 1rem; font-size: 18px; line-height: 34px;">Six subfamilies of MAPKs have been extensively characterized in mammalian cells: ERK1/2, JNKs, ERK 3, p38s, ERK5 and ERK 7/8. Transmission of signals</p></div>`;
       const hiddenMediaHTML = `<meta charset='utf-8'><p class="ia ib at bv ic b id ie if ig ih ii ij ik il im in" data-selectable-paragraph="" style="box-sizing: inherit; margin: 2em 0px -0.46em; font-weight: 400; color: rgba(0, 0, 0, 0.84); font-style: normal; line-height: 1.58; letter-spacing: -0.004em; font-family: medium-content-serif-font, Georgia, Cambria, &quot;Times New Roman&quot;, Times, serif; font-size: 21px; font-variant-ligatures: normal; font-variant-caps: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial;">ening after learning my tech is about 35% useful? bourbon, of course! After a couple of silky smooth glasses with ice (sorry purists), I begin researching a solution.</p><figure class="io ip iq ir is dv jd iu iv paragraph-image" style="box-sizing: inherit; margin: 56px 24px 0px; clear: both; max-width: 544px; color: rgba(0, 0, 0, 0.8); font-family: medium-content-sans-serif-font, -apple-system, system-ui, &quot;Segoe UI&quot;, Roboto, Oxygen, Ubuntu, Cantarell, &quot;Open Sans&quot;, &quot;Helvetica Neue&quot;, sans-serif; font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial;"><div class="iy n di iz" style="box-sizing: inherit; display: block; position: relative; margin: auto; background-color: rgba(0, 0, 0, 0.05);"><div class="je n" style="box-sizing: inherit; display: block; padding-bottom: 360px;"><div class="cv iw fd p q fc ab ay v ix" style="box-sizing: inherit; top: 0px; left: 0px; will-change: transform; width: 544px; overflow: hidden; opacity: 0; height: 360px; position: absolute; transition: opacity 100ms ease 400ms; transform: translateZ(0px);"><img alt="" src="https://miro.medium.com/max/60/1*Ul-CDqf6wi-Ee8FQgmBUhQ@2x.jpeg?q=20" class="fd p q fc ab jb jc" width="544" height="360" style="box-sizing: inherit; vertical-align: middle; top: 0px; left: 0px; width: 544px; height: 360px; position: absolute; filter: blur(20px); transform: scale(1.1);"></div><img alt="" class="ln lo fd p q fc ab" width="544" height="360" src="https://miro.medium.com/max/1088/1*Ul-CDqf6wi-Ee8FQgmBUhQ@2x.jpeg" style="box-sizing: inherit; vertical-align: middle; top: 0px; left: 0px; width: 544px; height: 360px; position: absolute; opacity: 1; transition: opacity 400ms ease 0ms;"></div></div></figure><p class="ia ib at bv ic b id ie if ig ih ii ij ik il im in" data-selectable-paragraph="" style="box-sizing: inherit; margin: 2em 0px -0.46em; font-weight: 400; color: rgba(0, 0, 0, 0.84); font-style: normal; line-height: 1.58; letter-spacing: -0.004em; font-family: medium-content-serif-font, Georgia, Cambria, &quot;Times New Roman&quot;, Times, serif; font-size: 21px; font-variant-ligatures: normal; font-variant-caps: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial;">So to downgrade the iOS devices (phone and tablet), I must connect them to the MacBook and restore via iTunes.</p>`;
       const wrappedMediaHTML = `<meta charset='utf-8'><meta charset="utf-8"><b style="font-weight:normal;" id="docs-internal-guid-36f8577a-7fff-ef0c-fd08-949e2fc1b66b"><p dir="ltr" style="line-height:1.38;margin-top:0pt;margin-bottom:0pt;"><span style="font-size:11pt;font-family:Arial;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">Hello this is some text</span></p><p dir="ltr" style="line-height:1.38;margin-top:0pt;margin-bottom:0pt;"><span style="font-size:11pt;font-family:Arial;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;"><span style="border: none; display: inline-block; overflow: hidden; width: 604px; height: 398px"><img src="https://lh5.googleusercontent.com/dnPAozzy3eYppgqEafLiZl3zzWYCrrzfwKCZiQ8nyYGeB9us9npuOVj48tM1VotqVlGriXQG2x2iYnbOVxsE54vkFErZs3n-6yYlZA8nRpu3Bt2DWhEoa8pFOkiMJHHGYrYhfLkg" width="604" height="398" style="margin-left: 0px; margin-top: 0px;" /></span></span></p><p dir="ltr" style="line-height:1.38;margin-top:0pt;margin-bottom:0pt;"><span style="font-size:11pt;font-family:Arial;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">And this is some more text</span></p></b><br class="Apple-interchange-newline">`;
-      const wrappedMediaInTableHTML = `<meta charset='utf-8'><meta charset="utf-8"><b style="font-weight:normal;" id="docs-internal-guid-dc605362-7fff-99d0-604f-9d37acd6f416"><div dir="ltr" style="margin-left:0pt;" align="left"><table style="border:none;border-collapse:collapse;width:468pt;table-layout:fixed"><colgroup><col /><col /><col /></colgroup><tr style="height:0pt"><td style="border-left:solid #000000 1pt;border-right:solid #000000 1pt;border-bottom:solid #000000 1pt;border-top:solid #000000 1pt;vertical-align:top;padding:5pt 5pt 5pt 5pt;overflow:hidden;overflow-wrap:break-word;"><p dir="ltr" style="line-height:1.38;margin-top:0pt;margin-bottom:0pt;"><span style="font-size:11pt;font-family:Arial;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">Funny</span></p><p dir="ltr" style="line-height:1.38;margin-top:0pt;margin-bottom:0pt;"><span style="font-size:11pt;font-family:Arial;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;"><span style="border: none; display: inline-block; overflow: hidden; width: 194px; height: 108px"><img src="https://lh4.googleusercontent.com/9lblWb7GLsczlSZQXUmuyJ9MLe-D8i19B1ITI-fdjV7bDMHzKWL5STuYhFTnOGJxfNa5HrWCgbQ35fr_ZMcZGpKX83ZWcSSeNAhOMVur7M1Ww3UOkWR64BDy1r-4atSedbwGCwyK" width="194" height="108" style="margin-left: 0px; margin-top: 0px;" /></span></span></p><p dir="ltr" style="line-height:1.38;margin-top:0pt;margin-bottom:0pt;"><span style="font-size:11pt;font-family:Arial;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">Cat</span></p></td></tr><tr style="height:23pt"><td style="border-left:solid #000000 1pt;border-right:solid #000000 1pt;border-bottom:solid #000000 1pt;border-top:solid #000000 1pt;vertical-align:top;padding:5pt 5pt 5pt 5pt;overflow:hidden;overflow-wrap:break-word;"></td></tr></table></div></b>`;
+      const wrappedMediaInTableHTML = `<meta charset='utf-8'><meta charset="utf-8"><b style="font-weight:normal;" id="docs-internal-guid-dc605362-7fff-99d0-604f-9d37acd6f416"><div dir="ltr" style="margin-left:0pt;" align="left"><table data-table-local-id=${TABLE_LOCAL_ID} style="border:none;border-collapse:collapse;width:468pt;table-layout:fixed"><colgroup><col /><col /><col /></colgroup><tr style="height:0pt"><td style="border-left:solid #000000 1pt;border-right:solid #000000 1pt;border-bottom:solid #000000 1pt;border-top:solid #000000 1pt;vertical-align:top;padding:5pt 5pt 5pt 5pt;overflow:hidden;overflow-wrap:break-word;"><p dir="ltr" style="line-height:1.38;margin-top:0pt;margin-bottom:0pt;"><span style="font-size:11pt;font-family:Arial;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">Funny</span></p><p dir="ltr" style="line-height:1.38;margin-top:0pt;margin-bottom:0pt;"><span style="font-size:11pt;font-family:Arial;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;"><span style="border: none; display: inline-block; overflow: hidden; width: 194px; height: 108px"><img src="https://lh4.googleusercontent.com/9lblWb7GLsczlSZQXUmuyJ9MLe-D8i19B1ITI-fdjV7bDMHzKWL5STuYhFTnOGJxfNa5HrWCgbQ35fr_ZMcZGpKX83ZWcSSeNAhOMVur7M1Ww3UOkWR64BDy1r-4atSedbwGCwyK" width="194" height="108" style="margin-left: 0px; margin-top: 0px;" /></span></span></p><p dir="ltr" style="line-height:1.38;margin-top:0pt;margin-bottom:0pt;"><span style="font-size:11pt;font-family:Arial;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">Cat</span></p></td></tr><tr style="height:23pt"><td style="border-left:solid #000000 1pt;border-right:solid #000000 1pt;border-bottom:solid #000000 1pt;border-top:solid #000000 1pt;vertical-align:top;padding:5pt 5pt 5pt 5pt;overflow:hidden;overflow-wrap:break-word;"></td></tr></table></div></b>`;
       const mediaFromMicrosoftWord = `<meta charset='utf-8' xmlns:w="urn:schemas-microsoft-com:office:word"><meta charset="utf-8"><b style="font-weight:normal;" id="docs-internal-guid-36f8577a-7fff-ef0c-fd08-949e2fc1b66b"><p dir="ltr" style="line-height:1.38;margin-top:0pt;margin-bottom:0pt;"><span style="font-size:11pt;font-family:Arial;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">Hello this is some text</span></p><p dir="ltr" style="line-height:1.38;margin-top:0pt;margin-bottom:0pt;"><span style="font-size:11pt;font-family:Arial;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;"><span style="border: none; display: inline-block; overflow: hidden; width: 604px; height: 398px"><img src="https://lh5.googleusercontent.com/dnPAozzy3eYppgqEafLiZl3zzWYCrrzfwKCZiQ8nyYGeB9us9npuOVj48tM1VotqVlGriXQG2x2iYnbOVxsE54vkFErZs3n-6yYlZA8nRpu3Bt2DWhEoa8pFOkiMJHHGYrYhfLkg" width="604" height="398" style="margin-left: 0px; margin-top: 0px;" /></span></span></p><p dir="ltr" style="line-height:1.38;margin-top:0pt;margin-bottom:0pt;"><span style="font-size:11pt;font-family:Arial;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">And this is some more text</span></p></b><br class="Apple-interchange-newline">`;
 
       // dev.to nested structure
@@ -726,7 +732,7 @@ describe('paste plugins', () => {
         });
         expect(editorView.state.doc).toEqualDocument(
           doc(
-            table()(
+            table({ localId: TABLE_LOCAL_ID })(
               tr(
                 td()(
                   p('Funny'),
@@ -1327,6 +1333,19 @@ describe('paste plugins', () => {
         );
       });
 
+      it('should parse network paths correctly', () => {
+        const { editorView } = editor(doc(p('{<>}')));
+        const text = `Network:\\\\test\\test\\ Network:\/\/test\/test\/ Network:\\\\test\\test\\`;
+        dispatchPasteEvent(editorView, { plain: text });
+        expect(editorView.state.doc).toEqualDocument(
+          doc(
+            p(
+              'Network:\\\\test\\test\\ Network://test/test/ Network:\\\\test\\test\\',
+            ),
+          ),
+        );
+      });
+
       describe('if pasted markdown followed by hyperlink', () => {
         it('should parse markdown and create a hyperlink', () => {
           const { editorView } = editor(doc(p('{<>}')));
@@ -1394,14 +1413,18 @@ describe('paste plugins', () => {
     });
 
     it('should create paragraph when code block is pasted inside table at end in a table cell', () => {
-      const { editorView } = editor(doc(table()(tr(tdCursor))));
+      const { editorView } = editor(
+        doc(table({ localId: TABLE_LOCAL_ID })(tr(tdCursor))),
+      );
       dispatchPasteEvent(editorView, {
         plain: 'code line 1\ncode line 2',
         html: '<pre>code line 1\ncode line 2</pre>',
       });
       expect(editorView.state.doc).toEqualDocument(
         doc(
-          table()(tr(td({})(code_block()('code line 1\ncode line 2'), p('')))),
+          table({ localId: TABLE_LOCAL_ID })(
+            tr(td({})(code_block()('code line 1\ncode line 2'), p(''))),
+          ),
         ),
       );
     });
@@ -1920,19 +1943,41 @@ describe('paste plugins', () => {
   });
 
   describe('table copy-paste', () => {
+    beforeEach(() => {
+      uuid.setStatic(TABLE_LOCAL_ID);
+    });
+
+    afterEach(() => {
+      uuid.setStatic(false);
+    });
+
     it('should handle bad copy-paste from table cell with hard break', () => {
-      const { editorView } = editor(doc(table({})(tr(td()(p('{<>}'))))));
+      const { editorView } = editor(
+        doc(table({ localId: TABLE_LOCAL_ID })(tr(td()(p('{<>}'))))),
+      );
 
       dispatchPasteEvent(editorView, {
         html: `<meta charset='utf-8'><table data-number-column="true" style="margin: 24px 0px 0px; border-collapse: collapse; width: 678.889px; border: 1px solid rgb(193, 199, 208); table-layout: fixed; font-size: 14px; color: rgb(23, 43, 77); font-family: -apple-system, system-ui, &quot;Segoe UI&quot;, Roboto, Oxygen, Ubuntu, &quot;Fira Sans&quot;, &quot;Droid Sans&quot;, &quot;Helvetica Neue&quot;, sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: pre-wrap; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial;"><tbody style="border-bottom: none; box-sizing: border-box;"><tr style="box-sizing: border-box;"><td rowspan="1" colspan="1" style="border-width: 1px 0px 0px 1px; border-style: solid; border-color: rgb(193, 199, 208); border-image: initial; padding: 8px; text-align: left; box-sizing: border-box; min-width: 48px; font-weight: normal; vertical-align: top; background-clip: padding-box;"><p style="margin: 0px; padding: 0px; font-size: 1em; line-height: 1.714; font-weight: normal; letter-spacing: -0.005em; box-sizing: border-box;">TEST WITH HARDBREAK<br style="box-sizing: border-box;"></p></td><td rowspan="1" colspan="1" style="border-width: 1px 0px 0px 1px; border-style: solid; border-color: rgb(193, 199, 208); border-image: initial; padding: 8px; text-align: left; box-sizing: border-box; min-width: 48px; font-weight: normal; vertical-align: top; background-clip: padding-box;"></tr></tbody></table><br class="Apple-interchange-newline">`,
       });
 
       expect(editorView.state.doc).toEqualDocument(
-        doc(table({})(tr(td()(p('TEST WITH HARDBREAK', hardBreak()))))),
+        doc(
+          table({ localId: TABLE_LOCAL_ID })(
+            tr(td()(p('TEST WITH HARDBREAK', hardBreak()))),
+          ),
+        ),
       );
     });
 
     describe('when pasted list where openStart > openEnd', () => {
+      beforeEach(() => {
+        uuid.setStatic(TABLE_LOCAL_ID);
+      });
+
+      afterEach(() => {
+        uuid.setStatic(false);
+      });
+
       it('should flatten the list and dont split the table', () => {
         const { editorView } = editor(doc(table({})(tr(td()(p('{<>}'))))));
         const html = `<meta charset='utf-8'><ul class="ak-ul" data-pm-slice="5 3 []"><li><ul class="ak-ul"><li><p>2</p></li></ul></li><li><p>3</p></li></ul>`;
@@ -1940,7 +1985,11 @@ describe('paste plugins', () => {
         dispatchPasteEvent(editorView, { html });
 
         expect(editorView.state.doc).toEqualDocument(
-          doc(table({})(tr(td()(ul(li(p('2')), li(p('3'))))))),
+          doc(
+            table({ localId: TABLE_LOCAL_ID })(
+              tr(td()(ul(li(p('2')), li(p('3'))))),
+            ),
+          ),
         );
       });
     });
@@ -1948,13 +1997,13 @@ describe('paste plugins', () => {
     it('should handle numbered table copied inside editor', () => {
       const { editorView } = editor(doc(p('{<>}')));
 
-      const html = `<meta charset='utf-8'><table data-number-column="true" data-layout="default" data-autosize="false" data-pm-slice="1 1 []"><tbody><tr><th><p>One</p></th><th><p>Two</p></th></tr><tr><td><p>Three</p></td><td><p>Four</p></td></tr><tr><td><p>Five</p></td><td><p>Six</p></td></tr></tbody></table>`;
+      const html = `<meta charset='utf-8'><table data-table-local-id=${TABLE_LOCAL_ID} data-number-column="true" data-layout="default" data-autosize="false" data-pm-slice="1 1 []"><tbody><tr><th><p>One</p></th><th><p>Two</p></th></tr><tr><td><p>Three</p></td><td><p>Four</p></td></tr><tr><td><p>Five</p></td><td><p>Six</p></td></tr></tbody></table>`;
 
       dispatchPasteEvent(editorView, { html });
 
       expect(editorView.state.doc).toEqualDocument(
         doc(
-          table({ isNumberColumnEnabled: true })(
+          table({ isNumberColumnEnabled: true, localId: TABLE_LOCAL_ID })(
             tr(th()(p('One')), th()(p('Two'))),
             tr(td()(p('Three')), td()(p('Four'))),
             tr(td()(p('Five')), td()(p('Six'))),
@@ -1966,13 +2015,13 @@ describe('paste plugins', () => {
     it('should handle numbered table copied from renderer', () => {
       const { editorView } = editor(doc(p('{<>}')));
 
-      const html = `<meta charset='utf-8'><div class="pm-table-container " data-layout="default" style="margin: 0px auto 16px; padding: 0px; position: relative; box-sizing: border-box; transition: all 0.1s linear 0s; clear: both; color: rgb(23, 43, 77); font-family: -apple-system, system-ui, &quot;Segoe UI&quot;, Roboto, Oxygen, Ubuntu, &quot;Fira Sans&quot;, &quot;Droid Sans&quot;, &quot;Helvetica Neue&quot;, sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial; width: inherit;"><div class="pm-table-wrapper" style="margin: 0px; padding: 0px; overflow-x: auto;"><table data-number-column="true" style="margin: 24px 0px 0px; border-collapse: collapse; width: 654px; border: 1px solid rgb(193, 199, 208); table-layout: fixed; font-size: 14px;"><colgroup style="box-sizing: border-box;"><col style="box-sizing: border-box; width: 42px;"><col style="box-sizing: border-box;"><col style="box-sizing: border-box;"></colgroup><tbody style="border-bottom: none; box-sizing: border-box;"><tr style="box-sizing: border-box;"><td class="ak-renderer-table-number-column" style="border-width: 1px 1px 0px; border-style: solid; border-color: rgb(193, 199, 208); border-image: initial; padding: 10px; text-align: center; box-sizing: border-box; min-width: 48px; height: 3em; vertical-align: top; background-clip: padding-box; background-color: rgb(244, 245, 247); width: 42px; color: rgb(107, 119, 140); font-size: 14px;"></td><th rowspan="1" colspan="1" style="border-width: 1px 0px 0px 1px; border-style: solid; border-color: rgb(193, 199, 208); border-image: initial; padding: 10px; text-align: left; vertical-align: top; box-sizing: border-box; min-width: 48px; height: 3em; background-clip: padding-box; background-color: rgb(244, 245, 247);"><p style="margin: 0px; padding: 0px; font-size: 1em; line-height: 1.714; font-weight: normal; letter-spacing: -0.005em; box-sizing: border-box;">One</p></th><th rowspan="1" colspan="1" style="border-width: 1px 0px 0px 1px; border-style: solid; border-color: rgb(193, 199, 208); border-image: initial; padding: 10px; text-align: left; vertical-align: top; box-sizing: border-box; min-width: 48px; height: 3em; background-clip: padding-box; background-color: rgb(244, 245, 247);"><p style="margin: 0px; padding: 0px; font-size: 1em; line-height: 1.714; font-weight: normal; letter-spacing: -0.005em; box-sizing: border-box;">Two</p></th></tr><tr style="box-sizing: border-box;"><td class="ak-renderer-table-number-column" style="border-width: 1px 1px 0px; border-style: solid; border-color: rgb(193, 199, 208); border-image: initial; padding: 10px; text-align: center; box-sizing: border-box; min-width: 48px; height: 3em; vertical-align: top; background-clip: padding-box; background-color: rgb(244, 245, 247); width: 42px; color: rgb(107, 119, 140); font-size: 14px;">1</td><td rowspan="1" colspan="1" style="border-width: 1px 0px 0px 1px; border-style: solid; border-color: rgb(193, 199, 208); border-image: initial; padding: 10px; text-align: left; box-sizing: border-box; min-width: 48px; height: 3em; vertical-align: top; background-clip: padding-box;"><p style="margin: 0px; padding: 0px; font-size: 1em; line-height: 1.714; font-weight: normal; letter-spacing: -0.005em; box-sizing: border-box;">Three</p></td><td rowspan="1" colspan="1" style="border-width: 1px 0px 0px 1px; border-style: solid; border-color: rgb(193, 199, 208); border-image: initial; padding: 10px; text-align: left; box-sizing: border-box; min-width: 48px; height: 3em; vertical-align: top; background-clip: padding-box;"><p style="margin: 0px; padding: 0px; font-size: 1em; line-height: 1.714; font-weight: normal; letter-spacing: -0.005em; box-sizing: border-box;">Four</p></td></tr><tr style="box-sizing: border-box;"><td class="ak-renderer-table-number-column" style="border-width: 1px 1px 0px; border-style: solid; border-color: rgb(193, 199, 208); border-image: initial; padding: 10px; text-align: center; box-sizing: border-box; min-width: 48px; height: 3em; vertical-align: top; background-clip: padding-box; background-color: rgb(244, 245, 247); width: 42px; color: rgb(107, 119, 140); font-size: 14px;">2</td><td rowspan="1" colspan="1" style="border-width: 1px 0px 0px 1px; border-style: solid; border-color: rgb(193, 199, 208); border-image: initial; padding: 10px; text-align: left; box-sizing: border-box; min-width: 48px; height: 3em; vertical-align: top; background-clip: padding-box;"><p style="margin: 0px; padding: 0px; font-size: 1em; line-height: 1.714; font-weight: normal; letter-spacing: -0.005em; box-sizing: border-box;">Five</p></td><td rowspan="1" colspan="1" style="border-width: 1px 0px 0px 1px; border-style: solid; border-color: rgb(193, 199, 208); border-image: initial; padding: 10px; text-align: left; box-sizing: border-box; min-width: 48px; height: 3em; vertical-align: top; background-clip: padding-box;"><p style="margin: 0px; padding: 0px; font-size: 1em; line-height: 1.714; font-weight: normal; letter-spacing: -0.005em; box-sizing: border-box;">Six</p></td></tr></tbody></table></div></div>`;
+      const html = `<meta charset='utf-8'><div class="pm-table-container " data-layout="default" style="margin: 0px auto 16px; padding: 0px; position: relative; box-sizing: border-box; transition: all 0.1s linear 0s; clear: both; color: rgb(23, 43, 77); font-family: -apple-system, system-ui, &quot;Segoe UI&quot;, Roboto, Oxygen, Ubuntu, &quot;Fira Sans&quot;, &quot;Droid Sans&quot;, &quot;Helvetica Neue&quot;, sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial; width: inherit;"><div class="pm-table-wrapper" style="margin: 0px; padding: 0px; overflow-x: auto;"><table data-table-local-id=${TABLE_LOCAL_ID} data-number-column="true" style="margin: 24px 0px 0px; border-collapse: collapse; width: 654px; border: 1px solid rgb(193, 199, 208); table-layout: fixed; font-size: 14px;"><colgroup style="box-sizing: border-box;"><col style="box-sizing: border-box; width: 42px;"><col style="box-sizing: border-box;"><col style="box-sizing: border-box;"></colgroup><tbody style="border-bottom: none; box-sizing: border-box;"><tr style="box-sizing: border-box;"><td class="ak-renderer-table-number-column" style="border-width: 1px 1px 0px; border-style: solid; border-color: rgb(193, 199, 208); border-image: initial; padding: 10px; text-align: center; box-sizing: border-box; min-width: 48px; height: 3em; vertical-align: top; background-clip: padding-box; background-color: rgb(244, 245, 247); width: 42px; color: rgb(107, 119, 140); font-size: 14px;"></td><th rowspan="1" colspan="1" style="border-width: 1px 0px 0px 1px; border-style: solid; border-color: rgb(193, 199, 208); border-image: initial; padding: 10px; text-align: left; vertical-align: top; box-sizing: border-box; min-width: 48px; height: 3em; background-clip: padding-box; background-color: rgb(244, 245, 247);"><p style="margin: 0px; padding: 0px; font-size: 1em; line-height: 1.714; font-weight: normal; letter-spacing: -0.005em; box-sizing: border-box;">One</p></th><th rowspan="1" colspan="1" style="border-width: 1px 0px 0px 1px; border-style: solid; border-color: rgb(193, 199, 208); border-image: initial; padding: 10px; text-align: left; vertical-align: top; box-sizing: border-box; min-width: 48px; height: 3em; background-clip: padding-box; background-color: rgb(244, 245, 247);"><p style="margin: 0px; padding: 0px; font-size: 1em; line-height: 1.714; font-weight: normal; letter-spacing: -0.005em; box-sizing: border-box;">Two</p></th></tr><tr style="box-sizing: border-box;"><td class="ak-renderer-table-number-column" style="border-width: 1px 1px 0px; border-style: solid; border-color: rgb(193, 199, 208); border-image: initial; padding: 10px; text-align: center; box-sizing: border-box; min-width: 48px; height: 3em; vertical-align: top; background-clip: padding-box; background-color: rgb(244, 245, 247); width: 42px; color: rgb(107, 119, 140); font-size: 14px;">1</td><td rowspan="1" colspan="1" style="border-width: 1px 0px 0px 1px; border-style: solid; border-color: rgb(193, 199, 208); border-image: initial; padding: 10px; text-align: left; box-sizing: border-box; min-width: 48px; height: 3em; vertical-align: top; background-clip: padding-box;"><p style="margin: 0px; padding: 0px; font-size: 1em; line-height: 1.714; font-weight: normal; letter-spacing: -0.005em; box-sizing: border-box;">Three</p></td><td rowspan="1" colspan="1" style="border-width: 1px 0px 0px 1px; border-style: solid; border-color: rgb(193, 199, 208); border-image: initial; padding: 10px; text-align: left; box-sizing: border-box; min-width: 48px; height: 3em; vertical-align: top; background-clip: padding-box;"><p style="margin: 0px; padding: 0px; font-size: 1em; line-height: 1.714; font-weight: normal; letter-spacing: -0.005em; box-sizing: border-box;">Four</p></td></tr><tr style="box-sizing: border-box;"><td class="ak-renderer-table-number-column" style="border-width: 1px 1px 0px; border-style: solid; border-color: rgb(193, 199, 208); border-image: initial; padding: 10px; text-align: center; box-sizing: border-box; min-width: 48px; height: 3em; vertical-align: top; background-clip: padding-box; background-color: rgb(244, 245, 247); width: 42px; color: rgb(107, 119, 140); font-size: 14px;">2</td><td rowspan="1" colspan="1" style="border-width: 1px 0px 0px 1px; border-style: solid; border-color: rgb(193, 199, 208); border-image: initial; padding: 10px; text-align: left; box-sizing: border-box; min-width: 48px; height: 3em; vertical-align: top; background-clip: padding-box;"><p style="margin: 0px; padding: 0px; font-size: 1em; line-height: 1.714; font-weight: normal; letter-spacing: -0.005em; box-sizing: border-box;">Five</p></td><td rowspan="1" colspan="1" style="border-width: 1px 0px 0px 1px; border-style: solid; border-color: rgb(193, 199, 208); border-image: initial; padding: 10px; text-align: left; box-sizing: border-box; min-width: 48px; height: 3em; vertical-align: top; background-clip: padding-box;"><p style="margin: 0px; padding: 0px; font-size: 1em; line-height: 1.714; font-weight: normal; letter-spacing: -0.005em; box-sizing: border-box;">Six</p></td></tr></tbody></table></div></div>`;
 
       dispatchPasteEvent(editorView, { html });
 
       expect(editorView.state.doc).toEqualDocument(
         doc(
-          table({ isNumberColumnEnabled: true })(
+          table({ isNumberColumnEnabled: true, localId: TABLE_LOCAL_ID })(
             tr(th()(p('One')), th()(p('Two'))),
             tr(td()(p('Three')), td()(p('Four'))),
             tr(td()(p('Five')), td()(p('Six'))),
@@ -1984,13 +2033,13 @@ describe('paste plugins', () => {
     it('should paste table with cells that don`t have paragraphs', () => {
       const { editorView } = editor(doc(p('{<>}')));
 
-      const html = `<meta charset='utf-8'><meta name="generator" content="Sheets"/><style type="text/css"><!--td {border: 1px solid #ccc;}br {mso-data-placement:same-cell;}--></style><table xmlns="http://www.w3.org/1999/xhtml" cellspacing="0" cellpadding="0" dir="ltr" border="1" style="table-layout:fixed;font-size:10pt;font-family:arial,sans,sans-serif;width:0px;border-collapse:collapse;border:none"><colgroup><col width="100"/><col width="86"/></colgroup><tbody><tr style="height:21px;"><td style="overflow:hidden;padding:2px 3px 2px 3px;vertical-align:bottom;"></td><td style="overflow:hidden;padding:2px 3px 2px 3px;vertical-align:bottom;text-align:right;" data-sheets-value="{&quot;1&quot;:3,&quot;3&quot;:2}">2</td></tr><tr style="height:21px;"><td style="overflow:hidden;padding:2px 3px 2px 3px;vertical-align:bottom;text-align:right;" data-sheets-value="{&quot;1&quot;:3,&quot;3&quot;:3}">3</td><td style="overflow:hidden;padding:2px 3px 2px 3px;vertical-align:bottom;text-align:right;" data-sheets-value="{&quot;1&quot;:3,&quot;3&quot;:4}">4</td></tr></tbody></table>`;
+      const html = `<meta charset='utf-8'><meta name="generator" content="Sheets"/><style type="text/css"><!--td {border: 1px solid #ccc;}br {mso-data-placement:same-cell;}--></style><table data-table-local-id=${TABLE_LOCAL_ID} xmlns="http://www.w3.org/1999/xhtml" cellspacing="0" cellpadding="0" dir="ltr" border="1" style="table-layout:fixed;font-size:10pt;font-family:arial,sans,sans-serif;width:0px;border-collapse:collapse;border:none"><colgroup><col width="100"/><col width="86"/></colgroup><tbody><tr style="height:21px;"><td style="overflow:hidden;padding:2px 3px 2px 3px;vertical-align:bottom;"></td><td style="overflow:hidden;padding:2px 3px 2px 3px;vertical-align:bottom;text-align:right;" data-sheets-value="{&quot;1&quot;:3,&quot;3&quot;:2}">2</td></tr><tr style="height:21px;"><td style="overflow:hidden;padding:2px 3px 2px 3px;vertical-align:bottom;text-align:right;" data-sheets-value="{&quot;1&quot;:3,&quot;3&quot;:3}">3</td><td style="overflow:hidden;padding:2px 3px 2px 3px;vertical-align:bottom;text-align:right;" data-sheets-value="{&quot;1&quot;:3,&quot;3&quot;:4}">4</td></tr></tbody></table>`;
 
       dispatchPasteEvent(editorView, { html });
 
       expect(editorView.state.doc).toEqualDocument(
         doc(
-          table({})(
+          table({ localId: TABLE_LOCAL_ID })(
             tr(td()(p('')), td()(p('2'))),
             tr(td()(p('3')), td()(p('4'))),
           ),
@@ -1998,7 +2047,7 @@ describe('paste plugins', () => {
       );
     });
     describe('cell with background color', () => {
-      const html = `<meta charset='utf-8'><table data-number-column="false" data-layout="default" data-autosize="false" data-pm-slice="1 1 []"><tbody><tr><th class="pm-table-header-content-wrap"><p></p></th></tr><tr><td style="background-color: #ffebe6;" class="pm-table-cell-content-wrap"><p></p></td></tr></tbody></table>`;
+      const html = `<meta charset='utf-8'><table data-table-local-id=${TABLE_LOCAL_ID} data-number-column="false" data-layout="default" data-autosize="false" data-pm-slice="1 1 []"><tbody><tr><th class="pm-table-header-content-wrap"><p></p></th></tr><tr><td style="background-color: #ffebe6;" class="pm-table-cell-content-wrap"><p></p></td></tr></tbody></table>`;
 
       it('should keep cell background on paste when allow background color is enabled', () => {
         const { editorView } = editor(doc(p('{<>}')), {
@@ -2010,7 +2059,7 @@ describe('paste plugins', () => {
         dispatchPasteEvent(editorView, { html });
         expect(editorView.state.doc).toEqualDocument(
           doc(
-            table({})(
+            table({ localId: TABLE_LOCAL_ID })(
               tr(th()(p(''))),
               tr(
                 td({
@@ -2033,13 +2082,18 @@ describe('paste plugins', () => {
         dispatchPasteEvent(editorView, { html });
 
         expect(editorView.state.doc).toEqualDocument(
-          doc(table({})(tr(th()(p(''))), tr(td()(p(''))))),
+          doc(
+            table({ localId: TABLE_LOCAL_ID })(
+              tr(th()(p(''))),
+              tr(td()(p(''))),
+            ),
+          ),
         );
       });
     });
 
     describe('cell with colWidth', () => {
-      const cellWithColWidthHtml = `<meta charset='utf-8'><table data-pm-slice="1 1 []"><tbody><tr><td data-colwidth="96" style="" class="pm-table-cell-content-wrap"><div class="pm-table-cell-nodeview-wrapper"><div class="pm-table-cell-nodeview-content-dom"><p></p></div></div></td><td data-colwidth="122" style="" class="pm-table-cell-content-wrap"><div class="pm-table-cell-nodeview-wrapper"><div class="pm-table-cell-nodeview-content-dom"><p></p></div></div></td></tr></tbody></table>`;
+      const cellWithColWidthHtml = `<meta charset='utf-8'><table data-table-local-id=${TABLE_LOCAL_ID} data-pm-slice="1 1 []"><tbody><tr><td data-colwidth="96" style="" class="pm-table-cell-content-wrap"><div class="pm-table-cell-nodeview-wrapper"><div class="pm-table-cell-nodeview-content-dom"><p></p></div></div></td><td data-colwidth="122" style="" class="pm-table-cell-content-wrap"><div class="pm-table-cell-nodeview-wrapper"><div class="pm-table-cell-nodeview-content-dom"><p></p></div></div></td></tr></tbody></table>`;
 
       it('should keep colwidth attribute when allow column resizing is enabled', () => {
         const { editorView } = editor(doc(p('{<>}')), {
@@ -2052,7 +2106,7 @@ describe('paste plugins', () => {
 
         expect(editorView.state.doc).toEqualDocument(
           doc(
-            table({})(
+            table({ localId: TABLE_LOCAL_ID })(
               tr(td({ colwidth: [96] })(p('')), td({ colwidth: [122] })(p(''))),
             ),
           ),
@@ -2069,7 +2123,7 @@ describe('paste plugins', () => {
         dispatchPasteEvent(editorView, { html: cellWithColWidthHtml });
 
         expect(editorView.state.doc).toEqualDocument(
-          doc(table({})(tr(td()(p('')), td()(p(''))))),
+          doc(table({ localId: TABLE_LOCAL_ID })(tr(td()(p('')), td()(p(''))))),
         );
       });
     });

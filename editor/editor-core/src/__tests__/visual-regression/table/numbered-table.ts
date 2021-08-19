@@ -40,7 +40,8 @@ describe('Snapshot Test: numbered table', () => {
       await snapshot(page);
     });
 
-    it('looks correct for comment', async () => {
+    // TODO: https://product-fabric.atlassian.net/browse/ED-13527
+    it.skip('looks correct for comment', async () => {
       await initCommentEditorWithAdf(
         page,
         multipleTablesAdf,
@@ -52,7 +53,8 @@ describe('Snapshot Test: numbered table', () => {
       await snapshot(page, undefined, editorCommentContentSelector);
     });
 
-    it('should show insert button when mouse is hover numbered button', async () => {
+    // TODO: https://product-fabric.atlassian.net/browse/ED-13527
+    it.skip('should show insert button when mouse is hover numbered button', async () => {
       await initFullPageEditorWithAdf(
         page,
         adf,

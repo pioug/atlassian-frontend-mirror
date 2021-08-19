@@ -29,6 +29,9 @@ import {
   RECENT_SEARCH_WIDTH_IN_PX,
 } from '../../ui/LinkSearch/ToolbarComponents';
 import { HyperlinkToolbarAppearance } from './HyperlinkToolbarAppearance';
+import { Command } from '../../types';
+import { addAnalytics, ACTION_SUBJECT_ID } from '../analytics';
+import { buildVisitedLinkPayload } from '../../utils/linking-utils';
 
 /* type guard for edit links */
 function isEditLink(
@@ -36,6 +39,19 @@ function isEditLink(
 ): linkMark is EditInsertedState {
   return (linkMark as EditInsertedState).pos !== undefined;
 }
+
+const visitHyperlink = (): Command => (state, dispatch) => {
+  if (dispatch) {
+    dispatch(
+      addAnalytics(
+        state,
+        state.tr,
+        buildVisitedLinkPayload(ACTION_SUBJECT_ID.HYPERLINK),
+      ),
+    );
+  }
+  return true;
+};
 
 function getLinkText(
   activeLinkMark: EditInsertedState,
@@ -149,7 +165,7 @@ export const getToolbarConfig: FloatingToolbarHandler = (
               disabled: !isValidUrl,
               target: '_blank',
               href: isValidUrl ? link : undefined,
-              onClick: () => true,
+              onClick: visitHyperlink(),
               selected: false,
               title: labelOpenLink,
               icon: OpenIcon,

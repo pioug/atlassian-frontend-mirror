@@ -18,7 +18,6 @@ export const getUrl = (store: Store<CardStore>, url: string) => {
   return (
     store.getState()[url] || {
       status: 'pending',
-      lastUpdatedAt: Date.now(),
     }
   );
 };

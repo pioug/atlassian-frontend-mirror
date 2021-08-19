@@ -15,6 +15,7 @@ import * as UsePageTitleModule from '../../hooks/use-page-title';
 import * as UseEditorLifecycleModule from '../../hooks/use-editor-life-cycle';
 import * as UseQuickInsertModule from '../../hooks/use-quickinsert';
 import * as UsePluginListenersModule from '../../hooks/use-plugin-listeners';
+import * as UseToolbarSubscriptionModule from '../../hooks/use-toolbar-subscription';
 import MobileEditorConfiguration from '../../editor-configuration';
 import WebBridgeImpl from '../../native-to-web/implementation';
 import { toNativeBridge } from '../../web-to-native';
@@ -29,6 +30,17 @@ jest.mock('../../../i18n/use-translations', () => ({
   }),
 }));
 jest.mock('lodash/throttle', () => jest.fn((fn) => fn));
+
+// queueMicrotask is not defined in jest globals
+let oldQueueMicrotask: any;
+beforeAll(() => {
+  oldQueueMicrotask = window.queueMicrotask;
+  window.queueMicrotask = (fn) => setTimeout(fn, 0);
+});
+
+afterAll(() => {
+  window.queueMicrotask = oldQueueMicrotask;
+});
 
 const initialDocument = JSON.stringify({
   version: 1,
@@ -130,6 +142,43 @@ describe('mobile editor element', () => {
       ).find(Editor);
       expect((editor.prop('media') as any).alignLeftOnInsert).toBeTruthy();
     });
+
+    it('should enable standard panels by default', () => {
+      const editor = initEditor(
+        new MobileEditorConfiguration(
+          JSON.stringify({ editorAppearance: 'compact' }),
+        ),
+      ).find(Editor);
+      expect(editor.prop('allowPanel')).toBeTruthy();
+    });
+  });
+
+  describe('custom panel', () => {
+    it('should disable custom panels when not configured', () => {
+      const editor = initEditor(
+        new MobileEditorConfiguration(
+          JSON.stringify({
+            editorAppearance: 'compact',
+            allowCustomPanel: false,
+          }),
+        ),
+      ).find(Editor);
+      expect(editor.prop('allowPanel')).toBeTruthy();
+    });
+
+    it('should enable custom panels when configured', () => {
+      const editor = initEditor(
+        new MobileEditorConfiguration(
+          JSON.stringify({
+            editorAppearance: 'compact',
+            allowCustomPanel: true,
+          }),
+        ),
+      ).find(Editor);
+      expect(editor.prop('allowPanel')).toEqual({
+        UNSAFE_allowCustomPanel: true,
+      });
+    });
   });
 
   describe('when the mobile editor is mounted', () => {
@@ -170,6 +219,15 @@ describe('mobile editor element', () => {
       expect(usePluginListeners).toBeCalled();
     });
 
+    it('should have called useToolbarSubscription', () => {
+      const useToolbarSubscription = jest.spyOn(
+        UseToolbarSubscriptionModule,
+        'useToolbarSubscription',
+      );
+      initEditor();
+      expect(useToolbarSubscription).toBeCalled();
+    });
+
     it('should have light mode when the Editor is loaded with default config', () => {
       const mobileEditor = initEditor();
       expect(mobileEditor.find('AtlaskitThemeProvider').prop('mode')).toEqual(
@@ -206,24 +264,6 @@ describe('mobile editor element', () => {
       initEditor();
 
       expect(mockedisIndentationAllowed).toBeCalled();
-    });
-
-    it('should have called isLocalIdGenerationOnTablesEnabled', () => {
-      const lcalIdGenerationOnTablesEnabledSpy = jest.spyOn(
-        MobileEditorConfiguration.prototype,
-        'isLocalIdGenerationOnTablesEnabled',
-      );
-      initEditor();
-      expect(lcalIdGenerationOnTablesEnabledSpy).toBeCalled();
-    });
-
-    it('should have called isDataConsumerMarkEnabled', () => {
-      const dataConsumerMarkEnabledSpy = jest.spyOn(
-        MobileEditorConfiguration.prototype,
-        'isDataConsumerMarkEnabled',
-      );
-      initEditor();
-      expect(dataConsumerMarkEnabledSpy).toBeCalled();
     });
   });
 

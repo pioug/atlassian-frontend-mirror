@@ -18,6 +18,29 @@ export const context = {
   packageVersion,
 };
 
+export class SmartLinkEvents {
+  public insertSmartLink(
+    url: string,
+    type: CardInnerAppearance,
+    createAnalyticsEvent?: CreateUIAnalyticsEvent,
+  ) {
+    fireSmartLinkEvent(
+      {
+        action: 'inserted',
+        actionSubject: 'smartLink',
+        eventType: 'track',
+        attributes: {
+          type,
+        },
+        nonPrivacySafeAttributes: {
+          domainName: url,
+        },
+      },
+      createAnalyticsEvent,
+    );
+  }
+}
+
 export const fireSmartLinkEvent = (
   payload: AnalyticsPayload,
   createAnalyticsEvent?: CreateUIAnalyticsEvent,

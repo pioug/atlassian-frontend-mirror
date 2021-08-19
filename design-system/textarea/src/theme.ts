@@ -4,18 +4,18 @@ import * as componentTokens from './component-tokens';
 
 const disabledRules = {
   light: {
-    backgroundColor: componentTokens.disabled.light,
-    backgroundColorFocus: componentTokens.disabled.light,
-    backgroundColorHover: componentTokens.disabled.light,
-    borderColor: componentTokens.defaultBorderColor.light,
+    backgroundColor: componentTokens.disabledBackground.light,
+    backgroundColorFocus: componentTokens.disabledBackground.light,
+    backgroundColorHover: componentTokens.disabledBackground.light,
+    borderColor: componentTokens.disabledBorder.light,
     borderColorFocus: componentTokens.defaultBorderColorFocus.light,
     textColor: componentTokens.disabledTextColor.light,
   },
   dark: {
-    backgroundColor: componentTokens.disabled.dark,
-    backgroundColorFocus: componentTokens.disabled.dark,
-    backgroundColorHover: componentTokens.disabled.dark,
-    borderColor: componentTokens.defaultBorderColor.dark,
+    backgroundColor: componentTokens.disabledBackground.dark,
+    backgroundColorFocus: componentTokens.disabledBackground.dark,
+    backgroundColorHover: componentTokens.disabledBackground.dark,
+    borderColor: componentTokens.disabledBorder.dark,
     borderColorFocus: componentTokens.defaultBorderColorFocus.dark,
     textColor: componentTokens.disabledTextColor.dark,
   },
@@ -38,7 +38,6 @@ const invalidRules = {
   },
 };
 
-// The following do not yet have a darkmode 'map': N20A, N10
 const backgroundColor = {
   standard: componentTokens.defaultBackgroundColor,
   subtle: componentTokens.transparent,
@@ -51,7 +50,7 @@ const backgroundColorFocus = {
 };
 const backgroundColorHover = {
   standard: componentTokens.defaultBackgroundColorHover,
-  subtle: componentTokens.defaultBackgroundColorHover,
+  subtle: componentTokens.subtleHoverBackgroundColor,
   none: componentTokens.transparent,
 };
 const borderColor = {

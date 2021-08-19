@@ -1,18 +1,20 @@
 // THIS IS AN AUTO-GENERATED FILE DO NOT MODIFY DIRECTLY
 // Re-generate by running `yarn build tokens`.
 const tokens = {
-  'color.accent.blueSubtle': '--accent-blueSubtle',
-  'color.accent.greenSubtle': '--accent-greenSubtle',
-  'color.accent.magentaSubtle': '--accent-magentaSubtle',
-  'color.accent.orangeSubtle': '--accent-orangeSubtle',
-  'color.accent.purpleSubtle': '--accent-purpleSubtle',
-  'color.accent.redSubtle': '--accent-redSubtle',
-  'color.accent.tealSubtle': '--accent-tealSubtle',
+  'color.accent.subtleBlue': '--accent-subtleBlue',
+  'color.accent.subtleGreen': '--accent-subtleGreen',
+  'color.accent.subtleMagenta': '--accent-subtleMagenta',
+  'color.accent.subtleOrange': '--accent-subtleOrange',
+  'color.accent.subtlePurple': '--accent-subtlePurple',
+  'color.accent.subtleRed': '--accent-subtleRed',
+  'color.accent.subtleTeal': '--accent-subtleTeal',
   'color.background.sunken': '--background-sunken',
   'color.background.default': '--background-default',
   'color.background.card': '--background-card',
   'color.background.overlay': '--background-overlay',
-  'color.background.selected': '--background-selected',
+  'color.background.selected.resting': '--background-selected-resting',
+  'color.background.selected.hover': '--background-selected-hover',
+  'color.background.selected.pressed': '--background-selected-pressed',
   'color.background.blanket': '--background-blanket',
   'color.background.disabled': '--background-disabled',
   'color.background.boldBrand.resting': '--background-boldBrand-resting',
@@ -72,13 +74,13 @@ const tokens = {
     '--background-subtleBorderedNeutral-pressed',
   'color.border.focus': '--border-focus',
   'color.border.neutral': '--border-neutral',
-  'color.border.disabled': '--border-disabled',
-  'color.border.overlay': '--border-overlay',
   'color.iconBorder.brand': '--iconBorder-brand',
   'color.iconBorder.danger': '--iconBorder-danger',
   'color.iconBorder.warning': '--iconBorder-warning',
   'color.iconBorder.success': '--iconBorder-success',
   'color.iconBorder.discovery': '--iconBorder-discovery',
+  'color.overlay.hover': '--overlay-hover',
+  'color.overlay.pressed': '--overlay-pressed',
   'color.text.selected': '--text-selected',
   'color.text.highEmphasis': '--text-highEmphasis',
   'color.text.mediumEmphasis': '--text-mediumEmphasis',
@@ -86,7 +88,6 @@ const tokens = {
   'color.text.onBold': '--text-onBold',
   'color.text.onBoldWarning': '--text-onBoldWarning',
   'color.text.link.resting': '--text-link-resting',
-  'color.text.link.hover': '--text-link-hover',
   'color.text.link.pressed': '--text-link-pressed',
   'color.text.brand': '--text-brand',
   'color.text.warning': '--text-warning',
@@ -99,18 +100,20 @@ const tokens = {
 } as const;
 
 export type CSSTokenMap = {
-  'color.accent.blueSubtle': 'var(--accent-blueSubtle)';
-  'color.accent.greenSubtle': 'var(--accent-greenSubtle)';
-  'color.accent.magentaSubtle': 'var(--accent-magentaSubtle)';
-  'color.accent.orangeSubtle': 'var(--accent-orangeSubtle)';
-  'color.accent.purpleSubtle': 'var(--accent-purpleSubtle)';
-  'color.accent.redSubtle': 'var(--accent-redSubtle)';
-  'color.accent.tealSubtle': 'var(--accent-tealSubtle)';
+  'color.accent.subtleBlue': 'var(--accent-subtleBlue)';
+  'color.accent.subtleGreen': 'var(--accent-subtleGreen)';
+  'color.accent.subtleMagenta': 'var(--accent-subtleMagenta)';
+  'color.accent.subtleOrange': 'var(--accent-subtleOrange)';
+  'color.accent.subtlePurple': 'var(--accent-subtlePurple)';
+  'color.accent.subtleRed': 'var(--accent-subtleRed)';
+  'color.accent.subtleTeal': 'var(--accent-subtleTeal)';
   'color.background.sunken': 'var(--background-sunken)';
   'color.background.default': 'var(--background-default)';
   'color.background.card': 'var(--background-card)';
   'color.background.overlay': 'var(--background-overlay)';
-  'color.background.selected': 'var(--background-selected)';
+  'color.background.selected.resting': 'var(--background-selected-resting)';
+  'color.background.selected.hover': 'var(--background-selected-hover)';
+  'color.background.selected.pressed': 'var(--background-selected-pressed)';
   'color.background.blanket': 'var(--background-blanket)';
   'color.background.disabled': 'var(--background-disabled)';
   'color.background.boldBrand.resting': 'var(--background-boldBrand-resting)';
@@ -155,13 +158,13 @@ export type CSSTokenMap = {
   'color.background.subtleBorderedNeutral.pressed': 'var(--background-subtleBorderedNeutral-pressed)';
   'color.border.focus': 'var(--border-focus)';
   'color.border.neutral': 'var(--border-neutral)';
-  'color.border.disabled': 'var(--border-disabled)';
-  'color.border.overlay': 'var(--border-overlay)';
   'color.iconBorder.brand': 'var(--iconBorder-brand)';
   'color.iconBorder.danger': 'var(--iconBorder-danger)';
   'color.iconBorder.warning': 'var(--iconBorder-warning)';
   'color.iconBorder.success': 'var(--iconBorder-success)';
   'color.iconBorder.discovery': 'var(--iconBorder-discovery)';
+  'color.overlay.hover': 'var(--overlay-hover)';
+  'color.overlay.pressed': 'var(--overlay-pressed)';
   'color.text.selected': 'var(--text-selected)';
   'color.text.highEmphasis': 'var(--text-highEmphasis)';
   'color.text.mediumEmphasis': 'var(--text-mediumEmphasis)';
@@ -169,7 +172,6 @@ export type CSSTokenMap = {
   'color.text.onBold': 'var(--text-onBold)';
   'color.text.onBoldWarning': 'var(--text-onBoldWarning)';
   'color.text.link.resting': 'var(--text-link-resting)';
-  'color.text.link.hover': 'var(--text-link-hover)';
   'color.text.link.pressed': 'var(--text-link-pressed)';
   'color.text.brand': 'var(--text-brand)';
   'color.text.warning': 'var(--text-warning)';

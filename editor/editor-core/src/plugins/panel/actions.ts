@@ -5,9 +5,7 @@ import {
   findParentNodeOfType,
 } from 'prosemirror-utils';
 import { NodeSelection } from 'prosemirror-state';
-import { Node as PMNode } from 'prosemirror-model';
 import { PanelType } from '@atlaskit/adf-schema';
-import { getPanelTypeBackground } from '@atlaskit/editor-common';
 import { Command } from '../../types';
 import {
   AnalyticsEventPayload,
@@ -19,6 +17,7 @@ import {
 } from '../analytics';
 import { findPanel } from './utils';
 import { PanelOptions } from './pm-plugins/main';
+import { getPanelTypeBackground } from '@atlaskit/editor-common';
 
 export type DomAtPos = (pos: number) => { node: HTMLElement; offset: number };
 
@@ -51,42 +50,6 @@ export const removePanel = (): Command => (state, dispatch) => {
   return true;
 };
 
-const getNewPanelData = (
-  node: PMNode,
-  newPanelType: PanelType,
-  panelOptions: PanelOptions = {},
-): { panelIcon: string; panelColor: string; panelType: PanelType } => {
-  let {
-    panelIcon: previousIcon,
-    panelColor: previousColor,
-    panelType: previousType,
-  } = node.attrs;
-  const { emoji, color } = panelOptions;
-
-  let panelIcon = previousIcon;
-  let panelType = newPanelType;
-
-  let panelColor = getPanelTypeBackground(
-    (newPanelType !== PanelType.CUSTOM
-      ? newPanelType
-      : previousType) as Exclude<PanelType, PanelType.CUSTOM>,
-  );
-
-  if (color || previousColor) {
-    panelColor = color || previousColor;
-  }
-
-  if (emoji) {
-    panelIcon = emoji;
-  }
-
-  return {
-    panelIcon,
-    panelColor,
-    panelType: panelType,
-  };
-};
-
 export const changePanelType = (
   panelType: PanelType,
   panelOptions: PanelOptions = {},
@@ -104,15 +67,25 @@ export const changePanelType = (
 
   let newType = panelType;
   let previousType = panelNode.node.attrs.panelType;
+  let newTr;
 
   if (UNSAFE_allowCustomPanel) {
-    const { panelType: newPanelType } = getNewPanelData(
-      panelNode.node,
+    let previousColor =
+      panelNode.node.attrs.panelColor || getPanelTypeBackground(previousType);
+    let previousIcon = panelNode.node.attrs.panelIcon;
+    let newPanelOptions: PanelOptions = {
+      color: previousColor,
+      emoji: previousIcon,
+      ...panelOptions,
+    };
+
+    newTr = tr.setNodeMarkup(panelNode.pos, nodes.panel, {
+      panelIcon: newPanelOptions.emoji,
+      panelColor: newPanelOptions.color,
       panelType,
-      panelOptions,
-    );
-    newType = newPanelType;
-    previousType = panelType;
+    });
+  } else {
+    newTr = tr.setNodeMarkup(panelNode.pos, nodes.panel, { panelType });
   }
 
   const payload: AnalyticsEventPayload = {
@@ -121,23 +94,6 @@ export const changePanelType = (
     attributes: { newType, previousType },
     eventType: EVENT_TYPE.TRACK,
   };
-
-  let newTr;
-  if (UNSAFE_allowCustomPanel) {
-    const { panelIcon, panelColor, panelType: newPanelType } = getNewPanelData(
-      panelNode.node,
-      panelType,
-      panelOptions,
-    );
-
-    newTr = tr.setNodeMarkup(panelNode.pos, nodes.panel, {
-      panelType: newPanelType,
-      panelIcon,
-      panelColor,
-    });
-  } else {
-    newTr = tr.setNodeMarkup(panelNode.pos, nodes.panel, { panelType });
-  }
 
   // Select the panel if it was previously selected
   const newTrWithSelection =

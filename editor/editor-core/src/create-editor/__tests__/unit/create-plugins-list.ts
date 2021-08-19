@@ -16,7 +16,7 @@ import {
   statusPlugin,
   historyPlugin,
   scrollIntoViewPlugin,
-  mobileScrollPlugin,
+  mobileDimensionsPlugin,
   findReplacePlugin,
   contextPanelPlugin,
   quickInsertPlugin,
@@ -234,15 +234,15 @@ describe('createPluginsList', () => {
     expect(historyPlugin).not.toHaveBeenCalled();
   });
 
-  describe('mobileScrollPlugin', () => {
-    it('should add mobileScrollPlugin to mobile editor', () => {
+  describe('mobileDimensionsPlugin', () => {
+    it('should add mobileDimensionsPlugin to mobile editor', () => {
       createPluginsList({ appearance: 'mobile' });
-      expect(mobileScrollPlugin).toHaveBeenCalled();
+      expect(mobileDimensionsPlugin).toHaveBeenCalled();
     });
 
-    it('should not add mobileScrollPlugin to non-mobile editor', () => {
+    it('should not add mobileDimensionsPlugin to non-mobile editor', () => {
       createPluginsList({ appearance: 'full-page' });
-      expect(mobileScrollPlugin).not.toHaveBeenCalled();
+      expect(mobileDimensionsPlugin).not.toHaveBeenCalled();
     });
   });
 

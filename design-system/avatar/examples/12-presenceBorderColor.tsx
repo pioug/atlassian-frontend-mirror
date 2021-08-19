@@ -5,6 +5,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 
 import { gridSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 import { Presence } from '../src';
 
@@ -36,11 +37,17 @@ export default () => (
       </PresenceWrapper>
 
       <PresenceWrapper>
-        <Presence presence="busy" borderColor="rebeccapurple" />
+        <Presence
+          presence="busy"
+          borderColor={token('color.iconBorder.discovery', 'rebeccapurple')}
+        />
       </PresenceWrapper>
 
       <PresenceWrapper>
-        <Presence presence="offline" borderColor="rgba(0, 0, 255, 0.2)" />
+        <Presence
+          presence="offline"
+          borderColor={token('color.iconBorder.brand', 'rgba(0, 0, 255, 0.2)')}
+        />
       </PresenceWrapper>
 
       <PresenceWrapper>

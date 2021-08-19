@@ -88,7 +88,6 @@ export {
   strong,
   subsup,
   table,
-  tableWithLocalId,
   tableBackgroundBorderColor,
   tableBackgroundColorNames,
   tableBackgroundColorPalette,

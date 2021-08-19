@@ -68,10 +68,6 @@ describe('table local id plugin', () => {
     return createEditor({
       doc,
       editorProps: {
-        featureFlags: {
-          'local-id-generation-on-tables': true,
-          'data-consumer-mark': true,
-        },
         allowExpand: true,
         allowLayouts: true,
         allowTables: tableOptions,

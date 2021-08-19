@@ -41,6 +41,13 @@ export interface PaginationPropTypes<T = unknown> {
    * A `testId` prop is provided for specified elements,
    * which is a unique string that appears as a data attribute `data-testid`
    * in the rendered code, serving as a hook for automated tests
+   *
+   * Will set data-testid on these elements when defined:
+   * - Pagination nav wrapper - {testId}
+   * - Page - {testId}--page-{page index}
+   * - Current page - {testId}--current-page-{page index}
+   * - Left navigator - {testId}--left-navigator
+   * - Right navigator - {testId}--right-navigator
    * */
   testId?: string;
 }

@@ -1,3 +1,8 @@
+// import setimmediate to temporary fix dataloader 2.0.0 bug
+// @see https://github.com/graphql/dataloader/issues/249
+import 'setimmediate';
+import DataLoader from 'dataloader';
+
 import {
   CardProvider,
   ORSProvidersResponse,
@@ -11,12 +16,15 @@ import { getResolverUrl, getBaseUrl } from '../../client/utils/environments';
 import { EnvironmentsKeys } from '../../client/types';
 import * as api from '../../client/api';
 
+const BATCH_WAIT_TIME = 50;
+
 export class EditorCardProvider implements CardProvider {
   private baseUrl: string;
   private resolverUrl: string;
   private patterns?: string[];
   private requestHeaders: HeadersInit;
   private transformer: Transformer;
+  private patternLoader: DataLoader<string, string[] | undefined>;
 
   constructor(envKey?: EnvironmentsKeys) {
     this.baseUrl = getBaseUrl(envKey);
@@ -25,6 +33,18 @@ export class EditorCardProvider implements CardProvider {
     this.requestHeaders = {
       Origin: this.baseUrl,
     };
+    this.patternLoader = new DataLoader((keys) => this.batchPatterns(keys), {
+      batchScheduleFn: (callback) => setTimeout(callback, BATCH_WAIT_TIME),
+    });
+  }
+
+  private async batchPatterns(
+    keys: ReadonlyArray<string>,
+  ): Promise<Array<string[] | undefined>> {
+    // EDM-2205: Batch requests in the case that user paste multiple links at
+    // once. This is so that only one /providers is being called.
+    const patterns = await this.fetchPatterns();
+    return keys.map(() => patterns);
   }
 
   private async check(resourceUrl: string): Promise<boolean | undefined> {
@@ -69,13 +89,12 @@ export class EditorCardProvider implements CardProvider {
   }
 
   async findPattern(url: string): Promise<boolean> {
-    const patterns = this.patterns || (await this.fetchPatterns());
-    if (patterns) {
-      this.patterns = patterns;
-      return patterns.some((pattern) => url.match(pattern));
+    if (!this.patterns) {
+      this.patterns = await this.patternLoader.load('providers');
     }
-
-    return false;
+    return this.patterns
+      ? this.patterns.some((pattern) => url.match(pattern))
+      : false;
   }
 
   async resolve(url: string, appearance: CardAppearance): Promise<CardAdf> {

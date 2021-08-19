@@ -2,7 +2,7 @@ import React, { useMemo, useContext, useState, useRef } from 'react';
 import {
   Card,
   Context as CardContext,
-  IframelyResizeMessageListener,
+  EmbedResizeMessageListener,
 } from '@atlaskit/smart-card';
 import {
   EventHandlers,
@@ -177,7 +177,7 @@ export default function EmbedCard(props: {
             unsupportedComponent={UnsupportedBlock}
             {...cardProps}
           >
-            <IframelyResizeMessageListener
+            <EmbedResizeMessageListener
               embedIframeRef={embedIframeRef}
               onHeightUpdate={setLiveHeight}
             >
@@ -212,7 +212,7 @@ export default function EmbedCard(props: {
                   </div>
                 </EmbedCardWrapper>
               </ExtendedEmbedCard>
-            </IframelyResizeMessageListener>
+            </EmbedResizeMessageListener>
           </CardErrorBoundary>
         );
       }}

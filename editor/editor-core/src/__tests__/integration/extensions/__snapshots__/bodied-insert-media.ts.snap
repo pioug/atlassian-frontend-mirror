@@ -39,7 +39,7 @@ Object {
                 "__fileMimeType": "image/svg+xml",
                 "__fileName": "example.png",
                 "__fileSize": 235,
-                "alt": null,
+                "alt": "",
                 "collection": "MediaServicesSample",
                 "height": 4096,
                 "id": "1234-5678-abcd-efgh",

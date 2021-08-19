@@ -6,24 +6,25 @@ import SuccessIcon from '@atlaskit/icon/glyph/editor/success';
 import ErrorIcon from '@atlaskit/icon/glyph/error';
 import { G400, N200, R400 } from '@atlaskit/theme/colors';
 import { fontFamily, gridSize } from '@atlaskit/theme/constants';
-import { multiply } from '@atlaskit/theme/math';
 import { h200 } from '@atlaskit/theme/typography';
+import { token } from '@atlaskit/tokens';
 
 import { FieldId } from './Field';
 
 const Message = styled.div<{ error?: boolean; valid?: boolean }>`
-  ${h200} font-weight: normal;
+  ${h200}
+  font-weight: normal;
   font-family: ${fontFamily()};
   color: ${(props) => {
     if (props.error) {
-      return R400;
+      return token('color.text.danger', R400);
     }
     if (props.valid) {
-      return G400;
+      return token('color.text.success', G400);
     }
-    return N200;
+    return token('color.text.lowEmphasis', N200);
   }};
-  margin-top: ${multiply(gridSize, 0.5)}px;
+  margin-top: ${gridSize() * 0.5}px;
   display: flex;
   justify-content: baseline;
 `;

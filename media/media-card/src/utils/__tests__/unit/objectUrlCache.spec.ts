@@ -19,13 +19,17 @@ describe('#getObjectUrlCache result', () => {
     const { objectURLCache } = setup();
 
     for (let i = 0; i < PREVIEW_CACHE_LRU_SIZE; i++) {
-      objectURLCache.set(`key${i + 1}`, { dataURI: `value-${i + 1}` });
+      objectURLCache.set(`key${i + 1}`, {
+        dataURI: `value-${i + 1}`,
+        source: 'remote',
+      });
     }
 
     for (let i = 0; i < PREVIEW_CACHE_LRU_SIZE; i++) {
       expectToEqual(objectURLCache.has(`key${i + 1}`), true);
       expectToEqual(objectURLCache.get(`key${i + 1}`), {
         dataURI: `value-${i + 1}`,
+        source: 'remote',
       });
     }
   });
@@ -33,9 +37,12 @@ describe('#getObjectUrlCache result', () => {
   it('should remove older records', () => {
     const { objectURLCache } = setup();
 
-    objectURLCache.set('old-key', { dataURI: 'old-value' });
+    objectURLCache.set('old-key', { dataURI: 'old-value', source: 'remote' });
     for (let i = 0; i < PREVIEW_CACHE_LRU_SIZE; i++) {
-      objectURLCache.set(`key${i + 1}`, { dataURI: `value-${i + 1}` });
+      objectURLCache.set(`key${i + 1}`, {
+        dataURI: `value-${i + 1}`,
+        source: 'remote',
+      });
     }
 
     expectToEqual(objectURLCache.has('old-key'), false);
@@ -45,9 +52,12 @@ describe('#getObjectUrlCache result', () => {
   it('should revoke old objectURLs', () => {
     const { objectURLCache, revokeObjectURLSpy } = setup();
 
-    objectURLCache.set('old-key', { dataURI: 'old-value' });
+    objectURLCache.set('old-key', { dataURI: 'old-value', source: 'remote' });
     for (let i = 0; i < PREVIEW_CACHE_LRU_SIZE; i++) {
-      objectURLCache.set(`key${i + 1}`, { dataURI: `value-${i + 1}` });
+      objectURLCache.set(`key${i + 1}`, {
+        dataURI: `value-${i + 1}`,
+        source: 'remote',
+      });
     }
     expect(revokeObjectURLSpy).toHaveBeenCalledWith('old-value');
   });
@@ -55,7 +65,7 @@ describe('#getObjectUrlCache result', () => {
   it('should return true when #has() called with a key of already added object', () => {
     const { objectURLCache } = setup();
 
-    objectURLCache.set('key1', { dataURI: 'my-string' });
+    objectURLCache.set('key1', { dataURI: 'my-string', source: 'remote' });
     expectToEqual(objectURLCache.has('key1'), true);
   });
 
@@ -68,7 +78,10 @@ describe('#getObjectUrlCache result', () => {
   it('should return previously set object', () => {
     const { objectURLCache } = setup();
 
-    objectURLCache.set('key1', { dataURI: 'my-string' });
-    expectToEqual(objectURLCache.get('key1'), { dataURI: 'my-string' });
+    objectURLCache.set('key1', { dataURI: 'my-string', source: 'remote' });
+    expectToEqual(objectURLCache.get('key1'), {
+      dataURI: 'my-string',
+      source: 'remote',
+    });
   });
 });

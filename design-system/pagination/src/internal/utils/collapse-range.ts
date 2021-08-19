@@ -12,8 +12,9 @@ const collapseRange = <T>(
   }: {
     max: number;
     ellipsis: (arg: { key: string }) => ReactElement;
-    transform: (page: T, index: number) => ReactElement;
+    transform: (page: T, index: number, testId?: string) => ReactElement;
   },
+  testId?: string,
 ): ReactElement[] => {
   const total = pages.length;
   // only need ellipsis if we have more pages than we can display
@@ -27,7 +28,7 @@ const collapseRange = <T>(
     (startIndex: number = 0, lastIndex: number = total) => {
       return pages
         .slice(startIndex, lastIndex)
-        .map((page, index) => transform(page, startIndex + index));
+        .map((page, index) => transform(page, startIndex + index, testId));
     },
   );
 

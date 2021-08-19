@@ -1,5 +1,16 @@
 # @atlaskit/adf-schema
 
+## 19.0.0
+
+### Major Changes
+
+- [`96c6146eef1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/96c6146eef1) - ED-13187: localId optional & empty values filtered
+- [`2aef13b22d8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2aef13b22d8) - ED-12604: add localId for tables and dataConsumer mark for extensions in full schema
+
+### Patch Changes
+
+- [`aa6f29f8c3d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aa6f29f8c3d) - Setting up empty string value for alt attribute (images) by default
+
 ## 18.2.0
 
 ### Minor Changes

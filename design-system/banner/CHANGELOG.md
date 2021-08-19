@@ -1,5 +1,19 @@
 # @atlaskit/banner
 
+## 11.4.0
+
+### Minor Changes
+
+- [`d92ab6985e4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d92ab6985e4) - Instrumented Banner with the new theming package, `@atlaskit/tokens`.
+
+  Tokens will be visible only in applications configured to use the new Tokens API (currently in alpha).These changes are intended to be interoperable with the legacy theme implementation. Legacy dark mode users should expect no visual or breaking changes.
+
+### Patch Changes
+
+- [`af4bca32ad4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/af4bca32ad4) - Internal changes to supress eslint rules.
+- [`b6b4c4100cd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b6b4c4100cd) - Updates high contrast css declarations to use system color tokens + generic media query
+- Updated dependencies
+
 ## 11.3.0
 
 ### Minor Changes

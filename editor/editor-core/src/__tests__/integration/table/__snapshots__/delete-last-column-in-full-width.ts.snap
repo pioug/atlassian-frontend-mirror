@@ -8,6 +8,7 @@ Object {
         "__autoSize": false,
         "isNumberColumnEnabled": false,
         "layout": "full-width",
+        "localId": "abc-123",
       },
       "content": Array [
         Object {

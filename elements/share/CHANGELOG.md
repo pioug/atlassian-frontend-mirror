@@ -1,5 +1,11 @@
 # @atlaskit/share
 
+## 0.27.1
+
+### Patch Changes
+
+- [`310c94eb3c3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/310c94eb3c3) - [ux] Pass configuration to the ShareServiceClient when the component instantiates it
+
 ## 0.27.0
 
 ### Minor Changes

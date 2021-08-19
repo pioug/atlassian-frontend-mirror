@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-client",
-  "version": "14.0.0",
+  "version": "14.1.0",
   "description": "Media API Web Client Library",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -30,12 +30,13 @@
     "@atlaskit/chunkinator": "^3.0.0",
     "@atlaskit/media-common": "^2.8.0",
     "@babel/runtime": "^7.0.0",
-    "dataloader": "^1.4.0",
+    "dataloader": "^2.0.0",
     "deep-equal": "^1.0.1",
     "eventemitter2": "^4.1.0",
     "lru-fast": "^0.2.2",
     "query-string": "^5.1.0",
     "rusha": "^0.8.13",
+    "setimmediate": "^1.0.5",
     "uuid": "^3.1.0",
     "uuid-validate": "^0.0.3",
     "video-snapshot": "^1.0.11"
@@ -47,9 +48,9 @@
   },
   "devDependencies": {
     "@atlaskit/build-utils": "*",
-    "@atlaskit/button": "^16.0.0",
+    "@atlaskit/button": "^16.1.0",
     "@atlaskit/docs": "*",
-    "@atlaskit/media-card": "^70.9.0",
+    "@atlaskit/media-card": "^70.10.0",
     "@atlaskit/media-core": "^32.2.0",
     "@atlaskit/media-test-helpers": "^28.7.0",
     "@atlaskit/ssr": "*",

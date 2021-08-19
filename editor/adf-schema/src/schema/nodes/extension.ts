@@ -20,7 +20,6 @@ export type ExtensionDefinition = ExtensionBaseDefinition & NoMark;
 
 /**
  * @name extension_with_marks_node
- * @stage 0
  */
 export type ExtensionWithMarksDefinition = ExtensionBaseDefinition &
   MarksObject<DataConsumerDefinition>;

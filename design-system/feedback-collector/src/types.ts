@@ -11,3 +11,8 @@ export interface FormFields {
   canBeContacted: boolean;
   enrollInResearchGroup: boolean;
 }
+
+export interface SelectOptionDetails {
+  fieldLabel: string;
+  selectOptionLabel: string;
+}

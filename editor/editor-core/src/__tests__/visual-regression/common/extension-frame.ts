@@ -24,9 +24,6 @@ describe('Extension frame:', () => {
           // trigger extension providers scaffolding
           allowExtendFloatingToolbars: true,
         },
-        featureFlags: {
-          'data-consumer-mark': true,
-        },
       },
       adf,
     });

@@ -132,6 +132,22 @@ export type SelectedSearchResultsAEP = UIAEP<
   undefined
 >;
 
+export type EditLinkToolbarAEP = UIAEP<
+  ACTION.CLICKED,
+  ACTION_SUBJECT.SMART_LINK | ACTION_SUBJECT.HYPERLINK,
+  ACTION_SUBJECT_ID.EDIT_LINK,
+  {},
+  undefined
+>;
+
+export type UnlinkToolbarAEP = UIAEP<
+  ACTION.UNLINK,
+  ACTION_SUBJECT.SMART_LINK | ACTION_SUBJECT.HYPERLINK,
+  ACTION_SUBJECT_ID.CARD_INLINE | undefined,
+  {},
+  undefined
+>;
+
 export type CreateLinkInlineDialogEventPayload =
   | QuickSearchPerfAEP
   | RecentActivitiesPerfAEP

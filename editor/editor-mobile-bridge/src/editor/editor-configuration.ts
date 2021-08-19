@@ -25,8 +25,7 @@ interface EditorConfig {
   useUnpredictableInputRule?: boolean;
   placeholder?: string;
   allowEmptyADFCheck?: boolean;
-  localIdGenerationOnTables?: boolean;
-  dataConsumerMark?: boolean;
+  allowCustomPanel?: boolean;
 }
 
 export default class MobileEditorConfiguration
@@ -40,8 +39,7 @@ export default class MobileEditorConfiguration
   private useUnpredictableInputRule: boolean = true;
   private placeholder?: string | undefined;
   private allowEmptyADFCheck: boolean = false;
-  private localIdGenerationOnTables: boolean = true;
-  private dataConsumerMark: boolean = true;
+  private allowCustomPanel: boolean = false;
 
   constructor(editorConfig?: string) {
     if (editorConfig) {
@@ -77,14 +75,10 @@ export default class MobileEditorConfiguration
       config.allowEmptyADFCheck !== undefined
         ? config.allowEmptyADFCheck
         : this.allowEmptyADFCheck;
-    this.localIdGenerationOnTables =
-      config.localIdGenerationOnTables !== undefined
-        ? config.localIdGenerationOnTables
-        : this.localIdGenerationOnTables;
-    this.dataConsumerMark =
-      config.dataConsumerMark !== undefined
-        ? config.dataConsumerMark
-        : this.dataConsumerMark;
+    this.allowCustomPanel =
+      config.allowCustomPanel !== undefined
+        ? config.allowCustomPanel
+        : this.allowCustomPanel;
   }
 
   getEditorAppearance(): EditorAppearance {
@@ -130,12 +124,8 @@ export default class MobileEditorConfiguration
     return this.allowEmptyADFCheck;
   }
 
-  isLocalIdGenerationOnTablesEnabled(): boolean {
-    return this.localIdGenerationOnTables;
-  }
-
-  isDataConsumerMarkEnabled(): boolean {
-    return this.dataConsumerMark;
+  isCustomPanelEnabled(): boolean {
+    return this.allowCustomPanel;
   }
 
   // We need to retain the previous configuartion flags as `locale` and `mode` can be configured

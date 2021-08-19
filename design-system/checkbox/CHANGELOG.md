@@ -1,5 +1,17 @@
 # @atlaskit/checkbox
 
+## 12.3.0
+
+### Minor Changes
+
+- [`fe79d66ea34`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fe79d66ea34) - Instruments checkbox with the new tokens api. This will continue to work alongside the existing theming implementation. No visual changes
+
+### Patch Changes
+
+- [`b6b4c4100cd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b6b4c4100cd) - Updates high contrast css declarations to use system color tokens + generic media query
+- [`2d7cc544696`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2d7cc544696) - Updates token usage to match the latest token set
+- Updated dependencies
+
 ## 12.2.2
 
 ### Patch Changes

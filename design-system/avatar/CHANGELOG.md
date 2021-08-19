@@ -1,5 +1,15 @@
 # @atlaskit/avatar
 
+## 20.4.0
+
+### Minor Changes
+
+- [`cb101fd1d29`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb101fd1d29) - [ux] Colors are now sourced through tokens.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 20.3.3
 
 ### Patch Changes

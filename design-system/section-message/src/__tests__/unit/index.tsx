@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import React from 'react';
 
 import {
@@ -21,32 +22,26 @@ import { Appearance } from '../../types';
 
 const appearancesCases: {
   name: Appearance;
-  backgroundColor: string;
   icon: ({}) => JSX.Element;
 }[] = [
   {
     name: 'information',
-    backgroundColor: '#DEEBFF',
     icon: (props: {}) => <InfoIcon {...props} label="information" />,
   },
   {
     name: 'warning',
-    backgroundColor: '#FFFAE6',
     icon: (props: {}) => <WarningIcon {...props} label="warning" />,
   },
   {
     name: 'error',
-    backgroundColor: '#FFEBE6',
     icon: (props: {}) => <ErrorIcon {...props} label="error" />,
   },
   {
     name: 'success',
-    backgroundColor: '#E3FCEF',
     icon: (props: {}) => <CheckCircleIcon {...props} label="success" />,
   },
   {
     name: 'discovery',
-    backgroundColor: '#EAE6FF',
     icon: (props: {}) => <QuestionCircleIcon {...props} label="discovery" />,
   },
 ];
@@ -242,27 +237,6 @@ describe('SectionMessage', () => {
             element.tagName.toLowerCase() === 'svg',
         ),
       ).toHaveLength(1);
-    },
-    appearancesCases,
-  );
-
-  cases(
-    'background color styled rule',
-    ({
-      name,
-      backgroundColor,
-    }: {
-      name: Appearance;
-      backgroundColor: string;
-    }) => {
-      const { getByTestId } = render(
-        <SectionMessage testId="section-msg" appearance={name}>
-          boo
-        </SectionMessage>,
-      );
-      const sectionMsg = getByTestId('section-msg');
-
-      expect(sectionMsg).toHaveStyle(`background-color:${backgroundColor}`);
     },
     appearancesCases,
   );

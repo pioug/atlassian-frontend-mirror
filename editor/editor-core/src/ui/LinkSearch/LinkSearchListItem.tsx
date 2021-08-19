@@ -10,6 +10,7 @@ import { LinkSearchListItemData } from './types';
 import formatDistance from 'date-fns/formatDistance';
 import differenceInCalendarDays from 'date-fns/differenceInCalendarDays';
 import format from 'date-fns/format';
+import { getCorrectAltByIconUrl } from './listItemAlts';
 
 import { injectIntl, InjectedIntlProps } from 'react-intl';
 import messages from '../../messages';
@@ -92,6 +93,7 @@ class LinkSearchListItem extends React.PureComponent<
   private renderIcon() {
     const {
       item: { icon, iconUrl },
+      intl,
     } = this.props;
     if (icon) {
       return <Icon>{icon}</Icon>;
@@ -99,7 +101,13 @@ class LinkSearchListItem extends React.PureComponent<
     if (iconUrl) {
       return (
         <Icon>
-          <img src={iconUrl} />
+          {/*
+            - getCorrectAltByIconUrl
+            Workaround to get alt text for images from url
+            Can be removed when alt={iconAlt} will be available from GraphQL
+            More details: https://a11y-internal.atlassian.net/browse/AK-811
+          */}
+          <img src={iconUrl} alt={getCorrectAltByIconUrl(iconUrl, intl)} />
         </Icon>
       );
     }

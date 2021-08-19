@@ -17,7 +17,7 @@ Object {
             "__fileMimeType": null,
             "__fileName": "example.png",
             "__fileSize": null,
-            "alt": null,
+            "alt": "",
             "collection": "",
             "height": null,
             "id": "",

@@ -1,5 +1,20 @@
 # @atlaskit/radio
 
+## 5.3.0
+
+### Minor Changes
+
+- [`f276913fa2c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f276913fa2c) - Instrumented Radio with the new theming package, `@atlaskit/tokens`.
+
+  New tokens will be visible only in applications configured to use the new Tokens API (currently in alpha).
+  These changes are intended to be interoperable with the legacy theme implementation. Legacy dark mode users should expect no visual or breaking changes.
+
+### Patch Changes
+
+- [`af4bca32ad4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/af4bca32ad4) - Internal changes to supress eslint rules.
+- [`2d7cc544696`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2d7cc544696) - Updates token usage to match the latest token set
+- Updated dependencies
+
 ## 5.2.1
 
 ### Patch Changes

@@ -1,5 +1,37 @@
 # @atlaskit/media-ui
 
+## 16.5.0
+
+### Minor Changes
+
+- [`00de5482a5a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/00de5482a5a) - # expose smart-link selectors
+
+  Documentation with visual examples: https://hello.atlassian.net/wiki/spaces/~hzarcogarcia/pages/1250247546/How+to+use+smart+link+classnames
+
+  ```
+  import {
+    contentFooterClassName,
+    metadataListClassName,
+    blockCardResolvingViewClassName,
+    blockCardResolvedViewClassName,
+    blockCardForbiddenViewClassName,
+    blockCardIconImageClassName,
+    loadingPlaceholderClassName
+  } from '@atlaskit/smart-card';
+
+  // Example usage:
+
+  css`
+    .${contentFooterClassName} {
+      background-color: red;
+    }
+  `
+  ```
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 16.4.0
 
 ### Minor Changes

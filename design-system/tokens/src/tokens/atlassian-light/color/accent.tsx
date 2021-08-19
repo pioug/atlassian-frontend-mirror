@@ -3,43 +3,43 @@ import type { AccentColorTokenSchema } from '../../../types';
 const color: AccentColorTokenSchema = {
   color: {
     accent: {
-      blueSubtle: {
+      subtleBlue: {
         value: 'B200',
         attributes: {
           group: 'paint',
         },
       },
-      greenSubtle: {
+      subtleGreen: {
         value: 'G200',
         attributes: {
           group: 'paint',
         },
       },
-      magentaSubtle: {
+      subtleMagenta: {
         value: 'M200',
         attributes: {
           group: 'paint',
         },
       },
-      orangeSubtle: {
+      subtleOrange: {
         value: 'O200',
         attributes: {
           group: 'paint',
         },
       },
-      purpleSubtle: {
+      subtlePurple: {
         value: 'P200',
         attributes: {
           group: 'paint',
         },
       },
-      redSubtle: {
+      subtleRed: {
         value: 'R200',
         attributes: {
           group: 'paint',
         },
       },
-      tealSubtle: {
+      subtleTeal: {
         value: 'T200',
         attributes: {
           group: 'paint',

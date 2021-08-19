@@ -2,6 +2,8 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import Panel from '../../../../react/nodes/panel';
 import { PanelType } from '@atlaskit/adf-schema';
+import { ProviderFactory } from '@atlaskit/editor-common';
+import EmojiItem from '../../../../react/nodes/emoji';
 
 describe('Renderer - React/Nodes/Panel', () => {
   describe('info', () => {
@@ -57,6 +59,27 @@ describe('Renderer - React/Nodes/Panel', () => {
 
     it('should have two children', () => {
       expect(warningPanel.children()).toHaveLength(2);
+    });
+  });
+
+  describe('custom panel', () => {
+    const providerFactory = ProviderFactory.create({});
+
+    it('should wrap content with <div>-tag and have given emoji and background', () => {
+      const customPanel = shallow(
+        <Panel
+          panelType={PanelType.CUSTOM}
+          panelColor={'#b5f71ca14'}
+          panelIcon={':smiley:'}
+          allowCustomPanels={true}
+          providers={providerFactory}
+        >
+          This is a custom panel with custom emoji and background
+        </Panel>,
+      );
+      expect(customPanel.name()).toEqual('styled.div');
+      expect(customPanel.props().backgroundColor).toEqual('#b5f71ca14');
+      expect(customPanel.find(EmojiItem).props().shortName).toEqual(':smiley:');
     });
   });
 });

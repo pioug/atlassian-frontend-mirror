@@ -13,6 +13,7 @@ import type { Props as ConstantProps } from '../src/constants';
 
 const centeredStyles = css({
   display: 'flex',
+  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
   '> *': {
     margin: '8px 0',
   },

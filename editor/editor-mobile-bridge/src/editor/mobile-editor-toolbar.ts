@@ -1,20 +1,20 @@
 import { toNativeBridge } from './web-to-native/index';
 import { EditorView } from 'prosemirror-view';
 import {
-  FloatingToolbarConfig,
-  FloatingToolbarItem,
   Command,
-  FloatingToolbarButton,
-  FloatingToolbarDropdown,
-  FloatingToolbarSelect,
   DropdownOptionT,
-  SelectOption,
+  FloatingToolbarButton,
   FloatingToolbarColorPicker,
-  FloatingToolbarInput,
+  FloatingToolbarConfig,
   FloatingToolbarDatePicker,
+  FloatingToolbarDropdown,
   FloatingToolbarEmojiPicker,
+  FloatingToolbarInput,
+  FloatingToolbarItem,
+  FloatingToolbarListPicker,
+  SelectOption,
 } from '@atlaskit/editor-core';
-import { NodeType, Node } from 'prosemirror-model';
+import { Node, NodeType } from 'prosemirror-model';
 
 export type MobileEditorToolbarItem = FloatingToolbarItem<Command> & {
   key?: string;
@@ -23,6 +23,7 @@ export type MobileEditorToolbarItem = FloatingToolbarItem<Command> & {
 
 export default class MobileEditorToolbarActions {
   private previousItemsJson?: string | null;
+  private previousNode?: Node | null;
   private floatingToolbarItems?: Array<
     FloatingToolbarItem<Command> | undefined
   > | null;
@@ -45,7 +46,7 @@ export default class MobileEditorToolbarActions {
    */
   notifyNativeBridgeForEditCapabilitiesChanges(
     floatingToolbarConfig?: FloatingToolbarConfig,
-    floatingToolbarNode?: Node,
+    floatingToolbarNode?: Node | null,
   ): void {
     const floatingToolbarConfigItems =
       typeof floatingToolbarConfig?.items === 'function' && floatingToolbarNode
@@ -62,10 +63,16 @@ export default class MobileEditorToolbarActions {
       // If the content is same, there is no need to invoke the native side again.
       // Floating toolbar is re-rendered if there is a content change. i.e. typing a character
       // We don't need to invoke mobile native side for this change.
-      if (this.previousItemsJson === itemsJson) {
+      if (
+        this.previousItemsJson === itemsJson &&
+        this.previousNode === floatingToolbarNode
+      ) {
         return;
       }
       this.previousItemsJson = itemsJson;
+      if (floatingToolbarNode !== undefined) {
+        this.previousNode = floatingToolbarNode;
+      }
 
       toNativeBridge.onNodeSelected(nodeTypeName, itemsJson);
     } else {
@@ -105,7 +112,10 @@ export default class MobileEditorToolbarActions {
             break;
           case 'select':
             if (item.selectType === 'list') {
-              newItem = this.translateToolbarSelect(item, index);
+              newItem = this.translateToolbarSelect(
+                item as FloatingToolbarListPicker<Command>,
+                index,
+              );
             } else if (item.selectType === 'date') {
               newItem = this.translateDatePicker(
                 item as FloatingToolbarDatePicker<Command>,
@@ -114,6 +124,11 @@ export default class MobileEditorToolbarActions {
             } else if (item.selectType === 'color') {
               newItem = this.translateColorPicker(
                 item as FloatingToolbarColorPicker<Command>,
+                index,
+              );
+            } else if (item.selectType === 'emoji') {
+              newItem = this.translateEmojiPicker(
+                item as FloatingToolbarEmojiPicker<Command>,
                 index,
               );
             }
@@ -126,9 +141,6 @@ export default class MobileEditorToolbarActions {
               newItem = { ...item };
               visibleItemFound = false;
             }
-            break;
-          case 'emoji-picker':
-            newItem = this.translateEmojiPicker(item, index);
             break;
           case 'input':
             newItem = this.translateInput(item, index);
@@ -294,13 +306,16 @@ export default class MobileEditorToolbarActions {
   }
 
   private translateToolbarSelect(
-    item: FloatingToolbarSelect<Command>,
+    item: FloatingToolbarListPicker<Command>,
     index: number,
   ): MobileEditorToolbarItem | undefined {
     if (!this.isItemAllowed(item.id)) {
       return;
     }
-    const newItem: MobileEditorToolbarItem = { ...item };
+    const newItem: MobileEditorToolbarItem &
+      FloatingToolbarListPicker<Command> = {
+      ...item,
+    };
     newItem.key = this.generateKey(index);
     newItem.options = item.options.map(
       (option: SelectOption, optionIndex: number) => {
@@ -361,16 +376,15 @@ export default class MobileEditorToolbarActions {
         } else if (parentItem?.selectType === 'color') {
           const colorPicker = parentItem as FloatingToolbarColorPicker<Command>;
           this.performColorPickerChange(colorPicker, optionIndex, editorView);
+        } else if (parentItem?.selectType === 'emoji') {
+          const emojiPicker = parentItem as FloatingToolbarEmojiPicker<Command>;
+          this.performEmojiPicker(emojiPicker, value, editorView);
         }
         break;
       case 'input':
-        if (value) {
+        if (typeof value === 'string') {
           this.performInputSubmit(parentItem, value, editorView);
         }
-        break;
-
-      case 'emoji-picker':
-        this.performEmojiPicker(parentItem, value, editorView);
         break;
     }
   }
@@ -383,7 +397,7 @@ export default class MobileEditorToolbarActions {
   }
 
   private performSelectChange(
-    select: FloatingToolbarSelect<Command>,
+    select: FloatingToolbarListPicker<Command>,
     optionIndex: number,
     editorView: EditorView,
   ) {
@@ -436,12 +450,10 @@ export default class MobileEditorToolbarActions {
 
   private performInputSubmit(
     picker: FloatingToolbarInput<Command>,
-    value: string | null,
+    value: string,
     editorView: EditorView,
   ) {
-    if (value) {
-      picker.onSubmit(value)(editorView.state, editorView.dispatch);
-    }
+    picker.onSubmit(value)(editorView.state, editorView.dispatch);
   }
 
   /**

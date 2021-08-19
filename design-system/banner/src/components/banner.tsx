@@ -16,12 +16,8 @@ const iconStyles = css({
   alignItems: 'center',
   flex: '0 0 auto',
   flexDirection: 'column',
-  '@media: screen and (-ms-high-contrast: white-on-black)': {
-    fill: '#000',
-    filter: 'grayscale(100%)',
-  },
-  '@media screen and (-ms-high-contrast: black-on-white)': {
-    fill: '#fff',
+  '@media screen and (forced-colors: active)': {
+    fill: 'CanvasText',
     filter: 'grayscale(100%)',
   },
 });
@@ -41,6 +37,7 @@ const contentStyles = css({
   fontWeight: 500,
   textAlign: 'center',
   transition: `color ${TRANSITION_DURATION}`,
+  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
   'a, a:visited, a:hover, a:focus, a:active': {
     color: 'currentColor',
     textDecoration: 'underline',

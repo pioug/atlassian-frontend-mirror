@@ -1,5 +1,12 @@
 # @atlaskit/modal-dialog
 
+## 11.7.4
+
+### Patch Changes
+
+- [`adad0d75402`](https://bitbucket.org/atlassian/atlassian-frontend/commits/adad0d75402) - Internal test fix.
+- Updated dependencies
+
 ## 11.7.3
 
 ### Patch Changes

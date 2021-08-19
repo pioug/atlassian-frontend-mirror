@@ -26,7 +26,7 @@ import {
   temporaryFileId,
   testCollectionName,
 } from '../plugins/media/_utils';
-import { createHorizontalRule } from '../../../plugins/rule/pm-plugins/input-rule';
+import { insertHorizontalRule } from '../../../plugins/rule/commands';
 
 describe('@atlaskit/editor-core/utils insert', () => {
   const createEditor = createEditorFactory();
@@ -175,14 +175,8 @@ describe('@atlaskit/editor-core/utils insert', () => {
         }: {
           editorView: EditorView;
         }) => {
-          const state = editorView.state;
-          const tr = createHorizontalRule(
-            state,
-            state.selection.from,
-            state.selection.to,
-            INPUT_METHOD.TOOLBAR,
-          );
-          editorView.dispatch(tr || state.tr);
+          const { state, dispatch } = editorView;
+          insertHorizontalRule(INPUT_METHOD.TOOLBAR)(state, dispatch);
         };
         const insertFromQuickInsert = ({
           editorView,

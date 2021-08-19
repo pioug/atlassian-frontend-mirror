@@ -133,16 +133,22 @@ describe('alignment', () => {
   });
 
   describe('Adds alignment to top level paragraphs inside tables', () => {
+    const TABLE_LOCAL_ID = 'test-table-local-id';
     it('Does not apply to paragraph inside a table', () => {
       const { editorView } = editor(
-        doc(p('text'), table()(tr(td({})(p('hello')), td({})(p('world{<>}'))))),
+        doc(
+          p('text'),
+          table({ localId: TABLE_LOCAL_ID })(
+            tr(td({})(p('hello')), td({})(p('world{<>}'))),
+          ),
+        ),
       );
       const { dispatch, state } = editorView;
       changeAlignment('end')(state, dispatch);
       expect(editorView.state.doc).toEqualDocument(
         doc(
           p('text'),
-          table()(
+          table({ localId: TABLE_LOCAL_ID })(
             tr(
               td({})(p('hello')),
               td({})(alignmentMark({ align: 'end' })(p('world{<>}'))),

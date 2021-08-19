@@ -28,7 +28,7 @@ import {
   isRichMediaInsideOfBlockNode,
 } from '../../../utils/rich-media-utils';
 import { EventDispatcher } from '../../../event-dispatcher';
-import { IframelyResizeMessageListener } from '@atlaskit/smart-card';
+import { EmbedResizeMessageListener } from '@atlaskit/smart-card';
 import { pluginKey as tableResizePluginKey } from '../../table/pm-plugins/table-resizing';
 import { ColumnResizingPluginState } from '../../table/types';
 import { SetAttrsStep } from '@atlaskit/adf-schema/steps';
@@ -262,7 +262,7 @@ export class EmbedCardComponent extends React.PureComponent<
     };
 
     const cardInner = (
-      <IframelyResizeMessageListener
+      <EmbedResizeMessageListener
         embedIframeRef={this.embedIframeRef}
         onHeightUpdate={this.onHeightUpdate}
       >
@@ -357,7 +357,7 @@ export class EmbedCardComponent extends React.PureComponent<
             );
           }}
         />
-      </IframelyResizeMessageListener>
+      </EmbedResizeMessageListener>
     );
 
     // [WS-2307]: we only render card wrapped into a Provider when the value is ready

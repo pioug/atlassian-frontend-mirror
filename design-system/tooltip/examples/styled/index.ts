@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import styled from '@emotion/styled';
 
 import * as colors from '@atlaskit/theme/colors';

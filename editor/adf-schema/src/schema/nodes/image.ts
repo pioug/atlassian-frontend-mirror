@@ -5,7 +5,7 @@ export const image: NodeSpec = {
   inline: true,
   attrs: {
     src: { default: '' },
-    alt: { default: null },
+    alt: { default: '' },
     title: { default: null },
   },
   draggable: true,

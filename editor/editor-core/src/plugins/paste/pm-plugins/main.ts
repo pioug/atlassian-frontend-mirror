@@ -19,6 +19,8 @@ import {
   htmlContainsSingleFile,
   isPastedFromWord,
   isPastedFromExcel,
+  htmlHasInvalidLinkTags,
+  removeDuplicateInvalidLinks,
 } from '../util';
 import { linkifyContent } from '../../hyperlink/utils';
 import { transformSliceToRemoveOpenBodiedExtension } from '../../extension/actions';
@@ -115,7 +117,12 @@ export function createPlugin(
     openStart: number,
     openEnd: number,
   ): Slice | undefined {
-    const doc = atlassianMarkDownParser.parse(escapeLinks(text));
+    let textInput: string = text;
+    if (textInput.includes(':\\\\')) {
+      textInput = textInput.replace(/:\\\\/g, ':\\\\\\\\');
+    }
+
+    const doc = atlassianMarkDownParser.parse(escapeLinks(textInput));
     if (doc && doc.content) {
       return new Slice(doc.content, openStart, openEnd);
     }
@@ -506,6 +513,13 @@ export function createPlugin(
           html.indexOf('<img ') >= 0
         ) {
           html = unwrapNestedMediaElements(html);
+        }
+
+        // https://product-fabric.atlassian.net/browse/ED-11714
+        // Checking for edge case when copying a list item containing links from Notion
+        // The html from this case is invalid with duplicate nested links
+        if (htmlHasInvalidLinkTags(html)) {
+          html = removeDuplicateInvalidLinks(html);
         }
 
         return html;

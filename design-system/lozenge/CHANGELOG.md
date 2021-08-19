@@ -1,5 +1,16 @@
 # @atlaskit/lozenge
 
+## 11.1.0
+
+### Minor Changes
+
+- [`d7caf75e732`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d7caf75e732) - - [ux] Colors are now sourced through tokens.
+  - Deprecate `@atlaskit/lozenge/theme` entry-point.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.0.0
 
 ### Major Changes

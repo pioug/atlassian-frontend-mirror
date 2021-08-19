@@ -160,7 +160,6 @@ export function addAnalytics(
       tr.setStoredMarks(storedMarks);
     }
   }
-
   return tr;
 }
 

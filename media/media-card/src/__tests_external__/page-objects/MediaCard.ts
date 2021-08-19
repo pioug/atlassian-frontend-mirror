@@ -1,16 +1,13 @@
-// complains about devDependencies instead of dependencies
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { cy } from 'local-cypress';
+import { InProductTestPageObject } from '@atlaskit/in-product-testing';
 
-export class MediaCardPageObject {
-  constructor(private cy: Cypress.cy) {}
-
+export class MediaCardPageObject extends InProductTestPageObject {
   public expectCardReady(numOfCards: number) {
     return this.cy
       .get('[data-test-media-name]')
       .should('have.length', numOfCards)
       .each((element) => {
-        cy.wrap(element)
+        this.cy
+          .wrap(element)
           // NOTE: `be.visible` is used to ensure the file is still visible
           // whilst it is being uploaded.
           .should('be.visible')
@@ -24,5 +21,17 @@ export class MediaCardPageObject {
       .should('have.length.at.least', nth)
       .should('be.visible')
       .eq(nth - 1);
+  }
+
+  public findImage(nth: number) {
+    return this.cy
+      .get(this.toTestId('media-image'))
+      .should('have.length.at.least', nth)
+      .should('be.visible')
+      .eq(nth - 1);
+  }
+
+  public assertAltText(altText: string, nth = 1) {
+    return this.findImage(nth).should('have.attr', 'alt', altText);
   }
 }

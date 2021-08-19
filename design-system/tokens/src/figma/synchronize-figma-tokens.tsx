@@ -19,6 +19,12 @@ import type {
   FigmaPaintStyle,
 } from './types';
 
+function hexToPercent(hex: string): number {
+  const percent = parseInt(hex, 16) * 100;
+  // Ensure the value is capped between 0 and 100
+  return Math.max(0, Math.min(Math.round(percent / 255), 100));
+}
+
 function createPaint(hex: string): FigmaPaint {
   let hexValue = hex;
   if (!hexValue.startsWith('#')) {
@@ -38,7 +44,7 @@ function createPaint(hex: string): FigmaPaint {
   const g = parseInt(hexValue.slice(3, 5), 16) / 255;
   const b = parseInt(hexValue.slice(5, 7), 16) / 255;
   const alphaHex = hexValue.slice(7, 9);
-  const opacity = alphaHex ? parseInt(alphaHex, 16) : 100;
+  const opacity = alphaHex ? hexToPercent(alphaHex) : 100;
 
   return {
     type: 'SOLID',
@@ -48,6 +54,9 @@ function createPaint(hex: string): FigmaPaint {
     color: { r, g, b },
   };
 }
+
+export type CreateEffects = typeof createEffects;
+export type CreatePaint = typeof createPaint;
 
 function createEffects(value: ShadowToken<string>['value']): FigmaEffect[] {
   return value.map((shadow) => {
@@ -65,7 +74,7 @@ function createEffects(value: ShadowToken<string>['value']): FigmaEffect[] {
       offset: shadow.offset,
       radius: shadow.radius,
       spread: shadow.spread,
-      type: 'DROP_SHADOW',
+      type: shadow.inset ? 'INNER_SHADOW' : 'DROP_SHADOW',
       visible: true,
     };
   });
@@ -183,5 +192,6 @@ if (typeof module !== 'undefined') {
   module.exports = {
     synchronizeFigmaTokens,
     createPaint,
+    createEffects,
   };
 }

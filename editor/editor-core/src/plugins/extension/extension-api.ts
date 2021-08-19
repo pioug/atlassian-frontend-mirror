@@ -24,6 +24,7 @@ import {
   AnalyticsEventPayload,
 } from '../analytics';
 import { getNodeTypesReferenced, getDataConsumerMark } from './utils';
+import { setTextSelection } from 'prosemirror-utils';
 
 interface EditInLegacyMacroBrowserArgs {
   view: EditorView;
@@ -57,6 +58,18 @@ interface CreateExtensionAPIOptions {
   editorView: EditorView;
   editInLegacyMacroBrowser?: () => void;
 }
+
+const extensionAPICallPayload = (
+  functionName: string,
+): AnalyticsEventPayload => ({
+  action: ACTION.INVOKED,
+  actionSubject: ACTION_SUBJECT.EXTENSION,
+  actionSubjectId: ACTION_SUBJECT_ID.EXTENSION_API,
+  attributes: {
+    functionName,
+  },
+  eventType: EVENT_TYPE.TRACK,
+});
 
 export const createExtensionAPI = (
   options: CreateExtensionAPIOptions,
@@ -116,16 +129,9 @@ export const createExtensionAPI = (
       }
 
       // Analytics - tracking the api call
-      const apiCallPayload: AnalyticsEventPayload = {
-        action: ACTION.INVOKED,
-        actionSubject: ACTION_SUBJECT.EXTENSION,
-        actionSubjectId: ACTION_SUBJECT_ID.EXTENSION_API,
-        attributes: {
-          functionName: 'insertAfter',
-        },
-        eventType: EVENT_TYPE.TRACK,
-      };
-
+      const apiCallPayload: AnalyticsEventPayload = extensionAPICallPayload(
+        'insertAfter',
+      );
       addAnalytics(state, tr, apiCallPayload);
 
       // Analytics - tracking node types added
@@ -166,6 +172,36 @@ export const createExtensionAPI = (
 
         addAnalytics(state, tr, payload);
       });
+      dispatch(tr);
+    },
+    scrollTo: (localId: string) => {
+      const { editorView } = options;
+      const { dispatch } = editorView;
+
+      // Be extra cautious since 3rd party devs can use regular JS without type safety
+      if (typeof localId !== 'string' || localId === '') {
+        throw new Error(`scrollTo(): Invalid localId '${localId}'.`);
+      }
+
+      // Find the node + position matching the given ID
+      const { state } = editorView;
+      const nodePos = findNodePosWithLocalId(state, localId);
+
+      if (!nodePos) {
+        throw new Error(
+          `scrollTo(): Could not find node with ID '${localId}'.`,
+        );
+      }
+
+      // Analytics - tracking the api call
+      const apiCallPayload: AnalyticsEventPayload = extensionAPICallPayload(
+        'scrollTo',
+      );
+
+      let { tr } = state;
+      tr = addAnalytics(state, tr, apiCallPayload);
+      tr = setTextSelection(nodePos.pos)(tr);
+      tr = tr.scrollIntoView();
       dispatch(tr);
     },
   };

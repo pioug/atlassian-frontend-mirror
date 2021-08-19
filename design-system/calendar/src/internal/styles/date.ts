@@ -17,68 +17,74 @@ import {
   N900,
 } from '@atlaskit/theme/colors';
 import { ThemeModes } from '@atlaskit/theme/types';
+import { token } from '@atlaskit/tokens';
 
-const textColor = { light: N900, dark: DN600 };
-const primaryColor = { light: B400, dark: B100 };
-const transparent = { light: 'transparent', dark: 'transparent' };
-const selectedBackground = { light: N500, dark: N0 };
-const prevSelectedBackground = { light: B50, dark: B50 };
-const borderColorFocused = { light: B100, dark: B75 };
-const textDisabled = { light: N40, dark: N40 };
-const textSelected = { light: N0, dark: N700 };
-const textSibling = { light: N200, dark: N200 };
-const textPreviouslySelected = { light: N600, dark: N600 };
-const hoverPreviouslySelectedBackground = { light: B50, dark: B50 };
-const activeBackground = { light: B50, dark: B50 };
-const hoverBackground = { light: N30, dark: N800 };
-const textHoverSelected = { light: N600, dark: N600 };
-const backgroundColorSelectedAfter = { light: N700, dark: N700 };
+const textColor = {
+  light: token('color.text.highEmphasis', N900),
+  dark: token('color.text.highEmphasis', DN600),
+};
+const textColorMedium = token('color.text.mediumEmphasis', N600);
+const todayColor = {
+  light: token('color.text.selected', B400),
+  dark: token('color.text.selected', B100),
+};
+const hoverBackground = {
+  light: token('color.background.transparentNeutral.hover', N30),
+  dark: token('color.background.transparentNeutral.hover', N800),
+};
+const textSelected = {
+  light: token('color.text.selected', N0),
+  dark: token('color.text.selected', N700),
+};
+const selectedBackground = {
+  light: token('color.background.selected.resting', N500),
+  dark: token('color.background.selected.resting', N0),
+};
+const borderColorFocused = {
+  light: token('color.border.focus', B100),
+  dark: token('color.border.focus', B75),
+};
 
-export const dateCellStyle = (mode: ThemeModes): CSSObject => ({
+export const dateCellStyles = (mode: ThemeModes = 'light'): CSSObject => ({
   all: 'unset',
   display: 'block',
-  backgroundColor: transparent[mode],
-  border: `2px solid ${transparent[mode]}`,
+  padding: '4px 9px',
+  position: 'relative',
+  backgroundColor: 'transparent',
+  border: '2px solid transparent',
   borderRadius: 3,
   color: textColor[mode],
   cursor: 'pointer',
   fontSize: 14,
-  padding: '4px 9px',
-  position: 'relative',
   textAlign: 'center',
   '&[data-sibling]': {
-    color: textSibling[mode],
+    color: token('color.text.lowEmphasis', N200),
   },
   '&[data-today]': {
-    color: primaryColor[mode],
+    color: todayColor[mode],
     fontWeight: 'bold',
     '&::after': {
-      backgroundColor: primaryColor[mode],
-      bottom: 2,
-      content: '""',
       display: 'block',
       height: 2,
-      left: 2,
       position: 'absolute',
       right: 2,
-    },
-    '&[data-selected]': {
-      '&::after': {
-        backgroundColor: backgroundColorSelectedAfter[mode],
-      },
+      bottom: 2,
+      left: 2,
+      backgroundColor: 'currentColor',
+      content: '""',
     },
   },
   '&[data-prev-selected]': {
-    backgroundColor: prevSelectedBackground[mode],
-    color: textPreviouslySelected[mode],
+    backgroundColor: token('color.background.subtleBrand.resting', B50),
+    color: token('color.text.mediumEmphasis', N600),
   },
   '&[data-selected]': {
     backgroundColor: selectedBackground[mode],
     color: textSelected[mode],
   },
   '&[data-disabled]': {
+    color: token('color.text.disabled', N40),
     cursor: 'not-allowed',
-    color: textDisabled[mode],
   },
   '&[data-focused]': {
     border: `2px solid ${borderColorFocused[mode]}`,
@@ -88,21 +94,21 @@ export const dateCellStyle = (mode: ThemeModes): CSSObject => ({
     color: textColor[mode],
   },
   '&:active': {
-    backgroundColor: activeBackground[mode],
-    color: textHoverSelected[mode],
+    backgroundColor: token('color.background.transparentNeutral.pressed', B50),
+    color: textColor[mode],
   },
   '&[data-selected]:hover': {
-    color: textHoverSelected[mode],
+    color: textColorMedium,
   },
   '&[data-prev-selected]:hover': {
-    backgroundColor: hoverPreviouslySelectedBackground[mode],
-    color: textHoverSelected[mode],
+    backgroundColor: token('color.background.subtleBrand.resting', B50),
+    color: textColorMedium,
   },
   '&[data-sibling]:hover': {
-    color: textSibling[mode],
+    color: token('color.text.lowEmphasis', N200),
   },
   '&[data-disabled]:hover': {
-    backgroundColor: transparent[mode],
-    color: textDisabled[mode],
+    backgroundColor: 'transparent',
+    color: token('color.text.disabled', N40),
   },
 });

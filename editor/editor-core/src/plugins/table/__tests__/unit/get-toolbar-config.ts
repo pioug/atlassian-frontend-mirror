@@ -58,10 +58,6 @@ describe('getToolbarConfig', () => {
     const output = createEditorFn({
       doc,
       editorProps: {
-        featureFlags: {
-          'local-id-generation-on-tables': true,
-          'data-consumer-mark': true,
-        },
         allowExtension: true,
         allowTables: true,
       },

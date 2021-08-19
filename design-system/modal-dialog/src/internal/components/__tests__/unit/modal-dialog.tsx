@@ -382,7 +382,7 @@ describe('modal-dialog', () => {
     );
 
     const blanket = getByTestId('modal--blanket');
-    expect(blanket).toHaveStyle('opacity: 0');
+    expect(blanket).toHaveStyle('backgroundColor: transparent');
   });
 
   describe('chromeless', () => {

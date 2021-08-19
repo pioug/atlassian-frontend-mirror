@@ -28,6 +28,9 @@ import { isFromCurrentDomain } from '../../hyperlink/utils';
 import { shouldReplaceLink } from './shouldReplaceLink';
 import { SMART_LINK_TYPE } from '../../../plugins/analytics/types/node-events';
 import { getLinkCreationAnalyticsEvent } from '../../../plugins/hyperlink/analytics';
+import { unlinkPayload } from '../../../utils/linking-utils';
+import { UnlinkToolbarAEP } from '../../../plugins/analytics/types/link-tool-bar-events';
+import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 export function insertCard(tr: Transaction, cardAdf: Node, schema: Schema) {
   const { inlineCard } = schema.nodes;
@@ -88,6 +91,7 @@ export const replaceQueuedUrlWithCard = (
   url: string,
   cardData: CardAdf,
   analyticsAction?: ACTION,
+  createAnalyticsEvent?: CreateUIAnalyticsEvent,
 ): Command => (editorState, dispatch) => {
   const state = pluginKey.getState(editorState) as CardPluginState | undefined;
   if (!state) {
@@ -121,6 +125,13 @@ export const replaceQueuedUrlWithCard = (
       const nodeType = 'inlineCard';
       const [, , domainName] = url.split('/');
 
+      if (state.smartLinkEvents) {
+        state.smartLinkEvents.insertSmartLink(
+          domainName,
+          'inline',
+          state.createAnalyticsEvent,
+        );
+      }
       addAnalytics(editorState, tr, {
         action: (analyticsAction as any) || ACTION.INSERTED,
         actionSubject: ACTION_SUBJECT.DOCUMENT,
@@ -332,7 +343,13 @@ export const changeSelectedCardToText = (text: string): Command => (
   const tr = state.tr.replaceSelectionWith(state.schema.text(text), false);
 
   if (dispatch) {
-    dispatch(tr.scrollIntoView());
+    dispatch(
+      addAnalytics(
+        state,
+        tr.scrollIntoView(),
+        unlinkPayload(ACTION_SUBJECT_ID.CARD_INLINE) as UnlinkToolbarAEP,
+      ),
+    );
   }
 
   return true;

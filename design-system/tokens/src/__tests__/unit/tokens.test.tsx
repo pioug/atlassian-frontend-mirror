@@ -12,11 +12,13 @@ describe('tokens', () => {
     obj2: Record<string, any>,
   ) => {
     for (let key in obj1) {
-      if (!(key in obj2)) {
+      const notValueKey = key !== 'value';
+
+      if (notValueKey && !(key in obj2)) {
         throw Error(`Property "${key}" not found in both objects`);
       }
 
-      if (typeof obj1[key] !== typeof obj2[key]) {
+      if (notValueKey && typeof obj1[key] !== typeof obj2[key]) {
         throw Error(
           `Type of property "${key}" did not match in both objects (${typeof obj1[
             key
@@ -24,7 +26,7 @@ describe('tokens', () => {
         );
       }
 
-      if (typeof obj1[key] === 'object') {
+      if (notValueKey && typeof obj1[key] === 'object') {
         toMatchShape(obj1[key], obj2[key]);
       }
     }
@@ -50,7 +52,7 @@ describe('tokens', () => {
   };
 
   it('should assert the count of tokens', () => {
-    expect(Object.keys(tokens)).toHaveLength(80);
+    expect(Object.keys(tokens)).toHaveLength(81);
   });
 
   it('should store token names in dot notation', () => {

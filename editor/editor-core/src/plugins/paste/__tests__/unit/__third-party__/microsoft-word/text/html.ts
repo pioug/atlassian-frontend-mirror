@@ -1135,7 +1135,7 @@ mso-ansi-language:EN-US'>&nbsp;</span><span lang=EN-US style='font-size:9.0pt;
 font-family:"Arial",sans-serif;mso-fareast-font-family:"Times New Roman";
 mso-ansi-language:EN-US'><o:p></o:p></span></p>
 
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=0
+<table data-table-local-id="test-table-local-id" class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=0
  style='width:0cm;border-collapse:collapse;mso-yfti-tbllook:1184;mso-padding-alt:
  0cm 0cm 0cm 0cm'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>

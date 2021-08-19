@@ -124,7 +124,8 @@ describe('Annotation toolbar positioning (above)', () => {
       await snapshot(page);
     });
 
-    it(`text selection in wide breakout node`, async () => {
+    // TODO: https://product-fabric.atlassian.net/browse/ED-13527
+    it.skip(`text selection in wide breakout node`, async () => {
       await selectAtPos(page, 1, 2);
       await scrollToBottom(page);
       await selectAtPosWithProseMirror(page, 1712, 1686);
@@ -137,7 +138,8 @@ describe('Annotation toolbar positioning (above)', () => {
       await snapshot(page);
     });
 
-    it(`text selection in full width breakout node (right side)`, async () => {
+    // TODO: https://product-fabric.atlassian.net/browse/ED-13527
+    it.skip(`text selection in full width breakout node (right side)`, async () => {
       await scrollToBottom(page);
       await selectAtPosWithProseMirror(page, 3010, 3041);
       await snapshot(page);

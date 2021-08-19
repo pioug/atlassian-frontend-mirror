@@ -44,7 +44,11 @@ import { Fragment, Node, Slice } from 'prosemirror-model';
 
 import { pluginKey } from '../../main';
 import { CardPluginState } from '../../../types';
-import { queueCards, setProvider } from '../../actions';
+import {
+  queueCards,
+  setProvider,
+  registerSmartCardEvents,
+} from '../../actions';
 
 import { setTextSelection } from '../../../../../utils';
 import {
@@ -57,7 +61,7 @@ import {
   convertHyperlinkToSmartCard,
 } from '../../doc';
 import { INPUT_METHOD } from '../../../../analytics';
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import {
   createCardRequest,
   ProviderWrapper,
@@ -82,12 +86,12 @@ const inlineCardAdf = {
 
 describe('card', () => {
   const createEditor = createEditorFactory();
-  let createAnalyticsEvent: jest.MockInstance<UIAnalyticsEvent, any>;
+  let createAnalyticsEvent: CreateUIAnalyticsEvent;
   let editor: (doc: DocBuilder) => EditorInstanceWithPlugin<any>;
 
   beforeEach(() => {
     editor = (doc: DocBuilder) => {
-      createAnalyticsEvent = createAnalyticsEventMock();
+      createAnalyticsEvent = (createAnalyticsEventMock() as unknown) as CreateUIAnalyticsEvent;
       const editorWrapper = createEditor({
         doc,
         editorProps: {
@@ -100,10 +104,10 @@ describe('card', () => {
           allowTasksAndDecisions: true,
           smartLinks: {},
         },
-        createAnalyticsEvent: createAnalyticsEvent as any,
+        createAnalyticsEvent,
         pluginKey,
       });
-      createAnalyticsEvent.mockClear();
+      (createAnalyticsEvent as any).mockClear();
       return editorWrapper;
     };
     asMock(shouldReplaceLink).mockReturnValue(true);
@@ -137,6 +141,8 @@ describe('card', () => {
           ],
           provider: null,
           showLinkingToolbar: false,
+          smartLinkEvents: undefined,
+          createAnalyticsEvent,
         } as CardPluginState;
         expect(pluginKey.getState(editorView.state)).toEqual(initialState);
 
@@ -182,6 +188,8 @@ describe('card', () => {
           ],
           provider: null,
           showLinkingToolbar: false,
+          smartLinkEvents: undefined,
+          createAnalyticsEvent,
         } as CardPluginState);
       });
 
@@ -215,6 +223,8 @@ describe('card', () => {
           ],
           provider: null,
           showLinkingToolbar: false,
+          smartLinkEvents: undefined,
+          createAnalyticsEvent,
         } as CardPluginState);
       });
 
@@ -262,6 +272,8 @@ describe('card', () => {
           ],
           provider: null,
           showLinkingToolbar: false,
+          smartLinkEvents: undefined,
+          createAnalyticsEvent,
         } as CardPluginState);
 
         // type something in between the links
@@ -282,6 +294,8 @@ describe('card', () => {
           ],
           provider: null,
           showLinkingToolbar: false,
+          smartLinkEvents: undefined,
+          createAnalyticsEvent,
         } as CardPluginState);
       });
     });
@@ -309,6 +323,8 @@ describe('card', () => {
           requests: [],
           provider: provider,
           showLinkingToolbar: false,
+          smartLinkEvents: undefined,
+          createAnalyticsEvent,
         } as CardPluginState);
         expect(view.state.doc).toEqualDocument(initialDoc);
         expect(rafSchd).toBeCalled();
@@ -410,6 +426,8 @@ describe('card', () => {
           requests: [],
           provider: providerWrapper.provider,
           showLinkingToolbar: false,
+          smartLinkEvents: undefined,
+          createAnalyticsEvent,
         } as CardPluginState);
       });
 
@@ -577,6 +595,8 @@ describe('card', () => {
           ],
           provider: null,
           showLinkingToolbar: false,
+          smartLinkEvents: undefined,
+          createAnalyticsEvent,
         } as CardPluginState);
       });
     });
@@ -616,12 +636,16 @@ describe('card', () => {
         );
 
         // Ensure we have no pending requests
-        expect(pluginKey.getState(editorView.state)).toEqual({
-          cards: [],
-          requests: [],
-          provider: null,
-          showLinkingToolbar: false,
-        } as CardPluginState);
+        expect(pluginKey.getState(editorView.state)).toEqual(
+          expect.objectContaining({
+            cards: [],
+            requests: [],
+            provider: null,
+            showLinkingToolbar: false,
+            smartLinkEvents: undefined,
+            createAnalyticsEvent,
+          }),
+        );
       });
     });
 
@@ -669,9 +693,10 @@ describe('card', () => {
       });
 
       it('should not remove the background color of a parent table cell', () => {
+        const TABLE_LOCAL_ID = 'test-table-local-id';
         const { editorView } = editor(
           doc(
-            table()(
+            table({ localId: TABLE_LOCAL_ID })(
               tr(th()(p('1')), th()(p('2')), th()(p('3'))),
               tr(
                 td({ background: 'red' })(
@@ -694,7 +719,7 @@ describe('card', () => {
         // The background color of the parent cell should be the same.
         expect(editorView.state.doc).toEqualDocument(
           doc(
-            table()(
+            table({ localId: TABLE_LOCAL_ID })(
               tr(th()(p('1')), th()(p('2')), th()(p('3'))),
               tr(
                 td({ background: 'red' })(
@@ -818,6 +843,44 @@ describe('card', () => {
               nodeType: 'inlineCard',
             }),
           }),
+        );
+      });
+
+      it('should call SmartLinks Event on insert', async () => {
+        const { editorView } = editor(
+          doc(
+            p(
+              'hello have a link ',
+              a({
+                href: atlassianUrl,
+              })(`{<>}${atlassianUrl}`),
+            ),
+          ),
+        );
+
+        providerWrapper.addProvider(editorView);
+
+        // queue it
+        editorView.dispatch(
+          queueCards([
+            createCardRequest(atlassianUrl, editorView.state.selection.from),
+          ])(editorView.state.tr),
+        );
+
+        const eventsMock = {
+          insertSmartLink: jest.fn(),
+        };
+
+        editorView.dispatch(
+          registerSmartCardEvents(eventsMock)(editorView.state.tr),
+        );
+
+        await providerWrapper.waitForRequests();
+
+        expect(eventsMock.insertSmartLink).toBeCalledWith(
+          'www.atlassian.com',
+          'inline',
+          createAnalyticsEvent,
         );
       });
 

@@ -32,6 +32,8 @@ import {
   CreateUIAnalyticsEvent,
   UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
+import { uuid } from '@atlaskit/adf-schema';
+import { uuid as tablesUuid } from '@atlaskit/editor-tables';
 
 import panelPlugin from '../../../../plugins/panel';
 import expandPlugin from '../../../../plugins/expand';
@@ -55,7 +57,18 @@ import { TablePluginState } from '../../../../plugins/table/types';
 import { pluginKey } from '../../../../plugins/table/pm-plugins/plugin-factory';
 import featureFlagsPlugin from '../../../../plugins/feature-flags-context';
 
+const TABLE_LOCAL_ID = 'test-table-local-id';
+
 describe('table keymap', () => {
+  beforeAll(() => {
+    uuid.setStatic(TABLE_LOCAL_ID);
+    tablesUuid.setStatic(TABLE_LOCAL_ID);
+  });
+
+  afterAll(() => {
+    uuid.setStatic(false);
+    tablesUuid.setStatic(false);
+  });
   const createAnalyticsEvent: CreateUIAnalyticsEvent = jest.fn(
     () => ({ fire() {} } as UIAnalyticsEvent),
   );
@@ -347,7 +360,9 @@ describe('table keymap', () => {
           for (let i = 0; i < 3; i++) {
             rows.push(tr(tdEmpty, td({})(p(i === index ? '' : `${i + 1}`))));
           }
-          expect(editorView.state.doc).toEqualDocument(doc(table()(...rows)));
+          expect(editorView.state.doc).toEqualDocument(
+            doc(table({ localId: TABLE_LOCAL_ID })(...rows)),
+          );
           expect(cursorPos).toEqual(editorView.state.selection.$from.pos);
           expect(editorView.state.selection.$from.pos).toEqual(
             [4, 15, 26][index],
@@ -383,7 +398,7 @@ describe('table keymap', () => {
             columns.push(td({})(p(i === index ? '' : `${i + 1}`)));
           }
           expect(editorView.state.doc).toEqualDocument(
-            doc(table()(emptyRow, tr(...columns))),
+            doc(table({ localId: TABLE_LOCAL_ID })(emptyRow, tr(...columns))),
           );
           expect(cursorPos).toEqual(editorView.state.selection.$from.pos);
           expect(editorView.state.selection.$from.pos).toEqual(
@@ -439,7 +454,12 @@ describe('table keymap', () => {
       sendKeyToPm(editorView, 'Ctrl-Alt-ArrowUp');
 
       expect(editorView.state.doc).toEqualDocument(
-        doc(table()(tr(tdEmpty, tdEmpty), tr(tdCursor, td()(p('text'))))),
+        doc(
+          table({ localId: TABLE_LOCAL_ID })(
+            tr(tdEmpty, tdEmpty),
+            tr(tdCursor, td()(p('text'))),
+          ),
+        ),
       );
     });
 
@@ -449,7 +469,7 @@ describe('table keymap', () => {
       sendKeyToPm(editorView, 'Ctrl-Alt-ArrowUp');
 
       expect(editorView.state.doc).toEqualDocument(
-        doc(table()(tr(thCursor, thEmpty))),
+        doc(table({ localId: TABLE_LOCAL_ID })(tr(thCursor, thEmpty))),
       );
     });
 
@@ -460,7 +480,7 @@ describe('table keymap', () => {
       sendKeyToPm(editorView, 'Ctrl-Alt-ArrowUp');
 
       expect(editorView.state.doc).toEqualDocument(
-        doc(table()(tr(thEmpty, thEmpty))),
+        doc(table({ localId: TABLE_LOCAL_ID })(tr(thEmpty, thEmpty))),
       );
     });
 
@@ -470,7 +490,12 @@ describe('table keymap', () => {
       sendKeyToPm(editorView, 'Ctrl-Alt-ArrowDown');
 
       expect(editorView.state.doc).toEqualDocument(
-        doc(table()(tr(tdCursor, tdEmpty), tr(tdEmpty, tdEmpty))),
+        doc(
+          table({ localId: TABLE_LOCAL_ID })(
+            tr(tdCursor, tdEmpty),
+            tr(tdEmpty, tdEmpty),
+          ),
+        ),
       );
     });
 
@@ -480,7 +505,12 @@ describe('table keymap', () => {
       sendKeyToPm(editorView, 'Ctrl-Alt-ArrowDown');
 
       expect(editorView.state.doc).toEqualDocument(
-        doc(table()(tr(thCursor, thEmpty), tr(tdEmpty, tdEmpty))),
+        doc(
+          table({ localId: TABLE_LOCAL_ID })(
+            tr(thCursor, thEmpty),
+            tr(tdEmpty, tdEmpty),
+          ),
+        ),
       );
     });
 
@@ -490,7 +520,7 @@ describe('table keymap', () => {
       sendKeyToPm(editorView, 'Ctrl-Alt-ArrowLeft');
 
       expect(editorView.state.doc).toEqualDocument(
-        doc(table()(tr(tdEmpty, tdCursor, tdEmpty))),
+        doc(table({ localId: TABLE_LOCAL_ID })(tr(tdEmpty, tdCursor, tdEmpty))),
       );
     });
 
@@ -500,7 +530,7 @@ describe('table keymap', () => {
       sendKeyToPm(editorView, 'Ctrl-Alt-ArrowLeft');
 
       expect(editorView.state.doc).toEqualDocument(
-        doc(table()(tr(thCursor, thEmpty))),
+        doc(table({ localId: TABLE_LOCAL_ID })(tr(thCursor, thEmpty))),
       );
     });
 
@@ -511,7 +541,7 @@ describe('table keymap', () => {
       sendKeyToPm(editorView, 'Ctrl-Alt-ArrowLeft');
 
       expect(editorView.state.doc).toEqualDocument(
-        doc(table()(tr(thEmpty, thEmpty))),
+        doc(table({ localId: TABLE_LOCAL_ID })(tr(thEmpty, thEmpty))),
       );
     });
 
@@ -521,7 +551,7 @@ describe('table keymap', () => {
       sendKeyToPm(editorView, 'Ctrl-Alt-ArrowRight');
 
       expect(editorView.state.doc).toEqualDocument(
-        doc(table()(tr(tdCursor, tdEmpty, tdEmpty))),
+        doc(table({ localId: TABLE_LOCAL_ID })(tr(tdCursor, tdEmpty, tdEmpty))),
       );
     });
 
@@ -531,7 +561,7 @@ describe('table keymap', () => {
       sendKeyToPm(editorView, 'Ctrl-Alt-ArrowRight');
 
       expect(editorView.state.doc).toEqualDocument(
-        doc(table()(tr(thCursor, thEmpty, thEmpty))),
+        doc(table({ localId: TABLE_LOCAL_ID })(tr(thCursor, thEmpty, thEmpty))),
       );
     });
   });
@@ -543,7 +573,7 @@ describe('table keymap', () => {
     });
 
     it('should insert 3x3 table', () => {
-      const tableNode = table()(
+      const tableNode = table({ localId: TABLE_LOCAL_ID })(
         tr(thEmpty, thEmpty, thEmpty),
         tr(tdEmpty, tdEmpty, tdEmpty),
         tr(tdEmpty, tdEmpty, tdEmpty),

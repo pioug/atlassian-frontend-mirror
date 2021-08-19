@@ -116,7 +116,7 @@ describe('tasks and decisions - keymaps', () => {
             ),
           ),
           doc(
-            table({})(
+            table({ localId: 'local-uuid' })(
               tr(
                 td()(
                   taskList(listProps)(

@@ -8,7 +8,7 @@ const isJiraRoadMap = (url: string) =>
 
 const isPolarisView = (url: string) =>
   url.match(
-    /^https:\/\/.*?\/jira\/polaris\/projects\/[^\/]+?\/ideas\/view\/\d+/,
+    /^https:\/\/.*?\/jira\/polaris\/projects\/[^\/]+?\/ideas\/view\/\d+$/,
   );
 
 const isSlackMessage = (url: string) =>

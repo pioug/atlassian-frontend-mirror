@@ -303,7 +303,7 @@ describe('isSameItem', () => {
       type: 'select',
       selectType: 'color',
       defaultValue: {
-        label: 'blue',
+        label: 'orange',
         value: '#ffc74f',
       },
     } as FloatingToolbarColorPicker<any>;

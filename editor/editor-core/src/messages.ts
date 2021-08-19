@@ -1,8 +1,12 @@
 // Common Translations will live here
 import { defineMessages } from 'react-intl';
 import { linkMessages } from '@atlaskit/editor-common/messages';
+import { messages as statusMessages } from './plugins/status/nodeviews/messages';
+import { messages as dateMessages } from './plugins/date/nodeviews/messages';
 
 export { linkMessages };
+export { statusMessages };
+export { dateMessages };
 
 export const linkToolbarMessages = defineMessages({
   addLink: {

@@ -40,10 +40,7 @@ class ConfluenceClient extends Client {
   }
 }
 export default () => (
-  <Provider
-    client={new ConfluenceClient('stg')}
-    cacheOptions={{ maxLoadingDelay: 100, maxAge: 15000 }}
-  >
+  <Provider client={new ConfluenceClient('stg')}>
     <div style={{ width: '680px', margin: '0 auto', marginTop: '64px' }}>
       <p>
         Normally, clicking a card would bring you to a page, or to a page create

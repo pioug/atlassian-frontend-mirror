@@ -320,6 +320,8 @@ export class ExampleEditorComponent extends React.Component<
                   allowColumnSorting: true,
                   stickyHeaders: true,
                   tableCellOptimization: true,
+                  allowCollapse: true,
+                  allowDistributeColumns: true,
                 }}
                 allowBreakout={true}
                 allowJiraIssue={true}
@@ -502,12 +504,7 @@ export class ExampleEditorComponent extends React.Component<
                   },
                 }}
                 {...this.props}
-                featureFlags={{
-                  'local-id-generation-on-tables': true,
-                  'data-consumer-mark': true,
-                  // Spread here as we want to make sure we can still override flags added above
-                  ...this.props.featureFlags,
-                }}
+                featureFlags={this.props.featureFlags}
                 appearance={this.state.appearance}
                 onEditorReady={this.onEditorReady}
                 trackValidTransactions={{ samplingRate: 100 }}

@@ -3,6 +3,8 @@ import { CardLinkView } from '@atlaskit/media-ui';
 
 import { CardWithUrlContentProps } from '../types';
 
+export const loadingPlaceholderClassName = 'smart-link-loading-placeholder';
+
 export const LoadingCardLink: FC<CardWithUrlContentProps> = ({
   isSelected,
   url,
@@ -13,5 +15,6 @@ export const LoadingCardLink: FC<CardWithUrlContentProps> = ({
     data-trello-do-not-use-override="lazy-render-placeholder-trello"
     isSelected={isSelected}
     link={url}
+    className={loadingPlaceholderClassName}
   />
 );

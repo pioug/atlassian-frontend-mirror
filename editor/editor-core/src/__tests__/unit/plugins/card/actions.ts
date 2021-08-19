@@ -54,6 +54,8 @@ describe('card', () => {
           requests: [],
           provider: provider,
           showLinkingToolbar: false,
+          events: undefined,
+          createAnalyticsEvent,
         });
       });
     });
@@ -110,6 +112,8 @@ describe('card', () => {
           requests: [],
           provider: null,
           showLinkingToolbar: false,
+          events: undefined,
+          createAnalyticsEvent,
         });
       });
     });

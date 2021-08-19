@@ -1,8 +1,12 @@
-export class RendererPageObject {
-  constructor(private cy: Cypress.cy) {}
+import { InProductTestPageObject } from '@atlaskit/in-product-testing';
 
-  public getRenderedContent() {
+export class RendererPageObject extends InProductTestPageObject {
+  public getContent() {
     return this.cy.get('.ak-renderer-document');
+  }
+
+  public expectContentReady() {
+    return this.cy.get('.ak-renderer-document').should('be.visible');
   }
 
   public expectMediaSingleRenders(numOfMedia: number) {

@@ -36,6 +36,8 @@ export type FloatingToolbarButton<T> = {
   showTitle?: boolean;
   onMouseEnter?: T;
   onMouseLeave?: T;
+  onFocus?: T;
+  onBlur?: T;
   icon?: Icon;
   selected?: boolean;
   disabled?: boolean;
@@ -76,7 +78,7 @@ export type FloatingToolbarCustom<T> = {
   hidden?: boolean;
 };
 
-export type FloatingToolbarSelect<T, V = SelectOption> = {
+type FloatingToolbarSelectBase<T, V = SelectOption> = {
   id: string;
   type: 'select';
   selectType: 'list' | 'emoji' | 'date' | 'color';
@@ -90,27 +92,39 @@ export type FloatingToolbarSelect<T, V = SelectOption> = {
   filterOption?: ((option: V, rawInput: string) => boolean) | null;
 };
 
-export type FloatingToolbarColorPicker<T> = FloatingToolbarSelect<
+export type FloatingToolbarListPicker<T> = FloatingToolbarSelectBase<T> & {
+  selectType: 'list';
+};
+
+export type FloatingToolbarColorPicker<T> = FloatingToolbarSelectBase<
   T,
   PaletteColor
 > & {
   selectType: 'color';
 };
 
-export type FloatingToolbarEmojiPicker<T> = {
-  id: string;
-  type: 'emoji-picker';
-  title?: string;
-  hidden?: boolean;
-  defaultValue?: string;
+export type FloatingToolbarEmojiPicker<T> = FloatingToolbarSelectBase<
+  T,
+  string
+> & {
+  selectType: 'emoji';
   selected?: boolean;
-  onChange: (selected: string) => T;
+  options: never[];
 };
 
-export type FloatingToolbarDatePicker<T> = FloatingToolbarSelect<T, number> & {
+export type FloatingToolbarDatePicker<T> = FloatingToolbarSelectBase<
+  T,
+  number
+> & {
   selectType: 'date';
   options: never[];
 };
+
+export type FloatingToolbarSelect<T> =
+  | FloatingToolbarEmojiPicker<T>
+  | FloatingToolbarColorPicker<T>
+  | FloatingToolbarListPicker<T>
+  | FloatingToolbarDatePicker<T>;
 
 export type FloatingToolbarSeparator = {
   type: 'separator';
@@ -148,9 +162,6 @@ export type FloatingToolbarFallbackItem<T> =
   | FloatingToolbarButton<T>
   | FloatingToolbarDropdown<T>
   | FloatingToolbarSelect<T>
-  | FloatingToolbarColorPicker<T>
-  | FloatingToolbarEmojiPicker<T>
-  | FloatingToolbarDatePicker<T>
   | FloatingToolbarInput<T>
   | FloatingToolbarSeparator;
 
@@ -158,13 +169,11 @@ export type FloatingToolbarItem<T> =
   | FloatingToolbarButton<T>
   | FloatingToolbarDropdown<T>
   | FloatingToolbarSelect<T>
-  | FloatingToolbarColorPicker<T>
-  | FloatingToolbarEmojiPicker<T>
-  | FloatingToolbarDatePicker<T>
   | FloatingToolbarInput<T>
   | FloatingToolbarCustom<T>
   | FloatingToolbarSeparator
   | FloatingToolbarExtensionsPlaceholder;
+
 export interface FloatingToolbarConfig {
   title: string;
   /**

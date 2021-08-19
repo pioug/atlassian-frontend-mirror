@@ -24,7 +24,6 @@ type CreateTableProps = {
   colsCount?: number;
   withHeaderRow?: boolean;
   cellContent?: PMNode;
-  allowLocalId?: boolean;
 };
 
 export const createTable = ({
@@ -33,7 +32,6 @@ export const createTable = ({
   colsCount = 3,
   withHeaderRow = true,
   cellContent,
-  allowLocalId = false,
 }: CreateTableProps): PMNode => {
   const {
     cell: tableCell,
@@ -69,6 +67,5 @@ export const createTable = ({
     );
   }
 
-  const attr = allowLocalId ? { localId: uuid.generate() } : null;
-  return table.createChecked(attr, rows);
+  return table.createChecked({ localId: uuid.generate() }, rows);
 };

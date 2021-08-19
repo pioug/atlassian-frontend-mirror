@@ -1,5 +1,12 @@
 # @atlaskit/empty-state
 
+## 7.1.8
+
+### Patch Changes
+
+- [`331c29990c9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/331c29990c9) - Removes `styled-components` as a peer dependency in favour of a direct dependency on `emotion`.
+- Updated dependencies
+
 ## 7.1.7
 
 ### Patch Changes

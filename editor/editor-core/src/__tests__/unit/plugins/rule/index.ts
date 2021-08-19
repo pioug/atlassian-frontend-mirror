@@ -48,7 +48,7 @@ describe('rule', () => {
         );
         sendKeyToPm(editorView, 'Shift-Ctrl--');
         expect(editorView.state.doc).toEqualDocument(
-          doc(bodiedExtension(extensionAttrs)(p('{<>}'), hr(), p('text'))),
+          doc(bodiedExtension(extensionAttrs)(hr(), p('{<>}text'))),
         );
       });
 

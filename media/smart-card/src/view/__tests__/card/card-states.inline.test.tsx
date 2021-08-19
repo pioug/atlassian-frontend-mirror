@@ -1,5 +1,3 @@
-import MockDate from 'mockdate';
-
 jest.mock('react-lazily-render', () => (data: any) => data.content);
 jest.mock('react-transition-group/Transition', () => (data: any) =>
   data.children,
@@ -85,45 +83,6 @@ describe('smart-card: card states, inline', () => {
         expect(resolvingView).toHaveLength(2);
         // Should not call out to ORS again for the same URL.
         expect(mockFetch).toBeCalledTimes(1);
-      });
-
-      it('should work the same with stale cache after expiry', async () => {
-        MockDate.reset();
-        const DelayedCard: FC<{}> = () => {
-          const [component, setComponent] = React.useState<ReactNode>(<></>);
-          useEffect(() => {
-            setTimeout(() => {
-              setComponent(<Card appearance="inline" url={mockUrl} />);
-            }, 500);
-          });
-          return <span>{component}</span>;
-        };
-
-        let resolvingView = null;
-        const { getByText, getAllByText } = render(
-          <Provider
-            client={mockClient}
-            cacheOptions={{ maxAge: 1, maxLoadingDelay: 10 }}
-          >
-            <Card appearance="inline" url={mockUrl} />
-            <DelayedCard />
-          </Provider>,
-        );
-        expect(getByText(mockUrl)).toBeTruthy();
-        // Then URL resolves, triggering update:
-        resolvingView = await waitForElement(() => getByText('I love cheese'));
-        expect(resolvingView).toBeTruthy();
-        expect(mockFetch).toBeCalled();
-        expect(mockFetch).toBeCalledTimes(1);
-
-        await waitFor(500);
-        resolvingView = await waitForElement(() =>
-          getAllByText('I love cheese'),
-        );
-        expect(resolvingView).toBeTruthy();
-        expect(resolvingView).toHaveLength(2);
-        // Should not call out to ORS again for the same URL.
-        expect(mockFetch).toBeCalledTimes(2);
       });
     });
 

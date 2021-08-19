@@ -43,10 +43,7 @@ export const createDate = () => (
 };
 
 /** Delete the date and close the datepicker */
-export const deleteDate = () => (
-  state: EditorState,
-  dispatch: (tr: Transaction) => void,
-): boolean => {
+export const deleteDate = (): Command => (state, dispatch): boolean => {
   const { showDatePickerAt }: DatePluginState = pluginKey.getState(state);
   if (showDatePickerAt === null) {
     return false;
@@ -54,7 +51,9 @@ export const deleteDate = () => (
   const tr = state.tr
     .delete(showDatePickerAt, showDatePickerAt + 1)
     .setMeta(pluginKey, { showDatePickerAt: null, isNew: false });
-  dispatch(tr);
+  if (dispatch) {
+    dispatch(tr);
+  }
   return true;
 };
 
@@ -165,6 +164,11 @@ export const insertDate = (
         isNew: false,
       })
       .scrollIntoView();
+
+    // Used to keep the date node selected on mobile after changing it
+    if (!enterPressed) {
+      tr = tr.setSelection(NodeSelection.create(tr.doc, showDatePickerAt));
+    }
 
     if (dispatch) {
       dispatch(tr);

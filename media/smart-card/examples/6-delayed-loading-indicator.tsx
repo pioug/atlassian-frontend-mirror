@@ -74,14 +74,7 @@ class Example extends React.Component<any, ExampleState> {
         <Grid>
           <GridColumn medium={8}>
             <div style={{ margin: '20px 0', minHeight: 150 }}>
-              <Provider
-                client={this.state.client}
-                key={this.state.url}
-                cacheOptions={{
-                  maxAge: 15000,
-                  maxLoadingDelay: this.state.loadingStateDelay,
-                }}
-              >
+              <Provider client={this.state.client} key={this.state.url}>
                 <Card url={this.state.url} appearance="block" />
                 <br />
                 <Card url={this.state.url} appearance="inline" />

@@ -203,6 +203,8 @@ const TextAreaWithTokens = forwardRef((props: InternalProps, ref) => {
       onChange={handleOnChange}
       onBlur={onBlurWithAnalytics}
       onFocus={onFocusWithAnalytics}
+      // TODO refactor to follow emotion styling rules
+      // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
       css={textAreaStyles}
       {...rest}
     />

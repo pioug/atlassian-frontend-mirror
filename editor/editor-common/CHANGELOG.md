@@ -1,5 +1,22 @@
 # @atlaskit/editor-common
 
+## 59.1.0
+
+### Minor Changes
+
+- [`ea1cb28fb03`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ea1cb28fb03) - CETI-3 User is able to change emoji and background color when selected
+- [`c796dfa0ae4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c796dfa0ae4) - [ME-1589] Rearchitect the adaptive toolbar solution for the editor mobile bridge.
+
+  - Add a new plugin to editor-core that allows you to subscribe to events when the editor view is updated.
+  - Created a subscription that allows you to listen to toolbar and picker plugin updates.
+
+- [`6de7ba8ca3b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6de7ba8ca3b) - ED-12424 Add scrollTo function to extension api
+- [`8e6a1034cfd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8e6a1034cfd) - EDM-1730: added in-product Cypress tests for Smart Links
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 59.0.0
 
 ### Minor Changes

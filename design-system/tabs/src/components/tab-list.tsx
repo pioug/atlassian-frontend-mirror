@@ -118,6 +118,7 @@ const TabListWithMode = (props: InnerProps) => {
   );
 
   return (
+    // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
     <div role="tablist" css={styles} ref={ref}>
       {childrenArray.map((child, index) =>
         getTabWithContext({

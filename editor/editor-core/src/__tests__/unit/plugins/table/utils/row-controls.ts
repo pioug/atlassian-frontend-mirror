@@ -1,5 +1,6 @@
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { findTable } from '@atlaskit/editor-tables/utils';
+import { uuid } from '@atlaskit/adf-schema';
 
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import {
@@ -15,7 +16,17 @@ import { TablePluginState } from '../../../../../plugins/table/types';
 import { copyPreviousRow } from '../../../../../plugins/table/utils/row-controls';
 import { pluginKey } from '../../../../../plugins/table/pm-plugins/plugin-factory';
 
+const TABLE_LOCAL_ID = 'test-table-local-id';
+
 describe('table plugin: utils/row-controls.js', () => {
+  beforeAll(() => {
+    uuid.setStatic(TABLE_LOCAL_ID);
+  });
+
+  afterAll(() => {
+    uuid.setStatic(false);
+  });
+
   const createEditor = createEditorFactory<TablePluginState>();
   const editor = (doc: DocBuilder) =>
     createEditor({
@@ -56,7 +67,7 @@ describe('table plugin: utils/row-controls.js', () => {
         const newTr = copyPreviousRow(state.schema)(2)(state.tr);
         expect(newTr.doc).toEqualDocument(
           doc(
-            table()(
+            table({ localId: TABLE_LOCAL_ID })(
               row(th()(p('{<>}a1')), th()(p('a2')), th()(p('a3'))),
               row(th()(p('b1')), td()(p('b3')), td()(p('b3'))),
               row(th()(p('')), td()(p('')), td()(p(''))),
@@ -78,7 +89,7 @@ describe('table plugin: utils/row-controls.js', () => {
         const newTr = copyPreviousRow(state.schema)(2)(state.tr);
         expect(newTr.doc).toEqualDocument(
           doc(
-            table()(
+            table({ localId: TABLE_LOCAL_ID })(
               row(th()(p('{<>}a1')), th()(p('a2')), th()(p('a3'))),
               row(th({ colspan: 2 })(p('b1')), td()(p('b3'))),
               row(th({ colspan: 2 })(p('')), td()(p(''))),
@@ -101,7 +112,7 @@ describe('table plugin: utils/row-controls.js', () => {
         const newTr = copyPreviousRow(state.schema)(2)(state.tr);
         expect(newTr.doc).toEqualDocument(
           doc(
-            table()(
+            table({ localId: TABLE_LOCAL_ID })(
               row(th()(p('{<>}a1')), th()(p('a2')), th()(p('a3'))),
               row(td({ colspan: 2 })(p('b1')), td()(p('b3'))),
               row(td({ colspan: 2 })(p('')), td()(p(''))),
@@ -140,7 +151,7 @@ describe('table plugin: utils/row-controls.js', () => {
         expect(map.problems).toBeNull();
         expect(newTr.doc).toEqualDocument(
           doc(
-            table()(
+            table({ localId: TABLE_LOCAL_ID })(
               row(th()(p('a1')), th()(p('a2')), th()(p('a3'))),
               row(
                 td()(p('b1')),

@@ -7,6 +7,7 @@ import InlineDialog from '@atlaskit/inline-dialog';
 import TextField from '@atlaskit/textfield';
 import { R400 } from '@atlaskit/theme/colors';
 import { fontSize, gridSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 import InlineEdit from '../src';
 
@@ -87,7 +88,10 @@ const InlineEditExample = () => {
                       lineHeight: '100%',
                     }}
                   >
-                    <ErrorIcon label="error" primaryColor={R400} />
+                    <ErrorIcon
+                      label="error"
+                      primaryColor={token('color.iconBorder.danger', R400)}
+                    />
                   </div>
                 )
               }

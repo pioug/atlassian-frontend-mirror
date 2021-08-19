@@ -1,5 +1,28 @@
 # @atlaskit/tokens
 
+## 0.1.0
+
+### Minor Changes
+
+- [`642f26d0f0c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/642f26d0f0c) - Adds rename-mapping as an entry point for @atlaskit/tokens. rename-mapping is an object mapping old token names to their new replacements
+
+### Patch Changes
+
+- [`c784665d01d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c784665d01d) - Removes `color.border.overlay` token and replaces it with a third shadow inside `shadow.overlay`.
+- [`76b718b72e1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/76b718b72e1) - [ux] Fixes incorrect values in the palette and token definitions.
+- [`855d6afb3d3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/855d6afb3d3) - Parsing of alpha hex in the Figma synchronizer is fixed.
+- [`8d0cb37bfe0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d0cb37bfe0) - Updates: `text.link.pressed` values to `B800/B300`
+  Removes: `text.link.hover`
+  Combines: `border.disabled` and `background.disabled` → `background.disabled`
+  Updates: `background.disabled` token value to `N/DN200A`
+  Renames: All accents from `color.accent.blueSubtle` → `color.accent.subtleBlue`
+  Renames: `background.selected` to `background.selected.resting`
+  Adds: `background.selected.hover`, `background.selected.pressed`
+- [`53749f08286`](https://bitbucket.org/atlassian/atlassian-frontend/commits/53749f08286) - Adds tokens:
+
+  - `color.overlay.hover`
+  - `color.overlay.pressed`
+
 ## 0.0.18
 
 ### Patch Changes

@@ -20,35 +20,82 @@ export interface RenderImageProps {
 }
 
 export type Sizes = 'narrow' | 'wide';
-interface Props {
-  /** Title that briefly describes the page to the user. */
+interface EmptyStateProps {
+  /**
+   * Title that briefly describes the page to the user.
+   */
   header: string;
-  /** The main block of text that holds some additional information. */
+  /**
+   * The main block of text that holds some additional information.
+   */
   description?: ReactNode;
-  /** It affects the width of the main container of this component, "wide" is a default one. */
+  /**
+   * It affects the width of the main container of this component, "wide" is a default one.
+   */
   size?: Sizes;
-  /** Image that will be shown above the title. Goes directly into the src prop of an <img> element. The larger side of this image will be shrunk to 160px. */
+  /**
+   * Image that will be shown above the title. Goes directly into the src prop of an <img> element. The larger side of this image will be shrunk to 160px.
+   */
   imageUrl?: string;
-  /** Maximum width (in pixels) of the image, default value is 160. */
+  /**
+   * Maximum width (in pixels) of the image, default value is 160.
+   */
   maxImageWidth?: number;
-  /** Maximum height (in pixels) of the image, default value is 160. */
+  /**
+   * Maximum height (in pixels) of the image, default value is 160.
+   */
   maxImageHeight?: number;
-  /** Primary action button for the page, usually it will be something like "Create" (or "Retry" for error pages). */
+  /**
+   * Primary action button for the page, usually it will be something like "Create" (or "Retry" for error pages).
+   */
   primaryAction?: ReactNode;
-  /** Image that will be shown above the title. Only rendered if no imageUrl given. */
+  /**
+   * Image that will be shown above the title. Only rendered if no imageUrl given.
+   */
   renderImage?: (props: RenderImageProps) => React.ReactNode;
-  /** Secondary action button for the page. */
+  /**
+   * Secondary action button for the page.
+   */
   secondaryAction?: ReactNode;
-  /** Button with link to some external resource like documentation or tutorial, it will be opened in a new tab. */
+  /**
+   * Button with link to some external resource like documentation or tutorial, it will be opened in a new tab.
+   */
   tertiaryAction?: ReactNode;
-  /** Shows spinner next to the action buttons. Primary and secondary action buttons are disabled when this prop is set to true. */
+  /**
+   * Shows spinner next to the action buttons. Primary and secondary action buttons are disabled when this prop is set to true.
+   */
   isLoading?: boolean;
-  /** Width of the image that is rendered in EmptyState component. It is useful when you want image to be of exact width to stop it bouncing around when loading in. Only set `height` if you want the image to resize down on smaller devices. */
+  /**
+   * Width of the image that is rendered in EmptyState component. It is useful when you want image to be of exact width to stop it bouncing around when loading in. Only set `height` if you want the image to resize down on smaller devices.
+   */
   imageWidth?: number;
-  /** Height of the image that is rendered in EmptyState component. It is useful when you want image to be of exact height to stop it bouncing around when loading in. Only set `height` if you want the image to resize down on smaller devices. */
+  /**
+   * Height of the image that is rendered in EmptyState component. It is useful when you want image to be of exact height to stop it bouncing around when loading in. Only set `height` if you want the image to resize down on smaller devices.
+   */
   imageHeight?: number;
 }
 
+/**
+ * __Empty state__
+ *
+ * A component used for presenting various empty states.
+ * e.g. (no items, empty search, broken link, welcome screen etc.)
+ *
+ * @example
+ * ```tsx
+ * import EmptyState from '@atlaskit/empty-state';
+ *
+ * export default () => {
+ *  <EmptyState
+ *   header="I am the header"
+ *   imageUrl="link/to/image"
+ *   description="some description"
+ *   primaryAction={<Button appearance="primary" />}
+ *   secondaryAction={<Button />}
+ *  />;
+ * };
+ * ```
+ */
 const EmptyState = ({
   description,
   header,
@@ -63,7 +110,7 @@ const EmptyState = ({
   secondaryAction,
   size = 'wide',
   tertiaryAction,
-}: Props) => {
+}: EmptyStateProps) => {
   const actionsContainer =
     primaryAction || secondaryAction || isLoading ? (
       <ActionsContainer>

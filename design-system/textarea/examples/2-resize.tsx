@@ -1,15 +1,13 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/core';
 
 import TextArea from '../src';
 
+const wrapperStyles = css({
+  maxWidth: 500,
+});
 export default () => (
-  <div
-    id="resize"
-    css={{
-      maxWidth: 500,
-    }}
-  >
+  <div id="resize" css={wrapperStyles}>
     <p>Resize: auto</p>
     <TextArea resize="auto" name="area" testId="autoResizeTextArea" />
     <p>Resize: vertical</p>

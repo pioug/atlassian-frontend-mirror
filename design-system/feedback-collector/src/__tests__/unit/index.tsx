@@ -1,14 +1,24 @@
 import React from 'react';
 
-import { mount, ReactWrapper, shallow } from 'enzyme';
+import { mount, ReactWrapper, shallow, ShallowWrapper } from 'enzyme';
 
 import { Checkbox } from '@atlaskit/checkbox';
+import { AutoDismissFlag } from '@atlaskit/flag';
 import { Field } from '@atlaskit/form';
+import Modal from '@atlaskit/modal-dialog';
 import Select from '@atlaskit/select';
 
 import FeedbackCollector from '../../components/FeedbackCollector';
-import FeedbackForm, { fieldLabel } from '../../components/FeedbackForm';
+import FeedbackFlag from '../../components/FeedbackFlag';
+import FeedbackForm from '../../components/FeedbackForm';
 import { FormFields } from '../../types';
+
+import {
+  customFieldRecords,
+  customOptionsData,
+  defaultFieldRecords,
+  emptyOptionData,
+} from './_data';
 
 describe('Feedback Collector unit tests', () => {
   describe('Feedback integration', () => {
@@ -299,6 +309,7 @@ describe('Feedback Collector unit tests', () => {
       const customPreamble = 'Your feedback means a lot to us, thank you.';
       const customCanContact = 'Atlassian can contact me about my feedback';
       const customEnroll = 'Please enroll me in research program';
+      const expectedButtonLabels = ['Submit Button', 'Cancel Button'];
 
       beforeEach(() => {
         wrapper = mount(
@@ -329,7 +340,7 @@ describe('Feedback Collector unit tests', () => {
         );
       });
 
-      test('Should render the custom copy in the component', () => {
+      test('Should render the custom copy in the component without reason select', () => {
         expect(wrapper.contains('Select')).toBeFalsy();
         expect(wrapper.find('#test-preamble-content').text()).toEqual(
           customPreamble,
@@ -340,6 +351,45 @@ describe('Feedback Collector unit tests', () => {
         expect(wrapper.find('#test-research-content').text()).toEqual(
           customEnroll,
         );
+      });
+
+      test('Should render the custom copy in the component with reason select', () => {
+        wrapper.setProps({
+          showTypeField: true,
+          submitButtonLabel: 'Submit Button',
+          cancelButtonLabel: 'Cancel Button',
+          feedbackGroupLabels: customFieldRecords,
+        });
+
+        const { actions } = wrapper.find(Modal).props();
+        const { options, defaultValue } = wrapper.find(Select).props();
+        const feedbackFormWrapper = wrapper.find(FeedbackForm);
+
+        expect(actions).toBeDefined();
+        actions?.forEach((action, index) => {
+          expect(action.text).toEqual(expectedButtonLabels[index]);
+        });
+
+        expect(wrapper.find(Select)).toBeTruthy();
+        expect(defaultValue).toEqual(emptyOptionData);
+        expect(options).toEqual(customOptionsData);
+        for (const [key, value] of Object.entries(customFieldRecords)) {
+          if (key !== 'empty') {
+            feedbackFormWrapper.setState({ type: key });
+            expect(wrapper.find(Field).at(0).props().label).toBe(
+              value.fieldLabel,
+            );
+            expect(wrapper.find('#test-preamble-content').text()).toEqual(
+              customPreamble,
+            );
+            expect(wrapper.find('#test-contacted-content').text()).toEqual(
+              customCanContact,
+            );
+            expect(wrapper.find('#test-research-content').text()).toEqual(
+              customEnroll,
+            );
+          }
+        }
       });
     });
 
@@ -427,12 +477,40 @@ describe('Feedback Collector unit tests', () => {
         <FeedbackForm onClose={() => {}} onSubmit={() => {}} />,
       );
 
-      Object.keys(fieldLabel).forEach((key) => {
+      for (const [key, value] of Object.entries(defaultFieldRecords)) {
         if (key !== 'empty') {
           wrapper.setState({ type: key });
-          expect(wrapper.find(Field).at(0).props().label).toBe(fieldLabel[key]);
+          expect(wrapper.find(Field).at(0).props().label).toBe(
+            value.fieldLabel,
+          );
         }
+      }
+    });
+  });
+
+  describe('Feedback Flag', () => {
+    let wrapper: ShallowWrapper<typeof FeedbackFlag>;
+
+    beforeEach(() => {
+      wrapper = shallow(<FeedbackFlag />);
+    });
+
+    test('FeedbackFlag should have default content', () => {
+      const { title, description } = wrapper.find(AutoDismissFlag).props();
+      expect(title).toEqual('Thanks!');
+      expect(description).toEqual(
+        'Your valuable feedback helps us continually improve our products.',
+      );
+    });
+
+    test('FeedbackFlag should have custom copy', () => {
+      wrapper.setProps({
+        title: 'Feedback Title',
+        description: 'Feedback Description',
       });
+      const { title, description } = wrapper.find(AutoDismissFlag).props();
+      expect(title).toEqual('Feedback Title');
+      expect(description).toEqual('Feedback Description');
     });
   });
 });

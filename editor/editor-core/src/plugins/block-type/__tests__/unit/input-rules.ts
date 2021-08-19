@@ -461,21 +461,26 @@ describe('inputrules', () => {
         });
 
         describe('typing "```" in a table header', () => {
+          const TABLE_LOCAL_ID = 'test-table-local-id';
           it('should convert "```" to a code block', () => {
             const { editorView, sel } = editor(
               doc(
-                table({ isNumberColumnEnabled: false, layout: 'default' })(
-                  tr(th({})(p(strong('``{<>}'))), td({})(p())),
-                ),
+                table({
+                  isNumberColumnEnabled: false,
+                  layout: 'default',
+                  localId: TABLE_LOCAL_ID,
+                })(tr(th({})(p(strong('``{<>}'))), td({})(p()))),
               ),
             );
             insertText(editorView, '`', sel);
 
             expect(editorView.state.doc).toEqualDocument(
               doc(
-                table({ isNumberColumnEnabled: false, layout: 'default' })(
-                  tr(th({})(code_block({})()), td({})(p())),
-                ),
+                table({
+                  isNumberColumnEnabled: false,
+                  layout: 'default',
+                  localId: TABLE_LOCAL_ID,
+                })(tr(th({})(code_block({})()), td({})(p()))),
               ),
             );
             // It should also put the cursor into the codeblock

@@ -4,7 +4,6 @@ import { createStore, Reducer } from 'redux';
 import { cardReducer } from '../reducers';
 import { SmartCardContext } from '.';
 import { CardProviderProps } from './types';
-import { MAX_RELOAD_DELAY, MAX_LOADING_DELAY } from '../actions/constants';
 import { CardStore } from '../types';
 import CardClient from '../../client';
 import { extractPreview, LinkPreview } from '../../extractors/common/preview';
@@ -15,7 +14,6 @@ import { CardPlatform } from '../../view/Card';
 export function SmartCardProvider({
   storeOptions,
   client: customClient,
-  cacheOptions: customCacheOptions,
   authFlow: customAuthFlow,
   children,
   renderers,
@@ -26,10 +24,7 @@ export function SmartCardProvider({
     const client = customClient || new CardClient();
     const store = createStore(cardReducer as Reducer<CardStore>, initialState);
     const authFlow = customAuthFlow || 'oauth2';
-    const cacheOptions = customCacheOptions || {
-      maxAge: MAX_RELOAD_DELAY,
-      maxLoadingDelay: MAX_LOADING_DELAY,
-    };
+
     const getPreview = (
       url: string,
       platform?: CardPlatform,
@@ -50,18 +45,12 @@ export function SmartCardProvider({
       connections: {
         client,
       },
-      config: { ...cacheOptions, authFlow },
+      config: { authFlow },
       extractors: {
         getPreview,
       },
     };
-  }, [
-    customClient,
-    customCacheOptions,
-    customAuthFlow,
-    storeOptions,
-    renderers,
-  ]);
+  }, [customClient, customAuthFlow, storeOptions, renderers]);
 
   return (
     <SmartCardContext.Provider value={parentContext || providerValue}>

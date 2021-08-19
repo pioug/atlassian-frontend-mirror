@@ -22,7 +22,7 @@ Object {
             "__fileMimeType": "pdf",
             "__fileName": "example.png",
             "__fileSize": null,
-            "alt": null,
+            "alt": "",
             "collection": "MediaServicesSample",
             "height": null,
             "id": "1234-5678-abcd-efgh",

@@ -16,6 +16,8 @@ export interface ResolvingProps {
   inheritDimensions?: boolean;
 }
 
+export const blockCardResolvingViewClassName = 'block-card-resolving-view';
+
 export const ResolvingView = ({
   isSelected = false,
   testId = 'block-card-resolving-view',
@@ -26,6 +28,7 @@ export const ResolvingView = ({
     compact={true}
     isSelected={isSelected}
     testId={testId}
+    className={blockCardResolvingViewClassName}
   >
     <DocumentFilledIcon size="small" primaryColor={N50} label="document-icon" />
     <span

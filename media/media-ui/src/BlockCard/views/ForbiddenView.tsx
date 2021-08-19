@@ -39,6 +39,8 @@ export interface PermissionDeniedProps {
   requestAccessContext?: RequestAccessContextProps;
 }
 
+export const blockCardForbiddenViewClassName = 'block-card-forbidden-view';
+
 export const ForbiddenView = ({
   context = { text: '' },
   isSelected = false,
@@ -60,7 +62,12 @@ export const ForbiddenView = ({
   const items = action ? [...actions, action] : actions;
 
   return (
-    <Frame isSelected={isSelected} testId={testId} isFluidHeight>
+    <Frame
+      isSelected={isSelected}
+      testId={testId}
+      className={blockCardForbiddenViewClassName}
+      isFluidHeight
+    >
       <Content isCompact>
         <div>
           <ContentHeader onClick={handleClick} link={link}>

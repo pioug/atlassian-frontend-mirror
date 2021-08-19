@@ -1,63 +1,55 @@
 /** @jsx jsx */
 import { memo } from 'react';
 
-import { jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/core';
 
 import type { ThemeModes } from '@atlaskit/theme/types';
 
-import { daysGridStyle } from '../styles/grid';
 import { DateObj, Week } from '../types';
 
 import DateComponent from './date';
 
+const daysGridStyles = css({
+  display: 'grid',
+  gridTemplateColumns: 'repeat(7, 1fr)',
+  border: 0,
+});
+
 interface Props {
   weeks: Week[];
-  handleClickDay: ({ year, month, day }: DateObj) => void;
-  mode: ThemeModes;
+  handleClickDay: (date: DateObj) => void;
+  mode?: ThemeModes;
   testId?: string;
 }
 
-const WeekDays = memo(function WeekDays({
+const WeekDays = memo<Props>(function WeekDays({
   weeks,
   handleClickDay,
   mode,
   testId,
-}: Props) {
+}) {
   return (
     <div role="grid" data-testid={testId && `${testId}--month`}>
       {weeks.map((week) => (
-        <div role="row" key={week.id} css={daysGridStyle}>
-          {week.values.map(
-            ({
-              id,
-              isDisabled,
-              isFocused,
-              isToday,
-              month,
-              isPreviouslySelected,
-              isSelected,
-              isSiblingMonth,
-              year,
-              day,
-            }) => (
-              <DateComponent
-                key={id}
-                isDisabled={isDisabled}
-                isFocused={isFocused}
-                isToday={isToday}
-                month={month}
-                onClick={handleClickDay}
-                isPreviouslySelected={isPreviouslySelected}
-                isSelected={isSelected}
-                isSibling={isSiblingMonth}
-                year={year}
-                mode={mode}
-                testId={testId}
-              >
-                {day}
-              </DateComponent>
-            ),
-          )}
+        <div role="row" key={week.id} css={daysGridStyles}>
+          {week.values.map((weekDay) => (
+            <DateComponent
+              key={weekDay.id}
+              isDisabled={weekDay.isDisabled}
+              isFocused={weekDay.isFocused}
+              isToday={weekDay.isToday}
+              month={weekDay.month}
+              onClick={handleClickDay}
+              isPreviouslySelected={weekDay.isPreviouslySelected}
+              isSelected={weekDay.isSelected}
+              isSibling={weekDay.isSiblingMonth}
+              year={weekDay.year}
+              mode={mode}
+              testId={testId}
+            >
+              {weekDay.day}
+            </DateComponent>
+          ))}
         </div>
       ))}
     </div>

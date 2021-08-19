@@ -105,10 +105,6 @@ describe('data consumer plugin', () => {
     return createEditor({
       doc,
       editorProps: {
-        featureFlags: {
-          'local-id-generation-on-tables': true,
-          'data-consumer-mark': true,
-        },
         allowExtension: true,
         allowTables: true,
         allowLayouts: true,

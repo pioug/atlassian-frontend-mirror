@@ -21,11 +21,6 @@ describe('Extension:', () => {
     await initEditorWithAdf(page, {
       appearance: Appearance.fullPage,
       viewport,
-      editorProps: {
-        featureFlags: {
-          'data-consumer-mark': true,
-        },
-      },
       adf,
     });
   };

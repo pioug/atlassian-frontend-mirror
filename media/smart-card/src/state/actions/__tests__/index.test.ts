@@ -52,7 +52,6 @@ describe('Smart Card: Actions', () => {
       mockFetchData(Promise.reject(mockError));
       mockState({
         status: 'pending',
-        lastUpdatedAt: 0,
         details: undefined,
       });
 
@@ -80,31 +79,6 @@ describe('Smart Card: Actions', () => {
       });
     });
 
-    it('falls back to previous data if the URL failed to be resolved', async () => {
-      const mockError = new APIError('fatal', 'https://my.url', '0xBAADF00D');
-      mockFetchData(Promise.reject(mockError));
-      mockState({
-        status: 'resolved',
-        lastUpdatedAt: 0,
-        details: mocks.success,
-      });
-
-      const analytics = useSmartLinkAnalytics(dispatchAnalytics);
-      const actions = useSmartCardActions(id, url, analytics);
-      const promise = actions.register();
-      await expect(promise).resolves.toBeUndefined();
-
-      expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(
-        url,
-      );
-      expect(mockContext.store.dispatch).toHaveBeenCalledTimes(1);
-      expect(mockContext.store.dispatch).toHaveBeenCalledWith({
-        payload: mocks.success,
-        type: 'resolved',
-        url: 'https://some/url',
-      });
-    });
-
     it('resolves to authentication error data if resolving failed for auth reasons', async () => {
       const mockError = new APIError(
         'auth',
@@ -114,7 +88,6 @@ describe('Smart Card: Actions', () => {
       mockFetchData(Promise.reject(mockError));
       mockState({
         status: 'pending',
-        lastUpdatedAt: 0,
         details: undefined,
       });
 
@@ -160,7 +133,6 @@ describe('Smart Card: Actions', () => {
       mockFetchData(Promise.resolve(mocks.unauthorized));
       mockState({
         status: 'unauthorized',
-        lastUpdatedAt: 0,
         details: undefined,
       });
 
@@ -188,7 +160,6 @@ describe('Smart Card: Actions', () => {
       mockFetchData(Promise.resolve(undefined));
       mockState({
         status: 'pending',
-        lastUpdatedAt: 0,
         details: undefined,
       });
 

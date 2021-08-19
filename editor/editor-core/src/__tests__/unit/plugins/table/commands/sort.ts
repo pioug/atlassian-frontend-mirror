@@ -14,9 +14,20 @@ import {
 import { EditorView } from 'prosemirror-view';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 import { sortByColumn } from '../../../../../plugins/table/commands/sort';
+import { uuid } from '@atlaskit/adf-schema';
 import { TableSortOrder as SortOrder } from '@atlaskit/adf-schema/steps';
 
+const TABLE_LOCAL_ID = 'test-table-local-id';
+
 describe('Sort Table', () => {
+  beforeAll(() => {
+    uuid.setStatic(TABLE_LOCAL_ID);
+  });
+
+  afterAll(() => {
+    uuid.setStatic(false);
+  });
+
   const createEditor = createEditorFactory();
   it('should test a basic table with heading', () => {
     const { editorView } = createEditor({
@@ -38,7 +49,7 @@ describe('Sort Table', () => {
 
     expect(editorView.state.doc).toEqualDocument(
       doc(
-        table()(
+        table({ localId: TABLE_LOCAL_ID })(
           tr(th({})(p('Number'))),
           tr(td({})(p('10'))),
           tr(td({})(p('5'))),
@@ -63,7 +74,13 @@ describe('Sort Table', () => {
     sortByColumn(0)(editorView.state, editorView.dispatch);
 
     expect(editorView.state.doc).toEqualDocument(
-      doc(table()(tr(td({})(p('5'))), tr(td({})(p('4'))), tr(td({})(p('2'))))),
+      doc(
+        table({ localId: TABLE_LOCAL_ID })(
+          tr(td({})(p('5'))),
+          tr(td({})(p('4'))),
+          tr(td({})(p('2'))),
+        ),
+      ),
     );
   });
 
@@ -81,7 +98,13 @@ describe('Sort Table', () => {
     sortByColumn(0, SortOrder.ASC)(editorView.state, editorView.dispatch);
 
     expect(editorView.state.doc).toEqualDocument(
-      doc(table()(tr(td({})(p('2'))), tr(td({})(p('4'))), tr(td({})(p('5'))))),
+      doc(
+        table({ localId: TABLE_LOCAL_ID })(
+          tr(td({})(p('2'))),
+          tr(td({})(p('4'))),
+          tr(td({})(p('5'))),
+        ),
+      ),
     );
   });
 
@@ -135,7 +158,7 @@ describe('Sort Table', () => {
 
       expect(editorView.state.doc).toEqualDocument(
         doc(
-          table()(
+          table({ localId: TABLE_LOCAL_ID })(
             tr(th({})(p('Mixed{<>}'))),
             tr(td({})(p('10'))),
             tr(td({})(p('20'))),
@@ -171,7 +194,7 @@ describe('Sort Table', () => {
 
       expect(editorView.state.doc).toEqualDocument(
         doc(
-          table()(
+          table({ localId: TABLE_LOCAL_ID })(
             tr(th({})(p('Mixed{<>}'))),
             tr(td({})(p(a({ href: '' })('LinkB')))),
             tr(td({})(p(a({ href: '' })('LinkA')))),

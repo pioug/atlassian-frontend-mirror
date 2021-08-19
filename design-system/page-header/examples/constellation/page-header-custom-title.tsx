@@ -1,42 +1,44 @@
-import React from 'react';
+/** @jsx jsx */
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 
-import styled from 'styled-components';
+import { css, jsx } from '@emotion/core';
 
 import InlineEdit from '@atlaskit/inline-edit';
 import { B100, N40 } from '@atlaskit/theme/colors';
 
 import PageHeader from '../../src';
 
-const ReadView = styled.div`
-  font-size: 24px;
-  font-weight: 500;
-  display: flex;
-  max-width: 100%;
-  overflow: hidden;
-  padding: 8px 6px;
-`;
+const readViewStyles = css({
+  display: 'flex',
+  maxWidth: '100%',
+  padding: '8px 6px',
+  fontSize: '24px',
+  fontWeight: 500,
+  overflow: 'hidden',
+});
 
-const EditView = styled.input`
-  font-size: 24px;
-  font-weight: 500;
-  box-sizing: border-box;
-  cursor: inherit;
-  outline: none;
-  padding: 6px 6px;
-  width: 100%;
-  border: 2px solid ${N40};
-  border-radius: 3px;
-
-  :focus {
-    border: 2px solid ${B100};
-  }
-`;
+const editViewStyles = css({
+  boxSizing: 'border-box',
+  width: '100%',
+  padding: '6px 6px',
+  border: `2px solid ${N40}`,
+  borderRadius: '3px',
+  cursor: 'inherit',
+  fontSize: '24px',
+  fontWeight: 500,
+  outline: 'none',
+  ':focus': {
+    border: `2px solid ${B100}`,
+  },
+});
 
 const CustomTitleComponent = () => {
   return (
     <InlineEdit
-      readView={() => <ReadView>Editable title</ReadView>}
-      editView={(props, ref) => <EditView {...props} innerRef={ref} />}
+      readView={() => <div css={readViewStyles}>Editable title</div>}
+      editView={(props, ref) => (
+        <input css={editViewStyles} {...props} ref={ref} />
+      )}
       defaultValue="Editable title"
       onConfirm={() => {}}
     />

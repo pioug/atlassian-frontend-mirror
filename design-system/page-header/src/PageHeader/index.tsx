@@ -1,33 +1,63 @@
+// TODO: Remove this eslint-disable when prop names have been renamed.
+// This rule is here as prop name changes are a major as they are used
+// by our consumers. This can be done in the next lite-mode conversion.
+/* eslint-disable @repo/internal/react/boolean-prop-naming-convention */
 import React, { ReactElement, ReactNode } from 'react';
 
 import {
   ActionsWrapper,
   BottomBarWrapper,
-  Outer,
-  StyledTitle,
+  OuterWrapper,
+  StyledTitleWrapper,
   TitleContainer,
   TitleWrapper,
 } from './styled';
 
-type Props = {
-  /** Contents of the action bar to be rendered next to the page title. */
+export type PageHeaderProps = {
+  /**
+   * Contents of the action bar to be rendered next to the page title.
+   */
   actions?: ReactElement;
-  /** Contents of the action bar to be rendered next to the page title. Typically a button group. */
+  /**
+   * Contents of the action bar to be rendered next to the page title. Typically a button group.
+   */
   bottomBar?: ReactElement;
-  /** Page breadcrumbs to be rendered above the title. */
+  /**
+   * Page breadcrumbs to be rendered above the title.
+   */
   breadcrumbs?: ReactElement;
-  /** Contents of the bottom bar to be rendered below the page title. Typically contains a search bar and/or filters. */
+  /**
+   * Contents of the bottom bar to be rendered below the page title. Typically contains a search bar and/or filters.
+   */
   children?: ReactNode;
-  /** Content of the page title. The text wraps by default. */
+  /**
+   * Content of the page title. The text wraps by default.
+   */
   disableTitleStyles?: boolean;
-  /** Returns the inner ref to the DOM element of the title. This is exposed so the focus can be set. */
+  /**
+   * Returns the inner ref to the DOM element of the title. This is exposed so the focus can be set.
+   */
   innerRef?: (element: HTMLElement) => void;
-  /** Prevent the title from wrapping across lines. This should be avoided. */
+  /**
+   * Prevent the title from wrapping across lines. This should be avoided.
+   */
   truncateTitle?: boolean;
-  /** Used as id of inner h1 tag. This is exposed so the header text can be used as label of other element by aria-labeledby */
+  /**
+   * Used as id of inner h1 tag. This is exposed so the header text can be used as label of other element by aria-labeledby
+   */
   id?: string;
 };
 
+/**
+ * __Page header__
+ *
+ * A page header defines the top of a page. It contains a title and can be optionally combined with
+ * breadcrumbs buttons, search, and filters.
+ *
+ * - [Examples](https://atlassian.design/components/page-header/examples)
+ * - [Code](https://atlassian.design/components/page-header/code)
+ * - [Usage](https://atlassian.design/components/page-header/usage)
+ */
 const PageHeader = ({
   innerRef,
   breadcrumbs,
@@ -37,29 +67,28 @@ const PageHeader = ({
   id,
   disableTitleStyles = false,
   truncateTitle = false,
-}: Props) => {
+}: PageHeaderProps) => {
   return (
-    <Outer>
+    <OuterWrapper>
       {breadcrumbs}
-      <TitleWrapper truncate={truncateTitle}>
-        <TitleContainer truncate={truncateTitle}>
+      <TitleWrapper truncateTitle={truncateTitle}>
+        <TitleContainer truncateTitle={truncateTitle}>
           {disableTitleStyles ? (
             children
           ) : (
-            <StyledTitle
-              innerRef={innerRef}
-              tabIndex={-1}
-              truncate={truncateTitle}
+            <StyledTitleWrapper
+              ref={innerRef as React.Ref<HTMLHeadingElement>}
+              truncateTitle={truncateTitle}
               id={id}
             >
               {children}
-            </StyledTitle>
+            </StyledTitleWrapper>
           )}
         </TitleContainer>
         {actions && <ActionsWrapper>{actions}</ActionsWrapper>}
       </TitleWrapper>
       {bottomBar && <BottomBarWrapper> {bottomBar} </BottomBarWrapper>}
-    </Outer>
+    </OuterWrapper>
   );
 };
 

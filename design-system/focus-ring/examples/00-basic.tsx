@@ -27,8 +27,8 @@ export default () => {
           hello
         </button>
       </FocusRing>
-      <FocusRing>
-        <input css={stylesStyles} placeholder="hello" />
+      <FocusRing isInset>
+        <input data-testid="input" css={stylesStyles} placeholder="hello" />
       </FocusRing>
       <input css={stylesStyles} placeholder="standard input" />
     </div>

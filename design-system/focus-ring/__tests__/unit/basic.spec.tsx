@@ -2,14 +2,24 @@ import React from 'react';
 
 import { render } from '@testing-library/react';
 
-import Component from '../../src';
+import FocusRing from '../../src';
 
 describe('Focus Ring', () => {
-  it('renders', () => {
+  it('renders with basic usage', () => {
     const { getByTestId } = render(
-      <Component>
+      <FocusRing>
         <div data-testid="test" />
-      </Component>,
+      </FocusRing>,
+    );
+
+    expect(getByTestId('test')).toBeDefined();
+  });
+
+  it('renders with inset prop', () => {
+    const { getByTestId } = render(
+      <FocusRing isInset>
+        <div data-testid="test" />
+      </FocusRing>,
     );
 
     expect(getByTestId('test')).toBeDefined();

@@ -1,5 +1,16 @@
 # @atlaskit/blanket
 
+## 12.2.0
+
+### Minor Changes
+
+- [`9f7f8e0b581`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9f7f8e0b581) - [ux] Blanket now uses a transparent background color when un-tinted instead of using opacity.
+
+### Patch Changes
+
+- [`2d7cc544696`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2d7cc544696) - Updates token usage to match the latest token set
+- Updated dependencies
+
 ## 12.1.1
 
 ### Patch Changes

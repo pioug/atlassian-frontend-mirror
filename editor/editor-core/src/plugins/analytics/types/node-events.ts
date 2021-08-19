@@ -53,6 +53,14 @@ type VisitedSmartLink = TrackAEP<
   undefined
 >;
 
+type VisitedHyperlink = TrackAEP<
+  ACTION.VISITED,
+  ACTION_SUBJECT.HYPERLINK,
+  undefined,
+  { inputMethod: INPUT_METHOD.TOOLBAR },
+  undefined
+>;
+
 type DeletedSmartLink = TrackAEP<
   ACTION.DELETED,
   ACTION_SUBJECT.SMART_LINK,
@@ -114,6 +122,7 @@ export type NodeEventPayload =
   | DeletePanelAEP
   | DeletedSmartLink
   | VisitedSmartLink
+  | VisitedHyperlink
   | ChangedLayoutAEP
   | DeletedLayoutAEP
   | DeletedExpandAEP

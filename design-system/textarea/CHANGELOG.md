@@ -1,5 +1,19 @@
 # @atlaskit/textarea
 
+## 4.2.0
+
+### Minor Changes
+
+- [`ae281b57bcd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ae281b57bcd) - Instrumented Radio with the new theming package, `@atlaskit/tokens`.
+
+  New tokens will be visible only in applications configured to use the new Tokens API (currently in alpha).
+  These changes are intended to be interoperable with the legacy theme implementation. Legacy dark mode users should expect no visual or breaking changes
+
+### Patch Changes
+
+- [`2d7cc544696`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2d7cc544696) - Updates token usage to match the latest token set
+- Updated dependencies
+
 ## 4.1.3
 
 ### Patch Changes

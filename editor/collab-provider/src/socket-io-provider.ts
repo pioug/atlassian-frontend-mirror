@@ -5,24 +5,14 @@ import { Socket, Config } from './types';
 
 export function createSocketIOSocket(
   url: string,
-  initializationToken?: string,
+  auth?: (cb: (data: object) => void) => void,
 ): Socket {
   const { pathname } = urlParse(url);
   return io(url, {
     withCredentials: true,
     transports: ['polling', 'websocket'],
     path: `/${pathname.split('/')[1]}/socket.io`,
-    ...(initializationToken
-      ? {
-          transportOptions: {
-            polling: {
-              extraHeaders: {
-                'x-token': initializationToken,
-              },
-            },
-          },
-        }
-      : {}),
+    auth,
   });
 }
 

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-json-transformer",
-  "version": "8.6.5",
+  "version": "8.6.6",
   "description": "JSON transformer",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -29,7 +29,7 @@
     "./types": "./src/types.ts"
   },
   "dependencies": {
-    "@atlaskit/adf-schema": "^18.2.0",
+    "@atlaskit/adf-schema": "^19.0.0",
     "@atlaskit/adf-utils": "^14.1.0",
     "@babel/runtime": "^7.0.0",
     "lodash": "^4.17.15",
@@ -38,9 +38,9 @@
   "devDependencies": {
     "@atlaskit/docs": "*",
     "@atlaskit/editor-bitbucket-transformer": "^7.1.0",
-    "@atlaskit/editor-common": "^59.0.0",
+    "@atlaskit/editor-common": "^59.1.0",
     "@atlaskit/editor-confluence-transformer": "^8.1.0",
-    "@atlaskit/editor-core": "^147.0.0",
+    "@atlaskit/editor-core": "^148.0.0",
     "@atlaskit/editor-jira-transformer": "^8.1.0",
     "@atlaskit/editor-markdown-transformer": "^4.1.0",
     "@atlaskit/editor-test-helpers": "^15.3.0",

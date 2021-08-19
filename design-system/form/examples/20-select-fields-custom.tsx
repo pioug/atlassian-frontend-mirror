@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import React, { Fragment } from 'react';
 
 import Button from '@atlaskit/button/standard-button';

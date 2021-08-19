@@ -1,5 +1,16 @@
 # @atlaskit/pagination
 
+## 14.1.0
+
+### Minor Changes
+
+- [`f7f36b1ea80`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f7f36b1ea80) - Test IDs are now applied to sub-components, including the page items and left/right navigation controls
+
+### Patch Changes
+
+- [`cd34d8ca8ea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cd34d8ca8ea) - Internal wiring up to the tokens techstack, no code changes.
+- Updated dependencies
+
 ## 14.0.4
 
 ### Patch Changes

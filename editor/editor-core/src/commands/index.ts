@@ -65,21 +65,6 @@ export const insertNewLineWithAnalytics = withAnalytics({
   eventType: EVENT_TYPE.TRACK,
 })(insertNewLine());
 
-export function insertRule(): Command {
-  return function (state, dispatch) {
-    const { to } = state.selection;
-    const { rule } = state.schema.nodes;
-    if (rule) {
-      const ruleNode = rule.create();
-      if (dispatch) {
-        dispatch(state.tr.insert(to + 1, ruleNode));
-      }
-      return true;
-    }
-    return false;
-  };
-}
-
 export const createNewParagraphAbove: Command = (state, dispatch) => {
   const append = false;
   if (!canMoveUp(state) && canCreateParagraphNear(state)) {

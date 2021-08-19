@@ -6,23 +6,25 @@ export interface Token<TValue, TGroup extends string> {
   };
 }
 
-export type PaintToken<
-  Value extends string = keyof PaletteColorTokenSchema['color']['palette']
-> = Token<Value, 'paint'>;
+export type ColorPalette = keyof PaletteColorTokenSchema['color']['palette'];
+
+export type PaintToken<Value extends string = ColorPalette> = Token<
+  Value,
+  'paint'
+>;
 
 export type PaletteToken = Token<string, 'paint'> & {
   attributes: { isPalette: true };
 };
 
-export type ShadowToken<
-  Value extends string = keyof PaletteColorTokenSchema['color']['palette']
-> = Token<
+export type ShadowToken<Value extends string = ColorPalette> = Token<
   Array<{
     color: Value;
     opacity: number;
     offset: { x: number; y: number };
     radius: number;
     spread?: number;
+    inset?: boolean;
   }>,
   'shadow'
 >;
@@ -123,7 +125,6 @@ export interface PaletteColorTokenSchema {
       DN500: PaletteToken;
       DN500A: PaletteToken;
       DN600: PaletteToken;
-      DN600A: PaletteToken;
       DN700: PaletteToken;
       DN800: PaletteToken;
       DN900: PaletteToken;
@@ -157,7 +158,11 @@ export interface BackgroundColorTokenSchema {
       sunken: PaintToken;
       card: PaintToken;
       overlay: PaintToken;
-      selected: PaintToken;
+      selected: {
+        resting: PaintToken;
+        hover: PaintToken;
+        pressed: PaintToken;
+      };
       disabled: PaintToken;
       blanket: PaintToken;
       boldBrand: {
@@ -237,8 +242,6 @@ export interface BorderColorTokenSchema {
     border: {
       focus: PaintToken;
       neutral: PaintToken;
-      disabled: PaintToken;
-      overlay: PaintToken;
     };
   };
 }
@@ -266,7 +269,6 @@ export interface TextColorTokenSchema {
       onBoldWarning: PaintToken;
       link: {
         resting: PaintToken;
-        hover: PaintToken;
         pressed: PaintToken;
       };
       brand: PaintToken;
@@ -282,13 +284,22 @@ export interface TextColorTokenSchema {
 export interface AccentColorTokenSchema {
   color: {
     accent: {
-      blueSubtle: PaintToken;
-      redSubtle: PaintToken;
-      greenSubtle: PaintToken;
-      orangeSubtle: PaintToken;
-      tealSubtle: PaintToken;
-      purpleSubtle: PaintToken;
-      magentaSubtle: PaintToken;
+      subtleBlue: PaintToken;
+      subtleRed: PaintToken;
+      subtleGreen: PaintToken;
+      subtleOrange: PaintToken;
+      subtleTeal: PaintToken;
+      subtlePurple: PaintToken;
+      subtleMagenta: PaintToken;
+    };
+  };
+}
+
+export interface OverlayColorTokenSchema {
+  color: {
+    overlay: {
+      pressed: PaintToken;
+      hover: PaintToken;
     };
   };
 }

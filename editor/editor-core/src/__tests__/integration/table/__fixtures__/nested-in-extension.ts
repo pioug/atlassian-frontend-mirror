@@ -29,6 +29,7 @@ export const nestedInExtension = {
           attrs: {
             isNumberColumnEnabled: false,
             layout: 'default',
+            localId: 'abc-123',
           },
           content: [
             {

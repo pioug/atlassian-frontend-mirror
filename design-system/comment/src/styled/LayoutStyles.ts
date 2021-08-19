@@ -2,14 +2,9 @@ import styled from '@emotion/styled';
 
 import { N20A } from '@atlaskit/theme/colors';
 import { gridSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 import { verticalPadding } from './constants';
-
-const ThemeColor = {
-  Highlight: {
-    background: N20A,
-  },
-};
 
 export const AvatarSectionDiv = styled.div`
   /* stylelint-enable */
@@ -49,7 +44,7 @@ export const ContentSectionDiv = styled.div`
 `;
 
 export const Highlight = styled.div`
-  background: ${ThemeColor.Highlight.background};
+  background: ${token('color.background.subtleNeutral.resting', N20A)};
   grid-area: 1 / 1 / 2 / 3;
   height: 100%;
   padding: ${gridSize()}px ${gridSize()}px ${gridSize() / 2}px;

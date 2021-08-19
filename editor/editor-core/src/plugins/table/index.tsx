@@ -3,13 +3,7 @@ import React from 'react';
 import { tableEditing } from '@atlaskit/editor-tables/pm-plugins';
 import { createTable } from '@atlaskit/editor-tables/utils';
 
-import {
-  table,
-  tableWithLocalId,
-  tableCell,
-  tableHeader,
-  tableRow,
-} from '@atlaskit/adf-schema';
+import { table, tableCell, tableHeader, tableRow } from '@atlaskit/adf-schema';
 
 import { toggleTable, tooltip } from '../../keymaps';
 import { EditorPlugin } from '../../types';
@@ -60,7 +54,6 @@ interface TablePluginOptions {
   // TODO these two need to be rethought
   fullWidthEnabled?: boolean;
   wasFullWidthEnabled?: boolean;
-  allowLocalIdGeneration?: boolean;
 }
 
 const tablesPlugin = (options?: TablePluginOptions): EditorPlugin => ({
@@ -68,10 +61,7 @@ const tablesPlugin = (options?: TablePluginOptions): EditorPlugin => ({
 
   nodes() {
     return [
-      {
-        name: 'table',
-        node: options?.allowLocalIdGeneration ? tableWithLocalId : table,
-      },
+      { name: 'table', node: table },
       { name: 'tableHeader', node: tableHeader },
       { name: 'tableRow', node: tableRow },
       { name: 'tableCell', node: tableCell },
@@ -89,7 +79,6 @@ const tablesPlugin = (options?: TablePluginOptions): EditorPlugin => ({
             wasFullWidthEnabled,
             breakoutEnabled,
             tableOptions,
-            allowLocalIdGeneration,
           } = options || ({} as TablePluginOptions);
           return createPlugin(
             dispatch,
@@ -100,7 +89,6 @@ const tablesPlugin = (options?: TablePluginOptions): EditorPlugin => ({
             breakoutEnabled,
             fullWidthEnabled,
             wasFullWidthEnabled,
-            allowLocalIdGeneration,
           );
         },
       },
@@ -123,7 +111,7 @@ const tablesPlugin = (options?: TablePluginOptions): EditorPlugin => ({
       // plugin as it is currently swallowing backspace events inside tables
       {
         name: 'tableKeymap',
-        plugin: () => keymapPlugin(options?.allowLocalIdGeneration),
+        plugin: () => keymapPlugin(),
       },
       {
         name: 'tableSelectionKeymap',
@@ -141,10 +129,7 @@ const tablesPlugin = (options?: TablePluginOptions): EditorPlugin => ({
 
       {
         name: 'tableLocalId',
-        plugin: ({ dispatch }) =>
-          options && options?.allowLocalIdGeneration
-            ? createTableLocalIdPlugin(dispatch)
-            : undefined,
+        plugin: ({ dispatch }) => createTableLocalIdPlugin(dispatch),
       },
     ];
   },
@@ -298,7 +283,6 @@ const tablesPlugin = (options?: TablePluginOptions): EditorPlugin => ({
           const tr = insert(
             createTable({
               schema: state.schema,
-              allowLocalId: options?.allowLocalIdGeneration,
             }),
           );
           return addAnalytics(state, tr, {

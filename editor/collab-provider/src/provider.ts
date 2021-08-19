@@ -44,6 +44,7 @@ const PARTICIPANT_UPDATE_INTERVAL = 300 * 1000; // 300 seconds
 const SEND_PRESENCE_INTERVAL = 150 * 1000; // 150 seconds
 const SEND_STEPS_THROTTLE = 500; // 0.5 second
 export const CATCHUP_THROTTLE = 1 * 1000; // 1 second
+const OUT_OF_SYNC_PERIOD = 20 * 1000; // 20 seconds
 
 export const MAX_STEP_REJECTED_ERROR = 15;
 
@@ -165,8 +166,10 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
   // UserID is the users actual account id.
   private userId?: string;
 
-  private participantUpdateTimeout?: NodeJS.Timeout;
-  private presenceUpdateTimeout?: NodeJS.Timeout;
+  private participantUpdateTimeout?: number;
+  private presenceUpdateTimeout?: number;
+
+  private disconnectedAt?: number;
 
   constructor(config: Config) {
     super();
@@ -200,11 +203,17 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
       .on('connected', ({ sid, initialized }) => {
         this.sessionId = sid;
         this.emit('connected', { sid });
+        this.sendPresence();
         // If already initialized, `connected` means reconnected
-        if (initialized) {
-          this.sendPresence();
+        if (
+          initialized &&
+          this.disconnectedAt &&
+          // Offline longer than `OUT_OF_SYNC_PERIOD`
+          Date.now() - this.disconnectedAt >= OUT_OF_SYNC_PERIOD
+        ) {
           this.throttledCatchup();
         }
+        this.disconnectedAt = undefined;
       })
       .on('init', ({ doc, version, userId, metadata }) => {
         this.userId = userId;
@@ -592,7 +601,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
       clientId: this.clientId!,
     });
 
-    this.presenceUpdateTimeout = setTimeout(
+    this.presenceUpdateTimeout = window.setTimeout(
       () => this.sendPresence(),
       SEND_PRESENCE_INTERVAL,
     );
@@ -757,7 +766,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
       });
     }
 
-    this.participantUpdateTimeout = setTimeout(
+    this.participantUpdateTimeout = window.setTimeout(
       () => this.updateParticipants(),
       PARTICIPANT_UPDATE_INTERVAL,
     );
@@ -795,6 +804,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
   }
 
   private onDisconnected = ({ reason }: { reason: string }) => {
+    this.disconnectedAt = Date.now();
     const left = Array.from(this.participants.values());
     this.participants.clear();
     if (left.length) {

@@ -8,48 +8,44 @@ import {
   borderRadius as getBorderRadius,
   gridSize as getGridSize,
 } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 import Tabs, { TabList, TabPanel, useTab } from '../../src';
 
 const borderRadius = getBorderRadius();
 const gridSize = getGridSize();
 
+const panelStyles = css({
+  display: 'flex',
+  marginTop: `${gridSize * 2}px`,
+  marginBottom: `${gridSize}px`,
+  padding: `${gridSize * 4}px`,
+  alignItems: 'center',
+  justifyContent: 'center',
+  flexDirection: 'column',
+  flexGrow: 1,
+  backgroundColor: token('color.background.subtleNeutral.resting', N20),
+  borderRadius: `${borderRadius}px`,
+  color: token('color.text.lowEmphasis', N200),
+  fontSize: '4em',
+  fontWeight: 500,
+});
+
 export const Panel = ({ children }: { children: ReactNode }) => (
-  <div
-    css={css`
-      align-items: center;
-      background-color: ${N20};
-      border-radius: ${borderRadius}px;
-      color: ${N200};
-      display: flex;
-      flex-direction: column;
-      flex-grow: 1;
-      font-size: 4em;
-      font-weight: 500;
-      justify-content: center;
-      margin-bottom: ${gridSize}px;
-      margin-top: ${gridSize * 2}px;
-      padding: ${gridSize * 4}px;
-    `}
-  >
-    {children}
-  </div>
+  <div css={panelStyles}>{children}</div>
 );
 
+const lintTabStyles = css({
+  textDecoration: 'none',
+  '&:hover': {
+    textDecoration: 'none',
+  },
+});
 const LinkTab = ({ label, href }: { label: string; href: string }) => {
   const { onKeyDown, tabIndex, ...tabAttributes } = useTab();
 
   return (
-    <a
-      href={href}
-      css={css`
-        text-decoration: none;
-        &:hover {
-          text-decoration: none;
-        }
-      `}
-      {...tabAttributes}
-    >
+    <a href={href} css={lintTabStyles} {...tabAttributes}>
       {label}
     </a>
   );

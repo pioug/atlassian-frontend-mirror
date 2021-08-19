@@ -13,7 +13,8 @@ export type AnalyticsAction =
   | 'closed'
   | 'renderFailed'
   | 'renderWithStatus'
-  | 'renderSuccess';
+  | 'renderSuccess'
+  | 'inserted';
 
 export type AnalyticsActionSubject =
   | 'smartLink'

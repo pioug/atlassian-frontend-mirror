@@ -11,7 +11,6 @@ import { createTable } from '../../../table/commands';
 import { insertDate, openDatePicker } from '../../../date/actions';
 import { openElementBrowserModal } from '../../../quick-insert/commands';
 import { showPlaceholderFloatingToolbar } from '../../../placeholder-text/actions';
-import { createHorizontalRule } from '../../../rule/pm-plugins/input-rule';
 import { insertLayoutColumnsWithAnalytics } from '../../../layout/actions';
 import { insertTaskDecision } from '../../../tasks-and-decisions/commands';
 import { insertExpand } from '../../../expand/commands';
@@ -33,6 +32,7 @@ import { messages } from './messages';
 import { Props, State, TOOLBAR_MENU_TYPE } from './types';
 import { createItems } from './create-items';
 import { BlockInsertMenu } from './block-insert-menu';
+import { insertHorizontalRule } from '../../../rule/commands';
 
 /**
  * Checks if an element is detached (i.e. not in the current document)
@@ -317,7 +317,7 @@ class ToolbarInsertBlock extends React.PureComponent<
   };
 
   private insertTable = (inputMethod: TOOLBAR_MENU_TYPE): boolean => {
-    const { editorView, allowLocalIdGenerationOnTables } = this.props;
+    const { editorView } = this.props;
 
     return commandWithAnalytics({
       action: ACTION.INSERTED,
@@ -325,10 +325,7 @@ class ToolbarInsertBlock extends React.PureComponent<
       actionSubjectId: ACTION_SUBJECT_ID.TABLE,
       attributes: { inputMethod },
       eventType: EVENT_TYPE.TRACK,
-    })(createTable(allowLocalIdGenerationOnTables))(
-      editorView.state,
-      editorView.dispatch,
-    );
+    })(createTable())(editorView.state, editorView.dispatch);
   };
 
   private createDate = (inputMethod: TOOLBAR_MENU_TYPE): boolean => {
@@ -397,21 +394,11 @@ class ToolbarInsertBlock extends React.PureComponent<
   };
 
   private insertHorizontalRule = (inputMethod: TOOLBAR_MENU_TYPE): boolean => {
-    const { editorView } = this.props;
+    const {
+      editorView: { state, dispatch },
+    } = this.props;
 
-    const tr = createHorizontalRule(
-      editorView.state,
-      editorView.state.selection.from,
-      editorView.state.selection.to,
-      inputMethod,
-    );
-
-    if (tr) {
-      editorView.dispatch(tr);
-      return true;
-    }
-
-    return false;
+    return insertHorizontalRule(inputMethod)(state, dispatch);
   };
 
   private insertExpand = (): boolean => {

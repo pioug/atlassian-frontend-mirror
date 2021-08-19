@@ -1,16 +1,15 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import fs from 'fs';
 
-import padStart from 'lodash/padStart';
 import styleDictionary, { Config } from 'style-dictionary';
 
-import palette from '../../src/tokens/palette';
 import renameMapping from '../../src/tokens/rename-mapping';
-import type { PaintToken, ShadowToken } from '../../src/types';
 
 import formatterCSSVariables from './formatters/format-css-variables';
 import formatterFigma from './formatters/format-figma';
 import formatterTypeScriptTokenNames from './formatters/format-typescript-token-names';
+import boxShadowTransform from './transforms/box-shadow';
+import paletteTransform from './transforms/palette';
 
 const createConfig = (themeName: string): Config => ({
   parsers: [
@@ -33,55 +32,8 @@ const createConfig = (themeName: string): Config => ({
         return token.path.join('.');
       },
     },
-    'color/custom-palette': {
-      type: 'value',
-      matcher: (token) => {
-        return !!token.attributes && !token.attributes.isPalette;
-      },
-      transformer: (token) => {
-        const originalToken = token.original as PaintToken | ShadowToken;
-        if (originalToken.attributes.group === 'paint') {
-          const value = originalToken.value as PaintToken['value'];
-          return palette.color.palette[value].value;
-        }
-
-        const values = originalToken.value as ShadowToken['value'];
-        return values.map((value) => ({
-          ...value,
-          color: palette.color.palette[value.color].value,
-        }));
-      },
-    },
-    'box-shadow/custom-figma': {
-      type: 'value',
-      matcher: (token) => {
-        return !!token.attributes && token.attributes.group === 'shadow';
-      },
-      transformer: (token) => {
-        const shadowToken = token.original as ShadowToken;
-
-        return shadowToken.value
-          .splice(0)
-          .reverse()
-          .map((shadow) => {
-            const opacityHex =
-              // If opacity is 1 don't bother setting a hex.
-              shadow.opacity === 1
-                ? ''
-                : padStart(
-                    (shadow.opacity * 100).toString(16).toUpperCase(),
-                    2,
-                    '0',
-                  );
-            const paletteColor = palette.color.palette[shadow.color].value;
-            const shadowColor = `${paletteColor}${opacityHex}`;
-            const optionalSpread = shadow.spread ? ` ${shadow.spread}px` : '';
-
-            return `${shadow.offset.x}px ${shadow.offset.y}px ${shadow.radius}px${optionalSpread} ${shadowColor}`;
-          })
-          .join(', ');
-      },
-    },
+    'color/custom-palette': paletteTransform,
+    'box-shadow/custom-figma': boxShadowTransform,
   },
   source: [`./src/tokens/${themeName}/**/*.tsx`],
   include: ['./src/tokens/palette.tsx'],

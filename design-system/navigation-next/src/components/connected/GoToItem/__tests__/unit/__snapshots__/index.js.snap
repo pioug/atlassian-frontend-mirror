@@ -62,26 +62,18 @@ exports[`GoToItemBase Default After prop should show a spinner if the incoming v
   -webkit-animation-delay: 200ms;
   animation-delay: 200ms;
   fill: none;
-  stroke: #42526E;
+  stroke: var(--text-mediumEmphasis,#42526E);
   stroke-width: 1.5;
   stroke-linecap: round;
   stroke-dasharray: 60;
   stroke-dashoffset: inherit;
 }
 
-@media screen and (-ms-high-contrast:white-on-black) {
+@media screen and (forced-colors:active) {
   .emotion-0 {
     -webkit-filter: grayscale(100%);
     filter: grayscale(100%);
-    stroke: #FFFFFF;
-  }
-}
-
-@media screen and (-ms-high-contrast:black-on-white) {
-  .emotion-0 {
-    -webkit-filter: grayscale(100%);
-    filter: grayscale(100%);
-    stroke: #000000;
+    stroke: CanvasText;
   }
 }
 

@@ -9,7 +9,6 @@ export type TableOptions = {
   isBreakoutEnabled?: boolean;
   isFullWidthModeEnabled?: boolean;
   wasFullWidthModeEnabled?: boolean;
-  allowLocalIdGeneration?: boolean;
 };
 
 export interface Props {

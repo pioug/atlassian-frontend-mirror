@@ -1,6 +1,6 @@
 // Used in products integration code
 export { name, version } from './version-wrapper';
-export { clearEditorContent, insertRule } from './commands';
+export { clearEditorContent } from './commands';
 export { default as Editor } from './editor';
 export { default as EditorContext } from './ui/EditorContext';
 export { default as WithEditorActions } from './ui/WithEditorActions';
@@ -57,6 +57,7 @@ export type { TextFormattingState } from './plugins/text-formatting/pm-plugins/m
 export { textColorPluginKey } from './plugins/text-color';
 export type { TextColorPluginState } from './plugins/text-color';
 export { changeColor } from './plugins/text-color/commands/change-color';
+export { insertHorizontalRule } from './plugins/rule/commands';
 export { blockPluginStateKey } from './plugins';
 export type { BlockTypeState } from './plugins';
 export {
@@ -83,6 +84,7 @@ export {
   toggleStrong,
   toggleStrongWithAnalytics,
 } from './plugins/text-formatting/commands/text-formatting';
+export { subscribeToToolbarAndPickerUpdates } from './plugins/view-update-subscription/subscribe/toolbarAndPickerUpdates';
 export type {
   InputMethodToolbar as TextFormattingInputMethodToolbar,
   InputMethodBasic as TextFormattingInputMethodBasic,
@@ -101,7 +103,7 @@ export { EventDispatcher } from './event-dispatcher';
 export { pluginKey as statusPluginKey } from './plugins/status/plugin';
 export type { StatusState, StatusType } from './plugins/status/plugin';
 export type { DatePluginState } from './plugins/date/pm-plugins/types';
-export { insertDate, openDatePicker } from './plugins/date/actions';
+export { insertDate, openDatePicker, deleteDate } from './plugins/date/actions';
 export { dateToDateType } from './plugins/date/utils/formatParse';
 export { pluginKey as datePluginKey } from './plugins/date/pm-plugins/plugin-key';
 export {
@@ -109,6 +111,7 @@ export {
   setStatusPickerAt,
   updateStatus,
   updateStatusWithAnalytics,
+  removeStatus,
 } from './plugins/status/actions';
 export { typeAheadPluginKey } from './plugins/type-ahead';
 export type { TypeAheadPluginState } from './plugins/type-ahead';
@@ -142,7 +145,7 @@ export type { AnalyticsEventPayload } from './plugins/analytics';
 export {
   setKeyboardHeight,
   setMobilePaddingTop,
-} from './plugins/mobile-scroll/commands';
+} from './plugins/mobile-dimensions/commands';
 
 // Used in editor-test-helpers
 export {
@@ -199,6 +202,7 @@ export type {
   FloatingToolbarItem,
   FloatingToolbarButton,
   FloatingToolbarDropdown,
+  FloatingToolbarListPicker,
   FloatingToolbarSelect,
   FloatingToolbarColorPicker,
   FloatingToolbarDatePicker,
@@ -207,5 +211,10 @@ export type {
 } from './plugins/floating-toolbar/types';
 export type { DropdownOptionT } from './plugins/floating-toolbar/ui/types';
 export type { SelectOption } from './plugins/floating-toolbar/ui/Select';
+export {
+  lightModeStatusColorPalette,
+  darkModeStatusColorPalette,
+} from './ui/ColorPalette/Palettes/statusColorPalette';
 export type { PaletteColor } from './ui/ColorPalette/Palettes/type';
 export { DEFAULT_BORDER_COLOR } from './ui/ColorPalette/Palettes/common';
+export { default as messages, statusMessages, dateMessages } from './messages';

@@ -17,5 +17,17 @@ export { Card } from './view/Card';
 export type { CardProps, CardAppearance, CardPlatform } from './view/Card';
 export { default as Context } from './state/context';
 export type { CardContext } from './state/context';
-export { IframelyResizeMessageListener } from './view/EmbedCard/IframelyResizeMessageListener';
+export { EmbedResizeMessageListener } from './view/EmbedCard/EmbedResizeMessageListener';
 export { embedHeaderHeight } from '@atlaskit/media-ui/embeds';
+export { SmartLinkEvents } from './utils/analytics/analytics';
+export { useSmartLinkEvents } from './view/SmartLinkEvents/useSmartLinkEvents';
+// Classnames for integrators
+export {
+  contentFooterClassName,
+  metadataListClassName,
+  blockCardResolvingViewClassName,
+  blockCardResolvedViewClassName,
+  blockCardForbiddenViewClassName,
+  blockCardIconImageClassName,
+} from '@atlaskit/media-ui/classNames';
+export { loadingPlaceholderClassName } from './view/CardWithUrl/component-lazy/LazyFallback';

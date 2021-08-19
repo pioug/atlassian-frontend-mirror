@@ -1,5 +1,12 @@
 # @atlaskit/ds-lib
 
+## 1.3.0
+
+### Minor Changes
+
+- [`5b5bffe8f58`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5b5bffe8f58) - - Adds two new methods: `useKeyDownEvent` and `useFocusEvent`.
+  - Adds keycodes as constants.
+
 ## 1.2.0
 
 ### Minor Changes

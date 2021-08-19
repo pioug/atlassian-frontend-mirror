@@ -278,7 +278,6 @@ describe('smart-card: error analytics', () => {
             [mockUrl]: {
               status: 'resolved' as const,
               details: mocks.success,
-              lastUpdatedAt: Date.now(),
             },
           },
         }}

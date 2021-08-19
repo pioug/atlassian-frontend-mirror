@@ -5,7 +5,10 @@ import {
 } from '../_utils';
 import * as panel from './__fixtures__/panel-adf.json';
 import * as basicPanel from './__fixtures__/basic-panel-adf.json';
-import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import {
+  PuppeteerPage,
+  waitForTooltip,
+} from '@atlaskit/visual-regression/helper';
 import {
   waitForFloatingControl,
   retryUntilStablePosition,
@@ -85,10 +88,60 @@ describe('Panel:', () => {
       await wait(undefined, { interval: 1000 });
     });
 
-    it('removes the panel when clicking on remove icon', async () => {
+    // TODO: https://product-fabric.atlassian.net/browse/ED-13527
+    it.skip('removes the panel when clicking on remove icon', async () => {
       await page.click(`.${PanelSharedCssClassName.icon}`);
       await page.click(PanelSharedSelectors.removeButton);
       await waitForNoTooltip(page);
     });
+  });
+});
+
+describe('custom panels', () => {
+  let page: PuppeteerPage;
+  let adfContent: Object;
+
+  beforeEach(async () => {
+    await initFullPageEditorWithAdf(
+      page,
+      adfContent,
+      undefined,
+      {
+        width: 800,
+        height: 720,
+      },
+      {
+        allowPanel: {
+          UNSAFE_allowCustomPanel: true,
+        },
+      },
+    );
+    await waitForFloatingControl(page, 'Panel floating controls');
+  });
+  afterEach(async () => {
+    await snapshot(page);
+  });
+  beforeAll(() => {
+    page = global.page;
+    adfContent = basicPanel;
+  });
+
+  // FIXME These tests were flakey in the Puppeteer v10 Upgrade
+  it.skip('updates the panel Icon', async () => {
+    await page.click(`.${PanelSharedCssClassName.icon}`);
+    await page.click(`${PanelSharedSelectors.emojiIcon}`);
+    await waitForTooltip(page);
+    const selectedEmoji = `[aria-label=":grinning:"]`;
+    await page.click(selectedEmoji);
+    await wait(undefined, { interval: 1000 });
+  });
+
+  it('updates the panel background color', async () => {
+    await page.click(`.${PanelSharedCssClassName.icon}`);
+    const colorPaletSelector = `[aria-label="Background color"]`;
+    await page.click(colorPaletSelector);
+    const colorSelector = `[aria-label="The smell"]`;
+    await page.click(colorSelector);
+    await wait(undefined, { interval: 1000 });
   });
 });

@@ -57,7 +57,7 @@ describe('synchronizeFigmaTokens', () => {
                 g: 0.01568627450980392,
                 r: 0.011764705882352941,
               },
-              opacity: 0.33,
+              opacity: 0.13,
               type: 'SOLID',
               visible: true,
             },

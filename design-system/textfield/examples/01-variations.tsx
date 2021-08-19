@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import React, { useState } from 'react';
 
 import { ErrorMessage } from '@atlaskit/form';
@@ -31,8 +32,7 @@ export default function VariationsExample() {
   };
 
   return (
-    <div>
-      {/* eslint-disable-next-line jsx-a11y/label-has-associated-control,jsx-a11y/label-has-for */}
+    <div id="variations">
       <label htmlFor="event-handlers">Event Handlers</label>
       <Textfield
         testId="event-handlers"
@@ -43,7 +43,6 @@ export default function VariationsExample() {
       />
       <div style={eventResultStyle}>{eventResult}</div>
 
-      {/* eslint-disable-next-line jsx-a11y/label-has-associated-control,jsx-a11y/label-has-for */}
       <label htmlFor="default-value">
         Default value (not the same as a placeholder)
       </label>
@@ -53,7 +52,6 @@ export default function VariationsExample() {
         id="default-value"
       />
 
-      {/* eslint-disable-next-line jsx-a11y/label-has-associated-control,jsx-a11y/label-has-for */}
       <label htmlFor="disabled">Disabled</label>
       <Textfield
         testId="disabled"
@@ -62,16 +60,13 @@ export default function VariationsExample() {
         id="disabled"
       />
 
-      {/* eslint-disable-next-line jsx-a11y/label-has-associated-control,jsx-a11y/label-has-for */}
       <label htmlFor="required">Required</label>
       <Textfield testId="required" id="required" isRequired />
 
-      {/* eslint-disable-next-line jsx-a11y/label-has-associated-control,jsx-a11y/label-has-for */}
       <label htmlFor="invalid">Invalid</label>
       <Textfield testId="invalid" id="invalid" isInvalid />
       <ErrorMessage>Invalid</ErrorMessage>
 
-      {/* eslint-disable-next-line jsx-a11y/label-has-associated-control,jsx-a11y/label-has-for */}
       <label htmlFor="placeholder">Placeholder</label>
       <Textfield
         testId="placeholder"
@@ -79,7 +74,6 @@ export default function VariationsExample() {
         placeholder="Click here to input..."
       />
 
-      {/* eslint-disable-next-line jsx-a11y/label-has-associated-control,jsx-a11y/label-has-for */}
       <label htmlFor="auto-focus">Auto Focus</label>
       <Textfield
         testId="auto-focus"
@@ -88,7 +82,6 @@ export default function VariationsExample() {
         id="auto-focus"
       />
 
-      {/* eslint-disable-next-line jsx-a11y/label-has-associated-control,jsx-a11y/label-has-for */}
       <label htmlFor="spell-check">Spell Check, Monospaced</label>
       <Textfield
         testId="spell-check"
@@ -98,9 +91,22 @@ export default function VariationsExample() {
         id="spell-check"
       />
 
-      {/* eslint-disable-next-line jsx-a11y/label-has-associated-control,jsx-a11y/label-has-for */}
       <label htmlFor="compact">Compact</label>
       <Textfield testId="compact" id="compact" isCompact />
+
+      <label htmlFor="subtle">Subtle</label>
+      <Textfield testId="subtle" id="compact" appearance="subtle" />
+
+      <label htmlFor="subtle-error">Subtle error</label>
+      <Textfield
+        testId="subtle-error"
+        id="compact"
+        isInvalid
+        appearance="subtle"
+      />
+
+      <label htmlFor="none">None</label>
+      <Textfield testId="none" id="compact" appearance="none" />
     </div>
   );
 }

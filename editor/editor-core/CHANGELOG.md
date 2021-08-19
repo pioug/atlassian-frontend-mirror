@@ -1,5 +1,53 @@
 # @atlaskit/editor-core
 
+## 148.0.0
+
+### Major Changes
+
+- [`96c6146eef1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/96c6146eef1) - ED-13187: localId optional & empty values filtered
+- [`86503f6d38f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/86503f6d38f) - [ux] Fixup the divider being inserted below the cursor on mobile using quick insert and when using shortcuts in web editor
+- [`1dee7b71aee`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1dee7b71aee) - ED-12500 distribute columns feature flag cleanup
+
+### Minor Changes
+
+- [`ea1cb28fb03`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ea1cb28fb03) - CETI-3 User is able to change emoji and background color when selected
+- [`c796dfa0ae4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c796dfa0ae4) - [ME-1589] Rearchitect the adaptive toolbar solution for the editor mobile bridge.
+
+  - Add a new plugin to editor-core that allows you to subscribe to events when the editor view is updated.
+  - Created a subscription that allows you to listen to toolbar and picker plugin updates.
+
+- [`86aeb07cae3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/86aeb07cae3) - EDM-2264: allow embed resize events from all domains
+
+  **Note:**
+
+  The breaking change in this commit is a rename from `IframelyResizeMessageListener` to `EmbedResizeMessageListener`. The functionality of the component itself remains the same for all consumers.
+
+- [`d2911917e8e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d2911917e8e) - [ux] ED-12991: added ability to collapse a table, flagged via table.allowCollapse option
+
+  - feature can be accessed via table floating toolbar item "table options"
+  - hidden when flag is off or expands are not in the schema
+  - option to collapse is disabled when table is currently in an expand OR when collapsing will result in an invalid ADF state
+  - option to collapse will be ticked if the table is currently in an expand
+
+- [`6de7ba8ca3b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6de7ba8ca3b) - ED-12424 Add scrollTo function to extension api
+- [`e2e02bf0bd7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e2e02bf0bd7) - Removed mobile auto scrolling as it has been fixed elsewhere and renamed the mobile scroll plugin to mobile dimensions plugin to better represent its purpose.
+
+### Patch Changes
+
+- [`c0b7c19909b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c0b7c19909b) - [ux][ed-12164] Fix for smart quotes overriding text formatting by doing a replace on the individual quotes and not including inner content
+- [`aa6f29f8c3d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aa6f29f8c3d) - Setting up empty string value for alt attribute (images) by default
+- [`a84a23aac69`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a84a23aac69) - ED-12917 Fix issue converted smart char to ascii inside inline code
+- [`745605cc84e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/745605cc84e) - Higlight removed component when remove button is focused
+- [`a7ffff656ad`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a7ffff656ad) - [ux][ed-11714] Adding an additional edge case check to the paste plugins transformPastedHTML. We're checking for cases of invalid HTML where there are nested links (eg. <a><a></a></a>) which occurs when a user pastes a list item block from Notion that contains a link as the first element). Two new utils, one to find these cases, and the other to fix the html enough to be parsed correctly.
+- [`f3d416fc608`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f3d416fc608) - Set correct alt text based on icon url [ListItem]
+- [`5f6d2350dc0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f6d2350dc0) - ED-12391 Add special case to fix markdown for network paths
+- [`15d14d67db0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/15d14d67db0) - ED-13010: track extension details when config panel is shown for extensions
+- [`2aef13b22d8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2aef13b22d8) - ED-12604: add localId for tables and dataConsumer mark for extensions in full schema
+- [`501650d5d6c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/501650d5d6c) - Change type of emoji-picker to select with selectType of emoji
+- [`0a30f9abe5b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0a30f9abe5b) - Add analytics to floating toolbar actions in links
+- [`d68173a8c8d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d68173a8c8d) - manually update smart-links appearance translations
+- Updated dependencies
+
 ## 147.0.1
 
 ### Patch Changes

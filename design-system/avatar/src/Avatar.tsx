@@ -16,6 +16,7 @@ import { ClassNames, Interpolation, jsx } from '@emotion/core';
 
 import { UIAnalyticsEvent, useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { B300, N0, N70A } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import AvatarImage from './AvatarImage';
 import {
@@ -142,7 +143,7 @@ const getStyles = (
     size,
     radius,
     appearance,
-    borderColor = N0,
+    borderColor = token('color.background.overlay', N0),
     stackIndex,
     isInteractive,
     isDisabled,
@@ -213,13 +214,19 @@ const getStyles = (
 
       :focus {
         outline: none;
-        box-shadow: 0 0 0 ${BORDER_WIDTH}px ${B300}
+        box-shadow: 0 0 0 ${BORDER_WIDTH}px ${token('color.border.focus', B300)}
       }
 
-      :active,
       :hover {
         &::after {
-          background-color: ${N70A};
+          background-color: ${token('color.overlay.hover', N70A)};
+          opacity: 1;
+        }
+      }
+
+      :active {
+        &::after {
+          background-color: ${token('color.overlay.pressed', N70A)};
           opacity: 1;
         }
       }
@@ -236,7 +243,7 @@ const getStyles = (
         &::after {
           opacity: 0.7;
           pointer-events: none;
-          background-color: ${N0};
+          background-color: ${token('color.background.default', N0)};
         }
       `}
   `;
@@ -331,7 +338,7 @@ const Avatar = forwardRef<HTMLElement, AvatarPropTypes>(
 
     const componentProps = () => {
       if (isDisabled) {
-        return { disabled: 'true' };
+        return { disabled: true };
       }
 
       // return only relevant props for either anchor or button elements

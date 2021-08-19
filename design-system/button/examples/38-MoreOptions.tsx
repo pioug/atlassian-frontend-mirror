@@ -21,7 +21,6 @@ const styles = {
     borderBottom: '1px solid',
     paddingBottom: '10px',
     paddingTop: '10px',
-    backgroundColor: 'white',
   },
   purpleBorder: {
     border: '1px solid purple',

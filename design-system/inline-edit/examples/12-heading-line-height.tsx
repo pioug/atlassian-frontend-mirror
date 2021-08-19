@@ -6,6 +6,7 @@ import styled from '@emotion/styled';
 
 import Textfield from '@atlaskit/textfield';
 import { gridSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 import InlineEdit from '../src';
 
@@ -14,8 +15,11 @@ const ReadViewContainer = styled.div`
 `;
 
 const Message = styled.div`
-  background-color: orangered;
-  color: white;
+  background-color: ${token(
+    'color.background.boldDanger.resting',
+    'orangered',
+  )};
+  color: ${token('color.text.onBold', 'white')};
   padding: 8px;
   margin: 8px 0;
   border-radius: 3px;

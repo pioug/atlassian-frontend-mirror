@@ -1,5 +1,7 @@
+/** @jsx jsx */
 import React, { Component } from 'react';
 
+import { jsx } from '@emotion/core';
 import NodeResolver from 'react-node-resolver';
 
 import {
@@ -9,14 +11,13 @@ import {
 } from '@atlaskit/analytics-next';
 import { Manager, Popper, Reference } from '@atlaskit/popper';
 
-import { Placement, Props } from '../types';
+import { InlineDialogProps, Placement } from '../types';
 
-import { Container } from './styled';
+import { Container } from './styled/container';
 
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
-
-class InlineDialog extends Component<Props, {}> {
+class InlineDialog extends Component<InlineDialogProps> {
   static defaultProps = {
     isOpen: false,
     onContentBlur: () => {},
@@ -26,14 +27,17 @@ class InlineDialog extends Component<Props, {}> {
     placement: 'bottom-start' as Placement,
   };
 
-  containerRef?: HTMLElement;
+  containerRef?: HTMLElement | null;
 
   triggerRef?: HTMLElement;
 
-  componentDidUpdate(prevProps: Props) {
+  componentDidUpdate(prevProps: InlineDialogProps) {
     if (typeof window === 'undefined') {
       return;
     }
+
+    // added here to clean up component unmounting, which is not done in ref
+    this.containerRef = null;
 
     if (!prevProps.isOpen && this.props.isOpen) {
       window.addEventListener('click', this.handleClickOutside, true);
@@ -101,17 +105,18 @@ class InlineDialog extends Component<Props, {}> {
             onBlur={onContentBlur}
             onFocus={onContentFocus}
             onClick={onContentClick}
-            innerRef={(node) => {
-              this.containerRef = node;
-
-              if (typeof ref === 'function') {
-                ref(node);
-              } else {
-                (ref as React.MutableRefObject<HTMLElement>).current = node;
+            ref={(node) => {
+              if (node) {
+                this.containerRef = node;
+                if (typeof ref === 'function') {
+                  ref(node);
+                } else {
+                  (ref as React.MutableRefObject<HTMLElement>).current = node;
+                }
               }
             }}
             style={style}
-            data-testid={testId}
+            testId={testId}
           >
             {content}
           </Container>
@@ -126,7 +131,6 @@ class InlineDialog extends Component<Props, {}> {
             <NodeResolver
               innerRef={(node: HTMLElement) => {
                 this.triggerRef = node;
-
                 if (typeof ref === 'function') {
                   ref(node);
                 } else {

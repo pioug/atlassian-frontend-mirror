@@ -334,15 +334,25 @@ describe('codeBlock - keymaps', () => {
             });
 
             describe('when cursor is in the last cell of the table', () => {
+              const TABLE_LOCAL_ID = 'test-table-local-id';
               it('creates a new paragraph below the table', () => {
                 const { editorView } = editor(
-                  doc(table()(tr(tdEmpty, tdEmpty, tdCursor))),
+                  doc(
+                    table({ localId: TABLE_LOCAL_ID })(
+                      tr(tdEmpty, tdEmpty, tdCursor),
+                    ),
+                  ),
                 );
 
                 sendKeyToPm(editorView, 'ArrowDown');
 
                 expect(editorView.state.doc).toEqualDocument(
-                  doc(table()(tr(tdEmpty, tdEmpty, tdEmpty)), p('')),
+                  doc(
+                    table({ localId: TABLE_LOCAL_ID })(
+                      tr(tdEmpty, tdEmpty, tdEmpty),
+                    ),
+                    p(''),
+                  ),
                 );
               });
             });

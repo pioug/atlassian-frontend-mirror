@@ -30,9 +30,21 @@ import {
 
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
+import { uuid } from '@atlaskit/adf-schema';
+
 import { Command } from '../../../types';
 
+const TABLE_LOCAL_ID = 'test-table-local-id';
+
 describe('utils -> commands', () => {
+  beforeAll(() => {
+    uuid.setStatic(TABLE_LOCAL_ID);
+  });
+
+  afterAll(() => {
+    uuid.setStatic(false);
+  });
+
   const createEditor = createEditorFactory();
 
   describe('filter', () => {
@@ -458,7 +470,7 @@ describe('utils -> commands', () => {
 
           expect(editorView.state.doc).toEqualDocument(
             doc(
-              table()(
+              table({ localId: TABLE_LOCAL_ID })(
                 tr(td()(p(code('hey😀'))), tdEmpty, tdEmpty),
                 tr(td()(p(code('hey@helga'))), tdEmpty, tdEmpty),
                 tr(td()(p(code('@helga😀'))), tdEmpty, tdEmpty),
@@ -487,7 +499,7 @@ describe('utils -> commands', () => {
 
         expect(editorView.state.doc).toEqualDocument(
           doc(
-            table()(
+            table({ localId: TABLE_LOCAL_ID })(
               tr(td()(p(code('hey'))), tdEmpty, tdEmpty),
               tr(td()(p(code('hey'))), tdEmpty, tdEmpty),
               tr(td()(p(code('hey'))), tdEmpty, tdEmpty),
@@ -515,7 +527,7 @@ describe('utils -> commands', () => {
 
         expect(editorView.state.doc).toEqualDocument(
           doc(
-            table()(
+            table({ localId: TABLE_LOCAL_ID })(
               tr(td()(p(strong('hey'))), tdEmpty, tdEmpty),
               tr(td()(p(strong('hey'))), tdEmpty, tdEmpty),
               tr(td()(p(strong('hey'))), tdEmpty, tdEmpty),
@@ -543,7 +555,7 @@ describe('utils -> commands', () => {
 
         expect(editorView.state.doc).toEqualDocument(
           doc(
-            table()(
+            table({ localId: TABLE_LOCAL_ID })(
               tr(td({})(p('{<cell}a1')), tdEmpty, tdEmpty),
               tr(tdEmpty, tdEmpty, td({})(p('b3{cell>}'))),
               tr(tdEmpty, tdEmpty, tdEmpty),

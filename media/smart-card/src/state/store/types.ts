@@ -17,7 +17,8 @@ export interface CardStore {
 export interface CardState {
   status: CardType;
   details?: JsonLd.Response;
-  lastUpdatedAt: number;
+  /** @deprecated Feature removed (EDM-2205) */
+  lastUpdatedAt?: number;
   error?: APIError;
 }
 export interface CardConnections {

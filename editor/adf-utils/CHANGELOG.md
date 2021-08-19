@@ -1,5 +1,11 @@
 # @atlaskit/adf-utils
 
+## 14.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.1.0
 
 ### Minor Changes

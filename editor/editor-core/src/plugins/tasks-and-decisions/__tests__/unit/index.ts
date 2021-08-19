@@ -252,7 +252,7 @@ describe('tasks and decisions', () => {
 
         describe('header', () => {
           const originalDoc = doc(
-            table()(
+            table({ localId: 'local-uuid' })(
               tr(
                 th()(p('1')),
                 th()(
@@ -271,7 +271,7 @@ describe('tasks and decisions', () => {
 
         describe('cell', () => {
           const originalDoc = doc(
-            table()(
+            table({ localId: 'local-uuid' })(
               tr(
                 td()(p('1')),
                 td()(
@@ -290,7 +290,7 @@ describe('tasks and decisions', () => {
 
         describe('last cell on the row', () => {
           const originalDoc = doc(
-            table()(
+            table({ localId: 'local-uuid' })(
               tr(th()(p()), th()(p()), th()(p())),
               tr(
                 td()(p()),
@@ -312,7 +312,7 @@ describe('tasks and decisions', () => {
 
         describe('last cell with no following node', () => {
           const originalDoc = doc(
-            table()(
+            table({ localId: 'local-uuid' })(
               tr(th()(p()), th()(p()), th()(p())),
               tr(td()(p()), td()(p()), td()(p())),
               tr(
@@ -332,7 +332,7 @@ describe('tasks and decisions', () => {
         });
         describe('last cell with following node', () => {
           const originalDoc = doc(
-            table()(
+            table({ localId: 'local-uuid' })(
               tr(th()(p()), th()(p()), th()(p())),
               tr(td()(p()), td()(p()), td()(p())),
               tr(

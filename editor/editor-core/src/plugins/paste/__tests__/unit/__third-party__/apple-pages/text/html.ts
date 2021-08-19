@@ -54,7 +54,7 @@ ul.ul1 {list-style-type: disc}
 <p class="p4"><span class="s1"></span><br></p>
 <p class="p3"><span class="s1">Link to: <a href="https://google.com"><span class="s3">GoogleLink</span></a></span></p>
 <p class="p4"><span class="s1"></span><br></p>
-<table cellspacing="0" cellpadding="0" class="t1">
+<table data-table-local-id="test-table-local-id" cellspacing="0" cellpadding="0" class="t1">
 <tbody>
 <tr>
 <td valign="top" class="td1">

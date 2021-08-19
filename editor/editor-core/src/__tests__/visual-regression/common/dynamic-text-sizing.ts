@@ -12,8 +12,9 @@ describe('Dynamic Text Sizing', () => {
   const dynamicTextViewportSizes = [
     { width: 768, height: 4500 },
     { width: 1024, height: 5000 },
-    { width: 1280, height: 5500 },
-    { width: 1440, height: 6000 },
+    // TODO: https://product-fabric.atlassian.net/browse/ED-13527
+    // { width: 1280, height: 5500 },
+    // { width: 1440, height: 6000 },
   ];
   beforeAll(async () => {
     page = global.page;

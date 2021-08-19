@@ -21,6 +21,8 @@ import { pluginKey } from '../../../pm-plugins/plugin-factory';
 import { TablePluginState } from '../../../types';
 import { goToNextCell } from '../../../commands/go-to-next-cell';
 
+const TABLE_LOCAL_ID = 'test-table-local-id';
+
 const tdNextFocus = td()(p('{nextFocus}'));
 
 describe('table plugin: goToNextCell', () => {
@@ -50,7 +52,7 @@ describe('table plugin: goToNextCell', () => {
   it('should tab to next cell if focus is in the middle', () => {
     const { editorView, refs } = editor(
       doc(
-        table()(
+        table({ localId: TABLE_LOCAL_ID })(
           tr(tdEmpty, tdCursor, tdNextFocus),
           tr(tdEmpty, tdEmpty, tdEmpty),
         ),
@@ -67,7 +69,7 @@ describe('table plugin: goToNextCell', () => {
   it('should reverse tab to previous cell if focus is in the middle', () => {
     const { editorView, refs } = editor(
       doc(
-        table()(
+        table({ localId: TABLE_LOCAL_ID })(
           tr(tdNextFocus, tdCursor, tdEmpty),
           tr(tdEmpty, tdEmpty, tdEmpty),
         ),
@@ -84,13 +86,16 @@ describe('table plugin: goToNextCell', () => {
   it('should insert row at end of table when tabbed on last cell', () => {
     const { editorView } = editor(
       doc(
-        table()(tr(tdEmpty, tdEmpty, tdEmpty), tr(tdEmpty, tdEmpty, tdCursor)),
+        table({ localId: TABLE_LOCAL_ID })(
+          tr(tdEmpty, tdEmpty, tdEmpty),
+          tr(tdEmpty, tdEmpty, tdCursor),
+        ),
       ),
     );
     const { state, dispatch } = editorView;
 
     const expected = doc(
-      table()(
+      table({ localId: TABLE_LOCAL_ID })(
         tr(tdEmpty, tdEmpty, tdEmpty),
         tr(tdEmpty, tdEmpty, tdEmpty),
         tr(tdNextFocus, tdEmpty, tdEmpty),
@@ -107,13 +112,16 @@ describe('table plugin: goToNextCell', () => {
   it('should insert row at start of table when reverse tabbed on first cell', () => {
     const { editorView } = editor(
       doc(
-        table()(tr(tdCursor, tdEmpty, tdEmpty), tr(tdEmpty, tdEmpty, tdEmpty)),
+        table({ localId: TABLE_LOCAL_ID })(
+          tr(tdCursor, tdEmpty, tdEmpty),
+          tr(tdEmpty, tdEmpty, tdEmpty),
+        ),
       ),
     );
     const { state, dispatch } = editorView;
 
     const expected = doc(
-      table()(
+      table({ localId: TABLE_LOCAL_ID })(
         tr(tdNextFocus, tdEmpty, tdEmpty),
         tr(tdEmpty, tdEmpty, tdEmpty),
         tr(tdEmpty, tdEmpty, tdEmpty),

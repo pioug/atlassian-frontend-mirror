@@ -13,6 +13,7 @@ import {
   FloatingToolbarItem,
   FloatingToolbarConfig,
 } from '../../floating-toolbar/types';
+import { addAnalytics, ACTION_SUBJECT_ID } from '../../analytics';
 
 import {
   RECENT_SEARCH_HEIGHT_IN_PX,
@@ -21,6 +22,8 @@ import {
 
 import { changeSelectedCardToLink, updateCard } from '../pm-plugins/doc';
 import { findCardInfo, displayInfoForCard } from '../utils';
+import { NodeSelection } from 'prosemirror-state';
+import { buildEditLinkPayload } from '../../../utils/linking-utils';
 
 export type EditLinkToolbarProps = {
   view: EditorView;
@@ -68,8 +71,23 @@ export class EditLinkToolbar extends React.Component<EditLinkToolbarProps> {
 }
 
 export const editLink: Command = (state, dispatch) => {
+  let type = 'hyperlink';
+  if (state.selection instanceof NodeSelection) {
+    type = state.selection.node.type.name;
+  }
   if (dispatch) {
-    dispatch(showLinkToolbar(state.tr));
+    dispatch(
+      addAnalytics(
+        state,
+        showLinkToolbar(state.tr),
+        buildEditLinkPayload(
+          type as
+            | ACTION_SUBJECT_ID.CARD_INLINE
+            | ACTION_SUBJECT_ID.CARD_BLOCK
+            | ACTION_SUBJECT_ID.EMBEDS,
+        ),
+      ),
+    );
     return true;
   }
 

@@ -4,6 +4,8 @@ import {
   CardAppearance,
   CardAdf,
 } from '@atlaskit/editor-common/provider-factory';
+import { SmartLinkEvents } from '@atlaskit/smart-card';
+import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 export type CardInfo = {
   title?: string;
@@ -28,6 +30,8 @@ export type CardPluginState = {
   provider: CardProvider | null;
   cards: CardInfo[];
   showLinkingToolbar: boolean;
+  smartLinkEvents?: SmartLinkEvents;
+  createAnalyticsEvent?: CreateUIAnalyticsEvent;
 };
 
 // actions
@@ -59,13 +63,19 @@ export type HideLinkToolbar = {
   type: 'HIDE_LINK_TOOLBAR';
 };
 
+export type RegisterSmartCardEvents = {
+  type: 'REGISTER_EVENTS';
+  smartLinkEvents: SmartLinkEvents;
+};
+
 export type CardPluginAction =
   | SetProvider
   | Queue
   | Resolve
   | Register
   | ShowLinkToolbar
-  | HideLinkToolbar;
+  | HideLinkToolbar
+  | RegisterSmartCardEvents;
 
 export type CardReplacementInputMethod =
   | INPUT_METHOD.CLIPBOARD

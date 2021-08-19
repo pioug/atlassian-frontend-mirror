@@ -5,6 +5,7 @@ import { jsx } from '@emotion/core';
 
 import { N500 } from '@atlaskit/theme/colors';
 import Toggle from '@atlaskit/toggle';
+import { token } from '@atlaskit/tokens';
 
 import { Checkbox } from '../../src';
 
@@ -34,10 +35,12 @@ const CheckboxGroupsExample = () => {
         css={{
           borderStyle: 'dashed',
           borderWidth: '1px',
+          // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
           backgroundColor: 'white',
+          // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
           borderColor: '#ccc',
           padding: '0.5em',
-          color: N500,
+          color: token('color.text.highEmphasis', N500),
           margin: '0.5em',
         }}
       >

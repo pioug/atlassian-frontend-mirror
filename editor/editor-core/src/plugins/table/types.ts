@@ -44,6 +44,7 @@ export interface PluginConfig {
   allowNumberColumn?: boolean;
   allowColumnSorting?: boolean;
   allowAddColumnWithCustomStep?: boolean;
+  allowCollapse?: boolean;
   isHeaderRowRequired?: boolean;
   stickToolbarToBottom?: boolean;
   permittedLayouts?: PermittedLayoutsDescriptor;
@@ -56,7 +57,7 @@ export interface PluginConfig {
   initialRenderOptimization?: boolean;
   mouseMoveOptimization?: boolean;
   tableOverflowShadowsOptimization?: boolean;
-  allowLocalIdGeneration?: boolean;
+  allowDistributeColumns?: boolean;
 }
 
 export interface ColumnResizingPluginState {
@@ -119,6 +120,9 @@ export interface TablePluginState {
   tableCellOptimization?: boolean;
   tableHeight?: number;
   tableWidth?: number;
+  // for table wrap/collapse
+  isTableCollapsed?: boolean; // is the current table already in an expand?
+  canCollapseTable?: boolean; // enabled/disabled state of collapse option
 }
 
 export type TablePluginAction =
@@ -310,12 +314,15 @@ export interface ToolbarMenuConfig {
   allowHeaderRow?: boolean;
   allowHeaderColumn?: boolean;
   allowNumberColumn?: boolean;
+  allowCollapse?: boolean;
 }
 
 export interface ToolbarMenuState {
   isHeaderRowEnabled?: boolean;
   isHeaderColumnEnabled?: boolean;
   isNumberColumnEnabled?: boolean;
+  isTableCollapsed?: boolean;
+  canCollapseTable?: boolean;
 }
 
 export interface ToolbarMenuContext {

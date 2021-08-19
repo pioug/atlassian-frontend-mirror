@@ -4,6 +4,7 @@ import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 
 import { N20, N40 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import Tooltip from '../src';
 
@@ -20,7 +21,7 @@ interface StyledProps {
 }
 
 const Parent = styled.div<StyledProps>`
-  background-color: ${N20};
+  background-color: ${token('color.background.sunken', N20)};
   border-radius: 5px;
   margin-bottom: 8px;
   height: 64px;
@@ -75,7 +76,12 @@ export default () => (
         <p>
           Nested &mdash; scroll <strong>right</strong> to see the target.
         </p>
-        <Parent scroll="vertical" style={{ backgroundColor: N40 }}>
+        <Parent
+          scroll="vertical"
+          style={{
+            backgroundColor: token('color.background.overlay', N40),
+          }}
+        >
           <Shim scroll="vertical">
             <p>
               Scroll <strong>down</strong> to see the target.

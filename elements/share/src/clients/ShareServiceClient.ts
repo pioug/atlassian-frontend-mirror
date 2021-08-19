@@ -51,9 +51,10 @@ interface ShareServiceConfig extends ServiceConfig {
 export class ShareServiceClient implements ShareClient {
   private serviceConfig: ShareServiceConfig;
 
-  constructor(serviceConfig?: ShareServiceConfig) {
-    this.serviceConfig = serviceConfig || {
+  constructor(serviceConfig?: Partial<ShareServiceConfig>) {
+    this.serviceConfig = {
       url: DEFAULT_SHARE_SERVICE_URL,
+      ...(serviceConfig || {}),
     };
   }
 

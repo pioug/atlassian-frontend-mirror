@@ -13,7 +13,7 @@ import {
 import {
   Card,
   CardProps,
-  IframelyResizeMessageListener,
+  EmbedResizeMessageListener,
 } from '@atlaskit/smart-card';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import { CardOptions } from '@atlaskit/editor-common';
@@ -78,7 +78,7 @@ describe('EmbedCard', () => {
       />,
     );
     const cardComponent = component.find(Card) as ReactWrapper<CardProps, any>;
-    const resizeListener = component.find(IframelyResizeMessageListener);
+    const resizeListener = component.find(EmbedResizeMessageListener);
     const resizableEmbedCard = component.find(ResizableEmbedCard);
     const richMediaWrapper = component.find(RichMediaWrapper);
 
@@ -110,7 +110,7 @@ describe('EmbedCard', () => {
     expect(cardComponent.prop('url')).toBe('https://some/url');
   });
 
-  it('should render IframelyResizeMessageListener', () => {
+  it('should render EmbedResizeMessageListener', () => {
     const { resizeListener } = setup();
 
     expect(resizeListener).toHaveLength(1);

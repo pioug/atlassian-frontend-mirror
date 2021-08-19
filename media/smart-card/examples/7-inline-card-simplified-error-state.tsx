@@ -105,59 +105,41 @@ class Example extends React.Component {
         <Grid>
           <GridColumn>
             <h4>Unauthorized response</h4>
-            <Provider
-              client={unAuthClient}
-              cacheOptions={{ maxLoadingDelay: 1000, maxAge: 15000 }}
-            >
+            <Provider client={unAuthClient}>
               <Card url="http://some.unauth.url" appearance="inline" />
             </Provider>
 
             <hr />
 
             <h4>Unauthorized response with auth</h4>
-            <Provider
-              client={unAuthClientWithAction}
-              cacheOptions={{ maxLoadingDelay: 1000, maxAge: 15000 }}
-            >
+            <Provider client={unAuthClientWithAction}>
               <Card url="http://some.unauth.url" appearance="inline" />
             </Provider>
 
             <hr />
 
             <h4>Forbidden response</h4>
-            <Provider
-              client={forbiddenClient}
-              cacheOptions={{ maxLoadingDelay: 1000, maxAge: 15000 }}
-            >
+            <Provider client={forbiddenClient}>
               <Card url="http://some.unauth.url" appearance="inline" />
             </Provider>
 
             <hr />
 
             <h4>Forbidden response with auth</h4>
-            <Provider
-              client={new ForbiddenClientWithAuth()}
-              cacheOptions={{ maxLoadingDelay: 1000, maxAge: 15000 }}
-            >
+            <Provider client={new ForbiddenClientWithAuth()}>
               <Card url="http://some.unauth.url" appearance="inline" />
             </Provider>
 
             <hr />
             <h4>Error response</h4>
-            <Provider
-              client={erroringClient}
-              cacheOptions={{ maxLoadingDelay: 1000, maxAge: 15000 }}
-            >
+            <Provider client={erroringClient}>
               <Card url="http://some.error.url" appearance="inline" />
             </Provider>
 
             <hr />
 
             <h4>Not found response</h4>
-            <Provider
-              client={(notFoundClient as any) as Client}
-              cacheOptions={{ maxLoadingDelay: 1000, maxAge: 15000 }}
-            >
+            <Provider client={(notFoundClient as any) as Client}>
               <Card url="http://some.notfound.url" appearance="inline" />
             </Provider>
           </GridColumn>

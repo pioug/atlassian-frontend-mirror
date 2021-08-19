@@ -12,6 +12,7 @@ import basicEditorTests from './hybrid-editor-tests/basics/_basics-tests';
 import quickInsertEditorTests from './hybrid-editor-tests/quick-Insert/_quick-insert-tests';
 import unsupportedContentEditorTests from './hybrid-editor-tests/unsupported-content/_unsupported-content-tests';
 import typeAheadEditorTests from './hybrid-editor-tests/type-ahead/_type-ahead-tests';
+import toolbarEditorTests from './hybrid-editor-tests/toolbar/_toolbar-tests';
 
 // compositionEditorTests();
 mediaEditorTests();
@@ -20,3 +21,4 @@ basicEditorTests();
 quickInsertEditorTests();
 typeAheadEditorTests();
 unsupportedContentEditorTests();
+toolbarEditorTests();

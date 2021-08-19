@@ -173,6 +173,7 @@ describe('ExtensionsPlaceholder', () => {
         attrs: {
           isNumberColumnEnabled: false,
           layout: 'full-width',
+          localId: expect.stringMatching(/.*/),
         },
         content: expect.any(Array),
         type: 'table',

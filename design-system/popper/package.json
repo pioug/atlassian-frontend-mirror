@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/popper",
-  "version": "5.2.1",
+  "version": "5.2.2",
   "description": "Wrapper for react-popper with common config and some helpers",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "@atlaskit/build-utils": "*",
-    "@atlaskit/button": "^16.0.0",
+    "@atlaskit/button": "^16.1.0",
     "@atlaskit/docs": "*",
     "@atlaskit/ssr": "*",
     "@atlaskit/theme": "^11.4.0",
@@ -58,18 +58,10 @@
       "import-structure": "atlassian-conventions"
     },
     "@repo/internal": {
-      "ui-components": [
-        "lite-mode"
-      ],
-      "analytics": [
-        "analytics-next"
-      ],
-      "theming": [
-        "new-theming-api"
-      ],
-      "deprecation": [
-        "no-deprecated-imports"
-      ]
+      "ui-components": "lite-mode",
+      "analytics": "analytics-next",
+      "theming": "tokens",
+      "deprecation": "no-deprecated-imports"
     }
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"

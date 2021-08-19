@@ -16,6 +16,8 @@ export interface IconProps {
   testId?: string;
 }
 
+export const blockCardIconImageClassName = 'block-card-icon-image';
+
 export const Icon = ({
   url,
   icon,
@@ -34,6 +36,7 @@ export const Icon = ({
           css={{ height: gs(2), width: gs(2) }}
           src={url}
           data-testid={`${testId}-image`}
+          className={blockCardIconImageClassName}
         />
       }
       errored={placeholder}

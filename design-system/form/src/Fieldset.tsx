@@ -11,7 +11,7 @@ const FieldsetLabel = styled(Label)`
 `;
 
 const Fieldset = styled.fieldset`
-  margin-top: ${gridSize}px;
+  margin-top: ${gridSize()}px;
 `;
 
 interface Props {

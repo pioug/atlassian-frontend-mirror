@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/empty-state",
-  "version": "7.1.7",
+  "version": "7.1.8",
   "description": "A React component used for presenting various empty states (no items, empty search, broken link, welcome screen etc.)",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -13,7 +13,7 @@
   "module:es2019": "dist/es2019/index.js",
   "types": "dist/types/index.d.ts",
   "sideEffects": false,
-  "atlaskit:src": "src/index.ts",
+  "atlaskit:src": "src/index.tsx",
   "atlassian": {
     "team": "Design System Team",
     "deprecatedAutoEntryPoints": true,
@@ -24,14 +24,14 @@
     }
   },
   "dependencies": {
-    "@atlaskit/button": "^16.0.0",
-    "@atlaskit/spinner": "^15.0.0",
+    "@atlaskit/button": "^16.1.0",
+    "@atlaskit/spinner": "^15.1.0",
     "@atlaskit/theme": "^11.4.0",
-    "@babel/runtime": "^7.0.0"
+    "@babel/runtime": "^7.0.0",
+    "@emotion/core": "^10.0.9"
   },
   "peerDependencies": {
-    "react": "^16.8.0",
-    "styled-components": "^3.2.6"
+    "react": "^16.8.0"
   },
   "devDependencies": {
     "@atlaskit/build-utils": "*",
@@ -47,6 +47,13 @@
   "techstack": {
     "@atlassian/frontend": {
       "import-structure": "atlassian-conventions"
+    },
+    "@repo/internal": {
+      "analytics": "analytics-next",
+      "theming": "new-theming-api",
+      "styling": "emotion",
+      "design-system": "v1",
+      "deprecation": "no-deprecated-imports"
     }
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"

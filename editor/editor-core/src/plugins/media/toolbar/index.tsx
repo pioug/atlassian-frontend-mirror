@@ -171,6 +171,8 @@ export const floatingToolbar = (
       icon: RemoveIcon,
       onMouseEnter: hoverDecoration(mediaSingle, true),
       onMouseLeave: hoverDecoration(mediaSingle, false),
+      onFocus: hoverDecoration(mediaSingle, true),
+      onBlur: hoverDecoration(mediaSingle, false),
       title: intl.formatMessage(commonMessages.remove),
       onClick: remove,
       testId: 'media-toolbar-remove-button',

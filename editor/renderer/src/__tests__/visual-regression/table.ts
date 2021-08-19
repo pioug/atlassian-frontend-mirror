@@ -108,7 +108,8 @@ describe('Snapshot Test: Table scaling', () => {
       await waitForMinimumTableSize(page, 750, 880);
     });
 
-    it('should render table content correctly in mobile appearance', async () => {
+    // TODO: https://product-fabric.atlassian.net/browse/ED-13527
+    it.skip('should render table content correctly in mobile appearance', async () => {
       await initRenderer(page, wideTableResized, mode, 'mobile');
       await page.waitForSelector(tableContainerSelector);
       await page.waitForSelector(

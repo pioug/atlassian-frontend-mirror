@@ -2,20 +2,7 @@ import React from 'react';
 
 import { fireEvent, render } from '@testing-library/react';
 
-import {
-  DN10,
-  DN40,
-  DN600,
-  DN90,
-  N10,
-  N40,
-  N70,
-  N900,
-  R400,
-} from '@atlaskit/theme/colors';
-import GlobalTheme from '@atlaskit/theme/components';
 import * as themeConstants from '@atlaskit/theme/constants';
-import { ThemeModes } from '@atlaskit/theme/types';
 
 import Textfield from '../../index';
 
@@ -96,68 +83,6 @@ describe('Textfield', () => {
         const input = getByTestId('test') as HTMLInputElement;
         expect(input.disabled).toBe(true);
       });
-      describe('styles', () => {
-        const disableStyleProps = [
-          {
-            mode: 'light',
-            values: [
-              {
-                isDisabled: true,
-                color: N70,
-                backgroundColor: N10,
-                borderColor: N10,
-              },
-              {
-                isDisabled: false,
-                color: N900,
-                backgroundColor: N10,
-                borderColor: N40,
-              },
-            ],
-          },
-          {
-            mode: 'dark',
-            values: [
-              {
-                isDisabled: true,
-                color: DN90,
-                backgroundColor: DN10,
-                borderColor: DN10,
-              },
-              {
-                isDisabled: false,
-                color: DN600,
-                backgroundColor: DN10,
-                borderColor: DN40,
-              },
-            ],
-          },
-        ];
-
-        disableStyleProps.forEach((disableProps) => {
-          const { mode, values } = disableProps;
-          const themeMode = mode as ThemeModes;
-          values.forEach((value) => {
-            const { isDisabled, color, backgroundColor, borderColor } = value;
-            it(`when isDisabled is set to ${isDisabled} & theme mode is ${mode}`, () => {
-              const inputContainer = render(
-                <GlobalTheme.Provider
-                  value={(t) => ({ ...t(), mode: themeMode })}
-                >
-                  <Textfield testId="test" isDisabled={isDisabled} />,
-                </GlobalTheme.Provider>,
-              ).getByTestId('test-container') as HTMLInputElement;
-              expect(inputContainer).toHaveStyle(`color: ${color}`);
-              expect(inputContainer).toHaveStyle(
-                `background-color: ${backgroundColor}`,
-              );
-              expect(inputContainer).toHaveStyle(
-                `border-color: ${borderColor}`,
-              );
-            });
-          });
-        });
-      });
     });
 
     describe('isReadOnly', () => {
@@ -214,25 +139,6 @@ describe('Textfield', () => {
         const afterElement = getByTestId('afterElement');
         expect(beforeElement.innerText).toBe('Before');
         expect(afterElement.innerText).toBe('After');
-      });
-    });
-
-    describe('isInvalid', () => {
-      it('should make input invalid', () => {
-        const { getByTestId } = render(<Textfield isInvalid testId="test" />);
-        const textFieldContainer = getByTestId('test-container');
-        expect(textFieldContainer).toHaveStyle(`background-color: ${N10}`);
-        expect(textFieldContainer).toHaveStyle(`border-color: ${R400}`);
-      });
-      it('should make input invalid in ', () => {
-        const { getByTestId } = render(
-          <GlobalTheme.Provider value={(t) => ({ ...t(), mode: 'dark' })}>
-            <Textfield isInvalid testId="test" />
-          </GlobalTheme.Provider>,
-        );
-        const textFieldContainer = getByTestId('test-container');
-        expect(textFieldContainer).toHaveStyle(`background-color: ${DN10}`);
-        expect(textFieldContainer).toHaveStyle(`border-color: ${R400}`);
       });
     });
 

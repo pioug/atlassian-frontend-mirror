@@ -197,32 +197,33 @@ class ConfigPanel extends React.Component<Props, State> {
   }
 
   componentDidMount() {
-    const { fields, parameters, createAnalyticsEvent } = this.props;
+    const { fields, parameters } = this.props;
     this.parseParameters(fields, parameters);
-
-    fireAnalyticsEvent(createAnalyticsEvent)({
-      payload: {
-        action: ACTION.OPENED,
-        actionSubject: ACTION_SUBJECT.CONFIG_PANEL,
-        eventType: EVENT_TYPE.UI,
-        attributes: {},
-      },
-    });
   }
 
   componentWillUnmount() {
-    fireAnalyticsEvent(this.props.createAnalyticsEvent)({
+    const { createAnalyticsEvent, extensionManifest } = this.props;
+
+    fireAnalyticsEvent(createAnalyticsEvent)({
       payload: {
         action: ACTION.CLOSED,
         actionSubject: ACTION_SUBJECT.CONFIG_PANEL,
         eventType: EVENT_TYPE.UI,
-        attributes: {},
+        attributes: {
+          extensionKey: extensionManifest?.key,
+          extensionType: extensionManifest?.type,
+        },
       },
     });
   }
 
   componentDidUpdate(prevProps: Props) {
-    const { parameters, fields, autoSaveTrigger } = this.props;
+    const {
+      parameters,
+      fields,
+      autoSaveTrigger,
+      extensionManifest,
+    } = this.props;
 
     if (
       (parameters && parameters !== prevProps.parameters) ||
@@ -239,6 +240,25 @@ class ConfigPanel extends React.Component<Props, State> {
       if (this.onFieldChange) {
         this.onFieldChange('', true);
       }
+    }
+
+    if (
+      prevProps.extensionManifest === undefined &&
+      prevProps.extensionManifest !== extensionManifest
+    ) {
+      // This will only be fired once when extensionManifest is loaded initially
+      // Can't do this in componentDidMount because extensionManifest is still undefined at that point
+      fireAnalyticsEvent(this.props.createAnalyticsEvent)({
+        payload: {
+          action: ACTION.OPENED,
+          actionSubject: ACTION_SUBJECT.CONFIG_PANEL,
+          eventType: EVENT_TYPE.UI,
+          attributes: {
+            extensionKey: extensionManifest?.key,
+            extensionType: extensionManifest?.type,
+          },
+        },
+      });
     }
   }
 

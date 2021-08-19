@@ -1,5 +1,15 @@
 # @atlaskit/form
 
+## 8.3.0
+
+### Minor Changes
+
+- [`4cab1a3d163`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4cab1a3d163) - Form is now instrumented with the new tokens theme implementation. This change is interoperable with the previous theme implementation.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.2.4
 
 ### Patch Changes

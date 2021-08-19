@@ -8,6 +8,7 @@ Object {
         "__autoSize": false,
         "isNumberColumnEnabled": false,
         "layout": "default",
+        "localId": "",
       },
       "content": Array [
         Object {
@@ -89,7 +90,7 @@ Object {
                         "__fileMimeType": "image/jpeg",
                         "__fileName": "example.png",
                         "__fileSize": 58705,
-                        "alt": null,
+                        "alt": "",
                         "collection": "MediaServicesSample",
                         "height": 980,
                         "id": "1234-5678-abcd-efgh",
@@ -126,7 +127,7 @@ Object {
                         "__fileMimeType": "image/jpeg",
                         "__fileName": "example.png",
                         "__fileSize": 58705,
-                        "alt": null,
+                        "alt": "",
                         "collection": "MediaServicesSample",
                         "height": 683,
                         "id": "1234-5678-abcd-efgh",

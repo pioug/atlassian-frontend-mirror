@@ -14,6 +14,7 @@ import {
 } from '../../../../plugins/table/types';
 
 import { pluginKey as tablePluginKey } from '../../../../plugins/table/pm-plugins/plugin-factory';
+const TABLE_LOCAL_ID = 'test-table-local-id';
 
 describe('fix tables', () => {
   const createEditor = createEditorFactory<TablePluginState>();
@@ -41,7 +42,7 @@ describe('fix tables', () => {
     it('removes unneccesary column widths', () => {
       const { editorView } = editor(
         doc(
-          table()(
+          table({ localId: TABLE_LOCAL_ID })(
             tr(
               th({ colwidth: [100, 100] })(p('{<>}1')),
               th({ colwidth: [100, 100] })(p('2')),
@@ -58,7 +59,7 @@ describe('fix tables', () => {
 
       expect(editorView.state.doc).toEqualDocument(
         doc(
-          table()(
+          table({ localId: TABLE_LOCAL_ID })(
             tr(
               th({ colwidth: [100] })(p('1')),
               th({ colwidth: [100] })(p('2')),

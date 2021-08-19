@@ -137,6 +137,19 @@ export const setStatusPickerAt = (showStatusPickerAt: number | null) => (
   return true;
 };
 
+export const removeStatus = (showStatusPickerAt: number): Command => (
+  state,
+  dispatch,
+) => {
+  const tr = state.tr;
+  tr.replace(showStatusPickerAt, showStatusPickerAt + 1);
+
+  if (dispatch) {
+    dispatch(tr);
+  }
+  return true;
+};
+
 export const commitStatusPicker = () => (editorView: EditorView) => {
   const { state, dispatch } = editorView;
   const { showStatusPickerAt } = pluginKey.getState(state);

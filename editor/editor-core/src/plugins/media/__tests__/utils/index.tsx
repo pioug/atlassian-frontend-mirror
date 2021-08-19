@@ -33,6 +33,7 @@ import {
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import sleep from '@atlaskit/editor-test-helpers/sleep';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
+import { uuid } from '@atlaskit/adf-schema';
 
 import mediaPlugin from '../../../../plugins/media';
 import { stateKey as mediaPluginKey } from '../../../../plugins/media/pm-plugins/plugin-key';
@@ -82,8 +83,17 @@ const pdfFile = {
   dimensions: { width: 200, height: 200 },
   fileId: Promise.resolve('pdf'),
 };
+const TABLE_LOCAL_ID = 'test-table-local-id';
 
 describe('Media plugin', () => {
+  beforeAll(() => {
+    uuid.setStatic(TABLE_LOCAL_ID);
+  });
+
+  afterAll(() => {
+    uuid.setStatic(false);
+  });
+
   const createEditor = createEditorFactory<MediaPluginState>();
 
   const contextIdentifierProvider = storyContextIdentifierProviderFactory();
@@ -425,7 +435,7 @@ describe('Media plugin', () => {
 
           expect(editorView.state.doc).toEqualDocument(
             doc(
-              table()(
+              table({ localId: TABLE_LOCAL_ID })(
                 tr(
                   td({})(
                     mediaSingle({ layout: 'center' })(
@@ -473,7 +483,7 @@ describe('Media plugin', () => {
           // Different from media single that those optional properties are copied over only when the thumbnail is ready in media group.
           expect(editorView.state.doc).toEqualDocument(
             doc(
-              table()(
+              table({ localId: TABLE_LOCAL_ID })(
                 tr(
                   td({})(
                     mediaSingle({ layout: 'center' })(

@@ -106,14 +106,17 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
           });
         }
 
-        it('should fire an "opened" event on mount', async () => {
+        it('should fire an "opened" when extensionManifest is initially loaded', async () => {
           await mountBasic();
 
           expect(mockCreateAnalyticsEvent).toHaveBeenCalledWith({
             action: 'opened',
             actionSubject: 'configPanel',
             eventType: 'ui',
-            attributes: {},
+            attributes: {
+              extensionType: 'twp.editor.test',
+              extensionKey: 'just-for-tests',
+            },
           });
         });
 
@@ -124,7 +127,10 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
             action: 'closed',
             actionSubject: 'configPanel',
             eventType: 'ui',
-            attributes: {},
+            attributes: {
+              extensionType: 'twp.editor.test',
+              extensionKey: 'just-for-tests',
+            },
           });
         });
       });

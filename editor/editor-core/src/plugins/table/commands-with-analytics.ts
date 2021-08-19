@@ -21,6 +21,7 @@ import {
 } from '../analytics';
 
 import { clearMultipleCells } from './commands/clear';
+import { wrapTableInExpand } from './commands/collapse';
 import { insertColumn, insertRow } from './commands/insert';
 import {
   deleteTable,
@@ -468,4 +469,20 @@ export const distributeColumnsWidthsWithAnalytics = (
   });
 };
 
+export const wrapTableInExpandWithAnalytics = () =>
+  withAnalytics((state) => {
+    const { totalRowCount, totalColumnCount } = getSelectedTableInfo(
+      state.selection,
+    );
+    return {
+      action: TABLE_ACTION.COLLAPSED,
+      actionSubject: ACTION_SUBJECT.TABLE,
+      actionSubjectId: null,
+      attributes: {
+        totalRowCount,
+        totalColumnCount,
+      },
+      eventType: EVENT_TYPE.TRACK,
+    };
+  })(wrapTableInExpand);
 // #endregion

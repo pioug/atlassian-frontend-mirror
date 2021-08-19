@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 /* eslint-disable react/no-multi-comp */
 import React, { ReactNode, useState } from 'react';
 

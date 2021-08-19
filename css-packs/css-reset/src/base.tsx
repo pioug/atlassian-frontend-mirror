@@ -54,7 +54,7 @@ export default evaluateInner`
     text-decoration: none;
   }
   a:hover {
-    color: ${token('color.text.link.hover', colors.B300)};
+    color: ${token('color.text.link.resting', colors.B300)};
     text-decoration: underline;
   }
   a:active {

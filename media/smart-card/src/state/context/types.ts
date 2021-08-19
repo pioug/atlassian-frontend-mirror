@@ -24,9 +24,10 @@ export interface CardContext {
   renderers?: CardProviderRenderers;
 }
 
+/** @deprecated Feature removed (EDM-2205) */
 export interface CardProviderCacheOpts {
-  maxAge: number;
-  maxLoadingDelay: number;
+  maxAge?: number;
+  maxLoadingDelay?: number;
 }
 
 export interface CardProviderStoreOpts {
@@ -40,6 +41,7 @@ export interface CardProviderRenderers {
 
 export type CardProviderProps = {
   client?: CardClient;
+  /** @deprecated Feature removed (EDM-2205) */
   cacheOptions?: CardProviderCacheOpts;
   storeOptions?: CardProviderStoreOpts;
   children: React.ReactNode;

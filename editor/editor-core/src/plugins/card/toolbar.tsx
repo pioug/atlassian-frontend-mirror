@@ -46,6 +46,7 @@ import { isSafeUrl } from '@atlaskit/adf-schema';
 import { LinkToolbarAppearance } from './ui/LinkToolbarAppearance';
 import { messages } from './messages';
 import buildLayoutButtons from '../../ui/MediaAndEmbedsToolbar';
+import { buildVisitedLinkPayload } from '../../utils/linking-utils';
 
 export const removeCard: Command = (state, dispatch) => {
   if (!(state.selection instanceof NodeSelection)) {
@@ -81,24 +82,23 @@ export const visitCardLink: Command = (state, dispatch) => {
   const { type } = state.selection.node;
   const { url } = titleUrlPairFromNode(state.selection.node);
 
-  const payload: AnalyticsEventPayload = {
-    action: ACTION.VISITED,
-    actionSubject: ACTION_SUBJECT.SMART_LINK,
-    actionSubjectId: type.name as
-      | ACTION_SUBJECT_ID.CARD_INLINE
-      | ACTION_SUBJECT_ID.CARD_BLOCK,
-    attributes: {
-      inputMethod: INPUT_METHOD.TOOLBAR,
-    },
-    eventType: EVENT_TYPE.TRACK,
-  };
-
   // All card links should open in the same tab per https://product-fabric.atlassian.net/browse/MS-1583.
   // We are in edit mode here, open the smart card URL in a new window.
   window.open(url);
 
   if (dispatch) {
-    dispatch(addAnalytics(state, state.tr, payload));
+    dispatch(
+      addAnalytics(
+        state,
+        state.tr,
+        buildVisitedLinkPayload(
+          type.name as
+            | ACTION_SUBJECT_ID.CARD_INLINE
+            | ACTION_SUBJECT_ID.CARD_BLOCK
+            | ACTION_SUBJECT_ID.EMBEDS,
+        ),
+      ),
+    );
   }
   return true;
 };
@@ -139,6 +139,8 @@ const generateDeleteButton = (
     icon: RemoveIcon,
     onMouseEnter: hoverDecoration(node.type, true),
     onMouseLeave: hoverDecoration(node.type, false),
+    onFocus: hoverDecoration(node.type, true),
+    onBlur: hoverDecoration(node.type, false),
     title: intl.formatMessage(commonMessages.remove),
     onClick: removeCard,
   };

@@ -1,5 +1,7 @@
 import { useCallback, useRef } from 'react';
 
+import { ESCAPE } from '../utils/keycodes';
+
 import useDocumentEvent from './use-document-event';
 
 export type NativeKeyboardEventHandler = (e: KeyboardEvent) => void;
@@ -29,7 +31,7 @@ export default function useCloseOnEscapePress({
 
   const onKeyDown: NativeKeyboardEventHandler = useCallback(
     (e) => {
-      if (isDisabled || escapePressed.current || e.key !== 'Escape') {
+      if (isDisabled || escapePressed.current || e.key !== ESCAPE) {
         // We're either already handling the key down event or it's not escape.
         // Bail early!
         return;

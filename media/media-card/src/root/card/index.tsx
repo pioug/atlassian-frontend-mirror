@@ -11,10 +11,7 @@ import {
 } from '@atlaskit/analytics-next';
 import { withMediaAnalyticsContext } from '@atlaskit/media-common';
 import DownloadIcon from '@atlaskit/icon/glyph/download';
-import {
-  FileAttributes,
-  isMimeTypeSupportedByBrowser,
-} from '@atlaskit/media-common';
+import { FileAttributes } from '@atlaskit/media-common';
 import {
   addFileAttrsToUrl,
   FileDetails,
@@ -28,7 +25,7 @@ import {
   MediaClient,
   MediaViewedEventPayload,
   RECENTS_COLLECTION,
-  isPreviewableType,
+  isImageRepresentationReady,
 } from '@atlaskit/media-client';
 import { MediaViewer, MediaViewerDataSource } from '@atlaskit/media-viewer';
 import { Subscription } from 'rxjs/Subscription';
@@ -44,14 +41,17 @@ import { CardView } from '../cardView';
 import { ViewportDetector } from '../../utils/viewportDetector';
 import { getDataURIDimension } from '../../utils/getDataURIDimension';
 import {
+  shouldGetCardPreview,
+  extractFilePreviewStatus,
   CardPreview,
-  getCardPreviewFromFileState,
-  getCardPreviewFromBackend,
+  getCardPreview,
+  getCardPreviewFromCache,
+  getFilePreviewFromFileState,
+  CardPreviewParams,
 } from './getCardPreview';
 import { getFileDetails } from '../../utils/metadata';
 import { isBigger } from '../../utils/dimensionComparer';
-import { createObjectURLCache } from '../../utils/objectURLCache';
-import { getCardStatus, extractCardStatusParams } from './getCardStatus';
+import { getCardStatus } from './getCardStatus';
 import { InlinePlayer } from '../inlinePlayer';
 import {
   fireMediaCardEvent,
@@ -61,7 +61,7 @@ import {
 } from '../../utils/analytics';
 import { FileAttributesProvider } from '../../utils/fileAttributesContext';
 import {
-  isLocalPreviewError,
+  isRemotePreviewError,
   MediaCardError,
   ensureMediaCardError,
 } from '../../errors';
@@ -71,8 +71,6 @@ import {
 } from './cardAnalytics';
 
 export type CardWithAnalyticsEventsProps = CardProps & WithAnalyticsEventsProps;
-
-const cardPreviewCache = createObjectURLCache();
 
 export class CardBase extends Component<
   CardWithAnalyticsEventsProps,
@@ -107,8 +105,7 @@ export class CardBase extends Component<
 
     if (isFileIdentifier(identifier)) {
       const { id } = identifier;
-      const cacheKey = this.getPreviewCacheKey(id, dimensions);
-      cardPreview = cardPreviewCache.get(cacheKey);
+      cardPreview = getCardPreviewFromCache(id, dimensions);
     }
 
     /**
@@ -141,12 +138,6 @@ export class CardBase extends Component<
         this.fireFileCopiedEvent();
       }
     }
-  };
-
-  private getPreviewCacheKey = (id: string, dimensions: CardDimensions) => {
-    // Dimensions are used to create a key.
-    // Cache is invalidated when different dimensions are provided.
-    return [id, dimensions.height, dimensions.width].join('-');
   };
 
   componentDidMount() {
@@ -190,20 +181,21 @@ export class CardBase extends Component<
     }
   }
 
-  static getDerivedStateFromProps = (props: CardProps) => {
+  static getDerivedStateFromProps = (
+    props: CardProps,
+  ): Partial<CardState> | null => {
     const { identifier } = props;
     if (identifier.mediaItemType === 'external-image') {
       const { dataURI } = identifier;
-
       return {
         status: 'complete',
         cardPreview: {
           dataURI,
           orientation: 1,
+          source: 'external',
         },
       };
     }
-
     return null;
   };
 
@@ -240,7 +232,12 @@ export class CardBase extends Component<
     !this.lastCardStatusUpdateTimestamp ||
     this.lastCardStatusUpdateTimestamp <= cardStatusUpdateTimestamp;
 
-  private getRequestedDimensions(): NumericalCardDimensions {
+  private onLocalPreviewError = (error: MediaCardError) => {
+    // TODO: track local preview success rate
+    // https://product-fabric.atlassian.net/browse/MEX-774
+  };
+
+  private get requestedDimensions(): NumericalCardDimensions {
     const { dimensions } = this.props;
     const { cardRef } = this.state;
     const options = {
@@ -255,18 +252,18 @@ export class CardBase extends Component<
     };
   }
 
-  private addContextToDataURI(
-    dataURI: string,
+  private createAddContextToDataURI = (
     fileId: string,
-    metadata: FileDetails,
+    fileState: FileState,
     { width, height }: NumericalCardDimensions,
     collectionName?: string,
-  ): string {
+  ) => (dataURI: string): string => {
     const { contextId, alt } = this.props;
 
     if (!contextId) {
       return dataURI;
     }
+    const metadata = getFileDetails(fileState);
 
     return addFileAttrsToUrl(dataURI, {
       id: fileId,
@@ -279,76 +276,37 @@ export class CardBase extends Component<
       height,
       alt,
     });
-  }
+  };
 
-  private getCardPreview = async (
-    mediaClient: MediaClient,
-    identifier: FileIdentifier,
+  getCardPreviewParams = (
+    id: string,
+    collectionName: string | undefined,
     fileState: FileState,
-    metadata: FileDetails,
-  ): Promise<CardPreview | undefined> => {
+  ): CardPreviewParams => {
+    const { requestedDimensions, onLocalPreviewError } = this;
     const {
       dimensions = {},
       originalDimensions,
       resizeMode,
-      featureFlags,
+      mediaClient,
     } = this.props;
-    const { id, collectionName } = identifier;
-
-    // We aren't using the component state here, as cardPreviewCache has a shorter lifecycle
-    const cacheKey = this.getPreviewCacheKey(id, dimensions);
-    if (cardPreviewCache.has(cacheKey)) {
-      return cardPreviewCache.get(cacheKey);
-    }
-
-    // don't use error fileStates
-    if (isErrorFileState(fileState)) {
-      return;
-    }
-
-    const { mediaType, mimeType } = fileState;
-    const requestedDimensions = this.getRequestedDimensions();
-
-    // TODO: align these checks with helpers from Media Client
-    // https://product-fabric.atlassian.net/browse/BMPT-1300
-    const shouldUseLocalPreview =
-      mediaType !== 'doc' &&
-      !!mimeType &&
-      isMimeTypeSupportedByBrowser(mimeType);
-
-    const previewableType = isPreviewableType(mediaType, featureFlags);
-
-    const cardPreview =
-      (shouldUseLocalPreview &&
-        (await getCardPreviewFromFileState(fileState))) ||
-      (previewableType &&
-        (await getCardPreviewFromBackend(
-          mediaClient,
-          identifier,
-          fileState,
-          requestedDimensions,
-          resizeMode,
-        )));
-
-    if (cardPreview) {
-      if (cardPreview.dataURI) {
-        // In case we've retrieved cardPreview using one of the two methods above,
-        // we want to embed some meta context into dataURI for Copy/Paste to work.
-        const contextDimensions = originalDimensions || requestedDimensions;
-        cardPreview.dataURI = this.addContextToDataURI(
-          cardPreview.dataURI,
-          id,
-          metadata,
-          contextDimensions,
-          collectionName,
-        );
-      }
-
-      // We store new cardPreview into cache
-      cardPreviewCache.set(cacheKey, cardPreview);
-
-      return cardPreview;
-    }
+    return {
+      mediaClient,
+      id,
+      collectionName,
+      dimensions,
+      resizeMode,
+      requestedDimensions,
+      onLocalPreviewError,
+      filePreview: getFilePreviewFromFileState(fileState),
+      isRemotePreviewReady: isImageRepresentationReady(fileState),
+      addContextToDataURI: this.createAddContextToDataURI(
+        id,
+        fileState,
+        originalDimensions || this.requestedDimensions,
+        collectionName,
+      ),
+    };
   };
 
   subscribeInternalFile(identifier: FileIdentifier, mediaClient: MediaClient) {
@@ -360,31 +318,36 @@ export class CardBase extends Component<
           this.lastFileState = fileState;
 
           const thisCardStatusUpdateTimestamp = (performance || Date).now();
-          let status = getCardStatus(
-            fileState.status,
-            extractCardStatusParams(fileState, this.props.featureFlags),
+
+          const filePreviewStatus = extractFilePreviewStatus(
+            fileState,
+            this.props.featureFlags,
           );
+          let status = getCardStatus(fileState.status, filePreviewStatus);
           this.safeSetState({ fileState });
 
           let cardPreview: CardPreview | undefined;
           let error: MediaCardError | undefined;
-          try {
-            cardPreview = await this.getCardPreview(
-              mediaClient,
-              identifier,
-              fileState,
-              getFileDetails(fileState),
-            );
-          } catch (e) {
-            const wrappedError = ensureMediaCardError('preview-fetch', e);
-            // If the local preview fails, we don't need to display the error.
-            // TODO: if file has local preview card will be complete status. But if the local preview fails,
-            // and we don't change the status, we will have
-            // [ !cardPreview && status == complete -> log succeeded event ]
-            // https://product-fabric.atlassian.net/browse/BMPT-1315
-            if (!isLocalPreviewError(wrappedError)) {
-              status = 'error';
-              error = wrappedError;
+
+          if (shouldGetCardPreview(status, filePreviewStatus)) {
+            try {
+              cardPreview = await getCardPreview(
+                this.getCardPreviewParams(id, collectionName, fileState),
+              );
+              if (['loading-preview', 'processing'].includes(status)) {
+                status = 'complete';
+              }
+            } catch (e) {
+              const wrappedError = ensureMediaCardError('preview-fetch', e);
+              /**
+               * If remote preview fails, we set status 'error'
+               * If the local preview fails (i.e, no remote preview available),
+               * we can stay in the same status until there is a remote preview available
+               * */
+              if (isRemotePreviewError(wrappedError)) {
+                status = 'error';
+                error = wrappedError;
+              }
             }
           }
 

@@ -27,6 +27,8 @@ export const getToolbarConfig: FloatingToolbarHandler = (
           onClick: deleteExpand(),
           onMouseEnter: hoverDecoration([nestedExpand, expand], true),
           onMouseLeave: hoverDecoration([nestedExpand, expand], false),
+          onFocus: hoverDecoration([nestedExpand, expand], true),
+          onBlur: hoverDecoration([nestedExpand, expand], false),
           title: formatMessage(commonMessages.remove),
         },
       ],

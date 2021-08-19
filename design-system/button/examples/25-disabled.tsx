@@ -3,9 +3,7 @@ import { useState } from 'react';
 
 import { jsx } from '@emotion/core';
 
-// AFP-2532 TODO: Fix automatic suppressions below
-// eslint-disable-next-line @atlassian/tangerine/import/entry-points
-import { gridSize } from '@atlaskit/theme';
+import { gridSize } from '@atlaskit/theme/constants';
 
 import Button, { ButtonGroup } from '../src';
 

@@ -25,14 +25,14 @@ export default {
     'Vi kunde inte läsa in listan. Uppdatera sidan och försök igen.',
   'fabric.atlassianSwitcher.errorTextUnverified':
     'Bekräfta din e-postadress för att visa en lista över tillgängliga produkter.',
-  'fabric.atlassianSwitcher.gittools.description': 'Bitbucket, GitHub med mera',
-  'fabric.atlassianSwitcher.gittools.label': 'Git-integrationer för Jira',
+  'fabric.atlassianSwitcher.free': 'Free',
   'fabric.atlassianSwitcher.jiraProject': 'Jira-projekt',
   'fabric.atlassianSwitcher.join': 'Delta',
   'fabric.atlassianSwitcher.login': 'Logga in',
   'fabric.atlassianSwitcher.manageList': 'Hantera lista',
   'fabric.atlassianSwitcher.more': 'Mer',
   'fabric.atlassianSwitcher.moreAtlassianProducts': 'Fler Atlassian-produkter',
+  'fabric.atlassianSwitcher.product.description.compass': 'Komponenthanterare',
   'fabric.atlassianSwitcher.product.description.confluence':
     'Dokumentsamarbete',
   'fabric.atlassianSwitcher.product.description.jsm':

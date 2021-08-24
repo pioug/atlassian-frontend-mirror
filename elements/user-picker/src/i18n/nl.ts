@@ -7,10 +7,6 @@
 // Dutch
 export default {
   'fabric.elements.user-picker.email.add': 'Gebruiker toevoegen',
-  'fabric.elements.user-picker.email.add.potential':
-    'Voer het e-mailadres in dat je wilt uitnodigen',
-  'fabric.elements.user-picker.email.select.to.add':
-    'Selecteer om uit te nodigen',
   'fabric.elements.user-picker.external.sourced.from': 'Gevonden in:',
   'fabric.elements.user-picker.github.provider': 'GitHub',
   'fabric.elements.user-picker.google.provider': 'Google',

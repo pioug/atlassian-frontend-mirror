@@ -25,9 +25,7 @@ export default {
     'เราไม่สามารถดาวน์โหลดรายการนี้ได้ โปรดดาวน์โหลดหน้าข้อมูลใหม่แล้วลองอีกครั้ง',
   'fabric.atlassianSwitcher.errorTextUnverified':
     'โปรดยืนยันที่อยู่อีเมลของคุณเพื่อดูรายการผลิตภัณฑ์ที่มีอยู่',
-  'fabric.atlassianSwitcher.gittools.description':
-    'Bitbucket, GitHub และอีกมากมาย',
-  'fabric.atlassianSwitcher.gittools.label': 'การผสานรวม Git สำหรับ Jira',
+  'fabric.atlassianSwitcher.free': 'ฟรี',
   'fabric.atlassianSwitcher.jiraProject': 'โปรเจกต์ Jira',
   'fabric.atlassianSwitcher.join': 'เข้าร่วม',
   'fabric.atlassianSwitcher.login': 'เข้าสู่ระบบ',
@@ -35,6 +33,8 @@ export default {
   'fabric.atlassianSwitcher.more': 'เพิ่มเติม',
   'fabric.atlassianSwitcher.moreAtlassianProducts':
     'ผลิตภัณฑ์อื่น ๆ ของ Atlassian',
+  'fabric.atlassianSwitcher.product.description.compass':
+    'เครื่องมือจัดการส่วนประกอบ',
   'fabric.atlassianSwitcher.product.description.confluence': 'การรวบรวมเอกสาร',
   'fabric.atlassianSwitcher.product.description.jsm':
     'การจัดการบริการด้าน IT แบบร่วมกัน',

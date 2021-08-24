@@ -7,8 +7,6 @@
 // Chinese
 export default {
   'fabric.elements.user-picker.email.add': '添加用户',
-  'fabric.elements.user-picker.email.add.potential': '输入电子邮件以便邀请',
-  'fabric.elements.user-picker.email.select.to.add': '选择以便邀请',
   'fabric.elements.user-picker.external.sourced.from': '发现位置：',
   'fabric.elements.user-picker.github.provider': 'GitHub',
   'fabric.elements.user-picker.google.provider': 'Google',

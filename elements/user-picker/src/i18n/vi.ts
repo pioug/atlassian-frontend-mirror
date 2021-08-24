@@ -7,8 +7,6 @@
 // Vietnamese
 export default {
   'fabric.elements.user-picker.email.add': 'Thêm người dùng',
-  'fabric.elements.user-picker.email.add.potential': 'Nhập email để mời',
-  'fabric.elements.user-picker.email.select.to.add': 'Chọn để mời',
   'fabric.elements.user-picker.external.sourced.from': 'Tìm thấy trong:',
   'fabric.elements.user-picker.github.provider': 'GitHub',
   'fabric.elements.user-picker.google.provider': 'Google',

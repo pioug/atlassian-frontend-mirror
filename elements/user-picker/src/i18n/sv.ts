@@ -7,9 +7,6 @@
 // Swedish
 export default {
   'fabric.elements.user-picker.email.add': 'Lägg till användare',
-  'fabric.elements.user-picker.email.add.potential':
-    'Ange e-postadress för inbjudan',
-  'fabric.elements.user-picker.email.select.to.add': 'Välj för att bjuda in',
   'fabric.elements.user-picker.external.sourced.from': 'Hittades i:',
   'fabric.elements.user-picker.github.provider': 'GitHub',
   'fabric.elements.user-picker.google.provider': 'Google',

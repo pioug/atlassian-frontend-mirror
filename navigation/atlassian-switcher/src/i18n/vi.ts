@@ -25,9 +25,7 @@ export default {
     'Chúng tôi không thể tải danh sách này. Vui lòng tải lại trang và thử lại.',
   'fabric.atlassianSwitcher.errorTextUnverified':
     'Vui lòng xác nhận địa chỉ email của bạn để xem danh sách các sản phẩm hiện có.',
-  'fabric.atlassianSwitcher.gittools.description':
-    'Bitbucket, GitHub và nhiều dịch vụ khác',
-  'fabric.atlassianSwitcher.gittools.label': 'Các tích hợp Git cho Jira',
+  'fabric.atlassianSwitcher.free': 'Miễn phí',
   'fabric.atlassianSwitcher.jiraProject': 'Dự án Jira',
   'fabric.atlassianSwitcher.join': 'Tham gia',
   'fabric.atlassianSwitcher.login': 'Đăng nhập',
@@ -35,10 +33,10 @@ export default {
   'fabric.atlassianSwitcher.more': 'Khác',
   'fabric.atlassianSwitcher.moreAtlassianProducts':
     'Sản phẩm khác của Atlassian',
-  'fabric.atlassianSwitcher.product.description.confluence':
-    'Cộng tác tài liệu',
   'fabric.atlassianSwitcher.product.description.compass':
     'Nhà quản lý thành phần',
+  'fabric.atlassianSwitcher.product.description.confluence':
+    'Cộng tác tài liệu',
   'fabric.atlassianSwitcher.product.description.jsm':
     'Quản lý dịch vụ CNTT cộng tác',
   'fabric.atlassianSwitcher.product.description.jsw': 'Theo dõi dự án và lỗi',

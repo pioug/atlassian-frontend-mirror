@@ -24,9 +24,7 @@ export default {
     'Bu liste yüklenemedi. Lütfen sayfayı yeniden yükleyin ve tekrar deneyin.',
   'fabric.atlassianSwitcher.errorTextUnverified':
     'Kullanabileceğiniz ürünlerin listesini görmek için lütfen e-posta adresinizi doğrulayın.',
-  'fabric.atlassianSwitcher.gittools.description':
-    'Bitbucket, GitHub ve daha fazlası',
-  'fabric.atlassianSwitcher.gittools.label': 'Jira için Git tümleştirmeleri',
+  'fabric.atlassianSwitcher.free': 'Ücretsiz',
   'fabric.atlassianSwitcher.jiraProject': 'Jira projesi',
   'fabric.atlassianSwitcher.join': 'Katılın',
   'fabric.atlassianSwitcher.login': 'Oturum aç',
@@ -34,6 +32,7 @@ export default {
   'fabric.atlassianSwitcher.more': 'Diğer',
   'fabric.atlassianSwitcher.moreAtlassianProducts':
     'Daha fazla Atlassian ürünü',
+  'fabric.atlassianSwitcher.product.description.compass': 'Bileşen yöneticisi',
   'fabric.atlassianSwitcher.product.description.confluence': 'Belge paylaşımı',
   'fabric.atlassianSwitcher.product.description.jsm':
     'İş birliğine dayalı BT hizmeti yönetimi',
@@ -49,6 +48,9 @@ export default {
     '{productLabel} ürününe katılın',
   'fabric.atlassianSwitcher.sign.up.to.join.image':
     'Birden fazla holografik ekrana bakan bir ekip',
+  'fabric.atlassianSwitcher.slackIntegrationLink': 'Slack',
+  'fabric.atlassianSwitcher.slackIntegrationLinkDescription':
+    "Slack'i Atlassian ürünlerinizle entegre edin",
   'fabric.atlassianSwitcher.start': 'Atlassian Başlangıç',
   'fabric.atlassianSwitcher.switchTo': 'Şuna geçin',
   'fabric.atlassianSwitcher.switchToTooltip': 'Şuna geçin…',

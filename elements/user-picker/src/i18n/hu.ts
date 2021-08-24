@@ -7,10 +7,6 @@
 // Hungarian
 export default {
   'fabric.elements.user-picker.email.add': 'Felhasználó hozzáadása',
-  'fabric.elements.user-picker.email.add.potential':
-    'A meghíváshoz írd be az e-mail-címet',
-  'fabric.elements.user-picker.email.select.to.add':
-    'Jelöld ki a meghívandó személyeket',
   'fabric.elements.user-picker.external.sourced.from': 'Itt található:',
   'fabric.elements.user-picker.github.provider': 'GitHub',
   'fabric.elements.user-picker.google.provider': 'Google',

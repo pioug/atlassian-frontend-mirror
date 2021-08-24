@@ -25,14 +25,15 @@ export default {
     'Não foi possível carregar esta lista. Recarregue a página e tente novamente.',
   'fabric.atlassianSwitcher.errorTextUnverified':
     'Confirme o endereço de e-mail para ver uma lista de produtos disponíveis.',
-  'fabric.atlassianSwitcher.gittools.description': 'Bitbucket, GitHub e mais',
-  'fabric.atlassianSwitcher.gittools.label': 'Integrações de Git para Jira',
+  'fabric.atlassianSwitcher.free': 'Grátis',
   'fabric.atlassianSwitcher.jiraProject': 'Projeto do Jira',
   'fabric.atlassianSwitcher.join': 'Entrar',
   'fabric.atlassianSwitcher.login': 'Entrar',
   'fabric.atlassianSwitcher.manageList': 'Gerenciar lista',
   'fabric.atlassianSwitcher.more': 'Mais',
   'fabric.atlassianSwitcher.moreAtlassianProducts': 'Mais produtos Atlassian',
+  'fabric.atlassianSwitcher.product.description.compass':
+    'Gerenciador de componentes',
   'fabric.atlassianSwitcher.product.description.confluence':
     'Colaboração de documentos',
   'fabric.atlassianSwitcher.product.description.jsm':
@@ -49,6 +50,9 @@ export default {
   'fabric.atlassianSwitcher.sign.up.to.join.header': 'Entrar no {productLabel}',
   'fabric.atlassianSwitcher.sign.up.to.join.image':
     'Equipe olhando para diversas telas holográficas',
+  'fabric.atlassianSwitcher.slackIntegrationLink': 'Slack',
+  'fabric.atlassianSwitcher.slackIntegrationLinkDescription':
+    'Integrar o Slack com seus produtos Atlassian',
   'fabric.atlassianSwitcher.start': 'Página inicial da Atlassian',
   'fabric.atlassianSwitcher.switchTo': 'Alternar para',
   'fabric.atlassianSwitcher.switchToTooltip': 'Alternar para…',

@@ -7,10 +7,6 @@
 // Slovak
 export default {
   'fabric.elements.user-picker.email.add': 'Pridať používateľa',
-  'fabric.elements.user-picker.email.add.potential':
-    'Ak chcete vytvoriť pozvánku, zadajte e-mail',
-  'fabric.elements.user-picker.email.select.to.add':
-    'Ak chcete vytvoriť pozvánku, vyberte možnosť',
   'fabric.elements.user-picker.group.byline': 'Skupina spravovaná správcom',
   'fabric.elements.user-picker.multi.remove-item': 'Odstrániť',
   'fabric.elements.user-picker.placeholder': 'Zadajte ľudí alebo tímy...',

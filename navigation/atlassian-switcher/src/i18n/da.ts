@@ -25,14 +25,15 @@ export default {
     'We couldn’t load this list. Please reload the page and try again.',
   'fabric.atlassianSwitcher.errorTextUnverified':
     'Bekræft din e-mailadresse for at få vist en liste over tilgængelige produkter.',
-  'fabric.atlassianSwitcher.gittools.description': 'Bitbucket, GitHub m.m.',
-  'fabric.atlassianSwitcher.gittools.label': 'Git-integreringer til Jira',
+  'fabric.atlassianSwitcher.free': 'Gratis',
   'fabric.atlassianSwitcher.jiraProject': 'Jira-projekt',
   'fabric.atlassianSwitcher.join': 'Tilmeld',
   'fabric.atlassianSwitcher.login': 'Log in',
   'fabric.atlassianSwitcher.manageList': 'Administrér liste',
   'fabric.atlassianSwitcher.more': 'Mere',
   'fabric.atlassianSwitcher.moreAtlassianProducts': 'Flere Atlassian-produkter',
+  'fabric.atlassianSwitcher.product.description.compass':
+    'Komponentadministrator',
   'fabric.atlassianSwitcher.product.description.confluence':
     'Dokumentsamarbejde',
   'fabric.atlassianSwitcher.product.description.jsm':

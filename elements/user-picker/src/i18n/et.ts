@@ -7,9 +7,6 @@
 // Estonian
 export default {
   'fabric.elements.user-picker.email.add': 'Lisage kasutaja',
-  'fabric.elements.user-picker.email.add.potential':
-    'Sisestage kutsumiseks meiliaadress',
-  'fabric.elements.user-picker.email.select.to.add': 'Valige kutsumiseks',
   'fabric.elements.user-picker.group.byline': 'Administraatori hallatav rühm',
   'fabric.elements.user-picker.multi.remove-item': 'Eemalda',
   'fabric.elements.user-picker.placeholder': 'Sisesta inimesi või meeskondi...',

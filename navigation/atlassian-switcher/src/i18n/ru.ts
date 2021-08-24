@@ -24,15 +24,15 @@ export default {
     'Не удалось загрузить список. Обновите страницу и повторите попытку.',
   'fabric.atlassianSwitcher.errorTextUnverified':
     'Подтвердите электронный адрес, чтобы увидеть список доступных продуктов.',
-  'fabric.atlassianSwitcher.gittools.description':
-    'Bitbucket, GitHub и многое другое',
-  'fabric.atlassianSwitcher.gittools.label': 'Интеграции Git для Jira',
+  'fabric.atlassianSwitcher.free': 'Бесплатно',
   'fabric.atlassianSwitcher.jiraProject': 'Проект Jira',
   'fabric.atlassianSwitcher.join': 'Подключение',
   'fabric.atlassianSwitcher.login': 'Войти',
   'fabric.atlassianSwitcher.manageList': 'Изменить список',
   'fabric.atlassianSwitcher.more': 'Еще',
   'fabric.atlassianSwitcher.moreAtlassianProducts': 'Другие продукты Atlassian',
+  'fabric.atlassianSwitcher.product.description.compass':
+    'Диспетчер компонентов',
   'fabric.atlassianSwitcher.product.description.confluence':
     'Совместная работа над документами',
   'fabric.atlassianSwitcher.product.description.jsm':

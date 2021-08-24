@@ -25,14 +25,15 @@ export default {
     'このリストを読み込めませんでした。ページを読み込み直してもう一度お試しください。',
   'fabric.atlassianSwitcher.errorTextUnverified':
     '利用可能な製品の一覧を見るには、メールアドレスを確認してください。',
-  'fabric.atlassianSwitcher.gittools.description': 'Bitbucket、GitHub など',
-  'fabric.atlassianSwitcher.gittools.label': 'Jira 向け Git 統合',
+  'fabric.atlassianSwitcher.free': 'Free',
   'fabric.atlassianSwitcher.jiraProject': 'Jira プロジェクト',
   'fabric.atlassianSwitcher.join': '参加',
   'fabric.atlassianSwitcher.login': 'ログイン',
   'fabric.atlassianSwitcher.manageList': 'リストの管理',
   'fabric.atlassianSwitcher.more': 'その他',
   'fabric.atlassianSwitcher.moreAtlassianProducts': 'その他のアトラシアン製品',
+  'fabric.atlassianSwitcher.product.description.compass':
+    'コンポーネント マネージャー',
   'fabric.atlassianSwitcher.product.description.confluence':
     'ドキュメント コラボレーション',
   'fabric.atlassianSwitcher.product.description.jsm':

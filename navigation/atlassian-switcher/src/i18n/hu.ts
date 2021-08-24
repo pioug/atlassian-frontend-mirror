@@ -25,9 +25,6 @@ export default {
     'Nem sikerült betölteni ezt a listát. Frissítsd az oldalt, és próbáld meg újra.',
   'fabric.atlassianSwitcher.errorTextUnverified':
     'Erősítsd meg az e-mail-címedet, hogy megnézhesd az elérhető termékek listáját.',
-  'fabric.atlassianSwitcher.gittools.description':
-    'Bitbucket, GitHub és egyebek',
-  'fabric.atlassianSwitcher.gittools.label': 'Git-integrációk a Jirához',
   'fabric.atlassianSwitcher.jiraProject': 'Jira projekt',
   'fabric.atlassianSwitcher.join': 'Csatlakozás',
   'fabric.atlassianSwitcher.login': 'Bejelentkezés',
@@ -35,6 +32,7 @@ export default {
   'fabric.atlassianSwitcher.more': 'Továbbiak',
   'fabric.atlassianSwitcher.moreAtlassianProducts':
     'További Atlassian-termékek',
+  'fabric.atlassianSwitcher.product.description.compass': 'Komponenskezelő',
   'fabric.atlassianSwitcher.product.description.confluence':
     'Együttműködés dokumentumokon',
   'fabric.atlassianSwitcher.product.description.jsm':

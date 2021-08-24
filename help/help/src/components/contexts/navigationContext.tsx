@@ -98,10 +98,8 @@ export const NavigationContextProvider: React.FC<NavigationProviderInterface> = 
     historySetter && historySetter(tempHistory.current);
 
     // Set article ID to ''
-    if (articleId?.id !== '') {
-      articleIdSetter({ id: '', type: ARTICLE_TYPE.HELP_ARTICLE });
-    }
-  }, [articleIdSetter, historySetter, articleId]);
+    articleIdSetter({ id: '', type: ARTICLE_TYPE.HELP_ARTICLE });
+  }, [articleIdSetter, historySetter]);
 
   const isDefaultContentDefined = useCallback((): boolean => {
     return homeContent !== undefined || homeOptions !== undefined;
@@ -384,16 +382,6 @@ export const NavigationContextProvider: React.FC<NavigationProviderInterface> = 
       return;
     }
 
-    /**
-     * If the user is in the "What's new" search screen, set the articleId === { id: '', type: ARTICLE_TYPE.HELP_ARTICLE }
-     * to display the default content
-     */
-    if (view === VIEW.WHATS_NEW) {
-      articleIdSetter({ id: '', type: ARTICLE_TYPE.HELP_ARTICLE });
-      updateView();
-      return;
-    }
-
     //  if the history is not empty and ...
     if (tempHistory.current.length > 0) {
       // the history has more than one article, navigate back through the history
@@ -442,7 +430,6 @@ export const NavigationContextProvider: React.FC<NavigationProviderInterface> = 
     getCurrentArticle,
     historySetter,
     onSearch,
-    updateView,
     view,
   ]);
 
@@ -464,7 +451,16 @@ export const NavigationContextProvider: React.FC<NavigationProviderInterface> = 
       return;
     }
 
-    if (articleId && articleId.id) {
+    /**
+     * If the article type is HELP_ARTICLE and the ID is defined we add a new historyItem
+     *
+     * If the article type is WHATS_NEW it doesn't matter if the the articleId.id is defined or not, we want
+     * to add it to the history
+     */
+    if (
+      (articleId?.type === ARTICLE_TYPE.HELP_ARTICLE && articleId?.id) ||
+      articleId?.type === ARTICLE_TYPE.WHATS_NEW
+    ) {
       // get the last History Item
       const lastHistoryItem = getCurrentArticle();
       // If the last history item articleId isn't different to the current articleId don't do anything
@@ -495,7 +491,7 @@ export const NavigationContextProvider: React.FC<NavigationProviderInterface> = 
         }
       } else {
         // If article ID is empty clear the history
-        if (articleId.type === ARTICLE_TYPE.HELP_ARTICLE) {
+        if (history.length > 0) {
           clearHistory();
         }
       }
@@ -507,6 +503,7 @@ export const NavigationContextProvider: React.FC<NavigationProviderInterface> = 
     fetchArticleData,
     getCurrentArticle,
     updateHistoryItem,
+    history.length,
   ]);
 
   /**

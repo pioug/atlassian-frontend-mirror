@@ -25,14 +25,15 @@ export default {
     'Tätä luetteloa ei voitu ladata. Lataa sivu ja yritä uudelleen.',
   'fabric.atlassianSwitcher.errorTextUnverified':
     'Vahvista sähköpostiosoitteesi, jotta voit katsoa saatavilla olevien tuotteiden luettelon.',
-  'fabric.atlassianSwitcher.gittools.description': 'Bitbucket, GitHub ja muut',
-  'fabric.atlassianSwitcher.gittools.label': 'Git-integraatiot ja Jira',
+  'fabric.atlassianSwitcher.free': 'Ilmainen',
   'fabric.atlassianSwitcher.jiraProject': 'Jira-projekti',
   'fabric.atlassianSwitcher.join': 'Liity',
   'fabric.atlassianSwitcher.login': 'Kirjaudu sisään',
   'fabric.atlassianSwitcher.manageList': 'Hallinnoi luetteloa',
   'fabric.atlassianSwitcher.more': 'Lisää',
   'fabric.atlassianSwitcher.moreAtlassianProducts': 'Lisää Atlassian-tuotteita',
+  'fabric.atlassianSwitcher.product.description.compass':
+    'Komponenttien hallinta',
   'fabric.atlassianSwitcher.product.description.confluence':
     'Asiakirjojen yhteiskäyttö',
   'fabric.atlassianSwitcher.product.description.jsm':

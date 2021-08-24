@@ -7,9 +7,6 @@
 // Danish
 export default {
   'fabric.elements.user-picker.email.add': 'Tilføj bruger',
-  'fabric.elements.user-picker.email.add.potential':
-    'Angiv e-mail for at invitere',
-  'fabric.elements.user-picker.email.select.to.add': 'Vælg for at invitere',
   'fabric.elements.user-picker.external.sourced.from': 'Fundet i:',
   'fabric.elements.user-picker.github.provider': 'GitHub',
   'fabric.elements.user-picker.google.provider': 'Google',

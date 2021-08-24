@@ -7,9 +7,6 @@
 // Polish
 export default {
   'fabric.elements.user-picker.email.add': 'Dodaj użytkownika',
-  'fabric.elements.user-picker.email.add.potential':
-    'Wprowadź adres e-mail, aby zaprosić',
-  'fabric.elements.user-picker.email.select.to.add': 'Wybierz do zaproszenia',
   'fabric.elements.user-picker.external.sourced.from': 'Znaleziono w:',
   'fabric.elements.user-picker.github.provider': 'GitHub',
   'fabric.elements.user-picker.google.provider': 'Google',

@@ -24,14 +24,14 @@ export default {
     'Tento seznam se nám nepodařilo načíst. Obnovte stránku a zkuste to znova.',
   'fabric.atlassianSwitcher.errorTextUnverified':
     'Seznam dostupných produktů se vám zobrazí až poté, co potvrdíte svou e-mailovou adresu.',
-  'fabric.atlassianSwitcher.gittools.description': 'Bitbucket, GitHub a další',
-  'fabric.atlassianSwitcher.gittools.label': 'Integrace Git pro Jira',
+  'fabric.atlassianSwitcher.free': 'Free',
   'fabric.atlassianSwitcher.jiraProject': 'Projekt Jira',
   'fabric.atlassianSwitcher.join': 'Připojit',
   'fabric.atlassianSwitcher.login': 'Přihlášení',
   'fabric.atlassianSwitcher.manageList': 'Spravovat seznam',
   'fabric.atlassianSwitcher.more': 'Více',
   'fabric.atlassianSwitcher.moreAtlassianProducts': 'Další produkty Atlassian',
+  'fabric.atlassianSwitcher.product.description.compass': 'Správce komponent',
   'fabric.atlassianSwitcher.product.description.confluence':
     'Spolupráce na dokumentech',
   'fabric.atlassianSwitcher.product.description.jsm':

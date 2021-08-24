@@ -7,9 +7,6 @@
 // Portuguese (Portugal)
 export default {
   'fabric.elements.user-picker.email.add': 'Adicionar utilizador',
-  'fabric.elements.user-picker.email.add.potential':
-    'Introduzir e-mail para convidar',
-  'fabric.elements.user-picker.email.select.to.add': 'Selecionar para convidar',
   'fabric.elements.user-picker.group.byline': 'Grupo gerido por administrador',
   'fabric.elements.user-picker.multi.remove-item': 'Remover',
   'fabric.elements.user-picker.placeholder': 'Introduza pessoas ou equipas...',

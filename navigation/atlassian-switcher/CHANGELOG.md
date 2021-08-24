@@ -1,5 +1,11 @@
 # @atlaskit/atlassian-switcher
 
+## 16.1.1
+
+### Patch Changes
+
+- [`5bf26e6f57e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5bf26e6f57e) - Final changelog for @atlaskit/atlassian-switcher. Package is transitioning to private scope @atlassian/switcher
+
 ## 16.1.0
 
 ### Minor Changes

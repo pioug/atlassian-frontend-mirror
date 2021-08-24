@@ -7,9 +7,6 @@
 // Ukrainian
 export default {
   'fabric.elements.user-picker.email.add': 'Додайте користувача',
-  'fabric.elements.user-picker.email.add.potential':
-    'Введіть адресу електронної пошти',
-  'fabric.elements.user-picker.email.select.to.add': 'Виберіть користувача',
   'fabric.elements.user-picker.external.sourced.from': 'Знайдено в:',
   'fabric.elements.user-picker.github.provider': 'GitHub',
   'fabric.elements.user-picker.google.provider': 'Google',

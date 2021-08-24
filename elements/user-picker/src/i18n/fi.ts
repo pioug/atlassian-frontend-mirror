@@ -7,9 +7,6 @@
 // Finnish
 export default {
   'fabric.elements.user-picker.email.add': 'Lisää käyttäjä',
-  'fabric.elements.user-picker.email.add.potential':
-    'Kutsu syöttämällä sähköpostiosoite',
-  'fabric.elements.user-picker.email.select.to.add': 'Kutsu valitsemalla',
   'fabric.elements.user-picker.external.sourced.from': 'Löydetty kohteesta:',
   'fabric.elements.user-picker.github.provider': 'GitHub',
   'fabric.elements.user-picker.google.provider': 'Google',

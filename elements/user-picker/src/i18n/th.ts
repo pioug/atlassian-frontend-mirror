@@ -7,8 +7,6 @@
 // Thai
 export default {
   'fabric.elements.user-picker.email.add': 'เพิ่มผู้ใช้',
-  'fabric.elements.user-picker.email.add.potential': 'ป้อนอีเมลเพื่อเชิญ',
-  'fabric.elements.user-picker.email.select.to.add': 'เลือกเพื่อเชิญ',
   'fabric.elements.user-picker.external.sourced.from': 'พบใน:',
   'fabric.elements.user-picker.github.provider': 'GitHub',
   'fabric.elements.user-picker.google.provider': 'Google',

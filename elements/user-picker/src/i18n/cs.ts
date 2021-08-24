@@ -7,10 +7,6 @@
 // Czech
 export default {
   'fabric.elements.user-picker.email.add': 'Přidat uživatele',
-  'fabric.elements.user-picker.email.add.potential':
-    'Zadejte e-mailovou adresu osoby, kterou chcete pozvat',
-  'fabric.elements.user-picker.email.select.to.add':
-    'Vyberte adresu osoby, kterou chcete pozvat',
   'fabric.elements.user-picker.external.sourced.from': 'Nalezen v:',
   'fabric.elements.user-picker.github.provider': 'GitHub',
   'fabric.elements.user-picker.google.provider': 'Google',

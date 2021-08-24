@@ -7,9 +7,6 @@
 // Norwegian Bokmål
 export default {
   'fabric.elements.user-picker.email.add': 'Legg til bruker',
-  'fabric.elements.user-picker.email.add.potential':
-    'Angi en e-post for å invitere',
-  'fabric.elements.user-picker.email.select.to.add': 'Velg for å invitere',
   'fabric.elements.user-picker.external.sourced.from': 'Funnet på:',
   'fabric.elements.user-picker.github.provider': 'GitHub',
   'fabric.elements.user-picker.google.provider': 'Google',

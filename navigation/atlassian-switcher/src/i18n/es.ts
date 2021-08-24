@@ -25,9 +25,6 @@ export default {
     'No hemos podido cargar esta lista. Vuelve a cargar la página e inténtalo de nuevo.',
   'fabric.atlassianSwitcher.errorTextUnverified':
     'Confirma tu dirección de correo electrónico para ver una lista de los productos disponibles.',
-  'fabric.atlassianSwitcher.gittools.description':
-    'Bitbucket, GitHub y mucho más',
-  'fabric.atlassianSwitcher.gittools.label': 'Integraciones de Git para Jira',
   'fabric.atlassianSwitcher.jiraProject': 'Proyecto Jira',
   'fabric.atlassianSwitcher.join': 'Unirse',
   'fabric.atlassianSwitcher.login': 'Iniciar sesión',
@@ -35,6 +32,8 @@ export default {
   'fabric.atlassianSwitcher.more': 'Más',
   'fabric.atlassianSwitcher.moreAtlassianProducts':
     'Más productos de Atlassian',
+  'fabric.atlassianSwitcher.product.description.compass':
+    'Gestor de componentes',
   'fabric.atlassianSwitcher.product.description.confluence':
     'Colaboración en documentos',
   'fabric.atlassianSwitcher.product.description.jsm':

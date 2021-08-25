@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/atlassian-switcher-vanilla",
-  "version": "3.0.14",
+  "version": "3.0.15",
   "description": "Atlassian switcher wrapper for consumption on 'non-react' apps.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

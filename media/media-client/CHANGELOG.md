@@ -1,5 +1,11 @@
 # @atlaskit/media-client
 
+## 14.1.1
+
+### Patch Changes
+
+- [`e6689b61735`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e6689b61735) - Added a new authProviderTimeout parameter within resolveAuth to control the timeout duration.
+
 ## 14.1.0
 
 ### Minor Changes

@@ -1,5 +1,11 @@
 # @atlaskit/atlassian-switcher-vanilla
 
+## 3.0.15
+
+### Patch Changes
+
+- [`472845db5e2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/472845db5e2) - Final changelog for @atlaskit/atlassian-switcher-vanilla
+
 ## 3.0.14
 
 ### Patch Changes

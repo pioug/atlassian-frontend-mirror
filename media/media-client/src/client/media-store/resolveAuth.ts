@@ -2,18 +2,19 @@ import { Auth, AuthContext, AuthProvider } from '@atlaskit/media-core';
 import { MediaStoreError } from './error';
 import { rejectTimeout } from '../../utils/setTimeoutPromise';
 
-export const AUTH_PROVIDER_TIMEOUT = 10000;
+export const DEFAULT_AUTH_PROVIDER_TIMEOUT = 10000;
 
 export const resolveAuth = async (
   authProvider: AuthProvider,
   authContext?: AuthContext,
+  authProviderTimeout = DEFAULT_AUTH_PROVIDER_TIMEOUT,
 ): Promise<Auth> => {
   let auth: Auth | undefined;
   try {
     auth = await Promise.race([
       authProvider(authContext),
       rejectTimeout(
-        AUTH_PROVIDER_TIMEOUT,
+        authProviderTimeout,
         new MediaStoreError('authProviderTimedOut'),
       ),
     ]);

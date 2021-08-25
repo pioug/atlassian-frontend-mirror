@@ -1,7 +1,6 @@
 import {
   resolveAuth,
   resolveInitialAuth,
-  AUTH_PROVIDER_TIMEOUT,
 } from '../../client/media-store/resolveAuth';
 import { MediaStoreError } from '../../client/media-store/error';
 import { AsapBasedAuth, AuthProvider } from '@atlaskit/media-core';
@@ -37,9 +36,11 @@ describe('resolveAuth', () => {
   });
 
   it('should throw authProviderTimedOut error if provider times out', async () => {
-    const provider = () => resolveTimeout(AUTH_PROVIDER_TIMEOUT + 1, auth);
+    const AUTH_PROVIDER_TIMEOUT = 1;
+    const provider = () => resolveTimeout(AUTH_PROVIDER_TIMEOUT + 500, auth);
+
     try {
-      await resolveAuth(provider);
+      await resolveAuth(provider, {}, AUTH_PROVIDER_TIMEOUT);
     } catch (e) {
       expect(e).toBeInstanceOf(MediaStoreError);
       expect((e as MediaStoreError).reason).toBe('authProviderTimedOut');

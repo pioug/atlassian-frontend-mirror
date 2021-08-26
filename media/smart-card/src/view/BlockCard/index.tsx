@@ -33,6 +33,7 @@ export const BlockCard: FC<BlockCardProps> = ({
   onResolve,
   testId,
   showActions,
+  platform,
 }) => {
   const data =
     ((details && details.data) as JsonLd.Data.BaseData) || getEmptyJsonLd();
@@ -53,6 +54,7 @@ export const BlockCard: FC<BlockCardProps> = ({
         meta,
         extractorOpts,
         renderers,
+        platform,
       );
       if (onResolve) {
         onResolve({

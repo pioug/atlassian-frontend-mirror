@@ -1,5 +1,12 @@
 # @atlaskit/reactions
 
+## 19.1.4
+
+### Patch Changes
+
+- [`b90c0237824`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b90c0237824) - Update package.jsons to remove unused dependencies.
+- Updated dependencies
+
 ## 19.1.3
 
 ### Patch Changes

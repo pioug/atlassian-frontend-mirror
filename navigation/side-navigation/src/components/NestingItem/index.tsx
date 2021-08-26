@@ -10,9 +10,10 @@ import {
   CustomItemComponentProps,
   Overrides,
 } from '@atlaskit/menu';
+import { N10 } from '@atlaskit/theme/colors';
 import { gridSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
-import { navigationBackgroundColor } from '../../common/constants';
 import { overrideStyleFunction } from '../../common/styles';
 import { ButtonItem, CustomItem, NavigationContent } from '../index';
 import { ROOT_ID } from '../NestableNavigationContent';
@@ -239,7 +240,7 @@ const NestingItem = <TCustomComponentProps extends CustomItemComponentProps>(
         <span data-right-arrow>
           <RightArrow
             testId={testId && `${testId}--item--right-arrow`}
-            secondaryColor={navigationBackgroundColor}
+            secondaryColor={token('color.background.default', N10)}
             label=""
           />
         </span>

@@ -1,0 +1,76 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`floatingToolbar() should not return media group items if allowMediaInline is false 1`] = `
+Array [
+  Object {
+    "appearance": "danger",
+    "icon": [Function],
+    "id": "editor.media.delete",
+    "onBlur": [Function],
+    "onClick": [Function],
+    "onFocus": [Function],
+    "onMouseEnter": [Function],
+    "onMouseLeave": [Function],
+    "testId": "media-toolbar-remove-button",
+    "title": "Remove",
+    "type": "button",
+  },
+]
+`;
+
+exports[`floatingToolbar() should return media group items 1`] = `
+Array [
+  Object {
+    "options": Array [
+      Object {
+        "onClick": [Function],
+        "selected": false,
+        "testId": "inline-appearance",
+        "title": "Display inline",
+      },
+      Object {
+        "onClick": [Function],
+        "selected": true,
+        "testId": "thumbnail-appearance",
+        "title": "Display thumbnail",
+      },
+    ],
+    "title": "Display thumbnail",
+    "type": "dropdown",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "fallback": Array [],
+    "render": [Function],
+    "type": "custom",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "icon": [Function],
+    "id": "editor.media.card.download",
+    "onClick": [Function],
+    "title": "Download",
+    "type": "button",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "appearance": "danger",
+    "icon": [Function],
+    "id": "editor.media.delete",
+    "onBlur": [Function],
+    "onClick": [Function],
+    "onFocus": [Function],
+    "onMouseEnter": [Function],
+    "onMouseLeave": [Function],
+    "testId": "media-toolbar-remove-button",
+    "title": "Remove",
+    "type": "button",
+  },
+]
+`;

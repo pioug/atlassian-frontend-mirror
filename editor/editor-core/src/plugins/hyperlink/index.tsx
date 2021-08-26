@@ -58,15 +58,11 @@ const hyperlinkPlugin = (options?: CardOptions): EditorPlugin => ({
         priority: 1200,
         keyshortcut: tooltip(addLink),
         icon: () => <IconLink />,
-        action(_insert, state) {
-          const pos = state.selection.from;
-          const { nodeBefore } = state.selection.$from;
-          if (!nodeBefore) {
-            return false;
-          }
-          const tr = state.tr
-            .setMeta(stateKey, { type: LinkAction.SHOW_INSERT_TOOLBAR })
-            .delete(pos - nodeBefore.nodeSize, pos);
+        action(insert, state) {
+          const tr = insert(undefined);
+          tr.setMeta(stateKey, {
+            type: LinkAction.SHOW_INSERT_TOOLBAR,
+          });
 
           return addAnalytics(state, tr, {
             action: ACTION.INVOKED,

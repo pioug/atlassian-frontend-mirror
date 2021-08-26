@@ -4,8 +4,6 @@ import {
   panel,
   DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { sendKeyToPm } from '@atlaskit/editor-test-helpers/send-key-to-pm';
-import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 
 describe('Chromeless editor', () => {
@@ -20,10 +18,9 @@ describe('Chromeless editor', () => {
       },
     });
 
-  it('should keep paragraph as the last node', () => {
-    const { editorView, sel } = editor(doc(p('{<>}')));
-    insertText(editorView, '/info', sel);
-    sendKeyToPm(editorView, 'Enter');
+  it('should keep paragraph as the last node', async () => {
+    const { editorView, typeAheadTool } = editor(doc(p('{<>}')));
+    await typeAheadTool.searchQuickInsert('info')?.insert({ index: 0 });
 
     expect(editorView.state.doc).toEqualDocument(
       doc(panel({ panelType: 'info' })(p('')), p('')),

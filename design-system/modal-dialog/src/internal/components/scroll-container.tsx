@@ -2,23 +2,46 @@
 
 import React, { forwardRef, useEffect, useRef, useState } from 'react';
 
-import { jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/core';
 import rafSchedule from 'raf-schd';
 
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import useLazyCallback from '@atlaskit/ds-lib/use-lazy-callback';
 import useStateRef from '@atlaskit/ds-lib/use-state-ref';
+import FocusRing from '@atlaskit/focus-ring';
 
-import { keylineHeight } from '../constants';
-import { scrollableStyles } from '../styles/scroll-container';
+import { keylineColor, keylineHeight } from '../constants';
+
+const baseStyles = css({
+  /**
+   * We need to inherit flex styles from its parent here
+   * in case they're set because we're essentially being a proxy container
+   * between the original flex parent and its children (the modal body).
+   */
+  display: 'inherit',
+  margin: 0,
+
+  flex: 'inherit',
+  flexDirection: 'inherit',
+
+  overflowX: 'hidden',
+  overflowY: 'auto',
+
+  '@media (min-width: 480px)': {
+    height: 'unset',
+    overflowY: 'auto',
+  },
+});
+
+const topKeylineStyles = css({
+  borderTop: `${keylineHeight}px solid ${keylineColor}`,
+});
+
+const bottomKeylineStyles = css({
+  borderBottom: `${keylineHeight}px solid ${keylineColor}`,
+});
 
 interface ScrollContainerProps {
-  /**
-   * Enables the body to scroll within the modal dialog.
-   * This is controlled by the outer modal's `scrollBehavior` prop.
-   */
-  shouldScroll?: boolean;
-
   /**
    * Children of the body within modal dialog.
    */
@@ -38,6 +61,7 @@ interface ScrollContainerProps {
  */
 const ScrollContainer = forwardRef<HTMLElement | null, ScrollContainerProps>(
   (props, ref) => {
+    const { testId, children } = props;
     const [hasSiblings, setSiblings] = useStateRef({
       previous: false,
       next: false,
@@ -96,19 +120,21 @@ const ScrollContainer = forwardRef<HTMLElement | null, ScrollContainerProps>(
     }, [setLazyContentFocus, setLazyKeylines, setLazySiblings]);
 
     return (
-      <div
-        // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
-        tabIndex={showContentFocus ? 0 : undefined}
-        data-testid={props.testId && `${props.testId}--scrollable`}
-        ref={mergeRefs([ref, scrollableRef])}
-        css={scrollableStyles({
-          showTopKeyline,
-          showBottomKeyline,
-          shouldScroll: props.shouldScroll,
-        })}
-      >
-        {props.children}
-      </div>
+      <FocusRing isInset>
+        <div
+          // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
+          tabIndex={showContentFocus ? 0 : undefined}
+          data-testid={testId && `${testId}--scrollable`}
+          ref={mergeRefs([ref, scrollableRef])}
+          css={[
+            baseStyles,
+            showTopKeyline && topKeylineStyles,
+            showBottomKeyline && bottomKeylineStyles,
+          ]}
+        >
+          {children}
+        </div>
+      </FocusRing>
     );
   },
 );

@@ -1,9 +1,9 @@
+import { N10, N30 } from '@atlaskit/theme/colors';
 import { gridSize } from '@atlaskit/theme/constants';
 import { headingSizes } from '@atlaskit/theme/typography';
+import { token } from '@atlaskit/tokens';
 
 import {
-  navigationBackgroundColor,
-  separatorColor,
   VAR_SCROLL_INDICATOR_COLOR,
   VAR_SEPARATOR_COLOR,
 } from '../../common/constants';
@@ -58,7 +58,10 @@ export const outerContainerCSS = (
       right: containerPadding + opts.scrollbarWidth,
       height: scrollIndicatorHeight,
       borderRadius: scrollIndicatorBorderRadius,
-      backgroundColor: `var(${VAR_SEPARATOR_COLOR}, ${separatorColor})`,
+      backgroundColor: `var(${VAR_SEPARATOR_COLOR}, ${token(
+        'color.border.neutral',
+        N30,
+      )})`,
       position: 'absolute',
       zIndex: scrollIndicatorZIndex,
     },
@@ -74,7 +77,10 @@ export const outerContainerCSS = (
       right: containerPadding + opts.scrollbarWidth,
       bottom: 0,
       zIndex: scrollIndicatorZIndex,
-      backgroundColor: `var(${VAR_SEPARATOR_COLOR}, ${separatorColor})`,
+      backgroundColor: `var(${VAR_SEPARATOR_COLOR}, ${token(
+        'color.border.neutral',
+        N30,
+      )})`,
     },
   } as const);
 
@@ -102,7 +108,10 @@ export const innerContainerCSS = (opts: StyleOpts) =>
           left: 0,
           right: 0,
           height: scrollIndicatorHeight,
-          backgroundColor: `var(${VAR_SCROLL_INDICATOR_COLOR}, ${navigationBackgroundColor})`,
+          backgroundColor: `var(${VAR_SCROLL_INDICATOR_COLOR}, ${token(
+            'color.background.default',
+            N10,
+          )})`,
           position: 'absolute',
           display: 'block',
           zIndex: scrollIndicatorMaskZIndex,
@@ -121,7 +130,10 @@ export const innerContainerCSS = (opts: StyleOpts) =>
       marginTop: 'auto',
       position: 'relative',
       zIndex: scrollIndicatorMaskZIndex,
-      backgroundColor: `var(${VAR_SCROLL_INDICATOR_COLOR}, ${navigationBackgroundColor})`,
+      backgroundColor: `var(${VAR_SCROLL_INDICATOR_COLOR}, ${token(
+        'color.background.default',
+        N10,
+      )})`,
     },
   } as const);
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import Form from '@atlaskit/form';
 import { shallow, ReactWrapper } from 'enzyme';
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { FieldComponent, FieldComponentProps } from '../../FormContent';
@@ -17,7 +18,7 @@ describe('ColorField', () => {
     expect(wrapper.find(ColorPickerField).exists()).toBeTruthy();
   });
 
-  it("should have default value of '' for currentColor if no value is passed in parameters", () => {
+  it('should have undefined for defaultValue and currentColor if no value is passed in parameters', () => {
     const props: FieldComponentProps = {
       field: { label: 'color-picker', name: 'color-picker', type: 'color' },
       parameters: {},
@@ -25,9 +26,10 @@ describe('ColorField', () => {
       onFieldChange: () => {},
     };
     const wrapper = mountWithIntl(<FieldComponent {...props} />);
-    const colorButton = wrapper.find(ColorPickerButton);
-    expect(colorButton.exists()).toBeTruthy();
-    expect(colorButton.props().currentColor).toEqual('');
+    const field = wrapper.find('Field');
+    const colorPickerButton = wrapper.find(ColorPickerButton);
+    expect(field.props().defaultValue).toBeUndefined();
+    expect(colorPickerButton.props().currentColor).toBeUndefined();
   });
 
   it('should set initial value to match the given value in parameters', () => {
@@ -38,9 +40,9 @@ describe('ColorField', () => {
       onFieldChange: () => {},
     };
     const wrapper = mountWithIntl(<FieldComponent {...props} />);
-    const colorButton = wrapper.find(ColorPickerButton);
-    expect(colorButton.exists()).toBeTruthy();
-    expect(colorButton.props().currentColor).toEqual('#2A0000');
+    const colorPickerButton = wrapper.find(ColorPickerButton);
+    expect(colorPickerButton.exists()).toBeTruthy();
+    expect(colorPickerButton.props().currentColor).toEqual('#2A0000');
   });
 
   it('should change color to be selected color', () => {
@@ -51,7 +53,14 @@ describe('ColorField', () => {
       extensionManifest: {} as any,
       onFieldChange: mockOnBlur,
     };
-    const wrapper = mountWithIntl(<FieldComponent {...props} />);
+
+    const formSubmit = () => {};
+    const formCallback = () => {
+      return <FieldComponent {...props} />;
+    };
+    const wrapper = mountWithIntl(
+      <Form onSubmit={formSubmit}>{formCallback}</Form>,
+    );
 
     //   click the ColorPickerButton
     wrapper.find('button').simulate('click');
@@ -65,8 +74,38 @@ describe('ColorField', () => {
       .find('button')
       .simulate('click');
 
-    const colorButton = wrapper.find(ColorPickerButton);
-    expect(colorButton.props().currentColor).toEqual('#7AB2FFFF');
+    const colorPickerButton = wrapper.find(ColorPickerButton);
+    expect(colorPickerButton.props().currentColor).toEqual('#7AB2FFFF');
     expect(mockOnBlur).toHaveBeenCalledWith('color-picker', true);
+  });
+
+  it('should update defaultValue and currentColor when parameters change', () => {
+    const props: FieldComponentProps = {
+      field: { label: 'color-picker', name: 'color-picker', type: 'color' },
+      parameters: { 'color-picker': '#2A0000' },
+      extensionManifest: {} as any,
+      onFieldChange: () => {},
+    };
+
+    let localSetFieldValue: (name: string, value: any) => void;
+    const wrapper = mountWithIntl(
+      <Form onSubmit={() => {}}>
+        {({ setFieldValue }) => {
+          localSetFieldValue = setFieldValue;
+          return <FieldComponent {...props} />;
+        }}
+      </Form>,
+    );
+
+    let colorPickerButton = wrapper.find('ColorPickerButton');
+    expect(colorPickerButton.exists()).toBeTruthy();
+    expect(colorPickerButton.prop('currentColor')).toEqual('#2A0000');
+
+    const newColor = '#f9wafa';
+    localSetFieldValue!('color-picker', newColor);
+    wrapper.update();
+
+    colorPickerButton = wrapper.find('ColorPickerButton');
+    expect(colorPickerButton.prop('currentColor')).toEqual(newColor);
   });
 });

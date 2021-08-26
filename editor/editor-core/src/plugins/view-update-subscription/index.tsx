@@ -40,7 +40,7 @@ class Tracker {
 const pluginKey = new PluginKey('viewUpdateSubscriptionKey');
 
 const createViewUpdateSubscriptionPlugin = (): EditorPlugin => {
-  const tracker = new Tracker();
+  let tracker: Tracker | undefined;
   const lastUpdateRef: LastUpdateRef = {
     current: null,
     initial: null,
@@ -56,12 +56,13 @@ const createViewUpdateSubscriptionPlugin = (): EditorPlugin => {
         new Plugin({
           key: pluginKey,
           view(editorView) {
-            trackerStore.set(editorView, tracker);
-            return {
-              destroy: () => {
-                trackerStore.delete(editorView);
-              },
-            };
+            tracker = trackerStore.get(editorView);
+            if (!tracker) {
+              tracker = new Tracker();
+              trackerStore.set(editorView, tracker);
+            }
+
+            return {};
           },
         });
 
@@ -80,11 +81,14 @@ const createViewUpdateSubscriptionPlugin = (): EditorPlugin => {
           if (!lastUpdateRef.current || !lastUpdateRef.initial) {
             return;
           }
-          tracker.update({
-            newEditorState: lastUpdateRef.current.newEditorState,
-            oldEditorState: lastUpdateRef.initial?.oldEditorState,
-            transactions: lastUpdateRef.transactions,
-          });
+
+          if (tracker) {
+            tracker.update({
+              newEditorState: lastUpdateRef.current.newEditorState,
+              oldEditorState: lastUpdateRef.initial?.oldEditorState,
+              transactions: lastUpdateRef.transactions,
+            });
+          }
 
           lastUpdateRef.queued = false;
           lastUpdateRef.current = null;

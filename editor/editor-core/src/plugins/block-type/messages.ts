@@ -144,6 +144,18 @@ export const messages = defineMessages({
     defaultMessage: 'Call out errors in a colored panel',
     description: 'Visually distinguishes your text by adding a error panel',
   },
+  customPanel: {
+    id: 'fabric.editor.customPanel',
+    defaultMessage: 'Custom panel',
+    description:
+      'Visually distinguishes your panel by adding a emoji icon and background color',
+  },
+  customPanelDescription: {
+    id: 'fabric.editor.customPanel.description',
+    defaultMessage: 'Add a note with an emoji and colored background',
+    description:
+      'Visually distinguishes your panel by adding a emoji icon and background color ',
+  },
   other: {
     id: 'fabric.editor.other',
     defaultMessage: 'Others...',

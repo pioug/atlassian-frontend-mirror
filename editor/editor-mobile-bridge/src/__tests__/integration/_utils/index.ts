@@ -8,14 +8,7 @@ import WebBridgeImpl from '../../../editor/native-to-web';
 export const skipBrowsers: Browser[] = ['firefox', 'edge'];
 
 export const navigateOrClear = async (browser: any, path: string) => {
-  const currentUrl = await browser.url();
-
-  if (currentUrl === path) {
-    await clearEditor(browser);
-    await clearBridgeOutput(browser);
-  } else {
-    await browser.goto(path);
-  }
+  await browser.goto(path);
 };
 
 export const getDocFromElement = (el: any) => el.pmViewDesc.node.toJSON();
@@ -131,3 +124,32 @@ export const getDummyBridgeCalls = (browser: any, name: string) => {
     return callsFromDummy.get(name);
   }, name);
 };
+
+export async function configureEditor(page: any, config: string) {
+  return page.execute(
+    (_config: any, _bridgeKey: any) => {
+      (window as any)[_bridgeKey].configure(_config);
+    },
+    config,
+    'bridge',
+  );
+}
+
+export async function setContent(
+  page: any,
+  docObject: Record<string, unknown>,
+) {
+  const doc = JSON.stringify(docObject);
+  return page.execute(
+    (_doc: any, _bridgeKey: any) => {
+      (window as any)[_bridgeKey].setContent(_doc);
+    },
+    doc,
+    'bridge',
+  );
+}
+
+export const ENABLE_QUICK_INSERT = '{"enableQuickInsert":true}';
+export const USE_UNPREDICTABLE_INPUT_RULE =
+  '{"useUnpredictableInputRule":true}';
+export const USE_PREDICTABLE_INPUT_RULE = '{"useUnpredictableInputRule":false}';

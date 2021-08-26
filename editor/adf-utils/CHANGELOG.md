@@ -1,5 +1,15 @@
 # @atlaskit/adf-utils
 
+## 14.2.0
+
+### Minor Changes
+
+- [`ad67f6684f1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ad67f6684f1) - Add MediaInline to ADF Stage0 schema
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.1.1
 
 ### Patch Changes

@@ -9,6 +9,7 @@ import {
 import { StatusState } from '../../status/types';
 import { pluginKey as statusPluginKey } from '../../status/plugin-key';
 import { areSameItems } from '../../floating-toolbar/ui/Toolbar';
+import { isTypeAheadOpen } from '../../type-ahead/utils';
 import { EditorState } from 'prosemirror-state';
 import { trackerStore, ViewUpdateSubscription } from '..';
 
@@ -61,6 +62,13 @@ export const subscribeToToolbarAndPickerUpdates: SubscribeToToolbarAndPickerUpda
   let lastUpdatedState: EditorState | null = null;
 
   const subscription: ViewUpdateSubscription = ({ newEditorState }) => {
+    // TypeAhead has priority in the mobile-bridge
+    // In case it is open we don't need to send
+    // any toolbar updates don't need to be send
+    if (isTypeAheadOpen(newEditorState)) {
+      return;
+    }
+
     const dateState = datePluginKey.getState(newEditorState);
     const statusState = statusPluginKey.getState(newEditorState);
     const { getConfigWithNodeInfo } = floatingToolbarPluginKey.getState(

@@ -6,7 +6,7 @@ import {
   NavigationBase,
   prevNavButtonId,
   nextNavButtonId,
-} from '../../../newgen/navigation';
+} from '../../../navigation';
 import ArrowLeftCircleIcon from '@atlaskit/icon/glyph/chevron-left-circle';
 import ArrowRightCircleIcon from '@atlaskit/icon/glyph/chevron-right-circle';
 import { KeyboardEventWithKeyCode } from '@atlaskit/media-test-helpers';

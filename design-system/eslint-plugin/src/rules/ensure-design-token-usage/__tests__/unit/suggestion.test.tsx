@@ -4,7 +4,109 @@ import rule from '../../index';
 tester.run('ensure-design-token-usage', rule, {
   valid: [],
   invalid: [
+    // Using config -> shouldEnforceFallbacks: false
     {
+      code: `css({ backgroundColor: 'red' })`,
+      output: `css({ backgroundColor: 'red' })`,
+      errors: [
+        {
+          messageId: 'hardCodedColor',
+          suggestions: [
+            {
+              desc: `Convert to token`,
+              output: `css({ backgroundColor: token('') })`,
+            },
+          ],
+        },
+      ],
+    },
+    {
+      code: `css({ backgroundColor: 'rgb(123,123,123)' })`,
+      output: `css({ backgroundColor: 'rgb(123,123,123)' })`,
+      errors: [
+        {
+          messageId: 'hardCodedColor',
+          suggestions: [
+            {
+              desc: `Convert to token`,
+              output: `css({ backgroundColor: token('') })`,
+            },
+          ],
+        },
+      ],
+    },
+    {
+      code: `css({ backgroundColor: '#423234' })`,
+      output: `css({ backgroundColor: '#423234' })`,
+      errors: [
+        {
+          messageId: 'hardCodedColor',
+          suggestions: [
+            {
+              desc: `Convert to token`,
+              output: `css({ backgroundColor: token('') })`,
+            },
+          ],
+        },
+      ],
+    },
+    {
+      code: `css({ backgroundColor: background() })`,
+      output: `css({ backgroundColor: background() })`,
+      errors: [
+        {
+          messageId: 'hardCodedColor',
+          suggestions: [
+            {
+              desc: `Convert to token`,
+              output: `css({ backgroundColor: token('') })`,
+            },
+          ],
+        },
+      ],
+    },
+    {
+      code: `css({ backgroundColor: DN100 })`,
+      output: `css({ backgroundColor: DN100 })`,
+      errors: [
+        {
+          messageId: 'hardCodedColor',
+          suggestions: [
+            {
+              desc: `Convert to token`,
+              output: `css({ backgroundColor: token('') })`,
+            },
+          ],
+        },
+      ],
+    },
+    {
+      code: `css({ boxShadow: '0px 1px 1px #161A1D32' })`,
+      output: `css({ boxShadow: '0px 1px 1px #161A1D32' })`,
+      errors: [
+        {
+          messageId: 'hardCodedColor',
+          suggestions: [
+            {
+              desc: `Convert to token`,
+              output: `css({ boxShadow: token('') })`,
+            },
+          ],
+        },
+      ],
+    },
+    {
+      code: `css({ boxShadow: token('color.text.danger', '#000') })`,
+      output: `css({ boxShadow: token('color.text.danger') })`,
+      errors: [
+        {
+          messageId: 'tokenFallbackRestricted',
+        },
+      ],
+    },
+    // Using config -> shouldEnforceFallbacks: true
+    {
+      options: [{ shouldEnforceFallbacks: true }],
       code: `css({ backgroundColor: 'red' })`,
       output: `css({ backgroundColor: 'red' })`,
       errors: [
@@ -20,6 +122,7 @@ tester.run('ensure-design-token-usage', rule, {
       ],
     },
     {
+      options: [{ shouldEnforceFallbacks: true }],
       code: `css({ backgroundColor: 'rgb(123,123,123)' })`,
       output: `css({ backgroundColor: 'rgb(123,123,123)' })`,
       errors: [
@@ -35,6 +138,7 @@ tester.run('ensure-design-token-usage', rule, {
       ],
     },
     {
+      options: [{ shouldEnforceFallbacks: true }],
       code: `css({ backgroundColor: '#423234' })`,
       output: `css({ backgroundColor: '#423234' })`,
       errors: [
@@ -50,6 +154,7 @@ tester.run('ensure-design-token-usage', rule, {
       ],
     },
     {
+      options: [{ shouldEnforceFallbacks: true }],
       code: `css({ backgroundColor: background() })`,
       output: `css({ backgroundColor: background() })`,
       errors: [
@@ -65,6 +170,7 @@ tester.run('ensure-design-token-usage', rule, {
       ],
     },
     {
+      options: [{ shouldEnforceFallbacks: true }],
       code: `css({ backgroundColor: DN100 })`,
       output: `css({ backgroundColor: DN100 })`,
       errors: [
@@ -80,6 +186,7 @@ tester.run('ensure-design-token-usage', rule, {
       ],
     },
     {
+      options: [{ shouldEnforceFallbacks: true }],
       code: `css({ boxShadow: '0px 1px 1px #161A1D32' })`,
       output: `css({ boxShadow: '0px 1px 1px #161A1D32' })`,
       errors: [

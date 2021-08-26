@@ -3,7 +3,6 @@ import {
   BlockTypeState,
   changeColor,
   clearEditorContent,
-  Command,
   commitStatusPicker,
   createTable,
   CustomMediaPicker,
@@ -11,9 +10,7 @@ import {
   INPUT_METHOD,
   InsertBlockInputMethodToolbar,
   insertBlockTypesWithAnalytics,
-  insertEmojiQuery,
   insertLinkWithAnalyticsMobileNative,
-  insertMentionQuery,
   insertTaskDecision,
   isLinkAtPos,
   LinkInputMethod,
@@ -21,7 +18,6 @@ import {
   ListState,
   MentionPluginState,
   QuickInsertItem,
-  selectItem as selectTypeAheadItem,
   setBlockTypeWithAnalytics,
   setKeyboardHeight,
   setMobilePaddingTop,
@@ -36,23 +32,21 @@ import {
   toggleSubscriptWithAnalytics,
   toggleSuperscriptWithAnalytics,
   toggleUnderlineWithAnalytics,
-  TypeAheadItem,
-  typeAheadPluginKey,
-  TypeAheadPluginState,
   updateStatusWithAnalytics,
   updateLink,
   insertExpand,
   QuickInsertItemId,
-  dismissCommand,
   getListCommands,
   isTextAtPos,
   insertDate,
-  openDatePicker,
   dateToDateType,
   insertHorizontalRule,
+  createTypeAheadTools,
+  createQuickInsertTools,
 } from '@atlaskit/editor-core';
+import type { TypeAheadItem } from '@atlaskit/editor-common/provider-factory';
 import { EditorViewWithComposition } from '../../types';
-import { EditorState, Selection } from 'prosemirror-state';
+import { Selection, EditorState, Transaction } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import {
   redo as pmHistoryRedo,
@@ -67,7 +61,6 @@ import { rejectPromise, resolvePromise } from '../../cross-platform-promise';
 import { assertSelectionPayload } from '../../validation';
 import { CollabSocket } from './collab-socket';
 import { Socket } from '@atlaskit/collab-provider/types';
-import { CollabMetadataPayload } from '@atlaskit/collab-provider/provider';
 import { LifecycleImpl } from './lifecycle';
 import {
   BridgeEventEmitter,
@@ -75,7 +68,10 @@ import {
   EventTypes,
 } from '../event-dispatch';
 import { Serialized } from '../../types';
-import { Provider as CollabProvider } from '@atlaskit/collab-provider';
+import {
+  Provider as CollabProvider,
+  CollabMetadataPayload,
+} from '@atlaskit/collab-provider';
 import { toNativeBridge } from '../web-to-native';
 import MobileEditorConfiguration from '../editor-configuration';
 import { JSONDocNode } from '@atlaskit/editor-json-transformer';
@@ -112,23 +108,36 @@ export const defaultSetList: QuickInsertItemId[] = [
   'hyperlink',
 ];
 
-type InsertQueryMethod = (
-  inputMethod: InsertBlockInputMethodToolbar,
-) => Command;
+type Command = (
+  state: EditorState,
+  dispatch?: (tr: Transaction) => void,
+) => boolean;
+export type EditorConfigChange = (config: MobileEditorConfiguration) => void;
 
-const insertQueryFromToolbar = (
-  insertQueryMethod: InsertQueryMethod,
-  editorView: EditorViewWithComposition | undefined,
+const closeTypeAheadAndRunCommand = (editorView?: EditorView) => (
+  command: Command,
 ) => {
   if (!editorView) {
     return;
   }
-  const { state, dispatch } = editorView;
+  const tool = createTypeAheadTools(editorView);
 
-  insertQueryMethod(INPUT_METHOD.TOOLBAR)(state, dispatch);
+  if (tool && tool.isOpen()) {
+    tool.close({
+      attachCommand: command,
+      insertCurrentQueryAsRawText: false,
+    });
+  } else {
+    command(editorView.state, editorView.dispatch);
+  }
 };
 
-export type EditorConfigChange = (config: MobileEditorConfiguration) => void;
+const closeTypeAheadAndUndo = (editorView?: EditorView) => {
+  return closeTypeAheadAndRunCommand(editorView)(pmHistoryUndo);
+};
+const closeTypeAheadAndRedo = (editorView?: EditorView) => {
+  return closeTypeAheadAndRunCommand(editorView)(pmHistoryRedo);
+};
 
 export default class WebBridgeImpl
   extends WebBridge
@@ -173,6 +182,12 @@ export default class WebBridgeImpl
 
   setEditorConfigChangeHandler(handleEditorConfigChanged: EditorConfigChange) {
     this.onEditorConfigChanged = handleEditorConfigChanged;
+  }
+
+  setCollabProviderPromise(
+    collabProviderPromise: Promise<CollabProvider> | undefined,
+  ) {
+    this.collabProviderPromise = collabProviderPromise;
   }
 
   async fetchPayload<T = unknown>(category: string, uuid: string): Promise<T> {
@@ -564,11 +579,17 @@ export default class WebBridgeImpl
   }
 
   insertMentionQuery() {
-    insertQueryFromToolbar(insertMentionQuery, this.editorView);
+    if (!this.editorView) {
+      return;
+    }
+    createTypeAheadTools(this.editorView).openMention(INPUT_METHOD.TOOLBAR);
   }
 
   insertEmojiQuery() {
-    insertQueryFromToolbar(insertEmojiQuery, this.editorView);
+    if (!this.editorView) {
+      return;
+    }
+    createTypeAheadTools(this.editorView).openEmoji(INPUT_METHOD.TOOLBAR);
   }
 
   insertTypeAheadItem(
@@ -579,88 +600,65 @@ export default class WebBridgeImpl
       return;
     }
 
+    const enableQuickInsert = this.editorConfiguration.isQuickInsertEnabled();
     this.flushDOM();
 
-    const { state, dispatch } = this.editorView;
-    const enableQuickInsert = this.editorConfiguration.isQuickInsertEnabled();
+    const parsedPayload: TypeAheadItem = JSON.parse(payload);
 
-    const parsedPayload: TypeAheadItem | { index: number } = JSON.parse(
-      payload,
-    );
-    const typeAheadPluginState: TypeAheadPluginState = typeAheadPluginKey.getState(
-      state,
-    );
+    const tool = createTypeAheadTools(this.editorView);
+    if (!tool) {
+      return;
+    }
+    const query = tool.currentQuery();
 
-    const selectedItem =
-      enableQuickInsert && parsedPayload.index
-        ? typeAheadPluginState.items[parsedPayload.index]
-        : parsedPayload;
+    switch (type) {
+      case 'mention':
+        tool.insertItemMention({
+          query,
+          sourceListItem: [],
+          contentItem: {
+            ...parsedPayload,
+            mention: parsedPayload,
+          },
+        });
+        break;
+      case 'emoji':
+        tool.insertItemEmoji({
+          query,
+          sourceListItem: [],
+          contentItem: {
+            ...parsedPayload,
+            emoji: parsedPayload,
+          },
+        });
+        break;
+      case 'quickinsert':
+        if (!enableQuickInsert) {
+          return;
+        }
+        const index = parseInt(parsedPayload.index, 10);
+        if (!Number.isInteger(index)) {
+          return;
+        }
 
-    selectTypeAheadItem(
-      {
-        // TODO export insert type from editor-core.
-        selectItem: (state: EditorState, item: TypeAheadItem, insert: any) => {
-          switch (type) {
-            case 'quickinsert': {
-              /**
-               * For quickinsert, we already know at this point that the items are processed with `intl`,
-               * so we cast this to be an array of `QuickInsertItem`.
-               **/
-              const items = typeAheadPluginState.items as QuickInsertItem[];
-              const quickInsertItem = items[parsedPayload.index] as
-                | QuickInsertItem
-                | undefined;
-              if (!quickInsertItem) {
-                // eslint-disable-next-line no-console
-                console.error(
-                  `Could not select item at position: ${parsedPayload.index} in the quick insert items list`,
-                  items,
-                );
-                return;
-              }
+        const quickInsertTool = createQuickInsertTools(this.editorView);
+        const quickInsertList = quickInsertTool.getItems(query, {
+          disableDefaultItems: true,
+        });
+        const quickInsertItem = quickInsertList[index];
 
-              if (quickInsertItem.id === 'status') {
-                const status = state.schema.nodes.status.createChecked({
-                  text: '',
-                  color: 'neutral',
-                });
+        if (!quickInsertItem) {
+          return;
+        }
 
-                return insert(status, { selectInlineNode: true });
-              }
+        tool.insertItemQuickInsert({
+          query,
+          sourceListItem: quickInsertList,
+          contentItem: quickInsertItem,
+        });
 
-              return enableQuickInsert && quickInsertItem.action(insert, state);
-            }
-            case 'mention': {
-              const { id, name, nickname, accessLevel, userType } = item;
-              const renderName = nickname ? nickname : name;
-              const mention = state.schema.nodes.mention.createChecked({
-                text: `@${renderName}`,
-                id,
-                accessLevel,
-                userType: userType === 'DEFAULT' ? null : userType,
-              });
-              return insert(mention);
-            }
-            case 'emoji': {
-              const { id, shortName, fallback } = item;
-              const emoji = state.schema.nodes.emoji.createChecked({
-                shortName,
-                id,
-                fallback,
-                text: fallback || shortName,
-              });
-              return insert(emoji);
-            }
-            default:
-              return false;
-          }
-        },
-        // Needed for interface.
-        trigger: '',
-        getItems: () => [],
-      },
-      selectedItem as TypeAheadItem,
-    )(state, dispatch);
+        break;
+    }
   }
 
   setFocus(force: boolean) {
@@ -687,15 +685,11 @@ export default class WebBridgeImpl
   }
 
   undo() {
-    if (this.editorView) {
-      pmHistoryUndo(this.editorView.state, this.editorView.dispatch);
-    }
+    closeTypeAheadAndUndo(this.editorView);
   }
 
   redo() {
-    if (this.editorView) {
-      pmHistoryRedo(this.editorView.state, this.editorView.dispatch);
-    }
+    closeTypeAheadAndRedo(this.editorView);
   }
 
   setKeyboardControlsHeight(height: string) {
@@ -846,32 +840,36 @@ export default class WebBridgeImpl
     }
   }
 
-  setupTitle(provider: Promise<CollabProvider>) {
-    this.collabProviderPromise = provider;
+  setupTitle() {
     const onMetadataChange = (metadata: CollabMetadataPayload) => {
       const { title } = metadata;
       if (title) {
         toNativeBridge.updateTitle(title);
       }
     };
-    const setupPromise = provider.then((provider) => {
-      provider.on('metadata:changed', onMetadataChange);
+
+    if (this.collabProviderPromise) {
+      const setupPromise = this.collabProviderPromise.then((provider) => {
+        provider.on('metadata:changed', onMetadataChange);
+        return () => {
+          provider.off('metadata:changed', onMetadataChange);
+        };
+      });
       return () => {
-        provider.off('metadata:changed', onMetadataChange);
+        setupPromise.then((destroy) => destroy());
       };
-    });
-    return () => {
-      setupPromise.then((destroy) => destroy());
-    };
+    }
+
+    return () => {};
   }
 
   cancelTypeAhead() {
     if (!this.editorView) {
       return;
     }
-    if (dismissCommand()(this.editorView.state, this.editorView.dispatch)) {
-      toNativeBridge.dismissTypeAhead();
-    }
+
+    const tool = createTypeAheadTools(this.editorView);
+    tool.close({ insertCurrentQueryAsRawText: true });
   }
 
   configure(config: string) {
@@ -967,10 +965,27 @@ export default class WebBridgeImpl
         const dateType = dateToDateType(new Date());
 
         apply(insertDate(dateType, INPUT_METHOD.TOOLBAR, INPUT_METHOD.PICKER));
-        apply(openDatePicker());
         break;
       default:
         break;
     }
+  }
+
+  getStepVersion() {
+    if (!this.collabProviderPromise) {
+      return toNativeBridge.updateStepVersion(
+        undefined,
+        'Collaborative edit is not enabled',
+      );
+    }
+
+    this.collabProviderPromise?.then(async (provider) => {
+      try {
+        const state = await provider.getFinalAcknowledgedState();
+        toNativeBridge.updateStepVersion(state.stepVersion);
+      } catch (error) {
+        toNativeBridge.updateStepVersion(undefined, error.message);
+      }
+    });
   }
 }

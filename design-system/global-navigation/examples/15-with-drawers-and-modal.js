@@ -2,7 +2,13 @@ import React, { Fragment, Component } from 'react';
 import Button from '@atlaskit/button/standard-button';
 import { AkFieldRadioGroup as StatelessRadioGroup } from '@atlaskit/field-radio-group';
 import { AtlassianIcon } from '@atlaskit/logo';
-import Modal, { ModalTransition } from '@atlaskit/modal-dialog';
+import Modal, {
+  ModalTransition,
+  ModalBody,
+  ModalTitle,
+  ModalHeader,
+  ModalFooter,
+} from '@atlaskit/modal-dialog';
 import CrossIcon from '@atlaskit/icon/glyph/cross';
 import { Checkbox } from '@atlaskit/checkbox';
 import { LayoutManager, NavigationProvider } from '@atlaskit/navigation-next';
@@ -125,11 +131,6 @@ class GlobalNavWithDrawers extends Component {
   );
 
   render() {
-    const actions = [
-      { text: 'Close', onClick: this.closeCreateModal },
-      { text: 'Secondary Action', onClick: this.secondaryAction },
-    ];
-
     const {
       createItemOpens,
       helpItemOpens,
@@ -204,12 +205,25 @@ class GlobalNavWithDrawers extends Component {
         />
         <ModalTransition>
           {this.state.isCreateModalOpen && (
-            <Modal
-              actions={actions}
-              onClose={this.closeCreateModal}
-              heading="Modal Title"
-            >
-              <Lorem count={2} />
+            <Modal onClose={this.closeCreateModal}>
+              <ModalHeader>
+                <ModalTitle>Modal Title</ModalTitle>
+              </ModalHeader>
+              <ModalBody>
+                <Lorem count={2} />
+              </ModalBody>
+              <ModalFooter>
+                <Button appearance="subtle" onClick={this.secondaryAction}>
+                  Secondary Action
+                </Button>
+                <Button
+                  appearance="primary"
+                  autoFocus
+                  onClick={this.closeCreateModal}
+                >
+                  Close
+                </Button>
+              </ModalFooter>
             </Modal>
           )}
         </ModalTransition>

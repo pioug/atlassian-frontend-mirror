@@ -1,13 +1,13 @@
 {
   "name": "@atlaskit/eslint-plugin-design-system",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "author": "Atlassian Pty Ltd",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
   "atlassian": {
     "team": "Design System Team",
-    "releaseModel": "continuous"
+    "releaseModel": "scheduled"
   },
   "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
   "main": "dist/cjs/index.js",

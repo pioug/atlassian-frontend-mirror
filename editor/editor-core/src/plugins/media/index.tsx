@@ -243,6 +243,7 @@ const mediaPlugin = (options?: MediaOptions): EditorPlugin => ({
     floatingToolbar: (state, intl, providerFactory) =>
       floatingToolbar(state, intl, {
         providerFactory,
+        allowMediaInline: options && options.allowMediaInline,
         allowResizing: options && options.allowResizing,
         allowResizingInTables: options && options.allowResizingInTables,
         allowAnnotation: options && options.allowAnnotation,

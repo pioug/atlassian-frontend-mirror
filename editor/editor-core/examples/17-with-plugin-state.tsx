@@ -5,7 +5,7 @@ import Lozenge from '@atlaskit/lozenge';
 import ToolsDrawer from '../example-helpers/ToolsDrawer';
 import { Editor, EditorContext, mediaPluginKey } from '../src';
 import WithPluginState from '../src/ui/WithPluginState';
-import { pluginKey as typeAheadPluginKey } from '../src/plugins/type-ahead/pm-plugins/main';
+import { pluginKey as typeAheadPluginKey } from '../src/plugins/type-ahead/pm-plugins/key';
 
 const SAVE_ACTION = () => console.log('Save');
 

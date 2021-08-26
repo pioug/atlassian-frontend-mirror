@@ -229,6 +229,7 @@ export default class MediaGroup extends React.Component<
       const getNodePos = () => {
         return getPos() + idx + 1;
       };
+
       return {
         identifier: this.getIdentifier(item),
         isLazy: allowLazyLoading,
@@ -236,6 +237,7 @@ export default class MediaGroup extends React.Component<
         onClick: () => {
           setNodeSelection(this.props.view, getNodePos());
         },
+        shouldEnableDownloadButton: mediaOptions.enableDownloadButton,
         actions: [
           {
             handler: disabled

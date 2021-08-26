@@ -1,5 +1,16 @@
 # @atlaskit/media-picker
 
+## 58.1.0
+
+### Minor Changes
+
+- [`5e6fa1c70a5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5e6fa1c70a5) - fix unit tests for modal dialog
+- [`9c0241362a6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9c0241362a6) - [ux] Upgrade to the latest version of @atlaskit/modal-dialog. This change includes shifting the primary button in the footer of the modal to be on the right instead of the left.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 58.0.0
 
 ### Patch Changes

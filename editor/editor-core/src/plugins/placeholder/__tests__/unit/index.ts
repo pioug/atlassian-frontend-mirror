@@ -11,6 +11,7 @@ import { placeHolderClassName } from '../../styles';
 import { focusStateKey } from '../../../base/pm-plugins/focus-handler';
 import createEvent from '@atlaskit/editor-test-helpers/create-event';
 import placeholderPlugin from '../../';
+import typeAheadPlugin from '../../../type-ahead';
 
 function expectNoPlaceholder(editorView: EditorView) {
   const placeholder = editorView.dom.querySelector(`.${placeHolderClassName}`);
@@ -38,10 +39,9 @@ describe('placeholder', () => {
     const emptyPlaceholderEditor = (doc: DocBuilder) =>
       createProsemirrorEditor({
         doc,
-        preset: new Preset<LightEditorPlugin>().add([
-          placeholderPlugin,
-          { placeholder: defaultPlaceholder },
-        ]),
+        preset: new Preset<LightEditorPlugin>()
+          .add([placeholderPlugin, { placeholder: defaultPlaceholder }])
+          .add(typeAheadPlugin),
       });
 
     it('renders a placeholder on a blank document', async () => {

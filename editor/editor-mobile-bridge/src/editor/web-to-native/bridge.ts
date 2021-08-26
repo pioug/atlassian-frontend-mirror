@@ -116,6 +116,7 @@ export interface CollabBridge {
   emit(event: string, jsonArgs: string): void;
   connect(path: string): void;
   disconnect(): void;
+  updateStepVersion(stepVersion?: number, error?: string): void;
 }
 
 export interface LifecycleBridge {
@@ -129,6 +130,7 @@ export interface CollabEditNativeBridge {
   connectToCollabService: CollabBridge['connect'];
   emitCollabChanges: CollabBridge['emit'];
   disconnectFromCollabService: CollabBridge['disconnect'];
+  updateStepVersion: CollabBridge['updateStepVersion'];
 }
 
 export interface ContentBridge {

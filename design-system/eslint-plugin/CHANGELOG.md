@@ -1,5 +1,15 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 1.1.0
+
+### Minor Changes
+
+- [`ac7a0fd6558`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ac7a0fd6558) - You can now configure whether fallbacks are enforced or restricted when using tokens. Fallbacks are now restricted by default.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.0.0
 
 ### Minor Changes

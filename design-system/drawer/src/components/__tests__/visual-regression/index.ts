@@ -56,7 +56,7 @@ describe('Snapshot Test', () => {
     await page.waitForSelector(objectExamplesSelector);
 
     // Wait for BG images which replace SVG icons (final state)
-    const bgImgSelector = 'span[role="img"]';
+    const bgImgSelector = 'span[data-testid="object-result--image"]';
     const bgImgIconSelector = `${objectExamplesSelector} ${bgImgSelector}`;
     await waitForElementCount(page, bgImgIconSelector, 2, {
       timeout: 30000, // Longer timeout to allow time to download over the internet

@@ -1,5 +1,22 @@
 # @atlaskit/renderer
 
+## 81.0.0
+
+### Minor Changes
+
+- [`511f07f7f7b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/511f07f7f7b) - allow enabling download for media card via enableDownloadButton feature prop
+
+### Patch Changes
+
+- [`5fe6e21a9a0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5fe6e21a9a0) - [ux] Upgrade to the latest version of @atlaskit/modal-dialog. This change includes shifting the primary button in the footer of the modal to be on the right instead of the left.
+- [`b90c0237824`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b90c0237824) - Update package.jsons to remove unused dependencies.
+- [`b95863772be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b95863772be) - Support external observers.
+  Use better naming for refNode (refNode => reference).
+  In favor of further work (supporting multiple references) pass array of references to Extension component.
+  Expand node with localId for extentions.
+- [`0bbd13a9a9c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0bbd13a9a9c) - Temporarily disabling VR tests (ED-13530)
+- Updated dependencies
+
 ## 80.0.0
 
 ### Minor Changes

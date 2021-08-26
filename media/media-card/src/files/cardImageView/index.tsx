@@ -68,9 +68,12 @@ export interface FileCardImageViewProps {
   readonly actions?: CardAction[];
   readonly onDisplayImage?: () => void;
   readonly previewOrientation?: number;
+  readonly timeElapsedTillCommenced?: number;
 }
 
 export const fileCardImageViewSelector = 'media-file-card-view';
+export const fileCardImageViewSelectedSelector =
+  'media-file-card-view-selected';
 
 export type FileCardImageViewBaseProps = FileCardImageViewProps &
   WithAnalyticsEventsProps &
@@ -108,7 +111,9 @@ export class FileCardImageViewBase extends Component<
         selectable={selectable}
         selected={selected}
         mediaType={mediaType}
-        className={fileCardImageViewSelector}
+        className={`${fileCardImageViewSelector} ${
+          selected ? fileCardImageViewSelectedSelector : ''
+        }`}
       >
         {this.renderCardContents()}
       </Wrapper>
@@ -126,7 +131,8 @@ export class FileCardImageViewBase extends Component<
 
     // If a video has no errors/failed processing, we want to be able to play it
     // immediately, even if there's no image preview
-    const isZeroSize = fileSize === '' && status === 'processing';
+    const isZeroSize =
+      fileSize === '' && ['processing', 'loading-preview'].includes(status);
     if (
       mediaType !== 'video' &&
       !this.isFileCardImageReadyForDisplay &&
@@ -258,10 +264,26 @@ export class FileCardImageViewBase extends Component<
   };
 
   onImageLoad = () => {
-    const { createAnalyticsEvent, fileAttributes } = this.props;
+    const {
+      createAnalyticsEvent,
+      fileAttributes,
+      timeElapsedTillCommenced,
+    } = this.props;
     if (fileAttributes && this.shouldFireEvent(RenderEventAction.SUCCEEDED)) {
+      const timeElapsedTillSucceeded = performance.now();
+      const durationSinceCommenced =
+        timeElapsedTillCommenced &&
+        timeElapsedTillSucceeded - timeElapsedTillCommenced;
+
+      const performanceAttributes = {
+        overall: {
+          durationSincePageStart: timeElapsedTillSucceeded,
+          durationSinceCommenced,
+        },
+      };
+
       fireMediaCardEvent(
-        getRenderSucceededEventPayload(fileAttributes),
+        getRenderSucceededEventPayload(fileAttributes, performanceAttributes),
         createAnalyticsEvent,
       );
     }
@@ -270,15 +292,34 @@ export class FileCardImageViewBase extends Component<
   onImageError = () => {
     const { fileAttributes } = this.props;
     if (fileAttributes && this.shouldFireEvent(RenderEventAction.FAILED)) {
-      const { createAnalyticsEvent, mediaItemType } = this.props;
+      const {
+        createAnalyticsEvent,
+        mediaItemType,
+        timeElapsedTillCommenced,
+      } = this.props;
+      const timeElapsedTillFailed = performance.now();
+      const durationSinceCommenced =
+        timeElapsedTillCommenced &&
+        timeElapsedTillFailed - timeElapsedTillCommenced;
+
+      const performanceAttributes = {
+        overall: {
+          durationSincePageStart: timeElapsedTillFailed,
+          durationSinceCommenced,
+        },
+      };
+
       if (mediaItemType === 'file') {
         fireMediaCardEvent(
-          getRenderFailedFileUriPayload(fileAttributes),
+          getRenderFailedFileUriPayload(fileAttributes, performanceAttributes),
           createAnalyticsEvent,
         );
       } else if (mediaItemType === 'external-image') {
         fireMediaCardEvent(
-          getRenderFailedExternalUriPayload(fileAttributes),
+          getRenderFailedExternalUriPayload(
+            fileAttributes,
+            performanceAttributes,
+          ),
           createAnalyticsEvent,
         );
       }
@@ -422,7 +463,10 @@ export class FileCardImageViewBase extends Component<
   private get isFileCardImageReadyForDisplay() {
     const { dataURI, status } = this.props;
 
-    return !!dataURI || !['loading', 'processing'].includes(status);
+    return (
+      !!dataURI ||
+      !['loading', 'processing', 'loading-preview'].includes(status)
+    );
   }
 
   private get isCropped() {

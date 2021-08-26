@@ -9,7 +9,7 @@ import DownIcon from '@atlaskit/icon/glyph/chevron-down';
 
 export const ClearIndicator: FC<IndicatorProps<any, any>> = (props) => (
   <components.ClearIndicator {...props}>
-    <SelectClearIcon size="small" primaryColor="inherit" label="clear" />
+    <SelectClearIcon size="small" label="clear" />
   </components.ClearIndicator>
 );
 

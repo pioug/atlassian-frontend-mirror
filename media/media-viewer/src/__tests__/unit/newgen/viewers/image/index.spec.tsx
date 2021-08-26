@@ -15,9 +15,9 @@ import {
   ImageViewer,
   ImageViewerContent,
   ImageViewerProps,
-} from '../../../../../newgen/viewers/image';
-import { BaseState } from '../../../../../newgen/viewers/base-viewer';
-import { InteractiveImg } from '../../../../../newgen/viewers/image/interactive-img';
+} from '../../../../../viewers/image';
+import { BaseState } from '../../../../../viewers/base-viewer';
+import { InteractiveImg } from '../../../../../viewers/image/interactive-img';
 
 const collectionName = 'some-collection';
 const imageItem: ProcessedFileState = {

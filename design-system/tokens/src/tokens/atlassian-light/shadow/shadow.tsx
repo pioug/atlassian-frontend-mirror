@@ -1,6 +1,6 @@
-import type { ShadowTokenSchema } from '../../../types';
+import type { ShadowTokenSchema, ValueSchema } from '../../../types';
 
-const shadow: ShadowTokenSchema = {
+const shadow: ValueSchema<ShadowTokenSchema> = {
   shadow: {
     card: {
       value: [
@@ -17,7 +17,6 @@ const shadow: ShadowTokenSchema = {
           opacity: 0.31,
         },
       ],
-      attributes: { group: 'shadow' },
     },
     overlay: {
       value: [
@@ -34,7 +33,6 @@ const shadow: ShadowTokenSchema = {
           opacity: 0.31,
         },
       ],
-      attributes: { group: 'shadow' },
     },
   },
 };

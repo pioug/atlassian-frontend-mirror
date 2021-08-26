@@ -5,14 +5,14 @@ import { mount } from 'enzyme';
 import {
   ArchiveSidebarFolderEntry,
   ArchiveSidebarFolderProps,
-} from '../../../../../newgen/viewers/archiveSidebar/archive-sidebar-folder-entry';
+} from '../../../../../viewers/archiveSidebar/archive-sidebar-folder-entry';
 import { fakeMediaClient, sleep } from '@atlaskit/media-test-helpers';
 import { Item } from '@atlaskit/navigation-next';
 import {
   ArchiveSidebarFolderWrapper,
   ArchiveSidebarFileEntryWrapper,
   ArchiveDownloadButtonWrapper,
-} from '../../../../../newgen/viewers/archiveSidebar/styled';
+} from '../../../../../viewers/archiveSidebar/styled';
 import { ZipEntry } from 'unzipit';
 import Folder24Icon from '@atlaskit/icon-file-type/glyph/folder/24';
 import DownloadIcon from '@atlaskit/icon/glyph/download';

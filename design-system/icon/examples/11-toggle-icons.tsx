@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import React, { ComponentType, useState } from 'react';
 import { N400, N0, R300, B300 } from '@atlaskit/theme/colors';
 import Button from '@atlaskit/button/standard-button';
@@ -39,8 +40,8 @@ const ToggleIcons: React.FC = () => {
   return (
     <div>
       <h6 style={{ padding: 0, margin: '10px 5px' }}>
-        Click on these icons wrapped into a button to see them &#39;check&#39;
-        and &#39;uncheck&#39; itselves
+        Click on these icons wrapped by a button to see them &#39;check&#39; and
+        &#39;uncheck&#39; itselves
       </h6>
 
       <div style={colorStyle}>
@@ -55,7 +56,7 @@ const ToggleIcons: React.FC = () => {
         ))}
       </div>
       <h6 style={{ padding: 0, margin: '10px 5px' }}>
-        Click on these icons wrapped into a button to see them &#39;reverse&#39;
+        Click on these icons wrapped by a button to see them &#39;reverse&#39;
         itself while staying &#39;checked&#39;
       </h6>
       <div style={styles.iconReverse}>

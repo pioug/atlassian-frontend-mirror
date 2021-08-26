@@ -6,7 +6,8 @@ import {
 } from '@atlaskit/visual-regression/helper';
 import { emojiSprite } from '../../components/common/styles';
 
-describe('Snapshot Test', () => {
+// FIXME: flaky test https://product-fabric.atlassian.net/browse/COLLAB-904
+describe.skip('Snapshot Test', () => {
   let page: PuppeteerPage;
   const url = getExampleUrl(
     'elements',

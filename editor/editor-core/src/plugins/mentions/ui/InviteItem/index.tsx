@@ -15,6 +15,8 @@ import {
   MentionItemStyle,
   NameSectionStyle,
   RowStyle,
+  ROW_SIDE_PADDING,
+  AVATAR_HEIGHT,
 } from './styles';
 import { messages } from '../../messages';
 
@@ -22,6 +24,7 @@ export interface OnMentionEvent {
   (mention: MentionDescription, event?: SyntheticEvent<any>): void;
 }
 
+export const INVITE_ITEM_MIN_HEIGHT = AVATAR_HEIGHT + ROW_SIDE_PADDING * 2;
 export const INVITE_ITEM_DESCRIPTION = { id: 'invite-teammate' };
 
 const leftClick = (event: MouseEvent<any>): boolean => {

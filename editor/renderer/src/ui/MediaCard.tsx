@@ -60,6 +60,7 @@ export interface MediaCardProps {
   rendererContext?: RendererContext;
   alt?: string;
   featureFlags?: MediaFeatureFlags;
+  shouldEnableDownloadButton?: boolean;
 }
 
 export interface State {
@@ -280,6 +281,7 @@ export class MediaCardInternal extends Component<MediaCardProps, State> {
       originalDimensions,
       shouldOpenMediaViewer: forceOpenMediaViewer,
       featureFlags,
+      shouldEnableDownloadButton,
     } = this.props;
     const isMobile = rendererAppearance === 'mobile';
     const shouldPlayInline =
@@ -346,6 +348,7 @@ export class MediaCardInternal extends Component<MediaCardProps, State> {
             list: Array.from(mediaIdentifierMap.values()),
           }}
           featureFlags={featureFlags}
+          shouldEnableDownloadButton={shouldEnableDownloadButton}
         />
       </CardWrapper>
     );

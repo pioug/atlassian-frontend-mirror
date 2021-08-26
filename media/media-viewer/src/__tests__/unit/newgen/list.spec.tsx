@@ -5,9 +5,9 @@ import {
   FileState,
   createFileStateSubject,
 } from '@atlaskit/media-client';
-import { List, Props, State } from '../../../newgen/list';
-import { nextNavButtonId } from '../../../newgen/navigation';
-import { ItemViewer } from '../../../newgen/item-viewer';
+import { List, Props, State } from '../../../list';
+import { nextNavButtonId } from '../../../navigation';
+import { ItemViewer } from '../../../item-viewer';
 import {
   mountWithIntlContext,
   fakeMediaClient,

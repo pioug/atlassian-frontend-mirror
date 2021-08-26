@@ -23,6 +23,7 @@ export interface Props {
   parameters?: any;
   content?: any;
   layout?: ExtensionLayout;
+  localId?: string;
   children: ({ result }: { result?: JSX.Element | null }) => JSX.Element;
 }
 
@@ -66,6 +67,7 @@ export default class ExtensionRenderer extends React.Component<Props, State> {
       content,
       text,
       type,
+      localId,
     } = this.props;
 
     const node = {
@@ -74,6 +76,7 @@ export default class ExtensionRenderer extends React.Component<Props, State> {
       extensionType,
       parameters,
       content: content || text,
+      localId,
     };
 
     let result = null;

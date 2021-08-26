@@ -5,7 +5,7 @@ import { shallow, mount } from 'enzyme';
 import { IntlProvider } from 'react-intl';
 import { TitleBox, FormattedDate } from '../titleBox';
 import { Truncate } from '@atlaskit/media-ui/truncateText';
-import { Breakpoint } from '../../common';
+import { Breakpoint } from '../../Breakpoint';
 import {
   TitleBoxWrapper,
   TitleBoxHeader,

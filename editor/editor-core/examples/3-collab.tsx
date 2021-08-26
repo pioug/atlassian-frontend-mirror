@@ -233,6 +233,7 @@ const editorProps = ({
   allowFindReplace: true,
   featureFlags: {
     showAvatarGroupAsPlugin: true,
+    collabAvatarScroll: true,
   },
   allowTables: {
     advanced: true,

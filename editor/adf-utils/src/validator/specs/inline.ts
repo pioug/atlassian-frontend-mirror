@@ -8,6 +8,7 @@ export default [
   'placeholder',
   'inlineCard',
   'status',
+  'mediaInline',
   'formatted_text_inline',
   'code_inline',
 ];

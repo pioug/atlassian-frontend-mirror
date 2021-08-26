@@ -1,12 +1,19 @@
 import { EditorState, Selection, TextSelection } from 'prosemirror-state';
-import { Decoration, DecorationSet } from 'prosemirror-view';
+import { EditorView, Decoration, DecorationSet } from 'prosemirror-view';
 import { Node as PMNode } from 'prosemirror-model';
 import * as themeColors from '@atlaskit/theme/colors';
 
 import { hexToRgba } from '@atlaskit/adf-schema';
 import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common';
+import { addAnalytics } from '../analytics/utils';
+import {
+  AnalyticsEventPayload,
+  EVENT_TYPE,
+  ACTION,
+  ACTION_SUBJECT,
+} from '../analytics/types';
 
-import { CollabEditOptions } from './types';
+import { CollabEditOptions, CollabParticipant } from './types';
 
 export interface Color {
   solid: string;
@@ -146,4 +153,47 @@ export const replaceDocument = (
   }
 
   return tr;
+};
+
+export const scrollToCollabCursor = (
+  editorView: EditorView,
+  participants: CollabParticipant[],
+  sessionId: string | undefined,
+  // analytics: AnalyticsEvent | undefined,
+  index: number,
+) => {
+  const selectedUser = participants[index];
+  if (
+    selectedUser &&
+    selectedUser.cursorPos !== undefined &&
+    selectedUser.sessionId !== sessionId
+  ) {
+    const { state } = editorView;
+    let tr = state.tr;
+    const analyticsPayload: AnalyticsEventPayload = {
+      action: ACTION.MATCHED,
+      actionSubject: ACTION_SUBJECT.SELECTION,
+      eventType: EVENT_TYPE.TRACK,
+    };
+    tr.setSelection(Selection.near(tr.doc.resolve(selectedUser.cursorPos)));
+    tr = addAnalytics(state, tr, analyticsPayload);
+    tr.scrollIntoView();
+    editorView.dispatch(tr);
+    if (!editorView.hasFocus()) {
+      editorView.focus();
+    }
+  }
+};
+
+export const getPositionOfTelepointer = (
+  sessionId: string,
+  decorationSet: DecorationSet,
+): undefined | number => {
+  let scrollPosition;
+  decorationSet.find().forEach((deco: any) => {
+    if (deco.type.spec.pointer.sessionId === sessionId) {
+      scrollPosition = deco.from;
+    }
+  });
+  return scrollPosition;
 };

@@ -1,4 +1,4 @@
-jest.mock('../../../../../newgen/utils/isIE', () => ({
+jest.mock('../../../../../utils/isIE', () => ({
   isIE: () => true,
 }));
 
@@ -9,10 +9,10 @@ import {
   nextTick,
   fakeMediaClient,
 } from '@atlaskit/media-test-helpers';
-import { AudioViewer } from '../../../../../newgen/viewers/audio';
+import { AudioViewer } from '../../../../../viewers/audio';
 import Spinner from '@atlaskit/spinner';
-import { DefaultCoverWrapper, AudioCover } from '../../../../../newgen/styled';
-import { ErrorMessage } from '../../../../../newgen/errorMessage';
+import { DefaultCoverWrapper, AudioCover } from '../../../../../styled';
+import { ErrorMessage } from '../../../../../errorMessage';
 import Button from '@atlaskit/button/custom-theme-button';
 import { Auth } from '@atlaskit/media-core';
 

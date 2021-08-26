@@ -13,7 +13,9 @@ import { ButtonGroup, Separator } from '../../../../ui/styles';
 import ToolbarButton, { TOOLBAR_BUTTON } from '../../../../ui/ToolbarButton';
 import { messages } from '../../messages';
 import { HistoryPluginState } from '../../../history/types';
+import { createTypeAheadTools } from '../../../type-ahead/api';
 import { undoFromToolbar, redoFromToolbar } from '../../commands';
+import { Command } from '../../../../types/command';
 
 export interface Props {
   undoDisabled?: boolean;
@@ -24,6 +26,30 @@ export interface Props {
   editorView: EditorView;
 }
 
+const closeTypeAheadAndRunCommand = (editorView?: EditorView) => (
+  command: Command,
+) => {
+  if (!editorView) {
+    return;
+  }
+  const tool = createTypeAheadTools(editorView);
+
+  if (tool.isOpen()) {
+    tool.close({
+      attachCommand: command,
+      insertCurrentQueryAsRawText: false,
+    });
+  } else {
+    command(editorView.state, editorView.dispatch);
+  }
+};
+const forceFocus = (editorView: EditorView) => (command: Command) => {
+  closeTypeAheadAndRunCommand(editorView)(command);
+
+  if (!editorView.hasFocus()) {
+    editorView.focus();
+  }
+};
 export class ToolbarUndoRedo extends PureComponent<Props & InjectedIntlProps> {
   render() {
     const {
@@ -35,12 +61,12 @@ export class ToolbarUndoRedo extends PureComponent<Props & InjectedIntlProps> {
     } = this.props;
 
     const handleUndo = () => {
-      undoFromToolbar(editorView.state, editorView.dispatch);
-    };
-    const handleRedo = () => {
-      redoFromToolbar(editorView.state, editorView.dispatch);
+      forceFocus(editorView)(undoFromToolbar);
     };
 
+    const handleRedo = () => {
+      forceFocus(editorView)(redoFromToolbar);
+    };
     const labelUndo = formatMessage(messages.undo);
     const labelRedo = formatMessage(messages.redo);
 

@@ -21,6 +21,7 @@ const filterOptions = [
   { value: 'status', label: 'status' },
 ];
 
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 const Header = styled.td`
   font-weight: bold;
   padding: 4px 8px 4px 0;

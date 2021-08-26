@@ -50,6 +50,21 @@ export class Participants implements ReadOnlyParticipants {
     return new Participants(newSet);
   }
 
+  updateCursorPos(sessionId: string, cursorPos: number) {
+    const newSet = new Map<string, CollabParticipant>(this.participants);
+    const data = newSet.get(sessionId);
+    if (!data) {
+      return this;
+    }
+
+    newSet.set(sessionId, {
+      ...data,
+      cursorPos,
+    });
+
+    return new Participants(newSet);
+  }
+
   toArray() {
     return Array.from(this.participants.values());
   }

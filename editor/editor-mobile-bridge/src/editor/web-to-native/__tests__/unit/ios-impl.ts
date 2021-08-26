@@ -334,9 +334,7 @@ describe('Web To Native', () => {
           items: 'items',
         });
       });
-    });
 
-    describe('Toolbar Bridge', () => {
       it('should call onNodeDeselected in native', () => {
         iosBridge.onNodeDeselected();
 
@@ -345,6 +343,32 @@ describe('Web To Native', () => {
             ?.postMessage,
         ).toBeCalledWith({
           name: 'onNodeDeselected',
+        });
+      });
+    });
+
+    describe('Collab Bridge', () => {
+      it('should call updateStepVersion with version', () => {
+        iosBridge.updateStepVersion(100);
+
+        expect(
+          windowWithMockBridges.webkit?.messageHandlers.collabBridge
+            ?.postMessage,
+        ).toBeCalledWith({
+          name: 'updateStepVersion',
+          stepVersion: 100,
+        });
+      });
+
+      it('should call updateStepVersion with error', () => {
+        iosBridge.updateStepVersion(undefined, 'Error');
+
+        expect(
+          windowWithMockBridges.webkit?.messageHandlers.collabBridge
+            ?.postMessage,
+        ).toBeCalledWith({
+          name: 'updateStepVersion',
+          error: 'Error',
         });
       });
     });

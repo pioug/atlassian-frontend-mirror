@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 
 import Avatar from '@atlaskit/avatar';
+import Button from '@atlaskit/button/standard-button';
 import Drawer from '@atlaskit/drawer';
 import {
   DropdownItem,
@@ -12,7 +13,13 @@ import HelpIcon from '@atlaskit/icon/glyph/question-circle';
 import SearchIcon from '@atlaskit/icon/glyph/search';
 import StarIcon from '@atlaskit/icon/glyph/star';
 import { AtlassianIcon } from '@atlaskit/logo';
-import Modal, { ModalTransition } from '@atlaskit/modal-dialog';
+import Modal, {
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
+  ModalTitle,
+  ModalTransition,
+} from '@atlaskit/modal-dialog';
 // AFP-2532 TODO: Fix automatic suppressions below
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { colors } from '@atlaskit/theme';
@@ -244,12 +251,20 @@ class GlobalNavWithModalsAndDrawers extends Component {
 
         <ModalTransition>
           {isModalOpen && (
-            <Modal
-              actions={[{ text: 'Close', onClick: this.closeModal }]}
-              onClose={this.closeModal}
-              heading="Modal Title"
-            >
-              Modal content
+            <Modal onClose={this.closeModal}>
+              <ModalHeader>
+                <ModalTitle>Modal Title</ModalTitle>
+              </ModalHeader>
+              <ModalBody>Modal content</ModalBody>
+              <ModalFooter>
+                <Button
+                  onClick={this.closeModal}
+                  autoFocus
+                  appearance="primary"
+                >
+                  Close
+                </Button>
+              </ModalFooter>
             </Modal>
           )}
         </ModalTransition>

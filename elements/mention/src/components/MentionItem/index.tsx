@@ -26,6 +26,8 @@ import {
 import { renderHighlight } from './MentionHighlightHelpers';
 import MentionDescriptionByline from '../MentionDescriptionByline';
 
+export { MENTION_ITEM_HEIGHT } from './styles';
+
 function renderLozenge(lozenge?: string | LozengeProps) {
   if (typeof lozenge === 'string') {
     return <Lozenge>{lozenge}</Lozenge>;

@@ -12,6 +12,7 @@ export interface Props {
   extensionKey: string;
   text?: string;
   parameters?: any;
+  localId?: string;
 }
 
 const InlineExtension: React.StatelessComponent<Props> = (props) => {

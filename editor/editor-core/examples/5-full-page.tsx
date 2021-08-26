@@ -366,6 +366,7 @@ export class ExampleEditorComponent extends React.Component<
                   allowLinking: true,
                   allowResizingInTables: true,
                   allowAltTextOnImages: true,
+                  allowMediaInline: true,
                   altTextValidator: (value: string) => {
                     const errors = [];
                     if (!/^[A-Z]/g.test(value)) {

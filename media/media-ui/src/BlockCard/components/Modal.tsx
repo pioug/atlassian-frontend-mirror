@@ -1,7 +1,23 @@
+/* TODO: (from codemod)
+We have converted this file as best we could but you might still need
+to manually complete migrating this usage of ModalDialog.
+
+This file uses one or more of the following ModalDialog props: 'components', 'header',
+'footer', 'body'. These props have been removed as part of moving to
+a compositional API.
+
+The render props that used to be exposed by the custom component APIs are
+now accessible using the 'useModal' hook instead: 'testId', 'titleId', and 'onClose'.
+
+We are also no longer exposing 'appearance' as render prop, so this needs to be
+manually passed to your custom components.
+
+For a complete guide on customization using the new compositional API, refer to the docs at
+https://atlassian.design/components/modal-dialog/examples#customizing-modal-dialog. */
 import React, { useState, ErrorInfo } from 'react';
 import ModalDialog, {
   ModalTransition,
-  HeaderComponentProps,
+  ModalBody,
 } from '@atlaskit/modal-dialog';
 import { Header } from './ModalHeader';
 import { IconProps } from './Icon';
@@ -98,45 +114,41 @@ const Modal = ({
           width="large"
           testId={testId}
           onOpenComplete={onOpen}
-          components={{
-            // TODO modal body wants to be original modal with height 100% - find out how to add
-            Header: (props: HeaderComponentProps) => (
-              <Header
-                {...props}
-                providerName={providerName}
-                icon={icon}
-                metadata={metadata}
-                url={url}
-                title={title}
-                label={closeLabel}
-                download={download}
-                byline={byline}
-                onViewActionClick={onViewActionClick}
-                onDownloadActionClick={onDownloadActionClick}
-              />
-            ),
-          }}
           onClose={() => {
             setIsOpen(false);
           }}
           onCloseComplete={onClose}
         >
-          {src ? (
-            <iframe
-              style={iframeStyles}
-              name={iframeName}
-              frameBorder={0}
-              src={src}
-              sandbox={sandbox}
-            />
-          ) : (
-            <iframe
-              style={iframeStyles}
-              name={iframeName}
-              frameBorder={0}
-              sandbox={sandbox}
-            />
-          )}
+          <Header
+            providerName={providerName}
+            icon={icon}
+            metadata={metadata}
+            url={url}
+            title={title}
+            label={closeLabel}
+            download={download}
+            byline={byline}
+            onViewActionClick={onViewActionClick}
+            onDownloadActionClick={onDownloadActionClick}
+          />
+          <ModalBody>
+            {src ? (
+              <iframe
+                style={iframeStyles}
+                name={iframeName}
+                frameBorder={0}
+                src={src}
+                sandbox={sandbox}
+              />
+            ) : (
+              <iframe
+                style={iframeStyles}
+                name={iframeName}
+                frameBorder={0}
+                sandbox={sandbox}
+              />
+            )}
+          </ModalBody>
         </ModalDialog>
       )}
     </ModalTransition>

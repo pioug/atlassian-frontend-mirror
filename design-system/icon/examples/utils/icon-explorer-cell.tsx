@@ -3,7 +3,13 @@ import { useRef, useState, ComponentType, FC } from 'react';
 import { css, jsx } from '@emotion/core';
 
 import Textfield from '@atlaskit/textfield';
-import Modal, { ModalTransition } from '@atlaskit/modal-dialog';
+import Button from '@atlaskit/button/standard-button';
+import { token } from '@atlaskit/tokens';
+import Modal, {
+  ModalTransition,
+  ModalBody,
+  ModalFooter,
+} from '@atlaskit/modal-dialog';
 import Tooltip from '@atlaskit/tooltip';
 import { gridSize } from '@atlaskit/theme/constants';
 import { N30A } from '@atlaskit/theme/colors';
@@ -18,7 +24,7 @@ const iconExplorerLinkStyles = css({
     lineHeight: 0,
   },
   '&:hover': {
-    background: N30A,
+    background: token('color.background.subtleNeutral.hover', N30A),
   },
 });
 
@@ -30,22 +36,10 @@ const iconModalHeaderStyles = css({
   flexDirection: 'row',
 });
 
-const IconModalHeader: FC = (props) => (
-  <h3 css={iconModalHeaderStyles} {...props}>
-    {props.children}
-  </h3>
-);
-
 const dividerStyles = css({
   width: '100%',
   textAlign: 'center',
 });
-
-const Divider: FC = (props) => (
-  <h4 css={dividerStyles} {...props}>
-    {props.children}
-  </h4>
-);
 
 interface IconExplorerCellProps {
   // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
@@ -89,9 +83,9 @@ const IconExplorerCell: FC<IconExplorerCellProps> = ({
 
   if (divider) {
     return (
-      <Divider>
+      <h4 css={dividerStyles}>
         <Icon />
-      </Divider>
+      </h4>
     );
   }
 
@@ -100,33 +94,27 @@ const IconExplorerCell: FC<IconExplorerCellProps> = ({
     : `import ${componentName} from '${packageName}';`;
 
   const modal = (
-    <Modal
-      onClose={closeModal}
-      components={{
-        Header: () => (
-          <IconModalHeader>
-            <Icon label={componentName} size="medium" />
-            {componentName}
-          </IconModalHeader>
-        ),
-      }}
-      actions={[
-        {
-          text: 'Copy',
-          onClick: copyToClipboard,
-        },
-        {
-          text: 'Close',
-          onClick: closeModal,
-        },
-      ]}
-    >
-      <div
-        onClick={() => inputEl && inputEl.current!.select()}
-        role="presentation"
-      >
-        <Textfield isReadOnly value={importStatement} ref={inputEl} />
-      </div>
+    <Modal onClose={closeModal}>
+      <h3 css={iconModalHeaderStyles}>
+        <Icon label={componentName} size="medium" />
+        {componentName}
+      </h3>
+      <ModalBody>
+        <div
+          onClick={() => inputEl && inputEl.current!.select()}
+          role="presentation"
+        >
+          <Textfield isReadOnly value={importStatement} ref={inputEl} />
+        </div>
+      </ModalBody>
+      <ModalFooter>
+        <Button onClick={closeModal} appearance="subtle">
+          Close
+        </Button>
+        <Button onClick={copyToClipboard} appearance="primary" autoFocus>
+          Copy
+        </Button>
+      </ModalFooter>
     </Modal>
   );
 

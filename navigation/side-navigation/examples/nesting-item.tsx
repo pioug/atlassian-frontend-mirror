@@ -91,8 +91,10 @@ const BasicExample = () => {
             iconBefore={<SettingsIcon label="" />}
             title="Settings"
             cssFn={() => ({
+              // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
               color: 'red',
               '&:hover': {
+                // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
                 color: 'blue',
               },
             })}

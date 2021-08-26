@@ -1,5 +1,12 @@
 # @atlaskit/quick-search
 
+## 8.0.8
+
+### Patch Changes
+
+- [`ea354666ca2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ea354666ca2) - Added testid to default ObjectResult's AvatarImage.
+- Updated dependencies
+
 ## 8.0.7
 
 ### Patch Changes

@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
 import StatelessElementBrowser from './components/StatelessElementBrowser';
 import { Category, Modes } from './types';
+import { EmptyStateHandler } from '../../types/empty-state-handler';
 
 export interface Props {
   categories?: Category[];
@@ -12,6 +13,7 @@ export interface Props {
   showSearch: boolean;
   showCategories: boolean;
   defaultCategory?: string;
+  emptyStateHandler?: EmptyStateHandler;
 }
 
 export interface State {
@@ -112,6 +114,7 @@ export default class ElementBrowser extends PureComponent<Props, State> {
       showSearch,
       showCategories,
       mode,
+      emptyStateHandler,
     } = this.props;
     const { categories, searchTerm, selectedCategory, items } = this.state;
     return (
@@ -127,6 +130,7 @@ export default class ElementBrowser extends PureComponent<Props, State> {
         showCategories={showCategories}
         mode={mode}
         searchTerm={searchTerm}
+        emptyStateHandler={emptyStateHandler}
       />
     );
   }

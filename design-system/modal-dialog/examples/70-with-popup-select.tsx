@@ -2,7 +2,7 @@ import React from 'react';
 
 import { PopupSelect } from '@atlaskit/select';
 
-import ModalDialog from '../src';
+import ModalDialog, { ModalBody } from '../src';
 
 const options = [
   { label: 'Adelaide', value: 'adelaide' },
@@ -25,14 +25,16 @@ function onClose() {
 export default function ModalWithPopupSelect() {
   return (
     <ModalDialog onClose={onClose}>
-      <PopupSelect
-        {...defaults}
-        target={({ ref }: { ref: React.RefObject<any> }) => (
-          <button ref={ref}>Click me</button>
-        )}
-        popperProps={{ placement: 'bottom', strategy: 'fixed' }}
-        searchThreshold={10}
-      />
+      <ModalBody>
+        <PopupSelect
+          {...defaults}
+          target={({ ref }: { ref: React.RefObject<any> }) => (
+            <button ref={ref}>Click me</button>
+          )}
+          popperProps={{ placement: 'bottom', strategy: 'fixed' }}
+          searchThreshold={10}
+        />
+      </ModalBody>
     </ModalDialog>
   );
 }

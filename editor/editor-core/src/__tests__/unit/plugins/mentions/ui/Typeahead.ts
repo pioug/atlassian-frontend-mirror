@@ -2,7 +2,7 @@ import { MentionDescription } from '@atlaskit/mention';
 import {
   memoize,
   mentionToTypeaheadItem,
-} from '../../../../../plugins/mentions';
+} from '../../../../../plugins/mentions/type-ahead';
 
 describe('memoization', () => {
   // Spy without having to mock the whole import

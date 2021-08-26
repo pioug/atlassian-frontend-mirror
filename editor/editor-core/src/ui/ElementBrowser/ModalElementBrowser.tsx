@@ -8,17 +8,14 @@ import { borderRadius } from '@atlaskit/theme/constants';
 import { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
 
 import Button from '@atlaskit/button/custom-theme-button';
-import Modal, {
-  ModalFooter,
-  ModalTransition,
-  FooterComponentProps,
-} from '@atlaskit/modal-dialog';
+import Modal, { ModalTransition, useModal } from '@atlaskit/modal-dialog';
 import QuestionCircleIcon from '@atlaskit/icon/glyph/question-circle';
 
 import ElementBrowser from './components/ElementBrowserLoader';
 import { getCategories } from './categories';
 import { MODAL_WRAPPER_PADDING } from './constants';
 import { messages } from './messages';
+import { EmptyStateHandler } from '../../types/empty-state-handler';
 
 export interface State {
   isOpen: boolean;
@@ -30,6 +27,7 @@ export interface Props {
   isOpen?: boolean;
   onClose: () => void;
   helpUrl?: string | undefined;
+  emptyStateHandler?: EmptyStateHandler;
 }
 
 const ModalElementBrowser = (props: Props & InjectedIntlProps) => {
@@ -51,9 +49,8 @@ const ModalElementBrowser = (props: Props & InjectedIntlProps) => {
   );
 
   const RenderFooter = useCallback(
-    (footerProps: FooterComponentProps) => (
+    () => (
       <Footer
-        {...footerProps}
         onInsert={() => onInsertItem(selectedItem!)}
         beforeElement={
           helpUrl
@@ -86,16 +83,18 @@ const ModalElementBrowser = (props: Props & InjectedIntlProps) => {
           mode="full"
           onSelectItem={onSelectItem}
           onInsertItem={onInsertItem}
+          emptyStateHandler={props.emptyStateHandler}
         />
       </Wrapper>
     ),
-    [props.intl, props.getItems, onSelectItem, onInsertItem],
+    [
+      props.intl,
+      props.getItems,
+      onSelectItem,
+      onInsertItem,
+      props.emptyStateHandler,
+    ],
   );
-
-  const components = {
-    Body: RenderBody,
-    Footer: RenderFooter,
-  };
 
   return (
     <div data-editor-popup={true} onClick={onModalClick} onKeyDown={onKeyDown}>
@@ -110,11 +109,13 @@ const ModalElementBrowser = (props: Props & InjectedIntlProps) => {
             height="664px"
             width="x-large"
             autoFocus={false}
-            components={components}
             // defaults to true and doesn't work along with stackIndex=1.
             // packages/design-system/modal-dialog/src/components/Content.tsx Line 287
             shouldCloseOnEscapePress={false}
-          />
+          >
+            <RenderBody />
+            <RenderFooter />
+          </Modal>
         )}
       </ModalTransition>
     </div>
@@ -128,18 +129,14 @@ const onModalClick = (e: React.MouseEvent) => e.stopPropagation();
 
 const Footer = ({
   onInsert,
-  onClose,
-  showKeyline,
   beforeElement,
-}: FooterComponentProps & {
+}: {
   onInsert: () => void;
   beforeElement?: JSX.Element;
 }) => {
+  const { onClose } = useModal();
   return (
-    <ModalFooter
-      showKeyline={showKeyline}
-      style={{ padding: MODAL_WRAPPER_PADDING }}
-    >
+    <ModalFooter>
       {beforeElement ? beforeElement : <span />}
       <Actions>
         <ActionItem>
@@ -195,6 +192,15 @@ const Wrapper = styled.div`
   overflow: hidden;
   background-color: ${themed({ light: N0, dark: DN50 })()};
   border-radius: ${borderRadius()}px;
+`;
+
+const ModalFooter = styled.div`
+  display: flex;
+  padding: ${MODAL_WRAPPER_PADDING}px;
+
+  position: relative;
+  align-items: center;
+  justify-content: space-between;
 `;
 
 export default injectIntl(ModalElementBrowser);

@@ -1,51 +1,63 @@
-import React, { useState } from 'react';
+/** @jsx jsx */
+import { useCallback, useState } from 'react';
 
-import styled from '@emotion/styled';
+import { css, jsx } from '@emotion/core';
 import Lorem from 'react-lorem-component';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
+import { gridSize } from '@atlaskit/theme/constants';
 
-import ModalDialog, { ModalTransition } from '../src';
+import ModalDialog, {
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
+  ModalTitle,
+  ModalTransition,
+} from '../src';
+
+const containerStyles = css({
+  padding: `${gridSize() * 2}px`,
+});
+
+const titleStyles = css({
+  marginBottom: '0.66em',
+});
 
 const units = [420, '42em', '100%'];
-const H4 = styled.h4`
-  margin-bottom: 0.66em;
-`;
 
 export default function ModalDemo() {
-  const [isOpen, setOpen] = useState<number | string>();
+  const [height, setHeight] = useState<number | string | null>(null);
+  const close = useCallback(() => setHeight(null), []);
 
-  const btn = (name?: string | number) => (
-    <Button key={name} onClick={() => setOpen(name)}>
+  const btn = (name: string | number) => (
+    <Button key={name} onClick={() => setHeight(name)}>
       {name}
     </Button>
   );
 
-  const actions = [
-    { text: 'Close', onClick: close },
-    { text: 'Secondary Action' },
-  ];
-
   return (
-    <div style={{ padding: 16 }}>
-      <H4>Units</H4>
+    <div css={containerStyles}>
+      <h4 css={titleStyles}>Units</h4>
       <ButtonGroup>{units.map(btn)}</ButtonGroup>
 
       <ModalTransition>
-        {units
-          .filter((w) => w === isOpen)
-          .map((name) => (
-            <ModalDialog
-              actions={actions}
-              key={name}
-              onClose={close}
-              heading={`Modal: ${name}`}
-              height={name}
-            >
+        {height && (
+          <ModalDialog key={height} onClose={close} height={height}>
+            <ModalHeader>
+              <ModalTitle>Modal: {height}</ModalTitle>
+            </ModalHeader>
+            <ModalBody>
               <Lorem count="1" />
-            </ModalDialog>
-          ))}
+            </ModalBody>
+            <ModalFooter>
+              <Button appearance="subtle">Secondary Action</Button>
+              <Button autoFocus onClick={close} appearance="primary">
+                Close
+              </Button>
+            </ModalFooter>
+          </ModalDialog>
+        )}
       </ModalTransition>
     </div>
   );

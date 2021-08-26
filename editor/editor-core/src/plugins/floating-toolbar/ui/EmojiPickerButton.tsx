@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import Button from '@atlaskit/button';
-import Emoji from '@atlaskit/icon/glyph/editor/emoji';
 import { EditorView } from 'prosemirror-view';
 import {
   Popup,
@@ -11,6 +10,7 @@ import {
 } from '@atlaskit/editor-common';
 import { EmojiPicker, EmojiId } from '@atlaskit/emoji';
 import Tooltip from '@atlaskit/tooltip';
+import EditorEmojiAddIcon from './EditorEmojiAddIcon';
 
 // helps adjusts position of popup
 const EmojiPickerButtonWrapper = styled.div`
@@ -92,7 +92,7 @@ export const EmojiPickerButton: React.FunctionComponent<{
           onClick={togglePopup}
           ref={buttonRef}
           isSelected={props.isSelected}
-          iconBefore={<Emoji label="emoji" />}
+          iconBefore={<EditorEmojiAddIcon />}
         />
       </Tooltip>
       {renderPopup()}

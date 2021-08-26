@@ -3,6 +3,7 @@ import { jsx } from '@emotion/core';
 
 import { HORIZONTAL_GLOBAL_NAV_HEIGHT } from '@atlaskit/atlassian-navigation';
 import { N40 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import GlobalNav from './global-nav';
 
@@ -44,7 +45,9 @@ const AppFrame = ({
         <div
           css={{
             minHeight: 600,
-            borderRight: hideBorder ? undefined : `1px solid ${N40}`,
+            borderRight: hideBorder
+              ? undefined
+              : `1px solid ${token('color.border.neutral', N40)}`,
           }}
         >
           {children}

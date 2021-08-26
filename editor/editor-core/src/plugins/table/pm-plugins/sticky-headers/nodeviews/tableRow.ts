@@ -388,6 +388,7 @@ export class TableRowNodeView implements NodeView {
 
   onTablePluginState = (state: TablePluginState) => {
     const tableRef = state.tableRef;
+    let focusChanged = false;
 
     const tree = this.tree;
     if (!tree) {
@@ -404,6 +405,9 @@ export class TableRowNodeView implements NodeView {
     }
 
     const isCurrentTableSelected = tableRef === tree.table;
+    if (isCurrentTableSelected !== this.focused) {
+      focusChanged = true;
+    }
     this.focused = isCurrentTableSelected;
 
     const { wrapper } = tree;
@@ -437,7 +441,8 @@ export class TableRowNodeView implements NodeView {
 
     // run after table style changes have been committed
     setTimeout(() => {
-      if (!this.stickyHeadersOptimization) {
+      // if focus changed while header is sticky - still repaint the positions will shift
+      if (!this.stickyHeadersOptimization || (focusChanged && this.isSticky)) {
         this.paint(tree);
       }
       syncStickyRowToTable(tree.table);

@@ -13,6 +13,7 @@ export const macroComponentProps = {
   extension: {
     extensionKey: 'jira',
     extensionType: 'com.atlassian.confluence.macro.core',
+    localId: 'c145e554-f571-4208-a0f1-2170e1987722',
   },
   eventDispatcher,
   createPromise,

@@ -1,4 +1,4 @@
-import { getIdentifierCollection } from '../../../../newgen/utils/getIdentifierCollection';
+import { getIdentifierCollection } from '../../../../utils/getIdentifierCollection';
 import {
   ExternalImageIdentifier,
   FileIdentifier,

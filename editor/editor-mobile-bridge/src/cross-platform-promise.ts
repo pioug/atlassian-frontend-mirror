@@ -1,3 +1,4 @@
+import uuidV4 from 'uuid/v4';
 import { CardAppearance } from '@atlaskit/smart-card';
 import { AnnotationId, AnnotationTypes } from '@atlaskit/adf-schema';
 import { toNativeBridge } from './editor/web-to-native';
@@ -28,6 +29,7 @@ interface Holder<T> {
 
 export interface SubmitPromiseToNative<T> {
   submit(): Promise<T>;
+  uuid: string;
 }
 
 export function createPromise(
@@ -78,12 +80,22 @@ export function createPromise(
     annotationType: AnnotationTypes;
   },
 ): SubmitPromiseToNative<GetAnnotationStatesPayload>;
+export function createPromise(
+  name: 'asyncCallCompleted',
+  args: {
+    value?: any;
+    error?: string;
+  },
+  id: string,
+): SubmitPromiseToNative<void>;
+
 export function createPromise<T>(
   name: PromiseName,
   rawArgs?: unknown,
+  id?: string,
 ): SubmitPromiseToNative<T> {
   const holder: Holder<T> = createHolder();
-  const uuid = counter++ + '';
+  const uuid = id || createPromiseId();
   pendingPromises.set(uuid, holder);
 
   const payload =
@@ -101,7 +113,12 @@ export function createPromise<T>(
         pendingPromises.delete(uuid);
       }
     },
+    uuid: uuid,
   };
+}
+
+export function createPromiseId(): string {
+  return uuidV4();
 }
 
 function createHolder<T>(): Holder<T> {
@@ -127,9 +144,4 @@ export function rejectPromise<T>(uuid: string, err?: Error) {
   if (holder) {
     holder.reject(err);
   }
-}
-
-// expose this function for testing
-export function setCounter(value: number) {
-  counter = value;
 }

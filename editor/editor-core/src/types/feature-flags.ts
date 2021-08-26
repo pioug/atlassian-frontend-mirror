@@ -259,6 +259,15 @@ export type FeatureFlags = {
    * @default false
    */
   enableViewUpdateSubscription?: boolean;
+
+  /**
+   * @description
+   * Enable scroll-to-telepointer for collab avatars
+   *
+   * @see https://product-fabric.atlassian.net/browse/ED-12460
+   * @default false
+   */
+  collabAvatarScroll?: boolean;
 };
 
 export type FeatureFlagKey = keyof FeatureFlags;

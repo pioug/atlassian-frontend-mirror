@@ -1,6 +1,7 @@
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { EditorView } from 'prosemirror-view';
 import {
+  Transaction,
   EditorState,
   NodeSelection,
   TextSelection,
@@ -68,8 +69,11 @@ export function setCellSelection(
   );
 }
 
-export const normaliseNestedLayout = (state: EditorState, node: Node) => {
-  if (state.selection.$from.depth > 1) {
+export const normaliseNestedLayout = (
+  { selection, doc }: EditorState | Transaction,
+  node: Node,
+) => {
+  if (selection.$from.depth > 1) {
     if (node.attrs.layout && node.attrs.layout !== 'default') {
       return node.type.createChecked(
         {
@@ -83,7 +87,7 @@ export const normaliseNestedLayout = (state: EditorState, node: Node) => {
 
     // If its a breakout layout, we can remove the mark
     // Since default isn't a valid breakout mode.
-    const breakoutMark: Mark = state.schema.marks.breakout;
+    const breakoutMark: Mark = doc.type.schema.marks.breakout;
     if (breakoutMark && breakoutMark.isInSet(node.marks)) {
       const newMarks = breakoutMark.removeFromSet(node.marks);
       return node.type.createChecked(node.attrs, node.content, newMarks);

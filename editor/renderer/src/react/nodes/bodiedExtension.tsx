@@ -19,6 +19,7 @@ export interface Props {
   parameters?: any;
   content?: any;
   layout?: ExtensionLayout;
+  localId?: string;
 }
 
 const BodiedExtension: React.FunctionComponent<Props> = (props) => {

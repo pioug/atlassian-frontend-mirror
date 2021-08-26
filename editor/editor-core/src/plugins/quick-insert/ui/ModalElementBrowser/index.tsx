@@ -59,6 +59,7 @@ const Modal = ({
         (quickInsertState && quickInsertState.isElementBrowserModalOpen) ||
         false
       }
+      emptyStateHandler={quickInsertState && quickInsertState.emptyStateHandler}
       onClose={onClose}
     />
   );

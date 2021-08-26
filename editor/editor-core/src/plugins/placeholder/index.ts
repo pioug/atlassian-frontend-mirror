@@ -11,6 +11,7 @@ import { placeHolderClassName } from './styles';
 
 export const pluginKey = new PluginKey('placeholderPlugin');
 import { focusStateKey } from '../base/pm-plugins/focus-handler';
+import { isTypeAheadOpen } from '../type-ahead/utils';
 
 interface PlaceHolderState {
   hasPlaceholder: boolean;
@@ -68,6 +69,10 @@ function createPlaceHolderStateFrom(
   bracketPlaceholderText?: string,
 ): PlaceHolderState {
   const isEditorFocused = focusStateKey.getState(editorState);
+
+  if (isTypeAheadOpen(editorState)) {
+    return emptyPlaceholder;
+  }
 
   if (defaultPlaceholderText && isEmptyDocument(editorState.doc)) {
     return setPlaceHolderState(defaultPlaceholderText);

@@ -15,6 +15,8 @@ import {
   SpotlightTarget,
   SpotlightTransition,
 } from '@atlaskit/onboarding';
+import { N10 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import {
   ButtonItem,
@@ -140,6 +142,7 @@ const SpotlightRenderer = () => {
   const [variant, setVariant] = useState<number | undefined>();
   const variants = [
     <Spotlight
+      targetBgColor={token('color.background.default', N10)}
       actions={[
         {
           onClick: () => setVariant(Number(variant) + 1),
@@ -155,6 +158,7 @@ const SpotlightRenderer = () => {
     </Spotlight>,
 
     <Spotlight
+      targetBgColor={token('color.background.default', N10)}
       actions={[
         {
           onClick: () => setVariant(Number(variant) + 1),
@@ -174,6 +178,7 @@ const SpotlightRenderer = () => {
     </Spotlight>,
 
     <Spotlight
+      targetBgColor={token('color.background.default', N10)}
       actions={[
         {
           onClick: () => setVariant(Number(variant) + 1),
@@ -193,6 +198,7 @@ const SpotlightRenderer = () => {
     </Spotlight>,
 
     <Spotlight
+      targetBgColor={token('color.background.default', N10)}
       actions={[
         {
           onClick: () => setVariant(Number(variant) + 1),
@@ -212,6 +218,7 @@ const SpotlightRenderer = () => {
     </Spotlight>,
 
     <Spotlight
+      targetBgColor={token('color.background.default', N10)}
       actions={[
         {
           onClick: () => setVariant(undefined),

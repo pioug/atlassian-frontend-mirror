@@ -8,6 +8,7 @@ export type {
   OnSaveCallback,
   TransformBefore,
   TransformAfter,
+  ReferenceEntity,
   // DEPRECATED
   ParametersGetter,
   AsyncParametersGetter,

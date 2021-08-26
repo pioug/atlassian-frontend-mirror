@@ -22,17 +22,6 @@ type RenameMapping = Partial<Record<Token, Token>>;
  * 5. The artifact containing the automation should now be available in the `/dist` folder. i.e. packages/design-system/tokens/dist/figma/atlassian-light/sync-figma-tokens.js
  * 6. After building make sure to remove the mapping from this file before checking it in
  */
-const renameMapping: RenameMapping = {
-  'color.accent.blueSubtle': 'color.accent.subtleBlue',
-  'color.accent.greenSubtle': 'color.accent.subtleGreen',
-  'color.accent.magentaSubtle': 'color.accent.subtleMagenta',
-  'color.accent.orangeSubtle': 'color.accent.subtleOrange',
-  'color.accent.purpleSubtle': 'color.accent.subtlePurple',
-  'color.accent.redSubtle': 'color.accent.subtleRed',
-  'color.accent.tealSubtle': 'color.accent.subtleTeal',
-
-  'color.background.selected': 'color.background.selected.resting',
-  'color.border.disabled': 'color.background.disabled',
-};
+const renameMapping: RenameMapping = {};
 
 export default renameMapping;

@@ -18,6 +18,7 @@ export type MediaStateStatus =
 
 export interface MediaOptions {
   provider?: Providers['mediaProvider'];
+  allowMediaInline?: boolean;
   allowMediaSingle?: boolean | MediaSingleOptions;
   allowMediaGroup?: boolean;
   customDropzoneContainer?: HTMLElement;
@@ -39,6 +40,7 @@ export interface MediaOptions {
   isCopyPasteEnabled?: boolean;
   // This enables the option to add an alt-text attribute to images contained in the Editor.
   allowAltTextOnImages?: boolean;
+  enableDownloadButton?: boolean;
   // returns array of validation errors based on value, if no errors returned - value is considered to be valid
   altTextValidator?: (value: string) => string[];
   useForgePlugins?: boolean;
@@ -133,6 +135,7 @@ export type MediaToolbarBaseConfig = {
 export type MediaFloatingToolbarOptions = {
   providerFactory?: ProviderFactory;
   allowResizing?: boolean;
+  allowMediaInline?: boolean;
   allowAnnotation?: boolean;
   allowLinking?: boolean;
   allowAdvancedToolBarOptions?: boolean;

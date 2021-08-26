@@ -16,12 +16,10 @@ import {
 import { pluginKey } from '../../../../plugins/status/plugin';
 import {
   commitStatusPicker,
-  createStatus,
   setStatusPickerAt,
   updateStatus,
   updateStatusWithAnalytics,
 } from '../../../../plugins/status/actions';
-import { EditorView } from 'prosemirror-view';
 import { INPUT_METHOD } from '../../../../plugins/analytics';
 
 describe('status plugin: actions', () => {
@@ -490,22 +488,14 @@ describe('status plugin: actions', () => {
   });
 
   describe('picker autofocus', () => {
-    const insert = (editorView: EditorView) => (node: any) => {
-      const { tr, selection } = editorView.state;
-      tr.insert(selection.from, node);
-      return tr;
-    };
-
-    it('focus on input field should be set when inserted', () => {
-      const { editorView } = editor(doc(p('{<>}')));
-
-      const { dispatch } = editorView;
+    it('focus on input field should be set when inserted', async () => {
+      const { editorView, typeAheadTool } = editor(doc(p('{<>}')));
 
       let pluginState = pluginKey.getState(editorView.state);
       expect(pluginState.isNew).toEqual(false);
 
-      // Simulate quick insert, without quick insert
-      dispatch(createStatus(-1)(insert(editorView), editorView.state));
+      // Simulate quick insert
+      await typeAheadTool.searchQuickInsert('Status').insert({ index: 0 });
 
       pluginState = pluginKey.getState(editorView.state);
       expect(pluginState.isNew).toEqual(true);

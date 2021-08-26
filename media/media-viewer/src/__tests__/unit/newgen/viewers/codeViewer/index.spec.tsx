@@ -23,17 +23,14 @@ import {
   sleep,
   asMockFunction,
 } from '@atlaskit/media-test-helpers';
-import { Spinner } from '../../../../../newgen/loading';
-import { MediaViewerError } from '../../../../../newgen/errors';
-import { BaseState } from '../../../../../newgen/viewers/base-viewer';
-import { Content } from '../../../../../newgen/content';
-import {
-  CodeViewer,
-  Props,
-} from '../../../../../newgen/viewers/codeViewer/index';
-import { msgToText } from '../../../../../newgen/viewers/codeViewer/msg-parser';
+import { Spinner } from '../../../../../loading';
+import { MediaViewerError } from '../../../../../errors';
+import { BaseState } from '../../../../../viewers/base-viewer';
+import { Content } from '../../../../../content';
+import { CodeViewer, Props } from '../../../../../viewers/codeViewer/index';
+import { msgToText } from '../../../../../viewers/codeViewer/msg-parser';
 
-jest.mock('../../../../../newgen/viewers/codeViewer/msg-parser', () => ({
+jest.mock('../../../../../viewers/codeViewer/msg-parser', () => ({
   __esModule: true,
   msgToText: jest.fn(),
 }));

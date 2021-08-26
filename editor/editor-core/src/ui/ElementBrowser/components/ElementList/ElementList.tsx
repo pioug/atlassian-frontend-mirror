@@ -21,7 +21,7 @@ import {
 } from '../../../../plugins/analytics';
 
 import IconFallback from '../../../../plugins/quick-insert/assets/fallback';
-import { ItemIcon } from '../../../../plugins/type-ahead/ui/TypeAheadItemsList';
+import { ItemIcon } from '../../../../plugins/type-ahead/ui/TypeAheadListItem';
 import { Shortcut } from '../../../styles';
 import {
   ELEMENT_ITEM_HEIGHT,
@@ -34,6 +34,7 @@ import {
 import useContainerWidth from '../../hooks/use-container-width';
 import useFocus from '../../hooks/use-focus';
 import { Modes, SelectedItemProps } from '../../types';
+import { EmptyStateHandler } from '../../../../types/empty-state-handler';
 import cellSizeAndPositionGetter from './cellSizeAndPositionGetter';
 import EmptyState from './EmptyState';
 import { getColumnCount } from './utils';
@@ -44,6 +45,9 @@ export interface Props {
   onInsertItem: (item: QuickInsertItem) => void;
   setColumnCount: (columnCount: number) => void;
   setFocusedItemIndex: (index: number) => void;
+  emptyStateHandler?: EmptyStateHandler;
+  selectedCategory?: string;
+  searchTerm?: string;
 }
 
 function ElementList({
@@ -53,6 +57,9 @@ function ElementList({
   focusedItemIndex,
   setColumnCount,
   createAnalyticsEvent,
+  emptyStateHandler,
+  selectedCategory,
+  searchTerm,
   ...props
 }: Props & SelectedItemProps & WithAnalyticsEventsProps) {
   const { containerWidth, ContainerWidthMonitor } = useContainerWidth();
@@ -118,11 +125,20 @@ function ElementList({
     },
     [items, fullMode, selectedItemIndex, focusedItemIndex, props],
   );
+
   return (
     <>
       <ContainerWidthMonitor />
       {!items.length ? (
-        <EmptyState onExternalLinkClick={onExternalLinkClick} />
+        emptyStateHandler ? (
+          emptyStateHandler({
+            mode,
+            selectedCategory,
+            searchTerm,
+          })
+        ) : (
+          <EmptyState onExternalLinkClick={onExternalLinkClick} />
+        )
       ) : (
         <ElementItemsWrapper data-testid="element-items">
           <ThemeProvider theme={theme}>

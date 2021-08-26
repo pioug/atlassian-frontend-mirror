@@ -4,16 +4,12 @@ import { B500, N300 } from '@atlaskit/theme/colors';
 import { css, jsx } from '@emotion/core';
 import Tooltip from '@atlaskit/tooltip';
 import Button from '@atlaskit/button/standard-button';
+import { token } from '@atlaskit/tokens';
 import BookIcon from '../glyph/book';
 import ArrowUpIcon from '../glyph/arrow-up';
 import ArrowDownIcon from '../glyph/arrow-down';
 import ArrowLeftIcon from '../glyph/arrow-left';
 import ArrowRightIcon from '../glyph/arrow-right';
-
-const backgroundWhiteStyles = css({ backgroundColor: 'white' });
-const backgroundBlueStyles = css({ backgroundColor: B500 });
-const colorInheritStyles = css({ backgroundColor: 'inherit' });
-const colorWhiteStyles = css({ backgroundColor: 'white' });
 
 const containerStyles = css({
   display: 'flex',
@@ -42,37 +38,39 @@ export default () => {
 
   return (
     <div
-      css={[
-        containerStyles,
-        isColorFlipped ? backgroundWhiteStyles : backgroundBlueStyles,
-      ]}
+      css={containerStyles}
+      style={{
+        backgroundColor: isColorFlipped
+          ? 'white'
+          : token('color.background.boldBrand.resting', B500),
+      }}
     >
       <p
-        css={[
-          textStyles,
-          isColorFlipped ? colorInheritStyles : colorWhiteStyles,
-        ]}
+        css={[textStyles]}
+        style={{
+          backgroundColor: isColorFlipped ? 'inherit' : 'white',
+        }}
       >
         Icon colors can be set via the primaryColor and secondaryColor props.
       </p>
       {exampleIcons.map(([Icon, label]) => (
         <Tooltip content={label} key={label}>
           <Icon
-            primaryColor={isColorFlipped ? N300 : 'white'}
+            primaryColor={
+              isColorFlipped ? token('color.text.lowEmphasis', N300) : 'white'
+            }
             size="xlarge"
             label={label}
           />
         </Tooltip>
       ))}
       <p
-        css={[
-          textStyles,
-          isColorFlipped ? colorInheritStyles : colorWhiteStyles,
-        ]}
+        css={textStyles}
+        style={{ backgroundColor: isColorFlipped ? 'inherit' : 'white' }}
       >
         <Button
           appearance="subtle-link"
-          onClick={() => setIsColorFlipped((old) => !old)}
+          onClick={() => setIsColorFlipped(!isColorFlipped)}
         >
           Change colour
         </Button>

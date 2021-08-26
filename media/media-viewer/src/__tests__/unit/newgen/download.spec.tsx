@@ -5,11 +5,11 @@ import {
   ToolbarDownloadButton,
   ErrorViewDownloadButton,
   DownloadButton,
-} from '../../../newgen/download';
+} from '../../../download';
 import React from 'react';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { fakeMediaClient } from '@atlaskit/media-test-helpers';
-import { MediaViewerError } from '../../../newgen/errors';
+import { MediaViewerError } from '../../../errors';
 
 describe('download', () => {
   const processingFailedState: ProcessingFailedState = {

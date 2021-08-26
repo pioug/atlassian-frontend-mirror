@@ -11,7 +11,8 @@ import {
   MediaFeatureFlags,
   isMimeTypeSupportedByBrowser,
 } from '@atlaskit/media-common';
-import { CardDimensions, NumericalCardDimensions } from '../../..';
+import { NumericalCardDimensions } from '../../..';
+import { CardDimensions } from '../../../utils/cardDimensions';
 import { CardPreview } from './types';
 import cardPreviewCache from './cache';
 import {

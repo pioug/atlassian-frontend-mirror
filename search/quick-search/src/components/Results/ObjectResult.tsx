@@ -32,6 +32,7 @@ export default class ObjectResult extends React.PureComponent<Props> {
         appearance="square"
         size="small"
         status={this.props.isPrivate ? 'locked' : null}
+        testId="object-result"
       />
     );
   };

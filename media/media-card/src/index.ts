@@ -15,27 +15,20 @@ import { CardAction } from './actions';
 import { MediaViewerDataSource } from '@atlaskit/media-viewer';
 
 import { CardPreview } from './root/card/getCardPreview';
-import { CardStatus } from './types';
+import { CardStatus, CardAppearance } from './types';
 import { MediaCardError } from './errors';
+import { CardDimensions } from './utils';
+export type { CardDimensions } from './utils';
 
 export type { NumericalCardDimensions } from '@atlaskit/media-common';
 
-export { default as Card } from './root/card/cardLoader';
+export { Card } from './root';
 
 export type { CardAction, CardEventHandler } from './actions';
 
-export type { CardStatus } from './types';
-
-export type CardAppearance = 'auto' | 'image' | 'square' | 'horizontal';
-
-export type CardDimensionValue = number | string;
+export type { CardStatus, CardAppearance, CardDimensionValue } from './types';
 
 export type TitleBoxIcon = 'LockFilledIcon';
-
-export interface CardDimensions {
-  width?: CardDimensionValue;
-  height?: CardDimensionValue;
-}
 
 export interface CardEvent {
   event: MouseEvent<HTMLElement>;
@@ -94,6 +87,9 @@ export interface CardState {
 export { CardLoading } from './utils/lightCards/cardLoading';
 export { CardError } from './utils/lightCards/cardError';
 export { defaultImageCardDimensions } from './utils/cardDimensions';
-export { fileCardImageViewSelector } from './files/cardImageView';
+export {
+  fileCardImageViewSelector,
+  fileCardImageViewSelectedSelector,
+} from './files/cardImageView';
 export { inlinePlayerClassName } from './root/inlinePlayer';
-export { newFileExperienceClassName } from './root/cardView';
+export { newFileExperienceClassName } from './root/card/cardConstants';

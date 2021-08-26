@@ -9,9 +9,11 @@ import {
 import {
   ANALYTICS_MEDIA_CHANNEL,
   FileAttributes,
+  PerformanceAttributes,
   OperationalEventPayload,
   UIEventPayload,
   WithFileAttributes,
+  WithPerformanceAttributes,
   SuccessAttributes,
   FailureAttributes,
 } from '@atlaskit/media-common';
@@ -42,6 +44,7 @@ export type RenderEventFailReason =
 
 export type RenderFailedEventPayload = OperationalEventPayload<
   WithFileAttributes &
+    WithPerformanceAttributes &
     FailureAttributes & {
       failReason: RenderEventFailReason;
       error?: MediaClientErrorReason | 'nativeError';
@@ -52,13 +55,13 @@ export type RenderFailedEventPayload = OperationalEventPayload<
 >;
 
 export type RenderSucceededEventPayload = OperationalEventPayload<
-  WithFileAttributes & SuccessAttributes,
+  WithFileAttributes & WithPerformanceAttributes & SuccessAttributes,
   RenderEventAction.SUCCEEDED,
   'mediaCardRender'
 >;
 
 export type RenderCommencedEventPayload = OperationalEventPayload<
-  WithFileAttributes,
+  WithFileAttributes & WithPerformanceAttributes,
   RenderEventAction.COMMENCED,
   'mediaCardRender'
 >;
@@ -91,21 +94,26 @@ export const getFileAttributes = (
 
 export const getRenderCommencedEventPayload = (
   fileAttributes: FileAttributes,
-): RenderCommencedEventPayload => ({
-  eventType: 'operational',
-  action: RenderEventAction.COMMENCED,
-  actionSubject: 'mediaCardRender',
-  attributes: { fileAttributes },
-});
+  performanceAttributes: PerformanceAttributes,
+): RenderCommencedEventPayload => {
+  return {
+    eventType: 'operational',
+    action: RenderEventAction.COMMENCED,
+    actionSubject: 'mediaCardRender',
+    attributes: { fileAttributes, performanceAttributes },
+  };
+};
 
 export const getRenderSucceededEventPayload = (
   fileAttributes: FileAttributes,
+  performanceAttributes?: PerformanceAttributes,
 ): RenderSucceededEventPayload => ({
   eventType: 'operational',
   action: RenderEventAction.SUCCEEDED,
   actionSubject: 'mediaCardRender',
   attributes: {
     fileAttributes,
+    performanceAttributes,
     status: 'success',
   },
 });
@@ -124,12 +132,14 @@ export const getFailedFileUriFailReason = (
 
 export const getRenderFailedFileUriPayload = (
   fileAttributes: FileAttributes,
+  performanceAttributes: PerformanceAttributes,
 ): RenderFailedEventPayload => ({
   eventType: 'operational',
   action: RenderEventAction.FAILED,
   actionSubject: 'mediaCardRender',
   attributes: {
     fileAttributes,
+    performanceAttributes,
     status: 'fail',
     failReason: getFailedFileUriFailReason(fileAttributes.fileStatus),
   },
@@ -137,12 +147,14 @@ export const getRenderFailedFileUriPayload = (
 
 export const getRenderFailedExternalUriPayload = (
   fileAttributes: FileAttributes,
+  performanceAttributes: PerformanceAttributes,
 ): RenderFailedEventPayload => ({
   eventType: 'operational',
   action: RenderEventAction.FAILED,
   actionSubject: 'mediaCardRender',
   attributes: {
     fileAttributes,
+    performanceAttributes,
     status: 'fail',
     failReason: 'external-uri',
   },
@@ -192,6 +204,7 @@ export const getRenderErrorRequestMetadata = (
 
 export const getRenderErrorEventPayload = (
   fileAttributes: FileAttributes,
+  performanceAttributes: PerformanceAttributes,
   error: MediaCardError,
 ): RenderFailedEventPayload => ({
   eventType: 'operational',
@@ -199,6 +212,7 @@ export const getRenderErrorEventPayload = (
   actionSubject: 'mediaCardRender',
   attributes: {
     fileAttributes,
+    performanceAttributes,
     status: 'fail',
     failReason: getRenderErrorFailReason(error),
     error: getRenderErrorErrorReason(error),
@@ -209,12 +223,14 @@ export const getRenderErrorEventPayload = (
 
 export const getRenderFailedFileStatusPayload = (
   fileAttributes: FileAttributes,
+  performanceAttributes: PerformanceAttributes,
 ): RenderFailedEventPayload => ({
   eventType: 'operational',
   action: RenderEventAction.FAILED,
   actionSubject: 'mediaCardRender',
   attributes: {
     fileAttributes,
+    performanceAttributes,
     status: 'fail',
     failReason: 'failed-processing',
   },

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/select",
-  "version": "15.1.0",
+  "version": "15.2.0",
   "description": "Select allows users to make a single selection or multiple selections from a list of options.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -25,9 +25,10 @@
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^8.2.0",
-    "@atlaskit/icon": "^21.7.0",
+    "@atlaskit/icon": "^21.8.0",
     "@atlaskit/spinner": "^15.0.0",
-    "@atlaskit/theme": "^11.4.0",
+    "@atlaskit/theme": "^11.5.0",
+    "@atlaskit/tokens": "^0.1.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/core": "^10.0.9",
     "@popperjs/core": "^2.9.1",
@@ -53,7 +54,7 @@
     "@atlaskit/drawer": "^6.0.0",
     "@atlaskit/form": "^8.1.0",
     "@atlaskit/logo": "^13.5.0",
-    "@atlaskit/modal-dialog": "^11.7.0",
+    "@atlaskit/modal-dialog": "^12.0.0",
     "@atlaskit/section-message": "^6.0.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/tooltip": "^17.3.0",
@@ -69,6 +70,12 @@
     "react-value": "^0.2.0",
     "typescript": "3.9.6",
     "wait-for-expect": "^1.2.0"
+  },
+  "techstack": {
+    "@repo/internal": {
+      "theming": "tokens",
+      "deprecation": "no-deprecated-imports"
+    }
   },
   "homepage": "https://atlassian.design/components/select/",
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"

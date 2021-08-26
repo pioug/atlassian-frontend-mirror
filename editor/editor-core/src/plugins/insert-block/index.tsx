@@ -4,15 +4,17 @@ import { WithProviders, Providers } from '@atlaskit/editor-common';
 import { pluginKey as blockTypeStateKey } from '../block-type/pm-plugins/main';
 import { stateKey as mediaStateKey } from '../media/pm-plugins/plugin-key';
 import { stateKey as hyperlinkPluginKey } from '../hyperlink/pm-plugins/main';
-import { mentionPluginKey } from '../mentions';
+
+import { isTypeAheadAllowed } from '../type-ahead/utils';
+import { mentionPluginKey } from '../mentions/pm-plugins/key';
 import { pluginKey as layoutStateKey } from '../layout';
 import { MacroState, insertMacroFromMacroBrowser } from '../macro';
 import { emojiPluginKey } from '../emoji';
 import WithPluginState from '../../ui/WithPluginState';
 import ToolbarInsertBlock from './ui/ToolbarInsertBlock';
+import { pluginKey as typeAheadPluginKey } from '../type-ahead/pm-plugins/key';
 import { insertBlockTypesWithAnalytics } from '../block-type/commands';
 import { startImageUpload } from '../image-upload/pm-plugins/commands';
-import { pluginKey as typeAheadPluginKey } from '../type-ahead/pm-plugins/main';
 import { INPUT_METHOD } from '../analytics';
 import { stateKey as imageUploadStateKey } from '../image-upload/pm-plugins/plugin-key';
 import { pluginKey as dateStateKey } from '../date/pm-plugins/plugin-key';
@@ -88,7 +90,6 @@ const insertBlockPlugin = (options: InsertBlockOptions = {}): EditorPlugin => ({
             layoutState: layoutStateKey,
           }}
           render={({
-            typeAheadState,
             mentionState,
             blockTypeState,
             mediaState,
@@ -104,7 +105,7 @@ const insertBlockPlugin = (options: InsertBlockOptions = {}): EditorPlugin => ({
               buttons={buttons}
               isReducedSpacing={isToolbarReducedSpacing}
               isDisabled={disabled}
-              isTypeAheadAllowed={typeAheadState && typeAheadState.isAllowed}
+              isTypeAheadAllowed={isTypeAheadAllowed(editorView.state)}
               editorView={editorView}
               tableSupported={options.allowTables}
               actionSupported={!!editorView.state.schema.nodes.taskItem}

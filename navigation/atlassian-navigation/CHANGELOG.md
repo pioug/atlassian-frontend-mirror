@@ -1,5 +1,11 @@
 # @atlaskit/atlassian-navigation
 
+## 1.1.1
+
+### Patch Changes
+
+- [`1a68f990792`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1a68f990792) - ACT-2057 transition @atlaskit/atlassian-switcher-vanilla & @atlaskit/atlassian-switcher to private scope
+
 ## 1.1.0
 
 ### Minor Changes

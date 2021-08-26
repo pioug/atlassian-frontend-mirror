@@ -16,7 +16,6 @@ import {
   LightEditorPlugin,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
-import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { CodeBlockState } from '../../pm-plugins/main-state';
@@ -263,10 +262,9 @@ describe('code-block', () => {
       });
 
       describe('quick insert', () => {
-        it('should fire analytics event when code block inserted', () => {
-          const { editorView, sel } = editor(doc(p('{<>}')));
-          insertText(editorView, `/code`, sel);
-          sendKeyToPm(editorView, 'Enter');
+        it('should fire analytics event when code block inserted', async () => {
+          const { typeAheadTool } = editor(doc(p('{<>}')));
+          await typeAheadTool.searchQuickInsert('code')?.insert({ index: 0 });
 
           expect(createAnalyticsEvent).toBeCalledWith({
             action: 'inserted',

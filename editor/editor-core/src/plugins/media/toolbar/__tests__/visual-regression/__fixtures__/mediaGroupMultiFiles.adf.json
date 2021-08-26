@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "mediaGroup",
+      "content": [
+        {
+          "type": "media",
+          "attrs": {
+            "id": "a559980d-cd47-43e2-8377-27359fcb905f",
+            "type": "file",
+            "collection": "MediaServicesSample"
+          }
+        },
+        {
+          "type": "media",
+          "attrs": {
+            "id": "a3d20d67-14b1-4cfc-8ba8-918bbc8d71e1",
+            "type": "file",
+            "collection": "MediaServicesSample"
+          }
+        },
+        {
+          "type": "media",
+          "attrs": {
+            "id": "a3d20d67-14b1-4cfc-8ba8-918bbc8d71e1",
+            "type": "file",
+            "collection": "MediaServicesSample"
+          }
+        }
+      ]
+    }
+  ]
+}

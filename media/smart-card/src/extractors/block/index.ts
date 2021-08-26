@@ -34,6 +34,7 @@ import { ExtractBlockOpts } from './types';
 import { extractPreviewAction } from '../common/actions/extractPreviewAction';
 import { CardProviderRenderers } from '../../state/context/types';
 import { extractIsTrusted } from '../common/meta/extractIsTrusted';
+import { CardPlatform } from '../../view/Card';
 
 const extractBlockIcon = (
   jsonLd: JsonLd.Data.BaseData,
@@ -57,6 +58,7 @@ export const extractBlockActions = (
   props: BlockCardResolvedViewProps,
   jsonLd: JsonLd.Data.BaseData,
   opts?: ExtractBlockOpts,
+  platform?: CardPlatform,
 ): ActionProps[] => {
   if (opts) {
     const { handleInvoke, handleAnalytics, definitionId, testId } = opts;
@@ -68,6 +70,7 @@ export const extractBlockActions = (
       handleInvoke,
       handleAnalytics,
       testId,
+      platform,
     );
 
     // The previewAction should always be the last action
@@ -106,6 +109,7 @@ export const extractBlockProps = (
   meta?: JsonLd.Meta.BaseMeta,
   opts?: ExtractBlockOpts,
   renderers?: CardProviderRenderers,
+  platform?: CardPlatform,
 ): BlockCardResolvedViewProps => {
   const props = {
     link: extractLink(jsonLd),
@@ -121,5 +125,8 @@ export const extractBlockProps = (
     titlePrefix: extractTitlePrefix(jsonLd, renderers, 'block'),
     isTrusted: extractIsTrusted(meta),
   };
-  return { ...props, actions: extractBlockActions(props, jsonLd, opts) };
+  return {
+    ...props,
+    actions: extractBlockActions(props, jsonLd, opts, platform),
+  };
 };

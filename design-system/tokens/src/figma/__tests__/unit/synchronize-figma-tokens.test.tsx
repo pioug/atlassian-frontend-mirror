@@ -41,14 +41,14 @@ describe('synchronizeFigmaTokens', () => {
       synchronizeFigmaTokens('AtlassianDark', {
         'AtlassianDark/Color': {
           value: '#03040421',
-          attributes: { group: 'paint' },
+          attributes: { group: 'paint', description: 'Primary text color' },
         },
       });
 
       expect(style).toEqual(
         expect.objectContaining({
           name: 'AtlassianDark/Color',
-          description: '',
+          description: 'Primary text color',
           paints: [
             {
               blendMode: 'NORMAL',
@@ -179,7 +179,7 @@ describe('synchronizeFigmaTokens', () => {
       figma.getLocalPaintStyles.mockReturnValue([
         {
           name: 'foo',
-          description: '',
+          description: 'token description',
           paints: [],
           remove: () => removeMock('foo'),
         },
@@ -188,7 +188,7 @@ describe('synchronizeFigmaTokens', () => {
       synchronizeFigmaTokens('AtlassianDark', {
         foo: {
           value: [],
-          attributes: { group: 'shadow' },
+          attributes: { group: 'shadow', description: 'token description' },
         },
       });
 
@@ -209,7 +209,7 @@ describe('synchronizeFigmaTokens', () => {
       figma.getLocalEffectStyles.mockReturnValue([
         {
           name: 'foo',
-          description: '',
+          description: 'token description',
           effects: [],
           remove: () => removeMock('foo'),
         },
@@ -218,7 +218,7 @@ describe('synchronizeFigmaTokens', () => {
       synchronizeFigmaTokens('AtlassianDark', {
         foo: {
           value: '#03040421',
-          attributes: { group: 'paint' },
+          attributes: { group: 'paint', description: 'token description' },
         },
       });
 
@@ -325,7 +325,7 @@ describe('synchronizeFigmaTokens', () => {
       const styles: FigmaPaintStyle[] = [
         {
           name: 'foo',
-          description: '',
+          description: 'token description',
           paints: [
             {
               blendMode: 'NORMAL',
@@ -353,7 +353,7 @@ describe('synchronizeFigmaTokens', () => {
         {
           bar: {
             value: '#ffffff',
-            attributes: { group: 'paint' },
+            attributes: { group: 'paint', description: 'token description' },
           },
         },
         {
@@ -368,7 +368,7 @@ describe('synchronizeFigmaTokens', () => {
       const styles: FigmaEffectStyle[] = [
         {
           name: 'foo',
-          description: '',
+          description: 'token description',
           effects: [],
           remove: () => {},
         },
@@ -381,7 +381,7 @@ describe('synchronizeFigmaTokens', () => {
         {
           bar: {
             value: [],
-            attributes: { group: 'shadow' },
+            attributes: { group: 'shadow', description: 'token description' },
           },
         },
         {
@@ -396,7 +396,7 @@ describe('synchronizeFigmaTokens', () => {
       const styles: FigmaPaintStyle[] = [
         {
           name: 'foo',
-          description: '',
+          description: 'token description',
           paints: [
             {
               blendMode: 'NORMAL',
@@ -424,7 +424,7 @@ describe('synchronizeFigmaTokens', () => {
         {
           bar: {
             value: '#000000',
-            attributes: { group: 'paint' },
+            attributes: { group: 'paint', description: 'token description' },
           },
         },
         {
@@ -440,7 +440,7 @@ describe('synchronizeFigmaTokens', () => {
       const styles: FigmaEffectStyle[] = [
         {
           name: 'foo',
-          description: '',
+          description: 'token description',
           effects: [
             {
               blendMode: 'NORMAL',
@@ -475,7 +475,7 @@ describe('synchronizeFigmaTokens', () => {
                 opacity: 0.5,
               },
             ],
-            attributes: { group: 'shadow' },
+            attributes: { group: 'shadow', description: 'token description' },
           },
         },
         {

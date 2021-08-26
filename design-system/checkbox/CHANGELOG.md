@@ -1,5 +1,12 @@
 # @atlaskit/checkbox
 
+## 12.3.1
+
+### Patch Changes
+
+- [`6e2231d4609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6e2231d4609) - Checkbox no longer creates an empty `<span/>` element next to the input if no label is provided.
+- Updated dependencies
+
 ## 12.3.0
 
 ### Minor Changes

@@ -5,7 +5,7 @@ import Lorem from 'react-lorem-component';
 import Button from '@atlaskit/button/standard-button';
 import { Label } from '@atlaskit/field-base';
 import FieldRange from '@atlaskit/field-range';
-import Modal, { ModalTransition } from '@atlaskit/modal-dialog';
+import Modal, { ModalBody, ModalTransition } from '@atlaskit/modal-dialog';
 
 import { DateTimePicker } from '../src';
 
@@ -91,26 +91,28 @@ export default class MyComponent extends Component<{}, State> {
         <ModalTransition>
           {isModalOpen && (
             <Modal onClose={this.closeModal}>
-              <Label label={`Paragraphs above: ${textAbove}`} />
-              <FieldRange
-                value={textAbove}
-                min={0}
-                max={10}
-                step={1}
-                onChange={this.onTextAboveChange}
-              />
-              {textAbove > 0 ? <Lorem count={textAbove} /> : null}
-              <Label label="Date" />
-              <DateTimePicker defaultValue={dateTimePickerValue} />
-              <Label label={`Paragraphs below: ${textBelow}`} />
-              <FieldRange
-                value={textBelow}
-                min={0}
-                max={10}
-                step={1}
-                onChange={this.onTextBelowChange}
-              />
-              {textBelow > 0 ? <Lorem count={textBelow} /> : null}
+              <ModalBody>
+                <Label label={`Paragraphs above: ${textAbove}`} />
+                <FieldRange
+                  value={textAbove}
+                  min={0}
+                  max={10}
+                  step={1}
+                  onChange={this.onTextAboveChange}
+                />
+                {textAbove > 0 ? <Lorem count={textAbove} /> : null}
+                <Label label="Date" />
+                <DateTimePicker defaultValue={dateTimePickerValue} />
+                <Label label={`Paragraphs below: ${textBelow}`} />
+                <FieldRange
+                  value={textBelow}
+                  min={0}
+                  max={10}
+                  step={1}
+                  onChange={this.onTextBelowChange}
+                />
+                {textBelow > 0 ? <Lorem count={textBelow} /> : null}
+              </ModalBody>
             </Modal>
           )}
         </ModalTransition>

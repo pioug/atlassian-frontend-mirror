@@ -7,7 +7,7 @@ jest.mock('unzipit', () => ({
   },
   HTTPRangeReader: () => 'reader',
 }));
-jest.unmock('../../../../../newgen/utils');
+jest.unmock('../../../../../utils');
 
 import React from 'react';
 import { mount } from 'enzyme';
@@ -16,9 +16,9 @@ import {
   ArchiveSidebar,
   ArchiveSidebarProps,
   ArchiveSidebarState,
-} from '../../../../../newgen/viewers/archiveSidebar/archive-sidebar';
-import { ArchiveSidebarFolderEntry } from '../../../../../newgen/viewers/archiveSidebar/archive-sidebar-folder-entry';
-import { ArchiveSidebarHeader } from '../../../../../newgen/viewers/archiveSidebar/archive-sidebar-header';
+} from '../../../../../viewers/archiveSidebar/archive-sidebar';
+import { ArchiveSidebarFolderEntry } from '../../../../../viewers/archiveSidebar/archive-sidebar-folder-entry';
+import { ArchiveSidebarHeader } from '../../../../../viewers/archiveSidebar/archive-sidebar-header';
 import { ZipEntry } from 'unzipit';
 
 describe('ArchiveSidebar', () => {

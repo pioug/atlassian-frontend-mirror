@@ -23,7 +23,6 @@ import {
   DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
-import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 
 describe('tasks and decisions', () => {
   const createEditor = createEditorFactory();
@@ -65,12 +64,16 @@ describe('tasks and decisions', () => {
   scenarios.forEach((scenario) => {
     describe('quick insert', () => {
       let editorView: EditorView;
-      let sel: number;
 
-      beforeEach(() => {
-        ({ editorView, sel } = editor(doc(p('{<>}'))));
-        insertText(editorView, `/${scenario.menuItem}`, sel);
-        sendKeyToPm(editorView, 'Enter');
+      beforeEach(async () => {
+        const { editorView: _editorView, typeAheadTool } = editor(
+          doc(p('{<>}')),
+        );
+
+        await typeAheadTool
+          .searchQuickInsert(scenario.menuItem)
+          ?.insert({ index: 0 });
+        editorView = _editorView;
       });
 
       it('should insert item', () => {

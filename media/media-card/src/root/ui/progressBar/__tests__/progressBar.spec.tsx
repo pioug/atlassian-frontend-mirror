@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { ProgressBar } from '../progressBar';
-import { Breakpoint } from '../../common';
+import { Breakpoint } from '../../Breakpoint';
 import { StyledBar } from '../styled';
 
 describe('Progress Bar', () => {

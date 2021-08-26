@@ -17,7 +17,7 @@ const nextDate = 'button[aria-selected=true] + button';
 
 BrowserTestCase(
   'change-date-inside-table.ts: Change date inside table',
-  { skip: ['edge'] },
+  {},
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {

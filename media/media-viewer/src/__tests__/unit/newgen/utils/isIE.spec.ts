@@ -1,4 +1,4 @@
-import { isIE } from '../../../../newgen/utils/isIE';
+import { isIE } from '../../../../utils/isIE';
 
 describe('isIE', () => {
   it('should return false for Chrome', () => {

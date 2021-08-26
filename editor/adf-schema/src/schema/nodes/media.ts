@@ -89,89 +89,96 @@ interface MutableMediaAttributes extends MediaAttributes {
 
 export const createMediaSpec = (
   attributes: Partial<NodeSpec['attrs']>,
-): NodeSpec => ({
-  selectable: true,
-  attrs: attributes as NodeSpec['attrs'],
-  parseDOM: [
-    {
-      tag: 'div[data-node-type="media"]',
-      getAttrs: (dom) => {
-        const attrs = {} as MutableMediaAttributes;
+  inline: boolean = false,
+): NodeSpec => {
+  const domNodeType = inline ? 'span' : 'div';
+  const nodeName = inline ? 'mediaInline' : 'media';
+  return {
+    selectable: true,
+    inline,
+    group: inline ? 'inline' : undefined,
+    attrs: attributes as NodeSpec['attrs'],
+    parseDOM: [
+      {
+        tag: `${domNodeType}[data-node-type="${nodeName}"]`,
+        getAttrs: (dom) => {
+          const attrs = {} as MutableMediaAttributes;
 
-        if (attributes) {
-          Object.keys(attributes).forEach((k) => {
-            const key = camelCaseToKebabCase(k).replace(/^__/, '');
-            const value =
-              (dom as HTMLElement).getAttribute(`data-${key}`) || '';
-            if (value) {
-              attrs[k] = value;
-            }
-          });
-        }
+          if (attributes) {
+            Object.keys(attributes).forEach((k) => {
+              const key = camelCaseToKebabCase(k).replace(/^__/, '');
+              const value =
+                (dom as HTMLElement).getAttribute(`data-${key}`) || '';
+              if (value) {
+                attrs[k] = value;
+              }
+            });
+          }
 
-        // Need to do validation & type conversion manually
-        if (attrs.__fileSize) {
-          attrs.__fileSize = +attrs.__fileSize;
-        }
+          // Need to do validation & type conversion manually
+          if (attrs.__fileSize) {
+            attrs.__fileSize = +attrs.__fileSize;
+          }
 
-        const width = Number(attrs.width);
-        if (typeof width !== 'undefined' && !isNaN(width)) {
-          attrs.width = width;
-        }
+          const width = Number(attrs.width);
+          if (typeof width !== 'undefined' && !isNaN(width)) {
+            attrs.width = width;
+          }
 
-        const height = Number(attrs.height);
-        if (typeof height !== 'undefined' && !isNaN(height)) {
-          attrs.height = height;
-        }
+          const height = Number(attrs.height);
+          if (typeof height !== 'undefined' && !isNaN(height)) {
+            attrs.height = height;
+          }
 
-        return attrs as MediaAttributes;
+          return attrs as MediaAttributes;
+        },
       },
-    },
-    // Don't match data URI
-    {
-      tag: 'img[src^="data:image"]',
-      ignore: true,
-    },
-    {
-      tag: 'img:not(.smart-link-icon)',
-      getAttrs: (dom) => {
-        return {
-          type: 'external',
-          url: (dom as HTMLElement).getAttribute('src') || '',
-          alt: (dom as HTMLElement).getAttribute('alt') || '',
-        } as ExternalMediaAttributes;
+      // Don't match data URI
+      {
+        tag: 'img[src^="data:image"]',
+        ignore: true,
       },
+      {
+        tag: 'img:not(.smart-link-icon)',
+        getAttrs: (dom) => {
+          return {
+            type: 'external',
+            url: (dom as HTMLElement).getAttribute('src') || '',
+            alt: (dom as HTMLElement).getAttribute('alt') || '',
+          } as ExternalMediaAttributes;
+        },
+      },
+    ],
+    toDOM(node: PMNode) {
+      const attrs = {
+        'data-id': node.attrs.id,
+        'data-node-type': `${nodeName}`,
+        'data-type': node.attrs.type,
+        'data-collection': node.attrs.collection,
+        'data-occurrence-key': node.attrs.occurrenceKey,
+        'data-width': node.attrs.width,
+        'data-height': node.attrs.height,
+        'data-url': node.attrs.url,
+        'data-alt': node.attrs.alt,
+        // toDOM is used for static rendering as well as editor rendering. This comes into play for
+        // emails, copy/paste, etc, so the title and styling here *is* useful (despite a React-based
+        // node view being used for editing).
+        title: 'Attachment',
+        // Manually kept in sync with the style of media cards. The goal is to render a plain gray
+        // rectangle that provides an affordance for media.
+        style: `display: inline-block; border-radius: 3px; background: ${N30}; box-shadow: 0 1px 1px rgba(9, 30, 66, 0.2), 0 0 1px 0 rgba(9, 30, 66, 0.24);`,
+      };
+
+      copyPrivateAttributes(
+        node.attrs,
+        attrs,
+        (key) => `data-${camelCaseToKebabCase(key.slice(2))}`,
+      );
+
+      return [`${domNodeType}`, attrs];
     },
-  ],
-  toDOM(node: PMNode) {
-    const attrs = {
-      'data-id': node.attrs.id,
-      'data-node-type': 'media',
-      'data-type': node.attrs.type,
-      'data-collection': node.attrs.collection,
-      'data-occurrence-key': node.attrs.occurrenceKey,
-      'data-width': node.attrs.width,
-      'data-height': node.attrs.height,
-      'data-url': node.attrs.url,
-      'data-alt': node.attrs.alt,
-      // toDOM is used for static rendering as well as editor rendering. This comes into play for
-      // emails, copy/paste, etc, so the title and styling here *is* useful (despite a React-based
-      // node view being used for editing).
-      title: 'Attachment',
-      // Manually kept in sync with the style of media cards. The goal is to render a plain gray
-      // rectangle that provides an affordance for media.
-      style: `display: inline-block; border-radius: 3px; background: ${N30}; box-shadow: 0 1px 1px rgba(9, 30, 66, 0.2), 0 0 1px 0 rgba(9, 30, 66, 0.24);`,
-    };
-
-    copyPrivateAttributes(
-      node.attrs,
-      attrs,
-      (key) => `data-${camelCaseToKebabCase(key.slice(2))}`,
-    );
-
-    return ['div', attrs];
-  },
-});
+  };
+};
 
 export const media: NodeSpec = createMediaSpec(defaultAttrs);
 

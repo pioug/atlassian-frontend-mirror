@@ -12,7 +12,7 @@ const urlDropdown = getExampleUrl(
 /* Css selectors used for the test */
 const dropdown = '[data-testid="dropdown--trigger"]';
 const dropdownItem = '[data-testid="dropdown--content"]';
-const dialogBox = '[data-testid="dialogBox-dialog-content"]';
+const dialogBox = '[data-testid="dialogBox"]';
 
 BrowserTestCase(
   'Verify that Dropdown Menu is able to select an item and validate the associated action',

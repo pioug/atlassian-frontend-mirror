@@ -1,5 +1,13 @@
 import React from 'react';
 import { Component } from 'react';
+import {
+  version as packageVersion,
+  name as packageName,
+} from '../version.json';
+import {
+  withAnalyticsEvents,
+  WithAnalyticsEventsProps,
+} from '@atlaskit/analytics-next';
 import PlayIcon from '@atlaskit/icon/glyph/vid-play';
 import PauseIcon from '@atlaskit/icon/glyph/vid-pause';
 import FullScreenIconOn from '@atlaskit/icon/glyph/vid-full-screen-on';
@@ -7,6 +15,10 @@ import FullScreenIconOff from '@atlaskit/icon/glyph/vid-full-screen-off';
 import SoundIcon from '@atlaskit/icon/glyph/hipchat/outgoing-sound';
 import HDIcon from '@atlaskit/icon/glyph/vid-hd-circle';
 import DownloadIcon from '@atlaskit/icon/glyph/download';
+import {
+  MediaFeatureFlags,
+  withMediaAnalyticsContext,
+} from '@atlaskit/media-common';
 
 import MediaButton from '../MediaButton';
 import Spinner from '@atlaskit/spinner';
@@ -20,6 +32,7 @@ import MediaPlayer, {
 import { B200, DN400, N0, DN60 } from '@atlaskit/theme/colors';
 import { NumericalCardDimensions } from '@atlaskit/media-common';
 import { TimeRange } from './timeRange';
+import { CustomMediaPlayerType } from './types';
 import {
   CurrentTime,
   VideoWrapper,
@@ -35,6 +48,23 @@ import {
   SpinnerWrapper,
   VolumeTimeRangeWrapper,
 } from './styled';
+import {
+  CustomMediaPlayerUIEvent,
+  CustomMediaPlayerAnalyticsEventPayload,
+  fireAnalyticsEvent,
+  relevantFeatureFlagNames,
+  createCustomMediaPlayerScreenEvent,
+  createMediaButtonClickedEvent,
+  createMediaShortcutPressedEvent,
+  createPlayPauseBlanketClickedEvent,
+  createTimeRangeNavigatedEvent,
+  createPlaybackSpeedChangedEvent,
+  createFirstPlayedTrackEvent,
+  createPlayedTrackEvent,
+  PlaybackState,
+  WithPlaybackProps,
+  WithMediaPlayerState,
+} from './analytics';
 import { formatDuration } from '../formatDuration';
 import { hideControlsClassName } from '../classNames';
 import { Shortcut, keyCodes } from '../shortcut';
@@ -47,13 +77,13 @@ import { TimeSaver, TimeSaverConfig } from './timeSaver';
 import PlaybackSpeedControls from './playbackSpeedControls';
 import { PlayPauseBlanket } from './playPauseBlanket';
 
-export interface CustomMediaPlayerProps extends WithShowControlMethodProp {
-  readonly type: 'audio' | 'video';
+export interface CustomMediaPlayerProps
+  extends WithPlaybackProps,
+    WithShowControlMethodProp {
+  readonly type: CustomMediaPlayerType;
   readonly src: string;
-  readonly isHDActive?: boolean;
+  readonly fileId?: string;
   readonly onHDToggleClick?: () => void;
-  readonly isHDAvailable?: boolean;
-  readonly isAutoPlay: boolean;
   readonly isShortcutEnabled?: boolean;
   readonly lastWatchTimeConfig?: TimeSaverConfig;
   readonly onCanPlay?: () => void;
@@ -61,26 +91,34 @@ export interface CustomMediaPlayerProps extends WithShowControlMethodProp {
   readonly onDownloadClick?: () => void;
   readonly onFirstPlay?: () => void;
   readonly originalDimensions?: NumericalCardDimensions;
+  readonly featureFlags?: MediaFeatureFlags;
 }
 
-export interface CustomMediaPlayerState {
-  isLargePlayer: boolean;
-  isFullScreenEnabled: boolean;
-  playbackSpeed: number;
-}
+export interface CustomMediaPlayerState extends WithMediaPlayerState {}
 
 export type ToggleButtonAction = () => void;
 
 const SMALL_VIDEO_MAX_WIDTH = 400;
 const MINIMUM_DURATION_BEFORE_SAVING_TIME = 60;
+const VIEWED_TRACKING_SECS = 2;
 
-export class CustomMediaPlayer extends Component<
-  CustomMediaPlayerProps & InjectedIntlProps,
+export class CustomMediaPlayerBase extends Component<
+  CustomMediaPlayerProps & InjectedIntlProps & WithAnalyticsEventsProps,
   CustomMediaPlayerState
 > {
   videoWrapperRef?: HTMLElement;
   private actions?: VideoActions;
+  private videoState: Partial<VideoState> = {
+    isLoading: true,
+    buffered: 0,
+    currentTime: 0,
+    volume: 1,
+    status: 'paused',
+    duration: 0,
+    isMuted: false,
+  };
   private wasPlayedOnce: boolean = false;
+  private lastCurrentTime = 0;
   private readonly timeSaver = new TimeSaver(this.props.lastWatchTimeConfig);
 
   state: CustomMediaPlayerState = {
@@ -90,7 +128,33 @@ export class CustomMediaPlayer extends Component<
   };
 
   componentDidMount() {
-    const { isAutoPlay, onFirstPlay } = this.props;
+    const {
+      type,
+      fileId,
+      isAutoPlay,
+      isHDAvailable,
+      isHDActive,
+      onFirstPlay,
+      createAnalyticsEvent,
+    } = this.props;
+    const { isFullScreenEnabled, isLargePlayer, playbackSpeed } = this.state;
+
+    fireAnalyticsEvent(
+      createCustomMediaPlayerScreenEvent(
+        type,
+        {
+          isAutoPlay,
+          isHDAvailable,
+          isHDActive,
+          isFullScreenEnabled,
+          isLargePlayer,
+          playbackSpeed,
+        },
+        fileId,
+      ),
+      createAnalyticsEvent,
+    );
+
     if (this.videoWrapperRef) {
       this.videoWrapperRef.addEventListener(
         'fullscreenchange',
@@ -103,6 +167,22 @@ export class CustomMediaPlayer extends Component<
     if (isAutoPlay) {
       simultaneousPlayManager.pauseOthers(this);
       if (onFirstPlay) {
+        fireAnalyticsEvent(
+          createFirstPlayedTrackEvent(
+            type,
+            {
+              isAutoPlay,
+              isHDAvailable,
+              isHDActive,
+              isFullScreenEnabled,
+              isLargePlayer,
+              playbackSpeed,
+            },
+            fileId,
+          ),
+          createAnalyticsEvent,
+        );
+
         this.wasPlayedOnce = true;
         onFirstPlay();
       }
@@ -137,8 +217,17 @@ export class CustomMediaPlayer extends Component<
     navigate(value);
   };
 
-  onVolumeChange = (setVolume: SetVolumeFunction) => (value: number) =>
+  timeChanged = () => {
+    this.createAndFireUIEvent('timeRangeNavigate', 'time');
+  };
+
+  onVolumeChange = (setVolume: SetVolumeFunction) => (value: number) => {
     setVolume(value);
+  };
+
+  volumeChanged = () => {
+    this.createAndFireUIEvent('volumeRangeNavigate', 'volume');
+  };
 
   onCurrentTimeChange = (currentTime: number, duration: number) => {
     if (duration - currentTime > MINIMUM_DURATION_BEFORE_SAVING_TIME) {
@@ -148,12 +237,21 @@ export class CustomMediaPlayer extends Component<
     }
   };
 
-  shortcutHandler = (toggleButtonAction: ToggleButtonAction) => () => {
+  shortcutHandler = (
+    toggleButtonAction: ToggleButtonAction,
+    shortcutType?: string,
+  ) => () => {
     const { showControls } = this.props;
     toggleButtonAction();
 
     if (showControls) {
       showControls();
+    }
+
+    if (shortcutType === 'playPauseBlanket') {
+      this.createAndFireUIEvent('playPauseBlanketClick');
+    } else {
+      this.createAndFireUIEvent('shortcutPress', shortcutType);
     }
   };
 
@@ -177,7 +275,11 @@ export class CustomMediaPlayer extends Component<
     return (
       <MediaButton
         testId="custom-media-player-hd-button"
-        onClick={onHDToggleClick}
+        onClick={
+          !!onHDToggleClick
+            ? this.onMediaButtonClick('HDButton', onHDToggleClick)
+            : undefined
+        }
         iconBefore={
           <HDIcon
             primaryColor={primaryColor}
@@ -196,6 +298,8 @@ export class CustomMediaPlayer extends Component<
 
     this.actions.setPlaybackSpeed(playbackSpeed);
     this.setState({ playbackSpeed });
+
+    this.createAndFireUIEvent('playbackSpeedChange');
   };
 
   private renderSpeedControls = () => {
@@ -207,22 +311,23 @@ export class CustomMediaPlayer extends Component<
         originalDimensions={originalDimensions}
         playbackSpeed={playbackSpeed}
         onPlaybackSpeedChange={this.onPlaybackSpeedChange}
+        onClick={this.onMediaButtonClick('playbackSpeedButton')}
       />
     );
   };
 
   renderVolume = (
-    { isMuted, volume }: VideoState,
+    videoState: VideoState,
     actions: VideoActions,
     showSlider: boolean,
   ) => {
     return (
       <VolumeWrapper showSlider={showSlider}>
-        <VolumeToggleWrapper isMuted={isMuted}>
-          <MutedIndicator isMuted={isMuted} />
+        <VolumeToggleWrapper isMuted={videoState.isMuted}>
+          <MutedIndicator isMuted={videoState.isMuted} />
           <MediaButton
             testId="custom-media-player-volume-toggle-button"
-            onClick={actions.toggleMute}
+            onClick={this.onMediaButtonClick('muteButton', actions.toggleMute)}
             iconBefore={<SoundIcon label="volume" />}
           />
         </VolumeToggleWrapper>
@@ -231,10 +336,11 @@ export class CustomMediaPlayer extends Component<
             <TimeRange
               onChange={this.onVolumeChange(actions.setVolume)}
               duration={1}
-              currentTime={volume}
-              bufferedTime={volume}
+              currentTime={videoState.volume}
+              bufferedTime={videoState.volume}
               disableThumbTooltip={true}
               isAlwaysActive={true}
+              onChanged={this.volumeChanged}
             />
           </VolumeTimeRangeWrapper>
         )}
@@ -242,7 +348,10 @@ export class CustomMediaPlayer extends Component<
     );
   };
 
-  onFullScreenClick = () => toggleFullscreen(this.videoWrapperRef);
+  onFullScreenClick = () => {
+    toggleFullscreen(this.videoWrapperRef);
+    this.createAndFireUIEvent('mediaButtonClick', 'fullScreenButton');
+  };
 
   onResize = (width: number) =>
     this.setState({
@@ -286,7 +395,7 @@ export class CustomMediaPlayer extends Component<
     return (
       <MediaButton
         testId="custom-media-player-download-button"
-        onClick={onDownloadClick}
+        onClick={this.onMediaButtonClick('downloadButton', onDownloadClick)}
         iconBefore={<DownloadIcon label="download" />}
       />
     );
@@ -324,6 +433,147 @@ export class CustomMediaPlayer extends Component<
     }
   };
 
+  toggleButtonAction = (isPlaying: boolean) => () => {
+    let buttonType;
+
+    if (isPlaying) {
+      this.pause();
+      buttonType = 'pauseButton';
+    } else {
+      this.play();
+      buttonType = 'playButton';
+    }
+
+    this.createAndFireUIEvent('mediaButtonClick', buttonType);
+  };
+
+  onMediaButtonClick = (
+    buttonType: string,
+    inheritedAction?: () => void,
+  ) => () => {
+    if (!!inheritedAction) {
+      inheritedAction();
+    }
+
+    this.createAndFireUIEvent('mediaButtonClick', buttonType);
+  };
+
+  createAndFireUIEvent(
+    eventType: CustomMediaPlayerUIEvent,
+    actionSubjectId?: string,
+  ) {
+    const {
+      type,
+      fileId,
+      isHDActive,
+      isHDAvailable,
+      isAutoPlay,
+      createAnalyticsEvent,
+    } = this.props;
+    const { isFullScreenEnabled, isLargePlayer, playbackSpeed } = this.state;
+    const playbackState: PlaybackState = {
+      ...this.videoState,
+      isAutoPlay,
+      isHDAvailable,
+      isHDActive,
+      isFullScreenEnabled,
+      isLargePlayer,
+      playbackSpeed,
+    };
+
+    let analyticsEvent: CustomMediaPlayerAnalyticsEventPayload;
+
+    switch (eventType) {
+      case 'mediaButtonClick':
+        analyticsEvent = createMediaButtonClickedEvent(
+          type,
+          playbackState,
+          actionSubjectId,
+          fileId,
+        );
+        break;
+      case 'shortcutPress':
+        analyticsEvent = createMediaShortcutPressedEvent(
+          type,
+          playbackState,
+          actionSubjectId,
+          fileId,
+        );
+        break;
+      case 'playPauseBlanketClick':
+        analyticsEvent = createPlayPauseBlanketClickedEvent(
+          type,
+          playbackState,
+          fileId,
+        );
+        break;
+      case 'timeRangeNavigate':
+      case 'volumeRangeNavigate':
+        analyticsEvent = createTimeRangeNavigatedEvent(
+          type,
+          playbackState,
+          actionSubjectId,
+          fileId,
+        );
+        break;
+      case 'playbackSpeedChange':
+        analyticsEvent = createPlaybackSpeedChangedEvent(
+          type,
+          playbackState,
+          fileId,
+        );
+        break;
+      default:
+        analyticsEvent = {
+          eventType: 'ui',
+          action: 'default',
+          actionSubject: 'customMediaPlayer',
+          attributes: {
+            type,
+          },
+        };
+    }
+
+    fireAnalyticsEvent(analyticsEvent, createAnalyticsEvent);
+  }
+
+  private onViewed = (videoState: VideoState) => {
+    const {
+      createAnalyticsEvent,
+      fileId,
+      isAutoPlay,
+      isHDAvailable,
+      isHDActive,
+      type,
+    } = this.props;
+    const { isFullScreenEnabled, isLargePlayer, playbackSpeed } = this.state;
+    const { status, currentTime } = videoState;
+
+    if (
+      status === 'playing' &&
+      (currentTime < this.lastCurrentTime ||
+        currentTime >= this.lastCurrentTime + VIEWED_TRACKING_SECS)
+    ) {
+      fireAnalyticsEvent(
+        createPlayedTrackEvent(
+          type,
+          {
+            ...videoState,
+            isAutoPlay,
+            isHDAvailable,
+            isHDActive,
+            isFullScreenEnabled,
+            isLargePlayer,
+            playbackSpeed,
+          },
+          fileId,
+        ),
+        createAnalyticsEvent,
+      );
+      this.lastCurrentTime = currentTime;
+    }
+  };
+
   render() {
     const {
       type,
@@ -350,7 +600,10 @@ export class CustomMediaPlayer extends Component<
           onError={onError}
         >
           {(video, videoState, actions) => {
+            this.onViewed(videoState);
             this.setActions(actions);
+            //Video State(either prop or variable) is ReadOnly
+            this.videoState = videoState;
             const {
               status,
               currentTime,
@@ -371,19 +624,19 @@ export class CustomMediaPlayer extends Component<
                 testId="custom-media-player-play-toggle-button"
                 data-test-is-playing={isPlaying}
                 iconBefore={toggleButtonIcon}
-                onClick={toggleButtonAction}
+                onClick={this.toggleButtonAction(isPlaying)}
               />
             );
             const shortcuts = (isShortcutEnabled || isFullScreenEnabled) && [
               <Shortcut
                 key="space-shortcut"
                 keyCode={keyCodes.space}
-                handler={this.shortcutHandler(toggleButtonAction)}
+                handler={this.shortcutHandler(toggleButtonAction, 'space')}
               />,
               <Shortcut
                 key="m-shortcut"
                 keyCode={keyCodes.m}
-                handler={this.shortcutHandler(actions.toggleMute)}
+                handler={this.shortcutHandler(actions.toggleMute, 'mute')}
               />,
             ];
             return (
@@ -392,7 +645,10 @@ export class CustomMediaPlayer extends Component<
                 {shortcuts}
                 {isLoading && this.renderSpinner()}
                 <PlayPauseBlanket
-                  onClick={this.shortcutHandler(toggleButtonAction)}
+                  onClick={this.shortcutHandler(
+                    toggleButtonAction,
+                    'playPauseBlanket',
+                  )}
                   data-testid="play-pause-blanket"
                 >
                   {video}
@@ -404,6 +660,7 @@ export class CustomMediaPlayer extends Component<
                       bufferedTime={buffered}
                       duration={duration}
                       onChange={this.onTimeChange(actions.navigate)}
+                      onChanged={this.timeChanged}
                     />
                   </TimeWrapper>
                   <TimebarWrapper>
@@ -429,4 +686,14 @@ export class CustomMediaPlayer extends Component<
   }
 }
 
-export default injectIntl(CustomMediaPlayer);
+export const CustomMediaPlayer = withMediaAnalyticsContext(
+  {
+    packageVersion,
+    packageName,
+    componentName: 'customMediaPlayer',
+    component: 'customMediaPlayer',
+  },
+  {
+    filterFeatureFlags: relevantFeatureFlagNames,
+  },
+)(withAnalyticsEvents()(injectIntl(CustomMediaPlayerBase)));

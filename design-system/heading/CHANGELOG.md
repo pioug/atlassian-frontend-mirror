@@ -1,5 +1,15 @@
 # @atlaskit/heading
 
+## 0.1.1
+
+### Patch Changes
+
+- [`d7a9a4ff7ec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d7a9a4ff7ec) - Instrumented heading with the new theming package, `@atlaskit/tokens`.
+  New tokens will be visible only in applications configured to use the new Tokens API (currently in alpha).
+  These changes are intended to be interoperable with the legacy theme implementation.
+  Legacy dark mode users should expect no visual or breaking changes.
+- Updated dependencies
+
 ## 0.1.0
 
 ### Minor Changes
@@ -11,29 +21,3 @@
 - [`46816ee8526`](https://bitbucket.org/atlassian/atlassian-frontend/commits/46816ee8526) - Changes heading element mappings to match '@atlaskit/css-reset'.
 - [`f9cd2065648`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f9cd2065648) - Removed redundant styles for text-transform, moved font-size to `rem` insteda of `em`.
 - Updated dependencies
-
-## 0.0.4
-
-### Patch Changes
-
-- [`229b32842b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/229b32842b5) - Fix .npmignore and tsconfig.json for **tests**
-
-## 0.0.3
-
-### Patch Changes
-
-- [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
-
-## 0.0.2
-
-### Patch Changes
-
-- [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
-  This requires version 3.8 of Typescript, read more about how we handle Typescript versions here: https://atlaskit.atlassian.com/get-started
-  Also add `typescript` to `devDependencies` to denote version that the package was built with.
-
-## 0.0.1
-
-### Patch Changes
-
-- [`b443b5a60f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b443b5a60f) - Renamed template package

@@ -13,7 +13,7 @@ import {
 
 BrowserTestCase(
   'emoji-2.ts: should be able to use emoji inside blockquote',
-  { skip: ['edge'] },
+  {},
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, { appearance: 'full-page' });
@@ -28,7 +28,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'emoji-2.ts: should be able to use emoji inside bulletList',
-  { skip: ['edge'] },
+  {},
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, { appearance: 'full-page' });
@@ -42,7 +42,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'emoji-2.ts: should be able to use emoji inside orderedList',
-  { skip: ['edge'] },
+  {},
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, { appearance: 'full-page' });
@@ -54,10 +54,9 @@ BrowserTestCase(
   },
 );
 
-// ie keying in ; instead of : - browserstack issue
 BrowserTestCase(
   'emoji-2.ts: should be able remove emoji on backspace',
-  { skip: ['safari', 'edge'] },
+  {},
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, { appearance: 'full-page' });
@@ -70,11 +69,9 @@ BrowserTestCase(
   },
 );
 
-// Safari does not understand webdriver click
-// IE has a bug opening picker inside task/decisions
 BrowserTestCase(
   'emoji-2.ts: should be able to select emoji by clicking inside decisions',
-  { skip: ['safari', 'edge'] },
+  {},
   async (client: any, testName: string) => {
     const decisions = 'span[aria-label="Decision"]';
     const page = await goToEditorTestingWDExample(client);
@@ -91,7 +88,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'emoji-2.ts: should be able to change text with emoji into decisions',
-  { skip: ['edge'] },
+  {},
   async (client: any, testName: string) => {
     const decisions = 'li span[aria-label="Decision"]';
     const page = await goToEditorTestingWDExample(client);

@@ -16,8 +16,6 @@ import {
   ul,
   DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { insertText } from '@atlaskit/editor-test-helpers/transactions';
-import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import {
   createProsemirrorEditorFactory,
   Preset,
@@ -165,10 +163,10 @@ describe('emojis', () => {
   });
 
   describe('quick insert', () => {
-    it('should trigger emoji typeahead invoked analytics event', () => {
-      const { editorView, sel } = editor(doc(p('{<>}')));
-      insertText(editorView, '/Emoji', sel);
-      sendKeyToPm(editorView, 'Enter');
+    it('should trigger emoji typeahead invoked analytics event', async () => {
+      const { typeAheadTool } = editor(doc(p('{<>}')));
+
+      await typeAheadTool.searchQuickInsert('Emoji')?.insert({ index: 0 });
 
       expect(createAnalyticsEvent).toHaveBeenCalledWith({
         action: 'invoked',

@@ -1,9 +1,15 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 
 import Button from '@atlaskit/button/standard-button';
 import Select from '@atlaskit/select';
 
-import Modal, { ModalFooter, ModalTransition } from '../src';
+import Modal, {
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
+  ModalTitle,
+  ModalTransition,
+} from '../src';
 
 const SingleExample = () => (
   <Select
@@ -25,24 +31,22 @@ const SingleExample = () => (
   />
 );
 
-const DefaultModal = () => {
+export default function DefaultModal() {
   const [isOpen, setIsOpen] = useState<Boolean>(false);
 
-  const open = () => {
-    setIsOpen(true);
-  };
-
-  const close = () => {
-    setIsOpen(false);
-  };
+  const open = useCallback(() => setIsOpen(true), []);
+  const close = useCallback(() => setIsOpen(false), []);
 
   const Footer = () => {
     return (
       <ModalFooter>
-        <Button onClick={close}>test button</Button>
+        <Button style={{ marginRight: 'auto' }} onClick={close}>
+          test button
+        </Button>
       </ModalFooter>
     );
   };
+
   return (
     <div>
       <Button onClick={open} testId="modal-trigger">
@@ -50,22 +54,19 @@ const DefaultModal = () => {
       </Button>
       <ModalTransition>
         {isOpen && (
-          <Modal
-            components={{
-              Footer: Footer,
-            }}
-            onClose={close}
-            heading="Modal Title"
-            testId="modal"
-          >
-            <div data-testid="dialog-body">
-              <SingleExample />
-            </div>
+          <Modal onClose={close} testId="modal">
+            <ModalHeader>
+              <ModalTitle>Modal Title</ModalTitle>
+            </ModalHeader>
+            <ModalBody>
+              <div data-testid="dialog-body">
+                <SingleExample />
+              </div>
+            </ModalBody>
+            <Footer />
           </Modal>
         )}
       </ModalTransition>
     </div>
   );
-};
-
-export default DefaultModal;
+}

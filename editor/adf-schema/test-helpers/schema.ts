@@ -30,6 +30,7 @@ export default createSchema({
     'caption',
     'media',
     'mediaGroup',
+    'mediaInline',
     'confluenceUnsupportedBlock',
     'confluenceUnsupportedInline',
     'confluenceJiraIssue',

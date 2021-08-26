@@ -6,9 +6,7 @@ import {
   MentionProvider,
   EditorContext,
 } from '@atlaskit/editor-core';
-import FabricAnalyticsListeners, {
-  AnalyticsWebClient,
-} from '@atlaskit/analytics-listeners';
+import FabricAnalyticsListeners from '@atlaskit/analytics-listeners';
 import { Provider as CollabProvider } from '@atlaskit/collab-provider';
 import { toNativeBridge } from './web-to-native';
 import WebBridgeImpl from './native-to-web';
@@ -41,6 +39,7 @@ import { usePluginListeners } from './hooks/use-plugin-listeners';
 import EditorConfiguration from './editor-configuration';
 import { hasVisibleContent } from '@atlaskit/editor-core';
 import { useToolbarSubscription } from './hooks/use-toolbar-subscription';
+import { useTypeAheadSubscription } from './hooks/use-type-ahead-subscription';
 export interface MobileEditorProps extends EditorProps {
   createCollabProvider: (bridge: WebBridgeImpl) => Promise<CollabProvider>;
   cardProvider: Promise<EditorCardProvider>;
@@ -86,25 +85,42 @@ const templatePlaceholdersOptions = { allowInserting: true };
 // End Editor options.
 
 export function MobileEditor(props: MobileEditorProps) {
-  const { bridge, editorConfiguration } = props;
-  const collabEdit = useCollabEdit(bridge, props.createCollabProvider);
-  const analyticsClient: AnalyticsWebClient = useAnalytics();
+  const {
+    bridge,
+    editorConfiguration,
+    createCollabProvider,
+    intl,
+    mentionProvider,
+    emojiProvider,
+    mediaProvider,
+    cardProvider,
+    cardClient,
+    featureFlags,
+  } = props;
+
+  const collabEdit = useCollabEdit(
+    bridge,
+    editorConfiguration,
+    createCollabProvider,
+  );
+
+  const analyticsClient = useAnalytics();
   const quickInsert = useQuickInsert(
     bridge,
-    props.intl,
+    intl,
     editorConfiguration.isQuickInsertEnabled(),
   );
   usePageTitle(bridge, collabEdit);
 
   // Hooks to create the options once and prevent rerender
   const mediaOptions = {
-    ...useMedia(props.mediaProvider),
+    ...useMedia(mediaProvider),
     allowResizing: getMediaImageResize(),
     allowResizingInTables: getMediaImageResize(),
     featureFlags: { captions: getAllowCaptions() },
     alignLeftOnInsert: true,
   };
-  const cardsOptions = useSmartCards(props.cardProvider);
+  const cardsOptions = useSmartCards(cardProvider);
   const taskDecisionProvider = useTaskAndDecision();
 
   // Create the handle change only once
@@ -135,7 +151,8 @@ export function MobileEditor(props: MobileEditorProps) {
   } = useEditorLifecycle(bridge, mediaOptions);
 
   usePluginListeners(editorReady, editorConfiguration, bridge);
-  useToolbarSubscription(editorReady, editorConfiguration, bridge, props.intl);
+  useToolbarSubscription(editorReady, editorConfiguration, bridge, intl);
+  useTypeAheadSubscription(editorReady, bridge, editorConfiguration);
 
   // @ts-expect-error: this one is needed for passing tests
   const mode = editorConfiguration.getMode();
@@ -163,15 +180,15 @@ export function MobileEditor(props: MobileEditorProps) {
 
   // Editor config overrides feature flags from props
   type Flags = { [key: string]: string | boolean };
-  const featureFlags = {
-    ...props.featureFlags,
+  const extendedFeatureFlags: Flags = {
+    ...featureFlags,
     useUnpredictableInputRule: editorConfiguration.isUnpredictableInputRuleEnabled(),
     enableViewUpdateSubscription: true,
   };
 
   return (
     <FabricAnalyticsListeners client={analyticsClient}>
-      <SmartCardProvider client={props.cardClient} authFlow={authFlow}>
+      <SmartCardProvider client={cardClient} authFlow={authFlow}>
         <EditorContext>
           <Editor
             appearance="mobile"
@@ -200,9 +217,9 @@ export function MobileEditor(props: MobileEditorProps) {
             collabEdit={collabEdit}
             performanceTracking={performanceTracking}
             {...props}
-            featureFlags={featureFlags as Flags}
-            mentionProvider={props.mentionProvider}
-            emojiProvider={props.emojiProvider}
+            featureFlags={extendedFeatureFlags}
+            mentionProvider={mentionProvider}
+            emojiProvider={emojiProvider}
             placeholder={editorConfiguration.getPlaceholder()}
           />
         </EditorContext>

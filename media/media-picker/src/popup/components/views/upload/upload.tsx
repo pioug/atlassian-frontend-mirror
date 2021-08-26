@@ -22,7 +22,14 @@ import AnnotateIcon from '@atlaskit/icon/glyph/media-services/annotate';
 import TrashIcon from '@atlaskit/icon/glyph/trash';
 import EditorInfoIcon from '@atlaskit/icon/glyph/error';
 import { FormattedMessage, InjectedIntlProps, injectIntl } from 'react-intl';
-import ModalDialog, { ModalTransition } from '@atlaskit/modal-dialog';
+import Button from '@atlaskit/button/standard-button';
+import ModalDialog, {
+  ModalTransition,
+  ModalBody,
+  ModalTitle,
+  ModalHeader,
+  ModalFooter,
+} from '@atlaskit/modal-dialog';
 import { messages, InfiniteScroll } from '@atlaskit/media-ui';
 import { isWebGLAvailable } from '../../../tools/webgl';
 import { Dropzone } from './dropzone';
@@ -187,33 +194,38 @@ export class StatelessUploadView extends Component<
     }
 
     const { id, occurrenceKey } = deletionCandidate;
-    const actions = [
-      {
-        text: 'Delete permanently',
-        onClick: () => {
-          removeFileFromRecents(id, occurrenceKey);
-          closeDialog();
-        },
-      },
-      {
-        text: 'Cancel',
-        onClick: () => {
-          closeDialog();
-        },
-      },
-    ];
 
     return (
       <ModalTransition>
-        <ModalDialog
-          width="small"
-          appearance="danger"
-          heading="Delete forever?"
-          actions={actions}
-          onClose={closeDialog}
-        >
-          This file is about to be permanently deleted. Once you delete, it's
-          gone for good.
+        <ModalDialog width="small" onClose={closeDialog}>
+          <ModalHeader>
+            <ModalTitle appearance="danger">Delete forever?</ModalTitle>
+          </ModalHeader>
+
+          <ModalBody>
+            This file is about to be permanently deleted. Once you delete, it's
+            gone for good.
+          </ModalBody>
+          <ModalFooter>
+            <Button
+              onClick={() => {
+                closeDialog();
+              }}
+              appearance="subtle"
+            >
+              Cancel
+            </Button>
+            <Button
+              autoFocus
+              onClick={() => {
+                removeFileFromRecents(id, occurrenceKey);
+                closeDialog();
+              }}
+              appearance="danger"
+            >
+              Delete permanently
+            </Button>
+          </ModalFooter>
         </ModalDialog>
       </ModalTransition>
     );

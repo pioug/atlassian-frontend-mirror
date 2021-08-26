@@ -3,7 +3,13 @@ import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/standard-button';
 import { Checkbox } from '@atlaskit/checkbox';
-import ModalDialog, { ModalTransition } from '@atlaskit/modal-dialog';
+import ModalDialog, {
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
+  ModalTitle,
+  ModalTransition,
+} from '@atlaskit/modal-dialog';
 import { RadioGroup } from '@atlaskit/radio';
 import Textfield from '@atlaskit/textfield';
 
@@ -21,14 +27,7 @@ export default function ModalDialogForm() {
 
       <ModalTransition>
         {isOpen && (
-          <ModalDialog
-            heading="Modal dialog with form"
-            onClose={close}
-            actions={[
-              { text: 'Submit', type: 'submit', form: 'form-with-id' },
-              { text: 'Cancel', onClick: close },
-            ]}
-          >
+          <ModalDialog onClose={close}>
             <Form
               onSubmit={(value) =>
                 window.alert(
@@ -38,50 +37,68 @@ export default function ModalDialogForm() {
             >
               {({ formProps }) => (
                 <form id="form-with-id" {...formProps}>
-                  <p>
-                    Enter some text then submit the form to see the response.
-                  </p>
+                  <ModalHeader>
+                    <ModalTitle>Modal dialog with form</ModalTitle>
+                  </ModalHeader>
 
-                  <Field label="Name" name="my-name" defaultValue="">
-                    {({ fieldProps }) => <Textfield {...fieldProps} />}
-                  </Field>
+                  <ModalBody>
+                    <p>
+                      Enter some text then submit the form to see the response.
+                    </p>
 
-                  <Field label="Email" name="my-email" defaultValue="">
-                    {({ fieldProps }) => (
-                      <Textfield
-                        autoComplete="off"
-                        placeholder="charlie@atlassian.com"
-                        {...fieldProps}
-                      />
-                    )}
-                  </Field>
+                    <Field label="Name" name="my-name" defaultValue="">
+                      {({ fieldProps }) => <Textfield {...fieldProps} />}
+                    </Field>
 
-                  <CheckboxField
-                    label="A single checkbox"
-                    name="checkbox"
-                    defaultIsChecked
-                  >
-                    {({ fieldProps }) => (
-                      <Checkbox
-                        {...fieldProps}
-                        value="example"
-                        label="Checkbox"
-                      />
-                    )}
-                  </CheckboxField>
+                    <Field label="Email" name="my-email" defaultValue="">
+                      {({ fieldProps }) => (
+                        <Textfield
+                          autoComplete="off"
+                          placeholder="charlie@atlassian.com"
+                          {...fieldProps}
+                        />
+                      )}
+                    </Field>
 
-                  <Field name="radiogroup" label="Colors" defaultValue="">
-                    {({ fieldProps: { value, ...others } }) => (
-                      <RadioGroup
-                        options={[
-                          { name: 'color', value: 'red', label: 'Red' },
-                          { name: 'color', value: 'blue', label: 'Blue' },
-                          { name: 'color', value: 'yellow', label: 'Yellow' },
-                        ]}
-                        {...others}
-                      />
-                    )}
-                  </Field>
+                    <CheckboxField
+                      label="A single checkbox"
+                      name="checkbox"
+                      defaultIsChecked
+                    >
+                      {({ fieldProps }) => (
+                        <Checkbox
+                          {...fieldProps}
+                          value="example"
+                          label="Checkbox"
+                        />
+                      )}
+                    </CheckboxField>
+
+                    <Field name="radiogroup" label="Colors" defaultValue="">
+                      {({ fieldProps: { value, ...others } }) => (
+                        <RadioGroup
+                          options={[
+                            { name: 'color', value: 'red', label: 'Red' },
+                            { name: 'color', value: 'blue', label: 'Blue' },
+                            { name: 'color', value: 'yellow', label: 'Yellow' },
+                          ]}
+                          {...others}
+                        />
+                      )}
+                    </Field>
+                  </ModalBody>
+                  <ModalFooter>
+                    <Button onClick={close} appearance="subtle">
+                      Cancel
+                    </Button>
+                    <Button
+                      type="submit"
+                      form="form-with-id"
+                      appearance="primary"
+                    >
+                      Submit
+                    </Button>
+                  </ModalFooter>
                 </form>
               )}
             </Form>

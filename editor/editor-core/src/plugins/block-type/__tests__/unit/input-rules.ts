@@ -18,7 +18,6 @@ import {
   th,
   DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 import {
   createProsemirrorEditorFactory,
@@ -178,26 +177,30 @@ describe('inputrules', () => {
         });
 
         describe('from quickinsert menu', () => {
-          it('should insert when no existing text', () => {
-            const { editorView, sel } = editor(doc(p('{<>}')));
-            insertText(editorView, '/h1', sel);
-            sendKeyToPm(editorView, 'Enter');
+          it('should insert when no existing text', async () => {
+            const { editorView, typeAheadTool } = editor(doc(p('{<>}')));
+
+            await typeAheadTool.searchQuickInsert('h1')?.insert({ index: 0 });
+
             expect(editorView.state.doc).toEqualDocument(doc(h1()));
           });
 
-          it('should insert below when in paragraph', () => {
-            const { editorView, sel } = editor(doc(p('hello {<>}world')));
-            insertText(editorView, '/h1', sel);
-            sendKeyToPm(editorView, 'Enter');
+          it('should insert below when in paragraph', async () => {
+            const { editorView, typeAheadTool } = editor(
+              doc(p('hello {<>}world')),
+            );
+
+            await typeAheadTool.searchQuickInsert('h1')?.insert({ index: 0 });
+
             expect(editorView.state.doc).toEqualDocument(
               doc(p('hello world'), h1()),
             );
           });
 
-          it('should send analytics v3', () => {
-            const { editorView, sel } = editor(doc(p('{<>}')));
-            insertText(editorView, '/h1', sel);
-            sendKeyToPm(editorView, 'Enter');
+          it('should send analytics v3', async () => {
+            const { typeAheadTool } = editor(doc(p('{<>}')));
+
+            await typeAheadTool.searchQuickInsert('h1')?.insert({ index: 0 });
 
             const expectedPayload = {
               action: 'formatted',

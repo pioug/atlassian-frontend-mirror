@@ -12,6 +12,14 @@ const preventEvent: MouseEventHandler = (e) => {
   e.preventDefault();
 };
 
+/**
+ * __Link item__
+ *
+ * A link item is used to populate a menu with items that are links.
+ *
+ * - [Examples](https://atlaskit.atlassian.com/packages/design-system/menu/docs/link-item)
+ * - [Code](https://atlaskit.atlassian.com/packages/design-system/menu)
+ */
 const LinkItem = memo(
   forwardRef<HTMLElement, LinkItemProps>(
     // Type needed on props to extract types with extract react types.
@@ -42,7 +50,9 @@ const LinkItem = memo(
         <a
           ref={ref as Ref<HTMLAnchorElement>}
           css={[
+            // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
             linkItemCSS(isDisabled, isSelected),
+            // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
             cssFn({
               isSelected,
               isDisabled,
@@ -59,6 +69,7 @@ const LinkItem = memo(
           {...others}
         >
           <BaseItem
+            // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
             overrides={overrides}
             iconBefore={iconBefore}
             iconAfter={iconAfter}

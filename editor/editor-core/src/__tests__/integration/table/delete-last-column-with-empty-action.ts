@@ -14,7 +14,7 @@ import {
 
 BrowserTestCase(
   'delete-last-column-with-empty-action.ts: Delete last table column with empty action',
-  { skip: ['edge', 'firefox'] },
+  {},
   async (client: any, testName: string) => {
     const LAST_HEADER_FROM_FIRST_ROW =
       'table > tbody > tr:first-child > th:last-child';
@@ -40,6 +40,8 @@ BrowserTestCase(
     // Select button wrapper from last column
     const controlSelector = `.${ClassName.COLUMN_CONTROLS_DECORATIONS}[data-start-index="2"]`;
     await page.waitForSelector(controlSelector);
+    // We need to move the mouse to the column control first
+    await page.hover(controlSelector);
     await page.click(controlSelector);
 
     // Click on delete row button

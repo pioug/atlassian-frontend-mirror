@@ -1,17 +1,32 @@
 import {
-  PollingOptions,
   getMediaFeatureFlag,
+  MediaFeatureFlags,
+  PollingOptions,
 } from '@atlaskit/media-common/mediaFeatureFlags';
 
 import { PollingError } from './errors';
 import { Executor } from './types';
 
-export const defaultPollingOptions: Required<PollingOptions> = {
-  poll_intervalMs: getMediaFeatureFlag('poll_intervalMs') as number,
-  poll_maxAttempts: getMediaFeatureFlag('poll_maxAttempts') as number,
-  poll_backoffFactor: getMediaFeatureFlag('poll_backoffFactor') as number,
-  poll_maxIntervalMs: getMediaFeatureFlag('poll_maxIntervalMs') as number,
-};
+export const getPollingOptions = (
+  featureFlags?: MediaFeatureFlags,
+): Required<PollingOptions> => ({
+  poll_intervalMs: getMediaFeatureFlag<number>('poll_intervalMs', featureFlags),
+  poll_maxAttempts: getMediaFeatureFlag<number>(
+    'poll_maxAttempts',
+    featureFlags,
+  ),
+  poll_backoffFactor: getMediaFeatureFlag<number>(
+    'poll_backoffFactor',
+    featureFlags,
+  ),
+  poll_maxIntervalMs: getMediaFeatureFlag<number>(
+    'poll_maxIntervalMs',
+    featureFlags,
+  ),
+});
+
+// default polling options without using feature flags
+export const defaultPollingOptions = getPollingOptions(undefined);
 
 /**
  * This class encapsulates polling functionality with the following features:

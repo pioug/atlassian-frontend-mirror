@@ -135,6 +135,7 @@ describe('@atlaskit/icon', () => {
         'editor/error',
         'editor/feedback',
         'editor/file',
+        'editor/file-preview',
         'editor/help',
         'editor/hint',
         'editor/image-border',

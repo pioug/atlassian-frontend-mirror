@@ -8,6 +8,7 @@ export interface ExtensionParams<T extends Parameters> {
   type?: 'extension' | 'inlineExtension' | 'bodiedExtension';
   parameters?: T;
   content?: object | string; // This would be the original Atlassian Document Format
+  localId?: string;
 }
 
 export type ExtensionHandler<T extends Parameters = Parameters> = (
@@ -52,6 +53,8 @@ export interface Extension<T extends Parameters = Parameters> {
 export interface ExtensionHandlers<T extends Parameters = any> {
   [key: string]: Extension<T> | ExtensionHandler<T>;
 }
+
+export type ReferenceEntity = ADFEntity | Object;
 
 // DEPRECATED
 export type ParametersGetter<

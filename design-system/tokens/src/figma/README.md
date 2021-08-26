@@ -10,7 +10,7 @@ There are currently a few manual steps to run before you can run the function.
 1. Build `yarn build tokens`
 1. Open your Figma file
 1. Open dev tools console
-1. Copy the code from `packages/design-system/tokens/dist/cjs/figma/tokens-to-figma.js`
+1. Copy the code from `packages/design-system/tokens/dist/cjs/figma/synchronize-figma-tokens.js`
 1. Paste the code
 
 You are now ready to add tokens into Figma.

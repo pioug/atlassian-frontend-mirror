@@ -1,5 +1,28 @@
 # @atlaskit/editor-common
 
+## 60.0.0
+
+### Major Changes
+
+- [`b95863772be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b95863772be) - Support external observers.
+  Use better naming for refNode (refNode => reference).
+  In favor of further work (supporting multiple references) pass array of references to Extension component.
+  Expand node with localId for extentions.
+
+### Minor Changes
+
+- [`71bb1bb3cd0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/71bb1bb3cd0) - [ED-12933] Create TypeAhead common constant for mobile-bridge and editor-core
+- [`2a6a10f9c5f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2a6a10f9c5f) - CETI-29 Updated emoji picker toolbar icon for custom panels
+- [`d1a58a7a520`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d1a58a7a520) - [ux] ED-12460 Implement collab scroll-to-telepointer: a user can now click on a collab avatar and be scrolled to another user's position in the document
+
+### Patch Changes
+
+- [`53d81fa08ee`](https://bitbucket.org/atlassian/atlassian-frontend/commits/53d81fa08ee) - CETI-14 added functionality to hide emoji from custom panel
+- [`bd510f46bff`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bd510f46bff) - CETI-30 added functionality to add custom panel via the slash command
+- [`099e8495f3d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/099e8495f3d) - CETI-37 - Fixed custom panel icon sizing and alignment
+- [`b90c0237824`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b90c0237824) - Update package.jsons to remove unused dependencies.
+- Updated dependencies
+
 ## 59.1.0
 
 ### Minor Changes

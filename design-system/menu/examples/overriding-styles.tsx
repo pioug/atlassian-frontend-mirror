@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import React from 'react';
 
 import RightArrow from '@atlaskit/icon/glyph/arrow-right';
@@ -18,6 +19,7 @@ export default () => (
       description="Hover over me"
       iconAfter={<RightArrow label="" />}
       isSelected
+      // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
       cssFn={({ isSelected }) => {
         return {
           padding: '12px 20px',
@@ -44,6 +46,7 @@ export default () => (
       iconBefore={<ImgIcon alt="" src={koala} />}
       description="Hover over me"
       iconAfter={<RightArrow label="" />}
+      // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
       cssFn={() => ({
         color: 'red',
         '&:hover': {

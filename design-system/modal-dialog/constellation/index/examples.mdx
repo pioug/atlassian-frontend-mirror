@@ -7,8 +7,13 @@ import ModalWarning from '../../examples/constellation/modal-warning';
 import ModalDanger from '../../examples/constellation/modal-danger';
 import ModalWidth from '../../examples/constellation/modal-width';
 import ModalScroll from '../../examples/constellation/modal-scroll';
-import ModalContainerCustom from '../../examples/constellation/modal-container-custom';
 import FocusSpecificElement from '../../examples/constellation/focus-specific-element';
+import ModalWrapper from '../../examples/constellation/modal-wrapper';
+import ModalCustom from '../../examples/constellation/modal-custom';
+import ModalHeader from '../../examples/constellation/modal-header-default';
+import ModalCustomHeader from '../../examples/constellation/modal-header-custom';
+import ModalFooter from '../../examples/constellation/modal-footer-default';
+import ModalCustomFooter from '../../examples/constellation/modal-footer-custom';
 
 ## Default
 
@@ -19,7 +24,7 @@ The default form of a modal dialog.
 ## Appearance
 
 A modal dialog is available in two other variations.
-The appearance of the primary action and icon will change per variation.
+The appearance needs to be set on both the modal title and the primary button.
 
 ### Warning
 
@@ -66,8 +71,6 @@ the body content will scroll while the header and footer remain fixed until the 
 
 The scroll behavior of modals can be configured so that scrolling happens inside the modal body or outside the modal,
 within the viewport.
-If your application scrolls horizontally instead of vertically for example like Trello,
-you may need to use `inside-width`.
 
 In either case,
 modals prevent the window from being scrolled both natively and programatically.
@@ -75,15 +78,66 @@ This will prevent browser issues such as `scrollIntoView` scrolling the window i
 
 <Example Component={ModalScroll} packageName="@atlaskit/modal-dialog" />
 
-## Modal container
+## Form
 
-Use the `Container` component override to customize the outer modal body,
-for example to wrap the modal in a `form` element.
-See [modal header](modal-header),
-[modal body](modal-body),
-and [modal footer](modal-footer) for other customization options.
+These internal components can be wrapped in a `form` element to support
+having buttons of type `submit` in the footer.
 
 <Example
-  Component={ModalContainerCustom}
+  Component={ModalWrapper}
+  packageName="@atlaskit/modal-dialog"
+/>
+
+## Custom modal
+
+If you wish to customise a modal dialog, it accepts any valid React element
+as children. In this example, we recreate an onboarding modal without
+modal header, title, body, or footer.
+
+<Example
+  Component={ModalCustom}
+  packageName="@atlaskit/modal-dialog"
+/>
+
+## Modal header
+
+Modal header accepts any valid React element as children, so you can
+use modal title in conjunction with other elements like an exit button
+in the top right.
+
+<Example
+  Component={ModalHeader}
+  packageName="@atlaskit/modal-dialog"
+/>
+
+
+### Custom modal header
+
+For very custom use cases, you can achieve the same thing without modal
+header or title. To make sure the modal is accessible, call `useModal`
+and set `titleId` as the `id` on the heading.
+
+<Example
+  Component={ModalCustomHeader}
+  packageName="@atlaskit/modal-dialog"
+/>
+
+## Modal footer
+
+Modal footer accepts any valid React element as children. For example,
+you can add an [avatar](/components/avatar/) in the footer.
+
+<Example
+  Component={ModalFooter}
+  packageName="@atlaskit/modal-dialog"
+/>
+
+### Custom modal footer
+
+For very custom use cases, you can achieve the same thing without modal
+footer.
+
+<Example
+  Component={ModalCustomFooter}
   packageName="@atlaskit/modal-dialog"
 />

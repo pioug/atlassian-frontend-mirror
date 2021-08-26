@@ -2,7 +2,7 @@ import { RefObject, useCallback, useRef } from 'react';
 
 import type { Transition } from '@atlaskit/motion/types';
 
-import { ModalDialogProps } from '../types';
+import { ModalDialogProps } from '../../types';
 
 export default function useOnMotionFinish({
   onOpenComplete,

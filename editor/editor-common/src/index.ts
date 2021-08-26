@@ -150,6 +150,7 @@ export type {
   MenuItem,
   MenuItemMap,
   UpdateExtension,
+  ReferenceEntity,
 } from './extensions';
 
 export type { ContextIdentifierProvider } from './provider-factory/context-identifier-provider';

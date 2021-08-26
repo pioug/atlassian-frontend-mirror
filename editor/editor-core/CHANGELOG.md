@@ -1,5 +1,109 @@
 # @atlaskit/editor-core
 
+## 149.0.0
+
+### Major Changes
+
+- [`71bb1bb3cd0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/71bb1bb3cd0) - [ED-12933] Replace TypeAhead node mark to ProseMirror Decoration
+
+  # Minor change
+
+  Type Ahead isn't a part of the document anymore. This version is introducing
+  the Decoration system for this internal API.
+
+  # Breaking Change
+
+  We are replacing those public API:
+
+  ```
+  export { selectItem } from './plugins/type-ahead/commands/select-item';
+  export { insertTypeAheadQuery } from './plugins/type-ahead/commands/insert-query';
+  export { dismissCommand } from './plugins/type-ahead/commands/dismiss';
+  export { insertMentionQuery } from './plugins/mentions/commands/insert-mention-query';
+  export { insertEmojiQuery } from './plugins/emoji/commands/insert-emoji-query';
+  ```
+
+  If you need those behavior, please use this new one:
+
+  ```
+  export { createTypeAheadTools } from './plugins/type-ahead/api';
+  export { createQuickInsertTools } from './plugins/quick-insert/api';
+  ```
+
+  Before:
+
+  ```
+  import {
+    insertTypeAheadQuery,
+    insertMentionQuery,
+    dismissCommand,
+  } from '@atlaskit/editor-core';
+
+  // open the typeahead menu for mention
+  insertMentionQuery(editorView.state, editorView.dispatch);
+
+  // insert item
+  insertTypeAheadQuery(editorView.state, editorView.dispatch);
+
+  // close type ahead menu
+  insertTypeAheadQuery(editorView.state, editorView.dispatch);
+  ```
+
+  Now:
+
+  ```
+
+  import {
+    createTypeAheadTools,
+  } from '@atlaskit/editor-core';
+
+  const tools = createTypeAheadTools(editorView);
+
+  tools.openMention();
+  tools.insertMention();
+  tools.close();
+  ```
+
+### Minor Changes
+
+- [`ad67f6684f1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ad67f6684f1) - Add MediaInline to ADF Stage0 schema
+- [`2a6a10f9c5f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2a6a10f9c5f) - CETI-29 Updated emoji picker toolbar icon for custom panels
+- [`5bafe5d2ccf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5bafe5d2ccf) - Add a new attribute to existing prop elementBrowser to pass a function to render Marketplace component for app discovery
+- [`53d81fa08ee`](https://bitbucket.org/atlassian/atlassian-frontend/commits/53d81fa08ee) - CETI-14 added functionality to hide emoji from custom panel
+- [`bd510f46bff`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bd510f46bff) - CETI-30 added functionality to add custom panel via the slash command
+- [`6f9352d04b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6f9352d04b5) - analytics for beautiful emoji panels
+- [`511f07f7f7b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/511f07f7f7b) - allow enabling download for media card via enableDownloadButton feature prop
+- [`d1a58a7a520`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d1a58a7a520) - [ux] ED-12460 Implement collab scroll-to-telepointer: a user can now click on a collab avatar and be scrolled to another user's position in the document
+- [`ab905c0e924`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ab905c0e924) - [ux] EDM-1641: add floating toolbar to media card and view switcher for inline view
+- [`b95863772be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b95863772be) - Support external observers.
+  Use better naming for refNode (refNode => reference).
+  In favor of further work (supporting multiple references) pass array of references to Extension component.
+  Expand node with localId for extentions.
+- [`68c3a924b0c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/68c3a924b0c) - [ux] ED-13288: fixed ColorPickerField to work with fix color picker transformBefore()
+
+### Patch Changes
+
+- [`7d4bf49be6d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7d4bf49be6d) - CETI-2 Gracefully exiting the beautiful panel analytics when previousColor=== color | previousIcon=== icon. Such that we are not sending redundant analytics
+- [`33a3f8baf8a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/33a3f8baf8a) - ED-12787 fixed issue with misaligned sticky header shadows with stickyHeadersOptimization on
+- [`387c68f623c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/387c68f623c) - [ED-13558] Add the TypeAhead VIEWED and RENDERED events to the popup component
+- [`099e8495f3d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/099e8495f3d) - CETI-37 - Fixed custom panel icon sizing and alignment
+- [`5e1c18076db`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5e1c18076db) - [ED-13550] Fix Mention and Emoji toolbar menu disable when the TypeAhead menu is open
+- [`b5072618005`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b5072618005) - ED-13347 Prevent list toolbar from crashing when the list state does not exist
+- [`146ca2d6009`](https://bitbucket.org/atlassian/atlassian-frontend/commits/146ca2d6009) - CETI-24 Copy and paste custom panels makes page unresponsive
+- [`56129bdfc79`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56129bdfc79) - Upgrade to the latest version of @atlaskit/modal-dialog.
+- [`47f2d84b5ac`](https://bitbucket.org/atlassian/atlassian-frontend/commits/47f2d84b5ac) - [ED-13567] Fix mobile typeahead API when its open
+- [`b90c0237824`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b90c0237824) - Update package.jsons to remove unused dependencies.
+- [`363971afa29`](https://bitbucket.org/atlassian/atlassian-frontend/commits/363971afa29) - [ux][ed-13574] Resolving a regression in the quick insert in mobile. A hotfix was merged to master a week ago to fix mobile feature flags, which seems to have clashed with changes in develop resulting in quick insert no longer working on mobile and a bunch of mobile integration tests failing.
+
+  This change includes making quick insert work on mobile again by making sure the tracker isn’t reset every time CC @Sean Chamberlain
+
+  All tests with configureEditor now have a way to refocus the editor after the config is set and before any document changes are made.
+
+  New mobile integration tests have been added for feature flags to ensure we don't have any further regressions with mobile feature flags.
+
+- [`6c2c8a1b3a5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c2c8a1b3a5) - EDM-2288 Implement analytics attribute for paste link on text
+- Updated dependencies
+
 ## 148.0.0
 
 ### Major Changes

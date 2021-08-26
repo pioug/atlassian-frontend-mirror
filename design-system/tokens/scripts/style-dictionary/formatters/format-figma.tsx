@@ -34,6 +34,11 @@ const formatter: Format['formatter'] = ({ dictionary, options }) => {
       return;
     }
 
+    // don't add raw group tokens to Figma
+    if (token.attributes?.group === 'raw') {
+      return;
+    }
+
     // We found a themed token!
     const tokenPath = token.path.map((path) => upperFirst(path)).join('/');
     const fullPath = `${themeName}/${tokenPath}`;

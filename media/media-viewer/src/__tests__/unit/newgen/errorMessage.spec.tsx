@@ -1,16 +1,13 @@
-jest.mock('../../../newgen/analytics/events/operational/loadFailed', () => ({
+jest.mock('../../../analytics/events/operational/loadFailed', () => ({
   createLoadFailedEvent: jest.fn(),
 }));
-jest.mock(
-  '../../../newgen/analytics/events/operational/previewUnsupported',
-  () => ({
-    createPreviewUnsupportedEvent: jest.fn(),
-  }),
-);
+jest.mock('../../../analytics/events/operational/previewUnsupported', () => ({
+  createPreviewUnsupportedEvent: jest.fn(),
+}));
 import React from 'react';
 import { mount } from 'enzyme';
-import { ErrorMessage } from '../../../newgen/errorMessage';
-import { MediaViewerError } from '../../../newgen/errors';
+import { ErrorMessage } from '../../../errorMessage';
+import { MediaViewerError } from '../../../errors';
 import Button from '@atlaskit/button/custom-theme-button';
 import {
   fakeIntl,
@@ -19,8 +16,8 @@ import {
 } from '@atlaskit/media-test-helpers';
 import { FileState } from '@atlaskit/media-client';
 import { messages as i18nMessages } from '@atlaskit/media-ui';
-import { createLoadFailedEvent } from '../../../newgen/analytics/events/operational/loadFailed';
-import { createPreviewUnsupportedEvent } from '../../../newgen/analytics/events/operational/previewUnsupported';
+import { createLoadFailedEvent } from '../../../analytics/events/operational/loadFailed';
+import { createPreviewUnsupportedEvent } from '../../../analytics/events/operational/previewUnsupported';
 
 describe('Error Message', () => {
   describe('Mapping error reason to message text', () => {

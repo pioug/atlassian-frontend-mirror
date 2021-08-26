@@ -6,7 +6,15 @@ import {
   PublicInteractionTask,
 } from 'storybook-addon-performance';
 
-import Modal, { ModalTransition } from '../src';
+import Button from '@atlaskit/button/standard-button';
+
+import Modal, {
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
+  ModalTitle,
+  ModalTransition,
+} from '../src';
 
 const modalText = (index: number) => `Hello, world (${index})`;
 const closeText = (index: number) => `Close (${index})`;
@@ -25,14 +33,19 @@ const InteractionPerformance = ({ index = 0 }: { index?: number }) => {
 
       <ModalTransition>
         {isOpen && (
-          <Modal
-            onClose={close}
-            heading="Modal dialog"
-            actions={[{ text: closeText(index), onClick: close }]}
-          >
-            {modalText(index)}
-
-            <InteractionPerformance index={index + 1} />
+          <Modal onClose={close}>
+            <ModalHeader>
+              <ModalTitle>Modal dialog</ModalTitle>
+            </ModalHeader>
+            <ModalBody>
+              {modalText(index)}
+              <InteractionPerformance index={index + 1} />
+            </ModalBody>
+            <ModalFooter>
+              <Button testId="primary" appearance="primary" onClick={close}>
+                {closeText(index)}
+              </Button>
+            </ModalFooter>
           </Modal>
         )}
       </ModalTransition>

@@ -1,8 +1,16 @@
 import React, { Component, Fragment, MouseEvent, ReactNode } from 'react';
 import styled from '@emotion/styled';
-import Modal, { ModalTransition, OnCloseHandler } from '@atlaskit/modal-dialog';
+import Modal, {
+  ModalTransition,
+  OnCloseHandler,
+  ModalBody,
+  ModalTitle,
+  ModalHeader,
+  ModalFooter,
+} from '@atlaskit/modal-dialog';
 import Button from '@atlaskit/button/standard-button';
 
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 const Cell = styled.td`
   font-size: 90%;
   padding: 4px 8px 4px 0;
@@ -62,12 +70,16 @@ export default class PropStatus extends Component<Props, State> {
       <Fragment>
         <ModalTransition>
           {modalIsOpen ? (
-            <Modal
-              heading={prop}
-              actions={[{ text: 'Close', onClick: this.onClose }]}
-              onClose={this.onClose}
-            >
-              {content}
+            <Modal onClose={this.onClose}>
+              <ModalHeader>
+                <ModalTitle>{prop}</ModalTitle>
+              </ModalHeader>
+              <ModalBody>{content}</ModalBody>
+              <ModalFooter>
+                <Button appearance="primary" autoFocus onClick={this.onClose}>
+                  Close
+                </Button>
+              </ModalFooter>
             </Modal>
           ) : null}
         </ModalTransition>

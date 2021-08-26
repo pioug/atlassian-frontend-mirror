@@ -3,8 +3,9 @@ import { Provider as CollabProvider, Socket } from '@atlaskit/collab-provider';
 import WebBridgeImpl from '../editor/native-to-web';
 import { createPromise } from '../cross-platform-promise';
 import { FetchProxy } from '../utils/fetch-proxy';
-import { getAllowCollabProvider } from '../query-param-reader';
 import { Storage } from '@atlaskit/collab-provider/types';
+import EditorConfiguration from '../editor/editor-configuration';
+import { getAllowCollabProvider } from '../query-param-reader';
 
 export class StorageImpl implements Storage {
   delete(key: string): Promise<void> {
@@ -45,12 +46,17 @@ export function createCollabProviderFactory(fetchProxy: FetchProxy) {
 
 export function useCollabProvider(
   bridge: WebBridgeImpl,
+  configuration: EditorConfiguration,
   createCollabProvider?: (bridge: WebBridgeImpl) => Promise<CollabProvider>,
 ) {
   return React.useMemo(() => {
-    if (getAllowCollabProvider() && createCollabProvider) {
+    // Backwards compatibility with passing it as a url param
+    if (
+      createCollabProvider &&
+      (configuration.isCollabProviderEnabled() || getAllowCollabProvider())
+    ) {
       return createCollabProvider(bridge);
     }
     return undefined;
-  }, [createCollabProvider, bridge]);
+  }, [createCollabProvider, bridge, configuration]);
 }

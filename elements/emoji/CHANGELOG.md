@@ -1,5 +1,12 @@
 # @atlaskit/emoji
 
+## 63.1.8
+
+### Patch Changes
+
+- [`12ab65f8153`](https://bitbucket.org/atlassian/atlassian-frontend/commits/12ab65f8153) - Disabling flaky test
+- Updated dependencies
+
 ## 63.1.7
 
 ### Patch Changes

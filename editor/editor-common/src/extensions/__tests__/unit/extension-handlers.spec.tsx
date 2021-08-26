@@ -57,6 +57,7 @@ describe('extension-handlers', () => {
         parameters: {
           text: 'inside out',
         },
+        localId: 'c145e554-f571-4208-a0f1-2170e1987722',
       };
 
       const wrapper = shallow(<NodeRenderer node={node} />);
@@ -88,6 +89,7 @@ describe('extension-handlers', () => {
           parameters: {
             text: 'inside out',
           },
+          localId: 'c145e554-f571-4208-a0f1-2170e1987722',
         };
 
         const wrapper = shallow(<NodeRenderer node={node} />);

@@ -7,7 +7,6 @@ import {
   DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
-import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 import {
   CreateUIAnalyticsEvent,
   UIAnalyticsEvent,
@@ -25,7 +24,7 @@ describe('@atlaskit/editor-core ui/PanelPlugin', () => {
       doc,
       editorProps: {
         allowAnalyticsGASV3: true,
-        allowPanel: true,
+        allowPanel: { UNSAFE_allowCustomPanel: true },
         allowTables: true,
         quickInsert: true,
       },
@@ -65,11 +64,11 @@ describe('@atlaskit/editor-core ui/PanelPlugin', () => {
       PanelType.ERROR,
       PanelType.WARNING,
       PanelType.NOTE,
+      PanelType.CUSTOM,
     ].forEach((panelType) => {
-      it(`should fire analytics event when ${panelType} panel inserted`, () => {
-        const { editorView, sel } = editor(doc(p('{<>}')));
-        insertText(editorView, `/${panelType}`, sel);
-        sendKeyToPm(editorView, 'Enter');
+      it(`should fire analytics event when ${panelType} panel inserted`, async () => {
+        const { typeAheadTool } = editor(doc(p('{<>}')));
+        await typeAheadTool.searchQuickInsert(panelType)?.insert({ index: 0 });
 
         expect(createAnalyticsEvent).toBeCalledWith({
           action: 'inserted',

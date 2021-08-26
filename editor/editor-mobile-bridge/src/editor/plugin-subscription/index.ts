@@ -11,17 +11,15 @@ import {
   ListState,
   textColorPluginKey,
   TextColorPluginState,
-  typeAheadPluginKey,
-  TypeAheadPluginState,
   hyperlinkStateKey,
   HyperlinkState,
   HyperlinkInsertStatus,
   historyPluginKey,
   HistoryPluginState,
-  QuickInsertItem,
   SelectionDataState,
   selectionPluginKey,
 } from '@atlaskit/editor-core';
+
 import { valueOf as valueOfListState } from '../web-to-native/listState';
 import { valueOf as valueOfMarkState } from '../web-to-native/markState';
 import WebBridgeImpl from '../native-to-web';
@@ -124,37 +122,6 @@ export const configFactory = (
         });
       },
       sendInitialState: true,
-    }),
-    createListenerConfig<TypeAheadPluginState>({
-      bridge: 'typeAheadBridge',
-      pluginKey: typeAheadPluginKey,
-      updater: (pluginState) => {
-        const { active, query, trigger, items } = pluginState;
-
-        if (active === false) {
-          toNativeBridge.call('typeAheadBridge', 'dismissTypeAhead');
-          return;
-        }
-
-        if (trigger === '/') {
-          if (editorConfiguration.isQuickInsertEnabled()) {
-            const quickInsertItems = (items as QuickInsertItem[]).map(
-              ({ id, title }) => ({ id, title }),
-            );
-            toNativeBridge.call('typeAheadBridge', 'typeAheadDisplayItems', {
-              query,
-              trigger,
-              items: JSON.stringify(quickInsertItems),
-            });
-          }
-          return;
-        }
-
-        toNativeBridge.call('typeAheadBridge', 'typeAheadQuery', {
-          query,
-          trigger,
-        });
-      },
     }),
     createListenerConfig<HyperlinkState>({
       bridge: 'linkBridge',

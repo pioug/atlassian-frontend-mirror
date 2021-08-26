@@ -6,7 +6,6 @@ import { ProviderFactory } from '@atlaskit/editor-common';
 import { createRule, createPlugin } from '../../../utils/input-rules';
 
 import { leafNodeReplacementCharacter } from '@atlaskit/prosemirror-input-rules';
-import { isMarkTypeAllowedInCurrentSelection } from '../../../utils';
 import { FeatureFlags } from '../../../types/feature-flags';
 import {
   addAnalytics,
@@ -63,9 +62,6 @@ function inputRuleHandler(
   if (!matcher) {
     return null;
   }
-  if (!isEnabled(state)) {
-    return null;
-  }
 
   const match = matcher.match(matchParts);
   if (match) {
@@ -78,17 +74,6 @@ function inputRuleHandler(
     return transactionCreator.create();
   }
   return null;
-}
-
-function isEnabled(state: EditorState) {
-  const typeAheadQuery = state.schema.marks.typeAheadQuery;
-  const isTypeAheadQueryActive = state.selection.$from
-    .marks()
-    .some((mark) => mark.type === typeAheadQuery);
-  return (
-    isTypeAheadQueryActive ||
-    isMarkTypeAllowedInCurrentSelection(typeAheadQuery, state)
-  );
 }
 
 type AsciiEmojiMatch = {

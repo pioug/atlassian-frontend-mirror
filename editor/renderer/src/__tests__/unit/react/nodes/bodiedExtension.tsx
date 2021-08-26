@@ -90,6 +90,7 @@ describe('Renderer - React/Nodes/BodiedExtension', () => {
         rendererContext={rendererContext}
         extensionType="com.atlassian.fabric"
         extensionKey="default"
+        localId="c145e554-f571-4208-a0f1-2170e1987722"
       >
         <p>This is the default content of the extension</p>
       </BodiedExtension>,
@@ -110,6 +111,7 @@ describe('Renderer - React/Nodes/BodiedExtension', () => {
         rendererContext={rendererContext}
         extensionType="com.atlassian.fabric"
         extensionKey="react"
+        localId="c145e554-f571-4208-a0f1-2170e1987722"
       />,
     );
 
@@ -128,6 +130,7 @@ describe('Renderer - React/Nodes/BodiedExtension', () => {
         rendererContext={rendererContext}
         extensionType="com.atlassian.fabric"
         extensionKey="error"
+        localId="c145e554-f571-4208-a0f1-2170e1987722"
       >
         <p>This is the default content of the extension</p>
       </BodiedExtension>,
@@ -153,6 +156,7 @@ describe('Renderer - React/Nodes/BodiedExtension', () => {
         rendererContext={rendererContext}
         extensionType="com.atlassian.fabric"
         extensionKey="react"
+        localId="c145e554-f571-4208-a0f1-2170e1987722"
       />,
     );
 
@@ -162,6 +166,7 @@ describe('Renderer - React/Nodes/BodiedExtension', () => {
       extensionKey: 'react',
       parameters: undefined,
       content: undefined,
+      localId: 'c145e554-f571-4208-a0f1-2170e1987722',
     });
 
     extension.unmount();
@@ -194,6 +199,7 @@ describe('Renderer - React/Nodes/BodiedExtension', () => {
           extensionType="fake.confluence"
           extensionKey="expand"
           content="body"
+          localId="c145e554-f571-4208-a0f1-2170e1987722"
         />,
       );
 
@@ -222,6 +228,7 @@ describe('Renderer - React/Nodes/BodiedExtension', () => {
           extensionType="fake.confluence"
           extensionKey="expand"
           content="body"
+          localId="c145e554-f571-4208-a0f1-2170e1987722"
         />,
       );
 
@@ -244,6 +251,7 @@ describe('Renderer - React/Nodes/BodiedExtension', () => {
           extensionType="fake.confluence"
           extensionKey="expand"
           content="body"
+          localId="c145e554-f571-4208-a0f1-2170e1987722"
         />,
       );
 

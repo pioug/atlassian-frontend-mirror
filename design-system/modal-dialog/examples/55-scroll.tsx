@@ -1,56 +1,43 @@
-import React, { useRef, useState } from 'react';
+/** @jsx jsx */
+import { useCallback, useRef, useState } from 'react';
 
-import { css, Global } from '@emotion/core';
-import styled from '@emotion/styled';
+import { css, jsx } from '@emotion/core';
 import Lorem from 'react-lorem-component';
 
 import Button from '@atlaskit/button/standard-button';
 import Checkbox from '@atlaskit/checkbox';
 import { Field } from '@atlaskit/form';
-import { RadioGroup } from '@atlaskit/radio';
+import { gridSize } from '@atlaskit/theme/constants';
 
-import Modal, { ModalTransition } from '../src';
-import { ScrollBehavior } from '../src/internal/types';
+import Modal, {
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
+  ModalTitle,
+  ModalTransition,
+} from '../src';
 
-const TallContainer = styled.div`
-  height: 100%;
-`;
-
-const scrollBehaviors = [
-  {
-    name: 'scrollBehavior',
-    value: 'inside',
-    label: 'inside',
-    defaultSelected: true,
-  },
-  { name: 'scrollBehavior', value: 'outside', label: 'outside' },
-  { name: 'scrollBehavior', value: 'inside-wide', label: 'inside-wide' },
-];
+const containerStyles = css({
+  height: '200%',
+  padding: `${gridSize() * 2}px`,
+});
 
 export default function ExampleScroll() {
   const [isOpen, setIsOpen] = useState(false);
-  const [headingShown, setHeadingShown] = useState(true);
+  const [titleShown, setTitleShown] = useState(true);
+  const [shouldScrollInViewport, setShouldScrollInViewPort] = useState(false);
+
+  const open = useCallback(() => setIsOpen(true), []);
+  const close = useCallback(() => setIsOpen(false), []);
+
   const bottomRef = useRef<HTMLDivElement>(null);
-  const [scrollBehavior, setScrollBehavior] = useState<ScrollBehavior>(
-    'inside',
+  const scrollToBottom = useCallback(
+    () => bottomRef.current?.scrollIntoView(true),
+    [],
   );
 
-  const close = () => setIsOpen(false);
-  const open = () => setIsOpen(true);
-
-  const actions = headingShown
-    ? [
-        { text: 'Close', onClick: close, testId: 'primary' },
-        {
-          text: 'Scroll to bottom',
-          onClick: () => bottomRef.current?.scrollIntoView(true),
-          testId: 'scrollDown',
-        },
-      ]
-    : undefined;
-
   return (
-    <TallContainer>
+    <div css={containerStyles}>
       <p>
         The scroll behavior of modals can be configured so that scrolling
         happens inside the modal body or outside the modal, within the viewport.
@@ -61,35 +48,15 @@ export default function ExampleScroll() {
         such as <code>scrollIntoView</code> scrolling the window instead of only
         the closest scroll parent will be prevented.
       </p>
-      <p>
-        <code>inside-wide</code> is used for cases where body width is wider
-        than viewport width (horizontally scrollable).
-      </p>
-
-      {scrollBehavior === 'inside-wide' && (
-        <React.Fragment>
-          <Global
-            styles={css`
-              body {
-                width: 3000px !important;
-              }
-            `}
-          />
-          <p>
-            The width of body is now greater than viewport width (horizontally
-            scrollable).
-          </p>
-        </React.Fragment>
-      )}
 
       <Field name="sb" label="Scrolling behavior">
         {() => (
-          <RadioGroup
-            options={scrollBehaviors}
-            value={scrollBehavior}
-            onChange={(e) =>
-              setScrollBehavior(e.target.value as ScrollBehavior)
-            }
+          <Checkbox
+            label="Should scroll within the viewport"
+            name="scroll"
+            testId="scroll"
+            onChange={(e) => setShouldScrollInViewPort(e.target.checked)}
+            isChecked={shouldScrollInViewport}
           />
         )}
       </Field>
@@ -97,33 +64,58 @@ export default function ExampleScroll() {
       <Field name="hs" label="Visibility">
         {() => (
           <Checkbox
-            label="Heading/footer shown"
+            label="Header/footer shown"
             name="visibility"
             testId="visibility"
-            onChange={(e) => setHeadingShown(e.target.checked)}
-            isChecked={headingShown}
+            onChange={(e) => setTitleShown(e.target.checked)}
+            isChecked={titleShown}
           />
         )}
       </Field>
 
+      <br />
       <Button onClick={open} testId="modal-trigger">
-        Open Modal
+        Open modal
       </Button>
 
       <ModalTransition>
         {isOpen && (
           <Modal
-            actions={actions}
             onClose={close}
-            heading={headingShown ? 'Modal Title' : ''}
-            scrollBehavior={scrollBehavior}
+            shouldScrollInViewport={shouldScrollInViewport}
             testId="modal"
           >
-            <Lorem count={10} />
-            <div ref={bottomRef} />
+            {titleShown && (
+              <ModalHeader>
+                <ModalTitle>Modal Title</ModalTitle>
+              </ModalHeader>
+            )}
+            <ModalBody>
+              <Lorem count={10} />
+              <div ref={bottomRef} />
+            </ModalBody>
+            {titleShown && (
+              <ModalFooter>
+                <Button
+                  testId="scrollDown"
+                  appearance="subtle"
+                  onClick={scrollToBottom}
+                >
+                  Scroll to bottom
+                </Button>
+                <Button
+                  autoFocus
+                  testId="primary"
+                  appearance="primary"
+                  onClick={close}
+                >
+                  Close
+                </Button>
+              </ModalFooter>
+            )}
           </Modal>
         )}
       </ModalTransition>
-    </TallContainer>
+    </div>
   );
 }

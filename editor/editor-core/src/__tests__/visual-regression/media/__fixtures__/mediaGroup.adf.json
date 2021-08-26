@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "mediaGroup",
+      "content": [
+        {
+          "type": "media",
+          "attrs": {
+            "type": "file",
+            "id": "a559980d-cd47-43e2-8377-27359fcb905f",
+            "collection": "MediaServicesSample"
+          }
+        }
+      ]
+    }
+  ]
+}

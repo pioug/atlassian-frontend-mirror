@@ -1,9 +1,10 @@
 import React, { forwardRef } from 'react';
 
 import { CSSFn, CustomItemComponentProps } from '@atlaskit/menu';
+import { N500 } from '@atlaskit/theme/colors';
 import { headingSizes } from '@atlaskit/theme/typography';
+import { token } from '@atlaskit/tokens';
 
-import { itemTextColor } from '../../common/constants';
 import { overrideStyleFunction } from '../../common/styles';
 import { CustomItem } from '../Item';
 
@@ -66,7 +67,7 @@ const Header = forwardRef<HTMLElement, HeaderProps>(
           fontSize: headingSizes.h400.size,
           letterSpacing: '-0.003em',
           fontWeight: 600,
-          color: itemTextColor,
+          color: token('color.text.highEmphasis', N500),
         },
         // Will look interactive if the `component` is anything other than a div.
         'div&:hover': {
@@ -75,7 +76,7 @@ const Header = forwardRef<HTMLElement, HeaderProps>(
         },
         'div&:active': {
           backgroundColor: 'transparent',
-          color: itemTextColor,
+          color: token('color.text.highEmphasis', N500),
         },
       }),
       props.cssFn,

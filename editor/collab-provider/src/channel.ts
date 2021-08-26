@@ -1,8 +1,11 @@
 import { utils } from '@atlaskit/util-service-support';
+import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import { Emitter } from './emitter';
 import { ErrorCodeMapper } from './error-code-mapper';
 import { Config, Socket } from './types';
 import { createLogger } from './helpers/utils';
+import { startMeasure, stopMeasure } from './analytics/performance';
+import { triggerAnalyticsForCatchupSuccessfulWithLatency } from './analytics';
 
 const logger = createLogger('Channel', 'green');
 
@@ -82,16 +85,27 @@ export type ChannelEvent = {
   disconnect: { reason: string };
 };
 
+export interface CatchupResponse {
+  doc?: string;
+  version?: number;
+  stepMaps?: any[];
+  metadata?: Metadata;
+}
+
 export class Channel extends Emitter<ChannelEvent> {
   private connected: boolean = false;
   private config: Config;
   private socket: Socket | null = null;
 
   private initialized: boolean = false;
+  private analyticsClient?: AnalyticsWebClient;
 
   constructor(config: Config) {
     super();
     this.config = config;
+    if (config.analyticsClient) {
+      this.analyticsClient = config.analyticsClient;
+    }
   }
 
   // read-only getters used for tests
@@ -237,8 +251,9 @@ export class Channel extends Emitter<ChannelEvent> {
     }
   };
 
-  async fetchCatchup(fromVersion: number) {
+  async fetchCatchup(fromVersion: number): Promise<CatchupResponse> {
     try {
+      startMeasure('callingCatchupApi');
       const { doc, version, stepMaps, metadata } = await utils.requestService<
         any
       >(this.config, {
@@ -273,6 +288,13 @@ export class Channel extends Emitter<ChannelEvent> {
       };
       this.emit('error', errorCatchup);
       return {};
+    } finally {
+      stopMeasure('callingCatchupApi', (duration, _) => {
+        triggerAnalyticsForCatchupSuccessfulWithLatency(
+          this.analyticsClient,
+          duration,
+        );
+      });
     }
   }
 

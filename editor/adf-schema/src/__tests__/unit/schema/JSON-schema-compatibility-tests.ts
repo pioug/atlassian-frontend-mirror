@@ -40,6 +40,7 @@ const unsupportedNodes = [
   'blockCard',
   'status',
   'embedCard',
+  'mediaInline',
 ];
 
 const unsupportedMarks = [

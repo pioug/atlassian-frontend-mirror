@@ -12,7 +12,8 @@ import adfHeadingsNestedTable from '../../__fixtures__/headings-nested-table.adf
 import adfHeadingsNestedExpands from '../../__fixtures__/headings-nested-expands.adf.json';
 
 // Headings with anchor links enabled which are nested inside other container nodes
-describe('Nested headings with links', () => {
+// FIXME: flaky test https://product-fabric.atlassian.net/browse/ED-13530
+describe.skip('Nested headings with links', () => {
   let page: PuppeteerPage;
 
   const setPage = () => (page = global.page);

@@ -31,6 +31,7 @@ export type MediaProps = MediaCardProps & {
   fireAnalyticsEvent?: (event: AnalyticsEventPayload) => void;
   featureFlags?: MediaFeatureFlags;
   eventHandlers?: EventHandlers;
+  enableDownloadButton?: boolean;
 };
 
 type Providers = {
@@ -45,6 +46,7 @@ export default class Media extends PureComponent<MediaProps, {}> {
       alt,
       featureFlags,
       shouldOpenMediaViewer: allowMediaViewer,
+      enableDownloadButton,
     } = this.props;
 
     const linkMark = this.props.marks.find(this.props.isLinkMark);
@@ -60,6 +62,7 @@ export default class Media extends PureComponent<MediaProps, {}> {
         eventHandlers={eventHandlers}
         alt={allowAltTextOnImages ? alt : undefined}
         featureFlags={featureFlags}
+        shouldEnableDownloadButton={enableDownloadButton}
       />
     );
 

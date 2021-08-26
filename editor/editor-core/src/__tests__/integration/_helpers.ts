@@ -1,3 +1,5 @@
+import { Node as PMNode } from 'prosemirror-model';
+import sampleSchema from '@atlaskit/editor-test-helpers/schema';
 import sleep from '@atlaskit/editor-test-helpers/sleep';
 import { getExampleUrl } from '@atlaskit/webdriver-runner/utils/example';
 import { ToolbarFeatures } from '../../../example-helpers/ToolsDrawer';
@@ -18,8 +20,11 @@ import { TableCssClassName } from '../../plugins/table/types';
 import { messages as insertBlockMessages } from '../../plugins/insert-block/ui/ToolbarInsertBlock/messages';
 
 export { quickInsert } from '../__helpers/page-objects/_extensions';
+import { emojiSearch, EMOJI_TRIGGER } from '../__helpers/page-objects/_emoji';
+import { mentionSearch } from '../__helpers/page-objects/_mention';
 
-export { getDocFromElement } from '../__helpers/page-objects/_editor';
+import { getDocFromElement } from '../__helpers/page-objects/_editor';
+export { getDocFromElement };
 
 export const expectToMatchDocument = async (page: any, testName: string) => {
   const doc = await page.browser.execute(() => {
@@ -86,13 +91,8 @@ export const linkLabelSelector = '[data-testid="link-label"]';
 export const linkRecentList = '.recent-list';
 
 export const insertMention = async (browser: any, query: string) => {
-  await browser.type(editable, '@');
-  await browser.waitForSelector(typeAheadPicker);
-  // Investigate why string based input (without an array) fails in firefox
-  // https://product-fabric.atlassian.net/browse/ED-7044
-  const q = query.split('');
-  await browser.type(editable, q);
-  await browser.keys(['Return']);
+  await mentionSearch(browser, query);
+  await browser.keys('Return');
 };
 
 export const gotoEditor = async (browser: any) => {
@@ -465,21 +465,18 @@ export const insertMenuItem = async (browser: any, title: string) => {
 };
 
 export const currentSelectedEmoji = '.emoji-typeahead-selected';
-export const typeahead = 'span[data-type-ahead-query]';
+export const typeahead = '[data-type-ahead-query]';
 
 export const insertEmoji = async (browser: any, query: string) => {
-  await browser.type(editable, ':');
-  await browser.waitForSelector(typeahead);
-  await browser.type(editable, query);
-  await browser.type(editable, ':');
+  await emojiSearch(browser, query, true);
 };
 
 export const insertEmojiBySelect = async (browser: any, select: string) => {
-  await browser.type(editable, ':');
-  await browser.waitForSelector(typeahead);
-  await browser.type(editable, [select]);
-  await browser.isVisible(`span=:${select}:`);
-  await browser.click(`span=:${select}:`);
+  await emojiSearch(browser, select);
+
+  const fullQuery = EMOJI_TRIGGER.concat(select).concat(EMOJI_TRIGGER);
+  await browser.isVisible(`[data-emoji-id="${fullQuery}"]`);
+  await browser.click(`[data-emoji-id="${fullQuery}"]`);
 };
 
 export const currentSelectedEmojiShortName = async (browser: any) => {
@@ -687,4 +684,20 @@ export const sendKeyNumTimes = async (
   for (const _i of Array(numTimes).fill(null)) {
     await page.keys(key);
   }
+};
+
+export const getProseMirrorDocument = async (page: WebDriverPage) => {
+  const jsonDocument = await page.$eval(selectors.editor, getDocFromElement);
+  const pmDocument = PMNode.fromJSON(sampleSchema, jsonDocument);
+
+  // Removing any localId attribute
+  pmDocument.descendants((node) => {
+    if (node?.attrs?.localId) {
+      node.attrs.localId = '';
+    }
+
+    return true;
+  });
+
+  return pmDocument;
 };

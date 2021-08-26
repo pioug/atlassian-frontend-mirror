@@ -47,7 +47,7 @@ export type {
 export type {
   TypeAheadItem,
   TypeAheadItemRenderProps,
-} from './types/typeAhead';
+} from './types/type-ahead';
 
 export type {
   AutoformatReplacement,

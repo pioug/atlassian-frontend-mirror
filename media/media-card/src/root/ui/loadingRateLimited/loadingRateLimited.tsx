@@ -9,7 +9,7 @@ import {
 } from './styled';
 import { messages } from '@atlaskit/media-ui';
 import { FormattedMessage } from 'react-intl';
-import { Breakpoint } from '../common';
+import { Breakpoint } from '../Breakpoint';
 
 export const LoadingRateLimited = ({
   breakpoint = Breakpoint.SMALL,

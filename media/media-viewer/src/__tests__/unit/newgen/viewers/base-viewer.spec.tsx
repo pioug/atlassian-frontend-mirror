@@ -1,11 +1,11 @@
 import React from 'react';
 import Button from '@atlaskit/button/custom-theme-button';
 import { ProcessedFileState } from '@atlaskit/media-client';
-import { BaseProps, BaseViewer } from '../../../../newgen/viewers/base-viewer';
-import { Outcome } from '../../../../newgen/domain';
-import { ErrorMessage } from '../../../../newgen/errorMessage';
-import { MediaViewerError } from '../../../../newgen/errors';
-import { Spinner } from '../../../../newgen/loading';
+import { BaseProps, BaseViewer } from '../../../../viewers/base-viewer';
+import { Outcome } from '../../../../domain';
+import { ErrorMessage } from '../../../../errorMessage';
+import { MediaViewerError } from '../../../../errors';
+import { Spinner } from '../../../../loading';
 import {
   mountWithIntlContext,
   fakeMediaClient,

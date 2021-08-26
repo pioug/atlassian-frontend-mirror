@@ -8,7 +8,7 @@ import {
   TitleBoxFooter,
   TitleBoxIcon,
 } from './styled';
-import { Breakpoint } from '../common';
+import { Breakpoint } from '../Breakpoint';
 import { Truncate } from '@atlaskit/media-ui/truncateText';
 
 import { formatDate } from '@atlaskit/media-ui/formatDate';

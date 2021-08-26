@@ -19,6 +19,8 @@ const descriptionStyles = css({
  *
  * @internal
  */
-const Description: FC = (props) => <p css={descriptionStyles} {...props} />;
+const Description: FC = ({ children }) => (
+  <p css={descriptionStyles}>{children}</p>
+);
 
 export default Description;

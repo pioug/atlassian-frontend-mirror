@@ -1,6 +1,6 @@
 import React from 'react';
 import { PureComponent } from 'react';
-import ModalDialog, { ModalFooter } from '@atlaskit/modal-dialog';
+import ModalDialog, { ModalFooter, ModalBody } from '@atlaskit/modal-dialog';
 import Button from '@atlaskit/button/custom-theme-button';
 import { FormattedMessage, intlShape, IntlProvider } from 'react-intl';
 import { fileToDataURI, dataURItoFile, messages } from '@atlaskit/media-ui';
@@ -152,14 +152,14 @@ export class AvatarPickerDialog extends PureComponent<
       <ModalDialog
         height={`${AVATAR_DIALOG_HEIGHT}px`}
         width={`${AVATAR_DIALOG_WIDTH}px`}
-        scrollBehavior="outside"
-        components={{
-          Header: this.headerContent,
-          Footer: this.footerContent,
-        }}
+        shouldScrollInViewport
         onClose={this.props.onCancel}
       >
-        <AvatarPickerViewWrapper>{this.renderBody()}</AvatarPickerViewWrapper>
+        {this.headerContent()}
+        <ModalBody>
+          <AvatarPickerViewWrapper>{this.renderBody()}</AvatarPickerViewWrapper>
+        </ModalBody>
+        {this.footerContent()}
       </ModalDialog>
     );
 
@@ -173,7 +173,7 @@ export class AvatarPickerDialog extends PureComponent<
   headerContent = () => {
     const { title } = this.props;
     return (
-      <ModalHeader>
+      <ModalHeader data-test-id="modal-header">
         {title || <FormattedMessage {...messages.upload_an_avatar} />}
       </ModalHeader>
     );

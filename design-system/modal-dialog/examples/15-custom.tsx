@@ -1,6 +1,7 @@
-import React, { FC, useState } from 'react';
+/** @jsx jsx */
+import React, { useCallback, useState } from 'react';
 
-import styled from '@emotion/styled';
+import { css, jsx } from '@emotion/core';
 import Lorem from 'react-lorem-component';
 
 import Avatar from '@atlaskit/avatar';
@@ -9,29 +10,39 @@ import Button from '@atlaskit/button/standard-button';
 import CrossIcon from '@atlaskit/icon/glyph/cross';
 import InlineDialog from '@atlaskit/inline-dialog';
 import { N30, R400, subtleText } from '@atlaskit/theme/colors';
+import { gridSize } from '@atlaskit/theme/constants';
 
-import ModalDialog, { ModalFooter, ModalTransition } from '../src';
-import { FooterComponentProps } from '../src/internal/components/footer';
-import { HeaderComponentProps } from '../src/internal/components/header';
+import ModalDialog, {
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
+  ModalTitle,
+  ModalTransition,
+  useModal,
+} from '../src';
 
 const defaults = ['header', 'footer', 'both', 'neither'];
 const custom = ['custom header', 'custom body', 'custom footer'];
-const variants = defaults.concat(custom);
 
-const H4 = styled.h4`
-  margin-bottom: 0.66em;
-`;
+const containerStyles = css({
+  padding: `${gridSize() * 2}px`,
+});
 
-const Hint = styled.span`
-  align-items: center;
-  color: ${subtleText};
-  cursor: help;
-  display: flex;
-`;
+const titleStyles = css({
+  marginBottom: '0.66em',
+});
 
-const HintText = styled.span`
-  margin-left: 1em;
-`;
+const hintStyles = css({
+  display: 'flex',
+  marginRight: 'auto',
+  alignItems: 'center',
+  color: subtleText(),
+  cursor: 'help',
+});
+
+const hintTextStyles = css({
+  marginLeft: '1em',
+});
 
 const headerStyles: React.CSSProperties = {
   background:
@@ -42,15 +53,19 @@ const headerStyles: React.CSSProperties = {
   position: 'relative',
 };
 
-const Header: FC<HeaderComponentProps> = ({ onClose }) => (
-  <div style={headerStyles}>
-    <span style={{ position: 'absolute', right: 0, top: 4 }}>
-      <Button onClick={onClose} appearance="link">
-        <CrossIcon label="Close Modal" primaryColor={R400} size="small" />
-      </Button>
-    </span>
-  </div>
-);
+const CustomHeader = () => {
+  const { onClose } = useModal();
+
+  return (
+    <div style={headerStyles}>
+      <span style={{ position: 'absolute', right: 0, top: 4 }}>
+        <Button onClick={onClose} appearance="link">
+          <CrossIcon label="Close Modal" primaryColor={R400} size="small" />
+        </Button>
+      </span>
+    </div>
+  );
+};
 
 const bodyStyles: React.CSSProperties = {
   padding: 90,
@@ -59,7 +74,7 @@ const bodyStyles: React.CSSProperties = {
   overflowX: 'hidden',
 };
 
-const Body = React.forwardRef<
+const CustomBody = React.forwardRef<
   HTMLDivElement,
   React.AllHTMLAttributes<HTMLDivElement>
 >((props, ref) => {
@@ -70,76 +85,87 @@ const Body = React.forwardRef<
   );
 });
 
-function Footer(props: FooterComponentProps) {
-  const [isOpen, setIsOpen] = useState(false);
-  const open = () => setIsOpen(true);
-  const close = () => setIsOpen(false);
+const CustomFooter = () => {
+  const [isHintOpen, setIsHintOpen] = useState(false);
+  const openHint = useCallback(() => setIsHintOpen(true), []);
+  const closeHint = useCallback(() => setIsHintOpen(false), []);
+
+  const { onClose } = useModal();
 
   return (
     <ModalFooter>
       <InlineDialog
         content="Some hint text?"
-        isOpen={isOpen}
+        isOpen={isHintOpen}
         placement="top-start"
       >
         {/* eslint-disable-next-line styled-components-a11y/no-static-element-interactions */}
-        <Hint onMouseEnter={open} onMouseLeave={close}>
+        <span css={hintStyles} onMouseEnter={openHint} onMouseLeave={closeHint}>
           <Avatar size="small" />
-          <HintText>Hover Me!</HintText>
-        </Hint>
+          <span css={hintTextStyles}>Hover Me!</span>
+        </span>
       </InlineDialog>
-      <Button appearance="subtle" onClick={props.onClose}>
+      <Button appearance="primary" onClick={onClose}>
         Close
       </Button>
     </ModalFooter>
   );
-}
+};
 
 export default function ModalDemo() {
-  const [isOpen, setIsOpen] = useState('');
-  const open = (name: string) => setIsOpen(name);
-  const close = () => setIsOpen('');
+  const [variant, setVariant] = useState<string | null>(null);
+  const open = useCallback((name: string) => setVariant(name), []);
+  const close = useCallback(() => setVariant(null), []);
 
   const btn = (name: string) => (
     <Button key={name} onClick={() => open(name)}>
       {name}
     </Button>
   );
-  const actions = [
-    { text: 'Close', onClick: close },
-    { text: 'Secondary Action' },
-  ];
 
   return (
-    <div style={{ padding: 16 }}>
-      <H4>Default Header/Footer</H4>
+    <div css={containerStyles}>
+      <h4 css={titleStyles}>Default Header/Footer</h4>
       <ButtonGroup>{defaults.map(btn)}</ButtonGroup>
 
-      <H4>Custom Components</H4>
+      <h4 css={titleStyles}>Custom Components</h4>
       <ButtonGroup>{custom.map(btn)}</ButtonGroup>
 
       <ModalTransition>
-        {variants
-          .filter((w) => w === isOpen)
-          .map((name) => (
-            <ModalDialog
-              key={name}
-              actions={['footer', 'both'].includes(name) ? actions : undefined}
-              components={{
-                Header: name === 'custom header' ? Header : undefined,
-                Body: name === 'custom body' ? Body : undefined,
-                Footer: name === 'custom footer' ? Footer : undefined,
-                Container: 'div',
-              }}
-              heading={
-                ['header', 'both'].includes(name) ? `Modal: ${name}` : undefined
-              }
-              onClose={close}
-              width={name === 'custom header' ? 300 : undefined}
-            >
-              <Lorem count="5" />
-            </ModalDialog>
-          ))}
+        {variant && (
+          <ModalDialog
+            key={variant}
+            onClose={close}
+            width={variant === 'custom header' ? 300 : undefined}
+          >
+            {variant === 'custom header' && <CustomHeader />}
+            {['header', 'both'].includes(variant) && (
+              <ModalHeader>
+                <ModalTitle>Modal: {variant}</ModalTitle>
+              </ModalHeader>
+            )}
+
+            {variant === 'custom body' ? (
+              <CustomBody>
+                <Lorem count="5" />
+              </CustomBody>
+            ) : (
+              <ModalBody>
+                <Lorem count="5" />
+              </ModalBody>
+            )}
+
+            {variant === 'custom footer' && <CustomFooter />}
+            {['footer', 'both'].includes(variant) && (
+              <ModalFooter>
+                <Button appearance="subtle">Secondary Action</Button>
+                <Button autoFocus appearance="primary" onClick={close}>
+                  Close
+                </Button>
+              </ModalFooter>
+            )}
+          </ModalDialog>
+        )}
       </ModalTransition>
     </div>
   );

@@ -1,5 +1,15 @@
 # @atlaskit/avatar-group
 
+## 8.5.0
+
+### Minor Changes
+
+- [`016d19b8038`](https://bitbucket.org/atlassian/atlassian-frontend/commits/016d19b8038) - [ux] When avatar's are disabled their tooltip will no longer be displayed.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.4.0
 
 ### Minor Changes

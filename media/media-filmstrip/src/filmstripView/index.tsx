@@ -88,6 +88,8 @@ export interface ArrowProps {
   onClick: (event: MouseEvent<HTMLDivElement>) => void;
 }
 
+export const MediaFilmStripListItemSelector = 'media-filmstrip-list-item';
+
 export const LeftArrow: React.SFC<ArrowProps> = ({ onClick }: ArrowProps) => (
   <ShadowLeft>
     <ArrowLeftWrapper className="arrow" onClick={onClick}>
@@ -466,7 +468,15 @@ export class FilmstripView extends React.Component<
 
 function mapReactChildToReactNode(child: ReactNode, index: number): ReactNode {
   const key = (isReactElement(child) && child.key) || index;
-  return <FilmStripListItem key={key}>{child}</FilmStripListItem>;
+  return (
+    <FilmStripListItem
+      className={MediaFilmStripListItemSelector}
+      data-testid="media-filmstrip-list-item"
+      key={key}
+    >
+      {child}
+    </FilmStripListItem>
+  );
 }
 
 function isReactElement<P>(child: ReactNode): child is ReactElement<P> {

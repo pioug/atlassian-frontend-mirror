@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import WebBridgeImpl from '../native-to-web';
 import { EditorProps } from '@atlaskit/editor-core';
-import { Provider as CollabProvider } from '@atlaskit/collab-provider';
 
 export function usePageTitle(
   bridge: WebBridgeImpl,
@@ -12,9 +11,7 @@ export function usePageTitle(
       return;
     }
 
-    const destroy = bridge.setupTitle(
-      collabEdit.provider as Promise<CollabProvider>,
-    );
+    const destroy = bridge.setupTitle();
     return () => {
       destroy();
     };

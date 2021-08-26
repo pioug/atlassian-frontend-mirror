@@ -12,6 +12,7 @@ describe('render configuration', () => {
           disableMediaLinking: false,
           allowAnnotations: false,
           allowHeadingAnchorLinks: false,
+          allowCustomPanel: false,
         },
       ],
       [
@@ -21,6 +22,7 @@ describe('render configuration', () => {
           disableMediaLinking: true,
           allowAnnotations: true,
           allowHeadingAnchorLinks: true,
+          allowCustomPanel: true,
         },
         {
           locale: 'en',
@@ -28,6 +30,7 @@ describe('render configuration', () => {
           disableMediaLinking: true,
           allowAnnotations: true,
           allowHeadingAnchorLinks: true,
+          allowCustomPanel: true,
         },
       ],
       [
@@ -37,6 +40,7 @@ describe('render configuration', () => {
           disableMediaLinking: true,
           allowAnnotations: true,
           allowHeadingAnchorLinks: true,
+          allowCustomPanel: true,
         },
         {
           locale: 'ps',
@@ -44,6 +48,7 @@ describe('render configuration', () => {
           disableMediaLinking: true,
           allowAnnotations: true,
           allowHeadingAnchorLinks: true,
+          allowCustomPanel: true,
         },
       ],
       [
@@ -53,6 +58,7 @@ describe('render configuration', () => {
           disableActions: true,
           allowAnnotations: true,
           allowHeadingAnchorLinks: true,
+          allowCustomPanel: true,
         },
         {
           locale: 'ps',
@@ -60,6 +66,7 @@ describe('render configuration', () => {
           disableMediaLinking: false,
           allowAnnotations: true,
           allowHeadingAnchorLinks: true,
+          allowCustomPanel: true,
         },
       ],
       [
@@ -69,6 +76,7 @@ describe('render configuration', () => {
           disableActions: true,
           disableMediaLinking: true,
           allowHeadingAnchorLinks: true,
+          allowCustomPanel: true,
         },
         {
           locale: 'ps',
@@ -76,6 +84,7 @@ describe('render configuration', () => {
           disableMediaLinking: true,
           allowAnnotations: false,
           allowHeadingAnchorLinks: true,
+          allowCustomPanel: true,
         },
       ],
       [
@@ -85,6 +94,7 @@ describe('render configuration', () => {
           disableActions: true,
           disableMediaLinking: true,
           allowAnnotations: true,
+          allowCustomPanel: true,
         },
         {
           locale: 'ps',
@@ -92,6 +102,25 @@ describe('render configuration', () => {
           disableMediaLinking: true,
           allowAnnotations: true,
           allowHeadingAnchorLinks: false,
+          allowCustomPanel: true,
+        },
+      ],
+      [
+        'should contain default value if allowCustomPanel is not passed',
+        {
+          locale: 'ps',
+          disableActions: true,
+          disableMediaLinking: true,
+          allowAnnotations: true,
+          allowHeadingAnchorLinks: true,
+        },
+        {
+          locale: 'ps',
+          disableActions: true,
+          disableMediaLinking: true,
+          allowAnnotations: true,
+          allowHeadingAnchorLinks: true,
+          allowCustomPanel: false,
         },
       ],
       [
@@ -102,6 +131,7 @@ describe('render configuration', () => {
           disableMediaLinking: true,
           allowAnnotations: true,
           allowHeadingAnchorLinks: true,
+          allowCustomPanel: true,
         },
         {
           locale: 'ps',
@@ -109,13 +139,13 @@ describe('render configuration', () => {
           disableMediaLinking: true,
           allowAnnotations: true,
           allowHeadingAnchorLinks: true,
+          allowCustomPanel: true,
         },
       ],
     ])('%s', (_, rendererConfig, expectedConfig) => {
       const rendererConfiguration = new RendererConfiguration(
         JSON.stringify(rendererConfig),
       );
-
       expect(rendererConfiguration.getLocale()).toBe(expectedConfig.locale);
       expect(rendererConfiguration.isActionsDisabled()).toBe(
         expectedConfig.disableActions,
@@ -128,6 +158,9 @@ describe('render configuration', () => {
       );
       expect(rendererConfiguration.isHeadingAnchorLinksAllowed()).toBe(
         expectedConfig.allowHeadingAnchorLinks,
+      );
+      expect(rendererConfiguration.isCustomPanelEnabled()).toBe(
+        expectedConfig.allowCustomPanel,
       );
     });
   });
@@ -260,6 +293,33 @@ describe('render configuration', () => {
         rendererConfiguration.isAnnotationsAllowed(),
       );
       expect(newRenderConfiguration.isHeadingAnchorLinksAllowed()).toBe(true);
+    });
+    it('should update the allowCustomPanel value when passed as config', () => {
+      const rendererConfig = {
+        allowCustomPanel: true,
+      };
+      const rendererConfiguration = new RendererConfiguration();
+
+      const newRenderConfiguration = rendererConfiguration.cloneAndUpdate(
+        JSON.stringify(rendererConfig),
+      );
+
+      expect(newRenderConfiguration.getLocale()).toBe(
+        rendererConfiguration.getLocale(),
+      );
+      expect(newRenderConfiguration.isActionsDisabled()).toBe(
+        rendererConfiguration.isActionsDisabled(),
+      );
+      expect(newRenderConfiguration.isMedialinkingDisabled()).toBe(
+        rendererConfiguration.isMedialinkingDisabled(),
+      );
+      expect(newRenderConfiguration.isAnnotationsAllowed()).toBe(
+        rendererConfiguration.isAnnotationsAllowed(),
+      );
+      expect(newRenderConfiguration.isHeadingAnchorLinksAllowed()).toBe(
+        rendererConfiguration.isHeadingAnchorLinksAllowed(),
+      );
+      expect(newRenderConfiguration.isCustomPanelEnabled()).toBe(true);
     });
     it('should update the config value from true to false when configured explictly', () => {
       const rendererConfiguration = new RendererConfiguration(

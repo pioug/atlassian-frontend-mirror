@@ -16,9 +16,11 @@ import wrappedMediaSmallAdf from './__fixtures__/wrapped-media-small.adf.json';
 import layoutAdf from '../../../../examples/helper/media-resize-layout.adf.json';
 import mediaImageWidthBiggerThanColumnWidth from './__fixtures__/media-image-width-bigger-than-column-width.adf.json';
 import mediaWithUnsupportedMarksAndAttributes from './__fixtures__/media-with-unsupported-marks-and-node-attributes.json';
+import mediaGroupAdf from './__fixtures__/renderer-mediaGroup.adf.json';
 
 import { waitForAllMedia } from '../../__helpers/page-objects/_media';
 import { selectors as rendererSelectors } from '../../__helpers/page-objects/_renderer';
+import { MediaOptions } from '@atlaskit/editor-core';
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { RendererAppearance } from '../../../ui/Renderer/types';
 import { BoundingBox } from 'puppeteer';
@@ -31,12 +33,15 @@ const devices = [
   Device.iPhonePlus,
 ];
 
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
 const initRenderer = async (
   page: PuppeteerPage,
   adf: any,
   device: Device = Device.Default,
   appearance: RendererAppearance = 'full-page',
   allowDynamicTextSizing: boolean = true,
+  media: MediaOptions = {},
 ) => {
   const viewport = {
     ...deviceViewPorts[device],
@@ -48,7 +53,11 @@ const initRenderer = async (
 
   await initRendererWithADF(page, {
     appearance,
-    rendererProps: { allowDynamicTextSizing, disableHeadingIDs: true },
+    rendererProps: {
+      allowDynamicTextSizing,
+      disableHeadingIDs: true,
+      media: media,
+    },
     adf,
     viewport,
   });
@@ -172,6 +181,30 @@ describe('Snapshot Test: Media', () => {
     it('should render media item which contains and node attributes', async () => {
       await initRenderer(page, mediaWithUnsupportedMarksAndAttributes);
       await waitForAllMedia(page, 1);
+      await snapshotRenderer();
+    });
+  });
+
+  describe('Download button', () => {
+    it('should render Download button for mediaGroup if enableDownloadButton is true', async () => {
+      await initRenderer(
+        page,
+        mediaGroupAdf,
+        Device.Default,
+        'full-page',
+        true,
+        {
+          enableDownloadButton: true,
+          featureFlags: {
+            newCardExperience: true,
+          },
+        },
+      );
+      const mediaCardSelector = `[data-testid="media-file-card-view"][data-test-status="complete"]`;
+      await page.waitForSelector(mediaCardSelector);
+      await page.hover(mediaCardSelector);
+      await sleep(500);
+
       await snapshotRenderer();
     });
   });

@@ -86,7 +86,7 @@ export {
   getMimeIcon,
 } from './util';
 export { MimeTypeIcon } from './mime-type-icon';
-export { default as CustomMediaPlayer } from './customMediaPlayer/index';
+export { CustomMediaPlayer } from './customMediaPlayer/index';
 export { TimeRange } from './customMediaPlayer/timeRange';
 export type {
   TimeRangeProps,

@@ -1,19 +1,24 @@
+import uuid from 'uuid/v4';
 import {
   createPromise,
   rejectPromise,
   resolvePromise,
-  setCounter,
   SubmitPromiseToNative,
 } from '../../cross-platform-promise';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
 import { GetAnnotationStatesPayload } from '../../types';
 import { toNativeBridge } from '../../editor/web-to-native';
 
+jest.mock('uuid/v4');
 jest.mock('../../editor/web-to-native');
 toNativeBridge.submitPromise = jest.fn();
 
 beforeEach(() => {
-  setCounter(0);
+  let counter = -1;
+  (uuid as jest.Mock).mockImplementation(() => {
+    counter += 1;
+    return String(counter);
+  });
 });
 
 describe('create promise', () => {
@@ -28,6 +33,16 @@ describe('create promise', () => {
       'collection',
     );
     expect(submittable.submit()).toBeDefined();
+    expect(submittable.uuid).toEqual('0');
+  });
+
+  it('should assign passed uuid', () => {
+    const submittable: SubmitPromiseToNative<any> = createPromise(
+      'asyncCallCompleted',
+      {},
+      'some',
+    );
+    expect(submittable.uuid).toEqual('some');
   });
 
   it('should request execution from the web to native bridge', () => {

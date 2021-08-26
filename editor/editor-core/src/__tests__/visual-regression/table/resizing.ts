@@ -18,10 +18,15 @@ import {
   scrollTable,
   unselectTable,
   tableSelectors,
+  insertRow,
 } from '../../__helpers/page-objects/_table';
-import { animationFrame } from '../../__helpers/page-objects/_editor';
+import {
+  animationFrame,
+  scrollToBottom,
+} from '../../__helpers/page-objects/_editor';
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { TableCssClassName as ClassName } from '../../../plugins/table/types';
+import { EditorProps } from '../../../types';
 
 const waitToolbarThenSnapshot = async (page: PuppeteerPage) => {
   await page.waitForSelector(tableSelectors.floatingToolbar);
@@ -37,19 +42,13 @@ describe('Snapshot Test: table resizing', () => {
       page = global.page;
     });
 
-    async function initEditorWithTable(featureFlags?: {
-      [featureFlag: string]: string | boolean;
-    }) {
+    async function initEditorWithTable(editorProps?: EditorProps) {
       await initFullPageEditorWithAdf(
         page,
         adf,
         undefined,
         undefined,
-        featureFlags
-          ? {
-              featureFlags,
-            }
-          : undefined,
+        editorProps,
       );
       await insertTable(page);
     }
@@ -82,7 +81,9 @@ describe('Snapshot Test: table resizing', () => {
     ])('Overflow Table %s', (tableOverflowShadowsOptimization) => {
       beforeEach(async () => {
         await initEditorWithTable({
-          tableOverflowShadowsOptimization,
+          featureFlags: {
+            tableOverflowShadowsOptimization,
+          },
         });
         // Go to overflow
         await resizeColumn(page, { colIdx: 2, amount: 500, row: 2 });
@@ -110,19 +111,71 @@ describe('Snapshot Test: table resizing', () => {
         // TODO: https://product-fabric.atlassian.net/browse/ED-13527
         test.skip('should show overflow in both side when scroll is in the middle', async () => {
           await scrollTable(page, 0.5); // Scroll to the middle of the table
+          await animationFrame(page);
           await snapshot(page);
         });
         // FIXME These tests were flakey in the Puppeteer v10 Upgrade
         test.skip('should show only left overflow when scroll is in the right', async () => {
           await scrollTable(page, 1); // Scroll to the right of the table
+          await animationFrame(page);
           await snapshot(page);
         });
 
-        test('should show only right overflow when scroll is in the left', async () => {
+        // TODO: https://product-fabric.atlassian.net/browse/ED-13540
+        test.skip('should show only right overflow when scroll is in the left', async () => {
           await scrollTable(page, 0); // Scroll to the left of the table
+          await animationFrame(page);
           // FIXME These tests were flakey in the Puppeteer v10 Upgrade
           await snapshot(page, { useUnsafeThreshold: true, tolerance: 0.01 });
         });
+      });
+    });
+
+    describe.each([
+      ['without stickyHeadersOptimization', false],
+      ['with stickyHeadersOptimization', true],
+    ])('Overflow Table %s', (stickyHeadersOptimization) => {
+      beforeEach(async () => {
+        await initEditorWithTable({
+          allowTables: {
+            stickyHeaders: true,
+            advanced: true,
+          },
+          featureFlags: {
+            stickyHeadersOptimization,
+          },
+        });
+        // Go to overflow
+        await clickFirstCell(page);
+        await resizeColumn(page, { colIdx: 2, amount: 500, row: 2 });
+        await animationFrame(page);
+      });
+
+      // TODO: https://product-fabric.atlassian.net/browse/ED-13540
+      it.skip('header shadows are aligned when focusing overflown table', async () => {
+        //insert multiple rows to make table go off the screen
+        for (let i = 0; i < 15; i++) {
+          await insertRow(page, 1);
+        }
+        await animationFrame(page);
+        await unselectTable(page);
+        // Scroll to the middle of the table horizontally to have shadows on both sides
+        await scrollTable(page, 0.5);
+        // scroll to bottom to have sticky header
+        await scrollToBottom(page);
+        await animationFrame(page);
+
+        // verify screenshot when table selected
+        const middleBottomCellSelecor =
+          'table > tbody > tr:last-child > td:nth-child(2)';
+        await page.waitForSelector(middleBottomCellSelecor);
+        await page.click(middleBottomCellSelecor);
+        await waitToolbarThenSnapshot(page);
+
+        // verify screenshot when table unselected back
+        await unselectTable(page);
+        await animationFrame(page);
+        await snapshot(page);
       });
     });
 

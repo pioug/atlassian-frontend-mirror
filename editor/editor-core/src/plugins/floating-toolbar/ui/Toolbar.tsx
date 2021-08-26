@@ -104,8 +104,10 @@ export const isSameItem = (leftItem: Item, rightItem: Item): boolean => {
         makeSameType(leftItem, rightItem) &&
         Array.isArray(leftItem.options) &&
         Array.isArray(rightItem.options) &&
-        !compareArrays(leftItem.options, rightItem.options, (left, right) =>
-          compareItemWithKeys(left, right),
+        !compareArrays(
+          leftItem.options as any,
+          rightItem.options as any,
+          (left, right) => compareItemWithKeys(left, right),
         )
       ) {
         return false;

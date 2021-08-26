@@ -12,7 +12,9 @@ import { Schema } from 'prosemirror-model';
 import { createSchema } from './create-editor/create-schema';
 import { MarkConfig, NodeConfig } from './types/pm-config';
 import basePlugin from './plugins/base';
+import { analyticsPluginKey } from './plugins/analytics/plugin-key';
 
+export { createTypeAheadTools } from './plugins/type-ahead/api';
 export { Preset } from './labs/next/presets/preset';
 export type { LightEditorPlugin } from './create-editor/get-plugins';
 export type { DispatchAnalyticsEvent } from './plugins/analytics/types';
@@ -23,6 +25,10 @@ export interface LightEditorConfig {
   marks: MarkConfig[];
   plugins: Array<LightPMPlugin>;
   onEditorViewStateUpdatedCallbacks: Array<OnEditorViewStateUpdated>;
+}
+
+export function getFireAnalytics(editorView: EditorView) {
+  return analyticsPluginKey?.getState(editorView.state)?.fireAnalytics;
 }
 
 function lightProcessPluginsList(

@@ -1,49 +1,46 @@
-import type { AccentColorTokenSchema } from '../../../types';
+import type { AccentColorTokenSchema, ValueSchema } from '../../../types';
 
-const color: AccentColorTokenSchema = {
+const color: ValueSchema<AccentColorTokenSchema> = {
   color: {
     accent: {
+      boldBlue: {
+        value: 'B700',
+      },
+      boldGreen: {
+        value: 'G700',
+      },
+      boldOrange: {
+        value: 'O700',
+      },
+      boldPurple: {
+        value: 'P700',
+      },
+      boldRed: {
+        value: 'R700',
+      },
+      boldTeal: {
+        value: 'T700',
+      },
       subtleBlue: {
         value: 'B900',
-        attributes: {
-          group: 'paint',
-        },
       },
       subtleGreen: {
         value: 'G900',
-        attributes: {
-          group: 'paint',
-        },
       },
       subtleMagenta: {
         value: 'M900',
-        attributes: {
-          group: 'paint',
-        },
       },
       subtleOrange: {
         value: 'O900',
-        attributes: {
-          group: 'paint',
-        },
       },
       subtlePurple: {
         value: 'P900',
-        attributes: {
-          group: 'paint',
-        },
       },
       subtleRed: {
         value: 'R900',
-        attributes: {
-          group: 'paint',
-        },
       },
       subtleTeal: {
         value: 'T900',
-        attributes: {
-          group: 'paint',
-        },
       },
     },
   },

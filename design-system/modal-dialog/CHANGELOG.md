@@ -1,5 +1,384 @@
 # @atlaskit/modal-dialog
 
+## 12.0.0
+
+### Major Changes
+
+- [`07ad26948a1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/07ad26948a1) - In this version we made modal dialog dramatically faster and lighter with a new composable API.
+  This is a large change and we have provided a codemod to help you upgrade.
+  Once you have run the codemod there may be manual change required so read below for all the changes in
+  this release.
+
+  **Running the codemod cli**
+
+  To run the codemod: **You first need to have the latest version installed**
+
+  ```bash
+  yarn upgrade @atlaskit/modal-dialog@^12.0.0
+  ```
+
+  Once upgraded, use `@atlaskit/codemod-cli`:
+
+  ```bash
+  npx @atlaskit/codemod-cli --parser {tsx|babylon} --extensions ts,tsx,js [relativePath]
+  ```
+
+  The CLI will show a list of components and versions so select `@atlaskit/modal-dialog@^12.0.0` and you will automatically be upgraded.
+  If your usage of `@atlaskit/modal-dialog` cannot be upgraded a comment will be left that a manual change is required.
+
+  Run `npx @atlaskit/codemod-cli -h` for more details on usage.
+  For Atlassians,
+  refer to the [documentation](https://developer.atlassian.com/cloud/framework/atlassian-frontend/codemods/01-atlassian-codemods/) for more details on the codemod CLI.
+
+  ### Visual changes
+
+  The primary button in the footer is now on the right. This has changed from being on the left
+  to match the [design documentation](https://atlassian.design/components/modal-dialog/usage).
+
+  The codemod will automatically reverse the order of your actions for this to happen.
+  You could previously achieve this behaviour by adding an `appearance` key to your actions. The
+  codemod will detect this and not reverse the array in this case.
+
+  ### Composable API
+
+  The old version of modal dialog had three props that mapped into components.
+
+  - `heading` was the text for the header.
+  - `children` was the React node that ended up in the modal body.
+  - `actions` was an array of objects that mapped into buttons in the footer.
+
+  The new composable API exposes these components so that you can use them directly as
+  a child of modal dialog. This creates a clear parallel between what is given as children and what
+  the modal dialog renders. It also allows you to use any valid React node as a child of modal
+  dialog.
+
+  ```
+  // Before
+  import Modal, { ModalTransition } from '@atlaskit/modal-dialog';
+
+  ...
+
+  <ModalTransition>
+    {isOpen && (
+      <Modal
+        onClose={close}
+        heading="Modal Title"
+        actions={[
+          { text: 'Secondary Action', onClick: secondaryAction },
+          { text: 'Close', onClick: close },
+        ]}
+      >
+        <Lorem count={2} />
+      </Modal>
+    )}
+  </ModalTransition>
+
+  // After
+  import Modal, {
+    ModalBody,
+    ModalFooter,
+    ModalHeader,
+    ModalTitle,
+    ModalTransition,
+  } from '@atlaskit/modal-dialog';
+  import Button from '@atlaskit/button/standard-button';
+
+  ...
+
+  <ModalTransition>
+    {isOpen && (
+      <Modal onClose={close}>
+        <ModalHeader>
+          <ModalTitle>Modal Title</ModalTitle>
+        </ModalHeader>
+        <ModalBody>
+          <Lorem count={2} />
+        </ModalBody>
+        <ModalFooter>
+          <Button appearance="subtle" onClick={secondaryAction}>
+            Secondary Action
+          </Button>
+          <Button appearance="primary" autoFocus onClick={close}>
+            Close
+          </Button>
+        </ModalFooter>
+      </Modal>
+    )}
+  </ModalTransition>
+  ```
+
+  #### Children
+
+  The original children need to be wrapped in a `ModalBody`.
+
+  ```
+  // Before
+  <Modal>
+    <Lorem count={2} />
+  </Modal>
+
+  // After
+  <Modal>
+    <ModalBody>
+      <Lorem count={2} />
+    </ModalBody>
+  </Modal>
+  ```
+
+  #### Heading
+
+  The `heading` prop turns into a `ModalHeader` and `ModalTitle`.
+
+  ```
+  // Before
+  <Modal heading="Modal Title">
+    <Lorem count={2} />
+  </Modal>
+
+  // After
+  <Modal>
+    <ModalHeader>
+      <ModalTitle>Modal Title</ModalTitle>
+    </ModalHeader>
+    <ModalBody>
+      <Lorem count={2} />
+    </ModalBody>
+  </Modal>
+  ```
+
+  #### Actions
+
+  The `actions` prop turns into `Button`'s in a `ModalFooter`.
+
+  ```
+  // Before
+  <Modal
+    actions={[
+      { text: 'Secondary Action', onClick: secondaryAction },
+      { text: 'Close', onClick: close },
+    ]}
+    heading="Modal Title"
+  >
+    <Lorem count={2} />
+  </Modal>
+
+  // After
+  <Modal>
+    <ModalHeader>
+      <ModalTitle>Modal Title</ModalTitle>
+    </ModalHeader>
+    <ModalBody>
+      <Lorem count={2} />
+    </ModalBody>
+    <ModalFooter>
+      <Button appearance="subtle" onClick={secondaryAction}>
+        Secondary Action
+      </Button>
+      <Button appearance="primary" autoFocus onClick={close}>
+        Close
+      </Button>
+    </ModalFooter>
+  </Modal>
+  ```
+
+  Previously in the examples the primary button was on the left, we’ve updated the
+  documentation to match our design documentation so that the primary button is on the right.
+  You could previously achieve this behaviour by adding an `appearance` key to your actions.
+  The codemod will reverse the order of your actions if you have not set the `appearance` in the actions.
+
+  ### Components prop
+
+  The `components` prop has been entirely replaced with the composable API.
+  The philosophy of creating a custom component that receive modal's props has been replaced with
+  custom components where the user can define their own props.
+
+  #### Container
+
+  To replace using the `Container` prop you can wrap `Modal`'s children in the container component.
+  Note that unless you are using a `form` you will need to add the style `all: inherit;` to ensure scrolling
+  works.
+
+  ```
+  // Before
+  <Modal
+    components={{
+      Container: (props) => (
+        <form {...props} onSubmit={onSubmit}>
+          {props.children}
+        </form>
+      ),
+    }}
+  >
+    {children}
+  </Modal>
+
+  // After
+  <Modal>
+    <form onSubmit={onSubmit}>
+      {children}
+    </form>
+  </Modal>
+  ```
+
+  #### Header
+
+  To replace using the `Header` prop you can use your custom header as the first child.
+
+  ```
+  // Before
+  <Modal
+    components={{
+      Header: CustomHeader,
+    }}
+  >
+    {children}
+  </Modal>
+
+  // After
+  <Modal>
+    <CustomHeader />
+    {children}
+  </Modal>
+  ```
+
+  If you are creating a custom header you should call the new hook `useModal` to get the
+  title id so the content and the title can be linked. You can also access the `onClose`
+  function this way.
+
+  ```
+  import { useModal } from '@atlaskit/modal-dialog';
+
+  const CustomHeader = () => {
+    const { onClose, titleId } = useModal();
+    return (
+      <div css={headerStyles}>
+        <h1 css={headingStyles} id={titleId}>
+          Custom modal header
+        </h1>
+        <Button onClick={onClose}>
+          Close
+        </Button>
+      </div>
+    );
+  };
+  ```
+
+  If you are doing something simple like adding a button you can continue to use `ModalHeader`.
+
+  ```
+  <ModalHeader>
+    <ModalTitle>Custom modal header</ModalTitle>
+    <Button appearance="link" onClick={closeModal}>
+      Close
+    </Button>
+  </ModalHeader>
+  ```
+
+  #### Footer and body
+
+  Similar to `Header`, if you were using the `Footer` or `Body` prop,
+  you can replace `ModalFooter` and `ModalBody` with any valid React node.
+  `ModalFooter` and `ModalBody` also accept any valid React node as children.
+  `useModal` works in any of `Modal`'s children if you wish to use it.
+
+  ### Scroll behaviour
+
+  The `scrollBehavior` prop has changed from strings 'inside', 'inside-wide' and 'outside'
+  to a boolean `shouldScrollInViewport`. 'inside' and 'inside-wide' have consolidated to
+  be `shouldScrollInViewport={false}` and 'outside' is `shouldScrollInViewport={true}`.
+
+  ### Appearance
+
+  The `appearance` prop has been removed from `Modal` and is now set on `ModalTitle` and
+  the primary `Button`.
+
+  ```
+  // Before
+  <ModalTransition>
+    {isOpen && (
+      <Modal
+        appearance="danger"
+        onClose={close}
+        heading="Modal Title"
+        actions={[
+          { text: 'Secondary Action', onClick: secondaryAction },
+          { text: 'Close', onClick: close },
+        ]}
+      >
+        <Lorem count={2} />
+      </Modal>
+    )}
+  </ModalTransition>
+
+  // After
+  <ModalTransition>
+    {isOpen && (
+      <Modal onClose={close}>
+        <ModalHeader>
+          <ModalTitle appearance="danger">Modal Title</ModalTitle>
+        </ModalHeader>
+        <ModalBody>
+          <Lorem count={2} />
+        </ModalBody>
+        <ModalFooter>
+          <Button appearance="subtle" onClick={secondaryAction}>
+            Secondary Action
+          </Button>
+          <Button appearance="danger" autoFocus onClick={close}>
+            Close
+          </Button>
+        </ModalFooter>
+      </Modal>
+    )}
+  </ModalTransition>;
+  ```
+
+  ### isChromeless
+
+  The `isChromeless` is no longer supported as you can any valid React node in `Modal`
+  and choose not to use `ModalHeader`, `ModalBody` and `ModalFooter`. The only change to
+  this behaviour is that there is no way to turn off the box shadow and border radius,
+  which used to happen when `isChromeless={true}`. You only need to change your usage if
+  `Modal`'s children set their own background and don’t have a border radius of 3 px.
+  In this case set the border radius to 3px.
+
+  ### Test IDs
+
+  The mapping for test IDs have changed.
+
+  Modal: `{testId}` -> `{testId}`
+
+  Modal content: `{testId}-dialog-content` -> DOM node removed
+
+  Modal header: `{testId}-dialog-content--header` -> `{testId}--header`
+
+  Modal title: `{testId}-dialog-content--heading` -> `{testId}--title`
+
+  Modal body: `{testId}-dialog-content--body` -> `{testId}--body`
+
+  Modal footer: `{testId}-dialog-content--footer` -> `{testId}--footer`
+
+  Scrollable body content: `{testId}-dialog-content--scrollable` -> `{testId}--scrollable`
+
+  Blanket: `{testId}--blanket` -> `{testId}--blanket`
+
+  Modal actions: `{testId}-dialog-content--action-{index}` -> Removed, can set on Button
+
+  ### Miscallaneous changes
+
+  - `ModalFooter` now uses `flex-end` instead of `space-between` to justify its contents.
+  - Inner components `ModalFooter`, `ModalHeader` and `ModalBody` no longer accepts style prop.
+    If you wish to modify the styles, you have to build your own component.
+  - `ContainerComponentProps` and `ScrollBehavior` types are now removed with no replacements.
+  - `(Header|Body|Footer|Title)ComponentProps` types are now aliased to
+    `Modal(Header|Body|Footer|Title)Props`, however most props are not used anymore as state is
+    shared via the `useModal` hook.
+
+### Patch Changes
+
+- [`1efbaebfbf3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1efbaebfbf3) - Fixes a bug in the appearance of the modal focus state which is now consistent with other elements in the Design System.
+- Updated dependencies
+
 ## 11.7.4
 
 ### Patch Changes

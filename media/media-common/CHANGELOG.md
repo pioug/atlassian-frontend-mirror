@@ -1,5 +1,17 @@
 # @atlaskit/media-common
 
+## 2.9.0
+
+### Minor Changes
+
+- [`46d9d2872b4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/46d9d2872b4) - Video Analytics - Add UI events for CustomMediaPlayer
+
+### Patch Changes
+
+- [`4777a174e6d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4777a174e6d) - Added analytics support for customMediaPlayer + screen event + entrypoint for locales
+- [`b77bfe8e99c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b77bfe8e99c) - Add performance attributes to Commenced, Succeeded, Failed events for media card
+- [`35d85025b4d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/35d85025b4d) - MEX-860 Changed base track events payload + added CustomMediaPlayerType
+
 ## 2.8.0
 
 ### Minor Changes

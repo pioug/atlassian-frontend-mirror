@@ -188,3 +188,25 @@ it.skip('should use an accessible combination of colours', () => {
 
   expect(contrastResult).toBe(true);
 });
+
+it('image should be decorative when no alt is provided', () => {
+  Object.defineProperty(Image.prototype, 'src', {
+    set() {
+      this.onload();
+    },
+  });
+
+  const { getByTestId } = render(
+    <AvatarImage
+      appearance="circle"
+      size="large"
+      testId="avatar"
+      src="thisisanimage"
+    />,
+  );
+
+  const avatar = getByTestId('avatar--image');
+
+  expect(avatar).not.toHaveAttribute('aria-label');
+  expect(avatar).not.toHaveAttribute('role');
+});

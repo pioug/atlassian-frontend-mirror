@@ -13,14 +13,10 @@ import {
   zoomLevelAfterResize,
   Props,
   State,
-} from '../../../../../newgen/viewers/image/interactive-img';
-import { ZoomControls } from '../../../../../newgen/zoomControls';
-import {
-  HDIconGroupWrapper,
-  ImageWrapper,
-  Img,
-} from '../../../../../newgen/styled';
-import { ZoomLevel } from '../../../../../newgen/domain/zoomLevel';
+} from '../../../../../viewers/image/interactive-img';
+import { ZoomControls } from '../../../../../zoomControls';
+import { HDIconGroupWrapper, ImageWrapper, Img } from '../../../../../styled';
+import { ZoomLevel } from '../../../../../domain/zoomLevel';
 
 interface ImageSize {
   naturalWidth: number;

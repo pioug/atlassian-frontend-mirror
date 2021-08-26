@@ -1,11 +1,11 @@
-import React, { Component, ElementType, FormEvent } from 'react';
+import React, { Component, ComponentType, FormEvent } from 'react';
 import styled from '@emotion/styled';
 
 import Button from '@atlaskit/button/standard-button';
 import TextField from '@atlaskit/textfield';
 
 import metadata from '../src/metadata';
-import IconExplorerCell from './utils/IconExplorerCell';
+import IconExplorerCell from './utils/icon-explorer-cell';
 
 const allIcons = Promise.all(
   Object.keys(metadata).map(async (name) => {
@@ -39,7 +39,7 @@ const NoIcons = styled.div`
 
 interface Icon {
   keywords: string[];
-  component: ElementType;
+  component: ComponentType;
   componentName: string;
   package: string;
 }

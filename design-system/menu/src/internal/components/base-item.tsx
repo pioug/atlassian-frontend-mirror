@@ -19,6 +19,11 @@ const defaultRender: RenderFunction = (Component, props) => (
   <Component {...props} />
 );
 
+/**
+ * __Base item__
+ *
+ * A base item should be composed for all item experiences.
+ */
 const BaseItem = memo(
   ({
     children,
@@ -33,13 +38,16 @@ const BaseItem = memo(
       (overrides && overrides.Title && overrides.Title.render) || defaultRender;
 
     return (
+      // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
       <div css={contentCSSWrapper}>
         {iconBefore && (
+          // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
           <span data-item-elem-before css={elemBeforeCSS}>
             {iconBefore}
           </span>
         )}
         {children && (
+          // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
           <span css={contentCSS}>
             <ClassNames>
               {({ css }) =>
@@ -54,6 +62,7 @@ const BaseItem = memo(
               <span
                 data-item-description
                 css={
+                  // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
                   shouldDescriptionWrap ? wrapDescriptionCSS : descriptionCSS
                 }
               >
@@ -63,6 +72,7 @@ const BaseItem = memo(
           </span>
         )}
         {iconAfter && (
+          // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
           <span data-item-elem-after css={elemAfterCSS}>
             {iconAfter}
           </span>

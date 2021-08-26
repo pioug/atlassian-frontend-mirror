@@ -5,7 +5,7 @@ import {
 import {
   lineCount,
   normaliseLineBreaks,
-} from '../../../../../newgen/viewers/codeViewer/util';
+} from '../../../../../viewers/codeViewer/util';
 
 describe('CodeViewer Utility Function', () => {
   const isCodeItemCasesDirectMapping = [

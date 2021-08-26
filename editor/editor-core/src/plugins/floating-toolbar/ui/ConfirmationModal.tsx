@@ -1,6 +1,14 @@
 import React from 'react';
 import { InjectedIntlProps, injectIntl } from 'react-intl';
-import Modal, { ModalTransition, ActionProps } from '@atlaskit/modal-dialog';
+import Button from '@atlaskit/button/standard-button';
+
+import Modal, {
+  ModalTransition,
+  ModalBody,
+  ModalTitle,
+  ModalHeader,
+  ModalFooter,
+} from '@atlaskit/modal-dialog';
 
 import messages from './messages';
 import { ConfirmDialogOptions } from '../types';
@@ -30,32 +38,33 @@ const ConfirmationModalImpl = (
   const cancelButtonLabel =
     options?.cancelButtonLabel || formatMessage(messages.confirmModalCancel);
 
-  const actionButtons: ActionProps[] = [
-    {
-      text: cancelButtonLabel,
-      appearance: 'default',
-      onClick: onClose,
-      testId: testId ? `${testId}-cancel-button` : undefined,
-    },
-    {
-      text: okButtonLabel,
-      appearance: 'warning',
-      onClick: onConfirm,
-      testId: testId ? `${testId}-confirm-button` : undefined,
-    },
-  ];
-
   return (
     <ModalTransition>
       {options && (
-        <Modal
-          actions={actionButtons}
-          onClose={onClose}
-          heading={heading}
-          appearance="warning"
-          testId={testId}
-        >
-          <p>{options.message}</p>
+        <Modal onClose={onClose} testId={testId}>
+          <ModalHeader>
+            <ModalTitle appearance="warning">{heading}</ModalTitle>
+          </ModalHeader>
+
+          <ModalBody>
+            <p>{options.message}</p>
+          </ModalBody>
+          <ModalFooter>
+            <Button
+              appearance="default"
+              onClick={onClose}
+              testId={testId ? `${testId}-cancel-button` : undefined}
+            >
+              {cancelButtonLabel}
+            </Button>
+            <Button
+              appearance="warning"
+              onClick={onConfirm}
+              testId={testId ? `${testId}-confirm-button` : undefined}
+            >
+              {okButtonLabel}
+            </Button>
+          </ModalFooter>
         </Modal>
       )}
     </ModalTransition>

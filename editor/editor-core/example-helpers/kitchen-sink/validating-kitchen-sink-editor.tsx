@@ -120,6 +120,7 @@ export class ValidatingKitchenSinkEditor extends React.Component<
           media={{
             provider: mediaProvider,
             allowMediaSingle: true,
+            enableDownloadButton: true,
             allowResizing: true,
             allowAnnotation: true,
             allowLinking: true,

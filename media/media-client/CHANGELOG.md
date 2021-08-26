@@ -1,5 +1,16 @@
 # @atlaskit/media-client
 
+## 14.2.0
+
+### Minor Changes
+
+- [`381deea2aab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/381deea2aab) - MEX-710 Added mobileUpload API to media-client
+
+### Patch Changes
+
+- [`c2ae093a067`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c2ae093a067) - Fixed unit test taking more than 10secs
+- Updated dependencies
+
 ## 14.1.1
 
 ### Patch Changes

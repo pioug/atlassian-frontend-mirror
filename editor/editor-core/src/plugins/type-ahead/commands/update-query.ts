@@ -1,32 +1,28 @@
-import { Command } from '../../../types';
+import { Command } from '../../../types/command';
+import { pluginKey as typeAheadPluginKey } from '../pm-plugins/key';
 import { ACTIONS } from '../pm-plugins/actions';
-import { pluginKey } from '../pm-plugins/plugin-key';
-import { findTypeAheadQuery } from '../utils/find-query-mark';
-import { isQueryActive } from '../utils/is-query-active';
 
-export const updateQueryCommand = (query: string): Command => (
-  state,
-  dispatch,
-) => {
-  const queryMark = findTypeAheadQuery(state);
-  const activeQuery = isQueryActive(
-    state.schema.marks.typeAheadQuery,
-    state.doc,
-    state.selection.from,
-    state.selection.to,
-  );
+export const updateQuery = (query: string): Command => {
+  return (state, dispatch) => {
+    const pluginState = typeAheadPluginKey.getState(state);
 
-  if (queryMark === null || activeQuery === false) {
-    return false;
-  }
+    if (pluginState.query === query) {
+      return false;
+    }
 
-  if (dispatch) {
-    dispatch(
-      state.tr.setMeta(pluginKey, {
-        action: ACTIONS.SET_QUERY,
-        params: { query },
-      }),
-    );
-  }
-  return true;
+    const tr = state.tr;
+
+    tr.setMeta(typeAheadPluginKey, {
+      action: ACTIONS.CHANGE_QUERY,
+      params: {
+        query,
+      },
+    });
+
+    if (dispatch) {
+      dispatch(tr);
+    }
+
+    return true;
+  };
 };

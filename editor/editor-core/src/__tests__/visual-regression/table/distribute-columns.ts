@@ -43,7 +43,8 @@ describe('Distribute Columns', () => {
       await snapshot(page);
     });
 
-    it('on a resized merged cells with colwidths', async () => {
+    // re-enable this test: https://product-fabric.atlassian.net/browse/ED-13630
+    it.skip('on a resized merged cells with colwidths', async () => {
       await pageInit(mergedColumnsResized);
       const from = getSelectorForTableCell({
         row: 5,
@@ -67,7 +68,9 @@ describe('Distribute Columns', () => {
       await pressKeyUp(page, 'Shift');
       await clickCellOptions(page);
     };
-    it('if selected cells without colwidths', async () => {
+
+    // re-enable this test: https://product-fabric.atlassian.net/browse/ED-13630
+    it.skip('if selected cells without colwidths', async () => {
       await pageInit(defaultTable);
       const from = getSelectorForTableCell({
         row: 1,
@@ -78,7 +81,8 @@ describe('Distribute Columns', () => {
       await snapshot(page);
     });
 
-    it('if selection is on a single column', async () => {
+    // re-enable this test: https://product-fabric.atlassian.net/browse/ED-13630
+    it.skip('if selection is on a single column', async () => {
       await pageInit(defaultTable);
       const from = getSelectorForTableCell({
         row: 1,
@@ -89,7 +93,8 @@ describe('Distribute Columns', () => {
       await snapshot(page);
     });
 
-    it('if there will not be any change after resizing', async () => {
+    // re-enable this test: https://product-fabric.atlassian.net/browse/ED-13630
+    it.skip('if there will not be any change after resizing', async () => {
       await pageInit(mergedColumnsResized);
       const from = getSelectorForTableCell({
         row: 5,
@@ -105,7 +110,8 @@ describe('Distribute Columns', () => {
   });
 
   describe('all of the columns should distribute and new added column should have uniform width', () => {
-    it('on table without overflow', async () => {
+    // re-enable this test: https://product-fabric.atlassian.net/browse/ED-13630
+    it.skip('on table without overflow', async () => {
       await pageInit(defaultTableResizedWithoutOverflow);
       await distributeAllColumns(page);
       await insertColumn(page, 0, 'right', true);
@@ -114,7 +120,8 @@ describe('Distribute Columns', () => {
       await snapshot(page);
     });
 
-    it('on table with overflow', async () => {
+    // re-enable this test: https://product-fabric.atlassian.net/browse/ED-13630
+    it.skip('on table with overflow', async () => {
       await pageInit(defaultTableResizedWithOverflow);
       await distributeAllColumns(page);
       await insertColumn(page, 0, 'right', true);

@@ -9,6 +9,8 @@ import * as BridgeUtils from '../../../../utils/bridge';
 import { nativeBridgeAPI } from '../../../web-to-native/implementation';
 import { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import RendererConfiguration from '../../../renderer-configuration';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { waitFor } from '@testing-library/dom';
 
 jest.mock('../../../renderer-configuration');
 
@@ -394,6 +396,60 @@ describe('RendererBridgeImplementation', () => {
       let expectedURL = originURL.origin + '/payload/category/112233';
       expect(fetchSpy).toHaveBeenCalledWith(expectedURL);
       expect(returnValue).toEqual(someObject);
+    });
+  });
+
+  describe('Async function', () => {
+    var bridge: RendererBridgeImplementation;
+    var createPromiseSpy: jest.SpyInstance;
+    var submitPromise: jest.Mock;
+
+    beforeEach(() => {
+      bridge = new RendererBridgeImplementation();
+      createPromiseSpy = jest.spyOn(crossPlatformPromise, 'createPromise');
+      submitPromise = jest.fn();
+      createPromiseSpy.mockReturnValue({
+        submit: submitPromise,
+        uuid: 'some',
+      });
+    });
+
+    afterEach(() => {
+      jest.resetAllMocks();
+    });
+
+    it('should submit promise if function was successful', async () => {
+      let asyncFunction = jest.fn().mockResolvedValue('A');
+      const id = bridge.asyncCall(asyncFunction);
+      await waitFor(() => expect(asyncFunction).toBeCalled());
+      await waitFor(() =>
+        expect(createPromiseSpy).toBeCalledWith(
+          'asyncCallCompleted',
+          {
+            value: 'A',
+          },
+          id,
+        ),
+      );
+      await waitFor(() => expect(submitPromise).toBeCalled());
+    });
+
+    it('should submit promise if function failed', async () => {
+      let asyncFunction = jest
+        .fn()
+        .mockRejectedValue(new Error('something went wrong'));
+      const id = bridge.asyncCall(asyncFunction);
+      await waitFor(() => expect(asyncFunction).toBeCalled());
+      await waitFor(() =>
+        expect(createPromiseSpy).toBeCalledWith(
+          'asyncCallCompleted',
+          {
+            error: 'something went wrong',
+          },
+          id,
+        ),
+      );
+      await waitFor(() => expect(submitPromise).toBeCalled());
     });
   });
 });

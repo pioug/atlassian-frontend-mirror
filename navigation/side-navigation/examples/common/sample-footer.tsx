@@ -5,7 +5,8 @@ import { jsx } from '@emotion/core';
 
 import Icon from '@atlaskit/icon';
 import { CustomItemComponentProps } from '@atlaskit/menu';
-import { B400, N200 } from '@atlaskit/theme/colors';
+import { N200 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import { Footer } from '../../src';
 
@@ -20,11 +21,14 @@ const Container: React.FC<CustomItemComponentProps> = (props) => {
 const ExampleFooter = () => {
   const linkCSS = {
     fontSize: 12,
-    color: N200,
+    color: token('color.text.lowEmphasis', N200),
     '&:hover': {
-      color: B400,
-      textDecoration: 'none',
+      textDecoration: 'underline',
       cursor: 'pointer',
+      color: 'currentColor',
+    },
+    '&:active': {
+      color: token('color.text.highEmphasis', N200),
     },
   };
 

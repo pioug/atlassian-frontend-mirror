@@ -40,6 +40,7 @@ export interface ComponentProps {}
 
 export interface ComponentState {
   fileIds: string[];
+  fileIdsDescription: string[];
 }
 
 const fileIds = [
@@ -57,15 +58,32 @@ const fileIds = [
   noMetadataFileId.id,
   emptyImageFileId.id,
 ];
+
+const fileIdsDescription = [
+  'Generic file',
+  'Audio file',
+  'Audio no cover file',
+  'Video file',
+  'Gif file',
+  'Video processing failed',
+  'Error file',
+  'Doc file',
+  'Large pdf file',
+  'Archive file',
+  'Unknown file',
+  'No metadata file',
+  'Empty image file',
+];
 class Example extends Component<ComponentProps, ComponentState> {
   uploadController?: UploadController;
   state: ComponentState = {
     fileIds,
+    fileIdsDescription,
   };
 
   renderCards() {
-    const { fileIds } = this.state;
-    const cards = fileIds.map((id) => {
+    const { fileIds, fileIdsDescription } = this.state;
+    const cards = fileIds.map((id, order) => {
       const identifier: FileIdentifier = {
         id,
         mediaItemType: 'file',
@@ -74,6 +92,7 @@ class Example extends Component<ComponentProps, ComponentState> {
       return (
         <CardWrapper key={id}>
           <div>
+            <h3>{fileIdsDescription[order]}</h3>
             <Card
               mediaClientConfig={mediaClientConfig}
               identifier={identifier}

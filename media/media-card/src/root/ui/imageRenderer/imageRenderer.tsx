@@ -20,6 +20,7 @@ import {
   withFileAttributes,
   WithFileAttributesProps,
 } from '../../../utils/fileAttributesContext';
+import { resizeModeToMediaImageProps } from '../../../utils/resizeModeToMediaImageProps';
 
 export type ImageRendererProps = {
   readonly dataURI: string;
@@ -30,12 +31,8 @@ export type ImageRendererProps = {
   readonly resizeMode?: ImageResizeMode;
   readonly onDisplayImage?: () => void;
   readonly onImageError?: () => void;
+  readonly timeElapsedTillCommenced?: number;
 };
-
-export const resizeModeToMediaImageProps = (resizeMode?: ImageResizeMode) => ({
-  crop: resizeMode === 'crop',
-  stretch: resizeMode === 'stretchy-fit',
-});
 
 export class ImageRendererBase extends React.Component<
   ImageRendererProps & WithAnalyticsEventsProps & WithFileAttributesProps
@@ -51,10 +48,26 @@ export class ImageRendererBase extends React.Component<
   }
 
   onImageLoad = () => {
-    const { createAnalyticsEvent, fileAttributes } = this.props;
+    const {
+      createAnalyticsEvent,
+      fileAttributes,
+      timeElapsedTillCommenced,
+    } = this.props;
     if (fileAttributes && this.shouldFireEvent(RenderEventAction.SUCCEEDED)) {
+      const timeElapsedTillSucceeded = performance.now();
+      const durationSinceCommenced =
+        timeElapsedTillCommenced &&
+        timeElapsedTillSucceeded - timeElapsedTillCommenced;
+
+      const performanceAttributes = {
+        overall: {
+          durationSincePageStart: timeElapsedTillSucceeded,
+          durationSinceCommenced,
+        },
+      };
+
       fireMediaCardEvent(
-        getRenderSucceededEventPayload(fileAttributes),
+        getRenderSucceededEventPayload(fileAttributes, performanceAttributes),
         createAnalyticsEvent,
       );
     }
@@ -65,15 +78,34 @@ export class ImageRendererBase extends React.Component<
     onImageError && onImageError();
 
     if (fileAttributes && this.shouldFireEvent(RenderEventAction.FAILED)) {
-      const { createAnalyticsEvent, mediaItemType } = this.props;
+      const {
+        createAnalyticsEvent,
+        mediaItemType,
+        timeElapsedTillCommenced,
+      } = this.props;
+      const timeElapsedTillFailed = performance.now();
+      const durationSinceCommenced =
+        timeElapsedTillCommenced &&
+        timeElapsedTillFailed - timeElapsedTillCommenced;
+
+      const performanceAttributes = {
+        overall: {
+          durationSincePageStart: timeElapsedTillFailed,
+          durationSinceCommenced,
+        },
+      };
+
       if (mediaItemType === 'file') {
         fireMediaCardEvent(
-          getRenderFailedFileUriPayload(fileAttributes),
+          getRenderFailedFileUriPayload(fileAttributes, performanceAttributes),
           createAnalyticsEvent,
         );
       } else if (mediaItemType === 'external-image') {
         fireMediaCardEvent(
-          getRenderFailedExternalUriPayload(fileAttributes),
+          getRenderFailedExternalUriPayload(
+            fileAttributes,
+            performanceAttributes,
+          ),
           createAnalyticsEvent,
         );
       }

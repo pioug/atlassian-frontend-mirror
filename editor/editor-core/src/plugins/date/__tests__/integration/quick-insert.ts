@@ -15,7 +15,7 @@ const { dateLozenge } = dateSelectors;
 
 BrowserTestCase(
   'quick-insert.ts: Insert date via quick insert',
-  { skip: ['edge'] },
+  {},
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 
@@ -47,7 +47,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   "quick-insert.ts: Uses today's date in user's local timezone as initial selection",
-  { skip: ['edge'] },
+  {},
   async (client: any) => {
     const page = await goToEditorTestingWDExample(client);
 
@@ -77,7 +77,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'quick-insert.ts: format date to localized version',
-  { skip: ['edge'] },
+  {},
   async (client: any) => {
     const page = await goToEditorTestingWDExample(client);
     await loadLocale(page, ['pt', 'es']);

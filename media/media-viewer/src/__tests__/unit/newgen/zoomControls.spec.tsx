@@ -1,12 +1,9 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import Button from '@atlaskit/button/custom-theme-button';
-import {
-  ZoomControlsBase,
-  ZoomControlsProps,
-} from '../../../newgen/zoomControls';
-import { ZoomLevelIndicator } from '../../../newgen/styled';
-import { ZoomLevel } from '../../../newgen/domain/zoomLevel';
+import { ZoomControlsBase, ZoomControlsProps } from '../../../zoomControls';
+import { ZoomLevelIndicator } from '../../../styled';
+import { ZoomLevel } from '../../../domain/zoomLevel';
 import { fakeIntl } from '@atlaskit/media-test-helpers';
 
 describe('Zooming', () => {

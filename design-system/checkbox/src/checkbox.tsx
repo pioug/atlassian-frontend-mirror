@@ -165,10 +165,12 @@ const CheckboxWithMode = forwardRef(function Checkbox(
         isIndeterminate={isIndeterminate}
         isChecked={isChecked}
       />
-      <LabelText>
-        {label}
-        {isRequired && <RequiredIndicator aria-hidden="true" />}
-      </LabelText>
+      {label && (
+        <LabelText>
+          {label}
+          {isRequired && <RequiredIndicator aria-hidden="true" />}
+        </LabelText>
+      )}
     </Label>
   );
 });

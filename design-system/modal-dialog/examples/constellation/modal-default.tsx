@@ -1,35 +1,53 @@
-import React, { useState } from 'react';
+/** @jsx jsx */
+import { useCallback, useState } from 'react';
+
+import { css, jsx } from '@emotion/core';
 
 import Button from '@atlaskit/button/standard-button';
 
-import Modal, { ModalTransition } from '../../src';
+import Modal, {
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
+  ModalTitle,
+  ModalTransition,
+} from '../../src';
+
+const boldStyles = css({
+  fontWeight: 'bold',
+});
 
 export default function Example() {
   const [isOpen, setIsOpen] = useState(false);
-  const close = () => setIsOpen(false);
-  const open = () => setIsOpen(true);
+  const openModal = useCallback(() => setIsOpen(true), []);
+  const closeModal = useCallback(() => setIsOpen(false), []);
 
   return (
-    <>
-      <Button appearance="primary" onClick={open}>
+    <div>
+      <Button appearance="primary" onClick={openModal}>
         Open modal
       </Button>
 
       <ModalTransition>
         {isOpen && (
-          <Modal
-            actions={[
-              { text: 'Try it now', onClick: close },
-              { text: 'Learn more' },
-            ]}
-            onClose={close}
-            heading="Test drive your new search"
-          >
-            We’ve turbocharged your search results so you can get back to doing
-            what you do best.
+          <Modal onClose={closeModal}>
+            <ModalHeader>
+              <ModalTitle>Duplicate this page</ModalTitle>
+            </ModalHeader>
+            <ModalBody>
+              Duplicating this page will make it a child page of{' '}
+              <span css={boldStyles}>Search - user exploration</span>, in the{' '}
+              <span css={boldStyles}>Search & Smarts</span> space.
+            </ModalBody>
+            <ModalFooter>
+              <Button appearance="subtle">Cancel</Button>
+              <Button appearance="primary" onClick={closeModal} autoFocus>
+                Duplicate
+              </Button>
+            </ModalFooter>
           </Modal>
         )}
       </ModalTransition>
-    </>
+    </div>
   );
 }

@@ -82,6 +82,7 @@ export const TimeStyle: ComponentClass<HTMLAttributes<{}>> = styled.div`
   font-size: 12px;
 `;
 
+export const MENTION_ITEM_HEIGHT = 48;
 export const MentionItemStyle: ComponentClass<
   HTMLAttributes<{}> & MentionItemStyleProps
 > = styled.div`
@@ -90,7 +91,7 @@ export const MentionItemStyle: ComponentClass<
   display: block;
   overflow: hidden;
   list-style-type: none;
-  height: 48px;
+  height: ${MENTION_ITEM_HEIGHT}px;
   line-height: 1.2;
   cursor: pointer;
 `;

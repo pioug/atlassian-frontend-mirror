@@ -35,8 +35,6 @@ import {
 } from '../../../root/inlinePlayer';
 import { CardLoading } from '../../../utils/lightCards/cardLoading';
 import { InlinePlayerWrapper } from '../../../root/styled';
-import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { FabricChannel } from '@atlaskit/analytics-listeners';
 
 const defaultFileState: FileState = {
   status: 'processed',
@@ -56,7 +54,6 @@ describe('<InlinePlayer />', () => {
   const setup = (
     props?: Partial<InlinePlayerProps>,
     artifacts: MediaFileArtifacts = defaultArtifact,
-    analyticsHandler: any = false,
     InlinePlayerComponent: typeof InlinePlayer = InlinePlayer,
     identifier?: FileIdentifier,
   ) => {
@@ -94,18 +91,7 @@ describe('<InlinePlayer />', () => {
     const component = mountWithIntlContext<
       InlinePlayerProps,
       InlinePlayerState
-    >(
-      analyticsHandler ? (
-        <AnalyticsListener
-          channel={FabricChannel.media}
-          onEvent={analyticsHandler}
-        >
-          <TheInlinePlayer />
-        </AnalyticsListener>
-      ) : (
-        <TheInlinePlayer />
-      ),
-    );
+    >(<TheInlinePlayer />);
 
     return {
       component,
@@ -371,38 +357,6 @@ describe('<InlinePlayer />', () => {
         'video_1280.mp4',
       );
     });
-  });
-
-  it('should return analytics event as a last argument when player is clicked', async () => {
-    const clickHandler = jest.fn();
-    const analyticsEventHandler = jest.fn();
-    const { component } = setup(
-      {
-        onClick: clickHandler,
-      },
-      undefined,
-      analyticsEventHandler,
-    );
-    await update(component);
-
-    component.find(InlinePlayer).simulate('click');
-
-    expect(clickHandler).toHaveBeenCalledTimes(1);
-    expect(analyticsEventHandler).toHaveBeenCalledTimes(1);
-    const actualFiredEvent: Partial<UIAnalyticsEvent> =
-      analyticsEventHandler.mock.calls[0][0];
-    const actualReturnedEvent: UIAnalyticsEvent = clickHandler.mock.calls[0][1];
-    expect(actualFiredEvent.hasFired).toEqual(true);
-    expect(actualFiredEvent.payload).toMatchObject({
-      eventType: 'ui',
-      action: 'clicked',
-      actionSubject: 'mediaCard',
-      actionSubjectId: 'mediaCardInlinePlayer',
-      attributes: {},
-    });
-    expect(actualReturnedEvent.hasFired).toEqual(false);
-    expect(actualReturnedEvent.payload.action).toEqual('clicked');
-    expect(actualReturnedEvent.context).toEqual(actualFiredEvent.context);
   });
 
   it('should trigger media-viewed when video is first played', async () => {

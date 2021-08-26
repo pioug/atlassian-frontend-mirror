@@ -6,6 +6,7 @@ import { CardView } from '../src/root/cardView';
 import { FileDetails, MediaType } from '@atlaskit/media-client';
 import {
   tallImage,
+  wideTransparentImage,
   createRateLimitedError,
   createPollingMaxAttemptsError,
 } from '@atlaskit/media-test-helpers';
@@ -88,7 +89,16 @@ function renderCardImageView(
           size: 4200,
           createdAt: 1589481162745,
         };
-  const dataUri = urlParams.get('dataUri') === 'true' ? tallImage : undefined;
+  const isDataURIBroken = urlParams.get('brokenDataUri') === 'true';
+  const isTransparentImage = urlParams.get('isTransparent') === 'true';
+  const resizeMode = isTransparentImage ? 'fit' : 'crop';
+  const dataUri = isDataURIBroken
+    ? 'error-uri'
+    : isTransparentImage
+    ? wideTransparentImage
+    : urlParams.get('dataUri') === 'true'
+    ? tallImage
+    : undefined;
   const selected = urlParams.get('selected') === 'true';
   const isRateLimited = urlParams.get('isRateLimited') === 'true';
   const isPollingError =
@@ -111,11 +121,12 @@ function renderCardImageView(
         status={cardStatus || status}
         mediaItemType="file"
         metadata={metadata}
-        resizeMode="crop"
+        resizeMode={resizeMode}
         progress={0.5}
         dimensions={dimensions}
         dataURI={dataUri}
         selected={selected}
+        disableAnimation={true}
       />
     </CardWrapper>
   );

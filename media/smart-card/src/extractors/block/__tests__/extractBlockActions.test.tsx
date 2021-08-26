@@ -5,6 +5,7 @@ import { FormattedMessage, IntlProvider } from 'react-intl';
 import { extractBlockActions } from '../index';
 import {
   TEST_DOCUMENT_WITH_ACTIONS,
+  TEST_DOCUMENT_WITH_PREVIEW,
   TEST_DOCUMENT,
 } from '../../common/__mocks__/jsonld';
 
@@ -52,5 +53,24 @@ describe('extractors.block.extractBlockActions', () => {
       .find(FormattedMessage)
       .prop('defaultMessage');
     expect(downloadMessageProp).toEqual('Download');
+  });
+
+  it('should return preview action when platform is supported', () => {
+    const props = extractBlockActions(
+      blockCardProps,
+      TEST_DOCUMENT_WITH_PREVIEW,
+      {
+        handleInvoke,
+        handleAnalytics,
+      },
+      'web',
+    );
+    expect(props).toEqual([
+      {
+        id: 'preview-content',
+        promise: expect.any(Function),
+        text: expect.any(Object),
+      },
+    ]);
   });
 });

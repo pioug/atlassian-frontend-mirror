@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-ui",
-  "version": "16.5.0",
+  "version": "16.6.0",
   "description": "Includes common components and utilities used by other media packages",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -28,6 +28,7 @@
     "./errorIcon": "./src/errorIcon.tsx",
     "./types": "./src/types.ts",
     "./formatDate": "./src/formatDate.ts",
+    "./locales": "./src/locales.ts",
     ".": "./src/index.ts"
   },
   "atlassian": {
@@ -39,24 +40,22 @@
     }
   },
   "dependencies": {
+    "@atlaskit/analytics-next": "^8.2.0",
     "@atlaskit/avatar": "^20.4.0",
-    "@atlaskit/avatar-group": "^8.4.0",
+    "@atlaskit/avatar-group": "^8.5.0",
     "@atlaskit/button": "^16.1.0",
     "@atlaskit/code": "^14.1.0",
     "@atlaskit/droplist": "^11.0.0",
-    "@atlaskit/field-base": "^15.0.0",
-    "@atlaskit/icon": "^21.7.0",
+    "@atlaskit/icon": "^21.8.0",
     "@atlaskit/icon-file-type": "^6.3.0",
     "@atlaskit/item": "^12.0.0",
     "@atlaskit/locale": "^2.3.0",
     "@atlaskit/lozenge": "^11.1.0",
-    "@atlaskit/media-common": "^2.8.0",
-    "@atlaskit/modal-dialog": "^11.7.0",
-    "@atlaskit/page": "^12.0.0",
-    "@atlaskit/select": "^15.0.0",
+    "@atlaskit/media-common": "^2.9.0",
+    "@atlaskit/modal-dialog": "^12.0.0",
+    "@atlaskit/select": "^15.2.0",
     "@atlaskit/spinner": "^15.1.0",
-    "@atlaskit/textfield": "^5.1.0",
-    "@atlaskit/theme": "^11.4.0",
+    "@atlaskit/theme": "^11.5.0",
     "@atlaskit/tooltip": "^17.4.0",
     "@atlaskit/width-detector": "^3.0.0",
     "@babel/runtime": "^7.0.0",
@@ -77,13 +76,17 @@
     "styled-components": "^3.2.6"
   },
   "devDependencies": {
+    "@atlaskit/analytics-listeners": "^8.1.2",
     "@atlaskit/build-utils": "*",
     "@atlaskit/button": "^16.1.0",
     "@atlaskit/checkbox": "^12.3.0",
     "@atlaskit/docs": "*",
+    "@atlaskit/field-base": "^15.0.5",
     "@atlaskit/media-integration-test-helpers": "^2.5.0",
     "@atlaskit/media-test-helpers": "^28.7.0",
+    "@atlaskit/page": "^12.0.6",
     "@atlaskit/ssr": "*",
+    "@atlaskit/textfield": "^5.0.5",
     "@atlaskit/visual-regression": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@testing-library/jest-dom": "^4.1.0",

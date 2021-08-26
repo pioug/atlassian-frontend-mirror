@@ -4,8 +4,9 @@ import Button, {
   Theme as ButtonTheme,
 } from '@atlaskit/button/custom-theme-button';
 import Modal, {
-  FooterComponentProps,
-  HeaderComponentProps,
+  ModalFooterProps as FooterComponentProps,
+  ModalHeaderProps as HeaderComponentProps,
+  ModalBody,
 } from '@atlaskit/modal-dialog';
 
 import {
@@ -19,6 +20,7 @@ import { Actions } from '../types';
 
 import { modalButtonTheme } from './theme';
 
+// TODO: DSP-1250 - use a composable API consistent with normal modal dialog
 type Props = {
   /** Buttons to render in the footer */
   actions?: Actions;
@@ -84,23 +86,26 @@ export default class OnboardingModal extends Component<Props> {
   render() {
     const { actions, children, heading, ...props } = this.props;
 
+    const Header = this.headerComponent(this.props);
+    const Footer = this.footerComponent(this.props);
+
     return (
       <Modal
         autoFocus
-        components={{
-          Header: this.headerComponent(this.props),
-          Footer: this.footerComponent(this.props),
-        }}
         onClose={noop}
-        scrollBehavior="outside"
+        shouldScrollInViewport
         shouldCloseOnOverlayClick={false}
         shouldCloseOnEscapePress={false}
         {...props}
       >
-        <Body>
-          {heading && <Heading>{heading}</Heading>}
-          {children}
-        </Body>
+        <Header />
+        <ModalBody>
+          <Body>
+            {heading && <Heading>{heading}</Heading>}
+            {children}
+          </Body>
+        </ModalBody>
+        <Footer />
       </Modal>
     );
   }

@@ -12,7 +12,7 @@ const preventEvent: MouseEventHandler = (e) => {
 };
 
 // Dirty hack to get generics working with forward ref [1/2]
-interface CustomItemType {
+interface CustomItemTypeGenericHackProps {
   <TComponentProps>(
     props: CustomItemProps<TComponentProps> & { ref?: any } & Omit<
         TComponentProps,
@@ -21,6 +21,14 @@ interface CustomItemType {
   ): JSX.Element | null;
 }
 
+/**
+ * __Custom item__
+ *
+ * A custom item is used to populate a menu with items that need to be a custom element.
+ *
+ * - [Examples](https://atlaskit.atlassian.com/packages/design-system/menu/docs/custom-item)
+ * - [Code](https://atlaskit.atlassian.com/packages/design-system/menu)
+ */
 const CustomItem = memo(
   forwardRef<HTMLElement, CustomItemProps>(
     (
@@ -72,6 +80,7 @@ const CustomItem = memo(
               {...rest}
             >
               <BaseItem
+                // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
                 overrides={overrides}
                 children={children}
                 description={description}
@@ -87,6 +96,6 @@ const CustomItem = memo(
     },
   ),
   // Dirty hack to get generics working with forward ref [2/2]
-) as CustomItemType;
+) as CustomItemTypeGenericHackProps;
 
 export default CustomItem;

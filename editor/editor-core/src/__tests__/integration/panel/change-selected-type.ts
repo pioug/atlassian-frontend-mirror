@@ -88,7 +88,7 @@ BrowserTestCase(
     await page.click(`.${PanelSharedCssClassName.icon}`);
 
     // Change panel Icon
-    const emojiSelector = `[aria-label="emoji"]`;
+    const emojiSelector = `[aria-label="editor-add-emoji"]`;
     await page.click(emojiSelector);
     const selectedEmoji = `[aria-label=":smiley:"]`;
     await page.click(selectedEmoji);

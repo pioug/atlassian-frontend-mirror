@@ -3,7 +3,7 @@ import { mount, shallow } from 'enzyme';
 import {
   ArchiveSidebarHeader,
   HeaderProps,
-} from '../../../../../newgen/viewers/archiveSidebar/archive-sidebar-header';
+} from '../../../../../viewers/archiveSidebar/archive-sidebar-header';
 import { Item } from '@atlaskit/navigation-next';
 import HomeIcon from '@atlaskit/icon/glyph/home';
 import ArrowLeftIcon from '@atlaskit/icon/glyph/arrow-left';

@@ -32,7 +32,12 @@ function createPlugin(options: AnalyticsPluginOptions) {
   return new Plugin({
     key: analyticsPluginKey,
     state: {
-      init: () => options,
+      init: () => {
+        return {
+          ...options,
+          fireAnalytics: fireAnalyticsEvent(options.createAnalyticsEvent),
+        };
+      },
       apply: (tr, pluginState, _, state) => {
         if (getFeatureFlags(state)?.catchAllTracking) {
           const analyticsEventWithChannel = getAnalyticsEventsFromTransaction(

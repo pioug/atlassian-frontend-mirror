@@ -1,11 +1,11 @@
 jest.mock(
-  '../../../../../newgen/analytics/events/operational/zipEntryLoadSucceeded',
+  '../../../../../analytics/events/operational/zipEntryLoadSucceeded',
   () => ({
     createZipEntryLoadSucceededEvent: jest.fn(),
   }),
 );
 jest.mock(
-  '../../../../../newgen/analytics/events/operational/zipEntryLoadFailed',
+  '../../../../../analytics/events/operational/zipEntryLoadFailed',
   () => ({
     createZipEntryLoadFailedEvent: jest.fn(),
   }),
@@ -30,21 +30,18 @@ import {
   ArchiveViewerBase,
   getArchiveEntriesFromFileState,
   Props as ArchiveViewerProps,
-} from '../../../../../newgen/viewers/archiveSidebar/archive';
-import { ArchiveLayout } from '../../../../../newgen/viewers/archiveSidebar/styled';
-import { InteractiveImg } from '../../../../../newgen/viewers/image/interactive-img';
-import {
-  AudioPlayer,
-  CustomVideoPlayerWrapper,
-} from '../../../../../newgen/styled';
-import { PDFRenderer } from '../../../../../newgen/viewers/doc/pdfRenderer';
-import ArchiveSidebarRenderer from '../../../../../newgen/viewers/archiveSidebar/archive-sidebar-renderer';
-import ErrorMessage from '../../../../../newgen/errorMessage';
-import { ArchiveViewerError } from '../../../../../newgen/errors';
-import { Spinner } from '../../../../../newgen/loading';
-import { ENCRYPTED_ENTRY_ERROR_MESSAGE } from '../../../../../newgen/viewers/archiveSidebar/consts';
-import { createZipEntryLoadSucceededEvent } from '../../../../../newgen/analytics/events/operational/zipEntryLoadSucceeded';
-import { createZipEntryLoadFailedEvent } from '../../../../../newgen/analytics/events/operational/zipEntryLoadFailed';
+} from '../../../../../viewers/archiveSidebar/archive';
+import { ArchiveLayout } from '../../../../../viewers/archiveSidebar/styled';
+import { InteractiveImg } from '../../../../../viewers/image/interactive-img';
+import { AudioPlayer, CustomVideoPlayerWrapper } from '../../../../../styled';
+import { PDFRenderer } from '../../../../../viewers/doc/pdfRenderer';
+import ArchiveSidebarRenderer from '../../../../../viewers/archiveSidebar/archive-sidebar-renderer';
+import ErrorMessage from '../../../../../errorMessage';
+import { ArchiveViewerError } from '../../../../../errors';
+import { Spinner } from '../../../../../loading';
+import { ENCRYPTED_ENTRY_ERROR_MESSAGE } from '../../../../../viewers/archiveSidebar/consts';
+import { createZipEntryLoadSucceededEvent } from '../../../../../analytics/events/operational/zipEntryLoadSucceeded';
+import { createZipEntryLoadFailedEvent } from '../../../../../analytics/events/operational/zipEntryLoadFailed';
 
 describe('Archive', () => {
   const fileState: ProcessedFileState = {

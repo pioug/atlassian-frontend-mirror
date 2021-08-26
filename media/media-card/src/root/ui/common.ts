@@ -1,7 +1,4 @@
-export enum Breakpoint {
-  SMALL = 'small',
-  LARGE = 'large',
-}
+import { Breakpoint } from './Breakpoint';
 
 export const responsiveSettings = {
   [Breakpoint.SMALL]: {

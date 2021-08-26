@@ -170,4 +170,8 @@ export default class DummyBridge implements NativeBridge {
     this.log('onNodeDeselected()');
     saveToDummyBridge('onNodeDeselected', []);
   }
+
+  updateStepVersion(stepVersion?: number, error?: string) {
+    saveToDummyBridge('updateStepVersion', [stepVersion, error]);
+  }
 }

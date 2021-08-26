@@ -1,6 +1,14 @@
 import React, { useState } from 'react';
 
-import Modal, { ModalBody, ModalTransition } from '../src';
+import Button from '@atlaskit/button/standard-button';
+
+import Modal, {
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
+  ModalTitle,
+  ModalTransition,
+} from '../src';
 
 export default function Example() {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,18 +21,19 @@ export default function Example() {
 
       <ModalTransition>
         {isOpen && (
-          <Modal
-            actions={[
-              { text: 'Close', onClick: close },
-              { text: 'Secondary Action' },
-            ]}
-            components={{
-              Body: ModalBody,
-            }}
-            onClose={close}
-            heading="Modal title"
-          >
-            A simple Modal
+          <Modal onClose={close}>
+            <ModalHeader>
+              <ModalTitle>Modal title</ModalTitle>
+            </ModalHeader>
+            <ModalBody>A simple Modal</ModalBody>
+            <ModalFooter>
+              <Button testId="primary" appearance="primary" onClick={close}>
+                Close
+              </Button>
+              <Button testId="secondary" appearance="subtle">
+                Secondary Action
+              </Button>
+            </ModalFooter>
           </Modal>
         )}
       </ModalTransition>

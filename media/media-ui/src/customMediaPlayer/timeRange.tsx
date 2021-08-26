@@ -17,6 +17,7 @@ export interface TimeRangeProps {
   onChange: (newTime: number) => void;
   disableThumbTooltip: boolean;
   isAlwaysActive: boolean;
+  onChanged?: () => void;
 }
 
 export interface TimeRangeState {
@@ -93,9 +94,15 @@ export class TimeRange extends Component<TimeRangeProps, TimeRangeState> {
   };
 
   onMouseUp = () => {
+    const { onChanged } = this.props;
     // As soon as user finished dragging, we should clean up events.
     document.removeEventListener('mouseup', this.onMouseUp);
     document.removeEventListener('mousemove', this.onMouseMove);
+
+    if (onChanged) {
+      onChanged();
+    }
+
     this.setState({
       isDragging: false,
     });

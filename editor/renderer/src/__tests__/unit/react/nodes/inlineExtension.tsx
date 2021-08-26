@@ -68,6 +68,7 @@ describe('Renderer - React/Nodes/InlineExtension', () => {
         extensionType="com.atlassian.fabric"
         extensionKey="default"
         text="This is the default text"
+        localId="c145e554-f571-4208-a0f1-2170e1987722"
       />,
     );
 
@@ -85,6 +86,7 @@ describe('Renderer - React/Nodes/InlineExtension', () => {
         rendererContext={rendererContext}
         extensionType="com.atlassian.fabric"
         extensionKey="react"
+        localId="c145e554-f571-4208-a0f1-2170e1987722"
       />,
     );
 
@@ -102,6 +104,7 @@ describe('Renderer - React/Nodes/InlineExtension', () => {
         rendererContext={rendererContext}
         extensionType="com.atlassian.fabric"
         extensionKey="error"
+        localId="c145e554-f571-4208-a0f1-2170e1987722"
       />,
     );
 
@@ -122,6 +125,7 @@ describe('Renderer - React/Nodes/InlineExtension', () => {
         rendererContext={rendererContext}
         extensionType="com.atlassian.fabric"
         extensionKey="react"
+        localId="c145e554-f571-4208-a0f1-2170e1987722"
       />,
     );
 
@@ -131,6 +135,7 @@ describe('Renderer - React/Nodes/InlineExtension', () => {
       extensionKey: 'react',
       parameters: undefined,
       content: undefined,
+      localId: 'c145e554-f571-4208-a0f1-2170e1987722',
     });
 
     extension.unmount();
@@ -164,6 +169,7 @@ describe('Renderer - React/Nodes/InlineExtension', () => {
           parameters={{
             words: 'lorem ipsum',
           }}
+          localId="c145e554-f571-4208-a0f1-2170e1987722"
         />,
       );
 
@@ -193,6 +199,7 @@ describe('Renderer - React/Nodes/InlineExtension', () => {
           parameters={{
             words: 'lorem ipsum',
           }}
+          localId="c145e554-f571-4208-a0f1-2170e1987722"
         />,
       );
 
@@ -216,6 +223,7 @@ describe('Renderer - React/Nodes/InlineExtension', () => {
           parameters={{
             words: 'lorem ipsum',
           }}
+          localId="c145e554-f571-4208-a0f1-2170e1987722"
         />,
       );
 

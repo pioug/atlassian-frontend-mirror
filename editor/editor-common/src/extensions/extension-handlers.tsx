@@ -2,8 +2,6 @@ import React from 'react';
 
 import Loadable, { LoadingComponentProps } from 'react-loadable';
 
-import { ADFEntity } from '@atlaskit/adf-utils';
-
 import { getExtensionKeyAndNodeKey, resolveImport } from './manifest-helpers';
 import {
   ExtensionKey,
@@ -11,6 +9,7 @@ import {
   ExtensionProvider,
   ExtensionType,
 } from './types';
+import { ReferenceEntity } from './types/extension-handler';
 
 export async function getExtensionModuleNode(
   extensionProvider: ExtensionProvider,
@@ -83,7 +82,10 @@ export function getNodeRenderer<T>(
   extensionType: ExtensionType,
   extensionKey: ExtensionKey,
 ) {
-  return Loadable<{ node: ExtensionParams<T>; refNode?: ADFEntity }, any>({
+  return Loadable<
+    { node: ExtensionParams<T>; references?: ReferenceEntity[] },
+    any
+  >({
     loader: () => {
       return getExtensionModuleNode(
         extensionProvider,

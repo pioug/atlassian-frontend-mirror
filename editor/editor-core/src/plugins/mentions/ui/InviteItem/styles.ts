@@ -11,23 +11,25 @@ export interface NameSectionStyleProps {
   restricted?: boolean;
 }
 
+export const ROW_SIDE_PADDING = 14;
 export const RowStyle: ComponentClass<HTMLAttributes<{}>> = styled.div`
   align-items: center;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   overflow: hidden;
-  padding: 6px 14px;
+  padding: 6px ${ROW_SIDE_PADDING}px;
   text-overflow: ellipsis;
   vertical-align: middle;
 `;
 
+export const AVATAR_HEIGHT = 36;
 export const AvatarStyle: ComponentClass<HTMLAttributes<{}>> = styled.span`
   position: relative;
   flex: initial;
   opacity: inherit;
   width: 36px;
-  height: 36px;
+  height: ${AVATAR_HEIGHT}px;
 
   > span {
     width: 24px;

@@ -1,11 +1,11 @@
-jest.mock('../../../newgen/analytics', () => {
-  const actualModule = jest.requireActual('../../../newgen/analytics');
+jest.mock('../../../analytics', () => {
+  const actualModule = jest.requireActual('../../../analytics');
   return {
     ...actualModule,
     fireAnalytics: jest.fn(),
   };
 });
-import { fireAnalytics } from '../../../newgen/analytics';
+import { fireAnalytics } from '../../../analytics';
 import * as mocks from './item-viewer.mock';
 import React from 'react';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
@@ -31,27 +31,18 @@ import {
   ItemViewerBase,
   Props as ItemViewerBaseProps,
   State as ItemViewerBaseState,
-} from '../../../newgen/item-viewer';
-import { ErrorMessage } from '../../../newgen/errorMessage';
-import {
-  MediaViewerError,
-  MediaViewerErrorReason,
-} from '../../../newgen/errors';
-import { ImageViewer } from '../../../newgen/viewers/image';
-import { ErrorViewDownloadButton } from '../../../newgen/download';
-import {
-  VideoViewer,
-  Props as VideoViewerProps,
-} from '../../../newgen/viewers/video';
-import {
-  AudioViewer,
-  Props as AudioViewerProps,
-} from '../../../newgen/viewers/audio';
-import { DocViewer } from '../../../newgen/viewers/doc';
-import { InteractiveImg } from '../../../newgen/viewers/image/interactive-img';
-import ArchiveViewerLoader from '../../../newgen/viewers/archiveSidebar/archiveViewerLoader';
+} from '../../../item-viewer';
+import { ErrorMessage } from '../../../errorMessage';
+import { MediaViewerError, MediaViewerErrorReason } from '../../../errors';
+import { ImageViewer } from '../../../viewers/image';
+import { ErrorViewDownloadButton } from '../../../download';
+import { VideoViewer, Props as VideoViewerProps } from '../../../viewers/video';
+import { AudioViewer, Props as AudioViewerProps } from '../../../viewers/audio';
+import { DocViewer } from '../../../viewers/doc';
+import { InteractiveImg } from '../../../viewers/image/interactive-img';
+import ArchiveViewerLoader from '../../../viewers/archiveSidebar/archiveViewerLoader';
 import { MediaFeatureFlags } from '@atlaskit/media-common';
-import { CodeViewer } from '../../../newgen/viewers/codeViewer';
+import { CodeViewer } from '../../../viewers/codeViewer';
 
 const identifier: Identifier = {
   id: 'some-id',

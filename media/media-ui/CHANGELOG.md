@@ -1,5 +1,26 @@
 # @atlaskit/media-ui
 
+## 16.6.0
+
+### Minor Changes
+
+- [`4777a174e6d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4777a174e6d) - Added analytics support for customMediaPlayer + screen event + entrypoint for locales
+- [`8f9f7250bba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8f9f7250bba) - CustomMediaPlayer: refactored screen event + added "viewed" track event
+- [`5662f7f329c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5662f7f329c) - Added analytics track event for tracking the total playcount for each individual video based on the first time a video is played
+- [`ab905c0e924`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ab905c0e924) - [ux] EDM-1641: add floating toolbar to media card and view switcher for inline view
+- [`46d9d2872b4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/46d9d2872b4) - Video Analytics - Add UI events for CustomMediaPlayer
+- [`9c0241362a6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9c0241362a6) - [ux] Upgrade to the latest version of @atlaskit/modal-dialog. This change includes shifting the primary button in the footer of the modal to be on the right instead of the left.
+
+### Patch Changes
+
+- [`abb74b2f8a4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/abb74b2f8a4) - Filter out undefined attributes in video analytics, add actionSubjectId in screen event
+- [`a46eca1d68c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a46eca1d68c) - [ux] Fix ellipsified text issue when used in MediaAvatarPicker inside a modal
+- [`35d85025b4d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/35d85025b4d) - MEX-860 Changed base track events payload + added CustomMediaPlayerType
+- [`b90c0237824`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b90c0237824) - Update package.jsons to remove unused dependencies.
+- [`bab5f91af08`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bab5f91af08) - Add UI events for the case when TimeRange's value changed
+- [`64216e944dd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/64216e944dd) - Fixed track event "played" + added test
+- Updated dependencies
+
 ## 16.5.0
 
 ### Minor Changes

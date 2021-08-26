@@ -295,4 +295,10 @@ export default class AndroidBridge implements NativeBridge {
       this.toolbarBridge.onNodeDeselected();
     }
   }
+
+  updateStepVersion(stepVersion?: number, error?: string) {
+    if (this.collabBridge) {
+      this.collabBridge.updateStepVersion(stepVersion, error);
+    }
+  }
 }

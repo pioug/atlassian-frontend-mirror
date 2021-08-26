@@ -63,12 +63,8 @@ import {
   shouldFetchRemoteFileStates,
   shouldFetchRemoteFileStatesObservable,
 } from '../../utils/shouldFetchRemoteFileStates';
-import { PollingFunction } from '../../utils/polling';
+import { getPollingOptions, PollingFunction } from '../../utils/polling';
 import { isEmptyFile } from '../../utils/detectEmptyFile';
-import {
-  PollingOptions,
-  getMediaFeatureFlag,
-} from '@atlaskit/media-common/mediaFeatureFlags';
 
 export type {
   FileFetcherErrorAttributes,
@@ -187,28 +183,9 @@ export class FileFetcherImpl implements FileFetcher {
     occurrenceKey?: string,
   ): ReplaySubject<FileState> => {
     const subject = createFileStateSubject();
-    const { featureFlags } = this.mediaStore;
-
-    const pollingOptions: PollingOptions = {
-      poll_intervalMs: getMediaFeatureFlag<number>(
-        'poll_intervalMs',
-        featureFlags,
-      ),
-      poll_maxAttempts: getMediaFeatureFlag<number>(
-        'poll_maxAttempts',
-        featureFlags,
-      ),
-      poll_backoffFactor: getMediaFeatureFlag<number>(
-        'poll_backoffFactor',
-        featureFlags,
-      ),
-      poll_maxIntervalMs: getMediaFeatureFlag<number>(
-        'poll_maxIntervalMs',
-        featureFlags,
-      ),
-    };
-
-    const poll = new PollingFunction(pollingOptions);
+    const poll = new PollingFunction(
+      getPollingOptions(this.mediaStore.featureFlags),
+    );
 
     // ensure subject errors if polling exceeds max iterations or uncaught exception in executor
     poll.onError = (error: Error) => subject.error(error);

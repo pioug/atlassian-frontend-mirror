@@ -45,7 +45,16 @@ export function onSelectionChanged(
   tr: Transaction,
   pluginState: DatePluginState,
 ): DatePluginState {
-  if (!isDateNodeSelection(tr.selection)) {
+  if (tr.docChanged && isDateNodeSelection(tr.selection)) {
+    return {
+      ...pluginState,
+      isQuickInsertAction: false,
+      showDatePickerAt: tr.selection.from,
+    };
+  } else if (
+    !isDateNodeSelection(tr.selection) &&
+    !pluginState.isQuickInsertAction
+  ) {
     if (pluginState.showDatePickerAt) {
       return {
         showDatePickerAt: null,

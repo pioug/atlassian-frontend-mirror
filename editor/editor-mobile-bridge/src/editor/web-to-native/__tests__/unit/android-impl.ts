@@ -19,6 +19,7 @@ function createAndroidMockBridge(): [AndroidBridge, Window] {
       emit: jest.fn(),
       disconnect: jest.fn(),
       connect: jest.fn(),
+      updateStepVersion: jest.fn(),
     },
     linkBridge: {
       currentSelection: jest.fn(),
@@ -325,6 +326,24 @@ describe('Web To Native', () => {
         expect(
           windowWithMockBridges.toolbarBridge!.onNodeDeselected,
         ).toBeCalled();
+      });
+    });
+
+    describe('Collab Bridge', () => {
+      it('should call updateStepVersion in with version', () => {
+        androidBridge.updateStepVersion(100);
+
+        expect(
+          windowWithMockBridges.collabBridge?.updateStepVersion,
+        ).toBeCalledWith(100, undefined);
+      });
+
+      it('should call updateStepVersion in with error', () => {
+        androidBridge.updateStepVersion(undefined, 'Error');
+
+        expect(
+          windowWithMockBridges.collabBridge?.updateStepVersion,
+        ).toBeCalledWith(undefined, 'Error');
       });
     });
   });

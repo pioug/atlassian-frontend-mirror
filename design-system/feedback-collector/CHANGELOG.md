@@ -1,5 +1,17 @@
 # @atlaskit/feedback-collector
 
+## 7.0.0
+
+### Major Changes
+
+- [`b000daa6f08`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b000daa6f08) - [ux] Refactor to use new modal dialog API. This includes button order being reversed so that the primary button is on the right.
+
+### Patch Changes
+
+- [`5fe6e21a9a0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5fe6e21a9a0) - [ux] Upgrade to the latest version of @atlaskit/modal-dialog. This change includes shifting the primary button in the footer of the modal to be on the right instead of the left.
+- [`b90c0237824`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b90c0237824) - Update package.jsons to remove unused dependencies.
+- Updated dependencies
+
 ## 6.2.0
 
 ### Minor Changes

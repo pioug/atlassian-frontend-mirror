@@ -10,8 +10,10 @@ import {
   getNodeRenderer,
   ExtensionProvider,
   getExtensionModuleNodePrivateProps,
+  ReferenceEntity,
+  ExtensionParams,
+  Parameters,
 } from '@atlaskit/editor-common';
-import { ADFEntity } from '@atlaskit/adf-utils';
 
 import Extension from './Extension';
 import InlineExtension from './InlineExtension';
@@ -22,7 +24,7 @@ export interface Props {
   handleContentDOMRef: (node: HTMLElement | null) => void;
   extensionHandlers: ExtensionHandlers;
   extensionProvider?: Promise<ExtensionProvider>;
-  refNode?: ADFEntity;
+  references?: ReferenceEntity[];
   editorAppearance?: EditorAppearance;
 }
 
@@ -81,7 +83,7 @@ export default class ExtensionComponent extends Component<Props, State> {
       node,
       handleContentDOMRef,
       editorView,
-      refNode,
+      references,
       editorAppearance,
     } = this.props;
     const extensionHandlerResult = this.tryExtensionHandler();
@@ -92,7 +94,7 @@ export default class ExtensionComponent extends Component<Props, State> {
         return (
           <Extension
             node={node}
-            refNode={refNode}
+            references={references}
             extensionProvider={this.state.extensionProvider}
             handleContentDOMRef={handleContentDOMRef}
             view={editorView}
@@ -191,7 +193,7 @@ export default class ExtensionComponent extends Component<Props, State> {
       return;
     }
 
-    const node = {
+    const node: ExtensionParams<Parameters> = {
       type: pmNode.type.name as
         | 'extension'
         | 'inlineExtension'
@@ -200,6 +202,7 @@ export default class ExtensionComponent extends Component<Props, State> {
       extensionKey,
       parameters,
       content: text,
+      localId: pmNode.attrs.localId,
     };
 
     let result;
@@ -220,7 +223,7 @@ export default class ExtensionComponent extends Component<Props, State> {
 
       if (extensionHandlerFromProvider) {
         const NodeRenderer = extensionHandlerFromProvider;
-        return <NodeRenderer node={node} refNode={this.props.refNode} />;
+        return <NodeRenderer node={node} references={this.props.references} />;
       }
     }
 

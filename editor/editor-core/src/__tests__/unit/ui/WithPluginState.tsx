@@ -130,7 +130,7 @@ describe(name, () => {
         setTimeoutPromise(() => dispatch(pluginKey, {}), 5),
       ]);
 
-      expect(renderMock.mock.calls.length).toBeLessThan(6);
+      expect(renderMock.mock.calls.length).toBeLessThanOrEqual(6);
       wrapper.unmount();
       editorView.destroy();
     });

@@ -1,11 +1,30 @@
 /** @jsx jsx */
 import { jsx, InterpolationWithTheme } from '@emotion/core';
 import { Component, FC } from 'react';
+
 import RadioIcon from '@atlaskit/icon/glyph/radio';
 import CheckboxIcon from '@atlaskit/icon/glyph/checkbox';
 import { themed } from '@atlaskit/theme/components';
 import { gridSize } from '@atlaskit/theme/constants';
-import * as colors from '@atlaskit/theme/colors';
+import { ThemedValue } from '@atlaskit/theme/types';
+import {
+  B100,
+  B200,
+  B300,
+  B400,
+  B75,
+  DN200,
+  DN10,
+  DN30,
+  N20A,
+  N0,
+  N100,
+  N20,
+  N30,
+  N70,
+} from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
+
 import { OptionProps, OptionType } from '../types';
 
 const getPrimitiveStyles = (
@@ -15,16 +34,23 @@ const getPrimitiveStyles = (
 
   const styles = {
     alignItems: 'center',
-    backgroundColor: isFocused ? colors.N20 : 'transparent',
-    color: 'inherit',
+    backgroundColor: isFocused
+      ? token('color.background.transparentNeutral.hover', N20)
+      : 'transparent',
+    color: isDisabled ? token('color.text.disabled', 'inherit') : 'inherit',
     display: 'flex ',
     paddingBottom: 4,
     paddingLeft: `${gridSize() * 2}px`,
     paddingTop: 4,
-    boxShadow: isFocused ? `inset 2px 0px 0px ${colors.B400};` : '',
+    boxShadow: isFocused
+      ? `inset 2px 0px 0px ${token('color.text.selected', B400)};`
+      : '',
 
     ':active': {
-      backgroundColor: colors.N30,
+      backgroundColor: token(
+        'color.background.transparentNeutral.pressed',
+        N30,
+      ),
     },
 
     '@media screen and (-ms-high-contrast: active)': {
@@ -48,7 +74,10 @@ const getPrimitiveStyles = (
 };
 
 // maintains function shape
-const backgroundColor = themed({ light: colors.N0, dark: colors.DN10 });
+const backgroundColor = themed({
+  light: token('color.background.subtleNeutral.resting', N0),
+  dark: token('color.background.subtleNeutral.resting', DN10),
+});
 const transparent = themed({ light: 'transparent', dark: 'transparent' });
 
 // state of the parent option
@@ -67,19 +96,42 @@ const getPrimaryColor = ({
   isSelected,
   ...rest
 }: ControlProps): string => {
-  let color = backgroundColor;
+  let color: ThemedValue<string> = backgroundColor;
   if (isDisabled && isSelected) {
-    color = themed({ light: colors.B75, dark: colors.DN200 });
+    color = themed({
+      light: token('color.background.disabled', B75),
+      dark: token('color.background.disabled', DN200),
+    });
   } else if (isDisabled) {
-    color = themed({ light: colors.N20A, dark: colors.DN10 });
+    color = themed({
+      light: token('color.background.disabled', N20A),
+      dark: token('color.background.disabled', DN10),
+    });
+  } else if (isSelected && isActive) {
+    color = themed({
+      light: token('color.background.boldBrand.pressed', B75),
+      dark: token('color.background.boldBrand.pressed', B200),
+    });
   } else if (isActive) {
-    color = themed({ light: colors.B75, dark: colors.B200 });
+    color = themed({
+      light: token('color.background.subtleBrand.pressed', B75),
+      dark: token('color.background.subtleBrand.pressed', B200),
+    });
   } else if (isFocused && isSelected) {
-    color = themed({ light: colors.B300, dark: colors.B75 });
+    color = themed({
+      light: token('color.background.boldBrand.hover', B300),
+      dark: token('color.background.boldBrand.hover', B75),
+    });
   } else if (isFocused) {
-    color = themed({ light: colors.N0, dark: colors.DN30 });
+    color = themed({
+      light: token('color.background.default', N0),
+      dark: token('color.background.default', DN30),
+    });
   } else if (isSelected) {
-    color = colors.blue;
+    color = themed({
+      light: token('color.background.boldBrand.resting', B400),
+      dark: token('color.background.boldBrand.resting', B100),
+    });
   }
   return color(rest);
 };
@@ -91,16 +143,51 @@ const getSecondaryColor = ({
   isSelected,
   ...rest
 }: ControlProps): string => {
-  let color = themed({ light: colors.N0, dark: colors.DN10 });
+  let color: ThemedValue<string> = themed({
+    light: token('color.background.default', N0),
+    dark: token('color.background.default', DN10),
+  });
 
   if (isDisabled && isSelected) {
-    color = themed({ light: colors.N70, dark: colors.DN10 });
+    color = themed({
+      light: token('color.text.disabled', N70),
+      dark: token('color.text.disabled', DN10),
+    });
   } else if (isActive && isSelected && !isDisabled) {
-    color = themed({ light: colors.B400, dark: colors.DN10 });
+    color = themed({
+      light: token('color.background.default', B400),
+      dark: token('color.background.default', DN10),
+    });
   } else if (!isSelected) {
     color = transparent;
   }
   return color(rest);
+};
+
+// the border color surrounds the checkbox/radio
+const getBorderColor = ({
+  isActive,
+  isDisabled,
+  isFocused,
+  isSelected,
+  ...rest
+}: ControlProps): string => {
+  if (isDisabled && isSelected) {
+    return token('color.background.disabled', B400);
+  } else if (isDisabled) {
+    return token('color.background.disabled', N100);
+  } else if (isSelected && isActive) {
+    return token('color.background.boldBrand.pressed', B400);
+  } else if (isActive) {
+    return token('color.background.boldBrand.resting', B400);
+  } else if (isFocused && isSelected) {
+    return token('color.background.boldBrand.hover', B400);
+  } else if (isFocused) {
+    return token('color.border.neutral', N100);
+  } else if (isSelected) {
+    return token('color.background.boldBrand.resting', B400);
+  }
+  return token('color.border.neutral', N100);
 };
 
 interface OptionState {
@@ -151,10 +238,7 @@ class ControlOption<
             // This is an a11y fix for Select only for now but it may be rolled
             // into the `@atlaskit/icon` package's Checkbox and Radio SVGs later
             '& svg rect, & svg circle:first-of-type': {
-              stroke:
-                this.state.isActive || this.props.isSelected
-                  ? colors.B400
-                  : colors.N100,
+              stroke: getBorderColor({ ...this.props, ...this.state }),
               strokeWidth: '2px',
               strokeLinejoin: 'round',
             },

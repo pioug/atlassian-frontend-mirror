@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import styled, { ThemedOuterStyledProps } from 'styled-components';
 import * as exenv from 'exenv';
 export interface WrapperProps {
@@ -27,23 +27,30 @@ export const Ellipsify = ({
   endLength,
   inline,
   testId,
-}: EllipsifyProps): JSX.Element => (
-  <Wrapper
-    className="ellipsed-text"
-    innerRef={setEllipsis({ lines, endLength })}
-    aria-label={text}
-    inline={inline}
-    data-testid={testId}
-  >
-    {text}
-  </Wrapper>
-);
+}: EllipsifyProps): JSX.Element => {
+  const element = useRef<HTMLElement>(null);
 
-const setEllipsis = (props: EllipsifyProps) => (element: HTMLElement) => {
-  if (!element) {
-    return;
-  }
+  useEffect(() => {
+    if (!element.current) {
+      return;
+    }
+    setEllipsis(element.current, { lines, endLength });
+  }, [element, lines, endLength]);
 
+  return (
+    <Wrapper
+      className="ellipsed-text"
+      innerRef={element}
+      aria-label={text}
+      inline={inline}
+      data-testid={testId}
+    >
+      {text}
+    </Wrapper>
+  );
+};
+
+const setEllipsis = (element: HTMLElement, props: EllipsifyProps) => {
   const maximumLines = props.lines;
   const height = element.getBoundingClientRect().height;
   const text = element.textContent as string;

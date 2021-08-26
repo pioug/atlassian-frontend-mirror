@@ -108,6 +108,7 @@ const InsertMenu = ({
         <ElementBrowser
           mode="inline"
           getItems={getItems(quickInsertState)}
+          emptyStateHandler={quickInsertState?.emptyStateHandler}
           onInsertItem={onInsertItem}
           showSearch
           showCategories={false}

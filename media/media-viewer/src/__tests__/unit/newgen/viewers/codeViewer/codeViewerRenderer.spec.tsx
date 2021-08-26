@@ -4,12 +4,12 @@ import {
   CodeViewRenderer,
   Props,
   State,
-} from '../../../../../newgen/viewers/codeViewer/codeViewerRenderer';
-import { Spinner } from '../../../../../newgen/loading';
-import { ErrorMessage } from '../../../../../newgen/errorMessage';
+} from '../../../../../viewers/codeViewer/codeViewerRenderer';
+import { Spinner } from '../../../../../loading';
+import { ErrorMessage } from '../../../../../errorMessage';
 import { mountWithIntlContext } from '@atlaskit/media-test-helpers';
-import { Outcome } from '../../../../../newgen/domain';
-import { MediaViewerError } from '../../../../../newgen/errors';
+import { Outcome } from '../../../../../domain';
+import { MediaViewerError } from '../../../../../errors';
 import { CodeBlock } from '@atlaskit/code';
 
 const defaultSrc = 'hello\n';

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import styled, { keyframes } from 'styled-components';
+import styled from '@emotion/styled';
+import { keyframes } from '@emotion/core';
 import { WidthObserver } from '../src';
 
 const startSize = 150;

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { locales } from '@atlaskit/media-ui';
 import { IntlProvider, addLocaleData } from 'react-intl';
 import LocaleSelect, {
   Locale,
   defaultLocales,
 } from '@atlaskit/locale/LocaleSelect';
+import { locales } from '@atlaskit/media-ui/locales';
 
 function getMessages(localeValue: string) {
   const lang = localeValue.substring(0, 2);

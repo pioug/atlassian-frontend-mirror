@@ -50,15 +50,13 @@ BrowserTestCase(
     const modal = await (await page.$(modalPortalSelector)).$(
       parentModalDialogSelector,
     );
-    const modalHeader = await modal.$(
-      '[data-testid="modal-dialog-content--header"]',
-    );
+    const modalHeader = await modal.$('[data-testid="modal--header"]');
     await modal.waitForDisplayed();
     const isModalExisting = await modal.isExisting();
     const modalHeaderText = await modalHeader.getText();
 
     expect(isModalExisting).toBe(true);
-    expect(modalHeaderText).toBe('Modal dialog 🔥');
+    expect(modalHeaderText).toBe('Modal dialog');
 
     await page.checkConsoleErrors();
   },

@@ -16,13 +16,13 @@ import {
   asMockReturnValue,
 } from '@atlaskit/media-test-helpers';
 import { MediaButton } from '@atlaskit/media-ui';
-import { Header, State as HeaderState } from '../../../newgen/header';
+import { Header, State as HeaderState } from '../../../header';
 import {
   MetadataFileName,
   MetadataSubText,
   Header as HeaderWrapper,
-} from '../../../newgen/styled';
-import { LeftHeader } from '../../../newgen/styled';
+} from '../../../styled';
+import { LeftHeader } from '../../../styled';
 import Button from '@atlaskit/button/custom-theme-button';
 
 const identifier: Identifier = {

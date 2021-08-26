@@ -40,6 +40,7 @@ export const KitchenSinkRenderer: React.StatelessComponent<KitchenSinkRendererPr
             media={{
               featureFlags: { ...exampleMediaFeatureFlags, captions: true },
               allowLinking: true,
+              enableDownloadButton: true,
             }}
             allowCopyToClipboard={true}
             useSpecBasedValidator={true}

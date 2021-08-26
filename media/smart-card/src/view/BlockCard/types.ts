@@ -5,7 +5,7 @@ import {
   CardProviderRenderers,
 } from '../../state/context/types';
 import { AnalyticsHandler } from '../../utils/types';
-import { OnResolveCallback } from '../Card/types';
+import { OnResolveCallback, CardPlatform } from '../Card/types';
 
 export type BlockCardProps = {
   url: string;
@@ -21,4 +21,5 @@ export type BlockCardProps = {
   testId?: string;
   showActions?: boolean;
   renderers?: CardProviderRenderers;
+  platform?: CardPlatform;
 };

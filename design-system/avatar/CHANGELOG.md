@@ -1,5 +1,13 @@
 # @atlaskit/avatar
 
+## 20.4.1
+
+### Patch Changes
+
+- [`0a759df738f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0a759df738f) - When Avatar is not interactive and no `name` prop is provided, `role` and an empty `aria-label` attributes are not rendered anymore. Screen readers consider these images as decorative now and doesn't announce them as "Unlabeled image".
+- [`016d19b8038`](https://bitbucket.org/atlassian/atlassian-frontend/commits/016d19b8038) - [ux] When avatars are disabled they no longer will appear as interactive.
+- Updated dependencies
+
 ## 20.4.0
 
 ### Minor Changes

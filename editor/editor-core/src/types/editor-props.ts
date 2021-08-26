@@ -38,6 +38,7 @@ import { PerformanceTracking } from './performance-tracking';
 import { PanelPluginConfig } from './../plugins/panel/types';
 import { EditorPlugin } from './editor-plugin';
 import { MentionPluginConfig } from './../plugins/mentions/types';
+import { EmptyStateHandler } from './empty-state-handler';
 
 export type ReactComponents = ReactElement<any> | ReactElement<any>[];
 
@@ -318,6 +319,7 @@ export interface EditorProps {
     showModal?: boolean;
     replacePlusMenu?: boolean;
     helpUrl?: string;
+    emptyStateHandler?: EmptyStateHandler;
   };
 
   codeBlock?: CodeBlockOptions;

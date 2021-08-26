@@ -5,6 +5,7 @@ import Button from '@atlaskit/button/standard-button';
 import EmojiCustomIcon from '@atlaskit/icon/glyph/emoji/custom';
 import UserAvatarCircleIcon from '@atlaskit/icon/glyph/user-avatar-circle';
 import { N30, N40 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import {
   ButtonItem,
@@ -30,13 +31,16 @@ const Item = ({ isLoading, ...props }: any) => {
     icon = (
       <span
         style={{
-          background: N30,
+          background: token('color.text.onBold', N30),
           borderRadius: '50%',
           width: 24,
           height: 24,
         }}
       >
-        <UserAvatarCircleIcon primaryColor={N40} label="" />
+        <UserAvatarCircleIcon
+          primaryColor={token('color.text.lowEmphasis', N40)}
+          label=""
+        />
       </span>
     );
     content = 'John Smith';
@@ -76,7 +80,7 @@ export default () => {
         <div
           style={{
             width: '200px',
-            border: '1px solid #EFEFEF',
+            border: `1px solid ${token('color.border.neutral', '#EFEFEF')}`,
             margin: '10px auto',
             borderRadius: '4px',
             alignSelf: 'flex-start',
@@ -104,7 +108,7 @@ export default () => {
         <div
           style={{
             width: '200px',
-            border: '1px solid #EFEFEF',
+            border: `1px solid ${token('color.border.neutral', '#EFEFEF')}`,
             margin: '10px auto',
             borderRadius: '4px',
           }}

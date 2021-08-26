@@ -166,7 +166,7 @@ const datePlugin = (): EditorPlugin => ({
         keyshortcut: '//',
         icon: () => <IconDate />,
         action(insert, state) {
-          const tr = createDate()(insert, state);
+          const tr = createDate(true)(insert, state);
 
           addAnalytics(state, tr, {
             action: ACTION.INSERTED,

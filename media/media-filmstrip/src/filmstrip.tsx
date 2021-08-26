@@ -21,6 +21,7 @@ export interface FilmstripItem {
   readonly selected?: boolean;
   readonly onClick?: CardOnClickCallback;
   readonly onMouseEnter?: (result: CardEvent) => void;
+  readonly shouldEnableDownloadButton?: boolean;
 }
 
 export type FilmstripProps = {

@@ -1,11 +1,12 @@
 jest.mock('../../utils/getElementDimension');
-jest.mock('../../root/ui/styled', () => {
-  const original = jest.requireActual('../../root/ui/styled');
+jest.mock('../../root/ui/styledSSR', () => {
+  const original = jest.requireActual('../../root/ui/styledSSR');
   return {
     ...original,
     calcBreakpointSize: jest.fn(original.calcBreakpointSize),
   };
 });
+
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { CardViewBase, CardViewOwnProps } from '../../root/cardView';
@@ -19,11 +20,8 @@ import { ImageRenderer } from '../../root/ui/imageRenderer/imageRenderer';
 import { TickBox } from '../../root/ui/tickBox/tickBox';
 import { MimeTypeIcon } from '@atlaskit/media-ui/mime-type-icon';
 import { FailedTitleBox } from '../../root/ui/titleBox/failedTitleBox';
-import { MediaTypeIcon } from '@atlaskit/media-ui/media-type-icon';
-import {
-  NewFileExperienceWrapper,
-  calcBreakpointSize,
-} from '../../root/ui/styled';
+import { NewFileExperienceWrapper } from '../../root/ui/styled';
+import { calcBreakpointSize } from '../../root/ui/styledSSR';
 import { getDefaultCardDimensions } from '../../utils/cardDimensions';
 import { getElementDimension } from '../../utils/getElementDimension';
 import Tooltip from '@atlaskit/tooltip';
@@ -81,6 +79,7 @@ describe('CardView New Experience', () => {
       appearance: 'auto',
       onClick: () => {},
       onMouseEnter: () => {},
+      timeElapsedTillCommenced: 100,
     };
 
     const component = shallowCardViewBase(cardProps);
@@ -93,7 +92,6 @@ describe('CardView New Experience', () => {
         appearance: cardProps.appearance,
         onClick: cardProps.onClick,
         onMouseEnter: cardProps.onMouseEnter,
-        mediaType: metadata.mediaType,
         disableOverlay: expect.any(Boolean),
         selected: expect.any(Boolean),
         shouldUsePointerCursor: expect.any(Boolean),
@@ -164,6 +162,7 @@ describe('CardView New Experience', () => {
     it.each([
       'uploading',
       'processing',
+      'loading-preview',
       'complete',
       'failed-processing',
       'error',
@@ -175,7 +174,7 @@ describe('CardView New Experience', () => {
       },
     );
 
-    it(`should render PlayButton when status is dataURI is defined`, () => {
+    it(`should render PlayButton when dataURI is defined`, () => {
       const metadata: FileDetails = { id: 'some-id', mediaType: 'video' };
       const component = shallowCardViewBase({
         metadata,
@@ -190,14 +189,8 @@ describe('CardView New Experience', () => {
       expect(component.find(PlayButton)).toHaveLength(0);
     });
 
-    ([
-      'uploading',
-      'processing',
-      'complete',
-      'failed-processing',
-      'error',
-    ] as Array<CardStatus>).map((status) =>
-      it(`should render a MediaTypeIcon when the dataURI is undefined and the status is ${status}`, () => {
+    (['failed-processing', 'error'] as Array<CardStatus>).map((status) =>
+      it(`should render a MediaTypeIcon when the status is ${status}`, () => {
         const metadata: FileDetails = { id: 'some-id', mediaType: 'video' };
         const component = shallowCardViewBase({
           metadata,
@@ -206,33 +199,48 @@ describe('CardView New Experience', () => {
         });
         expect(component.find(MimeTypeIcon)).toHaveLength(1);
         expect(component.find(MimeTypeIcon).prop('mediaType')).toEqual('video');
+
+        component.setProps({ dataURI: 'some-data-uri' });
+        expect(component.find(MimeTypeIcon)).toHaveLength(1);
+        expect(component.find(MimeTypeIcon).prop('mediaType')).toEqual('video');
       }),
     );
 
-    it(`should not render a MediaTypeIcon when the dataURI is undefined and status is loading`, () => {
+    it(`should not render a MediaTypeIcon when the status is loading`, () => {
       const metadata: FileDetails = { id: 'some-id', mediaType: 'video' };
       const component = shallowCardViewBase({
         metadata,
       });
-      expect(component.find(MediaTypeIcon)).toHaveLength(0);
+      expect(component.find(MimeTypeIcon)).toHaveLength(0);
+
+      component.setProps({ dataURI: 'some-data-uri' });
+      expect(component.find(MimeTypeIcon)).toHaveLength(0);
     });
 
-    ([
-      'uploading',
-      'loading',
-      'processing',
-      'complete',
-      'failed-processing',
-      'error',
-    ] as Array<CardStatus>).map((status) =>
-      it(`should not render a MediaTypeIcon when the dataURI is defined and the status is ${status}`, () => {
+    (['uploading', 'processing', 'loading-preview', 'complete'] as Array<
+      CardStatus
+    >).map((status) =>
+      it(`should not render a MediaTypeIcon when the status is ${status} and with dataURI `, () => {
+        const metadata: FileDetails = { id: 'some-id', mediaType: 'video' };
+        const component = shallowCardViewBase({
+          dataURI: 'some-data-uri',
+          metadata,
+          status,
+        });
+        expect(component.find(MimeTypeIcon)).toHaveLength(0);
+      }),
+    );
+
+    (['uploading', 'processing', 'loading-preview', 'complete'] as Array<
+      CardStatus
+    >).map((status) =>
+      it(`should render a MediaTypeIcon when the status is ${status} and without dataURI `, () => {
         const metadata: FileDetails = { id: 'some-id', mediaType: 'video' };
         const component = shallowCardViewBase({
           metadata,
-          dataURI: 'some-data-uri',
           status,
         });
-        expect(component.find(MediaTypeIcon)).toHaveLength(0);
+        expect(component.find(MimeTypeIcon)).toHaveLength(1);
       }),
     );
 
@@ -314,23 +322,6 @@ describe('CardView New Experience', () => {
       const failedTitleBoxA = componentA.find(FailedTitleBox);
       expect(failedTitleBoxA).toHaveLength(1);
       expect(failedTitleBoxA.props().breakpoint).toBeDefined();
-
-      // With broken dataURI
-      const componentB = shallowCardViewBase({
-        metadata,
-        status: 'complete',
-        dataURI: 'some-data-uri',
-      });
-
-      const imageRenderer = componentB.find(ImageRenderer);
-      expect(imageRenderer).toHaveLength(1);
-      const onImageError = imageRenderer.props().onImageError;
-      expect(onImageError).toBeInstanceOf(Function);
-      onImageError();
-
-      const failedTitleBoxB = componentB.find(FailedTitleBox);
-      expect(failedTitleBoxB).toHaveLength(1);
-      expect(failedTitleBoxB.props().breakpoint).toBeDefined();
     });
 
     it.each([createPollingMaxAttemptsError()])(
@@ -366,6 +357,12 @@ describe('CardView New Experience', () => {
 
     it(`should render CreatingPreview when status is processing`, () => {
       const component = shallowCardViewBase({ status: 'processing' });
+      const creatingPreview = component.find(CreatingPreview);
+      expect(creatingPreview).toHaveLength(1);
+    });
+
+    it(`should render CreatingPreview when status is loading-preview`, () => {
+      const component = shallowCardViewBase({ status: 'loading-preview' });
       const creatingPreview = component.find(CreatingPreview);
       expect(creatingPreview).toHaveLength(1);
     });
@@ -433,6 +430,15 @@ describe('CardView New Experience', () => {
       });
       const previewUnavailable = component.find(PreviewUnavailable);
       expect(previewUnavailable).toHaveLength(1);
+
+      // With broken dataURI
+      const componentB = shallowCardViewBase({
+        status: 'failed-processing',
+        metadata: metadata,
+        dataURI: 'some-data-uri',
+      });
+
+      expect(componentB.find(PreviewUnavailable)).toHaveLength(1);
     });
 
     it.each([createPollingMaxAttemptsError()])(
@@ -470,6 +476,7 @@ describe('CardView New Experience', () => {
         alt: 'some-image',
         resizeMode: 'crop',
         onDisplayImage: () => {},
+        timeElapsedTillCommenced: 100,
       };
       const component = shallowCardViewBase(cardProps);
       const imageRenderer = component.find(ImageRenderer);

@@ -99,6 +99,13 @@ export type {
   FileState,
 } from './models/file-state';
 
+export type {
+  MobileUploadStartEvent,
+  MobileUploadProgressEvent,
+  MobileUploadEndEvent,
+  MobileUploadErrorEvent,
+} from './models/mobile-upload';
+
 export { getFileStreamsCache, StreamsCache } from './file-streams-cache';
 
 export { uploadFile } from './uploader';

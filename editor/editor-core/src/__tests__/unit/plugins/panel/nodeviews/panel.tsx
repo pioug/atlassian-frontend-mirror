@@ -147,7 +147,7 @@ describe('Panel - NodeView', () => {
             shortName: ':smiley:',
           },
           emojiProvider: emojiProvider,
-          fitToHeight: 16,
+          fitToHeight: 20,
           showTooltip: false,
         }),
         expect.any(Object),
@@ -160,6 +160,30 @@ describe('Panel - NodeView', () => {
       expect(panelElement.style.backgroundColor).toEqual('');
       expect(panelElement.getAttribute('data-panel-type')).toBe('custom');
       expect(ResourcedEmoji).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('mutation', () => {
+    it(`should ignore mutations inside panel nodeview`, () => {
+      const { editorView } = createEditor({
+        doc: doc(p()),
+      });
+
+      const node = panel()(p('this is the decision'))(defaultSchema);
+
+      const providerFactory = ProviderFactory.create({});
+      const panelPluginOptions: PanelPluginOptions = {};
+      const nodeView = getPanelNodeView(panelPluginOptions, providerFactory)(
+        node,
+        editorView,
+        () => -1,
+      );
+
+      const mutation: MutationRecord = {
+        target: nodeView.icon,
+      } as any;
+
+      expect(nodeView.ignoreMutation!(mutation)).toBe(true);
     });
   });
 });

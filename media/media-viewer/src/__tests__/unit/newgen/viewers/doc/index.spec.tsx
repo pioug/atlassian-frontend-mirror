@@ -13,14 +13,14 @@ import {
   expectFunctionToHaveBeenCalledWith,
   nextTick,
 } from '@atlaskit/media-test-helpers';
-import { Spinner } from '../../../../../newgen/loading';
-import { MediaViewerError } from '../../../../../newgen/errors';
-import { DocViewer, Props } from '../../../../../newgen/viewers/doc/index';
-import { BaseState } from '../../../../../newgen/viewers/base-viewer';
-import { Content } from '../../../../../newgen/content';
-import { getObjectUrlFromFileState } from '../../../../../newgen/utils/getObjectUrlFromFileState';
+import { Spinner } from '../../../../../loading';
+import { MediaViewerError } from '../../../../../errors';
+import { DocViewer, Props } from '../../../../../viewers/doc/index';
+import { BaseState } from '../../../../../viewers/base-viewer';
+import { Content } from '../../../../../content';
+import { getObjectUrlFromFileState } from '../../../../../utils/getObjectUrlFromFileState';
 
-jest.mock('../../../../../newgen/utils/getObjectUrlFromFileState', () => ({
+jest.mock('../../../../../utils/getObjectUrlFromFileState', () => ({
   __esModule: true,
   getObjectUrlFromFileState: jest
     .fn()

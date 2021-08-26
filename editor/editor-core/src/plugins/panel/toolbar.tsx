@@ -12,6 +12,7 @@ import NoteIcon from '@atlaskit/icon/glyph/editor/note';
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 import WarningIcon from '@atlaskit/icon/glyph/editor/warning';
 import ErrorIcon from '@atlaskit/icon/glyph/editor/error';
+import HideEmojiIcon from '../floating-toolbar/ui/EditorHideEmojiIcon';
 
 import commonMessages from '../../messages';
 import { removePanel, changePanelType } from './actions';
@@ -34,6 +35,14 @@ import {
   PaletteColor,
 } from '../../ui/ColorPalette/Palettes';
 import { PanelType } from '@atlaskit/adf-schema';
+import {
+  ACTION,
+  ACTION_SUBJECT,
+  EVENT_TYPE,
+  ACTION_SUBJECT_ID,
+  AnalyticsEventPayload,
+  withAnalytics,
+} from '../analytics';
 
 export const messages = defineMessages({
   info: {
@@ -68,7 +77,7 @@ export const messages = defineMessages({
   },
   emoji: {
     id: 'fabric.editor.panel.emoji',
-    defaultMessage: 'Add icon',
+    defaultMessage: 'Add emoji',
     description: 'Select the panel icon',
   },
   backgroundColor: {
@@ -134,12 +143,79 @@ export const getToolbarItems = (
 
   if (isCustomPanelEnabled) {
     const changeColor = (color: string): Command => (state, dispatch) => {
-      changePanelType(PanelType.CUSTOM, { color }, true)(state, dispatch);
+      const panelNode = findPanel(state);
+      if (panelNode === undefined) {
+        return false;
+      }
+      let previousColor =
+        panelNode.node.attrs.panelColor ||
+        getPanelTypeBackground(panelNode.node.attrs.panelType);
+      if (previousColor === color) {
+        changePanelType(
+          PanelType.CUSTOM,
+          { color },
+          isCustomPanelEnabled,
+        )(state, dispatch);
+        return false;
+      }
+      const payload: AnalyticsEventPayload = {
+        action: ACTION.CHANGED_BACKGROUND_COLOR,
+        actionSubject: ACTION_SUBJECT.PANEL,
+        actionSubjectId: ACTION_SUBJECT_ID.PANEL,
+        attributes: { newColor: color, previousColor: previousColor },
+        eventType: EVENT_TYPE.TRACK,
+      };
+      withAnalytics(payload)(
+        changePanelType(PanelType.CUSTOM, { color }, isCustomPanelEnabled),
+      )(state, dispatch);
       return false;
     };
 
     const changeEmoji = (emoji: string): Command => (state, dispatch) => {
-      changePanelType(PanelType.CUSTOM, { emoji }, true)(state, dispatch);
+      const panelNode = findPanel(state);
+      if (panelNode === undefined) {
+        return false;
+      }
+      let previousIcon = panelNode.node.attrs.panelIcon || '';
+      if (previousIcon === emoji) {
+        changePanelType(PanelType.CUSTOM, { emoji }, true)(state, dispatch);
+        return false;
+      }
+      const payload: AnalyticsEventPayload = {
+        action: ACTION.CHANGED_ICON,
+        actionSubject: ACTION_SUBJECT.PANEL,
+        actionSubjectId: ACTION_SUBJECT_ID.PANEL,
+        attributes: { newIcon: emoji, previousIcon: previousIcon },
+        eventType: EVENT_TYPE.TRACK,
+      };
+      withAnalytics(payload)(
+        changePanelType(PanelType.CUSTOM, { emoji }, true),
+      )(state, dispatch);
+      return false;
+    };
+
+    const removeEmoji = (): Command => (state, dispatch) => {
+      const panelNode = findPanel(state);
+      if (activePanelType === PanelType.CUSTOM && !activePanelIcon) {
+        return false;
+      }
+      if (panelNode === undefined) {
+        return false;
+      }
+      const payload: AnalyticsEventPayload = {
+        action: ACTION.REMOVE_ICON,
+        actionSubject: ACTION_SUBJECT.PANEL,
+        actionSubjectId: ACTION_SUBJECT_ID.PANEL,
+        attributes: { icon: panelNode.node.attrs.panelIcon },
+        eventType: EVENT_TYPE.TRACK,
+      };
+      withAnalytics(payload)(
+        changePanelType(
+          PanelType.CUSTOM,
+          { emoji: undefined },
+          isCustomPanelEnabled,
+        ),
+      )(state, dispatch);
       return false;
     };
 
@@ -174,12 +250,19 @@ export const getToolbarItems = (
       type: 'select',
       selectType: 'emoji',
       options: [],
-      selected: activePanelType === PanelType.CUSTOM,
+      selected: activePanelType === PanelType.CUSTOM && !!activePanelIcon,
       onChange: (emojiShortName) => changeEmoji(emojiShortName),
     };
 
     items.push(
       emojiPicker,
+      {
+        id: 'editor.panel.hideEmoji',
+        type: 'button',
+        icon: HideEmojiIcon,
+        onClick: removeEmoji(),
+        title: formatMessage(commonMessages.hideEmoji),
+      },
       {
         type: 'separator',
       },

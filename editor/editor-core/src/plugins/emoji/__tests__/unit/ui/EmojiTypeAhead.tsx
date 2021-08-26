@@ -1,16 +1,13 @@
 import { EmojiDescription } from '@atlaskit/emoji';
 import { EditorState } from 'prosemirror-state';
 import { doc, emoji, p } from '@atlaskit/editor-test-helpers/doc-builder';
-import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 import {
   createProsemirrorEditorFactory,
   Preset,
   LightEditorPlugin,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 
 // Editor plugins
-import { selectCurrentItem } from '../../../../type-ahead/commands/select-item';
 import { TypeAheadItem } from '../../../../type-ahead/types';
 import emojiPlugin, { emojiToTypeaheadItem, memoize } from '../../../';
 import typeAheadPlugin from '../../../../type-ahead';
@@ -75,23 +72,23 @@ describe('EmojiTypeAhead', () => {
       dispatchAnalyticsSpy = jest.fn(() => ({ fire: () => {} }));
     });
 
-    it('should fire analytics when selected from typeahead', () => {
-      const { editorView, sel } = editor(
-        () => [
-          {
-            title: 'foo',
-            emoji: {
-              id: 'emojiId',
-              type: 'emojiType',
+    it('should fire analytics when selected from typeahead', async () => {
+      const { typeAheadTool } = editor(
+        () =>
+          Promise.resolve([
+            {
+              title: 'foo',
+              emoji: {
+                id: 'emojiId',
+                type: 'emojiType',
+              },
             },
-          },
-        ],
+          ]),
         true,
         dispatchAnalyticsSpy,
       );
 
-      insertText(editorView, `:foo`, sel);
-      selectCurrentItem('selected')(editorView.state, editorView.dispatch);
+      await typeAheadTool.searchEmoji('foo')?.insert({ index: 0 });
 
       expect(dispatchAnalyticsSpy).toBeCalledWith({
         action: 'inserted',
@@ -102,7 +99,7 @@ describe('EmojiTypeAhead', () => {
       });
     });
 
-    it('should select valid emoji on typing second colon', () => {
+    it('should select valid emoji on typing second colon', async () => {
       const catEmojis = [
         {
           title: ':cat:',
@@ -141,16 +138,13 @@ describe('EmojiTypeAhead', () => {
           },
         },
       ];
-      const { editorView, sel } = editor(
-        () => catEmojis,
+      const { editorView, typeAheadTool } = editor(
+        () => Promise.resolve(catEmojis),
         false,
         dispatchAnalyticsSpy,
       );
 
-      insertText(editorView, ':cat', sel);
-      sendKeyToPm(editorView, 'ArrowDown');
-      sendKeyToPm(editorView, 'ArrowDown');
-      insertText(editorView, ':', sel + 4);
+      await typeAheadTool.searchEmoji('cat:')?.result();
       expect(editorView.state.doc).toEqualDocument(
         doc(p(emoji(catEmojis[0].emoji)(), ' ')),
       );

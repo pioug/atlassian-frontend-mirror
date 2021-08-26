@@ -4,6 +4,7 @@ interface RendererConfigurationProviding {
   isAnnotationsAllowed(): boolean;
   isMedialinkingDisabled(): boolean;
   isActionsDisabled(): boolean;
+  isCustomPanelEnabled(): boolean;
 }
 export default class RendererConfiguration
   implements RendererConfigurationProviding {
@@ -12,6 +13,7 @@ export default class RendererConfiguration
   private disableMediaLinking: boolean;
   private allowAnnotations: boolean;
   private allowHeadingAnchorLinks: boolean;
+  private allowCustomPanel: boolean;
 
   constructor(rendererConfig?: string) {
     this.locale = 'en';
@@ -19,6 +21,7 @@ export default class RendererConfiguration
     this.allowAnnotations = false;
     this.allowHeadingAnchorLinks = false;
     this.disableMediaLinking = false;
+    this.allowCustomPanel = false;
     if (rendererConfig) {
       this.update(rendererConfig);
     }
@@ -42,6 +45,10 @@ export default class RendererConfiguration
     this.disableMediaLinking = this.getConfigValueFrom(
       newConfigObject.disableMediaLinking,
       this.disableMediaLinking,
+    );
+    this.allowCustomPanel = this.getConfigValueFrom(
+      newConfigObject.allowCustomPanel,
+      this.allowCustomPanel,
     );
   }
 
@@ -70,6 +77,10 @@ export default class RendererConfiguration
 
   isActionsDisabled(): boolean {
     return this.disableActions;
+  }
+
+  isCustomPanelEnabled(): boolean {
+    return this.allowCustomPanel;
   }
 
   // We need to retain the previous configuartion flags as `locale` can be configured

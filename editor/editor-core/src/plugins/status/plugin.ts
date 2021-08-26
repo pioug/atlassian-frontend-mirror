@@ -61,7 +61,7 @@ const createPlugin = (
           }
         }
 
-        if (!tr.selection.eq(oldEditorState.selection)) {
+        if (tr.selectionSet) {
           // Change in selection, while status picker was open, update state, if required.
           const selectionFrom = tr.selection.from;
           const nodeAtSelection = tr.doc.nodeAt(selectionFrom);

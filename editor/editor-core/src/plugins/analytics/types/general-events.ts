@@ -67,14 +67,6 @@ type FeedbackAEP = UIAEP<
   undefined
 >;
 
-type TypeAheadAEP<ActionSubjectID, Attributes> = UIAEP<
-  ACTION.INVOKED,
-  ACTION_SUBJECT.TYPEAHEAD,
-  ActionSubjectID,
-  Attributes,
-  undefined
->;
-
 type EditorStartAEP = UIAEP<
   ACTION.STARTED,
   ACTION_SUBJECT.EDITOR,
@@ -152,6 +144,14 @@ type BrowserFreezePayload = OperationalAEPWithObjectId<
     interactionType?: BROWSER_FREEZE_INTERACTION_TYPE;
     severity?: SEVERITY;
   },
+  undefined
+>;
+
+type SelectionAEP = TrackAEP<
+  ACTION.MATCHED,
+  ACTION_SUBJECT.SELECTION,
+  undefined,
+  undefined,
   undefined
 >;
 
@@ -281,72 +281,11 @@ type PickerImageAEP = PickerAEP<
   }
 >;
 
-type TypeAheadQuickInsertAEP = TypeAheadAEP<
-  ACTION_SUBJECT_ID.TYPEAHEAD_QUICK_INSERT,
-  { inputMethod: INPUT_METHOD.KEYBOARD }
->;
-
 type HelpQuickInsertAEP = UIAEP<
   ACTION.HELP_OPENED,
   ACTION_SUBJECT.HELP,
   ACTION_SUBJECT_ID.HELP_QUICK_INSERT,
   { inputMethod: INPUT_METHOD.QUICK_INSERT },
-  undefined
->;
-
-type TypeAheadEmojiAEP = TypeAheadAEP<
-  ACTION_SUBJECT_ID.TYPEAHEAD_EMOJI,
-  {
-    inputMethod:
-      | INPUT_METHOD.TOOLBAR
-      | INPUT_METHOD.INSERT_MENU
-      | INPUT_METHOD.QUICK_INSERT
-      | INPUT_METHOD.KEYBOARD;
-  }
->;
-
-type TypeAheadLinkAEP = TypeAheadAEP<
-  ACTION_SUBJECT_ID.TYPEAHEAD_LINK,
-  {
-    inputMethod:
-      | INPUT_METHOD.TOOLBAR
-      | INPUT_METHOD.INSERT_MENU
-      | INPUT_METHOD.QUICK_INSERT
-      | INPUT_METHOD.SHORTCUT;
-  }
->;
-
-type TypeAheadMentionAEP = TypeAheadAEP<
-  ACTION_SUBJECT_ID.TYPEAHEAD_MENTION,
-  {
-    inputMethod:
-      | INPUT_METHOD.TOOLBAR
-      | INPUT_METHOD.INSERT_MENU
-      | INPUT_METHOD.QUICK_INSERT
-      | INPUT_METHOD.KEYBOARD;
-  }
->;
-
-export type TypeAheadRenderedAEP = OperationalAEP<
-  ACTION.RENDERED,
-  ACTION_SUBJECT.TYPEAHEAD,
-  undefined,
-  {
-    time?: number;
-    items?: number;
-    initial?: boolean;
-  },
-  undefined
->;
-
-export type TypeAheadItemViewedAEP = OperationalAEP<
-  ACTION.VIEWED,
-  ACTION_SUBJECT.TYPEAHEAD_ITEM,
-  undefined,
-  {
-    index?: number;
-    items?: number;
-  },
   undefined
 >;
 
@@ -429,13 +368,8 @@ export type GeneralEventPayload<T = void> =
   | PickerImageAEP
   | ReactNodeViewRenderedAEP
   | RichMediaLayoutAEP
+  | SelectionAEP
   | SlowInputAEP
-  | TypeAheadEmojiAEP
-  | TypeAheadItemViewedAEP
-  | TypeAheadLinkAEP
-  | TypeAheadMentionAEP
-  | TypeAheadQuickInsertAEP
-  | TypeAheadRenderedAEP
   | UploadExternalFailedAEP
   | WithPluginStateCalledAEP
   | CodeBlockLanguageSelectedAEP

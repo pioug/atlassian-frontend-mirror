@@ -7,19 +7,10 @@ import {
   QuickInsertProvider,
   ProviderFactory,
 } from '@atlaskit/editor-common/provider-factory';
+import { TypeAheadAvailableNodes } from '@atlaskit/editor-common/type-ahead';
 
 import { Dispatch } from '../../event-dispatcher';
 import { EditorPlugin, Command } from '../../types';
-
-import {
-  AnalyticsDispatch,
-  ACTION,
-  ACTION_SUBJECT,
-  INPUT_METHOD,
-  EVENT_TYPE,
-  ACTION_SUBJECT_ID,
-} from '../analytics';
-import { analyticsEventKey } from '../analytics/consts';
 
 import { pluginKey } from './plugin-key';
 import { searchQuickInsertItems } from './search';
@@ -29,6 +20,8 @@ import {
   QuickInsertPluginState,
   QuickInsertPluginStateKeys,
 } from './types';
+
+import { EmptyStateHandler } from '../../types/empty-state-handler';
 
 import ModalElementBrowser from './ui/ModalElementBrowser';
 
@@ -54,6 +47,7 @@ const quickInsertPlugin = (
             providerFactory,
             reactContext().intl,
             dispatch,
+            options?.emptyStateHandler,
           ),
       },
     ];
@@ -61,31 +55,17 @@ const quickInsertPlugin = (
 
   pluginsOptions: {
     typeAhead: {
+      id: TypeAheadAvailableNodes.QUICK_INSERT,
       trigger: '/',
       headless: options ? options.headless : undefined,
-      getItems: (
-        query,
-        state,
-        intl,
-        { prevActive, queryChanged },
-        _tr,
-        dispatch,
-      ) => {
-        if (!prevActive && queryChanged) {
-          (dispatch as AnalyticsDispatch)(analyticsEventKey, {
-            payload: {
-              action: ACTION.INVOKED,
-              actionSubject: ACTION_SUBJECT.TYPEAHEAD,
-              actionSubjectId: ACTION_SUBJECT_ID.TYPEAHEAD_QUICK_INSERT,
-              attributes: { inputMethod: INPUT_METHOD.KEYBOARD },
-              eventType: EVENT_TYPE.UI,
-            },
-          });
-        }
+      getItems({ query, editorState }) {
         const quickInsertState: QuickInsertPluginState = pluginKey.getState(
-          state,
+          editorState,
         );
-        return searchQuickInsertItems(quickInsertState, options)(query);
+
+        return Promise.resolve(
+          searchQuickInsertItems(quickInsertState, options)(query),
+        );
       },
       selectItem: (state, item, insert) => {
         return (item as QuickInsertItem).action(insert, state);
@@ -166,6 +146,7 @@ function quickInsertPluginFactory(
   providerFactory: ProviderFactory,
   intl: InjectedIntl,
   dispatch: Dispatch,
+  emptyStateHandler?: EmptyStateHandler,
 ) {
   return new Plugin({
     key: pluginKey,
@@ -173,6 +154,7 @@ function quickInsertPluginFactory(
       init(): QuickInsertPluginState {
         return {
           isElementBrowserModalOpen: false,
+          emptyStateHandler,
           // lazy so it doesn't run on editor initialization
           // memo here to avoid using a singleton cache, avoids editor
           // getting confused when two editors exist within the same page.

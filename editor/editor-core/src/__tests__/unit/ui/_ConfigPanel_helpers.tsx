@@ -16,6 +16,7 @@ import {
   Parameters,
   UserFieldContext,
   combineExtensionProviders,
+  UpdateExtension,
 } from '@atlaskit/editor-common/extensions';
 
 export function asOption(label: string): Option {
@@ -163,6 +164,7 @@ export async function mockJiraSmartUserProvider() {
 export function createProvider(
   getFieldsDefinition: (() => Promise<FieldDefinition[]>) | FieldDefinition[],
   mergeManifest?: Partial<ExtensionManifest>,
+  extensionUpdater?: UpdateExtension<object>,
 ) {
   const key = 'test-item';
   const quickInsert: ExtensionModule[] = [
@@ -189,6 +191,7 @@ export function createProvider(
 
         return await getFieldsDefinition();
       },
+      update: extensionUpdater,
     },
   };
 

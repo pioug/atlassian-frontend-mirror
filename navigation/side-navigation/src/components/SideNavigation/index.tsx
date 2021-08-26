@@ -3,9 +3,9 @@ import { forwardRef } from 'react';
 
 import { jsx } from '@emotion/core';
 
+import { N10, N500 } from '@atlaskit/theme/colors';
 import { gridSize } from '@atlaskit/theme/constants';
-
-import { navigationBackgroundColor } from '../../common/constants';
+import { token } from '@atlaskit/tokens';
 
 export interface SideNavigationProps {
   /**
@@ -41,8 +41,9 @@ const SideNavigation = forwardRef<HTMLElement, SideNavigationProps>(
         css={{
           width: '100%',
           height: '100%',
+          color: token('color.text.mediumEmphasis', N500),
           minWidth: gridSize() * 30,
-          backgroundColor: navigationBackgroundColor,
+          backgroundColor: token('color.background.default', N10),
           position: 'relative',
           display: 'flex',
           flexDirection: 'column',

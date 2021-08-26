@@ -1,494 +1,136 @@
-import {
-  EditorState,
-  Plugin,
-  TextSelection,
-  Transaction,
-} from 'prosemirror-state';
+import { EditorState, Transaction, Plugin } from 'prosemirror-state';
+import { DecorationSet } from 'prosemirror-view';
+import { InsertTypeAheadStep } from '@atlaskit/adf-schema/steps';
+import { EditorReactContext } from '../../../types/editor-react-context';
 
+import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { Dispatch } from '../../../event-dispatcher';
-import { isMarkTypeAllowedInCurrentSelection } from '../../../utils';
-import { dismissCommand } from '../commands/dismiss';
-import { insertTypeAheadQuery } from '../commands/insert-query';
-import { itemsListUpdated } from '../commands/items-list-updated';
-import { selectByIndex } from '../commands/select-item';
-import { updateQueryCommand } from '../commands/update-query';
-import {
-  TypeAheadItem,
-  TypeAheadItemsLoader,
+import type {
+  PopupMountPointReference,
   TypeAheadHandler,
   TypeAheadPluginState,
 } from '../types';
-import { findTypeAheadQuery } from '../utils/find-query-mark';
-import { isQueryActive } from '../utils/is-query-active';
-
+import { TYPE_AHEAD_DECORATION_DATA_ATTRIBUTE } from '../constants';
 import { ACTIONS } from './actions';
-import { pluginKey } from './plugin-key';
+import { pluginKey } from './key';
+import { closest } from '../../../utils/dom';
+import { createReducer } from './reducer';
+import { factoryDecorations } from './decorations';
+import { isInsertionTransaction } from './utils';
 
-export { pluginKey } from './plugin-key';
-export { ACTIONS } from './actions';
+const hasTypeAheadStep = (tr: Transaction): InsertTypeAheadStep | null => {
+  const step = tr.steps.find((step) => step instanceof InsertTypeAheadStep);
 
-export type { TypeAheadPluginState } from '../types';
+  if (!step) {
+    return null;
+  }
 
-export function createInitialPluginState(
-  prevActiveState = false,
-  isAllowed = true,
-): TypeAheadPluginState {
-  return {
-    isAllowed,
-    active: false,
-    prevActiveState,
-    query: null,
-    trigger: null,
-    typeAheadHandler: null,
-    currentIndex: 0,
-    items: [],
-    itemsLoader: null,
-    queryMarkPos: null,
-    queryStarted: 0,
-    upKeyCount: 0,
-    downKeyCount: 0,
-  };
-}
+  return step as InsertTypeAheadStep;
+};
 
-export function createPlugin(
-  dispatch: Dispatch,
-  reactContext: () => { [key: string]: any },
-  typeAhead: Array<TypeAheadHandler>,
-): Plugin {
-  return new Plugin({
+type Props = {
+  reactDispatch: Dispatch;
+  popupMountRef: PopupMountPointReference;
+  typeAheadHandlers: Array<TypeAheadHandler>;
+  reactContext: () => EditorReactContext;
+  createAnalyticsEvent?: CreateUIAnalyticsEvent;
+};
+export function createPlugin({
+  reactDispatch,
+  reactContext,
+  popupMountRef,
+  createAnalyticsEvent,
+  typeAheadHandlers,
+}: Props): Plugin {
+  const intl = reactContext().intl;
+  const { createDecorations, removeDecorations } = factoryDecorations({
+    intl,
+    popupMountRef,
+    createAnalyticsEvent: createAnalyticsEvent,
+  });
+  const reducer = createReducer({
+    createDecorations,
+    removeDecorations,
+    typeAheadHandlers,
+    popupMountRef,
+  });
+  return new Plugin<TypeAheadPluginState>({
     key: pluginKey,
+
     state: {
       init() {
-        return createInitialPluginState();
+        return {
+          typeAheadHandlers,
+          query: '',
+          decorationSet: DecorationSet.empty,
+          decorationElement: null,
+          items: [],
+          selectedIndex: 0,
+          stats: null,
+          inputMethod: null,
+        };
       },
 
-      apply(tr, pluginState, _oldState, state) {
-        const meta = tr.getMeta(pluginKey) || {};
-        const { action, params } = meta;
-        switch (action) {
-          case ACTIONS.SET_CURRENT_INDEX:
-            return setCurrentItemIndex({
-              dispatch,
-              pluginState,
-              tr,
-              params,
-            });
+      apply(tr, currentPluginState, oldEditorState, state) {
+        const customStep = hasTypeAheadStep(tr);
 
-          case ACTIONS.SELECT_PREV:
-            return selectPrevActionHandler({ dispatch, pluginState, tr });
+        const nextPluginState = reducer(tr, currentPluginState, customStep);
 
-          case ACTIONS.SELECT_NEXT:
-            return selectNextActionHandler({ dispatch, pluginState, tr });
-
-          case ACTIONS.ITEMS_LIST_UPDATED:
-            return itemsListUpdatedActionHandler({ dispatch, pluginState, tr });
-
-          case ACTIONS.SELECT_CURRENT:
-            const { from, to } = tr.selection;
-            const { typeAheadQuery } = state.schema.marks;
-
-            // If inserted content has typeAheadQuery mark should fallback to default action handler
-            return tr.doc.rangeHasMark(from - 1, to, typeAheadQuery)
-              ? defaultActionHandler({
-                  dispatch,
-                  reactContext,
-                  typeAhead,
-                  state,
-                  pluginState,
-                  tr,
-                })
-              : selectCurrentActionHandler({ dispatch, pluginState, tr });
-
-          case ACTIONS.SET_QUERY:
-            return updateQueryHandler({ dispatch, pluginState, tr, params });
-
-          default:
-            return defaultActionHandler({
-              dispatch,
-              reactContext,
-              typeAhead,
-              state,
-              pluginState,
-              tr,
-            });
+        if (currentPluginState !== nextPluginState) {
+          reactDispatch(pluginKey, nextPluginState);
         }
+
+        return nextPluginState;
       },
+    },
+
+    appendTransaction(transactions, _oldState, newState) {
+      const insertItemCallback = isInsertionTransaction(
+        transactions,
+        ACTIONS.INSERT_RAW_QUERY,
+      );
+      if (insertItemCallback) {
+        const tr = insertItemCallback(newState);
+        if (tr) {
+          return tr;
+        }
+      }
     },
 
     view() {
       return {
-        update(editorView) {
-          const pluginState = pluginKey.getState(
-            editorView.state,
-          ) as TypeAheadPluginState;
-
-          if (!pluginState) {
-            return;
-          }
-
-          const { state, dispatch } = editorView;
-          const { doc, selection } = state;
-          const { from, to } = selection;
-          const { typeAheadQuery } = state.schema.marks;
-
-          // Disable type ahead query when removing trigger.
-          if (
-            pluginState.active &&
-            !pluginState.query &&
-            !pluginState.trigger
-          ) {
-            dismissCommand()(state, dispatch);
-            return;
-          }
-
-          // Disable type ahead query when the first character is a space.
-          if (
-            pluginState.active &&
-            (pluginState.query || '').indexOf(' ') === 0
-          ) {
-            dismissCommand()(state, dispatch);
-            return;
-          }
-
-          // Optimization to not call dismissCommand if plugin is in an inactive state.
-          if (
-            !pluginState.active &&
-            pluginState.prevActiveState &&
-            !doc.rangeHasMark(from - 1, to, typeAheadQuery)
-          ) {
-            dismissCommand()(state, dispatch);
-            return;
-          }
-
-          // Fetch type ahead items if handler returned a promise.
-          if (pluginState.active && pluginState.itemsLoader) {
-            pluginState.itemsLoader.promise.then((items) =>
-              itemsListUpdated(items)(editorView.state, dispatch),
-            );
-          }
-        },
+        update(editorView) {},
       };
     },
-    appendTransaction(_trs, _oldState, newState) {
-      const pluginState = pluginKey.getState(newState) as TypeAheadPluginState;
-      if (
-        pluginState.active &&
-        pluginState.query &&
-        pluginState.typeAheadHandler &&
-        pluginState.typeAheadHandler.forceSelect
-      ) {
-        const items = pluginState.items;
-        const matchedItem = pluginState.typeAheadHandler.forceSelect(
-          pluginState.query,
-          items,
-        );
-        if (matchedItem) {
-          let newTr;
-          selectByIndex(items.indexOf(matchedItem))(
-            newState,
-            (tr) => (newTr = tr),
-          );
-          return newTr;
-        }
-      }
 
-      return null;
-    },
     props: {
+      decorations: (state: EditorState) => {
+        return pluginKey.getState(state)?.decorationSet;
+      },
+
       handleDOMEvents: {
-        input(view, event: any) {
-          const { state, dispatch } = view;
-          const { selection, schema } = state;
-
-          if (
-            selection instanceof TextSelection &&
-            selection.$cursor &&
-            schema.marks.typeAheadQuery.isInSet(selection.$cursor.marks())
-          ) {
-            updateQueryCommand(event.data)(state, dispatch);
-            return false;
-          }
-
+        compositionend: (view, event: any) => {
           return false;
         },
-        // FM-2123: On latest Android version Q there's a bug while compositionend,
-        // the typeAheadQuery is inserted next to the position of the trigger character (so that creates double characters).
-        // In this use case, need to replace the last written character with our typeAheadQuery.
-        compositionend: (view, event: any) => {
-          const { state, dispatch } = view;
-          const { selection, schema } = state;
 
-          const triggers = typeAhead.map(
-            (typeAheadHandler) => typeAheadHandler.trigger,
-          );
-
+        click: (view, event) => {
+          const { target } = event;
+          // ProseMirror view listen to any click event inside of it
+          // When this event is coming from the typeahead
+          // we should tell to ProseMirror to sit down and relax
+          // cuz we know what we are doing (I hope)
           if (
-            triggers.indexOf(event.data) !== -1 &&
-            selection instanceof TextSelection &&
-            selection.$cursor &&
-            !schema.marks.typeAheadQuery.isInSet(selection.$cursor.marks())
+            target instanceof HTMLElement &&
+            closest(
+              target,
+              `[data-type-ahead=${TYPE_AHEAD_DECORATION_DATA_ATTRIBUTE}]`,
+            )
           ) {
-            insertTypeAheadQuery(event.data, true)(state, dispatch);
             return true;
           }
-
           return false;
         },
       },
     },
   });
-}
-
-/**
- *
- * Action Handlers
- *
- */
-
-export type ActionHandlerParams = {
-  dispatch: Dispatch;
-  pluginState: TypeAheadPluginState;
-  tr: Transaction;
-  params?: {
-    currentIndex?: number;
-    query?: string;
-  };
-};
-
-export function createItemsLoader(
-  promiseOfItems: Promise<Array<TypeAheadItem>>,
-): TypeAheadItemsLoader {
-  let canceled = false;
-
-  return {
-    promise: new Promise((resolve, reject) => {
-      promiseOfItems
-        .then((result) => !canceled && resolve(result))
-        .catch((error) => !canceled && reject(error));
-    }),
-    cancel() {
-      canceled = true;
-    },
-  };
-}
-
-export function defaultActionHandler({
-  dispatch,
-  reactContext,
-  typeAhead,
-  pluginState,
-  state,
-  tr,
-}: {
-  dispatch: Dispatch;
-  reactContext: () => { [key: string]: any };
-  typeAhead: Array<TypeAheadHandler>;
-  pluginState: TypeAheadPluginState;
-  state: EditorState;
-  tr: Transaction;
-}): TypeAheadPluginState {
-  const { typeAheadQuery } = state.schema.marks;
-  const { doc, selection } = state;
-  const { from, to } = selection;
-  const isActive = isQueryActive(typeAheadQuery, doc, from - 1, to);
-  const isAllowed = isMarkTypeAllowedInCurrentSelection(typeAheadQuery, state);
-
-  if (!isAllowed && !isActive) {
-    if (
-      pluginState &&
-      pluginState.active === isActive &&
-      pluginState.isAllowed === isAllowed
-    ) {
-      return pluginState;
-    }
-    const newPluginState = createInitialPluginState(
-      pluginState.active,
-      isAllowed,
-    );
-    dispatch(pluginKey, newPluginState);
-    return newPluginState;
-  }
-
-  const { nodeBefore } = selection.$from;
-
-  if (!isActive || !nodeBefore || !pluginState) {
-    const newPluginState = createInitialPluginState(
-      pluginState ? pluginState.active : false,
-    );
-    if (!pluginState || pluginState.active || !pluginState.isAllowed) {
-      dispatch(pluginKey, newPluginState);
-    }
-    return newPluginState;
-  }
-
-  const typeAheadMark = typeAheadQuery.isInSet(nodeBefore.marks || []);
-  if (!typeAheadMark || !typeAheadMark.attrs.trigger) {
-    return pluginState;
-  }
-
-  const textContent = nodeBefore.textContent || '';
-  const trigger = typeAheadMark.attrs.trigger.replace(
-    /([^\x00-\xFF]|[\s\n])+/g,
-    '',
-  );
-
-  // If trigger has been removed, reset plugin state
-  if (!textContent.includes(trigger)) {
-    const newPluginState = { ...createInitialPluginState(true), active: true };
-    dispatch(pluginKey, newPluginState);
-    return newPluginState;
-  }
-
-  const query = textContent
-    .replace(/^([^\x00-\xFF]|[\s\n])+/g, '')
-    .replace(trigger, '');
-
-  const typeAheadHandler = typeAhead.find((t) => t.trigger === trigger)!;
-
-  let typeAheadItems: Array<TypeAheadItem> | Promise<Array<TypeAheadItem>> = [];
-  let itemsLoader: TypeAheadItemsLoader = null;
-  let highlight: JSX.Element | null = null;
-
-  try {
-    const { intl } = reactContext();
-    typeAheadItems = typeAheadHandler.getItems(
-      query,
-      state,
-      intl,
-      {
-        prevActive: pluginState.prevActiveState,
-        queryChanged:
-          query !== pluginState.query || trigger !== pluginState.trigger,
-      },
-      tr,
-      dispatch,
-    );
-
-    if (typeAheadHandler.getHighlight) {
-      highlight = typeAheadHandler.getHighlight(state);
-    }
-
-    if (pluginState.itemsLoader) {
-      pluginState.itemsLoader.cancel();
-    }
-
-    if (!Array.isArray(typeAheadItems)) {
-      itemsLoader = createItemsLoader(typeAheadItems);
-      typeAheadItems = pluginState.items;
-    }
-  } catch (e) {}
-
-  const queryMark = findTypeAheadQuery(state);
-
-  const newPluginState = {
-    isAllowed,
-    query,
-    trigger,
-    typeAheadHandler,
-    active: true,
-    prevActiveState: pluginState.active,
-    items: typeAheadItems as Array<TypeAheadItem>,
-    itemsLoader: itemsLoader,
-    currentIndex: pluginState.currentIndex,
-    queryMarkPos: queryMark !== null ? queryMark.start : null,
-    queryStarted: Date.now(),
-    upKeyCount: 0,
-    downKeyCount: 0,
-    highlight,
-  };
-
-  dispatch(pluginKey, newPluginState);
-  return newPluginState;
-}
-
-export function setCurrentItemIndex({
-  dispatch,
-  pluginState,
-  params,
-}: ActionHandlerParams) {
-  if (!params) {
-    return pluginState;
-  }
-
-  const newPluginState = {
-    ...pluginState,
-    currentIndex:
-      params.currentIndex || params.currentIndex === 0
-        ? params.currentIndex
-        : pluginState.currentIndex,
-  };
-
-  dispatch(pluginKey, newPluginState);
-  return newPluginState;
-}
-
-export function updateQueryHandler({
-  dispatch,
-  pluginState,
-  params,
-}: ActionHandlerParams): TypeAheadPluginState {
-  if (!params) {
-    return pluginState;
-  }
-
-  const newPluginState = {
-    ...pluginState,
-    query: typeof params.query === 'string' ? params.query : null,
-  };
-
-  dispatch(pluginKey, newPluginState);
-  return newPluginState;
-}
-
-export function selectPrevActionHandler({
-  dispatch,
-  pluginState,
-}: ActionHandlerParams): TypeAheadPluginState {
-  const newIndex = pluginState.currentIndex - 1;
-  const newPluginState = {
-    ...pluginState,
-    currentIndex: newIndex < 0 ? pluginState.items.length - 1 : newIndex,
-    upKeyCount: ++pluginState.upKeyCount,
-  };
-  dispatch(pluginKey, newPluginState);
-  return newPluginState;
-}
-
-export function selectNextActionHandler({
-  dispatch,
-  pluginState,
-}: ActionHandlerParams): TypeAheadPluginState {
-  const newIndex = pluginState.currentIndex + 1;
-  const newPluginState = {
-    ...pluginState,
-    currentIndex: newIndex > pluginState.items.length - 1 ? 0 : newIndex,
-    downKeyCount: ++pluginState.downKeyCount,
-  };
-  dispatch(pluginKey, newPluginState);
-  return newPluginState;
-}
-
-export function itemsListUpdatedActionHandler({
-  dispatch,
-  pluginState,
-  tr,
-}: ActionHandlerParams): TypeAheadPluginState {
-  const items = tr.getMeta(pluginKey).items;
-  const newPluginState = {
-    ...pluginState,
-    items,
-    itemsLoader: null,
-    // Set to 0 to always reset the query to the top of the typeahead
-    currentIndex: 0,
-  };
-  dispatch(pluginKey, newPluginState);
-  return newPluginState;
-}
-
-export function selectCurrentActionHandler({
-  dispatch,
-}: ActionHandlerParams): TypeAheadPluginState {
-  const newPluginState = createInitialPluginState(false);
-  dispatch(pluginKey, newPluginState);
-  return newPluginState;
 }

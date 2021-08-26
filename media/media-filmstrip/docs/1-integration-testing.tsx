@@ -12,4 +12,5 @@ Following three \`data-testid\` attributes are default values in case \`testId\`
 Only one of these three can be found as a top DOM element:
 
 - \`[data-testid="media-filmstrip"]\`: Root Filmstrip component
+- \`[data-testid="media-filmstrip-list-item"]\`: Filmstrip item component
 `;

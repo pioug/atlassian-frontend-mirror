@@ -23,7 +23,8 @@ export type PromiseName =
   | 'getAnnotationStates'
   | 'deleteStorageValue'
   | 'setStorageValue'
-  | 'getStorageValue';
+  | 'getStorageValue'
+  | 'asyncCallCompleted';
 
 export type PromisePayload =
   | GetAuthPayload

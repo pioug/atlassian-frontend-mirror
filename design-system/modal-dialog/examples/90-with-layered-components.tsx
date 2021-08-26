@@ -1,10 +1,12 @@
-import React, { ReactNode, useCallback, useRef, useState } from 'react';
+/** @jsx jsx */
+import { Fragment, ReactNode, useCallback, useRef, useState } from 'react';
 
-import styled from '@emotion/styled';
+import { css, jsx } from '@emotion/core';
 import Lorem from 'react-lorem-component';
 
 import AvatarGroup from '@atlaskit/avatar-group';
 import Button from '@atlaskit/button/standard-button';
+import Checkbox from '@atlaskit/checkbox';
 import { DatePicker } from '@atlaskit/datetime-picker';
 import DropdownMenu, {
   DropdownItem,
@@ -15,231 +17,224 @@ import { Field } from '@atlaskit/form';
 import Info from '@atlaskit/icon/glyph/info';
 import AddCommentIcon from '@atlaskit/icon/glyph/media-services/add-comment';
 import Popup from '@atlaskit/popup';
-import { RadioGroup } from '@atlaskit/radio';
 import Select, { PopupSelect } from '@atlaskit/select';
 import { P300 } from '@atlaskit/theme/colors';
-import { layers } from '@atlaskit/theme/constants';
+import { gridSize, layers } from '@atlaskit/theme/constants';
 import Tooltip from '@atlaskit/tooltip';
 
-import Modal, { ModalTransition, ScrollBehavior } from '../src';
-
-const TallContainer = styled.div`
-  height: 100%;
-  padding: 20px;
-  padding-left: 500px;
-  overflow: scroll;
-`;
-
-const OverflowedText = styled.p`
-  width: 250vw;
-`;
+import ModalDialog, {
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
+  ModalTitle,
+  ModalTransition,
+} from '../src';
 
 const Break = () => <br />;
+
+const containerStyles = css({
+  padding: `${gridSize() * 2}px`,
+});
 
 export default () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const [scrollBehavior, setBehavior] = useState<ScrollBehavior>('inside-wide');
+  const [shouldScrollInViewport, setShouldScrollInViewPort] = useState(false);
 
   const middleRef = useRef<HTMLDivElement>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
 
-  const open = () => setIsOpen(true);
-  const close = () => setIsOpen(false);
+  const open = useCallback(() => setIsOpen(true), []);
+  const close = useCallback(() => setIsOpen(false), []);
 
-  const scrollToMiddle = () =>
-    middleRef.current && middleRef.current.scrollIntoView(true);
-  const scrollToBottom = () =>
-    bottomRef.current && bottomRef.current.scrollIntoView(true);
-
-  const onScrollBehaviorChange = (e: any) => setBehavior(e.target.value);
-
-  const actions = [
-    { text: 'Close', onClick: close },
-    {
-      text: 'Scroll to middle',
-      onClick: scrollToMiddle,
-      testId: 'scroll-to-middle',
-    },
-    {
-      text: 'Scroll to bottom',
-      onClick: scrollToBottom,
-      testId: 'scroll-to-bottom',
-    },
-  ];
+  const scrollToMiddle = useCallback(
+    () => middleRef.current && middleRef.current.scrollIntoView(true),
+    [],
+  );
+  const scrollToBottom = useCallback(
+    () => bottomRef.current && bottomRef.current.scrollIntoView(true),
+    [],
+  );
 
   return (
-    <TallContainer data-testid="container">
-      <OverflowedText>
-        This is the bit that makes the page horizontally scrollable. The width
-        of the paragraph is set to 250vw.
-      </OverflowedText>
-
-      <Field name="sb" label="Scroll behavior:">
+    <div css={containerStyles} data-testid="container">
+      <Field name="sb" label="Scrolling behavior">
         {() => (
-          <RadioGroup
-            options={scrollBehaviors}
-            defaultValue="inside-wide"
-            onChange={onScrollBehaviorChange}
+          <Checkbox
+            label="Should scroll within the viewport"
+            name="scroll"
+            testId="scroll"
+            onChange={(e) => setShouldScrollInViewPort(e.target.checked)}
+            isChecked={shouldScrollInViewport}
           />
         )}
       </Field>
 
+      <Break />
       <Button onClick={open} testId="open-modal">
         Open modal
       </Button>
+
       <ModalTransition>
         {isOpen && (
-          <Modal
-            actions={actions}
+          <ModalDialog
             onClose={close}
-            heading="Modal Title"
-            scrollBehavior={scrollBehavior}
+            shouldScrollInViewport={shouldScrollInViewport}
             testId="modal"
             autoFocus={false}
           >
-            <Lorem count={4} />
-            <div ref={middleRef} />
-            <Break />
-            <Popup
-              isOpen={isPopupOpen}
-              onClose={() => setIsPopupOpen(false)}
-              placement="bottom-start"
-              zIndex={layers.modal()}
-              content={() => (
-                <div style={{ padding: '5px' }}>I'm a little popup!</div>
-              )}
-              trigger={(triggerProps) => (
-                <>
-                  <Button
-                    {...triggerProps}
-                    testId="popup-trigger"
-                    isSelected={isPopupOpen}
-                    onClick={() => setIsPopupOpen(!isPopupOpen)}
-                    iconBefore={<AddCommentIcon label="Add" />}
-                  />
-                  <Break />
-                </>
-              )}
-            />
-            <Break />
-            <Tooltip
-              testId="tooltip"
-              position="left"
-              content="I'm a little tooltip"
-            >
-              <Button testId="tooltip-trigger">
-                Hover on me to view tooltip!
-              </Button>
+            <ModalHeader>
+              <ModalTitle>Modal Title</ModalTitle>
+            </ModalHeader>
+            <ModalBody>
+              <Lorem count={4} />
+              <div ref={middleRef} />
               <Break />
-            </Tooltip>
-            <Break />
-            <PopupSelect
-              placeholder="PopupSelect"
-              options={selectOptions}
-              target={({ ref }: { ref: React.RefObject<any> }) => (
-                <>
-                  <Button testId="popup-select-trigger" ref={ref}>
-                    I'm a pop up select, click me!
-                  </Button>
-                  <Break />
-                </>
-              )}
-              popperProps={{ placement: 'bottom' }}
-              searchThreshold={10}
-            />
-            <Break />
-            {/* This replicates the bug reported in
+              <Popup
+                isOpen={isPopupOpen}
+                onClose={() => setIsPopupOpen(false)}
+                placement="bottom-start"
+                zIndex={layers.modal()}
+                content={() => (
+                  <div style={{ padding: '5px' }}>I'm a little popup!</div>
+                )}
+                trigger={(triggerProps) => (
+                  <Fragment>
+                    <Button
+                      {...triggerProps}
+                      testId="popup-trigger"
+                      isSelected={isPopupOpen}
+                      onClick={() => setIsPopupOpen(!isPopupOpen)}
+                      iconBefore={<AddCommentIcon label="Add" />}
+                    />
+                    <Break />
+                  </Fragment>
+                )}
+              />
+              <Break />
+              <Tooltip
+                testId="tooltip"
+                position="left"
+                content="I'm a little tooltip"
+              >
+                <Button testId="tooltip-trigger">
+                  Hover on me to view tooltip!
+                </Button>
+                <Break />
+              </Tooltip>
+              <Break />
+              <PopupSelect
+                placeholder="PopupSelect"
+                options={selectOptions}
+                target={({ ref }: { ref: React.RefObject<any> }) => (
+                  <Fragment>
+                    <Button testId="popup-select-trigger" ref={ref}>
+                      I'm a pop up select, click me!
+                    </Button>
+                    <Break />
+                  </Fragment>
+                )}
+                popperProps={{ placement: 'bottom' }}
+                searchThreshold={10}
+              />
+              <Break />
+              {/* This replicates the bug reported in
               https://ecosystem.atlassian.net/browse/DS-7622,
               but 'fixed' by setting the menuPosition. */}
-            <Select
-              className="select-zindex-fixed"
-              placeholder="zIndex: 9999, menuPortalTarget: document.body, menuPosition: fixed"
-              options={selectOptions}
-              menuPortalTarget={document.body}
-              styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
-              menuPosition="fixed"
-              formatOptionLabel={({ label }) => (
-                <Tooltip position="bottom" content="I'm a little tooltip">
-                  <div>{label}</div>
-                </Tooltip>
-              )}
-            />
-            <Break />
-            <Select
-              className="select-fixed"
-              placeholder="menuPosition: fixed"
-              options={selectOptions}
-              menuPosition="fixed"
-              formatOptionLabel={({ label }) => (
-                <Tooltip position="bottom" content="I'm a little tooltip">
-                  <div>{label}</div>
-                </Tooltip>
-              )}
-            />
-            <Break />
-            <Select
-              className="select-absolute"
-              placeholder="menuPosition: absolute"
-              options={selectOptions}
-              menuPosition="absolute"
-              formatOptionLabel={({ label }) => (
-                <Tooltip position="bottom" content="I'm a little tooltip">
-                  <div>{label}</div>
-                </Tooltip>
-              )}
-            />
-            <Break />
-            <FlagGroupExample />
-            <Break />
-            <Lorem count={5} />
-            <Break />
-            <AvatarGroup
-              testId="avatar-group"
-              appearance="stack"
-              data={avatarGroupUsers.map((d) => ({
-                email: d.email,
-                key: d.email,
-                name: d.name,
-                href: '#',
-              }))}
-            />
-            <Break />
-            <DatePicker testId="date-picker" />
-            <Break />
-            <DropdownMenu
-              testId="dropdown-menu"
-              trigger="I'm a dropdown menu, click me!"
-              triggerType="button"
-            >
-              <DropdownItemGroup>
-                <DropdownItem>Edit</DropdownItem>
-                <DropdownItem>Share</DropdownItem>
-                <DropdownItem>Move</DropdownItem>
-              </DropdownItemGroup>
-            </DropdownMenu>
-            <Break />
-            <div ref={bottomRef} />
-          </Modal>
+              <Select
+                className="select-zindex-fixed"
+                placeholder="zIndex: 9999, menuPortalTarget: document.body, menuPosition: fixed"
+                options={selectOptions}
+                menuPortalTarget={document.body}
+                styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
+                menuPosition="fixed"
+                formatOptionLabel={({ label }) => (
+                  <Tooltip position="bottom" content="I'm a little tooltip">
+                    <div>{label}</div>
+                  </Tooltip>
+                )}
+              />
+              <Break />
+              <Select
+                className="select-fixed"
+                placeholder="menuPosition: fixed"
+                options={selectOptions}
+                menuPosition="fixed"
+                formatOptionLabel={({ label }) => (
+                  <Tooltip position="bottom" content="I'm a little tooltip">
+                    <div>{label}</div>
+                  </Tooltip>
+                )}
+              />
+              <Break />
+              <Select
+                className="select-absolute"
+                placeholder="menuPosition: absolute"
+                options={selectOptions}
+                menuPosition="absolute"
+                formatOptionLabel={({ label }) => (
+                  <Tooltip position="bottom" content="I'm a little tooltip">
+                    <div>{label}</div>
+                  </Tooltip>
+                )}
+              />
+              <Break />
+              <FlagGroupExample />
+              <Break />
+              <Lorem count={5} />
+              <Break />
+              <AvatarGroup
+                testId="avatar-group"
+                appearance="stack"
+                data={avatarGroupUsers.map((d) => ({
+                  email: d.email,
+                  key: d.email,
+                  name: d.name,
+                  href: '#',
+                }))}
+              />
+              <Break />
+              <DatePicker testId="date-picker" />
+              <Break />
+              <DropdownMenu
+                testId="dropdown-menu"
+                trigger="I'm a dropdown menu, click me!"
+                triggerType="button"
+              >
+                <DropdownItemGroup>
+                  <DropdownItem>Edit</DropdownItem>
+                  <DropdownItem>Share</DropdownItem>
+                  <DropdownItem>Move</DropdownItem>
+                </DropdownItemGroup>
+              </DropdownMenu>
+              <Break />
+              <div ref={bottomRef} />
+            </ModalBody>
+            <ModalFooter>
+              <Button
+                appearance="subtle"
+                onClick={scrollToMiddle}
+                testId="scroll-to-middle"
+              >
+                Scroll to middle
+              </Button>
+              <Button
+                appearance="subtle"
+                onClick={scrollToBottom}
+                testId="scroll-to-bottom"
+              >
+                Scroll to bottom
+              </Button>
+              <Button autoFocus appearance="primary" onClick={close}>
+                Close
+              </Button>
+            </ModalFooter>
+          </ModalDialog>
         )}
       </ModalTransition>
-    </TallContainer>
+    </div>
   );
 };
-
-const scrollBehaviors = [
-  {
-    name: 'scrollBehavior',
-    value: 'inside',
-    label: 'inside',
-  },
-  { name: 'scrollBehavior', value: 'outside', label: 'outside' },
-  {
-    name: 'scrollBehavior',
-    value: 'inside-wide',
-    label: 'inside-wide',
-  },
-];
 
 const selectOptions = [
   { label: 'Sydney', value: 'sydney' },
@@ -274,10 +269,10 @@ type FlagData = {
   title: string;
 };
 
-const FlagGroupContainer = styled.div`
-  width: 100%;
-  text-align: right;
-`;
+const flagGroupContainerStyles = css({
+  width: '100%',
+  textAlign: 'right',
+});
 
 const FlagGroupExample = () => {
   const [flags, setFlags] = useState<Array<FlagData>>([]);
@@ -294,7 +289,7 @@ const FlagGroupExample = () => {
   );
 
   return (
-    <FlagGroupContainer>
+    <div css={flagGroupContainerStyles}>
       <Button testId="flag-trigger" appearance="primary" onClick={addFlag}>
         Add flag
       </Button>
@@ -310,7 +305,7 @@ const FlagGroupExample = () => {
           />
         ))}
       </FlagGroup>
-    </FlagGroupContainer>
+    </div>
   );
 };
 

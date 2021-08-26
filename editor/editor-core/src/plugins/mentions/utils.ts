@@ -8,3 +8,22 @@ export const isTeamStats = (stat: any): Boolean =>
 
 export const isInviteItem = (mention: MentionDescription): Boolean =>
   mention && mention.id === INVITE_ITEM_DESCRIPTION.id;
+
+/**
+ * Actions
+ */
+export const shouldKeepInviteItem = (
+  query: string,
+  firstQueryWithoutResults: string,
+): boolean => {
+  if (!firstQueryWithoutResults) {
+    return true;
+  }
+  let lastIndexWithResults = firstQueryWithoutResults.length - 1;
+  let suffix = query.slice(lastIndexWithResults);
+  if (query[lastIndexWithResults - 1] === ' ') {
+    suffix = ' ' + suffix;
+  }
+  const depletedExtraWords = /\s[^\s]+\s/.test(suffix);
+  return !depletedExtraWords;
+};

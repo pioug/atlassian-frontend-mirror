@@ -7,17 +7,21 @@ import {
   uiRenderSuccessEvent,
   uiRenderFailedEvent,
 } from '../../../utils/analytics';
-import { CardInnerAppearance } from '../../../view/Card/types';
+import { CardInnerAppearance, CardPlatform } from '../../../view/Card/types';
 
 import { extractDownloadUrl } from '../detail';
 import { extractProvider } from '../context';
 import { extractPreview } from '../preview';
 import { AnalyticsHandler } from '../../../utils/types';
 
-const getMetadataFromJsonLd = (jsonLd: JsonLd.Data.BaseData) => {
+const getMetadataFromJsonLd = (
+  jsonLd: JsonLd.Data.BaseData,
+  platform?: CardPlatform,
+) => {
   const download = extractDownloadUrl(jsonLd as JsonLd.Data.Document);
   const provider = extractProvider(jsonLd);
-  const preview = extractPreview(jsonLd);
+  const preview = extractPreview(jsonLd, platform);
+
   return {
     download,
     providerName: provider && provider.text,
@@ -61,9 +65,10 @@ export const extractPreviewAction = (
   handleInvoke: InvokeHandler,
   handleAnalytics: AnalyticsHandler,
   testId?: string,
+  platform?: CardPlatform,
 ) => {
   // Extract metadata from view props & raw JSON-LD.
-  const metadataFromJsonLd = getMetadataFromJsonLd(jsonLd);
+  const metadataFromJsonLd = getMetadataFromJsonLd(jsonLd, platform);
   const metadataFromViewProps = getMetadataFromResolvedProps(viewProps);
   const metadata = {
     ...metadataFromJsonLd,

@@ -1,5 +1,12 @@
 # @atlaskit/comment
 
+## 10.2.1
+
+### Patch Changes
+
+- [`8aa7c4e9ff9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8aa7c4e9ff9) - Update example in order to fix internal test.
+- Updated dependencies
+
 ## 10.2.0
 
 ### Minor Changes

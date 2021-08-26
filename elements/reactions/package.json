@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/reactions",
-  "version": "19.1.3",
+  "version": "19.1.4",
   "description": "Reactions component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -14,7 +14,7 @@
   "types": "dist/types/index.d.ts",
   "atlaskit:src": "src/index.ts",
   "atlassian": {
-    "team": "TWP Collab Platform",
+    "team": "TWP Collaboration Platform",
     "deprecatedAutoEntryPoints": true,
     "releaseModel": "scheduled",
     "website": {
@@ -28,12 +28,11 @@
     "@atlaskit/analytics-gas-types": "^5.0.0",
     "@atlaskit/analytics-namespaced-context": "^6.3.0",
     "@atlaskit/analytics-next": "^8.2.0",
-    "@atlaskit/analytics-viewer": "^0.4.0",
     "@atlaskit/button": "^16.0.0",
     "@atlaskit/emoji": "^63.1.0",
-    "@atlaskit/icon": "^21.7.0",
+    "@atlaskit/icon": "^21.8.0",
     "@atlaskit/popper": "^5.0.0",
-    "@atlaskit/theme": "^11.4.0",
+    "@atlaskit/theme": "^11.5.0",
     "@atlaskit/tooltip": "^17.3.0",
     "@atlaskit/util-service-support": "^6.0.0",
     "@babel/runtime": "^7.0.0",
@@ -47,8 +46,9 @@
     "react-intl": "^2.6.0"
   },
   "devDependencies": {
+    "@atlaskit/analytics-viewer": "^0.4.5",
     "@atlaskit/docs": "^9.0.0",
-    "@atlaskit/editor-test-helpers": "^15.2.0",
+    "@atlaskit/editor-test-helpers": "^15.4.0",
     "@atlaskit/elements-test-helpers": "^0.7.0",
     "@atlaskit/tooltip": "^17.3.0",
     "@atlaskit/util-data-test": "^15.0.0",

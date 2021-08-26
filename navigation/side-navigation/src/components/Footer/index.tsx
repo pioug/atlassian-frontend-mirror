@@ -1,8 +1,9 @@
 import React from 'react';
 
-import { CustomItemComponentProps } from '@atlaskit/menu';
+import type { CustomItemComponentProps } from '@atlaskit/menu';
+import { N500 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
-import { itemTextColor } from '../../common/constants';
 import { overrideStyleFunction } from '../../common/styles';
 import { HeaderProps } from '../Header';
 import { CustomItem } from '../Item';
@@ -45,7 +46,7 @@ const Footer = (props: HeaderProps) => {
       },
       'div&:active': {
         backgroundColor: 'transparent',
-        color: itemTextColor,
+        color: token('color.text.mediumEmphasis', N500),
       },
     }),
     props.cssFn,

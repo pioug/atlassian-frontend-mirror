@@ -14,7 +14,7 @@ import avatarImg from './utils/sample-avatar.png';
 export default () => (
   <div data-testid="comment">
     <Comment
-      avatar={<Avatar src={avatarImg} size="medium" />}
+      avatar={<Avatar src={avatarImg} name="John Smith" size="medium" />}
       author={<CommentAuthor>John Smith</CommentAuthor>}
       type="author"
       edited={<CommentEdited>Edited</CommentEdited>}

@@ -124,22 +124,28 @@ const listPlugin = (): EditorPlugin => ({
     return (
       <WithPluginState
         plugins={{ listState: pluginKey }}
-        render={({ listState: listState }) => (
-          <ToolbarLists
-            isSmall={isSmall}
-            isSeparator={true}
-            isReducedSpacing={isToolbarReducedSpacing}
-            disabled={disabled}
-            editorView={editorView}
-            popupsMountPoint={popupsMountPoint}
-            popupsBoundariesElement={popupsBoundariesElement}
-            popupsScrollableElement={popupsScrollableElement}
-            bulletListActive={listState!.bulletListActive}
-            bulletListDisabled={listState!.bulletListDisabled}
-            orderedListActive={listState!.orderedListActive}
-            orderedListDisabled={listState!.orderedListDisabled}
-          />
-        )}
+        render={({ listState: listState }) => {
+          if (!listState) {
+            return null;
+          }
+
+          return (
+            <ToolbarLists
+              isSmall={isSmall}
+              isSeparator={true}
+              isReducedSpacing={isToolbarReducedSpacing}
+              disabled={disabled}
+              editorView={editorView}
+              popupsMountPoint={popupsMountPoint}
+              popupsBoundariesElement={popupsBoundariesElement}
+              popupsScrollableElement={popupsScrollableElement}
+              bulletListActive={listState!.bulletListActive}
+              bulletListDisabled={listState!.bulletListDisabled}
+              orderedListActive={listState!.orderedListActive}
+              orderedListDisabled={listState!.orderedListDisabled}
+            />
+          );
+        }}
       />
     );
   },

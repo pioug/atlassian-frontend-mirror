@@ -10,11 +10,11 @@ import { Schema } from 'prosemirror-model';
 import { EditorView } from 'prosemirror-view';
 import { browser } from '@atlaskit/editor-common';
 import CrossIcon from '@atlaskit/icon/glyph/cross';
-import AkModalDialog, { ModalTransition } from '@atlaskit/modal-dialog';
-import type {
-  HeaderComponentProps,
-  FooterComponentProps,
-} from '@atlaskit/modal-dialog/types';
+import AkModalDialog, {
+  ModalTransition,
+  ModalBody,
+  useModal,
+} from '@atlaskit/modal-dialog';
 import {
   Header,
   Footer,
@@ -429,32 +429,32 @@ export interface Props {
 }
 
 const ModalHeader = injectIntl(
-  ({
-    onClose,
-    showKeyline,
-    intl: { formatMessage },
-  }: HeaderComponentProps & InjectedIntlProps) => (
-    <Header showKeyline={showKeyline}>
-      <FormattedMessage {...messages.editorHelp} />
-      <div>
-        <ToolbarButton
-          onClick={onClose}
-          title={formatMessage(messages.closeHelpDialog)}
-          spacing="compact"
-          iconBefore={
-            <CrossIcon
-              label={formatMessage(messages.closeHelpDialog)}
-              size="medium"
-            />
-          }
-        />
-      </div>
-    </Header>
-  ),
+  ({ intl: { formatMessage } }: InjectedIntlProps) => {
+    const { onClose } = useModal();
+    return (
+      <Header>
+        <FormattedMessage {...messages.editorHelp} />
+        <div>
+          <ToolbarButton
+            // @ts-ignore
+            onClick={onClose}
+            title={formatMessage(messages.closeHelpDialog)}
+            spacing="compact"
+            iconBefore={
+              <CrossIcon
+                label={formatMessage(messages.closeHelpDialog)}
+                size="medium"
+              />
+            }
+          />
+        </div>
+      </Header>
+    );
+  },
 );
 
-const ModalFooter = ({ showKeyline }: FooterComponentProps) => (
-  <Footer showKeyline={showKeyline}>
+const ModalFooter = () => (
+  <Footer>
     <FormattedMessage
       {...messages.helpDialogTips}
       values={{ keyMap: getComponentFromKeymap(keymaps.openHelp) }}
@@ -501,71 +501,73 @@ class HelpDialog extends React.Component<Props & InjectedIntlProps> {
     return (
       <ModalTransition>
         {this.props.isVisible ? (
-          <AkModalDialog
-            width="large"
-            onClose={this.closeDialog}
-            components={{ Header: ModalHeader, Footer: ModalFooter }}
-          >
-            <ContentWrapper>
-              <Line />
-              <Content>
-                <ColumnLeft>
-                  <Title>
-                    <FormattedMessage {...messages.keyboardShortcuts} />
-                  </Title>
-                  <div>
-                    {this.formatting
-                      .filter((form) => {
-                        const keymap = form.keymap && form.keymap(this.props);
-                        return (
-                          keymap && keymap[browser.mac ? 'mac' : 'windows']
-                        );
-                      })
-                      .map((form) => (
-                        <Row key={`textFormatting-${form.name}`}>
-                          <span>{form.name}</span>
-                          {getComponentFromKeymap(form.keymap!())}
-                        </Row>
-                      ))}
-
-                    {this.formatting
-                      .filter(
-                        (form) =>
-                          shortcutNamesWithoutKeymap.indexOf(form.type) !== -1,
-                      )
-                      .filter((form) => form.autoFormatting)
-                      .map((form) => (
-                        <Row key={`autoFormatting-${form.name}`}>
-                          <span>{form.name}</span>
-                          {form.autoFormatting!()}
-                        </Row>
-                      ))}
-                  </div>
-                </ColumnLeft>
+          <AkModalDialog width="large" onClose={this.closeDialog}>
+            <ModalHeader />
+            <ModalBody>
+              <ContentWrapper>
                 <Line />
-                <ColumnRight>
-                  <Title>
-                    <FormattedMessage {...messages.markdown} />
-                  </Title>
-                  <div>
-                    {this.formatting
-                      .filter(
-                        (form) =>
-                          shortcutNamesWithoutKeymap.indexOf(form.type) === -1,
-                      )
-                      .map(
-                        (form) =>
-                          form.autoFormatting && (
-                            <Row key={`autoFormatting-${form.name}`}>
-                              <span>{form.name}</span>
-                              {form.autoFormatting()}
-                            </Row>
-                          ),
-                      )}
-                  </div>
-                </ColumnRight>
-              </Content>
-            </ContentWrapper>
+                <Content>
+                  <ColumnLeft>
+                    <Title>
+                      <FormattedMessage {...messages.keyboardShortcuts} />
+                    </Title>
+                    <div>
+                      {this.formatting
+                        .filter((form) => {
+                          const keymap = form.keymap && form.keymap(this.props);
+                          return (
+                            keymap && keymap[browser.mac ? 'mac' : 'windows']
+                          );
+                        })
+                        .map((form) => (
+                          <Row key={`textFormatting-${form.name}`}>
+                            <span>{form.name}</span>
+                            {getComponentFromKeymap(form.keymap!())}
+                          </Row>
+                        ))}
+
+                      {this.formatting
+                        .filter(
+                          (form) =>
+                            shortcutNamesWithoutKeymap.indexOf(form.type) !==
+                            -1,
+                        )
+                        .filter((form) => form.autoFormatting)
+                        .map((form) => (
+                          <Row key={`autoFormatting-${form.name}`}>
+                            <span>{form.name}</span>
+                            {form.autoFormatting!()}
+                          </Row>
+                        ))}
+                    </div>
+                  </ColumnLeft>
+                  <Line />
+                  <ColumnRight>
+                    <Title>
+                      <FormattedMessage {...messages.markdown} />
+                    </Title>
+                    <div>
+                      {this.formatting
+                        .filter(
+                          (form) =>
+                            shortcutNamesWithoutKeymap.indexOf(form.type) ===
+                            -1,
+                        )
+                        .map(
+                          (form) =>
+                            form.autoFormatting && (
+                              <Row key={`autoFormatting-${form.name}`}>
+                                <span>{form.name}</span>
+                                {form.autoFormatting()}
+                              </Row>
+                            ),
+                        )}
+                    </div>
+                  </ColumnRight>
+                </Content>
+              </ContentWrapper>
+            </ModalBody>
+            <ModalFooter />
           </AkModalDialog>
         ) : null}
       </ModalTransition>

@@ -1,3 +1,5 @@
+import { token } from '@atlaskit/tokens';
+
 import { B100, N30A, skeleton as skeletonColor } from './colors';
 import type { Layers } from './types';
 
@@ -67,7 +69,10 @@ export const assistive = visuallyHidden;
 export const skeletonShimmer = () =>
   ({
     css: {
-      backgroundColor: skeletonColor(),
+      backgroundColor: token(
+        'color.background.subtleNeutral.resting',
+        skeletonColor(),
+      ),
       animationDuration: '1.5s',
       animationIterationCount: 'infinite',
       animationTimingFunction: 'linear',
@@ -75,10 +80,13 @@ export const skeletonShimmer = () =>
     },
     keyframes: {
       from: {
-        backgroundColor: skeletonColor(),
+        backgroundColor: token(
+          'color.background.subtleNeutral.resting',
+          skeletonColor(),
+        ),
       },
       to: {
-        backgroundColor: N30A,
+        backgroundColor: token('color.background.subtleNeutral.hover', N30A),
       },
     },
   } as const);

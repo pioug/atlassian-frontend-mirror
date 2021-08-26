@@ -37,6 +37,7 @@ import { CodeBlockOptions } from '../../../plugins/code-block/types';
 import { SelectionPluginOptions } from '../../../plugins/selection/types';
 import { CardOptions } from '@atlaskit/editor-common';
 import undoRedoPlugin from '../../../plugins/undo-redo';
+import { TypeAheadPluginOptions } from '../../../plugins/type-ahead';
 // #endregion
 
 interface EditorPresetDefaultProps {
@@ -56,6 +57,7 @@ export type DefaultPresetPluginOptions = {
   selection?: SelectionPluginOptions;
   cardOptions?: CardOptions;
   createAnalyticsEvent?: CreateUIAnalyticsEvent;
+  typeAhead?: TypeAheadPluginOptions;
 };
 
 /**
@@ -86,7 +88,9 @@ export function createDefaultPreset(
   preset.add([quickInsertPlugin, options.quickInsert]);
   preset.add([
     typeAheadPlugin,
-    { createAnalyticsEvent: options.createAnalyticsEvent },
+    options.typeAhead || {
+      createAnalyticsEvent: options.createAnalyticsEvent,
+    },
   ]);
   preset.add(unsupportedContentPlugin);
   preset.add(editorDisabledPlugin);

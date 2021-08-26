@@ -18,7 +18,7 @@ import {
   getRenderErrorEventPayload,
   RenderEventAction,
 } from '../../analytics';
-import { FileAttributes } from '@atlaskit/media-common';
+import { FileAttributes, PerformanceAttributes } from '@atlaskit/media-common';
 import { createRateLimitedError } from '@atlaskit/media-test-helpers';
 import { getMediaClientErrorReason } from '@atlaskit/media-client';
 import { MediaCardError } from '../../../errors';
@@ -103,17 +103,30 @@ describe('Media Analytics', () => {
       fileMimetype: 'image/png',
       fileStatus: 'processed',
     };
+    const performanceAttributes: PerformanceAttributes = {
+      overall: {
+        durationSinceCommenced: 100,
+        durationSincePageStart: 1000,
+      },
+    };
     it('should attach FailedSubscriptionFailReason to failReason and MediaClientErrorReason to error', () => {
       const error = new MediaCardError(
         'metadata-fetch',
         createRateLimitedError(),
       );
-      expect(getRenderErrorEventPayload(fileAttributes, error)).toMatchObject({
+      expect(
+        getRenderErrorEventPayload(
+          fileAttributes,
+          performanceAttributes,
+          error,
+        ),
+      ).toMatchObject({
         eventType: 'operational',
         action: RenderEventAction.FAILED,
         actionSubject: 'mediaCardRender',
         attributes: {
           fileAttributes,
+          performanceAttributes,
           status: 'fail',
           failReason: getRenderErrorFailReason(error),
           error: getRenderErrorErrorReason(error),

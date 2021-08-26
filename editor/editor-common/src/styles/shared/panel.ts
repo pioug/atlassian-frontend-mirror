@@ -5,6 +5,7 @@ import {
   akEditorTableCellMinWidth,
   blockNodesVerticalMargin,
 } from '@atlaskit/editor-shared-styles';
+import { emojiSprite } from '@atlaskit/emoji';
 import * as colors from '@atlaskit/theme/colors';
 import { themed } from '@atlaskit/theme/components';
 import { borderRadius, gridSize } from '@atlaskit/theme/constants';
@@ -78,7 +79,12 @@ export const PanelSharedSelectors = {
   successPanel: `.${prefix}[data-panel-type=${PanelType.SUCCESS}]`,
   noteButton: `button[aria-label="Note"]`,
   removeButton: `button[aria-label="Remove"]`,
-  emojiIcon: `span[aria-label="emoji"]`,
+  colorPalette: `[aria-label="Background color"]`,
+  selectedColor: `[aria-label="The smell"]`,
+  hideEmojiIcon: `[aria-label="Hide emoji"]`,
+  emojiIcon: `[aria-label="editor-add-emoji"]`,
+  selectedEmoji: `[aria-label=":grinning:"]`,
+  title: `#editor-title`,
 };
 
 const iconDynamicStyles = (panelType: Exclude<PanelType, PanelType.CUSTOM>) => (
@@ -136,11 +142,16 @@ export const panelSharedStyles = css`
       width: ${gridSize() * 3}px;
       box-sizing: content-box;
       padding-right: ${gridSize()}px;
+      text-align: center;
       ${iconDynamicStyles(PanelType.INFO)}
 
       > span {
         vertical-align: middle;
         display: inline;
+      }
+
+      .${emojiSprite} {
+        vertical-align: -2px;
       }
     }
 

@@ -12,10 +12,10 @@ import {
 } from '@atlaskit/media-test-helpers';
 import Spinner from '@atlaskit/spinner';
 import { Auth } from '@atlaskit/media-core';
-import { AudioViewer } from '../../../../../newgen/viewers/audio';
-import { Props } from '../../../../../newgen/viewers/video';
-import { DefaultCoverWrapper, AudioCover } from '../../../../../newgen/styled';
-import { ErrorMessage } from '../../../../../newgen/errorMessage';
+import { AudioViewer } from '../../../../../viewers/audio';
+import { Props } from '../../../../../viewers/video';
+import { DefaultCoverWrapper, AudioCover } from '../../../../../styled';
+import { ErrorMessage } from '../../../../../errorMessage';
 import { CustomMediaPlayer } from '@atlaskit/media-ui';
 
 const token = 'some-token';

@@ -1,58 +1,70 @@
-import React, { useState } from 'react';
+/** @jsx jsx */
+import { useCallback, useState } from 'react';
 
+import { css, jsx } from '@emotion/core';
 import Lorem from 'react-lorem-component';
 
 import Button from '@atlaskit/button/standard-button';
-import { N30, R100 } from '@atlaskit/theme/colors';
+import CrossIcon from '@atlaskit/icon/glyph/cross';
+import { N500 } from '@atlaskit/theme/colors';
 
 import Modal, {
-  HeaderComponentProps,
-  ModalHeader,
-  ModalTitle,
+  ModalBody,
+  ModalFooter,
   ModalTransition,
+  useModal,
 } from '../../src';
 
-const CustomHeader = (props: HeaderComponentProps) => {
+const headerStyles = css({
+  display: 'flex',
+  padding: 24,
+  alignItems: 'center',
+  justifyContent: 'space-between',
+});
+
+const headingStyles = css({ fontSize: 20, fontWeight: 500 });
+
+const CustomHeader = () => {
+  const { onClose, titleId } = useModal();
   return (
-    <ModalHeader
-      {...props}
-      style={{
-        padding: 24,
-        backgroundColor: N30,
-      }}
-    >
-      <ModalTitle style={{ color: R100 }}>Modal header</ModalTitle>
-    </ModalHeader>
+    <div css={headerStyles}>
+      <h1 css={headingStyles} id={titleId}>
+        Custom modal header
+      </h1>
+      <Button appearance="link" onClick={onClose}>
+        <CrossIcon label="Close Modal" primaryColor={N500} />
+      </Button>
+    </div>
   );
 };
 
 export default function Example() {
   const [isOpen, setIsOpen] = useState(false);
-  const close = () => setIsOpen(false);
-  const open = () => setIsOpen(true);
+  const openModal = useCallback(() => setIsOpen(true), []);
+  const closeModal = useCallback(() => setIsOpen(false), []);
 
   return (
-    <>
-      <Button appearance="primary" onClick={open}>
+    <div>
+      <Button appearance="primary" onClick={openModal}>
         Open modal
       </Button>
 
       <ModalTransition>
         {isOpen && (
-          <Modal
-            actions={[
-              { text: 'Close', onClick: close },
-              { text: 'Secondary Action' },
-            ]}
-            components={{
-              Header: CustomHeader,
-            }}
-            onClose={close}
-          >
-            <Lorem count={10} />
+          <Modal onClose={closeModal}>
+            <CustomHeader />
+            <ModalBody>
+              <Lorem count={2} />
+            </ModalBody>
+            <ModalFooter>
+              <Button appearance="subtle">Secondary Action</Button>
+              <Button appearance="primary" onClick={closeModal} autoFocus>
+                Close
+              </Button>
+            </ModalFooter>
           </Modal>
         )}
       </ModalTransition>
-    </>
+    </div>
   );
 }

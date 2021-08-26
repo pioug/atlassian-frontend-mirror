@@ -50,6 +50,7 @@ export const App: React.FC<AppProps> = (props) => {
       onLocaleChanged={onLocaleChanged}
       onWillLocaleChange={onWillLocaleChange}
       rendererBridge={rendererBridge}
+      UNSAFE_allowCustomPanels={rendererConfiguration.isCustomPanelEnabled()}
     />
   );
 };

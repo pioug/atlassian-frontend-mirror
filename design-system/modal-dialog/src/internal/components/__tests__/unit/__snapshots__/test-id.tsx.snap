@@ -1,3 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`Modal should be found by data-testid Using container snapshot 1`] = `<div />`;

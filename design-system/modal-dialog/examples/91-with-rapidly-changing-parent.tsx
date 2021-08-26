@@ -7,7 +7,13 @@ import Lorem from 'react-lorem-component';
 import Button from '@atlaskit/button/standard-button';
 import { gridSize } from '@atlaskit/theme/constants';
 
-import Modal, { ModalTransition } from '../src';
+import Modal, {
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
+  ModalTitle,
+  ModalTransition,
+} from '../src';
 
 const containerStyles = css({
   height: '100%',
@@ -28,14 +34,6 @@ function Child() {
   const [isOpen, setIsOpen] = useState(false);
   const open = () => setIsOpen(true);
   const close = () => setIsOpen(false);
-
-  const actions = [
-    { text: 'Close', onClick: close, testId: 'primary' },
-    {
-      text: 'Secondary Action',
-      testId: 'secondary',
-    },
-  ];
 
   return (
     <div css={containerStyles}>
@@ -59,13 +57,27 @@ function Child() {
       </Button>
       <ModalTransition>
         {isOpen && (
-          <Modal
-            actions={actions}
-            onClose={close}
-            heading="Modal Title"
-            testId="modal"
-          >
-            <Lorem count={2} />
+          <Modal onClose={close} testId="modal">
+            <ModalHeader>
+              <ModalTitle>Modal Title</ModalTitle>
+            </ModalHeader>
+
+            <ModalBody>
+              <Lorem count={2} />
+            </ModalBody>
+            <ModalFooter>
+              <Button appearance="subtle" testId="subtle">
+                Secondary action
+              </Button>
+              <Button
+                onClick={close}
+                appearance="primary"
+                testId="primary"
+                autoFocus
+              >
+                Close
+              </Button>
+            </ModalFooter>
           </Modal>
         )}
       </ModalTransition>

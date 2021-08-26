@@ -9,7 +9,7 @@ import { getErrorMessage } from '../../../../utils/getErrorMessage';
 import React from 'react';
 import { shallow } from 'enzyme';
 import { FailedTitleBox } from '../failedTitleBox';
-import { Breakpoint } from '../../common';
+import { Breakpoint } from '../../Breakpoint';
 import { TitleBoxWrapper } from '../styled';
 import EditorWarningIcon from '@atlaskit/icon/glyph/editor/warning';
 import { FormattedMessage } from 'react-intl';

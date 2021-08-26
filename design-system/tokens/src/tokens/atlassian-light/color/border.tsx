@@ -1,15 +1,13 @@
-import type { BorderColorTokenSchema } from '../../../types';
+import type { BorderColorTokenSchema, ValueSchema } from '../../../types';
 
-const color: BorderColorTokenSchema = {
+const color: ValueSchema<BorderColorTokenSchema> = {
   color: {
     border: {
       focus: {
         value: 'B500',
-        attributes: { group: 'paint' },
       },
       neutral: {
         value: 'N300A',
-        attributes: { group: 'paint' },
       },
     },
   },

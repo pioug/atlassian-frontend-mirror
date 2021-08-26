@@ -1,5 +1,12 @@
 # @atlaskit/onboarding
 
+## 10.2.3
+
+### Patch Changes
+
+- [`115c009e2ef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/115c009e2ef) - Refactor to use new modal dialog API.
+- Updated dependencies
+
 ## 10.2.2
 
 ### Patch Changes

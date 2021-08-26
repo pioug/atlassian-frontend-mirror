@@ -7,7 +7,7 @@ import {
   getFormattedFolderName,
   isMacPrivateFile,
   rejectAfter,
-} from '../../../../newgen/utils';
+} from '../../../../utils';
 import { nextTick } from '@atlaskit/media-test-helpers';
 
 describe('utils', () => {

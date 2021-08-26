@@ -1,5 +1,12 @@
 # @atlaskit/adf-schema
 
+## 19.1.0
+
+### Minor Changes
+
+- [`ad67f6684f1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ad67f6684f1) - Add MediaInline to ADF Stage0 schema
+- [`71bb1bb3cd0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/71bb1bb3cd0) - [ED-12933] Add new custom step for TypeAhead local flow control
+
 ## 19.0.0
 
 ### Major Changes

@@ -1,6 +1,12 @@
 // THIS IS AN AUTO-GENERATED FILE DO NOT MODIFY DIRECTLY
 // Re-generate by running `yarn build tokens`.
 const tokens = {
+  'color.accent.boldBlue': '--accent-boldBlue',
+  'color.accent.boldGreen': '--accent-boldGreen',
+  'color.accent.boldOrange': '--accent-boldOrange',
+  'color.accent.boldPurple': '--accent-boldPurple',
+  'color.accent.boldRed': '--accent-boldRed',
+  'color.accent.boldTeal': '--accent-boldTeal',
   'color.accent.subtleBlue': '--accent-subtleBlue',
   'color.accent.subtleGreen': '--accent-subtleGreen',
   'color.accent.subtleMagenta': '--accent-subtleMagenta',
@@ -97,9 +103,16 @@ const tokens = {
   'color.text.disabled': '--text-disabled',
   'shadow.card': '--card',
   'shadow.overlay': '--overlay',
+  'utility.UNSAFE_util.transparent': '--UNSAFE_util-transparent',
 } as const;
 
 export type CSSTokenMap = {
+  'color.accent.boldBlue': 'var(--accent-boldBlue)';
+  'color.accent.boldGreen': 'var(--accent-boldGreen)';
+  'color.accent.boldOrange': 'var(--accent-boldOrange)';
+  'color.accent.boldPurple': 'var(--accent-boldPurple)';
+  'color.accent.boldRed': 'var(--accent-boldRed)';
+  'color.accent.boldTeal': 'var(--accent-boldTeal)';
   'color.accent.subtleBlue': 'var(--accent-subtleBlue)';
   'color.accent.subtleGreen': 'var(--accent-subtleGreen)';
   'color.accent.subtleMagenta': 'var(--accent-subtleMagenta)';
@@ -181,6 +194,7 @@ export type CSSTokenMap = {
   'color.text.disabled': 'var(--text-disabled)';
   'shadow.card': 'var(--card)';
   'shadow.overlay': 'var(--overlay)';
+  'utility.UNSAFE_util.transparent': 'var(--UNSAFE_util-transparent)';
 };
 
 export type CSSToken = CSSTokenMap[keyof CSSTokenMap];

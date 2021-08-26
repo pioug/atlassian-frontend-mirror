@@ -103,7 +103,13 @@ describe('<ButtonItem />', () => {
     };
 
     const { container } = render(
-      <ButtonItem cssFn={cssFn} isSelected isDisabled onClick={noop}>
+      <ButtonItem
+        // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
+        cssFn={cssFn}
+        isSelected
+        isDisabled
+        onClick={noop}
+      >
         Helloo
       </ButtonItem>,
     );

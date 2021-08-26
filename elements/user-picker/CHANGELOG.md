@@ -1,5 +1,12 @@
 # @atlaskit/user-picker
 
+## 7.16.1
+
+### Patch Changes
+
+- [`5fe6e21a9a0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5fe6e21a9a0) - [ux] Upgrade to the latest version of @atlaskit/modal-dialog. This change includes shifting the primary button in the footer of the modal to be on the right instead of the left.
+- Updated dependencies
+
 ## 7.16.0
 
 ### Minor Changes

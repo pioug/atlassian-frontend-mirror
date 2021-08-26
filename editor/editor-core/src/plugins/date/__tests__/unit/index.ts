@@ -10,7 +10,6 @@ import {
   td,
   DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import {
   Preset,
@@ -118,7 +117,7 @@ describe('date plugin', () => {
           view.state.doc.nodeAt(view.state.selection.$from.pos)!.type.name,
         ).toEqual(view.state.schema.nodes.date.name);
         const pluginState: DatePluginState = pluginKey.getState(view.state);
-        expect(pluginState.showDatePickerAt).toEqual(null);
+        expect(pluginState.showDatePickerAt).toEqual(6);
         expect(pluginState.isNew).toEqual(true);
       });
 
@@ -454,14 +453,8 @@ describe('date plugin', () => {
         const initialPluginState: DatePluginState = pluginKey.getState(
           view.state,
         );
-        expect(initialPluginState.showDatePickerAt).toEqual(null);
+        expect(initialPluginState.showDatePickerAt).toEqual(6);
         expect(initialPluginState.isNew).toEqual(true);
-
-        // Open date picker
-        openDatePicker()(view.state, view.dispatch);
-        const pluginState: DatePluginState = pluginKey.getState(view.state);
-        expect(pluginState.showDatePickerAt).toBeTruthy();
-        expect(pluginState.isNew).toBe(true);
         expect(view.state.selection instanceof NodeSelection).toEqual(true);
       });
 
@@ -568,7 +561,6 @@ describe('date plugin', () => {
           doc(paragraph(' {insertPos}{<>} {newSelectPos}')),
         );
         insertDate()(view.state, view.dispatch);
-        openDatePicker()(view.state, view.dispatch);
 
         const initialPluginState: DatePluginState = pluginKey.getState(
           view.state,
@@ -597,7 +589,6 @@ describe('date plugin', () => {
           ),
         );
         insertDate()(view.state, view.dispatch);
-        openDatePicker()(view.state, view.dispatch);
 
         const initialPluginState: DatePluginState = pluginKey.getState(
           view.state,
@@ -622,12 +613,15 @@ describe('date plugin', () => {
     let _UTC: (year: number, month: number) => number;
     let editorView: EditorView;
 
-    beforeEach(() => {
+    beforeEach(async () => {
       _UTC = Date.UTC;
       Date.UTC = jest.fn(() => +timestamp);
-      ({ editorView } = editor(doc(paragraph('{<>}'))));
-      insertText(editorView, `/date`);
-      sendKeyToPm(editorView, 'Enter');
+      const { editorView: _editorView, typeAheadTool } = editor(
+        doc(paragraph('{<>}')),
+      );
+
+      editorView = _editorView;
+      await typeAheadTool.searchQuickInsert('date')?.insert({ index: 0 });
     });
 
     afterEach(() => {

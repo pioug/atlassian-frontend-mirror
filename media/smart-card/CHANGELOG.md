@@ -1,5 +1,16 @@
 # @atlaskit/smart-card
 
+## 16.1.0
+
+### Minor Changes
+
+- [`978e9280610`](https://bitbucket.org/atlassian/atlassian-frontend/commits/978e9280610) - add support for platform in BlockCard component
+
+### Patch Changes
+
+- [`b90c0237824`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b90c0237824) - Update package.jsons to remove unused dependencies.
+- Updated dependencies
+
 ## 16.0.0
 
 ### Major Changes

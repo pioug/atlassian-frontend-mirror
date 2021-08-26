@@ -94,7 +94,13 @@ describe('<LinkItem />', () => {
       borderRadius: '5px',
     });
     const { container } = render(
-      <LinkItem cssFn={customCss} isSelected isDisabled href="#">
+      <LinkItem
+        // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
+        cssFn={customCss}
+        isSelected
+        isDisabled
+        href="#"
+      >
         Helloo
       </LinkItem>,
     );

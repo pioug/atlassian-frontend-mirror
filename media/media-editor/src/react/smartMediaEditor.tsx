@@ -24,7 +24,14 @@ import {
 // Importing from own entry-point, since we dont' want to bring whole media-client at this point
 import { RECENTS_COLLECTION } from '@atlaskit/media-client/constants';
 import { messages, Shortcut } from '@atlaskit/media-ui';
-import ModalDialog, { ModalTransition } from '@atlaskit/modal-dialog';
+import Button from '@atlaskit/button/standard-button';
+import ModalDialog, {
+  ModalTransition,
+  ModalBody,
+  ModalTitle,
+  ModalHeader,
+  ModalFooter,
+} from '@atlaskit/modal-dialog';
 import Spinner from '@atlaskit/spinner';
 
 import EditorView from './editorView/editorView';
@@ -395,26 +402,29 @@ export class SmartMediaEditor extends React.Component<
     const { closeIntent } = this.state;
 
     if (closeIntent) {
-      const actions = [
-        {
-          text: formatMessage(messages.annotate_confirmation_close_anyway),
-          onClick: this.closeAnyway,
-        },
-        {
-          text: formatMessage(messages.cancel),
-          onClick: this.closeConfirmationDialog,
-        },
-      ];
       return (
         <ModalTransition>
-          <ModalDialog
-            width="small"
-            appearance="danger"
-            heading={formatMessage(messages.annotate_confirmation_heading)}
-            actions={actions}
-            onClose={this.closeConfirmationDialog}
-          >
-            {formatMessage(messages.annotate_confirmation_content)}
+          <ModalDialog width="small" onClose={this.closeConfirmationDialog}>
+            <ModalHeader>
+              <ModalTitle appearance="danger">
+                {formatMessage(messages.annotate_confirmation_heading)}
+              </ModalTitle>
+            </ModalHeader>
+
+            <ModalBody>
+              {formatMessage(messages.annotate_confirmation_content)}
+            </ModalBody>
+            <ModalFooter>
+              <Button
+                onClick={this.closeConfirmationDialog}
+                appearance="subtle"
+              >
+                {formatMessage(messages.cancel)}
+              </Button>
+              <Button autoFocus onClick={this.closeAnyway} appearance="danger">
+                {formatMessage(messages.annotate_confirmation_close_anyway)}
+              </Button>
+            </ModalFooter>
           </ModalDialog>
         </ModalTransition>
       );

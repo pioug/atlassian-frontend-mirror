@@ -11,6 +11,8 @@ import {
 } from '../../collab-provider';
 import WebBridgeImpl from '../../../editor/native-to-web';
 import { FetchProxy } from '../../../utils/fetch-proxy';
+import EditorConfiguration from '../../../editor/editor-configuration';
+import { useEditorConfiguration } from '../../../editor/hooks/use-editor-configuration';
 
 jest.mock('../../../cross-platform-promise');
 jest.mock('@atlaskit/collab-provider');
@@ -125,16 +127,27 @@ describe('createCollabProvider', () => {
   });
 });
 
-function setupFactory() {
+function setupFactory(allowCollabProvider: boolean) {
+  const config = new EditorConfiguration(
+    JSON.stringify({ allowCollabProvider }),
+  );
+  const bridge = new WebBridgeImpl();
+
   let renderResult: ReactTestRenderer;
 
   interface Props {
     bridge: WebBridgeImpl;
+    editorConfiguration: EditorConfiguration;
     createCollabProvider: (bridge: WebBridgeImpl) => Promise<CollabProvider>;
   }
   const TestComponent: React.FC<Props> = (props) => {
+    const configuration = useEditorConfiguration(
+      props.bridge,
+      props.editorConfiguration,
+    );
     const collabProvider = useCollabProvider(
       props.bridge,
+      configuration,
       props.createCollabProvider,
     );
 
@@ -157,28 +170,21 @@ function setupFactory() {
     act(() => {
       renderResult = create(
         <TestComponent
-          bridge={new WebBridgeImpl()}
+          bridge={bridge}
+          editorConfiguration={config}
           createCollabProvider={createCollabProvider}
         />,
       );
     });
 
-    return renderResult;
+    return { renderResult, bridge, config };
   };
 }
 
 describe('useCollabProvider', () => {
-  const setup = setupFactory();
-
-  it('should create the collab provider', function () {
-    jest
-      .spyOn(window, 'location', 'get')
-      .mockImplementation(
-        () =>
-          new URL('https://www.atlassian.com?allowCollabProvider=true') as any,
-      );
-
-    const renderResult = setup();
+  it('should create the collab provider if enabled', () => {
+    const setup = setupFactory(true);
+    const { renderResult } = setup();
 
     expect(
       renderResult.root.findAll(
@@ -187,19 +193,28 @@ describe('useCollabProvider', () => {
     ).toEqual(1);
   });
 
-  it('should create the collab provider', function () {
-    jest
-      .spyOn(window, 'location', 'get')
-      .mockImplementation(
-        () =>
-          new URL('https://www.atlassian.com?allowCollabProvider=false') as any,
-      );
-
-    const renderResult = setup();
+  it('should not create the collab provider if disabled', () => {
+    const setup = setupFactory(false);
+    const { renderResult } = setup();
 
     expect(
       renderResult.root.findAll(
         (node) => node.props['data-test-id'] === 'no-collab',
+      ).length,
+    ).toEqual(1);
+  });
+
+  it('should update collabProvider when chaging configuration', () => {
+    const setup = setupFactory(false);
+    const { renderResult, bridge } = setup();
+
+    act(() => {
+      bridge.configure(JSON.stringify({ allowCollabProvider: true }));
+    });
+
+    expect(
+      renderResult.root.findAll(
+        (node) => node.props['data-test-id'] === 'has-collab',
       ).length,
     ).toEqual(1);
   });

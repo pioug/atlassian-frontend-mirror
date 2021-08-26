@@ -13,7 +13,8 @@ import {
   name as packageName,
   version as packageVersion,
 } from '../../version.json';
-import { SelectItemMode } from '../type-ahead/types';
+
+import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
 import { isTeamType } from './utils';
 import { TeamInfoAttrAnalytics } from './types';
 import { ContextIdentifierProvider } from '@atlaskit/editor-common';

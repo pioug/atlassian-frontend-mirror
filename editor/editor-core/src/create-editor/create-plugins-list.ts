@@ -108,6 +108,10 @@ export function getDefaultPresetOptionsFromEditorProps(
 
   return {
     createAnalyticsEvent,
+    typeAhead: {
+      createAnalyticsEvent,
+      isMobile,
+    },
     featureFlags: createFeatureFlagsFromProps(props),
     paste: {
       cardOptions: props.smartLinks || props.UNSAFE_cards,
@@ -146,6 +150,8 @@ export function getDefaultPresetOptionsFromEditorProps(
         props.elementBrowser && props.elementBrowser.helpUrl,
       disableDefaultItems: isMobile,
       headless: isMobile,
+      emptyStateHandler:
+        props.elementBrowser && props.elementBrowser.emptyStateHandler,
     },
     selection: { useLongPressSelection: false },
     cardOptions: props.smartLinks || props.UNSAFE_cards,

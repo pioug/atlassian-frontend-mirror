@@ -8,6 +8,7 @@ import cardAdf from './__fixtures__/card-adf.json';
 import cardSelectionAdf from './__fixtures__/card-selection-adf.json';
 import cardAdfRequestAccess from './__fixtures__/card-request-access.adf.json';
 import cardAdfBlock from './__fixtures__/card-adf.block.json';
+import cardAdfSupportedPlatforms from './__fixtures__/card-adf.supported-platforms.json';
 import cardAdfBlockLongTitle from './__fixtures__/card-adf-long-title.block.json';
 import {
   openPreviewState,
@@ -219,4 +220,30 @@ describe('Cards:', () => {
       await snapshot(page);
     }),
   );
+
+  it('should show preview when supported platform matches', async () => {
+    await initFullPageEditorWithAdf(
+      page,
+      cardAdfSupportedPlatforms,
+      Device.LaptopHiDPI,
+      {
+        width: 800,
+        height: 1500,
+      },
+      {
+        smartLinks: {
+          resolveBeforeMacros: ['jira'],
+          allowBlockCards: true,
+          allowEmbeds: true,
+        },
+      },
+      undefined,
+      undefined,
+      true,
+    );
+    await evaluateTeardownMockDate(page);
+
+    await waitForResolvedBlockCard(page);
+    await snapshot(page);
+  });
 });

@@ -8,7 +8,6 @@ import {
 import * as keymaps from '../../../keymaps';
 import { GapCursorSelection, Side } from '../../selection/gap-cursor-selection';
 import { findExpand } from '../utils';
-import { findTypeAheadQuery } from '../../type-ahead/utils/find-query-mark';
 import { isEmptyNode } from '../../../utils';
 import { expandClassNames } from '../ui/class-names';
 import { deleteExpand, focusTitle } from '../commands';
@@ -106,8 +105,7 @@ export function expandKeymap(): Plugin {
   keymaps.bindKeymapWithCommand(
     keymaps.moveUp.common!,
     (state, dispatch, editorView) => {
-      const queryMark = findTypeAheadQuery(state);
-      if ((queryMark.start !== -1 && queryMark.end !== -1) || !editorView) {
+      if (!editorView) {
         return false;
       }
       const { selection, schema } = state;

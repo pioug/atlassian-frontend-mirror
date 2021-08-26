@@ -7,12 +7,21 @@ import { sectionCSS } from '../internal/styles/menu-section/section';
 import HeadingItem from '../menu-item/heading-item';
 import type { SectionBaseProps, SectionProps } from '../types';
 
+/**
+ * __Section__
+ *
+ * A section includes related actions or items in a menu.
+ *
+ * - [Examples](https://atlaskit.atlassian.com/packages/design-system/menu/docs/section)
+ * - [Code](https://atlaskit.atlassian.com/packages/design-system/menu)
+ */
 const Section = forwardRef<HTMLElement, SectionProps>(
   // Type needed on props to extract types with extract react types.
   ({ children, overrides, title, testId, ...rest }: SectionProps, ref) => {
     return title !== undefined ? (
       <SectionBase {...rest} testId={testId} ref={ref} aria-label={title}>
         <HeadingItem
+          // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
           cssFn={
             overrides && overrides.HeadingItem && overrides.HeadingItem.cssFn
           }
@@ -31,12 +40,13 @@ const Section = forwardRef<HTMLElement, SectionProps>(
   },
 );
 
-export const SectionBase = forwardRef<HTMLElement, SectionBaseProps>(
+const SectionBase = forwardRef<HTMLElement, SectionBaseProps>(
   // Type needed on props to extract types with extract react types.
   ({ isScrollable, hasSeparator, testId, ...rest }: SectionBaseProps, ref) => (
     <div
       // NOTE: Firefox allows elements that have "overflow: auto" to gain focus (as if it had tab-index="0")
       // We have made a deliberate choice to leave this behaviour as is.
+      // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
       css={sectionCSS(isScrollable, hasSeparator)}
       data-testid={testId}
       role="group"

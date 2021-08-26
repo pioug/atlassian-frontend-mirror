@@ -30,7 +30,6 @@ import {
   DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
-import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import sleep from '@atlaskit/editor-test-helpers/sleep';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 import { uuid } from '@atlaskit/adf-schema';
@@ -1453,9 +1452,9 @@ describe('Media plugin', () => {
   });
 
   it('should trigger cloud picker opened analytics event when opened via quick insert', async () => {
-    const { editorView, sel } = editor(doc(p('{<>}')), {}, undefined);
-    insertText(editorView, '/Files', sel);
-    sendKeyToPm(editorView, 'Enter');
+    const { typeAheadTool } = editor(doc(p('{<>}')), {}, undefined);
+
+    await typeAheadTool.searchQuickInsert('Files')?.insert({ index: 0 });
 
     expect(createAnalyticsEvent).toHaveBeenCalledWith({
       action: 'opened',

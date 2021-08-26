@@ -19,6 +19,7 @@ export interface MediaGroupProps {
   children?: React.ReactNode;
   eventHandlers?: EventHandlers;
   featureFlags?: MediaFeatureFlags;
+  enableDownloadButton?: boolean;
 }
 
 export interface MediaGroupState {
@@ -69,6 +70,7 @@ export default class MediaGroup extends PureComponent<
       cardDimensions: defaultImageCardDimensions,
       useInlinePlayer: false,
       featureFlags: this.props.featureFlags,
+      enableDownloadButton: this.props.enableDownloadButton,
     } as MediaProps);
   }
 
@@ -113,6 +115,7 @@ export default class MediaGroup extends PureComponent<
         },
       },
       featureFlags: this.props.featureFlags,
+      enableDownloadButton: this.props.enableDownloadButton,
     } as MediaProps);
   }
 
@@ -145,6 +148,7 @@ export default class MediaGroup extends PureComponent<
             default:
               return React.cloneElement(child, {
                 featureFlags: this.props.featureFlags,
+                enableDownloadButton: this.props.enableDownloadButton,
               });
           }
         })}

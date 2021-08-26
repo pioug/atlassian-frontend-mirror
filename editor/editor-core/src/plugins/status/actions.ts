@@ -28,8 +28,11 @@ export const DEFAULT_STATUS: StatusType = {
   color: 'neutral',
 };
 
-export const createStatus = (showStatusPickerAtOffset = -2) => (
-  insert: (node: Node | Object | string) => Transaction,
+export const createStatus = (showStatusPickerAtOffset = 0) => (
+  insert: (
+    node: Node | Object | string,
+    opts: { selectInlineNode: boolean },
+  ) => Transaction,
   state: EditorState,
 ): Transaction => {
   const statusNode = state.schema.nodes.status.createChecked({
@@ -37,7 +40,11 @@ export const createStatus = (showStatusPickerAtOffset = -2) => (
     localId: uuid.generate(),
   });
 
-  const tr = insert(statusNode);
+  const space = state.schema.text(' ');
+
+  const tr = insert(Fragment.from([statusNode, space]), {
+    selectInlineNode: true,
+  });
   const showStatusPickerAt = tr.selection.from + showStatusPickerAtOffset;
   return tr
     .setSelection(NodeSelection.create(tr.doc, showStatusPickerAt))

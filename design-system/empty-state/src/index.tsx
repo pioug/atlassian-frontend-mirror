@@ -1,2 +1,2 @@
-export { default } from './EmptyState';
-export type { Sizes, RenderImageProps } from './EmptyState';
+export { default } from './empty-state';
+export type { Sizes, Width, RenderImageProps, EmptyStateProps } from './types';

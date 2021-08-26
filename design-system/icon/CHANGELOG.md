@@ -1,5 +1,19 @@
 # @atlaskit/icon
 
+## 21.8.0
+
+### Minor Changes
+
+- [`22b8dd3f590`](https://bitbucket.org/atlassian/atlassian-frontend/commits/22b8dd3f590) - Instrumented Icon with the new theming package, `@atlaskit/tokens`.
+
+  New tokens will be visible only in applications configured to use the new Tokens API (currently in alpha). These changes are intended to be interoperable with the legacy theme implementation. Legacy dark mode users should expect no visual or breaking changes.
+
+- [`88ff832bd2b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/88ff832bd2b) - Add @atlaskit/icon/glyph/editor/file-preview to atlaskit/icon package for media group toolbar
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 21.7.4
 
 ### Patch Changes

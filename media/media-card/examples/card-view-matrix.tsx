@@ -83,9 +83,10 @@ class Example extends React.Component<{}, State> {
 
   render() {
     const statuses: CardStatus[] = [
-      'uploading',
       'loading',
+      'uploading',
       'processing',
+      'loading-preview',
       'complete',
       'error',
       'failed-processing',

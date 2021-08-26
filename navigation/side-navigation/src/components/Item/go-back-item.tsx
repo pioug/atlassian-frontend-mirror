@@ -1,10 +1,9 @@
 import React, { forwardRef, useCallback, useState } from 'react';
 
 import LeftArrow from '@atlaskit/icon/glyph/arrow-left-circle';
-import { ButtonItemProps } from '@atlaskit/menu';
-
-import { navigationBackgroundColor } from '../../common/constants';
-import { backItemStyle, overrideStyleFunction } from '../../common/styles';
+import type { ButtonItemProps } from '@atlaskit/menu';
+import { N10 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import ButtonItem from './button-item';
 
@@ -15,7 +14,10 @@ const GoBackItem = forwardRef<HTMLElement, ButtonItemProps>(
     {
       cssFn,
       iconBefore = (
-        <LeftArrow secondaryColor={navigationBackgroundColor} label="" />
+        <LeftArrow
+          secondaryColor={token('color.background.default', N10)}
+          label=""
+        />
       ),
       onClick,
       isSelected,
@@ -25,7 +27,6 @@ const GoBackItem = forwardRef<HTMLElement, ButtonItemProps>(
     ref,
   ) => {
     const [isInteracted, setIsInteracted] = useState(false);
-    const cssOverride = overrideStyleFunction(backItemStyle, cssFn);
 
     const onClickHandler: ButtonItemProps['onClick'] = useCallback(
       (e) => {
@@ -42,7 +43,7 @@ const GoBackItem = forwardRef<HTMLElement, ButtonItemProps>(
     return (
       <ButtonItem
         isSelected={isSelected || isInteracted}
-        cssFn={cssOverride}
+        cssFn={cssFn}
         iconBefore={iconBefore}
         onClick={onClickHandler}
         ref={ref}

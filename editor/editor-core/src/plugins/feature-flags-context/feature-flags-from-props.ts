@@ -121,5 +121,10 @@ export function createFeatureFlagsFromProps(props: EditorProps): FeatureFlags {
         ? !!props.featureFlags?.enableViewUpdateSubscription
         : false,
     ),
+    collabAvatarScroll: Boolean(
+      typeof props.featureFlags?.collabAvatarScroll === 'boolean'
+        ? !!props.featureFlags?.collabAvatarScroll
+        : false,
+    ),
   };
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Node, DOMSerializer } from 'prosemirror-model';
-import { EditorView, NodeView } from 'prosemirror-view';
+import { EditorView } from 'prosemirror-view';
 import InfoIcon from '@atlaskit/icon/glyph/editor/info';
 import SuccessIcon from '@atlaskit/icon/glyph/editor/success';
 import NoteIcon from '@atlaskit/icon/glyph/editor/note';
@@ -17,6 +17,8 @@ import {
 import { Emoji } from '@atlaskit/editor-common';
 import { PanelPluginOptions } from '../types';
 import { panelAttrsToDom } from '../utils';
+
+const fitToHeight = 20;
 
 export const panelIcons: {
   [key in PanelType]: React.ComponentType<{ label: string }>;
@@ -52,7 +54,7 @@ export const PanelIcon: React.FC<PanelIconAttributes> = (
         shortName={panelIcon}
         showTooltip={false}
         allowTextFallback={false}
-        fitToHeight={16}
+        fitToHeight={fitToHeight}
       />
     );
   }
@@ -110,12 +112,19 @@ class PanelNodeView {
       this.icon,
     );
   }
+
+  ignoreMutation(
+    mutation: MutationRecord | { type: 'selection'; target: Element },
+  ) {
+    // ignore mutation if it caused by the icon.
+    return mutation.target === this.icon;
+  }
 }
 
 export const getPanelNodeView = (
   pluginOptions: PanelPluginOptions,
   providerFactory?: ProviderFactory,
-) => (node: any, view: EditorView, getPos: getPosHandler): NodeView => {
+) => (node: any, view: EditorView, getPos: getPosHandler): PanelNodeView => {
   return new PanelNodeView(
     node,
     view,

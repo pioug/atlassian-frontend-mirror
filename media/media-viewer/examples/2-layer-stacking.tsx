@@ -1,6 +1,6 @@
 import React from 'react';
 import Button from '@atlaskit/button/standard-button';
-import ModalDialog from '@atlaskit/modal-dialog';
+import ModalDialog, { ModalBody } from '@atlaskit/modal-dialog';
 import {
   createStorybookMediaClientConfig,
   defaultCollectionName,
@@ -25,9 +25,11 @@ export default class Example extends React.Component<{}, State> {
     return (
       <div>
         <ModalDialog>
-          <h1>This is a modal dialog</h1>
-          <p>MediaViewer should open on top of the modal dialog</p>
-          <Button onClick={this.setItem(imageItem)}>Open MediaViewer</Button>
+          <ModalBody>
+            <h1>This is a modal dialog</h1>
+            <p>MediaViewer should open on top of the modal dialog</p>
+            <Button onClick={this.setItem(imageItem)}>Open MediaViewer</Button>
+          </ModalBody>
         </ModalDialog>
 
         {this.state.selectedItem && (

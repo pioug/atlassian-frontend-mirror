@@ -19,8 +19,8 @@ const spinnerContainerStyles = css({
  *
  * @internal
  */
-const SpinnerContainer: FC = (props) => (
-  <div css={spinnerContainerStyles} {...props} />
+const SpinnerContainer: FC = ({ children }) => (
+  <div css={spinnerContainerStyles}>{children}</div>
 );
 
 export default SpinnerContainer;

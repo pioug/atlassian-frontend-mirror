@@ -1,12 +1,12 @@
 /** @jsx jsx */
-import { FC } from 'react';
-import { jsx } from '@emotion/core';
-import { ReactNode, CSSProperties } from 'react';
+import { FC, ReactNode, CSSProperties } from 'react';
 import { components } from 'react-select';
+import { jsx } from '@emotion/core';
 
+import SearchIcon from '@atlaskit/icon/glyph/editor/search';
 import { layers } from '@atlaskit/theme/constants';
 import { N40A } from '@atlaskit/theme/colors';
-import SearchIcon from '@atlaskit/icon/glyph/editor/search';
+import { token } from '@atlaskit/tokens';
 
 import { ControlProps, MenuProps, OptionType } from '../types';
 
@@ -30,9 +30,12 @@ export const MenuDialog: FC<MenuDialogProps> = ({
 }) => (
   <div
     css={{
-      backgroundColor: 'white',
+      backgroundColor: token('color.background.overlay', 'white'),
       borderRadius: 4,
-      boxShadow: `0 0 0 1px ${N40A}, 0 4px 11px ${N40A}`,
+      boxShadow: token(
+        'shadow.overlay',
+        `0 0 0 1px ${N40A}, 0 4px 11px ${N40A}`,
+      ),
       maxWidth,
       minWidth,
       zIndex: layers.modal(),

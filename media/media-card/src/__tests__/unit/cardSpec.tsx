@@ -1,3 +1,4 @@
+jest.mock('../../utils/document');
 jest.mock('../../utils/viewportDetector', () => {
   const actualModule = jest.requireActual('../../utils/viewportDetector');
   return {
@@ -29,6 +30,8 @@ jest.mock('../../root/card/cardAnalytics', () => {
     __esModule: true,
     ...actualModule,
     fireOperationalEvent: jest.fn(actualModule.fireOperationalEvent),
+    fireCopiedEvent: jest.fn(actualModule.fireCopiedEvent),
+    fireCommencedEvent: jest.fn(actualModule.fireCommencedEvent),
   };
 });
 import { ReplaySubject } from 'rxjs/ReplaySubject';
@@ -36,10 +39,8 @@ import React from 'react';
 import uuid from 'uuid/v4';
 import { shallow, mount } from 'enzyme';
 import { MediaFeatureFlags } from '@atlaskit/media-common';
-import { FabricChannel } from '@atlaskit/analytics-listeners';
 import { MEDIA_CONTEXT } from '@atlaskit/analytics-namespaced-context/MediaAnalyticsContext';
 import {
-  AnalyticsListener,
   AnalyticsContext,
   CreateUIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
@@ -87,9 +88,16 @@ import { getFileAttributes } from '../../utils/analytics';
 import { FileAttributesProvider } from '../../utils/fileAttributesContext';
 import { getFileDetails } from '../../utils/metadata';
 import { getCardStatus } from '../../root/card/getCardStatus';
-import { fireOperationalEvent } from '../../root/card/cardAnalytics';
+import {
+  fireOperationalEvent,
+  fireCopiedEvent,
+  fireCommencedEvent,
+} from '../../root/card/cardAnalytics';
 import { isMediaCardError, MediaCardError } from '../../errors';
 import { CardStatus } from '../../types';
+import getDocument from '../../utils/document';
+
+asMock(getDocument).mockImplementation(() => document);
 
 const mockViewportDetectorOnce = () => {
   const onVisibleMock = { onVisible: () => {} };
@@ -101,16 +109,6 @@ const mockViewportDetectorOnce = () => {
   );
   return onVisibleMock;
 };
-
-type AnalyticsHandlerResultType = ReturnType<
-  typeof AnalyticsListener.prototype['props']['onEvent']
->;
-type AnalyticsHandlerArgumentsType = Parameters<
-  typeof AnalyticsListener.prototype['props']['onEvent']
->;
-
-const getAnalyticsHandlerMock = () =>
-  jest.fn<AnalyticsHandlerResultType, AnalyticsHandlerArgumentsType>();
 
 describe('Card', () => {
   let identifier: Identifier;
@@ -1360,10 +1358,17 @@ describe('Card', () => {
   });
 
   describe('Analytics', () => {
-    const callCopy = async () => {
-      document.dispatchEvent(new Event('copy'));
-      await nextTick(); // copy handler is not awaited and fired in the next tick
-    };
+    beforeEach(() => {
+      jest.spyOn(performance, 'now').mockReturnValue(1000);
+    });
+
+    afterEach(() => {
+      jest.clearAllMocks();
+    });
+
+    const createAnalyticsEvent = (jest.fn(() => ({
+      fire: () => {},
+    })) as unknown) as CreateUIAnalyticsEvent;
 
     it('should attach FileAttributes Context', () => {
       const mediaClient = fakeMediaClient();
@@ -1474,167 +1479,7 @@ describe('Card', () => {
       expect(actualEvent).toBeDefined();
     });
 
-    it('should fire copied file event on copy if inside a selection', async () => {
-      const mediaClient = fakeMediaClient();
-      const onEvent = jest.fn();
-      window.getSelection = jest.fn().mockReturnValue({
-        containsNode: () => true,
-      });
-      const featureFlags: MediaFeatureFlags = {
-        newCardExperience: true,
-      };
-      mount<CardProps, CardState>(
-        <AnalyticsListener channel={FabricChannel.media} onEvent={onEvent}>
-          <Card
-            mediaClient={mediaClient}
-            identifier={identifier}
-            featureFlags={featureFlags}
-            isLazy={false}
-          />
-        </AnalyticsListener>,
-      );
-      await callCopy();
-      expect(onEvent).toBeCalledWith(
-        expect.objectContaining({
-          payload: {
-            action: 'copied',
-            actionSubject: 'file',
-            actionSubjectId: fileIdentifier.id,
-            eventType: 'ui',
-            attributes: {},
-          },
-        }),
-        FabricChannel.media,
-      );
-    });
-
-    it('should not fire copied file event on copy if not inside a selection', async () => {
-      const mediaClient = fakeMediaClient();
-      const onEvent = jest.fn();
-      window.getSelection = jest.fn().mockReturnValue({
-        containsNode: () => false,
-      });
-      mount<CardProps, CardState>(
-        <AnalyticsListener channel={FabricChannel.media} onEvent={onEvent}>
-          <Card mediaClient={mediaClient} identifier={identifier} />
-        </AnalyticsListener>,
-      );
-      await callCopy();
-      expect(onEvent).not.toBeCalled();
-    });
-
-    it('should not fire copy analytics if selection api is not available', async () => {
-      const mediaClient = fakeMediaClient();
-      const onEvent = jest.fn();
-      window.getSelection = jest.fn().mockReturnValue({});
-      mount<CardProps, CardState>(
-        <AnalyticsListener channel={FabricChannel.media} onEvent={onEvent}>
-          <Card mediaClient={mediaClient} identifier={identifier} />
-        </AnalyticsListener>,
-      );
-      await callCopy();
-      expect(onEvent).not.toBeCalled();
-    });
-
-    it('should remove listener on unmount', async () => {
-      const mediaClient = fakeMediaClient();
-      const onEvent = jest.fn();
-      window.getSelection = jest.fn().mockReturnValue({
-        containsNode: () => true,
-      });
-      const handler = mount<CardProps, CardState>(
-        <AnalyticsListener channel={FabricChannel.media} onEvent={onEvent}>
-          <Card mediaClient={mediaClient} identifier={identifier} />
-        </AnalyticsListener>,
-      );
-
-      handler.unmount();
-      await callCopy();
-      expect(onEvent).not.toBeCalled();
-    });
-
-    it('should fire commenced analytics event on file load start with internal file Id', async () => {
-      const subject = new ReplaySubject<FileState>(1);
-      const mediaClient = fakeMediaClient();
-      asMockReturnValue(mediaClient.file.getFileState, subject);
-      const analyticsHandler = getAnalyticsHandlerMock();
-
-      await mount(
-        <AnalyticsListener
-          channel={FabricChannel.media}
-          onEvent={analyticsHandler}
-        >
-          <Card
-            mediaClient={mediaClient}
-            identifier={fileIdentifier}
-            isLazy={false}
-          />
-        </AnalyticsListener>,
-      );
-
-      expect(analyticsHandler).toHaveBeenNthCalledWith(
-        1,
-        expect.objectContaining({
-          payload: expect.objectContaining({
-            eventType: 'operational',
-            action: 'commenced',
-            actionSubject: 'mediaCardRender',
-            attributes: {
-              fileAttributes: expect.objectContaining({
-                fileId: fileIdentifier.id,
-              }),
-            },
-          }),
-        }),
-        FabricChannel.media,
-      );
-    });
-
-    it('should fire commenced analytics event on file load start with external file Id', async () => {
-      const mediaClient = fakeMediaClient();
-      const analyticsHandler = getAnalyticsHandlerMock();
-      const externalIdentifier: ExternalImageIdentifier = {
-        mediaItemType: 'external-image',
-        dataURI: 'bla',
-        name: 'some external image',
-      };
-      mount(
-        <AnalyticsListener
-          channel={FabricChannel.media}
-          onEvent={analyticsHandler}
-        >
-          <Card
-            mediaClient={mediaClient}
-            identifier={externalIdentifier}
-            isLazy={false}
-          />
-        </AnalyticsListener>,
-      );
-
-      await nextTick(); // Will cause result of this.getResolvedId call to resolve
-
-      expect(analyticsHandler).toHaveBeenNthCalledWith(
-        1,
-        expect.objectContaining({
-          payload: expect.objectContaining({
-            eventType: 'operational',
-            action: 'commenced',
-            actionSubject: 'mediaCardRender',
-            attributes: {
-              fileAttributes: expect.objectContaining({
-                fileId: externalIdentifier.mediaItemType,
-              }),
-            },
-          }),
-        }),
-        FabricChannel.media,
-      );
-    });
-
     it(`should fire an operational event on card status change`, () => {
-      const createAnalyticsEvent = ((() => ({
-        fire: () => {},
-      })) as unknown) as CreateUIAnalyticsEvent;
       const { component } = setup(fakeMediaClient(), { createAnalyticsEvent });
       const fileState: FileState = defaultFileState;
       const params = ({
@@ -1650,6 +1495,12 @@ describe('Card', () => {
         createAnalyticsEvent,
         'some-status',
         getFileAttributes(getFileDetails(fileState)),
+        {
+          overall: {
+            durationSinceCommenced: 0,
+            durationSincePageStart: 1000,
+          },
+        },
         params,
       );
 
@@ -1659,8 +1510,107 @@ describe('Card', () => {
         createAnalyticsEvent,
         'another-status',
         getFileAttributes(getFileDetails(fileState)),
+        {
+          overall: {
+            durationSinceCommenced: 0,
+            durationSincePageStart: 1000,
+          },
+        },
         params,
       );
+    });
+
+    describe('Commenced', () => {
+      beforeEach(() => {
+        asMock(fireCommencedEvent).mockClear();
+      });
+
+      it('should fire commenced analytics event on file load start with internal file Id', async () => {
+        mount(
+          <CardBase
+            mediaClient={fakeMediaClient()}
+            identifier={fileIdentifier}
+            isLazy={false}
+            createAnalyticsEvent={createAnalyticsEvent}
+          />,
+        );
+        expect(fireCommencedEvent).toBeCalledTimes(1);
+        expect(fireCommencedEvent).toBeCalledWith(
+          createAnalyticsEvent,
+          expect.objectContaining({ fileId: fileIdentifier.id }),
+          { overall: { durationSincePageStart: 1000 } },
+        );
+      });
+
+      it('should fire commenced analytics event on file load start with external file Id', async () => {
+        const identifier: ExternalImageIdentifier = {
+          mediaItemType: 'external-image',
+          dataURI: 'bla',
+          name: 'some external image',
+        };
+        mount(
+          <CardBase
+            mediaClient={fakeMediaClient()}
+            identifier={identifier}
+            isLazy={false}
+            createAnalyticsEvent={createAnalyticsEvent}
+          />,
+        );
+        expect(fireCommencedEvent).toBeCalledTimes(1);
+        expect(fireCommencedEvent).toBeCalledWith(
+          createAnalyticsEvent,
+          expect.objectContaining({ fileId: 'external-image' }),
+          { overall: { durationSincePageStart: 1000 } },
+        );
+      });
+    });
+
+    describe('Copy', () => {
+      let evtCallBack: ((e: Event) => void) | undefined;
+      beforeAll(() => {
+        asMock(getDocument).mockImplementation(() => ({
+          addEventListener: (_evt: string, callback: (e: Event) => void) => {
+            evtCallBack = callback;
+          },
+          removeEventListener: () => {
+            evtCallBack = undefined;
+          },
+        }));
+      });
+
+      beforeEach(() => {
+        asMock(fireCopiedEvent).mockClear();
+      });
+
+      afterAll(() => {
+        asMock(getDocument).mockImplementation(() => document);
+      });
+
+      const callCopy = async () => {
+        evtCallBack && evtCallBack(new Event('copy'));
+        await nextTick(); // copy handler is not awaited and fired in the next tick
+      };
+
+      it('should call fireCopiedEvent when a UI copy event has been dispatched', async () => {
+        const handler = mount(
+          <Card mediaClient={fakeMediaClient()} identifier={identifier} />,
+        );
+        await callCopy();
+        expect(fireCopiedEvent).toBeCalledTimes(1);
+        // we need to unmount to release the listener and let the other test pass!
+        handler.unmount();
+      });
+
+      it('should remove onCopy listener on unmount', async () => {
+        const handler = mount(
+          <Card mediaClient={fakeMediaClient()} identifier={identifier} />,
+        );
+        await callCopy();
+        expect(fireCopiedEvent).toBeCalledTimes(1);
+        handler.unmount();
+        await callCopy();
+        expect(fireCopiedEvent).toBeCalledTimes(1);
+      });
     });
   });
 });

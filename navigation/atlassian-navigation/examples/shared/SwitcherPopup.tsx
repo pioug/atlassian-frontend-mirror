@@ -3,19 +3,16 @@ import { useEffect, useState } from 'react';
 
 import { jsx } from '@emotion/core';
 
-import AtlassianSwitcher from '@atlaskit/atlassian-switcher';
 import {
   mockEndpoints,
   REQUEST_FAST,
 } from '@atlaskit/atlassian-switcher-test-utils';
-import {
-  withAnalyticsLogger,
-  withIntlProvider,
-} from '@atlaskit/atlassian-switcher/examples/helpers';
 import Popup from '@atlaskit/popup';
 import Spinner from '@atlaskit/spinner';
+import AtlassianSwitcher from '@atlassian/switcher';
 
 import { AppSwitcher } from '../../src';
+import { withAnalyticsLogger, withIntlProvider } from '../helpers';
 
 const spinnerCSS = {
   display: 'flex',

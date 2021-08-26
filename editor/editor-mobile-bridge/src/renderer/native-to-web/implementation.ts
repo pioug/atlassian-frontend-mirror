@@ -22,6 +22,7 @@ import {
 } from '../../utils/bridge';
 import RendererConfiguration from '../renderer-configuration';
 import { trackFontSizeUpdated } from '../track-analytics';
+import { createPromise, createPromiseId } from '../../cross-platform-promise';
 
 class RendererMobileWebBridgeOverride extends WebBridge {
   containerAri?: string;
@@ -139,21 +140,25 @@ class RendererBridgeImplementation
     nodeType: ScrollToContentNode,
     id: string,
     index = -1,
-  ): void {
-    if (nodeType === ScrollToContentNode.HEADING) {
-      eventDispatcher.emit(EmitterEvents.SET_ACTIVE_HEADING_ID, id);
-    }
+  ): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      if (nodeType === ScrollToContentNode.HEADING) {
+        eventDispatcher.emit(EmitterEvents.SET_ACTIVE_HEADING_ID, id);
+      }
 
-    // eslint-disable-next-line compat/compat
-    if (window.requestIdleCallback) {
       // eslint-disable-next-line compat/compat
-      return window.requestIdleCallback(() => {
-        scrollToElement(nodeType, id, index);
-      });
-    }
+      if (window.requestIdleCallback) {
+        // eslint-disable-next-line compat/compat
+        return window.requestIdleCallback(() => {
+          scrollToElement(nodeType, id, index);
+          resolve(true);
+        });
+      }
 
-    requestAnimationFrame(() => {
-      scrollToElement(nodeType, id, index);
+      requestAnimationFrame(() => {
+        scrollToElement(nodeType, id, index);
+        resolve(true);
+      });
     });
   }
 
@@ -315,6 +320,36 @@ class RendererBridgeImplementation
     const defaultFontSize = window.webkit ? '17' : '16';
     const trueFontSize = actualFontSize ? actualFontSize : relativeFontSize;
     trackFontSizeUpdated(defaultFontSize, trueFontSize);
+  }
+
+  asyncCall<T>(fn: () => Promise<T>): string {
+    const promise_id = createPromiseId();
+    fn()
+      .then((result) => {
+        const promise = createPromise(
+          'asyncCallCompleted',
+          {
+            value: result,
+          },
+          promise_id,
+        );
+        promise.submit();
+      })
+      .catch((error) => {
+        const message =
+          typeof error.message === 'string'
+            ? error.message
+            : JSON.stringify(error);
+        const promise = createPromise(
+          'asyncCallCompleted',
+          {
+            error: message,
+          },
+          promise_id,
+        );
+        promise.submit();
+      });
+    return promise_id;
   }
 }
 

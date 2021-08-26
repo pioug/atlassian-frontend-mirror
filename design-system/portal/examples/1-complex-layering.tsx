@@ -6,7 +6,13 @@ import Button from '@atlaskit/button/standard-button';
 import Flag, { FlagGroup } from '@atlaskit/flag';
 import EmojiIcon from '@atlaskit/icon/glyph/emoji';
 import InlineDialog from '@atlaskit/inline-dialog';
-import ModalDialog, { ModalTransition } from '@atlaskit/modal-dialog';
+import ModalDialog, {
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
+  ModalTitle,
+  ModalTransition,
+} from '@atlaskit/modal-dialog';
 import {
   Spotlight,
   SpotlightManager,
@@ -106,43 +112,48 @@ function Modal(props: ModalProps) {
 
   return (
     <React.Fragment>
-      <ModalDialog
-        heading="Modal dialog 🔥"
-        onClose={onClose}
-        testId="modal"
-        actions={[
-          { text: 'Close', onClick: onClose },
-          { text: 'Open another', onClick: onOpen },
-        ]}
-      >
-        <p>This dialog has three great features:</p>
-        <ThreeStepSpotlight
-          open={onboardingOpen}
-          onFinish={() => toggleOnboarding(false)}
-          stepOne={
-            <TooltipButton
-              onClick={() => toggleOnboarding(true)}
-              id={'showOnboardingBtn'}
-            >
-              Show onboarding
-            </TooltipButton>
-          }
-          stepTwo={
-            <InlineDialog
-              content="This button is very nice"
-              isOpen={inlineOpen}
-            >
-              <TooltipButton onClick={() => toggleInline(!inlineOpen)}>
-                Show an inline dialog
+      <ModalDialog onClose={onClose} testId="modal">
+        <ModalHeader>
+          <ModalTitle>Modal dialog</ModalTitle>
+        </ModalHeader>
+        <ModalBody>
+          <p>This dialog has three great features:</p>
+          <ThreeStepSpotlight
+            open={onboardingOpen}
+            onFinish={() => toggleOnboarding(false)}
+            stepOne={
+              <TooltipButton
+                onClick={() => toggleOnboarding(true)}
+                id={'showOnboardingBtn'}
+              >
+                Show onboarding
               </TooltipButton>
-            </InlineDialog>
-          }
-          stepThree={
-            <TooltipButton onClick={() => addFlag()} id={'showFlagBtn'}>
-              Show an flag
-            </TooltipButton>
-          }
-        />
+            }
+            stepTwo={
+              <InlineDialog
+                content="This button is very nice"
+                isOpen={inlineOpen}
+              >
+                <TooltipButton onClick={() => toggleInline(!inlineOpen)}>
+                  Show an inline dialog
+                </TooltipButton>
+              </InlineDialog>
+            }
+            stepThree={
+              <TooltipButton onClick={() => addFlag()} id={'showFlagBtn'}>
+                Show an flag
+              </TooltipButton>
+            }
+          />
+        </ModalBody>
+        <ModalFooter>
+          <Button appearance="subtle" onClick={onOpen}>
+            Open another
+          </Button>
+          <Button appearance="primary" autoFocus onClick={onClose}>
+            Close
+          </Button>
+        </ModalFooter>
       </ModalDialog>
       <FlagGroup onDismissed={(id: number | string) => removeFlag(id)}>
         {flags.map((id) => (

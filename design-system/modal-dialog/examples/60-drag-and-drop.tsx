@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+/** @jsx jsx */
+import React, { useCallback, useState } from 'react';
 
-import styled from '@emotion/styled';
+import { css, jsx } from '@emotion/core';
 import {
   DragDropContext,
   Draggable,
@@ -12,7 +13,13 @@ import {
 import Button from '@atlaskit/button/standard-button';
 import { G300, R200, R75, Y75 } from '@atlaskit/theme/colors';
 
-import Modal, { ModalTransition } from '../src';
+import ModalDialog, {
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
+  ModalTitle,
+  ModalTransition,
+} from '../src';
 
 const noop = () => {};
 
@@ -26,30 +33,38 @@ interface CardProps {
   ref: (ref: HTMLElement | null) => any;
 }
 
-const Card = styled.div<CardProps>`
-  user-select: none;
-  background: ${Y75};
-  border-radius: 3px;
-  cursor: ${({ isDragging }) => (isDragging ? 'grabbing' : 'pointer')};
-  display: flex;
-  position: relative;
-  height: ${gridUnit * 5}px;
-  padding: ${gridUnit * 2}px ${gridUnit}px;
-  border-bottom: 1px solid ${R200};
-  ${({ isDraggable }) => !isDraggable} ${({ isHovering }) =>
-    isHovering &&
-    `
-        background: ${R75};
-        text-decoration: none;
-    `} ${({ isActive }) =>
-    isActive &&
-    `
-        background: ${G300};
-    `} &:focus {
-    border-bottom-color: transparent;
-    z-index: 1;
-  }
-`;
+const baseCardStyles = css({
+  display: 'flex',
+  height: `${gridUnit * 5}px`,
+  padding: `${gridUnit * 2}px ${gridUnit}px`,
+
+  position: 'relative',
+  background: Y75,
+
+  borderBottom: `1px solid ${R200}`,
+  borderRadius: '3px',
+
+  cursor: 'pointer',
+  userSelect: 'none',
+
+  ':focus': {
+    zIndex: 1,
+    borderBottomColor: 'transparent',
+  },
+});
+
+const draggingCardStyles = css({
+  cursor: 'grabbing',
+});
+
+const hoverCardStyles = css({
+  background: R75,
+  textDecoration: 'none',
+});
+
+const activeCardStyles = css({
+  background: G300,
+});
 
 const isMiddleClick = (event: React.MouseEvent) => event.button === 1;
 
@@ -108,10 +123,19 @@ function ItemLineCard(props: ItemLineCardProps) {
 
   const renderCard = (cardProps: CardProps) => {
     const innerIsActive = !!cardProps.isDragging || isActive;
+
     return (
-      <Card {...cardProps} isHovering={isHovering} isActive={innerIsActive}>
+      <div
+        css={[
+          baseCardStyles,
+          cardProps.isDragging && draggingCardStyles,
+          innerIsActive && activeCardStyles,
+          isHovering && hoverCardStyles,
+        ]}
+        {...cardProps}
+      >
         {children(isHovering, innerIsActive, isFocused, item)}
-      </Card>
+      </div>
     );
   };
 
@@ -259,8 +283,8 @@ function Wrapper() {
 
 export default function Example() {
   const [isOpen, setIsOpen] = useState(false);
-  const open = () => setIsOpen(true);
-  const close = () => setIsOpen(false);
+  const open = useCallback(() => setIsOpen(true), []);
+  const close = useCallback(() => setIsOpen(false), []);
 
   return (
     <div>
@@ -275,14 +299,19 @@ export default function Example() {
       </p>
       <ModalTransition>
         {isOpen && (
-          <Modal
-            heading="Drag and drop"
-            actions={[{ text: 'Close', onClick: close }]}
-            onClose={close}
-            testId={'my-modal'}
-          >
-            <Wrapper />
-          </Modal>
+          <ModalDialog onClose={close} testId={'my-modal'}>
+            <ModalHeader>
+              <ModalTitle>Drag and drop</ModalTitle>
+            </ModalHeader>
+            <ModalBody>
+              <Wrapper />
+            </ModalBody>
+            <ModalFooter>
+              <Button appearance="primary" onClick={close}>
+                Close
+              </Button>
+            </ModalFooter>
+          </ModalDialog>
         )}
       </ModalTransition>
     </div>

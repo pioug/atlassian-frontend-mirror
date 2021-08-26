@@ -15,8 +15,7 @@ export const Header: any = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: ${(props: any) =>
-    props.showKeyline ? `0 2px 0 ${colors.N30}` : 'none'};
+  box-shadow: 'none';
   color: ${colors.N400};
   background-color: ${colors.N0};
   border-radius: ${borderRadius()}px;
@@ -29,8 +28,7 @@ export const Footer: any = styled.div`
   color: ${colors.N300};
   padding: 24px;
   text-align: right;
-  box-shadow: ${(props: any) =>
-    props.showKeyline ? `0 -2px 0 ${colors.N30}` : 'none'};
+  box-shadow: 'none';
 `;
 
 export const ContentWrapper: ComponentClass = styled.div`

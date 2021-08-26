@@ -1,5 +1,8 @@
 import { EditorView } from 'prosemirror-view';
-import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+import {
+  createEditorFactory,
+  TypeAheadTool,
+} from '@atlaskit/editor-test-helpers/create-editor';
 
 import {
   doc,
@@ -15,7 +18,6 @@ import {
   DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
-import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 
 import { safeInsert } from '../../../utils/insert';
@@ -178,15 +180,14 @@ describe('@atlaskit/editor-core/utils insert', () => {
           const { state, dispatch } = editorView;
           insertHorizontalRule(INPUT_METHOD.TOOLBAR)(state, dispatch);
         };
-        const insertFromQuickInsert = ({
-          editorView,
-          sel,
+        const insertFromQuickInsert = async ({
+          typeAheadTool,
         }: {
-          editorView: EditorView;
-          sel: number;
+          typeAheadTool: TypeAheadTool;
         }) => {
-          insertText(editorView, `/divider`, sel);
-          sendKeyToPm(editorView, 'Enter');
+          await typeAheadTool
+            .searchQuickInsert('divider')
+            ?.insert({ index: 0 });
         };
 
         describe('input rule (--- command)', () => {
@@ -391,15 +392,15 @@ describe('@atlaskit/editor-core/utils insert', () => {
           });
 
           describe('quick insert only', () => {
-            it('within text', () => {
+            it('within text', async () => {
               const editorInstance = editor(doc(p('one {<>} two')));
-              insertFromQuickInsert(editorInstance);
+              await insertFromQuickInsert(editorInstance);
               expect(
                 editorInstance.editorView.state,
               ).toEqualDocumentAndSelection(doc(p('one  two'), hr()));
             });
 
-            it('within valid parent (layout)', () => {
+            it('within valid parent (layout)', async () => {
               const editorInstance = editor(
                 doc(
                   layoutSection(
@@ -409,7 +410,7 @@ describe('@atlaskit/editor-core/utils insert', () => {
                 ),
               );
 
-              insertFromQuickInsert(editorInstance);
+              await insertFromQuickInsert(editorInstance);
               expect(
                 editorInstance.editorView.state,
               ).toEqualDocumentAndSelection(
@@ -422,11 +423,11 @@ describe('@atlaskit/editor-core/utils insert', () => {
               );
             });
 
-            it('middle of line', () => {
+            it('middle of line', async () => {
               const editorInstance = editor(
                 doc(panel()(p('one {<>} two'), p('three'))),
               );
-              insertFromQuickInsert(editorInstance);
+              await insertFromQuickInsert(editorInstance);
               expect(
                 editorInstance.editorView.state,
               ).toEqualDocumentAndSelection(
@@ -436,9 +437,9 @@ describe('@atlaskit/editor-core/utils insert', () => {
 
             describe('list', () => {
               describe('single', () => {
-                it('end of single line', () => {
+                it('end of single line', async () => {
                   const editorInstance = editor(doc(ul(li(p('onetwo {<>}')))));
-                  insertFromQuickInsert(editorInstance);
+                  await insertFromQuickInsert(editorInstance);
                   expect(
                     editorInstance.editorView.state,
                   ).toEqualDocumentAndSelection(
@@ -447,11 +448,11 @@ describe('@atlaskit/editor-core/utils insert', () => {
                 });
               });
               describe('simple', () => {
-                it('end of end line', () => {
+                it('end of end line', async () => {
                   const editorInstance = editor(
                     doc(ul(li(p('one')), li(p('two')), li(p('three {<>}')))),
                   );
-                  insertFromQuickInsert(editorInstance);
+                  await insertFromQuickInsert(editorInstance);
                   expect(
                     editorInstance.editorView.state,
                   ).toEqualDocumentAndSelection(
@@ -477,25 +478,25 @@ describe('@atlaskit/editor-core/utils insert', () => {
           },
         ].forEach(({ insertMethod, insertAction }) => {
           describe(insertMethod, () => {
-            it('empty paragraph', () => {
+            it('empty paragraph', async () => {
               const editorInstance = editor(doc(p('{<>}')));
-              insertAction(editorInstance);
+              await insertAction(editorInstance);
               expect(
                 editorInstance.editorView.state,
               ).toEqualDocumentAndSelection(doc(hr(), '{<|gap>}'));
             });
 
-            it('before text', () => {
+            it('before text', async () => {
               const editorInstance = editor(doc(p('{<>}onetwo')));
-              insertAction(editorInstance);
+              await insertAction(editorInstance);
               expect(
                 editorInstance.editorView.state,
               ).toEqualDocumentAndSelection(doc(hr(), '{<|gap>}', p('onetwo')));
             });
 
-            it('after text', () => {
+            it('after text', async () => {
               const editorInstance = editor(doc(p('onetwo {<>}')));
-              insertAction(editorInstance);
+              await insertAction(editorInstance);
               expect(
                 editorInstance.editorView.state,
               ).toEqualDocumentAndSelection(
@@ -504,11 +505,11 @@ describe('@atlaskit/editor-core/utils insert', () => {
             });
 
             describe('within invalid parent', () => {
-              it('start of first line', () => {
+              it('start of first line', async () => {
                 const editorInstance = editor(
                   doc(panel()(p('{<>}onetwo'), p('three'))),
                 );
-                insertAction(editorInstance);
+                await insertAction(editorInstance);
                 expect(
                   editorInstance.editorView.state,
                 ).toEqualDocumentAndSelection(
@@ -516,11 +517,11 @@ describe('@atlaskit/editor-core/utils insert', () => {
                 );
               });
 
-              it('start of first line (empty)', () => {
+              it('start of first line (empty)', async () => {
                 const editorInstance = editor(
                   doc(panel()(p('{<>}'), p('onetwo'), p('three'))),
                 );
-                insertAction(editorInstance);
+                await insertAction(editorInstance);
                 expect(
                   editorInstance.editorView.state,
                 ).toEqualDocumentAndSelection(
@@ -532,11 +533,11 @@ describe('@atlaskit/editor-core/utils insert', () => {
                 );
               });
 
-              it('end of first line', () => {
+              it('end of first line', async () => {
                 const editorInstance = editor(
                   doc(panel()(p('onetwo {<>}'), p('three'))),
                 );
-                insertAction(editorInstance);
+                await insertAction(editorInstance);
                 expect(
                   editorInstance.editorView.state,
                 ).toEqualDocumentAndSelection(
@@ -549,11 +550,11 @@ describe('@atlaskit/editor-core/utils insert', () => {
                 );
               });
 
-              it('start of last line', () => {
+              it('start of last line', async () => {
                 const editorInstance = editor(
                   doc(panel()(p('onetwo'), p('{<>}three'))),
                 );
-                insertAction(editorInstance);
+                await insertAction(editorInstance);
                 expect(
                   editorInstance.editorView.state,
                 ).toEqualDocumentAndSelection(
@@ -566,11 +567,11 @@ describe('@atlaskit/editor-core/utils insert', () => {
                 );
               });
 
-              it('end of last line', () => {
+              it('end of last line', async () => {
                 const editorInstance = editor(
                   doc(panel()(p('onetwo'), p('three {<>}'))),
                 );
-                insertAction(editorInstance);
+                await insertAction(editorInstance);
                 expect(
                   editorInstance.editorView.state,
                 ).toEqualDocumentAndSelection(
@@ -578,9 +579,9 @@ describe('@atlaskit/editor-core/utils insert', () => {
                 );
               });
 
-              it('empty paragraph', () => {
+              it('empty paragraph', async () => {
                 const editorInstance = editor(doc(panel()(p('{<>}'))));
-                insertAction(editorInstance);
+                await insertAction(editorInstance);
                 expect(
                   editorInstance.editorView.state,
                 ).toEqualDocumentAndSelection(

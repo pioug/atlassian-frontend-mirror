@@ -1,19 +1,15 @@
 /** @jsx jsx */
 import { useState } from 'react';
-import { B500 } from '@atlaskit/theme/colors';
+import { N0, N800, B500 } from '@atlaskit/theme/colors';
 import { css, jsx } from '@emotion/core';
 import Button from '@atlaskit/button/standard-button';
+import { token } from '@atlaskit/tokens';
 
 import BookIcon from '../glyph/book';
 import ArrowUpIcon from '../glyph/arrow-up';
 import ArrowDownIcon from '../glyph/arrow-down';
 import ArrowLeftIcon from '../glyph/arrow-left';
 import ArrowRightIcon from '../glyph/arrow-right';
-
-const backgroundWhiteStyles = css({ backgroundColor: 'white' });
-const backgroundBlueStyles = css({ backgroundColor: B500 });
-const colorInheritStyles = css({ backgroundColor: 'inherit' });
-const colorWhiteStyles = css({ backgroundColor: 'white' });
 
 const containerStyles = css({
   display: 'flex',
@@ -34,17 +30,17 @@ const ChangingColorWithInheritance = () => {
 
   return (
     <div
-      css={[
-        containerStyles,
-        isColorFlipped ? backgroundWhiteStyles : backgroundBlueStyles,
-      ]}
+      css={containerStyles}
+      style={{
+        backgroundColor: isColorFlipped
+          ? 'white'
+          : token('color.background.boldBrand.resting', B500),
+        color: isColorFlipped
+          ? token('color.text.highEmphasis', N800)
+          : token('color.text.onBold', N0),
+      }}
     >
-      <p
-        css={[
-          textStyles,
-          isColorFlipped ? colorInheritStyles : colorWhiteStyles,
-        ]}
-      >
+      <p css={textStyles} style={{ backgroundColor: 'inherit' }}>
         Icons inherit color from their parent by default.
       </p>
       <BookIcon size="xlarge" label="book" />
@@ -53,14 +49,12 @@ const ChangingColorWithInheritance = () => {
       <ArrowLeftIcon size="xlarge" label="arrowleft" />
       <ArrowRightIcon size="xlarge" label="arrowright" />
       <p
-        css={[
-          textStyles,
-          isColorFlipped ? colorInheritStyles : colorWhiteStyles,
-        ]}
+        css={textStyles}
+        style={{ backgroundColor: isColorFlipped ? 'inherit' : 'white' }}
       >
         <Button
           appearance="subtle-link"
-          onClick={() => setIsColorFlipped((old) => !old)}
+          onClick={() => setIsColorFlipped(!isColorFlipped)}
         >
           Change colour
         </Button>

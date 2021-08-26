@@ -89,6 +89,7 @@ type BasicRendererProps = {
   mentionProvider: Promise<MentionProvider>;
   objectAri: string;
   rendererBridge: RendererBridgeImplementation;
+  UNSAFE_allowCustomPanels: boolean;
 };
 
 interface WithCreateAnalyticsEventProps extends BasicRendererProps {
@@ -119,6 +120,7 @@ const BasicRenderer: React.FC<WithCreateAnalyticsEventProps> = ({
   mediaProvider,
   mentionProvider,
   rendererBridge,
+  UNSAFE_allowCustomPanels,
 }: WithCreateAnalyticsEventProps) => {
   const document = useRendererContent(initialDocument);
   const providerFactory = useCreateProviderFactory(
@@ -163,6 +165,7 @@ const BasicRenderer: React.FC<WithCreateAnalyticsEventProps> = ({
       eventHandlers={eventHandlers}
       useSpecBasedValidator={true}
       extensionHandlers={extensionHandlers}
+      UNSAFE_allowCustomPanels={UNSAFE_allowCustomPanels}
     />
   );
 };

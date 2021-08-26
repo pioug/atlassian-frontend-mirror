@@ -1714,6 +1714,13 @@ describe('paste plugins', () => {
         expect(editorView.state.doc).toEqualDocument(
           doc(p('This is the ', a({ href })('selected text'), ' here')),
         );
+        expect(createAnalyticsEvent).toHaveBeenCalledWith(
+          expect.objectContaining({
+            attributes: expect.objectContaining({
+              hyperlinkPasteOnText: true,
+            }),
+          }),
+        );
       });
 
       it('links text instead of pasting inline card', async () => {
@@ -1740,6 +1747,14 @@ describe('paste plugins', () => {
 
         expect(editorView.state.doc).toEqualDocument(
           doc(p('This is the ', a({ href })('selected text'), ' here')),
+        );
+
+        expect(createAnalyticsEvent).toHaveBeenCalledWith(
+          expect.objectContaining({
+            attributes: expect.objectContaining({
+              hyperlinkPasteOnText: true,
+            }),
+          }),
         );
       });
     });
@@ -2630,6 +2645,7 @@ describe('paste plugins', () => {
                 inputMethod: 'keyboard',
                 source: 'uncategorized',
                 type: 'richText',
+                hyperlinkPasteOnText: false,
               }),
               ...(linkDomain && linkDomain.length > 0
                 ? {
@@ -2686,6 +2702,7 @@ describe('paste plugins', () => {
             inputMethod: 'keyboard',
             source: 'uncategorized',
             type: 'richText',
+            hyperlinkPasteOnText: false,
           }),
           ...(linkDomain && linkDomain.length > 0
             ? { nonPrivacySafeAttributes: { linkDomain } }
@@ -2733,6 +2750,7 @@ describe('paste plugins', () => {
             inputMethod: 'keyboard',
             source: 'uncategorized',
             type: 'richText',
+            hyperlinkPasteOnText: false,
           }),
           ...(linkDomain && linkDomain.length > 0
             ? { nonPrivacySafeAttributes: { linkDomain } }

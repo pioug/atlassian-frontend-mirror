@@ -1,5 +1,13 @@
 # @atlaskit/collab-provider
 
+## 7.0.1
+
+### Patch Changes
+
+- [`2f5b81920af`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2f5b81920af) - Refactor the provider class in collab provider
+- [`0ec1c930f96`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0ec1c930f96) - NONE: tuning catchup trigger
+- Updated dependencies
+
 ## 7.0.0
 
 ### Major Changes

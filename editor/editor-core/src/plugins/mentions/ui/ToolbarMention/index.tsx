@@ -3,8 +3,8 @@ import { PureComponent } from 'react';
 import { EditorView } from 'prosemirror-view';
 import MentionIcon from '@atlaskit/icon/glyph/editor/mention';
 import ToolbarButton, { TOOLBAR_BUTTON } from '../../../../ui/ToolbarButton';
-import { insertMentionQuery } from '../../commands/insert-mention-query';
 import { INPUT_METHOD } from '../../../analytics';
+import { createTypeAheadTools } from '../../../type-ahead/api';
 
 export interface Props {
   editorView?: EditorView;
@@ -35,9 +35,9 @@ export default class ToolbarMention extends PureComponent<Props> {
     if (!this.props.editorView) {
       return false;
     }
-    insertMentionQuery(INPUT_METHOD.TOOLBAR)(
-      this.props.editorView.state,
-      this.props.editorView.dispatch,
+
+    createTypeAheadTools(this.props.editorView).openMention(
+      INPUT_METHOD.INSERT_MENU,
     );
     return true;
   };

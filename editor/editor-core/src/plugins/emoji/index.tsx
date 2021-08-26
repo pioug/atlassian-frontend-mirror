@@ -2,6 +2,8 @@ import React from 'react';
 import { EditorState, Plugin, PluginKey, StateField } from 'prosemirror-state';
 import { emoji } from '@atlaskit/adf-schema';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import { Fragment } from 'prosemirror-model';
+import { TypeAheadAvailableNodes } from '@atlaskit/editor-common/type-ahead';
 import {
   EmojiDescription,
   EmojiProvider,
@@ -25,12 +27,13 @@ import {
 import { IconEmoji } from '../quick-insert/assets';
 import emojiNodeView from './nodeviews/emoji';
 import emojiNodeViewNext from './nodeviews/emoji-next';
-import { TypeAheadItem } from '../type-ahead/types';
+import { TypeAheadHandler, TypeAheadItem } from '../type-ahead/types';
 import { EmojiContextProvider } from './ui/EmojiContextProvider';
 import { messages } from '../insert-block/ui/ToolbarInsertBlock/messages';
 import { EmojiPluginOptions, EmojiPluginState } from './types';
 import { EventDispatcher } from '../../event-dispatcher';
 import { getFeatureFlags } from '../feature-flags-context';
+import { openTypeAheadAtCursor } from '../type-ahead/transforms/open-typeahead-at-cursor';
 
 export const emojiToTypeaheadItem = (
   emoji: EmojiDescription,
@@ -94,134 +97,166 @@ const isFullShortName = (query?: string) =>
   query.charAt(0) === ':' &&
   query.charAt(query.length - 1) === ':';
 
-const emojiPlugin = (options?: EmojiPluginOptions): EditorPlugin => ({
-  name: 'emoji',
+type EmojiProviderChangeHandler = {
+  result: (res: { emojis: Array<EmojiDescription> }) => void;
+};
+const TRIGGER = ':';
+const emojiPlugin = (options?: EmojiPluginOptions): EditorPlugin => {
+  const typeAhead: TypeAheadHandler = {
+    id: TypeAheadAvailableNodes.EMOJI,
+    trigger: TRIGGER,
+    // Custom regex must have a capture group around trigger
+    // so it's possible to use it without needing to scan through all triggers again
+    customRegex: '\\(?(:)',
+    headless: options ? options.headless : undefined,
+    getItems({ query, editorState }) {
+      const pluginState = getEmojiPluginState(editorState);
+      const emojiProvider = pluginState.emojiProvider;
+      if (!emojiProvider) {
+        return Promise.resolve([]);
+      }
 
-  nodes() {
-    return [{ name: 'emoji', node: emoji }];
-  },
+      return new Promise((resolve) => {
+        const emojiProviderChangeHandler: EmojiProviderChangeHandler = {
+          result(emojiResult) {
+            if (!emojiResult || !emojiResult.emojis) {
+              resolve([]);
+            } else {
+              const emojiItems = emojiResult.emojis.map((emoji) =>
+                memoizedToItem.call(emoji, emojiProvider),
+              );
+              resolve(emojiItems);
+            }
+            emojiProvider.unsubscribe(emojiProviderChangeHandler);
+          },
+        };
 
-  pmPlugins() {
-    return [
-      {
-        name: 'emoji',
-        plugin: ({
-          providerFactory,
-          dispatch,
-          portalProviderAPI,
-          eventDispatcher,
-        }) =>
-          emojiPluginFactory(
-            dispatch,
+        emojiProvider.subscribe(emojiProviderChangeHandler);
+
+        emojiProvider.filter(TRIGGER.concat(query), {
+          limit: defaultListLimit,
+          skinTone: emojiProvider.getSelectedTone(),
+          sort: !query.length ? SearchSort.UsageFrequency : SearchSort.Default,
+        });
+      });
+    },
+    forceSelect({ query, items, editorState }) {
+      const { asciiMap } = emojiPluginKey.getState(editorState);
+      const normalizedQuery = TRIGGER.concat(query);
+
+      // if the query has space at the end
+      // check the ascii map for emojis
+      if (
+        asciiMap &&
+        normalizedQuery.length >= 3 &&
+        normalizedQuery.endsWith(' ') &&
+        asciiMap.has(normalizedQuery.trim())
+      ) {
+        const emoji = asciiMap.get(normalizedQuery.trim());
+
+        return { title: emoji.name, emoji };
+      }
+
+      const matchedItem = isFullShortName(normalizedQuery)
+        ? items.find((item) => item.title.toLowerCase() === normalizedQuery)
+        : undefined;
+      return matchedItem;
+    },
+    selectItem(state, item, insert, { mode }) {
+      const { id = '', fallback, shortName } = item.emoji;
+      const text = fallback || shortName;
+      const emojiPluginState = emojiPluginKey.getState(
+        state,
+      ) as EmojiPluginState;
+
+      if (
+        emojiPluginState.emojiProvider &&
+        emojiPluginState.emojiProvider.recordSelection &&
+        item.emoji
+      ) {
+        emojiPluginState.emojiProvider
+          .recordSelection(item.emoji)
+          .then(recordSelectionSucceededSli(options))
+          .catch(recordSelectionFailedSli(options));
+      }
+      const emojiNode = state.schema.nodes.emoji.createChecked({
+        shortName,
+        id,
+        text,
+      });
+      const space = state.schema.text(' ');
+
+      return addAnalytics(state, insert(Fragment.from([emojiNode, space])), {
+        action: ACTION.INSERTED,
+        actionSubject: ACTION_SUBJECT.DOCUMENT,
+        actionSubjectId: ACTION_SUBJECT_ID.EMOJI,
+        attributes: { inputMethod: INPUT_METHOD.TYPEAHEAD },
+        eventType: EVENT_TYPE.TRACK,
+      });
+    },
+  };
+  return {
+    name: 'emoji',
+
+    nodes() {
+      return [{ name: 'emoji', node: emoji }];
+    },
+
+    pmPlugins() {
+      return [
+        {
+          name: 'emoji',
+          plugin: ({
             providerFactory,
+            dispatch,
             portalProviderAPI,
             eventDispatcher,
-            options,
-          ),
-      },
-      {
-        name: 'emojiAsciiInputRule',
-        plugin: ({ schema, providerFactory, featureFlags }) =>
-          asciiInputRulePlugin(schema, providerFactory, featureFlags),
-      },
-    ];
-  },
-
-  pluginsOptions: {
-    quickInsert: ({ formatMessage }) => [
-      {
-        id: 'emoji',
-        title: formatMessage(messages.emoji),
-        description: formatMessage(messages.emojiDescription),
-        priority: 500,
-        keyshortcut: ':',
-        icon: () => <IconEmoji />,
-        action(insert, state) {
-          const mark = state.schema.mark('typeAheadQuery', {
-            trigger: ':',
-          });
-          const emojiText = state.schema.text(':', [mark]);
-          const tr = insert(emojiText);
-          return addAnalytics(state, tr, {
-            action: ACTION.INVOKED,
-            actionSubject: ACTION_SUBJECT.TYPEAHEAD,
-            actionSubjectId: ACTION_SUBJECT_ID.TYPEAHEAD_EMOJI,
-            attributes: { inputMethod: INPUT_METHOD.QUICK_INSERT },
-            eventType: EVENT_TYPE.UI,
-          });
+          }) =>
+            emojiPluginFactory(
+              dispatch,
+              providerFactory,
+              portalProviderAPI,
+              eventDispatcher,
+              options,
+            ),
         },
-      },
-    ],
-    typeAhead: {
-      trigger: ':',
-      // Custom regex must have a capture group around trigger
-      // so it's possible to use it without needing to scan through all triggers again
-      customRegex: '\\(?(:)',
-      headless: options ? options.headless : undefined,
-      getItems(query, state, _intl, { prevActive, queryChanged }) {
-        const pluginState = getEmojiPluginState(state);
-        const { emojiProvider, emojis: pluginEmojis } = pluginState;
-        const emojis = !prevActive && queryChanged ? [] : pluginEmojis || [];
-
-        if (queryChanged && emojiProvider) {
-          memoizedToItem.clear();
-          emojiProvider.filter(query ? `:${query}` : '', {
-            limit: defaultListLimit,
-            skinTone: emojiProvider.getSelectedTone(),
-            sort: !query.length
-              ? SearchSort.UsageFrequency
-              : SearchSort.Default,
-          });
-        }
-
-        return emojis.map((emoji) => memoizedToItem.call(emoji, emojiProvider));
-      },
-      forceSelect(query: string, items: Array<TypeAheadItem>) {
-        const normalizedQuery = ':' + query;
-        const matchedItem = isFullShortName(normalizedQuery)
-          ? items.find((item) => item.title.toLowerCase() === normalizedQuery)
-          : undefined;
-        return matchedItem;
-      },
-      selectItem(state, item, insert, { mode }) {
-        const { id = '', fallback, shortName } = item.emoji;
-        const text = fallback || shortName;
-        const emojiPluginState = emojiPluginKey.getState(
-          state,
-        ) as EmojiPluginState;
-
-        if (
-          emojiPluginState.emojiProvider &&
-          emojiPluginState.emojiProvider.recordSelection &&
-          item.emoji
-        ) {
-          emojiPluginState.emojiProvider
-            .recordSelection(item.emoji)
-            .then(recordSelectionSucceededSli(options))
-            .catch(recordSelectionFailedSli(options));
-        }
-
-        return addAnalytics(
-          state,
-          insert(
-            state.schema.nodes.emoji.createChecked({
-              shortName,
-              id,
-              text,
-            }),
-          ),
-          {
-            action: ACTION.INSERTED,
-            actionSubject: ACTION_SUBJECT.DOCUMENT,
-            actionSubjectId: ACTION_SUBJECT_ID.EMOJI,
-            attributes: { inputMethod: INPUT_METHOD.TYPEAHEAD },
-            eventType: EVENT_TYPE.TRACK,
-          },
-        );
-      },
+        {
+          name: 'emojiAsciiInputRule',
+          plugin: ({ schema, providerFactory, featureFlags }) =>
+            asciiInputRulePlugin(schema, providerFactory, featureFlags),
+        },
+      ];
     },
-  },
-});
+
+    pluginsOptions: {
+      quickInsert: ({ formatMessage }) => [
+        {
+          id: 'emoji',
+          title: formatMessage(messages.emoji),
+          description: formatMessage(messages.emojiDescription),
+          priority: 500,
+          keyshortcut: ':',
+          icon: () => <IconEmoji />,
+          action(insert, state) {
+            const tr = insert(undefined);
+            openTypeAheadAtCursor({
+              triggerHandler: typeAhead,
+              inputMethod: INPUT_METHOD.QUICK_INSERT,
+            })(tr);
+            return addAnalytics(state, tr, {
+              action: ACTION.INVOKED,
+              actionSubject: ACTION_SUBJECT.TYPEAHEAD,
+              actionSubjectId: ACTION_SUBJECT_ID.TYPEAHEAD_EMOJI,
+              attributes: { inputMethod: INPUT_METHOD.QUICK_INSERT },
+              eventType: EVENT_TYPE.UI,
+            });
+          },
+        },
+      ],
+      typeAhead,
+    },
+  };
+};
 
 export default emojiPlugin;
 
@@ -232,6 +267,22 @@ export default emojiPlugin;
 export const ACTIONS = {
   SET_PROVIDER: 'SET_PROVIDER',
   SET_RESULTS: 'SET_RESULTS',
+  SET_ASCII_MAP: 'SET_ASCII_MAP',
+};
+
+const setAsciiMap = (asciiMap: Map<string, EmojiDescription>): Command => (
+  state,
+  dispatch,
+) => {
+  if (dispatch) {
+    dispatch(
+      state.tr.setMeta(emojiPluginKey, {
+        action: ACTIONS.SET_ASCII_MAP,
+        params: { asciiMap },
+      }),
+    );
+  }
+  return true;
 };
 
 export const setProvider = (provider?: EmojiProvider): Command => (
@@ -243,20 +294,6 @@ export const setProvider = (provider?: EmojiProvider): Command => (
       state.tr.setMeta(emojiPluginKey, {
         action: ACTIONS.SET_PROVIDER,
         params: { provider },
-      }),
-    );
-  }
-  return true;
-};
-
-export const setResults = (results: {
-  emojis: Array<EmojiDescription>;
-}): Command => (state, dispatch) => {
-  if (dispatch) {
-    dispatch(
-      state.tr.setMeta(emojiPluginKey, {
-        action: ACTIONS.SET_RESULTS,
-        params: { results },
       }),
     );
   }
@@ -276,12 +313,7 @@ export function emojiPluginFactory(
   eventDispatcher: EventDispatcher,
   options?: EmojiPluginOptions,
 ) {
-  let emojiProvider: EmojiProvider;
-  let emojiProviderChangeHandler: {
-    result(res: { emojis: Array<EmojiDescription> }): void;
-  };
-
-  return new Plugin({
+  return new Plugin<EmojiPluginState>({
     key: emojiPluginKey,
     state: {
       init() {
@@ -303,11 +335,10 @@ export function emojiPluginFactory(
             };
             dispatch(emojiPluginKey, newPluginState);
             return newPluginState;
-
-          case ACTIONS.SET_RESULTS:
+          case ACTIONS.SET_ASCII_MAP:
             newPluginState = {
               ...pluginState,
-              emojis: params.results.emojis,
+              asciiMap: params.asciiMap,
             };
             dispatch(emojiPluginKey, newPluginState);
             return newPluginState;
@@ -348,23 +379,10 @@ export function emojiPluginFactory(
 
             providerPromise
               .then((provider) => {
-                if (emojiProvider && emojiProviderChangeHandler) {
-                  emojiProvider.unsubscribe(emojiProviderChangeHandler);
-                }
-
-                emojiProvider = provider;
                 setProvider(provider)(editorView.state, editorView.dispatch);
-
-                emojiProviderChangeHandler = {
-                  result(emojis) {
-                    // Emoji provider is synchronous and
-                    // we need to make it async here to make PM happy
-                    Promise.resolve().then(() => {
-                      setResults(emojis)(editorView.state, editorView.dispatch);
-                    });
-                  },
-                };
-                provider.subscribe(emojiProviderChangeHandler);
+                provider.getAsciiMap().then((asciiMap) => {
+                  setAsciiMap(asciiMap)(editorView.state, editorView.dispatch);
+                });
               })
               .catch(() =>
                 setProvider(undefined)(editorView.state, editorView.dispatch),
@@ -380,9 +398,6 @@ export function emojiPluginFactory(
         destroy() {
           if (providerFactory) {
             providerFactory.unsubscribe('emojiProvider', providerHandler);
-          }
-          if (emojiProvider && emojiProviderChangeHandler) {
-            emojiProvider.unsubscribe(emojiProviderChangeHandler);
           }
         },
       };

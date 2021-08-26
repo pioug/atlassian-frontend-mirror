@@ -14,10 +14,10 @@ import { ProcessedFileState } from '@atlaskit/media-client';
 import { fakeMediaClient, sleep } from '@atlaskit/media-test-helpers';
 import ArchiveSidebarRenderer, {
   ArchiveSidebarRendererProps,
-} from '../../../../../newgen/viewers/archiveSidebar/archive-sidebar-renderer';
-import { ArchiveSideBar } from '../../../../../newgen/viewers/archiveSidebar/styled';
-import { SpinnerWrapper } from '../../../../../newgen/styled';
-import { ArchiveSidebar } from '../../../../../newgen/viewers/archiveSidebar/archive-sidebar';
+} from '../../../../../viewers/archiveSidebar/archive-sidebar-renderer';
+import { ArchiveSideBar } from '../../../../../viewers/archiveSidebar/styled';
+import { SpinnerWrapper } from '../../../../../styled';
+import { ArchiveSidebar } from '../../../../../viewers/archiveSidebar/archive-sidebar';
 import { unzip, ZipEntry } from 'unzipit';
 
 describe('ArchiveSidebarRenderer', () => {

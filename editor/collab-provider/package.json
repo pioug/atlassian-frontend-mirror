@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/collab-provider",
-  "version": "7.0.0",
+  "version": "7.0.1",
   "description": "A provider for collaborative editing.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -15,7 +15,7 @@
   "sideEffects": false,
   "atlaskit:src": "src/index.ts",
   "atlassian": {
-    "team": "TWP Collab Platform",
+    "team": "TWP Collaboration Platform",
     "deprecatedAutoEntryPoints": true,
     "inPublicMirror": true,
     "releaseModel": "scheduled"
@@ -23,7 +23,7 @@
   "dependencies": {
     "@atlaskit/analytics-gas-types": "5.0.5",
     "@atlaskit/analytics-listeners": "^8.0.0",
-    "@atlaskit/editor-common": "^59.1.0",
+    "@atlaskit/editor-common": "^60.0.0",
     "@atlaskit/util-service-support": "^6.0.0",
     "@babel/runtime": "^7.0.0",
     "eventemitter2": "^4.1.0",
@@ -40,7 +40,7 @@
     }
   },
   "devDependencies": {
-    "@atlaskit/editor-test-helpers": "^15.2.0",
+    "@atlaskit/editor-test-helpers": "^15.4.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@types/prosemirror-collab": "^1.1.1",
     "@types/prosemirror-model": "^1.11.0",

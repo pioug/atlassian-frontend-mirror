@@ -9,6 +9,10 @@ export type InternalIconMessageProps = {
   reducedFont?: boolean;
 };
 
+type CreatingPreviewProps = {
+  disableAnimation?: boolean;
+};
+
 export const IconMessage: React.FC<InternalIconMessageProps> = ({
   messageDescriptor,
   animated = false,
@@ -21,11 +25,12 @@ export const IconMessage: React.FC<InternalIconMessageProps> = ({
   );
 };
 
-export const CreatingPreview: React.FC = (props) => (
+export const CreatingPreview: React.FC<CreatingPreviewProps> = ({
+  disableAnimation,
+}) => (
   <IconMessage
-    {...props}
     messageDescriptor={messages.creating_preview}
-    animated
+    animated={!disableAnimation}
   />
 );
 

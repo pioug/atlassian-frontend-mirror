@@ -1,37 +1,51 @@
-import React, { useRef, useState } from 'react';
+/** @jsx jsx */
+import { useCallback, useRef, useState } from 'react';
 
-import styled from '@emotion/styled';
+import { css, jsx } from '@emotion/core';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
+import { gridSize } from '@atlaskit/theme/constants';
 
-import ModalDialog, { ModalTransition } from '../src';
+import ModalDialog, {
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
+  ModalTitle,
+  ModalTransition,
+} from '../src';
 
-const H4 = styled.h4`
-  margin-bottom: 0.66em;
-`;
+const containerStyles = css({
+  padding: `${gridSize() * 2}px`,
+});
+
+const titleStyles = css({
+  marginBottom: '0.66em',
+});
 
 export default function ModalDemo() {
   const focusRef = useRef<HTMLInputElement>(null);
   const [isOpen, setIsOpen] = useState('');
+
+  const openRoot = useCallback(() => setIsOpen('root'), []);
+  const openAutoFocus = useCallback(() => setIsOpen('autoFocus'), []);
+
+  const close = useCallback(() => setIsOpen(''), []);
+
   const modalProps = {
     onClose: close,
     testId: 'modal',
-    actions: [{ text: 'Close', onClick: close }, { text: 'Secondary Action' }],
   };
 
   return (
-    <div style={{ padding: 16 }}>
-      <H4>Variants</H4>
+    <div css={containerStyles}>
+      <h4 css={titleStyles}>Variants</h4>
       <ButtonGroup>
-        <Button testId="boolean-trigger" onClick={() => setIsOpen('root')}>
+        <Button testId="boolean-trigger" onClick={openRoot}>
           Boolean on dialog
         </Button>
 
-        <Button
-          testId="autofocus-trigger"
-          onClick={() => setIsOpen('autoFocus')}
-        >
+        <Button testId="autofocus-trigger" onClick={openAutoFocus}>
           using autoFocus attribute
         </Button>
       </ButtonGroup>
@@ -47,24 +61,42 @@ export default function ModalDemo() {
 
       <ModalTransition>
         {isOpen === 'root' && (
-          <ModalDialog heading="Boolean on dialog" {...modalProps}>
-            <p>The first {'"tabbable"'} element will be focused.</p>
-            <button>I am focused!</button>
-            <button>I am NOT focused</button>
+          <ModalDialog {...modalProps}>
+            <ModalHeader>
+              <ModalTitle>Boolean on dialog</ModalTitle>
+            </ModalHeader>
+            <ModalBody>
+              <p>The first {'"tabbable"'} element will be focused.</p>
+              <button>I am focused!</button>
+              <button>I am NOT focused</button>
+            </ModalBody>
+            <ModalFooter>
+              <Button appearance="primary" onClick={close}>
+                Close
+              </Button>
+              <Button appearance="subtle">Secondary Action</Button>
+            </ModalFooter>
           </ModalDialog>
         )}
       </ModalTransition>
 
       <ModalTransition>
         {isOpen === 'autoFocus' && (
-          <ModalDialog
-            autoFocus={focusRef}
-            heading="input has autoFocus"
-            {...modalProps}
-          >
-            <p>The textbox should be focused</p>
-            <input type="text" value="should not be focused" />
-            <input ref={focusRef} type="text" value="should be focused" />
+          <ModalDialog autoFocus={focusRef} {...modalProps}>
+            <ModalHeader>
+              <ModalTitle>input has autoFocus</ModalTitle>
+            </ModalHeader>
+            <ModalBody>
+              <p>The textbox should be focused</p>
+              <input type="text" value="should not be focused" />
+              <input ref={focusRef} type="text" value="should be focused" />
+            </ModalBody>
+            <ModalFooter>
+              <Button appearance="subtle">Secondary Action</Button>
+              <Button onClick={close} appearance="primary">
+                Close
+              </Button>
+            </ModalFooter>
           </ModalDialog>
         )}
       </ModalTransition>

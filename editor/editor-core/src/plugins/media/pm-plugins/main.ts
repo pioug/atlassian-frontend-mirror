@@ -196,9 +196,8 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 
     this.allowsUploads = !!this.mediaProvider.uploadMediaClientConfig;
     const { view, allowsUploads } = this;
-
     // make sure editable DOM node is mounted
-    if (!this.destroyed && view.dom.parentNode) {
+    if (!this.destroyed && view && view.dom.parentNode) {
       // make PM plugin aware of the state change to update UI during 'apply' hook
       view.dispatch(view.state.tr.setMeta(stateKey, { allowsUploads }));
     }
@@ -225,9 +224,8 @@ export class MediaPluginStateImplementation implements MediaPluginState {
   updateElement(): void {
     let newElement;
     const selectedContainer = this.selectedMediaContainerNode();
-    const { mediaSingle } = this.view.state.schema.nodes;
 
-    if (selectedContainer && selectedContainer.type === mediaSingle) {
+    if (selectedContainer && this.isMediaSchemaNode(selectedContainer)) {
       newElement = this.getDomElement(this.view.domAtPos.bind(this.view)) as
         | HTMLElement
         | undefined;
@@ -237,21 +235,34 @@ export class MediaPluginStateImplementation implements MediaPluginState {
     }
   }
 
+  private isMediaSchemaNode = ({ type }: PMNode): boolean => {
+    const { mediaSingle, media } = this.view.state.schema.nodes;
+
+    if (this.mediaOptions?.allowMediaInline) {
+      return type === mediaSingle || type === media;
+    }
+
+    return type === mediaSingle;
+  };
+
   private hasUserAuthProvider = () =>
     !!this.uploadMediaClientConfig &&
     !!this.uploadMediaClientConfig.userAuthProvider;
 
   private getDomElement(domAtPos: EditorView['domAtPos']) {
-    const { selection, schema } = this.view.state;
+    const { selection } = this.view.state;
     if (!(selection instanceof NodeSelection)) {
       return;
     }
 
-    if (selection.node.type !== schema.nodes.mediaSingle) {
+    if (!this.isMediaSchemaNode(selection.node)) {
       return;
     }
 
-    const node = findDomRefAtPos(selection.from, domAtPos);
+    const position = this.mediaOptions?.allowMediaInline
+      ? selection.from + 1
+      : selection.from;
+    const node = findDomRefAtPos(position, domAtPos);
     if (node) {
       if (!node.childNodes.length) {
         return node.parentNode as HTMLElement | undefined;
@@ -671,11 +682,10 @@ export class MediaPluginStateImplementation implements MediaPluginState {
   };
 
   selectedMediaContainerNode = (): PMNode | undefined => {
-    const { selection, schema } = this.view.state;
+    const { selection } = this.view.state;
     if (
       selection instanceof NodeSelection &&
-      (selection.node.type === schema.nodes.mediaSingle ||
-        selection.node.type === schema.nodes.mediaGroup)
+      this.isMediaSchemaNode(selection.node)
     ) {
       return selection.node;
     }

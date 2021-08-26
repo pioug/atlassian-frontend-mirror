@@ -12,11 +12,11 @@ import {
   asMock,
 } from '@atlaskit/media-test-helpers';
 import Spinner from '@atlaskit/spinner';
-import { Collection, Props, State } from '../../../newgen/collection';
-import { ErrorMessage } from '../../../newgen/errorMessage';
-import { List } from '../../../newgen/list';
+import { Collection, Props, State } from '../../../collection';
+import { ErrorMessage } from '../../../errorMessage';
+import { List } from '../../../list';
 import { MediaFeatureFlags } from '@atlaskit/media-common';
-import { nextNavButtonId } from '../../../newgen/navigation';
+import { nextNavButtonId } from '../../../navigation';
 
 const collectionName = 'my-collection';
 

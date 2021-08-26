@@ -5,15 +5,6 @@ import { click, verifyElementIn } from '../_helper';
 const toggleButton = "[data-testid='toggle-loading']";
 const leftMenu = "[data-testid='left-menu']";
 
-const url = getExampleUrl(
-  'design-system',
-  'menu',
-  'skeleton-items',
-  global.__BASEURL__,
-);
-
-const verifyElementMatchProductionImage = verifyElementIn(url);
-
 /**
  * The skeleton should match the loaded menu dimensions pixel perfectly.
  * It should not move things around when loading in.
@@ -21,10 +12,56 @@ const verifyElementMatchProductionImage = verifyElementIn(url);
  */
 describe('<SkeletonMenu />', () => {
   it('should match the loading skeleton menu', async () => {
-    await verifyElementMatchProductionImage(leftMenu);
+    const url = getExampleUrl(
+      'design-system',
+      'menu',
+      'skeleton-items',
+      global.__BASEURL__,
+    );
+
+    const expectSnapshotToMatch = verifyElementIn(url);
+
+    await expectSnapshotToMatch(leftMenu);
+  });
+
+  it('should match the loading skeleton menu when light', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'menu',
+      'skeleton-items',
+      global.__BASEURL__,
+      'light',
+    );
+
+    const expectSnapshotToMatch = verifyElementIn(url);
+
+    await expectSnapshotToMatch(leftMenu);
+  });
+
+  it('should match the loading skeleton menu when dark', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'menu',
+      'skeleton-items',
+      global.__BASEURL__,
+      'dark',
+    );
+
+    const expectSnapshotToMatch = verifyElementIn(url);
+
+    await expectSnapshotToMatch(leftMenu);
   });
 
   it('should match the loaded menu', async () => {
-    await verifyElementMatchProductionImage(leftMenu, click(toggleButton));
+    const url = getExampleUrl(
+      'design-system',
+      'menu',
+      'skeleton-items',
+      global.__BASEURL__,
+    );
+
+    const expectSnapshotToMatch = verifyElementIn(url);
+
+    await expectSnapshotToMatch(leftMenu, click(toggleButton));
   });
 });

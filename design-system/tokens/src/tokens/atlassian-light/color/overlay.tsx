@@ -1,15 +1,13 @@
-import type { OverlayColorTokenSchema } from '../../../types';
+import type { OverlayColorTokenSchema, ValueSchema } from '../../../types';
 
-const color: OverlayColorTokenSchema = {
+const color: ValueSchema<OverlayColorTokenSchema> = {
   color: {
     overlay: {
       hover: {
         value: 'N400A',
-        attributes: { group: 'paint' },
       },
       pressed: {
         value: 'N500A',
-        attributes: { group: 'paint' },
       },
     },
   },

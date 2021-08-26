@@ -3,8 +3,8 @@ import React from 'react';
 import { code, Example, md, Props } from '@atlaskit/docs';
 
 export default md`
-  Empty State is used for various scenarios, for example: empty search, 
-  no items, broken link, general error message, welcome screen etc. 
+  Empty State is used for various scenarios, for example: empty search,
+  no items, broken link, general error message, welcome screen etc.
   (usually it takes the whole page).
 
   ## Usage
@@ -23,7 +23,7 @@ export default md`
   ${(
     <Props
       heading="EmptyState Props"
-      props={require('!!extract-react-types-loader!../src/EmptyState')}
+      props={require('!!extract-react-types-loader!../src/empty-state')}
     />
   )}
 `;

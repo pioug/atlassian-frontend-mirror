@@ -45,7 +45,7 @@ describe('z-indexes:', () => {
     await waitForNoTooltip(page);
   });
 
-  it('should always position table trash icon below emoji picker', async () => {
+  it.skip('should always position table trash icon below emoji picker', async () => {
     await page.waitForSelector(tableSelectors.removeTable);
     await clickToolbarMenu(page, ToolbarMenuItem.emoji);
     await page.waitForSelector(selectors.emojiPicker);
@@ -56,6 +56,7 @@ describe('z-indexes:', () => {
     await page.waitForSelector(tableSelectors.removeTable);
     await clickToolbarMenu(page, ToolbarMenuItem.mention);
     await page.waitForSelector(selectors.mentionQuery);
+    await page.waitForSelector(selectors.typeaheadPopup, { visible: true });
     await waitForNoTooltip(page);
   });
 });

@@ -1,7 +1,7 @@
 import { Node } from 'prosemirror-model';
 import { EditorState, Transaction } from 'prosemirror-state';
 
-import { TypeAheadItem } from '../types/typeAhead';
+import { TypeAheadItem } from '../types/type-ahead';
 
 export type QuickInsertActionInsert = (
   node?: Node | Record<string, any> | string,
@@ -36,6 +36,7 @@ export type QuickInsertItemId =
   | 'successpanel'
   | 'warningpanel'
   | 'errorpanel'
+  | 'custompanel'
   | 'layout'
   | 'expand'
   | 'placeholderText';

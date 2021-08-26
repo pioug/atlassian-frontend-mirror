@@ -21,7 +21,7 @@ import { pressKey } from '../../__helpers/page-objects/_keyboard';
 import { clickFirstCell } from '../../../__tests__/__helpers/page-objects/_table';
 import { waitForMediaToBeLoaded } from '../../__helpers/page-objects/_media';
 import { panelSelectors } from '../../__helpers/page-objects/_panel';
-import { codeBlockSelectors } from '../../__helpers/page-objects/_code-block';
+import { layoutSelectors } from '../../__helpers/page-objects/_layouts';
 
 type ToggleFullWidthOptions = {
   // Focus is lost after toggling full width mode so if your test
@@ -108,12 +108,12 @@ describe('Snapshot Test: Toggle between full-width and default mode', () => {
     // TODO: https://product-fabric.atlassian.net/browse/ED-13527
     it.skip('hides breakout buttons in full-width mode and shows them in default mode', async () => {
       await initEditor(breakoutAdf);
-      await page.waitForSelector(codeBlockSelectors.codeBlock);
-      await page.click(codeBlockSelectors.codeBlock);
+      await page.waitForSelector(layoutSelectors.content);
+      await page.click(layoutSelectors.content);
       await toggleFullWidthMode({
         postToggleCallback: async () => {
           // re-click the codeblock to see its UI controls.
-          await page.click(codeBlockSelectors.codeBlock);
+          await page.click(layoutSelectors.content);
         },
       });
     });

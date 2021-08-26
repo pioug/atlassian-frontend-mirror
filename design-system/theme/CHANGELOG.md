@@ -1,5 +1,11 @@
 # @atlaskit/theme
 
+## 11.5.0
+
+### Minor Changes
+
+- [`a8634047ae4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a8634047ae4) - Internal color change to use tokens.
+
 ## 11.4.2
 
 ### Patch Changes

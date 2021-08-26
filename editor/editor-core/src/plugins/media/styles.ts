@@ -1,5 +1,4 @@
 import { css } from 'styled-components';
-
 import {
   mediaSingleSharedStyle,
   richMediaClassName,
@@ -16,6 +15,7 @@ import {
 import { N60, B200 } from '@atlaskit/theme/colors';
 import {
   fileCardImageViewSelector,
+  fileCardImageViewSelectedSelector,
   inlinePlayerClassName,
   newFileExperienceClassName,
 } from '@atlaskit/media-card';
@@ -138,7 +138,12 @@ export const mediaStyles = css`
     transition: background-color 0s;
     transition: box-shadow 0s;
   }
-
+  .mediaGroupView-content-wrap.danger {
+    /* Media inline */
+    .${fileCardImageViewSelectedSelector}::after {
+      border: 1px solid ${akEditorDeleteIconColor};
+    }
+  }
   /* Danger when nested node or common */
   .danger {
     /* Media single */

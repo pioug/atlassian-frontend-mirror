@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Field, FieldProps } from '@atlaskit/form';
+import React from 'react';
+import { Field } from '@atlaskit/form';
 import { ColorField } from '@atlaskit/editor-common/extensions';
 import { PaletteColor } from '../../../ui/ColorPalette/Palettes';
 import { DEFAULT_BORDER_COLOR } from '../../../ui/ColorPalette/Palettes/common';
@@ -68,7 +68,6 @@ interface Props {
   title: string;
   currentColor: string;
   colorPalette: PaletteColor[];
-  fieldProps: FieldProps<string, HTMLInputElement>;
   onChange: (color: string) => void;
   onFieldChange: OnFieldChange;
 }
@@ -79,7 +78,6 @@ const ColorPicker = (props: Props) => {
     title,
     currentColor,
     colorPalette,
-    fieldProps,
     onChange,
     onFieldChange,
   } = props;
@@ -91,7 +89,6 @@ const ColorPicker = (props: Props) => {
     }
 
     onChange(colorValue);
-    fieldProps.onChange(colorValue);
     onFieldChange(name, currentColor !== colorValue);
   };
 
@@ -119,12 +116,12 @@ const ColorPickerField = ({
   onFieldChange: OnFieldChange;
 }) => {
   const { label, defaultValue, isRequired } = field;
-  const [currentColor, setCurrentColor] = useState(defaultValue || '');
+
   return (
     <Field
       name={name}
       isRequired={isRequired}
-      defaultValue={currentColor}
+      defaultValue={defaultValue}
       validate={(value?: string) => validate<string>(field, value || '')}
     >
       {({ fieldProps, error }) => (
@@ -139,10 +136,9 @@ const ColorPickerField = ({
             <ColorPicker
               name={name}
               title={label}
-              currentColor={currentColor}
+              currentColor={fieldProps.value}
               colorPalette={colorPalette}
-              fieldProps={fieldProps}
-              onChange={setCurrentColor}
+              onChange={fieldProps.onChange}
               onFieldChange={onFieldChange}
             />
           </ColorPickerWrapper>

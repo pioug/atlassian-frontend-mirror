@@ -18,3 +18,4 @@ export type {
   FilmstripProps,
   FilmstripState,
 } from './filmstrip';
+export { mediaFilmstripItemDOMSelector } from './dom';

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/menu",
-  "version": "1.0.4",
+  "version": "1.1.0",
   "description": "A collection of composable menu components that can be used anywhere.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -13,7 +13,7 @@
   "module:es2019": "dist/es2019/index.js",
   "types": "dist/types/index.d.ts",
   "sideEffects": false,
-  "atlaskit:src": "src/index.ts",
+  "atlaskit:src": "src/index.tsx",
   "atlassian": {
     "team": "Design System Team",
     "inPublicMirror": true,
@@ -23,20 +23,21 @@
     }
   },
   "af:exports": {
-    "./button-item": "./src/entry-points/menu-item/button-item.ts",
-    "./link-item": "./src/entry-points/menu-item/link-item.ts",
-    "./custom-item": "./src/entry-points/menu-item/custom-item.ts",
-    "./heading-item": "./src/entry-points/menu-item/heading-item.ts",
-    "./skeleton-item": "./src/entry-points/menu-item/skeleton-item.ts",
-    "./skeleton-heading-item": "./src/entry-points/menu-item/skeleton-heading-item.ts",
-    "./section": "./src/entry-points/menu-section/section.ts",
-    "./menu-group": "./src/entry-points/menu-section/menu-group.ts",
-    "./popup-menu-group": "./src/entry-points/menu-section/popup-menu-group.ts",
-    "./types": "./src/types.ts",
-    ".": "./src/index.ts"
+    "./button-item": "./src/entry-points/menu-item/button-item.tsx",
+    "./link-item": "./src/entry-points/menu-item/link-item.tsx",
+    "./custom-item": "./src/entry-points/menu-item/custom-item.tsx",
+    "./heading-item": "./src/entry-points/menu-item/heading-item.tsx",
+    "./skeleton-item": "./src/entry-points/menu-item/skeleton-item.tsx",
+    "./skeleton-heading-item": "./src/entry-points/menu-item/skeleton-heading-item.tsx",
+    "./section": "./src/entry-points/menu-section/section.tsx",
+    "./menu-group": "./src/entry-points/menu-section/menu-group.tsx",
+    "./popup-menu-group": "./src/entry-points/menu-section/popup-menu-group.tsx",
+    "./types": "./src/types.tsx",
+    ".": "./src/index.tsx"
   },
   "dependencies": {
-    "@atlaskit/theme": "^11.4.0",
+    "@atlaskit/theme": "^11.5.0",
+    "@atlaskit/tokens": "^0.1.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/core": "^10.0.9"
   },
@@ -48,7 +49,7 @@
     "@atlaskit/avatar": "^20.0.0",
     "@atlaskit/button": "^16.0.0",
     "@atlaskit/docs": "*",
-    "@atlaskit/icon": "^21.0.0",
+    "@atlaskit/icon": "^21.8.0",
     "@atlaskit/icon-file-type": "^6.0.0",
     "@atlaskit/icon-object": "^6.0.0",
     "@atlaskit/section-message": "^6.0.0",
@@ -76,18 +77,12 @@
       "import-structure": "atlassian-conventions"
     },
     "@repo/internal": {
-      "ui-components": [
-        "lite-mode"
-      ],
-      "analytics": [
-        "analytics-next"
-      ],
-      "theming": [
-        "new-theming-api"
-      ],
-      "deprecation": [
-        "no-deprecated-imports"
-      ]
+      "ui-components": "lite-mode",
+      "design-system": "v1",
+      "styling": "emotion",
+      "analytics": "analytics-next",
+      "theming": "tokens",
+      "deprecation": "no-deprecated-imports"
     }
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"

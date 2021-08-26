@@ -16,6 +16,9 @@ export const getModeValue = (): 'dark' | 'light' => {
   }
 };
 
+export const getAllowCollabProvider = (): boolean =>
+  getQueryParams().get('allowCollabProvider') === 'true';
+
 export const getEnableLightDarkTheming = (): boolean =>
   getQueryParams().get('enableLightDarkTheming') === 'true';
 
@@ -28,9 +31,6 @@ export const getAllowCaptions = (): boolean => {
 
 export const getSelectionObserverEnabled = (): boolean =>
   getQueryParams().get('selectionObserverEnabled') === 'true';
-
-export const getAllowCollabProvider = (): boolean =>
-  getQueryParams().get('allowCollabProvider') === 'true';
 
 export const getMediaImageResize = (): boolean => {
   return getQueryParams().get('enableMediaResize') === 'true';

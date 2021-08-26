@@ -1,24 +1,25 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 
 import Lorem from 'react-lorem-component';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
 
-import Modal, { ModalTransition } from '../src';
-import { AppearanceType } from '../src/internal/types';
+import Modal, {
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
+  ModalTitle,
+  ModalTransition,
+} from '../src';
+import { Appearance } from '../src/types';
 
-const appearances: AppearanceType[] = ['warning', 'danger'];
+const appearances: Appearance[] = ['warning', 'danger'];
 
 export default function ExampleAppearance() {
-  const [isOpen, setIsOpen] = useState<number | string>('');
-  const open = (name: string) => setIsOpen(name);
-  const close = () => setIsOpen('');
-
-  const actions = [
-    { text: 'Close', onClick: close },
-    { text: 'Secondary Action' },
-  ];
+  const [appearance, setAppearance] = useState<Appearance | null>(null);
+  const open = useCallback((name: Appearance) => setAppearance(name), []);
+  const close = useCallback(() => setAppearance(null), []);
 
   return (
     <div>
@@ -35,20 +36,31 @@ export default function ExampleAppearance() {
       </ButtonGroup>
 
       <ModalTransition>
-        {appearances
-          .filter((a) => a === isOpen)
-          .map((name) => (
-            <Modal
-              key="active-modal"
-              actions={actions}
-              appearance={name}
-              onClose={close}
-              heading={`Modal: ${name}`}
-              testId="modal"
-            >
+        {appearance && (
+          <Modal key="active-modal" onClose={close} testId="modal">
+            <ModalHeader>
+              <ModalTitle appearance={appearance}>
+                Modal: {appearance}
+              </ModalTitle>
+            </ModalHeader>
+            <ModalBody>
               <Lorem count={2} />
-            </Modal>
-          ))}
+            </ModalBody>
+            <ModalFooter>
+              <Button testId="secondary" appearance="subtle">
+                Secondary Action
+              </Button>
+              <Button
+                autoFocus
+                testId={appearance}
+                appearance={appearance}
+                onClick={close}
+              >
+                Close
+              </Button>
+            </ModalFooter>
+          </Modal>
+        )}
       </ModalTransition>
     </div>
   );

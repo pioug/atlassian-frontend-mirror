@@ -7,7 +7,9 @@ import { Manager, Reference, Popper, PopperProps } from 'react-popper';
 import { Placement } from '@popperjs/core';
 import NodeResolver from 'react-node-resolver';
 import shallowEqualObjects from 'shallow-equal/objects';
+
 import { N80 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import { MenuDialog, DummyControl, defaultComponents } from './components';
 import baseStyles from '../styles';
@@ -105,7 +107,10 @@ export default class PopupSelect<
   defaultStyles: StylesConfig<Option, IsMulti> = mergeStyles(
     baseStyles(this.props.validationState, this.props.spacing === 'compact'),
     {
-      groupHeading: (provided) => ({ ...provided, color: N80 }),
+      groupHeading: (provided) => ({
+        ...provided,
+        color: token('color.text.lowEmphasis', N80),
+      }),
     },
   );
 

@@ -5,7 +5,7 @@ import { css, jsx } from '@emotion/core';
 
 import { gridSize as getGridSize } from '@atlaskit/theme/constants';
 
-import { Sizes } from '../index';
+import type { Width } from '../index';
 
 const gridSize = getGridSize();
 
@@ -35,14 +35,15 @@ const narrowContainerStyles = css({
  *
  * @internal
  */
-const Container: FC<{ size: Sizes }> = (props) => (
+const Container: FC<{ width: Width }> = ({ children, width }) => (
   <div
     css={[
       containerStyles,
-      props.size === 'narrow' ? narrowContainerStyles : wideContainerStyles,
+      width === 'narrow' ? narrowContainerStyles : wideContainerStyles,
     ]}
-    {...props}
-  />
+  >
+    {children}
+  </div>
 );
 
 export default Container;

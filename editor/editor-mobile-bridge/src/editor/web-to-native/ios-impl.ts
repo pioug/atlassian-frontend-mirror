@@ -412,4 +412,12 @@ export default class IosBridge implements NativeBridge {
       name: 'onNodeDeselected',
     });
   }
+
+  updateStepVersion(stepVersion?: number, error?: string) {
+    this.window.webkit?.messageHandlers.collabBridge?.postMessage({
+      name: 'updateStepVersion',
+      stepVersion,
+      error,
+    });
+  }
 }

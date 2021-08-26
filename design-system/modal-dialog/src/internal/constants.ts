@@ -1,7 +1,26 @@
-import { N30, N800, R400, Y400 } from '@atlaskit/theme/colors';
-import { gridSize } from '@atlaskit/theme/constants';
+import {
+  text as getTextColor,
+  N30,
+  N800,
+  R400,
+  Y400,
+} from '@atlaskit/theme/colors';
+import {
+  borderRadius as getBorderRadius,
+  gridSize as getGridSize,
+} from '@atlaskit/theme/constants';
 
-export const WIDTH_ENUM: WidthEnumType = {
+import type { Appearance } from '../types';
+
+export type WidthNames = 'small' | 'medium' | 'large' | 'x-large';
+
+interface Width {
+  values: string[];
+  widths: { [index in WidthNames]: number };
+  defaultValue: string;
+}
+
+export const width: Width = {
   values: ['small', 'medium', 'large', 'x-large'],
   widths: {
     small: 400,
@@ -12,26 +31,24 @@ export const WIDTH_ENUM: WidthEnumType = {
   defaultValue: 'medium',
 };
 
-export type WidthNames = 'small' | 'medium' | 'large' | 'x-large';
-
-export interface WidthEnumType {
-  values: string[];
-  widths: { [index in WidthNames]: number };
-  defaultValue: string;
-}
-
 export const gutter = 60;
 
-export const verticalOffset = gridSize() * 2;
+const gridSize = getGridSize();
+export const borderRadius = getBorderRadius();
 
-export const modalPadding = gridSize() * 3;
-
-export const actionMargin = gridSize();
-export const titleMargin = gridSize();
+export const verticalOffset = gridSize * 2;
+export const padding = gridSize * 3;
+export const footerItemGap = gridSize;
+export const titleIconMargin = gridSize;
 
 export const keylineHeight = 2;
 export const keylineColor = N30;
 
+export const textColor = getTextColor();
 export const focusOutlineColor = N800;
-export const dangerColor = R400;
-export const warningColor = Y400;
+
+type IconColor = { [key in Appearance]: string };
+export const iconColor: IconColor = {
+  danger: R400,
+  warning: Y400,
+} as const;

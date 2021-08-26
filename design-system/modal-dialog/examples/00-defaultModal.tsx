@@ -1,25 +1,25 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 
 import Lorem from 'react-lorem-component';
 
 import Button from '@atlaskit/button/standard-button';
 
-import Modal, { ModalTransition } from '../src';
+import Modal, {
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
+  ModalTitle,
+  ModalTransition,
+} from '../src';
 
 export default function DefaultModal() {
   const [isOpen, setIsOpen] = useState(false);
-  const open = () => setIsOpen(true);
-  const close = () => setIsOpen(false);
-  const secondaryAction = () => alert('Secondary button has been clicked!');
-
-  const actions = [
-    { text: 'Close', onClick: close, testId: 'primary' },
-    {
-      text: 'Secondary Action',
-      onClick: secondaryAction,
-      testId: 'secondary',
-    },
-  ];
+  const open = useCallback(() => setIsOpen(true), []);
+  const close = useCallback(() => setIsOpen(false), []);
+  const secondaryAction = useCallback(
+    () => alert('Secondary button has been clicked!'),
+    [],
+  );
 
   return (
     <div>
@@ -29,13 +29,30 @@ export default function DefaultModal() {
 
       <ModalTransition>
         {isOpen && (
-          <Modal
-            actions={actions}
-            onClose={close}
-            heading="Modal Title"
-            testId="modal"
-          >
-            <Lorem count={2} />
+          <Modal onClose={close} testId="modal">
+            <ModalHeader>
+              <ModalTitle>Modal Title</ModalTitle>
+            </ModalHeader>
+            <ModalBody>
+              <Lorem count={2} />
+            </ModalBody>
+            <ModalFooter>
+              <Button
+                testId="secondary"
+                appearance="subtle"
+                onClick={secondaryAction}
+              >
+                Secondary Action
+              </Button>
+              <Button
+                autoFocus
+                testId="primary"
+                appearance="primary"
+                onClick={close}
+              >
+                Close
+              </Button>
+            </ModalFooter>
           </Modal>
         )}
       </ModalTransition>

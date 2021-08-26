@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/modal-dialog",
-  "version": "11.7.4",
+  "version": "12.0.0",
   "description": "A modal dialog displays content that requires user interaction, in a layer above the page.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -15,8 +15,14 @@
   "sideEffects": false,
   "af:exports": {
     ".": "./src/index.ts",
-    "./types": "./src/entry-points/types.ts",
-    "./shared-variables": "./src/entry-points/constants.ts"
+    "./types": "./src/types.ts",
+    "./hooks": "./src/hooks.ts",
+    "./modal-dialog": "./src/modal-wrapper.tsx",
+    "./modal-header": "./src/modal-header.tsx",
+    "./modal-title": "./src/modal-title.tsx",
+    "./modal-body": "./src/modal-body.tsx",
+    "./modal-footer": "./src/modal-footer.tsx",
+    "./modal-transition": "./src/modal-transition.tsx"
   },
   "atlaskit:src": "src/index.ts",
   "atlassian": {
@@ -33,15 +39,15 @@
   "dependencies": {
     "@atlaskit/analytics-next": "^8.2.0",
     "@atlaskit/blanket": "^12.2.0",
-    "@atlaskit/button": "^16.1.0",
+    "@atlaskit/codemod-utils": "^3.3.0",
     "@atlaskit/ds-lib": "^1.3.0",
-    "@atlaskit/icon": "^21.7.0",
+    "@atlaskit/focus-ring": "0.2.0",
+    "@atlaskit/icon": "^21.8.0",
     "@atlaskit/motion": "^1.0.0",
     "@atlaskit/portal": "^4.1.0",
-    "@atlaskit/theme": "^11.4.0",
+    "@atlaskit/theme": "^11.5.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/core": "^10.0.9",
-    "@emotion/styled": "^10.0.7",
     "raf-schd": "^2.1.0",
     "react-focus-lock": "^1.19.1",
     "react-scrolllock": "^5.0.1",
@@ -76,6 +82,7 @@
     "@testing-library/react": "^8.0.1",
     "@testing-library/react-hooks": "^1.0.4",
     "@types/react-beautiful-dnd": "^11.0.1",
+    "jscodeshift": "^0.13.0",
     "react-beautiful-dnd": "^12.1.1",
     "react-dom": "^16.8.0",
     "react-lorem-component": "^0.13.0",
@@ -93,18 +100,11 @@
       "import-structure": "atlassian-conventions"
     },
     "@repo/internal": {
-      "ui-components": [
-        "lite-mode"
-      ],
-      "analytics": [
-        "analytics-next"
-      ],
-      "theming": [
-        "new-theming-api"
-      ],
-      "deprecation": [
-        "no-deprecated-imports"
-      ]
+      "ui-components": "lite-mode",
+      "analytics": "analytics-next",
+      "theming": "new-theming-api",
+      "deprecation": "no-deprecated-imports",
+      "styling": "emotion"
     }
   },
   "homepage": "https://atlassian.design/components/modal-dialog/",

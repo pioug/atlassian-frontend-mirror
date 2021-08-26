@@ -7,4 +7,5 @@ export default [
   'placeholder',
   'inlineCard',
   'status',
+  'mediaInline',
 ];

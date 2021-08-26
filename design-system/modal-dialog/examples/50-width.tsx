@@ -1,58 +1,67 @@
-import React, { useState } from 'react';
+/** @jsx jsx */
+import { useCallback, useState } from 'react';
 
-import styled from '@emotion/styled';
+import { css, jsx } from '@emotion/core';
 import Lorem from 'react-lorem-component';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
 import { gridSize } from '@atlaskit/theme/constants';
 
-import ModalDialog, { ModalTransition } from '../src';
-import { WIDTH_ENUM } from '../src/entry-points/constants';
+import ModalDialog, {
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
+  ModalTitle,
+  ModalTransition,
+} from '../src';
+import { width } from '../src/internal/constants';
 
 const units = [420, '42%', '42em'];
-const sizes: (string | number)[] = WIDTH_ENUM.values;
-const allWidths = sizes.concat(units);
-const H4 = styled.h4`
-  margin-bottom: 0.66em;
-`;
+const sizes: (string | number)[] = width.values;
+
+const containerStyles = css({
+  padding: `${gridSize() * 2}px`,
+});
+
+const titleStyles = css({
+  marginBottom: '0.66em',
+});
 
 export default function ModalDemo() {
-  const [isOpen, setIsOpen] = useState<string | number>('');
-  const open = (name: string | number) => setIsOpen(name);
-  const close = () => setIsOpen('');
+  const [width, setWidth] = useState<string | number | null>(null);
+  const close = useCallback(() => setWidth(null), []);
 
   const btn = (name: string | number) => (
-    <Button key={name} onClick={() => open(name)}>
+    <Button key={name} onClick={() => setWidth(name)}>
       {name}
     </Button>
   );
-  const actions = [
-    { text: 'Close', onClick: close },
-    { text: 'Secondary Action' },
-  ];
 
   return (
-    <div style={{ padding: gridSize() }}>
-      <H4>Sizes</H4>
+    <div css={containerStyles}>
+      <h4 css={titleStyles}>Sizes</h4>
       <ButtonGroup>{sizes.map(btn)}</ButtonGroup>
-      <H4>Units</H4>
+      <h4 css={titleStyles}>Units</h4>
       <ButtonGroup>{units.map(btn)}</ButtonGroup>
 
       <ModalTransition>
-        {allWidths
-          .filter((w: string | number) => w === isOpen)
-          .map((name: string | number) => (
-            <ModalDialog
-              actions={actions}
-              key={name}
-              onClose={close}
-              heading={`Modal: ${String(name)}`}
-              width={name}
-            >
+        {width && (
+          <ModalDialog key={width} onClose={close} width={width}>
+            <ModalHeader>
+              <ModalTitle>Modal: {String(width)}</ModalTitle>
+            </ModalHeader>
+            <ModalBody>
               <Lorem count="1" />
-            </ModalDialog>
-          ))}
+            </ModalBody>
+            <ModalFooter>
+              <Button appearance="subtle">Secondary Action</Button>
+              <Button autoFocus appearance="primary" onClick={close}>
+                Close
+              </Button>
+            </ModalFooter>
+          </ModalDialog>
+        )}
       </ModalTransition>
     </div>
   );

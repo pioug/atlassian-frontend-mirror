@@ -1,4 +1,4 @@
-import { getObjectUrlFromFileState } from '../../../../newgen/utils/getObjectUrlFromFileState';
+import { getObjectUrlFromFileState } from '../../../../utils/getObjectUrlFromFileState';
 import { FileState } from '@atlaskit/media-client';
 
 describe('getObjectUrlFromFileState()', () => {

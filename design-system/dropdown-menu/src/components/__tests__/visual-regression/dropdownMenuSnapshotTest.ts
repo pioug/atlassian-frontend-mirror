@@ -2,7 +2,7 @@ import { getExampleUrl, loadPage } from '@atlaskit/visual-regression/helper';
 
 const dropdown = '[data-testid="dropdown--trigger"]';
 const dropdownItem = '[data-testid="dropdown--content"]';
-const dialogBox = '[data-testid="dialogBox-dialog-content"]';
+const dialogBox = '[data-testid="dialogBox"]';
 
 describe('Snapshot Test', () => {
   it('Dropdown-menu modal should match snapshot when open with keyboard', async () => {

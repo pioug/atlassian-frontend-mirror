@@ -1,5 +1,37 @@
 # @atlaskit/editor-mobile-bridge
 
+## 29.0.0
+
+### Major Changes
+
+- [`c79e5921417`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c79e5921417) - ME-1521: introduced a method to invoke async functions and submit a cross platfrom promise on completion. Made the scrollToNode method itself async to prevent some rare race conditions if other bridge methods where invoked before completion.
+
+### Minor Changes
+
+- [`ed9720f8046`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ed9720f8046) - CETI-48: Added renderer configurations to support custom panels
+- [`ebcba6baa2a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ebcba6baa2a) - Added API for getting the stepVersion from collab provider and passing it via the mobile bridge
+- [`71bb1bb3cd0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/71bb1bb3cd0) - [ED-12933] Replace TypeAhead internal tools for tools function
+
+  # Why
+
+  Before mobile bridge was using internal editor logic. That would make our life harder
+  to add feature flags, bug fixing or code refactoring.
+
+### Patch Changes
+
+- [`2f5b81920af`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2f5b81920af) - Refactor the provider class in collab provider
+- [`4f4769d0176`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4f4769d0176) - Updated unit tests (unmocked helper function)
+- [`363971afa29`](https://bitbucket.org/atlassian/atlassian-frontend/commits/363971afa29) - [ux][ed-13574] Resolving a regression in the quick insert in mobile. A hotfix was merged to master a week ago to fix mobile feature flags, which seems to have clashed with changes in develop resulting in quick insert no longer working on mobile and a bunch of mobile integration tests failing.
+
+  This change includes making quick insert work on mobile again by making sure the tracker isn’t reset every time CC @Sean Chamberlain
+
+  All tests with configureEditor now have a way to refocus the editor after the config is set and before any document changes are made.
+
+  New mobile integration tests have been added for feature flags to ensure we don't have any further regressions with mobile feature flags.
+
+- [`924fe5fd6a9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/924fe5fd6a9) - Use the allowCollabProvider flag in editor configuration to turn collab edit on and off in bridge. Kept url param option there for backwards compatibility.
+- Updated dependencies
+
 ## 28.1.0
 
 ### Minor Changes

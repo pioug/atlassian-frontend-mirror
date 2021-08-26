@@ -1,5 +1,12 @@
 # @atlaskit/media-test-helpers
 
+## 28.7.5
+
+### Patch Changes
+
+- [`4777a174e6d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4777a174e6d) - Added analytics support for customMediaPlayer + screen event + entrypoint for locales
+- Updated dependencies
+
 ## 28.7.4
 
 ### Patch Changes

@@ -1,8 +1,14 @@
 import React, { Component, Fragment } from 'react';
 
+import Button from '@atlaskit/button/standard-button';
 import { Checkbox } from '@atlaskit/checkbox';
 import Form, { Field } from '@atlaskit/form';
-import Modal from '@atlaskit/modal-dialog';
+import Modal, {
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
+  ModalTitle,
+} from '@atlaskit/modal-dialog';
 import Select from '@atlaskit/select';
 import TextArea from '@atlaskit/textarea';
 
@@ -147,115 +153,110 @@ export default class FeedbackForm extends Component<Props, FormFields> {
       : !this.state.description;
 
     return (
-      <Modal
-        actions={[
-          {
-            text: this.props.submitButtonLabel,
-            appearance: 'primary',
-            type: 'submit',
-            isDisabled,
-            onClick: this.onSubmit,
-          },
-          {
-            text: this.props.cancelButtonLabel,
-            onClick: this.props.onClose,
-            appearance: 'subtle',
-          },
-        ]}
-        heading={this.props.feedbackTitle}
-        onClose={this.props.onClose}
-      >
-        <Form
-          onSubmit={() => {
-            /* TODO: this is a NOOP until Modal can take a container prop */
-          }}
-        >
+      <Modal onClose={this.props.onClose}>
+        <Form onSubmit={this.onSubmit}>
           {({ formProps }) => (
             <form {...formProps}>
-              {this.props.feedbackTitleDetails}
+              <ModalHeader>
+                <ModalTitle>{this.props.feedbackTitle}</ModalTitle>
+              </ModalHeader>
+              <ModalBody>
+                {this.props.feedbackTitleDetails}
+                {showTypeField ? (
+                  <Select<OptionType>
+                    onChange={(option) => {
+                      if (!option || option instanceof Array) {
+                        return;
+                      }
 
-              {showTypeField ? (
-                <Select<OptionType>
-                  onChange={(option) => {
-                    if (!option || option instanceof Array) {
-                      return;
-                    }
-
-                    this.setState({ type: (option as OptionType).value });
-                  }}
-                  menuPortalTarget={document.body}
-                  styles={{
-                    menuPortal: (base) => ({
-                      ...base,
-                      zIndex: 9999,
-                    }),
-                  }}
-                  defaultValue={getDefaultSelectValue(
-                    this.props.feedbackGroupLabels,
-                  )}
-                  options={getSelectOptions(this.props.feedbackGroupLabels)}
-                />
-              ) : null}
-
-              {canShowTextField ? (
-                <Fragment>
-                  <Field
-                    label={
-                      showTypeField
-                        ? getFieldLabels(this.props.feedbackGroupLabels)[
-                            this.state.type
-                          ]
-                        : null
-                    }
-                    isRequired
-                    name="description"
-                  >
-                    {({ fieldProps }) => (
-                      <TextArea
-                        {...fieldProps}
-                        name="foo"
-                        minimumRows={6}
-                        placeholder={this.props.summaryPlaceholder}
-                        onChange={(e) =>
-                          this.setState({
-                            description: e.target.value,
-                          })
-                        }
-                        value={this.state.description}
-                      />
+                      this.setState({ type: (option as OptionType).value });
+                    }}
+                    menuPortalTarget={document.body}
+                    styles={{
+                      menuPortal: (base) => ({
+                        ...base,
+                        zIndex: 9999,
+                      }),
+                    }}
+                    defaultValue={getDefaultSelectValue(
+                      this.props.feedbackGroupLabels,
                     )}
-                  </Field>
-                  <Field name="can-be-contacted">
-                    {({ fieldProps }) => (
-                      <Checkbox
-                        {...fieldProps}
-                        label={this.props.canBeContactedLabel}
-                        onChange={(event) =>
-                          this.setState({
-                            canBeContacted: event.target.checked,
-                          })
-                        }
-                      />
-                    )}
-                  </Field>
+                    options={getSelectOptions(this.props.feedbackGroupLabels)}
+                  />
+                ) : null}
 
-                  <Field name="enroll-in-research-group">
-                    {({ fieldProps }) => (
-                      <Checkbox
-                        {...fieldProps}
-                        label={this.props.enrolInResearchLabel}
-                        onChange={(event) =>
-                          this.setState({
-                            enrollInResearchGroup: event.target.checked,
-                          })
-                        }
-                      />
-                    )}
-                  </Field>
-                </Fragment>
-              ) : (
-                <Fragment />
-              )}
+                {canShowTextField ? (
+                  <Fragment>
+                    <Field
+                      label={
+                        showTypeField
+                          ? getFieldLabels(this.props.feedbackGroupLabels)[
+                              this.state.type
+                            ]
+                          : null
+                      }
+                      isRequired
+                      name="description"
+                    >
+                      {({ fieldProps }) => (
+                        <TextArea
+                          {...fieldProps}
+                          name="foo"
+                          minimumRows={6}
+                          placeholder={this.props.summaryPlaceholder}
+                          onChange={(e) =>
+                            this.setState({
+                              description: e.target.value,
+                            })
+                          }
+                          value={this.state.description}
+                        />
+                      )}
+                    </Field>
+                    <Field name="can-be-contacted">
+                      {({ fieldProps }) => (
+                        <Checkbox
+                          {...fieldProps}
+                          label={this.props.canBeContactedLabel}
+                          onChange={(event) =>
+                            this.setState({
+                              canBeContacted: event.target.checked,
+                            })
+                          }
+                        />
+                      )}
+                    </Field>
+
+                    <Field name="enroll-in-research-group">
+                      {({ fieldProps }) => (
+                        <Checkbox
+                          {...fieldProps}
+                          label={this.props.enrolInResearchLabel}
+                          onChange={(event) =>
+                            this.setState({
+                              enrollInResearchGroup: event.target.checked,
+                            })
+                          }
+                        />
+                      )}
+                    </Field>
+                  </Fragment>
+                ) : (
+                  <Fragment />
+                )}
+              </ModalBody>
+              <ModalFooter>
+                <Button appearance="subtle" onClick={this.props.onClose}>
+                  {this.props.cancelButtonLabel}
+                </Button>
+                <Button
+                  appearance="primary"
+                  type="submit"
+                  isDisabled={isDisabled}
+                >
+                  {this.props.submitButtonLabel}
+                </Button>
+              </ModalFooter>
             </form>
           )}
         </Form>

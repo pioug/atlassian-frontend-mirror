@@ -1,5 +1,26 @@
 # @atlaskit/media-card
 
+## 70.11.0
+
+### Minor Changes
+
+- [`5559b9ca1b4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5559b9ca1b4) - Media CardView component renders consistent views in error and failed-processing status regardless of thumbnail image.
+- [`9ecd471f124`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9ecd471f124) - Adding a dedicated server side media card
+- [`ab905c0e924`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ab905c0e924) - [ux] EDM-1641: add floating toolbar to media card and view switcher for inline view
+- [`46d9d2872b4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/46d9d2872b4) - Video Analytics - Add UI events for CustomMediaPlayer
+
+### Patch Changes
+
+- [`d0357a98b97`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d0357a98b97) - Small code refactor
+- [`4777a174e6d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4777a174e6d) - Added analytics support for customMediaPlayer + screen event + entrypoint for locales
+- [`b77bfe8e99c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b77bfe8e99c) - Add performance attributes to Commenced, Succeeded, Failed events for media card
+- [`2debd2fdf3d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2debd2fdf3d) - Remove the default type icon rendered in media card background
+- [`26ef709f133`](https://bitbucket.org/atlassian/atlassian-frontend/commits/26ef709f133) - Refactored Copy & Commenced Analytics events
+- [`b90c0237824`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b90c0237824) - Update package.jsons to remove unused dependencies.
+- [`493b1b43d50`](https://bitbucket.org/atlassian/atlassian-frontend/commits/493b1b43d50) - Modify file card flow example
+- [`e7d1eb5cd0a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e7d1eb5cd0a) - handle loading-preview status for card view
+- Updated dependencies
+
 ## 70.10.0
 
 ### Minor Changes

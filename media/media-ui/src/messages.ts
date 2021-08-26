@@ -106,6 +106,7 @@ export type MessageKey =
   | 'archive'
   | 'email'
   | 'text'
+  | 'displayThumbnail'
   | 'search'
   | 'view'
   | 'viewIn'
@@ -690,6 +691,11 @@ export const messages = defineMessages<Messages>({
     id: 'fabric.media.text',
     defaultMessage: 'text',
     description: '',
+  },
+  displayThumbnail: {
+    id: 'fabric.media.display_thumbnail',
+    defaultMessage: 'Display thumbnail',
+    description: 'Display file with as a thumbnail.',
   },
   search: {
     id: 'fabric.media.search',

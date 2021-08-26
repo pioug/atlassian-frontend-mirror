@@ -8,14 +8,14 @@ import { Popup } from '@atlaskit/editor-common';
 import ToolbarButton, { ToolbarButtonRef } from '../../../../ui/ToolbarButton';
 import { Separator, ButtonGroup, Wrapper } from '../../../../ui/styles';
 import { createTable } from '../../../table/commands';
-import { insertDate, openDatePicker } from '../../../date/actions';
+import { insertDate } from '../../../date/actions';
 import { openElementBrowserModal } from '../../../quick-insert/commands';
 import { showPlaceholderFloatingToolbar } from '../../../placeholder-text/actions';
 import { insertLayoutColumnsWithAnalytics } from '../../../layout/actions';
 import { insertTaskDecision } from '../../../tasks-and-decisions/commands';
 import { insertExpand } from '../../../expand/commands';
 import { showLinkToolbar } from '../../../hyperlink/commands';
-import { insertMentionQuery } from '../../../mentions/commands/insert-mention-query';
+import { createTypeAheadTools } from '../../../type-ahead/api';
 import { updateStatusWithAnalytics } from '../../../status/actions';
 import {
   ACTION,
@@ -312,7 +312,11 @@ class ToolbarInsertBlock extends React.PureComponent<
 
   private insertMention = (inputMethod: TOOLBAR_MENU_TYPE): boolean => {
     const { editorView } = this.props;
-    insertMentionQuery(inputMethod)(editorView.state, editorView.dispatch);
+    if (!editorView) {
+      return true;
+    }
+    createTypeAheadTools(editorView).openMention(inputMethod);
+
     return true;
   };
 
@@ -331,7 +335,6 @@ class ToolbarInsertBlock extends React.PureComponent<
   private createDate = (inputMethod: TOOLBAR_MENU_TYPE): boolean => {
     const { editorView } = this.props;
     insertDate(undefined, inputMethod)(editorView.state, editorView.dispatch);
-    openDatePicker()(editorView.state, editorView.dispatch);
     return true;
   };
 

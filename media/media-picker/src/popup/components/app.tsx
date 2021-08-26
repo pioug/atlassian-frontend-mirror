@@ -177,7 +177,7 @@ export class App extends Component<AppProps, AppState> {
       <ModalTransition>
         {isVisible && (
           <Provider store={store}>
-            <ModalDialog onClose={onClose} width="x-large" isChromeless={true}>
+            <ModalDialog onClose={onClose} width="x-large">
               <PassContext store={store} proxyReactContext={proxyReactContext}>
                 <div data-testid="media-picker-popup">
                   <MediaPickerPopupWrapper>

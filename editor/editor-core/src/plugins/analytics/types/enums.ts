@@ -9,6 +9,8 @@ export enum ACTION {
   ACTIVATED = 'activated',
   ADDED = 'added',
   BROWSER_FREEZE = 'browserFreeze',
+  CHANGED_BACKGROUND_COLOR = 'changedBackgroundColor',
+  CHANGED_ICON = 'changedIcon',
   CHANGED_FULL_WIDTH_MODE = 'changedFullWidthMode',
   CHANGED_LAYOUT = 'changedLayout',
   CHANGED_REPLACEMENT_TEXT = 'changedReplacementText',
@@ -52,6 +54,7 @@ export enum ACTION {
   INVOKED = 'invoked',
   LANGUAGE_SELECTED = 'languageSelected',
   LIST_ITEM_JOINED = 'listItemJoined',
+  MATCHED = 'matched',
   NODE_CONTENT_SANITIZED = 'nodeContentSanitized',
   OPENED = 'opened',
   OUTDENTED = 'outdented',
@@ -87,6 +90,7 @@ export enum ACTION {
   RENDERED = 'rendered',
   ON_EDITOR_READY_CALLBACK = 'onEditorReadyCallback',
   ON_CHANGE_CALLBACK = 'onChangeCalled',
+  REMOVE_ICON = 'removedIcon',
 }
 
 export enum INPUT_METHOD {
@@ -152,6 +156,7 @@ export enum ACTION_SUBJECT {
   PLUS_MENU = 'plusMenu',
   PLUGIN_SLOT = 'pluginSlot',
   REACT_NODE_VIEW = 'reactNodeView',
+  SELECTION = 'selection',
   SMART_LINK = 'smartLink',
   HYPERLINK = 'hyperlink',
   TABLE = 'table',

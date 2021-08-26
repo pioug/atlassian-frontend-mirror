@@ -7,7 +7,15 @@ import {
   PublicInteractionTask,
 } from 'storybook-addon-performance';
 
-import Modal, { ModalTransition } from '../src';
+import Button from '@atlaskit/button/standard-button';
+
+import Modal, {
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
+  ModalTitle,
+  ModalTransition,
+} from '../src';
 
 const openText = 'Open modal';
 const closeText = 'Close';
@@ -32,25 +40,26 @@ const ScrollPerformance = () => {
 
       <ModalTransition>
         {isOpen && (
-          <Modal
-            onClose={close}
-            heading="Modal dialog"
-            testId="modal"
-            actions={[
-              {
-                text: closeText,
-                onClick: close,
-                testId: 'close',
-              },
-              {
-                text: scrollToBottomText,
-                onClick: scrollToBottom,
-                testId: 'scroll-to-bottom',
-              },
-            ]}
-          >
-            <Lorem count={10} />
-            <div ref={bottomRef} />
+          <Modal onClose={close} testId="modal">
+            <ModalHeader>
+              <ModalTitle>Modal dialog</ModalTitle>
+            </ModalHeader>
+            <ModalBody>
+              <Lorem count={10} />
+              <div ref={bottomRef} />
+            </ModalBody>
+            <ModalFooter>
+              <Button testId="close" appearance="primary" onClick={close}>
+                {closeText}
+              </Button>
+              <Button
+                testId="scroll-to-bottom"
+                appearance="subtle"
+                onClick={scrollToBottom}
+              >
+                {scrollToBottomText}
+              </Button>
+            </ModalFooter>
           </Modal>
         )}
       </ModalTransition>
@@ -69,10 +78,7 @@ const interactionTasks: PublicInteractionTask[] = [
       const openButton = await findByText(container, openText);
       fireEvent.click(openButton);
 
-      const content = await findByTestId(
-        document.body,
-        'modal-dialog-content--scrollable',
-      );
+      const content = await findByTestId(document.body, 'modal--scrollable');
 
       await controls.time(async () => {
         content.scrollTo(0, content.scrollHeight);

@@ -1,5 +1,16 @@
 # @atlaskit/media-filmstrip
 
+## 42.1.0
+
+### Minor Changes
+
+- [`511f07f7f7b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/511f07f7f7b) - allow enabling download for media card via enableDownloadButton feature prop
+- [`ab905c0e924`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ab905c0e924) - [ux] EDM-1641: add floating toolbar to media card and view switcher for inline view
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 42.0.0
 
 ### Patch Changes

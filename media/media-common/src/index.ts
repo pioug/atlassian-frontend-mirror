@@ -35,7 +35,9 @@ export interface NumericalCardDimensions {
 export type {
   PackageAttributes,
   WithFileAttributes,
+  WithPerformanceAttributes,
   FileAttributes,
+  PerformanceAttributes,
   SuccessAttributes,
   FailureAttributes,
   OperationalAttributes,

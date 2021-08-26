@@ -7,7 +7,6 @@ import {
   code_block,
   hardBreak,
   emoji,
-  typeAheadQuery,
   DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
@@ -27,7 +26,6 @@ import { EditorState } from 'prosemirror-state';
 import analyticsPlugin from '../../../analytics';
 import emojiPlugin from '../../';
 import basePlugin from '../../../base';
-import typeAheadPlugin from '../../../type-ahead';
 import blockTypePlugin from '../../../block-type';
 import textFormattingPlugin from '../../../text-formatting';
 import codeBlockPlugin from '../../../code-block';
@@ -38,7 +36,7 @@ const providerFactory = ProviderFactory.create({ emojiProvider });
 describe('ascii emojis - input rules', () => {
   const createEditor = createProsemirrorEditorFactory();
 
-  describe.each([true, false])(
+  describe.each([false, true])(
     'when useUnpredictableInputRule is %s',
     (useUnpredictableInputRule) => {
       let createAnalyticsEvent: CreateUIAnalyticsEvent;
@@ -58,7 +56,6 @@ describe('ascii emojis - input rules', () => {
               emojiPlugin,
               { useInlineWrapper: false, allowZeroWidthSpaceAfter: true },
             ])
-            .add(typeAheadPlugin)
             .add(blockTypePlugin)
             .add(codeBlockPlugin)
             .add(textFormattingPlugin)
@@ -116,7 +113,7 @@ describe('ascii emojis - input rules', () => {
       describe('when an emoticon is preceded by a space character', () => {
         describe('and starting with a colon character', () => {
           it('should replace a matching emoticon when followed by a space', () => {
-            return assert('text :D ', p('{<>}'), (state) => {
+            return assert(' ', p('text :D{<>}'), (state) => {
               expect(state.doc.content.child(0)).toEqualDocument(
                 p('text ', smileyEmoji(), ' '),
               );
@@ -124,17 +121,15 @@ describe('ascii emojis - input rules', () => {
           });
 
           it('should not replace a matching emoticon if not followed by a space', () => {
-            return assert('text :D', p('{<>}'), (state) => {
-              expect(state.doc.content.child(0)).toEqualDocument(
-                p('text ', typeAheadQuery({ trigger: ':' })(':D')),
-              );
+            return assert('D', p('text :{<>}'), (state) => {
+              expect(state.doc.content.child(0)).toEqualDocument(p('text :D'));
             });
           });
         });
 
         describe('and not starting with a colon character', () => {
           it('should replace a matching emoticon', () => {
-            return assert('text (y)', p('{<>}'), (state) => {
+            return assert(')', p('text (y{<>}'), (state) => {
               expect(state.doc.content.child(0)).toEqualDocument(
                 p('text ', thumbsupEmoji()),
               );
@@ -142,7 +137,7 @@ describe('ascii emojis - input rules', () => {
           });
 
           it('should replace a matching emoticon even when containing a colon', () => {
-            return assert(`text ':D`, p('{<>}'), (state) => {
+            return assert('D', p(`text ':{<>}`), (state) => {
               const e = emoji({
                 id: '1f605',
                 shortName: ':sweat_smile:',
@@ -165,7 +160,7 @@ describe('ascii emojis - input rules', () => {
           });
 
           it('should not replace an emoticon in an unsupported mark', () => {
-            return assert(' :D ', p(code('code{<>}')), (state) => {
+            return assert(' ', p(code('code :D{<>}')), (state) => {
               expect(state.doc.content.child(0)).toEqualDocument(
                 p(code('code :D ')),
               );
@@ -176,7 +171,7 @@ describe('ascii emojis - input rules', () => {
 
       describe('when preceded by a tab character', () => {
         it('should replace a matching emoticon', () => {
-          return assert('\t(y)', p('{<>}'), (state) => {
+          return assert(')', p('\t(y{<>}'), (state) => {
             expect(state.doc.content.child(0)).toEqualDocument(
               p('\t', thumbsupEmoji()),
             );
@@ -187,7 +182,7 @@ describe('ascii emojis - input rules', () => {
       describe('when starting at the beginning of a line', () => {
         describe('and starting with a colon character', () => {
           it('should replace a matching emoticon if followed by a space', () => {
-            return assert(':D ', p('{<>}'), (state) => {
+            return assert('  ', p(':D{<>}'), (state) => {
               expect(state.doc.content.child(0)).toEqualDocument(
                 p(smileyEmoji(), ' '),
               );
@@ -195,17 +190,15 @@ describe('ascii emojis - input rules', () => {
           });
 
           it('should not replace a matching emoticon if not followed by a space', () => {
-            return assert(':D', p('{<>}'), (state) => {
-              expect(state.doc.content.child(0)).toEqualDocument(
-                p(typeAheadQuery({ trigger: ':' })(':D')),
-              );
+            return assert('', p(':D{<>}'), (state) => {
+              expect(state.doc.content.child(0)).toEqualDocument(p(':D'));
             });
           });
         });
 
         describe('and not starting with a colon character', () => {
           it('should replace a matching emoticon', () => {
-            return assert('(y)', p('{<>}'), (state) => {
+            return assert(')', p('(y{<>}'), (state) => {
               expect(state.doc.content.child(0)).toEqualDocument(
                 p(thumbsupEmoji()),
               );
@@ -216,7 +209,7 @@ describe('ascii emojis - input rules', () => {
 
       describe('when preceded by a hard break', () => {
         it('should replace a matching emoticon', () => {
-          return assert('(y)', p(hardBreak(), '{<>}'), (state) => {
+          return assert(')', p(hardBreak(), '(y{<>}'), (state) => {
             expect(state.doc.content.child(0)).toEqualDocument(
               p(hardBreak(), thumbsupEmoji()),
             );
@@ -226,7 +219,7 @@ describe('ascii emojis - input rules', () => {
 
       describe('when preceded by another emoji', () => {
         it('should replace a matching emoticon starting with a colon', () => {
-          return assert(':D ', p(thumbsupEmoji(), '{<>}'), (state) => {
+          return assert(' ', p(thumbsupEmoji(), ':D{<>}'), (state) => {
             expect(state.doc.content.child(0)).toEqualDocument(
               p(thumbsupEmoji(), smileyEmoji(), ' '),
             );
@@ -234,7 +227,7 @@ describe('ascii emojis - input rules', () => {
         });
 
         it('should replace a matching emoticon not starting with a colon', () => {
-          return assert('(y)', p(smileyEmoji(), '{<>}'), (state) => {
+          return assert(')', p(smileyEmoji(), '(y{<>}'), (state) => {
             expect(state.doc.content.child(0)).toEqualDocument(
               p(smileyEmoji(), thumbsupEmoji()),
             );
@@ -244,7 +237,7 @@ describe('ascii emojis - input rules', () => {
 
       describe('when preceded by an opening round bracket', () => {
         it('should replace a matching emoticon starting with a colon', () => {
-          return assert(':D ', p('({<>}'), (state) => {
+          return assert(' ', p('(:D{<>}'), (state) => {
             expect(state.doc.content.child(0)).toEqualDocument(
               p('(', smileyEmoji(), ' '),
             );
@@ -252,7 +245,7 @@ describe('ascii emojis - input rules', () => {
         });
 
         it('should replace the thumbsup emoticon', () => {
-          return assert('(y)', p('({<>}'), (state) => {
+          return assert(')', p('((y{<>}'), (state) => {
             expect(state.doc.content.child(0)).toEqualDocument(
               p('(', thumbsupEmoji()),
             );
@@ -260,7 +253,7 @@ describe('ascii emojis - input rules', () => {
         });
 
         it('should replace a matching emoticon ending with a closing rounded bracket', () => {
-          return assert("'=)", p('({<>}'), (state) => {
+          return assert(')', p("('={<>}"), (state) => {
             expect(state.doc.content.child(0)).toEqualDocument(
               p('(', sweatSmileEmoji()),
             );
@@ -268,7 +261,7 @@ describe('ascii emojis - input rules', () => {
         });
 
         it('should replace emoticon starting with an opening round bracket', () => {
-          return assert('(*)', p('({<>}'), (state) => {
+          return assert(')', p('((*{<>}'), (state) => {
             expect(state.doc.content.child(0)).toEqualDocument(
               p('(', starEmoji()),
             );
@@ -278,13 +271,13 @@ describe('ascii emojis - input rules', () => {
 
       describe('when preceded by non-whitespace character', () => {
         it('should not replace a matching emoticon starting with a colon', () => {
-          return assert('text:D ', p('{<>}'), (state) => {
+          return assert(' ', p('text:D{<>}'), (state) => {
             expect(state.doc.content.child(0)).toEqualDocument(p('text:D '));
           });
         });
 
         it('should not replace a matching emoticon not starting with a colon', () => {
-          return assert('text(y)', p('{<>}'), (state) => {
+          return assert(')', p('text(y{<>}'), (state) => {
             expect(state.doc.content.child(0)).toEqualDocument(p('text(y)'));
           });
         });
@@ -305,8 +298,8 @@ describe('ascii emojis - input rules', () => {
 
         it('it should record usage when an emoticon is matched', () => {
           return emojiProvider.then(async (resource) => {
-            const { editorView, sel } = editor(doc(p('{<>}')));
-            insertText(editorView, ':D ', sel);
+            const { editorView, sel } = editor(doc(p(':D{<>}')));
+            insertText(editorView, ' ', sel);
 
             const selections: EmojiDescription[] = resource.recordedSelections;
             selections.forEach((e) => {
@@ -326,14 +319,14 @@ describe('ascii emojis - input rules', () => {
         };
 
         it('should fire analytics event when emoji starting with colon is inserted', () => {
-          const { editorView, sel } = editor(doc(p('{<>}')));
-          insertText(editorView, ':D ', sel);
+          const { editorView, sel } = editor(doc(p(':D{<>}')));
+          insertText(editorView, ' ', sel);
 
           expect(createAnalyticsEvent).toBeCalledWith(analyticsPayload);
         });
         it('should fire analytics event when emoji not starting with colon is inserted', () => {
-          const { editorView, sel } = editor(doc(p('{<>}')));
-          insertText(editorView, '(y)', sel);
+          const { editorView, sel } = editor(doc(p('(y{<>}')));
+          insertText(editorView, ')', sel);
 
           expect(createAnalyticsEvent).toBeCalledWith(analyticsPayload);
         });

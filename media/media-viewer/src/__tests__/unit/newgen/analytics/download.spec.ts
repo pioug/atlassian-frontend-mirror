@@ -1,6 +1,6 @@
-import { createDownloadButtonClickedEvent } from '../../../../newgen/analytics/events/ui/downloadButtonClicked';
-import { createFailedPreviewDownloadButtonClickedEvent } from '../../../../newgen/analytics/events/ui/failedPreviewDownloadButtonClicked';
-import { MediaViewerError } from '../../../../newgen/errors';
+import { createDownloadButtonClickedEvent } from '../../../../analytics/events/ui/downloadButtonClicked';
+import { createFailedPreviewDownloadButtonClickedEvent } from '../../../../analytics/events/ui/failedPreviewDownloadButtonClicked';
+import { MediaViewerError } from '../../../../errors';
 import {
   processedFile,
   processingFile,

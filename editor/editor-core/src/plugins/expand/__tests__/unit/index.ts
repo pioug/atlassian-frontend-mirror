@@ -8,8 +8,6 @@ import {
   p,
   DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
-import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 import {
   Preset,
   LightEditorPlugin,
@@ -47,10 +45,9 @@ describe('expand actions', () => {
   };
 
   describe('expand', () => {
-    it('fires analytics when inserted from quick insert', () => {
-      const { editorView, sel } = editor(doc(p('{<>}')));
-      insertText(editorView, '/expand', sel);
-      sendKeyToPm(editorView, 'Enter');
+    it('fires analytics when inserted from quick insert', async () => {
+      const { typeAheadTool } = editor(doc(p('{<>}')));
+      await typeAheadTool.searchQuickInsert('expand')?.insert({ index: 0 });
 
       expect(createAnalyticsEvent).toBeCalledWith({
         action: 'inserted',
@@ -160,10 +157,10 @@ describe('expand actions', () => {
   });
 
   describe('nestedExpand', () => {
-    it('fires analytics when inserted from quick insert', () => {
-      const { editorView, sel } = editor(doc(table()(tr(td({})(p('{<>}'))))));
-      insertText(editorView, '/expand', sel);
-      sendKeyToPm(editorView, 'Enter');
+    it('fires analytics when inserted from quick insert', async () => {
+      const { typeAheadTool } = editor(doc(table()(tr(td({})(p('{<>}'))))));
+
+      await typeAheadTool.searchQuickInsert('expand')?.insert({ index: 0 });
 
       expect(createAnalyticsEvent).toBeCalledWith({
         action: 'inserted',

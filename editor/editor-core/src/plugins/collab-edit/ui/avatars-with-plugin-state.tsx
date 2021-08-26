@@ -23,6 +23,7 @@ const AvatarsWithPluginState: React.StatelessComponent<
     isInviteToEditButtonSelected: selected,
     inviteToEditHandler: onClick,
     inviteToEditComponent: Component,
+    editorView,
   } = props;
 
   const render = React.useCallback(
@@ -35,6 +36,7 @@ const AvatarsWithPluginState: React.StatelessComponent<
         <Avatars
           sessionId={data.sessionId}
           participants={data.activeParticipants}
+          editorView={editorView}
         >
           <InviteToEditButton
             title={title}
@@ -45,14 +47,14 @@ const AvatarsWithPluginState: React.StatelessComponent<
         </Avatars>
       );
     },
-    [selected, onClick, Component, title],
+    [selected, onClick, Component, title, editorView],
   );
 
   return (
     <WithPluginState
       plugins={{ data: collabEditPluginKey }}
       render={render}
-      editorView={props.editorView}
+      editorView={editorView}
     />
   );
 };

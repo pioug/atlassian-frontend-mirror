@@ -1,5 +1,8 @@
 import React from 'react';
-import ModalDialog, { ModalTransition } from '@atlaskit/modal-dialog';
+import ModalDialog, {
+  ModalTransition,
+  ModalBody,
+} from '@atlaskit/modal-dialog';
 import Drawer from '@atlaskit/drawer';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
@@ -56,7 +59,9 @@ export default () => {
 
       <ModalTransition>
         {type === 'modal' && isOpen && (
-          <ModalDialog onClose={() => setIsOpen(false)}>{select}</ModalDialog>
+          <ModalDialog onClose={() => setIsOpen(false)}>
+            <ModalBody>{select}</ModalBody>
+          </ModalDialog>
         )}
       </ModalTransition>
     </>

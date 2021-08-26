@@ -1,5 +1,12 @@
 # @atlaskit/focused-task-close-account
 
+## 0.14.4
+
+### Patch Changes
+
+- [`b90c0237824`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b90c0237824) - Update package.jsons to remove unused dependencies.
+- Updated dependencies
+
 ## 0.14.3
 
 ### Patch Changes

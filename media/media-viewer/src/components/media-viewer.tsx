@@ -1,11 +1,11 @@
 import React from 'react';
 import { Component } from 'react';
 import { Identifier, isExternalImageIdentifier } from '@atlaskit/media-client';
-import { MediaViewer as MediaViewerNextGen } from '../newgen/media-viewer';
-import { ItemSource } from '../newgen/domain';
+import { MediaViewer as MediaViewerNextGen } from '../media-viewer';
+import { ItemSource } from '../domain';
 import { MediaViewerProps, MediaViewerDataSource } from './types';
-import { getIdentifierCollection } from '../newgen/utils/getIdentifierCollection';
-import { getSelectedIndex } from '../newgen/utils';
+import { getIdentifierCollection } from '../utils/getIdentifierCollection';
+import { getSelectedIndex } from '../utils';
 
 export interface MediaViewerState {}
 

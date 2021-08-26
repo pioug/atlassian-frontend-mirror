@@ -24,8 +24,8 @@ import {
   asMockFunction,
 } from '@atlaskit/media-test-helpers';
 import { CustomMediaPlayer } from '@atlaskit/media-ui';
-import { VideoViewer, Props } from '../../../../../newgen/viewers/video';
-import { ErrorMessage } from '../../../../../newgen/errorMessage';
+import { VideoViewer, Props } from '../../../../../viewers/video';
+import { ErrorMessage } from '../../../../../errorMessage';
 
 const token = 'some-token';
 const clientId = 'some-client-id';

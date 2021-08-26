@@ -19,7 +19,7 @@ import {
   animationFrame,
   typeInEditorAtEndOfDocument,
 } from '../../../../__tests__/__helpers/page-objects/_editor';
-import { waitForTypeAheadMenu } from '../../../../__tests__/__helpers/page-objects/_quick-insert';
+import { quickInsert } from '../../../../__tests__/__helpers/page-objects/_extensions';
 import { standardDateMockMillisUnixTime } from '@atlaskit/visual-regression/helper/mock-date';
 import { THEME_MODES } from '@atlaskit/theme/constants';
 import { getModeFromTheme } from '@atlaskit/editor-common';
@@ -54,8 +54,9 @@ describe('Date:', () => {
       it('should autofocus textfield and select text when creating new date', async () => {
         await initEditor(page, defaultViewPort, theme);
 
-        await typeInEditorAtEndOfDocument(page, '//');
-        await waitForTypeAheadMenu(page);
+        // Insert date by quick insert
+        await typeInEditorAtEndOfDocument(page, '');
+        await quickInsert(page, 'Date', false);
         await pressKey(page, 'Enter');
 
         await waitForDatePicker(page);
@@ -65,13 +66,12 @@ describe('Date:', () => {
         await initEditor(page, defaultViewPort, theme);
 
         // Insert date by quick insert
-
-        await typeInEditorAtEndOfDocument(page, '//');
-        await waitForTypeAheadMenu(page);
+        await typeInEditorAtEndOfDocument(page, '');
+        await quickInsert(page, 'Date', false);
         await pressKey(page, 'Enter');
-        await waitForDatePicker(page);
 
         // Date picker is now open
+        await waitForDatePicker(page);
 
         // Remove date in datepicker
         await pressKey(page, 'Backspace');
@@ -142,12 +142,12 @@ describe('Date:', () => {
         await initEditor(page, defaultViewPort, theme);
 
         // Insert date by quick insert
-        await typeInEditorAtEndOfDocument(page, '//');
-        await waitForTypeAheadMenu(page);
+        await typeInEditorAtEndOfDocument(page, '');
+        await quickInsert(page, 'Date', false);
         await pressKey(page, 'Enter');
-        await waitForDatePicker(page);
 
         // Date picker is now open
+        await waitForDatePicker(page);
 
         // Remove date in datepicker
         await pressKey(page, 'Backspace');
@@ -162,12 +162,12 @@ describe('Date:', () => {
         await initEditor(page, defaultViewPort, theme);
 
         // Insert date by quick insert
-        await typeInEditorAtEndOfDocument(page, '//');
-        await waitForTypeAheadMenu(page);
+        await typeInEditorAtEndOfDocument(page, '');
+        await quickInsert(page, 'Date', false);
         await pressKey(page, 'Enter');
-        await waitForDatePicker(page);
 
         // Date picker is now open
+        await waitForDatePicker(page);
 
         // Remove date in datepicker
         await pressKey(page, 'Backspace');
@@ -181,12 +181,12 @@ describe('Date:', () => {
         await initEditor(page, defaultViewPort, theme);
 
         // Insert date by quick insert
-        await typeInEditorAtEndOfDocument(page, '//');
-        await waitForTypeAheadMenu(page);
+        await typeInEditorAtEndOfDocument(page, '');
+        await quickInsert(page, 'Date', false);
         await pressKey(page, 'Enter');
-        await waitForDatePicker(page);
 
         // Date picker is now open
+        await waitForDatePicker(page);
 
         // Remove date in datepicker
         await pressKey(page, 'Backspace');
@@ -197,12 +197,12 @@ describe('Date:', () => {
         await initEditor(page, defaultViewPort, theme);
 
         // Insert date by quick insert
-        await typeInEditorAtEndOfDocument(page, '//');
-        await waitForTypeAheadMenu(page);
+        await typeInEditorAtEndOfDocument(page, '');
+        await quickInsert(page, 'Date', false);
         await pressKey(page, 'Enter');
-        await waitForDatePicker(page);
 
         // Date picker is now open
+        await waitForDatePicker(page);
 
         // Remove date in datepicker
         await pressKey(page, 'Backspace');
@@ -218,8 +218,8 @@ describe('Date:', () => {
       // Test flakes when run in dark theme
       await initEditor(page, defaultViewPort, 'light');
 
-      await typeInEditorAtEndOfDocument(page, 'hello //');
-      await waitForTypeAheadMenu(page);
+      await typeInEditorAtEndOfDocument(page, 'hello ');
+      await quickInsert(page, 'Date', false);
       await pressKey(page, 'Enter');
 
       await waitForDatePicker(page);
@@ -243,8 +243,9 @@ describe('Date:', () => {
     it('should dismiss the date picker when deleting the date', async () => {
       await initEditor(page, defaultViewPort, 'light');
 
-      await typeInEditorAtEndOfDocument(page, '//');
-      await waitForTypeAheadMenu(page);
+      // Insert date by quick insert
+      await typeInEditorAtEndOfDocument(page, '');
+      await quickInsert(page, 'Date', false);
       await pressKey(page, 'Enter');
 
       await waitForDatePicker(page);
@@ -261,8 +262,9 @@ describe('Date:', () => {
     it('should dismiss the date picker when cutting a date', async () => {
       await initEditor(page, defaultViewPort, 'light');
 
-      await typeInEditorAtEndOfDocument(page, '//');
-      await waitForTypeAheadMenu(page);
+      // Insert date by quick insert
+      await typeInEditorAtEndOfDocument(page, '');
+      await quickInsert(page, 'Date', false);
       await pressKey(page, 'Enter');
 
       await waitForDatePicker(page);

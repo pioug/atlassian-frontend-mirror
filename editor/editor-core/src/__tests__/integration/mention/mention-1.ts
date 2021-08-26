@@ -12,16 +12,9 @@ import {
   goToEditorTestingWDExample,
 } from '../../__helpers/testing-example-helpers';
 
-/*
- * Safari does not understand webdriver keyboard actions so a
- * number of tests have been skipped until move to snapshots.
- *
- * The remaining skipped tests for IE11/Edge are bugs that should be fixed for those browsers.
- */
-
 BrowserTestCase(
   'mention-1.ts: user can see mention inside blockquote',
-  { skip: ['safari', 'edge'] },
+  {},
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
@@ -42,7 +35,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'mention-1.ts: user can see mention inside bulletList',
-  { skip: ['safari', 'edge'] },
+  {},
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
@@ -61,7 +54,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'mention-1.ts: user can see mention inside orderedList',
-  { skip: ['safari', 'edge'] },
+  {},
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
@@ -80,7 +73,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'mention-1.ts: user can see mention inside decision',
-  { skip: ['safari', 'edge'] },
+  {},
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
@@ -97,7 +90,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'mention-1.ts: user can see mention inside action',
-  { skip: ['safari', 'edge'] },
+  {},
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
@@ -114,7 +107,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'mention-1.ts: user can navigate picker using keyboard',
-  { skip: ['safari', 'edge'] },
+  {},
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {

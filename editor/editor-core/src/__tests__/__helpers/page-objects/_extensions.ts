@@ -1,10 +1,12 @@
-import { TestPage, PuppeteerPage } from './_types';
+import { TestPage, PuppeteerPage, isPuppeteer } from './_types';
 import { waitForFloatingControl } from './_toolbar';
 import { selectors } from './_editor';
 
 export const extensionSelectors = {
   configPanel: '[data-testid="extension-config-panel"]',
 };
+
+export const QUICK_INSERT_TRIGGER = '/';
 
 function getExtensionSelector(type: string, key: string) {
   return `[extensionType="${type}"][extensionKey="${key}"]`;
@@ -22,19 +24,33 @@ export const waitForExtensionToolbar = async (page: PuppeteerPage) => {
   await waitForFloatingControl(page, 'Extension floating controls');
 };
 
-export const quickInsert = async (page: any, title: string) => {
-  // WARNING: remove spaces, otherwise be interpreted as a select event
-  //   an alternative could be to split and use `.keys(['Space'])` between words
-  const titleSafe = title.replace(/ /g, '');
-
+export const quickInsert = async (
+  page: any,
+  title: string,
+  clickAtSelection: boolean = true,
+) => {
+  const firstWordTitle = title.split(' ')[0];
   await page.waitForSelector(selectors.editor);
-  await page.type(selectors.editor, '/');
-  await page.waitForSelector(selectors.quickInsert);
-  await page.type(selectors.editor, titleSafe);
+  await page.type(selectors.editor, QUICK_INSERT_TRIGGER);
 
-  await page.waitForSelector('div[aria-label="Popup"]');
-  await page.waitForSelector(
-    `[aria-label="Popup"] [role="button"][aria-describedby="${title}"]`,
-  );
-  await page.click(`[aria-label="Popup"] [role="button"]`);
+  await page.waitForSelector(selectors.quickInsert);
+
+  if (firstWordTitle) {
+    const keys = firstWordTitle.split('');
+    if (isPuppeteer(page)) {
+      for (let key of keys) {
+        await page.keyboard.type(key);
+      }
+    } else {
+      await page.keys(keys);
+    }
+  }
+
+  await page.waitForSelector(selectors.typeaheadPopup);
+
+  if (clickAtSelection) {
+    const optionSelector = ` [role="option"][aria-label*="${firstWordTitle}" i]`;
+    await page.waitForSelector(selectors.typeaheadPopup.concat(optionSelector));
+    await page.click(selectors.typeaheadPopup.concat(optionSelector));
+  }
 };

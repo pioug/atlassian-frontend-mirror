@@ -32,8 +32,19 @@ export type FileAttributes = {
   fileStatus?: FileStatus;
 };
 
+export type PerformanceAttributes = {
+  overall: {
+    durationSincePageStart: number;
+    durationSinceCommenced?: number;
+  };
+};
+
 export type WithFileAttributes = {
   fileAttributes: FileAttributes;
+};
+
+export type WithPerformanceAttributes = {
+  performanceAttributes?: PerformanceAttributes;
 };
 
 export type SuccessAttributes = {
@@ -55,7 +66,11 @@ export type StatusAttributes = SuccessAttributes | FailureAttributes;
 export type OperationalAttributes =
   | BaseAttributes
   | (BaseAttributes & WithFileAttributes)
-  | (BaseAttributes & WithFileAttributes & StatusAttributes);
+  | (BaseAttributes & WithFileAttributes & StatusAttributes)
+  | (BaseAttributes &
+      WithFileAttributes &
+      StatusAttributes &
+      WithPerformanceAttributes);
 
 export type OperationalEventPayload<
   Attributes extends OperationalAttributes,
@@ -72,7 +87,9 @@ export type OperationalEventPayload<
 // UI Events ...
 // https://hello.atlassian.net/wiki/spaces/MEASURE/pages/134329336/UI+Events
 
-export type UIAttributes = BaseAttributes;
+export type UIAttributes =
+  | BaseAttributes
+  | (BaseAttributes & WithFileAttributes);
 
 export type UIEventPayload<
   Attributes extends UIAttributes,
@@ -88,7 +105,9 @@ export type UIEventPayload<
 // Screen Events ...
 // https://hello.atlassian.net/wiki/spaces/MEASURE/pages/134329341/Screen+Events
 
-export type ScreenAttributes = BaseAttributes;
+export type ScreenAttributes =
+  | BaseAttributes
+  | (BaseAttributes & WithFileAttributes);
 
 export type ScreenEventPayload<
   Attributes extends ScreenAttributes,
@@ -103,12 +122,20 @@ export type ScreenEventPayload<
 // Track Events ...
 // https://hello.atlassian.net/wiki/spaces/MEASURE/pages/134329319/Track+Events
 
-export type TrackAttributes = BaseAttributes;
+export type TrackAttributes =
+  | BaseAttributes
+  | (BaseAttributes & WithFileAttributes);
 
 export type TrackEventPayload<
-  Attributes extends TrackAttributes
+  Attributes extends TrackAttributes,
+  Action extends string,
+  ActionSubject extends string,
+  ActionSubjectId extends string = string
 > = BaseEventPayload<Attributes> & {
   eventType: 'track';
+  action: Action;
+  actionSubject: ActionSubject;
+  actionSubjectId?: ActionSubjectId;
 };
 
 // Media Analytics Context Types

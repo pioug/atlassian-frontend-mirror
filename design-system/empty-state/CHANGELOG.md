@@ -1,5 +1,23 @@
 # @atlaskit/empty-state
 
+## 7.2.0
+
+### Minor Changes
+
+- [`20ea31c9fdf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/20ea31c9fdf) - **Deprecation Warning**
+  The `size` prop and `Sizes` type have been flagged as deprecated. Both are better described as a width and so internally have been renamed.
+  The `size` prop will continue to work in the shortrun before it's formally removed in the component's next major release.
+
+  Housekeeping:
+
+  - Component now uses the new entrypoint format.
+  - Prop descriptions have been updated to better describe component behaviors.
+  - Small bug fix related to additional props being spread in to some of the component's internals.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.1.8
 
 ### Patch Changes

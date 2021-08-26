@@ -1,7 +1,5 @@
 import Fuse from 'fuse.js';
-// AFP-2532 TODO: Fix automatic suppressions below
-// eslint-disable-next-line @atlassian/tangerine/import/entry-points
-import { QuickInsertItem } from '@atlaskit/editor-common/src/provider-factory/quick-insert-provider';
+import { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
 import { dedupe } from '../../utils';
 import { QuickInsertPluginState, QuickInsertPluginOptions } from './types';
 

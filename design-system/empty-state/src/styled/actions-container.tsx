@@ -22,6 +22,8 @@ const actionsStyles = css({
  *
  * @internal
  */
-const ActionsContainer: FC = (props) => <div css={actionsStyles} {...props} />;
+const ActionsContainer: FC = ({ children }) => (
+  <div css={actionsStyles}>{children}</div>
+);
 
 export default ActionsContainer;

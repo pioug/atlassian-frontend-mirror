@@ -12,7 +12,8 @@ import { selectors } from '../../__helpers/page-objects/_renderer';
 import { Viewport } from 'puppeteer';
 
 // Headings with anchor links enabled
-describe('Headings with links on mobile', () => {
+// FIXME: flaky test https://product-fabric.atlassian.net/browse/ED-13530
+describe.skip('Headings with links on mobile', () => {
   let page: PuppeteerPage;
 
   // Test alignment options (center and right add a wrapper element)

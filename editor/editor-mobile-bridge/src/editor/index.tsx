@@ -1,5 +1,5 @@
 import '@babel/polyfill';
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useMemo, useRef } from 'react';
 import ReactDOM from 'react-dom';
 import MobileEditor from './mobile-editor-element';
 import { IS_DEV } from '../utils';
@@ -39,6 +39,10 @@ const Editor: React.FC<AppProps> = (props) => {
   const bridge = getBridge();
   const editorConfiguration = useEditorConfiguration(bridge);
   const content = useRef('');
+  const createCollabProvider = useMemo(
+    () => createCollabProviderFactory(fetchProxy),
+    [fetchProxy],
+  );
 
   const onLocaleChanged = useCallback(() => {
     bridge.setContent(content.current);
@@ -51,7 +55,7 @@ const Editor: React.FC<AppProps> = (props) => {
   return (
     <ErrorBoundary>
       <MobileEditor
-        createCollabProvider={createCollabProviderFactory(fetchProxy)}
+        createCollabProvider={createCollabProvider}
         cardClient={createCardClient()}
         cardProvider={createCardProvider()}
         defaultValue={props.defaultValue}

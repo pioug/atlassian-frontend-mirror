@@ -9,7 +9,11 @@ import {
   CollabEventTelepointerData,
 } from './types';
 import { Participants, ReadOnlyParticipants } from './participants';
-import { findPointers, createTelepointers } from './utils';
+import {
+  findPointers,
+  createTelepointers,
+  getPositionOfTelepointer,
+} from './utils';
 
 const isReplaceStep = (step: Step) => step instanceof ReplaceStep;
 
@@ -231,6 +235,24 @@ export class PluginState {
 
     if (add.length) {
       this.decorationSet = this.decorationSet.add(tr.doc, add);
+    }
+
+    // This piece needs to be after the decorationSet adjustments,
+    // otherwise it's always one step behind where the cursor is
+    if (telepointerData) {
+      const { sessionId } = telepointerData;
+      if (participants.get(sessionId)) {
+        const positionForScroll = getPositionOfTelepointer(
+          sessionId,
+          this.decorationSet,
+        );
+        if (positionForScroll) {
+          participants = participants.updateCursorPos(
+            sessionId,
+            positionForScroll,
+          );
+        }
+      }
     }
 
     const nextState = new PluginState(

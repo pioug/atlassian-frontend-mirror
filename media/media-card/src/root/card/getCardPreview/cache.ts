@@ -2,7 +2,7 @@ import {
   createObjectURLCache,
   ObjectURLCache,
 } from '../../../utils/objectURLCache';
-import { CardDimensions } from '../../..';
+import { CardDimensions } from '../../../utils/cardDimensions';
 import { CardPreview } from './types';
 
 // Dimensions are used to create a key.

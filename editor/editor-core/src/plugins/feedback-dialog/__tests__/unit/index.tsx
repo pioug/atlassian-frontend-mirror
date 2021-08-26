@@ -1,7 +1,4 @@
-import { EditorView } from 'prosemirror-view';
 import { doc, p, DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
-import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
-import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 import {
   LightEditorPlugin,
   Preset,
@@ -62,16 +59,13 @@ describe('feedbackDialogPlugin', () => {
       window.jQuery = { ajax: () => {} };
     });
 
-    beforeEach(() => {
-      ({ editorView, sel } = editor(doc(p('{<>}'))));
+    beforeEach(async () => {
+      const { typeAheadTool } = editor(doc(p('{<>}')));
 
       loadJiraCollectorDialogScript.mockClear();
-      insertText(editorView, '/bug', sel);
-      sendKeyToPm(editorView, 'Enter');
-    });
 
-    let editorView: EditorView;
-    let sel: number;
+      await typeAheadTool.searchQuickInsert('bug')?.insert({ index: 0 });
+    });
 
     it('should call "loadJiraCollectorDialogScript" with correct params', () => {
       expect(loadJiraCollectorDialogScript).toHaveBeenCalledWith(

@@ -1,5 +1,11 @@
 # @atlaskit/width-detector
 
+## 3.0.6
+
+### Patch Changes
+
+- [`47484fe6492`](https://bitbucket.org/atlassian/atlassian-frontend/commits/47484fe6492) - Remove styled-components from the list of peer dependencies.
+
 ## 3.0.5
 
 ### Patch Changes
@@ -68,7 +74,7 @@
   import { WidthObserver } from '@atlaskit/width-detector';
 
   <WidthObserver
-    setWidth={width => console.log(`width has changed to ${width}`)}
+    setWidth={(width) => console.log(`width has changed to ${width}`)}
   />;
   ```
 

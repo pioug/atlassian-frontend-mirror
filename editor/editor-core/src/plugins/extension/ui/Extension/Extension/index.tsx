@@ -6,8 +6,8 @@ import {
   overflowShadow,
   OverflowShadowProps,
   ExtensionProvider,
+  ReferenceEntity,
 } from '@atlaskit/editor-common';
-import { ADFEntity } from '@atlaskit/adf-utils';
 import {
   Wrapper,
   Header,
@@ -27,7 +27,7 @@ export interface Props {
   extensionProvider?: ExtensionProvider;
   handleContentDOMRef: (node: HTMLElement | null) => void;
   children?: React.ReactNode;
-  refNode?: ADFEntity;
+  references?: ReferenceEntity[];
   hideFrame?: boolean;
   editorAppearance?: EditorAppearance;
 }

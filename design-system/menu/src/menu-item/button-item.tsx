@@ -8,6 +8,14 @@ import { useBlurOnMouseDown } from '../internal/hooks/use-blur-on-mouse-down';
 import { buttonItemCSS } from '../internal/styles/menu-item/button-item';
 import type { ButtonItemProps } from '../types';
 
+/**
+ * __Button item__
+ *
+ * A button item is used to populate a menu with items that need to be a button element.
+ *
+ * - [Examples](https://atlaskit.atlassian.com/packages/design-system/menu/docs/button-item)
+ * - [Code](https://atlaskit.atlassian.com/packages/design-system/menu)
+ */
 const ButtonItem = memo(
   forwardRef<HTMLElement, ButtonItemProps>(
     // Type needed on props to extract types with extract react types.
@@ -37,7 +45,9 @@ const ButtonItem = memo(
       return (
         <button
           css={[
+            // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
             buttonItemCSS(isDisabled, isSelected),
+            // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
             cssFn({
               isSelected,
               isDisabled,
@@ -51,6 +61,7 @@ const ButtonItem = memo(
           {...others}
         >
           <BaseItem
+            // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
             overrides={overrides}
             iconBefore={iconBefore}
             iconAfter={iconAfter}

@@ -173,6 +173,16 @@ export const IconPanel = Loadable({
   loading: () => null,
 });
 
+export const IconCustomPanel = Loadable({
+  loader: () =>
+    import(
+      /* webpackChunkName: "@atlaskit-internal_editor-icon-custon-panel" */ './custom-panel'
+    ).then((module) => module.default) as Promise<
+      React.ComponentType<IconProps>
+    >,
+  loading: () => null,
+});
+
 export const IconQuote = Loadable({
   loader: () =>
     import(

@@ -505,6 +505,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
       shouldOpenMediaViewer: this.shouldOpenMediaViewer,
       allowAltTextOnImages: this.allowAltTextOnImages,
       featureFlags: this.media && this.media.featureFlags,
+      enableDownloadButton: this.media?.enableDownloadButton,
     };
   }
 

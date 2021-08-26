@@ -1,8 +1,8 @@
-export interface Token<TValue, TGroup extends string> {
+export interface Token<TValue, Group extends string> {
   value: TValue;
-  comment?: string;
   attributes: {
-    group: TGroup;
+    group?: Group;
+    description?: string;
   };
 }
 
@@ -17,6 +17,14 @@ export type PaletteToken = Token<string, 'paint'> & {
   attributes: { isPalette: true };
 };
 
+export type ValueSchema<Schema extends object> = {
+  [Key in keyof Schema]: ValueSchema<Omit<Schema[Key], 'attributes'>>;
+};
+
+export type AttributeSchema<Schema extends object> = {
+  [Key in keyof Schema]: AttributeSchema<Omit<Schema[Key], 'value'>>;
+};
+
 export type ShadowToken<Value extends string = ColorPalette> = Token<
   Array<{
     color: Value;
@@ -28,6 +36,8 @@ export type ShadowToken<Value extends string = ColorPalette> = Token<
   }>,
   'shadow'
 >;
+
+export type RawToken = Token<string, 'raw'>;
 
 export interface PaletteColorTokenSchema {
   color: {
@@ -284,6 +294,12 @@ export interface TextColorTokenSchema {
 export interface AccentColorTokenSchema {
   color: {
     accent: {
+      boldBlue: PaintToken;
+      boldGreen: PaintToken;
+      boldOrange: PaintToken;
+      boldPurple: PaintToken;
+      boldRed: PaintToken;
+      boldTeal: PaintToken;
       subtleBlue: PaintToken;
       subtleRed: PaintToken;
       subtleGreen: PaintToken;
@@ -311,11 +327,18 @@ export interface ShadowTokenSchema {
   };
 }
 
+export interface UtilTokenSchema {
+  UNSAFE_util: {
+    transparent: RawToken;
+  };
+}
+
 export type ColorTokenSchema = BackgroundColorTokenSchema &
   BorderColorTokenSchema &
   IconBorderColorTokenSchema &
   TextColorTokenSchema &
-  AccentColorTokenSchema;
+  AccentColorTokenSchema &
+  UtilTokenSchema;
 
 export type TokenSchema = PaletteColorTokenSchema &
   ColorTokenSchema &

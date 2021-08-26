@@ -10,10 +10,12 @@ const generateData = ({
   avatarCount,
   href,
   onClick,
+  disabledIndexes,
 }: {
   avatarCount: number;
   href?: string;
   onClick?: () => void;
+  disabledIndexes?: number[];
 }) => {
   const data = [];
   // eslint-disable-next-line no-plusplus
@@ -23,6 +25,7 @@ const generateData = ({
       src: `#${i}`,
       size: 'medium' as SizeType,
       appearance: 'circle' as AppearanceType,
+      isDisabled: disabledIndexes ? disabledIndexes.includes(i) : undefined,
       href,
       onClick,
     });
@@ -505,5 +508,25 @@ describe('<AvatarGroup />', () => {
 
     const container = getByTestId('test--avatar-group');
     expect(container.getAttribute('aria-label')).toBe('Contributors');
+  });
+
+  it('should not be wrapped into the Tooltip when disabled', () => {
+    const { queryByTestId } = render(
+      <AvatarGroup
+        testId="test"
+        data={generateData({ avatarCount: 3, disabledIndexes: [1] })}
+        maxCount={3}
+      />,
+    );
+
+    const [firstAvatar, secondAvatar, thirdAvatar] = [
+      queryByTestId('test--tooltip-0--container'),
+      queryByTestId('test--tooltip-1--container'),
+      queryByTestId('test--tooltip-2--container'),
+    ];
+
+    expect(firstAvatar).not.toBeNull();
+    expect(secondAvatar).toBeNull();
+    expect(thirdAvatar).not.toBeNull();
   });
 });

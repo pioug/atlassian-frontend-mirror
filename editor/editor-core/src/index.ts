@@ -85,6 +85,7 @@ export {
   toggleStrongWithAnalytics,
 } from './plugins/text-formatting/commands/text-formatting';
 export { subscribeToToolbarAndPickerUpdates } from './plugins/view-update-subscription/subscribe/toolbarAndPickerUpdates';
+export { subscribeTypeAheadUpdates } from './plugins/view-update-subscription/subscribe/type-ahead-updates';
 export type {
   InputMethodToolbar as TextFormattingInputMethodToolbar,
   InputMethodBasic as TextFormattingInputMethodBasic,
@@ -121,9 +122,6 @@ export {
 } from './plugins/quick-insert';
 export type { QuickInsertPluginState } from './plugins/quick-insert';
 export type { TypeAheadItem } from './plugins/type-ahead/types';
-export { selectItem } from './plugins/type-ahead/commands/select-item';
-export { insertTypeAheadQuery } from './plugins/type-ahead/commands/insert-query';
-export { dismissCommand } from './plugins/type-ahead/commands/dismiss';
 export {
   insertLink,
   insertLinkWithAnalyticsMobileNative,
@@ -185,8 +183,6 @@ export {
 export type { HistoryPluginState } from './plugins/history/types';
 export type { MentionPluginState } from './plugins/mentions/types';
 export type { TOOLBAR_MENU_TYPE as InsertBlockInputMethodToolbar } from './plugins/insert-block/ui/ToolbarInsertBlock/types';
-export { insertMentionQuery } from './plugins/mentions/commands/insert-mention-query';
-export { insertEmojiQuery } from './plugins/emoji/commands/insert-emoji-query';
 export { selectionPluginKey } from './plugins/mobile-selection';
 export type {
   SelectionData,
@@ -218,3 +214,5 @@ export {
 export type { PaletteColor } from './ui/ColorPalette/Palettes/type';
 export { DEFAULT_BORDER_COLOR } from './ui/ColorPalette/Palettes/common';
 export { default as messages, statusMessages, dateMessages } from './messages';
+export { createTypeAheadTools } from './plugins/type-ahead/api';
+export { createQuickInsertTools } from './plugins/quick-insert/api';

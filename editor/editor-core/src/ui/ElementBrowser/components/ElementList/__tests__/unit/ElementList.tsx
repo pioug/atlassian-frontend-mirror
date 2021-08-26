@@ -14,7 +14,9 @@ import React from 'react';
 import { ReactWrapper, mount } from 'enzyme';
 import { ELEMENT_LIST_PADDING } from '../../../../constants';
 import ElementList from '../../ElementList';
+import EmptyState from '../../EmptyState';
 import { Modes } from '../../../../types';
+import { EmptyStateHandlerParams } from '../../../../../../types/empty-state-handler';
 
 const props = {
   items: [
@@ -66,6 +68,7 @@ describe('ElementList', () => {
     expect(wrapper).toMatchSnapshot();
     wrapper.unmount();
   });
+
   describe('Collection', () => {
     it('renders a Virtualized Collection component with the right width', () => {
       mockGetWidth.mockReturnValueOnce(660);
@@ -131,6 +134,57 @@ describe('ElementList', () => {
       expect(tooltipElements.first().props().content).toBe(
         'Item 1 description',
       );
+    });
+  });
+
+  describe('EmptyState Component', () => {
+    let elementListProps: any;
+
+    beforeEach(() => {
+      elementListProps = { ...props };
+    });
+
+    it('should render generic EmptyState Component if emptyStateHandler props are not passed', () => {
+      elementListProps.items = [];
+      const wrapper = mount(<ElementList {...elementListProps} />);
+      expect(wrapper.find(EmptyState)).toHaveLength(1);
+    });
+
+    it('should render product specific EmptyState component if search results are empty and emptyStateHandler prop is passed', () => {
+      elementListProps.searchTerm = 'drawing'; //searchTerm
+      elementListProps.items = [];
+      elementListProps.emptyStateHandler = (
+        params: EmptyStateHandlerParams,
+      ) => <div id="app-container">App</div>; //Function that renders EmptyState component
+      const wrapper = mount(<ElementList {...elementListProps} />);
+      expect(wrapper.find('#app-container')).toHaveLength(1);
+    });
+
+    it('should pass correct params to emptyStateHandler', () => {
+      elementListProps.items = [];
+      elementListProps.searchTerm = 'drawing';
+      elementListProps.selectedCategory = 'marketplace';
+      elementListProps.emptyStateHandler = jest.fn();
+      elementListProps.emptyStateHandler.mockReturnValue(
+        <div id="app-container">App</div>,
+      );
+
+      mount(<ElementList {...elementListProps} />);
+
+      expect(elementListProps.emptyStateHandler).toHaveBeenCalledWith({
+        mode: elementListProps.mode,
+        selectedCategory: elementListProps.selectedCategory,
+        searchTerm: elementListProps.searchTerm,
+      });
+    });
+
+    it('should not render product specific EmptyState component if search results list is not empty ', () => {
+      elementListProps.searchTerm = 'drawing'; //searchTerm
+      elementListProps.emptyStateHandler = (
+        params: EmptyStateHandlerParams,
+      ) => <div id="app-container">App</div>; //Function that renders EmptyState component
+      const wrapper = mount(<ElementList {...elementListProps} />);
+      expect(wrapper.find('#app-container')).toHaveLength(0);
     });
   });
 });

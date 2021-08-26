@@ -1,6 +1,8 @@
-import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
-import { insertText } from '@atlaskit/editor-test-helpers/transactions';
+import {
+  createEditorFactory,
+  TypeAheadTool,
+} from '@atlaskit/editor-test-helpers/create-editor';
+import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
 import { doc, p, mention, a } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   MockMentionResource,
@@ -18,11 +20,11 @@ import {
   UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
 import { INVITE_ITEM_DESCRIPTION } from '../../../../plugins/mentions/ui/InviteItem';
-import { selectCurrentItem } from '../../../../plugins/type-ahead/commands/select-item';
-import { dismissCommand } from '../../../../plugins/type-ahead/commands/dismiss';
-import { pluginKey } from '../../../../plugins/type-ahead/pm-plugins/plugin-key';
+import {
+  isInviteItem,
+  shouldKeepInviteItem,
+} from '../../../../plugins/mentions/utils';
 import { EditorProps } from '../../../../types';
-import { shouldKeepInviteItem } from '../../../../plugins/mentions';
 
 let mockRegisterTeamMention = jest.fn();
 
@@ -32,6 +34,10 @@ jest.mock('@atlaskit/mention/spotlight', () => ({
     registerTeamMention: () => mockRegisterTeamMention(),
   },
 }));
+jest.useFakeTimers();
+beforeAll(() => {
+  window.queueMicrotask = (cb: Function) => {};
+});
 
 describe('mentionTypeahead', () => {
   const createEditor = createEditorFactory();
@@ -54,6 +60,8 @@ describe('mentionTypeahead', () => {
     event: any;
     mockMentionNameResolver?: MentionNameResolver;
     mentionData: MentionDescription[];
+    typeAheadTool: TypeAheadTool;
+    query: string;
   };
   type TestExecutor = (
     deps: TestDependencies,
@@ -131,7 +139,7 @@ describe('mentionTypeahead', () => {
       };
     }
 
-    const { editorView, sel, mentionProvider } = await editor(
+    const { editorView, sel, mentionProvider, typeAheadTool } = await editor(
       {
         createAnalyticsEvent,
       },
@@ -140,11 +148,6 @@ describe('mentionTypeahead', () => {
     );
 
     initializeCollab(editorView);
-
-    const mentionResults = subscribe(mentionProvider, query);
-    insertText(editorView, `@${query}`, sel);
-    // Ensures results have been handled by the plugin before moving on
-    const mentionData = await mentionResults;
 
     return await Promise.resolve(
       test(
@@ -155,13 +158,22 @@ describe('mentionTypeahead', () => {
           createAnalyticsEvent,
           event,
           mockMentionNameResolver: mentionNameResolver,
-          mentionData,
+          mentionData: [],
+          typeAheadTool,
+          query,
         },
         ...args,
       ),
     );
   };
 
+  const searchResultTypeAhead = (typeAheadTool: TypeAheadTool) => (
+    query: string,
+  ) => {
+    const searching = typeAheadTool.searchMention(query);
+    jest.runAllTimers();
+    return searching;
+  };
   /**
    * Sets the editor up to be used in the test suite, using default options
    * relevant to all tests.
@@ -178,7 +190,7 @@ describe('mentionTypeahead', () => {
       new MockMentionResource(mentionProviderConfig || {}),
     );
     const contextIdentifierProvider = Promise.resolve(contextIdentifiers);
-    const { editorView, sel } = createEditor({
+    const { editorView, typeAheadTool, sel } = createEditor({
       doc: doc(p('{<>}')),
       editorProps: {
         mentionProvider,
@@ -196,32 +208,12 @@ describe('mentionTypeahead', () => {
 
     return {
       editorView,
+      typeAheadTool,
       sel,
       // Ensures providers are resolved before using the editor
       mentionProvider: await mentionProvider,
       contextIdentifierProvider: await contextIdentifierProvider,
     };
-  };
-
-  /**
-   * Subscribes to the given `mentionProvider` and returns a promise that only
-   * resolves when it gets notified of results for the given `query`.
-   *
-   * @param mentionProvider Mention provider to listen to for change events.
-   * @param query Query string for which the subscrition resolves.
-   *              Default: empty string.
-   * @return Promise resolving with `MentionDescription[]`
-   */
-  const subscribe = (mentionProvider: MentionProvider, query = '') => {
-    return new Promise<MentionDescription[]>((resolve) => {
-      const subscribeKey = 'mentionPluginTest';
-      mentionProvider.subscribe(subscribeKey, (mentions, resultQuery) => {
-        if (query === resultQuery) {
-          mentionProvider.unsubscribe(subscribeKey);
-          resolve(mentions);
-        }
-      });
-    });
   };
 
   /**
@@ -254,45 +246,55 @@ describe('mentionTypeahead', () => {
   describe('fabric-elements analytics', () => {
     it(
       'should fire typeahead cancelled event',
-      withMentionQuery('all', ({ editorView, event, createAnalyticsEvent }) => {
-        jest.clearAllMocks();
-        dismissCommand()(editorView.state, editorView.dispatch);
+      withMentionQuery(
+        'all',
+        ({ editorView, event, createAnalyticsEvent, typeAheadTool, query }) => {
+          jest.clearAllMocks();
+          searchResultTypeAhead(typeAheadTool)(query).close();
 
-        expect(createAnalyticsEvent).toHaveBeenCalledWith(
-          expect.objectContaining({
-            action: 'cancelled',
-            actionSubject: expectedActionSubject,
-            eventType: 'ui',
-            attributes: expect.objectContaining({
-              packageName: '@atlaskit/editor-core',
-              packageVersion: expect.any(String),
-              sessionId: expect.stringMatching(sessionIdRegex),
-              spaceInQuery: false,
-              queryLength: 3,
-              duration: expect.any(Number),
+          expect(createAnalyticsEvent).toHaveBeenCalledWith(
+            expect.objectContaining({
+              action: 'cancelled',
+              actionSubject: expectedActionSubject,
+              eventType: 'ui',
+              attributes: expect.objectContaining({
+                packageName: '@atlaskit/editor-core',
+                packageVersion: expect.any(String),
+                sessionId: expect.stringMatching(sessionIdRegex),
+                spaceInQuery: false,
+                queryLength: 3,
+                duration: expect.any(Number),
+              }),
             }),
-          }),
-        );
-        expect(event.fire).toHaveBeenCalledTimes(1);
-        expect(event.fire).toHaveBeenCalledWith('fabric-elements');
-      }),
+          );
+          expect(event.fire).toHaveBeenCalled();
+          expect(event.fire).toHaveBeenCalledWith('fabric-elements');
+        },
+      ),
     );
 
     it.each([
-      ['pressed', () => selectCurrentItem('enter'), 'enter'],
-      ['clicked', () => selectCurrentItem(), undefined],
+      ['pressed', 'enter'],
+      ['clicked', undefined],
     ])(
       'should fire typeahead %s event',
       withMentionQuery(
         'here',
-        (
-          { editorView, event, createAnalyticsEvent },
+        async (
+          { editorView, event, createAnalyticsEvent, typeAheadTool, query },
           expectedActionName,
-          selectCurrentItem,
           keyboardKey,
         ) => {
           jest.clearAllMocks();
-          selectCurrentItem()(editorView.state, editorView.dispatch);
+
+          const mode = keyboardKey
+            ? SelectItemMode.ENTER
+            : SelectItemMode.SELECTED;
+
+          await searchResultTypeAhead(typeAheadTool)(query).insert({
+            index: 0,
+            mode,
+          });
 
           expect(createAnalyticsEvent).toHaveBeenCalledWith(
             expect.objectContaining({
@@ -315,27 +317,33 @@ describe('mentionTypeahead', () => {
               }),
             }),
           );
-          expect(event.fire).toHaveBeenCalledTimes(1);
           expect(event.fire).toHaveBeenCalledWith('fabric-elements');
         },
       ),
     );
 
     it.each([
-      ['pressed', () => selectCurrentItem('enter'), 'enter'],
-      ['clicked', () => selectCurrentItem(), undefined],
+      ['pressed', 'enter'],
+      ['clicked', undefined],
     ])(
       'should fire typeahead %s event for teams',
       withMentionQuery(
         'Team Alpha',
-        (
-          { editorView, event, createAnalyticsEvent },
+        async (
+          { editorView, event, createAnalyticsEvent, typeAheadTool, query },
           expectedActionName,
-          selectCurrentItem,
           keyboardKey,
         ) => {
           jest.clearAllMocks();
-          selectCurrentItem()(editorView.state, editorView.dispatch);
+
+          const mode = keyboardKey
+            ? SelectItemMode.ENTER
+            : SelectItemMode.SELECTED;
+
+          await searchResultTypeAhead(typeAheadTool)(query).insert({
+            index: 0,
+            mode,
+          });
 
           expect(createAnalyticsEvent).toHaveBeenCalledWith(
             expect.objectContaining({
@@ -358,7 +366,6 @@ describe('mentionTypeahead', () => {
               }),
             }),
           );
-          expect(event.fire).toHaveBeenCalledTimes(1);
           expect(event.fire).toHaveBeenCalledWith('fabric-elements');
         },
       ),
@@ -366,100 +373,105 @@ describe('mentionTypeahead', () => {
 
     it(
       'should fire typeahead rendered event on bootstrap',
-      withMentionQuery('', ({ event, createAnalyticsEvent }) => {
-        expect(createAnalyticsEvent).toHaveBeenCalledWith(
-          expect.objectContaining({
-            action: 'rendered',
-            actionSubject: expectedActionSubject,
-            eventType: 'operational',
-            attributes: expect.objectContaining({
-              packageName: '@atlaskit/editor-core',
-              packageVersion: expect.any(String),
-              duration: expect.any(Number),
-              queryLength: 0,
-              spaceInQuery: false,
-              userIds: expect.any(Array),
-              sessionId: expect.stringMatching(sessionIdRegex),
-            }),
-          }),
-        );
-        expect(event.fire).toHaveBeenCalledTimes(1);
-        expect(event.fire).toHaveBeenCalledWith('fabric-elements');
+      withMentionQuery(
+        '',
+        async ({ event, createAnalyticsEvent, typeAheadTool, query }) => {
+          await searchResultTypeAhead(typeAheadTool)(query);
 
-        // check there is no team id in attributes.userIds
-        // note that `expect.not.arrayContaining` is not supported in current Jest version yet.
-        // @ts-ignore
-        const renderedCall = createAnalyticsEvent.mock.calls.find(
-          (
-            call: any, // tslint:disable-line no-any
-          ) =>
-            call[0] &&
-            call[0].action === 'rendered' &&
-            call[0].actionSubject === 'mentionTypeahead',
-        );
-        renderedCall[0].attributes.userIds.forEach((userId: string) => {
-          expect(allTeamIds.includes(userId)).toEqual(false);
-        });
-      }),
+          expect(createAnalyticsEvent).toHaveBeenCalledWith(
+            expect.objectContaining({
+              action: 'rendered',
+              actionSubject: expectedActionSubject,
+              eventType: 'operational',
+              attributes: expect.objectContaining({
+                packageName: '@atlaskit/editor-core',
+                packageVersion: expect.any(String),
+                duration: expect.any(Number),
+                queryLength: 0,
+                spaceInQuery: false,
+                userIds: expect.any(Array),
+                sessionId: expect.stringMatching(sessionIdRegex),
+              }),
+            }),
+          );
+          expect(event.fire).toHaveBeenCalled();
+          expect(event.fire).toHaveBeenCalledWith('fabric-elements');
+
+          // check there is no team id in attributes.userIds
+          // note that `expect.not.arrayContaining` is not supported in current Jest version yet.
+          // @ts-ignore
+          const renderedCall = createAnalyticsEvent.mock.calls.find(
+            (
+              call: any, // tslint:disable-line no-any
+            ) =>
+              call[0] &&
+              call[0].action === 'rendered' &&
+              call[0].actionSubject === 'mentionTypeahead',
+          );
+          renderedCall[0].attributes.userIds.forEach((userId: string) => {
+            expect(allTeamIds.includes(userId)).toEqual(false);
+          });
+        },
+      ),
     );
 
     it(
       'should fire typeahead rendered event',
-      withMentionQuery('all', ({ event, createAnalyticsEvent }) => {
-        expect(createAnalyticsEvent).toHaveBeenCalledWith(
-          expect.objectContaining({
-            action: 'rendered',
-            actionSubject: expectedActionSubject,
-            eventType: 'operational',
-            attributes: expect.objectContaining({
-              packageName: '@atlaskit/editor-core',
-              packageVersion: expect.any(String),
-              duration: expect.any(Number),
-              queryLength: 3,
-              spaceInQuery: false,
-              // assert this attribute below
-              userIds: expect.any(Array),
-              sessionId: expect.stringMatching(sessionIdRegex),
+      withMentionQuery(
+        'all',
+        async ({ event, createAnalyticsEvent, typeAheadTool, query }) => {
+          await searchResultTypeAhead(typeAheadTool)(query);
+          expect(createAnalyticsEvent).toHaveBeenCalledWith(
+            expect.objectContaining({
+              action: 'rendered',
+              actionSubject: expectedActionSubject,
+              eventType: 'operational',
+              attributes: expect.objectContaining({
+                packageName: '@atlaskit/editor-core',
+                packageVersion: expect.any(String),
+                duration: expect.any(Number),
+                queryLength: 3,
+                spaceInQuery: false,
+                // assert this attribute below
+                userIds: expect.any(Array),
+                sessionId: expect.stringMatching(sessionIdRegex),
+              }),
             }),
-          }),
-        );
-        expect(event.fire).toHaveBeenCalledTimes(4);
-        expect(event.fire).toHaveBeenCalledWith('fabric-elements');
+          );
+          expect(event.fire).toHaveBeenCalledWith('fabric-elements');
 
-        // check there is no team id in attributes.userIds
-        // note that `expect.not.arrayContaining` is not supported in current Jest version yet.
-        // @ts-ignore
-        const renderedCall = createAnalyticsEvent.mock.calls.find(
-          (
-            call: any, // tslint:disable-line no-any
-          ) =>
-            call[0] &&
-            call[0].action === 'rendered' &&
-            call[0].actionSubject === 'mentionTypeahead',
-        );
-        renderedCall[0].attributes.userIds.forEach((userId: string) => {
-          expect(allTeamIds.includes(userId)).toEqual(false);
-        });
-      }),
+          // check there is no team id in attributes.userIds
+          // note that `expect.not.arrayContaining` is not supported in current Jest version yet.
+          // @ts-ignore
+          const renderedCall = createAnalyticsEvent.mock.calls.find(
+            (
+              call: any, // tslint:disable-line no-any
+            ) =>
+              call[0] &&
+              call[0].action === 'rendered' &&
+              call[0].actionSubject === 'mentionTypeahead',
+          );
+          renderedCall[0].attributes.userIds.forEach((userId: string) => {
+            expect(allTeamIds.includes(userId)).toEqual(false);
+          });
+        },
+      ),
     );
   });
 
   describe('editor analytics', () => {
     let createAnalyticsEvent: any;
-    let editorView: EditorView;
-    let sel: number;
 
     beforeEach(async () => {
       jest.clearAllMocks();
       ({ createAnalyticsEvent } = analyticsMocks());
-      ({ editorView, sel } = await editor({
-        createAnalyticsEvent,
-      }));
     });
 
     it('should trigger mention typeahead invoked event when invoked via quick insert', async () => {
-      insertText(editorView, '/Mention', sel);
-      sendKeyToPm(editorView, 'Enter');
+      const { typeAheadTool } = await editor({
+        createAnalyticsEvent,
+      });
+      await typeAheadTool.searchQuickInsert('Mention')?.insert({ index: 0 });
 
       expect(createAnalyticsEvent).toHaveBeenCalledWith({
         action: 'invoked',
@@ -472,98 +484,114 @@ describe('mentionTypeahead', () => {
       });
     });
 
-    it('should trigger mention typeahead invoked event when user types "@" symbol', async () => {
-      insertText(editorView, '@', sel);
+    it(
+      'should trigger `teamMentionTypeahead` analytics event',
+      withMentionQuery(
+        'team',
+        async ({ createAnalyticsEvent, typeAheadTool, query }) => {
+          await searchResultTypeAhead(typeAheadTool)(query).result();
 
-      expect(createAnalyticsEvent).toHaveBeenCalledWith({
-        action: 'invoked',
-        actionSubject: 'typeAhead',
-        actionSubjectId: 'mentionTypeAhead',
-        attributes: { inputMethod: 'keyboard' },
-        eventType: 'ui',
-      });
-    });
+          const commonAttrsTypeAhead = {
+            componentName: 'mention',
+            packageName: '@atlaskit/editor-core',
+            packageVersion: expect.any(String),
+            queryLength: expect.any(Number),
+            spaceInQuery: false,
+            sessionId: expect.stringMatching(sessionIdRegex),
+          };
+
+          expect(createAnalyticsEvent).toHaveBeenCalledWith(
+            expect.objectContaining({
+              action: 'rendered',
+              actionSubject: 'teamMentionTypeahead',
+              eventType: 'operational',
+              attributes: expect.objectContaining({
+                ...commonAttrsTypeAhead,
+                duration: 200,
+                userIds: null,
+                teams: expect.arrayContaining(
+                  allTeamIds.map((teamId) => ({
+                    teamId,
+                    includesYou: expect.anything(),
+                    memberCount: expect.anything(),
+                  })),
+                ),
+              }),
+            }),
+          );
+        },
+      ),
+    );
 
     it(
-      'should trigger `mentionTypeahead` and `teamMentionTypeahead` analytics event',
-      withMentionQuery('team', ({ createAnalyticsEvent }) => {
-        const commonAttrsTypeAhead = {
-          componentName: 'mention',
-          packageName: '@atlaskit/editor-core',
-          packageVersion: expect.any(String),
-          queryLength: expect.any(Number),
-          spaceInQuery: false,
-          sessionId: expect.stringMatching(sessionIdRegex),
-        };
+      'should `mentionTypeahead` analytics event',
+      withMentionQuery(
+        '',
+        async ({ createAnalyticsEvent, typeAheadTool, query }) => {
+          await searchResultTypeAhead(typeAheadTool)(query).result();
 
-        expect(createAnalyticsEvent).toHaveBeenCalledWith(
-          expect.objectContaining({
-            action: 'rendered',
-            actionSubject: 'teamMentionTypeahead',
-            eventType: 'operational',
-            attributes: expect.objectContaining({
-              ...commonAttrsTypeAhead,
-              duration: 200,
-              userIds: null,
-              teams: expect.arrayContaining(
-                allTeamIds.map((teamId) => ({
-                  teamId,
-                  includesYou: expect.anything(),
-                  memberCount: expect.anything(),
-                })),
-              ),
+          const commonAttrsTypeAhead = {
+            componentName: 'mention',
+            packageName: '@atlaskit/editor-core',
+            packageVersion: expect.any(String),
+            queryLength: expect.any(Number),
+            spaceInQuery: false,
+            sessionId: expect.stringMatching(sessionIdRegex),
+          };
+
+          expect(createAnalyticsEvent).toHaveBeenCalledWith(
+            expect.objectContaining({
+              action: 'rendered',
+              actionSubject: 'mentionTypeahead',
+              eventType: 'operational',
+              attributes: expect.objectContaining({
+                ...commonAttrsTypeAhead,
+                duration: 100,
+                userIds: expect.any(Array),
+                teams: null,
+              }),
             }),
-          }),
-        );
+          );
 
-        expect(createAnalyticsEvent).toHaveBeenCalledWith(
-          expect.objectContaining({
-            action: 'rendered',
-            actionSubject: 'mentionTypeahead',
-            eventType: 'operational',
-            attributes: expect.objectContaining({
-              ...commonAttrsTypeAhead,
-              duration: 100,
-              userIds: expect.any(Array),
-              teams: null,
-            }),
-          }),
-        );
-
-        // check there is no team id in attributes.userIds
-        // note that `expect.not.arrayContaining` is not supported in current Jest version yet.
-        // @ts-ignore
-        const renderedCall = createAnalyticsEvent.mock.calls.find(
-          (
-            call: any, // tslint:disable-line no-any
-          ) =>
-            call[0] &&
-            call[0].action === 'rendered' &&
-            call[0].actionSubject === 'mentionTypeahead',
-        );
-        renderedCall[0].attributes.userIds.forEach((userId: string) => {
-          expect(allTeamIds.includes(userId)).toEqual(false);
-        });
-      }),
+          // check there is no team id in attributes.userIds
+          // note that `expect.not.arrayContaining` is not supported in current Jest version yet.
+          // @ts-ignore
+          const renderedCall = createAnalyticsEvent.mock.calls.find(
+            (
+              call: any, // tslint:disable-line no-any
+            ) =>
+              call[0] &&
+              call[0].action === 'rendered' &&
+              call[0].actionSubject === 'mentionTypeahead',
+          );
+          renderedCall[0].attributes.userIds.forEach((userId: string) => {
+            expect(allTeamIds.includes(userId)).toEqual(false);
+          });
+        },
+      ),
     );
 
     it(
       'should trigger feature exposed analytics event when the invite from mention feature is off',
-      withMentionQuery('doesNotExist', ({ createAnalyticsEvent }) => {
-        expect(createAnalyticsEvent).toHaveBeenCalledWith(
-          expect.objectContaining({
-            action: 'exposed',
-            actionSubject: 'feature',
-            eventType: 'operational',
-            attributes: expect.objectContaining({
-              componentName: 'mention',
-              flagKey: 'confluence.frontend.invite.from.mention',
-              value: false,
-              cohort: undefined,
+      withMentionQuery(
+        'doesNotExist',
+        async ({ createAnalyticsEvent, query, typeAheadTool }) => {
+          await searchResultTypeAhead(typeAheadTool)(query).result();
+          expect(createAnalyticsEvent).toHaveBeenCalledWith(
+            expect.objectContaining({
+              action: 'exposed',
+              actionSubject: 'feature',
+              eventType: 'operational',
+              attributes: expect.objectContaining({
+                componentName: 'mention',
+                flagKey: 'confluence.frontend.invite.from.mention',
+                value: false,
+                cohort: undefined,
+              }),
             }),
-          }),
-        );
-      }),
+          );
+        },
+      ),
     );
 
     describe('inviteFromMentionExperiment On', () => {
@@ -571,7 +599,8 @@ describe('mentionTypeahead', () => {
         'should trigger feature exposed analytics event',
         withMentionQuery(
           'doesNotExist',
-          ({ createAnalyticsEvent }) => {
+          async ({ createAnalyticsEvent, typeAheadTool, query }) => {
+            await searchResultTypeAhead(typeAheadTool)(query).result();
             expect(createAnalyticsEvent).toHaveBeenCalledWith(
               expect.objectContaining({
                 action: 'exposed',
@@ -600,79 +629,102 @@ describe('mentionTypeahead', () => {
     describe('when entering a query', () => {
       it(
         'should filter results',
-        withMentionQuery('', ({ mentionProvider, editorView, sel }) => {
-          const filterSpy = jest.spyOn(mentionProvider, 'filter');
+        withMentionQuery(
+          '',
+          ({ mentionProvider, editorView, sel, typeAheadTool }) => {
+            const filterSpy = jest.spyOn(mentionProvider, 'filter');
 
-          insertText(editorView, 'all', sel);
+            const searching = searchResultTypeAhead(typeAheadTool)('');
+            searching.type('a');
+            searching.type('l');
+            searching.type('l');
 
-          expect(filterSpy).toHaveBeenCalledTimes(3);
-          expect(filterSpy).toHaveBeenCalledWith(
-            'a',
-            expect.objectContaining({
-              sessionId: expect.stringMatching(sessionIdRegex),
-              ...contextIdentifiers,
-            }),
-          );
-          expect(filterSpy).toHaveBeenCalledWith(
-            'al',
-            expect.objectContaining({
-              sessionId: expect.stringMatching(sessionIdRegex),
-              ...contextIdentifiers,
-            }),
-          );
-          expect(filterSpy).toHaveBeenLastCalledWith(
-            'all',
-            expect.objectContaining({
-              sessionId: expect.stringMatching(sessionIdRegex),
-              ...contextIdentifiers,
-            }),
-          );
-        }),
+            expect(typeAheadTool.currentQuery()).toEqual('all');
+            expect(filterSpy).toHaveBeenCalledWith(
+              'a',
+              expect.objectContaining({
+                sessionId: expect.stringMatching(sessionIdRegex),
+                ...contextIdentifiers,
+              }),
+            );
+            expect(filterSpy).toHaveBeenCalledWith(
+              'al',
+              expect.objectContaining({
+                sessionId: expect.stringMatching(sessionIdRegex),
+                ...contextIdentifiers,
+              }),
+            );
+            expect(filterSpy).toHaveBeenLastCalledWith(
+              'all',
+              expect.objectContaining({
+                sessionId: expect.stringMatching(sessionIdRegex),
+                ...contextIdentifiers,
+              }),
+            );
+          },
+        ),
       );
     });
 
     describe('when selecting a user', () => {
       it(
         'should record the selection',
-        withMentionQuery('here', ({ editorView, mentionProvider }) => {
-          const recordMentionSelectionSpy = jest.spyOn(
-            mentionProvider,
-            'recordMentionSelection',
-          );
+        withMentionQuery(
+          'here',
+          async ({ editorView, mentionProvider, query, typeAheadTool }) => {
+            const recordMentionSelectionSpy = jest.spyOn(
+              mentionProvider,
+              'recordMentionSelection',
+            );
 
-          selectCurrentItem()(editorView.state, editorView.dispatch);
+            await searchResultTypeAhead(typeAheadTool)(query).insert({
+              index: 0,
+            });
 
-          expect(recordMentionSelectionSpy).toHaveBeenCalledTimes(1);
-          expect(recordMentionSelectionSpy).toHaveBeenCalledWith(
-            expect.objectContaining({
-              id: 'here',
-            }),
-            expect.objectContaining({
-              sessionId: expect.stringMatching(sessionIdRegex),
-              ...contextIdentifiers,
-            }),
-          );
-        }),
+            expect(recordMentionSelectionSpy).toHaveBeenCalledTimes(1);
+            expect(recordMentionSelectionSpy).toHaveBeenCalledWith(
+              expect.objectContaining({
+                id: 'here',
+              }),
+              expect.objectContaining({
+                sessionId: expect.stringMatching(sessionIdRegex),
+                ...contextIdentifiers,
+              }),
+            );
+          },
+        ),
       );
 
       it(
         'should not register a team mention while selecting a user',
-        withMentionQuery('here', ({ editorView, mentionProvider }) => {
-          // select a user
-          selectCurrentItem()(editorView.state, editorView.dispatch);
-          expect(mockRegisterTeamMention).not.toHaveBeenCalled();
-        }),
+        withMentionQuery(
+          'here',
+          async ({ editorView, mentionProvider, query, typeAheadTool }) => {
+            // select a user
+            await searchResultTypeAhead(typeAheadTool)(query).insert({
+              index: 0,
+            });
+            expect(mockRegisterTeamMention).not.toHaveBeenCalled();
+          },
+        ),
       );
 
       it(
         'should not insert mention name when collabEdit.sanitizePrivateContent is true and mentionInsertDisplayName is true',
         withMentionQuery(
           'april',
-          ({ editorView, mockMentionNameResolver }) => {
-            selectCurrentItem()(editorView.state, editorView.dispatch);
+          async ({
+            editorView,
+            mockMentionNameResolver,
+            query,
+            typeAheadTool,
+          }) => {
+            await searchResultTypeAhead(typeAheadTool)(query).insert({
+              index: 0,
+            });
 
             expect(mockMentionNameResolver!.lookupName).toHaveBeenCalledTimes(
-              0,
+              1,
             );
             expect(mockMentionNameResolver!.cacheName).toHaveBeenCalledTimes(1);
             expect(mockMentionNameResolver!.cacheName).toHaveBeenCalledWith(
@@ -694,6 +746,7 @@ describe('mentionTypeahead', () => {
             );
           },
           {
+            //{ sanitizePrivateContent: true, mentionInsertDisplayName: true },
             sanitizePrivateContent: true,
             mention: { insertDisplayName: true },
           },
@@ -704,11 +757,18 @@ describe('mentionTypeahead', () => {
         'should not insert mention name when collabEdit.sanitizePrivateContent is true and @depreciated mentionInsertDisplayName is true',
         withMentionQuery(
           'april',
-          ({ editorView, mockMentionNameResolver }) => {
-            selectCurrentItem()(editorView.state, editorView.dispatch);
+          async ({
+            editorView,
+            mockMentionNameResolver,
+            query,
+            typeAheadTool,
+          }) => {
+            await searchResultTypeAhead(typeAheadTool)(query).insert({
+              index: 0,
+            });
 
             expect(mockMentionNameResolver!.lookupName).toHaveBeenCalledTimes(
-              0,
+              1,
             );
             expect(mockMentionNameResolver!.cacheName).toHaveBeenCalledTimes(1);
             expect(mockMentionNameResolver!.cacheName).toHaveBeenCalledWith(
@@ -737,11 +797,18 @@ describe('mentionTypeahead', () => {
         'should not insert mention name when collabEdit.sanitizePrivateContent is true and mentionInsertDisplayName is falsy',
         withMentionQuery(
           'april',
-          ({ editorView, mockMentionNameResolver }) => {
-            selectCurrentItem()(editorView.state, editorView.dispatch);
+          async ({
+            editorView,
+            mockMentionNameResolver,
+            query,
+            typeAheadTool,
+          }) => {
+            await searchResultTypeAhead(typeAheadTool)(query).insert({
+              index: 0,
+            });
 
             expect(mockMentionNameResolver!.lookupName).toHaveBeenCalledTimes(
-              0,
+              1,
             );
             expect(mockMentionNameResolver!.cacheName).toHaveBeenCalledTimes(1);
             expect(mockMentionNameResolver!.cacheName).toHaveBeenCalledWith(
@@ -770,8 +837,10 @@ describe('mentionTypeahead', () => {
         'should insert mention name when collabEdit.sanitizePrivateContent is falsy and mentionInsertDisplayName true',
         withMentionQuery(
           'april',
-          ({ editorView }) => {
-            selectCurrentItem()(editorView.state, editorView.dispatch);
+          async ({ editorView, query, typeAheadTool }) => {
+            await searchResultTypeAhead(typeAheadTool)(query).insert({
+              index: 0,
+            });
 
             // expect text in mention to be empty due to sanitization
             expect(editorView.state.doc).toEqualDocument(
@@ -794,8 +863,10 @@ describe('mentionTypeahead', () => {
         'should insert mention name when collabEdit.sanitizePrivateContent is falsy and @depreciated mentionInsertDisplayName true',
         withMentionQuery(
           'april',
-          ({ editorView }) => {
-            selectCurrentItem()(editorView.state, editorView.dispatch);
+          async ({ editorView, query, typeAheadTool }) => {
+            await searchResultTypeAhead(typeAheadTool)(query).insert({
+              index: 0,
+            });
 
             // expect text in mention to be empty due to sanitization
             expect(editorView.state.doc).toEqualDocument(
@@ -818,8 +889,10 @@ describe('mentionTypeahead', () => {
         'should insert nickname when collabEdit.sanitizePrivateContent is falsy and mentionInsertDisplayName falsy',
         withMentionQuery(
           'april',
-          ({ editorView }) => {
-            selectCurrentItem()(editorView.state, editorView.dispatch);
+          async ({ editorView, query, typeAheadTool }) => {
+            await searchResultTypeAhead(typeAheadTool)(query).insert({
+              index: 0,
+            });
 
             // expect text in mention to be empty due to sanitization
             expect(editorView.state.doc).toEqualDocument(
@@ -842,55 +915,74 @@ describe('mentionTypeahead', () => {
     describe('when selecting a team', () => {
       it(
         'should expand members when selecting a team mention ',
-        withMentionQuery('Team Beta', ({ editorView }) => {
-          // select Team Beta team
-          selectCurrentItem()(editorView.state, editorView.dispatch);
-          // should expand 2 members
-          expect(editorView.state.doc).toEqualDocument(
-            doc(
-              p(
-                '',
-                a({ href: 'http://localhost/people/team/team-2' })('Team Beta'),
-                ' (',
-                mention({
-                  id: 'member-1',
-                  text: '@Tung Dang',
-                  userType: 'DEFAULT',
-                  accessLevel: 'CONTAINER',
-                })(),
-                ' ',
-                mention({
-                  id: 'member-2',
-                  text: '@Ishan Somasiri',
-                  userType: 'DEFAULT',
-                  accessLevel: 'CONTAINER',
-                })(),
-                ')',
+        withMentionQuery(
+          'Team Beta',
+          async ({ editorView, query, typeAheadTool }) => {
+            // select Team Beta team
+            await searchResultTypeAhead(typeAheadTool)(query).insert({
+              index: 0,
+            });
+            // should expand 2 members
+            expect(editorView.state.doc).toEqualDocument(
+              doc(
+                p(
+                  '',
+                  a({ href: 'http://localhost/people/team/team-2' })(
+                    'Team Beta',
+                  ),
+                  ' (',
+                  mention({
+                    id: 'member-1',
+                    text: '@Tung Dang',
+                    userType: 'DEFAULT',
+                    accessLevel: 'CONTAINER',
+                  })(),
+                  ' ',
+                  mention({
+                    id: 'member-2',
+                    text: '@Ishan Somasiri',
+                    userType: 'DEFAULT',
+                    accessLevel: 'CONTAINER',
+                  })(),
+                  ')',
+                ),
               ),
-            ),
-          );
-        }),
+            );
+          },
+        ),
       );
 
       it(
         'should register a team mention ',
-        withMentionQuery('Team Beta', ({ editorView }) => {
-          // select Team Beta team
-          selectCurrentItem()(editorView.state, editorView.dispatch);
-          expect(mockRegisterTeamMention).toHaveBeenCalled();
-        }),
+        withMentionQuery(
+          'Team Beta',
+          async ({ editorView, query, typeAheadTool }) => {
+            // select Team Beta team
+            await searchResultTypeAhead(typeAheadTool)(query).insert({
+              index: 0,
+            });
+            expect(mockRegisterTeamMention).toHaveBeenCalled();
+          },
+        ),
       );
 
       it(
         'should not insert mention name when collabEdit.sanitizePrivateContent is true',
         withMentionQuery(
           'Team Beta',
-          ({ editorView, mockMentionNameResolver }) => {
+          async ({
+            editorView,
+            query,
+            typeAheadTool,
+            mockMentionNameResolver,
+          }) => {
             // select Team Beta team
-            selectCurrentItem()(editorView.state, editorView.dispatch);
+            await searchResultTypeAhead(typeAheadTool)(query).insert({
+              index: 0,
+            });
 
             expect(mockMentionNameResolver!.lookupName).toHaveBeenCalledTimes(
-              0,
+              2,
             );
             expect(mockMentionNameResolver!.cacheName).toHaveBeenCalledTimes(2);
             expect(mockMentionNameResolver!.cacheName).toHaveBeenNthCalledWith(
@@ -946,9 +1038,14 @@ describe('mentionTypeahead', () => {
           'should not show invite item if there is more than 2 users/teams returned',
           withMentionQuery(
             'A',
-            ({ editorView, mentionData }) => {
-              const { items } = pluginKey.getState(editorView.state);
-              expect(items.length).toBe(mentionData.length);
+            async ({ editorView, typeAheadTool, query }) => {
+              const result = await searchResultTypeAhead(typeAheadTool)(
+                query,
+              ).result();
+              const inviteItems = (result || []).filter((item) =>
+                isInviteItem(item.mention),
+              );
+              expect(inviteItems).toHaveLength(0);
             },
             {
               mentionConfig: {
@@ -963,19 +1060,32 @@ describe('mentionTypeahead', () => {
           'should not show invite item if the query detected a space after no mentionable items returned',
           withMentionQuery(
             'Alica DoesNotExist',
-            ({ editorView, mentionData }) => {
-              let { query, items } = pluginKey.getState(editorView.state);
-              expect(items.length).toBe(mentionData.length + 1);
+            async ({ editorView, typeAheadTool, query }) => {
+              const searching = await searchResultTypeAhead(typeAheadTool)(
+                'Alica ',
+              );
+              let result: unknown[] | undefined = await searching.result();
+              expect(result).toHaveLength(3);
 
-              insertText(editorView, ' ', query.length + 2);
+              searching.type('D');
+              jest.runAllTimers();
+              result = await searching.result();
+              expect(result).toHaveLength(1);
 
-              ({ query, items } = pluginKey.getState(editorView.state));
-              expect(items.length).toBe(0);
+              searching.type('oesNotExist');
+              jest.runAllTimers();
+              result = await searching.result();
+              expect(result).toHaveLength(1);
 
-              insertText(editorView, 'SeachFurther', query.length + 2);
+              searching.type(' ');
+              jest.runAllTimers();
+              result = await searching.result();
+              expect(result).toHaveLength(0);
 
-              ({ items } = pluginKey.getState(editorView.state));
-              expect(items.length).toBe(0);
+              searching.type('SeachFurther');
+              jest.runAllTimers();
+              result = await searching.result();
+              expect(result).toHaveLength(0);
             },
             {
               mentionConfig: {
@@ -1002,14 +1112,18 @@ describe('mentionTypeahead', () => {
 
             return withMentionQuery(
               query,
-              ({ editorView, mentionData }) => {
-                const { items } = pluginKey.getState(editorView.state);
-                expect(items.length).toBe(mentionData.length + 1);
-                expect(items[items.length - 1]).toEqual({
-                  title: INVITE_ITEM_DESCRIPTION.id,
-                  render: expect.any(Function),
-                  mention: { id: INVITE_ITEM_DESCRIPTION.id },
-                });
+              async ({ typeAheadTool }) => {
+                const items = await searchResultTypeAhead(typeAheadTool)(
+                  query,
+                ).result();
+
+                expect(items![items!.length - 1]).toEqual(
+                  expect.objectContaining({
+                    title: INVITE_ITEM_DESCRIPTION.id,
+                    render: expect.any(Function),
+                    mention: { id: INVITE_ITEM_DESCRIPTION.id },
+                  }),
+                );
               },
               {
                 mentionConfig: {
@@ -1025,12 +1139,14 @@ describe('mentionTypeahead', () => {
           'should not record the selection',
           withMentionQuery(
             'doesNotExist',
-            ({ editorView, mentionProvider }) => {
+            async ({ mentionProvider, query, typeAheadTool }) => {
               const recordMentionSelectionSpy = jest.spyOn(
                 mentionProvider,
                 'recordMentionSelection',
               );
-              selectCurrentItem()(editorView.state, editorView.dispatch);
+              await searchResultTypeAhead(typeAheadTool)(query).insert({
+                index: 0,
+              });
               expect(recordMentionSelectionSpy).not.toHaveBeenCalled();
             },
             {
@@ -1046,8 +1162,10 @@ describe('mentionTypeahead', () => {
           'should fire inviteItem clicked event and not fire mentionTypeahead clicked',
           withMentionQuery(
             'doesNotExist',
-            ({ editorView, createAnalyticsEvent }) => {
-              selectCurrentItem()(editorView.state, editorView.dispatch);
+            async ({ createAnalyticsEvent, query, typeAheadTool }) => {
+              await searchResultTypeAhead(typeAheadTool)(query).insert({
+                index: 0,
+              });
               expect(createAnalyticsEvent).not.toHaveBeenCalledWith(
                 expect.objectContaining({
                   action: 'clicked',
@@ -1079,8 +1197,10 @@ describe('mentionTypeahead', () => {
           'should call mentionProvider.onInviteItemClick',
           withMentionQuery(
             'doesNotExist',
-            ({ editorView }) => {
-              selectCurrentItem()(editorView.state, editorView.dispatch);
+            async ({ query, typeAheadTool }) => {
+              await searchResultTypeAhead(typeAheadTool)(query).insert({
+                index: 0,
+              });
               expect(mockOnInviteItemClick).toHaveBeenCalledTimes(1);
               expect(mockOnInviteItemClick).toHaveBeenCalledWith('mention');
             },

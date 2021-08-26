@@ -22,10 +22,10 @@ import {
   isDifferentIdentifier,
   isFileIdentifier,
   isErrorFileState,
-  MediaClient,
   MediaViewedEventPayload,
   RECENTS_COLLECTION,
   isImageRepresentationReady,
+  isExternalImageIdentifier,
 } from '@atlaskit/media-client';
 import { MediaViewer, MediaViewerDataSource } from '@atlaskit/media-viewer';
 import { Subscription } from 'rxjs/Subscription';
@@ -35,11 +35,12 @@ import {
   CardDimensions,
   CardProps,
   CardState,
+  CardStatus,
   NumericalCardDimensions,
 } from '../..';
 import { CardView } from '../cardView';
 import { ViewportDetector } from '../../utils/viewportDetector';
-import { getDataURIDimension } from '../../utils/getDataURIDimension';
+import { getRequestedDimensions } from '../../utils/getDataURIDimension';
 import {
   shouldGetCardPreview,
   extractFilePreviewStatus,
@@ -53,12 +54,7 @@ import { getFileDetails } from '../../utils/metadata';
 import { isBigger } from '../../utils/dimensionComparer';
 import { getCardStatus } from './getCardStatus';
 import { InlinePlayer } from '../inlinePlayer';
-import {
-  fireMediaCardEvent,
-  getFileAttributes,
-  getRenderCommencedEventPayload,
-  getCopiedFilePayload,
-} from '../../utils/analytics';
+import { getFileAttributes } from '../../utils/analytics';
 import { FileAttributesProvider } from '../../utils/fileAttributesContext';
 import {
   isRemotePreviewError,
@@ -67,8 +63,11 @@ import {
 } from '../../errors';
 import {
   fireOperationalEvent,
+  fireCommencedEvent,
   relevantFeatureFlagNames,
+  fireCopiedEvent,
 } from './cardAnalytics';
+import getDocument from '../../utils/document';
 
 export type CardWithAnalyticsEventsProps = CardProps & WithAnalyticsEventsProps;
 
@@ -80,6 +79,9 @@ export class CardBase extends Component<
   // Stores last retrieved file state for logging purposes
   private lastFileState?: FileState;
   private lastCardStatusUpdateTimestamp?: number;
+  // We initialise timeElapsedTillCommenced
+  // to avoid extra branching on a possibly undefined value.
+  private timeElapsedTillCommenced: number = performance.now();
 
   subscription?: Subscription;
   static defaultProps: Partial<CardProps> = {
@@ -99,6 +101,7 @@ export class CardBase extends Component<
   constructor(props: CardWithAnalyticsEventsProps) {
     super(props);
 
+    let status: CardStatus = 'loading';
     let cardPreview: CardPreview | undefined;
 
     const { identifier, dimensions = {} } = this.props;
@@ -106,45 +109,39 @@ export class CardBase extends Component<
     if (isFileIdentifier(identifier)) {
       const { id } = identifier;
       cardPreview = getCardPreviewFromCache(id, dimensions);
+    } else if (isExternalImageIdentifier(identifier)) {
+      this.fireCommencedEvent();
+      status = 'complete';
+      const { dataURI } = identifier;
+      cardPreview = { dataURI, orientation: 1, source: 'external' };
     }
 
     /**
      * If cardPreview is available from local cache, `isCardVisible`
      * should be true to avoid flickers during re-mount of the component
      */
+    const isCardVisible = cardPreview ? true : !this.props.isLazy;
     this.state = {
-      status: 'loading',
-      isCardVisible: cardPreview ? true : !this.props.isLazy,
+      status,
+      isCardVisible,
       isPlayingFile: false,
       cardPreview,
       cardRef: null,
     };
   }
 
-  // we add a listener for each of the cards on the page
-  // and then check if the triggered listener is from the card
-  // that contains a div in current window.getSelection()
-  // won't work in IE11
-  onCopyListener = () => {
-    if (typeof window.getSelection === 'function') {
-      const selection = window.getSelection();
-      const { cardRef } = this.state;
-      if (
-        cardRef &&
-        selection &&
-        selection.containsNode &&
-        selection.containsNode(cardRef, true)
-      ) {
-        this.fireFileCopiedEvent();
-      }
-    }
-  };
-
   componentDidMount() {
     this.hasBeenMounted = true;
-    this.fireCommencedEvent();
-    this.updateStateForIdentifier();
-    document.addEventListener('copy', this.onCopyListener);
+    const { isCardVisible } = this.state;
+    const { identifier } = this.props;
+    if (isCardVisible && isFileIdentifier(identifier)) {
+      this.updateStateForIdentifier(identifier);
+    }
+    // we add a listener for each of the cards on the page
+    // and then check if the triggered listener is from the card
+    // that contains a div in current window.getSelection()
+    // won't work in IE11
+    getDocument().addEventListener('copy', this.fireCopiedEvent);
   }
 
   componentDidUpdate(prevProps: CardProps, prevState: CardState) {
@@ -157,47 +154,32 @@ export class CardBase extends Component<
     const { mediaClient, identifier, dimensions } = this.props;
     const { isCardVisible } = this.state;
     const isDifferent = isDifferentIdentifier(prevIdentifier, identifier);
+    const turnedVisible = !prevIsCardVisible && isCardVisible;
 
-    if (
-      (prevIsCardVisible !== isCardVisible && isCardVisible) ||
-      prevMediaClient !== mediaClient ||
-      isDifferent ||
-      this.shouldRefetchImage(prevDimensions, dimensions)
-    ) {
+    if (isExternalImageIdentifier(identifier) && isDifferent) {
       this.fireCommencedEvent();
-      this.updateStateForIdentifier();
+      const { dataURI } = identifier;
+      this.setState({
+        status: 'complete',
+        cardPreview: { dataURI, orientation: 1, source: 'external' },
+        isCardVisible: true,
+      });
+    }
+    if (
+      isFileIdentifier(identifier) &&
+      (turnedVisible ||
+        prevMediaClient !== mediaClient ||
+        isDifferent ||
+        // TODO: should not resubscribe on resize. Only refetch
+        this.shouldRefetchImage(prevDimensions, dimensions))
+    ) {
+      this.updateStateForIdentifier(identifier);
     }
 
     if (this.state.status !== prevState.status) {
-      const { status, cardPreview, error } = this.state;
-      const { createAnalyticsEvent } = this.props;
-      createAnalyticsEvent &&
-        fireOperationalEvent(
-          createAnalyticsEvent,
-          status,
-          this.fileAttributes,
-          { cardPreview, error },
-        );
+      this.fireOperationalEvent();
     }
   }
-
-  static getDerivedStateFromProps = (
-    props: CardProps,
-  ): Partial<CardState> | null => {
-    const { identifier } = props;
-    if (identifier.mediaItemType === 'external-image') {
-      const { dataURI } = identifier;
-      return {
-        status: 'complete',
-        cardPreview: {
-          dataURI,
-          orientation: 1,
-          source: 'external',
-        },
-      };
-    }
-    return null;
-  };
 
   shouldRefetchImage = (current?: CardDimensions, next?: CardDimensions) => {
     if (!current || !next) {
@@ -209,21 +191,12 @@ export class CardBase extends Component<
   componentWillUnmount() {
     this.hasBeenMounted = false;
     this.unsubscribe();
-    document.removeEventListener('copy', this.onCopyListener);
+    getDocument().removeEventListener('copy', this.fireCopiedEvent);
   }
 
-  updateStateForIdentifier() {
-    const { mediaClient, identifier } = this.props;
-    const { isCardVisible } = this.state;
-
-    if (!isCardVisible) {
-      return;
-    }
-
-    if (identifier.mediaItemType === 'file') {
-      this.unsubscribe();
-      this.subscribeInternalFile(identifier, mediaClient);
-    }
+  updateStateForIdentifier(identifier: FileIdentifier) {
+    this.fireCommencedEvent();
+    this.subscribeInternalFile(identifier);
   }
 
   private isLatestCardStatusUpdate = (
@@ -236,21 +209,6 @@ export class CardBase extends Component<
     // TODO: track local preview success rate
     // https://product-fabric.atlassian.net/browse/MEX-774
   };
-
-  private get requestedDimensions(): NumericalCardDimensions {
-    const { dimensions } = this.props;
-    const { cardRef } = this.state;
-    const options = {
-      dimensions,
-      element: cardRef,
-    };
-    const width = getDataURIDimension('width', options);
-    const height = getDataURIDimension('height', options);
-    return {
-      width,
-      height,
-    };
-  }
 
   private createAddContextToDataURI = (
     fileId: string,
@@ -283,13 +241,19 @@ export class CardBase extends Component<
     collectionName: string | undefined,
     fileState: FileState,
   ): CardPreviewParams => {
-    const { requestedDimensions, onLocalPreviewError } = this;
     const {
       dimensions = {},
       originalDimensions,
       resizeMode,
       mediaClient,
     } = this.props;
+    const { cardRef } = this.state;
+
+    const requestedDimensions = getRequestedDimensions({
+      dimensions,
+      element: cardRef,
+    });
+
     return {
       mediaClient,
       id,
@@ -297,20 +261,22 @@ export class CardBase extends Component<
       dimensions,
       resizeMode,
       requestedDimensions,
-      onLocalPreviewError,
+      onLocalPreviewError: this.onLocalPreviewError,
       filePreview: getFilePreviewFromFileState(fileState),
       isRemotePreviewReady: isImageRepresentationReady(fileState),
       addContextToDataURI: this.createAddContextToDataURI(
         id,
         fileState,
-        originalDimensions || this.requestedDimensions,
+        originalDimensions || requestedDimensions,
         collectionName,
       ),
     };
   };
 
-  subscribeInternalFile(identifier: FileIdentifier, mediaClient: MediaClient) {
+  subscribeInternalFile(identifier: FileIdentifier) {
+    const { mediaClient } = this.props;
     const { id, collectionName, occurrenceKey } = identifier;
+    this.unsubscribe();
     this.subscription = mediaClient.file
       .getFileState(id, { collectionName, occurrenceKey })
       .subscribe({
@@ -421,21 +387,48 @@ export class CardBase extends Component<
     return getFileAttributes(this.metadata, this.lastFileState?.status);
   }
 
-  private fireCommencedEvent() {
-    if (!this.state.isCardVisible) {
-      return;
-    }
+  private fireOperationalEvent() {
+    const { timeElapsedTillCommenced } = this;
+    const { status, cardPreview, error } = this.state;
     const { createAnalyticsEvent } = this.props;
-    const payload = getRenderCommencedEventPayload(this.fileAttributes);
-    fireMediaCardEvent(payload, createAnalyticsEvent);
+
+    const timeElapsedTillEvent = performance.now();
+    const durationSinceCommenced =
+      timeElapsedTillCommenced &&
+      timeElapsedTillEvent - timeElapsedTillCommenced;
+
+    const performanceAttributes = {
+      overall: {
+        durationSincePageStart: timeElapsedTillEvent,
+        durationSinceCommenced,
+      },
+    };
+
+    createAnalyticsEvent &&
+      fireOperationalEvent(
+        createAnalyticsEvent,
+        status,
+        this.fileAttributes,
+        performanceAttributes,
+        { cardPreview, error },
+      );
   }
 
-  private fireFileCopiedEvent = () => {
+  private fireCommencedEvent() {
+    this.timeElapsedTillCommenced = performance.now();
     const { createAnalyticsEvent } = this.props;
-    fireMediaCardEvent(
-      getCopiedFilePayload(this.metadata.id),
-      createAnalyticsEvent,
-    );
+    createAnalyticsEvent &&
+      fireCommencedEvent(createAnalyticsEvent, this.fileAttributes, {
+        overall: { durationSincePageStart: this.timeElapsedTillCommenced },
+      });
+  }
+
+  private fireCopiedEvent = () => {
+    const { createAnalyticsEvent } = this.props;
+    const { cardRef } = this.state;
+    cardRef &&
+      createAnalyticsEvent &&
+      fireCopiedEvent(createAnalyticsEvent, this.metadata.id, cardRef);
   };
 
   private safeSetState = (state: Partial<CardState>) => {
@@ -648,7 +641,7 @@ export class CardBase extends Component<
       error,
       cardRef,
     } = this.state;
-    const { metadata } = this;
+    const { metadata, timeElapsedTillCommenced } = this;
     const { onCardViewClick, onDisplayImage, actions, onMouseEnter } = this;
 
     const card = (
@@ -676,6 +669,7 @@ export class CardBase extends Component<
         featureFlags={featureFlags}
         titleBoxBgColor={titleBoxBgColor}
         titleBoxIcon={titleBoxIcon}
+        timeElapsedTillCommenced={timeElapsedTillCommenced}
       />
     );
 

@@ -41,6 +41,7 @@ import analyticsPlugin from '../../../../../plugins/analytics';
 import typeAheadPlugin from '../../../../../plugins/type-ahead';
 import quickInsertPlugin from '../../../../../plugins/quick-insert';
 import taskDecisionPlugin from '../../../../../plugins/tasks-and-decisions';
+import mentionsPlugin from '../../../../../plugins/mentions';
 
 import { pluginKey as blockTypePluginKey } from '../../../../../plugins/block-type/pm-plugins/main';
 import {
@@ -171,7 +172,8 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
         .add([statusPlugin, { menuDisabled: true }])
         .add(expandPlugin)
         .add(taskDecisionPlugin)
-        .add(typeAheadPlugin)
+        .add([typeAheadPlugin, { createAnalyticsEvent }])
+        .add(mentionsPlugin)
         .add([quickInsertPlugin, { disableDefaultItems: true }]),
       providerFactory,
     });

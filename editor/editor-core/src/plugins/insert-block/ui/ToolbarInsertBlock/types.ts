@@ -21,7 +21,6 @@ export interface Props {
   actionSupported?: boolean;
   decisionSupported?: boolean;
   mentionsSupported?: boolean;
-  insertMentionQuery?: () => void;
   mediaUploadsEnabled?: boolean;
   mediaSupported?: boolean;
   imageUploadSupported?: boolean;

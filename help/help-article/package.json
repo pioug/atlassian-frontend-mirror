@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/help-article",
-  "version": "4.0.3",
+  "version": "4.0.4",
   "description": "A cross-product help-article component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -24,9 +24,9 @@
   },
   "dependencies": {
     "@atlaskit/css-reset": "^6.1.0",
-    "@atlaskit/icon": "^21.7.0",
-    "@atlaskit/renderer": "^80.0.0",
-    "@atlaskit/theme": "^11.4.0",
+    "@atlaskit/icon": "^21.8.0",
+    "@atlaskit/renderer": "^81.0.0",
+    "@atlaskit/theme": "^11.5.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/styled": "^10.0.7",
     "lodash": "^4.17.15"

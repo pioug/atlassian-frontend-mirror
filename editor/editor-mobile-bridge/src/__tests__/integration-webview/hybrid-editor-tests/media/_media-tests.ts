@@ -28,8 +28,15 @@ export default async () => {
       const page = await Page.create(client);
       await loadEditor(page);
       await setADFContent(page, mediaSingleAdf);
-      await page.waitForSelector(mediaCardSelector());
-      await page.switchToNative();
+      const media = await page.$(mediaCardSelector());
+      await media.waitForDisplayed();
+
+      // For reasons that are beyond my knowledge,
+      // IOS requires a double-tap to delete the media.
+      // However, this behavior doesn't happen in a simulator or real device.
+      if (page.isIOS()) {
+        await page.tapKeys(SPECIAL_KEYS.DELETE);
+      }
       // Delete MediaSingle
       await page.tapKeys(SPECIAL_KEYS.DELETE);
       await page.switchToWeb();

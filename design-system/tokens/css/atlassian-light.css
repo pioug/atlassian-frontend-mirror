@@ -1,6 +1,12 @@
 /* THIS IS AN AUTO-GENERATED FILE DO NOT MODIFY DIRECTLY */
 /* Re-generate by running `yarn build tokens`. */
 :root, html[data-theme="light"] {
+  --accent-boldBlue: #579DFF;
+  --accent-boldGreen: #3ACF91;
+  --accent-boldOrange: #FFA333;
+  --accent-boldPurple: #9F8FEF;
+  --accent-boldRed: #F97362;
+  --accent-boldTeal: #53C8D5;
   --accent-subtleBlue: #CCE0FF;
   --accent-subtleGreen: #AFF3D6;
   --accent-subtleMagenta: #FDD0EC;
@@ -82,4 +88,5 @@
   --text-disabled: #8993A5;
   --card: 0px 1px 1px #091E4240, 0px 0px 1px #091E424F;
   --overlay: 0px 8px 12px #091E4226, 0px 0px 1px #091E424F;
+  --UNSAFE_util-transparent: transparent;
 }

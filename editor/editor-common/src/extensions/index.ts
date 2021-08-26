@@ -61,6 +61,7 @@ export type {
   ExtensionAPI,
   TransformBefore,
   TransformAfter,
+  ReferenceEntity,
   // DEPRECATED
   ParametersGetter,
   AsyncParametersGetter,

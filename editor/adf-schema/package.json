@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/adf-schema",
-  "version": "19.0.0",
+  "version": "19.1.0",
   "description": "Shared package that contains the ADF-schema (json) and ProseMirror node/mark specs",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -41,7 +41,7 @@
   },
   "devDependencies": {
     "@atlaskit/editor-json-transformer": "^8.6.0",
-    "@atlaskit/editor-test-helpers": "^15.3.0",
+    "@atlaskit/editor-test-helpers": "^15.4.0",
     "@atlaskit/json-schema-generator": "^3.1.0",
     "@atlassian/adf-sample": "^1.0.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",

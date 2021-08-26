@@ -1,7 +1,6 @@
 import * as mocks from './avatar-picker-dialogSpec.mock';
 import React from 'react';
-import { shallow } from 'enzyme';
-import ModalDialog, { ModalFooter } from '@atlaskit/modal-dialog';
+import { ModalFooter } from '@atlaskit/modal-dialog';
 import Button from '@atlaskit/button/custom-theme-button';
 import { smallImage, mountWithIntlContext } from '@atlaskit/media-test-helpers';
 import { Avatar } from '../../avatar-list';
@@ -178,14 +177,11 @@ describe('Avatar Picker Dialog', () => {
     const selectedAvatar: Avatar = { dataURI: 'http://an.avatar.com/123' };
     const avatars = [selectedAvatar];
     const component = renderWithProps({ avatars });
-    const {
-      components: { Header: header },
-    } = component.find(ModalDialog).props() as { components: { Header: any } };
-    const title = shallow(header()) as any;
-
-    expect(title.props().children.props.defaultMessage).toBe(
-      'Upload an avatar',
-    );
+    const title = component
+      .find('[data-test-id="modal-header"]')
+      .first()
+      .html();
+    expect(title).toContain('Upload an avatar');
   });
 
   it('should by able to customise title', () => {
@@ -195,11 +191,11 @@ describe('Avatar Picker Dialog', () => {
       avatars,
       title: 'test-title',
     });
-    const {
-      components: { Header: header },
-    } = component.find(ModalDialog).props() as { components: { Header: any } };
-    const title = shallow(header());
-    expect(title.text()).toBe('test-title');
+    const title = component
+      .find('[data-test-id="modal-header"]')
+      .first()
+      .html();
+    expect(title).toContain('test-title');
   });
 
   it('should render default primary button text', () => {

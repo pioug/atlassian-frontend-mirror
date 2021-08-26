@@ -9,7 +9,6 @@ import {
   p,
   DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import analyticsPlugin from '../../../analytics';
@@ -123,9 +122,9 @@ describe('hyperlink', () => {
 
       describe('analytics', () => {
         it('should fire event when open link typeahead', async () => {
-          const { editorView, sel } = editor(doc(p('{<>}')));
-          insertText(editorView, '/Link', sel);
-          sendKeyToPm(editorView, 'Enter');
+          const { typeAheadTool } = editor(doc(p('{<>}')));
+
+          await typeAheadTool.searchQuickInsert('Link')?.insert({ index: 0 });
 
           expect(createAnalyticsEvent).toHaveBeenCalledWith({
             action: 'invoked',

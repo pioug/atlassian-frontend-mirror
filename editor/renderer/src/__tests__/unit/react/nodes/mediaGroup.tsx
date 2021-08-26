@@ -234,4 +234,33 @@ describe('MediaGroup', () => {
     );
     expect(mediaGroup.find(UnsupportedBlock)).toHaveLength(1);
   });
+
+  describe('enableDownloadButton', () => {
+    const mountMediaGroup = (enableDownloadButton: boolean) =>
+      mount(
+        <MediaGroup enableDownloadButton={enableDownloadButton}>
+          <Media
+            id={imageFileId.id}
+            marks={[]}
+            isLinkMark={() => false}
+            type={imageFileId.mediaItemType}
+            collection={imageFileId.collectionName}
+          />
+        </MediaGroup>,
+      );
+
+    it('should enable download button when enableDownloadButton is true', () => {
+      const mediaGroup = mountMediaGroup(true);
+      expect(
+        mediaGroup.find(MediaCardInternal).props().shouldEnableDownloadButton,
+      ).toEqual(true);
+    });
+
+    it('should not enable download button when enableDownloadButton is false', () => {
+      const mediaGroup = mountMediaGroup(true);
+      expect(
+        mediaGroup.find(MediaCardInternal).props().shouldEnableDownloadButton,
+      ).toEqual(true);
+    });
+  });
 });

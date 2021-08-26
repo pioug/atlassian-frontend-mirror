@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { HTMLAttributes, ComponentClass } from 'react';
 import { generateResponsiveStyles } from '../progressBar/styled';
-import { Breakpoint } from '../common';
+import { Breakpoint } from '../Breakpoint';
 import { N300 } from '@atlaskit/theme/colors';
 
 export const LoadingRateLimitedContainer = styled.div`

@@ -14,7 +14,7 @@ export interface InviteToEditButtonProps {
   title: string;
 }
 
-export const InviteToEditButton: React.StatelessComponent<InviteToEditButtonProps> = (
+export const InviteToEditButton: React.FC<InviteToEditButtonProps> = (
   props,
 ) => {
   const { Component, onClick, selected, title } = props;

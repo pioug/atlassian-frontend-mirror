@@ -21,6 +21,7 @@ import { PortalProviderAPI } from '../../../ui/PortalProvider';
 import WithPluginState from '../../../ui/WithPluginState';
 import { stateKey as taskPluginKey } from '../pm-plugins/plugin-key';
 import TaskItem from '../ui/Task';
+import { isTypeAheadOpen } from '../../type-ahead/utils';
 
 export interface Props {
   providerFactory: ProviderFactory;
@@ -116,7 +117,10 @@ class Task extends ReactNodeView<Props> {
                 contentRef={forwardRef}
                 isDone={state === 'DONE'}
                 onChange={this.handleOnChange}
-                showPlaceholder={this.isContentEmpty(this.node)}
+                showPlaceholder={
+                  this.isContentEmpty(this.node) &&
+                  !isTypeAheadOpen(this.view.state)
+                }
                 providers={props.providerFactory}
               />
             );

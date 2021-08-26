@@ -5,7 +5,8 @@ import { jsx, CSSObject } from '@emotion/core';
 
 import ModalDialog, {
   ModalTransition,
-  HeaderComponentProps,
+  useModal,
+  ModalBody as AKModalBody,
 } from '@atlaskit/modal-dialog';
 
 import EditorCloseIcon from '@atlaskit/icon/glyph/editor/close';
@@ -66,24 +67,24 @@ const bottomShadow: CSSObject = {
 const spacingDivStyle = { width: '28px' };
 const headingStyle = { marginTop: '8px' };
 
-const Header = ({ onClose }: HeaderComponentProps) => (
-  <div css={bottomShadow}>
-    {/* This div is offsetting the button to the right */}
-    <div css={spacingDivStyle} />
-    <h5 css={headingStyle}>Dropbox</h5>
-    <div>
-      <Button
-        appearance="subtle"
-        iconBefore={<EditorCloseIcon label="close dropbox modal" />}
-        onClick={onClose}
-      />
+const Header = () => {
+  const { onClose, titleId } = useModal();
+  return (
+    <div css={bottomShadow}>
+      {/* This div is offsetting the button to the right */}
+      <div css={spacingDivStyle} />
+      <h5 id={titleId} css={headingStyle}>
+        Dropbox
+      </h5>
+      <div>
+        <Button
+          appearance="subtle"
+          iconBefore={<EditorCloseIcon label="close dropbox modal" />}
+          onClick={onClose}
+        />
+      </div>
     </div>
-  </div>
-);
-
-const components = {
-  Body: ModalBody,
-  Header,
+  );
 };
 
 const Modal = ({
@@ -107,26 +108,30 @@ const Modal = ({
         <ModalDialog
           height="100%"
           width="large"
-          components={components}
           onClose={() => {
             setIsOpen(false);
             onClose();
           }}
         >
-          {TEST_ONLY_src ? (
-            <iframe
-              css={iframeStyle}
-              name={DROPBOX_IFRAME_NAME}
-              frameBorder={0}
-              src={TEST_ONLY_src}
-            />
-          ) : (
-            <iframe
-              css={iframeStyle}
-              name={DROPBOX_IFRAME_NAME}
-              frameBorder={0}
-            />
-          )}
+          <Header />
+          <AKModalBody>
+            <ModalBody>
+              {TEST_ONLY_src ? (
+                <iframe
+                  css={iframeStyle}
+                  name={DROPBOX_IFRAME_NAME}
+                  frameBorder={0}
+                  src={TEST_ONLY_src}
+                />
+              ) : (
+                <iframe
+                  css={iframeStyle}
+                  name={DROPBOX_IFRAME_NAME}
+                  frameBorder={0}
+                />
+              )}
+            </ModalBody>
+          </AKModalBody>
         </ModalDialog>
       )}
     </ModalTransition>

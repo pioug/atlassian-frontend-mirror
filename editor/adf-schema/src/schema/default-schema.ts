@@ -21,6 +21,7 @@ type DefaultSchemaNodes =
   | 'caption'
   | 'mediaGroup'
   | 'mediaSingle'
+  | 'mediaInline'
   | 'confluenceUnsupportedBlock'
   | 'confluenceUnsupportedInline'
   | 'confluenceJiraIssue'
@@ -94,6 +95,7 @@ const getDefaultSchemaConfig = (): SchemaConfig<
       'media',
       'mediaGroup',
       'mediaSingle',
+      'mediaInline',
       'confluenceUnsupportedBlock',
       'confluenceUnsupportedInline',
       'confluenceJiraIssue',
@@ -163,6 +165,7 @@ export const getSchemaBasedOnStage = (stage = 'final') => {
       dataConsumer: dataConsumer,
     };
     defaultSchemaConfig.nodes.push('caption');
+    defaultSchemaConfig.nodes.push('mediaInline');
   }
   return createSchema(defaultSchemaConfig);
 };

@@ -14,8 +14,6 @@ import {
   status,
   DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
-import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 import {
   updateStatus,
   setStatusPickerAt,
@@ -167,10 +165,14 @@ describe('status plugin: plugin', () => {
   });
 
   describe('Quick insert', () => {
-    beforeEach(() => {
-      ({ editorView } = editorFactory(doc(p('{<>}'))));
-      insertText(editorView, `/status`);
-      sendKeyToPm(editorView, 'Enter');
+    beforeEach(async () => {
+      const { editorView: _editorView, typeAheadTool } = editorFactory(
+        doc(p('{<>}')),
+      );
+
+      await typeAheadTool.searchQuickInsert('status')?.insert({ index: 0 });
+
+      editorView = _editorView;
     });
 
     it('inserts default status', () => {

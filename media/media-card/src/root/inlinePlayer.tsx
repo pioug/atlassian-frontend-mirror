@@ -18,11 +18,9 @@ import {
 import { CardLoading } from '../utils/lightCards/cardLoading';
 
 import {
-  withAnalyticsEvents,
   WithAnalyticsEventsProps,
   UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
-import { createAndFireMediaCardEvent } from '../utils/analytics';
 
 export const inlinePlayerClassName = 'media-card-inline-player';
 export interface InlinePlayerOwnProps {
@@ -219,6 +217,7 @@ export class InlinePlayerBase extends Component<
             <CustomMediaPlayer
               type="video"
               src={fileSrc}
+              fileId={identifier.id}
               isAutoPlay
               isHDAvailable={false}
               onDownloadClick={this.onDownloadClick}
@@ -242,12 +241,4 @@ const InlinePlayerForwardRef = React.forwardRef<
   return <InlinePlayerBase {...props} forwardRef={ref} />;
 });
 
-export const InlinePlayer = withAnalyticsEvents({
-  onClick: createAndFireMediaCardEvent({
-    eventType: 'ui',
-    action: 'clicked',
-    actionSubject: 'mediaCard',
-    actionSubjectId: 'mediaCardInlinePlayer',
-    attributes: {},
-  }),
-})(InlinePlayerForwardRef);
+export const InlinePlayer = InlinePlayerForwardRef;

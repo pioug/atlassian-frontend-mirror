@@ -1,5 +1,12 @@
 # @atlaskit/section-message
 
+## 6.1.1
+
+### Patch Changes
+
+- [`3f6e98f8d0d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3f6e98f8d0d) - Removes styled-components as a dev-dep
+- Updated dependencies
+
 ## 6.1.0
 
 ### Minor Changes

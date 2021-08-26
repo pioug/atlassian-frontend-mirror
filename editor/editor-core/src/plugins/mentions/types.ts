@@ -2,6 +2,7 @@ import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { MentionDescription, MentionProvider } from '@atlaskit/mention';
 import { TeamMentionProvider } from '@atlaskit/mention/resource';
 import { ContextIdentifierProvider } from '@atlaskit/editor-common';
+import { AnalyticsEventPayload } from '@atlaskit/analytics-next';
 
 export interface TeamInfoAttrAnalytics {
   teamId: String;
@@ -28,3 +29,7 @@ export type MentionPluginState = {
   contextIdentifierProvider?: ContextIdentifierProvider;
   mentions?: Array<MentionDescription>;
 };
+
+export type FireElementsChannelEvent = <T extends AnalyticsEventPayload>(
+  payload: T,
+) => void;

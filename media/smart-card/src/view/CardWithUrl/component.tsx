@@ -160,6 +160,7 @@ export function CardWithUrlContent({
           onResolve={onResolve}
           testId={testId}
           showActions={showActions}
+          platform={platform}
         />
       );
     case 'embed':

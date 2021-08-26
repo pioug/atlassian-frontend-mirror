@@ -7,6 +7,7 @@ import {
   Slice /*MediaAttributes */,
 } from 'prosemirror-model';
 import { MediaAttributes } from '../src/schema/nodes/media';
+import { MediaInlineAttributes } from '../src/schema/nodes/media-inline';
 import matches from './matches';
 import sampleSchema from './schema';
 import {
@@ -288,6 +289,8 @@ export const slice = (...content: BuilderContent[]) =>
 export const mediaSingle = (attrs = {}) =>
   nodeFactory(sampleSchema.nodes.mediaSingle, attrs);
 export const mediaGroup = nodeFactory(sampleSchema.nodes.mediaGroup);
+export const mediaInline = (attrs: MediaInlineAttributes) =>
+  sampleSchema.nodes.media.create(attrs);
 export const media = (attrs: MediaAttributes) =>
   sampleSchema.nodes.media.create(attrs);
 export const textColor = (attrs: { color: string }) =>

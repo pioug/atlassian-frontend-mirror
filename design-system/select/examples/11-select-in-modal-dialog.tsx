@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
-import Modal, { ModalTransition } from '@atlaskit/modal-dialog';
+import Modal, {
+  ModalTransition,
+  ModalBody,
+  ModalTitle,
+  ModalHeader,
+  ModalFooter,
+} from '@atlaskit/modal-dialog';
 import Button from '@atlaskit/button/standard-button';
 import Select from '../src';
 
@@ -27,7 +33,6 @@ export default class SelectInModal extends Component<{}, State> {
 
   render() {
     const { isOpen } = this.state;
-    const actions = [{ text: 'Close', onClick: this.close }];
 
     return (
       <div>
@@ -35,20 +40,30 @@ export default class SelectInModal extends Component<{}, State> {
 
         <ModalTransition>
           {isOpen && (
-            <Modal actions={actions} onClose={this.close} heading="Modal Title">
-              <Select
-                menuPortalTarget={document.body}
-                isMulti
-                styles={{
-                  menuPortal: (base) => ({
-                    ...base,
-                    zIndex: 9999,
-                  }),
-                }}
-                defaultValue={options.slice(3)}
-                options={options}
-                placeholder="Choose a City"
-              />
+            <Modal onClose={this.close}>
+              <ModalHeader>
+                <ModalTitle>Modal Title</ModalTitle>
+              </ModalHeader>
+              <ModalBody>
+                <Select
+                  menuPortalTarget={document.body}
+                  isMulti
+                  styles={{
+                    menuPortal: (base) => ({
+                      ...base,
+                      zIndex: 9999,
+                    }),
+                  }}
+                  defaultValue={options.slice(3)}
+                  options={options}
+                  placeholder="Choose a City"
+                />
+              </ModalBody>
+              <ModalFooter>
+                <Button appearance="primary" onClick={this.close}>
+                  Close
+                </Button>
+              </ModalFooter>
             </Modal>
           )}
         </ModalTransition>

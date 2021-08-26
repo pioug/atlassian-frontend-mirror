@@ -53,14 +53,16 @@ describe('Table with block looks correct for fullpage:', () => {
     await page.click(getSelectorForTableCell({ row: 4, cell: 1 }));
   });
 
-  it('wide layout ', async () => {
+  // re-enable this test: https://product-fabric.atlassian.net/browse/ED-13630
+  it.skip('wide layout ', async () => {
     await initFullPageEditorWithAdf(page, adf, Device.LaptopMDPI);
     await page.click(getSelectorForTableCell({ row: 4, cell: 1 }));
     await setTableLayout(page, 'wide');
     await page.click(getSelectorForTableCell({ row: 4, cell: 1 }));
   });
 
-  it('full-width layout ', async () => {
+  // re-enable this test: https://product-fabric.atlassian.net/browse/ED-13630
+  it.skip('full-width layout ', async () => {
     await initFullPageEditorWithAdf(page, adf, Device.LaptopHiDPI);
     await page.click(getSelectorForTableCell({ row: 4, cell: 1 }));
     await setTableLayout(page, 'fullWidth');
@@ -68,7 +70,8 @@ describe('Table with block looks correct for fullpage:', () => {
   });
 });
 
-describe('Table with block looks correct for comment:', () => {
+// re-enable this test: https://product-fabric.atlassian.net/browse/ED-13630
+describe.skip('Table with block looks correct for comment:', () => {
   let page: PuppeteerPage;
 
   beforeAll(async () => {

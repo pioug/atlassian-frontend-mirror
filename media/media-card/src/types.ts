@@ -2,6 +2,7 @@ export type CardStatus =
   | 'uploading'
   | 'loading'
   | 'processing'
+  | 'loading-preview'
   | 'complete'
   | 'error'
   | 'failed-processing'
@@ -13,3 +14,7 @@ export type FilePreviewStatus = {
   hasPreview: boolean;
   isSupportedByBrowser: boolean;
 };
+
+export type CardAppearance = 'auto' | 'image' | 'square' | 'horizontal';
+
+export declare type CardDimensionValue = number | string;

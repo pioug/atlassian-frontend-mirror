@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import React from 'react';
 
 import { B400, B50, N10, N30, N500 } from '@atlaskit/theme/colors';
@@ -28,6 +29,7 @@ export default () => (
     </ButtonItem>
     <ButtonItem
       isSelected
+      // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
       cssFn={styleOverrides}
       description="Style overrides via cssFn"
     >
@@ -35,12 +37,18 @@ export default () => (
     </ButtonItem>
     <ButtonItem
       isDisabled
+      // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
       cssFn={styleOverrides}
       description="Style overrides via cssFn"
     >
       Activate
     </ButtonItem>
-    <ButtonItem cssFn={styleOverrides} description="Style overrides via cssFn">
+
+    <ButtonItem
+      // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
+      cssFn={styleOverrides}
+      description="Style overrides via cssFn"
+    >
       Activate
     </ButtonItem>
   </div>

@@ -200,6 +200,7 @@ describe('<NestingItem />', () => {
             id="hello"
             title="yeah"
             href="/my-details"
+            // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
             cssFn={() => ({ color: 'red' })}
             component={CustomComponent}
             testId="target"

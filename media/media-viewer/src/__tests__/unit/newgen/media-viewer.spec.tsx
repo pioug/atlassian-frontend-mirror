@@ -15,19 +15,16 @@ import {
 } from '@atlaskit/media-test-helpers';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import EditorPanelIcon from '@atlaskit/icon/glyph/editor/panel';
-import {
-  MediaViewer,
-  MediaViewerComponent,
-} from '../../../newgen/media-viewer';
-import { CloseButtonWrapper, SidebarWrapper } from '../../../newgen/styled';
-import Header from '../../../newgen/header';
-import { ItemSource } from '../../../newgen/domain';
-import { List } from '../../../newgen/list';
+import { MediaViewer, MediaViewerComponent } from '../../../media-viewer';
+import { CloseButtonWrapper, SidebarWrapper } from '../../../styled';
+import Header from '../../../header';
+import { ItemSource } from '../../../domain';
+import { List } from '../../../list';
 import {
   MediaViewerProps,
   MediaViewerExtensions,
 } from '../../../components/types';
-import { Blanket } from '../../../newgen/styled';
+import { Blanket } from '../../../styled';
 function createFixture(
   items: Identifier[],
   identifier: Identifier,

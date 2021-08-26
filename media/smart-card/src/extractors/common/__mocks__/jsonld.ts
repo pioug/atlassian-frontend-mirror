@@ -119,3 +119,14 @@ export const TEST_DOCUMENT_WITH_ACTIONS = {
   ...TEST_DOCUMENT,
   'schema:potentialAction': [TEST_DOWNLOAD_ACTION, TEST_ASSIGN_ACTION as any],
 };
+
+export const PREVIEW: JsonLd.Data.BaseData['preview'] = {
+  '@type': 'Link',
+  href: TEST_URL,
+  'atlassian:supportedPlatforms': ['web'],
+};
+
+export const TEST_DOCUMENT_WITH_PREVIEW = {
+  ...TEST_DOCUMENT,
+  preview: PREVIEW,
+};

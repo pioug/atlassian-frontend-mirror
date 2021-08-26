@@ -172,4 +172,22 @@ describe('@atlaskit/checkbox', () => {
       expect(checkbox.checked).toBe(false);
     });
   });
+
+  describe('<Checkbox /> label text should be present conditionally', () => {
+    it('should be checked when defaultChecked is set to checked', () => {
+      const { getByTestId } = renderCheckbox({
+        label: undefined,
+        testId: 'test',
+      });
+      const checkbox = getByTestId('test--checkbox-label') as HTMLInputElement;
+
+      expect(checkbox.querySelector('span')).toBe(null);
+    });
+    it('should change checked after defaultChecked is set to true', () => {
+      const { getByTestId } = renderCheckbox({ testId: 'test' });
+      const checkbox = getByTestId('test--checkbox-label') as HTMLInputElement;
+
+      expect(checkbox.querySelector('span')).toBeDefined();
+    });
+  });
 });

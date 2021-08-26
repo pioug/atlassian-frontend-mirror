@@ -1,4 +1,5 @@
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+import { TextSelection } from 'prosemirror-state';
 import {
   doc,
   DocBuilder,
@@ -6,10 +7,17 @@ import {
   panel,
   date,
   status,
+  table,
+  td as cell,
+  tdEmpty as cellEmpty,
+  tr as row,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+import { openTypeAheadAtCursor } from '../../../type-ahead/transforms/open-typeahead-at-cursor';
+import { pluginKey as typeAheadPluginKey } from '../../../type-ahead/pm-plugins/key';
 import { setDatePickerAt } from '../../../date/actions';
 import { subscribeToToolbarAndPickerUpdates } from '../../subscribe/toolbarAndPickerUpdates';
 import { setNodeSelection, setTextSelection } from '../../../../utils';
+import { INPUT_METHOD } from '../../../analytics/types/enums';
 
 // window.queueMicrotask not defined in jest globals
 let oldQueueMicrotask: any;
@@ -33,6 +41,7 @@ describe('subscribe to toolbar and picker updates', () => {
         allowPanel: true,
         allowStatus: true,
         allowDate: true,
+        allowTables: true,
         featureFlags: {
           enableViewUpdateSubscription: true,
         },
@@ -96,5 +105,42 @@ describe('subscribe to toolbar and picker updates', () => {
     editorView.dispatch(editorView.state.tr.insertText('c'));
 
     expect(mock).toHaveBeenCalledTimes(1);
+  });
+
+  describe('when typeahead menu is open', () => {
+    it('should not call the subscribeToToolbarAndPickerUpdates callback', () => {
+      const { editorView, refs } = editor(
+        // prettier-ignore
+        doc(
+          table()(
+            row(
+              cell()(p('{next}')),
+              cellEmpty,
+              cellEmpty,
+            ),
+          ),
+        ),
+      );
+
+      const mock = jest.fn();
+      subscribeToToolbarAndPickerUpdates(editorView, mock);
+
+      // The code below will force the typeahead to open
+      // at the sametime we set the selection in the table
+      const { typeAheadHandlers } = typeAheadPluginKey.getState(
+        editorView.state,
+      );
+      const { tr } = editorView.state;
+      openTypeAheadAtCursor({
+        triggerHandler: typeAheadHandlers[0],
+        inputMethod: INPUT_METHOD.KEYBOARD,
+      })(tr);
+
+      tr.setSelection(TextSelection.create(tr.doc, refs['next']));
+
+      editorView.dispatch(tr);
+
+      expect(mock).not.toHaveBeenCalled();
+    });
   });
 });

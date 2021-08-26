@@ -22,6 +22,7 @@ import {
   TextColorDefinition as TextColor,
   UnderlineDefinition as Underline,
 } from '../../marks';
+import { MediaInlineDefinition } from '../media-inline';
 
 /**
  * @name formatted_text_inline_node
@@ -50,7 +51,8 @@ export type InlineAtomic =
   | Date
   | Placeholder
   | InlineCard
-  | Status;
+  | Status
+  | MediaInlineDefinition;
 /**
  * @name inline_node
  */

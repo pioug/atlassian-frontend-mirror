@@ -13,8 +13,8 @@ import {
   expectFunctionToHaveBeenCalledWith,
   nextTick,
 } from '@atlaskit/media-test-helpers';
-import { ImageViewer } from '../../../../../newgen/viewers/image';
-import { MediaViewerError } from '../../../../../newgen/errors';
+import { ImageViewer } from '../../../../../viewers/image';
+import { MediaViewerError } from '../../../../../errors';
 
 const collectionName = 'some-collection';
 const imageItem: ProcessedFileState = {

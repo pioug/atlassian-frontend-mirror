@@ -7,8 +7,6 @@ import {
   isTextAtPos,
   clearEditorContent,
   setKeyboardHeight,
-  insertEmojiQuery,
-  insertMentionQuery,
   updateLink,
 } from '@atlaskit/editor-core';
 import WebBridgeImpl from '../../../../editor/native-to-web';
@@ -114,40 +112,6 @@ describe('lists should work', () => {
     bridge.listBridgeState = undefined;
     bridge.onOutdentList();
     expect(commands.outdentList).not.toBeCalled();
-  });
-});
-
-describe('insertQueryFromToolbar', () => {
-  const bridge: any = new WebBridgeImpl();
-
-  beforeEach(() => {
-    mocks.mockCalls.length = 0;
-    bridge.editorView = {};
-  });
-
-  afterEach(() => {
-    bridge.editorView = undefined;
-
-    ((insertEmojiQuery as Function) as jest.Mock<{}>).mockClear();
-    ((insertMentionQuery as Function) as jest.Mock<{}>).mockClear();
-  });
-
-  it('should call insertEmojiQuery when editorview is defined', () => {
-    bridge.insertEmojiQuery();
-    expect(insertEmojiQuery).toHaveBeenCalledWith(INPUT_METHOD.TOOLBAR);
-  });
-
-  it('should call insertMentionQuery when editorview is defined', () => {
-    bridge.insertMentionQuery();
-    expect(insertMentionQuery).toHaveBeenCalledWith(INPUT_METHOD.TOOLBAR);
-  });
-
-  it('should not call insertMentionQuery or insertMentionQuery when editorview is not defined', () => {
-    bridge.editorView = undefined;
-    bridge.insertMentionQuery();
-    bridge.insertEmojiQuery();
-    expect(insertMentionQuery).not.toHaveBeenCalled();
-    expect(insertEmojiQuery).not.toHaveBeenCalled();
   });
 });
 

@@ -12,7 +12,6 @@ import {
   DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
-import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { B50 } from '@atlaskit/theme/colors';
 
@@ -84,10 +83,9 @@ describe('Table analytic events', () => {
   };
 
   describe('table inserted via quickInsert', () => {
-    beforeEach(() => {
-      const { editorView, sel } = editor(doc(p('{<>}')));
-      insertText(editorView, '/Table', sel);
-      sendKeyToPm(editorView, 'Enter');
+    beforeEach(async () => {
+      const { typeAheadTool } = editor(doc(p('{<>}')));
+      typeAheadTool.searchQuickInsert('Table')?.insert({ index: 0 });
     });
 
     it('should fire v3 analytics', () => {

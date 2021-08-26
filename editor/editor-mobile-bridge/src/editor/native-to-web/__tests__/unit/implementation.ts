@@ -1,12 +1,10 @@
 import { Provider as CollabProvider } from '@atlaskit/collab-provider';
 import {
-  dismissCommand,
   EditorActions,
   EventDispatcher,
   updateStatusWithAnalytics,
   insertDate,
   dateToDateType,
-  openDatePicker,
 } from '@atlaskit/editor-core';
 import { DocBuilder, doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 import { createProsemirrorEditorFactory } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
@@ -64,6 +62,17 @@ jest.mock('@atlaskit/editor-common', () => ({
   }),
 }));
 
+const createMockCollabProvider = () => {
+  return ({
+    setTitle: jest.fn(),
+    on: jest.fn(),
+    off: jest.fn(),
+    getFinalAcknowledgedState: jest.fn(() => ({
+      stepVersion: 100,
+    })),
+  } as unknown) as CollabProvider;
+};
+
 describe('Collab Web Bridge', () => {
   let bridge: WebBridgeImpl;
 
@@ -99,6 +108,60 @@ describe('Collab Web Bridge', () => {
     });
 
     bridge.onCollabEvent('custom-event', JSON.stringify(originalArgs));
+  });
+
+  describe('getStepVersion', () => {
+    let toNativeBridge: jest.Mocked<NativeBridge>;
+
+    beforeEach(async () => {
+      ({ toNativeBridge } = ((await import(
+        '../../../web-to-native'
+      )) as any) as {
+        toNativeBridge: jest.Mocked<NativeBridge>;
+      });
+    });
+
+    it('calls updateStepVersion with stepVersion if succeeds', async () => {
+      const provider = createMockCollabProvider();
+
+      bridge.setCollabProviderPromise(Promise.resolve(provider));
+      bridge.getStepVersion();
+      await new Promise<void>((resolve) => process.nextTick(() => resolve()));
+
+      expect(provider.getFinalAcknowledgedState).toBeCalled();
+      expect(toNativeBridge.updateStepVersion).toBeCalledWith(100);
+    });
+
+    it('calls updateStepVersion with error if it fails', async () => {
+      const provider = createMockCollabProvider();
+      (provider.getFinalAcknowledgedState as any).mockImplementation(() => {
+        throw new Error('Error string');
+      });
+
+      bridge.setCollabProviderPromise(Promise.resolve(provider));
+      bridge.getStepVersion();
+      await new Promise<void>((resolve) => process.nextTick(() => resolve()));
+
+      expect(toNativeBridge.updateStepVersion).toBeCalledWith(
+        undefined,
+        'Error string',
+      );
+    });
+
+    it('calls updateStepVersion with error if no collab provider promise', async () => {
+      const provider = createMockCollabProvider();
+      (provider.getFinalAcknowledgedState as any).mockImplementation(() => {
+        throw new Error('Error string');
+      });
+
+      bridge.getStepVersion();
+      await new Promise<void>((resolve) => process.nextTick(() => resolve()));
+
+      expect(toNativeBridge.updateStepVersion).toBeCalledWith(
+        undefined,
+        'Collaborative edit is not enabled',
+      );
+    });
   });
 });
 
@@ -175,14 +238,6 @@ describe('PageTitle Bridge', () => {
   let bridgeVer: WebBridgeImpl;
   let toNativeBridge: jest.Mocked<NativeBridge>;
 
-  const createMockCollabProvider = () => {
-    return ({
-      setTitle: jest.fn(),
-      on: jest.fn(),
-      off: jest.fn(),
-    } as unknown) as CollabProvider;
-  };
-
   beforeEach(async () => {
     ({ toNativeBridge } = ((await import('../../../web-to-native')) as any) as {
       toNativeBridge: jest.Mocked<NativeBridge>;
@@ -194,11 +249,12 @@ describe('PageTitle Bridge', () => {
     const provider = createMockCollabProvider();
     const title = 'foo';
 
-    bridgeVer.setupTitle(Promise.resolve(provider));
+    bridgeVer.setCollabProviderPromise(Promise.resolve(provider));
+    bridgeVer.setupTitle();
 
     bridgeVer.setTitle(title);
 
-    await new Promise((resolve) => process.nextTick(() => resolve()));
+    await new Promise<void>((resolve) => process.nextTick(() => resolve()));
 
     expect(provider.setTitle).toHaveBeenCalledWith(title, true);
   });
@@ -209,7 +265,7 @@ describe('PageTitle Bridge', () => {
 
     bridgeVer.setTitle(title);
 
-    await new Promise((resolve) => process.nextTick(() => resolve()));
+    await new Promise<void>((resolve) => process.nextTick(() => resolve()));
 
     expect(provider.setTitle).not.toHaveBeenCalledWith(title, true);
   });
@@ -218,8 +274,9 @@ describe('PageTitle Bridge', () => {
     const provider = createMockCollabProvider();
     const title = 'foo';
 
-    bridgeVer.setupTitle(Promise.resolve(provider));
-    await new Promise((resolve) => process.nextTick(() => resolve()));
+    bridgeVer.setCollabProviderPromise(Promise.resolve(provider));
+    bridgeVer.setupTitle();
+    await new Promise<void>((resolve) => process.nextTick(() => resolve()));
 
     // Simulate the emit event from collab provider
     (provider.on as jest.MockedFunction<any>).mock.calls[0][1]({ title });
@@ -230,8 +287,9 @@ describe('PageTitle Bridge', () => {
   it('should subscribe to title:change event', async function () {
     const provider = createMockCollabProvider();
 
-    bridgeVer.setupTitle(Promise.resolve(provider));
-    await new Promise((resolve) => process.nextTick(() => resolve()));
+    bridgeVer.setCollabProviderPromise(Promise.resolve(provider));
+    bridgeVer.setupTitle();
+    await new Promise<void>((resolve) => process.nextTick(() => resolve()));
 
     expect(provider.on).toHaveBeenCalledWith(
       'metadata:changed',
@@ -242,45 +300,15 @@ describe('PageTitle Bridge', () => {
   it('should unsubscribe to title:change event', async function () {
     const provider = createMockCollabProvider();
 
-    const destroy = bridgeVer.setupTitle(Promise.resolve(provider));
+    bridgeVer.setCollabProviderPromise(Promise.resolve(provider));
+    const destroy = bridgeVer.setupTitle();
     destroy();
-    await new Promise((resolve) => process.nextTick(() => resolve()));
+    await new Promise<void>((resolve) => process.nextTick(() => resolve()));
 
     expect(provider.off).toHaveBeenCalledWith(
       'metadata:changed',
       expect.anything(),
     );
-  });
-});
-
-describe('TypeAhead Bridge', () => {
-  let toNativeBridge: jest.Mocked<NativeBridge>;
-  let bridge: WebBridgeImpl = new WebBridgeImpl();
-
-  beforeEach(async () => {
-    ({ toNativeBridge } = require('../../../web-to-native'));
-    bridge.editorView = {} as EditorViewWithComposition;
-  });
-
-  afterEach(() => {
-    toNativeBridge.dismissTypeAhead.mockClear();
-    ((dismissCommand as Function) as jest.Mock<{}>).mockClear();
-  });
-
-  it('should invoke dismissTypeAhead on native bridge when dismissCommand succeedes', () => {
-    ((dismissCommand as Function) as jest.Mock<{}>).mockImplementation(
-      () => () => true,
-    );
-    bridge.cancelTypeAhead();
-    expect(toNativeBridge.dismissTypeAhead).toHaveBeenCalled();
-  });
-
-  it('should not invoke dismissTypeAhead on native bridge when dismissCommand fails', () => {
-    ((dismissCommand as Function) as jest.Mock<{}>).mockImplementation(
-      () => () => false,
-    );
-    bridge.cancelTypeAhead();
-    expect(toNativeBridge.dismissTypeAhead).not.toHaveBeenCalled();
   });
 });
 
@@ -677,6 +705,5 @@ describe('insert node', () => {
     const dateType = dateToDateType(new Date());
 
     expect(insertDate).toBeCalledWith(dateType, 'toolbar', 'picker');
-    expect(openDatePicker).toBeCalled();
   });
 });

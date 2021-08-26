@@ -1,10 +1,7 @@
 import React from 'react';
 import { shallow, mount, ShallowWrapper } from 'enzyme';
-import {
-  ImageRenderer,
-  ImageRendererBase,
-  resizeModeToMediaImageProps,
-} from '../imageRenderer';
+import { ImageRenderer, ImageRendererBase } from '../imageRenderer';
+import { resizeModeToMediaImageProps } from '../../../../utils/resizeModeToMediaImageProps';
 import { MediaType, MediaItemType } from '@atlaskit/media-client';
 import { FileAttributes } from '@atlaskit/media-common';
 import { MediaImage } from '@atlaskit/media-ui';
@@ -13,6 +10,14 @@ const onDisplayImage = jest.fn();
 const nonImageMediaTypes: MediaType[] = ['video', 'audio', 'doc', 'unknown'];
 
 describe('ImageRenderer', () => {
+  beforeAll(() => {
+    jest.spyOn(performance, 'now').mockReturnValue(1000);
+  });
+
+  afterAll(() => {
+    jest.clearAllMocks();
+  });
+
   beforeEach(() => {
     onDisplayImage.mockClear();
   });
@@ -32,6 +37,7 @@ describe('ImageRenderer', () => {
         resizeMode={resizeMode}
         previewOrientation={previewOrientation}
         alt={alt}
+        timeElapsedTillCommenced={100}
       />,
     );
 
@@ -45,17 +51,6 @@ describe('ImageRenderer', () => {
       onImageLoad: expect.any(Function),
       onImageError: expect.any(Function),
       ...resizeModeToMediaImageProps(resizeMode),
-    });
-  });
-
-  it('should convert resizeMode to crop and stretch MediaImage props', () => {
-    expect(resizeModeToMediaImageProps('stretchy-fit')).toMatchObject({
-      crop: false,
-      stretch: true,
-    });
-    expect(resizeModeToMediaImageProps('crop')).toMatchObject({
-      crop: true,
-      stretch: false,
     });
   });
 
@@ -80,6 +75,7 @@ describe('ImageRenderer', () => {
         alt="this is a test"
         createAnalyticsEvent={createAnalyticsEvent}
         fileAttributes={fileAttributes} // This is needed to fire the event
+        timeElapsedTillCommenced={100}
       />,
     );
     const mediaImage = component.find(MediaImage);
@@ -89,7 +85,17 @@ describe('ImageRenderer', () => {
     onImageLoad!(document.createElement('img'));
     expect(createAnalyticsEvent).toBeCalledTimes(1);
     expect(createAnalyticsEvent).toBeCalledWith(
-      expect.objectContaining({ action: 'succeeded' }),
+      expect.objectContaining({
+        action: 'succeeded',
+        attributes: expect.objectContaining({
+          performanceAttributes: {
+            overall: {
+              durationSincePageStart: 1000,
+              durationSinceCommenced: 900,
+            },
+          },
+        }),
+      }),
     );
     expect(fire).toBeCalledTimes(1);
   });
@@ -121,6 +127,7 @@ describe('ImageRenderer', () => {
           createAnalyticsEvent={createAnalyticsEvent}
           onImageError={onImageErrorProp}
           fileAttributes={{ ...fileAttributes, ...overrideFileAttributes }} // This is needed to fire analytics events
+          timeElapsedTillCommenced={100}
         />,
       );
       return { component, onImageErrorProp, createAnalyticsEvent, fire };
@@ -156,6 +163,12 @@ describe('ImageRenderer', () => {
           action: 'failed',
           attributes: expect.objectContaining({
             failReason: 'remote-uri',
+            performanceAttributes: {
+              overall: {
+                durationSincePageStart: 1000,
+                durationSinceCommenced: 900,
+              },
+            },
           }),
         }),
       );
@@ -176,6 +189,12 @@ describe('ImageRenderer', () => {
           action: 'failed',
           attributes: expect.objectContaining({
             failReason: 'local-uri',
+            performanceAttributes: {
+              overall: {
+                durationSincePageStart: 1000,
+                durationSinceCommenced: 900,
+              },
+            },
           }),
         }),
       );
@@ -193,6 +212,12 @@ describe('ImageRenderer', () => {
           action: 'failed',
           attributes: expect.objectContaining({
             failReason: 'external-uri',
+            performanceAttributes: {
+              overall: {
+                durationSincePageStart: expect.any(Number),
+                durationSinceCommenced: expect.any(Number),
+              },
+            },
           }),
         }),
       );
@@ -207,6 +232,7 @@ describe('ImageRenderer', () => {
         mediaItemType="file"
         dataURI="some-data"
         onDisplayImage={onDisplayImage}
+        timeElapsedTillCommenced={100}
       />,
     );
     expect(onDisplayImage).toHaveBeenCalledTimes(1);
@@ -222,6 +248,7 @@ describe('ImageRenderer', () => {
           mediaItemType="file"
           dataURI="some-data"
           onDisplayImage={onDisplayImage}
+          timeElapsedTillCommenced={100}
         />,
       );
       expect(onDisplayImage).toHaveBeenCalledTimes(0);

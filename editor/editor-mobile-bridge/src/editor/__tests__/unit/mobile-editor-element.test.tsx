@@ -228,6 +228,15 @@ describe('mobile editor element', () => {
       expect(useToolbarSubscription).toBeCalled();
     });
 
+    it('should have called bridge.setCollabProviderPromise', () => {
+      const setCollabProviderPromise = jest.spyOn(
+        WebBridgeImpl.prototype,
+        'setCollabProviderPromise',
+      );
+      initEditor();
+      expect(setCollabProviderPromise).toBeCalled();
+    });
+
     it('should have light mode when the Editor is loaded with default config', () => {
       const mobileEditor = initEditor();
       expect(mobileEditor.find('AtlaskitThemeProvider').prop('mode')).toEqual(

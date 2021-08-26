@@ -25,10 +25,10 @@ import {
   pdfViewerClassName,
   Props,
   State,
-} from '../../../../../newgen/viewers/doc/pdfRenderer';
-import { ZoomControls } from '../../../../../newgen/zoomControls';
-import { Spinner } from '../../../../../newgen/loading';
-import { ErrorMessage } from '../../../../../newgen/errorMessage';
+} from '../../../../../viewers/doc/pdfRenderer';
+import { ZoomControls } from '../../../../../zoomControls';
+import { Spinner } from '../../../../../loading';
+import { ErrorMessage } from '../../../../../errorMessage';
 import { mountWithIntlContext } from '@atlaskit/media-test-helpers';
 
 function createFixture(documentPromise: Promise<any>) {

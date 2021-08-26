@@ -48,7 +48,7 @@ export default interface RendererBridge
     nodeType: ScrollToContentNode,
     id: string,
     index?: number,
-  ): void;
+  ): Promise<boolean>;
   getContentNodeScrollOffset(
     nodeType: ScrollToContentNode,
     id: string,
@@ -66,4 +66,10 @@ export default interface RendererBridge
     callback: CallBackToNotifyConfigChange,
   ) => void;
   updateSystemFontSize(relativeFontSize: string, actualFontSize?: string): void;
+  /*
+  Will be temporary used on iOS until iOS 14+ is supported to
+  Invoke async functions and resolve a cross platform promise.
+  Returns a uuid for the expected promise to resolve.
+  */
+  asyncCall<T>(fn: () => Promise<T>): string;
 }

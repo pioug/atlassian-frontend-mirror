@@ -1,5 +1,6 @@
 import { EditorView } from 'prosemirror-view';
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import type { default as WebDriverPage } from '@atlaskit/webdriver-runner/wd-wrapper';
 import { annotationSelectors } from '../../../plugins/annotation/__tests__/_utils';
 
 export const selectors = {
@@ -12,13 +13,17 @@ export const selectors = {
   scrollContainer: '.fabric-editor-popup-scroll-parent',
   dropList: 'div[data-role="droplistContent"]',
   emojiPicker: 'div[data-emoji-picker-container="true"]',
-  mentionQuery: 'span[data-type-ahead-query]',
-  quickInsert: 'span[data-trigger="/"][data-type-ahead-query]',
+  mentionQuery: '[data-trigger="@"][data-type-ahead-query]',
+  quickInsert: '[data-trigger="/"][data-type-ahead-query]',
+  typeaheadPopup: '.fabric-editor-typeahead [role="listbox"]',
+  emojiQuery: '[data-trigger=":"][data-type-ahead-query]',
   gapCursor: '.ProseMirror-gapcursor',
   layoutDataSection: '[data-layout-section="true"]',
   panelContent: '.ak-editor-panel__content',
   codeContent: '.code-content',
   actionList: '[data-node-type="actionList"]',
+  undoButton: '[data-testid="ak-editor-toolbar-button-undo"]',
+  redoButton: '[data-testid="ak-editor-toolbar-button-redo"]',
 };
 
 export enum timeouts {
@@ -31,7 +36,7 @@ export async function clickEditableContent(page: PuppeteerPage) {
   await page.click(selectors.editor);
 }
 
-export async function clickFirstParagraph(page: PuppeteerPage) {
+export async function clickFirstParagraph(page: PuppeteerPage | WebDriverPage) {
   await page.waitForSelector(selectors.firstEditorParagraph);
   await page.click(selectors.firstEditorParagraph);
 }

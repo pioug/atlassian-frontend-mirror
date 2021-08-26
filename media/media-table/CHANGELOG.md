@@ -1,5 +1,12 @@
 # @atlaskit/media-table
 
+## 9.0.1
+
+### Patch Changes
+
+- [`b90c0237824`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b90c0237824) - Update package.jsons to remove unused dependencies.
+- Updated dependencies
+
 ## 9.0.0
 
 ### Patch Changes

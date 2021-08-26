@@ -2,7 +2,8 @@ import styled from 'styled-components';
 import { borderRadius } from '@atlaskit/media-ui';
 import { rgba } from '../../../styles/mixins';
 import { N0, N400 } from '@atlaskit/theme/colors';
-import { Breakpoint, getTitleBoxHeight, responsiveSettings } from '../common';
+import { getTitleBoxHeight, responsiveSettings } from '../common';
+import { Breakpoint } from '../Breakpoint';
 
 const height = 3;
 const padding = 1;

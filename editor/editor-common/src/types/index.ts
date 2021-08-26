@@ -24,4 +24,4 @@ export type {
   AnnotationActionResult,
 } from './annotation';
 
-export type { TypeAheadItem, TypeAheadItemRenderProps } from './typeAhead';
+export type { TypeAheadItem, TypeAheadItemRenderProps } from './type-ahead';

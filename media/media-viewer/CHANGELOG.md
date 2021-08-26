@@ -1,5 +1,15 @@
 # @atlaskit/media-viewer
 
+## 45.8.8
+
+### Patch Changes
+
+- [`6947b4a26ca`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6947b4a26ca) - Remove newgen folder from media-viewer src, move files up a level
+- [`4777a174e6d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4777a174e6d) - Added analytics support for customMediaPlayer + screen event + entrypoint for locales
+- [`5fe6e21a9a0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5fe6e21a9a0) - [ux] Upgrade to the latest version of @atlaskit/modal-dialog. This change includes shifting the primary button in the footer of the modal to be on the right instead of the left.
+- [`b90c0237824`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b90c0237824) - Update package.jsons to remove unused dependencies.
+- Updated dependencies
+
 ## 45.8.7
 
 ### Patch Changes

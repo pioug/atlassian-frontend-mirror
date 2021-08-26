@@ -367,7 +367,7 @@ const Avatar = forwardRef<HTMLElement, AvatarPropTypes>(
                 appearance,
                 borderColor,
                 stackIndex,
-                isInteractive: Boolean(href || onClick),
+                isInteractive: Boolean(href || onClick) && !isDisabled,
                 isDisabled,
               }),
               ...componentProps(),
@@ -379,6 +379,7 @@ const Avatar = forwardRef<HTMLElement, AvatarPropTypes>(
                   appearance={appearance!}
                   size={size!}
                   src={src}
+                  testId={testId}
                 />
               ),
               ref,

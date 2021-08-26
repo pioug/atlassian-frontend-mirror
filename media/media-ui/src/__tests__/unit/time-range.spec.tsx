@@ -12,12 +12,14 @@ import {
 describe('<TimeRange />', () => {
   const setup = (props?: Partial<TimeRangeProps>) => {
     const onChange = jest.fn();
+    const onChanged = jest.fn();
     const component = shallow(
       <TimeRange
         currentTime={10}
         duration={20}
         bufferedTime={5}
         onChange={onChange}
+        onChanged={onChanged}
         {...props}
       />,
     );
@@ -25,6 +27,7 @@ describe('<TimeRange />', () => {
     return {
       component,
       onChange,
+      onChanged,
     };
   };
 
@@ -57,7 +60,7 @@ describe('<TimeRange />', () => {
   });
 
   it('should notify changes when user clicks on the timeline', () => {
-    const { component, onChange } = setup();
+    const { component, onChange, onChanged } = setup();
 
     (component as any).instance()['wrapperElementWidth'] = 100;
     component.find(TimeRangeWrapper).simulate('mouseDown', {
@@ -70,6 +73,13 @@ describe('<TimeRange />', () => {
 
     expect(onChange).toHaveBeenCalledTimes(1);
     expect(onChange).lastCalledWith(1);
+
+    const mouseMove = new Event('mousemove');
+    const mouseUp = new Event('mouseup');
+    window.document.dispatchEvent(mouseMove);
+    window.document.dispatchEvent(mouseUp);
+
+    expect(onChanged).toHaveBeenCalledTimes(1);
   });
 
   it('should not display tooltip on top of thumb when flag disableThumbTooltip is set', () => {

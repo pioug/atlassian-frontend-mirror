@@ -9,6 +9,7 @@ import PresenceActiveIcon from '@atlaskit/icon/glyph/presence-active';
 import StarIcon from '@atlaskit/icon/glyph/star';
 import StarFilledIcon from '@atlaskit/icon/glyph/star-filled';
 import TrashIcon from '@atlaskit/icon/glyph/trash';
+import { token } from '@atlaskit/tokens';
 
 import {
   ButtonItem,
@@ -33,7 +34,7 @@ export default () => {
     >
       <div
         style={{
-          border: '1px solid #EFEFEF',
+          border: `1px solid ${token('color.border.neutral', '#EFEFEF')}`,
           borderRadius: '4px',
         }}
       >
@@ -160,7 +161,7 @@ export default () => {
       </div>
       <div
         style={{
-          border: '1px solid #EFEFEF',
+          border: `1px solid ${token('color.border.neutral', '#efefef')}`,
           height: 'max-content',
           borderRadius: '4px',
         }}
@@ -172,7 +173,13 @@ export default () => {
               description="Software Project"
               iconBefore={<Blog24Icon label="Quote icon" />}
               iconAfter={
-                <StarFilledIcon label="" primaryColor="rgb(255, 171, 0)" />
+                <StarFilledIcon
+                  label=""
+                  primaryColor={token(
+                    'color.iconBorder.warning',
+                    'rgb(255, 171, 0)',
+                  )}
+                />
               }
             >
               Endeavour (JSPA)
@@ -181,7 +188,13 @@ export default () => {
               description="Software Project"
               iconBefore={<Blog24Icon label="Quote icon" />}
               iconAfter={
-                <StarFilledIcon label="" primaryColor="rgb(255, 171, 0)" />
+                <StarFilledIcon
+                  label=""
+                  primaryColor={token(
+                    'color.iconBorder.warning',
+                    'rgb(255, 171, 0)',
+                  )}
+                />
               }
             >
               Navigation v3 (JNAV)

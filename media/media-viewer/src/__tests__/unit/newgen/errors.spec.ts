@@ -11,7 +11,7 @@ import {
   getRequestMetadata,
   MediaViewerErrorReason,
   ArchiveViewerErrorReason,
-} from '../../../../src/newgen/errors';
+} from '../../../../src/errors';
 
 describe('Errors', () => {
   const MVError = (

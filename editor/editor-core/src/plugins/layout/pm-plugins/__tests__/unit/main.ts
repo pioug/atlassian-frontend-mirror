@@ -13,7 +13,6 @@ import {
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
-import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 import { default as createLayoutPlugin } from '../../main';
 import { forceSectionToPresetLayout } from '../../../actions';
 import { layouts, buildLayoutForWidths } from '../../../__tests__/unit/_utils';
@@ -524,10 +523,11 @@ describe('layout', () => {
   });
 
   describe('quick insert', () => {
-    beforeEach(() => {
-      ({ editorView } = editor(doc(p('{<>}'))));
-      insertText(editorView, `/layout`);
-      sendKeyToPm(editorView, 'Enter');
+    beforeEach(async () => {
+      const { editorView: _editorView, typeAheadTool } = editor(doc(p('{<>}')));
+
+      await typeAheadTool.searchQuickInsert('layout')?.insert({ index: 0 });
+      editorView = _editorView;
     });
 
     it('inserts default layout (2 cols equal width)', () => {

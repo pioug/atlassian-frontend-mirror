@@ -8,7 +8,7 @@ import {
 const mockImageViewer = {
   ImageViewer,
 };
-jest.mock('../../../newgen/viewers/image', () => mockImageViewer);
+jest.mock('../../../viewers/image', () => mockImageViewer);
 jest.mock('unzipit', () => ({
   unzip: () => {
     return {

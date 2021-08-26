@@ -4,6 +4,7 @@ import {
   mountEditor,
   goToEditorTestingWDExample,
 } from '../../__helpers/testing-example-helpers';
+import { emojiSearch } from '../../__helpers/page-objects/_emoji';
 import {
   getDocFromElement,
   editable,
@@ -13,16 +14,14 @@ import {
   highlightEmojiInTypeahead,
 } from '../_helpers';
 
-// safari failure on browserstack
 BrowserTestCase(
   'emoji-3.ts: user can navigate typeahead using keyboard',
-  { skip: ['safari', 'edge'] },
+  {},
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
+
     await mountEditor(page, { appearance: 'full-page' });
-    await page.type(editable, ':');
-    await page.type(editable, 'smi');
-    await page.waitForSelector(typeahead);
+    await emojiSearch(page, 'smi');
     await page.keys('ArrowDown');
 
     // The typeahead may re-order our results.
@@ -35,16 +34,14 @@ BrowserTestCase(
   },
 );
 
-// issue with safari on browserstack works on local
 BrowserTestCase(
   'emoji-3.ts: should select emoji on return',
-  { skip: ['safari', 'edge'] },
+  {},
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, { appearance: 'full-page' });
-    await page.type(editable, ':');
-    await page.type(editable, 'wink');
-    await page.waitForSelector(typeahead);
+
+    await emojiSearch(page, 'wink');
 
     // The typeahead may re-order our results.
     // Grab the currently selected emoji, to reference in render.
@@ -58,7 +55,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'emoji-3.ts: should render emoji inside codeblock',
-  { skip: ['safari', 'edge'] },
+  {},
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, { appearance: 'full-page' });
@@ -70,10 +67,9 @@ BrowserTestCase(
   },
 );
 
-// BUG on IE
 BrowserTestCase(
   'emoji-3.ts: should render emoji inside action',
-  { skip: ['safari', 'edge'] },
+  {},
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, { appearance: 'full-page' });
@@ -87,22 +83,26 @@ BrowserTestCase(
 
 BrowserTestCase(
   'emoji-3.ts: should not show typeahead with text: ',
-  { skip: ['edge'] },
+  {},
   async (client: any) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, { appearance: 'full-page' });
     await page.type(editable, 'text: ');
-    expect(await page.isExisting(typeahead)).toBe(false);
+    const result = await page.isExisting(typeahead);
+
+    expect(result).toBeFalsy();
   },
 );
 
 BrowserTestCase(
   'emoji-3.ts: ":<space>" does not show the picker',
-  { skip: ['edge'] },
+  {},
   async (client: any) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, { appearance: 'full-page' });
     await page.type(editable, ': ');
-    expect(await page.isExisting(typeahead)).toBe(false);
+    const result = await page.isExisting(typeahead);
+
+    expect(result).toBeFalsy();
   },
 );

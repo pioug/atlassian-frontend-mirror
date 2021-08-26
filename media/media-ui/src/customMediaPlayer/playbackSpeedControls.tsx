@@ -19,6 +19,7 @@ export interface PlaybackSpeedControlsProps {
   playbackSpeed: number;
   onPlaybackSpeedChange: (playbackSpeed: number) => void;
   originalDimensions?: NumericalCardDimensions;
+  onClick?: () => void;
 }
 
 export interface PlaybackSpeedControlsState {
@@ -88,7 +89,7 @@ export class PlaybackSpeedControls extends Component<
   };
 
   render() {
-    const { playbackSpeed, intl } = this.props;
+    const { playbackSpeed, intl, onClick } = this.props;
     const { popupHeight } = this.state;
     const value = this.speedOptions()[0].options.find(
       (option) => option.value === playbackSpeed,
@@ -142,6 +143,7 @@ export class PlaybackSpeedControls extends Component<
                 testId="custom-media-player-playback-speed-toggle-button"
                 buttonRef={ref}
                 isSelected={isOpen}
+                onClick={onClick}
               >
                 {playbackSpeed}x
               </MediaButton>

@@ -1,23 +1,20 @@
-import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
+import { Browser, BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import Page from '@atlaskit/webdriver-runner/wd-wrapper';
-import {
-  editor,
-  editable,
-  getBridgeOutput,
-  navigateOrClear,
-  skipBrowsers as skip,
-} from '../_utils';
+import { editor, editable, getBridgeOutput, navigateOrClear } from '../_utils';
+
+// TODO: Unskipped type-ahead tests ED-13572
+const skip: Browser[] = ['*'];
 
 BrowserTestCase(
   `type-ahead.ts: Sends correct typing events`,
-  { skip: skip.concat('safari') },
+  { skip },
   async (client: any, testName: string) => {
     const browser = new Page(client);
     await browser.goto(editor.path);
     await browser.waitForSelector(editable);
+    await browser.click(editable);
 
-    await browser.type(editable, 'Some beautifully written words ');
-    await browser.type(editable, '@idontexist');
+    await browser.keys('Some beautifully written words @idontexist'.split(''));
 
     const typeAheadPayloads = await getBridgeOutput(
       browser,
@@ -30,15 +27,15 @@ BrowserTestCase(
 );
 
 BrowserTestCase(
-  `type-ahead.ts: Space sends dismiss type-ahead event.`,
+  `type-ahead.ts: Space should not sends dismiss type-ahead event.`,
   { skip },
   async (client: any) => {
     const browser = new Page(client);
     await navigateOrClear(browser, editor.path);
     await browser.waitForSelector(editable);
+    await browser.click(editable);
 
-    // Space with no results dismisses typeahead
-    await browser.type(editable, '@idontexist ');
+    await browser.keys('@idontexist '.split(''));
 
     const typeAheadPayloads = await getBridgeOutput(
       browser,
@@ -46,22 +43,22 @@ BrowserTestCase(
       'dismissTypeAhead',
     );
 
-    expect(typeAheadPayloads.length).toEqual(1);
+    expect(typeAheadPayloads.length).toEqual(0);
   },
 );
 
 BrowserTestCase(
   `type-ahead.ts: Navigating away sends dismiss type-ahead event.`,
-  // Safari has issues with key events
-  { skip: skip.concat('safari') },
+  { skip },
   async (client: any) => {
     const browser = new Page(client);
     await navigateOrClear(browser, editor.path);
     await browser.waitForSelector(editable);
+    await browser.click(editable);
 
     // Navigating cursor away from query mark should dismiss typeahead
     await browser.keys('Enter');
-    await browser.type(editable, 'word @sg');
+    await browser.keys('word @sg'.split(''));
     await browser.keys(['ArrowLeft', 'ArrowLeft', 'ArrowLeft', 'ArrowLeft']);
 
     const typeAheadPayloads = await getBridgeOutput(
@@ -76,13 +73,14 @@ BrowserTestCase(
 
 BrowserTestCase(
   `type-ahead.ts: /link opens link dialog window`,
-  { skip: skip.concat('safari') },
+  { skip },
   async (client: any, testName: string) => {
     const browser = new Page(client);
     await browser.goto(editor.path);
     await browser.waitForSelector(editable);
+    await browser.click(editable);
 
-    await browser.type(editable, '/link');
+    await browser.keys('/link'.split(''));
     await browser.keys(['Enter']);
 
     const typeAheadPayloads = await getBridgeOutput(

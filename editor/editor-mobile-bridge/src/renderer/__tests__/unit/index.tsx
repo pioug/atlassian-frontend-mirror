@@ -33,6 +33,7 @@ jest.mock('../../hooks/use-renderer-configuration', () => ({
     isActionsDisabled: () => false,
     isMedialinkingDisabled: () => false,
     isHeadingAnchorLinksAllowed: () => false,
+    isCustomPanelEnabled: () => false,
   }),
 }));
 
@@ -282,6 +283,12 @@ describe('Mobile Renderer', () => {
     const result = mount(<App document={initialDocument} />);
     expect(
       result.find(MobileRendererWrapper).prop('allowHeadingAnchorLinks'),
+    ).toBe(false);
+  });
+  it('should pass UNSAFE_allowCustomPanels to Mobile Renderer', () => {
+    const result = mount(<App document={initialDocument} />);
+    expect(
+      result.find(MobileRendererWrapper).prop('UNSAFE_allowCustomPanels'),
     ).toBe(false);
   });
 });

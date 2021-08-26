@@ -29,6 +29,7 @@ import {
 import useContainerWidth from '../hooks/use-container-width';
 import useSelectAndFocusOnArrowNavigation from '../hooks/use-select-and-focus-on-arrow-navigation';
 import { Category, Modes, SelectedItemProps } from '../types';
+import { EmptyStateHandler } from '../../../types/empty-state-handler';
 
 export type StatelessElementBrowserProps = {
   categories?: Category[];
@@ -42,6 +43,7 @@ export type StatelessElementBrowserProps = {
   showCategories: boolean;
   mode: keyof typeof Modes;
   searchTerm?: string;
+  emptyStateHandler?: EmptyStateHandler;
 } & WithAnalyticsEventsProps;
 
 function StatelessElementBrowser(props: StatelessElementBrowserProps) {
@@ -169,6 +171,7 @@ function MobileBrowser({
   onKeyDown,
   searchTerm,
   createAnalyticsEvent,
+  emptyStateHandler,
 }: StatelessElementBrowserProps &
   SelectedItemProps & {
     focusOnSearch: boolean;
@@ -214,6 +217,9 @@ function MobileBrowser({
           setFocusedItemIndex={setFocusedItemIndex}
           setColumnCount={setColumnCount}
           createAnalyticsEvent={createAnalyticsEvent}
+          emptyStateHandler={emptyStateHandler}
+          selectedCategory={selectedCategory}
+          searchTerm={searchTerm}
         />
       </MobileMainContent>
     </MobileElementBrowserContainer>
@@ -240,6 +246,7 @@ function DesktopBrowser({
   onKeyDown,
   searchTerm,
   createAnalyticsEvent,
+  emptyStateHandler,
 }: StatelessElementBrowserProps &
   SelectedItemProps & {
     focusOnSearch: boolean;
@@ -291,6 +298,9 @@ function DesktopBrowser({
           setFocusedItemIndex={setFocusedItemIndex}
           setColumnCount={setColumnCount}
           createAnalyticsEvent={createAnalyticsEvent}
+          emptyStateHandler={emptyStateHandler}
+          selectedCategory={selectedCategory}
+          searchTerm={searchTerm}
         />
       </MainContent>
     </ElementBrowserContainer>

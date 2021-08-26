@@ -101,7 +101,7 @@ exports[`HelpContentButton Should match snapshot 1`] = `
       aria-hidden="true"
       class="emotion-0"
       role="presentation"
-      style="--icon-primary-color: currentColor; --icon-secondary-color: #FFFFFF;"
+      style="--icon-primary-color: currentColor; --icon-secondary-color: var(--background-default, #FFFFFF);"
     >
       <svg
         height="24"
@@ -153,7 +153,7 @@ exports[`HelpContentButton Should match snapshot 1`] = `
         aria-hidden="true"
         class="emotion-2"
         role="presentation"
-        style="--icon-primary-color: currentColor; --icon-secondary-color: #FFFFFF;"
+        style="--icon-primary-color: currentColor; --icon-secondary-color: var(--background-default, #FFFFFF);"
       >
         <svg
           height="24"

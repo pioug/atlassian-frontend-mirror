@@ -1,5 +1,23 @@
 # @atlaskit/tokens
 
+## 0.1.1
+
+### Patch Changes
+
+- [`6f3632e65d4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6f3632e65d4) - Updates README with MVP instructions for usage.
+- [`c1498cb226e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c1498cb226e) - Removes previous rename map
+- [`0936217160c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0936217160c) - Add bold accent tokens:
+
+  - `color.accent.boldBlue`
+  - `color.accent.boldRed`
+  - `color.accent.boldGreen`
+  - `color.accent.boldOrange`
+  - `color.accent.boldTeal`
+  - `color.accent.boldPurple`
+
+- [`6d72bea69a0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6d72bea69a0) - Descriptions and other token metadata is now stored in the "default" theme.
+- [`addf9436414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/addf9436414) - [ux] Introduced a restricted util token for use during the initial token migration. This token is for internal use only and will be removed in a future version of `@atlaskit/tokens`.
+
 ## 0.1.0
 
 ### Minor Changes

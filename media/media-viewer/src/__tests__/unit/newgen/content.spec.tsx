@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { Content } from '../../../newgen/content';
+import { Content } from '../../../content';
 import {
   InactivityDetector,
   WithShowControlMethodProp,

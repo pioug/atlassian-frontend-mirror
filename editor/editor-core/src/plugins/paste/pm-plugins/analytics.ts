@@ -39,6 +39,8 @@ import { getLinkDomain } from '../../hyperlink/utils';
 type PasteContext = {
   type: PasteType;
   asPlain?: boolean;
+  /** Has the hyperlink been pasted while text is selected, making the text into a link? */
+  hyperlinkPasteOnText?: boolean;
 };
 
 type PastePayloadAttributes = {
@@ -46,6 +48,9 @@ type PastePayloadAttributes = {
   type: PasteType;
   content: PasteContent;
   source: PasteSource;
+
+  /** Has the hyperlink been pasted while text is selected, making the text into a link? */
+  hyperlinkPasteOnText: boolean;
 };
 
 const contentToPasteContent: { [name: string]: PasteContent } = {
@@ -229,6 +234,7 @@ export function createPasteAnalyticsPayload(
       type: pasteContext.type,
       content: PasteContents.text,
       source,
+      hyperlinkPasteOnText: false,
     });
   }
 
@@ -256,6 +262,7 @@ export function createPasteAnalyticsPayload(
       pasteSize,
       content,
       source,
+      hyperlinkPasteOnText: !!pasteContext.hyperlinkPasteOnText,
     },
     linkDomains,
   );
@@ -410,6 +417,7 @@ export const handlePasteLinkOnSelectedTextWithAnalytics = (
     handlePasteLinkOnSelectedText,
     pasteCommandWithAnalytics(view, event, slice, {
       type,
+      hyperlinkPasteOnText: true,
     }),
   )(slice);
 

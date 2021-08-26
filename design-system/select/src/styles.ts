@@ -1,5 +1,22 @@
 import { gridSize, fontFamily } from '@atlaskit/theme/constants';
-import * as colors from '@atlaskit/theme/colors';
+import {
+  B100,
+  B400,
+  B50,
+  G400,
+  N0,
+  N20,
+  N200,
+  N30,
+  N300,
+  N40,
+  N500,
+  N70,
+  N800,
+  R400,
+  R75,
+} from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import { StylesConfig, ValidationState } from './types';
 
@@ -20,28 +37,41 @@ export default function baseStyles<Option, IsMulti extends boolean>(
       pointerEvents: 'all',
       cursor: isDisabled ? 'not-allowed' : undefined,
     }),
+    input: (css) => ({
+      ...css,
+      color: token('color.text.highEmphasis', 'hsl(0, 0%, 20%)'),
+    }),
     control: (css, { isFocused, isDisabled }) => {
-      let borderColor = isFocused ? colors.B100 : colors.N20;
-      let backgroundColor = isFocused ? colors.N0 : colors.N20;
+      let borderColor: string = isFocused
+        ? token('color.border.focus', B100)
+        : token('color.border.neutral', N20);
+      let backgroundColor: string = isFocused
+        ? token('color.background.default', N0)
+        : token('color.background.subtleNeutral.resting', N20);
+      let backgroundColorHover: string = isFocused
+        ? token('color.background.default', N0)
+        : token('color.background.default', N30);
 
       if (isDisabled) {
-        backgroundColor = colors.N20;
+        backgroundColor = token('color.background.subtleNeutral.resting', N20);
+        borderColor = token('color.background.disabled', N20);
       }
-
       if (validationState === 'error') {
-        borderColor = colors.R400;
+        borderColor = token('color.text.danger', R400);
       }
       if (validationState === 'success') {
-        borderColor = colors.G400;
+        borderColor = token('color.text.success', G400);
       }
 
-      let borderColorHover = isFocused ? colors.B100 : colors.N30;
+      let borderColorHover: string = isFocused
+        ? token('color.border.focus', B100)
+        : token('color.border.neutral', N30);
 
       if (validationState === 'error') {
-        borderColorHover = colors.R400;
+        borderColorHover = token('color.text.danger', R400);
       }
       if (validationState === 'success') {
-        borderColorHover = colors.G400;
+        borderColorHover = token('color.text.success', G400);
       }
 
       const transitionDuration = '200ms';
@@ -69,13 +99,16 @@ export default function baseStyles<Option, IsMulti extends boolean>(
         },
         ':hover': {
           '::-webkit-scrollbar-thumb': {
+            // scrollbars occur only if the user passes in a custom component with overflow: scroll
+            // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
             backgroundColor: 'rgba(0,0,0,0.2)',
           },
           cursor: 'pointer',
-          backgroundColor: isFocused ? colors.N0 : colors.N30,
+          backgroundColor: backgroundColorHover,
           borderColor: borderColorHover,
         },
         '::-webkit-scrollbar-thumb:hover': {
+          // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
           backgroundColor: 'rgba(0,0,0,0.4)',
         },
       };
@@ -89,7 +122,7 @@ export default function baseStyles<Option, IsMulti extends boolean>(
     }),
     clearIndicator: (css) => ({
       ...css,
-      color: colors.N70,
+      color: token('color.text.lowEmphasis', N70),
       paddingLeft: ICON_PADDING,
 
       paddingRight: ICON_PADDING,
@@ -99,7 +132,7 @@ export default function baseStyles<Option, IsMulti extends boolean>(
       paddingTop: isCompact ? 0 : 6,
 
       ':hover': {
-        color: colors.N500,
+        color: token('color.text.mediumEmphasis', N500),
       },
     }),
     loadingIndicator: (css) => ({
@@ -108,10 +141,10 @@ export default function baseStyles<Option, IsMulti extends boolean>(
       paddingTop: isCompact ? 0 : 6,
     }),
     dropdownIndicator: (css, { isDisabled }) => {
-      let color = colors.N500;
+      let color: string = token('color.text.mediumEmphasis', N500);
 
       if (isDisabled) {
-        color = colors.N70;
+        color = token('color.text.disabled', N70);
       }
 
       return {
@@ -122,7 +155,7 @@ export default function baseStyles<Option, IsMulti extends boolean>(
         paddingBottom: isCompact ? 0 : 6,
         paddingTop: isCompact ? 0 : 6,
         ':hover': {
-          color: colors.N200,
+          color: token('color.text.mediumEmphasis', N200),
         },
       };
     },
@@ -131,24 +164,29 @@ export default function baseStyles<Option, IsMulti extends boolean>(
       paddingRight: paddingExcludingBorder - ICON_PADDING,
     }),
     option: (css, { isFocused, isSelected, isDisabled }) => {
-      let color = colors.N800;
+      let color: string = token('color.text.highEmphasis', N800);
       if (isDisabled) {
-        color = colors.N70;
+        color = token('color.text.disabled', N70);
       } else if (isSelected) {
-        color = colors.B400;
+        color = token('color.text.selected', B400);
       }
 
       let boxShadow;
       let backgroundColor;
       if (isDisabled) {
         backgroundColor = undefined;
+      } else if (isSelected && isFocused) {
+        backgroundColor = token('color.background.selected.hover', B50);
       } else if (isSelected) {
-        backgroundColor = colors.B50;
+        backgroundColor = token('color.background.selected.resting', B50);
       } else if (isFocused) {
-        backgroundColor = colors.N20;
+        backgroundColor = token(
+          'color.background.transparentNeutral.hover',
+          N20,
+        );
       }
       if (!isDisabled && (isFocused || isSelected)) {
-        boxShadow = `inset 2px 0px 0px ${colors.B400}`;
+        boxShadow = `inset 2px 0px 0px ${token('color.text.selected', B400)}`;
       }
 
       const cursor = isDisabled ? 'not-allowed' : undefined;
@@ -163,8 +201,8 @@ export default function baseStyles<Option, IsMulti extends boolean>(
         ':active': {
           backgroundColor: !isDisabled
             ? isSelected
-              ? colors.N20
-              : colors.N30
+              ? token('color.background.selected.pressed', N20)
+              : token('color.background.transparentNeutral.pressed', N30)
             : undefined,
         },
         '@media screen and (-ms-high-contrast: active)': {
@@ -175,11 +213,26 @@ export default function baseStyles<Option, IsMulti extends boolean>(
         },
       };
     },
-    placeholder: (css) => ({ ...css, color: colors.N300 }),
+    placeholder: (css, { isDisabled }) => ({
+      ...css,
+      color: isDisabled
+        ? token('color.text.disabled', N300)
+        : token('color.text.lowEmphasis', N300),
+    }),
     singleValue: (css, { isDisabled }) => ({
       ...css,
-      color: isDisabled ? colors.N70 : colors.N800,
+      color: isDisabled
+        ? token('color.text.disabled', N70)
+        : token('color.text.highEmphasis', N800),
       lineHeight: `${gridSize() * 2}px`, // 16px
+    }),
+    menu: (css) => ({
+      ...css,
+      backgroundColor: token('color.background.overlay', 'white'),
+      boxShadow: token(
+        'shadow.overlay',
+        '0 0 0 1px hsl(0deg 0% 0% / 10%), 0 4px 11px hsl(0deg 0% 0% / 10%)',
+      ),
     }),
     menuList: (css) => ({
       ...css,
@@ -189,16 +242,26 @@ export default function baseStyles<Option, IsMulti extends boolean>(
     multiValue: (css, { isFocused }) => ({
       ...css,
       borderRadius: '2px',
-      backgroundColor: colors.N40,
-      color: colors.N500,
+      backgroundColor: isFocused
+        ? token('color.background.selected.resting', N40)
+        : token('color.background.transparentNeutral.hover', N40),
+      boxShadow: isFocused
+        ? `0 0 0 2px ${token(
+            'color.background.default',
+            'transparent',
+          )}, 0 0 0 4px ${token('color.border.focus', 'transparent')}`
+        : 'none',
       maxWidth: '100%',
       '@media screen and (-ms-high-contrast: active)': {
         border: isFocused ? '1px solid transparent' : 'none',
       },
     }),
-    multiValueLabel: (css) => ({
+    multiValueLabel: (css, { isFocused }) => ({
       ...css,
       padding: '2px',
+      color: isFocused
+        ? token('color.text.selected', 'hsl(0, 0%, 20%)')
+        : token('color.text.highEmphasis', 'hsl(0, 0%, 20%)'),
       paddingRight: '2px',
     }),
     multiValueRemove: (
@@ -209,17 +272,21 @@ export default function baseStyles<Option, IsMulti extends boolean>(
       },
     ) => ({
       ...css,
-      backgroundColor: isFocused && colors.R75,
-      color: isFocused && colors.R400,
+      backgroundColor:
+        isFocused && token('color.background.selected.resting', R75),
+      fill: isFocused
+        ? token('color.text.selected', '#000')
+        : token('color.text.highEmphasis', '#000'),
       paddingLeft: '2px',
       paddingRight: '2px',
       borderRadius: '0px 2px 2px 0px',
       ':hover': {
-        color: colors.R400,
-        backgroundColor: colors.R75,
+        backgroundColor: token('color.background.subtleDanger.hover', R75),
+        fill: token('color.text.danger', '#000'),
       },
-      '@media screen and (-ms-high-contrast: active)': {
-        svg: { color: 'white' },
+      ':active': {
+        backgroundColor: token('color.background.subtleDanger.pressed', R75),
+        fill: token('color.text.danger', '#000'),
       },
     }),
   };

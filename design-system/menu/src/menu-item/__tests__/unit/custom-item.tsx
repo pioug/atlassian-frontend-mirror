@@ -111,6 +111,7 @@ describe('<CustomItem />', () => {
       <CustomItem
         component={Component}
         testId="component"
+        // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
         cssFn={customCss}
         isSelected
         isDisabled

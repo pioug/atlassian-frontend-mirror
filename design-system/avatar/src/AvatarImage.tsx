@@ -124,8 +124,8 @@ const AvatarImage: FC<AvatarImageProps> = ({
         backgroundImage: `url("${src}")`,
         borderRadius: borderRadius,
       }}
-      role="img"
-      aria-label={alt}
+      role={alt ? 'img' : undefined}
+      aria-label={alt || undefined}
       data-testid={testId && `${testId}--image`}
     />
   );

@@ -1,5 +1,15 @@
 # @atlaskit/legacy-mobile-macros
 
+## 0.3.19
+
+### Patch Changes
+
+- [`b95863772be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b95863772be) - Support external observers.
+  Use better naming for refNode (refNode => reference).
+  In favor of further work (supporting multiple references) pass array of references to Extension component.
+  Expand node with localId for extentions.
+- Updated dependencies
+
 ## 0.3.18
 
 ### Patch Changes

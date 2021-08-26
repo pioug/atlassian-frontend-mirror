@@ -5,6 +5,7 @@ import {
 } from '../_utils';
 import * as panel from './__fixtures__/panel-adf.json';
 import * as basicPanel from './__fixtures__/basic-panel-adf.json';
+import * as customPanel from './__fixtures__/custom-panel-adf.json';
 import {
   PuppeteerPage,
   waitForTooltip,
@@ -123,25 +124,51 @@ describe('custom panels', () => {
   });
   beforeAll(() => {
     page = global.page;
-    adfContent = basicPanel;
+    adfContent = customPanel;
   });
 
-  // FIXME These tests were flakey in the Puppeteer v10 Upgrade
-  it.skip('updates the panel Icon', async () => {
+  it('updates the panel Icon', async () => {
     await page.click(`.${PanelSharedCssClassName.icon}`);
     await page.click(`${PanelSharedSelectors.emojiIcon}`);
     await waitForTooltip(page);
-    const selectedEmoji = `[aria-label=":grinning:"]`;
-    await page.click(selectedEmoji);
-    await wait(undefined, { interval: 1000 });
+    await page.click(`${PanelSharedSelectors.selectedEmoji}`);
+    await page.click(`${PanelSharedSelectors.title}`);
+    await waitForNoTooltip(page);
   });
 
   it('updates the panel background color', async () => {
     await page.click(`.${PanelSharedCssClassName.icon}`);
-    const colorPaletSelector = `[aria-label="Background color"]`;
-    await page.click(colorPaletSelector);
-    const colorSelector = `[aria-label="The smell"]`;
-    await page.click(colorSelector);
+    await page.click(`${PanelSharedSelectors.colorPalette}`);
+    await page.click(`${PanelSharedSelectors.selectedColor}`);
     await wait(undefined, { interval: 1000 });
+  });
+
+  it('remove emoji icon from custom panel', async () => {
+    await page.click(`.${PanelSharedCssClassName.icon}`);
+    await page.click(`${PanelSharedSelectors.emojiIcon}`);
+    await waitForTooltip(page);
+    const selectedEmoji = `${PanelSharedSelectors.selectedEmoji}`;
+    await page.waitForSelector(selectedEmoji);
+    await page.click(selectedEmoji);
+    await page.waitForSelector(`.${PanelSharedCssClassName.icon}`, {
+      visible: true,
+    });
+    await page.click(`${PanelSharedSelectors.hideEmojiIcon}`);
+    await page.click(`${PanelSharedSelectors.title}`);
+    await waitForNoTooltip(page);
+  });
+
+  it('updates the custom panel and add emoji icon', async () => {
+    await page.click(`.${PanelSharedCssClassName.icon}`);
+    await page.click(`${PanelSharedSelectors.emojiIcon}`);
+    await waitForTooltip(page);
+    const selectedEmoji = `${PanelSharedSelectors.selectedEmoji}`;
+    await page.waitForSelector(selectedEmoji);
+    await page.click(selectedEmoji);
+    await page.waitForSelector(`.${PanelSharedCssClassName.icon}`, {
+      visible: true,
+    });
+    await page.click(`${PanelSharedSelectors.title}`);
+    await waitForNoTooltip(page);
   });
 });

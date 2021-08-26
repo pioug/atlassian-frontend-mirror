@@ -12,17 +12,9 @@ import {
   mountEditor,
 } from '../../__helpers/testing-example-helpers';
 
-/*
- * Safari does not understand webdriver keyboard actions so a
- * number of tests have been skipped until move to snapshots.
- *
- * The remaining skipped tests for IE11/Edge are bugs that should be fixed for those browsers.
- */
-
-// Follow up with browserstack as to why @ is keyed in as 2 on ie
 BrowserTestCase(
   'mention-2.ts: user should see picker if they type "@"',
-  { skip: ['edge'] },
+  {},
   async (client: any) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
@@ -37,7 +29,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'mention-2.ts: text@ should not invoke picker',
-  { skip: ['edge'] },
+  {},
   async (client: any) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
@@ -53,7 +45,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'mention-2.ts: user should be able remove mention on backspace',
-  { skip: ['edge'] },
+  {},
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
@@ -72,7 +64,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'mention-2.ts: @ <space> should not invoke picker',
-  { skip: ['edge'] },
+  {},
   async (client: any) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
@@ -88,7 +80,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'mention-2.ts: user should see space after node',
-  { skip: ['edge'] },
+  {},
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
@@ -104,7 +96,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'mention-2.ts: escape closes picker',
-  { skip: ['edge'] },
+  {},
   async (client: any) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {

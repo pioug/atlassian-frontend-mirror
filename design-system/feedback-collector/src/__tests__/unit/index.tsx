@@ -5,7 +5,6 @@ import { mount, ReactWrapper, shallow, ShallowWrapper } from 'enzyme';
 import { Checkbox } from '@atlaskit/checkbox';
 import { AutoDismissFlag } from '@atlaskit/flag';
 import { Field } from '@atlaskit/form';
-import Modal from '@atlaskit/modal-dialog';
 import Select from '@atlaskit/select';
 
 import FeedbackCollector from '../../components/FeedbackCollector';
@@ -309,7 +308,7 @@ describe('Feedback Collector unit tests', () => {
       const customPreamble = 'Your feedback means a lot to us, thank you.';
       const customCanContact = 'Atlassian can contact me about my feedback';
       const customEnroll = 'Please enroll me in research program';
-      const expectedButtonLabels = ['Submit Button', 'Cancel Button'];
+      const expectedButtonLabels = ['Cancel Button', 'Submit Button'];
 
       beforeEach(() => {
         wrapper = mount(
@@ -361,13 +360,13 @@ describe('Feedback Collector unit tests', () => {
           feedbackGroupLabels: customFieldRecords,
         });
 
-        const { actions } = wrapper.find(Modal).props();
         const { options, defaultValue } = wrapper.find(Select).props();
         const feedbackFormWrapper = wrapper.find(FeedbackForm);
 
-        expect(actions).toBeDefined();
-        actions?.forEach((action, index) => {
-          expect(action.text).toEqual(expectedButtonLabels[index]);
+        expect(wrapper.find('button')).toBeTruthy();
+        expect(wrapper.find('button').length).toBe(2);
+        wrapper.find('button')?.forEach((action, index) => {
+          expect(action.text()).toEqual(expectedButtonLabels[index]);
         });
 
         expect(wrapper.find(Select)).toBeTruthy();

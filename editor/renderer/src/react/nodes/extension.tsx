@@ -23,6 +23,7 @@ export interface Props {
   text?: string;
   parameters?: any;
   layout?: ExtensionLayout;
+  localId?: string;
 }
 
 type AllOrNone<T> = T | { [K in keyof T]?: never };

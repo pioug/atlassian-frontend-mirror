@@ -72,6 +72,8 @@ describe('validate', () => {
           'mention-with-invalid-user-type.json',
           'hardBreak-with-wrong-text.json',
           'mediaSingle-with-caption.json',
+          'mediaInline.json',
+          'mediaInline-with-link-mark.json',
           'media-with-link-mark.json',
           'extension-with-data-consumer-mark.json',
           'bodiedExtension-with-data-consumer-mark.json',

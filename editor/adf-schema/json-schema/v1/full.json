@@ -787,6 +787,95 @@
       ],
       "additionalProperties": false
     },
+    "media_node": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "media"
+          ]
+        },
+        "attrs": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "enum": [
+                    "link",
+                    "file"
+                  ]
+                },
+                "id": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "collection": {
+                  "type": "string"
+                },
+                "height": {
+                  "type": "number"
+                },
+                "width": {
+                  "type": "number"
+                },
+                "occurrenceKey": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "alt": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "type",
+                "id",
+                "collection"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "enum": [
+                    "external"
+                  ]
+                },
+                "url": {
+                  "type": "string"
+                },
+                "alt": {
+                  "type": "string"
+                },
+                "width": {
+                  "type": "number"
+                },
+                "height": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "type",
+                "url"
+              ],
+              "additionalProperties": false
+            }
+          ]
+        },
+        "marks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/link_mark"
+          }
+        }
+      },
+      "required": [
+        "type",
+        "attrs"
+      ],
+      "additionalProperties": false
+    },
     "formatted_text_inline_node": {
       "allOf": [
         {
@@ -994,95 +1083,6 @@
       "required": [
         "type",
         "content"
-      ],
-      "additionalProperties": false
-    },
-    "media_node": {
-      "type": "object",
-      "properties": {
-        "type": {
-          "enum": [
-            "media"
-          ]
-        },
-        "attrs": {
-          "anyOf": [
-            {
-              "type": "object",
-              "properties": {
-                "type": {
-                  "enum": [
-                    "link",
-                    "file"
-                  ]
-                },
-                "id": {
-                  "type": "string",
-                  "minLength": 1
-                },
-                "collection": {
-                  "type": "string"
-                },
-                "height": {
-                  "type": "number"
-                },
-                "width": {
-                  "type": "number"
-                },
-                "occurrenceKey": {
-                  "type": "string",
-                  "minLength": 1
-                },
-                "alt": {
-                  "type": "string"
-                }
-              },
-              "required": [
-                "type",
-                "id",
-                "collection"
-              ],
-              "additionalProperties": false
-            },
-            {
-              "type": "object",
-              "properties": {
-                "type": {
-                  "enum": [
-                    "external"
-                  ]
-                },
-                "url": {
-                  "type": "string"
-                },
-                "alt": {
-                  "type": "string"
-                },
-                "width": {
-                  "type": "number"
-                },
-                "height": {
-                  "type": "number"
-                }
-              },
-              "required": [
-                "type",
-                "url"
-              ],
-              "additionalProperties": false
-            }
-          ]
-        },
-        "marks": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/link_mark"
-          }
-        }
-      },
-      "required": [
-        "type",
-        "attrs"
       ],
       "additionalProperties": false
     },

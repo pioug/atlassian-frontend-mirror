@@ -1,21 +1,32 @@
 /** @jsx jsx */
 import { Fragment } from 'react';
-import { jsx } from '@emotion/core';
 
+import { jsx } from '@emotion/core';
 import AppSwitcherIcon from '@atlaskit/icon/glyph/app-switcher';
+import { token } from '@atlaskit/tokens';
 import Button from '@atlaskit/button';
 
-import { PopupSelect, OptionsType } from '../../src';
+import { PopupSelect } from '../../src';
 
-const options: OptionsType = [
-  { label: 'Adelaide', value: 'adelaide' },
-  { label: 'Brisbane', value: 'brisbane' },
-  { label: 'Canberra', value: 'canberra' },
-  { label: 'Darwin', value: 'darwin' },
-  { label: 'Hobart', value: 'hobart' },
-  { label: 'Melbourne', value: 'melbourne' },
-  { label: 'Perth', value: 'perth' },
-  { label: 'Sydney', value: 'sydney' },
+const options = [
+  {
+    label: 'States',
+    options: [
+      { label: 'Adelaide', value: 'adelaide' },
+      { label: 'Brisbane', value: 'brisbane' },
+      { label: 'Melbourne', value: 'melbourne' },
+      { label: 'Perth', value: 'perth' },
+      { label: 'Sydney', value: 'sydney' },
+      { label: 'Hobart', value: 'hobart' },
+    ],
+  },
+  {
+    label: 'Territories',
+    options: [
+      { label: 'Canberra', value: 'canberra' },
+      { label: 'Darwin', value: 'darwin' },
+    ],
+  },
 ];
 
 const onChange = console.log;
@@ -31,7 +42,7 @@ const PopupSelectExample = () => (
     <div css={{ display: 'flex', justifyContent: 'space-between' }}>
       <PopupSelect
         {...defaults}
-        value={options[2]}
+        value={options[0].options[0]}
         target={({ isOpen, ...triggerProps }) => (
           <Button {...triggerProps} isSelected={isOpen}>
             Target
@@ -61,7 +72,10 @@ const PopupSelectExample = () => (
     <div css={{ display: 'flex' }}>
       <div
         css={{
-          background: 'AliceBlue',
+          background: token(
+            'color.background.subtleNeutral.resting',
+            'AliceBlue',
+          ),
           marginBottom: '1em',
           marginTop: '1em',
           padding: '1em',

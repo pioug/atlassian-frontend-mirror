@@ -22,10 +22,8 @@ const headerStyles = css([
  *
  * @internal
  */
-const EmptyStateHeader: FC = ({ children, ...props }) => (
-  <h4 css={headerStyles} {...props}>
-    {children}
-  </h4>
+const EmptyStateHeader: FC = ({ children }) => (
+  <h4 css={headerStyles}>{children}</h4>
 );
 
 export default EmptyStateHeader;

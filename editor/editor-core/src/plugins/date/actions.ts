@@ -24,16 +24,20 @@ import { isToday } from './utils/internal';
 import { DatePluginState } from './pm-plugins/types';
 import { canInsert } from 'prosemirror-utils';
 
-export const createDate = () => (
+export const createDate = (isQuickInsertAction?: boolean) => (
   insert: (node: Node | Object | string, opts?: any) => Transaction,
   state: EditorState,
 ): Transaction => {
   const dateNode = state.schema.nodes.date.createChecked({
     timestamp: todayTimestampInUTC(),
   });
+  const space = state.schema.text(' ');
 
-  const tr = insert(dateNode, { selectInlineNode: true });
+  const tr = insert(Fragment.from([dateNode, space]), {
+    selectInlineNode: true,
+  });
   const newPluginState: DatePluginState = {
+    isQuickInsertAction,
     showDatePickerAt: tr.selection.from,
     isNew: true,
     isDateEmpty: false,

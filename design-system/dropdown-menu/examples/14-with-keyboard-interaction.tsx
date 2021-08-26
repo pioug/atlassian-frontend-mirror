@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/standard-button';
-import ModalDialog, { ModalTransition } from '@atlaskit/modal-dialog';
+import ModalDialog, {
+  ModalBody,
+  ModalHeader,
+  ModalTitle,
+  ModalTransition,
+} from '@atlaskit/modal-dialog';
 
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../src';
 
@@ -35,14 +40,16 @@ export default () => {
 
       <ModalTransition>
         {isModalOpen && (
-          <ModalDialog
-            testId="dialogBox"
-            heading="Hi there"
-            onClose={() => setModalOpen(false)}
-          >
-            <div style={{ padding: '20px 0' }}>
-              <Button onClick={() => setModalOpen(false)}>Close modal</Button>
-            </div>
+          <ModalDialog testId="dialogBox" onClose={() => setModalOpen(false)}>
+            <ModalHeader>
+              <ModalTitle>Hi there</ModalTitle>
+            </ModalHeader>
+
+            <ModalBody>
+              <div style={{ padding: '20px 0' }}>
+                <Button onClick={() => setModalOpen(false)}>Close modal</Button>
+              </div>
+            </ModalBody>
           </ModalDialog>
         )}
       </ModalTransition>

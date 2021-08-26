@@ -28,15 +28,13 @@ const createConfig = (themeName: string): Config => ({
   transform: {
     'name/custom-dot': {
       type: 'name',
-      transformer: (token) => {
-        return token.path.join('.');
-      },
+      transformer: (token) => token.path.join('.'),
     },
     'color/custom-palette': paletteTransform,
     'box-shadow/custom-figma': boxShadowTransform,
   },
   source: [`./src/tokens/${themeName}/**/*.tsx`],
-  include: ['./src/tokens/palette.tsx'],
+  include: ['./src/tokens/palette.tsx', './src/tokens/default/**/*.tsx'],
   platforms: {
     figma: {
       transforms: ['name/custom-dot', 'color/custom-palette'],
@@ -87,7 +85,7 @@ const createConfig = (themeName: string): Config => ({
 const tokensInputDir = `${__dirname}/../../src/tokens`;
 
 fs.readdirSync(tokensInputDir, { withFileTypes: true })
-  .filter((result) => result.isDirectory())
+  .filter((result) => result.isDirectory() && result.name !== 'default')
   .forEach((theme) => {
     const config = createConfig(theme.name);
     const StyleDictionary = styleDictionary.extend(config);

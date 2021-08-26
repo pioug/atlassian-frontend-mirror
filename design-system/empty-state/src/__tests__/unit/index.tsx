@@ -1,13 +1,14 @@
 import React from 'react';
 
-import { shallow } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/custom-theme-button';
 import Spinner from '@atlaskit/spinner';
 
-import EmptyState, { RenderImageProps } from '../../EmptyState';
+import EmptyState from '../../empty-state';
 import { Description, Image } from '../../styled';
+import type { RenderImageProps } from '../../types';
 
 describe('Empty state', () => {
   it('should render primary action when primaryAction prop is not empty', () => {
@@ -49,12 +50,10 @@ describe('Empty state', () => {
   });
 
   it('should render the image as a presentational element', () => {
-    const wrapper = shallow(
-      <EmptyState header="Test header" imageUrl="test" />,
-    );
+    const wrapper = mount(<EmptyState header="Test header" imageUrl="test" />);
 
-    expect(wrapper.find(Image).props()).toHaveProperty('alt', '');
-    expect(wrapper.find(Image).props()).toHaveProperty('role', 'presentation');
+    expect(wrapper.find('img').props()).toHaveProperty('alt', '');
+    expect(wrapper.find('img').props()).toHaveProperty('role', 'presentation');
   });
 
   it('should render description when description prop is not empty', () => {

@@ -36,6 +36,7 @@ const cssFn: CSSFn = (state) => {
           width: 3,
           transform: 'translateX(-1px)',
           transition: 'transform 70ms ease-in-out',
+          // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
           backgroundColor: B100,
         },
 
@@ -53,6 +54,7 @@ export default () => (
     <CustomItem
       href="/navigation-system"
       component={CustomComponent}
+      // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
       cssFn={cssFn}
     >
       Navigation System
@@ -61,6 +63,7 @@ export default () => (
       href="/navigation-system-1"
       isSelected
       component={CustomComponent}
+      // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
       cssFn={cssFn}
     >
       Navigation System
@@ -69,6 +72,7 @@ export default () => (
       href="/navigation-system-2"
       isDisabled
       component={CustomComponent}
+      // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
       cssFn={cssFn}
     >
       Navigation System
@@ -77,6 +81,7 @@ export default () => (
       href="/navigation-system-3"
       component={CustomComponent}
       iconBefore={<Icon glyph={Slack} label="" />}
+      // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
       cssFn={cssFn}
     >
       Navigation System
@@ -86,6 +91,7 @@ export default () => (
       component={CustomComponent}
       iconBefore={<Icon glyph={Slack} label="" />}
       description="Next-gen software project"
+      // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
       cssFn={cssFn}
     >
       Navigation System

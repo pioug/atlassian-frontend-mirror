@@ -199,15 +199,13 @@ describe('<ConfirmationModal />', () => {
 
     expect(wrapper.find(`section[data-testid="${testId}"]`).length).toEqual(1);
     expect(
-      wrapper
-        .find(`span[data-testid="${testId}-dialog-content-heading"]`)
-        .text(),
+      wrapper.find(`span[data-testid="${testId}--title-text"]`).text(),
     ).toEqual(
       floatingToolbarMessages.confirmModalDefaultHeading.defaultMessage,
     );
-    expect(
-      wrapper.find(`div[data-testid="${testId}-dialog-content--body"]`).text(),
-    ).toEqual('This is the message.');
+    expect(wrapper.find(`div[data-testid="${testId}--body"]`).text()).toEqual(
+      'This is the message.',
+    );
 
     expect(
       wrapper.find(`button[data-testid="${testId}-confirm-button"]`).text(),
@@ -236,13 +234,11 @@ describe('<ConfirmationModal />', () => {
 
     expect(wrapper.find(`section[data-testid="${testId}"]`).length).toEqual(1);
     expect(
-      wrapper
-        .find(`span[data-testid="${testId}-dialog-content-heading"]`)
-        .text(),
+      wrapper.find(`span[data-testid="${testId}--title-text"]`).text(),
     ).toEqual('Oh hello there!');
-    expect(
-      wrapper.find(`div[data-testid="${testId}-dialog-content--body"]`).text(),
-    ).toEqual('This is the message.');
+    expect(wrapper.find(`div[data-testid="${testId}--body"]`).text()).toEqual(
+      'This is the message.',
+    );
 
     expect(
       wrapper.find(`button[data-testid="${testId}-confirm-button"]`).text(),

@@ -22,11 +22,8 @@ import { createAndFireMediaCardEvent } from '../utils/analytics';
 import { attachDetailsToActions } from '../actions';
 import { getErrorMessage } from '../utils/getErrorMessage';
 import { toHumanReadableMediaSize } from '@atlaskit/media-ui';
-import {
-  NewFileExperienceWrapper,
-  CardImageContainer,
-  calcBreakpointSize,
-} from './ui/styled';
+import { NewFileExperienceWrapper } from './ui/styled';
+import { CardImageContainer, calcBreakpointSize } from './ui/styledSSR';
 import { ImageRenderer } from './ui/imageRenderer/imageRenderer';
 import { TitleBox } from './ui/titleBox/titleBox';
 import { FailedTitleBox } from './ui/titleBox/failedTitleBox';
@@ -36,7 +33,7 @@ import { TickBox } from './ui/tickBox/tickBox';
 import { Blanket } from './ui/blanket/styled';
 import { ActionsBar } from './ui/actionsBar/actionsBar';
 import Tooltip from '@atlaskit/tooltip';
-import { Breakpoint } from './ui/common';
+import { Breakpoint } from './ui/Breakpoint';
 import { IconWrapper } from './ui/iconWrapper/styled';
 import { MimeTypeIcon } from '@atlaskit/media-ui/mime-type-icon';
 import SpinnerIcon from '@atlaskit/spinner';
@@ -48,8 +45,7 @@ import {
 } from './ui/iconMessage';
 import { LoadingRateLimited } from './ui/loadingRateLimited/loadingRateLimited';
 import { isRateLimitedError, isPollingError } from '@atlaskit/media-client';
-
-export const newFileExperienceClassName = 'new-file-experience-wrapper';
+import { newFileExperienceClassName } from './card/cardConstants';
 export interface CardViewOwnProps extends SharedCardProps {
   readonly status: CardStatus;
   readonly mediaItemType: MediaItemType;
@@ -72,6 +68,10 @@ export interface CardViewOwnProps extends SharedCardProps {
   // handle the HTML element internally. There is no standard way to do this.
   // Therefore, we restrict the use of refs to callbacks only, not RefObjects.
   readonly innerRef?: (instance: HTMLDivElement | null) => void;
+
+  // Used to disable animation for testing purposes
+  disableAnimation?: boolean;
+  timeElapsedTillCommenced?: number;
 }
 
 export interface CardViewState {
@@ -276,6 +276,7 @@ export class CardViewBase extends React.Component<
       resizeMode,
       onDisplayImage,
       mediaItemType,
+      timeElapsedTillCommenced,
     } = this.props;
 
     return (
@@ -289,6 +290,7 @@ export class CardViewBase extends React.Component<
           resizeMode={resizeMode}
           onDisplayImage={onDisplayImage}
           onImageError={this.onImageLoadError}
+          timeElapsedTillCommenced={timeElapsedTillCommenced}
         />
       )
     );
@@ -345,7 +347,7 @@ export class CardViewBase extends React.Component<
       disableOverlay,
       dataURI,
     } = this.props;
-    const { mediaType, name } = metadata || {};
+    const { name } = metadata || {};
     const shouldUsePointerCursor =
       status !== 'error' && status !== 'failed-processing';
     const shouldDisplayBackground = !dataURI || !disableOverlay;
@@ -367,7 +369,6 @@ export class CardViewBase extends React.Component<
         onClick={onClick}
         onMouseEnter={onMouseEnter}
         innerRef={this.divRef}
-        mediaType={mediaType}
         breakpoint={this.breakpoint}
         shouldUsePointerCursor={shouldUsePointerCursor}
         disableOverlay={!!disableOverlay}
@@ -404,6 +405,7 @@ export class CardViewBase extends React.Component<
       alt,
       onDisplayImage,
       actions,
+      timeElapsedTillCommenced,
     } = this.props;
 
     const { name, mediaType, mimeType, size } = metadata || {};
@@ -432,6 +434,7 @@ export class CardViewBase extends React.Component<
         disableOverlay={disableOverlay}
         previewOrientation={previewOrientation}
         alt={alt}
+        timeElapsedTillCommenced={timeElapsedTillCommenced}
       />
     );
   };
@@ -444,6 +447,7 @@ export class CardViewBase extends React.Component<
       disableOverlay,
       error,
       selectable,
+      disableAnimation,
     } = this.props;
     const { name, mediaType } = metadata || {};
     const { isImageFailedToLoad } = this.state;
@@ -454,8 +458,8 @@ export class CardViewBase extends React.Component<
       renderImageRenderer: !!dataURI && !isImageFailedToLoad,
       renderPlayButton: !!dataURI && mediaType === 'video',
       renderBlanket: !disableOverlay,
-      renderTitleBox: !!name && !isImageFailedToLoad && !disableOverlay,
-      renderFailedTitleBox: !!isImageFailedToLoad,
+      renderTitleBox: !!name && !disableOverlay,
+      renderFailedTitleBox: !!isImageFailedToLoad && !metadata,
       renderTickBox: !disableOverlay && !!selectable,
     };
 
@@ -468,21 +472,28 @@ export class CardViewBase extends React.Component<
           renderProgressBar: true,
         };
       case 'processing':
+      case 'loading-preview':
         return {
           ...defaultConfig,
           iconMessage:
             (isImageFailedToLoad || !dataURI) && !isZeroSize ? (
-              <CreatingPreview />
+              <CreatingPreview disableAnimation={disableAnimation} />
             ) : undefined,
         };
       case 'complete':
         return {
           ...defaultConfig,
+          iconMessage:
+            !!isImageFailedToLoad && !!metadata ? (
+              <PreviewUnavailable />
+            ) : undefined,
         };
       case 'error':
         if (error && isPollingError(error)) {
           return {
             ...defaultConfig,
+            renderTypeIcon: true,
+            renderImageRenderer: false,
             renderTitleBox: !!name,
             renderFailedTitleBox: false,
             iconMessage:
@@ -492,7 +503,7 @@ export class CardViewBase extends React.Component<
           };
         } else if (isRateLimitedError(error) && !disableOverlay) {
           return {
-            renderTypeIcon: !!metadata && (isImageFailedToLoad || !dataURI),
+            renderTypeIcon: !!metadata,
             renderTitleBox: !!metadata,
             iconMessage: !!metadata ? <RateLimited /> : undefined,
             renderLoadingRateLimited: !metadata,
@@ -500,15 +511,19 @@ export class CardViewBase extends React.Component<
         } else {
           return {
             ...defaultConfig,
-            renderTitleBox: defaultConfig.renderTitleBox && !!dataURI,
-            renderFailedTitleBox: !!isImageFailedToLoad || !dataURI,
+            renderTypeIcon: true,
+            renderImageRenderer: false,
+            renderTitleBox: false,
+            renderFailedTitleBox: true,
           };
         }
       case 'failed-processing':
         return {
           ...defaultConfig,
-          renderFailedTitleBox:
-            !!isImageFailedToLoad || (!dataURI && !metadata),
+          renderTypeIcon: true,
+          renderImageRenderer: false,
+          renderTitleBox: !!name && !disableOverlay,
+          renderFailedTitleBox: !metadata,
           iconMessage:
             !!metadata && !isZeroSize ? <PreviewUnavailable /> : undefined,
         };
@@ -559,7 +574,7 @@ export class CardViewBase extends React.Component<
           {renderBlanket && this.renderBlanket(!!isFixedBlanket)}
           {renderTitleBox && this.renderTitleBox()}
           {renderFailedTitleBox && this.renderFailedTitleBox()}
-          {renderProgressBar && this.renderProgressBar(!renderTitleBox)}
+          {renderProgressBar && this.renderProgressBar(!hasTitleBox)}
           {renderLoadingRateLimited && <LoadingRateLimited />}
           {renderTickBox && this.renderTickBox()}
         </CardImageContainer>

@@ -8,6 +8,9 @@ const result = {
   android: false,
   ios: false,
   webkit: false,
+  safari: false,
+  supportsIntersectionObserver: false,
+  supportsResizeObserver: false,
 };
 
 if (typeof navigator !== 'undefined') {
@@ -41,6 +44,25 @@ if (typeof navigator !== 'undefined') {
     !ie &&
     !!document.documentElement &&
     'WebkitAppearance' in document.documentElement.style;
+
+  result.safari = Boolean(
+    navigator.vendor &&
+      navigator.vendor.indexOf('Apple') > -1 &&
+      navigator.userAgent &&
+      navigator.userAgent.indexOf('CriOS') === -1 &&
+      navigator.userAgent.indexOf('FxiOS') === -1,
+  );
+
+  result.supportsIntersectionObserver =
+    typeof window !== 'undefined' &&
+    'IntersectionObserver' in window &&
+    'IntersectionObserverEntry' in window &&
+    'intersectionRatio' in (window as any).IntersectionObserverEntry.prototype;
+
+  result.supportsResizeObserver =
+    typeof window !== 'undefined' &&
+    'ResizeObserver' in window &&
+    'ResizeObserverEntry' in window;
 }
 
 export default result;

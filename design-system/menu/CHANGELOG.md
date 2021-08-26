@@ -1,5 +1,21 @@
 # @atlaskit/menu
 
+## 1.1.0
+
+### Minor Changes
+
+- [`224028babd3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/224028babd3) - Menu now uses the design system and emotion styling techstacks.
+- [`506282a89f2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/506282a89f2) - [ux] Menu items now have their text color set using `currentColor` instead of using colors directly off the palette.
+- [`58832848c98`](https://bitbucket.org/atlassian/atlassian-frontend/commits/58832848c98) - Instrumented menu with the new theming package, `@atlaskit/tokens`.
+
+  New tokens will be visible only in applications configured to use the new Tokens API (currently in alpha).
+  These changes are intended to be interoperable with the legacy theme implementation. Legacy dark mode users should expect no visual or breaking changes.
+
+### Patch Changes
+
+- [`f5a527024d4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f5a527024d4) - Suppress `@atlaskit/design-system/ensure-design-token-usage` token fallback errors.
+- Updated dependencies
+
 ## 1.0.4
 
 ### Patch Changes

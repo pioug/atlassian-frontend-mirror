@@ -71,6 +71,11 @@ export type {
   MediaADFAttrs,
 } from './media';
 export { mediaGroup } from './media-group';
+export { mediaInline } from './media-inline';
+export type {
+  MediaInlineAttributes,
+  MediaInlineDefinition,
+} from './media-inline';
 export type { MediaGroupDefinition } from './media-group';
 export {
   mediaSingle,

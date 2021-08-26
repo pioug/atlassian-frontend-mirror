@@ -3,6 +3,8 @@ export default {
     'featureFlagsContextPlugin',
     'compositionPlugin',
     'inlineCursorTargetPlugin',
+    'typeAhead',
+    'typeAheadInsertItem',
     'focusHandlerPlugin',
     'frozenEditor',
     'submitEditor',

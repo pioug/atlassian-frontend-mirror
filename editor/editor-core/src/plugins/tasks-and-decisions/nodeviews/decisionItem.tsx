@@ -7,6 +7,7 @@ import { EventDispatcher } from '../../../event-dispatcher';
 import { ForwardRef, getPosHandler, ReactNodeView } from '../../../nodeviews';
 import { PortalProviderAPI } from '../../../ui/PortalProvider';
 import DecisionItem from '../ui/Decision';
+import { isTypeAheadOpen } from '../../type-ahead/utils';
 
 class Decision extends ReactNodeView {
   private isContentEmpty(node: PMNode) {
@@ -31,7 +32,9 @@ class Decision extends ReactNodeView {
     return (
       <DecisionItem
         contentRef={forwardRef}
-        showPlaceholder={this.isContentEmpty(this.node)}
+        showPlaceholder={
+          this.isContentEmpty(this.node) && !isTypeAheadOpen(this.view.state)
+        }
       />
     );
   }

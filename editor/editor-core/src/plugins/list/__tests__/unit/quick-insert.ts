@@ -10,8 +10,6 @@ import {
   DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
-import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
-import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { EditorView } from 'prosemirror-view';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
@@ -36,13 +34,15 @@ describe('lists plugin -> quick insert', () => {
 
   describe('Numbered list', () => {
     let editorView: EditorView;
-    let sel: number;
 
-    beforeEach(() => {
-      ({ editorView, sel } = editor(doc(p('{<>}'))));
+    beforeEach(async () => {
+      const { editorView: _editorView, typeAheadTool } = editor(doc(p('{<>}')));
 
-      insertText(editorView, '/Numbered List', sel);
-      sendKeyToPm(editorView, 'Enter');
+      await typeAheadTool
+        .searchQuickInsert('Numbered List')
+        ?.insert({ index: 0 });
+
+      editorView = _editorView;
     });
 
     it('should insert a numbered list', () => {
@@ -64,13 +64,13 @@ describe('lists plugin -> quick insert', () => {
 
   describe('Unordered list', () => {
     let editorView: EditorView;
-    let sel: number;
 
-    beforeEach(() => {
-      ({ editorView, sel } = editor(doc(p('{<>}'))));
+    beforeEach(async () => {
+      const { editorView: _editorView, typeAheadTool } = editor(doc(p('{<>}')));
 
-      insertText(editorView, '/bullet', sel);
-      sendKeyToPm(editorView, 'Enter');
+      await typeAheadTool.searchQuickInsert('bullet')?.insert({ index: 0 });
+
+      editorView = _editorView;
     });
 
     it('should insert an unordered list', () => {

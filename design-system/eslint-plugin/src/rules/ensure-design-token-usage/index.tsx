@@ -16,6 +16,14 @@ import {
   isDecendantOfType,
 } from './utils/is-node';
 
+type PluginConfig = {
+  shouldEnforceFallbacks: boolean;
+};
+
+const defaultConfig: PluginConfig = {
+  shouldEnforceFallbacks: false,
+};
+
 const getNodeColumn = (node: Rule.Node) => {
   if (node.loc) {
     return node.loc.start.column;
@@ -37,15 +45,35 @@ const isTokenValue = (value: string): string | false => {
   return false;
 };
 
+type Suggestion = {
+  shouldReturnSuggestion: boolean;
+} & Rule.SuggestionReportDescriptor;
+
 const getTokenSuggestion = (
   node: Rule.Node,
   reference: string,
-): Rule.SuggestionReportDescriptor[] => [
-  {
-    desc: `Convert to token with fallback`,
-    fix: (fixer) => fixer.replaceText(node, `token('', ${reference})`),
-  },
-];
+  config: PluginConfig,
+): Suggestion[] =>
+  [
+    {
+      shouldReturnSuggestion:
+        !isDecendantOfGlobalToken(node) &&
+        config.shouldEnforceFallbacks === false,
+      desc: `Convert to token`,
+      fix: (fixer: Rule.RuleFixer) => fixer.replaceText(node, `token('')`),
+    },
+    {
+      shouldReturnSuggestion:
+        !isDecendantOfGlobalToken(node) &&
+        config.shouldEnforceFallbacks === true,
+      desc: `Convert to token with fallback`,
+      fix: (fixer: Rule.RuleFixer) =>
+        fixer.replaceText(node, `token('', ${reference})`),
+    },
+  ].filter(filterSuggestion);
+
+const filterSuggestion = ({ shouldReturnSuggestion }: Suggestion) =>
+  shouldReturnSuggestion;
 
 const rule: Rule.RuleModule = {
   meta: {
@@ -83,16 +111,30 @@ token('color.background.blanket');
 `,
       invalidToken: 'The token "{{name}}" does not exist.',
       tokenRenamed: 'The token "{{name}}" has been renamed.',
+      tokenFallbackEnforced: `Token function requires a fallback, preferably something that best matches the light/default theme in case tokens aren't present.
+
+\`\`\`
+token('color.background.blanket', N500A);
+\`\`\`
+      `,
+      tokenFallbackRestricted: `Token function must not use a fallback.
+
+\`\`\`
+token('color.background.blanket');
+\`\`\`
+      `,
     },
   },
   create(context) {
+    const config: PluginConfig = context.options[0] || defaultConfig;
+
     return {
       'TemplateLiteral > Identifier': (node: Rule.Node) => {
         if (node.type === 'Identifier' && isLegacyNamedColor(node.name)) {
           context.report({
             messageId: 'hardCodedColor',
             node,
-            suggest: getTokenSuggestion(node, node.name),
+            suggest: getTokenSuggestion(node, node.name, config),
           });
           return;
         }
@@ -107,7 +149,7 @@ token('color.background.blanket');
           context.report({
             messageId: 'hardCodedColor',
             node,
-            suggest: getTokenSuggestion(node, node.name),
+            suggest: getTokenSuggestion(node, node.name, config),
           });
           return;
         }
@@ -189,7 +231,7 @@ ${' '.repeat(getNodeColumn(node) - 2)}box-shadow: \${token('${
           context.report({
             messageId: 'hardCodedColor',
             node,
-            suggest: getTokenSuggestion(node, `'${node.value}'`),
+            suggest: getTokenSuggestion(node, `'${node.value}'`, config),
           });
           return;
         }
@@ -232,13 +274,41 @@ ${' '.repeat(getNodeColumn(node) - 2)}box-shadow: \${token('${
         context.report({
           messageId: 'hardCodedColor',
           node,
-          suggest: getTokenSuggestion(node, `${node.callee.name}()`),
+          suggest: getTokenSuggestion(node, `${node.callee.name}()`, config),
         });
       },
 
       'CallExpression[callee.name="token"]': (node: Rule.Node) => {
         if (node.type !== 'CallExpression') {
           return;
+        }
+
+        if (
+          node.arguments.length < 2 &&
+          config.shouldEnforceFallbacks === true
+        ) {
+          context.report({
+            messageId: 'tokenFallbackEnforced',
+            node,
+          });
+        } else if (
+          node.arguments.length > 1 &&
+          config.shouldEnforceFallbacks === false
+        ) {
+          if (node.arguments[0].type === 'Literal') {
+            const { value } = node.arguments[0];
+            context.report({
+              messageId: 'tokenFallbackRestricted',
+              node: node.arguments[1],
+              fix: (fixer: Rule.RuleFixer) =>
+                fixer.replaceText(node, `token('${value}')`),
+            });
+          } else {
+            context.report({
+              messageId: 'tokenFallbackRestricted',
+              node: node.arguments[1],
+            });
+          }
         }
 
         if (node.arguments[0] && node.arguments[0].type !== 'Literal') {

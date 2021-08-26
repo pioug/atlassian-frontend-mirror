@@ -1,5 +1,12 @@
 # @atlaskit/progress-tracker
 
+## 8.0.3
+
+### Patch Changes
+
+- [`b90c0237824`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b90c0237824) - Update package.jsons to remove unused dependencies.
+- Updated dependencies
+
 ## 8.0.2
 
 ### Patch Changes

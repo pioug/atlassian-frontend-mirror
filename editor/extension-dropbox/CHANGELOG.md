@@ -1,5 +1,12 @@
 # @atlaskit/editor-extension-dropbox
 
+## 0.2.20
+
+### Patch Changes
+
+- [`56129bdfc79`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56129bdfc79) - Upgrade to the latest version of @atlaskit/modal-dialog.
+- Updated dependencies
+
 ## 0.2.19
 
 ### Patch Changes

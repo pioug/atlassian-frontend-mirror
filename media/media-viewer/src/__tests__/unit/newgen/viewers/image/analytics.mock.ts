@@ -8,7 +8,7 @@ const mockInteractiveImg = {
   InteractiveImg,
 };
 jest.mock(
-  '../../../../../newgen/viewers/image/interactive-img',
+  '../../../../../viewers/image/interactive-img',
   () => mockInteractiveImg,
 );
 

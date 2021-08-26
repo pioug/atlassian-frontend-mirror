@@ -13,7 +13,8 @@ import { ExperimentalEventPayload } from './experimental-events';
 import { FindReplaceEventPayload } from './find-replace-events';
 import { ConfigPanelEventPayload } from './config-panel-events';
 import { ElementBrowserEventPayload } from './element-browser-events';
-import { OperationalAEP } from './utils';
+import { TypeAheadPayload } from './type-ahead';
+import { OperationalAEP, TrackAEP } from './utils';
 import {
   ACTION,
   ACTION_SUBJECT,
@@ -59,8 +60,20 @@ export type AnalyticsEventPayload<T = void> =
   | UnsupportedContentPayload
   | ExtensionEventPayload
   | TransactionEventPayload
+  | TypeAheadPayload
   | UnlinkToolbarAEP
-  | EditLinkToolbarAEP;
+  | EditLinkToolbarAEP
+  | CustomPanelEventPayload;
+
+type CustomPanelEventPayload = TrackAEP<
+  ACTION.CHANGED_BACKGROUND_COLOR | ACTION.CHANGED_ICON | ACTION.REMOVE_ICON,
+  ACTION_SUBJECT.PANEL,
+  ACTION_SUBJECT_ID.PANEL,
+  | { previousColor: string; newColor: string }
+  | { previousIcon: string; newIcon: string }
+  | { icon: string },
+  undefined
+>;
 
 export type AnalyticsEventPayloadWithChannel = {
   channel: string;

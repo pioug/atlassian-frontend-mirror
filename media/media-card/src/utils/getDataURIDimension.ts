@@ -1,9 +1,10 @@
 import { isRetina } from './isRetina';
-import { CardDimensions } from '..';
+import { CardDimensions } from './cardDimensions';
 import { ElementDimension, getElementDimension } from './getElementDimension';
 import { defaultImageCardDimensions } from './cardDimensions';
 import { isValidPercentageUnit } from './isValidPercentageUnit';
 import { containsPixelUnit } from './containsPixelUnit';
+import { NumericalCardDimensions } from '@atlaskit/media-common';
 
 export type getDataURIDimensionOptions = {
   element?: Element | null;
@@ -31,4 +32,15 @@ export const getDataURIDimension = (
   }
 
   return defaultImageCardDimensions[dimension] * retinaFactor;
+};
+
+export const getRequestedDimensions = (
+  options: getDataURIDimensionOptions,
+): NumericalCardDimensions => {
+  const width = getDataURIDimension('width', options);
+  const height = getDataURIDimension('height', options);
+  return {
+    width,
+    height,
+  };
 };

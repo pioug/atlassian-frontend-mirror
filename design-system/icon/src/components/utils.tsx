@@ -1,11 +1,10 @@
 import type { ThemeModes } from '@atlaskit/theme/types';
+import { token } from '@atlaskit/tokens';
 
-// These are duplicates of colors imports -
-// Not bringing in colors to reduce dependency on theme
-// These values are enforced via unit tests
-const DN30 = '#1B2638';
-const N0 = '#FFFFFF';
-const themedBackground = { light: N0, dark: DN30 } as const;
+const themedBackground = {
+  light: token('color.background.default', '#FFFFFF'),
+  dark: token('color.background.default', '#1B2638'),
+} as const;
 
 /**
  * Returns the background color depending on the passed through mode.

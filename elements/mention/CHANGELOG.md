@@ -1,5 +1,15 @@
 # @atlaskit/mention
 
+## 19.7.0
+
+### Minor Changes
+
+- [`71bb1bb3cd0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/71bb1bb3cd0) - [ED-12933] Export min height mentions to improve rendering performance on editor typeahead
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 19.6.4
 
 ### Patch Changes

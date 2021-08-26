@@ -7,6 +7,7 @@ export interface CollabParticipant {
   avatar: string;
   name: string;
   email: string;
+  cursorPos?: number;
 }
 
 export interface CollabEventInitData {

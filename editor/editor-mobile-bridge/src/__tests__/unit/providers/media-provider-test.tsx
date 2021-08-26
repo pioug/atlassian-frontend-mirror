@@ -30,6 +30,7 @@ import {
   MediaClient,
   ProcessedFileState,
   FileState,
+  isFileIdentifier,
 } from '@atlaskit/media-client';
 import uuid from 'uuid/v4';
 import {
@@ -40,6 +41,12 @@ import {
 } from '@atlaskit/media-test-helpers';
 import { INPUT_METHOD } from '@atlaskit/editor-core';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
+
+// Quick patch for isFileIdentifier
+// TODO: please, don't mock the full @atlaskit/media-client package
+asMock(isFileIdentifier).mockImplementation(
+  jest.requireActual('@atlaskit/media-client').isFileIdentifier,
+);
 
 let testFileId: string;
 

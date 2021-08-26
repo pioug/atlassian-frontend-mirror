@@ -1,5 +1,20 @@
 # @atlaskit/select
 
+## 15.2.0
+
+### Minor Changes
+
+- [`f7cbc6631cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f7cbc6631cf) - Instrumented select with the new theming package, `@atlaskit/tokens`.
+
+  New tokens will be visible only in applications configured to use the new Tokens API (currently in alpha).
+
+  These changes are intended to be interoperable with the legacy theme implementation. Legacy dark mode users should expect no visual or breaking changes.
+
+### Patch Changes
+
+- [`3fc13e11952`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3fc13e11952) - Fix input text colour when using tokens
+- Updated dependencies
+
 ## 15.1.0
 
 ### Minor Changes

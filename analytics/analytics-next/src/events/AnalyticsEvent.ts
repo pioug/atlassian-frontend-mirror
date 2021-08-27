@@ -10,8 +10,15 @@ export type AnalyticsEventProps = {
   payload: AnalyticsEventPayload;
 };
 
+export const isAnalyticsEvent = (obj: any) =>
+  obj instanceof AnalyticsEvent ||
+  !!obj?._isAnalyticsEvent ||
+  // Backwards compatibility with older analytics-next packages
+  obj?.constructor?.name === 'AnalyticsEvent';
+
 export default class AnalyticsEvent {
   payload: AnalyticsEventPayload;
+  _isAnalyticsEvent: boolean = true;
 
   constructor(props: AnalyticsEventProps) {
     this.payload = props.payload;

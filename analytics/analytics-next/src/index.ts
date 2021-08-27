@@ -1,12 +1,18 @@
 export type { CreateUIAnalyticsEvent } from './types';
 
 // Analytics event classes
-export { default as AnalyticsEvent } from './events/AnalyticsEvent';
+export {
+  default as AnalyticsEvent,
+  isAnalyticsEvent,
+} from './events/AnalyticsEvent';
 export type {
   AnalyticsEventPayload,
   AnalyticsEventProps,
 } from './events/AnalyticsEvent';
-export { default as UIAnalyticsEvent } from './events/UIAnalyticsEvent';
+export {
+  default as UIAnalyticsEvent,
+  isUIAnalyticsEvent,
+} from './events/UIAnalyticsEvent';
 export type {
   UIAnalyticsEventProps,
   UIAnalyticsEventHandler,

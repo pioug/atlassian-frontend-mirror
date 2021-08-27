@@ -1,5 +1,11 @@
 # @atlaskit/analytics-next
 
+## 8.3.0
+
+### Minor Changes
+
+- [`37fd554209e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/37fd554209e) - Add instance checks for analytics events in analytics-next. Update check in mpt-analytics for events too.
+
 ## 8.2.1
 
 ### Patch Changes

@@ -16,10 +16,17 @@ export type UIAnalyticsEventProps = AnalyticsEventProps & {
   handlers?: UIAnalyticsEventHandler[];
 };
 
+export const isUIAnalyticsEvent = (obj: any) =>
+  obj instanceof UIAnalyticsEvent ||
+  !!obj?._isUIAnalyticsEvent ||
+  // Backwards compatibility with older analytics-next packages
+  obj?.constructor?.name === 'UIAnalyticsEvent';
+
 export default class UIAnalyticsEvent extends AnalyticsEvent {
   context: Context;
   handlers: UIAnalyticsEventHandler[];
   hasFired: boolean;
+  _isUIAnalyticsEvent: boolean = true;
 
   constructor(props: UIAnalyticsEventProps) {
     super(props);

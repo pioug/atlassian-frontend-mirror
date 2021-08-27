@@ -1,4 +1,4 @@
-import AnalyticsEvent from '../../AnalyticsEvent';
+import AnalyticsEvent, { isAnalyticsEvent } from '../../AnalyticsEvent';
 
 it('should be constructed with both action and payload args', () => {
   const analyticsEvent = new AnalyticsEvent({
@@ -71,4 +71,19 @@ it('payload can be updated with a function', () => {
     d: { b: 'c', f: 'g' },
     action: 'e',
   });
+});
+
+test('AnalyticsEvent instance should be identified as an AnalyticsEvent', () => {
+  const analyticsEvent = new AnalyticsEvent({
+    payload: { a: 'b' },
+  });
+  expect(isAnalyticsEvent(analyticsEvent)).toBe(true);
+});
+
+test('isAnalyticsEvent should return false for other types of objects', () => {
+  expect(isAnalyticsEvent(undefined)).toBe(false);
+  expect(isAnalyticsEvent(null)).toBe(false);
+  expect(isAnalyticsEvent({})).toBe(false);
+  expect(isAnalyticsEvent('asdf')).toBe(false);
+  expect(isAnalyticsEvent(1)).toBe(false);
 });

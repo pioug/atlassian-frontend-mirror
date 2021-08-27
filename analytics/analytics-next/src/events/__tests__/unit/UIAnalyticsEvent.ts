@@ -1,4 +1,5 @@
 import {
+  isUIAnalyticsEvent,
   default as UIAnalyticsEvent,
   UIAnalyticsEventHandler,
   UIAnalyticsEventProps,
@@ -157,4 +158,19 @@ it('method calls do not work after being fired', () => {
 
   analyticsEvent.fire();
   expect(consoleHandler).toHaveBeenCalledTimes(1);
+});
+
+test('UIAnalyticsEvent instance should be identified as a UIAnalyticsEvent', () => {
+  const analyticsEvent = new UIAnalyticsEvent({
+    payload: { a: 'c' },
+  });
+  expect(isUIAnalyticsEvent(analyticsEvent)).toBe(true);
+});
+
+test('isUIAnalyticsEvent should return false for other types of objects/values', () => {
+  expect(isUIAnalyticsEvent(undefined)).toBe(false);
+  expect(isUIAnalyticsEvent(null)).toBe(false);
+  expect(isUIAnalyticsEvent({})).toBe(false);
+  expect(isUIAnalyticsEvent('asdf')).toBe(false);
+  expect(isUIAnalyticsEvent(1)).toBe(false);
 });

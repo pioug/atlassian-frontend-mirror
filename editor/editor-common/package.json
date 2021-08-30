@@ -81,7 +81,7 @@
     "@atlaskit/editor-json-transformer": "^8.6.0",
     "@atlaskit/editor-test-helpers": "^15.4.0",
     "@atlaskit/media-core": "^32.2.0",
-    "@atlaskit/util-data-test": "^15.0.0",
+    "@atlaskit/util-data-test": "^16.0.0",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",

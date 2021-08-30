@@ -7,7 +7,14 @@ import { createContentId } from '../static';
 import { createClassName } from '../styles/util';
 import { fontFamily, fontSize, lineHeight, fontWeight } from '../styles/common';
 
-type PanelType = 'info' | 'note' | 'tip' | 'success' | 'warning' | 'error';
+type PanelType =
+  | 'info'
+  | 'note'
+  | 'tip'
+  | 'success'
+  | 'warning'
+  | 'error'
+  | 'custom';
 
 export const className = createClassName('panel');
 
@@ -69,6 +76,9 @@ export const styles = `
 }
 .${className}-type-error {
     background: ${R50};
+}
+.${className}-type-custom {
+  background: ${B50};
 }
 `;
 

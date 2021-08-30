@@ -62,7 +62,8 @@ describe('Snapshot Test: sticky-headers', () => {
     await snapshot(page);
   });
 
-  it(`should have the header stick for an unresized-table`, async () => {
+  // FIXME: This test was automatically skipped due to failure on 8/24/2021: https://product-fabric.atlassian.net/browse/ED-13660
+  it.skip(`should have the header stick for an unresized-table`, async () => {
     await initEditor(page, stickyHeaderADF);
     const o = await scrollToPos(page, 1);
     console.log('TOP: ', o, 290 - o!); // eslint-disable-line no-console

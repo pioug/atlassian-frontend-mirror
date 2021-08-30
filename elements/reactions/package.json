@@ -51,7 +51,7 @@
     "@atlaskit/editor-test-helpers": "^15.4.0",
     "@atlaskit/elements-test-helpers": "^0.7.0",
     "@atlaskit/tooltip": "^17.3.0",
-    "@atlaskit/util-data-test": "^15.0.0",
+    "@atlaskit/util-data-test": "^16.0.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.15.1",

@@ -1,5 +1,11 @@
 # @atlaskit/util-data-test
 
+## 16.0.0
+
+### Major Changes
+
+- [`57808770e17`](https://bitbucket.org/atlassian/atlassian-frontend/commits/57808770e17) - CETI-31 Add the predefined Panel Icons to the emoji Picker
+
 ## 15.0.1
 
 ### Patch Changes

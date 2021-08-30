@@ -1,5 +1,11 @@
 # @atlaskit/email-renderer
 
+## 6.3.0
+
+### Minor Changes
+
+- [`5510b4794db`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5510b4794db) - CETI-4 Email renderer now renders the panel of type custom which is defaulted to info panel.
+
 ## 6.2.5
 
 ### Patch Changes

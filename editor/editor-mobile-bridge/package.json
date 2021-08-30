@@ -78,7 +78,7 @@
     "@atlaskit/select": "^15.2.0",
     "@atlaskit/textarea": "^4.2.0",
     "@atlaskit/textfield": "^5.1.0",
-    "@atlaskit/util-data-test": "^15.0.0",
+    "@atlaskit/util-data-test": "^16.0.0",
     "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@testing-library/react": "^8.0.1",

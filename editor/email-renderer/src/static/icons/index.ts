@@ -8,6 +8,7 @@ export { tip } from './tip';
 export { success } from './success';
 export { warning } from './warning';
 export { error } from './error';
+export { custom } from './custom';
 export { decision } from './decision';
 export { taskItemChecked } from './taskItemChecked';
 export { taskItemUnchecked } from './taskItemUnchecked';
@@ -25,6 +26,7 @@ export enum IconName {
   success = 'success',
   warning = 'warning',
   error = 'error',
+  custom = 'custom',
   decision = 'decision',
   taskItemChecked = 'taskItemChecked',
   taskItemUnchecked = 'taskItemUnchecked',
@@ -43,6 +45,7 @@ export type IconString =
   | 'success'
   | 'warning'
   | 'error'
+  | 'custom'
   | 'decision'
   | 'taskItemChecked'
   | 'taskItemUnchecked'

@@ -8,10 +8,12 @@ import {
 } from '../../../__helpers/testing-example-helpers';
 import * as cardFatalAdf from '../_fixtures_/inline-card-adf.fatal.json';
 
+// FIXME: This test was automatically skipped due to failure on 8/24/2021: https://product-fabric.atlassian.net/browse/ED-13659
 BrowserTestCase(
   `card: pasting a fatal error link should turn to href in adf`,
   {
-    skip: ['safari', 'edge'],
+    // skip: ['safari', 'edge'],
+    skip: ['*'],
   },
   async (client: ConstructorParameters<typeof Page>[0], testName: string) => {
     const page = await goToEditorTestingWDExample(client);

@@ -33,6 +33,11 @@ export default [
     input: 'error',
     exportSize: '48:48',
   },
+  {
+    name: 'custom',
+    input: 'info',
+    exportSize: '48:48',
+  },
 
   // decision
   {

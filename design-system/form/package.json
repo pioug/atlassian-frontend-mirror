@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/form",
-  "version": "8.3.0",
+  "version": "8.3.1",
   "description": "Form package provides layout & validation for form fields",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -27,7 +27,7 @@
   "dependencies": {
     "@atlaskit/icon": "^21.8.0",
     "@atlaskit/theme": "^11.5.0",
-    "@atlaskit/tokens": "^0.1.0",
+    "@atlaskit/tokens": "^0.2.0",
     "@babel/runtime": "^7.0.0",
     "final-form": "^4.20.1",
     "final-form-focus": "^1.1.2",

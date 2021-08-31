@@ -11,10 +11,11 @@ import DateTimePickerDisableComplex from '../../examples/constellation/datetime-
 import DateTimePickerLocale from '../../examples/constellation/datetime-picker-locale';
 import DateTimePickerWeekStartDay from '../../examples/constellation/datetime-picker-week-start-day';
 import DateTimePickerFormatting from '../../examples/constellation/datetime-picker-formatting';
+import DateTimePickerFormAccessible from '../../examples/constellation/datetime-picker-form-accessible';
 
 ## Default
 
-By default, selecting the date field opens the calendar view. The current date text is bold, underlined, and highlighted blue. 
+By default, selecting the date field opens the calendar view. The current date text is bold, underlined, and highlighted blue.
 
 The time field is used to select a time from the [select](/components/select) menu.
 
@@ -22,7 +23,7 @@ The time field is used to select a time from the [select](/components/select) me
 
 ## Form
 
-Date time picker used with the [form](https://atlaskit.atlassian.com/packages/design-system/form) component includes a field label and helper text. 
+Date time picker used with the [form](https://atlaskit.atlassian.com/packages/design-system/form) component includes a field label and helper text.
 
 <Example Component={DateTimePickerForm} packageName="@atlaskit/datetime-picker" />
 
@@ -32,7 +33,7 @@ This is how date time picker behaves within [forms](https://atlaskit.atlassian.c
 
 Validation displays an error message related to the restrictions of the date time picker.
 
-When a user selects the date time picker area, the focus color changes to blue. When validating date time pickers in real-time, message icons switch based on the message type. 
+When a user selects the date time picker area, the focus color changes to blue. When validating date time pickers in real-time, message icons switch based on the message type.
 
 For example, helper text becomes an error message when the input content doesn't meet the criteria. Error and warning messages disappear when the criteria is met.
 
@@ -42,13 +43,13 @@ Keep helper text as short as possible. For complex information, provide a link t
 
 ## Disabled dates
 
-If a certain date is not a valid selection, you may disable it in the calendar shown to users. This does not restrict the dates that a user may type, so validation is necessary. 
+If a certain date is not a valid selection, you may disable it in the calendar shown to users. This does not restrict the dates that a user may type, so validation is necessary.
 
 ### Specific dates
 
 Use `disabled` to disable individual dates.
 
-<Example Component={DateTimePickerDisable} packageName="@atlaskit/datetime-picker" /> 
+<Example Component={DateTimePickerDisable} packageName="@atlaskit/datetime-picker" />
 
 ### Date ranges
 
@@ -87,8 +88,16 @@ Use `weekStartDay` to adjust which day of the week is shown first in the calenda
 Date time picker supports customizing the format of dates and times. Formats are given as strings and use the syntax specified at Modern JavaScript Date Utility Library.
 
 - `dateFormat` determines how dates are formatted.
-- `timeFormat` determined how times are formatted. 
+- `timeFormat` determined how times are formatted.
 
-Where possible use `locale` for date and time formatting, instead of a custom format. Date and time formats should be informed by the user’s locale and the use case. 
+Where possible use `locale` for date and time formatting, instead of a custom format. Date and time formats should be informed by the user’s locale and the use case.
 
 <Example Component={DateTimePickerFormatting} packageName="@atlaskit/datetime-picker" />
+
+## Accessibility
+
+Date time picker supports label attributes for users with assistive technologies.
+
+Use `datePickerSelectProps` and `timePickerSelectProps` to pass the `aria-label` prop. This is what the screen reader will read for date and time picker components.
+
+<Example Component={DateTimePickerFormAccessible} packageName="@atlaskit/datetime-picker" />

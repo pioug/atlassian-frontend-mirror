@@ -20,6 +20,10 @@ export default {
   'fabric.elements.share.form.comment.placeholder': 'Üzenet hozzáadása',
   'fabric.elements.share.form.info.message.direct.invite':
     'A hozzáféréssel nem rendelkező személyek csatlakozási meghívót fognak kapni',
+  'fabric.elements.share.form.info.message.no.invite.confluence':
+    'A címzettek látják az oldal nevét és az üzenetedet',
+  'fabric.elements.share.form.info.message.no.invite.jira':
+    'A címzettek látják az ügy nevét és az üzenetedet',
   'fabric.elements.share.form.info.message.pending.invite':
     'A meghívódat a rendszer elküldi egy adminisztrátornak jóváhagyásra',
   'fabric.elements.share.form.public.send': 'Publikus link küldése',

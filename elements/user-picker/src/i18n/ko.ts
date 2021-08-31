@@ -7,6 +7,8 @@
 // Korean
 export default {
   'fabric.elements.user-picker.email.add': '사용자 추가',
+  'fabric.elements.user-picker.email.add.potential': '이메일 주소 입력',
+  'fabric.elements.user-picker.email.select.to.add': '이메일 주소 선택',
   'fabric.elements.user-picker.external.sourced.from': '찾은 위치:',
   'fabric.elements.user-picker.github.provider': 'GitHub',
   'fabric.elements.user-picker.google.provider': 'Google',

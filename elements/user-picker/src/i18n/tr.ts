@@ -7,6 +7,8 @@
 // Turkish
 export default {
   'fabric.elements.user-picker.email.add': 'Kullanıcı ekleyin',
+  'fabric.elements.user-picker.email.add.potential': 'Bir e-posta adresi girin',
+  'fabric.elements.user-picker.email.select.to.add': 'Bir e-posta adresi seçin',
   'fabric.elements.user-picker.external.sourced.from': 'Bulunduğu yer:',
   'fabric.elements.user-picker.github.provider': 'GitHub',
   'fabric.elements.user-picker.google.provider': 'Google',

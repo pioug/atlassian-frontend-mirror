@@ -7,6 +7,10 @@
 // Russian
 export default {
   'fabric.elements.user-picker.email.add': 'Добавить пользователя',
+  'fabric.elements.user-picker.email.add.potential':
+    'Введите адрес электронной почты',
+  'fabric.elements.user-picker.email.select.to.add':
+    'Выберите адрес электронной почты',
   'fabric.elements.user-picker.external.sourced.from': 'Найден в:',
   'fabric.elements.user-picker.github.provider': 'GitHub',
   'fabric.elements.user-picker.google.provider': 'Google',

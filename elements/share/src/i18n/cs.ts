@@ -21,6 +21,10 @@ export default {
   'fabric.elements.share.form.comment.placeholder': 'Přidat zprávu',
   'fabric.elements.share.form.info.message.direct.invite':
     'Lidem, kteří nemají přístup, bude poslána pozvánka',
+  'fabric.elements.share.form.info.message.no.invite.confluence':
+    'Příjemci uvidí název stránky a vaši zprávu.',
+  'fabric.elements.share.form.info.message.no.invite.jira':
+    'Příjemci uvidí název požadavku a vaši zprávu.',
   'fabric.elements.share.form.info.message.pending.invite':
     'Svou pozvánku musíte poslat administrátorovi ke schválení',
   'fabric.elements.share.form.public.send': 'Odeslat veřejný odkaz',

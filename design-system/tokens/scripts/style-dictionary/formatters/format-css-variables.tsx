@@ -1,16 +1,19 @@
 import type { DesignToken, Format } from 'style-dictionary';
 
-import { customPropertyValue } from './utils/custom-property';
+import {
+  ALLOWED_THEMES,
+  DEFAULT_THEME,
+  LONG_SHORT_MAPPING,
+} from '../constants';
 
-const ALLOWED_THEMES = ['light', 'dark'];
-const DEFAULT_THEME = 'light';
+import { customPropertyValue } from './utils/custom-property';
 
 const formatter: Format['formatter'] = ({ dictionary, options }) => {
   if (!options.themeName) {
     throw new Error('options.themeName required');
   }
 
-  const themeMode = options.themeName.split('-')[1];
+  const themeMode = LONG_SHORT_MAPPING[options.themeName];
   const tokens: DesignToken[] = [];
 
   if (!ALLOWED_THEMES.includes(themeMode)) {

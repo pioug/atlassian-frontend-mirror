@@ -7,6 +7,10 @@
 // Spanish
 export default {
   'fabric.elements.user-picker.email.add': 'Añadir usuario',
+  'fabric.elements.user-picker.email.add.potential':
+    'Indica una dirección de correo electrónico',
+  'fabric.elements.user-picker.email.select.to.add':
+    'Selecciona una dirección de correo electrónico',
   'fabric.elements.user-picker.external.sourced.from': 'Encontrado en:',
   'fabric.elements.user-picker.github.provider': 'GitHub',
   'fabric.elements.user-picker.google.provider': 'Google',

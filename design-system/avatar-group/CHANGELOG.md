@@ -1,5 +1,11 @@
 # @atlaskit/avatar-group
 
+## 8.5.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.5.0
 
 ### Minor Changes

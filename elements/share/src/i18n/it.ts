@@ -21,6 +21,10 @@ export default {
   'fabric.elements.share.form.comment.placeholder': 'Aggiungi un messaggio',
   'fabric.elements.share.form.info.message.direct.invite':
     'Le persone senza accesso riceveranno un invito a partecipare',
+  'fabric.elements.share.form.info.message.no.invite.confluence':
+    'I destinatari vedranno il nome della pagina e il tuo messaggio',
+  'fabric.elements.share.form.info.message.no.invite.jira':
+    'I destinatari vedranno il nome del ticket e il tuo messaggio',
   'fabric.elements.share.form.info.message.pending.invite':
     'Il tuo invito verrà mandato a un amministratore per l’approvazione',
   'fabric.elements.share.form.public.send': 'Invia link pubblico',

@@ -21,6 +21,10 @@ export default {
   'fabric.elements.share.form.comment.placeholder': 'Voeg een bericht toe',
   'fabric.elements.share.form.info.message.direct.invite':
     'Mensen zonder toegang ontvangen een uitnodiging om deel te nemen',
+  'fabric.elements.share.form.info.message.no.invite.confluence':
+    'Ontvangers zien de naam van de pagina en je bericht',
+  'fabric.elements.share.form.info.message.no.invite.jira':
+    'Ontvangers zien de naam van de issue en je bericht',
   'fabric.elements.share.form.info.message.pending.invite':
     'Je uitnodiging wordt naar een beheerder gestuurd ter goedkeuring',
   'fabric.elements.share.form.public.send': 'Openbare link verzenden',

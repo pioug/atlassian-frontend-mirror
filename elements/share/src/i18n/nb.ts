@@ -21,6 +21,10 @@ export default {
   'fabric.elements.share.form.comment.placeholder': 'Legg til en melding',
   'fabric.elements.share.form.info.message.direct.invite':
     'De som ikke har tilgang vil motta en invitasjon til å bli med',
+  'fabric.elements.share.form.info.message.no.invite.confluence':
+    'Mottakerne vil se navnet på siden og meldingen',
+  'fabric.elements.share.form.info.message.no.invite.jira':
+    'Mottakerne vil se navnet på saken og meldingen',
   'fabric.elements.share.form.info.message.pending.invite':
     'Invitasjonen vil bli sendt til en administrator for godkjenning',
   'fabric.elements.share.form.public.send':

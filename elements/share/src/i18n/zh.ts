@@ -17,6 +17,10 @@ export default {
   'fabric.elements.share.form.comment.placeholder': '添加消息',
   'fabric.elements.share.form.info.message.direct.invite':
     '将向没有访问权限的人发送加入邀请',
+  'fabric.elements.share.form.info.message.no.invite.confluence':
+    '收件人将看到页面名称和您的消息',
+  'fabric.elements.share.form.info.message.no.invite.jira':
+    '收件人将看到事务名称和您的消息',
   'fabric.elements.share.form.info.message.pending.invite':
     '您的邀请将发送到管理员处进行审批',
   'fabric.elements.share.form.public.send': '发送公共链接',

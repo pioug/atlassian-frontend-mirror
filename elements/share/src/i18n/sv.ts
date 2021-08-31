@@ -20,6 +20,10 @@ export default {
   'fabric.elements.share.form.comment.placeholder': 'Lägg till ett meddelande',
   'fabric.elements.share.form.info.message.direct.invite':
     'Personer utan åtkomst kommer att få en inbjudan om att gå med',
+  'fabric.elements.share.form.info.message.no.invite.confluence':
+    'Mottagare ser namnet på sidan och ditt meddelande',
+  'fabric.elements.share.form.info.message.no.invite.jira':
+    'Mottagare ser namnet på ärendet och ditt meddelande',
   'fabric.elements.share.form.info.message.pending.invite':
     'Din inbjudan kommer att skickas till en administratör för godkännande',
   'fabric.elements.share.form.public.send': 'Skicka offentlig länk',

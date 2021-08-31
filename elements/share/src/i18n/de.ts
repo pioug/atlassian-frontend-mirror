@@ -22,6 +22,10 @@ export default {
   'fabric.elements.share.form.comment.placeholder': 'Nachricht hinzufügen',
   'fabric.elements.share.form.info.message.direct.invite':
     'Personen ohne Zugangsrechte erhalten eine Einladung, um beizutreten.',
+  'fabric.elements.share.form.info.message.no.invite.confluence':
+    'Empfänger sehen den Namen der Seite und Ihre Nachricht',
+  'fabric.elements.share.form.info.message.no.invite.jira':
+    'Empfänger sehen den Namen des Vorgangs und Ihre Nachricht',
   'fabric.elements.share.form.info.message.pending.invite':
     'Ihre Einladung wird zur Genehmigung an einen Administrator gesendet.',
   'fabric.elements.share.form.public.send': 'Öffentlichen Link senden',

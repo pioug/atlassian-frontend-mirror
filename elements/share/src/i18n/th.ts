@@ -20,6 +20,10 @@ export default {
   'fabric.elements.share.form.comment.placeholder': 'เพิ่มข้อความ',
   'fabric.elements.share.form.info.message.direct.invite':
     'คำเชิญจะส่งไปยังผู้ที่ไม่มีสิทธิ์การเข้าถึงให้เข้าร่วม',
+  'fabric.elements.share.form.info.message.no.invite.confluence':
+    'ผู้รับจะเห็นชื่อของหน้าข้อมูลและข้อความของคุณ',
+  'fabric.elements.share.form.info.message.no.invite.jira':
+    'ผู้รับจะเห็นชื่อของปัญหาและข้อความของคุณ',
   'fabric.elements.share.form.info.message.pending.invite':
     'คำเชิญของคุณได้ส่งไปยังผู้ดูแลระบบเพื่อรอการอนุมัติ',
   'fabric.elements.share.form.public.send': 'ส่งลิงก์สาธารณะ',

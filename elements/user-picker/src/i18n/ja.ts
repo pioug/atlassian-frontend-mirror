@@ -7,6 +7,8 @@
 // Japanese
 export default {
   'fabric.elements.user-picker.email.add': 'ユーザーを追加',
+  'fabric.elements.user-picker.email.add.potential': 'メール アドレスを入力',
+  'fabric.elements.user-picker.email.select.to.add': 'メール アドレスを選択',
   'fabric.elements.user-picker.external.sourced.from': 'ユーザーのソース元: ',
   'fabric.elements.user-picker.github.provider': 'GitHub',
   'fabric.elements.user-picker.google.provider': 'Google',

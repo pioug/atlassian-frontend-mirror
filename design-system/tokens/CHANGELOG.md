@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 0.2.0
+
+### Minor Changes
+
+- [`18b502b7083`](https://bitbucket.org/atlassian/atlassian-frontend/commits/18b502b7083) - Added a new export, token-default-values, which maps token names to their value in the default theme (currently the "atlassian-light" theme).
+
 ## 0.1.1
 
 ### Patch Changes

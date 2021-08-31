@@ -20,6 +20,10 @@ export default {
   'fabric.elements.share.form.comment.placeholder': 'TIlføj en meddelelse',
   'fabric.elements.share.form.info.message.direct.invite':
     'Folk uden adgang får tilsendt en invitation til at deltage',
+  'fabric.elements.share.form.info.message.no.invite.confluence':
+    'Modtagere vil se navnet på siden og din besked',
+  'fabric.elements.share.form.info.message.no.invite.jira':
+    'Modtagere vil se navnet på sagen og din meddelelse',
   'fabric.elements.share.form.info.message.pending.invite':
     'Din invitation sendes til godkendelse hos en administrator',
   'fabric.elements.share.form.public.send': 'Send offentligt link',

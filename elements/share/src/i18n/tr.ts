@@ -22,6 +22,10 @@ export default {
   'fabric.elements.share.form.comment.placeholder': 'Mesaj ekleyin',
   'fabric.elements.share.form.info.message.direct.invite':
     'Erişimi olmayan kişilere katılmaları için davet gönderilecek',
+  'fabric.elements.share.form.info.message.no.invite.confluence':
+    'Alıcılar sayfanın adını ve mesajınızı görür',
+  'fabric.elements.share.form.info.message.no.invite.jira':
+    'Alıcılar konunun adını ve mesajınızı görür',
   'fabric.elements.share.form.info.message.pending.invite':
     'Davetiniz, onaylaması için bir yöneticiye gönderilecek',
   'fabric.elements.share.form.public.send': 'Herkese açık bağlantıyı gönderin',

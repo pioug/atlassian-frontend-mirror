@@ -19,6 +19,10 @@ export default {
   'fabric.elements.share.form.comment.placeholder': '메시지 추가',
   'fabric.elements.share.form.info.message.direct.invite':
     '액세스 권한이 없는 사용자는 가입 초대를 받습니다.',
+  'fabric.elements.share.form.info.message.no.invite.confluence':
+    '수신자가 페이지 이름과 메시지를 볼 수 있습니다',
+  'fabric.elements.share.form.info.message.no.invite.jira':
+    '수신자가 이슈 이름과 메시지를 볼 수 있습니다',
   'fabric.elements.share.form.info.message.pending.invite':
     '승인을 위해 초대를 관리자에게 보낼 것입니다.',
   'fabric.elements.share.form.public.send': '공개 링크 보내기',

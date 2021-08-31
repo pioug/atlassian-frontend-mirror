@@ -22,6 +22,10 @@ export default {
   'fabric.elements.share.form.comment.placeholder': 'Введите сообщение',
   'fabric.elements.share.form.info.message.direct.invite':
     'Пользователям без доступа будет отправлено приглашение присоединиться',
+  'fabric.elements.share.form.info.message.no.invite.confluence':
+    'Получатели увидят имя страницы и ваше сообщение',
+  'fabric.elements.share.form.info.message.no.invite.jira':
+    'Получатели увидят имя задачи и ваше сообщение',
   'fabric.elements.share.form.info.message.pending.invite':
     'Приглашение будет отправлено на рассмотрение администратору',
   'fabric.elements.share.form.public.send': 'Отправить публичную ссылку',

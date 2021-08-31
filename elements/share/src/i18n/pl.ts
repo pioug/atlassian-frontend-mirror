@@ -20,6 +20,10 @@ export default {
   'fabric.elements.share.form.comment.placeholder': 'Dodaj wiadomość',
   'fabric.elements.share.form.info.message.direct.invite':
     'Osoby bez dostępu otrzymają zaproszenie do dołączenia',
+  'fabric.elements.share.form.info.message.no.invite.confluence':
+    'Odbiorcy zobaczą nazwę strony i Twój komunikat',
+  'fabric.elements.share.form.info.message.no.invite.jira':
+    'Odbiorcy zobaczą nazwę zgłoszenia i Twój komunikat',
   'fabric.elements.share.form.info.message.pending.invite':
     'Twoje zaproszenie zostanie wysłane do administratora w celu zatwierdzenia',
   'fabric.elements.share.form.public.send': 'Wyślij łącze publiczne',

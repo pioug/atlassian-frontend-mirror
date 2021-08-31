@@ -21,6 +21,10 @@ export default {
   'fabric.elements.share.form.comment.placeholder': 'Thêm thông báo',
   'fabric.elements.share.form.info.message.direct.invite':
     'Người chưa có quyền truy cập sẽ được gửi lời mời tham gia',
+  'fabric.elements.share.form.info.message.no.invite.confluence':
+    'Người nhận sẽ thấy tên trang và tin nhắn của bạn',
+  'fabric.elements.share.form.info.message.no.invite.jira':
+    'Người nhận sẽ thấy tên sự cố và tin nhắn của bạn',
   'fabric.elements.share.form.info.message.pending.invite':
     'Lời mời của bạn sẽ được gửi tới quản trị viên để được phê duyệt',
   'fabric.elements.share.form.public.send': 'Gửi liên kết công khai',

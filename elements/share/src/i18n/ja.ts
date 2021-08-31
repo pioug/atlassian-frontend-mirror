@@ -20,6 +20,10 @@ export default {
   'fabric.elements.share.form.comment.placeholder': 'メッセージを追加',
   'fabric.elements.share.form.info.message.direct.invite':
     'アクセス権限のないユーザーには参加用の招待が送信されます',
+  'fabric.elements.share.form.info.message.no.invite.confluence':
+    '受信者にページの名前とメッセージが表示されます',
+  'fabric.elements.share.form.info.message.no.invite.jira':
+    '受信者に課題の名前とメッセージが表示されます',
   'fabric.elements.share.form.info.message.pending.invite':
     '招待は、承認のため管理者に送信されます',
   'fabric.elements.share.form.public.send': '公開リンクを送信',

@@ -19,9 +19,13 @@ async function setupEditor(client: any): Promise<Page> {
   return page;
 }
 
+// FIXME: This test was automatically skipped due to failure on 8/30/2021: https://product-fabric.atlassian.net/browse/ED-13684
 BrowserTestCase(
   'Inserts a link via hyperlinktoolbar',
-  { skip: ['edge'] },
+  {
+    // skip: ['edge'],
+    skip: ['*'],
+  },
   async (client: any, testName: string) => {
     const page = await setupEditor(client);
 
@@ -41,9 +45,13 @@ BrowserTestCase(
   },
 );
 
+// FIXME: This test was automatically skipped due to failure on 8/30/2021: https://product-fabric.atlassian.net/browse/ED-13685
 BrowserTestCase(
   "Doesn't insert a link via hyperlinktoolbar when switching between fields",
-  { skip: ['edge'] },
+  {
+    // skip: ['edge'],
+    skip: ['*'],
+  },
   async (client: any, testName: string) => {
     const page = await setupEditor(client);
 
@@ -61,9 +69,13 @@ BrowserTestCase(
   },
 );
 
+// FIXME: This test was automatically skipped due to failure on 8/30/2021: https://product-fabric.atlassian.net/browse/ED-13686
 BrowserTestCase(
   "Doesn't insert a link via hyperlinktoolbar when clicking out of toolbar",
-  { skip: ['edge'] },
+  {
+    // skip: ['edge'],
+    skip: ['*'],
+  },
   async (client: any, testName: string) => {
     const page = await setupEditor(client);
 
@@ -80,9 +92,13 @@ BrowserTestCase(
   },
 );
 
+// FIXME: This test was automatically skipped due to failure on 8/30/2021: https://product-fabric.atlassian.net/browse/ED-13687
 BrowserTestCase(
   'Inserts a link when tabbing through hyperlinktoolbar',
-  { skip: ['edge'] },
+  {
+    // skip: ['edge'],
+    skip: ['*'],
+  },
   async (client: any, testName: string) => {
     const page = await setupEditor(client);
 

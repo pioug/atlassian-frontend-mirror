@@ -8,28 +8,27 @@ import { ssr } from '@atlaskit/ssr';
 
 declare var global: any;
 
-const mockConsoleListener = jest
-  .spyOn(global.console, 'error')
-  .mockImplementation(() => {});
+jest.spyOn(global.console, 'error').mockImplementation(() => {});
 
 afterEach(() => {
   jest.resetAllMocks();
 });
 
-// https://product-fabric.atlassian.net/browse/DSP-1740
-test.skip('should ssr then hydrate breadcrumbs correctly', async () => {
-  const [example] = await getExamplesFor('breadcrumbs');
-  const Example = require(example.filePath).default; // eslint-disable-line import/no-dynamic-require
+test('should ssr then hydrate breadcrumbs correctly', async () => {
+  const [example] = await getExamplesFor('@atlaskit/breadcrumbs');
+  const SSRExample = require(example.filePath).default; // eslint-disable-line import/no-dynamic-require
 
   const elem = document.createElement('div');
   elem.innerHTML = await ssr(example.filePath);
 
-  ReactDOM.hydrate(<Example />, elem);
+  ReactDOM.hydrate(<SSRExample />, elem);
+
   await waitForExpect(() => {
     // ignore warnings caused by emotion's server-side rendering approach
+    // @ts-ignore
     // eslint-disable-next-line no-console
-    const mockCalls = mockConsoleListener.mock.calls.filter(
-      ([f, s]) =>
+    const mockCalls = console.error.mock.calls.filter(
+      ([f, s]: [any, any]) =>
         !(
           f ===
             'Warning: Did not expect server HTML to contain a <%s> in <%s>.' &&

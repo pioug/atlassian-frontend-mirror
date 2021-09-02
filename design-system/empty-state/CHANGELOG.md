@@ -1,5 +1,11 @@
 # @atlaskit/empty-state
 
+## 7.2.1
+
+### Patch Changes
+
+- [`7465c0f0e1d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7465c0f0e1d) - Fix to account for the size/width fallback behaviour. Previously if a user provided a value for the the `width` property it would always be ignored, this is no longer the case.
+
 ## 7.2.0
 
 ### Minor Changes

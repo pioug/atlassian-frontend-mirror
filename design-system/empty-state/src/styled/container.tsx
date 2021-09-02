@@ -35,8 +35,13 @@ const narrowContainerStyles = css({
  *
  * @internal
  */
-const Container: FC<{ width: Width }> = ({ children, width }) => (
+const Container: FC<{ testId?: string; width: Width }> = ({
+  children,
+  width,
+  testId,
+}) => (
   <div
+    data-testid={testId}
     css={[
       containerStyles,
       width === 'narrow' ? narrowContainerStyles : wideContainerStyles,

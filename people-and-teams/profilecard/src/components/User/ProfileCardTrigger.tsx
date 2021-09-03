@@ -3,19 +3,19 @@ import React from 'react';
 import Popup from '@atlaskit/popup';
 import { layers } from '@atlaskit/theme/constants';
 
-import filterActions from '../internal/filterActions';
-import { CardWrapper } from '../styled/Card';
+import filterActions from '../../internal/filterActions';
+import { CardWrapper } from '../../styled/Card';
 import {
   ProfileCardAction,
   ProfileCardClientData,
   ProfilecardProps,
   ProfileCardTriggerProps,
   ProfileCardTriggerState,
-} from '../types';
+} from '../../types';
+import { DELAY_MS_HIDE, DELAY_MS_SHOW } from '../../util/config';
 
-import { DELAY_MS_HIDE, DELAY_MS_SHOW } from './config';
-import LoadingState from './LoadingState';
 import Profilecard from './ProfileCard';
+import UserLoadingState from './UserLoadingState';
 
 class ProfilecardTrigger extends React.PureComponent<
   ProfileCardTriggerProps,
@@ -196,7 +196,7 @@ class ProfilecardTrigger extends React.PureComponent<
     if (isLoading === true || isLoading === undefined) {
       return (
         <CardWrapper>
-          <LoadingState />
+          <UserLoadingState />
         </CardWrapper>
       );
     } else {

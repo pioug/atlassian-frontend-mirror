@@ -1,4 +1,4 @@
-import UserProfileCardClient from '../src/api/UserProfileCardClient';
+import UserProfileCardClient from '../src/client/UserProfileCardClient';
 import { ClientOverrides, ProfileClientOptions } from '../src/types';
 
 import profiles from './profile-data';

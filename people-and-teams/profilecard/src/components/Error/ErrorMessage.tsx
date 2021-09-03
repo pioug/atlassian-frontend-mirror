@@ -3,8 +3,8 @@ import React from 'react';
 import AkButton from '@atlaskit/button/custom-theme-button';
 import IconError from '@atlaskit/icon/glyph/cross-circle';
 
-import { ErrorText, ErrorTitle, ErrorWrapper } from '../styled/Error';
-import { ProfileCardErrorType } from '../types';
+import { ErrorText, ErrorTitle, ErrorWrapper } from '../../styled/Error';
+import { ProfileCardErrorType } from '../../types';
 
 type Props = {
   reload?: () => void | undefined;

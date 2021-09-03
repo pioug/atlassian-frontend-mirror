@@ -21,11 +21,11 @@
     }
   },
   "af:exports": {
-    "./client": "./src/api/index.ts",
+    "./client": "./src/client/index.ts",
     "./messages": "./src/messages.ts",
-    "./team": "./src/components/team.ts",
+    "./team": "./src/components/Team/index.ts",
     "./types": "./src/types.ts",
-    "./user": "./src/components/user.ts",
+    "./user": "./src/components/User/index.ts",
     ".": "./src/index.ts"
   },
   "scripts": {

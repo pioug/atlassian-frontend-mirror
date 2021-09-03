@@ -7,9 +7,9 @@ import Select, { ValueType } from '@atlaskit/select';
 import { gridSize } from '@atlaskit/theme/constants';
 
 import teamData from '../mock-helpers/team-data';
-import ProfileCardClient from '../src/api/ProfileCardClient';
-import TeamProfileCardClient from '../src/api/TeamProfileCardClient';
-import TeamProfilecardTrigger from '../src/components/TeamProfileCardTrigger';
+import ProfileCardClient from '../src/client/ProfileCardClient';
+import TeamProfileCardClient from '../src/client/TeamProfileCardClient';
+import TeamProfilecardTrigger from '../src/components/Team';
 import { Team } from '../src/types';
 
 import { Radios, TeamCustomizer } from './helper/customization';

@@ -5,8 +5,8 @@ import styled from 'styled-components';
 import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 import teamData from '../mock-helpers/team-data';
-import ProfileCardClient from '../src/api/ProfileCardClient';
-import TeamProfilecardTrigger from '../src/components/TeamProfileCardTrigger';
+import ProfileCardClient from '../src/client/ProfileCardClient';
+import TeamProfilecardTrigger from '../src/components/Team';
 import { Team } from '../src/types';
 
 import { Radios, TeamCustomizer } from './helper/customization';

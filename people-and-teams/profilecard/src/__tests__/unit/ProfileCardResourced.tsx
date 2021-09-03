@@ -2,9 +2,9 @@ import React from 'react';
 
 import { shallow } from 'enzyme';
 
-import ProfileClient from '../../api/ProfileCardClient';
-import ErrorMessage from '../../components/ErrorMessage';
-import ProfileCardResourced from '../../components/ProfileCardResourced';
+import ProfileClient from '../../client/ProfileCardClient';
+import { ErrorMessage } from '../../components/Error';
+import { ProfileCardResourced } from '../../components/User';
 import { AnalyticsName } from '../../internal/analytics';
 
 const clientUrl = 'https://foo/';

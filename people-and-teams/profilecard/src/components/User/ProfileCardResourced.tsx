@@ -1,17 +1,17 @@
 import React from 'react';
 
-import { AnalyticsName } from '../internal/analytics';
-import filterActions from '../internal/filterActions';
-import { CardWrapper } from '../styled/Card';
+import { AnalyticsName } from '../../internal/analytics';
+import filterActions from '../../internal/filterActions';
+import { CardWrapper } from '../../styled/Card';
 import {
   ProfileCardAction,
   ProfileCardResourcedProps,
   ProfileCardResourcedState,
-} from '../types';
+} from '../../types';
+import { ErrorMessage } from '../Error';
 
-import ErrorMessage from './ErrorMessage';
-import LoadingState from './LoadingState';
 import ProfileCard from './ProfileCard';
+import UserLoadingState from './UserLoadingState';
 
 export default class ProfileCardResourced extends React.PureComponent<
   ProfileCardResourcedProps,
@@ -136,7 +136,7 @@ export default class ProfileCardResourced extends React.PureComponent<
     if (isFetchingOrNotStartToFetchYet) {
       return (
         <CardWrapper>
-          <LoadingState />
+          <UserLoadingState />
         </CardWrapper>
       );
     } else if (hasError) {

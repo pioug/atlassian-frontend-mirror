@@ -52,7 +52,7 @@ const profileClient = new ProfileClient({
   ${(
     <Props
       heading="ProfileCardTrigger Props"
-      props={require('!!extract-react-types-loader!../src/components/ProfileCardTrigger')}
+      props={require('!!extract-react-types-loader!../src/components/User/ProfileCardTrigger')}
     />
   )}
 

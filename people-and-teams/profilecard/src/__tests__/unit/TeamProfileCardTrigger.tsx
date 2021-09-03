@@ -4,8 +4,8 @@ import { act, createEvent, fireEvent, render } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
 import { getMockTeamClient } from '../../../examples/helper/util';
-import ProfileClient from '../../../src/api/ProfileCardClient';
-import { TeamProfileCardTriggerInternal as TeamProfileCardTrigger } from '../../components/TeamProfileCardTrigger';
+import ProfileClient from '../../../src/client/ProfileCardClient';
+import { TeamProfileCardTriggerInternal as TeamProfileCardTrigger } from '../../components/Team/TeamProfileCardTrigger';
 import { teamCardTriggered, teamRequestAnalytics } from '../../util/analytics';
 
 const createAnalyticsEvent = jest.fn((body) => {

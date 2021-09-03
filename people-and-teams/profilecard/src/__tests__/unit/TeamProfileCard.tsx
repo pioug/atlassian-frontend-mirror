@@ -3,7 +3,7 @@ import React from 'react';
 import { act, createEvent, fireEvent, render } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
-import TeamProfileCard from '../../components/TeamProfileCard';
+import TeamProfileCard from '../../components/Team/TeamProfileCard';
 import {
   errorRetryClicked,
   moreActionsClicked,

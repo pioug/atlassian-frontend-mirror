@@ -4,8 +4,8 @@ import fetchMock from 'fetch-mock/cjs/client';
 // @ts-ignore
 import * as sinon from 'sinon';
 
-import ProfileClient from '../../api/ProfileCardClient';
-import { modifyResponse } from '../../api/UserProfileCardClient';
+import ProfileClient from '../../client/ProfileCardClient';
+import { modifyResponse } from '../../client/UserProfileCardClient';
 import { ApiClientResponse } from '../../types';
 
 const clientUrl = 'https://foo/';

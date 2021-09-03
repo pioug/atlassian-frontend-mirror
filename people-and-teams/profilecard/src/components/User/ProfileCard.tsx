@@ -8,9 +8,9 @@ import Lozenge from '@atlaskit/lozenge';
 import Spinner from '@atlaskit/spinner';
 import { N0 } from '@atlaskit/theme/colors';
 
-import { AnalyticsName } from '../internal/analytics';
-import relativeDate from '../internal/relative-date';
-import messages from '../messages';
+import { AnalyticsName } from '../../internal/analytics';
+import relativeDate from '../../internal/relative-date';
+import messages from '../../messages';
 import {
   ActionButtonGroup,
   ActionsFlexSpacer,
@@ -26,12 +26,11 @@ import {
   LozengeWrapper,
   ProfileImage,
   SpinnerContainer,
-} from '../styled/Card';
-import { LozengeProps, ProfilecardProps } from '../types';
-import { isBasicClick } from '../util/click';
-
-import ErrorMessage from './ErrorMessage';
-import IconLabel from './IconLabel';
+} from '../../styled/Card';
+import { LozengeProps, ProfilecardProps } from '../../types';
+import { isBasicClick } from '../../util/click';
+import { ErrorMessage } from '../Error';
+import { IconLabel } from '../Icon';
 
 export default class Profilecard extends React.PureComponent<ProfilecardProps> {
   static defaultProps: ProfilecardProps = {

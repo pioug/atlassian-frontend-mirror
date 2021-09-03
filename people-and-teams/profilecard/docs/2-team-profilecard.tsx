@@ -68,7 +68,7 @@ const profileClient = new ProfileClient({
   ${(
     <Props
       heading="TeamProfileCardTrigger Props..."
-      props={require('!!extract-react-types-loader!../src/components/TeamProfileCardTrigger')}
+      props={require('!!extract-react-types-loader!../src/components/Team/TeamProfileCardTrigger')}
     />
   )}
 

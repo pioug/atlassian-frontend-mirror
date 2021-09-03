@@ -9,7 +9,7 @@ import {
   DetailsLabel,
   DetailsLabelIcon,
   DetailsLabelText,
-} from '../styled/Card';
+} from '../../styled/Card';
 
 const icons = {
   location: IconLocation,

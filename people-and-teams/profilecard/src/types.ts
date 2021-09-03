@@ -2,8 +2,8 @@ import React from 'react';
 
 import { IntlShape } from 'react-intl';
 
-import TeamProfileCardClient from './api/TeamProfileCardClient';
-import UserProfileCardClient from './api/UserProfileCardClient';
+import TeamProfileCardClient from './client/TeamProfileCardClient';
+import UserProfileCardClient from './client/UserProfileCardClient';
 
 export interface ApiClientResponse {
   User: {

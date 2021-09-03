@@ -1,4 +1,4 @@
-import TeamProfileCardClient from '../src/api/TeamProfileCardClient';
+import TeamProfileCardClient from '../src/client/TeamProfileCardClient';
 import { Team } from '../src/types';
 
 export default function getMockTeamClient(data: {

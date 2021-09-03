@@ -11,8 +11,12 @@ import { LinkItem, MenuGroup } from '@atlaskit/menu';
 import Popup from '@atlaskit/popup';
 import { layers } from '@atlaskit/theme/constants';
 
-import messages from '../messages';
-import { ErrorWrapper, TeamErrorText, TeamErrorTitle } from '../styled/Error';
+import messages from '../../messages';
+import {
+  ErrorWrapper,
+  TeamErrorText,
+  TeamErrorTitle,
+} from '../../styled/Error';
 import {
   ActionButtons,
   AvatarSection,
@@ -25,13 +29,13 @@ import {
   MoreButton,
   TeamName,
   WrappedButton,
-} from '../styled/TeamCard';
+} from '../../styled/TeamCard';
 import type {
   AnalyticsFunction,
   ProfileCardAction,
   Team,
   TeamProfilecardProps,
-} from '../types';
+} from '../../types';
 import {
   errorRetryClicked,
   moreActionsClicked,
@@ -39,10 +43,10 @@ import {
   teamActionClicked,
   teamAvatarClicked,
   teamProfileCardRendered,
-} from '../util/analytics';
-import { isBasicClick } from '../util/click';
+} from '../../util/analytics';
+import { isBasicClick } from '../../util/click';
+import { ErrorIllustration } from '../Error';
 
-import { ErrorIllustration } from './ErrorIllustration';
 import TeamLoadingState from './TeamLoadingState';
 
 interface TeamMembers {

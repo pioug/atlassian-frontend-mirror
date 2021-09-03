@@ -4,7 +4,7 @@ import sample from 'lodash/sample';
 import styled from 'styled-components';
 
 import teamData from '../mock-helpers/team-data';
-import TeamProfileCard from '../src/components/TeamProfileCard';
+import TeamProfileCard from '../src/components/Team/TeamProfileCard';
 
 import { Radios, TeamCustomizer } from './helper/customization';
 import LocaleIntlProvider from './helper/locale-intl-provider';

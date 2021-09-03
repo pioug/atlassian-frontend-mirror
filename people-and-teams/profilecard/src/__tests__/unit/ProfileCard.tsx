@@ -4,7 +4,7 @@ import { mount, shallow } from 'enzyme';
 
 import Button from '@atlaskit/button/custom-theme-button';
 
-import ErrorMessage from '../../components/ErrorMessage';
+import { ErrorMessage } from '../../components/Error';
 import ProfileCardResourced, { ProfileCard, ProfileClient } from '../../index';
 import {
   ActionButtonGroup,

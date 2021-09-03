@@ -2,12 +2,12 @@ import React from 'react';
 
 import AkSpinner from '@atlaskit/spinner';
 
-import { SpinnerContainer } from '../styled/Card';
+import { SpinnerContainer } from '../../styled/Card';
 
-const LoadingState = () => (
+const UserLoadingState = () => (
   <SpinnerContainer>
     <AkSpinner />
   </SpinnerContainer>
 );
 
-export default LoadingState;
+export default UserLoadingState;

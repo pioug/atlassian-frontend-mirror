@@ -8,7 +8,7 @@ import Popup from '@atlaskit/popup';
 import { TriggerProps } from '@atlaskit/popup/types';
 import { layers } from '@atlaskit/theme/constants';
 
-import filterActions from '../internal/filterActions';
+import filterActions from '../../internal/filterActions';
 import type {
   AnalyticsFromDuration,
   ProfileCardAction,
@@ -16,17 +16,17 @@ import type {
   TeamProfilecardProps,
   TeamProfileCardTriggerProps,
   TeamProfileCardTriggerState,
-} from '../types';
+} from '../../types';
 import {
   firePeopleTeamsEvent,
   teamCardTriggered,
   teamProfileCardRendered,
-} from '../util/analytics';
-import { isBasicClick } from '../util/click';
-import { getPageTime } from '../util/performance';
+} from '../../util/analytics';
+import { isBasicClick } from '../../util/click';
+import { DELAY_MS_HIDE, DELAY_MS_SHOW } from '../../util/config';
+import { getPageTime } from '../../util/performance';
+import { ErrorBoundary } from '../Error';
 
-import { DELAY_MS_HIDE, DELAY_MS_SHOW } from './config';
-import ErrorBoundary from './ErrorBoundary';
 import { TeamProfileCardLazy } from './lazyTeamProfileCard';
 import TeamLoadingState from './TeamLoadingState';
 

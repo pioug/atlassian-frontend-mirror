@@ -7,9 +7,9 @@ import {
   CardHeader,
   CardWrapper,
   LoadingWrapper,
-} from '../styled/TeamCard';
-import { AnalyticsFunction } from '../types';
-import { teamProfileCardRendered } from '../util/analytics';
+} from '../../styled/TeamCard';
+import { AnalyticsFunction } from '../../types';
+import { teamProfileCardRendered } from '../../util/analytics';
 
 export default (props: { analytics: AnalyticsFunction }) => {
   const { analytics } = props;

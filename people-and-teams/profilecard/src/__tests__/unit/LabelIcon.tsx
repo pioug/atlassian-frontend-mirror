@@ -2,7 +2,7 @@ import React from 'react';
 
 import { mount, shallow } from 'enzyme';
 
-import IconLabel from '../../components/IconLabel';
+import { IconLabel } from '../../components/Icon';
 import { DetailsLabelIcon, DetailsLabelText } from '../../styled/Card';
 
 describe('Profilecard', () => {

@@ -2,6 +2,7 @@
 export type ProductId =
   | 'bitbucket'
   | 'confluence'
+  | 'jira'
   | 'jira-core'
   | 'jira-servicedesk'
   | 'jira-software'

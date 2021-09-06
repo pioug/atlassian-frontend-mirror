@@ -1,7 +1,7 @@
 {
   "name": "@atlaskit/empty-state",
   "version": "7.2.1",
-  "description": "A React component used for presenting various empty states (no items, empty search, broken link, welcome screen etc.)",
+  "description": "An empty state appears when there is no data to display and describes what the user can do next.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },

@@ -1,0 +1,114 @@
+---
+order: 2
+---
+
+import DoDont from '@atlaskit/gatsby-theme-brisk/src/components/do-dont';
+import illustrationDoImage from './images/illustration-do.png';
+import illustrationDontImage from './images/illustration-dont.png';
+import ctaDoImage from './images/cta-do.png';
+import ctaDontImage from './images/cta-dont.png';
+
+## Usage
+
+Empty states show when there is nothing to display in a view, for example, when a board has no tasks, someone clears their inbox, or a search returns no results. 
+
+An empty state can appear as a full screen message or within panels, tables, and other containers.
+Empty states are often a chance to celebrate, educate, and inform people of what they can do next.
+
+## Anatomy
+
+![Empty state anatomy](images/empty-state-anatomy.png)
+
+1. **Illustration**: A spot illustration that relates to the message literally or as a metaphor (see illustration best practices below).
+1. **Header**: A title that provides a concise description of the current state.
+1. **Message**: A short message describing the reason for the state and what to do next. See content guidelines below for details.
+1. **Actions**: Next steps or a way to dismiss the message. Can be a primary button (blue), secondary button (grey), or link-styled button (tertiary).
+
+## Behavior
+
+This component has two width options for containers of different sizes:
+
+- The default width, `wide`, is 464px. This is based on six columns in the cozy [grid system](/foundations/grid/). 
+- The `narrow` size shrinks the text width to 304px. That's four columns in the cozy [grid system](/foundations/grid/). Consider this for empty states in containers smaller than the default width. 
+
+The only required part of the empty state component is the heading, which uses h600 heading type. If this doesn't fit your case, you may have to consider another component or custom design. See the [grid](/foundations/grid/) and [typography](/foundations/typography/) foundations for more guidelines.
+
+## Best practices
+
+- Include an action or link to help the user recover and find what to do next. 
+- Consider all scenarios that could cause the empty state to occur. 
+  - The first time someone views an empty board (blank slate) might call for an inspirational, motivating, or educational tone. 
+  - An empty state that appears when a user finishes all their tasks could have a more celebratory tone and illustration.
+  - A general no-result state (such as no search results) might be more neutral, but still motivate by showing next steps.
+
+<DoDont
+  type="do"
+  image={{
+    url: ctaDoImage,
+    alt: `An empty state that combines the message "you don't have access to this issue" with a spot illustration of a lock`
+  }}
+>
+  Include a relevant call to action for a possible next step.
+</DoDont>
+
+<DoDont
+  type="dont"
+  image={{
+    url: ctaDontImage,
+    alt: 'An empty state with an image that looks squished in with other elements in a UI'
+  }}
+>
+  Include too many call to action buttons on one page.
+</DoDont>
+
+### Illustrations
+
+- This component is optimized for [spot illustrations](/resources/illustration-library/spot/). Don’t resize spot heroes or other larger illustrations to fit a smaller space.
+- Make sure the image is relevant to the current task and context. Some spot images are designed specifically for empty states. 
+  - If there isn’t a relevant illustration in the library, internal Atlassians can request one through the [illustration request process](http://go/custom-illustration).
+- Choose an image that has a neutral or humorous tone (never negative).
+- Illustrations are optional. Consider leaving out the illustration if there are other visuals that might be competing on one screen, or if the space is too small for a spot illustration.
+
+<DoDont
+  type="do"
+  image={{
+    url: illustrationDoImage,
+    alt: `An empty state that combines the message "you don't have access to this issue" with a spot illustration of a lock`
+  }}
+>
+  Use a relevant spot illustration (optional).
+</DoDont>
+
+<DoDont
+  type="dont"
+  image={{
+    url: illustrationDontImage,
+    alt: 'An empty state with an image that looks squished in with other elements in a UI'
+  }}
+>
+  Resize illustrations to fit.
+</DoDont>
+
+## Content guidelines
+
+- Always use sentence case for titles and headings.
+- Try to limit the number of words in the message as much as possible. Remember that most people scan text instead of reading everything. 
+- Keep call to action (CTA) buttons short, and use imperative verbs such as **Try**, **Remove**, or **Create** to describe what action people can take next.
+- Be mindful of how many CTAs might appear on one page.
+- See all writing guidelines on [empty state CTAs](/content/writing-guidelines/empty-state/#call-to-action-cta).
+- Empty states are often an opportunity to teach or give more information, especially if it’s the first time a user see’s a screen. Avoid sending people to another location for more information, but if it can't be avoided, use a **Learn more** link (see the tertiary action prop for implementation details).
+- Consider the user’s emotional state and context. An empty state may be an opportunity to celebrate, educate, add some “wink,” or convey a sense of accomplishment. When crafting your message, see the [Atlassian voice and tone principles for empty states](/content/writing-guidelines/empty-state/).
+
+## Accessibility
+
+- Use alternative text for illustrations.
+- Avoid jargon and use simple language.
+- Make links as descriptive as possible.
+- Make text easily scannable to highlight key information.
+- Follow all [accessibility foundations](/foundations/accessibility/) for accessible design.
+
+## Related
+
+- For more empty state guidelines and examples, see [empty state messaging](/content/writing-guidelines/empty-state/).  
+- For very small spaces or situations where this component doesn’t fit, you may consider designing an empty state from scratch. See our [grid](/foundations/grid/) and [typography](/foundations/typography/) foundations for guidelines.
+- Some error messages, such as not found errors, may also fit this component layout. If you use this component for an error message, follow the [error message guidelines](/content/writing-guidelines/writing-error-messages/) and use an appropriate illustration.

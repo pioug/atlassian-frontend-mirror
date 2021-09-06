@@ -1,5 +1,11 @@
 # @atlaskit/share
 
+## 0.28.0
+
+### Minor Changes
+
+- [`93b425ba29d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/93b425ba29d) - Accept "jira" as a ProductId to handle experiences that don't belong to a particular Jira Subproduct
+
 ## 0.27.1
 
 ### Patch Changes

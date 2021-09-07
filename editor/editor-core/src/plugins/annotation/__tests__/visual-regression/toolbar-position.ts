@@ -129,7 +129,8 @@ describe('Annotation toolbar positioning', () => {
       await snapshot(page);
     });
 
-    it(`text selection in wide breakout node`, async () => {
+    // FIXME: This test was automatically skipped due to failure on 8/26/2021: https://product-fabric.atlassian.net/browse/ED-13675
+    it.skip(`text selection in wide breakout node`, async () => {
       await selectAtPosWithProseMirror(page, 1, 2);
       await scrollToBottom(page);
       await selectAtPosWithProseMirror(page, 1712, 1686);

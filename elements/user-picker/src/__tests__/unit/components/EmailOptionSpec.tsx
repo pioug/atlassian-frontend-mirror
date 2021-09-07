@@ -1,8 +1,12 @@
 import { shallow } from 'enzyme';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
+import { N200, N800 } from '@atlaskit/theme/colors';
 import { AddOptionAvatar } from '../../../components/AddOptionAvatar';
-import { AvatarItemOption } from '../../../components/AvatarItemOption';
+import {
+  AvatarItemOption,
+  TextWrapper,
+} from '../../../components/AvatarItemOption';
 import { EmailOption, EmailOptionProps } from '../../../components/EmailOption';
 import { Email, EmailType } from '../../../types';
 import { renderProp } from '../_testUtils';
@@ -39,8 +43,12 @@ describe('EmailOption', () => {
     const avatarItemOption = message.find(AvatarItemOption);
     expect(avatarItemOption.props()).toMatchObject({
       avatar: <AddOptionAvatar label="Invite" />,
-      primaryText: 'test@test.com',
-      secondaryText: 'Invite',
+      primaryText: (
+        <TextWrapper key="name" color={N800}>
+          test@test.com
+        </TextWrapper>
+      ),
+      secondaryText: <TextWrapper color={N200}>Invite</TextWrapper>,
       lozenge: {
         text: 'EMAIL',
       },
@@ -59,9 +67,13 @@ describe('EmailOption', () => {
     const message = renderProp(formattedMessage, 'children', 'Invite');
     const avatarItemOption = message.find(AvatarItemOption);
     expect(avatarItemOption.props()).toMatchObject({
-      avatar: <AddOptionAvatar label="Invite" suggestion={true} />,
-      primaryText: 'test@test.com',
-      secondaryText: 'Invite',
+      avatar: <AddOptionAvatar label="Invite" />,
+      primaryText: (
+        <TextWrapper key="name" color={N800}>
+          test@test.com
+        </TextWrapper>
+      ),
+      secondaryText: <TextWrapper color={N200}>Invite</TextWrapper>,
       lozenge: {
         text: 'EMAIL',
       },
@@ -78,8 +90,12 @@ describe('EmailOption', () => {
     const avatarItemOption = component.find(AvatarItemOption);
     expect(avatarItemOption.props()).toMatchObject({
       avatar: <AddOptionAvatar label="Add new user" />,
-      primaryText: 'test@test.com',
-      secondaryText: 'Add new user',
+      primaryText: (
+        <TextWrapper key="name" color={N800}>
+          test@test.com
+        </TextWrapper>
+      ),
+      secondaryText: <TextWrapper color={N200}>Add new user</TextWrapper>,
     });
   });
 });

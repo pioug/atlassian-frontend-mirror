@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 7.16.2
+
+### Patch Changes
+
+- [`8ea7c48af73`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8ea7c48af73) - [ux] Email options now only show email icon
+
 ## 7.16.1
 
 ### Patch Changes

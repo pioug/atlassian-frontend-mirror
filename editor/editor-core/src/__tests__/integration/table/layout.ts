@@ -213,7 +213,10 @@ BrowserTestCase(
     });
 
     await page.waitForSelector('div[data-layout-section]');
-    await page.click('div[data-layout-section]');
+    // Clicking at the paragraph inside of the left layout column
+    await page.click(
+      'div[data-layout-section] [data-layout-column="true"]:nth-child(2) [data-layout-content="true"] > p',
+    );
     await toggleBreakout(page, 2);
     await animationFrame(page);
 

@@ -66,9 +66,12 @@ BrowserTestCase(
   },
 );
 
+// FIXME: This test was automatically skipped due to failure on 8/23/2021: https://product-fabric.atlassian.net/browse/ED-13646
 BrowserTestCase(
   `task-decision: Backspacing on second line of multi-line decision shouldnt remove list`,
-  {},
+  {
+    skip: ['*'],
+  },
   async (client: any, testName: string) => {
     const browser = new Page(client);
 

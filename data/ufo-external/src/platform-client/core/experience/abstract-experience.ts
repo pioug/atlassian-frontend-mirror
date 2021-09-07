@@ -163,7 +163,7 @@ export class UFOAbstractExperience {
   }
 
   async success(config?: EndStateConfig) {
-    if (config?.force || !this._validateManualState()) {
+    if (!config?.force && !this._validateManualState()) {
       return null;
     }
     if (config?.metadata) {
@@ -173,7 +173,7 @@ export class UFOAbstractExperience {
   }
 
   async failure(config?: EndStateConfig) {
-    if (config?.force || !this._validateManualState()) {
+    if (!config?.force && !this._validateManualState()) {
       return null;
     }
     if (config?.metadata) {
@@ -183,7 +183,7 @@ export class UFOAbstractExperience {
   }
 
   async abort(config?: EndStateConfig) {
-    if (config?.force || !this._validateManualState()) {
+    if (!config?.force && !this._validateManualState()) {
       return null;
     }
     if (config?.metadata) {

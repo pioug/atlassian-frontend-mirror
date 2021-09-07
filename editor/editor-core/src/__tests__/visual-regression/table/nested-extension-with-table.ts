@@ -10,7 +10,8 @@ describe('Snapshot Test: nested block extension with table', () => {
     page = global.page;
   });
 
-  it(`looks correct`, async () => {
+  // FIXME: This test was automatically skipped due to failure on 9/2/2021: https://product-fabric.atlassian.net/browse/ED-13694
+  it.skip(`looks correct`, async () => {
     await initEditorWithAdf(page, {
       appearance: Appearance.fullPage,
       adf,

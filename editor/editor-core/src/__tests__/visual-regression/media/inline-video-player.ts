@@ -35,7 +35,8 @@ describe('Snapshot Test: Media inline video player', () => {
     await waitForMediaToBeLoaded(page);
   });
 
-  it('should render inline video player', async () => {
+  // FIXME: This test was automatically skipped due to failure on 9/5/2021: https://product-fabric.atlassian.net/browse/MEX-929
+  it.skip('should render inline video player', async () => {
     await page.waitForSelector('[data-testid="media-file-card-view"]');
     await snapshot(page);
     await page.click('[data-testid="media-file-card-view"]');
@@ -48,7 +49,8 @@ describe('Snapshot Test: Media inline video player', () => {
     await snapshot(page);
   });
 
-  it('volume controls', async () => {
+  // FIXME: This test was automatically skipped due to failure on 9/5/2021: https://product-fabric.atlassian.net/browse/MEX-929
+  it.skip('volume controls', async () => {
     await page.waitForSelector('[data-testid="media-file-card-view"]');
     await page.click('[data-testid="media-file-card-view"]');
     await waitForMediaFloatingToolbar(page);

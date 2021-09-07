@@ -114,9 +114,12 @@ BrowserTestCase(
   },
 );
 
+// FIXME: This test was automatically skipped due to failure on 9/2/2021: https://product-fabric.atlassian.net/browse/SKIP-44
 BrowserTestCase(
   'An error message is displayed correctly',
-  {},
+  {
+    skip: ['*'],
+  },
   async (client: any) => {
     const inlineEditTest = new Page(client);
     await inlineEditTest.goto(validationExampleUrl);

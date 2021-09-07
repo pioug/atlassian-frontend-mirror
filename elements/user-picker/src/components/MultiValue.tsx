@@ -95,10 +95,10 @@ export class MultiValue extends React.Component<Props> {
     } = this.props;
     if (isEmail(data)) {
       return selectProps.emailLabel ? (
-        <AddOptionAvatar size="small" label={selectProps.emailLabel} />
+        <AddOptionAvatar isLozenge label={selectProps.emailLabel} />
       ) : (
         <FormattedMessage {...messages.addEmail}>
-          {(label) => <AddOptionAvatar size="small" label={label as string} />}
+          {(label) => <AddOptionAvatar isLozenge label={label as string} />}
         </FormattedMessage>
       );
     }

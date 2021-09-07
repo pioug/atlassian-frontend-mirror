@@ -347,7 +347,7 @@ export default class Example extends React.Component<{}, State> {
     shortLinkData: undefined,
     dialogPlacement: dialogPlacementOptions[2].value,
     escapeOnKeyPress: true,
-    mode: modeOptions[0].value,
+    mode: modeOptions[4].value,
     triggerButtonAppearance: triggerButtonAppearanceOptions[0].value,
     triggerButtonStyle: triggerButtonStyleOptions[0].value,
     triggerButtonTooltipPosition: triggerButtonTooltipPositionOptions[0].value,

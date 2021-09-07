@@ -1,5 +1,11 @@
 # @atlaskit/atlassian-switcher-test-utils
 
+## 1.0.2
+
+### Patch Changes
+
+- [`4c4ea13f9c1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4c4ea13f9c1) - Final changelog for @atlaskit/atlassian-switcher-test-utils. No further versions will be released.
+
 ## 1.0.1
 
 ### Patch Changes

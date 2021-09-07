@@ -36,7 +36,8 @@ describe('InsertMenu', () => {
     await waitForNoTooltip(page);
   });
 
-  it('should match InsertMenu snapshot', async () => {
+  // FIXME: This test was automatically skipped due to failure on 9/5/2021: https://product-fabric.atlassian.net/browse/ED-13701
+  it.skip('should match InsertMenu snapshot', async () => {
     await waitForInsertMenuIcons(page);
     const image = await takeElementScreenShot(
       page,

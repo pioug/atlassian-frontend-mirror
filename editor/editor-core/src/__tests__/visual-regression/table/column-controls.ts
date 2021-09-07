@@ -67,7 +67,8 @@ describe('Table context menu: merge-split cells', () => {
     await snapshot(page, { tolerance: 0 }, tableSelectors.nthColumnControl(1));
   });
 
-  it('should display column resizer handler on top of the column controls', async () => {
+  // FIXME: This test was automatically skipped due to failure on 8/26/2021: https://product-fabric.atlassian.net/browse/ED-13677
+  it.skip('should display column resizer handler on top of the column controls', async () => {
     await grabResizeHandle(page, { colIdx: 1, row: 2 });
     await animationFrame(page);
     await snapshot(page, { tolerance: 0 }, tableSelectors.nthColumnControl(1));

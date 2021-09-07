@@ -1,4 +1,4 @@
-import { BrowserTestCase, Browser } from '@atlaskit/webdriver-runner/runner';
+import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import {
   editable,
   quickInsert,
@@ -106,10 +106,6 @@ BrowserTestCase(
     await quickInsert(page, 'Date');
 
     const lozengeText = await page.getText(dateLozenge);
-    // Get the browser name from the client object
-    // This object is current untyped, and Safari is capitalised while firefox and chrome aren't.
-    const browser = (client.capabilities
-      .browserName as string).toLowerCase() as Browser;
 
     expect(lozengeText).toBe('1 de jan. de 2019');
 
@@ -126,11 +122,7 @@ BrowserTestCase(
     await quickInsert(page, 'Date');
 
     const lozengeText2 = await page.getText(dateLozenge);
-    if (browser !== 'firefox') {
-      expect(lozengeText2).toBe('1 ene 2019');
-    } else {
-      expect(lozengeText2).toBe('1 ene. 2019');
-    }
+    expect(lozengeText2).toBe('1 ene 2019');
     await page.teardownMockDate();
   },
 );

@@ -1,5 +1,13 @@
 # @af/ufo-types
 
+## 0.0.3
+
+### Patch Changes
+
+- [`92b02b9224c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/92b02b9224c) - Fixed issue with publishing events
+- [`e372750cc4d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e372750cc4d) - Logging disabled by default
+- [`74bae46692e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/74bae46692e) - Fixed issue with force parameter in end state of experience
+
 ## 0.0.2
 
 ### Patch Changes

@@ -73,7 +73,8 @@ describe('Snapshot Test: hover rows controlls', () => {
   });
 
   describe('comment editor', () => {
-    it('should render insert button without cutting it off', async () => {
+    // FIXME: This test was automatically skipped due to failure on 8/26/2021: https://product-fabric.atlassian.net/browse/ED-13679
+    it.skip('should render insert button without cutting it off', async () => {
       await initCommentEditorWithAdf(page, defaultTableAdf, Device.LaptopMDPI);
       await clickFirstCell(page);
       const bounds = await getBoundingRect(

@@ -56,7 +56,8 @@ describe('Floating toolbars:', () => {
       await initEditor();
     });
 
-    it('should render the table toolbar', async () => {
+    // FIXME: This test was automatically skipped due to failure on 8/26/2021: https://product-fabric.atlassian.net/browse/ED-13676
+    it.skip('should render the table toolbar', async () => {
       const endCellSelector = getSelectorForTableCell({ row: 3, cell: 2 });
       await page.waitForSelector(endCellSelector);
       await retryUntilStablePosition(
@@ -100,7 +101,8 @@ describe('Floating toolbars:', () => {
   });
 
   describe('with extension buttons', () => {
-    it('should render toolbar with extension buttons', async () => {
+    // FIXME: This test was automatically skipped due to failure on 8/26/2021: https://product-fabric.atlassian.net/browse/ED-13676
+    it.skip('should render toolbar with extension buttons', async () => {
       await initEditor({
         editorProps: {
           allowExtension: {

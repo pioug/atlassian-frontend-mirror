@@ -127,7 +127,7 @@ describe('MultiValue', () => {
       });
 
       expect(component.props().children[0]).toMatchObject(
-        <AddOptionAvatar label="invite" size="small" />,
+        <AddOptionAvatar label="invite" isLozenge />,
       );
 
       expect(component.props().data.data).toMatchObject({

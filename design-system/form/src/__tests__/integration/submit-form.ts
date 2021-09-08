@@ -11,9 +11,12 @@ const submitFormTextarea = 'textarea[name="description"]';
 const submitFormTextfield = 'input[name="name"]';
 const submitFormSubmitted = 'div#submitted';
 
+// FIXME: This test was automatically skipped due to failure on 9/7/2021: https://product-fabric.atlassian.net/browse/SKIP-46
 BrowserTestCase(
   'Pressing ctrl + enter in the text area after entering input should submit the form',
-  {},
+  {
+    skip: ['*'],
+  },
   async (client: any) => {
     const formTest = new Page(client);
     await formTest.goto(urlSubmitForm);

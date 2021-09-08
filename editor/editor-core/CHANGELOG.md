@@ -1,5 +1,11 @@
 # @atlaskit/editor-core
 
+## 149.0.1
+
+### Patch Changes
+
+- [`226979a2a40`](https://bitbucket.org/atlassian/atlassian-frontend/commits/226979a2a40) - [ED-13713] Move TypeAhead keydown events to run by VanillaJS to avoid bubbling hijacking by product code
+
 ## 149.0.0
 
 ### Major Changes

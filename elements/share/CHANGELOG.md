@@ -1,5 +1,11 @@
 # @atlaskit/share
 
+## 0.29.0
+
+### Minor Changes
+
+- [`75f940df1ce`](https://bitbucket.org/atlassian/atlassian-frontend/commits/75f940df1ce) - Update ProductID list to accept more valid Jira subproducts
+
 ## 0.28.0
 
 ### Minor Changes

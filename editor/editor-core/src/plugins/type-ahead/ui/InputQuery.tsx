@@ -11,14 +11,12 @@ const QuerySpan = styled.span`
   outline: none;
 `;
 
-const isNavigationKey = (
-  event: React.KeyboardEvent<HTMLSpanElement>,
-): boolean => {
+const isNavigationKey = (event: KeyboardEvent): boolean => {
   return ['Enter', 'Tab', 'ArrowDown', 'ArrowUp'].includes(event.key);
 };
 
 const isUndoRedoShortcut = (
-  event: React.KeyboardEvent<HTMLSpanElement>,
+  event: KeyboardEvent,
 ): 'historyUndo' | 'historyRedo' | false => {
   const key = keyNameNormalized(event as any);
 
@@ -82,8 +80,8 @@ export const InputQuery: React.FC<InputQueryProps> = React.memo(
       [onQueryChange, cleanedInputContent],
     );
 
-    const onKeyDown = useCallback(
-      (event: React.KeyboardEvent<HTMLSpanElement>) => {
+    const checkKeyEvent = useCallback(
+      (event: KeyboardEvent) => {
         const key = keyNameNormalized(event as any);
         const sel = document.getSelection();
         const raw = ref.current.textContent || '';
@@ -217,7 +215,10 @@ export const InputQuery: React.FC<InputQueryProps> = React.memo(
 
           event.preventDefault();
           event.stopPropagation();
+          return;
         }
+
+        checkKeyEvent(event);
       };
 
       const onFocusOut = (event: FocusEvent) => {
@@ -315,7 +316,13 @@ export const InputQuery: React.FC<InputQueryProps> = React.memo(
           element.removeEventListener('input', onInput as any);
         }
       };
-    }, [triggerQueryPrefix, cleanedInputContent, onQueryFocus, cancel]);
+    }, [
+      triggerQueryPrefix,
+      cleanedInputContent,
+      onQueryFocus,
+      cancel,
+      checkKeyEvent,
+    ]);
 
     useEffect(() => {
       const hasReopenQuery =
@@ -352,7 +359,6 @@ export const InputQuery: React.FC<InputQueryProps> = React.memo(
           contentEditable={true}
           innerRef={ref}
           onKeyUp={onKeyUp}
-          onKeyDown={onKeyDown}
           onClick={onClick}
           role="textbox"
           suppressContentEditableWarning={true}

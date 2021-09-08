@@ -2,10 +2,14 @@
 export type ProductId =
   | 'bitbucket'
   | 'confluence'
-  | 'jira'
+  | 'jira-addon'
   | 'jira-core'
+  | 'jira-platform'
+  | 'jira-polaris'
+  | 'jira-portfolio'
   | 'jira-servicedesk'
   | 'jira-software'
+  | 'jira-unknown'
   | 'trello';
 
 export type ProductName = 'jira' | 'confluence';

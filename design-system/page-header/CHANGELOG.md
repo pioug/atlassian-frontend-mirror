@@ -1,5 +1,11 @@
 # @atlaskit/page-header
 
+## 10.2.1
+
+### Patch Changes
+
+- [`b3893a2357b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b3893a2357b) - Fixes a styling issue that arose in v10.2.0 relating to the lineHeight of the page header's title.
+
 ## 10.2.0
 
 ### Minor Changes

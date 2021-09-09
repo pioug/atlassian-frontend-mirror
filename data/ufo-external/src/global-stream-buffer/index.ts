@@ -21,7 +21,7 @@ type GlobalEventStreamBuffer = {
 };
 
 declare global {
-  var __UFO_GLOBAL_EVENT_STREAM__: GlobalEventStream;
+  var __UFO_GLOBAL_EVENT_STREAM__: any;
 }
 
 const MAX_EARLY_QUEUE_LENGTH = 250;

@@ -64,7 +64,7 @@ describe('MarkdownTransformer', () => {
       );
     });
 
-    it('should support iamges in tables', () => {
+    it('should support images in tables', () => {
       const md = `|One|Two|Three|
 |----|----|----|
 |One|Hello![](image.jpg)World|Three|`;
@@ -116,6 +116,20 @@ ${CODE_FENCE}`;
 
       expect(transformer.parse(md)).toEqualDocument(
         doc(code_block()('int a = 3;')),
+      );
+    });
+  });
+
+  describe('Link', () => {
+    it('should not linkify urls and email addresses', () => {
+      const md = `Does not link url https://example.com, hostname test.example.com and email address example@example.com`;
+
+      expect(transformer.parse(md)).toEqualDocument(
+        doc(
+          p(
+            'Does not link url https://example.com, hostname test.example.com and email address example@example.com',
+          ),
+        ),
       );
     });
   });

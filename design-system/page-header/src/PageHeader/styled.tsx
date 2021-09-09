@@ -101,7 +101,7 @@ export const StyledTitleWrapper = React.forwardRef<
 >(({ children, id, truncateTitle }, ref) => {
   return (
     <h1
-      css={[styledTitleStyles, h700Styles, truncateTitle && truncateStyles]}
+      css={[h700Styles, styledTitleStyles, truncateTitle && truncateStyles]}
       ref={ref}
       tabIndex={-1}
       id={id}

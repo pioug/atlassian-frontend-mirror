@@ -1,4 +1,8 @@
-import { getExampleUrl, loadPage } from '@atlaskit/visual-regression/helper';
+import {
+  getExampleUrl,
+  loadPage,
+  takeElementScreenShot,
+} from '@atlaskit/visual-regression/helper';
 
 describe('Snapshot Test', () => {
   it('Basic should match production example', async () => {
@@ -11,8 +15,10 @@ describe('Snapshot Test', () => {
 
     const { page } = global;
     await loadPage(page, url);
-    const element = await page.waitForSelector('[data-testid="page-header"]');
-    const image = await element?.screenshot();
+    const image = await takeElementScreenShot(
+      page,
+      '[data-testid="page-header"]',
+    );
     expect(image).toMatchProdImageSnapshot();
   });
 });

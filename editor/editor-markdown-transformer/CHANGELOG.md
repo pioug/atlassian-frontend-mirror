@@ -1,5 +1,11 @@
 # @atlaskit/editor-markdown-transformer
 
+## 4.2.0
+
+### Minor Changes
+
+- [`4ef117905fd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ef117905fd) - Disable 'linkify' option when transforming markdown to adf to avoid transforming undecorated urls and email addresses into links
+
 ## 4.1.17
 
 ### Patch Changes

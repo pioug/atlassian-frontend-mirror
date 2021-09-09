@@ -29,9 +29,6 @@ exports[`@atlaskit/page-header should render correctly 1`] = `
 }
 
 .emotion-0 {
-  margin-top: 0;
-  line-height: 32px;
-  outline: none;
   font-size: 1.7142857142857142em;
   font-style: inherit;
   line-height: 1.1666666666666667;
@@ -42,6 +39,9 @@ exports[`@atlaskit/page-header should render correctly 1`] = `
   -ms-letter-spacing: -0.01em;
   letter-spacing: -0.01em;
   margin-top: 40px;
+  margin-top: 0;
+  line-height: 32px;
+  outline: none;
 }
 
 .emotion-2 {

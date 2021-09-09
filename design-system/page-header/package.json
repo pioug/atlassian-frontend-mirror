@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/page-header",
-  "version": "10.2.0",
+  "version": "10.2.1",
   "description": "A page header defines the top of a page. It contains a title and can be optionally combined with breadcrumbs buttons, search, and filters.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -17,7 +17,6 @@
   "homepage": "https://atlassian.design/components/page-header",
   "atlassian": {
     "team": "Design System Team",
-    "deprecatedAutoEntryPoints": true,
     "inPublicMirror": true,
     "releaseModel": "scheduled",
     "website": {
@@ -70,6 +69,9 @@
       "design-system": "v1",
       "deprecation": "no-deprecated-imports"
     }
+  },
+  "af:exports": {
+    ".": "./src/index.tsx"
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
 }

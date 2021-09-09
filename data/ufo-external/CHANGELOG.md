@@ -1,5 +1,17 @@
 # @af/ufo-types
 
+## 0.0.5
+
+### Patch Changes
+
+- [`6f64951e126`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6f64951e126) - Updated type of global value
+
+## 0.0.4
+
+### Patch Changes
+
+- [`b759751ba64`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b759751ba64) - Updates to exported types from @atlaskit/ufo/types
+
 ## 0.0.3
 
 ### Patch Changes

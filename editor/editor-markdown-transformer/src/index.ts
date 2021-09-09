@@ -105,7 +105,6 @@ const mdToPmMapping = {
 
 const md = MarkdownIt('zero', {
   html: false,
-  linkify: true,
 });
 
 md.enable([

@@ -1,3 +1,4 @@
+import { AbstractExperienceConfig } from '../platform-client/core/experience/abstract-experience';
 import { UFOExperienceStateType } from '../platform-client/core/experience/experience-state';
 import { ExperienceTypes } from '../platform-client/core/experience/experience-types';
 
@@ -30,7 +31,7 @@ export type UFOGlobalEventStreamEvent =
   | UFOGlobalEventStreamUnsubscribe;
 
 export type CustomData = {
-  [key: string]: string | number | boolean | CustomData;
+  [key: string]: string | number | boolean | CustomData | undefined;
 };
 
 export type ExperienceMetrics = {
@@ -59,5 +60,7 @@ export interface ExperienceData {
 export interface PageLoadExperienceData extends ExperienceData {
   initial: boolean;
 }
+
+export type ExperienceConfig = AbstractExperienceConfig;
 
 export const SUBSCRIBE_ALL = '__SUBSCRIBE_ALL__';

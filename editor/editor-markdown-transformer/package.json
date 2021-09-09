@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-markdown-transformer",
-  "version": "4.1.17",
+  "version": "4.2.0",
   "description": "Editor Markdown transformer",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

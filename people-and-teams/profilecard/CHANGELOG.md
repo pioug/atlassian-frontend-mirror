@@ -1,5 +1,11 @@
 # @atlaskit/profilecard
 
+## 15.6.1
+
+### Patch Changes
+
+- [`301bf1b9e08`](https://bitbucket.org/atlassian/atlassian-frontend/commits/301bf1b9e08) - Bring `withOuterListeners` HOC back so that Jira can continue use it
+
 ## 15.6.0
 
 ### Minor Changes

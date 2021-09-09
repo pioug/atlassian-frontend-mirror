@@ -1,9 +1,9 @@
-# UfoTypes
+# UFO - external
 
-TS types for UFO
+Minimal subset of UFO available for components published to public npm
 
 ## Usage
 
-`import UfoTypes from '@atlaskit/ufo-types';`
-
-Detailed docs and example usage can be found [here](https://atlaskit.atlassian.com/packages/data/ufo-types).
+``
+npm install @atlaskit/ufo
+``

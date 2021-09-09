@@ -3,13 +3,10 @@ import { useEffect, useState } from 'react';
 
 import { jsx } from '@emotion/core';
 
-import {
-  mockEndpoints,
-  REQUEST_FAST,
-} from '@atlaskit/atlassian-switcher-test-utils';
 import Popup from '@atlaskit/popup';
 import Spinner from '@atlaskit/spinner';
 import AtlassianSwitcher from '@atlassian/switcher';
+import { mockEndpoints, REQUEST_FAST } from '@atlassian/switcher-test-utils';
 
 import { AppSwitcher } from '../../src';
 import { withAnalyticsLogger, withIntlProvider } from '../helpers';

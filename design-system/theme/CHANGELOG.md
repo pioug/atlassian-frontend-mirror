@@ -1,5 +1,11 @@
 # @atlaskit/theme
 
+## 11.5.2
+
+### Patch Changes
+
+- [`3316bd1f594`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3316bd1f594) - The h300 function in @atlaskit/theme/typography now returns a constant string literal for the textTransform field now. This should make it compatible with React's style prop type definitions, by extension, Emotion.
+
 ## 11.5.1
 
 ### Patch Changes

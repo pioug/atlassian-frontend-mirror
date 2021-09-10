@@ -75,7 +75,7 @@ export const h300 = (props: ThemeProps = {}) => ({
   color: token('color.text.highEmphasis', colors.heading(props)),
   fontWeight: 600,
   marginTop: `${gridSize() * 2.5}px`,
-  textTransform: `uppercase`,
+  textTransform: 'uppercase' as const,
 });
 
 export const h200 = (props: ThemeProps = {}) => ({

@@ -1,5 +1,11 @@
 # @atlaskit/help
 
+## 4.2.1
+
+### Patch Changes
+
+- [`82bdb8cd2d6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/82bdb8cd2d6) - [ux] Updated examples with the "What's New" section
+
 ## 4.2.0
 
 ### Minor Changes

@@ -5,6 +5,18 @@ import type {
   articleId,
 } from '../../../src';
 import { BODY_FORMAT_TYPES } from '@atlaskit/help-article';
+
+export interface FilterConfiguration {
+  fdIssueKeys?: string[];
+  fdIssueLinks?: string[];
+  changeTypes?: string[];
+  productNames?: string[];
+  changeStatus?: string[];
+  featureRolloutDates?: string[];
+  releaseNoteFlags?: string[];
+  releaseNoteFlagOffValues?: string[];
+}
+
 const CPAPI_URL =
   'https://content-platform-api.stg.services.atlassian.com/graphql';
 const DEFAULT_NUMBER_OF_WHATS_NEW_ITEMS_RESULTS = 10;
@@ -13,28 +25,34 @@ export const useContentPlatformApi = () => {
   const [token, setToken] = useState('');
 
   const searchWhatsNewArticles = async (
-    filter?: string,
+    filter?: FilterConfiguration,
     numberOfItems?: number,
     page?: string,
-  ): Promise<{
-    articles: WhatsNewArticleItem[];
-    nextPage: string;
-    hasNextPage: boolean;
-  }> => {
-    console.log(filter);
+  ) => {
     console.log(numberOfItems);
     console.log(page);
 
-    const filterByType = filter ? `filter:{changeTypes:["${filter}"]}, ` : '';
+    let filterValue = '';
+
+    if (filter && Object.keys(filter).length > 0) {
+      filterValue = `filter:{`;
+      Object.keys(filter).map((key, index) => {
+        filterValue += `${key} : [${Object.values(filter)[index].toString()}]`;
+      });
+      filterValue += `}, `;
+    }
+
     const after = page ? `after: "${page}", ` : '';
     const first = `first: ${
       numberOfItems ? numberOfItems : DEFAULT_NUMBER_OF_WHATS_NEW_ITEMS_RESULTS
     }`;
 
+    console.log(filterValue);
+
     const graphqlRequest = JSON.stringify({
       query: `
         query {
-          releaseNotes(${filterByType}${after}${first}) {
+          releaseNotes(${filterValue}${after}${first}) {
             edges {
               releaseNote: node {
                 releaseNoteId
@@ -62,6 +80,8 @@ export const useContentPlatformApi = () => {
         }`,
     });
 
+    console.log(graphqlRequest);
+
     try {
       const response = await fetch(CPAPI_URL, {
         method: 'POST',
@@ -76,7 +96,8 @@ export const useContentPlatformApi = () => {
 
       return formatReleaseNotesData(await response.json());
     } catch (error) {
-      throw new Error(error);
+      console.warn(error);
+      return error;
     }
   };
 
@@ -149,6 +170,7 @@ export const useContentPlatformApi = () => {
       });
       return formatReleaseNoteData(await response.json());
     } catch (error) {
+      console.warn(error);
       return error;
     }
   };

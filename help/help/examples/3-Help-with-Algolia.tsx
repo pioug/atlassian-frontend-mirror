@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { gridSize } from '@atlaskit/theme/constants';
 import algoliasearch from 'algoliasearch';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
@@ -8,6 +9,7 @@ import Page from '@atlaskit/page';
 import Textfield from '@atlaskit/textfield';
 import ShipIcon from '@atlaskit/icon/glyph/ship';
 import * as colors from '@atlaskit/theme/colors';
+import { Field, HelperMessage } from '@atlaskit/form';
 
 import LocaleIntlProvider from '../example-helpers/LocaleIntlProvider';
 
@@ -21,13 +23,18 @@ import {
 } from './utils/styled';
 
 import { useContentPlatformApi } from './utils/services/cpapi';
+import type { FilterConfiguration } from './utils/services/cpapi';
 
-import Help, { RelatedArticles, ARTICLE_TYPE, DividerLine } from '../src';
+import Help, {
+  RelatedArticles,
+  ARTICLE_TYPE,
+  DividerLine,
+  WHATS_NEW_ITEM_TYPES,
+} from '../src';
 import type {
   ArticleItem,
   ArticleFeedback,
   articleId,
-  WhatsNewArticleItem,
   WhatsNewArticle,
 } from '../src';
 
@@ -68,6 +75,8 @@ const Example: React.FC = () => {
     searchWhatsNewArticles,
     getWhatsNewArticle,
   } = useContentPlatformApi();
+
+  // Algolia Values
   const [algoliaIndex, setAlgoliaIndex] = useState<string>(index.indexName);
   const [articleId, setArticleId] = useState<articleId>({
     id: '',
@@ -84,6 +93,18 @@ const Example: React.FC = () => {
   const [productExperience, setProductExperience] = useState<string>(
     'Next-gen',
   );
+
+  // CPAPI values
+  const [fdIssueKeys, setFdIssueKeys] = useState<string>('');
+  const [fdIssueLinks, setFdIssueLinks] = useState<string>('');
+  const [productNames, setProductNames] = useState<string>('');
+  const [changeStatus, setChangeStatus] = useState<string>('');
+  const [featureRolloutDates, setFeatureRolloutDates] = useState<string>('');
+  const [releaseNoteFlags, setReleaseNoteFlags] = useState<string>('');
+  const [releaseNoteFlagOffValues, setReleaseNoteFlagOffValues] = useState<
+    string
+  >('');
+
   const [showComponent, setShowComponent] = useState<boolean>(true);
   const [algoliaParameters, setAlgoliaParameters] = useState({
     routeGroup,
@@ -199,16 +220,54 @@ const Example: React.FC = () => {
   };
 
   const onSearchWhatsNewArticles = async (
-    filter: string = '',
+    filter: WHATS_NEW_ITEM_TYPES | '',
     numberOfItems: number,
     page: string = '',
-  ): Promise<{
-    articles: WhatsNewArticleItem[];
-    nextPage: string;
-    hasNextPage: boolean;
-  }> => {
+  ): Promise<any> => {
     console.log('onSearchWhatsNewArticles');
-    return searchWhatsNewArticles(filter, numberOfItems, page);
+    let filterConfig: FilterConfiguration = {};
+
+    if (fdIssueKeys) {
+      filterConfig.fdIssueKeys = fdIssueKeys
+        .split(',')
+        .map((value) => `"${value}"`);
+    }
+    if (fdIssueLinks) {
+      filterConfig.fdIssueLinks = fdIssueLinks
+        .split(',')
+        .map((value) => `"${value}"`);
+    }
+    if (productNames) {
+      filterConfig.productNames = productNames
+        .split(',')
+        .map((value) => `"${value}"`);
+    }
+    if (changeStatus) {
+      filterConfig.changeStatus = changeStatus
+        .split(',')
+        .map((value) => `"${value}"`);
+    }
+    if (featureRolloutDates) {
+      filterConfig.featureRolloutDates = featureRolloutDates
+        .split(',')
+        .map((value) => `"${value}"`);
+    }
+    if (releaseNoteFlags) {
+      filterConfig.releaseNoteFlags = releaseNoteFlags
+        .split(',')
+        .map((value) => `"${value}"`);
+    }
+    if (releaseNoteFlagOffValues) {
+      filterConfig.releaseNoteFlagOffValues = releaseNoteFlagOffValues.split(
+        ',',
+      );
+    }
+
+    if (filter !== '') {
+      filterConfig.changeTypes = [`"${filter}"`];
+    }
+
+    return searchWhatsNewArticles(filterConfig, numberOfItems, page);
   };
 
   const onGetWhatsNewArticle = (articleId: articleId): Promise<any> => {
@@ -383,13 +442,22 @@ const Example: React.FC = () => {
           <div
             style={{
               display: 'inline-block',
-              height: '100%',
+              height: '100vh',
               verticalAlign: 'top',
               width: 'Calc(100% - 400px)',
               boxSizing: 'border-box',
               padding: '10px',
+              overflow: 'auto',
             }}
           >
+            <h2
+              style={{
+                width: 'Calc(100% - 400px)',
+                padding: `0 0 ${gridSize()}px ${gridSize() * 2}px`,
+              }}
+            >
+              Help articles
+            </h2>
             <ButtonsWrapper>
               <ButtonGroup>
                 <Button appearance="primary" onClick={() => openDrawer()}>
@@ -426,6 +494,110 @@ const Example: React.FC = () => {
                 </Button>
               </ButtonGroup>
             </ButtonsWrapper>
+            <h3
+              style={{
+                width: 'Calc(100% - 400px)',
+                padding: `${gridSize() * 2}px 0 0 ${gridSize() * 2}px`,
+                margin: '0',
+              }}
+            >
+              Help articles settings
+            </h3>
+            <div>
+              <ControlsWrapper>
+                <Field label="Algolia Index" name="algolia-index">
+                  {({ fieldProps }: any) => (
+                    <>
+                      <Textfield
+                        {...fieldProps}
+                        value={algoliaIndex}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                          setAlgoliaIndex(e.target.value)
+                        }
+                      />
+                      <HelperMessage>e.g. : product_help_stg)</HelperMessage>
+                    </>
+                  )}
+                </Field>
+              </ControlsWrapper>
+              <ControlsWrapper>
+                <Field label="Product Name" name="product-name">
+                  {({ fieldProps }: any) => (
+                    <>
+                      <Textfield
+                        {...fieldProps}
+                        value={productName}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                          setProductName(e.target.value)
+                        }
+                      />
+                      <HelperMessage>e.g. : Jira Software</HelperMessage>
+                    </>
+                  )}
+                </Field>
+              </ControlsWrapper>
+              <ControlsWrapper>
+                <Field label="Product Experience" name="product-experience">
+                  {({ fieldProps }: any) => (
+                    <>
+                      <Textfield
+                        {...fieldProps}
+                        value={productExperience}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                          setProductExperience(e.target.value)
+                        }
+                      />
+                      <HelperMessage>e.g. : Next-gen</HelperMessage>
+                    </>
+                  )}
+                </Field>
+              </ControlsWrapper>
+              <ControlsWrapper>
+                <Field label="Route Group" name="route-group">
+                  {({ fieldProps }: any) => (
+                    <>
+                      <Textfield
+                        {...fieldProps}
+                        value={routeGroup}
+                        name="route-group"
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                          setRouteGroup(e.target.value)
+                        }
+                      />
+                      <HelperMessage>e.g. : servicedesk</HelperMessage>
+                    </>
+                  )}
+                </Field>
+              </ControlsWrapper>
+              <ControlsWrapper>
+                <Field label="Route Name" name="route-name">
+                  {({ fieldProps }: any) => (
+                    <>
+                      <Textfield
+                        {...fieldProps}
+                        value={routeName}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                          setRouteName(e.target.value)
+                        }
+                      />
+                      <HelperMessage>
+                        e.g. : project/service-desk/settings/index
+                      </HelperMessage>
+                    </>
+                  )}
+                </Field>
+              </ControlsWrapper>
+            </div>
+            <DividerLine />
+            <h2
+              style={{
+                width: 'Calc(100% - 400px)',
+                padding: `${gridSize() * 2}px 0 0 ${gridSize() * 2}px`,
+                margin: '0px',
+              }}
+            >
+              Related Articles
+            </h2>
             <ButtonsWrapper>
               <ButtonGroup>
                 <Button
@@ -434,7 +606,6 @@ const Example: React.FC = () => {
                 >
                   Open drawer - What's New
                 </Button>
-
                 <Button
                   appearance="primary"
                   onClick={() =>
@@ -445,70 +616,159 @@ const Example: React.FC = () => {
                 </Button>
               </ButtonGroup>
             </ButtonsWrapper>
-            <DividerLine />
+            <h3
+              style={{
+                width: 'Calc(100% - 400px)',
+                padding: `${gridSize() * 2}px 0 0 ${gridSize() * 2}px`,
+                margin: '0',
+              }}
+            >
+              Help articles settings
+            </h3>
             <div>
-              <ControlsWrapper>
-                <label htmlFor="route-name">Algolia Index *</label>
-                <Textfield
-                  value={algoliaIndex}
-                  name="route-name"
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                    setAlgoliaIndex(e.target.value)
-                  }
-                />
+              <ControlsWrapper style={{ width: '100%' }}>
+                <Field label="Token" name="token">
+                  {({ fieldProps }: any) => (
+                    <>
+                      <Textfield
+                        {...fieldProps}
+                        value={token}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                          setToken(e.target.value)
+                        }
+                      />
+                      <HelperMessage>
+                        To get your token you must be logged in in the Atlassian
+                        VPN and run in your terminal "atlas slauth token --mfa
+                        -a content-platform-api -e staging -o http"
+                      </HelperMessage>
+                    </>
+                  )}
+                </Field>
               </ControlsWrapper>
               <ControlsWrapper>
-                <label htmlFor="route-name">Product Name *</label>
-                <Textfield
-                  value={productName}
-                  name="route-name"
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                    setProductName(e.target.value)
-                  }
-                />
-              </ControlsWrapper>
-              <ControlsWrapper>
-                <label htmlFor="route-name">Product Experience *</label>
-                <Textfield
-                  value={productExperience}
-                  name="route-name"
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                    setProductExperience(e.target.value)
-                  }
-                />
-              </ControlsWrapper>
-              <ControlsWrapper>
-                <label htmlFor="route-group">Route Group *</label>
-                <Textfield
-                  value={routeGroup}
-                  name="route-group"
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                    setRouteGroup(e.target.value)
-                  }
-                />
-              </ControlsWrapper>
-              <ControlsWrapper>
-                <label htmlFor="route-name">Route Name</label>
-                <Textfield
-                  value={routeName}
-                  name="route-name"
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                    setRouteName(e.target.value)
-                  }
-                />
-              </ControlsWrapper>
-            </div>
-            <DividerLine />
-            <div>
-              <ControlsWrapper>
-                <label htmlFor="token">Token</label>
-                <Textfield
-                  value={token}
-                  name="token"
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                    setToken(e.target.value)
-                  }
-                />
+                <Field label="FD Issue Key" name="fd-issue-key">
+                  {({ fieldProps }: any) => (
+                    <>
+                      <Textfield
+                        {...fieldProps}
+                        value={fdIssueKeys}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                          setFdIssueKeys(e.target.value)
+                        }
+                      />
+                      <HelperMessage>
+                        List of FD issue key (separate values with a ","). e.g.
+                        : FD-12345, FD-78902
+                      </HelperMessage>
+                    </>
+                  )}
+                </Field>
+                <Field label="FD Issue Links" name="fd-issue-links">
+                  {({ fieldProps }: any) => (
+                    <>
+                      <Textfield
+                        {...fieldProps}
+                        value={fdIssueLinks}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                          setFdIssueLinks(e.target.value)
+                        }
+                      />
+                      <HelperMessage>
+                        List of FD issue links (separate values with a ",").
+                        e.g. : https://hello.atlassian.net/browse/FD-12345
+                      </HelperMessage>
+                    </>
+                  )}
+                </Field>
+                <Field label="Product names" name="product-names">
+                  {({ fieldProps }: any) => (
+                    <>
+                      <Textfield
+                        {...fieldProps}
+                        value={productNames}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                          setProductNames(e.target.value)
+                        }
+                      />
+                      <HelperMessage>
+                        List of product names (separate values with a ","). e.g.
+                        :
+                      </HelperMessage>
+                    </>
+                  )}
+                </Field>
+                <Field label="Change status" name="change-status">
+                  {({ fieldProps }: any) => (
+                    <>
+                      <Textfield
+                        {...fieldProps}
+                        value={changeStatus}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                          setChangeStatus(e.target.value)
+                        }
+                      />
+                      <HelperMessage>
+                        List of change status (separate values with a ","). e.g.
+                        : Rolling out, Coming soon
+                      </HelperMessage>
+                    </>
+                  )}
+                </Field>
+                <Field label="featureRolloutDates" name="feature-rollout-date">
+                  {({ fieldProps }: any) => (
+                    <>
+                      <Textfield
+                        {...fieldProps}
+                        value={featureRolloutDates}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                          setFeatureRolloutDates(e.target.value)
+                        }
+                      />
+                      <HelperMessage>
+                        List of feature rollout dates (separate values with a
+                        ","). e.g. : 2021-08-25, 2021-07-01
+                      </HelperMessage>
+                    </>
+                  )}
+                </Field>
+                <Field label="releaseNoteFlags" name="release-note-flags">
+                  {({ fieldProps }: any) => (
+                    <>
+                      <Textfield
+                        {...fieldProps}
+                        value={releaseNoteFlags}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                          setReleaseNoteFlags(e.target.value)
+                        }
+                      />
+                      <HelperMessage>
+                        List of release note flags (separate values with a ",").
+                        e.g. : https://app.launchdarkly.com/url-of-your-flag
+                      </HelperMessage>
+                    </>
+                  )}
+                </Field>
+                <Field
+                  label="releaseNoteFlagOffValues"
+                  name="release-note-flag-off-values"
+                >
+                  {({ fieldProps }: any) => (
+                    <>
+                      <Textfield
+                        {...fieldProps}
+                        value={releaseNoteFlagOffValues}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                          setReleaseNoteFlagOffValues(e.target.value)
+                        }
+                      />
+                      <HelperMessage>
+                        List of release note flags with "off" values (separate
+                        values with a ","). e.g. : "False", "Off"
+                      </HelperMessage>
+                    </>
+                  )}
+                </Field>
               </ControlsWrapper>
             </div>
             <DividerLine />

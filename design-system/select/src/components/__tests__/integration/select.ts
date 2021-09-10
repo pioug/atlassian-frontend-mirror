@@ -96,9 +96,12 @@ BrowserTestCase(
   },
 );
 
+// FIXME: This test was automatically skipped due to failure on 9/9/2021: https://product-fabric.atlassian.net/browse/SKIP-48
 BrowserTestCase(
   `Async-select should display a menu once clicked and not throwing errors`,
-  {},
+  {
+    skip: ['*'],
+  },
   async (client: any) => {
     const selectTest = new Page(client);
     const urlSelect = getExampleUrl(

@@ -30,17 +30,45 @@ const CONTEXT_TYPE = 'Mentions';
 
 export interface SmartMentionConfig {
   baseUrl?: string;
+  /**
+   * Use 'prod' for setting the env to a Stargate-supported endpoint
+   */
   env?: 'prod' | 'local';
+  /**
+   * Defaults to 'Context', which will extract the principalId from the
+   * JWT header.
+   */
   principalId?: string;
+  /**
+   * Use 'people' if you are waiting for a product scope.
+   * If your product is not part of the SupportedProduct enum,
+   * and you have a supported product scope, please raise a PR
+   * to add your product onto the SupportedProduct enum.
+   */
   productKey: SupportedProduct;
+  /**
+   * Lucene-type query to proxy onto the search service.
+   */
   searchQueryFilter?: string;
+  /**
+   * AKA tenantId/cloudId.
+   */
   siteId: string;
+  /**
+   * Resolves a team's ID to the team name.
+   */
   teamLinkResolver?: (teamId: string) => string;
   includeUsers?: boolean;
   includeTeams?: boolean;
   includeGroups?: boolean;
   mentionNameResolver?: MentionNameResolver;
+  /**
+   * Function to determine whether to highlight the mention result.
+   */
   shouldHighlightMention?: (mention: MentionDescription) => boolean;
+  /**
+   * Max number of results to show in the suggestions list.
+   */
   maxNumberOfResults?: number;
 }
 

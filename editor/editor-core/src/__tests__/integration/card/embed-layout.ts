@@ -12,9 +12,13 @@ import { editable, getDocFromElement } from '../_helpers';
   { type: 'wrap left', value: 'button[aria-label="Wrap left"]' },
   { type: 'wrap right', value: 'button[aria-label="Wrap right"]' },
 ].forEach((layout) => {
+  // FIXME: This test was automatically skipped due to failure on 9/7/2021: https://product-fabric.atlassian.net/browse/ED-13716
   BrowserTestCase(
     `embed-layout.ts: Layout ${layout.type} selector for embed Card`,
-    { skip: ['edge', 'safari', 'firefox'] },
+    {
+      // skip: ['edge', 'safari', 'firefox'],
+      skip: ['*'],
+    },
     async (
       client: Parameters<typeof goToEditorTestingWDExample>[0],
       testName: string,

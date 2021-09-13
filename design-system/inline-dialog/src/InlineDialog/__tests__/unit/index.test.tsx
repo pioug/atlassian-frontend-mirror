@@ -1,12 +1,10 @@
 import React from 'react';
 
-import { mount, shallow } from 'enzyme';
-
-import { Popper as PopperComponent } from '@atlaskit/popper';
+import { cleanup, fireEvent, render } from '@testing-library/react';
+import { mount } from 'enzyme';
 
 import InlineDialogWithAnalytics from '../../../index';
 import { InlineDialogWithoutAnalytics as InlineDialog } from '../../index';
-import { Container } from '../../styled/container';
 
 declare var global: any;
 
@@ -27,102 +25,77 @@ jest.mock('popper.js', () => {
 });
 
 describe('inline-dialog', () => {
+  afterEach(cleanup);
   describe('default', () => {
     it('should render any children passed to it', () => {
-      const wrapper = mount(
+      const { queryByTestId } = render(
         <InlineDialog content={() => null}>
-          <div id="children" />
+          <div data-testid="child-content">Click me!</div>
         </InlineDialog>,
       );
-      expect(wrapper.find('#children').exists()).toBe(true);
+
+      expect(queryByTestId('child-content')).not.toBeNull();
     });
   });
 
-  describe('isOpen prop', () => {
-    it('should render the content container if isOpen is set', () => {
-      const wrapper = mount(
-        <InlineDialog content={() => null} isOpen>
-          <div id="children" />
-        </InlineDialog>,
-      );
-      expect(wrapper.find(Container).exists()).toBe(true);
-    });
-
-    it('should not render the content container if isOpen is not set', () => {
-      const wrapper = mount(
-        <InlineDialog content={() => null}>
-          <div id="children" />
-        </InlineDialog>,
-      );
-      expect(wrapper.find(Container).exists()).toBe(false);
-    });
-  });
-
-  describe('content prop', () => {
-    const content = <div id="someContent">This is some content</div>;
-
-    it('should render content if isOpen is set', () => {
-      const wrapper = mount(
+  describe('isOpen', () => {
+    const content = (
+      <div data-testid="inline-dialog-content">
+        <p>Hello!</p>
+      </div>
+    );
+    it('should render the content if isOpen is set', () => {
+      const { queryByTestId } = render(
         <InlineDialog content={content} isOpen>
           <div id="children" />
         </InlineDialog>,
       );
-      expect(wrapper.find('#someContent').exists()).toBe(true);
+
+      expect(queryByTestId('inline-dialog-content')).not.toBeNull();
     });
 
-    it('should not render content if isOpen is not set', () => {
-      const wrapper = mount(
+    it('should not render the content if isOpen is not set', () => {
+      const { queryByTestId } = render(
         <InlineDialog content={content}>
           <div id="children" />
         </InlineDialog>,
       );
-      expect(wrapper.find('#content').exists()).toBe(false);
-    });
-  });
-
-  describe('placement prop', () => {
-    it('should be reflected onto the Popper component', () => {
-      const wrapper = shallow(
-        <InlineDialog placement="right" content={() => {}} isOpen>
-          <div id="children" />
-        </InlineDialog>,
-      );
-      const popper = wrapper.find(PopperComponent);
-
-      expect(popper.length).toBeGreaterThan(0);
-      expect(popper.prop('placement')).toBe('right');
+      expect(queryByTestId('inline-dialog-content')).toBeNull();
     });
   });
 
   describe('onContentClick', () => {
     it('should be triggered when the content is clicked', () => {
       const spy = jest.fn();
-      const dummyContent = <div id="dummyContent">This is some content</div>;
-      const wrapper = mount(
+      const dummyContent = (
+        <div data-testid="dummy-content">This is some content</div>
+      );
+      const { getByTestId } = render(
         <InlineDialog onContentClick={spy} content={dummyContent} isOpen>
           <div>trigger</div>
         </InlineDialog>,
       );
-      wrapper.find('#dummyContent').simulate('click');
+
+      fireEvent.click(getByTestId('dummy-content'));
       expect(spy).toHaveBeenCalledTimes(1);
     });
   });
-
   describe('onContentFocus', () => {
     it('should be triggered when an element in the content is focused', () => {
       const spy = jest.fn();
       const dummyLink = (
-        <a id="dummyLink" href="/test">
-          a link
+        <a data-testid="dummy-link" href="/test">
+          This is a dummy link
         </a>
       );
-      const wrapper = mount(
+
+      const { getByTestId } = render(
         <InlineDialog onContentFocus={spy} content={dummyLink} isOpen>
           <div id="children" />
         </InlineDialog>,
       );
 
-      wrapper.find('#dummyLink').simulate('focus');
+      getByTestId('dummy-link').focus();
       expect(spy).toHaveBeenCalledTimes(1);
     });
   });
@@ -131,73 +104,77 @@ describe('inline-dialog', () => {
     it('should be triggered when an element in the content is blurred', () => {
       const spy = jest.fn();
       const dummyLink = (
-        <a id="dummyLink" href="/test">
-          a link
+        <a data-testid="dummy-link" href="/test">
+          This is a dummy link
         </a>
       );
-      const wrapper = mount(
+      const { getByTestId } = render(
         <InlineDialog onContentBlur={spy} content={dummyLink} isOpen>
           <div id="children" />
         </InlineDialog>,
       );
 
-      wrapper.find('#dummyLink').simulate('blur');
+      fireEvent.blur(getByTestId('dummy-link'));
       expect(spy).toHaveBeenCalledTimes(1);
     });
   });
 
   describe('handleClickOutside', () => {
     it('should not trigger the onClose prop if event is defaultPrevented', () => {
-      const spy = jest.fn();
-      const wrapper = mount(
-        <InlineDialog content={() => null} onClose={spy} isOpen>
-          <div id="children" />
-        </InlineDialog>,
-      );
-      const event = {
-        target: document.createElement('div'),
-        defaultPrevented: true,
+      const defaultPreventedEvent = (
+        event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+      ) => {
+        return event.preventDefault();
       };
+      const spy = jest.fn();
+      const { getByTestId } = render(
+        <>
+          <InlineDialog
+            content={() => null}
+            isOpen
+            onClose={spy}
+            testId="inline-dialog"
+          >
+            <div id="children" />
+          </InlineDialog>
+          <button
+            onClick={defaultPreventedEvent}
+            data-testid="outside-inline-dialog"
+          />
+        </>,
+      );
 
-      // @ts-ignore - handleClickOutside DOES exist on the instance.
-      wrapper.instance().handleClickOutside(event);
+      // click the outside element
+      fireEvent.click(getByTestId('outside-inline-dialog'));
 
+      expect(getByTestId('outside-inline-dialog')).toBeInTheDocument();
       expect(spy).not.toHaveBeenCalled();
     });
 
-    it('should trigger the onClose prop', () => {
-      const spy = jest.fn();
-      const wrapper = mount(
-        <InlineDialog content={() => null} onClose={spy} isOpen>
+    it('should invoke onClose callback on page click by default', () => {
+      const callback = jest.fn();
+      render(
+        <InlineDialog content={() => null} onClose={callback} isOpen>
           <div id="children" />
         </InlineDialog>,
       );
-      const event = {
-        target: document.createElement('div'),
-      };
 
-      // @ts-ignore - handleClickOutside DOES exist on the instance.
-      wrapper.instance().handleClickOutside(event);
-
-      expect(spy).toHaveBeenCalledTimes(1);
-      expect(spy.mock.calls[0][0].isOpen).toBe(false);
+      // click anywhere outside of inline dialog
+      fireEvent.click(document.body);
+      expect(callback).toHaveBeenCalledTimes(1);
     });
 
-    it('should NOT trigger the onClose prop when isOpen is false', () => {
-      const spy = jest.fn();
-      const wrapper = mount(
-        <InlineDialog content={() => null} onClose={spy}>
+    it('should NOT invoke onClose callback when isOpen is false', () => {
+      const callback = jest.fn();
+      render(
+        <InlineDialog content={() => null} onClose={callback}>
           <div id="children" />
         </InlineDialog>,
       );
-      const event = {
-        target: document.createElement('div'),
-      };
 
-      // @ts-ignore - handleClickOutside DOES exist on the instance.
-      wrapper.instance().handleClickOutside(event);
-
-      expect(spy).not.toHaveBeenCalled();
+      // click anywhere outside of inline dialog
+      fireEvent.click(document);
+      expect(callback).not.toHaveBeenCalledTimes(1);
     });
   });
 });

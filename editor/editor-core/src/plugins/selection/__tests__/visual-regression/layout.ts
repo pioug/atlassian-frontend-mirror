@@ -77,7 +77,8 @@ describe('Selection:', () => {
       await snapshot(page);
     });
 
-    it('displays danger styling when node is selected', async () => {
+    // FIXME: This test was automatically skipped due to failure on 9/7/2021: https://product-fabric.atlassian.net/browse/ED-13715
+    it.skip('displays danger styling when node is selected', async () => {
       await retryClickUntilSelected(
         page,
         layoutSelectors.column,

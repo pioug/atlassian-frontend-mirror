@@ -74,6 +74,7 @@ interface ContainerProps {
  *
  * A container is used as a styled wrapper around the contents of an inline dialog.
  * Note that the styles here are merged with the style prop that comes from the popper.js library.
+ *
  */
 export const Container = forwardRef<HTMLDivElement, ContainerProps>(
   ({ children, onBlur, onClick, onFocus, style, testId }, ref) => {

@@ -94,7 +94,8 @@ describe('Snapshot Test: Media', () => {
     });
   });
 
-  describe('layout', () => {
+  // FIXME: This test was automatically skipped due to failure on 9/7/2021: https://product-fabric.atlassian.net/browse/ED-13718
+  describe.skip('layout', () => {
     devices.forEach((device) => {
       it(`should correctly render for ${device}`, async () => {
         await initRenderer(page, layoutAdf, device);

@@ -30,12 +30,12 @@ export default class InlineDialogTestingExample extends Component<{}, State> {
           }}
           content={content}
           isOpen={this.state.dialogOpen}
-          testId="the-inline-dialog"
+          testId="inline-dialog"
         >
           <Button
             isSelected={this.state.dialogOpen}
             onClick={this.toggleDialog}
-            testId="the-button-for-inline-dialog"
+            testId="open-inline-dialog-button"
           >
             Click me!
           </Button>

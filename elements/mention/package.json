@@ -47,8 +47,10 @@
   "devDependencies": {
     "@atlaskit/build-utils": "*",
     "@atlaskit/docs": "^9.0.0",
+    "@atlaskit/editor-core": "^149.0.0",
     "@atlaskit/editor-test-helpers": "^15.4.0",
     "@atlaskit/elements-test-helpers": "^0.7.0",
+    "@atlaskit/section-message": "^6.0.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/util-data-test": "^16.0.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",

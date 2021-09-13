@@ -41,10 +41,10 @@ export default class InlineDialogDatepickerExample extends Component<
     const content = (
       <div style={{ width: '300px' }}>
         <p>
-          <Select options={options} />
+          <Select options={options} classNamePrefix="react-select" />
         </p>
         <p>
-          <DatePicker />
+          <DatePicker testId="date-picker" />
         </p>
       </div>
     );
@@ -64,6 +64,7 @@ export default class InlineDialogDatepickerExample extends Component<
             content={content}
             isOpen={this.state.isDialogOpen}
             onClose={this.dialogClosed}
+            testId="inline-dialog"
           >
             <Button
               onClick={this.openDialog}

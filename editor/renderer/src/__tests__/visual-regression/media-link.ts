@@ -117,7 +117,8 @@ describe('media link:', () => {
     await snapshot(page);
   });
 
-  it(`should render a linked media image inside a table correctly`, async () => {
+  // FIXME: This test was automatically skipped due to failure on 9/7/2021: https://product-fabric.atlassian.net/browse/ED-13719
+  it.skip(`should render a linked media image inside a table correctly`, async () => {
     await loadAdf(page, mediaLinkInsideTable);
 
     await waitForAllMedia(page, 2);

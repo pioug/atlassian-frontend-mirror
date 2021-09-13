@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React, { Component } from 'react';
+import React, { FC, memo, useCallback, useEffect, useRef } from 'react';
 
 import { jsx } from '@emotion/core';
 import NodeResolver from 'react-node-resolver';
@@ -9,94 +9,89 @@ import {
   withAnalyticsContext,
   withAnalyticsEvents,
 } from '@atlaskit/analytics-next';
+import noop from '@atlaskit/ds-lib/noop';
 import { Manager, Popper, Reference } from '@atlaskit/popper';
 
-import { InlineDialogProps, Placement } from '../types';
+import type { InlineDialogProps } from '../types';
 
 import { Container } from './styled/container';
 
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
-class InlineDialog extends Component<InlineDialogProps> {
-  static defaultProps = {
-    isOpen: false,
-    onContentBlur: () => {},
-    onContentClick: () => {},
-    onContentFocus: () => {},
-    onClose: () => {},
-    placement: 'bottom-start' as Placement,
-  };
 
-  containerRef?: HTMLElement | null;
-
-  triggerRef?: HTMLElement;
-
-  componentDidUpdate(prevProps: InlineDialogProps) {
-    if (typeof window === 'undefined') {
-      return;
-    }
-
-    // added here to clean up component unmounting, which is not done in ref
-    this.containerRef = null;
-
-    if (!prevProps.isOpen && this.props.isOpen) {
-      window.addEventListener('click', this.handleClickOutside, true);
-    } else if (prevProps.isOpen && !this.props.isOpen) {
-      window.removeEventListener('click', this.handleClickOutside, true);
-    }
+const checkIsChildOfPortal = (node: HTMLElement | null): boolean => {
+  if (!node) {
+    return false;
   }
 
-  componentDidMount() {
-    if (typeof window === 'undefined') {
-      return;
-    }
+  return (
+    (node.classList && node.classList.contains('atlaskit-portal-container')) ||
+    checkIsChildOfPortal(node.parentElement)
+  );
+};
 
-    if (this.props.isOpen) {
-      window.addEventListener('click', this.handleClickOutside, true);
-    }
-  }
+const InlineDialog: FC<InlineDialogProps> = memo<InlineDialogProps>(
+  ({
+    isOpen = false,
+    onContentBlur = noop,
+    onContentClick = noop,
+    onContentFocus = noop,
+    onClose = noop,
+    placement = 'bottom-start',
+    testId,
+    content,
+    children,
+  }) => {
+    const containerRef = useRef<HTMLElement | null>(null);
+    const triggerRef = useRef<HTMLElement | null>(null);
 
-  componentWillUnmount() {
-    if (typeof window === 'undefined') {
-      return;
-    }
+    const handleClickOutside = useCallback(
+      (event: MouseEvent) => {
+        if (event.defaultPrevented) {
+          return;
+        }
 
-    window.removeEventListener('click', this.handleClickOutside, true);
-  }
+        const { target } = event;
 
-  handleClickOutside = (event: any) => {
-    const { isOpen, onClose } = this.props;
+        // checks for when target is not HTMLElement
+        if (!(target instanceof HTMLElement)) {
+          return;
+        }
 
-    if (event.defaultPrevented) {
-      return;
-    }
+        // TODO: This is to handle the case where the target is no longer in the DOM.
+        // This happens with react-select in datetime picker. There might be other
+        // edge cases for this.
+        if (!document.body.contains(target)) {
+          return;
+        }
 
-    const container = this.containerRef;
-    const trigger = this.triggerRef;
-    const { target } = event;
+        // exit if we click outside but on the trigger — it can handle the clicks itself
+        if (triggerRef.current && triggerRef.current.contains(target)) {
+          return;
+        }
 
-    // exit if we click outside but on the trigger — it can handle the clicks itself
-    if (trigger && trigger.contains(target)) {
-      return;
-    }
+        // handles the case where inline dialog opens portalled elements such as modal
+        if (checkIsChildOfPortal(target)) {
+          return;
+        }
 
-    // call onClose if the click originated from outside the dialog
-    if (isOpen && container && !container.contains(target)) {
-      onClose && onClose({ isOpen: false, event });
-    }
-  };
+        // call onClose if the click originated from outside the dialog
+        if (containerRef.current && !containerRef.current.contains(target)) {
+          onClose && onClose({ isOpen: false, event: event as any });
+        }
+      },
+      [onClose],
+    );
 
-  render() {
-    const {
-      children,
-      placement,
-      isOpen,
-      content,
-      onContentBlur,
-      onContentFocus,
-      onContentClick,
-      testId,
-    } = this.props;
+    useEffect(() => {
+      window.addEventListener('click', handleClickOutside, { capture: false });
+
+      return () => {
+        window.removeEventListener('click', handleClickOutside, {
+          capture: false,
+        });
+      };
+    }, [handleClickOutside]);
 
     const popper = isOpen ? (
       <Popper placement={placement}>
@@ -107,7 +102,7 @@ class InlineDialog extends Component<InlineDialogProps> {
             onClick={onContentClick}
             ref={(node) => {
               if (node) {
-                this.containerRef = node;
+                containerRef.current = node;
                 if (typeof ref === 'function') {
                   ref(node);
                 } else {
@@ -130,7 +125,7 @@ class InlineDialog extends Component<InlineDialogProps> {
           {({ ref }) => (
             <NodeResolver
               innerRef={(node: HTMLElement) => {
-                this.triggerRef = node;
+                triggerRef.current = node;
                 if (typeof ref === 'function') {
                   ref(node);
                 } else {
@@ -145,8 +140,8 @@ class InlineDialog extends Component<InlineDialogProps> {
         {popper}
       </Manager>
     );
-  }
-}
+  },
+);
 
 export { InlineDialog as InlineDialogWithoutAnalytics };
 const createAndFireEventOnAtlaskit = createAndFireEvent('atlaskit');

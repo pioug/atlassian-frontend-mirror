@@ -1,5 +1,11 @@
 # @atlaskit/inline-dialog
 
+## 13.1.2
+
+### Patch Changes
+
+- [`398904f14d9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/398904f14d9) - [ux] Fixes a bug in version 13.1.0 where InlineDialog cannot be closed after it opens a Modal. There should be no other UI or UX changes.
+
 ## 13.1.1
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @atlaskit/mention
 
+## 19.7.1
+
+### Patch Changes
+
+- [`4ac918aad80`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ac918aad80) - Added helper documentation for easier onboarding onto Atlaskit Editor
+
 ## 19.7.0
 
 ### Minor Changes

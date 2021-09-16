@@ -1,5 +1,11 @@
 # @atlaskit/right-side-panel
 
+## 0.4.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.4.5
 
 ### Patch Changes

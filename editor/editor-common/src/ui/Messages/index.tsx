@@ -6,7 +6,6 @@ import SuccessIcon from '@atlaskit/icon/glyph/editor/success';
 import ErrorIcon from '@atlaskit/icon/glyph/error';
 import { G400, N200, R400 } from '@atlaskit/theme/colors';
 import { gridSize } from '@atlaskit/theme/constants';
-import { multiply } from '@atlaskit/theme/math';
 import { h200 } from '@atlaskit/theme/typography';
 
 const Message = styled.div<{ error?: boolean; valid?: boolean }>`
@@ -20,7 +19,7 @@ const Message = styled.div<{ error?: boolean; valid?: boolean }>`
     }
     return N200;
   }};
-  margin-top: ${multiply(gridSize, 0.5)}px;
+  margin-top: ${gridSize() / 2}px;
   display: flex;
   justify-content: baseline;
 `;

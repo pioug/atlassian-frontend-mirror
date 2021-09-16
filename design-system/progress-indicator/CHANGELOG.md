@@ -1,5 +1,19 @@
 # @atlaskit/progress-indicator
 
+## 9.1.0
+
+### Minor Changes
+
+- [`947ba5b11f0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/947ba5b11f0) - The component has undergone an internal refactor. The following changes need to be called out:
+
+  - `styled-components` has been removed from the package in favour of `@emotion/core`.
+  - The component now supports a `testId` prop in line with other Design System components. This can be used for automated testing.
+  - Focus ring colors have been normalised to be the same across all appearance types of the component.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.0.5
 
 ### Patch Changes

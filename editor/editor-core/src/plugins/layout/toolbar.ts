@@ -1,6 +1,7 @@
 import { InjectedIntl } from 'react-intl';
 import { EditorState } from 'prosemirror-state';
 import { findDomRefAtPos } from 'prosemirror-utils';
+import EditorLayoutSingleIcon from '@atlaskit/icon/glyph/editor/layout-single';
 import LayoutTwoEqualIcon from '@atlaskit/icon/glyph/editor/layout-two-equal';
 import LayoutThreeEqualIcon from '@atlaskit/icon/glyph/editor/layout-three-equal';
 import LayoutTwoLeftSidebarIcon from '@atlaskit/icon/glyph/editor/layout-two-left-sidebar';
@@ -49,6 +50,16 @@ const LAYOUT_TYPES: PresetLayoutButtonItem[] = [
   },
 ];
 
+const LAYOUT_TYPES_WITH_SINGLE_COL: PresetLayoutButtonItem[] = [
+  {
+    id: 'editor.layout.singeLayout',
+    type: 'single',
+    title: toolbarMessages.singleColumn,
+    icon: EditorLayoutSingleIcon,
+  },
+  ...LAYOUT_TYPES,
+];
+
 const SIDEBAR_LAYOUT_TYPES: PresetLayoutButtonItem[] = [
   {
     id: 'editor.layout.twoRightSidebar',
@@ -92,6 +103,7 @@ export const buildToolbar = (
   pos: number,
   _allowBreakout: boolean,
   addSidebarLayouts: boolean,
+  allowSingleColumnLayout: boolean,
 ): FloatingToolbarConfig | undefined => {
   const node = state.doc.nodeAt(pos);
   if (node) {
@@ -117,13 +129,17 @@ export const buildToolbar = (
       onBlur: hoverDecoration(nodeType, false),
     };
 
+    const layoutTypes = allowSingleColumnLayout
+      ? LAYOUT_TYPES_WITH_SINGLE_COL
+      : LAYOUT_TYPES;
+
     return {
       title: layoutToolbarTitle,
       getDomRef: (view) =>
         findDomRefAtPos(pos, view.domAtPos.bind(view)) as HTMLElement,
       nodeType,
       items: [
-        ...LAYOUT_TYPES.map((i) => buildLayoutButton(intl, i, currentLayout)),
+        ...layoutTypes.map((i) => buildLayoutButton(intl, i, currentLayout)),
         ...(addSidebarLayouts
           ? SIDEBAR_LAYOUT_TYPES.map((i) =>
               buildLayoutButton(intl, i, currentLayout),

@@ -108,8 +108,6 @@ export default {
   'fabric.editor.horizontalRule': 'Divisor',
   'fabric.editor.horizontalRule.description':
     'Separar o conteúdo com uma linha horizontal',
-  'fabric.editor.hyperlinkToolbarPlaceholder':
-    'Colar ligação ou pesquisa visualizados recentemente',
   'fabric.editor.image': 'Imagem',
   'fabric.editor.info': 'Informação',
   'fabric.editor.infoPanel': 'Painel de informações',

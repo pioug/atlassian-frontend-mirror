@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/reactions",
-  "version": "19.1.4",
+  "version": "19.1.5",
   "description": "Reactions component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -30,10 +30,10 @@
     "@atlaskit/analytics-next": "^8.2.0",
     "@atlaskit/button": "^16.0.0",
     "@atlaskit/emoji": "^63.1.0",
-    "@atlaskit/icon": "^21.8.0",
+    "@atlaskit/icon": "^21.9.0",
     "@atlaskit/popper": "^5.0.0",
-    "@atlaskit/theme": "^11.5.0",
-    "@atlaskit/tooltip": "^17.3.0",
+    "@atlaskit/theme": "^12.0.0",
+    "@atlaskit/tooltip": "^17.5.0",
     "@atlaskit/util-service-support": "^6.0.0",
     "@babel/runtime": "^7.0.0",
     "classnames": "^2.2.5",
@@ -50,7 +50,7 @@
     "@atlaskit/docs": "^9.0.0",
     "@atlaskit/editor-test-helpers": "^15.4.0",
     "@atlaskit/elements-test-helpers": "^0.7.0",
-    "@atlaskit/tooltip": "^17.3.0",
+    "@atlaskit/tooltip": "^17.5.0",
     "@atlaskit/util-data-test": "^16.0.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "enzyme": "^3.10.0",

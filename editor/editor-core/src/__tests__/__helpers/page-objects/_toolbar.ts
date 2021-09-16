@@ -59,6 +59,11 @@ export const toolbarMenuItemsSelectors = {
   [ToolbarMenuItem.undo]: '[aria-label="Undo"]',
 };
 
+export const toolbarDropdownMenuSelectors = {
+  textColor: '[data-testid="text-color-palette"]',
+  emoji: '[data-emoji-picker-container]',
+};
+
 export async function clickToolbarMenu(page: TestPage, menu: ToolbarMenuItem) {
   await page.waitForSelector(toolbarMenuItemsSelectors[menu]);
   await page.click(toolbarMenuItemsSelectors[menu]);

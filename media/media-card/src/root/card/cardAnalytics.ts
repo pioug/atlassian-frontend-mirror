@@ -12,6 +12,7 @@ import {
   getCopiedFilePayload,
   getRenderCommencedEventPayload,
   MediaCardAnalyticsEventPayload,
+  getRenderPreviewableCardPayload,
 } from '../../utils/analytics';
 import { CardStatus } from '../..';
 import { CardPreview } from './getCardPreview';
@@ -94,4 +95,14 @@ export const fireCopiedEvent = (
       fireMediaCardEvent(getCopiedFilePayload(fileId), createAnalyticsEvent);
     }
   }
+};
+
+export const fireScreenEvent = (
+  createAnalyticsEvent: CreateUIAnalyticsEvent,
+  fileAttributes: FileAttributes,
+) => {
+  fireMediaCardEvent(
+    getRenderPreviewableCardPayload(fileAttributes),
+    createAnalyticsEvent,
+  );
 };

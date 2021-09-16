@@ -22,7 +22,7 @@ export default {
   'fabric.emoji.category.productivity': 'Tuotteliaisuus',
   'fabric.emoji.category.symbols': 'Symbolit',
   'fabric.emoji.category.user.uploads': 'Latauksesi',
-  'fabric.emoji.choose.file.ariaLabel':
+  'fabric.emoji.choose.file.screenReaderDescription':
     'Valitse emojille tiedosto. JPG, PNG tai GIF. Koko enintään 1 Mt.',
   'fabric.emoji.choose.file.title': 'Valitse tiedosto',
   'fabric.emoji.delete.description':
@@ -39,5 +39,8 @@ export default {
   'fabric.emoji.preview': 'Uusi emojisi {emoji} näyttää hienolta',
   'fabric.emoji.preview.title': 'Esikatselu',
   'fabric.emoji.retry.label': 'Yritä uudelleen',
-  'fabric.emoji.search.label': 'Hae',
+  'fabric.emoji.search.label': 'Hae emoji',
+  'fabric.emoji.search.placeholder': 'Hae',
+  'fabric.emoji.select.skin.tone.ariaLabel':
+    'Valitse ihon sävy, {selectedTone}',
 };

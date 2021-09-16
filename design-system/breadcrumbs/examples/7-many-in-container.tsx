@@ -4,6 +4,7 @@ import Breadcrumbs, { BreadcrumbsItem } from '../src';
 
 export default () => (
   // with many items, inside a container
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   <div style={{ maxWidth: '500px', border: '1px solid black' }}>
     <Breadcrumbs testId="BreadcrumbsTestId">
       <BreadcrumbsItem href="/item" text="Item" />

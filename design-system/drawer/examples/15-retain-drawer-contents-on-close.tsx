@@ -36,14 +36,14 @@ export default class DrawersExample extends Component<{}, State> {
 
   render() {
     return (
-      <div css={{ padding: '2rem' }}>
+      <div style={{ padding: '2rem' }}>
         <Drawer
           onClose={this.closeDrawer}
           isOpen={this.state.isDrawerOpen}
           width="wide"
           shouldUnmountOnExit={this.state.shouldUnmountOnExit}
         >
-          <label htmlFor="textbox" css={{ display: 'block' }}>
+          <label htmlFor="textbox" style={{ display: 'block' }}>
             Type something in the textarea below and see if it is retained
             <textarea id="textbox" rows={50} cols={50} />
           </label>
@@ -51,7 +51,7 @@ export default class DrawersExample extends Component<{}, State> {
         <Button type="button" onClick={this.openDrawer}>
           Open drawer
         </Button>
-        <div css={{ marginTop: '2rem' }}>
+        <div style={{ marginTop: '2rem' }}>
           <label htmlFor="checkbox">
             <input
               id="checkbox"
@@ -61,7 +61,7 @@ export default class DrawersExample extends Component<{}, State> {
             />
             Toggle remounting of drawer contents on exit
           </label>
-          <div css={{ display: 'block', paddingTop: '1rem' }}>
+          <div style={{ display: 'block', paddingTop: '1rem' }}>
             Contents of the drawer will be{' '}
             <strong>{`${
               this.state.shouldUnmountOnExit ? 'discarded' : 'retained'

@@ -374,6 +374,7 @@ describe('@atlaskit/icon', () => {
         'editor/media-wide',
         'editor/media-wrap-left',
         'editor/media-wrap-right',
+        'editor/layout-single',
         'editor/layout-three-equal',
         'editor/layout-three-with-sidebars',
         'editor/layout-two-equal',

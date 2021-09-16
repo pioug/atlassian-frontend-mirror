@@ -1,7 +1,6 @@
 import styled, { css } from 'styled-components';
 import { gridSize } from '@atlaskit/theme/constants';
 import { heading } from '@atlaskit/theme/colors';
-import { multiply } from '@atlaskit/theme/math';
 import placeholderStyles from './placeholderStyles';
 
 /* Placeholder has been temporarily inlined until we have a helper library for such things */
@@ -41,7 +40,7 @@ const AutocompleteInput = styled.input`
   color: ${heading};
   font-size: 14px;
   margin: 0;
-  min-height: ${multiply(gridSize, 4.5)}px;
+  min-height: ${gridSize() * 4.5}px;
   outline: 0;
   padding: 0;
   width: 100%;

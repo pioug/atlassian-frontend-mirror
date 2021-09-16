@@ -16,6 +16,8 @@ import {
   ToolbarMenuItem,
   toolbarMenuItemsSelectors as selectors,
   mainToolbarSelector,
+  retryUntilStablePosition,
+  toolbarDropdownMenuSelectors,
 } from '../../__helpers/page-objects/_toolbar';
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { scrollToBottom } from '../../__helpers/page-objects/_editor';
@@ -51,6 +53,87 @@ describe('Toolbar', () => {
     await page.setViewport({ width: 1000, height: 700 });
     await clickToolbarMenu(page, ToolbarMenuItem.insertMenu);
     await waitForTooltip(page, 'Insert');
+  });
+});
+
+describe('Toolbar: Text Color', () => {
+  let page: PuppeteerPage;
+
+  beforeEach(async () => {
+    page = global.page;
+    await initEditorWithAdf(page, {
+      appearance: Appearance.fullPage,
+      viewport: { width: 1000, height: 350 },
+    });
+
+    await clickToolbarMenu(page, ToolbarMenuItem.textColor);
+    await retryUntilStablePosition(
+      page,
+      async () => {
+        await page.waitForSelector(toolbarDropdownMenuSelectors.textColor);
+      },
+      editorSelector,
+    );
+    await page.mouse.move(0, 0);
+    await waitForNoTooltip(page);
+    await snapshot(page, undefined, editorSelector);
+  });
+
+  afterEach(async () => {
+    await retryUntilStablePosition(
+      page,
+      async () => {
+        await page.waitForSelector(toolbarDropdownMenuSelectors.textColor, {
+          hidden: true,
+        });
+      },
+      editorSelector,
+    );
+    await snapshot(page, undefined, editorSelector);
+  });
+
+  it('should close the text color menu when ESC is pressed', async () => {
+    await page.keyboard.down('Escape');
+  });
+
+  it('should close the text color menu when clicked outside', async () => {
+    await page.mouse.click(0, 0);
+  });
+});
+
+describe('Toolbar: Emoji', () => {
+  let page: PuppeteerPage;
+
+  beforeEach(async () => {
+    page = global.page;
+    await initEditorWithAdf(page, {
+      appearance: Appearance.fullPage,
+      viewport: { width: 1000, height: 350 },
+    });
+
+    await clickToolbarMenu(page, ToolbarMenuItem.emoji);
+    await page.waitForSelector(toolbarDropdownMenuSelectors.emoji);
+  });
+
+  afterEach(async () => {
+    await retryUntilStablePosition(
+      page,
+      async () => {
+        await page.waitForSelector(toolbarDropdownMenuSelectors.emoji, {
+          hidden: true,
+        });
+      },
+      editorSelector,
+    );
+    await snapshot(page, undefined, editorSelector);
+  });
+
+  it('should close the emoji menu when ESC is pressed', async () => {
+    await page.keyboard.down('Escape');
+  });
+
+  it('should close the emoji menu when clicked outside', async () => {
+    await page.mouse.click(0, 0);
   });
 });
 

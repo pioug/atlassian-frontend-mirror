@@ -201,5 +201,53 @@ tester.run('ensure-design-token-usage', rule, {
         },
       ],
     },
+    {
+      options: [{ shouldEnforceFallbacks: true }],
+      code: `<Star primaryColor="rgb(255, 171, 0)" />`,
+      output: `<Star primaryColor="rgb(255, 171, 0)" />`,
+      errors: [
+        {
+          messageId: 'hardCodedColor',
+          suggestions: [
+            {
+              desc: `Convert to token with fallback`,
+              output: `<Star primaryColor={token('', rgb(255, 171, 0))} />`,
+            },
+          ],
+        },
+      ],
+    },
+    {
+      options: [{ shouldEnforceFallbacks: true }],
+      code: `<Star primaryColor={Y500} />`,
+      output: `<Star primaryColor={Y500} />`,
+      errors: [
+        {
+          messageId: 'hardCodedColor',
+          suggestions: [
+            {
+              desc: `Convert to token with fallback`,
+              output: `<Star primaryColor={token('', Y500)} />`,
+            },
+          ],
+        },
+      ],
+    },
+    {
+      options: [{ shouldEnforceFallbacks: true }],
+      code: `<Star primaryColor={color.Y500} />`,
+      output: `<Star primaryColor={color.Y500} />`,
+      errors: [
+        {
+          messageId: 'hardCodedColor',
+          suggestions: [
+            {
+              desc: `Convert to token with fallback`,
+              output: `<Star primaryColor={token('', color.Y500)} />`,
+            },
+          ],
+        },
+      ],
+    },
   ],
 });

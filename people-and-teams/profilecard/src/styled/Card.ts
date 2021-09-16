@@ -6,7 +6,6 @@ import {
   gridSize,
 } from '@atlaskit/theme/constants';
 import { e200 } from '@atlaskit/theme/elevation';
-import { divide, multiply } from '@atlaskit/theme/math';
 
 import {
   appLabelBgColor,
@@ -35,13 +34,13 @@ export const CardContainerEmpty = styled.div``;
 export const CardWrapper = styled.div`
   background-color: ${bgColor};
   border-radius: ${borderRadius}px;
-  width: ${multiply(gridSize, 45)}px;
+  width: ${gridSize() * 45}px;
 `;
 
 export const ProfileImage = styled.div`
   position: absolute;
-  top: ${multiply(gridSize, 3)}px;
-  left: ${multiply(gridSize, 3)}px;
+  top: ${gridSize() * 3}px;
+  left: ${gridSize() * 3}px;
 `;
 
 export const ActionsFlexSpacer = styled.div`
@@ -50,7 +49,7 @@ export const ActionsFlexSpacer = styled.div`
 
 export const ActionButtonGroup = styled.div`
   user-select: none;
-  margin: ${multiply(gridSize, 2)}px 0 0 0;
+  margin: ${2 * gridSize()}px 0 0 0;
   text-align: right;
 
   button {
@@ -65,21 +64,21 @@ export const ActionButtonGroup = styled.div`
 export const CardContent = styled.div`
   display: flex;
   flex-direction: column;
-  min-height: ${multiply(gridSize, 17)}px;
+  min-height: ${gridSize() * 17}px;
 `;
 
 export const DetailsGroup = styled.div`
   display: flex;
   flex-direction: column;
-  margin-left: ${multiply(gridSize, 14.5)}px;
-  width: ${multiply(gridSize, 24.5)}px;
+  margin-left: ${gridSize() * 14.5}px;
+  width: ${gridSize() * 24.5}px;
 `;
 
 export const DisabledInfo = styled.div`
   font-size: ${fontSizeSmall}px;
   color: ${labelTextColor};
-  margin: ${multiply(gridSize, 1.5)}px 0 0 0;
-  line-height: ${multiply(gridSize, 2)}px;
+  margin: ${gridSize() * 1.5}px 0 0 0;
+  line-height: ${gridSize() * 2}px;
 `;
 
 export const FullNameLabel = styled.span`
@@ -91,11 +90,11 @@ export const FullNameLabel = styled.span`
   color: ${(props: FullNameLabelProps) =>
     props.isDisabledAccount ? headerTextColorInactive : headerTextColor};
   margin: ${(props: FullNameLabelProps) => getFullNameMargin(props)};
-  line-height: ${divide(() => 24, 18)}em;
+  line-height: ${24 / 18}em;
 `;
 
 export const LozengeWrapper = styled.div`
-  margin-top: ${multiply(gridSize, 2)}px;
+  margin-top: ${gridSize() * 2}px;
   text-transform: uppercase;
   display: block;
 `;
@@ -105,11 +104,11 @@ export const CustomLozengeContainer = styled(LozengeWrapper)`
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: flex-start;
-  margin-top: ${multiply(gridSize, 1.5)}px;
+  margin-top: ${gridSize() * 1.5}px;
   > * {
-    margin-top: ${multiply(gridSize, 0.5)}px;
+    margin-top: ${gridSize() / 2}px;
     &:not(:last-child) {
-      margin-right: ${multiply(gridSize, 0.5)}px;
+      margin-right: ${gridSize() / 2}px;
     }
   }
 `;
@@ -121,8 +120,8 @@ export const JobTitleLabel = styled.span`
 
   font-size: 14px;
   color: ${headerTextColor};
-  margin: 0 0 ${multiply(gridSize, 1.5)}px 0;
-  line-height: ${divide(() => 24, 14)}em;
+  margin: 0 0 ${gridSize() * 1.5}px 0;
+  line-height: ${24 / 14}em;
 `;
 
 export const AppTitleLabel = styled.span`
@@ -135,14 +134,14 @@ export const AppTitleLabel = styled.span`
   text-transform: uppercase;
 
   font-size: 12px;
-  margin: 4px 0 ${multiply(gridSize, 1.5)}px 0;
-  line-height: ${divide(() => 24, 14)}em;
+  margin: 4px 0 ${gridSize() * 1.5}px 0;
+  line-height: ${24 / 14}em;
 `;
 
 export const SpinnerContainer = styled.div`
   align-items: center;
   display: flex;
-  height: ${multiply(gridSize, 12)}px;
+  height: ${gridSize() * 12}px;
   justify-content: center;
   position: relative;
 `;
@@ -166,9 +165,9 @@ export const CardContainer = styled.div`
       100%
   );
   background-repeat: no-repeat;
-  background-size: 100% ${multiply(gridSize, 12)}px;
+  background-size: 100% ${gridSize() * 12}px;
   box-sizing: content-box;
-  padding: ${multiply(gridSize, 3)}px;
+  padding: ${gridSize() * 3}px;
   ${(props: CardContainerProps) => {
     if (props.withoutElevation) {
       return '';
@@ -184,13 +183,13 @@ export const CardContainer = styled.div`
 export const DetailsLabel = styled.div`
   display: flex;
   align-items: center;
-  line-height: ${multiply(gridSize, 3)}px;
-  font-size: ${multiply(gridSize, 1.5)}px;
-  margin: ${multiply(gridSize, 2)}px 0 0 0;
+  line-height: ${gridSize() * 3}px;
+  font-size: ${gridSize() * 1.5}px;
+  margin: ${gridSize() * 2}px 0 0 0;
   white-space: nowrap;
 
   & + & {
-    margin-top: ${multiply(gridSize, 0.25)}px;
+    margin-top: ${gridSize() / 4}px;
   }
 `;
 
@@ -198,9 +197,9 @@ export const DetailsLabelIcon = styled.div`
   display: flex;
   flex-shrink: 0;
   color: ${labelIconColor};
-  width: ${multiply(gridSize, 2)}px;
-  height: ${multiply(gridSize, 2)}px;
-  padding: ${multiply(gridSize, 0.5)}px;
+  width: ${gridSize() * 2}px;
+  height: ${gridSize() * 2}px;
+  padding: ${gridSize() / 2}px;
   vertical-align: top;
 
   svg {
@@ -213,5 +212,5 @@ export const DetailsLabelText = styled.span`
   overflow: hidden;
   text-overflow: ellipsis;
   color: ${labelTextColor};
-  padding-left: ${multiply(gridSize, 0.5)}px;
+  padding-left: ${gridSize() / 2}px;
 `;

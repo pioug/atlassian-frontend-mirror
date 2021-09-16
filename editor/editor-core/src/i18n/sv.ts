@@ -28,6 +28,7 @@ export default {
   'fabric.editor.blockquote.description': 'Infoga citat',
   'fabric.editor.blockquote2': 'Citat',
   'fabric.editor.bold': 'Fet',
+  'fabric.editor.bug': 'Bugg',
   'fabric.editor.canNotSortTable':
     '⚠️ Du kan inte sortera en panelvy med sammanslagna celler',
   'fabric.editor.cancelButton': 'Avbryt',
@@ -47,6 +48,7 @@ export default {
   'fabric.editor.code': 'Kod',
   'fabric.editor.codeblock': 'Kodstycke',
   'fabric.editor.codeblock.description': 'Visa kod med syntaxmarkering',
+  'fabric.editor.collapseTable': 'Dölj tabell',
   'fabric.editor.columns': 'Layouter',
   'fabric.editor.columns.description': 'Ge din sida struktur med sektioner',
   'fabric.editor.configFailedToLoad': 'Fel vid inläsning',
@@ -78,6 +80,7 @@ export default {
   'fabric.editor.decision.description':
     'Fånga beslut så att de är enklare att spåra',
   'fabric.editor.decisionPlaceholder': 'Lägg till ett beslut ...',
+  'fabric.editor.defaultAltText': 'Listobjekt',
   'fabric.editor.displayBlock': 'Visa kort',
   'fabric.editor.displayEmbed': 'Visa inbäddad',
   'fabric.editor.displayInline': 'Visa inline',
@@ -88,8 +91,11 @@ export default {
   'fabric.editor.distributeColumns': 'Fördela kolumner',
   'fabric.editor.edit': 'Redigera',
   'fabric.editor.editAltText': 'Redigera alternativ text',
+  'fabric.editor.editDateText': 'Redigeringsdatum',
   'fabric.editor.editLink': 'Redigera länk',
   'fabric.editor.editMode.inviteToEditButton.title': 'Bjud in att redigera',
+  'fabric.editor.editStatusColor': 'Redigera statusfärg',
+  'fabric.editor.editStatusText': 'Redigera status',
   'fabric.editor.editorHelp': 'Editor-hjälp',
   'fabric.editor.elementBrowser.help': 'Hjälp',
   'fabric.editor.elementbrowser.categorylist.category-admin': 'Administration',
@@ -121,6 +127,7 @@ export default {
   'fabric.editor.emoji.description':
     'Använd emojis för att uttrycka idéer 🎉 och känslor 😄',
   'fabric.editor.emptyLink': 'Ange en länk.',
+  'fabric.editor.epic': 'Epic',
   'fabric.editor.error': 'Fel',
   'fabric.editor.errorPanel': 'Felpanel',
   'fabric.editor.errorPanel.description': 'Meddela om fel i en färgad panel',
@@ -138,6 +145,9 @@ export default {
   'fabric.editor.findNext': 'Hitta nästa',
   'fabric.editor.findPrevious': 'Hitta föregående',
   'fabric.editor.findReplaceToolbarButton': 'Sök och ersätt',
+  'fabric.editor.floatingToolbar.confirmModalCancel': 'Avbryt',
+  'fabric.editor.floatingToolbar.confirmModalHeading': 'Är du säker?',
+  'fabric.editor.floatingToolbar.confirmModalOK': 'OK',
   'fabric.editor.headerColumn': 'Rubrikkolumn',
   'fabric.editor.headerRow': 'Rubrikrad',
   'fabric.editor.heading1': 'Rubrik 1',
@@ -166,8 +176,9 @@ export default {
   'fabric.editor.hyperlink.searchLinkResults':
     '{count, plural, =0 {inga resultat hittades} one {{count,number} resultat hittades} other {{count,number} resultat hittades}}',
   'fabric.editor.hyperlinkToolbarPlaceholder':
-    'Klistra in länk eller sök senaste visade',
+    'Klistra in eller sök efter en länk',
   'fabric.editor.image': 'Bild',
+  'fabric.editor.improvement': 'Förbättring',
   'fabric.editor.info': 'Info',
   'fabric.editor.infoPanel': 'Informationspanel',
   'fabric.editor.infoPanel.description':
@@ -209,7 +220,7 @@ export default {
   'fabric.editor.orderedList.description': 'Skapa en sorterad lista',
   'fabric.editor.other': 'Annat ...',
   'fabric.editor.panel.backgroundColor': 'Bakgrundsfärg',
-  'fabric.editor.panel.emoji': 'Lägg till ikon',
+  'fabric.editor.panel.emoji': 'Lägg till emoji',
   'fabric.editor.pastePlainText': 'Klistra in oformaterad text',
   'fabric.editor.placeholderAltText':
     'Beskriv den här bilden med alternativ text',
@@ -239,7 +250,9 @@ export default {
   'fabric.editor.status': 'Status',
   'fabric.editor.status.description': 'Lägg till en anpassad statusetikett',
   'fabric.editor.statusPlaceholder': 'Ange status',
+  'fabric.editor.story': 'Story',
   'fabric.editor.strike': 'Genomstrykning',
+  'fabric.editor.subTask': 'Underordnad uppgift',
   'fabric.editor.subscript': 'Nedsänkt',
   'fabric.editor.success': 'Klart!',
   'fabric.editor.successPanel': 'Framgångspanel',
@@ -251,6 +264,11 @@ export default {
   'fabric.editor.table': 'Tabell',
   'fabric.editor.table.description': 'Infoga en tabell',
   'fabric.editor.tableOptions': 'Tabellalternativ',
+  'fabric.editor.tables.confirmDeleteLinkedModalMessage':
+    'Om du tar bort den här tabellen tas också alla data som finns i alla anslutna diagram bort.',
+  'fabric.editor.tables.confirmDeleteLinkedModalOKButton':
+    'Ta bort tabell och data',
+  'fabric.editor.task': 'Uppgift',
   'fabric.editor.taskPlaceholder':
     'Skriv din åtgärd och använd @ för att tilldela någon.',
   'fabric.editor.textColor': 'Textfärg',

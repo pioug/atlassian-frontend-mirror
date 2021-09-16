@@ -1,16 +1,17 @@
-import { mount } from 'enzyme';
 import React from 'react';
 
-import {
-  AtlaskitThemeProvider,
-  themed,
-  fontSizeSmall,
-  gridSize,
-  borderRadius,
-  fontSize,
-} from '../..';
+import { mount } from 'enzyme';
+
 import { colorPalette } from '../../color-palettes';
 import { background } from '../../colors';
+import {
+  AtlaskitThemeProvider,
+  borderRadius,
+  fontSize,
+  fontSizeSmall,
+  gridSize,
+  themed,
+} from '../../index';
 
 describe('AtlaskitThemeProvider', () => {
   it('should mount', () => {
@@ -25,7 +26,7 @@ describe('AtlaskitThemeProvider', () => {
   it('uses the default background color', () => {
     expect(
       mount(
-        <AtlaskitThemeProvider mode="light">
+        <AtlaskitThemeProvider mode="light" background={background}>
           <div />
         </AtlaskitThemeProvider>,
       ).prop('background'),

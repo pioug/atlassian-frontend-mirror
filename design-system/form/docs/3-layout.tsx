@@ -34,7 +34,7 @@ const MyForm = () => (
 
   ${(
     <Props
-      props={require('!!extract-react-types-loader!../src/FormHeader')}
+      props={require('!!extract-react-types-loader!../src/form-header')}
       heading=""
     />
   )}
@@ -43,7 +43,7 @@ const MyForm = () => (
 
   ${(
     <Props
-      props={require('!!extract-react-types-loader!../src/FormSection')}
+      props={require('!!extract-react-types-loader!../src/form-section')}
       heading=""
     />
   )}
@@ -52,7 +52,7 @@ const MyForm = () => (
 
   ${(
     <Props
-      props={require('!!extract-react-types-loader!../src/FormFooter')}
+      props={require('!!extract-react-types-loader!../src/form-footer')}
       heading=""
     />
   )}

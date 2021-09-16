@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 /** @jsx jsx */
 import { CSSObject, jsx } from '@emotion/core';
 
@@ -84,7 +85,6 @@ const baseStyles: CSSObject = {
   fontWeight: 'bold',
 };
 
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 const customTheme = {
   default: {
     background: {
@@ -131,7 +131,6 @@ const customTheme = {
     },
   },
 };
-/* eslint-enable @atlaskit/design-system/ensure-design-token-usage */
 
 function extract({
   mode,

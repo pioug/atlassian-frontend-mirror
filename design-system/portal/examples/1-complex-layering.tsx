@@ -1,4 +1,3 @@
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 /* eslint-disable react/no-multi-comp */
 import React, { ReactNode, useState } from 'react';
 
@@ -30,6 +29,7 @@ const TooltipButton = ({
   onClick: () => void;
   id?: string;
 }) => (
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   <div style={{ backgroundColor: 'white' }}>
     <Tooltip content="Click me">
       <Button id={id} onClick={onClick}>

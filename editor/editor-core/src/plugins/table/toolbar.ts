@@ -144,13 +144,18 @@ export const getToolbarCellOptionsConfig = (
     {
       id: 'editor.table.insertColumn',
       title: formatMessage(tableMessages.insertColumn),
-      onClick: (state: EditorState, dispatch?: CommandDispatch) => {
+      onClick: (
+        state: EditorState,
+        dispatch?: CommandDispatch,
+        view?: EditorView,
+      ) => {
         const selectionRect = getClosestSelectionRect(state);
         const index = selectionRect?.right;
         if (index) {
           insertColumnWithAnalytics(INPUT_METHOD.FLOATING_TB, index)(
             state,
             dispatch,
+            view,
           );
         }
         return true;
@@ -180,12 +185,17 @@ export const getToolbarCellOptionsConfig = (
       title: formatMessage(tableMessages.removeColumns, {
         0: numberOfColumns,
       }),
-      onClick: (state: EditorState, dispatch?: CommandDispatch) => {
+      onClick: (
+        state: EditorState,
+        dispatch?: CommandDispatch,
+        view?: EditorView,
+      ) => {
         const selectionRect = getClosestSelectionRect(state);
         if (selectionRect) {
           deleteColumnsWithAnalytics(INPUT_METHOD.FLOATING_TB, selectionRect)(
             state,
             dispatch,
+            view,
           );
         }
         return true;

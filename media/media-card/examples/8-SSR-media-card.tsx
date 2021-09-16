@@ -4,7 +4,11 @@ import {
   defaultCollectionName,
   genericFileId,
   createUploadMediaClientConfig,
+  tallImage,
+  atlassianLogoUrl,
+  externaBrokenlIdentifier,
 } from '@atlaskit/media-test-helpers';
+
 // Deep linking to CardSSRView here until we have a higher order component that is able to rehydreate
 import { CardSSRView } from '../src/root/card/cardSSRView';
 import { CardView } from '../src/root/cardView';
@@ -25,6 +29,7 @@ const Example = (
     title: string;
     disableOverlay: boolean;
     dataURI?: string;
+    isLazy?: boolean;
   },
 ) => {
   function renderCards() {
@@ -36,6 +41,7 @@ const Example = (
     return (
       <CardsWrapper>
         <CardWrapper key={identifier.id}>
+          <h3>SSR Card</h3>
           <div>
             <CardSSRView
               mediaClient={props.mediaClient}
@@ -43,19 +49,29 @@ const Example = (
               alt="alt text"
               resizeMode="fit"
               disableOverlay={props.disableOverlay}
+              isLazy={!!props.isLazy}
             />
           </div>
         </CardWrapper>
         <CardWrapper key={identifier.id}>
+          <h3>
+            {props.isLazy
+              ? 'This space intentionally left blank'
+              : 'Media Card'}
+          </h3>
           <div>
-            <CardView
-              mediaItemType="file"
-              resizeMode="fit"
-              disableOverlay={props.disableOverlay}
-              selectable={false}
-              selected={false}
-              dataURI={props.dataURI}
-            />
+            {props.isLazy ? (
+              <p>CardView does not support lazy loading</p>
+            ) : (
+              <CardView
+                mediaItemType="file"
+                resizeMode="fit"
+                disableOverlay={props.disableOverlay}
+                selectable={false}
+                selected={false}
+                dataURI={props.dataURI}
+              />
+            )}
           </div>
         </CardWrapper>
       </CardsWrapper>
@@ -73,9 +89,6 @@ const Example = (
 };
 
 export default () => {
-  const resolvableImage =
-    'https://atlaskit.atlassian.com/1d214c2e50eea39bd1e887298a0f272f.png';
-  const notAnImage = 'https://notanimage';
   const mediaClientConfig = createUploadMediaClientConfig();
   const mediaClient = new MediaClient(mediaClientConfig);
   const alwaysFailingSyncImageUrlMediaClient = {
@@ -85,14 +98,19 @@ export default () => {
     },
   } as Partial<MediaClient>;
 
+  const alwaysHasASyncImageUrlForLazyisLazyMediaClient = {
+    ...mediaClient,
+    getImageUrlSync: () => atlassianLogoUrl,
+  } as Partial<MediaClient>;
+
   const alwaysHasASyncImageUrlMediaClient = {
     ...mediaClient,
-    getImageUrlSync: () => resolvableImage,
+    getImageUrlSync: () => tallImage,
   } as Partial<MediaClient>;
 
   const alwaysHasASyncImageUrlThatIsntValidMediaClient = {
     ...mediaClient,
-    getImageUrlSync: () => notAnImage,
+    getImageUrlSync: () => externaBrokenlIdentifier.dataURI,
   } as Partial<MediaClient>;
   const [disableOverlay, setDisableOverlay] = useState(false);
 
@@ -110,7 +128,7 @@ export default () => {
         mediaClient={alwaysHasASyncImageUrlMediaClient as MediaClient}
         title="Successful Synchronous Load"
         disableOverlay={disableOverlay}
-        dataURI={resolvableImage}
+        dataURI={tallImage}
       />
       <Example
         mediaClient={
@@ -118,12 +136,20 @@ export default () => {
         }
         title="Failing to get image synchronously because of a bad url"
         disableOverlay={disableOverlay}
-        dataURI={notAnImage}
+        dataURI={externaBrokenlIdentifier.dataURI}
       />
       <Example
         mediaClient={alwaysFailingSyncImageUrlMediaClient as MediaClient}
         title="Failing to get image URI Synchronously"
         disableOverlay={disableOverlay}
+      />
+      <Example
+        mediaClient={
+          alwaysHasASyncImageUrlForLazyisLazyMediaClient as MediaClient
+        }
+        title="Successful Lazy Load"
+        disableOverlay={disableOverlay}
+        isLazy={true}
       />
     </MainWrapper>
   );

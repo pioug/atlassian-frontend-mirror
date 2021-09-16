@@ -4,9 +4,21 @@ import { TableMap } from '@atlaskit/editor-tables/table-map';
 
 import { CellAttributes } from '@atlaskit/adf-schema';
 
-import { ResizeState } from '../pm-plugins/table-resizing/utils';
+import {
+  hasTableBeenResized,
+  ResizeState,
+} from '../pm-plugins/table-resizing/utils';
 
 import { setMeta } from './metadata';
+import { ContentNodeWithPos } from 'prosemirror-utils';
+import { EditorView } from 'prosemirror-view';
+import {
+  getResizeState,
+  normaliseTableLayout,
+} from '../pm-plugins/table-resizing/utils/resize-state';
+import { getTableMaxWidth } from '../pm-plugins/table-resizing/utils/misc';
+import { tableCellMinWidth } from '@atlaskit/editor-common';
+import { scaleTableTo } from '../pm-plugins/table-resizing/utils/scale-table';
 
 export const updateColumnWidths = (
   resizeState: ResizeState,
@@ -92,26 +104,71 @@ export const updateColumnWidths = (
   }
 
   const tablePos = start - 1;
-  const { selection } = tr;
-
-  /* Create a mapping before the table node is replaced to allow the current
-   * selection to be mapped back to it's original position inside the table.
-   *
-   * If the mapping from the new 'replaceWith' transaction is used, prosemirror
-   * will map the selection to after the table as it thinks the original table
-   * node has been deleted.
-   */
-  const originalMap = Object.assign(
-    Object.create(Object.getPrototypeOf(tr.mapping)),
-    tr.mapping,
-  );
+  const selectionBookmark = tr.selection.getBookmark();
 
   tr.replaceWith(
     tablePos,
     tablePos + table.nodeSize,
     table.type.createChecked(table.attrs, rows, table.marks),
   );
+  /**
+   * We want to restore to the original selection but w/o applying the mapping. Function
+   * tr.replaceWith puts the selection after the inserted content. We need to manually
+   * set the selection back to original state. Mapping in this case doesn't quite work
+   * e.g. if we change the content before a selection. This is because mapping
+   * means moving it if the content in front of it changed. Instead we can get
+   * bookmark of selection.
+   *
+   * @see https://github.com/ProseMirror/prosemirror/issues/645
+   */
+  return tr.setSelection(selectionBookmark.resolve(tr.doc));
+};
 
-  // restore selection after replacing the table
-  return tr.setSelection(selection.map(tr.doc, originalMap));
+/**
+ * This function is called when user inserts/deletes a column in a table to rescale all columns.
+ * This is done manually to avoid a multi-dispatch in TableComponent. See [ED-8288].
+ * @param table
+ * @param view
+ * @returns Updated transaction with rescaled columns for a given table
+ */
+export const rescaleColumns = (
+  table: ContentNodeWithPos,
+  view: EditorView | undefined,
+) => (tr: Transaction): Transaction => {
+  if (!view || !hasTableBeenResized(table.node)) {
+    return tr;
+  }
+
+  const { state } = view;
+  const domAtPos = view.domAtPos.bind(view);
+
+  const maybeTable = domAtPos(table.start).node as HTMLElement;
+  const tableRef = maybeTable.closest('table');
+
+  if (!tableRef) {
+    return tr;
+  }
+
+  const layout = normaliseTableLayout(tableRef?.dataset.layout);
+  const maxSize = getTableMaxWidth({
+    table: table.node,
+    tableStart: table.start,
+    state,
+    layout,
+    dynamicTextSizing: true,
+  });
+  let resizeState = getResizeState({
+    minWidth: tableCellMinWidth,
+    table: table.node,
+    start: table.start,
+    tableRef,
+    domAtPos,
+    maxSize,
+  });
+
+  if (resizeState.overflow) {
+    resizeState = scaleTableTo(resizeState, maxSize);
+  }
+
+  return updateColumnWidths(resizeState, table.node, table.start)(tr);
 };

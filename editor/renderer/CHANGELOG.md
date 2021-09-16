@@ -1,5 +1,17 @@
 # @atlaskit/renderer
 
+## 81.1.0
+
+### Minor Changes
+
+- [`cf853e39278`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf853e39278) - CETI-72 Web: Copy from renderer loses custom panel attributes
+- [`cf853e39278`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf853e39278) - AK-279 Moved copy button outside of heading, that made heading accessible
+- [`6840e64d105`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6840e64d105) - CETI-124: Revert panel content wrapper from span to div
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 81.0.0
 
 ### Minor Changes

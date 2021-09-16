@@ -50,7 +50,7 @@ export default class DrawersExample extends Component<{}, State> {
 
   render() {
     return (
-      <div css={{ padding: '2rem' }}>
+      <div style={{ padding: '2rem' }}>
         <Drawer
           onClose={this.onClose}
           onCloseComplete={this.onCloseComplete}

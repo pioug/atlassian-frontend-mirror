@@ -101,8 +101,6 @@ export default {
     'Stlačením tlačidla {keyMap} rýchlo kedykoľvek otvorte tento dialóg',
   'fabric.editor.horizontalRule': 'Rozdeľovač',
   'fabric.editor.horizontalRule.description': 'Oddeľte obsah vodorovnou čiarou',
-  'fabric.editor.hyperlinkToolbarPlaceholder':
-    'Vložte prepojenie alebo hľadajte v naposledy zobrazených',
   'fabric.editor.image': 'Obrázok',
   'fabric.editor.info': 'Informácie',
   'fabric.editor.infoPanel': 'Informačný panel',

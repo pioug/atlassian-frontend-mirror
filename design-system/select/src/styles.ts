@@ -57,10 +57,10 @@ export default function baseStyles<Option, IsMulti extends boolean>(
         borderColor = token('color.background.disabled', N20);
       }
       if (validationState === 'error') {
-        borderColor = token('color.text.danger', R400);
+        borderColor = token('color.iconBorder.danger', R400);
       }
       if (validationState === 'success') {
-        borderColor = token('color.text.success', G400);
+        borderColor = token('color.iconBorder.success', G400);
       }
 
       let borderColorHover: string = isFocused
@@ -68,10 +68,10 @@ export default function baseStyles<Option, IsMulti extends boolean>(
         : token('color.border.neutral', N30);
 
       if (validationState === 'error') {
-        borderColorHover = token('color.text.danger', R400);
+        borderColorHover = token('color.iconBorder.danger', R400);
       }
       if (validationState === 'success') {
-        borderColorHover = token('color.text.success', G400);
+        borderColorHover = token('color.iconBorder.success', G400);
       }
 
       const transitionDuration = '200ms';

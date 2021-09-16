@@ -13,6 +13,7 @@ import Portal from '@atlaskit/portal';
 import { layers } from '@atlaskit/theme/constants';
 
 import { API, Entry, show, Source } from './internal/tooltip-manager';
+import useUniqueId from './internal/use-unique-id';
 import TooltipContainer from './TooltipContainer';
 import { TooltipProps } from './types';
 import { FakeMouseElement, getMousePosition } from './utilities';
@@ -62,15 +63,24 @@ function Tooltip({
   const [state, setState] = useState<State>('hide');
   const targetRef = useRef<PopperProps<any>['referenceElement']>(null);
   const containerRef = useRef<HTMLElement>(null);
-  const setRef = useCallback((node: HTMLElement | null) => {
-    if (!node || node.firstChild === null) {
-      return;
-    }
-    // @ts-ignore - React Ref typing is too strict for this use case
-    containerRef.current = node;
-    // @ts-ignore - React Ref typing is too strict for this use case
-    targetRef.current = node.firstChild;
-  }, []);
+  const setRef = useCallback(
+    (node: HTMLElement | null) => {
+      if (!node) {
+        return;
+      }
+
+      if (typeof children === 'function') {
+        // @ts-ignore - React Ref typing is too strict for this use case
+        targetRef.current = node;
+      } else {
+        // @ts-ignore - React Ref typing is too strict for this use case
+        containerRef.current = node;
+        // @ts-ignore - React Ref typing is too strict for this use case
+        targetRef.current = node.firstChild;
+      }
+    },
+    [children],
+  );
 
   // Putting a few things into refs so that we don't have to break memoization
   const lastState = useRef<State>(state);
@@ -215,7 +225,7 @@ function Tooltip({
   const onMouseOver = useCallback(
     (event: React.MouseEvent<HTMLElement>) => {
       // Ignoring events from the container ref
-      if (event.target === containerRef.current) {
+      if (containerRef.current && event.target === containerRef.current) {
         return;
       }
 
@@ -248,7 +258,7 @@ function Tooltip({
   // between api.requestHide and api.keep. This it not ideal
   const onMouseOut = useCallback((event: React.MouseEvent<HTMLElement>) => {
     // Ignoring events from the container ref
-    if (event.target === containerRef.current) {
+    if (containerRef.current && event.target === containerRef.current) {
       return;
     }
 
@@ -314,21 +324,29 @@ function Tooltip({
     return targetRef.current || undefined;
   };
 
+  const tooltipId = useUniqueId('tooltip', shouldRenderTooltipContainer);
+
+  const tooltipTriggerProps = {
+    onMouseOver,
+    onMouseOut,
+    onClick,
+    onMouseDown,
+    onFocus,
+    onBlur,
+    ref: setRef,
+    'aria-describedby': tooltipId,
+    'data-testid': testId ? `${testId}--container` : undefined,
+  };
+
   return (
     <React.Fragment>
-      <CastTargetContainer
-        onMouseOver={onMouseOver}
-        onMouseOut={onMouseOut}
-        onClick={onClick}
-        onMouseDown={onMouseDown}
-        onFocus={onFocus}
-        onBlur={onBlur}
-        ref={setRef}
-        data-testid={testId ? `${testId}--container` : undefined}
-        role="presentation"
-      >
-        {children}
-      </CastTargetContainer>
+      {typeof children === 'function' ? (
+        children(tooltipTriggerProps)
+      ) : (
+        <CastTargetContainer {...tooltipTriggerProps} role="presentation">
+          {children}
+        </CastTargetContainer>
+      )}
       {shouldRenderTooltipContainer ? (
         <Portal zIndex={tooltipZIndex}>
           <Popper
@@ -354,6 +372,7 @@ function Tooltip({
                         testId={testId}
                         onMouseOut={onMouseOut}
                         onMouseOver={onMouseOverTooltip}
+                        id={tooltipId}
                       >
                         {typeof content === 'function'
                           ? content({ update })

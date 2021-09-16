@@ -39,6 +39,8 @@ Only one of these three can be found as a top DOM element:
   - \`[data-testid="custom-media-player-fullscreen-button"]\`: Fullscreen button
   - \`[data-testid="custom-media-player-download-button"]\`: Download button
   - \`[data-testid="custom-media-player-play-toggle-button"]\`: Pause/Pause button
+  - \`[data-testid="custom-media-player-skip-backward-button"]\`: Skip 10 seconds backward button
+  - \`[data-testid="custom-media-player-skip-forward-button"]\`: Skip 10 seconds forward button
   - \`[data-testid="custom-media-player-volume-toggle-button"]\`: Volume button
   - \`[data-testid="custom-media-player-playback-speed-toggle-button"]\`: Open/Close playback speed menu
   - \`[data-test-is-playing="data-test-is-playing"]\`: Contains 'true' if it media is playing and 'false' otherwise.

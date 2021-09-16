@@ -22,8 +22,8 @@ export default {
   'fabric.emoji.category.productivity': '생산성',
   'fabric.emoji.category.symbols': '기호',
   'fabric.emoji.category.user.uploads': '내 업로드',
-  'fabric.emoji.choose.file.ariaLabel':
-    '이모지를 위한 파일을 선택하세요. JPG, PNG 또는 GIF. 최대 크기 1MB.',
+  'fabric.emoji.choose.file.screenReaderDescription':
+    '이모지의 파일을 선택하세요. JPG, PNG 또는 GIF. 최대 크기 1MB.',
   'fabric.emoji.choose.file.title': '파일 선택',
   'fabric.emoji.delete.description':
     '이 이모지의 모든 기존 인스턴스가 {emojiShortName}(으)로 교체됩니다',
@@ -39,5 +39,7 @@ export default {
   'fabric.emoji.preview': '새로운 이모지 {emoji}가 멋지네요.',
   'fabric.emoji.preview.title': '미리 보기',
   'fabric.emoji.retry.label': '다시 시도',
-  'fabric.emoji.search.label': '검색',
+  'fabric.emoji.search.label': '이모지 검색',
+  'fabric.emoji.search.placeholder': '검색',
+  'fabric.emoji.select.skin.tone.ariaLabel': '피부색 {selectedTone} 선택',
 };

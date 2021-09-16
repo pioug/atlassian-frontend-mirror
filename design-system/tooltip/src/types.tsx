@@ -8,12 +8,22 @@ import { TooltipPrimitiveProps } from './TooltipPrimitive';
 export type PositionTypeBase = Placement;
 export type PositionType = PositionTypeBase | 'mouse';
 
+export interface TriggerProps {
+  onMouseOver: (event: React.MouseEvent<HTMLElement>) => void;
+  onMouseOut: (event: React.MouseEvent<HTMLElement>) => void;
+  onMouseDown: (event: React.MouseEvent<HTMLElement>) => void;
+  onClick: (event: React.MouseEvent<HTMLElement>) => void;
+  onFocus: (event: React.FocusEvent<HTMLElement>) => void;
+  onBlur: (event: React.FocusEvent<HTMLElement>) => void;
+  ref: (node: HTMLElement | null) => void;
+}
+
 export interface TooltipProps {
   /**
    * The content of the tooltip. It can be either a:
    * 1. `ReactNode`
    * 2. Function which returns a `ReactNode`
-   
+
    * The benefit of the second approach is that it allows you to consume the `update` render prop.
    * This `update` function can be called to manually recalculate the position of the tooltip.
    */
@@ -86,9 +96,12 @@ export interface TooltipProps {
   truncate?: boolean;
 
   /**
-   * Elements to be wrapped by the tooltip
+   * Elements to be wrapped by the tooltip.
+   * It can be either a:
+   * 1. `ReactNode`
+   * 2. Function which returns a `ReactNode`
    */
-  children: ReactNode;
+  children: ReactNode | ((props: TriggerProps) => ReactNode);
 
   /**
    * A `testId` prop is provided for specified elements, which is a unique

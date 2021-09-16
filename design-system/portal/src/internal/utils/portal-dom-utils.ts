@@ -2,7 +2,6 @@ import {
   portalClassName,
   portalParentClassName,
   portalParentSelector,
-  portalSelector,
 } from '../constants';
 
 /**
@@ -45,13 +44,6 @@ const getPortalParent = (): Element => {
 };
 
 /**
- * Removes portal parent container from document body
- */
-const removePortalParent = (): void => {
-  getBody().removeChild(getPortalParent());
-};
-
-/**
  * Removes portal container from portal parent container
  *  @param {HTMLDivElement | undefined} container - portal container to be removed from portal parent container
  */
@@ -68,14 +60,5 @@ export const appendPortalContainerIfNotAppended = (
 ): void => {
   if (!container.parentElement) {
     getPortalParent().appendChild(container);
-  }
-};
-
-/**
- * Removes portal parent container from document body if there are no more portals inside it
- */
-export const removePortalParentContainerIfNoMorePortals = (): void => {
-  if (!document.querySelector(portalSelector)) {
-    removePortalParent();
   }
 };

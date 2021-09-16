@@ -22,7 +22,7 @@ export type { CardDimensions } from './utils';
 
 export type { NumericalCardDimensions } from '@atlaskit/media-common';
 
-export { Card } from './root';
+export { Card, MediaInlineCard } from './root';
 
 export type { CardAction, CardEventHandler } from './actions';
 

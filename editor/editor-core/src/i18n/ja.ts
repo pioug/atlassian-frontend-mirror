@@ -28,6 +28,7 @@ export default {
   'fabric.editor.blockquote.description': '引用文を挿入',
   'fabric.editor.blockquote2': '引用',
   'fabric.editor.bold': '太字',
+  'fabric.editor.bug': 'バグ',
   'fabric.editor.canNotSortTable':
     '⚠️ 統合したセルで表を並べ替えることはできません',
   'fabric.editor.cancelButton': 'キャンセル',
@@ -46,6 +47,7 @@ export default {
   'fabric.editor.code': 'コード',
   'fabric.editor.codeblock': 'コード スニペット',
   'fabric.editor.codeblock.description': '構文をハイライトしてコードを表示',
+  'fabric.editor.collapseTable': 'テーブルを折りたたむ',
   'fabric.editor.columns': 'レイアウト',
   'fabric.editor.columns.description': 'セクションを使用してページを構成',
   'fabric.editor.configFailedToLoad': '読み込めませんでした',
@@ -76,6 +78,7 @@ export default {
   'fabric.editor.decision': '決定事項',
   'fabric.editor.decision.description': '決定事項をキャプチャして簡単に追跡',
   'fabric.editor.decisionPlaceholder': '決定事項を追加…',
+  'fabric.editor.defaultAltText': 'リスト項目',
   'fabric.editor.displayBlock': 'カードを表示',
   'fabric.editor.displayEmbed': '埋め込みを表示',
   'fabric.editor.displayInline': 'インライン表示',
@@ -86,8 +89,11 @@ export default {
   'fabric.editor.distributeColumns': '列の幅を揃える',
   'fabric.editor.edit': '編集',
   'fabric.editor.editAltText': '代替テキストを編集',
+  'fabric.editor.editDateText': '日付を編集',
   'fabric.editor.editLink': 'リンクを編集',
   'fabric.editor.editMode.inviteToEditButton.title': '編集に招待',
+  'fabric.editor.editStatusColor': 'ステータス カラーを編集',
+  'fabric.editor.editStatusText': 'ステータスを編集',
   'fabric.editor.editorHelp': 'エディター ヘルプ',
   'fabric.editor.elementBrowser.help': 'ヘルプ',
   'fabric.editor.elementbrowser.categorylist.category-admin': '管理',
@@ -118,6 +124,7 @@ export default {
   'fabric.editor.emoji.description':
     '絵文字を使用してアイデア 🎉 や気持ち 😄 を表現',
   'fabric.editor.emptyLink': 'リンクを入力してください。',
+  'fabric.editor.epic': 'エピック',
   'fabric.editor.error': 'エラー',
   'fabric.editor.errorPanel': 'エラー パネル',
   'fabric.editor.errorPanel.description':
@@ -164,9 +171,9 @@ export default {
     'フィールドに入力すると、以下に候補が表示されます',
   'fabric.editor.hyperlink.searchLinkResults':
     '{count, plural, =0 {検索結果がありませんでした} other {{count,number} 件の検索結果が見つかりました}}',
-  'fabric.editor.hyperlinkToolbarPlaceholder':
-    'リンクを貼り付けるか最近表示したページを検索',
+  'fabric.editor.hyperlinkToolbarPlaceholder': 'リンクを貼り付けるか検索',
   'fabric.editor.image': '画像',
+  'fabric.editor.improvement': '改善',
   'fabric.editor.info': '情報',
   'fabric.editor.infoPanel': '情報パネル',
   'fabric.editor.infoPanel.description': '色付きのパネルで情報を強調',
@@ -206,7 +213,7 @@ export default {
   'fabric.editor.orderedList.description': '順序指定済みリストを作成',
   'fabric.editor.other': 'その他…',
   'fabric.editor.panel.backgroundColor': '背景色',
-  'fabric.editor.panel.emoji': 'アイコンを追加',
+  'fabric.editor.panel.emoji': '絵文字を追加',
   'fabric.editor.pastePlainText': 'プレーン テキストを貼り付け',
   'fabric.editor.placeholderAltText': '代替テキストでこの画像を説明',
   'fabric.editor.placeholderText': 'プレースホルダー テキスト',
@@ -233,7 +240,9 @@ export default {
   'fabric.editor.status': 'ステータス',
   'fabric.editor.status.description': 'カスタム ステータス ラベルを追加',
   'fabric.editor.statusPlaceholder': 'ステータスを設定',
+  'fabric.editor.story': 'ストーリー',
   'fabric.editor.strike': '取り消し線',
+  'fabric.editor.subTask': 'サブタスク',
   'fabric.editor.subscript': '下付き文字',
   'fabric.editor.success': '成功',
   'fabric.editor.successPanel': '成功パネル',
@@ -248,6 +257,7 @@ export default {
     'このテーブルを削除すると、接続されているグラフに含まれるすべてのデータも削除されます。',
   'fabric.editor.tables.confirmDeleteLinkedModalOKButton':
     'テーブルとデータを削除',
+  'fabric.editor.task': 'タスク',
   'fabric.editor.taskPlaceholder':
     'アクションを入力し、「@」を使用して担当者を割り当てます。',
   'fabric.editor.textColor': 'テキストの色',

@@ -61,6 +61,7 @@ describe('validate', () => {
          * passed to it. Also, in spec we don't do any distinction between `stage-0` or `full`.
          * So, when we have test for things those are valid in `stage-0` but invalid in `full`.
          * We need to  include them here.
+         * TODO: Configure the validate function according to schema
          */
         const ignoreList = [
           'taskList-with-taskList-as-first-child.json',
@@ -78,6 +79,7 @@ describe('validate', () => {
           'extension-with-data-consumer-mark.json',
           'bodiedExtension-with-data-consumer-mark.json',
           'inlineExtension-with-data-consumer-mark.json',
+          'layoutSection-with-one-column.json',
         ];
 
         /**

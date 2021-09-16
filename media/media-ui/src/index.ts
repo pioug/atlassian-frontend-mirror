@@ -31,6 +31,16 @@ export type {
   InlineCardResolvingViewProps,
   InlineCardUnauthorizedViewProps,
 } from './InlineCard';
+export {
+  MediaInlineCardErroredView,
+  MediaInlineCardLoadedView,
+  MediaInlineCardLoadingView,
+} from './MediaInlineCard';
+export type {
+  MediaInlineCardErroredViewProps,
+  MediaInlineCardLoadedViewProps,
+  MediaInlineCardLoadingViewProps,
+} from './MediaInlineCard';
 export { CardLinkView } from './LinkView';
 export { Ellipsify } from './ellipsify';
 export type { EllipsifyProps } from './ellipsify';

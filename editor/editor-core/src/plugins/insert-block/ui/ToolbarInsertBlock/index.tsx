@@ -1,4 +1,4 @@
-import React, { ReactInstance } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import { InjectedIntlProps, injectIntl } from 'react-intl';
 
@@ -33,6 +33,7 @@ import { Props, State, TOOLBAR_MENU_TYPE } from './types';
 import { createItems } from './create-items';
 import { BlockInsertMenu } from './block-insert-menu';
 import { insertHorizontalRule } from '../../../rule/commands';
+import withOuterListeners from '../../../../ui/with-outer-listeners';
 
 /**
  * Checks if an element is detached (i.e. not in the current document)
@@ -40,12 +41,13 @@ import { insertHorizontalRule } from '../../../rule/commands';
 const isDetachedElement = (el: HTMLElement) => !document.body.contains(el);
 const noop = () => {};
 
+const EmojiPickerWithListeners = withOuterListeners(AkEmojiPicker);
+
 class ToolbarInsertBlock extends React.PureComponent<
   Props & InjectedIntlProps,
   State
 > {
   private dropdownButtonRef?: HTMLElement;
-  private pickerRef?: ReactInstance;
   private emojiButtonRef?: HTMLElement;
   private plusButtonRef?: HTMLElement;
 
@@ -144,7 +146,9 @@ class ToolbarInsertBlock extends React.PureComponent<
   };
 
   private toggleEmojiPicker = (
-    inputMethod: TOOLBAR_MENU_TYPE = INPUT_METHOD.TOOLBAR,
+    inputMethod:
+      | TOOLBAR_MENU_TYPE
+      | INPUT_METHOD.KEYBOARD = INPUT_METHOD.TOOLBAR,
   ) => {
     this.setState(
       (prevState) => ({ emojiPickerOpen: !prevState.emojiPickerOpen }),
@@ -163,6 +167,20 @@ class ToolbarInsertBlock extends React.PureComponent<
         }
       },
     );
+  };
+
+  private handleEmojiPressEscape = () => {
+    this.toggleEmojiPicker(INPUT_METHOD.KEYBOARD);
+  };
+
+  private handleEmojiClickOutside = (e: MouseEvent) => {
+    // Ignore click events for detached elements.
+    // Workaround for FS-1322 - where two onClicks fire - one when the upload button is
+    // still in the document, and one once it's detached. Does not always occur, and
+    // may be a side effect of a react render optimisation
+    if (e.target && !isDetachedElement(e.target as HTMLElement)) {
+      this.toggleEmojiPicker(INPUT_METHOD.TOOLBAR);
+    }
   };
 
   private renderPopup() {
@@ -196,10 +214,11 @@ class ToolbarInsertBlock extends React.PureComponent<
         boundariesElement={popupsBoundariesElement}
         scrollableElement={popupsScrollableElement}
       >
-        <AkEmojiPicker
+        <EmojiPickerWithListeners
           emojiProvider={emojiProvider}
           onSelection={this.handleSelectedEmoji}
-          onPickerRef={this.onPickerRef}
+          handleClickOutside={this.handleEmojiClickOutside}
+          handleEscapeKeydown={this.handleEmojiPressEscape}
         />
       </Popup>
     );
@@ -223,31 +242,6 @@ class ToolbarInsertBlock extends React.PureComponent<
     const ref = ReactDOM.findDOMNode(button) as HTMLElement | null;
     if (ref) {
       this.dropdownButtonRef = ref;
-    }
-  };
-
-  private onPickerRef = (ref: any) => {
-    if (ref) {
-      document.addEventListener('click', this.handleClickOutside);
-    } else {
-      document.removeEventListener('click', this.handleClickOutside);
-    }
-    this.pickerRef = ref;
-  };
-
-  private handleClickOutside = (e: MouseEvent) => {
-    const picker = this.pickerRef && ReactDOM.findDOMNode(this.pickerRef);
-    // Ignore click events for detached elements.
-    // Workaround for FS-1322 - where two onClicks fire - one when the upload button is
-    // still in the document, and one once it's detached. Does not always occur, and
-    // may be a side effect of a react render optimisation
-    if (
-      !picker ||
-      (e.target &&
-        !isDetachedElement(e.target as HTMLElement) &&
-        !picker.contains(e.target as HTMLElement))
-    ) {
-      this.toggleEmojiPicker();
     }
   };
 

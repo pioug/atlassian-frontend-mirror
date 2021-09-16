@@ -1,5 +1,4 @@
 /** @jsx jsx */
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 
 import { css, jsx } from '@emotion/core';
 
@@ -21,6 +20,7 @@ const editViewStyles = css({
   boxSizing: 'border-box',
   width: '100%',
   padding: '6px 6px',
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   border: `2px solid ${N40}`,
   borderRadius: '3px',
   cursor: 'inherit',
@@ -28,6 +28,7 @@ const editViewStyles = css({
   fontWeight: 500,
   outline: 'none',
   ':focus': {
+    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
     border: `2px solid ${B100}`,
   },
 });

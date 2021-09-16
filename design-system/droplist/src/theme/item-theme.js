@@ -2,12 +2,11 @@ import { itemThemeNamespace } from '@atlaskit/item';
 import * as colors from '@atlaskit/theme/colors';
 import { themed } from '@atlaskit/theme/components';
 import { gridSize } from '@atlaskit/theme/constants';
-import { multiply } from '@atlaskit/theme/math';
 
 const dropdownPadding = {
   bottom: gridSize,
-  left: multiply(gridSize, 1.5),
-  right: multiply(gridSize, 1.5),
+  left: gridSize() * 1.5,
+  right: gridSize() * 1.5,
   top: gridSize,
 };
 

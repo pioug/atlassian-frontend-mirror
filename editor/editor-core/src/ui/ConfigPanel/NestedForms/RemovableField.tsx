@@ -3,7 +3,6 @@ import { injectIntl, InjectedIntlProps } from 'react-intl';
 import styled from 'styled-components';
 
 import { gridSize } from '@atlaskit/theme/constants';
-import { multiply } from '@atlaskit/theme/math';
 
 import CrossCircleIcon from '@atlaskit/icon/glyph/cross-circle';
 import Tooltip from '@atlaskit/tooltip';
@@ -13,8 +12,7 @@ import { messages } from '../messages';
 
 const RemovableFieldWrapper = styled.div<{ hasMarginBottom: Boolean }>`
   position: relative;
-  margin-bottom: ${(props) =>
-    props.hasMarginBottom ? multiply(gridSize, 2) : 0}px;
+  margin-bottom: ${(props) => (props.hasMarginBottom ? gridSize() * 2 : 0)}px;
 `;
 
 const RemoveButtonWrapper = styled.div<{ testId: string }>`

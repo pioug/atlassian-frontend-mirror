@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
+/** @jsx jsx */
+import { Component } from 'react';
 
-import styled from 'styled-components';
+import { css, jsx } from '@emotion/core';
 
 import Button from '@atlaskit/button/custom-theme-button';
 
@@ -13,13 +14,13 @@ import {
 
 import { Highlight } from './styled';
 
-const Wrapper = styled.div`
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  justify-content: center;
-`;
+const wrapperStyles = css({
+  display: 'flex',
+  height: '100%',
+  alignItems: 'center',
+  justifyContent: 'center',
+  flexDirection: 'column',
+});
 
 interface State {
   active: boolean;
@@ -39,7 +40,7 @@ export default class SpotlightButtonAppearanceExample extends Component<
     const { active } = this.state;
 
     return (
-      <Wrapper>
+      <div css={wrapperStyles}>
         <SpotlightManager>
           <SpotlightTarget name="custom-button-appearances">
             <Highlight color="neutral">Target</Highlight>
@@ -80,7 +81,7 @@ export default class SpotlightButtonAppearanceExample extends Component<
             )}
           </SpotlightTransition>
         </SpotlightManager>
-      </Wrapper>
+      </div>
     );
   }
 }

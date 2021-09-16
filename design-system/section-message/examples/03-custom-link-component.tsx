@@ -1,4 +1,3 @@
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 /** @jsx jsx */
 import React from 'react';
 
@@ -9,6 +8,7 @@ import { P100 } from '@atlaskit/theme/colors';
 import SectionMessage, { SectionMessageAction } from '../src';
 
 const CustomLinkStyles = css({
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   backgroundColor: `${P100} !important`,
 });
 

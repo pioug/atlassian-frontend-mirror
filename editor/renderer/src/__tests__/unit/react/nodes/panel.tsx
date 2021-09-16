@@ -81,5 +81,53 @@ describe('Renderer - React/Nodes/Panel', () => {
       expect(customPanel.props().backgroundColor).toEqual('#b5f71ca14');
       expect(customPanel.find(EmojiItem).props().shortName).toEqual(':smiley:');
     });
+
+    it('custom panel should return div with data-panel-type attribute', () => {
+      const customPanel = shallow(
+        <Panel
+          panelType={PanelType.CUSTOM}
+          panelColor={'#34eb6e'}
+          panelIcon={':smiley:'}
+          allowCustomPanels={true}
+          providers={providerFactory}
+        >
+          This is a custom panel with custom emoji and background
+        </Panel>,
+      );
+
+      expect(customPanel.props()['data-panel-type']).toEqual('custom');
+    });
+
+    it('custom panel should return div with data-panel-color attribute', () => {
+      const customPanel = shallow(
+        <Panel
+          panelType={PanelType.CUSTOM}
+          panelColor={'#34eb6e'}
+          panelIcon={':smiley:'}
+          allowCustomPanels={true}
+          providers={providerFactory}
+        >
+          This is a custom panel with custom emoji and background
+        </Panel>,
+      );
+
+      expect(customPanel.props()['data-panel-color']).toEqual('#34eb6e');
+    });
+
+    it('custom panel should return div with data-panel-icon attribute', () => {
+      const customPanel = shallow(
+        <Panel
+          panelType={PanelType.CUSTOM}
+          panelColor={'#34eb6e'}
+          panelIcon={':smiley:'}
+          allowCustomPanels={true}
+          providers={providerFactory}
+        >
+          This is a custom panel with custom emoji and background
+        </Panel>,
+      );
+
+      expect(customPanel.props()['data-panel-icon']).toEqual(':smiley:');
+    });
   });
 });

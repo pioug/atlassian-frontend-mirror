@@ -1,5 +1,21 @@
 # @atlaskit/media-ui
 
+## 17.0.0
+
+### Major Changes
+
+- [`cf853e39278`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf853e39278) - [ux] Updated and refreshed media inline component
+
+### Minor Changes
+
+- [`cf853e39278`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf853e39278) - [ux] Skip forward and backward buttons are added to inline media player
+
+### Patch Changes
+
+- [`cf853e39278`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf853e39278) - Adds support for lazy loading of MediaImage
+- [`cf853e39278`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf853e39278) - Adding lazy loading as the default for the SSR media card
+- Updated dependencies
+
 ## 16.6.0
 
 ### Minor Changes

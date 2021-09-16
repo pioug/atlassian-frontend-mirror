@@ -3,6 +3,7 @@ import {
   FloatingToolbarConfig,
   FloatingToolbarEmojiPicker,
   FloatingToolbarItem,
+  FloatingToolbarButton,
 } from './../floating-toolbar/types';
 import { PanelPluginOptions } from './types';
 import { defineMessages, InjectedIntl } from 'react-intl';
@@ -12,7 +13,7 @@ import NoteIcon from '@atlaskit/icon/glyph/editor/note';
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 import WarningIcon from '@atlaskit/icon/glyph/editor/warning';
 import ErrorIcon from '@atlaskit/icon/glyph/editor/error';
-import HideEmojiIcon from '../floating-toolbar/ui/EditorHideEmojiIcon';
+import RemoveEmojiIcon from '../floating-toolbar/ui/EditorRemoveEmojiIcon';
 
 import commonMessages from '../../messages';
 import { removePanel, changePanelType } from './actions';
@@ -254,15 +255,18 @@ export const getToolbarItems = (
       onChange: (emojiShortName) => changeEmoji(emojiShortName),
     };
 
+    const removeEmojiButton: FloatingToolbarButton<Command> = {
+      id: 'editor.panel.removeEmoji',
+      type: 'button',
+      icon: RemoveEmojiIcon,
+      onClick: removeEmoji(),
+      title: formatMessage(commonMessages.removeEmoji),
+      disabled: activePanelIcon ? false : true,
+    };
+
     items.push(
       emojiPicker,
-      {
-        id: 'editor.panel.hideEmoji',
-        type: 'button',
-        icon: HideEmojiIcon,
-        onClick: removeEmoji(),
-        title: formatMessage(commonMessages.hideEmoji),
-      },
+      removeEmojiButton,
       {
         type: 'separator',
       },

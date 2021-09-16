@@ -5,6 +5,7 @@ import {
   getExampleUrl,
   navigateToUrl,
   PuppeteerPage,
+  PuppeteerScreenshotOptions,
   PuppeteerSerializable,
   SideEffectOptions,
 } from '@atlaskit/visual-regression/helper';
@@ -452,6 +453,7 @@ async function takeSnapshot(
   page: PuppeteerPage,
   threshold: Threshold = {},
   selector: string = editorFullPageContentSelector,
+  screenshotOptions: PuppeteerScreenshotOptions = {},
   customSnapshotIdentifier?: CustomSnapshotIdentifier,
 ) {
   const { tolerance, useUnsafeThreshold } = threshold;
@@ -462,7 +464,9 @@ async function takeSnapshot(
 
   // Try to take a screenshot of only the editor.
   // Otherwise take the whole page.
-  const image = editor ? await editor.screenshot() : await page.screenshot();
+  const image = editor
+    ? await editor.screenshot(screenshotOptions)
+    : await page.screenshot(screenshotOptions);
 
   return compareScreenshot(image as string, tolerance, {
     useUnsafeThreshold,
@@ -474,6 +478,10 @@ export const snapshot = async (
   page: PuppeteerPage,
   threshold: Threshold = {},
   selector: string = editorFullPageContentSelector,
+  screenshotOptions: PuppeteerScreenshotOptions = {
+    // this will be enabled with false value by default in https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13294 PR
+    // captureBeyondViewport: false,
+  },
 ) => {
   const { collabPage, synchronyUrl } = global || {};
   if (synchronyUrl && collabPage) {
@@ -482,11 +490,12 @@ export const snapshot = async (
       collabPage,
       threshold,
       selector,
+      screenshotOptions,
       ({ defaultIdentifier }) => `Collab Page - ${defaultIdentifier}`,
     );
     await page.bringToFront();
   }
-  await takeSnapshot(page, threshold, selector);
+  await takeSnapshot(page, threshold, selector, screenshotOptions);
 };
 
 export const applyRemoteStep = async (

@@ -27,13 +27,12 @@ type OptionType = {
 };
 
 import { gridSize } from '@atlaskit/theme/constants';
-import { multiply } from '@atlaskit/theme/math';
 import { N40A } from '@atlaskit/theme/colors';
 
-const ActionsWrapper = styled.div`
+const ActionsWrapper = styled.div<{ testId?: string }>`
   border-top: 1px solid ${N40A};
-  margin-top: ${multiply(gridSize, 2)}px;
-  padding-top: ${multiply(gridSize, 2)}px;
+  margin-top: ${gridSize() * 2}px;
+  padding-top: ${gridSize() * 2}px;
 `;
 
 const populateFromParameters = (

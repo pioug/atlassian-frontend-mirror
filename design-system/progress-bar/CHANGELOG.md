@@ -1,5 +1,11 @@
 # @atlaskit/progress-bar
 
+## 0.3.9
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.3.8
 
 ### Patch Changes

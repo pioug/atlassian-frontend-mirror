@@ -13,6 +13,7 @@ export interface MediaImageProps {
   crossOrigin?: '' | 'anonymous' | 'use-credentials';
   onImageLoad?: (loadedImage: HTMLImageElement) => void;
   onImageError?: () => void;
+  loading?: 'auto' | 'lazy' | 'eager';
 }
 
 export interface MediaImageState {
@@ -83,6 +84,7 @@ export class MediaImage extends Component<MediaImageProps, MediaImageState> {
       crossOrigin,
       onImageError,
       alt = '',
+      loading,
     } = this.props;
     const {
       parentWidth,
@@ -422,13 +424,14 @@ export class MediaImage extends Component<MediaImageProps, MediaImageState> {
 
     return (
       <ImageComponent
+        loading={loading}
         data-testid="media-image"
         draggable={false}
         alt={alt}
         style={style}
         onLoad={this.onImageLoad}
         onError={onImageError}
-        innerRef={this.imageRef}
+        imageRef={this.imageRef}
         src={dataURI}
         crossOrigin={crossOrigin}
       />

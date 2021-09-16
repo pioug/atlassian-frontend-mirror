@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/form",
-  "version": "8.3.1",
+  "version": "8.4.0",
   "description": "Form package provides layout & validation for form fields",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -13,11 +13,22 @@
   "module:es2019": "dist/es2019/index.js",
   "types": "dist/types/index.d.ts",
   "sideEffects": false,
-  "atlaskit:src": "src/index.ts",
+  "atlaskit:src": "src/index.tsx",
   "atlaskit:designLink": "https://atlassian.design/guidelines/product/patterns/forms",
+  "af:exports": {
+    "./CheckboxField": "./src/entry-points/checkbox-field.tsx",
+    "./Field": "./src/entry-points/field.tsx",
+    "./Fieldset": "./src/entry-points/fieldset.tsx",
+    "./FormFooter": "./src/entry-points/form-footer.tsx",
+    "./FormHeader": "./src/entry-points/form-header.tsx",
+    "./FormSection": "./src/entry-points/form-section.tsx",
+    "./Form": "./src/entry-points/form.tsx",
+    "./Messages": "./src/entry-points/messages.tsx",
+    "./RangeField": "./src/entry-points/range-field.tsx",
+    ".": "./src/index.tsx"
+  },
   "atlassian": {
     "team": "Design System Team",
-    "deprecatedAutoEntryPoints": true,
     "inPublicMirror": true,
     "releaseModel": "scheduled",
     "website": {
@@ -25,10 +36,11 @@
     }
   },
   "dependencies": {
-    "@atlaskit/icon": "^21.8.0",
-    "@atlaskit/theme": "^11.5.0",
+    "@atlaskit/icon": "^21.9.0",
+    "@atlaskit/theme": "^12.0.0",
     "@atlaskit/tokens": "^0.2.0",
     "@babel/runtime": "^7.0.0",
+    "@emotion/core": "^10.0.9",
     "final-form": "^4.20.1",
     "final-form-focus": "^1.1.2",
     "lodash": "^4.17.15",
@@ -36,8 +48,7 @@
     "tiny-invariant": "^0.0.3"
   },
   "peerDependencies": {
-    "react": "^16.8.0",
-    "styled-components": "^3.2.6"
+    "react": "^16.8.0"
   },
   "devDependencies": {
     "@atlaskit/build-utils": "*",
@@ -58,8 +69,8 @@
     "@atlaskit/ssr": "*",
     "@atlaskit/textarea": "^4.2.0",
     "@atlaskit/textfield": "^5.1.0",
-    "@atlaskit/toggle": "^12.2.0",
-    "@atlaskit/tooltip": "^17.4.0",
+    "@atlaskit/toggle": "^12.3.0",
+    "@atlaskit/tooltip": "^17.5.0",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
@@ -84,7 +95,14 @@
       "import-structure": "atlassian-conventions"
     },
     "@repo/internal": {
-      "theming": "tokens"
+      "analytics": "analytics-next",
+      "theming": [
+        "new-theming-api",
+        "tokens"
+      ],
+      "styling": "emotion",
+      "design-system": "v1",
+      "deprecation": "no-deprecated-imports"
     }
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"

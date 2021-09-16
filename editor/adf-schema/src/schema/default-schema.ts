@@ -1,4 +1,5 @@
 import { customPanel } from './nodes/panel';
+import { layoutSectionWithSingleColumn } from './nodes/layout-section';
 import { dataConsumer } from './marks/data-consumer';
 import { createSchema, SchemaConfig } from './create-schema';
 import { mediaSingleWithCaption } from './nodes';
@@ -160,6 +161,7 @@ export const getSchemaBasedOnStage = (stage = 'final') => {
     defaultSchemaConfig.customNodeSpecs = {
       panel: customPanel,
       mediaSingle: mediaSingleWithCaption,
+      layoutSection: layoutSectionWithSingleColumn,
     };
     defaultSchemaConfig.customMarkSpecs = {
       dataConsumer: dataConsumer,

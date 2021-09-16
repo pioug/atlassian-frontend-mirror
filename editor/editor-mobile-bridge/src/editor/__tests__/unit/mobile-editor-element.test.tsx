@@ -1,4 +1,6 @@
 import { mount, ReactWrapper } from 'enzyme';
+import { AtlaskitThemeProvider } from '@atlaskit/theme/components';
+
 import React from 'react';
 import { IntlProvider } from 'react-intl';
 import MobileEditor from '../../mobile-editor-element';
@@ -199,7 +201,7 @@ describe('mobile editor element', () => {
 
     it('should have light mode when the Editor is loaded with default config', () => {
       const mobileEditor = initEditor();
-      expect(mobileEditor.find('AtlaskitThemeProvider').prop('mode')).toEqual(
+      expect(mobileEditor.find(AtlaskitThemeProvider).prop('mode')).toEqual(
         'light',
       );
     });
@@ -239,7 +241,7 @@ describe('mobile editor element', () => {
 
     it('should have light mode when the Editor is loaded with default config', () => {
       const mobileEditor = initEditor();
-      expect(mobileEditor.find('AtlaskitThemeProvider').prop('mode')).toEqual(
+      expect(mobileEditor.find(AtlaskitThemeProvider).prop('mode')).toEqual(
         'light',
       );
     });

@@ -1,5 +1,17 @@
 # @atlaskit/inline-dialog
 
+## 13.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.1.3
+
+### Patch Changes
+
+- [`0e89e593547`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0e89e593547) - Fixes a bug where the dialog was retaining its window click event listener even after the dialog was closed.
+
 ## 13.1.2
 
 ### Patch Changes

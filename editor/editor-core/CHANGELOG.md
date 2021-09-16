@@ -1,5 +1,34 @@
 # @atlaskit/editor-core
 
+## 150.0.0
+
+### Major Changes
+
+- [`954a69badf2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/954a69badf2) - [ux][ed-8288] Removing a multi-dispatch when user inserts/deletes a column in resized tables. This change fixes the undo/redo
+  flow that is currently corrupted due to a multi-dispatch. This slightly changes the col-width sizing as it reduces the
+  unnecessary number of calls to resize the columns. EditorView is now passed as a parameter to insertColumn
+  functions to update the column widths manually.
+
+### Minor Changes
+
+- [`8c36177a89c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8c36177a89c) - [ux] Changed wording of 'hideEmoji' to 'removeEmoji' & disbaled th button when there is no emoji (& enabled when there was one)
+- [`cf853e39278`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf853e39278) - COLLAB-411-change-to-metadata: 'setTitle' and 'setEditorWidth' are deprecated, going to be removed in the next release, use 'setMetadata' instead.
+- [`cf853e39278`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf853e39278) - [ux] add single layout support for layout
+- [`795fb7c1d42`](https://bitbucket.org/atlassian/atlassian-frontend/commits/795fb7c1d42) - CETI-91 Emoji picker and colour picker overlapping each other
+- [`1a07c1caf61`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1a07c1caf61) - CETI-93 - Fixed custom panel icon sizing and alignment when icon render as image
+
+### Patch Changes
+
+- [`7e04a493a4b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7e04a493a4b) - [ux] ED-13108 The text color and emoji menus in the toolbar now close when you press ESC or click away
+- [`aa3f2a800e6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aa3f2a800e6) - fixed invite from mention experiment feature exposed event firing logic and atributes
+- [`cf853e39278`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf853e39278) - Add single column support for layouts
+- [`9fbaa50c904`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9fbaa50c904) - ED-13133 fixed broken table with sticky headers after undo merge cells with tableCellOptimisation on
+- [`114cfd6cb20`](https://bitbucket.org/atlassian/atlassian-frontend/commits/114cfd6cb20) - CETI-7 Select custom panel through keyboard
+- [`cf853e39278`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf853e39278) - [ux][ed-12775] Remove logic for auto joining lists of the same type as this is causing errors to be thrown and a fix would require too much effort for the value it adds.
+- [`cf853e39278`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf853e39278) - Internal changes to remove `@atlaskit/theme/math` usage.
+- [`fbee1c6f08a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fbee1c6f08a) - [ED-8288] Regression fix where insert column keyboard shorcuts on resized tables were being inserted with zero-width.
+- Updated dependencies
+
 ## 149.0.1
 
 ### Patch Changes

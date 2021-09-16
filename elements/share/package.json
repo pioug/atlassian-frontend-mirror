@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/share",
-  "version": "0.29.0",
+  "version": "0.29.1",
   "description": "Fabric Share Element",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -31,12 +31,12 @@
     "@atlaskit/button": "^16.0.0",
     "@atlaskit/dropdown-menu": "^10.0.6",
     "@atlaskit/field-text-area": "^8.0.0",
-    "@atlaskit/form": "^8.1.0",
-    "@atlaskit/icon": "^21.7.0",
+    "@atlaskit/form": "^8.4.0",
+    "@atlaskit/icon": "^21.9.0",
     "@atlaskit/popup": "^1.1.0",
     "@atlaskit/portal": "^4.0.0",
-    "@atlaskit/theme": "^11.4.0",
-    "@atlaskit/tooltip": "^17.3.0",
+    "@atlaskit/theme": "^12.0.0",
+    "@atlaskit/tooltip": "^17.5.0",
     "@atlaskit/user-picker": "^7.16.0",
     "@atlaskit/util-service-support": "^6.0.0",
     "@babel/runtime": "^7.0.0",
@@ -55,7 +55,7 @@
     "@atlaskit/flag": "^14.4.0",
     "@atlaskit/section-message": "^6.0.0",
     "@atlaskit/select": "^15.0.0",
-    "@atlaskit/toggle": "^12.2.0",
+    "@atlaskit/toggle": "^12.3.0",
     "@atlaskit/util-data-test": "^16.0.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "enzyme": "^3.10.0",

@@ -1,45 +1,57 @@
 import React from 'react';
+
 import color from 'color';
+
 import { createTheme } from '../src';
 
-type ThemeProps = any;
 interface ThemeTokens {
   backgroundColor?: string;
   textColor?: string;
 }
 
+const Theme = createTheme<ThemeTokens, void>(() => ({
+  backgroundColor: '#333',
+  textColor: '#eee',
+}));
+
 const DisplayThemeColors = () => (
   <Theme.Consumer>
-    {(tokens: Record<string, keyof ThemeTokens>) =>
-      Object.keys(tokens).map((k) => (
+    {({ textColor, backgroundColor }) => (
+      <div>
         <div
-          key={k}
           style={{
-            backgroundColor: `${tokens[k]}`,
-            color: `${color(tokens[k]).negate()}`,
+            backgroundColor: textColor,
+            color: `${color(textColor).negate()}`,
             display: 'inline-block',
             marginBottom: 10,
             marginRight: 10,
             padding: 10,
           }}
         >
-          {k}
+          {textColor}
         </div>
-      ))
-    }
+        <div
+          style={{
+            backgroundColor: backgroundColor,
+            color: `${color(backgroundColor).negate()}`,
+            display: 'inline-block',
+            marginBottom: 10,
+            marginRight: 10,
+            padding: 10,
+          }}
+        >
+          {backgroundColor}
+        </div>
+      </div>
+    )}
   </Theme.Consumer>
 );
-
-const Theme = createTheme<ThemeTokens, ThemeProps>(() => ({
-  backgroundColor: '#333',
-  textColor: '#eee',
-}));
 
 export default () => (
   <React.Fragment>
     <DisplayThemeColors />
     <Theme.Provider
-      value={(t) => ({ ...t({}), backgroundColor: 'palevioletred' })}
+      value={(themeFn) => ({ ...themeFn(), backgroundColor: 'palevioletred' })}
     >
       <DisplayThemeColors />
     </Theme.Provider>

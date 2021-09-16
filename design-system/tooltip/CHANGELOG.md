@@ -1,5 +1,15 @@
 # @atlaskit/tooltip
 
+## 17.5.0
+
+### Minor Changes
+
+- [`cf853e39278`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf853e39278) - Added the render props support to the Tooltip component. Linked the tooltip text to the trigger using aria-describedby for users with assistive technologies.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 17.4.1
 
 ### Patch Changes

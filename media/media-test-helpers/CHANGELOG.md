@@ -1,5 +1,15 @@
 # @atlaskit/media-test-helpers
 
+## 28.8.0
+
+### Minor Changes
+
+- [`cf853e39278`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf853e39278) - Make `fakeIntl`'s `defaultMessage` member to be a `jest.fn` with default behvaiour returning provided `{defaultMessage}` argument with `fakeIntl[]` wrapping
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 28.7.5
 
 ### Patch Changes

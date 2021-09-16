@@ -120,7 +120,7 @@ export const scaleWithParent = (
 };
 
 // Scales the table to a given size and updates its colgroup DOM node
-function scaleTableTo(state: ResizeState, maxSize: number): ResizeState {
+export function scaleTableTo(state: ResizeState, maxSize: number): ResizeState {
   const scaleFactor = maxSize / getTotalWidth(state);
 
   let newState = {

@@ -1,6 +1,8 @@
-import React, { Component } from 'react';
+/** @jsx jsx */
 
-import styled from 'styled-components';
+import { Component } from 'react';
+
+import { css, jsx } from '@emotion/core';
 
 import {
   Spotlight,
@@ -13,18 +15,18 @@ interface State {
   active: boolean;
 }
 
-const RelativeDiv = styled.div`
-  background-color: PaleVioletRed;
-  border-radius: 3px;
-  height: 200px;
-  left: 40px;
-  margin-left: 10px;
-  margin-top: 10px;
-  position: relative;
-  top: 40px;
-  transform: translate(10px, 10px);
-  width: 200px;
-`;
+const relativeDivStyles = css({
+  width: '200px',
+  height: '200px',
+  marginTop: '10px',
+  marginLeft: '10px',
+  position: 'relative',
+  top: '40px',
+  left: '40px',
+  backgroundColor: 'PaleVioletRed',
+  borderRadius: '3px',
+  transform: 'translate(10px, 10px)',
+});
 
 export default class SpotlightRelativeTarget extends Component<Object, State> {
   state: State = { active: false };
@@ -44,7 +46,7 @@ export default class SpotlightRelativeTarget extends Component<Object, State> {
             </button>
           </div>
           <SpotlightTarget name="box">
-            <RelativeDiv />
+            <div css={relativeDivStyles} />
           </SpotlightTarget>
         </div>
 

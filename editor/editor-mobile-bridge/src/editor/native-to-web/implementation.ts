@@ -844,7 +844,7 @@ export default class WebBridgeImpl
     const onMetadataChange = (metadata: CollabMetadataPayload) => {
       const { title } = metadata;
       if (title) {
-        toNativeBridge.updateTitle(title);
+        toNativeBridge.updateTitle(title as string);
       }
     };
 

@@ -28,6 +28,7 @@ export default {
   'fabric.editor.blockquote.description': 'Chèn trích dẫn hoặc tham chiếu',
   'fabric.editor.blockquote2': 'Trích dẫn',
   'fabric.editor.bold': 'In đậm',
+  'fabric.editor.bug': 'Lỗi',
   'fabric.editor.canNotSortTable':
     '⚠️ Bạn không thể sắp xếp bảng có các ô đã hợp nhất',
   'fabric.editor.cancelButton': 'Hủy',
@@ -46,6 +47,7 @@ export default {
   'fabric.editor.code': 'Mã',
   'fabric.editor.codeblock': 'Đoạn mã',
   'fabric.editor.codeblock.description': 'Hiển thị mã có bôi đậm cú pháp',
+  'fabric.editor.collapseTable': 'Thu gọn bảng',
   'fabric.editor.columns': 'Bố cục',
   'fabric.editor.columns.description':
     'Thiết lập cấu trúc trang của bạn bằng cách sử dụng các mục',
@@ -78,6 +80,7 @@ export default {
   'fabric.editor.decision.description':
     'Thu thập các quyết định để dễ dàng theo dõi',
   'fabric.editor.decisionPlaceholder': 'Thêm quyết định…',
+  'fabric.editor.defaultAltText': 'Mục danh sách',
   'fabric.editor.displayBlock': 'Hiển thị thẻ',
   'fabric.editor.displayEmbed': 'Hiển thị đối tượng nhúng',
   'fabric.editor.displayInline': 'Hiển thị nội tuyến',
@@ -88,8 +91,11 @@ export default {
   'fabric.editor.distributeColumns': 'Phân phối cột',
   'fabric.editor.edit': 'Chỉnh sửa',
   'fabric.editor.editAltText': 'Chỉnh sửa văn bản thay thế',
+  'fabric.editor.editDateText': 'Sửa ngày',
   'fabric.editor.editLink': 'Chỉnh sửa liên kết',
   'fabric.editor.editMode.inviteToEditButton.title': 'Mời chỉnh sửa',
+  'fabric.editor.editStatusColor': 'Sửa màu trạng thái',
+  'fabric.editor.editStatusText': 'Sửa trạng thái',
   'fabric.editor.editorHelp': 'Hỗ trợ chỉnh sửa',
   'fabric.editor.elementBrowser.help': 'Trợ giúp',
   'fabric.editor.elementbrowser.categorylist.category-admin': 'Quản trị',
@@ -120,6 +126,7 @@ export default {
   'fabric.editor.emoji.description':
     'Sử dụng biểu tượng cảm xúc để thể hiện ý kiến 🎉 và cảm xúc 😄',
   'fabric.editor.emptyLink': 'Vui lòng nhập một liên kết.',
+  'fabric.editor.epic': 'Quá trình',
   'fabric.editor.error': 'Lỗi',
   'fabric.editor.errorPanel': 'Ô lỗi',
   'fabric.editor.errorPanel.description': 'Chỉ ra lỗi bằng ô màu',
@@ -172,9 +179,9 @@ export default {
     'Các đề xuất sẽ xuất hiện bên dưới khi bạn nhập thông tin vào trường',
   'fabric.editor.hyperlink.searchLinkResults':
     '{count, plural, =0 {không tìm thấy kết quả} other {Đã tìm thấy {count,number} kết quả}}',
-  'fabric.editor.hyperlinkToolbarPlaceholder':
-    'Dán liên kết hoặc tìm nội dung đã xem gần đây',
+  'fabric.editor.hyperlinkToolbarPlaceholder': 'Dán hoặc tìm kiếm liên kết',
   'fabric.editor.image': 'hình ảnh',
+  'fabric.editor.improvement': 'Cải tiến',
   'fabric.editor.info': 'Thông tin',
   'fabric.editor.infoPanel': 'Ô thông tin',
   'fabric.editor.infoPanel.description': 'Bôi đậm thông tin bằng ô màu',
@@ -214,7 +221,7 @@ export default {
   'fabric.editor.orderedList.description': 'Tạo một danh sách kiểu sắp xếp',
   'fabric.editor.other': 'Khác...',
   'fabric.editor.panel.backgroundColor': 'Màu nền',
-  'fabric.editor.panel.emoji': 'Thêm biểu tượng',
+  'fabric.editor.panel.emoji': 'Thêm biểu tượng cảm xúc',
   'fabric.editor.pastePlainText': 'Dán văn bản thuần túy',
   'fabric.editor.placeholderAltText':
     'Mô tả hình ảnh này bằng văn bản thay thế',
@@ -240,7 +247,9 @@ export default {
   'fabric.editor.status': 'Trạng thái',
   'fabric.editor.status.description': 'Thêm một nhãn trạng thái tùy chỉnh',
   'fabric.editor.statusPlaceholder': 'Đặt trạng thái',
+  'fabric.editor.story': 'Câu chuyện',
   'fabric.editor.strike': 'Gạch ngang',
+  'fabric.editor.subTask': 'Tác vụ con',
   'fabric.editor.subscript': 'Chỉ số dưới',
   'fabric.editor.success': 'Thành công',
   'fabric.editor.successPanel': 'Ô thành công',
@@ -255,6 +264,7 @@ export default {
     'Việc xóa bảng này cũng sẽ xóa mọi dữ liệu có trong bất kỳ biểu đồ được kết nối nào.',
   'fabric.editor.tables.confirmDeleteLinkedModalOKButton':
     'Xóa bảng và dữ liệu',
+  'fabric.editor.task': 'Tác vụ',
   'fabric.editor.taskPlaceholder':
     "Nhập thao tác của bạn, sử dụng '@' để chỉ định cho người nào đó.",
   'fabric.editor.textColor': 'Màu văn bản',

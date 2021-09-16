@@ -22,7 +22,7 @@ export default {
   'fabric.emoji.category.productivity': 'Produktivitet',
   'fabric.emoji.category.symbols': 'Symboler',
   'fabric.emoji.category.user.uploads': 'Dina uppladdningar',
-  'fabric.emoji.choose.file.ariaLabel':
+  'fabric.emoji.choose.file.screenReaderDescription':
     'Välj en fil för emojin. JPG, PNG eller GIF. Maxstorlek 1 MB.',
   'fabric.emoji.choose.file.title': 'Välj fil',
   'fabric.emoji.delete.description':
@@ -39,5 +39,7 @@ export default {
   'fabric.emoji.preview': 'Din nya emoji {emoji} ser jättebra ut',
   'fabric.emoji.preview.title': 'Förhandsgranska',
   'fabric.emoji.retry.label': 'Försök igen',
-  'fabric.emoji.search.label': 'Sök',
+  'fabric.emoji.search.label': 'Sök efter emoji',
+  'fabric.emoji.search.placeholder': 'Sök',
+  'fabric.emoji.select.skin.tone.ariaLabel': 'Välj hudton, {selectedTone}',
 };

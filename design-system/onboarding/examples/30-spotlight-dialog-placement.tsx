@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
+/** @jsx jsx */
+import { Component } from 'react';
 
-import styled from 'styled-components';
+import { css, jsx } from '@emotion/core';
 
 import Button from '@atlaskit/button/custom-theme-button';
 import CrossIcon from '@atlaskit/icon/glyph/cross';
@@ -14,19 +15,7 @@ import {
 
 import { Code, Highlight } from './styled';
 
-type Placement =
-  | 'top right'
-  | 'top center'
-  | 'top left'
-  | 'right bottom'
-  | 'right middle'
-  | 'right top'
-  | 'bottom left'
-  | 'bottom center'
-  | 'bottom right'
-  | 'left top'
-  | 'left middle'
-  | 'left bottom';
+type Placement = typeof options[number];
 
 const options = [
   'top right',
@@ -41,15 +30,15 @@ const options = [
   'left top',
   'left middle',
   'left bottom',
-];
+] as const;
 
-const Wrapper = styled.div`
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  justify-content: center;
-`;
+const wrapperStyles = css({
+  display: 'flex',
+  height: '100%',
+  alignItems: 'center',
+  justifyContent: 'center',
+  flexDirection: 'column',
+});
 
 interface State {
   index?: number;
@@ -75,7 +64,7 @@ export default class SpotlightDialogPlacementExample extends Component<
       : options[(index || 0) % options.length];
 
     return (
-      <Wrapper>
+      <div css={wrapperStyles}>
         <SpotlightManager>
           <SpotlightTarget name="placement-example">
             <Highlight color="neutral">Target</Highlight>
@@ -115,7 +104,7 @@ export default class SpotlightDialogPlacementExample extends Component<
             ) : null}
           </SpotlightTransition>
         </SpotlightManager>
-      </Wrapper>
+      </div>
     );
   }
 }

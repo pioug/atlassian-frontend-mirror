@@ -11,9 +11,12 @@ export type Widths = {
   narrow: number;
   wide: number;
 };
+
 export type DrawerWidth = 'extended' | 'full' | 'medium' | 'narrow' | 'wide';
 
 export interface BaseProps {
+  /** A unique hook to be used for testing */
+  testId?: string;
   /** The content of the drawer */
   children?: ReactNode;
   /** Icon to be rendered in your drawer as a component, if available */
@@ -27,10 +30,10 @@ export interface BaseProps {
   /** Boolean that controls if drawer should be retained/discarded */
   shouldUnmountOnExit?: boolean;
   /**
-   A prop for adding targeted customisations to the Drawer component
-   For a detailed explanation of how to use this prop,
-   please see the overrides section of the @atlaskit/drawer documentation.
-  */
+   * A prop for adding targeted customisations to the Drawer component
+   * For a detailed explanation of how to use this prop,
+   * please see the overrides section of the @atlaskit/drawer documentation.
+   */
   overrides?: OverridesType;
 }
 
@@ -111,60 +114,6 @@ export interface FocusLockProps {
     Whether to return the focus to the previous active element on closing the drawer
   */
   shouldReturnFocus?: boolean;
-}
-
-interface DnDType {
-  draggableProps: Object;
-  dragHandleProps: Object | null;
-  innerRef: (ref: HTMLElement | null) => void;
-  placeholder?: Node;
-}
-
-export interface ItemProps {
-  /** Whether the Item should attempt to gain browser focus when mounted */
-  autoFocus?: boolean;
-  /** Main content to be shown inside the item. */
-  children?: ReactNode;
-  /** Secondary text to be shown underneath the main content. */
-  description?: string;
-  /** Drag and drop props provided by react-beautiful-dnd. Please do not use
-   * this unless using react-beautiful-dnd */
-  dnd?: DnDType;
-  /** Content to be shown after the main content. Shown to the right of content (or to the left
-   * in RTL mode). */
-  elemAfter?: ReactNode;
-  /** Content to be shown before the main content. Shown to the left of content (or to the right
-   * in RTL mode). */
-  elemBefore?: Node;
-  /** Link that the user will be redirected to when the item is clicked. If omitted, a
-   *  non-hyperlink component will be rendered. */
-  href?: string;
-  /** Causes the item to be rendered with reduced spacing. */
-  isCompact?: boolean;
-  /** Causes the item to appear in a disabled state and click behaviours will not be triggered. */
-  isDisabled?: boolean;
-  /** Used to apply correct dragging styles when also using react-beautiful-dnd. */
-  isDragging?: boolean;
-  /** Causes the item to still be rendered, but with `display: none` applied. */
-  isHidden?: boolean;
-  /** Causes the item to appear with a persistent selected background state. */
-  isSelected?: boolean;
-  /** Function to be called when the item is clicked, Receives the MouseEvent. */
-  onClick?: Function;
-  /** Function to be called when the item is pressed with a keyboard,
-   * Receives the KeyboardEvent. */
-  onKeyDown?: Function;
-  /** Standard onmouseenter event */
-  onMouseEnter?: Function;
-  /** Standard onmouseleave event */
-  onMouseLeave?: Function;
-  /** Allows the role attribute of the item to be altered from it's default of
-   *  `role="button"` */
-  role?: string;
-  /** Target frame for item `href` link to be aimed at. */
-  target?: string;
-  /** Standard browser title to be displayed on the item when hovered. */
-  title?: string;
 }
 
 /**

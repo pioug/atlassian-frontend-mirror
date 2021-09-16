@@ -48,6 +48,7 @@ export default () => {
         defaultMonth={12}
         defaultYear={2020}
         style={{
+          // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
           border: '1px solid red',
           display: 'inline-block',
         }}

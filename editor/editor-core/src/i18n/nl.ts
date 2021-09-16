@@ -28,6 +28,7 @@ export default {
   'fabric.editor.blockquote.description': 'Voeg een citaat in',
   'fabric.editor.blockquote2': 'Citaat',
   'fabric.editor.bold': 'Vet',
+  'fabric.editor.bug': 'Bug',
   'fabric.editor.canNotSortTable':
     '⚠️ Je kan een tabel met samengevoegde cellen niet rangschikken',
   'fabric.editor.cancelButton': 'Annuleren',
@@ -47,6 +48,7 @@ export default {
   'fabric.editor.code': 'Code',
   'fabric.editor.codeblock': 'Codefragment',
   'fabric.editor.codeblock.description': 'Code tonen met syntaxismarkering',
+  'fabric.editor.collapseTable': 'Tabel inklappen',
   'fabric.editor.columns': 'Lay-outs',
   'fabric.editor.columns.description': 'Je pagina structureren met secties',
   'fabric.editor.configFailedToLoad': 'Fout bij het laden',
@@ -78,6 +80,7 @@ export default {
   'fabric.editor.decision.description':
     'Beslissingen vastleggen zodat deze eenvoudig te traceren zijn',
   'fabric.editor.decisionPlaceholder': 'Beslissing toevoegen...',
+  'fabric.editor.defaultAltText': 'Lijstitem',
   'fabric.editor.displayBlock': 'Kaart weergeven',
   'fabric.editor.displayEmbed': 'Ingesloten weergeven',
   'fabric.editor.displayInline': 'Inline weergeven',
@@ -88,9 +91,12 @@ export default {
   'fabric.editor.distributeColumns': 'Kolommen verdelen',
   'fabric.editor.edit': 'Bewerken',
   'fabric.editor.editAltText': 'Alt-tekst bewerken',
+  'fabric.editor.editDateText': 'Bewerkingsdatum',
   'fabric.editor.editLink': 'Link bewerken',
   'fabric.editor.editMode.inviteToEditButton.title':
     'Uitnodigen om te bewerken',
+  'fabric.editor.editStatusColor': 'Statuskleur bewerken',
+  'fabric.editor.editStatusText': 'Status bewerken',
   'fabric.editor.editorHelp': 'Editor-help',
   'fabric.editor.elementBrowser.help': 'Help',
   'fabric.editor.elementbrowser.categorylist.category-admin': 'Beheer',
@@ -120,6 +126,7 @@ export default {
   'fabric.editor.emoji.description':
     "Emoji's gebruiken om ideeën 🎉 en emoties 😄 te delen",
   'fabric.editor.emptyLink': 'Voer een link in.',
+  'fabric.editor.epic': 'Epic',
   'fabric.editor.error': 'Fout',
   'fabric.editor.errorPanel': 'Foutpaneel',
   'fabric.editor.errorPanel.description':
@@ -138,6 +145,9 @@ export default {
   'fabric.editor.findNext': 'Volgende zoeken',
   'fabric.editor.findPrevious': 'Vorige zoeken',
   'fabric.editor.findReplaceToolbarButton': 'Zoeken en vervangen',
+  'fabric.editor.floatingToolbar.confirmModalCancel': 'Annuleren',
+  'fabric.editor.floatingToolbar.confirmModalHeading': 'Weet je het zeker?',
+  'fabric.editor.floatingToolbar.confirmModalOK': 'Oké',
   'fabric.editor.headerColumn': 'Header-kolom',
   'fabric.editor.headerRow': 'Header-rij',
   'fabric.editor.heading1': 'Koptekst 1',
@@ -169,9 +179,9 @@ export default {
     'Suggesties verschijnen hieronder zodra je in het veld typt',
   'fabric.editor.hyperlink.searchLinkResults':
     '{count, plural, =0 {geen resultaten gevonden} one {{count,number} resultaat gevonden} other {{count,number} resultaten gevonden}}',
-  'fabric.editor.hyperlinkToolbarPlaceholder':
-    'Link plakken of recent bekeken zoeken',
+  'fabric.editor.hyperlinkToolbarPlaceholder': 'Link plakken of zoeken',
   'fabric.editor.image': 'Afbeelding',
+  'fabric.editor.improvement': 'Verbetering',
   'fabric.editor.info': 'Informatie',
   'fabric.editor.infoPanel': 'Infopaneel',
   'fabric.editor.infoPanel.description':
@@ -213,7 +223,7 @@ export default {
   'fabric.editor.orderedList.description': 'Een gesorteerde lijst maken',
   'fabric.editor.other': 'Andere…',
   'fabric.editor.panel.backgroundColor': 'Achtergrondkleur',
-  'fabric.editor.panel.emoji': 'Pictogram toevoegen',
+  'fabric.editor.panel.emoji': 'Emoji toevoegen',
   'fabric.editor.pastePlainText': 'Plak als platte tekst',
   'fabric.editor.placeholderAltText': 'Beschrijf deze afbeelding met alt-tekst',
   'fabric.editor.placeholderText': 'Plaatsaanduidingstekst',
@@ -242,7 +252,9 @@ export default {
   'fabric.editor.status': 'Status',
   'fabric.editor.status.description': 'Een aangepast statuslabel toevoegen',
   'fabric.editor.statusPlaceholder': 'Status instellen',
+  'fabric.editor.story': 'Story',
   'fabric.editor.strike': 'Doorgehaald',
+  'fabric.editor.subTask': 'Subtaak',
   'fabric.editor.subscript': 'Subscript',
   'fabric.editor.success': 'Gelukt',
   'fabric.editor.successPanel': 'Succespaneel',
@@ -254,6 +266,11 @@ export default {
   'fabric.editor.table': 'Tabel',
   'fabric.editor.table.description': 'Een tabel invoegen',
   'fabric.editor.tableOptions': 'Tabelopties',
+  'fabric.editor.tables.confirmDeleteLinkedModalMessage':
+    'Als je deze tabel verwijdert, worden ook alle gegevens in gekoppelde grafieken verwijderd.',
+  'fabric.editor.tables.confirmDeleteLinkedModalOKButton':
+    'Tabel en gegevens verwijderen',
+  'fabric.editor.task': 'Taak',
   'fabric.editor.taskPlaceholder':
     "Geef je actie in en gebruik een '@' om de actie aan iemand toe te wijzen.",
   'fabric.editor.textColor': 'Tekstkleur',

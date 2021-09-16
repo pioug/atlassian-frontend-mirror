@@ -268,7 +268,12 @@ type ButtonFeedbackAEP = ButtonAEP<
 
 type PickerEmojiAEP = PickerAEP<
   ACTION_SUBJECT_ID.PICKER_EMOJI,
-  { inputMethod: INPUT_METHOD.TOOLBAR | INPUT_METHOD.INSERT_MENU }
+  {
+    inputMethod:
+      | INPUT_METHOD.TOOLBAR
+      | INPUT_METHOD.INSERT_MENU
+      | INPUT_METHOD.KEYBOARD;
+  }
 >;
 
 type PickerImageAEP = PickerAEP<

@@ -28,6 +28,7 @@ export default {
   'fabric.editor.blockquote.description': 'Wstaw cytat',
   'fabric.editor.blockquote2': 'Cytat',
   'fabric.editor.bold': 'Pogrubienie',
+  'fabric.editor.bug': 'Błąd',
   'fabric.editor.canNotSortTable':
     '⚠️ Nie można sortować tabeli ze scalonymi komórkami',
   'fabric.editor.cancelButton': 'Anuluj',
@@ -47,6 +48,7 @@ export default {
   'fabric.editor.code': 'Kod',
   'fabric.editor.codeblock': 'Wstawka kodu',
   'fabric.editor.codeblock.description': 'Wyświetlaj kod z wyróżnioną składnią',
+  'fabric.editor.collapseTable': 'Zwiń tabelę',
   'fabric.editor.columns': 'Układy',
   'fabric.editor.columns.description':
     'Uporządkuj swoją stronę, korzystając z sekcji',
@@ -79,6 +81,7 @@ export default {
   'fabric.editor.decision.description':
     'Obserwuj decyzje, aby łatwo je śledzić',
   'fabric.editor.decisionPlaceholder': 'Dodaj decyzję…',
+  'fabric.editor.defaultAltText': 'Pozycja na liście',
   'fabric.editor.displayBlock': 'Wyświetl kartę',
   'fabric.editor.displayEmbed': 'Wyświetl obiekt osadzony',
   'fabric.editor.displayInline': 'Wyświetl lokalnie',
@@ -89,8 +92,11 @@ export default {
   'fabric.editor.distributeColumns': 'Wyrównaj kolumny',
   'fabric.editor.edit': 'Edytuj',
   'fabric.editor.editAltText': 'Edytuj tekst alternatywny',
+  'fabric.editor.editDateText': 'Data edycji',
   'fabric.editor.editLink': 'Edytuj łącze',
   'fabric.editor.editMode.inviteToEditButton.title': 'Zaproś do edycji',
+  'fabric.editor.editStatusColor': 'Edytuj kolor statusu',
+  'fabric.editor.editStatusText': 'Edytuj status',
   'fabric.editor.editorHelp': 'Pomoc w edytorze',
   'fabric.editor.elementBrowser.help': 'Pomoc',
   'fabric.editor.elementbrowser.categorylist.category-admin': 'Administracja',
@@ -122,6 +128,7 @@ export default {
   'fabric.editor.emoji.description':
     'Używaj emoji, aby wyrażać pomysły 🎉 i emocje 😄',
   'fabric.editor.emptyLink': 'Wprowadź łącze.',
+  'fabric.editor.epic': 'Epik',
   'fabric.editor.error': 'Błąd',
   'fabric.editor.errorPanel': 'Panel błędów',
   'fabric.editor.errorPanel.description': 'Wyróżniaj błędy kolorem',
@@ -140,6 +147,8 @@ export default {
   'fabric.editor.findPrevious': 'Znajdź poprzednie',
   'fabric.editor.findReplaceToolbarButton': 'Znajdź i zamień',
   'fabric.editor.floatingToolbar.confirmModalCancel': 'Anuluj',
+  'fabric.editor.floatingToolbar.confirmModalHeading':
+    'Czy na pewno chcesz to zrobić?',
   'fabric.editor.floatingToolbar.confirmModalOK': 'OK',
   'fabric.editor.headerColumn': 'Kolumna nagłówka',
   'fabric.editor.headerRow': 'Wiersz nagłówka',
@@ -169,9 +178,9 @@ export default {
     'Sugestie będą pojawiały się poniżej w miarę wpisywania tekstu w polu',
   'fabric.editor.hyperlink.searchLinkResults':
     '{count, plural, =0 {nie znaleziono wyników} one {znaleziono {count,number} wynik} few {znaleziono {count,number} wyniki} many {znaleziono {count,number} wyników} other {znaleziono {count,number} wyniku}}',
-  'fabric.editor.hyperlinkToolbarPlaceholder':
-    'Wklej łącze lub przeszukaj ostatnio przeglądane strony',
+  'fabric.editor.hyperlinkToolbarPlaceholder': 'Wklej lub wyszukaj łącze',
   'fabric.editor.image': 'Obraz',
+  'fabric.editor.improvement': 'Ulepszenie',
   'fabric.editor.info': 'Informacje',
   'fabric.editor.infoPanel': 'Panel informacyjny',
   'fabric.editor.infoPanel.description': 'Wyróżnij informacje kolorem',
@@ -211,7 +220,7 @@ export default {
   'fabric.editor.orderedList.description': 'Utwórz uporządkowaną listę',
   'fabric.editor.other': 'Inne...',
   'fabric.editor.panel.backgroundColor': 'Kolor tła',
-  'fabric.editor.panel.emoji': 'Dodaj ikonę',
+  'fabric.editor.panel.emoji': 'Dodaj emoji',
   'fabric.editor.pastePlainText': 'Wklej zwykły tekst',
   'fabric.editor.placeholderAltText':
     'Opisz ten obraz przy użyciu tekstu alternatywnego',
@@ -240,7 +249,9 @@ export default {
   'fabric.editor.status': 'Status',
   'fabric.editor.status.description': 'Dodaj niestandardową etykietę statusu',
   'fabric.editor.statusPlaceholder': 'Ustaw status',
+  'fabric.editor.story': 'Historyjka',
   'fabric.editor.strike': 'Przekreślenie',
+  'fabric.editor.subTask': 'Zadanie podrzędne',
   'fabric.editor.subscript': 'Przypis dolny',
   'fabric.editor.success': 'Sukces',
   'fabric.editor.successPanel': 'Panel sukcesów',
@@ -251,6 +262,10 @@ export default {
   'fabric.editor.table': 'Tabela',
   'fabric.editor.table.description': 'Wstaw tabelę',
   'fabric.editor.tableOptions': 'Opcje tabeli',
+  'fabric.editor.tables.confirmDeleteLinkedModalMessage':
+    'Usunięcie tej tabeli spowoduje również usunięcie wszystkich danych zawartych na wszelkich połączonych wykresach.',
+  'fabric.editor.tables.confirmDeleteLinkedModalOKButton': 'Usuń tabelę i dane',
+  'fabric.editor.task': 'Zadanie',
   'fabric.editor.taskPlaceholder':
     'Wprowadź swoją akcję, użyj „@”, aby przypisać ją do użytkownika.',
   'fabric.editor.textColor': 'Kolor tekstu',

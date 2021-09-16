@@ -28,6 +28,7 @@ export default {
   'fabric.editor.blockquote.description': 'Lisää lainaus tai sitaatti',
   'fabric.editor.blockquote2': 'Sitaatti',
   'fabric.editor.bold': 'Lihavoitu',
+  'fabric.editor.bug': 'Bugi',
   'fabric.editor.canNotSortTable':
     '⚠️ Et voi lajitella yhdistettyjä soluja sisältävää taulukkoa',
   'fabric.editor.cancelButton': 'Peruuta',
@@ -48,6 +49,7 @@ export default {
   'fabric.editor.codeblock': 'Koodipätkä',
   'fabric.editor.codeblock.description':
     'Näytä koodi syntaksikorostuksen kanssa',
+  'fabric.editor.collapseTable': 'Kutista taulukko',
   'fabric.editor.columns': 'Asettelut',
   'fabric.editor.columns.description': 'Jäsennä sivusi osioiden avulla',
   'fabric.editor.configFailedToLoad': 'Ei voitu ladata',
@@ -79,6 +81,7 @@ export default {
   'fabric.editor.decision.description':
     'Taltioi päätökset, jotta niitä on helppo seurata',
   'fabric.editor.decisionPlaceholder': 'Lisää päätös...',
+  'fabric.editor.defaultAltText': 'Listamerkintä',
   'fabric.editor.displayBlock': 'Näytä kortti',
   'fabric.editor.displayEmbed': 'Näytä upotus',
   'fabric.editor.displayInline': 'Näytä sisäelementti',
@@ -89,9 +92,12 @@ export default {
   'fabric.editor.distributeColumns': 'Jaa sarakkeet',
   'fabric.editor.edit': 'Muokkaa',
   'fabric.editor.editAltText': 'Muokkaa vaihtoehtoista tekstiä',
+  'fabric.editor.editDateText': 'Muokkaa päiväystä',
   'fabric.editor.editLink': 'Muokkaa linkkiä',
   'fabric.editor.editMode.inviteToEditButton.title':
     'Kutsu käyttäjä muokkaamaan',
+  'fabric.editor.editStatusColor': 'Muokkaa tilaväriä',
+  'fabric.editor.editStatusText': 'Muokkaa tilaa',
   'fabric.editor.editorHelp': 'Muokkaimen ohje',
   'fabric.editor.elementBrowser.help': 'Ohje',
   'fabric.editor.elementbrowser.categorylist.category-admin': 'Ylläpito',
@@ -120,6 +126,7 @@ export default {
   'fabric.editor.emoji.description':
     'Ilmaise ideoita 🎉 ja tunteita 😄emojien avulla',
   'fabric.editor.emptyLink': 'Anna linkki.',
+  'fabric.editor.epic': 'Eepos',
   'fabric.editor.error': 'Virhe',
   'fabric.editor.errorPanel': 'Virhepaneeli',
   'fabric.editor.errorPanel.description':
@@ -168,9 +175,9 @@ export default {
     'Ehdotukset näytetään alla, kun alat kirjoittaa kenttään',
   'fabric.editor.hyperlink.searchLinkResults':
     '{count, plural, =0 {tuloksia ei löytynyt} one {{count,number} tulos löytyi} other {{count,number} tulosta löytyi}}',
-  'fabric.editor.hyperlinkToolbarPlaceholder':
-    'Liitä linkki tai hae äskettäin katsotuista',
+  'fabric.editor.hyperlinkToolbarPlaceholder': 'Liitä tai hae linkki',
   'fabric.editor.image': 'Kuva',
+  'fabric.editor.improvement': 'Parannus',
   'fabric.editor.info': 'Tietoja',
   'fabric.editor.infoPanel': 'Tietopaneeli',
   'fabric.editor.infoPanel.description':
@@ -212,7 +219,7 @@ export default {
   'fabric.editor.orderedList.description': 'Luo järjestetty luettelo',
   'fabric.editor.other': 'Muut...',
   'fabric.editor.panel.backgroundColor': 'Taustaväri',
-  'fabric.editor.panel.emoji': 'Lisää kuvake',
+  'fabric.editor.panel.emoji': 'Lisää emoji',
   'fabric.editor.pastePlainText': 'Liimaa tavallinen teksti',
   'fabric.editor.placeholderAltText':
     'Kuvaile tätä kuvaa vaihtoehtoisella tekstillä',
@@ -241,7 +248,9 @@ export default {
   'fabric.editor.status': 'Tila',
   'fabric.editor.status.description': 'Lisää mukautettu tilan tunniste',
   'fabric.editor.statusPlaceholder': 'Aseta tila',
+  'fabric.editor.story': 'Tarina',
   'fabric.editor.strike': 'Yliviivaus',
+  'fabric.editor.subTask': 'Alitehtävä',
   'fabric.editor.subscript': 'Alaindeksi',
   'fabric.editor.success': 'Onnistunut',
   'fabric.editor.successPanel': 'Onnistumispaneeli',
@@ -257,6 +266,7 @@ export default {
     'Tämän taulukon poistaminen poistaa myös kaikkien yhdistettyjen kaavioiden sisältämät tiedot.',
   'fabric.editor.tables.confirmDeleteLinkedModalOKButton':
     'Poista taulukko ja tiedot',
+  'fabric.editor.task': 'Tehtävä',
   'fabric.editor.taskPlaceholder':
     "Kirjoita toimintasi, käytä '@'-merkkiä määrätäksesi sen jollekin henkilölle.",
   'fabric.editor.textColor': 'Tekstin väri',

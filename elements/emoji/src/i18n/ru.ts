@@ -22,7 +22,7 @@ export default {
   'fabric.emoji.category.productivity': 'Эффективность',
   'fabric.emoji.category.symbols': 'Символы',
   'fabric.emoji.category.user.uploads': 'Ваши эмодзи',
-  'fabric.emoji.choose.file.ariaLabel':
+  'fabric.emoji.choose.file.screenReaderDescription':
     'Выберите файл с эмодзи. Формат: JPG, PNG или GIF. Размер: не более 1 МБ',
   'fabric.emoji.choose.file.title': 'Выберите файл',
   'fabric.emoji.delete.description':
@@ -40,5 +40,7 @@ export default {
   'fabric.emoji.preview': 'Новый эмодзи {emoji} очень классный!',
   'fabric.emoji.preview.title': 'Предпросмотр',
   'fabric.emoji.retry.label': 'Повторить попытку',
-  'fabric.emoji.search.label': 'Поиск',
+  'fabric.emoji.search.label': 'Искать эмодзи',
+  'fabric.emoji.search.placeholder': 'Поиск',
+  'fabric.emoji.select.skin.tone.ariaLabel': 'Выбрать цвет кожи {selectedTone}',
 };

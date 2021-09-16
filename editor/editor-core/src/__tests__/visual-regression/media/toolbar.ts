@@ -17,6 +17,12 @@ import { retryUntilStablePosition } from '../../__helpers/page-objects/_toolbar'
 describe('Snapshot Test: Media', () => {
   let page: PuppeteerPage;
 
+  const makeSnapshot = async (page: PuppeteerPage) => {
+    await snapshot(page, undefined, undefined, {
+      captureBeyondViewport: false,
+    });
+  };
+
   describe('Media Linking Toolbar', () => {
     beforeEach(async () => {
       page = global.page;
@@ -41,14 +47,14 @@ describe('Snapshot Test: Media', () => {
       });
 
       it('should show add link button', async () => {
-        await snapshot(page);
+        await makeSnapshot(page);
       });
 
       it('should open media linking toolbar', async () => {
         await clickOnToolbarButton(page, MediaToolbarButton.addLink);
 
         await waitForActivityItems(page, 5);
-        await snapshot(page);
+        await makeSnapshot(page);
       });
 
       it('should show edit media linking toolbar', async () => {
@@ -65,7 +71,7 @@ describe('Snapshot Test: Media', () => {
           1000,
         );
 
-        await snapshot(page);
+        await makeSnapshot(page);
       });
 
       it('should show edit media linking toolbar after pressing Ctrl+K', async () => {
@@ -83,7 +89,7 @@ describe('Snapshot Test: Media', () => {
 
         await waitForActivityItems(page, 5);
 
-        await snapshot(page);
+        await makeSnapshot(page);
       });
 
       it('should show error message when entering invalid link', async () => {
@@ -100,7 +106,7 @@ describe('Snapshot Test: Media', () => {
           visible: true,
         });
         expect(error).toBeTruthy();
-        await snapshot(page);
+        await makeSnapshot(page);
       });
     });
   });
@@ -126,8 +132,9 @@ describe('Snapshot Test: Media', () => {
       await page.click('[data-testid="media-file-card-view"]');
       await page.waitForSelector('[data-testid="media-card-inline-player"]');
       await page.click('[data-testid="media-card-inline-player"]');
-      await snapshot(page);
+      await makeSnapshot(page);
     });
+
     it('should show floating toolbar center relatively to the file with align-start layout', async () => {
       await initEditorWithAdf(page, {
         appearance: Appearance.fullPage,
@@ -144,8 +151,9 @@ describe('Snapshot Test: Media', () => {
       await page.click('[data-testid="media-file-card-view"]');
       await page.waitForSelector('[data-testid="media-card-inline-player"]');
       await page.click('[data-testid="media-card-inline-player"]');
-      await snapshot(page);
+      await makeSnapshot(page);
     });
+
     it('should render seperators correctly when placed inside an expand', async () => {
       await initEditorWithAdf(page, {
         appearance: Appearance.fullPage,
@@ -160,7 +168,7 @@ describe('Snapshot Test: Media', () => {
         },
       });
       await waitForMediaToBeLoaded(page);
-      await snapshot(page);
+      await makeSnapshot(page);
     });
   });
 });

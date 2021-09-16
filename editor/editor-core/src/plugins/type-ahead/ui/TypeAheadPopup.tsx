@@ -8,7 +8,6 @@ import { Popup } from '@atlaskit/editor-common';
 import type { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
 import { borderRadius, gridSize } from '@atlaskit/theme/constants';
 import { N0, N60A, N50A } from '@atlaskit/theme/colors';
-import { divide } from '@atlaskit/theme/math';
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../../analytics';
 
 import { TypeAheadList } from './TypeAheadList';
@@ -19,7 +18,7 @@ const TypeAheadContent = styled.div`
   background: ${N0};
   border-radius: ${borderRadius()}px;
   box-shadow: 0 0 1px ${N60A}, 0 4px 8px -2px ${N50A};
-  padding: ${divide(gridSize, 2)}px 0;
+  padding: ${gridSize() / 2}px 0;
   width: 320px;
   max-height: 380px; /* ~5.5 visibile items */
   overflow-y: auto;

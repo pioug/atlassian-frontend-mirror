@@ -1,5 +1,6 @@
 import React from 'react';
-import { md, Example } from '@atlaskit/docs';
+
+import { Example, md } from '@atlaskit/docs';
 
 export default md`
   ### Typography
@@ -43,31 +44,10 @@ export default md`
 
   ### Focus ring
 
-  When creating your own custom interactive element you can use this mixin in any css-in-js solution to give it its own focus ring.
-
-  ${(
-    <Example
-      highlight="3,9,21-26"
-      packageName="@atlaskit/theme"
-      Component={require('../examples/focus-ring').default}
-      source={require('!!raw-loader!../examples/focus-ring')}
-      title="Focusable elements"
-    />
-  )}
+  This mixin is deprecated; and is no longer supported. A better alternative is available in ['@atlaskit/focus-ring'](https://atlaskit.atlassian.com/packages/design-system/focus-ring).
 
   ### Visually hidden
 
-  This agnostic mixin will visually hide an element,
-  taking it out of the page flow,
-  but still allow screen readers to read it.
+  This mixin is deprecated; and is no longer supported. A better alternative is available in ['@atlaskit/visually-hidden'](https://atlaskit.atlassian.com/packages/design-system/visually-hidden).
 
-  ${(
-    <Example
-      highlight="4,7"
-      packageName="@atlaskit/theme"
-      Component={require('../examples/assistive').default}
-      source={require('!!raw-loader!../examples/assistive')}
-      title=""
-    />
-  )}
 `;

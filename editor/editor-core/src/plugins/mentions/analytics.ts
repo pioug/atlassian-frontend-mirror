@@ -121,7 +121,6 @@ export const buildTypeAheadInviteItemViewedPayload = (
 };
 
 export const buildTypeAheadInviteExposurePayload = (
-  shouldEnableInvite: boolean,
   sessionId: string,
   contextIdentifierProvider?: ContextIdentifierProvider,
   inviteExperimentCohort?: InviteExperimentCohort,
@@ -136,8 +135,7 @@ export const buildTypeAheadInviteExposurePayload = (
     sessionId,
     {
       flagKey: 'confluence.frontend.invite.from.mention',
-      value: shouldEnableInvite,
-      cohort: inviteExperimentCohort,
+      value: inviteExperimentCohort || 'not-enrolled',
       containerId,
       objectId,
       childObjectId,

@@ -8,6 +8,8 @@ import { CardSSRView } from '../../card/cardSSRView';
 import { CardDimensions } from '../../..';
 import { CardImageContainer } from '../../ui/styledSSR';
 import { fakeMediaClient } from '@atlaskit/media-test-helpers';
+import { Blanket } from '../../ui/blanket/styled';
+
 const asAMock = (fn: unknown): jest.Mock => fn as jest.Mock;
 
 describe(CardSSRView, () => {
@@ -178,4 +180,86 @@ describe(CardSSRView, () => {
     expect(wrapper.find(SpinnerIcon)).toHaveLength(1);
     expect(wrapper.find(MediaImage)).toHaveLength(1);
   });
+
+  it.each`
+    isLazy       | loading
+    ${true}      | ${'lazy'}
+    ${false}     | ${'eager'}
+    ${undefined} | ${'lazy'}
+  `(
+    'should pass down the loading prop ($loading) to MediaImg when isLazy is $isLazy',
+    ({ loading, isLazy }) => {
+      const identifier = givenAnIdentifier();
+
+      const wrapper = mount(
+        <CardSSRView
+          identifier={identifier}
+          dimensions={givenDimensions()}
+          mediaClient={givenAFakeMediaClient()}
+          alt="alt text"
+          resizeMode="fit"
+          disableOverlay={false}
+          isLazy={isLazy}
+        />,
+      );
+      // const imageTags = wrapper.find('[data-testid="media-image"]');
+      const imageTags = wrapper.find(MediaImage);
+      expect(imageTags).toHaveLength(1);
+      expect(imageTags.props().loading).toEqual(loading);
+    },
+  );
+
+  it.each`
+    disableOverlay | shouldHaveBlanket
+    ${true}        | ${false}
+    ${false}       | ${true}
+  `(
+    'should render the blanket $ when overlay not disabled',
+    ({ disableOverlay, shouldHaveBlanket }) => {
+      const identifier = givenAnIdentifier();
+
+      const wrapper = mount(
+        <CardSSRView
+          identifier={identifier}
+          dimensions={givenDimensions()}
+          mediaClient={givenAFakeMediaClient()}
+          alt="alt text"
+          resizeMode="fit"
+          disableOverlay={disableOverlay}
+        />,
+      );
+      // const imageTags = wrapper.find('[data-testid="media-image"]');
+      const imageTags = wrapper.find(Blanket);
+      expect(imageTags).toHaveLength(shouldHaveBlanket ? 1 : 0);
+    },
+  );
+
+  it.each`
+    resizeMode        | crop     | stretch
+    ${'crop'}         | ${true}  | ${false}
+    ${'fit'}          | ${false} | ${false}
+    ${'full-fit'}     | ${false} | ${false}
+    ${'stretchy-fit'} | ${false} | ${true}
+  `(
+    'resize mode $resizeMode results in passing crop = $crop and stretch = $stretch',
+    ({ resizeMode, crop, stretch }) => {
+      const identifier = givenAnIdentifier();
+
+      const wrapper = mount(
+        <CardSSRView
+          identifier={identifier}
+          dimensions={givenDimensions()}
+          mediaClient={givenAFakeMediaClient()}
+          alt="alt text"
+          resizeMode={resizeMode}
+          disableOverlay={false}
+        />,
+      );
+      // const imageTags = wrapper.find('[data-testid="media-image"]');
+      const imageTags = wrapper.find(MediaImage);
+      expect(imageTags).toHaveLength(1);
+      expect(imageTags.props().crop).toEqual(crop);
+      expect(imageTags.props().stretch).toEqual(stretch);
+    },
+  );
 });

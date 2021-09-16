@@ -1,6 +1,6 @@
 import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
-// @ts-ignore
-import { AtlaskitThemeProvider } from '@atlaskit/theme/components';
+import { ThemeProvider as StyledThemeProvider } from 'styled-components';
+import DeprecatedThemeProvider from '@atlaskit/theme/deprecated-provider-please-do-not-use';
 import React from 'react';
 import { onMentionEvent } from '../example-helpers/index';
 import Mention from '../src/components/Mention';
@@ -39,7 +39,7 @@ const handler = (
 export default function Example() {
   return (
     <IntlProvider locale="en">
-      <AtlaskitThemeProvider mode={'dark'}>
+      <DeprecatedThemeProvider mode={'dark'} provider={StyledThemeProvider}>
         <div style={padding}>
           <AnalyticsListener
             onEvent={listenerHandler}
@@ -72,7 +72,7 @@ export default function Example() {
             onMouseLeave={onMentionEvent}
           />
         </div>
-      </AtlaskitThemeProvider>
+      </DeprecatedThemeProvider>
     </IntlProvider>
   );
 }

@@ -2,18 +2,11 @@ import { Transaction, Plugin, PluginKey, EditorState } from 'prosemirror-state';
 import { DecorationSet, Decoration } from 'prosemirror-view';
 import { Node } from 'prosemirror-model';
 import { findParentNodeOfType } from 'prosemirror-utils';
-import {
-  addAnalytics,
-  ACTION,
-  ACTION_SUBJECT,
-  EVENT_TYPE,
-} from '../../analytics';
 import { isWrappingPossible } from '../utils/selection';
-import { isListNode, JoinDirection, joinSiblingLists } from '../utils/node';
+import { isListNode } from '../utils/node';
 import { Dispatch } from '../../../event-dispatcher';
 import { pluginFactory } from '../../../utils/plugin-state-factory';
 import { ListState } from '../types';
-import { findRootParentListNode } from '../utils/find';
 
 const listPluginKey = new PluginKey<ListState>('listPlugin');
 export const pluginKey = listPluginKey;
@@ -143,39 +136,6 @@ export const createPlugin = (eventDispatch: Dispatch): Plugin =>
   new Plugin({
     state: createPluginState(eventDispatch, createInitialState),
     key: listPluginKey,
-    appendTransaction(transactions, _oldState, newState) {
-      const lastTransaction = transactions[transactions.length - 1];
-      if (!lastTransaction.docChanged || !lastTransaction.selectionSet) {
-        return;
-      }
-      const tr = newState.tr;
-      const rootList = findRootParentListNode(tr.selection.$from);
-      if (!rootList) {
-        return;
-      }
-      const listsJoined = joinSiblingLists({
-        tr,
-        direction: JoinDirection.RIGHT,
-      });
-      if (tr.docChanged) {
-        const {
-          orderedList: orderedListsJoined,
-          bulletList: bulletListsJoined,
-        } = listsJoined;
-
-        addAnalytics(newState, tr, {
-          action: ACTION.FIXED,
-          actionSubject: ACTION_SUBJECT.LIST,
-          eventType: EVENT_TYPE.TRACK,
-          attributes: {
-            orderedListsJoined,
-            bulletListsJoined,
-          },
-        });
-
-        return tr;
-      }
-    },
     props: {
       decorations(state) {
         const { decorationSet } = getPluginState(state);

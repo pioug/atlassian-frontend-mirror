@@ -1,5 +1,15 @@
 # @atlaskit/adf-schema
 
+## 19.2.0
+
+### Minor Changes
+
+- [`cf853e39278`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf853e39278) - CETI-72 Web: Copy from renderer loses custom panel attributes
+- [`cf853e39278`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf853e39278) - Add single column support for layouts
+- [`9fbaa50c904`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9fbaa50c904) - ED-13133 fixed broken table with sticky headers after undo merge cells with tableCellOptimisation on
+- [`cf853e39278`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf853e39278) - [ux] add single layout support for layout
+- [`6840e64d105`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6840e64d105) - CETI-124: Revert panel content wrapper from span to div
+
 ## 19.1.0
 
 ### Minor Changes

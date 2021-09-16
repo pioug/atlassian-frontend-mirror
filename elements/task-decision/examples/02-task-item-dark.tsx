@@ -1,14 +1,14 @@
 import React from 'react';
 import { ReactRenderer as Renderer } from '@atlaskit/renderer';
 import { document } from '@atlaskit/util-data-test/task-decision-story-data';
-// @ts-ignore
-import { AtlaskitThemeProvider } from '@atlaskit/theme/components';
+import { ThemeProvider as StyledThemeProvider } from 'styled-components';
+import DeprecatedThemeProvider from '@atlaskit/theme/deprecated-provider-please-do-not-use';
 
 import TaskItem from '../src/components/TaskItem';
 import { dumpRef, action } from '../example-helpers/story-utils';
 
 export default () => (
-  <AtlaskitThemeProvider mode={'dark'}>
+  <DeprecatedThemeProvider mode={'dark'} provider={StyledThemeProvider}>
     <div style={{ padding: '10px' }}>
       <h3>Simple TaskItem</h3>
       <TaskItem
@@ -58,5 +58,5 @@ export default () => (
         placeholder="Placeholder text"
       />
     </div>
-  </AtlaskitThemeProvider>
+  </DeprecatedThemeProvider>
 );

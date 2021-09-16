@@ -1,6 +1,6 @@
 import React from 'react';
-// @ts-ignore
-import { AtlaskitThemeProvider } from '@atlaskit/theme/components';
+import { ThemeProvider as StyledThemeProvider } from 'styled-components';
+import DeprecatedThemeProvider from '@atlaskit/theme/deprecated-provider-please-do-not-use';
 import { Date, Color } from '../src';
 
 const DateInParagraph = ({ color }: { color?: Color }) => (
@@ -10,12 +10,12 @@ const DateInParagraph = ({ color }: { color?: Color }) => (
 );
 
 export default () => (
-  <AtlaskitThemeProvider mode={'dark'}>
+  <DeprecatedThemeProvider mode={'dark'} provider={StyledThemeProvider}>
     <DateInParagraph />
     <DateInParagraph color="red" />
     <DateInParagraph color="green" />
     <DateInParagraph color="blue" />
     <DateInParagraph color="purple" />
     <DateInParagraph color="yellow" />
-  </AtlaskitThemeProvider>
+  </DeprecatedThemeProvider>
 );

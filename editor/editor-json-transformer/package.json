@@ -29,8 +29,8 @@
     "./types": "./src/types.ts"
   },
   "dependencies": {
-    "@atlaskit/adf-schema": "^19.1.0",
-    "@atlaskit/adf-utils": "^14.2.0",
+    "@atlaskit/adf-schema": "^19.2.0",
+    "@atlaskit/adf-utils": "^14.3.0",
     "@babel/runtime": "^7.0.0",
     "lodash": "^4.17.15",
     "prosemirror-model": "1.11.0"
@@ -38,9 +38,9 @@
   "devDependencies": {
     "@atlaskit/docs": "*",
     "@atlaskit/editor-bitbucket-transformer": "^7.1.0",
-    "@atlaskit/editor-common": "^60.0.0",
+    "@atlaskit/editor-common": "^60.1.0",
     "@atlaskit/editor-confluence-transformer": "^8.1.0",
-    "@atlaskit/editor-core": "^149.0.0",
+    "@atlaskit/editor-core": "^150.0.0",
     "@atlaskit/editor-jira-transformer": "^8.1.0",
     "@atlaskit/editor-markdown-transformer": "^4.1.0",
     "@atlaskit/editor-test-helpers": "^15.4.0",

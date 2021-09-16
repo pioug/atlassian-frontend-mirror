@@ -1,5 +1,36 @@
 # @atlaskit/drawer
 
+## 7.0.0
+
+### Major Changes
+
+- [`cf853e39278`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf853e39278) - [ux] Breaking changes:
+
+  The following components have been removed from `@atlaskit/drawer`:
+
+  - `DrawerItemTheme`
+  - `DrawerSkeletonHeader`
+  - `DrawerSkeletonItem`
+  - `DrawerItemGroup`
+  - `DrawerItem`
+
+  These components wrap the much older, now deprecated package `@atlaskit/item` and had little to no usage. If you really need the functionality
+  captured by these components; we'd encourage you to try `@atlaskit/menu`
+  which matches and extends all of the functionality of `@atlaskit/item` in
+  a more accessible and performant way.
+
+  Housekeeping:
+
+  - Now exposes a `testId` property as a hook for automated testing.
+  - Package no longer depends on `styled-components` for styling
+  - Package no longer depends on `chromatism`
+  - Package no longer depends on `@atlaskit/item`
+  - Package no longer depends on `@atlaskit/avatar`
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.0.10
 
 ### Patch Changes

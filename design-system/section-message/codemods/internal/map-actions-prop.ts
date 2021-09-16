@@ -119,13 +119,13 @@ export const mapActionsProp = (
     ? `Atlaskit${SECTION_MESSAGE_ACTION_COMPONENT_NAME}`
     : SECTION_MESSAGE_ACTION_COMPONENT_NAME;
 
-  let actionsAttributes = [];
+  let actionsAttributes: Collection<JSXAttribute> | null = null;
 
   source
     .findJSXElements(
       sectionMessageDefaultSpecifierName || sectionMessageDynamicImportName,
     )
-    .forEach((element: ASTPath<JSXElement>) => {
+    .forEach((element) => {
       const linkComponentAttributeValue = transferLinkComponentProp(j, element);
       actionsAttributes = getJSXAttributesByName(j, element, ACTIONS_PROP_NAME);
 
@@ -185,26 +185,33 @@ export const mapActionsProp = (
       });
     });
 
-  if (actionsAttributes.length > 0 && sectionMessageDefaultSpecifierName) {
-    addSectionMessageActionImportSpecifier(j, source, sectionMessageActionName);
-  }
+  // @ts-ignore
+  if (actionsAttributes && actionsAttributes.length > 0) {
+    if (sectionMessageDefaultSpecifierName) {
+      addSectionMessageActionImportSpecifier(
+        j,
+        source,
+        sectionMessageActionName,
+      );
+    }
 
-  if (actionsAttributes.length > 0 && sectionMessageDynamicImportName) {
-    addSectionMessageActionDynamicImport(
-      j,
-      source.find(j.VariableDeclaration).filter((variableDeclarationPath) => {
-        return (
-          j(variableDeclarationPath)
-            .find(j.VariableDeclarator)
-            .filter(
-              (variableDeclaratorPath) =>
-                variableDeclaratorPath.node.id.type === 'Identifier' &&
-                variableDeclaratorPath.node.id.name ===
-                  sectionMessageDynamicImportName,
-            ).length > 0
-        );
-      }),
-      sectionMessageActionName,
-    );
+    if (sectionMessageDynamicImportName) {
+      addSectionMessageActionDynamicImport(
+        j,
+        source.find(j.VariableDeclaration).filter((variableDeclarationPath) => {
+          return (
+            j(variableDeclarationPath)
+              .find(j.VariableDeclarator)
+              .filter(
+                (variableDeclaratorPath) =>
+                  variableDeclaratorPath.node.id.type === 'Identifier' &&
+                  variableDeclaratorPath.node.id.name ===
+                    sectionMessageDynamicImportName,
+              ).length > 0
+          );
+        }),
+        sectionMessageActionName,
+      );
+    }
   }
 };

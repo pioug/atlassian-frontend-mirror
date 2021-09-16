@@ -22,6 +22,7 @@ import { LayoutState } from './pm-plugins/types';
 import { Change, PresetLayout } from './types';
 import { TOOLBAR_MENU_TYPE } from '../insert-block/ui/ToolbarInsertBlock/types';
 
+export const ONE_COL_LAYOUTS: PresetLayout[] = ['single'];
 export const TWO_COL_LAYOUTS: PresetLayout[] = [
   'two_equal',
   'two_left_sidebar',
@@ -34,6 +35,8 @@ export const THREE_COL_LAYOUTS: PresetLayout[] = [
 
 const getWidthsForPreset = (presetLayout: PresetLayout): number[] => {
   switch (presetLayout) {
+    case 'single':
+      return [100];
     case 'two_equal':
       return [50, 50];
     case 'three_equal':
@@ -55,6 +58,8 @@ export const getPresetLayout = (section: Node): PresetLayout | undefined => {
   const widths = mapChildren(section, (column) => column.attrs.width).join(',');
 
   switch (widths) {
+    case '100':
+      return 'single';
     case '33.33,33.33,33.33':
       return 'three_equal';
     case '25,50,25':
@@ -112,6 +117,71 @@ export const insertLayoutColumnsWithAnalytics = (
   })(insertLayoutColumns);
 
 /**
+ * Add a column to the right of existing layout
+ */
+function addColumn(schema: Schema, pos: number) {
+  return (tr: Transaction) => {
+    tr.replaceWith(
+      tr.mapping.map(pos),
+      tr.mapping.map(pos),
+      schema.nodes.layoutColumn.createAndFill() as Node,
+    );
+  };
+}
+
+function removeLastColumnInLayout(
+  column: Node,
+  columnPos: number,
+  insideRightEdgePos: number,
+) {
+  return (tr: Transaction) => {
+    if (isEmptyDocument(column)) {
+      tr.replaceRange(
+        tr.mapping.map(columnPos - 1),
+        tr.mapping.map(insideRightEdgePos),
+        Slice.empty,
+      );
+    } else {
+      tr.replaceRange(
+        tr.mapping.map(columnPos - 1),
+        tr.mapping.map(columnPos + 1),
+        Slice.empty,
+      );
+    }
+  };
+}
+
+const fromTwoColsToThree = addColumn;
+const fromOneColToTwo = addColumn;
+const fromTwoColsToOne = removeLastColumnInLayout;
+const fromThreeColsToTwo = removeLastColumnInLayout;
+const fromOneColToThree = (schema: Schema, pos: number) => {
+  return (tr: Transaction) => {
+    addColumn(schema, pos)(tr);
+    addColumn(schema, pos)(tr);
+  };
+};
+const fromThreeColstoOne = (
+  node: Node,
+  tr: Transaction,
+  insideRightEdgePos: number,
+) => {
+  const thirdColumn = node.content.child(2);
+  fromThreeColsToTwo(
+    thirdColumn,
+    insideRightEdgePos - thirdColumn.nodeSize,
+    insideRightEdgePos,
+  )(tr);
+
+  const secondColumn = node.content.child(1);
+  fromTwoColsToOne(
+    secondColumn,
+    insideRightEdgePos - thirdColumn.nodeSize - secondColumn.nodeSize,
+    insideRightEdgePos,
+  )(tr);
+};
+
+/**
  * Handles switching from 2 -> 3 cols, or 3 -> 2 cols
  * Switching from 2 -> 3 just adds a new one at the end
  * Switching from 3 -> 2 moves all the content of the third col inside the second before
@@ -127,32 +197,40 @@ function forceColumnStructure(
   const insideRightEdgeOfLayoutSection = pos + node.nodeSize - 1;
   const numCols = node.childCount;
 
+  // 3 columns -> 2 columns
   if (TWO_COL_LAYOUTS.indexOf(presetLayout) >= 0 && numCols === 3) {
     const thirdColumn = node.content.child(2);
-    const thirdColumnPos =
-      insideRightEdgeOfLayoutSection - thirdColumn.nodeSize;
-    if (isEmptyDocument(thirdColumn)) {
-      tr.replaceRange(
-        // end pos of second column
-        tr.mapping.map(thirdColumnPos - 1),
-        tr.mapping.map(insideRightEdgeOfLayoutSection),
-        Slice.empty,
-      );
-    } else {
-      tr.replaceRange(
-        // end pos of second column
-        tr.mapping.map(thirdColumnPos - 1),
-        // start pos of third column
-        tr.mapping.map(thirdColumnPos + 1),
-        Slice.empty,
-      );
-    }
+    const columnPos = insideRightEdgeOfLayoutSection - thirdColumn.nodeSize;
+    fromThreeColsToTwo(
+      thirdColumn,
+      columnPos,
+      insideRightEdgeOfLayoutSection,
+    )(tr);
+
+    // 2 columns -> 3 columns
   } else if (THREE_COL_LAYOUTS.indexOf(presetLayout) >= 0 && numCols === 2) {
-    tr.replaceWith(
-      tr.mapping.map(insideRightEdgeOfLayoutSection),
-      tr.mapping.map(insideRightEdgeOfLayoutSection),
-      state.schema.nodes.layoutColumn.createAndFill() as Node,
-    );
+    fromTwoColsToThree(state.schema, insideRightEdgeOfLayoutSection)(tr);
+
+    // 2 columns -> 1 column
+  } else if (ONE_COL_LAYOUTS.indexOf(presetLayout) >= 0 && numCols === 2) {
+    const secondColumn = node.content.child(1);
+    const columnPos = insideRightEdgeOfLayoutSection - secondColumn.nodeSize;
+    fromTwoColsToOne(
+      secondColumn,
+      columnPos,
+      insideRightEdgeOfLayoutSection,
+    )(tr);
+
+    // 3 columns -> 1 column
+  } else if (ONE_COL_LAYOUTS.indexOf(presetLayout) >= 0 && numCols === 3) {
+    fromThreeColstoOne(node, tr, insideRightEdgeOfLayoutSection);
+
+    // 1 column -> 2 columns
+  } else if (TWO_COL_LAYOUTS.indexOf(presetLayout) >= 0 && numCols === 1) {
+    fromOneColToTwo(state.schema, insideRightEdgeOfLayoutSection)(tr);
+    // 1 column -> 3 columns
+  } else if (THREE_COL_LAYOUTS.indexOf(presetLayout) >= 0 && numCols === 1) {
+    fromOneColToThree(state.schema, insideRightEdgeOfLayoutSection)(tr);
   }
 
   return tr;
@@ -269,7 +347,12 @@ function getLayoutChange(
       return;
     }
 
-    const presetLayout = node.childCount === 2 ? 'two_equal' : 'three_equal';
+    const presetLayout =
+      node.childCount === 2
+        ? 'two_equal'
+        : node.childCount === 3
+        ? 'three_equal'
+        : 'single';
 
     const fixedColumns = columnWidth(
       node,
@@ -353,6 +436,8 @@ export const deleteActiveLayoutNode: Command = (state, dispatch) => {
 
 const formatLayoutName = (layout: PresetLayout): LAYOUT_TYPE => {
   switch (layout) {
+    case 'single':
+      return LAYOUT_TYPE.SINGLE_COL;
     case 'two_equal':
       return LAYOUT_TYPE.TWO_COLS_EQUAL;
     case 'three_equal':

@@ -17,6 +17,7 @@ export interface TooltipPrimitiveProps {
   ref: React.Ref<any>;
   onMouseOver?: (e: React.MouseEvent<HTMLElement>) => void;
   onMouseOut?: (e: React.MouseEvent<HTMLElement>) => void;
+  id?: string;
 }
 
 const primitiveCss = css`
@@ -26,7 +27,16 @@ const primitiveCss = css`
 
 const TooltipPrimitive = forwardRef<HTMLDivElement, TooltipPrimitiveProps>(
   function TooltipPrimitive(
-    { style, className, children, placement, testId, onMouseOut, onMouseOver },
+    {
+      style,
+      className,
+      children,
+      placement,
+      testId,
+      onMouseOut,
+      onMouseOver,
+      id,
+    },
     ref,
   ) {
     return (
@@ -41,6 +51,7 @@ const TooltipPrimitive = forwardRef<HTMLDivElement, TooltipPrimitiveProps>(
         css={primitiveCss}
         data-placement={placement}
         data-testid={testId}
+        id={id}
       >
         {children}
       </div>

@@ -29,6 +29,7 @@ export default {
   'fabric.editor.blockquote.description': 'Alıntı veya atıf ekleyin',
   'fabric.editor.blockquote2': 'Alıntı',
   'fabric.editor.bold': 'Kalın',
+  'fabric.editor.bug': 'Hata',
   'fabric.editor.canNotSortTable':
     '⚠️ Birleştirilmiş hücre içeren bir tabloyu sıralayamazsınız',
   'fabric.editor.cancelButton': 'İptal',
@@ -49,6 +50,7 @@ export default {
   'fabric.editor.codeblock': 'Kod parçacığı',
   'fabric.editor.codeblock.description':
     'Kodları söz dizimini vurgulayarak görüntüleyin',
+  'fabric.editor.collapseTable': 'Tabloyu daralt',
   'fabric.editor.columns': 'Düzenler',
   'fabric.editor.columns.description':
     'Bölümler aracılığıyla sayfanızı yapılandırın',
@@ -81,6 +83,7 @@ export default {
   'fabric.editor.decision.description':
     'Takibi kolaylaştırmak için kararları vurgulayın',
   'fabric.editor.decisionPlaceholder': 'Karar ekle…',
+  'fabric.editor.defaultAltText': 'Liste öğesi',
   'fabric.editor.displayBlock': 'Kart olarak göster',
   'fabric.editor.displayEmbed': 'Ekli nesne olarak göster',
   'fabric.editor.displayInline': 'Satır içi nesne olarak göster',
@@ -91,9 +94,12 @@ export default {
   'fabric.editor.distributeColumns': 'Sütunları eşit dağıt',
   'fabric.editor.edit': 'Düzenle',
   'fabric.editor.editAltText': 'Alternatif metni düzenle',
+  'fabric.editor.editDateText': 'Tarihi Düzenle',
   'fabric.editor.editLink': 'Bağlantıyı düzenleyin',
   'fabric.editor.editMode.inviteToEditButton.title':
     'Düzenlemek için davet edin',
+  'fabric.editor.editStatusColor': 'Durum Rengini Düzenle',
+  'fabric.editor.editStatusText': 'Durumu Düzenle',
   'fabric.editor.editorHelp': 'Düzenleyici yardımı',
   'fabric.editor.elementBrowser.help': 'Yardım',
   'fabric.editor.elementbrowser.categorylist.category-admin': 'Yönetim',
@@ -124,6 +130,7 @@ export default {
   'fabric.editor.emoji.description':
     'Düşüncelerinizi 🎉 ve duygularınızı 😄 ifade etmek için emojiler kullanın',
   'fabric.editor.emptyLink': 'Lütfen bir bağlantı girin.',
+  'fabric.editor.epic': 'Epik',
   'fabric.editor.error': 'Hata',
   'fabric.editor.errorPanel': 'Hata panosu',
   'fabric.editor.errorPanel.description': 'Renkli bir panoda hataları belirtin',
@@ -142,6 +149,7 @@ export default {
   'fabric.editor.findPrevious': 'Öncekini bul',
   'fabric.editor.findReplaceToolbarButton': 'Bul ve değiştir',
   'fabric.editor.floatingToolbar.confirmModalCancel': 'İptal',
+  'fabric.editor.floatingToolbar.confirmModalHeading': 'Emin misiniz?',
   'fabric.editor.floatingToolbar.confirmModalOK': 'Tamam',
   'fabric.editor.headerColumn': 'Başlık sütunu',
   'fabric.editor.headerRow': 'Başlık satırı',
@@ -175,8 +183,9 @@ export default {
   'fabric.editor.hyperlink.searchLinkResults':
     '{count, plural, =0 {sonuç bulunamadı} one {{count,number} sonuç bulundu} other {{count,number} sonuç bulundu}}',
   'fabric.editor.hyperlinkToolbarPlaceholder':
-    'Bağlantıyı yapıştırın veya son görüntülenenleri arayın',
+    'Bağlantıyı yapıştırın veya arayın',
   'fabric.editor.image': 'Görsel',
+  'fabric.editor.improvement': 'İyileştirme',
   'fabric.editor.info': 'Bilgi',
   'fabric.editor.infoPanel': 'Bilgi panosu',
   'fabric.editor.infoPanel.description':
@@ -217,7 +226,7 @@ export default {
   'fabric.editor.orderedList.description': 'Sıralı liste oluşturun',
   'fabric.editor.other': 'Diğerleri...',
   'fabric.editor.panel.backgroundColor': 'Arkaplan rengi',
-  'fabric.editor.panel.emoji': 'Simge ekle',
+  'fabric.editor.panel.emoji': 'Emoji ekle',
   'fabric.editor.pastePlainText': 'Düz metin olarak yapıştır',
   'fabric.editor.placeholderAltText':
     'Bu görseli bir alternatif metinle açıklayın',
@@ -246,7 +255,9 @@ export default {
   'fabric.editor.status': 'Durum',
   'fabric.editor.status.description': 'Özel durum etiketi ekleyin',
   'fabric.editor.statusPlaceholder': 'Durum ayarlayın',
+  'fabric.editor.story': 'Hikaye',
   'fabric.editor.strike': 'Üstü çizili',
+  'fabric.editor.subTask': 'Alt görev',
   'fabric.editor.subscript': 'Alt simge',
   'fabric.editor.success': 'Başarılı',
   'fabric.editor.successPanel': 'Başarı panosu',
@@ -258,6 +269,11 @@ export default {
   'fabric.editor.table': 'Tablo',
   'fabric.editor.table.description': 'Tablo ekleyin',
   'fabric.editor.tableOptions': 'Tablo seçenekleri',
+  'fabric.editor.tables.confirmDeleteLinkedModalMessage':
+    'Bu tablonun kaldırılması, bağlı grafiklerdeki tüm verileri de kaldırır.',
+  'fabric.editor.tables.confirmDeleteLinkedModalOKButton':
+    'Tabloyu ve verileri kaldır',
+  'fabric.editor.task': 'Görev',
   'fabric.editor.taskPlaceholder':
     "Yapılacak eylemi yazın, birine atamak için '@' kullanın.",
   'fabric.editor.textColor': 'Metin rengi',

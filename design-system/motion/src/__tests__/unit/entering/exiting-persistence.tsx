@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import React, { useEffect } from 'react';
 
 import { act, render } from '@testing-library/react';

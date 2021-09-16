@@ -22,8 +22,6 @@ export default {
   'fabric.emoji.category.productivity': 'Produtividade',
   'fabric.emoji.category.symbols': 'Símbolos',
   'fabric.emoji.category.user.uploads': 'Os seus carregamentos',
-  'fabric.emoji.choose.file.ariaLabel':
-    'Escolha um ficheiro para o emoji. JPG, PNG ou GIF. Tamanho máximo de 1 MB.',
   'fabric.emoji.choose.file.title': 'Selecionar ficheiro',
   'fabric.emoji.delete.description':
     'Todas as instâncias existentes deste emoji serão substituídas com {emojiShortName}',
@@ -39,5 +37,4 @@ export default {
   'fabric.emoji.preview': 'O seu novo emoji {emoji} tem um aspeto excelente',
   'fabric.emoji.preview.title': 'Pré-visualização',
   'fabric.emoji.retry.label': 'Tentar novamente',
-  'fabric.emoji.search.label': 'Pesquisar',
 };

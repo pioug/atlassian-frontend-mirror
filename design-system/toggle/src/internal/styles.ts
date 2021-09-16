@@ -154,9 +154,12 @@ export const getStyles = (size: Size, mode: ThemeModes): CSSObject => {
       },
     }),
 
-    '@media screen and (-ms-high-contrast:white-on-black), @media screen and (-ms-high-contrast:black-on-white)': {
+    '@media screen and (forced-colors: active)': {
       '::before': {
         filter: 'grayscale(100%) invert(1)',
+      },
+      '&:focus-within': {
+        outline: '1px solid',
       },
     },
   };

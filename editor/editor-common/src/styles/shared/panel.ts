@@ -5,7 +5,8 @@ import {
   akEditorTableCellMinWidth,
   blockNodesVerticalMargin,
 } from '@atlaskit/editor-shared-styles';
-import { emojiSprite } from '@atlaskit/emoji';
+import { akEditorCustomIconSize } from '@atlaskit/editor-shared-styles/consts';
+import { emojiImage, emojiSprite } from '@atlaskit/emoji';
 import * as colors from '@atlaskit/theme/colors';
 import { themed } from '@atlaskit/theme/components';
 import { borderRadius, gridSize } from '@atlaskit/theme/constants';
@@ -64,6 +65,8 @@ const darkTextColor = {
   error: colors.R75,
 };
 
+const verticalAlignment = -((gridSize() * 3 - akEditorCustomIconSize) / 2);
+
 const prefix = 'ak-editor-panel';
 export const PanelSharedCssClassName = {
   prefix,
@@ -81,7 +84,7 @@ export const PanelSharedSelectors = {
   removeButton: `button[aria-label="Remove"]`,
   colorPalette: `[aria-label="Background color"]`,
   selectedColor: `[aria-label="The smell"]`,
-  hideEmojiIcon: `[aria-label="Hide emoji"]`,
+  removeEmojiIcon: `[aria-label="Remove emoji"]`,
   emojiIcon: `[aria-label="editor-add-emoji"]`,
   selectedEmoji: `[aria-label=":grinning:"]`,
   title: `#editor-title`,
@@ -150,8 +153,8 @@ export const panelSharedStyles = css`
         display: inline;
       }
 
-      .${emojiSprite} {
-        vertical-align: -2px;
+      .${emojiSprite}, .${emojiImage} {
+        vertical-align: ${verticalAlignment}px;
       }
     }
 
@@ -202,6 +205,15 @@ export const panelSharedStyles = css`
 
       .${PanelSharedCssClassName.icon} {
         ${iconDynamicStyles(PanelType.SUCCESS)}
+      }
+    }
+
+    &[data-panel-type='${PanelType.CUSTOM}'] {
+      .${PanelSharedCssClassName.icon} {
+        user-select: none;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
       }
     }
   }

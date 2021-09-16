@@ -1,5 +1,11 @@
 # @atlaskit/embedded-document
 
+## 0.7.29
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.7.28
 
 ### Patch Changes

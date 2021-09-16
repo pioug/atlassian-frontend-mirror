@@ -17,6 +17,7 @@ import {
   getRenderErrorRequestMetadata,
   getRenderErrorEventPayload,
   RenderEventAction,
+  getRenderPreviewableCardPayload,
 } from '../../analytics';
 import { FileAttributes, PerformanceAttributes } from '@atlaskit/media-common';
 import { createRateLimitedError } from '@atlaskit/media-test-helpers';
@@ -133,6 +134,26 @@ describe('Media Analytics', () => {
           errorDetail: getRenderErrorErrorDetail(error),
           request: getRenderErrorRequestMetadata(error),
         },
+      });
+    });
+  });
+
+  describe('getRenderPreviewableCardPayload', () => {
+    const fileAttributes: FileAttributes = {
+      fileId: 'some-id',
+      fileSize: 10,
+      fileMediatype: 'video',
+      fileMimetype: 'video/webm',
+      fileStatus: 'processed',
+    };
+
+    it('should be a screen event returning mediaCardRenderScreen as the actionSubject and name', () => {
+      expect(getRenderPreviewableCardPayload(fileAttributes)).toMatchObject({
+        eventType: 'screen',
+        action: 'viewed',
+        actionSubject: 'mediaCardRenderScreen',
+        name: 'mediaCardRenderScreen',
+        attributes: { fileAttributes },
       });
     });
   });

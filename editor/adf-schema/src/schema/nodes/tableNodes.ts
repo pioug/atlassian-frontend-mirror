@@ -65,7 +65,10 @@ export const tableCellContentDomSelector = `${tablePrefixSelector}-cell-nodeview
 
 const DEFAULT_TABLE_HEADER_CELL_BACKGROUND = N20.toLocaleLowerCase();
 
-const getCellAttrs = (dom: HTMLElement, defaultValues: CellAttributes = {}) => {
+export const getCellAttrs = (
+  dom: HTMLElement,
+  defaultValues: CellAttributes = {},
+) => {
   const widthAttr = dom.getAttribute('data-colwidth');
   const width =
     widthAttr && /^\d+(,\d+)*$/.test(widthAttr)
@@ -100,16 +103,18 @@ export type CellDomAttrs = {
   class?: string;
 };
 
-export const setCellAttrs = (node: PmNode, cell?: HTMLElement) => {
+/**
+ * gets cell dom attributes based on node attributes
+ * @returns CellDomAttrs
+ */
+export const getCellDomAttrs = (node: PmNode): CellDomAttrs => {
   const attrs: CellDomAttrs = {};
   const nodeType = node.type.name;
-  const colspan = cell ? parseInt(cell.getAttribute('colspan') || '1', 10) : 1;
-  const rowspan = cell ? parseInt(cell.getAttribute('rowspan') || '1', 10) : 1;
 
-  if (node.attrs.colspan !== colspan) {
+  if (node.attrs.colspan !== 1) {
     attrs.colspan = node.attrs.colspan;
   }
-  if (node.attrs.rowspan !== rowspan) {
+  if (node.attrs.rowspan !== 1) {
     attrs.rowspan = node.attrs.rowspan;
   }
 
@@ -363,7 +368,7 @@ export const tableCell: NodeSpec = {
       getAttrs: (dom: string | Node) => getCellAttrs(dom as HTMLElement),
     },
   ],
-  toDOM: (node: PmNode) => ['td', setCellAttrs(node), 0],
+  toDOM: (node: PmNode) => ['td', getCellDomAttrs(node), 0],
 };
 
 export const toJSONTableCell = (node: PmNode) => ({
@@ -396,7 +401,7 @@ export const tableHeader: NodeSpec = {
     },
   ],
 
-  toDOM: (node: PmNode) => ['th', setCellAttrs(node), 0],
+  toDOM: (node: PmNode) => ['th', getCellDomAttrs(node), 0],
 };
 
 export const toJSONTableHeader = toJSONTableCell;

@@ -1,14 +1,15 @@
 import React from 'react';
 import { useExampleDocument } from '@atlaskit/editor-test-helpers/use-example-document';
-import { AtlaskitThemeProvider } from '@atlaskit/theme/components';
+import { ThemeProvider as StyledThemeProvider } from 'styled-components';
+import DeprecatedThemeProvider from '@atlaskit/theme/deprecated-provider-please-do-not-use';
 import Example from './24-arch-next-mobile';
 
 export default function DarkExample() {
   const exampleDocument = useExampleDocument();
 
   return (
-    <AtlaskitThemeProvider mode="dark">
+    <DeprecatedThemeProvider mode="dark" provider={StyledThemeProvider}>
       <Example defaultValue={exampleDocument} />
-    </AtlaskitThemeProvider>
+    </DeprecatedThemeProvider>
   );
 }

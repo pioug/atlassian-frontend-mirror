@@ -1,5 +1,15 @@
 # @atlaskit/avatar
 
+## 20.5.0
+
+### Minor Changes
+
+- [`cf853e39278`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf853e39278) - [ux] Fix avatar focus ring in windows high contrast mode
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 20.4.2
 
 ### Patch Changes

@@ -27,6 +27,7 @@ export default {
   'fabric.editor.blockquote.description': 'Sett inn et sitat',
   'fabric.editor.blockquote2': 'Sitat',
   'fabric.editor.bold': 'Fet',
+  'fabric.editor.bug': 'Programfeil',
   'fabric.editor.canNotSortTable':
     '⚠️ Du kan ikke sortere en tabell med sammenslåtte celler',
   'fabric.editor.cancelButton': 'Avbryt',
@@ -45,6 +46,7 @@ export default {
   'fabric.editor.code': 'Kode',
   'fabric.editor.codeblock': 'Kodebit',
   'fabric.editor.codeblock.description': 'Vis kode med syntaksutheving',
+  'fabric.editor.collapseTable': 'Minimer tabell',
   'fabric.editor.columns': 'Oppsett',
   'fabric.editor.columns.description': 'Konstruer siden med seksjoner',
   'fabric.editor.configFailedToLoad': 'Kunne ikke lastes inn',
@@ -76,6 +78,7 @@ export default {
   'fabric.editor.decision.description':
     'Registrer beslutninger slik at det er lett å spore dem',
   'fabric.editor.decisionPlaceholder': 'Legg til en beslutning …',
+  'fabric.editor.defaultAltText': 'Listepunkt',
   'fabric.editor.displayBlock': 'Vis som kort',
   'fabric.editor.displayEmbed': 'Vis som innebygget',
   'fabric.editor.displayInline': 'Vis inline',
@@ -86,8 +89,11 @@ export default {
   'fabric.editor.distributeColumns': 'Distribuer kolonner',
   'fabric.editor.edit': 'Rediger',
   'fabric.editor.editAltText': 'Rediger alternativ tekst',
+  'fabric.editor.editDateText': 'Rediger dato',
   'fabric.editor.editLink': 'Rediger kobling',
   'fabric.editor.editMode.inviteToEditButton.title': 'Inviter til å redigere',
+  'fabric.editor.editStatusColor': 'Rediger statusfarge',
+  'fabric.editor.editStatusText': 'Rediger status',
   'fabric.editor.editorHelp': 'Editorhjelp',
   'fabric.editor.elementBrowser.help': 'Hjelp',
   'fabric.editor.elementbrowser.categorylist.category-admin': 'Administrasjon',
@@ -118,6 +124,7 @@ export default {
   'fabric.editor.emoji.description':
     'Bruk emojier for å uttrykke tanker 🎉 og følelser 😄',
   'fabric.editor.emptyLink': 'Skriv inn en kobling.',
+  'fabric.editor.epic': 'Epos',
   'fabric.editor.error': 'Feil',
   'fabric.editor.errorPanel': 'Feilpanel',
   'fabric.editor.errorPanel.description': 'Trekk frem feil i et farget panel',
@@ -168,8 +175,9 @@ export default {
   'fabric.editor.hyperlink.searchLinkResults':
     '{count, plural, =0 {fant ingen resultater} one {fant {count,number} resultat} other {fant {count,number} resultater}}',
   'fabric.editor.hyperlinkToolbarPlaceholder':
-    'Lim inn kobling eller søk etter nylig vist',
+    'Lim inn eller søk etter kobling',
   'fabric.editor.image': 'Bilde',
+  'fabric.editor.improvement': 'Forbedring',
   'fabric.editor.info': 'Informasjon',
   'fabric.editor.infoPanel': 'Informasjonspanel',
   'fabric.editor.infoPanel.description':
@@ -210,7 +218,7 @@ export default {
   'fabric.editor.orderedList.description': 'Opprett en sortert liste',
   'fabric.editor.other': 'Andre …',
   'fabric.editor.panel.backgroundColor': 'Bakgrunnsfarge',
-  'fabric.editor.panel.emoji': 'Legg til ikon',
+  'fabric.editor.panel.emoji': 'Legg til emoji',
   'fabric.editor.pastePlainText': 'Lim inn ren tekst',
   'fabric.editor.placeholderAltText':
     'Beskriv dette bildet med alternativ tekst',
@@ -240,7 +248,9 @@ export default {
   'fabric.editor.status': 'Status',
   'fabric.editor.status.description': 'Legg til en egendefinert statusetikett',
   'fabric.editor.statusPlaceholder': 'Angi en status',
+  'fabric.editor.story': 'Historie',
   'fabric.editor.strike': 'Gjennomstreking',
+  'fabric.editor.subTask': 'Deloppgave',
   'fabric.editor.subscript': 'Senket skrift',
   'fabric.editor.success': 'Vellykket',
   'fabric.editor.successPanel': 'Utførtpanel',
@@ -255,6 +265,7 @@ export default {
     'Hvis du fjerner denne tabellen, fjernes også alle dataene i eventuelle tilkoblede diagrammer.',
   'fabric.editor.tables.confirmDeleteLinkedModalOKButton':
     'Fjern tabell og data',
+  'fabric.editor.task': 'Oppgave',
   'fabric.editor.taskPlaceholder':
     'Skriv inn handlingen. Bruk @ for å tilordne den til noen.',
   'fabric.editor.textColor': 'Tekstfarge',

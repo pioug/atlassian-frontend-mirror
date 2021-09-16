@@ -1,5 +1,12 @@
 # @atlaskit/tokens
 
+## 0.2.1
+
+### Patch Changes
+
+- [`5c1cf4723e4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5c1cf4723e4) - typescript-token-name formatter now outputs token names with an indexable Record type
+- [`2f9faec5201`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2f9faec5201) - Tokens now provided with descriptions for when they should be used
+
 ## 0.2.0
 
 ### Minor Changes

@@ -1,19 +1,18 @@
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import React, { Fragment } from 'react';
 
 import Button from '@atlaskit/button/standard-button';
-import Select, { ValueType } from '@atlaskit/select';
+import Select, { ValueType as Value } from '@atlaskit/select';
 
 import Form, { ErrorMessage, Field, FormFooter } from '../src';
 
-interface OptionType {
+interface Option {
   label: string;
   value: string;
 }
-interface FormTypes {
-  colors?: ValueType<OptionType>;
-  icecream?: ValueType<OptionType[]>;
-  suit?: ValueType<OptionType[]>;
+interface Category {
+  colors?: Value<Option>;
+  icecream?: Value<Option[]>;
+  suit?: Value<Option[]>;
 }
 
 const colors = [
@@ -46,26 +45,26 @@ const suits = [
   { label: 'Spades', value: 'spades' },
 ];
 
-const validateOnSubmit = (data: FormTypes) => {
+const validateOnSubmit = (data: Category) => {
   let errors;
   errors = colorsValidation(data, errors);
   errors = flavorValidation(data, errors);
   return errors;
 };
 
-const colorsValidation = (data: FormTypes, errors?: Record<string, string>) => {
+const colorsValidation = (data: Category, errors?: Record<string, string>) => {
   if (data.colors && !(data.colors instanceof Array)) {
-    return (data.colors as OptionType).value === 'dog'
+    return (data.colors as Option).value === 'dog'
       ? {
           ...errors,
-          colors: `${(data.colors as OptionType).value} is not a color`,
+          colors: `${(data.colors as Option).value} is not a color`,
         }
       : errors;
   }
   return errors;
 };
 
-const flavorValidation = (data: FormTypes, errors?: Record<string, string>) => {
+const flavorValidation = (data: Category, errors?: Record<string, string>) => {
   if (data.icecream && data.icecream.length >= 3) {
     return {
       ...errors,
@@ -85,7 +84,7 @@ export default () => (
       flexDirection: 'column',
     }}
   >
-    <Form<FormTypes>
+    <Form<Category>
       onSubmit={(data) => {
         console.log('form data', data);
         return Promise.resolve(validateOnSubmit(data));
@@ -93,14 +92,14 @@ export default () => (
     >
       {({ formProps }) => (
         <form {...formProps}>
-          <Field<ValueType<OptionType>>
+          <Field<Value<Option>>
             name="colors"
             label="Select a colour"
             defaultValue={null}
           >
             {({ fieldProps: { id, ...rest }, error }) => (
               <Fragment>
-                <Select<OptionType>
+                <Select<Option>
                   validationState={error ? 'error' : 'default'}
                   inputId={id}
                   {...rest}
@@ -111,7 +110,7 @@ export default () => (
               </Fragment>
             )}
           </Field>
-          <Field<ValueType<OptionType, true>>
+          <Field<Value<Option, true>>
             name="icecream"
             label="Select a flavor"
             defaultValue={[]}
@@ -129,7 +128,7 @@ export default () => (
               </Fragment>
             )}
           </Field>
-          <Field<ValueType<OptionType, true>>
+          <Field<Value<Option, true>>
             name="suits"
             label="Select suits"
             defaultValue={suits.slice(2)}

@@ -1,4 +1,3 @@
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import React, { Component, Fragment } from 'react';
 
 import Button from '@atlaskit/button/standard-button';
@@ -15,7 +14,7 @@ import Form, {
 } from '../src';
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-interface OptionType {
+interface Option {
   label: string;
   value: string;
 }
@@ -105,7 +104,7 @@ export default class extends Component<{}> {
                   </Fragment>
                 )}
               </Field>
-              <Field<ValueType<OptionType>>
+              <Field<ValueType<Option>>
                 name="colors"
                 label="Select a color"
                 defaultValue={null}
@@ -122,7 +121,7 @@ export default class extends Component<{}> {
               >
                 {({ fieldProps: { id, ...rest }, error }) => (
                   <Fragment>
-                    <Select<OptionType>
+                    <Select<Option>
                       validationState={error ? 'error' : 'default'}
                       inputId={id}
                       {...rest}

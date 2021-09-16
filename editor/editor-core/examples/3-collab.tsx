@@ -224,6 +224,7 @@ const editorProps = ({
   allowLayouts: {
     allowBreakout: true,
     UNSAFE_addSidebarLayouts: true,
+    UNSAFE_allowSingleColumnLayout: true,
   },
   allowRule: true,
   allowStatus: true,

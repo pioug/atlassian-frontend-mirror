@@ -2,7 +2,7 @@
 
 import { Component, SyntheticEvent } from 'react';
 
-import { CSSObject, jsx } from '@emotion/core';
+import { css, CSSObject, jsx } from '@emotion/core';
 
 import Button from '@atlaskit/button/standard-button';
 import { B400, G400, N0, P400, R400, T400, Y400 } from '@atlaskit/theme/colors';
@@ -36,6 +36,21 @@ const sections = [
   [T400, 'Override'],
 ];
 
+const sectionStyles = css({
+  flex: 1,
+  flexDirection: 'column',
+  color: N0,
+  textAlign: 'center',
+});
+
+const sectionHeaderStyles = css({
+  maxWidth: '50%',
+  margin: '0 auto',
+  position: 'relative',
+  top: '50%',
+  color: N0,
+  transform: 'translate(0, -50%)',
+});
 export default class DrawersExample extends Component<{}, State> {
   state = {
     isDrawerOpen: false,
@@ -58,7 +73,7 @@ export default class DrawersExample extends Component<{}, State> {
 
   render() {
     return (
-      <div css={{ padding: '2rem' }}>
+      <div style={{ padding: '2rem' }}>
         <Drawer
           onClose={this.onClose}
           onCloseComplete={this.onCloseComplete}
@@ -73,29 +88,10 @@ export default class DrawersExample extends Component<{}, State> {
             },
           }}
         >
-          {sections.map(([color, word], idx) => {
+          {sections.map(([backgroundColor, word]) => {
             return (
-              <div
-                css={{
-                  flexDirection: 'column',
-                  flex: 1,
-                  backgroundColor: color,
-                  textAlign: 'center',
-                  color: N0,
-                }}
-              >
-                <h1
-                  css={{
-                    maxWidth: '50%',
-                    margin: '0 auto',
-                    position: 'relative',
-                    transform: 'translate(0, -50%)',
-                    top: '50%',
-                    color: N0,
-                  }}
-                >
-                  {word}
-                </h1>
+              <div key={word} style={{ backgroundColor }} css={sectionStyles}>
+                <h1 css={sectionHeaderStyles}>{word}</h1>
               </div>
             );
           })}

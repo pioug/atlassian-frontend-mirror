@@ -1,5 +1,15 @@
 # @atlaskit/icon
 
+## 21.9.0
+
+### Minor Changes
+
+- [`cf853e39278`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf853e39278) - [ux] add single layout support for layout
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 21.8.1
 
 ### Patch Changes

@@ -1,6 +1,5 @@
 /** @jsx jsx */
-
-import { Component } from 'react';
+import { useState } from 'react';
 
 import { jsx } from '@emotion/core';
 
@@ -10,54 +9,46 @@ import Drawer from '../src';
 import { DrawerWidth } from '../src/components/types';
 import { widths } from '../src/constants';
 
-interface State {
-  isDrawerOpen: boolean;
-  width: DrawerWidth;
-}
+const DrawersExample = () => {
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [width, setWidth] = useState<DrawerWidth>('narrow');
 
-export default class DrawersExample extends Component<{}, State> {
-  state = {
-    isDrawerOpen: false,
-    width: 'narrow' as DrawerWidth,
+  const openDrawer = (updatedWidth: DrawerWidth) => () => {
+    setIsDrawerOpen(true);
+    setWidth(updatedWidth);
   };
 
-  openDrawer = (width: DrawerWidth) => () =>
-    this.setState({
-      isDrawerOpen: true,
-      width,
-    });
+  const closeDrawer = () => {
+    setIsDrawerOpen(false);
+  };
 
-  closeDrawer = () =>
-    this.setState({
-      isDrawerOpen: false,
-    });
+  return (
+    <div style={{ padding: '2rem' }}>
+      <Drawer
+        testId="widths"
+        onClose={closeDrawer}
+        isOpen={isDrawerOpen}
+        width={width}
+      >
+        <code
+          style={{
+            textTransform: 'capitalize',
+          }}
+        >{`${width} drawer contents`}</code>
+      </Drawer>
+      {widths.map((width) => (
+        <Button
+          onClick={openDrawer(width)}
+          type="button"
+          key={width}
+          id={`open-${width}-drawer`}
+          style={{
+            marginRight: '1rem',
+          }}
+        >{`Open ${width} Drawer`}</Button>
+      ))}
+    </div>
+  );
+};
 
-  render() {
-    return (
-      <div css={{ padding: '2rem' }}>
-        <Drawer
-          onClose={this.closeDrawer}
-          isOpen={this.state.isDrawerOpen}
-          width={this.state.width}
-        >
-          <code
-            css={{
-              textTransform: 'capitalize',
-            }}
-          >{`${this.state.width} drawer contents`}</code>
-        </Drawer>
-        {widths.map((width) => (
-          <Button
-            onClick={this.openDrawer(width as DrawerWidth)}
-            type="button"
-            key={width}
-            id={`open-${width}-drawer`}
-            css={{
-              marginRight: '1rem',
-            }}
-          >{`Open ${width} Drawer`}</Button>
-        ))}
-      </div>
-    );
-  }
-}
+export default DrawersExample;

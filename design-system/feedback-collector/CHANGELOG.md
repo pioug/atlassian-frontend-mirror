@@ -1,5 +1,19 @@
 # @atlaskit/feedback-collector
 
+## 7.1.0
+
+### Minor Changes
+
+- [`dc5c87fae7d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dc5c87fae7d) - Instrumented feedback-collector with the new theming package, `@atlaskit/tokens`.
+
+  New tokens will be visible only in applications configured to use the new Tokens API (currently in alpha). These changes are intended to be interoperable with the legacy theme implementation. Legacy dark mode users should expect no visual or breaking changes.
+
+### Patch Changes
+
+- [`9e89e2d2731`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9e89e2d2731) - atlaskit/button has been moved from devDependency to dependency since it is require by runtime code
+- [`cf853e39278`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf853e39278) - Internal changes to remove `@atlaskit/theme/math` usage.
+- Updated dependencies
+
 ## 7.0.0
 
 ### Major Changes

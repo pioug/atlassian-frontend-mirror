@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/page-header",
-  "version": "10.2.1",
+  "version": "10.2.2",
   "description": "A page header defines the top of a page. It contains a title and can be optionally combined with breadcrumbs buttons, search, and filters.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -24,7 +24,7 @@
     }
   },
   "dependencies": {
-    "@atlaskit/theme": "^11.4.0",
+    "@atlaskit/theme": "^12.0.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/core": "^10.0.9"
   },

@@ -22,8 +22,8 @@ export default {
   'fabric.emoji.category.productivity': 'Productiviteit',
   'fabric.emoji.category.symbols': 'Symbolen',
   'fabric.emoji.category.user.uploads': 'Jouw uploads',
-  'fabric.emoji.choose.file.ariaLabel':
-    'Kies een bestand voor de emoji. Jpg, png of gif. Max. 1 MB.',
+  'fabric.emoji.choose.file.screenReaderDescription':
+    'Kies een bestand voor de emoji. jpg, png of gif. Max. 1 MB.',
   'fabric.emoji.choose.file.title': 'Bestand kiezen',
   'fabric.emoji.delete.description':
     'Alle bestaande exemplaren van deze emoji zullen vervangen worden door {emojiShortName}',
@@ -40,5 +40,8 @@ export default {
   'fabric.emoji.preview': 'Je nieuwe emoji {emoji} ziet er goed uit',
   'fabric.emoji.preview.title': 'Voorvertoning',
   'fabric.emoji.retry.label': 'Opnieuw proberen',
-  'fabric.emoji.search.label': 'Zoeken',
+  'fabric.emoji.search.label': 'Een emoticon zoeken',
+  'fabric.emoji.search.placeholder': 'Zoeken',
+  'fabric.emoji.select.skin.tone.ariaLabel':
+    'Huidskleur selecteren, {selectedTone}',
 };

@@ -112,6 +112,8 @@ export type MessageKey =
   | 'viewIn'
   | 'viewOriginal'
   | 'playbackSpeed'
+  | 'skipBackward'
+  | 'skipForward'
   | 'playbackDefaultSpeed'
   | 'preview'
   | 'preview_unavailable'
@@ -616,12 +618,12 @@ export const messages = defineMessages<Messages>({
   },
   play: {
     id: 'fabric.media.play',
-    defaultMessage: 'play',
+    defaultMessage: 'Play',
     description: '',
   },
   pause: {
     id: 'fabric.media.pause',
-    defaultMessage: 'pause',
+    defaultMessage: 'Pause',
     description: '',
   },
   disable_fullscreen: {
@@ -725,6 +727,18 @@ export const messages = defineMessages<Messages>({
     defaultMessage: 'Playback speed',
     description:
       'In the context of a video player, it allows user to switch the speed of the video',
+  },
+  skipBackward: {
+    id: 'fabric.media.skip_backward',
+    defaultMessage: 'Back 10 seconds',
+    description:
+      'In the context of a video player, it allows user to skip 10 seconds of play time backward.',
+  },
+  skipForward: {
+    id: 'fabric.media.skip_forward',
+    defaultMessage: 'Forward 10 seconds',
+    description:
+      'In the context of a video player, it allows user to skip 10 seconds of play time forward.',
   },
   playbackDefaultSpeed: {
     id: 'fabric.media.playback_default_speed',

@@ -4,7 +4,9 @@ import { IntlProvider, addLocaleData } from 'react-intl';
 import { EditorView } from 'prosemirror-view';
 import { Step } from 'prosemirror-transform';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
-import { AtlaskitThemeProvider } from '@atlaskit/theme/components';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
+import DeprecatedThemeProvider from '@atlaskit/theme/deprecated-provider-please-do-not-use';
+import { ThemeProvider } from 'styled-components';
 import {
   getEmojiProvider,
   currentUser,
@@ -380,9 +382,9 @@ function withDarkMode(
   Wrapper: EditorExampleComponent<any>,
 ): EditorExampleComponent<any> {
   return (props) => (
-    <AtlaskitThemeProvider mode={'dark'}>
+    <DeprecatedThemeProvider provider={ThemeProvider} mode="dark">
       <Wrapper {...props} />
-    </AtlaskitThemeProvider>
+    </DeprecatedThemeProvider>
   );
 }
 

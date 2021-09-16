@@ -62,6 +62,9 @@ enum TagStatus {
 const InnerRemovableTag = forwardRef<any, ThemedRemovableTagProps>(
   (props, ref) => {
     const [status, setStatus] = useState<TagStatus>(TagStatus.Showing);
+    const [isHoverCloseButton, setIsHoverCloseButton] = useState<boolean>(
+      false,
+    );
 
     const {
       appearance = 'default',
@@ -121,6 +124,11 @@ const InnerRemovableTag = forwardRef<any, ThemedRemovableTagProps>(
 
     const showingTag = useCallback(() => setStatus(TagStatus.Showing), []);
 
+    const handleHoveringRemoveButton = useCallback(
+      (isHover) => setIsHoverCloseButton(isHover),
+      [],
+    );
+
     const {
       chromeColors,
       chromeLinkColors,
@@ -154,6 +162,8 @@ const InnerRemovableTag = forwardRef<any, ThemedRemovableTagProps>(
         onFocus={removingTag}
         onBlur={showingTag}
         onKeyPress={onKeyPress}
+        onMouseOver={() => isLink && handleHoveringRemoveButton(true)}
+        onMouseOut={() => isLink && handleHoveringRemoveButton(false)}
         type="button"
         data-testid={`close-button-${testId}`}
       >
@@ -188,6 +198,7 @@ const InnerRemovableTag = forwardRef<any, ThemedRemovableTagProps>(
                   tagCss={tagCss}
                   data-removable
                   data-removing={status === TagStatus.Removing}
+                  data-ishoverclosebutton={isHoverCloseButton}
                   before={
                     <Before
                       isRounded={isRounded}

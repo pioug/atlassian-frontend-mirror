@@ -22,8 +22,8 @@ export default {
   'fabric.emoji.category.productivity': 'Produttività',
   'fabric.emoji.category.symbols': 'Simboli',
   'fabric.emoji.category.user.uploads': 'I tuoi caricamenti',
-  'fabric.emoji.choose.file.ariaLabel':
-    "Scegli un file per l'emoji. JPG, PNG o GIF. Dimensioni massime: 1 MB.",
+  'fabric.emoji.choose.file.screenReaderDescription':
+    "Scegli un file per l'emoji. JPG, PNG o GIF. Dimensione massima: 1 MB.",
   'fabric.emoji.choose.file.title': 'Scegli file',
   'fabric.emoji.delete.description':
     'Tutte le istanze esistenti di questa emoji saranno sostitute da {emojiShortName}',
@@ -40,5 +40,8 @@ export default {
   'fabric.emoji.preview': 'La tua nuova emoji {emoji} è fantastica',
   'fabric.emoji.preview.title': 'Anteprima',
   'fabric.emoji.retry.label': 'Riprova',
-  'fabric.emoji.search.label': 'Ricerca',
+  'fabric.emoji.search.label': 'Cerca emoji',
+  'fabric.emoji.search.placeholder': 'Ricerca',
+  'fabric.emoji.select.skin.tone.ariaLabel':
+    'Seleziona la gradazione di colore, {selectedTone}',
 };

@@ -18,7 +18,7 @@ Object {
                 "background": "#ffffff",
                 "colspan": 1,
                 "colwidth": Array [
-                  175,
+                  151,
                 ],
                 "rowspan": 1,
               },
@@ -40,7 +40,7 @@ Object {
                 "background": "#e6fcff",
                 "colspan": 1,
                 "colwidth": Array [
-                  316,
+                  275,
                 ],
                 "rowspan": 1,
               },
@@ -62,7 +62,7 @@ Object {
                 "background": "#eae6ff",
                 "colspan": 1,
                 "colwidth": Array [
-                  95,
+                  83,
                 ],
                 "rowspan": 1,
               },
@@ -84,7 +84,7 @@ Object {
                 "background": "#ffffff",
                 "colspan": 1,
                 "colwidth": Array [
-                  174,
+                  152,
                 ],
                 "rowspan": 1,
               },
@@ -111,7 +111,7 @@ Object {
                 "background": "#e6fcff",
                 "colspan": 1,
                 "colwidth": Array [
-                  175,
+                  151,
                 ],
                 "rowspan": 1,
               },
@@ -133,7 +133,7 @@ Object {
                 "background": "#fffae6",
                 "colspan": 1,
                 "colwidth": Array [
-                  316,
+                  275,
                 ],
                 "rowspan": 1,
               },
@@ -149,7 +149,7 @@ Object {
                 "background": "#fffae6",
                 "colspan": 1,
                 "colwidth": Array [
-                  95,
+                  83,
                 ],
                 "rowspan": 1,
               },
@@ -165,7 +165,7 @@ Object {
                 "background": "#e6fcff",
                 "colspan": 1,
                 "colwidth": Array [
-                  174,
+                  152,
                 ],
                 "rowspan": 1,
               },
@@ -192,7 +192,7 @@ Object {
                 "background": "#ffebe6",
                 "colspan": 1,
                 "colwidth": Array [
-                  175,
+                  151,
                 ],
                 "rowspan": 1,
               },
@@ -214,7 +214,7 @@ Object {
                 "background": "#fffae6",
                 "colspan": 1,
                 "colwidth": Array [
-                  316,
+                  275,
                 ],
                 "rowspan": 1,
               },
@@ -230,7 +230,7 @@ Object {
                 "background": "#fffae6",
                 "colspan": 1,
                 "colwidth": Array [
-                  95,
+                  83,
                 ],
                 "rowspan": 1,
               },
@@ -246,7 +246,7 @@ Object {
                 "background": "#ffebe6",
                 "colspan": 1,
                 "colwidth": Array [
-                  174,
+                  152,
                 ],
                 "rowspan": 1,
               },
@@ -273,7 +273,7 @@ Object {
                 "background": "#e3fcef",
                 "colspan": 1,
                 "colwidth": Array [
-                  175,
+                  151,
                 ],
                 "rowspan": 1,
               },
@@ -295,7 +295,7 @@ Object {
                 "background": "#fffae6",
                 "colspan": 1,
                 "colwidth": Array [
-                  316,
+                  275,
                 ],
                 "rowspan": 1,
               },
@@ -311,7 +311,7 @@ Object {
                 "background": "#fffae6",
                 "colspan": 1,
                 "colwidth": Array [
-                  95,
+                  83,
                 ],
                 "rowspan": 1,
               },
@@ -327,7 +327,7 @@ Object {
                 "background": "#e3fcef",
                 "colspan": 1,
                 "colwidth": Array [
-                  174,
+                  152,
                 ],
                 "rowspan": 1,
               },
@@ -354,7 +354,7 @@ Object {
                 "background": "#ffffff",
                 "colspan": 1,
                 "colwidth": Array [
-                  175,
+                  151,
                 ],
                 "rowspan": 1,
               },
@@ -376,7 +376,7 @@ Object {
                 "background": "#e6fcff",
                 "colspan": 1,
                 "colwidth": Array [
-                  316,
+                  275,
                 ],
                 "rowspan": 1,
               },
@@ -398,7 +398,7 @@ Object {
                 "background": "#eae6ff",
                 "colspan": 1,
                 "colwidth": Array [
-                  95,
+                  83,
                 ],
                 "rowspan": 1,
               },
@@ -420,7 +420,7 @@ Object {
                 "background": "#ffffff",
                 "colspan": 1,
                 "colwidth": Array [
-                  174,
+                  152,
                 ],
                 "rowspan": 1,
               },
@@ -466,7 +466,7 @@ Object {
                 "background": "#ffffff",
                 "colspan": 1,
                 "colwidth": Array [
-                  239,
+                  151,
                 ],
                 "rowspan": 1,
               },
@@ -488,7 +488,7 @@ Object {
                 "background": "#deebff",
                 "colspan": 1,
                 "colwidth": Array [
-                  153,
+                  98,
                 ],
                 "rowspan": 1,
               },
@@ -510,7 +510,7 @@ Object {
                 "background": "#eae6ff",
                 "colspan": 1,
                 "colwidth": Array [
-                  130,
+                  83,
                 ],
                 "rowspan": 1,
               },
@@ -532,7 +532,7 @@ Object {
                 "background": "#ffffff",
                 "colspan": 1,
                 "colwidth": Array [
-                  238,
+                  152,
                 ],
                 "rowspan": 1,
               },
@@ -559,7 +559,7 @@ Object {
                 "background": "#e6fcff",
                 "colspan": 1,
                 "colwidth": Array [
-                  239,
+                  151,
                 ],
                 "rowspan": 1,
               },
@@ -581,8 +581,8 @@ Object {
                 "background": "#fffae6",
                 "colspan": 2,
                 "colwidth": Array [
-                  153,
-                  130,
+                  98,
+                  83,
                 ],
                 "rowspan": 3,
               },
@@ -598,7 +598,7 @@ Object {
                 "background": "#e6fcff",
                 "colspan": 1,
                 "colwidth": Array [
-                  238,
+                  152,
                 ],
                 "rowspan": 1,
               },
@@ -625,7 +625,7 @@ Object {
                 "background": "#ffebe6",
                 "colspan": 1,
                 "colwidth": Array [
-                  239,
+                  151,
                 ],
                 "rowspan": 1,
               },
@@ -647,7 +647,7 @@ Object {
                 "background": "#ffebe6",
                 "colspan": 1,
                 "colwidth": Array [
-                  238,
+                  152,
                 ],
                 "rowspan": 1,
               },
@@ -674,7 +674,7 @@ Object {
                 "background": "#e3fcef",
                 "colspan": 1,
                 "colwidth": Array [
-                  239,
+                  151,
                 ],
                 "rowspan": 1,
               },
@@ -696,7 +696,7 @@ Object {
                 "background": "#e3fcef",
                 "colspan": 1,
                 "colwidth": Array [
-                  238,
+                  152,
                 ],
                 "rowspan": 1,
               },
@@ -723,7 +723,7 @@ Object {
                 "background": "#ffffff",
                 "colspan": 1,
                 "colwidth": Array [
-                  239,
+                  151,
                 ],
                 "rowspan": 1,
               },
@@ -745,7 +745,7 @@ Object {
                 "background": "#deebff",
                 "colspan": 1,
                 "colwidth": Array [
-                  153,
+                  98,
                 ],
                 "rowspan": 1,
               },
@@ -767,7 +767,7 @@ Object {
                 "background": "#eae6ff",
                 "colspan": 1,
                 "colwidth": Array [
-                  130,
+                  83,
                 ],
                 "rowspan": 1,
               },
@@ -789,7 +789,7 @@ Object {
                 "background": "#ffffff",
                 "colspan": 1,
                 "colwidth": Array [
-                  238,
+                  152,
                 ],
                 "rowspan": 1,
               },

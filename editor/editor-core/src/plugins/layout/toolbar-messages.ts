@@ -1,6 +1,11 @@
 import { defineMessages } from 'react-intl';
 
 export const toolbarMessages = defineMessages({
+  singleColumn: {
+    id: 'fabric.editor.single',
+    defaultMessage: 'Single column',
+    description: 'Layout with one single column',
+  },
   twoColumns: {
     id: 'fabric.editor.twoColumns',
     defaultMessage: 'Two columns',

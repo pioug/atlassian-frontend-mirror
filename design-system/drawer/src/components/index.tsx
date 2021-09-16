@@ -3,13 +3,11 @@ import React, {
   Component,
   FC,
   Fragment,
-  ReactNode,
   SyntheticEvent,
 } from 'react';
 
 import { canUseDOM } from 'exenv';
 import { Transition, TransitionGroup } from 'react-transition-group';
-import { ThemeProvider } from 'styled-components';
 
 import {
   createAndFireEvent,
@@ -21,7 +19,6 @@ import Blanket from '@atlaskit/blanket';
 import Portal from '@atlaskit/portal';
 
 import { transitionDurationMs } from '../constants';
-import drawerItemTheme from '../theme/drawer-item-theme';
 
 import FocusLock from './focus-lock';
 import DrawerPrimitive from './primitives';
@@ -127,6 +124,7 @@ export class DrawerBase extends Component<
       return null;
     }
     const {
+      testId,
       isOpen,
       children,
       icon,
@@ -159,6 +157,7 @@ export class DrawerBase extends Component<
                 shouldReturnFocus={shouldReturnFocus}
               >
                 <DrawerPrimitive
+                  testId={testId}
                   icon={icon}
                   in={isOpen}
                   onClose={this.handleBackButtonClick}
@@ -178,14 +177,6 @@ export class DrawerBase extends Component<
     );
   }
 }
-
-export const DrawerItemTheme = (props: { children: ReactNode }) => (
-  <ThemeProvider theme={drawerItemTheme}>{props.children}</ThemeProvider>
-);
-
-export { DrawerSkeletonHeader, DrawerSkeletonItem } from './skeletons';
-export { DrawerItemGroup } from './item-group';
-export { DrawerItem } from './item';
 
 export default withAnalyticsContext({
   componentName: 'drawer',

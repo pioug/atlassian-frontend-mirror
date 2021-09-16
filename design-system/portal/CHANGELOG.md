@@ -1,5 +1,12 @@
 # @atlaskit/portal
 
+## 4.2.5
+
+### Patch Changes
+
+- [`cf853e39278`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf853e39278) - Retains the portal wrapper in the DOM after the last portal is unmounted. This drastically reduces the style recalculations and improves performance for portalled elements.
+- Updated dependencies
+
 ## 4.2.4
 
 ### Patch Changes

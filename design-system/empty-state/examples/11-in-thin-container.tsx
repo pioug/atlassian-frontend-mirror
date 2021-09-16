@@ -5,6 +5,7 @@ import { css, jsx } from '@emotion/core';
 
 import Button from '@atlaskit/button/standard-button';
 import { N20 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import EmptyState from '../src';
 
@@ -12,7 +13,7 @@ import exampleImage from './img/example-image.png';
 
 const containerStyles = css({
   width: '300px',
-  backgroundColor: N20,
+  backgroundColor: token('color.background.subtleNeutral.resting', N20),
 });
 
 const Container: FC = (props) => <div css={containerStyles} {...props} />;

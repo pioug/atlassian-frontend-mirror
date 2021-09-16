@@ -1,5 +1,49 @@
 # @atlaskit/theme
 
+## 12.0.0
+
+### Major Changes
+
+- [`cf853e39278`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf853e39278) - **Breaking Changes:**
+
+  - Package no longer has a peer dependency on `styled-components`. `styled-components` was used exclusively in
+    `AtlaskitThemeProvider` and `Reset`. `Reset` has been removed (see below), while `AtlaskitThemeProvider` has been re-worked
+    to remove the need for the dependency. To maintain compatibility we've provided a codemod to migrate usage.
+  - `math` has been formally removed from the package. The usage of this package was already discouraged but for
+    any remaining usages there is a codemod to migrate your code.
+  - `Reset` has been removed. We want to lean more on the `@atlaskit/css-reset` as a canonical approach to resetting.
+  - `Appearance` has been removed, this HOC component had no usage
+  - `FLATTENED` has been removed, this constant had no usage
+
+  **Housekeeping**:
+
+  - Package no longer uses `exenv`
+  - `Context` has been removed from the package; this component wasn't ever exported
+  - Documentation and examples have been updated
+
+  **Upgrading with codemod**
+
+  You first need to have the latest version of `@atlaskit/theme` installed before you can run the codemod
+
+  ```bash
+  yarn upgrade @atlaskit/theme@^12.0.0
+  ```
+
+  Then you can use our cli tool to run the codemod.
+
+  ```bash
+  npx @atlaskit/codemod-cli /path/to/target/directory --parser [tsx | flow | babel]
+  ```
+
+  This will automatically migrate `math` and the `AtlaskitThemeProvider` to the updated usage.
+
+### Patch Changes
+
+- [`cf853e39278`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf853e39278) - Fixes a bug where the AKThemeProvider could add multiple style elements on the same page if multiple instances of the component were supplied.
+- [`cf853e39278`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf853e39278) - The `AtlaskitThemeProvider` has been reworked to be a functional component internally using hooks.
+- [`cf853e39278`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf853e39278) - Add codemod for replacing `@atlaskit/theme/math` functions with simple binary JS expressions.
+- Updated dependencies
+
 ## 11.5.2
 
 ### Patch Changes

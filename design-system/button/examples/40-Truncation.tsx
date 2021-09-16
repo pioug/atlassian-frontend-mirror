@@ -10,6 +10,7 @@ const narrowWrapperStyle = {
   margin: '10px',
   padding: '10px',
   width: '190px',
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   border: '1px solid red',
 
   '& > *': {

@@ -1,6 +1,8 @@
-import React from 'react';
+/** @jsx jsx */
 
-import styled from 'styled-components';
+import { useCallback, useState } from 'react';
+
+import { css, jsx } from '@emotion/core';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/custom-theme-button';
@@ -14,68 +16,57 @@ import {
   SpotlightTransition,
 } from '../src';
 
-const Pulse = styled(SpotlightPulse)`
-  position: static;
-  border-radius: ${borderRadius}px;
-`;
+const wrapperStyles = css({
+  display: 'flex',
+  height: '100%',
+  alignItems: 'center',
+  justifyContent: 'center',
+  flexDirection: 'column',
+});
 
-const Wrapper = styled.div`
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  justify-content: center;
-`;
+const NewFeature: React.FC<{}> = () => {
+  const [isSpotlightVisible, setIsSpotlightVisible] = useState(false);
 
-class NewFeature extends React.Component<{}, { spotlightVisible: boolean }> {
-  state = {
-    spotlightVisible: false,
-  };
+  const toggleIsSpotlightVisible = useCallback(() => {
+    setIsSpotlightVisible((isSpotlightVisible) => !isSpotlightVisible);
+  }, [setIsSpotlightVisible]);
 
-  render() {
-    const { spotlightVisible } = this.state;
-    return (
-      <Wrapper>
-        <SpotlightManager blanketIsTinted={false}>
-          <ButtonGroup>
-            <SpotlightTarget name="button">
-              <Pulse>
-                <Button
-                  onClick={() =>
-                    this.setState({ spotlightVisible: !spotlightVisible })
-                  }
-                >
-                  I am a new feature
-                </Button>
-              </Pulse>
-            </SpotlightTarget>
-            <Button>Another element</Button>
-          </ButtonGroup>
-          <SpotlightTransition>
-            {spotlightVisible && (
-              <Spotlight
-                target="button"
-                heading="Switch it up"
-                actionsBeforeElement="1/3"
-                pulse={false}
-                targetBgColor="#fff"
-                actions={[
-                  {
-                    onClick: () =>
-                      this.setState({ spotlightVisible: !spotlightVisible }),
-                    text: 'Got it',
-                  },
-                ]}
-              >
-                It is now easier to create an issue. Click on the plus button to
-                create a new issue.
-              </Spotlight>
-            )}
-          </SpotlightTransition>
-        </SpotlightManager>
-      </Wrapper>
-    );
-  }
-}
+  return (
+    <div css={wrapperStyles}>
+      <SpotlightManager blanketIsTinted={false}>
+        <ButtonGroup>
+          <SpotlightTarget name="button">
+            <SpotlightPulse radius={borderRadius()}>
+              <Button onClick={toggleIsSpotlightVisible}>
+                I am a new feature
+              </Button>
+            </SpotlightPulse>
+          </SpotlightTarget>
+          <Button>Another element</Button>
+        </ButtonGroup>
+        <SpotlightTransition>
+          {isSpotlightVisible && (
+            <Spotlight
+              target="button"
+              heading="Switch it up"
+              actionsBeforeElement="1/3"
+              pulse={false}
+              targetBgColor="#fff"
+              actions={[
+                {
+                  onClick: toggleIsSpotlightVisible,
+                  text: 'Got it',
+                },
+              ]}
+            >
+              It is now easier to create an issue. Click on the plus button to
+              create a new issue.
+            </Spotlight>
+          )}
+        </SpotlightTransition>
+      </SpotlightManager>
+    </div>
+  );
+};
 
 export default NewFeature;

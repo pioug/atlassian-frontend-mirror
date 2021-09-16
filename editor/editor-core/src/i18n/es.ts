@@ -28,6 +28,7 @@ export default {
   'fabric.editor.blockquote.description': 'Insertar una cita o referencia',
   'fabric.editor.blockquote2': 'Citar',
   'fabric.editor.bold': 'Negrita',
+  'fabric.editor.bug': 'Error',
   'fabric.editor.canNotSortTable':
     '⚠️ No puedes ordenar una tabla con celdas combinadas',
   'fabric.editor.cancelButton': 'Cancelar',
@@ -48,6 +49,7 @@ export default {
   'fabric.editor.codeblock': 'Fragmento de código',
   'fabric.editor.codeblock.description':
     'Mostrar código con resaltado de sintaxis',
+  'fabric.editor.collapseTable': 'Contraer tabla',
   'fabric.editor.columns': 'Diseños',
   'fabric.editor.columns.description': 'Estructurar la página con secciones',
   'fabric.editor.configFailedToLoad': 'No se pudo cargar',
@@ -79,6 +81,7 @@ export default {
   'fabric.editor.decision.description':
     'Captar decisiones para que sea más fácil supervisarlas',
   'fabric.editor.decisionPlaceholder': 'Añadir una decisión...',
+  'fabric.editor.defaultAltText': 'Elemento de la lista',
   'fabric.editor.displayBlock': 'Mostrar como tarjeta',
   'fabric.editor.displayEmbed': 'Mostrar como objeto incrustado',
   'fabric.editor.displayInline': 'Mostrar insertado',
@@ -89,8 +92,11 @@ export default {
   'fabric.editor.distributeColumns': 'Distribuir columnas',
   'fabric.editor.edit': 'Editar',
   'fabric.editor.editAltText': 'Editar texto alternativo',
+  'fabric.editor.editDateText': 'Editar fecha',
   'fabric.editor.editLink': 'Editar enlace',
   'fabric.editor.editMode.inviteToEditButton.title': 'Invitar a editar',
+  'fabric.editor.editStatusColor': 'Editar color de estado',
+  'fabric.editor.editStatusText': 'Editar estado',
   'fabric.editor.editorHelp': 'Ayuda del editor',
   'fabric.editor.elementBrowser.help': 'Ayuda',
   'fabric.editor.elementbrowser.categorylist.category-admin': 'Administración',
@@ -121,6 +127,7 @@ export default {
   'fabric.editor.emoji.description':
     'Usa emojis para expresar ideas 🎉 y emociones 😄',
   'fabric.editor.emptyLink': 'Introduce un enlace.',
+  'fabric.editor.epic': 'Epic',
   'fabric.editor.error': 'Error',
   'fabric.editor.errorPanel': 'Panel de errores',
   'fabric.editor.errorPanel.description':
@@ -170,9 +177,9 @@ export default {
     'Las sugerencias aparecerán abajo a medida que escribas en el campo',
   'fabric.editor.hyperlink.searchLinkResults':
     '{count, plural, =0 {no hay resultados} one {{count,number} resultado encontrado} other {{count,number} resultados encontrados}}',
-  'fabric.editor.hyperlinkToolbarPlaceholder':
-    'Pegar enlace o buscar en vistos recientemente',
+  'fabric.editor.hyperlinkToolbarPlaceholder': 'Pegar o buscar el enlace',
   'fabric.editor.image': 'Imagen',
+  'fabric.editor.improvement': 'Mejora',
   'fabric.editor.info': 'Información',
   'fabric.editor.infoPanel': 'Panel de información',
   'fabric.editor.infoPanel.description':
@@ -213,7 +220,7 @@ export default {
   'fabric.editor.orderedList.description': 'Crear una lista ordenada',
   'fabric.editor.other': 'Otros...',
   'fabric.editor.panel.backgroundColor': 'Color de fondo',
-  'fabric.editor.panel.emoji': 'Añadir icono',
+  'fabric.editor.panel.emoji': 'Añadir emoji',
   'fabric.editor.pastePlainText': 'Pegar texto sin formato',
   'fabric.editor.placeholderAltText':
     'Describir esta imagen con texto alternativo',
@@ -245,7 +252,9 @@ export default {
   'fabric.editor.status.description':
     'Añadir una etiqueta de estado personalizada',
   'fabric.editor.statusPlaceholder': 'Establecer un estado',
+  'fabric.editor.story': 'Historia',
   'fabric.editor.strike': 'Tachado',
+  'fabric.editor.subTask': 'Subtarea',
   'fabric.editor.subscript': 'Subíndice',
   'fabric.editor.success': 'Correcto',
   'fabric.editor.successPanel': 'Panel de contenido correcto',
@@ -261,6 +270,7 @@ export default {
     'Al eliminar esta tabla también se eliminarán todos los datos incluidos en los gráficos conectados.',
   'fabric.editor.tables.confirmDeleteLinkedModalOKButton':
     'Eliminar tabla y datos',
+  'fabric.editor.task': 'Tarea',
   'fabric.editor.taskPlaceholder':
     'Escribe la acción y usa "@" para asignársela a alguien.',
   'fabric.editor.textColor': 'Color del texto',

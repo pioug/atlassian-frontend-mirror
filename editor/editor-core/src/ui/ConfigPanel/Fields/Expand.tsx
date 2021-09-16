@@ -9,7 +9,6 @@ import Button from '@atlaskit/button';
 import { gridSize } from '@atlaskit/theme/constants';
 import { FieldDefinition } from '@atlaskit/editor-common/extensions';
 import { messages } from '../messages';
-import { multiply } from '@atlaskit/theme/math';
 
 export const ExpandContainer = styled.div`
   border-bottom: 1px solid ${N40};
@@ -17,7 +16,7 @@ export const ExpandContainer = styled.div`
 
 export const ExpandControl = styled.div`
   display: flex;
-  height: ${multiply(gridSize, 6)}px;
+  height: ${gridSize() * 6}px;
   justify-content: center;
   padding-right: ${gridSize()}px;
 `;
@@ -27,8 +26,8 @@ const ChevronContainer = styled.div`
   align-items: center;
 
   & > button {
-    width: ${multiply(gridSize, 3)}px;
-    height: ${multiply(gridSize, 3)}px;
+    width: ${gridSize() * 3}px;
+    height: ${gridSize() * 3}px;
   }
 `;
 

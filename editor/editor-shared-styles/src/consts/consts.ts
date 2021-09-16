@@ -49,6 +49,7 @@ export const akEditorDeleteBackgroundShaded = R50;
 export const akEditorDeleteBackgroundWithOpacity = 'rgba(255, 189, 173, 0.5)'; // R75 with 50% opacity
 export const akEditorDeleteBorder = R300;
 export const akEditorDeleteIconColor = R400;
+export const akEditorCustomIconSize = 20;
 export const akEditorSelectedBorderColor = B300;
 export const akEditorSelectedBgColor = B50;
 export const akEditorSelectedBlanketColor = B75;

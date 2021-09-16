@@ -22,7 +22,7 @@ export default {
   'fabric.emoji.category.productivity': 'Produktivitet',
   'fabric.emoji.category.symbols': 'Symboler',
   'fabric.emoji.category.user.uploads': 'Dine uploads',
-  'fabric.emoji.choose.file.ariaLabel':
+  'fabric.emoji.choose.file.screenReaderDescription':
     'Vælg en fil til emojien. JPG, PNG eller GIF. Maks. størrelse 1 MB.',
   'fabric.emoji.choose.file.title': 'Vælg fil',
   'fabric.emoji.delete.description':
@@ -40,5 +40,7 @@ export default {
   'fabric.emoji.preview': 'Din nye emoji {emoji} ser flot ud',
   'fabric.emoji.preview.title': 'Vis',
   'fabric.emoji.retry.label': 'Prøv igen',
-  'fabric.emoji.search.label': 'Søg',
+  'fabric.emoji.search.label': 'Søg efter emoji',
+  'fabric.emoji.search.placeholder': 'Søg',
+  'fabric.emoji.select.skin.tone.ariaLabel': 'Vælg hudfarve, {selectedTone}',
 };

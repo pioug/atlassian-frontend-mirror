@@ -1,11 +1,4 @@
-export {
-  default,
-  DrawerItemTheme,
-  DrawerSkeletonHeader,
-  DrawerSkeletonItem,
-  DrawerItemGroup,
-  DrawerItem,
-} from './components';
+export { default } from './components';
 
 export type {
   BaseProps,
@@ -19,7 +12,6 @@ export type {
   DrawerProps,
   DrawerWidth,
   FocusLockProps,
-  ItemProps,
   OverridesType,
   SidebarCSSProps,
   SidebarProps,

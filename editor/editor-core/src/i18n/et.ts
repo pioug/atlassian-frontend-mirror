@@ -102,8 +102,6 @@ export default {
   'fabric.editor.horizontalRule': 'Jagaja',
   'fabric.editor.horizontalRule.description':
     'Eralda sisu horisontaalse joonega',
-  'fabric.editor.hyperlinkToolbarPlaceholder':
-    'Kleebi link või otsi hiljuti vaadatut',
   'fabric.editor.image': 'Pilt',
   'fabric.editor.info': 'Info',
   'fabric.editor.infoPanel': 'Teabepaneel',

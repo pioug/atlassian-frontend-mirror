@@ -22,8 +22,8 @@ export default {
   'fabric.emoji.category.productivity': 'モノ作り',
   'fabric.emoji.category.symbols': '記号',
   'fabric.emoji.category.user.uploads': 'あなたのアップロード',
-  'fabric.emoji.choose.file.ariaLabel':
-    '絵文字のファイルを選択します。選択できるファイルは、JPG、PNG、GIF 形式で、サイズは最大 1 メガバイトです。',
+  'fabric.emoji.choose.file.screenReaderDescription':
+    '絵文字のファイルを選択します。選択できるファイルは、JPG、PNG、GIF 形式で、サイズは最大 1 MB です。',
   'fabric.emoji.choose.file.title': 'ファイルを選択',
   'fabric.emoji.delete.description':
     'この絵文字のすべての既存のインスタンスを{emojiShortName}と置き換えます',
@@ -39,5 +39,8 @@ export default {
   'fabric.emoji.preview': '新しい絵文字{emoji}は素敵ですね',
   'fabric.emoji.preview.title': 'プレビュー',
   'fabric.emoji.retry.label': '再試行',
-  'fabric.emoji.search.label': '検索',
+  'fabric.emoji.search.label': '絵文字を検索',
+  'fabric.emoji.search.placeholder': '検索',
+  'fabric.emoji.select.skin.tone.ariaLabel':
+    'スキン トーンを選択、{selectedTone}',
 };

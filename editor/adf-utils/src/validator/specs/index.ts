@@ -80,4 +80,6 @@ export { default as bodiedExtension_with_marks } from './bodiedExtension_with_ma
 export { default as block_content } from './block_content';
 export { default as layoutColumn } from './layoutColumn';
 export { default as layoutSection } from './layoutSection';
+export { default as layoutSection_full } from './layoutSection_full';
+export { default as layoutSection_with_single_column } from './layoutSection_with_single_column';
 export { default as doc } from './doc';

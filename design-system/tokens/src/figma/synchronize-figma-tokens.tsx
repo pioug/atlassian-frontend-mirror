@@ -116,7 +116,7 @@ function synchronizeFigmaTokens(
         // It's still an effect! Update it.
         console.log(`=> ${style.name} shadow style has been updated!`);
         style.effects = createEffects(token.value as ShadowToken['value']);
-        style.description = token.attributes.description || '';
+        style.description = (token.attributes.description || '').trim();
         // Remove from themeValues so it isn't picked up as a new token.
         delete tokens[style.name];
       }
@@ -153,7 +153,7 @@ function synchronizeFigmaTokens(
         console.log(`=> ${style.name} paint style has been updated!`);
         // Mutating is how Figma updates.
         style.paints = [createPaint(token.value as PaintToken['value'])];
-        style.description = token.attributes.description || '';
+        style.description = (token.attributes.description || '').trim();
         // Remove from themeValues so it isn't picked up as a new token.
         delete tokens[style.name];
       }
@@ -171,7 +171,7 @@ function synchronizeFigmaTokens(
     if (token.attributes.group === 'paint') {
       const newStyle: FigmaPaintStyle = figma.createPaintStyle();
       newStyle.name = key;
-      newStyle.description = token.attributes.description || '';
+      newStyle.description = (token.attributes.description || '').trim();
       newStyle.paints = [createPaint(token.value as PaintToken['value'])];
       console.log(`=> ${key} paint style has been added!`);
     }
@@ -179,7 +179,7 @@ function synchronizeFigmaTokens(
     if (token.attributes.group === 'shadow') {
       const newStyle: FigmaEffectStyle = figma.createEffectStyle();
       newStyle.name = key;
-      newStyle.description = token.attributes.description || '';
+      newStyle.description = (token.attributes.description || '').trim();
       newStyle.effects = createEffects(token.value as ShadowToken['value']);
       console.log(`=> ${key} shadow style has been added!`);
     }

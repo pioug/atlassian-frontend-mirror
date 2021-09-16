@@ -31,6 +31,7 @@ describe('layout', () => {
   const layoutPlugin = createLayoutPlugin({
     allowBreakout: true,
     UNSAFE_addSidebarLayouts: true,
+    UNSAFE_allowSingleColumnLayout: true,
   });
   const editor = (doc: DocBuilder) => {
     createAnalyticsEvent = jest.fn(() => ({ fire() {} } as UIAnalyticsEvent));

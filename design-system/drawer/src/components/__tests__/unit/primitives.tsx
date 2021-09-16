@@ -14,6 +14,7 @@ const DrawerContent = () => <code>Drawer contents</code>;
 
 describe('Drawer primitive', () => {
   const commonProps = {
+    testId: 'test',
     width: 'wide' as DrawerWidth,
     in: true,
     shouldUnmountOnExit: false,
@@ -103,7 +104,7 @@ describe('Drawer primitive', () => {
     const event = { target: 'button' };
     const callsBeforeIconClick = Array.prototype.concat(onClose.mock.calls);
 
-    const handler = wrapper.find('IconWrapper').prop('onClick');
+    const handler = wrapper.find('IconButton').prop('onClick');
     if (handler) {
       handler((event as unknown) as MouseEvent);
     }

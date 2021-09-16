@@ -2,8 +2,7 @@ import React from 'react';
 
 // AFP-2532 TODO: Fix automatic suppressions below
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
-import { gridSize } from '@atlaskit/theme';
-import { multiply } from '@atlaskit/theme/math';
+import { gridSize } from '@atlaskit/theme/constants';
 import { CustomThemeButtonProps } from '@atlaskit/button/types';
 import Button from '@atlaskit/button/custom-theme-button';
 
@@ -18,7 +17,7 @@ export const MAX_PICKER_HEIGHT = 102;
  * packages/design-system/inline-dialog/src/InlineDialog/styled.ts:20:3
  */
 export const InlineDialogContentWrapper = styled.div`
-  padding: ${multiply(gridSize, 2)}px ${multiply(gridSize, 3)}px;
+  padding: ${gridSize() * 2}px ${gridSize() * 3}px;
 `;
 
 const StyledButton: React.StatelessComponent<CustomThemeButtonProps> = React.forwardRef<

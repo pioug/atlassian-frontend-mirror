@@ -19,7 +19,8 @@ import {
 import { document as defaultDoc } from '../helper/story-data';
 import Sidebar from '../helper/NavigationNext';
 import { MentionProvider } from '@atlaskit/mention/types';
-import { AtlaskitThemeProvider } from '@atlaskit/theme/components';
+import { ThemeProvider as StyledThemeProvider } from 'styled-components';
+import DeprecatedThemeProvider from '@atlaskit/theme/deprecated-provider-please-do-not-use';
 import { ThemeModes } from '@atlaskit/theme/types';
 import { EmbedHelper } from '@atlaskit/media-integration-test-helpers/embed-helper';
 import AnalyticsListeners from '@atlaskit/analytics-listeners';
@@ -76,7 +77,10 @@ function renderRenderer({
       <SmartCardProvider client={cardClient}>
         <Sidebar showSidebar={!!showSidebar}>
           {(additionalRendererProps: any) => (
-            <AtlaskitThemeProvider mode={props.themeMode}>
+            <DeprecatedThemeProvider
+              mode={props.themeMode}
+              provider={StyledThemeProvider}
+            >
               <Renderer
                 dataProviders={providerFactory}
                 document={adf}
@@ -91,7 +95,7 @@ function renderRenderer({
                     : undefined
                 }
               />
-            </AtlaskitThemeProvider>
+            </DeprecatedThemeProvider>
           )}
         </Sidebar>
         <EmbedHelper />

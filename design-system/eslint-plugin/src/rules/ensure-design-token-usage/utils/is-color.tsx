@@ -1,4 +1,4 @@
-const namedColors: string[] = [
+const namedColors = [
   'black',
   'silver',
   'gray',
@@ -149,7 +149,7 @@ const namedColors: string[] = [
   'rebeccapurple',
 ];
 
-const legacyColors: string[] = [
+const legacyColors = [
   'R50',
   'R75',
   'R100',
@@ -293,6 +293,23 @@ const legacyColorMixins = [
   'skeleton',
 ];
 
+const includesWholeWord = (value: string, options: string[]) => {
+  const values = value
+    .replace(/[^a-zA-Z ]/g, ' ')
+    .trim()
+    .split(/(?:,|\.| )+/);
+
+  let result = false;
+
+  options.forEach((el) => {
+    if (values.includes(el)) {
+      result = true;
+    }
+  });
+
+  return result;
+};
+
 export const isLegacyColor = (value: string) => legacyColors.includes(value);
 export const isLegacyNamedColor = (value: string) =>
   legacyColorMixins.includes(value);
@@ -300,25 +317,22 @@ export const isLegacyNamedColor = (value: string) =>
 export const includesHardCodedColor = (raw: string): boolean => {
   const value = raw.toLowerCase();
   if (
-    /(?:#|0x)(?:[a-f0-9]{3}|[a-f0-9]{6}|[a-f0-9]{8})\b|(?:rgb|hsl)a?\([^\)]*\)/.exec(
+    /#(?:[a-f0-9]{3}|[a-f0-9]{6}|[a-f0-9]{8})\b|(?:rgb|hsl)a?\([^\)]*\)/.exec(
       value.toLowerCase(),
     )
   ) {
     return true;
   }
 
-  for (let i = 0; i < namedColors.length; i++) {
-    const color = `${namedColors[i]};`;
-    if (value.includes(color)) {
-      return true;
-    }
+  if (includesWholeWord(value, namedColors)) {
+    return true;
   }
 
   return false;
 };
 
 export const isHardCodedColor = (value: string): boolean => {
-  if (namedColors.includes(value.toLowerCase())) {
+  if (includesWholeWord(value.toLowerCase(), namedColors)) {
     return true;
   }
 

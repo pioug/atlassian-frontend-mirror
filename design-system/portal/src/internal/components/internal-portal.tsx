@@ -6,7 +6,6 @@ import {
   appendPortalContainerIfNotAppended,
   createContainer,
   removePortalContainer,
-  removePortalParentContainerIfNoMorePortals,
 } from '../utils/portal-dom-utils';
 
 interface InternalPortalProps {
@@ -28,8 +27,6 @@ export default function InternalPortal(
   useEffect(() => {
     return () => {
       removePortalContainer(container);
-
-      removePortalParentContainerIfNoMorePortals();
     };
   }, [container]);
 

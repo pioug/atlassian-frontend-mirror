@@ -1,8 +1,8 @@
 /** @jsx jsx */
 
-import { Component, FC, SyntheticEvent } from 'react';
+import { Component, FC, MouseEventHandler, SyntheticEvent } from 'react';
 
-import { jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/core';
 
 import Button from '@atlaskit/button/standard-button';
 import AppSwitcherIcon from '@atlaskit/icon/glyph/app-switcher';
@@ -15,38 +15,35 @@ interface State {
 }
 
 interface IconWrapperProps {
-  onClick: Function;
+  onClick: MouseEventHandler;
 }
 
-const IconWrapper: FC<IconWrapperProps> = ({ onClick, ...props }) => (
-  <button
-    type="button"
-    css={{
-      alignItems: 'center',
-      background: 0,
-      border: 0,
-      borderRadius: '50%',
-      color: 'inherit',
-      cursor: onClick ? 'pointer' : undefined,
-      display: 'flex',
-      fontSize: 'inherit',
-      height: '40px',
-      justifyContent: 'center',
-      lineHeight: 1,
-      marginBottom: '16px',
-      padding: 0,
-      width: '40px',
+const iconButtonStyles = css({
+  display: 'flex',
+  width: '40px',
+  height: '40px',
+  marginBottom: '16px',
+  padding: 0,
+  alignItems: 'center',
+  justifyContent: 'center',
+  background: 0,
+  border: 0,
+  borderRadius: '50%',
+  color: 'inherit',
+  cursor: 'pointer',
+  fontSize: 'inherit',
+  lineHeight: 1,
+  '&:hover': {
+    backgroundColor: N30A,
+  },
+  '&:active': {
+    backgroundColor: B50,
+    outline: 0,
+  },
+});
 
-      '&:hover': {
-        backgroundColor: onClick ? N30A : undefined,
-      },
-      '&:active': {
-        backgroundColor: onClick ? B50 : undefined,
-        outline: 0,
-      },
-    }}
-    {...props}
-  />
+const IconWrapper: FC<IconWrapperProps> = (props) => (
+  <button type="button" css={iconButtonStyles} {...props} />
 );
 
 const SidebarOverrideComponent: FC = ({ children }) => {
@@ -95,7 +92,7 @@ export default class DrawersExample extends Component<{}, State> {
 
   render() {
     return (
-      <div css={{ padding: '2rem' }}>
+      <div style={{ padding: '2rem' }}>
         <Drawer
           onClose={this.onClose}
           onCloseComplete={this.onCloseComplete}

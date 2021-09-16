@@ -66,6 +66,62 @@ describe('synchronizeFigmaTokens', () => {
       );
     });
 
+    it('should trim token descriptions', () => {
+      const style: FigmaPaintStyle = {
+        name: '',
+        description: '',
+        paints: [],
+        remove: () => {},
+      };
+      figma.createPaintStyle.mockReturnValue(style);
+
+      synchronizeFigmaTokens('AtlassianDark', {
+        'AtlassianDark/Color': {
+          value: '#03040421',
+          attributes: {
+            group: 'paint',
+            description: '    Primary text color     ',
+          },
+        },
+      });
+
+      expect(style).toEqual(
+        expect.objectContaining({
+          description: 'Primary text color',
+        }),
+      );
+    });
+
+    it('should trim token tagged template descriptions', () => {
+      const style: FigmaPaintStyle = {
+        name: '',
+        description: '',
+        paints: [],
+        remove: () => {},
+      };
+      figma.createPaintStyle.mockReturnValue(style);
+
+      synchronizeFigmaTokens('AtlassianDark', {
+        'AtlassianDark/Color': {
+          value: '#03040421',
+          attributes: {
+            group: 'paint',
+            description: `
+Primary text color
+Primary text color
+
+            `,
+          },
+        },
+      });
+
+      expect(style).toEqual(
+        expect.objectContaining({
+          description: 'Primary text color\nPrimary text color',
+        }),
+      );
+    });
+
     it('should create an array of paint tokens', () => {
       const styles: FigmaPaintStyle[] = [];
       figma.createPaintStyle.mockImplementation(() => {

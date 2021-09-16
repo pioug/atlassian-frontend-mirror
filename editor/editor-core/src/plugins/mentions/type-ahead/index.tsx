@@ -310,6 +310,20 @@ export const createTypeAheadConfig = ({
             firstQueryWithoutResults = query;
           }
 
+          // Growth (El-dorado) experiment design hard requirement
+          if (mentionItems.length <= 2) {
+            const { inviteExperimentCohort, userRole } = mentionProvider;
+
+            fireEvent(
+              buildTypeAheadInviteExposurePayload(
+                sessionId,
+                contextIdentifierProvider,
+                inviteExperimentCohort,
+                userRole,
+              ),
+            );
+          }
+
           if (!mentionProvider.shouldEnableInvite || mentionItems.length > 2) {
             resolve(mentionItems);
           } else {
@@ -341,29 +355,6 @@ export const createTypeAheadConfig = ({
     },
     onOpen: (editorState: EditorState) => {
       firstQueryWithoutResults = null;
-      const pluginState = getMentionPluginState(editorState);
-      if (!pluginState || !pluginState.mentionProvider) {
-        return null;
-      }
-
-      const {
-        contextIdentifierProvider,
-        mentionProvider: {
-          shouldEnableInvite,
-          inviteExperimentCohort,
-          userRole,
-        },
-      } = pluginState;
-
-      fireEvent(
-        buildTypeAheadInviteExposurePayload(
-          !!shouldEnableInvite,
-          sessionId,
-          contextIdentifierProvider,
-          inviteExperimentCohort,
-          userRole,
-        ),
-      );
     },
     selectItem(state, item, insert, { mode, stats, query, sourceListItem }) {
       const { schema } = state;

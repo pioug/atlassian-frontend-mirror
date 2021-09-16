@@ -13,6 +13,7 @@ import {
   Channel,
   ErrorPayload,
   InitPayload,
+  Metadata,
   ParticipantPayload,
   StepsPayload,
 } from '../../channel';
@@ -37,7 +38,7 @@ const allExpectedEventNames: string[] = [
   'participant:joined',
   'participant:left',
   'participant:updated',
-  'title:changed',
+  'metadata:changed',
   'disconnect',
   'error',
 ];
@@ -62,7 +63,7 @@ const getExpectValidEventHandler = (channel: Channel) => (
   );
 
   // Try/catch here to print the expectedEventName with reason in
-  // the error, otherwise when tests fail, it harder to know why
+  // the error, otherwise when tests fail, it is hard to know why
   try {
     expect(eventHandler).toBeDefined();
     expect(eventHandler).toBeInstanceOf(Function);
@@ -198,6 +199,22 @@ describe('channel unit tests', () => {
     });
   });
 
+  it('should handle receiving metadata:changed from server', (done) => {
+    const channel = getChannel();
+
+    channel.on('metadata:changed', (data: Metadata) => {
+      try {
+        expect(data).toEqual({ title: 'a new title', editorWidht: 'abc' });
+        done();
+      } catch (err) {
+        done(err);
+      }
+    });
+    channel
+      .getSocket()!
+      .emit('metadata:changed', { title: 'a new title', editorWidht: 'abc' });
+  });
+
   it('should handle receiving participant:telepointer from server', (done) => {
     const channel = getChannel();
 
@@ -322,10 +339,10 @@ describe('channel unit tests', () => {
     });
   });
 
-  it('should handle receiving title:changed from server', (done) => {
+  it('should handle receiving metadata:changed from server', (done) => {
     const channel = getChannel();
 
-    channel.on('title:changed', (data: any) => {
+    channel.on('metadata:changed', (data: any) => {
       try {
         expect(data).toEqual(<any>{
           title: 'My tremendous page title!',
@@ -336,17 +353,15 @@ describe('channel unit tests', () => {
       }
     });
 
-    channel.getSocket()!.emit('title:changed', <any>{
-      data: {
-        title: 'My tremendous page title!',
-      },
+    channel.getSocket()!.emit('metadata:changed', <any>{
+      title: 'My tremendous page title!',
     });
   });
 
   it('should handle receiving width:changed from server', (done) => {
     const channel = getChannel();
 
-    channel.on('width:changed', (data: any) => {
+    channel.on('metadata:changed', (data: any) => {
       try {
         expect(data).toEqual(<any>{
           editorWidth: 'My tremendous page width!',
@@ -357,10 +372,8 @@ describe('channel unit tests', () => {
       }
     });
 
-    channel.getSocket()!.emit('width:changed', <any>{
-      data: {
-        editorWidth: 'My tremendous page width!',
-      },
+    channel.getSocket()!.emit('metadata:changed', <any>{
+      editorWidth: 'My tremendous page width!',
     });
   });
 

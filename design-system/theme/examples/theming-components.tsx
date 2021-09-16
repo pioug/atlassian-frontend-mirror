@@ -1,8 +1,10 @@
-import React, { Component } from 'react';
+/* eslint-disable @repo/internal/react/no-unsafe-overrides */
+import React, { FC, useCallback, useState } from 'react';
+
 import { createTheme, ThemeProp } from '../src';
 
 interface LocalThemeProps {
-  hover: boolean;
+  isHovered: boolean;
 }
 
 interface ThemeTokens {
@@ -11,7 +13,7 @@ interface ThemeTokens {
 }
 
 const defaultButtonTheme = (props: LocalThemeProps) => ({
-  backgroundColor: props.hover ? '#ddd' : '#eee',
+  backgroundColor: props.isHovered ? '#ddd' : '#eee',
   textColor: '#333',
 });
 
@@ -21,8 +23,8 @@ const contextButtonTheme: ThemeProp<ThemeTokens, LocalThemeProps> = (
 ) => {
   return {
     ...theme(props),
-    backgroundColor: props.hover ? 'rebeccapurple' : 'palevioletred',
-    textColor: props.hover ? '#fff' : 'papayawhip',
+    backgroundColor: props.isHovered ? 'rebeccapurple' : 'palevioletred',
+    textColor: props.isHovered ? '#fff' : 'papayawhip',
   };
 };
 
@@ -32,61 +34,51 @@ const propButtonTheme: ThemeProp<ThemeTokens, LocalThemeProps> = (
 ) => {
   return {
     ...theme(props),
-    backgroundColor: props.hover ? 'palevioletred' : 'rebeccapurple',
+    backgroundColor: props.isHovered ? 'palevioletred' : 'rebeccapurple',
   };
 };
 
 const Theme = createTheme<ThemeTokens, LocalThemeProps>(defaultButtonTheme);
 
-interface Props {
+interface ButtonProps {
   children?: React.ReactNode;
+  // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
   theme?: ThemeProp<ThemeTokens, LocalThemeProps>;
 }
 
-interface State {
-  hover: boolean;
-}
-
-class Button extends Component<Props, State> {
-  state = {
-    hover: false,
-  };
-
-  onMouseEnter = () => this.setState({ hover: true });
-
-  onMouseLeave = () => this.setState({ hover: false });
-
-  render() {
-    return (
-      <Theme.Provider value={this.props.theme}>
-        <Theme.Consumer hover={this.state.hover}>
-          {(tokens) => {
-            const { backgroundColor, textColor: color } = tokens;
-            return (
-              <button
-                onMouseEnter={this.onMouseEnter}
-                onMouseLeave={this.onMouseLeave}
-                style={{
-                  backgroundColor,
-                  border: 0,
-                  borderRadius: 3,
-                  color,
-                  cursor: 'pointer',
-                  marginBottom: 10,
-                  marginRight: 10,
-                  padding: 10,
-                }}
-                type="button"
-              >
-                {this.props.children}
-              </button>
-            );
-          }}
-        </Theme.Consumer>
-      </Theme.Provider>
-    );
-  }
-}
+const Button: FC<ButtonProps> = ({ children, theme }) => {
+  const [isHovered, setIsHovered] = useState(false);
+  const onMouseEnter = useCallback(() => setIsHovered(true), []);
+  const onMouseLeave = useCallback(() => setIsHovered(false), []);
+  return (
+    <Theme.Provider value={theme}>
+      <Theme.Consumer isHovered={isHovered}>
+        {(tokens) => {
+          const { backgroundColor, textColor: color } = tokens;
+          return (
+            <button
+              onMouseEnter={onMouseEnter}
+              onMouseLeave={onMouseLeave}
+              style={{
+                backgroundColor,
+                border: 0,
+                borderRadius: 3,
+                color,
+                cursor: 'pointer',
+                marginBottom: 10,
+                marginRight: 10,
+                padding: 10,
+              }}
+              type="button"
+            >
+              {children}
+            </button>
+          );
+        }}
+      </Theme.Consumer>
+    </Theme.Provider>
+  );
+};
 
 export default () => (
   <>

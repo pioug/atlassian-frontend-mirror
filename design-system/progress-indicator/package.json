@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/progress-indicator",
-  "version": "9.0.5",
+  "version": "9.1.0",
   "description": "A progress indicator shows the user where they are along the steps of a journey.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -13,10 +13,9 @@
   "module:es2019": "dist/es2019/index.js",
   "types": "dist/types/index.d.ts",
   "sideEffects": false,
-  "atlaskit:src": "src/index.ts",
+  "atlaskit:src": "src/index.tsx",
   "atlassian": {
     "team": "Design System Team",
-    "deprecatedAutoEntryPoints": true,
     "inPublicMirror": true,
     "releaseModel": "scheduled",
     "website": {
@@ -25,12 +24,13 @@
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^8.0.0",
-    "@atlaskit/theme": "^11.4.0",
-    "@babel/runtime": "^7.0.0"
+    "@atlaskit/theme": "^12.0.0",
+    "@atlaskit/tokens": "^0.2.0",
+    "@babel/runtime": "^7.0.0",
+    "@emotion/core": "^10.0.9"
   },
   "peerDependencies": {
-    "react": "^16.8.0",
-    "styled-components": "^3.2.6"
+    "react": "^16.8.0"
   },
   "devDependencies": {
     "@atlaskit/build-utils": "*",
@@ -40,17 +40,31 @@
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
+    "@testing-library/react": "^8.0.1",
     "@types/jscodeshift": "^0.11.0",
     "enzyme": "^3.10.0",
     "jscodeshift": "^0.13.0",
     "react-dom": "^16.8.0",
     "react-lorem-component": "^0.13.0",
+    "styled-components": "^3.2.6",
     "typescript": "3.9.6"
   },
   "techstack": {
     "@atlassian/frontend": {
       "import-structure": "atlassian-conventions"
+    },
+    "@repo/internal": {
+      "ui-components": "lite-mode",
+      "design-system": "v1",
+      "styling": "emotion",
+      "analytics": "analytics-next",
+      "theming": "tokens",
+      "deprecation": "no-deprecated-imports"
     }
+  },
+  "af:exports": {
+    "./types": "./src/types.tsx",
+    ".": "./src/index.tsx"
   },
   "homepage": "https://atlassian.design/components/progress-indicator/",
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"

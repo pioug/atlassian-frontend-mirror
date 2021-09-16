@@ -51,6 +51,13 @@ export const useElementBox = (element: HTMLElement) => {
   return box;
 };
 
+/**
+ * __Element box__
+ *
+ * Allows consumption of `userElementBox` hook through render props.
+ *
+ * @internal
+ */
 export const ElementBox = (props: {
   element: HTMLElement;
   children: (box: ElementBoundingBox) => any;

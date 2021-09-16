@@ -129,15 +129,15 @@ describe('getToolbarItems', () => {
       );
     });
 
-    it(`should call changePanelType when clicked on hide emoji`, () => {
-      const hideEmojiButton:
+    it(`should call changePanelType when clicked on remove emoji`, () => {
+      const removeEmojiButton:
         | FloatingToolbarButton<any>
         | undefined = itemsWithCustomPanelEnabled.find(
         (item) =>
-          item.type === 'button' && item.id === 'editor.panel.hideEmoji',
+          item.type === 'button' && item.id === 'editor.panel.removeEmoji',
       ) as FloatingToolbarButton<any>;
 
-      hideEmojiButton!.onClick(editorView.state);
+      removeEmojiButton!.onClick(editorView.state);
 
       expect(changePanelTypespy).toBeCalledWith(
         PanelType.CUSTOM,
@@ -146,7 +146,7 @@ describe('getToolbarItems', () => {
       );
     });
 
-    it(`should not call changePanelType when clicked on hide emoji when no emoji in panel`, () => {
+    it(`should not call changePanelType when clicked on remove emoji when no emoji in panel`, () => {
       const { editorView } = createEditor({
         doc: doc(panel({ panelType: 'custom' })(p('{<>}'))),
         preset: panelPreset,
@@ -159,17 +159,57 @@ describe('getToolbarItems', () => {
         providerFactory,
         PanelType.CUSTOM,
       );
-      const hideEmojiButton:
+      const removeEmojiButton:
         | FloatingToolbarButton<any>
         | undefined = toolbarItems.find(
         (item) =>
-          item.type === 'button' && item.id === 'editor.panel.hideEmoji',
+          item.type === 'button' && item.id === 'editor.panel.removeEmoji',
       ) as FloatingToolbarButton<any>;
       changePanelTypespy.mockClear();
 
-      hideEmojiButton!.onClick(editorView.state);
+      removeEmojiButton!.onClick(editorView.state);
 
       expect(changePanelTypespy).not.toBeCalled();
+    });
+
+    it(`should have remove emoji button disabled when focus on panel without emoji`, () => {
+      const toolbarItems = getToolbarItems(
+        dummyFormatMessage,
+        defaultSchema.nodes.panel,
+        true,
+        providerFactory,
+        PanelType.CUSTOM,
+        '#ABF5D1',
+        '',
+      );
+      const removeEmojiButton:
+        | FloatingToolbarButton<any>
+        | undefined = toolbarItems.find(
+        (item) =>
+          item.type === 'button' && item.id === 'editor.panel.removeEmoji',
+      ) as FloatingToolbarButton<any>;
+
+      expect(removeEmojiButton.disabled).toBe(true);
+    });
+
+    it(`should have remove emoji button enabled when focus on panel with emoji`, () => {
+      const toolbarItems = getToolbarItems(
+        dummyFormatMessage,
+        defaultSchema.nodes.panel,
+        true,
+        providerFactory,
+        PanelType.CUSTOM,
+        '#ABF5D1',
+        ':smiley:',
+      );
+      const removeEmojiButton:
+        | FloatingToolbarButton<any>
+        | undefined = toolbarItems.find(
+        (item) =>
+          item.type === 'button' && item.id === 'editor.panel.removeEmoji',
+      ) as FloatingToolbarButton<any>;
+
+      expect(removeEmojiButton.disabled).toBe(false);
     });
   });
 
@@ -236,9 +276,9 @@ describe('getToolbarItems', () => {
     });
 
     it('Should trigger analytics when Icon is removed', () => {
-      const hideEmojiButton = itemsWithCustomPanelEnabled.find(
+      const removeEmojiButton = itemsWithCustomPanelEnabled.find(
         (item) =>
-          item.type === 'button' && item.id === 'editor.panel.hideEmoji',
+          item.type === 'button' && item.id === 'editor.panel.removeEmoji',
       );
       const emojiPickerConfig = itemsWithCustomPanelEnabled.find(
         (item) => item.type === 'select' && item.selectType === 'emoji',
@@ -247,7 +287,7 @@ describe('getToolbarItems', () => {
       (emojiPickerConfig as FloatingToolbarEmojiPicker<any>)!.onChange(
         ':smiley:',
       )(editorView.state, editorView.dispatch);
-      (hideEmojiButton as FloatingToolbarButton<any>)!.onClick(
+      (removeEmojiButton as FloatingToolbarButton<any>)!.onClick(
         editorView.state,
         editorView.dispatch,
       );

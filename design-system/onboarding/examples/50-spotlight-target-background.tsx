@@ -1,17 +1,18 @@
-import React, { Component } from 'react';
+/** @jsx jsx */
+import { Component } from 'react';
 
+import { css, jsx } from '@emotion/core';
 import Lorem from 'react-lorem-component';
-import styled from 'styled-components';
 
 import { Spotlight, SpotlightManager, SpotlightTarget } from '../src';
 
 import { Code, Highlight, HighlightGroup } from './styled';
 
-const Wrapper = styled.div`
-  background-color: #f6f6f6;
-  border-radius: 4px;
-  padding: 40px;
-`;
+const wrapperStyles = css({
+  padding: '40px',
+  backgroundColor: '#f6f6f6',
+  borderRadius: '4px',
+});
 
 interface State {
   active: number | null;
@@ -74,7 +75,7 @@ export default class SpotlightTargetBackgroundExample extends Component<
 
   render() {
     return (
-      <Wrapper>
+      <div css={wrapperStyles}>
         <SpotlightManager>
           <HighlightGroup>
             <SpotlightTarget name="without">
@@ -98,7 +99,7 @@ export default class SpotlightTargetBackgroundExample extends Component<
 
           {this.renderActiveSpotlight()}
         </SpotlightManager>
-      </Wrapper>
+      </div>
     );
   }
 }

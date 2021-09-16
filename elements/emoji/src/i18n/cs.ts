@@ -22,8 +22,8 @@ export default {
   'fabric.emoji.category.productivity': 'Produktivita',
   'fabric.emoji.category.symbols': 'Symboly',
   'fabric.emoji.category.user.uploads': 'Vaše nahrané položky',
-  'fabric.emoji.choose.file.ariaLabel':
-    'Vyberte soubor emotikonu. JPG, PNG nebo GIF. Maximální velikost je 1 MB.',
+  'fabric.emoji.choose.file.screenReaderDescription':
+    'Vyberte soubor smajlíku. JPG, PNG nebo GIF. Maximální velikost je 1 MB.',
   'fabric.emoji.choose.file.title': 'Vybrat soubor',
   'fabric.emoji.delete.description':
     'Veškeré existující výskyty tohoto emoji budou nahrazeny {emojiShortName}',
@@ -40,5 +40,8 @@ export default {
   'fabric.emoji.preview': 'Vaše nové emoji {emoji} vypadá skvěle!',
   'fabric.emoji.preview.title': 'Náhled',
   'fabric.emoji.retry.label': 'Zkusit znovu',
-  'fabric.emoji.search.label': 'Vyhledat',
+  'fabric.emoji.search.label': 'Vyhledat smajlík',
+  'fabric.emoji.search.placeholder': 'Vyhledat',
+  'fabric.emoji.select.skin.tone.ariaLabel':
+    'Výběr odstínu pleti – {selectedTone}',
 };

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { Popup } from '@atlaskit/editor-common';
+import { Popup, withOuterListeners } from '@atlaskit/editor-common';
 import Button from '@atlaskit/button';
 import Tooltip from '@atlaskit/tooltip';
 import { N60A } from '@atlaskit/theme/colors';
@@ -59,6 +59,8 @@ const ColorPickerButton = (props: Props) => {
     setIsPopupOpen(!isPopupOpen);
   };
 
+  const ColorPaletteWithListeners = withOuterListeners(ColorPalette);
+
   const onColorSelected = (color: string, label: string) => {
     setIsPopupOpen(false);
     if (props.onChange) {
@@ -99,11 +101,12 @@ const ColorPickerButton = (props: Props) => {
         alignX={props.alignX}
       >
         <ColorPickerWrapper>
-          <ColorPalette
+          <ColorPaletteWithListeners
             palette={props.colorPalette}
             cols={props.cols}
             selectedColor={props.currentColor || null}
             onClick={onColorSelected}
+            handleClickOutside={togglePopup}
           />
         </ColorPickerWrapper>
       </Popup>

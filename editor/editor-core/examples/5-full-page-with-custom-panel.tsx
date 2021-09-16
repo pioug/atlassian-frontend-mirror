@@ -1,7 +1,8 @@
 import React, { useState, ChangeEvent } from 'react';
 import { default as FullPageExample } from './5-full-page';
 import { exampleDocument } from '../example-helpers/example-doc-with-custom-panels';
-import { AtlaskitThemeProvider } from '@atlaskit/theme/components';
+import { ThemeProvider as StyledThemeProvider } from 'styled-components';
+import DeprecatedThemeProvider from '@atlaskit/theme/deprecated-provider-please-do-not-use';
 // AFP-2532 TODO: Fix automatic suppressions below
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { ThemeModes } from '@atlaskit/theme';
@@ -21,12 +22,12 @@ export default function Example() {
     </label>
   );
   return (
-    <AtlaskitThemeProvider mode={themeMode}>
+    <DeprecatedThemeProvider mode={themeMode} provider={StyledThemeProvider}>
       <FullPageExample
         defaultValue={exampleDocument}
         allowPanel={{ UNSAFE_allowCustomPanel: true }}
       />
       {toggleDarkMode}
-    </AtlaskitThemeProvider>
+    </DeprecatedThemeProvider>
   );
 }

@@ -15,22 +15,32 @@ import DownloadIcon from '@atlaskit/icon/glyph/download';
 import FullScreenIcon from '@atlaskit/icon/glyph/vid-full-screen-on';
 import VidHdCircleIcon from '@atlaskit/icon/glyph/vid-hd-circle';
 import VidPlayIcon from '@atlaskit/icon/glyph/vid-play';
+import VidPauseIcon from '@atlaskit/icon/glyph/vid-pause';
+import {
+  SkipTenBackwardIcon,
+  SkipTenForwardIcon,
+} from '../../../customMediaPlayer/icons';
 import {
   asMock,
+  asMockFunction,
   fakeIntl,
   mountWithIntlContext,
 } from '@atlaskit/media-test-helpers';
 import Spinner from '@atlaskit/spinner';
 import { WidthObserver } from '@atlaskit/width-detector';
+import Tooltip from '@atlaskit/tooltip';
 import MediaPlayer from 'react-video-renderer';
 import React from 'react';
-import { Shortcut } from '../../..';
+import { keyCodes, Shortcut } from '../../..';
 import {
   CustomMediaPlayerBase,
   CustomMediaPlayerProps,
   CustomMediaPlayerState,
 } from '../../../customMediaPlayer';
-import { toggleFullscreen } from '../../../customMediaPlayer/fullscreen';
+import {
+  toggleFullscreen,
+  getFullscreenElement,
+} from '../../../customMediaPlayer/fullscreen';
 import simultaneousPlayManager from '../../../customMediaPlayer/simultaneousPlayManager';
 import {
   CurrentTime,
@@ -42,6 +52,7 @@ import {
 } from '../../../customMediaPlayer/timeRange';
 import { PlaybackSpeedControls } from '../../../customMediaPlayer/playbackSpeedControls';
 import { PlayPauseBlanket } from '../../../customMediaPlayer/playPauseBlanket';
+import { ReactWrapper } from 'enzyme';
 
 // Removes errors from JSDOM virtual console on CustomMediaPlayer tests
 // Trick taken from https://github.com/jsdom/jsdom/issues/2155
@@ -58,17 +69,9 @@ jest.mock('@atlaskit/width-detector', () => {
   };
 });
 
-beforeAll(() => {
-  HTMLMediaElement.prototype.play = () => Promise.resolve();
-  HTMLMediaElement.prototype.pause = () => Promise.resolve();
-});
-
-afterAll(() => {
-  HTMLMediaElement.prototype.play = HTMLMediaElement_play;
-  HTMLMediaElement.prototype.pause = HTMLMediaElement_pause;
-});
-
 describe('<CustomMediaPlayer />', () => {
+  let componentToBeUnmounted: ReactWrapper<any>;
+
   const setup = (props?: Partial<CustomMediaPlayerProps>) => {
     const onChange = jest.fn();
     const createAnalyticsEventHandler = jest.fn();
@@ -90,16 +93,29 @@ describe('<CustomMediaPlayer />', () => {
         {...props}
       />,
     );
+    componentToBeUnmounted = component;
 
     const triggerFullscreen = () => {
-      component.simulate('fullscreenchange', {});
-
       const videoWrapperRef = component.instance().videoWrapperRef;
       if (!videoWrapperRef) {
         return expect(videoWrapperRef).toBeDefined();
       }
+      asMockFunction(getFullscreenElement).mockReturnValue({} as HTMLElement);
       const event = new Event('fullscreenchange');
       videoWrapperRef.dispatchEvent(event);
+      component.update();
+    };
+
+    const triggerPlay = () => {
+      getPlayPauseButton().simulate('click');
+      getVideoElement().simulate('play');
+    };
+
+    const triggerKeydown = (code: string) => {
+      const event = new KeyboardEvent('keydown', {
+        code,
+      });
+      document.dispatchEvent(event);
       component.update();
     };
 
@@ -115,61 +131,150 @@ describe('<CustomMediaPlayer />', () => {
       .find(Button)
       .filter({ testId: 'custom-media-player-fullscreen-button' });
 
-    const playButton = component
-      .find(Button)
-      .filter({ testId: 'custom-media-player-play-toggle-button' });
+    const getPlayPauseButton = () =>
+      component
+        .find(Button)
+        .filter({ testId: 'custom-media-player-play-toggle-button' });
 
     const muteButton = component
       .find(Button)
       .filter({ testId: 'custom-media-player-volume-toggle-button' });
 
+    const skipBackwardButton = component
+      .find(Button)
+      .filter({ testId: 'custom-media-player-skip-backward-button' });
+
+    const skipForwardButton = component
+      .find(Button)
+      .filter({ testId: 'custom-media-player-skip-forward-button' });
+
+    const blanket = component.find(PlayPauseBlanket);
+
+    const getTimeRange = () => component.find(TimeRange).at(0);
+    const getVolumeRange = () => component.find(TimeRange).at(1);
+    const getSliderTime = () => getTimeRange().prop('currentTime');
+    const getVolumeLevel = () => getVolumeRange().prop('currentTime');
+
+    const getVideoElement = () => component.find('video');
+
     const setWidth = component.find(WidthObserver).at(0).props().setWidth;
+
+    const getUIAnalyticsEventDetails = (callIndex: number = 1) => {
+      //event handler 1st call is screen event, 2nd is ui event
+      const payload = createAnalyticsEventHandler.mock.calls[callIndex][0];
+      const { attributes } = payload || {};
+      return {
+        payload,
+        attributes,
+      };
+    };
 
     return {
       component,
       onChange,
       createAnalyticsEventHandler,
       triggerFullscreen,
+      triggerPlay,
       downloadButton,
       hdButton,
       fullscreenButton,
-      playButton,
+      getPlayPauseButton,
       muteButton,
       setWidth,
+      skipBackwardButton,
+      skipForwardButton,
+      getTimeRange,
+      getSliderTime,
+      getVolumeLevel,
+      getVolumeRange,
+      getVideoElement,
+      triggerKeydown,
+      blanket,
+      getUIAnalyticsEventDetails,
     };
   };
 
+  beforeAll(() => {
+    jest.useFakeTimers();
+  });
+
+  beforeEach(() => {
+    asMock(toggleFullscreen).mockReset();
+    asMock(getFullscreenElement).mockReset();
+    HTMLMediaElement.prototype.play = jest.fn(() => Promise.resolve());
+    HTMLMediaElement.prototype.pause = jest.fn(() => Promise.resolve());
+  });
+
+  afterAll(() => {
+    jest.useRealTimers();
+  });
+
+  afterEach(() => {
+    HTMLMediaElement.prototype.play = HTMLMediaElement_play;
+    HTMLMediaElement.prototype.pause = HTMLMediaElement_pause;
+    if (componentToBeUnmounted && componentToBeUnmounted.length) {
+      componentToBeUnmounted.unmount();
+    }
+  });
+
   describe('render', () => {
     it('should render the video element', () => {
-      const { component } = setup();
+      const { getVideoElement } = setup();
 
-      expect(component.find('video')).toHaveLength(1);
+      expect(getVideoElement()).toHaveLength(1);
     });
 
-    it('should render the right icon based on the video state (play/pause)', () => {
-      const { playButton } = setup();
+    it('should render play button icon at first', async () => {
+      const { getPlayPauseButton } = setup({ isAutoPlay: false });
 
-      expect(playButton.prop('iconBefore').type).toEqual(VidPlayIcon);
+      let iconBefore = getPlayPauseButton().prop('iconBefore');
+      expect(iconBefore.type).toEqual(VidPlayIcon);
+      expect(iconBefore.props.label).toEqual('fakeIntl["Play"]');
+    });
+
+    it('should have tooltip around play button', () => {
+      const { getPlayPauseButton } = setup({ isAutoPlay: false });
+      const tooltip = getPlayPauseButton().parents(Tooltip);
+      expect(tooltip).toHaveLength(1);
+      expect(tooltip.prop('content')).toEqual('fakeIntl["Play"]');
+    });
+
+    it('should have tooltip around pause button', () => {
+      const { getPlayPauseButton, triggerPlay } = setup({ isAutoPlay: false });
+      triggerPlay();
+
+      const tooltip = getPlayPauseButton().parents(Tooltip);
+      expect(tooltip).toHaveLength(1);
+      expect(tooltip.prop('content')).toEqual('fakeIntl["Pause"]');
+    });
+
+    it('should render pause button when play has been pressed', () => {
+      const { getPlayPauseButton, triggerPlay } = setup({ isAutoPlay: false });
+      triggerPlay();
+
+      let iconBefore = getPlayPauseButton().prop('iconBefore');
+      expect(iconBefore.type).toEqual(VidPauseIcon);
+      expect(iconBefore.props.label).toEqual('fakeIntl["Pause"]');
     });
 
     it('should render a time range with the time properties', () => {
-      const { component } = setup();
+      const { getTimeRange } = setup();
 
-      expect(component.find(TimeRange).length).toBeGreaterThan(1);
+      expect(getTimeRange()).toHaveLength(1);
       const expectedProps: Partial<TimeRangeProps> = {
         currentTime: 0,
         duration: 0,
         bufferedTime: 0,
       };
-      expect(component.find(TimeRange).at(0).props()).toEqual(
+      expect(getTimeRange().props()).toEqual(
         expect.objectContaining(expectedProps),
       );
     });
 
     it('should render the volume controls', () => {
-      const { component } = setup();
+      const { getVolumeLevel } = setup();
 
-      expect(component.find(TimeRange).at(1).prop('currentTime')).toEqual(1);
+      expect(getVolumeLevel()).toEqual(1);
     });
 
     it('should render the time (current/total) in the right format', () => {
@@ -185,9 +290,43 @@ describe('<CustomMediaPlayer />', () => {
     });
 
     it('should render the playPauseBlanket', () => {
-      const { component } = setup();
+      const { blanket } = setup();
 
-      expect(component.find(PlayPauseBlanket)).toHaveLength(1);
+      expect(blanket).toHaveLength(1);
+    });
+
+    it('should render the skip backward button', () => {
+      const { skipBackwardButton } = setup();
+
+      expect(skipBackwardButton).toHaveLength(1);
+      const beforeIcon = skipBackwardButton.props().iconBefore;
+      expect(beforeIcon.type).toEqual(SkipTenBackwardIcon);
+      expect(beforeIcon.props.label).toEqual('fakeIntl["Back 10 seconds"]');
+    });
+
+    it('should render the skip forward button', () => {
+      const { skipForwardButton } = setup();
+
+      expect(skipForwardButton).toHaveLength(1);
+      const beforeIcon = skipForwardButton.props().iconBefore;
+      expect(beforeIcon.type).toEqual(SkipTenForwardIcon);
+      expect(beforeIcon.props.label).toEqual('fakeIntl["Forward 10 seconds"]');
+    });
+
+    it('should render tooltip around skip backward button', () => {
+      const { skipBackwardButton } = setup();
+
+      const tooltip = skipBackwardButton.parents(Tooltip);
+      expect(tooltip).toHaveLength(1);
+      expect(tooltip.prop('content')).toEqual('fakeIntl["Back 10 seconds"]');
+    });
+
+    it('should render tooltip around skip forward button', () => {
+      const { skipForwardButton } = setup();
+
+      const tooltip = skipForwardButton.parents(Tooltip);
+      expect(tooltip).toHaveLength(1);
+      expect(tooltip.prop('content')).toEqual('fakeIntl["Forward 10 seconds"]');
     });
 
     describe('when hd is available', () => {
@@ -221,9 +360,9 @@ describe('<CustomMediaPlayer />', () => {
     });
 
     it('should render spinner when the video is in loading state', () => {
-      const { component } = setup();
+      const { component, getVideoElement } = setup();
 
-      component.find('video').simulate('waiting');
+      getVideoElement().simulate('waiting');
       expect(component.find(Spinner)).toHaveLength(1);
     });
 
@@ -248,6 +387,87 @@ describe('<CustomMediaPlayer />', () => {
 
       expect(playbackSpeed).toEqual(1);
     });
+
+    describe('when shortcut are enabled', () => {
+      it('should render two shortcuts', () => {
+        const { component } = setup({
+          isShortcutEnabled: true,
+        });
+        expect(component.find(Shortcut)).toHaveLength(2);
+      });
+
+      it('should render play/pause shortcut', () => {
+        const { component } = setup({
+          isShortcutEnabled: true,
+        });
+        const shortcut = component
+          .find(Shortcut)
+          .filter({ code: keyCodes.space });
+        expect(shortcut).toHaveLength(1);
+      });
+
+      it('should render mute shortcut', () => {
+        const { component } = setup({
+          isShortcutEnabled: true,
+        });
+        const shortcut = component.find(Shortcut).filter({ code: keyCodes.m });
+        expect(shortcut).toHaveLength(1);
+      });
+    });
+
+    describe('when shortcut are disabled', () => {
+      let component: ReturnType<typeof setup>['component'];
+      let triggerFullScreen: ReturnType<typeof setup>['triggerFullscreen'];
+
+      beforeEach(() => {
+        const res = setup({
+          isShortcutEnabled: false,
+        });
+        component = res.component;
+        triggerFullScreen = res.triggerFullscreen;
+      });
+
+      it('should not render any shortcut', () => {
+        const { component } = setup({
+          isShortcutEnabled: false,
+        });
+        expect(component.find(Shortcut)).toHaveLength(0);
+      });
+
+      describe('and in fullscreen mode', () => {
+        beforeEach(() => {
+          triggerFullScreen();
+        });
+
+        it('should render play/pause shortcut ', () => {
+          const shortcut = component
+            .find(Shortcut)
+            .filter({ code: keyCodes.space });
+          expect(shortcut).toHaveLength(1);
+        });
+
+        it('should render mute shortcut', () => {
+          const shortcut = component
+            .find(Shortcut)
+            .filter({ code: keyCodes.m });
+          expect(shortcut).toHaveLength(1);
+        });
+
+        it('should render skip backward shortcut', () => {
+          const shortcut = component
+            .find(Shortcut)
+            .filter({ code: keyCodes.leftArrow });
+          expect(shortcut).toHaveLength(1);
+        });
+
+        it('should render skip forward shortcut', () => {
+          const shortcut = component
+            .find(Shortcut)
+            .filter({ code: keyCodes.rightArrow });
+          expect(shortcut).toHaveLength(1);
+        });
+      });
+    });
   });
 
   describe('interaction', () => {
@@ -259,24 +479,46 @@ describe('<CustomMediaPlayer />', () => {
       asMock(simultaneousPlayManager.pauseOthers).mockRestore();
     });
 
-    it('should use keyboard shortcuts to toggle video state', () => {
+    it('should start play when play button is pressed', () => {
+      const { getPlayPauseButton, getVideoElement } = setup({
+        isAutoPlay: false,
+      });
+      getPlayPauseButton().simulate('click');
+      expect(
+        (getVideoElement().getDOMNode() as HTMLVideoElement).play,
+      ).toHaveBeenCalledTimes(1);
+    });
+
+    it('should pause video when pause button is pressed', () => {
+      const { getPlayPauseButton, getVideoElement, triggerPlay } = setup({
+        isAutoPlay: false,
+      });
+      triggerPlay();
+
+      getPlayPauseButton().simulate('click');
+      expect(
+        (getVideoElement().getDOMNode() as HTMLVideoElement).pause,
+      ).toHaveBeenCalledTimes(1);
+    });
+
+    it('should show controls when any of the shortcut activated', () => {
       const showControls = jest.fn();
       const { component } = setup({ showControls, isShortcutEnabled: true });
 
-      component.find(Shortcut).first().prop('handler')();
-      component.find(Shortcut).last().prop('handler')();
+      const shortcuts = component.find(Shortcut);
+      shortcuts.forEach((comp) => comp.prop('handler')());
 
-      expect(component.find(Shortcut)).toHaveLength(2);
-      expect(showControls).toHaveBeenCalledTimes(2);
+      expect(showControls).toHaveBeenCalledTimes(shortcuts.length);
     });
+
     it('should fire callback when hd button is clicked', () => {
       const onHDToggleClick = jest.fn();
-      const { component } = setup({
+      const { hdButton } = setup({
         isHDAvailable: true,
         onHDToggleClick,
       });
 
-      component.find(Button).at(2).simulate('click');
+      hdButton.simulate('click');
       expect(onHDToggleClick).toHaveBeenCalledTimes(1);
     });
 
@@ -288,29 +530,30 @@ describe('<CustomMediaPlayer />', () => {
     });
 
     it('should play/pause when playPauseBlanket is clicked', () => {
-      const { component } = setup({ isAutoPlay: true });
+      const { blanket } = setup({ isAutoPlay: true });
 
       expect(simultaneousPlayManager.pauseOthers).toHaveBeenCalledTimes(1);
-      component.find(PlayPauseBlanket).simulate('click');
+      blanket.simulate('click');
+      jest.runOnlyPendingTimers();
       expect(simultaneousPlayManager.pauseOthers).toHaveBeenCalledTimes(2);
     });
 
     it('should update TimeRange when time changes', () => {
-      const { component } = setup();
+      const { getVideoElement, getTimeRange } = setup();
 
-      component.find('video').simulate('timeUpdate', {
+      getVideoElement().simulate('timeUpdate', {
         target: {
           currentTime: 10,
           buffered: [],
         },
       });
-      expect(component.find(TimeRange).at(0).prop('currentTime')).toEqual(10);
+      expect(getTimeRange().prop('currentTime')).toEqual(10);
     });
 
     it('should update buffered time when it changes', () => {
-      const { component } = setup();
+      const { getVideoElement, getTimeRange } = setup();
 
-      component.find('video').simulate('timeUpdate', {
+      getVideoElement().simulate('timeUpdate', {
         target: {
           currentTime: 10,
           buffered: {
@@ -319,18 +562,18 @@ describe('<CustomMediaPlayer />', () => {
           },
         },
       });
-      expect(component.find(TimeRange).at(0).prop('bufferedTime')).toEqual(10);
+      expect(getTimeRange().prop('bufferedTime')).toEqual(10);
     });
 
     it("should update Volume's TimeRange when volume changes", () => {
-      const { component } = setup();
+      const { getVideoElement, getVolumeLevel } = setup();
 
-      component.find('video').simulate('volumeChange', {
+      getVideoElement().simulate('volumeChange', {
         target: {
           volume: 0.3,
         },
       });
-      expect(component.find(TimeRange).at(1).prop('currentTime')).toEqual(0.3);
+      expect(getVolumeLevel()).toEqual(0.3);
     });
 
     it('should update playback speed when speed is changed', () => {
@@ -341,6 +584,178 @@ describe('<CustomMediaPlayer />', () => {
       expect(
         component.find(PlaybackSpeedControls).prop('playbackSpeed'),
       ).toEqual(2);
+    });
+
+    it('should update time position when skip forward is pressed', () => {
+      const { getVideoElement, skipForwardButton, getSliderTime } = setup();
+      getVideoElement().simulate('canPlay', {
+        target: {
+          currentTime: 0,
+          volume: 0.5,
+          duration: 25,
+        },
+      });
+
+      getVideoElement().simulate('timeUpdate', {
+        target: {
+          currentTime: 0,
+          buffered: [],
+        },
+      });
+
+      expect(getSliderTime()).toEqual(0);
+      skipForwardButton.simulate('click');
+      expect(getSliderTime()).toEqual(10);
+      skipForwardButton.simulate('click');
+      expect(getSliderTime()).toEqual(20);
+      skipForwardButton.simulate('click');
+      expect(getSliderTime()).toEqual(25);
+      skipForwardButton.simulate('click');
+      expect(getSliderTime()).toEqual(25);
+    });
+
+    it('should update time position when skip backward is pressed', () => {
+      const { getVideoElement, skipBackwardButton, getSliderTime } = setup();
+
+      getVideoElement().simulate('timeUpdate', {
+        target: {
+          currentTime: 15,
+          buffered: {
+            length: 1,
+            end: () => 15,
+          },
+        },
+      });
+      expect(getSliderTime()).toEqual(15);
+      skipBackwardButton.simulate('click');
+      expect(getSliderTime()).toEqual(5);
+      skipBackwardButton.simulate('click');
+      expect(getSliderTime()).toEqual(0);
+      skipBackwardButton.simulate('click');
+      expect(getSliderTime()).toEqual(0);
+    });
+
+    it('should mute when speaker is clicked', () => {
+      const { muteButton, getVideoElement } = setup();
+      muteButton.simulate('click');
+      expect(
+        (getVideoElement().getDOMNode() as HTMLVideoElement).volume,
+      ).toEqual(0);
+    });
+
+    it('should unmute when speaker is clicked after being muted', () => {
+      const { muteButton, getVideoElement } = setup();
+      muteButton.simulate('click');
+      muteButton.simulate('click');
+      expect(
+        (getVideoElement().getDOMNode() as HTMLVideoElement).volume,
+      ).toEqual(1);
+    });
+
+    it('should enter fullscreen when blanket double clicked', () => {
+      const { getVideoElement, blanket } = setup();
+
+      // To simulation double click we need to call double click handler itself,
+      // but also make two clicks with some delay in between.
+      blanket.simulate('click');
+      jest.advanceTimersByTime(50);
+      // Making sure first of two clicks didn't trigger play while double clicking prcedure
+      expect(
+        (getVideoElement().getDOMNode() as HTMLVideoElement).play,
+      ).toHaveBeenCalledTimes(0);
+      blanket.simulate('click');
+
+      blanket.simulate('doubleClick');
+
+      expect(toggleFullscreen).toHaveBeenCalledTimes(1);
+
+      jest.runOnlyPendingTimers();
+      // Still no play toggle happened
+      expect(
+        (getVideoElement().getDOMNode() as HTMLVideoElement).play,
+      ).toHaveBeenCalledTimes(0);
+    });
+
+    describe('when shortcut are enabled', () => {
+      it('should start play when space bar is pressed', () => {
+        const { getVideoElement, triggerKeydown } = setup({
+          isShortcutEnabled: true,
+        });
+
+        triggerKeydown(keyCodes.space);
+
+        expect(
+          (getVideoElement().getDOMNode() as HTMLVideoElement).play,
+        ).toHaveBeenCalledTimes(1);
+      });
+
+      it('should stop play when space bar is pressed second time', () => {
+        const { getVideoElement, triggerKeydown } = setup({
+          isShortcutEnabled: true,
+        });
+
+        triggerKeydown(keyCodes.space);
+        getVideoElement().simulate('play');
+        triggerKeydown(keyCodes.space);
+
+        expect(
+          (getVideoElement().getDOMNode() as HTMLVideoElement).pause,
+        ).toHaveBeenCalledTimes(1);
+      });
+
+      it('should mute and unmute when "m" keypress continuously', () => {
+        const { getVideoElement, triggerKeydown } = setup({
+          isShortcutEnabled: true,
+        });
+
+        triggerKeydown(keyCodes.m);
+        expect(
+          (getVideoElement().getDOMNode() as HTMLVideoElement).volume,
+        ).toEqual(0);
+        triggerKeydown(keyCodes.m);
+        expect(
+          (getVideoElement().getDOMNode() as HTMLVideoElement).volume,
+        ).toEqual(1);
+      });
+    });
+
+    describe('when fullscreen is enabled', () => {
+      let triggerKeydown: ReturnType<typeof setup>['triggerKeydown'];
+      let getSliderTime: ReturnType<typeof setup>['getSliderTime'];
+
+      beforeEach(() => {
+        const res = setup();
+        const getVideoElement = res.getVideoElement;
+        const triggerFullScreen = res.triggerFullscreen;
+        getSliderTime = res.getSliderTime;
+        triggerKeydown = res.triggerKeydown;
+        triggerFullScreen();
+
+        getVideoElement().simulate('canPlay', {
+          target: {
+            currentTime: 15,
+            volume: 0.5,
+            duration: 40,
+          },
+        });
+
+        getVideoElement().simulate('timeUpdate', {
+          target: {
+            currentTime: 15,
+            buffered: [],
+          },
+        });
+      });
+
+      it('should skip back when left arrow pressed', () => {
+        triggerKeydown(keyCodes.leftArrow);
+        expect(getSliderTime()).toEqual(5);
+      });
+
+      it('should skip forward when right arrow pressed', () => {
+        triggerKeydown(keyCodes.rightArrow);
+        expect(getSliderTime()).toEqual(25);
+      });
     });
   });
 
@@ -387,9 +802,9 @@ describe('<CustomMediaPlayer />', () => {
     });
 
     it('should pause other players when click play button', () => {
-      const { playButton } = setup({ isAutoPlay: false });
+      const { getPlayPauseButton } = setup({ isAutoPlay: false });
 
-      playButton.simulate('click');
+      getPlayPauseButton().simulate('click');
       expect(simultaneousPlayManager.pauseOthers).toHaveBeenCalledTimes(1);
     });
 
@@ -464,410 +879,452 @@ describe('<CustomMediaPlayer />', () => {
   });
 
   describe('analytics', () => {
-    it('should render a track event when a video is played for the first time', () => {
-      const onFirstPlay = jest.fn();
-      const { component, createAnalyticsEventHandler } = setup({
-        onFirstPlay,
-        isHDAvailable: true,
-        isAutoPlay: true,
-      });
-      expect(onFirstPlay).toHaveBeenCalledTimes(1);
-
-      // Accessing private variable since there are no other way to simulate user starting play
-      // via external MediaPlayer component.
-      (component.instance() as any).play();
-      expect(onFirstPlay).toHaveBeenCalledTimes(1);
-
-      //event handler 1st call is screen event, 2nd is track event
-      const payload = createAnalyticsEventHandler.mock.calls[1][0];
-
-      expect(payload).toEqual(
+    const assertPayload = (
+      actualPayload: any,
+      payload: {
+        action: 'clicked' | 'pressed' | 'changed' | 'navigated';
+        actionSubject: string;
+        actionSubjectId?: string;
+      },
+      attributes: any,
+    ) => {
+      expect(actualPayload).toEqual(
         expect.objectContaining({
-          eventType: 'track',
-          action: 'firstPlayed',
-          actionSubject: 'customMediaPlayer',
-          actionSubjectId: 'some-file-id',
-          attributes: {
-            fileAttributes: { fileId: 'some-file-id' },
-            playbackAttributes: {
-              absoluteTimeInSec: undefined,
-              durationInSec: undefined,
-              isAutoPlay: true,
-              isFullScreenEnabled: false,
-              isHDActive: undefined,
-              isHDAvailable: true,
-              isLargePlayer: true,
-              isMuted: undefined,
-              playbackSpeed: 1,
-              relativeTime: undefined,
-              status: undefined,
-              volume: undefined,
-            },
-            type: 'video',
-          },
+          eventType: 'ui',
+          ...payload,
+          attributes: expect.objectContaining({
+            ...attributes,
+          }),
         }),
       );
-    });
+    };
 
     it('should fire clicked event when play button is clicked', () => {
-      const { playButton, createAnalyticsEventHandler } = setup({
+      const { triggerPlay, getUIAnalyticsEventDetails } = setup({
         isAutoPlay: false,
       });
 
-      playButton.simulate('click');
+      triggerPlay();
 
-      //event handler 1st call is screen event, 2nd is ui event
-      const payload = createAnalyticsEventHandler.mock.calls[1][0];
-      const { attributes } = payload || {};
-      const { playbackAttributes } = attributes || {};
+      const { payload } = getUIAnalyticsEventDetails();
 
-      expect(payload).toEqual(
-        expect.objectContaining({
-          eventType: 'ui',
+      assertPayload(
+        payload,
+        {
           action: 'clicked',
           actionSubject: 'button',
           actionSubjectId: 'playButton',
-        }),
-      );
-
-      expect(attributes).toEqual(
-        expect.objectContaining({
+        },
+        {
           type: 'video',
           fileAttributes: {
             fileId: 'some-file-id',
           },
-        }),
+          playbackAttributes: expect.objectContaining({
+            status: 'paused',
+          }),
+        },
       );
+    });
 
-      expect(playbackAttributes).toEqual(
-        expect.objectContaining({
-          status: 'paused',
-        }),
+    it('should fire clicked event when pause button is clicked', () => {
+      const {
+        triggerPlay,
+        getPlayPauseButton,
+        getUIAnalyticsEventDetails,
+      } = setup({
+        isAutoPlay: false,
+      });
+
+      triggerPlay();
+
+      // Pause
+      getPlayPauseButton().simulate('click');
+
+      const { payload } = getUIAnalyticsEventDetails(2);
+
+      assertPayload(
+        payload,
+        {
+          action: 'clicked',
+          actionSubject: 'button',
+          actionSubjectId: 'pauseButton',
+        },
+        {
+          type: 'video',
+          fileAttributes: {
+            fileId: 'some-file-id',
+          },
+          playbackAttributes: expect.objectContaining({
+            status: 'playing',
+          }),
+        },
       );
     });
 
     it('should fire pressed event when space key is pressed', () => {
-      const { component, createAnalyticsEventHandler } = setup({
+      const { triggerKeydown, getUIAnalyticsEventDetails } = setup({
         isShortcutEnabled: true,
       });
-      component.find(Shortcut).first().prop('handler')();
+      triggerKeydown(keyCodes.space);
 
-      const payload = createAnalyticsEventHandler.mock.calls[1][0];
-      const { attributes } = payload || {};
+      const { payload } = getUIAnalyticsEventDetails();
 
-      expect(payload).toEqual(
-        expect.objectContaining({
-          eventType: 'ui',
+      assertPayload(
+        payload,
+        {
           action: 'pressed',
           actionSubject: 'shortcut',
           actionSubjectId: 'space',
-        }),
-      );
-
-      expect(attributes).toEqual(
-        expect.objectContaining({
+        },
+        {
           type: 'video',
           fileAttributes: {
             fileId: 'some-file-id',
           },
-        }),
+        },
       );
     });
 
     it('should fire pressed event when mute key is pressed', () => {
-      const { component, createAnalyticsEventHandler } = setup({
+      const { triggerKeydown, getUIAnalyticsEventDetails } = setup({
         isShortcutEnabled: true,
       });
-      component.find(Shortcut).last().prop('handler')();
 
-      const payload = createAnalyticsEventHandler.mock.calls[1][0];
-      const { attributes } = payload || {};
+      triggerKeydown(keyCodes.m);
 
-      expect(payload).toEqual(
-        expect.objectContaining({
-          eventType: 'ui',
+      const { payload } = getUIAnalyticsEventDetails();
+
+      assertPayload(
+        payload,
+        {
           action: 'pressed',
           actionSubject: 'shortcut',
           actionSubjectId: 'mute',
-        }),
-      );
-
-      expect(attributes).toEqual(
-        expect.objectContaining({
+        },
+        {
           type: 'video',
           fileAttributes: {
             fileId: 'some-file-id',
           },
-        }),
+        },
       );
     });
 
     it('should fire clicked event when mute button is clicked', () => {
-      const { muteButton, createAnalyticsEventHandler } = setup();
+      const { muteButton, getUIAnalyticsEventDetails } = setup();
 
       muteButton.simulate('click');
 
-      //event handler 1st call is screen event, 2nd is ui event
-      const payload = createAnalyticsEventHandler.mock.calls[1][0];
-      const { attributes } = payload || {};
+      const { payload } = getUIAnalyticsEventDetails();
 
-      expect(payload).toEqual(
-        expect.objectContaining({
-          eventType: 'ui',
+      assertPayload(
+        payload,
+        {
           action: 'clicked',
           actionSubject: 'button',
           actionSubjectId: 'muteButton',
-        }),
-      );
-
-      expect(attributes).toEqual(
-        expect.objectContaining({
+        },
+        {
           type: 'video',
           fileAttributes: {
             fileId: 'some-file-id',
           },
-        }),
+        },
       );
     });
 
     it('should fire clicked event when playbackSpeed button is clicked', () => {
-      const { component, createAnalyticsEventHandler } = setup();
+      const { component, getUIAnalyticsEventDetails } = setup();
       const playbackSpeedButton = component
         .find(Button)
         .filter({ testId: 'custom-media-player-playback-speed-toggle-button' });
 
       playbackSpeedButton.simulate('click');
 
-      //event handler 1st call is screen event, 2nd is ui event
-      const payload = createAnalyticsEventHandler.mock.calls[1][0];
-      const { attributes } = payload || {};
+      const { payload } = getUIAnalyticsEventDetails();
 
-      expect(payload).toEqual(
-        expect.objectContaining({
-          eventType: 'ui',
+      assertPayload(
+        payload,
+        {
           action: 'clicked',
           actionSubject: 'button',
           actionSubjectId: 'playbackSpeedButton',
-        }),
-      );
-
-      expect(attributes).toEqual(
-        expect.objectContaining({
+        },
+        {
           type: 'video',
           fileAttributes: {
             fileId: 'some-file-id',
           },
-        }),
+        },
       );
     });
 
     it('should fire changed event when play Speed is changed', () => {
-      const { component, createAnalyticsEventHandler } = setup();
+      const { component, getUIAnalyticsEventDetails } = setup();
       component.find(PlaybackSpeedControls).prop('onPlaybackSpeedChange')(2);
 
-      //event handler 1st call is screen event, 2nd is ui event
-      const payload = createAnalyticsEventHandler.mock.calls[1][0];
-      const { attributes } = payload || {};
+      const { payload } = getUIAnalyticsEventDetails();
 
-      expect(payload).toEqual(
-        expect.objectContaining({
-          eventType: 'ui',
+      assertPayload(
+        payload,
+        {
           action: 'changed',
           actionSubject: 'playbackSpeed',
-        }),
-      );
-
-      expect(attributes).toEqual(
-        expect.objectContaining({
+        },
+        {
           type: 'video',
           fileAttributes: {
             fileId: 'some-file-id',
           },
-        }),
+        },
       );
     });
 
     it('should fire clicked event when fullScreen button is clicked', () => {
-      const { fullscreenButton, createAnalyticsEventHandler } = setup();
+      const { fullscreenButton, getUIAnalyticsEventDetails } = setup();
 
       fullscreenButton.simulate('click');
 
-      //event handler 1st call is screen event, 2nd is ui event
-      const payload = createAnalyticsEventHandler.mock.calls[1][0];
-      const { attributes } = payload || {};
+      const { payload } = getUIAnalyticsEventDetails();
 
-      expect(payload).toEqual(
-        expect.objectContaining({
-          eventType: 'ui',
+      assertPayload(
+        payload,
+        {
           action: 'clicked',
           actionSubject: 'button',
           actionSubjectId: 'fullScreenButton',
-        }),
-      );
-
-      expect(attributes).toEqual(
-        expect.objectContaining({
+        },
+        {
           type: 'video',
           fileAttributes: {
             fileId: 'some-file-id',
           },
-        }),
+        },
       );
     });
 
     it('should fire clicked event when download button is clicked', () => {
       const onDownloadClick = jest.fn();
-      const { downloadButton, createAnalyticsEventHandler } = setup({
+      const { downloadButton, getUIAnalyticsEventDetails } = setup({
         onDownloadClick,
       });
 
       downloadButton.simulate('click');
 
-      //event handler 1st call is screen event, 2nd is ui event
-      const payload = createAnalyticsEventHandler.mock.calls[1][0];
-      const { attributes } = payload || {};
+      const { payload } = getUIAnalyticsEventDetails();
 
-      expect(payload).toEqual(
-        expect.objectContaining({
-          eventType: 'ui',
+      assertPayload(
+        payload,
+        {
           action: 'clicked',
           actionSubject: 'button',
           actionSubjectId: 'downloadButton',
-        }),
-      );
-
-      expect(attributes).toEqual(
-        expect.objectContaining({
+        },
+        {
           type: 'video',
           fileAttributes: {
             fileId: 'some-file-id',
           },
-        }),
+        },
       );
     });
 
     it('should fire clicked event when HD button is clicked', () => {
       const onHDToggleClick = jest.fn();
-      const { hdButton, createAnalyticsEventHandler } = setup({
+      const { hdButton, getUIAnalyticsEventDetails } = setup({
         isHDAvailable: true,
         onHDToggleClick,
       });
 
       hdButton.simulate('click');
 
-      //event handler 1st call is screen event, 2nd is ui event
-      const payload = createAnalyticsEventHandler.mock.calls[1][0];
-      const { attributes } = payload || {};
+      const { payload } = getUIAnalyticsEventDetails();
 
-      expect(payload).toEqual(
-        expect.objectContaining({
-          eventType: 'ui',
+      assertPayload(
+        payload,
+        {
           action: 'clicked',
           actionSubject: 'button',
           actionSubjectId: 'HDButton',
-        }),
-      );
-
-      expect(attributes).toEqual(
-        expect.objectContaining({
+        },
+        {
           type: 'video',
           fileAttributes: {
             fileId: 'some-file-id',
           },
-        }),
+        },
       );
     });
 
     it('should fire clicked event when PlayPauseBlanket is clicked', () => {
-      const { component, createAnalyticsEventHandler } = setup({
+      const { blanket, getUIAnalyticsEventDetails } = setup({
         isAutoPlay: true,
       });
 
-      component.find(PlayPauseBlanket).simulate('click');
+      blanket.simulate('click');
+      jest.runOnlyPendingTimers();
 
-      //event handler 1st call is screen event, 2nd is ui event
-      const payload = createAnalyticsEventHandler.mock.calls[1][0];
-      const { attributes } = payload || {};
+      const { payload } = getUIAnalyticsEventDetails();
 
-      expect(payload).toEqual(
-        expect.objectContaining({
-          eventType: 'ui',
+      assertPayload(
+        payload,
+        {
           action: 'clicked',
           actionSubject: 'playPauseBlanket',
-        }),
-      );
-
-      expect(attributes).toEqual(
-        expect.objectContaining({
+        },
+        {
           type: 'video',
           fileAttributes: {
             fileId: 'some-file-id',
           },
-        }),
+        },
       );
     });
 
     it('should fire navigated event when TimeRange for time is changed', () => {
-      const { component, createAnalyticsEventHandler } = setup();
+      const { getTimeRange, getUIAnalyticsEventDetails } = setup();
 
-      const onChanged = component.find(TimeRange).at(0).prop('onChanged');
-
+      const onChanged = getTimeRange().prop('onChanged');
       if (onChanged) {
         onChanged();
       }
 
-      //event handler 1st call is screen event, 2nd is ui event
-      const payload = createAnalyticsEventHandler.mock.calls[1][0];
-      const { attributes } = payload || {};
-
-      expect(payload).toEqual(
-        expect.objectContaining({
-          eventType: 'ui',
+      const { payload } = getUIAnalyticsEventDetails();
+      assertPayload(
+        payload,
+        {
           action: 'navigated',
           actionSubject: 'timeRange',
           actionSubjectId: 'time',
-        }),
-      );
-
-      expect(attributes).toEqual(
-        expect.objectContaining({
+        },
+        {
           type: 'video',
           fileAttributes: {
             fileId: 'some-file-id',
           },
-        }),
+        },
       );
     });
 
     it('should fire navigated event when TimeRange for volume is changed', () => {
-      const { component, createAnalyticsEventHandler } = setup();
+      const { getVolumeRange, getUIAnalyticsEventDetails } = setup();
 
-      const onChanged = component.find(TimeRange).at(1).prop('onChanged');
-
+      const onChanged = getVolumeRange().prop('onChanged');
       if (onChanged) {
         onChanged();
       }
 
-      //event handler 1st call is screen event, 2nd is ui event
-      const payload = createAnalyticsEventHandler.mock.calls[1][0];
-      const { attributes } = payload || {};
-
-      expect(payload).toEqual(
-        expect.objectContaining({
-          eventType: 'ui',
+      const { payload } = getUIAnalyticsEventDetails();
+      assertPayload(
+        payload,
+        {
           action: 'navigated',
           actionSubject: 'timeRange',
           actionSubjectId: 'volume',
-        }),
-      );
-
-      expect(attributes).toEqual(
-        expect.objectContaining({
+        },
+        {
           type: 'video',
           fileAttributes: {
             fileId: 'some-file-id',
           },
-        }),
+        },
+      );
+    });
+
+    it('should fire click event when skip back is pressed', () => {
+      const { skipBackwardButton, getUIAnalyticsEventDetails } = setup();
+
+      skipBackwardButton.simulate('click');
+
+      const { payload } = getUIAnalyticsEventDetails();
+      assertPayload(
+        payload,
+        {
+          action: 'clicked',
+          actionSubject: 'button',
+          actionSubjectId: 'skipBackwardButton',
+        },
+        {
+          type: 'video',
+          fileAttributes: {
+            fileId: 'some-file-id',
+          },
+        },
+      );
+    });
+
+    it('should fire click event when skip forward is pressed', () => {
+      const { skipForwardButton, getUIAnalyticsEventDetails } = setup();
+
+      skipForwardButton.simulate('click');
+
+      const { payload } = getUIAnalyticsEventDetails();
+      assertPayload(
+        payload,
+        {
+          action: 'clicked',
+          actionSubject: 'button',
+          actionSubjectId: 'skipForwardButton',
+        },
+        {
+          type: 'video',
+          fileAttributes: {
+            fileId: 'some-file-id',
+          },
+        },
+      );
+    });
+
+    it('should fire press event when skip backward is activated by pressing left key', () => {
+      const {
+        getUIAnalyticsEventDetails,
+        triggerFullscreen,
+        triggerKeydown,
+      } = setup();
+      triggerFullscreen();
+      triggerKeydown(keyCodes.leftArrow);
+
+      const { payload } = getUIAnalyticsEventDetails();
+      assertPayload(
+        payload,
+        {
+          action: 'pressed',
+          actionSubject: 'shortcut',
+          actionSubjectId: 'leftArrow',
+        },
+        {
+          type: 'video',
+          fileAttributes: {
+            fileId: 'some-file-id',
+          },
+        },
+      );
+    });
+
+    it('should fire press event when skip forward is activated by pressing right key', () => {
+      const {
+        getUIAnalyticsEventDetails,
+        triggerFullscreen,
+        triggerKeydown,
+      } = setup();
+      triggerFullscreen();
+      triggerKeydown(keyCodes.rightArrow);
+
+      const { payload } = getUIAnalyticsEventDetails();
+      assertPayload(
+        payload,
+        {
+          action: 'pressed',
+          actionSubject: 'shortcut',
+          actionSubjectId: 'rightArrow',
+        },
+        {
+          type: 'video',
+          fileAttributes: {
+            fileId: 'some-file-id',
+          },
+        },
       );
     });
   });

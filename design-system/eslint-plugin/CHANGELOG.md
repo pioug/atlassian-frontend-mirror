@@ -1,5 +1,29 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 2.0.1
+
+### Patch Changes
+
+- [`b6a55ffa092`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b6a55ffa092) - Introduces fixes for various edge-cases and false positives:
+
+  - Objects that are not considered "style blocks" are now ignored. Style blocks are considered as objects assigned to variables with names containing either "style", "css", or "theme" and type annotations including "CSSProperties" or "CSSObject".
+  - Hexadecimal colors using the `0x` notation are now ignored
+
+  Increasing the linting surface-area:
+
+  - Colors used in shorthand css property values will now be linted against. (ie `border: solid 1px red`)
+  - Strings passed directly into JSX attributes (props) are now linted (ie `<Button color="red" />`)
+
+  General improvements:
+
+  - Color names will now only match against "whole" words. Meaning strings that inadvertently include color names like the "tan" in "standard" will no longer fail.
+
+  - Template literal styles are now linted against property values only. Meaning css property names that include colors like `white-space: nowrap` used in template literals will no longer error
+
+  - Increased test coverage
+
+- Updated dependencies
+
 ## 2.0.0
 
 ### Patch Changes

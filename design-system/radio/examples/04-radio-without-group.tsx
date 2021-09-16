@@ -1,4 +1,3 @@
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import React, { SyntheticEvent, useCallback, useState } from 'react';
 
 import { css } from '@emotion/core';
@@ -54,9 +53,11 @@ const items: Array<RadioOptions> = [
 const tableStyles = css({
   margin: '1em 0',
   padding: '0.5em',
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   borderColor: '#ccc',
   borderStyle: 'dashed',
   borderWidth: '1px',
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   color: '#ccc',
 });
 
@@ -87,6 +88,7 @@ export default function RadioInputExample() {
               onClick={() => setValue(item.value)}
               key={`${item.value}${item.name}${item.id}`}
               style={{
+                // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
                 backgroundColor: item.value === value ? B50 : 'transparent',
                 transition: 'background-color 200ms ease-in-out',
               }}

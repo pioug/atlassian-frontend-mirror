@@ -7,6 +7,7 @@ import Button from '@atlaskit/button/standard-button';
 
 import Editor from './../src/editor';
 import EditorContext from './../src/ui/EditorContext';
+import { LOCALSTORAGE_defaultTitleKey } from './5-full-page';
 import WithEditorActions from './../src/ui/WithEditorActions';
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
@@ -16,7 +17,9 @@ import { mentionResourceProviderWithResolver } from '@atlaskit/util-data-test/me
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
 import { customInsertMenuItems } from '@atlaskit/editor-test-helpers/mock-insert-menu';
 import { createSocketIOCollabProvider } from '@atlaskit/collab-provider/socket-io-provider';
+import { Provider } from '@atlaskit/collab-provider';
 import { EditorActions } from '../src';
+import { TitleInput } from '../example-helpers/PageElements';
 
 export const getRandomUser = () => {
   return Math.floor(Math.random() * 10000).toString();
@@ -79,7 +82,9 @@ class DropzoneEditorWrapper extends React.Component<
 
 const mediaProvider = storyMediaProviderFactory();
 
-export type Props = {};
+export type Props = {
+  onTitleChange?: (title: string) => void;
+};
 export type State = {
   isInviteToEditButtonSelected: boolean;
   documentId?: string;
@@ -87,6 +92,7 @@ export type State = {
   documentIdInput?: HTMLInputElement;
   collabUrlInput?: HTMLInputElement;
   hasError?: boolean;
+  title?: string;
 };
 
 const getQueryParam = (param: string) => {
@@ -94,7 +100,6 @@ const getQueryParam = (param: string) => {
   const urlParams = new URLSearchParams(win.document.location.search);
   return urlParams.get(param);
 };
-
 export default class Example extends React.Component<Props, State> {
   state = {
     isInviteToEditButtonSelected: false,
@@ -103,6 +108,7 @@ export default class Example extends React.Component<Props, State> {
     documentIdInput: undefined,
     collabUrlInput: undefined,
     hasError: false,
+    title: localStorage.getItem(LOCALSTORAGE_defaultTitleKey) || '',
   };
 
   componentDidCatch() {
@@ -161,6 +167,12 @@ export default class Example extends React.Component<Props, State> {
         status: err.status,
       });
     });
+    collabProvider.on('metadata:changed', (data: any) => {
+      this.setState({
+        title: data.title,
+      });
+    });
+
     return (
       <div>
         {this.renderErrorFlag()}
@@ -214,6 +226,22 @@ export default class Example extends React.Component<Props, State> {
                 allowExtension={true}
                 insertMenuItems={customInsertMenuItems}
                 extensionHandlers={extensionHandlers}
+                contentComponents={
+                  <WithEditorActions
+                    render={(actions) => (
+                      <>
+                        <TitleInput
+                          value={this.state.title}
+                          provider={collabProvider}
+                          onChange={this.handleTitleChange}
+                          onKeyDown={(e: KeyboardEvent) => {
+                            this.onKeyPressed(e, actions);
+                          }}
+                        />
+                      </>
+                    )}
+                  />
+                }
               />
             </EditorContext>
           )}
@@ -286,5 +314,26 @@ export default class Example extends React.Component<Props, State> {
       isInviteToEditButtonSelected: !this.state.isInviteToEditButtonSelected,
     });
     console.log('target', event.target);
+  };
+  private onKeyPressed = (e: KeyboardEvent, actions: EditorActions) => {
+    if ((e.key === 'Tab' && !e.shiftKey) || e.key === 'Enter') {
+      // Move to the editor view
+      const target = e.currentTarget as HTMLInputElement;
+      target.blur();
+      e.preventDefault();
+      actions.focus();
+      return false;
+    }
+    return;
+  };
+
+  private handleTitleChange = (e: KeyboardEvent, provider?: Provider) => {
+    const title = (e.target as HTMLInputElement).value;
+    if (provider) {
+      provider.setMetadata({ title });
+    }
+    this.setState({
+      title,
+    });
   };
 }

@@ -5,7 +5,7 @@ import { render } from '@testing-library/react';
 import { Spotlight, SpotlightManager, SpotlightTarget } from '../../../index';
 
 interface ElementStubProps {
-  testId: string;
+  testId?: string;
   children: React.ReactNode;
   height: number;
   width: number;

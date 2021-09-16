@@ -84,14 +84,18 @@ const InlineDialog: FC<InlineDialogProps> = memo<InlineDialogProps>(
     );
 
     useEffect(() => {
-      window.addEventListener('click', handleClickOutside, { capture: false });
-
-      return () => {
-        window.removeEventListener('click', handleClickOutside, {
+      if (isOpen) {
+        window.addEventListener('click', handleClickOutside, {
           capture: false,
         });
-      };
-    }, [handleClickOutside]);
+
+        return () => {
+          window.removeEventListener('click', handleClickOutside, {
+            capture: false,
+          });
+        };
+      }
+    }, [handleClickOutside, isOpen]);
 
     const popper = isOpen ? (
       <Popper placement={placement}>

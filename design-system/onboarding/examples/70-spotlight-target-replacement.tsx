@@ -1,7 +1,10 @@
-import React, { Component } from 'react';
+/** @jsx jsx */
+import { Component } from 'react';
 
+import { css, jsx } from '@emotion/core';
 import Lorem from 'react-lorem-component';
-import styled from 'styled-components';
+
+import { borderRadius as getBorderRadius } from '@atlaskit/theme/constants';
 
 import {
   Spotlight,
@@ -15,9 +18,10 @@ import logoInverted from './assets/logo-inverted.png';
 import logo from './assets/logo.png';
 import { Code } from './styled';
 
-const radius = 8;
+const borderRadius = getBorderRadius();
+
 const Replacement = (rect: any) => {
-  const style = { borderRadius: radius, overflow: 'hidden', ...rect };
+  const style = { borderRadius, overflow: 'hidden', ...rect };
 
   return (
     <SpotlightPulse style={style}>
@@ -25,11 +29,17 @@ const Replacement = (rect: any) => {
     </SpotlightPulse>
   );
 };
-const Image = styled.img`
-  border-radius: ${radius}px;
-  height: 128px;
-  width: 128px;
-`;
+
+const imageStyles = css({
+  width: '128px',
+  height: '128px',
+  borderRadius: `${borderRadius}px`,
+});
+
+const Image: React.FC<React.ImgHTMLAttributes<HTMLImageElement>> = ({
+  alt,
+  ...props
+}) => <img {...props} alt={alt} css={imageStyles} />;
 
 interface State {
   active: boolean;

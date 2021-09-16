@@ -33,10 +33,10 @@ const MyForm = () => (
 `}
 
 ### Form props
-  
+
   ${(
     <Props
-      props={require('!!extract-react-types-loader!../src/Form')}
+      props={require('!!extract-react-types-loader!../src/form')}
       heading=""
     />
   )}

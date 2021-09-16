@@ -96,10 +96,10 @@ export default defineMessages({
     description:
       'Delete the element (image, panel, table, etc.) from your document',
   },
-  hideEmoji: {
-    id: 'fabric.editor.hideEmoji',
-    defaultMessage: 'Hide emoji',
-    description: 'Hide the emoji panel icon from custom panel',
+  removeEmoji: {
+    id: 'fabric.editor.removeEmoji',
+    defaultMessage: 'Remove emoji',
+    description: 'Remove the emoji panel icon from custom panel',
   },
   visit: {
     id: 'fabric.editor.visit',

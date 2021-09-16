@@ -61,6 +61,7 @@ import {
 } from '../labs/next/presets/default';
 import { EditorPresetProps } from '../labs/next/presets/types';
 import { shouldForceTracking } from '@atlaskit/editor-common';
+import { LayoutPluginOptions } from '../plugins/layout/types';
 
 const isCodeBlockAllowed = (
   options?: Pick<BlockTypePluginOptions, 'allowBlockType'>,
@@ -433,6 +434,9 @@ export default function createPluginsList(
       {
         ...(typeof props.allowLayouts === 'boolean' ? {} : props.allowLayouts),
         useLongPressSelection: false,
+        UNSAFE_allowSingleColumnLayout: (<LayoutPluginOptions>(
+          props.allowLayouts
+        )).UNSAFE_allowSingleColumnLayout,
       },
     ]);
   }

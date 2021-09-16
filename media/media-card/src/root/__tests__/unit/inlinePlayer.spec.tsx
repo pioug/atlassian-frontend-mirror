@@ -10,7 +10,7 @@ jest.mock('@atlaskit/media-ui', () => {
 });
 import React from 'react';
 import { ReactWrapper } from 'enzyme';
-import { CustomMediaPlayer } from '@atlaskit/media-ui';
+import { CustomMediaPlayer, InactivityDetector } from '@atlaskit/media-ui';
 import {
   globalMediaEventEmitter,
   MediaViewedEventPayload,
@@ -387,6 +387,33 @@ describe('<InlinePlayer />', () => {
       {
         contentId: identifier.id,
       },
+    );
+  });
+
+  it('should provide showControls to MediaPlayer', async () => {
+    const mediaClient = fakeMediaClient();
+    asMockReturnValue(
+      mediaClient.file.getFileState,
+      createFileStateSubject({
+        status: 'uploading',
+        preview: {
+          value: new Blob([], { type: 'video/mp4' }),
+        },
+        id: '',
+        mediaType: 'image',
+        mimeType: '',
+        name: '',
+        progress: 0,
+        size: 0,
+      }),
+    );
+    const { component } = setup({ mediaClient });
+
+    await update(component);
+
+    const inactivityDetector = component.find(InactivityDetector).instance();
+    expect(component.find(CustomMediaPlayer).prop('showControls')).toBe(
+      (inactivityDetector as any).checkMouseMovement,
     );
   });
 });

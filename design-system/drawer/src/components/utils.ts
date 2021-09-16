@@ -1,10 +1,3 @@
-// This file is a copy paste from @atlaskit/checkbox/src/utils
-// This duplicate code should be handled by the following issue
-// https://ecosystem.atlassian.net/jira/servicedesk/projects/DS/issue/DS-7036
-export const defaultAttributesFn = <T extends Record<string, any>>(
-  p?: T,
-): Record<string, any> => ({});
-
 type OverridesFunc<
   X extends Record<string, any>,
   Y extends Record<string, any>

@@ -22,7 +22,7 @@ export default {
   'fabric.emoji.category.productivity': 'Üretkenlik',
   'fabric.emoji.category.symbols': 'Semboller',
   'fabric.emoji.category.user.uploads': 'Yükledikleriniz',
-  'fabric.emoji.choose.file.ariaLabel':
+  'fabric.emoji.choose.file.screenReaderDescription':
     'Emoji için bir dosya seçin. JPG, PNG veya GIF. Maksimum 1 MB boyutunda.',
   'fabric.emoji.choose.file.title': 'Dosya seçin',
   'fabric.emoji.delete.description':
@@ -40,5 +40,8 @@ export default {
   'fabric.emoji.preview': "Yeni emoji'niz {emoji} çok güzel görünüyor",
   'fabric.emoji.preview.title': 'Önizleme',
   'fabric.emoji.retry.label': 'Yeniden Dene',
-  'fabric.emoji.search.label': 'Ara',
+  'fabric.emoji.search.label': 'Emoji ara',
+  'fabric.emoji.search.placeholder': 'Ara',
+  'fabric.emoji.select.skin.tone.ariaLabel':
+    'Renk tonunu seçin, {selectedTone}',
 };

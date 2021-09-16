@@ -1,5 +1,7 @@
 /** @jsx jsx */
 
+import { FC } from 'react';
+
 import { CSSObject, jsx } from '@emotion/core';
 
 import { N500 } from '@atlaskit/theme/colors';
@@ -22,7 +24,8 @@ const defaultStyle = {
 
 const sidebarCSS = (): CSSObject => defaultStyle as CSSObject;
 
-const Sidebar = ({ cssFn, ...props }: SidebarProps) => {
+const Sidebar: FC<SidebarProps> = ({ cssFn, ...props }) => {
+  // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
   return <div css={cssFn(defaultStyle as CSSObject)} {...props} />;
 };
 

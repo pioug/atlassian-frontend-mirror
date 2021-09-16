@@ -10,6 +10,7 @@ import TooltipAvoidTitle from '../../examples/constellation/tooltip-avoid-title'
 import TooltipCustomization from '../../examples/constellation/tooltip-customization';
 import TooltipTag from '../../examples/constellation/tooltip-with-ref';
 import TooltipUpdate from '../../examples/constellation/tooltip-update';
+import TooltipRenderProps from '../../examples/constellation/tooltip-render-props';
 
 ## Default
 
@@ -25,7 +26,7 @@ The tooltip text wraps when the content is wider than the max-width. Additionall
 
 ## Positioning
 
-The tooltip position is flexible and changes depending on how close the element is to the edge of the screen. 
+The tooltip position is flexible and changes depending on how close the element is to the edge of the screen.
 
 The `top`, `right`, `bottom`, and `left` positions appear outside the target element, center-aligned along the appropriate axis. To place a tooltip in non-centered positions, see other placement `Options` in the <a rel="noopener noreferrer" href="https://popper.js.org/docs/v2/constructors/#options" target="_blank">React Popper v2 documentation</a>.
 
@@ -63,3 +64,9 @@ By default, a `div` element is used to wrap everything for `Tooltip` in a contai
 When the content of a visible tooltip changes, its position is not recalculated and the tooltip may become misaligned. If you need the tooltip to recalculate its position you can control this manually using the `update` render prop.
 
 <Example Component={TooltipUpdate} packageName="@atlaskit/tooltip" />
+
+## Accessibility
+
+The tooltip uses render props to provide aria attributes for users with assistive technologies.
+
+<Example Component={TooltipRenderProps} packageName="@atlaskit/tooltip" />

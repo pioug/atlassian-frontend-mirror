@@ -24,8 +24,8 @@
     }
   },
   "dependencies": {
-    "@atlaskit/adf-schema": "^19.1.0",
-    "@atlaskit/editor-common": "^60.0.0",
+    "@atlaskit/adf-schema": "^19.2.0",
+    "@atlaskit/editor-common": "^60.1.0",
     "@babel/runtime": "^7.0.0",
     "markdown-it": "^10.0.0",
     "markdown-it-table": "^2.0.4",
@@ -37,7 +37,7 @@
   },
   "devDependencies": {
     "@atlaskit/docs": "*",
-    "@atlaskit/editor-core": "^149.0.0",
+    "@atlaskit/editor-core": "^150.0.0",
     "@atlaskit/editor-test-helpers": "^15.4.0",
     "@atlaskit/util-data-test": "^16.0.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",

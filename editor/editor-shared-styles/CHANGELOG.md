@@ -1,5 +1,15 @@
 # @atlaskit/editor-shared-styles
 
+## 1.6.0
+
+### Minor Changes
+
+- [`1a07c1caf61`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1a07c1caf61) - CETI-93 - Fixed custom panel icon sizing and alignment when icon render as image
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.5.0
 
 ### Minor Changes

@@ -1,8 +1,10 @@
 import React from 'react';
 
+import { ThemeProvider as StyledThemeProvider } from 'styled-components';
+
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
-import { AtlaskitThemeProvider } from '@atlaskit/theme/components';
+import DeprecatedThemeProvider from '@atlaskit/theme/deprecated-provider-please-do-not-use';
 
 import { DynamicTableStateless } from '../src';
 
@@ -50,7 +52,10 @@ export default class extends React.Component<{}, State> {
 
   render() {
     return (
-      <AtlaskitThemeProvider mode={this.state.themeMode}>
+      <DeprecatedThemeProvider
+        mode={this.state.themeMode}
+        provider={StyledThemeProvider}
+      >
         <h4 style={paddingStyle}>
           Click on the buttons to highlight the corresponding row
         </h4>
@@ -69,7 +74,6 @@ export default class extends React.Component<{}, State> {
             Switch theme to {getOppositeTheme(this.state.themeMode)}
           </Button>
         </div>
-
         <DynamicTableStateless
           head={head}
           highlightedRowIndex={this.state.highlightedRows}
@@ -77,7 +81,7 @@ export default class extends React.Component<{}, State> {
           rowsPerPage={40}
           page={1}
         />
-      </AtlaskitThemeProvider>
+      </DeprecatedThemeProvider>
     );
   }
 }

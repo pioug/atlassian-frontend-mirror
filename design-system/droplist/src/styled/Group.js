@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { DN300, N300 } from '@atlaskit/theme/colors';
 import { themed } from '@atlaskit/theme/components';
 import { gridSize } from '@atlaskit/theme/constants';
-import { multiply } from '@atlaskit/theme/math';
 
 export default styled.div`
   box-sizing: border-box;
@@ -27,7 +26,7 @@ export const Heading = styled.div`
   font-size: 14px;
   line-height: 1;
   margin: 0;
-  padding: ${gridSize}px ${multiply(gridSize, 1.5)}px;
+  padding: ${gridSize}px ${gridSize() * 1.5}px;
 `;
 export const HeadingAfter = styled.div`
   flex: 0 0 auto;

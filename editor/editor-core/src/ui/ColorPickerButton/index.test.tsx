@@ -18,6 +18,7 @@ import {
   EVENT_TYPE,
 } from '../../plugins/analytics/types';
 import { editorAnalyticsChannel } from '../../plugins/analytics/consts';
+import { act } from 'react-dom/test-utils';
 
 describe('color-picker-button', () => {
   const onChangeMock = jest.fn();
@@ -63,6 +64,24 @@ describe('color-picker-button', () => {
     expect(wrapper.find('Popup')).toHaveLength(1);
     expect(wrapper.find('ColorPalette')).toHaveLength(1);
     expect(wrapper.find('Color')).toHaveLength(21);
+  });
+
+  it('should close ColorPalette popup after clicking outside', () => {
+    const wrapper = getWrapper();
+    // show the popup
+    wrapper.find('button').simulate('click');
+
+    // make sure the popup and picker are shown
+    expect(wrapper.find('Popup')).toHaveLength(1);
+
+    const colorPalette = wrapper.find('InjectIntl(ColorPalette)').instance();
+    act(() => {
+      (colorPalette.props as any).handleClickOutside();
+    });
+
+    wrapper.update();
+    // make sure popup is hidden
+    expect(wrapper.find('Popup')).toHaveLength(0);
   });
 
   it('should hide popup and call onChange after selecting a color', () => {

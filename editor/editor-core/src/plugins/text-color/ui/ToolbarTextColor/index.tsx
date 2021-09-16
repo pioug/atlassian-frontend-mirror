@@ -177,13 +177,15 @@ class ToolbarTextColor extends React.Component<
             />
           }
         >
-          <ColorPalette
-            palette={palette}
-            onClick={(color) =>
-              this.changeTextColor(color, pluginState.disabled)
-            }
-            selectedColor={pluginState.color}
-          />
+          <div data-testid="text-color-palette">
+            <ColorPalette
+              palette={palette}
+              onClick={(color) =>
+                this.changeTextColor(color, pluginState.disabled)
+              }
+              selectedColor={pluginState.color}
+            />
+          </div>
           {showMoreColorsToggle && (
             <ShowMoreWrapper>
               <Button
@@ -274,11 +276,6 @@ class ToolbarTextColor extends React.Component<
   private hide = (e: MouseEvent | KeyboardEvent) => {
     const { isOpen, isShowingMoreColors } = this.state;
 
-    if (e.defaultPrevented) {
-      // This should be handled by stopping propogation, but as an additional safety net
-      // we ignore handled events for the purpose of hiding the popup.
-      return;
-    }
     if (isOpen === true) {
       this.dispatchAnalyticsEvent(
         this.buildAnalyticsPalette(ACTION.CLOSED, {

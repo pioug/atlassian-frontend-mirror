@@ -28,6 +28,7 @@ export default {
   'fabric.editor.blockquote.description': 'Вставить цитату',
   'fabric.editor.blockquote2': 'Цитата',
   'fabric.editor.bold': 'Полужирный',
+  'fabric.editor.bug': 'Баг',
   'fabric.editor.canNotSortTable':
     '⚠️ Невозможно отсортировать таблицу с объединением ячеек',
   'fabric.editor.cancelButton': 'Отменить',
@@ -47,6 +48,7 @@ export default {
   'fabric.editor.code': 'Код',
   'fabric.editor.codeblock': 'Фрагмент кода',
   'fabric.editor.codeblock.description': 'Выделение синтаксиса в коде',
+  'fabric.editor.collapseTable': 'Свернуть таблицу',
   'fabric.editor.columns': 'Макеты',
   'fabric.editor.columns.description':
     'Расположение информации на странице с помощью разделов',
@@ -79,6 +81,7 @@ export default {
   'fabric.editor.decision.description':
     'Записывайте решения для удобного отслеживания',
   'fabric.editor.decisionPlaceholder': 'Добавить решение…',
+  'fabric.editor.defaultAltText': 'Элемент списка',
   'fabric.editor.displayBlock': 'Отобразить карточку',
   'fabric.editor.displayEmbed': 'Отобразить как встроенный объект',
   'fabric.editor.displayInline': 'Отобразить внутри строки',
@@ -89,8 +92,11 @@ export default {
   'fabric.editor.distributeColumns': 'Распределить столбцы',
   'fabric.editor.edit': 'Изменить',
   'fabric.editor.editAltText': 'Изменить альтернативный текст',
+  'fabric.editor.editDateText': 'Редактировать дату',
   'fabric.editor.editLink': 'Изменить ссылку',
   'fabric.editor.editMode.inviteToEditButton.title': 'Разрешить редактировать',
+  'fabric.editor.editStatusColor': 'Редактировать цвет статуса',
+  'fabric.editor.editStatusText': 'Редактировать статус',
   'fabric.editor.editorHelp': 'Справка по редактору',
   'fabric.editor.elementBrowser.help': 'Справка',
   'fabric.editor.elementbrowser.categorylist.category-admin':
@@ -122,6 +128,7 @@ export default {
   'fabric.editor.emoji.description':
     'Делитесь идеями 🎉 и выражайте чувства 😄 с помощью эмодзи',
   'fabric.editor.emptyLink': 'Введите ссылку.',
+  'fabric.editor.epic': 'Эпик',
   'fabric.editor.error': 'Ошибка',
   'fabric.editor.errorPanel': 'Панель с ошибкой',
   'fabric.editor.errorPanel.description': 'Выделить ошибки цветом',
@@ -167,9 +174,9 @@ export default {
     'Предложения будут появляться по мере ввода текста в поле',
   'fabric.editor.hyperlink.searchLinkResults':
     '{count, plural, =0 {нет результатов} one {найден {count,number} результат} few {найдено {count,number} результата} many {найдено {count,number} результатов} other {найдено {count,number} результата}}',
-  'fabric.editor.hyperlinkToolbarPlaceholder':
-    'Вставьте ссылку или выполните поиск по недавно просмотренным страницам',
+  'fabric.editor.hyperlinkToolbarPlaceholder': 'Вставить или искать ссылку',
   'fabric.editor.image': 'Изображение',
+  'fabric.editor.improvement': 'Улучшение',
   'fabric.editor.info': 'Информация',
   'fabric.editor.infoPanel': 'Информационная панель',
   'fabric.editor.infoPanel.description': 'Выделение информации цветом',
@@ -209,7 +216,7 @@ export default {
   'fabric.editor.orderedList.description': 'Создание нумерованного списка',
   'fabric.editor.other': 'Прочее…',
   'fabric.editor.panel.backgroundColor': 'Цвет фона',
-  'fabric.editor.panel.emoji': 'Добавить значок',
+  'fabric.editor.panel.emoji': 'Добавить эмодзи',
   'fabric.editor.pastePlainText': 'Вставить обычный текст',
   'fabric.editor.placeholderAltText':
     'Альтернативный текст для описания изображения',
@@ -240,7 +247,9 @@ export default {
   'fabric.editor.status.description':
     'Добавление пользовательской метки статуса',
   'fabric.editor.statusPlaceholder': 'Задать статус',
+  'fabric.editor.story': 'История',
   'fabric.editor.strike': 'Зачеркнутый',
+  'fabric.editor.subTask': 'Подзадача',
   'fabric.editor.subscript': 'Подстрочный',
   'fabric.editor.success': 'Готово',
   'fabric.editor.successPanel': 'Панель «Готово»',
@@ -255,6 +264,7 @@ export default {
     'При удалении этой таблицы будут также удалены все данные во всех связанных диаграммах.',
   'fabric.editor.tables.confirmDeleteLinkedModalOKButton':
     'Удалить таблицу и данные',
+  'fabric.editor.task': 'Задание',
   'fabric.editor.taskPlaceholder':
     'Укажите задание и назначьте исполнителя с помощью значка «@».',
   'fabric.editor.textColor': 'Цвет текста',

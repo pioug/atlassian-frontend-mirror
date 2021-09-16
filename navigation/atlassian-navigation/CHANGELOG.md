@@ -1,5 +1,12 @@
 # @atlaskit/atlassian-navigation
 
+## 1.1.3
+
+### Patch Changes
+
+- [`4f9dd11a8eb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4f9dd11a8eb) - Fixes a visual bug which made the logo appear twice under very rare circumstances
+- Updated dependencies
+
 ## 1.1.2
 
 ### Patch Changes

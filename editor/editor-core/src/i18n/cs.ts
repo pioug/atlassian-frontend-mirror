@@ -28,6 +28,7 @@ export default {
   'fabric.editor.blockquote.description': 'Vložit citaci',
   'fabric.editor.blockquote2': 'Citace',
   'fabric.editor.bold': 'Tučné',
+  'fabric.editor.bug': 'Chyba',
   'fabric.editor.canNotSortTable':
     '⚠️ Tabulku se sloučenými buňkami nelze seřadit',
   'fabric.editor.cancelButton': 'Zrušit',
@@ -47,6 +48,7 @@ export default {
   'fabric.editor.code': 'Kód',
   'fabric.editor.codeblock': 'Fragment kódu',
   'fabric.editor.codeblock.description': 'Zobrazit kód se zvýrazněním syntaxe',
+  'fabric.editor.collapseTable': 'Sbalit tabulku',
   'fabric.editor.columns': 'Rozvržení',
   'fabric.editor.columns.description': 'Uspořádejte svou stránku pomocí oddílů',
   'fabric.editor.configFailedToLoad': 'Nepodařilo se načíst',
@@ -78,6 +80,7 @@ export default {
   'fabric.editor.decision.description':
     'Zaznamenávejte rozhodnutí, aby se snadněji sledovala',
   'fabric.editor.decisionPlaceholder': 'Přidat rozhodnutí...',
+  'fabric.editor.defaultAltText': 'Položka seznamu',
   'fabric.editor.displayBlock': 'Zobrazit jako kartu',
   'fabric.editor.displayEmbed': 'Zobrazit jako vložený objekt',
   'fabric.editor.displayInline': 'Zobrazit v řádku',
@@ -88,8 +91,11 @@ export default {
   'fabric.editor.distributeColumns': 'Rozložení sloupců',
   'fabric.editor.edit': 'Upravit',
   'fabric.editor.editAltText': 'Upravit alternativní text',
+  'fabric.editor.editDateText': 'Upravit datum',
   'fabric.editor.editLink': 'Upravit odkaz',
   'fabric.editor.editMode.inviteToEditButton.title': 'Pozvat k úpravám',
+  'fabric.editor.editStatusColor': 'Upravit barvu stavu',
+  'fabric.editor.editStatusText': 'Upravit stav',
   'fabric.editor.editorHelp': 'Nápověda editoru.',
   'fabric.editor.elementBrowser.help': 'Nápověda',
   'fabric.editor.elementbrowser.categorylist.category-admin': 'Administrace',
@@ -119,6 +125,7 @@ export default {
   'fabric.editor.emoji.description':
     'Používejte emoji k vyjádření nápadů 🎉 a emocí 😄',
   'fabric.editor.emptyLink': 'Zadejte odkaz.',
+  'fabric.editor.epic': 'Epic',
   'fabric.editor.error': 'Chyba',
   'fabric.editor.errorPanel': 'Panel chyb',
   'fabric.editor.errorPanel.description': 'Chyby zobrazit v barevném panelu',
@@ -136,6 +143,9 @@ export default {
   'fabric.editor.findNext': 'Najít další',
   'fabric.editor.findPrevious': 'Najít předchozí',
   'fabric.editor.findReplaceToolbarButton': 'Najít a nahradit',
+  'fabric.editor.floatingToolbar.confirmModalCancel': 'Zrušit',
+  'fabric.editor.floatingToolbar.confirmModalHeading': 'Jste si jistí?',
+  'fabric.editor.floatingToolbar.confirmModalOK': 'OK',
   'fabric.editor.headerColumn': 'Sloupec záhlaví',
   'fabric.editor.headerRow': 'Řádek záhlaví',
   'fabric.editor.heading1': 'Nadpis 1',
@@ -162,9 +172,9 @@ export default {
     'Níže se objeví návrhy na základě vámi napsaného textu v poli',
   'fabric.editor.hyperlink.searchLinkResults':
     '{count, plural, =0 {nebyly nalezeny žádné výsledky} one {{count,number} nalezený výsledek} few {{count,number} nalezené výsledky} many {{count,number} nalezeného výsledku} other {{count,number} nalezených výsledků}}',
-  'fabric.editor.hyperlinkToolbarPlaceholder':
-    'Vložit nedávno zobrazený odkaz nebo vyhledávání',
+  'fabric.editor.hyperlinkToolbarPlaceholder': 'Vložit nebo vyhledat odkaz',
   'fabric.editor.image': 'Obrázek',
+  'fabric.editor.improvement': 'Vylepšení',
   'fabric.editor.info': 'Informace',
   'fabric.editor.infoPanel': 'Informační panel',
   'fabric.editor.infoPanel.description':
@@ -205,7 +215,7 @@ export default {
   'fabric.editor.orderedList.description': 'Vytvořit seřazený seznam',
   'fabric.editor.other': 'Jiné...',
   'fabric.editor.panel.backgroundColor': 'Barva pozadí',
-  'fabric.editor.panel.emoji': 'Přidat ikonu',
+  'fabric.editor.panel.emoji': 'Přidat emoji',
   'fabric.editor.pastePlainText': 'Vložit prostý text',
   'fabric.editor.placeholderAltText':
     'Popište tento obrázek alternativním textem',
@@ -234,7 +244,9 @@ export default {
   'fabric.editor.status': 'Stav',
   'fabric.editor.status.description': 'Přidat vlastní štítek stavu',
   'fabric.editor.statusPlaceholder': 'Nastavit stav',
+  'fabric.editor.story': 'Story',
   'fabric.editor.strike': 'Přeškrtnutí',
+  'fabric.editor.subTask': 'Podúkol',
   'fabric.editor.subscript': 'Dolní index',
   'fabric.editor.success': 'Úspěch',
   'fabric.editor.successPanel': 'Panel úspěchů',
@@ -245,6 +257,11 @@ export default {
   'fabric.editor.table': 'Tabulka',
   'fabric.editor.table.description': 'Vložit tabulku',
   'fabric.editor.tableOptions': 'Možnosti tabulky',
+  'fabric.editor.tables.confirmDeleteLinkedModalMessage':
+    'Odstraněním této tabulky se odstraní i všechna data obsažená v připojených grafech.',
+  'fabric.editor.tables.confirmDeleteLinkedModalOKButton':
+    'Odstranit tabulku a data',
+  'fabric.editor.task': 'Úkol',
   'fabric.editor.taskPlaceholder':
     'Napište svou akci a použitím „@“ ji někomu přidělte.',
   'fabric.editor.textColor': 'Barva textu',

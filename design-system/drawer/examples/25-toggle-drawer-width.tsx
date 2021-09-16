@@ -33,7 +33,7 @@ export default class DrawersExample extends Component<{}, State> {
         <div>
           <code>{this.state.width} width</code>
         </div>
-        <div css={{ margin: '1rem 0' }}>
+        <div style={{ margin: '1rem 0' }}>
           <Button type="button" onClick={this.onNextClick}>
             Next width
           </Button>

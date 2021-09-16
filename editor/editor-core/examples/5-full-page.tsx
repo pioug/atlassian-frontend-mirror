@@ -334,6 +334,7 @@ export class ExampleEditorComponent extends React.Component<
                 allowLayouts={{
                   allowBreakout: true,
                   UNSAFE_addSidebarLayouts: true,
+                  UNSAFE_allowSingleColumnLayout: true,
                 }}
                 allowTextAlignment={true}
                 allowIndentation={true}

@@ -1,5 +1,6 @@
 import React from 'react';
-import { fontSize, fontSizeSmall, fontFamily, codeFontFamily } from '../src';
+
+import { codeFontFamily, fontFamily, fontSize, fontSizeSmall } from '../src';
 
 export default () => {
   return (

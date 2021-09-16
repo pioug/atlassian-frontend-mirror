@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 // eslint-disable-next-line @repo/internal/fs/filename-pattern-match
 import React, { FC, useState } from 'react';
 

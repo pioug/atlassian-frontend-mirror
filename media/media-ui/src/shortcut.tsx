@@ -1,14 +1,24 @@
 import { Component } from 'react';
 
 export const keyCodes = {
-  space: 32,
-  m: 77,
+  space: 'Space',
+  m: 'KeyM',
+  rightArrow: 'ArrowRight',
+  leftArrow: 'ArrowLeft',
 };
 
-export interface ShortcutProps {
+type WithKeyCode = {
+  /** @deprecated use code: string instead */
   keyCode: number;
+  code?: never;
+};
+type WithCode = {
+  code: string;
+  keyCode?: never;
+};
+export type ShortcutProps = {
   handler: () => void;
-}
+} & (WithKeyCode | WithCode);
 
 export class Shortcut extends Component<ShortcutProps, {}> {
   componentDidMount() {
@@ -24,8 +34,12 @@ export class Shortcut extends Component<ShortcutProps, {}> {
   }
 
   private keyHandler = (e: KeyboardEvent) => {
-    const { keyCode, handler } = this.props;
-    if (e.keyCode === keyCode) {
+    const { handler, code, keyCode } = this.props;
+    if (keyCode !== undefined && e.keyCode === keyCode) {
+      handler();
+    }
+
+    if (code !== undefined && e.code === code) {
       handler();
     }
   };

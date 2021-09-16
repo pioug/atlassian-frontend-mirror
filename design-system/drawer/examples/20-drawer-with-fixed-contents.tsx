@@ -33,7 +33,7 @@ export default class DrawersExample extends Component<{}, State> {
 
   render() {
     return (
-      <div css={{ padding: '2rem' }}>
+      <div style={{ padding: '2rem' }}>
         <Drawer
           onClose={this.closeDrawer}
           isOpen={this.state.isDrawerOpen}
@@ -46,7 +46,7 @@ export default class DrawersExample extends Component<{}, State> {
               elements such as @atlaskit/dropdown-menu.
             </p>
             {/* The position here is used by the withDropdown integration test. */}
-            <div css={{ position: 'fixed', left: 100, top: 200 }}>
+            <div style={{ position: 'fixed', left: 100, top: 200 }}>
               <DropdownMenu
                 trigger={<div id="trigger">Choices</div>}
                 triggerType="button"

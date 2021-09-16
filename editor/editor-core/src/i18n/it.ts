@@ -28,6 +28,7 @@ export default {
   'fabric.editor.blockquote.description': 'Inserisci citazione',
   'fabric.editor.blockquote2': 'Citazione',
   'fabric.editor.bold': 'Grassetto',
+  'fabric.editor.bug': 'Bug',
   'fabric.editor.canNotSortTable':
     '⚠️ Non puoi ordinare una tabella con celle unite',
   'fabric.editor.cancelButton': 'Annulla',
@@ -48,6 +49,7 @@ export default {
   'fabric.editor.codeblock': 'Frammento di codice',
   'fabric.editor.codeblock.description':
     'Mostra codice con colorazione della sintassi',
+  'fabric.editor.collapseTable': 'Comprimi tabella',
   'fabric.editor.columns': 'Layout',
   'fabric.editor.columns.description': 'Organizza la tua pagina in sezioni',
   'fabric.editor.configFailedToLoad': 'Caricamento non riuscito',
@@ -79,6 +81,7 @@ export default {
   'fabric.editor.decision.description':
     'Acquisisci decisioni per monitorarle agevolmente',
   'fabric.editor.decisionPlaceholder': 'Aggiungi una decisione…',
+  'fabric.editor.defaultAltText': 'Voce di elenco',
   'fabric.editor.displayBlock': 'Visualizza come scheda',
   'fabric.editor.displayEmbed': 'Visualizza come oggetto incorporato',
   'fabric.editor.displayInline': 'Visualizza inline',
@@ -89,8 +92,11 @@ export default {
   'fabric.editor.distributeColumns': 'Distribuisci colonne',
   'fabric.editor.edit': 'Modifica',
   'fabric.editor.editAltText': 'Modifica testo alternativo',
+  'fabric.editor.editDateText': 'Modifica data',
   'fabric.editor.editLink': 'Modifica link',
   'fabric.editor.editMode.inviteToEditButton.title': 'Invita a modificare',
+  'fabric.editor.editStatusColor': 'Modifica colore stato',
+  'fabric.editor.editStatusText': 'Modifica stato',
   'fabric.editor.editorHelp': "Guida dell'editor",
   'fabric.editor.elementBrowser.help': 'Guida',
   'fabric.editor.elementbrowser.categorylist.category-admin': 'Amministrazione',
@@ -123,6 +129,7 @@ export default {
   'fabric.editor.emoji.description':
     'Usa le emoji per esprimere idee 🎉 ed emozioni 😄',
   'fabric.editor.emptyLink': 'Inserisci un link.',
+  'fabric.editor.epic': 'Epic',
   'fabric.editor.error': 'Errore',
   'fabric.editor.errorPanel': 'Pannello errori',
   'fabric.editor.errorPanel.description':
@@ -141,6 +148,9 @@ export default {
   'fabric.editor.findNext': 'Trova successivo',
   'fabric.editor.findPrevious': 'Trova precedente',
   'fabric.editor.findReplaceToolbarButton': 'Trova e sostituisci',
+  'fabric.editor.floatingToolbar.confirmModalCancel': 'Annulla',
+  'fabric.editor.floatingToolbar.confirmModalHeading': 'Confermi?',
+  'fabric.editor.floatingToolbar.confirmModalOK': 'OK',
   'fabric.editor.headerColumn': 'Colonna di intestazione',
   'fabric.editor.headerRow': 'Riga di intestazione',
   'fabric.editor.heading1': 'Titolo 1',
@@ -168,9 +178,9 @@ export default {
     'I suggerimenti vengono visualizzati durante la digitazione nel campo',
   'fabric.editor.hyperlink.searchLinkResults':
     '{count, plural, =0 {nessun risultato trovato} one {{count,number} risultato trovato} other {{count,number} risultati trovati}}',
-  'fabric.editor.hyperlinkToolbarPlaceholder':
-    'Incolla link o cerca tra i visualizzati di recente',
+  'fabric.editor.hyperlinkToolbarPlaceholder': 'Incolla o cerca il link',
   'fabric.editor.image': 'Immagine',
+  'fabric.editor.improvement': 'Miglioramento',
   'fabric.editor.info': 'Info',
   'fabric.editor.infoPanel': 'Pannello informazioni',
   'fabric.editor.infoPanel.description':
@@ -212,7 +222,7 @@ export default {
   'fabric.editor.orderedList.description': 'Crea una lista ordinata',
   'fabric.editor.other': 'Altri...',
   'fabric.editor.panel.backgroundColor': 'Colore di sfondo',
-  'fabric.editor.panel.emoji': 'Aggiungi icona',
+  'fabric.editor.panel.emoji': 'Aggiungi emoji',
   'fabric.editor.pastePlainText': 'Incolla testo non formattato',
   'fabric.editor.placeholderAltText':
     'Descrivi questa immagine con testo alternativo',
@@ -243,7 +253,9 @@ export default {
   'fabric.editor.status.description':
     'Aggiungi un’etichetta di stato personalizzato',
   'fabric.editor.statusPlaceholder': 'Imposta uno stato',
+  'fabric.editor.story': 'Story',
   'fabric.editor.strike': 'Barrato',
+  'fabric.editor.subTask': 'Sottotask',
   'fabric.editor.subscript': 'Pedice',
   'fabric.editor.success': 'Operazione riuscita',
   'fabric.editor.successPanel': 'Pannello operazioni completate',
@@ -255,6 +267,11 @@ export default {
   'fabric.editor.table': 'Tabella',
   'fabric.editor.table.description': 'Inserisci una tabella',
   'fabric.editor.tableOptions': 'Opzioni tabella',
+  'fabric.editor.tables.confirmDeleteLinkedModalMessage':
+    'La rimozione di questa tabella comporterà anche la rimozione dei dati contenuti in ciascuno dei grafici collegati.',
+  'fabric.editor.tables.confirmDeleteLinkedModalOKButton':
+    'Rimuovi tabella e dati',
+  'fabric.editor.task': 'Task',
   'fabric.editor.taskPlaceholder':
     'Digita la tua azione e usa “@” per assegnarla a qualcuno.',
   'fabric.editor.textColor': 'Colore del testo',

@@ -1,4 +1,3 @@
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import React, { SyntheticEvent, useCallback, useState } from 'react';
 
 import { Checkbox } from '@atlaskit/checkbox';
@@ -46,8 +45,10 @@ export default function BasicExample() {
         style={{
           borderStyle: 'dashed',
           borderWidth: '1px',
+          // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
           borderColor: '#ccc',
           padding: '0.5em',
+          // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
           color: '#ccc',
           margin: '0.5em',
         }}

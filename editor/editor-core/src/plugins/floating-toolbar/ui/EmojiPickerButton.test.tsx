@@ -67,6 +67,24 @@ describe('emoji-picker-button', () => {
     expect(wrapper.find('Popup')).toHaveLength(1);
   });
 
+  it('should close EmojiPicker popup after clicking outside', () => {
+    // clicking on the button to open the popup
+    wrapper.find('button').simulate('click');
+
+    // make sure the popup and picker are shown
+    expect(wrapper.find('Popup')).toHaveLength(1);
+
+    const emojiPicker = wrapper.find('EmojiPickerInternal').instance();
+    // calling click outside
+    act(() => {
+      (emojiPicker.props as any).handleClickOutside();
+    });
+
+    wrapper.update();
+    // make sure popup is hidden
+    expect(wrapper.find('Popup')).toHaveLength(0);
+  });
+
   it('should hide popup and call onChange after selecting an emoji', () => {
     // click the button
     wrapper.find('button').simulate('click');

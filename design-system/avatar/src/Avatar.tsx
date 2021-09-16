@@ -234,6 +234,12 @@ const getStyles = (
       :active {
         transform: scale(${ACTIVE_SCALE_FACTOR});
       }
+
+      @media screen and (forced-colors: active) {
+        &:focus-visible {
+          outline: 1px solid
+        }
+      }
     `}
 
     ${isDisabled &&

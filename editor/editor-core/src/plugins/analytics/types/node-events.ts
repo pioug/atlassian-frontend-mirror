@@ -8,6 +8,7 @@ import {
 import { PanelType } from '@atlaskit/adf-schema';
 
 export enum LAYOUT_TYPE {
+  SINGLE_COL = 'singleColumn',
   TWO_COLS_EQUAL = 'twoColumnsEqual',
   THREE_COLS_EQUAL = 'threeColumnsEqual',
   LEFT_SIDEBAR = 'twoColumnsLeftSidebar',

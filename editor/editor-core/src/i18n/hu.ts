@@ -29,6 +29,7 @@ export default {
   'fabric.editor.blockquote.description': 'Idézet beszúrása',
   'fabric.editor.blockquote2': 'Idézőjel',
   'fabric.editor.bold': 'Félkövér',
+  'fabric.editor.bug': 'Hiba',
   'fabric.editor.canNotSortTable':
     '⚠️ Nem rendezhetsz egyesített cellákat tartalmazó táblázatot',
   'fabric.editor.cancelButton': 'Mégse',
@@ -49,6 +50,7 @@ export default {
   'fabric.editor.codeblock': 'Kódrészlet',
   'fabric.editor.codeblock.description':
     'Kód megjelenítése szintaxiskiemeléssel',
+  'fabric.editor.collapseTable': 'Táblázat összecsukása',
   'fabric.editor.columns': 'Elrendezések',
   'fabric.editor.columns.description':
     'Az oldal rendszerezése szakaszok használatával',
@@ -81,6 +83,7 @@ export default {
   'fabric.editor.decision.description':
     'Döntések rögzítése az egyszerű nyomon követés érdekében',
   'fabric.editor.decisionPlaceholder': 'Döntés hozzáadása...',
+  'fabric.editor.defaultAltText': 'Listaelem',
   'fabric.editor.displayBlock': 'Megjelenítés kártyaként',
   'fabric.editor.displayEmbed': 'Megjelenítés beágyazottként',
   'fabric.editor.displayInline': 'Megjelenítés beillesztettként',
@@ -91,8 +94,11 @@ export default {
   'fabric.editor.distributeColumns': 'Oszlopok felosztása',
   'fabric.editor.edit': 'Szerkesztés',
   'fabric.editor.editAltText': 'Alternatív szöveg szerkesztése',
+  'fabric.editor.editDateText': 'Dátum szerkesztése',
   'fabric.editor.editLink': 'Hivatkozás szerkesztése',
   'fabric.editor.editMode.inviteToEditButton.title': 'Meghívás szerkesztésre',
+  'fabric.editor.editStatusColor': 'Állapotszín szerkesztése',
+  'fabric.editor.editStatusText': 'Állapot szerkesztése',
   'fabric.editor.editorHelp': 'Szerkesztő súgója',
   'fabric.editor.elementBrowser.help': 'Súgó',
   'fabric.editor.elementbrowser.categorylist.category-admin': 'Felügyelet',
@@ -122,6 +128,7 @@ export default {
   'fabric.editor.emoji.description':
     'Hangulatjelek használata ötletek 🎉 és érzelmek 😄 kifejezésére',
   'fabric.editor.emptyLink': 'Adj meg egy linket.',
+  'fabric.editor.epic': 'Eposz',
   'fabric.editor.error': 'Hiba',
   'fabric.editor.errorPanel': 'Hiba panel',
   'fabric.editor.errorPanel.description': 'Hibák megjelenítése színes panelen',
@@ -172,9 +179,9 @@ export default {
     'A rendszer a beírt szövegnek megfelelően jeleníti meg lent a javaslatokat',
   'fabric.editor.hyperlink.searchLinkResults':
     '{count, plural, =0 {nincs találat} one {{count,number} találat} other {{count,number} találat}}',
-  'fabric.editor.hyperlinkToolbarPlaceholder':
-    'Hivatkozás beillesztése vagy keresés a legutóbb megtekintett lapokon',
+  'fabric.editor.hyperlinkToolbarPlaceholder': 'Beillesztés vagy link keresése',
   'fabric.editor.image': 'Kép',
+  'fabric.editor.improvement': 'Javítás',
   'fabric.editor.info': 'Információ',
   'fabric.editor.infoPanel': 'Információs panel',
   'fabric.editor.infoPanel.description': 'Információ kiemelése színes panelen',
@@ -215,7 +222,7 @@ export default {
     'Sorrendbe állított lista létrehozása',
   'fabric.editor.other': 'Egyebek...',
   'fabric.editor.panel.backgroundColor': 'Háttérszín',
-  'fabric.editor.panel.emoji': 'Ikon hozzáadása',
+  'fabric.editor.panel.emoji': 'Emoji hozzáadása',
   'fabric.editor.pastePlainText': 'Egyszerű szöveg beillesztése',
   'fabric.editor.placeholderAltText': 'Kép leírása alternatív szöveggel',
   'fabric.editor.placeholderText': 'Helyőrző szöveg',
@@ -235,7 +242,7 @@ export default {
   'fabric.editor.resultsCount': '{selectedMatchPosition}/{totalResultsCount}',
   'fabric.editor.rightSidebar': 'Jobb oldali oldalsáv',
   'fabric.editor.saveButton': 'Mentés',
-  'fabric.editor.selectLanguage': 'Nyelv kiválasztása',
+  'fabric.editor.selectLanguage': 'Programozási nyelv kiválasztása',
   'fabric.editor.selected': 'Kijelölve',
   'fabric.editor.sortColumnASC': 'Oszlop rendezése: A → Z',
   'fabric.editor.sortColumnDESC': 'Oszlop rendezése: Z → A',
@@ -243,7 +250,9 @@ export default {
   'fabric.editor.status': 'Állapot',
   'fabric.editor.status.description': 'Egyéni állapotcímke hozzáadása',
   'fabric.editor.statusPlaceholder': 'Állapot beállítása',
+  'fabric.editor.story': 'Sztori',
   'fabric.editor.strike': 'Áthúzott',
+  'fabric.editor.subTask': 'Alfeladat',
   'fabric.editor.subscript': 'Alsó index',
   'fabric.editor.success': 'Sikerült',
   'fabric.editor.successPanel': 'Sikerült panel',
@@ -258,6 +267,7 @@ export default {
     'A táblázat törlésével a kapcsolódó diagramokból is eltávolítod az összes adatot.',
   'fabric.editor.tables.confirmDeleteLinkedModalOKButton':
     'Táblázat és adatok eltávolítása',
+  'fabric.editor.task': 'Feladat',
   'fabric.editor.taskPlaceholder':
     'Írja be a műveletet. Az „@” jellel hozzárendelheti valakihez.',
   'fabric.editor.textColor': 'Szövegszín',

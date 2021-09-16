@@ -3,18 +3,17 @@ import { EditorState, Transaction } from 'prosemirror-state';
 import { Step } from 'prosemirror-transform';
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import throttle from 'lodash/throttle';
+import isequal from 'lodash/isEqual';
 
 import { Emitter } from '../emitter';
 import {
   Channel,
-  EditorWidthPayload,
   ErrorPayload,
   Metadata,
   ParticipantPayload,
   StepJson,
   StepsPayload,
   TelepointerPayload,
-  TitlePayload,
 } from '../channel';
 import {
   CollabEditProvider,
@@ -36,6 +35,10 @@ import {
 } from '../analytics';
 import { catchup } from './catchup';
 import { errorCodeMapper } from '../error-code-mapper';
+import {
+  DisconnectReason,
+  socketIOReasons,
+} from '../disconnected-reason-mapper';
 
 const logger = createLogger('Provider', 'black');
 
@@ -48,6 +51,10 @@ const OUT_OF_SYNC_PERIOD = 3 * 1000; // 3 seconds
 export const MAX_STEP_REJECTED_ERROR = 15;
 
 export type CollabConnectedPayload = EditorCollabConnetedData;
+export interface CollabDisconnectedPayload {
+  reason: DisconnectReason;
+  sid: string;
+}
 export interface CollabErrorPayload {
   status: number;
   code: string;
@@ -77,6 +84,7 @@ export interface CollabEvents {
   'metadata:changed': CollabMetadataPayload;
   init: CollabInitPayload;
   connected: CollabConnectedPayload;
+  disconnected: CollabDisconnectedPayload;
   data: CollabDataPayload;
   telepointer: CollabTelepointerPayload;
   presence: CollabPresencePayload;
@@ -213,8 +221,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
       .on('participant:joined', this.onParticipantJoined)
       .on('participant:left', this.onParticipantLeft)
       .on('participant:updated', this.onParticipantUpdated)
-      .on('title:changed', this.onTitleChanged)
-      .on('width:changed', this.onWidthChanged)
+      .on('metadata:changed', this.onMetadataChanged)
       .on('disconnect', this.onDisconnected)
       .on('error', this.onErrorHandled)
       .connect();
@@ -510,25 +517,13 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
     // This expose existing users to the newly joined user
     this.sendPresence();
   };
-
   /**
-   * Call when editing in the title
-   * Don't emit events to the user who makes the modification
+   * Called when a metadata is changed.
+   *
    */
-  private onTitleChanged = ({ title }: TitlePayload) => {
-    if (title !== undefined && this.metadata.title !== title) {
-      this.metadata.title = title;
-      this.emit('metadata:changed', { title });
-    }
-  };
-
-  private onWidthChanged = ({ editorWidth }: EditorWidthPayload) => {
-    if (
-      editorWidth !== undefined &&
-      this.metadata.editorWidth !== editorWidth
-    ) {
-      this.metadata.editorWidth = editorWidth;
-      this.emit('metadata:changed', { editorWidth });
+  private onMetadataChanged = (metadata: Metadata) => {
+    if (metadata !== undefined && !isequal(this.metadata, metadata)) {
+      this.emit('metadata:changed', metadata);
     }
   };
 
@@ -692,10 +687,31 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
     });
   }
 
+  private disconnectedReasonMapper = (reason: string): DisconnectReason => {
+    switch (reason) {
+      case socketIOReasons.IO_CLIENT_DISCONNECT:
+        return DisconnectReason.CLIENT_DISCONNECT;
+      case socketIOReasons.IO_SERVER_DISCONNECT:
+        return DisconnectReason.SERVER_DISCONNECT;
+      case socketIOReasons.TRANSPORT_CLOSED:
+        return DisconnectReason.SOCKET_CLOSED;
+      case socketIOReasons.TRANSPORT_ERROR:
+        return DisconnectReason.SOCKET_ERROR;
+      case socketIOReasons.PING_TIMEOUT:
+        return DisconnectReason.SOCKET_TIMEOUT;
+      default:
+        return DisconnectReason.UNKNOWN_DISCONNECT;
+    }
+  };
+
   private onDisconnected = ({ reason }: { reason: string }) => {
     this.disconnectedAt = Date.now();
     const left = Array.from(this.participants.values());
     this.participants.clear();
+    this.emit('disconnected', {
+      reason: this.disconnectedReasonMapper(reason),
+      sid: this.sessionId!,
+    });
     if (left.length) {
       this.emit('presence', { left });
     }
@@ -710,23 +726,22 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
   }
 
   setTitle(title: string, broadcast?: boolean) {
-    this.metadata.title = title;
-
     if (broadcast) {
-      this.channel.broadcast('title:changed', {
-        title,
-      });
+      this.channel.sendMetadata({ title });
     }
+    Object.assign(this.metadata, { title });
   }
 
   setEditorWidth(editorWidth: string, broadcast?: boolean) {
-    this.metadata.editorWidth = editorWidth;
-
     if (broadcast) {
-      this.channel.broadcast('width:changed', {
-        editorWidth,
-      });
+      this.channel.sendMetadata({ editorWidth });
     }
+    Object.assign(this.metadata, { editorWidth });
+  }
+
+  setMetadata(metadata: Metadata) {
+    this.channel.sendMetadata(metadata);
+    Object.assign(this.metadata, metadata);
   }
 
   /**

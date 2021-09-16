@@ -21,6 +21,8 @@ const Content = ({ cssFn, ...props }: ContentProps) => (
    * guide suggested as it made more sense as a transformer of the current styles rather than
    * a complete override with no chance of partially changing styles.
    */
+
+  // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
   <div css={cssFn(defaultStyles)} {...props} />
 );
 

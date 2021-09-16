@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import React from 'react';
 
 import Avatar from '@atlaskit/avatar';
@@ -22,14 +23,14 @@ export default () => (
     <Tag
       appearance="rounded"
       text="A. Cool Name"
-      elemBefore={<Avatar size="xsmall" />}
+      elemBefore={<Avatar size="xsmall" borderColor="transparent" />}
       removeButtonLabel="Remove me"
     />
     <Tag
       appearance="rounded"
       href="https://some.link"
       text="A. Cool Name"
-      elemBefore={<Avatar size="xsmall" />}
+      elemBefore={<Avatar size="xsmall" borderColor="transparent" />}
       removeButtonLabel="Remove me"
     />
     <SimpleTag text="standard color" color="standard" />

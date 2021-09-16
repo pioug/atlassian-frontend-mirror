@@ -38,6 +38,7 @@ export interface CardSSRViewProps {
   readonly resizeMode: ImageResizeMode;
   readonly alt?: string;
   readonly disableOverlay: boolean;
+  readonly isLazy?: boolean;
 }
 
 export const CardSSRView: FC<CardSSRViewProps> = ({
@@ -46,6 +47,7 @@ export const CardSSRView: FC<CardSSRViewProps> = ({
   mediaClient,
   resizeMode,
   disableOverlay,
+  isLazy,
 }) => {
   let dataURI: string | undefined;
 
@@ -93,6 +95,7 @@ export const CardSSRView: FC<CardSSRViewProps> = ({
             // onImageLoad={this.onImageLoad}  // TODO add these back as part of tracking performance.
             // onImageError={this.onImageError}
             {...resizeModeToMediaImageProps(resizeMode)}
+            loading={getLazyValue(isLazy)}
           />
         )}
         {!disableOverlay && <Blanket isFixed={false} />}
@@ -100,6 +103,14 @@ export const CardSSRView: FC<CardSSRViewProps> = ({
     </SSRFileExperienceWrapper>
   );
 };
+function getLazyValue(isLazy: boolean | undefined): 'lazy' | 'eager' {
+  switch (isLazy) {
+    case false:
+      return 'eager';
+    default:
+      return 'lazy';
+  }
+}
 
 function calculateBreakpoint(dimensions?: CardDimensions): Breakpoint {
   const width = dimensions?.width ?? defaultImageCardDimensions.width;

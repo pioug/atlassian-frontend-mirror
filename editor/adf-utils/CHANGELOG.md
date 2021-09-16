@@ -1,5 +1,15 @@
 # @atlaskit/adf-utils
 
+## 14.3.0
+
+### Minor Changes
+
+- [`cf853e39278`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf853e39278) - Add single column support for layouts
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.2.0
 
 ### Minor Changes

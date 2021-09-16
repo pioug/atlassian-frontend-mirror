@@ -20,6 +20,8 @@ import {
 } from '@atlaskit/editor-common';
 import { waitForNoTooltip } from '@atlaskit/visual-regression/helper';
 import { wait } from '@testing-library/react';
+import { panelSelectors } from '../../__helpers/page-objects/_panel';
+import { pressKeyCombo } from '../../__helpers/page-objects/_keyboard';
 
 describe('Panel:', () => {
   let page: PuppeteerPage;
@@ -153,7 +155,7 @@ describe('custom panels', () => {
     await page.waitForSelector(`.${PanelSharedCssClassName.icon}`, {
       visible: true,
     });
-    await page.click(`${PanelSharedSelectors.hideEmojiIcon}`);
+    await page.click(`${PanelSharedSelectors.removeEmojiIcon}`);
     await page.click(`${PanelSharedSelectors.title}`);
     await waitForNoTooltip(page);
   });
@@ -170,5 +172,40 @@ describe('custom panels', () => {
     });
     await page.click(`${PanelSharedSelectors.title}`);
     await waitForNoTooltip(page);
+  });
+
+  describe('should close Popup ', () => {
+    it('when clicked on other buttons on floating toolbar', async () => {
+      await page.click(`.${PanelSharedCssClassName.icon}`);
+      await page.click(`${PanelSharedSelectors.colorPalette}`);
+      await page.click(`${PanelSharedSelectors.noteButton}`);
+    });
+
+    it('ColorPicker when clicked on EmojiPicker', async () => {
+      await page.click(`.${PanelSharedCssClassName.icon}`);
+      await page.click(`${PanelSharedSelectors.colorPalette}`);
+      await page.click(`${PanelSharedSelectors.emojiIcon}`);
+      await page.hover(`${PanelSharedSelectors.title}`);
+      await waitForNoTooltip(page);
+    });
+
+    it('when clicked on different panel', async () => {
+      await page.click(`.${PanelSharedCssClassName.icon}`);
+      await page.click(`${PanelSharedSelectors.colorPalette}`);
+      await page.click(`${PanelSharedSelectors.infoPanel}`);
+    });
+  });
+
+  it('should select custom panel with emoji by pressing Shift + ArrowDown', async () => {
+    await page.click(`${panelSelectors.panelContent} p`);
+    await pressKeyCombo(page, [
+      'Shift',
+      'ArrowDown',
+      'ArrowDown',
+      'ArrowDown',
+      'ArrowDown',
+      'ArrowDown',
+      'ArrowDown',
+    ]);
   });
 });

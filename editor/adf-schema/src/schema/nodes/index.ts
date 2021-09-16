@@ -94,7 +94,8 @@ export {
   tableBackgroundColorPalette,
   tableBackgroundBorderColor,
   tableBackgroundColorNames,
-  setCellAttrs,
+  getCellAttrs,
+  getCellDomAttrs,
   tablePrefixSelector,
   tableCellSelector,
   tableHeaderSelector,
@@ -138,8 +139,13 @@ export { date } from './date';
 export type { DateDefinition } from './date';
 export { placeholder } from './placeholder';
 export type { PlaceholderDefinition } from './placeholder';
-export { layoutSection } from './layout-section';
-export type { LayoutSectionDefinition } from './layout-section';
+export { layoutSection, layoutSectionWithSingleColumn } from './layout-section';
+export type {
+  LayoutSectionDefinition,
+  LayoutSectionBaseDefinition,
+  LayoutSectionFullDefinition,
+  LayoutSectionWithSingleColumnDefinition,
+} from './layout-section';
 export { layoutColumn } from './layout-column';
 export type { LayoutColumnDefinition } from './layout-column';
 export { inlineCard } from './inline-card';

@@ -576,31 +576,63 @@ describe('mentionTypeahead', () => {
       withMentionQuery(
         'doesNotExist',
         async ({ createAnalyticsEvent, query, typeAheadTool }) => {
+          expect(createAnalyticsEvent).not.toHaveBeenCalledWith(
+            expect.objectContaining({
+              action: 'exposed',
+              actionSubject: 'feature',
+              eventType: 'operational',
+              attributes: expect.objectContaining({
+                flagKey: 'confluence.frontend.invite.from.mention',
+                value: 'control',
+              }),
+            }),
+          );
+
+          searchResultTypeAhead(typeAheadTool)('doesNotExist');
           await searchResultTypeAhead(typeAheadTool)(query).result();
+
           expect(createAnalyticsEvent).toHaveBeenCalledWith(
             expect.objectContaining({
               action: 'exposed',
               actionSubject: 'feature',
               eventType: 'operational',
               attributes: expect.objectContaining({
-                componentName: 'mention',
                 flagKey: 'confluence.frontend.invite.from.mention',
-                value: false,
-                cohort: undefined,
+                value: 'control',
               }),
             }),
           );
+        },
+        {
+          mentionConfig: {
+            inviteExperimentCohort: 'control',
+            shouldEnableInvite: false,
+          },
         },
       ),
     );
 
     describe('inviteFromMentionExperiment On', () => {
       it(
-        'should trigger feature exposed analytics event',
+        'should trigger feature exposed analytics event only when 2 or less results are returned',
         withMentionQuery(
-          'doesNotExist',
+          '',
           async ({ createAnalyticsEvent, typeAheadTool, query }) => {
+            expect(createAnalyticsEvent).not.toHaveBeenCalledWith(
+              expect.objectContaining({
+                action: 'exposed',
+                actionSubject: 'feature',
+                eventType: 'operational',
+                attributes: expect.objectContaining({
+                  flagKey: 'confluence.frontend.invite.from.mention',
+                  value: 'variation',
+                }),
+              }),
+            );
+
+            searchResultTypeAhead(typeAheadTool)('doesNotExist');
             await searchResultTypeAhead(typeAheadTool)(query).result();
+
             expect(createAnalyticsEvent).toHaveBeenCalledWith(
               expect.objectContaining({
                 action: 'exposed',
@@ -608,8 +640,7 @@ describe('mentionTypeahead', () => {
                 eventType: 'operational',
                 attributes: expect.objectContaining({
                   flagKey: 'confluence.frontend.invite.from.mention',
-                  value: true,
-                  cohort: 'variation',
+                  value: 'variation',
                 }),
               }),
             );

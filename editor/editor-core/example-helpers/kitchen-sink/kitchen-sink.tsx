@@ -1,11 +1,13 @@
 import React from 'react';
 
+import { ThemeProvider } from 'styled-components';
 import { addLocaleData } from 'react-intl';
 import { ADFEntity, scrubAdf } from '@atlaskit/adf-utils';
 import { Checkbox } from '@atlaskit/checkbox';
 import { ProviderFactory } from '@atlaskit/editor-common';
 import Flag from '@atlaskit/flag';
-import { AtlaskitThemeProvider } from '@atlaskit/theme/components';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
+import DeprecatedThemeProvider from '@atlaskit/theme/deprecated-provider-please-do-not-use';
 import { addGlobalEventEmitterListeners } from '@atlaskit/media-test-helpers/globalEventEmitterListeners';
 import Warning from '@atlaskit/icon/glyph/warning';
 
@@ -441,7 +443,7 @@ export class KitchenSink extends React.Component<
 
   public render() {
     return (
-      <AtlaskitThemeProvider mode={this.state.theme}>
+      <DeprecatedThemeProvider provider={ThemeProvider} mode={this.state.theme}>
         <div>
           <KitchenSinkControls
             adfEnabled={this.state.showADF}
@@ -573,7 +575,7 @@ export class KitchenSink extends React.Component<
             />
           </div>
         )}
-      </AtlaskitThemeProvider>
+      </DeprecatedThemeProvider>
     );
   }
 }

@@ -42,6 +42,7 @@ const TooltipContainer = forwardRef<HTMLDivElement, TooltipContainerProps>(
       testId,
       onMouseOut,
       onMouseOver,
+      id,
     },
     ref,
   ) {
@@ -55,6 +56,7 @@ const TooltipContainer = forwardRef<HTMLDivElement, TooltipContainerProps>(
             className={className}
             placement={placement}
             testId={testId}
+            id={id}
             onMouseOut={onMouseOut}
             onMouseOver={onMouseOver}
             css={[

@@ -1,62 +1,64 @@
-import React from 'react';
+/** @jsx jsx */
 
-import styled from 'styled-components';
+import { css, jsx } from '@emotion/core';
 
 import Button from '@atlaskit/button/custom-theme-button';
 import { ProgressIndicator } from '@atlaskit/progress-indicator';
-import { gridSize } from '@atlaskit/theme/constants';
+import { gridSize as getGridSize } from '@atlaskit/theme/constants';
 
 import { SpotlightCard } from '../src';
 
-const Wrapper = styled.div`
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  justify-content: center;
-`;
+const gridSize = getGridSize();
 
-const Heading = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
+const wrapperStyles = css({
+  display: 'flex',
+  height: '100%',
+  alignItems: 'center',
+  justifyContent: 'center',
+  flexDirection: 'column',
+});
 
-const Tagline = styled.p`
-  padding-bottom: ${gridSize() * 2}px;
-`;
+const headingStyles = css({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+});
 
-const Option = styled.div`
-  padding: ${gridSize() / 2}px;
-`;
+const taglineStyles = css({
+  paddingBottom: `${gridSize * 2}px`,
+});
 
-class NewUser extends React.Component<{}> {
-  render() {
-    return (
-      <Wrapper>
-        <div>
-          <Heading>
-            <h2>Welcome to Jira</h2>
-            <ProgressIndicator values={[1, 2, 3]} selectedIndex={0} />
-          </Heading>
-          <Tagline>
-            Tell us about your team so we can personalise your project for you
-          </Tagline>
-          <SpotlightCard heading="Why are you trying Jira Software?" isFlat>
-            <Option>
-              <Button>Learn about Agile</Button>
-            </Option>
-            <Option>
-              <Button>Explore the product</Button>
-            </Option>
-            <Option>
-              <Button>Setting it up for my team</Button>
-            </Option>
-          </SpotlightCard>
-        </div>
-      </Wrapper>
-    );
-  }
-}
+const optionStyles = css({
+  padding: `${gridSize / 2}px`,
+});
+
+const Option: React.FC<{}> = ({ children }) => (
+  <div css={optionStyles}>{children}</div>
+);
+
+const NewUser: React.FC<{}> = () => (
+  <div css={wrapperStyles}>
+    <div>
+      <div css={headingStyles}>
+        <h2>Welcome to Jira</h2>
+        <ProgressIndicator values={[1, 2, 3]} selectedIndex={0} />
+      </div>
+      <p css={taglineStyles}>
+        Tell us about your team so we can personalise your project for you
+      </p>
+      <SpotlightCard heading="Why are you trying Jira Software?" isFlat>
+        <Option>
+          <Button>Learn about Agile</Button>
+        </Option>
+        <Option>
+          <Button>Explore the product</Button>
+        </Option>
+        <Option>
+          <Button>Setting it up for my team</Button>
+        </Option>
+      </SpotlightCard>
+    </div>
+  </div>
+);
 
 export default NewUser;

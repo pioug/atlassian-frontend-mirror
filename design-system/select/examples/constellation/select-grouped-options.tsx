@@ -20,6 +20,7 @@ const SelectGroupedOptionsExample = () => (
           label: 'QLD',
           options: [
             { label: 'Brisbane', value: 'b' },
+            // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
             { label: 'Gold coast', value: 'g' },
           ],
         },

@@ -580,6 +580,7 @@ describe('Table analytic events', () => {
       insertColumnWithAnalytics(INPUT_METHOD.CONTEXT_MENU, 2)(
         editorView.state,
         editorView.dispatch,
+        editorView,
       );
     });
 

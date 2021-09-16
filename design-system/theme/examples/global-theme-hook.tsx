@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { useGlobalTheme } from '../src';
 
 export default () => {

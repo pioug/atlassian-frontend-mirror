@@ -146,7 +146,7 @@ export {
   rgbToHex,
   rule,
   sanitizeNodes,
-  setCellAttrs,
+  getCellDomAttrs,
   status,
   strike,
   strong,

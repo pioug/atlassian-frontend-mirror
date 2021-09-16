@@ -1,76 +1,95 @@
-import { snapshot, initEditorWithAdf, Appearance } from '../_utils';
 import {
-  clickCellOptions,
+  snapshot,
+  initEditorWithAdf,
+  initFullPageEditorWithAdf,
+  Appearance,
+} from '../_utils';
+import {
   getSelectorForTableCell,
-  selectCellOption,
-  tableSelectors,
   clickFirstCell,
+  mergeCells,
+  splitCells,
 } from '../../__helpers/page-objects/_table';
-import {
-  pressKeyDown,
-  pressKeyUp,
-} from '../../__helpers/page-objects/_keyboard';
+import { pressKeyCombo } from '../../__helpers/page-objects/_keyboard';
 import adf from './__fixtures__/default-table.adf.json';
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import { waitForFloatingControl } from '../../__helpers/page-objects/_toolbar';
 
-// FIXME These tests were flakey in the Puppeteer v10 Upgrade
-describe.skip('Table context menu: merge-split cells', () => {
+describe('Table context menu: merge-split cells', () => {
   let page: PuppeteerPage;
-
-  const tableMergeAndSplitCells = async (
-    firstCell: string,
-    lastCell: string,
-  ) => {
-    await page.click(firstCell);
-    await pressKeyDown(page, 'Shift');
-    await page.click(lastCell);
-    await pressKeyUp(page, 'Shift');
-    await page.waitForSelector(tableSelectors.selectedCell);
-    await clickCellOptions(page);
-    await snapshot(page);
-    await clickCellOptions(page);
-    await selectCellOption(page, tableSelectors.mergeCellsText);
-    await snapshot(page);
-    await page.waitForSelector(firstCell);
-    await page.click(firstCell);
-    await clickCellOptions(page);
-    await snapshot(page);
-    await clickCellOptions(page);
-    await selectCellOption(page, tableSelectors.splitCellText);
-    await snapshot(page);
-  };
 
   beforeAll(async () => {
     page = global.page;
   });
 
-  beforeEach(async () => {
-    await initEditorWithAdf(page, {
-      adf,
-      appearance: Appearance.fullPage,
-      viewport: { width: 1280, height: 600 },
+  describe('with table cell optimization on', () => {
+    beforeEach(async () => {
+      await initFullPageEditorWithAdf(page, adf, undefined, undefined, {
+        allowTables: {
+          advanced: true,
+          tableCellOptimization: true,
+          stickyHeaders: true,
+        },
+      });
+      await clickFirstCell(page);
     });
-    await clickFirstCell(page, true);
-  });
 
-  it(`should merge and split cell for row`, async () => {
-    const firstCell = getSelectorForTableCell({
-      row: 1,
-      cell: 1,
+    it('ensures table looks ok after merging cells and undo', async () => {
+      const from = getSelectorForTableCell({
+        row: 1,
+        cell: 1,
+      });
+      const to = getSelectorForTableCell({ row: 2, cell: 1 });
+      await mergeCells(page, from, to);
+      await snapshot(page);
+      // undo the merge
+      // Meta key doesnt work here
+      await pressKeyCombo(page, ['Control', 'KeyZ']);
+      await snapshot(page);
     });
-    let lastCell = getSelectorForTableCell({ row: 3, cell: 1 });
-    await tableMergeAndSplitCells(firstCell, lastCell);
   });
 
-  it(`should merge and split cell for column`, async () => {
-    const firstCell = getSelectorForTableCell({ row: 2, cell: 1 });
-    const lastCell = getSelectorForTableCell({ row: 2, cell: 3 });
-    await tableMergeAndSplitCells(firstCell, lastCell);
-  });
+  const tableMergeAndSplitCells = async (
+    firstCell: string,
+    lastCell: string,
+  ) => {
+    await mergeCells(page, firstCell, lastCell);
+    await waitForFloatingControl(page, 'Table floating controls');
+    await snapshot(page);
+    await splitCells(page, firstCell);
+    await waitForFloatingControl(page, 'Table floating controls');
+    await snapshot(page);
+  };
 
-  it(`should merge and split cell for row+col`, async () => {
-    const firstCell = getSelectorForTableCell({ row: 2, cell: 1 });
-    const lastCell = getSelectorForTableCell({ row: 3, cell: 2 });
-    await tableMergeAndSplitCells(firstCell, lastCell);
+  describe('should merge and split cell', () => {
+    beforeEach(async () => {
+      await initEditorWithAdf(page, {
+        adf,
+        appearance: Appearance.fullPage,
+        viewport: { width: 1280, height: 600 },
+      });
+      await clickFirstCell(page, true);
+    });
+
+    it(`for row`, async () => {
+      const firstCell = getSelectorForTableCell({
+        row: 1,
+        cell: 1,
+      });
+      let lastCell = getSelectorForTableCell({ row: 3, cell: 1 });
+      await tableMergeAndSplitCells(firstCell, lastCell);
+    });
+
+    it(`for column`, async () => {
+      const firstCell = getSelectorForTableCell({ row: 2, cell: 1 });
+      const lastCell = getSelectorForTableCell({ row: 2, cell: 3 });
+      await tableMergeAndSplitCells(firstCell, lastCell);
+    });
+
+    it(`for row+col`, async () => {
+      const firstCell = getSelectorForTableCell({ row: 2, cell: 1 });
+      const lastCell = getSelectorForTableCell({ row: 3, cell: 2 });
+      await tableMergeAndSplitCells(firstCell, lastCell);
+    });
   });
 });

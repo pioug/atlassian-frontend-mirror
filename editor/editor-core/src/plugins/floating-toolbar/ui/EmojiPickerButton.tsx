@@ -6,6 +6,7 @@ import {
   Popup,
   ProviderFactory,
   Providers,
+  withOuterListeners,
   WithProviders,
 } from '@atlaskit/editor-common';
 import { EmojiPicker, EmojiId } from '@atlaskit/emoji';
@@ -28,6 +29,7 @@ export const EmojiPickerButton: React.FunctionComponent<{
 }> = (props) => {
   const buttonRef = React.useRef<HTMLButtonElement>(null);
   const [isPopupOpen, setIsPopupOpen] = React.useState(false);
+  const EmojiPickerWithListener = withOuterListeners(EmojiPicker);
 
   const togglePopup = () => {
     setIsPopupOpen(!isPopupOpen);
@@ -44,10 +46,11 @@ export const EmojiPickerButton: React.FunctionComponent<{
     }
 
     return (
-      <EmojiPicker
+      <EmojiPickerWithListener
         emojiProvider={providers.emojiProvider}
         onSelection={updateEmoji}
         onPickerRef={() => {}}
+        handleClickOutside={togglePopup}
       />
     );
   };

@@ -1,5 +1,6 @@
 import { createSocketIOCollabProvider } from '../../socket-io-provider';
 import type { Provider } from '../';
+import { sleep } from '../../helpers/utils';
 
 jest.mock('prosemirror-collab', () => {
   return {
@@ -33,6 +34,7 @@ jest.mock('../../channel', () => {
         }),
       connect: jest.fn(),
       broadcast: () => jest.fn(),
+      fetchCatchup: () => jest.fn(),
     };
   }
   return {
@@ -40,9 +42,28 @@ jest.mock('../../channel', () => {
   };
 });
 
+jest.mock('../catchup', () => {
+  return {
+    catchup: jest.fn().mockImplementation(() => Promise.resolve()),
+  };
+});
+
+jest.mock('../../analytics', () => {
+  const originalModule = jest.requireActual('../../analytics');
+
+  return {
+    ...originalModule,
+    triggerAnalyticsForCatchupFailed: jest.fn(() => {}),
+  };
+});
+
+jest.mock('lodash/throttle', () => jest.fn((fn) => fn));
+
+import { catchup } from '../catchup';
+import { triggerAnalyticsForCatchupFailed } from '../../analytics';
 import { Channel, ErrorPayload } from '../../channel';
 import { MAX_STEP_REJECTED_ERROR } from '../../provider';
-
+import { ACK_MAX_TRY } from '../../helpers/const';
 import { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 
 const testProviderConfig = {
@@ -175,6 +196,36 @@ describe('provider unit tests', () => {
         done();
       }, 5000);
     });
+
+    it('emit disconnected to consumer', () => {
+      const provider = createSocketIOCollabProvider(testProviderConfig);
+      const mockFn = jest.fn();
+      provider.on('disconnected', ({ reason, sid }) => {
+        mockFn(reason, sid);
+      });
+      provider.initialize(() => editorState);
+      socket.emit('connected', { sid: 'sid-1' });
+      socket.emit('disconnect', { reason: 'transport close' });
+      socket.emit('connected', { sid: 'sid-2' });
+      socket.emit('disconnect', { reason: 'transport error' });
+      socket.emit('connected', { sid: 'sid-3' });
+      socket.emit('disconnect', { reason: 'ping timeout' });
+      socket.emit('connected', { sid: 'sid-4' });
+      socket.emit('disconnect', { reason: 'io client disconnect' });
+      socket.emit('connected', { sid: 'sid-5' });
+      socket.emit('disconnect', { reason: 'io server disconnect' });
+      socket.emit('connected', { sid: 'sid-6' });
+      socket.emit('disconnect', { reason: 'blah?' });
+      expect(mockFn.mock.calls.length).toBe(6);
+      expect(mockFn.mock.calls).toEqual([
+        ['SOCKET_CLOSED', 'sid-1'],
+        ['SOCKET_ERROR', 'sid-2'],
+        ['SOCKET_TIMEOUT', 'sid-3'],
+        ['CLIENT_DISCONNECT', 'sid-4'],
+        ['SERVER_DISCONNECT', 'sid-5'],
+        ['UNKNOWN_DISCONNECT', 'sid-6'],
+      ]);
+    });
   });
 
   describe('Emit metadata cases', () => {
@@ -187,7 +238,7 @@ describe('provider unit tests', () => {
         done();
       });
       provider.initialize(() => editorState);
-      socket.emit('title:changed', {
+      socket.emit('metadata:changed', {
         title: 'some-random-title',
       });
     });
@@ -201,22 +252,24 @@ describe('provider unit tests', () => {
         done();
       });
       provider.initialize(() => editorState);
-      socket.emit('title:changed', {
+      socket.emit('metadata:changed', {
         title: '',
       });
     });
 
-    it('should emit metadata when editor width is changed', async (done) => {
+    it('should emit metadata with editorWidth', async (done) => {
       const provider = createSocketIOCollabProvider(testProviderConfig);
       provider.on('metadata:changed', (metadata) => {
         expect(metadata).toEqual({
-          editorWidth: 'some-random-editor-width',
+          editorWidth: 'full-page',
+          version: 1,
         });
         done();
       });
       provider.initialize(() => editorState);
-      socket.emit('width:changed', {
-        editorWidth: 'some-random-editor-width',
+      socket.emit('metadata:changed', {
+        editorWidth: 'full-page',
+        version: 1,
       });
     });
 
@@ -229,7 +282,7 @@ describe('provider unit tests', () => {
         done();
       });
       provider.initialize(() => editorState);
-      socket.emit('width:changed', {
+      socket.emit('metadata:changed', {
         editorWidth: '',
       });
     });
@@ -497,12 +550,100 @@ describe('provider unit tests', () => {
 
     it("should throw when can't syncup with server", async () => {
       const provider = createSocketIOCollabProvider(testProviderConfig);
+
+      let sendSpy = jest
+        .spyOn(provider as any, 'sendStepsFromCurrentState')
+        .mockImplementation(() => {});
+
       const newState = JSON.parse(JSON.stringify(editorState));
       newState.collab.steps = [1];
       provider.initialize(() => newState);
       await expect(provider.getFinalAcknowledgedState()).rejects.toThrowError(
         new Error("Can't syncup with Collab Service"),
       );
+
+      expect(sendSpy).toHaveBeenCalledTimes(ACK_MAX_TRY + 1);
+    });
+  });
+
+  describe('catchup should reset the flags (pauseQueue and stepRejectCounter) when called', () => {
+    it('should reset pauseQueue and stepRejectCounter flags', async () => {
+      const provider = createSocketIOCollabProvider(testProviderConfig);
+      const throttledCatchupSpy = jest.spyOn(
+        provider as any,
+        'throttledCatchup',
+      );
+
+      const stepRejectedError: ErrorPayload = {
+        data: {
+          status: 409,
+          code: 'HEAD_VERSION_UPDATE_FAILED',
+          meta: 'The version number does not match the current head version.',
+        },
+        message: 'Version number does not match current head version.',
+      };
+
+      provider.initialize(() => editorState);
+      for (let i = 1; i <= MAX_STEP_REJECTED_ERROR; i++) {
+        socket.emit('error', stepRejectedError);
+      }
+
+      await sleep(0);
+
+      expect(throttledCatchupSpy).toBeCalledTimes(1);
+      expect(catchup).toBeCalledTimes(1);
+
+      for (let i = 1; i <= MAX_STEP_REJECTED_ERROR; i++) {
+        socket.emit('error', stepRejectedError);
+      }
+
+      await sleep(0);
+
+      expect(throttledCatchupSpy).toBeCalledTimes(2);
+      expect(catchup).toBeCalledTimes(2);
+    });
+
+    it('should reset pauseQueue and stepRejectCounter flags when catchup causes an error', async () => {
+      const catchupMock = (catchup as jest.Mock).mockImplementation(() => {
+        throw new Error('catchup error');
+      });
+
+      const provider = createSocketIOCollabProvider(testProviderConfig);
+
+      const throttledCatchupSpy = jest.spyOn(
+        provider as any,
+        'throttledCatchup',
+      );
+
+      const stepRejectedError: ErrorPayload = {
+        data: {
+          status: 409,
+          code: 'HEAD_VERSION_UPDATE_FAILED',
+          meta: 'The version number does not match the current head version.',
+        },
+        message: 'Version number does not match current head version.',
+      };
+
+      provider.initialize(() => editorState);
+      for (let i = 1; i <= MAX_STEP_REJECTED_ERROR; i++) {
+        socket.emit('error', stepRejectedError);
+      }
+
+      await sleep(0);
+
+      expect(triggerAnalyticsForCatchupFailed).toBeCalledTimes(1);
+      expect(throttledCatchupSpy).toBeCalledTimes(1);
+      expect(catchup).toBeCalledTimes(1);
+
+      for (let i = 1; i <= MAX_STEP_REJECTED_ERROR; i++) {
+        socket.emit('error', stepRejectedError);
+      }
+
+      await sleep(0);
+
+      expect(triggerAnalyticsForCatchupFailed).toBeCalledTimes(2);
+      expect(throttledCatchupSpy).toBeCalledTimes(2);
+      expect(catchupMock).toBeCalledTimes(2);
     });
   });
 });

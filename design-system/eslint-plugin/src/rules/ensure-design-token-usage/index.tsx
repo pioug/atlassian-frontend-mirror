@@ -13,8 +13,11 @@ import { isLegacyElevation } from './utils/is-elevation';
 import {
   isChildOfType,
   isDecendantOfGlobalToken,
+  isDecendantOfStyleBlock,
+  isDecendantOfStyleJsxAttribute,
   isDecendantOfType,
 } from './utils/is-node';
+import { isToken } from './utils/is-token';
 
 type PluginConfig = {
   shouldEnforceFallbacks: boolean;
@@ -24,26 +27,8 @@ const defaultConfig: PluginConfig = {
   shouldEnforceFallbacks: false,
 };
 
-const getNodeColumn = (node: Rule.Node) => {
-  if (node.loc) {
-    return node.loc.start.column;
-  }
-
-  return 0;
-};
-
-const isTokenValue = (value: string): string | false => {
-  const tokenValues = Object.entries(tokens);
-
-  for (let i = 0; i < tokenValues.length; i++) {
-    const [tokenKey, tokenValue] = tokenValues[i];
-    if (value.includes(tokenValue)) {
-      return tokenKey;
-    }
-  }
-
-  return false;
-};
+const getNodeColumn = (node: Rule.Node) =>
+  node.loc ? node.loc.start.column : 0;
 
 type Suggestion = {
   shouldReturnSuggestion: boolean;
@@ -68,7 +53,13 @@ const getTokenSuggestion = (
         config.shouldEnforceFallbacks === true,
       desc: `Convert to token with fallback`,
       fix: (fixer: Rule.RuleFixer) =>
-        fixer.replaceText(node, `token('', ${reference})`),
+        fixer.replaceText(
+          node,
+          // @ts-ignore JSXAttribute is not available in @types/estree
+          node.parent.type === 'JSXAttribute'
+            ? `{token('', ${reference})}`
+            : `token('', ${reference})`,
+        ),
     },
   ].filter(filterSuggestion);
 
@@ -130,6 +121,10 @@ token('color.background.blanket');
 
     return {
       'TemplateLiteral > Identifier': (node: Rule.Node) => {
+        if (!isDecendantOfStyleBlock(node)) {
+          return;
+        }
+
         if (node.type === 'Identifier' && isLegacyNamedColor(node.name)) {
           context.report({
             messageId: 'hardCodedColor',
@@ -142,10 +137,29 @@ token('color.background.blanket');
 
       Identifier(node) {
         if (
-          !isDecendantOfGlobalToken(node) &&
-          !isDecendantOfType(node, 'ImportDeclaration') &&
-          isLegacyColor(node.name)
+          isDecendantOfGlobalToken(node) ||
+          isDecendantOfType(node, 'ImportDeclaration')
         ) {
+          return;
+        }
+
+        if (isLegacyColor(node.name) || isHardCodedColor(node.name)) {
+          if (
+            node.parent.type === 'MemberExpression' &&
+            node.parent.object.type === 'Identifier'
+          ) {
+            context.report({
+              messageId: 'hardCodedColor',
+              node,
+              suggest: getTokenSuggestion(
+                node.parent,
+                `${node.parent.object.name}.${node.name}`,
+                config,
+              ),
+            });
+            return;
+          }
+
           context.report({
             messageId: 'hardCodedColor',
             node,
@@ -155,7 +169,8 @@ token('color.background.blanket');
         }
 
         const elevation = isLegacyElevation(node.name);
-        if (!isDecendantOfType(node, 'ImportDeclaration') && elevation) {
+
+        if (elevation) {
           context.report({
             messageId: 'legacyElevation',
             node,
@@ -194,25 +209,34 @@ ${' '.repeat(getNodeColumn(node) - 2)}box-shadow: \${token('${
         }
 
         const value = node.quasi.quasis.map((q) => q.value.raw).join('');
-        if (includesHardCodedColor(value)) {
-          context.report({
-            messageId: 'hardCodedColor',
-            node,
-          });
-          return;
-        }
+        const tokenKey = isToken(value, tokens);
 
-        const tokenKey = isTokenValue(value);
         if (tokenKey) {
           context.report({
             messageId: 'directTokenUsage',
             node,
-            data: {
-              tokenKey,
-            },
+            data: { tokenKey },
           });
           return;
         }
+
+        /**
+         * Attempts to remove all non-essential words & characters from a style block.
+         * Including selectors, queries and property names, leaving only values
+         * This is necessary to avoid cases where a property might have a color in its name ie. "white-space"
+         */
+        const cssProperties = value
+          .replace(/\n/g, '')
+          .split(/;|{|}/)
+          .filter((el) => !el.match(/\.|\@|\(|\)/))
+          .map((el) => el.trim().split(':').pop() || '');
+
+        cssProperties.forEach((property) => {
+          if (includesHardCodedColor(property)) {
+            context.report({ messageId: 'hardCodedColor', node });
+            return;
+          }
+        });
       },
 
       'ObjectExpression > Property > Literal': (node: Rule.Node) => {
@@ -225,32 +249,34 @@ ${' '.repeat(getNodeColumn(node) - 2)}box-shadow: \${token('${
         }
 
         if (
-          !isDecendantOfGlobalToken(node) &&
-          (isHardCodedColor(node.value) || includesHardCodedColor(node.value))
+          !isDecendantOfStyleBlock(node) &&
+          !isDecendantOfStyleJsxAttribute(node)
+        ) {
+          return;
+        }
+
+        const tokenKey = isToken(node.value, tokens);
+        const isCSSVar = node.value.startsWith('var(');
+
+        if (tokenKey) {
+          context.report({
+            messageId: 'directTokenUsage',
+            node,
+            data: { tokenKey },
+            fix: (fixer) =>
+              isCSSVar ? fixer.replaceText(node, `token('${tokenKey}')`) : null,
+          });
+          return;
+        }
+
+        if (
+          isHardCodedColor(node.value) ||
+          includesHardCodedColor(node.value)
         ) {
           context.report({
             messageId: 'hardCodedColor',
             node,
             suggest: getTokenSuggestion(node, `'${node.value}'`, config),
-          });
-          return;
-        }
-
-        const tokenKey = isTokenValue(node.value);
-        const isCSSVar = node.value.startsWith('var(');
-        if (tokenKey) {
-          context.report({
-            messageId: 'directTokenUsage',
-            node,
-            data: {
-              tokenKey,
-            },
-            fix: (fixer) => {
-              if (!isCSSVar) {
-                return null;
-              }
-              return fixer.replaceText(node, `token('${tokenKey}')`);
-            },
           });
           return;
         }
@@ -260,6 +286,13 @@ ${' '.repeat(getNodeColumn(node) - 2)}box-shadow: \${token('${
         if (
           node.type !== 'CallExpression' ||
           node.callee.type !== 'Identifier'
+        ) {
+          return;
+        }
+
+        if (
+          !isDecendantOfStyleBlock(node) &&
+          !isDecendantOfStyleJsxAttribute(node)
         ) {
           return;
         }
@@ -312,41 +345,66 @@ ${' '.repeat(getNodeColumn(node) - 2)}box-shadow: \${token('${
         }
 
         if (node.arguments[0] && node.arguments[0].type !== 'Literal') {
-          context.report({
-            messageId: 'staticToken',
-            node,
-          });
+          context.report({ messageId: 'staticToken', node });
           return;
         }
 
         const tokenKey = node.arguments[0].value;
-        if (
-          tokenKey &&
-          typeof tokenKey === 'string' &&
-          tokenKey in renameMapping
-        ) {
+
+        if (!tokenKey) {
+          return;
+        }
+
+        if (typeof tokenKey === 'string' && tokenKey in renameMapping) {
           context.report({
             messageId: 'tokenRenamed',
             node,
             data: {
-              name: tokenKey + '',
+              name: tokenKey,
             },
-            fix: (fixer) => {
-              const newTokenName = renameMapping[tokenKey];
-              return fixer.replaceText(node.arguments[0], `'${newTokenName}'`);
-            },
+            fix: (fixer) =>
+              fixer.replaceText(
+                node.arguments[0],
+                `'${renameMapping[tokenKey]}'`,
+              ),
           });
           return;
         }
 
-        const anyTokens = tokens as any;
-        if (typeof tokenKey !== 'string' || !anyTokens[tokenKey]) {
+        if (
+          typeof tokenKey !== 'string' ||
+          (typeof tokenKey === 'string' &&
+            !tokens[tokenKey as keyof typeof tokens])
+        ) {
           context.report({
             messageId: 'invalidToken',
             node,
             data: {
-              name: tokenKey + '',
+              name: tokenKey.toString(),
             },
+          });
+          return;
+        }
+      },
+
+      JSXAttribute(node: any) {
+        if (!node.value) {
+          return;
+        }
+
+        if (['alt', 'src', 'label'].includes(node.name.name)) {
+          return;
+        }
+
+        if (
+          node.value.type === 'Literal' &&
+          (isHardCodedColor(node.value.value) ||
+            includesHardCodedColor(node.value.value))
+        ) {
+          context.report({
+            messageId: 'hardCodedColor',
+            node,
+            suggest: getTokenSuggestion(node.value, node.value.value, config),
           });
           return;
         }

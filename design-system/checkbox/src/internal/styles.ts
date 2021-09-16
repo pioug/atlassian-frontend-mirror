@@ -22,7 +22,6 @@ import {
 import { ThemeModes } from '@atlaskit/theme/types';
 import { token } from '@atlaskit/tokens';
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 const checkboxStyles = css`
   /* Make the input invisible */
   -webkit-appearance: none;

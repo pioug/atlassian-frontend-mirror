@@ -1,13 +1,17 @@
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
+/* eslint-disable @repo/internal/react/no-class-components */
 import React, { ChangeEvent, Component } from 'react';
 
 import Lorem from 'react-lorem-component';
-import styled from 'styled-components';
+import styled, {
+  ThemeProvider as StyledThemeProvider,
+} from 'styled-components';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
-import { Appearance as ButtonAppearance } from '@atlaskit/button/types';
 import { DN30, N0, subtleText } from '@atlaskit/theme/colors';
-import { AtlaskitThemeProvider, themed } from '@atlaskit/theme/components';
+import { themed } from '@atlaskit/theme/components';
+import DeprecatedThemeProvider from '@atlaskit/theme/deprecated-provider-please-do-not-use';
 import { ThemeModes } from '@atlaskit/theme/types';
 
 import { ProgressIndicator } from '../src';
@@ -125,10 +129,11 @@ export default class ProgressIndicatorDots extends Component<{}, State> {
       themeIndex,
     } = this.state;
     const selectedTheme = themes[themeIndex % 2];
-    const buttonAppearance =
-      selectedAppearance === 'inverted' ? 'primary' : selectedAppearance;
     return (
-      <AtlaskitThemeProvider mode={selectedTheme}>
+      <DeprecatedThemeProvider
+        mode={selectedTheme}
+        provider={StyledThemeProvider}
+      >
         <Page>
           <Header>
             <div>
@@ -213,7 +218,7 @@ export default class ProgressIndicatorDots extends Component<{}, State> {
           <Footer appearance={selectedAppearance}>
             <Button
               isDisabled={selectedIndex === 0}
-              appearance={buttonAppearance as ButtonAppearance}
+              appearance="default"
               onClick={this.handlePrev}
             >
               Prev
@@ -228,14 +233,14 @@ export default class ProgressIndicatorDots extends Component<{}, State> {
             />
             <Button
               isDisabled={selectedIndex === values.length - 1}
-              appearance={buttonAppearance as ButtonAppearance}
+              appearance="default"
               onClick={this.handleNext}
             >
               Next
             </Button>
           </Footer>
         </Page>
-      </AtlaskitThemeProvider>
+      </DeprecatedThemeProvider>
     );
   }
 }

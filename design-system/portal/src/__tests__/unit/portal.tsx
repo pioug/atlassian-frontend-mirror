@@ -148,7 +148,6 @@ describe('Portal container', () => {
     expect(document.querySelector('.atlaskit-portal')).toBeDefined();
 
     rerender(<Wrapper renderPortal={false} />);
-    expect(document.querySelector('.atlaskit-portal-container')).toBeNull();
     expect(document.querySelector('.atlaskit-portal')).toBeNull();
   });
 
@@ -307,7 +306,7 @@ describe('Portal container', () => {
     expect(portalContainer).toHaveStyle('z-index: 100');
   });
 
-  test('should delete old portal parent container when portals are removed', () => {
+  test('should retain the portal parent container when portals are removed', () => {
     const { rerender } = render(
       <Portal zIndex={100}>
         <div>Hi</div>
@@ -322,7 +321,7 @@ describe('Portal container', () => {
     });
 
     const portalParent = document.querySelector(portalParentSelector);
-    expect(portalParent).not.toBeInTheDocument();
+    expect(portalParent).toBeInTheDocument();
   });
 
   test('should append new portal portal container when new portal is created, after one is removed', () => {

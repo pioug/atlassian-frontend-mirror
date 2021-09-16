@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/navigation-next",
-  "version": "9.0.15",
+  "version": "9.0.16",
   "description": "The Atlassian navigation component.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -25,12 +25,12 @@
   "dependencies": {
     "@atlaskit/analytics-namespaced-context": "^6.3.0",
     "@atlaskit/analytics-next": "^8.2.0",
-    "@atlaskit/avatar": "^20.3.0",
-    "@atlaskit/icon": "^21.8.0",
+    "@atlaskit/avatar": "^20.5.0",
+    "@atlaskit/icon": "^21.9.0",
     "@atlaskit/select": "^15.2.0",
     "@atlaskit/spinner": "^15.0.0",
-    "@atlaskit/theme": "^11.5.0",
-    "@atlaskit/tooltip": "^17.3.0",
+    "@atlaskit/theme": "^12.0.0",
+    "@atlaskit/tooltip": "^17.5.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/core": "^10.0.9",
     "chromatism": "^2.6.0",
@@ -56,7 +56,7 @@
     "@atlaskit/build-utils": "*",
     "@atlaskit/button": "^16.0.0",
     "@atlaskit/docs": "^9.0.0",
-    "@atlaskit/drawer": "^6.0.0",
+    "@atlaskit/drawer": "^7.0.0",
     "@atlaskit/dropdown-menu": "^10.1.0",
     "@atlaskit/field-base": "^15.0.0",
     "@atlaskit/global-navigation": "^11.0.0",
@@ -68,7 +68,7 @@
     "@atlaskit/onboarding": "^10.2.0",
     "@atlaskit/section-message": "^6.0.0",
     "@atlaskit/ssr": "*",
-    "@atlaskit/toggle": "^12.2.0",
+    "@atlaskit/toggle": "^12.3.0",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",

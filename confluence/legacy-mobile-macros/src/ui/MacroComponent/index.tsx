@@ -1,5 +1,6 @@
 import React, { ComponentType, FC, useEffect, useState } from 'react';
 
+import { InjectedIntlProps, injectIntl } from 'react-intl';
 import styled from 'styled-components';
 
 import Button from '@atlaskit/button/standard-button';
@@ -7,17 +8,13 @@ import Spinner from '@atlaskit/spinner';
 import * as colors from '@atlaskit/theme/colors';
 import { themed } from '@atlaskit/theme/components';
 
+import { legacyMobileMacrosMessages } from '../../messages';
+
 import {
-  ERROR_LOADING_TEXT,
-  FINAL_ERROR_LOADING_TEXT,
   TAP_TO_LOAD_PROMISE,
-  TAP_TO_LOAD_TEXT,
+  TAP_TO_REFRESH_EVENT,
   TAP_TO_REFRESH_PAGE_PROMISE,
-  TAP_TO_REFRESH_PAGE_TEXT,
-  TAP_TO_RETRY_TEXT,
-  TAP_TO_RFRESH_EVENT,
   TAP_TO_VIEW_PROMISE,
-  TAP_TO_VIEW_TEXT,
 } from './constants';
 import { MacroCard } from './MacroCard';
 import { ActionProps, CreateMacro, MacroRendererProps } from './types';
@@ -55,8 +52,14 @@ const cardStyles = (componentType: ComponentType<any>) => {
 };
 
 // create standard translated error messages here????
-export const MacroComponent: FC<MacroRendererProps> = (props) => {
-  const { createPromise, eventDispatcher, extension, macroWhitelist } = props;
+const MacroComponent: FC<MacroRendererProps & InjectedIntlProps> = (props) => {
+  const {
+    createPromise,
+    eventDispatcher,
+    extension,
+    macroWhitelist,
+    intl,
+  } = props;
   const { extensionKey, parameters } = extension;
 
   const [loading, setLoading] = useState(false);
@@ -138,7 +141,9 @@ export const MacroComponent: FC<MacroRendererProps> = (props) => {
   const setLoadingErrorState = () => {
     setLoaded(false);
     setLoading(false);
-    setErrorMessage(ERROR_LOADING_TEXT);
+    setErrorMessage(
+      intl.formatMessage(legacyMobileMacrosMessages.errorLoadingMacro),
+    );
   };
 
   const setLoadingRetryState = () => {
@@ -151,7 +156,9 @@ export const MacroComponent: FC<MacroRendererProps> = (props) => {
   const setErrorUnableToLoadState = () => {
     setLoaded(false);
     setLoading(false);
-    setErrorMessage(FINAL_ERROR_LOADING_TEXT);
+    setErrorMessage(
+      intl.formatMessage(legacyMobileMacrosMessages.finalErrorLoadingMacro),
+    );
   };
 
   const setLoadingSuccessState = () => {
@@ -225,7 +232,7 @@ export const MacroComponent: FC<MacroRendererProps> = (props) => {
 
   const tapToRefreshPage = () => {
     // Emit a refresh event with no data
-    eventDispatcher.emit(TAP_TO_RFRESH_EVENT, null);
+    eventDispatcher.emit(TAP_TO_REFRESH_EVENT, null);
     // on button click
     // do not set state to loading
     createPromise(TAP_TO_REFRESH_PAGE_PROMISE.name)
@@ -241,7 +248,11 @@ export const MacroComponent: FC<MacroRendererProps> = (props) => {
 
   const getTapToLoadCardProps = (cardProps: CreateMacro): CreateMacro => {
     const newProps = {
-      action: <Action>{TAP_TO_LOAD_TEXT}</Action>,
+      action: (
+        <Action>
+          {intl.formatMessage(legacyMobileMacrosMessages.tapToLoadMacro)}
+        </Action>
+      ),
       isDisabled: false,
       onClick: tapToLoad,
     };
@@ -265,7 +276,11 @@ export const MacroComponent: FC<MacroRendererProps> = (props) => {
 
   const getTapToViewCardProps = (cardProps: CreateMacro): CreateMacro => {
     const newProps = {
-      action: <Action callToAction>{TAP_TO_VIEW_TEXT}</Action>,
+      action: (
+        <Action callToAction>
+          {intl.formatMessage(legacyMobileMacrosMessages.tapToViewMacro)}
+        </Action>
+      ),
       isDisabled: false,
       onClick: tapToView,
     };
@@ -275,7 +290,13 @@ export const MacroComponent: FC<MacroRendererProps> = (props) => {
 
   const getTapToRetryCardProps = (cardProps: CreateMacro): CreateMacro => {
     const newProps = {
-      action: <Action callToAction>{TAP_TO_RETRY_TEXT}</Action>,
+      action: (
+        <Action callToAction>
+          {intl.formatMessage(
+            legacyMobileMacrosMessages.tapToRetryLoadingMacro,
+          )}
+        </Action>
+      ),
       isDisabled: false,
       onClick: tapToRetry,
       errorMessage,
@@ -291,7 +312,11 @@ export const MacroComponent: FC<MacroRendererProps> = (props) => {
       isDisabled: false,
       onClick: tapToRefreshPage,
       errorMessage,
-      secondaryAction: <Action callToAction>{TAP_TO_REFRESH_PAGE_TEXT}</Action>,
+      secondaryAction: (
+        <Action callToAction>
+          {intl.formatMessage(legacyMobileMacrosMessages.tapToRefreshPage)}
+        </Action>
+      ),
     };
 
     return { ...cardProps, ...newProps };
@@ -306,11 +331,11 @@ export const MacroComponent: FC<MacroRendererProps> = (props) => {
 
   useEffect(() => {
     // Attach a listener to the tapToRefresh event emitted during refresh.
-    eventDispatcher.on(TAP_TO_RFRESH_EVENT, onTapToRefresh);
+    eventDispatcher.on(TAP_TO_REFRESH_EVENT, onTapToRefresh);
 
     return () => {
       // Removing the listener to the event before the component is unMounted.
-      eventDispatcher.off(TAP_TO_RFRESH_EVENT, onTapToRefresh);
+      eventDispatcher.off(TAP_TO_REFRESH_EVENT, onTapToRefresh);
     };
   }, [eventDispatcher]);
 
@@ -351,3 +376,5 @@ export const MacroComponent: FC<MacroRendererProps> = (props) => {
 
   return createCard(cardProps);
 };
+
+export default injectIntl(MacroComponent);

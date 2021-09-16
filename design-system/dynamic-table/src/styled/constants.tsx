@@ -2,7 +2,6 @@ import { css } from 'styled-components';
 
 import { N30A } from '@atlaskit/theme/colors';
 import { gridSize } from '@atlaskit/theme/constants';
-import { divide } from '@atlaskit/theme/math';
 
 import { ASC, DESC } from '../internal/constants';
 import { arrow, MSThemeColors } from '../theme';
@@ -142,7 +141,7 @@ export const arrowsStyle = (props: {
 
 export const cellStyle = css`
   border: none;
-  padding: ${divide(gridSize, 2)}px ${gridSize}px;
+  padding: ${gridSize() / 2}px ${gridSize}px;
   text-align: left;
 
   &:first-child {

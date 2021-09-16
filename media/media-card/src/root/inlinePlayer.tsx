@@ -213,7 +213,7 @@ export class InlinePlayerBase extends Component<
         dimensions={dimensions}
       >
         <InactivityDetector>
-          {() => (
+          {(checkMouseMovement) => (
             <CustomMediaPlayer
               type="video"
               src={fileSrc}
@@ -226,6 +226,7 @@ export class InlinePlayerBase extends Component<
                 contentId: identifier.id,
               }}
               originalDimensions={originalDimensions}
+              showControls={checkMouseMovement}
             />
           )}
         </InactivityDetector>

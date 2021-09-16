@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "layoutSection",
+      "content": [
+        {
+          "type": "layoutColumn",
+          "attrs": {
+            "width": 25
+          },
+          "content": [{
+            "type": "paragraph",
+            "content": [{
+              "type": "text",
+              "text": "First Column"
+            }]
+          }]
+        }
+      ]
+    }
+  ]
+}

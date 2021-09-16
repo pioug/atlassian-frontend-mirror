@@ -3,7 +3,11 @@ import { Node, DOMSerializer } from 'prosemirror-model';
 import { EditorView, NodeView } from 'prosemirror-view';
 import { ProviderFactory } from '@atlaskit/editor-common';
 import { getPosHandler } from '../../../../src/nodeviews';
-import { setCellAttrs, CellDomAttrs } from '@atlaskit/adf-schema';
+import {
+  getCellDomAttrs,
+  getCellAttrs,
+  CellDomAttrs,
+} from '@atlaskit/adf-schema';
 import { getFeatureFlags } from '../../feature-flags-context';
 
 export default class TableCellNodeView implements NodeView {
@@ -44,13 +48,26 @@ export default class TableCellNodeView implements NodeView {
     }
   }
 
-  shouldRecreateNodeView(node: Node): boolean {
+  private updateNodeView(node: Node): boolean {
     if (this.node.type !== node.type) {
       return false;
     }
 
-    const attrs = setCellAttrs(this.node);
-    const nextAttrs = setCellAttrs(node);
+    const attrs = getCellDomAttrs(this.node);
+    const nextAttrs = getCellDomAttrs(node);
+
+    const { colspan, rowspan } = getCellAttrs(this.dom);
+
+    // need to rerender when colspan/rowspan in dom are different from the node attrs
+    // this can happen when undoing merge cells
+    const defaultColspan = 1,
+      defaultRowspan = 1;
+    if (
+      colspan !== (node.attrs.colspan || defaultColspan) ||
+      rowspan !== (node.attrs.rowspan || defaultRowspan)
+    ) {
+      return false;
+    }
 
     // added + changed attributes
     const addedAttrs = Object.entries(nextAttrs).filter(
@@ -78,9 +95,9 @@ export default class TableCellNodeView implements NodeView {
   }
 
   update(node: Node) {
-    const shouldUpdate = this.shouldRecreateNodeView(node);
+    const didUpdate = this.updateNodeView(node);
     this.node = node;
-    return shouldUpdate;
+    return didUpdate;
   }
 
   destroy() {

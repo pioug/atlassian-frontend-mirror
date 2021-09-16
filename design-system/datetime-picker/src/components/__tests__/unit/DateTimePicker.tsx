@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { render } from '@testing-library/react';
+import { cleanup, render } from '@testing-library/react';
 import { shallow } from 'enzyme';
 
 import DatePicker from '../../../components/DatePicker';
@@ -8,6 +8,7 @@ import { DateTimePickerWithoutAnalytics as DateTimePicker } from '../../../compo
 import TimePicker from '../../../components/TimePicker';
 
 describe('DateTimePicker', () => {
+  afterEach(cleanup);
   it('should use custom parseValue when accessing state', () => {
     const onChange = jest.fn();
     const customParseValue = jest.fn().mockImplementation(() => ({
@@ -200,8 +201,83 @@ describe('DateTimePicker', () => {
 
     const clearButton = getByTestId(`${testId}--icon--container`);
     clearButton.click();
-
     expect(onChange).toHaveBeenCalledWith('');
     expect(onChange).toHaveBeenCalledTimes(1);
+  });
+
+  it('has invalid styles applied in invalid state', () => {
+    const onChange = jest.fn();
+    const dateTimeValue = '2018-05-02T08:00:00.000+0800';
+    const testId = 'clear--test';
+    const { getByTestId } = render(
+      <DateTimePicker
+        value={dateTimeValue}
+        onChange={onChange}
+        testId={testId}
+        isInvalid
+      />,
+    );
+
+    const element = getByTestId(testId);
+
+    expect(element).toHaveStyleDeclaration('border', '2px solid #DE350B');
+    expect(element).toHaveStyleDeclaration('background-color', '#F4F5F7');
+  });
+
+  it('has default styles applied in default state', () => {
+    const onChange = jest.fn();
+    const dateTimeValue = '2018-05-02T08:00:00.000+0800';
+    const testId = 'clear--test';
+    const { getByTestId } = render(
+      <DateTimePicker
+        value={dateTimeValue}
+        onChange={onChange}
+        testId={testId}
+      />,
+    );
+
+    const element = getByTestId(testId);
+
+    expect(element).toHaveStyleDeclaration('border', '2px solid #F4F5F7');
+    expect(element).toHaveStyleDeclaration('background-color', '#F4F5F7');
+  });
+
+  it('has disabled styles applied in disabled state', () => {
+    const onChange = jest.fn();
+    const dateTimeValue = '2018-05-02T08:00:00.000+0800';
+    const testId = 'clear--test';
+    const { getByTestId } = render(
+      <DateTimePicker
+        value={dateTimeValue}
+        onChange={onChange}
+        testId={testId}
+        isDisabled
+      />,
+    );
+
+    const element = getByTestId(testId);
+
+    expect(element).toHaveStyleDeclaration('border', '2px solid #F4F5F7');
+    expect(element).toHaveStyleDeclaration('background-color', '#F4F5F7');
+  });
+
+  it('has invalid styles applied in disabled,invalid state', () => {
+    const onChange = jest.fn();
+    const dateTimeValue = '2018-05-02T08:00:00.000+0800';
+    const testId = 'clear--test';
+    const { getByTestId } = render(
+      <DateTimePicker
+        value={dateTimeValue}
+        onChange={onChange}
+        testId={testId}
+        isDisabled
+        isInvalid
+      />,
+    );
+
+    const element = getByTestId(testId);
+
+    expect(element).toHaveStyleDeclaration('border', '2px solid #DE350B');
+    expect(element).toHaveStyleDeclaration('background-color', '#F4F5F7');
   });
 });

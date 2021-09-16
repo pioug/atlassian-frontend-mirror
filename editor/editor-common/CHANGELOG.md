@@ -1,5 +1,20 @@
 # @atlaskit/editor-common
 
+## 60.1.0
+
+### Minor Changes
+
+- [`981052d2a94`](https://bitbucket.org/atlassian/atlassian-frontend/commits/981052d2a94) - COLLAB-933: Update common types to support disconnected event
+- [`8c36177a89c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8c36177a89c) - [ux] Changed wording of 'hideEmoji' to 'removeEmoji' & disbaled th button when there is no emoji (& enabled when there was one)
+- [`cf853e39278`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf853e39278) - AK-279 Moved copy button outside of heading, that made heading accessible
+- [`1a07c1caf61`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1a07c1caf61) - CETI-93 - Fixed custom panel icon sizing and alignment when icon render as image
+
+### Patch Changes
+
+- [`114cfd6cb20`](https://bitbucket.org/atlassian/atlassian-frontend/commits/114cfd6cb20) - CETI-7 Select custom panel through keyboard
+- [`cf853e39278`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf853e39278) - Internal changes to remove `@atlaskit/theme/math` usage.
+- Updated dependencies
+
 ## 60.0.0
 
 ### Major Changes

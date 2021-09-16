@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { themed } from '@atlaskit/theme/components';
 import { DN900, N90 } from '@atlaskit/theme/colors';
+import { Provider } from '@atlaskit/collab-provider';
 
 export const TitleArea: any = styled.textarea`
   border: none;
@@ -22,15 +23,15 @@ export const TitleArea: any = styled.textarea`
   }
 `;
 TitleArea.displayName = 'TitleArea';
-
 interface TitleInputProps {
   value?: string;
   placeholder?: string;
-  onChange?: (e: KeyboardEvent) => void;
+  onChange?: (e: KeyboardEvent, provider?: Provider) => void;
   innerRef?: (ref?: HTMLElement) => void;
   onFocus?: () => void;
   onBlur?: () => void;
   onKeyDown?: (e: KeyboardEvent) => void;
+  provider?: Provider;
 }
 
 interface TitleInputState {
@@ -48,7 +49,7 @@ export class TitleInput extends React.Component<
       handleUpdate: (e: KeyboardEvent) => {
         this.handleTitleResize(e);
         if (props.onChange) {
-          props.onChange!(e);
+          props.onChange!(e, props.provider!);
         }
       },
       placeholder: props.placeholder || 'Give this page a title...',

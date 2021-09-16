@@ -69,6 +69,7 @@ describe('Drawer', () => {
         createAnalyticsEvent={createAnalyticsEventSpy}
         onClose={onCloseSpy}
         isOpen
+        testId="test"
         width="narrow"
       >
         <span>Content</span>
@@ -77,7 +78,7 @@ describe('Drawer', () => {
 
     expect(createAnalyticsEventSpy).not.toHaveBeenCalled();
     wrapper
-      .find('[data-test-selector="DrawerPrimitiveSidebarCloseButton"]')
+      .find('[data-testid="DrawerPrimitiveSidebarCloseButton"]')
       .first()
       .simulate('click');
     // Should call createAnalyticsEvent with correct payload
@@ -108,6 +109,7 @@ describe('Drawer', () => {
         createAnalyticsEvent={createAnalyticsEventSpy}
         onClose={onCloseSpy}
         isOpen
+        testId="test"
         width="narrow"
       >
         <span>Content</span>
@@ -116,7 +118,7 @@ describe('Drawer', () => {
 
     // Back button
     wrapper
-      .find('[data-test-selector="DrawerPrimitiveSidebarCloseButton"]')
+      .find('[data-testid="DrawerPrimitiveSidebarCloseButton"]')
       .first()
       .simulate('click');
     expect(createAnalyticsEventSpy).toHaveBeenLastCalledWith(

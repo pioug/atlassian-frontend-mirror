@@ -32,6 +32,7 @@ export const beforeElementStyles = ({
 });
 
 export const chromeStyles = ({
+  activeBackgroundColor,
   backgroundColor,
   backgroundColorHover,
   textColor,
@@ -39,19 +40,23 @@ export const chromeStyles = ({
 }: ChromeColors): CSSObject => ({
   backgroundColor: backgroundColor,
   color: textColor,
+  pointerEvents: 'none',
 
   '&:hover': {
     backgroundColor: backgroundColorHover,
     color: textColorHover,
   },
 
+  '&:active': {
+    backgroundColor: activeBackgroundColor,
+    color: textColorHover,
+  },
+
   '& button:hover': {
-    backgroundColor: backgroundColor,
     color: textColor,
   },
 
   '&>span:hover': {
-    backgroundColor: backgroundColor,
     color: textColor,
   },
 
@@ -67,20 +72,21 @@ export const chromeStyles = ({
 });
 
 export const chromeLinkStyles = ({
+  activeBackgroundColor,
+  activeBackgroundColorRemoval,
   hoverBackgroundColor,
   hoverTextColor,
   hoverBackgroundColorRemoval,
-  hoverTextColorRemoval,
   focusRingColor,
 }: ChromeLinkColors): CSSObject => ({
-  '&>a:hover': {
+  '&:hover': {
     backgroundColor: hoverBackgroundColor,
     color: hoverTextColor,
   },
 
-  '&[data-removable="true"]:hover': {
-    backgroundColor: hoverBackgroundColorRemoval,
-    color: hoverTextColorRemoval,
+  '&:active': {
+    backgroundColor: activeBackgroundColor,
+    color: hoverTextColor,
   },
 
   '&:focus-within': {
@@ -91,6 +97,14 @@ export const chromeLinkStyles = ({
   '&[data-removing="true"]:focus-within': {
     boxShadow: `0 0 0 2px transparent`,
     outline: 'none',
+  },
+
+  '&[data-ishoverclosebutton="true"]': {
+    backgroundColor: hoverBackgroundColorRemoval,
+  },
+
+  '&[data-isHoverCloseButton="true"]:active': {
+    backgroundColor: activeBackgroundColorRemoval,
   },
 });
 
@@ -120,6 +134,7 @@ export const textStyles: CSSObject = {
 
 export const linkStyles = (linkHoverColor: string): CSSObject => ({
   ...textStyles,
+  pointerEvents: 'auto',
 
   ':not([data-color="standard"])': {
     color: 'inherit',

@@ -1,5 +1,13 @@
 # @atlaskit/editor-mobile-bridge
 
+## 29.0.5
+
+### Patch Changes
+
+- [`cf853e39278`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf853e39278) - COLLAB-411-change-to-metadata: 'setTitle' and 'setEditorWidth' are deprecated, going to be removed in the next release, use 'setMetadata' instead.
+- [`cf853e39278`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf853e39278) - Internal changes to remove `@atlaskit/theme/math` usage.
+- Updated dependencies
+
 ## 29.0.4
 
 ### Patch Changes

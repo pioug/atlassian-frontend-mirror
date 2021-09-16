@@ -1,5 +1,13 @@
 # @atlaskit/onboarding
 
+## 10.2.4
+
+### Patch Changes
+
+- [`d77725f926f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d77725f926f) - Replaced usage of `styled-components` with `@emotion/core`.
+- [`cf853e39278`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf853e39278) - Internal changes to remove `@atlaskit/theme/math` usage.
+- Updated dependencies
+
 ## 10.2.3
 
 ### Patch Changes

@@ -28,6 +28,17 @@ export interface CollabEventConnectionData {
   sid: string;
 }
 
+export interface CollabEventDisonnectedData {
+  sid: string;
+  reason:
+    | 'CLIENT_DISCONNECT'
+    | 'SERVER_DISCONNECT'
+    | 'SOCKET_CLOSED'
+    | 'SOCKET_ERROR'
+    | 'SOCKET_TIMEOUT'
+    | 'UNKNOWN_DISCONNECT';
+}
+
 export interface CollabEventPresenceData {
   joined?: CollabParticipant[];
   left?: { sessionId: string }[];
@@ -54,6 +65,7 @@ export type CollabEvent = keyof CollabEventData;
 export interface CollabEventData {
   init: CollabEventInitData;
   connected: CollabEventConnectionData;
+  disconnected: CollabEventDisonnectedData;
   data: CollabEventRemoteData;
   telepointer: CollabEventTelepointerData;
   presence: CollabEventPresenceData;

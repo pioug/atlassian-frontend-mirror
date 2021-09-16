@@ -1,5 +1,12 @@
 # @atlaskit/profilecard
 
+## 15.6.2
+
+### Patch Changes
+
+- [`cf853e39278`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf853e39278) - Internal changes to remove `@atlaskit/theme/math` usage.
+- Updated dependencies
+
 ## 15.6.1
 
 ### Patch Changes

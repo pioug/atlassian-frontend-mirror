@@ -16,11 +16,8 @@ function capitalize(str: string) {
 }
 
 const color = {
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   relative: 'green',
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   absolute: 'yellow',
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   fixed: 'red',
 };
 

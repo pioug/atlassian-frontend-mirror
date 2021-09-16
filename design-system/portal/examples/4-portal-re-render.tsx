@@ -1,4 +1,3 @@
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/standard-button';
@@ -35,6 +34,7 @@ export default function BasicPortalExample() {
             position: 'absolute',
             top: 54,
             left: 24,
+            // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
             background: 'lightpink',
             padding: '24px',
             borderRadius: '3px',
@@ -51,6 +51,7 @@ export default function BasicPortalExample() {
             position: 'absolute',
             top: 130,
             left: 100,
+            // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
             background: 'aquamarine',
             padding: '24px',
             borderRadius: '3px',

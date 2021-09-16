@@ -32,6 +32,7 @@ jest.mock('../../root/card/cardAnalytics', () => {
     fireOperationalEvent: jest.fn(actualModule.fireOperationalEvent),
     fireCopiedEvent: jest.fn(actualModule.fireCopiedEvent),
     fireCommencedEvent: jest.fn(actualModule.fireCommencedEvent),
+    fireScreenEvent: jest.fn(actualModule.fireScreenEvent),
   };
 });
 import { ReplaySubject } from 'rxjs/ReplaySubject';
@@ -92,6 +93,7 @@ import {
   fireOperationalEvent,
   fireCopiedEvent,
   fireCommencedEvent,
+  fireScreenEvent,
 } from '../../root/card/cardAnalytics';
 import { isMediaCardError, MediaCardError } from '../../errors';
 import { CardStatus } from '../../types';
@@ -1518,6 +1520,52 @@ describe('Card', () => {
         },
         params,
       );
+    });
+
+    describe('Impressions', () => {
+      beforeEach(() => {
+        asMock(fireScreenEvent).mockClear();
+      });
+
+      it(`should fire a screen event when the file status is complete`, () => {
+        const { component } = setup(fakeMediaClient(), {
+          createAnalyticsEvent,
+        });
+        const fileState: FileState = defaultFileState;
+        const params = ({
+          cardPreview: 'some-card-preview',
+          error: 'some-error',
+        } as unknown) as CardState;
+
+        component.setState({ fileState, ...params });
+
+        component.setState({ status: 'complete' as CardStatus });
+
+        expect(fireScreenEvent).toBeCalledTimes(1);
+      });
+
+      it(`should fire a screen event if the file is a video and has a preview`, () => {
+        const { component } = setup(fakeMediaClient(), {
+          createAnalyticsEvent,
+        });
+
+        component.setState({
+          cardPreview: { dataURI: 'data-uri', source: 'remote' },
+          fileState: {
+            id: 'some-id',
+            name: 'some-video.mp4',
+            mediaType: 'video',
+            mimeType: 'video/mp4',
+            size: 12345,
+            status: 'processing',
+            artifacts: {},
+          },
+        });
+
+        component.setState({ status: 'processing' as CardStatus });
+
+        expect(fireScreenEvent).toBeCalledTimes(1);
+      });
     });
 
     describe('Commenced', () => {

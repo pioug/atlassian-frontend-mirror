@@ -38,52 +38,39 @@ const mediaClient = new MediaClient(mediaClientConfig);
 
 export interface ComponentProps {}
 
+type fileId = {
+  id: string;
+  name?: string;
+};
 export interface ComponentState {
-  fileIds: string[];
-  fileIdsDescription: string[];
+  fileIds: fileId[];
 }
 
 const fileIds = [
-  genericFileId.id,
-  audioFileId.id,
-  audioNoCoverFileId.id,
-  videoFileId.id,
-  gifFileId.id,
-  videoProcessingFailedId.id,
-  errorFileId.id,
-  docFileId.id,
-  largePdfFileId.id,
-  archiveFileId.id,
-  unknownFileId.id,
-  noMetadataFileId.id,
-  emptyImageFileId.id,
+  { id: genericFileId.id, name: 'Generic file' },
+  { id: audioFileId.id, name: 'Audio file' },
+  { id: audioNoCoverFileId.id, name: 'Audio no cover file' },
+  { id: videoFileId.id, name: 'Video file' },
+  { id: gifFileId.id, name: 'Gif file' },
+  { id: videoProcessingFailedId.id, name: 'Video processing failed' },
+  { id: errorFileId.id, name: 'Error file' },
+  { id: docFileId.id, name: 'Doc file' },
+  { id: largePdfFileId.id, name: 'Large pdf file' },
+  { id: archiveFileId.id, name: 'Archive file' },
+  { id: unknownFileId.id, name: 'Unknown file' },
+  { id: noMetadataFileId.id, name: 'No metadata file' },
+  { id: emptyImageFileId.id, name: 'Empty image file' },
 ];
 
-const fileIdsDescription = [
-  'Generic file',
-  'Audio file',
-  'Audio no cover file',
-  'Video file',
-  'Gif file',
-  'Video processing failed',
-  'Error file',
-  'Doc file',
-  'Large pdf file',
-  'Archive file',
-  'Unknown file',
-  'No metadata file',
-  'Empty image file',
-];
 class Example extends Component<ComponentProps, ComponentState> {
   uploadController?: UploadController;
   state: ComponentState = {
     fileIds,
-    fileIdsDescription,
   };
 
   renderCards() {
-    const { fileIds, fileIdsDescription } = this.state;
-    const cards = fileIds.map((id, order) => {
+    const { fileIds } = this.state;
+    const cards = fileIds.map(({ id, name }) => {
       const identifier: FileIdentifier = {
         id,
         mediaItemType: 'file',
@@ -92,7 +79,7 @@ class Example extends Component<ComponentProps, ComponentState> {
       return (
         <CardWrapper key={id}>
           <div>
-            <h3>{fileIdsDescription[order]}</h3>
+            <h3>{name}</h3>
             <Card
               mediaClientConfig={mediaClientConfig}
               identifier={identifier}
@@ -139,7 +126,7 @@ class Example extends Component<ComponentProps, ComponentState> {
         if (!isIdSaved && state.status === 'uploading') {
           isIdSaved = true;
           this.setState({
-            fileIds: [state.id, ...fileIds],
+            fileIds: [{ id: state.id }, ...fileIds],
           });
         }
 

@@ -131,7 +131,7 @@ const PositionExample = () => {
           of the viewport.
           <br />
           Click the tooltip target itself to change the position of the tooltip
-          and the buttons below to toggle other behaviour.
+          and the buttons below to toggle other behavior.
         </ButtonDiv>
         <ButtonDiv>
           <Button onClick={togglePositionType}>Toggle position mouse</Button>
@@ -159,6 +159,7 @@ const PositionExample = () => {
           position={tooltipPosition}
           mousePosition={mousePosition}
         >
+          {/* eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage */}
           <BigTarget color="blue">
             <span>Target</span>
             <span>Position: {tooltipPosition}</span>

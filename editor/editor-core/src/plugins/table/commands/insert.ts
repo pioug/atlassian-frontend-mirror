@@ -16,6 +16,8 @@ import { Command } from '../../../types';
 import { getPluginState } from '../pm-plugins/plugin-factory';
 import { checkIfHeaderRowEnabled, copyPreviousRow } from '../utils';
 import { getAllowAddColumnCustomStep } from '../utils/get-allow-add-column-custom-step';
+import { rescaleColumns } from '../transforms/column-width';
+import { EditorView } from 'prosemirror-view';
 // #endregion
 
 function addColumnAtCustomStep(column: number) {
@@ -31,16 +33,27 @@ function addColumnAtCustomStep(column: number) {
 function addColumnAt(
   column: number,
   allowAddColumnCustomStep: boolean = false,
+  view: EditorView | undefined,
 ) {
-  if (allowAddColumnCustomStep) {
-    return addColumnAtCustomStep(column);
-  }
-  return addColumnAtPMUtils(column);
+  return (tr: Transaction) => {
+    let updatedTr = tr;
+    if (allowAddColumnCustomStep) {
+      updatedTr = addColumnAtCustomStep(column)(updatedTr);
+    } else {
+      updatedTr = addColumnAtPMUtils(column)(updatedTr);
+    }
+    const table = findTable(updatedTr.selection);
+    if (table) {
+      // [ED-8288] Update colwidths manually to avoid multiple dispatch in TableComponent
+      updatedTr = rescaleColumns(table, view)(updatedTr);
+    }
+    return updatedTr;
+  };
 }
 
 // :: (EditorState, dispatch: ?(tr: Transaction)) → bool
 // Command to add a column before the column with the selection.
-export const addColumnBefore: Command = (state, dispatch) => {
+export const addColumnBefore: Command = (state, dispatch, view) => {
   const table = findTable(state.selection);
   if (!table) {
     return false;
@@ -48,7 +61,11 @@ export const addColumnBefore: Command = (state, dispatch) => {
   if (dispatch) {
     let rect = selectedRect(state);
     dispatch(
-      addColumnAt(rect.left, getAllowAddColumnCustomStep(state))(state.tr),
+      addColumnAt(
+        rect.left,
+        getAllowAddColumnCustomStep(state),
+        view,
+      )(state.tr),
     );
   }
   return true;
@@ -56,7 +73,7 @@ export const addColumnBefore: Command = (state, dispatch) => {
 
 // :: (EditorState, dispatch: ?(tr: Transaction)) → bool
 // Command to add a column after the column with the selection.
-export const addColumnAfter: Command = (state, dispatch) => {
+export const addColumnAfter: Command = (state, dispatch, view) => {
   const table = findTable(state.selection);
   if (!table) {
     return false;
@@ -64,21 +81,34 @@ export const addColumnAfter: Command = (state, dispatch) => {
   if (dispatch) {
     let rect = selectedRect(state);
     dispatch(
-      addColumnAt(rect.right, getAllowAddColumnCustomStep(state))(state.tr),
+      addColumnAt(
+        rect.right,
+        getAllowAddColumnCustomStep(state),
+        view,
+      )(state.tr),
     );
   }
   return true;
 };
 
 // #region Commands
-export const insertColumn = (column: number): Command => (state, dispatch) => {
-  const tr = addColumnAt(column, getAllowAddColumnCustomStep(state))(state.tr);
+export const insertColumn = (column: number): Command => (
+  state,
+  dispatch,
+  view,
+) => {
+  let tr = addColumnAt(
+    column,
+    getAllowAddColumnCustomStep(state),
+    view,
+  )(state.tr);
   const table = findTable(tr.selection);
   if (!table) {
     return false;
   }
   // move the cursor to the newly created column
   const pos = TableMap.get(table.node).positionAt(0, column, table.node);
+
   if (dispatch) {
     dispatch(
       tr.setSelection(Selection.near(tr.doc.resolve(table.start + pos))),

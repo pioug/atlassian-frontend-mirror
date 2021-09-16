@@ -1,5 +1,7 @@
 import React, { Component, SyntheticEvent } from 'react';
 
+import { css } from '@emotion/core';
+
 import Button from '@atlaskit/button/standard-button';
 
 import Drawer from '../src';
@@ -8,6 +10,10 @@ interface State {
   isDrawerOpen: boolean;
   isNestedDrawerOpen: boolean;
 }
+
+const spacingStyles = css({
+  padding: '2rem',
+});
 export default class DrawersExample extends Component<{}, State> {
   state = {
     isDrawerOpen: false,
@@ -48,8 +54,8 @@ export default class DrawersExample extends Component<{}, State> {
 
   render() {
     return (
-      <div css={{ padding: '2rem' }}>
-        <div css={{ padding: '2rem' }}>
+      <div css={spacingStyles}>
+        <div css={spacingStyles}>
           <Drawer
             onClose={this.onNestedClose}
             onCloseComplete={this.onNestedCloseComplete}
@@ -66,7 +72,7 @@ export default class DrawersExample extends Component<{}, State> {
           width="narrow"
         >
           <code>Drawer contents</code>
-          <div css={{ padding: '2rem' }}>
+          <div css={spacingStyles}>
             <Button
               id="open-drawer"
               type="button"

@@ -4,6 +4,7 @@ import styled from '@emotion/styled';
 
 import Tag from '../src/tag/simple-tag';
 
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 const A = styled.a`
   color: red;
 `;

@@ -22,8 +22,8 @@ export default {
   'fabric.emoji.category.productivity': 'ผลิตภาพ',
   'fabric.emoji.category.symbols': 'สัญลักษณ์',
   'fabric.emoji.category.user.uploads': 'รายการอัปโหลดของคุณ',
-  'fabric.emoji.choose.file.ariaLabel':
-    'เลือกไฟล์สำหรับเอโมจิ JPG, PNG หรือ GIF ขนาดไฟล์ใหญ่สุด 1 MB',
+  'fabric.emoji.choose.file.screenReaderDescription':
+    'เลือกไฟล์สำหรับเอโมจิ JPG PNG หรือ GIF ขนาดไฟล์ใหญ่สุด 1 MB',
   'fabric.emoji.choose.file.title': 'เลือกไฟล์',
   'fabric.emoji.delete.description':
     'ประเภทที่มีอยู่ทั้งหมดของเอโมจินี้จะถูกแทนที่ด้วย {emojiShortName}',
@@ -39,5 +39,7 @@ export default {
   'fabric.emoji.preview': 'เอโมจิใหม่ {emoji} ของคุณดูดีมาก',
   'fabric.emoji.preview.title': 'แสดงตัวอย่าง',
   'fabric.emoji.retry.label': 'ลองอีกครั้ง',
-  'fabric.emoji.search.label': 'ค้นหา',
+  'fabric.emoji.search.label': 'ค้นหาเอโมจิ',
+  'fabric.emoji.search.placeholder': 'ค้นหา',
+  'fabric.emoji.select.skin.tone.ariaLabel': 'เลือกโทนสีผิว {selectedTone}',
 };

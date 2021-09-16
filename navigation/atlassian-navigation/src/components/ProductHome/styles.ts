@@ -32,7 +32,7 @@ export const productHomeButtonCSS = ({
     'div&': {
       pointerEvents: 'none',
     },
-    [`@media (max-width: ${PRODUCT_HOME_BREAKPOINT - 1}px)`]: {
+    [`@media (max-width: ${PRODUCT_HOME_BREAKPOINT - 0.1}px)`]: {
       margin: `0 ${gridSize}px`,
     },
     [`@media (min-width: ${PRODUCT_HOME_BREAKPOINT}px)`]: {
@@ -82,7 +82,7 @@ export const productLogoCSS = (logoMaxWidth: number) => ({
   '& > *': {
     maxHeight: 24,
   },
-  [`@media (max-width: ${PRODUCT_HOME_BREAKPOINT - 1}px)`]: {
+  [`@media (max-width: ${PRODUCT_HOME_BREAKPOINT - 0.1}px)`]: {
     display: 'none',
   },
 });

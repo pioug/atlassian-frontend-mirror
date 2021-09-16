@@ -81,24 +81,17 @@ tester.run('ensure-design-token-usage', rule, {
       code: `token('shadow.card', background())`,
     },
     {
-      options: [{ shouldEnforceFallbacks: true }],
       code: `const background = 'hey';`,
     },
     {
-      options: [{ shouldEnforceFallbacks: true }],
       code: `import { e100 } from 'lib';`,
     },
     {
-      options: [{ shouldEnforceFallbacks: true }],
-      code: `
-    css({background:'none'})
-    `,
+      code: `css({background:'none'})`,
     },
     {
       options: [{ shouldEnforceFallbacks: true }],
-      code: `
-      import { B100 } from '@atlaskit/theme/colors';
-    `,
+      code: `import { B100 } from '@atlaskit/theme/colors';`,
     },
     {
       options: [{ shouldEnforceFallbacks: true }],
@@ -128,11 +121,11 @@ tester.run('ensure-design-token-usage', rule, {
     {
       options: [{ shouldEnforceFallbacks: true }],
       code: `
-    styled.div\`
-      color: inherit;
-      color: token('color.background.blanket', 'red');
-    \`
-  `,
+      styled.div\`
+        color: inherit;
+        color: token('color.background.blanket', 'red');
+      \`
+    `,
     },
     {
       options: [{ shouldEnforceFallbacks: true }],
@@ -145,15 +138,15 @@ tester.run('ensure-design-token-usage', rule, {
     {
       options: [{ shouldEnforceFallbacks: true }],
       code: `
-    token('color.background.blanket', 'red');
-  `,
+      token('color.background.blanket', 'red');
+    `,
     },
     {
       options: [{ shouldEnforceFallbacks: true }],
       code: `
-    const number = 123;
-    const aString = number.toString();
-  `,
+      const number = 123;
+      const aString = number.toString();
+    `,
     },
     {
       options: [{ shouldEnforceFallbacks: true }],
@@ -169,58 +162,76 @@ tester.run('ensure-design-token-usage', rule, {
     wrapper.find('#eeeeee').exists()
     `,
     },
+    {
+      options: [{ shouldEnforceFallbacks: true }],
+      code: `
+    const state = {
+      value: 'red',
+      color: 'blue',
+      textColor: text(),
+      bgColor: background,
+    };
+    `,
+    },
+    `const { value } = { color: 'blue' };`,
+    `
+    const options = [{ name: 'red', value: 'red', label: 'red' }]
+    `,
+    `
+    const truncateCss = css\`
+      white-space: nowrap;
+    \`;
+    `,
+    `console.log(\`Removed \${text}.\`);`,
+    `export const App = () => <SimpleTag text="Base Tag" testId="standard" />;`,
+    `export const App = () => <Avatar src="0x400" />;`,
   ],
   invalid: [
     {
+      code: `const exampleColors = [N800, B500];`,
+      errors: [
+        { messageId: 'hardCodedColor' },
+        { messageId: 'hardCodedColor' },
+      ],
+    },
+    {
       code: `
-          css\`
-            \${e100};
-          \`
-        `,
+        css\`
+          \${e100};
+        \`
+      `,
       output: `
-          css\`
-            background-color: $\{token('color.background.card')};
-            box-shadow: \${token('shadow.card')};
-          \`
-        `,
-      errors: [
-        {
-          messageId: 'legacyElevation',
-        },
-      ],
+        css\`
+          background-color: $\{token('color.background.card')};
+          box-shadow: \${token('shadow.card')};
+        \`
+      `,
+      errors: [{ messageId: 'legacyElevation' }],
+    },
+    {
+      code: `css\`\${text};\``,
+      errors: [{ messageId: 'hardCodedColor' }],
     },
     {
       code: `
-          css({
-            boxShadow: '0px 1px 1px #161A1D32',
-          })
-        `,
-      errors: [
-        {
-          messageId: 'hardCodedColor',
-        },
-      ],
+        css\`
+          box-shadow: 0px 1px 1px #161A1D32;
+        \`
+      `,
+      errors: [{ messageId: 'hardCodedColor' }],
     },
     {
       code: `
-          css\`
-            box-shadow: 0px 1px 1px #161A1D32;
-          \`
-        `,
-      errors: [
-        {
-          messageId: 'hardCodedColor',
-        },
-      ],
+        css({
+          boxShadow: '0px 1px 1px #161A1D32',
+        })
+      `,
+      errors: [{ messageId: 'hardCodedColor' }],
     },
     {
       code: `css({ color: 'var(--accent-subtleBlue)' });`,
       output: `css({ color: token('color.accent.subtleBlue') });`,
-      errors: [
-        {
-          messageId: 'directTokenUsage',
-        },
-      ],
+      errors: [{ messageId: 'directTokenUsage' }],
     },
     {
       code: `
@@ -228,11 +239,7 @@ tester.run('ensure-design-token-usage', rule, {
             color: var(--accent-subtleBlue);
           \`;
         `,
-      errors: [
-        {
-          messageId: 'directTokenUsage',
-        },
-      ],
+      errors: [{ messageId: 'directTokenUsage' }],
     },
     {
       code: `
@@ -240,19 +247,11 @@ tester.run('ensure-design-token-usage', rule, {
             color: var(--accent-subtleBlue);
           \`;
         `,
-      errors: [
-        {
-          messageId: 'directTokenUsage',
-        },
-      ],
+      errors: [{ messageId: 'directTokenUsage' }],
     },
     {
       code: `css({ color: 'red' })`,
-      errors: [
-        {
-          messageId: 'hardCodedColor',
-        },
-      ],
+      errors: [{ messageId: 'hardCodedColor' }],
     },
     {
       code: `
@@ -262,9 +261,8 @@ tester.run('ensure-design-token-usage', rule, {
           \`;
         `,
       errors: [
-        {
-          messageId: 'hardCodedColor',
-        },
+        { messageId: 'hardCodedColor' },
+        { messageId: 'hardCodedColor' },
       ],
     },
     {
@@ -275,35 +273,28 @@ tester.run('ensure-design-token-usage', rule, {
           \`;
         `,
       errors: [
-        {
-          messageId: 'hardCodedColor',
-        },
+        { messageId: 'hardCodedColor' },
+        { messageId: 'hardCodedColor' },
       ],
     },
     {
       code: `
-          css({
-            backgroundColor: background(),
-          });
-        `,
-      errors: [
-        {
-          messageId: 'hardCodedColor',
-        },
-      ],
+        css({
+          backgroundColor: background(),
+        });
+      `,
+      errors: [{ messageId: 'hardCodedColor' }],
     },
     {
       code: `
-          colors.B100;
-          P100;
-        `,
+        css({
+          color: colors.B100,
+          color: P100,
+        });
+      `,
       errors: [
-        {
-          messageId: 'hardCodedColor',
-        },
-        {
-          messageId: 'hardCodedColor',
-        },
+        { messageId: 'hardCodedColor' },
+        { messageId: 'hardCodedColor' },
       ],
     },
     {
@@ -314,12 +305,8 @@ tester.run('ensure-design-token-usage', rule, {
           });
         `,
       errors: [
-        {
-          messageId: 'hardCodedColor',
-        },
-        {
-          messageId: 'hardCodedColor',
-        },
+        { messageId: 'hardCodedColor' },
+        { messageId: 'hardCodedColor' },
       ],
     },
     {
@@ -330,12 +317,8 @@ tester.run('ensure-design-token-usage', rule, {
           });
         `,
       errors: [
-        {
-          messageId: 'hardCodedColor',
-        },
-        {
-          messageId: 'hardCodedColor',
-        },
+        { messageId: 'hardCodedColor' },
+        { messageId: 'hardCodedColor' },
       ],
     },
     {
@@ -346,12 +329,8 @@ tester.run('ensure-design-token-usage', rule, {
           });
         `,
       errors: [
-        {
-          messageId: 'hardCodedColor',
-        },
-        {
-          messageId: 'hardCodedColor',
-        },
+        { messageId: 'hardCodedColor' },
+        { messageId: 'hardCodedColor' },
       ],
     },
     {
@@ -363,94 +342,107 @@ tester.run('ensure-design-token-usage', rule, {
           })
         `,
       errors: [
-        {
-          messageId: 'hardCodedColor',
-        },
-        {
-          messageId: 'hardCodedColor',
-        },
-        {
-          messageId: 'hardCodedColor',
-        },
+        { messageId: 'hardCodedColor' },
+        { messageId: 'hardCodedColor' },
+        { messageId: 'hardCodedColor' },
       ],
     },
     {
-      code: `
-          token(identifier);
-        `,
-      errors: [
-        {
-          messageId: 'staticToken',
-        },
-      ],
+      code: `css({ boxShadow: '0 0 0 2px white' })`,
+      errors: [{ messageId: 'hardCodedColor' }],
     },
     {
-      code: `
-          token('dont-exist');
-        `,
-      errors: [
-        {
-          message: 'The token "dont-exist" does not exist.',
-        },
-      ],
+      code: `token(identifier);`,
+      errors: [{ messageId: 'staticToken' }],
     },
     {
-      code: `css({ color: token('${oldTokenName}') })`,
-      output: `css({ color: token('${newTokenName}') })`,
-      errors: [
-        {
-          messageId: 'tokenRenamed',
-        },
-      ],
+      code: `token('dont-exist');`,
+      errors: [{ message: 'The token "dont-exist" does not exist.' }],
+    },
+    {
+      options: [{ shouldEnforceFallbacks: true }],
+      code: `css({ color: token('${oldTokenName}', fallback) })`,
+      output: `css({ color: token('${newTokenName}', fallback) })`,
+      errors: [{ messageId: 'tokenRenamed' }],
+    },
+    {
+      options: [{ shouldEnforceFallbacks: true }],
+      code: `css({ color: token('${oldTokenName}', getColor()) })`,
+      output: `css({ color: token('${newTokenName}', getColor()) })`,
+      errors: [{ messageId: 'tokenRenamed' }],
+    },
+    {
+      options: [{ shouldEnforceFallbacks: true }],
+      code: `css({ color: token('${oldTokenName}', 'blue') })`,
+      output: `css({ color: token('${newTokenName}', 'blue') })`,
+      errors: [{ messageId: 'tokenRenamed' }],
     },
     {
       code: `css({ color: token('${oldTokenName}') })`,
       output: `css({ color: token('${newTokenName}') })`,
-      errors: [
-        {
-          messageId: 'tokenRenamed',
-        },
-      ],
+      errors: [{ messageId: 'tokenRenamed' }],
     },
     {
-      code: `css({ color: token('${oldTokenName}') })`,
-      output: `css({ color: token('${newTokenName}') })`,
-      errors: [
-        {
-          messageId: 'tokenRenamed',
-        },
-      ],
+      code: `<div color="red">Hello</div>`,
+      errors: [{ messageId: 'hardCodedColor' }],
     },
     {
-      code: `css({ color: token('${oldTokenName}') })`,
-      output: `css({ color: token('${newTokenName}') })`,
-      errors: [
-        {
-          messageId: 'tokenRenamed',
-        },
-      ],
+      code: `<Icon fill="rgb(255, 171, 0)">Hello</Icon>`,
+      errors: [{ messageId: 'hardCodedColor' }],
+    },
+    {
+      code: `<Icon stroke="1px solid rgb(255, 171, 0)">Hello</Icon>`,
+      errors: [{ messageId: 'hardCodedColor' }],
+    },
+    {
+      code: `<Icon fill={B400}>Hello</Icon>`,
+      errors: [{ messageId: 'hardCodedColor' }],
+    },
+    {
+      code: `<Icon css={{ color: B400 }}>Hello</Icon>`,
+      errors: [{ messageId: 'hardCodedColor' }],
+    },
+    {
+      code: `<Icon css={css({ color: B400 })}>Hello</Icon>`,
+      errors: [{ messageId: 'hardCodedColor' }],
+    },
+    {
+      code: `<Icon css={css\`color: \${B400}\`}>Hello</Icon>`,
+      errors: [{ messageId: 'hardCodedColor' }],
+    },
+    {
+      code: `<Icon css={css\`color: #eee;\`}>Hello</Icon>`,
+      errors: [{ messageId: 'hardCodedColor' }],
+    },
+    {
+      code: `<Icon fill={colors.B400}>Hello</Icon>`,
+      errors: [{ messageId: 'hardCodedColor' }],
+    },
+    {
+      code: `const myStyles = { color: 'red' };`,
+      errors: [{ messageId: 'hardCodedColor' }],
+    },
+    {
+      code: `const options: CSSProperties = { color: 'red' };`,
+      errors: [{ messageId: 'hardCodedColor' }],
+    },
+    {
+      code: `const options: CSSObject = { color: 'red' };`,
+      errors: [{ messageId: 'hardCodedColor' }],
     },
     // Using config -> shouldEnforceFallbacks: false
     {
       // should error when a fallback is supplied
       code: `css({ color: token('shadow.card', 'red') })`,
       output: `css({ color: token('shadow.card') })`,
-      errors: [
-        {
-          messageId: 'tokenFallbackRestricted',
-        },
-      ],
+      errors: [{ messageId: 'tokenFallbackRestricted' }],
     },
     // Using config -> shouldEnforceFallbacks: true
     {
       // should error when a fallback is not supplied
       options: [{ shouldEnforceFallbacks: true }],
       code: `css({ color: token('shadow.card') })`,
-      errors: [
-        {
-          messageId: 'tokenFallbackEnforced',
-        },
-      ],
+      errors: [{ messageId: 'tokenFallbackEnforced' }],
     },
   ],
 });

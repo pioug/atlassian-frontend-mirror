@@ -74,12 +74,20 @@ const getInitialPluginState = (
 
   const allowBreakout = options.allowBreakout || false;
   const addSidebarLayouts = options.UNSAFE_addSidebarLayouts || false;
+  const allowSingleColumnLayout =
+    options.UNSAFE_allowSingleColumnLayout || false;
   const pos = maybeLayoutSection ? maybeLayoutSection.pos : null;
   const selectedLayout = getSelectedLayout(
     maybeLayoutSection && maybeLayoutSection.node,
     DEFAULT_LAYOUT,
   );
-  return { pos, allowBreakout, addSidebarLayouts, selectedLayout };
+  return {
+    pos,
+    allowBreakout,
+    addSidebarLayouts,
+    selectedLayout,
+    allowSingleColumnLayout,
+  };
 };
 
 export default (options: LayoutPluginOptions) =>

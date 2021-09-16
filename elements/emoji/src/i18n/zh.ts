@@ -22,7 +22,7 @@ export default {
   'fabric.emoji.category.productivity': '生产力',
   'fabric.emoji.category.symbols': '符号',
   'fabric.emoji.category.user.uploads': '您的上传',
-  'fabric.emoji.choose.file.ariaLabel':
+  'fabric.emoji.choose.file.screenReaderDescription':
     '为表情符号选择一个文件。JPG、PNG 或 GIF。文件大小不得超过 1 MB。',
   'fabric.emoji.choose.file.title': '选择文件',
   'fabric.emoji.delete.description':
@@ -39,5 +39,7 @@ export default {
   'fabric.emoji.preview': '您的新表情符号{emoji}看起来很棒',
   'fabric.emoji.preview.title': '预览',
   'fabric.emoji.retry.label': '重试',
-  'fabric.emoji.search.label': '搜索',
+  'fabric.emoji.search.label': '搜索表情',
+  'fabric.emoji.search.placeholder': '搜索',
+  'fabric.emoji.select.skin.tone.ariaLabel': '选择肤色，{selectedTone}',
 };

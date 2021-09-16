@@ -7,7 +7,7 @@ import { darken, mix } from 'polished';
 import Avatar from '@atlaskit/avatar';
 // AFP-2532 TODO: Fix automatic suppressions below
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
-import { colors, gridSize, math } from '@atlaskit/theme';
+import { colors, gridSize } from '@atlaskit/theme';
 import CheckCircleIcon from '@atlaskit/icon/glyph/check-circle';
 
 import Item, { ItemGroup, itemThemeNamespace } from '../src';
@@ -130,5 +130,5 @@ export default class ItemThemeDemo extends Component {
 
 const Root = styled.div`
   background-color: ${(props) => props.background};
-  margin: ${math.multiply(gridSize, 3)}px 0;
+  margin: ${gridSize() * 3}px 0;
 `;

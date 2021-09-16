@@ -1,7 +1,9 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
+import { ThemeProvider as StyledThemeProvider } from 'styled-components';
+
 import Button from '@atlaskit/button/standard-button';
-import { AtlaskitThemeProvider } from '@atlaskit/theme/components';
+import DeprecatedThemeProvider from '@atlaskit/theme/deprecated-provider-please-do-not-use';
 
 import { DynamicTableStateless } from '../src';
 import { RowType } from '../src/types';
@@ -41,21 +43,20 @@ const FocusRowExample = () => {
   }, [autoFocusDone]);
 
   return (
-    <AtlaskitThemeProvider mode={themeMode}>
+    <DeprecatedThemeProvider mode={themeMode} provider={StyledThemeProvider}>
       <h4 style={paddingStyle}>Click on any row to focus on it</h4>
       <div style={paddingStyle}>
         <Button onClick={switchTheme}>
           Switch theme to {getOppositeTheme(themeMode)}
         </Button>
       </div>
-
       <DynamicTableStateless
         head={head}
         rows={rowsWithTabIndex}
         rowsPerPage={40}
         page={1}
       />
-    </AtlaskitThemeProvider>
+    </DeprecatedThemeProvider>
   );
 };
 

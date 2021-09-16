@@ -27,6 +27,8 @@ import {
   MediaCardErrorPrimaryReason,
 } from '../errors';
 
+import { ScreenEventPayload, ScreenAttributes } from '@atlaskit/media-common';
+
 export enum RenderEventAction {
   COMMENCED = 'commenced',
   SUCCEEDED = 'succeeded',
@@ -74,12 +76,23 @@ export type ClickedEventPayload = UIEventPayload<
   string
 >;
 
+export type RenderScreenEventPayload = Omit<
+  ScreenEventPayload<ScreenAttributes, 'mediaCardRenderScreen'>,
+  'attributes'
+> & {
+  attributes: {
+    type: string | undefined;
+    fileAttributes: FileAttributes;
+  };
+};
+
 export type MediaCardAnalyticsEventPayload =
   | RenderCommencedEventPayload
   | RenderSucceededEventPayload
   | RenderFailedEventPayload
   | CopiedFileEventPayload
-  | ClickedEventPayload;
+  | ClickedEventPayload
+  | RenderScreenEventPayload;
 
 export const getFileAttributes = (
   metadata: FileDetails,
@@ -90,6 +103,19 @@ export const getFileAttributes = (
   fileId: metadata.id,
   fileSize: metadata.size,
   fileStatus,
+});
+
+export const getRenderPreviewableCardPayload = (
+  fileAttributes: FileAttributes,
+): RenderScreenEventPayload => ({
+  eventType: 'screen',
+  action: 'viewed',
+  actionSubject: 'mediaCardRenderScreen',
+  name: 'mediaCardRenderScreen',
+  attributes: {
+    type: fileAttributes.fileMediatype,
+    fileAttributes,
+  },
 });
 
 export const getRenderCommencedEventPayload = (

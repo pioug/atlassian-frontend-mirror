@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/color-picker",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "description": "Jira Color Picker Component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -22,9 +22,9 @@
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^8.2.0",
-    "@atlaskit/icon": "^21.7.0",
+    "@atlaskit/icon": "^21.9.0",
     "@atlaskit/select": "^15.0.0",
-    "@atlaskit/theme": "^11.0.0",
+    "@atlaskit/theme": "^12.0.0",
     "@babel/runtime": "^7.0.0",
     "memoize-one": "^5.1.0",
     "polished": "1.9.3",

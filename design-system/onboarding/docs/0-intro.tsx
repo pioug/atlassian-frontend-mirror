@@ -37,7 +37,7 @@ export default md`
   ${(
     <Props
       heading="Spotlight Props"
-      props={require('!!extract-react-types-loader!../src/components/Spotlight')}
+      props={require('!!extract-react-types-loader!../src/components/spotlight')}
     />
   )}
 
@@ -59,7 +59,7 @@ export default md`
   ${(
     <Props
       heading="SpotlightCard Props"
-      props={require('!!extract-react-types-loader!../src/components/SpotlightCard')}
+      props={require('!!extract-react-types-loader!../src/components/spotlight-card')}
     />
   )}
 
@@ -80,7 +80,7 @@ export default md`
   ${(
     <Props
       heading="Benefits Modal Props"
-      props={require('!!extract-react-types-loader!../src/components/Modal')}
+      props={require('!!extract-react-types-loader!../src/components/modal')}
     />
   )}
 

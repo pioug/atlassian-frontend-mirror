@@ -10,8 +10,7 @@ import { triggerAnalyticsForCatchupSuccessfulWithLatency } from './analytics';
 const logger = createLogger('Channel', 'green');
 
 export interface Metadata {
-  title?: string;
-  editorWidth?: string;
+  [key: string]: string | number | boolean;
 }
 
 export type InitPayload = {
@@ -49,14 +48,6 @@ export type StepsPayload = {
   steps: StepJson[];
 };
 
-export type TitlePayload = {
-  title: string;
-};
-
-export type EditorWidthPayload = {
-  editorWidth: string;
-};
-
 export type ErrorPayload = {
   message: string;
   data?: {
@@ -79,8 +70,7 @@ export type ChannelEvent = {
   'participant:updated': ParticipantPayload;
   'steps:commit': StepsPayload & { userId: string };
   'steps:added': StepsPayload;
-  'title:changed': TitlePayload;
-  'width:changed': EditorWidthPayload;
+  'metadata:changed': Metadata;
   error: ErrorPayload;
   disconnect: { reason: string };
 };
@@ -182,11 +172,8 @@ export class Channel extends Emitter<ChannelEvent> {
         });
       },
     );
-    this.socket.on('title:changed', (payload: { data: TitlePayload }) => {
-      this.emit('title:changed', payload.data);
-    });
-    this.socket.on('width:changed', (payload: { data: EditorWidthPayload }) => {
-      this.emit('width:changed', payload.data);
+    this.socket.on('metadata:changed', (payload: Metadata) => {
+      this.emit('metadata:changed', payload);
     });
     this.socket.on('disconnect', async (reason: string) => {
       this.connected = false;
@@ -310,6 +297,13 @@ export class Channel extends Emitter<ChannelEvent> {
     }
 
     this.socket.emit('broadcast', { type, ...data });
+  }
+
+  sendMetadata(metadata: Metadata) {
+    if (!this.connected || !this.socket) {
+      return;
+    }
+    this.socket.emit('metadata', metadata);
   }
 
   disconnect() {

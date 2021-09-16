@@ -27,6 +27,7 @@ export default {
   'fabric.editor.blockquote.description': 'Indsæt citat',
   'fabric.editor.blockquote2': 'Citat',
   'fabric.editor.bold': 'Fed',
+  'fabric.editor.bug': 'Fejl',
   'fabric.editor.canNotSortTable':
     '⚠️ En tabel med flettede celler kan ikke sorteres',
   'fabric.editor.cancelButton': 'Annullér',
@@ -45,6 +46,7 @@ export default {
   'fabric.editor.code': 'Kode',
   'fabric.editor.codeblock': 'Kodestump',
   'fabric.editor.codeblock.description': 'Vis kode med syntaksfremhævning',
+  'fabric.editor.collapseTable': 'Luk tabel',
   'fabric.editor.columns': 'Layout',
   'fabric.editor.columns.description': 'Opdel din side i afsnit',
   'fabric.editor.configFailedToLoad': 'Kunne ikke indlæses',
@@ -76,6 +78,7 @@ export default {
   'fabric.editor.decision.description':
     'Registrér beslutninger, så de er lette at finde igen',
   'fabric.editor.decisionPlaceholder': 'Tilføj en beslutning ...',
+  'fabric.editor.defaultAltText': 'Listeelement',
   'fabric.editor.displayBlock': 'Vis som kort',
   'fabric.editor.displayEmbed': 'Vis som indlejret',
   'fabric.editor.displayInline': 'Vis indbygget',
@@ -86,8 +89,11 @@ export default {
   'fabric.editor.distributeColumns': 'Fordel kolonner',
   'fabric.editor.edit': 'Redigér',
   'fabric.editor.editAltText': 'Rediger alternativ tekst',
+  'fabric.editor.editDateText': 'Rediger dato',
   'fabric.editor.editLink': 'Redigér link',
   'fabric.editor.editMode.inviteToEditButton.title': 'Invitér til at redigere',
+  'fabric.editor.editStatusColor': 'Rediger statusfarve',
+  'fabric.editor.editStatusText': 'Rediger status',
   'fabric.editor.editorHelp': 'Hjælp til redigering',
   'fabric.editor.elementBrowser.help': 'Hjælp',
   'fabric.editor.elementbrowser.categorylist.category-admin': 'Administration',
@@ -118,6 +124,7 @@ export default {
   'fabric.editor.emoji.description':
     'Brug humørikoner for at udtrykke idéer 🎉 og følelser 😄',
   'fabric.editor.emptyLink': 'Indtast et link.',
+  'fabric.editor.epic': 'Epic',
   'fabric.editor.error': 'Fejl',
   'fabric.editor.errorPanel': 'Fejlpanel',
   'fabric.editor.errorPanel.description': 'Vis fejl i et farvel panel',
@@ -135,6 +142,9 @@ export default {
   'fabric.editor.findNext': 'Find næste',
   'fabric.editor.findPrevious': 'Find forrige',
   'fabric.editor.findReplaceToolbarButton': 'Find og erstat',
+  'fabric.editor.floatingToolbar.confirmModalCancel': 'Annuller',
+  'fabric.editor.floatingToolbar.confirmModalHeading': 'Er du sikker?',
+  'fabric.editor.floatingToolbar.confirmModalOK': 'OK',
   'fabric.editor.headerColumn': 'Overskriftskolonne',
   'fabric.editor.headerRow': 'Overskriftsrække',
   'fabric.editor.heading1': 'Overskrift 1',
@@ -165,9 +175,9 @@ export default {
     'Der vises forslag nedenfor, når du skriver i feltet',
   'fabric.editor.hyperlink.searchLinkResults':
     '{count, plural, =0 {ingen resultater fundet} one {Der blev fundet {count,number} resultat} other {Der blev fundet {count,number} resultater}}',
-  'fabric.editor.hyperlinkToolbarPlaceholder':
-    'Indsæt link, eller søg efter senest viste',
+  'fabric.editor.hyperlinkToolbarPlaceholder': 'Indsæt eller søg efter link',
   'fabric.editor.image': 'Billeder',
+  'fabric.editor.improvement': 'Forbedring',
   'fabric.editor.info': 'Info',
   'fabric.editor.infoPanel': 'Informationspanel',
   'fabric.editor.infoPanel.description':
@@ -208,7 +218,7 @@ export default {
   'fabric.editor.orderedList.description': 'Opret en sorteret liste',
   'fabric.editor.other': 'Andre ...',
   'fabric.editor.panel.backgroundColor': 'Baggrundsfarve',
-  'fabric.editor.panel.emoji': 'Tilføj ikon',
+  'fabric.editor.panel.emoji': 'Tilføj emoji',
   'fabric.editor.pastePlainText': 'Indsæt almindelig tekst',
   'fabric.editor.placeholderAltText': 'Beskriv billedet med alternativ tekst',
   'fabric.editor.placeholderText': 'Midlertidig text',
@@ -237,7 +247,9 @@ export default {
   'fabric.editor.status': 'Status',
   'fabric.editor.status.description': 'Tilføj en brugerdefineret statusetiket',
   'fabric.editor.statusPlaceholder': 'Angiv en status',
+  'fabric.editor.story': 'Historie',
   'fabric.editor.strike': 'Gennemstreget',
+  'fabric.editor.subTask': 'Underopgave',
   'fabric.editor.subscript': 'Sænket skrift',
   'fabric.editor.success': 'Succes',
   'fabric.editor.successPanel': 'Succespanel',
@@ -248,6 +260,11 @@ export default {
   'fabric.editor.table': 'Tabel',
   'fabric.editor.table.description': 'Indsæt en tabel',
   'fabric.editor.tableOptions': 'Egenskaber for tabel',
+  'fabric.editor.tables.confirmDeleteLinkedModalMessage':
+    'Hvis du fjerner denne tabel, fjerner du også alle de data, der er i eventuelle tilknyttede diagrammer.',
+  'fabric.editor.tables.confirmDeleteLinkedModalOKButton':
+    'Fjern tabel og data',
+  'fabric.editor.task': 'Opgave',
   'fabric.editor.taskPlaceholder':
     'Indtast din handling, og brug "@" for at tildele til nogen.',
   'fabric.editor.textColor': 'Tekstfarve',

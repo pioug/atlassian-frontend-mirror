@@ -3,7 +3,6 @@ import { IntlProvider } from 'react-intl';
 import styled from 'styled-components';
 
 import { gridSize } from '@atlaskit/theme/constants';
-import { multiply } from '@atlaskit/theme/math';
 import * as colors from '@atlaskit/theme/colors';
 import TextArea from '@atlaskit/textarea';
 import { CodeBlock } from '@atlaskit/code';
@@ -30,16 +29,16 @@ const ExampleWrapper = styled.div`
 
 const Column = styled.div<{ width: number | string }>`
   width: ${(props) => props.width}px;
-  margin: ${multiply(gridSize, 2)}px;
+  margin: ${gridSize() * 2}px;
 
   h3 {
     border-bottom: 1px solid ${colors.N50};
-    margin-bottom: ${multiply(gridSize, 2)}px;
+    margin-bottom: ${gridSize() * 2}px;
   }
 `;
 
 const CodeWrapper = styled.div`
-  margin-top: ${multiply(gridSize, 2)}px;
+  margin-top: ${gridSize() * 2}px;
 `;
 
 function ExtensionConfigPanel({

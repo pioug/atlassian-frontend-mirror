@@ -10,7 +10,7 @@ import nucleusImage from '../examples-util/nucleus.png';
 import Avatar, { AppearanceType, PresenceType, StatusType } from '../src';
 
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-const exampleColors: string[] = [N800, B500, N20, N0];
+const exampleColors = [N800, B500, N20, N0];
 
 const presences: PresenceType[] = ['focus', 'online', 'offline', 'busy'];
 const statuses: StatusType[] = ['approved', 'locked', 'declined'];

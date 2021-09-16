@@ -246,6 +246,7 @@ class FloatingInsertButton extends React.Component<
       insertColumnWithAnalytics(INPUT_METHOD.BUTTON, insertColumnButtonIndex)(
         state,
         dispatch,
+        editorView,
       );
     }
   }

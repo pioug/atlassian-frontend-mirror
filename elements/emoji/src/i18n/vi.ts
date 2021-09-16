@@ -23,7 +23,7 @@ export default {
   'fabric.emoji.category.productivity': 'Năng suất',
   'fabric.emoji.category.symbols': 'Biểu tượng',
   'fabric.emoji.category.user.uploads': 'Các nội dung bạn tải lên',
-  'fabric.emoji.choose.file.ariaLabel':
+  'fabric.emoji.choose.file.screenReaderDescription':
     'Chọn một tệp cho biểu tượng cảm xúc. JPG, PNG hoặc GIF. Kích thước tối đa 1 MB.',
   'fabric.emoji.choose.file.title': 'Chọn tập tin',
   'fabric.emoji.delete.description':
@@ -43,5 +43,7 @@ export default {
     'Biểu tượng cảm xúc mới của bạn {emoji} trông rất tuyệt',
   'fabric.emoji.preview.title': 'Xem trước',
   'fabric.emoji.retry.label': 'Thử lại',
-  'fabric.emoji.search.label': 'Tìm kiếm',
+  'fabric.emoji.search.label': 'Tìm kiếm biểu tượng cảm xúc',
+  'fabric.emoji.search.placeholder': 'Tìm kiếm',
+  'fabric.emoji.select.skin.tone.ariaLabel': 'Chọn tông màu da, {selectedTone}',
 };

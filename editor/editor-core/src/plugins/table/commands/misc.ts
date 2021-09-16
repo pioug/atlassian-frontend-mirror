@@ -130,6 +130,7 @@ export const setCellAttr = (name: string, value: any): Command => (
 export const triggerUnlessTableHeader = (command: Command): Command => (
   state,
   dispatch,
+  view,
 ) => {
   const {
     selection,
@@ -141,14 +142,14 @@ export const triggerUnlessTableHeader = (command: Command): Command => (
   if (selection instanceof TextSelection) {
     const cell = findCellClosestToPos(selection.$from);
     if (cell && cell.node.type !== tableHeader) {
-      return command(state, dispatch);
+      return command(state, dispatch, view);
     }
   }
 
   if (selection instanceof CellSelection) {
     const rect = getSelectionRect(selection);
     if (!checkIfHeaderRowEnabled(state) || (rect && rect.top > 0)) {
-      return command(state, dispatch);
+      return command(state, dispatch, view);
     }
   }
 

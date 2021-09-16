@@ -1,5 +1,16 @@
 # @atlaskit/form
 
+## 8.4.0
+
+### Minor Changes
+
+- [`4e3c853e85f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4e3c853e85f) - This change removes the dependency `styled-components`. It has been refactored to use `@emotion/core` instead and entrypoints have been updated. Some examples have also been updated. There should be no UI or UX change.
+
+### Patch Changes
+
+- [`cf853e39278`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf853e39278) - Internal changes to remove `@atlaskit/theme/math` usage.
+- Updated dependencies
+
 ## 8.3.1
 
 ### Patch Changes

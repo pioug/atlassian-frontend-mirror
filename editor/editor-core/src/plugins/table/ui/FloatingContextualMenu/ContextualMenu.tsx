@@ -362,7 +362,7 @@ class ContextualMenu extends Component<Props & InjectedIntlProps, State> {
         insertColumnWithAnalytics(
           INPUT_METHOD.CONTEXT_MENU,
           selectionRect.right,
-        )(state, dispatch);
+        )(state, dispatch, editorView);
         this.toggleOpen();
         break;
       case 'insert_row':

@@ -10,7 +10,7 @@ export const TAP_TO_VIEW_PROMISE = {
   name: 'customTapToViewMacroButton',
 };
 export const TAP_TO_REFRESH_PAGE_TEXT = 'Tap to refresh';
-export const TAP_TO_RFRESH_EVENT = 'tapToRefresh';
+export const TAP_TO_REFRESH_EVENT = 'tapToRefresh';
 export const TAP_TO_REFRESH_PAGE_PROMISE = {
   name: 'customRefreshMacro',
 };

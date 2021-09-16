@@ -1,16 +1,18 @@
+/* eslint-disable @repo/internal/react/no-unsafe-overrides */
 import React from 'react';
 
-import { DateTimePicker } from '@atlaskit/datetime-picker';
-import { ThemeProvider } from 'emotion-theming';
 import styled from '@emotion/styled';
+import { ThemeProvider } from 'emotion-theming';
 
-import { gridSize, colors } from '../index';
+import { DateTimePicker } from '@atlaskit/datetime-picker';
+
+import { colors, gridSize } from '../src';
 
 const Description = styled.p`
   padding: ${gridSize()}px;
   margin: ${gridSize() * 5}px 0 ${gridSize()}px;
-  background-color: ${colors.background};
-  color: ${colors.text};
+  background-color: ${(props) => colors.background(props)};
+  color: ${(props) => colors.text(props)};
 `;
 
 export default () => (

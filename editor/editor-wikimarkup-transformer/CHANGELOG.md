@@ -1,5 +1,11 @@
 # @atlaskit/editor-wikimarkup-transformer
 
+## 9.5.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.5.2
 
 ### Patch Changes

@@ -52,6 +52,14 @@ describe('layout toolbar', () => {
     },
   ];
 
+  const stdLayoutButtonsWithSingleLayout: ExpectedLayoutButton[] = [
+    {
+      name: LAYOUT_TYPE.SINGLE_COL,
+      message: toolbarMessages.singleColumn,
+    },
+    ...stdLayoutButtons,
+  ];
+
   const sidebarLayoutButtons: ExpectedLayoutButton[] = [
     { name: LAYOUT_TYPE.LEFT_SIDEBAR, message: toolbarMessages.leftSidebar },
     { name: LAYOUT_TYPE.RIGHT_SIDEBAR, message: toolbarMessages.rightSidebar },
@@ -86,6 +94,7 @@ describe('layout toolbar', () => {
         0,
         true,
         true,
+        false,
       ) as FloatingToolbarConfig;
 
       items = getToolbarItems(toolbar, editorView);
@@ -112,6 +121,7 @@ describe('layout toolbar', () => {
         0,
         true,
         false,
+        false,
       ) as FloatingToolbarConfig;
 
       items = getToolbarItems(toolbar, editorView);
@@ -134,6 +144,46 @@ describe('layout toolbar', () => {
     });
   });
 
+  describe('with "singleLayout"', () => {
+    beforeEach(() => {
+      toolbar = buildToolbar(
+        editorView.state,
+        intl,
+        0,
+        true,
+        true,
+        true,
+      ) as FloatingToolbarConfig;
+
+      items = getToolbarItems(toolbar, editorView);
+    });
+
+    it('displays all 5 layout buttons + single layout button', () => {
+      stdLayoutButtonsWithSingleLayout.forEach(assertToolbarButtonPresent);
+      sidebarLayoutButtons.forEach(assertToolbarButtonPresent);
+    });
+  });
+
+  describe('without "singleLayout"', () => {
+    beforeEach(() => {
+      toolbar = buildToolbar(
+        editorView.state,
+        intl,
+        0,
+        true,
+        true,
+        false,
+      ) as FloatingToolbarConfig;
+
+      items = getToolbarItems(toolbar, editorView);
+    });
+
+    it('displays all 5 layout buttons minus the single layout button', () => {
+      stdLayoutButtons.forEach(assertToolbarButtonPresent);
+      sidebarLayoutButtons.forEach(assertToolbarButtonPresent);
+    });
+  });
+
   describe('analytics', () => {
     beforeEach(() => {
       toolbar = buildToolbar(
@@ -142,6 +192,7 @@ describe('layout toolbar', () => {
         0,
         true,
         true,
+        false,
       ) as FloatingToolbarConfig;
 
       items = getToolbarItems(toolbar, editorView);

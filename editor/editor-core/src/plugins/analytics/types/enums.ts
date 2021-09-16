@@ -86,7 +86,6 @@ export enum ACTION {
   VIEWED = 'viewed',
   VISITED = 'visited',
   WITH_PLUGIN_STATE_CALLED = 'withPluginStateCalled',
-  FIXED = 'fixed',
   RENDERED = 'rendered',
   ON_EDITOR_READY_CALLBACK = 'onEditorReadyCallback',
   ON_CHANGE_CALLBACK = 'onChangeCalled',

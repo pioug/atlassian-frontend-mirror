@@ -16,12 +16,14 @@ import { Step, ReplaceStep } from 'prosemirror-transform';
 import { EditorState } from 'prosemirror-state';
 import { createSocketIOCollabProvider } from '../../socket-io-provider';
 import type { Provider } from '../';
+import { Metadata } from '../../channel';
 
-describe('#sendSteps', () => {
+describe('#sendData', () => {
   let fakeStep: Step;
   let anyEditorState: EditorState;
   let provider: Provider;
   let channelBroadCastSpy: jest.SpyInstance;
+  let channelSendMetaSpy: jest.SpyInstance;
 
   beforeEach(() => {
     const fakeAnalyticsWebClient = {
@@ -38,6 +40,7 @@ describe('#sendSteps', () => {
     provider = createSocketIOCollabProvider(testProviderConfigWithAnalytics);
 
     channelBroadCastSpy = jest.spyOn((provider as any).channel, 'broadcast');
+    channelSendMetaSpy = jest.spyOn((provider as any).channel, 'sendMetadata');
 
     fakeStep = new ReplaceStep(1, 1, Slice.empty);
 
@@ -52,7 +55,7 @@ describe('#sendSteps', () => {
     jest.clearAllMocks();
   });
 
-  describe('when send is called', () => {
+  describe('when sendSteps is called', () => {
     describe('when there are steps to send', () => {
       beforeEach(() => {
         (sendableSteps as jest.Mock).mockReturnValue({
@@ -104,6 +107,15 @@ describe('#sendSteps', () => {
 
         expect(channelBroadCastSpy).not.toHaveBeenCalled();
       });
+    });
+  });
+  describe('when sendMetadata is called', () => {
+    it('should broadcast metadata', () => {
+      const metadata: Metadata = {
+        title: 'abc',
+      };
+      provider.setMetadata(metadata);
+      expect(channelSendMetaSpy).toHaveBeenCalledWith(metadata);
     });
   });
 });

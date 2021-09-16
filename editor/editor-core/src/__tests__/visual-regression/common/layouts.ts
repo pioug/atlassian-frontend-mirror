@@ -11,6 +11,7 @@ import {
   waitForFloatingControl,
   retryUntilStablePosition,
 } from '../../__helpers/page-objects/_toolbar';
+import * as col1 from './__fixtures__/column1-adf.json';
 import * as col2 from './__fixtures__/column2-adf.json';
 import * as col3 from './__fixtures__/column3-adf.json';
 import * as layoutWithAction from './__fixtures__/layout-with-action-adf.json';
@@ -25,6 +26,7 @@ describe('Layouts:', () => {
   let page: PuppeteerPage;
 
   const layouts = [
+    { name: '1 column', adf: col1 },
     { name: '2 columns', adf: col2 },
     { name: '3 columns', adf: col3 },
     { name: 'left sidebar', adf: colLeftSidebar },
@@ -44,7 +46,11 @@ describe('Layouts:', () => {
       adf,
       viewport,
       editorProps: {
-        allowLayouts: { allowBreakout: true, UNSAFE_addSidebarLayouts: true },
+        allowLayouts: {
+          allowBreakout: true,
+          UNSAFE_addSidebarLayouts: true,
+          UNSAFE_allowSingleColumnLayout: true,
+        },
       },
     });
 

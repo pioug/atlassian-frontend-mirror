@@ -22,7 +22,7 @@ export default {
   'fabric.emoji.category.productivity': '生產力',
   'fabric.emoji.category.symbols': '符號',
   'fabric.emoji.category.user.uploads': '您的上傳項目',
-  'fabric.emoji.choose.file.ariaLabel':
+  'fabric.emoji.choose.file.screenReaderDescription':
     '請選擇表情符號的檔案。JPG、PNG 或 GIF。大小上限為 1 MB。',
   'fabric.emoji.choose.file.title': '選擇檔案',
   'fabric.emoji.delete.description':
@@ -39,5 +39,7 @@ export default {
   'fabric.emoji.preview': '新的表情符號 {emoji} 看起來很棒',
   'fabric.emoji.preview.title': '預覽',
   'fabric.emoji.retry.label': '重試',
-  'fabric.emoji.search.label': '搜尋',
+  'fabric.emoji.search.label': '搜尋表情符號',
+  'fabric.emoji.search.placeholder': '搜尋',
+  'fabric.emoji.select.skin.tone.ariaLabel': '選取膚色，{selectedTone}',
 };

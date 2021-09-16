@@ -8,8 +8,8 @@ import {
   errorFileId,
 } from '@atlaskit/media-test-helpers';
 
-// @ts-ignore
-import { AtlaskitThemeProvider } from '@atlaskit/theme/components';
+import { ThemeProvider as StyledThemeProvider } from 'styled-components';
+import DeprecatedThemeProvider from '@atlaskit/theme/deprecated-provider-please-do-not-use';
 import { FileIdentifier } from '@atlaskit/media-client';
 import { Card } from '../src';
 import { createApiCards, actions } from '../example-helpers';
@@ -158,7 +158,7 @@ const collectionConfigCards = [
 ];
 
 export default () => (
-  <AtlaskitThemeProvider mode={'dark'}>
+  <DeprecatedThemeProvider mode={'dark'} provider={StyledThemeProvider}>
     <MainWrapper>
       <div>
         <h1 style={{ margin: '10px 20px' }}>File cards</h1>
@@ -189,5 +189,5 @@ export default () => (
         </div>
       </div>
     </MainWrapper>
-  </AtlaskitThemeProvider>
+  </DeprecatedThemeProvider>
 );

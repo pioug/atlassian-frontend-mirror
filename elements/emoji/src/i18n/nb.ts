@@ -22,7 +22,7 @@ export default {
   'fabric.emoji.category.productivity': 'Produktivitet',
   'fabric.emoji.category.symbols': 'Symboler',
   'fabric.emoji.category.user.uploads': 'Filopplastingene dine',
-  'fabric.emoji.choose.file.ariaLabel':
+  'fabric.emoji.choose.file.screenReaderDescription':
     'Velg en fil for emojien. JPG, PNG eller GIF. Maks. størrelse 1 MB.',
   'fabric.emoji.choose.file.title': 'Velg fil',
   'fabric.emoji.delete.description':
@@ -40,5 +40,7 @@ export default {
   'fabric.emoji.preview': 'Den nye emoji-en {emoji} ser flott ut',
   'fabric.emoji.preview.title': 'Forhåndsvisning',
   'fabric.emoji.retry.label': 'Prøv igjen',
-  'fabric.emoji.search.label': 'Søk',
+  'fabric.emoji.search.label': 'Søk etter emoji',
+  'fabric.emoji.search.placeholder': 'Søk',
+  'fabric.emoji.select.skin.tone.ariaLabel': 'Velg hudtone, {selectedTone}',
 };

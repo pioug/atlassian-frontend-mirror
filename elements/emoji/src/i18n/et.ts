@@ -22,8 +22,6 @@ export default {
   'fabric.emoji.category.productivity': 'Tootlikkus',
   'fabric.emoji.category.symbols': 'Sümbolid',
   'fabric.emoji.category.user.uploads': 'Sinu üleslaadimised',
-  'fabric.emoji.choose.file.ariaLabel':
-    'Valige emotikoni jaoks fail. JPG, PNG või GIF. Max suurus 1 MB.',
   'fabric.emoji.choose.file.title': 'Vali fail',
   'fabric.emoji.delete.description':
     'Kõik sellised emotikonid asendatakse nimega {emojiShortName}',
@@ -39,5 +37,4 @@ export default {
   'fabric.emoji.preview': 'Uus emotikon {emoji} on suurepärane!',
   'fabric.emoji.preview.title': 'Eelvaade',
   'fabric.emoji.retry.label': 'Proovi uuesti',
-  'fabric.emoji.search.label': 'Otsi',
 };

@@ -1,7 +1,9 @@
-import React, { Component } from 'react';
+/** @jsx jsx */
 
+import { Component } from 'react';
+
+import { css, jsx } from '@emotion/core';
 import Lorem from 'react-lorem-component';
-import styled from 'styled-components';
 
 import ArrowDownIcon from '@atlaskit/icon/glyph/arrow-down';
 import ArrowUpIcon from '@atlaskit/icon/glyph/arrow-up';
@@ -15,41 +17,41 @@ import {
 
 import { Code, Highlight } from './styled';
 
-const Wrapper = styled.div`
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  justify-content: center;
-`;
-const ButtonGroup = styled.div`
-  display: flex;
-`;
-const Button = styled.button`
-  align-items: center;
-  background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 0.2em;
-  border: 0;
-  color: inherit;
-  cursor: pointer;
-  display: flex;
-  height: 32px;
-  margin-right: 4px;
-  justify-content: center;
-  width: 36px;
-  opacity: 0.75;
+const wrapperStyles = css({
+  display: 'flex',
+  height: '100%',
+  alignItems: 'center',
+  justifyContent: 'center',
+  flexDirection: 'column',
+});
 
-  &:hover,
-  &:focus {
-    background-color: rgba(255, 255, 255, 0.2);
-    opacity: 1;
-    outline: 0;
-  }
-  &:active {
-    background-color: rgba(255, 255, 255, 0.1);
-    opacity: 0.5;
-  }
-`;
+const buttonGroupStyles = css({
+  display: 'flex',
+});
+
+const buttonStyles = css({
+  display: 'flex',
+  width: '36px',
+  height: '32px',
+  marginRight: '4px',
+  alignItems: 'center',
+  justifyContent: 'center',
+  backgroundColor: 'rgba(255, 255, 255, 0.1)',
+  border: 0,
+  borderRadius: '0.2em',
+  color: 'inherit',
+  cursor: 'pointer',
+  opacity: 0.75,
+  '&:hover, &:focus': {
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    opacity: 1,
+    outline: 0,
+  },
+  '&:active': {
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    opacity: 0.5,
+  },
+});
 
 type State = { value: number | null };
 
@@ -74,18 +76,18 @@ export default class SpotlightDialogWidthExample extends Component<{}, State> {
   render() {
     const { value } = this.state;
     const deltaButtons = (
-      <ButtonGroup>
-        <Button onClick={this.decrement}>
+      <div css={buttonGroupStyles}>
+        <button css={buttonStyles} onClick={this.decrement}>
           <ArrowDownIcon label="Decrement" />
-        </Button>
-        <Button onClick={this.increment}>
+        </button>
+        <button css={buttonStyles} onClick={this.increment}>
           <ArrowUpIcon label="Increment" />
-        </Button>
-      </ButtonGroup>
+        </button>
+      </div>
     );
 
     return (
-      <Wrapper>
+      <div css={wrapperStyles}>
         <SpotlightManager>
           <SpotlightTarget name="width-example">
             <Highlight color="neutral">Target</Highlight>
@@ -119,7 +121,7 @@ export default class SpotlightDialogWidthExample extends Component<{}, State> {
             )}
           </SpotlightTransition>
         </SpotlightManager>
-      </Wrapper>
+      </div>
     );
   }
 }

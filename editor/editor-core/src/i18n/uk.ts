@@ -28,6 +28,7 @@ export default {
   'fabric.editor.blockquote.description': 'Вставити цитату чи посилання',
   'fabric.editor.blockquote2': 'Цитата',
   'fabric.editor.bold': 'Жирний',
+  'fabric.editor.bug': 'Несправність',
   'fabric.editor.canNotSortTable':
     '⚠️ Не можна сортувати таблицю, у якій є об’єднані клітинки',
   'fabric.editor.cancelButton': 'Скасувати',
@@ -47,6 +48,7 @@ export default {
   'fabric.editor.code': 'Код',
   'fabric.editor.codeblock': 'Фрагмент коду',
   'fabric.editor.codeblock.description': 'Показати код із розміткою синтаксису',
+  'fabric.editor.collapseTable': 'Згорнути таблицю',
   'fabric.editor.columns': 'Макет',
   'fabric.editor.columns.description':
     'Впорядкувати сторінку за допомогою розділів',
@@ -79,6 +81,7 @@ export default {
   'fabric.editor.decision.description':
     'Зафіксувати рішення, щоб його було легко знайти',
   'fabric.editor.decisionPlaceholder': 'Додати рішення...',
+  'fabric.editor.defaultAltText': 'Елемент списку',
   'fabric.editor.displayBlock': 'Показати картку',
   'fabric.editor.displayEmbed': 'Показати вбудований об’єкт',
   'fabric.editor.displayInline': 'Показати лише заголовок',
@@ -89,9 +92,12 @@ export default {
   'fabric.editor.distributeColumns': 'Вирівняти стовпці по ширині',
   'fabric.editor.edit': 'Редагувати',
   'fabric.editor.editAltText': 'Редагувати текст заміщення',
+  'fabric.editor.editDateText': 'Змінення дати',
   'fabric.editor.editLink': 'Редагування посилання',
   'fabric.editor.editMode.inviteToEditButton.title':
     'Запросити для редагування',
+  'fabric.editor.editStatusColor': 'Змінення кольору стану',
+  'fabric.editor.editStatusText': 'Змінення стану',
   'fabric.editor.editorHelp': 'Довідка редактора',
   'fabric.editor.elementBrowser.help': 'Допомога',
   'fabric.editor.elementbrowser.categorylist.category-admin': 'Адміністрування',
@@ -121,6 +127,7 @@ export default {
   'fabric.editor.emoji.description':
     'Виразити ідеї 🎉 чи емоції 😄 через емодзі',
   'fabric.editor.emptyLink': 'Введіть посилання.',
+  'fabric.editor.epic': 'Епос',
   'fabric.editor.error': 'Помилка',
   'fabric.editor.errorPanel': 'Панель помилок',
   'fabric.editor.errorPanel.description':
@@ -139,6 +146,9 @@ export default {
   'fabric.editor.findNext': 'Знайти наступне',
   'fabric.editor.findPrevious': 'Знайти попереднє',
   'fabric.editor.findReplaceToolbarButton': 'Знайти й замінити',
+  'fabric.editor.floatingToolbar.confirmModalCancel': 'Скасувати',
+  'fabric.editor.floatingToolbar.confirmModalHeading': 'Ви впевнені?',
+  'fabric.editor.floatingToolbar.confirmModalOK': 'ОК',
   'fabric.editor.headerColumn': 'Стовпець заголовка',
   'fabric.editor.headerRow': 'Рядок заголовка',
   'fabric.editor.heading1': 'Заголовок 1',
@@ -165,9 +175,9 @@ export default {
     'Коли ви будете набирати у полі текст, нижче з’явиться список варіантів',
   'fabric.editor.hyperlink.searchLinkResults':
     '{count, plural, =0 {нічого не знайдено} one {{count,number} результат} few {{count,number} результати} many {{count,number} результатів} other {{count,number} результатів}}',
-  'fabric.editor.hyperlinkToolbarPlaceholder':
-    'Вставте посилання або пошукайте серед нещодавно переглянутих',
+  'fabric.editor.hyperlinkToolbarPlaceholder': 'Вставте або знайдіть посилання',
   'fabric.editor.image': 'зображення',
+  'fabric.editor.improvement': 'Покращення',
   'fabric.editor.info': 'Інформація',
   'fabric.editor.infoPanel': 'Панель з інформацією',
   'fabric.editor.infoPanel.description':
@@ -209,7 +219,7 @@ export default {
   'fabric.editor.orderedList.description': 'Створити упорядкований список',
   'fabric.editor.other': 'Інше...',
   'fabric.editor.panel.backgroundColor': 'Колір фону',
-  'fabric.editor.panel.emoji': 'Додати значок',
+  'fabric.editor.panel.emoji': 'Додати емодзі',
   'fabric.editor.pastePlainText': 'Вставити текст без форматування',
   'fabric.editor.placeholderAltText':
     'Опишіть це зображення за допомогою тексту заміщення',
@@ -238,7 +248,9 @@ export default {
   'fabric.editor.status': 'Стан',
   'fabric.editor.status.description': 'Додати власний стан',
   'fabric.editor.statusPlaceholder': 'Додати статус',
+  'fabric.editor.story': 'Історія',
   'fabric.editor.strike': 'Закреслення',
+  'fabric.editor.subTask': 'Вкладене завдання',
   'fabric.editor.subscript': 'Підрядковий',
   'fabric.editor.success': 'Готово',
   'fabric.editor.successPanel': 'Панель успіху',
@@ -250,6 +262,11 @@ export default {
   'fabric.editor.table': 'Таблиця',
   'fabric.editor.table.description': 'Вставити таблицю',
   'fabric.editor.tableOptions': 'Параметри таблиці',
+  'fabric.editor.tables.confirmDeleteLinkedModalMessage':
+    'Видалення цієї таблиці призведе до видалення всіх даних, що містяться в пов’язаних діаграмах.',
+  'fabric.editor.tables.confirmDeleteLinkedModalOKButton':
+    'Видалити таблицю й дані',
+  'fabric.editor.task': 'Завдання',
   'fabric.editor.taskPlaceholder':
     'Вкажіть задачу. Призначте її комусь за допомогою символу «@».',
   'fabric.editor.textColor': 'Колір тексту',

@@ -430,7 +430,9 @@ describe('validate Mark', () => {
 
   // Single Spec
 
-  it('should not drop a valid mark for a node with single validation spec', () => {
+  // NOTE: Currently there is no other single spec that supports mark. Need to unskip when
+  // we move single column from `stage-0` to `full`.
+  it.skip('should not drop a valid mark for a node with single validation spec', () => {
     const initialEntity = {
       type: 'layoutSection',
       content: [
@@ -541,7 +543,7 @@ describe('validate Mark', () => {
         ],
       };
       const validationResult = validate(initialEntity, errorCallbackMock);
-      expect(errorCallbackMock).toHaveBeenCalledTimes(2);
+      expect(errorCallbackMock).toHaveBeenCalledTimes(4);
       expect(validationResult.valid).toBeTruthy();
       expect(errorCallbackMock).toHaveBeenNthCalledWith(
         1,
@@ -631,7 +633,7 @@ describe('validate Mark', () => {
         ],
       };
       const validationResult = validate(initialEntity, errorCallbackMock);
-      expect(errorCallbackMock).toHaveBeenCalledTimes(2);
+      expect(errorCallbackMock).toHaveBeenCalledTimes(4);
       expect(validationResult.valid).toBeTruthy();
       expect(errorCallbackMock).toHaveBeenNthCalledWith(
         1,

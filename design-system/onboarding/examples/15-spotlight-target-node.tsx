@@ -15,7 +15,7 @@ interface State {
 type AnimationState = { [key: string]: any };
 
 export default class SpotlightNodeExample extends Component<Object, State> {
-  drawer?: HTMLElement;
+  drawer = React.createRef<HTMLElement>();
 
   state = { drawerIsVisible: false, spotlightIsVisible: false };
 
@@ -43,10 +43,6 @@ export default class SpotlightNodeExample extends Component<Object, State> {
     this.setState({ spotlightIsVisible: false });
   };
 
-  getDrawer = (ref: HTMLElement) => {
-    this.drawer = ref;
-  };
-
   render() {
     const { drawerIsVisible, spotlightIsVisible } = this.state;
     const duration = 300;
@@ -69,6 +65,7 @@ export default class SpotlightNodeExample extends Component<Object, State> {
           appear
           timeout={duration}
           onExit={this.hideSpotlight}
+          onEntered={() => window.setTimeout(this.showSpotlight, duration)}
         >
           {(state: string) => {
             if (state === 'exited') {
@@ -86,7 +83,7 @@ export default class SpotlightNodeExample extends Component<Object, State> {
             const style = { ...base, ...anim[state] };
             return (
               <div style={style}>
-                <Highlight innerRef={this.getDrawer} color="green">
+                <Highlight ref={this.drawer} color="green">
                   <div style={{ width: 240 }}>
                     <h3 style={{ marginBottom: 20 }}>Animated Element</h3>
                     <Lorem count={2} />
@@ -97,7 +94,7 @@ export default class SpotlightNodeExample extends Component<Object, State> {
           }}
         </Transition>
         <SpotlightTransition>
-          {spotlightIsVisible && this.drawer ? (
+          {spotlightIsVisible && this.drawer.current ? (
             <Spotlight
               actions={[
                 {
@@ -107,7 +104,7 @@ export default class SpotlightNodeExample extends Component<Object, State> {
               ]}
               dialogPlacement="right middle"
               heading="Waits for node availability"
-              targetNode={this.drawer}
+              targetNode={this.drawer.current}
             >
               <Lorem count={1} />
             </Spotlight>

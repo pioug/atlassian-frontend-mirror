@@ -23,9 +23,11 @@ const styles = {
     paddingTop: '10px',
   },
   purpleBorder: {
+    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
     border: '1px solid purple',
   },
   pinkBg: {
+    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
     backgroundColor: 'pink !important',
   },
   truncated: {
@@ -355,7 +357,7 @@ export default function Example() {
 
   return (
     <div>
-      <h3>Select an apperance option to see its effects in contexts</h3>
+      <h3>Select an appearance option to see its effects in contexts</h3>
       <select onChange={onChange} value={appearance}>
         {appearances.map((a) => (
           <option key={a} value={a}>

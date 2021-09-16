@@ -865,6 +865,11 @@ const metaData: Record<string, Data> = {
     componentName: 'EditorItalicIcon',
     package: '@atlaskit/icon/glyph/editor/italic',
   },
+  'editor/layout-single': {
+    keywords: ['editor/layout-single', 'editorlayoutsingle', 'icon', 'core'],
+    componentName: 'EditorLayoutSingleIcon',
+    package: '@atlaskit/icon/glyph/editor/layout-single',
+  },
   'editor/layout-three-equal': {
     keywords: [
       'editor/layout-three-equal',

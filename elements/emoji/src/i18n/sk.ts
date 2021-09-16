@@ -22,8 +22,6 @@ export default {
   'fabric.emoji.category.productivity': 'Produktivita',
   'fabric.emoji.category.symbols': 'Symboly',
   'fabric.emoji.category.user.uploads': 'Vaše nahrané súbory',
-  'fabric.emoji.choose.file.ariaLabel':
-    'Vyberte súbor pre emoji. JPG, PNG alebo GIF. Maximálna veľkosť je 1 MB.',
   'fabric.emoji.choose.file.title': 'Vybrať súbor',
   'fabric.emoji.delete.description':
     'Všetky existujúce inštancie tohto zábavného obrázka sa nahradia obrázkom {emojiShortName}',
@@ -39,5 +37,4 @@ export default {
   'fabric.emoji.preview': 'Váš nový zábavný obrázok {emoji} vyzerá výborne',
   'fabric.emoji.preview.title': 'Ukážka',
   'fabric.emoji.retry.label': 'Skúsiť znova',
-  'fabric.emoji.search.label': 'Vyhľadať',
 };

@@ -4,7 +4,8 @@ const utility: AttributeSchema<UtilTokenSchema> = {
   UNSAFE_util: {
     transparent: {
       attributes: {
-        description: '',
+        description:
+          'Transparent token used for backwards compatibility between new and old theming solutions',
         group: 'raw',
       },
     },

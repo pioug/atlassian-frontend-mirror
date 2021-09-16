@@ -118,17 +118,6 @@ type ListContentSanitizedAEP = TrackAEP<
   undefined
 >;
 
-type ListFixedAEP = TrackAEP<
-  ACTION.FIXED,
-  ACTION_SUBJECT.LIST,
-  undefined,
-  {
-    orderedListsJoined: number;
-    bulletListsJoined: number;
-  },
-  undefined
->;
-
 export type ListEventPayload =
   | ListItemJoinedForwardAEP
   | ListItemJoinedBackwardsAEP
@@ -136,5 +125,4 @@ export type ListEventPayload =
   | ListIndentedAEP
   | ListOutdentedAEP
   | ListInsertedAEP
-  | ListContentSanitizedAEP
-  | ListFixedAEP;
+  | ListContentSanitizedAEP;

@@ -19,6 +19,7 @@ export default function ThemeExample() {
   const defaultPreviouslySelected = ['2020-12-06'];
   const defaultSelected = ['2020-12-08'];
   const style = {
+    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
     border: '1px solid red',
     display: 'inline-block',
   };

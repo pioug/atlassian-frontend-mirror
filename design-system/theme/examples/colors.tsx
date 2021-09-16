@@ -1,7 +1,10 @@
 /** @jsx jsx */
-import { jsx, css } from '@emotion/core';
+import { FC } from 'react';
+
+import { css, jsx } from '@emotion/core';
 import color from 'color';
-import { colors, borderRadius, ThemedValue } from '../src';
+
+import { borderRadius, colors, ThemedValue } from '../src';
 
 const emptyColor = (): {
   name: string;
@@ -48,6 +51,17 @@ const colorGroups = Object.entries(colors).reduce(
   },
 );
 
+const colorPillStyles = css({
+  display: 'inline-block',
+  width: 'calc(33% - 20px)',
+  marginRight: '4px',
+  marginBottom: '4px',
+  padding: '8px',
+  borderRadius: `${borderRadius()}px`,
+  fontSize: '12px',
+  fontWeight: 600,
+});
+
 export const ColorPill = ({
   primary,
   secondary,
@@ -58,19 +72,12 @@ export const ColorPill = ({
   name: string;
 }) => (
   <span
+    style={{
+      color: secondary,
+      backgroundColor: primary,
+    }}
     data-testid="color-pill"
-    css={css`
-      display: inline-block;
-      background-color: ${primary};
-      border-radius: ${borderRadius()}px;
-      color: ${secondary};
-      margin-bottom: 4px;
-      margin-right: 4px;
-      padding: 8px;
-      width: calc(33% - 20px);
-      font-weight: 600;
-      font-size: 12px;
-    `}
+    css={colorPillStyles}
   >
     {name}
   </span>
@@ -82,29 +89,31 @@ const separateWords = (str: string) => {
   });
 };
 
-export const Heading = ({
+const headingStyles = css({
+  marginTop: '16px',
+  marginBottom: '4px',
+});
+
+const firstHeadingStyles = css({
+  marginTop: 0,
+});
+
+export const Heading: FC<{ className?: string }> = ({
   children,
-  index,
-}: {
-  children: any;
-  index?: number;
+  className,
 }) => (
-  <h6
-    css={css`
-      margin-top: ${index === 0 ? 0 : 16}px !important;
-      margin-bottom: 4px;
-    `}
-  >
+  <h6 className={className} css={headingStyles}>
     {children}
   </h6>
 );
 
 export default () => (
   <div id="colors">
-    {Object.entries(colorGroups).map(([groupName, groupColors]) => (
+    {Object.entries(colorGroups).map(([groupName, groupColors], index) => (
       <div key={groupName}>
-        <Heading>{separateWords(groupName)}</Heading>
-
+        <Heading css={index === 0 && firstHeadingStyles}>
+          {separateWords(groupName)}
+        </Heading>
         <div data-testid="color-palette">
           {groupColors.map((colorData) => {
             const actualColor =
@@ -112,14 +121,16 @@ export default () => (
                 ? colorData.value
                 : colorData.value();
 
+            const secondaryColor = color(actualColor).isLight()
+              ? colors.N800
+              : colors.N10;
+
             return (
               <ColorPill
                 key={colorData.name}
                 name={colorData.name}
                 primary={actualColor}
-                secondary={
-                  color(actualColor).isLight() ? colors.N800 : colors.N10
-                }
+                secondary={secondaryColor}
               />
             );
           })}

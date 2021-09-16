@@ -3,7 +3,6 @@ import Form from '@atlaskit/form';
 import ErrorIcon from '@atlaskit/icon/glyph/error';
 import { R400 } from '@atlaskit/theme/colors';
 import { gridSize } from '@atlaskit/theme/constants';
-import { multiply } from '@atlaskit/theme/math';
 import Tooltip from '@atlaskit/tooltip';
 import { LoadOptions, OptionData, Value } from '@atlaskit/user-picker';
 import React from 'react';
@@ -45,7 +44,7 @@ export const FormWrapper = styled.div`
 `;
 
 export const FormFooter = styled.div`
-  margin-bottom: ${multiply(gridSize, 1)}px;
+  margin-bottom: ${gridSize}px;
   display: flex;
   justify-content: flex-start;
 `;

@@ -5,11 +5,12 @@ import { css, jsx } from '@emotion/core';
 
 import { N800 } from '@atlaskit/theme/colors';
 import { gridSize as getGridSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 const descriptionStyles = css({
   marginTop: 0,
   marginBottom: `${getGridSize() * 3}px`,
-  color: N800,
+  color: token('color.text.highEmphasis', N800),
 });
 
 /**

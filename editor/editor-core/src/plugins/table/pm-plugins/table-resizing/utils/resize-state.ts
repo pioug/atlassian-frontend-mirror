@@ -267,7 +267,7 @@ export const areColumnsEven = (resizeState: ResizeState): boolean => {
 };
 
 // Get the layout
-const normaliseTableLayout = (
+export const normaliseTableLayout = (
   input: string | undefined | null,
 ): TableLayout => {
   switch (input) {

@@ -1,5 +1,16 @@
 # @atlaskit/collab-provider
 
+## 7.1.0
+
+### Minor Changes
+
+- [`cf853e39278`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf853e39278) - COLLAB-411-change-to-metadata: 'setTitle' and 'setEditorWidth' are deprecated, going to be removed in the next release, use 'setMetadata' instead.
+- [`10d7bc384aa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/10d7bc384aa) - COLLAB-933: add disconnected event
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.0.1
 
 ### Patch Changes

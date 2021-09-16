@@ -22,7 +22,7 @@ export default {
   'fabric.emoji.category.productivity': 'Produktivität',
   'fabric.emoji.category.symbols': 'Symbole',
   'fabric.emoji.category.user.uploads': 'Ihre Uploads',
-  'fabric.emoji.choose.file.ariaLabel':
+  'fabric.emoji.choose.file.screenReaderDescription':
     'Wählen Sie eine Datei für das Emoji. JPG, PNG oder GIF. Max. Größe: 1 MB.',
   'fabric.emoji.choose.file.title': 'Datei auswählen',
   'fabric.emoji.delete.description':
@@ -40,5 +40,8 @@ export default {
   'fabric.emoji.preview': 'Ihr neues Emoji {emoji} sieht toll aus',
   'fabric.emoji.preview.title': 'Vorschau',
   'fabric.emoji.retry.label': 'Wiederholen',
-  'fabric.emoji.search.label': 'Suchen',
+  'fabric.emoji.search.label': 'Emoji suchen',
+  'fabric.emoji.search.placeholder': 'Suchen',
+  'fabric.emoji.select.skin.tone.ariaLabel':
+    'Hautfarbe auswählen: {selectedTone}',
 };

@@ -22,7 +22,7 @@ export default {
   'fabric.emoji.category.productivity': 'Hatékonyság',
   'fabric.emoji.category.symbols': 'Szimbólumok',
   'fabric.emoji.category.user.uploads': 'Feltöltései',
-  'fabric.emoji.choose.file.ariaLabel':
+  'fabric.emoji.choose.file.screenReaderDescription':
     'Válassz fájlt a hangulatjelnek. JPG, PNG vagy GIF. Maximális méret: 1 MB.',
   'fabric.emoji.choose.file.title': 'Fájl kiválasztása',
   'fabric.emoji.delete.description':
@@ -40,5 +40,8 @@ export default {
   'fabric.emoji.preview': 'Az új emoji {emoji} nagyon jól mutat',
   'fabric.emoji.preview.title': 'Előnézet',
   'fabric.emoji.retry.label': 'Próbálja újra',
-  'fabric.emoji.search.label': 'Keresés',
+  'fabric.emoji.search.label': 'Emoji keresése',
+  'fabric.emoji.search.placeholder': 'Keresés',
+  'fabric.emoji.select.skin.tone.ariaLabel':
+    'Bőrszín kiválasztása: {selectedTone}',
 };

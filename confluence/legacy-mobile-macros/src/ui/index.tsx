@@ -5,7 +5,7 @@ import { ExtensionParams } from '@atlaskit/editor-common';
 
 // import { ExtensionKeys } from './constants';
 // import { ExtensionLinkComponent } from './ExtensionLinkComponent';
-import { MacroComponent } from './MacroComponent';
+import MacroComponent from './MacroComponent';
 
 // const shouldRenderAsLink = (extensionKey: string) => {
 //   return [

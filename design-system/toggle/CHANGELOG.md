@@ -1,5 +1,15 @@
 # @atlaskit/toggle
 
+## 12.3.0
+
+### Minor Changes
+
+- [`cf853e39278`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf853e39278) - [ux] Fix toggle focus ring in windows high contrast mode
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.2.2
 
 ### Patch Changes

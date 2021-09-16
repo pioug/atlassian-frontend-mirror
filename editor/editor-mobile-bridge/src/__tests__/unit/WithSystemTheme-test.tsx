@@ -1,4 +1,5 @@
 import { mount } from 'enzyme';
+import { AtlaskitThemeProvider } from '@atlaskit/theme/components';
 import React from 'react';
 
 import * as WST from '../../WithSystemTheme';
@@ -9,9 +10,9 @@ describe('WithSystemTheme', () => {
       const ComponentUnderTest = WST.withSystemTheme(React.Fragment, false);
       const withSystemTheme = mount(<ComponentUnderTest />);
 
-      expect(
-        withSystemTheme.find('AtlaskitThemeProvider').prop('mode'),
-      ).toEqual('light');
+      expect(withSystemTheme.find(AtlaskitThemeProvider).prop('mode')).toEqual(
+        'light',
+      );
     });
   });
 
@@ -30,9 +31,9 @@ describe('WithSystemTheme', () => {
       const ComponentUnderTest = WST.withSystemTheme(React.Fragment, true);
       const withSystemTheme = mount(<ComponentUnderTest />);
 
-      expect(
-        withSystemTheme.find('AtlaskitThemeProvider').prop('mode'),
-      ).toEqual('light');
+      expect(withSystemTheme.find(AtlaskitThemeProvider).prop('mode')).toEqual(
+        'light',
+      );
     });
 
     it('should read dark mode from media query', () => {
@@ -49,9 +50,9 @@ describe('WithSystemTheme', () => {
       const ComponentUnderTest = WST.withSystemTheme(React.Fragment, true);
       const withSystemTheme = mount(<ComponentUnderTest />);
 
-      expect(
-        withSystemTheme.find('AtlaskitThemeProvider').prop('mode'),
-      ).toEqual('dark');
+      expect(withSystemTheme.find(AtlaskitThemeProvider).prop('mode')).toEqual(
+        'dark',
+      );
     });
   });
 });

@@ -17,8 +17,7 @@ import {
 import { Emoji } from '@atlaskit/editor-common';
 import { PanelPluginOptions } from '../types';
 import { panelAttrsToDom } from '../utils';
-
-const fitToHeight = 20;
+import { akEditorCustomIconSize } from '@atlaskit/editor-shared-styles/consts';
 
 export const panelIcons: {
   [key in PanelType]: React.ComponentType<{ label: string }>;
@@ -54,7 +53,7 @@ export const PanelIcon: React.FC<PanelIconAttributes> = (
         shortName={panelIcon}
         showTooltip={false}
         allowTextFallback={false}
-        fitToHeight={fitToHeight}
+        fitToHeight={akEditorCustomIconSize}
       />
     );
   }
@@ -102,7 +101,8 @@ class PanelNodeView {
     if (!this.icon) {
       return;
     }
-
+    // set contentEditable as false to be able to select the custom panels with keyboard
+    this.icon.contentEditable = 'false';
     ReactDOM.render(
       <PanelIcon
         allowCustomPanel={pluginOptions.UNSAFE_allowCustomPanel}

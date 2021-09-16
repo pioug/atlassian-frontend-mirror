@@ -33,7 +33,6 @@ const selectOptions = [
   { label: 'Banana', value: 'Banana' },
   { label: 'Cherry', value: 'Cherry' },
   { label: 'Mango', value: 'Mango' },
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   { label: 'Orange', value: 'Orange' },
   { label: 'Strawberry', value: 'Strawberry' },
   { label: 'Watermelon', value: 'Watermelon' },

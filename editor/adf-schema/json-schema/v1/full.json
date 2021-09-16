@@ -2368,18 +2368,16 @@
             "layoutSection"
           ]
         },
-        "content": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/layoutColumn_node"
-          },
-          "minItems": 2,
-          "maxItems": 3
-        },
         "marks": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/breakout_mark"
+          }
+        },
+        "content": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/layoutColumn_node"
           }
         }
       },
@@ -2388,6 +2386,42 @@
         "content"
       ],
       "additionalProperties": false
+    },
+    "layoutSection_full_node": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/layoutSection_node"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "enum": [
+                "layoutSection"
+              ]
+            },
+            "marks": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/breakout_mark"
+              }
+            },
+            "content": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/layoutColumn_node"
+              },
+              "minItems": 2,
+              "maxItems": 3
+            }
+          },
+          "required": [
+            "type",
+            "content"
+          ],
+          "additionalProperties": false
+        }
+      ]
     },
     "doc_node": {
       "type": "object",
@@ -2485,7 +2519,7 @@
                 "$ref": "#/definitions/bodiedExtension_with_marks_node"
               },
               {
-                "$ref": "#/definitions/layoutSection_node"
+                "$ref": "#/definitions/layoutSection_full_node"
               }
             ]
           }

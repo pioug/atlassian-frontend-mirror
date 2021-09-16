@@ -1,5 +1,12 @@
 # @atlaskit/share
 
+## 0.29.1
+
+### Patch Changes
+
+- [`cf853e39278`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf853e39278) - Internal changes to remove `@atlaskit/theme/math` usage.
+- Updated dependencies
+
 ## 0.29.0
 
 ### Minor Changes

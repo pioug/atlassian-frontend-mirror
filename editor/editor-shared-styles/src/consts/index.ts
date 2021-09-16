@@ -42,6 +42,7 @@ export {
   akEditorSelectedBorder,
   akEditorSelectedBoxShadow,
   akEditorSelectedIconColor,
+  akEditorCustomIconSize,
   akEditorSelectedBlanketColor,
   akEditorSelectedBgColor,
   akEditorSelectedBlanketOpacity,

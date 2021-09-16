@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 
-import styled from 'styled-components';
+import styled, {
+  ThemeProvider as StyledThemeProvider,
+} from 'styled-components';
 // @ts-ignore
 import uid from 'uid';
 
 import { N0, N800 } from '@atlaskit/theme/colors';
-import { AtlaskitThemeProvider, themed } from '@atlaskit/theme/components';
+import { themed } from '@atlaskit/theme/components';
+import DeprecatedThemeProvider from '@atlaskit/theme/deprecated-provider-please-do-not-use';
 
 import { profiles } from '../../mock-helpers';
 import { ProfileCard } from '../../src';
@@ -266,7 +269,10 @@ export default class ProfilecardInteractive extends Component<Props, State> {
 
     /* eslint-disable max-len */
     return (
-      <AtlaskitThemeProvider mode={this.state.hasDarkTheme ? 'dark' : 'light'}>
+      <DeprecatedThemeProvider
+        mode={this.state.hasDarkTheme ? 'dark' : 'light'}
+        provider={StyledThemeProvider}
+      >
         <StoryWrapper>
           <ProfileCardWrapper>
             <ProfileCard
@@ -383,7 +389,7 @@ export default class ProfilecardInteractive extends Component<Props, State> {
             </ul>
           </div>
         </StoryWrapper>
-      </AtlaskitThemeProvider>
+      </DeprecatedThemeProvider>
     );
   }
 }

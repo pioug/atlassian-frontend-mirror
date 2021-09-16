@@ -1,5 +1,5 @@
 import { Transaction } from 'prosemirror-state';
-import { TableMap } from '@atlaskit/editor-tables/table-map';
+import { TableMap, Rect } from '@atlaskit/editor-tables/table-map';
 import { findTable } from '@atlaskit/editor-tables/utils';
 
 export const getMergedCellsPositions = (tr: Transaction): number[] => {
@@ -22,3 +22,10 @@ export const getMergedCellsPositions = (tr: Transaction): number[] => {
 
   return mergedCells;
 };
+
+export const colsToRect = (cols: Array<number>, noOfRows: number): Rect => ({
+  left: Math.min(...cols),
+  right: Math.max(...cols) + 1,
+  top: 0,
+  bottom: noOfRows,
+});

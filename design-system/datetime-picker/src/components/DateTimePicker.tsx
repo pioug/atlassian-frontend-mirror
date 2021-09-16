@@ -29,9 +29,9 @@ const packageVersion = process.env._PACKAGE_VERSION_ as string;
 /* eslint-disable react/no-unused-prop-types */
 export interface Props extends WithAnalyticsEventsProps {
   /**
-    Set the appearance of the picker.
-   
-    `subtle` will remove the borders and background.
+   * Set the appearance of the picker.
+   *
+   * `subtle` will remove the borders and background.
    */
   appearance?: Appearance;
   /** Set the picker to autofocus on mount. */
@@ -39,9 +39,8 @@ export interface Props extends WithAnalyticsEventsProps {
   /** The default for `value`. */
   defaultValue?: string;
   /**
-    The id of the field. Currently, react-select transforms this to have a `react-select-` prefix, and an `--input` suffix when applied to the input. For example, the id `my-input` would be transformed to `react-select-my-input--input`.
-   
-    Keep this in mind when needing to refer to the ID. This will be fixed in an upcoming release.
+   * The id of the field. Currently, react-select transforms this to have a `react-select-` prefix, and an `--input` suffix when applied to the input. For example, the id `my-input` would be transformed to `react-select-my-input--input`.
+   * Keep this in mind when needing to refer to the ID. This will be fixed in an upcoming release.
    */
   id?: string;
   /** Props to apply to the container. **/
@@ -86,9 +85,9 @@ export interface Props extends WithAnalyticsEventsProps {
   /** The format that times are displayed in. Values should be those accepted by [date-fns's format function](https://date-fns.org/v1.29.0/docs/format). */
   timeFormat?: string;
   /**
-    The spacing for the select control.
-   
-    Compact is `gridSize() * 4`, default is `gridSize * 5`.
+   * The spacing for the select control.
+   *
+   * Compact is `gridSize() * 4`, default is `gridSize * 5`.
    */
   spacing?: Spacing;
   /** Locale used for formatting dates and times. See [DateTimeFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DateTimeFormat). */
@@ -418,6 +417,7 @@ class DateTimePicker extends React.Component<DateTimePickerProps, State> {
         isDisabled={isDisabled}
         isInvalid={this.props.isInvalid!}
         appearance={this.props.appearance!}
+        data-testid={testId}
       >
         <input name={name} type="hidden" value={value} />
         <DatePickerContainer>

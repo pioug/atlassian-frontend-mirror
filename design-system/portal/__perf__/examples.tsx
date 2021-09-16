@@ -1,4 +1,3 @@
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import React from 'react';
 
 import Portal from '../src';
@@ -11,6 +10,7 @@ const PortalPerformance = () => {
           position: 'absolute',
           top: 24,
           left: 24,
+          // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
           background: 'lightpink',
           padding: '24px',
           borderRadius: '3px',

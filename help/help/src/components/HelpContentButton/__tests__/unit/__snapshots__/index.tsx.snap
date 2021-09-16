@@ -89,13 +89,13 @@ exports[`HelpContentButton Should match snapshot 1`] = `
 }
 
 <a
-  class="sc-htpNat ciRLS"
+  class="sc-bdVaJa gUXLyX"
   href="https://www.atlassian.com/"
   id="testHelpContentButton"
   target="_blank"
 >
   <div
-    class="sc-bxivhb VMuiA"
+    class="sc-bwzfXH WTOuK"
   >
     <span
       aria-hidden="true"
@@ -129,11 +129,11 @@ exports[`HelpContentButton Should match snapshot 1`] = `
     </span>
   </div>
   <div
-    class="sc-ifAKCX irKKIl"
+    class="sc-htpNat iUSDkM"
   >
     Test Content Button
     <div
-      class="sc-bZQynM gBnZaY"
+      class="sc-ifAKCX dTKZCs"
     >
       <div
         data-test-selector="NotificationIndicator"
@@ -146,7 +146,7 @@ exports[`HelpContentButton Should match snapshot 1`] = `
       </div>
     </div>
     <div
-      class="sc-EHOje iOUHrI"
+      class="sc-bxivhb crZlKE"
       data-testid="shortcutIcon"
     >
       <span

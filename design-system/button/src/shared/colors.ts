@@ -39,7 +39,6 @@ type Values = {
 
 // Hard coding the active rgba color value rather than using a helper to convert it
 // With helper it would be: hex2rgba(colors.B75, 0.6)
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 const fadedB75: string = 'rgba(179, 212, 255, 0.6)';
 
 const values: Values = {

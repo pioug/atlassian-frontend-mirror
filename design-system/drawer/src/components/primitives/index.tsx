@@ -1,11 +1,11 @@
 /** @jsx jsx */
 
-import { Component, FC, MouseEvent, ReactChildren } from 'react';
+import { Component, CSSProperties, FC, ReactChildren } from 'react';
 
-import { jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/core';
 
 import ArrowLeft from '@atlaskit/icon/glyph/arrow-left';
-import { B50, N0, N30A } from '@atlaskit/theme/colors';
+import { N0 } from '@atlaskit/theme/colors';
 import { gridSize, layers } from '@atlaskit/theme/constants';
 
 import { Slide } from '../transitions';
@@ -19,6 +19,7 @@ import {
 import { createExtender } from '../utils';
 
 import ContentOverrides from './content';
+import IconButton from './icon-button';
 import SidebarOverrides from './sidebar';
 
 // Misc.
@@ -32,69 +33,38 @@ const widths: Widths = {
   wide: 75 * gridSize(),
 };
 
-// Wrapper
-// ------------------------------
-
-const Wrapper = ({
-  width = 'narrow',
-  shouldUnmountOnExit,
-  ...props
-}: {
+interface WrapperProps {
+  style?: CSSProperties;
   children?: ReactChildren;
   shouldUnmountOnExit?: boolean;
   width: DrawerWidth;
+}
+
+const wrapperStyles = css({
+  display: 'flex',
+  height: '100vh',
+  position: 'fixed',
+  zIndex: layers.blanket() + 1,
+  top: 0,
+  left: 0,
+  backgroundColor: N0,
+  overflow: 'hidden',
+});
+
+const Wrapper: FC<WrapperProps> = ({
+  width = 'narrow',
+  shouldUnmountOnExit,
+  style,
+  ...props
 }) => {
   return (
     <div
-      css={{
-        backgroundColor: N0,
-        display: 'flex',
-        height: '100vh',
-        left: 0,
-        overflow: 'hidden',
-        position: 'fixed',
-        top: 0,
-        width: widths[width],
-        zIndex: layers.blanket() + 1,
-      }}
+      style={{ ...style, width: widths[width] }}
+      css={wrapperStyles}
       {...props}
     />
   );
 };
-
-interface IconWrapperProps {
-  onClick?: (event: MouseEvent<HTMLElement>) => void;
-}
-const IconWrapper: FC<IconWrapperProps> = (props) => (
-  <button
-    type="button"
-    css={{
-      alignItems: 'center',
-      background: 0,
-      border: 0,
-      borderRadius: '50%',
-      color: 'inherit',
-      cursor: props.onClick ? 'pointer' : undefined,
-      display: 'flex',
-      fontSize: 'inherit',
-      height: 5 * gridSize(),
-      justifyContent: 'center',
-      lineHeight: 1,
-      marginBottom: 2 * gridSize(),
-      padding: 0,
-      width: 5 * gridSize(),
-
-      '&:hover': {
-        backgroundColor: props.onClick ? N30A : undefined,
-      },
-      '&:active': {
-        backgroundColor: props.onClick ? B50 : undefined,
-        outline: 0,
-      },
-    }}
-    {...props}
-  />
-);
 
 const defaults: DrawerPrimitiveDefaults = {
   Sidebar: SidebarOverrides,
@@ -110,6 +80,7 @@ export default class DrawerPrimitive extends Component<DrawerPrimitiveProps> {
       onCloseComplete,
       onOpenComplete,
       overrides,
+      testId,
       ...props
     } = this.props;
 
@@ -126,15 +97,16 @@ export default class DrawerPrimitive extends Component<DrawerPrimitiveProps> {
         component={Wrapper}
         onExited={onCloseComplete}
         onEntered={onOpenComplete}
+        data-testid={testId}
         {...props}
       >
         <Sidebar {...sideBarOverrides}>
-          <IconWrapper
+          <IconButton
             onClick={onClose}
-            data-test-selector="DrawerPrimitiveSidebarCloseButton"
+            testId={testId && 'DrawerPrimitiveSidebarCloseButton'}
           >
             {Icon ? <Icon size="large" /> : <ArrowLeft label="Close drawer" />}
-          </IconWrapper>
+          </IconButton>
         </Sidebar>
         <Content {...contentOverrides}>{children}</Content>
       </Slide>

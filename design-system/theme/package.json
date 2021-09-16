@@ -1,7 +1,7 @@
 {
   "name": "@atlaskit/theme",
-  "version": "11.5.2",
-  "description": "The Atlaskit theme framework",
+  "version": "12.0.0",
+  "description": "Theme contains solutions for global theming, colors, typography and other useful mixins.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
@@ -13,7 +13,7 @@
   "module:es2019": "dist/es2019/index.js",
   "types": "dist/types/index.d.ts",
   "sideEffects": false,
-  "atlaskit:src": "src/index.ts",
+  "atlaskit:src": "src/index.tsx",
   "atlassian": {
     "team": "Design System Team",
     "inPublicMirror": true,
@@ -23,14 +23,12 @@
     }
   },
   "dependencies": {
+    "@atlaskit/codemod-utils": "^3.4.0",
     "@atlaskit/tokens": "^0.2.0",
-    "@babel/runtime": "^7.0.0",
-    "exenv": "^1.2.2",
-    "prop-types": "^15.5.10"
+    "@babel/runtime": "^7.0.0"
   },
   "peerDependencies": {
-    "react": "^16.8.0",
-    "styled-components": "^3.2.6"
+    "react": "^16.8.0"
   },
   "devDependencies": {
     "@atlaskit/build-utils": "*",
@@ -50,7 +48,9 @@
     "emotion-theming": "^10.0.7",
     "enzyme": "^3.10.0",
     "jest-in-case": "^1.0.2",
+    "jscodeshift": "^0.13.0",
     "react-dom": "^16.8.0",
+    "styled-components": "^3.2.6",
     "typescript": "3.9.6",
     "wait-for-expect": "^1.2.0"
   },
@@ -62,15 +62,27 @@
     "ui"
   ],
   "af:exports": {
-    "./color-palettes": "./src/color-palettes.ts",
-    "./colors": "./src/colors.ts",
-    "./components": "./src/components.ts",
-    "./constants": "./src/constants.ts",
-    "./elevation": "./src/elevation.ts",
-    "./hoc": "./src/hoc.tsx",
-    "./math": "./src/math.ts",
-    "./types": "./src/types.ts",
-    "./typography": "./src/typography.ts"
+    "./deprecated-provider-please-do-not-use": "./src/deprecated-provider-please-do-not-use.tsx",
+    "./color-palettes": "./src/color-palettes.tsx",
+    "./colors": "./src/colors.tsx",
+    "./components": "./src/components.tsx",
+    "./constants": "./src/constants.tsx",
+    "./elevation": "./src/elevation.tsx",
+    "./types": "./src/types.tsx",
+    "./typography": "./src/typography.tsx"
   },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",
+  "techstack": {
+    "@atlassian/frontend": {
+      "import-structure": "atlassian-conventions"
+    },
+    "@repo/internal": {
+      "styling": "emotion",
+      "ui-components": "lite-mode",
+      "analytics": "analytics-next",
+      "theming": "new-theming-api",
+      "deprecation": "no-deprecated-imports",
+      "design-system": "v1"
+    }
+  }
 }

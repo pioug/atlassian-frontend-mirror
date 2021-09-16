@@ -1,11 +1,18 @@
-import React from 'react';
-import { ColorPill, Heading } from './colors';
+/** @jsx jsx */
+import { css, jsx } from '@emotion/core';
+
 import { colorPalettes } from '../src';
+
+import { ColorPill, Heading } from './colors';
+
+const firstHeadingStyles = css({
+  marginTop: 0,
+});
 
 export default () => {
   return (
     <div id="colors">
-      <Heading index={0}>8 colors (base)</Heading>
+      <Heading css={firstHeadingStyles}>8 colors (base)</Heading>
       {colorPalettes.colorPalette('8').map((color, index) => (
         <ColorPill
           primary={color.background}

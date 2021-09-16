@@ -3,6 +3,7 @@ import React from 'react';
 import { AutoDismissFlag } from '@atlaskit/flag';
 import SuccessIcon from '@atlaskit/icon/glyph/check-circle';
 import { G300 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 interface AkProps {
   isDismissAllowed?: boolean;
@@ -12,7 +13,12 @@ interface AkProps {
 }
 const FeedbackFlag = (props: AkProps) => (
   <AutoDismissFlag
-    icon={<SuccessIcon primaryColor={G300} label="Success" />}
+    icon={
+      <SuccessIcon
+        primaryColor={token('color.iconBorder.success', G300)}
+        label="Success"
+      />
+    }
     id="feedbackSent"
     description={
       props.description

@@ -1,6 +1,7 @@
 import { CSSObject } from '@emotion/core';
 
-import { N500, R500 } from '@atlaskit/theme/colors';
+import { N500 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import { defaultBorderRadius } from '../../../constants';
 
@@ -11,31 +12,28 @@ export const removeButtonStyles = ({
   backgroundColor,
   backgroundColorHover,
   focusBoxShadowColor,
-  hoverBoxShadowColor,
 }: {
   backgroundColor: string;
   backgroundColorHover: string;
   focusBoxShadowColor: string;
-  hoverBoxShadowColor: string;
 }): CSSObject => ({
   position: 'absolute',
   right: 0,
 
-  backgroundColor: backgroundColor,
-
+  backgroundColor: 'transparent',
   alignItems: 'center',
   alignSelf: 'center',
   appearance: 'none',
   border: 'none',
   borderRadius: defaultBorderRadius,
-  color: N500,
+  color: token('color.text.highEmphasis', N500),
   display: 'flex',
   justifyContent: 'center',
   height: '16px',
   margin: 0,
   padding: 0,
   cursor: 'pointer',
-
+  pointerEvents: 'auto',
   '&::-moz-focus-inner': {
     border: 0,
     margin: 0,
@@ -45,10 +43,5 @@ export const removeButtonStyles = ({
   '&:focus': {
     boxShadow: `0 0 0 2px ${focusBoxShadowColor} inset`,
     outline: 'none',
-  },
-
-  '&:hover': {
-    backgroundColor: `${backgroundColorHover} !important`,
-    color: R500,
   },
 });

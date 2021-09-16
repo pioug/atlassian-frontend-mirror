@@ -1,7 +1,6 @@
 import styled, { css } from 'styled-components';
 
 import { gridSize } from '@atlaskit/theme/constants';
-import { multiply } from '@atlaskit/theme/math';
 
 export interface TableProps {
   isFixedSize?: boolean;
@@ -29,7 +28,7 @@ export const Caption = styled.caption`
   letter-spacing: -0.008em;
   line-height: 1.2;
   margin-bottom: ${gridSize}px;
-  margin-top: ${multiply(gridSize, 3.5)}px;
+  margin-top: ${gridSize() * 3.5}px;
   text-align: left;
 `;
 

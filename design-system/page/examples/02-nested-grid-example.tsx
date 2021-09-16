@@ -1,13 +1,14 @@
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import React, { PureComponent } from 'react';
 
 import styled from 'styled-components';
 
 import Page, { Grid, GridColumn } from '../src';
 
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 const Dummy = styled.div`
   background: #fea;
 `;
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 const DummyNested = styled.div`
   background: #afe;
 `;

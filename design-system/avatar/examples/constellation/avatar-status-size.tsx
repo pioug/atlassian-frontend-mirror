@@ -16,6 +16,7 @@ const AvatarStatusWidthExample = () => {
         type="range"
         value={width}
       />
+      {/* eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage */}
       <div style={{ maxWidth: width, border: '1px dotted blue' }}>
         <Status status="approved" />
       </div>

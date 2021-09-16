@@ -110,6 +110,8 @@ const Panel = (props: Props) => {
     <PanelStyled
       className={PanelSharedCssClassName.prefix}
       data-panel-type={panelType}
+      data-panel-color={panelColor}
+      data-panel-icon={panelIcon}
       backgroundColor={panelColor}
     >
       {renderIcon()}

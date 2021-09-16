@@ -66,6 +66,7 @@ import {
   fireCommencedEvent,
   relevantFeatureFlagNames,
   fireCopiedEvent,
+  fireScreenEvent,
 } from './cardAnalytics';
 import getDocument from '../../utils/document';
 
@@ -152,7 +153,7 @@ export class CardBase extends Component<
     } = prevProps;
     const { isCardVisible: prevIsCardVisible } = prevState;
     const { mediaClient, identifier, dimensions } = this.props;
-    const { isCardVisible } = this.state;
+    const { isCardVisible, cardPreview } = this.state;
     const isDifferent = isDifferentIdentifier(prevIdentifier, identifier);
     const turnedVisible = !prevIsCardVisible && isCardVisible;
 
@@ -178,6 +179,14 @@ export class CardBase extends Component<
 
     if (this.state.status !== prevState.status) {
       this.fireOperationalEvent();
+      if (
+        this.state.status === 'complete' ||
+        (this.fileAttributes.fileMediatype === 'video' &&
+          !!cardPreview &&
+          this.state.status === 'processing')
+      ) {
+        this.fireScreenEvent();
+      }
     }
   }
 
@@ -305,11 +314,9 @@ export class CardBase extends Component<
               }
             } catch (e) {
               const wrappedError = ensureMediaCardError('preview-fetch', e);
-              /**
-               * If remote preview fails, we set status 'error'
-               * If the local preview fails (i.e, no remote preview available),
-               * we can stay in the same status until there is a remote preview available
-               * */
+              // If remote preview fails, we set status 'error'
+              // If the local preview fails (i.e, no remote preview available),
+              // we can stay in the same status until there is a remote preview available
               if (isRemotePreviewError(wrappedError)) {
                 status = 'error';
                 error = wrappedError;
@@ -429,6 +436,12 @@ export class CardBase extends Component<
     cardRef &&
       createAnalyticsEvent &&
       fireCopiedEvent(createAnalyticsEvent, this.metadata.id, cardRef);
+  };
+
+  private fireScreenEvent = () => {
+    const { createAnalyticsEvent } = this.props;
+    createAnalyticsEvent &&
+      fireScreenEvent(createAnalyticsEvent, this.fileAttributes);
   };
 
   private safeSetState = (state: Partial<CardState>) => {

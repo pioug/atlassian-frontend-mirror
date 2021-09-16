@@ -1,39 +1,39 @@
 import React from 'react';
 import { WithMediaClientConfigProps } from '@atlaskit/media-client';
-import { InlineCardResolvingView } from '@atlaskit/media-ui';
-import { InlineMediaCardProps } from './inlineMediaCard';
+import { MediaInlineCardLoadingView } from '@atlaskit/media-ui';
+import { MediaInlineCardProps } from './mediaInlineCard';
 
-export type InlineMediaCardWithMediaClientConfigProps = WithMediaClientConfigProps<
-  InlineMediaCardProps
+export type MediaInlineCardWithMediaClientConfigProps = WithMediaClientConfigProps<
+  MediaInlineCardProps
 >;
 
-type InlineMediaCardWithMediaClientConfigComponent = React.ComponentType<
-  InlineMediaCardWithMediaClientConfigProps
+type MediaInlineCardWithMediaClientConfigComponent = React.ComponentType<
+  MediaInlineCardWithMediaClientConfigProps
 >;
 
 type ErrorBoundaryComponent = React.ComponentType<{
   data?: { [k: string]: any };
 }>;
 
-export interface InlineMediaCardLoaderState {
-  InlineMediaCard?: InlineMediaCardWithMediaClientConfigComponent;
+export interface MediaInlineCardLoaderState {
+  MediaInlineCard?: MediaInlineCardWithMediaClientConfigComponent;
   ErrorBoundary?: ErrorBoundaryComponent;
 }
 
-export default class InlineMediaCardLoader extends React.PureComponent<
-  InlineMediaCardWithMediaClientConfigProps & InlineMediaCardLoaderState,
-  InlineMediaCardLoaderState
+export default class MediaInlineCardLoader extends React.PureComponent<
+  MediaInlineCardWithMediaClientConfigProps & MediaInlineCardLoaderState,
+  MediaInlineCardLoaderState
 > {
-  static displayName = 'InlineMediaCardLoader';
-  static InlineMediaCard?: InlineMediaCardWithMediaClientConfigComponent;
+  static displayName = 'MediaInlineCardLoader';
+  static MediaInlineCard?: MediaInlineCardWithMediaClientConfigComponent;
   static ErrorBoundary?: ErrorBoundaryComponent;
 
-  state: InlineMediaCardLoaderState = {
-    InlineMediaCard: InlineMediaCardLoader.InlineMediaCard,
+  state: MediaInlineCardLoaderState = {
+    MediaInlineCard: MediaInlineCardLoader.MediaInlineCard,
   };
 
   async componentDidMount() {
-    if (!this.state.InlineMediaCard) {
+    if (!this.state.MediaInlineCard) {
       try {
         const [
           mediaClient,
@@ -44,37 +44,37 @@ export default class InlineMediaCardLoader extends React.PureComponent<
             /* webpackChunkName: "@atlaskit-internal_media-client" */ '@atlaskit/media-client'
           ),
           import(
-            /* webpackChunkName: "@atlaskit-internal_inline-media-card" */ './inlineMediaCard'
+            /* webpackChunkName: "@atlaskit-internal_inline-media-card" */ './mediaInlineCard'
           ),
           import(
             /* webpackChunkName: "@atlaskit-internal_media-card-error-boundary" */ '../media-card-analytics-error-boundary'
           ),
         ]);
 
-        InlineMediaCardLoader.InlineMediaCard = mediaClient.withMediaClient(
-          cardModule.InlineMediaCard,
+        MediaInlineCardLoader.MediaInlineCard = mediaClient.withMediaClient(
+          cardModule.MediaInlineCard,
         );
-        InlineMediaCardLoader.ErrorBoundary =
+        MediaInlineCardLoader.ErrorBoundary =
           mediaCardErrorBoundaryModule.default;
 
         this.setState({
-          InlineMediaCard: InlineMediaCardLoader.InlineMediaCard,
-          ErrorBoundary: InlineMediaCardLoader.ErrorBoundary,
+          MediaInlineCard: MediaInlineCardLoader.MediaInlineCard,
+          ErrorBoundary: MediaInlineCardLoader.ErrorBoundary,
         });
       } catch (error) {}
     }
   }
 
   render() {
-    const { InlineMediaCard, ErrorBoundary } = this.state;
+    const { MediaInlineCard, ErrorBoundary } = this.state;
 
-    if (!InlineMediaCard || !ErrorBoundary) {
-      return <InlineCardResolvingView url="" />;
+    if (!MediaInlineCard || !ErrorBoundary) {
+      return <MediaInlineCardLoadingView message="" />;
     }
 
     return (
       <ErrorBoundary>
-        <InlineMediaCard {...this.props} />
+        <MediaInlineCard {...this.props} />
       </ErrorBoundary>
     );
   }

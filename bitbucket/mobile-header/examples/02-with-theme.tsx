@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 
-import styled from 'styled-components';
+import styled, {
+  ThemeProvider as StyledThemeProvider,
+} from 'styled-components';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
 import RoomMenuIcon from '@atlaskit/icon/glyph/room-menu';
 import Navigation from '@atlaskit/navigation';
-// AFP-2532 TODO: Fix automatic suppressions below
-// eslint-disable-next-line @atlassian/tangerine/import/entry-points
-import { AtlaskitThemeProvider } from '@atlaskit/theme';
+import DeprecatedThemeProvider from '@atlaskit/theme/deprecated-provider-please-do-not-use';
 
 import MobileHeader from '../src';
 
@@ -69,8 +69,8 @@ class MobileHeaderDemo extends Component<{}, State> {
 
 export default function Example() {
   return (
-    <AtlaskitThemeProvider mode="dark">
+    <DeprecatedThemeProvider mode="dark" provider={StyledThemeProvider}>
       <MobileHeaderDemo />
-    </AtlaskitThemeProvider>
+    </DeprecatedThemeProvider>
   );
 }

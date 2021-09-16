@@ -1,6 +1,7 @@
 export { Provider } from './provider';
 export type {
   CollabConnectedPayload,
+  CollabDisconnectedPayload,
   CollabErrorPayload,
   CollabInitPayload,
   CollabDataPayload,

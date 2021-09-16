@@ -834,4 +834,28 @@ describe('Tooltip', () => {
       'position: absolute; left: 0px; top: 0px;',
     );
   });
+
+  it('should link correct aria-describedby attribute to the trigger and correct id to the tooltip', () => {
+    const { getByTestId } = render(
+      <Tooltip testId="tooltip" content="Save">
+        {(tooltipProps) => (
+          <button {...tooltipProps} data-testid="trigger">
+            focus me
+          </button>
+        )}
+      </Tooltip>,
+    );
+
+    const trigger = getByTestId('trigger');
+
+    act(() => {
+      fireEvent.mouseOver(trigger);
+      jest.runAllTimers();
+    });
+
+    const triggerDescriptionId = trigger.getAttribute('aria-describedby');
+    const tooltipId = getByTestId('tooltip').getAttribute('id');
+
+    expect(triggerDescriptionId).toEqual(tooltipId);
+  });
 });

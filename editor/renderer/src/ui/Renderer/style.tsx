@@ -49,6 +49,7 @@ import {
 import { RendererCssClassName } from '../../consts';
 import { RendererAppearance } from './types';
 import { HeadingAnchorWrapperClassName } from '../../react/nodes/heading-anchor';
+import { h100, h300, h400, h500, h600, h700 } from '@atlaskit/theme/typography';
 
 export const FullPagePadding = 32;
 
@@ -91,12 +92,10 @@ const headingAnchorStyle = (headingTag: string) =>
      * The copy link button doesn't reserve space in the DOM so that
      * the text alignment isn't impacted by the button/icon's space.
      */
-    .${HeadingAnchorWrapperClassName} {
+    display: inline-block;
+    & + .${HeadingAnchorWrapperClassName} {
       position: absolute;
-      height: ${headingSizes[headingTag].lineHeight}em;
-
       margin-left: 6px;
-
       button {
         padding-left: 0;
         padding-right: 0;
@@ -113,18 +112,16 @@ const headingAnchorStyle = (headingTag: string) =>
      * @see https://caniuse.com/mdn-css_at-rules_media_hover
      */
     @media (hover: hover) and (pointer: fine) {
-      .${HeadingAnchorWrapperClassName} {
+      & + .${HeadingAnchorWrapperClassName} {
         > button {
           opacity: 0;
           transform: translate(-8px, 0px);
           transition: opacity 0.2s ease 0s, transform 0.2s ease 0s;
-        }
-      }
-
-      &:hover {
-        .${HeadingAnchorWrapperClassName} > button {
-          opacity: 1;
-          transform: none !important;
+          &:focus {
+            opacity: 1;
+            transform: none !important;
+            outline: solid 2px ${colors.B200};
+          }
         }
       }
     }
@@ -149,41 +146,39 @@ const alignedHeadingAnchorStyle = ({
      * container edge.
      */
     .fabric-editor-block-mark:not([data-align='center'])[data-align] {
-        > {
-          h1, h2, h3, h4, h5, h6 {
-            // Using right to left text to achieve the inverse effect
-            // of where the copy link button icon sits for left/center
-            // alignment.
-            // Although this is unorthodox it's the only approach which
-            // allows the button to sit flush against the left edge of
-            // bottom line of text.
-            direction: rtl;
+        .heading-wrapper {
+          // Using right to left text to achieve the inverse effect
+          // of where the copy link button icon sits for left/center
+          // alignment.
+          // Although this is unorthodox it's the only approach which
+          // allows the button to sit flush against the left edge of
+          // bottom line of text.
+          direction: rtl;
 
-            // By default RTL will negatively impact the layout of special
-            // characters within the heading text, and potentially other
-            // nested inline nodes. To prevent this we insert pseudo elements
-            // containing HTML entities to retain LTR for all heading content
-            // except for the copy link button.
-            > *:not(.${HeadingAnchorWrapperClassName}):not(br) {
-              ::before {
-                // Open LTR: https://www.fileformat.info/info/unicode/char/202a/index.htm
-                content: '\u202A';
-              }
-              ::after {
-                // Close LTR: https://www.fileformat.info/info/unicode/char/202c/index.htm
-                content: '\u202C';
-              }
+          // By default RTL will negatively impact the layout of special
+          // characters within the heading text, and potentially other
+          // nested inline nodes. To prevent this we insert pseudo elements
+          // containing HTML entities to retain LTR for all heading content
+          // except for the copy link button.
+          > *:not(.${HeadingAnchorWrapperClassName}):not(br) {
+            ::before {
+              // Open LTR: https://www.fileformat.info/info/unicode/char/202a/index.htm
+              content: '\u202A';
+            }
+            ::after {
+              // Close LTR: https://www.fileformat.info/info/unicode/char/202c/index.htm
+              content: '\u202C';
             }
           }
         }
-        .${HeadingAnchorWrapperClassName} {
-          margin: 0 6px 0 0;
-        }
+      }
+      .${HeadingAnchorWrapperClassName} {
+        margin: 0 6px 0 0;
+      }
 
-        @media (hover: hover) and (pointer: fine) {
-          .${HeadingAnchorWrapperClassName} > button {
-            transform: translate(8px, 0px);
-          }
+      @media (hover: hover) and (pointer: fine) {
+        .${HeadingAnchorWrapperClassName} > button {
+          transform: translate(8px, 0);
         }
       }
     }
@@ -216,10 +211,8 @@ const tableSortableColumnStyle = ({
       .${HeadingAnchorWrapperClassName} {
         position: unset;
       }
-      > {
-        h1, h2, h3, h4, h5, h6 {
-          margin-right: 30px;
-        }
+      .heading-wrapper {
+        margin-right: 30px;
       }
     `;
   }
@@ -322,6 +315,47 @@ export const Wrapper = styled.div<RendererWrapperProps & HTMLAttributes<{}>>`
 
   ${fullPageStyles}
   ${fullWidthStyles}
+
+  div.heading-wrapper{
+    position: relative;
+    h1, h2, h3, h4, h5, h6{
+      margin-top: 0;
+      font-size: inherit;
+    }
+    &.h1 {
+      ${h700};
+      margin-top: 1.667em;
+    }
+    &.h2 {
+      ${h600};
+      margin-top: 1.8em;
+    }
+    &.h3 {
+      ${h500};
+      margin-top: 2em;
+    }
+    &.h4 {
+      ${h400};
+      margin-top: 1.357em;
+    }
+    &.h5 {
+      ${h300};
+      margin-top: 1.667em;
+    }
+    &.h6 {
+      ${h100};
+      margin-top: 1.455em;
+    }
+    /* show copy button on heading wrapper hover */
+    @media (hover: hover) and (pointer: fine) {
+      &:hover {
+          .${HeadingAnchorWrapperClassName} > button{
+            opacity: 1;
+            transform: none !important;
+          }
+      }
+    }
+  }
 
   & h1 {
     ${headingAnchorStyle('h1')}

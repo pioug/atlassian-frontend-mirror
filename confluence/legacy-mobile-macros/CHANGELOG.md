@@ -1,5 +1,15 @@
 # @atlaskit/legacy-mobile-macros
 
+## 0.4.0
+
+### Minor Changes
+
+- [`cf853e39278`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf853e39278) - Confluence legacy mobile macro fallback strings are now localized
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.3.21
 
 ### Patch Changes

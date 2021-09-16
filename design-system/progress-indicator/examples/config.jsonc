@@ -5,7 +5,7 @@
  */
 {
   "testExamples": [
-    "progressIndicatorDefault.tsx"
+    "progress-indicator-default-size.tsx"
   ],
   "exampleDependencies": [
     "react-lorem-component"

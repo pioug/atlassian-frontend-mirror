@@ -6,5 +6,6 @@ export type LayoutState = {
   allowBreakout: boolean;
   addSidebarLayouts: boolean;
   selectedLayout: PresetLayout | undefined;
+  allowSingleColumnLayout: boolean;
 };
 export type Change = { from: number; to: number; slice: Slice };

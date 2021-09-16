@@ -1,5 +1,12 @@
 # @atlaskit/select
 
+## 15.2.2
+
+### Patch Changes
+
+- [`6fb4421c4c1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6fb4421c4c1) - Fixed the validation token for Select in the Dark theme.
+- Updated dependencies
+
 ## 15.2.1
 
 ### Patch Changes

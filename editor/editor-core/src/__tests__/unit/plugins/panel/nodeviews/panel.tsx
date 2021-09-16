@@ -1,5 +1,8 @@
 import { shallow, ShallowWrapper } from 'enzyme';
-import { ProviderFactory } from '@atlaskit/editor-common';
+import {
+  PanelSharedCssClassName,
+  ProviderFactory,
+} from '@atlaskit/editor-common';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 import { PanelType } from '@atlaskit/adf-schema';
 import { doc, p, panel } from '@atlaskit/editor-test-helpers/doc-builder';
@@ -160,6 +163,15 @@ describe('Panel - NodeView', () => {
       expect(panelElement.style.backgroundColor).toEqual('');
       expect(panelElement.getAttribute('data-panel-type')).toBe('custom');
       expect(ResourcedEmoji).not.toHaveBeenCalled();
+    });
+
+    it('renders panel icon as NOT content-editable element', () => {
+      const { panelElement } = setupEditor(true);
+      expect(
+        (panelElement.querySelector(
+          `.${PanelSharedCssClassName.icon}`,
+        ) as HTMLElement).contentEditable,
+      ).toEqual('false');
     });
   });
 

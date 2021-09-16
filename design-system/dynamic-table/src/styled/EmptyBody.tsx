@@ -1,10 +1,9 @@
 import styled from 'styled-components';
 
 import { gridSize } from '@atlaskit/theme/constants';
-import { multiply } from '@atlaskit/theme/math';
 
 export const EmptyViewWithFixedHeight = styled.div`
-  height: ${multiply(gridSize, 18)}px;
+  height: ${gridSize() * 18}px;
 `;
 
 export const EmptyViewContainer = styled.div`

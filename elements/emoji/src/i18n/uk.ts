@@ -22,7 +22,7 @@ export default {
   'fabric.emoji.category.productivity': 'Робота',
   'fabric.emoji.category.symbols': 'Символи',
   'fabric.emoji.category.user.uploads': 'Ваші завантаження',
-  'fabric.emoji.choose.file.ariaLabel':
+  'fabric.emoji.choose.file.screenReaderDescription':
     'Виберіть файл емодзі у форматі JPG, PNG або GIF. Його розмір не може перевищувати 1 МБ.',
   'fabric.emoji.choose.file.title': 'Вибір файлу',
   'fabric.emoji.delete.description':
@@ -40,5 +40,8 @@ export default {
   'fabric.emoji.preview': 'Емодзі {emoji} виглядає чудово',
   'fabric.emoji.preview.title': 'Попередній перегляд',
   'fabric.emoji.retry.label': 'Повторити спробу',
-  'fabric.emoji.search.label': 'Пошук',
+  'fabric.emoji.search.label': 'Пошук емодзі',
+  'fabric.emoji.search.placeholder': 'Пошук',
+  'fabric.emoji.select.skin.tone.ariaLabel':
+    'Вибрати тон шкіри, {selectedTone}',
 };

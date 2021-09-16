@@ -550,6 +550,8 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
     const hasNumberedColumnChanged =
       prevAttrs.isNumberColumnEnabled !== node.attrs.isNumberColumnEnabled;
 
+    const noOfColumnsChanged = tablesHaveDifferentNoOfColumns(node, prevNode);
+
     if (
       // Breakout mode/layout changed
       layoutChanged ||
@@ -558,13 +560,13 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
       parentWidthChanged ||
       // Enabling / disabling this feature reduces or adds size to the table.
       hasNumberedColumnChanged ||
-      // Adding or removing columns from the table, should snap the remaining / new columns to the layout width.
-      tablesHaveDifferentNoOfColumns(node, prevNode) ||
       // This last check is also to cater for dynamic text sizing changing the 'default' layout width
       // Usually happens on window resize.
-      layoutSize !== this.layoutSize
+      layoutSize !== this.layoutSize ||
+      noOfColumnsChanged
     ) {
-      if (!hasNumberedColumnChanged) {
+      // If column has been inserted/deleted avoid multi dispatch
+      if (!hasNumberedColumnChanged && !noOfColumnsChanged) {
         this.scaleTable({ parentWidth, layoutChanged });
       }
       this.updateParentWidth(parentWidth);

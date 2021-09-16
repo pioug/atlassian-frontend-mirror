@@ -2,7 +2,6 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 import { gridSize } from '@atlaskit/theme/constants';
-import { multiply } from '@atlaskit/theme/math';
 import { h500 } from '@atlaskit/theme/typography';
 import { messages } from '../i18n';
 
@@ -17,9 +16,9 @@ const HeaderWrapper = styled.div`
 
 export const FormHeaderTitle = styled.h1`
   ${h500};
-  line-height: ${multiply(gridSize, 4)}px;
-  margin-right: ${multiply(gridSize, 4)}px;
-  margin-top: ${multiply(gridSize, 4)}px;
+  line-height: ${gridSize() * 4}px;
+  margin-right: ${gridSize() * 4}px;
+  margin-top: ${gridSize() * 4}px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

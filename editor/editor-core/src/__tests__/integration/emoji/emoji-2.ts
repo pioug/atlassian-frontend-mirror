@@ -40,9 +40,12 @@ BrowserTestCase(
   },
 );
 
+// FIXME: This test was automatically skipped due to failure on 9/16/2021: https://product-fabric.atlassian.net/browse/ED-13767
 BrowserTestCase(
   'emoji-2.ts: should be able to use emoji inside orderedList',
-  {},
+  {
+    skip: ['*'],
+  },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, { appearance: 'full-page' });

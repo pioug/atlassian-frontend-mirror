@@ -120,6 +120,60 @@ describe('inline-dialog', () => {
   });
 
   describe('handleClickOutside', () => {
+    describe('EventListeners', () => {
+      let addSpy: jest.SpyInstance;
+      let removeSpy: jest.SpyInstance;
+      beforeEach(() => {
+        addSpy = jest.spyOn(window, 'addEventListener');
+        removeSpy = jest.spyOn(window, 'removeEventListener');
+      });
+
+      afterEach(jest.restoreAllMocks);
+
+      it('should add event listener onOpen', () => {
+        const { getByTestId } = render(
+          <InlineDialog content={() => null} isOpen testId="inline-dialog">
+            <div id="children" />
+          </InlineDialog>,
+        );
+
+        expect(getByTestId('inline-dialog')).toBeInTheDocument();
+        expect(
+          addSpy.mock.calls.filter(([event]) => event === 'click'),
+        ).toHaveLength(1);
+        expect(
+          removeSpy.mock.calls.filter(([event]) => event === 'click'),
+        ).toHaveLength(0);
+      });
+
+      it('should remove event listener onOpen => remove onClose', () => {
+        const { getByTestId, rerender } = render(
+          <InlineDialog content={() => null} isOpen testId="inline-dialog">
+            <div id="children" />
+          </InlineDialog>,
+        );
+
+        expect(getByTestId('inline-dialog')).toBeInTheDocument();
+        expect(
+          addSpy.mock.calls.filter(([event]) => event === 'click'),
+        ).toHaveLength(1);
+
+        rerender(
+          <InlineDialog content={() => null} testId="inline-dialog">
+            <div id="children" />
+          </InlineDialog>,
+        );
+
+        // no new event listeners added
+        expect(
+          addSpy.mock.calls.filter(([event]) => event === 'click'),
+        ).toHaveLength(1);
+        expect(
+          removeSpy.mock.calls.filter(([event]) => event === 'click'),
+        ).toHaveLength(1);
+      });
+    });
+
     it('should not trigger the onClose prop if event is defaultPrevented', () => {
       const defaultPreventedEvent = (
         event: React.MouseEvent<HTMLButtonElement, MouseEvent>,

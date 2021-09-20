@@ -8,9 +8,10 @@ import MentionResource, {
   TeamMentionResourceConfig,
   isResolvingMentionProvider,
 } from './api/MentionResource';
-import { SmartMentionConfig } from './api/SmartMentionResource';
+import SmartMentionResource, {
+  SmartMentionConfig,
+} from './api/SmartMentionResource';
 
-import SmartMentionResource from './api/SmartMentionResource';
 import TeamMentionResource from './api/TeamMentionResource';
 import PresenceResource, {
   PresenceProvider,

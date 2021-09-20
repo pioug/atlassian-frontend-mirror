@@ -2,7 +2,7 @@ import RecommendationsClient from '../../../api/recommendationClient';
 import SmartMentionResource, {
   SmartMentionConfig,
 } from '../../../api/SmartMentionResource';
-import { MentionContextIdentifier } from '../../../resource';
+import { MentionContextIdentifier, MentionNameStatus } from '../../../resource';
 import expectedMentionsResponse from './mentions-response.json';
 import recommendationsResponse from './recommendations-response.json';
 
@@ -148,20 +148,34 @@ describe('SmartMentionResource', () => {
     );
   });
 
-  it('should not support mention name resolving without supplying MentionNameResolver', () => {
+  it('should support mention name resolving without supplying MentionNameResolver', () => {
     const resource = new SmartMentionResource(smartConfig);
-    expect(resource.supportsMentionNameResolving()).toEqual(false);
+    expect(resource.supportsMentionNameResolving()).toEqual(true);
   });
 
-  it('should support mention name resolving when supplying MentionNameResolver', () => {
+  it('should support mention name resolving when supplying a custom MentionNameResolver', () => {
+    const mockUser = { id: 'aaid-1234', name: 'User name' };
+    const expectedResult = {
+      id: mockUser.id,
+      name: mockUser.name,
+      status: MentionNameStatus.OK,
+    };
+    const lookupNameSpy = jest.fn().mockReturnValue(expectedResult);
     const resource = new SmartMentionResource({
       ...smartConfig,
       mentionNameResolver: {
         cacheName: jest.fn(),
-        lookupName: jest.fn(),
+        lookupName: lookupNameSpy,
       },
     });
+
+    // Custom mention name resolver supported
     expect(resource.supportsMentionNameResolving()).toEqual(true);
+
+    // Verify that customer mention name resolver is called and data is handled correctly
+    const result = resource.resolveMentionName(mockUser.id);
+    expect(lookupNameSpy).toHaveBeenCalledWith(mockUser.id);
+    expect(result).toEqual(expectedResult);
   });
 
   afterEach(() => {

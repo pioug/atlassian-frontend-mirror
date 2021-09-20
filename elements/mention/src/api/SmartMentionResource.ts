@@ -1,4 +1,9 @@
-import { SMART_EVENT_TYPE, Actions } from './analytics';
+import {
+  SMART_EVENT_TYPE,
+  Actions,
+  getUsersForAnalytics,
+  defaultAttributes,
+} from './analytics';
 import getUserRecommendations from './recommendationClient';
 import { setEnv } from '../config';
 
@@ -19,12 +24,11 @@ import {
   UserAccessLevel,
   UserType as MentionUserType,
   MentionNameDetails,
-  MentionNameStatus,
   MentionNameResolver,
 } from '../types';
 
-import { getUsersForAnalytics, defaultAttributes } from './analytics';
 import { AbstractMentionResource, ResolvingMentionProvider } from '../resource';
+import { DefaultMentionNameResolver } from '../default-mention-name-resolver/default-mention-name-resolver';
 
 const CONTEXT_TYPE = 'Mentions';
 
@@ -72,6 +76,14 @@ export interface SmartMentionConfig {
   maxNumberOfResults?: number;
 }
 
+interface SmartMentionConfigWithMentionNameResolver extends SmartMentionConfig {
+  mentionNameResolver: MentionNameResolver;
+}
+
+const isSmartMentionConfigWithMentionNameResolver = (
+  smartMentionConfig: SmartMentionConfig,
+): smartMentionConfig is SmartMentionConfigWithMentionNameResolver =>
+  !!smartMentionConfig.mentionNameResolver;
 /*
  * This is a provider implementation which calls URS to provide a list of recommended users/teams to mention.
  * The entryPoint hierarchy is : Editor -> editor-core -> plugins -> mentions -> typeAhead -> getItems -> pluginState.pluginProvider.filter
@@ -82,14 +94,31 @@ export interface SmartMentionConfig {
 class SmartMentionResource
   extends AbstractMentionResource
   implements ResolvingMentionProvider {
-  private smartMentionConfig: SmartMentionConfig;
+  private smartMentionConfig: SmartMentionConfigWithMentionNameResolver;
   private lastReturnedSearch: number;
   private contextIdentifier?: MentionContextIdentifier;
 
   constructor(smartMentionConfig: SmartMentionConfig) {
     super();
-    this.smartMentionConfig = smartMentionConfig;
+
+    // If the product doesn't provide a mention name resolve, use the default resolver so that
+    // mention names can be looked up from PRS without configuration.
+    this.smartMentionConfig = isSmartMentionConfigWithMentionNameResolver(
+      smartMentionConfig,
+    )
+      ? smartMentionConfig
+      : {
+          ...smartMentionConfig,
+          mentionNameResolver: new DefaultMentionNameResolver(
+            smartMentionConfig.baseUrl,
+          ),
+        };
     this.lastReturnedSearch = 0;
+
+    // Set the environment used for mention lookup API calls (defaults to production)
+    if (smartMentionConfig.env) {
+      setEnv(smartMentionConfig.env);
+    }
   }
 
   shouldHighlightMention(mention: MentionDescription) {
@@ -139,9 +168,6 @@ class SmartMentionResource
     const conf = this.smartMentionConfig;
     const maxNumberOfResults = conf.maxNumberOfResults || 100;
 
-    if (conf.env) {
-      setEnv(conf.env);
-    }
     const request = {
       baseUrl: conf.baseUrl,
       context: {
@@ -286,26 +312,17 @@ class SmartMentionResource
   }
 
   cacheMentionName(id: string, mentionName: string): void {
-    if (this.smartMentionConfig.mentionNameResolver) {
-      this.smartMentionConfig.mentionNameResolver.cacheName(id, mentionName);
-    }
+    this.smartMentionConfig.mentionNameResolver.cacheName(id, mentionName);
   }
 
   resolveMentionName(
     id: string,
   ): Promise<MentionNameDetails> | MentionNameDetails {
-    if (!this.smartMentionConfig.mentionNameResolver) {
-      return {
-        id,
-        name: '',
-        status: MentionNameStatus.UNKNOWN,
-      };
-    }
     return this.smartMentionConfig.mentionNameResolver.lookupName(id);
   }
 
   supportsMentionNameResolving(): boolean {
-    return !!this.smartMentionConfig.mentionNameResolver;
+    return true;
   }
 
   recordMentionSelection(_mention: MentionDescription): void {

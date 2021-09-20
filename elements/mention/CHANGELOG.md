@@ -1,5 +1,11 @@
 # @atlaskit/mention
 
+## 19.8.0
+
+### Minor Changes
+
+- [`9871a89fe5d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9871a89fe5d) - SmartMentionResource now has a default name resolver if one is not provided. You can still provide the `mentionNameResolver` in the config when instantiating SmartMentionResource if a custom name resolver is needed.
+
 ## 19.7.2
 
 ### Patch Changes

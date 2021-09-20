@@ -1,6 +1,7 @@
 interface Config {
   getRecommendationServiceUrl(baseUrl: string): string;
   getUsersServiceUrl(productKey: string): string;
+  getGraphQLUrl(baseUrl: string | undefined): string;
 }
 
 let env = 'prod';
@@ -17,6 +18,11 @@ const LOCAL_CONFIG: Config = {
       ? `https://jdog.jira-dev.com/rest/api/3/user/bulk`
       : `https://pug.jira-dev.com/wiki/rest/api/user/bulk`;
   },
+  getGraphQLUrl(baseUrl: string) {
+    return baseUrl
+      ? `${STG_INSTANCE}/${baseUrl}/graphql`
+      : `${STG_INSTANCE}/graphql`;
+  },
 };
 
 const PRD_CONFIG: Config = {
@@ -27,8 +33,11 @@ const PRD_CONFIG: Config = {
   },
   getUsersServiceUrl(productKey: string) {
     return productKey === 'jira'
-      ? `/rest/api/3/user/bulk`
-      : `/wiki/rest/api/user/bulk`;
+      ? '/rest/api/3/user/bulk'
+      : '/wiki/rest/api/user/bulk';
+  },
+  getGraphQLUrl(baseUrl: string) {
+    return baseUrl ? `/${baseUrl}/graphql` : '/graphql';
   },
 };
 

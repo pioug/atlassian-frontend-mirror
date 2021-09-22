@@ -1,12 +1,6 @@
 import path from 'path';
-// eslint-disable-next-line @atlassian/tangerine/import/no-relative-package-imports
-import {
-  build,
-  createIconDocs,
-  tidy,
-} from '../../../../build/icon-build-process/src';
-// eslint-disable-next-line @atlassian/tangerine/import/no-relative-package-imports
-import type { IconBuildConfig } from '../../../../build/icon-build-process/src';
+import { build, createIconDocs, tidy } from '@af/icon-build-process';
+import type { IconBuildConfig } from '@af/icon-build-process';
 import pkgDir from 'pkg-dir';
 import fs from 'fs-extra';
 

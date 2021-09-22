@@ -10,13 +10,13 @@ import {
 } from '@atlaskit/theme/constants';
 import { h200 } from '@atlaskit/theme/typography';
 
-interface FieldsetProps {
+export interface FieldsetProps {
   /**
-   * Children to be rendered in the fieldset.
+   * Content to render in the fieldset.
    */
   children: ReactNode;
   /**
-   * Legend of the the fieldset.
+   * Label describing the contents of the fieldset.
    */
   legend?: ReactNode;
 }

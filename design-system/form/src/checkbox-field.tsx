@@ -6,7 +6,9 @@ export interface CheckboxFieldProps extends FieldProps<string | undefined> {
   isChecked: boolean;
 }
 export interface CheckboxProps {
-  /* Children to render in the field. Called with form information. */
+  /**
+   * Content to render in the checkbox field. This is a function that is called with information about the field.
+   */
   children: (args: {
     fieldProps: CheckboxFieldProps;
     error?: string;
@@ -14,18 +16,30 @@ export interface CheckboxProps {
     valid: boolean;
     meta: Meta;
   }) => ReactNode;
-  /* The default checked state of the checkbox */
+  /**
+   * Sets the default state of the checkbox as checked.
+   */
   // eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
   defaultIsChecked?: boolean;
-  /* Whether the field is required for submission */
+  /**
+   * Sets whether the field is required for submission. Required fields are marked with a red asterisk.
+   */
   isRequired?: boolean;
-  /* Whether the field is disabled */
+  /**
+   * Sets whether the field is disabled. Users cannot edit or focus on the fields. If the parent form component is disabled, then the field will always be disabled.
+   */
   isDisabled?: boolean;
-  /* Label displayed above the field */
+  /**
+   * Label displayed beside the checkbox.
+   */
   label?: ReactNode;
-  /* The name of the field */
+  /**
+   * Specifies the name of the field. This is important for referencing the form data.
+   */
   name: string;
-  /* The value of the checkbox. Used as the value in the form state when the checkbox is checked */
+  /**
+   * The value of the checkbox. This is the value used in the form state when the checkbox is checked.
+   */
   value?: string;
 }
 

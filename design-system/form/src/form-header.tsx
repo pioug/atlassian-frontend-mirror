@@ -13,17 +13,17 @@ import { h700 } from '@atlaskit/theme/typography';
 const gridSize = getGridSize();
 const fontFamily = getFontFamily();
 
-interface FormHeaderProps {
+export interface FormHeaderProps {
   /**
-   * Title of form header
+   * Title of the form. This is a header.
    */
   title?: ReactNode;
   /**
-   * Subtitle or description of form header
+   * Description or subtitle of the form.
    */
   description?: ReactNode;
   /**
-   * Child content rendered below the description
+   * Child content to render in the form below the title and description.
    */
   children?: ReactNode;
 }

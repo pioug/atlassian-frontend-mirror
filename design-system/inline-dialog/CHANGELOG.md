@@ -1,5 +1,11 @@
 # @atlaskit/inline-dialog
 
+## 13.1.5
+
+### Patch Changes
+
+- [`b94375ecf08`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b94375ecf08) - Fixes issue where enzyme is unable to access component name in snapshot tests. There should be no UI or UX change.
+
 ## 13.1.4
 
 ### Patch Changes

@@ -1,0 +1,210 @@
+---
+order: 2
+---
+
+import DoDont from '@atlaskit/gatsby-theme-brisk/src/components/do-dont';
+import FormButtonFeedbackDo from '../images/form-button-feedback-do.png';
+import FormButtonFeedbackDont from '../images/form-button-feedback-dont.png';
+import FormDefaultValuesDo from '../images/form-default-values-do.png';
+import FormDefaultValuesDont from '../images/form-default-values-dont.png';
+import FormGroupingDo from '../images/form-grouping-do.png';
+import FormGroupingDont from '../images/form-grouping-dont.png';
+import FormInputMasksDo from '../images/form-input-masks-do.png';
+import FormInputMasksDont from '../images/form-input-masks-dont.png';
+import FormMultipleActionButtonsDo from '../images/form-multiple-action-buttons-do.png';
+import FormMultipleActionButtonsDont from '../images/form-multiple-action-buttons-dont.png';
+import FormOneColumnDo from '../images/form-one-column-do.png';
+import FormOneColumnDont from '../images/form-one-column-dont.png';
+
+## Usage
+
+Use forms when user input is required to complete some action. Forms direct users to provide and submit relevant information such as changing personal settings or creating a Jira issue.
+
+Common form components include [text fields](/components/textfield/examples), [selects](/components/select/examples), [radio buttons](/components/radio/examples), [checkboxes](/components/checkbox/examples), [date pickers](/components/datetime-picker/date-picker/examples), [toggles](/components/toggle/examples), and [buttons](/components/button/examples).
+
+## Anatomy
+
+![Form Anatomy](../images/form-anatomy.png)
+
+1. **Title:** Use a concise form title. This helps the user understand the form’s context.
+2. **Labels:** Standard label alignment is left-aligned with the field underneath. Use a combination of a concise label and supportive helper text for clarification of field input.
+3. **Placeholder text:** Clearly communicate fields that are required. Don’t rely on asterisks only to communicate which fields are required. Don’t use placeholder text to communicate that a field is required.
+4. **Required field**: Clearly communicate fields that are required. Don’t rely on asterisks only to communicate which fields are required. Don’t use placeholder text to communicate that a field is required.
+5. **Form section:** Group information logically into form sections.
+6. **Disabled fields:** Show disabled fields if users need to know what controls might not be available to them.
+7. **Form footer:** Always use a submit button and distinguish primary and secondary buttons.
+
+
+## Best practices
+
+### General
+
+Persist forms on refresh so that user data isn’t lost.
+
+### Layout
+
+Group related sections into logical sets to allow users to understand the information they need to enter.
+
+<DoDont
+  type="do"
+  image={{
+    url: FormGroupingDo,
+    alt: 'Form with relevant information grouped into sections'
+  }}
+>
+  Group related information into form sections.
+</DoDont>
+
+<DoDont
+  type="dont"
+  image={{
+    url: FormGroupingDont,
+    alt: 'Single form has unrelated information'
+  }}
+>
+  Provide one form of unrelated information.
+</DoDont>
+
+Use one form column to enable fast field comprehension.
+
+<DoDont
+  type="do"
+  image={{
+    url: FormOneColumnDo,
+    alt: 'Form with information in one column'
+  }}
+>
+  Use one form column.
+</DoDont>
+
+<DoDont
+  type="dont"
+  image={{
+    url: FormOneColumnDont,
+    alt: 'Form with information in two columns'
+  }}
+>
+  Use multiple form columns.
+</DoDont>
+
+Max-width: **624px**, recommended by the [cozy grid](/foundations/grid#gutter-spacing). In other cases, assume that the width typically follows where the form lives in (Modal, focused task, page, etc.)
+
+### Fields and labels
+
+- Reduce the number of fields in your form to avoid a large cognitive load on users (or to help users submit the form faster).
+- Avoid optional fields by only asking users for relevant information.
+- Avoid using default values or instead, use smart defaults (e.g. preselect user's country based on location data).
+
+<DoDont
+  type="do"
+  image={{
+    url: FormDefaultValuesDo,
+    alt: 'Form with information in one column'
+  }}
+>
+  Provide smart default values.
+</DoDont>
+
+<DoDont
+  type="dont"
+  image={{
+    url: FormDefaultValuesDont,
+    alt: 'Form with information in two columns'
+  }}
+>
+  Provide random default values.
+</DoDont>
+
+Use input masks to help users understand correct field formats.
+
+<DoDont
+  type="do"
+  image={{
+    url: FormInputMasksDo,
+    alt: 'Form field has input mask applied'
+  }}
+>
+  Use input masks to help users understand fields correctly.
+</DoDont>
+
+<DoDont
+  type="dont"
+  image={{
+    url: FormInputMasksDont,
+    alt: 'Form field does not have input mask applied'
+  }}
+>
+  Use default inputs for particular fields.
+</DoDont>
+
+### Buttons
+
+- State the action that the buttons perform when clicked.
+- Avoid multiple action buttons and avoid a reset button. This will reduce confusion about how to submit the form.
+
+<DoDont
+  type="do"
+  image={{
+    url: FormMultipleActionButtonsDo,
+    alt: 'Form with clear submit button in the footer'
+  }}
+>
+  Use clear, binary actions for clean form submission.
+</DoDont>
+
+<DoDont
+  type="dont"
+  image={{
+    url: FormMultipleActionButtonsDont,
+    alt: 'Form with multiple action buttons in the footer'
+  }}
+>
+  Use multiple action buttons and a reset button at the bottom of the form.
+</DoDont>
+
+Ensure the primary action button provides feedback that the form is being submitted.
+
+<DoDont
+  type="do"
+  image={{
+    url: FormButtonFeedbackDo,
+    alt: 'Button shows spinner when form is submitted'
+  }}
+>
+  Give feedback to show that form is being submitted.
+</DoDont>
+
+<DoDont
+  type="dont"
+  image={{
+    url: FormButtonFeedbackDont,
+    alt: 'Button does not show anything on submit'
+  }}
+>
+  Give no feedback on submit.
+</DoDont>
+
+### Button positioning
+
+Buttons are sorted by importance from right to left, with the most important button (primary) on the right.
+
+![Button positioning modal](../images/button-positioning-1.png)
+
+![Button positioning page](../images/button-positioning-2.png)
+
+Exceptions to this are single-page forms, flags, and section messages where buttons are left aligned with the primary button on the left.
+
+![Button positioning left](../images/button-positioning-3.png)
+
+## Accessibility
+
+- Autofocus the first field by default. This allows users to tab through elements in the form in a logical way.
+- Never disable a submit button, even if all of the required fields aren't filled in. Instead, describe what needs to be done using [validation and error messages](/content/writing-guidelines).
+- Match keyboard to input on mobile.
+- Use autocompletion to limit typing for users.
+
+## Related
+
+- To find more guidance on buttons, see the [button component](/components/button/usage).
+- To understand different form types and when to use them, see the [forms pattern](/patterns/forms).
+- Other fields which can be used in forms include [text field](/components/textfield/examples), [text area](/components/textarea/examples), [checkbox](/components/checbox/examples), and [range](/components/range/examples).

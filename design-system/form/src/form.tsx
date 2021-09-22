@@ -58,8 +58,8 @@ interface FormChildrenProps {
 
 export interface FormProps<FormValues> {
   /**
-   *  Contents rendered inside of the form. This is a function where the props will be passed from the form. The function props you can access are dirty,
-   * submitting and disabled. You can read more about these props here: https://final-form.org/docs/final-form/types/FormState.
+   *  The contents rendered inside of the form. This is a function where the props will be passed from the form. The function props you can access are `dirty`, `submitting` and `disabled`.
+   *  You can read more about these props in [react-final form documentation](https://final-form.org/docs/final-form/types/FormState).
    */
   children: (args: {
     formProps: FormChildrenProps;
@@ -84,7 +84,7 @@ export interface FormProps<FormValues> {
    */
   onSubmit: OnSubmitHandler<FormValues>;
   /**
-   *   Sets the form and its fields as not mutable. User cannot edit or focus on the fields.
+   *   Sets the form and its fields as disabled. Users cannot edit or focus on the fields.
    */
   isDisabled?: boolean;
 }

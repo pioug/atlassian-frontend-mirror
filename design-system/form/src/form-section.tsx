@@ -8,17 +8,17 @@ import { gridSize as getGridSize } from '@atlaskit/theme/constants';
 import { h600 } from '@atlaskit/theme/typography';
 
 const gridSize = getGridSize();
-interface FormSectionProps {
+export interface FormSectionProps {
   /**
-   * Section Title.
+   * Title of the form section.
    */
   title?: ReactNode;
   /**
-   * Content or child components to be rendered after description.
+   * Content or components to render after the description.
    */
   children?: ReactNode;
   /**
-   * Subtitle or description of this section.
+   * Description of the contents of the section.
    */
   description?: ReactNode;
 }

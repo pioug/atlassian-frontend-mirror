@@ -6,13 +6,13 @@ import { css, jsx } from '@emotion/core';
 import { gridSize as getGridSize } from '@atlaskit/theme/constants';
 
 import { Align } from './types';
-interface FormFooterProps {
+export interface FormFooterProps {
   /**
-   * Children to be rendered in the footer.
+   * Content to render in the footer of the form.
    */
   children?: ReactNode;
   /**
-   * Footer contents should be left-aligned in single-page forms, flags, cards and section messages with the primary button on the left.
+   * Sets the alignment of the footer contents. This is often a button. This should be left-aligned in single-page forms, flags, cards, and section messages.
    */
   align?: Align;
 }

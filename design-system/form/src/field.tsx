@@ -113,8 +113,13 @@ export interface Meta {
   validating?: boolean;
 }
 
-interface FieldComponentProps<FieldValue, Element extends SupportedElements> {
-  /* Children to render in the field. Called with props for the field component and other information about the field. */
+export interface FieldComponentProps<
+  FieldValue,
+  Element extends SupportedElements
+> {
+  /**
+   * Content to render in the field. This is a function that is called with props for the field component and other information about the field.
+   */
   children: (args: {
     fieldProps: FieldProps<FieldValue, Element>;
     error?: string;
@@ -122,26 +127,42 @@ interface FieldComponentProps<FieldValue, Element extends SupportedElements> {
     valid: boolean;
     meta: Meta;
   }) => React.ReactNode;
-  /* The default value of the field. If a function is provided it is called with the current default value of the field. */
+  /**
+   * Sets the default value of the field. If a function is provided, it is called with the current default value of the field.
+   */
   defaultValue?:
     | FieldValue
     | ((currentDefaultValue?: FieldValue) => FieldValue);
-  /* Passed to the ID attribute of the field. Randomly generated if not specified */
+  /**
+   * Passed to the ID attribute of the field. This is randomly generated if it is not specified.
+   */
   id?: string;
-  /* Whether the field is required for submission */
+  /**
+   * Sets whether the field is required for submission. Required fields are marked with a red asterisk.
+   */
   isRequired?: boolean;
-  /* Whether the field is disabled. If the parent Form component is disabled, then the field will always be disabled */
+  /**
+   * Sets whether the field is disabled. Users cannot edit or focus on the fields. If the parent form component is disabled, then the field will always be disabled.
+   */
   isDisabled?: boolean;
-  /* Label displayed above the field */
+  /**
+   * Label displayed above the form field.
+   */
   label?: ReactNode;
-  /* The name of the field */
+  /**
+   * Specifies the name of the field. This is important for referencing the form data.
+   */
   name: string;
-  /* Given what onChange was called with and the current field value return the next field value */
+  /**
+   * Access the current field value and transform it to return a different field value.
+   */
   transform?: (
     event: FormEvent<Element> | FieldValue,
     current: FieldValue,
   ) => FieldValue;
-  /* validates the current value of field */
+  /**
+   * Checks whether the field input is valid. This is usually used to display a message relevant to the current value using `ErrorMessage`, `HelperMessage` or `ValidMessage`.
+   */
   validate?: (
     value: FieldValue | undefined,
     formState: Object,

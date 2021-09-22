@@ -31,7 +31,7 @@ const checkIsChildOfPortal = (node: HTMLElement | null): boolean => {
 };
 
 const InlineDialog: FC<InlineDialogProps> = memo<InlineDialogProps>(
-  ({
+  function InlineDialog({
     isOpen = false,
     onContentBlur = noop,
     onContentClick = noop,
@@ -41,7 +41,7 @@ const InlineDialog: FC<InlineDialogProps> = memo<InlineDialogProps>(
     testId,
     content,
     children,
-  }) => {
+  }) {
     const containerRef = useRef<HTMLElement | null>(null);
     const triggerRef = useRef<HTMLElement | null>(null);
 
@@ -146,6 +146,9 @@ const InlineDialog: FC<InlineDialogProps> = memo<InlineDialogProps>(
     );
   },
 );
+
+// enzyme relies on components having a display name
+InlineDialog.displayName = 'InlineDialog';
 
 export { InlineDialog as InlineDialogWithoutAnalytics };
 const createAndFireEventOnAtlaskit = createAndFireEvent('atlaskit');

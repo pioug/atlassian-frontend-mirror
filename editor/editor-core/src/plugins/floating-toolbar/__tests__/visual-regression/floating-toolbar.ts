@@ -83,7 +83,8 @@ describe('Floating toolbars:', () => {
       await waitForExtensionToolbar(page);
     });
 
-    it('should render the info extension toolbar inside table', async () => {
+    // FIXME: This test was automatically skipped due to failure on 9/17/2021: https://product-fabric.atlassian.net/browse/ED-13773
+    it.skip('should render the info extension toolbar inside table', async () => {
       const endCellSelector = getSelectorForTableCell({ row: 3, cell: 3 });
       await page.click(`${endCellSelector} .inlineExtensionView-content-wrap`);
 

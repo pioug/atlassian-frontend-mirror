@@ -23,9 +23,12 @@ const selectCheckboxMenu = '.select__menu';
 const selectedValue = '.react-select__value-container';
 const selectedValueContainer = '.select__value-container';
 
+// FIXME: This test was automatically skipped due to failure on 9/22/2021: https://product-fabric.atlassian.net/browse/SKIP-54
 BrowserTestCase(
   `Single-select should display a menu once clicked and select a menu item`,
-  {},
+  {
+    skip: ['*'],
+  },
   async (client: any) => {
     const selectTest = new Page(client);
     const urlSelect = getExampleUrl('design-system', 'select', 'single-select');

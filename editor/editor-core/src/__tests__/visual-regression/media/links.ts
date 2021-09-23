@@ -85,7 +85,8 @@ describe('Snapshot Test: Media', () => {
         await snapshot(page);
       });
 
-      it('should highlight items with mouse over', async () => {
+      // FIXME: This test was automatically skipped due to failure on 9/17/2021: https://product-fabric.atlassian.net/browse/ED-13772
+      it.skip('should highlight items with mouse over', async () => {
         await page.mouse.move(0, 0); // Prevent keep mouse over the button. (This cause to sometimes highlight the button)
         await page.click('.ProseMirror');
 

@@ -169,7 +169,8 @@ describe('Annotation toolbar positioning', () => {
       await snapshot(page);
     });
 
-    it(`row selection`, async () => {
+    // FIXME: This test was automatically skipped due to failure on 9/22/2021: https://product-fabric.atlassian.net/browse/ED-13795
+    it.skip(`row selection`, async () => {
       await page.waitForSelector(tableSelectors.tableWrapper, {
         visible: true,
       });

@@ -1,5 +1,11 @@
 # @atlaskit/mention
 
+## 19.8.1
+
+### Patch Changes
+
+- [`e5e658bc51d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e5e658bc51d) - Fix for mention default name provider using an incorrect API endpoint when no baseUrl was supplied to SmartMentionResource
+
 ## 19.8.0
 
 ### Minor Changes

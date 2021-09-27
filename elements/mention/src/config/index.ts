@@ -21,14 +21,14 @@ const LOCAL_CONFIG: Config = {
   getGraphQLUrl(baseUrl: string) {
     return baseUrl
       ? `${STG_INSTANCE}/${baseUrl}/graphql`
-      : `${STG_INSTANCE}/graphql`;
+      : `${STG_INSTANCE}/gateway/api/graphql`;
   },
 };
 
 const PRD_CONFIG: Config = {
   getRecommendationServiceUrl(baseUrl: string) {
     return baseUrl
-      ? `/${baseUrl}/gateway/api/v1/recommendations`
+      ? `/${baseUrl}/v1/recommendations`
       : '/gateway/api/v1/recommendations';
   },
   getUsersServiceUrl(productKey: string) {
@@ -37,7 +37,7 @@ const PRD_CONFIG: Config = {
       : '/wiki/rest/api/user/bulk';
   },
   getGraphQLUrl(baseUrl: string) {
-    return baseUrl ? `/${baseUrl}/graphql` : '/graphql';
+    return baseUrl ? `/${baseUrl}/graphql` : '/gateway/api/graphql';
   },
 };
 

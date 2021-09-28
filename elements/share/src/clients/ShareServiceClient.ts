@@ -12,8 +12,6 @@ export interface ShareClient {
     metadata: MetaData,
     comment?: Comment,
   ): Promise<ShareResponse>;
-
-  getConfig(product: string, cloudId: string): Promise<ConfigResponse>;
 }
 
 export type ShareRequest = (
@@ -27,31 +25,14 @@ export type ShareResponse = {
   shareRequestId: string;
 };
 
-export type ConfigResponse = {
-  mode: ConfigResponseMode;
-  allowedDomains?: string[]; // e-mail domains from DES
-  allowComment: boolean;
-};
-
-export type ConfigResponseMode =
-  | 'EXISTING_USERS_ONLY' // can't invite nor request access, emails not allowed
-  | 'INVITE_NEEDS_APPROVAL' // show warning message if email options
-  | 'ONLY_DOMAIN_BASED_INVITE' // only allow emails within the allowed domains
-  | 'DOMAIN_BASED_INVITE' // show warning message when emails doesn't match allowed domains
-  | 'ANYONE'; // show direct invite info message if email options
-
 export const DEFAULT_SHARE_PATH = 'share';
 export const SHARE_CONFIG_PATH = 'share/config';
 export const DEFAULT_SHARE_SERVICE_URL = '/gateway/api';
 
-interface ShareServiceConfig extends ServiceConfig {
-  disableInviteCapabilities?: boolean;
-}
-
 export class ShareServiceClient implements ShareClient {
-  private serviceConfig: ShareServiceConfig;
+  private serviceConfig: ServiceConfig;
 
-  constructor(serviceConfig?: Partial<ShareServiceConfig>) {
+  constructor(serviceConfig?: Partial<ServiceConfig>) {
     this.serviceConfig = {
       url: DEFAULT_SHARE_SERVICE_URL,
       ...(serviceConfig || {}),
@@ -83,22 +64,6 @@ export class ShareServiceClient implements ShareClient {
       },
     };
 
-    return utils.requestService(this.serviceConfig, options);
-  }
-
-  public getConfig(product: string, cloudId: string): Promise<ConfigResponse> {
-    if (this.serviceConfig.disableInviteCapabilities) {
-      return Promise.resolve({
-        mode: 'ANYONE',
-        allowComment: true,
-      });
-    }
-
-    const options = {
-      path: SHARE_CONFIG_PATH,
-      queryParams: { product, cloudId },
-      requestInit: { method: 'get' },
-    };
     return utils.requestService(this.serviceConfig, options);
   }
 }

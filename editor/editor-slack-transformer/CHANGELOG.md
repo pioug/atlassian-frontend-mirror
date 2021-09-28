@@ -1,5 +1,11 @@
 # @atlaskit/editor-slack-transformer
 
+## 1.0.6
+
+### Patch Changes
+
+- [`4855cb64aab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4855cb64aab) - Fixed typo in the embedded node name
+
 ## 1.0.5
 
 ### Patch Changes

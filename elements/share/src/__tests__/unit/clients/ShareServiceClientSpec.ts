@@ -83,28 +83,5 @@ describe('ShareServiceClientImpl', () => {
       const callArgs = requestSpy.mock.calls[0];
       expect(callArgs[0]).toMatchObject(mockServiceConfig);
     });
-
-    describe('disableInviteCapabilities', () => {
-      it('should give correct config when invite is disabled', async () => {
-        const mockServiceConfig = {
-          url: 'customurl',
-          disableInviteCapabilities: true,
-        };
-        shareServiceClient = new ShareServiceClient(mockServiceConfig);
-        const config = await shareServiceClient.getConfig('jira', 'cloud-id');
-        expect(config.mode).toBe('ANYONE');
-        expect(config.allowComment).toBe(true);
-      });
-
-      it('should not request service for config if invite is disabled', async () => {
-        const mockServiceConfig = {
-          url: 'customurl',
-          disableInviteCapabilities: true,
-        };
-        shareServiceClient = new ShareServiceClient(mockServiceConfig);
-        await shareServiceClient.getConfig('jira', 'cloud-id');
-        expect(requestSpy).not.toHaveBeenCalled();
-      });
-    });
   });
 });

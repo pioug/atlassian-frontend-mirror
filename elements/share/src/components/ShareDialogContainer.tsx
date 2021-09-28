@@ -14,11 +14,7 @@ import {
   UrlShortenerClient,
   ShortenRequest,
 } from '../clients/AtlassianUrlShortenerClient';
-import {
-  ConfigResponse,
-  ShareClient,
-  ShareServiceClient,
-} from '../clients/ShareServiceClient';
+import { ShareClient, ShareServiceClient } from '../clients/ShareServiceClient';
 import { messages } from '../i18n';
 import {
   Content,
@@ -50,11 +46,6 @@ import { IconProps } from '@atlaskit/icon';
 import deepEqual from 'fast-deep-equal';
 
 const COPY_LINK_EVENT = copyLinkButtonClicked(0);
-
-export const defaultConfig: ConfigResponse = {
-  mode: 'EXISTING_USERS_ONLY',
-  allowComment: false,
-};
 
 export type Props = {
   /* Callback function to be called on trigger button click. */
@@ -142,12 +133,6 @@ export type Props = {
    */
   enableSmartUserPicker?: boolean;
   /**
-   * As part of Share simplification work (PTC-4493) we'll be removing the
-   * invite capabilities of Share. This prop is for feature flags to control
-   * whether these invite capabilities are disabled.
-   */
-  disableInviteCapabilities?: boolean;
-  /**
    * The userId of the sharer. If not provided, smart user picker
    * defaults it to the value 'Context'
    * which will tell the recommendation service to extract the
@@ -199,8 +184,6 @@ export type Props = {
 };
 
 export type State = {
-  config?: ConfigResponse;
-  isFetchingConfig: boolean;
   shareActionCount: number;
   currentPageUrl: string;
   shortenedCopyLink: null | string;
@@ -246,19 +229,13 @@ export class ShareDialogContainerInternal extends React.Component<
       !(props as any).client,
       'elements/share: Breaking change, please update your props!',
     );
-    this.shareClient =
-      props.shareClient ||
-      new ShareServiceClient({
-        disableInviteCapabilities: !!props.disableInviteCapabilities,
-      });
+    this.shareClient = props.shareClient || new ShareServiceClient();
 
     this.urlShortenerClient =
       props.urlShortenerClient || new AtlassianUrlShortenerClient();
 
     this.state = {
       shareActionCount: 0,
-      config: defaultConfig,
-      isFetchingConfig: false,
       currentPageUrl: getCurrentPageUrl(),
       shortenedCopyLink: null,
     };
@@ -288,34 +265,6 @@ export class ShareDialogContainerInternal extends React.Component<
     if (createAnalyticsEvent) {
       createAnalyticsEvent(payload).fire(CHANNEL_ID);
     }
-  };
-
-  fetchConfig = () => {
-    this.setState(
-      {
-        isFetchingConfig: true,
-      },
-      () => {
-        this.shareClient
-          .getConfig(this.props.productId, this.props.cloudId)
-          .then((config: ConfigResponse) => {
-            if (this._isMounted) {
-              this.setState({
-                config,
-                isFetchingConfig: false,
-              });
-            }
-          })
-          .catch(() => {
-            if (this._isMounted) {
-              this.setState({
-                config: defaultConfig,
-                isFetchingConfig: false,
-              });
-            }
-          });
-      },
-    );
   };
 
   handleSubmitShare = ({
@@ -369,9 +318,6 @@ export class ShareDialogContainerInternal extends React.Component<
         this.updateShortCopyLink();
       },
     );
-
-    // always refetch the config when modal is re-opened
-    this.fetchConfig();
   };
 
   decorateAnalytics = (
@@ -563,7 +509,6 @@ export class ShareDialogContainerInternal extends React.Component<
       shouldCloseOnEscapePress,
       showFlags,
       enableSmartUserPicker,
-      disableInviteCapabilities,
       loggedInAccountId,
       triggerButtonAppearance,
       triggerButtonIcon,
@@ -583,18 +528,16 @@ export class ShareDialogContainerInternal extends React.Component<
       shareAri,
       tabIndex,
     } = this.props;
-    const { isFetchingConfig } = this.state;
+
     return (
       <ErrorBoundary>
         <MessagesIntlProvider>
           <ShareDialogWithTrigger
             onTriggerButtonClick={onTriggerButtonClick}
             isAutoOpenDialog={isAutoOpenDialog}
-            config={this.state.config}
             copyLink={this.getCopyLink()}
             analyticsDecorator={this.decorateAnalytics}
             dialogPlacement={dialogPlacement}
-            isFetchingConfig={isFetchingConfig}
             loadUserOptions={loadUserOptions}
             onDialogOpen={this.handleDialogOpen}
             onShareSubmit={this.handleSubmitShare}
@@ -607,7 +550,6 @@ export class ShareDialogContainerInternal extends React.Component<
             shouldCloseOnEscapePress={shouldCloseOnEscapePress}
             showFlags={showFlags}
             enableSmartUserPicker={enableSmartUserPicker}
-            disableInviteCapabilities={disableInviteCapabilities}
             loggedInAccountId={loggedInAccountId}
             cloudId={cloudId}
             triggerButtonAppearance={triggerButtonAppearance}

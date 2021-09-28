@@ -12,7 +12,6 @@ import { shallow, ShallowWrapper, ReactWrapper } from 'enzyme';
 import { layers } from '@atlaskit/theme';
 import React from 'react';
 import { FormattedMessage, InjectedIntlProps, injectIntl } from 'react-intl';
-import { ConfigResponse } from '../../../clients/ShareServiceClient';
 import ShareButton, {
   Props as ShareButtonProps,
 } from '../../../components/ShareButton';
@@ -26,7 +25,6 @@ import { ShareData, ShareForm } from '../../../components/ShareForm';
 
 import { messages } from '../../../i18n';
 import {
-  ADMIN_NOTIFIED,
   DialogPlacement,
   OBJECT_SHARED,
   RenderCustomTriggerButton,
@@ -636,11 +634,6 @@ describe('ShareDialogWithTrigger', () => {
       // @ts-ignore This violated type definition upgrade of @types/jest to v24.0.18 & ts-jest v24.1.0.
       //See BUILDTOOLS-210-clean: https://bitbucket.org/atlassian/atlaskit-mk-2/pull-requests/7178/buildtools-210-clean/diff
       const mockOnSubmit = jest.fn<{}>().mockResolvedValue({});
-      const mockConfig: ConfigResponse = {
-        allowComment: false,
-        allowedDomains: [],
-        mode: 'DOMAIN_BASED_INVITE' as const,
-      };
       const values: ShareData = {
         users: [
           { type: 'user', id: 'id', name: 'name' },
@@ -659,7 +652,6 @@ describe('ShareDialogWithTrigger', () => {
         shareError: { message: 'unable to share' },
       };
       const wrapper = getWrapper({
-        config: mockConfig,
         onShareSubmit: mockOnSubmit,
       });
       wrapper.setState(mockState);
@@ -683,43 +675,10 @@ describe('ShareDialogWithTrigger', () => {
       expect(mockShowFlags).toHaveBeenCalledWith([
         {
           appearance: 'success',
-          title: {
-            ...messages.adminNotifiedMessage,
-            defaultMessage: expect.any(String),
-          },
-          type: ADMIN_NOTIFIED,
-        },
-        {
-          appearance: 'success',
           title: expect.objectContaining({
             ...messages.shareSuccessMessage,
             defaultMessage: expect.any(String),
           }),
-          type: OBJECT_SHARED,
-        },
-      ]);
-
-      wrapper.setProps({
-        config: {
-          allowComment: false,
-          mode: 'ANYONE' as const,
-        },
-      });
-
-      mockShowFlags.mockReset();
-
-      popupContent.find(ShareForm).simulate('submit', values);
-
-      await new Promise((resolve) => setTimeout(resolve, 0));
-
-      expect(mockShowFlags).toHaveBeenCalledTimes(1);
-      expect(mockShowFlags).toHaveBeenCalledWith([
-        {
-          appearance: 'success',
-          title: {
-            ...messages.shareSuccessMessage,
-            defaultMessage: expect.any(String),
-          },
           type: OBJECT_SHARED,
         },
       ]);

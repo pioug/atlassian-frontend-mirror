@@ -10,8 +10,6 @@ export {
 export type {
   // Types
   Comment,
-  ConfigResponse,
-  ConfigResponseMode,
   Content,
   DialogContentState,
   DialogPlacement,

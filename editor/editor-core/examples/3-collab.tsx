@@ -5,11 +5,7 @@ import React from 'react';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
 import { borderRadius } from '@atlaskit/theme/constants';
-import {
-  ShareDialogContainer,
-  ShareResponse,
-  ConfigResponse,
-} from '@atlaskit/share';
+import { ShareDialogContainer, ShareResponse } from '@atlaskit/share';
 
 import { getEmojiProvider } from '@atlaskit/util-data-test/get-emoji-provider';
 import {
@@ -90,16 +86,6 @@ const SaveAndCancelButtons = (props: { editorActions: EditorActions }) => (
 );
 
 const shareClient = {
-  getConfig: () =>
-    new Promise<ConfigResponse>((resolve) => {
-      setTimeout(() => {
-        resolve({
-          allowComment: true,
-          allowedDomains: [],
-          mode: 'ANYONE',
-        });
-      }, 1000);
-    }),
   share: () =>
     new Promise<ShareResponse>((resolve) => {
       setTimeout(

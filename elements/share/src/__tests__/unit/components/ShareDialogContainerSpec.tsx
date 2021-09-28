@@ -1,5 +1,4 @@
 import { OptionData } from '@atlaskit/user-picker';
-import { utils } from '@atlaskit/util-service-support';
 import { shallow, ShallowWrapper } from 'enzyme';
 import React from 'react';
 import {
@@ -8,7 +7,6 @@ import {
 } from '../../../clients/AtlassianUrlShortenerClient';
 import * as ShareServiceExports from '../../../clients/ShareServiceClient';
 import {
-  defaultConfig,
   ShareDialogContainerInternal,
   State,
 } from '../../../components/ShareDialogContainer';
@@ -29,12 +27,6 @@ function networkResolution() {
 describe('ShareDialogContainer', () => {
   let mockOriginTracing: OriginTracing;
   let mockOriginTracingFactory: jest.Mock;
-  const mockConfig: ShareServiceExports.ConfigResponse = {
-    mode: 'EXISTING_USERS_ONLY',
-    allowComment: true,
-  };
-  let mockRequestService: jest.Mock;
-  let mockGetConfig: jest.Mock;
   let mockShare: jest.Mock;
   let mockShareServiceClient: jest.Mock;
   let mockCreateAnalyticsEvent: jest.Mock;
@@ -78,15 +70,7 @@ describe('ShareDialogContainer', () => {
       .mockReturnValue(mockOriginTracing);
     // @ts-ignore This violated type definition upgrade of @types/jest to v24.0.18 & ts-jest v24.1.0.
     //See BUILDTOOLS-210-clean: https://bitbucket.org/atlassian/atlaskit-mk-2/pull-requests/7178/buildtools-210-clean/diff
-    mockGetConfig = jest.fn<{}, []>().mockResolvedValue(mockConfig);
-    // @ts-ignore This violated type definition upgrade of @types/jest to v24.0.18 & ts-jest v24.1.0.
-    //See BUILDTOOLS-210-clean: https://bitbucket.org/atlassian/atlaskit-mk-2/pull-requests/7178/buildtools-210-clean/diff
     mockShare = jest.fn<{}, []>().mockResolvedValue({});
-    // @ts-ignore This violated type definition upgrade of @types/jest to v24.0.18 & ts-jest v24.1.0.
-    //See BUILDTOOLS-210-clean: https://bitbucket.org/atlassian/atlaskit-mk-2/pull-requests/7178/buildtools-210-clean/diff
-    mockRequestService = jest
-      .spyOn(utils, 'requestService')
-      .mockResolvedValue(mockConfig);
     //@ts-expect-error TODO Fix legit TypeScript 3.9.6 improved inference error
     mockShareServiceClient = jest
       // @ts-ignore This violated type definition upgrade of @types/jest to v24.0.18 & ts-jest v24.1.0.
@@ -98,7 +82,6 @@ describe('ShareDialogContainer', () => {
       //@ts-expect-error TODO Fix legit TypeScript 3.9.6 improved inference error
       .mockImplementation(() => ({
         share: mockShare,
-        getConfig: mockGetConfig,
       }));
     mockCreateAnalyticsEvent = jest.fn<{}, []>().mockReturnValue({
       fire: jest.fn(),
@@ -106,7 +89,6 @@ describe('ShareDialogContainer', () => {
     mockFormatCopyLink = jest.fn((origin, link) => link + '&someOrigin');
 
     mockShareClient = {
-      getConfig: mockGetConfig,
       share: mockShare,
     };
     mockShortenerClient = {
@@ -118,7 +100,6 @@ describe('ShareDialogContainer', () => {
     mockRenderCustomTriggerButton = jest.fn();
   });
   afterEach(() => {
-    mockRequestService.mockRestore();
     mockShareServiceClient.mockRestore();
     window.history.pushState({}, '', '/');
     (mockShortenerClient.shorten as jest.Mock).mockClear();
@@ -195,12 +176,7 @@ describe('ShareDialogContainer', () => {
     expect(shareDialogWithTrigger.prop('shouldCloseOnEscapePress')).toEqual(
       mockShouldCloseOnEscapePress,
     );
-    expect(shareDialogWithTrigger.prop('config')).toEqual(
-      wrapper.state().config,
-    );
     expect(mockOriginTracingFactory).toHaveBeenCalledTimes(2);
-    expect(mockShareClient.getConfig).toHaveBeenCalledTimes(0);
-    expect(wrapper.state().config).toEqual(defaultConfig);
   });
 
   describe('internal methods', () => {
@@ -336,64 +312,7 @@ describe('ShareDialogContainer', () => {
     const shareClient: ShareServiceExports.ShareClient =
       // @ts-ignore: accessing private variable for testing purpose
       wrapper.instance().shareClient;
-    expect(shareClient.getConfig).toEqual(mockGetConfig);
     expect(shareClient.share).toEqual(mockShare);
-  });
-
-  describe('config', () => {
-    it('should call fetchConfig every time the dialog open', () => {
-      const wrapper = getWrapper();
-
-      const fetchConfig = (wrapper.instance().fetchConfig = jest.fn(
-        wrapper.instance().fetchConfig,
-      ));
-
-      expect(fetchConfig).not.toHaveBeenCalled();
-
-      wrapper.instance().handleDialogOpen();
-
-      expect(fetchConfig).toHaveBeenCalledTimes(1);
-    });
-    describe('isFetchingConfig state', () => {
-      it('should be false by default', () => {
-        const wrapper = getWrapper();
-        expect(wrapper.state().isFetchingConfig).toBe(false);
-      });
-
-      it('should be passed into isFetchingConfig prop in ShareDialogWithTrigger', () => {
-        const wrapper = getWrapper();
-        let { isFetchingConfig } = wrapper.state();
-        expect(isFetchingConfig).toEqual(false);
-        expect(
-          getShareDialogWithTrigger(wrapper).prop('isFetchingConfig'),
-        ).toEqual(isFetchingConfig);
-
-        wrapper.setState({ isFetchingConfig: !isFetchingConfig });
-
-        expect(
-          getShareDialogWithTrigger(wrapper).prop('isFetchingConfig'),
-        ).toEqual(!isFetchingConfig);
-      });
-
-      it('should be set to true when fetchConfig is called, and set back to false when the network request is finished', async () => {
-        const wrapper = getWrapper();
-        wrapper.instance().fetchConfig();
-        expect(wrapper.state().isFetchingConfig).toBe(true);
-        await networkResolution();
-        expect(wrapper.state().isFetchingConfig).toBe(false);
-      });
-    });
-
-    it('should reset the state.config to default config if shareClient.getConfig failed', async () => {
-      const wrapper = getWrapper();
-      mockGetConfig.mockRejectedValueOnce(new Error('error'));
-      wrapper.setState({ config: mockConfig });
-      wrapper.instance().fetchConfig();
-      expect(wrapper.state().isFetchingConfig).toBe(true);
-      await networkResolution();
-      expect(wrapper.state().config).toMatchObject(defaultConfig);
-      expect(wrapper.state().isFetchingConfig).toBe(false);
-    });
   });
 
   describe('handleSubmitShare', () => {

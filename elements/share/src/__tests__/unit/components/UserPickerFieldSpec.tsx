@@ -1,7 +1,5 @@
 jest.mock('../../../components/utils', () => ({
   getInviteWarningType: jest.fn(),
-  allowEmails: jest.fn(),
-  isValidEmailUsingConfig: jest.fn(),
   getMenuPortalTargetCurrentHTML: jest.fn(),
 }));
 
@@ -15,13 +13,9 @@ import {
   REQUIRED,
   UserPickerField,
 } from '../../../components/UserPickerField';
-import {
-  allowEmails,
-  getInviteWarningType,
-  getMenuPortalTargetCurrentHTML,
-} from '../../../components/utils';
+import { getMenuPortalTargetCurrentHTML } from '../../../components/utils';
 import { messages } from '../../../i18n';
-import { ConfigResponse } from '../../../types';
+import { ProductName } from '../../../types/Products';
 import { renderProp } from '../_testUtils';
 
 describe('UserPickerField', () => {
@@ -33,8 +27,6 @@ describe('UserPickerField', () => {
     );
 
   afterEach(() => {
-    (getInviteWarningType as jest.Mock).mockClear();
-    (allowEmails as jest.Mock).mockClear();
     (getMenuPortalTargetCurrentHTML as jest.Mock).mockClear();
   });
 
@@ -54,10 +46,19 @@ describe('UserPickerField', () => {
       { fieldProps, meta: { valid: true } },
     );
 
-    const formattedMessageAddMore = field.find(FormattedMessage);
+    const formattedMessage = field.find(FormattedMessage);
+    expect(formattedMessage).toHaveLength(2);
+
+    const formattedMessageAddMore = formattedMessage.first();
     expect(formattedMessageAddMore).toHaveLength(1);
     expect(formattedMessageAddMore.props()).toMatchObject(
       messages.userPickerAddMoreMessage,
+    );
+
+    const formattedMessageDefaultConfluence = formattedMessage.last();
+    expect(formattedMessageDefaultConfluence).toHaveLength(1);
+    expect(formattedMessageDefaultConfluence.props()).toMatchObject(
+      messages.infoMessageDefaultConfluence,
     );
 
     expect(field.find(ErrorMessage).exists()).toBeFalsy();
@@ -94,6 +95,18 @@ describe('UserPickerField', () => {
       { loadOptions, isLoading: mockIsLoading, product: 'jira' },
       { fieldProps, meta: { valid: true } },
     );
+
+    const formattedMessage = field.find(FormattedMessage);
+    expect(formattedMessage).toHaveLength(2);
+
+    const formattedMessageAddMore = formattedMessage.first();
+
+    const infoMessageDefaultJira = formattedMessage.last();
+    expect(infoMessageDefaultJira).toHaveLength(1);
+    expect(infoMessageDefaultJira.props()).toMatchObject(
+      messages.infoMessageDefaultJira,
+    );
+
     expect(field.find(ErrorMessage).exists()).toBeFalsy();
 
     const expectProps = {
@@ -108,7 +121,6 @@ describe('UserPickerField', () => {
       isLoading: mockIsLoading,
     };
 
-    const formattedMessageAddMore = field.find(FormattedMessage);
     const userPicker = renderProp(
       formattedMessageAddMore,
       'children',
@@ -141,7 +153,7 @@ describe('UserPickerField', () => {
       { loadOptions, product: 'confluence' },
       { fieldProps, meta: { valid: true } },
     );
-    const formattedMessageAddMore = field.find(FormattedMessage);
+    const formattedMessageAddMore = field.find(FormattedMessage).first();
     const userPicker = renderProp(
       formattedMessageAddMore,
       'children',
@@ -170,7 +182,7 @@ describe('UserPickerField', () => {
         },
         { fieldProps, meta: { valid: true } },
       );
-      const formattedMessageAddMore = field.find(FormattedMessage);
+      const formattedMessageAddMore = field.find(FormattedMessage).first();
       const smartUserPicker = renderProp(
         formattedMessageAddMore,
         'children',
@@ -245,12 +257,11 @@ describe('UserPickerField', () => {
   });
 
   describe('invite warning', () => {
-    const setUpInviteWarningTest = (isPublicLink: boolean = false) => {
+    const setUpInviteWarningTest = (
+      product: ProductName = 'confluence',
+      isPublicLink = false,
+    ) => {
       const loadOptions = jest.fn();
-      const config: ConfigResponse = {
-        mode: 'EXISTING_USERS_ONLY',
-        allowComment: true,
-      };
       const fieldProps = {
         onChange: jest.fn(),
         value: [],
@@ -258,8 +269,7 @@ describe('UserPickerField', () => {
       const component = renderUserPicker(
         {
           loadOptions,
-          config,
-          product: 'confluence',
+          product,
           isPublicLink,
         },
         {
@@ -269,75 +279,37 @@ describe('UserPickerField', () => {
       );
       return {
         loadOptions,
-        config,
         fieldProps,
         component,
       };
     };
 
-    it('should show existing user only placeholder', () => {
-      const { component } = setUpInviteWarningTest();
-      const formattedMessageAddMore = component.find(FormattedMessage);
-      const userPicker = renderProp(
-        formattedMessageAddMore,
-        'children',
-        'add more',
-      ).find(UserPicker);
-      expect(userPicker.prop('placeholder')).toEqual(
-        <FormattedMessage
-          {...messages.userPickerExistingUserOnlyPlaceholder}
-        />,
-      );
-    });
-
-    it('should call getInviteWarningType function', () => {
-      const { fieldProps, config } = setUpInviteWarningTest();
-
-      expect(getInviteWarningType).toHaveBeenCalledTimes(1);
-      expect(getInviteWarningType).toHaveBeenCalledWith(
-        config,
-        fieldProps.value,
-        false,
-        undefined,
-      );
-    });
-
-    it('should not display warning message if getInviteWarningType returns null', () => {
-      (getInviteWarningType as jest.Mock).mockReturnValueOnce(false);
+    it('should display warning message when product is confluence', () => {
       const { component } = setUpInviteWarningTest();
 
-      expect(getInviteWarningType).toHaveBeenCalledTimes(1);
-      expect(component.find(HelperMessage)).toHaveLength(0);
-    });
-
-    it('should display warning message if showInviteWarning returns true', () => {
-      (getInviteWarningType as jest.Mock).mockReturnValueOnce('ADMIN');
-      const { component } = setUpInviteWarningTest();
-
-      expect(getInviteWarningType).toHaveBeenCalledTimes(1);
       const helperMessage = component.find(HelperMessage);
       expect(helperMessage).toHaveLength(1);
-      const message = helperMessage.find(FormattedMessage);
-      expect(message).toHaveLength(1);
-      expect(message.props()).toMatchObject(messages.infoMessagePendingInvite);
-    });
 
-    it('should display appropriate if invite disabled', () => {
-      (getInviteWarningType as jest.Mock).mockReturnValueOnce('NO-INVITE');
-      const { component } = setUpInviteWarningTest();
-
-      expect(getInviteWarningType).toHaveBeenCalledTimes(1);
-      const helperMessage = component.find(HelperMessage);
-      expect(helperMessage).toHaveLength(1);
       const message = helperMessage.find(FormattedMessage);
       expect(message).toHaveLength(1);
       expect(message.props()).toMatchObject(
-        messages.infoMessageNoInviteConfluence,
+        messages.infoMessageDefaultConfluence,
       );
     });
 
+    it('should display warning message when product is jira', () => {
+      const { component } = setUpInviteWarningTest('jira');
+
+      const helperMessage = component.find(HelperMessage);
+      expect(helperMessage).toHaveLength(1);
+
+      const message = helperMessage.find(FormattedMessage);
+      expect(message).toHaveLength(1);
+      expect(message.props()).toMatchObject(messages.infoMessageDefaultJira);
+    });
+
     it('should not display warning message if public link is on', () => {
-      const { component } = setUpInviteWarningTest(true);
+      const { component } = setUpInviteWarningTest('confluence', true);
 
       const helperMessage = component.find(HelperMessage);
       expect(helperMessage).toHaveLength(0);
@@ -356,7 +328,7 @@ describe('UserPickerField', () => {
         { fieldProps, meta: { valid: true } },
       );
 
-      const formattedMessageAddMore = field.find(FormattedMessage);
+      const formattedMessageAddMore = field.find(FormattedMessage).first();
       expect(formattedMessageAddMore).toHaveLength(1);
       const userPicker = renderProp(
         formattedMessageAddMore,

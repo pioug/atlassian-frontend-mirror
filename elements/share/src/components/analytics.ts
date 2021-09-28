@@ -6,7 +6,7 @@ import {
   OptionData,
   Team,
 } from '@atlaskit/user-picker';
-import { ConfigResponse, DialogContentState, OriginTracing } from '../types';
+import { DialogContentState, OriginTracing } from '../types';
 import {
   name as packageName,
   version as packageVersion,
@@ -154,7 +154,6 @@ export const formShareSubmitted = (
   data: DialogContentState,
   shareContentType?: string,
   shareOrigin?: OriginTracing,
-  config?: ConfigResponse,
   isPublicLink = false,
 ) => {
   const users = extractIdsByType(data, isUser);
@@ -178,13 +177,10 @@ export const formShareSubmitted = (
       teams,
       teamUserCounts,
       messageLength:
-        config &&
-        config.allowComment &&
-        data.comment &&
-        data.comment.format === 'plain_text'
+        data.comment && data.comment.format === 'plain_text'
           ? data.comment.value.length
           : 0,
-      isMessageEnabled: config ? config.allowComment : false,
+      isMessageEnabled: true,
       isPublicLink,
     },
   );

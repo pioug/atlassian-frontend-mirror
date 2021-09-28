@@ -12,18 +12,8 @@ import UserPicker, {
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { messages } from '../i18n';
-import {
-  ConfigResponse,
-  ConfigResponseMode,
-  MessageDescriptor,
-  ProductName,
-} from '../types';
-import {
-  allowEmails,
-  isValidEmailUsingConfig,
-  getInviteWarningType,
-  getMenuPortalTargetCurrentHTML,
-} from './utils';
+import { MessageDescriptor, ProductName } from '../types';
+import { getMenuPortalTargetCurrentHTML } from './utils';
 import { MAX_PICKER_HEIGHT } from './styles';
 
 export const REQUIRED = 'REQUIRED';
@@ -37,14 +27,10 @@ const validate = (value: Value) => {
 export type Props = {
   loadOptions?: LoadOptions;
   defaultValue?: OptionData[];
-  config?: ConfigResponse;
-  infoMessagePendingInvite?: React.ReactNode;
-  infoMessageDirectInvite?: React.ReactNode;
   isLoading?: boolean;
   product: ProductName;
   onInputChange?: (query?: string, sessionId?: string) => void;
   enableSmartUserPicker?: boolean;
-  disableInviteCapabilities?: boolean;
   loggedInAccountId?: string;
   cloudId?: string;
   onChange?: (value: Value) => void;
@@ -53,12 +39,10 @@ export type Props = {
 };
 
 type GetPlaceHolderMessageDescriptor = (
-  mode: ConfigResponseMode | '',
   product?: ProductName,
 ) => MessageDescriptor;
 
 type GetNoOptionMessageDescriptor = (
-  mode: ConfigResponseMode | '',
   emailValidity: EmailValidationResponse,
   isPublicLink?: boolean,
 ) => MessageDescriptor;
@@ -66,7 +50,6 @@ type GetNoOptionMessageDescriptor = (
 type GetNoOptionMessage = (params: { inputValue: string }) => any;
 
 const getNoOptionsMessageDescriptor: GetNoOptionMessageDescriptor = (
-  mode: ConfigResponseMode | '',
   emailValidity: EmailValidationResponse,
   isPublicLink?: boolean,
 ) => {
@@ -74,26 +57,10 @@ const getNoOptionsMessageDescriptor: GetNoOptionMessageDescriptor = (
     return messages.userPickerExistingUserOnlyNoOptionsMessage;
   }
 
-  switch (mode) {
-    case 'EXISTING_USERS_ONLY':
-      return messages.userPickerExistingUserOnlyNoOptionsMessage;
-
-    case 'ONLY_DOMAIN_BASED_INVITE':
-      if (emailValidity !== 'INVALID') {
-        return messages.userPickerDomainBasedUserOnlyNoOptionsMessage;
-      } else {
-        return messages.userPickerGenericNoOptionsMessage;
-      }
-
-    default:
-      return messages.userPickerGenericNoOptionsMessage;
-  }
+  return messages.userPickerGenericNoOptionsMessage;
 };
 
-const getNoOptionsMessage = (
-  config: ConfigResponse | undefined,
-  isPublicLink?: boolean,
-): GetNoOptionMessage => ({
+const getNoOptionsMessage = (isPublicLink?: boolean): GetNoOptionMessage => ({
   inputValue,
 }: {
   inputValue: string;
@@ -102,24 +69,17 @@ const getNoOptionsMessage = (
     ? ((
         <FormattedMessage
           {...getNoOptionsMessageDescriptor(
-            (config && config!.mode) || '',
             isValidEmail(inputValue),
             isPublicLink,
           )}
           values={{
             inputValue,
-            domains: (
-              <strong>
-                {((config && config!.allowedDomains) || []).join(', ')}
-              </strong>
-            ),
           }}
         />
       ) as any)
     : null;
 
 const getPlaceHolderMessageDescriptor: GetPlaceHolderMessageDescriptor = (
-  mode: ConfigResponseMode | '',
   product: ProductName = 'confluence',
 ) => {
   const placeholderMessage = {
@@ -127,9 +87,7 @@ const getPlaceHolderMessageDescriptor: GetPlaceHolderMessageDescriptor = (
     confluence: messages.userPickerGenericPlaceholder,
   };
 
-  return mode === 'EXISTING_USERS_ONLY'
-    ? messages.userPickerExistingUserOnlyPlaceholder
-    : placeholderMessage[product];
+  return placeholderMessage[product];
 };
 
 export class UserPickerField extends React.Component<Props> {
@@ -142,50 +100,18 @@ export class UserPickerField extends React.Component<Props> {
     }
   };
 
-  private getInviteWarningMessage = (
-    config: ConfigResponse | undefined,
-    selectedUsers: Value,
-  ): React.ReactNode => {
-    const {
-      infoMessagePendingInvite,
-      infoMessageDirectInvite,
-      isPublicLink = false,
-      disableInviteCapabilities,
-      product,
-    } = this.props;
+  private getInviteWarningMessage = (): React.ReactNode => {
+    const { product, isPublicLink } = this.props;
 
-    const inviteWarningType = getInviteWarningType(
-      config,
-      selectedUsers,
-      isPublicLink,
-      disableInviteCapabilities,
+    if (isPublicLink) {
+      return null;
+    }
+
+    return product === 'jira' ? (
+      <FormattedMessage {...messages.infoMessageDefaultJira} />
+    ) : (
+      <FormattedMessage {...messages.infoMessageDefaultConfluence} />
     );
-
-    if (inviteWarningType === 'ADMIN') {
-      return (
-        infoMessagePendingInvite || (
-          <FormattedMessage {...messages.infoMessagePendingInvite} />
-        )
-      );
-    }
-
-    if (inviteWarningType === 'DIRECT') {
-      return (
-        infoMessageDirectInvite || (
-          <FormattedMessage {...messages.infoMessageDirectInvite} />
-        )
-      );
-    }
-
-    if (inviteWarningType === 'NO-INVITE') {
-      if (product === 'jira') {
-        return <FormattedMessage {...messages.infoMessageNoInviteJira} />;
-      }
-
-      return <FormattedMessage {...messages.infoMessageNoInviteConfluence} />;
-    }
-
-    return null;
   };
 
   private handleUserPickerTransform = (
@@ -204,7 +130,6 @@ export class UserPickerField extends React.Component<Props> {
     const {
       defaultValue,
       enableSmartUserPicker,
-      config,
       isLoading,
       product,
       onInputChange,
@@ -213,7 +138,6 @@ export class UserPickerField extends React.Component<Props> {
       selectPortalRef,
       isPublicLink,
     } = this.props;
-    const configMode = (config && config!.mode) || '';
     const requireMessage = {
       jira: messages.userPickerRequiredMessageJira,
       confluence: messages.userPickerRequiredMessage,
@@ -236,13 +160,10 @@ export class UserPickerField extends React.Component<Props> {
       isMulti: true,
       width: '100%',
       placeholder: (
-        <FormattedMessage
-          {...getPlaceHolderMessageDescriptor(configMode, product)}
-        />
+        <FormattedMessage {...getPlaceHolderMessageDescriptor(product)} />
       ),
-      allowEmail: allowEmails(config),
-      isValidEmail: isValidEmailUsingConfig(config),
-      noOptionsMessage: getNoOptionsMessage(config, isPublicLink),
+      allowEmail: true,
+      noOptionsMessage: getNoOptionsMessage(isPublicLink),
       isLoading,
       onInputChange: onInputChange,
       maxPickerHeight: MAX_PICKER_HEIGHT,
@@ -265,10 +186,7 @@ export class UserPickerField extends React.Component<Props> {
         transform={this.handleUserPickerTransform}
       >
         {({ fieldProps, error, meta: { valid } }) => {
-          const inviteWarningMessage = this.getInviteWarningMessage(
-            config,
-            fieldProps.value,
-          );
+          const inviteWarningMessage = this.getInviteWarningMessage();
 
           return (
             <>

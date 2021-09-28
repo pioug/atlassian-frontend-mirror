@@ -17,8 +17,6 @@ import { FormattedMessage, InjectedIntlProps, injectIntl } from 'react-intl';
 import styled from 'styled-components';
 import { messages } from '../i18n';
 import {
-  ADMIN_NOTIFIED,
-  ConfigResponse,
   DialogContentState,
   DialogPlacement,
   Flag,
@@ -43,7 +41,7 @@ import {
 } from './analytics';
 import ShareButton from './ShareButton';
 import { ShareForm } from './ShareForm';
-import { showAdminNotifiedFlag, generateSelectZIndex } from './utils';
+import { generateSelectZIndex } from './utils';
 import { IconProps } from '@atlaskit/icon';
 import { InlineDialogContentWrapper } from './styles';
 import { IntegrationForm } from './IntegrationForm';
@@ -64,7 +62,6 @@ export type State = DialogState;
 export type Props = {
   onTriggerButtonClick?: () => void;
   isAutoOpenDialog?: boolean;
-  config?: ConfigResponse;
   children?: RenderCustomTriggerButton;
   copyLink: string;
   analyticsDecorator?: (
@@ -73,7 +70,6 @@ export type Props = {
   dialogPlacement?: DialogPlacement;
   dialogZIndex?: number;
   isDisabled?: boolean;
-  isFetchingConfig?: boolean;
   loadUserOptions?: LoadOptions;
   onDialogOpen?: () => void;
   onShareSubmit?: (shareContentState: DialogContentState) => Promise<any>;
@@ -86,7 +82,6 @@ export type Props = {
   shouldCloseOnEscapePress?: boolean;
   showFlags: (flags: Array<Flag>) => void;
   enableSmartUserPicker?: boolean;
-  disableInviteCapabilities?: boolean;
   loggedInAccountId?: string;
   cloudId?: string;
   triggerButtonAppearance?: Appearance;
@@ -211,52 +206,28 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
     }
   };
 
-  private getFlags = (
-    config: ConfigResponse | undefined,
-    data: DialogContentState,
-  ) => {
+  private getFlags = () => {
     const {
       intl: { formatMessage },
-      isPublicLink = false,
-      disableInviteCapabilities,
     } = this.props;
-
-    const flags: Array<Flag> = [];
-    const shouldShowAdminNotifiedFlag = showAdminNotifiedFlag(
-      config,
-      data.users,
-      isPublicLink,
-      disableInviteCapabilities,
-    );
-
-    if (shouldShowAdminNotifiedFlag) {
-      flags.push({
-        appearance: 'success',
-        title: {
-          ...messages.adminNotifiedMessage,
-          defaultMessage: formatMessage(messages.adminNotifiedMessage),
-        },
-        type: ADMIN_NOTIFIED,
-      });
-    }
-
-    flags.push({
-      appearance: 'success',
-      title: {
-        ...messages.shareSuccessMessage,
-        defaultMessage: formatMessage(messages.shareSuccessMessage, {
-          object: this.props.shareContentType.toLowerCase(),
-        }),
-      },
-      type: OBJECT_SHARED,
-    });
 
     // The reason for providing message property is that in jira,
     // the Flag system takes only Message Descriptor as payload
     // and formatMessage is called for every flag
     // if the translation data is not provided, a translated default message
     // will be displayed
-    return flags;
+    return [
+      {
+        appearance: 'success',
+        title: {
+          ...messages.shareSuccessMessage,
+          defaultMessage: formatMessage(messages.shareSuccessMessage, {
+            object: this.props.shareContentType.toLowerCase(),
+          }),
+        },
+        type: OBJECT_SHARED,
+      },
+    ] as Flag[];
   };
 
   private handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
@@ -343,7 +314,6 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
       shareContentType,
       formShareOrigin,
       showFlags,
-      config,
       isPublicLink,
     } = this.props;
     if (!onShareSubmit) {
@@ -358,7 +328,6 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
         data,
         shareContentType,
         formShareOrigin,
-        config,
         isPublicLink,
       ),
     );
@@ -367,7 +336,7 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
       .then(() => {
         this.closeAndResetDialog();
         this.setState({ isSharing: false });
-        showFlags(this.getFlags(config, data));
+        showFlags(this.getFlags());
       })
       .catch((err: Error) => {
         this.setState({
@@ -532,17 +501,14 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
     const {
       copyLink,
       dialogPlacement,
-      isFetchingConfig,
       loadUserOptions,
       shareFormTitle,
       contentPermissions,
-      config,
       bottomMessage,
       submitButtonLabel,
       product,
       customFooter,
       enableSmartUserPicker,
-      disableInviteCapabilities,
       loggedInAccountId,
       cloudId,
       shareFieldsFooter,
@@ -587,13 +553,10 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
                       shareError={shareError}
                       onDismiss={this.handleFormDismiss}
                       defaultValue={defaultValue}
-                      config={config}
                       onLinkCopy={this.handleCopyLink}
-                      isFetchingConfig={isFetchingConfig}
                       submitButtonLabel={submitButtonLabel}
                       product={product}
                       enableSmartUserPicker={enableSmartUserPicker}
-                      disableInviteCapabilities={disableInviteCapabilities}
                       loggedInAccountId={loggedInAccountId}
                       cloudId={cloudId}
                       onUserSelectionChange={onUserSelectionChange}

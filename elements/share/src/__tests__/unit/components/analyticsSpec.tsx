@@ -8,11 +8,7 @@ import {
   shortUrlGenerated,
   shortUrlRequested,
 } from '../../../components/analytics';
-import {
-  ConfigResponse,
-  DialogContentState,
-  OriginTracing,
-} from '../../../types';
+import { DialogContentState, OriginTracing } from '../../../types';
 
 describe('share analytics', () => {
   const mockShareOrigin = (): OriginTracing => ({
@@ -190,8 +186,8 @@ describe('share analytics', () => {
           teams: ['123-abc'],
           packageVersion: expect.any(String),
           packageName: '@atlaskit/share',
-          isMessageEnabled: false,
-          messageLength: 0,
+          isMessageEnabled: true,
+          messageLength: 12,
           isPublicLink: false,
         }),
       });
@@ -213,8 +209,8 @@ describe('share analytics', () => {
           teams: ['123-abc'],
           packageVersion: expect.any(String),
           packageName: '@atlaskit/share',
-          isMessageEnabled: false,
-          messageLength: 0,
+          isMessageEnabled: true,
+          messageLength: 12,
         }),
       });
     });
@@ -237,8 +233,8 @@ describe('share analytics', () => {
             teams: ['123-abc'],
             packageVersion: expect.any(String),
             packageName: '@atlaskit/share',
-            isMessageEnabled: false,
-            messageLength: 0,
+            isMessageEnabled: true,
+            messageLength: 12,
             originIdGenerated: 'abc-123',
             originProduct: 'jest',
           }),
@@ -250,35 +246,31 @@ describe('share analytics', () => {
       });
     });
 
-    it('should create event payload with origin id and config', () => {
+    it('should create event payload with origin id', () => {
       const shareOrigin: OriginTracing = mockShareOrigin();
-      const config: ConfigResponse = {
-        mode: 'ANYONE',
-        allowComment: true,
-      };
-      expect(
-        formShareSubmitted(100, data, 'issue', shareOrigin, config),
-      ).toMatchObject({
-        eventType: 'ui',
-        action: 'clicked',
-        actionSubject: 'button',
-        actionSubjectId: 'submitShare',
-        attributes: expect.objectContaining({
-          contentType: 'issue',
-          duration: expect.any(Number),
-          teamCount: 1,
-          userCount: 1,
-          emailCount: 1,
-          users: ['abc-123'],
-          teams: ['123-abc'],
-          packageVersion: expect.any(String),
-          packageName: '@atlaskit/share',
-          isMessageEnabled: true,
-          messageLength: 12,
-          originIdGenerated: 'abc-123',
-          originProduct: 'jest',
-        }),
-      });
+      expect(formShareSubmitted(100, data, 'issue', shareOrigin)).toMatchObject(
+        {
+          eventType: 'ui',
+          action: 'clicked',
+          actionSubject: 'button',
+          actionSubjectId: 'submitShare',
+          attributes: expect.objectContaining({
+            contentType: 'issue',
+            duration: expect.any(Number),
+            teamCount: 1,
+            userCount: 1,
+            emailCount: 1,
+            users: ['abc-123'],
+            teams: ['123-abc'],
+            packageVersion: expect.any(String),
+            packageName: '@atlaskit/share',
+            isMessageEnabled: true,
+            messageLength: 12,
+            originIdGenerated: 'abc-123',
+            originProduct: 'jest',
+          }),
+        },
+      );
       expect(shareOrigin.toAnalyticsAttributes).toHaveBeenCalledTimes(1);
       expect(shareOrigin.toAnalyticsAttributes).toHaveBeenCalledWith({
         hasGeneratedId: true,
@@ -310,12 +302,9 @@ describe('share analytics', () => {
     };
     it('should create event payload with team member counts', () => {
       const shareOrigin: OriginTracing = mockShareOrigin();
-      const config: ConfigResponse = {
-        mode: 'ANYONE',
-        allowComment: true,
-      };
+
       expect(
-        formShareSubmitted(100, dataWithMembers, 'issue', shareOrigin, config),
+        formShareSubmitted(100, dataWithMembers, 'issue', shareOrigin),
       ).toMatchObject({
         eventType: 'ui',
         action: 'clicked',
@@ -350,13 +339,9 @@ describe('share analytics', () => {
         name: 'some team 2',
       });
       const shareOrigin: OriginTracing = mockShareOrigin();
-      const config: ConfigResponse = {
-        mode: 'ANYONE',
-        allowComment: true,
-      };
 
       expect(
-        formShareSubmitted(100, dataWithMembers, 'issue', shareOrigin, config),
+        formShareSubmitted(100, dataWithMembers, 'issue', shareOrigin),
       ).toMatchObject({
         eventType: 'ui',
         action: 'clicked',
@@ -386,7 +371,7 @@ describe('share analytics', () => {
 
     it('should create event payload with isPublicLink attribute for public links', () => {
       expect(
-        formShareSubmitted(100, data, undefined, undefined, undefined, true),
+        formShareSubmitted(100, data, undefined, undefined, true),
       ).toMatchObject({
         eventType: 'ui',
         action: 'clicked',

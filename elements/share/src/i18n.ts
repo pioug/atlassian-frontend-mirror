@@ -63,12 +63,6 @@ export const messages = defineMessages({
       'Required error message for the user picker field in Share form. ' +
       'This message is used only for Jira product because Jira does not have Group concept.',
   },
-  userPickerDomainBasedUserOnlyNoOptionsMessage: {
-    id: 'fabric.elements.share.form.user-picker.no-options.domainBasedUserOnly',
-    defaultMessage: `You can only invite people with {domains} email addresses. Contact your site admin to invite other people.`,
-    description:
-      'Domain based user only no options message displayed when the search for users returns empty.',
-  },
   userPickerExistingUserOnlyNoOptionsMessage: {
     id: 'fabric.elements.share.form.user-picker.no-options.existingUserOnly',
     defaultMessage: `We couldn’t find any results for "{inputValue}".`,
@@ -129,24 +123,13 @@ export const messages = defineMessages({
     defaultMessage: 'Link copied to clipboard',
     description: 'Default text for the copied link message',
   },
-  infoMessagePendingInvite: {
-    id: 'fabric.elements.share.form.info.message.pending.invite',
-    defaultMessage: 'Your invite will be sent to an admin for approval',
-    description:
-      'Info text when at least one invite will be sent to an admin for approval',
-  },
-  infoMessageDirectInvite: {
-    id: 'fabric.elements.share.form.info.message.direct.invite',
-    defaultMessage: 'People without access will be sent an invitation to join',
-    description: 'Info text when invitees will invited directly',
-  },
-  infoMessageNoInviteConfluence: {
+  infoMessageDefaultConfluence: {
     id: 'fabric.elements.share.form.info.message.no.invite.confluence',
     defaultMessage: 'Recipients will see the name of the page and your message',
     description:
       'Message indicating the recipients of the email share will be able to see the Confluence page title and the included message',
   },
-  infoMessageNoInviteJira: {
+  infoMessageDefaultJira: {
     id: 'fabric.elements.share.form.info.message.no.invite.jira',
     defaultMessage:
       'Recipients will see the name of the issue and your message',
@@ -189,12 +172,6 @@ export const messages = defineMessages({
       'other {Link Shared}' +
       '}',
     description: 'Default text for share success message displayed in a flag',
-  },
-  adminNotifiedMessage: {
-    id: 'fabric.elements.share.admin.notified.message',
-    defaultMessage: 'Your admin has been notified',
-    description:
-      'Default text for admin notified message displayed in a flag when a share action is successful',
   },
   shareToIntegrationButtonText: {
     id: 'fabric.elements.share.to.integration.button',

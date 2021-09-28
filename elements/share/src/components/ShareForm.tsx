@@ -11,7 +11,6 @@ import styled from 'styled-components';
 import { messages } from '../i18n';
 import {
   Comment,
-  ConfigResponse,
   DialogContentState,
   FormChildrenArgs,
   ProductName,
@@ -63,7 +62,6 @@ export type ShareData = {
 };
 
 export type Props = {
-  config?: ConfigResponse;
   copyLink: string;
   isSharing?: boolean;
   loadOptions?: LoadOptions;
@@ -75,11 +73,9 @@ export type Props = {
   contentPermissions?: React.ReactNode;
   onDismiss?: (data: ShareData) => void;
   defaultValue?: DialogContentState;
-  isFetchingConfig?: boolean;
   product: ProductName;
   onUserInputChange?: (query?: string, sessionId?: string) => void;
   enableSmartUserPicker?: boolean;
-  disableInviteCapabilities?: boolean;
   loggedInAccountId?: string;
   cloudId?: string;
   onUserSelectionChange?: (value: Value) => void;
@@ -162,12 +158,9 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
       onLinkCopy,
       copyLink,
       defaultValue,
-      config,
-      isFetchingConfig,
       product,
       onUserInputChange,
       enableSmartUserPicker,
-      disableInviteCapabilities,
       loggedInAccountId,
       cloudId,
       onUserSelectionChange,
@@ -186,24 +179,17 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
               onChange={onUserSelectionChange}
               loadOptions={loadOptions}
               defaultValue={defaultValue && defaultValue.users}
-              config={config}
-              isLoading={isFetchingConfig}
               product={product}
               enableSmartUserPicker={enableSmartUserPicker}
-              disableInviteCapabilities={disableInviteCapabilities}
               loggedInAccountId={loggedInAccountId}
               cloudId={cloudId}
               selectPortalRef={selectPortalRef}
               isPublicLink={isPublicLink}
             />
           </FormField>
-          {config && config.allowComment && (
-            <FormField>
-              <CommentField
-                defaultValue={defaultValue && defaultValue.comment}
-              />
-            </FormField>
-          )}
+          <FormField>
+            <CommentField defaultValue={defaultValue && defaultValue.comment} />
+          </FormField>
           {fieldsFooter}
           <FormFooter>
             <CopyLinkButton

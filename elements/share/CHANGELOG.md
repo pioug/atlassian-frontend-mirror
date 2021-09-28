@@ -1,5 +1,11 @@
 # @atlaskit/share
 
+## 0.30.0
+
+### Minor Changes
+
+- [`bc36730eba5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bc36730eba5) - remove disableInviteCapabilities prop for Share components
+
 ## 0.29.1
 
 ### Patch Changes

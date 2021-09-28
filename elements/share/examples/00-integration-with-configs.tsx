@@ -17,8 +17,6 @@ import RestrictionMessage from '../example-helpers/RestrictionMessage';
 import { ProductName, ShareDialogContainer } from '../src';
 import {
   Comment,
-  ConfigResponse,
-  ConfigResponseMode,
   Content,
   DialogPlacement,
   KeysOfType,
@@ -164,19 +162,6 @@ const dialogPlacementOptions: Array<DialogPlacementOption> = [
   { label: 'left-end', value: 'left-end' },
 ];
 
-interface ModeOption {
-  label: string;
-  value: ConfigResponseMode;
-}
-
-const modeOptions: Array<ModeOption> = [
-  { label: 'Existing users only', value: 'EXISTING_USERS_ONLY' },
-  { label: 'Invite needs approval', value: 'INVITE_NEEDS_APPROVAL' },
-  { label: 'Only domain based invite', value: 'ONLY_DOMAIN_BASED_INVITE' },
-  { label: 'Domain based invite', value: 'DOMAIN_BASED_INVITE' },
-  { label: 'Anyone', value: 'ANYONE' },
-];
-
 interface TriggerButtonAppearanceOption {
   label: string;
   value: State['triggerButtonAppearance'];
@@ -229,7 +214,6 @@ type ExampleState = {
   product: ProductName;
   hasFooter: boolean;
   enableSmartUserPicker: boolean;
-  disableInviteCapabilities: boolean;
   hasShareFieldsFooter: boolean;
   isCopyDisabled: boolean;
   isPublicLink: boolean;
@@ -239,7 +223,7 @@ type ExampleState = {
   locale: string;
 };
 
-type State = ConfigResponse & {
+type State = {
   isAutoOpenDialog: boolean;
   dialogPlacement: DialogPlacement;
   triggerButtonAppearance: Appearance;
@@ -335,8 +319,6 @@ setSmartUserPickerEnv('local');
 export default class Example extends React.Component<{}, State> {
   state: State = {
     isAutoOpenDialog: false,
-    allowComment: true,
-    allowedDomains: ['atlassian.com'],
     customButton: false,
     customTitle: false,
     contentPermissions: false,
@@ -347,14 +329,12 @@ export default class Example extends React.Component<{}, State> {
     shortLinkData: undefined,
     dialogPlacement: dialogPlacementOptions[2].value,
     escapeOnKeyPress: true,
-    mode: modeOptions[4].value,
     triggerButtonAppearance: triggerButtonAppearanceOptions[0].value,
     triggerButtonStyle: triggerButtonStyleOptions[0].value,
     triggerButtonTooltipPosition: triggerButtonTooltipPositionOptions[0].value,
     product: 'confluence',
     hasFooter: false,
     enableSmartUserPicker: false,
-    disableInviteCapabilities: true,
     hasShareFieldsFooter: false,
     isCopyDisabled: false,
     isPublicLink: false,
@@ -365,13 +345,6 @@ export default class Example extends React.Component<{}, State> {
   };
 
   key: number = 0;
-
-  getConfig = (product: string, cloudId: string): Promise<ConfigResponse> =>
-    new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(this.state);
-      }, 1000);
-    });
 
   share = (
     _content: Content,
@@ -398,7 +371,6 @@ export default class Example extends React.Component<{}, State> {
   };
 
   shareClient: ShareClient = {
-    getConfig: this.getConfig,
     share: this.share,
   };
 
@@ -407,8 +379,6 @@ export default class Example extends React.Component<{}, State> {
   render() {
     const {
       isAutoOpenDialog,
-      allowComment,
-      allowedDomains,
       customButton,
       customTitle,
       contentPermissions,
@@ -417,7 +387,6 @@ export default class Example extends React.Component<{}, State> {
       dialogPlacement,
       escapeOnKeyPress,
       hasFooter,
-      mode,
       triggerButtonAppearance,
       triggerButtonStyle,
       triggerButtonTooltipPosition,
@@ -426,7 +395,6 @@ export default class Example extends React.Component<{}, State> {
       useUrlShortener,
       shortLinkData,
       enableSmartUserPicker,
-      disableInviteCapabilities,
       hasShareFieldsFooter,
       isCopyDisabled,
       isPublicLink,
@@ -473,7 +441,6 @@ export default class Example extends React.Component<{}, State> {
                     shouldCloseOnEscapePress={escapeOnKeyPress}
                     showFlags={showFlags}
                     enableSmartUserPicker={enableSmartUserPicker}
-                    disableInviteCapabilities={disableInviteCapabilities}
                     triggerButtonAppearance={triggerButtonAppearance}
                     triggerButtonIcon={
                       customTriggerButtonIcon ? WorldIcon : undefined
@@ -523,19 +490,6 @@ export default class Example extends React.Component<{}, State> {
                         this.setState({ isCopyDisabled: !isCopyDisabled })
                       }
                     />
-                  </WrapperWithMarginTop>
-                  <WrapperWithMarginTop>
-                    Allow comments
-                    <Toggle
-                      isChecked={allowComment}
-                      onChange={() =>
-                        this.setState({ allowComment: !allowComment })
-                      }
-                    />
-                  </WrapperWithMarginTop>
-                  <WrapperWithMarginTop>
-                    Allowed domains:{' '}
-                    {allowedDomains && allowedDomains.join(', ')}
                   </WrapperWithMarginTop>
                   <WrapperWithMarginTop>
                     Close Share Dialog on escape key press
@@ -666,17 +620,6 @@ export default class Example extends React.Component<{}, State> {
                     />
                   </WrapperWithMarginTop>
                   <WrapperWithMarginTop>
-                    Disable invite capabilities
-                    <Toggle
-                      isChecked={disableInviteCapabilities}
-                      onChange={() => {
-                        this.setState({
-                          disableInviteCapabilities: !disableInviteCapabilities,
-                        });
-                      }}
-                    />
-                  </WrapperWithMarginTop>
-                  <WrapperWithMarginTop>
                     Share Fields Footer
                     <Toggle
                       isChecked={hasShareFieldsFooter}
@@ -714,18 +657,6 @@ export default class Example extends React.Component<{}, State> {
                       options={dialogPlacementOptions}
                       onChange={(option: any) =>
                         this.setState({ dialogPlacement: option.value })
-                      }
-                    />
-                  </WrapperWithMarginTop>
-                  <WrapperWithMarginTop>
-                    Share Configs
-                    <Select
-                      value={modeOptions.find(
-                        (option) => option.value === mode,
-                      )}
-                      options={modeOptions}
-                      onChange={(mode: any) =>
-                        this.setState({ mode: mode.value })
                       }
                     />
                   </WrapperWithMarginTop>

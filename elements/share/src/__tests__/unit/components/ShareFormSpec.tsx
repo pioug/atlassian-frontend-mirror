@@ -12,14 +12,13 @@ import { FormFooter, ShareForm } from '../../../components/ShareForm';
 import { ShareHeader } from '../../../components/ShareHeader';
 import { UserPickerField } from '../../../components/UserPickerField';
 import { messages } from '../../../i18n';
-import { ConfigResponse, DialogContentState, ShareError } from '../../../types';
+import { DialogContentState, ShareError } from '../../../types';
 import { renderProp } from '../_testUtils';
 
 describe('ShareForm', () => {
   it.each`
     allowComment | submitButtonLabel
     ${true}      | ${undefined}
-    ${false}     | ${undefined}
     ${true}      | ${'Invite'}
   `(
     'should render From with fields (allowComment $allowComment, submitButton $submitButtonLabel)',
@@ -27,17 +26,12 @@ describe('ShareForm', () => {
       const mockLink = 'link';
       const loadOptions = jest.fn();
       const onSubmit = jest.fn();
-      const config: ConfigResponse = {
-        mode: 'EXISTING_USERS_ONLY',
-        allowComment,
-      };
       const component = (shallowWithIntl as typeof shallow)(
         <ShareForm
           copyLink={mockLink}
           loadOptions={loadOptions}
           onSubmit={onSubmit}
           title="some title"
-          config={config}
           submitButtonLabel={submitButtonLabel}
           product="confluence"
         />,
@@ -59,7 +53,6 @@ describe('ShareForm', () => {
       expect(userPickerField).toHaveLength(1);
       expect(userPickerField.props()).toMatchObject({
         loadOptions,
-        config,
       });
       expect(form.find(CommentField)).toHaveLength(allowComment ? 1 : 0);
 
@@ -134,29 +127,6 @@ describe('ShareForm', () => {
     });
   });
 
-  describe('isFetchingConfig prop', () => {
-    it('should set isLoading prop to true to the UserPickerField', () => {
-      const mockLink = 'link';
-      const loadOptions = jest.fn();
-      const wrapper = (shallowWithIntl as typeof shallow)(
-        <ShareForm
-          copyLink={mockLink}
-          loadOptions={loadOptions}
-          isFetchingConfig
-          product="confluence"
-        />,
-      );
-
-      const akForm = wrapper.find<FormProps<{}>>(Form);
-      const form = renderProp(akForm, 'children', { formProps: {} })
-        .dive()
-        .dive()
-        .find('form');
-      const userPickerField = form.find(UserPickerField);
-      expect(userPickerField.prop('isLoading')).toBeTruthy();
-    });
-  });
-
   describe('shareError prop', () => {
     it('should render Retry button with an ErrorIcon and Tooltip', () => {
       const mockShareError: ShareError = { message: 'error' };
@@ -224,17 +194,12 @@ describe('ShareForm', () => {
         value: 'some comment',
       },
     };
-    const config: ConfigResponse = {
-      mode: 'EXISTING_USERS_ONLY',
-      allowComment: true,
-    };
     const component = (shallowWithIntl as typeof shallow)(
       <ShareForm
         copyLink={mockLink}
         loadOptions={loadOptions}
         title="some title"
         defaultValue={defaultValue}
-        config={config}
         product="confluence"
       />,
     );

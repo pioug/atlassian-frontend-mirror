@@ -52,7 +52,7 @@ const unsupportedNodes = {
     state.closeBlock(node);
   },
   embedCard(state: MarkdownSerializerState) {
-    state.write('[embeded card]');
+    state.write('[embedded card]');
   },
   inlineCard(state: MarkdownSerializerState) {
     state.write('[inline card]');

@@ -16,6 +16,10 @@ export const WhatsNewResultsListContainer = styled.div`
   position: relative;
 `;
 
+export const WhatsNewResultsListGroupWrapper = styled.div`
+  padding: ${gridSize()}px 0 0 0;
+`;
+
 export const WhatsNewResultsListGroupTitle = styled.div`
   color: ${colors.N200};
   font-size: ${fontSizeSmall()}px;

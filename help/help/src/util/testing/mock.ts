@@ -91,6 +91,7 @@ export const getMockWhatsNewArticleItem = (
   description: string = '',
   changeTargetSchedule: string = '',
   status: string = '',
+  featureRolloutDate: string = '01-01-2022',
   href: string = '',
 ): WhatsNewArticleItem => {
   return {
@@ -99,6 +100,7 @@ export const getMockWhatsNewArticleItem = (
     type,
     status,
     href,
+    featureRolloutDate,
     id,
   };
 };

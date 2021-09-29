@@ -1,5 +1,11 @@
 # @atlaskit/help
 
+## 4.2.3
+
+### Patch Changes
+
+- [`f9bfb2095bd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f9bfb2095bd) - [ux] Group release notes by date
+
 ## 4.2.2
 
 ### Patch Changes

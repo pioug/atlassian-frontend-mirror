@@ -52,7 +52,7 @@ export const useContentPlatformApi = () => {
     const graphqlRequest = JSON.stringify({
       query: `
         query {
-          releaseNotes(${filterValue}${after}${first}) {
+          releaseNotes(${filterValue}${after}${first},orderBy: "rolloutDate") {
             edges {
               releaseNote: node {
                 releaseNoteId
@@ -62,6 +62,7 @@ export const useContentPlatformApi = () => {
                 description
                 changeStatus {label}
                 changeType {label}
+                featureRolloutDate
                 relatedContexts {
                   ... on ContextProduct {
                     name: productName
@@ -123,6 +124,7 @@ export const useContentPlatformApi = () => {
                 description: releaseNote.description,
                 href: releaseNote.fdIssueLink,
                 id: releaseNote.releaseNoteId,
+                featureRolloutDate: releaseNote.featureRolloutDate,
               };
             }
 

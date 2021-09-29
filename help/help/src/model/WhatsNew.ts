@@ -18,9 +18,7 @@ export interface WhatsNewArticleItem {
   changeTargetSchedule?: string;
   type?: WHATS_NEW_ITEM_TYPES;
   status?: string;
-  // featureRolloutDate?: string,
-  // relatedContexts: [AnyContext!]!
-  // affectedUsers: [TaxonomyUserRole!]
+  featureRolloutDate?: string;
   relatedExternalLinks?: string;
   communityUrl?: string;
   href?: string;

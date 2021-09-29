@@ -68,15 +68,20 @@ exports[`WhatsNewResultListItem Should match snapshot 1`] = `
 }
 
 .emotion-1 {
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  color: #172B4D;
-  font-size: 14px;
+  font-size: 1em;
+  font-style: inherit;
+  line-height: 1.1428571428571428;
+  color: var(--text-highEmphasis,#172B4D);
   font-weight: 600;
+  -webkit-letter-spacing: -0.003em;
+  -moz-letter-spacing: -0.003em;
+  -ms-letter-spacing: -0.003em;
+  letter-spacing: -0.003em;
+  margin-top: 16px;
   display: inline-block;
   vertical-align: middle;
+  margin: 0;
   padding-left: 4px;
-  line-height: 20px;
   white-space: normal;
   overflow-x: hidden;
 }

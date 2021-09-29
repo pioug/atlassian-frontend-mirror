@@ -87,18 +87,20 @@ export const NavigationContextProvider: React.FC<NavigationProviderInterface> = 
   const tempHistory = useRef<HistoryItem[]>(propsHistory ? propsHistory : []);
 
   const clearHistory = useCallback(() => {
-    if (!articleIdSetter) {
-      return;
+    if (tempHistory.current.length > 0) {
+      if (!articleIdSetter) {
+        return;
+      }
+      // Clear History
+      tempHistory.current = [];
+      setHistory(tempHistory.current);
+
+      // Clear host history using the historySetter
+      historySetter && historySetter(tempHistory.current);
+
+      // Set article ID to ''
+      articleIdSetter({ id: '', type: ARTICLE_TYPE.HELP_ARTICLE });
     }
-    // Clear History
-    tempHistory.current = [];
-    setHistory(tempHistory.current);
-
-    // Clear host history using the historySetter
-    historySetter && historySetter(tempHistory.current);
-
-    // Set article ID to ''
-    articleIdSetter({ id: '', type: ARTICLE_TYPE.HELP_ARTICLE });
   }, [articleIdSetter, historySetter]);
 
   const isDefaultContentDefined = useCallback((): boolean => {
@@ -491,7 +493,7 @@ export const NavigationContextProvider: React.FC<NavigationProviderInterface> = 
         }
       } else {
         // If article ID is empty clear the history
-        if (history.length > 0) {
+        if (!getCurrentArticle()) {
           clearHistory();
         }
       }
@@ -503,7 +505,6 @@ export const NavigationContextProvider: React.FC<NavigationProviderInterface> = 
     fetchArticleData,
     getCurrentArticle,
     updateHistoryItem,
-    history.length,
   ]);
 
   /**

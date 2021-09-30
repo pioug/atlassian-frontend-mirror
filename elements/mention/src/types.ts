@@ -41,6 +41,7 @@ export interface MentionResourceConfig extends ServiceConfig {
   onInviteItemClick?: (flow: InviteFlow) => void;
   userRole?: UserRole;
   productName?: string;
+  debounceTime?: number;
 }
 
 export interface ResourceProvider<Result> {

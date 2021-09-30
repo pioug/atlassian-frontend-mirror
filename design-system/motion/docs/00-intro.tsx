@@ -72,5 +72,5 @@ export default md`
   show the most important thing on the page,
   and create delight,
   it's also important to allow our users to opt out of it.
-  Every motion component should use the provided utilities (see: [Accessibility](/packages/helpers/motion/docs/accessibility)).
+  Every motion component should use the provided utilities (see: [Accessibility](/packages/design-system/motion/docs/accessibility)).
 `;

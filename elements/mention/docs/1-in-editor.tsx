@@ -9,10 +9,10 @@ import {
 import SectionMessage from '@atlaskit/section-message';
 
 const MentionProps = require('!!extract-react-types-loader!../src/api/extract-react-types/smart-config-props');
-import MentionWithEditorExample from '../examples/14-mention-with-editor';
-const MentionWithEditorExampleSource = require('!!raw-loader!../examples/14-mention-with-editor');
-import SmartMentionWithEditorExample from '../examples/15-smart-mention-resource';
-const SmartMentionWithEditorExampleSource = require('!!raw-loader!../examples/15-smart-mention-resource');
+import MentionWithEditorExample from '../examples/14-mention-with-editor-extending-abstract-mention-resource';
+const MentionWithEditorExampleSource = require('!!raw-loader!../examples/14-mention-with-editor-extending-abstract-mention-resource');
+import SmartMentionWithEditorExample from '../examples/16-smart-mention-resource';
+const SmartMentionWithEditorExampleSource = require('!!raw-loader!../examples/16-smart-mention-resource');
 
 export default md`
   ${(<AtlassianInternalWarning />)}

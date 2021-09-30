@@ -16,14 +16,15 @@ export const mockMentionData = {
   text: '@Oscar Wallhult',
 };
 
-export const mentionResource = new MentionResource({
-  url: 'dummyurl',
+export const mentionResource = () =>
+  new MentionResource({
+    url: 'dummyurl',
 
-  shouldHighlightMention(mention) {
-    return mention.id === 'oscar';
-  },
-});
-export const mockMentionProvider = Promise.resolve(mentionResource);
+    shouldHighlightMention(mention) {
+      return mention.id === 'oscar';
+    },
+  });
+export const mockMentionProvider = () => Promise.resolve(mentionResource());
 
 export function getMentionItemById(
   component: ReactWrapper<any, any>,

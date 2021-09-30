@@ -41,6 +41,8 @@ export type {
 // Re-exporting types to prevent breaking change
 
 import { SLI_EVENT_TYPE, Actions, SliNames } from '../util/analytics';
+import debounce from 'lodash/debounce';
+
 export interface TeamMentionResourceConfig extends MentionResourceConfig {
   teamLinkResolver?: (teamId: string) => string;
   teamHighlightEnabled?: boolean;
@@ -262,6 +264,9 @@ export class MentionResource
     this.inviteExperimentCohort = config.inviteExperimentCohort;
     this.onInviteItemClick = config.onInviteItemClick;
     this.userRole = config.userRole || 'basic';
+    if (this.config.debounceTime) {
+      this.filter = debounce(this.filter, this.config.debounceTime);
+    }
   }
 
   shouldHighlightMention(mention: MentionDescription) {

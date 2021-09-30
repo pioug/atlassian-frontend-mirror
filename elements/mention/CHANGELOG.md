@@ -1,5 +1,11 @@
 # @atlaskit/mention
 
+## 19.9.0
+
+### Minor Changes
+
+- [`e65ada9dbbb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e65ada9dbbb) - Debounce MentionResource when debounceTime is passed in
+
 ## 19.8.1
 
 ### Patch Changes

@@ -263,7 +263,10 @@ describe('<Mention />', () => {
 
     it('should render a stateless mention component based on mention data', () => {
       const mention = mountWithIntl(
-        <ResourcedMention {...mentionData} mentionProvider={mentionProvider} />,
+        <ResourcedMention
+          {...mentionData}
+          mentionProvider={mentionProvider()}
+        />,
       );
       expect(mention.find(Mention).first().text()).toEqual(mentionData.text);
     });
@@ -314,7 +317,7 @@ describe('<Mention />', () => {
         <ResourcedMention
           id="oscar"
           text="@Oscar Wallhult"
-          mentionProvider={mentionProvider}
+          mentionProvider={mentionProvider()}
         />,
       );
 
@@ -339,7 +342,7 @@ describe('<Mention />', () => {
       const mention = mountWithIntl(
         <ResourcedMention
           {...mentionData}
-          mentionProvider={mentionProvider}
+          mentionProvider={mentionProvider()}
           onClick={spy}
         />,
       );
@@ -358,7 +361,7 @@ describe('<Mention />', () => {
       const mention = mountWithIntl(
         <ResourcedMention
           {...mentionData}
-          mentionProvider={mentionProvider}
+          mentionProvider={mentionProvider()}
           onMouseEnter={spy}
         />,
       );
@@ -376,7 +379,7 @@ describe('<Mention />', () => {
       const mention = mountWithIntl(
         <ResourcedMention
           {...mentionData}
-          mentionProvider={mentionProvider}
+          mentionProvider={mentionProvider()}
           onMouseLeave={spy}
         />,
       );

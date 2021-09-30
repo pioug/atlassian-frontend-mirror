@@ -1,7 +1,4 @@
-import {
-  BrowserTestCase,
-  BrowserTestCaseOptions,
-} from '@atlaskit/webdriver-runner/runner';
+import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import simpleAdf from './__fixtures__/simple.adf.json';
 import { addSentinels, selectors } from '../__helpers/page-objects/_renderer';
 import {
@@ -14,11 +11,9 @@ const props = {
   allowSelectAllTrap: true,
 };
 
-const options: BrowserTestCaseOptions = {};
-
 BrowserTestCase(
   'select.ts: Mod+A does not select before',
-  options,
+  {},
   async (client: any) => {
     const page = await goToRendererTestingExample(client);
     await mountRenderer(page, props, simpleAdf);
@@ -41,7 +36,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'select.ts: Mod+A does not select after',
-  options,
+  {},
   async (client: any) => {
     const page = await goToRendererTestingExample(client);
     await mountRenderer(page, props, simpleAdf);
@@ -64,7 +59,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'select.ts: Mod+A selects renderer',
-  options,
+  {},
   async (client: any) => {
     const page = await goToRendererTestingExample(client);
     await mountRenderer(page, props, simpleAdf);
@@ -86,7 +81,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'select.ts: Mod+A fires selectAllCaught event',
-  options,
+  {},
   async (client: any) => {
     const page = await goToRendererTestingExample(client);
     await mountRenderer(page, props, simpleAdf);
@@ -155,7 +150,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'select.ts: Mod+A twice fires selectAllEscaped event',
-  options,
+  {},
   async (client: any) => {
     const page = await goToRendererTestingExample(client);
     await mountRenderer(page, props, simpleAdf);
@@ -177,7 +172,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'select.ts: Mod+A twice, click, Mod+A does not select before',
-  options,
+  {},
   async (client: any) => {
     const page = await goToRendererTestingExample(client);
     await mountRenderer(page, props, simpleAdf);
@@ -205,7 +200,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'select.ts: Mod+A twice, click, Mod+A does not select after',
-  options,
+  {},
   async (client: any) => {
     const page = await goToRendererTestingExample(client);
     await mountRenderer(page, props, simpleAdf);
@@ -233,7 +228,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'select.ts: Mod+A twice, click, Mod+A selects renderer',
-  options,
+  {},
   async (client: any) => {
     const page = await goToRendererTestingExample(client);
     await mountRenderer(page, props, simpleAdf);

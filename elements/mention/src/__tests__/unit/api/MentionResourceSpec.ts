@@ -14,6 +14,10 @@ import {
   resultCraig,
   resultPolly,
 } from '../_mention-search-results';
+import debounce from 'lodash/debounce';
+
+// 'lodash/debounce' is already spied on via __mocks__/lodash.debounce.ts
+const debounceSpy = debounce as jest.Mock<ReturnType<typeof debounce>>;
 
 const baseUrl = 'https://bogus/mentions';
 
@@ -80,64 +84,66 @@ const PARTIAL_CONTEXT = {
 
 describe('MentionResource', () => {
   beforeEach(() => {
+    debounceSpy.mockReset();
+
     // eslint-disable-next-line no-unused-expressions
-    fetchMock.mock(
-      /\/mentions\/search\?.*query=esoares(&|$)/,
-      {
-        body: {
-          mentions: [],
-        },
-      },
-      options(defaultSecurityCode, true),
-    ),
-      fetchMock
-        .mock(/\/mentions\/search\?.*query=craig(&|$)/, {
-          body: {
-            mentions: resultCraig,
-          },
-        })
-        .mock(/\/mentions\/search\?.*query=c(&|$)/, {
-          body: {
-            mentions: resultC,
-          },
-        })
-        .mock(/\/mentions\/bootstrap$/, {
-          body: {
-            mentions: resultC,
-          },
-        })
-        .mock(/\/mentions\/search\?.*query=polly(&|$)/, {
-          body: {
-            mentions: resultPolly,
-          },
-        })
-        .mock(
-          /\/mentions\/search\?.*query=cr(&|$)/,
-          new Promise((resolve) => {
-            window.setTimeout(() => {
-              resolve({
-                // delayed results
-                body: {
-                  mentions: resultCr,
-                },
-              });
-            }, 100);
-          }),
-        )
-        .mock(/\/mentions\/search\?.*query=broken(&|$)/, 500)
-        .mock(/\/mentions\/search\?.*query=.*(&|$)/, {
+    fetchMock
+      .mock(
+        /\/mentions\/search\?.*query=esoares(&|$)/,
+        {
           body: {
             mentions: [],
           },
-        })
-        .mock(/\/mentions\/record\?selectedUserId=broken(&|$)/, 500)
-        .mock(
-          /\/mentions\/record\?selectedUserId=\d+.*$/,
-          {
-            body: '',
-          },
-          { name: 'record' },
-        );
+        },
+        options(defaultSecurityCode, true),
+      )
+      .mock(/\/mentions\/search\?.*query=craig(&|$)/, {
+        body: {
+          mentions: resultCraig,
+        },
+      })
+      .mock(/\/mentions\/search\?.*query=c(&|$)/, {
+        body: {
+          mentions: resultC,
+        },
+      })
+      .mock(/\/mentions\/bootstrap$/, {
+        body: {
+          mentions: resultC,
+        },
+      })
+      .mock(/\/mentions\/search\?.*query=polly(&|$)/, {
+        body: {
+          mentions: resultPolly,
+        },
+      })
+      .mock(
+        /\/mentions\/search\?.*query=cr(&|$)/,
+        new Promise((resolve) => {
+          window.setTimeout(() => {
+            resolve({
+              // delayed results
+              body: {
+                mentions: resultCr,
+              },
+            });
+          }, 100);
+        }),
+      )
+      .mock(/\/mentions\/search\?.*query=broken(&|$)/, 500)
+      .mock(/\/mentions\/search\?.*query=.*(&|$)/, {
+        body: {
+          mentions: [],
+        },
+      })
+      .mock(/\/mentions\/record\?selectedUserId=broken(&|$)/, 500)
+      .mock(
+        /\/mentions\/record\?selectedUserId=\d+.*$/,
+        {
+          body: '',
+        },
+        { name: 'record' },
+      );
   });
 
   afterEach(() => {
@@ -378,6 +384,21 @@ describe('MentionResource', () => {
         },
       );
       resource.filter('polly');
+    });
+
+    it('debounces api requests if debounceTime is defined in config', () => {
+      new MentionResource({ ...apiConfig, debounceTime: 250 });
+      expect(debounceSpy).toHaveBeenCalledWith(expect.any(Function), 250);
+    });
+
+    it('doesnt debounce api requests if no debounceTime is defined in config', () => {
+      new MentionResource(apiConfig);
+      expect(debounceSpy).not.toHaveBeenCalled();
+    });
+
+    it('doesnt debounce api requests if debounceTime is defined as 0 in config', () => {
+      new MentionResource({ ...apiConfig, debounceTime: 0 });
+      expect(debounceSpy).not.toHaveBeenCalled();
     });
   });
 

@@ -1,5 +1,11 @@
 # @atlaskit/help
 
+## 4.2.4
+
+### Patch Changes
+
+- [`9f016391674`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9f016391674) - [ux] Display error message when the "What's new" API fails
+
 ## 4.2.3
 
 ### Patch Changes

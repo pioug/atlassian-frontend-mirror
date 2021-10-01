@@ -477,7 +477,9 @@ export const NavigationContextProvider: React.FC<NavigationProviderInterface> = 
       updateHistoryItem(newHistoryItem);
 
       // fetch article data for the new history Item
-      fetchArticleData(newHistoryItem);
+      if (newHistoryItem.id) {
+        fetchArticleData(newHistoryItem);
+      }
     } else {
       // articleId is undefined only during the first execution of this effect
       if (articleId === undefined) {

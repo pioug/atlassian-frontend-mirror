@@ -29,9 +29,6 @@ export const useContentPlatformApi = () => {
     numberOfItems?: number,
     page?: string,
   ) => {
-    console.log(numberOfItems);
-    console.log(page);
-
     let filterValue = '';
 
     if (filter && Object.keys(filter).length > 0) {
@@ -46,8 +43,6 @@ export const useContentPlatformApi = () => {
     const first = `first: ${
       numberOfItems ? numberOfItems : DEFAULT_NUMBER_OF_WHATS_NEW_ITEMS_RESULTS
     }`;
-
-    console.log(filterValue);
 
     const graphqlRequest = JSON.stringify({
       query: `
@@ -81,8 +76,6 @@ export const useContentPlatformApi = () => {
         }`,
     });
 
-    console.log(graphqlRequest);
-
     try {
       const response = await fetch(CPAPI_URL, {
         method: 'POST',
@@ -98,7 +91,7 @@ export const useContentPlatformApi = () => {
       return formatReleaseNotesData(await response.json());
     } catch (error) {
       console.warn(error);
-      return error;
+      throw new Error('Request error');
     }
   };
 
@@ -131,9 +124,6 @@ export const useContentPlatformApi = () => {
             throw new Error('Data format is not compatible');
           })
         : [];
-
-      console.log(releaseNotesItems);
-      console.log(releaseNotesPageData);
 
       return {
         articles: releaseNotesItems,
@@ -173,14 +163,14 @@ export const useContentPlatformApi = () => {
       return formatReleaseNoteData(await response.json());
     } catch (error) {
       console.warn(error);
-      return error;
+      throw new Error('Request error');
     }
   };
 
   const formatReleaseNoteData = (data: any): WhatsNewArticle => {
     if (data.data?.releaseNote) {
       const releaseNote = data.data?.releaseNote;
-      console.log(releaseNote);
+
       return {
         title: releaseNote.title,
         changeTargetSchedule: releaseNote.changeTargetSchedule,

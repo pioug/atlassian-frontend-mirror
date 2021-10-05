@@ -1,5 +1,11 @@
 # @atlaskit/form
 
+## 8.4.1
+
+### Patch Changes
+
+- [`b9b3ab10494`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b9b3ab10494) - There was a bug in 8.4.0 where the props in FormSection were not recognized. This has now been fixed.
+
 ## 8.4.0
 
 ### Minor Changes

@@ -45,11 +45,11 @@ const lightH600Styles = css(h600({ theme: { mode: 'light' } }));
 // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
 const darkH600Styles = css(h600({ theme: { mode: 'dark' } }));
 
-const FormSectionWrapper: React.FC = ({ children }) => {
+const FormSectionWrapper: React.FC<FormSectionProps> = ({ children }) => {
   return <div css={formSectionWrapperStyles}>{children}</div>;
 };
 
-const FormSectionTitle: React.FC = ({ children }) => {
+const FormSectionTitle: React.FC<FormSectionProps> = ({ children }) => {
   const { mode } = useGlobalTheme();
   return (
     <h3
@@ -77,11 +77,11 @@ const FormSectionDescription: React.FC = ({ children }) => {
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/form/docs/layout)
  * - [Usage](https://atlaskit.atlassian.com/packages/design-system/form/docs/layout)
  */
-const FormSection: React.FC = ({
+const FormSection: React.FC<FormSectionProps> = ({
   children,
   description,
   title,
-}: FormSectionProps) => {
+}) => {
   return (
     <FormSectionWrapper>
       {title && <FormSectionTitle>{title}</FormSectionTitle>}

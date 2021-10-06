@@ -2,6 +2,7 @@
 import React, { FC, memo, useCallback, useEffect, useRef } from 'react';
 
 import { jsx } from '@emotion/core';
+import { bind, UnbindFn } from 'bind-event-listener';
 import NodeResolver from 'react-node-resolver';
 
 import {
@@ -82,19 +83,32 @@ const InlineDialog: FC<InlineDialogProps> = memo<InlineDialogProps>(
       },
       [onClose],
     );
-
     useEffect(() => {
-      if (isOpen) {
-        window.addEventListener('click', handleClickOutside, {
-          capture: false,
-        });
-
-        return () => {
-          window.removeEventListener('click', handleClickOutside, {
-            capture: false,
-          });
-        };
+      if (!isOpen) {
+        return;
       }
+
+      let unbind: UnbindFn;
+
+      // Under most circumstances, `useEffect` should run after an event has ended
+      // In this particular case, the popperjs library has a setState inside of a ref,
+      // which cases `useEffect` to run synchronously instead. To avoid this, we use a
+      // `setTimeout` so `useEffect` after the event. We only want to start listening
+      // for clicks after the original click event that triggered the dialog
+      // has finished. You can see more in the Codesandbox here:
+      // https://codesandbox.io/s/useeffect-and-event-timing-refs-in-state-5tys3?file=/src/App.tsx
+      const timeoutId = setTimeout(() => {
+        unbind = bind(window, {
+          type: 'click',
+          listener: (event) => handleClickOutside(event as MouseEvent),
+          options: { capture: false },
+        });
+      });
+
+      return () => {
+        window.clearTimeout(timeoutId);
+        unbind?.();
+      };
     }, [handleClickOutside, isOpen]);
 
     const popper = isOpen ? (

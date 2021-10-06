@@ -1,5 +1,11 @@
 # @atlaskit/profilecard
 
+## 15.7.0
+
+### Minor Changes
+
+- [`322786b0386`](https://bitbucket.org/atlassian/atlassian-frontend/commits/322786b0386) - Export team profile card content to outside so we can use it to build legacy profile card in Jira FE
+
 ## 15.6.2
 
 ### Patch Changes

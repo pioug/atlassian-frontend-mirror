@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { cleanup, fireEvent, render } from '@testing-library/react';
+import { act, cleanup, fireEvent, render } from '@testing-library/react';
 import { mount } from 'enzyme';
 
 import InlineDialogWithAnalytics from '../../../index';
@@ -131,11 +131,17 @@ describe('inline-dialog', () => {
       afterEach(jest.restoreAllMocks);
 
       it('should add event listener onOpen', () => {
+        jest.useFakeTimers(); // mock timers
+
         const { getByTestId } = render(
           <InlineDialog content={() => null} isOpen testId="inline-dialog">
             <div id="children" />
           </InlineDialog>,
         );
+
+        act(() => {
+          jest.runAllTimers(); // trigger setTimeout
+        });
 
         expect(getByTestId('inline-dialog')).toBeInTheDocument();
         expect(
@@ -147,11 +153,17 @@ describe('inline-dialog', () => {
       });
 
       it('should remove event listener onOpen => remove onClose', () => {
+        jest.useFakeTimers(); // mock timers
+
         const { getByTestId, rerender } = render(
           <InlineDialog content={() => null} isOpen testId="inline-dialog">
             <div id="children" />
           </InlineDialog>,
         );
+
+        act(() => {
+          jest.runAllTimers(); // trigger setTimeout
+        });
 
         expect(getByTestId('inline-dialog')).toBeInTheDocument();
         expect(
@@ -207,11 +219,17 @@ describe('inline-dialog', () => {
 
     it('should invoke onClose callback on page click by default', () => {
       const callback = jest.fn();
+      jest.useFakeTimers(); // mock timers
+
       render(
         <InlineDialog content={() => null} onClose={callback} isOpen>
           <div id="children" />
         </InlineDialog>,
       );
+
+      act(() => {
+        jest.runAllTimers(); // trigger setTimeout
+      });
 
       // click anywhere outside of inline dialog
       fireEvent.click(document.body);

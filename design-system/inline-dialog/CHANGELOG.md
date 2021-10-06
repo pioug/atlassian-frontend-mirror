@@ -1,5 +1,11 @@
 # @atlaskit/inline-dialog
 
+## 13.1.6
+
+### Patch Changes
+
+- [`cb79dfea5d9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb79dfea5d9) - This fixes a bug in version 13.1.2 where inline dialog's `useEffect` was running synchronously and while the click event was still happening. This meant that if the open state was outside of inline dialog, there were instances where it failed to open.
+
 ## 13.1.5
 
 ### Patch Changes

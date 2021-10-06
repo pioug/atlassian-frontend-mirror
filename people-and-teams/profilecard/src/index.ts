@@ -40,6 +40,10 @@ export type {
   Team,
 } from './types';
 
+// We cannot export this component inside `./components/Team/index.ts` because it breaks the lazyload
+// so we have to export this here. `TeamProfileCard` helps to build legacy team profile card inside Jira FE.
+export { default as TeamProfileCard } from './components/Team/TeamProfileCard';
+
 export { ProfileCard };
 export { ProfileCardTrigger };
 export { TeamProfileCardTrigger };

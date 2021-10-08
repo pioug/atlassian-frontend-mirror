@@ -10,8 +10,8 @@ import { N0, N800 } from '@atlaskit/theme/colors';
 import { themed } from '@atlaskit/theme/components';
 import DeprecatedThemeProvider from '@atlaskit/theme/deprecated-provider-please-do-not-use';
 
-import { profiles } from '../../mock-helpers';
 import { ProfileCard } from '../../src';
+import { profiles } from '../../src/mocks';
 import {
   LozengeProps,
   StatusModifiedDateType,

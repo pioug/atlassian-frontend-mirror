@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/profilecard",
-  "version": "15.7.0",
+  "version": "15.7.1",
   "description": "A React component to display a card with user information.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -26,6 +26,7 @@
     "./team": "./src/components/Team/index.ts",
     "./types": "./src/types.ts",
     "./user": "./src/components/User/index.ts",
+    "./mocks": "./src/mocks/index.ts",
     ".": "./src/index.ts"
   },
   "scripts": {
@@ -49,6 +50,7 @@
     "@atlaskit/theme": "^12.0.0",
     "@babel/runtime": "^7.0.0",
     "date-fns": "^2.17.0",
+    "lodash": "^4.17.15",
     "lru-fast": "^0.2.2"
   },
   "peerDependencies": {
@@ -69,7 +71,6 @@
     "es6-promise": "^4.0.5",
     "fetch-mock": "^8.0.0",
     "loader-utils": "^1.1.0",
-    "lodash": "^4.17.15",
     "react-router-dom": "^4.2.2",
     "sinon": "^2.2.0",
     "typescript": "3.9.6",

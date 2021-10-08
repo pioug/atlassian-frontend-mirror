@@ -2,8 +2,8 @@ import React from 'react';
 
 import styled from 'styled-components';
 
-import { profiles } from '../mock-helpers';
 import { ProfileCard } from '../src';
+import { profiles } from '../src/mocks';
 
 import LocaleIntlProvider from './helper/locale-intl-provider';
 

@@ -5,10 +5,10 @@ import styled from 'styled-components';
 import { G400, G75, R75, Y75 } from '@atlaskit/theme/colors';
 import { gridSize } from '@atlaskit/theme/constants';
 
-import teamData from '../mock-helpers/team-data';
 import ProfileCardClient from '../src/client/ProfileCardClient';
 import TeamProfileCardClient from '../src/client/TeamProfileCardClient';
 import TeamProfilecardTrigger from '../src/components/Team';
+import teamData from '../src/mocks/team-data';
 import { Team } from '../src/types';
 
 const Table = styled.table`

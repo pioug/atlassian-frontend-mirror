@@ -1,5 +1,5 @@
-import UserProfileCardClient from '../src/client/UserProfileCardClient';
-import { ClientOverrides, ProfileClientOptions } from '../src/types';
+import UserProfileCardClient from '../client/UserProfileCardClient';
+import { ClientOverrides, ProfileClientOptions } from '../types';
 
 import profiles from './profile-data';
 import { getTimeString, getWeekday, random } from './util';

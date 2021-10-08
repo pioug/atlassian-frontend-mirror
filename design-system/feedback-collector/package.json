@@ -46,7 +46,6 @@
   "devDependencies": {
     "@atlaskit/build-utils": "*",
     "@atlaskit/docs": "*",
-    "@atlaskit/global-navigation": "^11.0.0",
     "@atlaskit/logo": "^13.5.0",
     "@atlaskit/navigation-next": "^9.0.0",
     "@atlaskit/ssr": "*",

@@ -27,5 +27,5 @@ buildIcons(config).then((icons) => {
     'core',
   ]);
 
-  return fs.outputFile(path.resolve(root, 'src/metadata.ts'), iconDocs);
+  return fs.outputFile(path.resolve(root, 'src/metadata.tsx'), iconDocs);
 });

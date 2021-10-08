@@ -1,8 +1,8 @@
+import { modifyResponse, ProfileClient } from '../../src';
 import {
   getMockProfileClient as getMockProfileClientUtil,
   getMockTeamClient,
-} from '../../mock-helpers';
-import { modifyResponse, ProfileClient } from '../../src';
+} from '../../src/mocks';
 import { ProfilecardProps } from '../../src/types';
 
 export const getMockProfileClient = (

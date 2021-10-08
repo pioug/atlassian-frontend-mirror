@@ -1,5 +1,11 @@
 # @atlaskit/profilecard
 
+## 15.7.1
+
+### Patch Changes
+
+- [`d04cae5d45c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d04cae5d45c) - Expose some mock helpers
+
 ## 15.7.0
 
 ### Minor Changes

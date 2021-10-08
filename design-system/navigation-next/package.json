@@ -59,7 +59,6 @@
     "@atlaskit/drawer": "^7.0.0",
     "@atlaskit/dropdown-menu": "^10.1.0",
     "@atlaskit/field-base": "^15.0.0",
-    "@atlaskit/global-navigation": "^11.0.0",
     "@atlaskit/icon-object": "^6.2.0",
     "@atlaskit/inline-dialog": "^13.0.0",
     "@atlaskit/logo": "^13.5.0",

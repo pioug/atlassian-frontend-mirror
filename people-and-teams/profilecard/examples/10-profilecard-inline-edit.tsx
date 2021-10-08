@@ -6,10 +6,10 @@ import InlineEdit from '@atlaskit/inline-edit';
 import Select, { ValueType } from '@atlaskit/select';
 import { gridSize } from '@atlaskit/theme/constants';
 
-import teamData from '../mock-helpers/team-data';
 import ProfileCardClient from '../src/client/ProfileCardClient';
 import TeamProfileCardClient from '../src/client/TeamProfileCardClient';
 import TeamProfilecardTrigger from '../src/components/Team';
+import teamData from '../src/mocks/team-data';
 import { Team } from '../src/types';
 
 import { Radios, TeamCustomizer } from './helper/customization';

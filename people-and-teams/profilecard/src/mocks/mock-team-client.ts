@@ -1,12 +1,12 @@
-import TeamProfileCardClient from '../src/client/TeamProfileCardClient';
-import { Team } from '../src/types';
+import TeamProfileCardClient from '../client/TeamProfileCardClient';
+import { Team } from '../types';
 
 export default function getMockTeamClient(data: {
   team: Team;
   timeout: number;
   error: any;
   errorRate: number;
-}) {
+}): any {
   return class MockTeamClient extends TeamProfileCardClient {
     makeRequest(teamId: string): Promise<Team> {
       if (!data.timeout) {

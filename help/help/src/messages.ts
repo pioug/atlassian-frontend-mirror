@@ -184,7 +184,7 @@ export const messages = defineMessages({
   },
   help_whats_new_button_label: {
     id: 'help.whats_new.button_label',
-    defaultMessage: `Whats's new`,
+    defaultMessage: `What's new`,
     description: `text for the "What's New" button`,
   },
   help_whats_new_filter_select_option_all: {

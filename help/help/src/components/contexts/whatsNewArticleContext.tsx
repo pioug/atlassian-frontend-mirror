@@ -76,7 +76,6 @@ export const WhatsNewArticleProvider: React.FC<WhatsNewArticleProviderInterface>
   const [whatsNewSearchType, setWhatsNewSearchType] = useState<
     WHATS_NEW_ITEM_TYPES | '' | undefined
   >(undefined);
-  // const [whatsNewPage, setWhatsNewPage] = useState('');
   const [
     searchWhatsNewArticlesResult,
     setSearchWhatsNewArticlesResult,

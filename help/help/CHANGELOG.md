@@ -1,5 +1,11 @@
 # @atlaskit/help
 
+## 4.3.0
+
+### Minor Changes
+
+- [`bdd0be2c294`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bdd0be2c294) - [ux] Update navigation logic
+
 ## 4.2.4
 
 ### Patch Changes

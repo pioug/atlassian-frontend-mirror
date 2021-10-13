@@ -27,7 +27,7 @@ export const ArticleContent: React.FC<Props> = ({
   onHelpArticleLoadingFailTryAgainButtonClick,
   onWhatsNewArticleLoadingFailTryAgainButtonClick,
 }) => {
-  if (currentArticle) {
+  if (currentArticle && currentArticle.id) {
     if (currentArticle.type === ARTICLE_TYPE.HELP_ARTICLE) {
       const article = currentArticle.article as ArticleType;
       if (article && currentArticle.state === REQUEST_STATE.done) {

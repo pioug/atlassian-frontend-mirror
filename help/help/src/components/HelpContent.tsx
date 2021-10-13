@@ -37,9 +37,8 @@ export const HelpContent: React.FC<HelpContentInterface> = ({ footer }) => {
   const { onSearch } = useSearchContext();
   const { onBackButtonClick } = useHeaderContext();
 
-  const isOverlayVisibleValue = isOverlayVisible();
   const [isOverlayFullyVisible, setIsOverlayFullyVisible] = useState(
-    isOverlayVisibleValue,
+    isOverlayVisible,
   );
 
   const handleOnBackButtonClick = useCallback(
@@ -59,12 +58,12 @@ export const HelpContent: React.FC<HelpContentInterface> = ({ footer }) => {
 
   useEffect(() => {
     let handler: ReturnType<typeof setTimeout>;
-    if (isOverlayVisibleValue) {
+    if (isOverlayVisible) {
       handler = setTimeout(() => {
-        setIsOverlayFullyVisible(isOverlayVisibleValue);
+        setIsOverlayFullyVisible(isOverlayVisible);
       }, HIDE_CONTENT_DELAY);
     } else {
-      setIsOverlayFullyVisible(isOverlayVisibleValue);
+      setIsOverlayFullyVisible(isOverlayVisible);
     }
 
     return () => {
@@ -72,13 +71,13 @@ export const HelpContent: React.FC<HelpContentInterface> = ({ footer }) => {
         clearTimeout(handler);
       }
     };
-  }, [isOverlayVisibleValue]);
+  }, [isOverlayVisible]);
 
   return (
     <HelpLayout
       onBackButtonClick={handleOnBackButtonClick}
       onCloseButtonClick={onClose}
-      isBackbuttonVisible={canNavigateBack()}
+      isBackbuttonVisible={canNavigateBack}
       footer={footer}
       headerContent={onSearch && <SearchInput />}
     >
@@ -88,7 +87,7 @@ export const HelpContent: React.FC<HelpContentInterface> = ({ footer }) => {
           <ArticleComponent />
           <Home
             isOverlayFullyVisible={isOverlayFullyVisible}
-            isOverlayVisible={isOverlayVisibleValue}
+            isOverlayVisible={isOverlayVisible}
           >
             {homeContent}
             {onSearchWhatsNewArticles && onGetWhatsNewArticle && (

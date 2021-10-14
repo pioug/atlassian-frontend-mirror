@@ -11,7 +11,6 @@ import {
   EntityType,
   RecommendationItem,
   UserRecommendation,
-  SupportedProduct,
   MemberItem,
   TeamRecommendation,
   GroupRecommendation,
@@ -44,12 +43,11 @@ export interface SmartMentionConfig {
    */
   principalId?: string;
   /**
-   * Use 'people' if you are waiting for a product scope.
-   * If your product is not part of the SupportedProduct enum,
-   * and you have a supported product scope, please raise a PR
-   * to add your product onto the SupportedProduct enum.
+   * Platform search is only available for certain products. Please
+   * reach out to #help-smart-experiences to check.
+   * Use productKey='people' if you are waiting for a product scope.
    */
-  productKey: SupportedProduct;
+  productKey: string;
   /**
    * Lucene-type query to proxy onto the search service.
    */

@@ -1,5 +1,3 @@
-export type SupportedProduct = 'jira' | 'confluence' | 'people' | 'bitbucket';
-
 export interface RecommendationRequest {
   baseUrl?: string;
   context: Context;
@@ -24,7 +22,7 @@ export interface Context {
   sessionId?: string;
   principalId: string;
   childObjectId?: string;
-  productKey: 'jira' | 'confluence' | 'people' | 'bitbucket';
+  productKey: string;
   siteId: string;
   productAttributes?: ProductAttributes;
 }

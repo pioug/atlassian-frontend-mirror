@@ -23,8 +23,25 @@ export const openTypeAheadAtCursor = ({
   });
 
   const { selection } = tr;
-  const isTextRangeSelection =
-    selection instanceof TextSelection && selection.$cursor === null;
-  const nextTr = isTextRangeSelection ? tr.deleteSelection() : tr;
-  return nextTr;
+  if (!(selection instanceof TextSelection)) {
+    return tr;
+  }
+
+  if (!selection.$cursor) {
+    tr.deleteSelection();
+    return tr;
+  }
+
+  // Search & Destroy placeholder
+  const cursorPos = selection.$cursor.pos;
+  const nodeAtCursor = tr.doc.nodeAt(cursorPos);
+
+  const isPlaceholderAtCursorPosition =
+    nodeAtCursor && nodeAtCursor.type.name === 'placeholder';
+
+  if (nodeAtCursor && isPlaceholderAtCursorPosition) {
+    tr.delete(cursorPos, cursorPos + nodeAtCursor.nodeSize);
+  }
+
+  return tr;
 };

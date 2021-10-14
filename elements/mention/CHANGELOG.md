@@ -1,5 +1,11 @@
 # @atlaskit/mention
 
+## 19.9.1
+
+### Patch Changes
+
+- [`a92e3bdb515`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a92e3bdb515) - Relaxed product enum typing to take in any string
+
 ## 19.9.0
 
 ### Minor Changes

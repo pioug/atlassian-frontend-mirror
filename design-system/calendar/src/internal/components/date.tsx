@@ -85,6 +85,7 @@ const Date = memo(
         css={dateCellStyles}
         aria-selected={isSelected ? 'true' : 'false'}
         tabIndex={isSelected ? 0 : -1}
+        type="button"
         role="gridcell"
         onClick={handleClick}
         ref={ref}

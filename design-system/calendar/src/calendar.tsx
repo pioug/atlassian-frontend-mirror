@@ -8,6 +8,7 @@ import noop from '@atlaskit/ds-lib/noop';
 import { DN600, N0, N700, N900 } from '@atlaskit/theme/colors';
 import GlobalTheme from '@atlaskit/theme/components';
 import { token } from '@atlaskit/tokens';
+import VisuallyHidden from '@atlaskit/visually-hidden';
 
 import HeadingComponent from './internal/components/heading';
 import WeekDaysComponent from './internal/components/week-days';
@@ -49,17 +50,6 @@ const gridsContainerStyles = css({
   margin: 0,
   marginBottom: 5,
   textAlign: 'center',
-});
-
-const announcerStyles = css({
-  width: 1,
-  height: 1,
-  margin: -1,
-  padding: 0,
-  position: 'absolute',
-  border: 0,
-  clip: 'rect(0 0 0 0)',
-  overflow: 'hidden',
 });
 
 const analyticsAttributes = {
@@ -194,14 +184,11 @@ const CalendarWithMode = forwardRef<HTMLDivElement, CalendarProps>(
         data-testid={testId && `${testId}--container`}
         ref={ref}
       >
-        <div
-          css={announcerStyles}
-          id={announceId}
-          aria-live="assertive"
-          aria-relevant="text"
-        >
-          {announcerDate}
-        </div>
+        <VisuallyHidden>
+          <span id={announceId} aria-live="assertive" aria-relevant="text">
+            {announcerDate}
+          </span>
+        </VisuallyHidden>
         <div
           css={
             !mode || mode === 'light' ? lightWrapperStyles : darkWrapperStyles

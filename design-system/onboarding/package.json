@@ -1,7 +1,7 @@
 {
   "name": "@atlaskit/onboarding",
   "version": "10.2.4",
-  "description": "Highlight elements of the UI to the user and display a complementary dialog.",
+  "description": "An onboarding spotlight introduces new features to users through focused messages or multi-step tours.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
@@ -14,13 +14,14 @@
   "types": "dist/types/index.d.ts",
   "sideEffects": false,
   "atlaskit:src": "src/index.tsx",
+  "homepage": "https://atlassian.design/components/onboarding/",
   "atlassian": {
     "team": "Design System Team",
     "deprecatedAutoEntryPoints": true,
     "inPublicMirror": true,
     "releaseModel": "scheduled",
     "website": {
-      "name": "Onboarding"
+      "name": "Onboarding (spotlight)"
     }
   },
   "dependencies": {
@@ -45,10 +46,12 @@
     "react-dom": "^16.8.0"
   },
   "devDependencies": {
+    "@atlaskit/avatar": "^20.5.0",
     "@atlaskit/build-utils": "*",
     "@atlaskit/docs": "*",
     "@atlaskit/icon": "^21.9.0",
     "@atlaskit/progress-indicator": "^9.1.0",
+    "@atlaskit/select": "^15.2.2",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",

@@ -1,0 +1,62 @@
+---
+title: Spotlight card
+description: A spotlight card is for onboarding messages that need a more flexible layout, or don't require a dialog.
+order: 0
+---
+
+import SpotlightCardDefault from '../../examples/constellation/spotlight-card-default';
+import SpotlightCardFlat from '../../examples/constellation/spotlight-card-flat';
+import SpotlightCardActions from '../../examples/constellation/spotlight-card-actions';
+import SpotlightCardActionsBefore from '../../examples/constellation/spotlight-card-actions-before';
+import SpotlightCardHeading from '../../examples/constellation/spotlight-card-heading';
+import SpotlightCardHeadingAfter from '../../examples/constellation/spotlight-card-heading-after';
+import SpotlightCardImage from '../../examples/constellation/spotlight-card-image';
+import SpotlightCardWidth from '../../examples/constellation/spotlight-card-width';
+
+## Default
+
+A spotlight card shows onboarding messages without requiring a dialog and target element the way [spotlight](/components/onboarding) does. Spotlight cards are also less opinionated about the layout of child elements, so you are able to design more bespoke experiences.
+
+<Example Component={SpotlightCardDefault} packageName="@atlaskit/onboarding" />
+
+## Flat
+
+To remove the elevation styles from the spotlight card, set the `isFlat` prop to `true`. This is useful for situations where you want to place the card as part of a focused onboarding or discovery layout, rather than it being positioned in a dialog above a core UI experience.
+
+<Example Component={SpotlightCardFlat}  packageName="@atlaskit/onboarding" backgroundColor="white" />
+
+## Actions
+
+Spotlight card actions work in a similar way to [spotlight](/components/onboarding). You can set the appearance of action buttons to either default (primary), `subtle`, or `subtle-link`.
+
+<Example Component={SpotlightCardActions} packageName="@atlaskit/onboarding" />
+
+## Actions before element
+
+To add a left-aligned element before the action buttons, use the `actionsBeforeElement` prop.
+
+<Example Component={SpotlightCardActionsBefore} packageName="@atlaskit/onboarding" />
+
+## Heading
+
+Use the `heading` prop to add a heading to a spotlight card.
+
+<Example Component={SpotlightCardHeading} packageName="@atlaskit/onboarding" />
+
+## Heading after element
+
+The `headingAfterElement` prop allows you to place an element to the right of the heading.
+
+<Example Component={SpotlightCardHeadingAfter} packageName="@atlaskit/onboarding" />
+
+## Image
+
+You can add an image to a spotlight with the `image` prop. Although we have an [illustration library](/resources/illustration-library) that you can make use of, please keep in mind that most of those illustrations are designed to work with neutral backgrounds, and you may need further design support to implement an ideal spotlight image.
+
+<Example Component={SpotlightCardImage} packageName="@atlaskit/onboarding" />
+
+## Width
+
+The `width` prop sets the width of the card in pixels.
+
+<Example Component={SpotlightCardWidth} packageName="@atlaskit/onboarding" />

@@ -1,5 +1,12 @@
 # @atlaskit/calendar
 
+## 12.1.3
+
+### Patch Changes
+
+- [`192d35cfdbd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/192d35cfdbd) - Defaults native button usage to type="button" to prevent unintended submittig of forms.
+- [`f7d71a9ba09`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f7d71a9ba09) - Replaces visually hidden styles in component to instead use '@atlaskit/visually-hidden'.
+
 ## 12.1.2
 
 ### Patch Changes

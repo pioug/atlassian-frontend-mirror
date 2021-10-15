@@ -53,6 +53,7 @@ const ButtonItem = memo(
               isDisabled,
             }),
           ]}
+          type="button"
           data-testid={testId}
           disabled={isDisabled}
           onClick={onClick}

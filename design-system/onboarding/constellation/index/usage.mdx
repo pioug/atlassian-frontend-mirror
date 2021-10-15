@@ -1,0 +1,59 @@
+---
+order: 2
+---
+
+## Usage
+
+An onboarding spotlight focuses attention on a specific part of the UI, like a button or an icon. Spotlights can also guide users through tasks that require multiple steps to complete. Only one spotlight should be shown at a time.
+
+## Anatomy
+
+![Onboarding spotlight anatomy](images/onboarding-spotlight-anatomy.png)
+
+1. **Spotlight target:** The section of the UI that you want to call attention to. It can be rectangular or circular. Typically this is an isolated element like an icon, button, or text field.
+1. **Message:** Try to restrict messages to three lines in length. Showcase a single change and concentrate on the benefit to the user. Try to avoid just naming the function.
+1. **Action:** In a multi-step tour, these will be the skip and next buttons. In spotlights where you want a user to try an action, the button should lead to that new action.
+1. **Pulse:** A pulse animation to draw attention to the spotlight target.
+1. **Blanket:** A translucent overlay that covers the rest of the screen that is not being spotlit. 
+<!-- This is only necessary for multi-step spotlight tours. -->
+
+## Behavior
+
+### Pulse
+
+The spotlight target can have a pulse animation to draw attention to the focused area.
+
+## Best practices
+
+- For spotlight tours, keep the entire flow in mind. Sequence tasks or messages in a logical way to increase success. 
+- Always offer a dismiss option at each step. Don't force people to participate.
+- Ideally, spotlights should only have a single step. Try not to overwhelm people with too much information. Try and combine or eliminate tasks where possible. Aim for 3-4 steps maximum. People only need enough information to get them started.
+- Make sure your spotlight isn’t competing with other onboarding messages from other teams. Not every change requires changeboarding, so ask yourself if this message is really necessary or helpful.
+
+## Content guidelines
+
+### Headings
+
+- Headings are optional. Use the heading to communicate the main benefit to the user. For example, "Manage your issues" instead of "Issue types".
+- Write headings in sentence case.
+- Try to limit headings to just a few words. Personalize where you can, for example, “Your room”.
+
+### Message copy
+
+- Include the benefits of the feature and why it's important to the person seeing it.
+- Try to keep the text length to two lines at the product's minimum supported size.
+- Be considerate of peoples time and patience. Short bursts of information are better. Don't repeat content from the title.
+- If you talk about an element or a location within the body of the spotlight message, that element should be visible on the screen at the same time. Don't talk about things that the viewer can't see.
+- Avoid having people look in another location for more information, but if it cant' be avoided, use a “Learn more” link.
+
+### Call to action (CTA)
+
+- For buttons leading people through the steppers of a spotlight, use "Next".
+- An option to dismiss or cancel lets people feel reassured that they can opt out.
+- For the last in a series of steps, or for any action which confirms or closes a spotlight message, use "OK".
+
+## Related
+
+- For a more flexible, standalone spotlight message, see [spotlight card](/components/onboarding/spotlight-card/usage).
+- For an onboarding modal, see [benefits modal](/components/onboarding/benefits-modal/usage).
+- See our [onboarding patterns](/patterns/first-impressions) for more ideas.

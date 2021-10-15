@@ -26,6 +26,7 @@ const GrabArea = ({
   <button
     {...grabAreaSelector}
     data-testid={testId}
+    type="button"
     css={grabAreaCSS(isLeftSidebarCollapsed)}
     {...rest}
   >

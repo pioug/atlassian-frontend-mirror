@@ -1,5 +1,11 @@
 # @atlaskit/menu
 
+## 1.1.3
+
+### Patch Changes
+
+- [`192d35cfdbd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/192d35cfdbd) - Defaults native button usage to type="button" to prevent unintended submittig of forms.
+
 ## 1.1.2
 
 ### Patch Changes

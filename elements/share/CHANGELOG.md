@@ -1,5 +1,11 @@
 # @atlaskit/share
 
+## 0.31.0
+
+### Minor Changes
+
+- [`ac8d6861881`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ac8d6861881) - [ux] expose copyTooltipText and onDialogClose props to share component
+
 ## 0.30.0
 
 ### Minor Changes

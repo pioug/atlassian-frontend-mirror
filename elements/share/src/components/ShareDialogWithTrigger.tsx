@@ -72,6 +72,7 @@ export type Props = {
   isDisabled?: boolean;
   loadUserOptions?: LoadOptions;
   onDialogOpen?: () => void;
+  onDialogClose?: () => void;
   onShareSubmit?: (shareContentState: DialogContentState) => Promise<any>;
   renderCustomTriggerButton?: RenderCustomTriggerButton;
   shareContentType: string;
@@ -101,6 +102,7 @@ export type Props = {
   /** Atlassian Resource Identifier of a Site resource to be shared. */
   shareAri?: string;
   tabIndex?: number;
+  copyTooltipText?: string;
 };
 
 const ShareButtonWrapper = styled.div`
@@ -190,9 +192,12 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
       selectedIntegration: null,
     });
 
-    const { onUserSelectionChange } = this.props;
+    const { onUserSelectionChange, onDialogClose } = this.props;
     if (onUserSelectionChange) {
       onUserSelectionChange(defaultShareContentState.users);
+    }
+    if (onDialogClose) {
+      onDialogClose();
     }
   };
 
@@ -301,6 +306,9 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
   };
 
   private handleCloseDialog = (): void => {
+    if (this.props.onDialogClose) {
+      this.props.onDialogClose();
+    }
     this.setState({
       isDialogOpen: false,
       showIntegrationForm: false,
@@ -516,6 +524,7 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
       dialogZIndex,
       isPublicLink,
       tabIndex,
+      copyTooltipText,
     } = this.props;
 
     const style =
@@ -563,6 +572,7 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
                       fieldsFooter={shareFieldsFooter}
                       selectPortalRef={this.selectPortalRef}
                       isPublicLink={isPublicLink}
+                      copyTooltipText={copyTooltipText}
                     />
                   </InlineDialogFormWrapper>
                 )}

@@ -1,0 +1,36 @@
+{
+    "name": "Tokens Test Theming Extension",
+    "version": "0.2",
+    "description": "An extension to test theming implementations with @atlaskit/tokens",
+    "devtools_page": "devtools.html",
+    "background": {
+        "scripts": [
+            "background.js"
+        ]
+    },
+    "permissions": [
+        "tabs",
+        "activeTab",
+        "http://*/*",
+        "https://*/*",
+        "storage",
+        "webNavigation"
+    ],
+    "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAs88BPdeATfZMpEmyioaG2gS8OXpcEYKTnfriDiOPrHApjiMOrbiMU2cFZsbxqKpBMktKrmOa6PRq328H6N4QN42p2c9eGdY1Mgun9UAQFV1EQWsUelAWzKeZRMRPWVBTnMHVRIHe7p9cXoHCTRB0kIbqR+P7zhxaf2bCaaiQ/UUMeX7LFLDoXNCmuFOnjLLupkNgJJdPIDCHpEypwQCpNNUH4UsOxJ0yTfAplYdw7cc7ZwSh/BJqAWRplywkXwRrL5FeFfXknIi/tMZzxYv4ZM89CY5ogPr1JZMVA5sw0xW0oh81wLHa6Y47mmPXgMtzyNKZ/QJRP6b66uNuot+FXQIDAQAB",
+    "content_scripts": [
+        {
+            "matches": [
+                "http://*/*",
+                "https://*/*"
+            ],
+            "js": [
+                "content-script.js"
+            ],
+            "css": [
+                "atlassian-theme.css"
+            ],
+            "run_at": "document_start"
+        }
+    ],
+    "manifest_version": 2
+}

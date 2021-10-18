@@ -84,6 +84,7 @@ export type Props = {
   isDisabled?: boolean;
   isPublicLink?: boolean;
   isSplitButton?: boolean;
+  copyTooltipText?: string;
 };
 
 export type InternalFormProps = FormChildrenArgs<ShareData> &
@@ -168,6 +169,7 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
       selectPortalRef,
       isDisabled,
       isPublicLink,
+      copyTooltipText,
     } = this.props;
     return (
       <FormWrapper>
@@ -197,6 +199,7 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
               onLinkCopy={onLinkCopy}
               link={copyLink}
               isPublicLink={isPublicLink}
+              copyTooltipText={copyTooltipText}
             />
             {this.renderSubmitButton()}
           </FormFooter>

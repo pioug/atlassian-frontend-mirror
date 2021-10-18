@@ -52,6 +52,8 @@ export type Props = {
   onTriggerButtonClick?: () => void;
   /* Callback function to be called on dialog open. */
   onDialogOpen?: () => void;
+  /* Callback function to be called on dialog close. */
+  onDialogClose?: () => void;
   /* Allow the share dialog to be opened via a Prop. */
   isAutoOpenDialog?: boolean;
   /** Share service client implementation that gets share configs and performs share.
@@ -181,6 +183,8 @@ export type Props = {
    * Optionally sets a tabIndex value if you need to set focus
    */
   tabIndex?: number;
+  /* If present, will add a tooltip to the copy link and display link tooltip text */
+  copyTooltipText?: string;
 };
 
 export type State = {
@@ -527,6 +531,8 @@ export class ShareDialogContainerInternal extends React.Component<
       shareIntegrations,
       shareAri,
       tabIndex,
+      copyTooltipText,
+      onDialogClose,
     } = this.props;
 
     return (
@@ -572,6 +578,8 @@ export class ShareDialogContainerInternal extends React.Component<
             shareIntegrations={shareIntegrations}
             shareAri={shareAri}
             tabIndex={tabIndex}
+            copyTooltipText={copyTooltipText}
+            onDialogClose={onDialogClose}
           />
         </MessagesIntlProvider>
       </ErrorBoundary>

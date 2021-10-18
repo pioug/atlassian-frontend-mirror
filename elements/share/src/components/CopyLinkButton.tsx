@@ -3,6 +3,7 @@ import LinkFilledIcon from '@atlaskit/icon/glyph/link-filled';
 import Popup, { TriggerProps } from '@atlaskit/popup';
 import { G300 } from '@atlaskit/theme/colors';
 import { layers } from '@atlaskit/theme/constants';
+import Tooltip from '@atlaskit/tooltip';
 import React from 'react';
 import { FormattedMessage, injectIntl, InjectedIntlProps } from 'react-intl';
 import styled from 'styled-components';
@@ -46,6 +47,7 @@ export type Props = {
   link: string;
   isDisabled?: boolean;
   isPublicLink?: boolean;
+  copyTooltipText?: string;
 };
 
 export type State = {
@@ -95,12 +97,39 @@ export class CopyLinkButton extends React.Component<
     this.setState({ shouldShowCopiedMessage: false });
   };
 
-  render() {
-    const { shouldShowCopiedMessage } = this.state;
+  renderTriggerButton = (triggerProps: TriggerProps) => {
     const {
       intl: { formatMessage },
       isDisabled,
       isPublicLink,
+    } = this.props;
+    return (
+      <Button
+        isDisabled={isDisabled}
+        appearance="subtle-link"
+        iconBefore={
+          <LinkFilledIcon
+            label={formatMessage(messages.copyLinkButtonIconLabel)}
+            size="medium"
+          />
+        }
+        onClick={this.handleClick}
+        {...triggerProps}
+      >
+        <FormattedMessage
+          {...(isPublicLink
+            ? messages.copyPublicLinkButtonText
+            : messages.copyLinkButtonText)}
+        />
+      </Button>
+    );
+  };
+
+  render() {
+    const { shouldShowCopiedMessage } = this.state;
+    const {
+      intl: { formatMessage },
+      copyTooltipText,
     } = this.props;
 
     return (
@@ -124,26 +153,15 @@ export class CopyLinkButton extends React.Component<
           isOpen={shouldShowCopiedMessage}
           onClose={this.handleDismissCopiedMessage}
           placement="top-start"
-          trigger={(triggerProps: TriggerProps) => (
-            <Button
-              isDisabled={isDisabled}
-              appearance="subtle-link"
-              iconBefore={
-                <LinkFilledIcon
-                  label={formatMessage(messages.copyLinkButtonIconLabel)}
-                  size="medium"
-                />
-              }
-              onClick={this.handleClick}
-              {...triggerProps}
-            >
-              <FormattedMessage
-                {...(isPublicLink
-                  ? messages.copyPublicLinkButtonText
-                  : messages.copyLinkButtonText)}
-              />
-            </Button>
-          )}
+          trigger={(triggerProps: TriggerProps) =>
+            copyTooltipText ? (
+              <Tooltip content={copyTooltipText} position="bottom-start">
+                {this.renderTriggerButton(triggerProps)}
+              </Tooltip>
+            ) : (
+              this.renderTriggerButton(triggerProps)
+            )
+          }
         />
       </>
     );

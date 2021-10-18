@@ -50,6 +50,7 @@ describe('ShareDialogWithTrigger', () => {
   const mockLoadOptions = () => [];
   const mockShowFlags: jest.Mock = jest.fn();
   const mockOnDialogOpen: jest.Mock = jest.fn();
+  const mockOnDialogClose: jest.Mock = jest.fn();
   const mockOnTriggerButtonClick: jest.Mock = jest.fn();
 
   function getWrapper(
@@ -62,6 +63,7 @@ describe('ShareDialogWithTrigger', () => {
       loadUserOptions: mockLoadOptions,
       onTriggerButtonClick: mockOnTriggerButtonClick,
       onDialogOpen: mockOnDialogOpen,
+      onDialogClose: mockOnDialogClose,
       onShareSubmit: mockOnShareSubmit,
       shareContentType: 'page',
       showFlags: mockShowFlags,
@@ -85,6 +87,7 @@ describe('ShareDialogWithTrigger', () => {
       loadUserOptions: mockLoadOptions,
       onTriggerButtonClick: mockOnTriggerButtonClick,
       onDialogOpen: mockOnDialogOpen,
+      onDialogClose: mockOnDialogClose,
       onShareSubmit: mockOnShareSubmit,
       shareContentType: 'page',
       showFlags: mockShowFlags,
@@ -107,6 +110,7 @@ describe('ShareDialogWithTrigger', () => {
     mockOnShareSubmit.mockReset();
     mockShowFlags.mockReset();
     mockOnDialogOpen.mockReset();
+    mockOnDialogClose.mockReset();
     mockOnTriggerButtonClick.mockReset();
   });
 
@@ -448,6 +452,7 @@ describe('ShareDialogWithTrigger', () => {
         .find(Popup)
         .simulate('close', { isOpen: false, event: { type: 'submit' } });
       expect((wrapper.state() as State).isDialogOpen).toEqual(false);
+      expect(mockOnDialogClose).toHaveBeenCalledTimes(1);
     });
 
     it('should be triggered when the Popup is closed', () => {
@@ -462,6 +467,18 @@ describe('ShareDialogWithTrigger', () => {
         .find(Popup)
         .simulate('close', { isOpen: false, event: mockClickEvent });
       expect((wrapper.state() as State).isDialogOpen).toEqual(false);
+      expect(mockOnDialogClose).toHaveBeenCalledTimes(1);
+    });
+
+    it('should call the onDialogClose prop if present', () => {
+      const wrapper = getWrapper();
+      wrapper.setState({ isDialogOpen: true });
+      expect(mockOnDialogClose).not.toHaveBeenCalled();
+      wrapper
+        .find(Popup)
+        .simulate('close', { isOpen: false, event: { type: 'submit' } });
+      expect((wrapper.state() as State).isDialogOpen).toEqual(false);
+      expect(mockOnDialogClose).toHaveBeenCalledTimes(1);
     });
   });
 
@@ -588,6 +605,7 @@ describe('ShareDialogWithTrigger', () => {
       // .preventDefault() when we don't want to close the popup on ESC
       expect(escapeKeyDownEvent.preventDefault).toHaveBeenCalledTimes(0);
       expect((wrapper.state() as State).isDialogOpen).toBeFalsy();
+      expect(mockOnDialogClose).toHaveBeenCalledTimes(1);
       expect((wrapper.state() as State).ignoreIntermediateState).toBeTruthy();
       expect((wrapper.state() as State).defaultValue).toEqual(
         defaultShareContentState,
@@ -665,6 +683,7 @@ describe('ShareDialogWithTrigger', () => {
 
       await new Promise((resolve) => setTimeout(resolve, 0));
 
+      expect(mockOnDialogClose).toHaveBeenCalledTimes(1);
       expect(wrapper.state('isDialogOpen')).toBeFalsy();
       expect(wrapper.state('defaultValue')).toEqual(defaultShareContentState);
       expect(wrapper.state('ignoreIntermediateState')).toBeTruthy();

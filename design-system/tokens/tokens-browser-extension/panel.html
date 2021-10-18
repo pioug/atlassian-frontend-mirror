@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html style="background: white">
+  <head>
+    <style>
+      button {
+        margin: 1rem 0;
+        padding: 0.5rem 1rem;
+      }
+      p {
+        font-size: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div style="display: flex; flex-direction: column">
+      <h1>Settings</h1>
+      <p>Theme: <span id="selected-theme">none</span></p>
+      <button id="disable-theme">Disable theme</button>
+      <button id="enable-light-theme">Enable Atlassian light theme</button>
+      <button id="enable-dark-theme">Enable Atlassian dark theme</button>
+    </div>
+    <script src="messaging.js"></script>
+    <script src="panel.js"></script>
+  </body>
+</html>

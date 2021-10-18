@@ -5,6 +5,7 @@ mockPopper();
 import React from 'react';
 import CheckCircleIcon from '@atlaskit/icon/glyph/check-circle';
 import Popup from '@atlaskit/popup';
+import Tooltip from '@atlaskit/tooltip';
 import { ReactWrapper } from 'enzyme';
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { InjectedIntlProps } from 'react-intl';
@@ -24,6 +25,7 @@ describe('CopyLinkButton', () => {
     value?: string,
   ) => boolean;
   let mockLink: string = 'link';
+  let mockTooltipText: string = 'tooltip text';
   const spiedExecCommand: jest.Mock = jest.fn();
 
   beforeAll(() => {
@@ -60,13 +62,15 @@ describe('CopyLinkButton', () => {
     expect(hiddenInput).toHaveLength(1);
     expect(hiddenInput.prop('text')).toEqual(mockLink);
 
+    expect(wrapper.find(Tooltip)).toHaveLength(0);
+
     expect(
       // @ts-ignore accessing private property just for testing purpose
       wrapper.instance().inputRef.current instanceof HTMLInputElement,
     ).toBeTruthy();
   });
 
-  it('should render for piblic link', () => {
+  it('should render for public link', () => {
     const wrapper: ReactWrapper<
       Props & InjectedIntlProps,
       State,
@@ -96,7 +100,7 @@ describe('CopyLinkButton', () => {
     ).toBeTruthy();
   });
 
-  it('should render for piblic link', () => {
+  it('should render for public link', () => {
     const wrapper: ReactWrapper<
       Props & InjectedIntlProps,
       State,
@@ -124,6 +128,20 @@ describe('CopyLinkButton', () => {
       // @ts-ignore accessing private property just for testing purpose
       wrapper.instance().inputRef.current instanceof HTMLInputElement,
     ).toBeTruthy();
+  });
+
+  it('should render a copy link tooltip if copyTooltipText prop exists', () => {
+    const wrapper: ReactWrapper<
+      Props & InjectedIntlProps,
+      State,
+      any
+    > = mountWithIntl<Props, State>(
+      <CopyLinkButton link={mockLink} copyTooltipText={mockTooltipText} />,
+    );
+
+    const tooltip = wrapper.find(Tooltip);
+    expect(tooltip).toHaveLength(1);
+    expect(tooltip.prop('content')).toEqual(mockTooltipText);
   });
 
   describe('componentWillUnmount', () => {

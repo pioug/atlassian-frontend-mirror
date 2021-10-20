@@ -1,5 +1,11 @@
 # @atlaskit/onboarding
 
+## 10.2.5
+
+### Patch Changes
+
+- [`34282240102`](https://bitbucket.org/atlassian/atlassian-frontend/commits/34282240102) - Adds explicit type to button usages components.
+
 ## 10.2.4
 
 ### Patch Changes

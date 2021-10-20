@@ -9,8 +9,6 @@ import {
 import smartLinkAdf from '../../__fixtures__/smart-link.adf.json';
 import smartLinkExpandAdf from '../../__fixtures__/smart-link-expand.adf.json';
 import smartLinkListAdf from '../../__fixtures__/smart-link-list.adf.json';
-import smartLinkTableAdf from '../../__fixtures__/smart-link-table.adf.json';
-import smartLinkLayoutAdf from '../../__fixtures__/smart-link-layout.adf.json';
 import blueLinkAdf from '../../__fixtures__/blue-link.adf.json';
 import { mobileSnapshot } from '../../_utils/snapshot';
 
@@ -41,14 +39,15 @@ export default () => {
     await mobileSnapshot(page);
   });
 
-  MobileTestCase('SmartLinks: table', {}, async (client) => {
-    const page = await Page.create(client);
-    await loadEditorWidthAdf(page, smartLinkTableAdf);
-    if (page.isAndroid()) {
-      await focusOnWebView(page);
-    }
-    await mobileSnapshot(page);
-  });
+  // TODO: ED-13890 - Fix inconsistent test snapshot diff
+  //MobileTestCase('SmartLinks: table', {}, async (client) => {
+  //  const page = await Page.create(client);
+  //  await loadEditorWidthAdf(page, smartLinkTableAdf);
+  //  if (page.isAndroid()) {
+  //    await focusOnWebView(page);
+  //  }
+  //  await mobileSnapshot(page);
+  //});
 
   MobileTestCase('SmartLinks: list', {}, async (client) => {
     const page = await Page.create(client);
@@ -59,16 +58,17 @@ export default () => {
     await mobileSnapshot(page);
   });
 
-  MobileTestCase('SmartLinks: layout', {}, async (client) => {
-    const page = await Page.create(client);
-    await loadEditorWidthAdf(page, smartLinkLayoutAdf);
-    const layout = await page.$('[data-layout-section="true"]');
-    await layout.scrollIntoView();
-    if (page.isAndroid()) {
-      await focusOnWebView(page);
-    }
-    await mobileSnapshot(page);
-  });
+  // TODO: ED-13890 - Fix inconsistent test snapshot diff
+  //MobileTestCase('SmartLinks: layout', {}, async (client) => {
+  //  const page = await Page.create(client);
+  //  await loadEditorWidthAdf(page, smartLinkLayoutAdf);
+  //  const layout = await page.$('[data-layout-section="true"]');
+  //  await layout.scrollIntoView();
+  //  if (page.isAndroid()) {
+  //    await focusOnWebView(page);
+  //  }
+  //  await mobileSnapshot(page);
+  //});
 
   MobileTestCase('SmartLinks: blue link', {}, async (client) => {
     const page = await Page.create(client);

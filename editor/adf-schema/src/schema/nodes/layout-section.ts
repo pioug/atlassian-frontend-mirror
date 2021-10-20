@@ -23,7 +23,7 @@ export type LayoutSectionFullDefinition = LayoutSectionBaseDefinition & {
   type: 'layoutSection';
   marks?: Array<BreakoutMarkDefinition>;
   /**
-   * @minItems 1
+   * @minItems 2
    * @maxItems 3
    * @allowUnsupportedBlock true
    */
@@ -50,7 +50,8 @@ export type LayoutSectionDefinition =
   | LayoutSectionWithSingleColumnDefinition;
 
 export const layoutSection: NodeSpec = {
-  content: '(layoutColumn | unsupportedBlock){1,3} unsupportedBlock*',
+  content:
+    '(layoutColumn | unsupportedBlock){1,3} unsupportedBlock* | unsupportedBlock+',
   marks: 'unsupportedMark unsupportedNodeAttribute',
   isolating: true,
   parseDOM: [
@@ -70,7 +71,8 @@ export const layoutSection: NodeSpec = {
 };
 
 export const layoutSectionWithSingleColumn: NodeSpec = {
-  content: '(layoutColumn | unsupportedBlock){1,3} unsupportedBlock*',
+  content:
+    '(layoutColumn | unsupportedBlock){1,3} unsupportedBlock* | unsupportedBlock+',
   marks: 'unsupportedMark unsupportedNodeAttribute',
   isolating: true,
   parseDOM: [

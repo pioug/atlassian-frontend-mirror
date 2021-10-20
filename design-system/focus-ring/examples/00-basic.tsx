@@ -23,7 +23,7 @@ export default () => {
   return (
     <div data-testid="outerDiv" style={{ padding: 8 }}>
       <FocusRing>
-        <button ref={buttonRef} css={stylesStyles}>
+        <button type="button" ref={buttonRef} css={stylesStyles}>
           hello
         </button>
       </FocusRing>

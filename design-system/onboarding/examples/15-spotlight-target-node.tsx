@@ -54,7 +54,7 @@ export default class SpotlightNodeExample extends Component<Object, State> {
           the node to be present in the DOM.
         </p>
 
-        <button onClick={this.toggleDrawer}>
+        <button type="button" onClick={this.toggleDrawer}>
           {drawerIsVisible ? 'Close' : 'Open'}
         </button>
 

@@ -210,7 +210,10 @@ const AvatarGroupExample: FC = () => {
           size={avatarSize}
         />
         {mode === 'grid' ? (
-          <button onClick={() => setState({ ...state, mode: 'stack' })}>
+          <button
+            type="button"
+            onClick={() => setState({ ...state, mode: 'stack' })}
+          >
             reset
           </button>
         ) : null}

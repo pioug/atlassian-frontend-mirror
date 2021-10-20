@@ -23,6 +23,7 @@ export default () => {
     <AtlaskitThemeProvider mode={mode}>
       <div>
         <button
+          type="button"
           onClick={() =>
             setMode((oldMode) => (oldMode === 'light' ? 'dark' : 'light'))
           }

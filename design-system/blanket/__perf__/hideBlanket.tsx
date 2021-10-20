@@ -18,7 +18,11 @@ const BlanketPerformance = () => {
 
   return (
     <>
-      <button onClick={toggleBlanketVisibility} data-testid="toggleButton">
+      <button
+        type="button"
+        onClick={toggleBlanketVisibility}
+        data-testid="toggleButton"
+      >
         Toggle blanket
       </button>
 

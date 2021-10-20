@@ -48,7 +48,11 @@ describe('<AvatarGroup />', () => {
               index === 1 ? (
                 <Fragment key={index}>
                   <Component {...props} />
-                  <button onClick={callback} data-testid="custom-button">
+                  <button
+                    type="button"
+                    onClick={callback}
+                    data-testid="custom-button"
+                  >
                     hello world
                   </button>
                 </Fragment>

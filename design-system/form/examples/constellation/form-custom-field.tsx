@@ -17,6 +17,7 @@ interface ColorButtonsProps {
 const ColorButton = ({ color, changeHandler }: ColorButtonProps) => {
   return (
     <button
+      type="submit"
       style={{
         backgroundColor: color,
         color: 'transparent',

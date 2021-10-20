@@ -41,7 +41,10 @@ export default class SpotlightRelativeTarget extends Component<Object, State> {
           }}
         >
           <div style={{ textAlign: 'center', paddingTop: '2em' }}>
-            <button onClick={() => this.setState({ active: true })}>
+            <button
+              type="button"
+              onClick={() => this.setState({ active: true })}
+            >
               Open Spotlight
             </button>
           </div>

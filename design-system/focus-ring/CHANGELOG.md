@@ -1,5 +1,11 @@
 # @atlaskit/focus-ring
 
+## 0.2.3
+
+### Patch Changes
+
+- [`34282240102`](https://bitbucket.org/atlassian/atlassian-frontend/commits/34282240102) - Adds explicit type to button usages components.
+
 ## 0.2.2
 
 ### Patch Changes

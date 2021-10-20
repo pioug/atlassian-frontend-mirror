@@ -8,7 +8,7 @@ const SpotlightCardActionsBeforeExample = () => {
       actionsBeforeElement="1/3"
       actions={[
         { text: 'Next', onClick: () => {} },
-        { text: 'Skip', onClick: () => {}, appearance: 'subtle' },
+        { text: 'Dismiss', onClick: () => {}, appearance: 'subtle' },
       ]}
     >
       Quickly switch between your most recent projects by selecting the project

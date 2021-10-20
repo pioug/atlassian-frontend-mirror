@@ -110,6 +110,7 @@ function SpotlightWithConditionalTargets() {
       <div style={{ marginTop: '1em' }}>
         <button
           id="Hide"
+          type="submit"
           onClick={() => setSpotlightVisibility(!isSpotlightVisible)}
         >
           Hide/Show second spotlight target
@@ -121,7 +122,7 @@ function SpotlightWithConditionalTargets() {
       </p>
 
       <div>
-        <button id="Start" onClick={start}>
+        <button type="submit" id="Start" onClick={start}>
           Start
         </button>
       </div>

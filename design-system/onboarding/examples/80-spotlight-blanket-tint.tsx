@@ -89,7 +89,9 @@ export default class SpotlightBlanketTintExample extends Component<
           Use spotlight to highlight elements in your app to users.
         </p>
 
-        <button onClick={this.start}>Start</button>
+        <button type="button" onClick={this.start}>
+          Start
+        </button>
 
         {this.renderActiveSpotlight()}
       </SpotlightManager>

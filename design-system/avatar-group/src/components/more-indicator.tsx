@@ -131,6 +131,7 @@ const MoreIndicator = forwardRef<HTMLButtonElement, MoreIndicatorProps>(
           <ClassNames>
             {({ css, cx }) => (
               <button
+                type="submit"
                 {...buttonProps}
                 {...props}
                 ref={ref as any}

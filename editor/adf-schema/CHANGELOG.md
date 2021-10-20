@@ -1,5 +1,11 @@
 # @atlaskit/adf-schema
 
+## 19.2.1
+
+### Patch Changes
+
+- [`a55dbcb3ecd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a55dbcb3ecd) - [ED-13882] Fix layout section ProseMirror Schema content
+
 ## 19.2.0
 
 ### Minor Changes

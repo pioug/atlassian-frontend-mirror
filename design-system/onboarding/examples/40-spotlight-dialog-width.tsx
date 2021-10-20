@@ -77,10 +77,10 @@ export default class SpotlightDialogWidthExample extends Component<{}, State> {
     const { value } = this.state;
     const deltaButtons = (
       <div css={buttonGroupStyles}>
-        <button css={buttonStyles} onClick={this.decrement}>
+        <button type="button" css={buttonStyles} onClick={this.decrement}>
           <ArrowDownIcon label="Decrement" />
         </button>
-        <button css={buttonStyles} onClick={this.increment}>
+        <button type="button" css={buttonStyles} onClick={this.increment}>
           <ArrowUpIcon label="Increment" />
         </button>
       </div>
@@ -102,7 +102,9 @@ export default class SpotlightDialogWidthExample extends Component<{}, State> {
             property.
           </p>
           <p>
-            <button onClick={this.start}>Show</button>
+            <button type="button" onClick={this.start}>
+              Show
+            </button>
           </p>
 
           <SpotlightTransition>

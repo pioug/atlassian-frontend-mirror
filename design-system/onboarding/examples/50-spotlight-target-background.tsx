@@ -95,7 +95,9 @@ export default class SpotlightTargetBackgroundExample extends Component<
             which is lost when the blanket is applied. Pass any color value to{' '}
             <Code>targetBgColor</Code> to fix this.
           </p>
-          <button onClick={this.start}>Start</button>
+          <button type="button" onClick={this.start}>
+            Start
+          </button>
 
           {this.renderActiveSpotlight()}
         </SpotlightManager>

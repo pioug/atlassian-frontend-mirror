@@ -7,7 +7,7 @@ const SpotlightCardActionsExample = () => {
     <SpotlightCard
       actions={[
         { text: 'Next', onClick: () => {} },
-        { text: 'Close', onClick: () => {}, appearance: 'subtle' },
+        { text: 'Dismiss', onClick: () => {}, appearance: 'subtle' },
       ]}
     >
       Quickly switch between your most recent projects by selecting the project

@@ -86,7 +86,9 @@ export default class SpotlightTargetReplacementExample extends Component<
         </p>
 
         <p>
-          <button onClick={this.show}>Show</button>
+          <button type="button" onClick={this.show}>
+            Show
+          </button>
         </p>
 
         <SpotlightTransition>

@@ -16,7 +16,9 @@ window.requestAnimationFrame = (cb) => {
 };
 
 describe('<CustomItem />', () => {
-  const Component = (props: CustomItemComponentProps) => <button {...props} />;
+  const Component = (props: CustomItemComponentProps) => (
+    <button type="button" {...props} />
+  );
 
   it('should callback on click', () => {
     const callback = jest.fn();

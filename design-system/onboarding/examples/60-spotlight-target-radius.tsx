@@ -100,7 +100,9 @@ export default class SpotlightTargetRadiusExample extends Component<{}, State> {
           element.
         </p>
 
-        <button onClick={this.start}>Start</button>
+        <button type="button" onClick={this.start}>
+          Start
+        </button>
 
         {this.renderActiveSpotlight()}
       </SpotlightManager>

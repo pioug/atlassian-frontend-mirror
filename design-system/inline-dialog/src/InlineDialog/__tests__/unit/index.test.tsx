@@ -204,6 +204,7 @@ describe('inline-dialog', () => {
             <div id="children" />
           </InlineDialog>
           <button
+            type="button"
             onClick={defaultPreventedEvent}
             data-testid="outside-inline-dialog"
           />

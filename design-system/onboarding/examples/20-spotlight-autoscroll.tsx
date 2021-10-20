@@ -47,7 +47,9 @@ export default class SpotlightAutoscrollExample extends Component<{}, State> {
           </p>
           <p>Scroll down to see the target element.</p>
           <p style={{ marginBottom: '1em' }}>
-            <button onClick={this.highlightOne}>Show</button>
+            <button type="button" onClick={this.highlightOne}>
+              Show
+            </button>
           </p>
 
           {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((i) => (
@@ -81,7 +83,9 @@ export default class SpotlightAutoscrollExample extends Component<{}, State> {
           </HighlightGroup>
 
           <p style={{ marginBottom: '1em' }}>
-            <button onClick={this.highlightTwo}>Show</button>
+            <button type="button" onClick={this.highlightTwo}>
+              Show
+            </button>
           </p>
 
           <SpotlightTransition>

@@ -3,8 +3,8 @@
 import React from 'react';
 import { HTMLAttributes, ComponentClass, LabelHTMLAttributes } from 'react';
 import styled from 'styled-components';
-import { AkFieldRadioGroup as RadioGroup } from '@atlaskit/field-radio-group';
-import Slider from '@atlaskit/field-range';
+import { RadioGroup } from '@atlaskit/radio';
+import Range from '@atlaskit/range';
 import Button from '@atlaskit/button/standard-button';
 import { Card } from '@atlaskit/media-card';
 import {
@@ -176,7 +176,7 @@ export class ViewStory extends React.Component<ViewStoryProps, ViewStoryState> {
             </Button>
           </Box>
           <Box grow={1}>
-            <Slider
+            <Range
               step={1}
               min={minOffset}
               max={maxOffset}
@@ -194,25 +194,23 @@ export class ViewStory extends React.Component<ViewStoryProps, ViewStoryState> {
           </Box>
         </Flex>
 
+        <ControlLabel>Width: </ControlLabel>
         <RadioGroup
-          label="Width"
-          items={[
+          options={[
             {
               value: 'auto',
               label: 'Auto',
-              isSelected: containerWidth === 'auto',
             },
             {
               value: 'number',
               label: 'Number',
-              isSelected: containerWidth !== 'auto',
             },
           ]}
-          onRadioChange={this.handleChangeWidthType}
+          onChange={this.handleChangeWidthType}
         />
         {containerWidth !== 'auto' && (
-          <Slider
-            value={containerWidth}
+          <Range
+            value={containerWidth as number}
             min={0}
             max={1000}
             step={1}
@@ -221,7 +219,7 @@ export class ViewStory extends React.Component<ViewStoryProps, ViewStoryState> {
         )}
 
         <ControlLabel htmlFor="cardCount">Card count: </ControlLabel>
-        <Slider
+        <Range
           id="cardCount"
           value={children.length}
           min={0}

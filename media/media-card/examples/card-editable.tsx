@@ -5,7 +5,7 @@ import {
   genericFileId,
 } from '@atlaskit/media-test-helpers';
 import Toggle from '@atlaskit/toggle';
-import Slider from '@atlaskit/field-range';
+import Range from '@atlaskit/range';
 import { Identifier } from '@atlaskit/media-client';
 import { Card, CardDimensions } from '../src';
 import { CardDimensionsWrapper } from '../example-helpers/styled';
@@ -120,8 +120,8 @@ class EditableCard extends Component<{}, EditableCardState> {
                   defaultChecked={isWidthPercentage}
                   onChange={this.onWidthPercentageChange}
                 />
-                <Slider
-                  value={width}
+                <Range
+                  value={Number(width)}
                   min={10}
                   max={isWidthPercentage ? 100 : maxWidth}
                   onChange={this.onWidthChange}
@@ -133,8 +133,8 @@ class EditableCard extends Component<{}, EditableCardState> {
                   defaultChecked={isHeightPercentage}
                   onChange={this.onHeightPercentageChange}
                 />
-                <Slider
-                  value={height}
+                <Range
+                  value={Number(height)}
                   min={10}
                   max={isHeightPercentage ? 100 : maxHeight}
                   onChange={this.onHeightChange}
@@ -142,8 +142,8 @@ class EditableCard extends Component<{}, EditableCardState> {
               </div>
               <div>
                 Parent Width ({parentWidth}px)
-                <Slider
-                  value={parentWidth}
+                <Range
+                  value={Number(parentWidth)}
                   min={0}
                   max={maxWidth}
                   onChange={this.onParentWidthChange}
@@ -151,8 +151,8 @@ class EditableCard extends Component<{}, EditableCardState> {
               </div>
               <div>
                 Parent Height ({parentHeight}px)
-                <Slider
-                  value={parentHeight}
+                <Range
+                  value={Number(parentHeight)}
                   min={50}
                   max={maxHeight}
                   onChange={this.onParentHeightChange}

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Component } from 'react';
-import FieldRadioGroup from '@atlaskit/field-radio-group';
+import { RadioGroup } from '@atlaskit/radio';
 import {
   videoFileDetails,
   imageFileDetails,
@@ -17,7 +17,7 @@ import {
 } from '@atlaskit/media-test-helpers';
 import { ImageResizeMode } from '@atlaskit/media-client';
 import Toggle from '@atlaskit/toggle';
-import Slider from '@atlaskit/field-range';
+import Range from '@atlaskit/range';
 import * as exenv from 'exenv';
 import { CardView } from '../src/root/cardView';
 import { CardAppearance, CardStatus, CardDimensions, CardAction } from '../src';
@@ -266,7 +266,7 @@ export const generateStoriesForEditableCards = () => {
                       defaultChecked={isWidthPercentage}
                       onChange={this.onWidthPercentageChange}
                     />
-                    <Slider
+                    <Range
                       value={Number(width)}
                       min={0}
                       max={500}
@@ -279,7 +279,7 @@ export const generateStoriesForEditableCards = () => {
                       defaultChecked={isHeightPercentage}
                       onChange={this.onHeightPercentageChange}
                     />
-                    <Slider
+                    <Range
                       value={Number(height)}
                       min={0}
                       max={500}
@@ -299,7 +299,7 @@ export const generateStoriesForEditableCards = () => {
                   {doesParentHasWidth ? (
                     <div>
                       Width ({parentWidth})
-                      <Slider
+                      <Range
                         value={Number(parentWidth)}
                         min={50}
                         max={1000}
@@ -309,7 +309,7 @@ export const generateStoriesForEditableCards = () => {
                   ) : null}
                   <div>
                     Height ({parentHeight})
-                    <Slider
+                    <Range
                       value={Number(parentHeight)}
                       min={50}
                       max={1000}
@@ -326,7 +326,7 @@ export const generateStoriesForEditableCards = () => {
                 </div>
                 <div>
                   Progress ({progress})
-                  <Slider
+                  <Range
                     value={Number(progress)}
                     min={0}
                     max={1}
@@ -394,40 +394,53 @@ export const generateStoriesForEditableCards = () => {
                 </div>
               </SliderWrapper>
               <OptionsWrapper>
-                <FieldRadioGroup
-                  label="Appearance"
-                  items={getOptionsWithDefaultValue(
-                    appearanceOptions,
-                    appearance,
-                  )}
-                  onRadioChange={this.onAppearanceChange}
-                />
-                <FieldRadioGroup
-                  label="Metadata"
-                  items={getOptionsWithDefaultValue(
-                    metadataOptions,
-                    metadataKey,
-                  )}
-                  onRadioChange={this.onMetadataChange}
-                />
-                <FieldRadioGroup
-                  label="URI"
-                  items={getOptionsWithDefaultValue(dataURIOptions, dataURI)}
-                  onRadioChange={this.onDataURIChange}
-                />
-                <FieldRadioGroup
-                  label="Status"
-                  items={getOptionsWithDefaultValue(statusOptions, status)}
-                  onRadioChange={this.onStatusChange}
-                />
-                <FieldRadioGroup
-                  label="Resize mode"
-                  items={getOptionsWithDefaultValue(
-                    resizeModeOptions,
-                    resizeMode,
-                  )}
-                  onRadioChange={this.onResizeModeChange}
-                />
+                <div>
+                  Appearance
+                  <RadioGroup
+                    options={getOptionsWithDefaultValue(
+                      appearanceOptions,
+                      appearance,
+                    )}
+                    onChange={this.onAppearanceChange}
+                  />
+                </div>
+                <div>
+                  Metadata
+                  <RadioGroup
+                    options={getOptionsWithDefaultValue(
+                      metadataOptions,
+                      metadataKey,
+                    )}
+                    onChange={this.onMetadataChange}
+                  />
+                </div>
+                <div>
+                  URI
+                  <RadioGroup
+                    options={getOptionsWithDefaultValue(
+                      dataURIOptions,
+                      dataURI,
+                    )}
+                    onChange={this.onDataURIChange}
+                  />
+                </div>
+                <div>
+                  Status
+                  <RadioGroup
+                    options={getOptionsWithDefaultValue(statusOptions, status)}
+                    onChange={this.onStatusChange}
+                  />
+                </div>
+                <div>
+                  Reize mode
+                  <RadioGroup
+                    options={getOptionsWithDefaultValue(
+                      resizeModeOptions,
+                      resizeMode,
+                    )}
+                    onChange={this.onResizeModeChange}
+                  />
+                </div>
               </OptionsWrapper>
             </EditableCardOptions>
           </FlexWrapper>

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import dateformat from 'dateformat';
 import { MediaType } from '@atlaskit/media-client';
 import { ExampleWrapper, ROW_HIGHLIGHT_CLASSNAME } from './styled';
-import FieldRange from '@atlaskit/field-range';
+import Range from '@atlaskit/range';
 import { toHumanReadableMediaSize } from '@atlaskit/media-ui';
 import {
   largeImageFileId,
@@ -29,13 +29,7 @@ export const RenderMediaTableWithFieldRange = (
     <ExampleWrapper>
       <div>
         Parent width: {width}px
-        <FieldRange
-          value={width}
-          min={0}
-          max={1500}
-          step={5}
-          onChange={setWidth}
-        />
+        <Range value={width} min={0} max={1500} step={5} onChange={setWidth} />
       </div>
       <div style={{ width: `${width}px` }}>{MediaTableNode}</div>
     </ExampleWrapper>

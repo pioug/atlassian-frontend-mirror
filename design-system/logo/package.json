@@ -54,7 +54,6 @@
     "@atlaskit/button": "^16.1.0",
     "@atlaskit/code": "^14.1.0",
     "@atlaskit/docs": "*",
-    "@atlaskit/field-radio-group": "^8.0.0",
     "@atlaskit/section-message": "^6.1.0",
     "@atlaskit/select": "^15.0.0",
     "@atlaskit/ssr": "*",

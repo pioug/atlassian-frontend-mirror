@@ -15,7 +15,7 @@
   "sideEffects": false,
   "atlaskit:src": "src/index.ts",
   "atlassian": {
-    "team": "Editor Media",
+    "team": "Linking Platform",
     "deprecatedAutoEntryPoints": true,
     "releaseModel": "scheduled"
   },

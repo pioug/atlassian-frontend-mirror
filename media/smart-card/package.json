@@ -21,7 +21,7 @@
     ".": "./src/index.ts"
   },
   "atlassian": {
-    "team": "Editor Media",
+    "team": "Linking Platform",
     "releaseModel": "scheduled",
     "website": {
       "name": "Smart Card"

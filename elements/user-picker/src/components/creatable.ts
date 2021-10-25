@@ -40,13 +40,18 @@ const isOptionDisabled = (
   return false;
 };
 
-export const getCreatableProps = memoizeOne(
-  (isValidEmail?: EmailValidator) => ({
+function creatableProps(isValidEmail?: EmailValidator) {
+  return {
     allowCreateWhileLoading: true,
     createOptionPosition: 'first',
     isValidNewOption: isValidNewOption(isValidEmail),
     getNewOptionData,
     formatCreateLabel,
     isOptionDisabled: isOptionDisabled(isValidEmail),
-  }),
+  };
+}
+
+// ignoring the 'clear' memoizeOne function object property
+export const getCreatableProps: typeof creatableProps = memoizeOne(
+  creatableProps,
 );

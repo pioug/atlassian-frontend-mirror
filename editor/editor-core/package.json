@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-core",
-  "version": "150.0.1",
+  "version": "150.0.2",
   "description": "A package contains Atlassian editor core functionality",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -103,7 +103,7 @@
     "linkify-it": "^2.0.3",
     "lodash": "^4.17.15",
     "markdown-it": "^10.0.0",
-    "memoize-one": "^5.1.0",
+    "memoize-one": "^6.0.0",
     "prop-types": "^15.5.10",
     "prosemirror-collab": "^1.2.2",
     "prosemirror-commands": "^1.1.4",

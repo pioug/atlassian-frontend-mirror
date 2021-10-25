@@ -85,9 +85,7 @@ export interface OptionToSelectableOptions {
   (defaultValue?: DefaultValue): Option | Option[] | null | undefined;
 }
 
-export const optionToSelectableOptions: OptionToSelectableOptions = memoizeOne<
-  OptionToSelectableOptions
->(((defaultValue: Value) => {
+export const optionToSelectableOptions = memoizeOne((defaultValue: Value) => {
   if (!defaultValue) {
     return null;
   }
@@ -95,7 +93,7 @@ export const optionToSelectableOptions: OptionToSelectableOptions = memoizeOne<
     return defaultValue.map(optionToSelectableOption);
   }
   return optionToSelectableOption(defaultValue);
-}) as OptionToSelectableOptions);
+}) as OptionToSelectableOptions;
 
 export const getAvatarSize = (
   appearance: string,

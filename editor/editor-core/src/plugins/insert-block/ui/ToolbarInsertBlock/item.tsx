@@ -49,8 +49,8 @@ export interface CreateInit {
   tooltipDescription?: string;
 }
 
-const mem = <T extends Function>(fn: T): T =>
-  memoizeOne(fn as any, shallowEquals);
+const mem = <TFunc extends (...args: any[]) => any>(fn: TFunc): TFunc =>
+  memoizeOne(fn, shallowEquals) as any;
 
 export const action = mem((init: CreateInit) => {
   return from({

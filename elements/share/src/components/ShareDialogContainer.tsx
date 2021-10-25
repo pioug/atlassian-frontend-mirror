@@ -371,7 +371,9 @@ export class ShareDialogContainerInternal extends React.Component<
     },
   );
 
-  getUpToDateShortenedCopyLink = memoizeOne((data: ShortenRequest): Promise<
+  getUpToDateShortenedCopyLink: (
+    data: ShortenRequest,
+  ) => Promise<string | null> = memoizeOne((data: ShortenRequest): Promise<
     string | null
   > => {
     this._lastUrlShorteningWasTooSlow = false;

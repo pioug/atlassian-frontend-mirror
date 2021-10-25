@@ -207,7 +207,7 @@ export async function hoverOnHeadingWithLinkThenSnapshot(
       // Leaving this here in case someone else can figure it out.
       //
       // Ideally this could be set globally so all tests can benefit
-      // without boilerplate: `build/visual-regression/config/jest/globalSetup.js`
+      // without boilerplate: `build/test-utils/visual-regression/config/jest/globalSetup.js`
 
       beforeAll(async () => {
         const ctx = global.page.browser().defaultBrowserContext();

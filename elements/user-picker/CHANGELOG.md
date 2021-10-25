@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 7.16.4
+
+### Patch Changes
+
+- [`b85e7ce12cd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b85e7ce12cd) - Internal upgrade of memoize-one to 6.0.0
+
 ## 7.16.3
 
 ### Patch Changes

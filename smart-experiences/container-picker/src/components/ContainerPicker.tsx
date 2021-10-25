@@ -50,9 +50,7 @@ const optionToSelectableOption = (
   value: option,
 });
 
-const optionToSelectableOptions: OptionToSelectableOptions = memoizeOne<
-  OptionToSelectableOptions
->(((defaultValue: Value) => {
+const optionToSelectableOptions = memoizeOne((defaultValue: Value) => {
   if (!defaultValue) {
     return null;
   }
@@ -60,7 +58,7 @@ const optionToSelectableOptions: OptionToSelectableOptions = memoizeOne<
     return defaultValue.map(optionToSelectableOption);
   }
   return optionToSelectableOption(defaultValue);
-}) as OptionToSelectableOptions);
+}) as OptionToSelectableOptions;
 
 export class ContainerPickerWithoutAnalytics extends React.Component<
   Props,

@@ -1,5 +1,11 @@
 # @atlaskit/pagination
 
+## 14.1.2
+
+### Patch Changes
+
+- [`b85e7ce12cd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b85e7ce12cd) - Internal upgrade of memoize-one to 6.0.0
+
 ## 14.1.1
 
 ### Patch Changes

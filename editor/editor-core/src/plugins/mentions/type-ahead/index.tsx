@@ -251,6 +251,8 @@ export const createTypeAheadConfig = ({
 }: Props) => {
   let sessionId = uuid();
   let firstQueryWithoutResults: string | null = null;
+  const subscriptionKeys = new Set<string>();
+
   const typeAhead: TypeAheadHandler = {
     id: TypeAheadAvailableNodes.MENTION,
     trigger: '@',
@@ -292,10 +294,15 @@ export const createTypeAheadConfig = ({
         const key = `loadingMentionsForTypeAhead_${uuid()}`;
         const mentionsSubscribeCallback = (
           mentions: MentionDescription[],
-          query: string = '',
+          resultQuery: string = '',
           stats?: MentionStats,
         ) => {
+          if (query !== resultQuery) {
+            return;
+          }
+
           mentionProvider.unsubscribe(key);
+          subscriptionKeys.delete(key);
           const mentionItems = mentions.map((mention) =>
             memoizedToItem.call(mention),
           );
@@ -346,6 +353,7 @@ export const createTypeAheadConfig = ({
           }
         };
 
+        subscriptionKeys.add(key);
         mentionProvider.subscribe(key, mentionsSubscribeCallback);
         mentionProvider.filter(query || '', {
           ...contextIdentifierProvider,
@@ -353,7 +361,7 @@ export const createTypeAheadConfig = ({
         });
       });
     },
-    onOpen: (editorState: EditorState) => {
+    onOpen: () => {
       firstQueryWithoutResults = null;
     },
     selectItem(state, item, insert, { mode, stats, query, sourceListItem }) {
@@ -457,7 +465,7 @@ export const createTypeAheadConfig = ({
 
       return insert(Fragment.from([mentionNode, space]));
     },
-    dismiss({ query, stats }) {
+    dismiss({ editorState, query, stats }) {
       firstQueryWithoutResults = null;
       const pickerElapsedTime = stats.startedAt
         ? Date.now() - stats.startedAt
@@ -472,6 +480,17 @@ export const createTypeAheadConfig = ({
           query || '',
         ),
       );
+
+      const pluginState = getMentionPluginState(editorState);
+
+      if (pluginState?.mentionProvider) {
+        const mentionProvider = pluginState.mentionProvider;
+
+        for (let key of subscriptionKeys) {
+          mentionProvider.unsubscribe(key);
+        }
+      }
+      subscriptionKeys.clear();
 
       sessionId = uuid();
     },

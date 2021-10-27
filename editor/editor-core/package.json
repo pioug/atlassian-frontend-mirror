@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-core",
-  "version": "150.0.2",
+  "version": "150.0.3",
   "description": "A package contains Atlassian editor core functionality",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

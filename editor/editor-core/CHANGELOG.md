@@ -1,5 +1,11 @@
 # @atlaskit/editor-core
 
+## 150.0.3
+
+### Patch Changes
+
+- [`b52e6fa288b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b52e6fa288b) - [HOT-97127] Fix mentions getItems comunication to avoid wrong results
+
 ## 150.0.2
 
 ### Patch Changes

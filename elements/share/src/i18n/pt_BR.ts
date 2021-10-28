@@ -6,8 +6,6 @@
  */
 // Portuguese (Brazil)
 export default {
-  'fabric.elements.share.admin.notified.message':
-    'Seu administrador foi notificado',
   'fabric.elements.share.copied.to.clipboard.icon.label':
     'Ícone de sucesso da cópia de link',
   'fabric.elements.share.copied.to.clipboard.message':
@@ -18,21 +16,15 @@ export default {
   'fabric.elements.share.failure.icon.label': 'Ícone de erro',
   'fabric.elements.share.failure.message': 'Não foi possível compartilhar',
   'fabric.elements.share.form.comment.placeholder': 'Adicione uma mensagem',
-  'fabric.elements.share.form.info.message.direct.invite':
-    'Pessoas que não têm acesso vão receber um convite para participar',
   'fabric.elements.share.form.info.message.no.invite.confluence':
     'Os destinatários vão ver o nome da página e sua mensagem',
   'fabric.elements.share.form.info.message.no.invite.jira':
     'Os destinatários vão ver o nome do item e sua mensagem',
-  'fabric.elements.share.form.info.message.pending.invite':
-    'Seu convite será enviado para a aprovação de um administrador',
   'fabric.elements.share.form.public.send': 'Enviar link público',
   'fabric.elements.share.form.retry': 'Tentar novamente',
   'fabric.elements.share.form.send': 'Enviar',
   'fabric.elements.share.form.title': 'Compartilhar',
   'fabric.elements.share.form.user-picker.add-more': 'Insira mais itens',
-  'fabric.elements.share.form.user-picker.no-options.domainBasedUserOnly':
-    'Você só pode convidar pessoas com endereços de e-mail {domains}. Entre em contato com o administrador do site para convidar outras pessoas.',
   'fabric.elements.share.form.user-picker.no-options.existingUserOnly':
     'Não encontramos nenhum resultado para "{inputValue}".',
   'fabric.elements.share.form.user-picker.no-options.generic':

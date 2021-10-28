@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/profilecard",
-  "version": "15.7.1",
+  "version": "15.8.0",
   "description": "A React component to display a card with user information.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -48,6 +48,7 @@
     "@atlaskit/popup": "^1.1.0",
     "@atlaskit/spinner": "^15.0.0",
     "@atlaskit/theme": "^12.0.0",
+    "@atlaskit/tokens": "^0.2.0",
     "@babel/runtime": "^7.0.0",
     "date-fns": "^2.17.0",
     "lodash": "^4.17.15",
@@ -83,6 +84,9 @@
   "techstack": {
     "@atlassian/frontend": {
       "import-structure": "atlassian-conventions"
+    },
+    "@repo/internal": {
+      "theming": "tokens"
     }
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"

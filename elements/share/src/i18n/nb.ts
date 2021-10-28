@@ -6,8 +6,6 @@
  */
 // Norwegian Bokmål
 export default {
-  'fabric.elements.share.admin.notified.message':
-    'Administratoren din har blitt varslet',
   'fabric.elements.share.copied.to.clipboard.icon.label':
     'Kopiert kobling-ikon',
   'fabric.elements.share.copied.to.clipboard.message':
@@ -19,22 +17,16 @@ export default {
   'fabric.elements.share.failure.icon.label': 'Feil-ikon',
   'fabric.elements.share.failure.message': 'Kan ikke deles',
   'fabric.elements.share.form.comment.placeholder': 'Legg til en melding',
-  'fabric.elements.share.form.info.message.direct.invite':
-    'De som ikke har tilgang vil motta en invitasjon til å bli med',
   'fabric.elements.share.form.info.message.no.invite.confluence':
     'Mottakerne vil se navnet på siden og meldingen',
   'fabric.elements.share.form.info.message.no.invite.jira':
     'Mottakerne vil se navnet på saken og meldingen',
-  'fabric.elements.share.form.info.message.pending.invite':
-    'Invitasjonen vil bli sendt til en administrator for godkjenning',
   'fabric.elements.share.form.public.send':
     'Send offentlig tilgjengelig kobling',
   'fabric.elements.share.form.retry': 'Prøv igjen',
   'fabric.elements.share.form.send': 'Send',
   'fabric.elements.share.form.title': 'Del',
   'fabric.elements.share.form.user-picker.add-more': 'Legg til mer',
-  'fabric.elements.share.form.user-picker.no-options.domainBasedUserOnly':
-    'Du kan bare invitere folk med e-postadresser som tilhører {domains}. Ta kontakt med sideadministratoren for å invitere andre.',
   'fabric.elements.share.form.user-picker.no-options.existingUserOnly':
     'Vi kunne ikke finne noen resultater for "{inputValue}".',
   'fabric.elements.share.form.user-picker.no-options.generic':

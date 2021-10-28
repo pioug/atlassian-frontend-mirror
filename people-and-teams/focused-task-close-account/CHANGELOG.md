@@ -1,5 +1,11 @@
 # @atlaskit/focused-task-close-account
 
+## 0.15.0
+
+### Minor Changes
+
+- [`d4bcdb647a7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d4bcdb647a7) - fixed rendering on mobile screens.
+
 ## 0.14.5
 
 ### Patch Changes

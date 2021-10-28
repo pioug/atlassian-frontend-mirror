@@ -6,8 +6,6 @@
  */
 // Spanish
 export default {
-  'fabric.elements.share.admin.notified.message':
-    'Se ha notificado a tu administrador',
   'fabric.elements.share.copied.to.clipboard.icon.label':
     'Icono de enlace copiado correctamente',
   'fabric.elements.share.copied.to.clipboard.message':
@@ -18,21 +16,15 @@ export default {
   'fabric.elements.share.failure.icon.label': 'Icono de error',
   'fabric.elements.share.failure.message': 'No se puede compartir',
   'fabric.elements.share.form.comment.placeholder': 'Añade un mensaje',
-  'fabric.elements.share.form.info.message.direct.invite':
-    'Se enviará una invitación a unirse a los usuarios sin acceso',
   'fabric.elements.share.form.info.message.no.invite.confluence':
     'Los destinatarios verán el nombre de la página y tu mensaje',
   'fabric.elements.share.form.info.message.no.invite.jira':
     'Los destinatarios verán el nombre de la incidencia y tu mensaje',
-  'fabric.elements.share.form.info.message.pending.invite':
-    'Se enviará tu invitación a un administrador para que la apruebe',
   'fabric.elements.share.form.public.send': 'Enviar enlace público',
   'fabric.elements.share.form.retry': 'Reintentar',
   'fabric.elements.share.form.send': 'Enviar',
   'fabric.elements.share.form.title': 'Compartir',
   'fabric.elements.share.form.user-picker.add-more': 'Introduce más cosas',
-  'fabric.elements.share.form.user-picker.no-options.domainBasedUserOnly':
-    'Solo puedes invitar a personas con direcciones de correo electrónico de {domains}. Ponte en contacto con el administrador del sitio para invitar a otras personas.',
   'fabric.elements.share.form.user-picker.no-options.existingUserOnly':
     'No hemos encontrado ningún resultado para "{inputValue}".',
   'fabric.elements.share.form.user-picker.no-options.generic':

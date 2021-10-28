@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components';
 import { N20, N200 } from '@atlaskit/theme/colors';
 import { borderRadius, gridSize } from '@atlaskit/theme/constants';
 import { h600 } from '@atlaskit/theme/typography';
+import { token } from '@atlaskit/tokens';
 
 import { bgColor, teamHeaderBgColor } from '../styled/constants';
 
@@ -20,7 +21,7 @@ export const CardWrapper = styled.div`
 `;
 
 const loadingImage = css`
-  background-color: ${N20};
+  background-color: ${token('color.background.subtleNeutral.resting', N20)};
 `;
 
 const defaultImage = css`
@@ -67,7 +68,7 @@ export const TeamName = styled.h6`
 `;
 
 export const MemberCount = styled.div`
-  color: ${N200};
+  color: ${token('color.text.lowEmphasis', N200)};
   margin-top: ${gridSize() * 0.5}px;
 `;
 
@@ -95,7 +96,10 @@ export const ActionButtons = styled.div`
   display: flex;
   justify-content: space-between;
   margin: ${gridSize() * 3}px -${gridSize() * 3}px 0 -${gridSize()}px;
-  background-color: hsla(0, 100%, 100%, 0.2);
+  background-color: ${token(
+    'color.background.overlay',
+    'hsla(0, 100%, 100%, 0.2)',
+  )};
 `;
 
 export const WrappedButton = styled.div`

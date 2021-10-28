@@ -1,5 +1,14 @@
 # @atlaskit/profilecard
 
+## 15.8.0
+
+### Minor Changes
+
+- [`1b9bc1e4b9a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1b9bc1e4b9a) - [ux] Instrumented profilecard with the new theming package, `@atlaskit/tokens`.
+
+  New tokens will be visible only in applications configured to use the new Tokens API (currently in alpha).
+  These changes are intended to be interoperable with the legacy theme implementation. Legacy dark mode users should expect no visual or breaking changes.
+
 ## 15.7.1
 
 ### Patch Changes

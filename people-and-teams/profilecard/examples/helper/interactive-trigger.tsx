@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import { token } from '@atlaskit/tokens';
+
 import { ProfileCardTrigger } from '../../src';
 import { ProfilecardTriggerPosition, ProfileClient } from '../../src/types';
 
@@ -23,8 +25,8 @@ const triggerStyles: React.CSSProperties = {
   width: '48px',
   height: '48px',
   borderRadius: '48px',
-  background: '#FF5630',
-  color: '#fff',
+  background: token('color.accent.boldRed', '#FF5630'),
+  color: token('color.text.onBold', '#fff'),
   fontSize: '16px',
   alignItems: 'center',
   justifyContent: 'center',

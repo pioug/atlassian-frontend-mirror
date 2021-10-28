@@ -6,8 +6,6 @@
  */
 // Ukrainian
 export default {
-  'fabric.elements.share.admin.notified.message':
-    'Вашому адміністратору надіслано сповіщення',
   'fabric.elements.share.copied.to.clipboard.icon.label':
     'Піктограма вдалого копіювання посилання',
   'fabric.elements.share.copied.to.clipboard.message':
@@ -20,10 +18,10 @@ export default {
   'fabric.elements.share.failure.icon.label': 'Піктограма помилки',
   'fabric.elements.share.failure.message': 'Помилка надсилання',
   'fabric.elements.share.form.comment.placeholder': 'Додайте коментар',
-  'fabric.elements.share.form.info.message.direct.invite':
-    'Користувачі без доступу отримають запрошення приєднатися',
-  'fabric.elements.share.form.info.message.pending.invite':
-    'Ваше запрошення буде надіслано адміністратору для схвалення',
+  'fabric.elements.share.form.info.message.no.invite.confluence':
+    'Отримувачі побачать назву сторінки та ваше повідомлення',
+  'fabric.elements.share.form.info.message.no.invite.jira':
+    'Отримувачі побачать назву проблеми та ваше повідомлення',
   'fabric.elements.share.form.public.send':
     'Надіслати загальнодоступне посилання',
   'fabric.elements.share.form.retry': 'Повторити спробу',
@@ -31,8 +29,6 @@ export default {
   'fabric.elements.share.form.title': 'Поділитися',
   'fabric.elements.share.form.user-picker.add-more':
     'Додайте більше відомостей',
-  'fabric.elements.share.form.user-picker.no-options.domainBasedUserOnly':
-    'Ви можете запрошувати тільки людей з електронними адресами в домені {domains}. Зверніться до адміністратора сайту, щоб запросити інших людей.',
   'fabric.elements.share.form.user-picker.no-options.existingUserOnly':
     'Не знайдено жодних результатів за запитом «{inputValue}».',
   'fabric.elements.share.form.user-picker.no-options.generic':

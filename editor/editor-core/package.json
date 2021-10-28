@@ -153,7 +153,7 @@
     "@atlaskit/media-test-helpers": "^28.8.0",
     "@atlaskit/menu": "^1.1.0",
     "@atlaskit/page-layout": "^1.0.1",
-    "@atlaskit/profilecard": "^15.0.0",
+    "@atlaskit/profilecard": "^15.8.0",
     "@atlaskit/pubsub": "^6.0.0",
     "@atlaskit/renderer": "^81.1.0",
     "@atlaskit/section-message": "^6.1.0",

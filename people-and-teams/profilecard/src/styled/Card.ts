@@ -5,12 +5,12 @@ import {
   fontSizeSmall,
   gridSize,
 } from '@atlaskit/theme/constants';
-import { e200 } from '@atlaskit/theme/elevation';
 
 import {
   appLabelBgColor,
   appLabelTextColor,
   bgColor,
+  boxShadow,
   headerBgColor,
   headerBgColorDisabledUser,
   headerTextColor,
@@ -174,7 +174,7 @@ export const CardContainer = styled.div`
     }
 
     return css`
-      ${e200}
+      box-shadow: ${boxShadow};
       border-radius: ${borderRadius}px;
     `;
   }}

@@ -6,8 +6,6 @@
  */
 // Czech
 export default {
-  'fabric.elements.share.admin.notified.message':
-    'Váš administrátor byl upozorněn',
   'fabric.elements.share.copied.to.clipboard.icon.label':
     'Ikona úspěšného zkopírování propojení',
   'fabric.elements.share.copied.to.clipboard.message':
@@ -19,21 +17,15 @@ export default {
   'fabric.elements.share.failure.icon.label': 'Ikona chyby',
   'fabric.elements.share.failure.message': 'Nelze sdílet',
   'fabric.elements.share.form.comment.placeholder': 'Přidat zprávu',
-  'fabric.elements.share.form.info.message.direct.invite':
-    'Lidem, kteří nemají přístup, bude poslána pozvánka',
   'fabric.elements.share.form.info.message.no.invite.confluence':
     'Příjemci uvidí název stránky a vaši zprávu.',
   'fabric.elements.share.form.info.message.no.invite.jira':
     'Příjemci uvidí název požadavku a vaši zprávu.',
-  'fabric.elements.share.form.info.message.pending.invite':
-    'Svou pozvánku musíte poslat administrátorovi ke schválení',
   'fabric.elements.share.form.public.send': 'Odeslat veřejný odkaz',
   'fabric.elements.share.form.retry': 'Zkusit znovu',
   'fabric.elements.share.form.send': 'Odeslat',
   'fabric.elements.share.form.title': 'Sdílet',
   'fabric.elements.share.form.user-picker.add-more': 'Zadejte více',
-  'fabric.elements.share.form.user-picker.no-options.domainBasedUserOnly':
-    'Můžete pozvat pouze lidi s e-mailem v doméně {domains}. Chcete-li pozvat jiné lidi, obraťte se na svého administrátora.',
   'fabric.elements.share.form.user-picker.no-options.existingUserOnly':
     'Pro „{inputValue}“ se nepodařilo najít žádné výsledky.',
   'fabric.elements.share.form.user-picker.no-options.generic':

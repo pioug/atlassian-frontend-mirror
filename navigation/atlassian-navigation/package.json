@@ -72,7 +72,7 @@
         "analytics-next"
       ],
       "theming": [
-        "new-theming-api"
+        "react-context"
       ],
       "deprecation": [
         "no-deprecated-imports"

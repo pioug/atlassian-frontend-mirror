@@ -61,7 +61,7 @@
       "styling": "emotion",
       "ui-components": "lite-mode",
       "analytics": "analytics-next",
-      "theming": "new-theming-api",
+      "theming": "react-context",
       "deprecation": "no-deprecated-imports"
     }
   },

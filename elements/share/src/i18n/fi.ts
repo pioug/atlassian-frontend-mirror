@@ -6,8 +6,6 @@
  */
 // Finnish
 export default {
-  'fabric.elements.share.admin.notified.message':
-    'Ylläpitäjällesi on ilmoitettu asiasta',
   'fabric.elements.share.copied.to.clipboard.icon.label':
     'Kopioi linkin onnistumisen kuvake',
   'fabric.elements.share.copied.to.clipboard.message':
@@ -18,17 +16,15 @@ export default {
   'fabric.elements.share.failure.icon.label': 'Virhekuvake',
   'fabric.elements.share.failure.message': 'Ei voitu jakaa',
   'fabric.elements.share.form.comment.placeholder': 'Lisää viesti',
-  'fabric.elements.share.form.info.message.direct.invite':
-    'Henkilöille, joilla ei ole käyttöoikeutta, lähetetään liittymiskutsu',
-  'fabric.elements.share.form.info.message.pending.invite':
-    'Kutsusi lähetetään ylläpitäjälle hyväksyttäväksi',
+  'fabric.elements.share.form.info.message.no.invite.confluence':
+    'Vastaanottajat näkevät sivun nimen ja viestisi',
+  'fabric.elements.share.form.info.message.no.invite.jira':
+    'Vastaanottajat näkevät asian nimen ja viestisi',
   'fabric.elements.share.form.public.send': 'Lähetä julkinen linkki',
   'fabric.elements.share.form.retry': 'Yritä uudelleen',
   'fabric.elements.share.form.send': 'Lähetä',
   'fabric.elements.share.form.title': 'Jaa',
   'fabric.elements.share.form.user-picker.add-more': 'Syötä lisää',
-  'fabric.elements.share.form.user-picker.no-options.domainBasedUserOnly':
-    'Voit kutsua vain henkilöitä, joilla on verkkotunnuksen {domains} sähköpostiosoite. Ota yhteyttä sivuston ylläpitäjään, jotta voit kutsua muita henkilöitä.',
   'fabric.elements.share.form.user-picker.no-options.existingUserOnly':
     'Tuloksia ei löytynyt haulle "{inputValue}".',
   'fabric.elements.share.form.user-picker.no-options.generic':

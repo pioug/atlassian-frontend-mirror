@@ -6,8 +6,6 @@
  */
 // Japanese
 export default {
-  'fabric.elements.share.admin.notified.message':
-    '管理者に通知が送信されました',
   'fabric.elements.share.copied.to.clipboard.icon.label':
     'リンクのコピー成功アイコン',
   'fabric.elements.share.copied.to.clipboard.message':
@@ -18,21 +16,15 @@ export default {
   'fabric.elements.share.failure.icon.label': 'エラー アイコン',
   'fabric.elements.share.failure.message': '共有できません',
   'fabric.elements.share.form.comment.placeholder': 'メッセージを追加',
-  'fabric.elements.share.form.info.message.direct.invite':
-    'アクセス権限のないユーザーには参加用の招待が送信されます',
   'fabric.elements.share.form.info.message.no.invite.confluence':
     '受信者にページの名前とメッセージが表示されます',
   'fabric.elements.share.form.info.message.no.invite.jira':
     '受信者に課題の名前とメッセージが表示されます',
-  'fabric.elements.share.form.info.message.pending.invite':
-    '招待は、承認のため管理者に送信されます',
   'fabric.elements.share.form.public.send': '公開リンクを送信',
   'fabric.elements.share.form.retry': '再試行',
   'fabric.elements.share.form.send': '送信',
   'fabric.elements.share.form.title': '共有',
   'fabric.elements.share.form.user-picker.add-more': 'さらに追加',
-  'fabric.elements.share.form.user-picker.no-options.domainBasedUserOnly':
-    '{domains} のメール アドレスを使用しているユーザーのみを招待できます。その他のユーザーを招待するには、サイト管理者にお問い合わせください。',
   'fabric.elements.share.form.user-picker.no-options.existingUserOnly':
     '"{inputValue}" に一致する結果が見つかりませんでした。',
   'fabric.elements.share.form.user-picker.no-options.generic':
@@ -48,7 +40,7 @@ export default {
   'fabric.elements.share.form.user-picker.validation.required.jira':
     'ユーザー、チーム、メールを少なくとも 1 つ選択してください。',
   'fabric.elements.share.success.message':
-    '{object, select, blogpost {ブログ投稿が共有されました} board {ボードが共有されました} calendar {カレンダーが共有されました} draft {下書きが共有されました} filter {フィルターが共有されました} issue {課題が共有されました} media {メディアが共有されました} page {ページが共有されました} project {プロジェクトが共有されました} pullrequest {プルリクエストが共有されました} question {質問が共有されました} report {レポートが共有されました} repository {リポジトリが共有されました} request {リクエストが共有されました} roadmap {ロードマップが共有されました} site {サイトが共有されました} space {スペースが共有されました} other {リンクが共有されました}}',
+    '{object, select, blogpost {ブログ投稿が共有されました} board {ボードが共有されました} calendar {カレンダーが共有されました} draft {下書きが共有されました} filter {フィルターが共有されました} issue {課題が共有されました} media {メディアが共有されました} page {ページが共有されました} project {プロジェクトが共有されました} pullrequest {プル リクエストが共有されました} question {質問が共有されました} report {レポートが共有されました} repository {リポジトリが共有されました} request {リクエストが共有されました} roadmap {ロードマップが共有されました} site {サイトが共有されました} space {スペースが共有されました} other {リンクが共有されました}}',
   'fabric.elements.share.to.integration.button': '{integrationName} と共有',
   'fabric.elements.share.trigger.button.icon.label': '共有アイコン',
   'fabric.elements.share.trigger.button.invite.text': '招待',

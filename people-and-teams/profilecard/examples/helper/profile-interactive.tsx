@@ -9,6 +9,7 @@ import uid from 'uid';
 import { N0, N800 } from '@atlaskit/theme/colors';
 import { themed } from '@atlaskit/theme/components';
 import DeprecatedThemeProvider from '@atlaskit/theme/deprecated-provider-please-do-not-use';
+import { token } from '@atlaskit/tokens';
 
 import { ProfileCard } from '../../src';
 import { profiles } from '../../src/mocks';
@@ -20,7 +21,10 @@ import {
 
 const StoryWrapper = styled.div`
   label {
-    color: ${themed({ light: N800, dark: N0 })};
+    color: ${themed({
+      light: token('color.text.highEmphasis', N800),
+      dark: token('color.text.highEmphasis', N0),
+    })};
     margin-right: 10px;
     -webkit-user-select: none;
   }

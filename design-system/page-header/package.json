@@ -62,7 +62,7 @@
     "@repo/internal": {
       "analytics": "analytics-next",
       "theming": [
-        "new-theming-api",
+        "react-context",
         "tokens"
       ],
       "styling": "emotion",

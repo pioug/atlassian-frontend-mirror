@@ -6,8 +6,6 @@
  */
 // Hungarian
 export default {
-  'fabric.elements.share.admin.notified.message':
-    'Az adminisztrátorod értesítettük',
   'fabric.elements.share.copied.to.clipboard.icon.label':
     'Sikeres hivatkozási ikon másolása',
   'fabric.elements.share.copied.to.clipboard.message':
@@ -18,21 +16,15 @@ export default {
   'fabric.elements.share.failure.icon.label': 'Hiba ikon',
   'fabric.elements.share.failure.message': 'Nem lehet megosztani',
   'fabric.elements.share.form.comment.placeholder': 'Üzenet hozzáadása',
-  'fabric.elements.share.form.info.message.direct.invite':
-    'A hozzáféréssel nem rendelkező személyek csatlakozási meghívót fognak kapni',
   'fabric.elements.share.form.info.message.no.invite.confluence':
     'A címzettek látják az oldal nevét és az üzenetedet',
   'fabric.elements.share.form.info.message.no.invite.jira':
     'A címzettek látják az ügy nevét és az üzenetedet',
-  'fabric.elements.share.form.info.message.pending.invite':
-    'A meghívódat a rendszer elküldi egy adminisztrátornak jóváhagyásra',
   'fabric.elements.share.form.public.send': 'Publikus link küldése',
   'fabric.elements.share.form.retry': 'Újra',
   'fabric.elements.share.form.send': 'Küldés',
   'fabric.elements.share.form.title': 'Megosztás',
   'fabric.elements.share.form.user-picker.add-more': 'Továbbiak megadása',
-  'fabric.elements.share.form.user-picker.no-options.domainBasedUserOnly':
-    'Csak {domains} e-mail-címmel rendelkező személyeket hívhatsz meg. Egyéb személyek meghívásához fordulj a webhely-adminisztrátorodhoz.',
   'fabric.elements.share.form.user-picker.no-options.existingUserOnly':
     'Nincs találat a következő keresésre: „{inputValue}”.',
   'fabric.elements.share.form.user-picker.no-options.generic':

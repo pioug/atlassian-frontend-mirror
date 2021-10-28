@@ -6,8 +6,6 @@
  */
 // Portuguese (Portugal)
 export default {
-  'fabric.elements.share.admin.notified.message':
-    'O seu administrador foi notificado',
   'fabric.elements.share.copied.to.clipboard.icon.label':
     'Copiar ícone de sucesso da ligação',
   'fabric.elements.share.copied.to.clipboard.message':
@@ -17,16 +15,10 @@ export default {
   'fabric.elements.share.failure.icon.label': 'Ícone de erro',
   'fabric.elements.share.failure.message': 'Não é possível partilhar',
   'fabric.elements.share.form.comment.placeholder': 'Adicionar uma mensagem',
-  'fabric.elements.share.form.info.message.direct.invite':
-    'As pessoas que não tenham acesso receberão um convite para aderir',
-  'fabric.elements.share.form.info.message.pending.invite':
-    'O seu convite será enviado a um administrador para aprovação',
   'fabric.elements.share.form.retry': 'Tentar novamente',
   'fabric.elements.share.form.send': 'Enviar',
   'fabric.elements.share.form.title': 'Partilhar',
   'fabric.elements.share.form.user-picker.add-more': 'Introduza mais',
-  'fabric.elements.share.form.user-picker.no-options.domainBasedUserOnly':
-    'Só pode convidar pessoas com endereços de e-mail {domains} . Contacte o administrador do site para convidar outras pessoas.',
   'fabric.elements.share.form.user-picker.no-options.existingUserOnly':
     'Não foi possível encontrar resultados para "{inputValue}".',
   'fabric.elements.share.form.user-picker.no-options.generic':

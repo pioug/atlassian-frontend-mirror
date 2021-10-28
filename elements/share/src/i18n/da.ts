@@ -6,8 +6,6 @@
  */
 // Danish
 export default {
-  'fabric.elements.share.admin.notified.message':
-    'Din administrator har fået besked',
   'fabric.elements.share.copied.to.clipboard.icon.label':
     'Kopiér link-succesikon',
   'fabric.elements.share.copied.to.clipboard.message':
@@ -18,21 +16,15 @@ export default {
   'fabric.elements.share.failure.icon.label': 'Fejlikon',
   'fabric.elements.share.failure.message': 'Kan ikke deles',
   'fabric.elements.share.form.comment.placeholder': 'TIlføj en meddelelse',
-  'fabric.elements.share.form.info.message.direct.invite':
-    'Folk uden adgang får tilsendt en invitation til at deltage',
   'fabric.elements.share.form.info.message.no.invite.confluence':
     'Modtagere vil se navnet på siden og din besked',
   'fabric.elements.share.form.info.message.no.invite.jira':
     'Modtagere vil se navnet på sagen og din meddelelse',
-  'fabric.elements.share.form.info.message.pending.invite':
-    'Din invitation sendes til godkendelse hos en administrator',
   'fabric.elements.share.form.public.send': 'Send offentligt link',
   'fabric.elements.share.form.retry': 'Prøv igen',
   'fabric.elements.share.form.send': 'Send',
   'fabric.elements.share.form.title': 'Del',
   'fabric.elements.share.form.user-picker.add-more': 'Indtast mere',
-  'fabric.elements.share.form.user-picker.no-options.domainBasedUserOnly':
-    'Du kan kun invitere personer med {domains}-e-mailadresser. Kontakt administratoren for din side for at invitere andre personer.',
   'fabric.elements.share.form.user-picker.no-options.existingUserOnly':
     'Vi kunne ikke finde nogen resultater for "{inputValue}".',
   'fabric.elements.share.form.user-picker.no-options.generic':

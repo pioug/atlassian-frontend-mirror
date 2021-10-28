@@ -6,8 +6,6 @@
  */
 // Polish
 export default {
-  'fabric.elements.share.admin.notified.message':
-    'Administrator został powiadomiony',
   'fabric.elements.share.copied.to.clipboard.icon.label':
     'Ikona udanego kopiowania łącza',
   'fabric.elements.share.copied.to.clipboard.message':
@@ -18,21 +16,15 @@ export default {
   'fabric.elements.share.failure.icon.label': 'Ikona błędu',
   'fabric.elements.share.failure.message': 'Nie można udostępnić',
   'fabric.elements.share.form.comment.placeholder': 'Dodaj wiadomość',
-  'fabric.elements.share.form.info.message.direct.invite':
-    'Osoby bez dostępu otrzymają zaproszenie do dołączenia',
   'fabric.elements.share.form.info.message.no.invite.confluence':
     'Odbiorcy zobaczą nazwę strony i Twój komunikat',
   'fabric.elements.share.form.info.message.no.invite.jira':
     'Odbiorcy zobaczą nazwę zgłoszenia i Twój komunikat',
-  'fabric.elements.share.form.info.message.pending.invite':
-    'Twoje zaproszenie zostanie wysłane do administratora w celu zatwierdzenia',
   'fabric.elements.share.form.public.send': 'Wyślij łącze publiczne',
   'fabric.elements.share.form.retry': 'Spróbuj ponownie',
   'fabric.elements.share.form.send': 'Wyślij',
   'fabric.elements.share.form.title': 'Udostępnij',
   'fabric.elements.share.form.user-picker.add-more': 'Wprowadź więcej',
-  'fabric.elements.share.form.user-picker.no-options.domainBasedUserOnly':
-    'Możesz zapraszać tylko użytkowników z adresami e-mail z domeny {domains}. Skontaktuj się z administratorem witryny, aby zaprosić innych użytkowników.',
   'fabric.elements.share.form.user-picker.no-options.existingUserOnly':
     'Nie znaleziono wyników dla „{inputValue}”.',
   'fabric.elements.share.form.user-picker.no-options.generic':

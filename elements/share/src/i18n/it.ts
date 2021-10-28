@@ -6,8 +6,6 @@
  */
 // Italian
 export default {
-  'fabric.elements.share.admin.notified.message':
-    'Il tuo amministratore è stato avvisato',
   'fabric.elements.share.copied.to.clipboard.icon.label':
     'Icona Copia link riuscita',
   'fabric.elements.share.copied.to.clipboard.message':
@@ -19,21 +17,15 @@ export default {
   'fabric.elements.share.failure.message':
     'Impossibile effettuare la condivisione',
   'fabric.elements.share.form.comment.placeholder': 'Aggiungi un messaggio',
-  'fabric.elements.share.form.info.message.direct.invite':
-    'Le persone senza accesso riceveranno un invito a partecipare',
   'fabric.elements.share.form.info.message.no.invite.confluence':
     'I destinatari vedranno il nome della pagina e il tuo messaggio',
   'fabric.elements.share.form.info.message.no.invite.jira':
     'I destinatari vedranno il nome del ticket e il tuo messaggio',
-  'fabric.elements.share.form.info.message.pending.invite':
-    'Il tuo invito verrà mandato a un amministratore per l’approvazione',
   'fabric.elements.share.form.public.send': 'Invia link pubblico',
   'fabric.elements.share.form.retry': 'Riprova',
   'fabric.elements.share.form.send': 'Invia',
   'fabric.elements.share.form.title': 'Condividi',
   'fabric.elements.share.form.user-picker.add-more': 'Inerisci altri elementi',
-  'fabric.elements.share.form.user-picker.no-options.domainBasedUserOnly':
-    'Puoi invitare solo le persone con indirizzi e-mail {domains}. Contatta l’amministratore del sito per invitare altre persone.',
   'fabric.elements.share.form.user-picker.no-options.existingUserOnly':
     'Nessun risultato trovato per “{inputValue}”.',
   'fabric.elements.share.form.user-picker.no-options.generic':

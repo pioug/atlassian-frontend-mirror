@@ -6,7 +6,6 @@
  */
 // Slovak
 export default {
-  'fabric.elements.share.admin.notified.message': 'Upozornil sa váš správca',
   'fabric.elements.share.copied.to.clipboard.icon.label':
     'Kopírovať ikonu úspešného prepojenia',
   'fabric.elements.share.copied.to.clipboard.message':
@@ -17,16 +16,10 @@ export default {
   'fabric.elements.share.failure.icon.label': 'Ikona chyby',
   'fabric.elements.share.failure.message': 'Zdieľanie nie je možné',
   'fabric.elements.share.form.comment.placeholder': 'Pridať správu',
-  'fabric.elements.share.form.info.message.direct.invite':
-    'Ľuďom, ktorí nemajú prístup, sa odošle pozvánka',
-  'fabric.elements.share.form.info.message.pending.invite':
-    'Vaše pozvanie sa odošle správcovi na schválenie',
   'fabric.elements.share.form.retry': 'Opakovať',
   'fabric.elements.share.form.send': 'Odoslať',
   'fabric.elements.share.form.title': 'Zdieľanie',
   'fabric.elements.share.form.user-picker.add-more': 'Zadajte ďalšie položky',
-  'fabric.elements.share.form.user-picker.no-options.domainBasedUserOnly':
-    'Môžete pozvať iba ľudí s e-mailovými adresami {domains}. Ak chcete pozvať iných ľudí, obráťte sa na svojho správcu stránky.',
   'fabric.elements.share.form.user-picker.no-options.existingUserOnly':
     'Nepodarilo sa nájsť žiadne výsledky pre „{inputValue}“.',
   'fabric.elements.share.form.user-picker.no-options.generic':

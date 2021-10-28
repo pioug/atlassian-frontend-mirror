@@ -71,7 +71,7 @@
     },
     "@repo/internal": {
       "analytics": "analytics-next",
-      "theming": "new-theming-api",
+      "theming": "react-context",
       "styling": "emotion"
     }
   },

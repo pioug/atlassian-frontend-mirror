@@ -6,8 +6,6 @@
  */
 // Swedish
 export default {
-  'fabric.elements.share.admin.notified.message':
-    'Din administratör har meddelats',
   'fabric.elements.share.copied.to.clipboard.icon.label':
     'Kopiera länk lyckades-ikon',
   'fabric.elements.share.copied.to.clipboard.message':
@@ -18,21 +16,15 @@ export default {
   'fabric.elements.share.failure.icon.label': 'Fel-ikon',
   'fabric.elements.share.failure.message': 'Det gick inte att dela',
   'fabric.elements.share.form.comment.placeholder': 'Lägg till ett meddelande',
-  'fabric.elements.share.form.info.message.direct.invite':
-    'Personer utan åtkomst kommer att få en inbjudan om att gå med',
   'fabric.elements.share.form.info.message.no.invite.confluence':
     'Mottagare ser namnet på sidan och ditt meddelande',
   'fabric.elements.share.form.info.message.no.invite.jira':
     'Mottagare ser namnet på ärendet och ditt meddelande',
-  'fabric.elements.share.form.info.message.pending.invite':
-    'Din inbjudan kommer att skickas till en administratör för godkännande',
   'fabric.elements.share.form.public.send': 'Skicka offentlig länk',
   'fabric.elements.share.form.retry': 'Försök igen',
   'fabric.elements.share.form.send': 'Skicka',
   'fabric.elements.share.form.title': 'Dela',
   'fabric.elements.share.form.user-picker.add-more': 'Ange fler',
-  'fabric.elements.share.form.user-picker.no-options.domainBasedUserOnly':
-    'Du kan bara bjuda in personer med e-postadresser med {domains}. Kontakta din administratör för att bjuda in andra personer.',
   'fabric.elements.share.form.user-picker.no-options.existingUserOnly':
     'Vi hittade inte några resultat för "{inputValue}".',
   'fabric.elements.share.form.user-picker.no-options.generic':

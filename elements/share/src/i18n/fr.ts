@@ -6,8 +6,6 @@
  */
 // French
 export default {
-  'fabric.elements.share.admin.notified.message':
-    'Votre administrateur a été prévenu',
   'fabric.elements.share.copied.to.clipboard.icon.label': 'Icône de lien copié',
   'fabric.elements.share.copied.to.clipboard.message':
     'Lien copié dans le presse-papier',
@@ -17,17 +15,15 @@ export default {
   'fabric.elements.share.failure.icon.label': "Icône d'erreur",
   'fabric.elements.share.failure.message': 'Partage impossible',
   'fabric.elements.share.form.comment.placeholder': 'Ajouter un message',
-  'fabric.elements.share.form.info.message.direct.invite':
-    "Les personnes ne disposant d'aucun accès recevront une invitation",
-  'fabric.elements.share.form.info.message.pending.invite':
-    'Votre invitation sera envoyée à un administrateur pour approbation',
+  'fabric.elements.share.form.info.message.no.invite.confluence':
+    'Les destinataires verront le nom de la page et votre message',
+  'fabric.elements.share.form.info.message.no.invite.jira':
+    'Les destinataires verront le nom du ticket et votre message',
   'fabric.elements.share.form.public.send': 'Envoyer le lien public',
   'fabric.elements.share.form.retry': 'Réessayer',
   'fabric.elements.share.form.send': 'Envoyer',
   'fabric.elements.share.form.title': 'Partager',
   'fabric.elements.share.form.user-picker.add-more': 'Saisir plus d’éléments',
-  'fabric.elements.share.form.user-picker.no-options.domainBasedUserOnly':
-    "Vous pouvez uniquement inviter des personnes disposant d'une adresse e-mail {domains}. Contactez l'administrateur du site pour inviter d'autres personnes.",
   'fabric.elements.share.form.user-picker.no-options.existingUserOnly':
     'Pas de résultats pour « {inputValue} ».',
   'fabric.elements.share.form.user-picker.no-options.generic':

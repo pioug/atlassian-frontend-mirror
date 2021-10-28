@@ -6,8 +6,6 @@
  */
 // German
 export default {
-  'fabric.elements.share.admin.notified.message':
-    'Ihr Admin wurde benachrichtigt.',
   'fabric.elements.share.copied.to.clipboard.icon.label':
     'Symbol für „Link kopieren erfolgreich“',
   'fabric.elements.share.copied.to.clipboard.message':
@@ -20,21 +18,15 @@ export default {
   'fabric.elements.share.failure.icon.label': 'Fehler-Symbol',
   'fabric.elements.share.failure.message': 'Teilen nicht möglich',
   'fabric.elements.share.form.comment.placeholder': 'Nachricht hinzufügen',
-  'fabric.elements.share.form.info.message.direct.invite':
-    'Personen ohne Zugangsrechte erhalten eine Einladung, um beizutreten.',
   'fabric.elements.share.form.info.message.no.invite.confluence':
     'Empfänger sehen den Namen der Seite und Ihre Nachricht',
   'fabric.elements.share.form.info.message.no.invite.jira':
     'Empfänger sehen den Namen des Vorgangs und Ihre Nachricht',
-  'fabric.elements.share.form.info.message.pending.invite':
-    'Ihre Einladung wird zur Genehmigung an einen Administrator gesendet.',
   'fabric.elements.share.form.public.send': 'Öffentlichen Link senden',
   'fabric.elements.share.form.retry': 'Erneut versuchen',
   'fabric.elements.share.form.send': 'Senden',
   'fabric.elements.share.form.title': 'Teilen',
   'fabric.elements.share.form.user-picker.add-more': 'Weitere eingeben',
-  'fabric.elements.share.form.user-picker.no-options.domainBasedUserOnly':
-    'Sie können nur Personen mit {domains}-E-Mail-Adressen einladen. Kontaktieren Sie Ihren Website-Administrator, um andere Personen einzuladen.',
   'fabric.elements.share.form.user-picker.no-options.existingUserOnly':
     'Es wurden keine Ergebnisse für „{inputValue}“ gefunden.',
   'fabric.elements.share.form.user-picker.no-options.generic':

@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import InlineEdit from '@atlaskit/inline-edit';
 import Select, { ValueType } from '@atlaskit/select';
 import { gridSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 import ProfileCardClient from '../src/client/ProfileCardClient';
 import TeamProfileCardClient from '../src/client/TeamProfileCardClient';
@@ -20,7 +21,7 @@ const EditViewContainer = styled.div`
 `;
 
 const Container = styled.div`
-  border: 1px solid #ccc;
+  border: 1px solid ${token('color.border.neutral', '#ccc')};
   border-radius: 3px;
   margin: 8px;
   padding: 8px;
@@ -144,7 +145,13 @@ function MiniEditor(props: {
             trigger={props.trigger}
             actions={actions.slice(0, props.numActions)}
           >
-            <strong>{value.label}</strong>
+            <strong
+              style={{
+                color: token('color.text.highEmphasis', 'black'),
+              }}
+            >
+              {value.label}
+            </strong>
           </TeamProfilecardTrigger>
         </div>
       )}

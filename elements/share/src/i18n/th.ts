@@ -6,8 +6,6 @@
  */
 // Thai
 export default {
-  'fabric.elements.share.admin.notified.message':
-    'ผู้ดูแลระบบของคุณได้รับการแจ้งเตือนแล้ว',
   'fabric.elements.share.copied.to.clipboard.icon.label':
     'คัดลอกไอคอนสำเร็จของลิงก์',
   'fabric.elements.share.copied.to.clipboard.message':
@@ -18,21 +16,15 @@ export default {
   'fabric.elements.share.failure.icon.label': 'ไอคอนข้อผิดพลาด',
   'fabric.elements.share.failure.message': 'ไม่สามารถแชร์ได้',
   'fabric.elements.share.form.comment.placeholder': 'เพิ่มข้อความ',
-  'fabric.elements.share.form.info.message.direct.invite':
-    'คำเชิญจะส่งไปยังผู้ที่ไม่มีสิทธิ์การเข้าถึงให้เข้าร่วม',
   'fabric.elements.share.form.info.message.no.invite.confluence':
     'ผู้รับจะเห็นชื่อของหน้าข้อมูลและข้อความของคุณ',
   'fabric.elements.share.form.info.message.no.invite.jira':
     'ผู้รับจะเห็นชื่อของปัญหาและข้อความของคุณ',
-  'fabric.elements.share.form.info.message.pending.invite':
-    'คำเชิญของคุณได้ส่งไปยังผู้ดูแลระบบเพื่อรอการอนุมัติ',
   'fabric.elements.share.form.public.send': 'ส่งลิงก์สาธารณะ',
   'fabric.elements.share.form.retry': 'ลองอีกครั้ง',
   'fabric.elements.share.form.send': 'ส่ง',
   'fabric.elements.share.form.title': 'แชร์',
   'fabric.elements.share.form.user-picker.add-more': 'ป้อนเพิ่มเติม',
-  'fabric.elements.share.form.user-picker.no-options.domainBasedUserOnly':
-    'คุณสามารถเชิญได้เฉพาะผู้ใช้ที่มีที่อยู่อีเมล {domains} เท่านั้น ติดต่อผู้ดูแลระบบเว็บไซต์ของคุณเพื่อเชิญผู้ใช้รายอื่น',
   'fabric.elements.share.form.user-picker.no-options.existingUserOnly':
     'เราไม่พบผลลัพธ์ใด ๆ สำหรับ "{inputValue}"',
   'fabric.elements.share.form.user-picker.no-options.generic':

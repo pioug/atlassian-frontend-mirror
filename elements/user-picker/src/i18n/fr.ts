@@ -7,6 +7,10 @@
 // French
 export default {
   'fabric.elements.user-picker.email.add': 'Ajoutez un utilisateur',
+  'fabric.elements.user-picker.email.add.potential':
+    'Saisissez une adresse e-mail',
+  'fabric.elements.user-picker.email.select.to.add':
+    'Sélectionnez une adresse e-mail',
   'fabric.elements.user-picker.external.sourced.from': 'Trouvé dans :',
   'fabric.elements.user-picker.github.provider': 'GitHub',
   'fabric.elements.user-picker.google.provider': 'Google',
@@ -23,7 +27,7 @@ export default {
   'fabric.elements.user-picker.placeholder':
     'Saisissez des personnes ou des équipes…',
   'fabric.elements.user-picker.placeholder.add-more':
-    'ajouter davantage de personnes…',
+    'ajouter plus de personnes…',
   'fabric.elements.user-picker.single.clear': 'Effacer',
   'fabric.elements.user-picker.slack.provider': 'Slack',
   'fabric.elements.user-picker.team.member.50plus':

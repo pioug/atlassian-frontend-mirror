@@ -3,7 +3,8 @@ import { h700 } from '@atlaskit/theme/typography';
 import gridSizeTimes from '../../util/gridSizeTimes';
 
 export const Screen = styled.div`
-  width: 640px;
+  width: 100%;
+  max-width: 640px;
   margin-bottom: ${gridSizeTimes(2)}px;
   > p {
     margin-top: ${gridSizeTimes(3)}px;

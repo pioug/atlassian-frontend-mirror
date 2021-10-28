@@ -6,8 +6,6 @@
  */
 // Estonian
 export default {
-  'fabric.elements.share.admin.notified.message':
-    'Sinu administraatorit on teavitatud',
   'fabric.elements.share.copied.to.clipboard.icon.label':
     'Lingi eduka kopeerimise ikoon',
   'fabric.elements.share.copied.to.clipboard.message':
@@ -17,16 +15,10 @@ export default {
   'fabric.elements.share.failure.icon.label': 'Vea ikoon',
   'fabric.elements.share.failure.message': 'Jagamine nurjus',
   'fabric.elements.share.form.comment.placeholder': 'Sõnumi lisamine',
-  'fabric.elements.share.form.info.message.direct.invite':
-    'Ligipääsuta kasutajatele saadetakse liitumiskutse',
-  'fabric.elements.share.form.info.message.pending.invite':
-    'Kutse saadetakse administraatorile kinnitamiseks',
   'fabric.elements.share.form.retry': 'Proovi uuesti',
   'fabric.elements.share.form.send': 'Saada',
   'fabric.elements.share.form.title': 'Jaga',
   'fabric.elements.share.form.user-picker.add-more': 'Sisesta veel',
-  'fabric.elements.share.form.user-picker.no-options.domainBasedUserOnly':
-    'Saad kutsuda vaid {domains} e-posti aadressiga inimesi. Teiste kutsumiseks võta ühendust lehe administraatoriga.',
   'fabric.elements.share.form.user-picker.no-options.existingUserOnly':
     'Me ei suutnud leida ühtegi tulemust seoses otsitavaga „{inputValue}".',
   'fabric.elements.share.form.user-picker.no-options.generic':

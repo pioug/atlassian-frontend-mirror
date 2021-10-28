@@ -6,8 +6,6 @@
  */
 // Dutch
 export default {
-  'fabric.elements.share.admin.notified.message':
-    'De beheerder is op de hoogte gebracht',
   'fabric.elements.share.copied.to.clipboard.icon.label':
     "Pictogram 'Link gekopieerd'",
   'fabric.elements.share.copied.to.clipboard.message':
@@ -19,21 +17,15 @@ export default {
   'fabric.elements.share.failure.icon.label': "Pictogram 'Fout'",
   'fabric.elements.share.failure.message': 'Kan niet delen',
   'fabric.elements.share.form.comment.placeholder': 'Voeg een bericht toe',
-  'fabric.elements.share.form.info.message.direct.invite':
-    'Mensen zonder toegang ontvangen een uitnodiging om deel te nemen',
   'fabric.elements.share.form.info.message.no.invite.confluence':
     'Ontvangers zien de naam van de pagina en je bericht',
   'fabric.elements.share.form.info.message.no.invite.jira':
     'Ontvangers zien de naam van de issue en je bericht',
-  'fabric.elements.share.form.info.message.pending.invite':
-    'Je uitnodiging wordt naar een beheerder gestuurd ter goedkeuring',
   'fabric.elements.share.form.public.send': 'Openbare link verzenden',
   'fabric.elements.share.form.retry': 'Opnieuw proberen',
   'fabric.elements.share.form.send': 'Verzenden',
   'fabric.elements.share.form.title': 'Delen',
   'fabric.elements.share.form.user-picker.add-more': 'Meer invoeren',
-  'fabric.elements.share.form.user-picker.no-options.domainBasedUserOnly':
-    'Je kunt alleen personen uitnodigen die een e-mailadres van {domains} hebben. Neem contact op met je sitebeheerder als je anderen wilt uitnodigen.',
   'fabric.elements.share.form.user-picker.no-options.existingUserOnly':
     "Geen resultaten gevonden voor ''{inputValue}'.",
   'fabric.elements.share.form.user-picker.no-options.generic':

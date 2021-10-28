@@ -7,6 +7,7 @@ import Button from '@atlaskit/button/custom-theme-button';
 import Lozenge from '@atlaskit/lozenge';
 import Spinner from '@atlaskit/spinner';
 import { N0 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import { AnalyticsName } from '../../internal/analytics';
 import relativeDate from '../../internal/relative-date';
@@ -321,7 +322,7 @@ export default class Profilecard extends React.PureComponent<ProfilecardProps> {
                   ? this.props.avatarUrl
                   : undefined
               }
-              borderColor={N0}
+              borderColor={token('color.background.overlay', N0)}
             />
           </ProfileImage>
           <CardContent>

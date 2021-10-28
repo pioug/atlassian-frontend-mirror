@@ -6,8 +6,6 @@
  */
 // Vietnamese
 export default {
-  'fabric.elements.share.admin.notified.message':
-    'Đã thông báo tới quản trị viên',
   'fabric.elements.share.copied.to.clipboard.icon.label':
     'Biểu tượng sao chép liên kết thành công',
   'fabric.elements.share.copied.to.clipboard.message': 'Đã sao chép liên kết',
@@ -19,21 +17,15 @@ export default {
   'fabric.elements.share.failure.icon.label': 'Biểu tượng lỗi',
   'fabric.elements.share.failure.message': 'Không thể chia sẻ',
   'fabric.elements.share.form.comment.placeholder': 'Thêm thông báo',
-  'fabric.elements.share.form.info.message.direct.invite':
-    'Người chưa có quyền truy cập sẽ được gửi lời mời tham gia',
   'fabric.elements.share.form.info.message.no.invite.confluence':
     'Người nhận sẽ thấy tên trang và tin nhắn của bạn',
   'fabric.elements.share.form.info.message.no.invite.jira':
     'Người nhận sẽ thấy tên sự cố và tin nhắn của bạn',
-  'fabric.elements.share.form.info.message.pending.invite':
-    'Lời mời của bạn sẽ được gửi tới quản trị viên để được phê duyệt',
   'fabric.elements.share.form.public.send': 'Gửi liên kết công khai',
   'fabric.elements.share.form.retry': 'Thử lại',
   'fabric.elements.share.form.send': 'Gửi',
   'fabric.elements.share.form.title': 'Chia sẻ',
   'fabric.elements.share.form.user-picker.add-more': 'Nhập thêm',
-  'fabric.elements.share.form.user-picker.no-options.domainBasedUserOnly':
-    'Bạn chỉ có thể mời những người có địa chỉ email {domains}. Liên hệ với quản trị viên trang web để mời những người khác.',
   'fabric.elements.share.form.user-picker.no-options.existingUserOnly':
     'Chúng tôi không thể tìm thấy bất cứ kết quả nào cho "{inputValue}".',
   'fabric.elements.share.form.user-picker.no-options.generic':

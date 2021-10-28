@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { token } from '@atlaskit/tokens';
 
 import ProfileCardClient from '../src/client/ProfileCardClient';
 import TeamProfilecardTrigger from '../src/components/Team';
@@ -68,10 +69,13 @@ export const Section = styled.div`
 `;
 
 const Container = styled.div`
-  border: 1px solid #ccc;
+  border: 1px solid ${token('color.border.neutral', '#ccc')};
   border-radius: 3px;
   margin: 8px;
   padding: 8px;
+  strong {
+    color: ${token('color.text.highEmphasis', 'black')};
+  }
 `;
 
 const defaultProps = {

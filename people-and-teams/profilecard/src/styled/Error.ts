@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { N200 } from '@atlaskit/theme/colors';
 import { gridSize } from '@atlaskit/theme/constants';
 import { h400 } from '@atlaskit/theme/typography';
+import { token } from '@atlaskit/tokens';
 
 import {
   errorIconColor,
@@ -31,6 +32,6 @@ export const TeamErrorTitle = styled.p`
 `;
 
 export const TeamErrorText = styled.p`
-  color: ${N200};
+  color: ${token('color.text.lowEmphasis', N200)};
   margin-top: ${gridSize() * 1}px;
 `;

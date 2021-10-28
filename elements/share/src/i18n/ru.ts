@@ -6,8 +6,6 @@
  */
 // Russian
 export default {
-  'fabric.elements.share.admin.notified.message':
-    'Ваш администратор получил уведомление',
   'fabric.elements.share.copied.to.clipboard.icon.label':
     'Значок успешного копирования ссылки',
   'fabric.elements.share.copied.to.clipboard.message':
@@ -20,21 +18,15 @@ export default {
   'fabric.elements.share.failure.icon.label': 'Значок ошибки',
   'fabric.elements.share.failure.message': 'Не удается поделиться',
   'fabric.elements.share.form.comment.placeholder': 'Введите сообщение',
-  'fabric.elements.share.form.info.message.direct.invite':
-    'Пользователям без доступа будет отправлено приглашение присоединиться',
   'fabric.elements.share.form.info.message.no.invite.confluence':
     'Получатели увидят имя страницы и ваше сообщение',
   'fabric.elements.share.form.info.message.no.invite.jira':
     'Получатели увидят имя задачи и ваше сообщение',
-  'fabric.elements.share.form.info.message.pending.invite':
-    'Приглашение будет отправлено на рассмотрение администратору',
   'fabric.elements.share.form.public.send': 'Отправить публичную ссылку',
   'fabric.elements.share.form.retry': 'Повторить',
   'fabric.elements.share.form.send': 'Отправить',
   'fabric.elements.share.form.title': 'Поделиться',
   'fabric.elements.share.form.user-picker.add-more': 'Добавьте больше значений',
-  'fabric.elements.share.form.user-picker.no-options.domainBasedUserOnly':
-    'Вы можете приглашать только пользователей, чьи адреса электронной почты оканчиваются на {domains}. Чтобы пригласить других, обратитесь к администратору сайта.',
   'fabric.elements.share.form.user-picker.no-options.existingUserOnly':
     'Нет результатов по запросу «{inputValue}».',
   'fabric.elements.share.form.user-picker.no-options.generic':

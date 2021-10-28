@@ -6,7 +6,6 @@
  */
 // undefined
 export default {
-  'fabric.elements.share.admin.notified.message': '已通知您的管理員',
   'fabric.elements.share.copied.to.clipboard.icon.label': '複製連結成功圖示',
   'fabric.elements.share.copied.to.clipboard.message': '已將連結複製到剪貼簿',
   'fabric.elements.share.copylink.button.icon.label': '複製連結圖示',
@@ -15,17 +14,15 @@ export default {
   'fabric.elements.share.failure.icon.label': '錯誤圖示',
   'fabric.elements.share.failure.message': '無法分享',
   'fabric.elements.share.form.comment.placeholder': '新增訊息',
-  'fabric.elements.share.form.info.message.direct.invite':
-    '系統會將加入邀請寄給無存取權的人。',
-  'fabric.elements.share.form.info.message.pending.invite':
-    '系統會將您的邀請傳送給管理員以取得核准',
+  'fabric.elements.share.form.info.message.no.invite.confluence':
+    '收件者將看到頁面的名稱和您的訊息',
+  'fabric.elements.share.form.info.message.no.invite.jira':
+    '收件者將看到議題的名稱和您的訊息',
   'fabric.elements.share.form.public.send': '傳送公開連結',
   'fabric.elements.share.form.retry': '重試',
   'fabric.elements.share.form.send': '傳送',
   'fabric.elements.share.form.title': '分享',
   'fabric.elements.share.form.user-picker.add-more': '輸入更多項目',
-  'fabric.elements.share.form.user-picker.no-options.domainBasedUserOnly':
-    '您只能邀請電子郵件地址為 {domains} 的使用者。如要邀請其他使用者，請與您的網站管理員聯絡。',
   'fabric.elements.share.form.user-picker.no-options.existingUserOnly':
     '我們找不到「{inputValue}」的任何結果。',
   'fabric.elements.share.form.user-picker.no-options.generic':

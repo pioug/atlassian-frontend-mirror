@@ -6,7 +6,6 @@
  */
 // Korean
 export default {
-  'fabric.elements.share.admin.notified.message': '관리자에게 알렸습니다',
   'fabric.elements.share.copied.to.clipboard.icon.label':
     '링크 복사 성공 아이콘',
   'fabric.elements.share.copied.to.clipboard.message':
@@ -17,21 +16,15 @@ export default {
   'fabric.elements.share.failure.icon.label': '오류 아이콘',
   'fabric.elements.share.failure.message': '공유할 수 없음',
   'fabric.elements.share.form.comment.placeholder': '메시지 추가',
-  'fabric.elements.share.form.info.message.direct.invite':
-    '액세스 권한이 없는 사용자는 가입 초대를 받습니다.',
   'fabric.elements.share.form.info.message.no.invite.confluence':
     '수신자가 페이지 이름과 메시지를 볼 수 있습니다',
   'fabric.elements.share.form.info.message.no.invite.jira':
     '수신자가 이슈 이름과 메시지를 볼 수 있습니다',
-  'fabric.elements.share.form.info.message.pending.invite':
-    '승인을 위해 초대를 관리자에게 보낼 것입니다.',
   'fabric.elements.share.form.public.send': '공개 링크 보내기',
   'fabric.elements.share.form.retry': '다시 시도',
   'fabric.elements.share.form.send': '보내기',
   'fabric.elements.share.form.title': '공유',
   'fabric.elements.share.form.user-picker.add-more': '더 입력하세요',
-  'fabric.elements.share.form.user-picker.no-options.domainBasedUserOnly':
-    '{domains} 이메일 주소로만 사용자를 초대할 수 있습니다. 사이트 관리자에게 문의하여 다른 사람을 초대하세요.',
   'fabric.elements.share.form.user-picker.no-options.existingUserOnly':
     '"{inputValue}"에 대한 결과를 찾지 못했습니다.',
   'fabric.elements.share.form.user-picker.no-options.generic':

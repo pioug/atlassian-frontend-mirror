@@ -6,8 +6,6 @@
  */
 // Turkish
 export default {
-  'fabric.elements.share.admin.notified.message':
-    'Yöneticinize bildirim gönderildi',
   'fabric.elements.share.copied.to.clipboard.icon.label':
     'Bağlantı başarıyla kopyalandı simgesi',
   'fabric.elements.share.copied.to.clipboard.message':
@@ -20,21 +18,15 @@ export default {
   'fabric.elements.share.failure.icon.label': 'Hata simgesi',
   'fabric.elements.share.failure.message': 'Paylaşılamadı',
   'fabric.elements.share.form.comment.placeholder': 'Mesaj ekleyin',
-  'fabric.elements.share.form.info.message.direct.invite':
-    'Erişimi olmayan kişilere katılmaları için davet gönderilecek',
   'fabric.elements.share.form.info.message.no.invite.confluence':
     'Alıcılar sayfanın adını ve mesajınızı görür',
   'fabric.elements.share.form.info.message.no.invite.jira':
     'Alıcılar konunun adını ve mesajınızı görür',
-  'fabric.elements.share.form.info.message.pending.invite':
-    'Davetiniz, onaylaması için bir yöneticiye gönderilecek',
   'fabric.elements.share.form.public.send': 'Herkese açık bağlantıyı gönderin',
   'fabric.elements.share.form.retry': 'Yeniden Dene',
   'fabric.elements.share.form.send': 'Gönder',
   'fabric.elements.share.form.title': 'Paylaş',
   'fabric.elements.share.form.user-picker.add-more': 'Daha fazlasını girin',
-  'fabric.elements.share.form.user-picker.no-options.domainBasedUserOnly':
-    'Yalnızca {domains} etki alanı adlı e-posta adresi kullanan kişileri davet edebilirsiniz. Diğer kişileri davet etmek için sitenizin yöneticisiyle iletişime geçin.',
   'fabric.elements.share.form.user-picker.no-options.existingUserOnly':
     '"{inputValue}" için herhangi bir sonuç bulunamadı.',
   'fabric.elements.share.form.user-picker.no-options.generic':

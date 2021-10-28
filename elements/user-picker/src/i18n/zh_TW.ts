@@ -7,6 +7,8 @@
 // undefined
 export default {
   'fabric.elements.user-picker.email.add': '新增使用者',
+  'fabric.elements.user-picker.email.add.potential': '輸入電子郵件地址',
+  'fabric.elements.user-picker.email.select.to.add': '選取電子郵件地址',
   'fabric.elements.user-picker.external.sourced.from': '尋找位置：',
   'fabric.elements.user-picker.github.provider': 'GitHub',
   'fabric.elements.user-picker.google.provider': 'Google',

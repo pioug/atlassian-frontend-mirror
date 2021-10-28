@@ -6,7 +6,6 @@
  */
 // Chinese
 export default {
-  'fabric.elements.share.admin.notified.message': '管理员已接到通知',
   'fabric.elements.share.copied.to.clipboard.icon.label': '复制链接成功图标',
   'fabric.elements.share.copied.to.clipboard.message': '链接已复制到剪贴板',
   'fabric.elements.share.copylink.button.icon.label': '复制链接图标',
@@ -15,21 +14,15 @@ export default {
   'fabric.elements.share.failure.icon.label': '错误图标',
   'fabric.elements.share.failure.message': '无法共享',
   'fabric.elements.share.form.comment.placeholder': '添加消息',
-  'fabric.elements.share.form.info.message.direct.invite':
-    '将向没有访问权限的人发送加入邀请',
   'fabric.elements.share.form.info.message.no.invite.confluence':
     '收件人将看到页面名称和您的消息',
   'fabric.elements.share.form.info.message.no.invite.jira':
     '收件人将看到事务名称和您的消息',
-  'fabric.elements.share.form.info.message.pending.invite':
-    '您的邀请将发送到管理员处进行审批',
   'fabric.elements.share.form.public.send': '发送公共链接',
   'fabric.elements.share.form.retry': '重试',
   'fabric.elements.share.form.send': '发送',
   'fabric.elements.share.form.title': '共享',
   'fabric.elements.share.form.user-picker.add-more': '输入更多',
-  'fabric.elements.share.form.user-picker.no-options.domainBasedUserOnly':
-    '仅可邀请使用 {domains} 电子邮箱地址的人员。请联系站点管理员，以邀请其他人。',
   'fabric.elements.share.form.user-picker.no-options.existingUserOnly':
     '我们找不到任何关于“{inputValue}”的结果。',
   'fabric.elements.share.form.user-picker.no-options.generic':

@@ -59,7 +59,7 @@
         "analytics-next"
       ],
       "theming": [
-        "new-theming-api"
+        "react-context"
       ],
       "ui-components": [
         "lite-mode"

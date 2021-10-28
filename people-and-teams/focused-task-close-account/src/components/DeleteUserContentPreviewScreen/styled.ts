@@ -14,7 +14,8 @@ const getSelectedCardColor = (props: SectionCardProps) => {
 };
 
 export const Screen = styled.div`
-  width: 640px;
+  width: 100%;
+  max-width: 640px;
   margin-bottom: ${gridSizeTimes(4)}px;
 `;
 

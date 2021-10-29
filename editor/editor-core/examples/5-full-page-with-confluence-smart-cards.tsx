@@ -81,7 +81,10 @@ export function Example(doc?: string | Object) {
         <SectionMessage title="Smart Cards in Confluence Editor">
           <p>
             Make sure you're logged into{' '}
-            <a href="https://api-private.stg.atlassian.com/me" target="_blank">
+            <a
+              href="https://commerce-components-preview.dev.atlassian.com"
+              target="_blank"
+            >
               Atlassian Cloud on Staging
             </a>
             . Try pasting URLs to Hello, Google Drive, Asana, Dropbox, Trello

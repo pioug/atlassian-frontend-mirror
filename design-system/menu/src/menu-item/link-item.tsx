@@ -1,14 +1,15 @@
 /** @jsx jsx */
-import { forwardRef, memo, MouseEventHandler, Ref } from 'react';
+import { forwardRef, KeyboardEvent, memo, MouseEvent, Ref } from 'react';
 
 import { jsx } from '@emotion/core';
 
-import BaseItem from '../internal/components/base-item';
+import noop from '@atlaskit/ds-lib/noop';
+
+import MenuItemPrimitive from '../internal/components/menu-item-primitive';
 import { useBlurOnMouseDown } from '../internal/hooks/use-blur-on-mouse-down';
-import { linkItemCSS } from '../internal/styles/menu-item/link-item';
 import type { LinkItemProps } from '../types';
 
-const preventEvent: MouseEventHandler = (e) => {
+const preventEvent = (e: MouseEvent | KeyboardEvent) => {
   e.preventDefault();
 };
 
@@ -23,10 +24,11 @@ const preventEvent: MouseEventHandler = (e) => {
 const LinkItem = memo(
   forwardRef<HTMLElement, LinkItemProps>(
     // Type needed on props to extract types with extract react types.
-    ({ href, ...rest }: LinkItemProps, ref) => {
+    (props: LinkItemProps, ref) => {
       const {
         children,
-        cssFn = () => ({}),
+        href,
+        cssFn = noop as any,
         description,
         iconAfter,
         iconBefore,
@@ -38,8 +40,8 @@ const LinkItem = memo(
         onMouseDown,
         shouldTitleWrap,
         shouldDescriptionWrap,
-        ...others
-      } = rest;
+        ...rest
+      } = props;
       const onMouseDownHandler = useBlurOnMouseDown(onMouseDown);
 
       if (!children) {
@@ -47,39 +49,44 @@ const LinkItem = memo(
       }
 
       return (
-        <a
-          ref={ref as Ref<HTMLAnchorElement>}
-          css={[
-            // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
-            linkItemCSS(isDisabled, isSelected),
+        <MenuItemPrimitive
+          {...rest}
+          // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
+          overrides={overrides}
+          iconBefore={iconBefore}
+          iconAfter={iconAfter}
+          isSelected={isSelected}
+          isDisabled={isDisabled}
+          description={description}
+          shouldTitleWrap={shouldTitleWrap}
+          shouldDescriptionWrap={shouldDescriptionWrap}
+          css={
             // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
             cssFn({
               isSelected,
               isDisabled,
-            }),
-          ]}
-          draggable={false}
-          href={isDisabled ? undefined : href}
-          data-testid={testId}
-          onDragStart={preventEvent}
-          onMouseDown={isDisabled ? preventEvent : onMouseDownHandler}
-          onClick={isDisabled ? preventEvent : onClick}
-          aria-current={isSelected ? 'page' : undefined}
-          aria-disabled={isDisabled}
-          {...others}
+            })
+          }
+          title={children}
+          testId={testId}
         >
-          <BaseItem
-            // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
-            overrides={overrides}
-            iconBefore={iconBefore}
-            iconAfter={iconAfter}
-            description={description}
-            shouldTitleWrap={shouldTitleWrap}
-            shouldDescriptionWrap={shouldDescriptionWrap}
-          >
-            {children}
-          </BaseItem>
-        </a>
+          {({ children, ...props }) => (
+            <a
+              {...rest}
+              {...props}
+              href={isDisabled ? undefined : href}
+              draggable={false}
+              onDragStart={preventEvent}
+              onMouseDown={isDisabled ? preventEvent : onMouseDownHandler}
+              onClick={isDisabled ? preventEvent : onClick}
+              aria-current={isSelected ? 'page' : undefined}
+              aria-disabled={isDisabled}
+              ref={ref as Ref<HTMLAnchorElement>}
+            >
+              {children}
+            </a>
+          )}
+        </MenuItemPrimitive>
       );
     },
   ),

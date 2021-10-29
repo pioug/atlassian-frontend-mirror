@@ -1,5 +1,14 @@
 # @atlaskit/media-test-helpers
 
+## 28.8.1
+
+### Patch Changes
+
+- [`11df2d9b882`](https://bitbucket.org/atlassian/atlassian-frontend/commits/11df2d9b882) - Re-enabling non stargate url for media examples
+- [`d15fbde3a83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d15fbde3a83) - Reverting media playground url change because of broken regression tests
+- [`e362e52fc66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e362e52fc66) - Updating the media playground urls for media examples, to avoid stargate auth
+- Updated dependencies
+
 ## 28.8.0
 
 ### Minor Changes

@@ -192,10 +192,18 @@ class ProgressExample extends Component<{}, State> {
     return (
       <div>
         <ProgressTracker items={this.state.items} animated={false} />
-        <button onClick={() => this.next()}>Next</button>
-        <button onClick={() => this.prev()}>Prev</button>
-        <button onClick={() => this.reset()}>Reset</button>
-        <button onClick={() => this.completeAll()}>completeAll</button>
+        <button type="button" onClick={() => this.next()}>
+          Next
+        </button>
+        <button type="button" onClick={() => this.prev()}>
+          Prev
+        </button>
+        <button type="button" onClick={() => this.reset()}>
+          Reset
+        </button>
+        <button type="button" onClick={() => this.completeAll()}>
+          completeAll
+        </button>
       </div>
     );
   }

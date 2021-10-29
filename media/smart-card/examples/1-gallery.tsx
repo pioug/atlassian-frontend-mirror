@@ -12,6 +12,9 @@ import { Provider, Card, CardAppearance, CardContext } from '../src';
 import urlsJSON from '../examples-helpers/example-urls.json';
 import styled from 'styled-components';
 import { IntlProvider } from 'react-intl';
+import { ufologger } from '@atlaskit/ufo';
+
+ufologger.enable();
 
 const PatchedCell = styled(Cell)`
   & > span {

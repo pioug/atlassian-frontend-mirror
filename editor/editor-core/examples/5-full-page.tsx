@@ -361,13 +361,13 @@ export class ExampleEditorComponent extends React.Component<
                 {...providers}
                 media={{
                   provider: mediaProvider,
+                  allowMediaInline: true,
                   allowMediaSingle: true,
                   allowResizing: true,
                   allowAnnotation: true,
                   allowLinking: true,
                   allowResizingInTables: true,
                   allowAltTextOnImages: true,
-                  allowMediaInline: true,
                   altTextValidator: (value: string) => {
                     const errors = [];
                     if (!/^[A-Z]/g.test(value)) {
@@ -723,9 +723,10 @@ export default function Example(props: EditorProps & ExampleProps) {
   };
 
   const featureFlags =
-    !maybeFlags || maybeFlags instanceof window.Error
+    props.featureFlags ||
+    (!maybeFlags || maybeFlags instanceof window.Error
       ? defaultFeatureFlags
-      : JSON.parse(maybeFlags ?? '{}');
+      : JSON.parse(maybeFlags ?? '{}'));
 
   let allowCustomPanel = false;
   if (props.allowPanel && typeof props.allowPanel === 'object') {

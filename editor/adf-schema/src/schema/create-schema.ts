@@ -329,3 +329,5 @@ export interface SchemaCustomNodeSpecs {
 export interface SchemaCustomMarkSpecs {
   [name: string]: MarkSpec;
 }
+
+export const allowCustomPanel: boolean = true;

@@ -1,8 +1,4 @@
-import {
-  NodeSerializerOpts,
-  MediaMetaDataContextItem,
-  MediaType,
-} from '../interfaces';
+import { NodeSerializerOpts, MediaMetaDataContextItem } from '../interfaces';
 import { createTag } from '../create-tag';
 import { N30 } from '@atlaskit/adf-schema';
 import {
@@ -11,6 +7,7 @@ import {
   MEDIA_PREVIEW_IMAGE_HEIGHT,
 } from '../styles/util';
 import { createContentId, IconString } from '../static';
+import { getIconFromMediaType } from '../media-util';
 
 const className = createClassName('media');
 const ICON_DIMENSION = 14;
@@ -204,21 +201,6 @@ const renderPreview = (
     { class: `${className}-preview-wrapper` },
     previewImg + description,
   );
-};
-
-const getIconFromMediaType = (mediaType: MediaType) => {
-  switch (mediaType) {
-    case 'archive':
-      return 'archiveAttachment';
-    case 'audio':
-      return 'audioAttachment';
-    case 'doc':
-      return 'documentAttachment';
-    case 'video':
-      return 'videoAttachment';
-    default:
-      return 'genericAttachment';
-  }
 };
 
 export const styles = `

@@ -45,29 +45,123 @@ describe('<AtlaskitThemeProvider />', () => {
     expect(callback).toHaveBeenCalledTimes(1);
   });
 
-  it('should render one style element when AKThemeProvider is mounted', () => {
-    render(
-      <AtlaskitThemeProvider>
-        <div>Hello</div>
-      </AtlaskitThemeProvider>,
+  it('should render two style elements when AKThemeProvider is mounted (theme styles itself and body style)', () => {
+    const rerender = render(
+      <>
+        <head />
+        <body>
+          <AtlaskitThemeProvider>
+            <div>Should render two styles</div>
+          </AtlaskitThemeProvider>
+        </body>
+      </>,
+      { container: document.documentElement },
     );
 
-    expect(
-      document.querySelectorAll('head style:not([data-emotion=css])'),
-    ).toHaveLength(1);
+    expect(rerender.container.querySelectorAll('head style')).toHaveLength(2);
   });
 
-  it('should still render one style element when multiple AKThemeProviders are mounted', () => {
-    render(
-      <AtlaskitThemeProvider>
-        <AtlaskitThemeProvider>
-          <div>Hello</div>
-        </AtlaskitThemeProvider>
-      </AtlaskitThemeProvider>,
+  it('should still render two style elements (theme styles itself and body style) when multiple AKThemeProviders are mounted', () => {
+    const rerender = render(
+      <>
+        <head />
+        <body>
+          <AtlaskitThemeProvider>
+            <AtlaskitThemeProvider>
+              <div>
+                Render two styles when there are multiple ThemeProviders
+              </div>
+            </AtlaskitThemeProvider>
+          </AtlaskitThemeProvider>
+        </body>
+      </>,
+      { container: document.documentElement },
     );
 
-    expect(
-      document.querySelectorAll('head style:not([data-emotion=css])'),
-    ).toHaveLength(1);
+    expect(rerender.container.querySelectorAll('head style')).toHaveLength(2);
+  });
+
+  it('theme reset style element should be prepended in the head', () => {
+    const rerender = render(
+      <>
+        <head>
+          <style id="start" />
+          <style id="end" />
+        </head>
+        <body>
+          <AtlaskitThemeProvider>
+            <div>Style should be prepended</div>
+          </AtlaskitThemeProvider>
+        </body>
+      </>,
+      { container: document.documentElement },
+    );
+
+    expect(rerender.container.querySelector('style')?.id).toEqual(
+      'ds--theme--ak-theme-provider',
+    );
+  });
+
+  it('theme body background style element should be appended in the head', () => {
+    const rerender = render(
+      <>
+        <head>
+          <style id="start" />
+          <style id="end" />
+        </head>
+        <body>
+          <AtlaskitThemeProvider>
+            <div>Body style should be appended</div>
+          </AtlaskitThemeProvider>
+        </body>
+      </>,
+      { container: document.documentElement },
+    );
+
+    expect(rerender.container.querySelector('style:last-child')?.id).toEqual(
+      'ds--theme--ak-body-background',
+    );
+  });
+
+  it('theme reset should render ahead of any other style elements', () => {
+    const rerender = render(
+      <>
+        <head>
+          <style data-emotion="css" />
+          <style data-styled-components="css" />
+        </head>
+        <body>
+          <AtlaskitThemeProvider>
+            <div>This should render ahead of everything else</div>
+          </AtlaskitThemeProvider>
+        </body>
+      </>,
+      { container: document.documentElement },
+    );
+
+    expect(rerender.container.querySelector('style')?.id).toEqual(
+      'ds--theme--ak-theme-provider',
+    );
+  });
+
+  it('theme reset and body should render if no style elements', () => {
+    const result = render(
+      <>
+        <head />
+        <body>
+          <AtlaskitThemeProvider>
+            <div>Shouldn't have any style elements</div>
+          </AtlaskitThemeProvider>
+        </body>
+      </>,
+      { container: document.documentElement },
+    );
+
+    expect(result.container.querySelector('style:first-child')?.id).toEqual(
+      'ds--theme--ak-theme-provider',
+    );
+    expect(result.container.querySelector('style:last-child')?.id).toEqual(
+      'ds--theme--ak-body-background',
+    );
   });
 });

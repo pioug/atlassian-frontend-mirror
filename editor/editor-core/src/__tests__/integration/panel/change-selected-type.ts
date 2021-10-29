@@ -40,13 +40,16 @@ BrowserTestCase(
 );
 
 BrowserTestCase(
-  'change-selected-type.ts: Select panel and then change background color when allowCustomPanel is true',
+  'change-selected-type.ts: Select panel and then change background color when allowCustomPanelEdit is true',
   { skip: ['edge'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
       appearance: fullpage.appearance,
-      allowPanel: { UNSAFE_allowCustomPanel: true },
+      allowPanel: {
+        UNSAFE_allowCustomPanel: true,
+        UNSAFE_allowCustomPanelEdit: true,
+      },
     });
 
     await page.click(fullpage.placeholder);
@@ -69,13 +72,16 @@ BrowserTestCase(
 );
 
 BrowserTestCase(
-  'change-selected-type.ts: Select panel and then change Icon when allowCustomPanel is true',
+  'change-selected-type.ts: Select panel and then change Icon when allowCustomPanelEdit is true',
   { skip: ['edge'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
       appearance: fullpage.appearance,
-      allowPanel: { UNSAFE_allowCustomPanel: true },
+      allowPanel: {
+        UNSAFE_allowCustomPanel: true,
+        UNSAFE_allowCustomPanelEdit: true,
+      },
     });
 
     await page.click(fullpage.placeholder);

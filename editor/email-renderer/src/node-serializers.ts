@@ -14,6 +14,7 @@ import listItem from './nodes/list-item';
 import mention from './nodes/mention';
 import media from './nodes/media';
 import mediaGroup from './nodes/media-group';
+import mediaInline from './nodes/media-inline';
 import mediaSingle from './nodes/media-single';
 import orderedList from './nodes/ordered-list';
 import panel from './nodes/panel';
@@ -58,6 +59,7 @@ export const nodeSerializers: { [key: string]: NodeSerializer } = {
   listItem,
   media,
   mediaGroup,
+  mediaInline,
   mediaSingle,
   mention,
   orderedList,

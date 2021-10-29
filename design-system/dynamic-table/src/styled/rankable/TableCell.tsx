@@ -1,11 +1,30 @@
-import styled, { css } from 'styled-components';
+/** @jsx jsx */
+import { FC, HTMLProps } from 'react';
 
+import { css, jsx } from '@emotion/core';
+
+import { TruncateStyleProps } from '../constants';
 import { TableBodyCell } from '../TableCell';
 
-const rankingStyles = css`
-  box-sizing: border-box;
-`;
+type RankableTableBodyCellProps = HTMLProps<
+  HTMLTableCellElement | HTMLTableRowElement
+> &
+  TruncateStyleProps & {
+    isRanking?: boolean;
+  };
 
-export const RankableTableBodyCell = styled(TableBodyCell)`
-  ${({ isRanking }: { isRanking: boolean }) => isRanking && rankingStyles};
-`;
+const rankingStyles = css({
+  boxSizing: 'border-box',
+});
+
+export const RankableTableBodyCell: FC<RankableTableBodyCellProps> = ({
+  isRanking,
+  innerRef,
+  ...props
+}) => (
+  <TableBodyCell
+    css={isRanking && rankingStyles}
+    {...props}
+    innerRef={innerRef}
+  />
+);

@@ -159,7 +159,6 @@ const createPlugin = (
   } = {},
 ) => {
   const state = createPluginState(dispatch, {
-    layout: 'default',
     showEditButton: false,
     showContextPanel: false,
   });
@@ -242,15 +241,12 @@ const createPlugin = (
               // do nothing;
             });
 
-            const layout = selectedExtension ? node.attrs.layout : 'default';
-
             updateState({
               localId: node.attrs.localId,
               showContextPanel: false,
               element: newElement,
               showEditButton,
               updateExtension,
-              layout,
             })(state, dispatch);
           }
           // New DOM element doesn't necessarily mean it's a new Node

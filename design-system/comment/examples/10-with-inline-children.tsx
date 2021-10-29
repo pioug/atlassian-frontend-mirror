@@ -6,7 +6,7 @@ import Comment, { CommentAuthor } from '../src';
 
 import avatarImg from './utils/sample-avatar.png';
 
-interface Props {
+interface ExampleCommentProps {
   children?: ReactNode;
   shouldRenderNestedCommentsInline?: boolean;
 }
@@ -14,7 +14,7 @@ interface Props {
 const ExampleComment = ({
   children,
   shouldRenderNestedCommentsInline,
-}: Props) => (
+}: ExampleCommentProps) => (
   <Comment
     avatar={<Avatar src={avatarImg} size="medium" />}
     author={<CommentAuthor href="/author">John Smith</CommentAuthor>}

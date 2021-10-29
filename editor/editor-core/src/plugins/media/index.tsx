@@ -5,6 +5,7 @@ import {
   mediaGroup,
   mediaSingle,
   mediaSingleWithCaption,
+  mediaInline,
 } from '@atlaskit/adf-schema';
 import { EditorPlugin, PMPlugin, PMPluginFactoryParams } from '../../types';
 import {
@@ -26,7 +27,6 @@ import { ReactMediaGroupNode } from './nodeviews/mediaGroup';
 import { ReactMediaSingleNode } from './nodeviews/mediaSingle';
 import { CustomMediaPicker, MediaOptions } from './types';
 import { floatingToolbar } from './toolbar';
-
 import {
   addAnalytics,
   ACTION,
@@ -41,6 +41,7 @@ import MediaEditor from './ui/MediaEditor';
 import { MediaPickerComponents } from './ui/MediaPicker';
 import { messages } from '../insert-block/ui/ToolbarInsertBlock/messages';
 import { ReactMediaNode } from './nodeviews/mediaNodeView';
+import { ReactMediaInlineNode } from './nodeviews/mediaInline';
 
 export type { MediaState, MediaProvider, CustomMediaPicker };
 export { insertMediaSingleNode } from './utils/media-single';
@@ -49,17 +50,21 @@ const mediaPlugin = (options?: MediaOptions): EditorPlugin => ({
   name: 'media',
 
   nodes() {
-    const { allowMediaGroup = true, allowMediaSingle = false, featureFlags } =
-      options || {};
+    const {
+      allowMediaGroup = true,
+      allowMediaSingle = false,
+      allowMediaInline = false,
+      featureFlags,
+    } = options || {};
 
     const captions = getMediaFeatureFlag('captions', featureFlags);
 
     const mediaSingleNode = captions ? mediaSingleWithCaption : mediaSingle;
-
     return [
       { name: 'mediaGroup', node: mediaGroup },
       { name: 'mediaSingle', node: mediaSingleNode },
       { name: 'media', node: media },
+      { name: 'mediaInline', node: mediaInline },
     ].filter((node) => {
       if (node.name === 'mediaGroup') {
         return allowMediaGroup;
@@ -67,6 +72,10 @@ const mediaPlugin = (options?: MediaOptions): EditorPlugin => ({
 
       if (node.name === 'mediaSingle') {
         return allowMediaSingle;
+      }
+
+      if (node.name === 'mediaInline') {
+        return allowMediaInline;
       }
 
       return true;
@@ -110,6 +119,11 @@ const mediaPlugin = (options?: MediaOptions): EditorPlugin => ({
                   eventDispatcher,
                   providerFactory,
                   options,
+                ),
+                mediaInline: ReactMediaInlineNode(
+                  portalProviderAPI,
+                  eventDispatcher,
+                  providerFactory,
                 ),
               },
               errorReporter,
@@ -228,8 +242,7 @@ const mediaPlugin = (options?: MediaOptions): EditorPlugin => ({
         action(insert, state) {
           const pluginState = pluginKey.getState(state);
           pluginState.showMediaPicker();
-          const tr = insert('');
-          return addAnalytics(state, tr, {
+          return addAnalytics(state, insert(''), {
             action: ACTION.OPENED,
             actionSubject: ACTION_SUBJECT.PICKER,
             actionSubjectId: ACTION_SUBJECT_ID.PICKER_CLOUD,

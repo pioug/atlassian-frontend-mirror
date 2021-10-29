@@ -3,10 +3,13 @@ import React, { useEffect, useState } from 'react';
 // import { DocNode } from '@atlaskit/adf-schema';
 import { ExtensionParams } from '@atlaskit/editor-common';
 
-// import { ExtensionKeys } from './constants';
 // import { ExtensionLinkComponent } from './ExtensionLinkComponent';
-import MacroComponent from './MacroComponent';
-
+import { macroExtensionHandlerKey } from './constants';
+import {
+  InlineMacroComponent,
+  shouldRenderInline,
+} from './InlineMacroComponent';
+import { MacroFallbackComponent } from './MacroFallbackComponent';
 // const shouldRenderAsLink = (extensionKey: string) => {
 //   return [
 //     ExtensionKeys.GOOGLE_DOCS,
@@ -71,31 +74,34 @@ const withLegacyMobileMacros = <
   //   return <Component {...params} />;
   // };
 
-  const getMacroExtensionHandler = () => {
-    return (extension: ExtensionParams<any>) => (
+  const getMacroExtensionHandler = (otherProps: any) => {
+    return (extension: ExtensionParams<any>) =>
       // NOTE: Rendering as link disabled until we can fix setContent overriding
       //       nested renderer content
       // shouldRenderAsLink(extension.extensionKey) ? (
       //   <ExtensionLinkComponent extension={extension} render={nestedRender} />
       // ) : (
-      <MacroComponent
-        extension={extension}
-        macroWhitelist={macroWhitelist}
-        createPromise={createPromise}
-        eventDispatcher={eventDispatcher}
-      />
-    );
+      shouldRenderInline(extension.extensionKey) ? (
+        <InlineMacroComponent extension={extension} {...otherProps} />
+      ) : (
+        <MacroFallbackComponent
+          extension={extension}
+          macroWhitelist={macroWhitelist}
+          createPromise={createPromise}
+          eventDispatcher={eventDispatcher}
+        />
+      );
   };
 
-  const getExtensionHandlers = () => {
+  const getExtensionHandlers = (props: any) => {
     return {
-      'com.atlassian.confluence.macro.core': getMacroExtensionHandler(),
+      [macroExtensionHandlerKey]: getMacroExtensionHandler(props),
     };
   };
 
   const params = {
     ...props,
-    extensionHandlers: getExtensionHandlers(),
+    extensionHandlers: getExtensionHandlers(props),
   };
 
   return <Component {...params} />;

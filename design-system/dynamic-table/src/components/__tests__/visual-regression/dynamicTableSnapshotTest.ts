@@ -71,4 +71,87 @@ describe('Snapshot Test', () => {
     const tableAfter = await takeElementScreenShot(page, table);
     expect(tableAfter).toMatchProdImageSnapshot();
   });
+
+  it('Should show no outline when table row is not focused in a Rankable table', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'dynamic-table',
+      'with-lots-of-pages-rankable',
+      global.__BASEURL__,
+    );
+
+    const { page } = global;
+
+    await loadPage(page, url);
+    await page.waitForSelector('tr');
+    const beforeImage = await page.screenshot();
+    expect(beforeImage).toMatchProdImageSnapshot();
+  });
+
+  it('Should show blue outline when table row is focused in a Rankable table', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'dynamic-table',
+      'with-lots-of-pages-rankable',
+      global.__BASEURL__,
+    );
+
+    const { page } = global;
+
+    await loadPage(page, url);
+    await page.waitForSelector('tr');
+    await page.focus('tr[tabindex="0"]');
+    const image = await page.screenshot();
+    expect(image).toMatchProdImageSnapshot();
+  });
+
+  it('Should show correct background colour on hover of Rankable table', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'dynamic-table',
+      'with-lots-of-pages-rankable',
+      global.__BASEURL__,
+    );
+
+    const { page } = global;
+
+    await loadPage(page, url);
+    await page.waitForSelector('tr');
+    await page.hover('tr[tabindex="0"]');
+    const image = await page.screenshot();
+    expect(image).toMatchProdImageSnapshot();
+  });
+
+  it('Should have correct highlighted row colour', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'dynamic-table',
+      'highlighted-row',
+      global.__BASEURL__,
+    );
+
+    const { page } = global;
+
+    await loadPage(page, url);
+    await page.waitForSelector('table');
+    const image = await page.screenshot();
+    expect(image).toMatchProdImageSnapshot();
+  });
+
+  it('Highlighted row should have correct colours with dark theme', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'dynamic-table',
+      'highlighted-row',
+      global.__BASEURL__,
+      'dark',
+    );
+
+    const { page } = global;
+
+    await loadPage(page, url);
+    await page.waitForSelector('table');
+    const image = await page.screenshot();
+    expect(image).toMatchProdImageSnapshot();
+  });
 });

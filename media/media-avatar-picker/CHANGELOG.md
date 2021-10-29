@@ -1,5 +1,15 @@
 # @atlaskit/media-avatar-picker
 
+## 22.3.0
+
+### Minor Changes
+
+- [`e01dd6e92ec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e01dd6e92ec) - Made component ImageNavigator publicly available
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 22.2.1
 
 ### Patch Changes

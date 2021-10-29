@@ -1,5 +1,15 @@
 # @atlaskit/breadcrumbs
 
+## 11.4.0
+
+### Minor Changes
+
+- [`b60d5bd1e00`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b60d5bd1e00) - [ux] Implemented focusing of the first revealed breadcrumbs item after expansion.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.3.4
 
 ### Patch Changes

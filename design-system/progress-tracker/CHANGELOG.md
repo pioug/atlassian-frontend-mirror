@@ -1,5 +1,11 @@
 # @atlaskit/progress-tracker
 
+## 8.1.0
+
+### Minor Changes
+
+- [`d2429272ffa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d2429272ffa) - Migrates usage of `styled-components` to `@emotion`. Under the hood the component also no longer uses `@atlaskit/page/grid`, although still uses the same spacing scale.
+
 ## 8.0.4
 
 ### Patch Changes

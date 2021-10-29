@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import { mount, shallow } from 'enzyme';
 
@@ -15,18 +15,14 @@ import Comment, {
   CommentLayout,
   CommentTime,
 } from '../../../index';
-import { Content } from '../../../styled/CommentStyles';
-import { ActionsContainer } from '../../../styled/FooterStyles';
-import { TopItem } from '../../../styled/HeaderStyles';
-import { Container, Highlight } from '../../../styled/LayoutStyles';
-import HeaderItems from '../../Header';
+import Content from '../../content';
+import HeaderItems from '../../header';
 
 describe('@atlaskit comments', () => {
   describe('Comment', () => {
     describe('exports', () => {
       it('the Comment component', () => {
         expect(Comment).not.toBe(undefined);
-        expect(new Comment({ avatar: undefined })).toBeInstanceOf(Component);
       });
     });
 
@@ -34,7 +30,6 @@ describe('@atlaskit comments', () => {
       it('should be able to create a component', () => {
         const wrapper = shallow(<Comment avatar="" />);
         expect(wrapper).not.toBe(undefined);
-        expect(wrapper.instance()).toBeInstanceOf(Component);
       });
     });
 
@@ -47,7 +42,7 @@ describe('@atlaskit comments', () => {
             <CommentAction onClick={() => {}}>action content</CommentAction>,
           ];
           const wrapper = mount(<Comment avatar="" actions={actions} />);
-          const container = wrapper.find(ActionsContainer);
+          const container = wrapper.find(CommentAction);
           expect(container.find(CommentAction).length).toBe(actions.length);
           actions.forEach((action) => {
             expect(container.contains(action)).toBe(true);
@@ -59,7 +54,7 @@ describe('@atlaskit comments', () => {
         it('should render the author in the correct container', () => {
           const author = <CommentAuthor>Joshua Nelson</CommentAuthor>;
           const wrapper = mount(<Comment avatar="" author={author} />);
-          expect(wrapper.find(Container).contains(author)).toBe(true);
+          expect(wrapper.find(Comment).contains(author)).toBe(true);
         });
       });
 
@@ -88,7 +83,9 @@ describe('@atlaskit comments', () => {
       describe('afterContent prop', () => {
         it('should render "after content" when provided', () => {
           const content = <p>My sample content</p>;
-          const afterContent = <button>My sample after content</button>;
+          const afterContent = (
+            <button type="button">My sample after content</button>
+          );
           const wrapper = mount(
             <Comment avatar="" content={content} afterContent={afterContent} />,
           );
@@ -101,7 +98,7 @@ describe('@atlaskit comments', () => {
         it('should render the time in the correct container', () => {
           const time = <CommentTime>30 August, 2016</CommentTime>;
           const wrapper = mount(<Comment avatar="" time={time} />);
-          expect(wrapper.find(Container).contains(time)).toBe(true);
+          expect(wrapper.find(Comment).contains(time)).toBe(true);
         });
       });
 
@@ -109,7 +106,7 @@ describe('@atlaskit comments', () => {
         it('should render edited correctly', () => {
           const edited = <CommentEdited>Edited</CommentEdited>;
           const wrapper = mount(<Comment avatar="" edited={edited} />);
-          expect(wrapper.find(Container).contains(edited)).toBe(true);
+          expect(wrapper.find(Comment).contains(edited)).toBe(true);
         });
       });
 
@@ -117,7 +114,7 @@ describe('@atlaskit comments', () => {
         it('should render a Lozenge with the type in the correct container', () => {
           const type = 'type';
           const wrapper = mount(<Comment avatar="" type={type} />);
-          expect(wrapper.find(TopItem).find(Lozenge).length).toBe(1);
+          expect(wrapper.find(HeaderItems).find(Lozenge).length).toBe(1);
         });
       });
 
@@ -135,13 +132,6 @@ describe('@atlaskit comments', () => {
         it('should not render a Lock icon if restrictedTo prop is not set', () => {
           const wrapper = mount(<Comment avatar="" />);
           expect(wrapper.find(LockFilledIcon).length).toBe(0);
-        });
-      });
-
-      describe('highlighted prop', () => {
-        it('should render a highlight underlay inside the container', () => {
-          const wrapper = mount(<Comment avatar="" highlighted />);
-          expect(wrapper.find(Highlight).length).toBe(1);
         });
       });
 
@@ -248,9 +238,9 @@ describe('@atlaskit comments', () => {
                 errorActions={errorActions}
               />,
             );
-            expect(wrapper.find(CommentAction).length).toBe(2);
-            const actionItems = wrapper.find(ActionsContainer);
-            expect(actionItems.find(WarningIcon).length).toBe(1);
+            const actionItems = wrapper.find(CommentAction);
+            expect(actionItems).toHaveLength(2);
+            expect(wrapper.find(WarningIcon)).toHaveLength(1);
             expect(actionItems.find(Button).at(0).text()).toContain('Retry');
             expect(actionItems.find(Button).at(1).text()).toBe('Cancel');
           });

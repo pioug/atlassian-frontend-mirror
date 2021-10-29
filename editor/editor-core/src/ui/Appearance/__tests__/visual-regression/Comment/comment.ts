@@ -27,4 +27,14 @@ describe('Comment', () => {
   test('with long content', async () => {
     await initCommentEditorWithAdf(page, createDocumentWithParagraphs(10));
   });
+
+  test('with long content but maxHeight set', async () => {
+    await initCommentEditorWithAdf(
+      page,
+      createDocumentWithParagraphs(10),
+      undefined,
+      undefined,
+      { maxHeight: 150 },
+    );
+  });
 });

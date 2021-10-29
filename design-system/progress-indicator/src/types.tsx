@@ -1,8 +1,8 @@
-import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
+import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 import type { DotsAppearance, Size, Spacing } from './components/types';
 
-export interface ProgressDotsProps extends WithAnalyticsEventsProps {
+export interface ProgressDotsProps {
   /**
    * The color of the indicators
    */
@@ -20,10 +20,13 @@ export interface ProgressDotsProps extends WithAnalyticsEventsProps {
   /**
    * Function called when an indicator is selected
    */
-  onSelect?: (eventData: {
-    event: React.MouseEvent<HTMLButtonElement>;
-    index: number;
-  }) => void;
+  onSelect?: (
+    eventData: {
+      event: React.MouseEvent<HTMLButtonElement>;
+      index: number;
+    },
+    analyticsEvent: UIAnalyticsEvent,
+  ) => void;
   /**
    * Which indicator is currently selected
    */

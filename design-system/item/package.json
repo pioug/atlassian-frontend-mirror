@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/item",
-  "version": "12.0.7",
+  "version": "12.0.8",
   "description": "A generic item component to be used within other components",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -42,6 +42,7 @@
     "@atlaskit/lozenge": "^11.0.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/tooltip": "^17.5.0",
+    "@atlaskit/visual-regression": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "enzyme": "^3.10.0",
     "polished": "1.9.3",

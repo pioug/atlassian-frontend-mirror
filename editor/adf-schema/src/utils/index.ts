@@ -59,5 +59,11 @@ export {
   normalizeHexColor,
   rgbToHex,
 } from './colors';
-export { getLinkMatch, isSafeUrl, normalizeUrl } from './url';
+export {
+  getLinkMatch,
+  isSafeUrl,
+  normalizeUrl,
+  linkify,
+  linkifyMatch,
+} from './url';
 export type { Match } from './url';

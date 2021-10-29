@@ -90,6 +90,7 @@ export enum ACTION {
   ON_EDITOR_READY_CALLBACK = 'onEditorReadyCallback',
   ON_CHANGE_CALLBACK = 'onChangeCalled',
   REMOVE_ICON = 'removedIcon',
+  UFO_SESSION_COMPLETE = 'ufoSessionComplete',
 }
 
 export enum INPUT_METHOD {
@@ -222,8 +223,9 @@ export enum ACTION_SUBJECT_ID {
   LINK = 'link',
   LINK_PREVIEW = 'linkPreview',
   MEDIA = 'media',
-  MEDIA_SINGLE = 'mediaSingle',
   MEDIA_GROUP = 'mediaGroup',
+  MEDIA_INLINE = 'mediaInline',
+  MEDIA_SINGLE = 'mediaSingle',
   MEDIA_LINK = 'mediaLink',
   MENTION = 'mention',
   NESTED_EXPAND = 'nestedExpand',

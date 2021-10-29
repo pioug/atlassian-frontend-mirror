@@ -58,7 +58,7 @@ describe('<Heading />', () => {
     });
 
     it('does not render heading anchor', () => {
-      expect(heading.closest(HeadingAnchor).exists()).toBe(false);
+      expect(heading.find(HeadingAnchor).exists()).toBe(false);
     });
   });
 
@@ -92,7 +92,7 @@ describe('<Heading />', () => {
           ,
         </CopyTextContext.Provider>,
       );
-      heading.find('button').simulate('click');
+      heading.find('#This-is-a-Heading-1').find('button').simulate('click');
     });
 
     it('should call "fireAnalyticsEvent" with correct event data', () => {

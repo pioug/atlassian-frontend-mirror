@@ -27,65 +27,38 @@ import { CardLoading } from '../../utils/lightCards/cardLoading';
 import { shouldDisplayImageThumbnail } from '../../utils/shouldDisplayImageThumbnail';
 import { ProgressBar } from '../../utils/progressBar';
 import CardActions from '../../utils/cardActions';
-import {
-  withAnalyticsEvents,
-  WithAnalyticsEventsProps,
-} from '@atlaskit/analytics-next';
-import {
-  fireMediaCardEvent,
-  RenderEventAction,
-  getRenderSucceededEventPayload,
-  getRenderFailedFileUriPayload,
-  getRenderFailedExternalUriPayload,
-} from '../../utils/analytics';
-import {
-  withFileAttributes,
-  WithFileAttributesProps,
-} from '../../utils/fileAttributesContext';
 
 export interface FileCardImageViewProps {
   readonly mediaName?: string;
   readonly mediaType?: MediaType;
   readonly mimeType?: string;
   readonly fileSize?: string;
-
   readonly dataURI?: string;
   readonly alt?: string;
   readonly progress?: number;
-
   readonly status: CardStatus;
   readonly mediaItemType: MediaItemType;
-
   readonly dimensions?: CardDimensions;
   readonly resizeMode?: ImageResizeMode;
-
   readonly disableOverlay?: boolean;
   readonly selectable?: boolean;
   readonly selected?: boolean;
-
   readonly error?: ReactNode;
-
   readonly actions?: CardAction[];
   readonly onDisplayImage?: () => void;
   readonly previewOrientation?: number;
-  readonly timeElapsedTillCommenced?: number;
+  readonly onImageError?: () => void;
+  readonly onImageLoad?: () => void;
 }
 
 export const fileCardImageViewSelector = 'media-file-card-view';
 export const fileCardImageViewSelectedSelector =
   'media-file-card-view-selected';
 
-export type FileCardImageViewBaseProps = FileCardImageViewProps &
-  WithAnalyticsEventsProps &
-  WithFileAttributesProps;
-
-export class FileCardImageViewBase extends Component<
-  FileCardImageViewBaseProps
-> {
+export class FileCardImageView extends Component<FileCardImageViewProps> {
   private wasThumbnailDisplayed = false;
-  private lastAnalyticsAction: RenderEventAction | undefined;
 
-  static defaultProps: Partial<FileCardImageViewBaseProps> = {
+  static defaultProps: Partial<FileCardImageViewProps> = {
     resizeMode: 'crop',
     disableOverlay: false,
   };
@@ -263,69 +236,6 @@ export class FileCardImageViewBase extends Component<
     );
   };
 
-  onImageLoad = () => {
-    const {
-      createAnalyticsEvent,
-      fileAttributes,
-      timeElapsedTillCommenced,
-    } = this.props;
-    if (fileAttributes && this.shouldFireEvent(RenderEventAction.SUCCEEDED)) {
-      const timeElapsedTillSucceeded = performance.now();
-      const durationSinceCommenced =
-        timeElapsedTillCommenced &&
-        timeElapsedTillSucceeded - timeElapsedTillCommenced;
-
-      const performanceAttributes = {
-        overall: {
-          durationSincePageStart: timeElapsedTillSucceeded,
-          durationSinceCommenced,
-        },
-      };
-
-      fireMediaCardEvent(
-        getRenderSucceededEventPayload(fileAttributes, performanceAttributes),
-        createAnalyticsEvent,
-      );
-    }
-  };
-
-  onImageError = () => {
-    const { fileAttributes } = this.props;
-    if (fileAttributes && this.shouldFireEvent(RenderEventAction.FAILED)) {
-      const {
-        createAnalyticsEvent,
-        mediaItemType,
-        timeElapsedTillCommenced,
-      } = this.props;
-      const timeElapsedTillFailed = performance.now();
-      const durationSinceCommenced =
-        timeElapsedTillCommenced &&
-        timeElapsedTillFailed - timeElapsedTillCommenced;
-
-      const performanceAttributes = {
-        overall: {
-          durationSincePageStart: timeElapsedTillFailed,
-          durationSinceCommenced,
-        },
-      };
-
-      if (mediaItemType === 'file') {
-        fireMediaCardEvent(
-          getRenderFailedFileUriPayload(fileAttributes, performanceAttributes),
-          createAnalyticsEvent,
-        );
-      } else if (mediaItemType === 'external-image') {
-        fireMediaCardEvent(
-          getRenderFailedExternalUriPayload(
-            fileAttributes,
-            performanceAttributes,
-          ),
-          createAnalyticsEvent,
-        );
-      }
-    }
-  };
-
   private renderMediaImage = () => {
     const {
       status,
@@ -336,6 +246,8 @@ export class FileCardImageViewBase extends Component<
       previewOrientation,
       onDisplayImage,
       alt,
+      onImageLoad,
+      onImageError,
     } = this.props;
 
     if (
@@ -366,14 +278,11 @@ export class FileCardImageViewBase extends Component<
         crop={this.isCropped}
         stretch={this.isStretched}
         previewOrientation={previewOrientation}
-        onImageLoad={this.onImageLoad}
-        onImageError={this.onImageError}
+        onImageLoad={onImageLoad}
+        onImageError={onImageError}
       />
     );
   };
-  // TODO: this check should be based on Component props, not in event actions
-  shouldFireEvent = (action: RenderEventAction) =>
-    !this.lastAnalyticsAction || this.lastAnalyticsAction !== action;
 
   private renderProgressBar = () => {
     const { mediaName, progress, actions, status } = this.props;
@@ -481,7 +390,3 @@ export class FileCardImageViewBase extends Component<
     return resizeMode === 'stretchy-fit';
   }
 }
-
-export const FileCardImageView = withAnalyticsEvents()(
-  withFileAttributes(FileCardImageViewBase),
-);

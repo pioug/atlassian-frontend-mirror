@@ -1,5 +1,15 @@
 # @atlaskit/legacy-mobile-macros
 
+## 0.5.0
+
+### Minor Changes
+
+- [`c12de6a20ae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c12de6a20ae) - [ux] Anchor links macro is now rendered inline and allows for scrolling to anchor
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.4.0
 
 ### Minor Changes

@@ -1,31 +1,63 @@
-import styled, { css } from 'styled-components';
+/** @jsx jsx */
+import { CSSProperties, forwardRef, ReactNode } from 'react';
 
-import { row } from '../theme';
+import { css, jsx } from '@emotion/core';
 
-export interface ITableRowProps {
+import { token } from '@atlaskit/tokens';
+
+import { tableRowCSSVars as cssVars } from './DynamicTable';
+
+export type ITableRowProps = {
   isHighlighted?: boolean;
-}
+  children?: ReactNode;
+  style?: CSSProperties;
+};
 
-const outlineWidth = '2px';
+const rowStyles = css({
+  '&:focus': {
+    outline: `2px solid ${token(
+      'color.border.focus',
+      `var(${cssVars.CSS_VAR_HOVER_BACKGROUND})`,
+    )}`,
+    outlineOffset: `-2px`,
+  },
+});
 
-export const TableBodyRow = styled.tr<ITableRowProps>`
-  ${({ isHighlighted }) =>
-    isHighlighted &&
-    css`
-      background-color: ${row.highlightedBackground};
-    `}
+const rowBackgroundStyles = css({
+  '&:hover': {
+    backgroundColor: token(
+      'color.background.transparentNeutral.hover',
+      `var(${cssVars.CSS_VAR_HOVER_BACKGROUND})`,
+    ),
+  },
+});
+const rowHighlightedBackgroundStyles = css({
+  backgroundColor: token(
+    'color.background.selected.resting',
+    `var(${cssVars.CSS_VAR_HIGHLIGHTED_BACKGROUND})`,
+  ),
+  '&:hover': {
+    backgroundColor: token(
+      'color.background.selected.hover',
+      `var(${cssVars.CSS_VAR_HOVER_HIGHLIGHTED_BACKGROUND})`,
+    ),
+  },
+});
 
-  &:hover {
-    ${({ isHighlighted }) =>
-      css`
-        background-color: ${isHighlighted
-          ? row.hoverHighlightedBackground
-          : row.hoverBackground};
-      `}
-  }
-
-  &:focus {
-    outline: ${outlineWidth} solid ${row.focusOutline};
-    outline-offset: -${outlineWidth};
-  }
-`;
+export const TableBodyRow = forwardRef<HTMLTableRowElement, ITableRowProps>(
+  ({ isHighlighted, children, style, ...rest }, ref) => {
+    return (
+      <tr
+        style={style}
+        css={[
+          rowStyles,
+          isHighlighted ? rowHighlightedBackgroundStyles : rowBackgroundStyles,
+        ]}
+        {...rest}
+        ref={ref}
+      >
+        {children}
+      </tr>
+    );
+  },
+);

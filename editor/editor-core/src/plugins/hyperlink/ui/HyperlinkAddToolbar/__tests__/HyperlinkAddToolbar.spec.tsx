@@ -401,6 +401,7 @@ describe('HyperlinkLinkAddToolbar', () => {
         container: 'some-activity-container-1',
         iconUrl: 'some-activity-icon-url-1.com',
         lastViewedDate: new Date('2020-04-16T00:00:00+00:00'),
+        prefetch: true,
       });
 
       expectToEqual(component.find(LinkSearchList).props().isLoading, false);
@@ -440,6 +441,7 @@ describe('HyperlinkLinkAddToolbar', () => {
         container: 'some-activity-container-1',
         iconUrl: 'some-activity-icon-url-1.com',
         lastViewedDate: new Date('2020-04-16T00:00:00+00:00'),
+        prefetch: true,
       });
 
       expect(activityProvider.searchRecent).toHaveBeenCalledTimes(1);
@@ -869,6 +871,7 @@ describe('HyperlinkLinkAddToolbar', () => {
         url: 'some-quick-search-url-3.com',
         lastUpdatedDate: new Date('2020-04-15T02:00:00+00:00'),
         icon: expect.anything(),
+        prefetch: false,
       });
     });
 
@@ -1428,6 +1431,7 @@ describe('HyperlinkLinkAddToolbar', () => {
           resultCount: 5,
           selectedResultId: 'object-id-1',
           selectedRelativePosition: 0,
+          prefetch: true,
         },
         eventType: 'ui',
       });
@@ -1458,6 +1462,7 @@ describe('HyperlinkLinkAddToolbar', () => {
           resultCount: 5,
           selectedResultId: 'object-id-1',
           selectedRelativePosition: 0,
+          prefetch: true,
         },
         eventType: 'ui',
       });

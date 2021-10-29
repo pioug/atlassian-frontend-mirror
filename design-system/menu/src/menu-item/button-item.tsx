@@ -3,15 +3,16 @@ import { forwardRef, memo, Ref } from 'react';
 
 import { jsx } from '@emotion/core';
 
-import BaseItem from '../internal/components/base-item';
+import noop from '@atlaskit/ds-lib/noop';
+
+import MenuItemPrimitive from '../internal/components/menu-item-primitive';
 import { useBlurOnMouseDown } from '../internal/hooks/use-blur-on-mouse-down';
-import { buttonItemCSS } from '../internal/styles/menu-item/button-item';
 import type { ButtonItemProps } from '../types';
 
 /**
  * __Button item__
  *
- * A button item is used to populate a menu with items that need to be a button element.
+ * A button item is used to populate a menu with items that are buttons.
  *
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/menu/docs/button-item)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/menu)
@@ -22,7 +23,7 @@ const ButtonItem = memo(
     (props: ButtonItemProps, ref) => {
       const {
         children,
-        cssFn = () => ({}),
+        cssFn = noop as any,
         description,
         iconAfter,
         iconBefore,
@@ -34,7 +35,7 @@ const ButtonItem = memo(
         onMouseDown,
         shouldTitleWrap,
         shouldDescriptionWrap,
-        ...others
+        ...rest
       } = props;
       const onMouseDownHandler = useBlurOnMouseDown(onMouseDown);
 
@@ -43,36 +44,41 @@ const ButtonItem = memo(
       }
 
       return (
-        <button
-          css={[
-            // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
-            buttonItemCSS(isDisabled, isSelected),
+        <MenuItemPrimitive
+          {...rest}
+          // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
+          overrides={overrides}
+          testId={testId}
+          iconBefore={iconBefore}
+          iconAfter={iconAfter}
+          isDisabled={isDisabled}
+          isSelected={isSelected}
+          description={description}
+          title={children}
+          shouldTitleWrap={shouldTitleWrap}
+          shouldDescriptionWrap={shouldDescriptionWrap}
+          css={
             // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
             cssFn({
               isSelected,
               isDisabled,
-            }),
-          ]}
-          type="button"
-          data-testid={testId}
-          disabled={isDisabled}
-          onClick={onClick}
-          onMouseDown={onMouseDownHandler}
-          ref={ref as Ref<HTMLButtonElement>}
-          {...others}
+            })
+          }
         >
-          <BaseItem
-            // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
-            overrides={overrides}
-            iconBefore={iconBefore}
-            iconAfter={iconAfter}
-            description={description}
-            shouldTitleWrap={shouldTitleWrap}
-            shouldDescriptionWrap={shouldDescriptionWrap}
-          >
-            {children}
-          </BaseItem>
-        </button>
+          {({ children, ...props }) => (
+            <button
+              {...rest}
+              {...props}
+              ref={ref as Ref<HTMLButtonElement>}
+              disabled={isDisabled}
+              onClick={onClick}
+              onMouseDown={onMouseDownHandler}
+              type="button"
+            >
+              {children}
+            </button>
+          )}
+        </MenuItemPrimitive>
       );
     },
   ),

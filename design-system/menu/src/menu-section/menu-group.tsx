@@ -1,8 +1,13 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/core';
 
-import { menuGroupCSS } from '../internal/styles/menu-section/menu-group';
 import type { MenuGroupProps } from '../types';
+
+const groupStyles = css({
+  display: 'flex',
+  flexDirection: 'column',
+  overflow: 'auto',
+});
 
 /**
  * __Menu group__
@@ -21,8 +26,13 @@ const MenuGroup = ({
   ...rest
 }: MenuGroupProps) => (
   <div
-    // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
-    css={menuGroupCSS({ maxHeight, maxWidth, minHeight, minWidth })}
+    style={{
+      minWidth,
+      maxWidth,
+      minHeight,
+      maxHeight,
+    }}
+    css={groupStyles}
     data-testid={testId}
     {...rest}
   />

@@ -1,5 +1,5 @@
 import { ufolog } from '../../logger';
-import { ExperienceData } from '../../types/types';
+import { ExperienceData } from '../../types';
 import { UFOExperience, UFOExperienceState } from '../core';
 
 type UntilExperience = { experience: UFOExperience };

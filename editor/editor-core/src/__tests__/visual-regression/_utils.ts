@@ -268,6 +268,7 @@ export enum Appearance {
   fullPage = 'full-page',
   comment = 'comment',
   mobile = 'mobile',
+  chromeless = 'chromeless',
 }
 
 type InitEditorWithADFOptions = {
@@ -418,6 +419,22 @@ export const initCommentEditorWithAdf = async (
   await initEditorWithAdf(page, {
     adf,
     appearance: Appearance.comment,
+    device,
+    mode,
+    editorProps,
+  });
+};
+
+export const initChromelessEditorWithAdf = async (
+  page: PuppeteerPage,
+  adf: Object,
+  device?: Device,
+  mode?: 'light' | 'dark',
+  editorProps?: EditorProps,
+) => {
+  await initEditorWithAdf(page, {
+    adf,
+    appearance: Appearance.chromeless,
     device,
     mode,
     editorProps,

@@ -20,8 +20,8 @@ import {
   ExtensionProvider,
   combineExtensionProviders,
   WidthProvider,
-  ContextIdentifierProvider,
 } from '@atlaskit/editor-common';
+import { EditorExperience, ExperienceStore } from '@atlaskit/editor-common/ufo';
 import { akEditorFullPageDefaultFontSize } from '@atlaskit/editor-shared-styles';
 import { FabricEditorAnalyticsContext } from '@atlaskit/analytics-namespaced-context';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
@@ -118,6 +118,8 @@ export default class Editor extends React.Component<EditorProps, State> {
   private editorActions: EditorActions;
   private createAnalyticsEvent?: CreateUIAnalyticsEvent;
   private editorSessionId: string;
+  private experienceStore?: ExperienceStore;
+  private startTime?: number;
 
   constructor(props: EditorProps, context: Context) {
     super(props);
@@ -129,16 +131,19 @@ export default class Editor extends React.Component<EditorProps, State> {
     this.editorActions = (context || {}).editorActions || new EditorActions();
     this.trackEditorActions(this.editorActions, props);
     this.editorSessionId = uuid();
+    this.startTime = performance.now();
 
     startMeasure(measurements.EDITOR_MOUNTED);
     if (
-      props.performanceTracking &&
-      props.performanceTracking.ttiTracking &&
-      props.performanceTracking.ttiTracking.enabled
+      props.performanceTracking?.ttiTracking?.enabled ||
+      props.featureFlags?.ufo
     ) {
       measureTTI(
         (tti, ttiFromInvocation, canceled) => {
-          if (this.createAnalyticsEvent) {
+          if (
+            props.performanceTracking?.ttiTracking?.enabled &&
+            this.createAnalyticsEvent
+          ) {
             const ttiEvent: { payload: AnalyticsEventPayload } = {
               payload: {
                 action: ACTION.EDITOR_TTI,
@@ -167,9 +172,18 @@ export default class Editor extends React.Component<EditorProps, State> {
             }
             fireAnalyticsEvent(this.createAnalyticsEvent)(ttiEvent);
           }
+
+          if (props.featureFlags?.ufo) {
+            this.experienceStore?.mark(
+              EditorExperience.loadEditor,
+              ACTION.EDITOR_TTI,
+              tti,
+            );
+            this.experienceStore?.success(EditorExperience.loadEditor);
+          }
         },
-        props.performanceTracking.ttiTracking.ttiIdleThreshold,
-        props.performanceTracking.ttiTracking.ttiCancelTimeout,
+        props.performanceTracking?.ttiTracking?.ttiIdleThreshold,
+        props.performanceTracking?.ttiTracking?.ttiCancelTimeout,
       );
     }
 
@@ -232,6 +246,10 @@ export default class Editor extends React.Component<EditorProps, State> {
     clearMeasure(measurements.EDITOR_MOUNTED);
     this.props?.performanceTracking?.onEditorReadyCallbackTracking?.enabled &&
       clearMeasure(measurements.ON_EDITOR_READY_CALLBACK);
+
+    if (this.props.featureFlags?.ufo) {
+      this.experienceStore?.abortAll({ reason: 'editor component unmounted' });
+    }
   }
 
   trackEditorActions(
@@ -366,13 +384,21 @@ export default class Editor extends React.Component<EditorProps, State> {
       instance.transformer,
     );
 
+    if (this.props.featureFlags?.ufo) {
+      this.experienceStore = ExperienceStore.getInstance(instance.view);
+      this.experienceStore.start(EditorExperience.loadEditor, this.startTime);
+    }
+
     if (this.props.onEditorReady) {
-      this.props?.performanceTracking?.onEditorReadyCallbackTracking?.enabled &&
-        startMeasure(measurements.ON_EDITOR_READY_CALLBACK);
+      const measureEditorReady =
+        this.props?.performanceTracking?.onEditorReadyCallbackTracking
+          ?.enabled || this.props.featureFlags?.ufo;
+
+      measureEditorReady && startMeasure(measurements.ON_EDITOR_READY_CALLBACK);
 
       this.props.onEditorReady(this.editorActions);
 
-      this.props?.performanceTracking?.onEditorReadyCallbackTracking?.enabled &&
+      measureEditorReady &&
         stopMeasure(
           measurements.ON_EDITOR_READY_CALLBACK,
           this.sendDurationAnalytics(ACTION.ON_EDITOR_READY_CALLBACK),
@@ -383,28 +409,34 @@ export default class Editor extends React.Component<EditorProps, State> {
   private sendDurationAnalytics(
     action: ACTION.EDITOR_MOUNTED | ACTION.ON_EDITOR_READY_CALLBACK,
   ) {
-    return (duration: number, startTime: number) => {
+    return async (duration: number, startTime: number) => {
+      const contextIdentifier = await this.props.contextIdentifierProvider;
+      const objectId = contextIdentifier?.objectId;
+
       if (this.createAnalyticsEvent) {
-        const fireMounted = (objectId?: string) => {
-          fireAnalyticsEvent(this.createAnalyticsEvent)({
-            payload: {
-              action,
-              actionSubject: ACTION_SUBJECT.EDITOR,
-              attributes: {
-                duration,
-                startTime,
-                objectId,
-              },
-              eventType: EVENT_TYPE.OPERATIONAL,
+        fireAnalyticsEvent(this.createAnalyticsEvent)({
+          payload: {
+            action,
+            actionSubject: ACTION_SUBJECT.EDITOR,
+            attributes: {
+              duration,
+              startTime,
+              objectId,
             },
-          });
-        };
-        Promise.resolve(this.props.contextIdentifierProvider).then(
-          (p?: ContextIdentifierProvider) => {
-            fireMounted(p?.objectId);
+            eventType: EVENT_TYPE.OPERATIONAL,
           },
-          fireMounted,
+        });
+      }
+
+      if (this.props.featureFlags?.ufo) {
+        this.experienceStore?.mark(
+          EditorExperience.loadEditor,
+          action,
+          startTime + duration,
         );
+        this.experienceStore?.addMetadata(EditorExperience.loadEditor, {
+          objectId,
+        });
       }
     };
   }

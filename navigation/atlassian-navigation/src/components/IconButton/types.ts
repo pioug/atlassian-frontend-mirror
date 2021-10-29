@@ -71,6 +71,24 @@ export interface BaseIconButtonProps {
   target?: string;
 
   /**
+   * Allows for overriding the component used to render the button.
+   *
+   * This is primarily intended for compatibility with custom
+   * routing libraries when using the `href` prop.
+   *
+   * For further usage information, refer to the [documentation for button](https://atlassian.design/components/button/code).
+   *
+   * @example
+   * ```tsx
+   * <Settings
+   *   component={CustomRouterLink}
+   *   href="/path/to/url"
+   * />
+   * ```
+   */
+  component?: CustomThemeButtonProps['component'];
+
+  /**
    * Handler for the mouse up event.
    */
   onMouseUp?: React.MouseEventHandler<HTMLElement>;
@@ -79,6 +97,11 @@ export interface BaseIconButtonProps {
    * Handler called when the button gains focus.
    */
   onFocus?: React.FocusEventHandler<HTMLElement>;
+
+  /**
+   * Handler called when the button loses focus.
+   */
+  onBlur?: React.FocusEventHandler<HTMLElement>;
 
   /**
    * Makes the element appear selected.

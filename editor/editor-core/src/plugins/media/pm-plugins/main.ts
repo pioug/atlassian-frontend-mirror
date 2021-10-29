@@ -20,8 +20,16 @@ import { insertMediaSingleNode, isMediaSingle } from '../utils/media-single';
 import { MediaPluginOptions } from '../media-plugin-options';
 import DropPlaceholder, { PlaceholderType } from '../ui/Media/DropPlaceholder';
 import { MediaOptions, MediaState, MediaStateStatus } from '../types';
-import { insertMediaGroupNode } from '../utils/media-files';
-import { removeMediaNode, splitMediaGroup } from '../utils/media-common';
+import {
+  insertMediaGroupNode,
+  insertMediaInlineNode,
+  canInsertMediaInline,
+} from '../utils/media-files';
+import {
+  isInsidePotentialEmptyParagraph,
+  removeMediaNode,
+  splitMediaGroup,
+} from '../utils/media-common';
 import * as helpers from '../commands/helpers';
 import { updateMediaNodeAttrs } from '../commands/helpers';
 import { stateKey } from './plugin-key';
@@ -33,6 +41,7 @@ import PickerFacade, {
 import { INPUT_METHOD, InputMethodInsertMedia } from '../../analytics/types';
 import { isImage } from '../utils/is-image';
 import { MediaNodeWithPosHandler, MediaPluginState } from './types';
+import { isInEmptyLine } from '../../../utils/document';
 
 export type { MediaState, MediaProvider, MediaStateStatus };
 export { stateKey } from './plugin-key';
@@ -80,7 +89,7 @@ export class MediaPluginStateImplementation implements MediaPluginState {
   private customPicker?: PickerFacade;
   private removeOnCloseListener: () => void = () => {};
   private openMediaPickerBrowser?: () => void;
-  private onPopupToogleCallback: (isOpen: boolean) => void = () => {};
+  private onPopupToggleCallback: (isOpen: boolean) => void = () => {};
   private reactContext: () => {};
 
   pickers: PickerFacade[] = [];
@@ -236,10 +245,10 @@ export class MediaPluginStateImplementation implements MediaPluginState {
   }
 
   private isMediaSchemaNode = ({ type }: PMNode): boolean => {
-    const { mediaSingle, media } = this.view.state.schema.nodes;
+    const { mediaInline, mediaSingle, media } = this.view.state.schema.nodes;
 
     if (this.mediaOptions?.allowMediaInline) {
-      return type === mediaSingle || type === media;
+      return type === mediaSingle || type === media || type === mediaInline;
     }
 
     return type === mediaSingle;
@@ -284,6 +293,8 @@ export class MediaPluginStateImplementation implements MediaPluginState {
     onMediaStateChanged: MediaStateEventSubscriber,
     pickerType?: string,
   ) => {
+    const { state } = this.view;
+
     const mediaStateWithContext: MediaState = {
       ...mediaState,
       contextId: this.contextIdentifierProvider
@@ -309,15 +320,25 @@ export class MediaPluginStateImplementation implements MediaPluginState {
       });
     }
 
-    if (
-      isMediaSingle(this.view.state.schema, mediaStateWithContext.fileMimeType)
-    ) {
+    if (isMediaSingle(state.schema, mediaStateWithContext.fileMimeType)) {
       insertMediaSingleNode(
         this.view,
         mediaStateWithContext,
         this.getInputMethod(pickerType),
         collection,
         this.mediaOptions && this.mediaOptions.alignLeftOnInsert,
+      );
+    } else if (
+      this.mediaOptions?.allowMediaInline &&
+      !isInEmptyLine(state) &&
+      !isInsidePotentialEmptyParagraph(state) &&
+      canInsertMediaInline(state)
+    ) {
+      insertMediaInlineNode(
+        this.view,
+        mediaStateWithContext,
+        collection,
+        this.getInputMethod(pickerType),
       );
     } else {
       insertMediaGroupNode(
@@ -371,7 +392,7 @@ export class MediaPluginStateImplementation implements MediaPluginState {
   splitMediaGroup = (): boolean => splitMediaGroup(this.view);
 
   onPopupPickerClose = () => {
-    this.onPopupToogleCallback(false);
+    this.onPopupToggleCallback(false);
   };
 
   shouldUseMediaPickerPopup = () => {
@@ -393,15 +414,15 @@ export class MediaPluginStateImplementation implements MediaPluginState {
       return;
     }
     this.popupPicker.show();
-    this.onPopupToogleCallback(true);
+    this.onPopupToggleCallback(true);
   };
 
   setBrowseFn = (browseFn: () => void) => {
     this.openMediaPickerBrowser = browseFn;
   };
 
-  onPopupToggle = (onPopupToogleCallback: (isOpen: boolean) => void) => {
-    this.onPopupToogleCallback = onPopupToogleCallback;
+  onPopupToggle = (onPopupToggleCallback: (isOpen: boolean) => void) => {
+    this.onPopupToggleCallback = onPopupToggleCallback;
   };
 
   /**

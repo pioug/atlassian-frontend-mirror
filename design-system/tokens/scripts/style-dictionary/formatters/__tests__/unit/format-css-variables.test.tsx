@@ -1,3 +1,4 @@
+import { CSS_PREFIX } from '../../../constants';
 import formatter from '../../format-css-variables';
 
 describe('formatter', () => {
@@ -21,7 +22,7 @@ describe('formatter', () => {
       .pop();
 
     expect(result).toEqual(`[data-theme="dark"] {
-  --brand: #ffffff;
+  --${CSS_PREFIX}-brand: #ffffff;
 }
 `);
   });
@@ -46,7 +47,7 @@ describe('formatter', () => {
       .pop();
 
     expect(result).toEqual(`[data-theme="dark"] {
-  --colorAccent: #ffffff;
+  --${CSS_PREFIX}-colorAccent: #ffffff;
 }
 `);
   });
@@ -96,7 +97,7 @@ describe('formatter', () => {
       .pop();
 
     expect(result).toEqual(`[data-theme="dark"] {
-  --accent: #ffffff;
+  --${CSS_PREFIX}-accent: #ffffff;
 }
 `);
   });
@@ -121,7 +122,7 @@ describe('formatter', () => {
       .pop();
 
     expect(result).toEqual(`[data-theme="dark"] {
-  --accent-brand: #ffffff;
+  --${CSS_PREFIX}-accent-brand: #ffffff;
 }
 `);
   });

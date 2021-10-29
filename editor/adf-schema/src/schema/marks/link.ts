@@ -34,6 +34,7 @@ export interface LinkDefinition {
 
 const getLinkAttrs = (attribute: string) => (domNode: Node | string) => {
   const dom = domNode as HTMLLinkElement;
+
   const href = dom.getAttribute(attribute) || '';
   const attrs: { __confluenceMetadata: string; href?: string } = {
     __confluenceMetadata: dom.hasAttribute('__confluenceMetadata')
@@ -48,6 +49,34 @@ const getLinkAttrs = (attribute: string) => (domNode: Node | string) => {
   }
 
   return attrs;
+};
+
+const getLinkAttrsWithCheck = (attribute: string) => (
+  domNode: Node | string,
+) => {
+  const dom = domNode as HTMLLinkElement;
+
+  const hasTextOnlyChildren = Array.from(dom.childNodes).every(
+    (node) => node.nodeType === Node.TEXT_NODE || node.nodeName === 'SPAN',
+  );
+
+  if (hasTextOnlyChildren) {
+    const href = dom.getAttribute(attribute) || '';
+    const attrs: { __confluenceMetadata: string; href?: string } = {
+      __confluenceMetadata: dom.hasAttribute('__confluenceMetadata')
+        ? JSON.parse(dom.getAttribute('__confluenceMetadata') || '')
+        : undefined,
+    };
+
+    if (isSafeUrl(href)) {
+      attrs.href = normalizeUrl(href);
+    } else {
+      return false;
+    }
+
+    return attrs;
+  }
+  return false;
 };
 
 export const link: MarkSpec = {
@@ -74,8 +103,12 @@ export const link: MarkSpec = {
     },
     {
       tag: 'a[href]',
-      context: 'paragraph/|heading/|mediaSingle/|taskItem/|decisionItem/',
+      context: 'mediaSingle/|taskItem/|decisionItem/',
       getAttrs: getLinkAttrs('href'),
+    },
+    {
+      tag: 'a[href]',
+      getAttrs: getLinkAttrsWithCheck('href'),
     },
     {
       /**
@@ -87,7 +120,7 @@ export const link: MarkSpec = {
        * This change comes through via prosemirror-model@1.9.1
        */
       tag: 'a[href]',
-      getAttrs: getLinkAttrs('href'),
+      getAttrs: getLinkAttrsWithCheck('href'),
       getContent: (node, schema) => {
         if (node instanceof HTMLAnchorElement) {
           const href = node.getAttribute('href');

@@ -1,5 +1,5 @@
-import React from 'react';
-
+/** @jsx jsx */
+import { css, jsx } from '@emotion/core';
 import { fireEvent, render } from '@testing-library/react';
 import serializer, { matchers } from 'jest-emotion';
 
@@ -26,6 +26,23 @@ describe('<LinkItem />', () => {
     fireEvent.click(getByTestId('target'));
 
     expect(callback).toHaveBeenCalled();
+  });
+
+  it('should override styles without stripping them', () => {
+    const hackStyles = css({
+      // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+      backgroundColor: 'red',
+    });
+
+    const { getByTestId } = render(
+      // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
+      <LinkItem css={hackStyles} testId="link">
+        Hello world
+      </LinkItem>,
+    );
+
+    expect(getByTestId('link')).toHaveStyleRule('background-color', 'red');
+    expect(getByTestId('link')).toHaveStyleRule('color', 'currentColor');
   });
 
   it('should not gain focus on mouse down when it had no initial focus', () => {

@@ -1,5 +1,15 @@
 # @atlaskit/css-reset
 
+## 6.2.0
+
+### Minor Changes
+
+- [`fd7b67c606a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd7b67c606a) - [ux] The reset now uses focus-visible (if supported) instead of styling :focus directly.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.1.4
 
 ### Patch Changes

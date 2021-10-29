@@ -4,6 +4,7 @@ import {
   codeFontFamily,
   colors,
   fontFamily,
+  fontSize,
   gridSize,
   typography,
 } from '@atlaskit/theme';
@@ -22,7 +23,7 @@ export default evaluateInner`
     background-color: ${token('color.background.default', '#fff')};
     color: ${token('color.text.highEmphasis', colors.N800)};
     font-family: ${fontFamily};
-    font-size: 14px;
+    font-size: ${fontSize()}px;
     font-style: normal;
     font-weight: 400;
     line-height: 1.42857142857143;
@@ -60,11 +61,16 @@ export default evaluateInner`
   a:active {
     color: ${token('color.text.link.pressed', colors.B500)};
   }
-  a:focus {
+  a:focus-visible {
     outline: 2px solid ${token('color.border.focus', colors.B100)};
     outline-offset: 2px;
   }
-
+  @supports not selector(*:focus-visible) {
+    a:focus {
+      outline: 2px solid ${token('color.border.focus', colors.B100)};
+      outline-offset: 2px;
+    }
+  }
   /* Headings */
   h1 {
     ${typography.h800()}

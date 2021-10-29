@@ -1,25 +1,45 @@
-import styled from 'styled-components';
+/** @jsx jsx */
+import { FC, forwardRef, HTMLProps } from 'react';
+
+import { css, jsx } from '@emotion/core';
 
 import { gridSize } from '@atlaskit/theme/constants';
 
-export const Container = styled.div`
-  margin-bottom: ${gridSize() * 3}px;
-  position: relative;
-`;
+const containerStyles = css({
+  marginBottom: `${gridSize() * 3}px`,
+  position: 'relative',
+});
 
-export const SpinnerBackdrop = styled.div`
-  pointer-events: none;
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
+export const Container = (props: HTMLProps<HTMLDivElement>) => (
+  <div css={containerStyles} {...props} />
+);
 
-export const SpinnerContainer = styled.div`
-  position: relative;
-  top: 0;
-`;
+const spinnerBackdropStyles = css({
+  pointerEvents: 'none',
+  position: 'absolute',
+  top: 0,
+  right: 0,
+  bottom: 0,
+  left: 0,
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+});
+
+export const SpinnerBackdrop: FC = ({ children }) => (
+  <div css={spinnerBackdropStyles}>{children}</div>
+);
+
+const spinnerContainerStyles = css({
+  position: 'relative',
+  top: 0,
+});
+
+export const SpinnerContainer = forwardRef<
+  HTMLDivElement,
+  HTMLProps<HTMLDivElement>
+>(({ children }, ref) => (
+  <div css={spinnerContainerStyles} ref={ref}>
+    {children}
+  </div>
+));

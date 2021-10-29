@@ -79,5 +79,14 @@ describe('dimensionComparer', () => {
         ),
       ).toBe(false);
     });
+
+    it('should return false if one parameter is not defined', () => {
+      expect(isBigger(undefined, { width: '1000', height: '1000' })).toBe(
+        false,
+      );
+      expect(isBigger({ width: '1000', height: '1000' }, undefined)).toBe(
+        false,
+      );
+    });
   });
 });

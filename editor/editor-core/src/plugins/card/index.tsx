@@ -3,8 +3,8 @@ import { inlineCard, blockCard, embedCard } from '@atlaskit/adf-schema';
 import { EditorPlugin } from '../../types';
 import { createPlugin } from './pm-plugins/main';
 import { floatingToolbar } from './toolbar';
-import { CardOptions } from '@atlaskit/editor-common';
 import { EditorSmartCardEvents } from './ui/EditorSmartCardEvents';
+import { CardOptions } from '@atlaskit/editor-common';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 const cardPlugin = (
@@ -34,18 +34,18 @@ const cardPlugin = (
     },
 
     pmPlugins() {
+      const allowBlockCards = options.allowBlockCards ?? true;
       const allowResizing = options.allowResizing ?? true;
       const useAlternativePreloader = options.useAlternativePreloader ?? true;
       return [
         {
           name: 'card',
-          plugin: createPlugin(
-            options.platform,
+          plugin: createPlugin({
+            ...options,
+            allowBlockCards,
             allowResizing,
             useAlternativePreloader,
-            options.fullWidthMode,
-            options.createAnalyticsEvent,
-          ),
+          }),
         },
       ];
     },

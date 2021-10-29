@@ -18,20 +18,23 @@ export function useSmartLink(
   const renderers = useSmartLinkRenderers();
 
   // NB: used to propagate errors from hooks to error boundaries.
-  const [, setState] = useState();
+  const [error, setError] = useState(null);
 
   // Register the current card.
   const register = () => {
-    actions.register().catch((err) =>
-      setState(() => {
-        throw err;
-      }),
-    );
+    actions.register().catch((err) => setError(err));
   };
   // AFP-2511 TODO: Fix automatic suppressions below
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(register, [url]);
 
   // Provide the state and card actions to consumers.
-  return { state, actions, config, analytics, renderers };
+  return {
+    state,
+    actions,
+    config,
+    analytics,
+    renderers,
+    error,
+  };
 }

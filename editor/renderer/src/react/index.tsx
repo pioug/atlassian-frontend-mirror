@@ -201,6 +201,8 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
         return this.getMediaProps(node, path);
       case 'mediaGroup':
         return this.getMediaGroupProps(node);
+      case 'mediaInline':
+        return this.getMediaInlineProps(node);
       case 'mediaSingle':
         return this.getMediaSingleProps(node, path);
       case 'table':
@@ -506,6 +508,12 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
       allowAltTextOnImages: this.allowAltTextOnImages,
       featureFlags: this.media && this.media.featureFlags,
       enableDownloadButton: this.media?.enableDownloadButton,
+    };
+  }
+
+  private getMediaInlineProps(node: Node) {
+    return {
+      ...this.getProps(node),
     };
   }
 

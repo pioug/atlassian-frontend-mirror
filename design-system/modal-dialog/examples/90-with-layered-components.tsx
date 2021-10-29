@@ -20,6 +20,7 @@ import Popup from '@atlaskit/popup';
 import Select, { PopupSelect } from '@atlaskit/select';
 import { P300 } from '@atlaskit/theme/colors';
 import { gridSize, layers } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
 import ModalDialog, {
@@ -313,7 +314,12 @@ const generateFlagData = (flags: FlagData[]): FlagData => ({
   created: Date.now(),
   description:
     'Velit duis sit officia eiusmod Lorem aliqua enim laboris do dolor eiusmod.',
-  icon: <Info label="Info icon" primaryColor={P300} />,
+  icon: (
+    <Info
+      label="Info icon"
+      primaryColor={token('color.iconBorder.discovery', P300)}
+    />
+  ),
   id: flags.length,
   key: flags.length,
   title: `${flags.length + 1}: Whoa a new flag!`,

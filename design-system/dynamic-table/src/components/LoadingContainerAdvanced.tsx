@@ -26,7 +26,7 @@ export interface Props {
   isLoading?: boolean;
   spinnerSize?: SpinnerSizeType;
   contentsOpacity: number;
-  targetRef?: () => React.ComponentType<any> | undefined;
+  targetRef?: () => HTMLDivElement | undefined;
   testId?: string;
 }
 
@@ -35,16 +35,16 @@ export default class LoadingContainerAdvanced extends React.Component<
   {}
 > {
   children?: HTMLElement;
-  spinner?: HTMLElement;
+  spinnerRef?: HTMLDivElement;
   static defaultProps = {
     isLoading: true,
     spinnerSize: LARGE,
     contentsOpacity: LOADING_CONTENTS_OPACITY,
   };
-
   componentDidMount = () => {
     if (this.props.isLoading && this.hasTargetNode()) {
       this.attachListeners();
+
       this.updateTargetAppearance();
       this.updateSpinnerPosition();
     }
@@ -74,7 +74,6 @@ export default class LoadingContainerAdvanced extends React.Component<
 
   getTargetNode = (nextProps: Props = this.props) => {
     const { targetRef } = nextProps;
-
     // targetRef prop may be defined but it is not guaranteed it returns an element
     const targetElement = targetRef ? targetRef() : this.children;
     // @ts-ignore - targetElement is not assignable to type 'ReactInstance'
@@ -85,8 +84,8 @@ export default class LoadingContainerAdvanced extends React.Component<
 
   getThisNode = () => safeFindDOMNode(this);
 
-  // @ts-ignore - this.spinner is not assignable to type 'ReactInstance'
-  getSpinnerNode = () => safeFindDOMNode(this.spinner);
+  // @ts-ignore - this.spinnerRef is not assignable to type 'ReactInstance'
+  getSpinnerNode = () => safeFindDOMNode(this.spinnerRef);
 
   hasTargetNode = (nextProps?: Props) => !!this.getTargetNode(nextProps);
 
@@ -139,6 +138,7 @@ export default class LoadingContainerAdvanced extends React.Component<
 
   updateTargetAppearance = () => {
     const targetNode = this.getTargetNode() as HTMLElement;
+
     const { isLoading, contentsOpacity } = this.props;
     if (
       targetNode &&
@@ -227,9 +227,7 @@ export default class LoadingContainerAdvanced extends React.Component<
         {isLoading && (
           <SpinnerBackdrop>
             <SpinnerContainer
-              innerRef={(el: HTMLElement) => {
-                this.spinner = el;
-              }}
+              ref={(el: HTMLDivElement) => (this.spinnerRef = el)}
             >
               <Spinner
                 size={spinnerSize}

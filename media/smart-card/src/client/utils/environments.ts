@@ -1,5 +1,6 @@
 const devBaseUrl = 'https://api-private.dev.atlassian.com';
-const stgBaseUrl = 'https://api-private.stg.atlassian.com';
+const stgBaseUrl =
+  'https://commerce-components-preview.dev.atlassian.com/gateway/api';
 const prodBaseUrl = 'https://api-private.atlassian.com';
 
 export const BaseUrls = {

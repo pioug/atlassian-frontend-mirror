@@ -229,14 +229,14 @@ tester.run('ensure-design-token-usage', rule, {
       errors: [{ messageId: 'hardCodedColor' }],
     },
     {
-      code: `css({ color: 'var(--accent-subtleBlue)' });`,
+      code: `css({ color: 'var(--ds-accent-subtleBlue)' });`,
       output: `css({ color: token('color.accent.subtleBlue') });`,
       errors: [{ messageId: 'directTokenUsage' }],
     },
     {
       code: `
           css\`
-            color: var(--accent-subtleBlue);
+            color: var(--ds-accent-subtleBlue);
           \`;
         `,
       errors: [{ messageId: 'directTokenUsage' }],
@@ -244,7 +244,7 @@ tester.run('ensure-design-token-usage', rule, {
     {
       code: `
           styled.div\`
-            color: var(--accent-subtleBlue);
+            color: var(--ds-accent-subtleBlue);
           \`;
         `,
       errors: [{ messageId: 'directTokenUsage' }],

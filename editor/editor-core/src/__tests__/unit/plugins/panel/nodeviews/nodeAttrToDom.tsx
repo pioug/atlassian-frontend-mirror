@@ -28,7 +28,7 @@ describe('Panel - panelAttrsToDom', () => {
       expect(result).toEqual([
         'div',
         { class: 'ak-editor-panel', 'data-panel-type': 'success', style: '' },
-        ['span', { class: 'ak-editor-panel__icon' }],
+        ['div', { class: 'ak-editor-panel__icon' }],
         ['div', { class: 'ak-editor-panel__content' }, 0],
       ]);
     });
@@ -41,7 +41,7 @@ describe('Panel - panelAttrsToDom', () => {
       expect(result).toEqual([
         'div',
         { class: 'ak-editor-panel', 'data-panel-type': 'custom', style: '' },
-        ['span', { class: 'ak-editor-panel__icon' }],
+        ['div', { class: 'ak-editor-panel__icon' }],
         ['div', { class: 'ak-editor-panel__content' }, 0],
       ]);
     });
@@ -56,7 +56,7 @@ describe('Panel - panelAttrsToDom', () => {
       expect(result).toEqual([
         'div',
         { class: 'ak-editor-panel', 'data-panel-type': 'success', style: '' },
-        ['span', { class: 'ak-editor-panel__icon' }],
+        ['div', { class: 'ak-editor-panel__icon' }],
         ['div', { class: 'ak-editor-panel__content' }, 0],
       ]);
     });
@@ -73,7 +73,7 @@ describe('Panel - panelAttrsToDom', () => {
           'data-panel-type': 'custom',
           style: 'background-color: red',
         },
-        ['span', { class: 'ak-editor-panel__icon' }],
+        ['div', { class: 'ak-editor-panel__icon' }],
         ['div', { class: 'ak-editor-panel__content' }, 0],
       ]);
     });
@@ -87,7 +87,7 @@ describe('Panel - panelAttrsToDom', () => {
           'data-panel-type': 'custom',
           style: '',
         },
-        ['span', { class: 'ak-editor-panel__icon' }],
+        ['div', { class: 'ak-editor-panel__icon' }],
         ['div', { class: 'ak-editor-panel__content' }, 0],
       ]);
     });

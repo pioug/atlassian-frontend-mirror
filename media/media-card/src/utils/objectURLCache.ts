@@ -1,7 +1,7 @@
 import { LRUCache, Entry } from 'lru-fast';
 import { EventEmitter2 } from 'eventemitter2';
 
-import { CardPreview } from '../root/card/getCardPreview';
+import { CardPreview } from '../';
 
 export const PREVIEW_CACHE_LRU_SIZE = 50;
 
@@ -46,6 +46,10 @@ export class ObjectURLCache {
 
   set(key: string, value: CardPreview) {
     this.cache.set(key, value);
+  }
+  remove(key: string) {
+    const removed = this.cache.remove(key);
+    removed && URL.revokeObjectURL(removed.dataURI);
   }
 }
 

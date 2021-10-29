@@ -128,6 +128,7 @@ export type SelectedSearchResultsAEP = UIAEP<
     resultCount: number;
     selectedResultId: string;
     selectedRelativePosition: number;
+    prefetch: boolean;
   },
   undefined
 >;

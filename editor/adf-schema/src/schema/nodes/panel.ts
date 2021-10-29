@@ -1,4 +1,4 @@
-import { NodeSpec, Node } from 'prosemirror-model';
+import { NodeSpec, Node, AttributeSpec } from 'prosemirror-model';
 import { ParagraphDefinition as Paragraph } from './paragraph';
 import { OrderedListDefinition as OrderedList } from './ordered-list';
 import { BulletListDefinition as BulletList } from './bullet-list';
@@ -46,36 +46,80 @@ export interface DOMAttributes {
   [propName: string]: string;
 }
 
-//TODO: ED-10445 rename to panel and merge with the other panel node spec, after emoji panels moved to full schema
-export const customPanel: NodeSpec = {
-  group: 'block',
-  content:
-    '(paragraph | heading | bulletList | orderedList | blockCard | unsupportedBlock)+',
-  marks: 'unsupportedMark unsupportedNodeAttribute',
-  attrs: {
+type NodeSpecAttributes = {
+  [name: string]: AttributeSpec;
+};
+
+type ParseDOMAttrs = {
+  panelType: string;
+  panelIcon?: string;
+  panelColor?: string;
+};
+
+const getDefaultAttrs = (): NodeSpecAttributes => {
+  let attrs: NodeSpecAttributes = {
     panelType: { default: 'info' },
     panelIcon: { default: null },
     panelColor: { default: null },
-  },
-  parseDOM: [
-    {
-      tag: 'div[data-panel-type]',
-      getAttrs: (dom) => ({
-        panelType: (dom as HTMLElement).getAttribute('data-panel-type')!,
-        panelIcon: (dom as HTMLElement).getAttribute('data-panel-icon')!,
-        panelColor: (dom as HTMLElement).getAttribute('data-panel-color')!,
-      }),
-    },
-  ],
-  toDOM(node: Node) {
-    const { panelType, panelIcon, panelColor } = node.attrs;
-    const attrs: DOMAttributes = {
-      'data-panel-type': panelType,
-      'data-panel-icon': panelIcon,
-      'data-panel-color': panelColor,
+  };
+
+  return attrs;
+};
+
+const getDomAttrs = (nodeAttrs: { [key: string]: any }): DOMAttributes => {
+  let attrs: DOMAttributes = {
+    'data-panel-type': nodeAttrs.panelType,
+    'data-panel-icon': nodeAttrs.panelIcon,
+    'data-panel-color': nodeAttrs.panelColor,
+  };
+
+  return attrs;
+};
+
+const getParseDOMAttrs = (
+  allowCustomPanel: boolean,
+  dom: string | globalThis.Node,
+): ParseDOMAttrs => {
+  let parseDOMAttrs: ParseDOMAttrs = {
+    panelType: (dom as HTMLElement).getAttribute('data-panel-type')!,
+  };
+
+  if (allowCustomPanel) {
+    parseDOMAttrs = {
+      ...parseDOMAttrs,
+      panelIcon: (dom as HTMLElement).getAttribute('data-panel-icon')!,
+      panelColor: (dom as HTMLElement).getAttribute('data-panel-color')!,
     };
-    return ['div', attrs, ['div', {}, 0]];
-  },
+  } else {
+    parseDOMAttrs.panelType =
+      parseDOMAttrs.panelType === PanelType.CUSTOM
+        ? PanelType.INFO
+        : parseDOMAttrs.panelType;
+  }
+
+  return parseDOMAttrs;
+};
+
+export const customPanel = (allowCustomPanel: boolean): NodeSpec => {
+  const panelNodeSpec: NodeSpec = {
+    group: 'block',
+    content:
+      '(paragraph | heading | bulletList | orderedList | blockCard | unsupportedBlock)+',
+    marks: 'unsupportedMark unsupportedNodeAttribute',
+    attrs: getDefaultAttrs(),
+    parseDOM: [
+      {
+        tag: 'div[data-panel-type]',
+        getAttrs: (dom) => getParseDOMAttrs(allowCustomPanel, dom),
+      },
+    ],
+    toDOM(node: Node) {
+      const attrs: DOMAttributes = getDomAttrs(node.attrs);
+
+      return ['div', attrs, ['div', {}, 0]];
+    },
+  };
+  return panelNodeSpec;
 };
 
 export const panel: NodeSpec = {

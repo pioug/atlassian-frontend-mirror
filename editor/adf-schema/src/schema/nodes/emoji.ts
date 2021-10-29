@@ -39,6 +39,11 @@ export const emoji: NodeSpec = {
         };
       },
     },
+    // Handle copy/paste beautiful panel from renderer />
+    {
+      tag: 'div.ak-editor-panel__icon',
+      ignore: true,
+    },
     // Handle copy/paste from old <ac:emoticon />
     {
       tag: 'img[data-emoticon-name]',

@@ -9,21 +9,9 @@ class RankableTableHeadCell extends React.Component<
   {}
 > {
   render() {
-    const {
-      isRanking,
-      refHeight,
-      refWidth,
-      innerRef,
-      ...restProps
-    } = this.props;
+    const { isRanking, refHeight, refWidth, ...restProps } = this.props;
     const inlineStyles = inlineStylesIfRanking(isRanking, refWidth);
-    return (
-      <HeadCell
-        inlineStyles={inlineStyles}
-        innerRef={innerRef}
-        {...restProps}
-      />
-    );
+    return <HeadCell inlineStyles={inlineStyles} {...restProps} />;
   }
 }
 

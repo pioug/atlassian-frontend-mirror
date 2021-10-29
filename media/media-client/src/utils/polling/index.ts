@@ -1,32 +1,20 @@
-import {
-  getMediaFeatureFlag,
-  MediaFeatureFlags,
-  PollingOptions,
-} from '@atlaskit/media-common/mediaFeatureFlags';
-
 import { PollingError } from './errors';
 import { Executor } from './types';
 
-export const getPollingOptions = (
-  featureFlags?: MediaFeatureFlags,
-): Required<PollingOptions> => ({
-  poll_intervalMs: getMediaFeatureFlag<number>('poll_intervalMs', featureFlags),
-  poll_maxAttempts: getMediaFeatureFlag<number>(
-    'poll_maxAttempts',
-    featureFlags,
-  ),
-  poll_backoffFactor: getMediaFeatureFlag<number>(
-    'poll_backoffFactor',
-    featureFlags,
-  ),
-  poll_maxIntervalMs: getMediaFeatureFlag<number>(
-    'poll_maxIntervalMs',
-    featureFlags,
-  ),
-});
+export interface PollingOptions {
+  poll_intervalMs: number;
+  poll_maxAttempts: number;
+  poll_backoffFactor: number;
+  poll_maxIntervalMs: number;
+}
 
 // default polling options without using feature flags
-export const defaultPollingOptions = getPollingOptions(undefined);
+export const defaultPollingOptions: PollingOptions = {
+  poll_intervalMs: 3000,
+  poll_maxAttempts: 30,
+  poll_backoffFactor: 1.25,
+  poll_maxIntervalMs: 200000,
+};
 
 /**
  * This class encapsulates polling functionality with the following features:
@@ -40,7 +28,7 @@ export const defaultPollingOptions = getPollingOptions(undefined);
  * IMPORTANT! the executor function must explicitly call ".next()" for the next iteration to run
  */
 export class PollingFunction {
-  options: Required<PollingOptions>;
+  options: PollingOptions;
   poll_intervalMs: number = 0;
   attempt: number = 1;
   shouldIterate: boolean = true;

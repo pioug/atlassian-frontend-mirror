@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/babel-plugin-tokens",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "author": "Atlassian Pty Ltd",
   "description": "A babel plugin to optimise performance and support fallbacks for Design System tokens",
   "license": "Apache-2.0",
@@ -9,7 +9,7 @@
   },
   "atlassian": {
     "team": "Design System Team",
-    "releaseModel": "continuous"
+    "releaseModel": "scheduled"
   },
   "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
   "main": "dist/cjs/index.js",

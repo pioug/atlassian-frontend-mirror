@@ -8,6 +8,7 @@ import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import useAutoFocus from '@atlaskit/ds-lib/use-auto-focus';
 import FadeIn from '@atlaskit/motion/fade-in';
 import { N0, N30A, N60A } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import type { ModalDialogProps } from '../../types';
 import { borderRadius, textColor } from '../constants';
@@ -30,7 +31,7 @@ const dialogStyles = css({
   flex: '1 1 auto',
   flexDirection: 'column',
 
-  backgroundColor: N0,
+  backgroundColor: token('color.background.overlay', N0),
   color: textColor,
   pointerEvents: 'auto',
 
@@ -42,7 +43,10 @@ const dialogStyles = css({
     marginLeft: 'inherit',
 
     borderRadius,
-    boxShadow: `0 0 0 1px ${N30A}, 0 2px 1px ${N30A}, 0 0 20px -6px ${N60A}`,
+    boxShadow: token(
+      'shadow.overlay',
+      `0 0 0 1px ${N30A}, 0 2px 1px ${N30A}, 0 0 20px -6px ${N60A}`,
+    ),
   },
 
   /**

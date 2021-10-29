@@ -15,6 +15,7 @@ import {
   layoutSection,
   li,
   media,
+  mediaInline,
   mediaSingle,
   mention,
   ol,
@@ -484,6 +485,16 @@ describe('SlackTransformer: serializer', () => {
           )(defaultSchema),
         ),
       ).toEqual('[media attached]\n\n');
+    });
+
+    it('should be serialized to an inline file', () => {
+      expect(
+        markdownSerializer.serialize(
+          doc(p(mediaInline({ collection: 'test', id: 'media-id' })()))(
+            defaultSchema,
+          ),
+        ),
+      ).toEqual('[inline file attached]');
     });
   });
 

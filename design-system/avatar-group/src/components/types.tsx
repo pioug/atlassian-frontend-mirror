@@ -1,11 +1,11 @@
-import { ElementType, ReactNode } from 'react';
+import type { ElementType, ReactNode } from 'react';
 
-import { Interpolation } from '@emotion/styled';
+import type { Interpolation } from '@emotion/core';
 
-import { AnalyticsEvent } from '@atlaskit/analytics-next';
-import { AvatarPropTypes } from '@atlaskit/avatar';
+import type { AnalyticsEvent } from '@atlaskit/analytics-next';
+import type { AvatarPropTypes } from '@atlaskit/avatar';
 
-import { AvatarGroupItemProps } from './avatar-group-item';
+import type { AvatarGroupItemProps } from './avatar-group-item';
 
 export type DeepRequired<T> = {
   [P in keyof T]-?: Required<T[P]>;

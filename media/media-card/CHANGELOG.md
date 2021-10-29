@@ -1,5 +1,23 @@
 # @atlaskit/media-card
 
+## 72.0.0
+
+### Major Changes
+
+- [`b3606652fa1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b3606652fa1) - [ux] Editor integration for Media Inline component
+
+### Minor Changes
+
+- [`269ee940b87`](https://bitbucket.org/atlassian/atlassian-frontend/commits/269ee940b87) - redesign error UI on new media card experience
+
+### Patch Changes
+
+- [`a81fdad4b7b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a81fdad4b7b) - Refactored the internal status logic based on file processing status and preview render outcome
+- [`b51fc0a9062`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b51fc0a9062) - Refactored internal helpers to match common type definitions from Media Client
+- [`ebad8bc86e5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ebad8bc86e5) - Moved analytics from image renderer to root component
+- [`fe9ced0cd70`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fe9ced0cd70) - Removed feature flags for polling settings
+- Updated dependencies
+
 ## 71.0.0
 
 ### Major Changes

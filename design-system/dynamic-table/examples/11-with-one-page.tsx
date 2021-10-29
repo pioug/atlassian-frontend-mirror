@@ -1,16 +1,14 @@
+/** @jsx jsx */
 import React from 'react';
 
-import styled from 'styled-components';
+import { jsx } from '@emotion/core';
 
 import Button from '@atlaskit/button/standard-button';
 
 import DynamicTable from '../src';
 
+import Wrapper from './components/wrapper';
 import { caption, head, rows } from './content/sample-data';
-
-const Wrapper = styled.div`
-  min-width: 600px;
-`;
 
 interface State {
   showPagination: boolean;

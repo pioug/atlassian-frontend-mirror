@@ -9,11 +9,13 @@ import {
   withAnalyticsEvents,
   WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
-import { withMediaAnalyticsContext } from '@atlaskit/media-common';
+import {
+  NumericalCardDimensions,
+  withMediaAnalyticsContext,
+} from '@atlaskit/media-common';
 import DownloadIcon from '@atlaskit/icon/glyph/download';
 import { FileAttributes } from '@atlaskit/media-common';
 import {
-  addFileAttrsToUrl,
   FileDetails,
   FileIdentifier,
   FileState,
@@ -21,45 +23,43 @@ import {
   Identifier,
   isDifferentIdentifier,
   isFileIdentifier,
-  isErrorFileState,
   MediaViewedEventPayload,
   RECENTS_COLLECTION,
   isImageRepresentationReady,
   isExternalImageIdentifier,
+  imageResizeModeToFileImageMode,
+  MediaStoreGetFileImageParams,
+  MediaBlobUrlAttrs,
 } from '@atlaskit/media-client';
 import { MediaViewer, MediaViewerDataSource } from '@atlaskit/media-viewer';
 import { Subscription } from 'rxjs/Subscription';
 import { IntlProvider, intlShape } from 'react-intl';
 import {
   CardAction,
-  CardDimensions,
   CardProps,
   CardState,
   CardStatus,
-  NumericalCardDimensions,
+  CardPreview,
 } from '../..';
 import { CardView } from '../cardView';
 import { ViewportDetector } from '../../utils/viewportDetector';
 import { getRequestedDimensions } from '../../utils/getDataURIDimension';
 import {
-  shouldGetCardPreview,
-  extractFilePreviewStatus,
-  CardPreview,
   getCardPreview,
   getCardPreviewFromCache,
+  removeCardPreviewFromCache,
   getFilePreviewFromFileState,
   CardPreviewParams,
+  shouldResolvePreview,
 } from './getCardPreview';
 import { getFileDetails } from '../../utils/metadata';
-import { isBigger } from '../../utils/dimensionComparer';
-import { getCardStatus } from './getCardStatus';
 import { InlinePlayer } from '../inlinePlayer';
 import { getFileAttributes } from '../../utils/analytics';
-import { FileAttributesProvider } from '../../utils/fileAttributesContext';
 import {
-  isRemotePreviewError,
+  isLocalPreviewError,
   MediaCardError,
   ensureMediaCardError,
+  ImageLoadError,
 } from '../../errors';
 import {
   fireOperationalEvent,
@@ -69,6 +69,7 @@ import {
   fireScreenEvent,
 } from './cardAnalytics';
 import getDocument from '../../utils/document';
+import { getCardStateFromFileState, createStateUpdater } from './cardState';
 
 export type CardWithAnalyticsEventsProps = CardProps & WithAnalyticsEventsProps;
 
@@ -77,13 +78,9 @@ export class CardBase extends Component<
   CardState
 > {
   private hasBeenMounted: boolean = false;
-  // Stores last retrieved file state for logging purposes
-  private lastFileState?: FileState;
-  private lastCardStatusUpdateTimestamp?: number;
   // We initialise timeElapsedTillCommenced
   // to avoid extra branching on a possibly undefined value.
   private timeElapsedTillCommenced: number = performance.now();
-
   subscription?: Subscription;
   static defaultProps: Partial<CardProps> = {
     appearance: 'auto',
@@ -112,15 +109,13 @@ export class CardBase extends Component<
       cardPreview = getCardPreviewFromCache(id, dimensions);
     } else if (isExternalImageIdentifier(identifier)) {
       this.fireCommencedEvent();
-      status = 'complete';
+      status = 'loading-preview';
       const { dataURI } = identifier;
       cardPreview = { dataURI, orientation: 1, source: 'external' };
     }
 
-    /**
-     * If cardPreview is available from local cache, `isCardVisible`
-     * should be true to avoid flickers during re-mount of the component
-     */
+    //  If cardPreview is available from local cache, `isCardVisible`
+    //  should be true to avoid flickers during re-mount of the component
     const isCardVisible = cardPreview ? true : !this.props.isLazy;
     this.state = {
       status,
@@ -128,6 +123,8 @@ export class CardBase extends Component<
       isPlayingFile: false,
       cardPreview,
       cardRef: null,
+      isBannedLocalPreview: false,
+      previewDidRender: false,
     };
   }
 
@@ -152,16 +149,24 @@ export class CardBase extends Component<
       dimensions: prevDimensions,
     } = prevProps;
     const { isCardVisible: prevIsCardVisible } = prevState;
-    const { mediaClient, identifier, dimensions } = this.props;
-    const { isCardVisible, cardPreview } = this.state;
+    const { mediaClient, identifier, dimensions, featureFlags } = this.props;
+    const {
+      isCardVisible,
+      cardPreview,
+      status,
+      fileState,
+      isBannedLocalPreview,
+      previewDidRender,
+    } = this.state;
     const isDifferent = isDifferentIdentifier(prevIdentifier, identifier);
     const turnedVisible = !prevIsCardVisible && isCardVisible;
+    const isNewMediaClient = prevMediaClient !== mediaClient;
 
     if (isExternalImageIdentifier(identifier) && isDifferent) {
       this.fireCommencedEvent();
       const { dataURI } = identifier;
       this.setState({
-        status: 'complete',
+        status: 'loading-preview',
         cardPreview: { dataURI, orientation: 1, source: 'external' },
         isCardVisible: true,
       });
@@ -169,10 +174,7 @@ export class CardBase extends Component<
     if (
       isFileIdentifier(identifier) &&
       (turnedVisible ||
-        prevMediaClient !== mediaClient ||
-        isDifferent ||
-        // TODO: should not resubscribe on resize. Only refetch
-        this.shouldRefetchImage(prevDimensions, dimensions))
+        (!!this.subscription && (isNewMediaClient || isDifferent)))
     ) {
       this.updateStateForIdentifier(identifier);
     }
@@ -188,14 +190,31 @@ export class CardBase extends Component<
         this.fireScreenEvent();
       }
     }
-  }
-
-  shouldRefetchImage = (current?: CardDimensions, next?: CardDimensions) => {
-    if (!current || !next) {
-      return false;
+    if (
+      isFileIdentifier(identifier) &&
+      fileState &&
+      shouldResolvePreview({
+        status,
+        fileState,
+        dimensions,
+        prevDimensions,
+        featureFlags,
+        hasCardPreview: !!cardPreview,
+        isBannedLocalPreview,
+      })
+    ) {
+      this.resolvePreview(identifier, fileState);
     }
-    return isBigger(current, next);
-  };
+
+    if (
+      previewDidRender &&
+      // We should't complete if status is uploading
+      ['loading', 'loading-preview', 'processing'].includes(status)
+    ) {
+      this.safeSetState({ status: 'complete' });
+      this.unsubscribe();
+    }
+  }
 
   componentWillUnmount() {
     this.hasBeenMounted = false;
@@ -208,216 +227,170 @@ export class CardBase extends Component<
     this.subscribeInternalFile(identifier);
   }
 
-  private isLatestCardStatusUpdate = (
-    cardStatusUpdateTimestamp: number,
-  ): boolean =>
-    !this.lastCardStatusUpdateTimestamp ||
-    this.lastCardStatusUpdateTimestamp <= cardStatusUpdateTimestamp;
+  private getImageURLParams = ({
+    collectionName: collection,
+  }: FileIdentifier): MediaStoreGetFileImageParams => ({
+    collection,
+    mode: imageResizeModeToFileImageMode(this.props.resizeMode),
+    ...this.requestedDimensions,
+    allowAnimated: true,
+  });
 
-  private onLocalPreviewError = (error: MediaCardError) => {
-    // TODO: track local preview success rate
-    // https://product-fabric.atlassian.net/browse/MEX-774
-  };
-
-  private createAddContextToDataURI = (
-    fileId: string,
+  private getMediaBlobUrlAttrs = (
+    identifier: FileIdentifier,
     fileState: FileState,
-    { width, height }: NumericalCardDimensions,
-    collectionName?: string,
-  ) => (dataURI: string): string => {
-    const { contextId, alt } = this.props;
-
-    if (!contextId) {
-      return dataURI;
-    }
-    const metadata = getFileDetails(fileState);
-
-    return addFileAttrsToUrl(dataURI, {
-      id: fileId,
-      collection: collectionName,
-      contextId,
-      mimeType: metadata.mimeType,
-      name: metadata.name,
-      size: metadata.size,
-      width,
-      height,
-      alt,
-    });
+  ): MediaBlobUrlAttrs | undefined => {
+    const { id, collectionName: collection } = identifier;
+    const { originalDimensions, contextId, alt } = this.props;
+    const { mimeType, name, size } = getFileDetails(identifier, fileState);
+    return contextId
+      ? {
+          id,
+          collection,
+          contextId,
+          mimeType,
+          name,
+          size,
+          ...(originalDimensions || this.requestedDimensions),
+          alt,
+        }
+      : undefined;
   };
 
-  getCardPreviewParams = (
-    id: string,
-    collectionName: string | undefined,
+  private getCardPreviewParams = (
+    identifier: FileIdentifier,
     fileState: FileState,
   ): CardPreviewParams => {
-    const {
-      dimensions = {},
-      originalDimensions,
-      resizeMode,
-      mediaClient,
-    } = this.props;
-    const { cardRef } = this.state;
-
-    const requestedDimensions = getRequestedDimensions({
-      dimensions,
-      element: cardRef,
-    });
+    const { isBannedLocalPreview } = this.state;
+    const { id } = identifier;
+    const { dimensions = {}, mediaClient } = this.props;
 
     return {
       mediaClient,
       id,
-      collectionName,
       dimensions,
-      resizeMode,
-      requestedDimensions,
-      onLocalPreviewError: this.onLocalPreviewError,
-      filePreview: getFilePreviewFromFileState(fileState),
+      onLocalPreviewError: this.fireLocalPreviewErrorEvent,
+      filePreview: isBannedLocalPreview
+        ? undefined
+        : getFilePreviewFromFileState(fileState),
       isRemotePreviewReady: isImageRepresentationReady(fileState),
-      addContextToDataURI: this.createAddContextToDataURI(
-        id,
-        fileState,
-        originalDimensions || requestedDimensions,
-        collectionName,
-      ),
+      imageUrlParams: this.getImageURLParams(identifier),
+      mediaBlobUrlAttrs: this.getMediaBlobUrlAttrs(identifier, fileState),
     };
+  };
+
+  private resolvePreview = async (
+    identifier: FileIdentifier,
+    fileState: FileState,
+  ) => {
+    try {
+      const params = this.getCardPreviewParams(identifier, fileState);
+      const cardPreview = await getCardPreview(params);
+      this.safeSetState({ cardPreview });
+    } catch (e) {
+      const wrappedError = ensureMediaCardError('preview-fetch', e);
+      //  If remote preview fails, we set status 'error'
+      //  If local preview fails (i.e, no remote preview available),
+      //  we can stay in the same status until there is a remote preview available
+      //  If it's any other error we set status 'error'
+      if (isLocalPreviewError(wrappedError)) {
+        this.safeSetState({ isBannedLocalPreview: true });
+      } else {
+        this.safeSetState({ status: 'error', error: wrappedError });
+      }
+    }
   };
 
   subscribeInternalFile(identifier: FileIdentifier) {
     const { mediaClient } = this.props;
+    const { isBannedLocalPreview } = this.state;
     const { id, collectionName, occurrenceKey } = identifier;
     this.unsubscribe();
     this.subscription = mediaClient.file
       .getFileState(id, { collectionName, occurrenceKey })
       .subscribe({
-        next: async (fileState) => {
-          this.lastFileState = fileState;
-
-          const thisCardStatusUpdateTimestamp = (performance || Date).now();
-
-          const filePreviewStatus = extractFilePreviewStatus(
+        next: (fileState) => {
+          const { featureFlags } = this.props;
+          const newState = getCardStateFromFileState(
             fileState,
-            this.props.featureFlags,
+            isBannedLocalPreview,
+            featureFlags,
           );
-          let status = getCardStatus(fileState.status, filePreviewStatus);
-          this.safeSetState({ fileState });
-
-          let cardPreview: CardPreview | undefined;
-          let error: MediaCardError | undefined;
-
-          if (shouldGetCardPreview(status, filePreviewStatus)) {
-            try {
-              cardPreview = await getCardPreview(
-                this.getCardPreviewParams(id, collectionName, fileState),
-              );
-              if (['loading-preview', 'processing'].includes(status)) {
-                status = 'complete';
-              }
-            } catch (e) {
-              const wrappedError = ensureMediaCardError('preview-fetch', e);
-              // If remote preview fails, we set status 'error'
-              // If the local preview fails (i.e, no remote preview available),
-              // we can stay in the same status until there is a remote preview available
-              if (isRemotePreviewError(wrappedError)) {
-                status = 'error';
-                error = wrappedError;
-              }
-            }
-          }
-
-          if (this.isLatestCardStatusUpdate(thisCardStatusUpdateTimestamp)) {
-            // These status and progress must not override values representing more recent FileState
-            /* next() start        some await() delay in next()        status & progress update
-             * -------                    ------------------           ------------------------
-             *   |----[1]FileState:uploading------>|                                 |
-             *   |                                 |                                 |
-             *   |----[2]FileState:uploading------>|                                 |
-             *   |                                 |                                 |
-             *   |                                 |----[2]FileState:uploading------>| Update status to `uploading`
-             *   |----[3]FileState:processing----->|                                 |
-             *   |                                 |----[3]FileState:processing----->| Update status to `complete`
-             *   |                                 |                                 |
-             *   |                                 |----[1]FileState:uploading------>| We do not want to update status to `uploading` again!
-             *
-             */
-
-            if (status === 'error' && isErrorFileState(fileState) && !error) {
-              error = new MediaCardError(
-                'error-file-state',
-                new Error(fileState.message),
-              );
-            }
-
-            this.safeSetState({
-              status,
-              cardPreview,
-              progress:
-                status === 'uploading' && fileState.status === 'uploading'
-                  ? fileState.progress
-                  : 1,
-              error: status === 'error' && error ? error : undefined,
-            });
-
-            this.lastCardStatusUpdateTimestamp = thisCardStatusUpdateTimestamp;
-          }
+          this.safeSetState(newState);
         },
         error: (e) => {
-          // If file state subscription decides that the card is complete
-          // and later there is an error, we won't change the card's status.
-          if (this.state.status === 'complete') {
-            return;
-          }
           const errorReason =
-            this.fileAttributes.fileStatus === 'uploading'
-              ? 'upload'
-              : 'metadata-fetch';
+            this.state.status === 'uploading' ? 'upload' : 'metadata-fetch';
           const error = new MediaCardError(errorReason, e);
           this.safeSetState({ error, status: 'error' });
-          this.lastCardStatusUpdateTimestamp = (performance || Date).now();
         },
       });
   }
 
+  private get requestedDimensions(): NumericalCardDimensions {
+    const { dimensions } = this.props;
+    const { cardRef: element } = this.state;
+    return getRequestedDimensions({ dimensions, element });
+  }
+
   private get metadata(): FileDetails {
-    const { identifier } = this.props;
-    return isFileIdentifier(identifier)
-      ? this.state.fileState
-        ? getFileDetails(this.state.fileState)
-        : { id: identifier.id }
-      : {
-          id: identifier.mediaItemType,
-          name: identifier.name || identifier.dataURI,
-          mediaType: 'image',
-        };
+    return getFileDetails(this.props.identifier, this.state?.fileState);
   }
 
   private get fileAttributes(): FileAttributes {
-    return getFileAttributes(this.metadata, this.lastFileState?.status);
+    return getFileAttributes(this.metadata, this.state?.fileState?.status);
   }
 
-  private fireOperationalEvent() {
+  private getPerformanceAttributes = () => {
     const { timeElapsedTillCommenced } = this;
-    const { status, cardPreview, error } = this.state;
-    const { createAnalyticsEvent } = this.props;
-
     const timeElapsedTillEvent = performance.now();
     const durationSinceCommenced =
       timeElapsedTillCommenced &&
       timeElapsedTillEvent - timeElapsedTillCommenced;
 
-    const performanceAttributes = {
+    return {
       overall: {
         durationSincePageStart: timeElapsedTillEvent,
         durationSinceCommenced,
       },
     };
+  };
+
+  private onImageError = () => {
+    const { cardPreview } = this.state;
+    const error = new ImageLoadError(cardPreview?.source);
+    if (
+      cardPreview?.source &&
+      ['local', 'cache-local'].includes(cardPreview.source)
+    ) {
+      const { identifier, dimensions = {} } = this.props;
+      isFileIdentifier(identifier) &&
+        removeCardPreviewFromCache(identifier.id, dimensions);
+      this.safeSetState({ cardPreview: undefined, isBannedLocalPreview: true });
+      this.fireLocalPreviewErrorEvent(error);
+    } else {
+      this.safeSetState({
+        status: 'error',
+        error,
+      });
+    }
+  };
+
+  private onImageLoad = () => {
+    this.safeSetState({ previewDidRender: true });
+  };
+
+  private fireOperationalEvent() {
+    const { status, error } = this.state;
+    const { createAnalyticsEvent } = this.props;
 
     createAnalyticsEvent &&
       fireOperationalEvent(
         createAnalyticsEvent,
         status,
         this.fileAttributes,
-        performanceAttributes,
-        { cardPreview, error },
+        this.getPerformanceAttributes(),
+        error,
       );
   }
 
@@ -444,9 +417,21 @@ export class CardBase extends Component<
       fireScreenEvent(createAnalyticsEvent, this.fileAttributes);
   };
 
+  private fireLocalPreviewErrorEvent = (error: MediaCardError) => {
+    // TODO: track local preview success rate
+    // https://product-fabric.atlassian.net/browse/MEX-774
+  };
+
   private safeSetState = (state: Partial<CardState>) => {
     if (this.hasBeenMounted) {
-      this.setState(state as Pick<CardState, keyof CardState>);
+      // If it's setting the status, we need to use a state updater function,
+      // which ensures that no non-final status overrides a final status.
+      // If no status is set, we don't need a sate updater
+      const updater = !!state.status
+        ? createStateUpdater(state)
+        : (state as Pick<CardState, keyof CardState>);
+
+      this.setState(updater);
     }
   };
 
@@ -456,7 +441,8 @@ export class CardBase extends Component<
     }
 
     if (this.hasBeenMounted) {
-      this.setState({ cardPreview: undefined });
+      // TODO MEX-788: add test for "do not remove the card preview when unsubscribing".
+      this.setState({ isBannedLocalPreview: false });
     }
   };
 
@@ -654,13 +640,13 @@ export class CardBase extends Component<
       error,
       cardRef,
     } = this.state;
-    const { metadata, timeElapsedTillCommenced } = this;
+    const { metadata } = this;
     const { onCardViewClick, onDisplayImage, actions, onMouseEnter } = this;
 
     const card = (
       <CardView
         status={status}
-        error={error && error.secondaryError}
+        error={error}
         mediaItemType={mediaItemType}
         metadata={metadata}
         dataURI={dataURI}
@@ -682,7 +668,8 @@ export class CardBase extends Component<
         featureFlags={featureFlags}
         titleBoxBgColor={titleBoxBgColor}
         titleBoxIcon={titleBoxIcon}
-        timeElapsedTillCommenced={timeElapsedTillCommenced}
+        onImageError={this.onImageError}
+        onImageLoad={this.onImageLoad}
       />
     );
 
@@ -704,18 +691,10 @@ export class CardBase extends Component<
       </>
     );
 
-    const content = this.context.intl ? (
+    return this.context.intl ? (
       innerContent
     ) : (
       <IntlProvider locale="en">{innerContent}</IntlProvider>
-    );
-
-    return (
-      <FileAttributesProvider
-        data={getFileAttributes(this.metadata, this.lastFileState?.status)}
-      >
-        {content}
-      </FileAttributesProvider>
     );
   }
 

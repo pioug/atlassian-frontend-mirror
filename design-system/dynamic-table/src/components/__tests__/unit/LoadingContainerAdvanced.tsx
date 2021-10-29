@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { Component, Ref } from 'react';
 
+import styled from '@emotion/styled';
 import { mount, ReactWrapper, shallow, ShallowWrapper } from 'enzyme';
 import ReactDOM from 'react-dom';
-import styled from 'styled-components';
 
 import Spinner from '@atlaskit/spinner';
 
@@ -111,7 +111,12 @@ describe('LoadingContainerAdvanced', () => {
     };
 
     it('should update styles on mount only when loading and there is a target node', () => {
-      let target: React.ComponentType<any>;
+      class Contents extends Component<{ contentRef?: Ref<HTMLDivElement> }> {
+        render() {
+          return <div ref={this.props.contentRef}></div>;
+        }
+      }
+      let target: HTMLDivElement;
       let wrapper: ReactWrapper<
         LoadingContainerAdvancedProps,
         {},
@@ -158,7 +163,7 @@ describe('LoadingContainerAdvanced', () => {
       wrapper = mount(
         <LoadingContainerAdvanced targetRef={() => target}>
           <Contents
-            innerRef={(el) => {
+            contentRef={(el: HTMLDivElement) => {
               target = el;
             }}
           />
@@ -194,7 +199,7 @@ describe('LoadingContainerAdvanced', () => {
     });
 
     it('should set styles to the target and revert them on loading mode change', () => {
-      let target: React.ComponentType<any>;
+      let target: HTMLDivElement;
 
       const InnerComponent = styled.div``;
       const wrapper: ReactWrapper<
@@ -205,7 +210,7 @@ describe('LoadingContainerAdvanced', () => {
         <LoadingContainerAdvanced targetRef={() => target}>
           <Contents>
             <InnerComponent
-              innerRef={(el: React.ComponentType<any>) => {
+              ref={(el: HTMLDivElement) => {
                 target = el;
               }}
             />
@@ -670,7 +675,13 @@ describe('LoadingContainerAdvanced', () => {
     });
 
     it('should attach the listeners on mount only when loading and there is a target node', () => {
-      let target: React.ComponentType<any>;
+      let target: HTMLDivElement;
+
+      class Contents extends Component<{ contentRef?: any }> {
+        render() {
+          return <div ref={this.props.contentRef}></div>;
+        }
+      }
 
       // targetRef returns invalid target
       wrappers.push(
@@ -680,6 +691,7 @@ describe('LoadingContainerAdvanced', () => {
           </LoadingContainerAdvanced>,
         ),
       );
+
       expect(attachSpy).not.toHaveBeenCalled();
 
       // Not loading
@@ -707,7 +719,7 @@ describe('LoadingContainerAdvanced', () => {
         mount(
           <LoadingContainerAdvanced targetRef={() => target}>
             <Contents
-              innerRef={(el) => {
+              contentRef={(el: HTMLDivElement) => {
                 target = el;
               }}
             />
@@ -718,7 +730,7 @@ describe('LoadingContainerAdvanced', () => {
     });
 
     it('should attach the listeners on props change only when it makes sense', () => {
-      let target: React.ComponentType<any>;
+      let target: HTMLDivElement;
 
       const wrapper: ReactWrapper<
         LoadingContainerAdvancedProps,
@@ -727,7 +739,7 @@ describe('LoadingContainerAdvanced', () => {
       > = mount(
         <LoadingContainerAdvanced isLoading={false}>
           <Contents
-            innerRef={(el) => {
+            ref={(el: HTMLDivElement) => {
               target = el;
             }}
           />

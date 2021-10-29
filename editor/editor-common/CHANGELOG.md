@@ -1,5 +1,26 @@
 # @atlaskit/editor-common
 
+## 60.2.0
+
+### Minor Changes
+
+- [`53d2eac387d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/53d2eac387d) - ED-12705 Fail all active editor UFO experiences from the editor error boundary
+- [`b58f3c24179`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b58f3c24179) - ED-13643 Instrument editor interaction UFO experience
+- [`971845eac0d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/971845eac0d) - CETI-96 Added new rule to emoji to solve the duplicate icon issue when we copy from renderer
+- [`87ea2112afe`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87ea2112afe) - ED-13214 Update ExperienceStore to use EditorView as unique identifier rather than session id
+- [`3c5548e50da`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3c5548e50da) - [ux] Introducing new Media Inline component to renderer
+- [`d7f62de1e40`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d7f62de1e40) - CETI-157 Fix panel selection in safari
+- [`b53d0d54ac2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b53d0d54ac2) - ED-12887 Add render count profiler utilities
+- [`746e1f37cb8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/746e1f37cb8) - ED-13214 Add experience store available via new entry point @atlaskit/editor-common/ufo
+
+### Patch Changes
+
+- [`cbde8994bd4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cbde8994bd4) - ED-12846: Fix disappearing table borders in Chrome
+- [`500420bcc7e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/500420bcc7e) - Updated to newest UFO API
+- [`f897443ad45`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f897443ad45) - Revert AK-279
+- [`99757fa97fb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/99757fa97fb) - ED-13642 added ufo session complete analytics event
+- Updated dependencies
+
 ## 60.1.0
 
 ### Minor Changes

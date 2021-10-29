@@ -2,7 +2,7 @@ import { CSSObject } from '@emotion/core';
 
 import { gridSize } from '@atlaskit/theme/constants';
 
-import { hexToRGBA, NavigationTheme } from '../../theme';
+import { NavigationTheme } from '../../theme';
 
 const margin = `0 ${gridSize() / 2}px`;
 
@@ -27,13 +27,7 @@ export const containerCSS = ({
     right: 0,
     height: '100%',
     width: `${gridSize() * 3}px`,
-    background: `linear-gradient(90deg, ${hexToRGBA(
-      navigation.backgroundColor,
-      0,
-    )} 0%, ${hexToRGBA(navigation.backgroundColor, 0.7)} 50%, ${hexToRGBA(
-      navigation.backgroundColor,
-      1,
-    )} 100%)`,
+    background: `linear-gradient(90deg, transparent 0%, ${navigation.backgroundColor} 100%)`,
   },
 });
 

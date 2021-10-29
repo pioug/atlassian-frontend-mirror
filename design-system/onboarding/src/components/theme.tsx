@@ -1,83 +1,81 @@
 import * as colors from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 const spotlightTheme = {
   default: {
     background: {
-      default: { light: colors.P400, dark: colors.P400 },
-      hover: { light: colors.P200, dark: colors.P200 },
-      active: { light: colors.P500, dark: colors.P500 },
-      disabled: { light: colors.P400, dark: colors.P400 },
-      selected: { light: colors.R500, dark: colors.R500 },
-      focus: { light: colors.P400, dark: colors.P400 },
+      default: token('color.background.subtleNeutral.resting', colors.P400),
+      hover: token('color.background.subtleNeutral.hover', colors.P200),
+      active: token('color.background.subtleNeutral.pressed', colors.P500),
+      disabled: token('color.background.disabled', colors.P400),
+      selected: token('color.background.subtleNeutral.pressed', colors.R500),
+      focus: token('color.background.subtleNeutral.resting', colors.P400),
     },
     boxShadow: {
-      focus: {
-        light: `${colors.P100} 0 0 0 2px`,
-        dark: `${colors.P100} 0 0 0 2px`,
-      },
+      focus: `0 0 0 2px ${token('color.iconBorder.discovery', colors.P100)}`,
     },
     color: {
-      default: { light: colors.N0, dark: colors.N0 },
-      hover: { light: colors.N0, dark: colors.N0 },
-      active: { light: colors.N0, dark: colors.N0 },
-      disabled: { light: colors.N0, dark: colors.DN30 },
-      selected: { light: colors.N0, dark: colors.N0 },
-      focus: { light: colors.N0, dark: colors.N0 },
+      default: token('color.text.onBold', colors.N0),
+      hover: token('color.text.onBold', colors.N0),
+      active: token('color.text.onBold', colors.N0),
+      disabled: {
+        light: token('color.text.disabled', colors.N0),
+        dark: token('color.text.disabled', colors.DN30),
+      },
+      selected: token('color.text.onBold', colors.N0),
+      focus: token('color.text.onBold', colors.N0),
     },
     outline: {
-      focus: { light: 'none', dark: 'none' },
+      focus: 'none',
     },
   },
   subtle: {
     background: {
-      default: { light: 'none', dark: 'none' },
-      hover: { light: colors.P200, dark: colors.P200 },
-      active: { light: colors.P500, dark: colors.P500 },
-      disabled: { light: 'none', dark: 'none' },
-      selected: { light: colors.N700, dark: colors.DN0 },
-      focusSelected: { light: colors.N700, dark: colors.DN0 },
-    },
-    boxShadow: {
-      focus: {
-        light: `${colors.P100} 0 0 0 2px`,
-        dark: `${colors.P100} 0 0 0 2px`,
+      default: 'none',
+      hover: token('color.background.subtleNeutral.hover', colors.P200),
+      active: token('color.background.subtleNeutral.pressed', colors.P500),
+      disabled: 'none',
+      selected: {
+        light: token('color.background.selected.hover', colors.N700),
+        dark: token('color.background.selected.hover', colors.DN0),
+      },
+      focusSelected: {
+        light: token('color.background.selected.hover', colors.N700),
+        dark: token('color.background.selected.hover', colors.DN0),
       },
     },
+    boxShadow: {
+      focus: `0 0 0 2px ${token('color.iconBorder.discovery', colors.P100)}`,
+    },
     color: {
-      default: { light: colors.N0, dark: colors.N0 },
-      hover: { light: colors.N0, dark: colors.N0 },
-      active: { light: colors.N0, dark: colors.N0 },
-      disabled: { light: colors.N0, dark: colors.N0 },
-      selected: { light: colors.N0, dark: colors.N0 },
-      focus: { light: colors.N0, dark: colors.N0 },
+      default: token('color.text.onBold', colors.N0),
+      hover: token('color.text.onBold', colors.N0),
+      active: token('color.text.onBold', colors.N0),
+      disabled: token('color.text.disabled', colors.N0),
+      selected: token('color.text.onBold', colors.N0),
+      focus: token('color.text.onBold', colors.N0),
     },
     outline: {
-      focus: { light: 'none', dark: 'none' },
+      focus: 'none',
     },
   },
   'subtle-link': {
     textDecoration: {
-      hover: {
-        light: `underline ${colors.P75}`,
-        dark: `underline ${colors.P75}`,
-      },
+      hover: `underline ${token('color.text.discovery', colors.P75)}`,
     },
     textDecorationLine: {
-      active: { light: 'none', dark: 'none' },
+      active: 'none',
     },
     boxShadow: {
-      focus: {
-        light: `${colors.P100} 0 0 0 2px`,
-        dark: `${colors.P100} 0 0 0 2px`,
-      },
+      focus: `0 0 0 2px ${token('color.iconBorder.discovery', colors.P100)}`,
     },
     color: {
-      default: { light: colors.N0, dark: colors.N0 },
-      hover: { light: colors.P75, dark: colors.P75 },
-      active: { light: colors.P100, dark: colors.P100 },
-      disabled: { light: colors.P500, dark: colors.P500 },
-      selected: { light: colors.N0, dark: colors.N0 },
-      focus: { light: colors.N0, dark: colors.N0 },
+      default: token('color.text.onBold', colors.N0),
+      hover: token('color.text.onBold', colors.P75),
+      active: token('color.text.onBold', colors.P100),
+      disabled: token('color.text.discovery', colors.P500),
+      selected: token('color.text.selected', colors.N0),
+      focus: token('color.text.onBold', colors.N0),
     },
   },
 };
@@ -85,24 +83,30 @@ const spotlightTheme = {
 const modalTheme = {
   primary: {
     background: {
-      default: { light: colors.P400, dark: colors.P400 },
-      hover: { light: colors.P200, dark: colors.P200 },
-      active: { light: colors.P500, dark: colors.P500 },
-      disabled: { light: colors.N30, dark: colors.DN70 },
-      selected: { light: colors.R500, dark: colors.R500 },
-      focus: { light: colors.P400, dark: colors.P400 },
+      default: token('color.background.boldDiscovery.resting', colors.P400),
+      hover: token('color.background.boldDiscovery.hover', colors.P200),
+      active: token('color.background.boldDiscovery.pressed', colors.P500),
+      disabled: {
+        light: token('color.background.disabled', colors.N30),
+        dark: token('color.background.disabled', colors.DN70),
+      },
+      selected: token('color.background.selected.hover', colors.R500),
+      focus: token('color.background.boldDiscovery.hover', colors.P400),
     },
     boxShadow: {
       focus: {
-        light: `${colors.P100} 0 0 0 2px`,
-        dark: `${colors.P100} 0 0 0 2px`,
+        light: `0 0 0 2px ${token('color.iconBorder.discovery', colors.P100)}`,
+        dark: `0 0 0 2px ${token('color.iconBorder.discovery', colors.P100)}`,
       },
     },
     color: {
-      default: { light: colors.N0, dark: colors.N0 },
-      disabled: { light: colors.N0, dark: colors.DN30 },
-      selected: { light: colors.N0, dark: colors.N0 },
-      focus: { light: colors.N0, dark: colors.N0 },
+      default: token('color.text.onBold', colors.N0),
+      disabled: {
+        light: token('color.text.disabled', colors.N0),
+        dark: token('color.text.disabled', colors.DN30),
+      },
+      selected: token('color.text.selected', colors.N0),
+      focus: token('color.text.onBold', colors.N0),
     },
   },
 };

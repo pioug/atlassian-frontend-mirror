@@ -1,14 +1,9 @@
-import {
-  text as getTextColor,
-  N30,
-  N800,
-  R400,
-  Y400,
-} from '@atlaskit/theme/colors';
+import { N30, R400, text, Y400 } from '@atlaskit/theme/colors';
 import {
   borderRadius as getBorderRadius,
   gridSize as getGridSize,
 } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 import type { Appearance } from '../types';
 
@@ -42,13 +37,10 @@ export const footerItemGap = gridSize;
 export const titleIconMargin = gridSize;
 
 export const keylineHeight = 2;
-export const keylineColor = N30;
+export const keylineColor = token('color.border.neutral', N30);
+export const textColor = token('color.text.highEmphasis', text());
 
-export const textColor = getTextColor();
-export const focusOutlineColor = N800;
-
-type IconColor = { [key in Appearance]: string };
-export const iconColor: IconColor = {
-  danger: R400,
-  warning: Y400,
+export const iconColor: { [key in Appearance]: string } = {
+  danger: token('color.iconBorder.danger', R400),
+  warning: token('color.iconBorder.warning', Y400),
 } as const;

@@ -9,3 +9,11 @@ jest.mock('@atlaskit/outbound-auth-flow-client', () => ({
 jest.mock('../../../client/errors', () => ({
   APIError: jest.fn(),
 }));
+jest.mock('uuid', () => {
+  const actualUuid = jest.requireActual('uuid');
+  return {
+    ...actualUuid,
+    __esModule: true,
+    default: jest.fn(),
+  };
+});

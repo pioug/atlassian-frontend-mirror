@@ -116,6 +116,7 @@ describe('custom panels', () => {
       {
         allowPanel: {
           UNSAFE_allowCustomPanel: true,
+          UNSAFE_allowCustomPanelEdit: true,
         },
       },
     );

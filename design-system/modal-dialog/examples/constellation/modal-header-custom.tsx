@@ -7,6 +7,7 @@ import Lorem from 'react-lorem-component';
 import Button from '@atlaskit/button/standard-button';
 import CrossIcon from '@atlaskit/icon/glyph/cross';
 import { N500 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import Modal, {
   ModalBody,
@@ -32,7 +33,10 @@ const CustomHeader = () => {
         Custom modal header
       </h1>
       <Button appearance="link" onClick={onClose}>
-        <CrossIcon label="Close Modal" primaryColor={N500} />
+        <CrossIcon
+          label="Close Modal"
+          primaryColor={token('color.text.mediumEmphasis', N500)}
+        />
       </Button>
     </div>
   );

@@ -4,13 +4,15 @@ import { Component } from 'react';
 import { css, jsx } from '@emotion/core';
 import Lorem from 'react-lorem-component';
 
+import { token } from '@atlaskit/tokens';
+
 import { Spotlight, SpotlightManager, SpotlightTarget } from '../src';
 
 import { Code, Highlight, HighlightGroup } from './styled';
 
 const wrapperStyles = css({
   padding: '40px',
-  backgroundColor: '#f6f6f6',
+  backgroundColor: token('color.background.card', '#f6f6f6'),
   borderRadius: '4px',
 });
 
@@ -64,6 +66,7 @@ export default class SpotlightTargetBackgroundExample extends Component<
         heading="Aah, that's better!"
         key="with"
         target="with"
+        // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
         targetBgColor="white"
       >
         <Lorem count={1} />
@@ -79,11 +82,13 @@ export default class SpotlightTargetBackgroundExample extends Component<
         <SpotlightManager>
           <HighlightGroup>
             <SpotlightTarget name="without">
+              {/* eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage */}
               <Highlight bg="transparent" color="red">
                 No Target BG
               </Highlight>
             </SpotlightTarget>
             <SpotlightTarget name="with">
+              {/* eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage */}
               <Highlight bg="transparent" color="green">
                 White Target BG
               </Highlight>

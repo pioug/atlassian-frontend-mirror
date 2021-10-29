@@ -2,7 +2,7 @@ import React from 'react';
 
 import { cleanup, render } from '@testing-library/react';
 
-import { ProgressDotsWithoutAnalytics } from '../../progress-dots';
+import ProgressDotsWithoutAnalytics from '../../progress-dots';
 import { Size, Spacing } from '../../types';
 
 const values = [1, 2, 3];

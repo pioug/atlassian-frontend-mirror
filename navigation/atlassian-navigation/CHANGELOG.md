@@ -1,5 +1,18 @@
 # @atlaskit/atlassian-navigation
 
+## 1.2.0
+
+### Minor Changes
+
+- [`c9986657899`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c9986657899) - Instrumented atlassian-navigation with the new theming package, @atlaskit/tokens.
+
+  New tokens will be visible only in applications configured to use the new Tokens API (currently in alpha). These changes are intended to be interoperable with the legacy theme implementation. Legacy dark mode users should expect no visual or breaking changes.
+
+### Patch Changes
+
+- [`f791fab1bfa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f791fab1bfa) - Added missing `components` and `onBlur` props to the props type used by secondary actions. These were already available but were not documented.
+- Updated dependencies
+
 ## 1.1.3
 
 ### Patch Changes

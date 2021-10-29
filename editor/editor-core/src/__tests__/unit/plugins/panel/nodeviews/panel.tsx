@@ -121,13 +121,17 @@ describe('Panel - NodeView', () => {
       })(p('custom panel')),
     );
 
-    function setupEditor(allowCustomPanel: boolean = false) {
+    function setupEditor(
+      allowCustomPanel: boolean = false,
+      allowEditCustomPanel: boolean = false,
+    ) {
       const editorData = createEditor({
         doc: testDocWithPanel,
         preset: new Preset<LightEditorPlugin>().add([
           panelPlugin,
           {
             UNSAFE_allowCustomPanel: allowCustomPanel,
+            UNSAFE_allowCustomPanelEdit: allowEditCustomPanel,
           },
         ]),
         providerFactory,
@@ -138,7 +142,7 @@ describe('Panel - NodeView', () => {
     }
 
     it('renders panel with emoji and color when feature flag enabled', () => {
-      const { panelElement } = setupEditor(true);
+      const { panelElement } = setupEditor(true, true);
       expect(panelElement.getAttribute('data-panel-type')).toBe('custom');
 
       expect(panelElement.style.backgroundColor).toEqual('rgb(0, 255, 0)');
@@ -166,7 +170,7 @@ describe('Panel - NodeView', () => {
     });
 
     it('renders panel icon as NOT content-editable element', () => {
-      const { panelElement } = setupEditor(true);
+      const { panelElement } = setupEditor(true, true);
       expect(
         (panelElement.querySelector(
           `.${PanelSharedCssClassName.icon}`,

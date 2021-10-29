@@ -1,6 +1,7 @@
 import { hexToRgba, isRgb, normalizeHexColor } from '../../../utils/colors';
+import { name } from '../../../version.json';
 
-describe('@atlaskit/editor-core color utils', () => {
+describe(`${name}/colors color utils`, () => {
   describe('hex2rgba', () => {
     it('converts short hex to rgba', () => {
       expect(hexToRgba('#fab', 0.5)).toEqual('rgba(255,170,187,0.5)');

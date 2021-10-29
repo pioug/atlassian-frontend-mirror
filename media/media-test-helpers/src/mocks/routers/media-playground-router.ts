@@ -8,18 +8,15 @@ import {
 export function createMediaPlaygroundRouter() {
   const router = new Router<MediaDatabaseSchema>(
     {
-      host: 'https://api-private.dev.atlassian.com',
+      host: 'https://media-playground.dev.atl-paas.net',
       requestDelay: 10,
     },
     { strategies: ['fetch'] },
   );
 
-  router.get(
-    '/media-playground/api/token/user/impersonation',
-    userAuthProvider,
-  );
+  router.get('/api/token/user/impersonation', userAuthProvider);
 
-  router.post('/media-playground/api/token/tenant', tenantAuthProvider);
+  router.post('/token/tenant', tenantAuthProvider);
 
   return router;
 }

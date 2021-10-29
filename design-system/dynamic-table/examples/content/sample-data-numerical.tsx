@@ -1,7 +1,8 @@
 /* sample-data.js */
-import React from 'react';
+/** @jsx jsx */
+import { FC } from 'react';
 
-import styled from 'styled-components';
+import { css, jsx } from '@emotion/core';
 
 import Avatar from '@atlaskit/avatar';
 
@@ -18,14 +19,22 @@ function createKey(input: string) {
   return input ? input.replace(/\s/g, '') : input;
 }
 
-const NameWrapper = styled.span`
-  display: flex;
-  align-items: center;
-`;
+const nameWrapperStyles = css({
+  display: 'flex',
+  alignItems: 'center',
+});
 
-const AvatarWrapper = styled.div`
-  margin-right: 8px;
-`;
+const NameWrapper: FC = ({ children }) => (
+  <span css={nameWrapperStyles}>{children}</span>
+);
+
+const avatarWrapperStyles = css({
+  marginRight: '8px',
+});
+
+const AvatarWrapper: FC = ({ children }) => (
+  <div css={avatarWrapperStyles}>{children}</div>
+);
 
 export const caption = 'Sample Numerical Data';
 

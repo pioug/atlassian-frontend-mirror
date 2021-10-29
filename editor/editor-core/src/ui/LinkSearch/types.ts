@@ -49,4 +49,5 @@ export type LinkSearchListItemData = {
   icon?: React.ReactChild | never;
   lastViewedDate?: Date;
   lastUpdatedDate?: Date;
+  prefetch?: boolean; // if the result is prefetced from activity provider
 } & ({ iconUrl: string } | { icon: React.ReactChild });

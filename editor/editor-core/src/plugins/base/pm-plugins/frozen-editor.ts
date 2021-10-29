@@ -1,4 +1,4 @@
-import { Plugin } from 'prosemirror-state';
+import { Plugin, PluginKey } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import {
   isPerformanceObserverAvailable,
@@ -6,6 +6,7 @@ import {
   getAnalyticsEventSeverity,
   SEVERITY,
 } from '@atlaskit/editor-common';
+import { EditorExperience, ExperienceStore } from '@atlaskit/editor-common/ufo';
 import {
   ACTION,
   ACTION_SUBJECT,
@@ -23,6 +24,8 @@ import {
 import { getContextIdentifier } from './context-identifier';
 import { setInteractionType } from '../utils/frozen-editor';
 import { getTimeSince } from '../../../utils/performance/get-performance-timing';
+
+export const frozenEditorPluginKey = new PluginKey('frozenEditor');
 
 const DEFAULT_KEYSTROKE_SAMPLING_LIMIT = 100;
 const DEFAULT_SLOW_THRESHOLD = 300;
@@ -65,6 +68,7 @@ export default (
   dispatchAnalyticsEvent: DispatchAnalyticsEvent,
   inputTracking?: InputTracking,
   browserFreezeTracking?: BrowserFreezetracking,
+  ufo?: boolean,
 ) => {
   let keystrokeCount = 0;
   let interactionType: BROWSER_FREEZE_INTERACTION_TYPE;
@@ -102,6 +106,7 @@ export default (
     DEFAULT_TRACK_SEVERITY_THRESHOLD_DEGRADED;
 
   return new Plugin({
+    key: frozenEditorPluginKey,
     props: isPerformanceAPIAvailable()
       ? {
           handleTextInput(view) {
@@ -110,56 +115,83 @@ export default (
             if (browserFreezeTracking?.trackInteractionType) {
               interactionType = BROWSER_FREEZE_INTERACTION_TYPE.TYPING;
             }
+            const experienceStore = ufo
+              ? ExperienceStore.getInstance(view)
+              : undefined;
+            const trackTyping =
+              samplingRate && ++keystrokeCount === samplingRate;
+
+            if (trackTyping) {
+              experienceStore?.start(EditorExperience.typing);
+            }
 
             requestAnimationFrame(() => {
               const diff = getTimeSince(now);
-
-              if (samplingRate && ++keystrokeCount === samplingRate) {
-                const nodesCount = allowCountNodes
-                  ? countNodes(view.state)
-                  : {};
-                keystrokeCount = 0;
-
-                const payload: AnalyticsEventPayload = {
-                  action: ACTION.INPUT_PERF_SAMPLING,
-                  actionSubject: ACTION_SUBJECT.EDITOR,
-                  attributes: {
-                    time: diff,
-                    nodeSize: state.doc.nodeSize,
-                    ...nodesCount,
-                    participants: getParticipantsCount(state),
-                    objectId: getContextIdentifier(state)?.objectId,
-                  },
-                  eventType: EVENT_TYPE.OPERATIONAL,
-                };
-
-                if (shouldTrackSeverity) {
-                  payload.attributes!.severity = getAnalyticsEventSeverity(
-                    diff,
-                    severityThresholdNormal,
-                    severityThresholdDegraded,
-                  );
-                }
-
-                dispatchAnalyticsEvent(payload);
-              }
 
               if (diff > slowThreshold) {
                 const nodesCount = allowCountNodes
                   ? countNodes(view.state)
                   : {};
 
-                dispatchAnalyticsEvent({
-                  action: ACTION.SLOW_INPUT,
-                  actionSubject: ACTION_SUBJECT.EDITOR,
-                  attributes: {
-                    time: diff,
-                    nodeSize: state.doc.nodeSize,
-                    ...nodesCount,
-                    participants: getParticipantsCount(state),
-                    objectId: getContextIdentifier(state)?.objectId,
-                  },
-                  eventType: EVENT_TYPE.OPERATIONAL,
+                if (inputTracking?.enabled) {
+                  dispatchAnalyticsEvent({
+                    action: ACTION.SLOW_INPUT,
+                    actionSubject: ACTION_SUBJECT.EDITOR,
+                    attributes: {
+                      time: diff,
+                      nodeSize: state.doc.nodeSize,
+                      ...nodesCount,
+                      participants: getParticipantsCount(state),
+                      objectId: getContextIdentifier(state)?.objectId,
+                    },
+                    eventType: EVENT_TYPE.OPERATIONAL,
+                  });
+                }
+
+                experienceStore?.addMetadata(EditorExperience.typing, {
+                  slowInput: true,
+                });
+              }
+
+              if (trackTyping) {
+                const nodesCount = allowCountNodes
+                  ? countNodes(view.state)
+                  : {};
+                keystrokeCount = 0;
+
+                const severity = shouldTrackSeverity
+                  ? getAnalyticsEventSeverity(
+                      diff,
+                      severityThresholdNormal,
+                      severityThresholdDegraded,
+                    )
+                  : undefined;
+
+                if (inputTracking?.enabled) {
+                  const payload: AnalyticsEventPayload = {
+                    action: ACTION.INPUT_PERF_SAMPLING,
+                    actionSubject: ACTION_SUBJECT.EDITOR,
+                    attributes: {
+                      time: diff,
+                      nodeSize: state.doc.nodeSize,
+                      ...nodesCount,
+                      participants: getParticipantsCount(state),
+                      objectId: getContextIdentifier(state)?.objectId,
+                      severity,
+                    },
+                    eventType: EVENT_TYPE.OPERATIONAL,
+                  };
+
+                  dispatchAnalyticsEvent(payload);
+                }
+
+                experienceStore?.success(EditorExperience.typing, {
+                  nodeSize: state.doc.nodeSize,
+                  ...nodesCount,
+                  participants: getParticipantsCount(state),
+                  objectId: getContextIdentifier(state)?.objectId,
+                  time: diff,
+                  severity,
                 });
               }
             });

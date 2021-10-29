@@ -13,33 +13,26 @@ interface RouterLinkProps {
   onMouseEnter: (e: React.MouseEvent) => any;
   onMouseLeave: (e: React.MouseEvent) => any;
 }
-class RouterLink extends React.PureComponent<RouterLinkProps, {}> {
-  render() {
-    const {
-      children,
-      className,
-      href,
-      onMouseEnter,
-      onMouseLeave,
-    } = this.props;
 
-    return (
-      <Link
-        className={className}
-        onMouseEnter={onMouseEnter}
-        onMouseLeave={onMouseLeave}
-        to={href}
-      >
-        {children}
-      </Link>
-    );
-  }
-}
+const RouterLink = React.memo<RouterLinkProps>((props) => {
+  const { children, className, href, onMouseEnter, onMouseLeave } = props;
+
+  return (
+    <Link
+      className={className}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+      to={href}
+    >
+      {children}
+    </Link>
+  );
+});
 
 const ButtonWithRouter = () => (
   <div>
     <MemoryRouter>
-      <Breadcrumbs>
+      <Breadcrumbs maxItems={2}>
         <BreadcrumbsItem href="/pages" text="Pages" component={RouterLink} />
         <BreadcrumbsItem
           href="/pages/home"

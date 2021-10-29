@@ -54,6 +54,7 @@ export {
   UNSUPPORTED_CONTENT_LEVEL_SEVERITY,
   shouldForceTracking,
   sniffUserBrowserExtensions,
+  RenderCountProfiler,
 } from './utils';
 
 export type {

@@ -8,6 +8,7 @@ import Avatar from '@atlaskit/avatar';
 import Button from '@atlaskit/button/standard-button';
 import InlineDialog from '@atlaskit/inline-dialog';
 import { subtleText } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import Modal, {
   ModalBody,
@@ -21,7 +22,7 @@ const wrapperStyles = css({
   display: 'flex',
   marginRight: 'auto',
   alignItems: 'center',
-  color: subtleText(),
+  color: token('color.text.lowEmphasis', subtleText()),
   cursor: 'help',
 });
 

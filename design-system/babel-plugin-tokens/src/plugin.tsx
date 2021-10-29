@@ -1,4 +1,4 @@
-import { NodePath } from '@babel/traverse';
+import { Binding, NodePath, Scope } from '@babel/traverse';
 import * as t from '@babel/types';
 
 import tokenDefaultValues from '@atlaskit/tokens/token-default-values';
@@ -11,7 +11,8 @@ export default function plugin() {
         path: NodePath<t.CallExpression>,
         state: { opts: { shouldUseAutoFallback?: boolean } },
       ) {
-        if (!isTokenCallExpression(path)) {
+        const tokenImportScope = getTokenImportScope(path);
+        if (!tokenImportScope) {
           return;
         }
 
@@ -59,8 +60,15 @@ export default function plugin() {
           // Expressions should be placed in a template string/literal
           replacementNode = t.templateLiteral(
             [
-              t.templateElement({ raw: `var(${cssTokenValue}, ` }),
-              t.templateElement({ raw: ')' }),
+              t.templateElement(
+                {
+                  cooked: `var(${cssTokenValue}, `,
+                  // Currently we create a "raw" value by inserting escape characters via regex (https://github.com/babel/babel/issues/9242)
+                  raw: `var(${cssTokenValue.replace(/\\|`|\${/g, '\\$&')}, `,
+                },
+                false,
+              ),
+              t.templateElement({ raw: ')', cooked: ')' }, true),
             ],
             [fallback],
           );
@@ -69,7 +77,7 @@ export default function plugin() {
         // Replace path and call scope.crawl() to refresh the scope bindings + references
         replacementNode && path.replaceWith(replacementNode);
         // @ts-ignore crawl is a valid property
-        path.scope.crawl();
+        tokenImportScope.crawl();
       },
       Program: {
         exit(path: NodePath<t.Program>) {
@@ -125,16 +133,36 @@ function getAliasedImportName(node: t.ImportSpecifier): string {
   return node.local.name;
 }
 
-function isTokenCallExpression(path: NodePath<t.CallExpression>) {
+/**
+ * Determine if the current call is to a token function, and
+ * return the relevant scope
+ */
+function getTokenImportScope(
+  path: NodePath<t.CallExpression>,
+): Scope | undefined {
   const callee = path.node.callee;
   if (!t.isIdentifier(callee)) {
-    return false;
+    return undefined;
   }
-  const binding = path.scope.bindings[callee.name];
+  const binding = getTokenBinding(path.scope, callee.name);
 
   if (!binding || !t.isImportSpecifier(binding.path.node)) {
-    return false;
+    return undefined;
   }
 
-  return getNonAliasedImportName(binding.path.node) === 'token';
+  return getNonAliasedImportName(binding.path.node) === 'token'
+    ? binding.scope
+    : undefined;
+}
+
+function getTokenBinding(scope: Scope, name: string): Binding | undefined {
+  if (!scope) {
+    return undefined;
+  }
+
+  if (scope.bindings[name]) {
+    return scope.bindings[name];
+  } else {
+    return getTokenBinding(scope.parent, name);
+  }
 }

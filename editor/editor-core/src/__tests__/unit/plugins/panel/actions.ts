@@ -25,10 +25,20 @@ describe('panel actions', () => {
   const createEditor = createProsemirrorEditorFactory();
   let createAnalyticsEvent: CreateUIAnalyticsEvent;
 
-  const editor = (doc: DocBuilder, UNSAFE_allowCustomPanel?: boolean) => {
+  const editor = (
+    doc: DocBuilder,
+    UNSAFE_allowCustomPanel?: boolean,
+    UNSAFE_allowCustomPanelEdit?: boolean,
+  ) => {
     createAnalyticsEvent = jest.fn().mockReturnValue({ fire() {} });
     const preset = new Preset<LightEditorPlugin>()
-      .add([panelPlugin, { UNSAFE_allowCustomPanel }])
+      .add([
+        panelPlugin,
+        {
+          UNSAFE_allowCustomPanel,
+          UNSAFE_allowCustomPanelEdit,
+        },
+      ])
       .add(emojiPlugin)
       .add([analyticsPlugin, { createAnalyticsEvent }]);
 
@@ -113,10 +123,15 @@ describe('panel actions', () => {
 
     describe('for custom panel', () => {
       const useCustomPanel = true;
+      const editCustomPanel = true;
 
       it('should update the predefined panel with custom emoji with same background color', () => {
         const initialDoc = doc(panel({ panelType: 'info' })(p('text')));
-        const { editorView } = editor(initialDoc, useCustomPanel);
+        const { editorView } = editor(
+          initialDoc,
+          useCustomPanel,
+          editCustomPanel,
+        );
 
         changePanelType(
           PanelType.CUSTOM,
@@ -137,7 +152,11 @@ describe('panel actions', () => {
 
       it('should update the predefined panel with custom color with same emoji', () => {
         const initialDoc = doc(panel({ panelType: 'info' })(p('text')));
-        const { editorView } = editor(initialDoc, useCustomPanel);
+        const { editorView } = editor(
+          initialDoc,
+          useCustomPanel,
+          editCustomPanel,
+        );
 
         changePanelType(
           PanelType.CUSTOM,
@@ -164,7 +183,11 @@ describe('panel actions', () => {
             panelColor: '#DEEBFF',
           })(p('text')),
         );
-        const { editorView } = editor(initialDoc, useCustomPanel);
+        const { editorView } = editor(
+          initialDoc,
+          useCustomPanel,
+          editCustomPanel,
+        );
 
         changePanelType(
           PanelType.INFO,
@@ -191,7 +214,11 @@ describe('panel actions', () => {
             panelColor: '#DEEBFF',
           })(p('text')),
         );
-        const { editorView } = editor(initialDoc, useCustomPanel);
+        const { editorView } = editor(
+          initialDoc,
+          useCustomPanel,
+          editCustomPanel,
+        );
 
         changePanelType(PanelType.INFO)(editorView.state, editorView.dispatch);
 
@@ -212,7 +239,11 @@ describe('panel actions', () => {
             panelColor: '#f7bada',
           })(p('text')),
         );
-        const { editorView } = editor(initialDoc, useCustomPanel);
+        const { editorView } = editor(
+          initialDoc,
+          useCustomPanel,
+          editCustomPanel,
+        );
 
         changePanelType(
           PanelType.CUSTOM,
@@ -239,7 +270,11 @@ describe('panel actions', () => {
             panelColor: '#f7bada',
           })(p('text')),
         );
-        const { editorView } = editor(initialDoc, useCustomPanel);
+        const { editorView } = editor(
+          initialDoc,
+          useCustomPanel,
+          editCustomPanel,
+        );
 
         changePanelType(
           PanelType.CUSTOM,
@@ -264,7 +299,11 @@ describe('panel actions', () => {
             panelColor: '#f7bada',
           })(p('text')),
         );
-        const { editorView } = editor(initialDoc, useCustomPanel);
+        const { editorView } = editor(
+          initialDoc,
+          useCustomPanel,
+          editCustomPanel,
+        );
 
         changePanelType(
           PanelType.CUSTOM,

@@ -1,37 +1,59 @@
-import styled, { css } from 'styled-components';
+/** @jsx jsx */
+import { forwardRef, HTMLAttributes } from 'react';
 
-import { B100, N20 } from '@atlaskit/theme/colors';
-import { e500 } from '@atlaskit/theme/elevation';
+import { css, jsx } from '@emotion/core';
 
-import { TableBodyRow } from '../TableRow';
+import { B100, N20, N50A, N60A } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
-const rankingStyles = css`
-  display: block;
-`;
+import { ITableRowProps, TableBodyRow } from '../TableRow';
+
+export type RankableTableBodyRowProps = HTMLAttributes<HTMLTableRowElement> &
+  ITableRowProps & {
+    isRanking?: boolean;
+    isRankingItem?: boolean;
+  };
+
+const rankingStyles = css({
+  display: 'block',
+});
+
+const elevationStyle = token(
+  'shadow.overlay',
+  `0 20px 32px -8px ${N50A}, 0 0 1px ${N60A}`,
+);
 
 /**
  * TODO: Pass the props here to get particular theme for the table
  * Skipping it for now as it may impact migration as util-shared-styles does not support this feature
  */
-const rankingItemStyles = css`
-  background-color: ${N20};
-  ${e500()} border-radius: 2px;
-`;
+const rankingItemStyles = css({
+  backgroundColor: token('color.background.subtleNeutral.resting', N20),
+  boxShadow: elevationStyle,
+  borderRadius: '2px',
+});
 
-const draggableStyles = ({
-  isRanking,
-  isRankingItem,
-}: {
-  isRanking?: boolean;
-  isRankingItem?: boolean;
-}) => css`
-  ${isRanking && rankingStyles} ${isRankingItem && rankingItemStyles} &:focus {
-    outline-style: solid;
-    outline-color: ${B100};
-    outline-width: 2px;
-  }
-`;
+const draggableStyles = css({
+  '&:focus': {
+    outlineStyle: 'solid',
+    outlineColor: token('color.border.focus', B100),
+  },
+  outlineWidth: '2px',
+});
 
-export const RankableTableBodyRow = styled(TableBodyRow)`
-  ${draggableStyles};
-`;
+export const RankableTableBodyRow = forwardRef<
+  HTMLTableRowElement,
+  RankableTableBodyRowProps
+>(({ isRanking, isRankingItem, ...props }, ref) => {
+  return (
+    <TableBodyRow
+      css={[
+        isRanking && rankingStyles,
+        isRankingItem && rankingItemStyles,
+        draggableStyles,
+      ]}
+      ref={ref}
+      {...props}
+    />
+  );
+});

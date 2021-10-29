@@ -16,6 +16,8 @@ import {
   WithPerformanceAttributes,
   SuccessAttributes,
   FailureAttributes,
+  ScreenEventPayload,
+  ScreenAttributes,
 } from '@atlaskit/media-common';
 import {
   CreateUIAnalyticsEvent,
@@ -27,44 +29,30 @@ import {
   MediaCardErrorPrimaryReason,
 } from '../errors';
 
-import { ScreenEventPayload, ScreenAttributes } from '@atlaskit/media-common';
-
-export enum RenderEventAction {
-  COMMENCED = 'commenced',
-  SUCCEEDED = 'succeeded',
-  FAILED = 'failed',
-}
-
 export type FileUriFailReason = 'local-uri' | 'remote-uri' | `unknown-uri`;
 export type FailedErrorFailReason = MediaCardErrorPrimaryReason | 'nativeError';
-
-export type RenderEventFailReason =
-  | FailedErrorFailReason
-  | 'failed-processing'
-  | FileUriFailReason
-  | 'external-uri';
 
 export type RenderFailedEventPayload = OperationalEventPayload<
   WithFileAttributes &
     WithPerformanceAttributes &
     FailureAttributes & {
-      failReason: RenderEventFailReason;
+      failReason: FailedErrorFailReason | 'failed-processing';
       error?: MediaClientErrorReason | 'nativeError';
       request?: RequestMetadata;
     },
-  RenderEventAction.FAILED,
+  'failed',
   'mediaCardRender'
 >;
 
 export type RenderSucceededEventPayload = OperationalEventPayload<
   WithFileAttributes & WithPerformanceAttributes & SuccessAttributes,
-  RenderEventAction.SUCCEEDED,
+  'succeeded',
   'mediaCardRender'
 >;
 
 export type RenderCommencedEventPayload = OperationalEventPayload<
   WithFileAttributes & WithPerformanceAttributes,
-  RenderEventAction.COMMENCED,
+  'commenced',
   'mediaCardRender'
 >;
 
@@ -124,7 +112,7 @@ export const getRenderCommencedEventPayload = (
 ): RenderCommencedEventPayload => {
   return {
     eventType: 'operational',
-    action: RenderEventAction.COMMENCED,
+    action: 'commenced',
     actionSubject: 'mediaCardRender',
     attributes: { fileAttributes, performanceAttributes },
   };
@@ -135,7 +123,7 @@ export const getRenderSucceededEventPayload = (
   performanceAttributes?: PerformanceAttributes,
 ): RenderSucceededEventPayload => ({
   eventType: 'operational',
-  action: RenderEventAction.SUCCEEDED,
+  action: 'succeeded',
   actionSubject: 'mediaCardRender',
   attributes: {
     fileAttributes,
@@ -144,39 +132,12 @@ export const getRenderSucceededEventPayload = (
   },
 });
 
-export const getFailedFileUriFailReason = (
-  fileStatus?: FileStatus,
-): FileUriFailReason => {
-  if (!fileStatus) {
-    // This fail reason will come from a bug, most likely.
-    return `unknown-uri`;
-  } else if (fileStatus === 'uploading') {
-    return 'local-uri';
-  }
-  return 'remote-uri';
-};
-
-export const getRenderFailedFileUriPayload = (
-  fileAttributes: FileAttributes,
-  performanceAttributes: PerformanceAttributes,
-): RenderFailedEventPayload => ({
-  eventType: 'operational',
-  action: RenderEventAction.FAILED,
-  actionSubject: 'mediaCardRender',
-  attributes: {
-    fileAttributes,
-    performanceAttributes,
-    status: 'fail',
-    failReason: getFailedFileUriFailReason(fileAttributes.fileStatus),
-  },
-});
-
 export const getRenderFailedExternalUriPayload = (
   fileAttributes: FileAttributes,
   performanceAttributes: PerformanceAttributes,
 ): RenderFailedEventPayload => ({
   eventType: 'operational',
-  action: RenderEventAction.FAILED,
+  action: 'failed',
   actionSubject: 'mediaCardRender',
   attributes: {
     fileAttributes,
@@ -234,7 +195,7 @@ export const getRenderErrorEventPayload = (
   error: MediaCardError,
 ): RenderFailedEventPayload => ({
   eventType: 'operational',
-  action: RenderEventAction.FAILED,
+  action: 'failed',
   actionSubject: 'mediaCardRender',
   attributes: {
     fileAttributes,
@@ -252,7 +213,7 @@ export const getRenderFailedFileStatusPayload = (
   performanceAttributes: PerformanceAttributes,
 ): RenderFailedEventPayload => ({
   eventType: 'operational',
-  action: RenderEventAction.FAILED,
+  action: 'failed',
   actionSubject: 'mediaCardRender',
   attributes: {
     fileAttributes,

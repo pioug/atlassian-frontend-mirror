@@ -13,29 +13,23 @@ import blueLinkAdf from '../../__fixtures__/blue-link.adf.json';
 import { mobileSnapshot } from '../../_utils/snapshot';
 
 export default () => {
-  const loadEditorWidthAdf = async (page: Page, adf: any) => {
+  const loadEditorWithAdf = async (page: Page, adf: any) => {
     await loadEditor(page);
     await page.switchToWeb();
     await setADFContent(page, adf);
     await page.waitForSelector(inlineCardSelector());
+    await focusOnWebView(page);
   };
 
   MobileTestCase('SmartLinks: inline', {}, async (client) => {
     const page = await Page.create(client);
-    await loadEditorWidthAdf(page, smartLinkAdf);
-    await page.switchToNative();
-    if (page.isAndroid()) {
-      await focusOnWebView(page);
-    }
+    await loadEditorWithAdf(page, smartLinkAdf);
     await mobileSnapshot(page);
   });
 
   MobileTestCase('SmartLinks: expand', {}, async (client) => {
     const page = await Page.create(client);
-    await loadEditorWidthAdf(page, smartLinkExpandAdf);
-    if (page.isAndroid()) {
-      await focusOnWebView(page);
-    }
+    await loadEditorWithAdf(page, smartLinkExpandAdf);
     await mobileSnapshot(page);
   });
 
@@ -51,7 +45,8 @@ export default () => {
 
   MobileTestCase('SmartLinks: list', {}, async (client) => {
     const page = await Page.create(client);
-    await loadEditorWidthAdf(page, smartLinkListAdf);
+    await loadEditorWithAdf(page, smartLinkListAdf);
+    await page.switchToWeb();
     await page.waitForSelector('ul');
     const inlineLink = await page.$(inlineCardSelector());
     await inlineLink.scrollIntoView();
@@ -76,9 +71,7 @@ export default () => {
     await page.switchToWeb();
     await setADFContent(page, blueLinkAdf);
     await page.waitForSelector('a');
-    if (page.isAndroid()) {
-      await focusOnWebView(page);
-    }
+    await focusOnWebView(page);
     await mobileSnapshot(page);
   });
 };

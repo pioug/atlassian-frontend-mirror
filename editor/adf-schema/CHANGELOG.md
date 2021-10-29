@@ -1,5 +1,19 @@
 # @atlaskit/adf-schema
 
+## 19.3.0
+
+### Minor Changes
+
+- [`93da0afefce`](https://bitbucket.org/atlassian/atlassian-frontend/commits/93da0afefce) - CETI-78 Change panel nodeSpec to handle paste when feature flag is off
+- [`971845eac0d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/971845eac0d) - CETI-96 Added new rule to emoji to solve the duplicate icon issue when we copy from renderer
+- [`e856b56fd31`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e856b56fd31) - ED-13669 reuse same links normalization method in plugin and adf schema
+
+## 19.2.3
+
+### Patch Changes
+
+- [`a80f50a843c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a80f50a843c) - [HOT-97158] Fix paste link heading issue
+
 ## 19.2.2
 
 ### Patch Changes

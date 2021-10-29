@@ -12,10 +12,10 @@ describe('getResolverUrl', () => {
 
   it('should return a stg environment when passed a stg key', () => {
     expect(getResolverUrl('stg')).toBe(
-      'https://api-private.stg.atlassian.com/object-resolver',
+      'https://commerce-components-preview.dev.atlassian.com/gateway/api/object-resolver',
     );
     expect(getResolverUrl('staging')).toBe(
-      'https://api-private.stg.atlassian.com/object-resolver',
+      'https://commerce-components-preview.dev.atlassian.com/gateway/api/object-resolver',
     );
   });
 

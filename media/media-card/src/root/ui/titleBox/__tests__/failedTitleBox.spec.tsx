@@ -5,7 +5,6 @@ jest.mock('../../../../utils/getErrorMessage', () => {
     getErrorMessage: jest.fn(original.getErrorMessage),
   };
 });
-import { getErrorMessage } from '../../../../utils/getErrorMessage';
 import React from 'react';
 import { shallow } from 'enzyme';
 import { FailedTitleBox } from '../failedTitleBox';
@@ -20,8 +19,6 @@ describe('FailedTitleBox', () => {
     const wrapper = component.find(TitleBoxWrapper);
     expect(wrapper).toHaveLength(1);
     expect(wrapper.prop('breakpoint')).toBe(Breakpoint.SMALL);
-
-    expect(getErrorMessage).toHaveBeenCalledTimes(1);
     expect(component.find(EditorWarningIcon)).toHaveLength(1);
     expect(component.find(FormattedMessage)).toHaveLength(1);
   });

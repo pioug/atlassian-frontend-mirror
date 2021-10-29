@@ -1,5 +1,52 @@
 # @atlaskit/editor-core
 
+## 151.0.0
+
+### Major Changes
+
+- [`b3606652fa1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b3606652fa1) - [ux] Editor integration for Media Inline component
+
+### Minor Changes
+
+- [`93da0afefce`](https://bitbucket.org/atlassian/atlassian-frontend/commits/93da0afefce) - CETI-78 Change panel nodeSpec to handle paste when feature flag is off
+- [`53d2eac387d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/53d2eac387d) - ED-12705 Fail all active editor UFO experiences from the editor error boundary
+- [`b58f3c24179`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b58f3c24179) - ED-13643 Instrument editor interaction UFO experience
+- [`971845eac0d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/971845eac0d) - CETI-96 Added new rule to emoji to solve the duplicate icon issue when we copy from renderer
+- [`7024003c42e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7024003c42e) - ED-13213 Base work to set up UFO in the editor & implement editor load UFO experience
+
+  UFO experiences are hidden behind a feature flag, to enable set
+
+  ```jsx
+  <Editor featureFlags={{ ufo: true }} />
+  ```
+
+- [`eab5cc4f8bc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eab5cc4f8bc) - CETI-21 User should be able to see the panel Icon when user changes the background color of a predefined panel
+- [`04fdcc4a097`](https://bitbucket.org/atlassian/atlassian-frontend/commits/04fdcc4a097) - Quick insert ability for Media Inline component
+- [`a9e8fe41756`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a9e8fe41756) - Internationalisation for static label of Beautiful Panels Web
+- [`0d8132a260a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0d8132a260a) - Fix Slack link default to block card view when editor has allowBlockCards disabled
+- [`b53d0d54ac2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b53d0d54ac2) - ED-12887 Add render count profiler utilities
+- [`f235d19dcdb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f235d19dcdb) - Added an api for creating a brand new editor state when replacing the document using editorActions
+- [`7fc265976b2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7fc265976b2) - ED-13214 Instrument typing in editor UFO experience
+
+### Patch Changes
+
+- [`53cfa98d9f6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/53cfa98d9f6) - [ux] Cursors can now be placed after emojis and statuses without trailing spaces
+- [`540988ac12b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/540988ac12b) - Debounce editor and reactEditorView reRendered analytics
+- [`cbde8994bd4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cbde8994bd4) - ED-12846: Fix disappearing table borders in Chrome
+- [`d7b4aa7c019`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d7b4aa7c019) - ED-13878: Force block-type selected menu items to be white font color
+- [`25393b5c63b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/25393b5c63b) - Add prefetch proper ty analytic event to tell if the result is selected from prefetch list
+- [`e9658042982`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e9658042982) - [ux] ED-7545 Fix selected language in one code snippet visually populating to other code snippets on the page
+- [`99757fa97fb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/99757fa97fb) - ED-13642 added ufo session complete analytics event
+- [`8c68b14866f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8c68b14866f) - ED-12700 Fix for compositions in the find input not being supported.
+- [`e856b56fd31`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e856b56fd31) - ED-13669 reuse same links normalization method in plugin and adf schema
+- [`e731664ad62`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e731664ad62) - [ux][ed-13588] move max-height CSS from akEditor root to ak-editor-content-area so that the editor maxHeight prop actually enforces a maximum height
+- [`05c9526a999`](https://bitbucket.org/atlassian/atlassian-frontend/commits/05c9526a999) - CETI-123 Web: Feature flag for editing custom panels
+- [`125c6ed9212`](https://bitbucket.org/atlassian/atlassian-frontend/commits/125c6ed9212) - ED-13458 Fix for foreign input causing tables to break
+- [`a113abe23e1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a113abe23e1) - [ux] The selected width of an extension is correctly highlighted in its floating toolbar when toolbar actions are un-done/re-done
+- [`3fde369f5d4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3fde369f5d4) - Fix a bug where sometimes the embed link will get states from other embed link
+- [`a92e1f67411`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a92e1f67411) - ED-13633 Disabled editor code highting in safari
+- Updated dependencies
+
 ## 150.0.3
 
 ### Patch Changes

@@ -1,7 +1,7 @@
 import { customPanel } from './nodes/panel';
 import { layoutSectionWithSingleColumn } from './nodes/layout-section';
 import { dataConsumer } from './marks/data-consumer';
-import { createSchema, SchemaConfig } from './create-schema';
+import { allowCustomPanel, createSchema, SchemaConfig } from './create-schema';
 import { mediaSingleWithCaption } from './nodes';
 
 type DefaultSchemaNodes =
@@ -159,7 +159,7 @@ export const getSchemaBasedOnStage = (stage = 'final') => {
   // TODO: ED-10445 remove stage0 check after panels with emoji are on full schema AND image captions are on full schema
   if (stage === 'stage0') {
     defaultSchemaConfig.customNodeSpecs = {
-      panel: customPanel,
+      panel: customPanel(allowCustomPanel),
       mediaSingle: mediaSingleWithCaption,
       layoutSection: layoutSectionWithSingleColumn,
     };

@@ -3,5 +3,6 @@ export {
   UFOExperience,
   ConcurrentExperience,
   ExperienceTypes,
+  ExperiencePerformanceTypes,
   GlobalPageLoadExperience,
 } from './core';

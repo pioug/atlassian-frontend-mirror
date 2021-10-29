@@ -13,9 +13,7 @@ import {
 } from '@atlaskit/media-common';
 import { CardAction } from './actions';
 import { MediaViewerDataSource } from '@atlaskit/media-viewer';
-
-import { CardPreview } from './root/card/getCardPreview';
-import { CardStatus, CardAppearance } from './types';
+import { CardPreview, CardStatus, CardAppearance } from './types';
 import { MediaCardError } from './errors';
 import { CardDimensions } from './utils';
 export type { CardDimensions } from './utils';
@@ -26,7 +24,12 @@ export { Card, MediaInlineCard } from './root';
 
 export type { CardAction, CardEventHandler } from './actions';
 
-export type { CardStatus, CardAppearance, CardDimensionValue } from './types';
+export type {
+  CardStatus,
+  CardAppearance,
+  CardDimensionValue,
+  CardPreview,
+} from './types';
 
 export type TitleBoxIcon = 'LockFilledIcon';
 
@@ -82,6 +85,8 @@ export interface CardState {
   cardPreview?: CardPreview;
   error?: MediaCardError;
   cardRef: HTMLDivElement | null;
+  isBannedLocalPreview: boolean;
+  previewDidRender: boolean;
 }
 
 export { CardLoading } from './utils/lightCards/cardLoading';

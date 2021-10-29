@@ -132,6 +132,16 @@ type EditorRenderedAEP<T> = OperationalAEP<
   undefined
 >;
 
+export type UfoSessionCompletePayloadAEP = OperationalAEP<
+  ACTION.UFO_SESSION_COMPLETE,
+  ACTION_SUBJECT.EDITOR,
+  undefined,
+  {
+    interval: number;
+  },
+  undefined
+>;
+
 type BrowserFreezePayload = OperationalAEPWithObjectId<
   ACTION.BROWSER_FREEZE,
   ACTION_SUBJECT.EDITOR,
@@ -378,4 +388,5 @@ export type GeneralEventPayload<T = void> =
   | UploadExternalFailedAEP
   | WithPluginStateCalledAEP
   | CodeBlockLanguageSelectedAEP
-  | EditorContentRetrievalPerformedAEP;
+  | EditorContentRetrievalPerformedAEP
+  | UfoSessionCompletePayloadAEP;

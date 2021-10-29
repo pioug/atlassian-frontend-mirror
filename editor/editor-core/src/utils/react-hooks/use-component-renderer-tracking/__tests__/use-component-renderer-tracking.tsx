@@ -1,4 +1,5 @@
 import React from 'react';
+import MockDate from 'mockdate';
 import { render, unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
 import { RenderTracking } from '../index';
@@ -14,15 +15,26 @@ type ComponentProps = {
   prop3?: any;
 };
 
+jest.useFakeTimers();
+jest.unmock('lodash/debounce');
+
 describe('useComponentRenderTracking', () => {
   let mockHandleAnalyticsEvent: jest.Mock;
   let container: HTMLElement | null = null;
+  const startDateInMs = 0;
+  const debounceInterval = 500;
+
+  afterAll(() => {
+    jest.useRealTimers();
+  });
 
   beforeEach(() => {
     // setup a DOM element as a render target
     container = document.createElement('div');
     document.body.appendChild(container);
     mockHandleAnalyticsEvent = jest.fn();
+
+    MockDate.set(startDateInMs);
   });
 
   afterEach(() => {
@@ -34,6 +46,13 @@ describe('useComponentRenderTracking', () => {
     }
     mockHandleAnalyticsEvent.mockRestore();
   });
+
+  const waitForDebounce = () => {
+    act(() => {
+      MockDate.set(startDateInMs + debounceInterval);
+      jest.advanceTimersByTime(debounceInterval);
+    });
+  };
 
   it('should set render count to 0 on first render', async () => {
     act(() => {
@@ -57,6 +76,9 @@ describe('useComponentRenderTracking', () => {
         container,
       );
     });
+
+    waitForDebounce();
+
     expect(mockHandleAnalyticsEvent).toHaveBeenCalledTimes(0);
   });
 
@@ -95,6 +117,8 @@ describe('useComponentRenderTracking', () => {
         container,
       );
     });
+
+    waitForDebounce();
 
     const difference = {
       added: ['prop1'],
@@ -173,6 +197,8 @@ describe('useComponentRenderTracking', () => {
       );
     });
 
+    waitForDebounce();
+
     const difference = {
       added: ['prop1'],
       changed: ['prop2', 'prop3'],
@@ -187,6 +213,70 @@ describe('useComponentRenderTracking', () => {
           propsDifference: difference,
           count: 1,
         },
+        eventType: EVENT_TYPE.OPERATIONAL,
+      },
+    });
+  });
+
+  it('should only fire a single analytics event with total count', () => {
+    act(() => {
+      render(
+        <RenderTracking<ComponentProps>
+          componentProps={{
+            prop1: 'a',
+          }}
+          action={ACTION.RE_RENDERED}
+          actionSubject={ACTION_SUBJECT.REACT_EDITOR_VIEW}
+          handleAnalyticsEvent={mockHandleAnalyticsEvent}
+          propsToIgnore={[]}
+          useShallow={false}
+        />,
+        container,
+      );
+    });
+
+    act(() => {
+      render(
+        <RenderTracking<ComponentProps>
+          componentProps={{
+            prop1: 'a',
+          }}
+          action={ACTION.RE_RENDERED}
+          actionSubject={ACTION_SUBJECT.REACT_EDITOR_VIEW}
+          handleAnalyticsEvent={mockHandleAnalyticsEvent}
+          propsToIgnore={[]}
+          useShallow={false}
+        />,
+        container,
+      );
+    });
+
+    act(() => {
+      render(
+        <RenderTracking<ComponentProps>
+          componentProps={{
+            prop1: 'a',
+          }}
+          action={ACTION.RE_RENDERED}
+          actionSubject={ACTION_SUBJECT.REACT_EDITOR_VIEW}
+          handleAnalyticsEvent={mockHandleAnalyticsEvent}
+          propsToIgnore={[]}
+          useShallow={false}
+        />,
+        container,
+      );
+    });
+
+    waitForDebounce();
+
+    expect(mockHandleAnalyticsEvent).toHaveBeenCalledTimes(1);
+    expect(mockHandleAnalyticsEvent).toHaveBeenCalledWith({
+      payload: {
+        action: ACTION.RE_RENDERED,
+        actionSubject: ACTION_SUBJECT.REACT_EDITOR_VIEW,
+        attributes: expect.objectContaining({
+          count: 2,
+        }),
         eventType: EVENT_TYPE.OPERATIONAL,
       },
     });

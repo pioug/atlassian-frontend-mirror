@@ -15,6 +15,8 @@ import {
 
 export const emojiStyles = css`
   .${EmojiSharedCssClassName.EMOJI_CONTAINER} {
+    display: inline-block;
+
     .${EmojiSharedCssClassName.EMOJI_NODE} {
       cursor: pointer;
 

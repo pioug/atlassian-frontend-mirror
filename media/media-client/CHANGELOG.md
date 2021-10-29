@@ -1,5 +1,17 @@
 # @atlaskit/media-client
 
+## 14.3.0
+
+### Minor Changes
+
+- [`b51fc0a9062`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b51fc0a9062) - New helper to convert ImageResizeMode into FileImageMode
+- [`269ee940b87`](https://bitbucket.org/atlassian/atlassian-frontend/commits/269ee940b87) - redesign error UI on new media card experience
+
+### Patch Changes
+
+- [`fe9ced0cd70`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fe9ced0cd70) - Removed feature flags for polling settings
+- Updated dependencies
+
 ## 14.2.0
 
 ### Minor Changes

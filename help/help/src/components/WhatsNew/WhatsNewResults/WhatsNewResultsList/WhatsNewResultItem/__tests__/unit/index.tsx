@@ -23,7 +23,7 @@ const mockOnClick = jest.fn();
 const analyticsSpy = jest.fn();
 
 describe('WhatsNewResultListItem', () => {
-  it('Should match snapshot', () => {
+  it.skip('Should match snapshot', () => {
     const mockWhatsNewArticleItem = getMockWhatsNewArticleItem('1');
     const { container } = render(
       <WhatsNewResultListItem

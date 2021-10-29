@@ -1,0 +1,399 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`generateTheme atlassian theme should match theme object for "create" 1`] = `
+Object {
+  "active": Object {
+    "backgroundColor": "var(--ds-background-boldBrand-pressed, rgba(0, 82, 204, 0.8))",
+    "boxShadow": "",
+    "color": "var(--ds-text-onBold, #FFFFFF)",
+  },
+  "default": Object {
+    "backgroundColor": "var(--ds-background-boldBrand-resting, #0052CC)",
+    "boxShadow": "",
+    "color": "var(--ds-text-onBold, #FFFFFF)",
+  },
+  "focus": Object {
+    "backgroundColor": "var(--ds-background-boldBrand-resting, #0052CC)",
+    "boxShadow": "0 0 0 2px var(--ds-border-focus, rgb(128,169,230))",
+    "color": "var(--ds-text-onBold, #FFFFFF)",
+  },
+  "hover": Object {
+    "backgroundColor": "var(--ds-background-boldBrand-hover, rgba(0, 82, 204, 0.9))",
+    "boxShadow": "",
+    "color": "var(--ds-text-onBold, #FFFFFF)",
+  },
+  "selected": Object {
+    "backgroundColor": "",
+    "boxShadow": "",
+    "color": "",
+  },
+}
+`;
+
+exports[`generateTheme atlassian theme should match theme object for "iconButton" 1`] = `
+Object {
+  "active": Object {
+    "backgroundColor": "var(--ds-background-subtleNeutral-pressed, rgba(222, 235, 255, 0.6))",
+    "boxShadow": "",
+    "color": "var(--ds-text-mediumEmphasis, #0052CC)",
+  },
+  "default": Object {
+    "backgroundColor": "transparent",
+    "boxShadow": "",
+    "color": "var(--ds-text-mediumEmphasis, #344563)",
+  },
+  "focus": Object {
+    "backgroundColor": "var(--ds-background-subtleBrand-hover, rgba(222, 235, 255, 0.5))",
+    "boxShadow": "0 0 0 2px var(--ds-border-focus, #2684FF)",
+    "color": "var(--ds-text-mediumEmphasis, #344563)",
+  },
+  "hover": Object {
+    "backgroundColor": "var(--ds-background-subtleNeutral-hover, rgba(222, 235, 255, 0.9))",
+    "boxShadow": "",
+    "color": "var(--ds-text-mediumEmphasis, #0052CC)",
+  },
+  "selected": Object {
+    "backgroundColor": "var(--ds-background-selected-resting)",
+    "boxShadow": "",
+    "color": "var(--ds-text-selected)",
+  },
+}
+`;
+
+exports[`generateTheme atlassian theme should match theme object for "navigation" 1`] = `
+Object {
+  "backgroundColor": "var(--ds-background-default, #FFFFFF)",
+  "color": "var(--ds-text-lowEmphasis, #6B778C)",
+}
+`;
+
+exports[`generateTheme atlassian theme should match theme object for "primaryButton" 1`] = `
+Object {
+  "active": Object {
+    "backgroundColor": "var(--ds-background-subtleNeutral-pressed, rgba(222, 235, 255, 0.7))",
+    "boxShadow": "",
+    "color": "var(--ds-text-mediumEmphasis, #0052CC)",
+  },
+  "default": Object {
+    "backgroundColor": "transparent",
+    "boxShadow": "",
+    "color": "var(--ds-text-mediumEmphasis, #344563)",
+  },
+  "focus": Object {
+    "backgroundColor": "",
+    "boxShadow": "0 0 0 2px var(--ds-border-focus, #2684FF)",
+    "color": "var(--ds-text-mediumEmphasis, #344563)",
+  },
+  "hover": Object {
+    "backgroundColor": "var(--ds-background-subtleNeutral-hover, rgba(222, 235, 255, 0.9))",
+    "boxShadow": "",
+    "color": "var(--ds-text-mediumEmphasis, #0052CC)",
+  },
+  "selected": Object {
+    "backgroundColor": "var(--ds-background-selected-resting)",
+    "borderColor": "var(--ds-iconBorder-brand, #0052CC)",
+    "bordorBottom": "4px solid var(--ds-iconBorder-brand, #0052CC)",
+    "boxShadow": "",
+    "color": "var(--ds-text-mediumEmphasis, #0052CC)",
+  },
+}
+`;
+
+exports[`generateTheme atlassian theme should match theme object for "productHome" 1`] = `
+Object {
+  "backgroundColor": "var(--ds-text-brand, #0052CC)",
+  "borderRight": "1px solid var(--ds-border-neutral, rgba(107, 119, 140, 0.3))",
+  "color": "var(--ds-text-highEmphasis, #253858)",
+  "iconColor": "#2684FF",
+  "iconGradientStart": "#0052CC",
+  "iconGradientStop": "#2684FF",
+}
+`;
+
+exports[`generateTheme atlassian theme should match theme object for "search" 1`] = `
+Object {
+  "default": Object {
+    "backgroundColor": "var(--ds-background-default, #FFFFFF)",
+    "borderColor": "var(--ds-border-neutral, #DFE1E6)",
+    "color": "var(--ds-text-lowEmphasis, #6B778C)",
+  },
+  "focus": Object {
+    "borderColor": "var(--ds-border-focus, #2684FF)",
+  },
+  "hover": Object {
+    "backgroundColor": "var(--ds-background-default, rgba(222, 235, 255, 0.9))",
+    "color": "var(--ds-text-brand, #0052CC)",
+  },
+}
+`;
+
+exports[`generateTheme atlassian theme should match theme object for "skeleton" 1`] = `
+Object {
+  "backgroundColor": "var(--ds-background-subtleNeutral-resting, #F4F5F7)",
+  "opacity": 1,
+}
+`;
+
+exports[`generateTheme custom black text theme should match theme object for "create" 1`] = `
+Object {
+  "active": Object {
+    "backgroundColor": "rgba(233, 78, 52, 0.65)",
+    "boxShadow": "0 0 0 2px transparent",
+    "color": "#ffffff",
+  },
+  "default": Object {
+    "backgroundColor": "#E94E34",
+    "boxShadow": "0 0 0 2px transparent",
+    "color": "#ffffff",
+  },
+  "focus": Object {
+    "backgroundColor": "#E94E34",
+    "boxShadow": "0 0 0 2px rgba(233, 78, 52, 0.5)",
+    "color": "#ffffff",
+  },
+  "hover": Object {
+    "backgroundColor": "rgba(233, 78, 52, 0.8)",
+    "boxShadow": "0 0 0 2px transparent",
+    "color": "#ffffff",
+  },
+  "selected": Object {
+    "backgroundColor": "#E94E34",
+    "borderColor": "#E94E34",
+    "boxShadow": "0 0 0 2px transparent",
+    "color": "#ffffff",
+  },
+}
+`;
+
+exports[`generateTheme custom black text theme should match theme object for "iconButton" 1`] = `
+Object {
+  "active": Object {
+    "backgroundColor": "rgba(101, 101, 101, 0.6)",
+    "boxShadow": "0 0 0 2px transparent",
+    "color": "#ffffff",
+  },
+  "default": Object {
+    "backgroundColor": "#272727",
+    "boxShadow": "0 0 0 2px transparent",
+    "color": "#ffffff",
+  },
+  "focus": Object {
+    "backgroundColor": "#272727",
+    "boxShadow": "0 0 0 2px rgba(233, 78, 52, 0.5)",
+    "color": "#ffffff",
+  },
+  "hover": Object {
+    "backgroundColor": "rgba(119, 119, 119, 0.6)",
+    "boxShadow": "0 0 0 2px transparent",
+    "color": "#ffffff",
+  },
+  "selected": Object {
+    "backgroundColor": "#272727",
+    "borderColor": "#E94E34",
+    "boxShadow": "0 0 0 2px transparent",
+    "color": "#ffffff",
+  },
+}
+`;
+
+exports[`generateTheme custom black text theme should match theme object for "navigation" 1`] = `
+Object {
+  "backgroundColor": "#272727",
+  "color": "#ffffff",
+}
+`;
+
+exports[`generateTheme custom black text theme should match theme object for "primaryButton" 1`] = `
+Object {
+  "active": Object {
+    "backgroundColor": "rgba(101, 101, 101, 0.6)",
+    "boxShadow": "0 0 0 2px transparent",
+    "color": "#ffffff",
+  },
+  "default": Object {
+    "backgroundColor": "#272727",
+    "boxShadow": "0 0 0 2px transparent",
+    "color": "#ffffff",
+  },
+  "focus": Object {
+    "backgroundColor": "#272727",
+    "boxShadow": "0 0 0 2px rgba(233, 78, 52, 0.5)",
+    "color": "#ffffff",
+  },
+  "hover": Object {
+    "backgroundColor": "rgba(119, 119, 119, 0.6)",
+    "boxShadow": "0 0 0 2px transparent",
+    "color": "#ffffff",
+  },
+  "selected": Object {
+    "backgroundColor": "#272727",
+    "borderColor": "#E94E34",
+    "boxShadow": "0 0 0 2px transparent",
+    "color": "#ffffff",
+  },
+}
+`;
+
+exports[`generateTheme custom black text theme should match theme object for "productHome" 1`] = `
+Object {
+  "backgroundColor": "#E94E34",
+  "borderRight": "1px solid rgba(255, 255, 255, 0.5)",
+  "color": "#ffffff",
+}
+`;
+
+exports[`generateTheme custom black text theme should match theme object for "search" 1`] = `
+Object {
+  "default": Object {
+    "backgroundColor": "#272727",
+    "borderColor": "rgba(255, 255, 255, 0.5)",
+    "color": "#ffffff",
+  },
+  "focus": Object {
+    "borderColor": "rgba(233, 78, 52, 0.8)",
+  },
+  "hover": Object {
+    "backgroundColor": "rgba(119, 119, 119, 0.6)",
+    "color": "#ffffff",
+  },
+}
+`;
+
+exports[`generateTheme custom black text theme should match theme object for "skeleton" 1`] = `
+Object {
+  "backgroundColor": "#ffffff",
+  "opacity": 0.08,
+}
+`;
+
+exports[`generateTheme custom white text theme should match theme object for "create" 1`] = `
+Object {
+  "active": Object {
+    "backgroundColor": "rgba(51, 51, 51, 0.65)",
+    "boxShadow": "0 0 0 2px transparent",
+    "color": "#ffffff",
+  },
+  "default": Object {
+    "backgroundColor": "#333333",
+    "boxShadow": "0 0 0 2px transparent",
+    "color": "#ffffff",
+  },
+  "focus": Object {
+    "backgroundColor": "#333333",
+    "boxShadow": "0 0 0 2px rgba(51, 51, 51, 0.5)",
+    "color": "#ffffff",
+  },
+  "hover": Object {
+    "backgroundColor": "rgba(51, 51, 51, 0.8)",
+    "boxShadow": "0 0 0 2px transparent",
+    "color": "#ffffff",
+  },
+  "selected": Object {
+    "backgroundColor": "#333333",
+    "borderColor": "#333333",
+    "boxShadow": "0 0 0 2px transparent",
+    "color": "#ffffff",
+  },
+}
+`;
+
+exports[`generateTheme custom white text theme should match theme object for "iconButton" 1`] = `
+Object {
+  "active": Object {
+    "backgroundColor": "rgba(159, 150, 152, 0.3)",
+    "boxShadow": "0 0 0 2px transparent",
+    "color": "#000000",
+  },
+  "default": Object {
+    "backgroundColor": "#E8CBD2",
+    "boxShadow": "0 0 0 2px transparent",
+    "color": "#000000",
+  },
+  "focus": Object {
+    "backgroundColor": "#E8CBD2",
+    "boxShadow": "0 0 0 2px rgba(51, 51, 51, 0.5)",
+    "color": "#000000",
+  },
+  "hover": Object {
+    "backgroundColor": "rgba(138, 135, 136, 0.3)",
+    "boxShadow": "0 0 0 2px transparent",
+    "color": "#000000",
+  },
+  "selected": Object {
+    "backgroundColor": "#E8CBD2",
+    "borderColor": "#333333",
+    "boxShadow": "0 0 0 2px transparent",
+    "color": "#000000",
+  },
+}
+`;
+
+exports[`generateTheme custom white text theme should match theme object for "navigation" 1`] = `
+Object {
+  "backgroundColor": "#E8CBD2",
+  "color": "#000000",
+}
+`;
+
+exports[`generateTheme custom white text theme should match theme object for "primaryButton" 1`] = `
+Object {
+  "active": Object {
+    "backgroundColor": "rgba(159, 150, 152, 0.3)",
+    "boxShadow": "0 0 0 2px transparent",
+    "color": "#000000",
+  },
+  "default": Object {
+    "backgroundColor": "#E8CBD2",
+    "boxShadow": "0 0 0 2px transparent",
+    "color": "#000000",
+  },
+  "focus": Object {
+    "backgroundColor": "#E8CBD2",
+    "boxShadow": "0 0 0 2px rgba(51, 51, 51, 0.5)",
+    "color": "#000000",
+  },
+  "hover": Object {
+    "backgroundColor": "rgba(138, 135, 136, 0.3)",
+    "boxShadow": "0 0 0 2px transparent",
+    "color": "#000000",
+  },
+  "selected": Object {
+    "backgroundColor": "#E8CBD2",
+    "borderColor": "#333333",
+    "boxShadow": "0 0 0 2px transparent",
+    "color": "#000000",
+  },
+}
+`;
+
+exports[`generateTheme custom white text theme should match theme object for "productHome" 1`] = `
+Object {
+  "backgroundColor": "#333333",
+  "borderRight": "1px solid rgba(0, 0, 0, 0.5)",
+  "color": "#000000",
+}
+`;
+
+exports[`generateTheme custom white text theme should match theme object for "search" 1`] = `
+Object {
+  "default": Object {
+    "backgroundColor": "#E8CBD2",
+    "borderColor": "rgba(0, 0, 0, 0.5)",
+    "color": "#000000",
+  },
+  "focus": Object {
+    "borderColor": "rgba(51, 51, 51, 0.8)",
+  },
+  "hover": Object {
+    "backgroundColor": "rgba(138, 135, 136, 0.3)",
+    "color": "#000000",
+  },
+}
+`;
+
+exports[`generateTheme custom white text theme should match theme object for "skeleton" 1`] = `
+Object {
+  "backgroundColor": "#000000",
+  "opacity": 0.08,
+}
+`;

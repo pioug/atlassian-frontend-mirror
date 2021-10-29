@@ -11,7 +11,7 @@ const access = {
 
 export const getAuthFromContextProvider = async () => {
   const url =
-    'https://api-private.dev.atlassian.com/media-playground/api/token/tenant?environment=asap';
+    'https://media-playground.dev.atl-paas.net/token/tenant?environment=asap';
   const body = JSON.stringify({
     access,
   });
@@ -24,7 +24,6 @@ export const getAuthFromContextProvider = async () => {
     method: 'POST',
     body,
     headers,
-    credentials: 'include',
   });
 
   return response.json();

@@ -8,6 +8,7 @@ Array [
     "lastViewedDate": 2020-04-16T00:00:00.000Z,
     "name": "some-activity-name-1",
     "objectId": "object-id-1",
+    "prefetch": true,
     "url": "some-activity-url-1.com",
   },
   Object {
@@ -16,6 +17,7 @@ Array [
     "lastViewedDate": 2020-04-16T01:00:00.000Z,
     "name": "some-activity-name-2",
     "objectId": "object-id-2",
+    "prefetch": true,
     "url": "some-activity-url-2.com",
   },
   Object {
@@ -24,6 +26,7 @@ Array [
     "lastViewedDate": 2020-04-16T02:00:00.000Z,
     "name": "some-activity-name-3",
     "objectId": "object-id-3",
+    "prefetch": true,
     "url": "some-activity-url-3.com",
   },
   Object {
@@ -32,6 +35,7 @@ Array [
     "lastViewedDate": 2020-04-16T03:00:00.000Z,
     "name": "some-activity-name-4",
     "objectId": "object-id-4",
+    "prefetch": true,
     "url": "some-activity-url-4.com",
   },
   Object {
@@ -40,6 +44,7 @@ Array [
     "lastViewedDate": 2020-04-16T04:00:00.000Z,
     "name": "some-activity-name-5",
     "objectId": "object-id-5",
+    "prefetch": true,
     "url": "some-activity-url-5.com",
   },
 ]
@@ -53,6 +58,7 @@ Array [
     "lastViewedDate": 2020-04-16T00:00:00.000Z,
     "name": "some-activity-name-1",
     "objectId": "object-id-1",
+    "prefetch": true,
     "url": "some-activity-url-1.com",
   },
   Object {
@@ -61,6 +67,7 @@ Array [
     "lastViewedDate": 2020-04-16T01:00:00.000Z,
     "name": "some-activity-name-2",
     "objectId": "object-id-2",
+    "prefetch": true,
     "url": "some-activity-url-2.com",
   },
   Object {
@@ -71,6 +78,7 @@ Array [
     "lastUpdatedDate": 2020-04-15T02:00:00.000Z,
     "name": "some-quick-search-title-3",
     "objectId": "object-id-3",
+    "prefetch": false,
     "url": "some-quick-search-url-3.com",
   },
   Object {
@@ -81,6 +89,7 @@ Array [
     "lastUpdatedDate": 2020-04-15T03:00:00.000Z,
     "name": "some-quick-search-title-4",
     "objectId": "object-id-4",
+    "prefetch": false,
     "url": "some-quick-search-url-4.com",
   },
   Object {
@@ -91,6 +100,7 @@ Array [
     "lastUpdatedDate": 2020-04-15T04:00:00.000Z,
     "name": "some-quick-search-title-5",
     "objectId": "object-id-5",
+    "prefetch": false,
     "url": "some-quick-search-url-5.com",
   },
 ]
@@ -104,6 +114,7 @@ Array [
     "lastViewedDate": 2020-04-16T00:00:00.000Z,
     "name": "some-activity-name-1",
     "objectId": "object-id-1",
+    "prefetch": true,
     "url": "some-activity-url-1.com",
   },
   Object {
@@ -112,6 +123,7 @@ Array [
     "lastViewedDate": 2020-04-16T01:00:00.000Z,
     "name": "some-activity-name-2",
     "objectId": "object-id-2",
+    "prefetch": true,
     "url": "some-activity-url-2.com",
   },
   Object {
@@ -122,6 +134,7 @@ Array [
     "lastUpdatedDate": 2020-04-15T02:00:00.000Z,
     "name": "some-quick-search-title-3",
     "objectId": "object-id-3",
+    "prefetch": false,
     "url": "some-quick-search-url-3.com",
   },
   Object {
@@ -132,6 +145,7 @@ Array [
     "lastUpdatedDate": 2020-04-15T03:00:00.000Z,
     "name": "some-quick-search-title-4",
     "objectId": "object-id-4",
+    "prefetch": false,
     "url": "some-quick-search-url-4.com",
   },
   Object {
@@ -142,6 +156,7 @@ Array [
     "lastUpdatedDate": 2020-04-15T04:00:00.000Z,
     "name": "some-quick-search-title-5",
     "objectId": "object-id-5",
+    "prefetch": false,
     "url": "some-quick-search-url-5.com",
   },
 ]

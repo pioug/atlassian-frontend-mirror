@@ -99,13 +99,12 @@ describe('withMediaAnalyticsContext()', () => {
   it('should filter feature flags if filter is provided', () => {
     const analyticsEventPayload = { test: 'ok' };
     const filteredFlags: MediaFeatureFlags = {
-      poll_maxIntervalMs: 10,
+      codeViewer: true,
       newCardExperience: false,
     };
     const someFeatureFlags: MediaFeatureFlags = {
       codeViewer: true,
       zipPreviews: true,
-      poll_intervalMs: 10,
       ...filteredFlags,
     };
     const onEvent = jest.fn();
@@ -117,7 +116,7 @@ describe('withMediaAnalyticsContext()', () => {
     const MediaComponentFiringAnalyticsEventWithContext = withMediaAnalyticsContext(
       someContextData,
       {
-        filterFeatureFlags: ['poll_maxIntervalMs', 'newCardExperience'],
+        filterFeatureFlags: ['codeViewer', 'newCardExperience'],
       },
     )(MediaComponentFiringAnalyticsEvent);
 

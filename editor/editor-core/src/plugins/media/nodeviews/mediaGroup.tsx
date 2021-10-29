@@ -230,6 +230,27 @@ export default class MediaGroup extends React.Component<
         return getPos() + idx + 1;
       };
 
+      // Media Inline creates a floating toolbar with the same options, excludes these options if enabled
+      const mediaInlineOptions = (allowMediaInline: boolean = false) => {
+        if (!allowMediaInline) {
+          return {
+            shouldEnableDownloadButton: mediaOptions.enableDownloadButton,
+            actions: [
+              {
+                handler: disabled
+                  ? () => {}
+                  : this.mediaPluginState.handleMediaNodeRemoval.bind(
+                      null,
+                      undefined,
+                      getNodePos,
+                    ),
+                icon: <EditorCloseIcon label="delete" />,
+              },
+            ],
+          };
+        }
+      };
+
       return {
         identifier: this.getIdentifier(item),
         isLazy: allowLazyLoading,
@@ -237,19 +258,7 @@ export default class MediaGroup extends React.Component<
         onClick: () => {
           setNodeSelection(this.props.view, getNodePos());
         },
-        shouldEnableDownloadButton: mediaOptions.enableDownloadButton,
-        actions: [
-          {
-            handler: disabled
-              ? () => {}
-              : this.mediaPluginState.handleMediaNodeRemoval.bind(
-                  null,
-                  undefined,
-                  getNodePos,
-                ),
-            icon: <EditorCloseIcon label="delete" />,
-          },
-        ],
+        ...mediaInlineOptions(mediaOptions.allowMediaInline),
       };
     });
 

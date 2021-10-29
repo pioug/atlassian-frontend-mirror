@@ -55,10 +55,7 @@ const CommentEditor: any = styled.div`
   /* calc(2px + 40px + 24px + ( 20px + (32px * 2))) */
   min-height: 150px;
   height: auto;
-  ${(props: CommentEditorProps) =>
-    props.maxHeight
-      ? 'max-height: ' + props.maxHeight + 'px;'
-      : ''} background-color: white;
+  background-color: white;
   border: 1px solid ${N40};
   box-sizing: border-box;
   border-radius: ${borderRadius()}px;
@@ -73,6 +70,8 @@ const ContentArea = styled(ContentStyles)`
   overflow-x: hidden;
   overflow-y: auto;
   line-height: 24px;
+  ${(props: CommentEditorProps) =>
+    props.maxHeight ? 'max-height: ' + props.maxHeight + 'px;' : ''};
 
   /** Hack for Bitbucket to ensure entire editorView gets drop event; see ED-3294 **/
   /** Hack for tables controlls. Otherwise marging collapse and controlls are misplaced. **/
@@ -189,6 +188,7 @@ class Editor extends React.Component<
                     className={classnames('ak-editor-content-area', {
                       'less-margin': width < akEditorMobileBreakoutPoint,
                     })}
+                    maxHeight={maxHeight}
                   >
                     {customContentComponents}
                     <PluginSlot

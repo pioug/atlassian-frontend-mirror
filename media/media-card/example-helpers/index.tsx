@@ -3,6 +3,8 @@
 import React from 'react';
 import { FileItem, Identifier } from '@atlaskit/media-client';
 import {
+  createPollingMaxAttemptsError,
+  createRateLimitedError,
   createStorybookMediaClientConfig,
   FeatureFlagsWrapper,
 } from '@atlaskit/media-test-helpers';
@@ -11,6 +13,7 @@ import AnnotateIcon from '@atlaskit/icon/glyph/media-services/annotate';
 import { SelectableCard } from './selectableCard';
 import { Card, CardAppearance, CardEvent, CardAction } from '../src';
 import { relevantFeatureFlagNames } from '../src/root/card/cardAnalytics';
+import { MediaCardError } from '../src/errors';
 
 const mediaClientConfig = createStorybookMediaClientConfig();
 
@@ -121,3 +124,21 @@ export const MainWrapper: React.FC = ({ children }) => (
     {children}
   </FeatureFlagsWrapper>
 );
+
+export const mediaCardErrorState = (
+  error?: string,
+): MediaCardError | undefined => {
+  switch (error) {
+    case 'rateLimitedError':
+      return new MediaCardError('error-file-state', createRateLimitedError());
+    case 'pollingMaxAttemptsError':
+      return new MediaCardError(
+        'error-file-state',
+        createPollingMaxAttemptsError(),
+      );
+    case 'uploadError':
+      return new MediaCardError('upload');
+    default:
+      return undefined;
+  }
+};

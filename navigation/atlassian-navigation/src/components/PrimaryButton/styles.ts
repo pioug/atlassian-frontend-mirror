@@ -30,14 +30,14 @@ export const getPrimaryButtonTheme = ({
     buttonStyles: {
       ...buttonStyles,
       ...primaryButton.default,
-      ...(props.isSelected && primaryButton.active),
+      ...(props.isSelected && primaryButton.selected),
       fontWeight: 500,
       padding: '0 4px',
       marginLeft: 0,
       marginRight: 0,
       ':hover': primaryButton.hover,
       ':focus': primaryButton.focus,
-      // :active doesn't work in FF, becasue we do a
+      // :active doesn't work in FF, because we do a
       // e.preventDefault() on mouse down in Button.
       // '&&' is required to add more CSS specificity
       // && it not a valid CSSObject property

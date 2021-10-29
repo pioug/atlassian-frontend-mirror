@@ -1,4 +1,3 @@
-import { ExtensionLayout } from '@atlaskit/adf-schema';
 import { ContextIdentifierProvider } from '@atlaskit/editor-common';
 import {
   UpdateExtension,
@@ -9,7 +8,6 @@ import {
 } from '@atlaskit/editor-common/extensions';
 
 export type ExtensionState<T extends Parameters = Parameters> = {
-  layout: ExtensionLayout;
   localId?: string;
   autoSaveResolve?: () => void;
   showEditButton: boolean;

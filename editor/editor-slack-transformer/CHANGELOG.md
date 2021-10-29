@@ -1,5 +1,11 @@
 # @atlaskit/editor-slack-transformer
 
+## 2.0.0
+
+### Major Changes
+
+- [`ad7872a08ed`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ad7872a08ed) - Add media inline component to wikimarkup, slack markdown, email renderer transformers
+
 ## 1.0.6
 
 ### Patch Changes

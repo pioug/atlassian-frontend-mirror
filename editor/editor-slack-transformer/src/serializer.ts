@@ -60,6 +60,9 @@ const unsupportedNodes = {
   inlineExtension(state: MarkdownSerializerState) {
     state.write('[inline extension]');
   },
+  mediaInline(state: MarkdownSerializerState) {
+    state.write('[inline file attached]');
+  },
   extension(state: MarkdownSerializerState, node: PMNode) {
     state.write('[extension]');
     state.closeBlock(node);

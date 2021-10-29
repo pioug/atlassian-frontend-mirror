@@ -1,5 +1,15 @@
 # @atlaskit/email-renderer
 
+## 7.0.0
+
+### Major Changes
+
+- [`ad7872a08ed`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ad7872a08ed) - Add media inline component to wikimarkup, slack markdown, email renderer transformers
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.3.0
 
 ### Minor Changes

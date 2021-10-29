@@ -130,15 +130,17 @@ export const MediaInlineCardInternal: FC<
   }
 
   return (
-    <Tooltip position="bottom" content={formattedDate}>
-      <MediaInlineCardLoadedView
-        icon={linkIcon}
-        title={name}
-        onClick={onMediaInlineCardClick}
-        isSelected={isSelected}
-      />
+    <>
+      <Tooltip position="bottom" content={formattedDate} tag="span">
+        <MediaInlineCardLoadedView
+          icon={linkIcon}
+          title={name}
+          onClick={onMediaInlineCardClick}
+          isSelected={isSelected}
+        />
+      </Tooltip>
       {mediaViewer}
-    </Tooltip>
+    </>
   );
 };
 

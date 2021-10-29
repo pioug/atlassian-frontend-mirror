@@ -106,6 +106,8 @@ Object {
               "content": Array [
                 Object {
                   "attrs": Object {
+                    "panelColor": null,
+                    "panelIcon": null,
                     "panelType": "error",
                   },
                   "content": Array [
@@ -506,6 +508,8 @@ Object {
               "content": Array [
                 Object {
                   "attrs": Object {
+                    "panelColor": null,
+                    "panelIcon": null,
                     "panelType": "error",
                   },
                   "content": Array [

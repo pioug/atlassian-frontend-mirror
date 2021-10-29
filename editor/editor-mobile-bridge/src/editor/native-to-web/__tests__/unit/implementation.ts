@@ -54,6 +54,7 @@ jest.mock('@atlaskit/editor-core', () => ({
   updateStatusWithAnalytics: jest.fn(() => () => {}),
   insertDate: jest.fn(() => () => {}),
   openDatePicker: jest.fn(() => () => {}),
+  setMobilePaddingTop: jest.fn(() => () => {}),
 }));
 jest.mock('@atlaskit/editor-common', () => ({
   ...jest.requireActual<Object>('@atlaskit/editor-common'),
@@ -395,6 +396,7 @@ describe('setContent', () => {
       state: {
         doc: {},
       },
+      focus: () => {},
     } as EditorViewWithComposition;
     bridge.editorView = editorView;
     let replaceContentSpy = jest.spyOn(bridge, 'replaceContent');
@@ -411,6 +413,7 @@ describe('replaceContent', () => {
     state: {
       doc: {},
     },
+    focus: () => {},
   } as EditorViewWithComposition;
   const jsonContent: JSONDocNode = {
     version: 1,
@@ -487,6 +490,17 @@ describe('replaceContent', () => {
       1000,
       1100,
     );
+  });
+
+  it('should call resetProviders', () => {
+    const bridge: WebBridgeImpl = new WebBridgeImpl();
+    bridge.editorView = editorView;
+    const resetProviders = jest.fn();
+
+    bridge.setResetProviders(resetProviders);
+    bridge.replaceContent('');
+
+    expect(resetProviders).toBeCalled();
   });
 });
 
@@ -574,6 +588,7 @@ describe('setContentPayload', () => {
     state: {
       doc: {},
     },
+    focus: () => {},
   } as EditorViewWithComposition;
 
   beforeEach(async () => {

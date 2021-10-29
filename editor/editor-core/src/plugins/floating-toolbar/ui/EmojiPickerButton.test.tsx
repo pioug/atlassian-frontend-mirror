@@ -25,6 +25,7 @@ describe('emoji-picker-button', () => {
     panelPlugin,
     {
       UNSAFE_allowCustomPanel: true,
+      UNSAFE_allowCustomPanelEdit: true,
     },
   ]);
 

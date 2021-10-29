@@ -82,7 +82,6 @@ class HeadingAnchor extends React.PureComponent<
       <CopyAnchorButton
         onMouseLeave={this.resetMessage}
         onClick={this.copyToClipboard}
-        aria-label={this.state.tooltipMessage}
       >
         <LinkIcon
           label="copy"

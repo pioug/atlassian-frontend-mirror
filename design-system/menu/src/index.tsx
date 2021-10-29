@@ -24,10 +24,10 @@ export type {
   SkeletonHeadingItemProps,
   SkeletonItemProps,
   Dimension,
-  BaseItemProps,
+  MenuItemProps as BaseItemProps,
   Overrides,
   MenuGroupSizing,
   RenderFunction,
-  SectionBaseProps,
+  SectionProps as SectionBaseProps,
   TitleOverrides,
 } from './types';

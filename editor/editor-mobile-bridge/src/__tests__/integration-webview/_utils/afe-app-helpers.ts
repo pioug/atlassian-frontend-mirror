@@ -126,9 +126,7 @@ export async function validateFontSizeOverride(
       if (paragraph) {
         pSize = getComputedStyle(paragraph).fontSize;
       }
-      const heading =
-        document.querySelector(`${_selector} > .heading-wrapper h1`) ||
-        document.querySelector(`${_selector} > h1`);
+      const heading = document.querySelector(`${_selector} > h1`);
       if (heading) {
         hSize = getComputedStyle(heading).fontSize;
       }

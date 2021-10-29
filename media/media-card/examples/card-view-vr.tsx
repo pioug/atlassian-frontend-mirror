@@ -4,13 +4,9 @@ import styled from 'styled-components';
 import { CardStatus } from '../src';
 import { CardView } from '../src/root/cardView';
 import { FileDetails, MediaType } from '@atlaskit/media-client';
-import {
-  tallImage,
-  wideTransparentImage,
-  createRateLimitedError,
-  createPollingMaxAttemptsError,
-} from '@atlaskit/media-test-helpers';
+import { tallImage, wideTransparentImage } from '@atlaskit/media-test-helpers';
 import { IntlProvider } from 'react-intl';
+import { mediaCardErrorState } from '../example-helpers';
 
 type WrapperDimensions = {
   width: string;
@@ -104,10 +100,13 @@ function renderCardImageView(
   const isPollingError =
     urlParams.get('isPollingMaxAttemptsExceeded') === 'true';
   const disableOverlay = urlParams.get('disableOverlay') === 'true';
+  const isUploadError = urlParams.get('isUploadError') === 'true';
   const error = isRateLimited
-    ? createRateLimitedError()
+    ? 'rateLimitedError'
     : isPollingError
-    ? createPollingMaxAttemptsError()
+    ? 'pollingMaxAttemptsError'
+    : isUploadError
+    ? 'uploadError'
     : undefined;
 
   return (
@@ -116,7 +115,7 @@ function renderCardImageView(
         featureFlags={{
           newCardExperience: true,
         }}
-        error={error}
+        error={mediaCardErrorState(error)}
         disableOverlay={disableOverlay}
         status={cardStatus || status}
         mediaItemType="file"

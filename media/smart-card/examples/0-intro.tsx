@@ -11,6 +11,9 @@ import { Checkbox } from '@atlaskit/checkbox';
 import { RadioGroup } from '@atlaskit/radio';
 import urlsJSON from '../examples-helpers/example-urls.json';
 import SmartCardClient from '../src/client';
+import { ufologger } from '@atlaskit/ufo';
+
+ufologger.enable();
 
 const params =
   typeof URLSearchParams !== 'undefined'

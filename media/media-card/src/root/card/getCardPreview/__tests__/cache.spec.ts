@@ -1,9 +1,10 @@
 import { ObjectURLCache } from '../../../../utils/objectURLCache';
 import { CardPreviewCacheImpl, getCacheKey } from '../cache';
-import { CardPreview } from '../';
+import { CardPreview } from '../../../..';
 const objectURLCache = {
   set: jest.fn(),
   get: jest.fn(),
+  remove: jest.fn(),
 };
 const cache = new CardPreviewCacheImpl(
   (objectURLCache as unknown) as ObjectURLCache,
@@ -60,5 +61,14 @@ describe('CardPreviewCache', () => {
     const cacheKey = getCacheKey(id, dimensions);
     expect(objectURLCache.get).toBeCalledWith(cacheKey);
     expect(preview).toBe(expectedPreview);
+  });
+
+  it('should remove a cardPreview from cache', () => {
+    const id = 'some-id';
+    const dimensions = { width: '1%', height: '1%' };
+    cache.remove(id, dimensions);
+
+    const cacheKey = getCacheKey(id, dimensions);
+    expect(objectURLCache.remove).toBeCalledWith(cacheKey);
   });
 });

@@ -1,41 +1,22 @@
 import React from 'react';
 
-import { ThemeProvider as StyledThemeProvider } from 'styled-components';
-
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
-import DeprecatedThemeProvider from '@atlaskit/theme/deprecated-provider-please-do-not-use';
 
 import { DynamicTableStateless } from '../src';
 
 import { head, rows } from './content/sample-data';
 
-enum ThemeMode {
-  LIGHT = 'light',
-  DARK = 'dark',
-}
-
 interface State {
   highlightedRows: number[];
-  themeMode: ThemeMode;
 }
 
-const getOppositeTheme = (themeMode: ThemeMode) =>
-  themeMode === ThemeMode.LIGHT ? ThemeMode.DARK : ThemeMode.LIGHT;
 const paddingStyle = { padding: '8px 0' };
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default class extends React.Component<{}, State> {
   state = {
     highlightedRows: [3],
-    themeMode: ThemeMode.LIGHT,
-  };
-
-  switchTheme = () => {
-    const { themeMode } = this.state;
-    this.setState({
-      themeMode: getOppositeTheme(themeMode),
-    });
   };
 
   toggleHighlightedRow = (rowNumber: number) =>
@@ -52,10 +33,7 @@ export default class extends React.Component<{}, State> {
 
   render() {
     return (
-      <DeprecatedThemeProvider
-        mode={this.state.themeMode}
-        provider={StyledThemeProvider}
-      >
+      <>
         <h4 style={paddingStyle}>
           Click on the buttons to highlight the corresponding row
         </h4>
@@ -69,11 +47,6 @@ export default class extends React.Component<{}, State> {
             </Button>
           ))}
         </ButtonGroup>
-        <div style={paddingStyle}>
-          <Button onClick={this.switchTheme}>
-            Switch theme to {getOppositeTheme(this.state.themeMode)}
-          </Button>
-        </div>
         <DynamicTableStateless
           head={head}
           highlightedRowIndex={this.state.highlightedRows}
@@ -81,7 +54,7 @@ export default class extends React.Component<{}, State> {
           rowsPerPage={40}
           page={1}
         />
-      </DeprecatedThemeProvider>
+      </>
     );
   }
 }

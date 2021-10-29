@@ -258,6 +258,15 @@ describe('FindReplace', () => {
           expect(onFindSpy).not.toHaveBeenCalled();
         });
 
+        it('allows the input value to change while composing', () => {
+          const currentText = (findReplace
+            .find(Find)
+            .find(Textfield)
+            .find('input')
+            .getDOMNode() as HTMLInputElement).value;
+          expect(currentText).toBe('かようび');
+        });
+
         it('calls props.onFind on composition end', () => {
           endComposition();
           expect(onFindSpy).toHaveBeenCalledWith('かようび');

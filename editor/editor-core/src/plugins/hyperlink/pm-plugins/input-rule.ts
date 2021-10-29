@@ -1,8 +1,9 @@
+import { Match } from '@atlaskit/adf-schema';
 import { InputRuleWrapper } from '@atlaskit/prosemirror-input-rules';
 import { Schema } from 'prosemirror-model';
 import { Plugin, EditorState } from 'prosemirror-state';
 import { createRule, createPlugin } from '../../../utils/input-rules';
-import { Match, LinkMatcher, normalizeUrl } from '../utils';
+import { LinkMatcher, normalizeUrl } from '../utils';
 import { queueCards } from '../../card/pm-plugins/actions';
 import { INPUT_METHOD, addAnalytics } from '../../analytics';
 import { getLinkCreationAnalyticsEvent } from '../analytics';

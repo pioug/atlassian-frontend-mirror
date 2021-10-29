@@ -1,9 +1,13 @@
 import { UFOExperience } from '../../../../core/experience/experience';
-import { ExperienceTypes } from '../../../../core/experience/experience-types';
+import {
+  ExperiencePerformanceTypes,
+  ExperienceTypes,
+} from '../../../../core/experience/experience-types';
 
 test('experience instantiates without error', () => {
   const experience = new UFOExperience('test', {
-    type: ExperienceTypes.Custom,
+    performanceType: ExperiencePerformanceTypes.Custom,
+    type: ExperienceTypes.Operation,
   });
   expect(experience).not.toBe(null);
 });

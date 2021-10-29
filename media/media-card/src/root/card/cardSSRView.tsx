@@ -9,6 +9,7 @@ import {
   FileIdentifier,
   ImageResizeMode,
   MediaClient,
+  imageResizeModeToFileImageMode,
 } from '@atlaskit/media-client';
 import { MediaImage } from '@atlaskit/media-ui';
 import SpinnerIcon from '@atlaskit/spinner';
@@ -35,7 +36,7 @@ export interface CardSSRViewProps {
   readonly identifier: FileIdentifier;
   readonly dimensions?: CardDimensions;
   readonly mediaClient: MediaClient;
-  readonly resizeMode: ImageResizeMode;
+  readonly resizeMode?: ImageResizeMode;
   readonly alt?: string;
   readonly disableOverlay: boolean;
   readonly isLazy?: boolean;
@@ -53,7 +54,7 @@ export const CardSSRView: FC<CardSSRViewProps> = ({
 
   try {
     const { width, height } = getRequestedDimensions({ dimensions });
-    const mode = resizeMode === 'stretchy-fit' ? 'full-fit' : resizeMode;
+    const mode = imageResizeModeToFileImageMode(resizeMode);
     dataURI = mediaClient.getImageUrlSync(identifier.id, {
       collection: identifier.collectionName,
       mode,
@@ -74,7 +75,7 @@ export const CardSSRView: FC<CardSSRViewProps> = ({
       breakpoint={calculateBreakpoint(dimensions)}
       shouldUsePointerCursor={Boolean(dataURI)}
       displayBackground={shouldDisplayBackground}
-      disableOverlay={disableOverlay}
+      disableOverlay={!!disableOverlay}
       selected={false}
       data-testid="media-card-view"
     >

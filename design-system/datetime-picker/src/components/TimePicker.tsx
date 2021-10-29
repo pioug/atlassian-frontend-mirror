@@ -27,6 +27,7 @@ import Select, {
 } from '@atlaskit/select';
 import { B100 } from '@atlaskit/theme/colors';
 import { gridSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 import {
   defaultTimeFormat,
@@ -301,7 +302,9 @@ class TimePicker extends React.Component<TimePickerProps, State> {
     !selectStyles.control
       ? {
           border: `2px solid ${
-            this.getSafeState().isFocused ? `${B100}` : `transparent`
+            this.getSafeState().isFocused
+              ? token('color.border.focus', B100)
+              : `transparent`
           }`,
           backgroundColor: 'transparent',
           padding: '1px',

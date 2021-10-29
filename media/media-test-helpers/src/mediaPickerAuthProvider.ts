@@ -29,7 +29,7 @@ const requestAuthProvider = async (
   authEnvironment: string,
   collectionName: string,
 ): Promise<Auth> => {
-  const url = `https://api-private.dev.atlassian.com/media-playground/api/token/tenant?environment=${authEnvironment}`;
+  const url = `https://media-playground.dev.atl-paas.net/token/tenant?environment=${authEnvironment}`;
   const body = JSON.stringify({
     access: accessUrns[collectionName] || {},
   });
@@ -42,7 +42,6 @@ const requestAuthProvider = async (
     method: 'POST',
     body,
     headers,
-    credentials: 'include',
   });
 
   // We leverage the fact, that our internal /toke/tenant API returns data in the same format as Auth

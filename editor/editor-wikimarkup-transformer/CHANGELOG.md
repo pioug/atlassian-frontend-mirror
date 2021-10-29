@@ -1,5 +1,15 @@
 # @atlaskit/editor-wikimarkup-transformer
 
+## 10.0.0
+
+### Major Changes
+
+- [`ad7872a08ed`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ad7872a08ed) - Add media inline component to wikimarkup, slack markdown, email renderer transformers
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.5.3
 
 ### Patch Changes

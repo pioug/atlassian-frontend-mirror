@@ -1,5 +1,15 @@
 # @atlaskit/media-ui
 
+## 17.1.0
+
+### Minor Changes
+
+- [`269ee940b87`](https://bitbucket.org/atlassian/atlassian-frontend/commits/269ee940b87) - redesign error UI on new media card experience
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 17.0.0
 
 ### Major Changes

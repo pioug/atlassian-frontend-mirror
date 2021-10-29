@@ -207,13 +207,6 @@ export const MediaViewer = withMediaAnalyticsContext(
     componentName,
   },
   {
-    filterFeatureFlags: [
-      'zipPreviews',
-      'codeViewer',
-      'poll_intervalMs',
-      'poll_maxAttempts',
-      'poll_backoffFactor',
-      'poll_maxIntervalMs',
-    ],
+    filterFeatureFlags: ['zipPreviews', 'codeViewer'],
   },
 )(withAnalyticsEvents()(MediaViewerComponent));

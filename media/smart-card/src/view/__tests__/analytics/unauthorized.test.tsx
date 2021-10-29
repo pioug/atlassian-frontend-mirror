@@ -13,16 +13,28 @@ import {
   fireEvent,
   cleanup,
 } from '@testing-library/react';
+import * as ufoWrapper from '../../../state/analytics/ufoExperiences';
+import 'jest-extended';
+import { JestFunction } from '@atlaskit/media-test-helpers';
+import uuid from 'uuid';
 
 describe('smart-card: unauthorized analytics', () => {
   let mockClient: CardClient;
   let mockFetch: jest.Mock;
   let mockWindowOpen: jest.Mock;
+  let mockUuid = require('uuid').default as JestFunction<typeof uuid>;
+
+  const mockStartUfoExperience = jest.spyOn(ufoWrapper, 'startUfoExperience');
+  const mockSucceedUfoExperience = jest.spyOn(
+    ufoWrapper,
+    'succeedUfoExperience',
+  );
 
   beforeEach(() => {
     mockFetch = jest.fn(async () => mocks.success);
     mockClient = new (fakeFactory(mockFetch))();
     mockWindowOpen = jest.fn();
+    mockUuid.mockReturnValue('some-uuid-1');
     /// @ts-ignore
     global.open = mockWindowOpen;
   });
@@ -72,6 +84,22 @@ describe('smart-card: unauthorized analytics', () => {
           },
         },
         expect.any(Function),
+      );
+      expect(mockStartUfoExperience).toBeCalledWith(
+        'smart-link-authenticated',
+        'some-uuid-1',
+        { extensionKey: 'object-provider', status: 'success' },
+      );
+
+      expect(mockSucceedUfoExperience).toBeCalledWith(
+        'smart-link-authenticated',
+        'some-uuid-1',
+        {
+          display: 'inline',
+        },
+      );
+      expect(mockStartUfoExperience).toHaveBeenCalledBefore(
+        mockSucceedUfoExperience as jest.Mock,
       );
     });
 
@@ -125,6 +153,23 @@ describe('smart-card: unauthorized analytics', () => {
           'object-provider',
           errorType,
         );
+
+        expect(mockStartUfoExperience).toBeCalledWith(
+          'smart-link-authenticated',
+          'some-uuid-1',
+          {
+            extensionKey: 'object-provider',
+            status: errorType,
+          },
+        );
+
+        expect(mockSucceedUfoExperience).toBeCalledWith(
+          'smart-link-authenticated',
+          'some-uuid-1',
+          {
+            display: 'inline',
+          },
+        );
       },
     );
 
@@ -166,6 +211,23 @@ describe('smart-card: unauthorized analytics', () => {
         'd1',
         'object-provider',
         'auth_window_closed',
+      );
+
+      expect(mockStartUfoExperience).toBeCalledWith(
+        'smart-link-authenticated',
+        'some-uuid-1',
+        {
+          extensionKey: 'object-provider',
+          status: 'auth_window_closed',
+        },
+      );
+
+      expect(mockSucceedUfoExperience).toBeCalledWith(
+        'smart-link-authenticated',
+        'some-uuid-1',
+        {
+          display: 'inline',
+        },
       );
     });
   });

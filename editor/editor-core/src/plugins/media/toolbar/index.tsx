@@ -1,7 +1,11 @@
 import React from 'react';
 import { InjectedIntl } from 'react-intl';
-import { EditorState } from 'prosemirror-state';
-import { findParentNodeOfType, removeSelectedNode } from 'prosemirror-utils';
+import { EditorState, NodeSelection } from 'prosemirror-state';
+import {
+  findParentNodeOfType,
+  removeSelectedNode,
+  safeInsert,
+} from 'prosemirror-utils';
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 import DownloadIcon from '@atlaskit/icon/glyph/download';
 import { mediaFilmstripItemDOMSelector } from '@atlaskit/media-filmstrip';
@@ -33,7 +37,8 @@ import {
 import { messages } from '@atlaskit/media-ui';
 import { messages as cardMessages } from '../../card/messages';
 import { FilePreviewItem } from './filePreviewItem';
-import { downloadMedia } from './utils';
+import { downloadMedia, removeMediaGroupNode } from './utils';
+import { Fragment } from 'prosemirror-model';
 
 const remove: Command = (state, dispatch) => {
   if (dispatch) {
@@ -42,20 +47,40 @@ const remove: Command = (state, dispatch) => {
   return true;
 };
 
-type RemoveMediaCard = (
-  state: EditorState,
-  mediaPluginState: MediaPluginState,
-) => boolean;
+const handleRemoveMediaGroup: Command = (state, dispatch) => {
+  const tr = removeMediaGroupNode(state);
+  if (dispatch) {
+    dispatch(tr);
+  }
+  return true;
+};
 
-const removeMediaCard: RemoveMediaCard = (
-  state: EditorState,
-  mediaPluginState: MediaPluginState,
-) => {
-  const getPos = () => {
-    const mediaOffset = state.selection.$from.parentOffset + 1;
-    return mediaOffset;
-  };
-  mediaPluginState.handleMediaNodeRemoval(undefined, getPos);
+const changeMediaCardToInline: Command = (state, dispatch) => {
+  const { media, mediaInline, paragraph } = state.schema.nodes;
+  const selectedNode =
+    state.selection instanceof NodeSelection && state.selection.node;
+
+  if (!selectedNode || !selectedNode.type === media) {
+    return false;
+  }
+
+  const mediaInlineNode = mediaInline.create({
+    id: selectedNode.attrs.id,
+    collection: selectedNode.attrs.collection,
+  });
+  const space = state.schema.text(' ');
+  let content = Fragment.from([mediaInlineNode, space]);
+  const node = paragraph.createChecked({}, content);
+
+  const nodePos = state.tr.doc.resolve(state.selection.from).start() - 1;
+
+  let tr = removeMediaGroupNode(state);
+  tr = safeInsert(node, nodePos, true)(tr);
+
+  if (dispatch) {
+    dispatch(tr);
+  }
+
   return true;
 };
 
@@ -73,9 +98,7 @@ const generateMediaCardFloatingToolbar = (
         {
           title: intl.formatMessage(cardMessages.inline),
           selected: false,
-          onClick: () => {
-            return true;
-          },
+          onClick: changeMediaCardToInline,
           testId: 'inline-appearance',
         },
         {
@@ -125,9 +148,7 @@ const generateMediaCardFloatingToolbar = (
       onFocus: hoverDecoration(mediaGroup, true),
       onBlur: hoverDecoration(mediaGroup, false),
       title: intl.formatMessage(commonMessages.remove),
-      onClick: (state) => {
-        return removeMediaCard(state, mediaPluginState);
-      },
+      onClick: handleRemoveMediaGroup,
       testId: 'media-toolbar-remove-button',
     },
   ];
@@ -250,7 +271,7 @@ export const floatingToolbar = (
   intl: InjectedIntl,
   options: MediaFloatingToolbarOptions = {},
 ): FloatingToolbarConfig | undefined => {
-  const { media, mediaSingle, mediaGroup } = state.schema.nodes;
+  const { media, mediaInline, mediaSingle, mediaGroup } = state.schema.nodes;
   const {
     altTextValidator,
     allowLinking,
@@ -266,7 +287,9 @@ export const floatingToolbar = (
   if (!mediaPluginState) {
     return;
   }
-  const nodeType = allowMediaInline ? [mediaSingle, media] : [mediaSingle];
+  const nodeType = allowMediaInline
+    ? [mediaInline, mediaSingle, media]
+    : [mediaSingle];
   const baseToolbar = {
     title: 'Media floating controls',
     nodeType,

@@ -89,16 +89,35 @@ describe('TableRowNodeView', () => {
       jest.clearAllMocks();
     });
 
-    it.each<[string, string, boolean]>([
-      ['disallows observing mutations on row element', 'attributes', true],
-      ['allows mutations for row element selection', 'selection', false],
-    ])('%s', (_, mutationType, expected) => {
+    it('ignores attributes changes to row element', () => {
       const mutationRecord = {
-        type: mutationType,
         target: tableRowDom,
+        type: 'attributes',
+      } as any;
+      expect(tableRowNodeView.ignoreMutation(mutationRecord as any)).toBe(true);
+    });
+
+    // These insertion mutations occur when using some language inputs in Safari
+    // (ie. Pinyin, Hiragana)
+    it('does not ignore insertion changes to row element', () => {
+      const mutationRecord = {
+        target: tableRowDom,
+        type: 'childList',
+        // The implementation is not opinionated about the type of the addedNodes.
+        addedNodes: [''],
       } as any;
       expect(tableRowNodeView.ignoreMutation(mutationRecord as any)).toBe(
-        expected,
+        false,
+      );
+    });
+
+    it('does not ignore selection changes to row element', () => {
+      const mutationRecord = {
+        target: tableRowDom,
+        type: 'selection',
+      } as any;
+      expect(tableRowNodeView.ignoreMutation(mutationRecord as any)).toBe(
+        false,
       );
     });
   });

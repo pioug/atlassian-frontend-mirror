@@ -7,6 +7,7 @@ import { css, jsx } from '@emotion/core';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/custom-theme-button';
 import { borderRadius } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 import {
   Spotlight,
@@ -51,7 +52,7 @@ const NewFeature: React.FC<{}> = () => {
               heading="Switch it up"
               actionsBeforeElement="1/3"
               pulse={false}
-              targetBgColor="#fff"
+              targetBgColor={token('color.background.card', '#fff')}
               actions={[
                 {
                   onClick: toggleIsSpotlightVisible,

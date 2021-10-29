@@ -31,7 +31,12 @@ describe('Quick Insert:', () => {
     await initEditorWithAdf(page, {
       appearance: Appearance.fullPage,
       viewport: { width: 800, height: 800 },
-      editorProps: { allowPanel: { UNSAFE_allowCustomPanel: true } },
+      editorProps: {
+        allowPanel: {
+          UNSAFE_allowCustomPanel: true,
+          UNSAFE_allowCustomPanelEdit: true,
+        },
+      },
     });
     await typeInEditorAtEndOfDocument(page, '/');
     await waitForTypeAheadMenu(page);

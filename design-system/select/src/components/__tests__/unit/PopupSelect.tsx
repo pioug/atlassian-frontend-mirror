@@ -41,6 +41,41 @@ describe('Popup Select', () => {
     global.window.removeEventListener.mockRestore();
   });
 
+  it('should return focus to trigger element on close', () => {
+    const onChangeMock = jest.fn();
+    const { getByTestId, getByText } = render(
+      <React.Fragment>
+        <PopupSelect
+          options={OPTIONS}
+          value={OPTIONS[0]}
+          testId={'PopupSelect'}
+          onChange={(value) => onChangeMock(value)}
+          target={({ ref }) => (
+            <button ref={ref} data-testid="select-trigger">
+              Target
+            </button>
+          )}
+        />
+        <button data-testid="focus-decoy">Focus decoy</button>
+      </React.Fragment>,
+    );
+
+    const selectTrigger = getByTestId('select-trigger');
+    const focusDecoy = getByTestId('focus-decoy');
+
+    focusDecoy.focus();
+    selectTrigger.click();
+
+    // @ts-ignore
+    expect(document.activeElement?.dataset.testid).toEqual('focus-decoy');
+
+    getByText('1').click();
+
+    expect(onChangeMock).toHaveBeenCalledWith({ label: '1', value: 'one' });
+    // @ts-ignore
+    expect(document.activeElement?.dataset.testid).toEqual('select-trigger');
+  });
+
   it('stays open when cleared', () => {
     const atlaskitSelectWrapper = mount<PopupSelect>(
       <PopupSelect

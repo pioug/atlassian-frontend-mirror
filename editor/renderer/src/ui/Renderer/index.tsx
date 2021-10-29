@@ -168,6 +168,8 @@ export class Renderer extends PureComponent<RendererProps> {
       nextProps.appearance !== this.props.appearance ||
       nextProps.stickyHeaders !== this.props.stickyHeaders ||
       nextProps.disableActions !== this.props.disableActions ||
+      nextProps.UNSAFE_allowCustomPanels !==
+        this.props.UNSAFE_allowCustomPanels ||
       nextProps.allowHeadingAnchorLinks !==
         this.props.allowHeadingAnchorLinks ||
       nextMedia.allowLinking !== media.allowLinking

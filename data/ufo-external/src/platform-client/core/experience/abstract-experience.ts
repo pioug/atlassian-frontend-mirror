@@ -11,14 +11,19 @@ import {
   CustomData,
   ExperienceData,
   ExperienceMetrics,
+  FMP_MARK,
+  INLINE_RESPONSE_MARK,
   SUBSCRIBE_ALL,
   SubscribeCallback,
-} from '../../../types/types';
+} from '../../../types';
 import { roundPerfNow } from '../../utils/round-perf-now';
 
 import { UFOExperienceState, UFOExperienceStateType } from './experience-state';
 import { canTransition } from './experience-state-transitions';
-import { ExperienceTypes } from './experience-types';
+import {
+  ExperiencePerformanceTypes,
+  ExperienceTypes,
+} from './experience-types';
 
 export const perfNowOrTimestamp = (timestamp?: number) => {
   if (timestamp !== undefined) {
@@ -31,6 +36,7 @@ export type AbstractExperienceConfig = {
   category?: string | null;
   until?: Function | null;
   type: ExperienceTypes;
+  performanceType: ExperiencePerformanceTypes;
   platform?: { component: string };
 };
 
@@ -51,6 +57,8 @@ export class UFOAbstractExperience {
   category: null | string = null;
 
   type: ExperienceTypes;
+
+  performanceType: ExperiencePerformanceTypes;
 
   metadata: CustomData = {};
 
@@ -85,6 +93,7 @@ export class UFOAbstractExperience {
     this.instanceId = instanceId;
     this.handleDoneBind = this._handleDoneExperience.bind(this);
     this.type = config.type;
+    this.performanceType = config.performanceType;
     this.config = config;
   }
 
@@ -146,15 +155,31 @@ export class UFOAbstractExperience {
   }
 
   mark(name: string, timestamp?: number) {
+    if (name !== FMP_MARK && name !== INLINE_RESPONSE_MARK) {
+      this._mark(name, timestamp);
+    } else {
+      ufowarn('please use markFMP or markInlineResponse for specialised marks');
+    }
+  }
+
+  private _mark(name: string, timestamp?: number) {
     this.metrics.marks.push({ name, time: perfNowOrTimestamp(timestamp) });
     this.transition(UFOExperienceState.IN_PROGRESS);
   }
 
-  _isManualStateEnabled() {
+  markFMP(timestamp?: number) {
+    this._mark(FMP_MARK, timestamp);
+  }
+
+  markInlineResponse(timestamp?: number) {
+    this._mark(INLINE_RESPONSE_MARK, timestamp);
+  }
+
+  private _isManualStateEnabled() {
     return this.until === null;
   }
 
-  _validateManualState() {
+  private _validateManualState() {
     if (!this._isManualStateEnabled()) {
       ufowarn('manual change of state not allowed as "until" is defined');
       return false;
@@ -162,41 +187,36 @@ export class UFOAbstractExperience {
     return true;
   }
 
-  async success(config?: EndStateConfig) {
+  private switchToEndState(
+    state: UFOExperienceStateType,
+    config?: EndStateConfig,
+  ) {
     if (!config?.force && !this._validateManualState()) {
       return null;
     }
     if (config?.metadata) {
       this.addMetadata(config.metadata);
     }
-    return this.transition(UFOExperienceState.SUCCEEDED);
+    return this.transition(state);
+  }
+
+  async success(config?: EndStateConfig) {
+    return this.switchToEndState(UFOExperienceState.SUCCEEDED, config);
   }
 
   async failure(config?: EndStateConfig) {
-    if (!config?.force && !this._validateManualState()) {
-      return null;
-    }
-    if (config?.metadata) {
-      this.addMetadata(config.metadata);
-    }
-    return this.transition(UFOExperienceState.FAILED);
+    return this.switchToEndState(UFOExperienceState.FAILED, config);
   }
 
   async abort(config?: EndStateConfig) {
-    if (!config?.force && !this._validateManualState()) {
-      return null;
-    }
-    if (config?.metadata) {
-      this.addMetadata(config.metadata);
-    }
-    return this.transition(UFOExperienceState.ABORTED);
+    return this.switchToEndState(UFOExperienceState.ABORTED, config);
   }
 
   addMetadata(data: CustomData) {
     Object.assign(this.metadata, data);
   }
 
-  _handleDoneExperience(data: ExperienceData) {
+  private _handleDoneExperience(data: ExperienceData) {
     ufolog('_handleDoneExperience in', this.id, data.state, data, this._until);
     if (data.state.final) {
       if (this._until !== null) {
@@ -217,6 +237,7 @@ export class UFOAbstractExperience {
       id: await this.getId(),
       uuid: this.uuid,
       type: this.type,
+      performanceType: this.performanceType,
       category: this.category,
       state: this.state,
       metadata: { ...this.metadata },
@@ -231,7 +252,7 @@ export class UFOAbstractExperience {
     };
   }
 
-  _reset() {
+  private _reset() {
     this.parent = null;
     this.metadata = {};
     this.onDoneCallbacks = [];

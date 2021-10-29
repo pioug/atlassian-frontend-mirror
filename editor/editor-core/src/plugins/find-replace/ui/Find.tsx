@@ -81,7 +81,11 @@ const messages = defineMessages({
   },
 });
 
-class Find extends React.Component<FindProps & InjectedIntlProps> {
+type State = {
+  localFindText: string;
+};
+
+class Find extends React.Component<FindProps & InjectedIntlProps, State> {
   private findTextfieldRef = React.createRef<HTMLInputElement>();
   private isComposing = false;
 
@@ -116,6 +120,11 @@ class Find extends React.Component<FindProps & InjectedIntlProps> {
     this.findNextIcon = <ChevronDownIcon label={this.findNext} />;
     this.findPrevIcon = <ChevronUpIcon label={this.findPrevious} />;
     this.closeIcon = <EditorCloseIcon label={this.closeFindReplaceDialog} />;
+
+    // We locally manage the value of the input inside this component in order to support compositions.
+    // This requires some additional work inside componentDidUpdate to ensure we support changes that
+    // occur to this value which do not originate from this component.
+    this.state = { localFindText: this.props.findText || '' };
   }
 
   componentDidMount() {
@@ -125,6 +134,17 @@ class Find extends React.Component<FindProps & InjectedIntlProps> {
 
   componentDidUpdate() {
     this.focusFindTextfield();
+
+    // If the external prop findText changes and we aren't in a composition we should update to the
+    // use the external prop value.
+    //
+    // An example of where this may happen is when a find occurs through the user selecting some text
+    // and pressing Mod-f.
+    if (!this.isComposing && this.props.findText !== this.state.localFindText) {
+      this.setState({
+        localFindText: this.props.findText || '',
+      });
+    }
   }
 
   skipWhileComposing = (fn: Function) => {
@@ -141,13 +161,16 @@ class Find extends React.Component<FindProps & InjectedIntlProps> {
     }
   };
 
-  handleFindChange = (event: React.ChangeEvent<HTMLInputElement>) =>
-    this.skipWhileComposing(() => {
-      this.updateFindValue(event.target.value);
-    });
+  handleFindChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.updateFindValue(event.target.value);
+  };
 
   updateFindValue = (value: string) => {
-    this.props.onFind(value);
+    this.setState({ localFindText: value });
+
+    this.skipWhileComposing(() => {
+      this.props.onFind(value);
+    });
   };
 
   handleFindKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) =>
@@ -215,7 +238,7 @@ class Find extends React.Component<FindProps & InjectedIntlProps> {
           name="find"
           appearance="none"
           placeholder={this.find}
-          value={findText}
+          value={this.state.localFindText}
           ref={this.findTextfieldRef}
           autoComplete="off"
           onChange={this.handleFindChange}

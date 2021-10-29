@@ -40,7 +40,7 @@ export class MobileUploadImpl implements MobileUpload {
     >
   >;
 
-  constructor(private readonly mediaStore: MediaStore) {
+  constructor(mediaStore: MediaStore) {
     this.dataloader = createFileDataloader(mediaStore);
     this.servicesCache = createServicesCache();
   }
@@ -77,7 +77,6 @@ export class MobileUploadImpl implements MobileUpload {
         this.dataloader,
         initialState,
         collectionName,
-        this.mediaStore.featureFlags,
       ),
     );
 

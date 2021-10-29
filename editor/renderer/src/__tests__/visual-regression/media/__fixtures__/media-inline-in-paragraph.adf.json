@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "this is a paragraph "
+        },
+        {
+          "type": "mediaInline",
+          "attrs": {
+            "id": "a559980d-cd47-43e2-8377-27359fcb905f",
+            "type": "file",
+            "collection": "MediaServicesSample",
+            "alt": "",
+            "__external": false
+          }
+        },
+        {
+          "type": "text",
+          "text": " with a media inline in the middle"
+        }
+      ]
+    }
+  ]
+}

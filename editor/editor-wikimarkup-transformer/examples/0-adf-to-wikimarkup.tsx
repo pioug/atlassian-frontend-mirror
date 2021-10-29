@@ -75,6 +75,7 @@ export default class EditorWithFeedback extends React.Component<Props, State> {
                     media={{
                       provider: mediaProvider,
                       allowMediaSingle: true,
+                      allowMediaInline: true,
                       allowLinking: true,
                     }}
                     disabled={disabled}

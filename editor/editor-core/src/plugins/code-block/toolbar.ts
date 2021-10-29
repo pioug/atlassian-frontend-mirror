@@ -66,7 +66,7 @@ export const getToolbarConfig = (
   const defaultValue = language
     ? options.find((option) => option.value === language) ||
       options.find((option) => option.alias.includes(language as never))
-    : undefined;
+    : null;
 
   const languageSelect: FloatingToolbarListPicker<Command> = {
     id: 'editor.codeBlock.languageOptions',

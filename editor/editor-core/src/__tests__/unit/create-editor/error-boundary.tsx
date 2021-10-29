@@ -1,3 +1,13 @@
+const mockStore = {
+  failAll: jest.fn(),
+};
+jest.mock('@atlaskit/editor-common/ufo', () => ({
+  ...jest.requireActual<Object>('@atlaskit/editor-common/ufo'),
+  ExperienceStore: {
+    getInstance: () => mockStore,
+  },
+}));
+
 import { mount, shallow, ReactWrapper, ShallowWrapper } from 'enzyme';
 import React from 'react';
 import { ErrorBoundaryWithEditorView as EditorErrorBoundary } from '../../../create-editor/ErrorBoundary';
@@ -88,6 +98,7 @@ describe('create-editor/error-boundary', () => {
     wrapper.unmount();
     spy.console.mockClear();
     spy.componentDidCatch.mockClear();
+    jest.clearAllMocks();
   });
   afterAll(() => {
     spy.console.mockRestore();
@@ -172,6 +183,57 @@ describe('create-editor/error-boundary', () => {
     expect(createAnalyticsEvent).toHaveBeenCalledWith(
       expect.objectContaining(expectedAdditionalInformationAnalyticsEvent),
     );
+  });
+
+  it('should fail all active UFO experiences when an error is caught and ufo is enabled', async () => {
+    const { editorView } = createEditor({
+      preset: new Preset<LightEditorPlugin>().add([
+        featureFlagsContextPlugin,
+        { ufo: true },
+      ]),
+    });
+    wrapper = shallow(
+      <EditorErrorBoundary
+        rethrow={false}
+        contextIdentifierProvider={contextIdentifierProvider}
+        editorView={editorView}
+      >
+        <Foo />
+      </EditorErrorBoundary>,
+    );
+    const error = new Error('Triggered error boundary');
+    wrapper.find(Foo).simulateError(error);
+    await flushPromises();
+
+    expect(mockStore.failAll).toHaveBeenCalledWith({
+      error: 'Error: Triggered error boundary',
+      errorInfo: { componentStack: expect.stringContaining('in Foo') },
+      browserInfo: expect.any(String),
+      errorId: expect.any(String),
+      errorStack: expect.stringContaining('Error: Triggered error boundary'),
+      browserExtensions: undefined,
+      docStructure: undefined,
+    });
+  });
+
+  it('should not fail all active UFO experiences when an error is caught and ufo is not enabled', async () => {
+    const { editorView } = createEditor({
+      preset: new Preset<LightEditorPlugin>().add([featureFlagsContextPlugin]),
+    });
+    wrapper = shallow(
+      <EditorErrorBoundary
+        rethrow={false}
+        contextIdentifierProvider={contextIdentifierProvider}
+        editorView={editorView}
+      >
+        <Foo />
+      </EditorErrorBoundary>,
+    );
+    const error = new Error('Triggered error boundary');
+    wrapper.find(Foo).simulateError(error);
+    await flushPromises();
+
+    expect(mockStore.failAll).not.toHaveBeenCalled();
   });
 
   it('should recover rendering if the problem was intermittent', () => {

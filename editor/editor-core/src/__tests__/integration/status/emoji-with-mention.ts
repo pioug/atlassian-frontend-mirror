@@ -27,23 +27,29 @@ BrowserTestCase(
     await page.waitForSelector(emojiItem('grinning'));
     await insertMention(page, 'Carolyn');
     await page.waitForSelector(lozenge);
-    await page.keys(['ArrowLeft', 'ArrowLeft', 'ArrowLeft']);
 
+    await page.keys([
+      'ArrowLeft',
+      'ArrowLeft',
+      'ArrowLeft',
+      'ArrowLeft',
+      'ArrowLeft',
+      'ArrowLeft',
+    ]);
+    await page.keys('Some text'.split(''));
+
+    await page.keys(['ArrowRight', 'ArrowRight', 'ArrowRight']);
     if (page.isBrowser('firefox')) {
       // https://product-fabric.atlassian.net/browse/ED-13457
       // There is a selection issue for Firefox
       // The emoji requires on more keystroke to leave
-      await page.keys(['ArrowLeft']);
+      await page.keys(['ArrowRight']);
     }
-
-    await page.keys(['ArrowLeft', 'ArrowLeft', 'ArrowLeft']);
     await page.keys('Some text'.split(''));
+
     await page.keys(['ArrowRight', 'ArrowRight', 'ArrowRight']);
-
     await page.keys('Some text'.split(''));
-    await page.keys(['ArrowRight', 'ArrowRight', 'ArrowRight']);
 
-    await page.keys('Some text'.split(''));
     await page.click(editable);
     const doc = await page.$eval(editable, getDocFromElement);
     expect(doc).toMatchCustomDocSnapshot(testName);

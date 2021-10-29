@@ -1,16 +1,14 @@
-import React, { useState } from 'react';
+/** @jsx jsx */
+import { useState } from 'react';
 
-import styled from 'styled-components';
+import { jsx } from '@emotion/core';
 
 import Button from '@atlaskit/button/standard-button';
 
 import DynamicTable from '../src';
 
+import Wrapper from './components/wrapper';
 import { caption, head, rows } from './content/sample-data';
-
-const Wrapper = styled.div`
-  min-width: 600px;
-`;
 
 export default () => {
   const [isLoading, setIsLoading] = useState(false);

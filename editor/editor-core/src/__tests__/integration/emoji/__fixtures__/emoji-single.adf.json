@@ -1,0 +1,20 @@
+{
+    "version": 1,
+    "type": "doc",
+    "content": [
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "emoji",
+            "attrs": {
+              "shortName": ":slight_smile:",
+              "id": "1f642",
+              "text": "🙂"
+            }
+          }
+        ]
+      }
+    ]
+  }
+  

@@ -8,8 +8,8 @@ jest.mock('@atlaskit/media-client', () => {
   };
 });
 import { FileStatus } from '@atlaskit/media-client';
-import { getCardStatus } from '../../card/getCardStatus';
-import { FilePreviewStatus } from '../../../types';
+import { getCardStatus, isFinalCardStatus } from '../../card/getCardStatus';
+import { FilePreviewStatus, CardStatus } from '../../../types';
 
 const defaultOptions: FilePreviewStatus = {
   hasFilesize: true,
@@ -96,4 +96,24 @@ describe('getCardStatus()', () => {
       ),
     ).toEqual('loading');
   });
+});
+
+describe('isFinalCardStatus', () => {
+  const isFinal: Record<CardStatus, boolean> = {
+    complete: true,
+    error: true,
+    'failed-processing': true,
+    uploading: false,
+    loading: false,
+    processing: false,
+    'loading-preview': false,
+  };
+
+  it.each(Object.entries(isFinal))(
+    'when status is %s should return %s',
+
+    (status, test) => {
+      expect(isFinalCardStatus(status as CardStatus)).toBe(test);
+    },
+  );
 });

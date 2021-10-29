@@ -2,7 +2,7 @@ import React from 'react';
 
 import { render } from '@testing-library/react';
 
-import { MacroCard } from '../../src/ui/MacroComponent/MacroCard';
+import { MacroCard } from '../../src/ui/MacroFallbackComponent/MacroFallbackCard';
 
 import { macrosTestProps } from './props.mock';
 

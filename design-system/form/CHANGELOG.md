@@ -1,5 +1,17 @@
 # @atlaskit/form
 
+## 8.4.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.4.3
+
+### Patch Changes
+
+- [`2cf338dd802`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2cf338dd802) - Added homepage to package.json
+
 ## 8.4.2
 
 ### Patch Changes

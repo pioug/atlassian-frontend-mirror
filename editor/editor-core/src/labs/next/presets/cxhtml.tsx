@@ -58,7 +58,10 @@ export function useCXHTMLPreset({
     },
   ]);
   preset.add([tablesPlugin, { tableOptions: { advanced: true } }]);
-  preset.add([panelPlugin, { UNSAFE_allowCustomPanel: true }]);
+  preset.add([
+    panelPlugin,
+    { UNSAFE_allowCustomPanel: true, UNSAFE_allowCustomPanelEdit: true },
+  ]);
   preset.add(listPlugin);
   preset.add(textColorPlugin);
   preset.add(breakoutPlugin);

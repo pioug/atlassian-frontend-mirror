@@ -1,8 +1,8 @@
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 import { ProviderFactory } from '@atlaskit/editor-common';
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
-import { FormattedMessage } from 'react-intl';
-import { getToolbarItems } from './toolbar';
+import { FormattedMessage, IntlProvider } from 'react-intl';
+import { getToolbarItems, panelIconMap } from './toolbar';
 import * as actions from '../panel/actions';
 import { PanelOptions } from './pm-plugins/main';
 import {
@@ -17,7 +17,12 @@ import {
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import panelPlugin from '.';
-import { doc, p, panel } from '@atlaskit/editor-test-helpers/doc-builder';
+import {
+  doc,
+  DocBuilder,
+  p,
+  panel,
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import { PanelType } from '@atlaskit/adf-schema';
 import analyticsPlugin from '../analytics';
 import {
@@ -29,6 +34,7 @@ import {
 } from '../analytics';
 import { EditorView } from 'prosemirror-view';
 import { emojiPluginKey } from '../emoji';
+import { G75 } from '@atlaskit/theme/colors';
 
 const dummyFormatMessage = (
   messageDescriptor: FormattedMessage.MessageDescriptor,
@@ -47,11 +53,13 @@ describe('getToolbarItems', () => {
     panelPlugin,
     {
       UNSAFE_allowCustomPanel: true,
+      UNSAFE_allowCustomPanelEdit: true,
     },
   ]);
   const itemsWithCustomPanelEnabled = getToolbarItems(
     dummyFormatMessage,
     defaultSchema.nodes.panel,
+    true,
     true,
     providerFactory,
     PanelType.INFO,
@@ -61,10 +69,11 @@ describe('getToolbarItems', () => {
     jest.clearAllMocks();
   });
 
-  it('should return 7 items when isCustomPanelEnabled is false', () => {
+  it('should return 7 items when allowCustomPanelEdit is false', () => {
     const items = getToolbarItems(
       dummyFormatMessage,
       defaultSchema.nodes.panel,
+      false,
       false,
       providerFactory,
     );
@@ -72,7 +81,31 @@ describe('getToolbarItems', () => {
     expect(items).toHaveLength(7);
   });
 
-  describe('if isCustomPanelEnabled is true', () => {
+  it('should return 7 items when allowCustomPanelEdit is false and allowCustomPanel is true', () => {
+    const items = getToolbarItems(
+      dummyFormatMessage,
+      defaultSchema.nodes.panel,
+      true,
+      false,
+      providerFactory,
+    );
+
+    expect(items).toHaveLength(7);
+  });
+
+  it('should return 7 items when allowCustomPanelEdit is true and allowCustomPanel is false', () => {
+    const items = getToolbarItems(
+      dummyFormatMessage,
+      defaultSchema.nodes.panel,
+      false,
+      true,
+      providerFactory,
+    );
+
+    expect(items).toHaveLength(7);
+  });
+
+  describe('if allowCustomPanelEdit is true', () => {
     it('should return 11 items', () => {
       expect(itemsWithCustomPanelEnabled).toHaveLength(11);
     });
@@ -89,6 +122,34 @@ describe('getToolbarItems', () => {
     });
   });
 
+  describe('when locale is en', () => {
+    const intlProvider = new IntlProvider({ locale: 'en' });
+    const { intl } = intlProvider.getChildContext();
+
+    it('should return default message when locale is en', () => {
+      const { formatMessage } = intl;
+      const toolbarItems = getToolbarItems(
+        formatMessage,
+        defaultSchema.nodes.panel,
+        true,
+        true,
+        providerFactory,
+        PanelType.CUSTOM,
+      );
+
+      const removeEmojiButton:
+        | FloatingToolbarButton<any>
+        | undefined = toolbarItems.find(
+        (item) =>
+          item.type === 'button' && item.id === 'editor.panel.removeEmoji',
+      ) as FloatingToolbarButton<any>;
+
+      const result = removeEmojiButton.title;
+
+      expect(result).toEqual('Remove emoji');
+    });
+  });
+
   describe('custom panel toolbar items', () => {
     const createEditor = createProsemirrorEditorFactory();
     const { editorView } = createEditor({
@@ -96,6 +157,14 @@ describe('getToolbarItems', () => {
       preset: panelPreset,
       providerFactory,
     });
+
+    const editor = (doc: DocBuilder) => {
+      return createEditor({
+        doc,
+        preset: panelPreset,
+        providerFactory,
+      });
+    };
 
     it(`should call changePanelType when clicked on emoji picker
           with changed emoji`, () => {
@@ -119,17 +188,43 @@ describe('getToolbarItems', () => {
       );
       (colorPickerConfig as FloatingToolbarColorPicker<any>)!.onChange({
         label: 'Mintie',
-        value: '#ABF5D1',
+        value: G75,
         border: DEFAULT_BORDER_COLOR,
       })(editorView.state);
       expect(changePanelTypespy).toBeCalledWith(
         PanelType.CUSTOM,
-        { color: '#ABF5D1' } as PanelOptions,
+        {
+          color: G75,
+          emoji: panelIconMap[PanelType.INFO],
+        } as PanelOptions,
         true,
       );
     });
 
-    it(`should call changePanelType when clicked on remove emoji`, () => {
+    it.each(Object.keys(panelIconMap))(
+      `should call changePanelType when clicked on color picker
+          with previous icon for %p panel`,
+      (value) => {
+        const { editorView } = editor(
+          doc(panel({ panelType: value })(p('text'))),
+        );
+        const colorPickerConfig = itemsWithCustomPanelEnabled.find(
+          (item) => item.type === 'select' && item.selectType === 'color',
+        );
+        (colorPickerConfig as FloatingToolbarColorPicker<any>)!.onChange({
+          label: 'Mintie',
+          value: G75,
+          border: DEFAULT_BORDER_COLOR,
+        })(editorView.state);
+        expect(changePanelTypespy).toBeCalledWith(
+          PanelType.CUSTOM,
+          { color: G75, emoji: `:${value}:` } as PanelOptions,
+          true,
+        );
+      },
+    );
+
+    it(`should call changePanelType when clicked on hide emoji`, () => {
       const removeEmojiButton:
         | FloatingToolbarButton<any>
         | undefined = itemsWithCustomPanelEnabled.find(
@@ -156,6 +251,7 @@ describe('getToolbarItems', () => {
         dummyFormatMessage,
         defaultSchema.nodes.panel,
         true,
+        true,
         providerFactory,
         PanelType.CUSTOM,
       );
@@ -177,6 +273,7 @@ describe('getToolbarItems', () => {
         dummyFormatMessage,
         defaultSchema.nodes.panel,
         true,
+        true,
         providerFactory,
         PanelType.CUSTOM,
         '#ABF5D1',
@@ -196,6 +293,7 @@ describe('getToolbarItems', () => {
       const toolbarItems = getToolbarItems(
         dummyFormatMessage,
         defaultSchema.nodes.panel,
+        true,
         true,
         providerFactory,
         PanelType.CUSTOM,

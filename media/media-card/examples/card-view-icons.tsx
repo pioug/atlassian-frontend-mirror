@@ -91,8 +91,8 @@ function renderCardImageView(
   };
 
   return (
-    <MainWrapper>
-      <CardWrapper key={key} {...wrapperDimensionsSmall}>
+    <MainWrapper key={key}>
+      <CardWrapper {...wrapperDimensionsSmall}>
         <CardView
           featureFlags={{
             newCardExperience: true,

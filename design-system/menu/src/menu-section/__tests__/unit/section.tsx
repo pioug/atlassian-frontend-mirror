@@ -15,6 +15,27 @@ describe('<Section />', () => {
     expect(queryByTestId('section--heading')).not.toBeNull();
   });
 
+  it('should pass an id to the section', () => {
+    const { queryByTestId } = render(
+      <Section id="foo" testId="section" title="title">
+        <LinkItem>Test Item</LinkItem>
+      </Section>,
+    );
+    expect(queryByTestId('section')?.id).toEqual('foo');
+  });
+
+  it('should spread props because confluence relies on this to apply their hacks', () => {
+    const { queryByTestId } = render(
+      <Section id="foo" testId="section" data-hack="hackydoody">
+        <LinkItem>Test Item</LinkItem>
+      </Section>,
+    );
+
+    expect(queryByTestId('section')?.getAttribute('data-hack')).toEqual(
+      'hackydoody',
+    );
+  });
+
   it('should not render a heading when `title` is not passed in', () => {
     const { queryByTestId } = render(
       <Section testId="section">

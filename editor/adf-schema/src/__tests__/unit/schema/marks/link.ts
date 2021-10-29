@@ -12,21 +12,21 @@ const sampleLink = `<a href="${href}">${content}</a>`;
 const emptyLink = `<a>${content}</a>`;
 
 describe(`${name}/schema link mark`, () => {
-  itMatches(`${sampleLink}`, href, content);
+  itMatches(`<p>${sampleLink}</p>`, href, content);
   itMatches(
-    `<a href="${href}" title="test" alt="hello">${content}</a>`,
+    `<p><a href="${href}" title="test" alt="hello">${content}</a></p>`,
     href,
     content,
   );
-  itMatches(`<a href="${href2}">${content}</a>`, href2, content);
-  itMatches(`<a href="${href3}">${content}</a>`, href3, content);
+  itMatches(`<p><a href="${href2}">${content}</a></p>`, href2, content);
+  itMatches(`<p><a href="${href3}">${content}</a></p>`, href3, content);
 
   describe('whitelist URLs', () => {
     const schema = makeSchema();
 
     it(`should parse links starting from http://`, () => {
       const doc = fromHTML(
-        `<a href="http://www.atlassian.com">Atlassian</a>`,
+        `<p><a href="http://www.atlassian.com">Atlassian</a></p>`,
         schema,
       );
       const textNode = doc.firstChild!.firstChild!;
@@ -36,7 +36,7 @@ describe(`${name}/schema link mark`, () => {
 
     it(`should parse links starting from https://`, () => {
       const doc = fromHTML(
-        `<a href="https://www.atlassian.com">Atlassian</a>`,
+        `<p><a href="https://www.atlassian.com">Atlassian</a></p>`,
         schema,
       );
       const textNode = doc.firstChild!.firstChild!;
@@ -46,7 +46,7 @@ describe(`${name}/schema link mark`, () => {
 
     it(`should parse links starting from sourcetree://`, () => {
       const doc = fromHTML(
-        `<a href="sourcetree://cloneRepo/ssh://user@bitbucket.org/owner/repo.git">Clone me</a>`,
+        `<p><a href="sourcetree://cloneRepo/ssh://user@bitbucket.org/owner/repo.git">Clone me</a></p>`,
         schema,
       );
       const textNode = doc.firstChild!.firstChild!;
@@ -56,7 +56,7 @@ describe(`${name}/schema link mark`, () => {
 
     it(`should not parse links starting from javascript://`, () => {
       const doc = fromHTML(
-        `<a href="javascript:alert(1)">Click me</a>`,
+        `<p><a href="javascript:alert(1)">Click me</a></p>`,
         schema,
       );
       const textNode = doc.firstChild!.firstChild!;
@@ -66,7 +66,7 @@ describe(`${name}/schema link mark`, () => {
 
     it(`should not parse links starting from javascript://`, () => {
       const doc = fromHTML(
-        `<a href="view-source:https://bitbucket.org/atlassian/atlaskit/pull-requests/3196/fix-component-prevent-javascript-links-for/diff">View source</a>`,
+        `<p><a href="view-source:https://bitbucket.org/atlassian/atlaskit/pull-requests/3196/fix-component-prevent-javascript-links-for/diff">View source</a></p>`,
         schema,
       );
       const textNode = doc.firstChild!.firstChild!;

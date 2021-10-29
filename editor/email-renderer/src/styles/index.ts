@@ -20,6 +20,7 @@ import { styles as inlineCardStyles } from '../nodes/inline-card';
 import { styles as panelStyles } from '../nodes/panel';
 import { styles as taskItemStyles } from '../nodes/task-item';
 import { styles as mediaStyles } from '../nodes/media';
+import { styles as mediaInlineStyles } from '../nodes/media-inline';
 import { styles as mediaSingleStyles } from '../nodes/media-single';
 import { styles as tableStyles } from '../nodes/table';
 import { styles as taskListStyles } from '../nodes/task-list';
@@ -67,6 +68,7 @@ const styles = `
   ${panelStyles}
   ${taskItemStyles}
   ${mediaStyles}
+  ${mediaInlineStyles}
   ${mediaSingleStyles}
   ${tableStyles}
   ${tableUtilStyles}

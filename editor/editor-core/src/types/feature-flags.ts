@@ -268,6 +268,15 @@ export type FeatureFlags = {
    * @default false
    */
   collabAvatarScroll?: boolean;
+
+  /**
+   * @description
+   * Enable UFO experiences
+   *
+   * @see https://product-fabric.atlassian.net/browse/ED-13059
+   * @default false
+   */
+  ufo?: boolean;
 };
 
 export type FeatureFlagKey = keyof FeatureFlags;

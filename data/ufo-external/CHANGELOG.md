@@ -1,5 +1,13 @@
 # @af/ufo-types
 
+## 0.0.6
+
+### Patch Changes
+
+- [`2d7298692bb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2d7298692bb) - Added performance types
+- [`df22840864b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/df22840864b) - Export CustomData type
+- [`7d13155a61c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7d13155a61c) - Updated smart links to UFO with perf metrics
+
 ## 0.0.5
 
 ### Patch Changes

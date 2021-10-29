@@ -1,0 +1,34 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "bodiedExtension",
+      "attrs": {
+        "extensionType": "com.atlassian.confluence.macro.core",
+        "extensionKey": "bodied-eh",
+        "parameters": {
+          "macroParams": {},
+          "macroMetadata": {
+            "placeholder": [
+              {
+                "data": {
+                  "url": ""
+                },
+                "type": "icon"
+              }
+            ]
+          }
+        },
+        "layout": "default",
+        "localId": "testId"
+      },
+      "content": [
+        {
+          "type": "paragraph",
+          "content": []
+        }
+      ]
+    }
+  ]
+}

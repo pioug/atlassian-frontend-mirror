@@ -1962,6 +1962,232 @@ exports[`Renderer - EmailSerializer should render media group correctly: html 1`
 </div>
 `;
 
+exports[`Renderer - EmailSerializer should render media inline based on given context: html 1`] = `
+<div
+  class="csg-wrapper"
+  style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; line-height: 24px; vertical-align: baseline;"
+>
+  <p
+    class="csg-p"
+    style="margin: 0; padding: 0px; margin-bottom: 7px; padding-top: 7px; mso-line-height-rule: exactly; line-height: 24px; font-size: 14px;"
+  >
+    <span
+      class="csg-mediaInline-lozenge-wrapper"
+      style="margin: 8px 0; border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius: 3px; padding: 0px 0.3em 0.3em  0.3em; line-height: 24px; background-color: #EBECF0;"
+    >
+      <span
+        class="csg-mediaInline-lozenge"
+        style="line-height: 24px; display: inline-block; border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius: 3px;"
+      >
+        <span>
+          <img
+            class="csg-mediaInline-lozenge-icon"
+            height="14"
+            src="cid:csg-icon-genericAttachment"
+            style="vertical-align: middle;"
+            width="14"
+          />
+        </span>
+        <span
+          class="csg-mediaInline-lozenge-text"
+          style="overflow: hidden; display: inline-block; margin-left: 4px; vertical-align: middle;"
+        >
+          Dark wallpaper theme.jpg
+        </span>
+      </span>
+    </span>
+  </p>
+  <p
+    class="csg-p"
+    style="margin: 0; padding: 0px; margin-bottom: 7px; padding-top: 7px; mso-line-height-rule: exactly; line-height: 24px; font-size: 14px;"
+  >
+    <span
+      class="csg-mediaInline-lozenge-wrapper"
+      style="margin: 8px 0; border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius: 3px; padding: 0px 0.3em 0.3em  0.3em; line-height: 24px; background-color: #EBECF0;"
+    >
+      <span
+        class="csg-mediaInline-lozenge"
+        style="line-height: 24px; display: inline-block; border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius: 3px;"
+      >
+        <span>
+          <img
+            class="csg-mediaInline-lozenge-icon"
+            height="14"
+            src="cid:csg-icon-documentAttachment"
+            style="vertical-align: middle;"
+            width="14"
+          />
+        </span>
+        <span
+          class="csg-mediaInline-lozenge-text"
+          style="overflow: hidden; display: inline-block; margin-left: 4px; vertical-align: middle;"
+        >
+          My bachelor thesis.pdf
+        </span>
+      </span>
+    </span>
+  </p>
+  <p
+    class="csg-p"
+    style="margin: 0; padding: 0px; margin-bottom: 7px; padding-top: 7px; mso-line-height-rule: exactly; line-height: 24px; font-size: 14px;"
+  >
+    <span
+      class="csg-mediaInline-lozenge-wrapper"
+      style="margin: 8px 0; border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius: 3px; padding: 0px 0.3em 0.3em  0.3em; line-height: 24px; background-color: #EBECF0;"
+    >
+      <span
+        class="csg-mediaInline-lozenge"
+        style="line-height: 24px; display: inline-block; border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius: 3px;"
+      >
+        <span>
+          <img
+            class="csg-mediaInline-lozenge-icon"
+            height="14"
+            src="cid:csg-icon-videoAttachment"
+            style="vertical-align: middle;"
+            width="14"
+          />
+        </span>
+        <span
+          class="csg-mediaInline-lozenge-text"
+          style="overflow: hidden; display: inline-block; margin-left: 4px; vertical-align: middle;"
+        >
+          Metallica full concert.mpeg
+        </span>
+      </span>
+    </span>
+  </p>
+  <p
+    class="csg-p"
+    style="margin: 0; padding: 0px; margin-bottom: 7px; padding-top: 7px; mso-line-height-rule: exactly; line-height: 24px; font-size: 14px;"
+  >
+    <span
+      class="csg-mediaInline-lozenge-wrapper"
+      style="margin: 8px 0; border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius: 3px; padding: 0px 0.3em 0.3em  0.3em; line-height: 24px; background-color: #EBECF0;"
+    >
+      <span
+        class="csg-mediaInline-lozenge"
+        style="line-height: 24px; display: inline-block; border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius: 3px;"
+      >
+        <span>
+          <img
+            class="csg-mediaInline-lozenge-icon"
+            height="14"
+            src="cid:csg-icon-audioAttachment"
+            style="vertical-align: middle;"
+            width="14"
+          />
+        </span>
+        <span
+          class="csg-mediaInline-lozenge-text"
+          style="overflow: hidden; display: inline-block; margin-left: 4px; vertical-align: middle;"
+        >
+          The sound of silence.mp3
+        </span>
+      </span>
+    </span>
+  </p>
+  <p
+    class="csg-p"
+    style="margin: 0; padding: 0px; margin-bottom: 7px; padding-top: 7px; mso-line-height-rule: exactly; line-height: 24px; font-size: 14px;"
+  >
+    <span
+      class="csg-mediaInline-lozenge-wrapper"
+      style="margin: 8px 0; border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius: 3px; padding: 0px 0.3em 0.3em  0.3em; line-height: 24px; background-color: #EBECF0;"
+    >
+      <span
+        class="csg-mediaInline-lozenge"
+        style="line-height: 24px; display: inline-block; border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius: 3px;"
+      >
+        <span>
+          <img
+            class="csg-mediaInline-lozenge-icon"
+            height="14"
+            src="cid:csg-icon-archiveAttachment"
+            style="vertical-align: middle;"
+            width="14"
+          />
+        </span>
+        <span
+          class="csg-mediaInline-lozenge-text"
+          style="overflow: hidden; display: inline-block; margin-left: 4px; vertical-align: middle;"
+        >
+          The Slackening.zip
+        </span>
+      </span>
+    </span>
+  </p>
+  <p
+    class="csg-p"
+    style="margin: 0; padding: 0px; margin-bottom: 7px; padding-top: 7px; mso-line-height-rule: exactly; line-height: 24px; font-size: 14px;"
+  >
+    <span
+      class="csg-mediaInline-lozenge-wrapper"
+      style="margin: 8px 0; border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius: 3px; padding: 0px 0.3em 0.3em  0.3em; line-height: 24px; background-color: #EBECF0;"
+    >
+      <span
+        class="csg-mediaInline-lozenge"
+        style="line-height: 24px; display: inline-block; border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius: 3px;"
+      >
+        <span>
+          <img
+            class="csg-mediaInline-lozenge-icon"
+            height="14"
+            src="cid:csg-icon-genericAttachment"
+            style="vertical-align: middle;"
+            width="14"
+          />
+        </span>
+        <span
+          class="csg-mediaInline-lozenge-text"
+          style="overflow: hidden; display: inline-block; margin-left: 4px; vertical-align: middle;"
+        >
+          unknown
+        </span>
+      </span>
+    </span>
+  </p>
+</div>
+`;
+
+exports[`Renderer - EmailSerializer should render media inline correctly: html 1`] = `
+<div
+  class="csg-wrapper"
+  style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; line-height: 24px; vertical-align: baseline;"
+>
+  <p
+    class="csg-p"
+    style="margin: 0; padding: 0px; margin-bottom: 7px; padding-top: 7px; mso-line-height-rule: exactly; line-height: 24px; font-size: 14px;"
+  >
+    <span
+      class="csg-mediaInline-lozenge-wrapper"
+      style="margin: 8px 0; border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius: 3px; padding: 0px 0.3em 0.3em  0.3em; line-height: 24px; background-color: #EBECF0;"
+    >
+      <span
+        class="csg-mediaInline-lozenge"
+        style="line-height: 24px; display: inline-block; border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius: 3px;"
+      >
+        <span>
+          <img
+            class="csg-mediaInline-lozenge-icon"
+            height="14"
+            src="cid:csg-icon-genericAttachment"
+            style="vertical-align: middle;"
+            width="14"
+          />
+        </span>
+        <span
+          class="csg-mediaInline-lozenge-text"
+          style="overflow: hidden; display: inline-block; margin-left: 4px; vertical-align: middle;"
+        >
+          Attached file
+        </span>
+      </span>
+    </span>
+  </p>
+</div>
+`;
+
 exports[`Renderer - EmailSerializer should render media single correctly: html 1`] = `
 <div
   class="csg-wrapper"

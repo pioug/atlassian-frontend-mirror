@@ -31,16 +31,32 @@ import {
   PreviewUnavailable,
   PreviewCurrentlyUnavailable,
   CreatingPreview,
-  RateLimited,
+  FailedToUpload,
 } from '../../root/ui/iconMessage';
-import { LoadingRateLimited } from '../../root/ui/loadingRateLimited/loadingRateLimited';
-import {
-  createPollingMaxAttemptsError,
-  createRateLimitedError,
-} from '@atlaskit/media-test-helpers';
+import { createPollingMaxAttemptsError } from '@atlaskit/media-test-helpers';
+import { MediaCardError } from '../../errors';
 
 const containerWidth = 150;
 (getElementDimension as jest.Mock).mockReturnValue(containerWidth);
+
+const errorStatuses: Array<CardStatus> = ['failed-processing', 'error'];
+
+const nonErrorOrLoadingStatuses: Array<CardStatus> = [
+  'uploading',
+  'processing',
+  'loading-preview',
+  'complete',
+];
+
+const nonErrorStatuses: Array<CardStatus> = [
+  ...nonErrorOrLoadingStatuses,
+  'loading',
+];
+
+const nonLoadingStatuses: Array<CardStatus> = [
+  ...nonErrorOrLoadingStatuses,
+  ...errorStatuses,
+];
 
 const shallowCardViewBase = (
   props: Partial<CardViewOwnProps> = {},
@@ -79,7 +95,8 @@ describe('CardView New Experience', () => {
       appearance: 'auto',
       onClick: () => {},
       onMouseEnter: () => {},
-      timeElapsedTillCommenced: 100,
+      onImageLoad: () => {},
+      onImageError: () => {},
     };
 
     const component = shallowCardViewBase(cardProps);
@@ -109,6 +126,86 @@ describe('CardView New Experience', () => {
         'data-test-progress': cardProps.progress,
         'data-test-selected': cardProps.selected,
       }),
+    );
+  });
+
+  describe('On Image Load/Error', () => {
+    it.each(nonErrorStatuses)(
+      'should initialise didImageRender to false when status is %s',
+      (status) => {
+        const component = shallowCardViewBase({
+          status,
+          dataURI: 'some-data-uri',
+        });
+        expect(component.state('didImageRender')).toBe(false);
+      },
+    );
+
+    it.each(nonErrorStatuses)(
+      'should set didImageRender to true if the image succeded rendering when status is %s',
+      (status) => {
+        const component = shallowCardViewBase({
+          status,
+          dataURI: 'some-data-uri',
+        });
+        const imageRenderer = component.find(ImageRenderer);
+        expect(imageRenderer).toHaveLength(1);
+        const onImageLoad = imageRenderer.prop('onImageLoad');
+        expect(onImageLoad).toBeDefined();
+        onImageLoad && onImageLoad();
+        expect(component.state('didImageRender')).toBe(true);
+      },
+    );
+
+    it.each(nonErrorStatuses)(
+      'should set didImageRender to false if the image failed rendering when status is %s',
+      (status) => {
+        const component = shallowCardViewBase({
+          status,
+          dataURI: 'some-data-uri',
+        });
+        const imageRenderer = component.find(ImageRenderer);
+        expect(imageRenderer).toHaveLength(1);
+        const onImageLoad = imageRenderer.prop('onImageLoad');
+        expect(onImageLoad).toBeDefined();
+        onImageLoad && onImageLoad();
+        expect(component.state('didImageRender')).toBe(true);
+      },
+    );
+
+    it.each(nonErrorStatuses)(
+      'should set didImageRender to false if the image goes undefined when status is %s',
+      (status) => {
+        const component = shallowCardViewBase({
+          status,
+          dataURI: 'some-data-uri',
+        });
+        component.setState({ didImageRender: true });
+        expect(component.state('didImageRender')).toBe(true);
+        component.setProps({ dataURI: undefined });
+        expect(component.state('didImageRender')).toBe(false);
+      },
+    );
+
+    it.each(nonErrorStatuses)(
+      'should not change didImageRender when the image is updated when status is %s',
+      (status) => {
+        const component = shallowCardViewBase({
+          status,
+          dataURI: 'some-data-uri',
+        });
+        // when didImageRender = false
+        component.setState({ didImageRender: false });
+        expect(component.state('didImageRender')).toBe(false);
+        component.setProps({ dataURI: 'second-data-uri' });
+        expect(component.state('didImageRender')).toBe(false);
+
+        // when didImageRender = true
+        component.setState({ didImageRender: true });
+        expect(component.state('didImageRender')).toBe(true);
+        component.setProps({ dataURI: 'third-data-uri' });
+        expect(component.state('didImageRender')).toBe(true);
+      },
     );
   });
 
@@ -159,14 +256,18 @@ describe('CardView New Experience', () => {
       expect(componentB.find(IconWrapper)).toHaveLength(1);
     });
 
-    it.each([
-      'uploading',
-      'processing',
-      'loading-preview',
-      'complete',
-      'failed-processing',
-      'error',
-    ] as Array<CardStatus>)(
+    it(`should not render Spinner when status is loading and image succeeded rendering`, () => {
+      const component = shallowCardViewBase({
+        status: 'loading',
+        dataURI: 'some-data-uri',
+      });
+      component.setState({ didImageRender: true });
+
+      expect(component.find(SpinnerIcon)).toHaveLength(0);
+      expect(component.find(IconWrapper)).toHaveLength(0);
+    });
+
+    it.each(nonLoadingStatuses)(
       `should not render Spinner when status is %s`,
       (status: CardStatus) => {
         const component = shallowCardViewBase({ status });
@@ -178,6 +279,7 @@ describe('CardView New Experience', () => {
       const metadata: FileDetails = { id: 'some-id', mediaType: 'video' };
       const component = shallowCardViewBase({
         metadata,
+        status: 'complete',
         dataURI: 'some-datauri',
       });
       expect(component.find(PlayButton)).toHaveLength(1);
@@ -188,23 +290,6 @@ describe('CardView New Experience', () => {
       const component = shallowCardViewBase({ metadata });
       expect(component.find(PlayButton)).toHaveLength(0);
     });
-
-    (['failed-processing', 'error'] as Array<CardStatus>).map((status) =>
-      it(`should render a MediaTypeIcon when the status is ${status}`, () => {
-        const metadata: FileDetails = { id: 'some-id', mediaType: 'video' };
-        const component = shallowCardViewBase({
-          metadata,
-          dataURI: undefined,
-          status,
-        });
-        expect(component.find(MimeTypeIcon)).toHaveLength(1);
-        expect(component.find(MimeTypeIcon).prop('mediaType')).toEqual('video');
-
-        component.setProps({ dataURI: 'some-data-uri' });
-        expect(component.find(MimeTypeIcon)).toHaveLength(1);
-        expect(component.find(MimeTypeIcon).prop('mediaType')).toEqual('video');
-      }),
-    );
 
     it(`should not render a MediaTypeIcon when the status is loading`, () => {
       const metadata: FileDetails = { id: 'some-id', mediaType: 'video' };
@@ -217,31 +302,51 @@ describe('CardView New Experience', () => {
       expect(component.find(MimeTypeIcon)).toHaveLength(0);
     });
 
-    (['uploading', 'processing', 'loading-preview', 'complete'] as Array<
-      CardStatus
-    >).map((status) =>
-      it(`should not render a MediaTypeIcon when the status is ${status} and with dataURI `, () => {
-        const metadata: FileDetails = { id: 'some-id', mediaType: 'video' };
-        const component = shallowCardViewBase({
-          dataURI: 'some-data-uri',
-          metadata,
-          status,
-        });
-        expect(component.find(MimeTypeIcon)).toHaveLength(0);
-      }),
-    );
-
-    (['uploading', 'processing', 'loading-preview', 'complete'] as Array<
-      CardStatus
-    >).map((status) =>
-      it(`should render a MediaTypeIcon when the status is ${status} and without dataURI `, () => {
+    it.each(nonLoadingStatuses)(
+      `should render a MediaTypeIcon when the status is %s`,
+      (status) => {
         const metadata: FileDetails = { id: 'some-id', mediaType: 'video' };
         const component = shallowCardViewBase({
           metadata,
+          dataURI: undefined,
           status,
         });
         expect(component.find(MimeTypeIcon)).toHaveLength(1);
-      }),
+        expect(component.find(MimeTypeIcon).prop('mediaType')).toEqual('video');
+
+        component.setProps({ dataURI: 'some-data-uri' });
+        expect(component.find(MimeTypeIcon)).toHaveLength(1);
+        expect(component.find(MimeTypeIcon).prop('mediaType')).toEqual('video');
+      },
+    );
+
+    it.each(errorStatuses)(
+      `should render a MediaTypeIcon when the status is %s and image succeeded rendering`,
+      (status) => {
+        const metadata: FileDetails = { id: 'some-id', mediaType: 'video' };
+        const component = shallowCardViewBase({
+          metadata,
+          dataURI: 'some-data-uri',
+          status,
+        });
+        component.setState({ didImageRender: true });
+        expect(component.find(MimeTypeIcon)).toHaveLength(1);
+        expect(component.find(MimeTypeIcon).prop('mediaType')).toEqual('video');
+      },
+    );
+
+    it.each(nonErrorOrLoadingStatuses)(
+      `should not render a MediaTypeIcon when the status is %s and image succeeded rendering`,
+      (status) => {
+        const metadata: FileDetails = { id: 'some-id', mediaType: 'video' };
+        const component = shallowCardViewBase({
+          metadata,
+          dataURI: 'some-data-uri',
+          status,
+        });
+        component.setState({ didImageRender: true });
+        expect(component.find(MimeTypeIcon)).toHaveLength(0);
+      },
     );
 
     it(`should render Blanket when overlay is enabled or status is uploading (except for video)`, () => {
@@ -307,7 +412,7 @@ describe('CardView New Experience', () => {
       expect(titleBoxE).toHaveLength(0);
     });
 
-    it(`should render FailedTitleBox when there is an error state or dataURI fails to load`, () => {
+    it(`should not render FailedTitleBox when there is an error state or dataURI fails to load`, () => {
       const metadata: FileDetails = {
         id: 'some-id',
         name: 'some-file-name',
@@ -320,31 +425,29 @@ describe('CardView New Experience', () => {
         status: 'error',
       });
       const failedTitleBoxA = componentA.find(FailedTitleBox);
-      expect(failedTitleBoxA).toHaveLength(1);
-      expect(failedTitleBoxA.props().breakpoint).toBeDefined();
+      expect(failedTitleBoxA).toHaveLength(0);
     });
 
-    it.each([createPollingMaxAttemptsError()])(
-      `should not render FailedTitleBox when there is the polling error "%s"`,
-      (error: Error) => {
-        const metadata: FileDetails = {
-          id: 'some-id',
-          name: 'some-file-name',
-          createdAt: 123456,
-        };
+    it(`should not render FailedTitleBox when there is PollingMaxAttemptsError"`, () => {
+      const error = new MediaCardError(
+        'error-file-state',
+        createPollingMaxAttemptsError(),
+      );
+      const metadata: FileDetails = {
+        id: 'some-id',
+        name: 'some-file-name',
+        createdAt: 123456,
+      };
+      const componentB = shallowCardViewBase({
+        metadata,
+        status: 'error',
+        dataURI: 'some-data-uri',
+        error,
+      });
 
-        // With broken dataURI
-        const componentB = shallowCardViewBase({
-          metadata,
-          status: 'error',
-          dataURI: 'some-data-uri',
-          error,
-        });
-
-        const failedTitleBoxB = componentB.find(FailedTitleBox);
-        expect(failedTitleBoxB).toHaveLength(0);
-      },
-    );
+      const failedTitleBoxB = componentB.find(FailedTitleBox);
+      expect(failedTitleBoxB).toHaveLength(0);
+    });
 
     it(`should render ProgressBar when status is uploading`, () => {
       const progress = 0.6;
@@ -384,37 +487,17 @@ describe('CardView New Experience', () => {
       expect(creatingPreview).toHaveLength(0);
     });
 
-    it(`should render Preview RateLimited Error message when a card is rate limited with metadata`, () => {
-      const metadata: FileDetails = {
-        id: 'some-id',
-        name: 'some-name',
-        mediaType: 'image',
-      };
-
-      const error = createRateLimitedError();
+    it(`should render Preview RateLimited Error message when there is upload error and overlay is disabled`, () => {
+      const error = new MediaCardError('upload');
 
       const component = shallowCardViewBase({
         error,
         // CardView replies on the status more than the error passed. TODO: fix this?
         status: 'error',
-        metadata: metadata,
-        disableOverlay: false,
+        disableOverlay: true,
       });
-      const rateLimitedUI = component.find(RateLimited);
+      const rateLimitedUI = component.find(FailedToUpload);
       expect(rateLimitedUI).toHaveLength(1);
-    });
-
-    it(`should render LoadingRateLimited (UI for borked state) when a card is rate limited (429 error) with no metadata`, () => {
-      const error = createRateLimitedError();
-
-      const component = shallowCardViewBase({
-        error,
-        status: 'error',
-        metadata: undefined,
-        disableOverlay: false,
-      });
-      const borkedUI = component.find(LoadingRateLimited);
-      expect(borkedUI).toHaveLength(1);
     });
 
     it(`should render PreviewUnavailable when status is failed-processing`, () => {
@@ -441,26 +524,27 @@ describe('CardView New Experience', () => {
       expect(componentB.find(PreviewUnavailable)).toHaveLength(1);
     });
 
-    it.each([createPollingMaxAttemptsError()])(
-      `should render PreviewCurrentlyUnavailable when there is the polling error "%s"`,
-      (error: Error) => {
-        const metadata: FileDetails = {
-          id: 'some-id',
-          name: 'some-name',
-          mediaType: 'image',
-        };
+    it(`should render PreviewCurrentlyUnavailable when there is PollingMaxAttemptsError`, () => {
+      const error = new MediaCardError(
+        'error-file-state',
+        createPollingMaxAttemptsError(),
+      );
+      const metadata: FileDetails = {
+        id: 'some-id',
+        name: 'some-name',
+        mediaType: 'image',
+      };
 
-        const component = shallowCardViewBase({
-          status: 'error',
-          metadata: metadata,
-          error,
-        });
-        const previewCurrentlyUnavailable = component.find(
-          PreviewCurrentlyUnavailable,
-        );
-        expect(previewCurrentlyUnavailable).toHaveLength(1);
-      },
-    );
+      const component = shallowCardViewBase({
+        status: 'error',
+        metadata: metadata,
+        error,
+      });
+      const previewCurrentlyUnavailable = component.find(
+        PreviewCurrentlyUnavailable,
+      );
+      expect(previewCurrentlyUnavailable).toHaveLength(1);
+    });
 
     it(`should render ImageRenderer when dataURI is defined`, () => {
       const metadata: FileDetails = {
@@ -476,7 +560,8 @@ describe('CardView New Experience', () => {
         alt: 'some-image',
         resizeMode: 'crop',
         onDisplayImage: () => {},
-        timeElapsedTillCommenced: 100,
+        onImageError: jest.fn(),
+        onImageLoad: jest.fn(),
       };
       const component = shallowCardViewBase(cardProps);
       const imageRenderer = component.find(ImageRenderer);
@@ -490,6 +575,8 @@ describe('CardView New Experience', () => {
           alt: cardProps.alt,
           resizeMode: cardProps.resizeMode,
           onDisplayImage: cardProps.onDisplayImage,
+          onImageError: expect.any(Function),
+          onImageLoad: expect.any(Function),
         }),
       );
     });

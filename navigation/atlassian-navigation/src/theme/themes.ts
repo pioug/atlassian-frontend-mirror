@@ -6,7 +6,9 @@ import { NavigationTheme } from './types';
 
 export const atlassianTheme: NavigationTheme = generateTheme({
   name: DEFAULT_THEME_NAME,
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   backgroundColor: N0,
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   highlightColor: B400,
 });
 

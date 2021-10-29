@@ -91,6 +91,7 @@ export default function EditorWithFeedback(props: Props) {
                     provider: mediaProvider,
                     allowMediaSingle: true,
                     allowMediaGroup: true,
+                    allowMediaInline: true,
                   }}
                   onChange={onChange}
                   onSave={SAVE_ACTION}

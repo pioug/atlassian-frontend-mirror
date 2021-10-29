@@ -1,42 +1,11 @@
 import { Slice, Node, Schema } from 'prosemirror-model';
-import LinkifyIt from 'linkify-it';
 import { mapSlice } from '../../utils/slice';
-import { isSafeUrl } from '@atlaskit/adf-schema';
-
-export const LINK_REGEXP = /(https?|ftp):\/\/[^\s]+/;
-
-export interface Match {
-  schema: any;
-  index: number;
-  lastIndex: number;
-  raw: string;
-  text: string;
-  url: string;
-  length?: number;
-  input?: string;
-}
-
-const linkify = LinkifyIt();
-linkify.add('sourcetree:', 'http:');
-
-const tlds = 'biz|com|edu|gov|net|org|pro|web|xxx|aero|asia|coop|info|museum|name|shop|рф'.split(
-  '|',
-);
-const tlds2Char =
-  'a[cdefgilmnoqrtuwxz]|b[abdefghijmnorstvwyz]|c[acdfghiklmnoruvwxyz]|d[ejkmoz]|e[cegrstu]|f[ijkmor]|g[abdefghilmnpqrstuwy]|h[kmnrtu]|i[delmnoqrst]|j[emop]|k[eghimnprwyz]|l[abcikrstuvy]|m[acdeghklmnopqrtuvwxyz]|n[acefgilopruz]|om|p[aefghkmnrtw]|qa|r[eosuw]|s[abcdegijklmnrtuvxyz]|t[cdfghjklmnortvwz]|u[agksyz]|v[aceginu]|w[fs]|y[et]|z[amw]';
-tlds.push(tlds2Char);
-linkify.tlds(tlds, false);
-
-export function getLinkMatch(str: string): Match | LinkifyMatch | null {
-  if (!str) {
-    return null;
-  }
-  let match: null | LinkifyMatch[] = linkifyMatch(str);
-  if (!match.length) {
-    match = linkify.match(str);
-  }
-  return match && match[0];
-}
+import {
+  isSafeUrl,
+  linkify,
+  Match,
+  normalizeUrl as normaliseLinkHref,
+} from '@atlaskit/adf-schema';
 
 /**
  * Instance of class LinkMatcher are used in autoformatting in place of Regex.
@@ -94,8 +63,7 @@ export function normalizeUrl(url?: string | null) {
   if (isSafeUrl(url)) {
     return url;
   }
-  const match = getLinkMatch(url);
-  return (match && match.url) || '';
+  return normaliseLinkHref(url);
 }
 
 export function linkifyContent(schema: Schema): (slice: Slice) => Slice {
@@ -173,45 +141,3 @@ function findLinkMatches(text: string): LinkMatch[] {
   }
   return matches;
 }
-
-export interface LinkifyMatch {
-  index: number;
-  lastIndex: number;
-  raw: string;
-  url: string;
-  text: string;
-  schema: string;
-}
-
-export const linkifyMatch = (text: string): LinkifyMatch[] => {
-  const matches: LinkifyMatch[] = [];
-
-  if (!LINK_REGEXP.test(text)) {
-    return matches;
-  }
-
-  let startpos = 0;
-  let substr;
-
-  while ((substr = text.substr(startpos))) {
-    const link = (substr.match(LINK_REGEXP) || [''])[0];
-    if (link) {
-      const index = substr.search(LINK_REGEXP);
-      const start = index >= 0 ? index + startpos : index;
-      const end = start + link.length;
-      matches.push({
-        index: start,
-        lastIndex: end,
-        raw: link,
-        url: link,
-        text: link,
-        schema: '',
-      });
-      startpos += end;
-    } else {
-      break;
-    }
-  }
-
-  return matches;
-};

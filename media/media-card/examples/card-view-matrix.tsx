@@ -1,7 +1,12 @@
 // eslint-disable-line no-console
 import React from 'react';
-import { atlassianLogoUrl, tallImage } from '@atlaskit/media-test-helpers';
+import {
+  atlassianLogoUrl,
+  tallImage,
+  wideTransparentImage,
+} from '@atlaskit/media-test-helpers';
 import { Checkbox } from '@atlaskit/checkbox';
+import Select from '@atlaskit/select';
 import styled from 'styled-components';
 import DownloadIcon from '@atlaskit/icon/glyph/download';
 import TrashIcon from '@atlaskit/icon/glyph/trash';
@@ -11,7 +16,7 @@ import { CardView } from '../src/root/cardView';
 import { FileDetails, MediaType } from '@atlaskit/media-client';
 import { IntlProvider } from 'react-intl';
 import { Y75 } from '@atlaskit/theme/colors';
-import { MainWrapper } from '../example-helpers';
+import { MainWrapper, mediaCardErrorState } from '../example-helpers';
 
 type WrapperDimensions = {
   width: string;
@@ -52,6 +57,13 @@ const StyledContainer = styled.div`
   min-width: 1100px;
 `;
 
+const SelectWrapper = styled.div`
+  * {
+    text-align: left !important;
+  }
+  font-weight: normal;
+`;
+
 interface State {
   disableOverlay: boolean;
   selectable: boolean;
@@ -64,6 +76,8 @@ interface State {
   useBigCard: boolean;
   shouldRenderCard: boolean;
   withBgColorAndIcon: boolean;
+  withTransparency: boolean;
+  error: string;
 }
 
 class Example extends React.Component<{}, State> {
@@ -79,6 +93,8 @@ class Example extends React.Component<{}, State> {
     useBigCard: false,
     shouldRenderCard: true,
     withBgColorAndIcon: false,
+    withTransparency: false,
+    error: '',
   };
 
   render() {
@@ -89,7 +105,6 @@ class Example extends React.Component<{}, State> {
       'loading-preview',
       'complete',
       'error',
-      'failed-processing',
     ];
     const mediaTypes: [MediaType, string][] = [
       ['image', 'image/jpeg'],
@@ -102,6 +117,22 @@ class Example extends React.Component<{}, State> {
     if (!this.state.shouldRenderCard) {
       return null;
     }
+
+    const errorOptions = [
+      {
+        value: '',
+        label: 'Generic Error',
+      },
+      {
+        value: 'rateLimitedError',
+        label: 'Rate Limited Error',
+      },
+      {
+        value: 'pollingMaxAttemptsError',
+        label: 'Polling Max Attempts Error',
+      },
+      { value: 'uploadError', label: 'Upload Error' },
+    ];
 
     return (
       <MainWrapper>
@@ -182,6 +213,13 @@ class Example extends React.Component<{}, State> {
               onChange={this.onCheckboxChange}
               name="withBgColorAndIcon"
             />
+            <Checkbox
+              value="withTransparency"
+              label="Has transparency"
+              isChecked={this.state.withTransparency}
+              onChange={this.onCheckboxChange}
+              name="withTransparency"
+            />
           </CheckboxesContainer>
           <StyledTable>
             <thead>
@@ -192,7 +230,18 @@ class Example extends React.Component<{}, State> {
               <tr>
                 <th key="first-column">Media Type</th>
                 {statuses.map((status) => (
-                  <th key={`${status}-column`}>{status}</th>
+                  <th key={`${status}-column`}>
+                    {status}
+                    {status === 'error' && (
+                      <SelectWrapper>
+                        <Select
+                          options={errorOptions}
+                          onChange={this.onRadioGroupSelect}
+                          defaultValue={errorOptions[0]}
+                        />
+                      </SelectWrapper>
+                    )}
+                  </th>
                 ))}
               </tr>
             </thead>
@@ -242,6 +291,10 @@ class Example extends React.Component<{}, State> {
     this.setState({ [value]: checked } as any);
   };
 
+  private onRadioGroupSelect = (option: any) => {
+    this.setState({ error: option.value });
+  };
+
   private renderCardImageView = (
     status: CardStatus,
     mediaType: MediaType = 'image',
@@ -258,6 +311,8 @@ class Example extends React.Component<{}, State> {
       hasManyActions,
       isExternalImage,
       withBgColorAndIcon,
+      withTransparency,
+      error,
     } = this.state;
     const actions: CardAction[] = [
       {
@@ -294,6 +349,8 @@ class Example extends React.Component<{}, State> {
     if (withDataURI) {
       if (isExternalImage) {
         dataURI = atlassianLogoUrl;
+      } else if (withTransparency) {
+        dataURI = wideTransparentImage;
       } else {
         dataURI = tallImage;
       }
@@ -324,6 +381,7 @@ class Example extends React.Component<{}, State> {
           dimensions={dimensions}
           titleBoxBgColor={withBgColorAndIcon ? Y75 : undefined}
           titleBoxIcon={withBgColorAndIcon ? 'LockFilledIcon' : undefined}
+          error={mediaCardErrorState(error)}
         />
       </CardWrapper>
     );

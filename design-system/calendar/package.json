@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/calendar",
-  "version": "12.1.3",
+  "version": "12.1.4",
   "description": "A React component for displaying a calendar.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -29,7 +29,7 @@
     "@atlaskit/icon": "^21.9.0",
     "@atlaskit/locale": "^2.3.0",
     "@atlaskit/theme": "^12.0.0",
-    "@atlaskit/tokens": "^0.2.0",
+    "@atlaskit/tokens": "^0.3.0",
     "@atlaskit/visually-hidden": "^0.1.1",
     "@babel/runtime": "^7.0.0",
     "@emotion/core": "^10.0.9",

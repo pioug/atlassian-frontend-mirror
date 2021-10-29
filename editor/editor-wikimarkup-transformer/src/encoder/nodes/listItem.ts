@@ -5,6 +5,7 @@ import { paragraph } from './paragraph';
 import { unknown } from './unknown';
 import { codeBlock } from './code-block';
 import { mediaGroup } from './media-group';
+import { mediaInline } from './media-inline';
 import { Context } from '../../interfaces';
 
 export const listItem = (
@@ -40,6 +41,10 @@ export const listItem = (
       }
       case 'codeBlock': {
         contentBuffer.push(codeBlock(n));
+        break;
+      }
+      case 'mediaInline': {
+        contentBuffer.push(mediaInline(n, { context }));
         break;
       }
       case 'mediaSingle': {

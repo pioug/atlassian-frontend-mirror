@@ -7,7 +7,7 @@ import {
   TAP_TO_REFRESH_PAGE_TEXT,
   TAP_TO_RETRY_TEXT,
   TAP_TO_VIEW_TEXT,
-} from './ui/MacroComponent/constants';
+} from './ui/MacroFallbackComponent/constants';
 
 export const legacyMobileMacrosMessages = defineMessages({
   tapToLoadMacro: {

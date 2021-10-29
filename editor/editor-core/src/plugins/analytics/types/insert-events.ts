@@ -176,6 +176,16 @@ type InsertMediaGroupAEP = InsertAEP<
   undefined
 >;
 
+type InsertMediaInlineAEP = InsertAEP<
+  ACTION_SUBJECT_ID.MEDIA,
+  {
+    inputMethod?: InputMethodInsertMedia;
+    fileExtension?: string;
+    type: ACTION_SUBJECT_ID.MEDIA_INLINE;
+  },
+  undefined
+>;
+
 export type InputMethodInsertLink =
   | INPUT_METHOD.TYPEAHEAD
   | INPUT_METHOD.CLIPBOARD
@@ -312,6 +322,7 @@ export type InsertEventPayload =
   | InsertStatusAEP
   | InsertMediaSingleAEP
   | InsertMediaGroupAEP
+  | InsertMediaInlineAEP
   | InsertLinkAEP
   | InsertLinkPreviewAEP
   | InsertMediaLinkAEP

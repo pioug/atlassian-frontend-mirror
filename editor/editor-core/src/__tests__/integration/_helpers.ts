@@ -46,7 +46,6 @@ export const getProsemirrorSelection = async (page: WebDriverPage) => {
 
 export type SelectionMatch = {
   type: string;
-  from: number;
   [name: string]: string | boolean | number;
 };
 

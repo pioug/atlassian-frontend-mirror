@@ -1,5 +1,12 @@
 # @atlaskit/button
 
+## 16.1.3
+
+### Patch Changes
+
+- [`c3b0a17a96c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c3b0a17a96c) - Fix spinner colours for disabled, warning and selected states when using tokens
+- Updated dependencies
+
 ## 16.1.2
 
 ### Patch Changes

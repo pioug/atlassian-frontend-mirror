@@ -1,5 +1,12 @@
-import styled from 'styled-components';
+/** @jsx jsx */
+import { FC } from 'react';
 
-export const RowPlaceholderCell = styled.td`
-  padding: 0;
-`;
+import { css, jsx } from '@emotion/core';
+
+const rowPlaceholderStyles = css({
+  padding: 0,
+});
+
+export const RowPlaceholderCell: FC = (props) => (
+  <td css={rowPlaceholderStyles} {...props} />
+);

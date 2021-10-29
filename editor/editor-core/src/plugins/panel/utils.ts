@@ -34,8 +34,8 @@ export const panelAttrsToDom = (
     'data-panel-type': panelType || PanelType.INFO,
     style,
   };
-  const iconSpan: DOMOutputSpec = [
-    'span',
+  const iconDiv: DOMOutputSpec = [
+    'div',
     { class: PanelSharedCssClassName.icon },
   ];
   const contentDiv: DOMOutputSpec = [
@@ -47,7 +47,7 @@ export const panelAttrsToDom = (
   ];
 
   if (hasIcon) {
-    return ['div', panelAttrs, iconSpan, contentDiv];
+    return ['div', panelAttrs, iconDiv, contentDiv];
   } else {
     return ['div', panelAttrs, contentDiv];
   }

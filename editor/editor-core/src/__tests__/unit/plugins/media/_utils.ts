@@ -6,6 +6,7 @@ import randomId from '@atlaskit/editor-test-helpers/random-id';
 import {
   media,
   mediaGroup,
+  mediaInline,
   DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
@@ -37,6 +38,9 @@ export const temporaryMediaWithDimensions = (width = 256, height = 128) => {
 };
 
 export const temporaryMediaGroup = mediaGroup(temporaryMedia);
+export const temporaryMediaInline = mediaInline({
+  ...temporaryMediaAttrs,
+})();
 
 export const imageFile: MediaFile = {
   id: '1',

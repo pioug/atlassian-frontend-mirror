@@ -1,4 +1,7 @@
 const mockStopMeasureDuration = 1234;
+const tti = 1000;
+const ttiFromInvocation = 500;
+
 jest.mock('@atlaskit/editor-common', () => ({
   ...jest.requireActual<Object>('@atlaskit/editor-common'),
   startMeasure: jest.fn(),
@@ -10,10 +13,37 @@ jest.mock('@atlaskit/editor-common', () => ({
       onMeasureComplete && onMeasureComplete(mockStopMeasureDuration, 1);
     },
   ),
+  measureTTI: jest.fn(),
+}));
+
+const mockStore = {
+  get: jest.fn(),
+  getAll: jest.fn(),
+  start: jest.fn(),
+  addMetadata: jest.fn(),
+  mark: jest.fn(),
+  success: jest.fn(),
+  fail: jest.fn(),
+  abort: jest.fn(),
+  failAll: jest.fn(),
+  abortAll: jest.fn(),
+};
+let mockStoreInstance: jest.Mock;
+jest.mock('@atlaskit/editor-common/ufo', () => ({
+  ...jest.requireActual<Object>('@atlaskit/editor-common/ufo'),
+  ExperienceStore: {
+    getInstance: mockStoreInstance = jest.fn(() => mockStore),
+  },
+}));
+
+let mockUuid = '12345abcdef';
+jest.mock('uuid/v4', () => ({
+  __esModule: true,
+  default: jest.fn(() => mockUuid),
 }));
 
 import { name } from '../../version.json';
-import { mount, shallow } from 'enzyme';
+import { mount, shallow, ReactWrapper } from 'enzyme';
 import React from 'react';
 import Editor from '../../editor';
 import { EditorView } from 'prosemirror-view';
@@ -35,7 +65,6 @@ import {
   ProviderFactory,
   QuickInsertProvider,
 } from '@atlaskit/editor-common/provider-factory';
-import { ExtensionProvider } from '@atlaskit/editor-common';
 import { EditorAppearance, EditorProps } from '../../types';
 import * as extensionUtils from '../../utils/extensions';
 
@@ -47,8 +76,9 @@ import ReactEditorView, {
   EditorViewProps,
 } from '../../create-editor/ReactEditorView';
 import { EditorActions, EditorContext, MediaOptions } from '../..';
-import { CardOptions } from '@atlaskit/editor-common';
 import { asMock } from '@atlaskit/media-test-helpers';
+import { flushPromises } from '../__helpers/utils';
+import { EditorExperience } from '@atlaskit/editor-common/ufo';
 
 import * as ActivityProviderModule from '@atlaskit/activity-provider';
 const { ActivityResource } = jest.genMockFromModule<
@@ -60,6 +90,13 @@ import { QuickInsertOptions } from '../../plugins/quick-insert/types';
 const { EmojiResource } = jest.genMockFromModule<typeof EmojiModule>(
   '@atlaskit/emoji',
 );
+
+import {
+  ExtensionProvider,
+  CardOptions,
+  measureTTI as mockMeasureTTI,
+} from '@atlaskit/editor-common';
+const measureTTI: any = mockMeasureTTI;
 
 describe(name, () => {
   describe('Editor', () => {
@@ -162,31 +199,6 @@ describe(name, () => {
         return analyticsClient(analyticsEventHandler);
       };
 
-      const setupMockPerformanceObserver = (
-        performanceNowFixedTime: number,
-      ) => {
-        let prevPerformanceObserver = window.PerformanceObserver;
-        let prevPerformanceNow = window.performance.now;
-        class MockPerformanceObserver extends PerformanceObserver {
-          static supportedEntryTypes = ['longtask'];
-          constructor(cb: PerformanceObserverCallback) {
-            super(cb);
-          }
-          disconnect() {}
-          observe() {}
-          takeRecords() {
-            return [];
-          }
-        }
-        window.PerformanceObserver = MockPerformanceObserver;
-        window.performance.now = () => performanceNowFixedTime;
-        const cleanup = () => {
-          window.PerformanceObserver = prevPerformanceObserver;
-          window.performance.now = prevPerformanceNow;
-        };
-        return { cleanup };
-      };
-
       const appearances: {
         appearance: EditorAppearance;
         analyticsAppearance: EDITOR_APPEARANCE_CONTEXT;
@@ -237,9 +249,7 @@ describe(name, () => {
         });
       });
 
-      it('should dispatch an tti (time-to-interactive) editor event after the editor has mounted', (done) => {
-        const nowTime = 100;
-        const { cleanup } = setupMockPerformanceObserver(nowTime);
+      it('should dispatch an tti (time-to-interactive) editor event after the editor has mounted', async (done) => {
         const mockAnalyticsClient = (
           done: jest.DoneCallback,
         ): AnalyticsWebClient => {
@@ -251,17 +261,18 @@ describe(name, () => {
                 action: 'tti',
                 actionSubject: 'editor',
                 attributes: expect.objectContaining({
-                  tti: nowTime,
-                  ttiFromInvocation: 0,
+                  tti,
+                  ttiFromInvocation,
                   canceled: false,
                   ttiSeverity: 'normal',
                   ttiFromInvocationSeverity: 'normal',
                 }),
               }),
             );
+
+            measureTTI.mockClear();
             done();
           };
-
           return analyticsClient(analyticsEventHandler);
         };
 
@@ -275,7 +286,9 @@ describe(name, () => {
             />
           </FabricAnalyticsListeners>,
         );
-        cleanup();
+        await flushPromises();
+        const [ttiCallback] = measureTTI.mock.calls[0];
+        ttiCallback(tti, ttiFromInvocation, false);
       });
 
       describe('contentRetrievalPerformed events', () => {
@@ -529,6 +542,108 @@ describe(name, () => {
               />
             </FabricAnalyticsListeners>,
           );
+        });
+      });
+    });
+
+    describe('ufo', () => {
+      afterEach(() => {
+        jest.clearAllMocks();
+      });
+
+      describe('when feature flag enabled', () => {
+        let editor: ReactWrapper;
+
+        beforeEach(async () => {
+          editor = mount(<Editor featureFlags={{ ufo: true }} />);
+          await flushPromises();
+        });
+
+        it('starts editor load experience', () => {
+          expect(mockStore.start).toHaveBeenCalledWith(
+            EditorExperience.loadEditor,
+            expect.any(Number),
+          );
+        });
+
+        it('marks onEditorReady on editor load experience if provided', async () => {
+          editor = mount(
+            <Editor featureFlags={{ ufo: true }} onEditorReady={() => {}} />,
+          );
+          await flushPromises();
+          expect(mockStore.mark).toHaveBeenCalledWith(
+            EditorExperience.loadEditor,
+            'onEditorReadyCallback',
+            mockStopMeasureDuration + 1,
+          );
+        });
+
+        it("doesn't mark onEditorReady on editor load experience if not provided", async () => {
+          expect(mockStore.mark).not.toHaveBeenCalledWith(
+            EditorExperience.loadEditor,
+            'onEditorReadyCallback',
+            mockStopMeasureDuration + 1,
+          );
+        });
+
+        it('marks editor mounted on editor load experience', () => {
+          expect(mockStore.mark).toHaveBeenCalledWith(
+            EditorExperience.loadEditor,
+            'mounted',
+            mockStopMeasureDuration + 1,
+          );
+        });
+
+        it('marks editor tti on editor load experience', () => {
+          const [ttiCallback] = measureTTI.mock.calls[0];
+          ttiCallback(tti, ttiFromInvocation, false);
+          expect(mockStore.mark).toHaveBeenCalledWith(
+            EditorExperience.loadEditor,
+            'tti',
+            tti,
+          );
+        });
+
+        it('succeeds editor load experience on tti', () => {
+          expect(mockStore.success).not.toHaveBeenCalled();
+          const [ttiCallback] = measureTTI.mock.calls[0];
+          ttiCallback(tti, ttiFromInvocation, false);
+          expect(mockStore.success).toHaveBeenCalled();
+        });
+
+        it('adds objectId as metadata to editor load experience', async () => {
+          editor = mount(
+            <Editor
+              featureFlags={{ ufo: true }}
+              contextIdentifierProvider={Promise.resolve({
+                objectId: 'abc',
+                containerId: 'def',
+              })}
+            />,
+          );
+          await flushPromises();
+          expect(mockStore.addMetadata).toHaveBeenCalledWith(
+            EditorExperience.loadEditor,
+            {
+              objectId: 'abc',
+            },
+          );
+        });
+
+        it('aborts editor load experience if component unmounts before tti', () => {
+          editor.unmount();
+          expect(mockStore.abortAll).toHaveBeenCalled();
+        });
+      });
+
+      describe('when feature flag not enabled', () => {
+        it("doesn't initialise store", () => {
+          expect(mockStoreInstance).not.toHaveBeenCalled();
+        });
+
+        it("doesn't start editor load experience", () => {
+          mount(<Editor />);
+          expect(mockStore.start).not.toHaveBeenCalled();
         });
       });
     });

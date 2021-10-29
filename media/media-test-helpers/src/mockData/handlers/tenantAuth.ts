@@ -20,7 +20,7 @@ export const tenantAuth = (context: () => MockContext) => (
   const data1 = {
     method: 'POST',
     url: {
-      path: '/media-playground/api/token/tenant',
+      path: '/token/tenant',
       query: {
         collection: context().tenantContext.collectionName,
         environment: '',
@@ -36,7 +36,7 @@ export const tenantAuth = (context: () => MockContext) => (
   const data2 = {
     method: 'GET',
     url: {
-      path: '/media-playground/api/token/tenant',
+      path: '/token/tenant',
       query: {
         collection: context().tenantContext.collectionName,
         environment: '',

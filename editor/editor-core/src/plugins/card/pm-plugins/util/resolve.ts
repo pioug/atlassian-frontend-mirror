@@ -7,6 +7,7 @@ import { EditorView } from 'prosemirror-view';
 import { OutstandingRequests, Request } from '../../types';
 import { setProvider } from '../actions';
 import { replaceQueuedUrlWithCard, handleFallbackWithAnalytics } from '../doc';
+import { CardOptions } from '@atlaskit/editor-common';
 
 // ============================================================================ //
 // ============================== PROVIDER UTILS ============================== //
@@ -18,6 +19,7 @@ export const resolveWithProvider = (
   outstandingRequests: OutstandingRequests,
   provider: CardProvider,
   request: Request,
+  options: CardOptions,
 ) => {
   const handleResolve = provider
     .resolve(request.url, request.appearance)
@@ -25,14 +27,29 @@ export const resolveWithProvider = (
       delete outstandingRequests[request.url];
       return resolvedCard;
     })
-    .then(handleResolved(view, request), handleRejected(view, request));
+    .then(
+      handleResolved(view, request, options),
+      handleRejected(view, request),
+    );
   outstandingRequests[request.url] = handleResolve;
   return handleResolve;
 };
 
-const handleResolved = (view: EditorView, request: Request) => (
-  resolvedCard: CardAdf,
-) => {
+const updateCardType = (resolvedCard: CardAdf, options: CardOptions) => {
+  if (
+    (resolvedCard?.type === 'blockCard' && !options.allowBlockCards) ||
+    (resolvedCard?.type === 'embedCard' && !options.allowEmbeds)
+  ) {
+    resolvedCard.type = 'inlineCard' as any;
+  }
+};
+
+const handleResolved = (
+  view: EditorView,
+  request: Request,
+  options: CardOptions,
+) => (resolvedCard: CardAdf) => {
+  updateCardType(resolvedCard, options);
   replaceQueuedUrlWithCard(
     request.url,
     resolvedCard,
@@ -40,6 +57,7 @@ const handleResolved = (view: EditorView, request: Request) => (
   )(view.state, view.dispatch);
   return resolvedCard;
 };
+
 const handleRejected = (view: EditorView, request: Request) => () => {
   handleFallbackWithAnalytics(request.url, request.source)(
     view.state,

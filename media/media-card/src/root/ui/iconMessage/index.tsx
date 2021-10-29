@@ -38,12 +38,12 @@ export const PreviewUnavailable: React.FC = (props) => (
   <IconMessage {...props} messageDescriptor={messages.preview_unavailable} />
 );
 
-export const RateLimited: React.FC = (props) => (
-  <IconMessage
-    {...props}
-    messageDescriptor={messages.preview_rateLimited}
-    reducedFont
-  />
+export const FailedToLoad: React.FC = (props) => (
+  <IconMessage {...props} messageDescriptor={messages.failed_to_load} />
+);
+
+export const FailedToUpload: React.FC = (props) => (
+  <IconMessage {...props} messageDescriptor={messages.failed_to_upload} />
 );
 
 export const PreviewCurrentlyUnavailable: React.FC = (props) => (

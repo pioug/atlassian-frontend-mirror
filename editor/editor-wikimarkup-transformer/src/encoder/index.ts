@@ -9,6 +9,7 @@ import { doc } from './nodes/doc';
 import { expand } from './nodes/expand';
 import { heading } from './nodes/heading';
 import { mediaGroup } from './nodes/media-group';
+import { mediaInline } from './nodes/media-inline';
 import { orderedList } from './nodes/ordered-list';
 import { panel } from './nodes/panel';
 import { paragraph } from './nodes/paragraph';
@@ -35,6 +36,7 @@ const nodeEncoderMapping: { [key: string]: NodeEncoder } = {
   doc,
   heading,
   mediaGroup,
+  mediaInline,
   mediaSingle: mediaGroup,
   orderedList,
   panel,

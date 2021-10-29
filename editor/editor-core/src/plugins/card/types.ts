@@ -6,6 +6,7 @@ import {
 } from '@atlaskit/editor-common/provider-factory';
 import { SmartLinkEvents } from '@atlaskit/smart-card';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { CardOptions } from '@atlaskit/editor-common';
 
 export type CardInfo = {
   title?: string;
@@ -31,6 +32,12 @@ export type CardPluginState = {
   cards: CardInfo[];
   showLinkingToolbar: boolean;
   smartLinkEvents?: SmartLinkEvents;
+  createAnalyticsEvent?: CreateUIAnalyticsEvent;
+};
+
+export type CardPluginOptions = CardOptions & {
+  platform: 'mobile' | 'web';
+  fullWidthMode?: boolean;
   createAnalyticsEvent?: CreateUIAnalyticsEvent;
 };
 

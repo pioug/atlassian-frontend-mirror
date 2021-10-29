@@ -13,6 +13,7 @@ export type RequestAccessMessageKey =
 export type MessageKey =
   | 'retry'
   | 'failed_to_load'
+  | 'failed_to_upload'
   | 'recent_uploads'
   | 'upload_file'
   | 'drag_and_drop_your_files'
@@ -121,7 +122,6 @@ export type MessageKey =
   | 'creating_preview'
   | 'couldnt_load_file'
   | 'error_429'
-  | 'preview_rateLimited'
   | 'close_and_reopen'
   | 'viewer_rateLimited'
   | 'zip_entry_load_fail'
@@ -188,6 +188,11 @@ export const messages = defineMessages<Messages>({
     id: 'fabric.media.failed_to_load',
     defaultMessage: 'Failed to load',
     description: 'We show this message when we have an error loading a file',
+  },
+  failed_to_upload: {
+    id: 'fabric.media.failed_to_upload',
+    defaultMessage: 'Failed to upload',
+    description: 'We show this message when we have an error uploading a file',
   },
   recent_uploads: {
     id: 'fabric.media.recent_uploads',
@@ -777,11 +782,6 @@ export const messages = defineMessages<Messages>({
     id: 'fabric.media.error_429',
     defaultMessage: 'Error 429',
     description: 'Error 429 is thrown',
-  },
-  preview_rateLimited: {
-    id: 'fabric.media.preview_rateLimited',
-    defaultMessage: 'We had difficulties creating a preview',
-    description: 'The preview is rate limited',
   },
   close_and_reopen: {
     id: 'fabric.media.close_and_reopen',

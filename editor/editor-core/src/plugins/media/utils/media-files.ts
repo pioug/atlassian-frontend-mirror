@@ -19,6 +19,7 @@ import {
   copyOptionalAttrsFromMediaState,
 } from './media-common';
 import {
+  canInsert,
   safeInsert,
   hasParentNode,
   ContentNodeWithPos,
@@ -46,6 +47,11 @@ export interface Range {
   end: number;
 }
 
+export const canInsertMediaInline = (state: EditorState): boolean => {
+  const node = state.schema.nodes.mediaInline.create({});
+  return canInsert(state.selection.$to, Fragment.from(node));
+};
+
 const getInsertMediaGroupAnalytics = (
   mediaState: MediaState[],
   inputMethod?: InputMethodInsertMedia,
@@ -63,6 +69,25 @@ const getInsertMediaGroupAnalytics = (
     actionSubjectId: ACTION_SUBJECT_ID.MEDIA,
     attributes: {
       type: ACTION_SUBJECT_ID.MEDIA_GROUP,
+      inputMethod,
+      fileExtension: media,
+    },
+    eventType: EVENT_TYPE.TRACK,
+  };
+};
+
+const getInsertMediaInlineAnalytics = (
+  mediaState: MediaState,
+  inputMethod?: InputMethodInsertMedia,
+): InsertEventPayload => {
+  const media = mediaState.fileMimeType || 'unknown';
+
+  return {
+    action: ACTION.INSERTED,
+    actionSubject: ACTION_SUBJECT.DOCUMENT,
+    actionSubjectId: ACTION_SUBJECT_ID.MEDIA,
+    attributes: {
+      type: ACTION_SUBJECT_ID.MEDIA_INLINE,
       inputMethod,
       fileExtension: media,
     },
@@ -109,6 +134,50 @@ function shouldAppendParagraph(
     !wasMediaNode
   );
 }
+
+/**
+ * Create a new media inline to insert the new media.
+ * @param view Editor view
+ * @param mediaState Media file to be added to the editor
+ * @param collection Collection for the media to be added
+ */
+export const insertMediaInlineNode = (
+  view: EditorView,
+  mediaState: MediaState,
+  collection: string,
+  inputMethod?: InputMethodInsertMedia,
+): boolean => {
+  const { state, dispatch } = view;
+  const { schema, tr } = state;
+  const { mediaInline } = schema.nodes;
+
+  // Do nothing if no media found
+  if (!mediaInline || !mediaState || collection === undefined) {
+    return false;
+  }
+
+  const { id } = mediaState;
+  const mediaInlineNode = mediaInline.create({ id, collection });
+  const space = state.schema.text(' ');
+  const pos = state.selection.$to.pos;
+  let content = Fragment.from([mediaInlineNode, space]);
+
+  // Delete the selection if a selection is made
+  const deleteRange = findDeleteRange(state);
+  if (!deleteRange) {
+    tr.insert(pos, content);
+  } else {
+    tr.insert(pos, content).deleteRange(deleteRange.start, deleteRange.end);
+  }
+
+  addAnalytics(
+    state,
+    tr,
+    getInsertMediaInlineAnalytics(mediaState, inputMethod),
+  );
+  dispatch(tr);
+  return true;
+};
 
 /**
  * Insert a media into an existing media group

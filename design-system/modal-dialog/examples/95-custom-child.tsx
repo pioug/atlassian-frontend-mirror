@@ -10,6 +10,7 @@ import {
   borderRadius as getBorderRadius,
   gridSize,
 } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 import Modal, { ModalTransition } from '../src';
 
@@ -17,7 +18,7 @@ const borderRadius = getBorderRadius();
 
 const childStyles = css({
   height: '400px',
-  backgroundColor: 'hotpink',
+  backgroundColor: token('color.accent.subtleMagenta', 'hotpink'),
 });
 
 const containerStyles = css({

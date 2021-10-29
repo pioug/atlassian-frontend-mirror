@@ -3,8 +3,7 @@ import type { HTMLAttributes } from 'react';
 
 import { css, jsx } from '@emotion/core';
 
-import { B100 } from '@atlaskit/theme/colors';
-import { token } from '@atlaskit/tokens';
+import FocusRing from '@atlaskit/focus-ring';
 
 import { varDotsMargin, varDotsSize } from './constants';
 
@@ -29,9 +28,6 @@ const buttonStyles = css({
   border: 0,
   cursor: 'pointer',
   outline: 0,
-  '&:focus': {
-    boxShadow: `0 0 0 2px ${token('color.border.focus', B100)}`,
-  },
 });
 
 /**
@@ -50,11 +46,13 @@ export const PresentationalIndicator = (
  */
 export const ButtonIndicator = (props: HTMLAttributes<HTMLButtonElement>) => {
   return (
-    <button
-      {...props}
-      role="tab"
-      type="button"
-      css={[commonStyles, buttonStyles]}
-    />
+    <FocusRing>
+      <button
+        {...props}
+        role="tab"
+        type="button"
+        css={[commonStyles, buttonStyles]}
+      />
+    </FocusRing>
   );
 };

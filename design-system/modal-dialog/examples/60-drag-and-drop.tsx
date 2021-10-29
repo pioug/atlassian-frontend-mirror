@@ -12,6 +12,7 @@ import {
 
 import Button from '@atlaskit/button/standard-button';
 import { G300, R200, R75, Y75 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import ModalDialog, {
   ModalBody,
@@ -39,9 +40,9 @@ const baseCardStyles = css({
   padding: `${gridUnit * 2}px ${gridUnit}px`,
 
   position: 'relative',
-  background: Y75,
+  background: token('color.background.subtleWarning.resting', Y75),
 
-  borderBottom: `1px solid ${R200}`,
+  borderBottom: `1px solid ${token('color.iconBorder.danger', R200)}`,
   borderRadius: '3px',
 
   cursor: 'pointer',
@@ -58,12 +59,12 @@ const draggingCardStyles = css({
 });
 
 const hoverCardStyles = css({
-  background: R75,
+  background: token('color.background.subtleDanger.hover', R75),
   textDecoration: 'none',
 });
 
 const activeCardStyles = css({
-  background: G300,
+  background: token('color.background.subtleSuccess.pressed', G300),
 });
 
 const isMiddleClick = (event: React.MouseEvent) => event.button === 1;

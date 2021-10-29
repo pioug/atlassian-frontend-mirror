@@ -7,7 +7,7 @@ import {
   UFOGlobalEventStreamExperiencePayload,
   UFOGlobalEventStreamSubscribe,
   UFOGlobalEventStreamUnsubscribe,
-} from '../types/types';
+} from '../types';
 
 export type GlobalEventStream = {
   push(event: UFOGlobalEventStreamEvent): void;

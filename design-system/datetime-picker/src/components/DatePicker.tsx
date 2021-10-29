@@ -1,6 +1,7 @@
-import React, { CSSProperties } from 'react';
+/** @jsx jsx */
+import { Component, CSSProperties } from 'react';
 
-import styled from '@emotion/styled';
+import { css, jsx } from '@emotion/core';
 // eslint-disable-next-line no-restricted-imports
 import { format, isValid, lastDayOfMonth, parseISO } from 'date-fns';
 import pick from 'lodash/pick';
@@ -26,9 +27,9 @@ import Select, {
   SelectComponentsConfig,
   ValueType,
 } from '@atlaskit/select';
-import { B100, N20 } from '@atlaskit/theme/colors';
+import { B100, N20, N50A, N60A } from '@atlaskit/theme/colors';
 import { borderRadius, gridSize, layers } from '@atlaskit/theme/constants';
-import { e200 } from '@atlaskit/theme/elevation';
+import { token } from '@atlaskit/tokens';
 
 import {
   defaultDateFormat,
@@ -64,7 +65,7 @@ export interface Props extends WithAnalyticsEventsProps {
   disabled?: string[];
   /**
     A filter function for disabling dates on the calendar. This does not affect what users can type into the picker.
-   
+
     The function is called with a date string in the format `YYYY-MM-DD` and should return `true` if the date should be disabled.
    */
   disabledDateFilter?: (date: string) => boolean;
@@ -103,7 +104,7 @@ export interface Props extends WithAnalyticsEventsProps {
   selectProps?: SelectProps;
   /**
     The spacing for the select control.
-   
+
     Compact is `gridSize() * 4`, default is `gridSize * 5`.
    */
   spacing?: Spacing;
@@ -175,12 +176,12 @@ function getValidDate(iso: string) {
   return isValid(date) ? getDateObj(date) : {};
 }
 
-const StyledMenu = styled.div`
-  background-color: ${N20};
-  border-radius: ${borderRadius()}px;
-  z-index: ${layers.dialog};
-  ${e200()};
-`;
+const menuStyles = css({
+  zIndex: layers.dialog(),
+  backgroundColor: token('color.background.default', N20),
+  borderRadius: `${borderRadius()}px`,
+  boxShadow: token('shadow.overlay', `0 4px 8px -2px ${N50A}, 0 0 1px ${N60A}`),
+});
 
 const Menu = ({
   selectProps,
@@ -193,7 +194,7 @@ const Menu = ({
     inputValue={selectProps.inputValue}
     containerRef={selectProps.calendarContainerRef}
     content={
-      <StyledMenu {...innerProps}>
+      <div css={menuStyles} {...innerProps}>
         <Calendar
           {...getValidDate(selectProps.calendarValue)}
           {...getValidDate(selectProps.calendarView)}
@@ -209,7 +210,7 @@ const Menu = ({
           testId={selectProps.testId && `${selectProps.testId}--calendar`}
           weekStartDay={selectProps.calendarWeekStartDay}
         />
-      </StyledMenu>
+      </div>
     }
     testId={selectProps.testId}
   />
@@ -241,7 +242,7 @@ const datePickerDefaultProps = {
   // Make the component a controlled component
 };
 
-class DatePicker extends React.Component<DatePickerProps, State> {
+class DatePicker extends Component<DatePickerProps, State> {
   static defaultProps = datePickerDefaultProps;
   calendarRef: CalendarRef | null = null;
   containerRef: HTMLElement | null = null;
@@ -477,7 +478,9 @@ class DatePicker extends React.Component<DatePickerProps, State> {
   };
 
   getSubtleControlStyles = (isOpen: boolean) => ({
-    border: `2px solid ${isOpen ? B100 : `transparent`}`,
+    border: `2px solid ${
+      isOpen ? token('color.border.focus', B100) : `transparent`
+    }`,
     backgroundColor: 'transparent',
     padding: '1px',
   });

@@ -79,7 +79,12 @@ export async function spoofMediaQuery(page: PuppeteerPage) {
   const css = `.${HeadingAnchorWrapperClassName} {
       visibility: hidden;
     }
-    .heading-wrapper:hover .${HeadingAnchorWrapperClassName} {
+    h1:hover .${HeadingAnchorWrapperClassName},
+    h2:hover .${HeadingAnchorWrapperClassName},
+    h3:hover .${HeadingAnchorWrapperClassName},
+    h4:hover .${HeadingAnchorWrapperClassName},
+    h5:hover .${HeadingAnchorWrapperClassName},
+    h6:hover .${HeadingAnchorWrapperClassName} {
       visibility: visible;
     }`;
   await page.addStyleTag({
@@ -179,7 +184,7 @@ export async function hoverOnHeadingWithLinkThenSnapshot(
   await page.waitForSelector(headingSelector);
   await page.hover(headingSelector);
 
-  const btnSelector = `${headingSelector} + span button`;
+  const btnSelector = `${headingSelector} button`;
   await page.waitForSelector(btnSelector, { visible: true });
   await animationFrame(page);
 

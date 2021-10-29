@@ -29,6 +29,7 @@ import { IntlProvider } from 'react-intl';
 import { MediaOptions } from '../../../../../plugins/media/types';
 import { stateKey } from '../../../../../plugins/media/pm-plugins/main';
 import { floatingToolbar } from '../../index';
+import * as utils from '../../utils';
 import {
   getFreshMediaProvider,
   temporaryFileId,
@@ -130,9 +131,9 @@ describe('floatingToolbar()', () => {
   });
 
   it('should remove card when clicking on the delete button', async () => {
-    const { items, editorView, mediaPluginState } = await setup(true);
+    const { items, editorView } = await setup(true);
     const removeButton = findToolbarBtn(items, 'Remove');
-    const spy = jest.spyOn(mediaPluginState!, 'handleMediaNodeRemoval');
+    const spy = jest.spyOn(utils, 'removeMediaGroupNode');
 
     expect(spy).toBeCalledTimes(0);
     removeButton.onClick(editorView.state);

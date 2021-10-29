@@ -66,46 +66,44 @@ function Heading(
       .allowNestedHeaderLinks;
 
   return (
-    <div className={`heading-wrapper ${HX}`}>
-      <HX id={headingId} {...dataAttributes}>
-        <>
-          {showAnchorLink && isRightAligned
-            ? WrapChildTextInSpan(props.children)
-            : props.children}
-        </>
-      </HX>
-      {showAnchorLink && (
-        <CopyTextConsumer>
-          {({ copyTextToClipboard }) => {
-            return (
-              headingId && (
-                <AnalyticsContext.Consumer>
-                  {({ fireAnalyticsEvent }) => (
-                    <HeadingAnchor
-                      enableNestedHeaderLinks={enableNestedHeaderLinks}
-                      level={props.level}
-                      onCopyText={() => {
-                        fireAnalyticsEvent({
-                          action: ACTION.CLICKED,
-                          actionSubject: ACTION_SUBJECT.BUTTON,
-                          actionSubjectId:
-                            ACTION_SUBJECT_ID.HEADING_ANCHOR_LINK,
-                          eventType: EVENT_TYPE.UI,
-                        });
+    <HX id={headingId} {...dataAttributes}>
+      <>
+        {showAnchorLink && isRightAligned
+          ? WrapChildTextInSpan(props.children)
+          : props.children}
+        {showAnchorLink && (
+          <CopyTextConsumer>
+            {({ copyTextToClipboard }) => {
+              return (
+                headingId && (
+                  <AnalyticsContext.Consumer>
+                    {({ fireAnalyticsEvent }) => (
+                      <HeadingAnchor
+                        enableNestedHeaderLinks={enableNestedHeaderLinks}
+                        level={props.level}
+                        onCopyText={() => {
+                          fireAnalyticsEvent({
+                            action: ACTION.CLICKED,
+                            actionSubject: ACTION_SUBJECT.BUTTON,
+                            actionSubjectId:
+                              ACTION_SUBJECT_ID.HEADING_ANCHOR_LINK,
+                            eventType: EVENT_TYPE.UI,
+                          });
 
-                        return copyTextToClipboard(
-                          getCurrentUrlWithHash(headingId),
-                        );
-                      }}
-                    />
-                  )}
-                </AnalyticsContext.Consumer>
-              )
-            );
-          }}
-        </CopyTextConsumer>
-      )}
-    </div>
+                          return copyTextToClipboard(
+                            getCurrentUrlWithHash(headingId),
+                          );
+                        }}
+                      />
+                    )}
+                  </AnalyticsContext.Consumer>
+                )
+              );
+            }}
+          </CopyTextConsumer>
+        )}
+      </>
+    </HX>
   );
 }
 

@@ -1,5 +1,40 @@
 # @atlaskit/side-navigation
 
+## 1.2.0
+
+### Minor Changes
+
+- [`213bfd77e61`](https://bitbucket.org/atlassian/atlassian-frontend/commits/213bfd77e61) - The DOM structure of menu item components has been flattened.
+  If you used CSS hacks (via className or cssFn) that targetted specific DOM nodes you may be broken.
+
+  Previously the structure looked like:
+
+  ```jsx
+  <button>
+    <div> // <-- this intermediate div has been removed
+      <span>
+        <span />
+      </span>
+    </div>
+  </button>
+  ```
+
+  Now it looks like:
+
+  ```jsx
+  <button>
+    <span>
+      <span />
+    </span>
+  </button>
+  ```
+
+- [`e4f332d8697`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e4f332d8697) - Internal refactor to update style declarations to match menu changes.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.1.2
 
 ### Patch Changes

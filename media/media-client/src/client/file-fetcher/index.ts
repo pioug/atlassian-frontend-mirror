@@ -63,7 +63,7 @@ import {
   shouldFetchRemoteFileStates,
   shouldFetchRemoteFileStatesObservable,
 } from '../../utils/shouldFetchRemoteFileStates';
-import { getPollingOptions, PollingFunction } from '../../utils/polling';
+import { PollingFunction } from '../../utils/polling';
 import { isEmptyFile } from '../../utils/detectEmptyFile';
 
 export type {
@@ -183,9 +183,7 @@ export class FileFetcherImpl implements FileFetcher {
     occurrenceKey?: string,
   ): ReplaySubject<FileState> => {
     const subject = createFileStateSubject();
-    const poll = new PollingFunction(
-      getPollingOptions(this.mediaStore.featureFlags),
-    );
+    const poll = new PollingFunction();
 
     // ensure subject errors if polling exceeds max iterations or uncaught exception in executor
     poll.onError = (error: Error) => subject.error(error);

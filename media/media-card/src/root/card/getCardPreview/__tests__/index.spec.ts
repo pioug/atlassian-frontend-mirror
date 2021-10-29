@@ -5,50 +5,27 @@ jest.mock('@atlaskit/media-client', () => {
   return {
     __esModule: true,
     ...actualModule,
-    isPreviewableType: jest.fn(),
-    isPreviewableFileState: jest.fn(),
-    isImageRepresentationReady: jest.fn(
-      () => 'isImageRepresentationReady-return',
-    ),
+    addFileAttrsToUrl: jest.fn(),
   };
 });
-jest.mock('@atlaskit/media-common', () => {
-  const actualModule = jest.requireActual('@atlaskit/media-common');
-  return {
-    __esModule: true,
-    ...actualModule,
-    isMimeTypeSupportedByBrowser: jest.fn(
-      actualModule.isMimeTypeSupportedByBrowser,
-    ),
-  };
-});
-
 import { asMockFunction } from '@atlaskit/media-test-helpers';
 import {
   FilePreview,
+  addFileAttrsToUrl,
+  ProcessedFileState,
   FileState,
-  isPreviewableType,
-  isPreviewableFileState,
-  isImageRepresentationReady,
-  MediaType,
 } from '@atlaskit/media-client';
-import {
-  MediaFeatureFlags,
-  isMimeTypeSupportedByBrowser,
-} from '@atlaskit/media-common';
-import { CardPreview } from '../types';
+import { CardPreview } from '../../../../types';
 import cardPreviewCache from '../cache';
 import {
   getCardPreviewFromFilePreview,
   getCardPreviewFromBackend,
-  isSupportedLocalPreview,
 } from '../helpers';
-import {
-  CardPreviewParams,
-  getCardPreview,
-  extractFilePreviewStatus,
-} from '../';
+import { CardPreviewParams, getCardPreview, shouldResolvePreview } from '../';
 import { LocalPreviewError } from '../../../../errors';
+import * as filePreviewStatusModule from '../filePreviewStatus';
+import * as dimensionComparerModule from '../../../../utils/dimensionComparer';
+import { CardStatus } from '../../../../';
 
 const localPreview: CardPreview = {
   dataURI: 'some-card-preview-from-file-preview',
@@ -61,18 +38,23 @@ const remotePreview: CardPreview = {
   source: 'remote',
 };
 
+const mediaBlobUrlAttrs = { some: 'attrs' };
 const dataUriWithContext = 'some-data-uri-with-context';
-const addContextToDataURI = jest.fn(() => dataUriWithContext);
+(addFileAttrsToUrl as jest.Mock).mockReturnValue(dataUriWithContext);
 
 // filePreview and isRemotePreviewReady have to be set in their relevant tests
 const cardPreviewParams = ({
   mediaClient: { thisIs: 'some-media-client' },
   id: 'some-id',
-  collectionName: 'some-collection-name',
   dimensions: { width: '33', height: '44' },
-  requestedDimensions: { width: 55, height: 66 },
-  resizeMode: 'crop',
-  addContextToDataURI,
+  imageUrlParams: {
+    collection: 'some-collection-name',
+    width: 55,
+    height: 66,
+    mode: 'crop',
+    alt: 'hi!',
+  },
+  mediaBlobUrlAttrs,
 } as unknown) as CardPreviewParams;
 
 const filePreview = ({
@@ -82,10 +64,84 @@ const filePreview = ({
 const remoteFetchParams = [
   cardPreviewParams.mediaClient,
   cardPreviewParams.id,
-  cardPreviewParams.requestedDimensions,
-  cardPreviewParams.collectionName,
-  cardPreviewParams.resizeMode,
+  cardPreviewParams.imageUrlParams,
 ];
+
+describe('shouldResolvePreview()', () => {
+  const dummyStatus = 'some-status' as CardStatus;
+
+  const isPreviewableStatus = jest.spyOn(
+    filePreviewStatusModule,
+    'isPreviewableStatus',
+  );
+
+  const isBigger = jest.spyOn(dimensionComparerModule, 'isBigger');
+
+  const processedFileState: ProcessedFileState = {
+    status: 'processed',
+    id: 'some-id',
+    name: 'some-name',
+    size: 1234,
+    artifacts: {},
+    mediaType: 'image',
+    mimeType: 'image/png',
+  };
+
+  it('should return false if has peview or status is not previewable', () => {
+    // Has preview
+    isPreviewableStatus.mockReturnValueOnce(true);
+    expect(
+      shouldResolvePreview({
+        status: dummyStatus,
+        hasCardPreview: true,
+        fileState: {} as FileState,
+        isBannedLocalPreview: false,
+      }),
+    ).toBe(false);
+
+    // Status not previewable
+    isPreviewableStatus.mockReturnValueOnce(false);
+    const fileState = {} as FileState;
+    expect(
+      shouldResolvePreview({
+        status: dummyStatus,
+        hasCardPreview: true,
+        fileState,
+        isBannedLocalPreview: false,
+      }),
+    ).toBe(false);
+  });
+
+  it('should return true if has peview, status is previewable and new dimensions are bigger', () => {
+    isPreviewableStatus.mockReturnValueOnce(true);
+    // enforcing bigger dimensions
+    isBigger.mockReturnValueOnce(true);
+    const result = shouldResolvePreview({
+      status: dummyStatus,
+      hasCardPreview: false,
+      fileState: processedFileState,
+      dimensions: {},
+      prevDimensions: {},
+      isBannedLocalPreview: false,
+    });
+    expect(result).toBe(true);
+  });
+
+  it('should return false if has peview, status is previewable and new dimensions are smaller', () => {
+    isPreviewableStatus.mockReturnValueOnce(true);
+    // enforcing smaller dimensions
+    isBigger.mockReturnValueOnce(false);
+    const result = shouldResolvePreview({
+      status: dummyStatus,
+      hasCardPreview: true,
+      fileState: processedFileState,
+      dimensions: {},
+      prevDimensions: {},
+      isBannedLocalPreview: false,
+    });
+    expect(result).toBe(false);
+  });
+});
 
 describe('getCardPreview()', () => {
   beforeEach(() => {
@@ -96,14 +152,14 @@ describe('getCardPreview()', () => {
   it(`should return card preview from cache if exists`, async () => {
     asMockFunction(cardPreviewCache.get).mockReturnValueOnce({
       dataURI: 'some-card-preview-from-cache',
-      source: 'remote',
+      source: 'cache-remote',
     });
 
     const cardPreview = await getCardPreview(cardPreviewParams);
     expect(cardPreview).toEqual(
       expect.objectContaining({
         dataURI: 'some-card-preview-from-cache',
-        source: 'cache',
+        source: 'cache-remote',
       }),
     );
   });
@@ -119,19 +175,26 @@ describe('getCardPreview()', () => {
     });
 
     expect(getCardPreviewFromFilePreview).toBeCalledWith(filePreview);
-    expect(addContextToDataURI).toBeCalledWith(localPreview.dataURI);
+    expect(addFileAttrsToUrl).toBeCalledWith(
+      localPreview.dataURI,
+      mediaBlobUrlAttrs,
+    );
 
     const expectedResult = {
       dataURI: dataUriWithContext,
       orientation: localPreview.orientation,
       source: 'local',
     };
+    const expectedCachedResult = {
+      ...expectedResult,
+      source: 'cache-local',
+    };
 
     // The result must be cached
     expect(cardPreviewCache.set).toBeCalledWith(
       cardPreviewParams.id,
       cardPreviewParams.dimensions,
-      expectedResult,
+      expectedCachedResult,
     );
     expect(cardPreview).toEqual(expectedResult);
   });
@@ -146,6 +209,10 @@ describe('getCardPreview()', () => {
       orientation: remotePreview.orientation,
       source: 'remote',
     };
+    const expectedCachedResult = {
+      ...expectedResult,
+      source: 'cache-remote',
+    };
 
     const cardPreview = await getCardPreview({
       ...cardPreviewParams,
@@ -153,12 +220,15 @@ describe('getCardPreview()', () => {
     });
 
     expect(getCardPreviewFromBackend).toBeCalledWith(...remoteFetchParams);
-    expect(addContextToDataURI).toBeCalledWith(remotePreview.dataURI);
+    expect(addFileAttrsToUrl).toBeCalledWith(
+      localPreview.dataURI,
+      mediaBlobUrlAttrs,
+    );
     // The result must be cached
     expect(cardPreviewCache.set).toBeCalledWith(
       cardPreviewParams.id,
       cardPreviewParams.dimensions,
-      expectedResult,
+      expectedCachedResult,
     );
     expect(cardPreview).toEqual(expectedResult);
   });
@@ -232,6 +302,10 @@ describe('getCardPreview()', () => {
       orientation: remotePreview.orientation,
       source: 'remote',
     };
+    const expectedCachedResult = {
+      ...expectedResult,
+      source: 'cache-remote',
+    };
 
     const cardPreview = await getCardPreview({
       ...cardPreviewParams,
@@ -240,12 +314,15 @@ describe('getCardPreview()', () => {
     });
 
     expect(getCardPreviewFromBackend).toBeCalledWith(...remoteFetchParams);
-    expect(addContextToDataURI).toBeCalledWith(remotePreview.dataURI);
+    expect(addFileAttrsToUrl).toBeCalledWith(
+      localPreview.dataURI,
+      mediaBlobUrlAttrs,
+    );
     // The result must be cached
     expect(cardPreviewCache.set).toBeCalledWith(
       cardPreviewParams.id,
       cardPreviewParams.dimensions,
-      expectedResult,
+      expectedCachedResult,
     );
     expect(cardPreview).toEqual(expectedResult);
   });
@@ -277,129 +354,5 @@ describe('getCardPreview()', () => {
     }
     expect(expectedError).toBeDefined();
     expect(cardPreview).toBeUndefined();
-  });
-});
-
-describe('extractFilePreviewStatus()', () => {
-  const dummyFeatureFlags = {} as MediaFeatureFlags;
-
-  describe('Local Preview', () => {
-    const mediaType = 'some-mediaType' as MediaType;
-    const mimeType = 'some-mimeType';
-    const fileState = { mediaType, mimeType } as FileState;
-
-    beforeEach(() => {
-      asMockFunction(isImageRepresentationReady).mockReturnValueOnce(false);
-    });
-
-    it('should check if no preview is available', () => {
-      asMockFunction(isPreviewableFileState).mockReturnValueOnce(false);
-
-      expect(
-        extractFilePreviewStatus(fileState, dummyFeatureFlags),
-      ).toMatchObject(expect.objectContaining({ hasPreview: false }));
-
-      expect(isPreviewableFileState).toBeCalledWith(fileState);
-      expect(isImageRepresentationReady).toBeCalledWith(fileState);
-    });
-
-    it('should check if a supported local preview is available', () => {
-      asMockFunction(isPreviewableFileState).mockReturnValueOnce(true);
-      asMockFunction(isSupportedLocalPreview).mockReturnValueOnce(true);
-      asMockFunction(isMimeTypeSupportedByBrowser).mockReturnValueOnce(true);
-
-      expect(
-        extractFilePreviewStatus(fileState, dummyFeatureFlags),
-      ).toMatchObject(expect.objectContaining({ hasPreview: true }));
-
-      expect(isPreviewableFileState).toBeCalledWith(fileState);
-      expect(isSupportedLocalPreview).toBeCalledWith(mediaType);
-      expect(isMimeTypeSupportedByBrowser).toBeCalled();
-    });
-
-    it('should check if an unsupported by browser local preview is available', () => {
-      asMockFunction(isPreviewableFileState).mockReturnValueOnce(true);
-      asMockFunction(isSupportedLocalPreview).mockReturnValueOnce(false);
-      asMockFunction(isMimeTypeSupportedByBrowser).mockReturnValueOnce(true);
-
-      expect(
-        extractFilePreviewStatus(fileState, dummyFeatureFlags),
-      ).toMatchObject(expect.objectContaining({ hasPreview: false }));
-
-      expect(isPreviewableFileState).toBeCalledWith(fileState);
-      expect(isSupportedLocalPreview).toBeCalledWith(mediaType);
-      expect(isMimeTypeSupportedByBrowser).toBeCalled();
-    });
-
-    it('should check if an unsupported by Media Card local preview is available', () => {
-      asMockFunction(isPreviewableFileState).mockReturnValueOnce(true);
-      asMockFunction(isSupportedLocalPreview).mockReturnValueOnce(true);
-      asMockFunction(isMimeTypeSupportedByBrowser).mockReturnValueOnce(false);
-
-      const mediaType = 'some-mediaType' as MediaType;
-      const fileState = {
-        mediaType: mediaType,
-      } as FileState;
-      expect(
-        extractFilePreviewStatus(fileState, dummyFeatureFlags),
-      ).toMatchObject(expect.objectContaining({ hasPreview: false }));
-
-      expect(isPreviewableFileState).toBeCalledWith(fileState);
-      expect(isSupportedLocalPreview).toBeCalledWith(mediaType);
-      expect(isMimeTypeSupportedByBrowser).toBeCalled();
-    });
-  });
-
-  it('should check if a remote preview is available', () => {
-    asMockFunction(isImageRepresentationReady).mockReturnValueOnce(true);
-    asMockFunction(isPreviewableFileState).mockReturnValueOnce(false);
-
-    const fileState = {
-      mediaType: 'some-mediaType' as MediaType,
-    } as FileState;
-    expect(
-      extractFilePreviewStatus(fileState, dummyFeatureFlags),
-    ).toMatchObject(expect.objectContaining({ hasPreview: true }));
-
-    expect(isImageRepresentationReady).toBeCalledWith(fileState);
-  });
-
-  it('should check if media type is listed as previewable', () => {
-    asMockFunction(isPreviewableType).mockReturnValueOnce(true);
-    const mediaType = 'some-mediaType' as MediaType;
-    const fileState = {
-      mediaType: mediaType,
-    } as FileState;
-
-    expect(
-      extractFilePreviewStatus(fileState, dummyFeatureFlags),
-    ).toMatchObject(expect.objectContaining({ isPreviewable: true }));
-    // Common helpers should be used for this operation
-    expect(isPreviewableType).toBeCalledWith(mediaType, dummyFeatureFlags);
-  });
-
-  it(`should use file state's file size`, () => {
-    const dummyFileStateWithoutSize = ({
-      size: undefined,
-    } as unknown) as FileState;
-    const dummyFileStateWithSize = ({
-      size: 1,
-    } as unknown) as FileState;
-
-    expect(
-      extractFilePreviewStatus(dummyFileStateWithoutSize, dummyFeatureFlags),
-    ).toMatchObject(
-      expect.objectContaining({
-        hasFilesize: false,
-      }),
-    );
-
-    expect(
-      extractFilePreviewStatus(dummyFileStateWithSize, dummyFeatureFlags),
-    ).toMatchObject(
-      expect.objectContaining({
-        hasFilesize: true,
-      }),
-    );
   });
 });

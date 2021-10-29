@@ -1,4 +1,4 @@
-import React, { RefObject } from 'react';
+import React, { Ref } from 'react';
 
 import {
   UIAnalyticsEvent,
@@ -322,7 +322,7 @@ export interface RowType extends React.ComponentPropsWithoutRef<'tr'> {
   onClick?: React.MouseEventHandler;
   onKeyPress?: React.KeyboardEventHandler;
   testId?: string;
-  innerRef?: RefObject<HTMLElement>;
+  ref?: Ref<HTMLTableRowElement>;
 }
 
 export type SortOrderType = 'ASC' | 'DESC';

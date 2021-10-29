@@ -364,6 +364,25 @@ export const getValidNode = (
         }
         break;
       }
+      case 'mediaInline': {
+        let mediaId = '';
+        let mediaCollection = [];
+
+        if (attrs) {
+          const { id, collection } = attrs;
+          mediaId = id;
+          mediaCollection = collection;
+        }
+
+        if (mediaId && mediaCollection && adfStage === 'stage0') {
+          return {
+            type,
+            attrs,
+            marks,
+          };
+        }
+        break;
+      }
       case 'media': {
         let mediaId = '';
         let mediaType = '';

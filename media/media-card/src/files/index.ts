@@ -1,2 +1,2 @@
-export { FileCardImageView, FileCardImageViewBase } from './cardImageView';
+export { FileCardImageView } from './cardImageView';
 export type { FileCardImageViewProps } from './cardImageView';

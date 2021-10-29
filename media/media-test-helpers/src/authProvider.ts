@@ -2,8 +2,7 @@ import { Auth, AuthProvider, AuthContext } from '@atlaskit/media-core';
 import { defaultCollectionName } from './collectionNames';
 
 const cachedAuths: { [key: string]: Promise<Auth> } = {};
-const authProviderBaseURL =
-  'https://api-private.dev.atlassian.com/media-playground/api';
+const authProviderBaseURL = 'https://media-playground.dev.atl-paas.net/';
 
 export class StoryBookAuthProvider {
   static create(
@@ -17,7 +16,6 @@ export class StoryBookAuthProvider {
       headers.append('Accept', 'text/plain, */*; q=0.01');
       const config: RequestInit = {
         method: 'POST',
-        credentials: 'include',
         headers,
         body: access ? JSON.stringify({ access }) : undefined,
       };

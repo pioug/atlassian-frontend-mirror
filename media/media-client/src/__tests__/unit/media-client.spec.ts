@@ -40,10 +40,6 @@ const createMediaClient = (initialAuth?: Auth) => {
     '@atlaskit/media-client',
   );
   const fakeStore = new MockMediaStore() as jest.Mocked<MediaStore>;
-  (fakeStore as any).featureFlags = {
-    poll_intervalMs: 1,
-    poll_backoffFactor: 1,
-  };
   (fakeStore.getFileImageURLSync as jest.Mock).mockReturnValue('some-url');
   (mediaClient as any).mediaStore = fakeStore;
   (mediaClient as any).file = new FileFetcherImpl(fakeStore);

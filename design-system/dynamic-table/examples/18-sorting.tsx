@@ -2,6 +2,8 @@ import React, { ReactNode, SFC, useEffect, useState } from 'react';
 
 import { v4 as uuid } from 'uuid';
 
+import { token } from '@atlaskit/tokens';
+
 import DynamicTable from '../src';
 
 const caption = 'Example issue with DynamicTable';
@@ -21,7 +23,12 @@ const StateIndicator: SFC<StateIndicatorProps> = (props) => {
   }, []);
 
   return (
-    <div style={{ backgroundColor: color, color: '#f5f5dc' }}>
+    <div
+      style={{
+        backgroundColor: color,
+        color: token('color.text.onBold', 'f5f5dc'),
+      }}
+    >
       {props.children}
     </div>
   );

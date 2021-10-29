@@ -61,36 +61,38 @@ const isLayoutSupported = (
 const breakoutOptions = (
   state: EditorState,
   formatMessage: InjectedIntl['formatMessage'],
-  extensionState: ExtensionState,
   breakoutEnabled: boolean,
 ): Array<FloatingToolbarItem<Command>> => {
   const nodeWithPos = getSelectedExtension(state, true);
-  const { layout } = extensionState;
-  return nodeWithPos && breakoutEnabled && isLayoutSupported(state, nodeWithPos)
-    ? [
-        {
-          type: 'button',
-          icon: CenterIcon,
-          onClick: updateExtensionLayout('default'),
-          selected: layout === 'default',
-          title: formatMessage(commonMessages.layoutFixedWidth),
-        },
-        {
-          type: 'button',
-          icon: WideIcon,
-          onClick: updateExtensionLayout('wide'),
-          selected: layout === 'wide',
-          title: formatMessage(commonMessages.layoutWide),
-        },
-        {
-          type: 'button',
-          icon: FullWidthIcon,
-          onClick: updateExtensionLayout('full-width'),
-          selected: layout === 'full-width',
-          title: formatMessage(commonMessages.layoutFullWidth),
-        },
-      ]
-    : [];
+
+  // we should only return breakout options when breakouts are enabled and the node supports them
+  if (nodeWithPos && breakoutEnabled && isLayoutSupported(state, nodeWithPos)) {
+    const { layout } = nodeWithPos.node.attrs;
+    return [
+      {
+        type: 'button',
+        icon: CenterIcon,
+        onClick: updateExtensionLayout('default'),
+        selected: layout === 'default',
+        title: formatMessage(commonMessages.layoutFixedWidth),
+      },
+      {
+        type: 'button',
+        icon: WideIcon,
+        onClick: updateExtensionLayout('wide'),
+        selected: layout === 'wide',
+        title: formatMessage(commonMessages.layoutWide),
+      },
+      {
+        type: 'button',
+        icon: FullWidthIcon,
+        onClick: updateExtensionLayout('full-width'),
+        selected: layout === 'full-width',
+        title: formatMessage(commonMessages.layoutFullWidth),
+      },
+    ];
+  }
+  return [];
 };
 
 const editButton = (
@@ -146,7 +148,6 @@ export const getToolbarConfig = (
     const breakoutButtonArray = breakoutOptions(
       state,
       formatMessage,
-      extensionState,
       breakoutEnabled,
     );
 

@@ -25,6 +25,7 @@ import * as measure from '../../utils/performance';
 import { AnalyticsFacade } from '../analytics';
 import { APIError } from '../../client/errors';
 import { getUnauthorizedJsonLd } from '../../utils/jsonld';
+import { addMetadataToExperience } from '../analytics';
 
 export const useSmartCardActions = (
   id: string,
@@ -114,6 +115,8 @@ export const useSmartCardActions = (
           .fetchData(resourceUrl)
           .then((response) => handleResolvedLinkResponse(resourceUrl, response))
           .catch((error) => handleResolvedLinkError(resourceUrl, error));
+      } else {
+        addMetadataToExperience('smart-link-rendered', id, { cached: true });
       }
     },
     [
@@ -122,6 +125,7 @@ export const useSmartCardActions = (
       connections.client,
       handleResolvedLinkResponse,
       handleResolvedLinkError,
+      id,
     ],
   );
 
@@ -165,6 +169,7 @@ export const useSmartCardActions = (
           () => {
             analytics.track.appAccountConnected(definitionId, extensionKey);
             analytics.operational.connectSucceededEvent(
+              id,
               definitionId,
               extensionKey,
             );
@@ -172,6 +177,7 @@ export const useSmartCardActions = (
           },
           (err: AuthError) => {
             analytics.operational.connectFailedEvent(
+              id,
               definitionId,
               extensionKey,
               err.type,
@@ -193,6 +199,7 @@ export const useSmartCardActions = (
       analytics.screen,
       analytics.track,
       analytics.operational,
+      id,
       reload,
       details,
       status,

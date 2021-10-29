@@ -6,6 +6,7 @@ import Lorem from 'react-lorem-component';
 
 import Button from '@atlaskit/button/standard-button';
 import { Y50 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import Modal, {
   ModalBody,
@@ -20,7 +21,7 @@ const customContainerStyles = css({
   height: '700px',
   flex: '1 1 auto',
   flexDirection: 'column',
-  background: Y50,
+  background: token('color.background.subtleWarning.resting', Y50),
 });
 
 export default function DefaultModal() {

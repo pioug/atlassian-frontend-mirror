@@ -133,19 +133,23 @@ export const panelSharedStyles = css`
     padding: ${gridSize()}px;
     min-width: ${akEditorTableCellMinWidth}px;
     display: flex;
+    position: relative;
     align-items: baseline;
     word-break: break-word;
 
     ${mainDynamicStyles(PanelType.INFO)}
 
     .${PanelSharedCssClassName.icon} {
-      display: block;
       flex-shrink: 0;
       height: ${gridSize() * 3}px;
       width: ${gridSize() * 3}px;
       box-sizing: content-box;
       padding-right: ${gridSize()}px;
       text-align: center;
+      user-select: none;
+      -moz-user-select: none;
+      -webkit-user-select: none;
+      -ms-user-select: none;
       ${iconDynamicStyles(PanelType.INFO)}
 
       > span {
@@ -205,15 +209,6 @@ export const panelSharedStyles = css`
 
       .${PanelSharedCssClassName.icon} {
         ${iconDynamicStyles(PanelType.SUCCESS)}
-      }
-    }
-
-    &[data-panel-type='${PanelType.CUSTOM}'] {
-      .${PanelSharedCssClassName.icon} {
-        user-select: none;
-        -moz-user-select: none;
-        -webkit-user-select: none;
-        -ms-user-select: none;
       }
     }
   }

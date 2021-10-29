@@ -171,6 +171,16 @@ type ContentComponentErrorAEP = OperationalAEP<
   undefined
 >;
 
+export type ErrorEventAttributes = {
+  error: Error;
+  errorInfo: React.ErrorInfo;
+  product?: string;
+  browserInfo?: string;
+  errorId?: string;
+  docStructure?: string | SimplifiedNode;
+  browserExtensions?: UserBrowserExtensionResults;
+};
+
 type ComponentCrashErrorAEP = OperationalAEP<
   ACTION.EDITOR_CRASHED,
   | ACTION_SUBJECT.FLOATING_CONTEXTUAL_BUTTON
@@ -180,14 +190,17 @@ type ComponentCrashErrorAEP = OperationalAEP<
   | ACTION_SUBJECT.FLOATING_TOOLBAR_PLUGIN
   | ACTION_SUBJECT.EDITOR,
   ACTION_SUBJECT_ID | FLOATING_CONTROLS_TITLE,
+  ErrorEventAttributes,
+  undefined
+>;
+
+type ComponentCrashAdditionalInfoErrorAEP = OperationalAEP<
+  ACTION.EDITOR_CRASHED_ADDITIONAL_INFORMATION,
+  ACTION_SUBJECT.EDITOR,
+  undefined,
   {
-    error: Error;
-    errorInfo: React.ErrorInfo;
-    product?: string;
-    browserInfo?: string;
-    errorId?: string;
-    docStructure?: string | SimplifiedNode;
-    browserExtensions?: UserBrowserExtensionResults;
+    errorStack: string;
+    errorId: string;
   },
   undefined
 >;
@@ -199,4 +212,5 @@ export type ErrorEventPayload =
   | SynchronyErrorAEP
   | SynchronyEntityErrorAEP
   | ContentComponentErrorAEP
-  | ComponentCrashErrorAEP;
+  | ComponentCrashErrorAEP
+  | ComponentCrashAdditionalInfoErrorAEP;

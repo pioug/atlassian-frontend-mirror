@@ -35,7 +35,7 @@ describe('Snapshot Test: table insert/delete with merged columns', () => {
     await snapshot(page);
   });
 
-  test('should be able to insert a column at the end of the table', async () => {
+  xtest('should be able to insert a column at the end of the table', async () => {
     await insertColumn(page, 0, 'right');
   });
 });

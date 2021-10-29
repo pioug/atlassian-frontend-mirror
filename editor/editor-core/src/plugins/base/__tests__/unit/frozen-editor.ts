@@ -1,3 +1,32 @@
+jest.mock('@atlaskit/editor-common', () => ({
+  ...jest.requireActual<Object>('@atlaskit/editor-common'),
+  isPerformanceAPIAvailable: () => true,
+}));
+const mockStore = {
+  get: jest.fn(),
+  getAll: jest.fn(),
+  start: jest.fn(),
+  addMetadata: jest.fn(),
+  mark: jest.fn(),
+  success: jest.fn(),
+  fail: jest.fn(),
+  abort: jest.fn(),
+  failAll: jest.fn(),
+  abortAll: jest.fn(),
+};
+jest.mock('@atlaskit/editor-common/ufo', () => ({
+  ...jest.requireActual<Object>('@atlaskit/editor-common/ufo'),
+  ExperienceStore: {
+    getInstance: () => mockStore,
+  },
+}));
+jest.mock('../../../../utils/performance/get-performance-timing', () => ({
+  ...jest.requireActual<Object>(
+    '../../../../utils/performance/get-performance-timing',
+  ),
+  getTimeSince: jest.fn(() => 10),
+}));
+
 import {
   Preset,
   LightEditorPlugin,
@@ -11,15 +40,25 @@ import {
   EVENT_TYPE,
 } from '../../../analytics';
 import { SEVERITY } from '@atlaskit/editor-common';
+import { EditorExperience } from '@atlaskit/editor-common/ufo';
 import { doc, p, DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
-import basePlugin from '../../';
-import * as frozenEditor from '../../pm-plugins/frozen-editor';
+import basePlugin, { BasePluginOptions } from '../../';
+import {
+  frozenEditorPluginKey,
+  NORMAL_SEVERITY_THRESHOLD,
+  DEGRADED_SEVERITY_THRESHOLD,
+  DEFAULT_FREEZE_THRESHOLD,
+} from '../../pm-plugins/frozen-editor';
 import * as utils from '../../utils/frozen-editor';
+import { getTimeSince } from '../../../../utils/performance/get-performance-timing';
 
 describe('frozen editor', () => {
   const createEditor = createProsemirrorEditorFactory();
 
-  const editor = (doc: DocBuilder) => {
+  const editor = (
+    doc: DocBuilder,
+    options: Partial<BasePluginOptions> = {},
+  ) => {
     return createEditor({
       doc,
       preset: new Preset<LightEditorPlugin>().add([
@@ -29,11 +68,13 @@ describe('frozen editor', () => {
           browserFreezeTracking: {
             trackInteractionType: true,
             trackSeverity: true,
-            severityNormalThreshold: frozenEditor.NORMAL_SEVERITY_THRESHOLD,
-            severityDegradedThreshold: frozenEditor.DEGRADED_SEVERITY_THRESHOLD,
+            severityNormalThreshold: NORMAL_SEVERITY_THRESHOLD,
+            severityDegradedThreshold: DEGRADED_SEVERITY_THRESHOLD,
           },
+          ...options,
         },
       ]),
+      pluginKey: frozenEditorPluginKey,
     });
   };
 
@@ -48,7 +89,7 @@ describe('frozen editor', () => {
               getEntries: () => [
                 {
                   name: 'self',
-                  duration: frozenEditor.DEFAULT_FREEZE_THRESHOLD + 1,
+                  duration: DEFAULT_FREEZE_THRESHOLD + 1,
                   entryType: 'longtask',
                   startTime: 1,
                   toJSON: () => {},
@@ -73,7 +114,7 @@ describe('frozen editor', () => {
         action: ACTION.BROWSER_FREEZE,
         actionSubject: ACTION_SUBJECT.EDITOR,
         attributes: expect.objectContaining({
-          freezeTime: frozenEditor.DEFAULT_FREEZE_THRESHOLD + 1,
+          freezeTime: DEFAULT_FREEZE_THRESHOLD + 1,
           nodeSize: editorView.state.doc.nodeSize,
           interactionType: BROWSER_FREEZE_INTERACTION_TYPE.LOADING,
         }),
@@ -93,7 +134,7 @@ describe('frozen editor', () => {
         action: ACTION.BROWSER_FREEZE,
         actionSubject: ACTION_SUBJECT.EDITOR,
         attributes: expect.objectContaining({
-          freezeTime: frozenEditor.DEFAULT_FREEZE_THRESHOLD + 1,
+          freezeTime: DEFAULT_FREEZE_THRESHOLD + 1,
           nodeSize: editorView.state.doc.nodeSize,
           interactionType: BROWSER_FREEZE_INTERACTION_TYPE.TYPING,
         }),
@@ -112,7 +153,7 @@ describe('frozen editor', () => {
         action: ACTION.BROWSER_FREEZE,
         actionSubject: ACTION_SUBJECT.EDITOR,
         attributes: expect.objectContaining({
-          freezeTime: frozenEditor.DEFAULT_FREEZE_THRESHOLD + 1,
+          freezeTime: DEFAULT_FREEZE_THRESHOLD + 1,
           nodeSize: editorView.state.doc.nodeSize,
           interactionType: BROWSER_FREEZE_INTERACTION_TYPE.CLICKING,
         }),
@@ -132,7 +173,7 @@ describe('frozen editor', () => {
         action: ACTION.BROWSER_FREEZE,
         actionSubject: ACTION_SUBJECT.EDITOR,
         attributes: expect.objectContaining({
-          freezeTime: frozenEditor.DEFAULT_FREEZE_THRESHOLD + 1,
+          freezeTime: DEFAULT_FREEZE_THRESHOLD + 1,
           nodeSize: editorView.state.doc.nodeSize,
           interactionType: BROWSER_FREEZE_INTERACTION_TYPE.PASTING,
         }),
@@ -143,10 +184,10 @@ describe('frozen editor', () => {
     });
 
     it.each`
-      condition                                                                         | threshold                                       | severity
-      ${'when duration <= NORMAL_SEVERITY_THRESHOLD'}                                   | ${frozenEditor.NORMAL_SEVERITY_THRESHOLD}       | ${SEVERITY.NORMAL}
-      ${'when duration > NORMAL_SEVERITY_THRESHOLD and <= DEGRADED_SEVERITY_THRESHOLD'} | ${frozenEditor.NORMAL_SEVERITY_THRESHOLD + 1}   | ${SEVERITY.DEGRADED}
-      ${'when duration > DEGRADED_SEVERITY_THRESHOLD'}                                  | ${frozenEditor.DEGRADED_SEVERITY_THRESHOLD + 1} | ${SEVERITY.BLOCKING}
+      condition                                                                         | threshold                          | severity
+      ${'when duration <= NORMAL_SEVERITY_THRESHOLD'}                                   | ${NORMAL_SEVERITY_THRESHOLD}       | ${SEVERITY.NORMAL}
+      ${'when duration > NORMAL_SEVERITY_THRESHOLD and <= DEGRADED_SEVERITY_THRESHOLD'} | ${NORMAL_SEVERITY_THRESHOLD + 1}   | ${SEVERITY.DEGRADED}
+      ${'when duration > DEGRADED_SEVERITY_THRESHOLD'}                                  | ${DEGRADED_SEVERITY_THRESHOLD + 1} | ${SEVERITY.BLOCKING}
     `(
       'should fire event with $severity severity when $condition',
       ({ condition, threshold, severity }) => {
@@ -199,7 +240,7 @@ describe('frozen editor', () => {
                 getEntries: () => [
                   {
                     name: 'self',
-                    duration: frozenEditor.DEFAULT_FREEZE_THRESHOLD,
+                    duration: DEFAULT_FREEZE_THRESHOLD,
                     entryType: 'longtask',
                     startTime: 1,
                     toJSON: () => {},
@@ -213,6 +254,58 @@ describe('frozen editor', () => {
       const { dispatchAnalyticsEvent } = editor(doc(p('{<>}')));
 
       expect(dispatchAnalyticsEvent).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('ufo', () => {
+    describe('when ufo option enabled', () => {
+      let rafCallback: FrameRequestCallback;
+
+      beforeEach(() => {
+        jest
+          .spyOn(window, 'requestAnimationFrame')
+          .mockImplementation((callback) => {
+            rafCallback = callback;
+            return 1;
+          });
+
+        const { editorView, plugin } = editor(doc(p('{<>}')), {
+          ufo: true,
+          inputTracking: { enabled: true, samplingRate: 1 },
+        });
+        plugin?.props?.handleTextInput?.(editorView, 0, 1, 'a');
+      });
+
+      it('starts new typing experience', () => {
+        expect(mockStore.start).toHaveBeenCalledWith(EditorExperience.typing);
+      });
+
+      it('succeeds typing experience on next animation frame', () => {
+        expect(mockStore.success).not.toHaveBeenCalled();
+        rafCallback?.(1631497795504);
+        expect(mockStore.success).toHaveBeenCalledWith(
+          EditorExperience.typing,
+          expect.any(Object),
+        );
+      });
+
+      it('adds metadata for slow input if threshold exceeded', () => {
+        (getTimeSince as any).mockReturnValue(2000);
+        rafCallback?.(1631497795504);
+        expect(
+          mockStore.addMetadata,
+        ).toHaveBeenCalledWith(EditorExperience.typing, { slowInput: true });
+      });
+    });
+
+    describe('when ufo option not enabled', () => {
+      it("doesn't start new typing experience", () => {
+        const { editorView, plugin } = editor(doc(p('{<>}')), {
+          inputTracking: { enabled: true, samplingRate: 1 },
+        });
+        plugin?.props?.handleTextInput?.(editorView, 0, 1, 'a');
+        expect(mockStore.start).not.toHaveBeenCalled();
+      });
     });
   });
 });

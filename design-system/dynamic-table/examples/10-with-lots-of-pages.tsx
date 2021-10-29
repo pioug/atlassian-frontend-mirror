@@ -1,14 +1,12 @@
+/** @jsx jsx */
 import React from 'react';
 
-import styled from 'styled-components';
+import { jsx } from '@emotion/core';
 
 import DynamicTable from '../src';
 
+import Wrapper from './components/wrapper';
 import { caption, head, rows } from './content/sample-data';
-
-const Wrapper = styled.div`
-  min-width: 600px;
-`;
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default class extends React.Component<{}, {}> {

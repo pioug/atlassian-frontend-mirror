@@ -1,14 +1,15 @@
 import { EditorProps } from '../../types';
 import { normalizeFeatureFlags } from '@atlaskit/editor-common/normalize-feature-flags';
 import type { FeatureFlags } from '../../types/feature-flags';
-
+import { browser } from '@atlaskit/editor-common';
 /**
  * Transforms EditorProps to an FeatureFlags object,
  * which is used by both current and archv3 editors.
  */
 export function createFeatureFlagsFromProps(props: EditorProps): FeatureFlags {
+  const normalizedFeatureFlags = normalizeFeatureFlags(props.featureFlags);
   return {
-    ...normalizeFeatureFlags(props.featureFlags),
+    ...normalizedFeatureFlags,
 
     newInsertionBehaviour: props.allowNewInsertionBehaviour,
 
@@ -106,24 +107,39 @@ export function createFeatureFlagsFromProps(props: EditorProps): FeatureFlags {
         ? !!props.featureFlags?.showAvatarGroupAsPlugin
         : false,
     ),
+
     errorBoundaryDocStructure: Boolean(
       typeof props.featureFlags?.useErrorBoundaryDocStructure === 'boolean'
         ? !!props.featureFlags?.useErrorBoundaryDocStructure
         : false,
     ),
+
     synchronyErrorDocStructure: Boolean(
       typeof props.featureFlags?.synchronyErrorDocStructure === 'boolean'
         ? !!props.featureFlags?.synchronyErrorDocStructure
         : false,
     ),
+
     enableViewUpdateSubscription: Boolean(
       typeof props.featureFlags?.enableViewUpdateSubscription === 'boolean'
         ? !!props.featureFlags?.enableViewUpdateSubscription
         : false,
     ),
+
     collabAvatarScroll: Boolean(
       typeof props.featureFlags?.collabAvatarScroll === 'boolean'
         ? !!props.featureFlags?.collabAvatarScroll
+        : false,
+    ),
+    ufo: Boolean(
+      typeof props.featureFlags?.ufo === 'boolean'
+        ? !!props.featureFlags?.ufo
+        : false,
+    ),
+    codeBlockSyntaxHighlighting: Boolean(
+      typeof normalizedFeatureFlags.codeBlockSyntaxHighlighting === 'boolean'
+        ? !!normalizedFeatureFlags.codeBlockSyntaxHighlighting &&
+            !browser.safari
         : false,
     ),
   };

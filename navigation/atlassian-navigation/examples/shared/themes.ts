@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import {
   B400,
   G300,

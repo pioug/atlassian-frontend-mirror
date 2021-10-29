@@ -1,6 +1,6 @@
 import { Node } from 'prosemirror-model';
 import { JSONDocNode } from '@atlaskit/editor-json-transformer';
-import { TextSelection, Selection } from 'prosemirror-state';
+import { TextSelection } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import { Transformer } from '@atlaskit/editor-common';
 import { toJSON } from '../utils';
@@ -193,37 +193,12 @@ export default class EditorActions<T = any> implements EditorActionsOptions<T> {
       return false;
     }
 
-    const { state } = this.editorView;
-    const { schema } = state;
-
-    const content = processRawValue(
-      schema,
-      rawValue,
-      undefined,
-      undefined,
-      this.contentTransformer as Transformer<any>,
-      this.dispatchAnalyticsEvent,
-    );
-
-    if (!content) {
-      return false;
+    if (this.eventDispatcher) {
+      this.eventDispatcher.emit('resetEditorState', {
+        doc: rawValue,
+        shouldScrollToBottom,
+      });
     }
-
-    // In case of replacing a whole document, we only need a content of a top level node e.g. document.
-    let tr = state.tr.replaceWith(0, state.doc.nodeSize - 2, content.content);
-    if (!shouldScrollToBottom && !tr.selectionSet) {
-      // Restore selection at start of document instead of the end.
-      tr.setSelection(Selection.atStart(tr.doc));
-    }
-
-    if (shouldScrollToBottom) {
-      tr = tr.scrollIntoView();
-    }
-    if (!shouldAddToHistory) {
-      tr.setMeta('addToHistory', false);
-    }
-
-    this.editorView.dispatch(tr);
 
     return true;
   }

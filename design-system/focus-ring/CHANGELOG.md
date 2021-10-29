@@ -1,5 +1,12 @@
 # @atlaskit/focus-ring
 
+## 0.2.4
+
+### Patch Changes
+
+- [`6c1c909296d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c1c909296d) - [ux] When composing elements that define class name they will now be correctly retained.
+- Updated dependencies
+
 ## 0.2.3
 
 ### Patch Changes

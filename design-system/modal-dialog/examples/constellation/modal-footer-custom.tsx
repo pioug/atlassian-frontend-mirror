@@ -9,6 +9,7 @@ import Button from '@atlaskit/button/standard-button';
 import InlineDialog from '@atlaskit/inline-dialog';
 import { subtleText } from '@atlaskit/theme/colors';
 import { gridSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 import Modal, {
   ModalBody,
@@ -28,7 +29,7 @@ const footerStyles = css({
 const wrapperStyles = css({
   display: 'flex',
   alignItems: 'center',
-  color: subtleText(),
+  color: token('color.text.lowEmphasis', subtleText()),
   cursor: 'help',
 });
 

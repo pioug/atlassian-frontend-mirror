@@ -1,10 +1,41 @@
 /** @jsx jsx */
-import { memo } from 'react';
+import type { CSSProperties } from 'react';
 
-import { jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/core';
 
-import { skeletonHeadingItemCSS } from '../internal/styles/menu-item/skeleton-heading-item';
+import noop from '@atlaskit/ds-lib/noop';
+import { skeleton as skeletonColorFn } from '@atlaskit/theme/colors';
+import { gridSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
+
 import type { SkeletonHeadingItemProps } from '../types';
+
+const skeletonStyles = css({
+  padding: `0 ${gridSize() * 2.5}px`,
+  '::after': {
+    display: 'block',
+    width: '30%',
+    height: gridSize(),
+    backgroundColor: token(
+      'color.background.subtleNeutral.resting',
+      skeletonColorFn(),
+    ),
+    borderRadius: 100,
+    content: '""',
+  },
+});
+
+const defaultWidthStyles = css({
+  '::after': {
+    width: '30%',
+  },
+});
+
+const customWidthStyles = css({
+  '::after': {
+    width: 'var(--width)',
+  },
+});
 
 /**
  * __Skeleton heading item__
@@ -14,20 +45,26 @@ import type { SkeletonHeadingItemProps } from '../types';
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/menu/docs/skeleton-heading-item)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/menu)
  */
-const SkeletonHeadingItem = memo(
-  ({
-    width,
-    testId,
-    isShimmering,
-    cssFn = () => ({}),
-  }: SkeletonHeadingItemProps) => (
-    <div
+const SkeletonHeadingItem = ({
+  testId,
+  width,
+  cssFn = noop as any,
+}: SkeletonHeadingItemProps) => (
+  <div
+    style={
+      {
+        '--width': width,
+      } as CSSProperties
+    }
+    css={[
+      skeletonStyles,
+      width ? customWidthStyles : defaultWidthStyles,
       // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
-      css={[skeletonHeadingItemCSS(width, isShimmering), cssFn(undefined)]}
-      data-ds--menu--skeleton-heading-item
-      data-testid={testId}
-    />
-  ),
+      cssFn(undefined),
+    ]}
+    data-ds--menu--skeleton-heading-item
+    data-testid={testId}
+  />
 );
 
 export default SkeletonHeadingItem;

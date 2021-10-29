@@ -1,5 +1,11 @@
 import { MediaBaseAttributes } from '@atlaskit/adf-schema';
 import { getMediaClient } from '@atlaskit/media-client';
+import { EditorState } from 'prosemirror-state';
+import {
+  findParentNodeOfType,
+  removeParentNodeOfType,
+  removeSelectedNode,
+} from 'prosemirror-utils';
 import { MediaPluginState } from '../pm-plugins/types';
 
 export const getSelectedMediaContainerNodeAttrs = (
@@ -33,4 +39,18 @@ export const downloadMedia = async (
   } catch (err) {
     return false;
   }
+};
+
+export const removeMediaGroupNode = (state: EditorState) => {
+  const { mediaGroup } = state.schema.nodes;
+  const mediaGroupParent = findParentNodeOfType(mediaGroup)(state.selection);
+
+  let tr = state.tr;
+  // If it is the last media group in filmstrip, remove the entire filmstrip
+  if (mediaGroupParent && mediaGroupParent.node.childCount === 1) {
+    tr = removeParentNodeOfType(mediaGroup)(tr);
+  } else {
+    tr = removeSelectedNode(tr);
+  }
+  return tr;
 };

@@ -17,6 +17,14 @@ describe('getCardPreviewFromBackend()', () => {
     getImage: jest.fn(() => 'some-blob'),
   } as unknown) as MediaClient;
 
+  const params = {
+    width: 33,
+    height: 44,
+    collection: 'some-collection',
+    mode: 'crop' as const,
+    allowAnimated: true,
+  };
+
   it('should throw a MediaCardError if getImage throws an error', async () => {
     const error = new Error('A Media Client Error');
     asMockFunction(mediaClient.getImage).mockRejectedValueOnce(error);
@@ -25,9 +33,7 @@ describe('getCardPreviewFromBackend()', () => {
       cardPreview = await getCardPreviewFromBackend(
         mediaClient,
         'some-id',
-        { width: 33, height: 44 },
-        'some-collection',
-        'crop',
+        params,
       );
     } catch (e) {
       expect(isRemotePreviewError(e)).toBe(true);
@@ -40,43 +46,14 @@ describe('getCardPreviewFromBackend()', () => {
     const cardPreview = await getCardPreviewFromBackend(
       mediaClient,
       'some-id',
-      { width: 33, height: 44 },
-      'some-collection',
-      'crop',
+      params,
     );
     expect(cardPreview?.dataURI).toEqual(
       'mock result of URL.createObjectURL()',
     );
     expect(cardPreview.source).toEqual('remote');
     expect(cardPreview?.orientation).toEqual(1);
-    expect(mediaClient.getImage).toBeCalledWith('some-id', {
-      collection: 'some-collection',
-      mode: 'crop',
-      width: 33,
-      height: 44,
-      allowAnimated: true,
-    });
-  });
-
-  it('should change mode from stretchy-fit to full-fit while passing down to getImage call', async () => {
-    const cardPreview = await getCardPreviewFromBackend(
-      mediaClient,
-      'some-id',
-      { width: 33, height: 44 },
-      'some-collection',
-      'stretchy-fit',
-    );
-    expect(cardPreview?.dataURI).toEqual(
-      'mock result of URL.createObjectURL()',
-    );
-    expect(cardPreview?.orientation).toEqual(1);
-    expect(mediaClient.getImage).toBeCalledWith('some-id', {
-      collection: 'some-collection',
-      mode: 'full-fit',
-      width: 33,
-      height: 44,
-      allowAnimated: true,
-    });
+    expect(mediaClient.getImage).toBeCalledWith('some-id', params);
   });
 });
 

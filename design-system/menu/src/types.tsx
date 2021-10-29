@@ -65,7 +65,12 @@ export interface MenuGroupProps extends MenuGroupSizing {
   onClick?: (event: React.MouseEvent | React.KeyboardEvent) => void;
 }
 
-export interface SectionBaseProps {
+export interface SectionProps {
+  /**
+   * Unique identifier for the element.
+   */
+  id?: string;
+
   /**
    * Enables scrolling within the section.
    * Make sure to set `maxHeight` on the parent `MenuGroup` component else it will not work.
@@ -90,9 +95,7 @@ export interface SectionBaseProps {
    * serving as a hook for automated tests.
    */
   testId?: string;
-}
 
-export interface SectionProps extends SectionBaseProps {
   // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
   overrides?: {
     HeadingItem?: {
@@ -111,7 +114,28 @@ export interface SectionProps extends SectionBaseProps {
    */
   title?: string;
 }
-export interface BaseItemProps {
+
+export interface MenuItemPrimitiveProps {
+  children: (props: {
+    className: string;
+    'data-testid': string | undefined;
+    children: React.ReactNode;
+  }) => JSX.Element;
+  title: React.ReactNode | undefined;
+  description: React.ReactNode | undefined;
+  iconAfter: React.ReactNode | undefined;
+  iconBefore: React.ReactNode | undefined;
+  // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
+  overrides: Overrides | undefined;
+  shouldTitleWrap: boolean | undefined;
+  shouldDescriptionWrap: boolean | undefined;
+  isDisabled: boolean | undefined;
+  isSelected: boolean | undefined;
+  className?: string;
+  testId?: string;
+}
+
+export interface MenuItemProps {
   /**
    * A function that can be used to override the styles of the component.
    * It receives the current styles and state and expects a styles object.
@@ -186,7 +210,7 @@ export interface BaseItemProps {
   shouldDescriptionWrap?: boolean;
 }
 
-export interface ButtonItemProps extends BaseItemProps {
+export interface ButtonItemProps extends MenuItemProps {
   /**
    * Unique identifier for the element.
    */
@@ -198,7 +222,7 @@ export interface ButtonItemProps extends BaseItemProps {
   role?: string;
 }
 
-export interface LinkItemProps extends BaseItemProps {
+export interface LinkItemProps extends MenuItemProps {
   /**
    * Link to another page.
    */
@@ -283,7 +307,7 @@ export interface CustomItemComponentProps {
 
 export interface CustomItemProps<
   TCustomComponentProps = CustomItemComponentProps
-> extends BaseItemProps {
+> extends MenuItemProps {
   /**
    * Custom component to render as an item.
    * This can be both a functional component or a class component.
@@ -311,6 +335,7 @@ export interface SkeletonItemProps {
   hasIcon?: boolean;
 
   /**
+   *
    * Width of the skeleton item.
    * Generally you don't need to specify this as it has a staggered width based on `:nth-child` by default.
    */
@@ -366,6 +391,7 @@ export interface HeadingItemProps {
 
 export interface SkeletonHeadingItemProps {
   /**
+   *
    * Width of the skeleton heading item.
    * Generally you don't need to specify this as it has a staggered width based on `:nth-child` by default.
    */

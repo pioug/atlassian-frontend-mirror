@@ -13,6 +13,7 @@ export type {
   AnalyticsEventPayload,
   AnalyticsEventPayloadWithChannel,
   ErrorEventPayload,
+  ErrorEventAttributes,
 } from './events';
 export type { FormatEventPayload } from './format-events';
 export type { SubstituteEventPayload } from './substitute-events';

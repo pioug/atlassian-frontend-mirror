@@ -1,6 +1,8 @@
+import { CSS_PREFIX } from '../../constants';
+
 /**
- * Transforms a style dictionarty path to a CSS custom property.
+ * Transforms a style dictionary path to a CSS custom property.
  */
 export const customPropertyValue = (path: string[]) => {
-  return path.slice(1).join('-');
+  return [CSS_PREFIX, ...path.slice(1)].join('-');
 };

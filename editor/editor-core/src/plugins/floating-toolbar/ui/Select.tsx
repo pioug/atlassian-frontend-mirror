@@ -22,7 +22,7 @@ export interface Props {
   mountPoint?: HTMLElement;
   boundariesElement?: HTMLElement;
   scrollableElement?: HTMLElement;
-  defaultValue?: SelectOption;
+  defaultValue?: SelectOption | null;
   placeholder?: string;
   onChange?: (change: ValueType<SelectOption>) => void;
   width?: number;

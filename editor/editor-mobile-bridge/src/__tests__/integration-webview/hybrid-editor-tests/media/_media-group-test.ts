@@ -61,10 +61,7 @@ const TestCases = () => {
       await page.switchToWeb();
       await setADFContent(page, mediaGroupMultipleAdf);
       await page.waitForSelector('[data-testid="media-filmstrip"]');
-      await mediaCardSelector();
-
-      const filmstrip = await page.$('[data-testid="media-filmstrip"]');
-      await filmstrip.scrollIntoView();
+      await page.waitForSelector(mediaCardSelector());
 
       const cross = await page.$$('[data-testid="media-card-primary-action"]');
       await cross[0].click();

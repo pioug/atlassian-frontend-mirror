@@ -19,10 +19,10 @@ export interface Props extends WithDimensionsProps {
   testId?: string;
 }
 
-export class RankableTableRow extends React.Component<Props, {}> {
-  innerRef = (innerRefFn: Function) => (ref?: HTMLElement) => {
+export class RankableTableRow extends React.Component<Props> {
+  innerRef = (innerRefFn: Function) => (ref: HTMLTableRowElement) => {
     innerRefFn(ref);
-    if (this.props.innerRef) {
+    if (typeof this.props.innerRef === 'function') {
       this.props.innerRef(ref);
     }
   };
@@ -50,7 +50,7 @@ export class RankableTableRow extends React.Component<Props, {}> {
 
     return (
       <Draggable
-        draggableId={key || `${rowIndex}`}
+        draggableId={key || rowIndex.toString()}
         index={rowIndex}
         isDragDisabled={isRankingDisabled}
       >
@@ -59,7 +59,7 @@ export class RankableTableRow extends React.Component<Props, {}> {
             {...restRowProps}
             {...provided.dragHandleProps}
             {...provided.draggableProps}
-            innerRef={this.innerRef(provided.innerRef)}
+            ref={this.innerRef(provided.innerRef)}
             style={{ ...provided.draggableProps.style, ...inlineStyles }}
             isHighlighted={isHighlighted}
             isRanking={isRanking}

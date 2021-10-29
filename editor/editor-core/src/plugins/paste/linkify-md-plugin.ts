@@ -1,5 +1,5 @@
+import { Match, linkifyMatch } from '@atlaskit/adf-schema';
 import LinkifyIt from 'linkify-it';
-import { linkifyMatch, LinkifyMatch } from '../hyperlink/utils';
 
 // modified version of the original Linkify plugin
 // https://github.com/markdown-it/markdown-it/blob/master/lib/rules_core/linkify.js
@@ -70,7 +70,7 @@ const linkify = (state: any) => {
 
       if (currentToken.type === 'text' && linkify.test(currentToken.content)) {
         const text = currentToken.content;
-        let links: LinkifyMatch[] | null = linkifyMatch(text);
+        let links: Match[] | null = linkifyMatch(text);
         if (!links.length) {
           links = linkify.match(text) || [];
         }

@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { token } from '@atlaskit/tokens';
+
 import { Create } from '../../src';
 
 const onClick = (...args: any[]) => {
@@ -8,7 +10,9 @@ const onClick = (...args: any[]) => {
 const StyledTooltip = () => (
   <span>
     Create
-    <span style={{ color: 'orange' }}> [c]</span>
+    <span style={{ color: token('color.accent.boldOrange', 'orange') }}>
+      [c]
+    </span>
   </span>
 );
 

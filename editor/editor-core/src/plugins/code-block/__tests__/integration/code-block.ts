@@ -116,24 +116,25 @@ const floatingToolbarLanguageSelector = 'div[aria-label="Floating Toolbar"]';
     },
   );
 
-  // This bug isn't fixed. See ticket for details.
-  // https://product-fabric.atlassian.net/browse/ED-7545
-  /*
   BrowserTestCase(
     'code-block: code block selected language correctly changes when moving selection directly from one code block to another where one blocks selected is undefined',
-    { skip: ['edge', 'safari'] },
-    async (client: any, testName: string) => {
-      const page = new Page(client);
-      await page.goto(editor.path);
-      await page.waitForSelector(editor.placeholder);
-      await page.click(editor.placeholder);
+    { skip: [] },
+    async (client: any) => {
+      const page = await goToEditorTestingWDExample(client);
+
+      await mountEditor(page, {
+        appearance: editor as EditorAppearance,
+      });
+
       // Insert code block
-      await insertBlockMenuItem(page, messages.codeblock.defaultMessage);
+      await page.click(`[aria-label="${messages.codeblock.defaultMessage}"]`);
       await page.waitForSelector(codeBlockSelectors.languageSelectInput);
       // Move out of code block
       await page.keys(['ArrowDown']);
+      await page.keys('Return');
       // Insert a second code block
-      await insertBlockMenuItem(page, messages.codeblock.defaultMessage);
+      await page.click(`[aria-label="${messages.codeblock.defaultMessage}"]`);
+
       // Make sure the second code block doesn't have a language set.
       await page.waitForSelector(codeBlockSelectors.languageSelectInput);
       const secondCodeblockInitialLanguage = await page.getText(
@@ -141,7 +142,7 @@ const floatingToolbarLanguageSelector = 'div[aria-label="Floating Toolbar"]';
       );
       expect(secondCodeblockInitialLanguage.trim()).toEqual('Select language');
       // Set a language on the second code block
-      await page.type(codeBlockSelectors.languageSelectInput, ['C'])
+      await page.type(codeBlockSelectors.languageSelectInput, ['Arduino']);
       await page.keys(['Return']);
 
       // Check that the language on the first code block is still the same
@@ -153,7 +154,6 @@ const floatingToolbarLanguageSelector = 'div[aria-label="Floating Toolbar"]';
       expect(firstBlockLanguage.trim()).toEqual('Select language');
     },
   );
-  */
 });
 
 // https://product-fabric.atlassian.net/browse/ED-12780

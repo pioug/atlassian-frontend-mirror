@@ -152,6 +152,7 @@ const mapActivityProviderResultToLinkSearchItemData = ({
   iconUrl,
   url,
   lastViewedDate: viewedTimestamp ? new Date(viewedTimestamp) : undefined,
+  prefetch: true,
 });
 
 const mapSearchProviderResultToLinkSearchItemData = ({
@@ -168,6 +169,7 @@ const mapSearchProviderResultToLinkSearchItemData = ({
   url,
   lastUpdatedDate: updatedTimestamp ? new Date(updatedTimestamp) : undefined,
   icon: (contentType && mapContentTypeToIcon[contentType]) || defaultIcon,
+  prefetch: false,
 });
 
 export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
@@ -683,6 +685,7 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
           resultCount: items.length,
           selectedResultId: selectedItem.objectId,
           selectedRelativePosition: selectedIndex,
+          prefetch: selectedItem.prefetch ?? false,
         },
         eventType: EVENT_TYPE.UI,
       });

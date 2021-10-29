@@ -27,6 +27,7 @@ export enum ToolbarMenuItem {
   expand,
   status,
   undo,
+  redo,
 }
 
 export const mainToolbarSelector = '[data-testid="ak-editor-main-toolbar"]';
@@ -57,6 +58,7 @@ export const toolbarMenuItemsSelectors = {
   [ToolbarMenuItem.expand]: '[aria-label="Expand"]',
   [ToolbarMenuItem.status]: '[aria-label="Status"]',
   [ToolbarMenuItem.undo]: '[aria-label="Undo"]',
+  [ToolbarMenuItem.redo]: '[aria-label="Redo"]',
 };
 
 export const toolbarDropdownMenuSelectors = {

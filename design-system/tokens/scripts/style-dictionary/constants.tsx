@@ -1,5 +1,6 @@
 export const ALLOWED_THEMES = ['light', 'dark'];
 export const DEFAULT_THEME = 'light';
+export const CSS_PREFIX = 'ds';
 
 // Maps the longer theme name to a shorthand used in css/code
 export const LONG_SHORT_MAPPING: Record<string, string> = {

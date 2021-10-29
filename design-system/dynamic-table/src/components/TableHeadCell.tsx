@@ -1,4 +1,4 @@
-import React, { KeyboardEvent } from 'react';
+import React, { FC, KeyboardEvent, LegacyRef } from 'react';
 
 import { HeadCell } from '../styled/TableHead';
 import { SortOrderType } from '../types';
@@ -8,33 +8,36 @@ export interface Props {
   isSortable?: boolean;
   sortOrder?: SortOrderType;
   isFixedSize?: boolean;
-  innerRef?: (element?: React.ReactElement<any>) => void;
+  innerRef?: LegacyRef<HTMLTableCellElement>;
   inlineStyles?: {};
   content?: React.ReactNode;
   onClick?: () => void;
   onKeyDown?: (e: KeyboardEvent) => void;
   testId?: string;
+  isRanking?: boolean;
 }
 
-class TableHeadCell extends React.Component<Props, {}> {
-  static defaultProps = {
-    innerRef: () => {},
-    inlineStyles: {},
-  };
-
-  render() {
-    const { content, inlineStyles, testId, ...rest } = this.props;
-    return (
-      <HeadCell
-        style={inlineStyles}
-        data-testid={testId && `${testId}--head--cell`}
-        {...rest}
-        tabIndex={rest.isSortable ? 0 : undefined}
-      >
-        <span>{content}</span>
-      </HeadCell>
-    );
-  }
-}
+const TableHeadCell: FC<Props> = ({
+  content,
+  inlineStyles,
+  testId,
+  isRanking,
+  innerRef,
+  isSortable,
+  ...rest
+}) => {
+  return (
+    <HeadCell
+      style={inlineStyles}
+      data-testid={testId && `${testId}--head--cell`}
+      ref={typeof innerRef !== 'string' ? innerRef : null} // string refs must be discarded as LegacyRefs are not compatible with FC forwardRefs
+      {...rest}
+      tabIndex={isSortable ? 0 : undefined}
+      isSortable={isSortable}
+    >
+      <span>{content}</span>
+    </HeadCell>
+  );
+};
 
 export default TableHeadCell;

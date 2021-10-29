@@ -1,12 +1,11 @@
+/** @jsx jsx */
 import React from 'react';
 
-import styled from 'styled-components';
+import { jsx } from '@emotion/core';
 
 import DynamicTable from '../src';
 
-const Wrapper = styled.div`
-  min-width: 600px;
-`;
+import Wrapper from './components/wrapper';
 
 const days = ['Time', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
 

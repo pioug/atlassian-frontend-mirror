@@ -38,7 +38,7 @@
     "@atlaskit/build-utils": "*",
     "@atlaskit/button": "^16.0.0",
     "@atlaskit/docs": "^9.0.0",
-    "@atlaskit/media-card": "^71.0.0",
+    "@atlaskit/media-card": "^72.0.0",
     "@atlaskit/media-common": "^2.7.0",
     "@atlaskit/media-test-helpers": "^28.8.0",
     "@atlaskit/ssr": "*",

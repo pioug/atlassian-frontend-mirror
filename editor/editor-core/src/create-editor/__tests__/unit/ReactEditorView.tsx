@@ -1,17 +1,43 @@
 const mockStopMeasureDuration = 1234;
+const mockStartTime = 1;
+const mockResponseTime = 200;
 jest.mock('@atlaskit/editor-common', () => ({
   ...jest.requireActual<Object>('@atlaskit/editor-common'),
   startMeasure: jest.fn(),
-  measureRender: jest.fn(),
+  measureRender: jest.fn(async (name: string, callback: Function) => {
+    await Promise.resolve(0);
+    callback(mockStopMeasureDuration, mockStartTime);
+  }),
   stopMeasure: jest.fn(
     (
       measureName: string,
       onMeasureComplete?: (duration: number, startTime: number) => void,
     ) => {
-      onMeasureComplete && onMeasureComplete(mockStopMeasureDuration, 1);
+      onMeasureComplete &&
+        onMeasureComplete(mockStopMeasureDuration, mockStartTime);
     },
   ),
   isPerformanceAPIAvailable: jest.fn(() => true),
+  getResponseEndTime: jest.fn(() => mockResponseTime),
+}));
+
+const mockStore = {
+  get: jest.fn(),
+  getAll: jest.fn(),
+  start: jest.fn(),
+  addMetadata: jest.fn(),
+  mark: jest.fn(),
+  success: jest.fn(),
+  fail: jest.fn(),
+  abort: jest.fn(),
+  failAll: jest.fn(),
+  abortAll: jest.fn(),
+};
+jest.mock('@atlaskit/editor-common/ufo', () => ({
+  ...jest.requireActual<Object>('@atlaskit/editor-common/ufo'),
+  ExperienceStore: {
+    getInstance: () => mockStore,
+  },
 }));
 
 import React from 'react';
@@ -40,7 +66,6 @@ import {
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 import { MentionProvider } from '@atlaskit/mention/resource';
 import { EventDispatcher } from '../../../event-dispatcher';
-
 import {
   ACTION,
   ACTION_SUBJECT,
@@ -60,8 +85,12 @@ import {
   PROSEMIRROR_RENDERED_NORMAL_SEVERITY_THRESHOLD,
   PROSEMIRROR_RENDERED_DEGRADED_SEVERITY_THRESHOLD,
 } from '../../consts';
-
 import * as FireAnalyticsEvent from '../../../plugins/analytics/fire-analytics-event';
+import { flushPromises } from '../../../__tests__/__helpers/utils';
+import {
+  EditorExperience,
+  RELIABILITY_INTERVAL,
+} from '@atlaskit/editor-common/ufo';
 
 const portalProviderAPI: any = {
   render() {},
@@ -104,7 +133,7 @@ describe('@atlaskit/editor-core', () => {
   });
 
   afterEach(() => {
-    (FireAnalyticsEvent.fireAnalyticsEvent as jest.Mock).mockRestore();
+    jest.clearAllMocks();
   });
 
   describe('<ReactEditorView />', () => {
@@ -205,6 +234,35 @@ describe('@atlaskit/editor-core', () => {
         }),
       });
       wrapper.unmount();
+    });
+
+    it('triggers ACTION.UFO_SESSION_COMPLETE analytics with predefined interval when ufo enabled', () => {
+      jest.useFakeTimers();
+      const wrapper = mountWithIntl(
+        <ReactEditorView
+          {...requiredProps()}
+          {...analyticsProps()}
+          editorProps={{ featureFlags: { ufo: true } }}
+        />,
+      );
+
+      const payload = {
+        action: ACTION.UFO_SESSION_COMPLETE,
+        actionSubject: ACTION_SUBJECT.EDITOR,
+        attributes: { interval: RELIABILITY_INTERVAL },
+        eventType: EVENT_TYPE.OPERATIONAL,
+      };
+      expect(mockFire).not.toHaveBeenCalledWith({ payload });
+      jest.advanceTimersByTime(RELIABILITY_INTERVAL);
+      expect(mockFire).toHaveBeenCalledWith({ payload });
+
+      (mockFire as jest.Mock).mockClear();
+
+      jest.advanceTimersByTime(RELIABILITY_INTERVAL);
+      expect(mockFire).toHaveBeenCalledWith({ payload });
+
+      wrapper.unmount();
+      jest.useRealTimers();
     });
 
     describe('when a transaction is dispatched', () => {
@@ -814,6 +872,167 @@ describe('@atlaskit/editor-core', () => {
         expect(eventDispatcher.emit).not.toHaveBeenCalled();
       });
     });
+
+    describe('ufo', () => {
+      afterEach(() => {
+        jest.clearAllMocks();
+      });
+
+      describe('load', () => {
+        describe('when feature flag enabled', () => {
+          beforeEach(async () => {
+            mountWithIntl(
+              <ReactEditorView
+                {...requiredProps()}
+                editorProps={{ featureFlags: { ufo: true } }}
+              />,
+            );
+            await flushPromises();
+          });
+
+          it('adds prosemirror rendered mark to editor load experience', () => {
+            expect(mockStore.mark).toHaveBeenCalledWith(
+              EditorExperience.loadEditor,
+              'proseMirrorRendered',
+              mockStopMeasureDuration + mockStartTime,
+            );
+          });
+
+          it('adds metadata for ttfb and nodes to editor load experience', () => {
+            expect(mockStore.addMetadata).toHaveBeenCalledWith(
+              EditorExperience.loadEditor,
+              {
+                ttfb: mockResponseTime,
+                nodes: { paragraph: 1 },
+              },
+            );
+          });
+        });
+
+        describe('when feature flag not enabled', () => {
+          it("doesn't interact with experience at all", () => {
+            expect(mockStore.mark).not.toHaveBeenCalled();
+            expect(mockStore.addMetadata).not.toHaveBeenCalled();
+          });
+        });
+      });
+
+      describe('interaction', () => {
+        describe('when feature flag enabled', () => {
+          let editor: any;
+
+          describe('and valid transaction is applied', () => {
+            beforeEach(async () => {
+              const wrapper = mountWithIntl(
+                <ReactEditorView
+                  {...requiredProps()}
+                  editorProps={{
+                    featureFlags: { ufo: true },
+                    performanceTracking: {
+                      transactionTracking: { enabled: true, samplingRate: 1 },
+                    },
+                    onChange: () => {},
+                    allowDate: true,
+                  }}
+                />,
+              );
+              await flushPromises();
+
+              // trigger a transaction
+              editor = wrapper.instance() as ReactEditorView;
+              editor.view.dispatch(editor.view.state.tr.insertText('hello'));
+            });
+
+            it('starts new interaction experience', () => {
+              expect(mockStore.start).toHaveBeenCalledWith(
+                EditorExperience.interaction,
+              );
+            });
+
+            it.each([
+              'stateApply',
+              'viewUpdateState',
+              'onEditorViewStateUpdated',
+              'onChange',
+              'dispatchTransaction',
+            ])('adds %s mark to interaction experience', (mark) => {
+              expect(mockStore.mark).toHaveBeenCalledWith(
+                EditorExperience.interaction,
+                mark,
+                expect.any(Number),
+              );
+            });
+
+            it('succeeds interaction experience', () => {
+              expect(mockStore.success).toHaveBeenCalledWith(
+                EditorExperience.interaction,
+              );
+            });
+          });
+
+          describe('and invalid transaction is applied', () => {
+            it('fails interaction experience if an invalid transaction is applied', async () => {
+              const wrapper = mountWithIntl(
+                <ReactEditorView
+                  {...requiredProps()}
+                  editorProps={{
+                    featureFlags: { ufo: true },
+                    performanceTracking: {
+                      transactionTracking: { enabled: true, samplingRate: 1 },
+                    },
+                    onChange: () => {},
+                    allowDate: true,
+                  }}
+                />,
+              );
+              await flushPromises();
+
+              // invalid transaction with date node as child of code block
+              editor = wrapper.instance() as ReactEditorView;
+              const { date, codeBlock } = editor.view.state.schema.nodes;
+              editor.view.dispatch(
+                editor.view.state.tr.replaceSelectionWith(
+                  codeBlock.create({}, date.create()),
+                ),
+              );
+
+              expect(mockStore.success).not.toHaveBeenCalled();
+              expect(mockStore.fail).toHaveBeenCalledWith(
+                EditorExperience.interaction,
+                {
+                  reason: 'invalid transaction',
+                  invalidNodes: 'codebl(date())',
+                },
+              );
+            });
+          });
+        });
+
+        describe('when feature flag not enabled', () => {
+          it("doesn't start new interaction experience", async () => {
+            const wrapper = mountWithIntl(
+              <ReactEditorView
+                {...requiredProps()}
+                editorProps={{
+                  performanceTracking: {
+                    transactionTracking: { enabled: true, samplingRate: 1 },
+                  },
+                }}
+              />,
+            );
+            await flushPromises();
+
+            // trigger a transaction
+            const editor: any = wrapper.instance() as ReactEditorView;
+            editor.view.dispatch(editor.view.state.tr.insertText('hello'));
+
+            expect(mockStore.start).not.toHaveBeenCalledWith(
+              EditorExperience.interaction,
+            );
+          });
+        });
+      });
+    });
   });
 
   describe('sanitize private content', () => {
@@ -1074,6 +1293,19 @@ describe('@atlaskit/editor-core', () => {
       const actual = shouldReconfigureState(props, nextProps);
 
       expect(actual).toBe(false);
+    });
+  });
+
+  describe('resetEditorState', () => {
+    it('should call createEditorState', () => {
+      const wrapper = mountWithIntl(<ReactEditorView {...requiredProps()} />);
+
+      const instance = wrapper.instance();
+      const mock = jest.spyOn(instance, 'createEditorState');
+
+      instance.resetEditorState({ doc: '', shouldScrollToBottom: false });
+
+      expect(mock).toHaveBeenCalled();
     });
   });
 

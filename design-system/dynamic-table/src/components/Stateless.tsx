@@ -52,7 +52,7 @@ export interface State {
 }
 
 class DynamicTable extends React.Component<Props, State> {
-  tableBody?: React.ComponentType<any>;
+  tableBody?: HTMLDivElement;
 
   state = {
     isRanking: false,

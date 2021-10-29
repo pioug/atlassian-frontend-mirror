@@ -23,9 +23,9 @@ class UFOLogger {
 export const ufologger = new UFOLogger();
 
 export const ufolog = (...args: Array<any>) => {
-  ufologger.log(args);
+  ufologger.log(...args);
 };
 
 export const ufowarn = (...args: Array<any>) => {
-  ufologger.warn(args);
+  ufologger.warn(...args);
 };

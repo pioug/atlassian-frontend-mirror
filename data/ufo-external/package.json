@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/ufo",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "UFO external part",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -26,7 +26,7 @@
     "./global-stream-buffer": "./src/global-stream-buffer/index.ts",
     "./logger": "./src/logger/index.ts",
     "./platform-client": "./src/platform-client/index.ts",
-    "./types": "./src/types/types.ts",
+    "./types": "./src/types.ts",
     ".": "./src/index.ts"
   },
   "dependencies": {

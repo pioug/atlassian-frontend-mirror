@@ -9,4 +9,5 @@ export interface PanelPluginOptions
 
 export interface PanelPluginConfig {
   UNSAFE_allowCustomPanel?: boolean;
+  UNSAFE_allowCustomPanelEdit?: boolean;
 }

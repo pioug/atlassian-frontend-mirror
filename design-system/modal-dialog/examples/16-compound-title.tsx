@@ -5,6 +5,7 @@ import Lorem from 'react-lorem-component';
 import Button from '@atlaskit/button/standard-button';
 import CrossIcon from '@atlaskit/icon/glyph/cross';
 import { R400 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import ModalDialog, {
   ModalBody,
@@ -39,7 +40,11 @@ const CustomHeader = () => {
       </h3>
       <span style={{ position: 'absolute', right: 0, top: 4 }}>
         <Button onClick={onClose} appearance="link">
-          <CrossIcon label="Close Modal" primaryColor={R400} size="small" />
+          <CrossIcon
+            label="Close Modal"
+            primaryColor={token('color.iconBorder.danger', R400)}
+            size="small"
+          />
         </Button>
       </span>
     </div>

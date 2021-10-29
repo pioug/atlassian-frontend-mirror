@@ -291,6 +291,7 @@ export class EmbedCardComponent extends React.PureComponent<
 
             const smartCard = (
               <SmartCard
+                key={url}
                 url={url}
                 appearance="embed"
                 onClick={this.onClick}

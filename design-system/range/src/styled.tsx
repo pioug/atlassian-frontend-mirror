@@ -5,8 +5,9 @@ import { CSSProperties, forwardRef, useMemo } from 'react';
 
 import { css, jsx } from '@emotion/core';
 
+import { N50A, N60A } from '@atlaskit/theme/colors';
 import { fontFamily } from '@atlaskit/theme/constants';
-import { e200 } from '@atlaskit/theme/elevation';
+import { token } from '@atlaskit/tokens';
 
 import { ThemeTokens, ThemeTokensTrack } from './theme';
 
@@ -33,6 +34,10 @@ const getBackgroundGradient = ({ lower, upper }: ThemeTokensTrack) =>
       background-position: right;
     }
   `;
+const elevationStyle = token(
+  'shadow.overlay',
+  `0 4px 8px -2px ${N50A}, 0 0 1px ${N60A}`,
+);
 
 // Thumb style
 const sliderThumbStyle = ({ thumb }: ThemeTokens) => {
@@ -44,7 +49,7 @@ const sliderThumbStyle = ({ thumb }: ThemeTokens) => {
     width: ${sliderThumbSize}px;
     box-sizing: border-box;
     transition: border-color ${transitionDuration} ease-in-out;
-    ${e200()};
+    box-shadow: ${elevationStyle}
   `;
 };
 
@@ -73,7 +78,7 @@ const chromeRangeInputStyle = (tokens: ThemeTokens) => {
 
   &:disabled::-webkit-slider-thumb {
     cursor: not-allowed;
-    box-shadow: 0 0 1px ${tokens.thumb.disabled.boxShadow};
+    box-shadow: ${tokens.thumb.disabled.boxShadow};
   }
 
   &::-webkit-slider-runnable-track {
@@ -113,7 +118,7 @@ const firefoxRangeInputStyle = (tokens: ThemeTokens) => {
 
   &:disabled::-moz-range-thumb {
     cursor: not-allowed;
-    box-shadow: 0 0 1px ${tokens.thumb.disabled.boxShadow};
+    box-shadow: ${tokens.thumb.disabled.boxShadow};
   }
 
   &::-moz-range-progress {
@@ -161,7 +166,7 @@ const IERangeInputStyle = (tokens: ThemeTokens) => {
 
   &:disabled::-ms-thumb {
     cursor: not-allowed;
-    box-shadow: 0 0 1px ${tokens.thumb.disabled.boxShadow};
+    box-shadow: ${tokens.thumb.disabled.boxShadow};
   }
 
   &::-ms-track {
@@ -255,6 +260,7 @@ export const Input = forwardRef(
         {...strippedProps}
         style={{ '--range-inline-width': `${valuePercent}%` } as CSSProperties}
         ref={ref}
+        // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
         css={styles}
       />
     );

@@ -1,5 +1,18 @@
 # @atlaskit/editor-mobile-bridge
 
+## 29.1.0
+
+### Minor Changes
+
+- [`f235d19dcdb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f235d19dcdb) - Added an api for creating a brand new editor state when replacing the document using editorActions
+
+### Patch Changes
+
+- [`f62ab91e171`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f62ab91e171) - When we set the content in editor-mobile-bridge, we also reset all the providers
+- [`f897443ad45`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f897443ad45) - Revert AK-279
+- [`a554946e674`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a554946e674) - Skipping flakey tests to unblock the weasal release
+- Updated dependencies
+
 ## 29.0.12
 
 ### Patch Changes

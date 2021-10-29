@@ -43,7 +43,7 @@ const mockProvidersResponse: ORSProvidersResponse = {
       patterns: [
         {
           source:
-            '^https:\\/\\/.*?\\.jira-dev\\.com\\/jira\\/polaris\\/projects\\/[^\\/]+?\\/ideas\\/view\\/\\d+',
+            '^https:\\/\\/.*?\\/jira\\/polaris\\/projects\\/[^\\/]+?\\/ideas\\/view\\/\\d+$|^https:\\/\\/.*?\\/secure\\/JiraProductDiscoveryAnonymous\\.jspa\\?hash=\\w+|^https:\\/\\/.*?\\/jira\\/polaris\\/share\\/\\w+',
           flags: '',
         },
       ],
@@ -195,6 +195,60 @@ describe('providers > editor', () => {
     }));
     const url =
       'https://polaris-v0.jira-dev.com/jira/polaris/projects/CS10/ideas/view/8981';
+    const adf = await provider.resolve(url, 'inline');
+    expect(adf).toEqual({
+      type: 'embedCard',
+      attrs: {
+        url,
+        layout: 'wide',
+      },
+    });
+  });
+
+  it('returns embedCard when Polaris anonymous share view link inserted, calling /providers endpoint', async () => {
+    const provider = new EditorCardProvider();
+    mockFetch.mockImplementationOnce(async () => ({
+      json: async () => mockProvidersResponse,
+      ok: true,
+    }));
+    const url =
+      'https://polaris-v0.jira-dev.com/jira/polaris/share/b2029c50914309acb37699615b1137da5';
+    const adf = await provider.resolve(url, 'inline');
+    expect(adf).toEqual({
+      type: 'embedCard',
+      attrs: {
+        url,
+        layout: 'wide',
+      },
+    });
+  });
+
+  it('returns embedCard when Polaris anonymous share view fullscreen link inserted, calling /providers endpoint', async () => {
+    const provider = new EditorCardProvider();
+    mockFetch.mockImplementationOnce(async () => ({
+      json: async () => mockProvidersResponse,
+      ok: true,
+    }));
+    const url =
+      'https://polaris-v0.jira-dev.com/jira/polaris/share/89cb70599021ac29e227fc49c56782969?fullscreen=true';
+    const adf = await provider.resolve(url, 'inline');
+    expect(adf).toEqual({
+      type: 'embedCard',
+      attrs: {
+        url,
+        layout: 'wide',
+      },
+    });
+  });
+
+  it('returns embedCard when Polaris anonymous resolved view link inserted, calling /providers endpoint', async () => {
+    const provider = new EditorCardProvider();
+    mockFetch.mockImplementationOnce(async () => ({
+      json: async () => mockProvidersResponse,
+      ok: true,
+    }));
+    const url =
+      'https://polaris-v0.jira-dev.com/secure/JiraProductDiscoveryAnonymous.jspa?hash=b2029c50914309acb37699615b1137da5';
     const adf = await provider.resolve(url, 'inline');
     expect(adf).toEqual({
       type: 'embedCard',

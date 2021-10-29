@@ -1,5 +1,12 @@
 # @atlaskit/select
 
+## 15.2.4
+
+### Patch Changes
+
+- [`401179b652b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/401179b652b) - PopupSelect now returns focus to the "trigger" element on close.
+- Updated dependencies
+
 ## 15.2.3
 
 ### Patch Changes

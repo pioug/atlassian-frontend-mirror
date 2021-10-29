@@ -25,7 +25,7 @@ const cssFn: CSSFn = (state) => {
     position: 'relative',
     overflow: 'hidden',
     userSelect: 'none',
-    ':before': state.isDisabled
+    '::before': state.isDisabled
       ? {}
       : {
           content: '""',
@@ -40,7 +40,7 @@ const cssFn: CSSFn = (state) => {
           backgroundColor: B100,
         },
 
-    ':hover:before': state.isDisabled
+    ':hover::before': state.isDisabled
       ? {}
       : {
           transform: 'translateX(0)',

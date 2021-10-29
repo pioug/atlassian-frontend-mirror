@@ -27,6 +27,7 @@ export interface BasePluginOptions {
   allowInlineCursorTarget?: boolean;
   inputTracking?: InputTracking;
   browserFreezeTracking?: BrowserFreezetracking;
+  ufo?: boolean;
 }
 
 // Chrome >= 88
@@ -61,14 +62,13 @@ const basePlugin = (options?: BasePluginOptions): EditorPlugin => ({
       { name: 'reactNodeView', plugin: () => reactNodeView },
       {
         name: 'frozenEditor',
-        plugin: ({ dispatchAnalyticsEvent, providerFactory }) => {
-          return options &&
-            options.inputTracking &&
-            options.inputTracking.enabled
+        plugin: ({ dispatchAnalyticsEvent }) => {
+          return options?.inputTracking?.enabled || options?.ufo
             ? frozenEditor(
                 dispatchAnalyticsEvent,
                 options.inputTracking,
                 options.browserFreezeTracking,
+                options.ufo,
               )
             : undefined;
         },

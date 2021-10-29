@@ -123,6 +123,7 @@ export function getDefaultPresetOptionsFromEditorProps(
       allowScrollGutter: getScrollGutterOptions(props),
       inputTracking,
       browserFreezeTracking: props.performanceTracking?.bFreezeTracking,
+      ufo: createFeatureFlagsFromProps(props).ufo,
     },
     blockType: {
       lastNodeMustBeParagraph:
@@ -385,6 +386,8 @@ export default function createPluginsList(
         useLongPressSelection: false,
         UNSAFE_allowCustomPanel: (<PanelPluginConfig>props.allowPanel)
           .UNSAFE_allowCustomPanel,
+        UNSAFE_allowCustomPanelEdit: (<PanelPluginConfig>props.allowPanel)
+          .UNSAFE_allowCustomPanelEdit,
       },
     ]);
   }

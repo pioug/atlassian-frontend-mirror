@@ -1,9 +1,10 @@
 import * as colors from '@atlaskit/theme/colors';
 import { createTheme } from '@atlaskit/theme/components';
+import { token } from '@atlaskit/tokens';
 
 export interface ThemeTokensThumb {
   background: string;
-  border: string;
+  border?: string;
 }
 
 export interface ThemeTokensTrack {
@@ -18,7 +19,6 @@ export interface ThemeTokens {
     focus: ThemeTokensThumb;
   };
   track: {
-    background: string;
     default: ThemeTokensTrack;
     disabled: ThemeTokensTrack;
     hover: ThemeTokensTrack;
@@ -27,33 +27,29 @@ export interface ThemeTokens {
 
 export const thumb = {
   default: {
-    background: colors.N0,
-    // This border color is not being used - awaiting focus state lift to props
-    border: colors.N800,
+    background: token('color.background.card', colors.N0),
   },
   disabled: {
-    boxShadow: colors.N60A,
+    boxShadow: token('shadow.card', `0 0 1px ${colors.N60A}`),
   },
   focus: {
-    // This border color is not being used - awaiting focus state lift to props
-    background: colors.N0,
-    border: colors.B200,
+    background: token('color.background.boldNeutral.resting', colors.N0),
+    border: token('color.border.focus', colors.B200),
   },
 };
 
 export const track = {
-  background: colors.N30A,
   default: {
-    lower: colors.B400,
-    upper: colors.N30,
+    lower: token('color.background.boldBrand.resting', colors.B400),
+    upper: token('color.background.subtleNeutral.resting', colors.N30),
   },
   disabled: {
-    lower: colors.N50,
-    upper: colors.N30,
+    lower: token('color.text.disabled', colors.N50),
+    upper: token('color.background.disabled', colors.N30),
   },
   hover: {
-    lower: colors.B300,
-    upper: colors.N40,
+    lower: token('color.background.boldBrand.hover', colors.B300),
+    upper: token('color.background.subtleNeutral.hover', colors.N40),
   },
 };
 

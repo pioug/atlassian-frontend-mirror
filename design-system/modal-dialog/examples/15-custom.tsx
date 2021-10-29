@@ -11,6 +11,7 @@ import CrossIcon from '@atlaskit/icon/glyph/cross';
 import InlineDialog from '@atlaskit/inline-dialog';
 import { N30, R400, subtleText } from '@atlaskit/theme/colors';
 import { gridSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 import ModalDialog, {
   ModalBody,
@@ -36,7 +37,7 @@ const hintStyles = css({
   display: 'flex',
   marginRight: 'auto',
   alignItems: 'center',
-  color: subtleText(),
+  color: token('color.text.lowEmphasis', subtleText()),
   cursor: 'help',
 });
 
@@ -60,7 +61,11 @@ const CustomHeader = () => {
     <div style={headerStyles}>
       <span style={{ position: 'absolute', right: 0, top: 4 }}>
         <Button onClick={onClose} appearance="link">
-          <CrossIcon label="Close Modal" primaryColor={R400} size="small" />
+          <CrossIcon
+            label="Close Modal"
+            primaryColor={token('color.iconBorder.danger', R400)}
+            size="small"
+          />
         </Button>
       </span>
     </div>
@@ -69,7 +74,7 @@ const CustomHeader = () => {
 
 const bodyStyles: React.CSSProperties = {
   padding: 90,
-  backgroundColor: N30,
+  backgroundColor: token('color.background.overlay', N30),
   overflowY: 'auto',
   overflowX: 'hidden',
 };
@@ -77,13 +82,11 @@ const bodyStyles: React.CSSProperties = {
 const CustomBody = React.forwardRef<
   HTMLDivElement,
   React.AllHTMLAttributes<HTMLDivElement>
->((props, ref) => {
-  return (
-    <div ref={ref} style={bodyStyles}>
-      {props.children}
-    </div>
-  );
-});
+>((props, ref) => (
+  <div ref={ref} style={bodyStyles}>
+    {props.children}
+  </div>
+));
 
 const CustomFooter = () => {
   const [isHintOpen, setIsHintOpen] = useState(false);

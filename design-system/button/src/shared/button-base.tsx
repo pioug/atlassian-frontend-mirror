@@ -5,6 +5,8 @@ import { CSSObject, jsx } from '@emotion/core';
 
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
 import useAutoFocus from '@atlaskit/ds-lib/use-auto-focus';
+import { N500 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import { BaseProps } from '../types';
 
@@ -114,6 +116,22 @@ export default React.forwardRef<HTMLElement, Props>(function ButtonBase(
 
   const isInteractive: boolean = !isDisabled && !hasOverlay;
 
+  /** HACK: Spinner needs to have different colours in the "new" tokens design compared to the old design.
+   * For now, while we support both, these styles reach into Spinner when a theme is set, applies the right color.
+   * Ticket to remove: https://product-fabric.atlassian.net/browse/DSP-2067
+   */
+  var spinnerHackCss = {};
+  if (isSelected || isDisabled || appearance === 'warning') {
+    spinnerHackCss = {
+      '[data-theme] & svg': {
+        stroke:
+          isSelected || isDisabled
+            ? token('color.text.mediumEmphasis', N500)
+            : token('color.text.onBoldWarning', N500),
+      },
+    };
+  }
+
   return (
     <Component
       {...rest}
@@ -143,7 +161,9 @@ export default React.forwardRef<HTMLElement, Props>(function ButtonBase(
       {iconAfter ? (
         <span css={[fadeCss, getIconStyle({ spacing })]}>{iconAfter}</span>
       ) : null}
-      {overlay ? <span css={overlayCss}>{overlay}</span> : null}
+      {overlay ? (
+        <span css={[overlayCss, spinnerHackCss]}>{overlay}</span>
+      ) : null}
     </Component>
   );
 });

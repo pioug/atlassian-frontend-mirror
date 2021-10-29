@@ -275,6 +275,10 @@ export default class PopupSelect<
       this.focusTrap.deactivate();
     }
 
+    if (this.targetRef != null) {
+      this.targetRef.focus();
+    }
+
     if (typeof window === 'undefined') {
       return;
     }

@@ -86,7 +86,7 @@ type FloatingToolbarSelectBase<T, V = SelectOption> = {
   options: V[];
   hidden?: boolean;
   hideExpandIcon?: boolean;
-  defaultValue?: V;
+  defaultValue?: V | null;
   placeholder?: string;
   onChange: (selected: V) => T;
   filterOption?: ((option: V, rawInput: string) => boolean) | null;

@@ -1,16 +1,14 @@
+/** @jsx jsx */
 import React from 'react';
 
-import styled from 'styled-components';
+import { jsx } from '@emotion/core';
 
 import Toggle from '@atlaskit/toggle';
 
 import DynamicTable from '../src';
 
+import Wrapper from './components/wrapper';
 import { caption, createHead, rows } from './content/sample-data';
-
-const Wrapper = styled.div`
-  min-width: 600px;
-`;
 
 interface State {
   isFixedSize: boolean;

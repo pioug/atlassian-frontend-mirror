@@ -14,7 +14,6 @@ describe('Snapshot Test', () => {
     );
     const { page } = global;
     await loadPage(page, url);
-    await page.waitForSelector('button[aria-controls="panel1"]');
     const image = await takeElementScreenShot(page, '[data-testid=vr-hook]');
     expect(image).toMatchProdImageSnapshot();
   });

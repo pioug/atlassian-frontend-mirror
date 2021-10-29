@@ -2,14 +2,13 @@ import { takeSnapshot } from '../../../utils/videoSnapshot';
 import {
   MediaClient,
   FilePreview,
-  ImageResizeMode,
+  MediaStoreGetFileImageParams,
   MediaType,
 } from '@atlaskit/media-client';
 import { getMediaTypeFromMimeType } from '@atlaskit/media-common';
 import { getOrientation } from '@atlaskit/media-ui';
-import { NumericalCardDimensions } from '../../..';
 import { LocalPreviewError, RemotePreviewError } from '../../../errors';
-import { CardPreview } from './types';
+import { CardPreview } from '../../../types';
 
 /**
  * This method tells the support for the media
@@ -77,19 +76,10 @@ export const getCardPreviewFromFilePreview = async (
 export const getCardPreviewFromBackend = async (
   mediaClient: MediaClient,
   id: string,
-  { width, height }: NumericalCardDimensions,
-  collectionName?: string,
-  resizeMode?: ImageResizeMode,
+  params: MediaStoreGetFileImageParams,
 ): Promise<CardPreview> => {
   try {
-    const mode = resizeMode === 'stretchy-fit' ? 'full-fit' : resizeMode;
-    const blob = await mediaClient.getImage(id, {
-      collection: collectionName,
-      mode,
-      width,
-      height,
-      allowAnimated: true,
-    });
+    const blob = await mediaClient.getImage(id, params);
     return {
       dataURI: URL.createObjectURL(blob),
       orientation: 1,

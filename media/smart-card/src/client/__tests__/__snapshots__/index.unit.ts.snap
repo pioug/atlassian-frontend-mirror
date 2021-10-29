@@ -3,7 +3,7 @@
 exports[`Smart Card: Client prefetchData fails silently when prefetching data (stops prefetching) with exponential backoff for an errored URL which recovers with fetch flow: fetch request 1`] = `
 Array [
   "post",
-  "https://api-private.stg.atlassian.com/object-resolver/resolve/batch",
+  "https://commerce-components-preview.dev.atlassian.com/gateway/api/object-resolver/resolve/batch",
   Array [
     Object {
       "resourceUrl": "https://www.google.com/3",
@@ -15,7 +15,7 @@ Array [
 exports[`Smart Card: Client prefetchData fails silently when prefetching data (stops prefetching) with exponential backoff for an errored URL which recovers with fetch flow: initial request 1`] = `
 Array [
   "post",
-  "https://api-private.stg.atlassian.com/object-resolver/resolve/batch",
+  "https://commerce-components-preview.dev.atlassian.com/gateway/api/object-resolver/resolve/batch",
   Array [
     Object {
       "resourceUrl": "https://www.google.com/1",
@@ -35,7 +35,7 @@ exports[`Smart Card: Client prefetchData fails silently when prefetching data (s
 exports[`Smart Card: Client prefetchData fails silently when prefetching data with exponential backoff for an errored URL which does not recover: initial request 1`] = `
 Array [
   "post",
-  "https://api-private.stg.atlassian.com/object-resolver/resolve/batch",
+  "https://commerce-components-preview.dev.atlassian.com/gateway/api/object-resolver/resolve/batch",
   Array [
     Object {
       "resourceUrl": "https://www.google.com/1",
@@ -53,7 +53,7 @@ Array [
 exports[`Smart Card: Client prefetchData fails silently when prefetching data with exponential backoff for an errored URL which does not recover: retry attempt 1 1`] = `
 Array [
   "post",
-  "https://api-private.stg.atlassian.com/object-resolver/resolve/batch",
+  "https://commerce-components-preview.dev.atlassian.com/gateway/api/object-resolver/resolve/batch",
   Array [
     Object {
       "resourceUrl": "https://www.google.com/3",
@@ -65,7 +65,7 @@ Array [
 exports[`Smart Card: Client prefetchData fails silently when prefetching data with exponential backoff for an errored URL which does not recover: retry attempt 2 1`] = `
 Array [
   "post",
-  "https://api-private.stg.atlassian.com/object-resolver/resolve/batch",
+  "https://commerce-components-preview.dev.atlassian.com/gateway/api/object-resolver/resolve/batch",
   Array [
     Object {
       "resourceUrl": "https://www.google.com/3",
@@ -77,7 +77,7 @@ Array [
 exports[`Smart Card: Client prefetchData fails silently when prefetching data with exponential backoff for an errored URL which does not recover: retry attempt 3 1`] = `
 Array [
   "post",
-  "https://api-private.stg.atlassian.com/object-resolver/resolve/batch",
+  "https://commerce-components-preview.dev.atlassian.com/gateway/api/object-resolver/resolve/batch",
   Array [
     Object {
       "resourceUrl": "https://www.google.com/3",
@@ -89,7 +89,7 @@ Array [
 exports[`Smart Card: Client prefetchData successfully triggers prefetching of data for multiple URLs: initial request 1`] = `
 Array [
   "post",
-  "https://api-private.stg.atlassian.com/object-resolver/resolve/batch",
+  "https://commerce-components-preview.dev.atlassian.com/gateway/api/object-resolver/resolve/batch",
   Array [
     Object {
       "resourceUrl": "https://www.google.com/1",
@@ -107,7 +107,7 @@ Array [
 exports[`Smart Card: Client prefetchData successfully triggers prefetching of data with exponential backoff for an errored URL which recovers: initial request 1`] = `
 Array [
   "post",
-  "https://api-private.stg.atlassian.com/object-resolver/resolve/batch",
+  "https://commerce-components-preview.dev.atlassian.com/gateway/api/object-resolver/resolve/batch",
   Array [
     Object {
       "resourceUrl": "https://www.google.com/1",
@@ -125,7 +125,7 @@ Array [
 exports[`Smart Card: Client prefetchData successfully triggers prefetching of data with exponential backoff for an errored URL which recovers: retry attempt 1 1`] = `
 Array [
   "post",
-  "https://api-private.stg.atlassian.com/object-resolver/resolve/batch",
+  "https://commerce-components-preview.dev.atlassian.com/gateway/api/object-resolver/resolve/batch",
   Array [
     Object {
       "resourceUrl": "https://www.google.com/3",
@@ -137,7 +137,7 @@ Array [
 exports[`Smart Card: Client prefetchData successfully triggers prefetching of data with exponential backoff for an errored URL which recovers: retry attempt 2 1`] = `
 Array [
   "post",
-  "https://api-private.stg.atlassian.com/object-resolver/resolve/batch",
+  "https://commerce-components-preview.dev.atlassian.com/gateway/api/object-resolver/resolve/batch",
   Array [
     Object {
       "resourceUrl": "https://www.google.com/3",

@@ -12,6 +12,8 @@ import {
 
 export const statusStyles = css`
   .${StatusSharedCssClassName.STATUS_CONTAINER} {
+    display: inline-block;
+
     > span {
       display: inline-block;
       cursor: pointer;

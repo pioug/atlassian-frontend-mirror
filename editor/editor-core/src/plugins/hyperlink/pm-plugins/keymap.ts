@@ -1,7 +1,7 @@
 import { keymap } from 'prosemirror-keymap';
 import { Plugin, EditorState } from 'prosemirror-state';
+import { Match, getLinkMatch } from '@atlaskit/adf-schema';
 import * as keymaps from '../../../keymaps';
-import { Match, getLinkMatch } from '../utils';
 import { HyperlinkState, stateKey } from '../pm-plugins/main';
 import { showLinkToolbar, hideLinkToolbar } from '../commands';
 import { queueCards } from '../../card/pm-plugins/actions';

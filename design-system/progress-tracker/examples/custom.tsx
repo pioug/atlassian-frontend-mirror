@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
 
 import { BrowserRouter, Link } from 'react-router-dom';
-import styled from 'styled-components';
 
 import { N800 } from '@atlaskit/theme/colors';
 
@@ -47,24 +46,30 @@ const items: Stages = [
   },
 ];
 
-interface Props {
-  /** stage data passed to each `ProgressTrackerStage` component */
+interface CustomProgressTrackerLinkProps {
+  /**
+   * stage data passed to each `ProgressTrackerStage` component
+   */
   item: Stage;
 }
 
-const StyledLink = styled(Link)`
-  color: ${N800};
-`;
-
-class CustomProgressTrackerLink extends PureComponent<Props> {
+class CustomProgressTrackerLink extends PureComponent<
+  CustomProgressTrackerLinkProps
+> {
   render() {
     const { href = '', label } = this.props.item;
-    return <StyledLink to={href}>{label}</StyledLink>;
+    return (
+      <Link style={{ color: N800 }} to={href}>
+        {label}
+      </Link>
+    );
   }
 }
 
 const render = {
-  link: (props: Props) => <CustomProgressTrackerLink {...props} />,
+  link: (props: CustomProgressTrackerLinkProps) => (
+    <CustomProgressTrackerLink {...props} />
+  ),
 };
 
 export default () => (

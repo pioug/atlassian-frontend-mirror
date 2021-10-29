@@ -1,4 +1,3 @@
-import { MediaFeatureFlags } from '@atlaskit/media-common/mediaFeatureFlags';
 import Dataloader from 'dataloader';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { from } from 'rxjs/observable/from';
@@ -9,7 +8,7 @@ import { FileState, mapMediaItemToFileState } from '../../models/file-state';
 import { DataloaderKey, DataloaderResult } from '../createFileDataLoader';
 import { createFileStateSubject } from '../createFileStateSubject';
 import { isEmptyFile } from '../detectEmptyFile';
-import { getPollingOptions, PollingFunction } from '../polling';
+import { PollingFunction } from '../polling';
 import { MobileUploadError } from './error';
 import {
   StateMachineContext,
@@ -39,10 +38,9 @@ export const createMobileDownloadFileStream = (
   id: string,
   collectionName?: string,
   occurrenceKey?: string,
-  featureFlags?: MediaFeatureFlags,
 ): ReplaySubject<FileState> => {
   const subject = createFileStateSubject();
-  const poll = new PollingFunction(getPollingOptions(featureFlags));
+  const poll = new PollingFunction();
 
   // ensure subject errors if polling exceeds max iterations or uncaught exception in executor
   poll.onError = (error: Error) => subject.error(error);

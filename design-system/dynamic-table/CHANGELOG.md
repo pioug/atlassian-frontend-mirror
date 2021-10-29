@@ -1,5 +1,20 @@
 # @atlaskit/dynamic-table
 
+## 14.4.0
+
+### Minor Changes
+
+- [`dc35866892f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dc35866892f) - [ux] Instrumented dynamic-table with the new theming package, @atlaskit/tokens.
+
+  New tokens will be visible only in applications configured to use the new Tokens API (currently in alpha).
+  These changes are intended to be interoperable with the legacy theme implementation. Legacy dark mode users should expect no visual or breaking changes.
+
+- [`ca00a7783a9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ca00a7783a9) - Removes `styled-components` as a peer dependency in favour of a direct dependency on `emotion`.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.3.2
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @atlaskit/media-common
 
+## 2.9.1
+
+### Patch Changes
+
+- [`fe9ced0cd70`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fe9ced0cd70) - Removed feature flags for polling settings
+
 ## 2.9.0
 
 ### Minor Changes

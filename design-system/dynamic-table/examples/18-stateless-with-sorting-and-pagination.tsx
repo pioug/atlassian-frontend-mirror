@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+/** @jsx jsx */
+import { useState } from 'react';
 
-import styled from 'styled-components';
+import { jsx } from '@emotion/core';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
@@ -8,11 +9,8 @@ import Button from '@atlaskit/button/standard-button';
 import { DynamicTableStateless } from '../src';
 import { SortOrderType } from '../src/types';
 
+import Wrapper from './components/wrapper';
 import { caption, head, rows } from './content/sample-data';
-
-const Wrapper = styled.div`
-  min-width: 600px;
-`;
 
 const DefaultComponent = () => {
   const [pageNumber, setPageNumber] = useState<number>(2);

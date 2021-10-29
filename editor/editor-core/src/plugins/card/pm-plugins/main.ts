@@ -1,9 +1,8 @@
 import { Plugin, EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
-import { CardPlatform } from '@atlaskit/smart-card';
 import rafSchedule from 'raf-schd';
 
-import { CardPluginState } from '../types';
+import { CardPluginOptions, CardPluginState } from '../types';
 import reducer from './reducers';
 import { PMPluginFactoryParams } from '../../../types';
 import { pluginKey } from './plugin-key';
@@ -18,22 +17,22 @@ import { EmbedCard, EmbedCardNodeViewProps } from '../nodeviews/embedCard';
 import { BlockCard, BlockCardNodeViewProps } from '../nodeviews/blockCard';
 import { InlineCard, InlineCardNodeViewProps } from '../nodeviews/inlineCard';
 import { ProviderHandler } from '@atlaskit/editor-common/provider-factory';
-import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 export { pluginKey } from './plugin-key';
 
-export const createPlugin = (
-  platform: CardPlatform,
-  allowResizing: boolean,
-  useAlternativePreloader: boolean,
-  fullWidthMode?: boolean,
-  createAnalyticsEvent?: CreateUIAnalyticsEvent,
-) => ({
+export const createPlugin = (options: CardPluginOptions) => ({
   portalProviderAPI,
   eventDispatcher,
   providerFactory,
   dispatchAnalyticsEvent,
 }: PMPluginFactoryParams) => {
+  const {
+    platform,
+    allowResizing,
+    useAlternativePreloader,
+    fullWidthMode,
+    createAnalyticsEvent,
+  } = options;
   return new Plugin({
     state: {
       init(): CardPluginState {
@@ -101,6 +100,7 @@ export const createPlugin = (
                   outstandingRequests,
                   provider,
                   request,
+                  options,
                 ),
               );
               rafCancellationCallbacks.push(invoke.cancel);

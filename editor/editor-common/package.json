@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-common",
-  "version": "60.1.0",
+  "version": "60.2.0",
   "description": "A package that contains common classes and components for editor and renderer",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -30,11 +30,12 @@
     "./validator": "./src/validator.ts",
     "./in-product": "./src/in-product.ts",
     "./cypress-config": "./src/cypress-config.ts",
-    "./type-ahead": "./src/type-ahead/index.ts"
+    "./type-ahead": "./src/type-ahead/index.ts",
+    "./ufo": "./src/ufo/index.ts"
   },
   "dependencies": {
     "@atlaskit/activity-provider": "^2.3.0",
-    "@atlaskit/adf-schema": "^19.2.0",
+    "@atlaskit/adf-schema": "^19.3.0",
     "@atlaskit/adf-utils": "^14.3.0",
     "@atlaskit/analytics-namespaced-context": "^6.3.0",
     "@atlaskit/analytics-next": "^8.2.0",
@@ -44,15 +45,16 @@
     "@atlaskit/emoji": "^63.1.0",
     "@atlaskit/icon": "^21.9.0",
     "@atlaskit/in-product-testing": "^0.1.0",
-    "@atlaskit/media-card": "^71.0.0",
-    "@atlaskit/media-client": "^14.2.0",
+    "@atlaskit/media-card": "^72.0.0",
+    "@atlaskit/media-client": "^14.3.0",
     "@atlaskit/media-picker": "^58.1.0",
     "@atlaskit/mention": "^19.7.0",
     "@atlaskit/profilecard": "^15.8.0",
-    "@atlaskit/smart-card": "^16.1.0",
+    "@atlaskit/smart-card": "^16.2.0",
     "@atlaskit/task-decision": "^17.2.0",
     "@atlaskit/theme": "^12.0.0",
     "@atlaskit/tooltip": "^17.5.0",
+    "@atlaskit/ufo": "^0.0.6",
     "@atlaskit/user-picker": "^7.3.0",
     "@atlaskit/width-detector": "^3.0.0",
     "@babel/runtime": "^7.0.0",
@@ -67,6 +69,7 @@
     "prosemirror-model": "1.11.0",
     "prosemirror-state": "1.3.3",
     "prosemirror-transform": "1.2.8",
+    "prosemirror-view": "1.15.4",
     "raf-schd": "^2.1.0",
     "react-loadable": "^5.1.0"
   },
@@ -79,7 +82,7 @@
   },
   "devDependencies": {
     "@atlaskit/editor-json-transformer": "^8.6.0",
-    "@atlaskit/editor-test-helpers": "^15.4.0",
+    "@atlaskit/editor-test-helpers": "^15.5.0",
     "@atlaskit/media-core": "^32.2.0",
     "@atlaskit/util-data-test": "^16.0.0",
     "@atlaskit/visual-regression": "*",
@@ -89,7 +92,6 @@
     "cypress-file-upload": "^5.0.2",
     "enzyme": "^3.10.0",
     "local-cypress": "^1.2.1",
-    "prosemirror-view": "1.15.4",
     "raf-stub": "^2.0.1",
     "react": "^16.8.0",
     "react-test-renderer": "^16.8.0",

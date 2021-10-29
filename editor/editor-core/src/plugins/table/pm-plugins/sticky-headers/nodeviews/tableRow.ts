@@ -375,13 +375,30 @@ export class TableRowNodeView implements NodeView {
      * so it should be safe to ignore mutations that we cause
      * by updating styles and classnames on this DOM element
      *
-     * Update: should allow mutations for row selection to avoid known issue with table selection highlight in firefox
+     * Update: should not ignore mutations for row selection to avoid known issue with table selection highlight in firefox
      * Related bug report: https://bugzilla.mozilla.org/show_bug.cgi?id=1289673
      * */
-    return !(
+    const isTableSelection =
       mutationRecord.type === 'selection' &&
-      mutationRecord.target.tagName === 'TR'
-    );
+      mutationRecord.target.nodeName === 'TR';
+    /**
+     * Update: should not ignore mutations when an node is added, as this interferes with
+     * prosemirrors handling of some language inputs in Safari (ie. Pinyin, Hiragana).
+     *
+     * In paticular, when a composition occurs at the start of the first node inside a table cell, if the resulting mutation
+     * from the composition end is ignored than prosemirror will end up with; invalid table markup nesting and a misplaced
+     * selection and insertion.
+     */
+    const isNodeInsertion =
+      mutationRecord.type === 'childList' &&
+      mutationRecord.target.nodeName === 'TR' &&
+      mutationRecord.addedNodes.length;
+
+    if (isTableSelection || isNodeInsertion) {
+      return false;
+    }
+
+    return true;
   }
 
   /* receive external events */

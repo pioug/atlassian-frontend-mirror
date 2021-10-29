@@ -1,4 +1,4 @@
-import { PageLoadExperienceData } from '../../../types/types';
+import { PageLoadExperienceData } from '../../../types';
 import { untilAll } from '../../utils/until-helpers';
 
 import {
@@ -6,13 +6,17 @@ import {
   perfNowOrTimestamp,
   UFOAbstractExperience,
 } from './abstract-experience';
-import { ExperienceTypes } from './experience-types';
+import {
+  ExperiencePerformanceTypes,
+  ExperienceTypes,
+} from './experience-types';
 import { PageSegmentExperienceTypes } from './page-segment-experience-types';
 
 class UFOGlobalPageLoadExperience extends UFOAbstractExperience {
   loadingPageLoadId: string = 'UNKNOWN';
 
-  type = ExperienceTypes.PageLoad;
+  type = ExperienceTypes.Load;
+  performanceType = ExperiencePerformanceTypes.PageLoad;
 
   initial = true;
 
@@ -47,7 +51,8 @@ class UFOGlobalPageLoadExperience extends UFOAbstractExperience {
 export const GlobalPageLoadExperience = new UFOGlobalPageLoadExperience(
   'UFO_GLOBAL_PAGE_LOAD',
   {
-    type: ExperienceTypes.PageLoad,
+    type: ExperienceTypes.Load,
+    performanceType: ExperiencePerformanceTypes.PageLoad,
     // this should come from global config
     until: untilAll([{ category: PageSegmentExperienceTypes.PRODUCT }]),
   },

@@ -1,5 +1,11 @@
-import { useEffect, useRef } from 'react';
-import { getShallowPropsDifference, getPropsDifference } from '../../compare';
+import { useMemo, useEffect, useRef } from 'react';
+import debounce from 'lodash/debounce';
+import {
+  getShallowPropsDifference,
+  getPropsDifference,
+  ShallowPropsDifference,
+  PropsDifference,
+} from '../../compare';
 import {
   EVENT_TYPE,
   ACTION_SUBJECT,
@@ -12,39 +18,60 @@ type RenderActionSubjects =
   | ACTION_SUBJECT.EDITOR
   | ACTION_SUBJECT.REACT_EDITOR_VIEW;
 
-export function useComponentRenderTracking<Props>(
-  props: Props,
-  action: RenderActions,
-  actionSubject: RenderActionSubjects,
-  handleAnalyticsEvent: FireAnalyticsCallback,
-  propsToIgnore: Array<keyof Props> = [],
-  useShallow?: boolean,
-) {
+type PropsDiff<Props> = ShallowPropsDifference<Props> | PropsDifference<Props>;
+
+type OnRenderCb<Props = undefined> = ({
+  renderCount,
+  propsDifference,
+}: {
+  renderCount: number;
+  propsDifference: PropsDiff<Props> | undefined;
+}) => void;
+
+export type UseComponentRenderTrackingArgs<Props = undefined> = {
+  onRender: OnRenderCb<Props>;
+  propsDiffingOptions?: {
+    enabled: boolean;
+    props?: Props;
+    propsToIgnore?: Array<keyof Props>;
+    useShallow?: boolean;
+  };
+  zeroBasedCount?: boolean;
+};
+
+export function useComponentRenderTracking<Props = undefined>({
+  onRender,
+  propsDiffingOptions,
+  zeroBasedCount = true,
+}: UseComponentRenderTrackingArgs<Props>) {
   const propsRef = useRef<Props>();
-  const renderCountRef = useRef<number>(0);
+  const renderCountRef = useRef<number>(zeroBasedCount ? 0 : 1);
 
   useEffect(() => {
     const lastProps = propsRef.current;
     const renderCount = renderCountRef.current;
 
-    if (lastProps) {
-      let difference = useShallow
-        ? getShallowPropsDifference(lastProps, props)
-        : getPropsDifference(lastProps, props, 0, 2, propsToIgnore);
-
-      handleAnalyticsEvent<Props>({
-        payload: {
-          action,
-          actionSubject,
-          attributes: {
-            propsDifference: difference,
-            count: renderCount,
-          },
-          eventType: EVENT_TYPE.OPERATIONAL,
-        },
-      });
+    let propsDifference;
+    if (propsDiffingOptions?.enabled && lastProps) {
+      propsDifference = propsDiffingOptions?.useShallow
+        ? getShallowPropsDifference(lastProps, propsDiffingOptions.props)
+        : getPropsDifference(
+            lastProps,
+            propsDiffingOptions.props as Props,
+            0,
+            2,
+            propsDiffingOptions?.propsToIgnore,
+          );
     }
-    propsRef.current = props;
+    const result = {
+      renderCount,
+      propsDifference,
+    };
+
+    onRender(result);
+    if (propsDiffingOptions?.enabled) {
+      propsRef.current = propsDiffingOptions.props;
+    }
     renderCountRef.current = renderCountRef.current + 1;
   }); // No dependencies run on each render
 }
@@ -59,13 +86,35 @@ export type RenderTrackingProps<ComponentProps> = {
 };
 
 export function RenderTracking<Props>(props: RenderTrackingProps<Props>) {
-  useComponentRenderTracking(
-    props.componentProps,
-    props.action,
-    props.actionSubject,
-    props.handleAnalyticsEvent,
-    props.propsToIgnore,
-    props.useShallow,
+  const debouncedHandleAnalyticsEvent = useMemo(
+    () => debounce<FireAnalyticsCallback>(props.handleAnalyticsEvent, 500),
+    [props.handleAnalyticsEvent],
   );
+
+  useComponentRenderTracking<Props>({
+    onRender: ({ renderCount, propsDifference }) => {
+      if (!renderCount) {
+        return;
+      }
+      debouncedHandleAnalyticsEvent<Props>({
+        payload: {
+          action: props.action,
+          actionSubject: props.actionSubject,
+          attributes: {
+            count: renderCount,
+            propsDifference: propsDifference as PropsDiff<Props>,
+          },
+          eventType: EVENT_TYPE.OPERATIONAL,
+        },
+      });
+    },
+    propsDiffingOptions: {
+      enabled: true,
+      props: props.componentProps,
+      propsToIgnore: props.propsToIgnore,
+      useShallow: props.useShallow,
+    },
+    zeroBasedCount: true,
+  });
   return null;
 }

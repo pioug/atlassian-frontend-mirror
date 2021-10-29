@@ -165,6 +165,7 @@ export default class WebBridgeImpl
 
   private onEditorConfigChanged: EditorConfigChange | null;
   private editorConfiguration: MobileEditorConfiguration;
+  private resetProviders: () => void = () => {};
 
   constructor(config?: MobileEditorConfiguration) {
     super();
@@ -182,6 +183,10 @@ export default class WebBridgeImpl
 
   setEditorConfigChangeHandler(handleEditorConfigChanged: EditorConfigChange) {
     this.onEditorConfigChanged = handleEditorConfigChanged;
+  }
+
+  setResetProviders(resetProviders: () => void) {
+    this.resetProviders = resetProviders;
   }
 
   setCollabProviderPromise(
@@ -331,11 +336,12 @@ export default class WebBridgeImpl
     const performanceMatrices = new PerformanceMatrices();
 
     if (this.editorActions) {
-      const isReplaced = this.editorActions.replaceDocument(
-        content,
-        false,
-        false,
-      );
+      this.resetProviders();
+      const isReplaced = this.editorActions.replaceDocument(content, false);
+
+      const padding = this.getPadding();
+      this.setPadding(padding.top, padding.right, padding.bottom, padding.left);
+      toNativeBridge.stateChanged(false, false);
 
       if (isReplaced) {
         let adfContent: JSONDocNode;

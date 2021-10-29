@@ -36,8 +36,8 @@ exports[`ArticleLoadingFail Should match snapshot 1`] = `
   -webkit-transition: background 0.1s ease-out,box-shadow 0.15s cubic-bezier(0.47,0.03,0.49,1.38);
   transition: background 0.1s ease-out,box-shadow 0.15s cubic-bezier(0.47,0.03,0.49,1.38);
   white-space: nowrap;
-  background: var(--background-subtleNeutral-resting,rgba(9,30,66,0.04));
-  color: var(--text-highEmphasis,#42526E) !important;
+  background: var(--ds-background-subtleNeutral-resting,rgba(9,30,66,0.04));
+  color: var(--ds-text-highEmphasis,#42526E) !important;
   cursor: pointer;
   height: 2.2857142857142856em;
   line-height: 2.2857142857142856em;

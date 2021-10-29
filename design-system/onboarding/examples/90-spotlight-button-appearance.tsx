@@ -62,7 +62,7 @@ export default class SpotlightButtonAppearanceExample extends Component<
                     text: 'Subtle',
                   },
                   {
-                    appearance: 'subtle-link', //TODO: this is required
+                    appearance: 'subtle-link',
                     onClick: this.finish,
                     text: 'Subtle link',
                   },

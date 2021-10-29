@@ -82,6 +82,10 @@ describe('Media Card New Experience', () => {
     });
   });
 
+  // CardView does not handle broken dataURI internally. It passes
+  // the error to the consumer and awaits for an error status.
+  // The resulting views in this test should be equivalent to
+  // "no dataURI" on each status
   describe('has broken data URI', () => {
     describe('and metadata', () => {
       it.each([
@@ -144,6 +148,37 @@ describe('Media Card New Experience', () => {
         const url = getURL(
           `&isTransparent=true&disableMetadata=true&status=${status}`,
         );
+        const { image } = await setup(url);
+        expect(image).toMatchProdImageSnapshot();
+      });
+    });
+    describe('and disableOverlay', () => {
+      it.each([
+        'uploading',
+        'processing',
+        'loading-preview',
+        'complete',
+        'failed-processing',
+        'error',
+      ])('with filestate %s', async (status) => {
+        const url = getURL(
+          `&disableOverlay=true&isTransparent=true&status=${status}`,
+        );
+        const { image } = await setup(url);
+        expect(image).toMatchProdImageSnapshot();
+      });
+    });
+
+    describe('and without disableOverlay', () => {
+      it.each([
+        'uploading',
+        'processing',
+        'loading-preview',
+        'complete',
+        'failed-processing',
+        'error',
+      ])('with filestate %s', async (status) => {
+        const url = getURL(`&isTransparent=true&status=${status}`);
         const { image } = await setup(url);
         expect(image).toMatchProdImageSnapshot();
       });
@@ -295,6 +330,38 @@ describe('Media Card New Experience', () => {
     it('has metadata and dataUri', async () => {
       const url = getURL(
         `&isPollingMaxAttemptsExceeded=true&status=error&dataUri=true`,
+      );
+      const { image } = await setup(url);
+      expect(image).toMatchProdImageSnapshot();
+    });
+  });
+
+  describe('is upload error', () => {
+    it('has metadata', async () => {
+      const url = getURL(`&isUploadError=true&status=error`);
+      const { image } = await setup(url);
+      expect(image).toMatchProdImageSnapshot();
+    });
+
+    it('has metadata with disableOverlay', async () => {
+      const url = getURL(
+        `&isUploadError=true&status=error&disableOverlay=true`,
+      );
+      const { image } = await setup(url);
+      expect(image).toMatchProdImageSnapshot();
+    });
+
+    it('no metadata', async () => {
+      const url = getURL(
+        `&isUploadError=true&status=error&disableMetadata=true`,
+      );
+      const { image } = await setup(url);
+      expect(image).toMatchProdImageSnapshot();
+    });
+
+    it('no metadata with disableOverlay', async () => {
+      const url = getURL(
+        `&isUploadError=true&status=error&disableMetadata=true&disableOverlay=true`,
       );
       const { image } = await setup(url);
       expect(image).toMatchProdImageSnapshot();

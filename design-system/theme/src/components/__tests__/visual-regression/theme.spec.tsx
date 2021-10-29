@@ -39,7 +39,7 @@ describe('Snapshot Test', () => {
     );
     await loadPage(page, url);
     const themeToggle = await page.waitForSelector(
-      '[data-testid="themeSwitch"',
+      '[data-testid="themeSwitch"]',
     );
     await themeToggle?.click();
     const element = await page.waitForSelector('[data-testid="provider"]');

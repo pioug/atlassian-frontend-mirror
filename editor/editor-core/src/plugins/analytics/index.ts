@@ -36,6 +36,7 @@ export type {
   CreateLinkInlineDialogActionType,
   CreateLinkInlineDialogEventPayload,
   ErrorEventPayload,
+  ErrorEventAttributes,
   FormatEventPayload,
   GeneralEventPayload,
   InputMethodInsertLink,

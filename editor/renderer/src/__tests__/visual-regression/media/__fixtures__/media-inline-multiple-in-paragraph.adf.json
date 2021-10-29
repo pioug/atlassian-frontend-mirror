@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "this is a paragraph and a bunch of text with multiple media inline "
+        },
+        {
+          "type": "mediaInline",
+          "attrs": {
+            "id": "a559980d-cd47-43e2-8377-27359fcb905f",
+            "type": "file",
+            "collection": "MediaServicesSample",
+            "alt": "",
+            "__external": false
+          }
+        },
+        {
+          "type": "text",
+          "text": " this is some filler text to create a new line "
+        },
+        {
+          "type": "mediaInline",
+          "attrs": {
+            "id": "a559980d-cd47-43e2-8377-27359fcb905f",
+            "type": "file",
+            "collection": "MediaServicesSample",
+            "alt": "",
+            "__external": false
+          }
+        },
+        {
+          "type": "text",
+          "text": " and this is more text."
+        }
+      ]
+    }
+  ]
+}

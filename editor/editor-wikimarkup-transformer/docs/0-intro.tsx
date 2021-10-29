@@ -7,11 +7,20 @@ ${(<AtlassianInternalWarning />)}
 This package provides a transformer for ProseMirror Node <-> Wikimarkup conversion.
   ## Usage
 
-  Use the component in your React app as follows:
+  Use the component in your React app as follows to encode ProseMirror node to Wikimarkup:
 
   ${code`import { WikiMarkupTransformer } from '@atlaskit/editor-wikimarkup-transformer';
+
   const transformer = new WikiMarkupTransformer(schema);
-  const pmNode = transformer.parse(wikiMarkup);`}
+  const wikimarkupString = transformer.encode(pmNode); // A Wikimarkup string representing the Prosemirror node output`}
+
+  Use the component in your React app as follows to parse Wikimarkup to ProseMirror node:
+
+  ${code`import { WikiMarkupTransformer } from '@atlaskit/editor-wikimarkup-transformer';
+
+  const transformer = new WikiMarkupTransformer(schema);
+  const pmNode = transformer.parse(wikiMarkup); // A prosemirror node is output`}
+
 
   ${(
     <Example

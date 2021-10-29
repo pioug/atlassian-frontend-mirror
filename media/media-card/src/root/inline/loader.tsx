@@ -30,6 +30,7 @@ export default class MediaInlineCardLoader extends React.PureComponent<
 
   state: MediaInlineCardLoaderState = {
     MediaInlineCard: MediaInlineCardLoader.MediaInlineCard,
+    ErrorBoundary: MediaInlineCardLoader.ErrorBoundary,
   };
 
   async componentDidMount() {

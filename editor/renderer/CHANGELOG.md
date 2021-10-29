@@ -1,5 +1,23 @@
 # @atlaskit/renderer
 
+## 82.0.0
+
+### Major Changes
+
+- [`3c5548e50da`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3c5548e50da) - [ux] Introducing new Media Inline component to renderer
+
+### Minor Changes
+
+- [`971845eac0d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/971845eac0d) - CETI-96 Added new rule to emoji to solve the duplicate icon issue when we copy from renderer
+
+### Patch Changes
+
+- [`f897443ad45`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f897443ad45) - Revert AK-279
+- [`87865d3284f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87865d3284f) - CETI-122 Fix Rendering of hybrid renderer when the prop UNSAFE_allowCustomPanels changed.
+- [`a554946e674`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a554946e674) - Skipping flakey tests to unblock the weasal release
+- [`33bca2a18bb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/33bca2a18bb) - Skipping a flaky test to unblock the weasal release
+- Updated dependencies
+
 ## 81.1.1
 
 ### Patch Changes

@@ -13,6 +13,10 @@ exports[`ADF => WikiMarkup - Media should convert mediaGroup node 1`] = `
 !file2.txt|thumbnail!"
 `;
 
+exports[`ADF => WikiMarkup - Media should convert mediaInline node with context 1`] = `"[^file1.txt]"`;
+
+exports[`ADF => WikiMarkup - Media should convert mediaInline node with no context 1`] = `"[^abc-123-uuid]"`;
+
 exports[`ADF => WikiMarkup - Media should convert mediaSingle depending on context 1`] = `
 "!embedded-output|thumbnail!
 [^not-embedded-output]

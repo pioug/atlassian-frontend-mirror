@@ -109,7 +109,9 @@ const tableSharedStyle = css`
         border-bottom-width: 0;
         padding: ${tableCellPadding}px;
         /* https://stackoverflow.com/questions/7517127/borders-not-shown-in-firefox-with-border-collapse-on-table-position-relative-o */
-        ${browser.gecko || browser.ie ? 'background-clip: padding-box;' : ''}
+        ${browser.gecko || browser.ie || (browser.mac && browser.chrome)
+          ? 'background-clip: padding-box;'
+          : ''}
 
         ${themed({ dark: getTableCellBackgroundDarkModeColors })};
 

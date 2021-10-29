@@ -70,9 +70,7 @@ describe('fireOperationalEvent', () => {
       'error',
       fileAttributes,
       performanceAttributes,
-      {
-        error,
-      },
+      error,
     );
 
     expect(getRenderErrorEventPayload).toBeCalledWith(
@@ -85,7 +83,7 @@ describe('fireOperationalEvent', () => {
     expect(event.fire).toBeCalledWith(ANALYTICS_MEDIA_CHANNEL);
   });
 
-  it('should fire completed event if status is complete and there is no dataURI', () => {
+  it('should fire suceeded event if status is complete', () => {
     fireOperationalEvent(
       createAnalyticsEvent,
       'complete',

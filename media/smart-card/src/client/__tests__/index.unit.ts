@@ -41,7 +41,9 @@ describe('Smart Card: Client', () => {
     expect(mockRequest).toBeCalled();
     expect(mockRequest).toBeCalledWith(
       'post',
-      expect.stringMatching(/.*?stg.*?\/resolve\/batch/),
+      expect.stringMatching(
+        /.*?commerce-components-preview.*?\/resolve\/batch/,
+      ),
       [
         {
           resourceUrl,
@@ -73,7 +75,9 @@ describe('Smart Card: Client', () => {
     expect(mockRequest).toBeCalled();
     expect(mockRequest).toBeCalledWith(
       'post',
-      expect.stringMatching(/.*?stg.*?\/resolve\/batch/),
+      expect.stringMatching(
+        /.*?commerce-components-preview.*?\/resolve\/batch/,
+      ),
       [
         // NOTE: we only expect _one_ of the duplicated URLs to actually be sent to the backend
         {
@@ -107,7 +111,9 @@ describe('Smart Card: Client', () => {
     expect(mockRequest).toBeCalled();
     expect(mockRequest).toBeCalledWith(
       'post',
-      expect.stringMatching(/.*?stg.*?\/resolve\/batch/),
+      expect.stringMatching(
+        /.*?commerce-components-preview.*?\/resolve\/batch/,
+      ),
       [
         {
           resourceUrl: `${hostname}/1`,
@@ -218,7 +224,7 @@ describe('Smart Card: Client', () => {
     expect(mockRequest).toBeCalled();
     expect(mockRequest).toBeCalledWith(
       'post',
-      expect.stringMatching(/.*?stg.*?\/invoke/),
+      expect.stringMatching(/.*?commerce-components-preview.*?\/invoke/),
       {
         action: {
           type: '',

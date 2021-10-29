@@ -3,6 +3,7 @@ import React, { ComponentType, ReactNode, Ref } from 'react';
 import { Theme as ButtonTheme } from '@atlaskit/button/custom-theme-button';
 import { N0, N50A, N60A, P300 } from '@atlaskit/theme/colors';
 import { ThemeProp } from '@atlaskit/theme/components';
+import { token } from '@atlaskit/tokens';
 
 import { Actions } from '../types';
 
@@ -106,12 +107,18 @@ class SpotlightCard extends React.Component<SpotlightCardProps> {
               () => ({
                 ...others,
                 container: {
-                  background: P300,
-                  color: N0,
+                  background: token(
+                    'color.background.boldDiscovery.resting',
+                    P300,
+                  ),
+                  color: token('color.text.onBold', N0),
                   width: `${Math.min(Math.max(width!, 160), 600)}px`,
                   boxShadow: isFlat
                     ? undefined
-                    : `0 4px 8px -2px ${N50A}, 0 0 1px ${N60A}`, // AK-5598
+                    : token(
+                        'shadow.card',
+                        `0 4px 8px -2px ${N50A}, 0 0 1px ${N60A}`,
+                      ),
                   ...container,
                 },
               }),

@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "embedCard",
+      "attrs": {
+        "url": "https://product-fabric.atlassian.net/wiki/1"
+      }
+    },
+    {
+      "type": "embedCard",
+      "attrs": {
+        "url": "https://product-fabric.atlassian.net/wiki/2"
+      }
+    }
+  ]
+}

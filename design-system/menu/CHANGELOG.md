@@ -1,5 +1,40 @@
 # @atlaskit/menu
 
+## 1.2.0
+
+### Minor Changes
+
+- [`213bfd77e61`](https://bitbucket.org/atlassian/atlassian-frontend/commits/213bfd77e61) - The DOM structure of menu item components has been flattened.
+  If you used CSS hacks (via className or cssFn) that targetted specific DOM nodes you may be broken.
+
+  Previously the structure looked like:
+
+  ```jsx
+  <button>
+    <div> // <-- this intermediate div has been removed
+      <span>
+        <span />
+      </span>
+    </div>
+  </button>
+  ```
+
+  Now it looks like:
+
+  ```jsx
+  <button>
+    <span>
+      <span />
+    </span>
+  </button>
+  ```
+
+- [`63888b03b49`](https://bitbucket.org/atlassian/atlassian-frontend/commits/63888b03b49) - Internal refactor to align style declarations to common techstack.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.1.4
 
 ### Patch Changes

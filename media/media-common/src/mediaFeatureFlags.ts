@@ -1,14 +1,7 @@
 import { getLocalMediaFeatureFlag } from './mediaFeatureFlag-local';
 
-export interface PollingOptions {
-  poll_intervalMs?: number;
-  poll_maxAttempts?: number;
-  poll_backoffFactor?: number;
-  poll_maxIntervalMs?: number;
-}
-
 // Media feature flags - type and defaults defined here in one source of truth
-export interface MediaFeatureFlags extends PollingOptions {
+export interface MediaFeatureFlags {
   newCardExperience?: boolean;
   zipPreviews?: boolean;
   captions?: boolean;
@@ -27,10 +20,6 @@ export const defaultMediaFeatureFlags: Required<MediaFeatureFlags> = {
   captions: false,
   folderUploads: false,
   codeViewer: false,
-  poll_intervalMs: 3000,
-  poll_maxAttempts: 30,
-  poll_backoffFactor: 1.25,
-  poll_maxIntervalMs: 200000,
 };
 
 /**

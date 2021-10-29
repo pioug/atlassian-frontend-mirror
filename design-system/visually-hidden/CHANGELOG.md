@@ -1,5 +1,11 @@
 # @atlaskit/visually-hidden
 
+## 0.1.2
+
+### Patch Changes
+
+- [`248133ff889`](https://bitbucket.org/atlassian/atlassian-frontend/commits/248133ff889) - Fixes the name of the entrypoint in package.json
+
 ## 0.1.1
 
 ### Patch Changes

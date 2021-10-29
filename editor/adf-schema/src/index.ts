@@ -292,6 +292,8 @@ export {
   isHex,
   isRgb,
   isSafeUrl,
+  linkify,
+  linkifyMatch,
   normalizeHexColor,
   normalizeUrl,
   rgbToHex,

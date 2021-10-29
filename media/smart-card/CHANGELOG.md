@@ -1,5 +1,18 @@
 # @atlaskit/smart-card
 
+## 16.2.0
+
+### Minor Changes
+
+- [`0448db49f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0448db49f68) - Implement UFO instrumentation events pattern
+
+### Patch Changes
+
+- [`df4e03438f2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/df4e03438f2) - Add post render authentication experience using UFO
+- [`7d13155a61c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7d13155a61c) - Updated smart links to UFO with perf metrics
+- [`572581a2ae3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/572581a2ae3) - Polaris (Jira Product Discovery) anonymous views unfurling embed by default.
+- Updated dependencies
+
 ## 16.1.1
 
 ### Patch Changes

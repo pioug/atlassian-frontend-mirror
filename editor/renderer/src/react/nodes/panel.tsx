@@ -102,7 +102,7 @@ const Panel = (props: Props) => {
     const icon = getIcon();
 
     if (icon) {
-      return <span className={PanelSharedCssClassName.icon}>{icon}</span>;
+      return <div className={PanelSharedCssClassName.icon}>{icon}</div>;
     }
   };
 

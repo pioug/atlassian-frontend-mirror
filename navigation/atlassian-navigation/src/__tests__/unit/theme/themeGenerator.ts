@@ -25,9 +25,7 @@ describe('generateTheme', () => {
           expect(Object.keys(componentTheme)).toEqual(
             Object.keys(themes[i].mode[component as Component]),
           );
-          expect(componentTheme).toEqual(
-            expect.objectContaining(themes[i].mode[component as Component]),
-          );
+          expect(componentTheme).toMatchSnapshot();
         });
       });
     });

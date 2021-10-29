@@ -171,7 +171,7 @@ describe('Input performance latency', () => {
           //@ts-ignore
           requestAnimationFrame.step();
 
-          expect(dispatchAnalyticsEvent).nthCalledWith(1, {
+          expect(dispatchAnalyticsEvent).nthCalledWith(2, {
             action: ACTION.INPUT_PERF_SAMPLING,
             actionSubject: ACTION_SUBJECT.EDITOR,
             attributes: expect.objectContaining({
@@ -275,7 +275,7 @@ describe('Input performance latency', () => {
           //@ts-ignore
           requestAnimationFrame.step();
 
-          expect(dispatchAnalyticsEvent).nthCalledWith(1, {
+          expect(dispatchAnalyticsEvent).nthCalledWith(2, {
             action: ACTION.INPUT_PERF_SAMPLING,
             actionSubject: ACTION_SUBJECT.EDITOR,
             attributes: expect.objectContaining({

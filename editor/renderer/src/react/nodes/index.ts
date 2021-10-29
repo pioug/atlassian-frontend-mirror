@@ -43,6 +43,7 @@ import type InlineCardComponent from './inlineCard';
 import type BlockCardComponent from './blockCard';
 import type MediaComponent from './media';
 import type MediaGroupComponent from './mediaGroup';
+import type MediaInlineComponent from './mediaInline';
 import type MentionComponent from './mention';
 import type ExpandComponent from '../../ui/Expand';
 
@@ -136,6 +137,15 @@ const MediaGroup = Loadable({
   loading: () => null,
 });
 
+const MediaInline = Loadable({
+  loader: () =>
+    import(
+      /* webpackChunkName: "@atlaskit-internal_renderer-node_MediaInline" */
+      './mediaInline'
+    ).then((mod) => mod.default) as Promise<typeof MediaInlineComponent>,
+  loading: () => null,
+});
+
 const Mention = Loadable({
   loader: () =>
     import(
@@ -176,6 +186,7 @@ export const nodeToReact: { [key: string]: React.ComponentType<any> } = {
   listItem: ListItem,
   media: Media,
   mediaGroup: MediaGroup,
+  mediaInline: MediaInline,
   mediaSingle: MediaSingle,
   mention: Mention,
   orderedList: OrderedList,
@@ -381,6 +392,7 @@ export {
   LayoutColumn,
   Media,
   MediaGroup,
+  MediaInline,
   MediaSingle,
   Mention,
   OrderedList,

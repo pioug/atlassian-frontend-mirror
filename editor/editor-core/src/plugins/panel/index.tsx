@@ -1,10 +1,5 @@
 import React from 'react';
-import {
-  panel,
-  customPanel,
-  PanelType,
-  PanelAttributes,
-} from '@atlaskit/adf-schema';
+import { customPanel, PanelType, PanelAttributes } from '@atlaskit/adf-schema';
 import {
   QuickInsertActionInsert,
   QuickInsertItem,
@@ -68,8 +63,8 @@ const panelPlugin = (options: PanelPluginOptions = {}): EditorPlugin => ({
   name: 'panel',
 
   nodes() {
-    //TODO: ED-10445 remove this check after emoji panels moved to full schema
-    const panelNode = options.UNSAFE_allowCustomPanel ? customPanel : panel;
+    const panelNode = customPanel(!!options.UNSAFE_allowCustomPanel);
+
     return [{ name: 'panel', node: panelNode }];
   },
 
@@ -163,7 +158,10 @@ const panelPlugin = (options: PanelPluginOptions = {}): EditorPlugin => ({
           },
         },
       ];
-      if (options.UNSAFE_allowCustomPanel) {
+      if (
+        options.UNSAFE_allowCustomPanelEdit &&
+        options.UNSAFE_allowCustomPanel
+      ) {
         quickInsertOptions.push({
           id: 'custompanel',
           title: formatMessage(messages.customPanel),

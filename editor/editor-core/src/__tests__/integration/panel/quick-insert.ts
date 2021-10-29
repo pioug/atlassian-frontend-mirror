@@ -38,7 +38,10 @@ BrowserTestCase(
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
       appearance: fullpage.appearance,
-      allowPanel: { UNSAFE_allowCustomPanel: true },
+      allowPanel: {
+        UNSAFE_allowCustomPanel: true,
+        UNSAFE_allowCustomPanelEdit: true,
+      },
     });
 
     await page.click(fullpage.placeholder);

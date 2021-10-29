@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from 'react';
+/** @jsx jsx */
+import { useEffect, useState } from 'react';
 
-import styled from 'styled-components';
+import { jsx } from '@emotion/core';
 
 import DynamicTable from '../src';
 
-const Wrapper = styled.div`
-  min-width: 600px;
-`;
+import Wrapper from './components/wrapper';
 
 const caption = 'Hello';
 const head = {

@@ -1,5 +1,16 @@
 # @atlaskit/comment
 
+## 10.3.0
+
+### Minor Changes
+
+- [`9721e13533b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9721e13533b) - Comment now exposes `testId` which can be used to aid automated testing.
+
+### Patch Changes
+
+- [`2b98dfda0a6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2b98dfda0a6) - Removes `@emotion/styled` in favour of `@emotion/core`.
+- Updated dependencies
+
 ## 10.2.3
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @atlaskit/item
 
+## 12.0.8
+
+### Patch Changes
+
+- [`c01e52b2255`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c01e52b2255) - Add VR tests to the Item component.
+
 ## 12.0.7
 
 ### Patch Changes

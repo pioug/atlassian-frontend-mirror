@@ -92,3 +92,4 @@ export { shouldForceTracking } from './should-force-tracking';
 export { getModeFromTheme } from './getModeFromTheme';
 export type { UserBrowserExtensionResults } from './browser-extensions';
 export { sniffUserBrowserExtensions } from './browser-extensions';
+export { RenderCountProfiler } from './profiler/render-count';

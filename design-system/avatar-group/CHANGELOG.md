@@ -1,5 +1,12 @@
 # @atlaskit/avatar-group
 
+## 8.5.4
+
+### Patch Changes
+
+- [`2b98dfda0a6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2b98dfda0a6) - Removes `@emotion/styled` in favour of `@emotion/core`.
+- Updated dependencies
+
 ## 8.5.3
 
 ### Patch Changes

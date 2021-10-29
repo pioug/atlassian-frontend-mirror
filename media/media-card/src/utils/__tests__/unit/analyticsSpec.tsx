@@ -16,7 +16,6 @@ import {
   getRenderErrorErrorDetail,
   getRenderErrorRequestMetadata,
   getRenderErrorEventPayload,
-  RenderEventAction,
   getRenderPreviewableCardPayload,
 } from '../../analytics';
 import { FileAttributes, PerformanceAttributes } from '@atlaskit/media-common';
@@ -123,7 +122,7 @@ describe('Media Analytics', () => {
         ),
       ).toMatchObject({
         eventType: 'operational',
-        action: RenderEventAction.FAILED,
+        action: 'failed',
         actionSubject: 'mediaCardRender',
         attributes: {
           fileAttributes,

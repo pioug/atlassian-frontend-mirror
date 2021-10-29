@@ -3,7 +3,7 @@ import {
   ObjectURLCache,
 } from '../../../utils/objectURLCache';
 import { CardDimensions } from '../../../utils/cardDimensions';
-import { CardPreview } from './types';
+import { CardPreview } from '../../../types';
 
 // Dimensions are used to create a key.
 // Cache is invalidated when different dimensions are provided.
@@ -14,6 +14,7 @@ export const getCacheKey = (id: string, dimensions: CardDimensions) => {
 export interface CardPreviewCache {
   get(id: string, dimensions: CardDimensions): CardPreview | undefined;
   set(id: string, dimensions: CardDimensions, cardPreview: CardPreview): void;
+  remove(id: string, dimensions: CardDimensions): void;
 }
 
 export class CardPreviewCacheImpl implements CardPreviewCache {
@@ -27,6 +28,11 @@ export class CardPreviewCacheImpl implements CardPreviewCache {
   set = (id: string, dimensions: CardDimensions, cardPreview: CardPreview) => {
     const cacheKey = getCacheKey(id, dimensions);
     this.previewCache.set(cacheKey, cardPreview);
+  };
+
+  remove = (id: string, dimensions: CardDimensions) => {
+    const cacheKey = getCacheKey(id, dimensions);
+    this.previewCache.remove(cacheKey);
   };
 }
 

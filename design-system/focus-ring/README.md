@@ -1,6 +1,6 @@
-# FocusRing
+# Focus ring
 
-A focus ring is used to apply accessibile styles to a focusable element.
+A focus ring is used indicate the currently focused item.
 
 ## Usage
 

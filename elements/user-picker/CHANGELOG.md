@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 7.16.5
+
+### Patch Changes
+
+- [`b3d1a103c04`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b3d1a103c04) - Remove field-base deprecated dependency
+
 ## 7.16.4
 
 ### Patch Changes

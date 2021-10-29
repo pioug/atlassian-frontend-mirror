@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React, { forwardRef, memo, useMemo, useState } from 'react';
+import React, { forwardRef, memo, useMemo, useRef, useState } from 'react';
 
 import { jsx } from '@emotion/core';
 
@@ -7,6 +7,7 @@ import {
   UIAnalyticsEvent,
   usePlatformLeafEventHandler,
 } from '@atlaskit/analytics-next';
+import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import GlobalTheme from '@atlaskit/theme/components';
 import { GlobalThemeTokens, ThemeModes } from '@atlaskit/theme/types';
 
@@ -14,6 +15,7 @@ import { getStyles } from '../internal/styles';
 import { BreadcrumbsProps } from '../types';
 
 import EllipsisItem from './ellipsis-item';
+import { useOnRevealed } from './internal/use-on-revealed';
 
 const defaultMaxItems = 8;
 const defaultBreadcrumbsLabel = 'Breadcrumbs';
@@ -33,6 +35,8 @@ const analyticsAttributes = {
 
 const noop = () => {};
 
+const interactiveElementSelector = 'a, button, [tabindex]:not([tabindex="-1"])';
+
 const InnerBreadcrumbs = forwardRef(
   (props: ThemedBreadcrumbsProps, ref: React.Ref<any>) => {
     const {
@@ -51,7 +55,39 @@ const InnerBreadcrumbs = forwardRef(
     } = props;
 
     const [expanded, setExpanse] = useState(defaultExpanded);
+    const [isClickedBySpace, setExpansionTrigger] = useState(false);
+    const wrapperRef = useRef<HTMLElement>(null);
+
     const isControlled = typeof isExpanded !== 'undefined';
+    const isExpansionHandled = providedExpanse !== noop;
+    const shouldExpand = isControlled ? isExpanded : expanded;
+
+    const focusFirstRevealed = () => {
+      if (wrapperRef.current) {
+        const listItems = [...wrapperRef.current.querySelectorAll('li')];
+        const interactiveElements = listItems.map((li) =>
+          li.querySelector<HTMLElement>(interactiveElementSelector),
+        );
+
+        const elementToFocus = interactiveElements[itemsBeforeCollapse];
+        const firstInteractiveElement = interactiveElements[0];
+
+        if (elementToFocus) {
+          elementToFocus.focus && elementToFocus.focus();
+        } else if (firstInteractiveElement) {
+          firstInteractiveElement.focus && firstInteractiveElement.focus();
+        } else {
+          wrapperRef.current.focus();
+        }
+      }
+      setExpansionTrigger(false);
+    };
+
+    useOnRevealed(focusFirstRevealed, {
+      isExpanded: shouldExpand!,
+      isDisabled: !isClickedBySpace,
+    });
+
     const handleExpansion = usePlatformLeafEventHandler({
       fn: (
         event: React.MouseEvent<Element>,
@@ -60,6 +96,11 @@ const InnerBreadcrumbs = forwardRef(
         if (!isControlled) {
           setExpanse((expanded) => !expanded);
         }
+
+        if ((isExpansionHandled && isControlled) || !isControlled) {
+          setExpansionTrigger(event.target === document.activeElement);
+        }
+
         return providedExpanse(event, analyticsEvent);
       },
       action: 'expanded',
@@ -67,7 +108,6 @@ const InnerBreadcrumbs = forwardRef(
       ...analyticsAttributes,
     });
 
-    const shouldExpand = isControlled ? isExpanded : expanded;
     const renderItemsWithEllipsis = () => {
       const allItems = childrenArray;
       // This defends against someone passing weird data, to ensure that if all
@@ -99,10 +139,14 @@ const InnerBreadcrumbs = forwardRef(
     const shouldDisplayItems =
       shouldExpand || (maxItems && childrenArray.length <= maxItems);
 
+    const breadcrumbsItems = shouldDisplayItems
+      ? childrenArray
+      : renderItemsWithEllipsis();
+
     return (
-      <nav aria-label={label} ref={ref}>
+      <nav aria-label={label} ref={mergeRefs([ref, wrapperRef])} tabIndex={-1}>
         <ol data-testid={testId} css={breadcrumbStyles}>
-          {shouldDisplayItems ? children : renderItemsWithEllipsis()}
+          {breadcrumbsItems}
         </ol>
       </nav>
     );

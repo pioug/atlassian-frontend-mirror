@@ -20,7 +20,8 @@ export const shouldDisplayImageThumbnail = (
     return (
       mediaItemType === 'external-image' ||
       (mimeType && isMimeTypeSupportedByBrowser(mimeType)) ||
-      cardStatus === 'complete'
+      cardStatus === 'complete' ||
+      cardStatus === 'loading-preview'
     );
   }
 

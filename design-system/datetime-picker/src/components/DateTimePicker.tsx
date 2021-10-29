@@ -1,6 +1,7 @@
+/** @jsx jsx */
 import React from 'react';
 
-import styled from '@emotion/styled';
+import { css, jsx } from '@emotion/core';
 // eslint-disable-next-line no-restricted-imports
 import { format, isValid, parseISO } from 'date-fns';
 import pick from 'lodash/pick';
@@ -13,8 +14,9 @@ import {
 } from '@atlaskit/analytics-next';
 import SelectClearIcon from '@atlaskit/icon/glyph/select-clear';
 import { mergeStyles, SelectProps, StylesConfig } from '@atlaskit/select';
-import * as colors from '@atlaskit/theme/colors';
+import { B100, N0, N20, N30, N500, N70, R400 } from '@atlaskit/theme/colors';
 import { borderRadius, gridSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 import { defaultTimes, formatDateTimeZoneIntoIso } from '../internal';
 import { Appearance, Spacing } from '../types';
@@ -87,7 +89,7 @@ export interface Props extends WithAnalyticsEventsProps {
   /**
    * The spacing for the select control.
    *
-   * Compact is `gridSize() * 4`, default is `gridSize * 5`.
+   * Compact is `gridSize() * 4`, default is `gridSize() * 5`.
    */
   spacing?: Spacing;
   /** Locale used for formatting dates and times. See [DateTimeFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DateTimeFormat). */
@@ -111,111 +113,83 @@ interface State {
   zoneValue: string;
 }
 
-type StyleProps = {
-  appearance: Appearance;
-  isFocused: boolean;
-  isInvalid: boolean;
-  isDisabled: boolean;
-};
+const isInvalidBorderStyles = css({
+  borderColor: token('color.iconBorder.danger', R400),
+});
+const isFocusedBorderStyles = css({
+  borderColor: token('color.border.focus', B100),
+});
 
-const getBorder = ({ appearance, isFocused, isInvalid }: StyleProps) => {
-  let color = colors.N20;
-  if (appearance === 'subtle') {
-    color = 'transparent';
-  }
-  if (isFocused) {
-    color = colors.B100;
-  }
-  if (isInvalid) {
-    color = colors.R400;
-  }
+const isFocusedStyles = css({
+  backgroundColor: token('color.background.default', N0),
+});
 
-  return `border: 2px solid ${color};`;
-};
+const subtleBgStyles = css({
+  backgroundColor: 'transparent',
+  borderColor: 'transparent',
+});
 
-const getBorderColorHover = ({
-  isFocused,
-  isInvalid,
-  isDisabled,
-}: StyleProps) => {
-  let color = colors.N30;
-  if (isFocused || isDisabled) {
-    return ``;
-  }
-  if (isInvalid) {
-    color = colors.R400;
-  }
-  return `border-color: ${color};`;
-};
+const hoverStyles = css({
+  '&:hover': {
+    backgroundColor: token('color.background.default', N30),
+    borderColor: token('color.border.neutral', N30),
+  },
+});
 
-const getBackgroundColor = ({ appearance, isFocused }: StyleProps) => {
-  let color = colors.N20;
-  if (isFocused) {
-    color = colors.N0;
-  }
-  if (appearance === 'subtle') {
-    color = 'transparent';
-  }
-  return `background-color: ${color};`;
-};
+const isInvalidHoverStyles = css({
+  '&:hover': {
+    backgroundColor: token('color.background.default', N0),
+    borderColor: token('color.iconBorder.danger', R400),
+  },
+});
 
-const getBackgroundColorHover = ({
-  isFocused,
-  isInvalid,
-  isDisabled,
-}: StyleProps) => {
-  let color = colors.N30;
-  if (isFocused || isDisabled) {
-    return ``;
-  }
-  if (isInvalid) {
-    color = colors.N0;
-  }
-  return `background-color: ${color};`;
-};
+const isDisabledStyles = css({
+  '&:hover': {
+    cursor: 'default',
+  },
+});
 
-const Flex = styled.div<StyleProps>`
-  ${getBackgroundColor}
-  ${getBorder}
-  border-radius: ${borderRadius()}px;
-  display: flex;
-  transition: background-color 200ms ease-in-out, border-color 200ms ease-in-out;
-  &:hover {
-    cursor: ${(props) => (props.isDisabled ? 'default' : 'pointer')};
-    ${getBackgroundColorHover}
-    ${getBorderColorHover}
-  }
-`;
+const baseContainerStyles = css({
+  display: 'flex',
+  backgroundColor: token('color.background.subtleNeutral.resting', N20),
+  border: `2px solid ${token('color.border.neutral', N20)}`,
+  borderRadius: `${borderRadius()}px`,
+  transition:
+    'background-color 200ms ease-in-out, border-color 200ms ease-in-out',
+  '&:hover': {
+    cursor: 'pointer',
+  },
+});
 
 // Make DatePicker 50% the width of DateTimePicker
 // If rendering an icon container, shrink the TimePicker
-const DatePickerContainer = styled.div`
-  flex-basis: 50%;
-  flex-grow: 1;
-  flex-shrink: 0;
-`;
+const datePickerContainerStyles = css({
+  flexBasis: '50%',
+  flexGrow: 1,
+  flexShrink: 0,
+});
 
-const TimePickerContainer = styled.div`
-  flex-basis: 50%;
-  flex-grow: 1;
-`;
+const timePickerContainerStyles = css({
+  flexBasis: '50%',
+  flexGrow: 1,
+});
 
 const ICON_PADDING = 2;
 
-const IconContainer = styled.div`
-  flex-basis: inherit;
-  padding-left: ${ICON_PADDING * 2}px;
-  padding-right: ${gridSize()}px;
-  padding-top: 6px;
-  padding-bottom: 6px;
-  display: flex;
-  align-items: center;
-  color: ${colors.N70};
-  transition: color 150ms;
-  &:hover {
-    color: ${colors.N500};
-  }
-`;
+const iconContainerStyles = css({
+  display: 'flex',
+  paddingTop: `6px`,
+  paddingRight: `${gridSize()}px`,
+  paddingBottom: `6px`,
+  paddingLeft: `${ICON_PADDING * 2}px`,
+  alignItems: 'center',
+  flexBasis: 'inherit',
+  color: token('color.text.lowEmphasis', N70),
+  transition: `color 150ms`,
+  '&:hover': {
+    color: token('color.text.mediumEmphasis', N500),
+  },
+});
 
 // react-select overrides (via @atlaskit/select).
 const styles: StylesConfig = {
@@ -409,18 +383,25 @@ class DateTimePicker extends React.Component<DateTimePickerProps, State> {
     // Render DateTimePicker's IconContainer when a value has been filled
     // Don't use Date or TimePicker's because they can't be customised
     const isClearable = Boolean(dateValue || timeValue);
+    const notFocusedOrIsDisabled = !(isFocused || isDisabled);
 
     return (
-      <Flex
+      <div
+        css={[
+          baseContainerStyles,
+          isDisabled && isDisabledStyles,
+          isFocused && isFocusedStyles,
+          bothProps.appearance === 'subtle' && subtleBgStyles,
+          isFocused && isFocusedBorderStyles,
+          bothProps.isInvalid && isInvalidBorderStyles,
+          notFocusedOrIsDisabled &&
+            (bothProps.isInvalid ? isInvalidHoverStyles : hoverStyles),
+        ]}
         {...innerProps}
-        isFocused={isFocused}
-        isDisabled={isDisabled}
-        isInvalid={this.props.isInvalid!}
-        appearance={this.props.appearance!}
         data-testid={testId}
       >
         <input name={name} type="hidden" value={value} />
-        <DatePickerContainer>
+        <div css={datePickerContainerStyles}>
           <DatePicker
             {...bothProps}
             autoFocus={autoFocus}
@@ -434,8 +415,8 @@ class DateTimePicker extends React.Component<DateTimePickerProps, State> {
             testId={testId && `${testId}--datepicker`}
             {...datePickerProps}
           />
-        </DatePickerContainer>
-        <TimePickerContainer>
+        </div>
+        <div css={timePickerContainerStyles}>
           <TimePicker
             {...bothProps}
             hideIcon
@@ -449,10 +430,11 @@ class DateTimePicker extends React.Component<DateTimePickerProps, State> {
             testId={testId && `${testId}--timepicker`}
             {...timePickerProps}
           />
-        </TimePickerContainer>
+        </div>
         {isClearable && !isDisabled ? (
-          // eslint-disable-next-line styled-components-a11y/click-events-have-key-events,styled-components-a11y/no-static-element-interactions
-          <IconContainer
+          // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
+          <div
+            css={iconContainerStyles}
             onClick={this.onClear}
             data-testid={testId && `${testId}--icon--container`}
           >
@@ -461,9 +443,9 @@ class DateTimePicker extends React.Component<DateTimePickerProps, State> {
               primaryColor="inherit"
               label="clear"
             />
-          </IconContainer>
+          </div>
         ) : null}
-      </Flex>
+      </div>
     );
   }
 }

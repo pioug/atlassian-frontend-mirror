@@ -48,20 +48,70 @@ export interface Match {
   text: string;
   url: string;
   length?: number;
+  input?: string;
 }
 
-const linkify = LinkifyIt();
+export const linkify = LinkifyIt();
 linkify.add('sourcetree:', 'http:');
 
-export function getLinkMatch(str: string): '' | Match | null {
-  const match = str && linkify.match(str);
+const tlds = 'biz|com|edu|gov|net|org|pro|web|xxx|aero|asia|coop|info|museum|name|shop|рф'.split(
+  '|',
+);
+const tlds2Char =
+  'a[cdefgilmnoqrtuwxz]|b[abdefghijmnorstvwyz]|c[acdfghiklmnoruvwxyz]|d[ejkmoz]|e[cegrstu]|f[ijkmor]|g[abdefghilmnpqrstuwy]|h[kmnrtu]|i[delmnoqrst]|j[emop]|k[eghimnprwyz]|l[abcikrstuvy]|m[acdeghklmnopqrtuvwxyz]|n[acefgilopruz]|om|p[aefghkmnrtw]|qa|r[eosuw]|s[abcdegijklmnrtuvxyz]|t[cdfghjklmnortvwz]|u[agksyz]|v[aceginu]|w[fs]|y[et]|z[amw]';
+tlds.push(tlds2Char);
+linkify.tlds(tlds, false);
+
+export const LINK_REGEXP = /(https?|ftp):\/\/[^\s]+/;
+
+export const linkifyMatch = (text: string): Match[] => {
+  const matches: Match[] = [];
+
+  if (!LINK_REGEXP.test(text)) {
+    return matches;
+  }
+
+  let startpos = 0;
+  let substr;
+
+  while ((substr = text.substr(startpos))) {
+    const link = (substr.match(LINK_REGEXP) || [''])[0];
+    if (link) {
+      const index = substr.search(LINK_REGEXP);
+      const start = index >= 0 ? index + startpos : index;
+      const end = start + link.length;
+      matches.push({
+        index: start,
+        lastIndex: end,
+        raw: link,
+        url: link,
+        text: link,
+        schema: '',
+      });
+      startpos += end;
+    } else {
+      break;
+    }
+  }
+
+  return matches;
+};
+
+export function getLinkMatch(str?: string): Match | null {
+  if (!str) {
+    return null;
+  }
+  let match: null | Match[] = linkifyMatch(str);
+  if (!match.length) {
+    match = linkify.match(str);
+  }
   return match && match[0];
 }
 
 /**
  * Adds protocol to url if needed.
  */
-export function normalizeUrl(url: string) {
+export function normalizeUrl(url?: string) {
   const match = getLinkMatch(url);
-  return (match && match.url) || url;
+  return (match && match.url) || '';
 }

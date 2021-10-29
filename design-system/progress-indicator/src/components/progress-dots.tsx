@@ -10,11 +10,8 @@ import React, {
 
 import { css, jsx } from '@emotion/core';
 
-import {
-  createAndFireEvent,
-  withAnalyticsContext,
-  withAnalyticsEvents,
-} from '@atlaskit/analytics-next';
+import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
+import noop from '@atlaskit/ds-lib/noop';
 import { useGlobalTheme } from '@atlaskit/theme/components';
 
 import type { ProgressDotsProps } from '../types';
@@ -59,6 +56,14 @@ const ProgressDots: FC<ProgressDotsProps> = ({
     HTMLDivElement
   >(null);
 
+  const onSelectWithAnalytics = usePlatformLeafEventHandler({
+    fn: onSelect || noop,
+    action: 'selected',
+    componentName: 'progressIndicator',
+    packageName,
+    packageVersion,
+  });
+
   const handleKeyDown = useCallback(
     (event: KeyboardEvent) => {
       const indicators = Array.from(
@@ -88,7 +93,7 @@ const ProgressDots: FC<ProgressDotsProps> = ({
 
       // call the consumer's select method and focus the applicable indicator
       if (onSelect) {
-        onSelect({
+        onSelectWithAnalytics({
           event: (event as unknown) as React.MouseEvent<HTMLButtonElement>,
           index,
         });
@@ -98,7 +103,7 @@ const ProgressDots: FC<ProgressDotsProps> = ({
         indicators[index].focus();
       }
     },
-    [onSelect, selectedIndex, values],
+    [onSelectWithAnalytics, selectedIndex, values, onSelect],
   );
 
   useEffect(() => {
@@ -144,7 +149,7 @@ const ProgressDots: FC<ProgressDotsProps> = ({
             aria-label={tabId}
             aria-selected={isSelected}
             id={tabId}
-            onClick={(event) => onSelect({ event, index })}
+            onClick={(event) => onSelectWithAnalytics({ event, index })}
             tabIndex={isSelected ? 0 : -1}
             data-testid={testId && `${testId}-ind-${index}`}
           />
@@ -160,23 +165,4 @@ const ProgressDots: FC<ProgressDotsProps> = ({
   );
 };
 
-export { ProgressDots as ProgressDotsWithoutAnalytics };
-const createAndFireEventOnAtlaskit = createAndFireEvent('atlaskit');
-
-export default withAnalyticsContext({
-  componentName: 'progressIndicator',
-  packageName,
-  packageVersion,
-})(
-  withAnalyticsEvents({
-    onSelect: createAndFireEventOnAtlaskit({
-      action: 'selected',
-      actionSubject: 'progressIndicator',
-      attributes: {
-        componentName: 'progressIndicator',
-        packageName,
-        packageVersion,
-      },
-    }),
-  })(ProgressDots),
-);
+export default ProgressDots;

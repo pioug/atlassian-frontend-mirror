@@ -1,5 +1,12 @@
 # @atlaskit/media-viewer
 
+## 45.8.10
+
+### Patch Changes
+
+- [`fe9ced0cd70`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fe9ced0cd70) - Removed feature flags for polling settings
+- Updated dependencies
+
 ## 45.8.9
 
 ### Patch Changes

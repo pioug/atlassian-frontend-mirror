@@ -19,7 +19,9 @@ export const BlockTypeMenuItem = styled.div<{
       margin-top: 0;
     }
   }
-  ${(props) => (props.selected ? `${props.tagName} { color: white }` : '')};
+  ${(props) =>
+    // TEMP FIX: See https://product-fabric.atlassian.net/browse/ED-13878
+    props.selected ? `${props.tagName} { color: white !important; }` : ''};
 `;
 
 export const KeyboardShortcut: ComponentClass<

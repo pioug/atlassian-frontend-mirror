@@ -233,3 +233,130 @@ describe('Controlled breadcrumbs', () => {
     expect(ariaLabel).toBe('Test label');
   });
 });
+
+describe('Focus managment', () => {
+  const breadcrumbsFixture = (props: any = {}) => {
+    return (
+      <Breadcrumbs testId="bcs" maxItems={2} {...props}>
+        <BreadcrumbsItem href="/item" text="Item" />
+        <BreadcrumbsItem href="/item" text="Another item" />
+        <BreadcrumbsItem href="/item" text="A third item" />
+      </Breadcrumbs>
+    );
+  };
+
+  it('should focus first revealed item, if ellipsis was focused', () => {
+    const { getByTestId, getByText } = render(breadcrumbsFixture());
+
+    const ellipsis = getByTestId('bcs--breadcrumb-ellipsis');
+    ellipsis.focus();
+
+    fireEvent.click(ellipsis);
+    const revealedItem = getByText('Another item').parentElement;
+
+    expect(revealedItem).toHaveFocus();
+  });
+
+  it('should not focus first revealed item, if ellipsis was not focused', () => {
+    const { getByTestId, getByText } = render(breadcrumbsFixture());
+
+    const ellipsis = getByTestId('bcs--breadcrumb-ellipsis');
+
+    fireEvent.click(ellipsis);
+    const revealedItem = getByText('Another item').parentElement;
+
+    expect(revealedItem).not.toHaveFocus();
+  });
+
+  describe('should not focus when there is no one of controlling prop', () => {
+    it('without onExpand', () => {
+      const { getByTestId, getByText, rerender } = render(
+        breadcrumbsFixture({ isExpanded: false }),
+      );
+
+      const ellipsis = getByTestId('bcs--breadcrumb-ellipsis');
+      ellipsis.focus();
+      fireEvent.click(ellipsis);
+
+      rerender(breadcrumbsFixture({ isExpanded: true }));
+
+      const revealedItem = getByText('Another item').parentElement;
+      expect(revealedItem).not.toHaveFocus();
+    });
+  });
+
+  it('should focus first revealed item, when have both isExpanded and onExpand props', () => {
+    const mockOnExpand = jest.fn();
+
+    const { getByTestId, getByText, rerender } = render(
+      breadcrumbsFixture({ isExpanded: false, onExpand: mockOnExpand }),
+    );
+
+    const ellipsis = getByTestId('bcs--breadcrumb-ellipsis');
+    ellipsis.focus();
+    fireEvent.click(ellipsis);
+
+    rerender(breadcrumbsFixture({ isExpanded: true, onExpand: mockOnExpand }));
+
+    const revealedItem = getByText('Another item').parentElement;
+    expect(revealedItem).toHaveFocus();
+  });
+
+  it('should focus the wrapper when there are no intractive elements', () => {
+    const NonInteractiveComponent = ({ children }: any) => (
+      <div>{children}</div>
+    );
+
+    const { getByLabelText, getByTestId } = render(
+      <Breadcrumbs testId="bcs" maxItems={2}>
+        <BreadcrumbsItem
+          href="/item"
+          text="Item"
+          component={NonInteractiveComponent}
+        />
+        <BreadcrumbsItem
+          href="/item"
+          text="Another item"
+          component={NonInteractiveComponent}
+        />
+        <BreadcrumbsItem
+          href="/item"
+          text="A third item"
+          component={NonInteractiveComponent}
+        />
+      </Breadcrumbs>,
+    );
+
+    const wrapper = getByLabelText('Breadcrumbs');
+    const ellipsis = getByTestId('bcs--breadcrumb-ellipsis');
+    ellipsis.focus();
+    fireEvent.click(ellipsis);
+
+    expect(wrapper).toHaveFocus();
+  });
+
+  it('should focus the first breadcrumb item when there are no intractive elements appeared', () => {
+    const NonInteractiveComponent = ({ children }: any) => (
+      <div>{children}</div>
+    );
+
+    const { getByText, getByTestId } = render(
+      <Breadcrumbs testId="bcs" maxItems={2}>
+        <BreadcrumbsItem href="/item" text="Item" />
+        <BreadcrumbsItem
+          href="/item"
+          text="Another item"
+          component={NonInteractiveComponent}
+        />
+        <BreadcrumbsItem href="/item" text="A third item" />
+      </Breadcrumbs>,
+    );
+
+    const firstBreadcrumbItem = getByText('Item').parentElement;
+    const ellipsis = getByTestId('bcs--breadcrumb-ellipsis');
+    ellipsis.focus();
+    fireEvent.click(ellipsis);
+
+    expect(firstBreadcrumbItem).toHaveFocus();
+  });
+});

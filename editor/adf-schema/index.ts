@@ -126,6 +126,8 @@ export {
   layoutColumn,
   layoutSection,
   link,
+  linkify,
+  linkifyMatch,
   linkToJSON,
   listItem,
   media,

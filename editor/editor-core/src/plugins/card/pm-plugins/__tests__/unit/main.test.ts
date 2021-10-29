@@ -5,7 +5,11 @@ import {
   inlineCard,
   DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { CardProvider } from '@atlaskit/editor-common/provider-factory';
+import {
+  CardAdf,
+  CardAppearance,
+  CardProvider,
+} from '@atlaskit/editor-common/provider-factory';
 import { ProviderFactory } from '@atlaskit/editor-common';
 
 import { OutstandingRequests } from '../../../types';
@@ -58,13 +62,56 @@ describe('resolveWithProvider()', () => {
         ),
       ),
     );
+    const options = { allowBlockCards: true };
     await resolveWithProvider(
       editorView,
       outstandingRequests,
       cardProvider,
       request,
+      options,
     );
     expect(cardProvider.resolve).toHaveBeenCalledTimes(1);
     expect(cardProvider.resolve).toBeCalledWith(url, 'block');
+  });
+
+  describe('Allowed card type', () => {
+    it.each([
+      ['block', 'blockCard', false, true],
+      ['embed', 'embedCard', true, false],
+    ])(
+      'resolves fallback to inline if %s card is not allowed',
+      async (appearance, type, allowBlockCards, allowEmbeds) => {
+        const url = 'https://atlassian.slack.com/archives/CR54/p123456';
+
+        const testCardProvider = new TestCardProvider();
+        const spy = jest
+          .spyOn(testCardProvider, 'resolve')
+          .mockResolvedValue({ type, attrs: { url } });
+
+        const request: Request = {
+          appearance: appearance as CardAppearance,
+          compareLinkText: false,
+          pos: 0,
+          source: INPUT_METHOD.MANUAL,
+          url,
+        };
+        const outstandingRequests: OutstandingRequests = {};
+        const { editorView } = editor(
+          doc(p('{<node>}', inlineCard({ url })())),
+        );
+        const options = { allowBlockCards, allowEmbeds };
+        const cardAdf = (await resolveWithProvider(
+          editorView,
+          outstandingRequests,
+          testCardProvider,
+          request,
+          options,
+        )) as CardAdf;
+
+        expect(cardAdf.type).toEqual('inlineCard');
+
+        spy.mockRestore();
+      },
+    );
   });
 });

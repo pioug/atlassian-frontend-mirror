@@ -36,6 +36,7 @@ export default class SpotlightTargetFixedPositionExample extends Component<
               position: 'fixed',
               height: '100vh',
               width: 300,
+              // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
               background: 'salmon',
             }}
           >

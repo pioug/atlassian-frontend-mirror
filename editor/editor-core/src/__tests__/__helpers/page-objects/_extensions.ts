@@ -4,6 +4,15 @@ import { selectors } from './_editor';
 
 export const extensionSelectors = {
   configPanel: '[data-testid="extension-config-panel"]',
+  backToCenter: '[aria-label="Back to center"]',
+  goWide: '[aria-label="Go wide"]',
+  goFullWidth: '[ari-label="Go full width"]',
+};
+
+export const extensionWidthSelectors = {
+  default: '[data-layout="default"]',
+  wide: '[data-layout="wide"]',
+  fullWidth: '[data-layout="full-width"]',
 };
 
 export const QUICK_INSERT_TRIGGER = '/';

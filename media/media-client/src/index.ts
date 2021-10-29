@@ -156,7 +156,8 @@ export type {
   CreateUrlOptions,
 } from './utils/request/types';
 
-export type ImageResizeMode = 'crop' | 'fit' | 'full-fit' | 'stretchy-fit';
+export type { ImageResizeMode } from './utils/imageResizeModeToFileImageMode';
+export { imageResizeModeToFileImageMode } from './utils/imageResizeModeToFileImageMode';
 
 export {
   FileFetcherImpl,

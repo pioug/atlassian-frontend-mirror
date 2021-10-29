@@ -2,6 +2,7 @@ import prettier from 'prettier';
 
 jest.mock('prettier');
 
+import { CSS_PREFIX } from '../../../constants';
 import formatter from '../../format-typescript-token-names';
 
 describe('formatter', () => {
@@ -29,7 +30,7 @@ describe('formatter', () => {
       },
     } as any);
 
-    expect(result).toEqual(`'color.brand': 'var(--brand)',`);
+    expect(result).toEqual(`'color.brand': 'var(--${CSS_PREFIX}-brand)',`);
   });
 
   it('should preserve camelCase tokens', () => {
@@ -46,7 +47,9 @@ describe('formatter', () => {
       },
     } as any);
 
-    expect(result).toEqual(`'color.specialAccent': 'var(--specialAccent)',`);
+    expect(result).toEqual(
+      `'color.specialAccent': 'var(--${CSS_PREFIX}-specialAccent)',`,
+    );
   });
 
   it('should omit palette tokens', () => {
@@ -83,7 +86,7 @@ describe('formatter', () => {
       },
     } as any);
 
-    expect(result).toEqual(`'color.accent': 'var(--accent)',`);
+    expect(result).toEqual(`'color.accent': 'var(--${CSS_PREFIX}-accent)',`);
   });
 
   it('should parse deeply nested token', () => {
@@ -100,6 +103,8 @@ describe('formatter', () => {
       },
     } as any);
 
-    expect(result).toEqual(`'color.accent.brand': 'var(--accent-brand)',`);
+    expect(result).toEqual(
+      `'color.accent.brand': 'var(--${CSS_PREFIX}-accent-brand)',`,
+    );
   });
 });

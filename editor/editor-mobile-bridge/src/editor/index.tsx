@@ -1,22 +1,14 @@
 import '@babel/polyfill';
-import React, { useCallback, useMemo, useRef } from 'react';
+import React, { useCallback, useRef, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import MobileEditor from './mobile-editor-element';
 import { IS_DEV } from '../utils';
-import {
-  createMentionProvider,
-  createMediaProvider,
-  createEmojiProvider,
-  createCardClient,
-  createCardProvider,
-} from '../providers';
 import { getQueryParams } from '../query-param-reader';
-import { useFetchProxy } from '../utils/fetch-proxy';
-import { createCollabProviderFactory } from '../providers/collab-provider';
 import { ErrorBoundary } from './error-boundary';
 import { toNativeBridge } from './web-to-native';
 import { getBridge } from './native-to-web/bridge-initialiser';
 import { useEditorConfiguration } from './hooks/use-editor-configuration';
+import { useProviders } from './hooks/use-providers';
 
 interface AppProps {
   defaultValue?: Node | string | Object;
@@ -35,14 +27,25 @@ export const App: React.FC<AppProps> = (props) => {
 };
 
 const Editor: React.FC<AppProps> = (props) => {
-  const fetchProxy = useFetchProxy();
   const bridge = getBridge();
   const editorConfiguration = useEditorConfiguration(bridge);
   const content = useRef('');
-  const createCollabProvider = useMemo(
-    () => createCollabProviderFactory(fetchProxy),
-    [fetchProxy],
-  );
+
+  const {
+    providers: {
+      mentionProvider,
+      emojiProvider,
+      mediaProvider,
+      cardProvider,
+      cardClient,
+      createCollabProvider,
+    },
+    resetProviders,
+  } = useProviders();
+
+  useEffect(() => {
+    bridge.setResetProviders(resetProviders);
+  }, [bridge, resetProviders]);
 
   const onLocaleChanged = useCallback(() => {
     bridge.setContent(content.current);
@@ -55,18 +58,18 @@ const Editor: React.FC<AppProps> = (props) => {
   return (
     <ErrorBoundary>
       <MobileEditor
-        createCollabProvider={createCollabProvider}
-        cardClient={createCardClient()}
-        cardProvider={createCardProvider()}
         defaultValue={props.defaultValue}
-        emojiProvider={createEmojiProvider(fetchProxy)}
-        mediaProvider={createMediaProvider()}
-        mentionProvider={createMentionProvider()}
         bridge={bridge}
         locale={editorConfiguration.getLocale()}
         editorConfiguration={editorConfiguration}
         onLocaleChanged={onLocaleChanged}
         onWillLocaleChange={onWillLocaleChange}
+        mentionProvider={mentionProvider}
+        emojiProvider={emojiProvider}
+        mediaProvider={mediaProvider}
+        cardProvider={cardProvider}
+        cardClient={cardClient}
+        createCollabProvider={createCollabProvider}
       />
     </ErrorBoundary>
   );

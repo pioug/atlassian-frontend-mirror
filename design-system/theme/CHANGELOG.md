@@ -1,5 +1,12 @@
 # @atlaskit/theme
 
+## 12.0.1
+
+### Patch Changes
+
+- [`b99deb544f9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b99deb544f9) - Patches an unsafe selector used by Theme in older browsers.
+- Updated dependencies
+
 ## 12.0.0
 
 ### Major Changes

@@ -808,6 +808,28 @@ System.out.println("There are " + count + " values >= 5");`,
       ],
     },
     {
+      type: 'paragraph',
+      content: [
+        {
+          type: 'text',
+          text: 'Media Inline',
+        },
+      ],
+    },
+    {
+      type: 'paragraph',
+      content: [
+        {
+          type: 'mediaInline',
+          attrs: {
+            type: 'file',
+            id: 'media-type-doc',
+            collection: 'MediaServicesSample',
+          },
+        },
+      ],
+    },
+    {
       type: 'bulletList',
       content: [
         {

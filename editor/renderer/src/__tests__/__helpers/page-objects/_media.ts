@@ -8,6 +8,8 @@ export const selectors = {
   mediaErrorLoading: '.rich-media-item .wrapper',
   caption: '[data-testid="media-caption"]',
   captionPlaceholder: '[data-testid="caption-placeholder"]',
+  mediaInlineCardSelector: (status = 'loaded') =>
+    `[data-testid="media-inline-card-${status.replace(/_/g, '-')}-view"]`,
 };
 
 export const waitForAllMedia = async (
@@ -21,4 +23,14 @@ export const waitForAllMedia = async (
   );
   // FIXME These tests were flakey in the Puppeteer v10 Upgrade
   await waitForLoadedImageElements(page, 5000);
+};
+
+export const waitForLoadedMediaInlineCard = async (
+  page: PuppeteerPage,
+  status?: 'loading' | 'loaded' | 'errored',
+) => {
+  await page.waitForSelector(selectors.mediaInlineCardSelector(status));
+  if (status === 'loading') {
+    await page.waitForSelector('.inline-loading-spinner');
+  }
 };

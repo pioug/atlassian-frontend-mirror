@@ -1,10 +1,13 @@
-import React, { forwardRef, memo, MouseEventHandler } from 'react';
+/** @jsx jsx */
 
-import { ClassNames } from '@emotion/core';
+import { forwardRef, memo, MouseEventHandler } from 'react';
 
-import BaseItem from '../internal/components/base-item';
+import { css, jsx } from '@emotion/core';
+
+import noop from '@atlaskit/ds-lib/noop';
+
+import MenuItemPrimitive from '../internal/components/menu-item-primitive';
 import { useBlurOnMouseDown } from '../internal/hooks/use-blur-on-mouse-down';
-import { customItemCSS } from '../internal/styles/menu-item/custom-item';
 import type { CustomItemComponentProps, CustomItemProps } from '../types';
 
 const preventEvent: MouseEventHandler = (e) => {
@@ -24,7 +27,7 @@ interface CustomItemTypeGenericHackProps {
 /**
  * __Custom item__
  *
- * A custom item is used to populate a menu with items that need to be a custom element.
+ * A custom item is used to populate a menu with items that can be any element.
  *
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/menu/docs/custom-item)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/menu)
@@ -34,7 +37,7 @@ const CustomItem = memo(
     (
       {
         component: Component,
-        cssFn = () => ({}),
+        cssFn = noop as any,
         isDisabled = false,
         isSelected = false,
         onClick,
@@ -59,39 +62,44 @@ const CustomItem = memo(
       }
 
       return (
-        <ClassNames>
-          {({ css }) => (
+        <MenuItemPrimitive
+          {...rest}
+          // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
+          overrides={overrides}
+          description={description}
+          iconAfter={iconAfter}
+          title={children}
+          iconBefore={iconBefore}
+          isSelected={isSelected}
+          isDisabled={isDisabled}
+          shouldTitleWrap={shouldTitleWrap}
+          shouldDescriptionWrap={shouldDescriptionWrap}
+          testId={testId}
+          // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
+          css={css(
+            cssFn({
+              isDisabled,
+              isSelected,
+            }),
+          )}
+        >
+          {({ children, ...props }) => (
             <Component
+              {...rest}
+              {...props}
               ref={ref}
               data-testid={testId}
               draggable={false}
-              className={css([
-                customItemCSS(isDisabled, isSelected),
-                cssFn({
-                  isDisabled,
-                  isSelected,
-                }),
-              ])}
               onDragStart={preventEvent}
               onMouseDown={isDisabled ? preventEvent : onMouseDownHandler}
               onClick={isDisabled ? preventEvent : onClick}
               tabIndex={isDisabled ? -1 : undefined}
               aria-disabled={isDisabled}
-              {...rest}
             >
-              <BaseItem
-                // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
-                overrides={overrides}
-                children={children}
-                description={description}
-                iconAfter={iconAfter}
-                iconBefore={iconBefore}
-                shouldTitleWrap={shouldTitleWrap}
-                shouldDescriptionWrap={shouldDescriptionWrap}
-              />
+              {children}
             </Component>
           )}
-        </ClassNames>
+        </MenuItemPrimitive>
       );
     },
   ),

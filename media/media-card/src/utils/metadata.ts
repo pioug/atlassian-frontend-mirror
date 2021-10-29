@@ -2,6 +2,9 @@ import {
   FileState,
   FileDetails,
   isErrorFileState,
+  Identifier,
+  isFileIdentifier,
+  ErrorFileState,
 } from '@atlaskit/media-client';
 
 const getProcessingStatusFromFileState = (status: FileState['status']) => {
@@ -15,17 +18,29 @@ const getProcessingStatusFromFileState = (status: FileState['status']) => {
   }
 };
 
-export const getFileDetails = (state: FileState): FileDetails =>
-  !isErrorFileState(state)
-    ? {
-        id: state.id,
-        name: state.name,
-        size: state.size,
-        mimeType: state.mimeType,
-        createdAt: state.createdAt,
-        mediaType: state.mediaType,
-        processingStatus: getProcessingStatusFromFileState(state.status),
-      }
+const getFileDetailsFromFileState = (
+  state: Exclude<FileState, ErrorFileState>,
+): FileDetails => ({
+  id: state.id,
+  name: state.name,
+  size: state.size,
+  mimeType: state.mimeType,
+  createdAt: state.createdAt,
+  mediaType: state.mediaType,
+  processingStatus: getProcessingStatusFromFileState(state.status),
+});
+
+export const getFileDetails = (
+  identifier: Identifier,
+  fileState?: FileState,
+): FileDetails => {
+  return isFileIdentifier(identifier)
+    ? fileState && !isErrorFileState(fileState)
+      ? getFileDetailsFromFileState(fileState)
+      : { id: identifier.id }
     : {
-        id: state.id,
+        id: identifier.mediaItemType,
+        name: identifier.name || identifier.dataURI,
+        mediaType: 'image',
       };
+};

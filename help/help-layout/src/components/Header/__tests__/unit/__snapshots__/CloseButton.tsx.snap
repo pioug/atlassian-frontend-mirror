@@ -38,7 +38,7 @@ exports[`BackButton Should match snapshot 1`] = `
   transition: background 0.1s ease-out,box-shadow 0.15s cubic-bezier(0.47,0.03,0.49,1.38);
   white-space: nowrap;
   background: none;
-  color: var(--text-highEmphasis,#42526E) !important;
+  color: var(--ds-text-highEmphasis,#42526E) !important;
   cursor: pointer;
   height: 2.2857142857142856em;
   line-height: 2.2857142857142856em;
@@ -147,7 +147,7 @@ exports[`BackButton Should match snapshot 1`] = `
           aria-label="Close"
           class="emotion-0"
           role="img"
-          style="--icon-primary-color: currentColor; --icon-secondary-color: var(--background-default, #FFFFFF);"
+          style="--icon-primary-color: currentColor; --icon-secondary-color: var(--ds-background-default, #FFFFFF);"
         >
           <svg
             height="24"

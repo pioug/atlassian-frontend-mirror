@@ -1,6 +1,9 @@
-import { PollingOptions } from '@atlaskit/media-common/mediaFeatureFlags';
-
-import { defaultPollingOptions, PollingFunction } from '../../polling';
+import {} from '@atlaskit/media-common/mediaFeatureFlags';
+import {
+  defaultPollingOptions,
+  PollingFunction,
+  PollingOptions,
+} from '../../polling';
 import { isPollingError, PollingError } from '../../polling/errors';
 
 const simulateTimeout = (poll_intervalMs: number) =>

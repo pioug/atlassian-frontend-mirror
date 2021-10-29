@@ -49,28 +49,19 @@ const insetFocusRingStyles = css({
 /**
  * __Focus ring__
  *
- * A focus ring is used to apply accessibile styles to a focusable element.
+ * A focus ring is used indicate the currently focused item.
  *
- * @example
- * ```jsx
- * import FocusRing from '@atlaskit/focus-ring';
- *
- * const MyFocusableInput = () => (
- *  <FocusRing>
- *    <Input />
- *  </FocusRing>
- * );
- * ```
+ * - [Code](https://atlaskit.atlassian.com/packages/design-system/focus-ring)
  */
 const FocusRing: FC<FocusRingProps> = ({ children, isInset }) => (
   <ClassNames>
-    {({ css }) =>
+    {({ css, cx }) =>
       Children.only(
         // eslint-disable-next-line @repo/internal/react/no-clone-element
         cloneElement(children, {
-          className: css([
-            isInset ? insetFocusRingStyles : focusRingStyles,
-            (children as any).className,
+          className: cx([
+            css(isInset ? insetFocusRingStyles : focusRingStyles),
+            children && children.props.className,
           ]),
         }),
       )

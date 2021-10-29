@@ -5,11 +5,13 @@ import {
   doc,
   media,
   mediaGroup,
+  mediaInline,
   mediaSingle,
   table,
   tr,
   td,
   a,
+  p,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { Context } from '../../../interfaces';
 
@@ -177,6 +179,20 @@ describe('ADF => WikiMarkup - Media', () => {
           })(),
         ),
       ),
+    )(defaultSchema);
+    expect(transformer.encode(node)).toMatchSnapshot();
+  });
+
+  test('should convert mediaInline node with context', () => {
+    const node = doc(p(mediaInline({ collection: 'tmp', id: 'abc-123' })()))(
+      defaultSchema,
+    );
+    expect(transformer.encode(node, context)).toMatchSnapshot();
+  });
+
+  test('should convert mediaInline node with no context', () => {
+    const node = doc(
+      p(mediaInline({ collection: 'tmp', id: 'abc-123-uuid' })()),
     )(defaultSchema);
     expect(transformer.encode(node)).toMatchSnapshot();
   });

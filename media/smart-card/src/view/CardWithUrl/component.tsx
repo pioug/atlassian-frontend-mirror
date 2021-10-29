@@ -35,7 +35,7 @@ export function CardWithUrlContent({
   inlinePreloaderStyle,
 }: CardWithUrlContentProps) {
   // Get state, actions for this card.
-  const { state, actions, config, analytics, renderers } = useSmartLink(
+  const { state, actions, config, analytics, renderers, error } = useSmartLink(
     id,
     url,
     dispatchAnalytics,
@@ -117,7 +117,12 @@ export function CardWithUrlContent({
   // - the unresolved states: viz. forbidden, not_found, unauthorized, errored.
   useEffect(() => {
     if (isFinalState(state.status)) {
-      analytics.ui.renderSuccessEvent(appearance, definitionId, extensionKey);
+      analytics.ui.renderSuccessEvent(
+        appearance,
+        id,
+        definitionId,
+        extensionKey,
+      );
     }
   }, [
     appearance,
@@ -127,7 +132,13 @@ export function CardWithUrlContent({
     definitionId,
     extensionKey,
     analytics.ui,
+    id,
   ]);
+
+  // We have to keep this last to prevent hook order from being violated
+  if (error) {
+    throw error;
+  }
 
   switch (appearance) {
     case 'inline':

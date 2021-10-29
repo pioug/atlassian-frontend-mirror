@@ -1,5 +1,11 @@
 # @atlaskit/progress-indicator
 
+## 9.1.1
+
+### Patch Changes
+
+- [`7d89d624097`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7d89d624097) - Fix for focus being incorrectly retained when indicators were not interactive.
+
 ## 9.1.0
 
 ### Minor Changes

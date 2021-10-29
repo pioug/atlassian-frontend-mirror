@@ -27,6 +27,8 @@ import * as date from './__fixtures__/date.adf.json';
 import * as mediaSingle from './__fixtures__/media-single.adf.json';
 import * as mediaGroup from './__fixtures__/media-group.adf.json';
 import * as mediaGroupAllTypes from './__fixtures__/media-group-all-types.adf.json';
+import * as mediaInline from './__fixtures__/media-inline.adf.json';
+import * as mediaInlineAllTypes from './__fixtures__/media-inline-all-types.adf.json';
 import * as lists from './__fixtures__/lists.adf.json';
 import * as text from './__fixtures__/text.adf.json';
 import * as expand from './__fixtures__/expand.adf.json';
@@ -40,6 +42,49 @@ import { MetaDataContext } from '../../interfaces';
 const defaultTestOpts: EmailSerializerOpts = {
   isImageStubEnabled: false,
   isInlineCSSEnabled: true,
+};
+
+const mediaContext: MetaDataContext = {
+  hydration: {
+    mediaMetaData: {
+      'media-type-image': {
+        name: 'Dark wallpaper theme.jpg',
+        mediaType: 'image',
+        mimeType: 'image/jpeg',
+        size: 54981,
+      },
+      'media-type-doc': {
+        name: 'My bachelor thesis.pdf',
+        mediaType: 'doc',
+        mimeType: 'application/pdf',
+        size: 12345,
+      },
+      'media-type-video': {
+        name: 'Metallica full concert.mpeg',
+        mediaType: 'video',
+        mimeType: 'vide/mpeg',
+        size: 982347,
+      },
+      'media-type-audio': {
+        name: 'The sound of silence.mp3',
+        mediaType: 'audio',
+        mimeType: 'audio/mpeg',
+        size: 98734,
+      },
+      'media-type-archive': {
+        name: 'The Slackening.zip',
+        mediaType: 'archive',
+        mimeType: 'application/zip',
+        size: 4383,
+      },
+      'media-type-unknown': {
+        name: 'unknown',
+        mediaType: 'unknown',
+        mimeType: 'unknown',
+        size: 54981,
+      },
+    },
+  },
 };
 
 const render = (
@@ -111,6 +156,11 @@ describe('Renderer - EmailSerializer', () => {
 
   it('should render media group correctly', () => {
     const { result } = render(mediaGroup);
+    expect(result).toMatchSnapshot('html');
+  });
+
+  it('should render media inline correctly', () => {
+    const { result } = render(mediaInline);
     expect(result).toMatchSnapshot('html');
   });
 
@@ -281,49 +331,12 @@ describe('Renderer - EmailSerializer', () => {
   });
 
   it('should render media based on given context', () => {
-    const context: MetaDataContext = {
-      hydration: {
-        mediaMetaData: {
-          'media-type-image': {
-            name: 'Dark wallpaper theme.jpg',
-            mediaType: 'image',
-            mimeType: 'image/jpeg',
-            size: 54981,
-          },
-          'media-type-doc': {
-            name: 'My bachelor thesis.pdf',
-            mediaType: 'doc',
-            mimeType: 'application/pdf',
-            size: 12345,
-          },
-          'media-type-video': {
-            name: 'Metallica full concert.mpeg',
-            mediaType: 'video',
-            mimeType: 'vide/mpeg',
-            size: 982347,
-          },
-          'media-type-audio': {
-            name: 'The sound of silence.mp3',
-            mediaType: 'audio',
-            mimeType: 'audio/mpeg',
-            size: 98734,
-          },
-          'media-type-archive': {
-            name: 'The Slackening.zip',
-            mediaType: 'archive',
-            mimeType: 'application/zip',
-            size: 4383,
-          },
-          'media-type-unknown': {
-            name: 'unknown',
-            mediaType: 'unknown',
-            mimeType: 'unknown',
-            size: 54981,
-          },
-        },
-      },
-    };
-    const { result } = render(mediaGroupAllTypes, undefined, context);
+    const { result } = render(mediaGroupAllTypes, undefined, mediaContext);
+    expect(result).toMatchSnapshot('html');
+  });
+
+  it('should render media inline based on given context', () => {
+    const { result } = render(mediaInlineAllTypes, undefined, mediaContext);
     expect(result).toMatchSnapshot('html');
   });
 });

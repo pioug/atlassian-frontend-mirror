@@ -6,7 +6,7 @@ import {
   FloatingToolbarButton,
 } from './../floating-toolbar/types';
 import { PanelPluginOptions } from './types';
-import { defineMessages, InjectedIntl } from 'react-intl';
+import { InjectedIntl } from 'react-intl';
 import SuccessIcon from '@atlaskit/icon/glyph/editor/success';
 import InfoIcon from '@atlaskit/icon/glyph/editor/info';
 import NoteIcon from '@atlaskit/icon/glyph/editor/note';
@@ -44,49 +44,18 @@ import {
   AnalyticsEventPayload,
   withAnalytics,
 } from '../analytics';
+import { messages } from './message';
 
-export const messages = defineMessages({
-  info: {
-    id: 'fabric.editor.info',
-    defaultMessage: 'Info',
-    description:
-      'Panels provide a way to highlight text. The info panel has a blue background.',
-  },
-  note: {
-    id: 'fabric.editor.note',
-    defaultMessage: 'Note',
-    description:
-      'Panels provide a way to highlight text. The note panel has a purple background.',
-  },
-  success: {
-    id: 'fabric.editor.success',
-    defaultMessage: 'Success',
-    description:
-      'Panels provide a way to highlight text. The success panel has a green background.',
-  },
-  warning: {
-    id: 'fabric.editor.warning',
-    defaultMessage: 'Warning',
-    description:
-      'Panels provide a way to highlight text. The warning panel has a yellow background.',
-  },
-  error: {
-    id: 'fabric.editor.error',
-    defaultMessage: 'Error',
-    description:
-      'Panels provide a way to highlight text. The error panel has a red background.',
-  },
-  emoji: {
-    id: 'fabric.editor.panel.emoji',
-    defaultMessage: 'Add emoji',
-    description: 'Select the panel icon',
-  },
-  backgroundColor: {
-    id: 'fabric.editor.panel.backgroundColor',
-    defaultMessage: 'Background color',
-    description: 'Select the panel background color.',
-  },
-});
+export const panelIconMap: {
+  [key in Exclude<PanelType, PanelType.CUSTOM>]: string;
+} = {
+  [PanelType.INFO]: ':info:',
+  [PanelType.NOTE]: ':note:',
+  [PanelType.WARNING]: ':warning:',
+  [PanelType.ERROR]: ':error:',
+  [PanelType.SUCCESS]: ':success:',
+  [PanelType.TIP]: ':tip:',
+};
 
 export const getToolbarItems = (
   formatMessage: (
@@ -94,6 +63,7 @@ export const getToolbarItems = (
   ) => string,
   panelNodeType: NodeType,
   isCustomPanelEnabled: boolean,
+  isCustomPanelEditable: boolean,
   providerFactory: ProviderFactory,
   activePanelType?: string,
   activePanelColor?: string,
@@ -151,10 +121,18 @@ export const getToolbarItems = (
       let previousColor =
         panelNode.node.attrs.panelColor ||
         getPanelTypeBackground(panelNode.node.attrs.panelType);
+
+      const emojiInfo = panelNode.node.attrs.panelType as Exclude<
+        PanelType,
+        PanelType.CUSTOM
+      >;
+      const panelInfo = panelIconMap[emojiInfo];
+      const previousEmoji = panelInfo ? { emoji: panelInfo } : {};
+
       if (previousColor === color) {
         changePanelType(
           PanelType.CUSTOM,
-          { color },
+          { color, ...previousEmoji },
           isCustomPanelEnabled,
         )(state, dispatch);
         return false;
@@ -166,8 +144,13 @@ export const getToolbarItems = (
         attributes: { newColor: color, previousColor: previousColor },
         eventType: EVENT_TYPE.TRACK,
       };
+
       withAnalytics(payload)(
-        changePanelType(PanelType.CUSTOM, { color }, isCustomPanelEnabled),
+        changePanelType(
+          PanelType.CUSTOM,
+          { color, ...previousEmoji },
+          isCustomPanelEnabled,
+        ),
       )(state, dispatch);
       return false;
     };
@@ -235,43 +218,45 @@ export const getToolbarItems = (
         border: DEFAULT_BORDER_COLOR,
       } as PaletteColor);
 
-    const colorPicker: FloatingToolbarColorPicker<Command> = {
-      id: 'editor.panel.colorPicker',
-      title: formatMessage(messages.backgroundColor),
-      type: 'select',
-      selectType: 'color',
-      defaultValue: defaultPalette,
-      options: panelBackgroundPalette,
-      onChange: (option) => changeColor(option.value),
-    };
+    if (isCustomPanelEditable) {
+      const colorPicker: FloatingToolbarColorPicker<Command> = {
+        id: 'editor.panel.colorPicker',
+        title: formatMessage(messages.backgroundColor),
+        type: 'select',
+        selectType: 'color',
+        defaultValue: defaultPalette,
+        options: panelBackgroundPalette,
+        onChange: (option) => changeColor(option.value),
+      };
 
-    const emojiPicker: FloatingToolbarEmojiPicker<Command> = {
-      id: 'editor.panel.emojiPicker',
-      title: formatMessage(messages.emoji),
-      type: 'select',
-      selectType: 'emoji',
-      options: [],
-      selected: activePanelType === PanelType.CUSTOM && !!activePanelIcon,
-      onChange: (emojiShortName) => changeEmoji(emojiShortName),
-    };
+      const emojiPicker: FloatingToolbarEmojiPicker<Command> = {
+        id: 'editor.panel.emojiPicker',
+        title: formatMessage(messages.emoji),
+        type: 'select',
+        selectType: 'emoji',
+        options: [],
+        selected: activePanelType === PanelType.CUSTOM && !!activePanelIcon,
+        onChange: (emojiShortName) => changeEmoji(emojiShortName),
+      };
 
-    const removeEmojiButton: FloatingToolbarButton<Command> = {
-      id: 'editor.panel.removeEmoji',
-      type: 'button',
-      icon: RemoveEmojiIcon,
-      onClick: removeEmoji(),
-      title: formatMessage(commonMessages.removeEmoji),
-      disabled: activePanelIcon ? false : true,
-    };
+      const removeEmojiButton: FloatingToolbarButton<Command> = {
+        id: 'editor.panel.removeEmoji',
+        type: 'button',
+        icon: RemoveEmojiIcon,
+        onClick: removeEmoji(),
+        title: formatMessage(commonMessages.removeEmoji),
+        disabled: activePanelIcon ? false : true,
+      };
 
-    items.push(
-      emojiPicker,
-      removeEmojiButton,
-      {
-        type: 'separator',
-      },
-      colorPicker,
-    );
+      items.push(
+        emojiPicker,
+        removeEmojiButton,
+        {
+          type: 'separator',
+        },
+        colorPicker,
+      );
+    }
   }
 
   items.push(
@@ -312,6 +297,9 @@ export const getToolbarConfig = (
       formatMessage,
       nodeType,
       options.UNSAFE_allowCustomPanel || false,
+      (options.UNSAFE_allowCustomPanel &&
+        options.UNSAFE_allowCustomPanelEdit) ||
+        false,
       providerFactory,
       panelType,
       options.UNSAFE_allowCustomPanel ? panelColor : undefined,

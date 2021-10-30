@@ -17,6 +17,7 @@ import RestrictionMessage from '../example-helpers/RestrictionMessage';
 import { ProductName, ShareDialogContainer } from '../src';
 import {
   Comment,
+  ConfigResponse,
   Content,
   DialogPlacement,
   KeysOfType,
@@ -162,6 +163,17 @@ const dialogPlacementOptions: Array<DialogPlacementOption> = [
   { label: 'left-end', value: 'left-end' },
 ];
 
+interface ConfigOption {
+  label: string;
+  value: ConfigResponse;
+}
+
+const configOptions: Array<ConfigOption> = [
+  { label: 'Email sharing allowed', value: { disableSharingToEmails: false } },
+  { label: 'Email sharing disabled', value: { disableSharingToEmails: true } },
+  { label: 'No value for email sharing', value: {} },
+];
+
 interface TriggerButtonAppearanceOption {
   label: string;
   value: State['triggerButtonAppearance'];
@@ -202,6 +214,7 @@ const triggerButtonTooltipPositionOptions: Array<TriggerPositionOption> = [
 ];
 
 type ExampleState = {
+  chosenConfig: number;
   customButton: boolean;
   customTitle: boolean;
   contentPermissions: boolean;
@@ -322,6 +335,7 @@ export default class Example extends React.Component<{}, State> {
     customButton: false,
     customTitle: false,
     contentPermissions: false,
+    chosenConfig: 0,
     customTooltipText: false,
     customTriggerButtonIcon: false,
     restrictionMessage: false,
@@ -371,6 +385,12 @@ export default class Example extends React.Component<{}, State> {
   };
 
   shareClient: ShareClient = {
+    getConfig: () =>
+      new Promise<ConfigResponse>((resolve) => {
+        setTimeout(() => {
+          resolve(configOptions[this.state.chosenConfig].value);
+        }, 1000);
+      }),
     share: this.share,
   };
 
@@ -381,6 +401,7 @@ export default class Example extends React.Component<{}, State> {
       isAutoOpenDialog,
       customButton,
       customTitle,
+      chosenConfig,
       contentPermissions,
       customTooltipText,
       customTriggerButtonIcon,
@@ -658,6 +679,21 @@ export default class Example extends React.Component<{}, State> {
                       onChange={(option: any) =>
                         this.setState({ dialogPlacement: option.value })
                       }
+                    />
+                  </WrapperWithMarginTop>
+                  <WrapperWithMarginTop>
+                    Share config
+                    <Select
+                      value={configOptions[chosenConfig]}
+                      options={configOptions}
+                      onChange={(config: ConfigOption | null) => {
+                        this.setState({
+                          chosenConfig:
+                            configOptions.findIndex(
+                              (option) => option.label === config?.label,
+                            ) || 0,
+                        });
+                      }}
                     />
                   </WrapperWithMarginTop>
                   <WrapperWithMarginTop>

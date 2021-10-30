@@ -11,6 +11,7 @@ import styled from 'styled-components';
 import { messages } from '../i18n';
 import {
   Comment,
+  ConfigResponse,
   DialogContentState,
   FormChildrenArgs,
   ProductName,
@@ -62,6 +63,8 @@ export type ShareData = {
 };
 
 export type Props = {
+  config?: ConfigResponse;
+  isFetchingConfig?: boolean;
   copyLink: string;
   isSharing?: boolean;
   loadOptions?: LoadOptions;
@@ -159,6 +162,8 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
       onLinkCopy,
       copyLink,
       defaultValue,
+      config,
+      isFetchingConfig,
       product,
       onUserInputChange,
       enableSmartUserPicker,
@@ -181,6 +186,8 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
               onChange={onUserSelectionChange}
               loadOptions={loadOptions}
               defaultValue={defaultValue && defaultValue.users}
+              config={config}
+              isLoading={isFetchingConfig}
               product={product}
               enableSmartUserPicker={enableSmartUserPicker}
               loggedInAccountId={loggedInAccountId}

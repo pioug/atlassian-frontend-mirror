@@ -1,5 +1,6 @@
 import { createRef } from 'react';
 import {
+  allowEmails,
   generateSelectZIndex,
   zIndexAddition,
   getMenuPortalTargetCurrentHTML,
@@ -27,6 +28,32 @@ describe('utils functions', () => {
       expect(getMenuPortalTargetCurrentHTML(refWithElement)).toBe(
         refWithElement.current,
       );
+    });
+  });
+
+  describe('allowEmails', () => {
+    it('should return true if no config provided', () => {
+      expect(allowEmails()).toBe(true);
+    });
+
+    it('should return true if "disableSharingToEmails" key is absent', () => {
+      expect(allowEmails({})).toBe(true);
+    });
+
+    it('should return true if "disableSharingToEmails" is false', () => {
+      expect(
+        allowEmails({
+          disableSharingToEmails: false,
+        }),
+      ).toBe(true);
+    });
+
+    it('should return false if "disableSharingToEmails" is true', () => {
+      expect(
+        allowEmails({
+          disableSharingToEmails: true,
+        }),
+      ).toBe(false);
     });
   });
 });

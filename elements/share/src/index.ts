@@ -32,6 +32,7 @@ export type {
   ShareError,
   ShareRequest,
   ShareResponse,
+  ConfigResponse,
   TooltipPosition,
   User,
   UserWithEmail,

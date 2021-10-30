@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/share",
-  "version": "0.31.1",
+  "version": "0.32.0",
   "description": "Fabric Share Element",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -15,6 +15,12 @@
   "atlaskit:src": "src/index.ts",
   "af:exports": {
     ".": "./src/index.ts"
+  },
+  "scripts": {
+    "lint:fix": "(cd ../../.. && bolt w @atlaskit/codeshifts format-package-jsons && yarn eslint --fix 'packages/elements/share/**/*.{ts,tsx,ts}')",
+    "lint": "(cd ../../.. && yarn eslint 'packages/elements/share/**/*.{ts,tsx,ts}')",
+    "typecheck": "NODE_OPTIONS=--max-old-space-size=4096 tsc --noEmit --project ./tsconfig.json",
+    "test": "(cd ../../.. && yarn test 'packages/elements/share')"
   },
   "atlassian": {
     "team": "People and Teams Collective",

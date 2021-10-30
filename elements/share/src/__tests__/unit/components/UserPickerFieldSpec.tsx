@@ -1,6 +1,8 @@
 jest.mock('../../../components/utils', () => ({
   getInviteWarningType: jest.fn(),
   getMenuPortalTargetCurrentHTML: jest.fn(),
+  allowEmails: (config: ConfigResponse) =>
+    !(config && config.disableSharingToEmails),
 }));
 
 import { shallowWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
@@ -15,6 +17,7 @@ import {
 } from '../../../components/UserPickerField';
 import { getMenuPortalTargetCurrentHTML } from '../../../components/utils';
 import { messages } from '../../../i18n';
+import { ConfigResponse } from '../../../types';
 import { ProductName } from '../../../types/Products';
 import { renderProp } from '../_testUtils';
 
@@ -269,6 +272,7 @@ describe('UserPickerField', () => {
       const component = renderUserPicker(
         {
           loadOptions,
+          config: { disableSharingToEmails: true },
           product,
           isPublicLink,
         },
@@ -283,6 +287,36 @@ describe('UserPickerField', () => {
         component,
       };
     };
+
+    it('should show existing user only placeholder', () => {
+      const { component } = setUpInviteWarningTest();
+      const formattedMessageAddMore = component.find(FormattedMessage).first();
+      const userPicker = renderProp(
+        formattedMessageAddMore,
+        'children',
+        'add more',
+      ).find(UserPicker);
+      expect(userPicker.prop('placeholder')).toEqual(
+        <FormattedMessage
+          {...messages.userPickerGenericExistingUserOnlyPlaceholder}
+        />,
+      );
+    });
+
+    it('should show existing user only placeholder in Jira', () => {
+      const { component } = setUpInviteWarningTest('jira');
+      const formattedMessageAddMore = component.find(FormattedMessage).first();
+      const userPicker = renderProp(
+        formattedMessageAddMore,
+        'children',
+        'add more',
+      ).find(UserPicker);
+      expect(userPicker.prop('placeholder')).toEqual(
+        <FormattedMessage
+          {...messages.userPickerExistingUserOnlyPlaceholder}
+        />,
+      );
+    });
 
     it('should display warning message when product is confluence', () => {
       const { component } = setUpInviteWarningTest();
@@ -338,6 +372,32 @@ describe('UserPickerField', () => {
 
       userPicker.simulate('inputChange', 'some text');
       expect(onInputChange).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('when sharing to emails is disabled', () => {
+    it('should not allow emails in the user picker', () => {
+      const fieldProps = {
+        onChange: jest.fn(),
+        value: [],
+      };
+      const loadOptions = jest.fn();
+      const field = renderUserPicker(
+        {
+          loadOptions,
+          product: 'confluence',
+          config: { disableSharingToEmails: true },
+          enableSmartUserPicker: true,
+        },
+        { fieldProps, meta: { valid: true } },
+      );
+      const formattedMessageAddMore = field.find(FormattedMessage).first();
+      const smartUserPicker = renderProp(
+        formattedMessageAddMore,
+        'children',
+        'add more',
+      ).find(SmartUserPicker);
+      expect(smartUserPicker.prop('allowEmail')).toBe(false);
     });
   });
 });

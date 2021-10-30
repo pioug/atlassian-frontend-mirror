@@ -2,7 +2,7 @@ import { OptionData } from '@atlaskit/user-picker';
 // AFP-2532 TODO: Fix automatic suppressions below
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { layers } from '@atlaskit/theme';
-import { User, UserWithEmail } from '../types';
+import { ConfigResponse, User, UserWithEmail } from '../types';
 
 /**
  * We need to generate correct zIndex, for the PopUp and for the Select inside it.
@@ -55,3 +55,6 @@ export const optionDataToUsers = (optionDataArray: OptionData[]): User[] =>
         };
     }
   });
+
+export const allowEmails = (config?: ConfigResponse): boolean =>
+  !(config && config.disableSharingToEmails);

@@ -12,8 +12,8 @@ import UserPicker, {
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { messages } from '../i18n';
-import { MessageDescriptor, ProductName } from '../types';
-import { getMenuPortalTargetCurrentHTML } from './utils';
+import { ConfigResponse, MessageDescriptor, ProductName } from '../types';
+import { allowEmails, getMenuPortalTargetCurrentHTML } from './utils';
 import { MAX_PICKER_HEIGHT } from './styles';
 
 export const REQUIRED = 'REQUIRED';
@@ -27,6 +27,7 @@ const validate = (value: Value) => {
 export type Props = {
   loadOptions?: LoadOptions;
   defaultValue?: OptionData[];
+  config?: ConfigResponse;
   isLoading?: boolean;
   product: ProductName;
   onInputChange?: (query?: string, sessionId?: string) => void;
@@ -40,11 +41,13 @@ export type Props = {
 
 type GetPlaceHolderMessageDescriptor = (
   product?: ProductName,
+  allowEmail?: boolean,
 ) => MessageDescriptor;
 
 type GetNoOptionMessageDescriptor = (
   emailValidity: EmailValidationResponse,
   isPublicLink?: boolean,
+  allowEmail?: boolean,
 ) => MessageDescriptor;
 
 type GetNoOptionMessage = (params: { inputValue: string }) => any;
@@ -52,15 +55,19 @@ type GetNoOptionMessage = (params: { inputValue: string }) => any;
 const getNoOptionsMessageDescriptor: GetNoOptionMessageDescriptor = (
   emailValidity: EmailValidationResponse,
   isPublicLink?: boolean,
+  allowEmail?: boolean,
 ) => {
-  if (isPublicLink) {
+  if (isPublicLink || !allowEmail) {
     return messages.userPickerExistingUserOnlyNoOptionsMessage;
   }
 
   return messages.userPickerGenericNoOptionsMessage;
 };
 
-const getNoOptionsMessage = (isPublicLink?: boolean): GetNoOptionMessage => ({
+const getNoOptionsMessage = (
+  isPublicLink?: boolean,
+  allowEmail?: boolean,
+): GetNoOptionMessage => ({
   inputValue,
 }: {
   inputValue: string;
@@ -71,6 +78,7 @@ const getNoOptionsMessage = (isPublicLink?: boolean): GetNoOptionMessage => ({
           {...getNoOptionsMessageDescriptor(
             isValidEmail(inputValue),
             isPublicLink,
+            allowEmail,
           )}
           values={{
             inputValue,
@@ -81,7 +89,17 @@ const getNoOptionsMessage = (isPublicLink?: boolean): GetNoOptionMessage => ({
 
 const getPlaceHolderMessageDescriptor: GetPlaceHolderMessageDescriptor = (
   product: ProductName = 'confluence',
+  allowEmail?: boolean,
 ) => {
+  if (!allowEmail) {
+    const placeholderMessage = {
+      jira: messages.userPickerExistingUserOnlyPlaceholder,
+      confluence: messages.userPickerGenericExistingUserOnlyPlaceholder,
+    };
+
+    return placeholderMessage[product];
+  }
+
   const placeholderMessage = {
     jira: messages.userPickerGenericPlaceholderJira,
     confluence: messages.userPickerGenericPlaceholder,
@@ -130,6 +148,7 @@ export class UserPickerField extends React.Component<Props> {
     const {
       defaultValue,
       enableSmartUserPicker,
+      config,
       isLoading,
       product,
       onInputChange,
@@ -154,16 +173,20 @@ export class UserPickerField extends React.Component<Props> {
         }
       : {};
 
+    const allowEmail = allowEmails(config);
+
     const commonPickerProps: Partial<UserPickerProps> = {
       fieldId: 'share',
       loadOptions: this.loadOptions,
       isMulti: true,
       width: '100%',
       placeholder: (
-        <FormattedMessage {...getPlaceHolderMessageDescriptor(product)} />
+        <FormattedMessage
+          {...getPlaceHolderMessageDescriptor(product, allowEmail)}
+        />
       ),
-      allowEmail: true,
-      noOptionsMessage: getNoOptionsMessage(isPublicLink),
+      allowEmail,
+      noOptionsMessage: getNoOptionsMessage(isPublicLink, allowEmail),
       isLoading,
       onInputChange: onInputChange,
       maxPickerHeight: MAX_PICKER_HEIGHT,

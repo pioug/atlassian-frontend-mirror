@@ -12,6 +12,11 @@ export interface ShareClient {
     metadata: MetaData,
     comment?: Comment,
   ): Promise<ShareResponse>;
+
+  getConfig(
+    cloudId: string,
+    enableEmailPermissionCheck?: boolean,
+  ): Promise<ConfigResponse>;
 }
 
 export type ShareRequest = (
@@ -23,6 +28,10 @@ export type ShareRequest = (
 
 export type ShareResponse = {
   shareRequestId: string;
+};
+
+export type ConfigResponse = {
+  disableSharingToEmails?: boolean;
 };
 
 export const DEFAULT_SHARE_PATH = 'share';
@@ -37,6 +46,25 @@ export class ShareServiceClient implements ShareClient {
       url: DEFAULT_SHARE_SERVICE_URL,
       ...(serviceConfig || {}),
     };
+  }
+
+  public getConfig(
+    cloudId: string,
+    enableEmailPermissionCheck?: boolean,
+  ): Promise<ConfigResponse> {
+    if (!enableEmailPermissionCheck) {
+      return Promise.resolve({
+        disableSharingToEmails: false,
+      });
+    }
+
+    const options = {
+      path: SHARE_CONFIG_PATH,
+      queryParams: { cloudId },
+      requestInit: { method: 'get' },
+    };
+
+    return utils.requestService(this.serviceConfig, options);
   }
 
   /**

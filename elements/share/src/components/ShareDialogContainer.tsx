@@ -14,7 +14,11 @@ import {
   UrlShortenerClient,
   ShortenRequest,
 } from '../clients/AtlassianUrlShortenerClient';
-import { ShareClient, ShareServiceClient } from '../clients/ShareServiceClient';
+import {
+  ConfigResponse,
+  ShareClient,
+  ShareServiceClient,
+} from '../clients/ShareServiceClient';
 import { messages } from '../i18n';
 import {
   Content,
@@ -46,6 +50,10 @@ import { IconProps } from '@atlaskit/icon';
 import deepEqual from 'fast-deep-equal';
 
 const COPY_LINK_EVENT = copyLinkButtonClicked(0);
+
+export const defaultConfig: ConfigResponse = {
+  disableSharingToEmails: false,
+};
 
 export type Props = {
   /* Callback function to be called on trigger button click. */
@@ -135,6 +143,11 @@ export type Props = {
    */
   enableSmartUserPicker?: boolean;
   /**
+   * When true, the component will call the Share service to check whether the
+   * site has sharing to emails enabled.
+   */
+  enableEmailPermissionCheck?: boolean;
+  /**
    * The userId of the sharer. If not provided, smart user picker
    * defaults it to the value 'Context'
    * which will tell the recommendation service to extract the
@@ -188,6 +201,8 @@ export type Props = {
 };
 
 export type State = {
+  config?: ConfigResponse;
+  isFetchingConfig: boolean;
   shareActionCount: number;
   currentPageUrl: string;
   shortenedCopyLink: null | string;
@@ -240,6 +255,8 @@ export class ShareDialogContainerInternal extends React.Component<
 
     this.state = {
       shareActionCount: 0,
+      config: defaultConfig,
+      isFetchingConfig: false,
       currentPageUrl: getCurrentPageUrl(),
       shortenedCopyLink: null,
     };
@@ -269,6 +286,36 @@ export class ShareDialogContainerInternal extends React.Component<
     if (createAnalyticsEvent) {
       createAnalyticsEvent(payload).fire(CHANNEL_ID);
     }
+  };
+
+  fetchConfig = () => {
+    this.setState(
+      {
+        isFetchingConfig: true,
+      },
+      async () => {
+        try {
+          const config: ConfigResponse = await this.shareClient.getConfig(
+            this.props.cloudId,
+            this.props.enableEmailPermissionCheck,
+          );
+
+          if (this._isMounted) {
+            this.setState({
+              config,
+              isFetchingConfig: false,
+            });
+          }
+        } catch (error) {
+          if (this._isMounted) {
+            this.setState({
+              config: defaultConfig,
+              isFetchingConfig: false,
+            });
+          }
+        }
+      },
+    );
   };
 
   handleSubmitShare = ({
@@ -322,6 +369,9 @@ export class ShareDialogContainerInternal extends React.Component<
         this.updateShortCopyLink();
       },
     );
+
+    // always refetch the config when modal is re-opened
+    this.fetchConfig();
   };
 
   decorateAnalytics = (
@@ -536,6 +586,7 @@ export class ShareDialogContainerInternal extends React.Component<
       copyTooltipText,
       onDialogClose,
     } = this.props;
+    const { config, isFetchingConfig } = this.state;
 
     return (
       <ErrorBoundary>
@@ -543,6 +594,8 @@ export class ShareDialogContainerInternal extends React.Component<
           <ShareDialogWithTrigger
             onTriggerButtonClick={onTriggerButtonClick}
             isAutoOpenDialog={isAutoOpenDialog}
+            config={config}
+            isFetchingConfig={isFetchingConfig}
             copyLink={this.getCopyLink()}
             analyticsDecorator={this.decorateAnalytics}
             dialogPlacement={dialogPlacement}

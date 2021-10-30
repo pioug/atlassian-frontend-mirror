@@ -31,6 +31,13 @@ export const messages = defineMessages({
     defaultMessage: 'Enter name, group, team or email',
     description: 'Generic placeholder for the user picker field in Share form.',
   },
+  userPickerGenericExistingUserOnlyPlaceholder: {
+    id:
+      'fabric.elements.share.form.user-picker.placholder.generic.existingUserOnly',
+    defaultMessage: 'Enter name, group or team',
+    description:
+      'Existing user only placeholder for the user picker field in Share form (emails are not an option).',
+  },
   userPickerGenericPlaceholderJira: {
     id: 'fabric.elements.share.form.user-picker.placeholder.jira',
     defaultMessage: 'Enter name, team or email',

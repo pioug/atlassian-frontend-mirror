@@ -5,7 +5,11 @@ import React from 'react';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
 import { borderRadius } from '@atlaskit/theme/constants';
-import { ShareDialogContainer, ShareResponse } from '@atlaskit/share';
+import {
+  ShareDialogContainer,
+  ShareResponse,
+  ConfigResponse,
+} from '@atlaskit/share';
 
 import { getEmojiProvider } from '@atlaskit/util-data-test/get-emoji-provider';
 import {
@@ -94,6 +98,16 @@ const shareClient = {
             shareRequestId: 'c41e33e5-e622-4b38-80e9-a623c6e54cdd',
           }),
         3000,
+      );
+    }),
+  getConfig: () =>
+    new Promise<ConfigResponse>((resolve) => {
+      setTimeout(
+        () =>
+          resolve({
+            disableSharingToEmails: false,
+          }),
+        500,
       );
     }),
 };

@@ -1,5 +1,11 @@
 # @atlaskit/share
 
+## 0.32.0
+
+### Minor Changes
+
+- [`860bc656501`](https://bitbucket.org/atlassian/atlassian-frontend/commits/860bc656501) - Introduce `config` call to Share service to check if the site is permitted to makes to email addresses.
+
 ## 0.31.1
 
 ### Patch Changes

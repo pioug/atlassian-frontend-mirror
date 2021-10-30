@@ -2,6 +2,7 @@ import { ServiceConfig, utils } from '@atlaskit/util-service-support';
 import {
   DEFAULT_SHARE_PATH,
   DEFAULT_SHARE_SERVICE_URL,
+  SHARE_CONFIG_PATH,
   ShareClient,
   ShareServiceClient,
 } from '../../../clients/ShareServiceClient';
@@ -82,6 +83,34 @@ describe('ShareServiceClientImpl', () => {
       expect(requestSpy).toBeCalledTimes(1);
       const callArgs = requestSpy.mock.calls[0];
       expect(callArgs[0]).toMatchObject(mockServiceConfig);
+    });
+  });
+
+  describe('getConfig', () => {
+    it('should call requestService when enableEmailPermissionCheck is true', async () => {
+      await shareServiceClient.getConfig('some-cloud-id', true);
+      expect(requestSpy).toBeCalledTimes(1);
+      const callArgs = requestSpy.mock.calls[0];
+      expect(callArgs[0]).toMatchObject({
+        url: DEFAULT_SHARE_SERVICE_URL,
+      });
+      expect(callArgs[1]).toMatchObject({
+        path: SHARE_CONFIG_PATH,
+        queryParams: { cloudId: 'some-cloud-id' },
+        requestInit: {
+          method: 'get',
+        },
+      });
+    });
+
+    it('should not call requestService when enableEmailPermissionCheck is false', async () => {
+      await shareServiceClient.getConfig('some-cloud-id', false);
+      expect(requestSpy).toBeCalledTimes(0);
+    });
+
+    it('should not call requestService when enableEmailPermissionCheck is undefined', async () => {
+      await shareServiceClient.getConfig('some-cloud-id', undefined);
+      expect(requestSpy).toBeCalledTimes(0);
     });
   });
 });

@@ -1,4 +1,5 @@
 export type {
+  ConfigResponse,
   ShareClient,
   ShareRequest,
   ShareResponse,

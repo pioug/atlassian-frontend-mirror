@@ -7,6 +7,7 @@ import {
 } from '../../../clients/AtlassianUrlShortenerClient';
 import * as ShareServiceExports from '../../../clients/ShareServiceClient';
 import {
+  defaultConfig,
   ShareDialogContainerInternal,
   State,
 } from '../../../components/ShareDialogContainer';
@@ -28,6 +29,10 @@ describe('ShareDialogContainer', () => {
   let mockOriginTracing: OriginTracing;
   let mockOriginTracingFactory: jest.Mock;
   let mockShare: jest.Mock;
+  const mockConfig: ShareServiceExports.ConfigResponse = {
+    disableSharingToEmails: true,
+  };
+  let mockGetConfig: jest.Mock;
   let mockShareServiceClient: jest.Mock;
   let mockCreateAnalyticsEvent: jest.Mock;
   let mockFormatCopyLink: jest.Mock;
@@ -71,6 +76,9 @@ describe('ShareDialogContainer', () => {
     // @ts-ignore This violated type definition upgrade of @types/jest to v24.0.18 & ts-jest v24.1.0.
     //See BUILDTOOLS-210-clean: https://bitbucket.org/atlassian/atlaskit-mk-2/pull-requests/7178/buildtools-210-clean/diff
     mockShare = jest.fn<{}, []>().mockResolvedValue({});
+    mockGetConfig = jest.fn();
+    mockGetConfig.mockResolvedValue({ disableSharingToEmail: false });
+
     //@ts-expect-error TODO Fix legit TypeScript 3.9.6 improved inference error
     mockShareServiceClient = jest
       // @ts-ignore This violated type definition upgrade of @types/jest to v24.0.18 & ts-jest v24.1.0.
@@ -90,6 +98,7 @@ describe('ShareDialogContainer', () => {
 
     mockShareClient = {
       share: mockShare,
+      getConfig: mockGetConfig,
     };
     mockShortenerClient = {
       shorten: jest
@@ -313,6 +322,92 @@ describe('ShareDialogContainer', () => {
       // @ts-ignore: accessing private variable for testing purpose
       wrapper.instance().shareClient;
     expect(shareClient.share).toEqual(mockShare);
+  });
+
+  describe('config', () => {
+    it('should call fetchConfig every time the dialog open', () => {
+      const wrapper = getWrapper();
+
+      const fetchConfig = (wrapper.instance().fetchConfig = jest.fn(
+        wrapper.instance().fetchConfig,
+      ));
+
+      expect(fetchConfig).not.toHaveBeenCalled();
+
+      wrapper.instance().handleDialogOpen();
+
+      expect(fetchConfig).toHaveBeenCalledTimes(1);
+    });
+
+    it('should pass enableEmailPermissionCheck to getConfig when true', () => {
+      const wrapper = getWrapper({ enableEmailPermissionCheck: true });
+
+      wrapper.instance().handleDialogOpen();
+
+      expect(mockGetConfig).toHaveBeenCalledWith(mockCloudId, true);
+    });
+
+    it('should pass enableEmailPermissionCheck to getConfig when false', () => {
+      const wrapper = getWrapper({ enableEmailPermissionCheck: false });
+
+      wrapper.instance().handleDialogOpen();
+
+      expect(mockGetConfig).toHaveBeenCalledWith(mockCloudId, false);
+    });
+
+    it('should pass enableEmailPermissionCheck to getConfig when undefined', () => {
+      const wrapper = getWrapper({ enableEmailPermissionCheck: undefined });
+
+      wrapper.instance().handleDialogOpen();
+
+      expect(mockGetConfig).toHaveBeenCalledWith(mockCloudId, undefined);
+    });
+
+    describe('isFetchingConfig state', () => {
+      it('should be false by default', () => {
+        const wrapper = getWrapper();
+
+        expect(wrapper.state().isFetchingConfig).toBe(false);
+      });
+
+      it('should be passed into isFetchingConfig prop in ShareDialogWithTrigger', () => {
+        const wrapper = getWrapper();
+        let { isFetchingConfig } = wrapper.state();
+
+        expect(isFetchingConfig).toEqual(false);
+        expect(
+          getShareDialogWithTrigger(wrapper).prop('isFetchingConfig'),
+        ).toEqual(isFetchingConfig);
+
+        wrapper.setState({ isFetchingConfig: !isFetchingConfig });
+
+        expect(
+          getShareDialogWithTrigger(wrapper).prop('isFetchingConfig'),
+        ).toEqual(!isFetchingConfig);
+      });
+
+      it('should be set to true when fetchConfig is called, and set back to false when the network request is finished', async () => {
+        const wrapper = getWrapper();
+        wrapper.instance().fetchConfig();
+
+        expect(wrapper.state().isFetchingConfig).toBe(true);
+
+        await networkResolution();
+        expect(wrapper.state().isFetchingConfig).toBe(false);
+      });
+    });
+
+    it('should reset the state.config to default config if shareClient.getConfig failed', async () => {
+      const wrapper = getWrapper();
+      mockGetConfig.mockRejectedValueOnce(new Error('error'));
+      wrapper.setState({ config: mockConfig });
+      wrapper.instance().fetchConfig();
+
+      expect(wrapper.state().isFetchingConfig).toBe(true);
+      await networkResolution();
+      expect(wrapper.state().config).toMatchObject(defaultConfig);
+      expect(wrapper.state().isFetchingConfig).toBe(false);
+    });
   });
 
   describe('handleSubmitShare', () => {

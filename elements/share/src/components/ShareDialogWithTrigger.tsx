@@ -17,6 +17,7 @@ import { FormattedMessage, InjectedIntlProps, injectIntl } from 'react-intl';
 import styled from 'styled-components';
 import { messages } from '../i18n';
 import {
+  ConfigResponse,
   DialogContentState,
   DialogPlacement,
   Flag,
@@ -62,6 +63,8 @@ export type State = DialogState;
 export type Props = {
   onTriggerButtonClick?: () => void;
   isAutoOpenDialog?: boolean;
+  config?: ConfigResponse;
+  isFetchingConfig?: boolean;
   children?: RenderCustomTriggerButton;
   copyLink: string;
   analyticsDecorator?: (
@@ -509,6 +512,8 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
     const {
       copyLink,
       dialogPlacement,
+      config,
+      isFetchingConfig,
       loadUserOptions,
       shareFormTitle,
       contentPermissions,
@@ -562,6 +567,8 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
                       shareError={shareError}
                       onDismiss={this.handleFormDismiss}
                       defaultValue={defaultValue}
+                      config={config}
+                      isFetchingConfig={isFetchingConfig}
                       onLinkCopy={this.handleCopyLink}
                       submitButtonLabel={submitButtonLabel}
                       product={product}

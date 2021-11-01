@@ -63,3 +63,4 @@ export { default as clipboardPlugin } from './clipboard';
 export { default as undoRedoPlugin } from './undo-redo';
 export { default as avatarGroupPlugin } from './avatar-group';
 export { default as viewUpdateSubscriptionPlugin } from './view-update-subscription';
+export { default as codeBidiWarningPlugin } from './code-bidi-warning';

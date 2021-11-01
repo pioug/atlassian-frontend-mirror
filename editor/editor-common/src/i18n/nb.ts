@@ -6,6 +6,8 @@
  */
 // Norwegian Bokmål
 export default {
+  'fabric.editor.codeBidiWarningLabel':
+    'Toveistegn endrer rekkefølgen som tekst vises i. Dette kan brukes til å skjule skadelig kode.',
   'fabric.editor.captionPlaceholder': 'Legg til bildetekst',
   'fabric.editor.collapseNode': 'Minimer innhold',
   'fabric.editor.expandDefaultTitle': 'Klikk her for å utvide …',

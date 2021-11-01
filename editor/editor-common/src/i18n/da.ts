@@ -6,6 +6,8 @@
  */
 // Danish
 export default {
+  'fabric.editor.codeBidiWarningLabel':
+    'Tegn med tovejsfunktionalitet ændrer rækkefølgen, som teksten er gengivet i. Dette kan udnyttes til at skjule skadelig kode.',
   'fabric.editor.captionPlaceholder': 'Tilføj en billedtekst',
   'fabric.editor.collapseNode': 'skjul indhold',
   'fabric.editor.expandDefaultTitle': 'Klik her for at udvide...',

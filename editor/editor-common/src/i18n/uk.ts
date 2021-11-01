@@ -6,6 +6,8 @@
  */
 // Ukrainian
 export default {
+  'fabric.editor.codeBidiWarningLabel':
+    'Двонаправлені символи змінюють порядок відображення тексту. Такий спосіб може використовуватися, щоб приховати зловмисний код.',
   'fabric.editor.captionPlaceholder': 'Додати підпис',
   'fabric.editor.collapseNode': 'Згорніть вміст',
   'fabric.editor.expandDefaultTitle': 'Натисніть, щоб розгорнути…',

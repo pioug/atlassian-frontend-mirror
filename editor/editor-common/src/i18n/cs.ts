@@ -6,6 +6,8 @@
  */
 // Czech
 export default {
+  'fabric.editor.codeBidiWarningLabel':
+    'Obousměrné znaky mění pořadí vykreslování textu. Může to být použito k zakrytí škodlivého kódu.',
   'fabric.editor.captionPlaceholder': 'Přidejte popisek',
   'fabric.editor.collapseNode': 'Sbalit obsah',
   'fabric.editor.expandDefaultTitle': 'Klikněte sem pro rozbalení...',

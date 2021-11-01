@@ -45,6 +45,7 @@ import {
   captionPlugin,
   avatarGroupPlugin,
   viewUpdateSubscriptionPlugin,
+  codeBidiWarningPlugin,
 } from '../plugins';
 import { isFullPage as fullPageCheck } from '../utils/is-full-page';
 import {
@@ -535,6 +536,10 @@ export default function createPluginsList(
 
   if (featureFlags.enableViewUpdateSubscription) {
     preset.add([viewUpdateSubscriptionPlugin]);
+  }
+
+  if (featureFlags.codeBidiWarnings) {
+    preset.add(codeBidiWarningPlugin);
   }
 
   const excludes = new Set<string>();

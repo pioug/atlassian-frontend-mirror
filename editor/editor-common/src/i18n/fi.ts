@@ -6,6 +6,8 @@
  */
 // Finnish
 export default {
+  'fabric.editor.codeBidiWarningLabel':
+    'Kaksisuuntaiset merkit muuttavat tekstin renderöintijärjestystä. Tätä voidaan hyödyntää haitallisen koodin peittämisessä.',
   'fabric.editor.captionPlaceholder': 'Lisää kuvateksti',
   'fabric.editor.collapseNode': 'piilota sisältö',
   'fabric.editor.expandDefaultTitle': 'Klikkaa tähän laajentaaksesi...',

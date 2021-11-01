@@ -35,6 +35,8 @@ const toDOM = (node: Node): DOMOutputSpec => [
   ],
 ];
 
+type CodeBidiWarningOptions = { label: string; enabled?: boolean };
+
 export class CodeBlockView {
   node: Node;
   dom: HTMLElement;
@@ -44,14 +46,21 @@ export class CodeBlockView {
   highlighter: React.ReactElement | null = null;
   getPos: getPosHandlerNode;
   view: EditorView;
+  codeBidiWarningOptions: CodeBidiWarningOptions;
 
   measurements: number[] = [];
   count = 0;
   shouldDebounce = false;
   timer: number | null = null;
 
-  constructor(node: Node, view: EditorView, getPos: getPosHandlerNode) {
+  constructor(
+    node: Node,
+    view: EditorView,
+    getPos: getPosHandlerNode,
+    codeBidiWarningOptions: CodeBidiWarningOptions,
+  ) {
     const { dom, contentDOM } = DOMSerializer.renderSpec(document, toDOM(node));
+    this.codeBidiWarningOptions = codeBidiWarningOptions;
     this.getPos = getPos;
     this.view = view;
     this.node = node;
@@ -100,6 +109,8 @@ export class CodeBlockView {
         text: node.textContent,
         language: node.attrs.language,
         showLineNumbers: false,
+        codeBidiWarnings: this.codeBidiWarningOptions.enabled,
+        codeBidiWarningLabel: this.codeBidiWarningOptions.label,
       }),
       highlighting,
     );
@@ -151,16 +162,33 @@ export class CodeBlockView {
   ignoreMutation(
     record: MutationRecord | { type: 'selection'; target: Element },
   ) {
-    return (
+    const lineNumberChanges =
       record.target === this.lineNumberGutter ||
-      record.target.parentNode === this.lineNumberGutter ||
-      (this.highlighting?.contains(record.target) ?? false)
+      record.target.parentNode === this.lineNumberGutter;
+
+    const outsideTheCodeBlockChanges =
+      this.highlighting?.contains(record.target) ?? false;
+
+    const codeBidiWarningDecorationChanges =
+      record.type === 'attributes' &&
+      record.attributeName === 'aria-describedby';
+
+    return (
+      lineNumberChanges ||
+      outsideTheCodeBlockChanges ||
+      codeBidiWarningDecorationChanges
     );
   }
 }
 
-export const highlightingCodeBlockNodeView = () => (
-  node: Node,
-  view: EditorView,
-  getPos: getPosHandler,
-) => new CodeBlockView(node, view, getPos as getPosHandlerNode);
+export const highlightingCodeBlockNodeView = ({
+  codeBidiWarnings,
+  codeBidiWarningLabel,
+}: {
+  codeBidiWarnings?: boolean;
+  codeBidiWarningLabel: string;
+}) => (node: Node, view: EditorView, getPos: getPosHandler) =>
+  new CodeBlockView(node, view, getPos as getPosHandlerNode, {
+    enabled: codeBidiWarnings,
+    label: codeBidiWarningLabel,
+  });

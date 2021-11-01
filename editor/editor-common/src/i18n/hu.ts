@@ -6,6 +6,8 @@
  */
 // Hungarian
 export default {
+  'fabric.editor.codeBidiWarningLabel':
+    'A kétirányú karakterek megváltoztatják a szöveg renderelési sorrendjét. Ez felhasználható rosszindulatú kód elfedésére.',
   'fabric.editor.captionPlaceholder': 'Képaláírás hozzáadása',
   'fabric.editor.collapseNode': 'tartalom összecsukása',
   'fabric.editor.expandDefaultTitle': 'Kattints ide a kibontáshoz…',

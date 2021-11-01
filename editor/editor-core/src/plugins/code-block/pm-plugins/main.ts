@@ -1,4 +1,7 @@
 import { Plugin, NodeSelection } from 'prosemirror-state';
+import { codeBidiWarningMessages } from '@atlaskit/editor-common/messages';
+
+import { EditorReactContext } from '../../../types/editor-react-context';
 import { codeBlockNodeView } from '../nodeviews/code-block';
 import { highlightingCodeBlockNodeView } from '../nodeviews/highlighting-code-block';
 import { createSelectionClickHandler } from '../../selection/utils';
@@ -9,8 +12,20 @@ import { codeBlockClassNames } from '../ui/class-names';
 import { CodeBlockState } from './main-state';
 import { getFeatureFlags } from '../../feature-flags-context';
 
-export const createPlugin = (useLongPressSelection: boolean = false) =>
-  new Plugin({
+export const createPlugin = ({
+  useLongPressSelection = false,
+  reactContext,
+}: {
+  useLongPressSelection?: boolean;
+  reactContext: () => EditorReactContext;
+}) => {
+  const intl = reactContext().intl;
+
+  const codeBidiWarningLabel = intl.formatMessage(
+    codeBidiWarningMessages.label,
+  );
+
+  return new Plugin({
     state: {
       init(_, state): CodeBlockState {
         const node = findCodeBlock(state, state.selection);
@@ -54,7 +69,10 @@ export const createPlugin = (useLongPressSelection: boolean = false) =>
         codeBlock(node, view, getPos) {
           const featureFlags = getFeatureFlags(view.state);
           const createCodeBlockNodeView = featureFlags?.codeBlockSyntaxHighlighting
-            ? highlightingCodeBlockNodeView()
+            ? highlightingCodeBlockNodeView({
+                codeBidiWarnings: featureFlags?.codeBidiWarnings,
+                codeBidiWarningLabel,
+              })
             : codeBlockNodeView();
           return createCodeBlockNodeView(node, view, getPos);
         },
@@ -70,3 +88,4 @@ export const createPlugin = (useLongPressSelection: boolean = false) =>
       ),
     },
   });
+};

@@ -6,6 +6,8 @@
  */
 // Turkish
 export default {
+  'fabric.editor.codeBidiWarningLabel':
+    'Çift yönlü karakterler metnin oluşturulduğu sırayı değiştirir. Bu, kötü amaçlı kodu gizlemek için kullanılabilir.',
   'fabric.editor.captionPlaceholder': 'Açıklama yazısı ekleyin',
   'fabric.editor.collapseNode': 'içeriği daraltın',
   'fabric.editor.expandDefaultTitle': 'Genişletmek için buraya tıklayın...',

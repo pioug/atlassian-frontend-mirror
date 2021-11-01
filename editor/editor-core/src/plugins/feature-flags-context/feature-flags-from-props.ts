@@ -142,5 +142,10 @@ export function createFeatureFlagsFromProps(props: EditorProps): FeatureFlags {
             !browser.safari
         : false,
     ),
+    codeBidiWarnings: Boolean(
+      typeof props.featureFlags?.codeBidiWarnings === 'boolean'
+        ? !!props.featureFlags?.codeBidiWarnings
+        : true,
+    ),
   };
 }

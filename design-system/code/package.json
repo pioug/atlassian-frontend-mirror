@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/code",
-  "version": "14.1.5",
+  "version": "14.2.0",
   "description": "Code highlights short strings of code snippets inline with body text.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -28,6 +28,7 @@
   "dependencies": {
     "@atlaskit/codemod-utils": "^3.4.0",
     "@atlaskit/theme": "^12.0.0",
+    "@atlaskit/tooltip": "^17.5.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/core": "^10.0.9",
     "memoize-one": "^6.0.0",
@@ -61,6 +62,8 @@
   "af:exports": {
     "./types": "./src/entry-points/types.ts",
     ".": "./src/index.ts",
+    "./bidi-warning": "./src/bidi-warning/index.ts",
+    "./bidi-warning-decorator": "./src/bidi-warning/bidi-warning-decorator.tsx",
     "./block": "./src/entry-points/block.ts",
     "./inline": "./src/entry-points/inline.ts",
     "./constants": "./src/entry-points/constants.ts"

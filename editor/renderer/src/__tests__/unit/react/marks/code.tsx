@@ -1,19 +1,19 @@
 import React from 'react';
-import { mount } from 'enzyme';
-import Code from '../../../../react/marks/code';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import Code, { CodeWithIntl } from '../../../../react/marks/code';
 import InlineComment from '../../../../react/marks/confluence-inline-comment';
 
 describe('Renderer - React/Marks/Code', () => {
   it('should generate content with a <Code>-tag', () => {
-    const mark = mount(
+    const mark = mountWithIntl(
       <Code dataAttributes={{ 'data-renderer-mark': true }}>This is code</Code>,
     );
-    expect(mark.find(Code).length).toEqual(1);
+    expect(mark.find(CodeWithIntl).length).toEqual(1);
     mark.unmount();
   });
 
   it('should output correct html', () => {
-    const mark = mount(
+    const mark = mountWithIntl(
       <Code dataAttributes={{ 'data-renderer-mark': true }}>This is code</Code>,
     );
     expect(mark.html()).toContain(
@@ -23,7 +23,7 @@ describe('Renderer - React/Marks/Code', () => {
   });
 
   it('should handle arrays correctly', () => {
-    const markWithArray = mount(
+    const markWithArray = mountWithIntl(
       <Code dataAttributes={{ 'data-renderer-mark': true }}>
         {['This ', 'is', ' code']}
       </Code>,
@@ -35,7 +35,7 @@ describe('Renderer - React/Marks/Code', () => {
   });
 
   it('should render in combination with other marks', () => {
-    const marks = mount(
+    const marks = mountWithIntl(
       <Code dataAttributes={{ 'data-renderer-mark': true }}>
         This{' '}
         <InlineComment

@@ -6,6 +6,8 @@
  */
 // Portuguese (Brazil)
 export default {
+  'fabric.editor.codeBidiWarningLabel':
+    'Caracteres bidirecionais alteram a ordem em que o texto é renderizado. Eles podem ser usados para ocultar códigos mal-intencionados.',
   'fabric.editor.captionPlaceholder': 'Adicionar legenda',
   'fabric.editor.collapseNode': 'Recolher conteúdo',
   'fabric.editor.expandDefaultTitle': 'Clique aqui para expandir...',

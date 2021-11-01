@@ -1,4 +1,5 @@
 import React from 'react';
+import { IntlProvider } from 'react-intl';
 import { defaultSchema as schema } from '@atlaskit/adf-schema';
 import { render } from 'react-dom';
 import { Node as PMNode } from 'prosemirror-model';
@@ -39,7 +40,7 @@ describe('steps', () => {
 
       return false;
     });
-    render(<>{reactAdf}</>, container);
+    render(<IntlProvider locale={'en'}>{reactAdf}</IntlProvider>, container);
     firstValidParagraph = container!.querySelector(
       `p[data-renderer-start-pos="${firstValidParagraphPosition}"]`,
     ) as HTMLElement;

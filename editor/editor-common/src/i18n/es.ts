@@ -6,6 +6,8 @@
  */
 // Spanish
 export default {
+  'fabric.editor.codeBidiWarningLabel':
+    'Los caracteres bidireccionales cambian el orden de renderización del texto. Esto podría utilizarse para ocultar código malicioso.',
   'fabric.editor.captionPlaceholder': 'Añadir un subtítulo',
   'fabric.editor.collapseNode': 'contraer contenido',
   'fabric.editor.expandDefaultTitle': 'Haz clic aquí para ampliar...',

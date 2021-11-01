@@ -1,10 +1,12 @@
 /** @jsx jsx */
-import { forwardRef, memo, useMemo } from 'react';
+import React, { forwardRef, memo, useMemo } from 'react';
 
 import { jsx } from '@emotion/core';
 
 import { useGlobalTheme } from '@atlaskit/theme/components';
 
+import CodeBidiWarning from './bidi-warning';
+import codeBidiWarningDecorator from './bidi-warning/bidi-warning-decorator';
 import { getCodeStyles } from './internal/theme/styles';
 import type { CodeProps } from './types';
 
@@ -12,10 +14,76 @@ const Code = memo(
   forwardRef<HTMLElement, CodeProps>(function Code({ testId, ...props }, ref) {
     const theme = useGlobalTheme();
     const styles = useMemo(() => getCodeStyles(theme), [theme]);
+    const {
+      children,
+      codeBidiWarnings = true,
+      codeBidiWarningLabel,
+      ...otherProps
+    } = props;
 
-    return <code ref={ref} data-testid={testId} css={styles} {...props} />;
+    const decoratedChildren = codeBidiWarnings ? (
+      <RenderCodeChildrenWithBidiWarnings
+        codeBidiWarningLabel={codeBidiWarningLabel}
+      >
+        {children}
+      </RenderCodeChildrenWithBidiWarnings>
+    ) : (
+      children
+    );
+    return (
+      <code ref={ref} data-testid={testId} css={styles} {...otherProps}>
+        {decoratedChildren}
+      </code>
+    );
   }),
 );
+
+function RenderCodeChildrenWithBidiWarnings({
+  children,
+  codeBidiWarningLabel,
+}: {
+  children: React.ReactNode;
+  codeBidiWarningLabel?: string;
+}) {
+  const replacedChildren = React.Children.map(children, (childNode) => {
+    if (typeof childNode === 'string') {
+      const decorated = codeBidiWarningDecorator(
+        childNode,
+        ({ bidiCharacter, index }) => (
+          <CodeBidiWarning
+            bidiCharacter={bidiCharacter}
+            key={index}
+            label={codeBidiWarningLabel}
+          />
+        ),
+      );
+      return decorated;
+    }
+
+    if (isReactElement(childNode) && childNode.props.children) {
+      const newChildNode = React.cloneElement(childNode as JSX.Element, {
+        children: (
+          <RenderCodeChildrenWithBidiWarnings
+            codeBidiWarningLabel={codeBidiWarningLabel}
+          >
+            {childNode.props.children}
+          </RenderCodeChildrenWithBidiWarnings>
+        ),
+      });
+      return newChildNode;
+    }
+
+    return childNode;
+  });
+
+  return <React.Fragment>{replacedChildren}</React.Fragment>;
+}
+
+function isReactElement<P>(
+  child: React.ReactNode,
+): child is React.ReactElement<P> {
+  return !!(child as React.ReactElement<P>).type;
+}
 
 Code.displayName = 'Code';
 

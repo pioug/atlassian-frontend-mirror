@@ -6,6 +6,8 @@
  */
 // Italian
 export default {
+  'fabric.editor.codeBidiWarningLabel':
+    "I caratteri bidirezionali modificano l'ordine in cui è visualizzato il testo. Possono essere utilizzati per nascondere un codice dannoso.",
   'fabric.editor.captionPlaceholder': 'Aggiungi didascalia',
   'fabric.editor.collapseNode': 'Comprimi contenuto',
   'fabric.editor.expandDefaultTitle': 'Clicca qui per espandere...',

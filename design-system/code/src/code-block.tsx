@@ -10,6 +10,7 @@ import { useHighlightLines } from './internal/hooks/use-highlight';
 import { getCodeBlockStyles, getCodeBlockTheme } from './internal/theme/styles';
 import type { CodeBlockProps } from './internal/types';
 import { normalizeLanguage } from './internal/utils/get-normalized-language';
+import { createBidiWarningRenderer } from './react-syntax-highlighter-bidi-warning-renderer';
 
 const CodeBlock = memo<CodeBlockProps>(function CodeBlock({
   showLineNumbers = true,
@@ -19,6 +20,8 @@ const CodeBlock = memo<CodeBlockProps>(function CodeBlock({
   highlightedEndText = 'Highlight end',
   testId,
   text,
+  codeBidiWarnings = true,
+  codeBidiWarningLabel,
 }) {
   const numLines = (text || '').split('\n').length;
   const globalTheme = useGlobalTheme();
@@ -50,6 +53,10 @@ const CodeBlock = memo<CodeBlockProps>(function CodeBlock({
   // https://product-fabric.atlassian.net/browse/DST-2472
   const languageToUse = text ? language : 'text';
 
+  const renderer = codeBidiWarnings
+    ? createBidiWarningRenderer(codeBidiWarningLabel)
+    : undefined;
+
   return (
     <SyntaxHighlighter
       data-testid={testId}
@@ -63,6 +70,7 @@ const CodeBlock = memo<CodeBlockProps>(function CodeBlock({
       wrapLines={highlight.length > 0 || !!testId}
       lineProps={getLineProps}
       useInlineStyles={false}
+      renderer={renderer}
     >
       {text}
     </SyntaxHighlighter>

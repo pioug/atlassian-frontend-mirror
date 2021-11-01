@@ -41,6 +41,19 @@ export interface CodeBlockProps {
    * Screen reader text for the end of a highlighted line
    */
   highlightedEndText?: string;
+
+  /**
+   * When false, disables decorating code with bidi warnings
+   *
+   * defaults to true
+   */
+  codeBidiWarnings?: boolean;
+
+  /**
+   * Labels for the previous and next buttons used in pagination.
+   * Defaults to `Bidirectional characters change the order that text is rendered. This could be used to obscure malicious code.`.
+   */
+  codeBidiWarningLabel?: string;
 }
 
 export type { SupportedLanguages, LanguageAlias, Language } from '../constants';

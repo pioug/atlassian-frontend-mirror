@@ -6,6 +6,8 @@
  */
 // Polish
 export default {
+  'fabric.editor.codeBidiWarningLabel':
+    'Znaki dwukierunkowe zmieniają kolejność, w jakiej tekst jest renderowany. Może to zostać wykorzystane do ukrycia złośliwego kodu.',
   'fabric.editor.captionPlaceholder': 'Dodaj podpis',
   'fabric.editor.collapseNode': 'Zwiń zawartość',
   'fabric.editor.expandDefaultTitle': 'Kliknij tutaj, aby rozwinąć...',

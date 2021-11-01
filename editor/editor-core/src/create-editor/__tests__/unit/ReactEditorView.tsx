@@ -53,7 +53,7 @@ import {
 import { toJSON } from '../../../utils';
 import ReactEditorView, { shouldReconfigureState } from '../../ReactEditorView';
 import { EditorConfig } from '../../../types/editor-config';
-import { ReactWrapper, shallow } from 'enzyme';
+import { ReactWrapper } from 'enzyme';
 import { TextSelection } from 'prosemirror-state';
 import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
 import patchEditorViewForJSDOM from '@atlaskit/editor-test-helpers/jsdom-fixtures';
@@ -139,7 +139,7 @@ describe('@atlaskit/editor-core', () => {
   describe('<ReactEditorView />', () => {
     it('should place the initial selection at the end of the document', () => {
       const document = doc(p('hello{endPos}'))(defaultSchema);
-      const wrapper = shallow(
+      const wrapper = mountWithIntl(
         <ReactEditorView
           {...requiredProps()}
           editorProps={{ defaultValue: toJSON(document) }}
@@ -153,7 +153,7 @@ describe('@atlaskit/editor-core', () => {
 
     it('should place the initial selection at the start of the document when in full-page appearance', () => {
       const document = doc(p('{startPos}hello'))(defaultSchema);
-      const wrapper = shallow(
+      const wrapper = mountWithIntl(
         <ReactEditorView
           {...requiredProps()}
           editorProps={{
@@ -170,7 +170,7 @@ describe('@atlaskit/editor-core', () => {
 
     it('should place the initial selection at the start/end when document is empty', () => {
       const document = doc(p('{endPos}'))(defaultSchema);
-      const wrapper = shallow(<ReactEditorView {...requiredProps()} />);
+      const wrapper = mountWithIntl(<ReactEditorView {...requiredProps()} />);
       const { editorState } = wrapper.instance() as ReactEditorView;
       const cursorPos = (editorState.selection as TextSelection).$cursor!.pos;
       expect(cursorPos).toEqual(document.refs.endPos);
@@ -1045,7 +1045,7 @@ describe('@atlaskit/editor-core', () => {
     );
 
     it('mentions should be sanitized when sanitizePrivateContent true', () => {
-      const wrapper = shallow(
+      const wrapper = mountWithIntl(
         <ReactEditorView
           {...requiredProps()}
           editorProps={{
@@ -1068,7 +1068,7 @@ describe('@atlaskit/editor-core', () => {
     });
 
     it('mentions should not be sanitized when sanitizePrivateContent false', () => {
-      const wrapper = shallow(
+      const wrapper = mountWithIntl(
         <ReactEditorView
           {...requiredProps()}
           editorProps={{
@@ -1087,7 +1087,7 @@ describe('@atlaskit/editor-core', () => {
     });
 
     it('mentions should not be sanitized when no collabEdit options', () => {
-      const wrapper = shallow(
+      const wrapper = mountWithIntl(
         <ReactEditorView
           {...requiredProps()}
           editorProps={{

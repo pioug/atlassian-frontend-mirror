@@ -6,6 +6,8 @@
  */
 // Dutch
 export default {
+  'fabric.editor.codeBidiWarningLabel':
+    'Bidirectionele tekens wijzigen de volgorde waarin de tekst wordt weergegeven. Dit kan worden gebruikt om schadelijke code te verdoezelen.',
   'fabric.editor.captionPlaceholder': 'Bijschrift toevoegen',
   'fabric.editor.collapseNode': 'Content inklappen',
   'fabric.editor.expandDefaultTitle': 'Klik hier om uit te breiden...',

@@ -6,6 +6,8 @@
  */
 // German
 export default {
+  'fabric.editor.codeBidiWarningLabel':
+    'Bidirektionale Zeichen ändern die Reihenfolge, in der Text gerendert wird. Dies könnte verwendet werden, um bösartigen Code zu verbergen.',
   'fabric.editor.captionPlaceholder': 'Eine Bildunterschrift hinzufügen',
   'fabric.editor.collapseNode': 'Inhaltsanzeige reduzieren',
   'fabric.editor.expandDefaultTitle': 'Klicken Sie hier, um zu erweitern …',

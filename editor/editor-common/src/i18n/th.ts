@@ -6,6 +6,8 @@
  */
 // Thai
 export default {
+  'fabric.editor.codeBidiWarningLabel':
+    'ตัวอักษรแบบสองทิศทางเปลี่ยนลำดับการแสดงข้อความ ซึ่งอาจนำไปใช้เพื่อปิดบังรหัสที่มีวัตถุประสงค์ในทางที่ไม่ดีได้',
   'fabric.editor.captionPlaceholder': 'เพิ่มคำอธิบาย',
   'fabric.editor.collapseNode': 'ย่อเนื้อหา',
   'fabric.editor.expandDefaultTitle': 'คลิกที่นี่เพื่อขยาย...',

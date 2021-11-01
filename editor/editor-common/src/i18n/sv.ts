@@ -6,6 +6,8 @@
  */
 // Swedish
 export default {
+  'fabric.editor.codeBidiWarningLabel':
+    'Dubbelriktade tecken ändrar återgivningsordningen för text. Detta kan användas för att dölja skadlig kod.',
   'fabric.editor.captionPlaceholder': 'Lägg till en bildtext',
   'fabric.editor.collapseNode': 'komprimera innehåll',
   'fabric.editor.expandDefaultTitle': 'Klicka här för att expandera ...',

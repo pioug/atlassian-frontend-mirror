@@ -6,6 +6,8 @@
  */
 // undefined
 export default {
+  'fabric.editor.codeBidiWarningLabel':
+    '雙向字元會變更文字呈現的順序。這可用來將惡意程式碼模糊化。',
   'fabric.editor.captionPlaceholder': '新增標題',
   'fabric.editor.collapseNode': '摺疊內容',
   'fabric.editor.expandDefaultTitle': '按一下此處以展開...',

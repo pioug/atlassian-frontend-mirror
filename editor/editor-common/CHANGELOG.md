@@ -1,5 +1,15 @@
 # @atlaskit/editor-common
 
+## 60.3.0
+
+### Minor Changes
+
+- [`c80c71b537d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c80c71b537d) - [ux] ED-13860 add bidi warning decorations to code components
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 60.2.0
 
 ### Minor Changes

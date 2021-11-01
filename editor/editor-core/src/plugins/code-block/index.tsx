@@ -29,7 +29,11 @@ const codeBlockPlugin = (options: CodeBlockOptions = {}): EditorPlugin => ({
     return [
       {
         name: 'codeBlock',
-        plugin: () => createPlugin(options.useLongPressSelection),
+        plugin: ({ reactContext }) =>
+          createPlugin({
+            useLongPressSelection: options.useLongPressSelection,
+            reactContext,
+          }),
       },
       {
         name: 'codeBlockIDEKeyBindings',

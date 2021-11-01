@@ -6,6 +6,8 @@
  */
 // Japanese
 export default {
+  'fabric.editor.codeBidiWarningLabel':
+    '双方向文字はテキストのレンダリング順序を変更します。このため、悪意あるコードを隠すために使用される場合があります。',
   'fabric.editor.captionPlaceholder': 'キャプションを追加',
   'fabric.editor.collapseNode': 'コンテンツを折りたたむ',
   'fabric.editor.expandDefaultTitle': 'こちらをクリックして展開…',

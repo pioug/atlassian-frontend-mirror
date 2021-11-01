@@ -18,4 +18,17 @@ export interface CodeProps extends HTMLProps<HTMLElement> {
    * Content to be rendered in the inline code block
    */
   children?: ReactNode;
+
+  /**
+   * When false, disables decorating code with bidi warnings
+   *
+   * defaults to true
+   */
+  codeBidiWarnings?: boolean;
+
+  /**
+   * Labels for the previous and next buttons used in pagination.
+   * Defaults to `Bidirectional characters change the order that text is rendered. This could be used to obscure malicious code.`.
+   */
+  codeBidiWarningLabel?: string;
 }

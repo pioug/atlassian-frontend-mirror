@@ -199,6 +199,16 @@ export type FeatureFlags = {
 
   /**
    * @description
+   * Disables decorating code snippets with bidi character warnings
+   * when they are used in inline code and code blocks.
+   *
+   * @see https://product-fabric.atlassian.net/browse/ED-13860
+   * @default true
+   */
+  codeBidiWarnings?: boolean;
+
+  /**
+   * @description
    * Yield to user interaction work before sending analytics
    *
    * @see https://product-fabric.atlassian.net/browse/ED-10584

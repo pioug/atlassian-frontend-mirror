@@ -6,6 +6,8 @@
  */
 // Vietnamese
 export default {
+  'fabric.editor.codeBidiWarningLabel':
+    'Ký tự hai chiều thay đổi thứ tự kết xuất văn bản. Điều này có thể được dùng để che giấu mã độc hại.',
   'fabric.editor.captionPlaceholder': 'Thêm chú thích',
   'fabric.editor.collapseNode': 'thu gọn nội dung',
   'fabric.editor.expandDefaultTitle': 'Nhấp vào đây để mở rộng...',

@@ -113,6 +113,7 @@ export default {
     'selection',
     'avatarGroup',
     'viewUpdateSubscription',
+    'inlineCode',
   ],
   nodes: [
     'doc',

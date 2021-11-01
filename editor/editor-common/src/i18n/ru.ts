@@ -6,6 +6,8 @@
  */
 // Russian
 export default {
+  'fabric.editor.codeBidiWarningLabel':
+    'Двунаправленные символы изменяют порядок отображения текста. Они могут использоваться для маскировки вредоносного кода.',
   'fabric.editor.captionPlaceholder': 'Добавьте подпись',
   'fabric.editor.collapseNode': 'Свернуть содержимое',
   'fabric.editor.expandDefaultTitle': 'Нажмите здесь, чтобы развернуть…',

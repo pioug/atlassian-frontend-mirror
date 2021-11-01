@@ -1,4 +1,5 @@
-import { mount, ReactWrapper } from 'enzyme';
+import { ReactWrapper } from 'enzyme';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { defaultSchema as schema } from '@atlaskit/adf-schema';
 import { Node as PMNode } from 'prosemirror-model';
 import { ReactSerializer } from '../../../index';
@@ -12,13 +13,13 @@ describe('Renderer - ReactSerializer - TextWrapperComponent', () => {
   });
 
   describe('when surroundTextNodesWithTextWrapper is true', () => {
-    let reactDoc: ReactWrapper;
+    let reactDoc: ReactWrapper<any>;
     beforeAll(() => {
       const reactSerializer = new ReactSerializer({
         surroundTextNodesWithTextWrapper: true,
       });
 
-      reactDoc = mount(
+      reactDoc = mountWithIntl(
         reactSerializer.serializeFragment(docFromSchema.content) as any,
       );
     });
@@ -57,7 +58,7 @@ describe('Renderer - ReactSerializer - TextWrapperComponent', () => {
       const reactSerializer = new ReactSerializer({
         surroundTextNodesWithTextWrapper: false,
       });
-      const reactDoc = mount(
+      const reactDoc = mountWithIntl(
         reactSerializer.serializeFragment(docFromSchema.content) as any,
       );
       const textWrappers = reactDoc.find(TextWrapperComponent);

@@ -6,6 +6,8 @@
  */
 // Korean
 export default {
+  'fabric.editor.codeBidiWarningLabel':
+    '양방향 문자가 텍스트가 렌더링되는 순서를 변경합니다. 악성 코드를 가리는 데 사용할 수 있습니다.',
   'fabric.editor.captionPlaceholder': '캡션 추가',
   'fabric.editor.collapseNode': '콘텐츠 접기',
   'fabric.editor.expandDefaultTitle': '여기를 클릭하여 펼치기...',

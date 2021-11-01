@@ -6,6 +6,8 @@
  */
 // French
 export default {
+  'fabric.editor.codeBidiWarningLabel':
+    "Les caractères bidirectionnels changent l'ordre de rendu du texte. Ils peuvent être utilisés pour masquer du code malveillant.",
   'fabric.editor.captionPlaceholder': 'Ajouter une légende',
   'fabric.editor.collapseNode': 'Réduire le contenu',
   'fabric.editor.expandDefaultTitle': 'Cliquez ici pour développer...',

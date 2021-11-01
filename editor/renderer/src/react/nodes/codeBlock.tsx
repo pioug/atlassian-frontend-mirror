@@ -1,4 +1,5 @@
 import React from 'react';
+import { injectIntl, InjectedIntlProps } from 'react-intl';
 import styled from 'styled-components';
 import { CodeBlock as AkCodeBlock, SupportedLanguages } from '@atlaskit/code';
 import {
@@ -8,6 +9,9 @@ import {
 import { N20, DN50 } from '@atlaskit/theme/colors';
 import { themed } from '@atlaskit/theme/components';
 import { fontSize, gridSize } from '@atlaskit/theme/constants';
+import { codeBidiWarningMessages } from '@atlaskit/editor-common/messages';
+
+import { useFeatureFlags } from '../../use-feature-flags';
 
 import CopyButton from './codeBlockCopyButton';
 
@@ -18,20 +22,32 @@ export interface Props {
   className?: string;
 }
 
-function CodeBlock(props: Props) {
+function CodeBlock(props: Props & InjectedIntlProps) {
   const { text, language, allowCopyToClipboard = false } = props;
+  const featureFlags = useFeatureFlags();
+
+  const codeBidiWarningLabel = props.intl.formatMessage(
+    codeBidiWarningMessages.label,
+  );
 
   const className = ['code-block', props.className].join(' ');
 
   return (
     <div className={className}>
       {allowCopyToClipboard ? <CopyButton content={text} /> : null}
-      <AkCodeBlock language={language} text={text} />
+      <AkCodeBlock
+        language={language}
+        text={text}
+        codeBidiWarnings={featureFlags?.codeBidiWarnings}
+        codeBidiWarningLabel={codeBidiWarningLabel}
+      />
     </div>
   );
 }
 
-export default styled(CodeBlock)`
+const IntlCodeBlock = injectIntl(CodeBlock);
+
+export default styled(IntlCodeBlock)`
   tab-size: 4;
   [data-ds--code--code-block] {
     font-size: ${relativeFontSizeToBase16(fontSize())};

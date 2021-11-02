@@ -9,15 +9,10 @@ export default function TableUncontrolled() {
     <DynamicTable
       head={head}
       rows={rows}
-      rowsPerPage={10}
+      rowsPerPage={5}
       defaultPage={1}
       loadingSpinnerSize="large"
-      isLoading={false}
-      isFixedSize
-      defaultSortKey="term"
-      defaultSortOrder="ASC"
-      onSort={() => console.log('onSort')}
-      onSetPage={() => console.log('onSetPage')}
+      isRankable
     />
   );
 }

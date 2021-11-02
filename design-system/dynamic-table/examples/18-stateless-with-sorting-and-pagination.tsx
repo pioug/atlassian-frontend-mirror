@@ -12,10 +12,12 @@ import { SortOrderType } from '../src/types';
 import Wrapper from './components/wrapper';
 import { caption, head, rows } from './content/sample-data';
 
-const DefaultComponent = () => {
+type HeadCell = typeof head['cells'][number];
+
+const ControlledSorting = () => {
   const [pageNumber, setPageNumber] = useState<number>(2);
   const [sortOrder, setSortOrder] = useState<SortOrderType>('ASC');
-  const [sortKey, setSortKey] = useState<any>(2);
+  const [sortKey, setSortKey] = useState<HeadCell['key']>('name');
 
   const onSort = ({ key, sortOrder }: any) => {
     setSortKey(key);
@@ -46,8 +48,6 @@ const DefaultComponent = () => {
         rows={rows}
         rowsPerPage={10}
         page={pageNumber}
-        loadingSpinnerSize="large"
-        isLoading={false}
         isFixedSize
         sortKey={sortKey}
         sortOrder={sortOrder}
@@ -58,4 +58,4 @@ const DefaultComponent = () => {
   );
 };
 
-export default DefaultComponent;
+export default ControlledSorting;

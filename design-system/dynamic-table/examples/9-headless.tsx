@@ -4,9 +4,6 @@ import DynamicTable from '../src';
 
 import { rows } from './content/sample-data';
 
-// eslint-disable-next-line import/no-anonymous-default-export
-export default class extends React.Component<{}, {}> {
-  render() {
-    return <DynamicTable rows={rows} />;
-  }
-}
+const HeadlessExample = () => <DynamicTable rowsPerPage={5} rows={rows} />;
+
+export default HeadlessExample;

@@ -1,0 +1,44 @@
+---
+title: Dynamic table
+description: A dynamic table displays rows of data with built-in pagination, sorting, and re-ordering functionality.
+order: 3
+---
+
+## Usage
+
+Dynamic tables display data in rows and columns. They order information so that people can easily scan and analyse data.
+
+## Best practices
+
+### Editing row content
+
+On simple tables, where there's only a single type of content to display, an edit button is not required.
+In more complex tables where there are multiple types of content displayed, you may want to add an edit link to the more actions button.
+If your table is complex, with a large number of input fields,
+you should consider using a modal dialog or dedicated page for entering content instead of a dynamic table.
+
+### Removing a row
+
+Use either a delete action in the "more" menu (if multiple user actions are available)
+or an "x" icon to allow users to delete a row. Once the row is deleted, both the content rows and input row will shift upwards.
+See this in action in our interactive examples.
+
+## Content guidelines
+
+* Use tables to make content easier to read.
+* Use only relevant text or data so that it’s easy to understand.
+* Clearly label columns with simple language. This makes it easier to understand and eases screen reader navigation.
+* Provide a description for complex tables. This helps the user gain context about the data. It also helps people with screen readers have an overview of the table.
+
+## Accessibility
+
+Note that this component has limitations to accessibility.
+
+Use tooltips for complex headings and data.
+
+## Related
+
+* If you’re looking for more empty state guidance, check out our [Empty state component guidelines](https://atlassian.design/components/empty-state/examples).
+* If you’re after more pagination guidance, see our [Pagination component guidelines](https://atlassian.design/components/pagination/examples).
+* For more guidance about how to show contextual information, see [Modal dialog component guidelines](https://atlassian.design/components/modal-dialog/examples).
+* For more information on interactive table components see [Select](https://atlassian.design/components/select/examples), [Dropdown](https://atlassian.design/components/dropdown-menu/examples), [Avatar](https://atlassian.design/components/avatar/examples) guidelines.

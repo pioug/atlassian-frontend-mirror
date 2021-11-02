@@ -54,4 +54,13 @@ describe('DefaultMentionNameResolver', () => {
       status: MentionNameStatus.UNKNOWN,
     });
   });
+
+  it('returns unknown if graphql returns null for users', async () => {
+    const resolver = new DefaultMentionNameResolver();
+    graphqlQueryMock.mockResolvedValue({ users: null });
+    await expect(resolver.lookupName(mockUser.id)).resolves.toEqual({
+      id: mockUser.id,
+      status: MentionNameStatus.UNKNOWN,
+    });
+  });
 });

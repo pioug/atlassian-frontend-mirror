@@ -15,7 +15,7 @@ import { RowCellType, RowType, StatelessProps } from '../../../types';
 import Body from '../../Body';
 import LoadingContainer from '../../LoadingContainer';
 import LoadingContainerAdvanced from '../../LoadingContainerAdvanced';
-import Pagination from '../../managedPagination';
+import Pagination from '../../managed-pagination';
 import RankableTableBody from '../../rankable/Body';
 import { State } from '../../Stateless';
 import TableHead from '../../TableHead';

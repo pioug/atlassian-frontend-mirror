@@ -1,5 +1,11 @@
 # @atlaskit/dynamic-table
 
+## 14.4.1
+
+### Patch Changes
+
+- [`1601e51ab32`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1601e51ab32) - Fixes for internal types.
+
 ## 14.4.0
 
 ### Minor Changes

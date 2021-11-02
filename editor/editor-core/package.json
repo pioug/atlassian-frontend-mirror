@@ -169,7 +169,7 @@
     "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@atlassian/search-provider": "2.1.15",
-    "@atlassian/ufo": "^0.0.28",
+    "@atlassian/ufo": "^0.0.29",
     "@testing-library/react": "^8.0.1",
     "@testing-library/react-hooks": "^1.0.4",
     "@types/jscodeshift": "^0.11.0",

@@ -8,7 +8,7 @@ import Toggle from '@atlaskit/toggle';
 import DynamicTable from '../src';
 
 import Wrapper from './components/wrapper';
-import { caption, createHead, rows } from './content/sample-data';
+import { createHead, rows } from './content/sample-data';
 
 interface State {
   isFixedSize: boolean;
@@ -52,7 +52,7 @@ export default class extends React.Component<{}, State> {
           Loading
         </div>
         <DynamicTable
-          caption={caption}
+          caption="List of US Presidents"
           head={createHead(this.state.isFixedSize)}
           rows={rows}
           rowsPerPage={5}
@@ -64,7 +64,6 @@ export default class extends React.Component<{}, State> {
           onSort={() => console.log('onSort')}
           onSetPage={() => console.log('onSetPage')}
         />
-        <p>This example works properly only in fullscreen mode.</p>
       </Wrapper>
     );
   }

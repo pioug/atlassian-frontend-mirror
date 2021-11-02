@@ -1,4 +1,4 @@
-import React, { ReactNode, SFC, useEffect, useState } from 'react';
+import React, { FC, ReactNode, useEffect, useState } from 'react';
 
 import { v4 as uuid } from 'uuid';
 
@@ -12,7 +12,7 @@ interface StateIndicatorProps {
   children?: ReactNode;
 }
 
-const StateIndicator: SFC<StateIndicatorProps> = (props) => {
+const StateIndicator: FC<StateIndicatorProps> = (props) => {
   const [color, setColor] = useState('red');
 
   useEffect(() => {
@@ -44,7 +44,7 @@ const head = {
   ],
 };
 
-const rows = [1, 2, 3, 4].map((number: number, index: number) => ({
+const rows = [1, 2, 3, 4].map((number) => ({
   key: uuid(),
   cells: [
     {
@@ -54,24 +54,19 @@ const rows = [1, 2, 3, 4].map((number: number, index: number) => ({
   ],
 }));
 
-// eslint-disable-next-line import/no-anonymous-default-export
-export default class extends React.Component<{}, {}> {
-  render() {
-    return (
-      <div style={{ width: 800 }}>
-        <DynamicTable
-          caption={caption}
-          head={head}
-          rows={rows}
-          rowsPerPage={10}
-          defaultPage={1}
-          loadingSpinnerSize="large"
-          isLoading={false}
-          isFixedSize
-          defaultSortKey="number"
-          defaultSortOrder="ASC"
-        />
-      </div>
-    );
-  }
-}
+const SortingExample: FC = () => (
+  <div style={{ maxWidth: 800 }}>
+    <DynamicTable
+      caption={caption}
+      head={head}
+      rows={rows}
+      rowsPerPage={10}
+      defaultPage={1}
+      isFixedSize
+      defaultSortKey="number"
+      defaultSortOrder="ASC"
+    />
+  </div>
+);
+
+export default SortingExample;

@@ -1,6 +1,4 @@
 /** @jsx jsx */
-import React from 'react';
-
 import { jsx } from '@emotion/core';
 
 import DynamicTable from '../src';
@@ -56,22 +54,19 @@ const rows = [
   },
 ];
 
-// eslint-disable-next-line import/no-anonymous-default-export
-export default class extends React.Component<{}, {}> {
-  render() {
-    return (
-      <Wrapper>
-        <DynamicTable
-          caption="Class timetable"
-          head={head}
-          rows={rows}
-          rowsPerPage={10}
-          defaultPage={1}
-          loadingSpinnerSize="large"
-          isLoading={false}
-          isFixedSize
-        />
-      </Wrapper>
-    );
-  }
-}
+const CustomColSpanExample = () => (
+  <Wrapper>
+    <DynamicTable
+      caption="Class timetable"
+      head={head}
+      rows={rows}
+      rowsPerPage={10}
+      defaultPage={1}
+      loadingSpinnerSize="large"
+      isLoading={false}
+      isFixedSize
+    />
+  </Wrapper>
+);
+
+export default CustomColSpanExample;

@@ -1,10 +1,11 @@
 {
   "name": "@atlaskit/dynamic-table",
-  "version": "14.4.0",
-  "description": "A table displays rows of data with built-in pagination, sorting, and re-ordering functionality.",
+  "version": "14.4.1",
+  "description": "A dynamic table displays rows of data with built-in pagination, sorting, and re-ordering functionality.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
+  "homepage": "https://atlassian.design/components/dynamic-table/",
   "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -20,7 +21,7 @@
     "inPublicMirror": true,
     "releaseModel": "scheduled",
     "website": {
-      "name": "Dynamic Table"
+      "name": "Dynamic table"
     }
   },
   "dependencies": {

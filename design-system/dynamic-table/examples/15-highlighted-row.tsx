@@ -51,7 +51,7 @@ export default class extends React.Component<{}, State> {
           head={head}
           highlightedRowIndex={this.state.highlightedRows}
           rows={rows}
-          rowsPerPage={40}
+          rowsPerPage={10}
           page={1}
         />
       </>

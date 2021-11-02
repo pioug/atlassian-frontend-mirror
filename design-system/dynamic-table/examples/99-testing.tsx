@@ -16,7 +16,7 @@ export default () => {
 
   return (
     <Wrapper>
-      <Button onClick={() => setIsLoading(!isLoading)}>
+      <Button onClick={() => setIsLoading((loading) => !loading)}>
         Toggle loading state {isLoading ? 'off' : 'on'}
       </Button>
       <Button

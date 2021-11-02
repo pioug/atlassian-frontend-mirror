@@ -3,18 +3,18 @@ import React from 'react';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import Pagination from '@atlaskit/pagination';
 
-interface Props {
+import type { I18nShape } from '../types';
+
+interface ManagedPaginationProps {
   value?: number;
   onChange: (newValue: any, analyticsEvent?: UIAnalyticsEvent) => void;
   total: number;
-  i18n?: {
-    next: string;
-    prev: string;
-    label: string;
-  };
+  i18n?: I18nShape;
 }
 
-export default class ManagedPagination extends React.Component<Props> {
+export default class ManagedPagination extends React.Component<
+  ManagedPaginationProps
+> {
   onChange = (
     _event: any,
     newValue: any,

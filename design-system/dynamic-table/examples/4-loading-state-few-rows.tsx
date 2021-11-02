@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/standard-button';
 
@@ -6,36 +6,22 @@ import { DynamicTableStateless } from '../src';
 
 import { head, rows } from './content/sample-data';
 
-interface State {
-  isLoading: boolean;
-}
+const LoadingPartialPageExample = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  return (
+    <div>
+      <Button onClick={() => setIsLoading((loading) => !loading)}>
+        Toggle loading
+      </Button>
+      <DynamicTableStateless
+        head={head}
+        rows={rows}
+        rowsPerPage={5}
+        page={1}
+        isLoading={isLoading}
+      />
+    </div>
+  );
+};
 
-// eslint-disable-next-line import/no-anonymous-default-export
-export default class extends React.Component<{}, State> {
-  state = {
-    isLoading: true,
-  };
-
-  render() {
-    return (
-      <div>
-        <Button
-          onClick={() =>
-            this.setState({
-              isLoading: !this.state.isLoading,
-            })
-          }
-        >
-          Toggle loading
-        </Button>
-        <DynamicTableStateless
-          head={head}
-          rows={rows}
-          rowsPerPage={2}
-          page={1}
-          isLoading={this.state.isLoading}
-        />
-      </div>
-    );
-  }
-}
+export default LoadingPartialPageExample;

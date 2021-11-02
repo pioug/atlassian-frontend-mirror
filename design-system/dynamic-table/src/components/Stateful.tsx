@@ -14,6 +14,32 @@ interface State {
   rows?: RowType[];
 }
 
+/**
+ * __Dynamic Table__
+ *
+ * A table displays rows of data with built-in pagination, sorting, and re-ordering functionality.
+ *
+ * - [Examples](https://atlaskit.atlassian.com/packages/design-system/dynamic-table)
+ * - [Code](https://bitbucket.org/atlassian/atlassian-frontend/packages/design-system/dynamic-table)
+ *
+ * @example
+ * ```jsx
+ * import DynamicTable from '@atlaskit/dynamic-table';
+ *
+ * export default function TableUncontrolled() {
+ *  return (
+ *   <DynamicTable
+ *    head={head}
+ *    rows={rows}
+ *    rowsPerPage={10}
+ *    defaultPage={1}
+ *    loadingSpinnerSize="large"
+ *    isLoading={false}
+ *   />
+ *  );
+ * }
+ * ```
+ */
 export default class DynamicTable extends React.Component<
   StatefulProps,
   State

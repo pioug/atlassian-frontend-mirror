@@ -10,7 +10,7 @@ import {
   SpinnerBackdrop,
   SpinnerContainer,
 } from '../styled/LoadingContainerAdvanced';
-import { SpinnerSizeType } from '../types';
+import type { SpinnerSizeType } from '../types';
 
 // there is a bug with findDOMNode and Suspense in React < 16.9: https://github.com/facebook/react/issues/14188
 const safeFindDOMNode: typeof findDOMNode = (component) => {

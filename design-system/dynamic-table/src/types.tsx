@@ -4,17 +4,39 @@ import {
   UIAnalyticsEvent,
   WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
+import type { Size as SizeType } from '@atlaskit/spinner';
 
 export interface RowCellType {
+  /**
+   * Key to resolve sorting this cell in its column.
+   */
   key?: string | number;
+  /**
+   * The number of columns a cell should span. Defaults to 1, and maxes out at the total column width of the table.
+   */
   colSpan?: number;
+  /**
+   * The content of the cell.
+   */
   content?: React.ReactNode | string;
+  /**
+   * Hook for automated testing.
+   */
   testId?: string;
 }
 
 export interface I18nShape {
+  /**
+   * Accessible label applied to the previous page button in the pagination component.
+   */
   prev: string;
+  /**
+   * Accessible label applied to the next page button in the pagination component.
+   */
   next: string;
+  /**
+   * Accessible label applied to the current page button in the pagination component.
+   */
   label: string;
 }
 
@@ -64,18 +86,20 @@ export interface StatelessProps extends WithAnalyticsEventsProps {
    */
   rowsPerPage?: number;
 
-  /** Total number of rows, in case of paginated data. Optional */
+  /**
+   * Total number of rows, in case of paginated data.
+   */
   totalRows?: number;
 
   /**
    * Callback fired when the table page has changed,
-   * useful when wanting to control dynamic table.
+   * useful when wanting to control the pagination of the table.
    */
   onSetPage?: (page: number, UIAnalyticsEvent?: UIAnalyticsEvent) => void;
 
   /**
    * Callback fired when a column heading has been sorted,
-   * useful when wanting to control dynamic table.
+   * useful when wanting to control the sort order of the table.
    */
   onSort?: (data: any, UIAnalyticsEvent?: UIAnalyticsEvent) => void;
 
@@ -128,33 +152,31 @@ export interface StatelessProps extends WithAnalyticsEventsProps {
   paginationi18n?: I18nShape;
 
   /**
-   * Will highlight a row(s) of the table.
+   * Will highlight a row(s) of the table. Should be used to draw attention to a row; not to indicate selection.
    */
   highlightedRowIndex?: number | number[];
 
   /**
-   A `testId` prop is provided for specified elements,
-   which is a unique string that appears as a data attribute
-   `data-testid` in the rendered code,
-   serving as a hook for automated tests.
+   * A `testId` prop is provided for specified elements,
+   * which is a unique string that appears as a data attribute
+   * `data-testid` in the rendered code, serving as a hook for automated tests.
 
-   The value of `testId` is used to prefix `testId` props in given elements.
-
-   * `${testId}--table` - Table.
-   * `${testId}--head` - Table header.
-   * `${testId}--head--{content of the cell}` - Table header cell can be identified by their content.
-   * `${testId}--row--{index - content of the first cell}` - Table row.
-   * `${testId}--body` - Table body.
-   * `${testId}--body--{content of the cell}` - Table body cell can be identified by their content.
-   * `${testId}--loadingSpinner` - The spinner overlaid when loading.
-   **/
+   * The value of `testId` is used to prefix `testId` props in given elements.
+   * + `${testId}--table` - Table.
+   * + `${testId}--head` - Table header.
+   * + `${testId}--head--{content of the cell}` - Table header cell can be identified by their content.
+   * + `${testId}--row--{index - content of the first cell}` - Table row.
+   * + `${testId}--body` - Table body.
+   * + `${testId}--body--{content of the cell}` - Table body cell can be identified by their content.
+   * + `${testId}--loadingSpinner` - The spinner overlaid when loading.
+   */
   testId?: string;
 
   /**
    * Used to provide a better description of the table for users with assistive technologies.
    * Rather than a screen reader speaking "Entering table", passing in an label
    * allows a custom message like "Entering Sample Numerical Data table".
-   **/
+   */
   label?: string;
 }
 
@@ -291,54 +313,67 @@ export interface StatefulProps extends WithAnalyticsEventsProps {
   highlightedRowIndex?: number | number[];
 
   /**
-   A `testId` prop is provided for specified elements,
-   which is a unique string that appears as a data attribute
-   `data-testid` in the rendered code,
-   serving as a hook for automated tests.
-
-   The value of `testId` is used to prefix `testId` props in given elements.
-
-   * `${testId}--table` - Table.
-   * `${testId}--head` - Table header.
-   * `${testId}--head--{content of the cell}` - Table header cell can be identified by their content.
-   * `${testId}--row--{index - content of the first cell}` - Table row.
-   * `${testId}--body` - Table body.
-   * `${testId}--body--{content of the cell}` - Table body cell can be identified by their content.
-   * `${testId}--loadingSpinner` - The spinner overlaid when loading.
-   **/
+   * A `testId` prop is provided for specified elements,
+   * which is a unique string that appears as a data attribute
+   * `data-testid` in the rendered code, serving as a hook for automated tests.
+   *
+   * The value of `testId` is used to prefix `testId` props in given elements.
+   * + `${testId}--table` - Table.
+   * + `${testId}--head` - Table header.
+   * + `${testId}--head--{content of the cell}` - Table header cell can be identified by their content.
+   * + `${testId}--row--{index - content of the first cell}` - Table row.
+   * + `${testId}--body` - Table body.
+   * + `${testId}--body--{content of the cell}` - Table body cell can be identified by their content.
+   * + `${testId}--loadingSpinner` - The spinner overlaid when loading.
+   */
   testId?: string;
 
   /**
    * Used to provide a better description of the table for users with assistive technologies.
    * Rather than a screen reader speaking "Entering table", passing in an label
    * allows a custom message like "Entering Sample Numerical Data table".
-   **/
+   */
   label?: string;
 }
 
 export interface RowType extends React.ComponentPropsWithoutRef<'tr'> {
   cells: Array<RowCellType>;
   key?: string;
+  /**
+   * A mouse handler to support interaction of a row.
+   */
   onClick?: React.MouseEventHandler;
+  /**
+   * A key event handler to support interaction of a row.
+   */
   onKeyPress?: React.KeyboardEventHandler;
+  /**
+   * Hook for automated testing.
+   */
   testId?: string;
   ref?: Ref<HTMLTableRowElement>;
 }
 
+/**
+ * Enum style type to determine whether sort results are ascending or descending.
+ */
 export type SortOrderType = 'ASC' | 'DESC';
 
-export type SpinnerSizeType =
-  | 'xsmall'
-  | 'small'
-  | 'medium'
-  | 'large'
-  | 'xlarge';
+/**
+ * Determines the size of the Table loading spinner.
+ * This matches the underlying `Size` type in `@atlaskit/spinner`
+ */
+export type SpinnerSizeType = SizeType;
 
+// TODO should this be removed?
 export type LoadingSpinnerSizeType = 'small' | 'large';
 
 export interface HeadCellType extends RowCellType {
+  /** Whether the column the cell sits above is sortable. */
   isSortable?: boolean;
+  /** The pixel width of the cell. */
   width?: number;
+  /** Whether the text in the cell will truncate or not if constrained. */
   shouldTruncate?: boolean;
 }
 

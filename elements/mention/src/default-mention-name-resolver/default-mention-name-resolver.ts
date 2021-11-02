@@ -12,7 +12,7 @@ interface UserData {
 }
 
 interface ApiClientResponse {
-  users: UserData[];
+  users: UserData[] | null;
 }
 
 const buildUsersQuery = (accountIds: string[]) => ({
@@ -48,7 +48,7 @@ export class DefaultMentionNameResolver implements MentionNameResolver {
       }
       const url = getConfig().getGraphQLUrl(this.baseUrl);
       const data = await makeRequest(url, [id]);
-      const userInfo = data.users.find((user) => user.accountId === id);
+      const userInfo = data.users?.find((user) => user.accountId === id);
       return userInfo
         ? { id, name: userInfo.name, status: MentionNameStatus.OK }
         : { id, status: MentionNameStatus.UNKNOWN };

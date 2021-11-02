@@ -32,7 +32,7 @@ export default function TableControlled() {
       <DynamicTableStateless
         head={head}
         rows={rows}
-        rowsPerPage={10}
+        rowsPerPage={5}
         page={pageNumber}
         loadingSpinnerSize="large"
         isLoading={false}

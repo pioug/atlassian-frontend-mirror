@@ -1,5 +1,11 @@
 # @atlaskit/mention
 
+## 19.9.2
+
+### Patch Changes
+
+- [`570ccaa00bd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/570ccaa00bd) - Add the ability for users in Default Mention Name Resolver to be nullable
+
 ## 19.9.1
 
 ### Patch Changes

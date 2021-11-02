@@ -43,9 +43,11 @@ export default () => {
   const [suffix, setSuffix] = useState(Date.now());
 
   useEffect(() => {
-    setInterval(() => {
+    const interval = setInterval(() => {
       setSuffix(Date.now());
     }, 3000);
+
+    return () => clearInterval(interval);
   }, []);
 
   const rows = Array.from({ length: 20 }, (_, id) =>

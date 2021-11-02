@@ -8,9 +8,9 @@ import {
   ContentsContainer,
   SpinnerContainer,
 } from '../styled/LoadingContainer';
-import { SpinnerSizeType } from '../types';
+import type { SpinnerSizeType } from '../types';
 
-interface Props {
+interface LoadingContainerProps {
   children: React.ReactNode;
   isLoading?: boolean;
   spinnerSize?: SpinnerSizeType;
@@ -18,7 +18,9 @@ interface Props {
   testId?: string;
 }
 
-export default class LoadingContainer extends React.Component<Props, {}> {
+export default class LoadingContainer extends React.Component<
+  LoadingContainerProps
+> {
   static defaultProps = {
     isLoading: true,
     spinnerSize: LARGE,

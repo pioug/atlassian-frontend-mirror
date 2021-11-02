@@ -29,7 +29,7 @@ import {
 import Body from './Body';
 import LoadingContainer from './LoadingContainer';
 import LoadingContainerAdvanced from './LoadingContainerAdvanced';
-import ManagedPagination from './managedPagination';
+import ManagedPagination from './managed-pagination';
 import RankableTableBody from './rankable/Body';
 import TableHead from './TableHead';
 

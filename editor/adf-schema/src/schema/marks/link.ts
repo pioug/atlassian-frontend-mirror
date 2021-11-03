@@ -1,4 +1,4 @@
-import { MarkSpec, Mark, Fragment } from 'prosemirror-model';
+import { MarkSpec, Mark } from 'prosemirror-model';
 import { LINK, COLOR } from '../groups';
 import { isSafeUrl, normalizeUrl } from '../../utils/url';
 
@@ -51,34 +51,6 @@ const getLinkAttrs = (attribute: string) => (domNode: Node | string) => {
   return attrs;
 };
 
-const getLinkAttrsWithCheck = (attribute: string) => (
-  domNode: Node | string,
-) => {
-  const dom = domNode as HTMLLinkElement;
-
-  const hasTextOnlyChildren = Array.from(dom.childNodes).every(
-    (node) => node.nodeType === Node.TEXT_NODE || node.nodeName === 'SPAN',
-  );
-
-  if (hasTextOnlyChildren) {
-    const href = dom.getAttribute(attribute) || '';
-    const attrs: { __confluenceMetadata: string; href?: string } = {
-      __confluenceMetadata: dom.hasAttribute('__confluenceMetadata')
-        ? JSON.parse(dom.getAttribute('__confluenceMetadata') || '')
-        : undefined,
-    };
-
-    if (isSafeUrl(href)) {
-      attrs.href = normalizeUrl(href);
-    } else {
-      return false;
-    }
-
-    return attrs;
-  }
-  return false;
-};
-
 export const link: MarkSpec = {
   excludes: `${LINK} ${COLOR}`, // ED-5844 No multiple links in media node
   group: LINK,
@@ -96,6 +68,7 @@ export const link: MarkSpec = {
       contentElement: (node) => {
         const clone = node.cloneNode(true);
         (clone as HTMLElement).removeAttribute('data-block-link');
+        (clone as HTMLElement).setAttribute('data-skip-paste', 'true');
         const wrapper = document.createElement('div');
         wrapper.appendChild(clone);
         return wrapper;
@@ -103,39 +76,7 @@ export const link: MarkSpec = {
     },
     {
       tag: 'a[href]',
-      context: 'mediaSingle/|taskItem/|decisionItem/',
       getAttrs: getLinkAttrs('href'),
-    },
-    {
-      tag: 'a[href]',
-      getAttrs: getLinkAttrsWithCheck('href'),
-    },
-    {
-      /**
-       * When links aren't wrapped in a paragraph and due to
-       * the odd nature of how our schema is set up, prosemirror will
-       * add the link to the paragraph node itself where it should be on
-       * the text node, this satisfies our schema because link is allowed
-       * in many places (e.g. listitem)
-       * This change comes through via prosemirror-model@1.9.1
-       */
-      tag: 'a[href]',
-      getAttrs: getLinkAttrsWithCheck('href'),
-      getContent: (node, schema) => {
-        if (node instanceof HTMLAnchorElement) {
-          const href = node.getAttribute('href');
-          const text = node.innerText;
-
-          return Fragment.from(
-            schema.nodes.paragraph.createChecked(
-              undefined,
-              schema.text(text, [schema.marks.link.create({ href })]),
-            ),
-          );
-        }
-
-        return Fragment.empty;
-      },
     },
   ],
   toDOM(node, isInline) {

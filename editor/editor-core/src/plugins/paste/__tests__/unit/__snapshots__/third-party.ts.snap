@@ -1503,6 +1503,12 @@ Object {
         Object {
           "marks": Array [
             Object {
+              "attrs": Object {
+                "href": "https://google.com",
+              },
+              "type": "link",
+            },
+            Object {
               "type": "underline",
             },
           ],

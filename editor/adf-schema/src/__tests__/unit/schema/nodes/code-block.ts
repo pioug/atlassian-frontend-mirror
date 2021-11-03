@@ -19,7 +19,7 @@ describe(`${name}/schema codeBlock node`, () => {
             schema,
           );
 
-          expect(doc.firstChild!.type.spec).toEqual(codeBlock);
+          expect(doc.firstChild!.type.name).toEqual('codeBlock');
         });
 
         it('has language attribute as null', () => {
@@ -110,7 +110,7 @@ describe(`${name}/schema codeBlock node`, () => {
         '<meta charset="utf-8"><div style="white-space: pre;">Hello</div>',
         schema,
       );
-      expect(doc.firstChild!.type.spec).toEqual(codeBlock);
+      expect(doc.firstChild!.type.name).toEqual('codeBlock');
     });
 
     it('should not create code block for `whitespace pre-wrap` css', () => {

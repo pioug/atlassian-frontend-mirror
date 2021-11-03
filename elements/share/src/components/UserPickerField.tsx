@@ -108,6 +108,27 @@ const getPlaceHolderMessageDescriptor: GetPlaceHolderMessageDescriptor = (
   return placeholderMessage[product];
 };
 
+const requiredMessagesWithEmail = {
+  confluence: messages.userPickerRequiredMessage,
+  jira: messages.userPickerRequiredMessageJira,
+};
+
+const requiredMessagesWithoutEmail = {
+  confluence: messages.userPickerRequiredExistingUserOnlyMessage,
+  jira: messages.userPickerRequiredExistingUserOnlyMessageJira,
+};
+
+const getRequiredMessage = (
+  product: ProductName,
+  allowEmail: boolean,
+): MessageDescriptor => {
+  const messages = allowEmail
+    ? requiredMessagesWithEmail
+    : requiredMessagesWithoutEmail;
+
+  return messages[product];
+};
+
 export class UserPickerField extends React.Component<Props> {
   private loadOptions = (search?: string) => {
     const { loadOptions } = this.props;
@@ -157,10 +178,6 @@ export class UserPickerField extends React.Component<Props> {
       selectPortalRef,
       isPublicLink,
     } = this.props;
-    const requireMessage = {
-      jira: messages.userPickerRequiredMessageJira,
-      confluence: messages.userPickerRequiredMessage,
-    };
 
     const smartUserPickerProps: Partial<SmartUserPickerProps> = enableSmartUserPicker
       ? {
@@ -174,6 +191,8 @@ export class UserPickerField extends React.Component<Props> {
       : {};
 
     const allowEmail = allowEmails(config);
+
+    const requiredMessage = getRequiredMessage(product, allowEmail);
 
     const commonPickerProps: Partial<UserPickerProps> = {
       fieldId: 'share',
@@ -229,7 +248,7 @@ export class UserPickerField extends React.Component<Props> {
               )}
               {!valid && error === REQUIRED && (
                 <ErrorMessage>
-                  <FormattedMessage {...requireMessage[product]} />
+                  <FormattedMessage {...requiredMessage} />
                 </ErrorMessage>
               )}
             </>

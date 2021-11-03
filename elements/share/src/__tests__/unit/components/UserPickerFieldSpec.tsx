@@ -257,6 +257,60 @@ describe('UserPickerField', () => {
         messages.userPickerRequiredMessageJira,
       );
     });
+
+    it('should display required message when email is disabled', () => {
+      const fieldProps = {
+        onChange: jest.fn(),
+        value: [],
+      };
+      const loadOptions = jest.fn();
+      const errorMessage = renderUserPicker(
+        {
+          loadOptions,
+          product: 'confluence',
+          config: { disableSharingToEmails: true },
+        },
+        {
+          fieldProps,
+          meta: { valid: false },
+          error: REQUIRED,
+        },
+      ).find(ErrorMessage);
+
+      expect(errorMessage).toHaveLength(1);
+      const message = errorMessage.find(FormattedMessage);
+      expect(message).toHaveLength(1);
+      expect(message.props()).toMatchObject(
+        messages.userPickerRequiredExistingUserOnlyMessage,
+      );
+    });
+
+    it('should display required message when product is `jira` and email is disabled', () => {
+      const fieldProps = {
+        onChange: jest.fn(),
+        value: [],
+      };
+      const loadOptions = jest.fn();
+      const errorMessage = renderUserPicker(
+        {
+          loadOptions,
+          product: 'jira',
+          config: { disableSharingToEmails: true },
+        },
+        {
+          fieldProps,
+          meta: { valid: false },
+          error: REQUIRED,
+        },
+      ).find(ErrorMessage);
+
+      expect(errorMessage).toHaveLength(1);
+      const message = errorMessage.find(FormattedMessage);
+      expect(message).toHaveLength(1);
+      expect(message.props()).toMatchObject(
+        messages.userPickerRequiredExistingUserOnlyMessageJira,
+      );
+    });
   });
 
   describe('invite warning', () => {

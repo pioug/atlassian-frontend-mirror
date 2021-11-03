@@ -17,21 +17,24 @@ import Overflow from '../../examples/19-overflow'
 
 ## Uncontrolled
 
-Dynamic table manages sorting, pagination, loading and drag and drop state management by default.
+Dynamic table manages sorting, pagination, loading, and drag and drop state management by default.
+If this functionality is not needed, use the native HTML table element.
 
 <Example Component={Uncontrolled} packageName="@atlaskit/dynamic-table" />
 
 ## Controlled
 
-In a controlled dynamic table, you need to manage sorting, drag and drop and pagination on your own.
+In a controlled dynamic table, you need to manage sorting, drag and drop, and pagination on your own.
 If you require this functionality, use the stateless dynamic table component.
 
 <Example Component={Controlled} packageName="@atlaskit/dynamic-table" />
 
 ## Sorting
 
-Sorting a dynamic table takes place using the `key` set on each cell. Be wary the that type of `key` will
+Sorting a dynamic table takes place using the `key` set on each cell. Note that the type of `key` will
 affect the sorted result. Numeric and string keys for example will result in different orderings. Avoid using objects or React nodes as keys.
+
+For any sortable column, include the role='button' HTML attribute on the head cell column. This helps understanding for users with screen readers.
 
 <Example Component={Sorting} packageName="@atlaskit/dynamic-table" />
 
@@ -43,8 +46,8 @@ Dynamic table uses a spinner to denote loading state. This is toggled by the `is
 
 ## Empty state
 
-An empty state can be supplied to the dynamic table via the `emptyView` prop.
-Use empty states to communicate that the table has no content to show.
+Use the `emptyView` prop to show an empty state in the dynamic table.
+Empty states communicate that the table has no content to show.
 If there is an action that a user must take to create or show table content,
 add this to the empty state. See [empty state](https://atlassian.design/components/empty-state/examples) guidelines for more guidance.
 
@@ -65,7 +68,8 @@ When the table data exceeds the `rowsPerPage` quantity, the [pagination](https:/
 
 ## Drag and drop
 
-Drag and drop functionality is built into dynamic table. This is enabled via the `isRankable` prop.
+Drag and drop functionality is built into dynamic table and is enabled using the `isRankable` prop.
+This allows you to drag rows and rank them in different orders.
 
 <Example Component={PaginationDragAndDrop} packageName="@atlaskit/dynamic-table" />
 
@@ -86,7 +90,7 @@ Individual cells can utilise `colSpan` to allow them to spill into other columns
 ## Highlighted row
 
 Rows can be highlighted to provide additional visual prominence to a row.
-This should not be used to reflect selection.
+For example, use highlighted rows when rows are added. This should not be used to reflect selection.
 
 <Example Component={HighlightedRow} packageName="@atlaskit/dynamic-table" />
 

@@ -1,5 +1,11 @@
 # @atlaskit/share
 
+## 0.32.1
+
+### Patch Changes
+
+- [`8b66b823694`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8b66b823694) - [ux] Update to the Share endpoint being called and the copy in error messages.
+
 ## 0.32.0
 
 ### Minor Changes

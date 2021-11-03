@@ -642,6 +642,7 @@ describe('paste plugins', () => {
         dispatchPasteEvent(editorView, {
           html: mediaHTML,
         });
+
         expect(editorView.state.doc).toEqualDocument(
           doc(
             p(
@@ -655,6 +656,7 @@ describe('paste plugins', () => {
                 url: `https://www.biorbyt.com/pub/media/wysiwyg/MAPK_signaling_pathway.jpg`,
               })(),
             ),
+            p(),
             p(
               `Six subfamilies of MAPKs have been extensively characterized in mammalian cells: ERK1/2, JNKs, ERK 3, p38s, ERK5 and ERK 7/8. Transmission of signals`,
             ),

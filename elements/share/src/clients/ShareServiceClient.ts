@@ -35,7 +35,7 @@ export type ConfigResponse = {
 };
 
 export const DEFAULT_SHARE_PATH = 'share';
-export const SHARE_CONFIG_PATH = 'share/config';
+export const SHARE_CONFIG_PATH = 'share/configuration';
 export const DEFAULT_SHARE_SERVICE_URL = '/gateway/api';
 
 export class ShareServiceClient implements ShareClient {

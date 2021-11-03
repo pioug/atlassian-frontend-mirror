@@ -1,5 +1,11 @@
 # @atlaskit/adf-schema
 
+## 19.3.1
+
+### Patch Changes
+
+- [`f4ce830a2f2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f4ce830a2f2) - [HOT-97158] Fix paste link applying marks on block nodes
+
 ## 19.3.0
 
 ### Minor Changes

@@ -1,4 +1,4 @@
-# Dynamic-table
+# Dynamic table
 
 Table component with pagination and sorting functionality.
 

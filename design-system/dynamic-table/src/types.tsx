@@ -157,18 +157,18 @@ export interface StatelessProps extends WithAnalyticsEventsProps {
   highlightedRowIndex?: number | number[];
 
   /**
-   * A `testId` prop is provided for specified elements,
-   * which is a unique string that appears as a data attribute
-   * `data-testid` in the rendered code, serving as a hook for automated tests.
+    A `testId` prop is provided for specified elements,
+    which is a unique string that appears as a data attribute
+    `data-testid` in the rendered code, serving as a hook for automated tests.
 
-   * The value of `testId` is used to prefix `testId` props in given elements.
-   * + `${testId}--table` - Table.
-   * + `${testId}--head` - Table header.
-   * + `${testId}--head--{content of the cell}` - Table header cell can be identified by their content.
-   * + `${testId}--row--{index - content of the first cell}` - Table row.
-   * + `${testId}--body` - Table body.
-   * + `${testId}--body--{content of the cell}` - Table body cell can be identified by their content.
-   * + `${testId}--loadingSpinner` - The spinner overlaid when loading.
+    The value of `testId` is used to prefix `testId` props in given elements.
+    + `${testId}--table` - Table.
+    + `${testId}--head` - Table header.
+    + `${testId}--head--{content of the cell}` - Table header cell can be identified by their content.
+    + `${testId}--row--{index - content of the first cell}` - Table row.
+    + `${testId}--body` - Table body.
+    + `${testId}--body--{content of the cell}` - Table body cell can be identified by their content.
+    + `${testId}--loadingSpinner` - The spinner overlaid when loading.
    */
   testId?: string;
 
@@ -313,18 +313,18 @@ export interface StatefulProps extends WithAnalyticsEventsProps {
   highlightedRowIndex?: number | number[];
 
   /**
-   * A `testId` prop is provided for specified elements,
-   * which is a unique string that appears as a data attribute
-   * `data-testid` in the rendered code, serving as a hook for automated tests.
-   *
-   * The value of `testId` is used to prefix `testId` props in given elements.
-   * + `${testId}--table` - Table.
-   * + `${testId}--head` - Table header.
-   * + `${testId}--head--{content of the cell}` - Table header cell can be identified by their content.
-   * + `${testId}--row--{index - content of the first cell}` - Table row.
-   * + `${testId}--body` - Table body.
-   * + `${testId}--body--{content of the cell}` - Table body cell can be identified by their content.
-   * + `${testId}--loadingSpinner` - The spinner overlaid when loading.
+    A `testId` prop is provided for specified elements,
+    which is a unique string that appears as a data attribute
+    `data-testid` in the rendered code, serving as a hook for automated tests.
+
+    The value of `testId` is used to prefix `testId` props in given elements.
+    + `${testId}--table` - Table.
+    + `${testId}--head` - Table header.
+    + `${testId}--head--{content of the cell}` - Table header cell can be identified by their content.
+    + `${testId}--row--{index - content of the first cell}` - Table row.
+    + `${testId}--body` - Table body.
+    + `${testId}--body--{content of the cell}` - Table body cell can be identified by their content.
+    + `${testId}--loadingSpinner` - The spinner overlaid when loading.
    */
   testId?: string;
 
@@ -360,7 +360,7 @@ export interface RowType extends React.ComponentPropsWithoutRef<'tr'> {
 export type SortOrderType = 'ASC' | 'DESC';
 
 /**
- * Determines the size of the Table loading spinner.
+ * Determines the size of the table loading spinner.
  * This matches the underlying `Size` type in `@atlaskit/spinner`
  */
 export type SpinnerSizeType = SizeType;

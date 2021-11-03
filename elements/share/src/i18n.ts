@@ -70,6 +70,21 @@ export const messages = defineMessages({
       'Required error message for the user picker field in Share form. ' +
       'This message is used only for Jira product because Jira does not have Group concept.',
   },
+  userPickerRequiredExistingUserOnlyMessage: {
+    id:
+      'fabric.elements.share.form.user-picker.validation.required.existingUserOnly',
+    defaultMessage: 'Select at least one user, group or team.',
+    description:
+      'Required error message for the user picker field in Share form when email is not allowed.',
+  },
+  userPickerRequiredExistingUserOnlyMessageJira: {
+    id:
+      'fabric.elements.share.form.user-picker.validation.required.jira.existingUserOnly',
+    defaultMessage: 'Select at least one user or team.',
+    description:
+      'Required error message for the user picker field in Share form when email is not allowed. ' +
+      'This message is used only for Jira product because Jira does not have Group concept.',
+  },
   userPickerExistingUserOnlyNoOptionsMessage: {
     id: 'fabric.elements.share.form.user-picker.no-options.existingUserOnly',
     defaultMessage: `We couldn’t find any results for "{inputValue}".`,

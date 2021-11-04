@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/share",
-  "version": "0.32.1",
+  "version": "0.33.0",
   "description": "Fabric Share Element",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -13,21 +13,18 @@
   "module:es2019": "dist/es2019/index.js",
   "types": "dist/types/index.d.ts",
   "atlaskit:src": "src/index.ts",
-  "af:exports": {
-    ".": "./src/index.ts"
-  },
-  "scripts": {
-    "lint:fix": "(cd ../../.. && bolt w @atlaskit/codeshifts format-package-jsons && yarn eslint --fix 'packages/elements/share/**/*.{ts,tsx,ts}')",
-    "lint": "(cd ../../.. && yarn eslint 'packages/elements/share/**/*.{ts,tsx,ts}')",
-    "typecheck": "NODE_OPTIONS=--max-old-space-size=4096 tsc --noEmit --project ./tsconfig.json",
-    "test": "(cd ../../.. && yarn test 'packages/elements/share')"
-  },
   "atlassian": {
     "team": "People and Teams Collective",
     "releaseModel": "continuous",
     "website": {
       "name": "Share"
     }
+  },
+  "scripts": {
+    "lint:fix": "(cd ../../.. && bolt w @atlaskit/codeshifts format-package-jsons && yarn eslint --fix 'packages/elements/share/**/*.{ts,tsx,ts}')",
+    "lint": "(cd ../../.. && yarn eslint 'packages/elements/share/**/*.{ts,tsx,ts}')",
+    "typecheck": "NODE_OPTIONS=--max-old-space-size=4096 tsc --noEmit --project ./tsconfig.json",
+    "test": "(cd ../../.. && yarn test 'packages/elements/share')"
   },
   "config": {
     "access": "private"
@@ -78,5 +75,8 @@
     "fabric",
     "teams"
   ],
+  "af:exports": {
+    ".": "./src/index.ts"
+  },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
 }

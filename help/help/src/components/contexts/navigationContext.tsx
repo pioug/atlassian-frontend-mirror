@@ -228,7 +228,7 @@ export const NavigationContextProvider: React.FC<NavigationProviderInterface> = 
   const { onGetHelpArticle } = useHelpArticleContext();
   const { onGetWhatsNewArticle } = useWhatsNewArticleContext();
   const { homeContent, homeOptions } = useHomeContext();
-  const { onSearch, isSearchResultVisible } = useSearchContext();
+  const { onSearch, isSearchResultVisible, searchValue } = useSearchContext();
   const { onCloseButtonClick } = useHeaderContext();
 
   const [
@@ -348,8 +348,16 @@ export const NavigationContextProvider: React.FC<NavigationProviderInterface> = 
      * overlay disapear and show the last element in the history or (if is defined) the default content
      * */
     if (currentView === VIEW.SEARCH && onSearch) {
-      onSearch('');
-      return;
+      if (searchValue !== '') {
+        onSearch('');
+        return;
+      } else {
+        dispatchNavigationAction({
+          type: 'updateView',
+          payload: currentArticleId.type,
+        });
+        return;
+      }
     }
 
     //  if the history is not empty and ...
@@ -367,7 +375,13 @@ export const NavigationContextProvider: React.FC<NavigationProviderInterface> = 
         });
       }
     }
-  }, [currentView, onSearch, currentHistory.length]);
+  }, [
+    currentView,
+    onSearch,
+    currentHistory.length,
+    searchValue,
+    currentArticleId.type,
+  ]);
 
   const onClose = useCallback(
     (

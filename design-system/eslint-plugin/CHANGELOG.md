@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 3.1.0
+
+### Minor Changes
+
+- [`784f2560e9b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/784f2560e9b) - Includes additional rule in the recommended ruleset to restrict imports on older deprecated components.
+
 ## 3.0.0
 
 ### Patch Changes

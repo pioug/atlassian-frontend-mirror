@@ -74,7 +74,7 @@ export class HyperlinkToolbarAppearance extends Component<
 
   // needed so we display the right state on the Toolbar while the same Toolbar
   // instance is visible and we click other link
-  componentWillReceiveProps(nextProps: HyperlinkToolbarAppearanceProps) {
+  UNSAFE_componentWillReceiveProps(nextProps: HyperlinkToolbarAppearanceProps) {
     if (nextProps.url !== this.props.url) {
       this.resolveUrl(nextProps.url);
     }

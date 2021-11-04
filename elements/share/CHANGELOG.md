@@ -1,5 +1,11 @@
 # @atlaskit/share
 
+## 0.33.0
+
+### Minor Changes
+
+- [`a33d6328a58`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a33d6328a58) - Optional prop to pass custom message helper for Share element
+
 ## 0.32.1
 
 ### Patch Changes

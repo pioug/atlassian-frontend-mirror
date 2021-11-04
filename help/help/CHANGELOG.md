@@ -1,5 +1,15 @@
 # @atlaskit/help
 
+## 5.0.0
+
+### Major Changes
+
+- [`32b50ca58d5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/32b50ca58d5) - [ux] Fix dead end in the navigation when the user is in "What's new" and uses the search input (the one in the header) and then navigates back
+
+### Patch Changes
+
+- [`cf3cf4a8671`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf3cf4a8671) - [ux] Display a message in the What's new section if the API doesn't return any results
+
 ## 4.3.0
 
 ### Minor Changes

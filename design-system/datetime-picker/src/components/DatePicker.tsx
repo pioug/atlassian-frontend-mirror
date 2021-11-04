@@ -266,7 +266,7 @@ class DatePicker extends Component<DatePickerProps, State> {
     };
   }
 
-  componentWillReceiveProps(nextProps: Readonly<DatePickerProps>): void {
+  UNSAFE_componentWillReceiveProps(nextProps: Readonly<DatePickerProps>): void {
     if (this.props.locale !== nextProps.locale) {
       this.setState({
         l10n: createLocalizationProvider(nextProps.locale),

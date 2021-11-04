@@ -1,5 +1,11 @@
 # @atlaskit/datetime-picker
 
+## 11.1.1
+
+### Patch Changes
+
+- [`095021b1e08`](https://bitbucket.org/atlassian/atlassian-frontend/commits/095021b1e08) - renaming deprecated lifecycle methods
+
 ## 11.1.0
 
 ### Minor Changes

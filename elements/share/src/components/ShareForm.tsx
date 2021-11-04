@@ -73,6 +73,7 @@ export type Props = {
   shareError?: ShareError;
   submitButtonLabel?: React.ReactNode;
   title?: React.ReactNode;
+  helperMessage?: string;
   contentPermissions?: React.ReactNode;
   onDismiss?: (data: ShareData) => void;
   defaultValue?: DialogContentState;
@@ -175,6 +176,7 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
       isDisabled,
       isPublicLink,
       copyTooltipText,
+      helperMessage,
     } = this.props;
     return (
       <FormWrapper>
@@ -189,6 +191,7 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
               config={config}
               isLoading={isFetchingConfig}
               product={product}
+              helperMessage={helperMessage}
               enableSmartUserPicker={enableSmartUserPicker}
               loggedInAccountId={loggedInAccountId}
               cloudId={cloudId}

@@ -12,7 +12,10 @@ import {
 
 export const statusStyles = css`
   .${StatusSharedCssClassName.STATUS_CONTAINER} {
+    // these two styles can be removed when displayInlineBlockForInlineNodes is enabled by default
+    // as it will make all inline nodes inline-block by default
     display: inline-block;
+    user-select: all;
 
     > span {
       display: inline-block;

@@ -17,7 +17,7 @@ const mockOnSearchExternalUrlClick = jest.fn();
 const mockSearchExternalUrl = 'https://www.atlassian.com/';
 const analyticsSpy = jest.fn();
 
-describe('SearchResultsError', () => {
+describe('SearchResultsEmpty', () => {
   it('Should match snapshot', () => {
     const { container } = render(
       <SearchResultsEmpty
@@ -55,7 +55,7 @@ describe('SearchResultsError', () => {
     expect(LinkLabel).not.toBeNull();
   });
 
-  it('Execute the function prop "onSearchExternalUrlClick" the the user clicks the link to open the external url', () => {
+  it('Execute the function prop "onSearchExternalUrlClick" when the user clicks the link to open the external url', () => {
     const { queryByText } = render(
       <AnalyticsListener channel="help" onEvent={analyticsSpy}>
         <SearchResultsEmpty

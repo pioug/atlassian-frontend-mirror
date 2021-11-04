@@ -1,5 +1,17 @@
 # @atlaskit/editor-core
 
+## 151.1.2
+
+### Patch Changes
+
+- [`52f0c296810`](https://bitbucket.org/atlassian/atlassian-frontend/commits/52f0c296810) - ED-13940 fixed selecting line with a status via keys
+
+## 151.1.1
+
+### Patch Changes
+
+- [`05527b1acf8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/05527b1acf8) - 'Renaming deprecated React lifecycle methods.'
+
 ## 151.1.0
 
 ### Minor Changes

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SearchResultsEmpty Should match snapshot 1`] = `
+exports[`WhatsNewResultsEmpty Should match snapshot 1`] = `
 .emotion-0 {
   padding: 24px 24px 0 24px;
   text-align: center;

@@ -126,6 +126,8 @@ export type Props = {
   shareTitle: string;
   /** Title of the share modal. */
   shareFormTitle?: React.ReactNode;
+  /** Copy for helper message to be displayed under share form input box. */
+  shareFormHelperMessage?: string;
   /** Copy for content permissions to be displayed in share form header. */
   contentPermissions?: React.ReactNode;
   /** To enable closing the modal on escape key press. */
@@ -561,6 +563,7 @@ export class ShareDialogContainerInternal extends React.Component<
       renderCustomTriggerButton,
       shareContentType,
       shareFormTitle,
+      shareFormHelperMessage,
       contentPermissions,
       shouldCloseOnEscapePress,
       showFlags,
@@ -605,6 +608,7 @@ export class ShareDialogContainerInternal extends React.Component<
             renderCustomTriggerButton={renderCustomTriggerButton}
             shareContentType={shareContentType}
             shareFormTitle={shareFormTitle}
+            shareFormHelperMessage={shareFormHelperMessage}
             contentPermissions={contentPermissions}
             copyLinkOrigin={this.getCopyLinkOriginTracing()}
             formShareOrigin={this.getFormShareOriginTracing()}

@@ -29,7 +29,7 @@ export const HelpBody = styled.div<HelpBodyProps>`
   align-self: auto;
   position: relative;
   overflow-x: hidden;
-  overflow-y: scroll;
+  overflow-y: auto;
 `;
 
 type HomeProps = {

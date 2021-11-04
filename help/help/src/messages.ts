@@ -217,6 +217,26 @@ export const messages = defineMessages({
     defaultMessage: `Experiment`,
     description: `text for the "Release types" dropdown option "Experiment"`,
   },
+  help_whats_new_no_results: {
+    id: 'help.whats.new_no_results',
+    defaultMessage: `We can’t find any recent releases of that type.`,
+    description: `text to display when the "What's new" API returns an empty array of articles"`,
+  },
+  help_whats_new_no_results_info: {
+    id: 'help.whats.new_no_results_info',
+    defaultMessage: `We only display 3 months of recent releases.`,
+    description: `text to display when the "What's new" API returns an empty array of articles"`,
+  },
+  help_whats_new_no_results_clear_filter_button_label: {
+    id: 'help.whats.new_no_results_clear_filter_button_label',
+    defaultMessage: `Clear the filter`,
+    description: `text to display when the "What's new" API returns an empty array of articles"`,
+  },
+  help_whats_new_no_results_clear_filter_info: {
+    id: 'help.whats.new_no_results_clear_filter_button_label',
+    defaultMessage: ` to try again.`,
+    description: `text to display when the "What's new" API returns an empty array of articles"`,
+  },
   help_whats_new_related_link_support: {
     id: 'help.whats_new.related_links.support',
     defaultMessage: `Support documentation`,

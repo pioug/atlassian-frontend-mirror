@@ -190,7 +190,7 @@ class TimePicker extends React.Component<TimePickerProps, State> {
     l10n: createLocalizationProvider(this.props.locale),
   };
 
-  componentWillReceiveProps(nextProps: TimePickerProps): void {
+  UNSAFE_componentWillReceiveProps(nextProps: TimePickerProps): void {
     if (this.props.locale !== nextProps.locale) {
       this.setState({ l10n: createLocalizationProvider(nextProps.locale) });
     }

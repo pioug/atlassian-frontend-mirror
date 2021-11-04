@@ -17,6 +17,7 @@ import {
 import { useWhatsNewArticleContext } from '../../contexts/whatsNewArticleContext';
 import { useNavigationContext } from '../../contexts/navigationContext';
 
+import WhatsNewResultsEmpty from './WhatsNewResultsEmpty';
 import WhatsNewResultsError from './WhatsNewResultsError';
 import WhatsNewResultsLoading from './WhatsNewResultsLoading';
 import WhatsNewResultsList from './WhatsNewResultsList';
@@ -51,16 +52,25 @@ export const WhatsNewResults: React.FC<InjectedIntlProps> = ({
     searchWhatsNewArticlesState,
     onWhatsNewButtonClick,
   } = useWhatsNewArticleContext();
-  const [selectedOption, setSelectedOption] = useState<
-    WHATS_NEW_ITEM_TYPES | ''
-  >('');
+  const SELECT_DEFAULT_VALUE: {
+    value: WHATS_NEW_ITEM_TYPES | '';
+    label: string;
+  } = {
+    value: '',
+    label: formatMessage(messages.help_whats_new_filter_select_option_all),
+  };
+
+  const [selectedOption, setSelectedOption] = useState<{
+    value: WHATS_NEW_ITEM_TYPES | '';
+    label: string;
+  }>(SELECT_DEFAULT_VALUE);
 
   const handleOnShowMoreButtonClick = useCallback(() => {
     if (searchWhatsNewArticlesResult && onSearchWhatsNewArticles) {
       const { nextPage, hasNextPage } = searchWhatsNewArticlesResult;
       if (nextPage && hasNextPage) {
         onSearchWhatsNewArticles(
-          selectedOption,
+          selectedOption.value,
           NUMBER_OF_WHATS_NEW_ITEMS_PER_PAGE,
           nextPage,
         );
@@ -68,8 +78,20 @@ export const WhatsNewResults: React.FC<InjectedIntlProps> = ({
     }
   }, [onSearchWhatsNewArticles, searchWhatsNewArticlesResult, selectedOption]);
 
-  const handleOnEnter = () =>
+  const handleOnEnter = () => {
+    setSelectedOption(SELECT_DEFAULT_VALUE);
     onSearchWhatsNewArticles && onSearchWhatsNewArticles();
+  };
+
+  const handleOnClearFilter = () => {
+    if (onSearchWhatsNewArticles) {
+      setSelectedOption({
+        value: '',
+        label: formatMessage(messages.help_whats_new_filter_select_option_all),
+      });
+      onSearchWhatsNewArticles('', NUMBER_OF_WHATS_NEW_ITEMS_PER_PAGE, '');
+    }
+  };
 
   return (
     <Transition
@@ -87,12 +109,7 @@ export const WhatsNewResults: React.FC<InjectedIntlProps> = ({
           {searchWhatsNewArticlesState !== REQUEST_STATE.error && (
             <SelectContainer>
               <Select
-                defaultValue={{
-                  value: '',
-                  label: formatMessage(
-                    messages.help_whats_new_filter_select_option_all,
-                  ),
-                }}
+                defaultValue={selectedOption}
                 className="single-select"
                 classNamePrefix="react-select"
                 options={[
@@ -133,11 +150,17 @@ export const WhatsNewResults: React.FC<InjectedIntlProps> = ({
                     value: WHATS_NEW_ITEM_TYPES.EXPERIMENT,
                   },
                 ]}
+                value={selectedOption}
                 onChange={(option) => {
                   if (onSearchWhatsNewArticles) {
                     const selectedOptionValue = (option as { value: string })
-                      .value as WHATS_NEW_ITEM_TYPES;
-                    setSelectedOption(selectedOptionValue);
+                      .value as WHATS_NEW_ITEM_TYPES | '';
+                    const selectedOptionLabel = (option as { label: string })
+                      .label as string;
+                    setSelectedOption({
+                      value: selectedOptionValue,
+                      label: selectedOptionLabel,
+                    });
                     onSearchWhatsNewArticles(
                       selectedOptionValue,
                       NUMBER_OF_WHATS_NEW_ITEMS_PER_PAGE,
@@ -158,16 +181,20 @@ export const WhatsNewResults: React.FC<InjectedIntlProps> = ({
               searchWhatsNewArticlesResult !== null &&
               state !== 'exited' && (
                 <>
-                  <WhatsNewResultsList
-                    whatsNewArticles={searchWhatsNewArticlesResult.articles}
-                    onWhatsNewResultItemClick={onWhatsNewButtonClick}
-                    onShowMoreButtonClick={handleOnShowMoreButtonClick}
-                    hasNextPage={searchWhatsNewArticlesResult?.hasNextPage}
-                    nextPage={searchWhatsNewArticlesResult?.nextPage}
-                    loadingMore={
-                      searchWhatsNewArticlesState === REQUEST_STATE.loading
-                    }
-                  />
+                  {searchWhatsNewArticlesResult.articles.length > 0 ? (
+                    <WhatsNewResultsList
+                      whatsNewArticles={searchWhatsNewArticlesResult.articles}
+                      onWhatsNewResultItemClick={onWhatsNewButtonClick}
+                      onShowMoreButtonClick={handleOnShowMoreButtonClick}
+                      hasNextPage={searchWhatsNewArticlesResult?.hasNextPage}
+                      nextPage={searchWhatsNewArticlesResult?.nextPage}
+                      loadingMore={
+                        searchWhatsNewArticlesState === REQUEST_STATE.loading
+                      }
+                    />
+                  ) : (
+                    <WhatsNewResultsEmpty onClearFilter={handleOnClearFilter} />
+                  )}
                 </>
               )}
 

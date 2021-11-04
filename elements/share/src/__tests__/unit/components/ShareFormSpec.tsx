@@ -290,3 +290,30 @@ describe('ShareForm', () => {
     });
   });
 });
+
+describe('helperMessage prop', () => {
+  it('should pass helper message when the helperMessage prop is available', () => {
+    const mockLink = 'link';
+    const loadOptions = jest.fn();
+    const onSubmit = jest.fn();
+    const helperMessage = 'this is the helper message to be displayed';
+    const shareForm = (shallowWithIntl as typeof shallow)(
+      <ShareForm
+        copyLink={mockLink}
+        loadOptions={loadOptions}
+        onSubmit={onSubmit}
+        title="some title"
+        product="confluence"
+        helperMessage="this is the helper message to be displayed"
+      />,
+    );
+    const akForm = shareForm.find<FormProps<{}>>(Form);
+    const form = renderProp(akForm, 'children', { formProps: {} })
+      .dive()
+      .dive()
+      .find('form');
+    const userPickerField = form.find(UserPickerField);
+
+    expect(userPickerField.props().helperMessage).toEqual(helperMessage);
+  });
+});

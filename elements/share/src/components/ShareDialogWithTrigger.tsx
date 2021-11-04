@@ -80,6 +80,7 @@ export type Props = {
   renderCustomTriggerButton?: RenderCustomTriggerButton;
   shareContentType: string;
   shareFormTitle?: React.ReactNode;
+  shareFormHelperMessage?: string;
   contentPermissions?: React.ReactNode;
   copyLinkOrigin?: OriginTracing;
   formShareOrigin?: OriginTracing;
@@ -516,6 +517,7 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
       isFetchingConfig,
       loadUserOptions,
       shareFormTitle,
+      shareFormHelperMessage,
       contentPermissions,
       bottomMessage,
       submitButtonLabel,
@@ -563,6 +565,7 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
                       isSharing={isSharing}
                       onSubmit={this.handleShareSubmit}
                       title={shareFormTitle}
+                      helperMessage={shareFormHelperMessage}
                       contentPermissions={contentPermissions}
                       shareError={shareError}
                       onDismiss={this.handleFormDismiss}

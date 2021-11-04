@@ -37,6 +37,7 @@ export type Props = {
   onChange?: (value: Value) => void;
   selectPortalRef?: React.Ref<HTMLDivElement>;
   isPublicLink?: boolean;
+  helperMessage?: string;
 };
 
 type GetPlaceHolderMessageDescriptor = (
@@ -140,10 +141,14 @@ export class UserPickerField extends React.Component<Props> {
   };
 
   private getInviteWarningMessage = (): React.ReactNode => {
-    const { product, isPublicLink } = this.props;
+    const { product, isPublicLink, helperMessage } = this.props;
 
     if (isPublicLink) {
       return null;
+    }
+
+    if (helperMessage) {
+      return helperMessage;
     }
 
     return product === 'jira' ? (

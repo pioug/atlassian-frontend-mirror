@@ -1,5 +1,4 @@
 jest.mock('../../../components/utils', () => ({
-  getInviteWarningType: jest.fn(),
   getMenuPortalTargetCurrentHTML: jest.fn(),
   allowEmails: (config: ConfigResponse) =>
     !(config && config.disableSharingToEmails),
@@ -87,7 +86,72 @@ describe('UserPickerField', () => {
     expect(userPicker.props()).toMatchObject(expectProps);
   });
 
-  it('should render UserPicker when product is `jira`', () => {
+  it('should render UserPicker when product is Confluence and helperMessage is available', () => {
+    const fieldProps = {
+      onChange: jest.fn(),
+      value: [],
+    };
+    const loadOptions = jest.fn();
+    const mockIsLoading = true;
+    const helperMessage =
+      'Recipients will see the name of the board and your message';
+
+    const field = renderUserPicker(
+      {
+        loadOptions,
+        isLoading: mockIsLoading,
+        product: 'confluence',
+        helperMessage,
+      },
+      { fieldProps, meta: { valid: true } },
+    );
+
+    const formattedMessageAddMore = field.find(FormattedMessage);
+
+    expect(formattedMessageAddMore).toHaveLength(1);
+    expect(formattedMessageAddMore.props()).toMatchObject(
+      messages.userPickerAddMoreMessage,
+    );
+
+    const fieldHelperMessage = field.find(HelperMessage);
+
+    expect(fieldHelperMessage).toHaveLength(1);
+    expect(fieldHelperMessage.html()).toEqual(
+      '<div class="css-17n790o-Message">Recipients will see the name of the board and your message</div>',
+    );
+  });
+
+  it('should render UserPicker when product is jira and helperMessage is available', () => {
+    const fieldProps = {
+      onChange: jest.fn(),
+      value: [],
+    };
+    const loadOptions = jest.fn();
+    const mockIsLoading = true;
+    const helperMessage =
+      'Recipients will see the name of the roadmap and your message';
+
+    const field = renderUserPicker(
+      { loadOptions, isLoading: mockIsLoading, product: 'jira', helperMessage },
+      { fieldProps, meta: { valid: true } },
+    );
+
+    const formattedMessageAddMore = field.find(FormattedMessage);
+
+    expect(formattedMessageAddMore).toHaveLength(1);
+    expect(formattedMessageAddMore.props()).toMatchObject(
+      messages.userPickerAddMoreMessage,
+    );
+
+    const fieldHelperMessage = field.find(HelperMessage);
+
+    expect(fieldHelperMessage).toHaveLength(1);
+    expect(fieldHelperMessage.html()).toEqual(
+      '<div class="css-17n790o-Message">Recipients will see the name of the roadmap and your message</div>',
+    );
+  });
+
+  it('should render UserPicker when product is `jira` and no helper message is available', () => {
     const fieldProps = {
       onChange: jest.fn(),
       value: [],

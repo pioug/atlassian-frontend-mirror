@@ -217,6 +217,7 @@ type ExampleState = {
   chosenConfig: number;
   customButton: boolean;
   customTitle: boolean;
+  customHelperMessage: boolean;
   contentPermissions: boolean;
   customTooltipText: boolean;
   customTriggerButtonIcon: boolean;
@@ -334,6 +335,7 @@ export default class Example extends React.Component<{}, State> {
     isAutoOpenDialog: false,
     customButton: false,
     customTitle: false,
+    customHelperMessage: false,
     contentPermissions: false,
     chosenConfig: 0,
     customTooltipText: false,
@@ -401,6 +403,7 @@ export default class Example extends React.Component<{}, State> {
       isAutoOpenDialog,
       customButton,
       customTitle,
+      customHelperMessage,
       chosenConfig,
       contentPermissions,
       customTooltipText,
@@ -490,6 +493,9 @@ export default class Example extends React.Component<{}, State> {
                     shareIntegrations={
                       isSplitButton ? shareIntegrations : undefined
                     }
+                    shareFormHelperMessage={
+                      customHelperMessage ? 'Custom Helper Message' : undefined
+                    }
                   />
                 </WrapperWithMarginTop>
                 <h4>Options</h4>
@@ -536,6 +542,17 @@ export default class Example extends React.Component<{}, State> {
                       isChecked={customTitle}
                       onChange={() =>
                         this.setState({ customTitle: !customTitle })
+                      }
+                    />
+                  </WrapperWithMarginTop>
+                  <WrapperWithMarginTop>
+                    Custom Share Form Helper Message
+                    <Toggle
+                      isChecked={customHelperMessage}
+                      onChange={() =>
+                        this.setState({
+                          customHelperMessage: !customHelperMessage,
+                        })
                       }
                     />
                   </WrapperWithMarginTop>

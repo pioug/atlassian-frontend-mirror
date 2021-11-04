@@ -239,7 +239,7 @@ export class ExampleEditorComponent extends React.Component<
   private startTime: number = 0;
   private editorActions: EditorActions | null = null;
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.startTime = new Date().getTime();
   }
 

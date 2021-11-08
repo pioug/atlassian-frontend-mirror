@@ -35,7 +35,7 @@ describe('codeBlock - keymaps', () => {
     createEditor({
       doc,
       preset: new Preset<LightEditorPlugin>()
-        .add(codeBlockPlugin)
+        .add([codeBlockPlugin, { appearance: 'full-page' }])
         .add(layoutPlugin)
         .add(blockTypePlugin)
         .add(basePlugin)

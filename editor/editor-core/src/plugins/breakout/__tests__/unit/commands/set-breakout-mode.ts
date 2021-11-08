@@ -23,7 +23,7 @@ describe('Breakout Commands: set-breakout-mode', () => {
     const { editorView } = createEditor({
       doc: doc(code_block()('Hel{<>}lo')),
       preset: new Preset<LightEditorPlugin>()
-        .add(codeBlockPlugin)
+        .add([codeBlockPlugin, { appearance: 'full-page' }])
         .add([breakoutPlugin, { allowBreakoutButton: true }])
         .add(widthPlugin),
     });
@@ -38,7 +38,7 @@ describe('Breakout Commands: set-breakout-mode', () => {
     const { editorView } = createEditor({
       doc: doc('{<node>}', code_block()('Hello')),
       preset: new Preset<LightEditorPlugin>()
-        .add(codeBlockPlugin)
+        .add([codeBlockPlugin, { appearance: 'full-page' }])
         .add([breakoutPlugin, { allowBreakoutButton: true }])
         .add(widthPlugin),
     });
@@ -68,7 +68,7 @@ describe('Breakout Commands: set-breakout-mode', () => {
       doc: doc(breakout({ mode: 'wide' })(code_block()('Hel{<>}lo'))),
       preset: new Preset<LightEditorPlugin>()
         .add([breakoutPlugin, { allowBreakoutButton: true }])
-        .add(codeBlockPlugin)
+        .add([codeBlockPlugin, { appearance: 'full-page' }])
         .add(widthPlugin),
     });
 

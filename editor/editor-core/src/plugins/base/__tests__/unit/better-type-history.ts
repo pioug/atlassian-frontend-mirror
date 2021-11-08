@@ -42,7 +42,7 @@ describe('close history', () => {
         .add(hyperlinkPlugin)
         .add(betterTypeHistoryPlugin)
         .add(panelPlugin)
-        .add(codeBlockPlugin)
+        .add([codeBlockPlugin, { appearance: 'full-page' }])
         .add([placeholderTextPlugin, { allowInserting: true }])
         .add(tasksAndDecisionsPlugin),
       pluginKey: undoRedoPluginKey,

@@ -113,7 +113,7 @@ export class ValidatingKitchenSinkEditor extends React.Component<
           allowExpand={{ allowInsertion: true }}
           allowStatus={true}
           allowNestedTasks
-          codeBlock={{ allowCopyToClipboard: true }}
+          codeBlock={{ allowCopyToClipboard: true, appearance }}
           {...providers}
           mentionProvider={Promise.resolve(
             mentionResourceProviderWithTeamMentionHighlight,

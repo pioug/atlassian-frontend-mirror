@@ -47,7 +47,7 @@ describe('code-block', () => {
     return createEditor<CodeBlockState, PluginKey>({
       doc,
       preset: new Preset<LightEditorPlugin>()
-        .add(codeBlockPlugin)
+        .add([codeBlockPlugin, { appearance: 'full-page' }])
         .add(tablesPlugin)
         .add(basePlugin)
         .add(typeAheadPlugin)

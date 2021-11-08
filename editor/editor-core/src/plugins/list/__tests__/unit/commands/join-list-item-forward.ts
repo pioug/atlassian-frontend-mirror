@@ -51,7 +51,7 @@ describe('join-list-item-forward', () => {
       .add(listPlugin)
       .add(basePlugins)
       .add(blockType)
-      .add(codeBlockTypePlugin)
+      .add([codeBlockTypePlugin, { appearance: 'full-page' }])
       .add(panelBlockTypePlugin)
       .add([statusInlineBlockTypePlugin, { menuDisabled: false }])
       .add(textFormattingPlugin)

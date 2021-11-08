@@ -22,6 +22,7 @@ const CodeBlock = memo<CodeBlockProps>(function CodeBlock({
   text,
   codeBidiWarnings = true,
   codeBidiWarningLabel,
+  codeBidiWarningTooltipEnabled = true,
 }) {
   const numLines = (text || '').split('\n').length;
   const globalTheme = useGlobalTheme();
@@ -54,7 +55,10 @@ const CodeBlock = memo<CodeBlockProps>(function CodeBlock({
   const languageToUse = text ? language : 'text';
 
   const renderer = codeBidiWarnings
-    ? createBidiWarningRenderer(codeBidiWarningLabel)
+    ? createBidiWarningRenderer({
+        codeBidiWarningLabel,
+        codeBidiWarningTooltipEnabled,
+      })
     : undefined;
 
   return (

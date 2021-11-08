@@ -43,7 +43,7 @@
   "devDependencies": {
     "@atlaskit/analytics-next": "^8.1.2",
     "@atlaskit/build-utils": "*",
-    "@atlaskit/code": "^14.0.0",
+    "@atlaskit/code": "^14.3.0",
     "@atlaskit/docs": "*",
     "@atlaskit/range": "^5.1.0",
     "@atlaskit/ssr": "*",

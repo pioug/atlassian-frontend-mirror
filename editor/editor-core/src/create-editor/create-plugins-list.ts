@@ -158,7 +158,11 @@ export function getDefaultPresetOptionsFromEditorProps(
     },
     selection: { useLongPressSelection: false },
     cardOptions: props.smartLinks || props.UNSAFE_cards,
-    codeBlock: { ...props.codeBlock, useLongPressSelection: false },
+    codeBlock: {
+      ...props.codeBlock,
+      useLongPressSelection: false,
+      appearance: props.appearance,
+    },
   };
 }
 
@@ -539,7 +543,12 @@ export default function createPluginsList(
   }
 
   if (featureFlags.codeBidiWarnings) {
-    preset.add(codeBidiWarningPlugin);
+    preset.add([
+      codeBidiWarningPlugin,
+      {
+        appearance: props.appearance,
+      },
+    ]);
   }
 
   const excludes = new Set<string>();

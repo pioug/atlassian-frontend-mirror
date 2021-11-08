@@ -86,13 +86,13 @@ export const applyAnnotationOnText = ({
 type Props = {
   startPos: number;
   endPos: number;
-  text: string;
+  children: string;
 };
 
 export const TextWithAnnotationDraft: React.FC<Props> = ({
   startPos,
   endPos,
-  text,
+  children,
 }: Props) => {
   const textPosition = React.useMemo(
     () => ({
@@ -111,21 +111,25 @@ export const TextWithAnnotationDraft: React.FC<Props> = ({
   }, [nextDraftPosition, textPosition]);
 
   if (shouldApplyAnnotationAt === false || !nextDraftPosition) {
-    return <>{text}</>;
+    return <>{children}</>;
   }
 
   if (shouldApplyAnnotationAt === InsertDraftPosition.AROUND_TEXT) {
     return (
       <AnnotationDraft key={0} draftPosition={nextDraftPosition}>
-        {text}
+        {children}
       </AnnotationDraft>
     );
   }
 
-  const offsets = calcTextSplitOffset(nextDraftPosition, textPosition, text);
-  const texts = splitText(text, offsets);
+  const offsets = calcTextSplitOffset(
+    nextDraftPosition,
+    textPosition,
+    children,
+  );
+  const texts = splitText(children, offsets);
   if (!texts) {
-    return <>{text}</>;
+    return <>{children}</>;
   }
 
   const components = applyAnnotationOnText({

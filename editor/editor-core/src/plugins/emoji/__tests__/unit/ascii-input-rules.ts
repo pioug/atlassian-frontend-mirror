@@ -57,7 +57,7 @@ describe('ascii emojis - input rules', () => {
               { useInlineWrapper: false, allowZeroWidthSpaceAfter: true },
             ])
             .add(blockTypePlugin)
-            .add(codeBlockPlugin)
+            .add([codeBlockPlugin, { appearance: 'full-page' }])
             .add(textFormattingPlugin)
             .add(basePlugin),
           providerFactory,

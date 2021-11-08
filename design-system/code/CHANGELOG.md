@@ -1,5 +1,11 @@
 # @atlaskit/code
 
+## 14.3.0
+
+### Minor Changes
+
+- [`db3477abb18`](https://bitbucket.org/atlassian/atlassian-frontend/commits/db3477abb18) - [ux] ED-13938 disabled code-bidi warning tooltip for mobile, reworked TextWrapper to fix bidi mitigation, and fixed issue where bidi warnings were not presented when renderer used with an annotation provider with draftMode set to true
+
 ## 14.2.0
 
 ### Minor Changes

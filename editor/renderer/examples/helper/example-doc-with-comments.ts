@@ -1,3 +1,9 @@
+/*
+Code snippets are included in this example as annotations
+trigger a different way of rendering marks, which is known
+to interact poorly with the inline code component
+*/
+
 export const exampleDocumentWithComments = {
   version: 1,
   type: 'doc',
@@ -13,6 +19,55 @@ export const exampleDocumentWithComments = {
           text: 'SIMPLE COMMENTS',
         },
       ],
+    },
+    {
+      attrs: {
+        language: 'csharp',
+      },
+      content: [
+        {
+          text:
+            '#include <stdio.h>\n#include <stdbool.h>\n\nint main() {\n    bool isAdmin = false;\n    /*‮ } ⁦if (isAdmin)⁩ ⁦ begin admins only */\n        printf("You are an admin.\\n");\n    /* end admins only ‮ { ⁦*/\n    return 0;\n}',
+          type: 'text',
+        },
+      ],
+      type: 'codeBlock',
+    },
+    {
+      content: [
+        {
+          text: '       ',
+          type: 'text',
+        },
+        {
+          marks: [
+            {
+              type: 'code',
+            },
+          ],
+          text: 'teadfdsd/*‮ } ⁦if (isAdmin)⁩ ⁦ bedsjjjjjst',
+          type: 'text',
+        },
+        {
+          text: '  ',
+          type: 'text',
+        },
+      ],
+      type: 'paragraph',
+    },
+    {
+      content: [
+        {
+          marks: [
+            {
+              type: 'code',
+            },
+          ],
+          text: '    /*‮ } ⁦if (isAdmin)⁩ ⁦ begin admins only */',
+          type: 'text',
+        },
+      ],
+      type: 'paragraph',
     },
     {
       type: 'paragraph',

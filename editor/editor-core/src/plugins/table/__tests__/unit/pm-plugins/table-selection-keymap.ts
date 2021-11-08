@@ -42,7 +42,7 @@ describe('table selection keymap', () => {
     .add(selectionPlugin)
     .add(tablePlugin)
     .add(panelPlugin)
-    .add(codeBlockPlugin);
+    .add([codeBlockPlugin, { appearance: 'full-page' }]);
 
   const editor = (doc: DocBuilder) =>
     createEditor<TablePluginState, PluginKey>({

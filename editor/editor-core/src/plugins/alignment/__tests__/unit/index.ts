@@ -36,7 +36,7 @@ const alignmentPreset = new Preset<LightEditorPlugin>()
   .add(alignmentPlugin)
   .add(tablePlugin)
   .add(listPlugin)
-  .add(codeBlockPlugin)
+  .add([codeBlockPlugin, { appearance: 'full-page' }])
   .add(blockTypePlugin)
   .add(panelPlugin);
 

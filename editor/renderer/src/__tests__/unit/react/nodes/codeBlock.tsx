@@ -10,6 +10,7 @@ const render = (overrides = {}) => {
       language="javascript"
       allowCopyToClipboard={false}
       text={textSample}
+      codeBidiWarningTooltipEnabled={true}
       {...overrides}
     />,
   );

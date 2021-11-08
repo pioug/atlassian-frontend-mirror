@@ -54,7 +54,7 @@ describe('date plugin', () => {
         .add([analyticsPlugin, { createAnalyticsEvent }])
         .add(typeAheadPlugin)
         .add(quickInsertPlugin)
-        .add(codeBlockPlugin)
+        .add([codeBlockPlugin, { appearance: 'full-page' }])
         .add(tablePlugin)
         .add([
           featureFlagsContextPlugin,

@@ -28,7 +28,10 @@ describe('code-block', () => {
     return createEditor({
       doc,
       pluginKey: pluginKey,
-      preset: new Preset<LightEditorPlugin>().add(codeBlockPlugin),
+      preset: new Preset<LightEditorPlugin>().add([
+        codeBlockPlugin,
+        { appearance: 'full-page' },
+      ]),
     });
   };
 

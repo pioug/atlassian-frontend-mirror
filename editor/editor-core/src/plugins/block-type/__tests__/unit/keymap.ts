@@ -70,7 +70,7 @@ describe('codeBlock - keymaps', () => {
         .add(tablesPlugin)
         .add(rulePlugin)
         .add(mentionsPlugin)
-        .add(codeBlockPlugin)
+        .add([codeBlockPlugin, { appearance: 'full-page' }])
         .add(listPlugin)
         .add(typeAheadPlugin),
       providerFactory,

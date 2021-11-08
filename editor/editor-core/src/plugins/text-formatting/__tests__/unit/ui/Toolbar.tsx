@@ -119,7 +119,7 @@ describe('@atlaskit/editor-core/ui/Toolbar', () => {
         doc,
         preset: new Preset<LightEditorPlugin>()
           .add(textFormattingPlugin)
-          .add(codeBlockPlugin)
+          .add([codeBlockPlugin, { appearance: 'full-page' }])
           .add([analyticsPlugin, { createAnalyticsEvent }]),
       });
 

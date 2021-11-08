@@ -99,7 +99,10 @@ export function createDefaultPreset(
   preset.add(floatingToolbarPlugin);
   preset.add([featureFlagsContextPlugin, options.featureFlags || {}]);
   preset.add([selectionPlugin, options.selection]);
-  preset.add([codeBlockPlugin, options.codeBlock]);
+  preset.add([
+    codeBlockPlugin,
+    options.codeBlock || { appearance: 'full-page' },
+  ]);
   return preset;
 }
 

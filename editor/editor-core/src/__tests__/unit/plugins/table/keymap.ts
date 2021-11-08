@@ -82,7 +82,7 @@ describe('table keymap', () => {
     .add(panelPlugin)
     .add(listPlugin)
     .add(blockTypePlugin)
-    .add(codeBlockPlugin)
+    .add([codeBlockPlugin, { appearance: 'full-page' }])
     .add(rulePlugin)
     .add(mentionsPlugin)
     .add(emojiPlugin)

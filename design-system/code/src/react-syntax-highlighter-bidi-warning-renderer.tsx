@@ -11,7 +11,14 @@ import codeBidiWarningDecorator from './bidi-warning/bidi-warning-decorator';
 //
 // Patching react syntax-highlighter with a decoration feature is likely preferable
 
-export function createBidiWarningRenderer(codeBidiWarningLabel?: string) {
+type CodeBidiWarningConfig = {
+  codeBidiWarningLabel?: string;
+  codeBidiWarningTooltipEnabled: boolean;
+};
+
+export function createBidiWarningRenderer(
+  codeBidiWarningConfig: CodeBidiWarningConfig,
+) {
   return function bidiWarningRenderer({
     rows,
     stylesheet,
@@ -22,7 +29,7 @@ export function createBidiWarningRenderer(codeBidiWarningLabel?: string) {
         node,
         stylesheet,
         useInlineStyles,
-        codeBidiWarningLabel,
+        codeBidiWarningConfig,
         key: `code-segement${i}`,
       }),
     );
@@ -167,7 +174,7 @@ export function createClassNameString(classNames) {
 export function createChildren(
   stylesheet,
   useInlineStyles,
-  codeBidiWarningLabel,
+  codeBidiWarningConfig,
 ) {
   let childrenCount = 0;
   return (children) => {
@@ -177,7 +184,7 @@ export function createChildren(
         node: child,
         stylesheet,
         useInlineStyles,
-        codeBidiWarningLabel,
+        codeBidiWarningConfig,
         key: `code-segment-${childrenCount}-${i}`,
       }),
     );
@@ -189,7 +196,7 @@ function createElement({
   stylesheet,
   style = {},
   useInlineStyles,
-  codeBidiWarningLabel,
+  codeBidiWarningConfig,
   key,
 }) {
   const { properties, type, tagName: TagName, value } = node;
@@ -203,7 +210,8 @@ function createElement({
         <CodeBidiWarning
           bidiCharacter={bidiCharacter}
           key={index}
-          label={codeBidiWarningLabel}
+          label={codeBidiWarningConfig.codeBidiWarningLabel}
+          tooltipEnabled={codeBidiWarningConfig.codeBidiWarningTooltipEnabled}
         />
       ),
     );
@@ -212,7 +220,7 @@ function createElement({
     const childrenCreator = createChildren(
       stylesheet,
       useInlineStyles,
-      codeBidiWarningLabel,
+      codeBidiWarningConfig,
     );
 
     let props;

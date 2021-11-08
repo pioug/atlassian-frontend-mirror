@@ -18,7 +18,7 @@ import { messages } from '../block-type/messages';
 import { CodeBlockOptions } from './types';
 import refreshBrowserSelectionOnChange from './refresh-browser-selection';
 
-const codeBlockPlugin = (options: CodeBlockOptions = {}): EditorPlugin => ({
+const codeBlockPlugin = (options: CodeBlockOptions): EditorPlugin => ({
   name: 'codeBlock',
 
   nodes() {
@@ -33,6 +33,7 @@ const codeBlockPlugin = (options: CodeBlockOptions = {}): EditorPlugin => ({
           createPlugin({
             useLongPressSelection: options.useLongPressSelection,
             reactContext,
+            appearance: options.appearance,
           }),
       },
       {

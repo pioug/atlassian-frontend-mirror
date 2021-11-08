@@ -18,12 +18,14 @@ const Code = memo(
       children,
       codeBidiWarnings = true,
       codeBidiWarningLabel,
+      codeBidiWarningTooltipEnabled = true,
       ...otherProps
     } = props;
 
     const decoratedChildren = codeBidiWarnings ? (
       <RenderCodeChildrenWithBidiWarnings
         codeBidiWarningLabel={codeBidiWarningLabel}
+        codeBidiWarningTooltipEnabled={codeBidiWarningTooltipEnabled}
       >
         {children}
       </RenderCodeChildrenWithBidiWarnings>
@@ -41,9 +43,11 @@ const Code = memo(
 function RenderCodeChildrenWithBidiWarnings({
   children,
   codeBidiWarningLabel,
+  codeBidiWarningTooltipEnabled,
 }: {
   children: React.ReactNode;
   codeBidiWarningLabel?: string;
+  codeBidiWarningTooltipEnabled: boolean;
 }) {
   const replacedChildren = React.Children.map(children, (childNode) => {
     if (typeof childNode === 'string') {
@@ -54,6 +58,7 @@ function RenderCodeChildrenWithBidiWarnings({
             bidiCharacter={bidiCharacter}
             key={index}
             label={codeBidiWarningLabel}
+            tooltipEnabled={codeBidiWarningTooltipEnabled}
           />
         ),
       );
@@ -65,6 +70,7 @@ function RenderCodeChildrenWithBidiWarnings({
         children: (
           <RenderCodeChildrenWithBidiWarnings
             codeBidiWarningLabel={codeBidiWarningLabel}
+            codeBidiWarningTooltipEnabled={codeBidiWarningTooltipEnabled}
           >
             {childNode.props.children}
           </RenderCodeChildrenWithBidiWarnings>

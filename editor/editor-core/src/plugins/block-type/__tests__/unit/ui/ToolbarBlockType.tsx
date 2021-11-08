@@ -46,7 +46,7 @@ describe('@atlaskit/editor-core/ui/ToolbarBlockType', () => {
       pluginKey,
       preset: new Preset<LightEditorPlugin>()
         .add(blockTypePlugin)
-        .add(codeBlockPlugin)
+        .add([codeBlockPlugin, { appearance: 'full-page' }])
         .add(panelPlugin),
     });
 

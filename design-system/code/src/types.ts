@@ -31,4 +31,13 @@ export interface CodeProps extends HTMLProps<HTMLElement> {
    * Defaults to `Bidirectional characters change the order that text is rendered. This could be used to obscure malicious code.`.
    */
   codeBidiWarningLabel?: string;
+
+  /**
+   * Defaults to enabled (true)
+   *
+   * Intended to be disabled when used in a mobile view, such as in the editor
+   * via mobile bridge, where the tooltip could end up being cut off of otherwise
+   * not work as expected.
+   */
+  codeBidiWarningTooltipEnabled?: boolean;
 }

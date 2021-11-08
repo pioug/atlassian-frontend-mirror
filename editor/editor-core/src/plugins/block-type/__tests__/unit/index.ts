@@ -65,7 +65,7 @@ describe('block-type', () => {
       preset: new Preset<LightEditorPlugin>()
         .add(blockTypePlugin)
         .add(panelPlugin)
-        .add(codeBlockPlugin)
+        .add([codeBlockPlugin, { appearance: 'full-page' }])
         .add([analyticsPlugin, { createAnalyticsEvent }]),
       pluginKey: blockTypePluginKey,
     });
@@ -439,7 +439,7 @@ describe('block-type', () => {
         doc,
         preset: new Preset<LightEditorPlugin>()
           .add([blockTypePlugin, { lastNodeMustBeParagraph: true }])
-          .add(codeBlockPlugin),
+          .add([codeBlockPlugin, { appearance: 'full-page' }]),
       });
 
     it('should create empty terminal empty paragraph when heading is created', () => {

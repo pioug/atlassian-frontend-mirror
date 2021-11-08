@@ -4,20 +4,22 @@ import { TextWithAnnotationDraft } from '../../ui/annotations';
 type Props = {
   startPos: number;
   endPos: number;
-  text?: string | null;
+  children?: string | null;
 };
 
-const TextWrapper = React.memo((props: Props) => {
+const TextWrapper = (props: Props) => {
   const { startPos, endPos } = props;
-  const { text } = props;
+  const { children } = props;
 
-  if (!text) {
+  if (!children) {
     return null;
   }
 
   return (
-    <TextWithAnnotationDraft text={text} startPos={startPos} endPos={endPos} />
+    <TextWithAnnotationDraft startPos={startPos} endPos={endPos}>
+      {children}
+    </TextWithAnnotationDraft>
   );
-});
+};
 
 export default TextWrapper;

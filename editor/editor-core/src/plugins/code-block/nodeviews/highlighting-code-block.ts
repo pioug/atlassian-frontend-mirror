@@ -35,7 +35,20 @@ const toDOM = (node: Node): DOMOutputSpec => [
   ],
 ];
 
-type CodeBidiWarningOptions = { label: string; enabled?: boolean };
+type CodeBidiWarningOptions = {
+  label: string;
+  /**
+   * Intended to be disabled when used in a mobile view, such as in the editor
+   * via mobile bridge, where the tooltip could end up being cut off of otherwise
+   * not work as expected.
+   */
+  tooltipEnabled: boolean;
+  /**
+   * Indicates if code bidi warning should be used, was created to allow
+   * disabling code bidi warnings via a feature flag in products.
+   */
+  enabled?: boolean;
+};
 
 export class CodeBlockView {
   node: Node;
@@ -111,6 +124,8 @@ export class CodeBlockView {
         showLineNumbers: false,
         codeBidiWarnings: this.codeBidiWarningOptions.enabled,
         codeBidiWarningLabel: this.codeBidiWarningOptions.label,
+        codeBidiWarningTooltipEnabled: this.codeBidiWarningOptions
+          .tooltipEnabled,
       }),
       highlighting,
     );
@@ -184,11 +199,14 @@ export class CodeBlockView {
 export const highlightingCodeBlockNodeView = ({
   codeBidiWarnings,
   codeBidiWarningLabel,
+  codeBidiWarningTooltipEnabled,
 }: {
   codeBidiWarnings?: boolean;
   codeBidiWarningLabel: string;
+  codeBidiWarningTooltipEnabled: boolean;
 }) => (node: Node, view: EditorView, getPos: getPosHandler) =>
   new CodeBlockView(node, view, getPos as getPosHandlerNode, {
-    enabled: codeBidiWarnings,
     label: codeBidiWarningLabel,
+    enabled: codeBidiWarnings,
+    tooltipEnabled: codeBidiWarningTooltipEnabled,
   });

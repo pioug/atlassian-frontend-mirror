@@ -74,7 +74,7 @@ describe('plugins/undo-redo/autoformatting: undo & redo', () => {
         ])
         .add(typeAheadPlugin)
         .add(blockTypePlugin)
-        .add(codeBlockPlugin)
+        .add([codeBlockPlugin, { appearance: 'full-page' }])
         .add(tasksAndDecisionsPlugin)
         .add(textFormattingPlugin)
         .add(basePlugin)

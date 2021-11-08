@@ -1,14 +1,20 @@
-import { EditorPlugin } from '../../types';
+import type { EditorPlugin, EditorProps } from '../../types';
 import { createPlugin } from './pm-plugins/main';
 
-const codeBidiWarning = (): EditorPlugin => ({
+const codeBidiWarning = ({
+  appearance,
+}: {
+  appearance: EditorProps['appearance'];
+}): EditorPlugin => ({
   name: 'codeBidiWarning',
 
   pmPlugins() {
     return [
       {
         name: 'codeBidiWarning',
-        plugin: (options) => createPlugin(options),
+        plugin: (options) => {
+          return createPlugin(options, { appearance });
+        },
       },
     ];
   },

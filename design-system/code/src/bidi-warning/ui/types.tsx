@@ -13,6 +13,15 @@ export type CodeBidiWarningProps = {
    */
   bidiCharacter: string;
 
+  /**
+   * Defaults to enabled (true)
+   *
+   * Intended to be disabled when used in a mobile view, such as in the editor
+   * via mobile bridge, where the tooltip could end up being cut off of otherwise
+   * not work as expected.
+   */
+  tooltipEnabled?: boolean;
+
   // Useful when wrapping the bidi character with the decoration is not achievable.
   skipChildren?: boolean;
 

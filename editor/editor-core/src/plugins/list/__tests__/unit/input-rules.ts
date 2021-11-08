@@ -39,7 +39,7 @@ describe('inputrules', () => {
         .add(listTypePlugin)
         .add(basePlugins)
         .add(blockType)
-        .add(codeBlockTypePlugin)
+        .add([codeBlockTypePlugin, { appearance: 'full-page' }])
         .add([analyticsPlugin, { createAnalyticsEvent }]),
     });
 

@@ -48,7 +48,7 @@ describe('IDE UX plugin', () => {
       doc,
       preset: new Preset<LightEditorPlugin>()
         .add(basePlugin)
-        .add(codeBlockPlugin)
+        .add([codeBlockPlugin, { appearance: 'full-page' }])
         .add([analyticsPlugin, { createAnalyticsEvent }]),
     });
   };

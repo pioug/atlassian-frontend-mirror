@@ -357,7 +357,10 @@ export class ExampleEditorComponent extends React.Component<
                   allowMatchCase: true,
                 }}
                 allowNestedTasks
-                codeBlock={{ allowCopyToClipboard: true }}
+                codeBlock={{
+                  allowCopyToClipboard: true,
+                  appearance: this.state.appearance,
+                }}
                 {...providers}
                 media={{
                   provider: mediaProvider,

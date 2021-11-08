@@ -19,11 +19,17 @@ export interface Props {
   text: string;
   language: SupportedLanguages;
   allowCopyToClipboard?: boolean;
+  codeBidiWarningTooltipEnabled: boolean;
   className?: string;
 }
 
 function CodeBlock(props: Props & InjectedIntlProps) {
-  const { text, language, allowCopyToClipboard = false } = props;
+  const {
+    text,
+    language,
+    allowCopyToClipboard = false,
+    codeBidiWarningTooltipEnabled,
+  } = props;
   const featureFlags = useFeatureFlags();
 
   const codeBidiWarningLabel = props.intl.formatMessage(
@@ -40,6 +46,7 @@ function CodeBlock(props: Props & InjectedIntlProps) {
         text={text}
         codeBidiWarnings={featureFlags?.codeBidiWarnings}
         codeBidiWarningLabel={codeBidiWarningLabel}
+        codeBidiWarningTooltipEnabled={codeBidiWarningTooltipEnabled}
       />
     </div>
   );

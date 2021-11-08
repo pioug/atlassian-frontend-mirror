@@ -53,7 +53,7 @@ describe('paste paragraph edge cases', () => {
         .add(textFormattingPlugin)
         .add(tablePlugin)
         .add(layoutPlugin)
-        .add(codeBlockPlugin)
+        .add([codeBlockPlugin, { appearance: 'full-page' }])
         .add([mediaPlugin, { allowMediaSingle: true }])
         .add(panelPlugin),
     });
@@ -155,7 +155,7 @@ describe('paste paragraph edge cases', () => {
       ol(
         li(
           p(
-            link({ href: 'https://gnu.org' })('Helloworld'), 
+            link({ href: 'https://gnu.org' })('Helloworld'),
           ),
         ),
       ),
@@ -182,7 +182,7 @@ describe('paste paragraph edge cases', () => {
       ol(
         li(
           p(
-            'Test ', 
+            'Test ',
             link({ href: 'https://gnu.org' })('Helloworld'),
           ),
         ),
@@ -713,7 +713,7 @@ describe('paste paragraph edge cases', () => {
           p(
             '... that ',
             strong(link({ href: 'https://en.wikipedia.org/wiki/HMS_Cicala'})('HMS Cicala')),
-            ' was commanded at the 1941 ?' 
+            ' was commanded at the 1941 ?'
           )
         )
       ),

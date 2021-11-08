@@ -25,6 +25,7 @@ export const { createPluginState, getPluginState } = pluginFactory(
         {
           doc: tr.doc,
           codeBidiWarningLabel: pluginState.codeBidiWarningLabel,
+          tooltipEnabled: pluginState.tooltipEnabled,
         },
       );
 
@@ -36,9 +37,11 @@ export const { createPluginState, getPluginState } = pluginFactory(
 export function createBidiWarningsDecorationSetFromDoc({
   doc,
   codeBidiWarningLabel,
+  tooltipEnabled,
 }: {
   doc: PmNode<any>;
   codeBidiWarningLabel: string;
+  tooltipEnabled: boolean;
 }) {
   const bidiCharactersAndTheirPositions: {
     position: number;
@@ -85,7 +88,7 @@ export function createBidiWarningsDecorationSetFromDoc({
     doc,
     bidiCharactersAndTheirPositions.map(({ position, bidiCharacter }) => {
       return Decoration.widget(position, () =>
-        renderDOM(bidiCharacter, codeBidiWarningLabel),
+        renderDOM({ bidiCharacter, codeBidiWarningLabel, tooltipEnabled }),
       );
     }),
   );
@@ -93,7 +96,15 @@ export function createBidiWarningsDecorationSetFromDoc({
   return newBidiWarningsDecorationSet;
 }
 
-function renderDOM(bidiCharacter: string, codeBidiWarningLabel: string) {
+function renderDOM({
+  bidiCharacter,
+  codeBidiWarningLabel,
+  tooltipEnabled,
+}: {
+  bidiCharacter: string;
+  codeBidiWarningLabel: string;
+  tooltipEnabled: boolean;
+}) {
   const element = document.createElement('span');
 
   // Note: we use this pattern elsewhere (see highlighting code block, and drop cursor widget decoration)
@@ -103,6 +114,7 @@ function renderDOM(bidiCharacter: string, codeBidiWarningLabel: string) {
       bidiCharacter={bidiCharacter}
       skipChildren={true}
       label={codeBidiWarningLabel}
+      tooltipEnabled={tooltipEnabled}
     />,
     element,
   );

@@ -1,6 +1,7 @@
 import { Plugin, NodeSelection } from 'prosemirror-state';
 import { codeBidiWarningMessages } from '@atlaskit/editor-common/messages';
 
+import type { EditorProps } from '../../../types';
 import { EditorReactContext } from '../../../types/editor-react-context';
 import { codeBlockNodeView } from '../nodeviews/code-block';
 import { highlightingCodeBlockNodeView } from '../nodeviews/highlighting-code-block';
@@ -15,9 +16,11 @@ import { getFeatureFlags } from '../../feature-flags-context';
 export const createPlugin = ({
   useLongPressSelection = false,
   reactContext,
+  appearance,
 }: {
   useLongPressSelection?: boolean;
   reactContext: () => EditorReactContext;
+  appearance: EditorProps['appearance'];
 }) => {
   const intl = reactContext().intl;
 
@@ -68,10 +71,18 @@ export const createPlugin = ({
       nodeViews: {
         codeBlock(node, view, getPos) {
           const featureFlags = getFeatureFlags(view.state);
+          // The appearance being mobile indicates we are in an editor being
+          // rendered by mobile bridge in a web view.
+          // The tooltip is likely to have unexpected behaviour there, with being cut
+          // off, so we disable it. This is also to keep the behaviour consistent with
+          // the rendering in the mobile Native Renderer.
+          const codeBidiWarningTooltipEnabled = appearance !== 'mobile';
+
           const createCodeBlockNodeView = featureFlags?.codeBlockSyntaxHighlighting
             ? highlightingCodeBlockNodeView({
                 codeBidiWarnings: featureFlags?.codeBidiWarnings,
                 codeBidiWarningLabel,
+                codeBidiWarningTooltipEnabled: codeBidiWarningTooltipEnabled,
               })
             : codeBlockNodeView();
           return createCodeBlockNodeView(node, view, getPos);

@@ -62,7 +62,7 @@ describe('lists plugin -> commands', () => {
       .add([analyticsPlugin, { createAnalyticsEvent }])
       .add(blockTypePlugin)
       .add(datePlugin)
-      .add(codeBlockPlugin)
+      .add([codeBlockPlugin, { appearance: 'full-page' }])
       .add(panelPlugin)
       .add(indentationPlugin)
       .add(breakoutPlugin)

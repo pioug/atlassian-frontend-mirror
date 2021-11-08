@@ -46,7 +46,7 @@
     "@atlaskit/docs": "*",
     "@atlaskit/editor-common": "^60.2.0",
     "@atlaskit/elements-test-helpers": "^0.7.0",
-    "@atlaskit/renderer": "^82.0.0",
+    "@atlaskit/renderer": "^82.2.0",
     "@atlaskit/util-data-test": "^16.0.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@types/url-search-params": "^0.10.0",

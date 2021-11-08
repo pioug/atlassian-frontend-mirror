@@ -52,10 +52,9 @@ describe('Annotations: draft/component', () => {
         it('should not create the AnnotationMark', () => {
           const result = TestRenderer.create(
             <AnnotationsDraftContext.Provider value={draftSelection}>
-              <TextWithAnnotationDraft
-                text="Martin Luther King"
-                {...textPosition}
-              />
+              <TextWithAnnotationDraft {...textPosition}>
+                Martin Luther King
+              </TextWithAnnotationDraft>
             </AnnotationsDraftContext.Provider>,
           );
 
@@ -75,10 +74,9 @@ describe('Annotations: draft/component', () => {
 
         const result = TestRenderer.create(
           <AnnotationsDraftContext.Provider value={draftSelection}>
-            <TextWithAnnotationDraft
-              text="Martin Luther King"
-              {...textPosition}
-            />
+            <TextWithAnnotationDraft {...textPosition}>
+              Martin Luther King
+            </TextWithAnnotationDraft>
           </AnnotationsDraftContext.Provider>,
         );
 
@@ -100,10 +98,9 @@ describe('Annotations: draft/component', () => {
 
         const result = TestRenderer.create(
           <AnnotationsDraftContext.Provider value={draftSelection}>
-            <TextWithAnnotationDraft
-              text="Martin Luther King"
-              {...textPosition}
-            />
+            <TextWithAnnotationDraft {...textPosition}>
+              Martin Luther King
+            </TextWithAnnotationDraft>
           </AnnotationsDraftContext.Provider>,
         );
 
@@ -125,10 +122,9 @@ describe('Annotations: draft/component', () => {
 
         const result = TestRenderer.create(
           <AnnotationsDraftContext.Provider value={draftSelection}>
-            <TextWithAnnotationDraft
-              text="Martin Luther King"
-              {...textPosition}
-            />
+            <TextWithAnnotationDraft {...textPosition}>
+              Martin Luther King
+            </TextWithAnnotationDraft>
           </AnnotationsDraftContext.Provider>,
         );
 
@@ -149,10 +145,9 @@ describe('Annotations: draft/component', () => {
 
         const result = TestRenderer.create(
           <AnnotationsDraftContext.Provider value={draftSelection}>
-            <TextWithAnnotationDraft
-              text="Martin Luther King"
-              {...textPosition}
-            />
+            <TextWithAnnotationDraft {...textPosition}>
+              Martin Luther King
+            </TextWithAnnotationDraft>
           </AnnotationsDraftContext.Provider>,
         );
 

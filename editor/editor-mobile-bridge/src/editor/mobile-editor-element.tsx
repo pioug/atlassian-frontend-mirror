@@ -79,6 +79,7 @@ const expandOptions = {
 
 const codeBlockOptions = {
   allowCopyToClipboard: true,
+  appearance: 'mobile' as EditorProps['appearance'],
 };
 
 const templatePlaceholdersOptions = { allowInserting: true };

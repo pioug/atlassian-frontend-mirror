@@ -46,7 +46,7 @@ describe('Renderer - ReactSerializer - TextWrapperComponent', () => {
 
         index++;
 
-        expect(node.text).toBe(elementProps.text);
+        expect(node.text).toBe(elementProps.children);
         expect(pos).toBe(elementProps.startPos);
         expect(pos + node.nodeSize).toBe(elementProps.endPos);
       });

@@ -39,6 +39,7 @@ import {
 } from './types';
 import { insideBreakoutLayout } from './renderer-node';
 import { MediaOptions } from '../types/mediaOptions';
+import { isCodeMark } from './marks/code';
 export interface ReactSerializerInit {
   providers?: ProviderFactory;
   eventHandlers?: EventHandlers;
@@ -374,8 +375,9 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
           key={textKey}
           startPos={startPos + parentDepth}
           endPos={endPos + parentDepth}
-          text={mark.text}
-        />
+        >
+          {mark.text}
+        </TextWrapperComponent>
       );
     }
 
@@ -541,9 +543,17 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
   }
 
   private getCodeBlockProps(node: Node): NodeMeta {
+    // The appearance being mobile indicates we are in an renderer being
+    // rendered by mobile bridge in a web view.
+    // The tooltip is likely to have unexpected behaviour there, with being cut
+    // off, so we disable it. This is also to keep the behaviour consistent with
+    // the rendering in the mobile Native Renderer.
+    const codeBidiWarningTooltipEnabled = this.appearance !== 'mobile';
+
     return {
       ...this.getProps(node),
       text: node.textContent,
+      codeBidiWarningTooltipEnabled,
     };
   }
 
@@ -715,12 +725,26 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
     const extraProps = {
       isInline: node?.isInline,
     };
+
+    // currently the only mark which has custom props is the code mark
+    const markSpecificProps = isCodeMark(mark)
+      ? {
+          // The appearance being mobile indicates we are in an renderer being
+          // rendered by mobile bridge in a web view.
+          // The tooltip is likely to have unexpected behaviour there, with being cut
+          // off, so we disable it. This is also to keep the behaviour consistent with
+          // the rendering in the mobile Native Renderer.
+          codeBidiWarningTooltipEnabled: this.appearance !== 'mobile',
+        }
+      : {};
+
     const props: MarkMeta = {
       eventHandlers: this.eventHandlers,
       fireAnalyticsEvent: this.fireAnalyticsEvent,
       markKey: key,
       ...otherAttrs,
       ...extraProps,
+      ...markSpecificProps,
       dataAttributes: {
         'data-renderer-mark': true,
       },

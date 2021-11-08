@@ -22,7 +22,7 @@ describe('backspaceKeyCommand', () => {
   const editor = (doc: DocBuilder) => {
     const preset = new Preset<LightEditorPlugin>()
       .add(listPlugin)
-      .add(codeBlockPlugin);
+      .add([codeBlockPlugin, { appearance: 'full-page' }]);
 
     return createEditor({
       doc,

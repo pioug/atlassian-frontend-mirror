@@ -6,7 +6,12 @@ import InlineComment from '../../../../react/marks/confluence-inline-comment';
 describe('Renderer - React/Marks/Code', () => {
   it('should generate content with a <Code>-tag', () => {
     const mark = mountWithIntl(
-      <Code dataAttributes={{ 'data-renderer-mark': true }}>This is code</Code>,
+      <Code
+        codeBidiWarningTooltipEnabled={true}
+        dataAttributes={{ 'data-renderer-mark': true }}
+      >
+        This is code
+      </Code>,
     );
     expect(mark.find(CodeWithIntl).length).toEqual(1);
     mark.unmount();
@@ -14,7 +19,12 @@ describe('Renderer - React/Marks/Code', () => {
 
   it('should output correct html', () => {
     const mark = mountWithIntl(
-      <Code dataAttributes={{ 'data-renderer-mark': true }}>This is code</Code>,
+      <Code
+        codeBidiWarningTooltipEnabled={true}
+        dataAttributes={{ 'data-renderer-mark': true }}
+      >
+        This is code
+      </Code>,
     );
     expect(mark.html()).toContain(
       `<code class="code css-1cocjdk-Code" data-renderer-mark="true">This is code</code>`,
@@ -24,7 +34,10 @@ describe('Renderer - React/Marks/Code', () => {
 
   it('should handle arrays correctly', () => {
     const markWithArray = mountWithIntl(
-      <Code dataAttributes={{ 'data-renderer-mark': true }}>
+      <Code
+        codeBidiWarningTooltipEnabled={true}
+        dataAttributes={{ 'data-renderer-mark': true }}
+      >
         {['This ', 'is', ' code']}
       </Code>,
     );
@@ -36,7 +49,10 @@ describe('Renderer - React/Marks/Code', () => {
 
   it('should render in combination with other marks', () => {
     const marks = mountWithIntl(
-      <Code dataAttributes={{ 'data-renderer-mark': true }}>
+      <Code
+        codeBidiWarningTooltipEnabled={true}
+        dataAttributes={{ 'data-renderer-mark': true }}
+      >
         This{' '}
         <InlineComment
           dataAttributes={{ 'data-renderer-mark': true }}

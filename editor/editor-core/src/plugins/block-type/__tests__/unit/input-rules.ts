@@ -64,7 +64,7 @@ describe('inputrules', () => {
             .add([analyticsPlugin, { createAnalyticsEvent }])
             .add(indentationPlugin)
             .add(quickInsertPlugin)
-            .add(codeBlockPlugin)
+            .add([codeBlockPlugin, { appearance: 'full-page' }])
             .add(textFormattingPlugin)
             .add(hyperlinkPlugin)
             .add(typeAheadPlugin)

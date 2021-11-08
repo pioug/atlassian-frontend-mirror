@@ -216,7 +216,7 @@ describe('paste plugins', () => {
         .add(hyperlinkPlugin)
         .add(textFormattingPlugin)
         .add(listPlugin)
-        .add(codeBlockPlugin)
+        .add([codeBlockPlugin, { appearance: 'full-page' }])
         .add(panelPlugin)
         .add([tasksAndDecisionsPlugin])
         .add([

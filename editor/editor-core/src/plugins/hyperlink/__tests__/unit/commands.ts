@@ -71,7 +71,7 @@ describe('hyperlink commands', () => {
         .add(hyperlinkPlugin)
         .add(textFormattingPlugin)
         .add(emojiPlugin)
-        .add(codeBlockPlugin)
+        .add([codeBlockPlugin, { appearance: 'full-page' }])
         .add([
           cardPlugin,
           { provider: Promise.resolve(cardProvider), platform: 'web' },

@@ -34,7 +34,7 @@ describe('inputrules', () => {
           doc,
           preset: new Preset<LightEditorPlugin>()
             .add(blockTypePlugin)
-            .add(codeBlockPlugin)
+            .add([codeBlockPlugin, { appearance: 'full-page' }])
             .add(panelPlugin)
             .add(listPlugin)
             .add([

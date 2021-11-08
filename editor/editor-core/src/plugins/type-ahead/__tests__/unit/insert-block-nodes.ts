@@ -158,7 +158,7 @@ describe('type-ahead', () => {
       .add(tasksAndDecisionsPlugin)
       .add(panelPlugin)
       .add(expandPlugin)
-      .add(codeBlockPlugin)
+      .add([codeBlockPlugin, { appearance: 'full-page' }])
       .add(tablePlugin)
       .add(layoutPlugin);
 

@@ -43,7 +43,7 @@ describe('paste plugin: third-party', () => {
         .add(hyperlinkPlugin)
         .add(textFormattingPlugin)
         .add(listPlugin)
-        .add(codeBlockPlugin)
+        .add([codeBlockPlugin, { appearance: 'full-page' }])
         .add([
           tablesPlugin,
           {

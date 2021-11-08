@@ -62,7 +62,7 @@ const annotationPreset = new Preset<LightEditorPlugin>()
   ])
   .add(emojiPlugin)
   .add(panelPlugin)
-  .add(codeBlockPlugin)
+  .add([codeBlockPlugin, { appearance: 'full-page' }])
   .add(blockTypePlugin)
   .add([
     mediaPlugin,

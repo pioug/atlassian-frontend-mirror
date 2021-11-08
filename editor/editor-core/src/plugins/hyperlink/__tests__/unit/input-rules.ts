@@ -41,7 +41,7 @@ describe('hyperlink', () => {
             .add(hyperlinkPlugin)
             .add(blockTypePlugin)
             .add(textFormattingPlugin)
-            .add(codeBlockPlugin),
+            .add([codeBlockPlugin, { appearance: 'full-page' }]),
         });
       };
 

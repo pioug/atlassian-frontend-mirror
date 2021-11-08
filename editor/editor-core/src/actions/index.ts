@@ -160,6 +160,7 @@ export default class EditorActions<T = any> implements EditorActionsOptions<T> {
 
     const doc = await getEditorValueWithMedia(editorView);
     const json = toJSON(doc);
+
     if (!this.contentEncode) {
       return json;
     }

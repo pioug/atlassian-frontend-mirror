@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-core",
-  "version": "151.1.2",
+  "version": "151.2.0",
   "description": "A package contains Atlassian editor core functionality",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -38,7 +38,7 @@
     "@atlaskit/button": "^16.1.0",
     "@atlaskit/calendar": "^12.1.0",
     "@atlaskit/checkbox": "^12.3.0",
-    "@atlaskit/code": "^14.2.0",
+    "@atlaskit/code": "^14.3.0",
     "@atlaskit/date": "^0.8.0",
     "@atlaskit/datetime-picker": "^11.1.0",
     "@atlaskit/droplist": "^11.0.0",
@@ -137,7 +137,7 @@
   "devDependencies": {
     "@atlaskit/atlassian-navigation": "^1.2.0",
     "@atlaskit/breadcrumbs": "11.4.0",
-    "@atlaskit/code": "^14.2.0",
+    "@atlaskit/code": "^14.3.0",
     "@atlaskit/collab-provider": "7.1.0",
     "@atlaskit/docs": "*",
     "@atlaskit/drawer": "^7.0.0",
@@ -155,7 +155,7 @@
     "@atlaskit/page-layout": "^1.0.1",
     "@atlaskit/profilecard": "^15.8.0",
     "@atlaskit/pubsub": "^6.0.0",
-    "@atlaskit/renderer": "^82.1.0",
+    "@atlaskit/renderer": "^82.2.0",
     "@atlaskit/section-message": "^6.1.0",
     "@atlaskit/share": "*",
     "@atlaskit/smart-card": "^16.2.0",

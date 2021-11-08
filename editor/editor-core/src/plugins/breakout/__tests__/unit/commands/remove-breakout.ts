@@ -23,7 +23,7 @@ describe('Breakout Commands: remove-breakout', () => {
       doc: doc(breakout({ mode: 'wide' })(code_block()('Hel{<>}lo'))),
       preset: new Preset<LightEditorPlugin>()
         .add([breakoutPlugin, { allowBreakoutButton: true }])
-        .add(codeBlockPlugin)
+        .add([codeBlockPlugin, { appearance: 'full-page' }])
         .add(widthPlugin),
     });
 
@@ -38,7 +38,7 @@ describe('Breakout Commands: remove-breakout', () => {
       doc: doc('{<node>}', breakout({ mode: 'wide' })(code_block()('Hello'))),
       preset: new Preset<LightEditorPlugin>()
         .add([breakoutPlugin, { allowBreakoutButton: true }])
-        .add(codeBlockPlugin)
+        .add([codeBlockPlugin, { appearance: 'full-page' }])
         .add(widthPlugin),
     });
 

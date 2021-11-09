@@ -1,5 +1,11 @@
 # @atlaskit/modal-dialog
 
+## 12.1.1
+
+### Patch Changes
+
+- [`2b2290121eb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2b2290121eb) - Raised the minimum version carat range of focus ring to latest.
+
 ## 12.1.0
 
 ### Minor Changes

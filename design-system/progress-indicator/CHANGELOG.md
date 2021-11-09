@@ -1,5 +1,11 @@
 # @atlaskit/progress-indicator
 
+## 9.1.2
+
+### Patch Changes
+
+- [`2b2290121eb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2b2290121eb) - Raised the minimum version carat range of focus ring to latest.
+
 ## 9.1.1
 
 ### Patch Changes

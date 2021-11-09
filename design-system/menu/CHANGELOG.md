@@ -1,5 +1,11 @@
 # @atlaskit/menu
 
+## 1.2.1
+
+### Patch Changes
+
+- [`2b2290121eb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2b2290121eb) - Raised the minimum version carat range of focus ring to latest.
+
 ## 1.2.0
 
 ### Minor Changes

@@ -1,5 +1,11 @@
 # @atlaskit/atlassian-navigation
 
+## 1.2.1
+
+### Patch Changes
+
+- [`bb54a699e54`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bb54a699e54) - [ux] Fixes a bug where a previously removed gradient positioned ::after primary actions was still rendered. Also fixes a bug where this gradient rendered incorrectly on Safari.
+
 ## 1.2.0
 
 ### Minor Changes

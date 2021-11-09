@@ -20,15 +20,6 @@ export const containerCSS = ({
     flexShrink: 0,
     margin,
   },
-  '&::after': {
-    content: '""',
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    height: '100%',
-    width: `${gridSize() * 3}px`,
-    background: `linear-gradient(90deg, transparent 0%, ${navigation.backgroundColor} 100%)`,
-  },
 });
 
 export const widthObserverContainerStyle: React.CSSProperties = {

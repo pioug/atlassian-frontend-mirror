@@ -1,5 +1,11 @@
 # @atlaskit/logo
 
+## 13.5.4
+
+### Patch Changes
+
+- [`ec464e07b10`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ec464e07b10) - Fixes a bug where the Atlassian Start logo did not render correctly on Firefox
+
 ## 13.5.3
 
 ### Patch Changes

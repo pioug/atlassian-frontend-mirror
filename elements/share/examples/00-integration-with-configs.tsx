@@ -1,18 +1,16 @@
 import React from 'react';
-import { IntlProvider, addLocaleData } from 'react-intl';
+import { addLocaleData, IntlProvider } from 'react-intl';
 import styled from 'styled-components';
 import Select from '@atlaskit/select';
 import WorldIcon from '@atlaskit/icon/glyph/world';
 import Toggle from '@atlaskit/toggle';
-import { OptionData } from '@atlaskit/user-picker';
+import { OptionData, setSmartUserPickerEnv } from '@atlaskit/user-picker';
 import { userPickerData } from '@atlaskit/util-data-test/user-picker-data';
-import { setSmartUserPickerEnv } from '@atlaskit/user-picker';
 import { Appearance } from '@atlaskit/button/types';
 import SectionMessage from '@atlaskit/section-message';
 import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 import App from '../example-helpers/AppWithFlag';
-import ContentPerms from '../example-helpers/ContentPerms';
 import RestrictionMessage from '../example-helpers/RestrictionMessage';
 import { ProductName, ShareDialogContainer } from '../src';
 import {
@@ -20,6 +18,7 @@ import {
   ConfigResponse,
   Content,
   DialogPlacement,
+  Integration,
   KeysOfType,
   MetaData,
   OriginTracing,
@@ -29,16 +28,15 @@ import {
   ShareResponse,
   TooltipPosition,
   User,
-  Integration,
-  IntegrationContentProps,
 } from '../src/types';
 import {
+  ShortenRequest,
   ShortenResponse,
   UrlShortenerClient,
-  ShortenRequest,
 } from '../src/clients/AtlassianUrlShortenerClient';
-import SlackIcon from '../src/components/monochromeSlackIcon';
+import SlackIcon from '../src/components/SlackIcon';
 import Icon from '@atlaskit/icon';
+import { IntegrationMode } from '../src/types/ShareEntities';
 
 const supportedLocales = [
   'en-US',
@@ -218,7 +216,6 @@ type ExampleState = {
   customButton: boolean;
   customTitle: boolean;
   customHelperMessage: boolean;
-  contentPermissions: boolean;
   customTooltipText: boolean;
   customTriggerButtonIcon: boolean;
   escapeOnKeyPress: boolean;
@@ -231,8 +228,10 @@ type ExampleState = {
   hasShareFieldsFooter: boolean;
   isCopyDisabled: boolean;
   isPublicLink: boolean;
-  isSplitButton: boolean;
+  hasTabs: boolean;
+  hasSplit: boolean;
   shareIntegrations: Array<Integration>;
+  integrationMode: IntegrationMode;
   locales: string[];
   locale: string;
 };
@@ -315,11 +314,10 @@ const listenerHandler = (event: UIAnalyticsEvent, channel?: string) => {
   );
 };
 
-const IntegrationContent = ({ onClose }: IntegrationContentProps) => {
+const IntegrationContent = () => {
   return (
     <>
       <div>Share to Integration form</div>
-      <button onClick={onClose}>Close</button>
     </>
   );
 };
@@ -336,7 +334,6 @@ export default class Example extends React.Component<{}, State> {
     customButton: false,
     customTitle: false,
     customHelperMessage: false,
-    contentPermissions: false,
     chosenConfig: 0,
     customTooltipText: false,
     customTriggerButtonIcon: false,
@@ -354,7 +351,9 @@ export default class Example extends React.Component<{}, State> {
     hasShareFieldsFooter: false,
     isCopyDisabled: false,
     isPublicLink: false,
-    isSplitButton: false,
+    hasTabs: false,
+    hasSplit: false,
+    integrationMode: IntegrationMode.Off,
     shareIntegrations: [],
     locales: supportedLocales,
     locale: 'en-US',
@@ -405,7 +404,6 @@ export default class Example extends React.Component<{}, State> {
       customTitle,
       customHelperMessage,
       chosenConfig,
-      contentPermissions,
       customTooltipText,
       customTriggerButtonIcon,
       dialogPlacement,
@@ -422,7 +420,9 @@ export default class Example extends React.Component<{}, State> {
       hasShareFieldsFooter,
       isCopyDisabled,
       isPublicLink,
-      isSplitButton,
+      hasTabs,
+      hasSplit,
+      integrationMode,
       shareIntegrations,
       locales,
       locale,
@@ -458,9 +458,6 @@ export default class Example extends React.Component<{}, State> {
                     shareAri="ari"
                     shareContentType="issue"
                     shareFormTitle={customTitle ? 'Custom Title' : undefined}
-                    contentPermissions={
-                      contentPermissions ? <ContentPerms /> : undefined
-                    }
                     shareTitle="My Share"
                     shouldCloseOnEscapePress={escapeOnKeyPress}
                     showFlags={showFlags}
@@ -490,9 +487,8 @@ export default class Example extends React.Component<{}, State> {
                     }}
                     isCopyDisabled={isCopyDisabled}
                     isPublicLink={isPublicLink}
-                    shareIntegrations={
-                      isSplitButton ? shareIntegrations : undefined
-                    }
+                    integrationMode={integrationMode}
+                    shareIntegrations={shareIntegrations}
                     shareFormHelperMessage={
                       customHelperMessage ? 'Custom Helper Message' : undefined
                     }
@@ -500,6 +496,52 @@ export default class Example extends React.Component<{}, State> {
                 </WrapperWithMarginTop>
                 <h4>Options</h4>
                 <div>
+                  <WrapperWithMarginTop>
+                    Enable Integration Tabs
+                    <Toggle
+                      isChecked={hasTabs}
+                      onChange={() =>
+                        this.setState({
+                          hasTabs: !hasTabs,
+                          hasSplit: false,
+                          integrationMode:
+                            integrationMode !== IntegrationMode.Tabs
+                              ? IntegrationMode.Tabs
+                              : IntegrationMode.Off,
+                          shareIntegrations: [
+                            {
+                              type: 'Slack',
+                              Icon: IntegrationIcon,
+                              Content: IntegrationContent,
+                            },
+                          ],
+                        })
+                      }
+                    />
+                  </WrapperWithMarginTop>
+                  <WrapperWithMarginTop>
+                    Enable Integration Split Button
+                    <Toggle
+                      isChecked={hasSplit}
+                      onChange={() =>
+                        this.setState({
+                          hasTabs: false,
+                          hasSplit: !hasSplit,
+                          integrationMode:
+                            integrationMode !== IntegrationMode.Split
+                              ? IntegrationMode.Split
+                              : IntegrationMode.Off,
+                          shareIntegrations: [
+                            {
+                              type: 'Slack',
+                              Icon: IntegrationIcon,
+                              Content: IntegrationContent,
+                            },
+                          ],
+                        })
+                      }
+                    />
+                  </WrapperWithMarginTop>
                   <WrapperWithMarginTop>
                     Is Public Link
                     <Toggle
@@ -552,17 +594,6 @@ export default class Example extends React.Component<{}, State> {
                       onChange={() =>
                         this.setState({
                           customHelperMessage: !customHelperMessage,
-                        })
-                      }
-                    />
-                  </WrapperWithMarginTop>
-                  <WrapperWithMarginTop>
-                    Content Permissions in Share Dialog title
-                    <Toggle
-                      isChecked={contentPermissions}
-                      onChange={() =>
-                        this.setState({
-                          contentPermissions: !contentPermissions,
                         })
                       }
                     />
@@ -664,24 +695,6 @@ export default class Example extends React.Component<{}, State> {
                       onChange={() =>
                         this.setState({
                           hasShareFieldsFooter: !hasShareFieldsFooter,
-                        })
-                      }
-                    />
-                  </WrapperWithMarginTop>
-                  <WrapperWithMarginTop>
-                    Enable Split Button
-                    <Toggle
-                      isChecked={isSplitButton}
-                      onChange={() =>
-                        this.setState({
-                          isSplitButton: !isSplitButton,
-                          shareIntegrations: [
-                            {
-                              type: 'Slack',
-                              Icon: IntegrationIcon,
-                              Content: IntegrationContent,
-                            },
-                          ],
                         })
                       }
                     />

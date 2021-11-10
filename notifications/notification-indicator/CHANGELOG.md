@@ -1,5 +1,15 @@
 # @atlaskit/notification-indicator
 
+## 8.1.0
+
+### Minor Changes
+
+- [`0308a114d5c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0308a114d5c) - Changing endpoints to use V3 Notifications API
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.0.6
 
 ### Patch Changes

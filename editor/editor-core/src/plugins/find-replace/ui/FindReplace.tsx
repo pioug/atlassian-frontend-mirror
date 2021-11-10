@@ -1,7 +1,10 @@
+/** @jsx jsx */
 import React from 'react';
+import { jsx } from '@emotion/core';
+
 import Find from './Find';
 import Replace from './Replace';
-import { Rule, Wrapper } from './styles';
+import { ruleStyles, wrapperStyles } from './styles';
 import { TRIGGER_METHOD, DispatchAnalyticsEvent } from '../../analytics/types';
 import { MatchCaseProps } from '../types';
 
@@ -88,7 +91,7 @@ class FindReplace extends React.PureComponent<FindReplaceProps> {
     } = this.props;
 
     return (
-      <Wrapper>
+      <div css={wrapperStyles}>
         <Find
           allowMatchCase={allowMatchCase}
           shouldMatchCase={shouldMatchCase}
@@ -104,7 +107,7 @@ class FindReplace extends React.PureComponent<FindReplaceProps> {
           onCancel={onCancel}
           onArrowDown={this.setFocusToReplace}
         />
-        <Rule />
+        <hr css={ruleStyles} id="replace-hr-element" />
         <Replace
           canReplace={count.total > 0}
           replaceText={replaceText}
@@ -114,7 +117,7 @@ class FindReplace extends React.PureComponent<FindReplaceProps> {
           onArrowUp={this.setFocusToFind}
           dispatchAnalyticsEvent={dispatchAnalyticsEvent}
         />
-      </Wrapper>
+      </div>
     );
   }
 }

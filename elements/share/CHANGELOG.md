@@ -1,5 +1,11 @@
 # @atlaskit/share
 
+## 0.34.0
+
+### Minor Changes
+
+- [`e0a9c170e0f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e0a9c170e0f) - [ux] Share now supports tabs for integrations
+
 ## 0.33.0
 
 ### Minor Changes

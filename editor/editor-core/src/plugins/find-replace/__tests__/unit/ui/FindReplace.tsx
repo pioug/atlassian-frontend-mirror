@@ -5,7 +5,6 @@ import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import Textfield from '@atlaskit/textfield';
 import FindReplace, { FindReplaceProps } from '../../../ui/FindReplace';
 import Find from '../../../ui/Find';
-import { Count } from '../../../ui/styles';
 import Replace from '../../../ui/Replace';
 
 describe('FindReplace', () => {
@@ -101,6 +100,8 @@ describe('FindReplace', () => {
   });
 
   describe('Find', () => {
+    const textfieldCount = 'span[data-testid="textfield-count"]';
+
     it('should display search text', () => {
       findReplace = mountComponent({
         findText: 'quokka',
@@ -113,7 +114,7 @@ describe('FindReplace', () => {
         findText: 'quokka',
         count: { index: 2, total: 32 },
       });
-      expect(findReplace.find(Count).text()).toBe('3 of 32');
+      expect(findReplace.find(textfieldCount).text()).toBe('3 of 32');
     });
 
     it('should display "No results" if no results', () => {
@@ -121,7 +122,7 @@ describe('FindReplace', () => {
         findText: 'quokka',
         count: { index: 0, total: 0 },
       });
-      expect(findReplace.find(Count).text()).toBe('No results');
+      expect(findReplace.find(textfieldCount).text()).toBe('No results');
     });
 
     it('should not display num results if no search text', () => {
@@ -129,7 +130,7 @@ describe('FindReplace', () => {
         findText: '',
         count: { index: 0, total: 0 },
       });
-      expect(findReplace.find(Count).exists()).toBe(false);
+      expect(findReplace.find(textfieldCount).exists()).toBe(false);
     });
 
     it('should set focus to replace textfield when arrow down', () => {

@@ -5,6 +5,7 @@ import { R400 } from '@atlaskit/theme/colors';
 import { gridSize } from '@atlaskit/theme/constants';
 import Tooltip from '@atlaskit/tooltip';
 import { LoadOptions, OptionData, Value } from '@atlaskit/user-picker';
+import Tabs, { Tab, TabList, TabPanel } from '@atlaskit/tabs';
 import React from 'react';
 import { FormattedMessage, injectIntl, InjectedIntlProps } from 'react-intl';
 import styled from 'styled-components';
@@ -14,12 +15,15 @@ import {
   ConfigResponse,
   DialogContentState,
   FormChildrenArgs,
+  Integration,
   ProductName,
 } from '../types';
 import { CommentField } from './CommentField';
 import CopyLinkButton from './CopyLinkButton';
 import { ShareHeader } from './ShareHeader';
 import { UserPickerField } from './UserPickerField';
+import { IntegrationForm } from './IntegrationForm';
+import { IntegrationMode } from '../types/ShareEntities';
 
 const SubmitButtonWrapper = styled.div`
   display: flex;
@@ -36,7 +40,14 @@ const CenterAlignedIconWrapper = styled.div`
   }
 `;
 
-export const FormWrapper = styled.div`
+interface FormWrapperType {
+  isMainShare?: boolean;
+}
+
+export const FormWrapper = styled.div<FormWrapperType>`
+  margin-top: ${(props) => (props.isMainShare ? gridSize() : gridSize() * 2)}px;
+  width: 100%;
+
   /* jira has a class override font settings on h1 in gh-custom-field-pickers.css */
   #ghx-modes-tools #ghx-share & h1:first-child {
     margin-top: 0;
@@ -51,6 +62,15 @@ export const FormFooter = styled.div`
 
 const FormField = styled.div`
   margin-bottom: 12px;
+`;
+
+const IntegrationWrapper = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const IntegrationIconWrapper = styled.span`
+  margin-right: 5px;
 `;
 
 type ShareError = {
@@ -73,8 +93,8 @@ export type Props = {
   shareError?: ShareError;
   submitButtonLabel?: React.ReactNode;
   title?: React.ReactNode;
+  showTitle?: boolean;
   helperMessage?: string;
-  contentPermissions?: React.ReactNode;
   onDismiss?: (data: ShareData) => void;
   defaultValue?: DialogContentState;
   product: ProductName;
@@ -89,6 +109,8 @@ export type Props = {
   isPublicLink?: boolean;
   isSplitButton?: boolean;
   copyTooltipText?: string;
+  integrationMode?: IntegrationMode;
+  shareIntegrations?: Array<Integration>;
 };
 
 export type InternalFormProps = FormChildrenArgs<ShareData> &
@@ -106,6 +128,69 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
       onDismiss(getValues());
     }
   }
+
+  renderShareForm = () => {
+    const {
+      formProps,
+      title,
+      showTitle = true,
+      loadOptions,
+      onLinkCopy,
+      copyLink,
+      defaultValue,
+      config,
+      isFetchingConfig,
+      product,
+      onUserInputChange,
+      enableSmartUserPicker,
+      loggedInAccountId,
+      cloudId,
+      onUserSelectionChange,
+      fieldsFooter,
+      selectPortalRef,
+      isDisabled,
+      isPublicLink,
+      copyTooltipText,
+      helperMessage,
+    } = this.props;
+
+    return (
+      <form {...formProps}>
+        {showTitle && <ShareHeader title={title} />}
+        <FormField>
+          <UserPickerField
+            onInputChange={onUserInputChange}
+            onChange={onUserSelectionChange}
+            loadOptions={loadOptions}
+            defaultValue={defaultValue && defaultValue.users}
+            config={config}
+            isLoading={isFetchingConfig}
+            product={product}
+            enableSmartUserPicker={enableSmartUserPicker}
+            loggedInAccountId={loggedInAccountId}
+            cloudId={cloudId}
+            selectPortalRef={selectPortalRef}
+            isPublicLink={isPublicLink}
+            helperMessage={helperMessage}
+          />
+        </FormField>
+        <FormField>
+          <CommentField defaultValue={defaultValue && defaultValue.comment} />
+        </FormField>
+        {fieldsFooter}
+        <FormFooter>
+          <CopyLinkButton
+            isDisabled={isDisabled}
+            onLinkCopy={onLinkCopy}
+            link={copyLink}
+            isPublicLink={isPublicLink}
+            copyTooltipText={copyTooltipText}
+          />
+          {this.renderSubmitButton()}
+        </FormFooter>
+      </form>
+    );
+  };
 
   renderSubmitButton = () => {
     const {
@@ -156,66 +241,55 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
 
   render() {
     const {
-      formProps,
       title,
-      contentPermissions,
-      loadOptions,
-      onLinkCopy,
-      copyLink,
-      defaultValue,
-      config,
-      isFetchingConfig,
-      product,
-      onUserInputChange,
-      enableSmartUserPicker,
-      loggedInAccountId,
-      cloudId,
-      onUserSelectionChange,
-      fieldsFooter,
-      selectPortalRef,
-      isDisabled,
-      isPublicLink,
-      copyTooltipText,
-      helperMessage,
+      integrationMode = IntegrationMode.Off,
+      shareIntegrations,
     } = this.props;
-    return (
-      <FormWrapper>
-        <form {...formProps}>
-          <ShareHeader title={title} contentPermissions={contentPermissions} />
-          <FormField>
-            <UserPickerField
-              onInputChange={onUserInputChange}
-              onChange={onUserSelectionChange}
-              loadOptions={loadOptions}
-              defaultValue={defaultValue && defaultValue.users}
-              config={config}
-              isLoading={isFetchingConfig}
-              product={product}
-              helperMessage={helperMessage}
-              enableSmartUserPicker={enableSmartUserPicker}
-              loggedInAccountId={loggedInAccountId}
-              cloudId={cloudId}
-              selectPortalRef={selectPortalRef}
-              isPublicLink={isPublicLink}
-            />
-          </FormField>
-          <FormField>
-            <CommentField defaultValue={defaultValue && defaultValue.comment} />
-          </FormField>
-          {fieldsFooter}
-          <FormFooter>
-            <CopyLinkButton
-              isDisabled={isDisabled}
-              onLinkCopy={onLinkCopy}
-              link={copyLink}
-              isPublicLink={isPublicLink}
-              copyTooltipText={copyTooltipText}
-            />
-            {this.renderSubmitButton()}
-          </FormFooter>
-        </form>
-      </FormWrapper>
-    );
+
+    if (
+      integrationMode === IntegrationMode.Off ||
+      !shareIntegrations ||
+      !shareIntegrations.length
+    ) {
+      return this.renderShareForm();
+    }
+
+    const firstIntegration = shareIntegrations[0];
+
+    if (integrationMode === IntegrationMode.Tabs) {
+      return (
+        <Tabs id="ShareForm-Tabs-Integrations">
+          <TabList>
+            <Tab key={`share-tab-default`}>
+              {title || <FormattedMessage {...messages.formTitle} />}
+            </Tab>
+            <Tab key={`share-tab-${firstIntegration.type}`}>
+              <IntegrationWrapper>
+                <IntegrationIconWrapper>
+                  <firstIntegration.Icon />
+                </IntegrationIconWrapper>
+                {firstIntegration.type}
+              </IntegrationWrapper>
+            </Tab>
+          </TabList>
+          <TabPanel key={`share-tabPanel-default`}>
+            <FormWrapper isMainShare>{this.renderShareForm()}</FormWrapper>
+          </TabPanel>
+          <TabPanel key={`share-tabPanel-integration`}>
+            <FormWrapper isMainShare={false}>
+              <IntegrationForm
+                Content={firstIntegration.Content}
+                onIntegrationClose={() => {
+                  return null;
+                }}
+              />
+            </FormWrapper>
+          </TabPanel>
+        </Tabs>
+      );
+    }
+
+    return this.renderShareForm();
   }
 }
 

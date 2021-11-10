@@ -17,14 +17,14 @@ describe('NotificationLogClient', () => {
   };
   const mockTenantExperience = () => {
     fetchMock.mock({
-      matcher: `${notificationLogUrl}/api/2/notifications/count/unseen?cloudId=123&source=atlaskitNotificationLogClient`,
+      matcher: `${notificationLogUrl}/api/3/notifications/count/unseen?cloudId=123&source=atlaskitNotificationLogClient`,
       response: cloudIdResponse,
       name: 'notification-log',
     });
   };
   const mockUserCentricExperience = () => {
     fetchMock.mock({
-      matcher: `${notificationLogUrl}/api/2/notifications/count/unseen?source=atlaskitNotificationLogClient`,
+      matcher: `${notificationLogUrl}/api/3/notifications/count/unseen?source=atlaskitNotificationLogClient`,
       response: userCentricResponse,
       name: 'notification-log',
     });
@@ -36,27 +36,39 @@ describe('NotificationLogClient', () => {
     mockTenantExperience();
 
     const provider = new NotificationLogClient(notificationLogUrl, '123');
-    return provider.countUnseenNotifications().then(({ count }) => {
-      expect(count).toEqual(5);
-    });
+    return provider
+      .countUnseenNotifications({
+        useV3NotificationsApi: true,
+      })
+      .then(({ count }) => {
+        expect(count).toEqual(5);
+      });
   });
 
   it('should accept a null cloud id', () => {
     mockUserCentricExperience();
 
     const provider = new NotificationLogClient(notificationLogUrl);
-    return provider.countUnseenNotifications().then(({ count }) => {
-      expect(count).toEqual(10);
-    });
+    return provider
+      .countUnseenNotifications({
+        useV3NotificationsApi: true,
+      })
+      .then(({ count }) => {
+        expect(count).toEqual(10);
+      });
   });
 
   it('should add the app version header', () => {
     mockTenantExperience();
     const provider = new NotificationLogClient(notificationLogUrl, '123');
-    return provider.countUnseenNotifications().then(() => {
-      expect(fetchMock.lastOptions().headers['x-app-version']).toEqual(
-        `${npmPackageVersion}-${DEFAULT_SOURCE}`,
-      );
-    });
+    return provider
+      .countUnseenNotifications({
+        useV3NotificationsApi: true,
+      })
+      .then(() => {
+        expect(fetchMock.lastOptions().headers['x-app-version']).toEqual(
+          `${npmPackageVersion}-${DEFAULT_SOURCE}`,
+        );
+      });
   });
 });

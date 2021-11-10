@@ -39,6 +39,7 @@ export interface Props {
   onCountUpdating?: (param: ValueUpdatingParams) => ValueUpdatingResult;
   onCountUpdated?: (param: ValueUpdatedParams) => void;
   createAnalyticsEvent?: any;
+  useV3NotificationsApi: boolean;
 }
 
 export interface State {
@@ -171,6 +172,7 @@ class NotificationIndicator extends Component<Props, State> {
             queryParams: {
               currentCount: this.state.count || 0,
             },
+            useV3NotificationsApi: this.props.useV3NotificationsApi,
           })
         ).count;
 

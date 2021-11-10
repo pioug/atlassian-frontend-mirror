@@ -1,57 +1,48 @@
-import React from 'react';
-
-import styled from 'styled-components';
+/** @jsx jsx */
+import { css } from '@emotion/core';
 import { N60, N30A } from '@atlaskit/theme/colors';
 
-import Button, { ButtonProps } from '@atlaskit/button/standard-button';
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 
-// This is a workaround because React.memo does not play well with styled-components
-function StyledComponentsButton(props: ButtonProps) {
-  return <Button {...props} />;
-}
+export const replaceSectionButtonStyles = css({
+  marginLeft: '4px',
+});
 
-export const ReplaceSectionButton = styled(StyledComponentsButton)`
-  /* increase specificity to override default Button styles */
-  && {
-    margin-left: 4px;
-  }
-`;
+export const ruleStyles = css({
+  width: '100%',
+  border: 'none',
+  backgroundColor: `${N30A}`,
+  margin: '4px 0px',
+  height: '1px',
+  borderRadius: '1px',
+});
 
-export const Rule = styled.hr`
-  width: 100%;
-  border: none;
-  background-color: ${N30A};
-  margin: 4px 0px;
-  height: 1px;
-  border-radius: 1px;
-`;
+export const wrapperStyles = css({
+  display: 'flex',
+  flexDirection: 'column',
 
-export const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  > *:not(${Rule}) {
-    margin: 0px 4px;
-  }
-`;
+  '> *:not(#replace-hr-element)': {
+    margin: '0px 4px',
+  },
+});
 
-export const SectionWrapper = styled.div`
-  display: flex;
-  align-items: center;
+export const sectionWrapperStyles = css({
+  display: 'flex',
+  alignItems: 'column',
 
-  > * {
-    flex: 0 0 auto;
-    display: inline-flex;
-    height: 32px;
-  }
-`;
+  '> *': {
+    display: 'inline-flex',
+    height: '32px',
+    flex: '0 0 auto',
+  },
+});
 
-export const Count = styled.span`
-  color: ${N60};
-  font-size: ${relativeFontSizeToBase16(12)};
-  flex: 0 0 auto;
-  justify-content: center;
-  align-items: center;
-  margin-left: 4px;
-  margin-right: 8px;
-`;
+export const countStyles = css({
+  color: `${N60}`,
+  fontSize: `${relativeFontSizeToBase16(12)}`,
+  flex: '0 0 auto',
+  justifyContent: 'center',
+  alignItems: 'center',
+  marginLeft: '4px',
+  marginRight: '8px',
+});

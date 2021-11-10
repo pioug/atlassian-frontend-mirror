@@ -18,7 +18,7 @@
     "inPublicMirror": true,
     "releaseModel": "scheduled",
     "website": {
-      "deprecated": "Item is deprecated. This is an internal component and should not be used directly.",
+      "deprecated": "Item is deprecated. Please use @atlaskit/menu instead.",
       "name": "Item"
     }
   },

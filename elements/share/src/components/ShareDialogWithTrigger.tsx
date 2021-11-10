@@ -46,6 +46,7 @@ import { generateSelectZIndex } from './utils';
 import { IconProps } from '@atlaskit/icon';
 import { InlineDialogContentWrapper } from './styles';
 import { IntegrationForm } from './IntegrationForm';
+import { IntegrationMode } from '../types/ShareEntities';
 
 type DialogState = {
   isDialogOpen: boolean;
@@ -81,7 +82,6 @@ export type Props = {
   shareContentType: string;
   shareFormTitle?: React.ReactNode;
   shareFormHelperMessage?: string;
-  contentPermissions?: React.ReactNode;
   copyLinkOrigin?: OriginTracing;
   formShareOrigin?: OriginTracing;
   shouldCloseOnEscapePress?: boolean;
@@ -102,6 +102,7 @@ export type Props = {
   shareFieldsFooter?: React.ReactNode;
   isCopyDisabled?: boolean;
   isPublicLink?: boolean;
+  integrationMode?: IntegrationMode;
   shareIntegrations?: Array<Integration>;
   /** Atlassian Resource Identifier of a Site resource to be shared. */
   shareAri?: string;
@@ -404,6 +405,7 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
       triggerButtonTooltipPosition,
       triggerButtonAppearance,
       triggerButtonStyle,
+      integrationMode,
       shareIntegrations,
       dialogZIndex,
       dialogPlacement,
@@ -467,7 +469,10 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
     }
 
     // If there are any integrations, wrap the share button in a split button with integrations.
-    if (shareIntegrations?.length) {
+    if (
+      integrationMode === IntegrationMode.Split &&
+      shareIntegrations?.length
+    ) {
       button = (
         <SplitButton
           shareButton={button}
@@ -518,7 +523,6 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
       loadUserOptions,
       shareFormTitle,
       shareFormHelperMessage,
-      contentPermissions,
       bottomMessage,
       submitButtonLabel,
       product,
@@ -532,6 +536,8 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
       isPublicLink,
       tabIndex,
       copyTooltipText,
+      integrationMode,
+      shareIntegrations,
     } = this.props;
 
     const style =
@@ -565,8 +571,12 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
                       isSharing={isSharing}
                       onSubmit={this.handleShareSubmit}
                       title={shareFormTitle}
+                      showTitle={
+                        integrationMode !== IntegrationMode.Tabs ||
+                        !shareIntegrations ||
+                        !shareIntegrations.length
+                      }
                       helperMessage={shareFormHelperMessage}
-                      contentPermissions={contentPermissions}
                       shareError={shareError}
                       onDismiss={this.handleFormDismiss}
                       defaultValue={defaultValue}
@@ -583,6 +593,8 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
                       selectPortalRef={this.selectPortalRef}
                       isPublicLink={isPublicLink}
                       copyTooltipText={copyTooltipText}
+                      integrationMode={integrationMode}
+                      shareIntegrations={shareIntegrations}
                     />
                   </InlineDialogFormWrapper>
                 )}

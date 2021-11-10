@@ -26,3 +26,9 @@ export type Integration = {
   Icon: React.ComponentType;
   Content: React.ComponentType<IntegrationContentProps>;
 };
+
+export enum IntegrationMode {
+  Tabs,
+  Split,
+  Off,
+}

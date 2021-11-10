@@ -1,5 +1,11 @@
 # @atlaskit/editor-core
 
+## 151.2.1
+
+### Patch Changes
+
+- [`69fc91803d4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/69fc91803d4) - [ux] Find and replace tooltip now icons are now correctly aligned and does not have a scrollbar showing up.
+
 ## 151.2.0
 
 ### Minor Changes

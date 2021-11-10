@@ -7,7 +7,6 @@ import { messages } from '../i18n';
 
 export type Props = {
   title?: React.ReactNode;
-  contentPermissions?: React.ReactNode;
 };
 const HeaderWrapper = styled.div`
   display: flex;
@@ -28,14 +27,10 @@ export const FormHeaderTitle = styled.h1`
   }
 `;
 
-export const ShareHeader: React.StatelessComponent<Props> = ({
-  title,
-  contentPermissions,
-}) => (
+export const ShareHeader: React.StatelessComponent<Props> = ({ title }) => (
   <HeaderWrapper>
     <FormHeaderTitle>
       {title || <FormattedMessage {...messages.formTitle} />}
     </FormHeaderTitle>
-    {contentPermissions}
   </HeaderWrapper>
 );

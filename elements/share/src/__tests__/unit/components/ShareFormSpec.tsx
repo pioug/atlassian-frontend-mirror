@@ -13,7 +13,9 @@ import { ShareHeader } from '../../../components/ShareHeader';
 import { UserPickerField } from '../../../components/UserPickerField';
 import { messages } from '../../../i18n';
 import { DialogContentState, ShareError } from '../../../types';
+import { IntegrationMode } from '../../../types/ShareEntities';
 import { renderProp } from '../_testUtils';
+import Tabs, { Tab, TabList } from '@atlaskit/tabs';
 
 describe('ShareForm', () => {
   it.each`
@@ -287,6 +289,108 @@ describe('ShareForm', () => {
       expect(copyLinkButton.length).toBe(1);
       expect(copyLinkButton.prop('isPublicLink')).toEqual(true);
       expect(copyLinkButton.prop('isDisabled')).toEqual(true);
+    });
+  });
+
+  describe('showTitle prop', () => {
+    it('should not render the share form header if showTitle is false', () => {
+      const wrapper = (shallowWithIntl as typeof shallow)(
+        <ShareForm
+          title="Share"
+          showTitle={false}
+          copyLink="link"
+          product="confluence"
+        />,
+      );
+
+      const akForm = wrapper.find<FormProps<{}>>(Form);
+      const form = renderProp(akForm, 'children', { formProps: {} })
+        .dive()
+        .dive()
+        .find('form');
+      const shareHeader = form.find(ShareHeader);
+      expect(shareHeader).toHaveLength(0);
+    });
+  });
+
+  describe('integrationMode prop', () => {
+    it('should not render Tabs when integrationMode is not Tabs and shareIntegrations has content', () => {
+      const wrapper = (shallowWithIntl as typeof shallow)(
+        <ShareForm
+          copyLink="link"
+          product="confluence"
+          integrationMode={IntegrationMode.Off}
+          shareIntegrations={[
+            {
+              type: 'Slack',
+              Icon: () => <div />,
+              Content: () => <div />,
+            },
+          ]}
+        />,
+      );
+
+      const akForm = wrapper.find<FormProps<{}>>(Form);
+      const form = renderProp(akForm, 'children', { formProps: {} })
+        .dive()
+        .dive()
+        .find(Tabs);
+
+      const tabs = form.find(Tabs);
+      expect(tabs).toHaveLength(0);
+    });
+  });
+
+  describe('shareIntegrations prop', () => {
+    it('should not render Tabs when shareIntegrations array is empty', () => {
+      const wrapper = (shallowWithIntl as typeof shallow)(
+        <ShareForm
+          copyLink="link"
+          product="confluence"
+          integrationMode={IntegrationMode.Tabs}
+          shareIntegrations={[]}
+        />,
+      );
+
+      const akForm = wrapper.find<FormProps<{}>>(Form);
+      const form = renderProp(akForm, 'children', { formProps: {} })
+        .dive()
+        .dive()
+        .find(Tabs);
+
+      const tabs = form.find(Tabs);
+      expect(tabs).toHaveLength(0);
+    });
+
+    it('should render Integration Tab when shareIntegrations array is filled in', () => {
+      const wrapper = (shallowWithIntl as typeof shallow)(
+        <ShareForm
+          title="Share"
+          showTitle={false}
+          copyLink="link"
+          product="confluence"
+          integrationMode={IntegrationMode.Tabs}
+          shareIntegrations={[
+            {
+              type: 'Slack',
+              Icon: () => <div />,
+              Content: () => <div />,
+            },
+          ]}
+        />,
+      );
+
+      const akForm = wrapper.find<FormProps<{}>>(Form);
+      const tabs = renderProp(akForm, 'children', { formProps: {} })
+        .dive()
+        .dive()
+        .find(Tabs);
+
+      const tabList = tabs.find(TabList);
+      const childTabs = tabList.find(Tab);
+      expect(childTabs).toHaveLength(2);
+      expect(tabList.childAt(0).contains('Share')).toBeTruthy();
+      expect(tabList.childAt(1).contains('Slack')).toBeTruthy();
     });
   });
 });

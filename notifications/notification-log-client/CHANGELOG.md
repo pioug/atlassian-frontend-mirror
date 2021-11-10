@@ -1,5 +1,11 @@
 # @atlaskit/notification-log-service
 
+## 5.2.0
+
+### Minor Changes
+
+- [`0308a114d5c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0308a114d5c) - Changing endpoints to use V3 Notifications API
+
 ## 5.1.0
 
 ### Minor Changes

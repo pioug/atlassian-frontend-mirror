@@ -1,11 +1,14 @@
+/** @jsx jsx */
 import React from 'react';
+import { jsx } from '@emotion/core';
+
 import { defineMessages, InjectedIntlProps, injectIntl } from 'react-intl';
 import EditorCloseIcon from '@atlaskit/icon/glyph/editor/close';
 import ChevronDownIcon from '@atlaskit/icon/glyph/hipchat/chevron-down';
 import ChevronUpIcon from '@atlaskit/icon/glyph/hipchat/chevron-up';
 import MatchCaseIcon from '@atlaskit/icon/glyph/emoji/keyboard';
 import Textfield from '@atlaskit/textfield';
-import { SectionWrapper, Count } from './styles';
+import { countStyles, sectionWrapperStyles } from './styles';
 import { TRIGGER_METHOD } from '../../analytics/types';
 import { FindReplaceTooltipButton } from './FindReplaceTooltipButton';
 import { MatchCaseProps } from '../types';
@@ -233,7 +236,7 @@ class Find extends React.Component<FindProps & InjectedIntlProps, State> {
     });
 
     return (
-      <SectionWrapper>
+      <div css={sectionWrapperStyles}>
         <Textfield
           name="find"
           appearance="none"
@@ -248,9 +251,9 @@ class Find extends React.Component<FindProps & InjectedIntlProps, State> {
           onCompositionEnd={this.handleCompositionEnd}
         />
         {findText && (
-          <Count>
+          <span data-testid="textfield-count" css={countStyles}>
             {count.total === 0 ? this.noResultsFound : resultsCount}
-          </Count>
+          </span>
         )}
         {allowMatchCase && (
           <FindReplaceTooltipButton
@@ -280,7 +283,7 @@ class Find extends React.Component<FindProps & InjectedIntlProps, State> {
           keymapDescription={'Escape'}
           onClick={this.clearSearch}
         />
-      </SectionWrapper>
+      </div>
     );
   }
 }

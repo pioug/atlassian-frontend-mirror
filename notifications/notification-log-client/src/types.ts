@@ -4,8 +4,13 @@ export interface NotificationCountResponse {
   count: number;
 }
 
+export interface CountUnseenRequestServiceOptions
+  extends RequestServiceOptions {
+  useV3NotificationsApi?: boolean;
+}
+
 export interface NotificationLogProvider {
   countUnseenNotifications(
-    options?: RequestServiceOptions,
+    options?: CountUnseenRequestServiceOptions,
   ): Promise<NotificationCountResponse>;
 }

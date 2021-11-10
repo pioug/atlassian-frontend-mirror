@@ -48,6 +48,7 @@ import { optionDataToUsers } from './utils';
 import ErrorBoundary from './ErrorBoundary';
 import { IconProps } from '@atlaskit/icon';
 import deepEqual from 'fast-deep-equal';
+import { IntegrationMode } from '../types/ShareEntities';
 
 const COPY_LINK_EVENT = copyLinkButtonClicked(0);
 
@@ -128,8 +129,6 @@ export type Props = {
   shareFormTitle?: React.ReactNode;
   /** Copy for helper message to be displayed under share form input box. */
   shareFormHelperMessage?: string;
-  /** Copy for content permissions to be displayed in share form header. */
-  contentPermissions?: React.ReactNode;
   /** To enable closing the modal on escape key press. */
   shouldCloseOnEscapePress?: boolean;
   /**
@@ -192,7 +191,9 @@ export type Props = {
   isCopyDisabled?: boolean;
   /* Indicates if the link shared publicly accessible */
   isPublicLink?: boolean;
-  /* Adds a dropdown button that provides a list of possible integrations to share to */
+  /* Indicates the mode for integrations to be displayed */
+  integrationMode?: IntegrationMode;
+  /* List of share integrations */
   shareIntegrations?: Array<Integration>;
   /**
    * Optionally sets a tabIndex value if you need to set focus
@@ -564,7 +565,6 @@ export class ShareDialogContainerInternal extends React.Component<
       shareContentType,
       shareFormTitle,
       shareFormHelperMessage,
-      contentPermissions,
       shouldCloseOnEscapePress,
       showFlags,
       enableSmartUserPicker,
@@ -583,6 +583,7 @@ export class ShareDialogContainerInternal extends React.Component<
       shareFieldsFooter,
       isCopyDisabled,
       isPublicLink,
+      integrationMode,
       shareIntegrations,
       shareAri,
       tabIndex,
@@ -609,7 +610,6 @@ export class ShareDialogContainerInternal extends React.Component<
             shareContentType={shareContentType}
             shareFormTitle={shareFormTitle}
             shareFormHelperMessage={shareFormHelperMessage}
-            contentPermissions={contentPermissions}
             copyLinkOrigin={this.getCopyLinkOriginTracing()}
             formShareOrigin={this.getFormShareOriginTracing()}
             shouldCloseOnEscapePress={shouldCloseOnEscapePress}
@@ -634,6 +634,7 @@ export class ShareDialogContainerInternal extends React.Component<
             shareFieldsFooter={shareFieldsFooter}
             isCopyDisabled={isCopyDisabled}
             isPublicLink={isPublicLink}
+            integrationMode={integrationMode}
             shareIntegrations={shareIntegrations}
             shareAri={shareAri}
             tabIndex={tabIndex}

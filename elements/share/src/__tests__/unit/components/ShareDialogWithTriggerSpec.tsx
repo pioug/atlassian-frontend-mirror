@@ -33,6 +33,7 @@ import {
 import { Omit, PropsOf } from '../_testUtils';
 import mockPopper from '../_mockPopper';
 import SplitButton from '../../../components/SplitButton';
+import { IntegrationMode } from '../../../types/ShareEntities';
 
 jest.mock('../../../components/localStorageUtils.ts', () => {
   return {
@@ -344,19 +345,6 @@ describe('ShareDialogWithTrigger', () => {
     });
   });
 
-  describe('contentPermissions prop', () => {
-    it('should be passed to the ShareForm', () => {
-      const wrapper = getWrapper({
-        contentPermissions: 'Anyone can join',
-      });
-      wrapper.setState({ isDialogOpen: true });
-
-      const popupContent = shallow(wrapper.find(Popup).prop('content')());
-      const ShareFormProps = popupContent.find(ShareForm).props();
-      expect(ShareFormProps.contentPermissions).toEqual('Anyone can join');
-    });
-  });
-
   describe('isAutoOpenDialog prop', () => {
     it('should open dialog if isAutoOpenDialog is true', () => {
       const wrapper = getWrapper({
@@ -380,8 +368,9 @@ describe('ShareDialogWithTrigger', () => {
   });
 
   describe('SplitButton props and functions', () => {
-    it('should render when shareIntegrations and shareIntegrationsHandler are passed', () => {
+    it('should render when shareIntegrations and shareIntegrationsHandler are passed and integrationMode is Split', () => {
       const wrapper = getMountWrapper({
+        integrationMode: IntegrationMode.Split,
         shareIntegrations: [
           { type: 'Slack', Icon: () => <div />, Content: () => <div /> },
         ],
@@ -391,6 +380,15 @@ describe('ShareDialogWithTrigger', () => {
     it('should not render when shareIntegrations is an empty array', () => {
       const wrapper = getMountWrapper({
         shareIntegrations: [],
+      });
+      expect(wrapper.find(SplitButton)).toHaveLength(0);
+    });
+    it('should not render when integrationMode is not Split', () => {
+      const wrapper = getMountWrapper({
+        integrationMode: IntegrationMode.Tabs,
+        shareIntegrations: [
+          { type: 'Slack', Icon: () => <div />, Content: () => <div /> },
+        ],
       });
       expect(wrapper.find(SplitButton)).toHaveLength(0);
     });

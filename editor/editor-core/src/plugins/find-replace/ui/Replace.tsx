@@ -1,7 +1,11 @@
+/** @jsx jsx */
 import React from 'react';
+import { jsx } from '@emotion/core';
+
+import Button from '@atlaskit/button/standard-button';
 import { defineMessages, InjectedIntlProps, injectIntl } from 'react-intl';
 import Textfield from '@atlaskit/textfield';
-import { SectionWrapper, ReplaceSectionButton } from './styles';
+import { sectionWrapperStyles, replaceSectionButtonStyles } from './styles';
 import {
   EVENT_TYPE,
   ACTION,
@@ -156,7 +160,7 @@ class Replace extends React.PureComponent<
     const { canReplace } = this.props;
 
     return (
-      <SectionWrapper>
+      <div css={sectionWrapperStyles}>
         <Textfield
           name="replace"
           appearance="none"
@@ -169,21 +173,23 @@ class Replace extends React.PureComponent<
           onCompositionStart={this.handleCompositionStart}
           onCompositionEnd={this.handleCompositionEnd}
         />
-        <ReplaceSectionButton
+        <Button
+          css={replaceSectionButtonStyles}
           testId={this.replace}
           onClick={this.handleReplaceClick}
           isDisabled={!canReplace}
         >
           {this.replace}
-        </ReplaceSectionButton>
-        <ReplaceSectionButton
+        </Button>
+        <Button
+          css={replaceSectionButtonStyles}
           testId={this.replaceAll}
           onClick={this.handleReplaceAllClick}
           isDisabled={!canReplace}
         >
           {this.replaceAll}
-        </ReplaceSectionButton>
-      </SectionWrapper>
+        </Button>
+      </div>
     );
   }
 }

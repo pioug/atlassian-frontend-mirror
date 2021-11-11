@@ -54,7 +54,6 @@
     "@atlaskit/docs": "*",
     "@atlaskit/editor-test-helpers": "^15.5.0",
     "@atlaskit/elements-test-helpers": "^0.7.0",
-    "@atlaskit/layer": "^9.0.0",
     "@atlaskit/media-core": "^32.2.0",
     "@atlaskit/section-message": "^6.0.0",
     "@atlaskit/util-data-test": "^16.0.0",

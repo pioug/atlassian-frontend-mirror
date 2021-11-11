@@ -1,4 +1,3 @@
-import Layer from '@atlaskit/layer';
 import React from 'react';
 import {
   UsageShowAndClearComponent,
@@ -20,23 +19,10 @@ class UsageShowingEmojiPickerTextInput extends UsageShowAndClearComponent {
   getWrappedComponent() {
     const { emojiResource } = this.props;
     return (
-      <Layer
-        content={
-          <EmojiPicker
-            onSelection={this.onSelection}
-            emojiProvider={Promise.resolve(emojiResource as EmojiProvider)}
-          />
-        }
-        position="bottom left"
-      >
-        <input
-          id="picker-input"
-          style={{
-            height: '20px',
-            marginBottom: '320px',
-          }}
-        />
-      </Layer>
+      <EmojiPicker
+        onSelection={this.onSelection}
+        emojiProvider={Promise.resolve(emojiResource as EmojiProvider)}
+      />
     );
   }
 }

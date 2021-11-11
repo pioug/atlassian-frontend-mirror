@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 3.2.0
+
+### Minor Changes
+
+- [`2af46de94ba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2af46de94ba) - Adds additional rule to design system eslint plugin; no-deprecated-imports.
+
 ## 3.1.0
 
 ### Minor Changes

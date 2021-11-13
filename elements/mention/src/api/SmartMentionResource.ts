@@ -169,10 +169,11 @@ class SmartMentionResource
     const request = {
       baseUrl: conf.baseUrl,
       context: {
-        ...conf,
+        productKey: conf.productKey,
         contextType: CONTEXT_TYPE,
         principalId: conf.principalId || 'context',
         containerId: contextIdentifier && contextIdentifier.containerId,
+        siteId: conf.siteId,
         objectId:
           (contextIdentifier && contextIdentifier.objectId) || 'undefined',
         childObjectId:
@@ -182,9 +183,12 @@ class SmartMentionResource
         sessionId:
           (contextIdentifier && contextIdentifier.sessionId) || 'undefined',
       },
+      includeGroups: conf.includeGroups,
+      includeTeams: conf.includeTeams,
       includeUsers:
         typeof conf.includeUsers === 'undefined' ? true : conf.includeUsers,
       maxNumberOfResults: maxNumberOfResults,
+      searchQueryFilter: conf.searchQueryFilter,
       query,
     };
     try {

@@ -68,12 +68,12 @@ const LinkItem = memo(
             })
           }
           title={children}
-          testId={testId}
         >
-          {({ children, ...props }) => (
+          {({ children, className }) => (
             <a
+              data-testid={testId}
               {...rest}
-              {...props}
+              className={className}
               href={isDisabled ? undefined : href}
               draggable={false}
               onDragStart={preventEvent}

@@ -2,7 +2,7 @@ import React from 'react';
 import { Component } from 'react';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
-import FieldText from '@atlaskit/field-text';
+import Textfield from '@atlaskit/textfield';
 import Lozenge from '@atlaskit/lozenge';
 
 import Client, { PubSubClientConfig, SpecialEventType } from '../src';
@@ -116,34 +116,35 @@ class PubSubEventComponent extends Component<{}, State> {
     return (
       <div>
         <h2>Config</h2>
-        <FieldText
+
+        <label>Service</label>
+        <Textfield
           id="serviceUrl"
           label="Service"
           onChange={this.onUrlChange}
           value={this.state.url}
-          shouldFitContainer
         />
-
-        <FieldText
+        <label>Channel</label>
+        <Textfield
           id="channel"
           label="Channel"
           onChange={this.onChannelChange}
           value={this.state.channelInput}
-          shouldFitContainer
         />
         <ButtonGroup>
           <Button onClick={this.onJoin}>Join</Button>
           <Button onClick={this.onLeave}>Leave</Button>
           <Lozenge appearance="success">{this.state.status}</Lozenge>
         </ButtonGroup>
-
-        <FieldText
-          id="eventType"
-          label="Event type"
-          onChange={this.onEventTypeChange}
-          value={this.state.eventType}
-          shouldFitContainer
-        />
+        <div>
+          <label>Event type</label>
+          <Textfield
+            id="eventType"
+            label="Event type"
+            onChange={this.onEventTypeChange}
+            value={this.state.eventType}
+          />
+        </div>
         <ButtonGroup>
           <Button id="subscribe" onClick={this.onSubscribe}>
             Subscribe

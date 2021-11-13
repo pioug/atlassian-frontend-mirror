@@ -74,7 +74,6 @@ const CustomItem = memo(
           isDisabled={isDisabled}
           shouldTitleWrap={shouldTitleWrap}
           shouldDescriptionWrap={shouldDescriptionWrap}
-          testId={testId}
           // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
           css={css(
             cssFn({
@@ -83,12 +82,12 @@ const CustomItem = memo(
             }),
           )}
         >
-          {({ children, ...props }) => (
+          {({ children, className }) => (
             <Component
-              {...rest}
-              {...props}
-              ref={ref}
               data-testid={testId}
+              {...rest}
+              className={className}
+              ref={ref}
               draggable={false}
               onDragStart={preventEvent}
               onMouseDown={isDisabled ? preventEvent : onMouseDownHandler}

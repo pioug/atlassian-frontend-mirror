@@ -48,7 +48,6 @@ const ButtonItem = memo(
           {...rest}
           // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
           overrides={overrides}
-          testId={testId}
           iconBefore={iconBefore}
           iconAfter={iconAfter}
           isDisabled={isDisabled}
@@ -65,10 +64,11 @@ const ButtonItem = memo(
             })
           }
         >
-          {({ children, ...props }) => (
+          {({ children, className }) => (
             <button
+              data-testid={testId}
               {...rest}
-              {...props}
+              className={className}
               ref={ref as Ref<HTMLButtonElement>}
               disabled={isDisabled}
               onClick={onClick}

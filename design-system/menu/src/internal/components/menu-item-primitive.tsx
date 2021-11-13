@@ -162,7 +162,6 @@ const MenuItemPrimitive = ({
   iconAfter,
   iconBefore,
   overrides,
-  testId,
   className,
   shouldTitleWrap = false,
   shouldDescriptionWrap = false,
@@ -178,7 +177,6 @@ const MenuItemPrimitive = ({
         return (
           <FocusRing isInset>
             {children({
-              'data-testid': testId,
               className: cx([
                 cn([
                   primitiveStyles,

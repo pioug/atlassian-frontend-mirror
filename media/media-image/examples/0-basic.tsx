@@ -1,6 +1,6 @@
 import React from 'react';
 import { Component } from 'react';
-import FieldText from '@atlaskit/field-text';
+import Textfield from '@atlaskit/textfield';
 import {
   genericFileId,
   gifFileId,
@@ -68,13 +68,15 @@ class Example extends Component<ExampleProps, ExampleState> {
               this.setState({ imageId });
             }}
           />
-          <FieldText
+          <label>Width</label>
+          <Textfield
             label="width"
             placeholder="width"
             value={`${width}`}
             onChange={this.onWidthChange}
           />
-          <FieldText
+          <label>Height</label>
+          <Textfield
             label="height"
             placeholder="height"
             value={`${height}`}

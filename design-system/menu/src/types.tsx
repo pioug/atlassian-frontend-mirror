@@ -118,7 +118,6 @@ export interface SectionProps {
 export interface MenuItemPrimitiveProps {
   children: (props: {
     className: string;
-    'data-testid': string | undefined;
     children: React.ReactNode;
   }) => JSX.Element;
   title: React.ReactNode | undefined;
@@ -132,7 +131,6 @@ export interface MenuItemPrimitiveProps {
   isDisabled: boolean | undefined;
   isSelected: boolean | undefined;
   className?: string;
-  testId?: string;
 }
 
 export interface MenuItemProps {

@@ -23,7 +23,7 @@
     }
   },
   "dependencies": {
-    "@atlaskit/css-reset": "^6.2.0",
+    "@atlaskit/css-reset": "^6.3.0",
     "@atlaskit/icon": "^21.9.0",
     "@atlaskit/renderer": "^82.2.0",
     "@atlaskit/theme": "^12.0.0",

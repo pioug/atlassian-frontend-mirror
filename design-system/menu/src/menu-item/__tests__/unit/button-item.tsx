@@ -47,6 +47,17 @@ describe('<ButtonItem />', () => {
     expect(getByTestId('link')).toHaveStyleRule('color', 'currentColor');
   });
 
+  // This behaviour exists only as a side effect for spread props.
+  // When we remove the ability for spread props in a future major version
+  // This test can be deleted.
+  it('should take a data-testid directly', () => {
+    const { getByTestId } = render(
+      <ButtonItem data-testid="link">Hello world</ButtonItem>,
+    );
+
+    expect(getByTestId('link')).toBeDefined();
+  });
+
   it('should not gain focus on mouse down when it had no initial focus', () => {
     // create a random button that will have focus
     const el: HTMLElement = document.createElement('button');

@@ -34,7 +34,7 @@ const MentionEditor = () => {
         productKey: 'people', // set your product scope
         searchQueryFilter: '', // set your Lucene-type query for the search
         siteId: JDOG_CLOUD_ID,
-        includeTeams: false,
+        includeTeams: true,
       }),
     [],
   );

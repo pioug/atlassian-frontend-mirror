@@ -1,5 +1,11 @@
 # @atlaskit/css-reset
 
+## 6.3.0
+
+### Minor Changes
+
+- [`5b605d39119`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5b605d39119) - Scrollbars now respect theme selection
+
 ## 6.2.0
 
 ### Minor Changes

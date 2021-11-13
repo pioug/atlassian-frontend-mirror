@@ -1,6 +1,6 @@
 import React from 'react';
 import EmojiEmojiIcon from '@atlaskit/icon/glyph/emoji/emoji';
-import FieldText from '@atlaskit/field-text';
+import Textfield from '@atlaskit/textfield';
 import { Component } from 'react';
 import { EmojiHeader, EmojiWrapper } from './styled';
 import { SelectedItem } from '../src/popup/domain';
@@ -131,7 +131,7 @@ class EmojiView extends Component<EmojiViewProps, EmojiViewState> {
       <EmojiWrapper>
         <EmojiHeader>
           <h2>Emoji</h2>
-          <FieldText
+          <Textfield
             placeholder=""
             onChange={this.onQueryChange}
             value={query}

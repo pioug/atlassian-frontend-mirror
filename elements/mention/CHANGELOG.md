@@ -1,5 +1,11 @@
 # @atlaskit/mention
 
+## 19.9.3
+
+### Patch Changes
+
+- [`d1ed723c1e0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d1ed723c1e0) - Fix bug where includeTeams in smartMentionResource was not being passed in correctly
+
 ## 19.9.2
 
 ### Patch Changes

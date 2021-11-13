@@ -1,5 +1,11 @@
 # @atlaskit/menu
 
+## 1.2.2
+
+### Patch Changes
+
+- [`2eeb5c46710`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2eeb5c46710) - Menu items can take `data-testid` directly again however we recommend to still use the officially supported `testId` prop instead. The `data-testid` prop was unintentionally removed in a previous version however will be removed as a breaking change in a later major version and remains not officially typed.
+
 ## 1.2.1
 
 ### Patch Changes

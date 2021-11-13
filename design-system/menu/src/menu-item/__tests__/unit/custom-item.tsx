@@ -33,6 +33,19 @@ describe('<CustomItem />', () => {
     expect(callback).toHaveBeenCalled();
   });
 
+  // This behaviour exists only as a side effect for spread props.
+  // When we remove the ability for spread props in a future major version
+  // This test can be deleted.
+  it('should take a data-testid directly', () => {
+    const { getByTestId } = render(
+      <CustomItem component={Component} data-testid="link">
+        Hello world
+      </CustomItem>,
+    );
+
+    expect(getByTestId('link')).toBeDefined();
+  });
+
   it('should override styles without stripping them', () => {
     const hackStyles = css({
       // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage

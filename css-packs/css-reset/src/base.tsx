@@ -197,4 +197,13 @@ export default evaluateInner`
     border-bottom: 1px ${token('color.border.neutral', '#ccc')} dotted;
     cursor: help;
   }
+
+  @supports (color-scheme: dark) and (color-scheme: light) {
+    [data-theme="light"] {
+      color-scheme: light;
+    }
+    [data-theme="dark"] {
+      color-scheme: dark;
+    }
+  }
 `;

@@ -1,5 +1,11 @@
 # @atlaskit/editor-core
 
+## 151.3.0
+
+### Minor Changes
+
+- [`08348b6692c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/08348b6692c) - Update CodeBlockOptions to have appearance prop optional
+
 ## 151.2.1
 
 ### Patch Changes

@@ -40,7 +40,7 @@
     "@atlaskit/editor-bitbucket-transformer": "^7.1.0",
     "@atlaskit/editor-common": "^60.2.0",
     "@atlaskit/editor-confluence-transformer": "^8.1.0",
-    "@atlaskit/editor-core": "^151.2.0",
+    "@atlaskit/editor-core": "^151.3.0",
     "@atlaskit/editor-jira-transformer": "^8.1.0",
     "@atlaskit/editor-markdown-transformer": "^4.1.0",
     "@atlaskit/editor-test-helpers": "^15.5.0",

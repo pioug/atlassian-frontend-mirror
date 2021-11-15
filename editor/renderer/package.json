@@ -69,7 +69,7 @@
     "@atlaskit/build-utils": "^2.6.2",
     "@atlaskit/css-reset": "^6.3.0",
     "@atlaskit/docs": "*",
-    "@atlaskit/editor-core": "^151.2.0",
+    "@atlaskit/editor-core": "^151.3.0",
     "@atlaskit/editor-test-helpers": "^15.5.0",
     "@atlaskit/field-range": "^9.0.0",
     "@atlaskit/logo": "^13.5.0",

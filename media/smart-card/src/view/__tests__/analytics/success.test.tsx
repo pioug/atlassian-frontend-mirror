@@ -49,6 +49,7 @@ describe('smart-card: success analytics', () => {
 
   afterEach(() => {
     jest.clearAllMocks();
+    mockUuid.mockReset();
     cleanup();
   });
   describe('resolved', () => {
@@ -79,6 +80,7 @@ describe('smart-card: success analytics', () => {
         },
         expect.any(Function),
       );
+      expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledTimes(1);
       expect(analytics.uiRenderSuccessEvent).toBeCalledWith(
         'inline',
         'd1',
@@ -100,6 +102,37 @@ describe('smart-card: success analytics', () => {
       expect(mockSucceedUfoExperience).toHaveBeenCalledAfter(
         mockStartUfoExperience as jest.Mock,
       );
+    });
+
+    it('should not send repeated render success events when nonessential props are changed', async () => {
+      const mockUrl = 'https://this.is.the.sixth.url';
+      const { getByTestId, rerender } = render(
+        <Provider client={mockClient}>
+          <Card
+            testId="resolvedCard1"
+            appearance="inline"
+            url={mockUrl}
+            showActions={false}
+          />
+        </Provider>,
+      );
+
+      await waitForElement(() => getByTestId('resolvedCard1-resolved-view'), {
+        timeout: 10000,
+      });
+
+      rerender(
+        <Provider client={mockClient}>
+          <Card
+            testId="resolvedCard1"
+            appearance="inline"
+            url={mockUrl}
+            showActions={true}
+          />
+        </Provider>,
+      );
+
+      expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledTimes(1);
     });
 
     it('should add the cached tag to UFO render experience when the same link url is rendered again', async () => {
@@ -186,11 +219,17 @@ describe('smart-card: success analytics', () => {
     });
 
     it('should fire render failure when an unexpected error happens', async () => {
-      const mockUrl = 'https://this.is.the.sixth.url';
+      const mockUrl = 'https://this.is.the.eight.url';
       // Notice we are not wrapping Card within a Provider intentionally, to make it throw an error
       render(<Card testId="resolvedCard1" appearance="inline" url={mockUrl} />);
 
-      expect(analytics.fireSmartLinkEvent).toBeCalledTimes(1);
+      await wait(
+        () => expect(analytics.fireSmartLinkEvent).toBeCalledTimes(1),
+        {
+          timeout: 5000,
+        },
+      );
+
       expect(analytics.uiRenderFailedEvent).toBeCalledTimes(1);
 
       expect(mockStartUfoExperience).toBeCalledWith(
@@ -207,6 +246,35 @@ describe('smart-card: success analytics', () => {
       );
       expect(mockStartUfoExperience).toHaveBeenCalledBefore(
         mockFailUfoExperience as jest.Mock,
+      );
+    });
+
+    it('should not send repeated render failed events when nonessential props are changed', async () => {
+      const mockUrl = 'https://this.is.the.sixth.url';
+      // Notice we are not wrapping Card within a Provider intentionally, to make it throw an error
+      const { rerender } = render(
+        <Card
+          testId="resolvedCard1"
+          appearance="inline"
+          url={mockUrl}
+          showActions={false}
+        />,
+      );
+
+      rerender(
+        <Card
+          testId="resolvedCard1"
+          appearance="inline"
+          url={mockUrl}
+          showActions={true}
+        />,
+      );
+
+      await wait(
+        () => expect(analytics.uiRenderFailedEvent).toBeCalledTimes(1),
+        {
+          timeout: 5000,
+        },
       );
     });
   });

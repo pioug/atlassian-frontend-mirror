@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 16.2.1
+
+### Patch Changes
+
+- [`d7f743bbbdd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d7f743bbbdd) - useCallback for dispatchAnalytics to prevent multiple events firing on hover
+
 ## 16.2.0
 
 ### Minor Changes

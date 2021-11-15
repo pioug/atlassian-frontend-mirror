@@ -1,5 +1,11 @@
 # @atlaskit/outbound-auth-flow-client
 
+## 3.3.0
+
+### Minor Changes
+
+- [`65cad419e85`](https://bitbucket.org/atlassian/atlassian-frontend/commits/65cad419e85) - Add 'AuthClientOAuth2.AuthError' error type
+
 ## 3.2.1
 
 ### Patch Changes

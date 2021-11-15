@@ -37,7 +37,7 @@
     "@atlaskit/media-editor": "^38.2.0",
     "@atlaskit/media-ui": "^17.1.0",
     "@atlaskit/modal-dialog": "^12.1.0",
-    "@atlaskit/outbound-auth-flow-client": "^3.1.0",
+    "@atlaskit/outbound-auth-flow-client": "^3.3.0",
     "@atlaskit/spinner": "^15.0.0",
     "@atlaskit/textfield": "^5.0.0",
     "@atlaskit/theme": "^12.0.0",

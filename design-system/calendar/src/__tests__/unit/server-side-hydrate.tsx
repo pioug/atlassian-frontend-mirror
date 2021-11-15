@@ -12,7 +12,7 @@ afterEach(() => {
 });
 
 test('should ssr then hydrate calendar correctly', async () => {
-  const [example] = await getExamplesFor('calendar');
+  const [example] = await getExamplesFor('@atlaskit/calendar');
   const Example = require(example.filePath).default;
 
   const elem = document.createElement('div');

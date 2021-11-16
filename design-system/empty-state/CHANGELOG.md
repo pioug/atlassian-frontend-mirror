@@ -1,5 +1,11 @@
 # @atlaskit/empty-state
 
+## 7.3.2
+
+### Patch Changes
+
+- [`0397fedf294`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0397fedf294) - Added documentation homepage URL to package.json
+
 ## 7.3.1
 
 ### Patch Changes

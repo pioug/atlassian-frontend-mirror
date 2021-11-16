@@ -421,6 +421,7 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
       button = renderCustomTriggerButton(
         {
           error: shareError,
+          isDisabled,
           isSelected: isDialogOpen,
           onClick: this.onTriggerClick,
         },

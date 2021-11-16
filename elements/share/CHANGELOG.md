@@ -1,5 +1,11 @@
 # @atlaskit/share
 
+## 0.34.1
+
+### Patch Changes
+
+- [`00ded488f98`](https://bitbucket.org/atlassian/atlassian-frontend/commits/00ded488f98) - Update existing isDisabled prop to be used in renderCustomTriggerButton component callback
+
 ## 0.34.0
 
 ### Minor Changes

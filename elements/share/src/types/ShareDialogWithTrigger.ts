@@ -7,6 +7,7 @@ import { ShareError } from './ShareContentState';
 export type RenderCustomTriggerButton = (
   args: {
     error?: ShareError;
+    isDisabled?: boolean;
     isSelected?: boolean;
     onClick: () => void;
   },

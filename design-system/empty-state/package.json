@@ -1,11 +1,12 @@
 {
   "name": "@atlaskit/empty-state",
-  "version": "7.3.1",
+  "version": "7.3.2",
   "description": "An empty state appears when there is no data to display and describes what the user can do next.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
   "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "homepage": "https://atlassian.design/components/empty-state/",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
   "main": "dist/cjs/index.js",

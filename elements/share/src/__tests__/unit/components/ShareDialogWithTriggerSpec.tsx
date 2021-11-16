@@ -309,6 +309,7 @@ describe('ShareDialogWithTrigger', () => {
         <button />
       ));
       const wrapper = getMountWrapper({
+        isDisabled: false,
         renderCustomTriggerButton: mockRenderCustomTriggerButton,
         shareFormTitle: 'Share this page',
       });
@@ -316,6 +317,7 @@ describe('ShareDialogWithTrigger', () => {
       expect(mockRenderCustomTriggerButton).toHaveBeenCalledWith(
         {
           error: (wrapper.state() as State).shareError,
+          isDisabled: wrapper.props().isDisabled,
           isSelected: (wrapper.state() as State).isDialogOpen,
           onClick: (wrapper.instance() as any).onTriggerClick,
         },

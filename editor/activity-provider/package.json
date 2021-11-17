@@ -14,9 +14,12 @@
   "types": "dist/types/index.d.ts",
   "sideEffects": false,
   "atlaskit:src": "src/index.ts",
+  "af:exports": {
+    "./types": "./src/types.ts",
+    ".": "./src/index.ts"
+  },
   "atlassian": {
     "team": "Linking Platform",
-    "deprecatedAutoEntryPoints": true,
     "releaseModel": "scheduled"
   },
   "dependencies": {
@@ -32,6 +35,9 @@
   "techstack": {
     "@atlassian/frontend": {
       "tree-shaking": []
+    },
+    "@repo/internal": {
+      "deprecation": "no-deprecated-imports"
     }
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"

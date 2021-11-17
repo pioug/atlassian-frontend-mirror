@@ -1,5 +1,12 @@
 # @atlaskit/media-editor
 
+## 38.2.2
+
+### Patch Changes
+
+- [`4f1f314d398`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4f1f314d398) - Replaces a dependency on the deprecated @atlaskit/field-range with the recommended @atlaskit/range.
+- Updated dependencies
+
 ## 38.2.1
 
 ### Patch Changes

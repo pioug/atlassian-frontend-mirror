@@ -18,6 +18,7 @@ import { table } from './nodes/table';
 import { unknown } from './nodes/unknown';
 import { blockCard } from './nodes/block-card';
 import { embedCard } from './nodes/embed-card';
+import { caption } from './nodes/caption';
 import { Context } from '../interfaces';
 
 export type MarkEncoder = (text: string, attrs: any) => string;
@@ -35,6 +36,7 @@ const nodeEncoderMapping: { [key: string]: NodeEncoder } = {
   codeBlock,
   doc,
   heading,
+  caption,
   mediaGroup,
   mediaInline,
   mediaSingle: mediaGroup,

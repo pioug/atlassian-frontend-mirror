@@ -9,11 +9,16 @@ import {
   FeatureFlagsWrapper,
 } from '@atlaskit/media-test-helpers';
 import CrossIcon from '@atlaskit/icon/glyph/cross';
+import FabricAnalyticsListeners, {
+  AnalyticsWebClient,
+} from '@atlaskit/analytics-listeners';
+
 import AnnotateIcon from '@atlaskit/icon/glyph/media-services/annotate';
 import { SelectableCard } from './selectableCard';
 import { Card, CardAppearance, CardEvent, CardAction } from '../src';
 import { relevantFeatureFlagNames } from '../src/root/card/cardAnalytics';
 import { MediaCardError } from '../src/errors';
+import DevelopmentUseMessage from './developmentUseMessage';
 
 const mediaClientConfig = createStorybookMediaClientConfig();
 
@@ -119,10 +124,20 @@ export const wrongMediaClientConfig = createStorybookMediaClientConfig({
 });
 export const wrongCollection = 'adfasdf';
 
-export const MainWrapper: React.FC = ({ children }) => (
-  <FeatureFlagsWrapper filterFlags={relevantFeatureFlagNames}>
-    {children}
-  </FeatureFlagsWrapper>
+export type MainWrapperProps = {
+  developmentOnly?: boolean;
+};
+
+export const MainWrapper: React.FC<MainWrapperProps> = ({
+  children,
+  developmentOnly,
+}) => (
+  <>
+    {developmentOnly && <DevelopmentUseMessage />}
+    <FeatureFlagsWrapper filterFlags={relevantFeatureFlagNames}>
+      {children}
+    </FeatureFlagsWrapper>
+  </>
 );
 
 export const mediaCardErrorState = (
@@ -141,4 +156,19 @@ export const mediaCardErrorState = (
     default:
       return undefined;
   }
+};
+
+export const SSRAnalyticsWrapper: React.FC = ({ children }) => {
+  const mockClient: AnalyticsWebClient = {
+    sendUIEvent: (e) => console.debug('UI event', e),
+    sendOperationalEvent: (e) => console.debug('Operational event', e),
+    sendTrackEvent: (e) => console.debug('Track event', e),
+    sendScreenEvent: (e) => console.debug('Screen event', e),
+  };
+
+  return (
+    <FabricAnalyticsListeners client={mockClient}>
+      {children}
+    </FabricAnalyticsListeners>
+  );
 };

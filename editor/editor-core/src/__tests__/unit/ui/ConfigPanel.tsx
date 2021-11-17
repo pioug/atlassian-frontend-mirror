@@ -304,7 +304,8 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
           await trySubmit();
           await flushPromises();
           expect(onChange).toHaveBeenCalledWith({
-            expandField: { textField: 'hello', enumList: 'a' },
+            textField: 'hello',
+            enumList: 'a',
           });
         });
       });
@@ -427,18 +428,222 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
           await flushPromises();
 
           expect(onChange).toHaveBeenCalledWith({
-            tabGroup: {
-              optionA: {
-                expandField: {
-                  textFieldOne: 'tab 1 text',
+            textFieldOne: 'tab 1 text',
+            enumListA: 'a',
+            textFieldTwo: 'tab 2 text',
+            enumListB: 'b',
+          });
+        });
+
+        describe('with hasGroupedValues', () => {
+          interface TabWrapperOptions {
+            groupTabGroup?: boolean;
+            groupTabA?: boolean;
+            groupTabB?: boolean;
+            groupExpand?: boolean;
+          }
+          const createTabWrapper = async (options: TabWrapperOptions) => {
+            const result = await mountWithProviders({
+              ...defaultProps,
+              extensionProvider: createProvider([
+                {
+                  type: 'tab-group',
+                  label: 'Tab group',
+                  name: 'tabGroup',
+                  defaultTab: 'tabB',
+                  hasGroupedValues: options.groupTabGroup,
+                  fields: [
+                    {
+                      type: 'tab',
+                      label: 'Tab A',
+                      name: 'tabA',
+                      hasGroupedValues: options.groupTabA,
+                      fields: [
+                        {
+                          name: 'textFieldHidden',
+                          type: 'string',
+                          label: 'Hidden text',
+                          defaultValue:
+                            'Never seen but defaultValue still works',
+                        },
+                        {
+                          type: 'enum',
+                          label: 'My first enum field',
+                          style: 'select',
+                          name: 'enumListA',
+                          defaultValue: 'a',
+                          items: [
+                            { label: 'label-A', value: 'a' },
+                            { label: 'label-B', value: 'b' },
+                            { label: 'label-C', value: 'c' },
+                          ],
+                        },
+                      ],
+                    },
+                    {
+                      type: 'tab',
+                      label: 'Tab B',
+                      name: 'tabB',
+                      hasGroupedValues: options.groupTabB,
+                      fields: [
+                        {
+                          name: 'expandField',
+                          type: 'expand',
+                          label: 'awesome expand field',
+                          hasGroupedValues: options.groupExpand,
+                          fields: [
+                            {
+                              name: 'textFieldShown',
+                              type: 'string',
+                              label: 'Shown text',
+                              defaultValue: 'Text shown but not filled in',
+                            },
+                            {
+                              type: 'boolean',
+                              label: 'Boolean',
+                              name: 'booleanB',
+                            },
+                          ],
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ]),
+            });
+
+            const { wrapper, trySubmit } = result;
+            wrapper
+              .find('button[data-testid="form-expand-toggle"]')
+              .simulate('click');
+            wrapper.update();
+
+            const field = wrapper.find('input[type="checkbox"]');
+            toggleCheckbox(field);
+            wrapper.update();
+
+            await trySubmit();
+            await flushPromises();
+
+            return result;
+          };
+
+          it('should serialize when tabGroup hasGroupedValues is true', async () => {
+            await createTabWrapper({ groupTabGroup: true });
+
+            expect(onChange).toHaveBeenCalledWith({
+              tabGroup: {
+                booleanB: true,
+                enumListA: 'a',
+                textFieldHidden: 'Never seen but defaultValue still works',
+                textFieldShown: 'Text shown but not filled in',
+              },
+            });
+          });
+          it('should serialize when tabGroup/tabA hasGroupedValues is true', async () => {
+            await createTabWrapper({
+              groupTabGroup: true,
+              groupTabA: true,
+            });
+
+            expect(onChange).toHaveBeenCalledWith({
+              tabGroup: {
+                tabA: {
                   enumListA: 'a',
+                  textFieldHidden: 'Never seen but defaultValue still works',
+                },
+                booleanB: true,
+                textFieldShown: 'Text shown but not filled in',
+              },
+            });
+          });
+          it('should serialize when tabGroup/tabA/tabB hasGroupedValues is true', async () => {
+            await createTabWrapper({
+              groupTabGroup: true,
+              groupTabA: true,
+              groupTabB: true,
+            });
+
+            expect(onChange).toHaveBeenCalledWith({
+              tabGroup: {
+                tabA: {
+                  enumListA: 'a',
+                  textFieldHidden: 'Never seen but defaultValue still works',
+                },
+                tabB: {
+                  booleanB: true,
+                  textFieldShown: 'Text shown but not filled in',
                 },
               },
-              optionB: {
-                textFieldTwo: 'tab 2 text',
-                enumListB: 'b',
+            });
+          });
+          it('should serialize when tabGroup/tabA/tabB/expand hasGroupedValues is true', async () => {
+            await createTabWrapper({
+              groupTabGroup: true,
+              groupTabA: true,
+              groupTabB: true,
+              groupExpand: true,
+            });
+
+            expect(onChange).toHaveBeenCalledWith({
+              tabGroup: {
+                tabA: {
+                  enumListA: 'a',
+                  textFieldHidden: 'Never seen but defaultValue still works',
+                },
+                tabB: {
+                  expandField: {
+                    booleanB: true,
+                    textFieldShown: 'Text shown but not filled in',
+                  },
+                },
               },
-            },
+            });
+          });
+          it('should serialize when tabA/expand hasGroupedValues is true', async () => {
+            await createTabWrapper({ groupTabA: true, groupExpand: true });
+
+            expect(onChange).toHaveBeenCalledWith({
+              tabA: {
+                enumListA: 'a',
+                textFieldHidden: 'Never seen but defaultValue still works',
+              },
+              expandField: {
+                booleanB: true,
+                textFieldShown: 'Text shown but not filled in',
+              },
+            });
+          });
+          it('should serialize when tabB/expand hasGroupedValues is true', async () => {
+            await createTabWrapper({ groupTabB: true, groupExpand: true });
+
+            expect(onChange).toHaveBeenCalledWith({
+              tabB: {
+                expandField: {
+                  booleanB: true,
+                  textFieldShown: 'Text shown but not filled in',
+                },
+              },
+              enumListA: 'a',
+              textFieldHidden: 'Never seen but defaultValue still works',
+            });
+          });
+          it('should serialize when tabGroup/expand hasGroupedValues is true', async () => {
+            await createTabWrapper({
+              groupTabGroup: true,
+              groupExpand: true,
+            });
+
+            expect(onChange).toHaveBeenCalledWith({
+              tabGroup: {
+                enumListA: 'a',
+                textFieldHidden: 'Never seen but defaultValue still works',
+                expandField: {
+                  booleanB: true,
+                  textFieldShown: 'Text shown but not filled in',
+                },
+              },
+            });
           });
         });
       });
@@ -474,6 +679,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
             const field = wrapper.find('Textfield');
             typeInField(field.find('input'), 'bar');
             await trySubmit();
+            await flushPromises();
 
             expect(onChange).toHaveBeenCalledWith({ foo: 'bar' });
           });
@@ -510,6 +716,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
               const field = wrapper.find('textarea');
               typeInField(field, 'bar');
               await trySubmit();
+              await flushPromises();
 
               expect(onChange).toHaveBeenCalledWith({ foo: 'bar' });
             });
@@ -558,6 +765,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
 
             typeInField(wrapper.find('input[autoFocus=true]'), '123');
             await trySubmit();
+            await flushPromises();
 
             expect(onChange).toHaveBeenCalledWith({ n: 123 });
           });
@@ -571,6 +779,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
                 'not a number',
               );
               await trySubmit();
+              await flushPromises();
 
               expect(onChange).toBeCalledWith({});
               expect(getFieldErrors(wrapper)).toStrictEqual(['invalid']);
@@ -632,6 +841,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
           it('should serialize to an object', async () => {
             const { trySubmit } = mountResult;
             await trySubmit();
+            await flushPromises();
 
             expect(onChange).toHaveBeenCalledWith({
               creationDate,
@@ -710,6 +920,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
             });
 
             await trySubmit();
+            await flushPromises();
 
             expect(onChange).toHaveBeenCalledWith({
               created: {
@@ -760,7 +971,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
             toggleCheckbox(field.find('input').at(3));
 
             await trySubmit();
-            //await flushPromises(); // TODO: why not
+            await flushPromises(); // TODO: why
 
             expect(onChange).toHaveBeenCalledWith({
               created: {
@@ -781,6 +992,8 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
               );
 
               await trySubmit();
+              await flushPromises();
+
               expect(getFieldErrors(wrapper)).toStrictEqual([]);
               expect(onChange).toHaveBeenCalledWith({
                 created: {
@@ -849,6 +1062,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
             const { wrapper, trySubmit } = mountResult;
             clickColor(wrapper);
             await trySubmit();
+            await flushPromises();
 
             expect(onChange).toHaveBeenCalledWith({
               'color-picker': '#7AB2FFFF',
@@ -924,9 +1138,8 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
             toggleCheckbox(field);
             if (!autoSave) {
               await trySubmit();
-            } else {
-              await flushPromises();
             }
+            await flushPromises();
             expect(onChange).toHaveBeenCalledWith({ foo: true });
           });
 
@@ -995,6 +1208,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
 
             expect(await resolveOption(wrapper, 'A')).toBe(true);
             await trySubmit();
+            await flushPromises();
 
             expect(onChange).toHaveBeenCalledWith({ list: 'a' });
           });
@@ -1071,6 +1285,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
               toggleCheckbox(field.find('input').at(0));
 
               await trySubmit();
+              await flushPromises();
 
               expect(onChange).toHaveBeenCalledWith({ list: 'a' });
             });
@@ -1099,6 +1314,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
               expect(await resolveOption(wrapper, 'C')).toBe(true);
               expect(await resolveOption(wrapper, 'B')).toBe(true);
               await trySubmit();
+              await flushPromises();
 
               expect(onChange).toHaveBeenCalledWith({ list: ['c', 'b'] });
             });
@@ -1155,6 +1371,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
                 toggleCheckbox(field.at(2).find('input'));
 
                 await trySubmit();
+                await flushPromises();
 
                 expect(onChange).toHaveBeenCalledWith({ list: ['a', 'c'] });
               });
@@ -1234,6 +1451,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
 
             expect(await resolveOption(wrapper, 'Leandro')).toBe(true);
             await trySubmit();
+            await flushPromises();
 
             expect(onChange).toHaveBeenCalledWith({ user: 'u123i1431' });
           });
@@ -1249,6 +1467,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
 
               expect(await resolveOption(wrapper, 'foo')).toBe(false);
               await trySubmit();
+              await flushPromises();
 
               expect(onChange).toHaveBeenCalledWith({
                 user: undefined,
@@ -1265,6 +1484,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
 
               expect(await resolveOption(wrapper, 'foo')).toBe(true);
               await trySubmit();
+              await flushPromises();
 
               expect(onChange).toHaveBeenCalledWith({
                 user: 'foo',
@@ -1281,6 +1501,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
 
               expect(await resolveOption(wrapper, 'foo')).toBe(true);
               await trySubmit();
+              await flushPromises();
 
               expect(onChange).toHaveBeenCalledWith({
                 user: 'foo',
@@ -1310,6 +1531,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
               expect(await resolveOption(wrapper, 'Leandro')).toBe(true);
               expect(await resolveOption(wrapper, 'Rodrigo')).toBe(true);
               await trySubmit();
+              await flushPromises();
 
               expect(onChange).toHaveBeenCalledWith({
                 user: ['u123i1431', 'j78635820'],
@@ -1909,6 +2131,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
           });
 
           await trySubmit();
+          await flushPromises();
 
           expect(onChange).toHaveBeenCalledWith({
             t: 'abcd',
@@ -2014,22 +2237,12 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
               {},
             ),
             parameters: {
-              expandField: {
-                textField: 'test value',
-                enumList: 'c',
-              },
-              tabGroup: {
-                optionA: {
-                  expandField: {
-                    enumListA: 'a',
-                    textFieldOne: 'test field one',
-                  },
-                },
-                optionB: {
-                  textFieldTwo: 'test field two',
-                  enumListB: 'b',
-                },
-              },
+              textField: 'test value',
+              enumList: 'c',
+              enumListA: 'a',
+              textFieldOne: 'test field one',
+              textFieldTwo: 'test field two',
+              enumListB: 'b',
             },
           });
 
@@ -2037,22 +2250,12 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
           await flushPromises();
 
           expect(onChange).toHaveBeenCalledWith({
-            expandField: {
-              enumList: 'c',
-              textField: 'test value',
-            },
-            tabGroup: {
-              optionA: {
-                expandField: {
-                  enumListA: 'a',
-                  textFieldOne: 'test field one',
-                },
-              },
-              optionB: {
-                enumListB: 'b',
-                textFieldTwo: 'test field two',
-              },
-            },
+            enumList: 'c',
+            textField: 'test value',
+            enumListA: 'a',
+            textFieldOne: 'test field one',
+            enumListB: 'b',
+            textFieldTwo: 'test field two',
           });
         });
 
@@ -2098,6 +2301,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
 
             await flushPromises();
             await trySubmit();
+            await flushPromises();
 
             expect(onChange).toHaveBeenCalledWith({
               user: 'u123i1431',

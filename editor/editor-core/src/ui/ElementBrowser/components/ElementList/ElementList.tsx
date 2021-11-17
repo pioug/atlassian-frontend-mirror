@@ -4,6 +4,7 @@ import styled, { ThemeProvider, css } from 'styled-components';
 import { AutoSizer, Size } from 'react-virtualized/dist/commonjs/AutoSizer';
 import { Collection } from 'react-virtualized/dist/commonjs/Collection';
 import { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import Item from '@atlaskit/item';
 import { B100, N20, N200 } from '@atlaskit/theme/colors';
 import Tooltip from '@atlaskit/tooltip';

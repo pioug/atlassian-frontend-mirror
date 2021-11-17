@@ -382,6 +382,10 @@ export default class ResizableMediaSingle extends React.Component<
           }}
           nodeType="media"
           dispatchAnalyticsEvent={this.props.dispatchAnalyticsEvent}
+          // when cursor is located below a media with caption,
+          // press “Up“ key will result cursor focus on an invalid position, (on the resize handler)
+          // This workaround adds an empty div inside the resize handler to prevent the issue.
+          handleComponentFunc={() => <div contentEditable={false} />}
         >
           {children}
         </Resizer>

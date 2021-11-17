@@ -14,6 +14,8 @@ export interface MediaImageProps {
   onImageLoad?: (loadedImage: HTMLImageElement) => void;
   onImageError?: () => void;
   loading?: 'auto' | 'lazy' | 'eager';
+  //An option to force display image with showImage rules bypassed
+  forceSyncDisplay?: boolean;
 }
 
 export interface MediaImageState {
@@ -28,6 +30,7 @@ export class MediaImage extends Component<MediaImageProps, MediaImageState> {
   static defaultProps: Partial<MediaImageProps> = {
     crop: true,
     stretch: false,
+    forceSyncDisplay: false,
   };
   imageRef: React.RefObject<HTMLImageElement>;
 
@@ -85,6 +88,7 @@ export class MediaImage extends Component<MediaImageProps, MediaImageState> {
       onImageError,
       alt = '',
       loading,
+      forceSyncDisplay,
     } = this.props;
     const {
       parentWidth,
@@ -323,7 +327,8 @@ export class MediaImage extends Component<MediaImageProps, MediaImageState> {
       The reason for exclude isImageRotated is that we need to calculate percentSize variable
       and we can do that only when image is loaded (and we have image size)
      */
-    const showImage = isImageLoaded || (isFitStrategy && !isImageRotated);
+    const showImage =
+      forceSyncDisplay || isImageLoaded || (isFitStrategy && !isImageRotated);
 
     const style: CSSProperties = {
       transform: 'translate(-50%, -50%)',

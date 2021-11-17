@@ -13,7 +13,7 @@ export default class Example extends React.Component<Props, State> {
     locale: 'en',
     messages: {},
   };
-  mediaOptions: MediaOptions = { allowMediaInline: true };
+  mediaOptions: MediaOptions = { featureFlags: { mediaInline: true } };
 
   render() {
     const { locale, messages } = this.state;

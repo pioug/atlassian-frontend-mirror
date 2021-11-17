@@ -1,5 +1,15 @@
 # @atlaskit/media-client
 
+## 14.3.1
+
+### Patch Changes
+
+- [`586b7869085`](https://bitbucket.org/atlassian/atlassian-frontend/commits/586b7869085) - Pass initialAuth to MediaStore
+- [`dc1f9d42903`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dc1f9d42903) - Updated typeguard
+- [`f461edcfd05`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f461edcfd05) - Update CardLoader to use react-loadable
+  Add SSR feature prop to be passed in renderer and media card
+- Updated dependencies
+
 ## 14.3.0
 
 ### Minor Changes

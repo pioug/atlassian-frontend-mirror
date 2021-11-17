@@ -61,6 +61,17 @@ export type FeedbackInfo = {
   tabId?: string;
 };
 
+export type BeforeAndAfterToolbarComponents = {
+  // Before contains components that are on the left of avatar and find and replace button (eg. save indicator)
+  before: ReactComponents;
+  // After contains components that are on the right of avatar and find and replace button (eg. publish button)
+  after: ReactComponents;
+};
+
+export type PrimaryToolbarComponents =
+  | BeforeAndAfterToolbarComponents
+  | ReactComponents;
+
 export interface EditorProps {
   // Note: this comment is replicated in packages/editor/renderer/src/ui/Renderer/types.ts
   // any changes should be made in both locations
@@ -75,7 +86,7 @@ export interface EditorProps {
   appearance?: EditorAppearance;
 
   contentComponents?: ReactComponents;
-  primaryToolbarComponents?: ReactComponents;
+  primaryToolbarComponents?: PrimaryToolbarComponents;
 
   // Optionally adds an element (eg: an icon) at the start of the editor's primary toolbar. If not specified, the primary toolbar spans the entire width.
   primaryToolbarIconBefore?: ReactElement;
@@ -377,6 +388,12 @@ export interface EditorProps {
    * ```
    */
   featureFlags?: { [featureFlag: string]: string | boolean };
+
+  /**
+   * Enable experimental support for the "fragment" mark.
+   * Refer to ADF Change proposal #60 for more details.
+   */
+  UNSAFE_allowFragmentMark?: boolean;
 
   /**
    * @deprecated Do not use outside of Editor team.

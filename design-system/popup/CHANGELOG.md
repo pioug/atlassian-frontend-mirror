@@ -1,5 +1,16 @@
 # @atlaskit/popup
 
+## 1.1.6
+
+### Minor Changes
+
+- [`f142150a3e8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f142150a3e8) - Expose `fallbackPlacement` modifier from to specify a list of fallback options to try incase there isn't enough space
+
+### Patch Changes
+
+- [`f460cc7c411`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f460cc7c411) - Builds for this package now pass through a tokens babel plugin, removing runtime invocations of the tokens() function and improving bundle size.
+- Updated dependencies
+
 ## 1.1.5
 
 ### Patch Changes

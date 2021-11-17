@@ -5,20 +5,35 @@ import {
   ExperienceTypes,
 } from '@atlaskit/ufo';
 
-type UfoExperienceName = 'smart-link-rendered' | 'smart-link-authenticated';
+type UfoExperienceName =
+  | 'smart-link-rendered'
+  | 'smart-link-authenticated'
+  | 'smart-link-action-invocation';
+
+const inlineExperience = {
+  platform: { component: 'smart-links' },
+  type: ExperienceTypes.Experience,
+  performanceType: ExperiencePerformanceTypes.InlineResult,
+};
+
+const renderExperience = {
+  platform: { component: 'smart-links' },
+  type: ExperienceTypes.Load,
+  performanceType: ExperiencePerformanceTypes.PageSegmentLoad,
+};
+
 const ufoExperiences: Record<UfoExperienceName, ConcurrentExperience> = {
-  'smart-link-rendered': new ConcurrentExperience('smart-link-rendered', {
-    type: ExperienceTypes.Load,
-    performanceType: ExperiencePerformanceTypes.PageSegmentLoad,
-    platform: { component: 'smart-links' },
-  }),
+  'smart-link-rendered': new ConcurrentExperience(
+    'smart-link-rendered',
+    renderExperience,
+  ),
   'smart-link-authenticated': new ConcurrentExperience(
     'smart-link-authenticated',
-    {
-      type: ExperienceTypes.Load,
-      performanceType: ExperiencePerformanceTypes.PageSegmentLoad,
-      platform: { component: 'smart-links' },
-    },
+    inlineExperience,
+  ),
+  'smart-link-action-invocation': new ConcurrentExperience(
+    'smart-link-action-invocation',
+    inlineExperience,
   ),
 };
 

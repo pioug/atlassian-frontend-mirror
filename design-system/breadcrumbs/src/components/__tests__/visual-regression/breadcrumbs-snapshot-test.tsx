@@ -165,4 +165,20 @@ describe('Snapshot Test', () => {
     const image = await page.screenshot();
     expect(image).toMatchProdImageSnapshot();
   });
+
+  it('Breadcrumbs - should place component to right of breadcrumbs without getting pushed over by breadcrumb trailing space', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'breadcrumbs',
+      'with-element-next-to-breadcrumbs',
+      global.__BASEURL__,
+    );
+    const { page } = global;
+    await loadPage(page, url);
+
+    await page.waitForSelector('[data-testid="BreadcrumbsTestId"]');
+
+    const image = await page.screenshot();
+    expect(image).toMatchProdImageSnapshot();
+  });
 });

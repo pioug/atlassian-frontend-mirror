@@ -9,4 +9,5 @@ export type {
   CollabEventTelepointerData,
   CollabParticipant,
   CollabSendableSelection,
+  CollabEventLocalStepData,
 } from './collab/types';

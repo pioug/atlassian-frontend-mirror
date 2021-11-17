@@ -5,6 +5,7 @@ const shadow: AttributeSchema<ShadowTokenSchema> = {
     card: {
       attributes: {
         group: 'shadow',
+        state: 'active',
         description: `
 Use for the box shadow of raised card elements, such as Jira cards on a Kanban board.
 
@@ -14,6 +15,7 @@ Combine with background.overlay`,
     overlay: {
       attributes: {
         group: 'shadow',
+        state: 'active',
         description: `
 Use for the box shadow of overlay elements, such as modals, dropdown menus, flags, and inline dialogs (i.e. elements that sit on top of the UI).
 

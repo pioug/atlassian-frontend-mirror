@@ -484,6 +484,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
       allowAltTextOnImages: this.allowAltTextOnImages,
       featureFlags: this.media && this.media.featureFlags,
       shouldOpenMediaViewer: this.shouldOpenMediaViewer,
+      ssr: this.media?.ssr,
     };
   }
 
@@ -510,6 +511,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
       allowAltTextOnImages: this.allowAltTextOnImages,
       featureFlags: this.media && this.media.featureFlags,
       enableDownloadButton: this.media?.enableDownloadButton,
+      ssr: this.media?.ssr,
     };
   }
 

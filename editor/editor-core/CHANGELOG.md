@@ -1,5 +1,95 @@
 # @atlaskit/editor-core
 
+## 152.0.0
+
+### Major Changes
+
+- [`3a2a5e14fdc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3a2a5e14fdc) - As we are moving to full schema, merged the customPanel nodeSpec with panel nodeSpec
+- [`0cf5fa82add`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0cf5fa82add) - CETI-20 Rename custom panel FF from `UNSAFE_allowCustomPanel` to `allowCustomPanel`
+- [`fd675db8754`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd675db8754) - [ux] ED-13100: added GroupedField.hasGroupedValues and enable parameter flattening for expand/tab-group/tab fields in config panels. The default value of `GroupedField.hasGroupedValues` is `False`, which will flatten data structures. Set `GroupedField.hasGroupedValues` to `True` on all tab-group/tab/expand fields if you wish to retain existing behaviour.
+
+  This change has several parts to ensure the correctness of serialize(), deserialize(), GroupedField.hasGroupedValues and BaseFieldDefinition.allowDuplicates
+
+  - Introduced GroupedField.hasGroupedValues which allows expand/tabgroup/tab to store the value of its fields by the name of the expand/tabgroup/tab if hasGroupedValues=True (False by default)
+  - Fixed a type safety issue with Parameters and ParametersWithDuplicateFields where Typescript would consider the types Parameters = Parameters[] (resolves some inconsistencies in the editor code and extensions)
+  - Restrict allowDuplicates so it only works within Fieldset as originally intended
+  - serialize() now populates `Field.defaultValue` as expected
+
+- [`01a41e75803`](https://bitbucket.org/atlassian/atlassian-frontend/commits/01a41e75803) - Removes `allowMediaInline` media prop and replaces with Inline Files feature flag for editor and mobile bridge
+
+### Minor Changes
+
+- [`65a541166fe`](https://bitbucket.org/atlassian/atlassian-frontend/commits/65a541166fe) - ED-13766 fix pm node spec for media single with caption
+- [`d32688fd0aa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d32688fd0aa) - [ux] CETI-138 Colour picker border size is not consistent with table colour picker
+- [`42ecbc9358e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/42ecbc9358e) - [ux] CERN-1124 When feature flag `twoLineEditorToolbar` is on, show editor toolbar in two lines when viewport is small.
+- [`7ad1c5a4243`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7ad1c5a4243) - CETI-131 Enabled remove emoji button for standard panels
+- [`23514411f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/23514411f27) - CETI-134 added support to render dark colors for the custom panels in the dark mode
+- [`42c7ac64c39`](https://bitbucket.org/atlassian/atlassian-frontend/commits/42c7ac64c39) - AK-654 Set a status link label with input
+- [`e81dd06a8a0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e81dd06a8a0) - CETI-158 Use large productivity icons when changing standard panel background colour
+- [`8581ed429dd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8581ed429dd) - ED-13688: Add reliability edit sessions to UFO analytics
+- [`bb59175355d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bb59175355d) - [ux] CETI-150: Colour picker border size is not consistent with table colour picker
+- [`71bf4ef83f4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/71bf4ef83f4) - CETI-130 change default custom panel color
+- [`229177bb85d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/229177bb85d) - CETI-16 added remove emoji icon so that it appears in mobilekit too
+- [`b230f366971`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b230f366971) - [ED-14008] Bump prosemirror-view from 1.20.2 to 1.23.1
+- [`47c349601b2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/47c349601b2) - ED-13869 Added the option to automatically select ADF content inserted via the `insertAfter()` extension API. We've modified our extension API and introduced a new parameter in `insertAfter()`. The function has now a third parameter, ie `options`, which is an object and has a property flag called `allowSelectionToNewNode` that lets you focus on the ADF added when set to `true`.
+- [`287e8cd3bd2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/287e8cd3bd2) - CETI-135 handle the focus of cursor when user selects an emoji from emoji picker
+- [`8bbb96540ea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8bbb96540ea) - Add "fragment" mark to stage0 ADF schema
+- [`a3737a9b3aa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a3737a9b3aa) - CETI-64 Updating the dark mode colors for the standard panels
+- [`35b575a601c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/35b575a601c) - CETI-148 Emoji picker vertical alignment
+- [`398bbc9f353`](https://bitbucket.org/atlassian/atlassian-frontend/commits/398bbc9f353) - [ux] AK-649 Change color of count of found items
+- [`87d66ea4618`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87d66ea4618) - [ux] ED-13183 allow creating annotations from selections with trailing new line
+- [`62a91dbe7d9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/62a91dbe7d9) - [ux] CERN-896 Update primaryToolbarComponents to accept before and after react components.
+- [`ad0c44e802a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ad0c44e802a) - pass singleLayout to mobile editor element"
+- [`d21da111ec2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d21da111ec2) - CETI-95 Predefined icon sizes are different from existing icons
+
+### Patch Changes
+
+- [`97479886f9e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/97479886f9e) - ED-13534 Fixed issue with right shadow not hiding with overflow shadows optimisation
+- [`47fc9ae7b2a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/47fc9ae7b2a) - [ux] ED-11481 Fix bug preventing tables and extensions from being selected with Shift + ArrowDown or ArrowUp
+- [`7f85f712286`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7f85f712286) - Ticket: https://a11y-internal.atlassian.net/browse/AK-747, when activating the MoreColors button inside the ColorPalette component, set focus to the first color of the updated content.
+- [`34ffcf18914`](https://bitbucket.org/atlassian/atlassian-frontend/commits/34ffcf18914) - [ux] Added a floating toolbar to the new mediaInline component
+- [`e26ff629f3d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e26ff629f3d) - [ux] Update warning message when deleting a table that's linked to a chart.
+- [`1c2e00c6e65`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1c2e00c6e65) - ED-10827: Fixed a UI bug where undoing a tabbed task list item would not show any change in the UI.
+- [`c6feed82071`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c6feed82071) - ED-11632: Bump prosemirror packages;
+
+  - prosmirror-commands 1.1.4 -> 1.1.11,
+  - prosemirror-model 1.11.0 -> 1.14.3,
+  - prosemirror-state 1.3.3 -> 1.3.4,
+  - prosemirror-transform 1.2.8 -> 1.3.2,
+  - prosemirror-view 1.15.4 + 1.18.8 -> 1.20.2.
+
+- [`2f791df708a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2f791df708a) - Changed link search list item description color to meet minimum contrast requirements
+- [`fc70978492a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fc70978492a) - Using type for SSR prop to reduce dependency on media-common
+- [`132e841431b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/132e841431b) - [ux][ed-10831] Refactor part of conversions.ts in the lists plugin to solve for cases where the selection covers multiple lists with paragraphs in between.
+- [`2136e4844f0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2136e4844f0) - [ux] ED-13286 Fixes 'wide' and 'full-width' extensions breaking styling when pasted into bodiedExtensions.
+- [`aa6b3a474ff`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aa6b3a474ff) - ED-13286 extensions inside a bodied extension shouldn't overflow width
+- [`50f99428aab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/50f99428aab) - [ux] ED-11088- FIxed bug that prevented block components containing a hardbreak followed by list markdown from being pasted
+- [`365e507451e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/365e507451e) - [ux] This reworks the changes triggered by a user inserting a new column.
+  Previously the table cells would always be resized based on a max table
+  size which did not overflow.
+  This changes that logic to only resize table cells if the table did not
+  overflow prior to the insertion.
+- [`16ab2a61721`](https://bitbucket.org/atlassian/atlassian-frontend/commits/16ab2a61721) - fix copy paste emoji wrapped in a span
+- [`e741804b52a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e741804b52a) - Fixed media nodes not being built synchronously on SSR
+- [`57b4778a620`](https://bitbucket.org/atlassian/atlassian-frontend/commits/57b4778a620) - [ux] AK-244 Accessibility fix. Color of borders have minimum contrast of 3:1
+- [`7b91aee9c39`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7b91aee9c39) - Add File Preview tooltip to media card/media inline floating toolbar
+- [`ea3a31eda5a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ea3a31eda5a) - AK-745: ColorPalette -> Color add aria attributes in order to announce state of color buttons for screen reader users
+- [`add1e51d5a9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/add1e51d5a9) - EDM-2510: Fix media inline insertion behaviour when inside empty list item
+- [`529d612d6e5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/529d612d6e5) - ED-11474 fixed incorrect table header heights caused by empty column width, and sticky header flicker effect
+- [`320ad93b5b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/320ad93b5b0) - [ux] ED-13305: Fix bug where clear formatting button incorrectly appeared to be disabled (despite clear formatting action being valid operation).
+- [`39faad06953`](https://bitbucket.org/atlassian/atlassian-frontend/commits/39faad06953) - ED-10312 adds analytics event for tables with negative colspans or rowspans
+- [`fe8e5ca9a92`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fe8e5ca9a92) - [ux] MediaInline package now correctly shows a border around it upon being selected
+- [`8f0577e0eb1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8f0577e0eb1) - [ux] Promoted captions to full schema and better support of wikimarkup, email and slack renderer
+- [`22b53432054`](https://bitbucket.org/atlassian/atlassian-frontend/commits/22b53432054) - AK-560 Update color of the clear link button
+- [`f391c63f5d5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f391c63f5d5) - AK-704: AltText - changes for better screen reader announcing
+- [`f461edcfd05`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f461edcfd05) - Update CardLoader to use react-loadable
+  Add SSR feature prop to be passed in renderer and media card
+- [`4264bd36d32`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4264bd36d32) - Update mobile bridge media inline feature flag and add tests
+- [`5abd27cbb9c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5abd27cbb9c) - AK-246: Table --> Cell options: provide an aria-label attr for the CellOptions button, provide role=menu for the CellOption menu and role=menuitems for its items
+- [`9d43feb1f6a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d43feb1f6a) - CETI-167 Remove opacity for panels in dark mode.
+- [`61c17fa38a5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/61c17fa38a5) - move waitForFloatingControl to VR package
+- Updated dependencies
+
 ## 151.3.0
 
 ### Minor Changes

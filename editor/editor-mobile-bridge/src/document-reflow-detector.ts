@@ -26,7 +26,7 @@ const isImageElement = (node: HTMLElement): node is HTMLImageElement =>
 /**
  * Document Reflow Detector
  *
- * In the scenario where mobile resizes the WebView to fit the page content
+ * In the scenario where mobile resizes the WebView to fit the page content,
  * (so they can use native scrolling instead of web scrolling) we need to
  * inform them whenever the page content changes so that they can adjust
  * the WebView height to match.

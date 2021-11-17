@@ -175,6 +175,44 @@ describe('ReactionContext', () => {
     });
   });
 
+  describe('with metadata set', () => {
+    const metadata = {
+      subproduct: 'atlaskit-test',
+    };
+    beforeEach(() => {
+      store = new MemoryReactionsStore(
+        fakeClient,
+        {
+          reactions: {
+            [`${containerAri}|${ari}`]: {
+              reactions: [
+                reaction(':thumbsup:', 3, false),
+                reaction(':clap:', 3, true),
+              ],
+              status: ReactionStatus.ready,
+            },
+          },
+          flash: {},
+        },
+        metadata,
+      );
+    });
+
+    it('should send metadata information when adding a reaction', () => {
+      const response = Promise.resolve(reaction(':thumbsup:', 4, true));
+
+      (fakeClient.addReaction as jest.Mock<any>).mockReturnValueOnce(response);
+
+      store.addReaction(containerAri, ari, '1f44d');
+
+      expect(fakeClient.addReaction).toBeCalledWith(
+        containerAri,
+        ari,
+        '1f44d',
+        metadata,
+      );
+    });
+  });
   describe('with state set', () => {
     beforeEach(() => {
       store = new MemoryReactionsStore(fakeClient, {

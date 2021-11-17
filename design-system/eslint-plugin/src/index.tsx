@@ -1,8 +1,10 @@
 import ensureTokenUsage from './rules/ensure-design-token-usage';
 import noDeprecatedImports from './rules/no-deprecated-imports';
+import noUnsafeUsage from './rules/no-unsafe-design-token-usage';
 
 export const rules = {
   'ensure-design-token-usage': ensureTokenUsage,
+  'no-unsafe-design-token-usage': noUnsafeUsage,
   'no-deprecated-imports': noDeprecatedImports,
 };
 

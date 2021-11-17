@@ -17,7 +17,10 @@ import {
   pluginKey as textFormattingPluginKey,
 } from './pm-plugins/main';
 
-import { plugin as clearFormattingPlugin } from './pm-plugins/clear-formatting';
+import {
+  plugin as clearFormattingPlugin,
+  pluginKey as clearFormattingPluginKey,
+} from './pm-plugins/clear-formatting';
 import clearFormattingKeymapPlugin from './pm-plugins/clear-formatting-keymap';
 import textFormattingCursorPlugin from './pm-plugins/cursor';
 import textFormattingInputRulePlugin from './pm-plugins/input-rule';
@@ -93,7 +96,10 @@ const textFormatting = (options: TextFormattingOptions = {}): EditorPlugin => ({
   }) {
     return (
       <WithPluginState
-        plugins={{ textFormattingState: textFormattingPluginKey }}
+        plugins={{
+          textFormattingState: textFormattingPluginKey,
+          clearFormattingPluginState: clearFormattingPluginKey,
+        }}
         render={() => {
           return (
             <Toolbar

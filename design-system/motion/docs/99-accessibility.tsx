@@ -12,15 +12,36 @@ export default md`
 
   ### \`isReducedMotion()\`
 
-  Useful when performing motion **at runtime**.
+  Useful when performing motion **at runtime** and **outside the context of a React render**.
 
   <br />
 
   ${code`
 import { isReducedMotion } from '@atlaskit/motion';
 
-if (!isReducedMotion()) {
-  // do the motion
+const onClick = () => {
+  if (!isReducedMotion()) {
+    // do the motion
+  }
+}
+  `}
+
+  ### \`useIsReducedMotion()\`
+
+  Useful when performing motion **at runtime** and **in the context of a React render**.
+
+  Using a hook is preferable to calling \`isReducedMotion()\` here, as the hook can re-render
+  your component if the user's motion preference changes at runtime. This means they don't need
+  to refresh the page for their change to take effect.
+
+  <br />
+
+  ${code`
+import { useIsReducedMotion } from '@atlaskit/motion';
+
+const FancyChart = (props) => {
+  const isReducedMotion = useIsReducedMotion();
+  return <ThirdPartyChartingLibrary data={props.data} animate={!isReducedMotion} />;
 }
   `}
 

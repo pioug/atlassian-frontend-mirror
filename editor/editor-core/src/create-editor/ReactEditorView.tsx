@@ -863,18 +863,6 @@ export default class ReactEditorView<T = {}> extends React.Component<
         transformer: this.contentTransformer,
       });
 
-      if (this.featureFlags.ufo) {
-        this.reliabilityInterval = window.setInterval(() => {
-          const reliabilityEvent: UfoSessionCompletePayloadAEP = {
-            action: ACTION.UFO_SESSION_COMPLETE,
-            actionSubject: ACTION_SUBJECT.EDITOR,
-            attributes: { interval: RELIABILITY_INTERVAL },
-            eventType: EVENT_TYPE.OPERATIONAL,
-          };
-          this.dispatchAnalyticsEvent(reliabilityEvent);
-        }, RELIABILITY_INTERVAL);
-      }
-
       if (
         this.props.editorProps.shouldFocus &&
         view.props.editable &&
@@ -885,6 +873,29 @@ export default class ReactEditorView<T = {}> extends React.Component<
 
       if (this.featureFlags.ufo) {
         this.experienceStore = ExperienceStore.getInstance(view);
+        this.experienceStore.start(EditorExperience.editSession);
+        this.experienceStore.addMetadata(EditorExperience.editSession, {
+          reliabilityInterval: RELIABILITY_INTERVAL,
+        });
+
+        this.reliabilityInterval = window.setInterval(() => {
+          this.experienceStore
+            ?.success(EditorExperience.editSession)
+            ?.finally(() => {
+              this.experienceStore?.start(EditorExperience.editSession);
+              this.experienceStore?.addMetadata(EditorExperience.editSession, {
+                reliabilityInterval: RELIABILITY_INTERVAL,
+              });
+            });
+
+          const reliabilityEvent: UfoSessionCompletePayloadAEP = {
+            action: ACTION.UFO_SESSION_COMPLETE,
+            actionSubject: ACTION_SUBJECT.EDITOR,
+            attributes: { interval: RELIABILITY_INTERVAL },
+            eventType: EVENT_TYPE.OPERATIONAL,
+          };
+          this.dispatchAnalyticsEvent(reliabilityEvent);
+        }, RELIABILITY_INTERVAL);
       }
 
       // Force React to re-render so consumers get a reference to the editor view

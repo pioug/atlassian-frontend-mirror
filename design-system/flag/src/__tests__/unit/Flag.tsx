@@ -51,16 +51,6 @@ describe('Flag', () => {
   });
 
   describe('appearance prop', () => {
-    describe('basic appearance tests', () => {
-      it('should default to normal appearance', () => {
-        const { getByTestId } = render(generateFlag({ testId: 'flag-test' }));
-
-        // Assume normal appearance has a qhite background
-        const style = window.getComputedStyle(getByTestId('flag-test'));
-        expect(style.backgroundColor).toEqual('rgb(255, 255, 255)');
-      });
-    });
-
     describe('non-bold (normal) appearance', () => {
       it('should not render dismiss icon if isDismissAllowed is false or if no onDismissed callback is provided', () => {
         const { queryByTestId } = render(generateFlag({ testId: 'flag-test' }));

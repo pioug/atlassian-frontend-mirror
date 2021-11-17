@@ -1,5 +1,13 @@
 # @atlaskit/media-viewer
 
+## 45.8.11
+
+### Patch Changes
+
+- [`f124adcb18f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f124adcb18f) - Adding .md, .lock, .yaml, .yml, .tsx, .jsx as known extension types
+- [`2b24fcc59f2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2b24fcc59f2) - Removed Code Viewer and Zip Previews Feature Flags
+- Updated dependencies
+
 ## 45.8.10
 
 ### Patch Changes

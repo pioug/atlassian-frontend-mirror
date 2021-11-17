@@ -1,17 +1,6 @@
 import { NodeSpec, Node as PMNode } from 'prosemirror-model';
 import { CardAttributes } from './block-card';
 
-export interface UrlType {
-  url: string;
-}
-
-export interface DataType {
-  /**
-   * @additionalProperties true
-   */
-  data: object;
-}
-
 /**
  * @name inlineCard_node
  */

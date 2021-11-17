@@ -1,5 +1,15 @@
 # @atlaskit/reduced-ui-pack
 
+## 16.1.0
+
+### Minor Changes
+
+- [`229177bb85d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/229177bb85d) - CETI-16 added remove emoji icon so that it appears in mobilekit too
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 16.0.0
 
 ### Patch Changes

@@ -21,9 +21,9 @@ describe('placeholder on mobile', () => {
   };
 
   // https://github.com/ProseMirror/prosemirror-view/commit/00c3dc9c3e7f5edcd71f24f4a8a8cf3fda4b2ac7
-  const cursorWrapper = `(<img mark-placeholder="true">)?`;
+  const cursorWrapper = `(<img class="ProseMirror-separator" mark-placeholder="true">)?`;
   const placeholderHtmlRegex = new RegExp(
-    `<p><span class="placeholder-decoration ProseMirror-widget"><span>potato<\/span><\/span>${cursorWrapper}<br><\/p>`,
+    `<p><span class="placeholder-decoration ProseMirror-widget"><span>potato<\/span><\/span>${cursorWrapper}<br class="ProseMirror-trailingBreak"><\/p>`,
   );
 
   beforeEach(() => jest.useFakeTimers());
@@ -37,7 +37,9 @@ describe('placeholder on mobile', () => {
     const editorView = editor(doc(p()));
 
     insertText(editorView, 'a', 0);
-    expect(editorView.dom.innerHTML).toEqual('<p>a</p><p><br></p>');
+    expect(editorView.dom.innerHTML).toEqual(
+      '<p>a</p><p><br class="ProseMirror-trailingBreak"></p>',
+    );
   });
 
   it('reappears after text is backspaced', () => {

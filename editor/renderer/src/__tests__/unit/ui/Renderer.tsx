@@ -63,25 +63,25 @@ describe('@atlaskit/renderer/ui/Renderer', () => {
     expect(renderSpy).toHaveBeenCalledTimes(2);
   });
 
-  it('should re-render when UNSAFE_allowCustomPanels changes', () => {
+  it('should re-render when allowCustomPanels changes', () => {
     renderer = initRenderer();
     const renderSpy = jest.spyOn(
       renderer.find(BaseRenderer).instance() as any,
       'render',
     );
-    renderer.setProps({ UNSAFE_allowCustomPanels: false });
-    renderer.setProps({ UNSAFE_allowCustomPanels: true });
+    renderer.setProps({ allowCustomPanels: false });
+    renderer.setProps({ allowCustomPanels: true });
     expect(renderSpy).toHaveBeenCalledTimes(2);
   });
 
-  it('should not re-render when UNSAFE_allowCustomPanels does not change', () => {
+  it('should not re-render when allowCustomPanels does not change', () => {
     renderer = initRenderer();
     const renderSpy = jest.spyOn(
       renderer.find(BaseRenderer).instance() as any,
       'render',
     );
-    renderer.setProps({ UNSAFE_allowCustomPanels: false });
-    renderer.setProps({ UNSAFE_allowCustomPanels: false });
+    renderer.setProps({ allowCustomPanels: false });
+    renderer.setProps({ allowCustomPanels: false });
     expect(renderSpy).toHaveBeenCalledTimes(1);
   });
 

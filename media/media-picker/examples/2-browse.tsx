@@ -64,7 +64,12 @@ class BrowserWrapper extends Component<{}, BrowserWrapperState> {
     }
   };
 
-  onCollectionChange = (e: React.SyntheticEvent<HTMLElement>) => {
+  onCollectionChange = (
+    e: React.MouseEvent<Element, MouseEvent> | React.KeyboardEvent<Element>,
+  ) => {
+    if (!(e.currentTarget instanceof HTMLElement)) {
+      return;
+    }
     const { innerText: collectionName } = e.currentTarget;
     const { browseConfig } = this.state;
     if (!browseConfig) {
@@ -84,7 +89,12 @@ class BrowserWrapper extends Component<{}, BrowserWrapperState> {
     });
   };
 
-  onAuthTypeChange = (e: React.SyntheticEvent<HTMLElement>) => {
+  onAuthTypeChange = (
+    e: React.MouseEvent<Element, MouseEvent> | React.KeyboardEvent<Element>,
+  ) => {
+    if (!(e.currentTarget instanceof HTMLElement)) {
+      return;
+    }
     const { innerText: authEnvironment } = e.currentTarget;
 
     this.setState({ authEnvironment: authEnvironment as AuthEnvironment });
@@ -111,7 +121,7 @@ class BrowserWrapper extends Component<{}, BrowserWrapperState> {
           <Button appearance="primary" onClick={this.onOpen}>
             Open
           </Button>
-          <DropdownMenu trigger={collectionName} triggerType="button">
+          <DropdownMenu trigger={collectionName}>
             <DropdownItem onClick={this.onCollectionChange}>
               {defaultMediaPickerCollectionName}
             </DropdownItem>
@@ -119,7 +129,7 @@ class BrowserWrapper extends Component<{}, BrowserWrapperState> {
               {defaultCollectionName}
             </DropdownItem>
           </DropdownMenu>
-          <DropdownMenu trigger={authEnvironment} triggerType="button">
+          <DropdownMenu trigger={authEnvironment}>
             <DropdownItem onClick={this.onAuthTypeChange}>client</DropdownItem>
             <DropdownItem onClick={this.onAuthTypeChange}>asap</DropdownItem>
           </DropdownMenu>

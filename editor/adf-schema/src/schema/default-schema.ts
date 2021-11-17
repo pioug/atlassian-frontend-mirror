@@ -1,8 +1,6 @@
-import { customPanel } from './nodes/panel';
-import { layoutSectionWithSingleColumn } from './nodes/layout-section';
-import { dataConsumer } from './marks/data-consumer';
-import { allowCustomPanel, createSchema, SchemaConfig } from './create-schema';
-import { mediaSingleWithCaption } from './nodes';
+import { layoutSectionWithSingleColumn } from './nodes';
+import { dataConsumer, fragment } from './marks';
+import { createSchema, SchemaConfig } from './create-schema';
 
 type DefaultSchemaNodes =
   | 'doc'
@@ -92,6 +90,7 @@ const getDefaultSchemaConfig = (): SchemaConfig<
       'panel',
       'rule',
       'image',
+      'caption',
       'mention',
       'media',
       'mediaGroup',
@@ -156,17 +155,14 @@ export const defaultSchemaConfig: SchemaConfig<
 
 export const getSchemaBasedOnStage = (stage = 'final') => {
   const defaultSchemaConfig = getDefaultSchemaConfig();
-  // TODO: ED-10445 remove stage0 check after panels with emoji are on full schema AND image captions are on full schema
   if (stage === 'stage0') {
     defaultSchemaConfig.customNodeSpecs = {
-      panel: customPanel(allowCustomPanel),
-      mediaSingle: mediaSingleWithCaption,
       layoutSection: layoutSectionWithSingleColumn,
     };
     defaultSchemaConfig.customMarkSpecs = {
       dataConsumer: dataConsumer,
+      fragment,
     };
-    defaultSchemaConfig.nodes.push('caption');
     defaultSchemaConfig.nodes.push('mediaInline');
   }
   return createSchema(defaultSchemaConfig);

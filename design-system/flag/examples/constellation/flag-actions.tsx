@@ -2,13 +2,19 @@ import React from 'react';
 
 import SuccessIcon from '@atlaskit/icon/glyph/check-circle';
 import { G300 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import Flag from '../../src';
 
 const FlagActionsExample = () => {
   return (
     <Flag
-      icon={<SuccessIcon primaryColor={G300} label="Success" />}
+      icon={
+        <SuccessIcon
+          primaryColor={token('color.iconBorder.success', G300)}
+          label="Success"
+        />
+      }
       id="1"
       key="1"
       title="Issue START-42 was created successfully"

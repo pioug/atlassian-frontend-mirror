@@ -106,26 +106,28 @@ function synchronizeFigmaTokens(
 
     const token = tokens[style.name];
 
-    if (token) {
-      if (token.attributes.group !== 'shadow') {
-        // Effect exists in our token set.
-        // The token is no longer an effect style, time to remove it!
-        console.log(`=> ${style.name} is no longer a shadow, removing!`);
-        style.remove();
-      } else {
-        // It's still an effect! Update it.
-        console.log(`=> ${style.name} shadow style has been updated!`);
-        style.effects = createEffects(token.value as ShadowToken['value']);
-        style.description = (token.attributes.description || '').trim();
-        // Remove from themeValues so it isn't picked up as a new token.
-        delete tokens[style.name];
-      }
-    } else if (style.name.startsWith(themeName)) {
-      // The local style was in our theme, but no more!
-      // It's time to delete it.
+    // The local style was in our theme, but no more!
+    // It's time to delete it.
+    if (!token) {
       console.log(`=> ${style.name} shadow style no longer exists, removing.`);
       style.remove();
+      return;
     }
+
+    if (token.attributes.group !== 'shadow') {
+      // Effect exists in our token set.
+      // The token is no longer an effect style, time to remove it!
+      console.log(`=> ${style.name} is no longer a shadow, removing!`);
+      style.remove();
+      return;
+    }
+
+    // It's still an effect! Update it.
+    console.log(`=> ${style.name} shadow style has been updated!`);
+    style.effects = createEffects(token.value as ShadowToken['value']);
+    style.description = (token.attributes.description || '').trim();
+    // Remove from themeValues so it isn't picked up as a new token.
+    delete tokens[style.name];
   });
 
   // Iterate through all local figma styles first
@@ -142,27 +144,29 @@ function synchronizeFigmaTokens(
 
     const token = tokens[style.name];
 
-    if (token) {
-      if (token.attributes.group !== 'paint') {
-        // The token is no longer a paint style, time to remove it!
-        console.log(`=> ${style.name} is no longer a paint, removing!`);
-        style.remove();
-      } else {
-        // Local style exists that also exists in our tokens!
-        // Update it and then remove from themeValues.
-        console.log(`=> ${style.name} paint style has been updated!`);
-        // Mutating is how Figma updates.
-        style.paints = [createPaint(token.value as PaintToken['value'])];
-        style.description = (token.attributes.description || '').trim();
-        // Remove from themeValues so it isn't picked up as a new token.
-        delete tokens[style.name];
-      }
-    } else if (style.name.startsWith(themeName)) {
-      // The local style was in our theme, but no more!
-      // It's time to delete it.
+    // The local style was in our theme, but no more!
+    // It's time to delete it.
+    if (!token) {
       console.log(`=> ${style.name} paint style no longer exists, removing.`);
       style.remove();
+      return;
     }
+
+    if (token.attributes.group !== 'paint') {
+      // The token is no longer a paint style, time to remove it!
+      console.log(`=> ${style.name} is no longer a paint, removing!`);
+      style.remove();
+      return;
+    }
+
+    // Local style exists that also exists in our tokens!
+    // Update it and then remove from themeValues.
+    console.log(`=> ${style.name} paint style has been updated!`);
+    // Mutating is how Figma updates.
+    style.paints = [createPaint(token.value as PaintToken['value'])];
+    style.description = (token.attributes.description || '').trim();
+    // Remove from themeValues so it isn't picked up as a new token.
+    delete tokens[style.name];
   });
 
   // eslint-disable-next-line guard-for-in

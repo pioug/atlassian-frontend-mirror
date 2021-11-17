@@ -17,4 +17,11 @@ export const messages = defineMessages({
     defaultMessage: 'Something went wrong',
     description: 'Unexpected error message',
   },
+  otherUsers: {
+    id: 'fabric.reactions.other.reacted.users',
+    defaultMessage:
+      '{count, plural, one {and one other} other {and {count} others}}',
+    description:
+      "The number of users that have reacted similarly, but aren't shown",
+  },
 });

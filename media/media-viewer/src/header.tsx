@@ -40,7 +40,7 @@ import {
   DisabledToolbarDownloadButton,
 } from './download';
 import { MediaViewerExtensions } from './components/types';
-import { MediaFeatureFlags, getMediaFeatureFlag } from '@atlaskit/media-common';
+import { MediaFeatureFlags } from '@atlaskit/media-common';
 import { MimeTypeIcon } from '@atlaskit/media-ui/mime-type-icon';
 import { getFormat } from './viewers/codeViewer/util';
 import { MediaViewerError } from './errors';
@@ -160,13 +160,8 @@ export class Header extends React.Component<Props & InjectedIntlProps, State> {
 
   render() {
     const { item } = this.state;
-    const { featureFlags } = this.props;
     let isArchiveSideBarVisible = false;
-    if (
-      getMediaFeatureFlag('zipPreviews', featureFlags) &&
-      item.data &&
-      !isErrorFileState(item.data)
-    ) {
+    if (item.data && !isErrorFileState(item.data)) {
       const { mediaType } = item.data;
       isArchiveSideBarVisible = mediaType === 'archive';
     }
@@ -231,12 +226,8 @@ export class Header extends React.Component<Props & InjectedIntlProps, State> {
   private renderFileTypeText = (
     item: Exclude<FileState, ErrorFileState>,
   ): ReactNode => {
-    const { featureFlags } = this.props;
     // render appropriate header if its a code/email item and the feature flag is enabled
-    if (
-      getMediaFeatureFlag('codeViewer', featureFlags) &&
-      isCodeViewerItem(item.name)
-    ) {
+    if (isCodeViewerItem(item.name)) {
       // gather language and extension
       // i.e test.py would have a language of 'python' and an extension of 'py'
       const language = getLanguageType(item.name);

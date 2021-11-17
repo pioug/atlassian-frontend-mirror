@@ -72,6 +72,7 @@ export default createSchema({
     'unsupportedNodeAttribute',
     'annotation',
     'dataConsumer',
+    'fragment',
   ],
   customNodeSpecs: {
     plain: { ...paragraph, content: 'text*', marks: '' },

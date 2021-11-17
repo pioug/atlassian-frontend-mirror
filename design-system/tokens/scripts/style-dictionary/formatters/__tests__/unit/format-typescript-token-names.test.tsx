@@ -61,8 +61,7 @@ describe('formatter', () => {
             value: '#2104ff',
             path: ['color', 'B600'],
             attributes: {
-              group: 'paint',
-              isPalette: true,
+              group: 'palette',
             },
           },
         ],
@@ -105,6 +104,82 @@ describe('formatter', () => {
 
     expect(result).toEqual(
       `'color.accent.brand': 'var(--${CSS_PREFIX}-accent-brand)',`,
+    );
+  });
+
+  it('should omit [default] keywords in token paths', () => {
+    const result = formatter({
+      dictionary: {
+        allTokens: [
+          {
+            name: '[default]',
+            value: '#ffffff',
+            path: ['color', 'background', 'brand', '[default]'],
+            attributes: {
+              group: 'paint',
+            },
+          },
+        ],
+      },
+      options: {
+        themeName: 'atlassian-dark',
+      },
+    } as any);
+
+    expect(result).toEqual(
+      `'color.background.brand': 'var(--${CSS_PREFIX}-background-brand)',`,
+    );
+  });
+
+  it('should omit nested [default] keywords in token paths', () => {
+    const result = formatter({
+      dictionary: {
+        allTokens: [
+          {
+            name: '[default]',
+            value: '#ffffff',
+            path: ['color', 'background', 'brand', '[default]', '[default]'],
+            attributes: {
+              group: 'paint',
+            },
+          },
+        ],
+      },
+      options: {
+        themeName: 'atlassian-dark',
+      },
+    } as any);
+
+    expect(result).toEqual(
+      `'color.background.brand': 'var(--${CSS_PREFIX}-background-brand)',`,
+    );
+  });
+
+  it('should omit nested [default] keywords in the middle of token paths', () => {
+    const result = formatter({
+      dictionary: {
+        allTokens: [
+          {
+            name: '[default]',
+            value: '#ffffff',
+            path: [
+              'color',
+              'background',
+              'brand',
+              '[default]',
+              '[default]',
+              'pressed',
+            ],
+            attributes: {
+              group: 'paint',
+            },
+          },
+        ],
+      },
+    } as any);
+
+    expect(result).toEqual(
+      `'color.background.brand.pressed': 'var(--${CSS_PREFIX}-background-brand-pressed)',`,
     );
   });
 });

@@ -128,7 +128,10 @@ class ContextualMenu extends Component<Props & InjectedIntlProps, State> {
     }
 
     return (
-      <div onMouseLeave={this.closeSubmenu}>
+      <div
+        data-testid="table-cell-contextual-menu"
+        onMouseLeave={this.closeSubmenu}
+      >
         <DropdownMenu
           mountTo={mountPoint}
           items={items}

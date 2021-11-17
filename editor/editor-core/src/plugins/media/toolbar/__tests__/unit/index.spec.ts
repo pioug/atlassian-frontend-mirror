@@ -23,6 +23,9 @@ import {
   media,
   mediaGroup,
   DocBuilder,
+  mediaInline,
+  doc,
+  p,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { MediaAttributes } from '@atlaskit/adf-schema';
 import { IntlProvider } from 'react-intl';
@@ -30,6 +33,7 @@ import { MediaOptions } from '../../../../../plugins/media/types';
 import { stateKey } from '../../../../../plugins/media/pm-plugins/main';
 import { floatingToolbar } from '../../index';
 import * as utils from '../../utils';
+import * as commands from '../../commands';
 import {
   getFreshMediaProvider,
   temporaryFileId,
@@ -67,78 +71,154 @@ describe('floatingToolbar()', () => {
     });
     return wrapper;
   };
-  const setup = async (allowMediaInline: boolean) => {
-    const attrs: MediaAttributes = {
-      id: temporaryFileId,
-      type: 'file',
-      collection: testCollectionName,
-      __fileMimeType: 'image/png',
-      __contextId: 'DUMMY-OBJECT-ID',
-      width: 100,
-      height: 100,
+
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  describe('mediaGroup', () => {
+    const setup = async (allowMediaInline: boolean) => {
+      const attrs: MediaAttributes = {
+        id: temporaryFileId,
+        type: 'file',
+        collection: testCollectionName,
+        __fileMimeType: 'image/png',
+        __contextId: 'DUMMY-OBJECT-ID',
+        width: 100,
+        height: 100,
+      };
+
+      const doc = mediaGroup(media(attrs)());
+      const { editorView, pluginState } = editor(doc, {
+        featureFlags: { mediaInline: allowMediaInline },
+        allowLinking: true,
+      });
+      await pluginState.setMediaProvider(getFreshMediaProvider());
+
+      // manually override type to pass mediaGroup node checking
+      editorView.state.schema.nodes.mediaGroup = 'mediaGroup';
+      const toolbar = floatingToolbar(editorView.state, intl, {
+        allowMediaInline,
+      });
+      const items = getToolbarItems(toolbar!, editorView);
+      const mediaPluginState: MediaPluginState | undefined = stateKey.getState(
+        editorView.state,
+      );
+
+      return {
+        editorView,
+        items,
+        mediaPluginState,
+      };
     };
 
-    const doc = mediaGroup(media(attrs)());
-    const { editorView, pluginState } = editor(doc, {
-      allowMediaInline,
-      allowLinking: true,
-    });
-    await pluginState.setMediaProvider(getFreshMediaProvider());
+    it('should return media group items', async () => {
+      const { items } = await setup(true);
 
-    // manually override type to pass mediaGroup node checking
-    editorView.state.schema.nodes.mediaGroup = 'mediaGroup';
-    const toolbar = floatingToolbar(editorView.state, intl, {
-      allowMediaInline,
+      expect(items).toMatchSnapshot();
     });
-    const items = getToolbarItems(toolbar!, editorView);
-    const mediaPluginState: MediaPluginState | undefined = stateKey.getState(
-      editorView.state,
-    );
 
-    return {
-      editorView,
-      items,
-      mediaPluginState,
+    it('should not return media group items if allowMediaInline is false', async () => {
+      const { items } = await setup(false);
+
+      expect(items).toMatchSnapshot();
+    });
+
+    it('should download file when clicking on the download button', async () => {
+      const { items, editorView } = await setup(true);
+      const downloadButton = findToolbarBtn(items, 'Download');
+      const mediaClient = getMediaClient({} as any);
+
+      expect(mediaClient.file.downloadBinary).toHaveBeenCalledTimes(0);
+      downloadButton.onClick(editorView.state);
+      await mediaClient.file.downloadBinary;
+      expect(mediaClient.file.downloadBinary).toHaveBeenCalledTimes(1);
+      expect(mediaClient.file.downloadBinary).toBeCalledWith(
+        undefined,
+        'some-file-name',
+        '',
+      );
+    });
+
+    it('should remove card when clicking on the delete button', async () => {
+      const { items, editorView } = await setup(true);
+      const removeButton = findToolbarBtn(items, 'Remove');
+      const spy = jest.spyOn(utils, 'removeMediaGroupNode');
+
+      expect(spy).toBeCalledTimes(0);
+      removeButton.onClick(editorView.state);
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
+      expect(spy).toBeCalledTimes(1);
+    });
+  });
+
+  describe('mediaInline', () => {
+    const setup = async () => {
+      const attrs: MediaAttributes = {
+        id: temporaryFileId,
+        type: 'file',
+        collection: testCollectionName,
+        __fileMimeType: 'image/png',
+        __contextId: 'DUMMY-OBJECT-ID',
+        width: 100,
+        height: 100,
+      };
+
+      const document = doc(p('{<node>}', mediaInline(attrs)()));
+      const { editorView, pluginState } = editor(document, {
+        featureFlags: { mediaInline: true },
+        allowLinking: true,
+      });
+      await pluginState.setMediaProvider(getFreshMediaProvider());
+
+      const toolbar = floatingToolbar(editorView.state, intl, {
+        allowMediaInline: true,
+      });
+      const items = getToolbarItems(toolbar!, editorView);
+      const mediaPluginState: MediaPluginState | undefined = stateKey.getState(
+        editorView.state,
+      );
+
+      return {
+        editorView,
+        items,
+        mediaPluginState,
+      };
     };
-  };
 
-  it('should return media group items', async () => {
-    const { items } = await setup(true);
+    it('should return media inline items', async () => {
+      const { items } = await setup();
 
-    expect(items).toMatchSnapshot();
-  });
+      expect(items).toMatchSnapshot();
+    });
 
-  it('should not return media group items if allowMediaInline is false', async () => {
-    const { items } = await setup(false);
+    it('should download file when clicking on the download button', async () => {
+      const { items, editorView } = await setup();
+      const downloadButton = findToolbarBtn(items, 'Download');
+      const mediaClient = getMediaClient({} as any);
 
-    expect(items).toMatchSnapshot();
-  });
+      expect(mediaClient.file.downloadBinary).toHaveBeenCalledTimes(0);
+      downloadButton.onClick(editorView.state);
+      await mediaClient.file.downloadBinary;
+      expect(mediaClient.file.downloadBinary).toHaveBeenCalledTimes(1);
+      expect(mediaClient.file.downloadBinary).toBeCalledWith(
+        temporaryFileId,
+        'some-file-name',
+        testCollectionName,
+      );
+    });
 
-  it('should download file when clicking on the download button', async () => {
-    const { items, editorView } = await setup(true);
-    const downloadButton = findToolbarBtn(items, 'Download');
-    const mediaClient = getMediaClient({} as any);
+    it('should remove inline file when clicking on the delete button', async () => {
+      const spy = jest.spyOn(commands, 'removeInlineCard');
+      const { items, editorView } = await setup();
+      const removeButton = findToolbarBtn(items, 'Remove');
 
-    expect(mediaClient.file.downloadBinary).toHaveBeenCalledTimes(0);
-    downloadButton.onClick(editorView.state);
-    await mediaClient.file.downloadBinary;
-    expect(mediaClient.file.downloadBinary).toHaveBeenCalledTimes(1);
-    expect(mediaClient.file.downloadBinary).toBeCalledWith(
-      undefined,
-      'some-file-name',
-      '',
-    );
-  });
+      expect(spy).toBeCalledTimes(0);
+      removeButton.onClick(editorView.state);
+      await new Promise((resolve) => setTimeout(resolve, 1000));
 
-  it('should remove card when clicking on the delete button', async () => {
-    const { items, editorView } = await setup(true);
-    const removeButton = findToolbarBtn(items, 'Remove');
-    const spy = jest.spyOn(utils, 'removeMediaGroupNode');
-
-    expect(spy).toBeCalledTimes(0);
-    removeButton.onClick(editorView.state);
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-
-    expect(spy).toBeCalledTimes(1);
+      expect(spy).toBeCalledTimes(1);
+    });
   });
 });

@@ -7,19 +7,20 @@
  * - the "setup" function hides the base conditions of the tests, making them hard to understand
  * - many tests have to recreate many previous operations to test some features. They should be simplified
  */
+jest.mock('../../root/card/getCardPreview/cache');
 import React from 'react';
 import { shallow } from 'enzyme';
 import { ViewportDetector } from '../../utils/viewportDetector';
 import { fakeMediaClient, flushPromises } from '@atlaskit/media-test-helpers';
-import {
+import type {
   FileIdentifier,
   ExternalImageIdentifier,
-  createFileStateSubject,
   ProcessedFileState,
   FileState,
 } from '@atlaskit/media-client';
+import { createFileStateSubject } from '@atlaskit/media-client';
 import { CardBase } from '../../root/card';
-import { CardPreview, CardState } from '../..';
+import type { CardPreview, CardState } from '../..';
 import {
   isImageLoadError,
   ImageLoadError,
@@ -46,6 +47,13 @@ const shouldResolvePreview = jest.spyOn(
   getCardPreviewModule,
   'shouldResolvePreview',
 );
+
+const getSSRCardPreview = jest.spyOn(getCardPreviewModule, 'getSSRCardPreview');
+const fetchAndCacheRemotePreview = jest.spyOn(
+  getCardPreviewModule,
+  'fetchAndCacheRemotePreview',
+);
+
 const createStateUpdater = jest.spyOn(stateUpdaterModule, 'createStateUpdater');
 const getCardStateFromFileState = jest.spyOn(
   stateUpdaterModule,
@@ -94,7 +102,13 @@ const fileStates: { processed: ProcessedFileState } = {
 };
 
 const filePreviews: Record<
-  'external' | 'remote' | 'cachedRemote' | 'local' | 'cachedLocal',
+  | 'external'
+  | 'remote'
+  | 'cachedRemote'
+  | 'local'
+  | 'cachedLocal'
+  | 'ssrClient'
+  | 'ssrServer',
   CardPreview
 > = {
   external: { dataURI: indentifiers.externalImage.dataURI, source: 'external' },
@@ -102,6 +116,16 @@ const filePreviews: Record<
   cachedRemote: { dataURI: 'some-dataURI', source: 'cache-remote' },
   local: { dataURI: 'some-dataURI', source: 'local' },
   cachedLocal: { dataURI: 'some-dataURI', source: 'cache-local' },
+  ssrClient: {
+    dataURI: 'some-data-uri',
+    orientation: 1,
+    source: 'ssr-client',
+  },
+  ssrServer: {
+    dataURI: 'some-data-uri',
+    orientation: 1,
+    source: 'ssr-server',
+  },
 };
 
 describe('Media Card', () => {
@@ -156,6 +180,148 @@ describe('Media Card', () => {
       );
       expect(mediaCard.state('cardPreview')).toBe(filePreviews.cachedRemote);
       expect(mediaCard.state('isCardVisible')).toBe(true);
+    });
+
+    it.each(['server', 'client'] as const)(
+      'should resolve SSR preview when ssr is %s',
+      (ssr) => {
+        const expectedPreview =
+          ssr === 'client' ? filePreviews.ssrClient : filePreviews.ssrServer;
+        getSSRCardPreview.mockReturnValueOnce(expectedPreview);
+        const mediaCard = shallow(
+          <CardBase
+            mediaClient={fakeMediaClient()}
+            identifier={indentifiers.file}
+            ssr={ssr}
+          />,
+        );
+        expect(getSSRCardPreview).toBeCalledTimes(1);
+        expect(mediaCard.state('cardPreview')).toEqual(expectedPreview);
+      },
+    );
+
+    it.each(['server', 'client'] as const)(
+      `should start invisible if lazy load is enabled and there is SSR preview (%s)`,
+      (ssr) => {
+        const expectedPreview =
+          ssr === 'client' ? filePreviews.ssrClient : filePreviews.ssrServer;
+
+        getSSRCardPreview.mockReturnValueOnce(expectedPreview);
+        const mediaCard = shallow(
+          <CardBase
+            mediaClient={fakeMediaClient()}
+            identifier={indentifiers.file}
+            isLazy={true}
+            ssr={ssr}
+          />,
+        );
+        expect(mediaCard.state('cardPreview')).toBe(expectedPreview);
+        expect(mediaCard.state('isCardVisible')).toBe(false);
+      },
+    );
+
+    it.each(['server', 'client'] as const)(
+      `should start visible if lazy load is disabled and there is SSR preview (%s)`,
+      (ssr) => {
+        const expectedPreview =
+          ssr === 'client' ? filePreviews.ssrClient : filePreviews.ssrServer;
+
+        getSSRCardPreview.mockReturnValueOnce(expectedPreview);
+        const mediaCard = shallow(
+          <CardBase
+            mediaClient={fakeMediaClient()}
+            identifier={indentifiers.file}
+            isLazy={false}
+            ssr={ssr}
+          />,
+        );
+        expect(mediaCard.state('cardPreview')).toBe(expectedPreview);
+        expect(mediaCard.state('isCardVisible')).toBe(true);
+      },
+    );
+
+    it.each(['server', 'client'] as const)(
+      `should not resolve SSR preview when ssr is %s and there is a cached preview`,
+      (ssr) => {
+        getCardPreviewFromCache.mockReturnValueOnce(filePreviews.cachedRemote);
+        const mediaCard = shallow(
+          <CardBase
+            mediaClient={fakeMediaClient()}
+            identifier={indentifiers.file}
+            ssr={ssr}
+          />,
+        );
+        expect(getSSRCardPreview).toBeCalledTimes(0);
+        expect(mediaCard.state('cardPreview')).toBe(filePreviews.cachedRemote);
+      },
+    );
+
+    it('should not resolve SSR preview when ssr is not defined', () => {
+      const mediaClient = fakeMediaClient();
+      const mediaCard = shallow(
+        <CardBase mediaClient={mediaClient} identifier={indentifiers.file} />,
+      );
+      expect(getSSRCardPreview).toBeCalledTimes(0);
+      expect(mediaCard.state('cardPreview')).toBeUndefined();
+    });
+
+    it.each(['server', 'client'] as const)(
+      'should catch error from SSR dataURI generation when ssr is %s',
+      (ssr) => {
+        const error = new Error('some-ssr-error');
+        getSSRCardPreview.mockImplementationOnce(() => {
+          throw error;
+        });
+        try {
+          const mediaCard = shallow(
+            <CardBase
+              mediaClient={fakeMediaClient()}
+              identifier={indentifiers.file}
+              ssr={ssr}
+            />,
+          );
+          expect(getSSRCardPreview).toBeCalledTimes(1);
+          expect(mediaCard.state('cardPreview')).toBeUndefined();
+        } catch (e) {
+          expect(e).toBeUndefined();
+        }
+      },
+    );
+  });
+
+  describe('Native Lazy Load', () => {
+    it(`should enable native lazy load if it's lazy and not visible`, () => {
+      const mediaCard = shallow(
+        <CardBase
+          mediaClient={fakeMediaClient()}
+          identifier={indentifiers.file}
+          isLazy={true}
+        />,
+      );
+      expect(mediaCard.find(CardView).prop('nativeLazyLoad')).toBe(true);
+    });
+
+    it(`should not enable native lazy load if it's lazy and visible`, () => {
+      const mediaCard = shallow(
+        <CardBase
+          mediaClient={fakeMediaClient()}
+          identifier={indentifiers.file}
+          isLazy={true}
+        />,
+      );
+      mediaCard.setState({ isCardVisible: true });
+      expect(mediaCard.find(CardView).prop('nativeLazyLoad')).toBe(false);
+    });
+
+    it(`should not enable native lazy load if it's not lazy`, () => {
+      const mediaCard = shallow(
+        <CardBase
+          mediaClient={fakeMediaClient()}
+          identifier={indentifiers.file}
+          isLazy={false}
+        />,
+      );
+      expect(mediaCard.find(CardView).prop('nativeLazyLoad')).toBe(false);
     });
   });
 
@@ -459,6 +625,74 @@ describe('Media Card', () => {
         expect.objectContaining({ filePreview: undefined }),
       );
     });
+    describe('SSR preview cache', () => {
+      it(`should fetch and store in cache remote preview when lazy load is disabled and SSR is client`, () => {
+        getSSRCardPreview.mockReturnValueOnce(filePreviews.ssrClient);
+        const mediaCard = shallow(
+          <CardBase
+            mediaClient={fakeMediaClient()}
+            identifier={indentifiers.file}
+            ssr="client"
+            isLazy={false}
+          />,
+        );
+        expect(mediaCard.state('cardPreview')).toBe(filePreviews.ssrClient);
+        expect(mediaCard.state('isCardVisible')).toBe(true);
+        expect(fetchAndCacheRemotePreview).toBeCalledTimes(1);
+      });
+
+      it(`should not fetch and store in cache remote preview when lazy load is enabled and SSR is client`, () => {
+        getSSRCardPreview.mockReturnValueOnce(filePreviews.ssrClient);
+        const mediaCard = shallow(
+          <CardBase
+            mediaClient={fakeMediaClient()}
+            identifier={indentifiers.file}
+            ssr="client"
+            isLazy={true}
+          />,
+        );
+        expect(mediaCard.state('cardPreview')).toBe(filePreviews.ssrClient);
+        expect(mediaCard.state('isCardVisible')).toBe(false);
+        expect(fetchAndCacheRemotePreview).toBeCalledTimes(0);
+      });
+
+      it(`should fetch and store in cache remote preview when the card turns visible and SSR is client`, () => {
+        getSSRCardPreview.mockReturnValueOnce(filePreviews.ssrClient);
+        const mediaCard = shallow(
+          <CardBase
+            mediaClient={fakeMediaClient()}
+            identifier={indentifiers.file}
+            ssr="client"
+          />,
+        );
+        expect(mediaCard.state('cardPreview')).toBe(filePreviews.ssrClient);
+        expect(mediaCard.state('isCardVisible')).toBe(false);
+
+        mediaCard.setState({ isCardVisible: true });
+        expect(fetchAndCacheRemotePreview).toBeCalledTimes(1);
+      });
+
+      it(`should not fetch and store in cache remote preview when is not visible and SSR is client`, () => {
+        getSSRCardPreview.mockReturnValueOnce(filePreviews.ssrClient);
+        const mediaCard = shallow(
+          <CardBase
+            mediaClient={fakeMediaClient()}
+            identifier={indentifiers.file}
+            ssr="client"
+          />,
+        );
+        expect(mediaCard.state('cardPreview')).toBe(filePreviews.ssrClient);
+        expect(mediaCard.state('isCardVisible')).toBe(false);
+        // Triggering an update intentionally to verify the calling condition
+        mediaCard.update();
+        expect(fetchAndCacheRemotePreview).toBeCalledTimes(0);
+      });
+
+      // TODO https://product-fabric.atlassian.net/browse/MEX-1071
+      /* it(`should catch the error when calling fetchAndCacheRemotePreview`, () => {
+        expect(1).toBe(1);
+      }); */
+    });
   });
 
   describe('onImageLoad', () => {
@@ -586,7 +820,7 @@ describe('Media Card', () => {
     const mediaClient = fakeMediaClientWithObservable(
       fakeObservable(unsubscribe),
     );
-    it.each(['loading', 'loading-preview', 'processing'])(
+    it.each(['loading-preview', 'processing'])(
       'should set status complete if image has rendered and current status is %s',
       (status) => {
         const mediaCard = shallow(
@@ -603,7 +837,7 @@ describe('Media Card', () => {
       },
     );
 
-    it.each(['complete', 'uploading', 'error', 'failed-processing'])(
+    it.each(['loading', 'complete', 'uploading', 'error', 'failed-processing'])(
       'should not set status complete if image has rendered and current status is %s',
       (status) => {
         const mediaCard = shallow(
@@ -619,5 +853,32 @@ describe('Media Card', () => {
         expect(unsubscribe).toBeCalledTimes(0);
       },
     );
+  });
+
+  describe('Force Media Image Display', () => {
+    it(`should force sync display if SSR is enabled`, () => {
+      const mediaCard = shallow(
+        <CardBase
+          mediaClient={fakeMediaClient()}
+          identifier={indentifiers.file}
+          ssr="client"
+        />,
+      );
+      expect(mediaCard.find(CardView).prop('forceSyncDisplay')).toBe(true);
+
+      //Update ssr to server
+      mediaCard.setProps({ ssr: 'server' });
+      expect(mediaCard.find(CardView).prop('forceSyncDisplay')).toBe(true);
+    });
+
+    it(`should not force sync display if SSR is undefined`, () => {
+      const mediaCard = shallow(
+        <CardBase
+          mediaClient={fakeMediaClient()}
+          identifier={indentifiers.file}
+        />,
+      );
+      expect(mediaCard.find(CardView).prop('forceSyncDisplay')).toBe(false);
+    });
   });
 });

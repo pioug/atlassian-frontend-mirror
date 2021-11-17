@@ -1,7 +1,7 @@
 import React from 'react';
 import { RefObject } from 'react';
 import classnames from 'classnames';
-import { Resizable, ResizeDirection } from 're-resizable';
+import { HandleComponent, Resizable, ResizeDirection } from 're-resizable';
 import { RichMediaLayout } from '@atlaskit/adf-schema';
 import { gridTypeForLayout } from '../../plugins/grid';
 import { snapTo, handleSides } from './utils';
@@ -63,6 +63,7 @@ export type ResizerProps = Omit<
   height?: number;
   width: number;
   ratio?: string;
+  handleComponentFunc?: (side: string) => React.ReactElement<any> | undefined;
 };
 
 export type ResizerState = {
@@ -213,6 +214,8 @@ export default class Resizer extends React.Component<
   render() {
     const handleStyles: Record<string, {}> = {};
     const handles: Record<string, string> = {};
+    const handleComponent: HandleComponent = {};
+
     const {
       innerPadding = 0,
       width,
@@ -222,6 +225,7 @@ export default class Resizer extends React.Component<
       enable,
       children,
       ratio,
+      handleComponentFunc,
     } = this.props;
     const { isResizing } = this.state;
     handleSides.forEach((side) => {
@@ -232,6 +236,12 @@ export default class Resizer extends React.Component<
         zIndex: akRichMediaResizeZIndex,
         pointerEvents: 'auto',
       };
+
+      const sideHandleComponent =
+        handleComponentFunc && handleComponentFunc(side);
+      if (sideHandleComponent) {
+        handleComponent[side] = sideHandleComponent;
+      }
     });
     const className = classnames(
       richMediaClassName,
@@ -269,6 +279,7 @@ export default class Resizer extends React.Component<
         handleClasses={handles}
         handleStyles={handleStyles}
         handleWrapperStyle={handleWrapperStyle}
+        handleComponent={handleComponent}
         enable={enable}
         onResize={this.handleResize}
         onResizeStop={this.handleResizeStop}

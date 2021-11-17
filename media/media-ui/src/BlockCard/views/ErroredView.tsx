@@ -35,6 +35,8 @@ export interface ErroredViewProps {
   inheritDimensions?: boolean;
 }
 
+export const blockCardErroredViewClassName = 'block-card-errored-view';
+
 export const ErroredView = ({
   isSelected = false,
   testId = 'block-card-errored-view',
@@ -55,6 +57,7 @@ export const ErroredView = ({
     <Frame
       isSelected={isSelected}
       testId={testId}
+      className={blockCardErroredViewClassName}
       isFluidHeight
       inheritDimensions={inheritDimensions}
     >

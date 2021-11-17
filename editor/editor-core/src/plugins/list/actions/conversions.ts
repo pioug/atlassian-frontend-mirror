@@ -1,5 +1,5 @@
 import { Transaction, TextSelection } from 'prosemirror-state';
-import { NodeType, ResolvedPos, NodeRange } from 'prosemirror-model';
+import { NodeType, NodeRange } from 'prosemirror-model';
 import { findWrapping } from 'prosemirror-transform';
 import {
   ContentNodeWithPos,
@@ -7,6 +7,7 @@ import {
 } from 'prosemirror-utils';
 import { isListNode, joinSiblingLists } from '../utils/node';
 import { isEmptyParagraph } from '../../../utils';
+import { findFirstParentListNode } from '../utils/find';
 
 export function convertListType({
   tr,
@@ -32,102 +33,65 @@ export function convertListType({
   const parentNode = nodeRangeAroundList.parent;
   const { startIndex, endIndex, depth } = nodeRangeAroundList;
 
-  const before: { from: ResolvedPos | null; to: ResolvedPos | null } = {
-    from: !isListNode(parentNode.child(startIndex))
-      ? // @ts-ignore
-        doc.resolve(nodeRangeAroundList.$from.posAtIndex(startIndex, depth) + 1)
-      : null,
-    to: null,
-  };
-  const after: { from: ResolvedPos | null; to: ResolvedPos | null } = {
-    from: null,
-    to: !isListNode(parentNode.child(endIndex - 1))
-      ? doc.resolve(
-          // @ts-ignore
-          nodeRangeAroundList.$from.posAtIndex(endIndex - 1, depth) + 1,
-        )
-      : null,
-  };
-  let isListNodeFound = false;
-  let firstEmptyParagraphAfterListFound = false;
-  for (let i = startIndex; i < endIndex; i++) {
-    // @ts-ignore posAtIndex is a public API but has no type yet
-    const position = nodeRangeAroundList.$from.posAtIndex(i, depth);
-    const resolvedPosition = doc.resolve(position);
-
-    if (isEmptyParagraph(parentNode.child(i)) && !isListNodeFound) {
-      before.from = doc.resolve(
-        // @ts-ignore posAtIndex is a public API but has no type yet
-        nodeRangeAroundList.$from.posAtIndex(i, depth) + 2,
+  // Checking for invalid nodes to prevent conversion
+  // eg. a panel cannot be wrapped in a list so return
+  // It will skip this check if the selection begins within a list
+  // This is to match the behaviour of the toolbar buttons being disabled
+  if (!findFirstParentListNode($from)) {
+    for (let i = startIndex; i < endIndex; i++) {
+      const position = nodeRangeAroundList.$from.posAtIndex(i, depth);
+      const resolvedPosition = doc.resolve(position);
+      const currentChild = parentNode.child(i);
+      const currentNodeRange = resolvedPosition.blockRange(
+        tr.doc.resolve(position + currentChild.nodeSize),
       );
-    }
 
-    if (
-      isEmptyParagraph(parentNode.child(i)) &&
-      isListNodeFound &&
-      !firstEmptyParagraphAfterListFound
-    ) {
-      after.to = resolvedPosition;
-      firstEmptyParagraphAfterListFound = true;
-    }
-
-    if (!isListNode(parentNode.child(i)) && !isListNodeFound) {
-      before.to = doc.resolve(resolvedPosition.pos + 1);
-    } else if (!isListNodeFound) {
-      isListNodeFound = true;
-      const endNodePosition = doc.resolve(resolvedPosition.pos + 1).end() + 1;
-      if (doc.resolve(endNodePosition).nodeAfter) {
-        after.from = doc.resolve(endNodePosition + 1);
+      if (
+        currentNodeRange &&
+        !isListNode(currentChild) &&
+        !findWrapping(currentNodeRange, nextListNodeType)
+      ) {
+        return;
       }
     }
   }
 
-  let beforeConversionArgs, beforeRange, afterConversionArgs, afterRange;
+  // Checking for any non list nodes and wrapping them in a list
+  // so they can be converted
+  tr.doc.nodesBetween(
+    nodeRangeAroundList.start,
+    nodeRangeAroundList.end,
+    (node, pos) => {
+      // Skip over any nodes that are part of a list
+      if (findFirstParentListNode(tr.doc.resolve(tr.mapping.map(pos)))) {
+        return false;
+      }
 
-  if (after.from && after.to) {
-    const mappedFrom = tr.mapping.map(after.from.pos);
-    const mappedTo = tr.mapping.map(after.to.pos);
-    afterRange = new NodeRange(
-      tr.doc.resolve(mappedFrom),
-      tr.doc.resolve(mappedTo),
-      nodeRangeAroundList.depth,
-    );
-    afterConversionArgs = {
-      tr,
-      nextListNodeType,
-      nodeRange: afterRange,
-    };
-  }
+      // The following applies to suitable nodes that are not within a list
+      const currentNodeNotWrappedInList = node;
+      const isNotAnEmptyParagraphAndIsParagraphOrLeafNode =
+        !isEmptyParagraph(currentNodeNotWrappedInList) &&
+        (!node.type.isBlock || node.type.name === 'paragraph');
 
-  if (before.from && before.to) {
-    const mappedFrom = tr.mapping.map(before.from.pos);
-    const mappedTo = tr.mapping.map(before.to.pos);
-    beforeRange = new NodeRange(
-      tr.doc.resolve(mappedFrom),
-      tr.doc.resolve(mappedTo),
-      nodeRangeAroundList.depth,
-    );
-    beforeConversionArgs = {
-      tr,
-      nextListNodeType,
-      nodeRange: beforeRange,
-    };
-  }
-  if (
-    (!afterRange && !beforeRange) ||
-    (afterRange && !findWrapping(afterRange, nextListNodeType)) ||
-    (beforeRange && !findWrapping(beforeRange, nextListNodeType))
-  ) {
-    return;
-  }
+      if (isNotAnEmptyParagraphAndIsParagraphOrLeafNode) {
+        const remainingNodeRange = new NodeRange(
+          tr.doc.resolve(tr.mapping.map(pos)),
+          tr.doc.resolve(
+            tr.mapping.map(pos) + currentNodeNotWrappedInList.nodeSize,
+          ),
+          nodeRangeAroundList.depth,
+        );
+        convertAroundList({
+          tr,
+          nextListNodeType,
+          nodeRange: remainingNodeRange,
+        });
+        return false;
+      }
+    },
+  );
 
-  if (afterConversionArgs) {
-    convertAroundList(afterConversionArgs);
-  }
-
-  if (beforeConversionArgs) {
-    convertAroundList(beforeConversionArgs);
-  }
+  convertSelectedList({ tr, nextListNodeType });
 
   if (tr.docChanged) {
     joinSiblingLists({ tr, forceListType: nextListNodeType });

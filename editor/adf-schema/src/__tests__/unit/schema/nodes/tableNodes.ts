@@ -41,7 +41,7 @@ const makeSchema = () =>
       'tableCell',
       'tableHeader',
     ],
-    marks: ['unsupportedMark', 'unsupportedNodeAttribute'],
+    marks: ['fragment', 'unsupportedMark', 'unsupportedNodeAttribute'],
   });
 
 const TABLE_LOCAL_ID = 'test-table-local-id';

@@ -629,7 +629,7 @@ export const Wrapper = styled.div<RendererWrapperProps & HTMLAttributes<{}>>`
       margin-top: 0;
     }
 
-    &:hover button.copy-to-clipboard{
+    &:hover button.copy-to-clipboard, .copy-to-clipboard:focus{
       opacity: 1;
       position: absolute;
       height: 32px;

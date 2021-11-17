@@ -26,8 +26,8 @@ export default function Example() {
       <FullPageExample
         defaultValue={exampleDocument}
         allowPanel={{
-          UNSAFE_allowCustomPanel: true,
-          UNSAFE_allowCustomPanelEdit: false,
+          allowCustomPanel: true,
+          allowCustomPanelEdit: false,
         }}
       />
       {toggleDarkMode}

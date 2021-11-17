@@ -4,7 +4,7 @@ import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../../src';
 
 const DropdownMenuTallExample = () => {
   return (
-    <DropdownMenu trigger="Page actions" appearance="tall" triggerType="button">
+    <DropdownMenu trigger="Page actions" appearance="tall">
       <DropdownItemGroup>
         <DropdownItem>One of many items</DropdownItem>
         <DropdownItem>One of many items</DropdownItem>

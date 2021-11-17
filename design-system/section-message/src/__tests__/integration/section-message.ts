@@ -44,8 +44,6 @@ BrowserTestCase(
 
     // Click and check url.
     await page.click(sectionMessageBitbucketAction);
-    expect(await page.url()).toBe(
-      'https://www.atlassian.com/software/bitbucket',
-    );
+    expect(await page.url()).toMatch(/#hiAtlassianBitbucket$/);
   },
 );

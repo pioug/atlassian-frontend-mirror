@@ -1,5 +1,18 @@
 # @atlaskit/inline-edit
 
+## 12.1.5
+
+### Patch Changes
+
+- [`f460cc7c411`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f460cc7c411) - Builds for this package now pass through a tokens babel plugin, removing runtime invocations of the tokens() function and improving bundle size.
+- Updated dependencies
+
+## 12.1.4
+
+### Patch Changes
+
+- [`d9d76592b37`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d9d76592b37) - This change bumps the @atlaskit/inline-dialog dependency to the latest version 13.1.8. This fixes a bug where the inline dialog opens incorrectly.
+
 ## 12.1.3
 
 ### Patch Changes

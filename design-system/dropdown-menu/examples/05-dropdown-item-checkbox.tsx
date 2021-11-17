@@ -2,12 +2,12 @@ import React from 'react';
 
 import DropdownMenu, {
   DropdownItemCheckbox,
-  DropdownItemGroupCheckbox,
+  DropdownItemCheckboxGroup,
 } from '../src';
 
 export default () => (
-  <DropdownMenu trigger="Filter cities" triggerType="button">
-    <DropdownItemGroupCheckbox id="cities">
+  <DropdownMenu trigger="Filter cities">
+    <DropdownItemCheckboxGroup id="cities">
       <DropdownItemCheckbox id="adelaide">Adelaide</DropdownItemCheckbox>
       <DropdownItemCheckbox id="sydney">
         Sydney, capital of New South Wales and one of Australia's largest
@@ -20,6 +20,6 @@ export default () => (
       <DropdownItemCheckbox id="newcastle" isSelected>
         Newcastle
       </DropdownItemCheckbox>
-    </DropdownItemGroupCheckbox>
+    </DropdownItemCheckboxGroup>
   </DropdownMenu>
 );

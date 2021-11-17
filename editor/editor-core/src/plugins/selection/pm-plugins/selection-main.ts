@@ -32,6 +32,28 @@ export const getInitialState = (state: EditorState): SelectionPluginState => ({
   selection: state.selection,
 });
 
+const toggleContentEditable = (node: ChildNode, root: boolean = false) => {
+  if (
+    root ||
+    (node as HTMLElement).getAttribute('contenteditable') === 'true'
+  ) {
+    const wasTrue =
+      (node as HTMLElement).getAttribute('contenteditable') === 'true';
+    (node as HTMLElement).setAttribute('contenteditable', 'false');
+    requestAnimationFrame(() => {
+      if (wasTrue) {
+        (node as HTMLElement).setAttribute('contenteditable', 'true');
+      } else {
+        (node as HTMLElement).removeAttribute('contenteditable');
+      }
+    });
+  }
+
+  // any children with contenteditable = true block selection from proceeding
+  const children = Array.from((node as HTMLElement).children);
+  children.forEach((child) => toggleContentEditable(child));
+};
+
 export const createPlugin = (
   dispatch: Dispatch,
   dispatchAnalyticsEvent: DispatchAnalyticsEvent,
@@ -135,6 +157,7 @@ export const createPlugin = (
           return false;
         },
         keydown: (editorView: EditorView, event: Event) => {
+          const { state } = editorView;
           // Firefox bugfix to bypass issue with editing text adjacent to a DOM node with
           // contenteditable="false". (See https://product-fabric.atlassian.net/browse/ED-9452)
           // On keypress, if the head of cursor selection touches a node with contenteditable="false",
@@ -149,6 +172,35 @@ export const createPlugin = (
               requestAnimationFrame(() => {
                 node.setAttribute('contenteditable', 'false');
               });
+            }
+          }
+
+          // Bugfix for block ReactNodeViews like table and extension
+          // They could not be selected with Shift + ArrowDown/ArrowUp
+          // Fixed when contenteditable = false, but then you couldn't edit their contents
+          // Therefore, briefly set contenteditable=false to allow the selection through, then set it back to true
+          if (
+            event instanceof KeyboardEvent &&
+            event.shiftKey &&
+            (event.key === 'ArrowDown' || event.key === 'ArrowUp')
+          ) {
+            let pos;
+            if (event.key === 'ArrowDown') {
+              pos = state.selection.$head.after();
+            } else {
+              pos = state.selection.$head.before() - 1;
+              // block extensions only take up one position, dont need to get before()
+              if (!editorView.nodeDOM(pos)) {
+                pos = state.doc.resolve(pos).before();
+              }
+            }
+            const node = editorView.nodeDOM(pos);
+
+            if (
+              node instanceof HTMLDivElement &&
+              node.className.includes('View-content-wrap') // class added by ReactNodeView
+            ) {
+              toggleContentEditable(node, true);
             }
           }
           return false;

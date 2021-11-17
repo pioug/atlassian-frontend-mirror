@@ -14,6 +14,8 @@ describe('Editor Configuration', () => {
     expect(editorConfig.isUnpredictableInputRuleEnabled()).toEqual(true);
     expect(editorConfig.isScrollGutterPersisted()).toEqual(false);
     expect(editorConfig.isCustomPanelEnabled()).toEqual(false);
+    expect(editorConfig.isCustomPanelEditable()).toEqual(false);
+    expect(editorConfig.isAllowMediaInlineEnabled()).toEqual(false);
   });
 
   it('should persist scroll gutter for compact editor', () => {
@@ -46,6 +48,22 @@ describe('Editor Configuration', () => {
     );
 
     expect(editorConfig.isIndentationAllowed()).toEqual(true);
+  });
+
+  it('should disable tasks and decision for compact editor', () => {
+    const editorConfig = new MobileEditorConfiguration(
+      '{"editorAppearance": "compact"}',
+    );
+
+    expect(editorConfig.isTasksAndDecisionsAllowed()).toEqual(false);
+  });
+
+  it('should enable tasks and decisions for full editor', () => {
+    const editorConfig = new MobileEditorConfiguration(
+      '{"editorAppearance": "full"}',
+    );
+
+    expect(editorConfig.isTasksAndDecisionsAllowed()).toEqual(true);
   });
 
   it('should set the mode value and retain the rest with default values', () => {
@@ -130,7 +148,23 @@ describe('Editor Configuration', () => {
     expect(editorConfig.isCustomPanelEnabled()).toEqual(true);
   });
 
-  it('should clone and update the current configuartion with the new configuration', () => {
+  it('should set the allowCustomPanelEdit value', () => {
+    const editorConfig = new MobileEditorConfiguration(
+      '{"allowCustomPanelEdit": true}',
+    );
+
+    expect(editorConfig.isCustomPanelEditable()).toEqual(true);
+  });
+
+  it('should set the allowCustomPanelEdit value', () => {
+    const editorConfig = new MobileEditorConfiguration(
+      '{"allowMediaInline": true}',
+    );
+
+    expect(editorConfig.isAllowMediaInlineEnabled()).toEqual(true);
+  });
+
+  it('should clone and update the current configuration with the new configuration', () => {
     const newConfig = '{"locale":"zh", "mode": "light"}';
     const originalEditorConfig = new MobileEditorConfiguration(
       '{"mode": "dark", "enableQuickInsert": true}',

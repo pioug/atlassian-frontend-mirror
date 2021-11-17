@@ -5,6 +5,8 @@ Object {
   "content": Array [
     Object {
       "attrs": Object {
+        "panelColor": null,
+        "panelIcon": null,
         "panelType": "error",
       },
       "content": Array [
@@ -285,6 +287,8 @@ Object {
   "content": Array [
     Object {
       "attrs": Object {
+        "panelColor": null,
+        "panelIcon": null,
         "panelType": "info",
       },
       "content": Array [
@@ -324,6 +328,8 @@ Object {
     },
     Object {
       "attrs": Object {
+        "panelColor": null,
+        "panelIcon": null,
         "panelType": "info",
       },
       "content": Array [
@@ -366,6 +372,8 @@ Object {
   "content": Array [
     Object {
       "attrs": Object {
+        "panelColor": null,
+        "panelIcon": null,
         "panelType": "info",
       },
       "content": Array [
@@ -464,6 +472,8 @@ Object {
   "content": Array [
     Object {
       "attrs": Object {
+        "panelColor": null,
+        "panelIcon": null,
         "panelType": "info",
       },
       "content": Array [
@@ -556,6 +566,8 @@ Object {
   "content": Array [
     Object {
       "attrs": Object {
+        "panelColor": null,
+        "panelIcon": null,
         "panelType": "info",
       },
       "content": Array [
@@ -635,6 +647,8 @@ Object {
     },
     Object {
       "attrs": Object {
+        "panelColor": null,
+        "panelIcon": null,
         "panelType": "info",
       },
       "content": Array [
@@ -765,6 +779,8 @@ Object {
     },
     Object {
       "attrs": Object {
+        "panelColor": null,
+        "panelIcon": null,
         "panelType": "info",
       },
       "content": Array [
@@ -844,6 +860,8 @@ Object {
     },
     Object {
       "attrs": Object {
+        "panelColor": null,
+        "panelIcon": null,
         "panelType": "info",
       },
       "content": Array [
@@ -1203,6 +1221,8 @@ Object {
   "content": Array [
     Object {
       "attrs": Object {
+        "panelColor": null,
+        "panelIcon": null,
         "panelType": "info",
       },
       "content": Array [
@@ -1223,6 +1243,8 @@ Object {
     },
     Object {
       "attrs": Object {
+        "panelColor": null,
+        "panelIcon": null,
         "panelType": "info",
       },
       "content": Array [
@@ -1248,6 +1270,8 @@ Object {
   "content": Array [
     Object {
       "attrs": Object {
+        "panelColor": null,
+        "panelIcon": null,
         "panelType": "error",
       },
       "content": Array [
@@ -1287,6 +1311,8 @@ Object {
   "content": Array [
     Object {
       "attrs": Object {
+        "panelColor": null,
+        "panelIcon": null,
         "panelType": "success",
       },
       "content": Array [
@@ -1326,6 +1352,8 @@ Object {
   "content": Array [
     Object {
       "attrs": Object {
+        "panelColor": null,
+        "panelIcon": null,
         "panelType": "info",
       },
       "content": Array [
@@ -1476,6 +1504,8 @@ Object {
   "content": Array [
     Object {
       "attrs": Object {
+        "panelColor": null,
+        "panelIcon": null,
         "panelType": "success",
       },
       "content": Array [
@@ -1518,6 +1548,8 @@ Object {
   "content": Array [
     Object {
       "attrs": Object {
+        "panelColor": null,
+        "panelIcon": null,
         "panelType": "error",
       },
       "content": Array [
@@ -1595,6 +1627,8 @@ Object {
     },
     Object {
       "attrs": Object {
+        "panelColor": null,
+        "panelIcon": null,
         "panelType": "info",
       },
       "content": Array [
@@ -1652,6 +1686,8 @@ Object {
     },
     Object {
       "attrs": Object {
+        "panelColor": null,
+        "panelIcon": null,
         "panelType": "info",
       },
       "content": Array [
@@ -1677,6 +1713,8 @@ Object {
     },
     Object {
       "attrs": Object {
+        "panelColor": null,
+        "panelIcon": null,
         "panelType": "info",
       },
       "content": Array [

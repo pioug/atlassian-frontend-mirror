@@ -104,4 +104,8 @@ export const IconEmptyWrapper = styled.span`
   display: inline-block;
   opacity: 0;
 `;
-export const TitleWrapper = styled.span``;
+export const TitleWrapper = styled.span`
+  ::selection {
+    background: none;
+  }
+`;

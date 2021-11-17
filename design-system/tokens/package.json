@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/tokens",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "author": "Atlassian Pty Ltd",
   "description": "Tokens are a single source of truth to name and store Atlassian design decisions.",
   "license": "Apache-2.0",
@@ -21,8 +21,8 @@
   "af:exports": {
     ".": "./src/index.tsx",
     "./token-names": "./src/entry-points/token-names.tsx",
-    "./token-default-values": "./src/entry-points/token-default-values.tsx",
-    "./rename-mapping": "./src/entry-points/rename-mapping.tsx"
+    "./rename-mapping": "./src/entry-points/rename-mapping.tsx",
+    "./babel-plugin": "./src/entry-points/babel-plugin.tsx"
   },
   "scripts": {
     "ak-postbuild": "yarn codegen-tokens && yarn check-clean-git",
@@ -30,12 +30,20 @@
     "codegen-tokens": "ts-node --project ../../../tsconfig.node.json ./scripts/style-dictionary/build"
   },
   "dependencies": {
-    "@babel/runtime": "^7.0.0"
+    "@babel/runtime": "^7.0.0",
+    "@babel/traverse": "^7.15.0",
+    "@babel/types": "^7.15.0"
   },
   "devDependencies": {
+    "@atlaskit/code": "*",
+    "@atlaskit/lozenge": "*",
+    "@atlaskit/tabs": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
+    "@babel/core": "^7.12.3",
+    "@emotion/core": "^10.0.9",
     "lodash": "^4.17.15",
     "prettier": "^2.1.1",
+    "react": "^16.8.0",
     "style-dictionary": "^3.0.0",
     "ts-node": "^10.0.0",
     "typescript": "3.9.6"
@@ -48,7 +56,10 @@
     "@repo/internal": {
       "design-system": "v1",
       "ui-components": "lite-mode",
-      "deprecation": "no-deprecated-imports"
+      "deprecation": "no-deprecated-imports",
+      "styling": [
+        "emotion"
+      ]
     }
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"

@@ -4,7 +4,7 @@ import {
   loadEditor,
   configureEditor,
   isActionItemVisible,
-  isActionItemHelpTextTranslatedToZH,
+  isActionItemHelpTextTranslatedToFR,
   focusOnWebView,
   isBlockQuoteAdded,
   isCodeBlockAdded,
@@ -18,10 +18,11 @@ import {
 import { SPECIAL_KEYS } from '@atlaskit/webdriver-runner/lib/appium/keyboard/common-osk';
 import {
   ENABLE_QUICK_INSERT,
-  ENABLE_QUICK_INSERT_AND_SET_LOCALE_TO_ZH,
+  ENABLE_QUICK_INSERT_AND_SET_LOCALE_TO_FR,
 } from '../../_utils/configurations';
 import {
   ACTION_ITEM_QUICK_INSERT,
+  ACTION_ITEM_QUICK_INSERT_FR,
   BLOCK_QUOTE_QUICK_INSERT,
   CODE_BLOCK_QUICK_INSERT,
   DECISION_QUICK_INSERT,
@@ -53,12 +54,12 @@ export default async () => {
     async (client: any, testName: string) => {
       const page = await Page.create(client);
       await loadEditor(page);
-      await configureEditor(page, ENABLE_QUICK_INSERT_AND_SET_LOCALE_TO_ZH);
+      await configureEditor(page, ENABLE_QUICK_INSERT_AND_SET_LOCALE_TO_FR);
       await focusOnWebView(page);
-      await page.tapKeys(ACTION_ITEM_QUICK_INSERT[1]);
+      await page.tapKeys(ACTION_ITEM_QUICK_INSERT_FR);
       await page.tapKeys(SPECIAL_KEYS.ENTER);
 
-      expect(await isActionItemHelpTextTranslatedToZH(page)).toBe(true);
+      expect(await isActionItemHelpTextTranslatedToFR(page)).toBe(true);
     },
   );
 

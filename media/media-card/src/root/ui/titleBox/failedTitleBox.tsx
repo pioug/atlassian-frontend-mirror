@@ -1,6 +1,6 @@
 import React from 'react';
 import { TitleBoxWrapper, ErrorMessageWrapper } from './styled';
-import { Breakpoint } from '../Breakpoint';
+import { Breakpoint } from '../common';
 import EditorWarningIcon from '@atlaskit/icon/glyph/editor/warning';
 import { messages } from '@atlaskit/media-ui';
 import { R300 } from '@atlaskit/theme/colors';

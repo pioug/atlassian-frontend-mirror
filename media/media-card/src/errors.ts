@@ -7,6 +7,7 @@ export type MediaCardErrorPrimaryReason =
   | RemotePreviewPrimaryReason
   | LocalPreviewPrimaryReason
   | ImageLoadPrimaryReason
+  | SsrPreviewPrimaryReason
   // Reasons below are used to wrap unexpected/unknown errors with ensureMediaCardError
   | 'preview-fetch';
 
@@ -28,6 +29,12 @@ export type LocalPreviewPrimaryReason =
   | 'local-preview-rejected'
   | 'local-preview-image'
   | 'local-preview-video';
+
+export type SsrPreviewPrimaryReason =
+  | 'ssr-client-uri'
+  | 'ssr-client-load'
+  | 'ssr-server-uri'
+  | 'ssr-server-load';
 
 export class MediaCardError extends Error {
   constructor(
@@ -57,6 +64,15 @@ export class LocalPreviewError extends MediaCardError {
 export class RemotePreviewError extends MediaCardError {
   constructor(
     readonly primaryReason: RemotePreviewPrimaryReason,
+    readonly secondaryError?: Error,
+  ) {
+    super(primaryReason, secondaryError);
+  }
+}
+
+export class SsrPreviewError extends MediaCardError {
+  constructor(
+    readonly primaryReason: SsrPreviewPrimaryReason,
     readonly secondaryError?: Error,
   ) {
     super(primaryReason, secondaryError);
@@ -113,5 +129,5 @@ export const ensureMediaCardError = (
 ) =>
   isMediaCardError(error) ? error : new MediaCardError(primaryReason, error);
 
-export const isUploadError = (error: MediaCardError) =>
-  error.primaryReason === 'upload';
+export const isUploadError = (error?: MediaCardError) =>
+  error && error.primaryReason === 'upload';

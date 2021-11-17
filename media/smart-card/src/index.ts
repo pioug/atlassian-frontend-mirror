@@ -29,5 +29,12 @@ export {
   blockCardResolvedViewClassName,
   blockCardForbiddenViewClassName,
   blockCardIconImageClassName,
+  blockCardResolvedViewByClassName,
+  blockCardForbiddenViewLinkClassName,
+  blockCardContentClassName,
+  blockCardContentHeaderClassName,
+  blockCardContentHeaderNameClassName,
+  blockCardNotFoundViewClassName,
+  blockCardErroredViewClassName,
 } from '@atlaskit/media-ui/classNames';
 export { loadingPlaceholderClassName } from './view/CardWithUrl/component-lazy/LazyFallback';

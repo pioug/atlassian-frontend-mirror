@@ -61,10 +61,10 @@ export const extractBlockActions = (
   platform?: CardPlatform,
 ): ActionProps[] => {
   if (opts) {
-    const { handleInvoke, handleAnalytics, definitionId, testId } = opts;
+    const { handleInvoke, handleAnalytics, extensionKey, testId } = opts;
     const actions = extractActions(jsonLd, handleInvoke);
     const previewAction = extractPreviewAction(
-      definitionId,
+      extensionKey,
       props,
       jsonLd,
       handleInvoke,

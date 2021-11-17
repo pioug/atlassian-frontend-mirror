@@ -1,5 +1,15 @@
 # @atlaskit/media-test-helpers
 
+## 28.9.0
+
+### Minor Changes
+
+- [`1724e1b8277`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1724e1b8277) - Extended fakeMediaClient with getImageUrlSync mock
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 28.8.1
 
 ### Patch Changes

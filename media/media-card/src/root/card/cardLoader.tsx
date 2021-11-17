@@ -1,93 +1,78 @@
-import React from 'react';
-import { WithMediaClientConfigProps } from '@atlaskit/media-client';
+import React, { useContext } from 'react';
+import type {
+  WithMediaClientConfigProps,
+  WithMediaClientFunction,
+} from '@atlaskit/media-client';
+import { useMemoizeFeatureFlags } from '@atlaskit/media-common';
+import Loadable from 'react-loadable';
 import { CardLoading } from '../..';
-import { MediaCardAnalyticsErrorBoundaryProps } from '../media-card-analytics-error-boundary';
-import { CardWithAnalyticsEventsProps } from '.';
+import type { CardWithAnalyticsEventsProps } from '.';
+import type { MediaCardAnalyticsErrorBoundaryProps } from '../media-card-analytics-error-boundary';
 
 export type CardWithMediaClientConfigProps = WithMediaClientConfigProps<
   CardWithAnalyticsEventsProps
 >;
 
-type CardWithMediaClientConfigComponent = React.ComponentType<
-  CardWithMediaClientConfigProps
->;
+const MediaCardContext = React.createContext({});
 
-type MediaCardErrorBoundaryComponent = React.ComponentType<
-  MediaCardAnalyticsErrorBoundaryProps
->;
+const CardLoadingWithContext: React.FC<{}> = () => {
+  const props = useContext(MediaCardContext);
+  return <CardLoading {...props} />;
+};
 
-export interface AsyncCardState {
-  Card?: CardWithMediaClientConfigComponent;
-  MediaCardErrorBoundary?: MediaCardErrorBoundaryComponent;
-}
+const MediaCard = Loadable({
+  loader: (): Promise<React.ComponentType<CardWithAnalyticsEventsProps>> =>
+    import(
+      /* webpackChunkName: "@atlaskit-internal_media-card" */ './index'
+    ).then((mod) => mod.Card),
+  loading: () => <CardLoadingWithContext />,
+});
 
-export default class CardLoader extends React.PureComponent<
-  CardWithMediaClientConfigProps & AsyncCardState,
-  AsyncCardState
-> {
-  static displayName = 'AsyncCard';
-  static Card?: CardWithMediaClientConfigComponent;
-  static MediaCardErrorBoundary?: MediaCardErrorBoundaryComponent;
+const MediaCardErrorBoundary = Loadable({
+  loader: (): Promise<
+    React.ComponentType<MediaCardAnalyticsErrorBoundaryProps>
+  > =>
+    import(
+      /* webpackChunkName: "@atlaskit-internal_media-card-error-boundary" */ '../media-card-analytics-error-boundary'
+    ).then((mod) => mod.default),
+  loading: () => <CardLoadingWithContext />,
+});
 
-  state: AsyncCardState = {
-    Card: CardLoader.Card,
-    MediaCardErrorBoundary: CardLoader.MediaCardErrorBoundary,
-  };
+const MediaCardWithMediaClient = Loadable({
+  loader: () =>
+    import(
+      /* webpackChunkName: "@atlaskit-internal_media-client" */ '@atlaskit/media-client'
+    ),
+  loading: () => <CardLoadingWithContext />,
+  render: (loaded, props: CardWithMediaClientConfigProps) => (
+    <CardWithMediaClient {...props} withMediaClient={loaded.withMediaClient} />
+  ),
+});
 
-  async componentDidMount() {
-    if (!this.state.Card) {
-      try {
-        const [
-          mediaClient,
-          cardModule,
-          mediaCardErrorBoundaryModule,
-        ] = await Promise.all([
-          import(
-            /* webpackChunkName: "@atlaskit-internal_media-client" */ '@atlaskit/media-client'
-          ),
-          import(
-            /* webpackChunkName: "@atlaskit-internal_media-card" */ './index'
-          ),
-          import(
-            /* webpackChunkName: "@atlaskit-internal_media-card-error-boundary" */ '../media-card-analytics-error-boundary'
-          ),
-        ]);
-
-        CardLoader.Card = mediaClient.withMediaClient(
-          cardModule.Card,
-          this.props.featureFlags,
-        );
-        CardLoader.MediaCardErrorBoundary =
-          mediaCardErrorBoundaryModule.default;
-
-        this.setState({
-          Card: CardLoader.Card,
-          MediaCardErrorBoundary: CardLoader.MediaCardErrorBoundary,
-        });
-      } catch (error) {
-        // TODO [MS-2278]: Add operational error to catch async import error
-      }
-    }
+const CardWithMediaClient: React.FC<
+  CardWithMediaClientConfigProps & {
+    withMediaClient: WithMediaClientFunction;
   }
+> = (props) => {
+  const { withMediaClient, featureFlags } = props;
+  const memoizedFeatureFlags = useMemoizeFeatureFlags(featureFlags);
+  const Card = React.useMemo(() => {
+    return withMediaClient(MediaCard, memoizedFeatureFlags);
+  }, [withMediaClient, memoizedFeatureFlags]);
 
-  render() {
-    const { dimensions, testId, featureFlags } = this.props;
-    const { Card, MediaCardErrorBoundary } = this.state;
+  return (
+    <MediaCardErrorBoundary>
+      <Card {...props} />
+    </MediaCardErrorBoundary>
+  );
+};
 
-    if (!Card || !MediaCardErrorBoundary) {
-      return (
-        <CardLoading
-          testId={testId}
-          dimensions={dimensions}
-          featureFlags={featureFlags}
-        />
-      );
-    }
+const CardLoader: React.FC<CardWithMediaClientConfigProps> = (props) => {
+  return (
+    <MediaCardContext.Provider value={props}>
+      <MediaCardWithMediaClient {...props} />
+    </MediaCardContext.Provider>
+  );
+};
 
-    return (
-      <MediaCardErrorBoundary>
-        <Card {...this.props} />
-      </MediaCardErrorBoundary>
-    );
-  }
-}
+export default CardLoader;

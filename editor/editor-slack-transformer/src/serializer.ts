@@ -75,9 +75,6 @@ const unsupportedNodes = {
     state.write('[task list]');
     state.closeBlock(node);
   },
-  caption(state: MarkdownSerializerState) {
-    state.write('[caption]');
-  },
   nestedExpand(state: MarkdownSerializerState) {
     state.write('[nested expand]');
   },
@@ -164,6 +161,10 @@ export const nodes = {
     if (index === parent.childCount - 1) {
       state.write('\n');
     }
+  },
+  caption(state: MarkdownSerializerState, node: PMNode) {
+    state.renderInline(node);
+    state.closeBlock(node);
   },
   paragraph(state: MarkdownSerializerState, node: PMNode) {
     state.renderInline(node);

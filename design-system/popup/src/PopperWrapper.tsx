@@ -36,6 +36,7 @@ function PopperWrapper({
   offset,
   testId,
   content,
+  fallbackPlacements,
   onClose,
   boundary,
   rootBoundary,
@@ -60,12 +61,13 @@ function PopperWrapper({
         name: 'flip',
         enabled: shouldFlip,
         options: {
-          rootBoundary: rootBoundary,
-          boundary: boundary,
+          rootBoundary,
+          boundary,
+          fallbackPlacements,
         },
       },
     ],
-    [shouldFlip, rootBoundary, boundary],
+    [shouldFlip, rootBoundary, boundary, fallbackPlacements],
   );
 
   return (

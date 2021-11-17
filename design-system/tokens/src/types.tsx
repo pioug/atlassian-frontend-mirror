@@ -1,31 +1,79 @@
-export interface Token<TValue, Group extends string> {
+import { ActiveTokens } from './artifacts/types';
+
+export type Groups = 'raw' | 'paint' | 'shadow' | 'palette';
+export type ActiveTokenStates = 'active';
+export type ReplacedTokenStates = 'deprecated' | 'deleted';
+export type TokenState = ActiveTokenStates | ReplacedTokenStates;
+export type Replacement = ActiveTokens[]; // Ideally, this is typed to all tokens that are active
+
+export interface Token<TValue, Group extends Groups> {
   value: TValue;
   attributes: {
-    group?: Group;
+    group: Group;
     description?: string;
+    state?: TokenState;
+    replacement?: Replacement;
   };
 }
 
+/**
+ * Base tokens define the raw values consumed by Design Tokens. They are a context-agnostic
+ * name:value pairing (for example, the base token N0 represents the value #FFFFFF ).
+ */
+export interface BaseToken<TValue, Group extends Groups>
+  extends Token<TValue, Group> {
+  attributes: {
+    group: Group;
+  };
+}
+
+/**
+ * Design tokens represent single sources of truth to name and store semantic design decisions.
+ * They map a semantic name (color.background.default) to a base token (N0).
+ */
+export interface DesignToken<TValue, Group extends Groups>
+  extends Token<TValue, Group> {
+  attributes:
+    | {
+        group: Group;
+        description: string;
+        state: ActiveTokenStates;
+        replacement?: undefined;
+      }
+    | {
+        group: Group;
+        description: string;
+        state: ReplacedTokenStates;
+        replacement?: Replacement; // Still optional, as there may be no correct replacement
+      };
+}
+
+type OmitDistributive<T, K extends PropertyKey> = T extends any
+  ? T extends object
+    ? Id<DeepOmit<T, K>>
+    : T
+  : never;
+type Id<T> = {} & { [P in keyof T]: T[P] };
+type DeepOmit<T extends any, K extends PropertyKey> = Omit<
+  { [P in keyof T]: OmitDistributive<T[P], K> },
+  K
+>;
+
+// Recursively strips out attributes from schema
+export type ValueSchema<Schema extends object> = DeepOmit<Schema, 'attributes'>;
+
+// Recursively strips out values from schema
+export type AttributeSchema<Schema extends object> = DeepOmit<Schema, 'value'>;
+
+export type PaletteToken = BaseToken<string, 'palette'>;
 export type ColorPalette = keyof PaletteColorTokenSchema['color']['palette'];
 
-export type PaintToken<Value extends string = ColorPalette> = Token<
+export type PaintToken<Value extends string = ColorPalette> = DesignToken<
   Value,
   'paint'
 >;
 
-export type PaletteToken = Token<string, 'paint'> & {
-  attributes: { isPalette: true };
-};
-
-export type ValueSchema<Schema extends object> = {
-  [Key in keyof Schema]: ValueSchema<Omit<Schema[Key], 'attributes'>>;
-};
-
-export type AttributeSchema<Schema extends object> = {
-  [Key in keyof Schema]: AttributeSchema<Omit<Schema[Key], 'value'>>;
-};
-
-export type ShadowToken<Value extends string = ColorPalette> = Token<
+export type ShadowToken<Value extends string = ColorPalette> = DesignToken<
   Array<{
     color: Value;
     opacity: number;
@@ -37,7 +85,7 @@ export type ShadowToken<Value extends string = ColorPalette> = Token<
   'shadow'
 >;
 
-export type RawToken = Token<string, 'raw'>;
+export type RawToken = DesignToken<string, 'raw'>;
 
 export interface PaletteColorTokenSchema {
   color: {
@@ -330,6 +378,7 @@ export interface ShadowTokenSchema {
 export interface UtilTokenSchema {
   UNSAFE_util: {
     transparent: RawToken;
+    MISSING_TOKEN: RawToken;
   };
 }
 

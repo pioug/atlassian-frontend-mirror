@@ -1,5 +1,15 @@
 # @atlaskit/reactions
 
+## 20.0.0
+
+### Major Changes
+
+- [`814356508d3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/814356508d3) - [ux] Design changes to help distinguish reactions and users. User list tooltip now shows the emoji name in grey and the additional users past the first five users in grey.Reactions that you have reacted to now have a blue border and slightly blue transparent background.Updated the heart emoji in the default emoji set.
+
+### Minor Changes
+
+- [`ef61c4df3e5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ef61c4df3e5) - Add metadata when creating reaction store and pass it down to client
+
 ## 19.1.5
 
 ### Patch Changes

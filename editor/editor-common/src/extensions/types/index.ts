@@ -57,6 +57,7 @@ export type { MenuItem, MenuItemMap } from './utils';
 export {
   isFieldset,
   isTabGroup,
+  isTabField,
   isExpand,
   isDateRange,
 } from './field-definitions';

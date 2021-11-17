@@ -40,8 +40,8 @@
     "@atlaskit/docs": "*",
     "@atlaskit/flag": "^14.4.0",
     "@atlaskit/icon": "^21.9.0",
-    "@atlaskit/inline-dialog": "^13.1.0",
-    "@atlaskit/modal-dialog": "^12.1.0",
+    "@atlaskit/inline-dialog": "^13.1.8",
+    "@atlaskit/modal-dialog": "^12.2.0",
     "@atlaskit/onboarding": "^10.3.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/tooltip": "^17.5.0",
@@ -67,7 +67,10 @@
       "ui-components": "lite-mode",
       "analytics": "analytics-next",
       "theming": "tokens",
-      "deprecation": "no-deprecated-imports"
+      "deprecation": "no-deprecated-imports",
+      "styling": [
+        "emotion"
+      ]
     }
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"

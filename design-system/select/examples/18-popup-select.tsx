@@ -1,4 +1,6 @@
-import React, { Fragment } from 'react';
+/** @jsx jsx */
+import { jsx } from '@emotion/core';
+import { Fragment } from 'react';
 import AppSwitcherIcon from '@atlaskit/icon/glyph/app-switcher';
 import Button from '@atlaskit/button';
 import { token } from '@atlaskit/tokens';

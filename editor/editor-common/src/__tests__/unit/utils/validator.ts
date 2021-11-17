@@ -1,6 +1,7 @@
 declare var global: any;
 import {
   createSchema,
+  getSchemaBasedOnStage,
   isSafeUrl,
   defaultSchema as schema,
 } from '@atlaskit/adf-schema';
@@ -1650,20 +1651,20 @@ describe('Renderer - Validator', () => {
   });
 
   describe('getMarksByOrder', () => {
-    const {
-      link,
-      em,
-      strong,
-      textColor,
-      strike,
-      subsup,
-      underline,
-      code,
-      confluenceInlineComment,
-      annotation,
-    } = schema.marks;
+    it('should return marks in right order for full schema', () => {
+      const {
+        link,
+        em,
+        strong,
+        textColor,
+        strike,
+        subsup,
+        underline,
+        code,
+        confluenceInlineComment,
+        annotation,
+      } = schema.marks;
 
-    it('should return marks in right order', () => {
       const unorderedMarks = [
         strong.create(),
         subsup.create(),
@@ -1675,6 +1676,43 @@ describe('Renderer - Validator', () => {
         confluenceInlineComment.create(),
         strike.create(),
         annotation.create(),
+      ];
+
+      const marksWithoutStage0 = markOrder.filter((m) => m !== 'fragment');
+
+      const orderedMarks = getMarksByOrder(unorderedMarks);
+      orderedMarks.forEach((mark, index) => {
+        expect(marksWithoutStage0[index]).toBe(mark.type.name);
+      });
+    });
+
+    it('should return marks in right order for stage 0 schema', () => {
+      const {
+        link,
+        em,
+        strong,
+        textColor,
+        strike,
+        subsup,
+        underline,
+        code,
+        confluenceInlineComment,
+        annotation,
+        fragment,
+      } = getSchemaBasedOnStage('stage0').marks;
+
+      const unorderedMarks = [
+        strong.create(),
+        subsup.create(),
+        code.create(),
+        em.create(),
+        link.create({ href: 'www.atlassian.com' }),
+        textColor.create({ color: '#97a0af' }),
+        underline.create(),
+        confluenceInlineComment.create(),
+        strike.create(),
+        annotation.create(),
+        fragment.create(),
       ];
 
       const orderedMarks = getMarksByOrder(unorderedMarks);

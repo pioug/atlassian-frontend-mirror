@@ -55,3 +55,5 @@ export type {
   AutoformatHandler,
   AutoformatRuleset,
 } from './provider-factory/autoformatting-provider';
+
+export type { ContextIdentifierProvider } from './provider-factory/context-identifier-provider';

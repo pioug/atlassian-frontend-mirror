@@ -3,6 +3,8 @@ import { InjectedIntlProps } from 'react-intl';
 import { ReactWrapper, mount } from 'enzyme';
 import { EditorView } from 'prosemirror-view';
 
+// TODO Use `@atlaskit/menu
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import Item from '@atlaskit/item';
 import { EmojiPicker as AkEmojiPicker } from '@atlaskit/emoji';
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';

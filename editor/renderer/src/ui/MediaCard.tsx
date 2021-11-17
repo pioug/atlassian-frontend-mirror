@@ -29,6 +29,7 @@ import {
 import { MediaFeatureFlags } from '@atlaskit/media-common';
 import { RendererAppearance } from './Renderer/types';
 import { RendererContext } from '../react/types';
+import { MediaSSR } from '../types/mediaOptions';
 import styled from 'styled-components';
 
 export type MediaProvider = {
@@ -61,6 +62,7 @@ export interface MediaCardProps {
   alt?: string;
   featureFlags?: MediaFeatureFlags;
   shouldEnableDownloadButton?: boolean;
+  ssr?: MediaSSR;
 }
 
 export interface State {
@@ -201,6 +203,7 @@ export class MediaCardInternal extends Component<MediaCardProps, State> {
       disableOverlay,
       alt,
       featureFlags,
+      ssr,
     } = this.props;
 
     if (imageStatus === 'loading' || !url) {
@@ -229,6 +232,7 @@ export class MediaCardInternal extends Component<MediaCardProps, State> {
           list: Array.from(mediaIdentifierMap.values()),
         }}
         featureFlags={featureFlags}
+        ssr={ssr?.mode}
       />
     );
   }
@@ -264,7 +268,7 @@ export class MediaCardInternal extends Component<MediaCardProps, State> {
   render() {
     const {
       contextIdentifierProvider,
-      mediaClientConfig,
+      mediaClientConfig: mediaClientConfigInState,
       fileState,
     } = this.state;
     const {
@@ -282,6 +286,7 @@ export class MediaCardInternal extends Component<MediaCardProps, State> {
       shouldOpenMediaViewer: forceOpenMediaViewer,
       featureFlags,
       shouldEnableDownloadButton,
+      ssr,
     } = this.props;
     const isMobile = rendererAppearance === 'mobile';
     const shouldPlayInline =
@@ -302,6 +307,8 @@ export class MediaCardInternal extends Component<MediaCardProps, State> {
     if (type === 'link') {
       return null;
     }
+
+    const mediaClientConfig = !!ssr ? ssr.config : mediaClientConfigInState;
 
     if (!mediaClientConfig || !id) {
       return this.renderLoadingCard();
@@ -349,6 +356,7 @@ export class MediaCardInternal extends Component<MediaCardProps, State> {
           }}
           featureFlags={featureFlags}
           shouldEnableDownloadButton={shouldEnableDownloadButton}
+          ssr={ssr?.mode}
         />
       </CardWrapper>
     );

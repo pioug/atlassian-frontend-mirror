@@ -10,7 +10,7 @@ import {
   Channel,
   ErrorPayload,
   Metadata,
-  ParticipantPayload,
+  PresencePayload,
   StepJson,
   StepsPayload,
   TelepointerPayload,
@@ -194,7 +194,6 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
       .on('connected', ({ sid, initialized }) => {
         this.sessionId = sid;
         this.emit('connected', { sid });
-        this.sendPresence();
         // If already initialized, `connected` means reconnected
         if (
           initialized &&
@@ -206,9 +205,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
         }
         this.disconnectedAt = undefined;
       })
-      .on('init', ({ doc, version, userId, metadata }) => {
-        this.userId = userId;
-        this.sendPresence();
+      .on('init', ({ doc, version, metadata }) => {
         // Initial document and version
         this.updateDocumentWithMetadata({
           doc,
@@ -218,7 +215,8 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
       })
       .on('steps:added', this.onStepsAdded)
       .on('participant:telepointer', this.onParticipantTelepointer)
-      .on('participant:joined', this.onParticipantJoined)
+      .on('presence:joined', this.onPresenceJoined)
+      .on('presence', this.onPresence)
       .on('participant:left', this.onParticipantLeft)
       .on('participant:updated', this.onParticipantUpdated)
       .on('metadata:changed', this.onMetadataChanged)
@@ -511,12 +509,20 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
    * This method will be triggered from backend to notify all participants to exchange presence
    *
    */
-  private onParticipantJoined = ({ sessionId }: ParticipantPayload) => {
+  private onPresenceJoined = ({ sessionId }: PresencePayload) => {
     logger('Participant joined with session: ', sessionId);
 
     // This expose existing users to the newly joined user
     this.sendPresence();
   };
+
+  private onPresence = ({ userId }: PresencePayload) => {
+    logger('onPresence userId: ', userId);
+    this.userId = userId;
+    this.sendPresence();
+    this.channel.sendPresenceJoined();
+  };
+
   /**
    * Called when a metadata is changed.
    *
@@ -532,7 +538,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
    *
    * We emit the `presence` event to update the active avatars in the editor.
    */
-  private onParticipantLeft = ({ sessionId }: ParticipantPayload) => {
+  private onParticipantLeft = ({ sessionId }: PresencePayload) => {
     logger(`Participant left`);
 
     this.participants.delete(sessionId);
@@ -547,7 +553,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
     timestamp,
     userId,
     clientId,
-  }: ParticipantPayload) => {
+  }: PresencePayload) => {
     this.updateParticipant({ sessionId, timestamp, userId, clientId });
   };
 
@@ -583,7 +589,11 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
     timestamp,
     userId,
     clientId,
-  }: ParticipantPayload) => {
+  }: PresencePayload) => {
+    if (!userId) {
+      // If userId does not exsit, does nothing here to prevent duplication.
+      return;
+    }
     const { getUser } = this.config;
     const { name = '', email = '', avatar = '' } = await (getUser
       ? getUser(userId)

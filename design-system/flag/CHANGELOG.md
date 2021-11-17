@@ -1,5 +1,19 @@
 # @atlaskit/flag
 
+## 14.4.2
+
+### Minor Changes
+
+- [`4567d73813c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4567d73813c) - Instrumented flag with the new theming package, `@atlaskit/tokens`.
+
+  New tokens will be visible only in applications configured to use the new Tokens API (currently in alpha).
+  These changes are intended to be interoperable with the legacy theme implementation. Legacy dark mode users should expect no visual or breaking changes.
+
+### Patch Changes
+
+- [`f460cc7c411`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f460cc7c411) - Builds for this package now pass through a tokens babel plugin, removing runtime invocations of the tokens() function and improving bundle size.
+- Updated dependencies
+
 ## 14.4.1
 
 ### Patch Changes

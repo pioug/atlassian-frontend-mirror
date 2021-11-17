@@ -1,18 +1,8 @@
 export default `<meta charset="utf-8" /><meta charset="utf-8" /><b
   style="font-weight:normal;"
   id="docs-internal-guid-9f438a69-7fff-efb3-ed70-b49268e55bc3"
-  ><h1 dir="ltr" style="line-height:1.656;margin-top:20pt;margin-bottom:6pt;">
-    <span
-      style="font-size:20pt;font-family:Arial;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;"
-      >Heading 1</span
-    >
-  </h1>
-  <h2 dir="ltr" style="line-height:1.656;margin-top:18pt;margin-bottom:6pt;">
-    <span
-      style="font-size:16pt;font-family:Arial;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;"
-      >Heading 2</span
-    >
-  </h2>
+  >
+  <h1 dir="ltr" style="line-height:1.38;margin-top:20pt;margin-bottom:6pt;"><span style="font-size:20pt;font-family:Arial;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">Heading 1&nbsp;</span></h1><h2 dir="ltr" style="line-height:1.38;margin-top:18pt;margin-bottom:6pt;"><span style="font-size:16pt;font-family:Arial;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">Heading 2</span></h2>
   <ul style="margin-top:0;margin-bottom:0;">
     <li
       dir="ltr"

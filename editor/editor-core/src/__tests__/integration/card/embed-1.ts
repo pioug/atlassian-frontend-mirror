@@ -10,12 +10,10 @@ import { waitForEmbedCardSelection } from '@atlaskit/media-integration-test-help
 
 type ClientType = Parameters<typeof goToEditorTestingWDExample>[0];
 
-// FIXME: This test was automatically skipped due to failure on 9/2/2021: https://product-fabric.atlassian.net/browse/ED-13695
 BrowserTestCase(
   'card: changing the link label of an embed link should convert it to a "dumb" link',
   {
-    // skip: ['safari', 'edge'],
-    skip: ['*'],
+    skip: ['safari', 'edge'],
   },
   async (client: ClientType, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
@@ -36,11 +34,16 @@ BrowserTestCase(
     });
 
     await waitForEmbedCardSelection(page);
-    await page.click('button[aria-label="Edit link"]');
+    const editLinkButtonSelector = 'button[aria-label="Edit link"]';
+    await page.waitForSelector(editLinkButtonSelector);
+    await page.click(editLinkButtonSelector);
+
     // Clear the Link Label field before typing
-    await page.clear('[data-testid="link-label"]');
+    const linkLabelSelector = '[data-testid="link-label"]';
+    await page.waitForSelector(linkLabelSelector);
+    await page.clear(linkLabelSelector);
     // Change the 'text to display' field to 'New heading' and press enter
-    await page.type('[data-testid="link-label"]', 'New heading\n');
+    await page.type(linkLabelSelector, 'New heading\n');
 
     expect(
       await page.$eval(editable, getDocFromElement),

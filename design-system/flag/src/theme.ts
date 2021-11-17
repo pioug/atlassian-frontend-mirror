@@ -1,14 +1,50 @@
-import * as colors from '@atlaskit/theme/colors';
+import {
+  B100,
+  B400,
+  DN40,
+  DN50,
+  DN600,
+  G300,
+  G400,
+  N0,
+  N200,
+  N30A,
+  N40,
+  N500,
+  N50A,
+  N60A,
+  N700,
+  R300,
+  R400,
+  Y200,
+  Y300,
+} from '@atlaskit/theme/colors';
 import { ThemeModes } from '@atlaskit/theme/types';
+import { token } from '@atlaskit/tokens';
 
 import { AppearanceTypes } from './types';
 
 const flagBackgroundColor = {
-  error: { light: colors.R400, dark: colors.R300 },
-  info: { light: colors.N500, dark: colors.N500 },
-  normal: { light: colors.N0, dark: colors.DN50 },
-  success: { light: colors.G400, dark: colors.G300 },
-  warning: { light: colors.Y200, dark: colors.Y300 },
+  error: {
+    light: token('color.background.overlay', R400),
+    dark: token('color.background.overlay', R300),
+  },
+  info: {
+    light: token('color.background.overlay', N500),
+    dark: token('color.background.overlay', N500),
+  },
+  normal: {
+    light: token('color.background.overlay', N0),
+    dark: token('color.background.overlay', DN50),
+  },
+  success: {
+    light: token('color.background.overlay', G400),
+    dark: token('color.background.overlay', G300),
+  },
+  warning: {
+    light: token('color.background.overlay', Y200),
+    dark: token('color.background.overlay', Y300),
+  },
 };
 
 export const getFlagBackgroundColor = (
@@ -16,14 +52,52 @@ export const getFlagBackgroundColor = (
   mode: ThemeModes,
 ): string => flagBackgroundColor[appearance][mode];
 
-export const flagBorderColor = colors.N60A;
+export const flagBorderColor = token('color.background.overlay', N60A);
+
+const flagIconColor = {
+  error: {
+    light: token('color.iconBorder.danger', N0),
+    dark: token('color.iconBorder.danger', DN40),
+  },
+  info: {
+    light: token('color.iconBorder.discovery', N0),
+    dark: token('color.iconBorder.discovery', DN600),
+  },
+  normal: {
+    light: token('color.iconBorder.brand', N500),
+    dark: token('color.iconBorder.brand', DN600),
+  },
+  success: {
+    light: token('color.iconBorder.success', N0),
+    dark: token('color.iconBorder.success', DN40),
+  },
+  warning: {
+    light: token('color.iconBorder.warning', N700),
+    dark: token('color.iconBorder.warning', DN40),
+  },
+};
 
 const flagTextColor = {
-  error: { light: colors.N0, dark: colors.DN40 },
-  info: { light: colors.N0, dark: colors.DN600 },
-  normal: { light: colors.N500, dark: colors.DN600 },
-  success: { light: colors.N0, dark: colors.DN40 },
-  warning: { light: colors.N700, dark: colors.DN40 },
+  error: {
+    light: token('color.text.highEmphasis', N0),
+    dark: token('color.text.highEmphasis', DN40),
+  },
+  info: {
+    light: token('color.text.highEmphasis', N0),
+    dark: token('color.text.highEmphasis', DN600),
+  },
+  normal: {
+    light: token('color.text.highEmphasis', N500),
+    dark: token('color.text.highEmphasis', DN600),
+  },
+  success: {
+    light: token('color.text.highEmphasis', N0),
+    dark: token('color.text.highEmphasis', DN40),
+  },
+  warning: {
+    light: token('color.text.highEmphasis', N700),
+    dark: token('color.text.highEmphasis', DN40),
+  },
 };
 
 export const getFlagTextColor = (
@@ -31,14 +105,36 @@ export const getFlagTextColor = (
   mode: ThemeModes,
 ): string => flagTextColor[appearance][mode];
 
-export const flagShadowColor = colors.N50A;
+export const getFlagIconColor = (
+  appearance: AppearanceTypes,
+  mode: ThemeModes,
+): string => flagIconColor[appearance][mode];
+
+// token set in flag.tsx instead
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+export const flagShadowColor = N50A;
 
 const flagFocusRingColor = {
-  error: { light: colors.N40, dark: colors.N40 },
-  info: { light: colors.N40, dark: colors.N40 },
-  normal: { light: colors.B100, dark: colors.B100 },
-  success: { light: colors.N40, dark: colors.N40 },
-  warning: { light: colors.N200, dark: colors.N200 },
+  error: {
+    light: token('color.border.focus', N40),
+    dark: token('color.border.focus', N40),
+  },
+  info: {
+    light: token('color.border.focus', N40),
+    dark: token('color.border.focus', N40),
+  },
+  normal: {
+    light: token('color.border.focus', B100),
+    dark: token('color.border.focus', B100),
+  },
+  success: {
+    light: token('color.border.focus', N40),
+    dark: token('color.border.focus', N40),
+  },
+  warning: {
+    light: token('color.border.focus', N200),
+    dark: token('color.border.focus', N200),
+  },
 };
 
 export const getFlagFocusRingColor = (
@@ -49,19 +145,61 @@ export const getFlagFocusRingColor = (
 const lightButtonBackground = 'rgba(255, 255, 255, 0.08)';
 
 const actionBackground = {
-  success: { light: lightButtonBackground, dark: colors.N30A },
-  info: { light: lightButtonBackground, dark: lightButtonBackground },
-  error: { light: lightButtonBackground, dark: colors.N30A },
-  warning: { light: colors.N30A, dark: colors.N30A },
-  normal: { light: 'none', dark: 'none' },
+  success: {
+    light: token(
+      'color.background.subtleNeutral.resting',
+      lightButtonBackground,
+    ),
+    dark: token('color.background.subtleNeutral.resting', N30A),
+  },
+  info: {
+    light: token(
+      'color.background.subtleNeutral.resting',
+      lightButtonBackground,
+    ),
+    dark: token(
+      'color.background.subtleNeutral.resting',
+      lightButtonBackground,
+    ),
+  },
+  error: {
+    light: token(
+      'color.background.subtleNeutral.resting',
+      lightButtonBackground,
+    ),
+    dark: token('color.background.subtleNeutral.resting', N30A),
+  },
+  warning: {
+    light: token('color.background.subtleNeutral.resting', N30A),
+    dark: token('color.background.subtleNeutral.resting', N30A),
+  },
+  normal: {
+    light: token('color.background.subtleNeutral.resting', 'none'),
+    dark: token('color.background.subtleNeutral.resting', 'none'),
+  },
 };
 
 const actionColor = {
-  success: { light: colors.N0, dark: colors.DN40 },
-  info: { light: colors.N0, dark: colors.DN600 },
-  error: { light: colors.N0, dark: colors.DN600 },
-  warning: { light: colors.N700, dark: colors.DN40 },
-  normal: { light: colors.B400, dark: colors.B100 },
+  success: {
+    light: token('color.text.mediumEmphasis', N0),
+    dark: token('color.text.mediumEmphasis', DN40),
+  },
+  info: {
+    light: token('color.text.mediumEmphasis', N0),
+    dark: token('color.text.mediumEmphasis', DN600),
+  },
+  error: {
+    light: token('color.text.mediumEmphasis', N0),
+    dark: token('color.text.mediumEmphasis', DN600),
+  },
+  warning: {
+    light: token('color.text.mediumEmphasis', N700),
+    dark: token('color.text.mediumEmphasis', DN40),
+  },
+  normal: {
+    light: token('color.text.mediumEmphasis', B400),
+    dark: token('color.text.mediumEmphasis', B100),
+  },
 };
 
 export const getActionBackground = (

@@ -18,7 +18,6 @@ export type MediaStateStatus =
 
 export interface MediaOptions {
   provider?: Providers['mediaProvider'];
-  allowMediaInline?: boolean;
   allowMediaSingle?: boolean | MediaSingleOptions;
   allowMediaGroup?: boolean;
   customDropzoneContainer?: HTMLElement;

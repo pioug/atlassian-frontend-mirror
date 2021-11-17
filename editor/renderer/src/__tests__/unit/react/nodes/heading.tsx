@@ -62,40 +62,50 @@ describe('<Heading />', () => {
     });
   });
 
-  describe('When click on copy anchor link button', () => {
-    beforeEach(() => {
-      heading = mountWithIntl(
-        <CopyTextContext.Provider
+  const renderHeadingWithCopyProvider = () => {
+    return mountWithIntl(
+      <CopyTextContext.Provider
+        value={{
+          copyTextToClipboard: copyTextToClipboard,
+        }}
+      >
+        <AnalyticsContext.Provider
           value={{
-            copyTextToClipboard: copyTextToClipboard,
+            fireAnalyticsEvent: fireAnalyticsEvent,
           }}
         >
-          <AnalyticsContext.Provider
-            value={{
-              fireAnalyticsEvent: fireAnalyticsEvent,
+          <Heading
+            level={1}
+            headingId="This-is-a-Heading-1"
+            showAnchorLink={true}
+            dataAttributes={{
+              'data-renderer-start-pos': 0,
             }}
+            nodeType="heading"
+            marks={[]}
+            serializer={serialiser}
           >
-            <Heading
-              level={1}
-              headingId="This-is-a-Heading-1"
-              showAnchorLink={true}
-              dataAttributes={{
-                'data-renderer-start-pos': 0,
-              }}
-              nodeType="heading"
-              marks={[]}
-              serializer={serialiser}
-            >
-              This is a Heading 1
-            </Heading>
-          </AnalyticsContext.Provider>
-          ,
-        </CopyTextContext.Provider>,
-      );
-      heading.find('#This-is-a-Heading-1').find('button').simulate('click');
+            This is a Heading 1
+          </Heading>
+        </AnalyticsContext.Provider>
+        ,
+      </CopyTextContext.Provider>,
+    );
+  };
+
+  describe('When click on copy anchor link button', () => {
+    let locationBackup: Location;
+    beforeEach(() => {
+      locationBackup = window.location;
+    });
+
+    afterEach(() => {
+      window.location = locationBackup;
     });
 
     it('should call "fireAnalyticsEvent" with correct event data', () => {
+      heading = renderHeadingWithCopyProvider();
+      heading.find('button').simulate('click');
       expect(fireAnalyticsEvent).toHaveBeenCalledWith({
         action: 'clicked',
         actionSubject: 'button',
@@ -105,6 +115,23 @@ describe('<Heading />', () => {
     });
 
     it('Should call "copyTextToClipboard" with correct param', () => {
+      heading = renderHeadingWithCopyProvider();
+      heading.find('button').simulate('click');
+      expect(copyTextToClipboard).toHaveBeenCalledWith(
+        'http://localhost/#This-is-a-Heading-1',
+      );
+    });
+
+    it('Should call "copyTextToClipboard" with correct hash replaced', () => {
+      Object.defineProperty(window, 'location', {
+        writable: true,
+        value: {
+          href: 'http://localhost/#some-other-link',
+          hash: '#some-other-link',
+        },
+      });
+      heading = renderHeadingWithCopyProvider();
+      heading.find('button').simulate('click');
       expect(copyTextToClipboard).toHaveBeenCalledWith(
         'http://localhost/#This-is-a-Heading-1',
       );

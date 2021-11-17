@@ -358,6 +358,8 @@ describe(name, () => {
               type: 'panel',
               attrs: {
                 panelType: 'info',
+                panelColor: null,
+                panelIcon: null,
               },
               content: [
                 {
@@ -1739,6 +1741,8 @@ describe(name, () => {
                   type: 'panel',
                   attrs: {
                     panelType: PanelType.INFO,
+                    panelColor: null,
+                    panelIcon: null,
                   },
                   content: [
                     {
@@ -1807,6 +1811,8 @@ describe(name, () => {
                   type: 'panel',
                   attrs: {
                     panelType: PanelType.INFO,
+                    panelColor: null,
+                    panelIcon: null,
                   },
                   content: [
                     {
@@ -1882,6 +1888,8 @@ describe(name, () => {
                   type: 'panel',
                   attrs: {
                     panelType: PanelType.INFO,
+                    panelColor: null,
+                    panelIcon: null,
                   },
                   content: [
                     {

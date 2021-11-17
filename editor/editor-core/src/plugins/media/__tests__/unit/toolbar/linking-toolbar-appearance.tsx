@@ -26,7 +26,7 @@ import {
   LinkingToolbarProps,
 } from '../../../toolbar/linking-toolbar-appearance';
 import { IntlProvider } from 'react-intl';
-import { EditorState } from 'prosemirror-state';
+import { EditorState, NodeSelection } from 'prosemirror-state';
 
 const waitForStateUpdate = async () => {
   // We need to wait for the end of the event loop to see the state update
@@ -73,6 +73,7 @@ const intlProvider = new IntlProvider({
   locale: 'en',
 });
 const intl = intlProvider.getChildContext().intl;
+let editorState: EditorState;
 
 const setup = async (
   doc: RefsNode = defaultDocNode,
@@ -84,10 +85,14 @@ const setup = async (
     mediaClientConfig: getDefaultMediaClientConfig(),
   });
   (checkMediaType as jest.Mock).mockReturnValue(Promise.resolve(mediaType));
+  editorState = EditorState.create({
+    doc,
+    selection: NodeSelection.create(doc, 0),
+  });
 
   const wrapper: ReactWrapper<LinkingToolbarProps> = mountWithIntl(
     <LinkToolbarAppearance
-      editorState={EditorState.create({ doc })}
+      editorState={editorState}
       intl={intl}
       mediaLinkingState={mediaLinkingState}
       onAddLink={jest.fn()}

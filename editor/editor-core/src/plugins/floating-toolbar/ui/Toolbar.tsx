@@ -314,7 +314,7 @@ export default class Toolbar extends Component<Props> {
                     return (
                       <EmojiPickerButton
                         key={idx}
-                        view={editorView}
+                        editorView={editorView}
                         title={item.title}
                         providerFactory={providerFactory}
                         isSelected={item.selected}

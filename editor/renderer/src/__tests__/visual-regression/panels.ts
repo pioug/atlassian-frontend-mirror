@@ -21,7 +21,7 @@ const initRenderer = async (
     adf: panelsADF,
     rendererProps: {
       adfStage,
-      UNSAFE_allowCustomPanels: adfStage === 'stage0',
+      allowCustomPanels: adfStage === 'stage0',
     },
     themeMode: isDarkTheme ? 'dark' : 'light',
   });

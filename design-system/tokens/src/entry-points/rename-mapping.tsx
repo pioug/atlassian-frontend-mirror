@@ -1,1 +1,1 @@
-export { default } from '../tokens/rename-mapping';
+export { default } from '../artifacts/rename-mapping';

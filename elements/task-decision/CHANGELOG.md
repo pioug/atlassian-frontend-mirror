@@ -1,5 +1,12 @@
 # @atlaskit/task-decision
 
+## 17.2.4
+
+### Patch Changes
+
+- [`35611ad44a5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/35611ad44a5) - AK-601 Changed checkbox colors to meet minimum contrast requirements
+- [`544dc89eb9e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/544dc89eb9e) - import more contrast color for text in decisions list
+
 ## 17.2.3
 
 ### Patch Changes

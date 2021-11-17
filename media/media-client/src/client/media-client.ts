@@ -30,6 +30,7 @@ export class MediaClient {
     this.mediaStore = new MediaStore(
       {
         authProvider: mediaClientConfig.authProvider,
+        initialAuth: mediaClientConfig.initialAuth,
       },
       featureFlags,
     );

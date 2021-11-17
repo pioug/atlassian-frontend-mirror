@@ -695,6 +695,33 @@ export const document = {
       ],
     },
     {
+      type: 'mediaSingle',
+      attrs: {
+        layout: 'full-width',
+      },
+      content: [
+        {
+          type: 'media',
+          attrs: {
+            id: '2aa22582-ca0e-4bd4-b1bc-9369d10a0719',
+            type: 'file',
+            collection: 'MediaServicesSample',
+            width: 5845,
+            height: 1243,
+          },
+        },
+        {
+          type: 'caption',
+          content: [
+            {
+              type: 'text',
+              text: 'hello world',
+            },
+          ],
+        },
+      ],
+    },
+    {
       type: 'paragraph',
       content: [
         {

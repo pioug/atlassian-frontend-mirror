@@ -29,6 +29,13 @@
  */
 export type FeatureFlags = {
   /**
+   * @description Enable single layout option
+   *
+   * @see https://hello.atlassian.net/browse/LOVE-187
+   * @default false
+   */
+  singleLayout?: boolean;
+  /**
    * @description Enable new insertion behaviour
    *
    * @see https://product-fabric.atlassian.net/l/c/JYoSEu00
@@ -287,6 +294,13 @@ export type FeatureFlags = {
    * @default false
    */
   ufo?: boolean;
+
+  /**
+   * Split editor toolbar to two lines when viewport is small
+   * @see https://product-fabric.atlassian.net/browse/CERN-1124
+   * @default false
+   */
+  twoLineEditorToolbar?: boolean;
 };
 
 export type FeatureFlagKey = keyof FeatureFlags;

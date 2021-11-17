@@ -61,7 +61,7 @@ export const defaultReactions: EmojiId[] = [
   { id: '1f44d', shortName: ':thumbsup:' },
   { id: '1f44f', shortName: ':clap:' },
   { id: '1f525', shortName: ':fire:' },
-  { id: '2665', shortName: ':hearts:' },
+  { id: '2764', shortName: ':heart:' },
   { id: '1f632', shortName: ':astonished:' },
   { id: '1f914', shortName: ':thinking:' },
 ];

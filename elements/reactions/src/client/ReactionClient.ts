@@ -5,6 +5,7 @@ export type ReactionRequest<T> = (
   containerAri: string,
   ari: string,
   emojiId: string,
+  metadata?: { [k: string]: any },
 ) => Promise<T>;
 
 export interface ReactionClient {

@@ -36,7 +36,6 @@ export const Icon = ({
           css={{ height: gs(2), width: gs(2) }}
           src={url}
           data-testid={`${testId}-image`}
-          className={blockCardIconImageClassName}
         />
       }
       errored={placeholder}
@@ -53,6 +52,7 @@ export const Icon = ({
         justifyContent: 'center',
       }}
       data-testid={testId}
+      className={blockCardIconImageClassName}
     >
       {icon || image || placeholder}
     </span>

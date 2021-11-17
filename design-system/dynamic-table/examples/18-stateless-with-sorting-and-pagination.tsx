@@ -9,7 +9,6 @@ import Button from '@atlaskit/button/standard-button';
 import { DynamicTableStateless } from '../src';
 import { SortOrderType } from '../src/types';
 
-import Wrapper from './components/wrapper';
 import { caption, head, rows } from './content/sample-data';
 
 type HeadCell = typeof head['cells'][number];
@@ -27,7 +26,7 @@ const ControlledSorting = () => {
   const navigateTo = (pageNumber: number) => setPageNumber(pageNumber);
 
   return (
-    <Wrapper>
+    <div>
       <ButtonGroup>
         <Button
           isDisabled={pageNumber === 1}
@@ -54,7 +53,7 @@ const ControlledSorting = () => {
         onSort={onSort}
         onSetPage={navigateTo}
       />
-    </Wrapper>
+    </div>
   );
 };
 

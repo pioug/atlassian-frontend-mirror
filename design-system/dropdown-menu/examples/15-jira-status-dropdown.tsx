@@ -1,45 +1,36 @@
-import React from 'react';
-
-import styled from 'styled-components';
+/** @jsx jsx */
+import { css, jsx } from '@emotion/core';
 
 import Arrow from '@atlaskit/icon/glyph/arrow-right';
 import Lozenge from '@atlaskit/lozenge';
 
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../src';
 
-const JiraItem = styled.div`
-  align-items: center;
-  display: flex;
-  width: 105px;
-`;
+const jiraItemStyles = css({
+  display: 'flex',
+  width: 105,
+  alignItems: 'center',
+});
 
 export default () => (
-  <DropdownMenu
-    defaultOpen
-    triggerType="button"
-    trigger="To do"
-    onItemActivated={(item) => {
-      // you can do allthethings here!
-      console.log(item);
-    }}
-  >
+  <DropdownMenu defaultOpen trigger="To do">
     <DropdownItemGroup>
       <DropdownItem
         elemAfter={
-          <JiraItem>
+          <div css={jiraItemStyles}>
             <Arrow label="" size="small" />
             <Lozenge appearance="inprogress">in progress</Lozenge>
-          </JiraItem>
+          </div>
         }
       >
         Status project
       </DropdownItem>
       <DropdownItem
         elemAfter={
-          <JiraItem>
+          <div css={jiraItemStyles}>
             <Arrow label="" size="small" />
             <Lozenge appearance="success">Done</Lozenge>
-          </JiraItem>
+          </div>
         }
       >
         Move to done

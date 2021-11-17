@@ -13,6 +13,7 @@ import {
 import { WebDriverPage } from '../../../../__tests__/__helpers/page-objects/_types';
 import selectionAdf from './__fixtures__/selectable-nodes-adf.json';
 import selectionAdfNoDecisions from './__fixtures__/selectable-nodes-no-decisions-adf.json';
+import blockNodesAdf from './__fixtures__/block-react-node-views.adf.json';
 
 const rightArrowExpectedSelections: SelectionMatch[] = [
   // panel
@@ -99,6 +100,8 @@ const initEditor = async (
       allowPanel: true,
       allowLayouts: true,
       allowDate: true,
+      allowTables: {},
+      allowExtension: {},
     },
     undefined,
     // clicking selects the layout node which means setProsemirrorTextSelection doesn't
@@ -194,6 +197,57 @@ BrowserTestCase(
 
     for (const selection of leftArrowExpectedSelections) {
       await page.keys(['ArrowLeft']);
+      await expectToMatchSelection(page, selection);
+    }
+  },
+);
+
+BrowserTestCase(
+  'selection: shift + arrowup selection for block react node views',
+  { skip: [] },
+  async (client: any) => {
+    const page = await goToEditorTestingWDExample(client);
+    await initEditor(page, blockNodesAdf, { anchor: 60 });
+
+    const expectedSelections: SelectionMatch[] = [
+      { type: 'text', from: 54, to: 60 },
+      { type: 'text', from: 51, to: 60 },
+      { type: 'text', from: 1, to: 60 },
+    ];
+
+    await page.keys(['Shift']);
+    for (const selection of expectedSelections) {
+      // shift is held down in chrome, not other browsers
+      if (page.isBrowser('chrome')) {
+        await page.keys(['ArrowUp']);
+      } else {
+        await page.keys(['Shift', 'ArrowUp'], true);
+      }
+      await expectToMatchSelection(page, selection);
+    }
+  },
+);
+
+BrowserTestCase(
+  'selection: shift + arrowdown selection for block react node views',
+  { skip: [] },
+  async (client: any) => {
+    const page = await goToEditorTestingWDExample(client);
+    await initEditor(page, blockNodesAdf, { anchor: 1 });
+
+    const expectedSelections: SelectionMatch[] = [
+      { type: 'text', from: 1, to: 51 },
+      { type: 'text', from: 1, to: 54 },
+      { type: 'text', from: 1, to: 60 },
+    ];
+
+    for (const selection of expectedSelections) {
+      // shift is held down in chrome, not other browsers
+      if (page.isBrowser('chrome')) {
+        await page.keys(['ArrowDown']);
+      } else {
+        await page.keys(['Shift', 'ArrowDown'], true);
+      }
       await expectToMatchSelection(page, selection);
     }
   },

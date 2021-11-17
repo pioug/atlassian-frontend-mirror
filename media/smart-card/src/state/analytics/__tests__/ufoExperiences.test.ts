@@ -6,7 +6,11 @@ jest.mock('@atlaskit/ufo', () => {
   };
 });
 
-import { ConcurrentExperience } from '@atlaskit/ufo';
+import {
+  ConcurrentExperience,
+  ExperiencePerformanceTypes,
+  ExperienceTypes,
+} from '@atlaskit/ufo';
 import { JestFunction } from '@atlaskit/media-test-helpers';
 import 'jest-extended';
 import type {
@@ -76,18 +80,33 @@ describe('ufoExperience', () => {
 
   describe('ufoExperiences', () => {
     it('should instantiate ConcurrentExperiences', () => {
-      const experienceConfig = {
-        performanceType: 'page-segment-load',
+      const inlineExperienceConfig = {
+        performanceType: ExperiencePerformanceTypes.InlineResult,
         platform: {
           component: 'smart-links',
         },
-        type: 'load',
+        type: ExperienceTypes.Experience,
       };
-      expect(mockConcurrentExperience).toHaveBeenCalledTimes(2);
-      expect(mockConcurrentExperience.mock.calls).toEqual([
-        ['smart-link-rendered', experienceConfig],
-        ['smart-link-authenticated', experienceConfig],
-      ]);
+
+      expect(mockConcurrentExperience).toHaveBeenCalledTimes(3);
+      expect(mockConcurrentExperience).toHaveBeenCalledWith(
+        'smart-link-rendered',
+        {
+          performanceType: ExperiencePerformanceTypes.PageSegmentLoad,
+          platform: {
+            component: 'smart-links',
+          },
+          type: ExperienceTypes.Load,
+        },
+      );
+      expect(mockConcurrentExperience).toHaveBeenCalledWith(
+        'smart-link-authenticated',
+        inlineExperienceConfig,
+      );
+      expect(mockConcurrentExperience).toHaveBeenCalledWith(
+        'smart-link-action-invocation',
+        inlineExperienceConfig,
+      );
     });
   });
 

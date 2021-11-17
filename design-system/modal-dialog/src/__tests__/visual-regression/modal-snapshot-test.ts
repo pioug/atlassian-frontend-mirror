@@ -496,4 +496,22 @@ describe('Snapshot test', () => {
     const image = await page.screenshot();
     expect(image).toMatchProdImageSnapshot();
   });
+
+  it('Modal with no focusable children should gain focus on its container', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'modal-dialog',
+      'custom-child',
+      global.__BASEURL__,
+    );
+
+    const { page } = global;
+    await loadPage(page, url);
+
+    await page.click(openModalBtn);
+    await page.waitForSelector(modalDialog);
+
+    const image = await page.screenshot();
+    expect(image).toMatchProdImageSnapshot();
+  });
 });

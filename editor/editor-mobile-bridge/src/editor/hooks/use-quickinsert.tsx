@@ -40,11 +40,12 @@ export function useQuickInsert(
     }
   }, [bridge.editorView, intl]);
 
+  // Hook for intl changes
   React.useEffect(() => {
     if (quickInsertItems) {
-      bridge.quickInsertItems.resolve(quickInsertItems);
+      bridge.setQuickInsertItems(quickInsertItems);
     }
-  }, [bridge.quickInsertItems, intl, quickInsertItems]);
+  }, [bridge, intl, quickInsertItems]);
 
   const quickInsert = React.useMemo(() => {
     if (!isQuickInsertEnabled) {
@@ -53,12 +54,12 @@ export function useQuickInsert(
 
     return {
       provider: createQuickInsertProvider(
-        bridge.quickInsertItems,
+        bridge,
         quickAllowList,
         isQuickInsertEnabled,
       ),
     };
-  }, [bridge.quickInsertItems, isQuickInsertEnabled, quickAllowList]);
+  }, [bridge, isQuickInsertEnabled, quickAllowList]);
 
   const updateQuickAllowList = React.useCallback(
     (payload: allowListPayloadType) => {

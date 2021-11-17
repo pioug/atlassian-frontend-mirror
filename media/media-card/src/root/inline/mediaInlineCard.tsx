@@ -87,6 +87,7 @@ export const MediaInlineCardInternal: FC<
     return (
       <MediaInlineCardLoadingView
         message={intl.formatMessage(messages.loading_file)}
+        isSelected={isSelected}
       />
     );
   }
@@ -94,23 +95,35 @@ export const MediaInlineCardInternal: FC<
     return (
       <MediaInlineCardErroredView
         message={intl.formatMessage(messages.couldnt_load_file)}
+        isSelected={isSelected}
       />
     );
   }
   if (fileState.status === 'error') {
-    return <MediaInlineCardErroredView message={fileState.message || ''} />;
+    return (
+      <MediaInlineCardErroredView
+        message={fileState.message || ''}
+        isSelected={isSelected}
+      />
+    );
   }
 
   if (fileState.status === 'failed-processing') {
     return (
       <MediaInlineCardErroredView
         message={intl.formatMessage(messages.couldnt_load_file)}
+        isSelected={isSelected}
       />
     );
   }
 
   if (fileState.status === 'uploading') {
-    return <MediaInlineCardLoadingView message={fileState.name} />;
+    return (
+      <MediaInlineCardLoadingView
+        message={fileState.name}
+        isSelected={isSelected}
+      />
+    );
   }
 
   const { mediaType, name } = fileState;

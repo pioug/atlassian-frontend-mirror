@@ -285,10 +285,10 @@ describe('Mobile Renderer', () => {
       result.find(MobileRendererWrapper).prop('allowHeadingAnchorLinks'),
     ).toBe(false);
   });
-  it('should pass UNSAFE_allowCustomPanels to Mobile Renderer', () => {
+  it('should pass allowCustomPanels to Mobile Renderer', () => {
     const result = mount(<App document={initialDocument} />);
-    expect(
-      result.find(MobileRendererWrapper).prop('UNSAFE_allowCustomPanels'),
-    ).toBe(false);
+    expect(result.find(MobileRendererWrapper).prop('allowCustomPanels')).toBe(
+      false,
+    );
   });
 });

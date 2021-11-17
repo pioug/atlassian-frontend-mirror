@@ -2,6 +2,7 @@
 order: 0
 ---
 
+import SectionMessage from '@atlaskit/section-message';
 import Uncontrolled from '../../examples/0-stateful'
 import Controlled from '../../examples/1-stateless'
 import LoadingStateFewRows from '../../examples/4-loading-state-few-rows'
@@ -14,6 +15,43 @@ import ColSpan from '../../examples/13-colspan'
 import HighlightedRow from '../../examples/15-highlighted-row'
 import InteractiveRow from '../../examples/16-row-click-callback'
 import Overflow from '../../examples/19-overflow'
+
+<SectionMessage>All examples use the following data model in their tables for easier readability.</SectionMessage>
+
+```ts
+  interface President {
+    id: number;
+    name: string;
+    party: string;
+    term: string;
+  }
+
+  // applied as rows in the form
+  const rows = presidents.map((president: President, index: number) => ({
+    key: `row-${index}-${president.name}`,
+    cells: [
+      {
+        key: createKey(president.name),
+        content: (
+          <NameWrapper>
+            <AvatarWrapper>
+              <Avatar name={president.name} size="medium" />
+            </AvatarWrapper>
+            <a href="https://atlassian.design">{president.name}</a>
+          </NameWrapper>
+        ),
+      },
+      {
+        key: createKey(president.party),
+        content: president.party,
+      },
+      {
+        key: president.id,
+        content: president.term,
+      },
+    ]
+  })
+```
 
 ## Uncontrolled
 
@@ -34,7 +72,7 @@ If you require this functionality, use the stateless dynamic table component.
 Sorting a dynamic table takes place using the `key` set on each cell. Note that the type of `key` will
 affect the sorted result. Numeric and string keys for example will result in different orderings. Avoid using objects or React nodes as keys.
 
-For any sortable column, include the role='button' HTML attribute on the head cell column. This helps understanding for users with screen readers.
+For any sortable column, include the `role='button'` HTML attribute on the head cell column. This helps understanding for users with screen readers.
 
 <Example Component={Sorting} packageName="@atlaskit/dynamic-table" />
 

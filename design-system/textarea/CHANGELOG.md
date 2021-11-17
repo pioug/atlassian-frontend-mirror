@@ -1,5 +1,13 @@
 # @atlaskit/textarea
 
+## 4.2.4
+
+### Patch Changes
+
+- [`f460cc7c411`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f460cc7c411) - Builds for this package now pass through a tokens babel plugin, removing runtime invocations of the tokens() function and improving bundle size.
+- [`af7c289395b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/af7c289395b) - Fix TypeScript issue where text area HTML attributes were not exposed in component prop types.
+- Updated dependencies
+
 ## 4.2.3
 
 ### Patch Changes

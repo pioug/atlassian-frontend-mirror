@@ -36,7 +36,9 @@ async function initEditor(page: PuppeteerPage) {
     undefined,
     {
       media: {
-        allowMediaInline: true,
+        featureFlags: {
+          mediaInline: true,
+        },
       },
     },
   );
@@ -60,6 +62,12 @@ describe('Snapshot Test: Media Inline', () => {
   describe('in editor', () => {
     it('should be visible', async () => {
       await initEditor(page);
+    });
+
+    it('should be selected', async () => {
+      await initEditor(page);
+      await page.click(mediaInlineLoadedViewSelector);
+      await page.mouse.move(0, 0);
     });
   });
 });

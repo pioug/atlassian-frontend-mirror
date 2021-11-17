@@ -78,16 +78,18 @@ export class CardActionsDropdownMenu extends Component<
     if (actions.length > 0) {
       return (
         <DropdownMenu
-          data-testid="media-card-actions-menu"
+          testId="media-card-actions-menu"
           onOpenChange={onOpenChange}
-          trigger={
+          trigger={({ triggerRef, ...providedProps }) => (
             <CardActionButtonWithAnalytics
               variant={triggerVariant}
               style={{ color: triggerColor }}
+              ref={triggerRef}
+              {...providedProps}
             >
               <MoreIcon label="more" />
             </CardActionButtonWithAnalytics>
-          }
+          )}
         >
           <DropdownItemGroup>
             {actions.map(createDropdownItemWithAnalytics)}

@@ -1,5 +1,34 @@
 # @atlaskit/editor-mobile-bridge
 
+## 30.0.0
+
+### Major Changes
+
+- [`0cf5fa82add`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0cf5fa82add) - CETI-20 Rename custom panel FF from `UNSAFE_allowCustomPanel` to `allowCustomPanel`
+
+### Minor Changes
+
+- [`5c12a2b264e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5c12a2b264e) - [ME-1745] Added an error listener on the collab provider to pass across the error message across the editor-mobile-bridge
+- [`cbc6572d598`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cbc6572d598) - CETI-119 added bridge configuration to enable / disable custom panel edit
+- [`b230f366971`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b230f366971) - [ED-14008] Bump prosemirror-view from 1.20.2 to 1.23.1
+- [`ad0c44e802a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ad0c44e802a) - pass singleLayout to mobile editor element"
+
+### Patch Changes
+
+- [`c6feed82071`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c6feed82071) - ED-11632: Bump prosemirror packages;
+
+  - prosmirror-commands 1.1.4 -> 1.1.11,
+  - prosemirror-model 1.11.0 -> 1.14.3,
+  - prosemirror-state 1.3.3 -> 1.3.4,
+  - prosemirror-transform 1.2.8 -> 1.3.2,
+  - prosemirror-view 1.15.4 + 1.18.8 -> 1.20.2.
+
+- [`fd2ec764904`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd2ec764904) - ED-12296: Fix typeahead not being translated on mobile
+- [`9bcc8402a8f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9bcc8402a8f) - [ux][me-1323] Disable tasks and decisions for the compact mobile editor
+- [`4264bd36d32`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4264bd36d32) - Update mobile bridge media inline feature flag and add tests
+- [`01a41e75803`](https://bitbucket.org/atlassian/atlassian-frontend/commits/01a41e75803) - Removes `allowMediaInline` media prop and replaces with Inline Files feature flag for editor and mobile bridge
+- Updated dependencies
+
 ## 29.2.4
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 import fs from 'fs';
 
-import tokens from '../../tokens/token-names';
+import tokens from '../../artifacts/token-names';
 
 describe('tokens', () => {
   /**
@@ -52,7 +52,7 @@ describe('tokens', () => {
   };
 
   it('should assert the count of tokens', () => {
-    expect(Object.keys(tokens)).toHaveLength(88);
+    expect(Object.keys(tokens)).toHaveLength(89);
   });
 
   it('should store token names in dot notation', () => {

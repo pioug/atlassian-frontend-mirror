@@ -9,7 +9,6 @@ import { InlineCardDefinition as InlineCard } from './inline-card';
 import { StatusDefinition as Status } from './status';
 
 /**
- * @stage 0
  * @name caption_node
  */
 export interface CaptionDefinition {

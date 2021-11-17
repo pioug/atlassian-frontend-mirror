@@ -1,5 +1,38 @@
 # @atlaskit/media-ui
 
+## 17.2.0
+
+### Minor Changes
+
+- [`ca519a86b1d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ca519a86b1d) - Add new prop forceSyncDisplay in MediaImage to provide an option of always showing images.
+  Enable MediaCard to turn on forceSyncDisplay when server side rendering is enabled.
+- [`af29def3dac`](https://bitbucket.org/atlassian/atlassian-frontend/commits/af29def3dac) - expose missing smart-card classnames
+
+  ```
+  import {
+    blockCardResolvedViewByClassName,
+    blockCardForbiddenViewLinkClassName,
+    blockCardContentClassName,
+    blockCardContentHeaderClassName,
+    blockCardContentHeaderNameClassName,
+    blockCardNotFoundViewClassName,
+    blockCardErroredViewClassName,
+  } from '@atlaskit/smart-card'
+
+  css`
+    .${blockCardContentHeaderNameClassName} {
+      background-color: red;
+    }
+  `
+  ```
+
+### Patch Changes
+
+- [`09f27f70093`](https://bitbucket.org/atlassian/atlassian-frontend/commits/09f27f70093) - Grant "clipboard-write" permission so that the browsing contexts within the iframe will have Clipboard API available
+- [`f124adcb18f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f124adcb18f) - Adding .md, .lock, .yaml, .yml, .tsx, .jsx as known extension types
+- [`fe8e5ca9a92`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fe8e5ca9a92) - [ux] MediaInline package now correctly shows a border around it upon being selected
+- Updated dependencies
+
 ## 17.1.0
 
 ### Minor Changes

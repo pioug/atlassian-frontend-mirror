@@ -246,7 +246,9 @@ const manifest: ExtensionManifest = {
                   },
                 ],
               };
-              api.doc.insertAfter(localId, chartADF);
+              api.doc.insertAfter(localId, chartADF, {
+                allowSelectionToNewNode: true,
+              });
             },
           },
           {

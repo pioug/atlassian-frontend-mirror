@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-card",
-  "version": "72.0.0",
+  "version": "72.1.0",
   "description": "Includes all media card related components, CardView, CardViewSmall, Card...",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -29,13 +29,13 @@
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^8.2.0",
-    "@atlaskit/dropdown-menu": "^10.1.0",
+    "@atlaskit/dropdown-menu": "^11.0.0",
     "@atlaskit/editor-shared-styles": "^1.6.0",
     "@atlaskit/icon": "^21.9.0",
     "@atlaskit/in-product-testing": "^0.1.0",
     "@atlaskit/media-client": "^14.3.0",
-    "@atlaskit/media-common": "^2.9.0",
-    "@atlaskit/media-ui": "^17.1.0",
+    "@atlaskit/media-common": "^2.10.0",
+    "@atlaskit/media-ui": "^17.2.0",
     "@atlaskit/media-viewer": "^45.8.0",
     "@atlaskit/spinner": "^15.1.0",
     "@atlaskit/theme": "^12.0.0",
@@ -45,6 +45,7 @@
     "eventemitter2": "^4.1.0",
     "lru-fast": "^0.2.2",
     "react-lazily-render": "^1.2.0",
+    "react-loadable": "^5.1.0",
     "video-snapshot": "^1.0.11"
   },
   "peerDependencies": {
@@ -61,9 +62,10 @@
     "@atlaskit/button": "^16.1.0",
     "@atlaskit/checkbox": "^12.3.0",
     "@atlaskit/docs": "*",
+    "@atlaskit/inline-message": "^11.1.5",
     "@atlaskit/item": "^12.0.0",
     "@atlaskit/media-core": "^32.2.0",
-    "@atlaskit/media-test-helpers": "^28.8.0",
+    "@atlaskit/media-test-helpers": "^28.9.0",
     "@atlaskit/radio": "^5.3.2",
     "@atlaskit/range": "^5.1.0",
     "@atlaskit/select": "^15.2.1",
@@ -75,6 +77,7 @@
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@testing-library/react": "^8.0.1",
     "@types/classnames": "^2.2.6",
+    "@types/react-loadable": "^5.4.1",
     "deepcopy": "0.6.3",
     "enzyme": "^3.10.0",
     "exenv": "^1.2.2",

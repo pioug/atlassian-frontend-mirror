@@ -1,5 +1,6 @@
 import React from 'react';
 import { PureComponent } from 'react';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import DropdownList from '@atlaskit/droplist';
 import { Popup } from '@atlaskit/editor-common';
 import withOuterListeners from '../with-outer-listeners';

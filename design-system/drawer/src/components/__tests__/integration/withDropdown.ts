@@ -11,7 +11,7 @@ const urlDrawer = getExampleUrl(
 
 /* Css selectors used for the test */
 const dropdownTrigger = '#drawer-contents button';
-const dropdownMenu = '#drawer-contents div[aria-label][role="menu"]';
+const dropdownMenu = '[data-testid="dropdown--content"]';
 
 BrowserTestCase(
   'Drawer should render fixed dropdown-menu correctly',

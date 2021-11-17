@@ -26,6 +26,8 @@ interface EditorConfig {
   placeholder?: string;
   allowEmptyADFCheck?: boolean;
   allowCustomPanel?: boolean;
+  allowCustomPanelEdit?: boolean;
+  allowMediaInline?: boolean;
 }
 
 export default class MobileEditorConfiguration
@@ -40,6 +42,8 @@ export default class MobileEditorConfiguration
   private placeholder?: string | undefined;
   private allowEmptyADFCheck: boolean = false;
   private allowCustomPanel: boolean = false;
+  private allowCustomPanelEdit: boolean = false;
+  private allowMediaInline: boolean = false;
 
   constructor(editorConfig?: string) {
     if (editorConfig) {
@@ -79,6 +83,14 @@ export default class MobileEditorConfiguration
       config.allowCustomPanel !== undefined
         ? config.allowCustomPanel
         : this.allowCustomPanel;
+    this.allowCustomPanelEdit =
+      config.allowCustomPanelEdit !== undefined
+        ? config.allowCustomPanelEdit
+        : this.allowCustomPanelEdit;
+    this.allowMediaInline =
+      config.allowMediaInline !== undefined
+        ? config.allowMediaInline
+        : this.allowMediaInline;
   }
 
   getEditorAppearance(): EditorAppearance {
@@ -112,7 +124,12 @@ export default class MobileEditorConfiguration
   isScrollGutterPersisted(): boolean {
     return this.getEditorAppearance() === EditorAppearance.COMPACT;
   }
+
   isIndentationAllowed(): boolean {
+    return this.getEditorAppearance() !== EditorAppearance.COMPACT;
+  }
+
+  isTasksAndDecisionsAllowed(): boolean {
     return this.getEditorAppearance() !== EditorAppearance.COMPACT;
   }
 
@@ -128,7 +145,15 @@ export default class MobileEditorConfiguration
     return this.allowCustomPanel;
   }
 
-  // We need to retain the previous configuartion flags as `locale` and `mode` can be configured
+  isCustomPanelEditable(): boolean {
+    return this.allowCustomPanelEdit;
+  }
+
+  isAllowMediaInlineEnabled(): boolean {
+    return this.allowMediaInline;
+  }
+
+  // We need to retain the previous configuration flags as `locale` and `mode` can be configured
   // dynamically any time.
   cloneAndUpdateConfig(newConfig: string): MobileEditorConfiguration {
     const newEditorConfig = JSON.stringify({

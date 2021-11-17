@@ -93,6 +93,7 @@ export function getLanguageType(name: string): SupportedLanguages | null {
     case 'hx':
       return 'haxe';
     case 'js':
+    case 'jsx':
       return 'javascript';
     case 'jl':
       return 'julia';
@@ -135,8 +136,10 @@ export function getLanguageType(name: string): SupportedLanguages | null {
     case 'msg':
     case 'log':
     case 'csv':
+    case 'md':
       return 'text';
     case 'ts':
+    case 'tsx':
       return 'typescript';
     case 'v':
       return 'verilog';
@@ -145,6 +148,10 @@ export function getLanguageType(name: string): SupportedLanguages | null {
     case 'xqm':
     case 'xqy':
       return 'xquery';
+    case 'lock':
+    case 'yaml':
+    case 'yml':
+      return 'yaml';
     default:
       return null;
   }

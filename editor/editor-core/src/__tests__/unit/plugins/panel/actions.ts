@@ -27,18 +27,12 @@ describe('panel actions', () => {
 
   const editor = (
     doc: DocBuilder,
-    UNSAFE_allowCustomPanel?: boolean,
-    UNSAFE_allowCustomPanelEdit?: boolean,
+    allowCustomPanel?: boolean,
+    allowCustomPanelEdit?: boolean,
   ) => {
     createAnalyticsEvent = jest.fn().mockReturnValue({ fire() {} });
     const preset = new Preset<LightEditorPlugin>()
-      .add([
-        panelPlugin,
-        {
-          UNSAFE_allowCustomPanel,
-          UNSAFE_allowCustomPanelEdit,
-        },
-      ])
+      .add([panelPlugin, { allowCustomPanel, allowCustomPanelEdit }])
       .add(emojiPlugin)
       .add([analyticsPlugin, { createAnalyticsEvent }]);
 

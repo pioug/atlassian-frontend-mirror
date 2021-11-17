@@ -3,19 +3,17 @@ import type { Format } from 'style-dictionary';
 
 import { DEFAULT_THEME } from '../constants';
 
+import { customPropertyKey } from './utils/custom-property';
+
 const formatter: Format['formatter'] = ({ dictionary }) => {
   const tokens: Record<string, string> = {};
 
-  dictionary.allTokens.forEach((token) => {
-    if (token.attributes && token.attributes.isPalette) {
-      // Ignore palette tokens.
-      return;
-    }
-
-    // Generate token key/value pairs
-    const tokenName = token.path.join('.');
-    tokens[tokenName] = token.value;
-  });
+  dictionary.allTokens
+    .filter((token) => token.attributes?.group !== 'palette')
+    .forEach((token) => {
+      const tokenName = customPropertyKey(token.path);
+      tokens[tokenName] = token.value;
+    });
 
   const tokensDefaultKeyValues = Object.keys(tokens)
     .map((name) => `  '${name}': '${tokens[name]}',`)

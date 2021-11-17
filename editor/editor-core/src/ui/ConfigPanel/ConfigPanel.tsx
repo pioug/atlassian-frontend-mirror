@@ -11,15 +11,21 @@ import {
   withAnalyticsEvents,
   WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
-import { ExtensionManifest } from '@atlaskit/editor-common';
+import {
+  ContextIdentifierProvider,
+  ExtensionManifest,
+} from '@atlaskit/editor-common';
 import Form from '@atlaskit/form';
 import {
   FieldDefinition,
   Parameters,
   OnSaveCallback,
   isTabGroup,
+  TabGroupField,
+  TabField,
 } from '@atlaskit/editor-common/extensions';
 import _isEqual from 'lodash/isEqual';
+import _mergeRecursive from 'lodash/merge';
 
 import {
   fireAnalyticsEvent,
@@ -31,7 +37,7 @@ import {
 import LoadingState from './LoadingState';
 import Header from './Header';
 import ErrorMessage from './ErrorMessage';
-import { serialize, deserialize } from './transformers';
+import { serialize, deserialize, findDuplicateFields } from './transformers';
 
 import { InjectedIntlProps, injectIntl } from 'react-intl';
 import ButtonGroup from '@atlaskit/button/button-group';
@@ -43,6 +49,7 @@ import WithPluginState from '../WithPluginState';
 import FormContent from './FormContent';
 import { messages } from './messages';
 import { OnFieldChange, ValidationErrors } from './types';
+import { FormErrorBoundary } from './FormErrorBoundary';
 
 function ConfigForm({
   canSave,
@@ -57,6 +64,7 @@ function ConfigForm({
   onFieldChange,
   parameters,
   submitting,
+  contextIdentifierProvider,
 }: {
   canSave: boolean;
   errorMessage: string | null;
@@ -69,7 +77,19 @@ function ConfigForm({
   onFieldChange: OnFieldChange;
   parameters: Parameters;
   submitting: boolean;
+  contextIdentifierProvider?: ContextIdentifierProvider | undefined;
 } & InjectedIntlProps) {
+  useEffect(() => {
+    if (fields) {
+      const firstDuplicateField = findDuplicateFields(fields);
+      if (firstDuplicateField) {
+        throw new Error(
+          `Possible duplicate field name: \`${firstDuplicateField.name}\`.`,
+        );
+      }
+    }
+  }, [fields]);
+
   if (isLoading || (!hasParsedParameters && errorMessage === null)) {
     return <LoadingState />;
   }
@@ -79,37 +99,32 @@ function ConfigForm({
   }
 
   return (
-    <WithPluginState
-      plugins={{ extension: extensionPluginKey }}
-      render={({ extension }) => (
-        <>
-          <FormContent
-            fields={fields}
-            parameters={parameters}
-            extensionManifest={extensionManifest}
-            onFieldChange={onFieldChange}
-            firstVisibleFieldName={firstVisibleFieldName}
-            contextIdentifierProvider={extension?.contextIdentifierProvider}
-          />
-          <div style={canSave ? {} : { display: 'none' }}>
-            <FormFooter align="start">
-              <ButtonGroup>
-                <Button type="submit" appearance="primary">
-                  {intl.formatMessage(messages.submit)}
-                </Button>
-                <Button
-                  appearance="default"
-                  isDisabled={submitting}
-                  onClick={onCancel}
-                >
-                  {intl.formatMessage(messages.cancel)}
-                </Button>
-              </ButtonGroup>
-            </FormFooter>
-          </div>
-        </>
-      )}
-    />
+    <>
+      <FormContent
+        fields={fields}
+        parameters={parameters}
+        extensionManifest={extensionManifest}
+        onFieldChange={onFieldChange}
+        firstVisibleFieldName={firstVisibleFieldName}
+        contextIdentifierProvider={contextIdentifierProvider}
+      />
+      <div style={canSave ? {} : { display: 'none' }}>
+        <FormFooter align="start">
+          <ButtonGroup>
+            <Button type="submit" appearance="primary">
+              {intl.formatMessage(messages.submit)}
+            </Button>
+            <Button
+              appearance="default"
+              isDisabled={submitting}
+              onClick={onCancel}
+            >
+              {intl.formatMessage(messages.cancel)}
+            </Button>
+          </ButtonGroup>
+        </FormFooter>
+      </div>
+    </>
   );
 }
 
@@ -275,22 +290,81 @@ class ConfigPanel extends React.Component<Props, State> {
     formData: Parameters,
     currentParameters: Parameters,
   ): Parameters => {
-    const mergedTabGroups = fields.filter(isTabGroup).reduce(
-      (acc, field) => ({
-        ...acc,
-        [field.name]: {
-          ...(currentParameters[field.name] || {}),
-          ...(formData[field.name] || {}),
-        },
-      }),
-      {},
-    );
+    const getRelevantData = (
+      field: TabGroupField | TabField,
+      formParams: Parameters,
+      currentParams: Parameters,
+      backfill: Parameters,
+    ) => {
+      if (field.hasGroupedValues && !(field.name in backfill)) {
+        backfill[field.name] = {};
+      }
 
-    return { ...formData, ...mergedTabGroups };
+      const actualFormParams = field.hasGroupedValues
+        ? formParams[field.name] || {}
+        : formParams;
+      const actualCurrentParams = field.hasGroupedValues
+        ? currentParams[field.name] || {}
+        : currentParams;
+      const actualBackfillParams = field.hasGroupedValues
+        ? backfill[field.name]
+        : backfill;
+
+      return {
+        formParams: actualFormParams,
+        currentParams: actualCurrentParams,
+        backfillParams: actualBackfillParams,
+      };
+    };
+
+    // Traverse any tab structures and backfill field values on tabs
+    // which aren't shown. This filter should be ok because tabs are
+    // currently only allowed on top level
+    const mergedTabGroups = fields
+      .filter(isTabGroup)
+      .reduce((missingBackfill, tabGroup) => {
+        const {
+          formParams: tabGroupFormData,
+          currentParams: tabGroupCurrentData,
+          backfillParams: tabGroupParams,
+        } = getRelevantData(
+          tabGroup,
+          formData,
+          currentParameters,
+          missingBackfill,
+        );
+
+        // Loop through tabs and see what fields are missing from current data
+        tabGroup.fields.forEach((tabField: TabField) => {
+          const {
+            formParams: tabFormData,
+            currentParams: tabCurrentData,
+            backfillParams: tabParams,
+          } = getRelevantData(
+            tabField,
+            tabGroupFormData,
+            tabGroupCurrentData,
+            tabGroupParams,
+          );
+
+          tabField.fields.forEach((field) => {
+            if (field.name in tabFormData || !(field.name in tabCurrentData)) {
+              return;
+            }
+
+            tabParams[field.name] = tabCurrentData[field.name];
+          });
+        });
+
+        return missingBackfill;
+      }, {} as Parameters);
+
+    return _mergeRecursive({}, mergedTabGroups, formData);
   };
 
   handleSubmit = async (formData: Parameters) => {
     const { fields, extensionManifest, onChange } = this.props;
+
     if (!extensionManifest || !fields) {
       return;
     }
@@ -430,18 +504,34 @@ class ConfigPanel extends React.Component<Props, State> {
                     data-testid="extension-config-panel"
                   >
                     {this.renderHeader(extensionManifest)}
-                    <ConfigFormIntl
-                      canSave={!autoSave}
-                      errorMessage={errorMessage}
-                      extensionManifest={extensionManifest}
-                      fields={fields}
-                      firstVisibleFieldName={firstVisibleFieldName}
-                      hasParsedParameters={hasParsedParameters}
-                      isLoading={isLoading || false}
-                      onCancel={onCancel}
-                      onFieldChange={onFieldChange}
-                      parameters={currentParameters}
-                      submitting={submitting}
+                    <WithPluginState
+                      plugins={{ extension: extensionPluginKey }}
+                      render={({ extension }) => (
+                        <FormErrorBoundary
+                          contextIdentifierProvider={
+                            extension?.contextIdentifierProvider
+                          }
+                          extensionKey={extensionManifest.key}
+                          fields={fields || []}
+                        >
+                          <ConfigFormIntl
+                            canSave={!autoSave}
+                            errorMessage={errorMessage}
+                            extensionManifest={extensionManifest}
+                            fields={fields}
+                            firstVisibleFieldName={firstVisibleFieldName}
+                            hasParsedParameters={hasParsedParameters}
+                            isLoading={isLoading || false}
+                            onCancel={onCancel}
+                            onFieldChange={onFieldChange}
+                            parameters={currentParameters}
+                            submitting={submitting}
+                            contextIdentifierProvider={
+                              extension?.contextIdentifierProvider
+                            }
+                          />
+                        </FormErrorBoundary>
+                      )}
                     />
                   </form>
                 );

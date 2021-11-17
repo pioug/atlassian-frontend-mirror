@@ -52,6 +52,7 @@ class Decision extends ReactNodeView {
     return super.update(
       node,
       decorations,
+      undefined,
       // Toggle the placeholder based on whether user input exists.
       (_currentNode, _newNode) => !this.isContentEmpty(_newNode),
     );

@@ -3,7 +3,7 @@ export default {
     type: { type: 'enum', values: ['link'] },
     attrs: {
       props: {
-        href: { type: 'string' },
+        href: { type: 'string', validatorFn: 'safeUrl' },
         title: { type: 'string', optional: true },
         id: { type: 'string', optional: true },
         collection: { type: 'string', optional: true },

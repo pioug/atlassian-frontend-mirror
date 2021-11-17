@@ -337,3 +337,15 @@ export enum ShadowEvent {
   SHOW_BEFORE_SHADOW = 'showBeforeShadow',
   SHOW_AFTER_SHADOW = 'showAfterShadow',
 }
+
+export type ReportInvalidNodeAttrs = (
+  invalidNodeAttrs: InvalidNodeAttr,
+) => void;
+
+export type InvalidNodeAttr = {
+  nodeType: string;
+  attribute: string;
+  reason: string;
+  spanValue: number;
+  tableLocalId: string;
+};

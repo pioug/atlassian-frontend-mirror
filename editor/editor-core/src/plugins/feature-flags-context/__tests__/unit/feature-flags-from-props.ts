@@ -89,6 +89,37 @@ describe('Feature Flags from Props', () => {
     });
   });
 
+  describe('singleLayout', () => {
+    it('should default singleLayout to false if allowLayouts has boolean value', () => {
+      let flags = createFeatureFlagsFromProps({
+        allowLayouts: true,
+      });
+      expect(flags.singleLayout).toBe(false);
+
+      flags = createFeatureFlagsFromProps({
+        allowLayouts: false,
+      });
+      expect(flags.singleLayout).toBe(false);
+    });
+
+    it('should set singleLayout to false if UNSAFE_allowSingleColumnLayout is false', () => {
+      const flags = createFeatureFlagsFromProps({
+        allowLayouts: {
+          UNSAFE_allowSingleColumnLayout: false,
+        },
+      });
+      expect(flags.singleLayout).toBe(false);
+    });
+    it('should default singleLayout to true if UNSAFE_allowSingleColumnLayout is true', () => {
+      const flags = createFeatureFlagsFromProps({
+        allowLayouts: {
+          UNSAFE_allowSingleColumnLayout: true,
+        },
+      });
+      expect(flags.singleLayout).toBe(true);
+    });
+  });
+
   describe('placeholder text', () => {
     it('should default placeholderHints to false if a an empty placeholderHints string array is provided', () => {
       const flags = createFeatureFlagsFromProps({
@@ -234,6 +265,7 @@ describe('Feature Flags from Props', () => {
             undoRedoButtons: true,
             catchAllTracking: true,
             showAvatarGroupAsPlugin: false,
+            twoLineEditorToolbar: false,
             // already using .featureFlags explicitly
             // stickyHeadersOptimization: true,
             // nextEmojiNodeView: true,

@@ -46,17 +46,22 @@ export default class SelectInModal extends Component<{}, State> {
               </ModalHeader>
               <ModalBody>
                 <Select
-                  menuPortalTarget={document.body}
+                  defaultValue={options.slice(3)}
                   isMulti
+                  options={options}
+                  placeholder="Choose a City"
+                  // The below is needed for the modal dialog to not crop <Select> dropdown.
+                  // The z-index ensures it floats above the modal. Check out:
+                  // https://atlaskit.atlassian.com/examples/design-system/modal-dialog/with-layered-components
+                  // for more examples of modal usage with select.
+                  // See ticket to have these styles baked into <Select>: https://product-fabric.atlassian.net/browse/DSP-1826
+                  menuPortalTarget={document.body}
                   styles={{
                     menuPortal: (base) => ({
                       ...base,
                       zIndex: 9999,
                     }),
                   }}
-                  defaultValue={options.slice(3)}
-                  options={options}
-                  placeholder="Choose a City"
                 />
               </ModalBody>
               <ModalFooter>

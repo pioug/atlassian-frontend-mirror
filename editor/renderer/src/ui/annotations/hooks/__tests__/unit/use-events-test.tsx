@@ -34,6 +34,16 @@ function createFakeAnnotationState(
   };
 }
 
+function createFakeAnnotationStateWithEmptyState(
+  id: string,
+): AnnotationState<AnnotationTypes.INLINE_COMMENT> {
+  return {
+    id,
+    annotationType: AnnotationTypes.INLINE_COMMENT,
+    state: null,
+  };
+}
+
 function createFakeAnnotationStateWithOtherType(
   id: string,
 ): AnnotationState<number> {
@@ -235,6 +245,28 @@ describe('Annotations: Hooks/useEvents', () => {
         const otherId = 'otherId';
         const payload = {
           [otherId]: createFakeAnnotationStateWithOtherType(otherId),
+        };
+        act(() => {
+          updateSubscriberFake.emit(
+            AnnotationUpdateEvent.SET_ANNOTATION_STATE,
+            // @ts-ignore
+            payload,
+          );
+        });
+
+        expect(fakeFunction).toHaveBeenCalledWith({});
+      });
+
+      it('should not set the state if the current state is empty', () => {
+        expect(fakeFunction).toHaveBeenCalledTimes(0);
+
+        render(<CustomComp />, container);
+
+        expect(fakeFunction).toHaveBeenCalledWith({});
+
+        const otherId = 'otherId';
+        const payload = {
+          [otherId]: createFakeAnnotationStateWithEmptyState(otherId),
         };
         act(() => {
           updateSubscriberFake.emit(

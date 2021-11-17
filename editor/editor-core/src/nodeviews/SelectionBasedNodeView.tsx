@@ -154,6 +154,15 @@ export class SelectionBasedNodeView<
     );
   };
 
+  nodeInsideSelection = () => {
+    const { selection } = this.view.state;
+    const { from, to } = selection;
+
+    return (
+      this.isSelectedNode(selection) || this.isNodeInsideSelection(from, to)
+    );
+  };
+
   viewShouldUpdate(_nextNode: PMNode) {
     const {
       state: { selection },

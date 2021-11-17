@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-tables",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "description": "A package that contains common classes and utility functions for editor tables",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -22,15 +22,15 @@
   "dependencies": {
     "@babel/runtime": "^7.0.0",
     "prosemirror-keymap": "1.1.4",
-    "prosemirror-model": "1.11.0",
-    "prosemirror-state": "1.3.3",
-    "prosemirror-transform": "1.2.8",
+    "prosemirror-model": "1.14.3",
+    "prosemirror-state": "1.3.4",
+    "prosemirror-transform": "1.3.2",
     "prosemirror-utils": "^1.0.0-0",
-    "prosemirror-view": "1.15.4"
+    "prosemirror-view": "1.23.1"
   },
   "devDependencies": {
-    "@atlaskit/adf-schema": "^19.3.0",
-    "@atlaskit/editor-test-helpers": "^15.5.0",
+    "@atlaskit/adf-schema": "^20.0.0",
+    "@atlaskit/editor-test-helpers": "^15.6.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1"
   },
   "techstack": {
@@ -39,6 +39,9 @@
         "file-level"
       ],
       "import-structure": "atlassian-conventions"
+    },
+    "@repo/internal": {
+      "deprecation": "no-deprecated-imports"
     }
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"

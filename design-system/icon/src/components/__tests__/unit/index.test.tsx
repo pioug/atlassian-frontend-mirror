@@ -156,6 +156,7 @@ describe('@atlaskit/icon', () => {
         'editor/quote',
         'editor/recent',
         'editor/redo',
+        'editor/remove-emoji',
         'editor/remove',
         'editor/search',
         'editor/strikethrough',

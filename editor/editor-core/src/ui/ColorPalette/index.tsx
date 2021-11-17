@@ -13,6 +13,7 @@ export interface Props {
   onClick: (value: string, label: string) => void;
   cols?: number;
   className?: string;
+  isShowingMoreColors?: boolean;
 }
 
 /**
@@ -35,6 +36,7 @@ const ColorPalette = (props: Props & InjectedIntlProps) => {
     onClick,
     selectedColor,
     className,
+    isShowingMoreColors,
     intl: { formatMessage },
   } = props;
 
@@ -54,12 +56,13 @@ const ColorPalette = (props: Props & InjectedIntlProps) => {
 
   return (
     <>
-      {colorsPerRow.map((row) => (
+      {colorsPerRow.map((row, rowIdx) => (
         <ColorPaletteWrapper
           className={className}
           key={`row-first-color-${row[0].value}`}
+          role="radiogroup"
         >
-          {row.map(({ value, label, border, message }) => (
+          {row.map(({ value, label, border, message }, colorIdx) => (
             <Color
               key={value}
               value={value}
@@ -68,6 +71,7 @@ const ColorPalette = (props: Props & InjectedIntlProps) => {
               onClick={onClick}
               isSelected={value === selectedColor}
               checkMarkColor={getContrastColor(value, [N0, N500])}
+              autoFocus={isShowingMoreColors && rowIdx === 1 && colorIdx === 0}
             />
           ))}
         </ColorPaletteWrapper>

@@ -52,8 +52,8 @@ describe('getToolbarItems', () => {
   const panelPreset = new Preset<LightEditorPlugin>().add([
     panelPlugin,
     {
-      UNSAFE_allowCustomPanel: true,
-      UNSAFE_allowCustomPanelEdit: true,
+      allowCustomPanel: true,
+      allowCustomPanelEdit: true,
     },
   ]);
   const itemsWithCustomPanelEnabled = getToolbarItems(
@@ -201,7 +201,7 @@ describe('getToolbarItems', () => {
       );
     });
 
-    it.each(Object.keys(panelIconMap))(
+    it.each([PanelType.INFO, PanelType.NOTE, PanelType.WARNING, PanelType.TIP])(
       `should call changePanelType when clicked on color picker
           with previous icon for %p panel`,
       (value) => {
@@ -218,11 +218,60 @@ describe('getToolbarItems', () => {
         })(editorView.state);
         expect(changePanelTypespy).toBeCalledWith(
           PanelType.CUSTOM,
-          { color: G75, emoji: `:${value}:` } as PanelOptions,
+          {
+            color: G75,
+            emoji: `:${value}:`,
+          } as PanelOptions,
           true,
         );
       },
     );
+
+    it(`should call changePanelType when clicked on color picker
+          with previous icon for error panel`, () => {
+      const { editorView } = editor(
+        doc(panel({ panelType: `error` })(p('text'))),
+      );
+      const colorPickerConfig = itemsWithCustomPanelEnabled.find(
+        (item) => item.type === 'select' && item.selectType === 'color',
+      );
+      (colorPickerConfig as FloatingToolbarColorPicker<any>)!.onChange({
+        label: 'Mintie',
+        value: G75,
+        border: DEFAULT_BORDER_COLOR,
+      })(editorView.state);
+      expect(changePanelTypespy).toBeCalledWith(
+        PanelType.CUSTOM,
+        {
+          color: G75,
+          emoji: `:cross_mark:`,
+        } as PanelOptions,
+        true,
+      );
+    });
+
+    it(`should call changePanelType when clicked on color picker
+    with previous icon for success panel`, () => {
+      const { editorView } = editor(
+        doc(panel({ panelType: `success` })(p('text'))),
+      );
+      const colorPickerConfig = itemsWithCustomPanelEnabled.find(
+        (item) => item.type === 'select' && item.selectType === 'color',
+      );
+      (colorPickerConfig as FloatingToolbarColorPicker<any>)!.onChange({
+        label: 'Mintie',
+        value: G75,
+        border: DEFAULT_BORDER_COLOR,
+      })(editorView.state);
+      expect(changePanelTypespy).toBeCalledWith(
+        PanelType.CUSTOM,
+        {
+          color: G75,
+          emoji: `:check_mark:`,
+        } as PanelOptions,
+        true,
+      );
+    });
 
     it(`should call changePanelType when clicked on hide emoji`, () => {
       const removeEmojiButton:
@@ -299,6 +348,27 @@ describe('getToolbarItems', () => {
         PanelType.CUSTOM,
         '#ABF5D1',
         ':smiley:',
+      );
+      const removeEmojiButton:
+        | FloatingToolbarButton<any>
+        | undefined = toolbarItems.find(
+        (item) =>
+          item.type === 'button' && item.id === 'editor.panel.removeEmoji',
+      ) as FloatingToolbarButton<any>;
+
+      expect(removeEmojiButton.disabled).toBe(false);
+    });
+
+    it(`should have remove emoji button enabled when focus on standard panel`, () => {
+      const toolbarItems = getToolbarItems(
+        dummyFormatMessage,
+        defaultSchema.nodes.panel,
+        true,
+        true,
+        providerFactory,
+        PanelType.INFO,
+        undefined,
+        'info',
       );
       const removeEmojiButton:
         | FloatingToolbarButton<any>

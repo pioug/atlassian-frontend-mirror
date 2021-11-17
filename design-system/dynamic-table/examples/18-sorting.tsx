@@ -1,38 +1,10 @@
-import React, { FC, ReactNode, useEffect, useState } from 'react';
+import React, { FC } from 'react';
 
 import { v4 as uuid } from 'uuid';
-
-import { token } from '@atlaskit/tokens';
 
 import DynamicTable from '../src';
 
 const caption = 'Example issue with DynamicTable';
-
-interface StateIndicatorProps {
-  children?: ReactNode;
-}
-
-const StateIndicator: FC<StateIndicatorProps> = (props) => {
-  const [color, setColor] = useState('red');
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setColor('green');
-    }, 1000);
-    return () => clearTimeout(timer);
-  }, []);
-
-  return (
-    <div
-      style={{
-        backgroundColor: color,
-        color: token('color.text.onBold', 'f5f5dc'),
-      }}
-    >
-      {props.children}
-    </div>
-  );
-};
 
 const head = {
   cells: [
@@ -41,15 +13,29 @@ const head = {
       content: 'Number',
       isSortable: true,
     },
+    {
+      key: 'string',
+      content: 'String',
+      isSortable: true,
+    },
   ],
 };
 
-const rows = [1, 2, 3, 4].map((number) => ({
+const rows = [
+  [1, 'd'],
+  [2, 'c'],
+  [3, 'a'],
+  [4, 'b'],
+].map(([number, letter]) => ({
   key: uuid(),
   cells: [
     {
       key: number,
-      content: <StateIndicator>{number}</StateIndicator>,
+      content: number,
+    },
+    {
+      key: letter,
+      content: letter,
     },
   ],
 }));
@@ -60,8 +46,6 @@ const SortingExample: FC = () => (
       caption={caption}
       head={head}
       rows={rows}
-      rowsPerPage={10}
-      defaultPage={1}
       isFixedSize
       defaultSortKey="number"
       defaultSortOrder="ASC"

@@ -11,6 +11,7 @@ import {
   ContextIdentifierProvider,
   ErrorReporter,
   MediaProvider,
+  browser,
 } from '@atlaskit/editor-common';
 import assert from 'assert';
 import { findDomRefAtPos, isNodeSelection } from 'prosemirror-utils';
@@ -42,6 +43,9 @@ import { INPUT_METHOD, InputMethodInsertMedia } from '../../analytics/types';
 import { isImage } from '../utils/is-image';
 import { MediaNodeWithPosHandler, MediaPluginState } from './types';
 import { isInEmptyLine } from '../../../utils/document';
+import { getMediaFeatureFlag } from '@atlaskit/media-common';
+import { isInListItem } from '../../../utils';
+import { CAPTION_PLACEHOLDER_ID } from '../ui/CaptionPlaceholder';
 
 export type { MediaState, MediaProvider, MediaStateStatus };
 export { stateKey } from './plugin-key';
@@ -247,7 +251,7 @@ export class MediaPluginStateImplementation implements MediaPluginState {
   private isMediaSchemaNode = ({ type }: PMNode): boolean => {
     const { mediaInline, mediaSingle, media } = this.view.state.schema.nodes;
 
-    if (this.mediaOptions?.allowMediaInline) {
+    if (getMediaFeatureFlag('mediaInline', this.mediaOptions?.featureFlags)) {
       return type === mediaSingle || type === media || type === mediaInline;
     }
 
@@ -268,17 +272,13 @@ export class MediaPluginStateImplementation implements MediaPluginState {
       return;
     }
 
-    const position = this.mediaOptions?.allowMediaInline
-      ? selection.from + 1
-      : selection.from;
-    const node = findDomRefAtPos(position, domAtPos);
+    const node = findDomRefAtPos(selection.from, domAtPos);
     if (node) {
       if (!node.childNodes.length) {
         return node.parentNode as HTMLElement | undefined;
       }
 
-      const target = (node as HTMLElement).querySelector('figure') || node;
-      return target;
+      return node;
     }
     return;
   }
@@ -329,9 +329,9 @@ export class MediaPluginStateImplementation implements MediaPluginState {
         this.mediaOptions && this.mediaOptions.alignLeftOnInsert,
       );
     } else if (
-      this.mediaOptions?.allowMediaInline &&
+      getMediaFeatureFlag('mediaInline', this.mediaOptions?.featureFlags) &&
       !isInEmptyLine(state) &&
-      !isInsidePotentialEmptyParagraph(state) &&
+      (!isInsidePotentialEmptyParagraph(state) || isInListItem(state)) &&
       canInsertMediaInline(state)
     ) {
       insertMediaInlineNode(
@@ -793,20 +793,37 @@ export const createPlugin = (
         return pluginState;
       },
     },
-    filterTransaction(transaction, state) {
-      // Media node inside mediaSingle should not be selected
-      // We are relying on plugins/media/nodeviews/mediaNodeView/media.tsx#selectMediaSingleFromCard
-      // to set selection on correct mediaSingle node,
-      // We don't use 'appendTransaction' because we would like to avoid have additional transactions
-      // http://product-fabric.atlassian.net/browse/ED-10091
-      return !(
-        transaction.selectionSet &&
-        isNodeSelection(transaction.selection) &&
-        (transaction.selection as NodeSelection).node.type ===
-          state.schema.nodes.media &&
-        transaction.selection.$anchor.parent.type ===
-          state.schema.nodes.mediaSingle
-      );
+    appendTransaction(
+      transactions,
+      _oldState: EditorState,
+      newState: EditorState,
+    ) {
+      for (const transaction of transactions) {
+        const isSelectionOnMediaInsideMediaSingle =
+          transaction.selectionSet &&
+          isNodeSelection(transaction.selection) &&
+          (transaction.selection as NodeSelection).node.type ===
+            newState.schema.nodes.media &&
+          transaction.selection.$anchor.parent.type ===
+            newState.schema.nodes.mediaSingle;
+
+        // Note: this causes an additional transaction when selecting a media node
+        // through clicking  on it with the cursor.
+        if (isSelectionOnMediaInsideMediaSingle) {
+          // If a selection has been placed on a media inside a media single,
+          // we shift it to the media single parent as other code is opinionated about
+          // the selection landing there. In particular the caption insertion and selection
+          // action.
+
+          return newState.tr.setSelection(
+            NodeSelection.create(
+              newState.doc,
+              transaction.selection.$from.pos - 1,
+            ),
+          );
+        }
+      }
+      return;
     },
     key: stateKey,
     view: (view) => {
@@ -872,6 +889,17 @@ export const createPlugin = (
       handleTextInput(view: EditorView): boolean {
         getMediaPluginState(view.state).splitMediaGroup();
         return false;
+      },
+      handleClick: (_editorView, _pos, event: MouseEvent) => {
+        // Workaround for Chrome given a regression introduced in prosemirror-view@1.18.6
+        // Returning true prevents that updateSelection() is getting called in the commit below:
+        // @see https://github.com/ProseMirror/prosemirror-view/compare/1.18.5...1.18.6
+        return Boolean(
+          (browser.chrome || browser.safari) &&
+            event.target &&
+            CAPTION_PLACEHOLDER_ID ===
+              (event.target as HTMLElement).parentElement?.dataset.id,
+        );
       },
     },
   });

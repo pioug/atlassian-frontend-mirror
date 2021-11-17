@@ -4,6 +4,7 @@ import Button from '@atlaskit/button/standard-button';
 import SuccessIcon from '@atlaskit/icon/glyph/check-circle';
 import { G400, N0, N500, R400, Y200 } from '@atlaskit/theme/colors';
 import { gridSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 import { AutoDismissFlag, FlagGroup } from '../src';
 import { AppearanceTypes } from '../src/types';
@@ -16,11 +17,11 @@ const appearances: AppearanceTypes[] = [
   'warning',
 ];
 const color = {
-  error: R400,
-  info: N500,
-  normal: N0,
-  success: G400,
-  warning: Y200,
+  error: token('color.iconBorder.danger', R400),
+  info: token('color.iconBorder.discovery', N500),
+  normal: token('color.iconBorder.brand', N0),
+  success: token('color.iconBorder.success', G400),
+  warning: token('color.iconBorder.warning', Y200),
 };
 
 const AutoDismissExample = () => {

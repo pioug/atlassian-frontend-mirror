@@ -14,6 +14,7 @@ import {
   DN600,
   DN300,
 } from '@atlaskit/theme/colors';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { ItemGroup, itemThemeNamespace } from '@atlaskit/item';
 import { themed } from '@atlaskit/theme/components';
 import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';

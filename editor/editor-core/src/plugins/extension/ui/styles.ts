@@ -42,4 +42,10 @@ export const extensionStyles = css`
   .extensionView-content-wrap .extension-container {
     overflow: hidden;
   }
+
+  .bodiedExtensionView-content-wrap
+    .extensionView-content-wrap
+    .extension-container {
+    width: 100%;
+  }
 `;

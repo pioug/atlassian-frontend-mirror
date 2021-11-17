@@ -189,6 +189,7 @@ function getEditorProps(appearance: Appearance) {
     codeBlock: { allowCopyToClipboard: true },
     featureFlags: {
       displayInlineBlockForInlineNodes: false,
+      twoLineEditorToolbar: false,
     },
   };
 

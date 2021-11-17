@@ -145,6 +145,12 @@ function compareValue(
     return 0;
   }
 
+  if (typeof valueA === 'string' && typeof valueB === 'string') {
+    return valueA.localeCompare(valueB, window.navigator.language, {
+      caseFirst: 'upper',
+    }) as 1 | 0 | -1;
+  }
+
   return valueA > valueB ? 1 : -1;
 }
 

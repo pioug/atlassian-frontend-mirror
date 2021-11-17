@@ -277,7 +277,7 @@ const createTableSpec = (): NodeSpec => {
   const tableNodeSpec: NodeSpec = {
     content: 'tableRow+',
     attrs: attrs,
-    marks: 'unsupportedMark unsupportedNodeAttribute',
+    marks: 'fragment unsupportedMark unsupportedNodeAttribute',
     tableRole: 'table',
     isolating: true,
     selectable: false,
@@ -355,7 +355,8 @@ export const tableCell: NodeSpec = {
     '(paragraph | panel | blockquote | orderedList | bulletList | rule | heading | codeBlock | mediaSingle |  mediaGroup | decisionList | taskList | blockCard | embedCard | extension | nestedExpand | unsupportedBlock)+',
   attrs: cellAttrs,
   tableRole: 'cell',
-  marks: 'link alignment dataConsumer unsupportedMark unsupportedNodeAttribute',
+  marks:
+    'link alignment dataConsumer fragment unsupportedMark unsupportedNodeAttribute',
   isolating: true,
   parseDOM: [
     // Ignore number cell copied from renderer
@@ -390,7 +391,8 @@ export const tableHeader: NodeSpec = {
   attrs: cellAttrs,
   tableRole: 'header_cell',
   isolating: true,
-  marks: 'link alignment dataConsumer unsupportedMark unsupportedNodeAttribute',
+  marks:
+    'link alignment dataConsumer fragment unsupportedMark unsupportedNodeAttribute',
   parseDOM: [
     {
       tag: 'th',

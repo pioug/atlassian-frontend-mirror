@@ -1,5 +1,19 @@
 # @atlaskit/theme
 
+## 12.0.2
+
+### Minor Changes
+
+- [`420621d097e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/420621d097e) - [ux] Instrumented theme with the new theming package, @atlaskit/tokens.
+
+  New tokens will be visible only in applications configured to use the new Tokens API (currently in alpha).
+  These changes are intended to be interoperable with the legacy theme implementation. Legacy dark mode users should expect no visual or breaking changes.
+
+### Patch Changes
+
+- [`f460cc7c411`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f460cc7c411) - Builds for this package now pass through a tokens babel plugin, removing runtime invocations of the tokens() function and improving bundle size.
+- Updated dependencies
+
 ## 12.0.1
 
 ### Patch Changes

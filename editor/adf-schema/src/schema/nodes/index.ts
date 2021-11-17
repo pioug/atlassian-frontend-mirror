@@ -49,7 +49,7 @@ export type {
 } from './mention';
 export { listItem } from './list-item';
 export type { ListItemArray, ListItemDefinition } from './list-item';
-export { panel, customPanel, PanelType } from './panel';
+export { panel, PanelType } from './panel';
 export type { PanelAttributes, PanelDefinition } from './panel';
 export { text } from './text';
 export type { TextDefinition } from './text';

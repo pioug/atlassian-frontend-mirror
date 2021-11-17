@@ -1,5 +1,16 @@
 # @atlaskit/icon
 
+## 21.9.2
+
+### Minor Changes
+
+- [`229177bb85d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/229177bb85d) - CETI-16 added remove emoji icon so that it appears in mobilekit too
+
+### Patch Changes
+
+- [`f460cc7c411`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f460cc7c411) - Builds for this package now pass through a tokens babel plugin, removing runtime invocations of the tokens() function and improving bundle size.
+- Updated dependencies
+
 ## 21.9.1
 
 ### Patch Changes

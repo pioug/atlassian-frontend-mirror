@@ -14,9 +14,9 @@ import { presidents } from './presidents';
 
 interface President {
   id: number;
-  nm: string;
-  pp: string;
-  tm: string;
+  name: string;
+  party: string;
+  term: string;
 }
 
 function createKey(input: string) {
@@ -85,26 +85,26 @@ export const createHead = (withWidth: boolean) => {
 export const head = createHead(true);
 
 export const rows = presidents.map((president: President, index: number) => ({
-  key: `row-${index}-${president.nm}`,
+  key: `row-${index}-${president.name}`,
   cells: [
     {
-      key: createKey(president.nm),
+      key: createKey(president.name),
       content: (
         <NameWrapper>
           <AvatarWrapper>
-            <Avatar name={president.nm} size="medium" />
+            <Avatar name={president.name} size="medium" />
           </AvatarWrapper>
-          <a href="https://atlassian.design">{president.nm}</a>
+          <a href="https://atlassian.design">{president.name}</a>
         </NameWrapper>
       ),
     },
     {
-      key: createKey(president.pp),
-      content: president.pp,
+      key: createKey(president.party),
+      content: president.party,
     },
     {
       key: president.id,
-      content: president.tm,
+      content: president.term,
     },
     {
       key: 'Lorem',
@@ -113,9 +113,9 @@ export const rows = presidents.map((president: President, index: number) => ({
     {
       key: 'MoreDropdown',
       content: (
-        <DropdownMenu trigger="More" triggerType="button">
+        <DropdownMenu trigger="More">
           <DropdownItemGroup>
-            <DropdownItem>{president.nm}</DropdownItem>
+            <DropdownItem>{president.name}</DropdownItem>
           </DropdownItemGroup>
         </DropdownMenu>
       ),

@@ -58,6 +58,16 @@ describe('Status', () => {
     );
   });
 
+  it('should not use the title={text} attribute in parent span', () => {
+    // Parent <span> should not use title={text} attribute.
+    // This may lead to the screen reader will announce the status twice
+    // for the screen reader users.
+    const component = mountWithIntl(<Status text="In progress" color="blue" />);
+    const span = component.find('span[className="status-lozenge-span"]');
+
+    expect(span.prop('title')).toBeUndefined();
+  });
+
   it('should use default color if color is unknown', () => {
     const component = mountWithIntl(
       // @ts-ignore: passing an invalid color

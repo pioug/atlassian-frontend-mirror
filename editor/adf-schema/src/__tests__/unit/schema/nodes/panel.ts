@@ -2,15 +2,15 @@ import { NodeSpec } from 'prosemirror-model';
 import { name } from '../../../../version.json';
 import { createSchema, SchemaConfig } from '../../../../schema/create-schema';
 import { toHTML, fromHTML } from '../../../../../test-helpers';
-import { customPanel } from '../../../../schema/nodes/panel';
+import { panel } from '../../../../schema/nodes/panel';
 
 const schema = makeSchema();
 const schemaWithAllowCustomPanel = makeSchema({
-  panel: customPanel(true),
+  panel: panel(true),
 });
 
 const schemaWithoutCustomPanel = makeSchema({
-  panel: customPanel(false),
+  panel: panel(false),
 });
 
 function expectHtmlWithData(html: string, expectedData: Object) {

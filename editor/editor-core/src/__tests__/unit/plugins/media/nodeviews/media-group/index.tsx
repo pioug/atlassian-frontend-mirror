@@ -114,7 +114,7 @@ describe('nodeviews/mediaGroup', () => {
   it('should get the position on component click', async () => {
     const { wrapper, getPos } = await setup({});
     const calledTimes = getPos.mock.calls.length;
-    wrapper.find('AsyncCard').prop('onClick')!({} as any);
+    wrapper.find('CardBase').prop('onClick')!({} as any);
     expect(getPos).toHaveBeenCalledTimes(calledTimes + 1);
   });
 
@@ -129,8 +129,8 @@ describe('nodeviews/mediaGroup', () => {
     });
 
     const getCards = (wrapper: any) => [
-      wrapper.find('AsyncCard').at(0),
-      wrapper.find('AsyncCard').at(1),
+      wrapper.find('CardBase').at(0),
+      wrapper.find('CardBase').at(1),
     ];
 
     it('clicking first card will select first card', () => {

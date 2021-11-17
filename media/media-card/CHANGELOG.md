@@ -1,5 +1,27 @@
 # @atlaskit/media-card
 
+## 72.1.0
+
+### Minor Changes
+
+- [`1724e1b8277`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1724e1b8277) - Added SSR capabilities to Media Card
+- [`ca519a86b1d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ca519a86b1d) - Add new prop forceSyncDisplay in MediaImage to provide an option of always showing images.
+  Enable MediaCard to turn on forceSyncDisplay when server side rendering is enabled.
+- [`ac4846d0f3f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ac4846d0f3f) - Added native lazy load support
+
+### Patch Changes
+
+- [`fc70978492a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fc70978492a) - Using type for SSR prop to reduce dependency on media-common
+- [`dc1f9d42903`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dc1f9d42903) - Fixed error message logic
+- [`27c61b8cdd8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/27c61b8cdd8) - revert CardSSRView component
+- [`12bfc09a21e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/12bfc09a21e) - Fixing internal prop calls for testId and removing references to the old DropdownMenuStateless export when using the new default export.
+- [`2b24fcc59f2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2b24fcc59f2) - Removed Code Viewer and Zip Previews Feature Flags
+- [`bccde8a4127`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bccde8a4127) - Update dependency of dropdown menu to the lite mode version. Update all usages to cater to the new API. The padding within dropdown menu items is 8px more, which makes the menu look bigger.
+- [`3a56ce8792b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3a56ce8792b) - [ux] Show selected for mediaInline in other states
+- [`f461edcfd05`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f461edcfd05) - Update CardLoader to use react-loadable
+  Add SSR feature prop to be passed in renderer and media card
+- Updated dependencies
+
 ## 72.0.0
 
 ### Major Changes

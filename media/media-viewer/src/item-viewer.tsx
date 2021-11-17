@@ -34,7 +34,7 @@ import { fireAnalytics, getFileAttributes } from './analytics';
 import { AudioViewer } from './viewers/audio';
 import { InteractiveImg } from './viewers/image/interactive-img';
 import ArchiveViewerLoader from './viewers/archiveSidebar/archiveViewerLoader';
-import { MediaFeatureFlags, getMediaFeatureFlag } from '@atlaskit/media-common';
+import { MediaFeatureFlags } from '@atlaskit/media-common';
 
 export type Props = Readonly<{
   identifier: Identifier;
@@ -133,7 +133,6 @@ export class ItemViewerBase extends React.Component<Props, State> {
       onClose,
       previewCount,
       contextId,
-      featureFlags,
     } = this.props;
     const collectionName = isFileIdentifier(identifier)
       ? identifier.collectionName
@@ -146,10 +145,7 @@ export class ItemViewerBase extends React.Component<Props, State> {
       previewCount,
     };
 
-    if (
-      getMediaFeatureFlag('codeViewer', featureFlags) &&
-      isCodeViewerItem(fileState.name)
-    ) {
+    if (isCodeViewerItem(fileState.name)) {
       return (
         <CodeViewer
           onSuccess={this.onSuccess}
@@ -196,15 +192,13 @@ export class ItemViewerBase extends React.Component<Props, State> {
           />
         );
       case 'archive':
-        if (getMediaFeatureFlag('zipPreviews', featureFlags)) {
-          return (
-            <ArchiveViewerLoader
-              onSuccess={this.onSuccess}
-              onError={this.onLoadFail}
-              {...viewerProps}
-            />
-          );
-        }
+        return (
+          <ArchiveViewerLoader
+            onSuccess={this.onSuccess}
+            onError={this.onLoadFail}
+            {...viewerProps}
+          />
+        );
     }
 
     return this.renderError(new MediaViewerError('unsupported'), fileState);

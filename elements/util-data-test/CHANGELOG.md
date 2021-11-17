@@ -1,5 +1,15 @@
 # @atlaskit/util-data-test
 
+## 17.0.0
+
+### Major Changes
+
+- [`d21da111ec2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d21da111ec2) - CETI-95 Predefined icon sizes are different from existing icons
+
+### Minor Changes
+
+- [`e81dd06a8a0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e81dd06a8a0) - CETI-158 Use large productivity icons when changing standard panel background colour
+
 ## 16.0.1
 
 ### Patch Changes

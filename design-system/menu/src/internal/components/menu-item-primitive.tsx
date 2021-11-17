@@ -121,23 +121,18 @@ const disabledStyles = css({
 
 const selectedStyles = css({
   backgroundColor: token('color.background.selected.resting', N20),
-  // Suppress the need for a fallback as selected color isn't used in the non-tokens world.
-  // When removing fallbacks make sure to remove this supression.
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-  color: token('color.text.selected'),
+  // Fallback set as babel plugin inserts one otherwise
+  color: token('color.text.selected', 'currentColor'),
   ':visited': {
-    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-    color: token('color.text.selected'),
+    color: token('color.text.selected', 'currentColor'),
   },
   ':hover': {
     backgroundColor: token('color.background.selected.hover', N20),
-    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-    color: token('color.text.selected'),
+    color: token('color.text.selected', 'currentColor'),
   },
   ':active': {
     backgroundColor: token('color.background.selected.pressed', N30),
-    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-    color: token('color.text.selected'),
+    color: token('color.text.selected', 'currentColor'),
   },
 });
 

@@ -1,27 +1,37 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import fs from 'fs';
+import path from 'path';
 
 import styleDictionary, { Config } from 'style-dictionary';
-
-import renameMapping from '../../src/tokens/rename-mapping';
 
 import { DEFAULT_THEME, LONG_SHORT_MAPPING } from './constants';
 import formatterCSSVariables from './formatters/format-css-variables';
 import formatterFigma from './formatters/format-figma';
-import formatterTypeScriptTokenDefaults from './formatters/format-typescript-token-defaults';
-import formatterTypeScriptTokenNames from './formatters/format-typescript-token-names';
+import formatterRaw from './formatters/format-raw';
+import formatterRenameMapper from './formatters/format-rename-mapper';
+import formatterTSTokenDefaults from './formatters/format-typescript-token-defaults';
+import formatterTSGeneratedTypes from './formatters/format-typescript-token-generated-types';
+import formatterTSTokenNames from './formatters/format-typescript-token-names';
 import boxShadowTransform from './transforms/box-shadow';
 import paletteTransform from './transforms/palette';
 
+const TOKENS_INPUT_DIR = './src/tokens/';
+const TOKENS_OUTPUT_DIR = './src/artifacts/';
+
 const createConfig = (themeName: string): Config => {
-  // We need to optionally generate the default token mapping if the current theme
-  // is the default one.
+  // Optionally generate the default token mapping if the current theme
+  // is the default one
   const typescriptFiles = [
     {
       format: 'typescript/custom-token-names',
       destination: 'token-names.tsx',
     },
+    {
+      format: 'typescript/custom-token-types',
+      destination: 'types.tsx',
+    },
   ];
+
   if (LONG_SHORT_MAPPING[themeName] === DEFAULT_THEME) {
     typescriptFiles.push({
       format: 'typescript/custom-token-default-values',
@@ -40,9 +50,12 @@ const createConfig = (themeName: string): Config => {
     ],
     format: {
       'css/custom-themed-variables': formatterCSSVariables as any,
-      'typescript/custom-token-names': formatterTypeScriptTokenNames as any,
-      'typescript/custom-token-default-values': formatterTypeScriptTokenDefaults as any,
+      'typescript/custom-token-names': formatterTSTokenNames as any,
+      'typescript/custom-token-default-values': formatterTSTokenDefaults as any,
+      'typescript/custom-token-types': formatterTSGeneratedTypes as any,
       'figma/custom-figma': formatterFigma as any,
+      'rename-mapper': formatterRenameMapper as any,
+      raw: formatterRaw as any,
     },
     transform: {
       'name/custom-dot': {
@@ -52,20 +65,45 @@ const createConfig = (themeName: string): Config => {
       'color/custom-palette': paletteTransform,
       'box-shadow/custom-figma': boxShadowTransform,
     },
-    source: [`./src/tokens/${themeName}/**/*.tsx`],
-    include: ['./src/tokens/palette.tsx', './src/tokens/default/**/*.tsx'],
+    source: [path.join(TOKENS_INPUT_DIR, `${themeName}/**/*.tsx`)],
+    include: [
+      path.join(TOKENS_INPUT_DIR, 'palette.tsx'),
+      path.join(TOKENS_INPUT_DIR, 'default/**/*.tsx'),
+    ],
     platforms: {
       figma: {
         transforms: ['name/custom-dot', 'color/custom-palette'],
-        buildPath: `./dist/figma/${themeName}/`,
+        buildPath: path.join(TOKENS_OUTPUT_DIR, `/figma/${themeName}/`),
         options: {
           themeName,
-          renameMapping,
         },
         files: [
           {
             format: 'figma/custom-figma',
             destination: 'sync-figma-tokens.js',
+          },
+        ],
+      },
+      renameMapper: {
+        transforms: ['name/custom-dot'],
+        buildPath: TOKENS_OUTPUT_DIR,
+        files: [
+          {
+            format: 'rename-mapper',
+            destination: `rename-mapping.tsx`,
+          },
+        ],
+      },
+      raw: {
+        transforms: ['name/custom-dot', 'color/custom-palette'],
+        buildPath: path.join(TOKENS_OUTPUT_DIR, '/tokens-raw/'),
+        options: {
+          themeName,
+        },
+        files: [
+          {
+            format: 'raw',
+            destination: `${themeName}.tsx`,
           },
         ],
       },
@@ -76,7 +114,7 @@ const createConfig = (themeName: string): Config => {
           'box-shadow/custom-figma',
         ],
         transformGroup: 'js',
-        buildPath: `./src/tokens/`,
+        buildPath: TOKENS_OUTPUT_DIR,
         files: typescriptFiles,
       },
       css: {

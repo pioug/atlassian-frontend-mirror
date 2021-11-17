@@ -2,14 +2,8 @@ import {
   isDateRange,
   DateRangeResult,
 } from '@atlaskit/editor-common/extensions';
-import {
-  Parameters,
-  ParametersWithDuplicateFields,
-} from '@atlaskit/editor-common/extensions';
-import {
-  getNameFromDuplicateField,
-  toEntries,
-} from '../../src/ui/ConfigPanel/utils';
+import { Parameters } from '@atlaskit/editor-common/extensions';
+import { getNameFromDuplicateField } from '../../src/ui/ConfigPanel/utils';
 
 function escapeHtmlEntities(value: string) {
   return value
@@ -69,7 +63,7 @@ function deserializeDateRangeEntry(dateRange: string): Entry<DateRangeResult> {
 }
 
 export const cqlSerializer = (content: Parameters) => {
-  const cql = toEntries(content)
+  const cql = Object.entries(content)
     .filter((entry) => entry[1])
     .map((entry) => {
       const [key, value] = entry;
@@ -93,16 +87,13 @@ export const cqlSerializer = (content: Parameters) => {
 
 type Entry<T> = [string, T];
 
-export const cqlDeserializer = (
-  value?: string,
-): ParametersWithDuplicateFields => {
+export const cqlDeserializer = (value?: string): Parameters => {
   if (typeof value === 'undefined') {
-    return [];
+    return {};
   }
 
-  const deserialized: Array<{
-    [name: string]: string | string[] | DateRangeResult;
-  }> = [];
+  const deserialized: Record<string, string | string[] | DateRangeResult> = {};
+
   value.split(' AND ').forEach((statement) => {
     const [key, separator, val] = statement.split(/\s(=|in)\s/);
 
@@ -114,10 +105,11 @@ export const cqlDeserializer = (
     }
 
     if (key.includes(escapeHtmlEntities('>='))) {
+      // Confirm: is this correct? It only seems to return from the `forEach()` loop
       return deserializeDateRangeEntry(key);
     }
 
-    deserialized.push({ [resultKey]: result });
+    deserialized[resultKey] = result;
   });
 
   return deserialized;

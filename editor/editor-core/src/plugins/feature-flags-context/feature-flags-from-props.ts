@@ -47,6 +47,10 @@ export function createFeatureFlagsFromProps(props: EditorProps): FeatureFlags {
         ? false
         : Boolean(props.allowTables.allowAddColumnWithCustomStep),
 
+    singleLayout:
+      typeof props.allowLayouts === 'object' &&
+      !!props.allowLayouts?.UNSAFE_allowSingleColumnLayout,
+
     undoRedoButtons: props.UNSAFE_allowUndoRedoButtons,
 
     catchAllTracking: props.performanceTracking?.catchAllTracking?.enabled,
@@ -140,6 +144,11 @@ export function createFeatureFlagsFromProps(props: EditorProps): FeatureFlags {
       typeof normalizedFeatureFlags.codeBlockSyntaxHighlighting === 'boolean'
         ? !!normalizedFeatureFlags.codeBlockSyntaxHighlighting &&
             !browser.safari
+        : false,
+    ),
+    twoLineEditorToolbar: Boolean(
+      typeof props.featureFlags?.twoLineEditorToolbar === 'boolean'
+        ? !!props.featureFlags?.twoLineEditorToolbar
         : false,
     ),
     codeBidiWarnings: Boolean(

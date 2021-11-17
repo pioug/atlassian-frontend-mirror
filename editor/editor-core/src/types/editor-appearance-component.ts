@@ -4,7 +4,10 @@ import { ProviderFactory, ExtensionHandlers } from '@atlaskit/editor-common';
 import { EventDispatcher } from '../event-dispatcher';
 import EditorActions from '../actions';
 import { UIComponentFactory } from '../types/ui-components';
-import { ReactComponents } from '../types/editor-props';
+import {
+  ReactComponents,
+  PrimaryToolbarComponents,
+} from '../types/editor-props';
 import { ToolbarUIComponentFactory } from '../ui/Toolbar/types';
 import { CollabEditOptions } from '../plugins/collab-edit/types';
 import { DispatchAnalyticsEvent } from '../plugins/analytics';
@@ -12,7 +15,6 @@ import { EditorAppearance } from './editor-appearance';
 import { MenuItem } from '../ui/DropdownMenu/types';
 import { ReactElement } from 'react';
 import { FeatureFlags } from './feature-flags';
-
 export interface EditorAppearanceComponentProps {
   appearance?: EditorAppearance;
   onSave?: (editorView: EditorView) => void;
@@ -34,7 +36,7 @@ export interface EditorAppearanceComponentProps {
   secondaryToolbarComponents?: UIComponentFactory[];
 
   customContentComponents?: ReactComponents;
-  customPrimaryToolbarComponents?: ReactComponents;
+  customPrimaryToolbarComponents?: PrimaryToolbarComponents;
   customSecondaryToolbarComponents?: ReactComponents;
   insertMenuItems?: MenuItem[];
   contextPanel?: ReactComponents;

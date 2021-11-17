@@ -14,3 +14,5 @@ export { ADFEncoder } from './utils';
 
 export { renderDocument } from './render-document';
 export type { RenderOutputStat } from './render-document';
+
+export type { MediaSSR } from './types/mediaOptions';

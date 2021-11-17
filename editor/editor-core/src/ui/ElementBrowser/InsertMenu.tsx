@@ -7,6 +7,7 @@ import React, {
 import styled, { ThemeProvider } from 'styled-components';
 
 import { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import Item, { itemThemeNamespace } from '@atlaskit/item';
 // AFP-2532 TODO: Fix automatic suppressions below
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points

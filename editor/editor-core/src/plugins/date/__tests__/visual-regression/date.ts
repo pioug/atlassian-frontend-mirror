@@ -316,9 +316,7 @@ describe('Date:', () => {
             },
           ],
         };
-        const viewport = { width: 300, height: 300 };
-
-        await initEditor(page, viewport, theme, adf);
+        await initEditor(page, defaultViewPort, theme, adf);
 
         await clickOnDate(page);
         await waitForDatePicker(page);

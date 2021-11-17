@@ -51,9 +51,12 @@ export const useAnnotationStateByTypeEvent = ({
       }
       const nextStates = Object.values(payload).reduce((acc, curr) => {
         if (curr.annotationType === type) {
+          // Check for empty state to prevent additional renders
+          const isEmpty = curr.state === null || curr.state === undefined;
+
           return {
             ...acc,
-            [curr.id]: curr.state,
+            [curr.id]: !isEmpty ? curr.state : states[curr.id],
           };
         }
 

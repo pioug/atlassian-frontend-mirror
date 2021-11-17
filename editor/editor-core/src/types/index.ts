@@ -10,6 +10,7 @@ export type {
   FeedbackInfo,
   ReactComponents,
   ExtensionProvidersProp,
+  PrimaryToolbarComponents,
 } from './editor-props';
 // eslint-disable-next-line import/no-cycle
 export type { EditorAppearanceComponentProps } from './editor-appearance-component';

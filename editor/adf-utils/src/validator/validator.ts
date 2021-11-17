@@ -27,6 +27,7 @@ import {
   Err,
   Validate,
 } from '../types/validatorTypes';
+import { validatorFnMap } from './rules';
 
 function mapMarksItems(spec: ValidatorSpec, fn = (x: any) => x) {
   if (spec.props && spec.props.marks) {
@@ -216,9 +217,16 @@ export function validateAttrs<T>(spec: AttributesSpec, value: T): boolean {
         (isDefined(spec.maximum) ? spec.maximum >= value : true)
       );
     case 'string':
+      const validatorFnPassed = (rule: string) =>
+        typeof value === 'string' &&
+        isDefined(validatorFnMap[rule]) &&
+        validatorFnMap[rule](value);
       return (
         isString(value) &&
         (isDefined(spec.minLength) ? spec.minLength! <= value.length : true) &&
+        (isDefined(spec.validatorFn)
+          ? validatorFnPassed(spec.validatorFn)
+          : true) &&
         (spec.pattern ? new RegExp(spec.pattern).test(value) : true)
       );
     case 'object':

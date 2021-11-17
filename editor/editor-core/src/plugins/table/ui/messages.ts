@@ -36,7 +36,7 @@ export default defineMessages({
   confirmDeleteLinkedModalMessage: {
     id: 'fabric.editor.tables.confirmDeleteLinkedModalMessage',
     defaultMessage:
-      'Removing this table will also remove all of the data contained in any connected charts.',
+      'Removing this table will break all the charts connected to it.',
     description:
       'Message for confirm modal when deleting a table linked to an extension.',
   },

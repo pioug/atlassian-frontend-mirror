@@ -1,7 +1,7 @@
 import React from 'react';
 import { ReactWrapper } from 'enzyme';
 import Button from '@atlaskit/button/custom-theme-button';
-import FieldRange from '@atlaskit/field-range';
+import Range from '@atlaskit/range';
 import { mountWithIntlContext } from '@atlaskit/media-test-helpers';
 import * as colors from '@atlaskit/theme/colors';
 
@@ -64,7 +64,7 @@ function simulateChangeOnLineWidthPopup(
 
   component
     .find(LineWidthPopup)
-    .find(FieldRange)
+    .find(Range)
     .simulate('change', { target: { value } });
 }
 

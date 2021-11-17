@@ -1,6 +1,7 @@
 import React, { useCallback, useMemo, useRef, useLayoutEffect } from 'react';
 import { N200 } from '@atlaskit/theme/colors';
 import { borderRadius } from '@atlaskit/theme/constants';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import Item from '@atlaskit/item';
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 import styled from 'styled-components';

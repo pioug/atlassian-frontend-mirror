@@ -66,12 +66,18 @@ export class ReactionServiceClient implements ReactionClient {
     containerAri: string,
     ari: string,
     emojiId: string,
+    metadata?: { [k: string]: any },
   ): Promise<ReactionSummary[]> {
     return this.requestService<ReactionsResponse>('reactions', {
       requestInit: {
         method: 'POST',
         headers: this.getHeaders(),
-        body: JSON.stringify({ emojiId, ari, containerAri }),
+        body: JSON.stringify({
+          emojiId,
+          ari,
+          containerAri,
+          ...(metadata ? { metadata: JSON.stringify(metadata) } : {}),
+        }),
         credentials: 'include',
       },
     }).then(({ reactions }) => reactions);
@@ -81,12 +87,14 @@ export class ReactionServiceClient implements ReactionClient {
     containerAri: string,
     ari: string,
     emojiId: string,
+    metadata?: { [k: string]: any },
   ): Promise<ReactionSummary[]> {
     return this.requestService<ReactionsResponse>('reactions', {
       queryParams: {
         ari,
         emojiId,
         containerAri,
+        ...(metadata ? { metadata: JSON.stringify(metadata) } : {}),
       },
       requestInit: {
         method: 'DELETE',

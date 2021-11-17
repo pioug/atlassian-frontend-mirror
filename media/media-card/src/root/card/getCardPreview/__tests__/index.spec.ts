@@ -8,12 +8,14 @@ jest.mock('@atlaskit/media-client', () => {
     addFileAttrsToUrl: jest.fn(),
   };
 });
-import { asMockFunction } from '@atlaskit/media-test-helpers';
+import { asMockFunction, fakeMediaClient } from '@atlaskit/media-test-helpers';
 import {
   FilePreview,
   addFileAttrsToUrl,
   ProcessedFileState,
   FileState,
+  MediaStoreGetFileImageParams,
+  MediaBlobUrlAttrs,
 } from '@atlaskit/media-client';
 import { CardPreview } from '../../../../types';
 import cardPreviewCache from '../cache';
@@ -21,7 +23,13 @@ import {
   getCardPreviewFromFilePreview,
   getCardPreviewFromBackend,
 } from '../helpers';
-import { CardPreviewParams, getCardPreview, shouldResolvePreview } from '../';
+import {
+  CardPreviewParams,
+  getCardPreview,
+  shouldResolvePreview,
+  getSSRCardPreview,
+  fetchAndCacheRemotePreview,
+} from '../';
 import { LocalPreviewError } from '../../../../errors';
 import * as filePreviewStatusModule from '../filePreviewStatus';
 import * as dimensionComparerModule from '../../../../utils/dimensionComparer';
@@ -38,22 +46,26 @@ const remotePreview: CardPreview = {
   source: 'remote',
 };
 
-const mediaBlobUrlAttrs = { some: 'attrs' };
+const mediaBlobUrlAttrs: MediaBlobUrlAttrs = {
+  id: 'some-id',
+  contextId: 'some-context',
+};
 const dataUriWithContext = 'some-data-uri-with-context';
 (addFileAttrsToUrl as jest.Mock).mockReturnValue(dataUriWithContext);
+
+const imageUrlParams: MediaStoreGetFileImageParams = {
+  collection: 'some-collection-name',
+  width: 55,
+  height: 66,
+  mode: 'crop',
+};
 
 // filePreview and isRemotePreviewReady have to be set in their relevant tests
 const cardPreviewParams = ({
   mediaClient: { thisIs: 'some-media-client' },
   id: 'some-id',
   dimensions: { width: '33', height: '44' },
-  imageUrlParams: {
-    collection: 'some-collection-name',
-    width: 55,
-    height: 66,
-    mode: 'crop',
-    alt: 'hi!',
-  },
+  imageUrlParams,
   mediaBlobUrlAttrs,
 } as unknown) as CardPreviewParams;
 
@@ -354,5 +366,73 @@ describe('getCardPreview()', () => {
     }
     expect(expectedError).toBeDefined();
     expect(cardPreview).toBeUndefined();
+  });
+});
+
+describe('getSSRCardPreview', () => {
+  it.each(['server', 'client'] as const)(
+    'should build a card preview using Media Client when ssr is %s',
+    (ssr) => {
+      const mediaClient = fakeMediaClient();
+      const ssrPreview = getSSRCardPreview(
+        ssr,
+        mediaClient,
+        'some-id',
+        imageUrlParams,
+        mediaBlobUrlAttrs,
+      );
+      expect(mediaClient.getImageUrlSync).toBeCalledTimes(1);
+      expect(ssrPreview).toEqual({
+        dataURI: expect.any(String),
+        source: `ssr-${ssr}`,
+        orientation: 1,
+      });
+    },
+  );
+});
+
+describe('fetchAndCacheRemotePreview', () => {
+  it('should fetch the remote preview and store it in cache when ssr is client', async () => {
+    asMockFunction(getCardPreviewFromBackend).mockResolvedValueOnce(
+      remotePreview,
+    );
+
+    const expectedResult = {
+      dataURI: dataUriWithContext,
+      orientation: remotePreview.orientation,
+      source: 'remote',
+    };
+    const expectedCachedResult = {
+      ...expectedResult,
+      source: 'cache-remote',
+    };
+    const {
+      mediaClient,
+      id,
+      dimensions = {},
+      imageUrlParams,
+      mediaBlobUrlAttrs,
+    } = cardPreviewParams;
+
+    const cardPreview = await fetchAndCacheRemotePreview(
+      mediaClient,
+      id,
+      dimensions,
+      imageUrlParams,
+      mediaBlobUrlAttrs,
+    );
+
+    expect(getCardPreviewFromBackend).toBeCalledWith(...remoteFetchParams);
+    expect(addFileAttrsToUrl).toBeCalledWith(
+      localPreview.dataURI,
+      mediaBlobUrlAttrs,
+    );
+    // The result must be cached
+    expect(cardPreviewCache.set).toBeCalledWith(
+      cardPreviewParams.id,
+      cardPreviewParams.dimensions,
+      expectedCachedResult,
+    );
+    expect(cardPreview).toEqual(expectedResult);
   });
 });

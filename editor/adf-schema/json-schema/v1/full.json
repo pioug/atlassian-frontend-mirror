@@ -569,23 +569,6 @@
       ],
       "additionalProperties": false
     },
-    "inlineExtension_with_no_marks_node": {
-      "allOf": [
-        {
-          "$ref": "#/definitions/inlineExtension_node"
-        },
-        {
-          "type": "object",
-          "properties": {
-            "marks": {
-              "type": "array",
-              "maxItems": 0
-            }
-          },
-          "additionalProperties": true
-        }
-      ]
-    },
     "inlineExtension_with_marks_node": {
       "allOf": [
         {
@@ -961,9 +944,6 @@
           "$ref": "#/definitions/emoji_node"
         },
         {
-          "$ref": "#/definitions/inlineExtension_with_no_marks_node"
-        },
-        {
           "$ref": "#/definitions/inlineExtension_with_marks_node"
         },
         {
@@ -1086,6 +1066,56 @@
       ],
       "additionalProperties": false
     },
+    "caption_node": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "caption"
+          ]
+        },
+        "content": {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "#/definitions/hardBreak_node"
+              },
+              {
+                "$ref": "#/definitions/mention_node"
+              },
+              {
+                "$ref": "#/definitions/emoji_node"
+              },
+              {
+                "$ref": "#/definitions/date_node"
+              },
+              {
+                "$ref": "#/definitions/placeholder_node"
+              },
+              {
+                "$ref": "#/definitions/inlineCard_node"
+              },
+              {
+                "$ref": "#/definitions/status_node"
+              },
+              {
+                "$ref": "#/definitions/formatted_text_inline_node"
+              },
+              {
+                "$ref": "#/definitions/code_inline_node"
+              }
+            ]
+          },
+          "minItems": 0
+        }
+      },
+      "required": [
+        "type",
+        "content"
+      ],
+      "additionalProperties": false
+    },
     "mediaSingle_node": {
       "type": "object",
       "properties": {
@@ -1155,6 +1185,35 @@
         }
       ]
     },
+    "mediaSingle_caption_node": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/mediaSingle_node"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "content": {
+              "type": "array",
+              "items": [
+                {
+                  "$ref": "#/definitions/media_node"
+                },
+                {
+                  "$ref": "#/definitions/caption_node"
+                }
+              ],
+              "minItems": 1,
+              "maxItems": 2
+            }
+          },
+          "required": [
+            "content"
+          ],
+          "additionalProperties": true
+        }
+      ]
+    },
     "listItem_node": {
       "type": "object",
       "properties": {
@@ -1176,6 +1235,9 @@
                 },
                 {
                   "$ref": "#/definitions/mediaSingle_full_node"
+                },
+                {
+                  "$ref": "#/definitions/mediaSingle_caption_node"
                 }
               ]
             },
@@ -1192,6 +1254,9 @@
                 },
                 {
                   "$ref": "#/definitions/mediaSingle_full_node"
+                },
+                {
+                  "$ref": "#/definitions/mediaSingle_caption_node"
                 },
                 {
                   "$ref": "#/definitions/orderedList_node"
@@ -1354,8 +1419,15 @@
                 "tip",
                 "warning",
                 "error",
-                "success"
+                "success",
+                "custom"
               ]
+            },
+            "panelIcon": {
+              "type": "string"
+            },
+            "panelColor": {
+              "type": "string"
             }
           },
           "required": [
@@ -1662,23 +1734,6 @@
       ],
       "additionalProperties": false
     },
-    "extension_with_no_marks_node": {
-      "allOf": [
-        {
-          "$ref": "#/definitions/extension_node"
-        },
-        {
-          "type": "object",
-          "properties": {
-            "marks": {
-              "type": "array",
-              "maxItems": 0
-            }
-          },
-          "additionalProperties": true
-        }
-      ]
-    },
     "extension_with_marks_node": {
       "allOf": [
         {
@@ -1757,6 +1812,9 @@
           },
           {
             "$ref": "#/definitions/mediaSingle_full_node"
+          },
+          {
+            "$ref": "#/definitions/mediaSingle_caption_node"
           },
           {
             "$ref": "#/definitions/heading_with_no_marks_node"
@@ -1906,6 +1964,9 @@
             "$ref": "#/definitions/mediaSingle_full_node"
           },
           {
+            "$ref": "#/definitions/mediaSingle_caption_node"
+          },
+          {
             "$ref": "#/definitions/orderedList_node"
           },
           {
@@ -1934,9 +1995,6 @@
           },
           {
             "$ref": "#/definitions/taskList_node"
-          },
-          {
-            "$ref": "#/definitions/extension_with_no_marks_node"
           },
           {
             "$ref": "#/definitions/extension_with_marks_node"
@@ -2047,6 +2105,9 @@
           "$ref": "#/definitions/mediaSingle_full_node"
         },
         {
+          "$ref": "#/definitions/mediaSingle_caption_node"
+        },
+        {
           "$ref": "#/definitions/orderedList_node"
         },
         {
@@ -2069,9 +2130,6 @@
         },
         {
           "$ref": "#/definitions/taskList_node"
-        },
-        {
-          "$ref": "#/definitions/extension_with_no_marks_node"
         },
         {
           "$ref": "#/definitions/extension_with_marks_node"
@@ -2214,23 +2272,6 @@
       ],
       "additionalProperties": false
     },
-    "bodiedExtension_with_no_marks_node": {
-      "allOf": [
-        {
-          "$ref": "#/definitions/bodiedExtension_node"
-        },
-        {
-          "type": "object",
-          "properties": {
-            "marks": {
-              "type": "array",
-              "maxItems": 0
-            }
-          },
-          "additionalProperties": true
-        }
-      ]
-    },
     "bodiedExtension_with_marks_node": {
       "allOf": [
         {
@@ -2271,6 +2312,9 @@
           "$ref": "#/definitions/mediaSingle_full_node"
         },
         {
+          "$ref": "#/definitions/mediaSingle_caption_node"
+        },
+        {
           "$ref": "#/definitions/orderedList_node"
         },
         {
@@ -2301,9 +2345,6 @@
           "$ref": "#/definitions/taskList_node"
         },
         {
-          "$ref": "#/definitions/extension_with_no_marks_node"
-        },
-        {
           "$ref": "#/definitions/extension_with_marks_node"
         },
         {
@@ -2314,9 +2355,6 @@
         },
         {
           "$ref": "#/definitions/expand_with_no_mark_node"
-        },
-        {
-          "$ref": "#/definitions/bodiedExtension_with_no_marks_node"
         },
         {
           "$ref": "#/definitions/bodiedExtension_with_marks_node"
@@ -2465,6 +2503,9 @@
                 "$ref": "#/definitions/mediaSingle_full_node"
               },
               {
+                "$ref": "#/definitions/mediaSingle_caption_node"
+              },
+              {
                 "$ref": "#/definitions/orderedList_node"
               },
               {
@@ -2495,9 +2536,6 @@
                 "$ref": "#/definitions/taskList_node"
               },
               {
-                "$ref": "#/definitions/extension_with_no_marks_node"
-              },
-              {
                 "$ref": "#/definitions/extension_with_marks_node"
               },
               {
@@ -2511,9 +2549,6 @@
               },
               {
                 "$ref": "#/definitions/expand_with_breakout_mark_node"
-              },
-              {
-                "$ref": "#/definitions/bodiedExtension_with_no_marks_node"
               },
               {
                 "$ref": "#/definitions/bodiedExtension_with_marks_node"

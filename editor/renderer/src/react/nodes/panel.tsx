@@ -16,6 +16,7 @@ import EmojiItem from './emoji';
 // AFP-2532 TODO: Fix automatic suppressions below
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { themed } from '@atlaskit/theme';
+import { getPanelBackgroundDarkModeColors } from '@atlaskit/editor-common';
 
 interface PanelStyledProps {
   'data-panel-type': PanelType;
@@ -31,16 +32,13 @@ const PanelStyled = styled.div<PanelStyledProps>`
       return '';
     }
 
-    const border = themed({
-      light: 'none',
-      dark: `1px solid rgba(255, 255, 255, 0.4)`,
-    })(props);
-
     // Similar to mainDynamicStyles()
     return `
       &[data-panel-type=${PanelType.CUSTOM}] {
         background-color: ${props.backgroundColor};
-        border: ${border};
+        ${themed({
+          dark: getPanelBackgroundDarkModeColors,
+        })};
       }
     `;
   }}

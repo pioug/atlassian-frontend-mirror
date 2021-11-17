@@ -7,7 +7,6 @@ import Toggle from '@atlaskit/toggle';
 
 import DynamicTable from '../src';
 
-import Wrapper from './components/wrapper';
 import { createHead, rows } from './content/sample-data';
 
 interface State {
@@ -36,7 +35,7 @@ export default class extends React.Component<{}, State> {
 
   render() {
     return (
-      <Wrapper>
+      <div>
         <div>
           <Toggle
             onChange={this.onToggleFixedChange}
@@ -64,7 +63,7 @@ export default class extends React.Component<{}, State> {
           onSort={() => console.log('onSort')}
           onSetPage={() => console.log('onSetPage')}
         />
-      </Wrapper>
+      </div>
     );
   }
 }

@@ -34,9 +34,13 @@ const visuallyHiddenStyles = css({
  * );
  * ```
  */
-const VisuallyHidden: FC<VisuallyHiddenProps> = ({ children, testId }) => {
+const VisuallyHidden: FC<VisuallyHiddenProps> = ({
+  children,
+  testId,
+  role,
+}) => {
   return (
-    <span data-testid={testId} css={visuallyHiddenStyles}>
+    <span data-testid={testId} css={visuallyHiddenStyles} role={role}>
       {children}
     </span>
   );

@@ -65,7 +65,7 @@ describe('CodeViewer Utility Function', () => {
     { extensions: ['.dbc'], language: 'foxpro' },
     { extensions: ['.hs', '.has'], language: 'haskell' },
     { extensions: ['.hx'], language: 'haxe' },
-    { extensions: ['.js'], language: 'javascript' },
+    { extensions: ['.js', '.jsx'], language: 'javascript' },
     { extensions: ['.jl'], language: 'julia' },
     { extensions: ['.kt'], language: 'kotlin' },
     { extensions: ['.m', '.mm'], language: 'objective-c' },
@@ -82,10 +82,11 @@ describe('CodeViewer Utility Function', () => {
     { extensions: ['.rkt'], language: 'racket' },
     { extensions: ['.sh'], language: 'shell' },
     { extensions: ['.sc', '.sch'], language: 'scheme' },
-    { extensions: ['.txt', '.msg', '.log', '.csv'], language: 'text' },
-    { extensions: ['.ts'], language: 'typescript' },
+    { extensions: ['.txt', '.msg', '.log', '.csv', '.md'], language: 'text' },
+    { extensions: ['.ts', '.tsx'], language: 'typescript' },
     { extensions: ['.v'], language: 'verilog' },
     { extensions: ['.xq', '.xql', '.xqm', '.xqy'], language: 'xquery' },
+    { extensions: ['.yml', '.yaml', '.lock'], language: 'yaml' },
   ].forEach(({ extensions, language }) => {
     it(`should calculate based on the name(s) ${extensions} that it IS a Codeviewer item with the language ${language}`, () => {
       extensions.forEach(function (name) {

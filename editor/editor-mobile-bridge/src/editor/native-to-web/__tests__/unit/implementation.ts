@@ -237,12 +237,8 @@ describe('AllowList Bridge methods', () => {
 
 describe('PageTitle Bridge', () => {
   let bridgeVer: WebBridgeImpl;
-  let toNativeBridge: jest.Mocked<NativeBridge>;
 
   beforeEach(async () => {
-    ({ toNativeBridge } = ((await import('../../../web-to-native')) as any) as {
-      toNativeBridge: jest.Mocked<NativeBridge>;
-    });
     bridgeVer = new WebBridgeImpl();
   });
 
@@ -251,8 +247,6 @@ describe('PageTitle Bridge', () => {
     const title = 'foo';
 
     bridgeVer.setCollabProviderPromise(Promise.resolve(provider));
-    bridgeVer.setupTitle();
-
     bridgeVer.setTitle(title);
 
     await new Promise<void>((resolve) => process.nextTick(() => resolve()));
@@ -269,47 +263,6 @@ describe('PageTitle Bridge', () => {
     await new Promise<void>((resolve) => process.nextTick(() => resolve()));
 
     expect(provider.setTitle).not.toHaveBeenCalledWith(title, true);
-  });
-
-  it('should update title in native when title:change event is received', async function () {
-    const provider = createMockCollabProvider();
-    const title = 'foo';
-
-    bridgeVer.setCollabProviderPromise(Promise.resolve(provider));
-    bridgeVer.setupTitle();
-    await new Promise<void>((resolve) => process.nextTick(() => resolve()));
-
-    // Simulate the emit event from collab provider
-    (provider.on as jest.MockedFunction<any>).mock.calls[0][1]({ title });
-
-    expect(toNativeBridge.updateTitle).toHaveBeenCalledWith(title);
-  });
-
-  it('should subscribe to title:change event', async function () {
-    const provider = createMockCollabProvider();
-
-    bridgeVer.setCollabProviderPromise(Promise.resolve(provider));
-    bridgeVer.setupTitle();
-    await new Promise<void>((resolve) => process.nextTick(() => resolve()));
-
-    expect(provider.on).toHaveBeenCalledWith(
-      'metadata:changed',
-      expect.anything(),
-    );
-  });
-
-  it('should unsubscribe to title:change event', async function () {
-    const provider = createMockCollabProvider();
-
-    bridgeVer.setCollabProviderPromise(Promise.resolve(provider));
-    const destroy = bridgeVer.setupTitle();
-    destroy();
-    await new Promise<void>((resolve) => process.nextTick(() => resolve()));
-
-    expect(provider.off).toHaveBeenCalledWith(
-      'metadata:changed',
-      expect.anything(),
-    );
   });
 });
 

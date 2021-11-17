@@ -6,6 +6,7 @@ export interface ResizeState {
   widths: number[];
   maxSize: number;
   overflow: boolean;
+  tableWidth: number;
 }
 export interface ResizeStateWithAnalytics {
   resizeState: ResizeState;

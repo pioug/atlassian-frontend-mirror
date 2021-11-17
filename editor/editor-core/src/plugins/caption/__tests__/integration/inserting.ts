@@ -16,7 +16,7 @@ BrowserTestCase(
   { skip: ['edge'] },
   async (
     client: Parameters<typeof goToEditorTestingWDExample>[0],
-    testName: string,
+    _testName: string,
   ) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
@@ -32,7 +32,7 @@ BrowserTestCase(
     const [image] = await waitForNumImages(page, 1);
 
     await image.click();
-    await page.remoteDOMClick(selectors.captionPlaceholder);
+    await page.click(selectors.captionPlaceholder);
 
     expect(await page.isVisible(selectors.caption)).toBe(true);
     await page.keys(['h', 'e', 'l', 'l', 'o']);

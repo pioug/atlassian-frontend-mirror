@@ -13,7 +13,7 @@ import {
 } from '@atlaskit/media-ui';
 import { BlockCardProps } from './types';
 import { JsonLd } from 'json-ld-types';
-import { getDefinitionId } from '../../state/helpers';
+import { getExtensionKey } from '../../state/helpers';
 import { extractBlockProps } from '../../extractors/block';
 import { getEmptyJsonLd, getUnauthorizedJsonLd } from '../../utils/jsonld';
 import { ExtractBlockOpts } from '../../extractors/block/types';
@@ -41,7 +41,7 @@ export const BlockCard: FC<BlockCardProps> = ({
   const extractorOpts: ExtractBlockOpts = {
     handleAnalytics: handlePreviewAnalytics,
     handleInvoke,
-    definitionId: getDefinitionId(details),
+    extensionKey: getExtensionKey(details),
   };
 
   switch (status) {

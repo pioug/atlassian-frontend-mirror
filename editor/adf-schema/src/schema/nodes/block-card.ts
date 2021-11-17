@@ -1,6 +1,9 @@
 import { NodeSpec, Node as PMNode } from 'prosemirror-model';
 
 export interface UrlType {
+  /**
+   * @validatorFn safeUrl
+   */
   url: string;
 }
 

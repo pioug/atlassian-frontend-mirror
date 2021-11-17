@@ -1,12 +1,14 @@
+import { useRef } from 'react';
 import { getLocalMediaFeatureFlag } from './mediaFeatureFlag-local';
 
 // Media feature flags - type and defaults defined here in one source of truth
 export interface MediaFeatureFlags {
   newCardExperience?: boolean;
-  zipPreviews?: boolean;
   captions?: boolean;
+  mediaInline?: boolean;
+  // We can't yet switch this feature on
+  // https://product-fabric.atlassian.net/browse/MEX-104
   folderUploads?: boolean;
-  codeViewer?: boolean;
 }
 
 export interface WithMediaFeatureFlags {
@@ -16,10 +18,11 @@ export interface WithMediaFeatureFlags {
 // default values defined here, not necessary for components to know directly as they should use the function below
 export const defaultMediaFeatureFlags: Required<MediaFeatureFlags> = {
   newCardExperience: false,
-  zipPreviews: false,
   captions: false,
+  mediaInline: false,
+  // We can't yet switch this feature on
+  // TODO https://product-fabric.atlassian.net/browse/MEX-104
   folderUploads: false,
-  codeViewer: false,
 };
 
 /**
@@ -63,3 +66,31 @@ Object.keys(defaultMediaFeatureFlags).forEach((flagName) => {
     );
   }
 });
+
+export const areEqualFeatureFlags = (
+  ffA?: MediaFeatureFlags,
+  ffB?: MediaFeatureFlags,
+): boolean => {
+  if (!ffA && !ffB) {
+    return true;
+  }
+  if (!ffA || !ffB) {
+    return false;
+  }
+  // With this type we ensure this object will compare all the flags
+  const results: Record<keyof Required<MediaFeatureFlags>, boolean> = {
+    newCardExperience: ffA.newCardExperience === ffB.newCardExperience,
+    captions: ffA.captions === ffB.captions,
+    mediaInline: ffA.mediaInline === ffB.mediaInline,
+    folderUploads: ffA.folderUploads === ffB.folderUploads,
+  };
+  return Object.values(results).every((result) => result);
+};
+
+export const useMemoizeFeatureFlags = (featureFlags?: MediaFeatureFlags) => {
+  const ref = useRef<MediaFeatureFlags>();
+  if (!areEqualFeatureFlags(featureFlags, ref.current)) {
+    ref.current = featureFlags;
+  }
+  return ref.current;
+};

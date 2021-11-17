@@ -22,8 +22,11 @@ import { createAndFireMediaCardEvent } from '../utils/analytics';
 import { attachDetailsToActions } from '../actions';
 import { getErrorMessage } from '../utils/getErrorMessage';
 import { toHumanReadableMediaSize, messages } from '@atlaskit/media-ui';
-import { NewFileExperienceWrapper } from './ui/styled';
-import { CardImageContainer, calcBreakpointSize } from './ui/styledSSR';
+import {
+  NewFileExperienceWrapper,
+  CardImageContainer,
+  calcBreakpointSize,
+} from './ui/styled';
 import { ImageRenderer } from './ui/imageRenderer/imageRenderer';
 import { TitleBox } from './ui/titleBox/titleBox';
 import { FailedTitleBox } from './ui/titleBox/failedTitleBox';
@@ -33,7 +36,7 @@ import { TickBox } from './ui/tickBox/tickBox';
 import { Blanket } from './ui/blanket/styled';
 import { ActionsBar } from './ui/actionsBar/actionsBar';
 import Tooltip from '@atlaskit/tooltip';
-import { Breakpoint } from './ui/Breakpoint';
+import { Breakpoint } from './ui/common';
 import { IconWrapper } from './ui/iconWrapper/styled';
 import { MimeTypeIcon } from '@atlaskit/media-ui/mime-type-icon';
 import SpinnerIcon from '@atlaskit/spinner';
@@ -69,6 +72,8 @@ export interface CardViewOwnProps extends SharedCardProps {
   readonly innerRef?: (instance: HTMLDivElement | null) => void;
   readonly onImageLoad: () => void;
   readonly onImageError: () => void;
+  readonly nativeLazyLoad?: boolean;
+  readonly forceSyncDisplay?: boolean;
   // Used to disable animation for testing purposes
   disableAnimation?: boolean;
 }
@@ -298,7 +303,8 @@ export class CardViewBase extends React.Component<
       alt,
       resizeMode,
       onDisplayImage,
-      mediaItemType,
+      nativeLazyLoad,
+      forceSyncDisplay,
     } = this.props;
 
     return (
@@ -306,13 +312,14 @@ export class CardViewBase extends React.Component<
         <ImageRenderer
           dataURI={dataURI}
           mediaType={mediaType}
-          mediaItemType={mediaItemType}
           previewOrientation={previewOrientation}
           alt={alt}
           resizeMode={resizeMode}
           onDisplayImage={onDisplayImage}
           onImageLoad={this.onImageLoad}
           onImageError={this.onImageError}
+          nativeLazyLoad={nativeLazyLoad}
+          forceSyncDisplay={forceSyncDisplay}
         />
       )
     );
@@ -381,10 +388,8 @@ export class CardViewBase extends React.Component<
       this.shouldRenderPlayButton() && disableOverlay
     );
     const isTickBoxSelectable = !disableOverlay && !!selectable && !selected;
-    // Make tooltip optional for media singles - images, videos.
-    // Intention is to show full file name when it's truncate in titlebox,
-    // and to hide it when no titlebox exists.
-    const shouldDisplayTooltip = !!name && !disableOverlay;
+    // Disable tooltip for Media Single
+    const shouldDisplayTooltip = !disableOverlay;
 
     return (
       <NewFileExperienceWrapper
@@ -518,42 +523,30 @@ export class CardViewBase extends React.Component<
         };
 
         let iconMessage;
-        if (!!metadata) {
-          if (error) {
-            const { secondaryError } = error;
-            if (
-              isRateLimitedError(secondaryError) ||
-              (secondaryError && isPollingError(secondaryError))
-            ) {
-              iconMessage = <PreviewCurrentlyUnavailable />;
-            }
-          } else if (!isZeroSize) {
-            iconMessage = <PreviewUnavailable />;
-          }
-        } else if (!!disableOverlay) {
+        let customTitleMessage;
+        const { secondaryError } = error || {};
+        if (
+          isRateLimitedError(secondaryError) ||
+          isPollingError(secondaryError)
+        ) {
+          iconMessage = <PreviewCurrentlyUnavailable />;
+        } else if (isUploadError(error)) {
+          iconMessage = <FailedToUpload />;
+          customTitleMessage = messages.failed_to_upload;
+        } else if (!metadata) {
           iconMessage = <FailedToLoad />;
+        } else {
+          iconMessage = <PreviewUnavailable />;
         }
 
-        if (error && isUploadError(error)) {
-          if (!disableOverlay) {
-            return {
-              ...baseErrorConfig,
-              renderFailedTitleBox: true,
-              customTitleMessage: messages.failed_to_upload,
-            };
-          }
-          return {
-            ...baseErrorConfig,
-            renderTitleBox: !metadata && !!name,
-            iconMessage: <FailedToUpload />,
-          };
-        }
         if (!disableOverlay) {
+          const renderFailedTitleBox = !name || !!customTitleMessage;
           return {
             ...baseErrorConfig,
-            renderTitleBox: !!name,
-            renderFailedTitleBox: !metadata,
-            iconMessage,
+            renderTitleBox: !!name && !customTitleMessage,
+            renderFailedTitleBox,
+            iconMessage: !renderFailedTitleBox ? iconMessage : undefined,
+            customTitleMessage,
           };
         }
         return {

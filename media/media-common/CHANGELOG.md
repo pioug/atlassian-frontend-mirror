@@ -1,5 +1,19 @@
 # @atlaskit/media-common
 
+## 2.10.0
+
+### Minor Changes
+
+- [`f461edcfd05`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f461edcfd05) - Added a comparer helper for Media Feature Flags objects
+
+### Patch Changes
+
+- [`fc70978492a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fc70978492a) - Using type for SSR prop to reduce dependency on media-common
+- [`2b24fcc59f2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2b24fcc59f2) - Removed Code Viewer and Zip Previews Feature Flags
+- [`f461edcfd05`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f461edcfd05) - Update CardLoader to use react-loadable
+  Add SSR feature prop to be passed in renderer and media card
+- [`01a41e75803`](https://bitbucket.org/atlassian/atlassian-frontend/commits/01a41e75803) - Removes `allowMediaInline` media prop and replaces with Inline Files feature flag for editor and mobile bridge
+
 ## 2.9.1
 
 ### Patch Changes

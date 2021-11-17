@@ -159,7 +159,13 @@ export const insertMediaInlineNode = (
   const { id } = mediaState;
   const mediaInlineNode = mediaInline.create({ id, collection });
   const space = state.schema.text(' ');
-  const pos = state.selection.$to.pos;
+  let pos = state.selection.$to.pos;
+
+  // If the selection is inside an empty list item set pos inside paragraph
+  if (isInListItem(state) && isInsidePotentialEmptyParagraph(state)) {
+    pos = pos + 1;
+  }
+
   let content = Fragment.from([mediaInlineNode, space]);
 
   // Delete the selection if a selection is made

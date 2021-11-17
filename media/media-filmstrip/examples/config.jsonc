@@ -6,8 +6,8 @@
 {
   "exampleDependencies": [
     "@atlaskit/button",
-    "@atlaskit/field-radio-group",
-    "@atlaskit/field-range",
+    "@atlaskit/radio",
+    "@atlaskit/range",
     "rxjs"
   ]
 }

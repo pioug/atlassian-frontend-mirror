@@ -1,5 +1,31 @@
 # @atlaskit/adf-schema
 
+## 20.0.0
+
+### Major Changes
+
+- [`3a2a5e14fdc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3a2a5e14fdc) - As we are moving to full schema, merged the customPanel nodeSpec with panel nodeSpec
+- [`8f0577e0eb1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8f0577e0eb1) - [ux] Promoted captions to full schema and better support of wikimarkup, email and slack renderer
+
+### Minor Changes
+
+- [`65a541166fe`](https://bitbucket.org/atlassian/atlassian-frontend/commits/65a541166fe) - ED-13766 fix pm node spec for media single with caption
+- [`83154234335`](https://bitbucket.org/atlassian/atlassian-frontend/commits/83154234335) - ED-13522 Add safe URL check to ADF validator (smart cards now show as unsupported content if the check fails)
+- [`8bbb96540ea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8bbb96540ea) - Add "fragment" mark to stage0 ADF schema
+
+### Patch Changes
+
+- [`c6feed82071`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c6feed82071) - ED-11632: Bump prosemirror packages;
+
+  - prosmirror-commands 1.1.4 -> 1.1.11,
+  - prosemirror-model 1.11.0 -> 1.14.3,
+  - prosemirror-state 1.3.3 -> 1.3.4,
+  - prosemirror-transform 1.2.8 -> 1.3.2,
+  - prosemirror-view 1.15.4 + 1.18.8 -> 1.20.2.
+
+- [`297d113d54b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/297d113d54b) - Unskip backwrd compat test and fix mistakes
+- Updated dependencies
+
 ## 19.3.1
 
 ### Patch Changes

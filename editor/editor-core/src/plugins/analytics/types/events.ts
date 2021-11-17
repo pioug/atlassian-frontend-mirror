@@ -145,6 +145,19 @@ type SynchronyErrorAEP = OperationalAEP<
   undefined
 >;
 
+type InvalidDocumentEncounteredAEP = OperationalAEP<
+  ACTION.INVALID_DOCUMENT_ENCOUNTERED,
+  ACTION_SUBJECT.EDITOR,
+  undefined,
+  {
+    nodeType: string;
+    reason: string;
+    tableLocalId: string;
+    spanValue: number;
+  },
+  undefined
+>;
+
 type SynchronyEntityErrorAEP = OperationalAEP<
   ACTION.SYNCHRONY_ENTITY_ERROR | ACTION.SYNCHRONY_DISCONNECTED,
   ACTION_SUBJECT.EDITOR,
@@ -210,6 +223,7 @@ export type ErrorEventPayload =
   | InvalidTransactionStepErrorAEP
   | FailedToUnmountErrorAEP
   | SynchronyErrorAEP
+  | InvalidDocumentEncounteredAEP
   | SynchronyEntityErrorAEP
   | ContentComponentErrorAEP
   | ComponentCrashErrorAEP

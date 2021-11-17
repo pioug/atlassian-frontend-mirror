@@ -1,27 +1,31 @@
 import React from 'react';
 
 import DropdownMenu, {
-  DropdownItemGroupRadio,
   DropdownItemRadio,
+  DropdownItemRadioGroup,
 } from '../src';
 
-export default () => (
-  <DropdownMenu
-    trigger="Filter cities"
-    triggerType="button"
-    onOpenChange={(e) => console.log('dropdown opened', e)}
-  >
-    <DropdownItemGroupRadio id="cities-aus" title="Australia">
-      <DropdownItemRadio id="sydney">Sydney</DropdownItemRadio>
-    </DropdownItemGroupRadio>
-    <DropdownItemGroupRadio id="cities-usa" title="United States">
-      <DropdownItemRadio id="san-francisco">San Francisco</DropdownItemRadio>
-      <DropdownItemRadio id="austin">Austin</DropdownItemRadio>
-    </DropdownItemGroupRadio>
-    <DropdownItemGroupRadio id="cities-elsewhere" title="Elsewhere">
-      <DropdownItemRadio id="amsterdam">Amsterdam</DropdownItemRadio>
-      <DropdownItemRadio id="yokohama">Yokohama</DropdownItemRadio>
-      <DropdownItemRadio id="manila">Manila</DropdownItemRadio>
-    </DropdownItemGroupRadio>
-  </DropdownMenu>
-);
+const DropdownMenuRadio = () => {
+  return (
+    <div style={{ margin: '20px' }}>
+      <DropdownMenu trigger="Filter cities" testId="lite-mode-ddm">
+        <DropdownItemRadioGroup id="cities" title="Some cities">
+          <DropdownItemRadio id="sydney">Sydney</DropdownItemRadio>
+          <DropdownItemRadio id="melbourne" defaultSelected>
+            Melbourne
+          </DropdownItemRadio>
+        </DropdownItemRadioGroup>
+
+        <DropdownItemRadioGroup id="other-cities" title="Some other cities">
+          <DropdownItemRadio id="adelaide" defaultSelected>
+            Adelaide
+          </DropdownItemRadio>
+          <DropdownItemRadio id="melbourne">Melbourne</DropdownItemRadio>
+          <DropdownItemRadio id="perth">Perth</DropdownItemRadio>
+        </DropdownItemRadioGroup>
+      </DropdownMenu>
+    </div>
+  );
+};
+
+export default DropdownMenuRadio;

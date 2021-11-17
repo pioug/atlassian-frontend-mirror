@@ -365,7 +365,11 @@ export const unwrapNestedMediaElements = (html: string) => {
 
     // If its wrapped by a div we assume its safe to bypass.
     // ProseMirror should handle this case properly.
-    if (mediaParent instanceof HTMLDivElement) {
+    if (
+      mediaParent instanceof HTMLDivElement ||
+      (mediaParent instanceof HTMLSpanElement &&
+        mediaParent.closest('[class*="emoji-common"]'))
+    ) {
       return;
     }
 

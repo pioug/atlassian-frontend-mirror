@@ -21,8 +21,20 @@ export default function EditorExampleForIntegrationTests({ clipboard = true }) {
     (props, nonSerializableProps, lifecycleHandlers, withCollab) => {
       const { onMount, onChange, onDestroy } = lifecycleHandlers;
 
-      if (props && props.primaryToolbarComponents) {
-        props.primaryToolbarComponents = <SaveAndCancelButtons />;
+      if (props?.primaryToolbarComponents) {
+        const saveIndicator = (
+          <div style={{ backgroundColor: '#00FFFF' }}>Save Indicator</div>
+        );
+        const mainButtons = <SaveAndCancelButtons />;
+
+        if (props.primaryToolbarComponents.before) {
+          props.primaryToolbarComponents = {
+            before: saveIndicator,
+            after: mainButtons,
+          };
+        } else {
+          props.primaryToolbarComponents = mainButtons;
+        }
       }
 
       if (props && props.primaryToolbarIconBefore) {

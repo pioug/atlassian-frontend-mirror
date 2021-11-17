@@ -91,7 +91,10 @@ export default function EditorWithFeedback(props: Props) {
                     provider: mediaProvider,
                     allowMediaSingle: true,
                     allowMediaGroup: true,
-                    allowMediaInline: true,
+                    featureFlags: {
+                      mediaInline: true,
+                      captions: true,
+                    },
                   }}
                   onChange={onChange}
                   onSave={SAVE_ACTION}

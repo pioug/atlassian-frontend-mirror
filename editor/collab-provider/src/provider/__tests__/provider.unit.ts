@@ -117,12 +117,11 @@ describe('provider unit tests', () => {
       socket.emit('connected', { sid: 'sid-123' });
     });
 
-    it('should emit init event and trigger sendPresence once provider is connected', async (done) => {
+    it('should emit init event', async (done) => {
       let expectedSid: any;
       const sid = 'expected-sid-123';
       const userId = 'user-123';
       const provider = createSocketIOCollabProvider(testProviderConfig);
-      const spy = jest.spyOn(provider as any, 'sendPresence');
       provider.on('connected', ({ sid }) => {
         expectedSid = sid;
       });
@@ -130,8 +129,6 @@ describe('provider unit tests', () => {
         expect(expectedSid).toBe(sid);
         expect(doc).toBe('bla');
         expect(version).toBe(1);
-        expect((provider as any).userId).toBe(userId);
-        expect(spy).toBeCalled();
         expect(metadata).toEqual({
           title: 'some-random-title',
         });

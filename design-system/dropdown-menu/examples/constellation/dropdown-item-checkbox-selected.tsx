@@ -2,18 +2,18 @@ import React from 'react';
 
 import DropdownMenu, {
   DropdownItemCheckbox,
-  DropdownItemGroupCheckbox,
+  DropdownItemCheckboxGroup,
 } from '../../src';
 
 const DropdownItemCheckboxSelectedExample = () => {
   return (
-    <DropdownMenu trigger="Page actions" triggerType="button">
-      <DropdownItemGroupCheckbox id="actions">
+    <DropdownMenu trigger="Page actions">
+      <DropdownItemCheckboxGroup id="actions">
         <DropdownItemCheckbox id="edit">Edit</DropdownItemCheckbox>
         <DropdownItemCheckbox id="move" isSelected>
           Move
         </DropdownItemCheckbox>
-      </DropdownItemGroupCheckbox>
+      </DropdownItemCheckboxGroup>
     </DropdownMenu>
   );
 };

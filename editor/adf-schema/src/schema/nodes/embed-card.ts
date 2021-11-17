@@ -4,6 +4,9 @@ import { RichMediaAttributes } from './types/rich-media-common';
 export interface EmbedCardAttributes extends RichMediaAttributes {
   originalWidth?: number;
   originalHeight?: number;
+  /**
+   * @validatorFn safeUrl
+   */
   url: string;
 }
 

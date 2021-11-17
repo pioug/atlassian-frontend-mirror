@@ -57,7 +57,7 @@ const TableSortingIcon = styled.div`
   }
 
   &.${TABLE_SORTING_ICON_CLASS}-inactive {
-    opacity: 0.5;
+    opacity: 0.7;
   }
 `;
 

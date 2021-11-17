@@ -8,6 +8,7 @@ import {
   clearEditorContent,
   setKeyboardHeight,
   updateLink,
+  QuickInsertActionInsert,
 } from '@atlaskit/editor-core';
 import WebBridgeImpl from '../../../../editor/native-to-web';
 import { defaultPadding } from '../../../../web-bridge';
@@ -17,6 +18,31 @@ describe('general', () => {
 
   it('should return valid bridge version', () => {
     expect(bridge.currentVersion()).toEqual('1.2.3.4');
+  });
+});
+
+describe('quick insert should work', () => {
+  const bridge: WebBridgeImpl = new WebBridgeImpl();
+
+  beforeEach(() => {
+    mocks.mockCalls.length = 0;
+    (bridge as any).editorView = {};
+  });
+
+  afterEach(() => {
+    bridge.editorView = undefined;
+  });
+
+  it('should set quick insert items', async () => {
+    const itemsToSet = [
+      {
+        title: 'mochi is fluffy',
+        action: (insert: QuickInsertActionInsert) => insert(),
+      },
+    ];
+    bridge.setQuickInsertItems(itemsToSet);
+    const quickInsertItems = await bridge.quickInsertItems;
+    expect(quickInsertItems).toEqual(itemsToSet);
   });
 });
 

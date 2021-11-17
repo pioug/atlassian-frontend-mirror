@@ -115,6 +115,7 @@ const SAVE_ACTION = () => console.log('Save');
 const defaultMediaFeatureFlags: MediaFeatureFlags = {
   ...exampleMediaFeatureFlags,
   captions: true,
+  mediaInline: true,
 };
 
 export const LOCALSTORAGE_defaultDocKey = 'fabric.editor.example.full-page';
@@ -364,7 +365,6 @@ export class ExampleEditorComponent extends React.Component<
                 {...providers}
                 media={{
                   provider: mediaProvider,
-                  allowMediaInline: true,
                   allowMediaSingle: true,
                   allowResizing: true,
                   allowAnnotation: true,
@@ -688,7 +688,7 @@ const Renderer = (props: {
           media={{
             featureFlags: mediaFeatureFlags,
           }}
-          UNSAFE_allowCustomPanels={props.allowCustomPanel}
+          allowCustomPanels={props.allowCustomPanel}
           eventHandlers={{
             onUnhandledClick: props.clickToEdit
               ? (e) => {
@@ -734,7 +734,7 @@ export default function Example(props: EditorProps & ExampleProps) {
   let allowCustomPanel = false;
   if (props.allowPanel && typeof props.allowPanel === 'object') {
     allowCustomPanel =
-      (props.allowPanel as PanelPluginConfig).UNSAFE_allowCustomPanel || false;
+      (props.allowPanel as PanelPluginConfig).allowCustomPanel || false;
   }
 
   const { media } = props;

@@ -31,6 +31,7 @@ import { stateKey as mediaStateKey } from '../pm-plugins/plugin-key';
 import { MediaPluginState } from '../pm-plugins/types';
 import { MediaNodeUpdater } from './mediaNodeUpdater';
 import { MediaOptions } from '../types';
+import { getMediaFeatureFlag } from '@atlaskit/media-common';
 
 export type MediaGroupProps = {
   forwardRef?: (ref: HTMLElement) => void;
@@ -258,7 +259,9 @@ export default class MediaGroup extends React.Component<
         onClick: () => {
           setNodeSelection(this.props.view, getNodePos());
         },
-        ...mediaInlineOptions(mediaOptions.allowMediaInline),
+        ...mediaInlineOptions(
+          getMediaFeatureFlag('mediaInline', mediaOptions.featureFlags),
+        ),
       };
     });
 

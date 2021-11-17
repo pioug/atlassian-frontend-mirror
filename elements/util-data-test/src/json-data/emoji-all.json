@@ -54053,28 +54053,6 @@
             "shortName": ":minus:"
         },
         {
-          "id": "atlassian-note",
-          "name": "note",
-          "fallback": ":note:",
-          "type": "ATLASSIAN",
-          "category": "ATLASSIAN",
-          "order": -1000,
-          "representation": {
-            "imagePath": "https://pf-emoji-service--cdn.ap-southeast-2.dev.public.atl-paas.net/atlassian/note@2x.png",
-            "height": 48,
-            "width": 48
-          },
-          "altRepresentations": {
-            "XXXHDPI": {
-              "imagePath": "https://pf-emoji-service--cdn.ap-southeast-2.dev.public.atl-paas.net/atlassian/note@4x.png",
-              "height": 96,
-              "width": 96
-            }
-          },
-          "searchable": true,
-          "shortName": ":note:"
-        },
-        {
             "id": "atlassian-blue_star",
             "name": "Blue Star",
             "fallback": ":blue_star:",
@@ -54124,28 +54102,6 @@
             },
             "searchable": true,
             "shortName": ":flag_off:"
-        },
-        {
-          "id": "atlassian-error",
-          "name": "error",
-          "fallback": ":error:",
-          "type": "ATLASSIAN",
-          "category": "ATLASSIAN",
-          "order": -1000,
-          "representation": {
-            "imagePath": "https://pf-emoji-service--cdn.ap-southeast-2.dev.public.atl-paas.net/atlassian/error@2x.png",
-            "height": 48,
-            "width": 48
-          },
-          "altRepresentations": {
-            "XXXHDPI": {
-              "imagePath": "https://pf-emoji-service--cdn.ap-southeast-2.dev.public.atl-paas.net/atlassian/error@4x.png",
-              "height": 96,
-              "width": 96
-            }
-          },
-          "searchable": true,
-          "shortName": ":error:"
         },
         {
             "id": "atlassian-plus",
@@ -54256,28 +54212,6 @@
             "shortName": ":cross_mark:"
         },
         {
-          "id": "atlassian-success",
-          "name": "success",
-          "fallback": ":success:",
-          "type": "ATLASSIAN",
-          "category": "ATLASSIAN",
-          "order": -1000,
-          "representation": {
-            "imagePath": "https://pf-emoji-service--cdn.ap-southeast-2.dev.public.atl-paas.net/atlassian/success@2x.png",
-            "height": 48,
-            "width": 48
-          },
-          "altRepresentations": {
-            "XXXHDPI": {
-              "imagePath": "https://pf-emoji-service--cdn.ap-southeast-2.dev.public.atl-paas.net/atlassian/success@4x.png",
-              "height": 96,
-              "width": 96
-            }
-          },
-          "searchable": true,
-          "shortName": ":success:"
-        },
-        {
             "id": "atlassian-yellow_star",
             "name": "Yellow Star",
             "fallback": ":yellow_star:",
@@ -54333,28 +54267,6 @@
             "shortName": ":green_star:"
         },
         {
-          "id": "atlassian-warning",
-          "name": "warning",
-          "fallback": ":warning:",
-          "type": "ATLASSIAN",
-          "category": "ATLASSIAN",
-          "order": -1000,
-          "representation": {
-            "imagePath": "https://pf-emoji-service--cdn.ap-southeast-2.dev.public.atl-paas.net/atlassian/warning@2x.png",
-            "height": 48,
-            "width": 48
-          },
-          "altRepresentations": {
-            "XXXHDPI": {
-              "imagePath": "https://pf-emoji-service--cdn.ap-southeast-2.dev.public.atl-paas.net/atlassian/warning@4x.png",
-              "height": 96,
-              "width": 96
-            }
-          },
-          "searchable": true,
-          "shortName": ":warning:"
-        },
-        {
             "id": "atlassian-flag_on",
             "name": "Flag On",
             "fallback": ":flag_on:",
@@ -54370,26 +54282,37 @@
             "shortName": ":flag_on:"
         },
         {
-          "id": "atlassian-info",
-          "name": "info",
-          "fallback": ":info:",
+            "id": "atlassian-info",
+            "name": "Info",
+            "fallback": ":info:",
+            "type": "ATLASSIAN",
+            "category": "ATLASSIAN",
+            "order": -990,
+            "representation": {
+                "imagePath": "https://pf-emoji-service--cdn.ap-southeast-2.dev.public.atl-paas.net/atlassian/info_64.png",
+                "height": 64,
+                "width": 64
+            },
+            "ascii": [
+                "(i)"
+            ],
+            "searchable": true,
+            "shortName": ":info:"
+        },
+        {
+          "id": "atlassian-note",
+          "name": "Note",
+          "fallback": ":note:",
           "type": "ATLASSIAN",
           "category": "ATLASSIAN",
-          "order": -1000,
+          "order": -985,
           "representation": {
-            "imagePath": "https://pf-emoji-service--cdn.ap-southeast-2.dev.public.atl-paas.net/atlassian/info@2x.png",
-            "height": 48,
-            "width": 48
-          },
-          "altRepresentations": {
-            "XXXHDPI": {
-              "imagePath": "https://pf-emoji-service--cdn.ap-southeast-2.dev.public.atl-paas.net/atlassian/info@4x.png",
-              "height": 96,
-              "width": 96
-            }
+              "imagePath": "https://pf-emoji-service--cdn.ap-southeast-2.dev.public.atl-paas.net/atlassian/note_64.png",
+              "height": 64,
+              "width": 64
           },
           "searchable": true,
-          "shortName": ":info:"
+          "shortName": ":note:"
         },
         {
           "id": "wtf",

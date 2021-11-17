@@ -18,6 +18,7 @@ import {
   combineExtensionProviders,
   UpdateExtension,
 } from '@atlaskit/editor-common/extensions';
+import { flushPromises } from '../../__helpers/utils';
 
 export function asOption(label: string): Option {
   return { label, value: label };
@@ -258,6 +259,7 @@ export async function mountWithProviders(
       form.simulate('submit');
       form.update();
       form.simulate('blur');
+      await flushPromises();
     },
   };
 }

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-mobile-bridge",
-  "version": "29.2.4",
+  "version": "30.0.0",
   "description": "Mobile distribution of the Editor",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -27,32 +27,33 @@
     "build:test": "webpack --config webpack.test.config.js -p"
   },
   "dependencies": {
-    "@atlaskit/adf-schema": "^19.3.0",
-    "@atlaskit/adf-utils": "^14.3.0",
+    "@atlaskit/adf-schema": "^20.0.0",
+    "@atlaskit/adf-utils": "^14.4.0",
     "@atlaskit/analytics-gas-types": "5.0.5",
     "@atlaskit/analytics-listeners": "8.1.2",
     "@atlaskit/analytics-next": "^8.2.0",
     "@atlaskit/collab-provider": "^7.1.0",
-    "@atlaskit/editor-common": "60.3.0",
-    "@atlaskit/editor-core": "151.3.0",
-    "@atlaskit/editor-json-transformer": "8.6.6",
-    "@atlaskit/emoji": "63.1.9",
-    "@atlaskit/legacy-mobile-macros": "0.5.1",
+    "@atlaskit/editor-common": "61.0.0",
+    "@atlaskit/editor-core": "152.0.0",
+    "@atlaskit/editor-json-transformer": "8.7.0",
+    "@atlaskit/emoji": "63.1.10",
+    "@atlaskit/legacy-mobile-macros": "0.5.2",
     "@atlaskit/mention": "19.9.3",
-    "@atlaskit/renderer": "82.2.0",
-    "@atlaskit/smart-card": "16.2.1",
-    "@atlaskit/status": "0.11.3",
-    "@atlaskit/task-decision": "17.2.3",
-    "@atlaskit/theme": "12.0.1",
+    "@atlaskit/renderer": "83.0.0",
+    "@atlaskit/smart-card": "16.3.0",
+    "@atlaskit/status": "0.12.0",
+    "@atlaskit/task-decision": "17.2.4",
+    "@atlaskit/theme": "12.0.2",
     "@babel/polyfill": "^7.0.0",
     "@babel/runtime": "^7.0.0",
     "@types/prosemirror-view": "^1.9.0",
     "eventemitter2": "^4.1.0",
     "lodash": "^4.17.15",
+    "memoize-one": "^6.0.0",
     "prosemirror-history": "^1.1.3",
-    "prosemirror-model": "1.11.0",
-    "prosemirror-state": "1.3.3",
-    "prosemirror-view": "1.15.4",
+    "prosemirror-model": "1.14.3",
+    "prosemirror-state": "1.3.4",
+    "prosemirror-view": "1.23.1",
     "raf-schd": "^2.1.0",
     "uuid": "^3.1.0"
   },
@@ -63,22 +64,22 @@
     "react-intl": "^2.6.0"
   },
   "devDependencies": {
-    "@atlaskit/adf-utils": "^14.3.0",
+    "@atlaskit/adf-utils": "^14.4.0",
     "@atlaskit/analytics-next": "^8.2.0",
     "@atlaskit/button": "^16.1.0",
     "@atlaskit/docs": "*",
-    "@atlaskit/editor-test-helpers": "^15.5.0",
+    "@atlaskit/editor-test-helpers": "^15.6.0",
     "@atlaskit/form": "^8.4.0",
     "@atlaskit/icon": "^21.9.0",
     "@atlaskit/media-client": "^14.3.0",
     "@atlaskit/media-core": "^32.2.0",
     "@atlaskit/media-integration-test-helpers": "^2.5.0",
-    "@atlaskit/media-test-helpers": "^28.8.0",
+    "@atlaskit/media-test-helpers": "^28.9.0",
     "@atlaskit/multi-entry-tools": "^0.0.5",
     "@atlaskit/select": "^15.2.0",
     "@atlaskit/textarea": "^4.2.0",
     "@atlaskit/textfield": "^5.1.0",
-    "@atlaskit/util-data-test": "^16.0.0",
+    "@atlaskit/util-data-test": "^17.0.0",
     "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@testing-library/react": "^8.0.1",
@@ -101,7 +102,6 @@
     "styled-components": "^3.2.6",
     "typescript": "3.9.6",
     "url": "^0.11.0",
-    "uuid": "^3.1.0",
     "webpack": "^4.41.3",
     "webpack-cli": "^3.3.10",
     "webpack-dev-server": "^3.11.2"
@@ -115,6 +115,9 @@
       "circular-dependencies": [
         "file-level"
       ]
+    },
+    "@repo/internal": {
+      "deprecation": "no-deprecated-imports"
     }
   },
   "homepage": "https://bitbucket.org/atlaskit/atlaskit-mk-2#readme",

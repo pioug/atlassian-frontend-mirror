@@ -10,7 +10,6 @@ const nonImageMediaTypes: MediaType[] = ['video', 'audio', 'doc', 'unknown'];
 describe('ImageRenderer', () => {
   it('should render MediaImage with props', () => {
     const mediaType = 'image';
-    const mediaItemType = 'file';
     const dataURI = 'some-data';
     const resizeMode = 'stretchy-fit';
     const previewOrientation = 6;
@@ -20,7 +19,6 @@ describe('ImageRenderer', () => {
     const component = mount(
       <ImageRenderer
         mediaType={mediaType}
-        mediaItemType={mediaItemType}
         dataURI={dataURI}
         resizeMode={resizeMode}
         previewOrientation={previewOrientation}
@@ -42,6 +40,43 @@ describe('ImageRenderer', () => {
     });
   });
 
+  describe('Lazy Load', () => {
+    it('should pass loading=lazy to MediaImage when nativeLazyLoad is true', () => {
+      const component = mount(
+        <ImageRenderer
+          mediaType={'image'}
+          dataURI={'some-data'}
+          nativeLazyLoad={true}
+        />,
+      );
+      const mediaImage = component.find(MediaImage);
+      expect(mediaImage).toHaveLength(1);
+      expect(mediaImage.prop('loading')).toBe('lazy');
+    });
+
+    it('should not pass loading=lazy to MediaImage when nativeLazyLoad is false', () => {
+      const component = mount(
+        <ImageRenderer
+          mediaType={'image'}
+          dataURI={'some-data'}
+          nativeLazyLoad={false}
+        />,
+      );
+      const mediaImage = component.find(MediaImage);
+      expect(mediaImage).toHaveLength(1);
+      expect(mediaImage.prop('loading')).toBe(undefined);
+    });
+
+    it('should not pass loading=lazy to MediaImage when nativeLazyLoad is undefined', () => {
+      const component = mount(
+        <ImageRenderer mediaType={'image'} dataURI={'some-data'} />,
+      );
+      const mediaImage = component.find(MediaImage);
+      expect(mediaImage).toHaveLength(1);
+      expect(mediaImage.prop('loading')).toBe(undefined);
+    });
+  });
+
   it('should convert resizeMode to crop and stretch MediaImage props', () => {
     expect(resizeModeToMediaImageProps('stretchy-fit')).toMatchObject({
       crop: false,
@@ -58,7 +93,6 @@ describe('ImageRenderer', () => {
     const card = mount(
       <ImageRenderer
         mediaType="image"
-        mediaItemType="file"
         dataURI="some-data"
         onDisplayImage={onDisplayImage}
       />,
@@ -68,6 +102,18 @@ describe('ImageRenderer', () => {
     expect(onDisplayImage).toHaveBeenCalledTimes(1);
   });
 
+  it('should pass forceSyncDisplay to MediaImage', () => {
+    const component = mount(
+      <ImageRenderer mediaType={'image'} dataURI={'some-data'} />,
+    );
+    const mediaImage = component.find(MediaImage);
+    expect(mediaImage).toHaveLength(1);
+    expect(mediaImage.prop('forceSyncDisplay')).toBe(false);
+
+    component.setProps({ forceSyncDisplay: true });
+    expect(component.find(MediaImage).prop('forceSyncDisplay')).toBe(true);
+  });
+
   it.each(nonImageMediaTypes)(
     `should not call onDisplayImage when mediaType is %s`,
     (mediaType) => {
@@ -75,7 +121,6 @@ describe('ImageRenderer', () => {
       mount(
         <ImageRenderer
           mediaType={mediaType}
-          mediaItemType="file"
           dataURI="some-data"
           onDisplayImage={onDisplayImage}
         />,

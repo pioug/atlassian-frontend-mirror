@@ -14,6 +14,7 @@ import Indentation from './indentation';
 import UnsupportedMark from './unsupportedMark';
 import UnsupportedNodeAttribute from './unsupportedNodeAttribute';
 import DataConsumer from './data-consumer';
+import FragmentMark from './fragment';
 import Annotation, { isAnnotationMark } from './annotation';
 
 // Stage0
@@ -38,6 +39,7 @@ export const markToReact: { [key: string]: ComponentType<any> } = {
   unsupportedMark: UnsupportedMark,
   unsupportedNodeAttribute: UnsupportedNodeAttribute,
   dataConsumer: DataConsumer,
+  fragment: FragmentMark,
 };
 
 export const toReact = (mark: Mark): ComponentType<any> => {
@@ -59,4 +61,5 @@ export {
   isAnnotationMark,
   UnsupportedNodeAttribute,
   DataConsumer,
+  FragmentMark,
 };

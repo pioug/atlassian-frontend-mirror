@@ -1,5 +1,16 @@
 # @atlaskit/breadcrumbs
 
+## 11.4.1
+
+### Minor Changes
+
+- [`ff925e68253`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ff925e68253) - [ux] Bug fix; removed the dangling space that trails the final breadcrumbItem. Introduced in v11 there was additional space where the final '/' would be, now it ends directly after the final item again.
+
+### Patch Changes
+
+- [`f460cc7c411`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f460cc7c411) - Builds for this package now pass through a tokens babel plugin, removing runtime invocations of the tokens() function and improving bundle size.
+- Updated dependencies
+
 ## 11.4.0
 
 ### Minor Changes

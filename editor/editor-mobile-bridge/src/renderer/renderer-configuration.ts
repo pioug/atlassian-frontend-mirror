@@ -83,7 +83,7 @@ export default class RendererConfiguration
     return this.allowCustomPanel;
   }
 
-  // We need to retain the previous configuartion flags as `locale` can be configured
+  // We need to retain the previous configuration flags as `locale` can be configured
   // dynamically any time.
   cloneAndUpdate(newConfig: string): RendererConfiguration {
     const newRendererConfig = JSON.stringify({

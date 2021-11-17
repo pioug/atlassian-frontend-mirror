@@ -10,6 +10,8 @@ import {
   insertDate,
   messages,
 } from '@atlaskit/editor-core';
+
+// eslint-disable-next-line import/no-extraneous-dependencies
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 
 export const createFloatingToolbarConfigForDate = (

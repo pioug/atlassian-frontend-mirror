@@ -1,6 +1,7 @@
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { snapshot, initFullPageEditorWithAdf } from '../_utils';
 import adf from './__fixtures__/default-table.adf.json';
+import { retryUntilStablePosition } from '../../__helpers/page-objects/_toolbar';
 import {
   clickFirstCell,
   selectTableOption,
@@ -25,12 +26,26 @@ describe('Table contextual menu: fullpage', () => {
     beforeAll(async () => {
       await pageInit();
     });
-    // FIXME: Inconsistent doing the Puppeteer's upgrade
-    // https://product-fabric.atlassian.net/browse/ED-13503
-    it.skip('toggles the context menu correctly', async () => {
+    it('toggles the context menu correctly', async () => {
       await clickCellOptions(page);
+      await retryUntilStablePosition(
+        page,
+        async () => {
+          await page.waitForSelector(tableSelectors.contextualMenu);
+        },
+        tableSelectors.contextualMenu,
+      );
       await snapshot(page);
       await clickCellOptions(page);
+      await retryUntilStablePosition(
+        page,
+        async () => {
+          await page.waitForSelector(tableSelectors.contextualMenu, {
+            hidden: true,
+          });
+        },
+        tableSelectors.tableWrapper,
+      );
       await snapshot(page);
     });
 
@@ -64,6 +79,13 @@ describe('Table contextual menu: fullpage', () => {
 
       // undo to re-merge
       await pressKeyCombo(page, ['Meta', 'KeyZ']);
+      await retryUntilStablePosition(
+        page,
+        async () => {
+          await page.waitForSelector(tableSelectors.contextualMenuButton);
+        },
+        tableSelectors.tableWrapper,
+      );
       await snapshot(page);
     });
   });

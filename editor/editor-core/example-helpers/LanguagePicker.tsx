@@ -2,6 +2,7 @@ import React from 'react';
 import { Component } from 'react';
 import styled from 'styled-components';
 import { gridSize } from '@atlaskit/theme/constants';
+import Button from '@atlaskit/button/standard-button';
 import DropdownMenu, {
   DropdownItemGroup,
   DropdownItem,
@@ -26,15 +27,17 @@ export default class LanguagePicker extends Component<Props> {
     return (
       <DropdownContainer>
         <DropdownMenu
-          trigger={languages[locale]}
-          triggerType="button"
-          boundariesElement="scrollParent"
-          triggerButtonProps={{
-            iconBefore: <WorldIcon label="Language Picker" />,
-            iconAfter: <ChevronDownIcon label="" />,
-            shouldFitContainer: true,
-          }}
-          shouldFitContainer
+          trigger={({ triggerRef, ...providedProps }) => (
+            <Button
+              {...providedProps}
+              ref={triggerRef}
+              iconBefore={<WorldIcon label="Language Picker" />}
+              iconAfter={<ChevronDownIcon label="" />}
+              shouldFitContainer
+            >
+              {languages[locale]}
+            </Button>
+          )}
         >
           <DropdownItemGroup>
             {Object.keys(languages).map((l) => (

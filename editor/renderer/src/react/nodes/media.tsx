@@ -47,6 +47,7 @@ export default class Media extends PureComponent<MediaProps, {}> {
       featureFlags,
       shouldOpenMediaViewer: allowMediaViewer,
       enableDownloadButton,
+      ssr,
     } = this.props;
 
     const linkMark = this.props.marks.find(this.props.isLinkMark);
@@ -63,6 +64,7 @@ export default class Media extends PureComponent<MediaProps, {}> {
         alt={allowAltTextOnImages ? alt : undefined}
         featureFlags={featureFlags}
         shouldEnableDownloadButton={enableDownloadButton}
+        ssr={ssr}
       />
     );
 

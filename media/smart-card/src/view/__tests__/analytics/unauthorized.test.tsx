@@ -22,8 +22,8 @@ describe('smart-card: unauthorized analytics', () => {
   let mockClient: CardClient;
   let mockFetch: jest.Mock;
   let mockWindowOpen: jest.Mock;
-  let mockUuid = require('uuid').default as JestFunction<typeof uuid>;
 
+  const mockUuid = uuid as JestFunction<typeof uuid>;
   const mockStartUfoExperience = jest.spyOn(ufoWrapper, 'startUfoExperience');
   const mockSucceedUfoExperience = jest.spyOn(
     ufoWrapper,

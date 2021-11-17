@@ -22,8 +22,8 @@ describe('smart-card: success analytics', () => {
   let mockFetch: jest.Mock;
   let mockPostData: jest.Mock;
   let mockWindowOpen: jest.Mock;
-  let mockUuid = require('uuid').default as JestFunction<typeof uuid>;
 
+  const mockUuid = uuid as JestFunction<typeof uuid>;
   const mockStartUfoExperience = jest.spyOn(ufoWrapper, 'startUfoExperience');
   const mockSucceedUfoExperience = jest.spyOn(
     ufoWrapper,
@@ -52,6 +52,7 @@ describe('smart-card: success analytics', () => {
     mockUuid.mockReset();
     cleanup();
   });
+
   describe('resolved', () => {
     it('should fire the resolved analytics event when the url was resolved', async () => {
       const mockUrl = 'https://this.is.the.sixth.url';
@@ -306,6 +307,26 @@ describe('smart-card: success analytics', () => {
       expect(analytics.uiActionClickedEvent).toHaveBeenCalledTimes(1);
       expect(analytics.invokeSucceededEvent).toHaveBeenCalledTimes(1);
     });
+
+    expect(mockStartUfoExperience).toBeCalledWith(
+      'smart-link-action-invocation',
+      'some-uuid-1',
+      {
+        actionType: 'CommentAction',
+        display: 'block',
+        extensionKey: 'object-provider',
+        invokeType: 'server',
+      },
+    );
+
+    expect(mockSucceedUfoExperience).toBeCalledWith(
+      'smart-link-action-invocation',
+      'some-uuid-1',
+    );
+
+    expect(mockStartUfoExperience).toHaveBeenCalledBefore(
+      mockSucceedUfoExperience as jest.Mock,
+    );
   });
 
   it('block: should fire invokeFailed event when an action is clicked & fails', async () => {
@@ -344,6 +365,26 @@ describe('smart-card: success analytics', () => {
         'block',
         'something happened',
       );
+
+      expect(mockStartUfoExperience).toBeCalledWith(
+        'smart-link-action-invocation',
+        'some-uuid-1',
+        {
+          actionType: 'CommentAction',
+          display: 'block',
+          extensionKey: 'object-provider',
+          invokeType: 'server',
+        },
+      );
+
+      expect(mockFailUfoExperience).toBeCalledWith(
+        'smart-link-action-invocation',
+        'some-uuid-1',
+      );
+
+      expect(mockStartUfoExperience).toHaveBeenCalledBefore(
+        mockFailUfoExperience as jest.Mock,
+      );
     });
   });
 
@@ -376,11 +417,32 @@ describe('smart-card: success analytics', () => {
       expect(analytics.invokeSucceededEvent).toHaveBeenCalledTimes(1);
       expect(analytics.invokeSucceededEvent).toHaveBeenCalledWith(
         expect.any(String),
-        'd1',
+        'object-provider',
         'PreviewAction',
         'block',
       );
     });
+
+    expect(mockStartUfoExperience).toBeCalledWith(
+      'smart-link-action-invocation',
+      'some-uuid-1',
+      {
+        actionType: 'PreviewAction',
+        display: 'block',
+        extensionKey: 'object-provider',
+        invokeType: 'client',
+      },
+    );
+
+    expect(mockSucceedUfoExperience).toBeCalledWith(
+      'smart-link-action-invocation',
+      'some-uuid-1',
+    );
+
+    expect(mockStartUfoExperience).toHaveBeenCalledBefore(
+      mockSucceedUfoExperience as jest.Mock,
+    );
+
     // Next, check the preview modal has rendered.
     const previewModal = getByTestId('preview-modal');
     expect(previewModal).toBeTruthy();

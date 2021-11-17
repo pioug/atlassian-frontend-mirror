@@ -1,5 +1,39 @@
 # @atlaskit/renderer
 
+## 83.0.0
+
+### Major Changes
+
+- [`0cf5fa82add`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0cf5fa82add) - CETI-20 Rename custom panel FF from `UNSAFE_allowCustomPanel` to `allowCustomPanel`
+
+### Minor Changes
+
+- [`c890a025f6c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c890a025f6c) - Fix annotations state from being set to null when adding a new inline comment
+- [`23514411f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/23514411f27) - CETI-134 added support to render dark colors for the custom panels in the dark mode
+- [`8bbb96540ea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8bbb96540ea) - Add "fragment" mark to stage0 ADF schema
+- [`a3737a9b3aa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a3737a9b3aa) - CETI-64 Updating the dark mode colors for the standard panels
+- [`d4643be4f2d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d4643be4f2d) - [ux] AK-551 Add focus outline on code block copy button
+
+### Patch Changes
+
+- [`c6feed82071`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c6feed82071) - ED-11632: Bump prosemirror packages;
+
+  - prosmirror-commands 1.1.4 -> 1.1.11,
+  - prosemirror-model 1.11.0 -> 1.14.3,
+  - prosemirror-state 1.3.3 -> 1.3.4,
+  - prosemirror-transform 1.2.8 -> 1.3.2,
+  - prosemirror-view 1.15.4 + 1.18.8 -> 1.20.2.
+
+- [`fc70978492a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fc70978492a) - Using type for SSR prop to reduce dependency on media-common
+- [`e741804b52a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e741804b52a) - Fixed media nodes not being built synchronously on SSR
+- [`dd7db18ab6a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dd7db18ab6a) - ED-13854 Replace url-parser library with native function
+- [`f461edcfd05`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f461edcfd05) - Update CardLoader to use react-loadable
+  Add SSR feature prop to be passed in renderer and media card
+- [`577302c5331`](https://bitbucket.org/atlassian/atlassian-frontend/commits/577302c5331) - Column sorting button meets the minimum contrast requirement
+- [`a82305310db`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a82305310db) - [ux] ED-7449: Sort cells in a given table column based on case sensitivity of same letter then on alphabet+ascii code values
+- [`9d43feb1f6a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d43feb1f6a) - CETI-167 Remove opacity for panels in dark mode.
+- Updated dependencies
+
 ## 82.2.0
 
 ### Minor Changes

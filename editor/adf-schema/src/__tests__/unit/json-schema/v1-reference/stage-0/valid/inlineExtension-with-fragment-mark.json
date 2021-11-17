@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "inlineExtension",
+          "marks": [
+            {
+              "attrs": {
+                "localId": "1"
+              },
+              "type": "fragment"
+            }
+          ],
+          "attrs": {
+            "extensionType": "com.acme.editor",
+            "extensionKey": "block-eh",
+            "text": "Block extension demo"
+          }
+        }
+      ]
+    }
+  ]
+}

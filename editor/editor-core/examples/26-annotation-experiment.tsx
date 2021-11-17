@@ -39,9 +39,25 @@ function EnableAnnotationTypeCheckbox(props: {
   );
 }
 
+function EnableDisallowOnWhiteSpaceCheckbox(props: {
+  id: string;
+  checked: boolean;
+  type: string;
+  onChange: (evt: React.ChangeEvent<HTMLInputElement>) => void;
+}) {
+  const { id, checked, onChange, type } = props;
+  return (
+    <label htmlFor={id}>
+      <input onChange={onChange} type="checkbox" id={id} checked={checked} />
+      {type}
+    </label>
+  );
+}
+
 type State = {
   annotationStates: Map<string, boolean>;
   isInlineCommentsEnabled: boolean;
+  isDisallowOnWhiteSpaceEnabled: boolean;
 };
 
 export default class ExampleAnnotationExperiment extends React.Component<
@@ -50,6 +66,7 @@ export default class ExampleAnnotationExperiment extends React.Component<
 > {
   state = {
     isInlineCommentsEnabled: true,
+    isDisallowOnWhiteSpaceEnabled: false,
     annotationStates: new Map([
       ['12e213d7-badd-4c2a-881e-f5d6b9af3752', false],
       ['9714aedf-5300-43f4-ac10-a2e4326189d2', true],
@@ -101,8 +118,22 @@ export default class ExampleAnnotationExperiment extends React.Component<
     emitter.emit('setvisibility', checked);
   };
 
+  handleWhiteSpaceOnOffChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
+    const { checked } = evt.target;
+
+    this.setState((prevState: State) => {
+      return {
+        isDisallowOnWhiteSpaceEnabled: checked,
+      };
+    });
+  };
+
   render() {
-    const { annotationStates, isInlineCommentsEnabled } = this.state;
+    const {
+      annotationStates,
+      isInlineCommentsEnabled,
+      isDisallowOnWhiteSpaceEnabled,
+    } = this.state;
 
     return (
       <div style={{ display: 'flex', height: '100%' }}>
@@ -114,6 +145,14 @@ export default class ExampleAnnotationExperiment extends React.Component<
               checked={isInlineCommentsEnabled}
               onChange={this.handleOnOffChange}
               type="Inline Comments"
+            />
+          </div>
+          <div>
+            <EnableDisallowOnWhiteSpaceCheckbox
+              id="enable-disallow-on-whitespace"
+              checked={isDisallowOnWhiteSpaceEnabled}
+              onChange={this.handleWhiteSpaceOnOffChange}
+              type="Disallow on white space"
             />
           </div>
           Checked == resolved
@@ -130,12 +169,14 @@ export default class ExampleAnnotationExperiment extends React.Component<
           <FullPageExample
             defaultValue={exampleDocumentWithComments}
             allowHelpDialog
+            key={this.state.isDisallowOnWhiteSpaceEnabled ? 1 : 0}
             annotationProviders={{
               inlineComment: {
                 createComponent: ExampleCreateInlineCommentComponent,
                 viewComponent: ExampleViewInlineCommentComponent,
                 updateSubscriber: emitter,
                 getState: this.inlineCommentGetState,
+                disallowOnWhitespace: this.state.isDisallowOnWhiteSpaceEnabled,
               },
             }}
           />

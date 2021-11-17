@@ -1,1 +1,5 @@
-export { isReducedMotion, prefersReducedMotion } from '../utils/accessibility';
+export {
+  isReducedMotion,
+  useIsReducedMotion,
+  prefersReducedMotion,
+} from '../utils/accessibility';

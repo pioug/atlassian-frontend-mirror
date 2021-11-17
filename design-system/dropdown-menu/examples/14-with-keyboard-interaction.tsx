@@ -21,7 +21,6 @@ export default () => {
 
       <DropdownMenu
         trigger="Open dropdown"
-        triggerType="button"
         testId="dropdown"
         onOpenChange={(e) => console.log('dropdown opened', e)}
       >
@@ -48,6 +47,23 @@ export default () => {
             <ModalBody>
               <div style={{ padding: '20px 0' }}>
                 <Button onClick={() => setModalOpen(false)}>Close modal</Button>
+                <DropdownMenu
+                  trigger="Open dropdown"
+                  testId="dropdown"
+                  onOpenChange={(e) => console.log('dropdown opened', e)}
+                >
+                  <DropdownItemGroup>
+                    <DropdownItem
+                      onClick={(e: React.MouseEvent | React.KeyboardEvent) => {
+                        e.preventDefault();
+
+                        setModalOpen(true);
+                      }}
+                    >
+                      Open modal
+                    </DropdownItem>
+                  </DropdownItemGroup>
+                </DropdownMenu>
               </div>
             </ModalBody>
           </ModalDialog>

@@ -174,7 +174,7 @@ export const paragraph: NodeSpec = {
   content: 'inline*',
   group: 'block',
   marks:
-    'strong code em link strike subsup textColor typeAheadQuery underline confluenceInlineComment action annotation unsupportedMark unsupportedNodeAttribute dataConsumer',
+    'strong code em link strike subsup textColor typeAheadQuery underline confluenceInlineComment action annotation unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
   parseDOM: [
     { tag: 'p' },
     {

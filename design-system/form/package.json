@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/form",
-  "version": "8.4.4",
+  "version": "8.4.5",
   "description": "A form allows users to input information.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -39,7 +39,7 @@
   "dependencies": {
     "@atlaskit/icon": "^21.9.0",
     "@atlaskit/theme": "^12.0.0",
-    "@atlaskit/tokens": "^0.3.0",
+    "@atlaskit/tokens": "^0.4.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/core": "^10.0.9",
     "final-form": "^4.20.1",
@@ -58,9 +58,9 @@
     "@atlaskit/checkbox": "^12.3.0",
     "@atlaskit/datetime-picker": "^11.1.0",
     "@atlaskit/docs": "^9.0.0",
-    "@atlaskit/dropdown-menu": "^10.1.0",
+    "@atlaskit/dropdown-menu": "^11.0.0",
     "@atlaskit/droplist": "^11.0.0",
-    "@atlaskit/modal-dialog": "^12.1.0",
+    "@atlaskit/modal-dialog": "^12.2.0",
     "@atlaskit/radio": "^5.3.0",
     "@atlaskit/range": "^5.1.0",
     "@atlaskit/section-message": "^6.1.0",
@@ -99,7 +99,10 @@
         "react-context",
         "tokens"
       ],
-      "styling": "emotion",
+      "styling": [
+        "static",
+        "emotion"
+      ],
       "design-system": "v1",
       "deprecation": "no-deprecated-imports"
     }

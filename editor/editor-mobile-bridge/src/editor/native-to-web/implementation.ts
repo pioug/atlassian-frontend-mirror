@@ -68,10 +68,7 @@ import {
   EventTypes,
 } from '../event-dispatch';
 import { Serialized } from '../../types';
-import {
-  Provider as CollabProvider,
-  CollabMetadataPayload,
-} from '@atlaskit/collab-provider';
+import { Provider as CollabProvider } from '@atlaskit/collab-provider';
 import { toNativeBridge } from '../web-to-native';
 import MobileEditorConfiguration from '../editor-configuration';
 import { JSONDocNode } from '@atlaskit/editor-json-transformer';
@@ -803,6 +800,16 @@ export default class WebBridgeImpl
     this.allowList = newSetList;
   }
 
+  /**
+   * We provide a 'setter' here this way because it's unclear what other
+   * things rely on the deferral mechanism
+   */
+  setQuickInsertItems(items: QuickInsertItem[]) {
+    const promise = createDeferred<QuickInsertItem[]>();
+    promise.resolve(items);
+    this.quickInsertItems = promise;
+  }
+
   addQuickInsertAllowListItem(listItems: Serialized<QuickInsertItemId>): void {
     const newItems = JSON.parse(listItems);
     newItems.forEach((item: QuickInsertItemId) => this.allowList.add(item));
@@ -844,29 +851,6 @@ export default class WebBridgeImpl
         collabProvider.setTitle(title, true),
       );
     }
-  }
-
-  setupTitle() {
-    const onMetadataChange = (metadata: CollabMetadataPayload) => {
-      const { title } = metadata;
-      if (title) {
-        toNativeBridge.updateTitle(title as string);
-      }
-    };
-
-    if (this.collabProviderPromise) {
-      const setupPromise = this.collabProviderPromise.then((provider) => {
-        provider.on('metadata:changed', onMetadataChange);
-        return () => {
-          provider.off('metadata:changed', onMetadataChange);
-        };
-      });
-      return () => {
-        setupPromise.then((destroy) => destroy());
-      };
-    }
-
-    return () => {};
   }
 
   cancelTypeAhead() {

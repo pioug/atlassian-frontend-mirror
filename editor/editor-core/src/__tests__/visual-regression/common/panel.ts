@@ -6,10 +6,7 @@ import {
 import * as panel from './__fixtures__/panel-adf.json';
 import * as basicPanel from './__fixtures__/basic-panel-adf.json';
 import * as customPanel from './__fixtures__/custom-panel-adf.json';
-import {
-  PuppeteerPage,
-  waitForTooltip,
-} from '@atlaskit/visual-regression/helper';
+import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import {
   waitForFloatingControl,
   retryUntilStablePosition,
@@ -19,7 +16,6 @@ import {
   PanelSharedSelectors,
 } from '@atlaskit/editor-common';
 import { waitForNoTooltip } from '@atlaskit/visual-regression/helper';
-import { wait } from '@testing-library/react';
 import { panelSelectors } from '../../__helpers/page-objects/_panel';
 import { pressKeyCombo } from '../../__helpers/page-objects/_keyboard';
 
@@ -87,14 +83,14 @@ describe('Panel:', () => {
     it('updates the toolbar when changing from one panel to another', async () => {
       await page.click(PanelSharedSelectors.errorPanel);
       await page.click(PanelSharedSelectors.successPanel);
-      // await so that the toolbar has time to move
-      await wait(undefined, { interval: 1000 });
+      await page.hover(`${PanelSharedSelectors.title}`);
+      await waitForNoTooltip(page);
     });
 
-    // TODO: https://product-fabric.atlassian.net/browse/ED-13527
-    it.skip('removes the panel when clicking on remove icon', async () => {
+    it('removes the panel when clicking on remove icon', async () => {
       await page.click(`.${PanelSharedCssClassName.icon}`);
       await page.click(PanelSharedSelectors.removeButton);
+      await page.hover(`${PanelSharedSelectors.title}`);
       await waitForNoTooltip(page);
     });
   });
@@ -115,8 +111,8 @@ describe('custom panels', () => {
       },
       {
         allowPanel: {
-          UNSAFE_allowCustomPanel: true,
-          UNSAFE_allowCustomPanelEdit: true,
+          allowCustomPanel: true,
+          allowCustomPanelEdit: true,
         },
       },
     );
@@ -130,12 +126,10 @@ describe('custom panels', () => {
     adfContent = customPanel;
   });
 
-  it('updates the panel Icon', async () => {
+  it('open the panel background color picker', async () => {
     await page.click(`.${PanelSharedCssClassName.icon}`);
-    await page.click(`${PanelSharedSelectors.emojiIcon}`);
-    await waitForTooltip(page);
-    await page.click(`${PanelSharedSelectors.selectedEmoji}`);
-    await page.click(`${PanelSharedSelectors.title}`);
+    await page.click(`${PanelSharedSelectors.colorPalette}`);
+    await page.hover(`${PanelSharedSelectors.title}`);
     await waitForNoTooltip(page);
   });
 
@@ -143,13 +137,13 @@ describe('custom panels', () => {
     await page.click(`.${PanelSharedCssClassName.icon}`);
     await page.click(`${PanelSharedSelectors.colorPalette}`);
     await page.click(`${PanelSharedSelectors.selectedColor}`);
-    await wait(undefined, { interval: 1000 });
+    await page.hover(`${PanelSharedSelectors.title}`);
+    await waitForNoTooltip(page);
   });
 
   it('remove emoji icon from custom panel', async () => {
     await page.click(`.${PanelSharedCssClassName.icon}`);
     await page.click(`${PanelSharedSelectors.emojiIcon}`);
-    await waitForTooltip(page);
     const selectedEmoji = `${PanelSharedSelectors.selectedEmoji}`;
     await page.waitForSelector(selectedEmoji);
     await page.click(selectedEmoji);
@@ -157,14 +151,21 @@ describe('custom panels', () => {
       visible: true,
     });
     await page.click(`${PanelSharedSelectors.removeEmojiIcon}`);
-    await page.click(`${PanelSharedSelectors.title}`);
+    await page.hover(`${PanelSharedSelectors.title}`);
     await waitForNoTooltip(page);
   });
 
-  it('updates the custom panel and add emoji icon', async () => {
+  it('remove icon from Standard panel', async () => {
+    await page.click(`.${PanelSharedCssClassName.icon}`);
+    await page.click(`${PanelSharedSelectors.infoPanel}`);
+    await page.click(`${PanelSharedSelectors.removeEmojiIcon}`);
+    await page.hover(`${PanelSharedSelectors.title}`);
+    await waitForNoTooltip(page);
+  });
+
+  it('updates the panel and add emoji icon', async () => {
     await page.click(`.${PanelSharedCssClassName.icon}`);
     await page.click(`${PanelSharedSelectors.emojiIcon}`);
-    await waitForTooltip(page);
     const selectedEmoji = `${PanelSharedSelectors.selectedEmoji}`;
     await page.waitForSelector(selectedEmoji);
     await page.click(selectedEmoji);
@@ -172,6 +173,26 @@ describe('custom panels', () => {
       visible: true,
     });
     await page.click(`${PanelSharedSelectors.title}`);
+    await waitForNoTooltip(page);
+  });
+
+  it('should show emoji picker on top of the toolbar', async () => {
+    await page.click(`.${PanelSharedCssClassName.icon}`);
+    await pressKeyCombo(page, [
+      'ArrowRight',
+      'ArrowRight',
+      'ArrowDown',
+      'ArrowDown',
+      'ArrowDown',
+      'ArrowDown',
+      'ArrowDown',
+      'ArrowDown',
+      'ArrowDown',
+      'ArrowDown',
+    ]);
+    await page.click(`${PanelSharedSelectors.colorPalette}`);
+    await page.click(`${PanelSharedSelectors.emojiIcon}`);
+    await page.hover(`${PanelSharedSelectors.title}`);
     await waitForNoTooltip(page);
   });
 
@@ -208,5 +229,41 @@ describe('custom panels', () => {
       'ArrowDown',
       'ArrowDown',
     ]);
+  });
+});
+
+describe('Dark mode panel', () => {
+  let page: PuppeteerPage;
+  let adfContent: Object;
+
+  beforeAll(() => {
+    page = global.page;
+  });
+  afterEach(async () => {
+    await snapshot(page);
+  });
+
+  it('Should render standarad panels', async () => {
+    adfContent = panel;
+    await initFullPageEditorWithAdf(
+      page,
+      adfContent,
+      undefined,
+      {
+        width: 800,
+        height: 720,
+      },
+      undefined,
+      'dark',
+    );
+    await waitForFloatingControl(page, 'Panel floating controls');
+    const panelSelector = `.${PanelSharedCssClassName.prefix}`;
+    await page.waitForSelector(panelSelector);
+    await retryUntilStablePosition(
+      page,
+      () => page.click(panelSelector),
+      '[aria-label*="Panel floating controls"]',
+      1000,
+    );
   });
 });

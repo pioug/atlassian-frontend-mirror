@@ -48,3 +48,11 @@ export type {
 } from './data-consumer';
 
 export { dataConsumer, toJSON as dataConsumerToJSON } from './data-consumer';
+
+export type {
+  FragmentAttributes,
+  FragmentDefinition,
+  LocalId,
+} from './fragment';
+
+export { fragment, toJSON as fragmentToJSON } from './fragment';

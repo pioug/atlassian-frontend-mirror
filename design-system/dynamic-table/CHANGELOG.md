@@ -1,5 +1,18 @@
 # @atlaskit/dynamic-table
 
+## 14.4.3
+
+### Patch Changes
+
+- [`f460cc7c411`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f460cc7c411) - Builds for this package now pass through a tokens babel plugin, removing runtime invocations of the tokens() function and improving bundle size.
+- Updated dependencies
+
+## 14.4.2
+
+### Patch Changes
+
+- [`78a7ffa81f8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/78a7ffa81f8) - Fixes a bug that meant an undefined width would still be stringifed and applied to the inline styles of table cells.
+
 ## 14.4.1
 
 ### Patch Changes

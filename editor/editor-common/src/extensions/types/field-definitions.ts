@@ -202,6 +202,9 @@ export const isFieldset = (field: FieldDefinition): field is Fieldset => {
 export const isTabGroup = (field: FieldDefinition): field is TabGroupField => {
   return field.type === 'tab-group';
 };
+export const isTabField = (field: any): field is TabField => {
+  return 'type' in field && field.type === 'tab';
+};
 export const isExpand = (field: FieldDefinition): field is ExpandField => {
   return field.type === 'expand';
 };
@@ -212,6 +215,7 @@ export const isDateRange = (value: any): value is DateRangeResult => {
 
 export interface GroupedField extends BaseFieldDefinition {
   fields: NestedFieldDefinition[];
+  hasGroupedValues?: boolean;
 }
 
 export interface ExpandField extends GroupedField {

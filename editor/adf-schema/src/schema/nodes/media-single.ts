@@ -49,7 +49,6 @@ export interface MediaCaptionContent {
 }
 /**
  * @name mediaSingle_caption_node
- * @stage 0
  */
 export type MediaSingleWithCaptionDefinition = MediaSingleBaseDefinition &
   MediaCaptionContent;
@@ -97,6 +96,7 @@ export const mediaSingle: NodeSpec = {
 
 export const mediaSingleWithCaption: NodeSpec = {
   ...mediaSingle,
+  atom: false,
   content:
     'media|unsupportedBlock+|media (caption|unsupportedBlock) unsupportedBlock*',
 };

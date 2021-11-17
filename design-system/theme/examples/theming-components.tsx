@@ -13,7 +13,9 @@ interface ThemeTokens {
 }
 
 const defaultButtonTheme = (props: LocalThemeProps) => ({
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   backgroundColor: props.isHovered ? '#ddd' : '#eee',
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   textColor: '#333',
 });
 

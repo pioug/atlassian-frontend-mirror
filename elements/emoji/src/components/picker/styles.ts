@@ -99,7 +99,7 @@ export const category = style({
     },
 
     ['&:hover']: {
-      color: colors.B100,
+      color: colors.B200,
     },
 
     [`&.${disable}`]: {
@@ -111,10 +111,6 @@ export const category = style({
           color: colors.N50,
         },
       },
-    },
-
-    ['&:focus']: {
-      outline: '0',
     },
   },
 });

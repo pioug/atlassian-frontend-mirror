@@ -22,7 +22,7 @@ import { Theme, ThemeTokens } from './theme';
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
-export interface Props extends WithAnalyticsEventsProps {
+export interface OwnProps extends WithAnalyticsEventsProps {
   /**
    * controls the appearance of the field.
    * subtle shows styling on hover.
@@ -82,6 +82,17 @@ export interface Props extends WithAnalyticsEventsProps {
    * serving as a hook for automated tests */
   testId?: string;
 }
+
+// TODO: DSP-2566 Move `Combine` type utility into @atlaskit/ds-lib https://product-fabric.atlassian.net/browse/DSP-2566
+type Combine<First, Second> = Omit<First, keyof Second> & Second;
+
+export type Props = Combine<
+  Omit<
+    React.TextareaHTMLAttributes<HTMLTextAreaElement>,
+    'disabled' | 'required' | 'readonly'
+  >,
+  OwnProps
+>;
 
 interface InternalProps extends Props {
   tokens: ThemeTokens;

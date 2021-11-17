@@ -1,6 +1,6 @@
 import { css } from 'styled-components';
 
-import { hexToRgba, PanelType } from '@atlaskit/adf-schema';
+import { PanelType } from '@atlaskit/adf-schema';
 import {
   akEditorTableCellMinWidth,
   blockNodesVerticalMargin,
@@ -21,22 +21,81 @@ const lightPanelColor = {
   error: colors.R50,
 };
 
-const darkPanelOpacity = 0.64;
-const darkPanelColor = {
-  info: colors.B500,
-  note: colors.P500,
-  tip: colors.G500,
-  success: colors.G500,
-  warning: colors.Y500,
-  error: colors.R500,
-};
-const darkPanelBorderColor = {
-  info: colors.B400,
-  note: colors.P400,
-  tip: colors.G400,
-  success: colors.G400,
-  warning: colors.Y400,
-  error: colors.R400,
+const darkPanelColors = {
+  // standard panels
+  info: '#0C294F',
+  error: `#441C13`,
+  warning: `#413001`,
+  tip: `#052E21`,
+  success: `#052E21`,
+  note: `#282249`,
+
+  // Reds
+  R900: '#601D16',
+
+  // Red Saturated
+  R100S: `#FFEFEB`,
+  R300S: `#FFB5A3`,
+  R500S: `#FF6B47`,
+  R800S: `#C4320E`,
+  R1200S: `#441C13`,
+
+  // Yellows
+  Y900: '#533F04',
+
+  // Yellow Saturated
+  Y100S: `#FFF3D1`,
+  Y300S: `#FFDC7A`,
+  Y500S: `#FFC933`,
+  Y800S: `#D8A003`,
+  Y1200S: `#413001`,
+
+  // Greens
+  G900: '#164B35',
+
+  // Green Saturated
+  G100S: `#E3FCF0`,
+  G300S: `#95EEC5`,
+  G400S: `#60DCA8`,
+  G900S: `#086848`,
+  G1200S: `#052E21`,
+
+  // Blues
+  B900: '#09326C',
+
+  // Saturated Blues
+  B100S: '#E5F0FF',
+  B300S: '#A3C9FF',
+  B500S: '#4794FF',
+  B800S: '#0055CC',
+  B1200S: '#0C294F',
+
+  // Purples
+  P900: `#352C63`,
+
+  // Purple Saturated
+  P100S: `#EEEBFF`,
+  P300S: `#CCC3FE`,
+  P500S: `#A292F7`,
+  P800S: `#5E49CA`,
+  P1200S: `#282249`,
+
+  // Teals
+  T900: '#1D474C',
+
+  // Teal Saturated
+  T100S: `#DBFAFF`,
+  T300S: `#78EBFC`,
+  T400S: `#3AD6EE`,
+  T900S: `#056270`,
+  T1200S: `#0B3037`,
+
+  // Dark Mode Alpha
+  DNA20A: 'rgba(150, 176, 210, 0.53)',
+  DNA40A: 'rgba(134, 156, 180, 0.29)',
+  DNA80A: '#161A1D',
+
+  TextColor: '#D9DDE3',
 };
 
 const lightIconColor = {
@@ -56,16 +115,50 @@ const darkIconColor = {
   warning: colors.Y100,
   error: colors.R200,
 };
-const darkTextColor = {
-  info: colors.B75,
-  note: colors.P75,
-  tip: colors.G75,
-  success: colors.G75,
-  warning: colors.Y75,
-  error: colors.R75,
-};
 
-const verticalAlignment = -((gridSize() * 3 - akEditorCustomIconSize) / 2);
+// New custom icons are a little smaller than predefined icons.
+// To fix alignment issues with custom icons, vertical alignment is updated.
+const panelEmojiSpriteVerticalAlignment =
+  -(gridSize() * 3 - akEditorCustomIconSize) / 2;
+const panelEmojiImageVerticalAlignment = panelEmojiSpriteVerticalAlignment - 1;
+
+export const getPanelBackgroundDarkModeColors = [
+  [colors.B50, darkPanelColors.B1200S],
+  [colors.B75, darkPanelColors.B900],
+  [colors.B100, darkPanelColors.B800S],
+  [colors.N0, darkPanelColors.DNA80A],
+  [colors.N20, darkPanelColors.DNA40A],
+  [colors.N60, darkPanelColors.DNA20A],
+  [colors.T50, darkPanelColors.T1200S],
+  [colors.T75, darkPanelColors.T900],
+  [colors.T100, darkPanelColors.T900S],
+  [colors.G50, darkPanelColors.G1200S],
+  [colors.G75, darkPanelColors.G900],
+  [colors.G200, darkPanelColors.G900S],
+  [colors.Y50, darkPanelColors.Y1200S],
+  [colors.Y75, darkPanelColors.Y900],
+  [colors.Y200, darkPanelColors.Y800S],
+  [colors.R50, darkPanelColors.R1200S],
+  [colors.R75, darkPanelColors.R900],
+  [colors.R100, darkPanelColors.R800S],
+  [colors.P50, darkPanelColors.P1200S],
+  [colors.P75, darkPanelColors.P900],
+  [colors.P100, darkPanelColors.P800S],
+]
+  .map(([colorName, colorValue]) => getPanelDarkModeCSS(colorName, colorValue))
+  .join('\n');
+
+export function getPanelDarkModeCSS(
+  colorName: string,
+  colorValue: string,
+): string {
+  return `
+  &[data-panel-color="${colorName}"] {
+    background-color: ${colorValue} !important; // !important to override default style color
+    color: ${darkPanelColors.TextColor};
+  }
+  `;
+}
 
 const prefix = 'ak-editor-panel';
 export const PanelSharedCssClassName = {
@@ -106,7 +199,7 @@ export const getPanelTypeBackground = (
   props: ThemeProps = {},
 ): string => {
   const light = lightPanelColor[panelType];
-  const dark = hexToRgba(darkPanelColor[panelType], darkPanelOpacity);
+  const dark = darkPanelColors[panelType];
   const background = themed({ light, dark })(props);
   return background || 'none';
 };
@@ -115,13 +208,12 @@ const mainDynamicStyles = (panelType: Exclude<PanelType, PanelType.CUSTOM>) => (
   props: ThemeProps,
 ) => {
   const background = getPanelTypeBackground(panelType, props);
-  const darkText = darkTextColor[panelType];
-  const darkBorder = '1px solid ' + darkPanelBorderColor[panelType];
-  const border = themed({ light: 'none', dark: darkBorder })(props);
-  const text = themed({ light: 'inherit', dark: darkText })(props);
+  const text = themed({
+    light: 'inherit',
+    dark: darkPanelColors.TextColor,
+  })(props);
   return `
     background-color: ${background};
-    border: ${border};
     color: ${text};
   `;
 };
@@ -157,8 +249,19 @@ export const panelSharedStyles = css`
         display: inline;
       }
 
-      .${emojiSprite}, .${emojiImage} {
-        vertical-align: ${verticalAlignment}px;
+      .${emojiSprite} {
+        vertical-align: ${panelEmojiSpriteVerticalAlignment}px;
+      }
+
+      .${emojiImage} {
+        vertical-align: ${panelEmojiImageVerticalAlignment}px;
+
+        // Vertical align only works for inline-block elements in Firefox
+        @-moz-document url-prefix() {
+          img {
+            display: inline-block;
+          }
+        }
       }
     }
 
@@ -210,6 +313,10 @@ export const panelSharedStyles = css`
       .${PanelSharedCssClassName.icon} {
         ${iconDynamicStyles(PanelType.SUCCESS)}
       }
+    }
+
+    &[data-panel-type='${PanelType.CUSTOM}'] {
+      ${themed({ dark: getPanelBackgroundDarkModeColors })};
     }
   }
 `;

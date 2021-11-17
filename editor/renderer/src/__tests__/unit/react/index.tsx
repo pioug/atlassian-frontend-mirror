@@ -21,6 +21,7 @@ import {
   InlineExtension,
 } from '../../../react/nodes';
 import { DataConsumer } from '../../../react/marks';
+import { MediaSSR } from '../../../types/mediaOptions';
 
 import * as doc from '../../__fixtures__/hello-world.adf.json';
 import * as dataConsumerDoc from '../../__fixtures__/data-consumer.adf.json';
@@ -579,6 +580,34 @@ describe('Renderer - ReactSerializer', () => {
         expect(getMedia(reactDoc).prop('shouldOpenMediaViewer')).toEqual(
           undefined,
         );
+      });
+    });
+
+    describe('Media SSR', () => {
+      it('should pass ssr prop to media card', () => {
+        const ssr: MediaSSR = {
+          mode: 'server',
+          config: {
+            authProvider: () => Promise.reject(new Error('do not use')),
+            initialAuth: {
+              clientId: 'clientId',
+              token: 'token',
+              baseUrl: 'baseUrl',
+            },
+          },
+        };
+
+        const reactSerializer = new ReactSerializer({
+          media: { ssr },
+        });
+
+        const reactDoc = mountWithIntl(
+          reactSerializer.serializeFragment(
+            schema.nodeFromJSON(mediaFragment).content,
+          ) as any,
+        );
+
+        expect(getMedia(reactDoc).prop('ssr')).toEqual(ssr);
       });
     });
   });

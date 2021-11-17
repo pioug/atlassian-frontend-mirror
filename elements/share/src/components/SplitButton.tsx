@@ -3,12 +3,13 @@ import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
 import { AnalyticsEventPayload } from '@atlaskit/analytics-next';
+import Button from '@atlaskit/button/standard-button';
 import { Appearance } from '@atlaskit/button/types';
-import {
-  DropdownMenuStateless,
+import DropdownMenu, {
   DropdownItem,
   DropdownItemGroup,
 } from '@atlaskit/dropdown-menu';
+import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
 import { N800 } from '@atlaskit/theme/colors';
 import { borderRadius } from '@atlaskit/theme/constants';
 
@@ -107,13 +108,17 @@ const SplitButtonDropdown: React.FC<SplitButtonDropdownProps> = (props) => {
 
   return (
     <DropdownMenuWrapper>
-      <DropdownMenuStateless
-        data-testid="split-button-dropdown"
-        triggerButtonProps={{
-          appearance: triggerButtonAppearance,
-        }}
-        triggerType="button"
-        position="bottom right"
+      <DropdownMenu
+        testId="split-button-dropdown"
+        trigger={({ triggerRef, ...providedProps }) => (
+          <Button
+            {...providedProps}
+            ref={triggerRef}
+            iconBefore={<ChevronDownIcon label="" />}
+            appearance={triggerButtonAppearance}
+          />
+        )}
+        placement="bottom-end"
         isOpen={isUsingSplitButton}
         onOpenChange={onOpenChange}
       >
@@ -121,7 +126,7 @@ const SplitButtonDropdown: React.FC<SplitButtonDropdownProps> = (props) => {
           {shareIntegrations.map((integration: Integration) => (
             <DropdownItem
               key={integration.type}
-              data-testid={`split-button-dropdownitem-${integration.type}`}
+              testId={`split-button-dropdownitem-${integration.type}`}
             >
               <DropDownIntegrationButtonWrapper>
                 <IntegrationButton
@@ -136,7 +141,7 @@ const SplitButtonDropdown: React.FC<SplitButtonDropdownProps> = (props) => {
             </DropdownItem>
           ))}
         </DropdownItemGroup>
-      </DropdownMenuStateless>
+      </DropdownMenu>
     </DropdownMenuWrapper>
   );
 };

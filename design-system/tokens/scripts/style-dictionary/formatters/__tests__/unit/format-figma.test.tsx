@@ -30,16 +30,18 @@ describe('formatter', () => {
     } as any);
 
     expect(result).toEqual(
-      output(
-        'AtlassianDark',
-        JSON.stringify(
-          {
-            'AtlassianDark/Color/Brand': {
-              value: '#ffffff',
+      expect.stringContaining(
+        output(
+          'AtlassianDark',
+          JSON.stringify(
+            {
+              'Color/Brand': {
+                value: '#ffffff',
+              },
             },
-          },
-          null,
-          2,
+            null,
+            2,
+          ),
         ),
       ),
     );
@@ -70,16 +72,72 @@ describe('formatter', () => {
     } as any);
 
     expect(result).toEqual(
-      output(
-        'AtlassianDark',
-        JSON.stringify(
-          {
-            'AtlassianDark/Color/Brand': {
-              value: '#ffffff',
+      expect.stringContaining(
+        output(
+          'AtlassianDark',
+          JSON.stringify(
+            {
+              'Color/Brand': {
+                value: '#ffffff',
+              },
             },
+            null,
+            2,
+          ),
+        ),
+      ),
+    );
+  });
+
+  it('should group interaction states with appearances', () => {
+    const result = formatter({
+      dictionary: {
+        allTokens: [
+          {
+            name: 'background/selected/resting',
+            value: '#ffffff',
+            path: ['color', 'background', 'selected', 'resting'],
+            attributes: { group: 'paint' },
           },
-          null,
-          2,
+          {
+            name: 'background/selected/hover',
+            value: '#ffffff',
+            path: ['color', 'background', 'selected', 'hover'],
+            attributes: { group: 'paint' },
+          },
+          {
+            name: 'background/selected/pressed',
+            value: '#ffffff',
+            path: ['color', 'background', 'selected', 'pressed'],
+            attributes: { group: 'paint' },
+          },
+        ],
+      },
+      options: {
+        themeName: 'atlassian-dark',
+        renameMapping: {},
+      },
+    } as any);
+
+    expect(result).toEqual(
+      expect.stringContaining(
+        output(
+          'AtlassianDark',
+          JSON.stringify(
+            {
+              'Color/Background/Selected Resting': {
+                value: '#ffffff',
+              },
+              'Color/Background/Selected Hover': {
+                value: '#ffffff',
+              },
+              'Color/Background/Selected Pressed': {
+                value: '#ffffff',
+              },
+            },
+            null,
+            2,
+          ),
         ),
       ),
     );

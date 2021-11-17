@@ -36,7 +36,6 @@ import { TableCssClassName } from '../../../../types';
 import { mount } from 'enzyme';
 import TableComponent from '../../../../nodeviews/TableComponent';
 import React from 'react';
-import { ForwardRef } from '../../../../../../nodeviews';
 import {
   stickyRowOffsetTop,
   tableScrollbarOffset,
@@ -72,7 +71,9 @@ describe('TableRowNodeView', () => {
 
   describe('ignoreMutation', () => {
     beforeEach(() => {
-      const editorData = editor(doc(table()(tr(tdEmpty, tdEmpty))));
+      const editorData = editor(
+        doc(table({ localId: '' })(tr(tdEmpty, tdEmpty))),
+      );
       editorView = editorData.editorView;
       eventDispatcher = editorData.eventDispatcher;
       tableRowNode = editorView.state.doc.firstChild!.firstChild!;
@@ -272,7 +273,11 @@ describe('TableRowNodeView', () => {
       return scrollContainer;
     }
 
-    function mountTableComponent(forwardRef?: ForwardRef) {
+    function mountTableComponent({
+      disableContentDomMock,
+    }: {
+      disableContentDomMock?: true;
+    } = {}) {
       const getNode = () => editorView.state.doc.firstChild;
       return mount(
         <TableComponent
@@ -282,7 +287,17 @@ describe('TableRowNodeView', () => {
           containerWidth={{}}
           // @ts-ignore
           getNode={getNode}
-          contentDOM={forwardRef || jest.fn()}
+          contentDOM={
+            disableContentDomMock
+              ? jest.fn()
+              : (wrapper: HTMLElement | null) => {
+                  const node = editorView.dom.getElementsByTagName('table')[0];
+
+                  if (!wrapper?.firstChild) {
+                    wrapper?.appendChild(node);
+                  }
+                }
+          }
         />,
       );
     }
@@ -428,7 +443,10 @@ describe('TableRowNodeView', () => {
       'updates sentinel position when header height changes %s',
       (_, contentRectSupported: boolean) => {
         const { tableWrapper } = getTableElements(tableRowDom);
-        const tableComponent = mountTableComponent();
+        // disabled due to editorView dom being cleared by use of contentDom mocks
+        const tableComponent = mountTableComponent({
+          disableContentDomMock: true,
+        });
         const sentinelWrapperBottom = tableComponent.find(
           `.${TableCssClassName.TABLE_STICKY_SENTINEL_BOTTOM}`,
         );
@@ -449,7 +467,10 @@ describe('TableRowNodeView', () => {
 
     it('marks sentinels as unobserved when isHeaderRowEnabled is set to false', () => {
       const { tableWrapper } = getTableElements(tableRowDom);
-      const tableComponent = mountTableComponent();
+      // disabled due to editorView dom being cleared by use of contentDom mocks
+      const tableComponent = mountTableComponent({
+        disableContentDomMock: true,
+      });
       const sentinelWrapperBottom = tableComponent.find(
         `.${TableCssClassName.TABLE_STICKY_SENTINEL_BOTTOM}`,
       );

@@ -1,7 +1,6 @@
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
-
-import { token } from '@atlaskit/tokens';
 
 import DynamicTable from '../src';
 
@@ -23,13 +22,7 @@ const overflow = css({
     height: '100%',
     width: 8,
     content: "''",
-    background: `linear-gradient(to right, ${token(
-      'color.background.blanket',
-      'rgba(99, 114, 130, 0)',
-    )} 0px, ${token(
-      'color.background.blanket',
-      'rgba(9, 30, 66, 0.13)',
-    )} 100%)`,
+    background: `linear-gradient(to right, rgba(99, 114, 130, 0) 0px, rgba(9, 30, 66, 0.13) 100%)`,
   },
 });
 

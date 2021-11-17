@@ -107,20 +107,16 @@ class ChooseEmojiFile extends PureComponent<ChooseEmojiFileProps, {}> {
             >
               <FormattedMessage {...messages.emojiPlaceholder}>
                 {(message) => (
-                  <FormattedMessage {...messages.emojiNameAriaLabel}>
-                    {(ariaLabel) => (
-                      <input
-                        placeholder={message as string}
-                        aria-label={ariaLabel as string}
-                        maxLength={maxNameLength}
-                        onChange={onNameChange}
-                        onKeyDown={this.onKeyDown}
-                        value={name}
-                        ref="name"
-                        autoFocus
-                      />
-                    )}
-                  </FormattedMessage>
+                  <input
+                    placeholder={message as string}
+                    aria-label={message as string}
+                    maxLength={maxNameLength}
+                    onChange={onNameChange}
+                    onKeyDown={this.onKeyDown}
+                    value={name}
+                    ref="name"
+                    autoFocus
+                  />
                 )}
               </FormattedMessage>
             </AkFieldBase>

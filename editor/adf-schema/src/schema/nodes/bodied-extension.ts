@@ -1,9 +1,10 @@
 import { NodeSpec, Node as PMNode } from 'prosemirror-model';
 import { getExtensionAttrs } from '../../utils/extensions';
 import { ExtensionAttributes } from './types/extensions';
-import { MarksObject, NoMark } from './types/mark';
+import { MarksObject } from './types/mark';
 import { NonNestableBlockContent } from './types/non-nestable-block-content';
 import { DataConsumerDefinition } from '../marks/data-consumer';
+import { FragmentDefinition } from '../marks/fragment';
 
 /**
  * @name bodiedExtension_node
@@ -20,21 +21,23 @@ export interface BodiedExtensionBaseDefinition {
 }
 
 /**
- * @name bodiedExtension_with_no_marks_node
- */
-export type BodiedExtensionDefinition = BodiedExtensionBaseDefinition & NoMark;
-
-/**
  * @name bodiedExtension_with_marks_node
  */
-export type BodiedExtensionWithMarksDefinition = BodiedExtensionBaseDefinition &
+export type BodiedExtensionDefinition = BodiedExtensionBaseDefinition &
   MarksObject<DataConsumerDefinition>;
+
+/**
+ * @stage 0
+ * @name bodiedExtension_with_experimental_marks_node
+ */
+export type BodiedExtensionWithMarksDefinition = BodiedExtensionBaseDefinition &
+  MarksObject<FragmentDefinition>;
 
 const createBodiedExtensionNodeSpec = (): NodeSpec => {
   const nodeSpec: NodeSpec = {
     inline: false,
     group: 'block',
-    marks: 'link dataConsumer',
+    marks: 'link dataConsumer fragment',
     content:
       '(paragraph | panel | blockquote | orderedList | bulletList | rule | heading | codeBlock | mediaGroup | mediaSingle | decisionList | taskList | table | blockCard | extension | unsupportedBlock | embedCard)+',
     defining: true,

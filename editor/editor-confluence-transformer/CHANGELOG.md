@@ -1,5 +1,19 @@
 # @atlaskit/editor-cq-transformer
 
+## 8.1.17
+
+### Patch Changes
+
+- [`c6feed82071`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c6feed82071) - ED-11632: Bump prosemirror packages;
+
+  - prosmirror-commands 1.1.4 -> 1.1.11,
+  - prosemirror-model 1.11.0 -> 1.14.3,
+  - prosemirror-state 1.3.3 -> 1.3.4,
+  - prosemirror-transform 1.2.8 -> 1.3.2,
+  - prosemirror-view 1.15.4 + 1.18.8 -> 1.20.2.
+
+- Updated dependencies
+
 ## 8.1.16
 
 ### Patch Changes

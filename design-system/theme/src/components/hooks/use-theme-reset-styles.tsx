@@ -13,6 +13,7 @@ import {
 
 export const SELECTOR = 'old-ds-theme-mode';
 
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 const baseResetStyles = [{ mode: 'light' }, { mode: 'dark' }]
   .map(
     (theme) => `
@@ -46,6 +47,7 @@ const baseResetStyles = [{ mode: 'light' }, { mode: 'dark' }]
   }`,
   )
   .join('\n');
+/* eslint-enable @atlaskit/design-system/ensure-design-token-usage */
 
 const getStylesheetResetCSS = (backgroundColor: string) =>
   `body { background: ${backgroundColor}; }`;

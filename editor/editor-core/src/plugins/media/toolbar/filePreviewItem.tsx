@@ -2,16 +2,22 @@ import React, { useState, FC } from 'react';
 import ReactDOM from 'react-dom';
 import { FileIdentifier } from '@atlaskit/media-client';
 import { MediaViewer, MediaViewerDataSource } from '@atlaskit/media-viewer';
+import { messages } from '@atlaskit/media-ui';
 import FilePreviewIcon from '@atlaskit/icon/glyph/editor/file-preview';
 import ToolbarButton from '../../floating-toolbar/ui/Button';
 import { MediaPluginState } from '../pm-plugins/types';
 import { getSelectedMediaContainerNodeAttrs } from './utils';
+import { InjectedIntl } from 'react-intl';
 
 interface FilePreviewProps {
   mediaPluginState: MediaPluginState;
+  intl: InjectedIntl;
 }
 
-export const FilePreviewItem: FC<FilePreviewProps> = ({ mediaPluginState }) => {
+export const FilePreviewItem: FC<FilePreviewProps> = ({
+  mediaPluginState,
+  intl,
+}) => {
   const [isMediaViewerVisible, setMediaViewerVisible] = useState(false);
   const openMediaViewer = () => {
     setMediaViewerVisible(true);
@@ -50,6 +56,7 @@ export const FilePreviewItem: FC<FilePreviewProps> = ({ mediaPluginState }) => {
     return null;
   };
   const mediaViewer = renderMediaViewer();
+  const tooltipContent = intl.formatMessage(messages.preview);
   return (
     <div>
       <ToolbarButton
@@ -57,6 +64,7 @@ export const FilePreviewItem: FC<FilePreviewProps> = ({ mediaPluginState }) => {
         key="editor.media.card.preview"
         onClick={openMediaViewer}
         icon={<FilePreviewIcon label="file preview" />}
+        tooltipContent={tooltipContent}
       />
       {mediaViewer}
     </div>

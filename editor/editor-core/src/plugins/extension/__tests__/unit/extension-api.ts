@@ -8,6 +8,7 @@ import {
   taskList,
   taskItem,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+import { NodeSelection } from 'prosemirror-state';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import { ExtensionAPI } from '@atlaskit/editor-common/extensions';
 
@@ -66,7 +67,48 @@ describe('ExtensionAPI', () => {
       content: [{ type: 'text', text: 'hello API!' }],
     };
 
-    it('should insert ADF content after the given localId', () => {
+    it('should insert ADF content after the given localId and set the selection to the adf content.', () => {
+      const initDoc = doc(
+        table({ localId: 'tableId' })(
+          tr(td({})(p()), td({})(p()), td({})(p())),
+        ),
+      );
+      const editorView = createEditor(initDoc);
+      const api = createAPI(editorView);
+
+      api.doc.insertAfter('tableId', ParagraphADF, {
+        allowSelectionToNewNode: true,
+      });
+
+      expect(editorView.state).toEqualDocumentAndSelection(
+        doc(
+          table({ localId: 'tableId' })(
+            tr(td({})(p()), td({})(p()), td({})(p())),
+          ),
+          p('hello API!'),
+        ),
+      );
+
+      expect(editorView.state.selection instanceof NodeSelection).toBe(true);
+    });
+
+    it('should not set the selection to the adf content after insert.', () => {
+      const initDoc = doc(
+        table({ localId: 'tableId' })(
+          tr(td({})(p()), td({})(p()), td({})(p())),
+        ),
+      );
+      const editorView = createEditor(initDoc);
+      const api = createAPI(editorView);
+
+      api.doc.insertAfter('tableId', ParagraphADF, {
+        allowSelectionToNewNode: false,
+      });
+
+      expect(editorView.state.selection.empty).toBe(true);
+    });
+
+    it('should not set the selection to the adf content after insert by default.', () => {
       const initDoc = doc(
         table({ localId: 'tableId' })(
           tr(td({})(p()), td({})(p()), td({})(p())),
@@ -77,14 +119,7 @@ describe('ExtensionAPI', () => {
 
       api.doc.insertAfter('tableId', ParagraphADF);
 
-      expect(editorView.state).toEqualDocumentAndSelection(
-        doc(
-          table({ localId: 'tableId' })(
-            tr(td({})(p()), td({})(p()), td({})(p())),
-          ),
-          p('hello API!'),
-        ),
-      );
+      expect(editorView.state.selection.empty).toBe(true);
     });
 
     it('should throw error when localId type is mismatched', () => {

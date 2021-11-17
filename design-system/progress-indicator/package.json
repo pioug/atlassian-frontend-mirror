@@ -57,7 +57,10 @@
     "@repo/internal": {
       "ui-components": "lite-mode",
       "design-system": "v1",
-      "styling": "emotion",
+      "styling": [
+        "static",
+        "emotion"
+      ],
       "analytics": "analytics-next",
       "theming": "tokens",
       "deprecation": "no-deprecated-imports"

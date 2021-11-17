@@ -145,10 +145,10 @@ describe('FilmstripView', () => {
       expect(instance.getClosestForLeft(0)).toEqual(0);
 
       expect(instance.getClosestForLeft(4)).toEqual(0);
-      expect(instance.getClosestForLeft(5)).toEqual(1);
-      expect(instance.getClosestForLeft(6)).toEqual(1);
-      expect(instance.getClosestForLeft(10)).toEqual(6);
-      expect(instance.getClosestForLeft(11)).toEqual(6);
+      expect(instance.getClosestForLeft(5)).toEqual(5);
+      expect(instance.getClosestForLeft(6)).toEqual(5);
+      expect(instance.getClosestForLeft(10)).toEqual(10);
+      expect(instance.getClosestForLeft(11)).toEqual(10);
     });
 
     it('should return the minOffset when the offset is less than minOffset', () => {
@@ -164,7 +164,7 @@ describe('FilmstripView', () => {
       const element = shallow(<FilmstripView>{['a', 'b', 'c']}</FilmstripView>);
       mockSizing(element);
       const instance = element.instance() as FilmstripView;
-      expect(instance.getClosestForLeft(instance.maxOffset + 1)).toEqual(81);
+      expect(instance.getClosestForLeft(instance.maxOffset + 1)).toEqual(85);
     });
   });
 
@@ -174,12 +174,12 @@ describe('FilmstripView', () => {
       mockSizing(element);
       const instance = element.instance() as FilmstripView;
 
-      expect(instance.getClosestForRight(0)).toEqual(8);
-      expect(instance.getClosestForRight(4)).toEqual(8);
-      expect(instance.getClosestForRight(5)).toEqual(13);
-      expect(instance.getClosestForRight(6)).toEqual(13);
-      expect(instance.getClosestForRight(10)).toEqual(18);
-      expect(instance.getClosestForRight(11)).toEqual(18);
+      expect(instance.getClosestForRight(0)).toEqual(4);
+      expect(instance.getClosestForRight(4)).toEqual(4);
+      expect(instance.getClosestForRight(5)).toEqual(9);
+      expect(instance.getClosestForRight(6)).toEqual(9);
+      expect(instance.getClosestForRight(10)).toEqual(14);
+      expect(instance.getClosestForRight(11)).toEqual(14);
       expect(instance.getClosestForRight(85)).toEqual(89);
       expect(instance.getClosestForRight(89)).toEqual(89);
 
@@ -194,7 +194,7 @@ describe('FilmstripView', () => {
       const element = shallow(<FilmstripView>{['a', 'b', 'c']}</FilmstripView>);
       mockSizing(element);
       const instance = element.instance() as FilmstripView;
-      expect(instance.getClosestForRight(instance.minOffset - 1)).toEqual(8);
+      expect(instance.getClosestForRight(instance.minOffset - 1)).toEqual(4);
     });
 
     it('should return the maxOffset when the offset is greater than maxOffset', () => {
@@ -237,7 +237,7 @@ describe('FilmstripView', () => {
       element.find(RightArrow).simulate('click', { stopPropagation() {} });
       expect(onScroll).toBeCalledWith({
         direction: 'right',
-        offset: 18,
+        offset: 14,
         animate: true,
       });
     });

@@ -7,6 +7,8 @@ export interface ContentHeaderProps {
   children: React.ReactNode;
 }
 
+export const blockCardContentHeaderClassName = 'block-card-content-header';
+
 export const ContentHeader = ({
   onClick,
   link,
@@ -24,6 +26,7 @@ export const ContentHeader = ({
       MozUserSelect: 'none',
     }}
     data-trello-do-not-use-override="block-card-content-header"
+    className={blockCardContentHeaderClassName}
   >
     {children}
   </a>

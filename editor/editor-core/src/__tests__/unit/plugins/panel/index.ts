@@ -24,10 +24,7 @@ describe('@atlaskit/editor-core ui/PanelPlugin', () => {
       doc,
       editorProps: {
         allowAnalyticsGASV3: true,
-        allowPanel: {
-          UNSAFE_allowCustomPanel: true,
-          UNSAFE_allowCustomPanelEdit: true,
-        },
+        allowPanel: { allowCustomPanel: true, allowCustomPanelEdit: true },
         allowTables: true,
         quickInsert: true,
       },

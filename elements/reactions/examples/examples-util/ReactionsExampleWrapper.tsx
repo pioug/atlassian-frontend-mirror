@@ -23,7 +23,9 @@ export class ReactionsExampleWrapper extends React.PureComponent<Props> {
 
   constructor(props: Props, context: any) {
     super(props, context);
-    this.store = new MemoryReactionsStore(this.props.client!); // default props is handling it
+    this.store = new MemoryReactionsStore(this.props.client!, undefined, {
+      subproduct: 'atlaskit',
+    }); // default props is handling it
   }
 
   renderChildren = () => {

@@ -415,6 +415,88 @@ describe('table plugin', () => {
           ),
         );
       });
+
+      describe('case sensitivity', () => {
+        describe('ascending order', () => {
+          it('sorts the given column', () => {
+            const { editorView } = editor(
+              doc(
+                table({ isNumberColumnEnabled: false, layout: 'default' })(
+                  tr(th({})(p()), th({})(p())),
+                  tr(td({})(p('A')), td({})(p('1'))),
+                  tr(td({})(p('a')), td({})(p('2'))),
+                  tr(td({})(p('b')), td({})(p('3'))),
+                  tr(td({})(p('B')), td({})(p('4'))),
+                  tr(td({})(p('bb')), td({})(p('5'))),
+                  tr(td({})(p('Bb')), td({})(p('6'))),
+                ),
+              ),
+            );
+
+            const sortByColumnCommand = sortByColumn(0, SortOrder.ASC);
+
+            sortByColumnCommand(editorView.state, editorView.dispatch);
+
+            expect(editorView.state.doc).toEqualDocument(
+              doc(
+                table({
+                  isNumberColumnEnabled: false,
+                  layout: 'default',
+                  localId: TABLE_LOCAL_ID,
+                })(
+                  tr(th({})(p()), th({})(p())),
+                  tr(td({})(p('A')), td({})(p('1'))),
+                  tr(td({})(p('a')), td({})(p('2'))),
+                  tr(td({})(p('B')), td({})(p('4'))),
+                  tr(td({})(p('b')), td({})(p('3'))),
+                  tr(td({})(p('Bb')), td({})(p('6'))),
+                  tr(td({})(p('bb')), td({})(p('5'))),
+                ),
+              ),
+            );
+          });
+        });
+
+        describe('descending order', () => {
+          it('sorts the given column', () => {
+            const { editorView } = editor(
+              doc(
+                table({ isNumberColumnEnabled: false, layout: 'default' })(
+                  tr(th({})(p()), th({})(p())),
+                  tr(td({})(p('A')), td({})(p('1'))),
+                  tr(td({})(p('a')), td({})(p('2'))),
+                  tr(td({})(p('b')), td({})(p('3'))),
+                  tr(td({})(p('B')), td({})(p('4'))),
+                  tr(td({})(p('bb')), td({})(p('5'))),
+                  tr(td({})(p('Bb')), td({})(p('6'))),
+                ),
+              ),
+            );
+
+            const sortByColumnCommand = sortByColumn(0, SortOrder.DESC);
+
+            sortByColumnCommand(editorView.state, editorView.dispatch);
+
+            expect(editorView.state.doc).toEqualDocument(
+              doc(
+                table({
+                  isNumberColumnEnabled: false,
+                  layout: 'default',
+                  localId: TABLE_LOCAL_ID,
+                })(
+                  tr(th({})(p()), th({})(p())),
+                  tr(td({})(p('bb')), td({})(p('5'))),
+                  tr(td({})(p('Bb')), td({})(p('6'))),
+                  tr(td({})(p('b')), td({})(p('3'))),
+                  tr(td({})(p('B')), td({})(p('4'))),
+                  tr(td({})(p('a')), td({})(p('2'))),
+                  tr(td({})(p('A')), td({})(p('1'))),
+                ),
+              ),
+            );
+          });
+        });
+      });
     });
   });
 });

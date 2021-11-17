@@ -33,6 +33,7 @@ import {
   typeAheadQuery,
   ul,
   underline,
+  caption,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { defaultSchema } from '@atlaskit/editor-test-helpers/schema';
 
@@ -161,6 +162,35 @@ describe('SlackTransformer: serializer', () => {
       const node = doc(p(emoji({ shortName: ':grinning:' })()))(defaultSchema);
       const test = markdownSerializer.serialize(node);
       expect(test).toEqual(':grinning:');
+    });
+  });
+
+  describe('captions', () => {
+    it('should serialize captions', () => {
+      expect(
+        markdownSerializer.serialize(
+          doc(
+            mediaSingle()(
+              media({ collection: 'test', id: 'media-id', type: 'file' })(),
+              caption('foo'),
+            ),
+          )(defaultSchema),
+        ),
+      ).toEqual('[media attached]\n\nfoo\n\n\n');
+    });
+
+    it('should serialize long captions', () => {
+      const longText = 'foo '.repeat(100);
+      expect(
+        markdownSerializer.serialize(
+          doc(
+            mediaSingle()(
+              media({ collection: 'test', id: 'media-id', type: 'file' })(),
+              caption(longText),
+            ),
+          )(defaultSchema),
+        ),
+      ).toEqual(`[media attached]\n\n${longText}\n\n\n`);
     });
   });
 

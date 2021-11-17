@@ -245,7 +245,12 @@ const extractListFromParagraph = (
       // Return false to prevent replaceWith from wrapping the text node in a paragraph
       // paragraph since that will be done later. If it's done here, it will fail
       // the paragraph.validContent check.
-      if (listified.some((node) => node.isText)) {
+      // Dont return false if there are lists, as they arent validContent for paragraphs
+      // and will result in hanging textNodes
+      const containsList = listified.some(
+        (node) => node.type === bulletList || node.type === orderedList,
+      );
+      if (listified.some((node) => node.isText) && !containsList) {
         return false;
       }
 

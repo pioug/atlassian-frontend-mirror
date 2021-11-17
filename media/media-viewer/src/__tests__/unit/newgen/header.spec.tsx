@@ -79,7 +79,6 @@ describe('<Header />', () => {
         intl={fakeIntl}
         mediaClient={mediaClient}
         identifier={identifier}
-        featureFlags={{ zipPreviews: true }}
       />,
     );
     const headerWrapper = el.find(HeaderWrapper);
@@ -95,28 +94,12 @@ describe('<Header />', () => {
         intl={fakeIntl}
         mediaClient={mediaClient}
         identifier={identifier}
-        featureFlags={{ zipPreviews: true }}
       />,
     );
     const headerWrapper = el.find(HeaderWrapper);
     expect(headerWrapper.prop('isArchiveSideBarVisible')).toBeFalsy();
   });
-  it('passes isArchiveSideBarVisible as false if zipPreviews FF is off', () => {
-    const mediaClient = fakeMediaClient();
-    asMock(mediaClient.file.getFileState).mockReturnValue(
-      createFileStateSubject(processedArchiveState),
-    );
-    const el = mountWithIntlContext(
-      <Header
-        intl={fakeIntl}
-        mediaClient={mediaClient}
-        identifier={identifier}
-        featureFlags={{ zipPreviews: false }}
-      />,
-    );
-    const headerWrapper = el.find(HeaderWrapper);
-    expect(headerWrapper.prop('isArchiveSideBarVisible')).toBeFalsy();
-  });
+
   it('shows an empty header while loading', () => {
     const mediaClient = fakeMediaClient();
     asMockReturnValue(mediaClient.file.getFileState, createFileStateSubject());
@@ -508,48 +491,41 @@ describe('<Header />', () => {
   });
 
   describe('CodeViewer Support', () => {
-    const getCodeViewerHeaderText = (name: string, featureFlag: boolean) => {
-      const testItem: FileState = {
-        id: '123',
-        mediaType: 'unknown',
-        mimeType: '',
-        status: 'processed',
-        name: name,
-        size: 12222222,
-        artifacts: {},
-        representations: {
-          image: {},
-        },
-      };
-      const mediaClient = fakeMediaClient();
-      asMockReturnValue(
-        mediaClient.file.getFileState,
-        createFileStateSubject(testItem),
-      );
-      const el = mountWithIntlContext(
-        <Header
-          intl={fakeIntl}
-          mediaClient={mediaClient}
-          identifier={identifier}
-          featureFlags={{ codeViewer: featureFlag }}
-        />,
-      );
-      el.update();
-      return el.find(MetadataSubText).text();
-    };
+    const fakeFileState = (name: string): FileState => ({
+      id: '123',
+      mediaType: 'unknown',
+      mimeType: '',
+      status: 'processed',
+      name: name,
+      size: 12222222,
+      artifacts: {},
+      representations: {
+        image: {},
+      },
+    });
 
     it.each([
       ['item.html', 'html'],
       ['item.json', 'json'],
       ['item.xml', 'xml'],
     ])(
-      'Should render the corresponding header text for a %p filename if the feature flag for codeviewer is on, else default to mediaType',
+      'Should render the corresponding header text for a %p filename',
       (filename, expectedHeaderText) => {
-        const text = getCodeViewerHeaderText(filename, true);
+        const mediaClient = fakeMediaClient();
+        asMockReturnValue(
+          mediaClient.file.getFileState,
+          createFileStateSubject(fakeFileState(filename)),
+        );
+        const el = mountWithIntlContext(
+          <Header
+            intl={fakeIntl}
+            mediaClient={mediaClient}
+            identifier={identifier}
+          />,
+        );
+        el.update();
+        const text = el.find(MetadataSubText).text();
         expect(text).toEqual(`${expectedHeaderText} · 11.7 MB`);
-
-        const ffOffText = getCodeViewerHeaderText(filename, false);
-        expect(ffOffText).toEqual(`unknown · 11.7 MB`);
       },
     );
   });

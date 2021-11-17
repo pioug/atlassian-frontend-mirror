@@ -10,16 +10,20 @@ import {
   mountEditor,
 } from '../../__helpers/testing-example-helpers';
 import { selectors } from './_utils';
-import { PanelSharedCssClassName } from '@atlaskit/editor-common';
+import {
+  PanelSharedCssClassName,
+  PanelSharedSelectors,
+} from '@atlaskit/editor-common';
 
 BrowserTestCase(
   'change-selected-type.ts: Select panel and then change type',
-  { skip: ['edge'] },
+  {},
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
       appearance: fullpage.appearance,
       allowPanel: true,
+      allowCustomPanelEdit: true,
     });
 
     await page.click(fullpage.placeholder);
@@ -41,15 +45,12 @@ BrowserTestCase(
 
 BrowserTestCase(
   'change-selected-type.ts: Select panel and then change background color when allowCustomPanelEdit is true',
-  { skip: ['edge'] },
+  {},
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
       appearance: fullpage.appearance,
-      allowPanel: {
-        UNSAFE_allowCustomPanel: true,
-        UNSAFE_allowCustomPanelEdit: true,
-      },
+      allowPanel: { allowCustomPanel: true, allowCustomPanelEdit: true },
     });
 
     await page.click(fullpage.placeholder);
@@ -62,9 +63,9 @@ BrowserTestCase(
     await page.click(`.${PanelSharedCssClassName.icon}`);
 
     // Change panel background
-    const colorPaletSelector = `[aria-label="Background color"]`;
-    await page.click(colorPaletSelector);
-    const colorSelector = `[aria-label="The smell"]`;
+    const colorPaletteSelector = PanelSharedSelectors.colorPalette;
+    await page.click(colorPaletteSelector);
+    const colorSelector = PanelSharedSelectors.selectedColor;
     await page.click(colorSelector);
 
     await expectToMatchDocument(page, testName);
@@ -73,15 +74,12 @@ BrowserTestCase(
 
 BrowserTestCase(
   'change-selected-type.ts: Select panel and then change Icon when allowCustomPanelEdit is true',
-  { skip: ['edge'] },
+  {},
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
       appearance: fullpage.appearance,
-      allowPanel: {
-        UNSAFE_allowCustomPanel: true,
-        UNSAFE_allowCustomPanelEdit: true,
-      },
+      allowPanel: { allowCustomPanel: true, allowCustomPanelEdit: true },
     });
 
     await page.click(fullpage.placeholder);
@@ -94,10 +92,42 @@ BrowserTestCase(
     await page.click(`.${PanelSharedCssClassName.icon}`);
 
     // Change panel Icon
-    const emojiSelector = `[aria-label="editor-add-emoji"]`;
+    const emojiSelector = PanelSharedSelectors.emojiIcon;
     await page.click(emojiSelector);
-    const selectedEmoji = `[aria-label=":smiley:"]`;
+    const selectedEmoji = PanelSharedSelectors.selectedEmoji;
     await page.click(selectedEmoji);
+
+    await expectToMatchDocument(page, testName);
+  },
+);
+
+BrowserTestCase(
+  'Should be able to undo the emoji icon using keyboard shortcut',
+  {},
+  async (client: any, testName: string) => {
+    const page = await goToEditorTestingWDExample(client);
+    await mountEditor(page, {
+      appearance: fullpage.appearance,
+      allowPanel: { allowCustomPanel: true, allowCustomPanelEdit: true },
+    });
+
+    await page.click(fullpage.placeholder);
+    await quickInsert(page, 'Info panel');
+    await page.waitForSelector(selectors.PANEL_EDITOR_CONTAINER);
+
+    await page.type(editable, 'this text should be in the panel');
+
+    // selecting the node
+    await page.click(`.${PanelSharedCssClassName.icon}`);
+
+    // select emoji icon
+    const emojiSelector = PanelSharedSelectors.emojiIcon;
+    await page.click(emojiSelector);
+    const selectedEmoji = PanelSharedSelectors.selectedEmoji;
+    await page.click(selectedEmoji);
+
+    //press keyboard shortcut
+    await page.undo();
 
     await expectToMatchDocument(page, testName);
   },

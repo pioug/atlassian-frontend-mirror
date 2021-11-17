@@ -1,4 +1,4 @@
-import tokens, { CSSTokenMap } from './tokens/token-names';
+import tokens, { CSSTokenMap } from './artifacts/token-names';
 type tokenSchema = typeof tokens;
 
 function token<T extends keyof tokenSchema>(

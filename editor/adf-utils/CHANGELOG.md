@@ -1,5 +1,16 @@
 # @atlaskit/adf-utils
 
+## 14.4.0
+
+### Minor Changes
+
+- [`83154234335`](https://bitbucket.org/atlassian/atlassian-frontend/commits/83154234335) - ED-13522 Add safe URL check to ADF validator (smart cards now show as unsupported content if the check fails)
+- [`8bbb96540ea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8bbb96540ea) - Add "fragment" mark to stage0 ADF schema
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.3.0
 
 ### Minor Changes

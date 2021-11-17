@@ -31,11 +31,13 @@ describe('validate', () => {
         // Added because of expect.hasAssertions()
         expect(true).toBe(true);
 
-        // TODO: Check why they are valid in ADF
+        // TODO: These were mostly oversight, they don't have huge impact.
+        // However we should update the validator to respect the same rule as ADF for this scenario.
         const ignoreList = [
           'paragraph-with-empty-marks.json',
           'codeBlock-with-empty-marks.json',
           'heading-with-empty-marks.json',
+          'extension-with-empty-marks.json',
         ];
         if (!ignoreList.includes(file.name)) {
           const run = () => {
@@ -76,10 +78,8 @@ describe('validate', () => {
           'mediaInline.json',
           'mediaInline-with-link-mark.json',
           'media-with-link-mark.json',
-          'extension-with-data-consumer-mark.json',
-          'bodiedExtension-with-data-consumer-mark.json',
-          'inlineExtension-with-data-consumer-mark.json',
           'layoutSection-with-one-column.json',
+          'extension-with-named-fragment-mark.json',
         ];
 
         /**

@@ -1,6 +1,6 @@
 jest.mock('../../utils/getElementDimension');
-jest.mock('../../root/ui/styledSSR', () => {
-  const original = jest.requireActual('../../root/ui/styledSSR');
+jest.mock('../../root/ui/styled', () => {
+  const original = jest.requireActual('../../root/ui/styled');
   return {
     ...original,
     calcBreakpointSize: jest.fn(original.calcBreakpointSize),
@@ -20,8 +20,10 @@ import { ImageRenderer } from '../../root/ui/imageRenderer/imageRenderer';
 import { TickBox } from '../../root/ui/tickBox/tickBox';
 import { MimeTypeIcon } from '@atlaskit/media-ui/mime-type-icon';
 import { FailedTitleBox } from '../../root/ui/titleBox/failedTitleBox';
-import { NewFileExperienceWrapper } from '../../root/ui/styled';
-import { calcBreakpointSize } from '../../root/ui/styledSSR';
+import {
+  NewFileExperienceWrapper,
+  calcBreakpointSize,
+} from '../../root/ui/styled';
 import { getDefaultCardDimensions } from '../../utils/cardDimensions';
 import { getElementDimension } from '../../utils/getElementDimension';
 import Tooltip from '@atlaskit/tooltip';
@@ -562,6 +564,8 @@ describe('CardView New Experience', () => {
         onDisplayImage: () => {},
         onImageError: jest.fn(),
         onImageLoad: jest.fn(),
+        nativeLazyLoad: true,
+        forceSyncDisplay: true,
       };
       const component = shallowCardViewBase(cardProps);
       const imageRenderer = component.find(ImageRenderer);
@@ -570,13 +574,14 @@ describe('CardView New Experience', () => {
         expect.objectContaining({
           dataURI: cardProps.dataURI,
           mediaType: metadata.mediaType,
-          mediaItemType: cardProps.mediaItemType,
           previewOrientation: cardProps.previewOrientation,
           alt: cardProps.alt,
           resizeMode: cardProps.resizeMode,
           onDisplayImage: cardProps.onDisplayImage,
           onImageError: expect.any(Function),
           onImageLoad: expect.any(Function),
+          nativeLazyLoad: true,
+          forceSyncDisplay: true,
         }),
       );
     });
@@ -632,16 +637,12 @@ describe('CardView New Experience', () => {
       expect(tooltip).toHaveLength(0);
     });
 
-    it('should not render the tooltip if there is no filename', () => {
+    // Tooltip should not rely on metadata. That causes flicker
+    // on the image when metadata is fetched.
+    it('should render the tooltip if there is no filename', () => {
       // Without filename and overlay enabled
       const componentA = shallowCardViewBase();
-      expect(componentA.find(Tooltip)).toHaveLength(0);
-
-      // Without filename and overlay disabled
-      const componentB = shallowCardViewBase({
-        disableOverlay: true,
-      });
-      expect(componentB.find(Tooltip)).toHaveLength(0);
+      expect(componentA.find(Tooltip)).toHaveLength(1);
     });
   });
 });

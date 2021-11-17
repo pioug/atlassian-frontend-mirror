@@ -3,13 +3,7 @@ import React from 'react';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../../src';
 
 export default () => (
-  <DropdownMenu
-    isMenuFixed
-    boundariesElement="viewport"
-    appearance="tall"
-    trigger="Lots of cities"
-    triggerType="button"
-  >
+  <DropdownMenu appearance="tall" trigger="Lots of cities">
     <DropdownItemGroup>
       <DropdownItem>Sydney</DropdownItem>
       <DropdownItem>Brisbane</DropdownItem>

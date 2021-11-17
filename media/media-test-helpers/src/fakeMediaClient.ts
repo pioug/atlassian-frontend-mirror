@@ -44,6 +44,7 @@ export const fakeMediaClient = (
       .fn()
       .mockResolvedValue({ data: { items: [] } });
     asMock(mediaClient.getImageUrl).mockResolvedValue('some-image-url');
+    asMock(mediaClient.getImageUrlSync).mockReturnValue('some-image-url');
     asMock(mediaClient.getImage).mockImplementation(mockMediaStore.getImage);
     asMock(mediaClient.collection.getItems).mockReturnValue(of([]));
     asMock(mediaClient.file.copyFile).mockReturnValue({ id: 'copied-file-id' });

@@ -4,6 +4,8 @@ import Button from '@atlaskit/button/standard-button';
 import { gridSize } from '@atlaskit/theme/constants';
 import SuccessIcon from '@atlaskit/icon/glyph/check-circle';
 import { G400 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
+
 import { AutoDismissFlag, FlagGroup } from '../../src';
 
 const AutoDismissFlagSuccessExample = () => {
@@ -34,7 +36,12 @@ const AutoDismissFlagSuccessExample = () => {
             <AutoDismissFlag
               appearance="success"
               id={flagId}
-              icon={<SuccessIcon label="Success" secondaryColor={G400} />}
+              icon={
+                <SuccessIcon
+                  label="Success"
+                  secondaryColor={token('color.iconBorder.success', G400)}
+                />
+              }
               key={flagId}
               title={`#${flagId} Welcome to the room`}
               description="I will auto dismiss after 8 seconds."

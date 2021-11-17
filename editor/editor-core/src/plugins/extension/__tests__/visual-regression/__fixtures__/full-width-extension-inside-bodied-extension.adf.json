@@ -1,0 +1,69 @@
+{
+    "type": "doc",
+    "version": 1,
+    "content": [
+      {
+        "content": [],
+        "type": "paragraph"
+      },
+      {
+        "content": [],
+        "type": "paragraph"
+      },
+      {
+        "attrs": {
+          "extensionKey": "bodied-eh",
+          "extensionType": "com.atlassian.confluence.macro.core",
+          "layout": "default",
+          "localId": "testId",
+          "parameters": {
+            "macroMetadata": {
+              "placeholder": [
+                {
+                  "data": {
+                    "url": ""
+                  },
+                  "type": "icon"
+                }
+              ]
+            },
+            "macroParams": {}
+          }
+        },
+        "content": [
+          {
+            "attrs": {
+              "extensionKey": "awesome:list",
+              "extensionType": "com.atlassian.forge",
+              "layout": "full-width",
+              "localId": "555294a9-4105-4564-970a-9578a2431109",
+              "parameters": {
+                "items": [
+                  "a",
+                  "b",
+                  "c",
+                  "d"
+                ]
+              }
+            },
+            "type": "extension"
+          },
+          {
+            "content": [
+              {
+                "text": "Sample",
+                "type": "text"
+              }
+            ],
+            "type": "paragraph"
+          }
+        ],
+        "type": "bodiedExtension"
+      },
+      {
+        "content": [],
+        "type": "paragraph"
+      }
+    ]
+  }
+  

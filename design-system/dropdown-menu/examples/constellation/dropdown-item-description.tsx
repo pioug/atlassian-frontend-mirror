@@ -4,7 +4,7 @@ import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../../src';
 
 const DropdownItemDescriptionExample = () => {
   return (
-    <DropdownMenu trigger="Page actions" triggerType="button">
+    <DropdownMenu trigger="Page actions">
       <DropdownItemGroup>
         <DropdownItem description="Previous versions are saved">
           Edit

@@ -18,13 +18,15 @@ type FeedbackType = {
 };
 
 export interface Props {
+  /** Required. The customer session token. Usage: `cookie={"cloud.session.token=<session-token>"}` */
+  cookie: string;
   /** The customer email */
   email?: string;
   /** The customer name */
   name?: string;
   /** The request id to access the widget service */
   requestTypeId: string;
-  /** The embeddable key to access the widget service */
+  /** The embeddable key to access the widget service. Accessible from the corresponding Jira project */
   embeddableKey: string;
   /**  Additional fields to send to the widget service **/
   additionalFields: FieldType[];
@@ -104,6 +106,7 @@ const singleLineTruncatedText = (
 
 export default class FeedbackCollector extends Component<Props> {
   static defaultProps = {
+    cookie: '',
     canBeContactedFieldId: 'customfield_10043',
     canBeContactedDefaultValue: [{ id: '10109' }],
     additionalFields: [],
@@ -129,6 +132,90 @@ export default class FeedbackCollector extends Component<Props> {
     onClose: () => {},
     onSubmit: () => {},
   };
+
+  async getEntitlementInformation(
+    cookie: string | undefined,
+  ): Promise<FieldType[] | []> {
+    if (cookie && cookie.length) {
+      const url = (cookie as string).includes('cloud.session.token.stg')
+        ? 'https://api-private.stg.atlassian.com'
+        : 'https://api-private.atlassian.com';
+      // jira / connie / bb
+      let productName;
+      let productEntitlement;
+      let entitlementDetails;
+      let productKey: string;
+      if (window.location.host.includes('bitbucket.org')) {
+        productName = 'Bitbucket';
+        productKey = 'bitbucket';
+        entitlementDetails = JSON.parse(
+          JSON.stringify(
+            document
+              .querySelector('meta[name="bb-bootstrap"]')
+              ?.getAttribute('data-current-user'),
+          ),
+        );
+        const hasPremium = entitlementDetails['hasPremium'];
+        productEntitlement = hasPremium ? 'PREMIUM' : 'STANDARD';
+      } else {
+        if (document.querySelector('meta[id="confluence-context-path"]')) {
+          productName = 'Confluence';
+          productKey = 'pricingplan.confluence.ondemand';
+        } else {
+          productName = 'Jira';
+          productKey = 'jira-software.ondemand';
+        }
+
+        try {
+          entitlementDetails = await fetch(
+            `${url}/customer-context/entitlements/${window.location.host}`,
+            {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json',
+                Cookie: cookie,
+              },
+              credentials: 'include',
+            },
+          );
+        } catch (e) {
+          entitlementDetails = undefined;
+        }
+      }
+
+      let entitlement;
+      if (entitlementDetails && entitlementDetails.children) {
+        entitlement = entitlementDetails.children.find(
+          (entitlement: { key: string }) => {
+            return entitlement.key === productKey;
+          },
+        );
+      }
+
+      const entitlementInformation = [];
+
+      entitlementInformation.push(
+        {
+          id: 'product',
+          value: productName ? productName?.toLowerCase() : '',
+        },
+        {
+          id: 'hostingType',
+          value:
+            entitlement && entitlement.product
+              ? entitlement.product.hostingType
+              : 'CLOUD',
+        },
+        {
+          id: 'entitlementEdition',
+          value: productEntitlement || '',
+        },
+      );
+
+      return entitlementInformation;
+    }
+    return [];
+  }
 
   getTypeFieldValue(dtype: SelectValue) {
     switch (dtype) {
@@ -169,9 +256,14 @@ export default class FeedbackCollector extends Component<Props> {
     return this.props.name || this.props.customerNameDefaultValue;
   }
 
-  mapFormToJSD(formValues: FormFields) {
+  async mapFormToJSD(formValues: FormFields) {
+    const entitlementInformation = this.props.cookie
+      ? await this.getEntitlementInformation(this.props.cookie)
+      : [];
+
     return {
       fields: [
+        ...entitlementInformation,
         this.props.showTypeField
           ? {
               id: this.props.typeFieldId,
@@ -211,21 +303,31 @@ export default class FeedbackCollector extends Component<Props> {
     } as FeedbackType;
   }
 
-  postFeedback = (formValues: FormFields) => {
-    const body: FeedbackType = this.mapFormToJSD(formValues);
+  postFeedback = async (formValues: FormFields) => {
+    const requestType: string = this.props.requestTypeId;
+    const embedKey: string = this.props.embeddableKey;
 
     // Don't dispatch unless we have suitable props (allows tests to pass through empty strings and avoid redundant network calls)
-    if (this.props.embeddableKey && this.props.requestTypeId) {
-      fetch(
-        `https://jsd-widget.atlassian.com/api/embeddable/${this.props.embeddableKey}/request?requestTypeId=${this.props.requestTypeId}`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(body),
+    if (embedKey && requestType) {
+      const formData: FeedbackType = await this.mapFormToJSD(formValues);
+      const body = {
+        feedback: {
+          requestType: this.props.requestTypeId,
+          embedKey: this.props.embeddableKey,
+          ...formData,
         },
-      );
+      };
+
+      const postData = Buffer.from(JSON.stringify(body)).toString('base64');
+
+      fetch('https://feedback-collector-api.services.atlassian.com/feedback', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          ...(this.props.cookie ? { Cookie: this.props.cookie as string } : {}),
+        },
+        body: JSON.stringify({ data: postData }),
+      });
     }
 
     this.props.onClose();

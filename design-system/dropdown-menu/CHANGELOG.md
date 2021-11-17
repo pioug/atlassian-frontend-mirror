@@ -1,5 +1,134 @@
 # @atlaskit/dropdown-menu
 
+## 11.0.0
+
+### Major Changes
+
+- [`d65d8a545af`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d65d8a545af) - [ux] In this version, we have significantly reduced the bundle size, improved the runtime performance and simplified the API for dropdown menu. We've also removed deprecated dependencies, which bring consistency to the spacing and padding of dropdown menu items, which may require updating VR snapshots. We've also provided codemods to help you upgrade to the latest API.
+
+  ## Running the codemod cli
+
+  To run the codemod: You first need to have the latest version installed
+
+  yarn upgrade @atlaskit/dropdown-menu@^11.0.0
+
+  Once upgraded, use @atlaskit/codemod-cli:
+
+  npx @atlaskit/codemod-cli --parser {tsx|babylon} --extensions ts,tsx,js [relativePath]
+
+  The CLI will show a list of components and versions so select @atlaskit/dropdown-menu@11.0.0 and you will automatically be upgraded. If your usage of @atlaskit/modal-dialog cannot be upgraded a comment will be left that a manual change is required.
+
+  Run npx @atlaskit/codemod-cli -h for more details on usage. For Atlassians, refer to the documentation for more details on the codemod CLI.
+
+  ## Behaviour changes
+
+  - _Portaling_ – The dropdown menu is now rendered in a React Portal and is appended at the bottom of the `<body>`. In most cases, this shouldn't make much of a difference. But if you have any tests that assert on DOM/React tree like snapshot tests, those will need to be updated.
+
+  - _Focus lock_ – As the menu is not rendered next to the trigger, the focus is trapped within the menu when the menu is open.
+
+  - _Layering_ – Another sideeffect of poratling the menu is that it is now part of the global stacking context, rather than a local stacking context. We've provided a new `zIndex` prop incase the layering is off.
+
+  - _Title and description wrapping behaviour_ – Menu items which have a long title and description now wrap into multiple line by default, instead of cutting it off and showing ellipsis. You can override the default behaviour by setting shouldTitleWrap and shouldDescriptionWrap to false.
+
+  ## Visual changes
+
+  - _Menu item padding_ – Dropdown menu items have 16px more padding horizontally.
+  - _Removed elemAfter in group title_ – Icon after the group title has been removed.
+
+  ## API Changes
+
+  Dropdown menu items no longer `@atlaskit/item` as the underlying component, they use `@atlaskit/menu` instead. This mean that some of the props that used to be spread over an Item are no longer supported. In addition to that, the following API changes have been made:
+
+  - `shouldFitContainer` – Deprecated. This prop has been deprecated and the codemod will remove it.
+  - `shouldAllowMultiline` – This prop has been split up into two: shouldTitleWrap and shouldDescriptionWrap. The codemod replaces its occurance with the two new ones.
+  - `onItemActivated` – The prop has been deprecated and the codemod will remove it. Use `onClick` instead.
+  - `onPositionEnd` – The prop has been deprecated and the codemod will remove it. Use `onOpenChange` instead.
+  - `boundariesElement` – The prop has been deprecated and the codemod will remove it. It is not relevant anymore as the Menu is portaled.
+  - `isMenuFixed` – The prop has been deprecated and the codemod will remove it. It is not relevant anymore as the Menu is portaled.
+  - `position` – The placement values are now consistent with Popup. They have a 1:1 mapping with the old values. The codemod maps the old values to the new.
+  - `zIndex` – The zIndex prop will need to be applied as an escape hatch in case the menu runs into any layering clashes with other elements on the screen.
+  - `items` – This prop has been deprecated because it is poor bad for performance. Pass MenuItems as children instead. The codemod removes the item prop. You’ll need to manually change it to children.
+  - `trigger`, `triggerProps` and `triggerType` – This API has been simplified the most. triggerType and triggerProps have been deprecated. trigger now accepts either a string or custom react element. If a string is passed, it is rendered as an @atlaskit/button. If a react component is passed, it is used as a trigger. Make sure to spread the provided props onto the component, they are used to position the component and provide accessibility attributes. The codemod handles the simplest case where the the triggerType is a string. For every other case, the codemod leaves a comment. Look at the section below on how it can be fixed in most cases.
+  - `isCompact` on MenuItem – The prop has been deprecated and the codemod will remove it.
+  - `isHidden` on MenuItem – The prop has been deprecated and the codemod will remove it.
+  - `autoFocus` on MenuItem – The prop has been deprecated and the codemod will remove it. Focus is directly applied to the first menu item.
+
+  ## Entrypoint changes
+
+  - `DropdownMenuStateless` – DropdownMenuStateless has been deprecated. The default export DropdownMenu handles both stateless and stateful logic. The API for DropdownMenuStateless has been retained and works as expected with DropdownMenu.The codemod converts the named import into a default import.
+  - `DropdownItemGroupCheckbox` – Renamed to DropdownItemCheckboxGroup. Codemod updates the import declaration.
+  - `DropdownItemGroupRadio` – Renamed to DropdownItemRadioGroup. Codemod updates the import declaration.
+
+  ## Updating the trigger prop
+
+  **Before**
+
+  ```
+  const DropdownMenuCustomTriggerButtonExample = () => {
+    return (
+      <DropdownMenu
+        triggerButtonProps={{ iconBefore: <MoreIcon label="more" /> }}
+        triggerType="button"
+        trigger="Click to open"
+      >
+        <DropdownItemGroup>
+          <DropdownItem>Edit</DropdownItem>
+          <DropdownItem>Share</DropdownItem>
+          <DropdownItem>Move</DropdownItem>
+          <DropdownItem>Clone</DropdownItem>
+          <DropdownItem>Delete</DropdownItem>
+          <DropdownItem>Report</DropdownItem>
+        </DropdownItemGroup>
+      </DropdownMenu>
+    );
+  };
+  ```
+
+  **After**
+
+  ```
+  const DropdownMenuCustomTriggerButtonExample = () => {
+    return (
+      <DropdownMenu
+        trigger={({ triggerRef, ...props }) => (
+          // 1. use `@atlaskit/button` or any other custom component
+          <Button
+            // 2. Spread the provided props
+            {...props}
+            // 3. Apply `triggerButtonProps` directly to button
+            iconBefore={<MoreIcon label="more" />}
+            // 4. Make sure to pass the ref
+            ref={triggerRef}
+          >
+            // 5. Move trigger label to be children
+            Click to open
+          </Button>
+        )}
+      >
+        <DropdownItemGroup>
+          <DropdownItem>Edit</DropdownItem>
+          <DropdownItem>Share</DropdownItem>
+          <DropdownItem>Move</DropdownItem>
+          <DropdownItem>Clone</DropdownItem>
+          <DropdownItem>Delete</DropdownItem>
+          <DropdownItem>Report</DropdownItem>
+        </DropdownItemGroup>
+      </DropdownMenu>
+    );
+  };
+  ```
+
+### Minor Changes
+
+- [`36322cbce4d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/36322cbce4d) - Export CustomTriggerProps type from dropdown-menu
+
+### Patch Changes
+
+- [`7df1c79ae46`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7df1c79ae46) - Enables DS linting rules and updates the code to adhere to the new conventions
+- [`bc17a568ae8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bc17a568ae8) - Update types to include rel attribute
+- [`e3a3d13a0b8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e3a3d13a0b8) - Added a performance test for use with `storybook-addon-performance`.
+- Updated dependencies
+
 ## 10.1.9
 
 ### Patch Changes

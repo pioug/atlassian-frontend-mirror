@@ -2,6 +2,7 @@ import React from 'react';
 
 import InfoIcon from '@atlaskit/icon/glyph/info';
 import { N500 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import Flag from '../../src';
 
@@ -9,7 +10,12 @@ const FlagInfoExample = () => {
   return (
     <Flag
       appearance="info"
-      icon={<InfoIcon label="Info" secondaryColor={N500} />}
+      icon={
+        <InfoIcon
+          label="Info"
+          secondaryColor={token('color.iconBorder.discovery', N500)}
+        />
+      }
       id="info"
       key="info"
       title="There’s no one in this project"

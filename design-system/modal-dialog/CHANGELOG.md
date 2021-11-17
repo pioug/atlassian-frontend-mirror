@@ -1,5 +1,18 @@
 # @atlaskit/modal-dialog
 
+## 12.2.0
+
+### Minor Changes
+
+- [`2d60dd3116d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2d60dd3116d) - [ux] Modal dialogs which contain no focusable children will now lock focus to the modal container. The container will have a focus ring, so some VR tests may need to be regenerated.
+
+### Patch Changes
+
+- [`3fced6aa641`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3fced6aa641) - Bumped `react-focus-lock` to version `^2.2.1`.
+- [`a8c55e479e8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a8c55e479e8) - Removes unused dependency on emotion-styled
+- [`f460cc7c411`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f460cc7c411) - Builds for this package now pass through a tokens babel plugin, removing runtime invocations of the tokens() function and improving bundle size.
+- Updated dependencies
+
 ## 12.1.1
 
 ### Patch Changes

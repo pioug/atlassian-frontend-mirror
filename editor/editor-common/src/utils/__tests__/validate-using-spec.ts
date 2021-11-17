@@ -1,7 +1,9 @@
+import { createSchema } from '@atlaskit/adf-schema';
 import { ADFEntity, Validate, ValidationError } from '@atlaskit/adf-utils';
 
 import {
   DispatchAnalyticsEvent,
+  validateADFEntity,
   validationErrorHandler,
   wrapWithUnsupported,
 } from '../validate-using-spec';
@@ -600,4 +602,77 @@ describe('validationErrorHandler', () => {
       }),
     );
   });
+});
+
+describe('validatorFn', () => {
+  const schema = createSchema({
+    nodes: ['doc', 'paragraph', 'text', 'inlineCard', 'blockCard', 'embedCard'],
+    marks: ['link'],
+  });
+  const safePayload = 'https://atlaskit.atlassian.com';
+  const unsafePayload = 'javascript:alert(1)';
+
+  describe('link mark', () => {
+    const linkWithPayload = (href: string): ADFEntity => ({
+      type: 'paragraph',
+      content: [
+        {
+          type: 'text',
+          text: 'some link text',
+          marks: [
+            {
+              type: 'link',
+              attrs: {
+                href,
+              },
+            },
+          ],
+        },
+      ],
+    });
+
+    it('should pass validation if URL is safe', () => {
+      const linkWithSafePayload = linkWithPayload(safePayload);
+
+      const entity = validateADFEntity(schema, linkWithSafePayload);
+      const markOnLinkText = (entity.content as ADFEntity[])[0].marks![0];
+
+      expect(markOnLinkText.type).toEqual('link');
+    });
+
+    it('should not pass validation if URL is unsafe', () => {
+      const linkWithUnsafePayload = linkWithPayload(unsafePayload);
+
+      const entity = validateADFEntity(schema, linkWithUnsafePayload);
+      const markOnLinkText = (entity.content as ADFEntity[])[0].marks![0];
+
+      expect(markOnLinkText.type).toEqual('unsupportedMark');
+    });
+  });
+
+  describe.each(['inlineCard', 'blockCard', 'embedCard'])(
+    'smart cards',
+    (cardType) => {
+      const cardWithPayload = (type: string, url: string): ADFEntity => ({
+        type,
+        attrs: {
+          url,
+        },
+      });
+
+      it(`${cardType} should pass validation if URL is safe`, () => {
+        const cardWithSafePayload = cardWithPayload(cardType, safePayload);
+        const entity = validateADFEntity(schema, cardWithSafePayload);
+        expect(entity.type).toEqual(cardType);
+      });
+
+      it(`${cardType} should not pass validation if URL is unsafe`, () => {
+        const cardWithUnsafePayload = cardWithPayload(cardType, unsafePayload);
+
+        const entity = validateADFEntity(schema, cardWithUnsafePayload);
+        const markOnCard = entity.marks![0];
+        expect(markOnCard.type).toEqual('unsupportedNodeAttribute');
+      });
+    },
+  );
 });

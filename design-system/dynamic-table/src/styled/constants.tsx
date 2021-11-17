@@ -29,7 +29,9 @@ export const overflowTruncateStyles = css({
 });
 
 export const getTruncationStyleVars = ({ width }: TruncateStyleProps) => {
-  return { [CSS_VAR_WIDTH]: `${width}%` };
+  return {
+    [CSS_VAR_WIDTH]: typeof width !== 'undefined' ? `${width}%` : undefined,
+  };
 };
 
 export const cellStyles = css({

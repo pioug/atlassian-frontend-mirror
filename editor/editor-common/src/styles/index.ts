@@ -29,6 +29,7 @@ export {
   panelSharedStyles,
   PanelSharedCssClassName,
   PanelSharedSelectors,
+  getPanelBackgroundDarkModeColors,
 } from './shared/panel';
 export { ruleSharedStyles } from './shared/rule';
 export { whitespaceSharedStyles } from './shared/whitespace';
@@ -45,6 +46,8 @@ export {
   tasksAndDecisionsStyles,
   TaskDecisionSharedCssClassName,
 } from './shared/task-decision';
+// TODO: ED-13875 Remove MentionSharedCssClassName and EmojiSharedCssClassName
+// exports once root entry point for editor-common has been removed
 export { MentionSharedCssClassName } from './shared/mention';
 export { EmojiSharedCssClassName } from './shared/emoji';
 export { StatusSharedCssClassName } from './shared/status';

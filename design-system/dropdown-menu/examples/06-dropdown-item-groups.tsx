@@ -1,33 +1,28 @@
 import React from 'react';
 
-import CheckIcon from '@atlaskit/icon/glyph/check';
-
 import DropdownMenu, {
-  DropdownItem,
   DropdownItemCheckbox,
-  DropdownItemGroup,
-  DropdownItemGroupCheckbox,
-  DropdownItemGroupRadio,
-  DropdownItemRadio,
+  DropdownItemCheckboxGroup,
 } from '../src';
 
-export default () => (
-  <DropdownMenu trigger="Filter cities" triggerType="button">
-    <DropdownItemGroupRadio
-      title="Aussie cities"
-      elemAfter={<CheckIcon label="" />}
-      id="au"
-    >
-      <DropdownItemRadio id="adelaide">Adelaide</DropdownItemRadio>
-      <DropdownItemRadio id="newcastle">Newcastle</DropdownItemRadio>
-    </DropdownItemGroupRadio>
-    <DropdownItemGroupCheckbox title="American cities" id="usa">
-      <DropdownItemCheckbox id="adelaide">San Francisco</DropdownItemCheckbox>
-      <DropdownItemCheckbox id="sydney">California</DropdownItemCheckbox>
-    </DropdownItemGroupCheckbox>
-    <DropdownItemGroup title="Canadian cities">
-      <DropdownItem>Toronto</DropdownItem>
-      <DropdownItem>Vancouver</DropdownItem>
-    </DropdownItemGroup>
-  </DropdownMenu>
+const DropdownMenuMultipleCheckboxGroup = () => (
+  <div style={{ margin: '20px' }}>
+    <DropdownMenu trigger="Choices" testId="lite-mode-ddm">
+      <DropdownItemCheckboxGroup id="cities" title="Some cities">
+        <DropdownItemCheckbox id="sydney">Sydney</DropdownItemCheckbox>
+        <DropdownItemCheckbox id="melbourne" defaultSelected>
+          Melbourne
+        </DropdownItemCheckbox>
+      </DropdownItemCheckboxGroup>
+
+      <DropdownItemCheckboxGroup id="other-cities" title="Some other cities">
+        <DropdownItemCheckbox id="adelaide" defaultSelected>
+          Adelaide
+        </DropdownItemCheckbox>
+        <DropdownItemCheckbox id="melbourne">Melbourne</DropdownItemCheckbox>
+      </DropdownItemCheckboxGroup>
+    </DropdownMenu>
+  </div>
 );
+
+export default DropdownMenuMultipleCheckboxGroup;

@@ -1,6 +1,6 @@
 import { HTMLAttributes, ComponentClass } from 'react';
 import styled from 'styled-components';
-import { B100, N30A, N40A, text } from '@atlaskit/theme/colors';
+import { B300, N30A, N40A, text } from '@atlaskit/theme/colors';
 import { borderRadius as akBorderRadius } from '@atlaskit/theme/constants';
 import { themed } from '@atlaskit/theme/components';
 
@@ -14,9 +14,10 @@ const BACKGROUND_COLOR_LIGHT = N30A;
 
 const selected = `
   cursor: pointer;
-  box-shadow: 0 0 0 2px ${B100};
+  box-shadow: 0 0 0 1px ${B300};
   outline: none;
   user-select: none;
+  border-color: transparent;
   &, :hover, :focus, :active {
     text-decoration: none;
   }

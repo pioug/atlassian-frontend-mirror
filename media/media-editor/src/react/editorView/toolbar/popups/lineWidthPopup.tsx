@@ -1,7 +1,7 @@
 import React from 'react';
 import { Component } from 'react';
 import InlineDialog from '@atlaskit/inline-dialog';
-import FieldRange from '@atlaskit/field-range';
+import Range from '@atlaskit/range';
 import { LineWidthPopupContainer } from './popupStyles';
 
 export const THICKNESS_MIN = 4;
@@ -40,7 +40,7 @@ export class LineWidthPopup extends Component<LineWidthPopupProps> {
         onMouseLeave={this.closeSoon}
         onMouseEnter={this.cancelCloseSoon}
       >
-        <FieldRange
+        <Range
           value={lineWidth}
           step={2}
           min={THICKNESS_MIN}

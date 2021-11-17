@@ -2,6 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import { NumericalCardDimensions } from '@atlaskit/media-card';
 
+export const MediaInlineNodeSelector = 'media-inline-node';
+export const MediaSingleNodeSelector = 'media-single-node';
+
 export const FigureWrapper = styled.figure`
   margin: 0;
 `;

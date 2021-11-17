@@ -5,8 +5,6 @@ import { jsx } from '@emotion/core';
 
 import DynamicTable from '../src';
 
-import Wrapper from './components/wrapper';
-
 const caption = 'Hello';
 const head = {
   cells: [
@@ -55,21 +53,19 @@ export default () => {
   );
 
   return (
-    <Wrapper>
-      <DynamicTable
-        caption={caption}
-        head={head}
-        rows={rows}
-        rowsPerPage={10}
-        defaultPage={1}
-        loadingSpinnerSize="large"
-        isLoading={false}
-        isFixedSize
-        defaultSortKey="status"
-        defaultSortOrder="ASC"
-        onSort={() => console.log('onSort')}
-        onSetPage={() => console.log('onSetPage')}
-      />
-    </Wrapper>
+    <DynamicTable
+      caption={caption}
+      head={head}
+      rows={rows}
+      rowsPerPage={10}
+      defaultPage={1}
+      loadingSpinnerSize="large"
+      isLoading={false}
+      isFixedSize
+      defaultSortKey="status"
+      defaultSortOrder="ASC"
+      onSort={() => console.log('onSort')}
+      onSetPage={() => console.log('onSetPage')}
+    />
   );
 };

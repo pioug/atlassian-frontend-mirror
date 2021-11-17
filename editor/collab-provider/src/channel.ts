@@ -20,14 +20,14 @@ export type InitPayload = {
   metadata?: Metadata;
 };
 
-export type ParticipantPayload = {
+export type PresencePayload = {
   sessionId: string;
   userId: string;
   clientId: string;
   timestamp: number;
 };
 
-export type TelepointerPayload = ParticipantPayload & {
+export type TelepointerPayload = PresencePayload & {
   selection: {
     type: 'textSelection' | 'nodeSelection';
     anchor: number;
@@ -64,10 +64,11 @@ export type ChannelEvent = {
   };
   init: InitPayload;
   reconnected: null;
-  'participant:joined': ParticipantPayload;
-  'participant:left': ParticipantPayload;
+  'presence:joined': PresencePayload;
+  presence: PresencePayload;
+  'participant:left': PresencePayload;
   'participant:telepointer': TelepointerPayload;
-  'participant:updated': ParticipantPayload;
+  'participant:updated': PresencePayload;
   'steps:commit': StepsPayload & { userId: string };
   'steps:added': StepsPayload;
   'metadata:changed': Metadata;
@@ -150,10 +151,13 @@ export class Channel extends Emitter<ChannelEvent> {
         this.emit('participant:telepointer', payload.data);
       },
     );
-    this.socket.on('participant:joined', (data: ParticipantPayload) => {
-      this.emit('participant:joined', data);
+    this.socket.on('presence:joined', (data: PresencePayload) => {
+      this.emit('presence:joined', data);
     });
-    this.socket.on('participant:left', (data: ParticipantPayload) => {
+    this.socket.on('presence', (data: PresencePayload) => {
+      this.emit('presence', data);
+    });
+    this.socket.on('participant:left', (data: PresencePayload) => {
       this.emit('participant:left', data);
     });
     this.socket.on(
@@ -163,7 +167,7 @@ export class Channel extends Emitter<ChannelEvent> {
         timestamp,
         data,
         clientId,
-      }: ParticipantPayload & { data: { userId: string } }) => {
+      }: PresencePayload & { data: { userId: string } }) => {
         this.emit('participant:updated', {
           sessionId,
           timestamp,
@@ -304,6 +308,13 @@ export class Channel extends Emitter<ChannelEvent> {
       return;
     }
     this.socket.emit('metadata', metadata);
+  }
+
+  sendPresenceJoined() {
+    if (!this.connected || !this.socket) {
+      return;
+    }
+    this.socket.emit('presence:joined');
   }
 
   disconnect() {

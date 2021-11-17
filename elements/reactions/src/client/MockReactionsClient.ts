@@ -48,7 +48,7 @@ export class MockReactionsClient implements ReactionClient {
       reaction(':fire:', 1, true),
       reaction(':thumbsup:', 9, false),
       reaction(':astonished:', 5, false),
-      reaction(':hearts:', 100, false),
+      reaction(':heart:', 100, false),
     ],
   };
 

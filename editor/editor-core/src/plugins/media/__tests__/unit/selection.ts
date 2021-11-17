@@ -1,4 +1,4 @@
-import { NodeSelection, TextSelection } from 'prosemirror-state';
+import { NodeSelection } from 'prosemirror-state';
 
 import {
   createEditorFactory,
@@ -34,8 +34,12 @@ describe('media selection', () => {
     let editorInstance: EditorInstanceWithPlugin<any>;
 
     beforeEach(() => {
+      // paragraph 1-2
+      // mediaSingle 3-5
+      // media 4-4
       editorInstance = editor(
         doc(
+          p('{<>}'),
           mediaSingle()(
             media({
               id: 'a559980d-cd47-43e2-8377-27359fcb905f',
@@ -48,26 +52,10 @@ describe('media selection', () => {
       );
     });
 
-    it('not change selection when select media', () => {
+    it('not change selection when select mediaSingle', () => {
       const editorView = editorInstance.editorView;
       const { state } = editorView;
-      const cursorPos = 1;
-
-      const oldPos = editorView.state.selection.$from.pos;
-
-      editorView.dispatch(
-        state.tr.setSelection(new NodeSelection(state.doc.resolve(cursorPos))),
-      );
-
-      expect(editorView.state.selection instanceof TextSelection).toBe(true);
-
-      expect(editorView.state.selection.$from.pos).toBe(oldPos);
-    });
-
-    it('change selection when select mediaSingle', () => {
-      const editorView = editorInstance.editorView;
-      const { state } = editorView;
-      const cursorPos = 0;
+      const cursorPos = 2;
 
       editorView.dispatch(
         state.tr.setSelection(new NodeSelection(state.doc.resolve(cursorPos))),
@@ -75,7 +63,29 @@ describe('media selection', () => {
 
       expect(editorView.state.selection instanceof NodeSelection).toBe(true);
 
-      expect(editorView.state.selection.$from.pos).toBe(0);
+      expect(
+        (editorView.state.selection as NodeSelection).node.type.name,
+      ).toEqual('mediaSingle');
+      expect(editorView.state.selection.$from.pos).toBe(2);
+      expect(editorView.state.selection.$to.pos).toBe(5);
+    });
+
+    it('change selection when select media', () => {
+      const editorView = editorInstance.editorView;
+      const { state } = editorView;
+      const cursorPos = 3;
+
+      editorView.dispatch(
+        state.tr.setSelection(new NodeSelection(state.doc.resolve(cursorPos))),
+      );
+
+      expect(editorView.state.selection instanceof NodeSelection).toBe(true);
+
+      expect(
+        (editorView.state.selection as NodeSelection).node.type.name,
+      ).toEqual('mediaSingle');
+      expect(editorView.state.selection.$from.pos).toBe(2);
+      expect(editorView.state.selection.$to.pos).toBe(5);
     });
   });
 

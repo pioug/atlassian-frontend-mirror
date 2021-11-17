@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+/** @jsx jsx */
+import { useState } from 'react';
 
+import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
 
 import Textfield from '@atlaskit/textfield';

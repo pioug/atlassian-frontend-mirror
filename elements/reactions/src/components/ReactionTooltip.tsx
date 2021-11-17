@@ -1,13 +1,21 @@
 import Tooltip from '@atlaskit/tooltip';
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import { style } from 'typestyle';
+
+import { N90 } from '@atlaskit/theme/colors';
+
 import { ReactionSummary } from '../types/ReactionSummary';
+import { messages } from './i18n';
+
+const verticalMargin = 5;
 
 const tooltipStyle = style({
   maxWidth: '150px',
   textOverflow: 'ellipsis',
   whiteSpace: 'nowrap',
   overflow: 'hidden',
+  marginBottom: verticalMargin,
   $nest: {
     ul: {
       listStyle: 'none',
@@ -18,18 +26,20 @@ const tooltipStyle = style({
     li: {
       overflow: 'hidden',
       textOverflow: 'ellipsis',
-      marginTop: 0,
+      marginTop: verticalMargin,
     },
   },
 });
 
 const emojiNameStyle = style({
   textTransform: 'capitalize',
-  marginBottom: 5,
+  color: N90,
+  fontWeight: 600,
 });
 
 const footerStyle = style({
-  marginTop: 5,
+  color: N90,
+  fontWeight: 300,
 });
 
 export interface Props {
@@ -51,17 +61,22 @@ export const ReactionTooltip = ({
 
   const content = (
     <div className={tooltipStyle}>
-      {emojiName ? <span className={emojiNameStyle}>{emojiName}</span> : null}
       <ul>
+        {emojiName ? <li className={emojiNameStyle}>{emojiName}</li> : null}
         {users.slice(0, TOOLTIP_USERS_LIMIT).map((user, index) => {
           return <li key={index}>{user.displayName}</li>;
         })}
+        {users.length > TOOLTIP_USERS_LIMIT ? (
+          <li className={footerStyle}>
+            <FormattedMessage
+              {...messages.otherUsers}
+              values={{
+                count: users.length - TOOLTIP_USERS_LIMIT,
+              }}
+            />
+          </li>
+        ) : null}
       </ul>
-      {users.length > TOOLTIP_USERS_LIMIT ? (
-        <span className={footerStyle}>
-          +{users.length - TOOLTIP_USERS_LIMIT}...
-        </span>
-      ) : null}
     </div>
   );
 

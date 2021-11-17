@@ -8,6 +8,13 @@ export interface PanelPluginOptions
     PanelPluginConfig {}
 
 export interface PanelPluginConfig {
-  UNSAFE_allowCustomPanel?: boolean;
-  UNSAFE_allowCustomPanelEdit?: boolean;
+  allowCustomPanel?: boolean;
+  allowCustomPanelEdit?: boolean;
 }
+
+export type DomPanelAtrrs = {
+  class: string;
+  'data-panel-type': string;
+  'data-panel-color'?: string;
+  style: string;
+};

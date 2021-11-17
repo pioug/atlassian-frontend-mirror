@@ -75,8 +75,11 @@ export default class EditorWithFeedback extends React.Component<Props, State> {
                     media={{
                       provider: mediaProvider,
                       allowMediaSingle: true,
-                      allowMediaInline: true,
                       allowLinking: true,
+                      featureFlags: {
+                        captions: true,
+                        mediaInline: true,
+                      },
                     }}
                     disabled={disabled}
                     mentionProvider={Promise.resolve(mentionResourceProvider)}

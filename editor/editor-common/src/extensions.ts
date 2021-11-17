@@ -15,6 +15,7 @@ export {
   getFieldDeserializer,
   isFieldset,
   isTabGroup,
+  isTabField,
   isExpand,
   isDateRange,
   getUserFieldContextProvider,

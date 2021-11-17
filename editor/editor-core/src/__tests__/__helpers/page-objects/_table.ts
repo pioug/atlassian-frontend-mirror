@@ -23,7 +23,8 @@ import { RESIZE_HANDLE_AREA_DECORATION_GAP } from '../../../plugins/table/types'
 import { TestPage, WebDriverPage, isPuppeteer } from './_types';
 
 export const tableSelectors = {
-  contextualMenu: `.${ClassName.CONTEXTUAL_MENU_BUTTON}`,
+  contextualMenuButton: `.${ClassName.CONTEXTUAL_MENU_BUTTON}`,
+  contextualMenu: '[data-testid="table-cell-contextual-menu"]',
   hoveredCell: `.ProseMirror table .${ClassName.HOVERED_CELL}`,
   nthRowControl: (n: number) =>
     `.${ClassName.ROW_CONTROLS_BUTTON_WRAP}:nth-child(${n}) button`,
@@ -135,8 +136,8 @@ export const selectTableOption = async (page: any, option: string) => {
 };
 
 export const clickCellOptions = async (page: any) => {
-  await page.waitForSelector(tableSelectors.contextualMenu);
-  await page.click(tableSelectors.contextualMenu);
+  await page.waitForSelector(tableSelectors.contextualMenuButton);
+  await page.click(tableSelectors.contextualMenuButton);
 };
 
 export const selectCellOption = async (page: any, option: string) => {
@@ -461,7 +462,7 @@ export const resizeColumn = async (
   const queryTableCell = getSelectorForTableCell({ row, cell: colIdx });
   const cell = await getBoundingRect(page, queryTableCell);
 
-  await page.mouse.move(cell.left + cell.width, cell.top + 5);
+  await page.mouse.move(cell.left + cell.width, cell.top + 10);
   await page.waitForSelector(
     `${queryTableCell} .${ClassName.RESIZE_HANDLE_DECORATION}`,
   );
@@ -477,9 +478,14 @@ export const resizeColumn = async (
   await page.mouse.move(columnEndPosition, cellResizeeHandle.top);
 
   // Resize
+  // timeouts in between mouse moves needed to mimic more natural drag n drop and fix flakes in related vr tests
+  await page.waitForTimeout(100);
   await page.mouse.down();
+  await page.waitForTimeout(100);
   await page.mouse.move(columnEndPosition + amount, cellResizeeHandle.top);
+  await page.waitForTimeout(100);
   await page.mouse.up();
+  await page.waitForTimeout(100);
 };
 
 // ED-9859 - For some particular tests, the cell options dropdown
@@ -524,7 +530,7 @@ export const grabResizeHandle = async (
   // and add the decorations
   await page.mouse.move(
     cell.left + cell.width - RESIZE_HANDLE_AREA_DECORATION_GAP,
-    cell.top + 5,
+    cell.top + 10,
   );
   await animationFrame(page);
 

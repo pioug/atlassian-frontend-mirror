@@ -13,8 +13,8 @@
     "@atlaskit/button",
     "@atlaskit/checkbox",
     "@atlaskit/select",
-    "@atlaskit/field-radio-group",
-    "@atlaskit/field-range",
+    "@atlaskit/radio",
+    "@atlaskit/range",
     "@atlaskit/toggle"
   ]
 }

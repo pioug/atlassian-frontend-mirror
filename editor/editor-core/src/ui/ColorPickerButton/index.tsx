@@ -34,7 +34,7 @@ const ColorPickerWrapper = styled.div`
   border-radius: ${borderRadius()}px;
   background-color: white;
   box-shadow: 0 4px 8px -2px ${N60A}, 0 0 1px ${N60A};
-  padding: 4px;
+  padding: 8px 0px;
 `;
 
 type Props = WithAnalyticsEventsProps & {

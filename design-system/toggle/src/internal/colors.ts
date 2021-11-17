@@ -15,6 +15,7 @@ import {
   N70,
 } from '@atlaskit/theme/colors';
 import { ThemeModes } from '@atlaskit/theme/types';
+import { token } from '@atlaskit/tokens';
 
 export type ToggleContainerColors = {
   backgroundColorChecked: string;
@@ -38,42 +39,60 @@ export type ToggleContainerColors = {
 
 const colorMap = {
   light: {
-    backgroundColorChecked: G400,
-    backgroundColorCheckedHover: G300,
-    backgroundColorCheckedDisabled: N20,
+    backgroundColorChecked: token('color.background.boldSuccess.resting', G400),
+    backgroundColorCheckedHover: token(
+      'color.background.boldSuccess.hover',
+      G300,
+    ),
+    backgroundColorCheckedDisabled: token('color.background.disabled', N20),
 
-    backgroundColorUnchecked: N200,
-    backgroundColorUncheckedHover: N70,
-    backgroundColorUncheckedDisabled: N20,
+    backgroundColorUnchecked: token(
+      'color.background.boldNeutral.resting',
+      N200,
+    ),
+    backgroundColorUncheckedHover: token(
+      'color.background.boldNeutral.hover',
+      N70,
+    ),
+    backgroundColorUncheckedDisabled: token('color.background.disabled', N20),
 
-    borderColorFocus: B100,
+    borderColorFocus: token('color.border.focus', B100),
 
-    iconColorChecked: N0,
-    iconColorDisabled: N70,
-    iconColorUnchecked: N0,
+    iconColorChecked: token('color.text.onBold', N0),
+    iconColorDisabled: token('color.text.disabled', N70),
+    iconColorUnchecked: token('color.text.onBold', N0),
 
-    handleBackgroundColor: N0,
-    handleBackgroundColorChecked: N0,
-    handleBackgroundColorDisabled: N0,
+    handleBackgroundColor: token('color.background.default', N0),
+    handleBackgroundColorChecked: token('color.background.default', N0),
+    handleBackgroundColorDisabled: token('color.text.disabled', N0),
   },
   dark: {
-    backgroundColorChecked: G300,
-    backgroundColorCheckedHover: G200,
-    backgroundColorCheckedDisabled: DN70,
+    backgroundColorChecked: token('color.background.boldSuccess.resting', G300),
+    backgroundColorCheckedHover: token(
+      'color.background.boldSuccess.hover',
+      G200,
+    ),
+    backgroundColorCheckedDisabled: token('color.background.disabled', DN70),
 
-    backgroundColorUnchecked: DN70,
-    backgroundColorUncheckedHover: DN60,
-    backgroundColorUncheckedDisabled: DN70,
+    backgroundColorUnchecked: token(
+      'color.background.boldNeutral.resting',
+      DN70,
+    ),
+    backgroundColorUncheckedHover: token(
+      'color.background.boldNeutral.hover',
+      DN60,
+    ),
+    backgroundColorUncheckedDisabled: token('color.background.disabled', DN70),
 
-    borderColorFocus: B75,
+    borderColorFocus: token('color.border.focus', B75),
 
-    iconColorChecked: DN30,
-    iconColorDisabled: DN30,
-    iconColorUnchecked: DN600,
+    iconColorChecked: token('color.text.onBold', DN30),
+    iconColorDisabled: token('color.text.disabled', DN30),
+    iconColorUnchecked: token('color.text.onBold', DN600),
 
-    handleBackgroundColor: DN600,
-    handleBackgroundColorChecked: DN0,
-    handleBackgroundColorDisabled: DN0,
+    handleBackgroundColor: token('color.background.default', DN600),
+    handleBackgroundColorChecked: token('color.background.default', DN0),
+    handleBackgroundColorDisabled: token('color.text.disabled', DN0),
   },
 };
 

@@ -39,12 +39,7 @@ BrowserTestCase(
     await page.keys('Some text'.split(''));
 
     await page.keys(['ArrowRight', 'ArrowRight', 'ArrowRight']);
-    if (page.isBrowser('firefox')) {
-      // https://product-fabric.atlassian.net/browse/ED-13457
-      // There is a selection issue for Firefox
-      // The emoji requires on more keystroke to leave
-      await page.keys(['ArrowRight']);
-    }
+
     await page.keys('Some text'.split(''));
 
     await page.keys(['ArrowRight', 'ArrowRight', 'ArrowRight']);

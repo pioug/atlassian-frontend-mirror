@@ -60,7 +60,7 @@ class StatusInternal extends PureComponent<Props, any> {
   }
 
   render() {
-    const { text, color, style, onClick } = this.props;
+    const { text, color, style, localId, onClick } = this.props;
     if (text.trim().length === 0) {
       return null;
     }
@@ -70,14 +70,13 @@ class StatusInternal extends PureComponent<Props, any> {
     return (
       <span
         className="status-lozenge-span"
-        // Using title here as `@atlaskit/tooltip` adds too much overhead
-        title={text}
         onClick={onClick}
         onMouseEnter={this.handleMouseEnter}
         onMouseLeave={this.handleMouseLeave}
         data-node-type="status"
         data-color={color}
         data-style={style}
+        id={localId}
       >
         <Lozenge appearance={appearance} maxWidth={MAX_WIDTH}>
           {text}

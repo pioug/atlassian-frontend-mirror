@@ -52,7 +52,7 @@ describe('Table context menu: cells background', () => {
       // default is white
       await clickCellOptions(page);
       await snapshot(page);
-      await page.click(tableSelectors.contextualMenu); // dismiss
+      await page.click(tableSelectors.contextualMenuButton); // dismiss
 
       await clickFirstCell(page);
 

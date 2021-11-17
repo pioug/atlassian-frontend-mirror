@@ -15,6 +15,7 @@ export { underline as u } from './builders/marks/underline';
 export { alignment } from './builders/marks/alignment';
 export { indentation } from './builders/marks/indentation';
 export { dataConsumer } from './builders/marks/data-consumer';
+export { fragment } from './builders/marks/fragment';
 
 // Nodes Builders
 

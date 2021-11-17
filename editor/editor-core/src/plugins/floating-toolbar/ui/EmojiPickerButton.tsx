@@ -18,9 +18,17 @@ const EmojiPickerButtonWrapper = styled.div`
   position: relative;
 `;
 
+// helps to vertically align emoji picker
+// both top and bottom margin should be 2px
+// https://product-fabric.atlassian.net/browse/CETI-148
+const EmojiPickerWrapper = styled.div`
+  margin-bottom: -12px;
+  margin-top: -4px;
+`;
+
 export const EmojiPickerButton: React.FunctionComponent<{
   className?: string;
-  view?: EditorView;
+  editorView?: EditorView;
   idx?: number;
   providerFactory?: ProviderFactory;
   title?: string;
@@ -37,6 +45,7 @@ export const EmojiPickerButton: React.FunctionComponent<{
 
   const updateEmoji = (emoji: EmojiId) => {
     setIsPopupOpen(false);
+    props.editorView && props.editorView.focus();
     props.onChange && props.onChange(emoji);
   };
 
@@ -68,11 +77,13 @@ export const EmojiPickerButton: React.FunctionComponent<{
         fitWidth={350}
         offset={[0, 10]}
       >
-        <WithProviders
-          providers={['emojiProvider']}
-          providerFactory={props.providerFactory!}
-          renderNode={renderPicker}
-        />
+        <EmojiPickerWrapper>
+          <WithProviders
+            providers={['emojiProvider']}
+            providerFactory={props.providerFactory!}
+            renderNode={renderPicker}
+          />
+        </EmojiPickerWrapper>
       </Popup>
     );
   };

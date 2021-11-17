@@ -1032,6 +1032,98 @@ describe('@atlaskit/editor-core', () => {
           });
         });
       });
+
+      describe('editSession', () => {
+        beforeEach(() => {
+          jest.clearAllTimers();
+        });
+        const mountEditor = async (ufoEnabled: boolean) => {
+          mountWithIntl(
+            <ReactEditorView
+              {...requiredProps()}
+              {...analyticsProps()}
+              editorProps={{ featureFlags: { ufo: ufoEnabled } }}
+            />,
+          );
+          await flushPromises();
+        };
+        const mountEditorAndAdvanceTime = async (
+          ufoEnabled: boolean,
+          ms: number,
+        ) => {
+          jest.useFakeTimers();
+          await mountEditor(ufoEnabled);
+          await flushPromises();
+          jest.advanceTimersByTime(ms);
+          jest.useRealTimers();
+        };
+
+        describe('when feature flag enabled', () => {
+          describe(`and editor has just mounted`, () => {
+            beforeEach(async () => {
+              await mountEditor(true);
+            });
+            it('starts new editSession experience', () => {
+              expect(mockStore.start).toHaveBeenCalledWith(
+                EditorExperience.editSession,
+              );
+            });
+            it('adds metadata for editSession experience interval (ms)', () => {
+              expect(mockStore.addMetadata).toHaveBeenCalledWith(
+                EditorExperience.editSession,
+                {
+                  reliabilityInterval: RELIABILITY_INTERVAL,
+                },
+              );
+            });
+          });
+
+          describe(`and ${RELIABILITY_INTERVAL}ms has passed`, () => {
+            beforeEach(async () => {
+              await mountEditorAndAdvanceTime(true, RELIABILITY_INTERVAL);
+            });
+            it('succeeds editSession experience', () => {
+              expect(mockStore.success).toHaveBeenCalledWith(
+                EditorExperience.editSession,
+              );
+            });
+          });
+
+          describe(`and ${RELIABILITY_INTERVAL}ms has passed and previous editSession settles`, () => {
+            beforeEach(async () => {
+              const prevEditSession = async () => true;
+              mockStore.success.mockImplementation(prevEditSession);
+              await mountEditorAndAdvanceTime(true, RELIABILITY_INTERVAL);
+            });
+            it('starts new editSession experience', () => {
+              expect(mockStore.start.mock.calls).toEqual([
+                [EditorExperience.editSession],
+                [EditorExperience.editSession],
+              ]);
+            });
+            it('adds metadata for editSession experience interval (ms)', () => {
+              expect(mockStore.addMetadata).toHaveBeenCalledTimes(3);
+              expect(mockStore.addMetadata).toHaveBeenLastCalledWith(
+                EditorExperience.editSession,
+                {
+                  reliabilityInterval: RELIABILITY_INTERVAL,
+                },
+              );
+            });
+          });
+        });
+
+        describe('when feature flag not enabled', () => {
+          beforeEach(async () => {
+            await mountEditor(false);
+          });
+          it("doesn't start new editSession experience", () => {
+            expect(mockStore.start).not.toHaveBeenCalledWith(
+              EditorExperience.editSession,
+            );
+          });
+        });
+      });
     });
   });
 

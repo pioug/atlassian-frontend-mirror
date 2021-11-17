@@ -13,8 +13,8 @@ export default [
   'mediaGroup',
   'decisionList',
   'taskList',
-  'extension_with_no_marks',
   'extension_with_marks',
+  'extension_with_experimental_marks',
   'embedCard',
   'table',
 ];

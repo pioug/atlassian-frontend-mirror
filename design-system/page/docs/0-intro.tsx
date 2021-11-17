@@ -3,70 +3,50 @@ import React from 'react';
 import { code, Example, md, Props } from '@atlaskit/docs';
 
 export default md`
+## Documentation
 
-  Page provides layout for other components
+All the documentation can be found in the **sidebar nav links**  👈
 
-  ## Usage
+- [Navigation and banners](page/docs/navigation-and-banners)
+- [Columns](page/docs/columns)
+- [Layout](page/docs/layout)
+- [Spacing](page/docs/spacing)
+- [Nesting](page/docs/nesting)
+
+## Usage
 
 ${code`
 import Page, { Grid, GridColumn } from '@atlaskit/page';
 `}
 
-  ${(
-    <Example
-      packageName="@atlaskit/page"
-      Component={require('../examples/00-basic-usage').default}
-      title="Basic"
-      source={require('!!raw-loader!../examples/00-basic-usage')}
-    />
-  )}
+${(
+  <Example
+    packageName="@atlaskit/page"
+    Component={require('../examples/00-basic-usage').default}
+    title="Basic"
+    source={require('!!raw-loader!../examples/00-basic-usage')}
+  />
+)}
 
-  ${(
-    <Example
-      packageName="@atlaskit/page"
-      Component={require('../examples/01-layout-example').default}
-      title="Layout"
-      source={require('!!raw-loader!../examples/01-layout-example')}
-    />
-  )}
+${(
+  <Props
+    props={require('!!extract-react-types-loader!../src/page')}
+    heading="Page Props"
+  />
+)}
 
-  ${(
-    <Example
-      packageName="@atlaskit/page"
-      Component={require('../examples/02-nested-grid-example').default}
-      title="Nested Grids"
-      source={require('!!raw-loader!../examples/02-nested-grid-example')}
-    />
-  )}
+${(
+  <Props
+    props={require('!!extract-react-types-loader!../src/grid-column')}
+    heading="GridColumn Props"
+  />
+)}
 
-  ${(
-    <Example
-      packageName="@atlaskit/page"
-      Component={require('../examples/03-grid-spacing-example').default}
-      title="Spacing"
-      source={require('!!raw-loader!../examples/03-grid-spacing-example')}
-    />
-  )}
-
-  ${(
-    <Props
-      props={require('!!extract-react-types-loader!../src/Page')}
-      heading="Page Props"
-    />
-  )}
-
-  ${(
-    <Props
-      props={require('!!extract-react-types-loader!../src/GridColumn')}
-      heading="GridColumn Props"
-    />
-  )}
-
-  ${(
-    <Props
-      props={require('!!extract-react-types-loader!../src/Grid')}
-      heading="Grid Props"
-    />
-  )}
+${(
+  <Props
+    props={require('!!extract-react-types-loader!../src/extract-react-types/grid-wrapper')}
+    heading="Grid Props"
+  />
+)}
 
 `;

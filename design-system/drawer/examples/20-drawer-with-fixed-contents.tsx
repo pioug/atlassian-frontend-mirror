@@ -48,8 +48,12 @@ export default class DrawersExample extends Component<{}, State> {
             {/* The position here is used by the withDropdown integration test. */}
             <div style={{ position: 'fixed', left: 100, top: 200 }}>
               <DropdownMenu
-                trigger={<div id="trigger">Choices</div>}
-                triggerType="button"
+                testId="dropdown"
+                trigger={({ triggerRef, ...providedProps }) => (
+                  <Button id="trigger" ref={triggerRef} {...providedProps}>
+                    Choices
+                  </Button>
+                )}
               >
                 <DropdownItemGroup>
                   <DropdownItem>Sydney</DropdownItem>

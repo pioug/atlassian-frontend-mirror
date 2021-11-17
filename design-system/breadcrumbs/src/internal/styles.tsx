@@ -20,16 +20,12 @@ export const getStyles = (mode: ThemeModes): CSSObject => {
     display: 'flex',
     flexWrap: 'wrap',
 
-    '&>li::after': {
+    '&>li:not(:last-child)::after': {
       content: `${separator}`,
       flexShrink: 0,
       padding: `0 ${gridSizeUnit}px`,
       textAlign: 'center',
       width: `${gridSizeUnit}px`,
-    },
-
-    '&>li:last-child::after': {
-      content: '""',
     },
   };
 };

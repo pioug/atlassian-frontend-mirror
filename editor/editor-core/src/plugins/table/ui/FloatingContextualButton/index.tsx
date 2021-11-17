@@ -106,7 +106,8 @@ export class FloatingContextualButtonInner extends React.Component<
           selected={isContextualMenuOpen}
           title={labelCellOptions}
           onClick={this.handleClick}
-          iconBefore={<ExpandIcon label={labelCellOptions} />}
+          iconBefore={<ExpandIcon label="" />}
+          aria-label={labelCellOptions}
         />
       </ButtonWrapper>
     );

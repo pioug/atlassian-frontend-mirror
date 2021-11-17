@@ -723,38 +723,37 @@ describe('Renderer - React/Nodes/Table', () => {
   });
 
   describe('sort table by column', () => {
+    const initialTableState = [
+      ['Header', 'Header'],
+      ['Bbb', 'A'],
+      ['bBBB', 'B'],
+      ['BBb', ' '],
+      [' C', 'C'],
+      ['1a', '@yolo'],
+      ['a1', 'be@ns'],
+      ['!c', 'A nEw world'],
+      ['C', 'A nEw world!'],
+    ];
+    const getRows = () => {
+      return initialTableState.map((row, index) => {
+        if (index === 0) {
+          const cells = row.map((val) => th()(p(val)));
+
+          return tr(cells);
+        }
+        return tr(row.map((val) => td()(p(val))));
+      });
+    };
     const tableDoc = {
-      ...table(
-        tr([th()(p('Header')), th()(p('Header'))]),
-        tr([td()(p('B')), td()(p('B'))]),
-        tr([td()(p('C')), td()(p('C'))]),
-        tr([td()(p('A')), td()(p('A'))]),
-        tr([td()(p('D')), td()(p('D'))]),
-      ),
+      ...table(...getRows()),
       attrs: { isNumberColumnEnabled: false },
     };
-    const FakeCellA = () => (
+    const Cell = ({ text }: { text: string }) => (
       <td>
-        <p>A</p>
-      </td>
-    );
-    const FakeCellB = () => (
-      <td>
-        <p>B</p>
-      </td>
-    );
-    const FakeCellC = () => (
-      <td>
-        <p>C</p>
-      </td>
-    );
-    const FakeCellD = () => (
-      <td>
-        <p>D</p>
+        <p>{text}</p>
       </td>
     );
     const tableFromSchema = schema.nodeFromJSON(tableDoc);
-
     const wrap = mount(
       <Table
         layout="default"
@@ -763,53 +762,159 @@ describe('Renderer - React/Nodes/Table', () => {
         isNumberColumnEnabled={false}
         tableNode={tableFromSchema}
       >
-        <TableRow>
-          <TableHeader />
-          <TableHeader />
-        </TableRow>
-        <TableRow>
-          <FakeCellB />
-          <FakeCellB />
-        </TableRow>
-        <TableRow>
-          <FakeCellC />
-          <FakeCellC />
-        </TableRow>
-        <TableRow>
-          <FakeCellA />
-          <FakeCellA />
-        </TableRow>
-        <TableRow>
-          <FakeCellD />
-          <FakeCellD />
-        </TableRow>
+        {initialTableState.map((row, rowIndex) => {
+          if (rowIndex === 0) {
+            return (
+              <TableRow key={rowIndex}>
+                {row.map((_, headerIndex) => (
+                  <TableHeader key={headerIndex} />
+                ))}
+              </TableRow>
+            );
+          }
+
+          return (
+            <TableRow key={rowIndex}>
+              {row.map((cellVal, cellIndex) => (
+                <Cell key={cellIndex} text={cellVal} />
+              ))}
+            </TableRow>
+          );
+        })}
       </Table>,
     );
-    it('should sort table by column A to Z', () => {
-      const tableRowProps = wrap.find(TableRow).first().props();
-      tableRowProps.onSorting!(0, SortOrder.ASC);
-      wrap.update();
+    const expectTableOrder = (expectedValues: string[][]) => {
+      for (let i = 0; i < expectedValues.length; i++) {
+        for (let j = 0; j < expectedValues[0].length; j++) {
+          const cell = wrap
+            .find(TableRow)
+            .at(i + 1)
+            .find('td')
+            .at(j);
+          const actualValue = cell.text();
+          const expectedValue = expectedValues[i][j];
 
-      const firstCellFromSecondRow = wrap.find(TableRow).at(1).find('td').at(0);
-      expect(firstCellFromSecondRow.text()).toEqual('A');
+          expect(actualValue).toEqual(expectedValue);
+        }
+      }
+    };
+
+    describe('when sorting on the first column', () => {
+      it('should sort table by column A to Z', () => {
+        const tableRowProps = wrap.find(TableRow).first().props();
+        tableRowProps.onSorting!(0, SortOrder.ASC);
+        wrap.update();
+
+        const tableState = [
+          ['1a', '@yolo'],
+          [' C', 'C'],
+          ['!c', 'A nEw world'],
+          ['a1', 'be@ns'],
+          ['BBb', ' '],
+          ['Bbb', 'A'],
+          ['bBBB', 'B'],
+          ['C', 'A nEw world!'],
+        ];
+
+        expectTableOrder(tableState);
+      });
+
+      it('should sort table by column Z to A', () => {
+        const tableRowProps = wrap.find(TableRow).first().props();
+        tableRowProps.onSorting!(0, SortOrder.DESC);
+        wrap.update();
+
+        const tableState = [
+          ['1a', '@yolo'],
+          [' C', 'C'],
+          ['!c', 'A nEw world'],
+          ['a1', 'be@ns'],
+          ['BBb', ' '],
+          ['Bbb', 'A'],
+          ['bBBB', 'B'],
+          ['C', 'A nEw world!'],
+        ].reverse();
+
+        expectTableOrder(tableState);
+      });
+
+      it('should clear table order', () => {
+        const tableRowProps = wrap.find(TableRow).first().props();
+        tableRowProps.onSorting!(0, SortOrder.NO_ORDER);
+        wrap.update();
+
+        const tableState = [
+          ['Bbb', 'A'],
+          ['bBBB', 'B'],
+          ['BBb', ' '],
+          [' C', 'C'],
+          ['1a', '@yolo'],
+          ['a1', 'be@ns'],
+          ['!c', 'A nEw world'],
+          ['C', 'A nEw world!'],
+        ];
+
+        expectTableOrder(tableState);
+      });
     });
-    it('should sort table by column Z to A', () => {
-      const tableRowProps = wrap.find(TableRow).first().props();
-      tableRowProps.onSorting!(0, SortOrder.DESC);
-      wrap.update();
 
-      const firstCellFromSecondRow = wrap.find(TableRow).at(1).find('td').at(0);
+    describe('when sorting on the second column', () => {
+      it('should sort table by column A to Z', () => {
+        const tableRowProps = wrap.find(TableRow).first().props();
+        tableRowProps.onSorting!(1, SortOrder.ASC);
+        wrap.update();
 
-      expect(firstCellFromSecondRow.text()).toEqual('D');
-    });
-    it('should clear table order', () => {
-      const tableRowProps = wrap.find(TableRow).first().props();
-      tableRowProps.onSorting!(0, SortOrder.NO_ORDER);
-      wrap.update();
+        const tableState = [
+          ['BBb', ' '],
+          ['1a', '@yolo'],
+          ['Bbb', 'A'],
+          ['!c', 'A nEw world'],
+          ['C', 'A nEw world!'],
+          ['bBBB', 'B'],
+          ['a1', 'be@ns'],
+          [' C', 'C'],
+        ];
 
-      const firstCellFromSecondRow = wrap.find(TableRow).at(1).find('td').at(0);
+        expectTableOrder(tableState);
+      });
 
-      expect(firstCellFromSecondRow.text()).toEqual('B');
+      it('should sort table by column Z to A', () => {
+        const tableRowProps = wrap.find(TableRow).first().props();
+        tableRowProps.onSorting!(1, SortOrder.DESC);
+        wrap.update();
+
+        const tableState = [
+          ['BBb', ' '],
+          ['1a', '@yolo'],
+          ['C', 'A nEw world!'],
+          ['!c', 'A nEw world'],
+          ['Bbb', 'A'],
+          ['bBBB', 'B'],
+          ['a1', 'be@ns'],
+          [' C', 'C'],
+        ].reverse();
+
+        expectTableOrder(tableState);
+      });
+
+      it('should clear table order', () => {
+        const tableRowProps = wrap.find(TableRow).first().props();
+        tableRowProps.onSorting!(1, SortOrder.NO_ORDER);
+        wrap.update();
+
+        const tableState = [
+          ['Bbb', 'A'],
+          ['bBBB', 'B'],
+          ['BBb', ' '],
+          [' C', 'C'],
+          ['1a', '@yolo'],
+          ['a1', 'be@ns'],
+          ['!c', 'A nEw world'],
+          ['C', 'A nEw world!'],
+        ];
+
+        expectTableOrder(tableState);
+      });
     });
   });
 });

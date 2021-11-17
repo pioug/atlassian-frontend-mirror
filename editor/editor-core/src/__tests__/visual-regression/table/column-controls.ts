@@ -41,7 +41,9 @@ describe('Table context menu: merge-split cells', () => {
     await pressKeyUp(page, 'Shift');
     await page.waitForSelector(tableSelectors.selectedCell);
     await selectCellOption(page, tableSelectors.mergeCellsText);
-    await snapshot(page);
+    await snapshot(page, undefined, undefined, {
+      captureBeyondViewport: false,
+    });
   };
 
   beforeAll(async () => {
@@ -64,14 +66,17 @@ describe('Table context menu: merge-split cells', () => {
   it('should display the borders when the column controls are selected', async () => {
     await selectColumn(1);
 
-    await snapshot(page, { tolerance: 0 }, tableSelectors.nthColumnControl(1));
+    await snapshot(page, { tolerance: 0 }, tableSelectors.nthColumnControl(1), {
+      captureBeyondViewport: false,
+    });
   });
 
-  // FIXME: This test was automatically skipped due to failure on 8/26/2021: https://product-fabric.atlassian.net/browse/ED-13677
-  it.skip('should display column resizer handler on top of the column controls', async () => {
+  it('should display column resizer handler on top of the column controls', async () => {
     await grabResizeHandle(page, { colIdx: 1, row: 2 });
     await animationFrame(page);
-    await snapshot(page, { tolerance: 0 }, tableSelectors.nthColumnControl(1));
+    await snapshot(page, { tolerance: 0 }, tableSelectors.nthColumnControl(1), {
+      captureBeyondViewport: false,
+    });
   });
 
   describe('when there is no table header', () => {
@@ -81,12 +86,16 @@ describe('Table context menu: merge-split cells', () => {
 
     it('should display hover effect', async () => {
       await hoverColumnControls(page, 1, 'right');
-      await snapshot(page);
+      await snapshot(page, undefined, undefined, {
+        captureBeyondViewport: false,
+      });
     });
 
     it('should display selected effect', async () => {
       await selectColumn(1);
-      await snapshot(page);
+      await snapshot(page, undefined, undefined, {
+        captureBeyondViewport: false,
+      });
     });
   });
 });

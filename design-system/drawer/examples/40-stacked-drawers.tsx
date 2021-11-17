@@ -1,6 +1,7 @@
-import React, { Component, SyntheticEvent } from 'react';
+/** @jsx jsx */
+import { Component, SyntheticEvent } from 'react';
 
-import { css } from '@emotion/core';
+import { css, jsx } from '@emotion/core';
 
 import Button from '@atlaskit/button/standard-button';
 

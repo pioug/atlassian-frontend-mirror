@@ -235,6 +235,7 @@ const editorProps = ({
   featureFlags: {
     showAvatarGroupAsPlugin: true,
     collabAvatarScroll: true,
+    twoLineEditorToolbar: true,
   },
   allowTables: {
     advanced: true,

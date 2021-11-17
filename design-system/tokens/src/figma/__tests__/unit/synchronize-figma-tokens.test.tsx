@@ -39,15 +39,19 @@ describe('synchronizeFigmaTokens', () => {
       figma.createPaintStyle.mockReturnValue(style);
 
       synchronizeFigmaTokens('AtlassianDark', {
-        'AtlassianDark/Color': {
+        Color: {
           value: '#03040421',
-          attributes: { group: 'paint', description: 'Primary text color' },
+          attributes: {
+            group: 'paint',
+            state: 'active',
+            description: 'Primary text color',
+          },
         },
       });
 
       expect(style).toEqual(
         expect.objectContaining({
-          name: 'AtlassianDark/Color',
+          name: 'Color',
           description: 'Primary text color',
           paints: [
             {
@@ -76,10 +80,11 @@ describe('synchronizeFigmaTokens', () => {
       figma.createPaintStyle.mockReturnValue(style);
 
       synchronizeFigmaTokens('AtlassianDark', {
-        'AtlassianDark/Color': {
+        Color: {
           value: '#03040421',
           attributes: {
             group: 'paint',
+            state: 'active',
             description: '    Primary text color     ',
           },
         },
@@ -102,10 +107,11 @@ describe('synchronizeFigmaTokens', () => {
       figma.createPaintStyle.mockReturnValue(style);
 
       synchronizeFigmaTokens('AtlassianDark', {
-        'AtlassianDark/Color': {
+        Color: {
           value: '#03040421',
           attributes: {
             group: 'paint',
+            state: 'active',
             description: `
 Primary text color
 Primary text color
@@ -138,17 +144,17 @@ Primary text color
       });
 
       synchronizeFigmaTokens('AtlassianDark', {
-        'AtlassianDark/Color/BackgroundBlanket': {
+        'Color/BackgroundBlanket': {
           value: '#03040421',
-          attributes: { group: 'paint' },
+          attributes: { group: 'paint', description: '', state: 'active' },
         },
-        'AtlassianDark/Color/BackgroundDisabled': {
+        'Color/BackgroundDisabled': {
           value: '#A1BDD908',
-          attributes: { group: 'paint' },
+          attributes: { group: 'paint', description: '', state: 'active' },
         },
-        'AtlassianDark/Color/BackgroundBoldBrand': {
+        'Color/BackgroundBoldBrand': {
           value: '#579DFF',
-          attributes: { group: 'paint' },
+          attributes: { group: 'paint', description: '', state: 'active' },
         },
       });
 
@@ -156,17 +162,17 @@ Primary text color
 
       expect(styles[0]).toEqual(
         expect.objectContaining({
-          name: 'AtlassianDark/Color/BackgroundBlanket',
+          name: 'Color/BackgroundBlanket',
         }),
       );
       expect(styles[1]).toEqual(
         expect.objectContaining({
-          name: 'AtlassianDark/Color/BackgroundDisabled',
+          name: 'Color/BackgroundDisabled',
         }),
       );
       expect(styles[2]).toEqual(
         expect.objectContaining({
-          name: 'AtlassianDark/Color/BackgroundBoldBrand',
+          name: 'Color/BackgroundBoldBrand',
         }),
       );
     });
@@ -182,7 +188,7 @@ Primary text color
       figma.createEffectStyle.mockReturnValue(style);
 
       synchronizeFigmaTokens('AtlassianDark', {
-        'AtlassianDark/Color': {
+        Color: {
           value: [
             {
               radius: 1,
@@ -194,13 +200,13 @@ Primary text color
               opacity: 0.5,
             },
           ],
-          attributes: { group: 'shadow' },
+          attributes: { group: 'shadow', description: '', state: 'active' },
         },
       });
 
       expect(style).toEqual(
         expect.objectContaining({
-          name: 'AtlassianDark/Color',
+          name: 'Color',
           effects: [
             {
               blendMode: 'NORMAL',
@@ -244,7 +250,11 @@ Primary text color
       synchronizeFigmaTokens('AtlassianDark', {
         foo: {
           value: [],
-          attributes: { group: 'shadow', description: 'token description' },
+          attributes: {
+            group: 'shadow',
+            description: 'token description',
+            state: 'active',
+          },
         },
       });
 
@@ -274,7 +284,11 @@ Primary text color
       synchronizeFigmaTokens('AtlassianDark', {
         foo: {
           value: '#03040421',
-          attributes: { group: 'paint', description: 'token description' },
+          attributes: {
+            group: 'paint',
+            state: 'active',
+            description: 'token description',
+          },
         },
       });
 
@@ -311,7 +325,7 @@ Primary text color
       synchronizeFigmaTokens('AtlassianDark', {
         foo: {
           value: '#03040421',
-          attributes: { group: 'paint' },
+          attributes: { group: 'paint', description: '', state: 'active' },
         },
       });
 
@@ -364,6 +378,8 @@ Primary text color
           ],
           attributes: {
             group: 'shadow',
+            description: '',
+            state: 'active',
           },
         },
       });
@@ -409,7 +425,11 @@ Primary text color
         {
           bar: {
             value: '#ffffff',
-            attributes: { group: 'paint', description: 'token description' },
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description: 'token description',
+            },
           },
         },
         {
@@ -418,6 +438,100 @@ Primary text color
       );
 
       expect(styles[0].name).toEqual('bar');
+    });
+
+    it('should rename a paint token with a deep path', () => {
+      const styles: FigmaPaintStyle[] = [
+        {
+          name: 'Foo/Bar/Baz',
+          description: 'token description',
+          paints: [
+            {
+              blendMode: 'NORMAL',
+              color: {
+                b: 1,
+                g: 1,
+                r: 1,
+              },
+              opacity: 0.33,
+              type: 'SOLID',
+              visible: true,
+            },
+          ],
+          remove: () => {},
+        },
+      ];
+
+      figma.getLocalPaintStyles.mockReturnValue(styles);
+      figma.createPaintStyle.mockImplementationOnce(() => {
+        throw new Error('This method should not be called');
+      });
+
+      synchronizeFigmaTokens(
+        'AtlassianDark',
+        {
+          'Foo/Bar/Bozzz': {
+            value: '#ffffff',
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description: 'token description',
+            },
+          },
+        },
+        {
+          'Foo/Bar/Baz': 'Foo/Bar/Bozzz',
+        },
+      );
+
+      expect(styles[0].name).toEqual('Foo/Bar/Bozzz');
+    });
+
+    it('should rename a paint token with interaction state', () => {
+      const styles: FigmaPaintStyle[] = [
+        {
+          name: 'Foo Hover',
+          description: 'token description',
+          paints: [
+            {
+              blendMode: 'NORMAL',
+              color: {
+                b: 1,
+                g: 1,
+                r: 1,
+              },
+              opacity: 0.33,
+              type: 'SOLID',
+              visible: true,
+            },
+          ],
+          remove: () => {},
+        },
+      ];
+
+      figma.getLocalPaintStyles.mockReturnValue(styles);
+      figma.createPaintStyle.mockImplementationOnce(() => {
+        throw new Error('This method should not be called');
+      });
+
+      synchronizeFigmaTokens(
+        'AtlassianDark',
+        {
+          'Bar Pressed': {
+            value: '#ffffff',
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description: 'token description',
+            },
+          },
+        },
+        {
+          'Foo Hover': 'Bar Pressed',
+        },
+      );
+
+      expect(styles[0].name).toEqual('Bar Pressed');
     });
 
     it('should rename an effect token', () => {
@@ -437,7 +551,11 @@ Primary text color
         {
           bar: {
             value: [],
-            attributes: { group: 'shadow', description: 'token description' },
+            attributes: {
+              group: 'shadow',
+              state: 'active',
+              description: 'token description',
+            },
           },
         },
         {
@@ -480,7 +598,11 @@ Primary text color
         {
           bar: {
             value: '#000000',
-            attributes: { group: 'paint', description: 'token description' },
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description: 'token description',
+            },
           },
         },
         {
@@ -531,7 +653,11 @@ Primary text color
                 opacity: 0.5,
               },
             ],
-            attributes: { group: 'shadow', description: 'token description' },
+            attributes: {
+              group: 'shadow',
+              state: 'active',
+              description: 'token description',
+            },
           },
         },
         {

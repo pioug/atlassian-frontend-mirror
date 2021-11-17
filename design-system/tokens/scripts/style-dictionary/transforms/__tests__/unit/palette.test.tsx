@@ -9,7 +9,7 @@ describe('palette transformer', () => {
   it('should match non palette tokens', () => {
     const token: any = {
       attributes: {
-        isPalette: false,
+        group: 'paint',
       },
     };
 
@@ -21,7 +21,7 @@ describe('palette transformer', () => {
   it('should not match palette tokens', () => {
     const token: any = {
       attributes: {
-        isPalette: true,
+        group: 'palette',
       },
     };
 
@@ -32,7 +32,7 @@ describe('palette transformer', () => {
 
   it('should transform a paint token value to a palette value', () => {
     const token: PaintToken = {
-      attributes: { group: 'paint' },
+      attributes: { group: 'paint', description: '', state: 'active' },
       value: 'B600',
     };
 
@@ -43,12 +43,36 @@ describe('palette transformer', () => {
 
   it('should transform a shadow token value to a palette value', () => {
     const token: ShadowToken = {
-      attributes: { group: 'shadow' },
+      attributes: { group: 'shadow', description: '', state: 'active' },
       value: [{ color: 'B100', offset: { x: 0, y: 0 }, opacity: 1, radius: 1 }],
     };
 
     const actual = palette.transformer({ original: token } as any);
 
     expect(actual[0].color).toEqual('#E9F2FF');
+  });
+
+  it('should transfer raw color values', () => {
+    const token: PaintToken = {
+      attributes: { group: 'paint', description: '', state: 'active' },
+      // @ts-ignore
+      value: '#FEFEFE',
+    };
+
+    const actual = palette.transformer({ original: token } as any);
+
+    expect(actual).toEqual('#FEFEFE');
+  });
+
+  it('should transfer named color values', () => {
+    const token: PaintToken = {
+      attributes: { group: 'paint', description: '', state: 'active' },
+      // @ts-ignore
+      value: 'transparent',
+    };
+
+    const actual = palette.transformer({ original: token } as any);
+
+    expect(actual).toEqual('transparent');
   });
 });

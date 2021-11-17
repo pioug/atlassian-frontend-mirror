@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyledBar } from './styled';
-import { Breakpoint } from '../Breakpoint';
+import { Breakpoint } from '../common';
 
 export type ProgressBarProps = {
   progress?: number;

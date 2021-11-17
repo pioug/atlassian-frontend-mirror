@@ -95,15 +95,6 @@ tester.run('ensure-design-token-usage', rule, {
         },
       ],
     },
-    {
-      code: `css({ boxShadow: token('color.text.danger', '#000') })`,
-      output: `css({ boxShadow: token('color.text.danger') })`,
-      errors: [
-        {
-          messageId: 'tokenFallbackRestricted',
-        },
-      ],
-    },
     // Using config -> shouldEnforceFallbacks: true
     {
       options: [{ shouldEnforceFallbacks: true }],

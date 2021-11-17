@@ -1,5 +1,3 @@
-import renameMapping from '@atlaskit/tokens/rename-mapping';
-
 import { tester } from '../../../__tests__/utils/_tester';
 import rule from '../../index';
 
@@ -8,9 +6,6 @@ jest.mock('@atlaskit/tokens/rename-mapping', () => ({
   __esModule: true,
   default: { 'tokenName.old': 'tokenName.new' },
 }));
-
-const oldTokenName = Object.keys(renameMapping)[0];
-const newTokenName = renameMapping[oldTokenName];
 
 tester.run('ensure-design-token-usage', rule, {
   valid: [
@@ -229,27 +224,6 @@ tester.run('ensure-design-token-usage', rule, {
       errors: [{ messageId: 'hardCodedColor' }],
     },
     {
-      code: `css({ color: 'var(--ds-accent-subtleBlue)' });`,
-      output: `css({ color: token('color.accent.subtleBlue') });`,
-      errors: [{ messageId: 'directTokenUsage' }],
-    },
-    {
-      code: `
-          css\`
-            color: var(--ds-accent-subtleBlue);
-          \`;
-        `,
-      errors: [{ messageId: 'directTokenUsage' }],
-    },
-    {
-      code: `
-          styled.div\`
-            color: var(--ds-accent-subtleBlue);
-          \`;
-        `,
-      errors: [{ messageId: 'directTokenUsage' }],
-    },
-    {
       code: `css({ color: 'red' })`,
       errors: [{ messageId: 'hardCodedColor' }],
     },
@@ -352,37 +326,6 @@ tester.run('ensure-design-token-usage', rule, {
       errors: [{ messageId: 'hardCodedColor' }],
     },
     {
-      code: `token(identifier);`,
-      errors: [{ messageId: 'staticToken' }],
-    },
-    {
-      code: `token('dont-exist');`,
-      errors: [{ message: 'The token "dont-exist" does not exist.' }],
-    },
-    {
-      options: [{ shouldEnforceFallbacks: true }],
-      code: `css({ color: token('${oldTokenName}', fallback) })`,
-      output: `css({ color: token('${newTokenName}', fallback) })`,
-      errors: [{ messageId: 'tokenRenamed' }],
-    },
-    {
-      options: [{ shouldEnforceFallbacks: true }],
-      code: `css({ color: token('${oldTokenName}', getColor()) })`,
-      output: `css({ color: token('${newTokenName}', getColor()) })`,
-      errors: [{ messageId: 'tokenRenamed' }],
-    },
-    {
-      options: [{ shouldEnforceFallbacks: true }],
-      code: `css({ color: token('${oldTokenName}', 'blue') })`,
-      output: `css({ color: token('${newTokenName}', 'blue') })`,
-      errors: [{ messageId: 'tokenRenamed' }],
-    },
-    {
-      code: `css({ color: token('${oldTokenName}') })`,
-      output: `css({ color: token('${newTokenName}') })`,
-      errors: [{ messageId: 'tokenRenamed' }],
-    },
-    {
       code: `<div color="red">Hello</div>`,
       errors: [{ messageId: 'hardCodedColor' }],
     },
@@ -429,20 +372,6 @@ tester.run('ensure-design-token-usage', rule, {
     {
       code: `const options: CSSObject = { color: 'red' };`,
       errors: [{ messageId: 'hardCodedColor' }],
-    },
-    // Using config -> shouldEnforceFallbacks: false
-    {
-      // should error when a fallback is supplied
-      code: `css({ color: token('shadow.card', 'red') })`,
-      output: `css({ color: token('shadow.card') })`,
-      errors: [{ messageId: 'tokenFallbackRestricted' }],
-    },
-    // Using config -> shouldEnforceFallbacks: true
-    {
-      // should error when a fallback is not supplied
-      options: [{ shouldEnforceFallbacks: true }],
-      code: `css({ color: token('shadow.card') })`,
-      errors: [{ messageId: 'tokenFallbackEnforced' }],
     },
   ],
 });

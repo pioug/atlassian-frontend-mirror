@@ -161,7 +161,7 @@ export class StatusPickerWithoutAnalytcs extends React.Component<Props, State> {
 
   render() {
     const { isNew, target } = this.props;
-    const { color, text } = this.state;
+    const { color, text, localId } = this.state;
     return (
       target && (
         <PopupWithListeners
@@ -181,6 +181,7 @@ export class StatusPickerWithoutAnalytcs extends React.Component<Props, State> {
               onColorHover={this.onColorHover}
               onTextChanged={this.onTextChanged}
               onEnter={this.onEnter}
+              localId={localId}
             />
           </PickerContainer>
         </PopupWithListeners>

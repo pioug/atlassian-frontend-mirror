@@ -54,6 +54,7 @@
     "@atlaskit/button": "^16.1.0",
     "@atlaskit/code": "^14.3.0",
     "@atlaskit/docs": "*",
+    "@atlaskit/radio": "^5.3.2",
     "@atlaskit/section-message": "^6.1.0",
     "@atlaskit/select": "^15.0.0",
     "@atlaskit/ssr": "*",
@@ -72,7 +73,11 @@
     "@repo/internal": {
       "analytics": "analytics-next",
       "theming": "react-context",
-      "styling": "emotion"
+      "styling": [
+        "static",
+        "emotion"
+      ],
+      "deprecation": "no-deprecated-imports"
     }
   },
   "homepage": "https://atlassian.design/components/logo/",

@@ -14,7 +14,7 @@ import {
   withMediaAnalyticsContext,
 } from '@atlaskit/media-common';
 import DownloadIcon from '@atlaskit/icon/glyph/download';
-import { FileAttributes } from '@atlaskit/media-common';
+import { FileAttributes, SSR } from '@atlaskit/media-common';
 import {
   FileDetails,
   FileIdentifier,
@@ -51,6 +51,11 @@ import {
   getFilePreviewFromFileState,
   CardPreviewParams,
   shouldResolvePreview,
+  getSSRCardPreview,
+  isLocalPreview,
+  isSSRPreview,
+  isSSRClientPreview,
+  fetchAndCacheRemotePreview,
 } from './getCardPreview';
 import { getFileDetails } from '../../utils/metadata';
 import { InlinePlayer } from '../inlinePlayer';
@@ -102,11 +107,15 @@ export class CardBase extends Component<
     let status: CardStatus = 'loading';
     let cardPreview: CardPreview | undefined;
 
-    const { identifier, dimensions = {} } = this.props;
+    const { identifier, dimensions = {}, ssr } = this.props;
 
     if (isFileIdentifier(identifier)) {
       const { id } = identifier;
       cardPreview = getCardPreviewFromCache(id, dimensions);
+      if (!cardPreview && ssr) {
+        this.fireCommencedEvent();
+        cardPreview = this.resolveSSRPreview(identifier, ssr);
+      }
     } else if (isExternalImageIdentifier(identifier)) {
       this.fireCommencedEvent();
       status = 'loading-preview';
@@ -114,9 +123,13 @@ export class CardBase extends Component<
       cardPreview = { dataURI, orientation: 1, source: 'external' };
     }
 
-    //  If cardPreview is available from local cache, `isCardVisible`
-    //  should be true to avoid flickers during re-mount of the component
-    const isCardVisible = cardPreview ? true : !this.props.isLazy;
+    // If cardPreview is available from local cache or external, `isCardVisible`
+    // should be true to avoid flickers during re-mount of the component
+    // should not be visible for SSR preview, otherwise we'll fire the metadata fetch from
+    // outside the viewport
+    const isCardVisible =
+      !this.props.isLazy || (!!cardPreview && !isSSRPreview(cardPreview));
+
     this.state = {
       status,
       isCardVisible,
@@ -130,10 +143,21 @@ export class CardBase extends Component<
 
   componentDidMount() {
     this.hasBeenMounted = true;
-    const { isCardVisible } = this.state;
-    const { identifier } = this.props;
+    const { isCardVisible, cardPreview } = this.state;
+    const { identifier, ssr } = this.props;
     if (isCardVisible && isFileIdentifier(identifier)) {
       this.updateStateForIdentifier(identifier);
+    }
+    if (
+      isCardVisible &&
+      !!ssr &&
+      !!cardPreview &&
+      isSSRClientPreview(cardPreview) &&
+      isFileIdentifier(identifier)
+    ) {
+      // Since the SSR preview brings the token in the query params,
+      // We need to fetch the remote preview to be able to cache it,
+      this.setCacheSSRPreview(identifier);
     }
     // we add a listener for each of the cards on the page
     // and then check if the triggered listener is from the card
@@ -205,11 +229,22 @@ export class CardBase extends Component<
     ) {
       this.resolvePreview(identifier, fileState);
     }
+    if (
+      turnedVisible &&
+      this.props.ssr &&
+      !!cardPreview &&
+      isSSRClientPreview(cardPreview) &&
+      isFileIdentifier(identifier)
+    ) {
+      // Since the SSR preview brings the token in the query params,
+      // We need to fetch the remote preview to be able to cache it,
+      this.setCacheSSRPreview(identifier);
+    }
 
     if (
       previewDidRender &&
       // We should't complete if status is uploading
-      ['loading', 'loading-preview', 'processing'].includes(status)
+      ['loading-preview', 'processing'].includes(status)
     ) {
       this.safeSetState({ status: 'complete' });
       this.unsubscribe();
@@ -238,7 +273,7 @@ export class CardBase extends Component<
 
   private getMediaBlobUrlAttrs = (
     identifier: FileIdentifier,
-    fileState: FileState,
+    fileState?: FileState,
   ): MediaBlobUrlAttrs | undefined => {
     const { id, collectionName: collection } = identifier;
     const { originalDimensions, contextId, alt } = this.props;
@@ -277,6 +312,41 @@ export class CardBase extends Component<
       imageUrlParams: this.getImageURLParams(identifier),
       mediaBlobUrlAttrs: this.getMediaBlobUrlAttrs(identifier, fileState),
     };
+  };
+
+  private setCacheSSRPreview = (identifier: FileIdentifier) => {
+    const { mediaClient, dimensions = {} } = this.props;
+    fetchAndCacheRemotePreview(
+      mediaClient,
+      identifier.id,
+      dimensions,
+      this.getImageURLParams(identifier),
+      this.getMediaBlobUrlAttrs(identifier),
+    ).catch(() => {
+      // No need to log this error.
+      // If preview fails, it will be refetched later
+      //TODO: test this catch
+      // https://product-fabric.atlassian.net/browse/MEX-1071
+    });
+  };
+
+  private resolveSSRPreview = (
+    identifier: FileIdentifier,
+    ssr: SSR,
+  ): CardPreview | undefined => {
+    const { mediaClient } = this.props;
+    try {
+      return getSSRCardPreview(
+        ssr,
+        mediaClient,
+        identifier.id,
+        this.getImageURLParams(identifier),
+        this.getMediaBlobUrlAttrs(identifier),
+      );
+    } catch (e) {
+      // TODO: log SSR reliability 'failed'
+      // https://product-fabric.atlassian.net/browse/MEX-770
+    }
   };
 
   private resolvePreview = async (
@@ -329,7 +399,7 @@ export class CardBase extends Component<
 
   private get requestedDimensions(): NumericalCardDimensions {
     const { dimensions } = this.props;
-    const { cardRef: element } = this.state;
+    const { cardRef: element } = this.state || {};
     return getRequestedDimensions({ dimensions, element });
   }
 
@@ -359,15 +429,23 @@ export class CardBase extends Component<
   private onImageError = () => {
     const { cardPreview } = this.state;
     const error = new ImageLoadError(cardPreview?.source);
-    if (
-      cardPreview?.source &&
-      ['local', 'cache-local'].includes(cardPreview.source)
-    ) {
+    const isLocal = cardPreview && isLocalPreview(cardPreview);
+    const isSSR = cardPreview && isSSRClientPreview(cardPreview);
+
+    if (isLocal || isSSR) {
+      const updateState: Partial<CardState> = { cardPreview: undefined };
+      if (isLocal) {
+        updateState.isBannedLocalPreview = true;
+        this.fireLocalPreviewErrorEvent(error);
+      }
+      if (isSSR) {
+        // TODO: set SSR-client reliability 'failed'.
+        // https://product-fabric.atlassian.net/browse/MEX-770
+      }
       const { identifier, dimensions = {} } = this.props;
       isFileIdentifier(identifier) &&
         removeCardPreviewFromCache(identifier.id, dimensions);
-      this.safeSetState({ cardPreview: undefined, isBannedLocalPreview: true });
-      this.fireLocalPreviewErrorEvent(error);
+      this.safeSetState(updateState);
     } else {
       this.safeSetState({
         status: 'error',
@@ -628,6 +706,7 @@ export class CardBase extends Component<
       featureFlags,
       titleBoxBgColor,
       titleBoxIcon,
+      ssr,
     } = this.props;
     const { mediaItemType } = identifier;
     const {
@@ -639,9 +718,16 @@ export class CardBase extends Component<
       },
       error,
       cardRef,
+      isCardVisible,
     } = this.state;
     const { metadata } = this;
     const { onCardViewClick, onDisplayImage, actions, onMouseEnter } = this;
+
+    // Card can be artificially turned visible before entering the viewport
+    // For example, when we have the image in cache
+    const nativeLazyLoad = isLazy && !isCardVisible;
+    // Force Media Image to always display img for SSR
+    const forceSyncDisplay = !!ssr;
 
     const card = (
       <CardView
@@ -670,6 +756,8 @@ export class CardBase extends Component<
         titleBoxIcon={titleBoxIcon}
         onImageError={this.onImageError}
         onImageLoad={this.onImageLoad}
+        nativeLazyLoad={nativeLazyLoad}
+        forceSyncDisplay={forceSyncDisplay}
       />
     );
 

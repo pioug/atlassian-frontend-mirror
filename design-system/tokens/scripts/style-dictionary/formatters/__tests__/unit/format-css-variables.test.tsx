@@ -61,8 +61,7 @@ describe('formatter', () => {
             value: '#ffffff',
             path: ['color', 'B900'],
             attributes: {
-              group: 'paint',
-              isPalette: true,
+              group: 'palette',
             },
           },
         ],
@@ -123,6 +122,94 @@ describe('formatter', () => {
 
     expect(result).toEqual(`[data-theme="dark"] {
   --${CSS_PREFIX}-accent-brand: #ffffff;
+}
+`);
+  });
+
+  it('should omit [default] keywords in token paths', () => {
+    const result = formatter({
+      dictionary: {
+        allTokens: [
+          {
+            name: '[default]',
+            value: '#ffffff',
+            path: ['color', 'background', 'brand', '[default]'],
+            attributes: {
+              group: 'paint',
+            },
+          },
+        ],
+      },
+      options: {
+        themeName: 'atlassian-dark',
+      },
+    } as any)
+      .split('html')
+      .pop();
+
+    expect(result).toEqual(`[data-theme="dark"] {
+  --${CSS_PREFIX}-background-brand: #ffffff;
+}
+`);
+  });
+
+  it('should omit nested [default] keywords in token paths', () => {
+    const result = formatter({
+      dictionary: {
+        allTokens: [
+          {
+            name: '[default]',
+            value: '#ffffff',
+            path: ['color', 'background', 'brand', '[default]', '[default]'],
+            attributes: {
+              group: 'paint',
+            },
+          },
+        ],
+      },
+      options: {
+        themeName: 'atlassian-dark',
+      },
+    } as any)
+      .split('html')
+      .pop();
+
+    expect(result).toEqual(`[data-theme="dark"] {
+  --${CSS_PREFIX}-background-brand: #ffffff;
+}
+`);
+  });
+
+  it('should omit nested [default] keywords in the middle of token paths', () => {
+    const result = formatter({
+      dictionary: {
+        allTokens: [
+          {
+            name: '[default]',
+            value: '#ffffff',
+            path: [
+              'color',
+              'background',
+              'brand',
+              '[default]',
+              '[default]',
+              'pressed',
+            ],
+            attributes: {
+              group: 'paint',
+            },
+          },
+        ],
+      },
+      options: {
+        themeName: 'atlassian-dark',
+      },
+    } as any)
+      .split('html')
+      .pop();
+
+    expect(result).toEqual(`[data-theme="dark"] {
+  --${CSS_PREFIX}-background-brand-pressed: #ffffff;
 }
 `);
   });

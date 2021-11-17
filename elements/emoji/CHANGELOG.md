@@ -1,5 +1,13 @@
 # @atlaskit/emoji
 
+## 63.1.10
+
+### Patch Changes
+
+- [`5ee9d374461`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5ee9d374461) - [ux] AK-218: Emoji CategorySelector add outline to the category buttons on focus, add aria-label
+- [`022437d88d0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/022437d88d0) - [ux] AK-812 Emoji toolbar button hover state meet minimum contrast requirements
+- [`1f5f0470fdd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1f5f0470fdd) - New emoji link label with input
+
 ## 63.1.9
 
 ### Patch Changes

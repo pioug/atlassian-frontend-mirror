@@ -74,7 +74,11 @@ const sentinelStyles = `.${ClassName.TABLE_CONTAINER} {
 } {
     position: absolute;
     width: 100%;
-    height: 0px;
+    height: 1px;
+    margin-top: -1px;
+    // need this to avoid sentinel being focused via keyboard
+    // this still allows it to be detected by intersection observer
+    visibility: hidden;
   }
   > .${ClassName.TABLE_STICKY_SENTINEL_TOP} {
     top: ${columnControlsDecorationHeight}px;

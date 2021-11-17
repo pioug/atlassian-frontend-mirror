@@ -117,6 +117,7 @@ export interface CollabBridge {
   connect(path: string): void;
   disconnect(): void;
   updateStepVersion(stepVersion?: number, error?: string): void;
+  onCollabError(message: string): void;
 }
 
 export interface LifecycleBridge {
@@ -131,6 +132,7 @@ export interface CollabEditNativeBridge {
   emitCollabChanges: CollabBridge['emit'];
   disconnectFromCollabService: CollabBridge['disconnect'];
   updateStepVersion: CollabBridge['updateStepVersion'];
+  onCollabError: CollabBridge['onCollabError'];
 }
 
 export interface ContentBridge {

@@ -10,6 +10,14 @@ import { Card } from '@atlaskit/media-card';
 import {
   createStorybookMediaClientConfig,
   genericFileId,
+  audioFileId,
+  videoFileId,
+  imageFileId,
+  docFileId,
+  passwordProtectedPdfFileId,
+  codeFileId,
+  emailFileId,
+  archiveFileId,
 } from '@atlaskit/media-test-helpers';
 import { FilmstripView } from '../src/filmstripView';
 
@@ -51,9 +59,63 @@ const exampleActions = [{ label: 'View', handler: () => console.log('View') }];
 
 const cards = [
   <Card
-    key="card3"
+    key="card1"
     mediaClientConfig={mediaClientConfig}
     identifier={genericFileId}
+    actions={exampleActions}
+  />,
+  <Card
+    key="card2"
+    mediaClientConfig={mediaClientConfig}
+    identifier={audioFileId}
+    actions={exampleActions}
+  />,
+  <Card
+    key="card3"
+    mediaClientConfig={mediaClientConfig}
+    identifier={videoFileId}
+    actions={exampleActions}
+  />,
+  <Card
+    key="card4"
+    mediaClientConfig={mediaClientConfig}
+    identifier={imageFileId}
+    actions={exampleActions}
+  />,
+  <Card
+    key="card5"
+    mediaClientConfig={mediaClientConfig}
+    identifier={docFileId}
+    actions={exampleActions}
+  />,
+  <Card
+    key="card6"
+    mediaClientConfig={mediaClientConfig}
+    identifier={passwordProtectedPdfFileId}
+    actions={exampleActions}
+  />,
+  <Card
+    key="card7"
+    mediaClientConfig={mediaClientConfig}
+    identifier={codeFileId}
+    actions={exampleActions}
+  />,
+  <Card
+    key="card8"
+    mediaClientConfig={mediaClientConfig}
+    identifier={emailFileId}
+    actions={exampleActions}
+  />,
+  <Card
+    key="card9"
+    mediaClientConfig={mediaClientConfig}
+    identifier={archiveFileId}
+    actions={exampleActions}
+  />,
+  <Card
+    key="card10"
+    mediaClientConfig={mediaClientConfig}
+    identifier={passwordProtectedPdfFileId}
     actions={exampleActions}
   />,
 ];
@@ -130,8 +192,9 @@ export class ViewStory extends React.Component<ViewStoryProps, ViewStoryState> {
   handleChangeCardCount = (cardCount: number) => {
     const children: JSX.Element[] = [];
     for (let i = 0; i < cardCount; ++i) {
+      const idx = i % cards.length;
       children.push(
-        React.cloneElement(cards[Math.floor(Math.random() * cards.length)], {
+        React.cloneElement(cards[idx], {
           key: i,
         }),
       );
@@ -217,13 +280,14 @@ export class ViewStory extends React.Component<ViewStoryProps, ViewStoryState> {
             onChange={this.handleChangeContainerWidth}
           />
         )}
-
-        <ControlLabel htmlFor="cardCount">Card count: </ControlLabel>
+        <ControlLabel htmlFor="cardCount">
+          Card count: {children.length}
+        </ControlLabel>
         <Range
           id="cardCount"
           value={children.length}
           min={0}
-          max={25}
+          max={50}
           step={1}
           onChange={this.handleChangeCardCount}
         />

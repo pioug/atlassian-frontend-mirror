@@ -29,6 +29,10 @@ export type State = {
 };
 
 export type OnUpdateCallback = (state: State) => void;
+export interface StoreMetadata {
+  subproduct?: string;
+  [k: string]: any;
+}
 
 export interface ReactionsStore {
   getReactions: (containerAri: string, ...aris: string[]) => void;
@@ -50,6 +54,7 @@ export interface ReactionsStore {
 export class MemoryReactionsStore implements ReactionsStore {
   private client: ReactionClient;
   private state: State;
+  private metadata: StoreMetadata | undefined;
   private callbacks: OnUpdateCallback[] = [];
   private createAnalyticsEvent?: CreateUIAnalyticsEvent;
 
@@ -59,9 +64,11 @@ export class MemoryReactionsStore implements ReactionsStore {
       reactions: {},
       flash: {},
     },
+    metadata?: StoreMetadata,
   ) {
     this.client = client;
     this.state = state;
+    this.metadata = metadata;
   }
 
   private setState = (newState: Partial<State>) => {
@@ -258,8 +265,8 @@ export class MemoryReactionsStore implements ReactionsStore {
     this.flash(reaction);
 
     this.client
-      .addReaction(containerAri, ari, emojiId)
-      .then((reaction) => {
+      .addReaction(containerAri, ari, emojiId, this.metadata)
+      .then((_) => {
         if (this.createAnalyticsEvent) {
           createAndFireSafe(
             this.createAnalyticsEvent,
@@ -285,7 +292,7 @@ export class MemoryReactionsStore implements ReactionsStore {
   private doRemoveReaction = (reaction: ReactionSummary) => {
     const { containerAri, ari, emojiId } = reaction;
     this.optmisticUpdate(containerAri, ari, emojiId)(utils.removeOne);
-    this.client.deleteReaction(containerAri, ari, emojiId);
+    this.client.deleteReaction(containerAri, ari, emojiId, this.metadata);
   };
 
   setCreateAnalyticsEvent = (

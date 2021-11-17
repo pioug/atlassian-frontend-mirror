@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/button",
-  "version": "16.1.3",
+  "version": "16.1.4",
   "description": "A button triggers an event or action. They let users know what will happen next.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -35,7 +35,7 @@
     "@atlaskit/ds-lib": "^1.3.0",
     "@atlaskit/spinner": "^15.1.0",
     "@atlaskit/theme": "^12.0.0",
-    "@atlaskit/tokens": "^0.3.0",
+    "@atlaskit/tokens": "^0.4.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/core": "^10.0.9"
   },
@@ -75,7 +75,10 @@
       "ui-components": "lite-mode",
       "analytics": "analytics-next",
       "theming": "tokens",
-      "deprecation": "no-deprecated-imports"
+      "deprecation": "no-deprecated-imports",
+      "styling": [
+        "emotion"
+      ]
     }
   },
   "homepage": "https://atlassian.design/components/button/",

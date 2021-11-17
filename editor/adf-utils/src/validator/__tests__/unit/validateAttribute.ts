@@ -1,5 +1,12 @@
 import { validateAttrs } from '../../../validator';
 
+jest.mock('../../rules', () => ({
+  validatorFnMap: {
+    someCustomFunction: () => true,
+    anotherCustomFunction: () => false,
+  },
+}));
+
 describe('validateAttrs', () => {
   describe('boolean', () => {
     const spec = { type: 'boolean' } as any;
@@ -121,6 +128,21 @@ describe('validateAttrs', () => {
       expect(validateAttrs({ ...spec, minLength: 0 }, '')).toBeTruthy();
       expect(validateAttrs({ ...spec, minLength: 5 }, 'hello')).toBeTruthy();
       expect(validateAttrs({ ...spec, minLength: 6 }, 'hello')).toBeFalsy();
+    });
+
+    it('should check validatorFn', () => {
+      expect(
+        validateAttrs(
+          { ...spec, validatorFn: 'someCustomFunction' },
+          'this should pass',
+        ),
+      ).toBeTruthy();
+      expect(
+        validateAttrs(
+          { ...spec, validatorFn: 'anotherCustomFunction' },
+          'this should fail',
+        ),
+      ).toBeFalsy();
     });
 
     it('should check pattern', () => {

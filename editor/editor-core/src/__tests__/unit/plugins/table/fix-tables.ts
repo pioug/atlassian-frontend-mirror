@@ -18,6 +18,7 @@ const TABLE_LOCAL_ID = 'test-table-local-id';
 
 describe('fix tables', () => {
   const createEditor = createEditorFactory<TablePluginState>();
+  let createAnalyticsEvent: jest.Mock;
   // @ts-ignore
   global['fetch'] = jest.fn();
 
@@ -29,12 +30,17 @@ describe('fix tables', () => {
       permittedLayouts: 'all',
       allowColumnResizing: true,
     } as PluginConfig;
+
+    createAnalyticsEvent = jest.fn(() => ({ fire() {} }));
+
     return createEditor({
       doc,
       editorProps: {
         allowTables: tableOptions,
+        allowAnalyticsGASV3: true,
       },
       pluginKey: tablePluginKey,
+      createAnalyticsEvent,
     });
   };
 
@@ -72,6 +78,72 @@ describe('fix tables', () => {
             ),
           ),
         ),
+      );
+    });
+  });
+
+  describe('cells with negative rowSpan', () => {
+    const TABLE_LOCAL_ID = 'test-table-2';
+    const SPAN_VALUE = -2;
+    it('should fire v3 analytics', () => {
+      editor(
+        doc(
+          table({ localId: TABLE_LOCAL_ID })(
+            tr(
+              td({ rowspan: SPAN_VALUE })(p('')),
+              td({})(p('')),
+              td({})(p('')),
+            ),
+            tr(td({})(p('')), td({})(p('')), td({})(p(''))),
+          ),
+        ),
+      );
+
+      expect(createAnalyticsEvent).toHaveBeenCalledWith(
+        expect.objectContaining({
+          action: 'invalidDocumentEncountered',
+          actionSubject: 'editor',
+          attributes: expect.objectContaining({
+            nodeType: 'tableCell',
+            reason: 'rowspan: negative value',
+            tableLocalId: TABLE_LOCAL_ID,
+            spanValue: SPAN_VALUE,
+          }),
+          eventType: 'operational',
+        }),
+      );
+    });
+  });
+
+  describe('cells with negative colSpan', () => {
+    const TABLE_LOCAL_ID = 'test-table-3';
+    const SPAN_VALUE = -2;
+    it('should fire v3 analytics', () => {
+      editor(
+        doc(
+          table({ localId: TABLE_LOCAL_ID })(
+            tr(
+              td({ colspan: SPAN_VALUE })(p('')),
+              td({})(p('')),
+              td({})(p('')),
+            ),
+            tr(td({})(p('')), td({})(p('')), td({})(p(''))),
+          ),
+        ),
+      );
+
+      expect(createAnalyticsEvent).toHaveBeenCalledWith(
+        expect.objectContaining({
+          action: 'invalidDocumentEncountered',
+          actionSubject: 'editor',
+          attributes: expect.objectContaining({
+            nodeType: 'tableCell',
+            reason: 'colspan: negative value',
+            tableLocalId: TABLE_LOCAL_ID,
+            spanValue: SPAN_VALUE,
+          }),
+          eventType: 'operational',
+        }),
       );
     });
   });

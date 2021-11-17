@@ -100,3 +100,38 @@ BrowserTestCase(
     expect(await modalTest.hasFocus(primaryBtn)).toBe(true);
   },
 );
+
+BrowserTestCase(
+  'Empty modals (no focusable children) should still lock focus',
+  {},
+  async (client: any) => {
+    const url = getExampleUrl('design-system', 'modal-dialog', 'custom-child');
+
+    const modalTest = new Page(client);
+    await modalTest.goto(url);
+    await modalTest.waitFor(openModalBtn, 5000);
+
+    await modalTest.execute((openModalBtn) => {
+      const trigger = document.querySelector(openModalBtn) as HTMLElement;
+      trigger.focus();
+    }, openModalBtn);
+    await expect(await modalTest.hasFocus(openModalBtn)).toBe(true);
+
+    await modalTest.click(openModalBtn);
+    await modalTest.waitFor(modalDialog, 5000);
+    expect(await modalTest.hasFocus(modalDialog)).toBe(true);
+
+    modalTest.keys('Tab', true);
+    expect(await modalTest.hasFocus(modalDialog)).toBe(true);
+
+    modalTest.keys(['Shift', 'Tab', 'Shift'], true);
+    expect(await modalTest.hasFocus(modalDialog)).toBe(true);
+
+    modalTest.keys('Escape', true);
+    await modalTest.waitUntil(
+      () => modalTest.hasFocus(openModalBtn),
+      'Focus is not returned to previous element on close.',
+    );
+    expect(await modalTest.hasFocus(openModalBtn)).toBe(true);
+  },
+);

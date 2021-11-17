@@ -909,7 +909,9 @@ describe('Media plugin', () => {
         setNodeSelection(editorView, 0);
 
         expect(pluginState.element).not.toBeUndefined();
-        expect(pluginState.element!.tagName).toBe('FIGURE');
+        expect(pluginState.element!.className).toContain(
+          'mediaSingleView-content-wrap ak-editor-selected-node ProseMirror-selectednode',
+        );
       });
 
       describe('when clicked', () => {

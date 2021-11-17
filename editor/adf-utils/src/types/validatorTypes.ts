@@ -34,7 +34,13 @@ export type AttributesSpec =
   | { type: 'number'; optional?: boolean; minimum: number; maximum: number }
   | { type: 'integer'; optional?: boolean; minimum: number; maximum: number }
   | { type: 'boolean'; optional?: boolean }
-  | { type: 'string'; optional?: boolean; minLength?: number; pattern?: RegExp }
+  | {
+      type: 'string';
+      optional?: boolean;
+      minLength?: number;
+      pattern?: RegExp;
+      validatorFn?: string;
+    }
   | { type: 'enum'; values: Array<string>; optional?: boolean }
   | { type: 'object'; optional?: boolean }
   | { type: 'array'; items: Array<AttributesSpec>; optional?: boolean };

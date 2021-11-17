@@ -6,6 +6,7 @@ import {
   dataConsumerToJSON,
   defaultSchema,
   expandToJSON,
+  fragmentToJSON,
   linkToJSON,
   mediaSingleToJSON,
   mediaToJSON,
@@ -46,6 +47,7 @@ const isNestedExpand = isType('nestedExpand');
 const isUnsupportedNode = (node: PMNode) =>
   isType('unsupportedBlock')(node) || isType('unsupportedInline')(node);
 const isDataConsumer = isType('dataConsumer');
+const isFragmentMark = isType('fragment');
 
 const filterNull = (subject: any) => {
   return Object.keys(subject).reduce((acc, key) => {
@@ -137,6 +139,13 @@ const toJSON = (node: PMNode): JSONNode => {
             serialised.attrs.sources?.length === 0
             ? null
             : serialised;
+        } else if (isFragmentMark(mark)) {
+          const fragmentMark = fragmentToJSON(mark);
+          if (!fragmentMark.attrs.localId) {
+            return null;
+          }
+
+          return fragmentMark;
         } else {
           return mark.toJSON();
         }

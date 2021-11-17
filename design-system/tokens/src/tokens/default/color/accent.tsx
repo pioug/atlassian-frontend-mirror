@@ -6,6 +6,7 @@ const color: AttributeSchema<AccentColorTokenSchema> = {
       boldBlue: {
         attributes: {
           group: 'paint',
+          state: 'active',
           description:
             'Use for blue backgrounds of stronger emphasis when there is no meaning tied to the color, such as bold tags.',
         },
@@ -13,6 +14,7 @@ const color: AttributeSchema<AccentColorTokenSchema> = {
       boldGreen: {
         attributes: {
           group: 'paint',
+          state: 'active',
           description:
             'Use for green backgrounds of stronger emphasis when there is no meaning tied to the color, such as bold tags.',
         },
@@ -20,6 +22,7 @@ const color: AttributeSchema<AccentColorTokenSchema> = {
       boldOrange: {
         attributes: {
           group: 'paint',
+          state: 'active',
           description:
             'Use for orange backgrounds of stronger emphasis when there is no meaning tied to the color, such as bold tags.',
         },
@@ -27,6 +30,7 @@ const color: AttributeSchema<AccentColorTokenSchema> = {
       boldPurple: {
         attributes: {
           group: 'paint',
+          state: 'active',
           description:
             'Use for purple backgrounds of stronger emphasis when there is no meaning tied to the color, such as bold tags.',
         },
@@ -34,6 +38,7 @@ const color: AttributeSchema<AccentColorTokenSchema> = {
       boldRed: {
         attributes: {
           group: 'paint',
+          state: 'active',
           description:
             'Use for red backgrounds of stronger emphasis when there is no meaning tied to the color, such as bold tags.',
         },
@@ -41,6 +46,7 @@ const color: AttributeSchema<AccentColorTokenSchema> = {
       boldTeal: {
         attributes: {
           group: 'paint',
+          state: 'active',
           description:
             'Use for teal backgrounds of stronger emphasis when there is no meaning tied to the color, such as bold tags.',
         },
@@ -48,6 +54,7 @@ const color: AttributeSchema<AccentColorTokenSchema> = {
       subtleBlue: {
         attributes: {
           group: 'paint',
+          state: 'active',
           description:
             'Use for blue subdued backgrounds when there is no meaning tied to the color, such as colored tags.',
         },
@@ -55,6 +62,7 @@ const color: AttributeSchema<AccentColorTokenSchema> = {
       subtleGreen: {
         attributes: {
           group: 'paint',
+          state: 'active',
           description:
             'Use for green subdued backgrounds when there is no meaning tied to the color, such as colored tags.',
         },
@@ -62,6 +70,7 @@ const color: AttributeSchema<AccentColorTokenSchema> = {
       subtleMagenta: {
         attributes: {
           group: 'paint',
+          state: 'active',
           description:
             'Use for magenta subdued backgrounds when there is no meaning tied to the color, such as colored tags.',
         },
@@ -69,6 +78,7 @@ const color: AttributeSchema<AccentColorTokenSchema> = {
       subtleOrange: {
         attributes: {
           group: 'paint',
+          state: 'active',
           description:
             'Use for orange subdued backgrounds when there is no meaning tied to the color, such as colored tags.',
         },
@@ -76,6 +86,7 @@ const color: AttributeSchema<AccentColorTokenSchema> = {
       subtlePurple: {
         attributes: {
           group: 'paint',
+          state: 'active',
           description:
             'Use for purple subdued backgrounds when there is no meaning tied to the color, such as colored tags.',
         },
@@ -83,6 +94,7 @@ const color: AttributeSchema<AccentColorTokenSchema> = {
       subtleRed: {
         attributes: {
           group: 'paint',
+          state: 'active',
           description:
             'Use for red subdued backgrounds when there is no meaning tied to the color, such as colored tags.',
         },
@@ -90,6 +102,7 @@ const color: AttributeSchema<AccentColorTokenSchema> = {
       subtleTeal: {
         attributes: {
           group: 'paint',
+          state: 'active',
           description:
             'Use for teal subdued backgrounds when there is no meaning tied to the color, such as colored tags.',
         },

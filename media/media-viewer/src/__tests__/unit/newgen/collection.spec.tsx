@@ -212,13 +212,13 @@ describe('<Collection />', () => {
     asMock(mediaClient.collection.getItems).mockReturnValue(subject);
     asMock(mediaClient.file.getFileState).mockReturnValue(subject);
     const el = createFixture(mediaClient, identifier, undefined, {
-      zipPreviews: true,
+      captions: true,
     });
     subject.next(mediaCollectionItems);
     el.update();
     const listProps: any = el.find(List).props();
     expect(listProps.featureFlags).toEqual({
-      zipPreviews: true,
+      captions: true,
     });
   });
 });

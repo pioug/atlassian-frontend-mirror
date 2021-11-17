@@ -15,6 +15,9 @@ export interface ConfluenceLinkMetadata {
 }
 
 export interface LinkAttributes {
+  /**
+   * @validatorFn safeUrl
+   */
   href: string;
   title?: string;
   id?: string;

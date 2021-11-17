@@ -427,6 +427,37 @@
       ],
       "additionalProperties": false
     },
+    "fragment_mark": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "fragment"
+          ]
+        },
+        "attrs": {
+          "type": "object",
+          "properties": {
+            "localId": {
+              "type": "string",
+              "minLength": 1
+            },
+            "name": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "localId"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "type",
+        "attrs"
+      ],
+      "additionalProperties": false
+    },
     "hardBreak_node": {
       "type": "object",
       "properties": {
@@ -569,23 +600,6 @@
       ],
       "additionalProperties": false
     },
-    "inlineExtension_with_no_marks_node": {
-      "allOf": [
-        {
-          "$ref": "#/definitions/inlineExtension_node"
-        },
-        {
-          "type": "object",
-          "properties": {
-            "marks": {
-              "type": "array",
-              "maxItems": 0
-            }
-          },
-          "additionalProperties": true
-        }
-      ]
-    },
     "inlineExtension_with_marks_node": {
       "allOf": [
         {
@@ -598,6 +612,25 @@
               "type": "array",
               "items": {
                 "$ref": "#/definitions/dataConsumer_mark"
+              }
+            }
+          },
+          "additionalProperties": true
+        }
+      ]
+    },
+    "inlineExtension_with_experimental_marks_node": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/inlineExtension_node"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "marks": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/fragment_mark"
               }
             }
           },
@@ -1013,10 +1046,10 @@
           "$ref": "#/definitions/emoji_node"
         },
         {
-          "$ref": "#/definitions/inlineExtension_with_no_marks_node"
+          "$ref": "#/definitions/inlineExtension_with_marks_node"
         },
         {
-          "$ref": "#/definitions/inlineExtension_with_marks_node"
+          "$ref": "#/definitions/inlineExtension_with_experimental_marks_node"
         },
         {
           "$ref": "#/definitions/date_node"
@@ -1809,23 +1842,6 @@
       ],
       "additionalProperties": false
     },
-    "extension_with_no_marks_node": {
-      "allOf": [
-        {
-          "$ref": "#/definitions/extension_node"
-        },
-        {
-          "type": "object",
-          "properties": {
-            "marks": {
-              "type": "array",
-              "maxItems": 0
-            }
-          },
-          "additionalProperties": true
-        }
-      ]
-    },
     "extension_with_marks_node": {
       "allOf": [
         {
@@ -1838,6 +1854,25 @@
               "type": "array",
               "items": {
                 "$ref": "#/definitions/dataConsumer_mark"
+              }
+            }
+          },
+          "additionalProperties": true
+        }
+      ]
+    },
+    "extension_with_experimental_marks_node": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/extension_node"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "marks": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/fragment_mark"
               }
             }
           },
@@ -2089,10 +2124,10 @@
             "$ref": "#/definitions/taskList_node"
           },
           {
-            "$ref": "#/definitions/extension_with_no_marks_node"
+            "$ref": "#/definitions/extension_with_marks_node"
           },
           {
-            "$ref": "#/definitions/extension_with_marks_node"
+            "$ref": "#/definitions/extension_with_experimental_marks_node"
           },
           {
             "$ref": "#/definitions/embedCard_node"
@@ -2227,10 +2262,10 @@
           "$ref": "#/definitions/taskList_node"
         },
         {
-          "$ref": "#/definitions/extension_with_no_marks_node"
+          "$ref": "#/definitions/extension_with_marks_node"
         },
         {
-          "$ref": "#/definitions/extension_with_marks_node"
+          "$ref": "#/definitions/extension_with_experimental_marks_node"
         },
         {
           "$ref": "#/definitions/embedCard_node"
@@ -2370,23 +2405,6 @@
       ],
       "additionalProperties": false
     },
-    "bodiedExtension_with_no_marks_node": {
-      "allOf": [
-        {
-          "$ref": "#/definitions/bodiedExtension_node"
-        },
-        {
-          "type": "object",
-          "properties": {
-            "marks": {
-              "type": "array",
-              "maxItems": 0
-            }
-          },
-          "additionalProperties": true
-        }
-      ]
-    },
     "bodiedExtension_with_marks_node": {
       "allOf": [
         {
@@ -2399,6 +2417,25 @@
               "type": "array",
               "items": {
                 "$ref": "#/definitions/dataConsumer_mark"
+              }
+            }
+          },
+          "additionalProperties": true
+        }
+      ]
+    },
+    "bodiedExtension_with_experimental_marks_node": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/bodiedExtension_node"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "marks": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/fragment_mark"
               }
             }
           },
@@ -2460,10 +2497,10 @@
           "$ref": "#/definitions/taskList_node"
         },
         {
-          "$ref": "#/definitions/extension_with_no_marks_node"
+          "$ref": "#/definitions/extension_with_marks_node"
         },
         {
-          "$ref": "#/definitions/extension_with_marks_node"
+          "$ref": "#/definitions/extension_with_experimental_marks_node"
         },
         {
           "$ref": "#/definitions/embedCard_node"
@@ -2475,10 +2512,10 @@
           "$ref": "#/definitions/expand_with_no_mark_node"
         },
         {
-          "$ref": "#/definitions/bodiedExtension_with_no_marks_node"
+          "$ref": "#/definitions/bodiedExtension_with_marks_node"
         },
         {
-          "$ref": "#/definitions/bodiedExtension_with_marks_node"
+          "$ref": "#/definitions/bodiedExtension_with_experimental_marks_node"
         }
       ]
     },
@@ -2693,10 +2730,10 @@
                 "$ref": "#/definitions/taskList_node"
               },
               {
-                "$ref": "#/definitions/extension_with_no_marks_node"
+                "$ref": "#/definitions/extension_with_marks_node"
               },
               {
-                "$ref": "#/definitions/extension_with_marks_node"
+                "$ref": "#/definitions/extension_with_experimental_marks_node"
               },
               {
                 "$ref": "#/definitions/embedCard_node"
@@ -2711,10 +2748,10 @@
                 "$ref": "#/definitions/expand_with_breakout_mark_node"
               },
               {
-                "$ref": "#/definitions/bodiedExtension_with_no_marks_node"
+                "$ref": "#/definitions/bodiedExtension_with_marks_node"
               },
               {
-                "$ref": "#/definitions/bodiedExtension_with_marks_node"
+                "$ref": "#/definitions/bodiedExtension_with_experimental_marks_node"
               },
               {
                 "$ref": "#/definitions/layoutSection_full_node"

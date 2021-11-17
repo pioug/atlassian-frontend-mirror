@@ -3,8 +3,6 @@ import { jsx } from '@emotion/core';
 
 import DynamicTable from '../src';
 
-import Wrapper from './components/wrapper';
-
 const days = ['Time', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
 
 const head = {
@@ -55,18 +53,14 @@ const rows = [
 ];
 
 const CustomColSpanExample = () => (
-  <Wrapper>
-    <DynamicTable
-      caption="Class timetable"
-      head={head}
-      rows={rows}
-      rowsPerPage={10}
-      defaultPage={1}
-      loadingSpinnerSize="large"
-      isLoading={false}
-      isFixedSize
-    />
-  </Wrapper>
+  <DynamicTable
+    caption="Class timetable"
+    head={head}
+    rows={rows}
+    loadingSpinnerSize="large"
+    isLoading={false}
+    isFixedSize
+  />
 );
 
 export default CustomColSpanExample;

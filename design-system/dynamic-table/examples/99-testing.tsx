@@ -7,7 +7,6 @@ import Button from '@atlaskit/button/standard-button';
 
 import DynamicTable from '../src';
 
-import Wrapper from './components/wrapper';
 import { caption, head, rows } from './content/sample-data';
 
 export default () => {
@@ -15,7 +14,7 @@ export default () => {
   const [selectedRows, setSelectedRows] = useState<number[]>([]);
 
   return (
-    <Wrapper>
+    <div>
       <Button onClick={() => setIsLoading((loading) => !loading)}>
         Toggle loading state {isLoading ? 'off' : 'on'}
       </Button>
@@ -41,6 +40,6 @@ export default () => {
         testId="the-table"
         highlightedRowIndex={selectedRows}
       />
-    </Wrapper>
+    </div>
   );
 };

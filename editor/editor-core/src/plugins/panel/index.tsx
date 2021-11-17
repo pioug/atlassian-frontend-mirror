@@ -1,5 +1,5 @@
 import React from 'react';
-import { customPanel, PanelType, PanelAttributes } from '@atlaskit/adf-schema';
+import { panel, PanelType, PanelAttributes } from '@atlaskit/adf-schema';
 import {
   QuickInsertActionInsert,
   QuickInsertItem,
@@ -27,7 +27,7 @@ import {
 import { messages } from '../block-type/messages';
 import { PanelPluginOptions } from './types';
 import IconCustomPanel from '../quick-insert/assets/custom-panel';
-import { T75 } from '@atlaskit/theme/colors';
+import { T50 } from '@atlaskit/theme/colors';
 
 const insertPanelTypeWithAnalytics = (
   panelAttributes: PanelAttributes,
@@ -63,7 +63,7 @@ const panelPlugin = (options: PanelPluginOptions = {}): EditorPlugin => ({
   name: 'panel',
 
   nodes() {
-    const panelNode = customPanel(!!options.UNSAFE_allowCustomPanel);
+    const panelNode = panel(!!options.allowCustomPanel);
 
     return [{ name: 'panel', node: panelNode }];
   },
@@ -158,10 +158,7 @@ const panelPlugin = (options: PanelPluginOptions = {}): EditorPlugin => ({
           },
         },
       ];
-      if (
-        options.UNSAFE_allowCustomPanelEdit &&
-        options.UNSAFE_allowCustomPanel
-      ) {
+      if (options.allowCustomPanel && options.allowCustomPanelEdit) {
         quickInsertOptions.push({
           id: 'custompanel',
           title: formatMessage(messages.customPanel),
@@ -173,7 +170,7 @@ const panelPlugin = (options: PanelPluginOptions = {}): EditorPlugin => ({
               {
                 panelType: PanelType.CUSTOM,
                 panelIcon: ':rainbow:',
-                panelColor: T75,
+                panelColor: T50,
               },
               state,
               insert,

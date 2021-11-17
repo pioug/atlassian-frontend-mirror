@@ -26,6 +26,7 @@ import {
   MediaStoreGetFileImageParams,
 } from '../..';
 import { uploadFile } from '../../uploader';
+import * as resolveAuth from '../../client/media-store/resolveAuth';
 
 const auth = {
   token: 'some-token-that-does-not-really-matter-in-this-tests',
@@ -573,6 +574,20 @@ describe('MediaClient', () => {
         expect(url).toEqual('some-url');
         expect.assertions(2);
       });
+    });
+  });
+
+  describe('initialAuth', () => {
+    const resolveInitialAuthSpy = jest
+      .spyOn(resolveAuth, 'resolveInitialAuth')
+      .mockImplementation(() => auth);
+
+    it('should pass down initialAuth to be resolved in media store', () => {
+      const mediaClient = new MediaClient({ authProvider, initialAuth: auth });
+      const params = { some: 'params' } as MediaStoreGetFileImageParams;
+      const fileId = '1234';
+      mediaClient.getImageUrlSync(fileId, params);
+      expect(resolveInitialAuthSpy).toBeCalledWith(auth);
     });
   });
 });

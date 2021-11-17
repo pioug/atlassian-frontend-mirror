@@ -5,7 +5,7 @@ import {
   N0,
   N20,
   R50,
-  R300,
+  R400,
   R75,
   DN400,
   N200,
@@ -45,7 +45,7 @@ export const tableCellSelectedColor = B75;
 export const tableToolbarSelectedColor = B100;
 export const tableBorderSelectedColor = B300;
 export const tableCellDeleteColor = R50;
-export const tableBorderDeleteColor = R300;
+export const tableBorderDeleteColor = R400;
 export const tableToolbarDeleteColor = R75;
 export const tableBorderRadiusSize = 3;
 export const tablePadding = 8;

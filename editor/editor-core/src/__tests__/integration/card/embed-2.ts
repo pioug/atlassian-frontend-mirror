@@ -10,12 +10,10 @@ import { waitForEmbedCardSelection } from '@atlaskit/media-integration-test-help
 
 type ClientType = Parameters<typeof goToEditorTestingWDExample>[0];
 
-// FIXME: This test was automatically skipped due to failure on 8/26/2021: https://product-fabric.atlassian.net/browse/EDM-2417
 BrowserTestCase(
   'card: changing the link URL of an embed link to an unsupported url should convert it to a "dumb" link',
   {
-    // skip: ['safari', 'edge'],
-    skip: ['*'],
+    skip: ['safari', 'edge'],
   },
   async (client: ClientType, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
@@ -36,11 +34,18 @@ BrowserTestCase(
     });
 
     await waitForEmbedCardSelection(page);
-    await page.click('button[aria-label="Edit link"]');
+
+    const editLinkButtonSelector = 'button[aria-label="Edit link"]';
+    await page.waitForSelector(editLinkButtonSelector);
+    await page.click(editLinkButtonSelector);
+
     // Clear the Link Label field before typing
-    await page.clear('[data-testid="link-url"]');
+    const linkUrlSelector = '[data-testid="link-url"]';
+    await page.waitForSelector(linkUrlSelector);
+    await page.clear(linkUrlSelector);
+
     // Change the 'link address' field to another link and press enter
-    await page.type('[data-testid="link-url"]', [
+    await page.type(linkUrlSelector, [
       'https://product-fabric.atlassian.net/wiki/spaces/E/overview',
       'Return',
     ]);

@@ -447,10 +447,10 @@ describe('lists plugin -> converting lists', () => {
     expect(editorView.state.doc).toEqualDocument(expectedOutput);
   });
 
-  it('should NOT convert the list when the selection starts inside a list and ends with a panel node', () => {
+  it('should convert the list when the selection starts inside a list and ends with a panel node', () => {
     // prettier-ignore
     const expectedOutput = doc(
-      ul(
+      ol(
         li(p('One{<}')),
         li(p('Two')),
         li(p('Three'))
@@ -503,17 +503,19 @@ describe('lists plugin -> converting lists', () => {
     expect(editorView.state.doc).toEqualDocument(expectedOutput);
   });
 
-  it('should NOT convert the list when the selection starts inside a list and ends with multiple paragraphs with a panel in between', () => {
+  it('should convert the list when the selection starts inside a list and ends with multiple paragraphs with a panel in between', () => {
     // prettier-ignore
     const expectedOutput = doc(
-      ul(
+      ol(
         li(p('One{<}')),
         li(p('Two')),
         li(p('Three')),
+        li(p('p1')),
       ),
-      p('p1'),
       panel()(p('panel')),
-      p('p2{>}'),
+      ol(
+        li(p('p2{>}')),
+      ),
     );
     // prettier-ignore
     const { editorView } = editor(
@@ -533,7 +535,7 @@ describe('lists plugin -> converting lists', () => {
     expect(editorView.state.doc).toEqualDocument(expectedOutput);
   });
 
-  it('should NOT convert the list when the selection starts inside a pargraph, has a list in betwene, and ends with multiple paragraphs with a panel in between', () => {
+  it('should NOT convert the list when the selection starts inside a pargraph, has a list in between, and ends with multiple paragraphs with a panel in between', () => {
     // prettier-ignore
     const expectedOutput = doc(
       p("{<}p1"),
@@ -734,5 +736,311 @@ describe('lists plugin -> converting lists', () => {
         ),
       ),
     );
+  });
+
+  it('should convert selection to a list when the selection starts with a paragraph and ends inside a list but has a paragraph in the middle', () => {
+    // prettier-ignore
+    const expectedOutput = doc(
+      ul(
+        li(p('One')),
+        li(p('Two')),
+        li(p('Three')),
+        li(p('Four')),
+        li(p('Five')),
+        li(p('Six')),
+        li(p('Seven')),
+        li(p('Eight'))
+      ),
+    );
+    // prettier-ignore
+    const { editorView } = editor(
+      doc(
+        p('{<}One'),
+        ol(
+          li(p('Two{>}')),
+          li(p('Three')),
+          li(p('Four'))
+        ),
+        p('Five'),
+        ol(
+          li(p('Six{>}')),
+          li(p('Seven')),
+          li(p('Eight'))
+        )
+      ),
+    );
+
+    toggleBulletList(editorView);
+    expect(editorView.state.doc).toEqualDocument(expectedOutput);
+  });
+
+  it('should convert selection to a list when the selection contains 2 lists but starts and end with paragraphs and has a paragraph in the middle', () => {
+    // prettier-ignore
+    const expectedOutput = doc(
+      ul(
+        li(p('One')),
+        li(p('Two')),
+        li(p('Three')),
+        li(p('Four')),
+        li(p('Five')),
+        li(p('Six')),
+        li(p('Seven'))
+      ),
+    );
+    // prettier-ignore
+    const { editorView } = editor(
+      doc(
+        p('{<}One'),
+        ol(
+          li(p('Two')),
+          li(p('Three'))
+        ),
+        p('Four'),
+        ol(
+          li(p('Five')),
+          li(p('Six'))
+        ),
+        p('Seven{>}')
+      ),
+    );
+
+    toggleBulletList(editorView);
+    expect(editorView.state.doc).toEqualDocument(expectedOutput);
+  });
+
+  it('should convert selection to a list when the selection contains 2 lists but starts and end with paragraphs and has an empty paragraph in the middle', () => {
+    // prettier-ignore
+    const expectedOutput = doc(
+      ul(
+        li(p('One')),
+        li(p('Two')),
+        li(p('Three')),
+        li(p('Four'))
+      ),
+      p(),
+      ul(
+        li(p('Five')),
+        li(p('Six')),
+        li(p('Seven')),
+        li(p('Eight'))
+      ),
+    );
+    // prettier-ignore
+    const { editorView } = editor(
+      doc(
+        p("{<}One"),
+        ul(
+          li(p("Two")),
+          li(p("Three")),
+          li(p("Four"))
+        ),
+        p(),
+        ol(
+          li(p("Five")),
+          li(p("Six")),
+          li(p("Seven"))
+        ),
+        p("Eight{>}")
+      ),
+    );
+
+    toggleBulletList(editorView);
+    expect(editorView.state.doc).toEqualDocument(expectedOutput);
+  });
+
+  it('should convert selection to a list when the selection starts with a paragraph and ends inside a list but has multiple paragraphs in the middle', () => {
+    // prettier-ignore
+    const expectedOutput = doc(
+      ul(
+        li(p('One')),
+        li(p('Two')),
+        li(p('Three')),
+        li(p('Four')),
+        li(p('Five')),
+        li(p('Six')),
+        li(p('Seven')),
+        li(p('Eight')),
+        li(p('Nine')),
+        li(p('Ten')),
+      ),
+    );
+    // prettier-ignore
+    const { editorView } = editor(
+      doc(
+        p('{<}One'),
+        ol(
+          li(p('Two{>}')),
+          li(p('Three')),
+          li(p('Four'))
+        ),
+        p('Five'),
+        p('Six'),
+        p('Seven'),
+        ol(
+          li(p('Eight{>}')),
+          li(p('Nine')),
+          li(p('Ten'))
+        )
+      ),
+    );
+
+    toggleBulletList(editorView);
+    expect(editorView.state.doc).toEqualDocument(expectedOutput);
+  });
+
+  it('should convert selection to a list when the selection contains 2 lists but starts and end with paragraphs and has a multiple paragraphs in the middle', () => {
+    // prettier-ignore
+    const expectedOutput = doc(
+      ul(
+        li(p('One')),
+        li(p('Two')),
+        li(p('Three')),
+        li(p('Four')),
+        li(p('Five')),
+        li(p('Six')),
+        li(p('Seven')),
+        li(p('Eight')),
+        li(p('Nine')),
+      ),
+    );
+    // prettier-ignore
+    const { editorView } = editor(
+      doc(
+        p('{<}One'),
+        ol(
+          li(p('Two')),
+          li(p('Three'))
+        ),
+        p('Four'),
+        p('Five'),
+        p('Six'),
+        ol(
+          li(p('Seven')),
+          li(p('Eight'))
+        ),
+        p('Nine{>}')
+      ),
+    );
+
+    toggleBulletList(editorView);
+    expect(editorView.state.doc).toEqualDocument(expectedOutput);
+  });
+
+  it('should convert selection to a list when the selection contains 2 lists but starts and end with paragraphs and has multiple empty paragraphs in the middle', () => {
+    // prettier-ignore
+    const expectedOutput = doc(
+      ul(
+        li(p('One')),
+        li(p('Two')),
+        li(p('Three')),
+        li(p('Four'))
+      ),
+      p(),
+      p(),
+      p(),
+      ul(
+        li(p('Five')),
+        li(p('Six')),
+        li(p('Seven')),
+        li(p('Eight'))
+      ),
+    );
+    // prettier-ignore
+    const { editorView } = editor(
+      doc(
+        p("{<}One"),
+        ul(
+          li(p("Two")),
+          li(p("Three")),
+          li(p("Four"))
+        ),
+        p(),
+        p(),
+        p(),
+        ol(
+          li(p("Five")),
+          li(p("Six")),
+          li(p("Seven"))
+        ),
+        p("Eight{>}")
+      ),
+    );
+
+    toggleBulletList(editorView);
+    expect(editorView.state.doc).toEqualDocument(expectedOutput);
+  });
+
+  it('should convert selection to a list when the selection contains 2 lists and has multiple empty paragraphs in the middle', () => {
+    // prettier-ignore
+    const expectedOutput = doc(
+      ul(
+        li(p('One')),
+        li(p('Two')),
+        li(p('Three'))
+      ),
+      p(),
+      p(),
+      p(),
+      ul(
+        li(p('Four')),
+        li(p('Five')),
+        li(p('Six'))
+      ),
+    );
+    // prettier-ignore
+    const { editorView } = editor(
+      doc(
+        ul(
+          li(p("{<}One")),
+          li(p("Two")),
+          li(p("Three"))
+        ),
+        p(),
+        p(),
+        p(),
+        ol(
+          li(p("Four")),
+          li(p("Five")),
+          li(p("Six{>}"))
+        ),
+      ),
+    );
+
+    toggleBulletList(editorView);
+    expect(editorView.state.doc).toEqualDocument(expectedOutput);
+  });
+
+  it('should convert all lists + non empty paragraphs when the selection contains multiple paragraphs, an empty paragraph, then a list', () => {
+    // prettier-ignore
+    const expectedOutput = doc(
+      ol(
+        li(p("paragraph")),
+        li(p("paragraph")),
+        li(p("paragraph")),
+      ),
+      p(),
+      ol(
+        li(p("One")),
+        li(p("Two")),
+        li(p("Three"))
+      ),
+    );
+    // prettier-ignore
+    const { editorView } = editor(
+      doc(
+        p("{<}paragraph"),
+        p("paragraph"),
+        p("paragraph"),
+        p(),
+        ul(
+          li(p("One")),
+          li(p("Two")),
+          li(p("Three{>}"))
+        ),
+      ),
+    );
+
+    toggleOrderedList(editorView);
+    expect(editorView.state.doc).toEqualDocument(expectedOutput);
   });
 });

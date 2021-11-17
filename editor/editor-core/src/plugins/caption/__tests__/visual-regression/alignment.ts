@@ -45,7 +45,9 @@ describe('Snapshot Test: Caption with media', () => {
   describe('alignment', () => {
     describe('when caption feature flag is enabled', () => {
       afterEach(async () => {
-        await snapshot(page);
+        await snapshot(page, undefined, undefined, {
+          captureBeyondViewport: false,
+        });
       });
 
       it('show the caption with center alignment', async () => {
@@ -64,8 +66,7 @@ describe('Snapshot Test: Caption with media', () => {
         await initEditor(page, mediaWithCaptionAlignStart);
       });
 
-      // FIXME: This test was automatically skipped due to failure on 8/26/2021: https://product-fabric.atlassian.net/browse/ED-13678
-      it.skip('show the caption with align end alignment', async () => {
+      it('show the caption with align end alignment', async () => {
         await initEditor(page, mediaWithCaptionAlignEnd);
       });
     });

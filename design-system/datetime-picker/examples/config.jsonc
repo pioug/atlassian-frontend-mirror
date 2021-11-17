@@ -15,7 +15,7 @@
     "theme-fix.tsx"
   ],
   "exampleDependencies": [
-    "@atlaskit/field-range",
+    "@atlaskit/range",
     "@atlaskit/modal-dialog",
     "@atlaskit/textfield",
     "react-lorem-component"

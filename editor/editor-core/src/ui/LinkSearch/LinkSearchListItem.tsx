@@ -4,7 +4,7 @@ import styled from 'styled-components';
 // AFP-2532 TODO: Fix automatic suppressions below
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { fontSizeSmall } from '@atlaskit/theme';
-import { N20, N800, N100 } from '@atlaskit/theme/colors';
+import { N20, N300, N800 } from '@atlaskit/theme/colors';
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 import { LinkSearchListItemData } from './types';
 import formatDistance from 'date-fns/formatDistance';
@@ -41,7 +41,7 @@ export const Name: ComponentClass<HTMLAttributes<{}>> = styled.div`
 `;
 
 export const ContainerName: ComponentClass<React.HTMLAttributes<{}>> = styled.div`
-  color: ${N100};
+  color: ${N300};
   line-height: 14px;
   font-size: ${relativeFontSizeToBase16(fontSizeSmall())};
 `;

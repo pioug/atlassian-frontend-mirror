@@ -65,6 +65,7 @@ export interface ResolvedViewProps {
 }
 
 export const blockCardResolvedViewClassName = 'block-card-resolved-view';
+export const blockCardResolvedViewByClassName = 'block-card-resolved-view-by';
 
 export const ResolvedView = ({
   icon = {},
@@ -94,7 +95,12 @@ export const ResolvedView = ({
       />
     ) : undefined;
   const resolvedByline = (
-    <Byline testId={testId ? `${testId}-by` : undefined}>{byline}</Byline>
+    <Byline
+      testId={testId ? `${testId}-by` : undefined}
+      className={blockCardResolvedViewByClassName}
+    >
+      {byline}
+    </Byline>
   );
 
   const handleClick = (event: MouseEvent) => handleClickCommon(event, onClick);

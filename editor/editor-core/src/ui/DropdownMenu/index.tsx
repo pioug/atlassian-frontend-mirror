@@ -1,6 +1,8 @@
 import React, { PureComponent } from 'react';
 import styled from 'styled-components';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import DropList from '@atlaskit/droplist';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import Item, { ItemGroup } from '@atlaskit/item';
 import Tooltip from '@atlaskit/tooltip';
 import { Popup } from '@atlaskit/editor-common';
@@ -74,6 +76,7 @@ export default class DropdownMenuWrapper extends PureComponent<Props, State> {
     const dropListItem = (
       <ItemWrapper key={item.key || item.content} isSelected={item.isActive}>
         <Item
+          role="menuitem"
           elemBefore={item.elemBefore}
           elemAfter={item.elemAfter}
           isDisabled={item.isDisabled}
@@ -143,7 +146,7 @@ export default class DropdownMenuWrapper extends PureComponent<Props, State> {
         >
           <div style={{ height: 0, minWidth: fitWidth || 0 }} />
           {items.map((group, index) => (
-            <ItemGroup key={index}>
+            <ItemGroup key={index} role="menu">
               {group.items.map((item) => this.renderItem(item))}
             </ItemGroup>
           ))}

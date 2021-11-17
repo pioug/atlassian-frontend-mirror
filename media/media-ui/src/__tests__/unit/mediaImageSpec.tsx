@@ -12,6 +12,7 @@ interface SetupParams {
   loadImageImmediately?: boolean;
   previewOrientation?: number;
   altText?: string;
+  forceSyncDisplay?: boolean;
 }
 
 let mockIsRotated: jest.Mock | typeof isRotated = jest.fn();
@@ -74,6 +75,7 @@ describe('MediaImage', () => {
       loadImageImmediately = true,
       previewOrientation,
       altText,
+      forceSyncDisplay,
     } = params;
     const [imageDimentions, containerDimentions] = dimensionsMap[
       isImageMoreLandscapyThanContainer
@@ -91,6 +93,7 @@ describe('MediaImage', () => {
         onImageError={onImageError}
         crossOrigin={'anonymous'}
         alt={altText}
+        forceSyncDisplay={forceSyncDisplay}
       />,
     );
     mockImageTag(
@@ -130,12 +133,103 @@ describe('MediaImage', () => {
         }),
       );
     });
+
+    it('should not show image yet with both cover and stretch strategy', () => {
+      const component = setup({
+        isCoverStrategy: true,
+        isImageMoreLandscapyThanContainer: true,
+        isStretchingProhibited: false,
+        loadImageImmediately: false,
+      });
+      expect(component.props().style).toEqual(
+        expect.objectContaining({
+          display: 'none',
+        }),
+      );
+    });
+
+    it('should not show image yet with rotation', () => {
+      const component = setup({
+        isCoverStrategy: false,
+        previewOrientation: 6,
+        isImageMoreLandscapyThanContainer: true,
+        isStretchingProhibited: true,
+        loadImageImmediately: false,
+      });
+      expect(component.props().style).toEqual(
+        expect.objectContaining({
+          display: 'none',
+        }),
+      );
+    });
+
     it('should show image right away with fit strategy', () => {
       const component = setup({
         isCoverStrategy: false,
         isImageMoreLandscapyThanContainer: true,
         isStretchingProhibited: true,
         loadImageImmediately: false,
+      });
+      expect(component.props().style).not.toEqual(
+        expect.objectContaining({
+          display: 'none',
+        }),
+      );
+    });
+
+    it('should show image right away with cover strategy and forcing display ', () => {
+      const component = setup({
+        isCoverStrategy: true,
+        isImageMoreLandscapyThanContainer: true,
+        isStretchingProhibited: true,
+        loadImageImmediately: false,
+        forceSyncDisplay: true,
+      });
+      expect(component.props().style).not.toEqual(
+        expect.objectContaining({
+          display: 'none',
+        }),
+      );
+    });
+
+    it('should show image right away with cover & stretch strategy and forcing display ', () => {
+      const component = setup({
+        isCoverStrategy: true,
+        isImageMoreLandscapyThanContainer: true,
+        isStretchingProhibited: false,
+        loadImageImmediately: false,
+        forceSyncDisplay: true,
+      });
+      expect(component.props().style).not.toEqual(
+        expect.objectContaining({
+          display: 'none',
+        }),
+      );
+    });
+
+    it('should show image right away with rotation and forcing display ', () => {
+      const component = setup({
+        isCoverStrategy: false,
+        previewOrientation: 6,
+        isImageMoreLandscapyThanContainer: true,
+        isStretchingProhibited: true,
+        loadImageImmediately: false,
+        forceSyncDisplay: true,
+      });
+      expect(component.props().style).not.toEqual(
+        expect.objectContaining({
+          display: 'none',
+        }),
+      );
+    });
+
+    it('should show image right away with fit strategy and forcing display', () => {
+      const component = setup({
+        isCoverStrategy: false,
+        isImageMoreLandscapyThanContainer: true,
+        isStretchingProhibited: true,
+        loadImageImmediately: false,
+        forceSyncDisplay: true,
       });
       expect(component.props().style).not.toEqual(
         expect.objectContaining({

@@ -12,6 +12,6 @@ export class PollingError extends BaseMediaClientError<PollingErrorAttributes> {
   }
 }
 
-export function isPollingError(err: Error): err is PollingError {
+export function isPollingError(err?: Error): err is PollingError {
   return err instanceof PollingError;
 }

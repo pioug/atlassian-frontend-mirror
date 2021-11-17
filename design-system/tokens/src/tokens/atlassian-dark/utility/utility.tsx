@@ -5,6 +5,9 @@ const utility: ValueSchema<UtilTokenSchema> = {
     transparent: {
       value: 'transparent',
     },
+    MISSING_TOKEN: {
+      value: '#FA11F2',
+    },
   },
 };
 

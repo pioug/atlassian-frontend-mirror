@@ -1,15 +1,52 @@
+import { useEffect, useState } from 'react';
+
+const isMatchMediaAvailable = (): boolean =>
+  typeof window !== 'undefined' && 'matchMedia' in window;
+
 /**
  * Use for any programatic motions needed at runtime.
  * Will return `true` if the current user prefers reduced motion.
  * This is generally set through OS preferences/settings.
  */
 export const isReducedMotion = (): boolean => {
-  if (typeof window === 'undefined' || !('matchMedia' in window)) {
+  if (!isMatchMediaAvailable()) {
     return false;
   }
 
   const { matches } = window.matchMedia('(prefers-reduced-motion: reduce)');
   return matches;
+};
+
+/**
+ * A React hook version of {@link isReducedMotion}.
+ * Useful for React components that need to re-render if the user's motion
+ * preference changes at runtime.
+ */
+export const useIsReducedMotion = (): boolean => {
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(
+    isReducedMotion,
+  );
+
+  useEffect(() => {
+    if (!isMatchMediaAvailable()) {
+      return;
+    }
+
+    const mediaQueryList = window.matchMedia(
+      '(prefers-reduced-motion: reduce)',
+    );
+
+    const onChange = (event: MediaQueryListEvent) =>
+      setPrefersReducedMotion(event.matches);
+
+    mediaQueryList.addEventListener('change', onChange);
+
+    return () => {
+      mediaQueryList.removeEventListener('change', onChange);
+    };
+  }, []);
+
+  return prefersReducedMotion;
 };
 
 /**

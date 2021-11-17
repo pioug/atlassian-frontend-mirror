@@ -1,5 +1,35 @@
 # @atlaskit/atlassian-navigation
 
+## 1.2.2
+
+### Patch Changes
+
+- [`a2f953f3814`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a2f953f3814) - Previously the `ensure-design-token-usage` eslint rule contained all checks relating to token use. This has now been split up into two separate rules:
+
+  `ensure-design-token-usage` now covers:
+
+  - `legacyElevation` — warns about old usages of the elevation mixins or styles, which instead should use the `card` or `overlay` tokens.
+  - `hardCodedColor` — warns about use of hard-coded colors such as `color: colors.B100`, which instead should be wrapped in a `token()` call. This covers the majority of cases in existing codebases when first adopting tokens.
+
+  `no-unsafe-design-token-usage` (new) covers the remaining rules:
+
+  - `directTokenUsage` — warns against using the CSS Custom Property name that is output in the browser by the `token()` call.
+    Eg. directly using `var(--ds-accent-subtleBlue)` is bad.
+  - `staticToken` — warns when tokens aren't used inline. Inlining the token usages helps with static analysis, which unlocks future improvements.
+    Eg. pulling the token out into a const like `css={ color: token(primaryButtonText) }` is bad.
+  - `invalidToken` — warns when using a token that doesn't exist (not one that's been renamed, see the next point).
+  - `tokenRenamed` — warns when using a token that's been renamed in a subsequent release.
+  - `tokenFallbackEnforced` — warns if a fallback for the token call is not provided.
+    Eg. call with the fallback like this `token('color.background.disabled', N10)` instead of `token('color.background.disabled')`.
+  - `tokenFallbackRestricted` — the opposite of `tokenFallbackEnforced`.
+    Eg. do not pass in a fallback like this `token('color.background.disabled', N10)` and instead only include the token `token('color.background.disabled')`.
+
+  Upgrading — some instances of `\\eslint-disable` may need to be changed to the new rule. If you have failing lint rules after only bumping this package then switch those ignores to use `no-unsafe-design-token-usage` instead.
+
+- [`22fb31312eb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/22fb31312eb) - Fixes unmounted component state update warnings for AtlassianNavigation
+- [`f460cc7c411`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f460cc7c411) - Builds for this package now pass through a tokens babel plugin, removing runtime invocations of the tokens() function and improving bundle size.
+- Updated dependencies
+
 ## 1.2.1
 
 ### Patch Changes

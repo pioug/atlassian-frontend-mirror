@@ -1,44 +1,28 @@
-import React, { Component, Fragment } from 'react';
+import React, { useCallback, useMemo, useRef, useState } from 'react';
 
 import Banner from '@atlaskit/banner';
 import Button from '@atlaskit/button/standard-button';
 import { AtlassianIcon } from '@atlaskit/logo';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import Navigation, { AkNavigationItem } from '@atlaskit/navigation';
 
 import Page, { Grid } from '../src';
 
-interface State {
-  isErrorBannerOpen: boolean;
-  isAnnouncementBannerOpen: boolean;
-  navigationWidth?: number;
-  isNavigationOpen?: boolean;
-}
+import { ButtonWrapper } from './common/button-wrapper';
 
-const Wrapper = (props: any) => (
-  <div style={{ padding: '4px', display: 'block' }} {...props} />
-);
+const NavigationExample = () => {
+  const errorBannerRef = useRef<HTMLElement>();
+  const announcementBannerRef = useRef<HTMLElement>();
 
-export default class NavigationExample extends Component<void, State> {
-  errorBannerRef?: HTMLElement;
+  const [isErrorBannerOpen, setIsErrorBannerOpen] = useState(false);
+  const [isAnnouncementBannerOpen, setIsAnnouncementBannerOpen] = useState(
+    false,
+  );
 
-  announcementBannerRef?: HTMLElement;
-
-  state = {
-    isErrorBannerOpen: false,
-    isAnnouncementBannerOpen: false,
-    navigationWidth: 0,
-    isNavigationOpen: false,
-  };
-
-  getOffset = () => {
-    const { isErrorBannerOpen, isAnnouncementBannerOpen } = this.state;
-
-    const errorBannerHeight = this.errorBannerRef
-      ? this.errorBannerRef.clientHeight
-      : 0;
-    const announcementBannerHeight = this.announcementBannerRef
-      ? this.announcementBannerRef.clientHeight
-      : 0;
+  const offset = useMemo(() => {
+    const errorBannerHeight = errorBannerRef?.current?.clientHeight ?? 0;
+    const announcementBannerHeight =
+      announcementBannerRef?.current?.clientHeight ?? 0;
 
     let offset = 0;
     if (isErrorBannerOpen) {
@@ -48,87 +32,80 @@ export default class NavigationExample extends Component<void, State> {
       offset += announcementBannerHeight;
     }
     return offset;
-  };
+  }, [isAnnouncementBannerOpen, isErrorBannerOpen]);
 
-  onErrorBannerChange = () =>
-    this.setState({
-      isErrorBannerOpen: !this.state.isErrorBannerOpen,
-    });
+  const toggleErrorBanner = useCallback(
+    () => setIsErrorBannerOpen((isOpen) => !isOpen),
+    [setIsErrorBannerOpen],
+  );
 
-  onAnnouncementBannerChange = () =>
-    this.setState({
-      isAnnouncementBannerOpen: !this.state.isAnnouncementBannerOpen,
-    });
+  const toggleAnnouncementBanner = useCallback(
+    () => setIsAnnouncementBannerOpen((isOpen) => !isOpen),
+    [setIsAnnouncementBannerOpen],
+  );
 
-  render() {
-    const { isErrorBannerOpen, isAnnouncementBannerOpen } = this.state;
-
-    return (
-      /* This wrapping div exists to help this example display nicely on the
-      atlaskit website. It probably shouldn't be in code otherwise. */
-      <div>
-        <Page
-          isBannerOpen={isErrorBannerOpen || isAnnouncementBannerOpen}
-          bannerHeight={this.getOffset()}
-          banner={
-            <Fragment>
-              <Banner
-                appearance="error"
-                isOpen={isErrorBannerOpen}
-                innerRef={(ref: HTMLElement) => {
-                  this.errorBannerRef = ref;
-                }}
-              >
-                Example Banner
-              </Banner>
-              <Banner
-                appearance="announcement"
-                isOpen={isAnnouncementBannerOpen}
-                innerRef={(ref: HTMLElement) => {
-                  this.announcementBannerRef = ref;
-                }}
-              >
-                <p>What if we have two?</p>
-                <p>Can we render this?</p>
-                <p>Will it work if this expands?</p>
-                <p>To maximum length?</p>
-                <p>Yes, we can!</p>
-              </Banner>
-            </Fragment>
-          }
-          navigation={
-            <Navigation
-              topOffset={this.getOffset()}
-              globalPrimaryIcon={<AtlassianIcon size="small" />}
+  return (
+    /* This wrapping div exists to help this example display nicely on the
+    atlaskit website. It probably shouldn't be in code otherwise. */
+    <div>
+      <Page
+        testId="page"
+        isBannerOpen={isErrorBannerOpen || isAnnouncementBannerOpen}
+        bannerHeight={offset}
+        banner={
+          <>
+            <Banner
+              appearance="error"
+              isOpen={isErrorBannerOpen}
+              innerRef={(ref: HTMLElement) => {
+                errorBannerRef.current = ref;
+              }}
             >
-              <AkNavigationItem text="Welcome to banners!" />
-            </Navigation>
-          }
-        >
-          <Grid>
-            <Wrapper>
-              <Button onClick={this.onErrorBannerChange}>
-                Toggle Error Banner
-              </Button>
-            </Wrapper>
-            <Wrapper>
-              <Button onClick={this.onAnnouncementBannerChange}>
-                Toggle Announcement Banner
-              </Button>
-            </Wrapper>
-            <Wrapper>
-              <Button
-                onClick={() => {
-                  this.onAnnouncementBannerChange();
-                  this.onErrorBannerChange();
-                }}
-              >
-                Toggle both Banners
-              </Button>
-            </Wrapper>
-          </Grid>
-        </Page>
-      </div>
-    );
-  }
-}
+              Example Banner
+            </Banner>
+            <Banner
+              appearance="announcement"
+              isOpen={isAnnouncementBannerOpen}
+              innerRef={(ref: HTMLElement) => {
+                announcementBannerRef.current = ref;
+              }}
+            >
+              <p>What if we have two?</p>
+              <p>Can we render this?</p>
+              <p>Will it work if this expands?</p>
+              <p>To maximum length?</p>
+              <p>Yes, we can!</p>
+            </Banner>
+          </>
+        }
+        navigation={
+          <Navigation
+            topOffset={offset}
+            globalPrimaryIcon={<AtlassianIcon size="small" />}
+          >
+            <AkNavigationItem text="Welcome to banners!" />
+          </Navigation>
+        }
+      >
+        <Grid>
+          <ButtonWrapper>
+            <Button onClick={toggleErrorBanner}>Toggle Error Banner</Button>
+            <Button onClick={toggleAnnouncementBanner}>
+              Toggle Announcement Banner
+            </Button>
+            <Button
+              testId="toggle"
+              onClick={() => {
+                toggleAnnouncementBanner();
+                toggleErrorBanner();
+              }}
+            >
+              Toggle both Banners
+            </Button>
+          </ButtonWrapper>
+        </Grid>
+      </Page>
+    </div>
+  );
+};
+export default NavigationExample;

@@ -115,6 +115,7 @@ export default class CategorySelector extends PureComponent<Props, State> {
                 <FormattedMessage {...messages[category.name]}>
                   {(categoryName) => (
                     <button
+                      aria-label={categoryName as string}
                       data-category-id={category.id}
                       className={classNames(categoryClasses)}
                       onClick={this.onClick}

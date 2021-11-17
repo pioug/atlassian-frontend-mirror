@@ -19,15 +19,12 @@ const Example = () => (
         actions={
           <React.Fragment>
             <SectionMessageAction
-              href="https://www.atlassian.com/software/bitbucket"
+              href="#hiAtlassianBitbucket"
               testId="bitbucket"
             >
               Bitbucket
             </SectionMessageAction>
-            <SectionMessageAction
-              href="https://www.atlassian.com/software/jira"
-              testId="jira"
-            >
+            <SectionMessageAction href="#hiAtlassianJira" testId="jira">
               Jira
             </SectionMessageAction>
           </React.Fragment>

@@ -12,6 +12,7 @@ import {
   td,
   a,
   p,
+  caption,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { Context } from '../../../interfaces';
 
@@ -195,5 +196,21 @@ describe('ADF => WikiMarkup - Media', () => {
       p(mediaInline({ collection: 'tmp', id: 'abc-123-uuid' })()),
     )(defaultSchema);
     expect(transformer.encode(node)).toMatchSnapshot();
+  });
+
+  test('should convert caption node', () => {
+    const node = doc(
+      mediaSingle()(
+        media({
+          id: 'abc-123',
+          type: 'file',
+          collection: 'tmp',
+          width: 100,
+          height: 100,
+        })(),
+        caption('hello world'),
+      ),
+    )(defaultSchema);
+    expect(transformer.encode(node, context)).toMatchSnapshot();
   });
 });

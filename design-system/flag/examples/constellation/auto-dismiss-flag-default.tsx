@@ -4,6 +4,7 @@ import Button from '@atlaskit/button/standard-button';
 import SuccessIcon from '@atlaskit/icon/glyph/check-circle';
 import { G300 } from '@atlaskit/theme/colors';
 import { gridSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 import { AutoDismissFlag, FlagGroup } from '../../src';
 
@@ -36,7 +37,7 @@ const AutoDismissFlagDefaultExample = () => {
               id={flagId}
               icon={
                 <SuccessIcon
-                  primaryColor={G300}
+                  primaryColor={token('color.iconBorder.success', G300)}
                   label="Success"
                   size="medium"
                 />

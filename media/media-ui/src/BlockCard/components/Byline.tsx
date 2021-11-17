@@ -7,10 +7,11 @@ export interface BylineProps {
   /* Text to be displayed in the body of the card. */
   text?: React.ReactNode;
   testId?: string;
+  className?: string;
   children?: React.ReactNode;
 }
 
-export const Byline = ({ text, children, testId }: BylineProps) => (
+export const Byline = ({ text, children, testId, className }: BylineProps) => (
   <span
     css={mq({
       fontSize: gs(1.5),
@@ -33,6 +34,7 @@ export const Byline = ({ text, children, testId }: BylineProps) => (
       MozUserSelect: 'none',
     })}
     data-testid={testId}
+    className={className}
   >
     {text || children}
   </span>

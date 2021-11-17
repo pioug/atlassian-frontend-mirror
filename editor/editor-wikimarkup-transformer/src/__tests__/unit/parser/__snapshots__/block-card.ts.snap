@@ -168,6 +168,8 @@ Object {
               "content": Array [
                 Object {
                   "attrs": Object {
+                    "panelColor": null,
+                    "panelIcon": null,
                     "panelType": "info",
                   },
                   "content": Array [
@@ -192,6 +194,8 @@ Object {
                 },
                 Object {
                   "attrs": Object {
+                    "panelColor": null,
+                    "panelIcon": null,
                     "panelType": "info",
                   },
                   "content": Array [

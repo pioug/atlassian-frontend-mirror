@@ -247,3 +247,43 @@ describe('Toolbar: Undo Redo', () => {
     await page.setViewport({ width: 400, height: 350 });
   });
 });
+
+describe('Toolbar: Responsive toolbar', () => {
+  let page: PuppeteerPage;
+
+  const initEditor = async (viewport: any, twoLineEditorToolbar: boolean) => {
+    page = global.page;
+    await initEditorWithAdf(page, {
+      appearance: Appearance.fullPage,
+      viewport,
+      editorProps: {
+        primaryToolbarIconBefore: <div></div>,
+        featureFlags: { twoLineEditorToolbar: twoLineEditorToolbar },
+      },
+    });
+  };
+
+  afterEach(async () => {
+    await snapshot(page, undefined, mainToolbarSelector);
+  });
+
+  it('should show one line toolbar when viewport is big if feature flag is off', async () => {
+    await initEditor({ width: 1280, height: 300 }, false);
+    await page.waitForSelector(mainToolbarSelector);
+  });
+
+  it('should show one line toolbar when viewport is small if feature flag is off', async () => {
+    await initEditor({ width: 400, height: 300 }, false);
+    await page.waitForSelector(mainToolbarSelector);
+  });
+
+  it('should show one line toolbar when viewport is big if feature flag is on', async () => {
+    await initEditor({ width: 1280, height: 300 }, true);
+    await page.waitForSelector(mainToolbarSelector);
+  });
+
+  it('should show two line toolbar when viewport is small if feature flag is on', async () => {
+    await initEditor({ width: 400, height: 300 }, true);
+    await page.waitForSelector(mainToolbarSelector);
+  });
+});

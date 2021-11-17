@@ -40,6 +40,9 @@
         "file-level"
       ],
       "import-structure": "atlassian-conventions"
+    },
+    "@repo/internal": {
+      "deprecation": "no-deprecated-imports"
     }
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"

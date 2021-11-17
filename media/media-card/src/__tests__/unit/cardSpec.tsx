@@ -1161,13 +1161,11 @@ describe('Card', () => {
 
       const relevantFetureFlags: MediaFeatureFlags = {
         newCardExperience: true,
-        captions: false,
       };
 
       const featureFlags: MediaFeatureFlags = {
         ...relevantFetureFlags,
-        zipPreviews: true,
-        folderUploads: true,
+        captions: false,
       };
 
       const card = mount<CardProps>(

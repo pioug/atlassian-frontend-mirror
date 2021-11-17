@@ -1,6 +1,5 @@
 import styled from 'styled-components';
-import { responsiveSettings, getTitleBoxHeight } from '../common';
-import { Breakpoint } from '../Breakpoint';
+import { responsiveSettings, getTitleBoxHeight, Breakpoint } from '../common';
 import { N0 } from '@atlaskit/theme/colors';
 import { rgba } from '../../../styles/mixins';
 

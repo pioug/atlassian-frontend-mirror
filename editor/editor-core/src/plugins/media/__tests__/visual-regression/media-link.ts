@@ -9,6 +9,7 @@ import {
 } from '../../../../__tests__/visual-regression/_utils';
 import { waitForMediaToBeLoaded } from '../../../../__tests__/__helpers/page-objects/_media';
 import { retryUntilStablePosition } from '../../../../__tests__/__helpers/page-objects/_toolbar';
+import { selectors } from '../../../../__tests__/__helpers/page-objects/_editor';
 
 const getMediaWithLink = (link: string) => ({
   version: 1,
@@ -44,6 +45,7 @@ const getMediaWithLink = (link: string) => ({
 });
 
 const linkButtonSelector = '.hyperlink-open-link';
+const mediaCardSelector = '[data-testid="media-file-card-view"]';
 
 async function initEditor(page: PuppeteerPage, mediaLink: string) {
   await initFullPageEditorWithAdf(
@@ -60,16 +62,18 @@ async function initEditor(page: PuppeteerPage, mediaLink: string) {
   );
 
   await waitForMediaToBeLoaded(page);
+
+  // force the toolbar to appear first, because it doesn't automatically appear if the ADF that
+  // gets loaded in doesn't pass validation
+  await page.click(mediaCardSelector);
+  await page.click('[aria-label="Action item"]');
+  await page.waitForSelector(selectors.actionList);
+  await page.keyboard.press('Backspace');
+
   await retryUntilStablePosition(
     page,
-    async () => await page.click('[data-testid="media-file-card-view"]'),
-    '[aria-label="Media floating controls"] [aria-label="Floating Toolbar"] [aria-label="Edit link"]',
-    2000,
-  );
-  await retryUntilStablePosition(
-    page,
-    async () => await page.hover(linkButtonSelector),
-    '[aria-label="Media floating controls"] [aria-label="Floating Toolbar"] [aria-label="Edit link"]',
+    async () => await page.click(mediaCardSelector),
+    '[aria-label="Media floating controls"] [aria-label="Floating Toolbar"] [aria-label="Remove"]',
     2000,
   );
 }
@@ -82,13 +86,19 @@ describe('Snapshot Test: Media with link', () => {
   });
 
   describe('in the toolbar', () => {
-    describe('when media-link feature flag is enable', () => {
+    describe('when media-link feature flag is enabled', () => {
       afterEach(async () => {
         await snapshot(page);
       });
 
       it('should enable open link button if the link is safe', async () => {
         await initEditor(page, 'https://www.atlassian.com');
+        await retryUntilStablePosition(
+          page,
+          async () => await page.hover(linkButtonSelector),
+          '[aria-label="Media floating controls"] [aria-label="Floating Toolbar"] [aria-label="Remove"]',
+          2000,
+        );
         await waitForTooltip(page, 'Open link in a new tab');
       });
 

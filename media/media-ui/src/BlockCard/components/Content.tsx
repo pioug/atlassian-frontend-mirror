@@ -8,6 +8,8 @@ export interface ContentProps {
   isCompact?: boolean;
 }
 
+export const blockCardContentClassName = 'block-card-content';
+
 export const Content = ({ children, isCompact = false }: ContentProps) => (
   <div
     css={mq({
@@ -18,6 +20,7 @@ export const Content = ({ children, isCompact = false }: ContentProps) => (
       flexGrow: 1,
     })}
     data-trello-do-not-use-override="block-card-content"
+    className={blockCardContentClassName}
   >
     {children}
   </div>

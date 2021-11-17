@@ -48,7 +48,9 @@ describe('Snapshot Test: hover rows controlls', () => {
         const y = bounds.top + 5;
 
         await moveMouse(page, x, y);
-        await snapshot(page);
+        await snapshot(page, undefined, undefined, {
+          captureBeyondViewport: false,
+        });
       },
     );
 
@@ -67,14 +69,15 @@ describe('Snapshot Test: hover rows controlls', () => {
         const y = bounds.top + bounds.height - 5;
 
         await moveMouse(page, x, y);
-        await snapshot(page);
+        await snapshot(page, undefined, undefined, {
+          captureBeyondViewport: false,
+        });
       },
     );
   });
 
   describe('comment editor', () => {
-    // FIXME: This test was automatically skipped due to failure on 8/26/2021: https://product-fabric.atlassian.net/browse/ED-13679
-    it.skip('should render insert button without cutting it off', async () => {
+    it('should render insert button without cutting it off', async () => {
       await initCommentEditorWithAdf(page, defaultTableAdf, Device.LaptopMDPI);
       await clickFirstCell(page);
       const bounds = await getBoundingRect(
@@ -85,7 +88,9 @@ describe('Snapshot Test: hover rows controlls', () => {
       const y = bounds.top + bounds.height - 5;
 
       await moveMouse(page, x, y);
-      await snapshot(page);
+      await snapshot(page, undefined, undefined, {
+        captureBeyondViewport: false,
+      });
     });
   });
 });

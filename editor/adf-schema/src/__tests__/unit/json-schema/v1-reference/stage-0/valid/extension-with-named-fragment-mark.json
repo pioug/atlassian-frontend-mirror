@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "extension",
+      "marks": [
+        {
+          "attrs": {
+            "localId": "1",
+            "name": "User-provided name"
+          },
+          "type": "fragment"
+        }
+      ],
+      "attrs": {
+        "extensionType": "com.acme.editor",
+        "extensionKey": "block-eh",
+        "text": "Block extension demo",
+        "layout": "default",
+        "localId": "123"
+      }
+    }
+  ]
+}

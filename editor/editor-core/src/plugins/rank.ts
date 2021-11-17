@@ -113,6 +113,7 @@ export default {
     'selection',
     'avatarGroup',
     'viewUpdateSubscription',
+    'beforePrimaryToolbar',
     'inlineCode',
   ],
   nodes: [
@@ -159,6 +160,9 @@ export default {
     'embedCard',
   ],
   marks: [
+    // Fragment mark is both for inline and block elements
+    'fragment',
+
     // Inline marks
     'link',
     'em',

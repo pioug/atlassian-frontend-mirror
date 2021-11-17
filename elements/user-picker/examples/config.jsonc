@@ -6,7 +6,7 @@
 {
   "exampleDependencies": [
     "@atlaskit/button",
-    "@atlaskit/field-range",
+    "@atlaskit/range",
     "@atlaskit/modal-dialog"
   ]
 }

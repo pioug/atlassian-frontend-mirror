@@ -309,7 +309,7 @@ export const isSelectionValid = (
     return AnnotationSelectionType.DISABLED;
   }
 
-  if (disallowOnWhitespace && hasWhitespaceNode(selection)) {
+  if (disallowOnWhitespace && hasInvalidWhitespaceNode(selection)) {
     return AnnotationSelectionType.INVALID;
   }
 
@@ -360,16 +360,34 @@ function isEmptyTextSelection(
  * Checks if any of the nodes in a given selection are completely whitespace
  * This is to conform to Confluence annotation specifications
  */
-export function hasWhitespaceNode(selection: TextSelection | AllSelection) {
-  let foundWhitespace = false;
-  selection.content().content.descendants((node) => {
-    if (node.textContent.trim() === '') {
-      foundWhitespace = true;
-    }
-    return !foundWhitespace;
-  });
+export function hasInvalidWhitespaceNode(
+  selection: TextSelection | AllSelection,
+) {
+  let foundInvalidWhitespace = false;
 
-  return foundWhitespace;
+  const content = selection.content().content;
+
+  content.descendants((node) => {
+    if (node.textContent.trim() === '') {
+      // Trailing new lines do not result in the annotation spanning into
+      // the trailing new line so can be ignored when looking for invalid
+      // whitespace nodes.
+      const nodeIsTrailingNewLine =
+        // it is the final node
+        node.eq(content.lastChild!) &&
+        // and there are multiple nodes
+        !node.eq(content.firstChild!) &&
+        // and it is a paragraph node
+        node.type.name === 'paragraph';
+
+      if (!nodeIsTrailingNewLine) {
+        foundInvalidWhitespace = true;
+      }
+    }
+
+    return !foundInvalidWhitespace;
+  });
+  return foundInvalidWhitespace;
 }
 
 /*

@@ -14,7 +14,7 @@ import {
   ErrorPayload,
   InitPayload,
   Metadata,
-  ParticipantPayload,
+  PresencePayload,
   StepsPayload,
 } from '../../channel';
 import { Config } from '../../types';
@@ -35,7 +35,7 @@ const allExpectedEventNames: string[] = [
   'data',
   'steps:added',
   'participant:telepointer',
-  'participant:joined',
+  'presence:joined',
   'participant:left',
   'participant:updated',
   'metadata:changed',
@@ -231,7 +231,7 @@ describe('channel unit tests', () => {
       }
     });
 
-    channel.getSocket()!.emit('participant:telepointer', <ParticipantPayload>{
+    channel.getSocket()!.emit('participant:telepointer', <PresencePayload>{
       sessionId: 'abc',
       userId: 'cbfb',
       clientId: 'fbfbfb',
@@ -265,12 +265,12 @@ describe('channel unit tests', () => {
     });
   });
 
-  it('should handle receiving participant:joined from server', (done) => {
+  it('should handle receiving presence:joined from server', (done) => {
     const channel = getChannel();
 
-    channel.on('participant:joined', (data: ParticipantPayload) => {
+    channel.on('presence:joined', (data: PresencePayload) => {
       try {
-        expect(data).toEqual(<ParticipantPayload>{
+        expect(data).toEqual(<PresencePayload>{
           sessionId: 'abc',
           userId: 'cbfb',
           clientId: 'fbfbfb',
@@ -282,7 +282,7 @@ describe('channel unit tests', () => {
       }
     });
 
-    channel.getSocket()!.emit('participant:joined', <ParticipantPayload>{
+    channel.getSocket()!.emit('presence:joined', <PresencePayload>{
       sessionId: 'abc',
       userId: 'cbfb',
       clientId: 'fbfbfb',
@@ -295,7 +295,7 @@ describe('channel unit tests', () => {
 
     channel.on('participant:left', (data: any) => {
       try {
-        expect(data).toEqual(<ParticipantPayload>{
+        expect(data).toEqual(<PresencePayload>{
           sessionId: 'abc',
           userId: 'cbfb',
           clientId: 'fbfbfb',
@@ -307,7 +307,7 @@ describe('channel unit tests', () => {
       }
     });
 
-    channel.getSocket()!.emit('participant:left', <ParticipantPayload>{
+    channel.getSocket()!.emit('participant:left', <PresencePayload>{
       sessionId: 'abc',
       userId: 'cbfb',
       clientId: 'fbfbfb',
@@ -320,7 +320,7 @@ describe('channel unit tests', () => {
 
     channel.on('participant:updated', (data: any) => {
       try {
-        expect(data).toEqual(<ParticipantPayload>{
+        expect(data).toEqual(<PresencePayload>{
           sessionId: 'abc',
           clientId: 'fbfbfb',
           timestamp: 1245623567234,
@@ -331,7 +331,7 @@ describe('channel unit tests', () => {
       }
     });
 
-    channel.getSocket()!.emit('participant:updated', <ParticipantPayload>{
+    channel.getSocket()!.emit('participant:updated', <PresencePayload>{
       sessionId: 'abc',
       userId: 'cbfb',
       clientId: 'fbfbfb',

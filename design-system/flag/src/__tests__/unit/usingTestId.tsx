@@ -3,7 +3,6 @@ import React from 'react';
 import { render } from '@testing-library/react';
 
 import SuccessIcon from '@atlaskit/icon/glyph/check-circle';
-import { G300 } from '@atlaskit/theme/colors';
 
 import Flag from '../../flag';
 
@@ -15,7 +14,7 @@ describe('Flag should be found by data-testid', () => {
           { content: 'Show me', onClick: () => {} },
           { content: 'No thanks', onClick: () => {} },
         ]}
-        icon={<SuccessIcon primaryColor={G300} label="Info" />}
+        icon={<SuccessIcon label="Info" />}
         description="We got fun an games. We got everything you want honey, we know the names."
         id="1"
         key="1"
@@ -38,7 +37,7 @@ describe('Flag actions should be found by data-testid', () => {
           },
           { content: 'No thanks', onClick: () => {} },
         ]}
-        icon={<SuccessIcon primaryColor={G300} label="Info" />}
+        icon={<SuccessIcon label="Info" />}
         description="We got fun an games. We got everything you want honey, we know the names."
         id="1"
         key="1"

@@ -6,6 +6,7 @@ import { useUID } from 'react-uid';
 
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import useAutoFocus from '@atlaskit/ds-lib/use-auto-focus';
+import FocusRing from '@atlaskit/focus-ring';
 import FadeIn from '@atlaskit/motion/fade-in';
 import { N0, N30A, N60A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -126,30 +127,32 @@ const ModalDialog = (props: ModalDialogProps) => {
         <ScrollContext.Provider value={shouldScrollInViewport}>
           <FadeIn entranceDirection="bottom" onFinish={onMotionFinish}>
             {(bottomFadeInProps) => (
-              <section
-                {...bottomFadeInProps}
-                ref={mergeRefs([bottomFadeInProps.ref, motionRef])}
-                style={
-                  {
-                    '--modal-dialog-width': dialogWidth(width),
-                    '--modal-dialog-height': dialogHeight(height),
-                  } as CSSProperties
-                }
-                css={[
-                  dialogStyles,
-                  shouldScrollInViewport
-                    ? viewportScrollStyles
-                    : bodyScrollStyles,
-                ]}
-                role="dialog"
-                aria-labelledby={titleId}
-                data-testid={testId}
-                data-modal-stack={stackIndex}
-                tabIndex={-1}
-                aria-modal={true}
-              >
-                {children}
-              </section>
+              <FocusRing>
+                <section
+                  {...bottomFadeInProps}
+                  ref={mergeRefs([bottomFadeInProps.ref, motionRef])}
+                  style={
+                    {
+                      '--modal-dialog-width': dialogWidth(width),
+                      '--modal-dialog-height': dialogHeight(height),
+                    } as CSSProperties
+                  }
+                  css={[
+                    dialogStyles,
+                    shouldScrollInViewport
+                      ? viewportScrollStyles
+                      : bodyScrollStyles,
+                  ]}
+                  role="dialog"
+                  aria-labelledby={titleId}
+                  data-testid={testId}
+                  data-modal-stack={stackIndex}
+                  tabIndex={-1}
+                  aria-modal={true}
+                >
+                  {children}
+                </section>
+              </FocusRing>
             )}
           </FadeIn>
         </ScrollContext.Provider>

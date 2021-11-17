@@ -301,4 +301,10 @@ export default class AndroidBridge implements NativeBridge {
       this.collabBridge.updateStepVersion(stepVersion, error);
     }
   }
+
+  onCollabError(message: string) {
+    if (this.collabBridge) {
+      this.collabBridge.onCollabError(message);
+    }
+  }
 }

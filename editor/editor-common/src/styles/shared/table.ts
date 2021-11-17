@@ -61,6 +61,7 @@ const tableSharedStyle = css`
   }
   .${TableSharedCssClassName.TABLE_CONTAINER}[data-number-column='true'] {
     padding-left: ${akEditorTableNumberColumnWidth - 1}px;
+    clear: both;
   }
   /* avoid applying styles to nested tables (possible via extensions) */
   .${TableSharedCssClassName.TABLE_CONTAINER} > table,

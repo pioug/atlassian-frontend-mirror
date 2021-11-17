@@ -1,30 +1,32 @@
 import React, { useState } from 'react';
 
-import {
-  DropdownItemGroupRadio,
+import DropdownMenuStateless, {
   DropdownItemRadio,
-  DropdownMenuStateless,
+  DropdownItemRadioGroup,
+  OnOpenChangeArgs,
 } from '../src';
-import { OnOpenChangeArgs } from '../src/types';
 
-export default function StatelessMenuExample() {
+const DropdownMenuStatelessExample = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div>
-      <DropdownMenuStateless
-        isOpen={isOpen}
-        onOpenChange={(attrs: OnOpenChangeArgs) => {
-          setIsOpen(attrs.isOpen);
-        }}
-        trigger="Filter cities"
-        triggerType="button"
-      >
-        <DropdownItemGroupRadio id="cities">
-          <DropdownItemRadio id="sydney">Sydney</DropdownItemRadio>
-          <DropdownItemRadio id="melbourne">Melbourne</DropdownItemRadio>
-        </DropdownItemGroupRadio>
-      </DropdownMenuStateless>
-    </div>
+    <DropdownMenuStateless
+      isOpen={isOpen}
+      onOpenChange={(attrs: OnOpenChangeArgs) => {
+        setIsOpen(attrs.isOpen);
+      }}
+      trigger="Filter city"
+      appearance="default"
+      testId="lite-mode-ddm"
+    >
+      <DropdownItemRadioGroup id="cities">
+        <DropdownItemRadio id="sydney" defaultSelected>
+          Sydney
+        </DropdownItemRadio>
+        <DropdownItemRadio id="melbourne">Melbourne</DropdownItemRadio>
+      </DropdownItemRadioGroup>
+    </DropdownMenuStateless>
   );
-}
+};
+
+export default DropdownMenuStatelessExample;

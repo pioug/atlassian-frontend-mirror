@@ -22,6 +22,7 @@ import { styles as taskItemStyles } from '../nodes/task-item';
 import { styles as mediaStyles } from '../nodes/media';
 import { styles as mediaInlineStyles } from '../nodes/media-inline';
 import { styles as mediaSingleStyles } from '../nodes/media-single';
+import { styles as captionStyles } from '../nodes/caption';
 import { styles as tableStyles } from '../nodes/table';
 import { styles as taskListStyles } from '../nodes/task-list';
 import { styles as decisionListStyles } from '../nodes/decision-list';
@@ -70,6 +71,7 @@ const styles = `
   ${mediaStyles}
   ${mediaInlineStyles}
   ${mediaSingleStyles}
+  ${captionStyles}
   ${tableStyles}
   ${tableUtilStyles}
   ${taskListStyles}

@@ -2,6 +2,7 @@ import React from 'react';
 
 import WarningIcon from '@atlaskit/icon/glyph/warning';
 import { Y200 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import Flag, { FlagGroup } from '../src';
 
@@ -9,7 +10,12 @@ export default () => (
   <FlagGroup>
     <Flag
       appearance="warning"
-      icon={<WarningIcon label="Warning" secondaryColor={Y200} />}
+      icon={
+        <WarningIcon
+          label="Warning"
+          secondaryColor={token('color.iconBorder.warning', Y200)}
+        />
+      }
       id="warning"
       key="warning"
       title="Presence isn't working"

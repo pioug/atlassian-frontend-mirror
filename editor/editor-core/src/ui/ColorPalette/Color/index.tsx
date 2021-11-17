@@ -1,19 +1,9 @@
 import React from 'react';
 import { PureComponent } from 'react';
-import { defineMessages, injectIntl, InjectedIntlProps } from 'react-intl';
 import EditorDoneIcon from '@atlaskit/icon/glyph/editor/done';
 import { N0 } from '@atlaskit/theme/colors';
 import { Button, ButtonWrapper } from './styles';
 import Tooltip from '@atlaskit/tooltip';
-
-// IMO these should live inside @atlaskit/theme
-const messages = defineMessages({
-  selected: {
-    id: 'fabric.editor.selected',
-    defaultMessage: 'Selected',
-    description: 'If the item is selected or not.',
-  },
-});
 
 export interface Props {
   value: string;
@@ -23,29 +13,28 @@ export interface Props {
   onClick: (value: string, label: string) => void;
   borderColor: string;
   checkMarkColor?: string;
+  autoFocus?: boolean;
 }
 
-class Color extends PureComponent<Props & InjectedIntlProps> {
+class Color extends PureComponent<Props> {
   render() {
     const {
+      autoFocus,
       tabIndex,
       value,
       label,
       isSelected,
       borderColor,
       checkMarkColor = N0,
-      intl: { formatMessage },
     } = this.props;
-
-    const ariaLabelText = isSelected
-      ? `${label} ${formatMessage(messages.selected)}`
-      : label;
 
     return (
       <Tooltip content={label}>
         <ButtonWrapper>
           <Button
-            aria-label={ariaLabelText}
+            aria-label={label}
+            role="radio"
+            aria-checked={isSelected}
             onClick={this.onClick}
             onMouseDown={this.onMouseDown}
             tabIndex={tabIndex}
@@ -54,6 +43,7 @@ class Color extends PureComponent<Props & InjectedIntlProps> {
               backgroundColor: value || 'transparent',
               border: `1px solid ${borderColor}`,
             }}
+            autoFocus={autoFocus}
           >
             {isSelected && (
               <EditorDoneIcon primaryColor={checkMarkColor} label="" />
@@ -75,4 +65,4 @@ class Color extends PureComponent<Props & InjectedIntlProps> {
   };
 }
 
-export default injectIntl(Color);
+export default Color;

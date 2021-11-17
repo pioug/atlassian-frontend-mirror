@@ -13,7 +13,7 @@ import {
 } from '../../../providers';
 import { FetchProxy } from '../../../utils/fetch-proxy';
 import { createCollabProviderFactory } from '../../../providers/collab-provider';
-import * as UsePageTitleModule from '../../hooks/use-page-title';
+import * as UseCollabListenersModule from '../../hooks/use-collab-listeners';
 import * as UseEditorLifecycleModule from '../../hooks/use-editor-life-cycle';
 import * as UseQuickInsertModule from '../../hooks/use-quickinsert';
 import * as UsePluginListenersModule from '../../hooks/use-plugin-listeners';
@@ -178,8 +178,49 @@ describe('mobile editor element', () => {
         ),
       ).find(Editor);
       expect(editor.prop('allowPanel')).toEqual({
-        UNSAFE_allowCustomPanel: true,
+        allowCustomPanel: true,
+        allowCustomPanelEdit: false,
       });
+    });
+
+    it('should make custom panels editable when configured', () => {
+      const editor = initEditor(
+        new MobileEditorConfiguration(
+          JSON.stringify({
+            editorAppearance: 'compact',
+            allowCustomPanel: true,
+            allowCustomPanelEdit: true,
+          }),
+        ),
+      ).find(Editor);
+      expect(editor.prop('allowPanel')).toEqual({
+        allowCustomPanel: true,
+        allowCustomPanelEdit: true,
+      });
+    });
+  });
+
+  describe('tasks and decisions', () => {
+    it('should pass tasks and decision provider for full editor', () => {
+      const editor = initEditor(
+        new MobileEditorConfiguration(
+          JSON.stringify({
+            editorAppearance: 'full',
+          }),
+        ),
+      ).find(Editor);
+      expect(editor.prop('taskDecisionProvider')).toBeDefined();
+    });
+
+    it('should not pass tasks and decision provider for compact editor', () => {
+      const editor = initEditor(
+        new MobileEditorConfiguration(
+          JSON.stringify({
+            editorAppearance: 'compact',
+          }),
+        ),
+      ).find(Editor);
+      expect(editor.prop('taskDecisionProvider')).not.toBeDefined();
     });
   });
 
@@ -193,10 +234,13 @@ describe('mobile editor element', () => {
       expect(useEditorLifecycle).toBeCalled();
     });
 
-    it('should have called usePageTitle', () => {
-      const pageTitle = jest.spyOn(UsePageTitleModule, 'usePageTitle');
+    it('should have called useCollabListeners', () => {
+      const collabListeners = jest.spyOn(
+        UseCollabListenersModule,
+        'useCollabListeners',
+      );
       initEditor();
-      expect(pageTitle).toBeCalled();
+      expect(collabListeners).toBeCalled();
     });
 
     it('should have light mode when the Editor is loaded with default config', () => {
@@ -275,6 +319,15 @@ describe('mobile editor element', () => {
       initEditor();
 
       expect(mockedisIndentationAllowed).toBeCalled();
+    });
+
+    it('should have called isAllowMediaInlineEnabled', () => {
+      const mockedisAllowMediaInlineEnabled = jest.spyOn(
+        MobileEditorConfiguration.prototype,
+        'isAllowMediaInlineEnabled',
+      );
+      initEditor();
+      expect(mockedisAllowMediaInlineEnabled).toBeCalled();
     });
   });
 

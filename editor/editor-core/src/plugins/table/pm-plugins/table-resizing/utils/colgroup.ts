@@ -13,7 +13,7 @@ export const generateColgroup = (table: PmNode): Col[] => {
       // We slice here to guard against our colwidth array having more entries
       // Than the we actually span. We'll patch the document at a later point.
       cell.attrs.colwidth.slice(0, colspan).forEach((width) => {
-        cols.push(['col', { style: `width: ${width}px;` }]);
+        cols.push(['col', width ? { style: `width: ${width}px;` } : {}]);
       });
     } else {
       // When we have merged cells on the first row (firstChild),

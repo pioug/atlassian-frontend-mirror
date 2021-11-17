@@ -5,6 +5,7 @@ import { AvatarGroupPluginWrapper } from './ui/AvatarGroupPluginWrapper';
 
 const avatarGroup = (props: {
   collabEdit?: CollabEditOptions;
+  takeFullWidth: boolean;
 }): EditorPlugin => ({
   name: 'avatarGroup',
 
@@ -24,6 +25,7 @@ const avatarGroup = (props: {
         editorView={editorView}
         eventDispatcher={eventDispatcher}
         collabEdit={props.collabEdit}
+        takeFullWidth={props.takeFullWidth}
       />
     );
   },

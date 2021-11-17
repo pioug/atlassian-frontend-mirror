@@ -5,20 +5,32 @@ import {
   goToEditorTestingWDExample,
   mountEditor,
 } from '../../__helpers/testing-example-helpers';
+import { messages as blockTypeMessages } from '../../../plugins/block-type/messages';
+import colorPaletteMessages from '../../../ui/ColorPalette/Palettes/paletteMessages';
+import {
+  toolbarMenuItemsSelectors,
+  ToolbarMenuItem,
+} from '../../../__tests__/__helpers/page-objects/_toolbar';
 
 const more = `[aria-label="${toolbarMessages.moreFormatting.defaultMessage}"]`;
+const textColor = toolbarMenuItemsSelectors[ToolbarMenuItem.textColor];
+const purple = `[aria-label="${colorPaletteMessages.purple.defaultMessage}"]`;
 const underline = `span=${toolbarMessages.underline.defaultMessage}`;
 const clear = `span=${toolbarMessages.clearFormatting.defaultMessage}`;
 
 // https://product-fabric.atlassian.net/browse/ED-4531
 [comment, fullpage].forEach((editor) => {
   BrowserTestCase(
-    `toolbar-3.ts: should be able to select Clear Formatting on toolbar for ${editor.name} editor`,
+    `toolbar-3.ts: should be able to select Clear Formatting on toolbar for ${editor.name} editor for mark-based formatting`,
     { skip: ['safari', 'edge'] },
     async (client: any, testName: string) => {
       const page = await goToEditorTestingWDExample(client);
-      await mountEditor(page, { appearance: editor.appearance });
+      await mountEditor(page, {
+        appearance: editor.appearance,
+        allowTextColor: true,
+      });
 
+      // add formatted (underlined) and then non-formatted text (using clear formatting toolbar button)
       await page.click(editable);
       await page.waitForSelector(more);
       await page.click(more);
@@ -28,6 +40,49 @@ const clear = `span=${toolbarMessages.clearFormatting.defaultMessage}`;
       await page.click(more);
       await page.click(clear);
       await page.type(editable, 'cleared');
+
+      // add formatted (colored) and then non-formatted text (using clear formatting toolbar button)
+      await page.click(textColor);
+      await page.click(purple);
+      await page.type(editable, 'purple');
+      await page.click(more);
+      await page.click(clear);
+      await page.type(editable, 'cleared');
+
+      const doc = await page.$eval(editable, getDocFromElement);
+      expect(doc).toMatchCustomDocSnapshot(testName);
+    },
+  );
+});
+
+[comment, fullpage].forEach((editor) => {
+  BrowserTestCase(
+    `toolbar-3.ts: should be able to select Clear Formatting on toolbar for ${editor.name} editor for node-based formatting`,
+    { skip: ['safari', 'edge'] },
+    async (client: any, testName: string) => {
+      const page = await goToEditorTestingWDExample(client);
+      await mountEditor(page, {
+        appearance: editor.appearance,
+      });
+
+      // add text and codeblock with text
+      await page.click(editable);
+      await page.type(editable, 'hello');
+      await page.keys('Return');
+      await page.click(
+        `[aria-label="${blockTypeMessages.codeblock.defaultMessage}"]`,
+      );
+      await page.type(editable, 'insidecode');
+      await page.keys('ArrowRight');
+      await page.keys('ArrowRight');
+      await page.type(editable, 'world');
+      await page.keys('Return');
+
+      // select all and clear formatting via toolbar
+      await page.keyboard.type('a', ['Mod']);
+      await page.click(more);
+      await page.click(clear);
+
       const doc = await page.$eval(editable, getDocFromElement);
       expect(doc).toMatchCustomDocSnapshot(testName);
     },

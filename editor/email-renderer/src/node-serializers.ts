@@ -35,6 +35,7 @@ import bodiedExtension from './nodes/bodiedExtension';
 import inlineExtension from './nodes/inlineExtension';
 import date from './nodes/date';
 import expand from './nodes/expand';
+import caption from './nodes/caption';
 
 const renderNothing = (): string => '';
 
@@ -43,6 +44,7 @@ export const nodeSerializers: { [key: string]: NodeSerializer } = {
   blockquote,
   blockCard,
   bulletList,
+  caption,
   codeBlock,
   decisionList,
   decisionItem,

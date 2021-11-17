@@ -771,6 +771,11 @@ const metaData: Record<string, Data> = {
     componentName: 'EditorFeedbackIcon',
     package: '@atlaskit/icon/glyph/editor/feedback',
   },
+  'editor/file-preview': {
+    keywords: ['editor/file-preview', 'editorfilepreview', 'icon', 'core'],
+    componentName: 'EditorFilePreviewIcon',
+    package: '@atlaskit/icon/glyph/editor/file-preview',
+  },
   'editor/file': {
     keywords: [
       'editor/file',
@@ -1068,6 +1073,11 @@ const metaData: Record<string, Data> = {
     keywords: ['editor/redo', 'editorredo', 'icon', 'core'],
     componentName: 'EditorRedoIcon',
     package: '@atlaskit/icon/glyph/editor/redo',
+  },
+  'editor/remove-emoji': {
+    keywords: ['editor/remove-emoji', 'editorremoveemoji', 'icon', 'core'],
+    componentName: 'EditorRemoveEmojiIcon',
+    package: '@atlaskit/icon/glyph/editor/remove-emoji',
   },
   'editor/remove': {
     keywords: [

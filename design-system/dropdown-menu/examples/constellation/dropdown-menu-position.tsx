@@ -4,11 +4,7 @@ import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../../src';
 
 const DropdownMenuPositionExample = () => {
   return (
-    <DropdownMenu
-      trigger="Page actions"
-      position="bottom right"
-      triggerType="button"
-    >
+    <DropdownMenu trigger="Page actions" placement="bottom-end">
       <DropdownItemGroup>
         <DropdownItem>Edit</DropdownItem>
         <DropdownItem>Move</DropdownItem>

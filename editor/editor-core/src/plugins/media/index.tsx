@@ -50,14 +50,11 @@ const mediaPlugin = (options?: MediaOptions): EditorPlugin => ({
   name: 'media',
 
   nodes() {
-    const {
-      allowMediaGroup = true,
-      allowMediaSingle = false,
-      allowMediaInline = false,
-      featureFlags,
-    } = options || {};
+    const { allowMediaGroup = true, allowMediaSingle = false, featureFlags } =
+      options || {};
 
     const captions = getMediaFeatureFlag('captions', featureFlags);
+    const allowMediaInline = getMediaFeatureFlag('mediaInline', featureFlags);
 
     const mediaSingleNode = captions ? mediaSingleWithCaption : mediaSingle;
     return [
@@ -256,7 +253,8 @@ const mediaPlugin = (options?: MediaOptions): EditorPlugin => ({
     floatingToolbar: (state, intl, providerFactory) =>
       floatingToolbar(state, intl, {
         providerFactory,
-        allowMediaInline: options && options.allowMediaInline,
+        allowMediaInline:
+          options && getMediaFeatureFlag('mediaInline', options.featureFlags),
         allowResizing: options && options.allowResizing,
         allowResizingInTables: options && options.allowResizingInTables,
         allowAnnotation: options && options.allowAnnotation,

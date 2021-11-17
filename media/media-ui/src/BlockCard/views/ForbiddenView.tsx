@@ -40,6 +40,8 @@ export interface PermissionDeniedProps {
 }
 
 export const blockCardForbiddenViewClassName = 'block-card-forbidden-view';
+export const blockCardForbiddenViewLinkClassName =
+  'block-card-forbidden-view-link';
 
 export const ForbiddenView = ({
   context = { text: '' },
@@ -71,7 +73,11 @@ export const ForbiddenView = ({
       <Content isCompact>
         <div>
           <ContentHeader onClick={handleClick} link={link}>
-            <Link url={link} testId={testId} />
+            <Link
+              url={link}
+              testId={testId}
+              className={blockCardForbiddenViewLinkClassName}
+            />
           </ContentHeader>
           <Byline>
             <UnresolvedText

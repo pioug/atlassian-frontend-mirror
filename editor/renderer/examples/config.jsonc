@@ -12,7 +12,7 @@
     "99-testing.tsx"
   ],
   "exampleDependencies": [
-    "@atlaskit/field-range",
+    "@atlaskit/range",
     "@atlaskit/radio",
     "ajv"
   ]

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { HTMLAttributes, ClassAttributes, ComponentClass } from 'react';
 import { themed } from '@atlaskit/theme/components';
 import { gridSize } from '@atlaskit/theme/constants';
-import { N0, DN80, N50, DN90, N30, B75 } from '@atlaskit/theme/colors';
+import { N0, DN100, DN200, N30, N90, B75 } from '@atlaskit/theme/colors';
 
 export const CheckBoxWrapper: ComponentClass<HTMLAttributes<{}>> = styled.span`
   flex: 0 0 16px;
@@ -31,12 +31,12 @@ export const CheckBoxWrapper: ComponentClass<HTMLAttributes<{}>> = styled.span`
       cursor: pointer;
 
       &::after {
-        background: ${themed({ light: N0, dark: DN80 })}
+        background: ${themed({ light: N0, dark: DN100 })}
         background-size: 16px;
         border-radius: 3px;
         border-style: solid;
         border-width: 1px;
-        border-color: ${themed({ light: N50, dark: DN90 })}
+        border-color: ${themed({ light: N90, dark: DN200 })}
         box-sizing: border-box;
         content: '';
         height: 16px;

@@ -17,6 +17,7 @@ import {
 } from '../../__helpers/testing-example-helpers';
 import { ConfluenceCardProvider } from '@atlaskit/editor-test-helpers/confluence-card-provider';
 import { selectors } from '../../__helpers/page-objects/_editor';
+import { panelSelectors } from '../../__helpers/page-objects/_panel';
 
 const editorSelector = selectors.editor;
 
@@ -158,6 +159,30 @@ BrowserTestCase(
     await page.paste();
 
     await page.waitForSelector('p');
+    const doc = await page.$eval(editorSelector, getDocFromElement);
+    expect(doc).toMatchCustomDocSnapshot(testName);
+  },
+);
+
+BrowserTestCase(
+  'paste.ts: paste tests on fullpage editor: block node containing paragraph containing hardbreak and list',
+  { skip: [] },
+  async (client: any, testName: string) => {
+    const page = await goToEditorTestingWDExample(client);
+
+    const data =
+      '<div data-panel-type="info" data-pm-slice="0 0 []"><div><p>test<br>* 1</p></div></div>';
+    await copyAsHTML(page, data);
+
+    await mountEditor(page, {
+      appearance: fullpage.appearance,
+      allowPanel: true,
+    });
+
+    await page.click(fullpage.placeholder);
+    await page.paste();
+
+    await page.waitForSelector(panelSelectors.panel);
     const doc = await page.$eval(editorSelector, getDocFromElement);
     expect(doc).toMatchCustomDocSnapshot(testName);
   },

@@ -4,6 +4,8 @@ import Button from '@atlaskit/button/standard-button';
 import { gridSize } from '@atlaskit/theme/constants';
 import ErrorIcon from '@atlaskit/icon/glyph/error';
 import { R400 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
+
 import { AutoDismissFlag, FlagGroup } from '../../src';
 
 const AutoDismissFlagErrorExample = () => {
@@ -34,7 +36,12 @@ const AutoDismissFlagErrorExample = () => {
             <AutoDismissFlag
               appearance="error"
               id={flagId}
-              icon={<ErrorIcon label="Error" secondaryColor={R400} />}
+              icon={
+                <ErrorIcon
+                  label="Error"
+                  secondaryColor={token('color.iconBorder.danger', R400)}
+                />
+              }
               key={flagId}
               title={`#${flagId} I'm an error`}
               description="I will auto dismiss after 8 seconds."

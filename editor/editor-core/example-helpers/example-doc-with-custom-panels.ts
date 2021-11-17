@@ -40,7 +40,7 @@ export const exampleDocument = {
       type: 'panel',
       attrs: {
         panelType: 'custom',
-        panelColor: '#34eb6e',
+        panelColor: '#57D9A3',
       },
       content: [
         {
@@ -77,7 +77,7 @@ export const exampleDocument = {
       attrs: {
         panelType: 'custom',
         panelIcon: ':relieved:',
-        panelColor: '#f7bada',
+        panelColor: '#FFBDAD',
       },
       content: [
         {
@@ -96,7 +96,7 @@ export const exampleDocument = {
       attrs: {
         panelType: 'custom',
         panelIcon: ':rofl:',
-        panelColor: '#baf7ef',
+        panelColor: '#B3F5FF',
       },
       content: [
         {
@@ -203,7 +203,7 @@ export const exampleDocument = {
       type: 'panel',
       attrs: {
         panelType: 'custom',
-        panelColor: '#baf7ef',
+        panelColor: '#B3F5FF',
         panelIcon: ':rainbow:',
       },
       content: [

@@ -1,4 +1,3 @@
-import { tableCellBorderWidth } from '@atlaskit/editor-common';
 import { ShadowEvent, TableCssClassName as ClassName } from '../types';
 import { tableInsertColumnButtonSize } from '../ui/consts';
 import { updateShadowListForStickyStyles } from './update-overflow-shadows';
@@ -78,9 +77,7 @@ export class OverflowShadowsObserver {
         {
           threshold: [0, 1],
           root: this.wrapper,
-          rootMargin: `0px ${
-            tableInsertColumnButtonSize / 2 - tableCellBorderWidth
-          }px 0px 0px`,
+          rootMargin: `0px ${tableInsertColumnButtonSize / 2}px 0px 0px`,
         },
       );
       return;

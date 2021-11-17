@@ -53,7 +53,7 @@ export const removePanel = (): Command => (state, dispatch) => {
 export const changePanelType = (
   panelType: PanelType,
   panelOptions: PanelOptions = {},
-  UNSAFE_allowCustomPanel: boolean = false,
+  allowCustomPanel: boolean = false,
 ): Command => (state, dispatch) => {
   const {
     schema: { nodes },
@@ -69,7 +69,7 @@ export const changePanelType = (
   let previousType = panelNode.node.attrs.panelType;
   let newTr;
 
-  if (UNSAFE_allowCustomPanel) {
+  if (allowCustomPanel) {
     let previousColor =
       panelNode.node.attrs.panelColor || getPanelTypeBackground(previousType);
     let previousIcon = panelNode.node.attrs.panelIcon;

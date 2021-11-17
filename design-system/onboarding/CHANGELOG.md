@@ -1,5 +1,13 @@
 # @atlaskit/onboarding
 
+## 10.3.1
+
+### Patch Changes
+
+- [`3fced6aa641`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3fced6aa641) - Bumped `react-focus-lock` to version `^2.2.1`.
+- [`f460cc7c411`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f460cc7c411) - Builds for this package now pass through a tokens babel plugin, removing runtime invocations of the tokens() function and improving bundle size.
+- Updated dependencies
+
 ## 10.3.0
 
 ### Minor Changes

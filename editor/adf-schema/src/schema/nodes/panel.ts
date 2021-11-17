@@ -12,20 +12,11 @@ export enum PanelType {
   WARNING = 'warning',
   ERROR = 'error',
   SUCCESS = 'success',
-  /**
-   * @stage 0
-   */
   CUSTOM = 'custom',
 }
 export interface PanelAttributes {
   panelType: PanelType;
-  /**
-   * @stage 0
-   */
   panelIcon?: string;
-  /**
-   * @stage 0
-   */
   panelColor?: string;
 }
 
@@ -100,7 +91,7 @@ const getParseDOMAttrs = (
   return parseDOMAttrs;
 };
 
-export const customPanel = (allowCustomPanel: boolean): NodeSpec => {
+export const panel = (allowCustomPanel: boolean): NodeSpec => {
   const panelNodeSpec: NodeSpec = {
     group: 'block',
     content:
@@ -120,29 +111,4 @@ export const customPanel = (allowCustomPanel: boolean): NodeSpec => {
     },
   };
   return panelNodeSpec;
-};
-
-export const panel: NodeSpec = {
-  group: 'block',
-  content:
-    '(paragraph | heading | bulletList | orderedList | blockCard | unsupportedBlock)+',
-  marks: 'unsupportedMark unsupportedNodeAttribute',
-  attrs: {
-    panelType: { default: 'info' },
-  },
-  parseDOM: [
-    {
-      tag: 'div[data-panel-type]',
-      getAttrs: (dom) => ({
-        panelType: (dom as HTMLElement).getAttribute('data-panel-type')!,
-      }),
-    },
-  ],
-  toDOM(node: Node) {
-    const { panelType } = node.attrs;
-    const attrs: DOMAttributes = {
-      'data-panel-type': panelType,
-    };
-    return ['div', attrs, ['div', {}, 0]];
-  },
 };

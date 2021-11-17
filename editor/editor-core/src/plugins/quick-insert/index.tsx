@@ -104,7 +104,7 @@ const processItems = (
   return extendQuickInsertAction(reducedItems, extendedActions);
 };
 
-export const memoProcessItems = memoizeOne(processItems);
+export const memoProcessItems: typeof processItems = memoizeOne(processItems);
 
 /**
  * Allows for extending the quickInsertItems actions with the provided extendedActions.

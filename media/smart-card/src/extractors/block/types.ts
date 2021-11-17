@@ -4,6 +4,6 @@ import { AnalyticsHandler } from '../../utils/types';
 export interface ExtractBlockOpts {
   handleInvoke: InvokeHandler;
   handleAnalytics: AnalyticsHandler;
-  definitionId?: string;
+  extensionKey?: string;
   testId?: string;
 }

@@ -6,11 +6,15 @@ import { FileIdentifier } from '@atlaskit/media-client';
 import { CardLoading } from '../../../utils/lightCards/cardLoading';
 import CardLoader, {
   CardWithMediaClientConfigProps,
-  AsyncCardState,
 } from '../../card/cardLoader';
-import { Card } from '../../index';
 
 const mediaClient = fakeMediaClient();
+import { useMemoizeFeatureFlags } from '@atlaskit/media-common';
+
+jest.mock('@atlaskit/media-common', () => ({
+  ...jest.requireActual<Object>('@atlaskit/media-common'),
+  useMemoizeFeatureFlags: jest.fn(),
+}));
 
 const identifier: FileIdentifier = {
   id: '123',
@@ -25,6 +29,7 @@ const props = {
   },
   mediaClientConfig: mediaClient.config,
   identifier,
+  featureFlags: { someFlag: true },
 };
 
 describe('Async Card Loader', () => {
@@ -42,7 +47,7 @@ describe('Async Card Loader', () => {
     });
 
     it('should pass dimensions to the loading component if the async components were NOT resolved', async () => {
-      const wrapper = mount<CardWithMediaClientConfigProps, AsyncCardState>(
+      const wrapper = mount<CardWithMediaClientConfigProps>(
         <CardLoader {...props} />,
       );
 
@@ -53,18 +58,18 @@ describe('Async Card Loader', () => {
       );
     });
 
-    it('should NOT render Card component', async () => {
-      const wrapper = mount<CardWithMediaClientConfigProps, AsyncCardState>(
+    it('should NOT render MediaCard component', async () => {
+      const wrapper = mount<CardWithMediaClientConfigProps>(
         <CardLoader {...props} />,
       );
 
       await nextTick();
 
-      expect(wrapper.find(CardLoading).prop('dimensions')).toEqual(
-        props.dimensions,
-      );
-
-      expect(wrapper.state().Card).toBeUndefined();
+      expect(
+        wrapper
+          .find('WithMediaAnalyticsContext(WithAnalyticsEvents(CardBase))')
+          .exists(),
+      ).toBe(false);
     });
   });
 
@@ -82,21 +87,21 @@ describe('Async Card Loader', () => {
     });
 
     it('should render Card component', async () => {
-      const wrapper = mount<CardWithMediaClientConfigProps, AsyncCardState>(
-        <CardLoader {...props} />,
-      );
+      const wrapper = mount(<CardLoader {...props} />);
 
       await nextTick();
       await mockCardModule;
       await nextTick();
       wrapper.update();
-      expect(wrapper.state().Card).not.toBeUndefined();
+      expect(
+        wrapper
+          .find('WithMediaAnalyticsContext(WithAnalyticsEvents(CardBase))')
+          .exists(),
+      ).toBe(false);
     });
 
     it('should render Error boundary component', async () => {
-      const wrapper = mount<CardWithMediaClientConfigProps, AsyncCardState>(
-        <CardLoader {...props} />,
-      );
+      const wrapper = mount(<CardLoader {...props} />);
       await nextTick();
       expect(wrapper.find(MediaPickerAnalyticsErrorBoundary)).toBeDefined();
     });
@@ -104,8 +109,6 @@ describe('Async Card Loader', () => {
 
   describe('When the async import for Error Boundary returns with error', () => {
     beforeEach(() => {
-      // cleanup state from previous test
-      Card.Card = undefined;
       jest.unmock('../../card/index');
       jest.mock('../../media-card-analytics-error-boundary', () => {
         throw new Error('Forcing error boundary async import error');
@@ -113,14 +116,34 @@ describe('Async Card Loader', () => {
     });
 
     it('should render CardLoading component', async () => {
-      const wrapper = mount<CardWithMediaClientConfigProps, AsyncCardState>(
-        <CardLoader {...props} />,
-      );
+      const wrapper = mount(<CardLoader {...props} />);
 
       await nextTick();
       await mockCardModule;
       wrapper.update();
       expect(wrapper.find(CardLoading)).toHaveLength(1);
+    });
+  });
+
+  describe('feature flags', () => {
+    it('passes featureFlags to CardWithMediaClient', () => {
+      const wrapper = mount(<CardLoader {...props} />);
+      expect(wrapper.find('CardWithMediaClient').prop('featureFlags')).toEqual({
+        someFlag: true,
+      });
+    });
+
+    it('it should call useMemoizeFeatureFlags when props get updated', () => {
+      const wrapper = mount(<CardLoader {...props} />);
+      wrapper.setProps({ featureFlags: { someFlag: false } });
+
+      expect(useMemoizeFeatureFlags).toHaveBeenCalledTimes(2);
+      expect(useMemoizeFeatureFlags).toHaveBeenNthCalledWith(1, {
+        someFlag: true,
+      });
+      expect(useMemoizeFeatureFlags).toHaveBeenNthCalledWith(2, {
+        someFlag: false,
+      });
     });
   });
 });

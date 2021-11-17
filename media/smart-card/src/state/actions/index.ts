@@ -218,7 +218,13 @@ export const useSmartCardActions = (
       measure.mark(markName, 'pending');
       try {
         // Begin analytics instrumentation.
-        analytics.ui.actionClickedEvent(key, action.type, source);
+        analytics.ui.actionClickedEvent(
+          id,
+          key,
+          action.type,
+          source,
+          opts.type,
+        );
         // Invoke action - either client-side or server-side.
         let response: JsonLd.Response | void;
         if (opts.type === 'client') {

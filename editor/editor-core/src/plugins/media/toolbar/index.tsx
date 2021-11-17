@@ -39,6 +39,11 @@ import { messages as cardMessages } from '../../card/messages';
 import { FilePreviewItem } from './filePreviewItem';
 import { downloadMedia, removeMediaGroupNode } from './utils';
 import { Fragment } from 'prosemirror-model';
+import { changeInlineToMediaCard, removeInlineCard } from './commands';
+import {
+  MediaInlineNodeSelector,
+  MediaSingleNodeSelector,
+} from '../nodeviews/styles';
 
 const remove: Command = (state, dispatch) => {
   if (dispatch) {
@@ -92,6 +97,7 @@ const generateMediaCardFloatingToolbar = (
   const { mediaGroup } = state.schema.nodes;
   const items: FloatingToolbarItem<Command>[] = [
     {
+      id: 'editor.media.view.switcher',
       type: 'dropdown',
       title: intl.formatMessage(messages.displayThumbnail),
       options: [
@@ -122,6 +128,7 @@ const generateMediaCardFloatingToolbar = (
           <FilePreviewItem
             key="editor.media.card.preview"
             mediaPluginState={mediaPluginState}
+            intl={intl}
           />
         );
       },
@@ -149,6 +156,80 @@ const generateMediaCardFloatingToolbar = (
       onBlur: hoverDecoration(mediaGroup, false),
       title: intl.formatMessage(commonMessages.remove),
       onClick: handleRemoveMediaGroup,
+      testId: 'media-toolbar-remove-button',
+    },
+  ];
+
+  return items;
+};
+
+const generateMediaInlineFloatingToolbar = (
+  state: EditorState,
+  intl: InjectedIntl,
+  mediaPluginState: MediaPluginState,
+) => {
+  const { mediaInline } = state.schema.nodes;
+  const items: FloatingToolbarItem<Command>[] = [
+    {
+      id: 'editor.media.view.switcher',
+      type: 'dropdown',
+      title: intl.formatMessage(cardMessages.inline),
+      options: [
+        {
+          title: intl.formatMessage(cardMessages.inline),
+          selected: true,
+          onClick: () => {
+            return true;
+          },
+          testId: 'inline-appearance',
+        },
+        {
+          title: intl.formatMessage(messages.displayThumbnail),
+          selected: false,
+          onClick: changeInlineToMediaCard,
+          testId: 'thumbnail-appearance',
+        },
+      ],
+    },
+    {
+      type: 'separator',
+    },
+    {
+      type: 'custom',
+      fallback: [],
+      render: () => {
+        return (
+          <FilePreviewItem
+            key="editor.media.card.preview"
+            mediaPluginState={mediaPluginState}
+            intl={intl}
+          />
+        );
+      },
+    },
+    { type: 'separator' },
+    {
+      id: 'editor.media.card.download',
+      type: 'button',
+      icon: DownloadIcon,
+      onClick: () => {
+        downloadMedia(mediaPluginState);
+        return true;
+      },
+      title: intl.formatMessage(messages.download),
+    },
+    { type: 'separator' },
+    {
+      id: 'editor.media.delete',
+      type: 'button',
+      appearance: 'danger',
+      icon: RemoveIcon,
+      onMouseEnter: hoverDecoration(mediaInline, true),
+      onMouseLeave: hoverDecoration(mediaInline, false),
+      onFocus: hoverDecoration(mediaInline, true),
+      onBlur: hoverDecoration(mediaInline, false),
+      title: intl.formatMessage(commonMessages.remove),
+      onClick: removeInlineCard,
       testId: 'media-toolbar-remove-button',
     },
   ];
@@ -324,15 +405,39 @@ export const floatingToolbar = (
   }
 
   let items: FloatingToolbarItem<Command>[] = [];
-  const parentNode = findParentNodeOfType(mediaGroup)(state.selection);
-  if (allowMediaInline && parentNode && parentNode.node.type === mediaGroup) {
+  const parentMediaGroupNode = findParentNodeOfType(mediaGroup)(
+    state.selection,
+  );
+  let selectedNodeType;
+  if (state.selection instanceof NodeSelection) {
+    selectedNodeType = state.selection.node.type;
+  }
+  if (allowMediaInline && parentMediaGroupNode?.node.type === mediaGroup) {
     const mediaOffset = state.selection.$from.parentOffset + 1;
     baseToolbar.getDomRef = () => {
       const selector = mediaFilmstripItemDOMSelector(mediaOffset);
       return mediaPluginState.element?.querySelector(selector) as HTMLElement;
     };
     items = generateMediaCardFloatingToolbar(state, intl, mediaPluginState);
+  } else if (
+    allowMediaInline &&
+    selectedNodeType &&
+    selectedNodeType === mediaInline
+  ) {
+    baseToolbar.getDomRef = () => {
+      const element = mediaPluginState.element?.querySelector(
+        `.${MediaInlineNodeSelector}`,
+      ) as HTMLElement;
+      return element || mediaPluginState.element;
+    };
+    items = generateMediaInlineFloatingToolbar(state, intl, mediaPluginState);
   } else {
+    baseToolbar.getDomRef = () => {
+      const element = mediaPluginState.element?.querySelector(
+        `.${MediaSingleNodeSelector}`,
+      ) as HTMLElement;
+      return element || mediaPluginState.element;
+    };
     items = generateMediaSingleFloatingToolbar(
       state,
       intl,

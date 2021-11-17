@@ -31,7 +31,7 @@ import {
   getAnnotationViewKey,
   inlineCommentPluginKey,
   hasInvalidNodes,
-  hasWhitespaceNode,
+  hasInvalidWhitespaceNode,
   isSelectionValid,
   hasAnnotationMark,
   annotationExists,
@@ -334,7 +334,7 @@ describe('annotation', () => {
     });
   });
 
-  describe('hasWhitespaceNode', () => {
+  describe('hasInvalidWhitespaceNode', () => {
     test.each([
       ['no whitespace', doc(p('{<}Corsair smartly{>}')), false],
       [
@@ -354,10 +354,17 @@ describe('annotation', () => {
         doc(p('{<}Corsair smartly'), p('     '), p('Trysail Sail{>}')),
         true,
       ],
+      [
+        'with trailing newline ',
+        doc(p('{<}Corsair smartly'), p('{>}Trysail Sail')),
+        false,
+      ],
     ])('%s', (_, inputDoc, expected) => {
       const { editorView } = editor(inputDoc);
 
-      expect(hasWhitespaceNode(editorView.state.selection)).toBe(expected);
+      expect(hasInvalidWhitespaceNode(editorView.state.selection)).toBe(
+        expected,
+      );
     });
   });
 

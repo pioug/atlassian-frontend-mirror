@@ -3,25 +3,15 @@ title: Dropdown item
 description: A dropdown item populates the dropdown menu with items. Every item should be inside a dropdown item group.
 order: 0
 ---
-import DropdownItemCompact from '../../examples/constellation/dropdown-item-compact';
 import DropdownItemDescription from '../../examples/constellation/dropdown-item-description';
-import DropdownItemHidden from '../../examples/constellation/dropdown-item-hidden';
-import DropdownItemAutoFocus from '../../examples/constellation/dropdown-item-auto-focus';
 import DropdownItemMultiline from '../../examples/constellation/dropdown-item-multiline';
+import DropdownItemDescriptionMultiline from '../../examples/constellation/dropdown-item-description-multiline';
 
 import DropdownItemDisabled from '../../examples/constellation/dropdown-item-disabled';
 
 import DropdownItemElementBefore from '../../examples/constellation/dropdown-item-elem-before';
 import DropdownItemElementAfter from '../../examples/constellation/dropdown-item-elem-after';
 
-## Compact
-
-Use `isCompact` to display the item in a compact look.
-
-<Example
-  Component={DropdownItemCompact}
-  packageName="@atlaskit/dropdown-menu"
-/>
 
 ## Description
 
@@ -32,30 +22,18 @@ Description of the item. This renders smaller text below the item’s primary te
   packageName="@atlaskit/dropdown-menu"
 />
 
-## Hidden
+## Multiline
 
-Use `isHidden` to hide the item.
-
-<Example
-  Component={DropdownItemHidden}
-  packageName="@atlaskit/dropdown-menu"
-/>
-
-## Auto focus
-
-Use `autoFocus` to automatically focus the item when it’s mounted.
-
-<Example
-  Component={DropdownItemAutoFocus}
-  packageName="@atlaskit/dropdown-menu"
-/>
-
-## Allow multiline
-
-Use `shouldAllowMultiline` to allow the primary content to wrap over multiple lines.
+Use `shouldTitleWrap` to allow the primary content to wrap over multiple lines. Defaults to `true`.
 
 <Example
   Component={DropdownItemMultiline}
+  packageName="@atlaskit/dropdown-menu"
+/>
+
+Use `shouldDescriptionWrap` to allow the description to wrap over multiple lines. Defaults to `true`.
+<Example
+  Component={DropdownItemDescriptionMultiline}
   packageName="@atlaskit/dropdown-menu"
 />
 

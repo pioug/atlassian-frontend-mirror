@@ -49,6 +49,7 @@ export const getResizeState = ({
       cols,
       widths,
       maxSize,
+      tableWidth,
       overflow,
     };
   }
@@ -69,6 +70,7 @@ export const getResizeState = ({
     cols,
     widths,
     maxSize,
+    tableWidth,
     overflow,
   };
 };

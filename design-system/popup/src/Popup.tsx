@@ -25,6 +25,7 @@ export const Popup: FC<PopupProps> = memo(
     rootBoundary = 'viewport',
     shouldFlip = true,
     placement = 'auto',
+    fallbackPlacements,
     popupComponent: PopupContainer,
     autoFocus = true,
     zIndex = defaultLayer,
@@ -58,6 +59,7 @@ export const Popup: FC<PopupProps> = memo(
               content={content}
               isOpen={isOpen}
               placement={placement}
+              fallbackPlacements={fallbackPlacements}
               boundary={boundary}
               rootBoundary={rootBoundary}
               shouldFlip={shouldFlip}

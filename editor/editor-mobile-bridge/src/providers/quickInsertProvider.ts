@@ -1,15 +1,15 @@
-import { DeferredValue } from '../utils';
 import { QuickInsertItem, QuickInsertProvider } from '@atlaskit/editor-core';
 import { allowListPayloadType } from '../editor/event-dispatch';
+import WebBridgeImpl from '../editor/native-to-web';
 
 export const createQuickInsertProvider = async (
-  deferredQuickInsertItems: DeferredValue<QuickInsertItem[]>,
+  bridge: WebBridgeImpl,
   allowItemsList: allowListPayloadType,
   isQuickInsertEnabled: boolean,
 ): Promise<QuickInsertProvider> => ({
   getItems: async () => {
     if (isQuickInsertEnabled) {
-      const quickInsertItems = await deferredQuickInsertItems;
+      const quickInsertItems = await bridge.quickInsertItems;
       return quickInsertItems.filter(
         ({ id }: QuickInsertItem) => id && allowItemsList.has(id),
       );

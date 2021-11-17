@@ -18,7 +18,7 @@ import { extractEmbedProps } from '../../extractors/embed';
 import { getEmptyJsonLd, getUnauthorizedJsonLd } from '../../utils/jsonld';
 import { extractInlineProps } from '../../extractors/inline';
 import { extractBlockProps } from '../../extractors/block';
-import { getDefinitionId } from '../../state/helpers';
+import { getExtensionKey } from '../../state/helpers';
 import { extractRequestAccessContext } from '../../extractors/common/context';
 
 export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
@@ -89,7 +89,7 @@ export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
           const resolvedBlockViewProps = extractBlockProps(data, meta, {
             handleAnalytics,
             handleInvoke,
-            definitionId: getDefinitionId(details),
+            extensionKey: getExtensionKey(details),
           });
           return (
             <BlockCardResolvedView

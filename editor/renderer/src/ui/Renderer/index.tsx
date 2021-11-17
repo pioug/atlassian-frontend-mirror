@@ -168,8 +168,7 @@ export class Renderer extends PureComponent<RendererProps> {
       nextProps.appearance !== this.props.appearance ||
       nextProps.stickyHeaders !== this.props.stickyHeaders ||
       nextProps.disableActions !== this.props.disableActions ||
-      nextProps.UNSAFE_allowCustomPanels !==
-        this.props.UNSAFE_allowCustomPanels ||
+      nextProps.allowCustomPanels !== this.props.allowCustomPanels ||
       nextProps.allowHeadingAnchorLinks !==
         this.props.allowHeadingAnchorLinks ||
       nextMedia.allowLinking !== media.allowLinking
@@ -219,7 +218,7 @@ export class Renderer extends PureComponent<RendererProps> {
       surroundTextNodesWithTextWrapper: allowAnnotationsDraftMode,
       media: props.media,
       allowCopyToClipboard: props.allowCopyToClipboard,
-      allowCustomPanels: props.UNSAFE_allowCustomPanels,
+      allowCustomPanels: props.allowCustomPanels,
       allowAnnotations: props.allowAnnotations,
       allowSelectAllTrap: props.allowSelectAllTrap,
       allowPlaceholderText: props.allowPlaceholderText,
@@ -275,7 +274,7 @@ export class Renderer extends PureComponent<RendererProps> {
       allowPlaceholderText,
       allowColumnSorting,
       allowCopyToClipboard,
-      UNSAFE_allowCustomPanels,
+      allowCustomPanels,
     } = this.props;
 
     const allowNestedHeaderLinks = isNestedHeaderLinksEnabled(
@@ -369,7 +368,7 @@ export class Renderer extends PureComponent<RendererProps> {
                       allowNestedHeaderLinks={allowNestedHeaderLinks}
                       allowColumnSorting={allowColumnSorting}
                       allowCopyToClipboard={allowCopyToClipboard}
-                      allowCustomPanels={UNSAFE_allowCustomPanels}
+                      allowCustomPanels={allowCustomPanels}
                       allowPlaceholderText={allowPlaceholderText}
                       innerRef={this.editorRef}
                       onClick={handleWrapperOnClick}

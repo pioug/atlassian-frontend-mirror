@@ -20,6 +20,8 @@ export type FileStatus =
 export {
   getMediaFeatureFlag,
   defaultMediaFeatureFlags,
+  areEqualFeatureFlags,
+  useMemoizeFeatureFlags,
 } from './mediaFeatureFlags';
 export type {
   MediaFeatureFlags,
@@ -70,3 +72,5 @@ export {
   isUnknownMimeTypeSupportedByServer,
   isMimeTypeSupportedByServer,
 } from './mediaTypeUtils';
+
+export type SSR = 'client' | 'server';

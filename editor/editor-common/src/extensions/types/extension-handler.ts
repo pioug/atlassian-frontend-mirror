@@ -33,9 +33,14 @@ export type ExtensionAPI<T extends Parameters = Parameters> = {
     transformAfter: TransformAfter<T>,
   ) => void;
   _editInLegacyMacroBrowser: () => void;
-
   doc: {
-    insertAfter: (localId: string, adf: ADFEntity) => void;
+    insertAfter: (
+      localId: string,
+      adf: ADFEntity,
+      options?: {
+        allowSelectionToNewNode?: boolean;
+      },
+    ) => void;
     scrollTo: (localId: string) => void;
   };
 };
@@ -54,7 +59,9 @@ export interface ExtensionHandlers<T extends Parameters = any> {
   [key: string]: Extension<T> | ExtensionHandler<T>;
 }
 
-export type ReferenceEntity = ADFEntity | Object;
+export type ReferenceEntity = {
+  [prop: string]: ADFEntity | Object;
+};
 
 // DEPRECATED
 export type ParametersGetter<

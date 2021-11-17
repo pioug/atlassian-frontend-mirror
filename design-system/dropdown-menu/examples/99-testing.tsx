@@ -6,7 +6,6 @@ export default () => (
   <div style={{ margin: '20px' }}>
     <DropdownMenu
       trigger="Choices"
-      triggerType="button"
       onOpenChange={(e) => console.log('dropdown opened', e)}
       testId="dropdown-menu"
     >

@@ -24,8 +24,7 @@ describe('emoji-picker-button', () => {
   const panelPreset = new Preset<LightEditorPlugin>().add([
     panelPlugin,
     {
-      UNSAFE_allowCustomPanel: true,
-      UNSAFE_allowCustomPanelEdit: true,
+      allowCustomPanel: true,
     },
   ]);
 
@@ -42,7 +41,7 @@ describe('emoji-picker-button', () => {
     onChangeMock = jest.fn();
     wrapper = mountWithIntl(
       <EmojiPickerButton
-        view={editorView}
+        editorView={editorView}
         providerFactory={providerFactory}
         onChange={onChangeMock}
       />,

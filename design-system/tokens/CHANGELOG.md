@@ -1,5 +1,25 @@
 # @atlaskit/tokens
 
+## 0.4.0
+
+### Minor Changes
+
+- [`b46c0681c29`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b46c0681c29) - Adds "MISSING_TOKEN" for instances where a suitable token does not exist
+- [`d5e751f7236`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d5e751f7236) - Tweaks new palette colors to reflect feedback from the pilot program
+- [`2c855cf3bf4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2c855cf3bf4) - New internal config change allows this package to be run pre-build by ts-node, allowing access to the babel plugin by repo build tooling
+
+  Removes token-default-values entrypoint
+
+- [`81a0d9b5692`](https://bitbucket.org/atlassian/atlassian-frontend/commits/81a0d9b5692) - Pulled tokens babel plugin in and updated the entrypoint from `@atlaskit/babel-plugin-tokens` to `@atlaskit/tokens/babel-plugin`
+- [`4ec42b57298`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ec42b57298) - Updates the figma synchroniser to remove theme prefixes from tokens names, incorperate the isPalette flag into the group attribute and space separate interaction states. These changes improve the findability of tokens in figma
+
+### Patch Changes
+
+- [`a1ad2de440a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a1ad2de440a) - Fixes internal types being coerced to implicit any.
+- [`286e1d43477`](https://bitbucket.org/atlassian/atlassian-frontend/commits/286e1d43477) - Updated internal token representation to include state/lifecycle metadata
+- [`ed086330194`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ed086330194) - Internal file restructure for style-dictionary to group it’s inputs /src/tokens and outputs /src/artifacts in dedicated directories
+- [`9b1703048e3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9b1703048e3) - Updates build tooling in preparation for the new taxonomy.
+
 ## 0.3.0
 
 ### Minor Changes

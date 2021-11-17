@@ -1,19 +1,19 @@
 import React from 'react';
 
 import DropdownMenu, {
-  DropdownItemGroupRadio,
   DropdownItemRadio,
+  DropdownItemRadioGroup,
 } from '../../src';
 
 const DropdownItemRadioSelectedExample = () => {
   return (
-    <DropdownMenu trigger="Page actions" triggerType="button">
-      <DropdownItemGroupRadio id="actions">
+    <DropdownMenu trigger="Page actions">
+      <DropdownItemRadioGroup id="actions">
         <DropdownItemRadio id="edit">Edit</DropdownItemRadio>
         <DropdownItemRadio id="move" isSelected>
           Move
         </DropdownItemRadio>
-      </DropdownItemGroupRadio>
+      </DropdownItemRadioGroup>
     </DropdownMenu>
   );
 };

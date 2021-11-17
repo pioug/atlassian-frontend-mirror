@@ -1,5 +1,38 @@
 # @atlaskit/smart-card
 
+## 16.3.0
+
+### Minor Changes
+
+- [`af29def3dac`](https://bitbucket.org/atlassian/atlassian-frontend/commits/af29def3dac) - expose missing smart-card classnames
+
+  ```
+  import {
+    blockCardResolvedViewByClassName,
+    blockCardForbiddenViewLinkClassName,
+    blockCardContentClassName,
+    blockCardContentHeaderClassName,
+    blockCardContentHeaderNameClassName,
+    blockCardNotFoundViewClassName,
+    blockCardErroredViewClassName,
+  } from '@atlaskit/smart-card'
+
+  css`
+    .${blockCardContentHeaderNameClassName} {
+      background-color: red;
+    }
+  `
+  ```
+
+- [`e7b325a766c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e7b325a766c) - [ux] Jira Work Management (JWM) Calendar view links will be converted into smart link embed by default
+- [`b2664acc865`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b2664acc865) - [ux] Jira Work Management (JWM) Timeline view links will be converted into smart link embed by default
+
+### Patch Changes
+
+- [`bea1d5c0a96`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bea1d5c0a96) - Add UFO instrumentation for action invocation. Send extensionKey for client actions as intended, instead of definitionId
+- [`89aa3e3f314`](https://bitbucket.org/atlassian/atlassian-frontend/commits/89aa3e3f314) - Update dependency of dropdown menu to the lite mode version. Update all usages to cater to the new API. The padding within dropdown menu items is 8px more, which makes the menu look bigger.
+- Updated dependencies
+
 ## 16.2.1
 
 ### Patch Changes

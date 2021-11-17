@@ -4,11 +4,7 @@ import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../../src';
 
 const DropdownMenuShouldFitContainerExample = () => {
   return (
-    <DropdownMenu
-      shouldFitContainer
-      trigger="Page actions"
-      triggerType="button"
-    >
+    <DropdownMenu trigger="Page actions">
       <DropdownItemGroup>
         <DropdownItem>Edit</DropdownItem>
         <DropdownItem>Move</DropdownItem>

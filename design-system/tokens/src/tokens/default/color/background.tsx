@@ -9,18 +9,21 @@ const color: AttributeSchema<BackgroundColorTokenSchema> = {
       sunken: {
         attributes: {
           group: 'paint',
+          state: 'active',
           description: 'Use as a secondary background for the UI',
         },
       },
       default: {
         attributes: {
           group: 'paint',
+          state: 'active',
           description: 'Use as the primary background for the UI',
         },
       },
       card: {
         attributes: {
           group: 'paint',
+          state: 'active',
           description:
             'Use for the background of raised cards, such as Jira cards on a Kanban board.\nCombine with shadow.card.',
         },
@@ -28,6 +31,7 @@ const color: AttributeSchema<BackgroundColorTokenSchema> = {
       overlay: {
         attributes: {
           group: 'paint',
+          state: 'active',
           description: `
 Use for the background of overlay elements, such as modals, dropdown menus, flags, and inline dialogs (i.e. elements that sit on top of the UI).
 
@@ -40,18 +44,21 @@ Combine with shadow.overlay.`,
         resting: {
           attributes: {
             group: 'paint',
+            state: 'active',
             description: 'Use for backgrounds of elements in a selected state',
           },
         },
         hover: {
           attributes: {
             group: 'paint',
+            state: 'active',
             description: 'Hover state of background.selected',
           },
         },
         pressed: {
           attributes: {
             group: 'paint',
+            state: 'active',
             description: 'Pressed state of background.selected',
           },
         },
@@ -59,6 +66,7 @@ Combine with shadow.overlay.`,
       blanket: {
         attributes: {
           group: 'paint',
+          state: 'active',
           description:
             'Use for the screen overlay that appears with modal dialogs',
         },
@@ -66,6 +74,7 @@ Combine with shadow.overlay.`,
       disabled: {
         attributes: {
           group: 'paint',
+          state: 'active',
           description: 'Use for backgrounds of elements in a disabled state',
         },
       },
@@ -73,6 +82,7 @@ Combine with shadow.overlay.`,
         resting: {
           attributes: {
             group: 'paint',
+            state: 'active',
             description:
               'A vibrant background for small UI elements like primary buttons and bold in progress lozenges.',
           },
@@ -80,12 +90,14 @@ Combine with shadow.overlay.`,
         hover: {
           attributes: {
             group: 'paint',
+            state: 'active',
             description: 'Hover state of background.boldBrand',
           },
         },
         pressed: {
           attributes: {
             group: 'paint',
+            state: 'active',
             description: 'Pressed state of background.boldBrand',
           },
         },
@@ -94,6 +106,7 @@ Combine with shadow.overlay.`,
         resting: {
           attributes: {
             group: 'paint',
+            state: 'active',
             description:
               'Use for subdued backgrounds of UI elements like information section messages and in progress lozenges.',
           },
@@ -101,12 +114,14 @@ Combine with shadow.overlay.`,
         hover: {
           attributes: {
             group: 'paint',
+            state: 'active',
             description: 'Hover state for background.subtleBrand',
           },
         },
         pressed: {
           attributes: {
             group: 'paint',
+            state: 'active',
             description: 'Pressed state for background.subtleBrand',
           },
         },
@@ -115,6 +130,7 @@ Combine with shadow.overlay.`,
         resting: {
           attributes: {
             group: 'paint',
+            state: 'active',
             description:
               'A vibrant background for small UI elements like danger buttons and bold removed lozenges.',
           },
@@ -122,12 +138,14 @@ Combine with shadow.overlay.`,
         hover: {
           attributes: {
             group: 'paint',
+            state: 'active',
             description: 'Hover state of background.boldDanger',
           },
         },
         pressed: {
           attributes: {
             group: 'paint',
+            state: 'active',
             description: 'Pressed state of background.boldDanger',
           },
         },
@@ -136,6 +154,7 @@ Combine with shadow.overlay.`,
         resting: {
           attributes: {
             group: 'paint',
+            state: 'active',
             description:
               'Use for subdued backgrounds of UI elements like error section messages and removed lozenges.',
           },
@@ -143,12 +162,14 @@ Combine with shadow.overlay.`,
         hover: {
           attributes: {
             group: 'paint',
+            state: 'active',
             description: 'Hover state for background.subtleDanger',
           },
         },
         pressed: {
           attributes: {
             group: 'paint',
+            state: 'active',
             description: 'Pressed state for background.subtleDanger',
           },
         },
@@ -157,6 +178,7 @@ Combine with shadow.overlay.`,
         resting: {
           attributes: {
             group: 'paint',
+            state: 'active',
             description:
               'A vibrant background for small UI elements like warning buttons and bold moved lozenges.',
           },
@@ -164,12 +186,14 @@ Combine with shadow.overlay.`,
         hover: {
           attributes: {
             group: 'paint',
+            state: 'active',
             description: 'Hover state of background.boldWarning',
           },
         },
         pressed: {
           attributes: {
             group: 'paint',
+            state: 'active',
             description: 'Pressed state of background.boldWarning',
           },
         },
@@ -178,6 +202,7 @@ Combine with shadow.overlay.`,
         resting: {
           attributes: {
             group: 'paint',
+            state: 'active',
             description:
               'Use for subdued backgrounds of UI elements like warning section messages and moved lozenges.',
           },
@@ -185,12 +210,14 @@ Combine with shadow.overlay.`,
         hover: {
           attributes: {
             group: 'paint',
+            state: 'active',
             description: 'Hover state for background.subtleWarning',
           },
         },
         pressed: {
           attributes: {
             group: 'paint',
+            state: 'active',
             description: 'Pressed state for background.subtleWarning',
           },
         },
@@ -199,6 +226,7 @@ Combine with shadow.overlay.`,
         resting: {
           attributes: {
             group: 'paint',
+            state: 'active',
             description:
               'A vibrant background for small UI elements like checked toggles and bold success lozenges.',
           },
@@ -206,12 +234,14 @@ Combine with shadow.overlay.`,
         hover: {
           attributes: {
             group: 'paint',
+            state: 'active',
             description: 'Hover state of background.boldSuccess',
           },
         },
         pressed: {
           attributes: {
             group: 'paint',
+            state: 'active',
             description: 'Pressed state of background.boldSuccess',
           },
         },
@@ -220,6 +250,7 @@ Combine with shadow.overlay.`,
         resting: {
           attributes: {
             group: 'paint',
+            state: 'active',
             description:
               'Use for subdued backgrounds of UI elements like success section messages and success lozenges. ',
           },
@@ -227,12 +258,14 @@ Combine with shadow.overlay.`,
         hover: {
           attributes: {
             group: 'paint',
+            state: 'active',
             description: 'Hover state for background.subtleSuccess',
           },
         },
         pressed: {
           attributes: {
             group: 'paint',
+            state: 'active',
             description: 'Pressed state for background.subtleSuccess',
           },
         },
@@ -241,6 +274,7 @@ Combine with shadow.overlay.`,
         resting: {
           attributes: {
             group: 'paint',
+            state: 'active',
             description:
               'A vibrant background for small UI elements like onboarding buttons and bold new lozenges.',
           },
@@ -248,12 +282,14 @@ Combine with shadow.overlay.`,
         hover: {
           attributes: {
             group: 'paint',
+            state: 'active',
             description: 'Hover state of background.boldDiscovery',
           },
         },
         pressed: {
           attributes: {
             group: 'paint',
+            state: 'active',
             description: 'Pressed state of background.boldDiscovery',
           },
         },
@@ -262,6 +298,7 @@ Combine with shadow.overlay.`,
         resting: {
           attributes: {
             group: 'paint',
+            state: 'active',
             description:
               'Use for subdued backgrounds of UI elements like discovery section messages and new lozenges.',
           },
@@ -269,12 +306,14 @@ Combine with shadow.overlay.`,
         hover: {
           attributes: {
             group: 'paint',
+            state: 'active',
             description: 'Hover state for background.subtleDiscovery',
           },
         },
         pressed: {
           attributes: {
             group: 'paint',
+            state: 'active',
             description: 'Pressed state for background.subtleDiscovery',
           },
         },
@@ -283,6 +322,7 @@ Combine with shadow.overlay.`,
         resting: {
           attributes: {
             group: 'paint',
+            state: 'active',
             description:
               'A vibrant background for small UI elements like unchecked toggles and bold default lozenges.',
           },
@@ -290,12 +330,14 @@ Combine with shadow.overlay.`,
         hover: {
           attributes: {
             group: 'paint',
+            state: 'active',
             description: 'Hover state of background.boldNeutral',
           },
         },
         pressed: {
           attributes: {
             group: 'paint',
+            state: 'active',
             description: 'Pressed state of background.boldNeutral',
           },
         },
@@ -304,6 +346,7 @@ Combine with shadow.overlay.`,
         hover: {
           attributes: {
             group: 'paint',
+            state: 'active',
             description:
               'Hover state for UIs that don’t have a default background, such as menu items or subtle buttons.',
           },
@@ -311,6 +354,7 @@ Combine with shadow.overlay.`,
         pressed: {
           attributes: {
             group: 'paint',
+            state: 'active',
             description:
               'Pressed state for UIs that don’t have a default background, such as menu items or subtle buttons.',
           },
@@ -320,6 +364,7 @@ Combine with shadow.overlay.`,
         resting: {
           attributes: {
             group: 'paint',
+            state: 'active',
             description:
               'Use as the default background of UI elements like buttons, lozenges, and tags.',
           },
@@ -327,12 +372,14 @@ Combine with shadow.overlay.`,
         hover: {
           attributes: {
             group: 'paint',
+            state: 'active',
             description: 'Hover state for background.subtleNeutral',
           },
         },
         pressed: {
           attributes: {
             group: 'paint',
+            state: 'active',
             description: 'Pressed state for background.subtleNeutral',
           },
         },
@@ -341,12 +388,14 @@ Combine with shadow.overlay.`,
         resting: {
           attributes: {
             group: 'paint',
+            state: 'active',
             description: 'Hover state for background.subtleBorderedNeutral',
           },
         },
         pressed: {
           attributes: {
             group: 'paint',
+            state: 'active',
             description: 'Pressed state for background.subtleBorderedNeutral',
           },
         },

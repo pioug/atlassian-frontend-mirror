@@ -5,7 +5,6 @@ import {
   defaultSchema,
   inlineNodes,
   isSafeUrl,
-  PanelAttributes,
   PanelType,
   generateUuid as uuid,
 } from '@atlaskit/adf-schema';
@@ -48,6 +47,7 @@ export interface ADMarkSimple {
  * https://product-fabric.atlassian.net/wiki/spaces/E/pages/11174043/Document+structure#Documentstructure-Rank
  */
 export const markOrder = [
+  'fragment',
   'link',
   'em',
   'strong',
@@ -356,7 +356,7 @@ export const getValidNode = (
         };
       }
       case 'caption': {
-        if (content && adfStage === 'stage0') {
+        if (content) {
           return {
             type,
             content,
@@ -600,13 +600,8 @@ export const getValidNode = (
       }
       case 'panel': {
         if (attrs && content) {
-          const { panelType, panelIcon, panelColor } = attrs;
+          const { panelType } = attrs;
           if (Object.values(PanelType).includes(panelType)) {
-            // TODO: ED-10445 remove stage0 check
-            let attrs: PanelAttributes =
-              adfStage === 'stage0'
-                ? { panelType, panelIcon, panelColor }
-                : { panelType };
             return {
               type,
               attrs,
@@ -887,6 +882,12 @@ export const getValidMark = (
         };
       }
       case 'dataConsumer': {
+        return {
+          type,
+          attrs,
+        };
+      }
+      case 'fragment': {
         return {
           type,
           attrs,

@@ -72,7 +72,12 @@ const tablesPlugin = (options?: TablePluginOptions): EditorPlugin => ({
     return [
       {
         name: 'table',
-        plugin: ({ dispatch, portalProviderAPI, eventDispatcher }) => {
+        plugin: ({
+          dispatchAnalyticsEvent,
+          dispatch,
+          portalProviderAPI,
+          eventDispatcher,
+        }) => {
           const {
             dynamicSizingEnabled,
             fullWidthEnabled,
@@ -81,6 +86,7 @@ const tablesPlugin = (options?: TablePluginOptions): EditorPlugin => ({
             tableOptions,
           } = options || ({} as TablePluginOptions);
           return createPlugin(
+            dispatchAnalyticsEvent,
             dispatch,
             portalProviderAPI,
             eventDispatcher,

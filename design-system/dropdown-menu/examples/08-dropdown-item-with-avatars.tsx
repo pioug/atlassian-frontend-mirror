@@ -5,7 +5,7 @@ import Avatar from '@atlaskit/avatar';
 import Dropdown, { DropdownItem, DropdownItemGroup } from '../src';
 
 export default () => (
-  <Dropdown defaultOpen triggerType="button" trigger="Assign to">
+  <Dropdown defaultOpen trigger="Assign to">
     <DropdownItemGroup title="Teammates">
       <DropdownItem elemBefore={<Avatar size="small" />}>
         Some text

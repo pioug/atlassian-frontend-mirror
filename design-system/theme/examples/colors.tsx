@@ -121,9 +121,16 @@ export default () => (
                 ? colorData.value
                 : colorData.value();
 
-            const secondaryColor = color(actualColor).isLight()
-              ? colors.N800
-              : colors.N10;
+            // format "var(--ds-background-default, #FFFFFF)" to "#FFFFFF" as color() function only accept a color value
+            const formattedColor = actualColor.startsWith('var')
+              ? actualColor.split(/, (.+)/)[1].slice(0, -1)
+              : actualColor;
+
+            const secondaryColor = color(formattedColor).isLight()
+              ? // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+                colors.N800
+              : // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+                colors.N10;
 
             return (
               <ColorPill

@@ -3,6 +3,7 @@ import { Component } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import { gridSize } from '@atlaskit/theme/constants';
 import { B400 } from '@atlaskit/theme/colors';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import Item, { itemThemeNamespace } from '@atlaskit/item';
 import EditorDoneIcon from '@atlaskit/icon/glyph/editor/done';
 import Tooltip from '@atlaskit/tooltip';

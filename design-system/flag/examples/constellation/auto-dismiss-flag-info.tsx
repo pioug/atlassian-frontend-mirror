@@ -4,6 +4,7 @@ import Button from '@atlaskit/button/standard-button';
 import { gridSize } from '@atlaskit/theme/constants';
 import InfoIcon from '@atlaskit/icon/glyph/info';
 import { N500 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import { AutoDismissFlag, FlagGroup } from '../../src';
 
@@ -35,7 +36,12 @@ const AutoDismissFlagInfoExample = () => {
             <AutoDismissFlag
               appearance="info"
               id={flagId}
-              icon={<InfoIcon label="Info" secondaryColor={N500} />}
+              icon={
+                <InfoIcon
+                  label="Info"
+                  secondaryColor={token('color.iconBorder.discovery', N500)}
+                />
+              }
               key={flagId}
               title={`#${flagId} Where is everybody?`}
               description="I will auto dismiss after 8 seconds."

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Placement } from '@atlaskit/popper';
 import styled from 'styled-components';
-import Slider from '@atlaskit/field-range';
+import Range from '@atlaskit/range';
 import Select from '@atlaskit/select';
 import { PopupUserPicker } from '../src';
 
@@ -152,7 +152,7 @@ const Example = () => {
             <div>X offset: </div>
             {state.xOffset}
           </text>
-          <Slider
+          <Range
             value={state.xOffset}
             min={0}
             max={500}
@@ -164,7 +164,7 @@ const Example = () => {
             <div>Y offset: </div>
             {state.yOffset}
           </text>
-          <Slider
+          <Range
             value={state.yOffset}
             min={0}
             max={500}

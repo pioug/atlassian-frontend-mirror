@@ -3,6 +3,8 @@ import {
   doc,
   p,
   h1,
+  ul,
+  li,
   mention,
   code_block,
   panel,
@@ -30,7 +32,9 @@ describe('media-inline', () => {
       doc,
       editorProps: {
         media: {
-          allowMediaInline: true,
+          featureFlags: {
+            mediaInline: true,
+          },
         },
         allowLayouts: true,
         mentionProvider: Promise.resolve(new MockMentionResource({})),
@@ -271,6 +275,32 @@ describe('media-inline', () => {
       );
       expect(editorView.state.doc).toEqualDocument(
         doc(panel({})(p('text', temporaryMediaInline, ' '))),
+      );
+    });
+  });
+
+  describe('when selection is inside a listItem', () => {
+    it('should insert media inline inside empty listItem', () => {
+      const { editorView } = editor(doc(ul(li(p('{<>}')))));
+      insertMediaInlineNode(
+        editorView,
+        { id: temporaryFileId },
+        testCollectionName,
+      );
+      expect(editorView.state.doc).toEqualDocument(
+        doc(ul(li(p(temporaryMediaInline, ' ')))),
+      );
+    });
+
+    it('should append media inline inside listItem', () => {
+      const { editorView } = editor(doc(ul(li(p('text{<>}')))));
+      insertMediaInlineNode(
+        editorView,
+        { id: temporaryFileId },
+        testCollectionName,
+      );
+      expect(editorView.state.doc).toEqualDocument(
+        doc(ul(li(p('text', temporaryMediaInline, ' ')))),
       );
     });
   });

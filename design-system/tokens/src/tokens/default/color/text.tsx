@@ -6,6 +6,7 @@ const color: AttributeSchema<TextColorTokenSchema> = {
       selected: {
         attributes: {
           group: 'paint',
+          state: 'active',
           description:
             'Use for text, icons, borders, or other visual indicators in selected states',
         },
@@ -13,6 +14,7 @@ const color: AttributeSchema<TextColorTokenSchema> = {
       highEmphasis: {
         attributes: {
           group: 'paint',
+          state: 'active',
           description:
             'Use for primary text, such as body copy, sentence case headers, and buttons',
         },
@@ -20,6 +22,7 @@ const color: AttributeSchema<TextColorTokenSchema> = {
       mediumEmphasis: {
         attributes: {
           group: 'paint',
+          state: 'active',
           description: `
 Use for secondary text, such navigation, subtle button links, input field labels, and all caps subheadings.
 
@@ -30,6 +33,7 @@ Use for icon-only buttons, or icons paired with text.highEmphasis text
       lowEmphasis: {
         attributes: {
           group: 'paint',
+          state: 'active',
           description: `
 Use for tertiary text, such as meta-data, breadcrumbs, input field placeholder and helper text.
 
@@ -39,12 +43,14 @@ Use for icons that are paired with text.medEmphasis text`,
       onBold: {
         attributes: {
           group: 'paint',
+          state: 'active',
           description: 'Use for text and icons when on bold backgrounds',
         },
       },
       onBoldWarning: {
         attributes: {
           group: 'paint',
+          state: 'active',
           description:
             'Use for text and icons when on bold warning backgrounds',
         },
@@ -53,6 +59,7 @@ Use for icons that are paired with text.medEmphasis text`,
         resting: {
           attributes: {
             group: 'paint',
+            state: 'active',
             description:
               'Use for links in a resting or hover state. Add an underline for hover states',
           },
@@ -60,6 +67,7 @@ Use for icons that are paired with text.medEmphasis text`,
         pressed: {
           attributes: {
             group: 'paint',
+            state: 'active',
             description: 'Use for links in a pressed state',
           },
         },
@@ -67,6 +75,7 @@ Use for icons that are paired with text.medEmphasis text`,
       brand: {
         attributes: {
           group: 'paint',
+          state: 'active',
           description:
             'Use rarely for text on subtle brand backgrounds, such as in progress lozenges, or on subtle blue accent backgrounds, such as colored tags.',
         },
@@ -74,6 +83,7 @@ Use for icons that are paired with text.medEmphasis text`,
       warning: {
         attributes: {
           group: 'paint',
+          state: 'active',
           description:
             'Use rarely for text on subtle warning backgrounds, such as in lozenges, or text on subtle warning backgrounds, such as in moved lozenges',
         },
@@ -81,6 +91,7 @@ Use for icons that are paired with text.medEmphasis text`,
       danger: {
         attributes: {
           group: 'paint',
+          state: 'active',
           description:
             'Use rarely for critical text, such as input field error messaging, or text on subtle danger backgrounds, such as in removed lozenges, or text on subtle red accent backgrounds, such as colored tags.',
         },
@@ -88,6 +99,7 @@ Use for icons that are paired with text.medEmphasis text`,
       success: {
         attributes: {
           group: 'paint',
+          state: 'active',
           description:
             'Use rarely for positive text, such as input field success messaging, or text on subtle success backgrounds, such as in success lozenges, or text on subtle green accent backgrounds, such as colored tags.',
         },
@@ -95,6 +107,7 @@ Use for icons that are paired with text.medEmphasis text`,
       discovery: {
         attributes: {
           group: 'paint',
+          state: 'active',
           description:
             'Use rarely for text on subtle discovery backgrounds, such as in new lozenges, or text on subtle purple accent backgrounds, such as colored tags.',
         },
@@ -102,6 +115,7 @@ Use for icons that are paired with text.medEmphasis text`,
       disabled: {
         attributes: {
           group: 'paint',
+          state: 'active',
           description: 'Use for text and icons in disabled states',
         },
       },

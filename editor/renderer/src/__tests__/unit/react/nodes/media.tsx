@@ -20,9 +20,18 @@ import {
   getClipboardAttrs,
   CardWrapper,
 } from '../../../../ui/MediaCard';
+import { MediaSSR } from '../../../../types/mediaOptions';
 import { MediaLink } from '@atlaskit/editor-common';
+import { MediaClientConfig } from '@atlaskit/media-core';
 
 const doc = require('../../../../../examples/helper/media-layout.adf.json');
+
+jest.mock('@atlaskit/media-card', () => {
+  return {
+    Card: () => <div>Card</div>,
+    CardLoading: () => <div>CardLoading</div>,
+  };
+});
 
 beforeEach(() => {
   jest.clearAllMocks();
@@ -271,6 +280,69 @@ describe('Media', () => {
 
     expect(mediaComponent.find(MediaCard).length).toEqual(1);
     mediaComponent.unmount();
+  });
+
+  describe('Media SSR', () => {
+    const config: MediaClientConfig = {
+      authProvider: () => Promise.reject(new Error('do not use')),
+      initialAuth: {
+        clientId: 'clientId',
+        token: 'token',
+        baseUrl: 'baseUrl',
+      },
+    };
+
+    it('should build synchronous mediaClientConfig when ssr="server"', () => {
+      const ssr: MediaSSR = { mode: 'server', config };
+
+      const mediaComponent = mount(
+        <Media
+          type={mediaNode.attrs.type as MediaType}
+          id={mediaNode.attrs.id}
+          marks={[]}
+          isLinkMark={() => false}
+          collection={mediaNode.attrs.collection}
+          ssr={ssr}
+        />,
+      );
+
+      expect(mediaComponent.find(MediaCard).length).toEqual(1);
+      expect(mediaComponent.find(Card).length).toEqual(1);
+
+      const mediaCard = mediaComponent.find(MediaCard);
+      expect(mediaCard.prop('ssr')).toEqual(ssr);
+
+      const card = mediaComponent.find(Card);
+      expect(card.prop('mediaClientConfig')).toEqual(config);
+
+      mediaComponent.unmount();
+    });
+
+    it('should build synchronous mediaClientConfig when ssr="client"', () => {
+      const ssr: MediaSSR = { mode: 'client', config };
+
+      const mediaComponent = mount(
+        <Media
+          type={mediaNode.attrs.type as MediaType}
+          id={mediaNode.attrs.id}
+          marks={[]}
+          isLinkMark={() => false}
+          collection={mediaNode.attrs.collection}
+          ssr={ssr}
+        />,
+      );
+
+      expect(mediaComponent.find(MediaCard).length).toEqual(1);
+      expect(mediaComponent.find(Card).length).toEqual(1);
+
+      const mediaCard = mediaComponent.find(MediaCard);
+      expect(mediaCard.prop('ssr')).toEqual(ssr);
+
+      const card = mediaComponent.find(Card);
+      expect(card.prop('mediaClientConfig')).toEqual(config);
+
+      mediaComponent.unmount();
+    });
   });
 
   describe('<MediaCard />', () => {

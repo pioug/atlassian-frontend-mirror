@@ -22,7 +22,7 @@ export const getFindReplacePreset = (
 ) => {
   let preset = new Preset<LightEditorPlugin>().add([
     findReplacePlugin,
-    { takeFullWidth: false },
+    { takeFullWidth: false, twoLineEditorToolbar: false },
   ]);
   if (createAnalyticsEvent) {
     preset = preset.add([analyticsPlugin, { createAnalyticsEvent }]);

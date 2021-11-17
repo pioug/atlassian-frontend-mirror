@@ -12,9 +12,9 @@ import {
   DispatchAnalyticsEvent,
 } from '../../analytics';
 
-const ToolbarButtonWrapper = styled.div`
+const ToolbarButtonWrapper = styled.div<{ takeFullWidth: boolean }>`
   display: flex;
-  flex-grow: 1;
+  flex-grow: ${(props) => (props.takeFullWidth ? 1 : 0)};
   justify-content: flex-end;
   align-items: center;
   & > div {
@@ -27,6 +27,7 @@ export const AvatarGroupPluginWrapper = (props: {
   editorView: EditorView;
   eventDispatcher: EventDispatcher<any>;
   dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
+  takeFullWidth: boolean;
 }) => {
   const { dispatchAnalyticsEvent } = props;
 
@@ -47,6 +48,7 @@ export const AvatarGroupPluginWrapper = (props: {
     <ToolbarButtonWrapper
       aria-label="Editors"
       data-testid={'avatar-group-in-plugin'}
+      takeFullWidth={props.takeFullWidth}
     >
       <AvatarsWithPluginState
         editorView={props.editorView}

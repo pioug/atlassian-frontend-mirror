@@ -17,7 +17,7 @@ import {
 } from './fragments/panel-fragment';
 import {
   ACTION_ITEM_HELP_TEXT,
-  ACTION_ITEM_HELP_TEXT_IN_ZH,
+  ACTION_ITEM_HELP_TEXT_IN_FR,
   AT_SYMBOL,
   DECISION_PANEL_HELP_TEXT,
   UNSUPPORTED_BLOCK_NODE_ERROR_MESSAGE,
@@ -114,12 +114,14 @@ export async function isActionItemVisible(page: Page) {
 /**
  * Compare translated help text value of Action item to validate if localised action item is visible in the editor
  */
-export async function isActionItemHelpTextTranslatedToZH(page: Page) {
+export async function isActionItemHelpTextTranslatedToFR(page: Page) {
   page.switchToWeb();
-  return (
-    (await page.getTextOfElement(EDITOR_CONTENT_AREA_ELEMENT)) ===
-    ACTION_ITEM_HELP_TEXT_IN_ZH
-  );
+  /** The i18n strings provided have different space characters - this let's us
+   * compare the help text without being strict about the spaces */
+  const pageText = await page.getTextOfElement(EDITOR_CONTENT_AREA_ELEMENT);
+  const pageTextTrimmed = pageText.replace(/\s/g, '');
+  const frTrimmed = ACTION_ITEM_HELP_TEXT_IN_FR.replace(/\s/g, '');
+  return pageTextTrimmed === frTrimmed;
 }
 
 /**

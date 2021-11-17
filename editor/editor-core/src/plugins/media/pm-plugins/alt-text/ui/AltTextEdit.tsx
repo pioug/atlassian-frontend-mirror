@@ -174,6 +174,8 @@ export class AltTextEditComponent extends React.Component<
           </ButtonWrapper>
           <PanelTextInput
             testId="alt-text-input"
+            ariaLabel={formatMessage(messages.placeholder)}
+            describedById="support-text"
             placeholder={formatMessage(messages.placeholder)}
             defaultValue={this.state.lastValue}
             onCancel={this.dispatchCancelEvent}
@@ -202,7 +204,9 @@ export class AltTextEditComponent extends React.Component<
         {!!errorsList.length && (
           <ValidationWrapper>{errorsList}</ValidationWrapper>
         )}
-        <SupportText>{formatMessage(messages.supportText)}</SupportText>
+        <SupportText id="support-text">
+          {formatMessage(messages.supportText)}
+        </SupportText>
       </Container>
     );
   }

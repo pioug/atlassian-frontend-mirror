@@ -57,14 +57,6 @@ export const PrimaryItemsContainer = ({
     [moreLabel, onMoreClick, isMoreOpen, testId],
   );
 
-  const WidthObserverRelativeWrapper = () => {
-    return (
-      <div style={widthObserverContainerStyle}>
-        <WidthObserver offscreen={true} setWidth={updateWidth} />
-      </div>
-    );
-  };
-
   const content = useCallback(
     () => (
       <OverflowProvider
@@ -109,7 +101,9 @@ export const PrimaryItemsContainer = ({
 
       {Create && <Create />}
 
-      <WidthObserverRelativeWrapper />
+      <div style={widthObserverContainerStyle}>
+        <WidthObserver offscreen={true} setWidth={updateWidth} />
+      </div>
     </div>
   );
 };

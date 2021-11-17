@@ -5,7 +5,7 @@ Object {
   "content": Array [
     Object {
       "attrs": Object {
-        "panelColor": "#B3F5FF",
+        "panelColor": "#E6FCFF",
         "panelIcon": ":rainbow:",
         "panelType": "custom",
       },

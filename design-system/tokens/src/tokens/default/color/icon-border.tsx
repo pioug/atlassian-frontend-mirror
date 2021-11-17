@@ -9,6 +9,7 @@ const color: AttributeSchema<IconBorderColorTokenSchema> = {
       brand: {
         attributes: {
           group: 'paint',
+          state: 'active',
           description: `
 Use rarely for icons or borders representing brand, in-progress, or information, such as the icons in information sections messages.
 
@@ -18,6 +19,7 @@ Also use for blue icons or borders when there is no meaning tied to the color, s
       danger: {
         attributes: {
           group: 'paint',
+          state: 'active',
           description: `
 Use rarely for icons and borders representing critical information, such the icons in error section messages or the borders on invalid text fields.
 
@@ -27,6 +29,7 @@ Also use for red icons or borders when there is no meaning tied to the color, su
       warning: {
         attributes: {
           group: 'paint',
+          state: 'active',
           description: `
 Use rarely for icons and borders representing semi-urgent information, such as the icons in warning section messages.
 
@@ -37,6 +40,7 @@ Also use for yellow icons or borders when there is no meaning tied to the color,
       success: {
         attributes: {
           group: 'paint',
+          state: 'active',
           description: `
 Use rarely for icons and borders representing positive information, such as the icons in success section messages or the borders on validated text fields.
 
@@ -47,6 +51,7 @@ Also use for green icons or borders when there is no meaning tied to the color, 
       discovery: {
         attributes: {
           group: 'paint',
+          state: 'active',
           description: `
 Use rarely for icons and borders representing new information, such as the icons in discovery section mesages or the borders in onboarding spotlights.
 

@@ -11,7 +11,7 @@ import {
 import { Dispatch, EventDispatcher } from '../../../event-dispatcher';
 import { Command } from '../../../types';
 import { PortalProviderAPI } from '../../../ui/PortalProvider';
-import { nodesBetweenChanged } from '../../../utils';
+import { nodesBetweenChanged, SetAttrsStep } from '../../../utils';
 import { createSelectionClickHandler } from '../../selection/utils';
 import { decisionItemNodeView } from '../nodeviews/decisionItem';
 import { taskItemNodeViewFactory } from '../nodeviews/taskItem';
@@ -180,10 +180,13 @@ export function createPlugin(
           ) {
             const { localId, ...rest } = node.attrs;
             if (localId === undefined || localId === null || localId === '') {
-              tr.setNodeMarkup(pos, undefined, {
-                localId: uuid.generate(),
-                ...rest,
-              });
+              tr.step(
+                new SetAttrsStep(pos, {
+                  localId: uuid.generate(),
+                  ...rest,
+                }),
+              );
+
               modified = true;
             }
           }

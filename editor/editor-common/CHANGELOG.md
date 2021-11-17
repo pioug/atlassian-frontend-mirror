@@ -1,5 +1,48 @@
 # @atlaskit/editor-common
 
+## 61.0.0
+
+### Major Changes
+
+- [`fd675db8754`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd675db8754) - [ux] ED-13100: added GroupedField.hasGroupedValues and enable parameter flattening for expand/tab-group/tab fields in config panels. The default value of `GroupedField.hasGroupedValues` is `False`, which will flatten data structures. Set `GroupedField.hasGroupedValues` to `True` on all tab-group/tab/expand fields if you wish to retain existing behaviour.
+
+  This change has several parts to ensure the correctness of serialize(), deserialize(), GroupedField.hasGroupedValues and BaseFieldDefinition.allowDuplicates
+
+  - Introduced GroupedField.hasGroupedValues which allows expand/tabgroup/tab to store the value of its fields by the name of the expand/tabgroup/tab if hasGroupedValues=True (False by default)
+  - Fixed a type safety issue with Parameters and ParametersWithDuplicateFields where Typescript would consider the types Parameters = Parameters[] (resolves some inconsistencies in the editor code and extensions)
+  - Restrict allowDuplicates so it only works within Fieldset as originally intended
+  - serialize() now populates `Field.defaultValue` as expected
+
+### Minor Changes
+
+- [`3a2a5e14fdc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3a2a5e14fdc) - As we are moving to full schema, merged the customPanel nodeSpec with panel nodeSpec
+- [`d8b414ed707`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d8b414ed707) - CETI-170 Emoji vertical alignment in Firefox
+- [`23514411f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/23514411f27) - CETI-134 added support to render dark colors for the custom panels in the dark mode
+- [`8581ed429dd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8581ed429dd) - ED-13688: Add reliability edit sessions to UFO analytics
+- [`b230f366971`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b230f366971) - [ED-14008] Bump prosemirror-view from 1.20.2 to 1.23.1
+- [`47c349601b2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/47c349601b2) - ED-13869 Added the option to automatically select ADF content inserted via the `insertAfter()` extension API. We've modified our extension API and introduced a new parameter in `insertAfter()`. The function has now a third parameter, ie `options`, which is an object and has a property flag called `allowSelectionToNewNode` that lets you focus on the ADF added when set to `true`.
+- [`8bbb96540ea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8bbb96540ea) - Add "fragment" mark to stage0 ADF schema
+- [`a3737a9b3aa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a3737a9b3aa) - CETI-64 Updating the dark mode colors for the standard panels
+- [`d21da111ec2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d21da111ec2) - CETI-95 Predefined icon sizes are different from existing icons
+
+### Patch Changes
+
+- [`c6feed82071`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c6feed82071) - ED-11632: Bump prosemirror packages;
+
+  - prosmirror-commands 1.1.4 -> 1.1.11,
+  - prosemirror-model 1.11.0 -> 1.14.3,
+  - prosemirror-state 1.3.3 -> 1.3.4,
+  - prosemirror-transform 1.2.8 -> 1.3.2,
+  - prosemirror-view 1.15.4 + 1.18.8 -> 1.20.2.
+
+- [`b1034ea4393`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b1034ea4393) - ED-13752 Added child entry points for each export in editor-common root entry point file
+- [`d44279ef8dd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d44279ef8dd) - [ux] Fixes the issue on mobile when the media file is set to wrap-left and the table below has a numbered column. Adds a css rule to pm-table-container[data-number-column='true']
+- [`17552f32a6c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/17552f32a6c) - CONFDEV-77488 Updated the reference entity type
+- [`8f0577e0eb1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8f0577e0eb1) - [ux] Promoted captions to full schema and better support of wikimarkup, email and slack renderer
+- [`a82305310db`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a82305310db) - [ux] ED-7449: Sort cells in a given table column based on case sensitivity of same letter then on alphabet+ascii code values
+- [`9d43feb1f6a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d43feb1f6a) - CETI-167 Remove opacity for panels in dark mode.
+- Updated dependencies
+
 ## 60.3.0
 
 ### Minor Changes

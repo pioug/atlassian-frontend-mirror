@@ -22,17 +22,12 @@ const formatter: Format['formatter'] = ({ dictionary, options }) => {
     );
   }
 
-  dictionary.allTokens.forEach((token) => {
-    if (token.attributes && token.attributes.isPalette) {
-      // Ignore palette tokens.
-      return;
-    }
-
-    // We found a named token!
-    const nameWithoutTheme = customPropertyValue(token.path);
-    const updatedToken: DesignToken = { ...token, name: nameWithoutTheme };
-    tokens.push(updatedToken);
-  });
+  dictionary.allTokens
+    .filter((token) => token.attributes && token.attributes.group !== 'palette')
+    .forEach((token) => {
+      const tokenName = customPropertyValue(token.path);
+      tokens.push({ ...token, name: tokenName });
+    });
 
   let output = `/* THIS IS AN AUTO-GENERATED FILE DO NOT MODIFY DIRECTLY */
 /* Re-generate by running \`yarn build tokens\`. */

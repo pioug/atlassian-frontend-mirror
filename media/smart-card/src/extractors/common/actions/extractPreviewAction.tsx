@@ -59,7 +59,7 @@ const getInvokeOpts = (
 });
 
 export const extractPreviewAction = (
-  definitionId = 'empty-object-provider',
+  extensionKey = 'empty-object-provider',
   viewProps: BlockCardResolvedViewProps,
   jsonLd: JsonLd.Data.BaseData,
   handleInvoke: InvokeHandler,
@@ -77,7 +77,7 @@ export const extractPreviewAction = (
   // Extract preview action only if we have an iframe src.
   if (metadataFromJsonLd.src) {
     // Build action using instrumentation hooks.
-    const key = definitionId;
+    const key = extensionKey;
     const previewAction = PreviewAction({
       ...metadata,
       testId,

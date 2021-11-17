@@ -6,6 +6,7 @@ import Info from '@atlaskit/icon/glyph/info';
 import Warning from '@atlaskit/icon/glyph/warning';
 import { G400, N500, R300, Y300 } from '@atlaskit/theme/colors';
 import { gridSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 import Flag from '../src';
 import { AppearanceTypes } from '../src/types';
@@ -36,10 +37,30 @@ const appearances: { [key: string]: { description: string; title: string } } = {
 
 const iconMap = (key: string) => {
   const icons: { [key: string]: ReactElement } = {
-    info: <Info label="Info" secondaryColor={N500} />,
-    success: <Tick label="Success" secondaryColor={G400} />,
-    warning: <Warning label="Warning" secondaryColor={Y300} />,
-    error: <Error label="Error" secondaryColor={R300} />,
+    info: (
+      <Info
+        label="Info"
+        secondaryColor={token('color.iconBorder.discovery', N500)}
+      />
+    ),
+    success: (
+      <Tick
+        label="Success"
+        secondaryColor={token('color.iconBorder.success', G400)}
+      />
+    ),
+    warning: (
+      <Warning
+        label="Warning"
+        secondaryColor={token('color.iconBorder.warning', Y300)}
+      />
+    ),
+    error: (
+      <Error
+        label="Error"
+        secondaryColor={token('color.iconBorder.danger', R300)}
+      />
+    ),
   };
 
   return key ? icons[key] : icons;

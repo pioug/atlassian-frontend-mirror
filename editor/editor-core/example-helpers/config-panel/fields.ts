@@ -455,7 +455,7 @@ export const nativeFields: FieldDefinition[] = [
     label: 'awesome expand field',
     fields: [
       {
-        name: 'enum-select',
+        name: 'enum-select-expand',
         type: 'enum',
         label: 'Select one',
         isRequired: true,
@@ -469,7 +469,7 @@ export const nativeFields: FieldDefinition[] = [
         ],
       },
       {
-        name: 'enum-select-icon',
+        name: 'enum-select-icon-expand',
         type: 'enum',
         label: 'Select with icons',
         description: 'Pick one',

@@ -1,5 +1,12 @@
 # @atlaskit/inline-dialog
 
+## 13.1.9
+
+### Patch Changes
+
+- [`f460cc7c411`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f460cc7c411) - Builds for this package now pass through a tokens babel plugin, removing runtime invocations of the tokens() function and improving bundle size.
+- Updated dependencies
+
 ## 13.1.8
 
 ### Patch Changes

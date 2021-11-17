@@ -215,6 +215,7 @@ export default class ReactNodeView<P = ReactComponentProps>
   update(
     node: PMNode,
     _decorations: Array<Decoration>,
+    _innerDecorations?: Array<Decoration>,
     validUpdate: (currentNode: PMNode, newNode: PMNode) => boolean = () => true,
   ) {
     // @see https://github.com/ProseMirror/prosemirror/issues/648

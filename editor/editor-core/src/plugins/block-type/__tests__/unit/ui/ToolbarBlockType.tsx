@@ -1,4 +1,5 @@
 import React from 'react';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import Item from '@atlaskit/item';
 import AkButton from '@atlaskit/button/standard-button';
 import {

@@ -17,6 +17,7 @@ export enum EditorExperience {
   loadEditor = 'load',
   typing = 'type',
   interaction = 'interact',
+  editSession = 'editSession',
 }
 
 export const RELIABILITY_INTERVAL = 30000;
@@ -75,7 +76,7 @@ export class ExperienceStore {
   }
 
   success(experienceId: string, metadata?: CustomData) {
-    this.getActive(experienceId)?.success({ metadata });
+    return this.getActive(experienceId)?.success({ metadata });
   }
 
   fail(experienceId: string, metadata?: CustomData) {

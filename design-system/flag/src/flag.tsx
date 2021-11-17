@@ -15,6 +15,7 @@ import {
 import { GlobalThemeTokens, ThemeModes } from '@atlaskit/theme/types';
 import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
+import { token } from '@atlaskit/tokens';
 
 import { DEFAULT_APPEARANCE } from './constants';
 import {
@@ -23,6 +24,7 @@ import {
   getFlagBackgroundColor,
   getFlagFocusRingColor,
   getFlagTextColor,
+  getFlagIconColor,
 } from './theme';
 import { FlagProps } from './types';
 
@@ -187,9 +189,15 @@ const Flag = (props: FlagProps) => {
   };
   const OptionalDismissButton = renderToggleOrDismissButton;
 
-  let boxShadow = `0 20px 32px -8px ${flagShadowColor}`;
+  let boxShadow = token(
+    'shadow.overlay',
+    `0 20px 32px -8px ${flagShadowColor}`,
+  );
   if (!isBold) {
-    boxShadow = `0 0 1px ${flagBorderColor}, ${boxShadow}`;
+    boxShadow = token(
+      'shadow.overlay',
+      `0 0 1px ${flagBorderColor}, ${boxShadow}`,
+    );
   }
 
   return (
@@ -197,6 +205,7 @@ const Flag = (props: FlagProps) => {
       {(tokens: GlobalThemeTokens) => {
         const mode = tokens.mode;
         const textColour = getFlagTextColor(appearance, mode);
+        const iconColour = getFlagIconColor(appearance, mode);
         return (
           <div
             css={css`
@@ -245,6 +254,7 @@ const Flag = (props: FlagProps) => {
             >
               <div
                 css={css`
+                  color: ${iconColour};
                   display: flex;
                   align-items: center;
                   height: ${headerHeight}px;

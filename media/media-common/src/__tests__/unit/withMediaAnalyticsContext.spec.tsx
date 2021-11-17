@@ -58,8 +58,7 @@ describe('withMediaAnalyticsContext()', () => {
   it('should create MediaAnalyticsContext containing package infos and feature flags', () => {
     const analyticsEventPayload = { test: 'ok' };
     const someFeatureFlags: MediaFeatureFlags = {
-      codeViewer: true,
-      zipPreviews: true,
+      captions: true,
     };
     const onEvent = jest.fn();
 
@@ -99,12 +98,10 @@ describe('withMediaAnalyticsContext()', () => {
   it('should filter feature flags if filter is provided', () => {
     const analyticsEventPayload = { test: 'ok' };
     const filteredFlags: MediaFeatureFlags = {
-      codeViewer: true,
       newCardExperience: false,
     };
     const someFeatureFlags: MediaFeatureFlags = {
-      codeViewer: true,
-      zipPreviews: true,
+      captions: true,
       ...filteredFlags,
     };
     const onEvent = jest.fn();
@@ -116,7 +113,7 @@ describe('withMediaAnalyticsContext()', () => {
     const MediaComponentFiringAnalyticsEventWithContext = withMediaAnalyticsContext(
       someContextData,
       {
-        filterFeatureFlags: ['codeViewer', 'newCardExperience'],
+        filterFeatureFlags: ['newCardExperience'],
       },
     )(MediaComponentFiringAnalyticsEvent);
 

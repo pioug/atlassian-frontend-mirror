@@ -34,7 +34,7 @@ export const Frame = React.forwardRef<HTMLIFrameElement, FrameProps>(
         }}
         allowFullScreen
         scrolling="yes"
-        allow="autoplay; encrypted-media"
+        allow="autoplay; encrypted-media; clipboard-write"
         onLoad={() => setIframeLoaded(true)}
         sandbox={getIframeSandboxAttribute(isTrusted)}
       />

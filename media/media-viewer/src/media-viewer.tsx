@@ -207,6 +207,6 @@ export const MediaViewer = withMediaAnalyticsContext(
     componentName,
   },
   {
-    filterFeatureFlags: ['zipPreviews', 'codeViewer'],
+    filterFeatureFlags: [],
   },
 )(withAnalyticsEvents()(MediaViewerComponent));

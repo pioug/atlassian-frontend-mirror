@@ -70,6 +70,7 @@ describe('Panel - panelAttrsToDom', () => {
         'div',
         {
           class: 'ak-editor-panel',
+          'data-panel-color': 'red',
           'data-panel-type': 'custom',
           style: 'background-color: red',
         },
@@ -98,6 +99,7 @@ describe('Panel - panelAttrsToDom', () => {
         'div',
         {
           class: 'ak-editor-panel',
+          'data-panel-color': 'red',
           'data-panel-type': 'custom',
           style: 'background-color: red',
         },

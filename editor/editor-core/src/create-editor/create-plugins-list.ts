@@ -8,6 +8,7 @@ import {
   datePlugin,
   emojiPlugin,
   extensionPlugin,
+  fragmentMarkPlugin,
   helpDialogPlugin,
   imageUploadPlugin,
   insertBlockPlugin,
@@ -45,6 +46,7 @@ import {
   captionPlugin,
   avatarGroupPlugin,
   viewUpdateSubscriptionPlugin,
+  beforePrimaryToolbarPlugin,
   codeBidiWarningPlugin,
 } from '../plugins';
 import { isFullPage as fullPageCheck } from '../utils/is-full-page';
@@ -63,6 +65,10 @@ import {
 import { EditorPresetProps } from '../labs/next/presets/types';
 import { shouldForceTracking } from '@atlaskit/editor-common';
 import { LayoutPluginOptions } from '../plugins/layout/types';
+import {
+  BeforeAndAfterToolbarComponents,
+  PrimaryToolbarComponents,
+} from '../types/editor-props';
 
 const isCodeBlockAllowed = (
   options?: Pick<BlockTypePluginOptions, 'allowBlockType'>,
@@ -389,10 +395,10 @@ export default function createPluginsList(
       panelPlugin,
       {
         useLongPressSelection: false,
-        UNSAFE_allowCustomPanel: (<PanelPluginConfig>props.allowPanel)
-          .UNSAFE_allowCustomPanel,
-        UNSAFE_allowCustomPanelEdit: (<PanelPluginConfig>props.allowPanel)
-          .UNSAFE_allowCustomPanelEdit,
+        allowCustomPanel: (<PanelPluginConfig>props.allowPanel)
+          .allowCustomPanel,
+        allowCustomPanelEdit: (<PanelPluginConfig>props.allowPanel)
+          .allowCustomPanelEdit,
       },
     ]);
   }
@@ -520,11 +526,36 @@ export default function createPluginsList(
     },
   ]);
 
-  if (props.featureFlags?.showAvatarGroupAsPlugin === true) {
+  const hasBeforePrimaryToolbar = (
+    components?: PrimaryToolbarComponents,
+  ): components is BeforeAndAfterToolbarComponents => {
+    if (components && 'before' in components) {
+      return !!components.before;
+    }
+    return false;
+  };
+
+  if (
+    hasBeforePrimaryToolbar(props.primaryToolbarComponents) &&
+    !featureFlags.twoLineEditorToolbar
+  ) {
+    preset.add([
+      beforePrimaryToolbarPlugin,
+      {
+        beforePrimaryToolbarComponents: props.primaryToolbarComponents.before,
+      },
+    ]);
+  }
+
+  if (
+    featureFlags.showAvatarGroupAsPlugin === true &&
+    !featureFlags.twoLineEditorToolbar
+  ) {
     preset.add([
       avatarGroupPlugin,
       {
         collabEdit: props.collabEdit,
+        takeFullWidth: !hasBeforePrimaryToolbar(props.primaryToolbarComponents),
       },
     ]);
   }
@@ -533,9 +564,16 @@ export default function createPluginsList(
     preset.add([
       findReplacePlugin,
       {
-        takeFullWidth: !!props.featureFlags?.showAvatarGroupAsPlugin === false,
+        takeFullWidth:
+          !!featureFlags.showAvatarGroupAsPlugin === false &&
+          !hasBeforePrimaryToolbar(props.primaryToolbarComponents),
+        twoLineEditorToolbar: !!featureFlags.twoLineEditorToolbar,
       },
     ]);
+  }
+
+  if (props.UNSAFE_allowFragmentMark) {
+    preset.add(fragmentMarkPlugin);
   }
 
   if (featureFlags.enableViewUpdateSubscription) {

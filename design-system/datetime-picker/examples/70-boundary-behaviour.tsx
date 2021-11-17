@@ -4,8 +4,8 @@ import Lorem from 'react-lorem-component';
 
 import Button from '@atlaskit/button/standard-button';
 import { Label } from '@atlaskit/field-base';
-import FieldRange from '@atlaskit/field-range';
 import Modal, { ModalBody, ModalTransition } from '@atlaskit/modal-dialog';
+import Range from '@atlaskit/range';
 
 import { DateTimePicker } from '../src';
 
@@ -93,7 +93,7 @@ export default class MyComponent extends Component<{}, State> {
             <Modal onClose={this.closeModal}>
               <ModalBody>
                 <Label label={`Paragraphs above: ${textAbove}`} />
-                <FieldRange
+                <Range
                   value={textAbove}
                   min={0}
                   max={10}
@@ -104,7 +104,7 @@ export default class MyComponent extends Component<{}, State> {
                 <Label label="Date" />
                 <DateTimePicker defaultValue={dateTimePickerValue} />
                 <Label label={`Paragraphs below: ${textBelow}`} />
-                <FieldRange
+                <Range
                   value={textBelow}
                   min={0}
                   max={10}

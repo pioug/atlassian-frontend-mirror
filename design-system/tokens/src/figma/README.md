@@ -17,7 +17,7 @@ You are now ready to add tokens into Figma.
 
 ## Renaming tokens
 
-In cases where you want to rename a token without having to manually relink them in the Figma UI, you can use the `rename-mapping` object found here `packages/design-system/tokens/src/tokens/rename-mapping.tsx`.
+In cases where you want to rename a token without having to manually relink them in the Figma UI, you can use the `rename-mapping` object found here `packages/design-system/tokens/src/artifacts/rename-mapping.tsx`.
 Please follow the instructions there.
 
 The result should look something like this, with the rename map output as the second argument of `synchronizeFigmaTokens`.
@@ -47,5 +47,5 @@ The result of this means that the links in Figma will be _broken_ and you will n
 
 ### Running the function
 
-Go into the `packages/design-system/tokens/dist/figma` folder and you will find a figma synchronizer for each theme.
+Go into the `packages/design-system/tokens/src/artifacts/figma` folder and you will find a figma synchronizer for each theme.
 Simply copy and paste into the dev console and the tokens will be synchronized.

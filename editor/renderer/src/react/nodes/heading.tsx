@@ -2,7 +2,6 @@ import React from 'react';
 import { Node as PMNode } from 'prosemirror-model';
 
 import HeadingAnchor from './heading-anchor';
-import Url from 'url-parse';
 import {
   ACTION,
   ACTION_SUBJECT,
@@ -20,8 +19,8 @@ import {
 export type HeadingLevels = 1 | 2 | 3 | 4 | 5 | 6;
 
 const getCurrentUrlWithHash = (hash: string = ''): string => {
-  const url = new Url(window.location.href);
-  url.set('hash', encodeURIComponent(hash));
+  const url = new URL(window.location.href);
+  url.hash = encodeURIComponent(hash);
   return url.href;
 };
 

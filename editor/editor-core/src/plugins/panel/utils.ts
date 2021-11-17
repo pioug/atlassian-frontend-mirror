@@ -6,6 +6,7 @@ import {
 } from 'prosemirror-utils';
 import { PanelType, PanelAttributes } from '@atlaskit/adf-schema';
 import { PanelSharedCssClassName } from '@atlaskit/editor-common';
+import { DomPanelAtrrs } from './types';
 
 export const findPanel = (
   state: EditorState,
@@ -29,11 +30,14 @@ export const panelAttrsToDom = (
     panelColor && isCustomPanel ? `background-color: ${panelColor}` : '';
   const hasIcon = !isCustomPanel || !!panelIcon;
 
-  const panelAttrs = {
+  let panelAttrs: DomPanelAtrrs = {
     class: PanelSharedCssClassName.prefix,
     'data-panel-type': panelType || PanelType.INFO,
     style,
   };
+  if (panelColor && isCustomPanel) {
+    panelAttrs = { ...panelAttrs, 'data-panel-color': panelColor };
+  }
   const iconDiv: DOMOutputSpec = [
     'div',
     { class: PanelSharedCssClassName.icon },

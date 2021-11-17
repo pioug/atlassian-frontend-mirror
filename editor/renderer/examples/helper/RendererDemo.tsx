@@ -355,7 +355,7 @@ export default class RendererDemo extends React.Component<
       props.useSpecBasedValidator = this.props.useSpecBasedValidator;
       props.allowCopyToClipboard = this.props.allowCopyToClipboard;
       props.allowPlaceholderText = this.props.allowPlaceholderText;
-      props.UNSAFE_allowCustomPanels = this.props.allowCustomPanels;
+      props.allowCustomPanels = this.props.allowCustomPanels;
       props.analyticsEventSeverityTracking = this.props.analyticsEventSeverityTracking;
       props.allowUgcScrubber = this.props.allowUgcScrubber;
       props.allowSelectAllTrap = this.props.allowSelectAllTrap;

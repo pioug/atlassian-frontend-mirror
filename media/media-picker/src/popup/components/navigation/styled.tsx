@@ -1,7 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { CustomThemeButtonProps } from '@atlaskit/button/types';
-import Button from '@atlaskit/button/custom-theme-button';
+
+import Button, {
+  CustomThemeButtonProps,
+} from '@atlaskit/button/custom-theme-button';
 import { N0, N500, N900 } from '@atlaskit/theme/colors';
 
 export const FolderViewerNavigation: React.ComponentClass<React.HTMLAttributes<{}>> = styled.div`
@@ -78,9 +80,7 @@ export const BreadCrumbLink: React.ComponentClass<
     props.isLast ? '20px' : '14px'};
 `;
 
-export const AccountItemButton = (props: CustomThemeButtonProps) => (
-  <Button {...props} />
-);
+export const AccountItemButton = (props: any) => <Button {...props} />;
 
 // Dropdown is NOT intentionally extended by this component to allow HACK style below to work
 export const AccountDropdownWrapper: React.ComponentClass<React.HTMLAttributes<{}>> = styled.div`

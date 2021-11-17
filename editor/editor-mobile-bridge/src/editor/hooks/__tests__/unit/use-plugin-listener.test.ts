@@ -5,7 +5,7 @@ import { EditorActions, EventDispatcher } from '@atlaskit/editor-core';
 import WebBridgeImpl from '../../../native-to-web';
 import { usePluginListeners } from '../../use-plugin-listeners';
 import * as PluginListeners from '../../../plugin-subscription/index';
-import EditorConfiguartion from '../../../editor-configuration';
+import EditorConfiguration from '../../../editor-configuration';
 
 jest.mock('@atlaskit/editor-core', () => ({
   ...(jest.genMockFromModule('@atlaskit/editor-core') as object),
@@ -42,7 +42,7 @@ describe('usePluginListeners Hook', () => {
   it('should not have called getEventDispatcher and getEditorView when editorReady is false', () => {
     const editorReady = false;
     renderHook(() =>
-      usePluginListeners(editorReady, new EditorConfiguartion(), bridge),
+      usePluginListeners(editorReady, new EditorConfiguration(), bridge),
     );
     expect(privateGetEditorView).not.toHaveBeenCalled();
     expect(privateGetEventDispatcher).not.toHaveBeenCalled();
@@ -51,7 +51,7 @@ describe('usePluginListeners Hook', () => {
   it('should have called getEventDispatcher and getEditorView when editorReady is true', () => {
     const editorReady = true;
     renderHook(() =>
-      usePluginListeners(editorReady, new EditorConfiguartion(), bridge),
+      usePluginListeners(editorReady, new EditorConfiguration(), bridge),
     );
     expect(privateGetEditorView).toHaveBeenCalledTimes(1);
     expect(privateGetEventDispatcher).toHaveBeenCalledTimes(1);
@@ -64,7 +64,7 @@ describe('usePluginListeners Hook', () => {
       'initPluginListeners',
     );
     const editorReady = false;
-    const defaultConfig = new EditorConfiguartion();
+    const defaultConfig = new EditorConfiguration();
     renderHook(() => usePluginListeners(editorReady, defaultConfig, bridge));
     expect(configFactory).not.toHaveBeenCalled();
     expect(initPluginListeners).not.toHaveBeenCalled();
@@ -77,7 +77,7 @@ describe('usePluginListeners Hook', () => {
       'initPluginListeners',
     );
     let editorReady = false;
-    const defaultConfig = new EditorConfiguartion();
+    const defaultConfig = new EditorConfiguration();
     const { rerender } = renderHook(() =>
       usePluginListeners(editorReady, defaultConfig, bridge),
     );

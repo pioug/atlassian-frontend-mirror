@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/atlassian-navigation",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "A horizontal navigation component for Atlassian products.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -29,7 +29,7 @@
     "@atlaskit/logo": "*",
     "@atlaskit/popup": "^1.1.0",
     "@atlaskit/theme": "^12.0.0",
-    "@atlaskit/tokens": "^0.3.0",
+    "@atlaskit/tokens": "^0.4.0",
     "@atlaskit/tooltip": "^17.5.0",
     "@atlaskit/width-detector": "^3.0.0",
     "@babel/runtime": "^7.0.0",

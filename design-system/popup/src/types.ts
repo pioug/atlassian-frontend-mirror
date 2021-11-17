@@ -17,7 +17,7 @@ export interface TriggerProps {
 }
 
 export type PopupRef = HTMLDivElement | null;
-export type TriggerRef = HTMLElement | null;
+export type TriggerRef = HTMLElement | HTMLButtonElement | null;
 
 export interface ContentProps {
   /**
@@ -108,6 +108,13 @@ interface BaseProps {
    * Defaults to `"auto"`.
    */
   placement?: Placement;
+
+  /**
+   * Defines a list of placements to try.
+   * When no space is available on the preferred placement,
+   * the modifier will test the ones provided in the list, and use the first useful one.
+   */
+  fallbackPlacements?: Placement[];
 
   /**
    * The boundary element that the popup will check for overflow.

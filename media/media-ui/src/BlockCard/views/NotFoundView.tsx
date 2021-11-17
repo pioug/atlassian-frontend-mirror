@@ -35,6 +35,8 @@ export interface NotFoundProps {
   testId?: string;
 }
 
+export const blockCardNotFoundViewClassName = 'block-card-not-found-view';
+
 export const NotFoundView = ({
   context = { text: '' },
   isSelected = false,
@@ -44,7 +46,12 @@ export const NotFoundView = ({
 }: NotFoundProps) => {
   const handleClick = (event: MouseEvent) => handleClickCommon(event, onClick);
   return (
-    <Frame isSelected={isSelected} testId={testId} isFluidHeight>
+    <Frame
+      isSelected={isSelected}
+      testId={testId}
+      className={blockCardNotFoundViewClassName}
+      isFluidHeight
+    >
       <Content isCompact>
         <div>
           <ContentHeader onClick={handleClick} link={link}>

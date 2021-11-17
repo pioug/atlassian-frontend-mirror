@@ -6,6 +6,7 @@ import {
 import { ADFEntity } from '@atlaskit/adf-utils';
 import { Node as PMNode, NodeType, Fragment, Mark } from 'prosemirror-model';
 import type { EditorView } from 'prosemirror-view';
+import { NodeSelection } from 'prosemirror-state';
 import {
   insertMacroFromMacroBrowser,
   MacroProvider,
@@ -75,7 +76,11 @@ export const createExtensionAPI = (
   options: CreateExtensionAPIOptions,
 ): ExtensionAPI => {
   const doc = {
-    insertAfter: (localId: string, adf: ADFEntity) => {
+    insertAfter: (
+      localId: string,
+      adf: ADFEntity,
+      opt?: { allowSelectionToNewNode?: boolean },
+    ) => {
       const { editorView } = options;
       const { dispatch } = editorView;
 
@@ -117,7 +122,8 @@ export const createExtensionAPI = (
         );
       }
 
-      tr.insert(nodePos.pos + nodePos.node.nodeSize, newNode);
+      const insertPosition = nodePos.pos + nodePos.node.nodeSize;
+      tr.insert(insertPosition, newNode);
 
       // Validate if the document is valid at this point
       try {
@@ -172,6 +178,9 @@ export const createExtensionAPI = (
 
         addAnalytics(state, tr, payload);
       });
+      if (opt && opt.allowSelectionToNewNode) {
+        tr.setSelection(new NodeSelection(tr.doc.resolve(insertPosition)));
+      }
       dispatch(tr);
     },
     scrollTo: (localId: string) => {

@@ -1,9 +1,9 @@
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import React from 'react';
 import Dropdown from '@atlaskit/dropdown-menu';
 import RefreshIcon from '@atlaskit/icon/glyph/refresh';
 import DropdownMenu, { DropdownItem } from '@atlaskit/dropdown-menu';
-import SettingsIcon from '@atlaskit/icon/glyph/settings';
+
 import {
   mountWithIntlContext,
   fakeIntl,
@@ -36,7 +36,6 @@ import {
   BreadCrumbLink,
   BreadCrumbLinkLabel,
   BreadCrumbLinkSeparator,
-  AccountItemButton,
   AccountDropdownWrapper,
 } from '../../styled';
 
@@ -175,12 +174,13 @@ describe('<Navigation />', () => {
       );
       expect(element.find(AccountDropdownWrapper)).toHaveLength(1);
       expect(element.find(Dropdown)).toHaveLength(1);
-      expect(element.find(DropdownMenu).prop('trigger')).toEqual(
-        <AccountItemButton
-          iconBefore={<SettingsIcon label="account settings" />}
-          isSelected={false}
-        />,
+
+      const trigger = mount(
+        // @ts-ignore-next-line
+        element.find(DropdownMenu).prop('trigger')({ triggerRef: '' }),
       );
+
+      expect(trigger.find('AccountItemButton')).toHaveLength(1);
       expect(element.find(BreadCrumbs)).toHaveLength(1);
       expect(element.find(BreadCrumbLink)).toHaveLength(2);
       expect(element.find(BreadCrumbLinkLabel)).toHaveLength(2);
@@ -221,12 +221,12 @@ describe('<Navigation />', () => {
 
       element.find(Dropdown).simulate('openChange', { isOpen: true });
 
-      expect(element.find(DropdownMenu).prop('trigger')).toEqual(
-        <AccountItemButton
-          iconBefore={<SettingsIcon label="account settings" />}
-          isSelected={true}
-        />,
+      const trigger = mount(
+        // @ts-ignore-next-line
+        element.find(DropdownMenu).prop('trigger')({ triggerRef: '' }),
       );
+
+      expect(trigger.prop('isSelected')).toBe(true);
     });
   });
 

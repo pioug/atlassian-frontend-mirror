@@ -1,0 +1,34 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "mediaSingle",
+      "attrs": {
+        "width": 33.33,
+        "layout": "center"
+      },
+      "content": [
+        {
+          "type": "media",
+          "attrs": {
+            "id": "media-type-image",
+            "type": "file",
+            "collection": "MediaServicesSample",
+            "width": 491,
+            "height": 489
+          }
+        },
+        {
+          "type": "caption",
+          "content": [
+            {
+              "type": "text",
+              "text": "hello world"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

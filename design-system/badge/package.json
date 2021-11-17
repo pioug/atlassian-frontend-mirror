@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/badge",
-  "version": "15.0.5",
+  "version": "15.0.6",
   "description": "A badge is a visual indicator for numeric values such as tallies and scores.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -29,7 +29,7 @@
   "dependencies": {
     "@atlaskit/codemod-utils": "^3.4.0",
     "@atlaskit/theme": "^12.0.0",
-    "@atlaskit/tokens": "^0.3.0",
+    "@atlaskit/tokens": "^0.4.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/core": "^10.0.9"
   },
@@ -59,7 +59,10 @@
     },
     "@repo/internal": {
       "design-system": "v1",
-      "styling": "emotion",
+      "styling": [
+        "static",
+        "emotion"
+      ],
       "ui-components": "lite-mode",
       "analytics": "analytics-next",
       "theming": "tokens",

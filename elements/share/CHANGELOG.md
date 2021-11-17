@@ -1,5 +1,13 @@
 # @atlaskit/share
 
+## 0.34.2
+
+### Patch Changes
+
+- [`89aa3e3f314`](https://bitbucket.org/atlassian/atlassian-frontend/commits/89aa3e3f314) - Update dependency of dropdown menu to the lite mode version. Update all usages to cater to the new API. The padding within dropdown menu items is 8px more, which makes the menu look bigger.
+- [`12bfc09a21e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/12bfc09a21e) - Fixing internal prop calls for testId and removing references to the old DropdownMenuStateless export when using the new default export.
+- Updated dependencies
+
 ## 0.34.1
 
 ### Patch Changes

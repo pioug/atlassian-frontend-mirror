@@ -93,3 +93,7 @@ export { getModeFromTheme } from './getModeFromTheme';
 export type { UserBrowserExtensionResults } from './browser-extensions';
 export { sniffUserBrowserExtensions } from './browser-extensions';
 export { RenderCountProfiler } from './profiler/render-count';
+export {
+  validateADFEntity,
+  validationErrorHandler,
+} from './validate-using-spec';

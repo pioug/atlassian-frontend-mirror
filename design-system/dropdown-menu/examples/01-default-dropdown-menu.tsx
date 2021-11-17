@@ -5,7 +5,6 @@ import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../src';
 export default () => (
   <DropdownMenu
     trigger="Page actions"
-    triggerType="button"
     onOpenChange={(e) => console.log('dropdown opened', e)}
   >
     <DropdownItemGroup>

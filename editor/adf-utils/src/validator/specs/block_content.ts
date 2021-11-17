@@ -16,11 +16,11 @@ export default [
   'mediaGroup',
   'decisionList',
   'taskList',
-  'extension_with_no_marks',
   'extension_with_marks',
+  'extension_with_experimental_marks',
   'embedCard',
   'table',
   'expand_with_no_mark',
-  'bodiedExtension_with_no_marks',
   'bodiedExtension_with_marks',
+  'bodiedExtension_with_experimental_marks',
 ];

@@ -214,7 +214,7 @@
               "type": "panel",
               "attrs": {
                 "panelType": "custom",
-                "panelColor": "#6554c0"
+                "panelColor": "#57D9A3"
               },
               "content": [
                 {
@@ -251,7 +251,7 @@
               "attrs": {
                 "panelType": "custom",
                 "panelIcon": ":heart:",
-                "panelColor": "#ff991f"
+                "panelColor": "#FFBDAD"
               },
               "content": [
                 {
@@ -269,7 +269,7 @@
               "type": "panel",
               "attrs": {
                 "panelType": "custom",
-                "panelColor": "#baf7ef",
+                "panelColor": "#B3F5FF",
                 "panelIcon": ":rainbow:"
               },
               "content": [

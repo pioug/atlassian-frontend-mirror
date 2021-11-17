@@ -200,7 +200,6 @@ export default () => {
               <DropdownMenu
                 testId="dropdown-menu"
                 trigger="I'm a dropdown menu, click me!"
-                triggerType="button"
               >
                 <DropdownItemGroup>
                   <DropdownItem>Edit</DropdownItem>

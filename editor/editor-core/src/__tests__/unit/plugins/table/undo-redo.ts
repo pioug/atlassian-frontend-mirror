@@ -22,6 +22,7 @@ import { insertColumn } from '../../../../plugins/table/commands';
 import { deleteColumns } from '../../../../plugins/table/transforms';
 import { colsToRect } from '../../../../plugins/table/utils/table';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
+import clone from 'lodash/clone';
 
 const TABLE_LOCAL_ID = 'test-table-local-id';
 
@@ -56,7 +57,6 @@ describe('undo/redo with tables', () => {
     string,
     {
       before: DocBuilder;
-      after: DocBuilder;
       action: Function;
     },
   ];
@@ -68,17 +68,6 @@ describe('undo/redo with tables', () => {
         table({
           localId: TABLE_LOCAL_ID,
         })(tr(th({ colwidth: [285] })(p('')), th({ colwidth: [1310] })(p('')))),
-      ),
-      after: doc(
-        table({
-          localId: TABLE_LOCAL_ID,
-        })(
-          tr(
-            th({ colwidth: [69] })(p('')),
-            th({ colwidth: [140] })(p('')),
-            th({ colwidth: [471] })(p('')),
-          ),
-        ),
       ),
       action: INSERT_COLUMN,
     },
@@ -92,12 +81,6 @@ describe('undo/redo with tables', () => {
           localId: TABLE_LOCAL_ID,
         })(tr(th({ colwidth: [285] })(p('')), th({ colwidth: [1310] })(p('')))),
       ),
-
-      after: doc(
-        table({
-          localId: TABLE_LOCAL_ID,
-        })(tr(th({ colwidth: [1310] })(p('')))),
-      ),
       action: DELETE_COLUMN,
     },
   ];
@@ -110,11 +93,6 @@ describe('undo/redo with tables', () => {
           localId: TABLE_LOCAL_ID,
         })(tr(thEmpty, thEmpty)),
       ),
-      after: doc(
-        table({
-          localId: TABLE_LOCAL_ID,
-        })(tr(thEmpty, thEmpty, thEmpty)),
-      ),
       action: INSERT_COLUMN,
     },
   ];
@@ -126,11 +104,6 @@ describe('undo/redo with tables', () => {
         table({
           localId: TABLE_LOCAL_ID,
         })(tr(thEmpty, thEmpty)),
-      ),
-      after: doc(
-        table({
-          localId: TABLE_LOCAL_ID,
-        })(tr(thEmpty)),
       ),
       action: DELETE_COLUMN,
     },
@@ -146,17 +119,6 @@ describe('undo/redo with tables', () => {
           tr(
             td({ colwidth: [194] })(p('{<>}')),
             td({ colwidth: [564] })(p('')),
-          ),
-        ),
-      ),
-      after: doc(
-        table({
-          localId: TABLE_LOCAL_ID,
-        })(
-          tr(
-            td({ colwidth: [129] })(p('')),
-            td({ colwidth: [140] })(p('')),
-            td({ colwidth: [411] })(p('')),
           ),
         ),
       ),
@@ -177,17 +139,6 @@ describe('undo/redo with tables', () => {
           ),
         ),
       ),
-      after: doc(
-        table({
-          localId: TABLE_LOCAL_ID,
-        })(
-          tr(
-            td({ colwidth: [140] })(p('')),
-            td({ colwidth: [129] })(p('')),
-            td({ colwidth: [411] })(p('')),
-          ),
-        ),
-      ),
       action: SHORTCUT_ADD_COLUMN_BEFORE,
     },
   ];
@@ -200,11 +151,6 @@ describe('undo/redo with tables', () => {
           localId: TABLE_LOCAL_ID,
         })(tr(tdCursor, tdEmpty)),
       ),
-      after: doc(
-        table({
-          localId: TABLE_LOCAL_ID,
-        })(tr(tdEmpty, tdEmpty, tdEmpty)),
-      ),
       action: SHORTCUT_ADD_COLUMN_BEFORE,
     },
   ];
@@ -216,11 +162,6 @@ describe('undo/redo with tables', () => {
         table({
           localId: TABLE_LOCAL_ID,
         })(tr(tdCursor, tdEmpty)),
-      ),
-      after: doc(
-        table({
-          localId: TABLE_LOCAL_ID,
-        })(tr(tdEmpty, tdEmpty, tdEmpty)),
       ),
       action: SHORTCUT_ADD_COLUMN_BEFORE,
     },
@@ -238,12 +179,14 @@ describe('undo/redo with tables', () => {
   ])('[case%#] %s', (_description, testCase) => {
     it('should be able to undo/redo', () => {
       const { editorView } = editor(testCase.before);
+      const docAtStart = clone(editorView.state.doc);
       testCase.action(editorView);
-      expect(editorView.state.doc).toEqualDocument(testCase.after);
+      expect(editorView.state.doc).not.toEqualDocument(docAtStart);
+      const docAfterAction = clone(editorView.state.doc);
       undo(editorView.state, editorView.dispatch);
-      expect(editorView.state.doc).toEqualDocument(testCase.before);
+      expect(editorView.state.doc).toEqualDocument(docAtStart);
       redo(editorView.state, editorView.dispatch);
-      expect(editorView.state.doc).toEqualDocument(testCase.after);
+      expect(editorView.state.doc).toEqualDocument(docAfterAction);
     });
   });
 });

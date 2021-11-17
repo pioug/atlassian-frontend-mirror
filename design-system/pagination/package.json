@@ -64,7 +64,10 @@
       "ui-components": "lite-mode",
       "analytics": "analytics-next",
       "theming": "tokens",
-      "deprecation": "no-deprecated-imports"
+      "deprecation": "no-deprecated-imports",
+      "styling": [
+        "emotion"
+      ]
     }
   },
   "af:exports": {

@@ -8,6 +8,14 @@ order: 3
 
 Dynamic tables display data in rows and columns. They order information so that people can easily scan and analyse data.
 
+## Anatomy
+
+![Dynamic table anatomy](images/dynamic-table-anatomy.png)
+
+1. **Header label**: Indicates the type of information that is in each column.
+2. **Row**: Displays a relationship between separate table cells.
+3. **Pagination**: Indicates the amount of data presented in the table.
+
 ## Best practices
 
 ### Editing row content
@@ -17,11 +25,18 @@ In more complex tables where there are multiple types of content displayed, you 
 If your table is complex, with a large number of input fields,
 you should consider using a modal dialog or dedicated page for entering content instead of a dynamic table.
 
+![Editing row example diagram](images/editing-row-content.png)
+
 ### Removing a row
 
 Use either a delete action in the "more" menu (if multiple user actions are available)
 or an "x" icon to allow users to delete a row. Once the row is deleted, both the content rows and input row will shift upwards.
-See this in action in our interactive examples.
+
+### Error state
+
+If an error occurs, the affected row or text input should be highlighted with a supporting error icon.
+
+![Error state example diagram](images/error-state.png)
 
 ## Content guidelines
 
@@ -32,9 +47,8 @@ See this in action in our interactive examples.
 
 ## Accessibility
 
-Note that this component has limitations to accessibility.
-
-Use tooltips for complex headings and data.
+This component has accessibility issues. This is something we are aware of and are working on. If this
+is a direct blocker for usage of the component we'd recommend seeking alternative solutions in the interim.
 
 ## Related
 

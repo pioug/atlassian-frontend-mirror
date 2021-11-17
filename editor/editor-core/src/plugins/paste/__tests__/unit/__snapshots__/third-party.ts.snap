@@ -555,11 +555,6 @@ Object {
       "type": "bulletList",
     },
     Object {
-      "content": Array [
-        Object {
-          "type": "hardBreak",
-        },
-      ],
       "type": "paragraph",
     },
     Object {
@@ -615,11 +610,6 @@ Object {
       "type": "bulletList",
     },
     Object {
-      "content": Array [
-        Object {
-          "type": "hardBreak",
-        },
-      ],
       "type": "paragraph",
     },
     Object {
@@ -663,11 +653,6 @@ Object {
       "type": "paragraph",
     },
     Object {
-      "content": Array [
-        Object {
-          "type": "hardBreak",
-        },
-      ],
       "type": "paragraph",
     },
     Object {
@@ -680,11 +665,6 @@ Object {
       "type": "paragraph",
     },
     Object {
-      "content": Array [
-        Object {
-          "type": "hardBreak",
-        },
-      ],
       "type": "paragraph",
     },
     Object {
@@ -709,11 +689,6 @@ Object {
       "type": "paragraph",
     },
     Object {
-      "content": Array [
-        Object {
-          "type": "hardBreak",
-        },
-      ],
       "type": "paragraph",
     },
     Object {
@@ -1724,7 +1699,7 @@ Object {
       },
       "content": Array [
         Object {
-          "text": "Heading 1",
+          "text": "Heading 1 ",
           "type": "text",
         },
       ],
@@ -2175,14 +2150,6 @@ Object {
         },
       ],
       "type": "table",
-    },
-    Object {
-      "content": Array [
-        Object {
-          "type": "hardBreak",
-        },
-      ],
-      "type": "paragraph",
     },
   ],
   "type": "doc",

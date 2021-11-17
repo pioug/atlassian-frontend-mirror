@@ -32,10 +32,7 @@ describe('Quick Insert:', () => {
       appearance: Appearance.fullPage,
       viewport: { width: 800, height: 800 },
       editorProps: {
-        allowPanel: {
-          UNSAFE_allowCustomPanel: true,
-          UNSAFE_allowCustomPanelEdit: true,
-        },
+        allowPanel: { allowCustomPanel: true, allowCustomPanelEdit: true },
       },
     });
     await typeInEditorAtEndOfDocument(page, '/');

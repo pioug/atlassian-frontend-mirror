@@ -1,6 +1,6 @@
 # @atlaskit/eslint-plugin-design-system/ensure-design-token-usage
 
-Ensures usage of the global theme through the design `token` function.
+Ensures a codebase uses the global `token` function rather than using hard-coded values. This ruleset is great for codebases that are both starting to adopt tokens, and ones that already have adopted them. It helps new contributors from accidentally adding hard-coded colour values.
 
 ## Examples
 
@@ -15,7 +15,7 @@ css({
 
 ```js
 css({
-  boxShadow: '0px 1px 1px #161A1D32'
+  boxShadow: '0px 1px 1px #161A1D32',
                           ^^^^^^^^^
 })
 ```

@@ -88,7 +88,7 @@ class PanelNodeView {
       document,
       panelAttrsToDom(
         node.attrs as PanelAttributes,
-        pluginOptions.UNSAFE_allowCustomPanel || false,
+        pluginOptions.allowCustomPanel || false,
       ),
     );
     this.getPos = getPos;
@@ -105,7 +105,7 @@ class PanelNodeView {
     this.icon.contentEditable = 'false';
     ReactDOM.render(
       <PanelIcon
-        allowCustomPanel={pluginOptions.UNSAFE_allowCustomPanel}
+        allowCustomPanel={pluginOptions.allowCustomPanel}
         panelAttributes={node.attrs as PanelAttributes}
         providerFactory={this.providerFactory}
       />,

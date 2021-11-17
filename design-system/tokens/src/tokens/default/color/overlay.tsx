@@ -6,6 +6,7 @@ const color: AttributeSchema<OverlayColorTokenSchema> = {
       hover: {
         attributes: {
           group: 'paint',
+          state: 'active',
           description:
             'Use as a background overlay for elements in a hover state when their background color cannot change, such as avatars.',
         },
@@ -13,6 +14,7 @@ const color: AttributeSchema<OverlayColorTokenSchema> = {
       pressed: {
         attributes: {
           group: 'paint',
+          state: 'active',
           description:
             'Use as a background overlay for elements in a pressed state when their background color cannot change, such as avatars.',
         },

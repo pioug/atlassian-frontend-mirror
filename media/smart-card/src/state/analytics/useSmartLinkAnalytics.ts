@@ -20,7 +20,12 @@ import {
 import { useMemo } from 'react';
 import { CardType } from '../store/types';
 import { APIError } from '../../client/errors';
-import { startUfoExperience, succeedUfoExperience } from './ufoExperiences';
+import {
+  failUfoExperience,
+  startUfoExperience,
+  succeedUfoExperience,
+} from './ufoExperiences';
+import { InvokeType } from '../../model/invoke-opts';
 
 export const useSmartLinkAnalytics = (dispatchAnalytics: AnalyticsHandler) => {
   const ui = useMemo(
@@ -47,13 +52,22 @@ export const useSmartLinkAnalytics = (dispatchAnalytics: AnalyticsHandler) => {
           uiCardClickedEvent(display, definitionId, extensionKey),
         ),
       actionClickedEvent: (
-        providerKey: string,
+        id: string,
+        extensionKey: string,
         actionType: string,
-        display?: CardInnerAppearance,
-      ) =>
+        display: CardInnerAppearance,
+        invokeType: InvokeType,
+      ) => {
+        startUfoExperience('smart-link-action-invocation', id, {
+          actionType,
+          display,
+          extensionKey,
+          invokeType,
+        });
         dispatchAnalytics(
-          uiActionClickedEvent(providerKey, actionType, display),
-        ),
+          uiActionClickedEvent(extensionKey, actionType, display),
+        );
+      },
       closedAuthEvent: (
         display: CardInnerAppearance,
         definitionId?: string,
@@ -112,20 +126,24 @@ export const useSmartLinkAnalytics = (dispatchAnalytics: AnalyticsHandler) => {
         providerKey: string,
         actionType: string,
         display: CardInnerAppearance,
-      ) =>
+      ) => {
+        succeedUfoExperience('smart-link-action-invocation', id);
         dispatchAnalytics(
           invokeSucceededEvent(id, providerKey, actionType, display),
-        ),
+        );
+      },
       invokeFailedEvent: (
         id: string,
         providerKey: string,
         actionType: string,
         display: CardInnerAppearance,
         reason: string,
-      ) =>
+      ) => {
+        failUfoExperience('smart-link-action-invocation', id);
         dispatchAnalytics(
           invokeFailedEvent(id, providerKey, actionType, display, reason),
-        ),
+        );
+      },
       connectSucceededEvent: (
         id: string,
         definitionId?: string,

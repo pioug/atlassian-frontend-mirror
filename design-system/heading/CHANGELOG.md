@@ -1,5 +1,12 @@
 # @atlaskit/heading
 
+## 0.1.5
+
+### Patch Changes
+
+- [`f460cc7c411`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f460cc7c411) - Builds for this package now pass through a tokens babel plugin, removing runtime invocations of the tokens() function and improving bundle size.
+- Updated dependencies
+
 ## 0.1.4
 
 ### Patch Changes

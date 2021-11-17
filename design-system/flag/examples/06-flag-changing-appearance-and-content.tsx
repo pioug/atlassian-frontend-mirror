@@ -1,6 +1,7 @@
-import React, { SyntheticEvent, useState } from 'react';
+/** @jsx jsx */
+import { SyntheticEvent, useState } from 'react';
 
-import { css } from '@emotion/core';
+import { css, jsx } from '@emotion/core';
 
 import SuccessIcon from '@atlaskit/icon/glyph/check-circle';
 import ErrorIcon from '@atlaskit/icon/glyph/error';
@@ -9,6 +10,7 @@ import { RadioGroup } from '@atlaskit/radio';
 import Spinner from '@atlaskit/spinner';
 import { G400, R400, Y200 } from '@atlaskit/theme/colors';
 import { gridSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 import Flag, { FlagGroup } from '../src';
 import { AppearanceArray, AppearanceTypes } from '../src/types';
@@ -52,7 +54,12 @@ const ConnectionDemo = () => {
   const getIcon = () => {
     switch (appearance) {
       case 'error':
-        return <ErrorIcon label="Error" secondaryColor={R400} />;
+        return (
+          <ErrorIcon
+            label="Error"
+            secondaryColor={token('color.iconBorder.danger', R400)}
+          />
+        );
       case 'info':
         // We wrap the Spinner in a div the same height as a standard Icon, to avoid
         // the flag height jumping when Flag.appearance is changed.
@@ -67,11 +74,26 @@ const ConnectionDemo = () => {
           </div>
         );
       case 'success':
-        return <SuccessIcon label="Success" secondaryColor={G400} />;
+        return (
+          <SuccessIcon
+            label="Success"
+            secondaryColor={token('color.iconBorder.success', G400)}
+          />
+        );
       case 'warning':
-        return <WarningIcon label="Warning" secondaryColor={Y200} />;
+        return (
+          <WarningIcon
+            label="Warning"
+            secondaryColor={token('color.iconBorder.warning', Y200)}
+          />
+        );
       default:
-        return <SuccessIcon label="" secondaryColor={G400} />;
+        return (
+          <SuccessIcon
+            label=""
+            secondaryColor={token('color.iconBorder.success', G400)}
+          />
+        );
     }
   };
 

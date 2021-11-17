@@ -19,6 +19,13 @@ import {
   emptyOptionData,
 } from './_data';
 
+jest
+  .spyOn(FeedbackCollector.prototype, 'getEntitlementInformation')
+  // @ts-ignore
+  .mockImplementation(() => {
+    return null;
+  });
+
 describe('Feedback Collector unit tests', () => {
   describe('Feedback integration', () => {
     test('Feedback collector should render a component', () => {
@@ -48,7 +55,7 @@ describe('Feedback Collector unit tests', () => {
           />,
         );
       });
-      test('value is selected, everything else is empty', () => {
+      test('value is selected, everything else is empty', async () => {
         const formValues: FormFields = {
           type: 'bug',
           description: '',
@@ -83,12 +90,12 @@ describe('Feedback Collector unit tests', () => {
           ],
         };
 
-        expect(wrapper.instance().mapFormToJSD(formValues)).toEqual(
-          resultValues,
-        );
+        const resultJsd = await wrapper.instance().mapFormToJSD(formValues);
+
+        expect(resultJsd).toEqual(resultValues);
       });
 
-      test('value is selected, description is filled, everything else is empty', () => {
+      test('value is selected, description is filled, everything else is empty', async () => {
         const formValues: FormFields = {
           type: 'comment',
           description: 'some text',
@@ -123,12 +130,12 @@ describe('Feedback Collector unit tests', () => {
           ],
         };
 
-        expect(wrapper.instance().mapFormToJSD(formValues)).toEqual(
-          resultValues,
-        );
+        const resultJsd = await wrapper.instance().mapFormToJSD(formValues);
+
+        expect(resultJsd).toEqual(resultValues);
       });
 
-      test('value is selected, description is filled, consent to contact is given', () => {
+      test('value is selected, description is filled, consent to contact is given', async () => {
         const formValues: FormFields = {
           type: 'suggestion',
           description: 'some text',
@@ -171,12 +178,12 @@ describe('Feedback Collector unit tests', () => {
           ],
         };
 
-        expect(wrapper.instance().mapFormToJSD(formValues)).toEqual(
-          resultValues,
-        );
+        const resultJsd = await wrapper.instance().mapFormToJSD(formValues);
+
+        expect(resultJsd).toEqual(resultValues);
       });
 
-      test('value is selected, description is filled, consent to contact is given, enrolled in research', () => {
+      test('value is selected, description is filled, consent to contact is given, enrolled in research', async () => {
         const formValues: FormFields = {
           type: 'question',
           description: 'some text',
@@ -227,9 +234,9 @@ describe('Feedback Collector unit tests', () => {
           ],
         };
 
-        expect(wrapper.instance().mapFormToJSD(formValues)).toEqual(
-          resultValues,
-        );
+        const resultJsd = await wrapper.instance().mapFormToJSD(formValues);
+
+        expect(resultJsd).toEqual(resultValues);
       });
     });
 
@@ -248,7 +255,7 @@ describe('Feedback Collector unit tests', () => {
         );
       });
 
-      test('Should set feedback without a feedback type', () => {
+      test('Should set feedback without a feedback type', async () => {
         const formValues: FormFields = {
           type: 'question',
           description: 'some text',
@@ -293,9 +300,9 @@ describe('Feedback Collector unit tests', () => {
           ],
         };
 
-        expect(wrapper.instance().mapFormToJSD(formValues)).toEqual(
-          resultValues,
-        );
+        const resultJsd = await wrapper.instance().mapFormToJSD(formValues);
+
+        expect(resultJsd).toEqual(resultValues);
       });
 
       test('Should not render Select in the component', () => {
@@ -433,7 +440,7 @@ describe('Feedback Collector unit tests', () => {
         feedbackCollector.postFeedback(feedback);
 
         // Wait for the timeout to occur. The component will unmount before this triggers.
-        await new Promise((resolve) => {
+        await new Promise<void>((resolve) => {
           setTimeout(() => {
             resolve();
           }, timeoutOnSubmit);
@@ -441,6 +448,81 @@ describe('Feedback Collector unit tests', () => {
 
         expect(unmountSpy).toHaveBeenCalled();
         expect(onSubmit).toHaveBeenCalled();
+      });
+      test('Should not try to get entitlement if a cookie is not provided', async () => {
+        class TestableFeedbackCollector extends FeedbackCollector {}
+
+        const onSubmit = jest.fn();
+        const timeoutOnSubmit = 700;
+
+        const wrapper = shallow<TestableFeedbackCollector>(
+          <TestableFeedbackCollector
+            onClose={() => wrapper.unmount()}
+            onSubmit={onSubmit}
+            timeoutOnSubmit={timeoutOnSubmit}
+            email="email"
+            name="name"
+            embeddableKey=""
+            requestTypeId=""
+          />,
+        );
+        const feedbackCollector = wrapper.instance();
+
+        const entitlementSpy = jest.spyOn(
+          feedbackCollector,
+          'getEntitlementInformation',
+        );
+        entitlementSpy.mockResolvedValue([]);
+
+        // Emulates the user clicking the submit button within the rendered form.
+        const feedback: FormFields = {
+          type: 'empty',
+          description: `This won't actually dispatch due to missing embeddableKey & requestTypeId props`,
+          canBeContacted: false,
+          enrollInResearchGroup: false,
+        };
+
+        await feedbackCollector.postFeedback(feedback);
+
+        expect(entitlementSpy).not.toHaveBeenCalled();
+      });
+      test('Should try to get entitlement if a cookie is provided', async () => {
+        class TestableFeedbackCollector extends FeedbackCollector {}
+
+        const onSubmit = jest.fn();
+        const timeoutOnSubmit = 700;
+
+        const wrapper = shallow<TestableFeedbackCollector>(
+          <TestableFeedbackCollector
+            onClose={() => wrapper.unmount()}
+            onSubmit={onSubmit}
+            timeoutOnSubmit={timeoutOnSubmit}
+            email="email"
+            name="name"
+            cookie="cloud.session.token=fakeCookie"
+            embeddableKey="some-key"
+            requestTypeId="some-type"
+          />,
+        );
+        const feedbackCollector = wrapper.instance();
+
+        const entitlementSpy = jest.spyOn(
+          feedbackCollector,
+          'getEntitlementInformation',
+        );
+        entitlementSpy.mockResolvedValue([]);
+
+        // Emulates the user clicking the submit button within the rendered form.
+        const feedback: FormFields = {
+          type: 'empty',
+          description: `This won't actually dispatch due to missing embeddableKey & requestTypeId props`,
+          canBeContacted: false,
+          enrollInResearchGroup: false,
+        };
+
+        await feedbackCollector.postFeedback(feedback);
+
+        expect(entitlementSpy).toHaveBeenCalled();
       });
     });
   });

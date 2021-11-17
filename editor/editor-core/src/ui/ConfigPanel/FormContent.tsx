@@ -8,6 +8,7 @@ import {
   FieldDefinition,
   isFieldset,
   Parameters,
+  TabGroupField,
   TabField,
 } from '@atlaskit/editor-common/extensions';
 import ColorPicker from './Fields/ColorPicker';
@@ -167,39 +168,60 @@ export function FieldComponent({
         />
       );
 
-    case 'expand':
-      // if expand is under a tab.
-      const resolvedParentName = parentName
-        ? `${parentName}.${field.name}`
-        : field.name;
+    case 'expand': {
+      // if expand is under a tab with hasGroupedValues=true
+      const resolvedParentName =
+        [parentName, field.hasGroupedValues ? field.name : undefined]
+          .filter((val) => !!val)
+          .join('.') || undefined;
+      const resolvedParameters = !field.hasGroupedValues
+        ? parameters
+        : parameters[field.name] || {};
+
       return (
         <Expand field={field} isExpanded={field.isExpanded}>
           <FormContent
             parentName={resolvedParentName}
             fields={field.fields}
-            parameters={parameters[field.name] || {}}
+            parameters={resolvedParameters}
             onFieldChange={onFieldChange}
             extensionManifest={extensionManifest}
           />
         </Expand>
       );
+    }
 
-    case 'tab-group':
+    case 'tab-group': {
+      const tabGroupField = field as TabGroupField;
+      const tabGroupParams = tabGroupField.hasGroupedValues
+        ? parameters[tabGroupField.name] || {}
+        : parameters;
+
       const renderPanel = (tabField: TabField) => {
-        const tabParameters = parameters[field.name] || {};
+        const parentName =
+          [
+            tabGroupField.hasGroupedValues ? tabGroupField.name : undefined,
+            tabField.hasGroupedValues ? tabField.name : undefined,
+          ]
+            .filter((val) => !!val)
+            .join('.') || undefined;
+        const tabParameters = tabField.hasGroupedValues
+          ? tabGroupParams[tabField.name] || {}
+          : tabGroupParams;
+
         return (
           <FormContent
-            parentName={`${field.name}.${tabField.name}`}
+            parentName={parentName}
             fields={tabField.fields}
-            parameters={tabParameters[tabField.name] || {}}
+            parameters={tabParameters}
             onFieldChange={onFieldChange}
             extensionManifest={extensionManifest}
           />
         );
       };
 
-      return <TabGroup field={field} renderPanel={renderPanel} />;
-
+      return <TabGroup field={tabGroupField} renderPanel={renderPanel} />;
+    }
     default:
       return (
         <UnhandledType

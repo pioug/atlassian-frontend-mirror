@@ -6,7 +6,7 @@ import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../../src';
 
 const DropdownItemElemBeforeExample = () => {
   return (
-    <DropdownMenu triggerType="button">
+    <DropdownMenu trigger="Open">
       <DropdownItemGroup>
         <DropdownItem elemBefore={<Avatar size="small" />}>Kelly</DropdownItem>
         <DropdownItem elemBefore={<Avatar size="small" />}>Matt</DropdownItem>

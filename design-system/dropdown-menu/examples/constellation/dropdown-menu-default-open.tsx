@@ -4,7 +4,7 @@ import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../../src';
 
 const DropdownMenuDefaultOpenExample = () => {
   return (
-    <DropdownMenu defaultOpen trigger="Page actions" triggerType="button">
+    <DropdownMenu defaultOpen trigger="Page actions">
       <DropdownItemGroup>
         <DropdownItem>Edit</DropdownItem>
         <DropdownItem>Move</DropdownItem>

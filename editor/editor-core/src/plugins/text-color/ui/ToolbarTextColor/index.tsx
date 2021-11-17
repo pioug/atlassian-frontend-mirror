@@ -184,6 +184,7 @@ class ToolbarTextColor extends React.Component<
                 this.changeTextColor(color, pluginState.disabled)
               }
               selectedColor={pluginState.color}
+              isShowingMoreColors={isShowingMoreColors}
             />
           </div>
           {showMoreColorsToggle && (

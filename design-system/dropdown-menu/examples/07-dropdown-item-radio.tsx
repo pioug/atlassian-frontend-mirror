@@ -1,13 +1,13 @@
 import React from 'react';
 
 import DropdownMenu, {
-  DropdownItemGroupRadio,
   DropdownItemRadio,
+  DropdownItemRadioGroup,
 } from '../src';
 
 export default () => (
-  <DropdownMenu trigger="Filter cities" triggerType="button">
-    <DropdownItemGroupRadio id="cities">
+  <DropdownMenu trigger="Filter cities">
+    <DropdownItemRadioGroup id="cities">
       <DropdownItemRadio id="adelaide">Adelaide</DropdownItemRadio>
       <DropdownItemRadio id="sydney">
         Sydney, capital of New South Wales and one of Australia's largest
@@ -20,6 +20,6 @@ export default () => (
       <DropdownItemRadio id="newcastle" isSelected>
         Newcastle
       </DropdownItemRadio>
-    </DropdownItemGroupRadio>
+    </DropdownItemRadioGroup>
   </DropdownMenu>
 );

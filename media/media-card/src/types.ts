@@ -21,8 +21,12 @@ export declare type CardDimensionValue = number | string;
 export type CardPreviewSource =
   | 'local'
   | 'remote'
+  | 'ssr-server'
+  | 'ssr-client'
   | 'cache-local'
   | 'cache-remote'
+  | 'cache-ssr-client'
+  | 'cache-ssr-server'
   | 'external';
 
 export interface CardPreview {

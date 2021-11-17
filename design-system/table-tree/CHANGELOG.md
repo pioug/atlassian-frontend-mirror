@@ -1,5 +1,22 @@
 # @atlaskit/table-tree
 
+## 9.0.13
+
+### Minor Changes
+
+- [`3fe03999326`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3fe03999326) - Package has been migrated from `styled-components` to `@emotion/core`.
+
+  Other internal changes:
+
+  - Package has been migrated to typescript
+  - Components now have partial type support.
+  - Package internally supports `@atlaskit/tokens` colors.
+
+### Patch Changes
+
+- [`f460cc7c411`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f460cc7c411) - Builds for this package now pass through a tokens babel plugin, removing runtime invocations of the tokens() function and improving bundle size.
+- Updated dependencies
+
 ## 9.0.12
 
 ### Patch Changes

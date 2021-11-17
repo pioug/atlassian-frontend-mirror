@@ -1,5 +1,15 @@
 # @atlaskit/status
 
+## 0.12.0
+
+### Minor Changes
+
+- [`42c7ac64c39`](https://bitbucket.org/atlassian/atlassian-frontend/commits/42c7ac64c39) - AK-654 Set a status link label with input
+
+### Patch Changes
+
+- [`140df54164a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/140df54164a) - AK-570 Remove redundant title attribute for Status component
+
 ## 0.11.3
 
 ### Patch Changes

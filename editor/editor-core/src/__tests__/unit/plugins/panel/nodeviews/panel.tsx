@@ -130,8 +130,7 @@ describe('Panel - NodeView', () => {
         preset: new Preset<LightEditorPlugin>().add([
           panelPlugin,
           {
-            UNSAFE_allowCustomPanel: allowCustomPanel,
-            UNSAFE_allowCustomPanelEdit: allowEditCustomPanel,
+            allowCustomPanel: allowCustomPanel,
           },
         ]),
         providerFactory,

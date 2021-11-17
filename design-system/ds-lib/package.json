@@ -75,8 +75,9 @@
       "theming": [
         "react-context"
       ],
-      "deprecation": [
-        "no-deprecated-imports"
+      "deprecation": "no-deprecated-imports",
+      "styling": [
+        "emotion"
       ]
     }
   },

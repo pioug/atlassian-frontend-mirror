@@ -1,8 +1,9 @@
 import { Node as PMNode, NodeSpec } from 'prosemirror-model';
 import { ExtensionAttributes } from './types/extensions';
 import { getExtensionAttrs } from '../../utils/extensions';
-import { MarksObject, NoMark } from './types/mark';
+import { MarksObject } from './types/mark';
 import { DataConsumerDefinition } from '../marks/data-consumer';
+import { FragmentDefinition } from '../marks/fragment';
 
 /**
  * @name extension_node
@@ -14,15 +15,17 @@ export interface ExtensionBaseDefinition {
 }
 
 /**
- * @name extension_with_no_marks_node
- */
-export type ExtensionDefinition = ExtensionBaseDefinition & NoMark;
-
-/**
  * @name extension_with_marks_node
  */
-export type ExtensionWithMarksDefinition = ExtensionBaseDefinition &
+export type ExtensionDefinition = ExtensionBaseDefinition &
   MarksObject<DataConsumerDefinition>;
+
+/**
+ * @stage 0
+ * @name extension_with_experimental_marks_node
+ */
+export type ExtensionWithMarksDefinition = ExtensionBaseDefinition &
+  MarksObject<FragmentDefinition>;
 
 const createExtensionNodeSpec = (): NodeSpec => {
   const nodeSpec: NodeSpec = {

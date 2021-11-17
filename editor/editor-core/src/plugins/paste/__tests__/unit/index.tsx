@@ -571,6 +571,7 @@ describe('paste plugins', () => {
       const mediaHTML = `<meta charset='utf-8'><div style="box-sizing: border-box; color: rgb(51, 51, 51); font-family: droid_sansregular; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial; padding-top: 20px; padding-bottom: 20px;"><p style="box-sizing: border-box; margin-top: 0px; margin-bottom: 1rem; font-size: 18px; line-height: 34px;">ulum stress. These signaling pathways regulate a variety of cellular activities including proliferation, differentiation, survival, and death.</p></div><div style="box-sizing: border-box; color: rgb(51, 51, 51); font-family: droid_sansregular; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial;"><img src="https://www.biorbyt.com/pub/media/wysiwyg/MAPK_signaling_pathway.jpg" alt="MAPK Signaling Pathway" style="box-sizing: border-box; border: 0px; height: 854px; max-width: 100%; width: 982px; background-size: cover;"></div><div style="box-sizing: border-box; color: rgb(51, 51, 51); font-family: droid_sansregular; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial; margin-bottom: 3rem;"> </div><div style="box-sizing: border-box; color: rgb(51, 51, 51); font-family: droid_sansregular; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial;"><p style="box-sizing: border-box; margin-top: 0px; margin-bottom: 1rem; font-size: 18px; line-height: 34px;">Six subfamilies of MAPKs have been extensively characterized in mammalian cells: ERK1/2, JNKs, ERK 3, p38s, ERK5 and ERK 7/8. Transmission of signals</p></div>`;
       const hiddenMediaHTML = `<meta charset='utf-8'><p class="ia ib at bv ic b id ie if ig ih ii ij ik il im in" data-selectable-paragraph="" style="box-sizing: inherit; margin: 2em 0px -0.46em; font-weight: 400; color: rgba(0, 0, 0, 0.84); font-style: normal; line-height: 1.58; letter-spacing: -0.004em; font-family: medium-content-serif-font, Georgia, Cambria, &quot;Times New Roman&quot;, Times, serif; font-size: 21px; font-variant-ligatures: normal; font-variant-caps: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial;">ening after learning my tech is about 35% useful? bourbon, of course! After a couple of silky smooth glasses with ice (sorry purists), I begin researching a solution.</p><figure class="io ip iq ir is dv jd iu iv paragraph-image" style="box-sizing: inherit; margin: 56px 24px 0px; clear: both; max-width: 544px; color: rgba(0, 0, 0, 0.8); font-family: medium-content-sans-serif-font, -apple-system, system-ui, &quot;Segoe UI&quot;, Roboto, Oxygen, Ubuntu, Cantarell, &quot;Open Sans&quot;, &quot;Helvetica Neue&quot;, sans-serif; font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial;"><div class="iy n di iz" style="box-sizing: inherit; display: block; position: relative; margin: auto; background-color: rgba(0, 0, 0, 0.05);"><div class="je n" style="box-sizing: inherit; display: block; padding-bottom: 360px;"><div class="cv iw fd p q fc ab ay v ix" style="box-sizing: inherit; top: 0px; left: 0px; will-change: transform; width: 544px; overflow: hidden; opacity: 0; height: 360px; position: absolute; transition: opacity 100ms ease 400ms; transform: translateZ(0px);"><img alt="" src="https://miro.medium.com/max/60/1*Ul-CDqf6wi-Ee8FQgmBUhQ@2x.jpeg?q=20" class="fd p q fc ab jb jc" width="544" height="360" style="box-sizing: inherit; vertical-align: middle; top: 0px; left: 0px; width: 544px; height: 360px; position: absolute; filter: blur(20px); transform: scale(1.1);"></div><img alt="" class="ln lo fd p q fc ab" width="544" height="360" src="https://miro.medium.com/max/1088/1*Ul-CDqf6wi-Ee8FQgmBUhQ@2x.jpeg" style="box-sizing: inherit; vertical-align: middle; top: 0px; left: 0px; width: 544px; height: 360px; position: absolute; opacity: 1; transition: opacity 400ms ease 0ms;"></div></div></figure><p class="ia ib at bv ic b id ie if ig ih ii ij ik il im in" data-selectable-paragraph="" style="box-sizing: inherit; margin: 2em 0px -0.46em; font-weight: 400; color: rgba(0, 0, 0, 0.84); font-style: normal; line-height: 1.58; letter-spacing: -0.004em; font-family: medium-content-serif-font, Georgia, Cambria, &quot;Times New Roman&quot;, Times, serif; font-size: 21px; font-variant-ligatures: normal; font-variant-caps: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial;">So to downgrade the iOS devices (phone and tablet), I must connect them to the MacBook and restore via iTunes.</p>`;
       const wrappedMediaHTML = `<meta charset='utf-8'><meta charset="utf-8"><b style="font-weight:normal;" id="docs-internal-guid-36f8577a-7fff-ef0c-fd08-949e2fc1b66b"><p dir="ltr" style="line-height:1.38;margin-top:0pt;margin-bottom:0pt;"><span style="font-size:11pt;font-family:Arial;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">Hello this is some text</span></p><p dir="ltr" style="line-height:1.38;margin-top:0pt;margin-bottom:0pt;"><span style="font-size:11pt;font-family:Arial;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;"><span style="border: none; display: inline-block; overflow: hidden; width: 604px; height: 398px"><img src="https://lh5.googleusercontent.com/dnPAozzy3eYppgqEafLiZl3zzWYCrrzfwKCZiQ8nyYGeB9us9npuOVj48tM1VotqVlGriXQG2x2iYnbOVxsE54vkFErZs3n-6yYlZA8nRpu3Bt2DWhEoa8pFOkiMJHHGYrYhfLkg" width="604" height="398" style="margin-left: 0px; margin-top: 0px;" /></span></span></p><p dir="ltr" style="line-height:1.38;margin-top:0pt;margin-bottom:0pt;"><span style="font-size:11pt;font-family:Arial;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">And this is some more text</span></p></b><br class="Apple-interchange-newline">`;
+      const presentationSpanWrappedImageHTML = `<meta charset='utf-8'><p data-renderer-start-pos="1" style="margin: 0px; padding: 0px; font-size: 14px; line-height: 1.714; font-weight: 400; letter-spacing: -0.005em; color: rgb(23, 43, 77); font-family: -apple-system, system-ui, &quot;Segoe UI&quot;, Roboto, Oxygen, Ubuntu, &quot;Fira Sans&quot;, &quot;Droid Sans&quot;, &quot;Helvetica Neue&quot;, sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: pre-wrap; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;"><strong data-renderer-mark="true">Milestones </strong>(<span data-emoji-id="1f49a" data-emoji-short-name=":green_heart:" data-emoji-text="💚"><span class="f14svvg8 emoji-common-node emoji-common-emoji-image" aria-label=":green_heart:" style="background-color: transparent; border-radius: 5px; display: inline-block; margin: -1px 0px; vertical-align: middle;"><span role="presentation"><img loading="lazy" src="https://pf-emoji-service--cdn.us-east-1.prod.public.atl-paas.net/standard/a51a7674-8d5d-4495-a2d2-a67c090f5c3b/32x32/1f49a.png" alt=":green_heart:" data-emoji-short-name=":green_heart:" data-emoji-id="1f49a" data-emoji-text="💚" class="emoji" width="20" height="20" style="margin: 0px; padding: 0px; border: 0px; display: block; visibility: visible;"></span></span></span> = On track,<span data-emoji-id="26a0" data-emoji-short-name=":warning:" data-emoji-text="⚠"><span class="f14svvg8 emoji-common-node emoji-common-emoji-image" aria-label=":warning:" style="background-color: transparent; border-radius: 5px; display: inline-block; margin: -1px 0px; vertical-align: middle;"><span role="presentation"><img loading="lazy" src="https://pf-emoji-service--cdn.us-east-1.prod.public.atl-paas.net/standard/a51a7674-8d5d-4495-a2d2-a67c090f5c3b/32x32/26a0.png" alt=":warning:" data-emoji-short-name=":warning:" data-emoji-id="26a0" data-emoji-text="⚠" class="emoji" width="20" height="20" style="margin: 0px; padding: 0px; border: 0px; display: block; visibility: visible;"></span></span></span> = At risk,<span data-emoji-id="1f534" data-emoji-short-name=":red_circle:" data-emoji-text="🔴"><span class="f14svvg8 emoji-common-node emoji-common-emoji-image" aria-label=":red_circle:" style="background-color: transparent; border-radius: 5px; display: inline-block; margin: -1px 0px; vertical-align: middle;"><span role="presentation"><img loading="lazy" src="https://pf-emoji-service--cdn.us-east-1.prod.public.atl-paas.net/standard/a51a7674-8d5d-4495-a2d2-a67c090f5c3b/32x32/1f534.png" alt=":red_circle:" data-emoji-short-name=":red_circle:" data-emoji-id="1f534" data-emoji-text="🔴" class="emoji" width="20" height="20" style="margin: 0px; padding: 0px; border: 0px; display: block; visibility: visible;"></span></span></span> = Off track,<span data-emoji-id="2705" data-emoji-short-name=":white_check_mark:" data-emoji-text="✅"><span class="f14svvg8 emoji-common-node emoji-common-emoji-image" aria-label=":white_check_mark:" style="background-color: transparent; border-radius: 5px; display: inline-block; margin: -1px 0px; vertical-align: middle;"><span role="presentation"><img loading="lazy" src="https://pf-emoji-service--cdn.us-east-1.prod.public.atl-paas.net/standard/a51a7674-8d5d-4495-a2d2-a67c090f5c3b/32x32/2705.png" alt=":white_check_mark:" data-emoji-short-name=":white_check_mark:" data-emoji-id="2705" data-emoji-text="✅" class="emoji" width="20" height="20" style="margin: 0px; padding: 0px; border: 0px; display: block; visibility: visible;"></span></span></span> = Completed)</p><ul class="ak-ul" data-indent-level="1" style="margin: 12px 0px 0px; padding: 0px 0px 0px 24px; box-sizing: border-box; list-style-type: disc; display: flow-root; color: rgb(23, 43, 77); font-family: -apple-system, system-ui, &quot;Segoe UI&quot;, Roboto, Oxygen, Ubuntu, &quot;Fira Sans&quot;, &quot;Droid Sans&quot;, &quot;Helvetica Neue&quot;, sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: pre-wrap; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;"><li><p data-renderer-start-pos="70" style="margin: 0px; padding: 0px; font-size: 1em; line-height: 1.714; font-weight: normal; letter-spacing: -0.005em;">​<span data-emoji-id="2705" data-emoji-short-name=":white_check_mark:" data-emoji-text="✅"><span class="f14svvg8 emoji-common-node emoji-common-emoji-image" aria-label=":white_check_mark:" style="background-color: transparent; border-radius: 5px; display: inline-block; margin: -1px 0px; vertical-align: middle;"><span role="presentation"><img loading="lazy" src="https://pf-emoji-service--cdn.us-east-1.prod.public.atl-paas.net/standard/a51a7674-8d5d-4495-a2d2-a67c090f5c3b/32x32/2705.png" alt=":white_check_mark:" data-emoji-short-name=":white_check_mark:" data-emoji-id="2705" data-emoji-text="✅" class="emoji" width="20" height="20" style="margin: 0px; padding: 0px; border: 0px; display: block; visibility: visible;"></span></span></span> Completed project definition </p></li><li style="margin-top: 4px;"><p data-renderer-start-pos="116" style="margin: 0px; padding: 0px; font-size: 1em; line-height: 1.714; font-weight: normal; letter-spacing: -0.005em;">​<span data-emoji-id="2705" data-emoji-short-name=":white_check_mark:" data-emoji-text="✅"><span class="f14svvg8 emoji-common-node emoji-common-emoji-image" aria-label=":white_check_mark:" style="background-color: transparent; border-radius: 5px; display: inline-block; margin: -1px 0px; vertical-align: middle;"><span role="presentation"><img loading="lazy" src="https://pf-emoji-service--cdn.us-east-1.prod.public.atl-paas.net/standard/a51a7674-8d5d-4495-a2d2-a67c090f5c3b/32x32/2705.png" alt=":white_check_mark:" data-emoji-short-name=":white_check_mark:" data-emoji-id="2705" data-emoji-text="✅" class="emoji" width="20" height="20" style="margin: 0px; padding: 0px; border: 0px; display: block; visibility: visible;"></span></span></span> Completed project</p></li></ul>`;
       const wrappedMediaInTableHTML = `<meta charset='utf-8'><meta charset="utf-8"><b style="font-weight:normal;" id="docs-internal-guid-dc605362-7fff-99d0-604f-9d37acd6f416"><div dir="ltr" style="margin-left:0pt;" align="left"><table data-table-local-id=${TABLE_LOCAL_ID} style="border:none;border-collapse:collapse;width:468pt;table-layout:fixed"><colgroup><col /><col /><col /></colgroup><tr style="height:0pt"><td style="border-left:solid #000000 1pt;border-right:solid #000000 1pt;border-bottom:solid #000000 1pt;border-top:solid #000000 1pt;vertical-align:top;padding:5pt 5pt 5pt 5pt;overflow:hidden;overflow-wrap:break-word;"><p dir="ltr" style="line-height:1.38;margin-top:0pt;margin-bottom:0pt;"><span style="font-size:11pt;font-family:Arial;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">Funny</span></p><p dir="ltr" style="line-height:1.38;margin-top:0pt;margin-bottom:0pt;"><span style="font-size:11pt;font-family:Arial;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;"><span style="border: none; display: inline-block; overflow: hidden; width: 194px; height: 108px"><img src="https://lh4.googleusercontent.com/9lblWb7GLsczlSZQXUmuyJ9MLe-D8i19B1ITI-fdjV7bDMHzKWL5STuYhFTnOGJxfNa5HrWCgbQ35fr_ZMcZGpKX83ZWcSSeNAhOMVur7M1Ww3UOkWR64BDy1r-4atSedbwGCwyK" width="194" height="108" style="margin-left: 0px; margin-top: 0px;" /></span></span></p><p dir="ltr" style="line-height:1.38;margin-top:0pt;margin-bottom:0pt;"><span style="font-size:11pt;font-family:Arial;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">Cat</span></p></td></tr><tr style="height:23pt"><td style="border-left:solid #000000 1pt;border-right:solid #000000 1pt;border-bottom:solid #000000 1pt;border-top:solid #000000 1pt;vertical-align:top;padding:5pt 5pt 5pt 5pt;overflow:hidden;overflow-wrap:break-word;"></td></tr></table></div></b>`;
       const mediaFromMicrosoftWord = `<meta charset='utf-8' xmlns:w="urn:schemas-microsoft-com:office:word"><meta charset="utf-8"><b style="font-weight:normal;" id="docs-internal-guid-36f8577a-7fff-ef0c-fd08-949e2fc1b66b"><p dir="ltr" style="line-height:1.38;margin-top:0pt;margin-bottom:0pt;"><span style="font-size:11pt;font-family:Arial;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">Hello this is some text</span></p><p dir="ltr" style="line-height:1.38;margin-top:0pt;margin-bottom:0pt;"><span style="font-size:11pt;font-family:Arial;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;"><span style="border: none; display: inline-block; overflow: hidden; width: 604px; height: 398px"><img src="https://lh5.googleusercontent.com/dnPAozzy3eYppgqEafLiZl3zzWYCrrzfwKCZiQ8nyYGeB9us9npuOVj48tM1VotqVlGriXQG2x2iYnbOVxsE54vkFErZs3n-6yYlZA8nRpu3Bt2DWhEoa8pFOkiMJHHGYrYhfLkg" width="604" height="398" style="margin-left: 0px; margin-top: 0px;" /></span></span></p><p dir="ltr" style="line-height:1.38;margin-top:0pt;margin-bottom:0pt;"><span style="font-size:11pt;font-family:Arial;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">And this is some more text</span></p></b><br class="Apple-interchange-newline">`;
 
@@ -722,7 +723,6 @@ describe('paste plugins', () => {
             p('Hello this is some text'),
             p(),
             p('And this is some more text'),
-            p(hardBreak()),
           ),
         );
       });
@@ -750,6 +750,61 @@ describe('paste plugins', () => {
                 ),
               ),
               tr(td()(p(''))),
+            ),
+          ),
+        );
+      });
+
+      /* 
+        Addressing problem from https://product-fabric.atlassian.net/browse/MEX-924
+      */
+
+      it('should not hoist images that is a descendant of a span that has class of emoji-node', () => {
+        const { editorView } = editor(doc(p('{<>}')));
+        dispatchPasteEvent(editorView, {
+          html: presentationSpanWrappedImageHTML,
+        });
+        expect(editorView.state.doc).toEqualDocument(
+          doc(
+            p(
+              strong('Milestones '),
+              '(',
+              emoji({ shortName: ':green_heart:', id: '1f49a', text: '💚' })(),
+              ' = On track,',
+              emoji({ shortName: ':warning:', id: '26a0', text: '⚠' })(),
+              ' = At risk,',
+              emoji({ shortName: ':red_circle:', id: '1f534', text: '🔴' })(),
+              ' = Off track,',
+              emoji({
+                shortName: ':white_check_mark:',
+                id: '2705',
+                text: '✅',
+              })(),
+              ' = Completed)',
+            ),
+            ul(
+              li(
+                p(
+                  '​',
+                  emoji({
+                    shortName: ':white_check_mark:',
+                    id: '2705',
+                    text: '✅',
+                  })(),
+                  ' Completed project definition',
+                ),
+              ),
+              li(
+                p(
+                  '​',
+                  emoji({
+                    shortName: ':white_check_mark:',
+                    id: '2705',
+                    text: '✅',
+                  })(),
+                  ' Completed project',
+                ),
+              ),
             ),
           ),
         );
@@ -1980,10 +2035,30 @@ describe('paste plugins', () => {
       expect(editorView.state.doc).toEqualDocument(
         doc(
           table({ localId: TABLE_LOCAL_ID })(
-            tr(td()(p('TEST WITH HARDBREAK', hardBreak()))),
+            tr(td()(p('TEST WITH HARDBREAK')), td()(p(''))),
           ),
         ),
       );
+    });
+
+    describe('when pasting cells from a third-party table', () => {
+      it('should wrap text following a list and hard break in a paragraph node', () => {
+        const { editorView } = editor(doc(table({})(tr(td()(p('{<>}'))))));
+
+        // The HTML contains <td>1. Some<br/>Text</td>
+        dispatchPasteEvent(editorView, {
+          html: `<meta charset='utf-8'><google-sheets-html-origin><style type="text/css"><!--td {border: 1px solid #ccc;}br {mso-data-placement:same-cell;}--></style><table xmlns="http://www.w3.org/1999/xhtml" cellspacing="0" cellpadding="0" dir="ltr" border="1" style="table-layout:fixed;font-size:10pt;font-family:Arial;width:0px;border-collapse:collapse;border:none"><colgroup><col width="100"/></colgroup><tbody><tr style="height:21px;"><td style="overflow:hidden;padding:2px 3px 2px 3px;vertical-align:bottom;" data-sheets-value="{&quot;1&quot;:2,&quot;2&quot;:&quot;1. Lorem\nIpsum&quot;}">1. Lorem<br/>Ipsum</td></tr><tr style="height:21px;"><td style="overflow:hidden;padding:2px 3px 2px 3px;vertical-align:bottom;"></td></tr></tbody></table>`,
+        });
+
+        expect(editorView.state.doc).toEqualDocument(
+          doc(
+            table({ localId: TABLE_LOCAL_ID })(
+              tr(td()(ol(li(p('Lorem'))), p('Ipsum'))),
+              tr(td()(p())),
+            ),
+          ),
+        );
+      });
     });
 
     describe('when pasted list where openStart > openEnd', () => {
@@ -2189,7 +2264,15 @@ describe('paste plugins', () => {
       dispatchPasteEvent(editorView, { html });
 
       expect(editorView.state.doc).toEqualDocument(
-        doc(p(emoji({ shortName: ':yellow_star:', text: '' })())),
+        doc(
+          p(
+            emoji({
+              id: 'atlassian-yellow_star',
+              shortName: ':yellow_star:',
+              text: ':yellow_star:',
+            })(),
+          ),
+        ),
       );
     });
   });

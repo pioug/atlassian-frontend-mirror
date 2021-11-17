@@ -20,14 +20,6 @@ export const fromEntries = <T>(iterable: Entry<T>[]): Parameters => {
   }, {});
 };
 
-export const toEntries = (parameters: Parameters): [string, unknown][] =>
-  Array.isArray(parameters)
-    ? parameters.reduce<[string, unknown][]>(
-        (prev, curr) => [...prev, ...Object.entries(curr)],
-        [],
-      )
-    : Object.entries(parameters);
-
 const isEmptyString = <T>(value: T) =>
   typeof value === 'string' && value === '';
 const isEmptyArray = <T>(value: T) =>
@@ -88,7 +80,7 @@ export const isDuplicateField = (key: string) => duplicateFieldRegex.test(key);
 export const getNameFromDuplicateField = (key: string) =>
   key.replace(duplicateFieldRegex, '');
 
-/* 
+/*
     ColorPickerButton only accepts 8 digit hex alpha values, for example:
     #123fffaa (8 digits, hex alpha)
     */

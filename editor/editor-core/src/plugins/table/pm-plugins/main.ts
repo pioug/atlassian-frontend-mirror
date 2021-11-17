@@ -41,14 +41,21 @@ import {
   TableCssClassName as ClassName,
   PluginConfig,
   ElementContentRects,
+  InvalidNodeAttr,
 } from '../types';
 import { findControlsHoverDecoration, updateResizeHandles } from '../utils';
-import { INPUT_METHOD } from '../../analytics';
+import {
+  ACTION,
+  ACTION_SUBJECT,
+  EVENT_TYPE,
+  INPUT_METHOD,
+} from '../../analytics';
 
 import { defaultTableSelection } from './default-table-selection';
 import { createPluginState, getPluginState, pluginKey } from './plugin-factory';
 import TableCellNodeView from '../nodeviews/tableCell';
 import { getPosHandler } from '../../../nodeviews';
+import { DispatchAnalyticsEvent } from '../../analytics/types/dispatch-analytics-event';
 
 let isBreakoutEnabled: boolean | undefined;
 let isDynamicTextSizingEnabled: boolean | undefined;
@@ -56,6 +63,7 @@ let isFullWidthModeEnabled: boolean | undefined;
 let wasFullWidthModeEnabled: boolean | undefined;
 
 export const createPlugin = (
+  dispatchAnalyticsEvent: DispatchAnalyticsEvent,
   dispatch: Dispatch,
   portalProviderAPI: PortalProviderAPI,
   eventDispatcher: EventDispatcher,
@@ -108,6 +116,9 @@ export const createPlugin = (
       }
     : {};
 
+  // Used to prevent invalid table cell spans being reported more than once per editor/document
+  const invalidTableIds: string[] = [];
+
   return new Plugin({
     state: state,
     key: pluginKey,
@@ -117,13 +128,36 @@ export const createPlugin = (
       newState: EditorState,
     ) => {
       const tr = transactions.find((tr) => tr.getMeta('uiEvent') === 'cut');
+
+      function reportInvalidTableCellSpanAttrs(
+        invalidNodeAttr: InvalidNodeAttr,
+      ) {
+        if (invalidTableIds.find((id) => id === invalidNodeAttr.tableLocalId)) {
+          return;
+        }
+
+        invalidTableIds.push(invalidNodeAttr.tableLocalId);
+
+        dispatchAnalyticsEvent({
+          action: ACTION.INVALID_DOCUMENT_ENCOUNTERED,
+          actionSubject: ACTION_SUBJECT.EDITOR,
+          eventType: EVENT_TYPE.OPERATIONAL,
+          attributes: {
+            nodeType: invalidNodeAttr.nodeType,
+            reason: `${invalidNodeAttr.attribute}: ${invalidNodeAttr.reason}`,
+            tableLocalId: invalidNodeAttr.tableLocalId,
+            spanValue: invalidNodeAttr.spanValue,
+          },
+        });
+      }
+
       if (tr) {
         // "fixTables" removes empty rows as we don't allow that in schema
         const updatedTr = handleCut(tr, oldState, newState);
         return fixTables(updatedTr) || updatedTr;
       }
       if (transactions.find((tr) => tr.docChanged)) {
-        return fixTables(newState.tr);
+        return fixTables(newState.tr, reportInvalidTableCellSpanAttrs);
       }
     },
     view: (editorView: EditorView) => {

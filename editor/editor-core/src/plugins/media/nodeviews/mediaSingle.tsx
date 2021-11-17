@@ -39,7 +39,7 @@ import { MediaNodeUpdater } from './mediaNodeUpdater';
 import { DispatchAnalyticsEvent } from '../../analytics';
 import { findParentNodeOfTypeClosestToPos } from 'prosemirror-utils';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
-import { FigureWrapper } from './styles';
+import { FigureWrapper, MediaSingleNodeSelector } from './styles';
 import {
   floatingLayouts,
   isRichMediaInsideOfBlockNode,
@@ -290,7 +290,7 @@ export default class MediaSingleNode extends Component<
       state.selection instanceof NodeSelection;
 
     const MediaChildren = (
-      <FigureWrapper>
+      <FigureWrapper className={MediaSingleNodeSelector}>
         <div ref={this.props.forwardRef} />
         {shouldShowPlaceholder && (
           <CaptionPlaceholder onClick={this.clickPlaceholder} />
@@ -433,13 +433,14 @@ class MediaSingleNodeView extends ReactNodeView<MediaSingleNodeViewProps> {
   update(
     node: PMNode,
     decorations: Decoration[],
+    _innerDecorations?: Decoration[],
     isValidUpdate?: (currentNode: PMNode, newNode: PMNode) => boolean,
   ) {
     if (!isValidUpdate) {
       isValidUpdate = (currentNode, newNode) =>
         this.getNodeMediaId(currentNode) === this.getNodeMediaId(newNode);
     }
-    return super.update(node, decorations, isValidUpdate);
+    return super.update(node, decorations, _innerDecorations, isValidUpdate);
   }
 
   render(props: MediaSingleNodeViewProps, forwardRef?: ForwardRef) {
@@ -502,7 +503,7 @@ class MediaSingleNodeView extends ReactNodeView<MediaSingleNodeViewProps> {
         this.lastOffsetLeft = offsetLeft;
         this.forceViewUpdate = true;
 
-        this.update(this.node, [], () => true);
+        this.update(this.node, [], [], () => true);
       }
     }
 

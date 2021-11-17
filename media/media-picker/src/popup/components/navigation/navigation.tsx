@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import DropdownMenu, {
   DropdownItemGroup,
   DropdownItem,
+  CustomTriggerProps,
 } from '@atlaskit/dropdown-menu';
 import RefreshIcon from '@atlaskit/icon/glyph/refresh';
 import SettingsIcon from '@atlaskit/icon/glyph/settings';
@@ -137,15 +138,22 @@ export class Navigation extends Component<NavigationProps, NavigationState> {
     onChangePath(service.name, service.accountId, path);
   };
 
-  getAccountButton(): JSX.Element {
+  getAccountButton() {
     const { dropdownOpen } = this.state;
 
-    return (
-      <AccountItemButton
-        isSelected={dropdownOpen}
-        iconBefore={<SettingsIcon label="account settings" />}
-      />
-    );
+    return function DropdownMenuTrigger({
+      triggerRef,
+      ...providedProps
+    }: CustomTriggerProps) {
+      return (
+        <AccountItemButton
+          isSelected={dropdownOpen}
+          iconBefore={<SettingsIcon label="account settings" />}
+          ref={triggerRef}
+          {...providedProps}
+        />
+      );
+    };
   }
 
   onChangeAccountHandler = (type: ServiceName, id: string) => () => {
@@ -210,7 +218,7 @@ export class Navigation extends Component<NavigationProps, NavigationState> {
         <DropdownMenu
           onOpenChange={this.handleOpenChange}
           trigger={this.getAccountButton()}
-          position="bottom right"
+          placement="bottom-end"
         >
           {items}
         </DropdownMenu>

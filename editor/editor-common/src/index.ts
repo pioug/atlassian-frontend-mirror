@@ -1,3 +1,4 @@
+// new child entry point ./utils/index.ts
 export {
   ADFTraversor,
   ErrorReporter,
@@ -56,7 +57,7 @@ export {
   sniffUserBrowserExtensions,
   RenderCountProfiler,
 } from './utils';
-
+// new child entry point ./utils/index.ts
 export type {
   ADDoc,
   ADFStage,
@@ -76,13 +77,13 @@ export type {
   UnsupportedContentLevelsTracking,
   UserBrowserExtensionResults,
 } from './utils';
-
+// new child entry point ./types/index.ts
 export {
   SortOrder,
   AnnotationUpdateEmitter,
   AnnotationUpdateEvent,
 } from './types';
-
+// new child entry point ./types/index.ts
 export type {
   Transformer,
   AnnotationState,
@@ -95,9 +96,9 @@ export type {
   AnnotationByMatches,
   AnnotationActionResult,
 } from './types';
-
+// new child entry point ./card/index.ts
 export type { CardOptions } from './card';
-
+// already exported by ./collab.ts
 export type {
   CollabEditProvider,
   CollabEvent,
@@ -111,7 +112,7 @@ export type {
   CollabSendableSelection,
   CollabEventTelepointerData,
 } from './collab/types';
-
+// already exported by ./extensions.ts
 export {
   DefaultExtensionProvider,
   combineExtensionProviders,
@@ -124,7 +125,7 @@ export {
   buildMenuItem,
   resolveImport,
 } from './extensions';
-
+// already exported by ./extensions.ts
 export type {
   Extension,
   ExtensionComponentProps,
@@ -153,11 +154,11 @@ export type {
   UpdateExtension,
   ReferenceEntity,
 } from './extensions';
-
+// new child entry point in ./provider-factory.ts
 export type { ContextIdentifierProvider } from './provider-factory/context-identifier-provider';
-
+// already exported by ./provider-factory.ts
 export { ProviderFactory, WithProviders } from './provider-factory';
-
+// already exported by ./provider-factory.ts
 export type {
   Providers,
   MediaProvider,
@@ -165,9 +166,9 @@ export type {
   LinkContentType,
   QuickSearchResult,
 } from './provider-factory';
-
+// new child entry point ./provider-helpers/index.ts
 export { combineProviders } from './provider-helpers';
-
+// already exported by ./styles/index.ts
 export {
   TableSharedCssClassName,
   blockMarksSharedStyles,
@@ -188,6 +189,7 @@ export {
   richMediaClassName,
   mediaSingleSharedStyle,
   getPanelTypeBackground,
+  getPanelBackgroundDarkModeColors,
   panelSharedStyles,
   PanelSharedCssClassName,
   PanelSharedSelectors,
@@ -206,27 +208,27 @@ export {
   tasksAndDecisionsStyles,
   TaskDecisionSharedCssClassName,
   whitespaceSharedStyles,
-  MentionSharedCssClassName,
-  EmojiSharedCssClassName,
+  MentionSharedCssClassName, //exported from ./src/mention.ts
+  EmojiSharedCssClassName, //exported from ./src/emoji.ts
   StatusSharedCssClassName,
   smartCardSharedStyles,
   SmartCardSharedCssClassName,
 } from './styles';
-
+// new child entry point ./ui/index.tsx
 export {
   BaseTheme,
   Caption,
   ClearNextSiblingMarginTop,
   DEFAULT_IMAGE_HEIGHT,
   DEFAULT_IMAGE_WIDTH,
-  Emoji,
+  Emoji, //exported from ./src/emoji.ts
   ErrorMessage,
   ExpandIconWrapper,
   ExpandLayoutWrapper,
   HelperMessage,
   MediaSingle,
   MediaSingleDimensionHelper,
-  Mention,
+  Mention, //exported from ./src/mention.ts
   Popup,
   UnsupportedBlock,
   UnsupportedInline,
@@ -252,7 +254,7 @@ export {
   wrappedLayouts,
   shouldAddDefaultWrappedWidth,
 } from './ui';
-
+// new child entry point ./ui/index.tsx
 export type {
   CardEventClickHandler,
   CardSurroundings,
@@ -272,9 +274,9 @@ export type {
   WidthConsumerContext,
   ExpandStyleProps,
 } from './ui';
-
+// already exported by ./messages/index.ts
 export { linkMessages } from './messages/link';
-
+// new child entry point in ./utils/index.ts
 export {
   validateADFEntity,
   validationErrorHandler,

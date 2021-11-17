@@ -65,7 +65,10 @@
         "react-context",
         "tokens"
       ],
-      "styling": "emotion",
+      "styling": [
+        "static",
+        "emotion"
+      ],
       "design-system": "v1",
       "deprecation": "no-deprecated-imports"
     }

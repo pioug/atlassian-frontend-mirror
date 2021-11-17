@@ -22,8 +22,9 @@ export const containerCSS = ({
   height: HORIZONTAL_GLOBAL_NAV_HEIGHT,
   position: 'relative',
   '[data-theme="light"] &, [data-theme="dark"] &': {
-    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+    // eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
     borderBottom: `1px solid ${token('color.border.neutral')}`,
+
     // TODO: (DSP-2087) Remove the below once tokens have launched
     '&::after': {
       content: 'none',

@@ -59,18 +59,15 @@ describe('ReactionTooltip', () => {
     expect(wrapper.find(Tooltip).prop('position')).toEqual('bottom');
     const tooltipContent = mount(wrapper.find(Tooltip).prop('content') as any);
 
-    const labels = tooltipContent.find('span');
-    expect(labels).toHaveLength(2);
-    expect(labels.at(0).text()).toEqual('emoji name');
-    expect(labels.at(1).text()).toEqual('+2...');
-
-    const userNames = tooltipContent.find('li');
-    expect(userNames).toHaveLength(5);
-    expect(userNames.at(0).text()).toEqual('User 1');
-    expect(userNames.at(1).text()).toEqual('User 2');
-    expect(userNames.at(2).text()).toEqual('User 3');
-    expect(userNames.at(3).text()).toEqual('User 4');
-    expect(userNames.at(4).text()).toEqual('User 5');
+    const tooltipLines = tooltipContent.find('li');
+    expect(tooltipLines).toHaveLength(7);
+    expect(tooltipLines.at(0).text()).toEqual('emoji name');
+    expect(tooltipLines.at(1).text()).toEqual('User 1');
+    expect(tooltipLines.at(2).text()).toEqual('User 2');
+    expect(tooltipLines.at(3).text()).toEqual('User 3');
+    expect(tooltipLines.at(4).text()).toEqual('User 4');
+    expect(tooltipLines.at(5).text()).toEqual('User 5');
+    expect(tooltipLines.at(6).text()).toEqual('and 2 others');
   });
 
   it('should not render footer with fewer users than the limit', () => {
@@ -81,14 +78,11 @@ describe('ReactionTooltip', () => {
 
     const tooltipContent = mount(wrapper.find(Tooltip).prop('content') as any);
 
-    const labels = tooltipContent.find('span');
-    expect(labels).toHaveLength(1);
-    expect(labels.at(0).text()).toEqual('emoji name');
-
-    const userNames = tooltipContent.find('li');
-    expect(userNames).toHaveLength(2);
-    expect(userNames.at(0).text()).toEqual('User 1');
-    expect(userNames.at(1).text()).toEqual('User 2');
+    const tooltipLines = tooltipContent.find('li');
+    expect(tooltipLines).toHaveLength(3);
+    expect(tooltipLines.at(0).text()).toEqual('emoji name');
+    expect(tooltipLines.at(1).text()).toEqual('User 1');
+    expect(tooltipLines.at(2).text()).toEqual('User 2');
   });
 
   it('should not render emoji name', () => {
@@ -96,8 +90,9 @@ describe('ReactionTooltip', () => {
 
     const tooltipContent = mount(wrapper.find(Tooltip).prop('content') as any);
 
-    const labels = tooltipContent.find('span');
-    expect(labels).toHaveLength(1);
-    expect(labels.at(0).text()).toEqual('+2...');
+    const tooltipLines = tooltipContent.find('li');
+    expect(tooltipLines).toHaveLength(6);
+    expect(tooltipLines.at(0).text()).toEqual('User 1');
+    expect(tooltipLines.at(5).text()).toEqual('and 2 others');
   });
 });

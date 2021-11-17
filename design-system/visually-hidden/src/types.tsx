@@ -11,4 +11,8 @@ export type VisuallyHiddenProps = {
    * The element or elements that should be hidden.
    */
   children: ReactNode;
+  /**
+   * Role attribute is passed on to the span to aid screen readers.
+   */
+  role?: string;
 };

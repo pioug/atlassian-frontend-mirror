@@ -216,7 +216,7 @@ export class FilmstripView extends React.Component<
         leftWindowEdge >= childBounds.left &&
         leftWindowEdge <= childBounds.right
       ) {
-        const newOffset = childBounds.left;
+        const newOffset = i === 0 ? childBounds.left : childBounds.right;
         if (newOffset >= EXTRA_PADDING) {
           return newOffset - EXTRA_PADDING; // show extra padding from the next sibling for aesthetic reasons
         } else {
@@ -239,7 +239,10 @@ export class FilmstripView extends React.Component<
         rightWindowEdge >= childBounds.left &&
         rightWindowEdge <= childBounds.right
       ) {
-        const newOffset = childBounds.right - windowWidth;
+        const newOffset =
+          (i === this.childOffsets.length - 1
+            ? childBounds.right
+            : childBounds.left) - windowWidth;
         if (newOffset + EXTRA_PADDING <= this.maxOffset) {
           return newOffset + EXTRA_PADDING; // show extra padding from the next sibling for aesthetic reasons
         } else {

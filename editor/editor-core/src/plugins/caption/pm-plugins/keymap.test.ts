@@ -70,28 +70,6 @@ describe('caption keymap', () => {
     expect(captionParentNode).toBeDefined();
   });
 
-  it('should select media from paragraph below on arrow up', () => {
-    const { editorView } = editor(
-      doc(
-        mediaSingle({
-          layout: 'center',
-        })(
-          media({
-            id: 'abc',
-            type: 'file',
-            collection: 'xyz',
-          })(),
-          caption('hello'),
-        ),
-        p('{<>}something'),
-      ),
-    );
-
-    sendKeyToPm(editorView, 'ArrowUp');
-    expect(editorView.state.selection instanceof NodeSelection).toBe(true);
-    expect(editorView.state.selection.from).toBe(0);
-  });
-
   it('should select media from caption on arrow up', () => {
     const { editorView } = editor(
       doc(

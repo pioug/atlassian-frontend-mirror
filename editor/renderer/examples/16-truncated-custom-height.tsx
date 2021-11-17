@@ -2,7 +2,7 @@ import React from 'react';
 import { Component } from 'react';
 
 import RendererDemo from './helper/RendererDemo';
-import FieldRange from '@atlaskit/field-range';
+import Range from '@atlaskit/range';
 
 interface State {
   fadeHeight: number;
@@ -35,14 +35,14 @@ export default class Example extends Component<{}, State> {
       <div>
         <div style={{ padding: 20, paddingBottom: 0 }}>
           <p>Max Height</p>
-          <FieldRange
+          <Range
             value={this.state.maxHeight}
             min={0}
             max={300}
             onChange={this.onMaxHeightChange}
           />
           <p>FadeOut Height</p>
-          <FieldRange
+          <Range
             value={this.state.fadeHeight}
             min={0}
             max={300}

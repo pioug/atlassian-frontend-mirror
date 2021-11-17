@@ -22,7 +22,7 @@ export const codeFontFamily = () =>
   `'SFMono-Medium', 'SF Mono', 'Segoe UI Mono', 'Roboto Mono', 'Ubuntu Mono', Menlo, Consolas, Courier, monospace`;
 
 export const focusRing = (
-  color: string = B100,
+  color: string = token('color.border.focus', B100),
   outlineWidth: number = gridSize() / 4,
 ) => `
   &:focus {

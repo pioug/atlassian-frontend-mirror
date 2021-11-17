@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`toolbar-3.ts: should be able to select Clear Formatting on toolbar for comment editor 1`] = `
+exports[`toolbar-3.ts: should be able to select Clear Formatting on toolbar for comment editor for mark-based formatting 1`] = `
 Object {
   "content": Array [
     Object {
@@ -12,6 +12,22 @@ Object {
             },
           ],
           "text": "test",
+          "type": "text",
+        },
+        Object {
+          "text": "cleared",
+          "type": "text",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "attrs": Object {
+                "color": "#6554c0",
+              },
+              "type": "textColor",
+            },
+          ],
+          "text": "purple",
           "type": "text",
         },
         Object {
@@ -26,7 +42,51 @@ Object {
 }
 `;
 
-exports[`toolbar-3.ts: should be able to select Clear Formatting on toolbar for fullpage editor 1`] = `
+exports[`toolbar-3.ts: should be able to select Clear Formatting on toolbar for comment editor for node-based formatting 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "hello",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "type": "paragraph",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "text": "insidecode",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "text": "world",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "type": "paragraph",
+    },
+    Object {
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`toolbar-3.ts: should be able to select Clear Formatting on toolbar for fullpage editor for mark-based formatting 1`] = `
 Object {
   "content": Array [
     Object {
@@ -44,7 +104,64 @@ Object {
           "text": "cleared",
           "type": "text",
         },
+        Object {
+          "marks": Array [
+            Object {
+              "attrs": Object {
+                "color": "#6554c0",
+              },
+              "type": "textColor",
+            },
+          ],
+          "text": "purple",
+          "type": "text",
+        },
+        Object {
+          "text": "cleared",
+          "type": "text",
+        },
       ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`toolbar-3.ts: should be able to select Clear Formatting on toolbar for fullpage editor for node-based formatting 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "hello",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "type": "paragraph",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "text": "insidecode",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "text": "world",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
       "type": "paragraph",
     },
   ],

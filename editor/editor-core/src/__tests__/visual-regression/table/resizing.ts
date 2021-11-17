@@ -5,6 +5,7 @@ import {
   Appearance,
 } from '../_utils';
 import adfTableWithMergedCellsOnFirstRow from './__fixtures__/table-with-merged-cells-on-first-row.adf.json';
+import adfTableWithManyRows from './__fixtures__/table-with-many-rows.adf.json';
 import adfTableWithMergedCells from './__fixtures__/table-with-merged-cells.adf.json';
 import adf from '../common/__fixtures__/noData-adf.json';
 import {
@@ -18,20 +19,37 @@ import {
   scrollTable,
   unselectTable,
   tableSelectors,
-  insertRow,
 } from '../../__helpers/page-objects/_table';
 import {
   animationFrame,
   scrollToBottom,
 } from '../../__helpers/page-objects/_editor';
+import { retryUntilStablePosition } from '../../__helpers/page-objects/_toolbar';
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { TableCssClassName as ClassName } from '../../../plugins/table/types';
 import { EditorProps } from '../../../types';
+import { TableSharedCssClassName } from '@atlaskit/editor-common';
 
 const waitToolbarThenSnapshot = async (page: PuppeteerPage) => {
-  await page.waitForSelector(tableSelectors.floatingToolbar);
-  // FIXME These tests were flakey in the Puppeteer v10 Upgrade
+  await retryUntilStablePosition(
+    page,
+    async () => {
+      await page.waitForSelector(tableSelectors.floatingToolbar);
+    },
+    tableSelectors.floatingToolbar,
+  );
   await snapshot(page, { useUnsafeThreshold: true, tolerance: 0.01 });
+};
+
+const waitTableThenSnapshot = async (page: PuppeteerPage) => {
+  await retryUntilStablePosition(
+    page,
+    async () => {
+      await page.waitForSelector(tableSelectors.tableWrapper);
+    },
+    tableSelectors.tableWrapper,
+  );
+  await snapshot(page);
 };
 
 describe('Snapshot Test: table resizing', () => {
@@ -74,25 +92,29 @@ describe('Snapshot Test: table resizing', () => {
       await waitToolbarThenSnapshot(page);
     });
 
-    // FIXME These tests were flakey in the Puppeteer v10 Upgrade
     describe.each([
       ['without tableOverflowShadowsOptimization', false],
       ['with tableOverflowShadowsOptimization', true],
     ])('Overflow Table %s', (tableOverflowShadowsOptimization) => {
       beforeEach(async () => {
         await initEditorWithTable({
+          allowTables: {
+            stickyHeaders: true,
+            advanced: true,
+          },
           featureFlags: {
             tableOverflowShadowsOptimization,
           },
         });
         // Go to overflow
-        await resizeColumn(page, { colIdx: 2, amount: 500, row: 2 });
+        await resizeColumn(page, { colIdx: 2, amount: 250, row: 2 });
       });
-      test.skip('should overflow table when resizing over the available size', async () => {
+
+      test('should overflow table when resizing over the available size', async () => {
         await waitToolbarThenSnapshot(page);
       });
 
-      test.skip('should keep overflow when resizing an table with overflow', async () => {
+      test('should keep overflow when resizing an table with overflow', async () => {
         // Scroll to the end of col we are about to resize
         // Its in overflow.
         await scrollTable(page, 1);
@@ -106,27 +128,52 @@ describe('Snapshot Test: table resizing', () => {
       describe('unselected', () => {
         beforeEach(async () => {
           await unselectTable(page);
+          await page.waitForSelector(`.${ClassName.WITH_CONTROLS}`, {
+            hidden: true,
+          });
         });
 
-        // TODO: https://product-fabric.atlassian.net/browse/ED-13527
-        test.skip('should show overflow in both side when scroll is in the middle', async () => {
+        afterEach(async () => {
+          // had to add explicit wait due to unexpected flakes on the pipeline after after awaiting for shadows states
+          // table width needed some time to adjust after undelecting table which doesnt happen locally
+          // waiting for exact table width or shadows offsets didnt seem to help
+          await page.waitForTimeout(100);
+          await snapshot(page);
+        });
+
+        test('should show overflow in both side when scroll is in the middle', async () => {
           await scrollTable(page, 0.5); // Scroll to the middle of the table
-          await animationFrame(page);
-          await snapshot(page);
-        });
-        // FIXME These tests were flakey in the Puppeteer v10 Upgrade
-        test.skip('should show only left overflow when scroll is in the right', async () => {
-          await scrollTable(page, 1); // Scroll to the right of the table
-          await animationFrame(page);
-          await snapshot(page);
+          await page.waitForSelector(
+            `.${TableSharedCssClassName.TABLE_LEFT_SHADOW}`,
+            { visible: true },
+          );
+          await page.waitForSelector(
+            `.${TableSharedCssClassName.TABLE_RIGHT_SHADOW}`,
+            { visible: true },
+          );
         });
 
-        // TODO: https://product-fabric.atlassian.net/browse/ED-13540
-        test.skip('should show only right overflow when scroll is in the left', async () => {
-          await scrollTable(page, 0); // Scroll to the left of the table
-          await animationFrame(page);
-          // FIXME These tests were flakey in the Puppeteer v10 Upgrade
-          await snapshot(page, { useUnsafeThreshold: true, tolerance: 0.01 });
+        test('should show only left overflow when scroll is in the right', async () => {
+          await scrollTable(page, 1); // Scroll to the right of the table
+          await page.waitForSelector(
+            `.${TableSharedCssClassName.TABLE_LEFT_SHADOW}`,
+            { visible: true },
+          );
+          await page.waitForSelector(
+            `.${TableSharedCssClassName.TABLE_RIGHT_SHADOW}`,
+            { hidden: true },
+          );
+        });
+
+        test('should show only right overflow when scroll is in the left', async () => {
+          await page.waitForSelector(
+            `.${TableSharedCssClassName.TABLE_RIGHT_SHADOW}`,
+            { visible: true },
+          );
+          await page.waitForSelector(
+            `.${TableSharedCssClassName.TABLE_LEFT_SHADOW}`,
+            { hidden: true },
+          );
         });
       });
     });
@@ -136,29 +183,30 @@ describe('Snapshot Test: table resizing', () => {
       ['with stickyHeadersOptimization', true],
     ])('Overflow Table %s', (stickyHeadersOptimization) => {
       beforeEach(async () => {
-        await initEditorWithTable({
-          allowTables: {
-            stickyHeaders: true,
-            advanced: true,
+        await initFullPageEditorWithAdf(
+          page,
+          adfTableWithManyRows,
+          undefined,
+          undefined,
+          {
+            allowTables: {
+              stickyHeaders: true,
+              advanced: true,
+            },
+            featureFlags: {
+              stickyHeadersOptimization,
+            },
           },
-          featureFlags: {
-            stickyHeadersOptimization,
-          },
-        });
+        );
+
         // Go to overflow
         await clickFirstCell(page);
         await resizeColumn(page, { colIdx: 2, amount: 500, row: 2 });
         await animationFrame(page);
+        await unselectTable(page);
       });
 
-      // TODO: https://product-fabric.atlassian.net/browse/ED-13540
-      it.skip('header shadows are aligned when focusing overflown table', async () => {
-        //insert multiple rows to make table go off the screen
-        for (let i = 0; i < 15; i++) {
-          await insertRow(page, 1);
-        }
-        await animationFrame(page);
-        await unselectTable(page);
+      it('header shadows are aligned when focusing overflown table', async () => {
         // Scroll to the middle of the table horizontally to have shadows on both sides
         await scrollTable(page, 0.5);
         // scroll to bottom to have sticky header
@@ -175,7 +223,7 @@ describe('Snapshot Test: table resizing', () => {
         // verify screenshot when table unselected back
         await unselectTable(page);
         await animationFrame(page);
-        await snapshot(page);
+        await waitTableThenSnapshot(page);
       });
     });
 
@@ -228,8 +276,8 @@ describe('Snapshot Test: table scale', () => {
     await insertTable(page);
     await clickFirstCell(page);
   });
-  // FIXME These tests were flakey in the Puppeteer v10 Upgrade
-  it.skip(`should not overflow the table with dynamic text sizing enabled`, async () => {
+
+  it(`should not overflow the table with dynamic text sizing enabled`, async () => {
     await toggleBreakout(page, 1);
     await waitToolbarThenSnapshot(page);
   });
@@ -243,7 +291,7 @@ describe('Snapshot Test: table with merged cell on first row', () => {
     await clickFirstCell(page);
   });
 
-  it.skip('should resize the first cell on first row', async () => {
+  it('should resize the first cell on first row', async () => {
     await resizeColumnAndReflow(page, { colIdx: 1, row: 1, amount: 100 });
     await animationFrame(page);
     await waitToolbarThenSnapshot(page);
@@ -262,8 +310,7 @@ describe('Snapshot Test: table with merged cell on first row', () => {
   });
 });
 
-// FIXME These tests were flakey in the Puppeteer v10 Upgrade
-describe.skip('Snapshot Test: table resize handle line', () => {
+describe('Snapshot Test: table resize handle line', () => {
   let page: PuppeteerPage;
   beforeEach(async () => {
     page = global.page;
@@ -276,7 +323,7 @@ describe.skip('Snapshot Test: table resize handle line', () => {
     async (row) => {
       await grabResizeHandle(page, { colIdx: 1, row });
       await animationFrame(page);
-      await waitToolbarThenSnapshot(page);
+      await waitTableThenSnapshot(page);
     },
   );
 });

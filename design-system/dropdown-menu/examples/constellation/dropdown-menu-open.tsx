@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 
 import DropdownMenu, {
-  DropdownItemGroupRadio,
   DropdownItemRadio,
+  DropdownItemRadioGroup,
 } from '../../src';
 import { OnOpenChangeArgs } from '../../src/types';
 
@@ -17,12 +17,11 @@ const DropdownOpenExample = () => {
           setIsOpen(attrs.isOpen);
         }}
         trigger="Page actions"
-        triggerType="button"
       >
-        <DropdownItemGroupRadio id="actions">
+        <DropdownItemRadioGroup id="actions">
           <DropdownItemRadio id="edit">Edit</DropdownItemRadio>
           <DropdownItemRadio id="move">Move</DropdownItemRadio>
-        </DropdownItemGroupRadio>
+        </DropdownItemRadioGroup>
       </DropdownMenu>
     </div>
   );

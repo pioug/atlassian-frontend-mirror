@@ -2,19 +2,21 @@ import camelCase from 'lodash/camelCase';
 import upperFirst from 'lodash/upperFirst';
 import type { Format } from 'style-dictionary';
 
-const formatRenameMapping = (mapping: Record<string, string>, prefix: string) =>
+const formatTokenPath = (path: string) =>
+  path
+    .split('.')
+    .map(upperFirst)
+    .join('/')
+    .replace('/Hover', ' Hover')
+    .replace('/Resting', ' Resting')
+    .replace('/Pressed', ' Pressed');
+
+const formatRenameMapping = (mapping: Record<string, string>) =>
   Object.entries(mapping).reduce<Record<string, string>>(
     (accum, [key, value]) => {
-      const oldPath = `${prefix}/${key
-        .split('.')
-        .map((str) => upperFirst(str))
-        .join('/')}`;
-
-      accum[oldPath] = `${prefix}/${value
-        .split('.')
-        .map((str) => upperFirst(str))
-        .join('/')}`;
-
+      const oldPath = formatTokenPath(key);
+      const newPath = formatTokenPath(value);
+      accum[oldPath] = newPath;
       return accum;
     },
     {},
@@ -29,7 +31,7 @@ const formatter: Format['formatter'] = ({ dictionary, options }) => {
   const themeName = upperFirst(camelCase(options.themeName));
 
   dictionary.allTokens.forEach((token) => {
-    if (token.attributes && token.attributes.isPalette) {
+    if (token.attributes && token.attributes.group === 'palette') {
       // Ignore palette tokens.
       return;
     }
@@ -41,15 +43,27 @@ const formatter: Format['formatter'] = ({ dictionary, options }) => {
 
     // We found a themed token!
     const tokenPath = token.path.map((path) => upperFirst(path)).join('/');
-    const fullPath = `${themeName}/${tokenPath}`;
+    // In figma, we want interaction states to be grouped together
+    // under the appearance
+    const formattedTokenPath = formatTokenPath(tokenPath);
 
-    tokens[fullPath] = {
+    tokens[formattedTokenPath] = {
       ...token.original,
       value: token.value,
     };
   });
 
-  return `// THIS IS AN AUTO-GENERATED FILE DO NOT MODIFY DIRECTLY
+  const renameMap = dictionary.allTokens
+    .filter((token) => token.attributes && !!token.attributes.replacement)
+    .reduce<Record<string, string>>((accum, token) => {
+      accum[token.path.join('.')] = token.attributes?.replacement;
+      return accum;
+    }, {});
+
+  return `
+/* eslint-disable no-undef */
+
+// THIS IS AN AUTO-GENERATED FILE DO NOT MODIFY DIRECTLY
 // Re-generate by running \`yarn build tokens\`.
 // Read the instructions to use this here:
 // \`packages/design-system/tokens/src/figma/README.md\`
@@ -57,11 +71,7 @@ synchronizeFigmaTokens('${themeName}', ${JSON.stringify(
     tokens,
     null,
     2,
-  )}, ${JSON.stringify(
-    formatRenameMapping(options.renameMapping, themeName),
-    null,
-    2,
-  )});
+  )}, ${JSON.stringify(formatRenameMapping(renameMap), null, 2)});
 `;
 };
 

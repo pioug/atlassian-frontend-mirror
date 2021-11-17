@@ -53,7 +53,10 @@
     },
     "@repo/internal": {
       "design-system": "v1",
-      "styling": "emotion",
+      "styling": [
+        "static",
+        "emotion"
+      ],
       "analytics": "analytics-next",
       "deprecation": "no-deprecated-imports"
     }

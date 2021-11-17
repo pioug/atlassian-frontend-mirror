@@ -2,7 +2,7 @@ import { Node as PMNode } from 'prosemirror-model';
 import { EditorView, NodeView } from 'prosemirror-view';
 import React, { useEffect, useState } from 'react';
 import { EventDispatcher } from '../../../event-dispatcher';
-import { getPosHandler, ReactNodeView } from '../../../nodeviews/';
+import { getPosHandler, SelectionBasedNodeView } from '../../../nodeviews/';
 import { MediaInlineCard } from '@atlaskit/media-card';
 import { MediaClientConfig } from '@atlaskit/media-core/auth';
 import { FileIdentifier } from '@atlaskit/media-client';
@@ -12,11 +12,13 @@ import {
   ProviderFactory,
 } from '@atlaskit/editor-common';
 import { PortalProviderAPI } from '../../../../src/ui/PortalProvider';
+import { MediaInlineNodeSelector } from './styles';
 
 export interface MediaInlineProps {
   mediaProvider: Promise<MediaProvider>;
   identifier: FileIdentifier;
   node: PMNode;
+  isSelected: boolean;
 }
 
 export const MediaInline: React.FC<MediaInlineProps> = (props) => {
@@ -46,6 +48,7 @@ export const MediaInline: React.FC<MediaInlineProps> = (props) => {
 
   return (
     <MediaInlineCard
+      isSelected={props.isSelected}
       identifier={identifier}
       mediaClientConfig={viewMediaClientConfig}
     />
@@ -55,13 +58,13 @@ export const MediaInline: React.FC<MediaInlineProps> = (props) => {
 export interface MediaInlineNodeViewProps {
   providerFactory: ProviderFactory;
 }
-
-export class MediaInlineNodeView extends ReactNodeView<
+export class MediaInlineNodeView extends SelectionBasedNodeView<
   MediaInlineNodeViewProps
 > {
   createDomRef() {
     const domRef = document.createElement('span');
     domRef.contentEditable = 'false';
+    domRef.classList.add(MediaInlineNodeSelector);
     return domRef;
   }
 
@@ -79,7 +82,7 @@ export class MediaInlineNodeView extends ReactNodeView<
       return true;
     }
 
-    return false;
+    return super.viewShouldUpdate(nextNode);
   }
 
   render(props: MediaInlineNodeViewProps) {
@@ -97,6 +100,7 @@ export class MediaInlineNodeView extends ReactNodeView<
               identifier={this.node.attrs.id}
               mediaProvider={mediaProvider}
               node={this.node}
+              isSelected={this.nodeInsideSelection()}
             />
           );
         }}

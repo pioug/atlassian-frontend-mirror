@@ -16,6 +16,7 @@ import {
   getCellsRefsInColumn,
   getLayoutSize,
 } from '../pm-plugins/table-resizing/utils';
+import { ReportInvalidNodeAttrs } from '../types';
 
 export const fireAnalytics = (properties = {}) =>
   sendLogs({
@@ -31,6 +32,36 @@ export const fireAnalytics = (properties = {}) =>
     ],
   });
 
+const validateTableCellNodeAttrs = (
+  {
+    colspan,
+    rowspan,
+    tableLocalId,
+  }: { colspan?: number; rowspan?: number; tableLocalId: string },
+  reportInvalidTableCellSpanAttrs: ReportInvalidNodeAttrs,
+): void => {
+  if (colspan && colspan < 0) {
+    reportInvalidTableCellSpanAttrs({
+      nodeType: 'tableCell',
+      attribute: 'colspan',
+      reason: 'negative value',
+      tableLocalId,
+      spanValue: colspan,
+    });
+  }
+
+  if (rowspan && rowspan < 0) {
+    reportInvalidTableCellSpanAttrs({
+      nodeType: 'tableCell',
+      attribute: 'rowspan',
+      reason: 'negative value',
+      tableLocalId,
+      spanValue: rowspan,
+    });
+  }
+  return;
+};
+
 // We attempt to patch the document when we have extra, unneeded, column widths
 // Take this node for example:
 //
@@ -42,11 +73,19 @@ export const removeExtraneousColumnWidths = (
   node: PMNode,
   basePos: number,
   tr: Transaction,
+  reportInvalidTableCellSpanAttrs?: ReportInvalidNodeAttrs,
 ): boolean => {
   let hasProblems = false;
 
   tr = replaceCells(tr, node, basePos, (cell) => {
-    const { colwidth, colspan } = cell.attrs;
+    const { colwidth, colspan, rowspan } = cell.attrs;
+
+    if (reportInvalidTableCellSpanAttrs) {
+      validateTableCellNodeAttrs(
+        { colspan, rowspan, tableLocalId: node.attrs.localId },
+        reportInvalidTableCellSpanAttrs,
+      );
+    }
 
     if (colwidth && colwidth.length > colspan) {
       hasProblems = true;
@@ -71,12 +110,20 @@ export const removeExtraneousColumnWidths = (
   return false;
 };
 
-export const fixTables = (tr: Transaction): Transaction | undefined => {
+export const fixTables = (
+  tr: Transaction,
+  reportInvalidTableCellSpanAttrs?: ReportInvalidNodeAttrs,
+): Transaction | undefined => {
   let hasProblems = false;
   tr.doc.descendants((node, pos) => {
     if (node.type.name === 'table') {
       // in the unlikely event of having to fix multiple tables at the same time
-      hasProblems = removeExtraneousColumnWidths(node, tr.mapping.map(pos), tr);
+      hasProblems = removeExtraneousColumnWidths(
+        node,
+        tr.mapping.map(pos),
+        tr,
+        reportInvalidTableCellSpanAttrs,
+      );
     }
   });
 

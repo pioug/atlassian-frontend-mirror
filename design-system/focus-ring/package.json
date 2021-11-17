@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/focus-ring",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "A focus ring is used to indicate the currently focused item.",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "@atlaskit/theme": "^12.0.0",
-    "@atlaskit/tokens": "^0.3.0",
+    "@atlaskit/tokens": "^0.4.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/core": "^10.0.9"
   },
@@ -53,7 +53,10 @@
     },
     "@repo/internal": {
       "design-system": "v1",
-      "styling": "emotion",
+      "styling": [
+        "static",
+        "emotion"
+      ],
       "ui-components": "lite-mode",
       "analytics": "analytics-next",
       "theming": "tokens",

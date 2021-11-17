@@ -23,7 +23,9 @@ describe('Media Toolbar:', () => {
     await initFullPageEditorWithAdf(page, adf, undefined, viewport, {
       media: {
         allowMediaGroup: true,
-        allowMediaInline: true,
+        featureFlags: {
+          mediaInline: true,
+        },
       },
     });
   };
@@ -35,7 +37,9 @@ describe('Media Toolbar:', () => {
   });
 
   afterEach(async () => {
-    await snapshot(page);
+    await snapshot(page, undefined, undefined, {
+      captureBeyondViewport: false,
+    });
   });
 
   it('should display buttons in the correct order', async () => {
@@ -54,8 +58,7 @@ describe('Media Toolbar:', () => {
     await page.waitForSelector('[data-testid="media-viewer-error"]');
   });
 
-  // FIXME: This test was automatically skipped due to failure on 8/30/2021: https://product-fabric.atlassian.net/browse/ED-13683
-  it.skip('should show red border while hovering over the delete button', async () => {
+  it('should show red border while hovering over the delete button', async () => {
     await page.hover('[data-testid="media-toolbar-remove-button"]');
     await waitForTooltip(page);
   });

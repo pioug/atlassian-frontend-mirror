@@ -5,7 +5,7 @@ export default {
       props: {
         originalWidth: { type: 'number', optional: true },
         originalHeight: { type: 'number', optional: true },
-        url: { type: 'string' },
+        url: { type: 'string', validatorFn: 'safeUrl' },
         width: { type: 'number', minimum: 0, maximum: 100, optional: true },
         layout: {
           type: 'enum',

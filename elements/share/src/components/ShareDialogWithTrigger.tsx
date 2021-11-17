@@ -494,10 +494,12 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
   };
 
   handleOpenSplitButton = () => {
-    this.handleDialogOpen();
-    this.setState({
-      isUsingSplitButton: true,
-    });
+    this.setState(
+      {
+        isUsingSplitButton: true,
+      },
+      () => this.handleCloseDialog(),
+    );
     this.createAndFireEvent(shareSplitButtonEvent());
   };
 

@@ -10,6 +10,7 @@ import {
 import {
   MediaFeatureFlags,
   isMimeTypeSupportedByBrowser,
+  SSR,
 } from '@atlaskit/media-common';
 import { CardDimensions } from '../../../utils/cardDimensions';
 import cardPreviewCache from './cache';
@@ -19,9 +20,10 @@ import {
 } from './helpers';
 import {
   MediaCardError,
+  SsrPreviewError,
   isUnsupportedLocalPreviewError,
 } from '../../../errors';
-import { CardStatus, CardPreview } from '../../../types';
+import { CardStatus, CardPreview, CardPreviewSource } from '../../../types';
 import { isBigger } from '../../../utils/dimensionComparer';
 import {
   extractFilePreviewStatus,
@@ -74,6 +76,12 @@ const extendAndCachePreview = (
       break;
     case 'remote':
       source = 'cache-remote';
+      break;
+    case 'ssr-server':
+      source = 'cache-ssr-server';
+      break;
+    case 'ssr-client':
+      source = 'cache-ssr-client';
       break;
     default:
       source = preview.source;
@@ -157,15 +165,11 @@ export const getCardPreview = async ({
     throw new MediaCardError('remote-preview-not-ready');
   }
 
-  const remotePreview = await getCardPreviewFromBackend(
+  return fetchAndCacheRemotePreview(
     mediaClient,
     id,
-    imageUrlParams,
-  );
-  return extendAndCachePreview(
-    id,
     dimensions,
-    remotePreview,
+    imageUrlParams,
     mediaBlobUrlAttrs,
   );
 };
@@ -193,4 +197,70 @@ export const shouldResolvePreview = ({
   );
   const dimensionsAreBigger = isBigger(prevDimensions, dimensions);
   return statusIsPreviewable && (!hasCardPreview || dimensionsAreBigger);
+};
+
+export const getSSRCardPreview = (
+  ssr: SSR,
+  mediaClient: MediaClient,
+  id: string,
+  params: MediaStoreGetFileImageParams,
+  mediaBlobUrlAttrs?: MediaBlobUrlAttrs,
+): CardPreview => {
+  let dataURI: string;
+  try {
+    const rawDataURI = mediaClient.getImageUrlSync(id, params);
+    // We want to embed some meta context into dataURI for Copy/Paste to work.
+    dataURI = mediaBlobUrlAttrs
+      ? addFileAttrsToUrl(rawDataURI, mediaBlobUrlAttrs)
+      : rawDataURI;
+    const source = ssr === 'client' ? 'ssr-client' : 'ssr-server';
+    return { dataURI, source, orientation: 1 };
+  } catch (e) {
+    const reason = ssr === 'server' ? 'ssr-server-uri' : 'ssr-client-uri';
+    throw new SsrPreviewError(reason, e);
+  }
+};
+
+export const isLocalPreview = (preview: CardPreview) => {
+  const localSources: CardPreviewSource[] = ['local', 'cache-local'];
+  return localSources.includes(preview.source);
+};
+
+export const isSSRPreview = (preview: CardPreview) =>
+  isSSRClientPreview(preview) || isSSRServerPreview(preview);
+
+export const isSSRServerPreview = (preview: CardPreview) => {
+  const ssrClientSources: CardPreviewSource[] = [
+    'ssr-server',
+    'cache-ssr-server',
+  ];
+  return ssrClientSources.includes(preview.source);
+};
+
+export const isSSRClientPreview = (preview: CardPreview) => {
+  const ssrClientSources: CardPreviewSource[] = [
+    'ssr-client',
+    'cache-ssr-client',
+  ];
+  return ssrClientSources.includes(preview.source);
+};
+
+export const fetchAndCacheRemotePreview = async (
+  mediaClient: MediaClient,
+  id: string,
+  dimensions: CardDimensions,
+  params: MediaStoreGetFileImageParams,
+  mediaBlobUrlAttrs?: MediaBlobUrlAttrs,
+) => {
+  const remotePreview = await getCardPreviewFromBackend(
+    mediaClient,
+    id,
+    params,
+  );
+  return extendAndCachePreview(
+    id,
+    dimensions,
+    remotePreview,
+    mediaBlobUrlAttrs,
+  );
 };

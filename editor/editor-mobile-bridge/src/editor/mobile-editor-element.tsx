@@ -1,4 +1,6 @@
 import React from 'react';
+import memoizeOne from 'memoize-one';
+import isEqual from 'lodash/isEqual';
 import {
   Editor,
   MediaProvider as MediaProviderType,
@@ -26,7 +28,7 @@ import { useReflowDectector } from './hooks/use-reflow-detector';
 import throttle from 'lodash/throttle';
 import { withIntlProvider } from '../i18n/with-intl-provider';
 import { InjectedIntl, injectIntl } from 'react-intl';
-import { usePageTitle } from './hooks/use-page-title';
+import { useCollabListeners } from './hooks/use-collab-listeners';
 import { geti18NMessages } from './editor-localisation-provider';
 import { withSystemTheme } from '../WithSystemTheme';
 import {
@@ -54,14 +56,18 @@ export interface MobileEditorProps extends EditorProps {
 }
 
 // Editor options. Keep as external cost to prevent unnecessary re-renders;
-const layoutOptions = {
-  allowBreakout: true,
-  UNSAFE_addSidebarLayouts: true,
-};
-
-const customPanelOptions = {
-  UNSAFE_allowCustomPanel: true,
-};
+const getLayoutOptions = memoizeOne(
+  (featureFlags: { [featureFlag: string]: string | boolean } | undefined) => ({
+    allowBreakout: true,
+    UNSAFE_addSidebarLayouts: true,
+    UNSAFE_allowSingleColumnLayout:
+      featureFlags &&
+      (typeof featureFlags.singleLayout === 'boolean'
+        ? featureFlags.singleLayout
+        : featureFlags.singleLayout === 'true'),
+  }),
+  isEqual,
+);
 
 const tableOptions = {
   allowCellOptionsInFloatingToolbar: true,
@@ -111,14 +117,17 @@ export function MobileEditor(props: MobileEditorProps) {
     intl,
     editorConfiguration.isQuickInsertEnabled(),
   );
-  usePageTitle(bridge, collabEdit);
+  useCollabListeners(bridge, collabEdit);
 
   // Hooks to create the options once and prevent rerender
   const mediaOptions = {
     ...useMedia(mediaProvider),
     allowResizing: getMediaImageResize(),
     allowResizingInTables: getMediaImageResize(),
-    featureFlags: { captions: getAllowCaptions() },
+    featureFlags: {
+      captions: getAllowCaptions(),
+      mediaInline: editorConfiguration.isAllowMediaInlineEnabled(),
+    },
     alignLeftOnInsert: true,
   };
   const cardsOptions = useSmartCards(cardProvider);
@@ -165,9 +174,18 @@ export function MobileEditor(props: MobileEditorProps) {
   // See https://product-fabric.atlassian.net/browse/FM-2149 for details.
   const authFlow = 'disabled';
 
-  const panelConfiguration = editorConfiguration.isCustomPanelEnabled()
-    ? customPanelOptions
-    : true;
+  const isCustomPanelEnabled = editorConfiguration.isCustomPanelEnabled();
+
+  const customPanelOptions = {
+    allowCustomPanel: isCustomPanelEnabled,
+    allowCustomPanelEdit: editorConfiguration.isCustomPanelEditable(),
+  };
+
+  const panelConfiguration = isCustomPanelEnabled ? customPanelOptions : true;
+
+  const taskDecisionOptions = editorConfiguration.isTasksAndDecisionsAllowed()
+    ? taskDecisionProvider
+    : undefined;
 
   // This is used to enable a specific performance tracking event which is typing performance.
   // Sampling rate is 10 because mobile users don't type many characters.
@@ -207,13 +225,13 @@ export function MobileEditor(props: MobileEditorProps) {
             allowDate={true}
             allowRule={true}
             allowStatus={true}
-            allowLayouts={layoutOptions}
+            allowLayouts={getLayoutOptions(featureFlags)}
             allowAnalyticsGASV3={true}
             allowExpand={expandOptions}
             codeBlock={codeBlockOptions}
             allowTemplatePlaceholders={templatePlaceholdersOptions}
             persistScrollGutter={editorConfiguration.isScrollGutterPersisted()}
-            taskDecisionProvider={taskDecisionProvider}
+            taskDecisionProvider={taskDecisionOptions}
             quickInsert={quickInsert}
             collabEdit={collabEdit}
             performanceTracking={performanceTracking}

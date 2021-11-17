@@ -6,6 +6,7 @@ import Error from '@atlaskit/icon/glyph/error';
 import Info from '@atlaskit/icon/glyph/info';
 import Warning from '@atlaskit/icon/glyph/warning';
 import { G300, P300, R300, Y300 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import Flag, { FlagGroup } from '../src';
 
@@ -27,10 +28,30 @@ const getRandomIcon = () => {
 
 const iconMap = (key?: string, color?: string) => {
   const icons: { [key: string]: ReactElement } = {
-    info: <Info label="Info" primaryColor={color || P300} />,
-    success: <Tick label="Success" primaryColor={color || G300} />,
-    warning: <Warning label="Warning" primaryColor={color || Y300} />,
-    error: <Error label="Error" primaryColor={color || R300} />,
+    info: (
+      <Info
+        label="Info"
+        primaryColor={color || token('color.iconBorder.discovery', P300)}
+      />
+    ),
+    success: (
+      <Tick
+        label="Success"
+        primaryColor={color || token('color.iconBorder.success', G300)}
+      />
+    ),
+    warning: (
+      <Warning
+        label="Warning"
+        primaryColor={color || token('color.iconBorder.warning', Y300)}
+      />
+    ),
+    error: (
+      <Error
+        label="Error"
+        primaryColor={color || token('color.iconBorder.danger', R300)}
+      />
+    ),
   };
 
   return key ? icons[key] : icons;

@@ -51,6 +51,7 @@ export enum ACTION {
   INITIALISED = 'initialised',
   INPUT_PERF_SAMPLING = 'inputPerfSampling',
   INSERTED = 'inserted',
+  INVALID_DOCUMENT_ENCOUNTERED = 'invalidDocumentEncountered',
   INVOKED = 'invoked',
   LANGUAGE_SELECTED = 'languageSelected',
   LIST_ITEM_JOINED = 'listItemJoined',

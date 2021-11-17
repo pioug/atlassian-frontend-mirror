@@ -82,6 +82,7 @@ export class ValidatingKitchenSinkEditor extends React.Component<
             provider: this.quickInsertProviderPromise,
           }}
           UNSAFE_allowUndoRedoButtons={true}
+          UNSAFE_allowFragmentMark={true}
           allowTextColor={true}
           allowTables={{
             advanced: true,
@@ -122,13 +123,16 @@ export class ValidatingKitchenSinkEditor extends React.Component<
             provider: mediaProvider,
             allowMediaSingle: true,
             enableDownloadButton: true,
-            allowMediaInline: true,
             allowResizing: true,
             allowAnnotation: true,
             allowLinking: true,
             allowResizingInTables: true,
             allowAltTextOnImages: true,
-            featureFlags: { ...exampleMediaFeatureFlags, captions: true },
+            featureFlags: {
+              ...exampleMediaFeatureFlags,
+              captions: true,
+              mediaInline: true,
+            },
           }}
           insertMenuItems={customInsertMenuItems}
           extensionHandlers={extensionHandlers}

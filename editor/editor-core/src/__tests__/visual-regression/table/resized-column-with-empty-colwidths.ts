@@ -1,0 +1,54 @@
+import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import {
+  scrollToElement,
+  selectors,
+} from '../../__helpers/page-objects/_editor';
+import { snapshot, initFullPageEditorWithAdf } from '../_utils';
+import adf from './__fixtures__/table-with-text-in-zero-colwidth-columns.adf.json';
+
+describe('table with zero width and text', () => {
+  let page: PuppeteerPage;
+
+  beforeAll(async () => {
+    page = global.page;
+  });
+
+  async function setupEditor(
+    stickyHeaders: boolean,
+    featureFlags: { [featureFlag: string]: string | boolean } = {},
+  ) {
+    await initFullPageEditorWithAdf(page, adf, undefined, undefined, {
+      allowTables: {
+        advanced: true,
+        stickyHeaders,
+      },
+      featureFlags,
+    });
+  }
+  describe('shows headers with correct height', () => {
+    it('without sticky headers', async () => {
+      await setupEditor(false);
+      await snapshot(page);
+    });
+
+    describe.each([
+      ['with stickyHeadersOptimization', true],
+      ['without stickyHeadersOptimization', false],
+    ])('with sticky headers and %s', (_, stickyHeadersOptimization) => {
+      beforeEach(async () => {
+        await setupEditor(true, {
+          stickyHeadersOptimization,
+        });
+      });
+
+      it('on initial render', async () => {
+        await snapshot(page);
+      });
+
+      it('when table is scrolled and header is sticky', async () => {
+        await scrollToElement(page, selectors.lastEditorElement);
+        await snapshot(page);
+      });
+    });
+  });
+});

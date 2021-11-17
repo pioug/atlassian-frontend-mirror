@@ -4,7 +4,7 @@ import {
 } from '@atlaskit/analytics-next';
 import { EmojiProvider } from '@atlaskit/emoji/resource';
 import { ResourcedEmoji } from '@atlaskit/emoji/element';
-import { N20, N40, N400 } from '@atlaskit/theme/colors';
+import { B50, B75, B300, N20, N40, N400 } from '@atlaskit/theme/colors';
 import cx from 'classnames';
 import React from 'react';
 import { PureComponent, SyntheticEvent } from 'react';
@@ -51,11 +51,19 @@ const reactionStyle = style({
   $nest: { '&:hover': { background: `${N20}` } },
 });
 
+const reactedStyle = style({
+  backgroundColor: B50,
+  borderColor: B300,
+  $nest: { '&:hover': { background: `${B75}` } },
+});
+
+const flashHeight = akHeight - 2; // height without the 1px border
+
 const flashStyle = style({
   display: 'flex',
   flexDirection: 'row',
   borderRadius: '10px',
-  height: `${akHeight}px`,
+  height: `${flashHeight}px`,
 });
 
 const counterStyle = style({
@@ -172,7 +180,9 @@ class ReactionWithoutAnalytics extends PureComponent<
     } = this.props;
     const { emojiName } = this.state;
 
-    const classNames = cx(reactionStyle, classNameProp);
+    const classNames = cx(reactionStyle, classNameProp, {
+      [reactedStyle]: reaction.reacted,
+    });
 
     const emojiId = { id: reaction.emojiId, shortName: '' };
 

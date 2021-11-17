@@ -13,7 +13,7 @@ import NoteIcon from '@atlaskit/icon/glyph/editor/note';
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 import WarningIcon from '@atlaskit/icon/glyph/editor/warning';
 import ErrorIcon from '@atlaskit/icon/glyph/editor/error';
-import RemoveEmojiIcon from '../floating-toolbar/ui/EditorRemoveEmojiIcon';
+import RemoveEmojiIcon from '@atlaskit/icon/glyph/editor/remove-emoji';
 
 import commonMessages from '../../messages';
 import { removePanel, changePanelType } from './actions';
@@ -52,8 +52,8 @@ export const panelIconMap: {
   [PanelType.INFO]: ':info:',
   [PanelType.NOTE]: ':note:',
   [PanelType.WARNING]: ':warning:',
-  [PanelType.ERROR]: ':error:',
-  [PanelType.SUCCESS]: ':success:',
+  [PanelType.ERROR]: ':cross_mark:',
+  [PanelType.SUCCESS]: ':check_mark:',
   [PanelType.TIP]: ':tip:',
 };
 
@@ -292,18 +292,22 @@ export const getToolbarConfig = (
     const nodeType = state.schema.nodes.panel;
     const { panelType, panelColor, panelIcon } = panelObject.node.attrs;
 
+    const isStandardPanel = (panelType: PanelType) => {
+      return panelType !== PanelType.CUSTOM ? panelType : undefined;
+    };
+
     // force toolbar to be turned on
     const items = getToolbarItems(
       formatMessage,
       nodeType,
-      options.UNSAFE_allowCustomPanel || false,
-      (options.UNSAFE_allowCustomPanel &&
-        options.UNSAFE_allowCustomPanelEdit) ||
-        false,
+      options.allowCustomPanel || false,
+      (options.allowCustomPanel && options.allowCustomPanelEdit) || false,
       providerFactory,
       panelType,
-      options.UNSAFE_allowCustomPanel ? panelColor : undefined,
-      options.UNSAFE_allowCustomPanel ? panelIcon : undefined,
+      options.allowCustomPanel ? panelColor : undefined,
+      options.allowCustomPanel
+        ? panelIcon || isStandardPanel(panelType)
+        : undefined,
     );
 
     const getDomRef = (editorView: EditorView) => {

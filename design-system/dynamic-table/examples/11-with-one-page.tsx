@@ -7,7 +7,6 @@ import Button from '@atlaskit/button/standard-button';
 
 import DynamicTable from '../src';
 
-import Wrapper from './components/wrapper';
 import { caption, head, rows } from './content/sample-data';
 
 interface State {
@@ -32,7 +31,7 @@ export default class extends React.Component<{}, State> {
 
   render() {
     return (
-      <Wrapper>
+      <div>
         <p>
           Pagination is enabled or disabled by setting or unsetting the{' '}
           <code>rowsPerPage</code>
@@ -51,7 +50,7 @@ export default class extends React.Component<{}, State> {
           onSort={() => console.log('onSort')}
           onSetPage={() => console.log('onSetPage')}
         />
-      </Wrapper>
+      </div>
     );
   }
 }

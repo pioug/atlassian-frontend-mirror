@@ -254,7 +254,7 @@ describe('<ItemViewer />', () => {
     );
   });
 
-  it('should load archiveViewerLoader if media type is archive and FF is on', () => {
+  it('should load archiveViewerLoader if media type is archive', () => {
     const state: FileState = {
       id: identifier.id,
       mediaType: 'archive',
@@ -265,29 +265,9 @@ describe('<ItemViewer />', () => {
       mimeType: '',
     };
     const mediaClient = makeFakeMediaClient(createFileStateSubject(state));
-    const { el } = mountComponent(mediaClient, identifier, {
-      zipPreviews: true,
-    });
+    const { el } = mountComponent(mediaClient, identifier);
     el.update();
     expect(el.find(ArchiveViewerLoader)).toHaveLength(1);
-  });
-
-  it('should not load archiveViewerLoader if media type is archive but FF is off', () => {
-    const state: FileState = {
-      id: identifier.id,
-      mediaType: 'archive',
-      status: 'processed',
-      artifacts: {},
-      name: '',
-      size: 10,
-      mimeType: '',
-    };
-    const mediaClient = makeFakeMediaClient(createFileStateSubject(state));
-    const { el } = mountComponent(mediaClient, identifier, {
-      zipPreviews: false,
-    });
-    el.update();
-    expect(el.find(ArchiveViewerLoader)).toHaveLength(0);
   });
 
   it('should should error and download button if file is unsupported', () => {
@@ -694,7 +674,7 @@ describe('<ItemViewer />', () => {
 
   describe('CodeViewer', () => {
     // should only show codeviewer if (1) FF for codeviewer is on (2) It's a code-viewable item
-    it('should load codeViewer if the file is code type AND the FF for codeViewer is on', () => {
+    it('should load codeViewer if the file is code type', () => {
       const state: FileState = {
         id: identifier.id,
         mediaType: 'unknown',
@@ -705,32 +685,12 @@ describe('<ItemViewer />', () => {
         mimeType: '',
       };
       const mediaClient = makeFakeMediaClient(createFileStateSubject(state));
-      const { el } = mountComponent(mediaClient, identifier, {
-        codeViewer: true,
-      });
+      const { el } = mountComponent(mediaClient, identifier);
       el.update();
       expect(el.find(CodeViewer)).toHaveLength(1);
     });
 
-    it('should not load codeViewer if codeViewer FF is off even IF the file is a code type', () => {
-      const state: FileState = {
-        id: identifier.id,
-        mediaType: 'unknown',
-        status: 'processed',
-        artifacts: {},
-        name: 'file.c',
-        size: 10,
-        mimeType: '',
-      };
-      const mediaClient = makeFakeMediaClient(createFileStateSubject(state));
-      const { el } = mountComponent(mediaClient, identifier, {
-        codeViewer: false,
-      });
-      el.update();
-      expect(el.find(CodeViewer)).toHaveLength(0);
-    });
-
-    it('should not load codeViewer if the file is not a code type and the FF for codeViewer is on', () => {
+    it('should not load codeViewer if the file is not a code type', () => {
       const state: FileState = {
         id: identifier.id,
         mediaType: 'unknown',
@@ -741,9 +701,7 @@ describe('<ItemViewer />', () => {
         mimeType: '',
       };
       const mediaClient = makeFakeMediaClient(createFileStateSubject(state));
-      const { el } = mountComponent(mediaClient, identifier, {
-        codeViewer: true,
-      });
+      const { el } = mountComponent(mediaClient, identifier);
       el.update();
       expect(el.find(CodeViewer)).toHaveLength(0);
     });

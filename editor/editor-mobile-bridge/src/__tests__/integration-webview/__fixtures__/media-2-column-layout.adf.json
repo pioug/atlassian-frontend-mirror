@@ -24,7 +24,8 @@
                     "type": "file",
                     "collection": "MediaServicesSample",
                     "width": 220,
-                    "height": 140
+                    "height": 140,
+                    "alt": "image-01"
                   }
                 }
               ]
@@ -50,7 +51,8 @@
                     "type": "file",
                     "collection": "MediaServicesSample",
                     "width": 220,
-                    "height": 140
+                    "height": 140,
+                    "alt": "image-02"
                   }
                 }
               ]

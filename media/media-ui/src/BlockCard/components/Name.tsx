@@ -12,6 +12,9 @@ export interface NameProps {
   textColor?: string;
 }
 
+export const blockCardContentHeaderNameClassName =
+  'block-card-content-header-name';
+
 export const Name = ({
   name,
   isLeftPadded = true,
@@ -37,6 +40,7 @@ export const Name = ({
     }}
     data-testid={testId}
     data-trello-do-not-use-override="block-card-content-header-name"
+    className={blockCardContentHeaderNameClassName}
   >
     {name}
   </span>

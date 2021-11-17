@@ -10,6 +10,7 @@ import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import {
   MediaFeatureFlags,
   NumericalCardDimensions,
+  SSR,
 } from '@atlaskit/media-common';
 import { CardAction } from './actions';
 import { MediaViewerDataSource } from '@atlaskit/media-viewer';
@@ -73,6 +74,7 @@ export interface CardProps extends SharedCardProps, CardEventProps {
   readonly mediaViewerDataSource?: MediaViewerDataSource;
   readonly contextId?: string;
   readonly shouldEnableDownloadButton?: boolean;
+  readonly ssr?: SSR;
 }
 
 export interface CardState {

@@ -30,7 +30,7 @@ function addColumnAtCustomStep(column: number) {
   };
 }
 
-function addColumnAt(
+export function addColumnAt(
   column: number,
   allowAddColumnCustomStep: boolean = false,
   view: EditorView | undefined,

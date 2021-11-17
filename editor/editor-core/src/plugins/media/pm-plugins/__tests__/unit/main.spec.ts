@@ -37,8 +37,10 @@ describe('MediaPluginState', () => {
           media: {
             provider: mediaProvider,
             allowMediaSingle: true,
-            allowMediaInline: true,
             allowLinking: true,
+            featureFlags: {
+              mediaInline: true,
+            },
           },
         },
         providerFactory,
@@ -68,7 +70,11 @@ describe('MediaPluginState', () => {
       state,
       options,
       reactContext,
-      { allowMediaInline },
+      {
+        featureFlags: {
+          mediaInline: allowMediaInline,
+        },
+      },
     );
 
     return {
@@ -77,7 +83,7 @@ describe('MediaPluginState', () => {
     };
   };
 
-  it('should use a different position when allowMediaInline=true', () => {
+  it('should still use initial position when allowMediaInline=true', () => {
     const { mediaPlugin, editorView } = setup();
 
     // initially the plugin calls updateElement twice; on init and another from the update method
@@ -86,7 +92,7 @@ describe('MediaPluginState', () => {
     mediaPlugin.updateElement();
 
     expect(findDomRefAtPos).toBeCalledTimes(3);
-    expect(findDomRefAtPos).lastCalledWith(1, expect.anything());
+    expect(findDomRefAtPos).lastCalledWith(0, expect.anything());
   });
 
   it('should use initial position when allowMediaInline=false', () => {

@@ -1,6 +1,7 @@
 import { Node as PMNode } from 'prosemirror-model';
 import { Transaction } from 'prosemirror-state';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
+import { tableNewColumnMinWidth } from '@atlaskit/editor-common';
 
 import { CellAttributes } from '@atlaskit/adf-schema';
 
@@ -125,7 +126,10 @@ export const updateColumnWidths = (
 };
 
 /**
- * This function is called when user inserts/deletes a column in a table to rescale all columns.
+ * This function is called when user inserts/deletes a column in a table to;
+ * - rescale all columns (if the table did not overflow before the insertion)
+ * - and update column widths.
+ *
  * This is done manually to avoid a multi-dispatch in TableComponent. See [ED-8288].
  * @param table
  * @param view
@@ -135,6 +139,8 @@ export const rescaleColumns = (
   table: ContentNodeWithPos,
   view: EditorView | undefined,
 ) => (tr: Transaction): Transaction => {
+  // If the table has been not been resized we skip updating the size
+  // of columns here.
   if (!view || !hasTableBeenResized(table.node)) {
     return tr;
   }
@@ -150,6 +156,7 @@ export const rescaleColumns = (
   }
 
   const layout = normaliseTableLayout(tableRef?.dataset.layout);
+  // The is the width the table can reach before overflowing
   const maxSize = getTableMaxWidth({
     table: table.node,
     tableStart: table.start,
@@ -165,8 +172,12 @@ export const rescaleColumns = (
     domAtPos,
     maxSize,
   });
+  const previousTableWidth = resizeState.tableWidth - tableNewColumnMinWidth;
+  const tableDidntPreviouslyOverflow = previousTableWidth <= maxSize;
 
-  if (resizeState.overflow) {
+  // If the new table width will result in the table going into an overflow state
+  // we resize the cells to avoid the overflow occuring
+  if (tableDidntPreviouslyOverflow && resizeState.overflow) {
     resizeState = scaleTableTo(resizeState, maxSize);
   }
 

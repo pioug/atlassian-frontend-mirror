@@ -541,6 +541,27 @@ describe('annotation', () => {
       });
     });
 
+    it('paragraph with trailing new line', () => {
+      const { editorView, refs } = editor(
+        doc(p('Fluke {start}{<}jib scourge of the'), p('{>}{end}seven seas')),
+      );
+      mockPluginStateWithBookmark(editorView, refs);
+
+      const id = 'annotation-id-123';
+      commands.createAnnotation(id)(editorView.state, editorView.dispatch);
+      expect(editorView.state.doc).toEqualDocument(
+        doc(
+          p(
+            'Fluke ',
+            annotation({ annotationType: AnnotationTypes.INLINE_COMMENT, id })(
+              'jib scourge of the',
+            ),
+          ),
+          p('seven seas'),
+        ),
+      );
+    });
+
     it('with only text and a hardBreak', () => {
       const { editorView } = editor(
         doc(p('Fluke {<}jib scourge', hardBreak(), ' of the{>} seven seas')),

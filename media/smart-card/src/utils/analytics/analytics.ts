@@ -98,7 +98,7 @@ export const unresolvedEvent = (
 
 export const invokeSucceededEvent = (
   id: string,
-  providerKey: string,
+  extensionKey: string,
   actionType: string,
   display: CardInnerAppearance,
 ): AnalyticsPayload => {
@@ -112,7 +112,7 @@ export const invokeSucceededEvent = (
       id,
       actionType,
       display,
-      definitionId: providerKey,
+      extensionKey,
       duration: measure.duration,
     },
   };
@@ -120,7 +120,7 @@ export const invokeSucceededEvent = (
 
 export const invokeFailedEvent = (
   id: string,
-  providerKey: string,
+  extensionKey: string,
   actionType: string,
   display: CardInnerAppearance,
   reason: string,
@@ -135,7 +135,7 @@ export const invokeFailedEvent = (
       id,
       actionType,
       display,
-      definitionId: providerKey,
+      extensionKey,
       duration: measure.duration,
       reason,
     },
@@ -238,7 +238,7 @@ export const uiCardClickedEvent = (
 });
 
 export const uiActionClickedEvent = (
-  providerKey: string,
+  extensionKey: string,
   actionType: string,
   display?: CardInnerAppearance,
 ): AnalyticsPayload => ({
@@ -248,7 +248,7 @@ export const uiActionClickedEvent = (
   attributes: {
     ...context,
     display,
-    definitionId: providerKey,
+    extensionKey,
     actionType: actionType,
   },
 });

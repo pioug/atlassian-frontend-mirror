@@ -164,6 +164,8 @@ const NOT_INTERNAL_ELEMENTS = [
   ':not([data-node-type])',
   ':not([data-embed-card])',
   ':not([data-layout-section])',
+  ':not([data-task-local-id])',
+  ':not([data-task-state])',
   ':not([data-pm-slice])',
   ':not([data-mark-type])',
 ].join('');

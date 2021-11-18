@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-core",
-  "version": "152.0.0",
+  "version": "152.0.1",
   "description": "A package contains Atlassian editor core functionality",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -170,7 +170,7 @@
     "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@atlassian/search-provider": "2.1.16",
-    "@atlassian/ufo": "^0.0.31",
+    "@atlassian/ufo": "^0.1.0",
     "@testing-library/react": "^8.0.1",
     "@testing-library/react-hooks": "^1.0.4",
     "@types/jscodeshift": "^0.11.0",

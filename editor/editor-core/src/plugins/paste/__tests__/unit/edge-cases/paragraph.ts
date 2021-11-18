@@ -14,6 +14,8 @@ import {
   em,
   a as link,
   table,
+  taskList,
+  taskItem,
   tr,
   td,
   layoutSection,
@@ -33,6 +35,7 @@ import pastePlugin from '../../../index';
 import blockTypePlugin from '../../../../block-type';
 import hyperlinkPlugin from '../../../../hyperlink';
 import listPlugin from '../../../../list';
+import tasksAndDecisionsPlugin from '../../../../tasks-and-decisions';
 import { default as textFormattingPlugin } from '../../../../text-formatting';
 import tablePlugin from '../../../../table';
 import layoutPlugin from '../../../../layout';
@@ -50,6 +53,7 @@ describe('paste paragraph edge cases', () => {
         .add(hyperlinkPlugin)
         .add(blockTypePlugin)
         .add(listPlugin)
+        .add(tasksAndDecisionsPlugin)
         .add(textFormattingPlugin)
         .add(tablePlugin)
         .add(layoutPlugin)
@@ -945,6 +949,31 @@ describe('paste paragraph edge cases', () => {
     ),
   };
 
+  const case34: CASE = {
+    id: 'case08',
+    target: doc(
+      // prettier-ignore
+      p('{<>}'),
+    ),
+    source: `<meta charset='utf-8'>
+      <div data-node-type="actionList" data-task-list-local-id="06c02ca3-a58a-4f4a-97c2-a268304af5a9" style="list-style: none; padding-left: 0" data-pm-slice="2 2 []">
+        <div data-task-local-id="70eb18c7-4c63-4666-b6aa-a0077e24059d" data-task-state="TODO">action 1</div>
+        <div data-task-local-id="6e49ef60-b37f-4b5f-aaf8-90dcb8a712bc" data-task-state="TODO">action 2</div>
+      </div>
+    `,
+    result: doc(
+      // prettier-ignore
+      taskList({localId: expect.any(String)})(
+        taskItem({localId: expect.any(String)})(
+          'action 1',
+        ),
+        taskItem({localId: expect.any(String)})(
+          'action 2',
+        ),
+      ),
+    ),
+  };
+
   describe.each<CASE>([
     // prettier-ignore
     case00,
@@ -981,6 +1010,7 @@ describe('paste paragraph edge cases', () => {
     // case31,
     // case32,
     case33,
+    case34,
   ])('cases', ({ id, target, source, result }) => {
     const paste = () => {
       dispatchPasteEvent(editorView, {

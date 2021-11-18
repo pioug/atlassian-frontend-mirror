@@ -1,5 +1,11 @@
 # @atlaskit/adf-schema
 
+## 20.0.1
+
+### Patch Changes
+
+- [`977f778e630`](https://bitbucket.org/atlassian/atlassian-frontend/commits/977f778e630) - Add action elements to paste allowlist
+
 ## 20.0.0
 
 ### Major Changes

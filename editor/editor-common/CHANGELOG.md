@@ -1,5 +1,11 @@
 # @atlaskit/editor-common
 
+## 61.0.1
+
+### Patch Changes
+
+- [`4531469b0f8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4531469b0f8) - ED-14034 fix broken media captions in firefox
+
 ## 61.0.0
 
 ### Major Changes

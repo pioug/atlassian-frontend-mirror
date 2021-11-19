@@ -3,8 +3,7 @@ import React, { useMemo } from 'react';
 import { Editor, EditorContext, ToolbarHelp } from '@atlaskit/editor-core';
 import { doc, p, mention } from '@atlaskit/adf-utils/builders';
 import { SmartMentionResource } from '../src';
-
-const JDOG_CLOUD_ID = '49d8b9d6-ee7d-4931-a0ca-7fcae7d1c3b5';
+import { useEndpointMocks } from './utils/mock-endpoints';
 
 // Default document content for the editor example.
 // 'text' deliberately not included in the mention() call below, so that
@@ -17,6 +16,8 @@ const adfDoc = doc(
 );
 
 const MentionEditor = () => {
+  useEndpointMocks();
+
   /**
    * Initialize the SmartMentionProvider somewhere near your App's root
    * by instantiating SmartMentionResource with the appropriate params.
@@ -28,12 +29,10 @@ const MentionEditor = () => {
   const resolvedSmartMentionProvider: SmartMentionResource = useMemo(
     () =>
       new SmartMentionResource({
-        baseUrl: '',
-        env: 'local',
         principalId: 'Context', // extract the accountId from the header
         productKey: 'people', // set your product scope
         searchQueryFilter: '', // set your Lucene-type query for the search
-        siteId: JDOG_CLOUD_ID,
+        siteId: 'demo-site-id',
         includeTeams: true,
       }),
     [],

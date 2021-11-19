@@ -7,6 +7,7 @@ import {
   ToolbarHelp,
 } from '@atlaskit/editor-core';
 import { MentionResource, MentionNameDetails } from '../src/resource';
+import { useEndpointMocks } from './utils/mock-endpoints';
 
 export type Props = {
   editorProps?: EditorProps;
@@ -27,7 +28,7 @@ export class MentionEditor extends React.Component<Props, State> {
 
   // Create a provider by instantiating an AbstractMentionResource
   mentionResourceProvider = new MentionResource({
-    url: '/fake-api', //cannot call stargate currently from AK
+    url: '/gateway',
     debounceTime: 250,
   });
 
@@ -37,11 +38,10 @@ export class MentionEditor extends React.Component<Props, State> {
   render() {
     return (
       <EditorContext>
-        <span>
-          Please note that suggested mentions currently does not get displayed
-          as we are waiting on a valid endpoint to call from AK. The purpose of
-          this demo is to test debouncing of calls in the network tab.
-        </span>
+        <p>
+          As you type the @mention, the list should only update 250ms after you
+          have stopped typing:
+        </p>
         <Editor
           appearance="comment"
           shouldFocus={true}
@@ -58,5 +58,6 @@ export class MentionEditor extends React.Component<Props, State> {
 }
 
 export default function MentionEditorExample(props?: Props) {
+  useEndpointMocks();
   return <MentionEditor {...props} />;
 }

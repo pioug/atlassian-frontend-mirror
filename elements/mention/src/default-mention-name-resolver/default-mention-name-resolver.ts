@@ -4,14 +4,14 @@ import {
   MentionNameStatus,
 } from '../types';
 import { graphqlQuery } from './graphqlUtils';
-import { getConfig } from '../config';
+import { config } from '../config';
 
 interface UserData {
   accountId: string;
   name: string;
 }
 
-interface ApiClientResponse {
+export interface ApiClientResponse {
   users: UserData[] | null;
 }
 
@@ -46,7 +46,7 @@ export class DefaultMentionNameResolver implements MentionNameResolver {
       if (this.cache.has(id)) {
         return { id, name: this.cache.get(id), status: MentionNameStatus.OK };
       }
-      const url = getConfig().getGraphQLUrl(this.baseUrl);
+      const url = config.getGraphQLUrl(this.baseUrl);
       const data = await makeRequest(url, [id]);
       const userInfo = data.users?.find((user) => user.accountId === id);
       return userInfo

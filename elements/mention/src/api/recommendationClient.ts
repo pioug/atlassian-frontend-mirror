@@ -1,10 +1,10 @@
-import { getConfig } from '../config';
+import { config } from '../config';
 import { RecommendationItem, RecommendationRequest } from './SmartMentionTypes';
 
 const getUserRecommendations = (
   request: RecommendationRequest,
 ): Promise<RecommendationItem[]> => {
-  const url = getConfig().getRecommendationServiceUrl(request.baseUrl || '');
+  const url = config.getRecommendationServiceUrl(request.baseUrl);
   return fetch(url, {
     method: 'POST',
     credentials: 'include',

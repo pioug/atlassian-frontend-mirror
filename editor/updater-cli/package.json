@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/updater-cli",
-  "version": "2.0.15",
+  "version": "2.0.16",
   "description": "Updater CLI for Atlaskit components.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -21,7 +21,7 @@
   "dependencies": {
     "@babel/runtime": "^7.0.0",
     "chalk": "^2.1.0",
-    "meow": "^6.0.0",
+    "meow": "^8.1.1",
     "node-fetch": "^2.6.1",
     "ora": "^3.0.0",
     "semver": "^7.3.0",

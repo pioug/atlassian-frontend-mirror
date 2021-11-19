@@ -1,5 +1,15 @@
 import { themed } from '@atlaskit/theme/components';
-import * as colors from '@atlaskit/theme/colors';
+import {
+  B200,
+  B400,
+  DN100,
+  DN30,
+  DN80,
+  DN800,
+  N20,
+  N30A,
+  N500,
+} from '@atlaskit/theme/colors';
 import { ComponentClass, HTMLAttributes } from 'react';
 import styled from 'styled-components';
 import { MentionType } from '../../types';
@@ -10,19 +20,19 @@ export interface MentionStyleProps {
 
 const mentionStyle: { [key in MentionType]: any } = {
   [MentionType.SELF]: {
-    background: themed({ light: colors.B400, dark: colors.B200 }),
+    background: themed({ light: B400, dark: B200 }),
     border: 'transparent',
-    text: themed({ light: colors.N20, dark: colors.DN30 }),
+    text: themed({ light: N20, dark: DN30 }),
   },
   [MentionType.RESTRICTED]: {
     background: 'transparent',
-    border: themed({ light: colors.N500, dark: colors.DN80 }),
-    text: themed({ light: colors.N500, dark: colors.DN100 }),
+    border: themed({ light: N500, dark: DN80 }),
+    text: themed({ light: N500, dark: DN100 }),
   },
   [MentionType.DEFAULT]: {
-    background: themed({ light: colors.N30A, dark: colors.DN80 }),
+    background: themed({ light: N30A, dark: DN80 }),
     border: 'transparent',
-    text: themed({ light: colors.N500, dark: colors.DN800 }),
+    text: themed({ light: N500, dark: DN800 }),
   },
 };
 

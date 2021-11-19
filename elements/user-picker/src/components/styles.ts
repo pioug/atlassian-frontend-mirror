@@ -1,5 +1,15 @@
 import { AVATAR_SIZES, BORDER_WIDTH } from '@atlaskit/avatar';
-import * as colors from '@atlaskit/theme/colors';
+import {
+  B100,
+  N0,
+  N10,
+  N20,
+  N30,
+  N40,
+  N100,
+  R50,
+  R400,
+} from '@atlaskit/theme/colors';
 import memoizeOne from 'memoize-one';
 import { getAvatarSize } from './utils';
 import { mergeStyles, StylesConfig } from '@atlaskit/select';
@@ -32,37 +42,37 @@ export const getStyles = memoizeOne(
             ? css.borderColor
             : state.selectProps.subtle || state.selectProps.noBorder
             ? 'transparent'
-            : colors.N40,
+            : N40,
           backgroundColor: state.isFocused
             ? css['backgroundColor']
             : state.selectProps.subtle
             ? 'transparent'
             : state.selectProps.textFieldBackgroundColor
-            ? colors.N10
-            : colors.N20,
+            ? N10
+            : N20,
           '&:hover .fabric-user-picker__clear-indicator': { opacity: 1 },
           ':hover': {
             ...css[':hover'],
             borderColor: state.isFocused
               ? css[':hover']
                 ? css[':hover'].borderColor
-                : colors.B100
+                : B100
               : state.selectProps.subtle
               ? state.selectProps.hoveringClearIndicator
-                ? colors.R50
-                : colors.N30
-              : colors.N40,
+                ? R50
+                : N30
+              : N40,
             backgroundColor:
               state.selectProps.subtle &&
               state.selectProps.hoveringClearIndicator
-                ? colors.R50
+                ? R50
                 : state.isFocused
                 ? css[':hover']
                   ? css[':hover'].backgroundColor
-                  : colors.N0
+                  : N0
                 : state.isDisabled
-                ? colors.N10
-                : colors.N30,
+                ? N10
+                : N30,
           },
           padding: 0,
           minHeight: isCompact ? 'none' : 44,
@@ -85,7 +95,7 @@ export const getStyles = memoizeOne(
         paddingTop: 0,
         padding: 0,
         ':hover': {
-          color: colors.R400,
+          color: R400,
         },
       }),
       indicatorsContainer: (css: any) => ({
@@ -179,12 +189,12 @@ export const getStyles = memoizeOne(
         paddingLeft: isMulti ? 0 : AVATAR_PADDING,
         '& input::placeholder': {
           /* Chrome, Firefox, Opera, Safari 10.1+ */
-          color: colors.N100,
+          color: N100,
           opacity: 1 /* Firefox */,
         },
         '& input:-ms-input-placeholder': {
           /* Internet Explorer 10-11 */
-          color: colors.N100,
+          color: N100,
         },
       }),
     };

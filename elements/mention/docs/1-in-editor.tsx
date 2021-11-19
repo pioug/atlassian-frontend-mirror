@@ -23,9 +23,7 @@ export default md`
     <>
       <p>
         To use Mention in{' '}
-        <a href="https://atlaskit.atlassian.com/packages/editor/editor-core">
-          @atlaskit/editor-core
-        </a>
+        <a href="/packages/editor/editor-core">@atlaskit/editor-core</a>
         {', '}
         check the 'Editor with mentions' section in editor-core, then follow
         these steps for a more involved tutorial:
@@ -33,11 +31,11 @@ export default md`
     </>
   )}
 
-  ### Option 1: Instantiate a MentionResource
+  ### Option 1: Instantiate a \`MentionResource\`
 
   You can choose to instantiate the existing MentionResource that have defaults in place.
 
-  Ensure you plug in the mentionNameResolver to resolve names that have been pre-selected in the Editor
+  Ensure you plug in the \`mentionNameResolver\` to resolve names that have been pre-selected in the Editor
   (else they will show up as @Unknown). You will need a backing service to search and resolve names.
 
   ${code`
@@ -65,9 +63,9 @@ export default md`
     )
   }`}
 
-  ### Option 2: Extend and Instantiate an AbstractMentionResource
+  ### Option 2: Extend and instantiate an \`AbstractMentionResource\`
 
-  Extend the AbstractMentionResource to provide a more customized mentions experience.
+  Extend the \`AbstractMentionResource\` to provide a more customized mentions experience.
 
   ${(
     <Example
@@ -79,7 +77,7 @@ export default md`
   )}
 
 
-  ### Option 3: Extend and Instantiate a SmartMentionResource
+  ### Option 3: Extend and instantiate a \`SmartMentionResource\`
 
 
   ${(
@@ -92,7 +90,7 @@ export default md`
     </SectionMessage>
   )}
 
-    Use the SmartMentionResource, which has defaults set for both the provider and the name resolver.
+    Use the \`SmartMentionResource\`, which has defaults set for both the provider and the name resolver.
     The provider will attempt to rerank your suggestions based on the users relevant to you.
 
     ${(

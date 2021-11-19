@@ -5,7 +5,6 @@ import {
   defaultAttributes,
 } from './analytics';
 import getUserRecommendations from './recommendationClient';
-import { setEnv } from '../config';
 
 import {
   EntityType,
@@ -112,11 +111,6 @@ class SmartMentionResource
           ),
         };
     this.lastReturnedSearch = 0;
-
-    // Set the environment used for mention lookup API calls (defaults to production)
-    if (smartMentionConfig.env) {
-      setEnv(smartMentionConfig.env);
-    }
   }
 
   shouldHighlightMention(mention: MentionDescription) {

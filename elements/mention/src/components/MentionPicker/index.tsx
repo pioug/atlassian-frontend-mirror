@@ -11,7 +11,7 @@ import {
 } from '../../api/MentionResource';
 import { PresenceProvider } from '../../api/PresenceResource';
 import { MentionDescription, OnMentionEvent } from '../../types';
-import * as UtilAnalytics from '../../util/analytics';
+import { fireAnalyticsMentionTypeaheadEvent } from '../../util/analytics';
 import uniqueId from '../../util/id';
 import debug from '../../util/logger';
 import Popup from '../Popup';
@@ -200,7 +200,7 @@ export class MentionPicker extends React.PureComponent<
 
     this.onFilterVisibilityChange(wasVisible, visible);
 
-    UtilAnalytics.fireAnalyticsMentionTypeaheadEvent(this.props)(
+    fireAnalyticsMentionTypeaheadEvent(this.props)(
       'rendered',
       stats && stats.duration,
       mentions.map((mention) => mention.id),

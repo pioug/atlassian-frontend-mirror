@@ -17,6 +17,16 @@ const mediaSingleSharedStyle = css`
     height: 0;
   }
 
+  &.ua-firefox {
+    .mediaSingleView-content-wrap {
+      user-select: none;
+    }
+
+    .captionView-content-wrap {
+      user-select: text;
+    }
+  }
+
   .mediaSingleView-content-wrap[layout='center'] {
     clear: both;
   }

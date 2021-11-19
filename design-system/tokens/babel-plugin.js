@@ -14,7 +14,12 @@ const dev = fs.existsSync(project);
 let entrypoint = path.join(__dirname, 'dist', 'cjs', 'babel-plugin', 'index');
 
 if (dev) {
-  if (!require.extensions['.ts']) {
+  if (
+    !require.extensions['.ts'] ||
+    // This extra condition is required to prevent compilation issues caused by jest attaching the JS loader to the TS extension
+    // See https://product-fabric.atlassian.net/browse/AFP-3413?focusedCommentId=247598
+    require.extensions['.ts'] === require.extensions['.js']
+  ) {
     // ts-node can only handle being registered once, see https://github.com/TypeStrong/ts-node/issues/409
     require('ts-node').register({ project });
   }

@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 7.16.6
+
+### Patch Changes
+
+- [`d194015e2a9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d194015e2a9) - Remove bulk import for colors
+
 ## 7.16.5
 
 ### Patch Changes

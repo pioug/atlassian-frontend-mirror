@@ -1,5 +1,17 @@
 # @atlaskit/mention
 
+## 19.9.5
+
+### Patch Changes
+
+- [`6344bc53c4e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6344bc53c4e) - Remove bulk imports in mentions
+
+## 19.9.4
+
+### Patch Changes
+
+- [`e770c0c16d9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e770c0c16d9) - Remove non-prod API configs from mentions, and update docs to mock out API calls.
+
 ## 19.9.3
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @atlaskit/updater-cli
 
+## 2.0.16
+
+### Patch Changes
+
+- [`650aa20f6fe`](https://bitbucket.org/atlassian/atlassian-frontend/commits/650aa20f6fe) - Upgrade meow dependency
+
 ## 2.0.15
 
 ### Patch Changes

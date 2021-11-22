@@ -201,4 +201,10 @@ export const messages = defineMessages({
     description:
       'Text for the button that allows the user to share the currently viewed item through a 3rd party app like Slack',
   },
+  shareInIntegrationButtonText: {
+    id: 'fabric.elements.share.in.integration.button',
+    defaultMessage: 'Share in {integrationName}',
+    description:
+      'Text for the button that allows the user to share the currently viewed item through a 3rd party app like Slack',
+  },
 });

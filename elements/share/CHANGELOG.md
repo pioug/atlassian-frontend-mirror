@@ -1,5 +1,11 @@
 # @atlaskit/share
 
+## 0.34.3
+
+### Patch Changes
+
+- [`d506d312f89`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d506d312f89) - Updating ts Type to be string restricted for easier use. Tests updated to accommodate.
+
 ## 0.34.2
 
 ### Patch Changes

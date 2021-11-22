@@ -1,6 +1,7 @@
 import EditorMoreIcon from '@atlaskit/icon/glyph/editor/more';
 import { borderRadius } from '@atlaskit/theme/constants';
 import { N30A } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 import cx from 'classnames';
 import React from 'react';
@@ -23,13 +24,13 @@ const moreButtonStyle = style({
   verticalAlign: 'top',
   $nest: {
     '&:hover': {
-      backgroundColor: N30A,
+      backgroundColor: token('color.background.transparentNeutral.hover', N30A),
     },
   },
 });
 
 const separatorStyle = style({
-  backgroundColor: N30A,
+  backgroundColor: token('color.border.neutral', N30A),
   margin: '8px 8px 8px 4px',
   width: '1px',
   height: '60%',

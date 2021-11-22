@@ -29,6 +29,7 @@ describe('ShowMore', () => {
   it('should add style', () => {
     const style = {
       container: { display: 'flex' },
+      // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
       button: { backgroundColor: '#fff' },
     };
     const showMore = mountWithIntl(renderShowMore({ style }));

@@ -27,8 +27,4 @@ export type Integration = {
   Content: React.ComponentType<IntegrationContentProps>;
 };
 
-export enum IntegrationMode {
-  Tabs,
-  Split,
-  Off,
-}
+export type IntegrationMode = 'tabs' | 'split' | 'off';

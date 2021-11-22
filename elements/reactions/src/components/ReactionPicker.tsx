@@ -4,6 +4,7 @@ import { EmojiProvider } from '@atlaskit/emoji/resource';
 import { Manager, Popper, Reference, PopperProps } from '@atlaskit/popper';
 import { borderRadius } from '@atlaskit/theme/constants';
 import { N0, N50A, N60A } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 import cx from 'classnames';
 import React from 'react';
 import { PureComponent } from 'react';
@@ -13,11 +14,6 @@ import { Selector } from './Selector';
 import { Trigger } from './Trigger';
 import { ReactionSource } from '../types';
 import { layers } from '@atlaskit/theme/constants';
-
-const akBorderRadius = `${borderRadius()}px`;
-const akColorN0 = N0;
-const akColorN50A = N50A;
-const akColorN60A = N60A;
 
 export interface Props {
   emojiProvider: Promise<EmojiProvider>;
@@ -52,9 +48,9 @@ const contentStyle = style({
 });
 
 const popupStyle = style({
-  background: akColorN0,
-  borderRadius: akBorderRadius,
-  boxShadow: `0 4px 8px -2px ${akColorN50A}, 0 0 1px ${akColorN60A}`,
+  background: token('color.background.overlay', N0),
+  borderRadius: `${borderRadius()}px`,
+  boxShadow: token('shadow.overlay', `0 4px 8px -2px ${N50A}, 0 0 1px ${N60A}`),
 
   $nest: {
     '&> div': {

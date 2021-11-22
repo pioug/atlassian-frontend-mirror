@@ -73,6 +73,13 @@ const IntegrationIconWrapper = styled.span`
   margin-right: 5px;
 `;
 
+const integrationTabText = (integrationName: string) => (
+  <FormattedMessage
+    {...messages.shareInIntegrationButtonText}
+    values={{ integrationName }}
+  />
+);
+
 type ShareError = {
   message: string;
 };
@@ -240,14 +247,10 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
   };
 
   render() {
-    const {
-      title,
-      integrationMode = IntegrationMode.Off,
-      shareIntegrations,
-    } = this.props;
+    const { title, integrationMode = 'off', shareIntegrations } = this.props;
 
     if (
-      integrationMode === IntegrationMode.Off ||
+      integrationMode === 'off' ||
       !shareIntegrations ||
       !shareIntegrations.length
     ) {
@@ -256,7 +259,7 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
 
     const firstIntegration = shareIntegrations[0];
 
-    if (integrationMode === IntegrationMode.Tabs) {
+    if (integrationMode === 'tabs') {
       return (
         <Tabs id="ShareForm-Tabs-Integrations">
           <TabList>
@@ -268,7 +271,7 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
                 <IntegrationIconWrapper>
                   <firstIntegration.Icon />
                 </IntegrationIconWrapper>
-                {firstIntegration.type}
+                {integrationTabText(firstIntegration.type)}
               </IntegrationWrapper>
             </Tab>
           </TabList>

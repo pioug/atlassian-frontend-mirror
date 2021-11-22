@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/reactions",
-  "version": "20.0.0",
+  "version": "20.1.0",
   "description": "Reactions component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -33,6 +33,7 @@
     "@atlaskit/icon": "^21.9.0",
     "@atlaskit/popper": "^5.0.0",
     "@atlaskit/theme": "^12.0.0",
+    "@atlaskit/tokens": "^0.4.0",
     "@atlaskit/tooltip": "^17.5.0",
     "@atlaskit/util-service-support": "^6.0.0",
     "@babel/runtime": "^7.0.0",
@@ -68,6 +69,9 @@
     "ui"
   ],
   "techstack": {
+    "@repo/internal": {
+      "theming": "tokens"
+    },
     "@atlassian/frontend": {
       "tree-shaking": []
     }

@@ -5,6 +5,7 @@ import {
 import { EmojiProvider } from '@atlaskit/emoji/resource';
 import { ResourcedEmoji } from '@atlaskit/emoji/element';
 import { B50, B75, B300, N20, N40, N400 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 import cx from 'classnames';
 import React from 'react';
 import { PureComponent, SyntheticEvent } from 'react';
@@ -40,21 +41,29 @@ const reactionStyle = style({
   minWidth: '36px',
   height: `${akHeight}px`,
   background: 'transparent',
-  border: `1px solid ${N40}`,
+  border: `1px solid ${token('color.border.neutral', N40)}`,
   boxSizing: 'border-box',
   borderRadius: '20px',
-  color: `${N400}`,
+  color: `${token('color.text.mediumEmphasis', N400)}`,
   cursor: 'pointer',
   margin: 0,
   padding: 0,
   transition: '200ms ease-in-out',
-  $nest: { '&:hover': { background: `${N20}` } },
+  $nest: {
+    '&:hover': {
+      background: `${token('color.background.transparentNeutral.hover', N20)}`,
+    },
+  },
 });
 
 const reactedStyle = style({
-  backgroundColor: B50,
-  borderColor: B300,
-  $nest: { '&:hover': { background: `${B75}` } },
+  backgroundColor: token('color.background.selected.resting', B50),
+  borderColor: token('color.iconBorder.brand', B300),
+  $nest: {
+    '&:hover': {
+      background: `${token('color.background.selected.hover', B75)}`,
+    },
+  },
 });
 
 const flashHeight = akHeight - 2; // height without the 1px border

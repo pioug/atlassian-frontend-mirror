@@ -353,7 +353,7 @@ export default class Example extends React.Component<{}, State> {
     isPublicLink: false,
     hasTabs: false,
     hasSplit: false,
-    integrationMode: IntegrationMode.Off,
+    integrationMode: 'off',
     shareIntegrations: [],
     locales: supportedLocales,
     locale: 'en-US',
@@ -505,9 +505,7 @@ export default class Example extends React.Component<{}, State> {
                           hasTabs: !hasTabs,
                           hasSplit: false,
                           integrationMode:
-                            integrationMode !== IntegrationMode.Tabs
-                              ? IntegrationMode.Tabs
-                              : IntegrationMode.Off,
+                            integrationMode !== 'tabs' ? 'tabs' : 'off',
                           shareIntegrations: [
                             {
                               type: 'Slack',
@@ -528,9 +526,7 @@ export default class Example extends React.Component<{}, State> {
                           hasTabs: false,
                           hasSplit: !hasSplit,
                           integrationMode:
-                            integrationMode !== IntegrationMode.Split
-                              ? IntegrationMode.Split
-                              : IntegrationMode.Off,
+                            integrationMode !== 'split' ? 'split' : 'off',
                           shareIntegrations: [
                             {
                               type: 'Slack',

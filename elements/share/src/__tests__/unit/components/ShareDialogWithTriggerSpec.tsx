@@ -33,7 +33,6 @@ import {
 import { Omit, PropsOf } from '../_testUtils';
 import mockPopper from '../_mockPopper';
 import SplitButton from '../../../components/SplitButton';
-import { IntegrationMode } from '../../../types/ShareEntities';
 
 jest.mock('../../../components/localStorageUtils.ts', () => {
   return {
@@ -372,7 +371,7 @@ describe('ShareDialogWithTrigger', () => {
   describe('SplitButton props and functions', () => {
     it('should render when shareIntegrations and shareIntegrationsHandler are passed and integrationMode is Split', () => {
       const wrapper = getMountWrapper({
-        integrationMode: IntegrationMode.Split,
+        integrationMode: 'split',
         shareIntegrations: [
           { type: 'Slack', Icon: () => <div />, Content: () => <div /> },
         ],
@@ -387,7 +386,7 @@ describe('ShareDialogWithTrigger', () => {
     });
     it('should not render when integrationMode is not Split', () => {
       const wrapper = getMountWrapper({
-        integrationMode: IntegrationMode.Tabs,
+        integrationMode: 'tabs',
         shareIntegrations: [
           { type: 'Slack', Icon: () => <div />, Content: () => <div /> },
         ],

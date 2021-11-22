@@ -3,6 +3,7 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { style } from 'typestyle';
 
+import { token } from '@atlaskit/tokens';
 import { N90 } from '@atlaskit/theme/colors';
 
 import { ReactionSummary } from '../types/ReactionSummary';
@@ -33,12 +34,12 @@ const tooltipStyle = style({
 
 const emojiNameStyle = style({
   textTransform: 'capitalize',
-  color: N90,
+  color: token('color.text.mediumEmphasis', N90),
   fontWeight: 600,
 });
 
 const footerStyle = style({
-  color: N90,
+  color: token('color.text.mediumEmphasis', N90),
   fontWeight: 300,
 });
 

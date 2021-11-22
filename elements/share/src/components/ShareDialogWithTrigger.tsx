@@ -470,10 +470,7 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
     }
 
     // If there are any integrations, wrap the share button in a split button with integrations.
-    if (
-      integrationMode === IntegrationMode.Split &&
-      shareIntegrations?.length
-    ) {
+    if (integrationMode === 'split' && shareIntegrations?.length) {
       button = (
         <SplitButton
           shareButton={button}
@@ -575,7 +572,7 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
                       onSubmit={this.handleShareSubmit}
                       title={shareFormTitle}
                       showTitle={
-                        integrationMode !== IntegrationMode.Tabs ||
+                        integrationMode !== 'tabs' ||
                         !shareIntegrations ||
                         !shareIntegrations.length
                       }

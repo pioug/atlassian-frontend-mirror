@@ -13,7 +13,6 @@ import { ShareHeader } from '../../../components/ShareHeader';
 import { UserPickerField } from '../../../components/UserPickerField';
 import { messages } from '../../../i18n';
 import { DialogContentState, ShareError } from '../../../types';
-import { IntegrationMode } from '../../../types/ShareEntities';
 import { renderProp } from '../_testUtils';
 import Tabs, { Tab, TabList } from '@atlaskit/tabs';
 
@@ -319,7 +318,7 @@ describe('ShareForm', () => {
         <ShareForm
           copyLink="link"
           product="confluence"
-          integrationMode={IntegrationMode.Off}
+          integrationMode="off"
           shareIntegrations={[
             {
               type: 'Slack',
@@ -347,7 +346,7 @@ describe('ShareForm', () => {
         <ShareForm
           copyLink="link"
           product="confluence"
-          integrationMode={IntegrationMode.Tabs}
+          integrationMode="tabs"
           shareIntegrations={[]}
         />,
       );
@@ -369,7 +368,7 @@ describe('ShareForm', () => {
           showTitle={false}
           copyLink="link"
           product="confluence"
-          integrationMode={IntegrationMode.Tabs}
+          integrationMode="tabs"
           shareIntegrations={[
             {
               type: 'Slack',
@@ -389,8 +388,6 @@ describe('ShareForm', () => {
       const tabList = tabs.find(TabList);
       const childTabs = tabList.find(Tab);
       expect(childTabs).toHaveLength(2);
-      expect(tabList.childAt(0).contains('Share')).toBeTruthy();
-      expect(tabList.childAt(1).contains('Slack')).toBeTruthy();
     });
   });
 });

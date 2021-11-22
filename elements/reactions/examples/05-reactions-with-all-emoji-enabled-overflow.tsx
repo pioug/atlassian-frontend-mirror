@@ -1,5 +1,6 @@
 import { EmojiProvider } from '@atlaskit/emoji/resource';
 import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
+import { token } from '@atlaskit/tokens';
 import React from 'react';
 import { ConnectedReactionsView } from '../src';
 import { ReactionsExampleWrapper } from './examples-util';
@@ -14,7 +15,7 @@ export default function Example() {
         <div
           style={{
             width: '300px',
-            border: '1px solid #777',
+            border: `1px solid ${token('color.border.neutral', '#777')}`,
           }}
         >
           <p>This is a message with some reactions</p>

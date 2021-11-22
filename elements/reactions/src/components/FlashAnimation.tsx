@@ -1,4 +1,5 @@
 import { B75, B300 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 import cx from 'classnames';
 import React from 'react';
 import { keyframes, style } from 'typestyle';
@@ -21,16 +22,16 @@ const flashAnimation = keyframes({
     backgroundColor: 'transparent',
   },
   '20%': {
-    backgroundColor: B75,
-    borderColor: B300,
+    backgroundColor: token('color.background.selected.pressed', B75),
+    borderColor: token('color.iconBorder.brand', B300),
   },
   '75%': {
-    backgroundColor: B75,
-    borderColor: B300,
+    backgroundColor: token('color.background.selected.pressed', B75),
+    borderColor: token('color.iconBorder.brand', B300),
   },
   '100%': {
-    backgroundColor: B75,
-    borderColor: B300,
+    backgroundColor: token('color.background.selected.pressed', B75),
+    borderColor: token('color.iconBorder.brand', B300),
   },
 });
 

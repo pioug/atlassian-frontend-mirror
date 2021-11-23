@@ -1,7 +1,8 @@
-import AkFieldBase from '@atlaskit/field-base';
 import React from 'react';
 import { ChangeEvent, ChangeEventHandler, PureComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
+import TextField from '@atlaskit/textfield';
+
 import { EmojiUpload, Message } from '../../types';
 import * as ImageUtil from '../../util/image';
 import debug from '../../util/logger';
@@ -99,27 +100,20 @@ class ChooseEmojiFile extends PureComponent<ChooseEmojiFileProps, {}> {
         </div>
         <div className={styles.uploadChooseFileRow}>
           <span className={styles.uploadChooseFileEmojiName}>
-            <AkFieldBase
-              appearance="standard"
-              isCompact
-              defaultIsFocused
-              isFitContainerWidthEnabled
-            >
-              <FormattedMessage {...messages.emojiPlaceholder}>
-                {(message) => (
-                  <input
-                    placeholder={message as string}
-                    aria-label={message as string}
-                    maxLength={maxNameLength}
-                    onChange={onNameChange}
-                    onKeyDown={this.onKeyDown}
-                    value={name}
-                    ref="name"
-                    autoFocus
-                  />
-                )}
-              </FormattedMessage>
-            </AkFieldBase>
+            <FormattedMessage {...messages.emojiPlaceholder}>
+              {(message) => (
+                <TextField
+                  placeholder={message as string}
+                  aria-label={message as string}
+                  maxLength={maxNameLength}
+                  onChange={onNameChange}
+                  onKeyDown={this.onKeyDown}
+                  value={name}
+                  isCompact
+                  autoFocus
+                />
+              )}
+            </FormattedMessage>
           </span>
           <span className={styles.uploadChooseFileBrowse}>
             <FormattedMessage {...messages.emojiChooseFileTitle}>

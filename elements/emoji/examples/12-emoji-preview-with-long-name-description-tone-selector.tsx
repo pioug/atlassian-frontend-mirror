@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { token } from '@atlaskit/tokens';
 import { getEmojis } from '@atlaskit/util-data-test/get-emojis';
 
 import EmojiPreview from '../src/components/common/EmojiPreview';
@@ -23,8 +23,8 @@ const toneEmoji = filters.toneEmoji(emojis);
 
 const borderedStyle = {
   margin: '20px',
-  border: '1px solid #ddd',
-  backgroundColor: 'white',
+  border: `1px solid ${token('color.border.neutral', '#ddd')}`,
+  backgroundColor: token('color.background.default', 'white'),
   width: emojiPickerWidth,
 };
 

@@ -6,6 +6,7 @@ import { jsx } from '@emotion/core';
 
 import Button from '@atlaskit/button/standard-button';
 import { N500 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import Drawer from '../src';
 
@@ -19,7 +20,7 @@ const SidebarOverrideComponent: FC = ({ children }) => {
       style={{
         alignItems: 'center',
         boxSizing: 'border-box',
-        color: N500,
+        color: token('color.text.mediumEmphasis', N500),
         display: 'flex',
         flexShrink: 0,
         flexDirection: 'column',
@@ -27,7 +28,7 @@ const SidebarOverrideComponent: FC = ({ children }) => {
         paddingBottom: 16,
         paddingTop: 24,
         width: 64,
-        border: '3px dashed teal',
+        border: `3px dashed ${token('color.accent.boldTeal', 'teal')}`,
       }}
     >
       {children}

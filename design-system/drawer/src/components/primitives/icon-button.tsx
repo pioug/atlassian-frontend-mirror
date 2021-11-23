@@ -6,6 +6,7 @@ import { css, jsx } from '@emotion/core';
 
 import { B50, N30A } from '@atlaskit/theme/colors';
 import { gridSize as getGridSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 const gridSize = getGridSize();
 
@@ -25,10 +26,10 @@ const iconButtonStyles = css({
   fontSize: 'inherit',
   lineHeight: 1,
   '&:hover': {
-    backgroundColor: N30A,
+    backgroundColor: token('color.background.transparentNeutral.hover', N30A),
   },
   '&:active': {
-    backgroundColor: B50,
+    backgroundColor: token('color.background.transparentNeutral.pressed', B50),
     outline: 0,
   },
 });

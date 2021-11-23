@@ -1,4 +1,5 @@
 import { style } from 'typestyle';
+import { token } from '@atlaskit/tokens';
 
 import { emojiPickerWidth } from '../../util/constants';
 
@@ -9,7 +10,7 @@ export const emojiUploadWidget = style({
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'stretch',
-  background: 'white',
+  background: token('color.background.overlay', 'white'),
   height: `120px`,
   width: `${emojiPickerWidth}px`,
   marginBottom: '8px',

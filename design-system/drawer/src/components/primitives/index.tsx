@@ -7,6 +7,7 @@ import { css, jsx } from '@emotion/core';
 import ArrowLeft from '@atlaskit/icon/glyph/arrow-left';
 import { N0 } from '@atlaskit/theme/colors';
 import { gridSize, layers } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 import { Slide } from '../transitions';
 import {
@@ -47,7 +48,7 @@ const wrapperStyles = css({
   zIndex: layers.blanket() + 1,
   top: 0,
   left: 0,
-  backgroundColor: N0,
+  backgroundColor: token('color.background.overlay', N0),
   overflow: 'hidden',
 });
 

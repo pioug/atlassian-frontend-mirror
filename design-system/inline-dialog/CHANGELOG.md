@@ -1,5 +1,11 @@
 # @atlaskit/inline-dialog
 
+## 13.2.0
+
+### Minor Changes
+
+- [`2fe0d03807f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2fe0d03807f) - This removes the preventDefault functionality (reverts it back to the previous version of inline dialog where event listeners were added in the capture phase). It also refactors handleClickOutside so that it is now triggered by a ref.
+
 ## 13.1.9
 
 ### Patch Changes

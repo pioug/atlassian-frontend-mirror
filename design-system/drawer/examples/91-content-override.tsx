@@ -5,6 +5,7 @@ import { Component, FC, SyntheticEvent } from 'react';
 import { jsx } from '@emotion/core';
 
 import Button from '@atlaskit/button/standard-button';
+import { token } from '@atlaskit/tokens';
 
 import Drawer from '../src';
 
@@ -19,7 +20,7 @@ const ContentOverrideComponent: FC = ({ children }) => {
         flex: 1,
         overflow: 'auto',
         marginTop: 24,
-        border: '3px dashed pink',
+        border: `3px dashed ${token('color.accent.boldPurple', 'pink')}`,
       }}
     >
       {children}

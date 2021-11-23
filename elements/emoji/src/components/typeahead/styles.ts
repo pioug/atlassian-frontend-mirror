@@ -1,4 +1,5 @@
 import { style } from 'typestyle';
+import { token } from '@atlaskit/tokens';
 
 import {
   emojiPreviewSelectedColor,
@@ -16,11 +17,11 @@ export const emojiTypeAhead = 'emoji-typeahead-element';
 export const typeAheadListContainer = 'emoji-typeahead-list-container';
 
 export const typeAheadList = style({
-  background: 'white',
+  background: token('color.background.overlay', 'white'),
   border: `1px solid ${noDialogContainerBorderColor}`,
   borderRadius: noDialogContainerBorderRadius,
   boxShadow: noDialogContainerBoxShadow,
-  color: '#333',
+  color: token('color.text.mediumEmphasis', '#333'),
   width: emojiTypeAheadWidth,
 });
 

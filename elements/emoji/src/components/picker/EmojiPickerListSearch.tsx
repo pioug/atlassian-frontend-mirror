@@ -1,7 +1,6 @@
-import AkFieldBase from '@atlaskit/field-base';
+import React, { PureComponent } from 'react';
+import TextField from '@atlaskit/textfield';
 import SearchIcon from '@atlaskit/icon/glyph/search';
-import React from 'react';
-import { PureComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Styles } from '../../types';
 import { messages } from '../i18n';
@@ -107,32 +106,27 @@ export default class EmojiPickerListSearch extends PureComponent<Props> {
       <div className={styles.pickerSearch} style={style}>
         <FormattedMessage {...messages.searchPlaceholder}>
           {(searchPlaceholder) => (
-            <AkFieldBase
-              appearance="standard"
-              isCompact
-              isFitContainerWidthEnabled
-            >
-              <span className={styles.searchIcon}>
-                <SearchIcon label="" />
-              </span>
-              <FormattedMessage {...messages.searchLabel}>
-                {(searchLabel) => (
-                  <input
-                    aria-label={searchLabel as string}
-                    className={styles.input}
-                    autoComplete="off"
-                    disabled={false}
-                    name="search"
-                    placeholder={`${searchPlaceholder as string}...`}
-                    required={false}
-                    onChange={this.onChange}
-                    value={query || ''}
-                    ref={this.handleInputRef}
-                    onBlur={this.onBlur}
-                  />
-                )}
-              </FormattedMessage>
-            </AkFieldBase>
+            <FormattedMessage {...messages.searchLabel}>
+              {(searchLabel) => (
+                <TextField
+                  aria-label={searchLabel as string}
+                  className={styles.input}
+                  autoComplete="off"
+                  name="search"
+                  placeholder={`${searchPlaceholder as string}...`}
+                  onChange={this.onChange}
+                  value={query || ''}
+                  ref={this.handleInputRef}
+                  isCompact
+                  onBlur={this.onBlur}
+                  elemBeforeInput={
+                    <span className={styles.searchIcon}>
+                      <SearchIcon label="" />
+                    </span>
+                  }
+                />
+              )}
+            </FormattedMessage>
           )}
         </FormattedMessage>
       </div>

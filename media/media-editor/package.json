@@ -34,7 +34,7 @@
     "@atlaskit/analytics-next": "^8.0.0",
     "@atlaskit/button": "^16.0.0",
     "@atlaskit/icon": "^21.9.0",
-    "@atlaskit/inline-dialog": "^13.0.0",
+    "@atlaskit/inline-dialog": "^13.2.0",
     "@atlaskit/media-client": "^14.3.0",
     "@atlaskit/media-ui": "^17.2.0",
     "@atlaskit/modal-dialog": "^12.2.0",

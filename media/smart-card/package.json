@@ -56,7 +56,7 @@
     "@atlaskit/checkbox": "^12.3.0",
     "@atlaskit/docs": "*",
     "@atlaskit/form": "^8.4.0",
-    "@atlaskit/inline-message": "^11.1.0",
+    "@atlaskit/inline-message": "^11.2.0",
     "@atlaskit/lozenge": "^11.1.0",
     "@atlaskit/media-test-helpers": "^28.9.0",
     "@atlaskit/page": "^12.0.0",

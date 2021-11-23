@@ -1,12 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { act, cleanup, fireEvent, render } from '@testing-library/react';
 import { mount } from 'enzyme';
+
+import Button from '@atlaskit/button';
 
 import InlineDialogWithAnalytics from '../../../index';
 import { InlineDialogWithoutAnalytics as InlineDialog } from '../../index';
 
 declare var global: any;
+
+interface InlineDialogWrapperProps {
+  inlineDialogTestId: string;
+  buttonTestId: string;
+}
 
 jest.mock('popper.js', () => {
   // @ts-ignore requireActual property is missing from jest
@@ -80,6 +87,7 @@ describe('inline-dialog', () => {
       expect(spy).toHaveBeenCalledTimes(1);
     });
   });
+
   describe('onContentFocus', () => {
     it('should be triggered when an element in the content is focused', () => {
       const spy = jest.fn();
@@ -186,38 +194,6 @@ describe('inline-dialog', () => {
       });
     });
 
-    it('should not trigger the onClose prop if event is defaultPrevented', () => {
-      const defaultPreventedEvent = (
-        event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-      ) => {
-        return event.preventDefault();
-      };
-      const spy = jest.fn();
-      const { getByTestId } = render(
-        <>
-          <InlineDialog
-            content={() => null}
-            isOpen
-            onClose={spy}
-            testId="inline-dialog"
-          >
-            <div id="children" />
-          </InlineDialog>
-          <button
-            type="button"
-            onClick={defaultPreventedEvent}
-            data-testid="outside-inline-dialog"
-          />
-        </>,
-      );
-
-      // click the outside element
-      fireEvent.click(getByTestId('outside-inline-dialog'));
-
-      expect(getByTestId('outside-inline-dialog')).toBeInTheDocument();
-      expect(spy).not.toHaveBeenCalled();
-    });
-
     it('should invoke onClose callback on page click by default', () => {
       const callback = jest.fn();
       jest.useFakeTimers(); // mock timers
@@ -248,6 +224,57 @@ describe('inline-dialog', () => {
       // click anywhere outside of inline dialog
       fireEvent.click(document);
       expect(callback).not.toHaveBeenCalledTimes(1);
+    });
+
+    it('should open and close correctly when one dialog is opened after the other', () => {
+      const content = <div>Hello!</div>;
+
+      const InlineDialogWrapper = (props: InlineDialogWrapperProps) => {
+        const { inlineDialogTestId, buttonTestId } = props;
+        const [dialogOpen, setDialogOpen] = useState<boolean>(false);
+
+        const toggleInlineDialog = () => {
+          setDialogOpen(true);
+        };
+
+        return (
+          <InlineDialog
+            content={content}
+            isOpen={dialogOpen}
+            onClose={() => {
+              setDialogOpen(false);
+            }}
+            testId={inlineDialogTestId}
+          >
+            <Button onClick={() => toggleInlineDialog()} testId={buttonTestId}>
+              Click me!
+            </Button>
+          </InlineDialog>
+        );
+      };
+
+      const { getByTestId, queryByTestId } = render(
+        <div>
+          <InlineDialogWrapper
+            inlineDialogTestId="inline-dialog-0"
+            buttonTestId="open-inline-dialog-0"
+          />
+          <InlineDialogWrapper
+            inlineDialogTestId="inline-dialog-1"
+            buttonTestId="open-inline-dialog-1"
+          />
+        </div>,
+      );
+
+      // Open first dialog, second dialog should not exist yet.
+      fireEvent.click(getByTestId('open-inline-dialog-0'));
+      expect(getByTestId('inline-dialog-0')).toBeInTheDocument();
+      expect(queryByTestId('inline-dialog-1')).toBeNull();
+
+      // Open second dialog, first dialog should close.
+      fireEvent.click(getByTestId('open-inline-dialog-1'));
+      expect(queryByTestId('inline-dialog-1')).toBeInTheDocument();
+      expect(queryByTestId('inline-dialog-0')).toBeNull();
     });
   });
 });

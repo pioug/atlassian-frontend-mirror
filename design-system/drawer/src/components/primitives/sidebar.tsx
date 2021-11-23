@@ -6,13 +6,14 @@ import { CSSObject, jsx } from '@emotion/core';
 
 import { N500 } from '@atlaskit/theme/colors';
 import { gridSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 import { SidebarProps } from '../types';
 
 const defaultStyle = {
   alignItems: 'center',
   boxSizing: 'border-box',
-  color: N500,
+  color: token('color.text.mediumEmphasis', N500),
   display: 'flex',
   flexShrink: 0,
   flexDirection: 'column',

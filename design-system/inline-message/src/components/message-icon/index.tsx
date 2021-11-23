@@ -5,6 +5,7 @@ import { css, jsx } from '@emotion/core';
 
 import * as colors from '@atlaskit/theme/colors';
 import { themed, useGlobalTheme } from '@atlaskit/theme/components';
+import { token } from '@atlaskit/tokens';
 
 import { typesMapping } from '../../constants';
 import type { IconAppearance } from '../../types';
@@ -16,11 +17,26 @@ interface MessageIconProps {
 }
 
 const iconColor = themed('appearance', {
-  connectivity: { light: colors.B400, dark: colors.B100 },
-  confirmation: { light: colors.G300, dark: colors.G300 },
-  info: { light: colors.P300, dark: colors.P300 },
-  warning: { light: colors.Y300, dark: colors.Y300 },
-  error: { light: colors.R400, dark: colors.R400 },
+  connectivity: {
+    light: token('color.iconBorder.brand', colors.B400),
+    dark: token('color.iconBorder.brand', colors.B100),
+  },
+  confirmation: {
+    light: token('color.iconBorder.success', colors.G300),
+    dark: token('color.iconBorder.success', colors.G300),
+  },
+  info: {
+    light: token('color.iconBorder.discovery', colors.P300),
+    dark: token('color.iconBorder.discovery', colors.P300),
+  },
+  warning: {
+    light: token('color.iconBorder.warning', colors.Y300),
+    dark: token('color.iconBorder.warning', colors.Y300),
+  },
+  error: {
+    light: token('color.iconBorder.danger', colors.R400),
+    dark: token('color.iconBorder.danger', colors.R400),
+  },
 });
 
 const iconWrapperStyles = css({

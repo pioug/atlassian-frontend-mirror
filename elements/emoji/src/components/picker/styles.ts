@@ -1,10 +1,10 @@
 import { style } from 'typestyle';
+import { token } from '@atlaskit/tokens';
 import { borderRadius } from '@atlaskit/theme/constants';
 import * as colors from '@atlaskit/theme/colors';
 
 import {
   akEmojiSelectedBackgroundColor,
-  emojiFooterBoxShadow,
   emojiPickerBorderColor,
   emojiPickerBoxShadow,
 } from '../../util/shared-styles';
@@ -22,7 +22,7 @@ export const emojiPicker = style({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'space-between',
-  background: 'white',
+  background: token('color.background.overlay', 'white'),
   border: `${emojiPickerBorderColor} 1px solid`,
   borderRadius: `${borderRadius()}px`,
   boxShadow: emojiPickerBoxShadow,
@@ -40,7 +40,7 @@ export const addButton = 'emoji-picker-add-button';
 
 export const categorySelector = style({
   flex: '0 0 auto',
-  backgroundColor: colors.N30,
+  backgroundColor: token('color.background.sunken', colors.N30),
 
   $nest: {
     ul: {
@@ -65,7 +65,7 @@ export const categorySelector = style({
     },
 
     [`.${addButton}`]: {
-      color: colors.N200,
+      color: token('color.text.lowEmphasis', colors.N200),
       margin: '0 0 0 5px',
       verticalAlign: 'middle',
     },
@@ -75,7 +75,7 @@ export const categorySelector = style({
 export const category = style({
   backgroundColor: 'transparent',
   border: 0,
-  color: colors.N100A,
+  color: token('color.text.lowEmphasis', colors.N100A),
   cursor: 'pointer',
   margin: '2px 0',
   padding: 0,
@@ -89,26 +89,26 @@ export const category = style({
     },
 
     [`&.${active}`]: {
-      color: colors.B300,
+      color: token('color.text.selected', colors.B300),
 
       $nest: {
         ['&:hover']: {
-          color: colors.B300,
+          color: token('color.text.selected', colors.B300),
         },
       },
     },
 
     ['&:hover']: {
-      color: colors.B200,
+      color: token('color.text.selected', colors.B200),
     },
 
     [`&.${disable}`]: {
-      color: colors.N50,
+      color: token('color.text.lowEmphasis', colors.N50),
       cursor: 'default',
 
       $nest: {
         ['&:hover']: {
-          color: colors.N50,
+          color: token('color.text.lowEmphasis', colors.N50),
         },
       },
     },
@@ -150,14 +150,12 @@ export const pickerSearch = style({
     },
 
     [`.${input}`]: {
-      background: 'transparent',
-      border: 0,
       boxSizing: 'border-box',
       color: 'inherit',
       cursor: 'inherit',
       fontSize: '14px',
       outline: 'none',
-      padding: '1px 0 2px 10px',
+      padding: '1px 0 2px 6px',
       width: '100%',
 
       $nest: {
@@ -196,7 +194,7 @@ export const emojiPickerRow = style({
 
 export const emojiCategoryTitle = style({
   boxSizing: 'border-box',
-  color: colors.N900,
+  color: token('color.text.highEmphasis', colors.N900),
   fontSize: '14px',
   padding: '5px 8px',
   textTransform: 'lowercase',
@@ -279,6 +277,9 @@ export const emojiPickerFooter = style({
 });
 
 export const emojiPickerFooterWithTopShadow = style({
-  borderTop: `2px solid ${colors.N30A}`,
-  boxShadow: emojiFooterBoxShadow,
+  borderTop: token('color.border.neutral', `2px solid ${colors.N30A}`),
+  boxShadow: `0px -1px 1px 0px ${token(
+    'color.border.neutral',
+    'rgba(0, 0, 0, 0.1)',
+  )}`,
 });

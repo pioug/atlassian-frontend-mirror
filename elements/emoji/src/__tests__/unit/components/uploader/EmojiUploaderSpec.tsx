@@ -17,7 +17,7 @@ import {
 } from '../../_test-data';
 
 import FileChooser from '../../../../components/common/FileChooser';
-import AkFieldBase from '@atlaskit/field-base';
+import TextField from '@atlaskit/textfield';
 
 import Emoji from '../../../../components/common/Emoji';
 import EmojiUploader, {
@@ -82,9 +82,9 @@ describe('<EmojiUploader />', () => {
 
   const typeEmojiName = async (component: ReactWrapper) => {
     await waitUntil(
-      () => component.update() && component.find(AkFieldBase).length > 0,
+      () => component.update() && component.find(TextField).length > 0,
     );
-    const nameInput = component.find(AkFieldBase).find('input');
+    const nameInput = component.find(TextField).find('input');
     nameInput.simulate('focus');
     nameInput.simulate('change', {
       target: {
@@ -103,7 +103,7 @@ describe('<EmojiUploader />', () => {
 
     it('should show text input', async () => {
       const uploader = await setupUploader();
-      const input = uploader.update().find(AkFieldBase);
+      const input = uploader.update().find(TextField);
       expect(input).toHaveLength(1);
     });
 

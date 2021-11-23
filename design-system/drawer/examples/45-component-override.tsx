@@ -7,6 +7,7 @@ import { css, jsx } from '@emotion/core';
 import Button from '@atlaskit/button/standard-button';
 import AppSwitcherIcon from '@atlaskit/icon/glyph/app-switcher';
 import { B50, N30A, N500 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import Drawer from '../src';
 
@@ -34,10 +35,10 @@ const iconButtonStyles = css({
   fontSize: 'inherit',
   lineHeight: 1,
   '&:hover': {
-    backgroundColor: N30A,
+    backgroundColor: token('color.background.transparentNeutral.hover', N30A),
   },
   '&:active': {
-    backgroundColor: B50,
+    backgroundColor: token('color.background.transparentNeutral.pressed', B50),
     outline: 0,
   },
 });
@@ -52,7 +53,7 @@ const SidebarOverrideComponent: FC = ({ children }) => {
       style={{
         alignItems: 'center',
         boxSizing: 'border-box',
-        color: N500,
+        color: token('color.text.mediumEmphasis', N500),
         display: 'flex',
         flexShrink: 0,
         flexDirection: 'column',

@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import React from 'react';
 
 import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';

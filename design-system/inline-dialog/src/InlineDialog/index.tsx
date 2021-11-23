@@ -45,44 +45,44 @@ const InlineDialog: FC<InlineDialogProps> = memo<InlineDialogProps>(
   }) {
     const containerRef = useRef<HTMLElement | null>(null);
     const triggerRef = useRef<HTMLElement | null>(null);
+    // we put this into a ref to avoid handleClickOutside having this as a dependency
+    const onCloseRef = useRef<typeof onClose>(onClose);
 
-    const handleClickOutside = useCallback(
-      (event: MouseEvent) => {
-        if (event.defaultPrevented) {
-          return;
-        }
+    useEffect(() => {
+      onCloseRef.current = onClose;
+    });
 
-        const { target } = event;
+    const handleClickOutside = useCallback((event: MouseEvent) => {
+      const { target } = event;
 
-        // checks for when target is not HTMLElement
-        if (!(target instanceof HTMLElement)) {
-          return;
-        }
+      // checks for when target is not HTMLElement
+      if (!(target instanceof HTMLElement)) {
+        return;
+      }
 
-        // TODO: This is to handle the case where the target is no longer in the DOM.
-        // This happens with react-select in datetime picker. There might be other
-        // edge cases for this.
-        if (!document.body.contains(target)) {
-          return;
-        }
+      // TODO: This is to handle the case where the target is no longer in the DOM.
+      // This happens with react-select in datetime picker. There might be other
+      // edge cases for this.
+      if (!document.body.contains(target)) {
+        return;
+      }
 
-        // exit if we click outside but on the trigger — it can handle the clicks itself
-        if (triggerRef.current && triggerRef.current.contains(target)) {
-          return;
-        }
+      // exit if we click outside but on the trigger — it can handle the clicks itself
+      if (triggerRef.current && triggerRef.current.contains(target)) {
+        return;
+      }
 
-        // handles the case where inline dialog opens portalled elements such as modal
-        if (checkIsChildOfPortal(target)) {
-          return;
-        }
+      // handles the case where inline dialog opens portalled elements such as modal
+      if (checkIsChildOfPortal(target)) {
+        return;
+      }
 
-        // call onClose if the click originated from outside the dialog
-        if (containerRef.current && !containerRef.current.contains(target)) {
-          onClose && onClose({ isOpen: false, event: event as any });
-        }
-      },
-      [onClose],
-    );
+      // call onClose if the click originated from outside the dialog
+      if (containerRef.current && !containerRef.current.contains(target)) {
+        onCloseRef.current?.({ isOpen: false, event: event as any });
+      }
+    }, []);
+
     useEffect(() => {
       if (!isOpen) {
         return;
@@ -90,26 +90,14 @@ const InlineDialog: FC<InlineDialogProps> = memo<InlineDialogProps>(
 
       let unbind: UnbindFn;
 
-      // Under most circumstances, `useEffect` should run after an event has ended
-      // In this particular case, the popperjs library has a setState inside of a ref,
-      // which cases `useEffect` to run synchronously instead. To avoid this, we use a
-      // `setTimeout` so `useEffect` after the event. We only want to start listening
-      // for clicks after the original click event that triggered the dialog
-      // has finished. You can see more in the Codesandbox here:
-      // https://codesandbox.io/s/useeffect-and-event-timing-refs-in-state-5tys3?file=/src/App.tsx
-      const timeoutId = setTimeout(() => {
-        unbind = bind(window, {
-          type: 'click',
-          listener: (event) => handleClickOutside(event as MouseEvent),
-          options: { capture: false },
-        });
+      unbind = bind(window, {
+        type: 'click',
+        listener: (e) => handleClickOutside(e as MouseEvent),
+        options: { capture: true },
       });
 
-      return () => {
-        window.clearTimeout(timeoutId);
-        unbind?.();
-      };
-    }, [handleClickOutside, isOpen]);
+      return unbind;
+    }, [isOpen, handleClickOutside]);
 
     const popper = isOpen ? (
       <Popper placement={placement}>

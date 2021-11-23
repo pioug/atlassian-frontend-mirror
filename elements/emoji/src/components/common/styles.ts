@@ -1,5 +1,6 @@
 import { borderRadius } from '@atlaskit/theme/constants';
 import * as colors from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 import { defaultEmojiHeight } from '../../util/constants';
 import { akEmojiSelectedBackgroundColor } from '../../util/shared-styles';
 import { style } from 'typestyle';
@@ -199,7 +200,7 @@ export const emojiPreview = style({
           $nest: {
             [`.${name}`]: {
               display: 'block',
-              color: colors.N900,
+              color: token('color.text.highEmphasis', colors.N900),
               overflow: 'hidden',
               textOverflow: 'ellipsis',
               whiteSpace: 'nowrap',
@@ -213,7 +214,7 @@ export const emojiPreview = style({
 
             [`.${shortName}`]: {
               display: 'block',
-              color: colors.N200,
+              color: token('color.text.mediumEmphasis', colors.N200),
               fontSize: '12px',
               lineHeight: 1,
               marginBottom: '-2px',
@@ -234,7 +235,7 @@ export const emojiPreview = style({
             },
 
             [`.${shortName}`]: {
-              color: colors.N900,
+              color: token('color.text.highEmphasis', colors.N900),
               fontSize: '14px',
             },
           },
@@ -265,7 +266,7 @@ export const emojiPreview = style({
 // Scrollable
 
 export const emojiScrollable = style({
-  border: '1px solid #fff',
+  border: `1px solid ${token('color.border.neutral', '#fff')}`,
   borderRadius: `${borderRadius()}px`,
   display: 'block',
   margin: '0',
@@ -285,7 +286,7 @@ export const emojiUpload = style({
 });
 
 export const uploadChooseFileMessage = style({
-  color: colors.N300,
+  color: token('color.text.mediumEmphasis', colors.N300),
   fontSize: '12px',
   paddingBottom: '7px',
 });
@@ -307,11 +308,7 @@ export const uploadChooseFileEmojiName = style({
     input: {
       background: 'transparent',
       border: 0,
-      fontSize: '12px',
       outline: 'none',
-      width: '100%',
-      height: '22px', // fixed height is required to work in IE11 and other browsers in Windows
-
       $nest: {
         ['&:invalid']: {
           boxShadow: 'none',
@@ -339,7 +336,7 @@ export const uploadPreview = style({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
-  background: colors.N20,
+  background: token('color.background.subtleNeutral.resting', colors.N20),
   borderRadius: `${borderRadius()}px`,
   padding: '10px',
 });
@@ -347,7 +344,7 @@ export const uploadPreview = style({
 export const uploadPreviewText = style({
   $nest: {
     h5: {
-      color: colors.N300,
+      color: token('color.text.mediumEmphasis', colors.N300),
       paddingBottom: '4px',
       fontSize: '12px',
     },
@@ -400,7 +397,7 @@ export const deleteText = style({
 
   $nest: {
     ':first-child': {
-      color: colors.N300,
+      color: token('color.text.mediumEmphasis', colors.N300),
       lineHeight: '16px',
     },
   },
@@ -443,7 +440,7 @@ export const deleteFooter = style({
 
 export const emojiDeleteErrorMessage = style({
   display: 'flex',
-  color: colors.R400,
+  color: token('color.text.danger', colors.R400),
   alignItems: 'center',
   justifyContent: 'flex-end',
   paddingRight: '4px',
@@ -451,14 +448,14 @@ export const emojiDeleteErrorMessage = style({
 
 export const emojiChooseFileErrorMessage = style({
   display: 'flex',
-  color: colors.R300,
+  color: token('color.text.danger', colors.R300),
   paddingRight: '10px',
   justifyContent: 'flex-start',
 });
 
 export const emojiPreviewErrorMessage = style({
   display: 'inline-flex',
-  color: colors.R400,
+  color: token('color.text.danger', colors.R400),
   paddingRight: '10px',
   justifyContent: 'flex-end',
   alignItems: 'center',

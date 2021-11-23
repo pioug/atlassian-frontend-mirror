@@ -51,7 +51,7 @@
     "@atlaskit/button": "^16.0.0",
     "@atlaskit/checkbox": "^12.2.0",
     "@atlaskit/docs": "*",
-    "@atlaskit/drawer": "^7.0.0",
+    "@atlaskit/drawer": "^7.1.0",
     "@atlaskit/form": "^8.4.0",
     "@atlaskit/logo": "^13.5.0",
     "@atlaskit/modal-dialog": "^12.2.0",

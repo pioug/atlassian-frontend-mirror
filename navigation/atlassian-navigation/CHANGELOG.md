@@ -1,5 +1,11 @@
 # @atlaskit/atlassian-navigation
 
+## 1.3.0
+
+### Minor Changes
+
+- [`9d4ca6e23da`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d4ca6e23da) - [ux] New create-dropdown-menu package for Create dropdown button
+
 ## 1.2.2
 
 ### Patch Changes

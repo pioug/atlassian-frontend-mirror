@@ -7,6 +7,7 @@ import Button from '@atlaskit/button/custom-theme-button';
 import InlineDialog from '@atlaskit/inline-dialog';
 import * as colors from '@atlaskit/theme/colors';
 import { themed, useGlobalTheme } from '@atlaskit/theme/components';
+import { token } from '@atlaskit/tokens';
 
 import { itemSpacing } from '../../constants';
 import type { IconAppearance, InlineDialogPlacement } from '../../types';
@@ -90,22 +91,36 @@ const rootStyles = css({
   },
 });
 
-const titleColor = themed({ light: colors.N600, dark: colors.DN600 });
-const textColor = themed({ light: colors.N300, dark: colors.DN100 });
-const rootFocusColor = themed('appearance', {
-  connectivity: { light: colors.B500, dark: colors.B200 },
-  confirmation: { light: colors.G400, dark: colors.G400 },
-  info: { light: colors.P500, dark: colors.P300 },
-  warning: { light: colors.Y500, dark: colors.Y500 },
-  error: { light: colors.R500, dark: colors.R500 },
+const titleColor = themed({
+  light: token('color.text.highEmphasis', colors.N600),
+  dark: token('color.text.highEmphasis', colors.DN600),
+});
+const textColor = themed({
+  light: token('color.text.lowEmphasis', colors.N300),
+  dark: token('color.text.lowEmphasis', colors.DN100),
 });
 
 const iconColor = themed('appearance', {
-  connectivity: { light: colors.B300, dark: colors.B75 },
-  confirmation: { light: colors.G200, dark: colors.G200 },
-  info: { light: colors.P200, dark: colors.P200 },
-  warning: { light: colors.Y200, dark: colors.Y200 },
-  error: { light: colors.R300, dark: colors.R300 },
+  connectivity: {
+    light: token('color.iconBorder.brand', colors.B300),
+    dark: token('color.iconBorder.brand', colors.B75),
+  },
+  confirmation: {
+    light: token('color.iconBorder.success', colors.G200),
+    dark: token('color.iconBorder.success', colors.G200),
+  },
+  info: {
+    light: token('color.iconBorder.discovery', colors.P200),
+    dark: token('color.iconBorder.discovery', colors.P200),
+  },
+  warning: {
+    light: token('color.iconBorder.warning', colors.Y200),
+    dark: token('color.iconBorder.warning', colors.Y200),
+  },
+  error: {
+    light: token('color.iconBorder.danger', colors.R300),
+    dark: token('color.iconBorder.danger', colors.R300),
+  },
 });
 
 /**
@@ -153,7 +168,6 @@ const InlineMessage: FC<InlineMessageProps> = ({
       css={rootStyles}
       style={
         {
-          outlineColor: rootFocusColor({ appearance: type, theme }),
           '--icon-accent-color': iconColor({ appearance: type, theme }),
         } as CSSProperties
       }

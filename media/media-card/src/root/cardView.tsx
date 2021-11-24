@@ -1,5 +1,4 @@
 import React, { MouseEvent } from 'react';
-import { FormattedMessage } from 'react-intl';
 import { MediaItemType, FileDetails } from '@atlaskit/media-client';
 import {
   withAnalyticsEvents,
@@ -50,6 +49,7 @@ import {
 import { isRateLimitedError, isPollingError } from '@atlaskit/media-client';
 import { newFileExperienceClassName } from './card/cardConstants';
 import { isUploadError, MediaCardError } from '../errors';
+import { MessageDescriptor } from 'react-intl-next';
 
 export interface CardViewOwnProps extends SharedCardProps {
   readonly status: CardStatus;
@@ -97,7 +97,7 @@ export interface RenderConfigByStatus {
   renderSpinner?: boolean;
   renderFailedTitleBox?: boolean;
   renderTickBox?: boolean;
-  customTitleMessage?: FormattedMessage.MessageDescriptor;
+  customTitleMessage?: MessageDescriptor;
 }
 
 /**
@@ -273,9 +273,7 @@ export class CardViewBase extends React.Component<
     );
   }
 
-  private renderFailedTitleBox(
-    customMessage?: FormattedMessage.MessageDescriptor,
-  ) {
+  private renderFailedTitleBox(customMessage?: MessageDescriptor) {
     return (
       <FailedTitleBox
         breakpoint={this.breakpoint}

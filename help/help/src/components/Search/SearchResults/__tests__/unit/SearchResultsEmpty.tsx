@@ -2,13 +2,20 @@ import React from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { render, fireEvent } from '@testing-library/react';
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
-import { IntlProvider } from 'react-intl';
+import { createIntl, createIntlCache } from 'react-intl-next';
 
 import { messages } from '../../../../../messages';
 import { SearchResultsEmpty } from '../../SearchResultsEmpty';
 
-const intlProvider = new IntlProvider({ locale: 'en' });
-const { intl } = intlProvider.getChildContext();
+// Messages
+const cache = createIntlCache();
+const intl = createIntl(
+  {
+    locale: 'en',
+    messages: {},
+  },
+  cache,
+);
 const messageNoResultLink = intl.formatMessage(
   messages.help_search_results_external_site_link,
 );

@@ -1,5 +1,5 @@
 import React from 'react';
-import { IntlProvider } from 'react-intl';
+import { IntlProvider } from 'react-intl-next';
 import { PortalRenderer, PortalProvider } from '../../ui/PortalProvider';
 import { EditorInternal } from './internal/components/EditorInternal';
 import {

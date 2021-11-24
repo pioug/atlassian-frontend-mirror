@@ -1,6 +1,6 @@
 import React from 'react';
 import Button from '@atlaskit/button/custom-theme-button';
-import { injectIntl, InjectedIntlProps } from 'react-intl';
+import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 import { WHATS_NEW_ITEM_TYPES } from '../../../../model/WhatsNew';
 
 import ErrorImage from '../../../../assets/ErrorImage';
@@ -19,7 +19,7 @@ export interface Props {
   ): Promise<void>;
 }
 
-export const WhatsNewResultsError: React.FC<Props & InjectedIntlProps> = ({
+export const WhatsNewResultsError: React.FC<Props & WrappedComponentProps> = ({
   onSearch,
   intl: { formatMessage },
 }) => (

@@ -8,7 +8,7 @@ import {
   InlineCardForbiddenView,
   InlineCardUnauthorizedView,
 } from '../src/InlineCard';
-import { IntlProvider } from 'react-intl';
+import { IntlProvider } from 'react-intl-next';
 
 interface Lozenge {
   text: string;

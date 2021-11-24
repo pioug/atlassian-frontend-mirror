@@ -1,5 +1,5 @@
 import React from 'react';
-import { IntlProvider } from 'react-intl';
+import { IntlProvider } from 'react-intl-next';
 import { defaultSchema as schema } from '@atlaskit/adf-schema';
 import { render } from 'react-dom';
 import { Node as PMNode } from 'prosemirror-model';

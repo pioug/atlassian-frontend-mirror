@@ -1,7 +1,7 @@
 import React from 'react';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import Spinner from '@atlaskit/spinner';
-import { injectIntl, InjectedIntlProps } from 'react-intl';
+import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 import Button from '@atlaskit/button/custom-theme-button';
 
 import { messages } from '../../messages';
@@ -20,7 +20,7 @@ export interface Props {
   ) => void;
 }
 
-export const ShowMoreButton: React.FC<Props & InjectedIntlProps> = ({
+export const ShowMoreButton: React.FC<Props & WrappedComponentProps> = ({
   showMoreToggeled,
   onToggle,
   minItemsToDisplay,

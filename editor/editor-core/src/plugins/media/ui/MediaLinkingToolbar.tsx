@@ -3,7 +3,7 @@ import { ErrorMessage, ProviderFactory } from '@atlaskit/editor-common';
 import ChevronLeftLargeIcon from '@atlaskit/icon/glyph/chevron-left-large';
 import EditorUnlinkIcon from '@atlaskit/icon/glyph/editor/unlink';
 // Common Translations will live here
-import { InjectedIntl, InjectedIntlProps } from 'react-intl';
+import { IntlShape, WrappedComponentProps } from 'react-intl-next';
 import PanelTextInput from '../../../ui/PanelTextInput';
 import Button from '../../floating-toolbar/ui/Button';
 import Separator from '../../floating-toolbar/ui/Separator';
@@ -25,7 +25,7 @@ import { INPUT_METHOD } from '../../analytics/types/enums';
 import { mediaLinkToolbarMessages } from './media-linking-toolbar-messages';
 
 export type Props = {
-  intl: InjectedIntl;
+  intl: IntlShape;
   providerFactory: ProviderFactory;
   editing: boolean;
   onBack: (url: string, meta: { inputMethod?: RecentSearchInputTypes }) => void;
@@ -55,7 +55,7 @@ const ButtonWrapper = styled.span`
 `;
 
 export class LinkAddToolbar extends React.PureComponent<
-  Props & InjectedIntlProps
+  Props & WrappedComponentProps
 > {
   state = {
     validationErrors: [],

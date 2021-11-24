@@ -1,5 +1,10 @@
 import React, { useMemo } from 'react';
-import { IntlProvider, injectIntl, InjectedIntlProps } from 'react-intl';
+import {
+  IntlProvider,
+  injectIntl,
+  WrappedComponentProps,
+  MessageFormatElement,
+} from 'react-intl-next';
 import { getMessagesForLocale, LangCode } from '../util/i18n-util';
 
 export interface Props {
@@ -9,14 +14,18 @@ export interface Props {
 const MessagesIntlProvider = ({
   intl,
   children,
-}: Props & InjectedIntlProps) => {
+}: Props & WrappedComponentProps) => {
   const mergedMessages = useMemo(() => {
     return {
       ...intl.messages,
       ...getMessagesForLocale(intl.locale as LangCode),
-    };
+    } as Record<string, string> | Record<string, MessageFormatElement[]>;
   }, [intl.messages, intl.locale]);
-  return <IntlProvider messages={mergedMessages}>{children}</IntlProvider>;
+  return (
+    <IntlProvider locale={intl.locale} messages={mergedMessages}>
+      {children}
+    </IntlProvider>
+  );
 };
 
 export default injectIntl(MessagesIntlProvider);

@@ -33,7 +33,6 @@ export const useTranslations = (
           `react-intl/locale-data/${localeFileName}`
         );
         addLocaleData(localeData.default);
-
         if (supportedLocaleWithRegions.includes(locale)) {
           localeFileName = locale;
         }

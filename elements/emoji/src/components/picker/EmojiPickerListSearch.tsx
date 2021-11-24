@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import TextField from '@atlaskit/textfield';
 import SearchIcon from '@atlaskit/icon/glyph/search';
-import { FormattedMessage } from 'react-intl';
+import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 import { Styles } from '../../types';
 import { messages } from '../i18n';
 import * as styles from './styles';
@@ -20,7 +20,9 @@ interface InputSelection {
   selectionDirection?: SelectionDirectionType;
 }
 
-export default class EmojiPickerListSearch extends PureComponent<Props> {
+class EmojiPickerListSearch extends PureComponent<
+  Props & WrappedComponentProps
+> {
   static defaultProps = {
     style: {},
   };
@@ -100,36 +102,31 @@ export default class EmojiPickerListSearch extends PureComponent<Props> {
   };
 
   render() {
-    const { style, query } = this.props;
+    const { style, query, intl } = this.props;
+    const { formatMessage } = intl;
 
     return (
       <div className={styles.pickerSearch} style={style}>
-        <FormattedMessage {...messages.searchPlaceholder}>
-          {(searchPlaceholder) => (
-            <FormattedMessage {...messages.searchLabel}>
-              {(searchLabel) => (
-                <TextField
-                  aria-label={searchLabel as string}
-                  className={styles.input}
-                  autoComplete="off"
-                  name="search"
-                  placeholder={`${searchPlaceholder as string}...`}
-                  onChange={this.onChange}
-                  value={query || ''}
-                  ref={this.handleInputRef}
-                  isCompact
-                  onBlur={this.onBlur}
-                  elemBeforeInput={
-                    <span className={styles.searchIcon}>
-                      <SearchIcon label="" />
-                    </span>
-                  }
-                />
-              )}
-            </FormattedMessage>
-          )}
-        </FormattedMessage>
+        <TextField
+          aria-label={formatMessage(messages.searchLabel)}
+          className={styles.input}
+          autoComplete="off"
+          name="search"
+          placeholder={`${formatMessage(messages.searchPlaceholder)}...`}
+          onChange={this.onChange}
+          value={query || ''}
+          ref={this.handleInputRef}
+          isCompact
+          onBlur={this.onBlur}
+          elemBeforeInput={
+            <span className={styles.searchIcon}>
+              <SearchIcon label="" />
+            </span>
+          }
+        />
       </div>
     );
   }
 }
+
+export default injectIntl(EmojiPickerListSearch);

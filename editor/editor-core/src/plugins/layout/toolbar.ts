@@ -1,4 +1,4 @@
-import { InjectedIntl } from 'react-intl';
+import { IntlShape } from 'react-intl-next';
 import { EditorState } from 'prosemirror-state';
 import { findDomRefAtPos } from 'prosemirror-utils';
 import EditorLayoutSingleIcon from '@atlaskit/icon/glyph/editor/layout-single';
@@ -82,7 +82,7 @@ const SIDEBAR_LAYOUT_TYPES: PresetLayoutButtonItem[] = [
 ];
 
 const buildLayoutButton = (
-  intl: InjectedIntl,
+  intl: IntlShape,
   item: PresetLayoutButtonItem,
   currentLayout: string | undefined,
 ): FloatingToolbarItem<Command> => ({
@@ -99,7 +99,7 @@ export const layoutToolbarTitle = 'Layout floating controls';
 
 export const buildToolbar = (
   state: EditorState,
-  intl: InjectedIntl,
+  intl: IntlShape,
   pos: number,
   _allowBreakout: boolean,
   addSidebarLayouts: boolean,

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { InjectedIntlProps, injectIntl } from 'react-intl';
+import { WrappedComponentProps, injectIntl } from 'react-intl-next';
 import styled from 'styled-components';
 import Tooltip from '@atlaskit/tooltip';
 import Button from '@atlaskit/button/custom-theme-button';
@@ -45,7 +45,10 @@ const CopyButtonWrapper = styled.span`
   }
 `;
 
-const CopyButton: React.FC<Props & InjectedIntlProps> = ({ content, intl }) => {
+const CopyButton: React.FC<Props & WrappedComponentProps> = ({
+  content,
+  intl,
+}) => {
   const [tooltip, setTooltip] = useState<string>(
     intl.formatMessage(codeBlockCopyButtonMessages.copyCodeToClipboard),
   );

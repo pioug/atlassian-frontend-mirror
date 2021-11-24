@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount, ReactWrapper } from 'enzyme';
+import { ReactWrapper } from 'enzyme';
 import * as sinon from 'sinon';
 import { waitUntil } from '@atlaskit/elements-test-helpers';
 import {
@@ -42,9 +42,10 @@ import {
   insertionSucceeded,
   insertionFailed,
 } from '../../../../util/analytics';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
 
 function setupTypeAhead(props?: Props): Promise<ReactWrapper<any, any>> {
-  const component = mount(
+  const component = mountWithIntl(
     <EmojiTypeAhead
       emojiProvider={
         props && props.emojiProvider

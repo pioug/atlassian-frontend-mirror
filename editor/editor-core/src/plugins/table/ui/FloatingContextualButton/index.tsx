@@ -2,7 +2,7 @@ import React from 'react';
 
 import { findDomRefAtPos } from 'prosemirror-utils';
 import { EditorView } from 'prosemirror-view';
-import { InjectedIntlProps, injectIntl } from 'react-intl';
+import { WrappedComponentProps, injectIntl } from 'react-intl-next';
 import styled from 'styled-components';
 
 import { TableLayout } from '@atlaskit/adf-schema';
@@ -48,7 +48,7 @@ const ButtonWrapper = styled.div`
 `;
 
 export class FloatingContextualButtonInner extends React.Component<
-  Props & InjectedIntlProps,
+  Props & WrappedComponentProps,
   any
 > {
   static displayName = 'FloatingContextualButton';
@@ -62,7 +62,7 @@ export class FloatingContextualButtonInner extends React.Component<
       isContextualMenuOpen,
       intl: { formatMessage },
       dispatchAnalyticsEvent,
-    } = this.props; //  : Props & InjectedIntlProps
+    } = this.props; //  : Props & WrappedComponentProps
     const domAtPos = editorView.domAtPos.bind(editorView);
     let targetCellRef: Node | undefined;
     try {

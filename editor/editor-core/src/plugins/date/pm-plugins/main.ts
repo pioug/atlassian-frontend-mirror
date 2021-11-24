@@ -28,6 +28,7 @@ const createPlugin: PMPluginFactory = ({
     isDateEmpty: false,
     focusDateInput: false,
   };
+  const hasIntlContext = true;
   return new Plugin({
     state: createPluginState(dispatch, newPluginState),
     key: pluginKey,
@@ -37,6 +38,9 @@ const createPlugin: PMPluginFactory = ({
           DateNodeView,
           portalProviderAPI,
           eventDispatcher,
+          undefined,
+          undefined,
+          hasIntlContext,
         ),
       },
     },

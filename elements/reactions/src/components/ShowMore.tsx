@@ -7,7 +7,7 @@ import cx from 'classnames';
 import React from 'react';
 import { style } from 'typestyle';
 import { messages } from './i18n';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl-next';
 
 const moreEmojiContainerStyle = style({ display: 'flex' });
 

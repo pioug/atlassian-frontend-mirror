@@ -1,6 +1,6 @@
 import differenceInCalendarDays from 'date-fns/differenceInCalendarDays';
 import isBefore from 'date-fns/isBefore';
-import { InjectedIntl } from 'react-intl';
+import { IntlShape } from 'react-intl-next';
 
 enum FORMATS {
   ISO_FORMAT = 'YYYY-MM-DD',
@@ -46,7 +46,7 @@ const capitalizeFirstLetter = (str: string): string => {
 // example: "23 Jan 2018"
 export const timestampToString = (
   timestamp: string | number,
-  intl: InjectedIntl | null,
+  intl: IntlShape | null,
   pattern?: FORMATS,
 ): string => {
   if (!intl || pattern === FORMATS.ISO_FORMAT) {
@@ -84,7 +84,7 @@ export const isPastDate = (timestamp: string | number): boolean => {
 
 export const timestampToTaskContext = (
   timestamp: string | number,
-  intl: InjectedIntl,
+  intl: IntlShape,
 ): string => {
   const curDate = new Date(Number(todayTimestampInUTC()));
   const givenDate = new Date(Number(timestamp));
@@ -93,10 +93,7 @@ export const timestampToTaskContext = (
 
   if (intl && [-1, 0, 1].indexOf(distance) > -1) {
     return capitalizeFirstLetter(
-      intl.formatRelative(givenDate, {
-        units: 'day',
-        now: Number(todayTimestampInUTC()),
-      }),
+      intl.formatRelativeTime(distance, 'day', { numeric: 'auto' }),
     );
   }
 

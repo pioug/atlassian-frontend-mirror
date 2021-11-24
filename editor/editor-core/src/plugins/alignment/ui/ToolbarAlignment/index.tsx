@@ -1,5 +1,5 @@
 import React from 'react';
-import { injectIntl, InjectedIntlProps } from 'react-intl';
+import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
 import ToolbarButton from '../../../../ui/ToolbarButton';
 import Dropdown from '../../../../ui/Dropdown';
@@ -28,8 +28,8 @@ export interface Props {
   disabled?: boolean;
 }
 
-class AlignmentToolbar extends React.Component<
-  Props & InjectedIntlProps,
+export class AlignmentToolbar extends React.Component<
+  Props & WrappedComponentProps,
   State
 > {
   static displayName = 'AlignmentToolbar';

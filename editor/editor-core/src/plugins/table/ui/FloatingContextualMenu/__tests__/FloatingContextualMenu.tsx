@@ -1,9 +1,9 @@
 import React from 'react';
 
 import { EditorView } from 'prosemirror-view';
+import { shallow } from 'enzyme';
 
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import { shallowWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import {
   doc,
   p,
@@ -33,7 +33,7 @@ describe('FloatingContextualMenu', () => {
     });
 
     test('should render floating contextual menu when no tableCellPosition is passed but exist on editor state ', () => {
-      const wrapper = shallowWithIntl(
+      const wrapper = shallow(
         <FloatingContextualMenu
           editorView={editorView}
           isOpen={true}

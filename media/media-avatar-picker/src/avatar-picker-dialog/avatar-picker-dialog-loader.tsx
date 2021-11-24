@@ -2,7 +2,7 @@ import React from 'react';
 import { ReactNode } from 'react';
 import { ModalSpinner } from '@atlaskit/media-ui';
 
-import { AvatarPickerDialog } from '.';
+import { default as AvatarPickerDialog } from '.';
 import { AvatarPickerDialogProps } from './types';
 
 export interface AsyncAvatarPickerDialogState {
@@ -32,8 +32,8 @@ export default class AsyncAvatarPickerDialog extends React.PureComponent<
           /* webpackChunkName: "@atlaskit-internal_media-avatar-picker" */
           '.'
         );
-        AsyncAvatarPickerDialog.AvatarPickerDialog = module.AvatarPickerDialog;
-        this.setState({ AvatarPickerDialog: module.AvatarPickerDialog });
+        AsyncAvatarPickerDialog.AvatarPickerDialog = module.default;
+        this.setState({ AvatarPickerDialog: module.default });
       } catch (error) {
         // TODO [MS-2272]: Add operational error to catch async import error
       }

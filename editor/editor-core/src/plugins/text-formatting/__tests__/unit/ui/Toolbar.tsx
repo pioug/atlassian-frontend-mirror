@@ -1,5 +1,5 @@
 import React from 'react';
-import { IntlProvider } from 'react-intl';
+import { IntlProvider } from 'react-intl-next';
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
 import { render, fireEvent, within } from '@testing-library/react';
 import {

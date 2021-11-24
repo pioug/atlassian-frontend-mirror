@@ -1,4 +1,4 @@
-import { IntlProvider } from 'react-intl';
+import { createIntl } from 'react-intl-next';
 import {
   a as link,
   doc,
@@ -33,10 +33,9 @@ describe('linking', () => {
       providerFactory = new ProviderFactory();
     });
 
-    const intlProvider = new IntlProvider({
+    const intl = createIntl({
       locale: 'en',
     });
-    const intl = intlProvider.getChildContext().intl;
 
     it('enable the link button when link is safe', () => {
       const { editorView } = editor(

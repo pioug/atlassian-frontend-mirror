@@ -1,28 +1,29 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import RendererDemo from './helper/RendererDemo';
-import { IntlProvider } from 'react-intl';
+import { IntlProvider } from 'react-intl-next';
+import { getTranslations } from './helper/get-translations';
 
-export type Props = {};
-export type State = { locale: string; messages: { [key: string]: string } };
+const Example = () => {
+  const [locale] = useState('en');
+  const [messages, setMessages] = useState({});
 
-export default class Example extends React.Component<Props, State> {
-  state: State = {
-    locale: 'en',
-    messages: {},
-  };
+  useEffect(() => {
+    getTranslations(locale).then((translations) => {
+      setMessages(translations);
+    });
+  }, [locale]);
 
-  render() {
-    const { locale, messages } = this.state;
-    return (
-      <IntlProvider locale={locale} messages={messages}>
-        <RendererDemo
-          appearance="full-page"
-          serializer="react"
-          allowHeadingAnchorLinks
-          allowColumnSorting={true}
-          useSpecBasedValidator={true}
-        />
-      </IntlProvider>
-    );
-  }
-}
+  return (
+    <IntlProvider locale={locale} messages={messages}>
+      <RendererDemo
+        appearance="full-page"
+        serializer="react"
+        allowHeadingAnchorLinks
+        allowColumnSorting={true}
+        useSpecBasedValidator={true}
+      />
+    </IntlProvider>
+  );
+};
+
+export default Example;

@@ -2,7 +2,7 @@ import React from 'react';
 import { render, waitForElement } from '@testing-library/react';
 import { FilePreviewItem } from '../../filePreviewItem';
 import { MediaPluginState } from '../../../../../plugins/media/pm-plugins/types';
-import { InjectedIntl } from 'react-intl';
+import { IntlShape } from 'react-intl-next';
 
 describe('<FilePreviewItem />', () => {
   it('should render MediaViewer when shouldOpenMediaViewer=true and clicked', async () => {
@@ -14,7 +14,7 @@ describe('<FilePreviewItem />', () => {
     } as MediaPluginState;
     const intl = ({
       formatMessage: jest.fn((message) => message.id),
-    } as unknown) as InjectedIntl;
+    } as unknown) as IntlShape;
 
     const { getByTestId } = render(
       <FilePreviewItem mediaPluginState={mediaPluginState} intl={intl} />,

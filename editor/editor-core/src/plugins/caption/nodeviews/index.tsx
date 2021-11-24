@@ -54,13 +54,19 @@ export default function captionNodeView(
   portalProviderAPI: PortalProviderAPI,
   eventDispatcher: EventDispatcher,
 ) {
-  return (node: PMNode, view: EditorView, getPos: getPosHandler) =>
-    new CaptionNodeView(
+  return (node: PMNode, view: EditorView, getPos: getPosHandler) => {
+    const hasIntlContext = true;
+    return new CaptionNodeView(
       node,
       view,
       getPos as getPosHandlerNode,
       portalProviderAPI,
       eventDispatcher,
       {},
+      undefined,
+      undefined,
+      undefined,
+      hasIntlContext,
     ).init();
+  };
 }

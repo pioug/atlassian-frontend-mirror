@@ -1,5 +1,5 @@
 import { ReactWrapper } from 'enzyme';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
 import { defaultSchema as schema } from '@atlaskit/adf-schema';
 import { Node as PMNode } from 'prosemirror-model';
 import { ReactSerializer } from '../../../index';

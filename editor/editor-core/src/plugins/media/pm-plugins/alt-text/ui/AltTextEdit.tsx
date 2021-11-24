@@ -6,7 +6,7 @@ import { N100, N30, R400, N80 } from '@atlaskit/theme/colors';
 import ChevronLeftLargeIcon from '@atlaskit/icon/glyph/chevron-left-large';
 import CrossCircleIcon from '@atlaskit/icon/glyph/cross-circle';
 import { messages } from '../messages';
-import { injectIntl, InjectedIntlProps } from 'react-intl';
+import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 import Button from '../../../../floating-toolbar/ui/Button';
 import PanelTextInput from '../../../../../ui/PanelTextInput';
 import * as keymaps from '../../../../../keymaps';
@@ -81,7 +81,7 @@ type Props = {
   view: EditorView;
   value?: string;
   altTextValidator?: (value: string) => string[];
-} & InjectedIntlProps &
+} & WrappedComponentProps &
   WithAnalyticsEventsProps;
 
 export type AltTextEditComponentState = {

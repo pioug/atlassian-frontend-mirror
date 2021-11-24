@@ -16,7 +16,7 @@ import styled from 'styled-components';
 const PopupWithListeners = withOuterListeners(Popup);
 import { INPUT_METHOD } from '../../../analytics/types/enums';
 import { DispatchAnalyticsEvent } from '../../../analytics';
-import { injectIntl, InjectedIntlProps } from 'react-intl';
+import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 import DatePickerInput from './date-picker-input';
 
 const PopupContentWrapper = styled.div`
@@ -60,8 +60,8 @@ type CalendarOnChange = {
   year: number;
 };
 
-class DatePicker extends React.Component<Props & InjectedIntlProps, State> {
-  constructor(props: Props & InjectedIntlProps) {
+class DatePicker extends React.Component<Props & WrappedComponentProps, State> {
+  constructor(props: Props & WrappedComponentProps) {
     super(props);
     const timestamp = props.element!.getAttribute('timestamp');
     if (timestamp) {

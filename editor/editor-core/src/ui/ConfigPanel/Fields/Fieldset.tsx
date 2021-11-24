@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { injectIntl, InjectedIntlProps } from 'react-intl';
+import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 
 import SectionMessage from '@atlaskit/section-message';
 import Button from '@atlaskit/button/custom-theme-button';
@@ -95,7 +95,7 @@ type Props = {
   onFieldChange: OnFieldChange;
   firstVisibleFieldName?: string;
   error?: string;
-} & InjectedIntlProps;
+} & WrappedComponentProps;
 
 type State = {
   isAdding: boolean;

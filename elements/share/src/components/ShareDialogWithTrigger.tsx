@@ -13,7 +13,11 @@ import Aktooltip from '@atlaskit/tooltip';
 import { gridSize, layers } from '@atlaskit/theme/constants';
 import { LoadOptions, Value } from '@atlaskit/user-picker';
 import React from 'react';
-import { FormattedMessage, InjectedIntlProps, injectIntl } from 'react-intl';
+import {
+  FormattedMessage,
+  injectIntl,
+  WrappedComponentProps,
+} from 'react-intl-next';
 import styled from 'styled-components';
 import { messages } from '../i18n';
 import {
@@ -137,7 +141,7 @@ export const defaultShareContentState: DialogContentState = {
 };
 
 type ShareDialogWithTriggerInternalProps = Props &
-  InjectedIntlProps &
+  WrappedComponentProps &
   WithAnalyticsEventsProps;
 
 export class ShareDialogWithTriggerInternal extends React.PureComponent<
@@ -624,6 +628,6 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
   }
 }
 
-export const ShareDialogWithTrigger = withAnalyticsEvents()(
+export const ShareDialogWithTrigger: React.ComponentType<Props> = withAnalyticsEvents()(
   injectIntl(ShareDialogWithTriggerInternal),
 );

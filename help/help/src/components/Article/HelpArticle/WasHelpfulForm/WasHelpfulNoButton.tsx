@@ -1,5 +1,5 @@
 import React from 'react';
-import { injectIntl, InjectedIntlProps } from 'react-intl';
+import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 import {
   useAnalyticsEvents,
   UIAnalyticsEvent,
@@ -29,11 +29,9 @@ interface Props {
   isSelected?: boolean;
 }
 
-export const ArticleWasHelpfulNoButton: React.FC<Props & InjectedIntlProps> = ({
-  isSelected = false,
-  onClick,
-  intl: { formatMessage },
-}) => {
+export const ArticleWasHelpfulNoButton: React.FC<
+  Props & WrappedComponentProps
+> = ({ isSelected = false, onClick, intl: { formatMessage } }) => {
   const { createAnalyticsEvent } = useAnalyticsEvents();
 
   const handleButtonClick = (
@@ -55,7 +53,7 @@ export const ArticleWasHelpfulNoButton: React.FC<Props & InjectedIntlProps> = ({
 };
 
 const ArticleWasHelpfulNoButtonWithContext: React.FC<
-  Props & InjectedIntlProps
+  Props & WrappedComponentProps
 > = (props) => {
   return (
     <AnalyticsContext data={ANALYTICS_CONTEXT_DATA}>

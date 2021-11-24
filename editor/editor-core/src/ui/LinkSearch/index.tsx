@@ -1,7 +1,7 @@
 import React from 'react';
 import { KeyboardEvent } from 'react';
 import LinkSearchList from './LinkSearchList';
-import { InjectedIntlProps, injectIntl } from 'react-intl';
+import { WrappedComponentProps, injectIntl } from 'react-intl-next';
 import { ActivityProvider, ActivityItem } from '@atlaskit/activity-provider';
 import withActivityProvider, {
   WithActivityProviderProps,
@@ -16,13 +16,15 @@ const limit = (items: Array<ActivityItem>, max: number) => {
 };
 
 class RecentLink extends React.Component<
-  RecentSearchProps & WithActivityProviderProps & InjectedIntlProps,
+  RecentSearchProps & WithActivityProviderProps & WrappedComponentProps,
   RecentSearchState
 > {
   private activityProvider: ActivityProvider | null = null;
 
   constructor(
-    props: RecentSearchProps & WithActivityProviderProps & InjectedIntlProps,
+    props: RecentSearchProps &
+      WithActivityProviderProps &
+      WrappedComponentProps,
   ) {
     super(props);
     this.state = {

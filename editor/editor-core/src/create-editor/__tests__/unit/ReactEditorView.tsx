@@ -41,7 +41,7 @@ jest.mock('@atlaskit/editor-common/ufo', () => ({
 }));
 
 import React from 'react';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
 import { EditorView } from 'prosemirror-view';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
@@ -51,9 +51,9 @@ import {
   SEVERITY,
 } from '@atlaskit/editor-common';
 import { toJSON } from '../../../utils';
-import ReactEditorView, { shouldReconfigureState } from '../../ReactEditorView';
+import { ReactEditorView, shouldReconfigureState } from '../../ReactEditorView';
 import { EditorConfig } from '../../../types/editor-config';
-import { ReactWrapper } from 'enzyme';
+import { mount, ReactWrapper } from 'enzyme';
 import { TextSelection } from 'prosemirror-state';
 import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
 import patchEditorViewForJSDOM from '@atlaskit/editor-test-helpers/jsdom-fixtures';
@@ -91,6 +91,7 @@ import {
   EditorExperience,
   RELIABILITY_INTERVAL,
 } from '@atlaskit/editor-common/ufo';
+import { createIntl } from 'react-intl-next';
 
 const portalProviderAPI: any = {
   render() {},
@@ -103,6 +104,7 @@ const requiredProps = () => ({
   onEditorCreated: () => {},
   onEditorDestroyed: () => {},
   editorProps: {},
+  intl: createIntl({ locale: 'en' }),
 });
 
 const analyticsProps = () => ({
@@ -663,7 +665,7 @@ describe('@atlaskit/editor-core', () => {
     describe('when re-creating the editor view after a props change', () => {
       it('should call onEditorDestroyed', () => {
         let handleEditorDestroyed = jest.fn();
-        const wrapper = mountWithIntl(
+        const wrapper = mount(
           <ReactEditorView
             {...requiredProps()}
             editorProps={{ appearance: 'comment' }}
@@ -696,7 +698,7 @@ describe('@atlaskit/editor-core', () => {
 
       it('should call destroy on the old EditorView', () => {
         let editorViewDestroy: jest.SpyInstance | undefined;
-        const wrapper = mountWithIntl(
+        const wrapper = mount(
           <ReactEditorView
             {...requiredProps()}
             onEditorCreated={({ view }) => {
@@ -779,7 +781,7 @@ describe('@atlaskit/editor-core', () => {
 
     describe('when appearance changes to full width', () => {
       const initFullWidthEditor = (appearance: EditorAppearance) =>
-        mountWithIntl(
+        mount(
           <ReactEditorView
             {...requiredProps()}
             {...analyticsProps()}
@@ -1333,7 +1335,9 @@ describe('@atlaskit/editor-core', () => {
           />,
         );
 
-        expect(wrapper.instance().proseMirrorRenderedSeverity).toBe(severity);
+        expect(
+          (wrapper.instance() as ReactEditorView).proseMirrorRenderedSeverity,
+        ).toBe(severity);
       },
     );
   });
@@ -1392,7 +1396,7 @@ describe('@atlaskit/editor-core', () => {
     it('should call createEditorState', () => {
       const wrapper = mountWithIntl(<ReactEditorView {...requiredProps()} />);
 
-      const instance = wrapper.instance();
+      const instance = wrapper.instance() as ReactEditorView;
       const mock = jest.spyOn(instance, 'createEditorState');
 
       instance.resetEditorState({ doc: '', shouldScrollToBottom: false });

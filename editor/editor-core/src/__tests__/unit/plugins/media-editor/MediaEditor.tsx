@@ -8,7 +8,7 @@ jest.mock('../../../../plugins/media/commands/media-editor', () => ({
 
 import React from 'react';
 
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
 import { FileIdentifier } from '@atlaskit/media-client';
 import { SmartMediaEditor } from '@atlaskit/media-editor';
 import { getDefaultMediaClientConfig } from '@atlaskit/media-test-helpers';

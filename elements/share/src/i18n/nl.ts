@@ -36,10 +36,16 @@ export default {
     'Voer naam, groep, team of e-mailadres in',
   'fabric.elements.share.form.user-picker.placeholder.jira':
     'Voer naam, team of e-mail in',
+  'fabric.elements.share.form.user-picker.placholder.generic.existingUserOnly':
+    'Voer een naam, groep of team in',
   'fabric.elements.share.form.user-picker.validation.required':
     'Selecteer minimaal één gebruiker, groep, team of e-mailadres.',
+  'fabric.elements.share.form.user-picker.validation.required.existingUserOnly':
+    'Selecteer minimaal één gebruiker, groep of team.',
   'fabric.elements.share.form.user-picker.validation.required.jira':
     'Selecteer minimaal één gebruiker, team of e-mailadres.',
+  'fabric.elements.share.form.user-picker.validation.required.jira.existingUserOnly':
+    'Selecteer minimaal één gebruiker of team.',
   'fabric.elements.share.success.message':
     '{object, select, blogpost {Blog gedeeld} board {Bord gedeeld} calendar {Kalender gedeeld} draft {Concept gedeeld} filter {Filter gedeeld} issue {Issue gedeeld} media {Media gedeeld} page {Pagina gedeeld} project {Project gedeeld} pullrequest {Pull-aanvraag gedeeld} question {Vraag gedeeld} report {Rapport gedeeld} repository {Repository gedeeld} request {Aanvraag gedeeld} roadmap {Roadmap gedeeld} site {Site gedeeld} space {Space gedeeld} other {Link gedeeld}}',
   'fabric.elements.share.to.integration.button': 'Delen met {integrationName}',

@@ -6,6 +6,7 @@ import { EventDispatcher, Dispatch } from '../event-dispatcher';
 import { MarkConfig, NodeConfig } from '../types/pm-config';
 import { EditorReactContext } from '../types/editor-react-context';
 import { FeatureFlags } from '../types/feature-flags';
+import { IntlShape } from 'react-intl-next';
 
 export type LightPMPluginFactoryParams = {
   // We can type this safe, we already remove the real code from this types
@@ -20,6 +21,7 @@ export type LightPMPluginFactoryParams = {
   reactContext: () => EditorReactContext;
   dispatchAnalyticsEvent: any;
   featureFlags: FeatureFlags;
+  getIntl: () => IntlShape;
 };
 export type LightPMPluginFactory = (
   params: LightPMPluginFactoryParams,

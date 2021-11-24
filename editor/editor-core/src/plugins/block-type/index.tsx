@@ -1,5 +1,5 @@
 import React from 'react';
-import { InjectedIntl } from 'react-intl';
+import { IntlShape } from 'react-intl-next';
 import { blockquote, hardBreak, heading } from '@atlaskit/adf-schema';
 import { EditorPlugin } from '../../types';
 import { createPlugin, pluginKey } from './pm-plugins/main';
@@ -29,7 +29,7 @@ import { messages } from './messages';
 import { ToolbarSize } from '../../ui/Toolbar/types';
 
 const headingPluginOptions = (
-  { formatMessage }: InjectedIntl,
+  { formatMessage }: IntlShape,
   isAllowed: boolean,
 ): Array<QuickInsertItem> => {
   if (!isAllowed) {
@@ -73,7 +73,7 @@ const headingPluginOptions = (
 };
 
 const blockquotePluginOptions = (
-  { formatMessage }: InjectedIntl,
+  { formatMessage }: IntlShape,
   isAllowed: boolean,
 ): Array<QuickInsertItem> => {
   if (!isAllowed) {

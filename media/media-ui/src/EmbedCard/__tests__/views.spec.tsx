@@ -117,7 +117,7 @@ describe('EmbedCard Views', () => {
   // Same as BlockCard
   describe('view: resolving', () => {
     it('renders view', () => {
-      const { getByTestId } = render(
+      const { getByTestId } = renderWithIntl(
         <BlockCardResolvingView testId="embed-card-resolving-view" />,
       );
       const frame = getByTestId('embed-card-resolving-view');
@@ -127,7 +127,7 @@ describe('EmbedCard Views', () => {
 
   describe('view: unauthorised', () => {
     it('renders view', () => {
-      const { getByTestId, getByText } = render(
+      const { getByTestId, getByText } = renderWithIntl(
         <EmbedCardUnauthorisedView link="" />,
       );
       const view = getByTestId('embed-card-unauthorized-view');
@@ -139,7 +139,9 @@ describe('EmbedCard Views', () => {
 
     it('clicking on link should have no side-effects', () => {
       const props = getResolvedProps({ title: undefined });
-      const { getByTestId } = render(<EmbedCardUnauthorisedView {...props} />);
+      const { getByTestId } = renderWithIntl(
+        <EmbedCardUnauthorisedView {...props} />,
+      );
       const view = getByTestId('embed-card-unauthorized-view');
       const link = view.querySelector('a');
 
@@ -151,7 +153,7 @@ describe('EmbedCard Views', () => {
 
   describe('view: forbidden', () => {
     it('renders view', () => {
-      const { getByTestId, getByText } = render(
+      const { getByTestId, getByText } = renderWithIntl(
         <EmbedCardForbiddenView link="" />,
       );
       const button = getByTestId('button-connect-other-account');
@@ -164,7 +166,9 @@ describe('EmbedCard Views', () => {
 
     it('clicking on link should have no side-effects', () => {
       const props = getResolvedProps({ title: undefined });
-      const { getByTestId } = render(<EmbedCardForbiddenView {...props} />);
+      const { getByTestId } = renderWithIntl(
+        <EmbedCardForbiddenView {...props} />,
+      );
       const view = getByTestId('embed-card-forbidden-view');
       const link = view.querySelector('a');
 
@@ -295,6 +299,7 @@ describe('EmbedCard Views', () => {
           testId="forbidden-view"
         />,
       );
+
       const span = queryByText('Your access request is pending.');
       expect(span).not.toBeNull();
     });
@@ -391,7 +396,7 @@ describe('EmbedCard Views', () => {
 
   describe('view: not found', () => {
     it('renders view', () => {
-      const { getByText } = render(<EmbedCardNotFoundView link="" />);
+      const { getByText } = renderWithIntl(<EmbedCardNotFoundView link="" />);
       const message = getByText("Uh oh. We can't find this link!");
 
       expect(message).toBeTruthy();
@@ -399,7 +404,9 @@ describe('EmbedCard Views', () => {
 
     it('clicking on link should have no side-effects', () => {
       const props = getResolvedProps({ title: undefined });
-      const { getByTestId } = render(<EmbedCardNotFoundView {...props} />);
+      const { getByTestId } = renderWithIntl(
+        <EmbedCardNotFoundView {...props} />,
+      );
       const view = getByTestId('embed-card-not-found-view');
       const link = view.querySelector('a');
 
@@ -411,7 +418,9 @@ describe('EmbedCard Views', () => {
 
   describe('view: errored', () => {
     it('renders view', () => {
-      const { getByTestId } = render(<ErroredView testId="errored-view" />);
+      const { getByTestId } = renderWithIntl(
+        <ErroredView testId="errored-view" />,
+      );
       const frame = getByTestId('errored-view');
       expect(frame.textContent).toBe(
         "We couldn't load this link for an unknown reason.Try again",
@@ -420,7 +429,7 @@ describe('EmbedCard Views', () => {
 
     it('renders view - clicking on retry enacts callback', () => {
       const onRetryMock = jest.fn();
-      const { getByTestId } = render(
+      const { getByTestId } = renderWithIntl(
         <ErroredView testId="errored-view" onRetry={onRetryMock} />,
       );
       const frame = getByTestId('errored-view');

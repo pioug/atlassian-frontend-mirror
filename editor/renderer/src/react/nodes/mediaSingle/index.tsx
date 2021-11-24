@@ -15,7 +15,7 @@ import {
 } from '@atlaskit/editor-shared-styles';
 
 import { Component, default as React, ReactElement } from 'react';
-import { InjectedIntlProps, injectIntl } from 'react-intl';
+import { WrappedComponentProps, injectIntl } from 'react-intl-next';
 import { AnalyticsEventPayload } from '../../../analytics/events';
 import { FullPagePadding } from '../../../ui/Renderer/style';
 import { RendererAppearance } from '../../../ui/Renderer/types';
@@ -80,8 +80,8 @@ export const getMediaContainerWidth = (
     : currentContainerWidth;
 };
 
-class MediaSingle extends Component<Props & InjectedIntlProps, State> {
-  constructor(props: Props & InjectedIntlProps) {
+class MediaSingle extends Component<Props & WrappedComponentProps, State> {
+  constructor(props: Props & WrappedComponentProps) {
     super(props);
     this.state = {}; // Need to initialize with empty state.
   }

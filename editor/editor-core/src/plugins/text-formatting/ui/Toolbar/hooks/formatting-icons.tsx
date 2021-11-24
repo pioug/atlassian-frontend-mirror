@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { FormattedMessage, InjectedIntlProps } from 'react-intl';
+import { MessageDescriptor, WrappedComponentProps } from 'react-intl-next';
 import { Schema } from 'prosemirror-model';
 import { EditorState } from 'prosemirror-state';
 import BoldIcon from '@atlaskit/icon/glyph/editor/bold';
@@ -37,11 +37,11 @@ type BuildIconProps = {
   isToolbarDisabled: boolean;
   textFormattingPluginState: TextFormattingState;
   schema: Schema;
-} & InjectedIntlProps;
+} & WrappedComponentProps;
 
 type IconButtonType = {
   buttonId?: TOOLBAR_ACTION_SUBJECT_ID;
-  message: FormattedMessage.MessageDescriptor;
+  message: MessageDescriptor;
   command: Command;
   tooltipKeymap?: Keymap;
   component?: (props: { label: string }) => React.ReactElement;
@@ -91,7 +91,7 @@ type GetIconProps = {
   iconType: IconTypes;
   isDisabled: boolean;
   isActive: boolean;
-} & InjectedIntlProps;
+} & WrappedComponentProps;
 const getIcon = ({
   iconType,
   isDisabled,

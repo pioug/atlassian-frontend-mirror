@@ -31,8 +31,8 @@ export default (
   eventDispatcher: EventDispatcher,
   providerFactory: ProviderFactory,
   dispatch: Dispatch,
-) =>
-  new Plugin({
+) => {
+  return new Plugin({
     appendTransaction(
       transactions: Transaction[],
       oldState: EditorState,
@@ -68,3 +68,4 @@ export default (
       },
     },
   });
+};

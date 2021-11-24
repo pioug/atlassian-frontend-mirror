@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
+import { FormattedMessage, MessageDescriptor } from 'react-intl-next';
 import Avatar from '@atlaskit/avatar';
 
 import { contentPreviewMessages } from '../../messages';
@@ -32,8 +32,8 @@ export class DeleteUserContentPreviewScreen extends React.Component<
   };
 
   selectAdminOrSelfCopy = (
-    adminCopy: FormattedMessage.MessageDescriptor,
-    selfCopy: FormattedMessage.MessageDescriptor,
+    adminCopy: MessageDescriptor,
+    selfCopy: MessageDescriptor,
   ) => {
     return this.props.isCurrentUser ? selfCopy : adminCopy;
   };
@@ -87,7 +87,7 @@ export class DeleteUserContentPreviewScreen extends React.Component<
               <FormattedMessage {...contentPreviewMessages.formerUser} />
             </Styled.UserDetails>
           </Styled.SectionCard>
-          <FormattedHTMLMessage
+          <FormattedMessage
             {...this.selectAdminOrSelfCopy(
               contentPreviewMessages.footnoteAdmin,
               contentPreviewMessages.footnoteSelf,

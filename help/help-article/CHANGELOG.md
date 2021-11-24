@@ -1,5 +1,17 @@
 # @atlaskit/help-article
 
+## 4.0.9
+
+### Patch Changes
+
+- [`360ccde3275`](https://bitbucket.org/atlassian/atlassian-frontend/commits/360ccde3275) - [ux] Open all links in a new tab
+
+## 4.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.0.7
 
 ### Patch Changes

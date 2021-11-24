@@ -1,5 +1,9 @@
 import React from 'react';
-import { defineMessages, injectIntl, InjectedIntlProps } from 'react-intl';
+import {
+  defineMessages,
+  injectIntl,
+  WrappedComponentProps,
+} from 'react-intl-next';
 
 import PanelTextInput from '../../../../ui/PanelTextInput';
 import FloatingToolbar, {
@@ -31,7 +35,7 @@ export interface Props {
 }
 
 class PlaceholderFloatingToolbar extends React.Component<
-  Props & InjectedIntlProps
+  Props & WrappedComponentProps
 > {
   handleSubmit = (value?: string) => {
     if (value) {

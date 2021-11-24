@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 
 import { Provider, Client } from '../../src';
-import { IntlProvider } from 'react-intl';
+import { IntlProvider } from 'react-intl-next';
 import { N200 } from '@atlaskit/theme/colors';
 import { ProviderCategory } from './ProviderCategory';
 import { ShowcaseMenu } from './Menu';

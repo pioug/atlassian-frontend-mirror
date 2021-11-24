@@ -1,6 +1,6 @@
 import React from 'react';
 import { PureComponent } from 'react';
-import { injectIntl, InjectedIntlProps } from 'react-intl';
+import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 import { EditorView } from 'prosemirror-view';
 import BulletListIcon from '@atlaskit/icon/glyph/editor/bullet-list';
 import NumberListIcon from '@atlaskit/icon/glyph/editor/number-list';
@@ -45,7 +45,7 @@ export interface State {
   isDropdownOpen: boolean;
 }
 
-class ToolbarLists extends PureComponent<Props & InjectedIntlProps, State> {
+class ToolbarLists extends PureComponent<Props & WrappedComponentProps, State> {
   state: State = {
     isDropdownOpen: false,
   };

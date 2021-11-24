@@ -1,10 +1,10 @@
 import React from 'react';
-import { injectIntl, InjectedIntlProps } from 'react-intl';
+import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 import { gridSize } from '@atlaskit/theme/constants';
 
 import { messages } from '../../../../messages';
 
-import { LoadingRectangle, LoadingCircle } from '../../../../util/styled';
+import { LoadingRectangle } from '../../../../util/styled';
 
 import {
   LoadignWhatsNewResultsList,
@@ -13,11 +13,16 @@ import {
 
 import { WhatsNewResultsListTitleContainer } from '../styled';
 
-export const WhatsNewResultsLoading: React.FC<InjectedIntlProps> = ({
+export const WhatsNewResultsLoading: React.FC<WrappedComponentProps> = ({
   intl: { formatMessage },
 }) => {
   return (
     <>
+      <LoadingRectangle
+        contentHeight={`${gridSize() * 5}px`}
+        contentWidth="152px"
+        marginTop="0"
+      />
       <LoadignWhatsNewResultsList
         aria-label={formatMessage(messages.help_loading)}
         role="img"
@@ -31,7 +36,16 @@ export const WhatsNewResultsLoading: React.FC<InjectedIntlProps> = ({
         </WhatsNewResultsListTitleContainer>
 
         <LoadignWhatsNewResultsListItem>
-          <LoadingCircle />
+          <LoadingRectangle
+            style={{
+              display: 'inline-block',
+              verticalAlign: 'middle',
+              position: 'relative',
+            }}
+            contentHeight="16px"
+            contentWidth="16px"
+            marginTop="4px"
+          />
           <LoadingRectangle
             style={{
               marginLeft: `${gridSize()}px`,
@@ -45,7 +59,16 @@ export const WhatsNewResultsLoading: React.FC<InjectedIntlProps> = ({
         </LoadignWhatsNewResultsListItem>
 
         <LoadignWhatsNewResultsListItem>
-          <LoadingCircle />
+          <LoadingRectangle
+            style={{
+              display: 'inline-block',
+              verticalAlign: 'middle',
+              position: 'relative',
+            }}
+            contentHeight="16px"
+            contentWidth="16px"
+            marginTop="4px"
+          />
           <LoadingRectangle
             style={{
               marginLeft: `${gridSize()}px`,
@@ -67,7 +90,16 @@ export const WhatsNewResultsLoading: React.FC<InjectedIntlProps> = ({
         </WhatsNewResultsListTitleContainer>
 
         <LoadignWhatsNewResultsListItem>
-          <LoadingCircle />
+          <LoadingRectangle
+            style={{
+              display: 'inline-block',
+              verticalAlign: 'middle',
+              position: 'relative',
+            }}
+            contentHeight="16px"
+            contentWidth="16px"
+            marginTop="4px"
+          />
           <LoadingRectangle
             style={{
               marginLeft: `${gridSize()}px`,
@@ -81,7 +113,16 @@ export const WhatsNewResultsLoading: React.FC<InjectedIntlProps> = ({
         </LoadignWhatsNewResultsListItem>
 
         <LoadignWhatsNewResultsListItem>
-          <LoadingCircle />
+          <LoadingRectangle
+            style={{
+              display: 'inline-block',
+              verticalAlign: 'middle',
+              position: 'relative',
+            }}
+            contentHeight="16px"
+            contentWidth="16px"
+            marginTop="4px"
+          />
           <LoadingRectangle
             style={{
               marginLeft: `${gridSize()}px`,

@@ -1,6 +1,6 @@
 jest.mock('../../../plugins/text-formatting/pm-plugins/input-rule');
 import React from 'react';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
 import { ProviderFactory } from '@atlaskit/editor-common';
 import ReactEditorView from '../../ReactEditorView';
 import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';

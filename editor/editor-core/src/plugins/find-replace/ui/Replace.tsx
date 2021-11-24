@@ -3,7 +3,11 @@ import React from 'react';
 import { jsx } from '@emotion/core';
 
 import Button from '@atlaskit/button/standard-button';
-import { defineMessages, InjectedIntlProps, injectIntl } from 'react-intl';
+import {
+  defineMessages,
+  WrappedComponentProps,
+  injectIntl,
+} from 'react-intl-next';
 import Textfield from '@atlaskit/textfield';
 import { sectionWrapperStyles, replaceSectionButtonStyles } from './styles';
 import {
@@ -57,7 +61,7 @@ const messages = defineMessages({
 });
 
 class Replace extends React.PureComponent<
-  ReplaceProps & InjectedIntlProps,
+  ReplaceProps & WrappedComponentProps,
   ReplaceState
 > {
   state: ReplaceState;
@@ -67,7 +71,7 @@ class Replace extends React.PureComponent<
   private replace: string;
   private replaceAll: string;
 
-  constructor(props: ReplaceProps & InjectedIntlProps) {
+  constructor(props: ReplaceProps & WrappedComponentProps) {
     super(props);
 
     const {
@@ -88,7 +92,7 @@ class Replace extends React.PureComponent<
 
   componentDidUpdate({
     replaceText: prevReplaceText,
-  }: ReplaceProps & InjectedIntlProps) {
+  }: ReplaceProps & WrappedComponentProps) {
     const { replaceText } = this.props;
     if (replaceText && replaceText !== prevReplaceText) {
       this.setState({ replaceText, isComposing: false });

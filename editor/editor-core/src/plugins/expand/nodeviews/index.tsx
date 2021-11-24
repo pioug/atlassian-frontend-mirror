@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { InjectedIntl } from 'react-intl';
+import { IntlShape } from 'react-intl-next';
 import { EditorView, NodeView, Decoration } from 'prosemirror-view';
 import { Selection, NodeSelection } from 'prosemirror-state';
 import { ExpandIconButton } from '../ui/ExpandIconButton';
@@ -37,7 +37,7 @@ function buildExpandClassName(type: string, expanded: boolean) {
   }`;
 }
 
-const toDOM = (node: PmNode, intl?: InjectedIntl): DOMOutputSpec => [
+const toDOM = (node: PmNode, intl?: IntlShape): DOMOutputSpec => [
   'div',
   {
     // prettier-ignore
@@ -83,9 +83,6 @@ const toDOM = (node: PmNode, intl?: InjectedIntl): DOMOutputSpec => [
   ['div', { 'class': expandClassNames.content }, 0],
 ];
 
-type ReactContext = { [key: string]: any } | undefined;
-type ReactContextFn = () => ReactContext;
-
 export class ExpandNodeView implements NodeView {
   node: PmNode;
   view: EditorView;
@@ -97,19 +94,19 @@ export class ExpandNodeView implements NodeView {
   content?: HTMLElement | null;
   getPos: getPosHandlerNode;
   pos: number;
-  reactContext: ReactContext;
+  intl: IntlShape;
   allowInteractiveExpand: boolean = true;
 
   constructor(
     node: PmNode,
     view: EditorView,
     getPos: getPosHandlerNode,
-    reactContext: ReactContextFn,
+    getIntl: () => IntlShape,
   ) {
-    this.reactContext = reactContext() || {};
+    this.intl = getIntl();
     const { dom, contentDOM } = DOMSerializer.renderSpec(
       document,
-      toDOM(node, this.reactContext.intl),
+      toDOM(node, this.intl),
     );
     this.getPos = getPos;
     this.pos = getPos();
@@ -129,7 +126,7 @@ export class ExpandNodeView implements NodeView {
     this.content = this.dom.querySelector<HTMLElement>(
       `.${expandClassNames.content}`,
     );
-    this.renderIcon(this.reactContext.intl);
+    this.renderIcon(this.intl);
 
     this.initHandlers();
   }
@@ -176,7 +173,7 @@ export class ExpandNodeView implements NodeView {
     }
   };
 
-  private renderIcon(intl?: InjectedIntl, node?: PmNode) {
+  private renderIcon(intl?: IntlShape, node?: PmNode) {
     if (!this.icon) {
       return;
     }
@@ -184,6 +181,7 @@ export class ExpandNodeView implements NodeView {
     const { __expanded } = (node && node.attrs) || this.node.attrs;
     ReactDOM.render(
       <ExpandIconButton
+        intl={intl}
         allowInteractiveExpand={this.isAllowInteractiveExpandEnabled()}
         expanded={__expanded}
       ></ExpandIconButton>,
@@ -434,7 +432,7 @@ export class ExpandNodeView implements NodeView {
         // we toggle a class name to hide the content and animate the chevron.
         if (this.dom) {
           this.dom.classList.toggle(expandClassNames.expanded);
-          this.renderIcon(this.reactContext && this.reactContext.intl, node);
+          this.renderIcon(this && this.intl, node);
         }
 
         if (this.content) {
@@ -485,7 +483,7 @@ export class ExpandNodeView implements NodeView {
   }
 }
 
-export default function (reactContext: ReactContextFn) {
+export default function (getIntl: () => IntlShape) {
   return (node: PmNode, view: EditorView, getPos: getPosHandler): NodeView =>
-    new ExpandNodeView(node, view, getPos as getPosHandlerNode, reactContext);
+    new ExpandNodeView(node, view, getPos as getPosHandlerNode, getIntl);
 }

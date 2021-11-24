@@ -1,6 +1,6 @@
 import { shallow } from 'enzyme';
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl-next';
 import { ShareHeader, FormHeaderTitle } from '../../../components/ShareHeader';
 import { messages } from '../../../i18n';
 

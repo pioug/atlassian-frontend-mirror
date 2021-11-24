@@ -4,6 +4,7 @@ import EmojiUploadPicker from '../src/components/common/EmojiUploadPicker';
 
 import { emojiPickerWidth } from '../src/util/constants';
 import { onUploadEmoji, onUploadCancelled } from '../example-helpers';
+import { IntlProvider } from 'react-intl-next';
 
 const defaultStyles = {
   width: emojiPickerWidth,
@@ -13,11 +14,13 @@ const defaultStyles = {
 
 export default function Example() {
   return (
-    <div style={defaultStyles}>
-      <EmojiUploadPicker
-        onUploadEmoji={onUploadEmoji}
-        onUploadCancelled={onUploadCancelled}
-      />
-    </div>
+    <IntlProvider locale="en">
+      <div style={defaultStyles}>
+        <EmojiUploadPicker
+          onUploadEmoji={onUploadEmoji}
+          onUploadCancelled={onUploadCancelled}
+        />
+      </div>
+    </IntlProvider>
   );
 }

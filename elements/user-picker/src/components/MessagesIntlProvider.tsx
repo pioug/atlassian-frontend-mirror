@@ -1,9 +1,9 @@
 import React, { useMemo } from 'react';
-import { IntlProvider, injectIntl, InjectedIntl } from 'react-intl';
+import { IntlProvider, injectIntl, IntlShape } from 'react-intl-next';
 import { getMessagesForLocale } from '../util/i18n-util';
 
 export interface MessagesIntlProviderProps {
-  intl: InjectedIntl;
+  intl: IntlShape;
 }
 
 const EMPTY: Record<string, string> = {};
@@ -36,14 +36,18 @@ const useI18n = (locale: string): Record<string, string> => {
 const MessagesIntlProvider: React.FC<MessagesIntlProviderProps> = (props) => {
   const { intl, children } = props;
   const messages = useI18n(intl.locale);
-  const mergedMessages = useMemo(() => {
+  const mergedMessages = useMemo<Record<string, string>>(() => {
     return {
-      ...intl.messages,
+      ...(intl.messages as Record<string, string>),
       ...messages,
     };
   }, [intl.messages, messages]);
 
-  return <IntlProvider messages={mergedMessages}>{children}</IntlProvider>;
+  return (
+    <IntlProvider locale={intl.locale} messages={mergedMessages}>
+      {children}
+    </IntlProvider>
+  );
 };
 
 export default injectIntl(MessagesIntlProvider);

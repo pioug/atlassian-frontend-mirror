@@ -1,7 +1,7 @@
 import React from 'react';
-import { InjectedIntlProps } from 'react-intl';
+import { WrappedComponentProps } from 'react-intl-next';
 import { ReactWrapper } from 'enzyme';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
 import { mockAddEventListener } from '@atlaskit/editor-test-helpers/mock-add-event-listener';
 
 import FindReplaceToolbarButton, {
@@ -11,10 +11,10 @@ import FindReplace from '../../../ui/FindReplace';
 
 describe('FindReplaceToolbarButton', () => {
   let findReplaceToolbarButton: ReactWrapper<
-    FindReplaceToolbarButtonProps & InjectedIntlProps
+    FindReplaceToolbarButtonProps & WrappedComponentProps
   >;
   const mountComponent = (props: Partial<FindReplaceToolbarButtonProps> = {}) =>
-    mountWithIntl<FindReplaceToolbarButtonProps & InjectedIntlProps, any>(
+    mountWithIntl<FindReplaceToolbarButtonProps & WrappedComponentProps, any>(
       <FindReplaceToolbarButton
         findText=""
         index={0}

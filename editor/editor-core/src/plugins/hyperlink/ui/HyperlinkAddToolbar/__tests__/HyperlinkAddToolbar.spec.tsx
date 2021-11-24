@@ -12,7 +12,7 @@ import Blog16Icon from '@atlaskit/icon-object/glyph/blog/16';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import LinkSearchListItem from '../../../../../ui/LinkSearch/LinkSearchListItem';
 import LinkSearchList from '../../../../../ui/LinkSearch/LinkSearchList';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
 import {
   activityProviderMockResults,
   generateActivityProviderMockResults,
@@ -1685,9 +1685,9 @@ describe('HyperlinkLinkAddToolbar', () => {
 
       const mousedown = eventListenerMap.mousedown as EventListener;
 
-      mousedown({
+      mousedown(({
         target: component.instance(),
-      } as Event);
+      } as unknown) as Event);
 
       expect(spyHideLinkToolbar).not.toBeCalled();
     });

@@ -37,16 +37,11 @@ const WhatsNewResultsList: React.FC<
       const featureRolloutDateString = whatsNewArticle?.featureRolloutDate;
 
       if (featureRolloutDateString) {
-        const featureRolloutDateArray = featureRolloutDateString
-          .split('-')
-          .map((dateValue) => parseInt(dateValue));
-        const featureRolloutDate = toDate(
-          new Date(
-            featureRolloutDateArray[0],
-            featureRolloutDateArray[1],
-            featureRolloutDateArray[2],
-          ),
+        const featureRolloutDateArray = featureRolloutDateString.replace(
+          '-',
+          '/',
         );
+        const featureRolloutDate = toDate(new Date(featureRolloutDateArray));
 
         if (whatsNewArticlesGroupedByDateTemp[featureRolloutDateString]) {
           whatsNewArticlesGroupedByDateTemp[
@@ -58,7 +53,7 @@ const WhatsNewResultsList: React.FC<
               ? 'Today'
               : isYesterday(featureRolloutDate)
               ? 'Yesterday'
-              : formatDate(featureRolloutDate, 'PPPP'),
+              : formatDate(featureRolloutDate, 'EEEE, MMMM dd, yyyy'),
             items: [whatsNewArticle],
           };
         }

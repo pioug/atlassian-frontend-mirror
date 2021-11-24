@@ -1,5 +1,5 @@
 import React from 'react';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
 // AFP-2532 TODO: Fix automatic suppressions below
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { colors } from '@atlaskit/theme';
@@ -74,9 +74,10 @@ describe('color-picker-button', () => {
     // make sure the popup and picker are shown
     expect(wrapper.find('Popup')).toHaveLength(1);
 
-    const colorPalette = wrapper.find('InjectIntl(ColorPalette)').instance();
+    const colorPalette = wrapper.find('ColorPalette');
+
     act(() => {
-      (colorPalette.props as any).handleClickOutside();
+      (colorPalette.props as any)().handleClickOutside();
     });
 
     wrapper.update();

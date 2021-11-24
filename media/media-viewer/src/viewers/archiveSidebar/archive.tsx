@@ -15,7 +15,7 @@ import { InteractiveImg } from '../image/interactive-img';
 import { CustomMediaPlayer, messages } from '@atlaskit/media-ui';
 import { PDFRenderer } from '../doc/pdfRenderer';
 import { unzip, ZipInfo, ZipEntry, HTTPRangeReader, Reader } from 'unzipit';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl-next';
 import {
   ArchiveItemViewerWrapper,
   ArchiveLayout,

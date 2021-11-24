@@ -5,6 +5,7 @@ jest.mock('../../../analytics/events/operational/previewUnsupported', () => ({
   createPreviewUnsupportedEvent: jest.fn(),
 }));
 import React from 'react';
+import { IntlProvider } from 'react-intl-next';
 import { mount } from 'enzyme';
 import { ErrorMessage } from '../../../errorMessage';
 import { MediaViewerError } from '../../../errors';
@@ -23,13 +24,15 @@ describe('Error Message', () => {
   describe('Mapping error reason to message text', () => {
     it('should map error reason to translated message', () => {
       const el = mount(
-        <ErrorMessage
-          fileId="some-id"
-          intl={fakeIntl}
-          error={
-            new MediaViewerError('itemviewer-file-failed-processing-status')
-          }
-        />,
+        <IntlProvider locale="en">
+          <ErrorMessage
+            fileId="some-id"
+            intl={fakeIntl}
+            error={
+              new MediaViewerError('itemviewer-file-failed-processing-status')
+            }
+          />
+        </IntlProvider>,
       );
       expect(el.text()).toContain(
         i18nMessages.image_format_invalid_error.defaultMessage,
@@ -39,13 +42,15 @@ describe('Error Message', () => {
 
   it('should render a child component', () => {
     const el = mount(
-      <ErrorMessage
-        intl={fakeIntl}
-        fileId="some-id"
-        error={new MediaViewerError('unsupported')}
-      >
-        <Button />
-      </ErrorMessage>,
+      <IntlProvider locale="en">
+        <ErrorMessage
+          intl={fakeIntl}
+          fileId="some-id"
+          error={new MediaViewerError('unsupported')}
+        >
+          <Button />
+        </ErrorMessage>
+      </IntlProvider>,
     );
     expect(el.find(Button)).toHaveLength(1);
   });
@@ -69,14 +74,16 @@ describe('Error Message', () => {
       const error = new MediaViewerError('unsupported');
 
       mount(
-        <ErrorMessage
-          intl={fakeIntl}
-          fileId="some-id"
-          error={error}
-          fileState={fileState}
-        >
-          <Button />
-        </ErrorMessage>,
+        <IntlProvider locale="en">
+          <ErrorMessage
+            intl={fakeIntl}
+            fileId="some-id"
+            error={error}
+            fileState={fileState}
+          >
+            <Button />
+          </ErrorMessage>
+        </IntlProvider>,
       );
       expect(createPreviewUnsupportedEvent).toHaveBeenCalledWith(fileState);
       expect(createLoadFailedEvent).not.toHaveBeenCalled();
@@ -85,14 +92,16 @@ describe('Error Message', () => {
     it('should trigger load fail event when displayed if error reason not "unsupported"', () => {
       const error = new MediaViewerError('imageviewer-fetch-url');
       mount(
-        <ErrorMessage
-          intl={fakeIntl}
-          fileId={smallImageFileId.id}
-          error={error}
-          fileState={fileState}
-        >
-          <Button />
-        </ErrorMessage>,
+        <IntlProvider locale="en">
+          <ErrorMessage
+            intl={fakeIntl}
+            fileId={smallImageFileId.id}
+            error={error}
+            fileState={fileState}
+          >
+            <Button />
+          </ErrorMessage>
+        </IntlProvider>,
       );
       expect(createLoadFailedEvent).toHaveBeenCalledWith(
         smallImageFileId.id,
@@ -106,15 +115,17 @@ describe('Error Message', () => {
       jest.resetAllMocks();
       const error = new MediaViewerError('imageviewer-fetch-url');
       mount(
-        <ErrorMessage
-          intl={fakeIntl}
-          fileId={smallImageFileId.id}
-          error={error}
-          fileState={fileState}
-          supressAnalytics={true}
-        >
-          <Button />
-        </ErrorMessage>,
+        <IntlProvider locale="en">
+          <ErrorMessage
+            intl={fakeIntl}
+            fileId={smallImageFileId.id}
+            error={error}
+            fileState={fileState}
+            supressAnalytics={true}
+          >
+            <Button />
+          </ErrorMessage>
+        </IntlProvider>,
       );
       expect(createLoadFailedEvent).not.toHaveBeenCalled();
       expect(createPreviewUnsupportedEvent).not.toHaveBeenCalled();

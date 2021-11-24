@@ -7,7 +7,7 @@ import { fontSize } from '@atlaskit/theme/constants';
 
 import { Frame } from '../components/Frame';
 import { gs } from '../utils';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl-next';
 import { messages } from '../../messages';
 
 export interface ResolvingProps {

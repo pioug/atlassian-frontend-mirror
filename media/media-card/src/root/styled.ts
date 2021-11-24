@@ -64,3 +64,5 @@ export const InlinePlayerWrapper = styled.div<InlinePlayerWrapper>`
 `;
 
 InlinePlayerWrapper.displayName = 'InlinePlayerWrapper';
+
+export const FormattedMessageWrapper = styled.span``;

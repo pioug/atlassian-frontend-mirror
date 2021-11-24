@@ -1,7 +1,6 @@
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import Select from '@atlaskit/select';
-import { ReactWrapper } from 'enzyme';
-import { mountWithIntl, shallowWithIntl } from 'enzyme-react-intl';
+import { mount, shallow, ReactWrapper } from 'enzyme';
 import debounce from 'lodash/debounce';
 import React from 'react';
 import {
@@ -27,6 +26,20 @@ import {
   Value,
   ExternalUser,
 } from '../../../types';
+
+const mockFormatMessage = (descriptor: any) => descriptor.defaultMessage;
+const mockIntl = { formatMessage: mockFormatMessage };
+jest.mock('react-intl-next', () => {
+  return {
+    ...(jest.requireActual('react-intl-next') as any),
+    FormattedMessage: (descriptor: any) => (
+      <span>{descriptor.defaultMessage}</span>
+    ),
+    injectIntl: (Node: any) => (props: any) => (
+      <Node {...props} intl={mockIntl} />
+    ),
+  };
+});
 
 const ID_1 = '111111111111111111111111';
 const ID_2 = '111111111111111111111110';
@@ -58,7 +71,7 @@ const getBasePickerWithAnalytics = getBasePicker(BaseUserPicker);
 
 describe('BaseUserPicker', () => {
   const shallowUserPicker = (props: Partial<UserPickerProps> = {}) =>
-    shallowWithIntl(getBasePickerWithoutAnalytics(props));
+    shallow(getBasePickerWithoutAnalytics(props));
 
   const options: User[] = [
     {
@@ -553,9 +566,7 @@ describe('BaseUserPicker', () => {
 
       it('should pass sessionId to load option', () => {
         const loadOptions = jest.fn(() => Promise.resolve(options));
-        const component = mountWithIntl(
-          getBasePickerWithoutAnalytics({ loadOptions }),
-        );
+        const component = mount(getBasePickerWithoutAnalytics({ loadOptions }));
         const input = component.find('input');
         input.simulate('focus');
         expect(loadOptions).toHaveBeenCalledWith(
@@ -595,7 +606,7 @@ describe('BaseUserPicker', () => {
       test.each(testData)(
         'should pass session id %s',
         ({ callback, payload, prop, propParams = [] }) => {
-          const component = mountWithIntl(
+          const component = mount(
             getBasePickerWithAnalytics({ [prop]: callback, open: true }),
           );
           const input = component.find(Select);
@@ -606,7 +617,7 @@ describe('BaseUserPicker', () => {
 
       it('should pass session id on select when it starts opened', () => {
         const onSelection = jest.fn();
-        const component = mountWithIntl(
+        const component = mount(
           getBasePickerWithAnalytics({ onSelection, open: true }),
         );
         const input = component.find(Select);
@@ -621,9 +632,7 @@ describe('BaseUserPicker', () => {
 
       it('should pass session id on focus before open', () => {
         const onFocus = jest.fn();
-        const component = mountWithIntl(
-          getBasePickerWithAnalytics({ onFocus }),
-        );
+        const component = mount(getBasePickerWithAnalytics({ onFocus }));
         const input = component.find('input');
         input.simulate('focus');
         expect(onFocus).toHaveBeenCalledWith('random-session-id');
@@ -634,9 +643,7 @@ describe('BaseUserPicker', () => {
           .mockReturnValueOnce({ id: 'session-first' })
           .mockReturnValueOnce({ id: 'session-second' });
         const onFocus = jest.fn();
-        const component = mountWithIntl(
-          getBasePickerWithAnalytics({ onFocus }),
-        );
+        const component = mount(getBasePickerWithAnalytics({ onFocus }));
         const input = component.find('input');
         input.simulate('focus');
         await component.update();
@@ -651,7 +658,7 @@ describe('BaseUserPicker', () => {
           .mockReturnValueOnce({ id: 'session-first' })
           .mockReturnValueOnce({ id: 'session-second' });
         const onFocus = jest.fn();
-        const component = mountWithIntl(
+        const component = mount(
           getBasePickerWithAnalytics({ onFocus, open: false }),
         );
         const input = component.find('input');
@@ -1042,7 +1049,7 @@ describe('BaseUserPicker', () => {
       let component: ReactWrapper;
 
       beforeEach(() => {
-        component = mountWithIntl(<AnalyticsTestComponent />);
+        component = mount(<AnalyticsTestComponent />);
       });
 
       afterEach(() => {
@@ -1237,9 +1244,10 @@ describe('BaseUserPicker', () => {
       });
 
       it('should trigger deleted event', () => {
-        component.setProps({ isMulti: true });
-        const input = component.find('input');
-        input.simulate('focus');
+        component = mount(
+          <AnalyticsTestComponent value={[emailValue]} isMulti />,
+        );
+        component.find(Select).prop('onFocus')();
         component.find(Select).prop('onChange')([], {
           action: 'remove-value',
           removedValue: optionToSelectableOption(options[0]),
@@ -1266,12 +1274,11 @@ describe('BaseUserPicker', () => {
       });
 
       it('should trigger deleted event with email id set to null', () => {
-        component.setProps({ isMulti: true });
-        component = mountWithIntl(
-          <AnalyticsTestComponent value={[emailValue]} />,
+        component = mount(
+          <AnalyticsTestComponent value={[emailValue]} isMulti />,
         );
-        const input = component.find('input');
-        input.simulate('focus');
+        component.setProps({ isMulti: true });
+        component.find(Select).prop('onFocus')();
         component.find(Select).prop('onChange')([], {
           action: 'remove-value',
           removedValue: optionToSelectableOption(emailValue),
@@ -1292,8 +1299,7 @@ describe('BaseUserPicker', () => {
 
       it('should not trigger deleted event if there was no removed value', () => {
         component.setProps({ isMulti: true });
-        const input = component.find('input');
-        input.simulate('focus');
+        component.find(Select).prop('onFocus')();
         component.find(Select).prop('onChange')([], {
           action: 'pop-value',
           removedValue: undefined,
@@ -1339,9 +1345,7 @@ describe('BaseUserPicker', () => {
       });
 
       it('should set emailId to null for focused event', async () => {
-        component = mountWithIntl(
-          <AnalyticsTestComponent value={emailValue} />,
-        );
+        component = mount(<AnalyticsTestComponent value={emailValue} />);
         component.setProps({
           open: true,
         });
@@ -1540,8 +1544,7 @@ describe('BaseUserPicker', () => {
               .mockReturnValueOnce({ id: mockSessionId })
               .mockReturnValue({ id: 'random-id' });
             component.setProps({ isMulti: true });
-            const input = component.find('input');
-            input.simulate('focus');
+            component.find(Select).prop('onFocus')();
 
             await Promise.resolve();
             expect(onEvent).toHaveBeenCalledTimes(1);
@@ -1559,11 +1562,9 @@ describe('BaseUserPicker', () => {
             analyticsSpy
               .mockReturnValueOnce({ id: firstMockSessionId })
               .mockReturnValueOnce({ id: secondMockSessionId });
-            component.setProps({ isMulti: true });
-            const input = component.find('input');
-            input.simulate('focus');
-            input.simulate('blur');
-            input.simulate('focus');
+            component.find(Select).prop('onFocus')();
+            component.find(Select).prop('onBlur')();
+            component.find(Select).prop('onFocus')();
 
             await Promise.resolve();
             expect(onEvent).toHaveBeenCalledTimes(3);
@@ -1599,9 +1600,7 @@ describe('BaseUserPicker', () => {
               .mockReturnValueOnce({ id: firstMockSessionId })
               .mockReturnValue({ id: secondMockSessionId });
             component.setProps({ isMulti: true, options });
-            const input = component.find('input');
-            input.simulate('focus');
-
+            component.find(Select).prop('onFocus')();
             component.find(Select).prop('onChange')(
               optionToSelectableOption(options[0]),
               {

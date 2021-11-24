@@ -17,6 +17,7 @@ import * as ufoWrapper from '../../../state/analytics/ufoExperiences';
 import 'jest-extended';
 import { JestFunction } from '@atlaskit/media-test-helpers';
 import uuid from 'uuid';
+import { IntlProvider } from 'react-intl-next';
 
 describe('smart-card: unauthorized analytics', () => {
   let mockClient: CardClient;
@@ -49,9 +50,15 @@ describe('smart-card: unauthorized analytics', () => {
       const mockUrl = 'https://https://this.is.a.url';
       mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
       const { getByTestId, container } = render(
-        <Provider client={mockClient}>
-          <Card testId="unauthorizedCard1" appearance="inline" url={mockUrl} />
-        </Provider>,
+        <IntlProvider locale="en">
+          <Provider client={mockClient}>
+            <Card
+              testId="unauthorizedCard1"
+              appearance="inline"
+              url={mockUrl}
+            />
+          </Provider>
+        </IntlProvider>,
       );
       const unauthorizedLink = await waitForElement(
         () => getByTestId('unauthorizedCard1-unauthorized-view'),
@@ -113,13 +120,15 @@ describe('smart-card: unauthorized analytics', () => {
         const mockUrl = 'https://https://this.is.the.second.url';
         mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
         const { getByTestId, container } = render(
-          <Provider client={mockClient}>
-            <Card
-              testId="unauthorizedCard2"
-              appearance="inline"
-              url={mockUrl}
-            />
-          </Provider>,
+          <IntlProvider locale="en">
+            <Provider client={mockClient}>
+              <Card
+                testId="unauthorizedCard2"
+                appearance="inline"
+                url={mockUrl}
+              />
+            </Provider>
+          </IntlProvider>,
         );
         const unauthorizedLink = await waitForElement(
           () => getByTestId('unauthorizedCard2-unauthorized-view'),
@@ -177,9 +186,15 @@ describe('smart-card: unauthorized analytics', () => {
       const mockUrl = 'https://https://this.is.the.third.url';
       mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
       const { getByTestId, container } = render(
-        <Provider client={mockClient}>
-          <Card testId="unauthorizedCard3" appearance="inline" url={mockUrl} />
-        </Provider>,
+        <IntlProvider locale="en">
+          <Provider client={mockClient}>
+            <Card
+              testId="unauthorizedCard3"
+              appearance="inline"
+              url={mockUrl}
+            />
+          </Provider>
+        </IntlProvider>,
       );
       const unauthorizedLink = await waitForElement(
         () => getByTestId('unauthorizedCard3-unauthorized-view'),

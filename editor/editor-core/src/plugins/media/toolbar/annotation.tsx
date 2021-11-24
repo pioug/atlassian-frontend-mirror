@@ -3,7 +3,7 @@ import AnnotateIcon from '@atlaskit/icon/glyph/media-services/annotate';
 import { MediaClientConfig } from '@atlaskit/media-core';
 import { getMediaClient } from '@atlaskit/media-client';
 import { EditorView } from 'prosemirror-view';
-import { InjectedIntl } from 'react-intl';
+import { IntlShape } from 'react-intl-next';
 
 import { Command } from '../../../types';
 import Button from '../../floating-toolbar/ui/Button';
@@ -59,7 +59,7 @@ type AnnotationToolbarProps = {
   viewMediaClientConfig: MediaClientConfig;
   id: string;
   collection?: string;
-  intl: InjectedIntl;
+  intl: IntlShape;
   view?: EditorView;
 };
 
@@ -131,7 +131,7 @@ export class AnnotationToolbar extends React.Component<AnnotationToolbarProps> {
 
 export const renderAnnotationButton = (
   pluginState: MediaPluginState,
-  intl: InjectedIntl,
+  intl: IntlShape,
 ) => {
   return (view?: EditorView, idx?: number) => {
     const selectedContainer = pluginState.selectedMediaContainerNode();

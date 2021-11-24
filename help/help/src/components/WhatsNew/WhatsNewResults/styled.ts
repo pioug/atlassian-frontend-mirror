@@ -22,7 +22,7 @@ export const SelectContainer = styled.div`
 `;
 
 export const WhatsNewResultsListContainer = styled.div`
-  padding-top: ${gridSize() * 2}px;
+  padding-top: ${gridSize()}px;
 `;
 
 export const WhatsNewResultsListTitleContainer = styled.div`

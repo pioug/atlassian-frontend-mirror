@@ -35,6 +35,7 @@ import {
 } from '../../../root/inlinePlayer';
 import { CardLoading } from '../../../utils/lightCards/cardLoading';
 import { InlinePlayerWrapper } from '../../../root/styled';
+import { WrappedComponentProps } from 'react-intl-next';
 
 const defaultFileState: FileState = {
   status: 'processed',
@@ -100,7 +101,10 @@ describe('<InlinePlayer />', () => {
     };
   };
   const update = async (
-    component: ReactWrapper<InlinePlayerProps, InlinePlayerState>,
+    component: ReactWrapper<
+      InlinePlayerProps & WrappedComponentProps,
+      InlinePlayerState
+    >,
   ) => {
     await new Promise((resolve) => window.setTimeout(resolve));
     component.update();

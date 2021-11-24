@@ -2,7 +2,7 @@ import React from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { render, fireEvent } from '@testing-library/react';
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
-import { IntlProvider } from 'react-intl';
+import { createIntl, createIntlCache } from 'react-intl-next';
 
 import { getMockWhatsNewArticleItem } from '../../../../../../../util/testing/mock';
 
@@ -10,8 +10,15 @@ import { WhatsNewResultListItem } from '../../index';
 import { messages } from '../../../../../../../messages';
 import { WHATS_NEW_ITEM_TYPES } from '../../../../../../../model/WhatsNew';
 
-const intlProvider = new IntlProvider({ locale: 'en' });
-const { intl } = intlProvider.getChildContext();
+// Messages
+const cache = createIntlCache();
+const intl = createIntl(
+  {
+    locale: 'en',
+    messages: {},
+  },
+  cache,
+);
 const messageTypeWhatsNewNewFeature = intl.formatMessage(
   messages.help_whats_new_filter_select_option_new,
 );

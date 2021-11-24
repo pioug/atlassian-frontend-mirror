@@ -1,5 +1,5 @@
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
 import {
   doc,
   p,

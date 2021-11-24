@@ -1,7 +1,7 @@
 import * as colors from '@atlaskit/theme/colors';
 import { shallow } from 'enzyme';
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl-next';
 import {
   AvatarItemOption,
   TextWrapper,
@@ -88,7 +88,6 @@ describe('Team Option', () => {
           defaultMessage="Team • 50+ members"
           description="Byline to show the number of members in the team when the number exceeds 50"
           id="fabric.elements.user-picker.team.member.50plus"
-          values={{}}
         />
       </TextWrapper>,
     );
@@ -132,7 +131,6 @@ describe('Team Option', () => {
           defaultMessage="Team • 50+ members"
           description="Byline to show the number of members in the team when the number exceeds 50"
           id="fabric.elements.user-picker.team.member.50plus"
-          values={{}}
         />
       </TextWrapper>,
     );
@@ -176,7 +174,6 @@ describe('Team Option', () => {
           defaultMessage="Team • 50+ members, including you"
           description="Byline to show the number of members in the team when the number exceeds 50 and also includes the current user"
           id="fabric.elements.user-picker.team.member.50plus.including.you"
-          values={{}}
         />
       </TextWrapper>,
     );

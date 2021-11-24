@@ -3,9 +3,8 @@ import Form, { FormProps, HelperMessage } from '@atlaskit/form';
 import ErrorIcon from '@atlaskit/icon/glyph/error';
 import Tooltip from '@atlaskit/tooltip';
 import { shallow } from 'enzyme';
-import { shallowWithIntl } from 'enzyme-react-intl';
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl-next';
 import { CommentField } from '../../../components/CommentField';
 import CopyLinkButton from '../../../components/CopyLinkButton';
 import { FormFooter, ShareForm } from '../../../components/ShareForm';
@@ -14,7 +13,23 @@ import { UserPickerField } from '../../../components/UserPickerField';
 import { messages } from '../../../i18n';
 import { DialogContentState, ShareError } from '../../../types';
 import { renderProp } from '../_testUtils';
+import { shallowWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
 import Tabs, { Tab, TabList } from '@atlaskit/tabs';
+
+const mockFormatMessage = (descriptor: any) => descriptor.defaultMessage;
+const mockIntl = { formatMessage: mockFormatMessage };
+
+jest.mock('react-intl-next', () => {
+  return {
+    ...(jest.requireActual('react-intl-next') as any),
+    FormattedMessage: (descriptor: any) => (
+      <span>{descriptor.defaultMessage}</span>
+    ),
+    injectIntl: (Node: any) => (props: any) => (
+      <Node {...props} intl={mockIntl} />
+    ),
+  };
+});
 
 describe('ShareForm', () => {
   it.each`
@@ -27,7 +42,7 @@ describe('ShareForm', () => {
       const mockLink = 'link';
       const loadOptions = jest.fn();
       const onSubmit = jest.fn();
-      const component = (shallowWithIntl as typeof shallow)(
+      const component = shallow(
         <ShareForm
           copyLink={mockLink}
           loadOptions={loadOptions}
@@ -84,7 +99,7 @@ describe('ShareForm', () => {
     it('should set isLoading prop to true to the Send button', () => {
       const mockLink = 'link';
       const loadOptions = jest.fn();
-      const wrapper = (shallowWithIntl as typeof shallow)(
+      const wrapper = shallow(
         <ShareForm
           copyLink={mockLink}
           loadOptions={loadOptions}
@@ -106,7 +121,7 @@ describe('ShareForm', () => {
       const mockLink = 'link';
       const mockShareError: ShareError = { message: 'error' };
       const loadOptions = jest.fn();
-      const wrapper = (shallowWithIntl as typeof shallow)(
+      const wrapper = shallow(
         <ShareForm
           copyLink={mockLink}
           loadOptions={loadOptions}
@@ -154,7 +169,7 @@ describe('ShareForm', () => {
   describe('shareError prop', () => {
     it('should render Retry button with an ErrorIcon and Tooltip', () => {
       const mockShareError: ShareError = { message: 'error' };
-      const wrapper = (shallowWithIntl as typeof shallow)(
+      const wrapper = shallow(
         <ShareForm
           copyLink="link"
           loadOptions={jest.fn()}
@@ -190,7 +205,7 @@ describe('ShareForm', () => {
 
   describe('shareFieldsFooter prop', () => {
     it('should render the shareForm with the fields footer content', () => {
-      const wrapper = (shallowWithIntl as typeof shallow)(
+      const wrapper = shallow(
         <ShareForm
           copyLink="link"
           loadOptions={jest.fn()}
@@ -218,7 +233,7 @@ describe('ShareForm', () => {
         value: 'some comment',
       },
     };
-    const component = (shallowWithIntl as typeof shallow)(
+    const component = shallow(
       <ShareForm
         copyLink={mockLink}
         loadOptions={loadOptions}
@@ -241,7 +256,7 @@ describe('ShareForm', () => {
 
   describe('isPublicLink prop', () => {
     it('should render Share button with the correct text', () => {
-      const wrapper = (shallowWithIntl as typeof shallow)(
+      const wrapper = shallow(
         <ShareForm
           copyLink="link"
           loadOptions={jest.fn()}
@@ -265,7 +280,7 @@ describe('ShareForm', () => {
     });
 
     it('should pass value to CopyLinkButton', () => {
-      const wrapper = (shallowWithIntl as typeof shallow)(
+      const wrapper = shallow(
         <ShareForm
           copyLink="link"
           loadOptions={jest.fn()}

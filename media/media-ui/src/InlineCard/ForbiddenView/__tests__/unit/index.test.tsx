@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import LockIcon from '@atlaskit/icon/glyph/lock-filled';
-import { IntlProvider } from 'react-intl';
+import { IntlProvider } from 'react-intl-next';
 
 import { InlineCardForbiddenView } from '../..';
 

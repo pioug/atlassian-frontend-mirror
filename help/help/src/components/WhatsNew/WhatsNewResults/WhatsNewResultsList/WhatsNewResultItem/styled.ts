@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import styled from '@emotion/styled';
 import { gridSize } from '@atlaskit/theme/constants';
-import { h400 } from '@atlaskit/theme/typography';
+import { fontSize, fontSizeSmall } from '@atlaskit/theme/constants';
 import * as colors from '@atlaskit/theme/colors';
 
 type WhatsNewResultListItemWrapperProps = {
@@ -49,7 +49,8 @@ export const WhatsNewResultListItemTitleContainer = styled.div`
 `;
 
 export const WhatsNewResultListItemTitleText = styled.span`
-  ${h400()}
+  font-size: ${fontSizeSmall()}px;
+  line-height: ${fontSize()}px;
   display: inline-block;
   vertical-align: middle;
   margin: 0;
@@ -61,6 +62,6 @@ export const WhatsNewResultListItemTitleText = styled.span`
 export const WhatsNewResultListItemDescription = styled.p`
   display: block;
   line-height: ${gridSize() * 2.5}px;
-  color: ${colors.N400};
+  color: ${colors.N800};
   margin: 0;
 `;

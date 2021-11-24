@@ -253,6 +253,10 @@ describe('create-editor/error-boundary', () => {
   });
 
   it('should re-throw caught errors for products to handle', () => {
+    const error = new Error('Some Bad Error');
+    const Bad = () => {
+      throw error;
+    };
     const productComponentDidCatch = jest.spyOn(
       ProductErrorBoundary.prototype,
       'componentDidCatch',
@@ -260,19 +264,18 @@ describe('create-editor/error-boundary', () => {
     wrapper = mount(
       <ProductErrorBoundary>
         <EditorErrorBoundary
+          rethrow
           createAnalyticsEvent={createAnalyticsEvent}
           contextIdentifierProvider={contextIdentifierProvider}
         >
-          <Foo />
+          <Bad />
         </EditorErrorBoundary>
       </ProductErrorBoundary>,
     );
 
-    expect(wrapper.html()).toEqual(renderedFooString);
-    wrapper.find(Foo).simulateError(new Error('Triggered error boundary'));
-    expect(spy.componentDidCatch).toHaveBeenCalledTimes(1);
-    expect(productComponentDidCatch).toHaveBeenCalledTimes(1);
     expect(wrapper.html()).toEqual(renderedProductErrorBoundaryFallback);
+    expect(spy.componentDidCatch).toHaveBeenCalledTimes(1);
+    expect(productComponentDidCatch).toHaveBeenCalledTimes(2);
   });
 
   describe('DocStructure', () => {

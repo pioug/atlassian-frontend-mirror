@@ -1,5 +1,5 @@
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
 import {
   doc,
   table,
@@ -64,13 +64,13 @@ describe('Floating Delete Button', () => {
       ),
     ));
 
-    wrapper = mountWithIntl(
+    wrapper = (mountWithIntl(
       <FloatingDeleteButton
         tableRef={document.querySelector('table')!}
         editorView={editorView}
         selection={editorView.state.selection}
       />,
-    );
+    ) as unknown) as ReactWrapper<FloatingDeleteButtonProps>;
   });
 
   afterEach(() => {

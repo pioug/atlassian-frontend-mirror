@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { IntlProvider } from 'react-intl';
+import { IntlProvider } from 'react-intl-next';
 import styled from 'styled-components';
 
 import { gridSize } from '@atlaskit/theme/constants';

@@ -1,6 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import { defineMessages, InjectedIntlProps, injectIntl } from 'react-intl';
+import {
+  defineMessages,
+  WrappedComponentProps,
+  injectIntl,
+} from 'react-intl-next';
 import EditorSearchIcon from '@atlaskit/icon/glyph/editor/search';
 import {
   akEditorFloatingPanelZIndex,
@@ -54,7 +58,7 @@ export interface FindReplaceToolbarButtonProps
 }
 
 class FindReplaceToolbarButton extends React.PureComponent<
-  FindReplaceToolbarButtonProps & InjectedIntlProps
+  FindReplaceToolbarButtonProps & WrappedComponentProps
 > {
   componentDidMount() {
     window.addEventListener('keydown', this.handleKeydown);

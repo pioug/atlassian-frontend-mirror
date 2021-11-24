@@ -1,6 +1,6 @@
 import React, { SyntheticEvent } from 'react';
 
-import { InjectedIntlProps, injectIntl } from 'react-intl';
+import { WrappedComponentProps, injectIntl } from 'react-intl-next';
 
 import { MessageDescriptor } from '../../../../types/i18n';
 import { TableCssClassName as ClassName } from '../../types';
@@ -20,7 +20,7 @@ const DeleteButton = ({
   onMouseLeave,
   removeLabel,
   intl: { formatMessage },
-}: ButtonProps & InjectedIntlProps) => (
+}: ButtonProps & WrappedComponentProps) => (
   <div
     className={ClassName.CONTROLS_DELETE_BUTTON_WRAP}
     style={style}

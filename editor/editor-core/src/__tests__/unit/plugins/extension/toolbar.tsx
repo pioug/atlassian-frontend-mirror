@@ -1,5 +1,5 @@
 import React from 'react';
-import { IntlProvider } from 'react-intl';
+import { createIntl } from 'react-intl-next';
 import { NodeSelection } from 'prosemirror-state';
 import { activityProviderFactory } from '@atlaskit/editor-test-helpers/mock-activity-provider';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
@@ -54,8 +54,9 @@ describe('extension toolbar', () => {
   };
 
   describe('toolbar', () => {
-    const intlProvider = new IntlProvider({ locale: 'en' });
-    const { intl } = intlProvider.getChildContext();
+    const intl = createIntl({
+      locale: 'en',
+    });
 
     const defaultBreakoutTitle = intl.formatMessage(
       commonMessages.layoutFixedWidth,
@@ -129,6 +130,7 @@ describe('extension toolbar', () => {
         providerFactory,
       );
       expect(toolbar).toBeDefined();
+
       const breakoutButtons = getToolbarItems(toolbar!, editorView).filter(
         (item) =>
           item.type === 'button' &&

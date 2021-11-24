@@ -2,7 +2,7 @@ import { Node as PmNode } from 'prosemirror-model';
 import { Transaction } from 'prosemirror-state';
 import { Rect } from '@atlaskit/editor-tables/table-map';
 import { DecorationSet } from 'prosemirror-view';
-import { InjectedIntl } from 'react-intl';
+import { IntlShape } from 'react-intl-next';
 
 import {
   tableCellSelector,
@@ -326,7 +326,7 @@ export interface ToolbarMenuState {
 }
 
 export interface ToolbarMenuContext {
-  formatMessage: InjectedIntl['formatMessage'];
+  formatMessage: IntlShape['formatMessage'];
 }
 
 export type ElementContentRects = {

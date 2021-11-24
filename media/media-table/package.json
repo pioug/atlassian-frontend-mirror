@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-table",
-  "version": "9.0.3",
+  "version": "10.0.0",
   "description": "Table UI component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -31,8 +31,8 @@
     "@atlaskit/dynamic-table": "^14.4.0",
     "@atlaskit/icon": "^21.9.0",
     "@atlaskit/media-client": "^14.3.0",
-    "@atlaskit/media-ui": "^17.2.0",
-    "@atlaskit/media-viewer": "^45.7.0",
+    "@atlaskit/media-ui": "^18.0.0",
+    "@atlaskit/media-viewer": "^46.0.0",
     "@atlaskit/theme": "^12.0.0",
     "@atlaskit/tooltip": "^17.5.0",
     "@babel/runtime": "^7.0.0",
@@ -42,6 +42,7 @@
     "@atlaskit/media-core": "^32.2.0",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
+    "react-intl-next": "npm:react-intl@^5.18.1",
     "rxjs": "^5.5.0",
     "styled-components": "^3.2.6"
   },
@@ -50,7 +51,7 @@
     "@atlaskit/icon-file-type": "^6.3.0",
     "@atlaskit/media-common": "^2.10.0",
     "@atlaskit/media-core": "^32.2.0",
-    "@atlaskit/media-test-helpers": "^28.9.0",
+    "@atlaskit/media-test-helpers": "^29.0.0",
     "@atlaskit/range": "^5.1.0",
     "@atlaskit/ssr": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",

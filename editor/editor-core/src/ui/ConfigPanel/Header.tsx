@@ -1,5 +1,5 @@
 import React from 'react';
-import { InjectedIntlProps, injectIntl } from 'react-intl';
+import { WrappedComponentProps, injectIntl } from 'react-intl-next';
 import styled from 'styled-components';
 import Loadable from 'react-loadable';
 
@@ -93,7 +93,7 @@ type Props = {
   documentationUrl?: string;
   icon: Icon;
   onClose: () => void;
-} & InjectedIntlProps;
+} & WrappedComponentProps;
 
 const Header = ({
   icon,

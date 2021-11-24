@@ -1,6 +1,11 @@
 import React from 'react';
 import { ReactNode } from 'react';
-import { FormattedMessage, injectIntl, InjectedIntlProps } from 'react-intl';
+import {
+  FormattedMessage,
+  injectIntl,
+  MessageDescriptor,
+  WrappedComponentProps,
+} from 'react-intl-next';
 import { messages as i18nMessages } from '@atlaskit/media-ui';
 import { FileState } from '@atlaskit/media-client';
 import {
@@ -28,13 +33,11 @@ export type Props = Readonly<{
   children?: ReactNode;
 }>;
 
-export type FormatMessageFn = (
-  messageDescriptor: FormattedMessage.MessageDescriptor,
-) => string;
+export type FormatMessageFn = (messageDescriptor: MessageDescriptor) => string;
 
 type ErrorMessageInfo = {
   icon: JSX.Element;
-  messages: Array<FormattedMessage.MessageDescriptor>;
+  messages: Array<MessageDescriptor>;
 };
 
 const errorLoadingFileImage = (formatMessage: FormatMessageFn) => (
@@ -46,7 +49,7 @@ const errorLoadingFileImage = (formatMessage: FormatMessageFn) => (
 
 export const errorReasonToMessages: Array<[
   PrimaryErrorReason | SecondaryErrorReason,
-  FormattedMessage.MessageDescriptor,
+  MessageDescriptor,
 ]> = [
   ['serverRateLimited', i18nMessages.might_be_a_hiccup],
   ['invalidFileId', i18nMessages.item_not_found_in_list],
@@ -65,7 +68,7 @@ export const errorReasonToMessages: Array<[
 
 export const getErrorMessageFromError = (
   error: MediaViewerError,
-): FormattedMessage.MessageDescriptor | undefined => {
+): MessageDescriptor | undefined => {
   const matchingRow = errorReasonToMessages.find(
     (row) =>
       row[0] === getPrimaryErrorReason(error) ||
@@ -75,7 +78,7 @@ export const getErrorMessageFromError = (
 };
 
 export class ErrorMessage extends React.Component<
-  Props & InjectedIntlProps & WithAnalyticsEventsProps,
+  Props & WrappedComponentProps & WithAnalyticsEventsProps,
   {}
 > {
   private getErrorInfo(): ErrorMessageInfo {
@@ -139,5 +142,7 @@ export class ErrorMessage extends React.Component<
   }
 }
 
-const ErroMsg = withAnalyticsEvents()(injectIntl(ErrorMessage));
+const ErroMsg: React.ComponentType<
+  Props & WithAnalyticsEventsProps
+> = withAnalyticsEvents()(injectIntl(ErrorMessage));
 export default ErroMsg;

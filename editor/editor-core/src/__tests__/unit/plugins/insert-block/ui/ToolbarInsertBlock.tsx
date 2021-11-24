@@ -1,5 +1,5 @@
 import React from 'react';
-import { InjectedIntlProps } from 'react-intl';
+import { WrappedComponentProps } from 'react-intl-next';
 import { ReactWrapper, mount } from 'enzyme';
 import { EditorView } from 'prosemirror-view';
 
@@ -18,7 +18,6 @@ import {
   LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import {
   doc,
   p,
@@ -51,7 +50,9 @@ import {
   PANEL,
   BLOCK_QUOTE,
 } from '../../../../../plugins/block-type/types';
-import ToolbarInsertBlock from '../../../../../plugins/insert-block/ui/ToolbarInsertBlock';
+import ToolbarInsertBlock, {
+  ToolbarInsertBlock as BaseToolbarInsertBlock,
+} from '../../../../../plugins/insert-block/ui/ToolbarInsertBlock';
 import { MediaProvider } from '../../../../../plugins/media';
 import {
   stateKey as hyperlinkPluginKey,
@@ -74,15 +75,15 @@ import ToolbarButton from '../../../../../ui/ToolbarButton';
 import { openElementBrowserModal } from '../../../../../plugins/quick-insert/commands';
 import InsertMenu from '../../../../../ui/ElementBrowser/InsertMenu';
 
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
+
 jest.mock('../../../../../plugins/quick-insert/commands', () => ({
   openElementBrowserModal: jest.fn(() => jest.fn()),
 }));
 
 jest.mock('../../../../../ui/ElementBrowser/InsertMenu', () => () => <div />);
 
-type ToolbarOptionWrapper = ReactWrapper<
-  ToolbarInsertBlockProps & InjectedIntlProps
->;
+type ToolbarOptionWrapper = ReactWrapper;
 
 const emojiProvider = getTestEmojiResource();
 
@@ -149,6 +150,10 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
   let editorView: EditorView;
   let pluginState: any;
   let toolbarOption: ToolbarOptionWrapper;
+  let baseToolbarOption: ReactWrapper<
+    ToolbarInsertBlockProps & WrappedComponentProps
+  >;
+
   let createAnalyticsEvent: CreateUIAnalyticsEvent;
   let dispatchAnalyticsSpy: jest.SpyInstance<DispatchAnalyticsEvent>;
   let dispatchSpy: jest.SpyInstance;
@@ -188,9 +193,10 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
       buttons: 0,
       dispatchAnalyticsEvent: dispatchAnalyticsSpy as any,
     };
-    toolbarOption = mountWithIntl<ToolbarInsertBlockProps, {}>(
+    toolbarOption = mountWithIntl(
       <ToolbarInsertBlock {...defaultProps} {...props} />,
     );
+    baseToolbarOption = toolbarOption.find(BaseToolbarInsertBlock);
   };
 
   beforeEach(() => {
@@ -208,7 +214,7 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
 
   it('should render nothing if none of the plugins are present', () => {
     buildToolbar();
-    expect(toolbarOption.html()).toEqual(null);
+    expect(baseToolbarOption.html()).toEqual(null);
   });
 
   it('should disable toolbar buttons if isDisabled is true', () => {
@@ -409,8 +415,8 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
             replacePlusMenuWithElementBrowser: false,
           });
 
-          toolbarOption.setState({ isPlusMenuOpen: true });
-          toolbarOption.update();
+          baseToolbarOption.setState({ isPlusMenuOpen: true });
+          baseToolbarOption.update();
 
           expect(toolbarOption.find(DropdownMenu).length).toEqual(1);
           expect(toolbarOption.find(InsertMenu).length).toEqual(0);
@@ -434,8 +440,8 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
             popupsMountPoint: popupTarget,
           });
 
-          toolbarOption.setState({ isPlusMenuOpen: true });
-          toolbarOption.update();
+          baseToolbarOption.setState({ isPlusMenuOpen: true });
+          baseToolbarOption.update();
 
           expect(popupTarget.innerText).toContain(customItems[0].content);
         });
@@ -468,8 +474,8 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
           replacePlusMenuWithElementBrowser: true,
         });
 
-        toolbarOption.setState({ isPlusMenuOpen: true });
-        toolbarOption.update();
+        baseToolbarOption.setState({ isPlusMenuOpen: true });
+        baseToolbarOption.update();
 
         expect(toolbarOption.find(InsertMenu).length).toEqual(1);
         expect(toolbarOption.find(DropdownMenu).length).toEqual(0);
@@ -546,7 +552,10 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
         expandEnabled: false,
         insertMenuItems: customItems,
       });
-      const spy = jest.spyOn(toolbarOption.instance() as any, 'insertExpand');
+      const spy = jest.spyOn(
+        baseToolbarOption.instance() as any,
+        'insertExpand',
+      );
 
       const onItemActivated = toolbarOption
         .find(DropdownMenu)
@@ -574,7 +583,10 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
         expandEnabled: true,
         insertMenuItems: customItems,
       });
-      const spy = jest.spyOn(toolbarOption.instance() as any, 'insertExpand');
+      const spy = jest.spyOn(
+        baseToolbarOption.instance() as any,
+        'insertExpand',
+      );
 
       const onItemActivated = toolbarOption
         .find(DropdownMenu)

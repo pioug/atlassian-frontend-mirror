@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import React from 'react';
-import { IntlProvider } from 'react-intl';
+import { IntlProvider } from 'react-intl-next';
 import ImageCropper from '../src/image-cropper';
 import { tallImage } from '@atlaskit/media-test-helpers';
 

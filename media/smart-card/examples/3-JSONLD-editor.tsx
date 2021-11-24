@@ -10,7 +10,7 @@ import AceEditor from 'react-ace';
 import { Provider, Card } from '../src';
 
 import * as mockedExamples from '../examples-helpers/_jsonLDExamples';
-import { IntlProvider } from 'react-intl';
+import { IntlProvider } from 'react-intl-next';
 
 export interface ExampleProps {}
 

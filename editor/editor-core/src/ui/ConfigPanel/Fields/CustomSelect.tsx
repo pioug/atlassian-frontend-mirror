@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { injectIntl, InjectedIntlProps } from 'react-intl';
+import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 import { messages } from '../messages';
 
 import { Field } from '@atlaskit/form';
@@ -48,7 +48,7 @@ function CustomSelect({
   autoFocus?: boolean;
   placeholder?: string;
   parameters?: Parameters;
-} & InjectedIntlProps) {
+} & WrappedComponentProps) {
   const {
     defaultValue: fieldDefaultValue,
     description,

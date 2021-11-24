@@ -41,7 +41,7 @@ jest.mock('@atlaskit/media-client', () => {
 import React from 'react';
 import { ReactWrapper } from 'enzyme';
 import Renderer, { Props } from '../../../ui/Renderer';
-import { IntlProvider } from 'react-intl';
+import { IntlProvider } from 'react-intl-next';
 import { render } from '@testing-library/react';
 import { ProviderFactory } from '@atlaskit/editor-common';
 import { exampleMediaFeatureFlags } from '@atlaskit/media-test-helpers';

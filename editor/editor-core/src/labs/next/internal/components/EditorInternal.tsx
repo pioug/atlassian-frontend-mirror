@@ -1,6 +1,6 @@
 import React from 'react';
-import { intlShape } from 'react-intl';
 import PropTypes from 'prop-types';
+import { injectIntl, IntlShape, WrappedComponentProps } from 'react-intl-next';
 import { WidthProvider } from '@atlaskit/editor-common';
 import { useProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import EditorContext from '../../../../ui/EditorContext';
@@ -9,8 +9,7 @@ import { EditorPropsExtended } from '../editor-props-type';
 import { EditorSharedConfigProvider } from '../context/shared-config';
 import { useEditor } from '../hooks/use-editor';
 import { EditorContentProvider } from './EditorContent';
-
-export function EditorInternal(
+function BaseEditorInternal(
   {
     onAnalyticsEvent,
     disabled,
@@ -25,7 +24,8 @@ export function EditorInternal(
     onDestroy,
     onMount,
     children,
-  }: EditorPropsExtended,
+    intl,
+  }: EditorPropsExtended & WrappedComponentProps,
   context: any,
 ) {
   // Need to memoize editor actions otherwise in case when editor is not
@@ -39,6 +39,7 @@ export function EditorInternal(
 
   // Get the provider factory from context
   const providerFactory = useProviderFactory();
+  const getIntl = (): IntlShape => intl;
   const [editorSharedConfig, mountEditor] = useEditor({
     context,
     editorActions,
@@ -62,6 +63,7 @@ export function EditorInternal(
 
     providerFactory,
     featureFlags: {},
+    getIntl,
   });
 
   return (
@@ -77,7 +79,8 @@ export function EditorInternal(
   );
 }
 
-EditorInternal.contextTypes = {
+BaseEditorInternal.contextTypes = {
   editorActions: PropTypes.object,
-  intl: intlShape,
 };
+
+export const EditorInternal = injectIntl(BaseEditorInternal);

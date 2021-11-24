@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { EditorView } from 'prosemirror-view';
-import { intlShape, IntlShape, IntlProvider } from 'react-intl';
+import { IntlShape } from 'react-intl';
 import memoizeOne from 'memoize-one';
 import uuid from 'uuid/v4';
 import { name, version } from './version-wrapper';
@@ -20,6 +20,8 @@ import {
   ExtensionProvider,
   combineExtensionProviders,
   WidthProvider,
+  LegacyToNextIntlProvider,
+  IntlLegacyFallbackProvider,
 } from '@atlaskit/editor-common';
 import { EditorExperience, ExperienceStore } from '@atlaskit/editor-common/ufo';
 import { akEditorFullPageDefaultFontSize } from '@atlaskit/editor-shared-styles';
@@ -99,6 +101,7 @@ type State = {
   extensionProvider?: ExtensionProvider;
   quickInsertProvider?: Promise<QuickInsertProvider>;
 };
+
 export default class Editor extends React.Component<EditorProps, State> {
   static defaultProps: EditorProps = {
     appearance: 'comment',
@@ -111,7 +114,6 @@ export default class Editor extends React.Component<EditorProps, State> {
 
   static contextTypes = {
     editorActions: PropTypes.object,
-    intl: intlShape,
   };
 
   private providerFactory: ProviderFactory;
@@ -780,11 +782,10 @@ export default class Editor extends React.Component<EditorProps, State> {
         />
       </FabricEditorAnalyticsContext>
     );
-
-    return this.context.intl ? (
-      editor
-    ) : (
-      <IntlProvider locale="en">{editor}</IntlProvider>
+    return (
+      <LegacyToNextIntlProvider>
+        <IntlLegacyFallbackProvider>{editor}</IntlLegacyFallbackProvider>
+      </LegacyToNextIntlProvider>
     );
   }
 }

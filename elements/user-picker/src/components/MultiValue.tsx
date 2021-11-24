@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl-next';
 import { components, OptionType } from '@atlaskit/select';
 import styled from 'styled-components';
 import { AddOptionAvatar } from './AddOptionAvatar';
@@ -98,7 +98,9 @@ export class MultiValue extends React.Component<Props> {
         <AddOptionAvatar isLozenge label={selectProps.emailLabel} />
       ) : (
         <FormattedMessage {...messages.addEmail}>
-          {(label) => <AddOptionAvatar isLozenge label={label as string} />}
+          {(label) => (
+            <AddOptionAvatar isLozenge label={(label as unknown) as string} />
+          )}
         </FormattedMessage>
       );
     }

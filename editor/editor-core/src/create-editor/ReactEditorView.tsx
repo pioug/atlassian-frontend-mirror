@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { EditorState, Selection, Transaction } from 'prosemirror-state';
 import { DirectEditorProps, EditorView } from 'prosemirror-view';
 import { Node as PMNode } from 'prosemirror-model';
-import { intlShape } from 'react-intl';
+import { WrappedComponentProps, injectIntl } from 'react-intl-next';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import {
   browser,
@@ -162,8 +162,8 @@ export function shouldReconfigureState(
   );
 }
 
-export default class ReactEditorView<T = {}> extends React.Component<
-  EditorViewProps & T,
+export class ReactEditorView<T = {}> extends React.Component<
+  EditorViewProps & WrappedComponentProps & T,
   {},
   EditorReactContext
 > {
@@ -181,7 +181,6 @@ export default class ReactEditorView<T = {}> extends React.Component<
 
   static contextTypes = {
     getAtlaskitAnalyticsEventHandlers: PropTypes.func,
-    intl: intlShape,
   };
 
   // ProseMirror is instantiated prior to the initial React render cycle,
@@ -226,7 +225,10 @@ export default class ReactEditorView<T = {}> extends React.Component<
     return countNodes(this.editorState);
   }
 
-  constructor(props: EditorViewProps & T, context: EditorReactContext) {
+  constructor(
+    props: EditorViewProps & WrappedComponentProps & T,
+    context: EditorReactContext,
+  ) {
     super(props, context);
 
     this.eventDispatcher = new EventDispatcher();
@@ -414,6 +416,7 @@ export default class ReactEditorView<T = {}> extends React.Component<
     );
 
     const state = this.editorState;
+
     const plugins = createPMPlugins({
       schema: state.schema,
       dispatch: this.dispatch,
@@ -427,6 +430,7 @@ export default class ReactEditorView<T = {}> extends React.Component<
       performanceTracking: props.editorProps.performanceTracking,
       transactionTracker: this.transactionTracker,
       featureFlags: createFeatureFlagsFromProps(props.editorProps),
+      getIntl: () => this.props.intl,
     });
 
     const newState = state.reconfigure({ plugins });
@@ -560,6 +564,7 @@ export default class ReactEditorView<T = {}> extends React.Component<
       performanceTracking: this.props.editorProps.performanceTracking,
       transactionTracker: this.transactionTracker,
       featureFlags: this.featureFlags,
+      getIntl: () => this.props.intl,
     });
 
     this.contentTransformer = contentTransformerProvider
@@ -965,6 +970,8 @@ export default class ReactEditorView<T = {}> extends React.Component<
     );
   }
 }
+
+export default injectIntl(ReactEditorView);
 
 function getUAPrefix() {
   if (browser.chrome) {

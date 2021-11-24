@@ -1,6 +1,6 @@
 import React from 'react';
 import { PureComponent } from 'react';
-import { injectIntl, InjectedIntlProps } from 'react-intl';
+import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 import { MessageDescriptor } from '../../types/i18n';
 import { AlignmentState } from '../../plugins/alignment/pm-plugins/types';
 import { iconMap } from '../../plugins/alignment/ui/ToolbarAlignment/icon-map';
@@ -23,7 +23,7 @@ const alignmentOptions: Array<{
   { title: alignmentMessages.alignRight, value: 'end' },
 ];
 
-class Alignment extends PureComponent<Props & InjectedIntlProps> {
+class Alignment extends PureComponent<Props & WrappedComponentProps> {
   render() {
     const { onClick, selectedAlignment, className, intl } = this.props;
 

@@ -54,6 +54,7 @@ export class SelectionBasedNodeView<
     reactComponent?: React.ComponentType<any>,
     hasContext: boolean = false,
     viewShouldUpdate?: shouldUpdate,
+    hasIntlContext: boolean = false,
   ) {
     super(
       node,
@@ -65,6 +66,7 @@ export class SelectionBasedNodeView<
       reactComponent,
       hasContext,
       viewShouldUpdate,
+      hasIntlContext,
     );
 
     this.updatePos();

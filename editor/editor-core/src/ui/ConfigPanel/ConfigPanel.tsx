@@ -39,7 +39,7 @@ import Header from './Header';
 import ErrorMessage from './ErrorMessage';
 import { serialize, deserialize, findDuplicateFields } from './transformers';
 
-import { InjectedIntlProps, injectIntl } from 'react-intl';
+import { WrappedComponentProps, injectIntl } from 'react-intl-next';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/custom-theme-button';
 import { FormFooter } from '@atlaskit/form';
@@ -78,7 +78,7 @@ function ConfigForm({
   parameters: Parameters;
   submitting: boolean;
   contextIdentifierProvider?: ContextIdentifierProvider | undefined;
-} & InjectedIntlProps) {
+} & WrappedComponentProps) {
   useEffect(() => {
     if (fields) {
       const firstDuplicateField = findDuplicateFields(fields);

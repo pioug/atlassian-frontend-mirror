@@ -1,5 +1,5 @@
 import React from 'react';
-import { injectIntl, InjectedIntlProps } from 'react-intl';
+import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 
 import Header from './Header';
 
@@ -14,7 +14,7 @@ import {
   LoadingRectangle,
 } from './styled';
 
-export const HelpContent: React.FC<HelpLayout & InjectedIntlProps> = (
+export const HelpContent: React.FC<HelpLayout & WrappedComponentProps> = (
   props,
 ) => {
   const {

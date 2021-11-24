@@ -16,6 +16,7 @@ import { MediaPluginState } from '../../pm-plugins/types';
 import { fireEvent, render } from '@testing-library/react';
 import { NodeSelection, EditorState } from 'prosemirror-state';
 import { MediaSingleNodeProps } from '../types';
+import { IntlProvider } from 'react-intl-next';
 
 export const createMediaProvider = async (): Promise<MediaProvider> =>
   ({} as MediaProvider);
@@ -144,6 +145,9 @@ describe('mediaSingle', () => {
     const node = mediaSingleNode(defaultSchema);
     const state = EditorState.create({ schema: defaultSchema });
     state.selection = Object.create(NodeSelection.prototype);
+    const Providers: React.FC = ({ children }) => (
+      <IntlProvider locale="en">{children}</IntlProvider>
+    );
     const component = render(
       <MediaSingleNode
         {...{
@@ -156,6 +160,7 @@ describe('mediaSingle', () => {
           } as EditorView<any>,
         }}
       />,
+      { wrapper: Providers },
     );
 
     const { getByTestId } = component;

@@ -7,11 +7,11 @@ import FilePreviewIcon from '@atlaskit/icon/glyph/editor/file-preview';
 import ToolbarButton from '../../floating-toolbar/ui/Button';
 import { MediaPluginState } from '../pm-plugins/types';
 import { getSelectedMediaContainerNodeAttrs } from './utils';
-import { InjectedIntl } from 'react-intl';
+import { IntlShape } from 'react-intl-next';
 
 interface FilePreviewProps {
   mediaPluginState: MediaPluginState;
-  intl: InjectedIntl;
+  intl: IntlShape;
 }
 
 export const FilePreviewItem: FC<FilePreviewProps> = ({

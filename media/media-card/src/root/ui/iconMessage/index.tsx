@@ -1,10 +1,11 @@
 import React from 'react';
 import { IconMessageWrapper } from './styled';
 import { messages } from '@atlaskit/media-ui';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, MessageDescriptor } from 'react-intl-next';
+import { FormattedMessageWrapper } from '../../styled';
 
 export type InternalIconMessageProps = {
-  messageDescriptor: FormattedMessage.MessageDescriptor;
+  messageDescriptor: MessageDescriptor;
   animated?: boolean;
   reducedFont?: boolean;
 };
@@ -20,7 +21,9 @@ export const IconMessage: React.FC<InternalIconMessageProps> = ({
 }) => {
   return (
     <IconMessageWrapper animated={animated} reducedFont={reducedFont}>
-      <FormattedMessage {...messageDescriptor} />
+      <FormattedMessageWrapper>
+        <FormattedMessage {...messageDescriptor} />
+      </FormattedMessageWrapper>
     </IconMessageWrapper>
   );
 };

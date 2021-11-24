@@ -3,7 +3,7 @@ import { jsx } from '@emotion/core';
 import { Appearance } from '@atlaskit/button/types';
 import Button from '@atlaskit/button/custom-theme-button';
 import { fontSize } from '@atlaskit/theme/constants';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl-next';
 import { FC } from 'react';
 
 import { messages, MessageKey } from '../../messages';

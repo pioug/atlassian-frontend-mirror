@@ -16,7 +16,7 @@ import {
 } from '@atlaskit/media-client';
 import Toggle from '@atlaskit/toggle';
 import MediaInlineCard from '../src/root/inline/loader';
-import { IntlProvider } from 'react-intl';
+import { IntlProvider } from 'react-intl-next';
 import { AtlaskitThemeProvider } from '@atlaskit/theme/components';
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { ThemeModes } from '@atlaskit/theme';

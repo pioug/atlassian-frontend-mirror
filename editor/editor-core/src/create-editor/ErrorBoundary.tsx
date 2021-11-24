@@ -5,6 +5,7 @@ import memoizeOne from 'memoize-one';
 
 import {
   ContextIdentifierProvider,
+  IntlNextErrorBoundary,
   sniffUserBrowserExtensions,
   UserBrowserExtensionResults,
 } from '@atlaskit/editor-common';
@@ -190,7 +191,7 @@ export class ErrorBoundaryWithEditorView extends React.Component<
   }
 
   render() {
-    return this.props.children;
+    return <IntlNextErrorBoundary>{this.props.children}</IntlNextErrorBoundary>;
   }
 }
 

@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import styled from 'styled-components';
-import { injectIntl, InjectedIntlProps } from 'react-intl';
+import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 
 import { DN50, N0 } from '@atlaskit/theme/colors';
 import { themed } from '@atlaskit/theme/components';
@@ -30,7 +30,7 @@ export interface Props {
   emptyStateHandler?: EmptyStateHandler;
 }
 
-const ModalElementBrowser = (props: Props & InjectedIntlProps) => {
+const ModalElementBrowser = (props: Props & WrappedComponentProps) => {
   const [selectedItem, setSelectedItem] = useState<QuickInsertItem>();
   const { helpUrl, intl } = props;
 

@@ -13,6 +13,7 @@ import {
   videoProcessingFailedId,
 } from '@atlaskit/media-test-helpers';
 import { MediaTableItem, NameCell } from '../src';
+import { IntlProvider } from 'react-intl-next';
 
 export { ROW_HIGHLIGHT_CLASSNAME } from './styled';
 
@@ -27,11 +28,19 @@ export const RenderMediaTableWithFieldRange = (
 
   return (
     <ExampleWrapper>
-      <div>
-        Parent width: {width}px
-        <Range value={width} min={0} max={1500} step={5} onChange={setWidth} />
-      </div>
-      <div style={{ width: `${width}px` }}>{MediaTableNode}</div>
+      <IntlProvider locale="en">
+        <div>
+          Parent width: {width}px
+          <Range
+            value={width}
+            min={0}
+            max={1500}
+            step={5}
+            onChange={setWidth}
+          />
+        </div>
+        <div style={{ width: `${width}px` }}>{MediaTableNode}</div>
+      </IntlProvider>
     </ExampleWrapper>
   );
 };

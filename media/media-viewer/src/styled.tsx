@@ -377,3 +377,5 @@ export const ErrorReasonTip = styled.div`
   margin: 10px 0 40px 0;
   color: ${DN400};
 `;
+
+export const FormattedMessageWrapper = styled.span``;

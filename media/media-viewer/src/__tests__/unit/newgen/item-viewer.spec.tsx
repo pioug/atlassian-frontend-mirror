@@ -25,13 +25,9 @@ import {
   fakeMediaClient,
   asMock,
   nextTick,
+  mountWithIntlWrapper,
 } from '@atlaskit/media-test-helpers';
-import {
-  ItemViewer,
-  ItemViewerBase,
-  Props as ItemViewerBaseProps,
-  State as ItemViewerBaseState,
-} from '../../../item-viewer';
+import { ItemViewer, ItemViewerBase } from '../../../item-viewer';
 import { ErrorMessage } from '../../../errorMessage';
 import { MediaViewerError, MediaViewerErrorReason } from '../../../errors';
 import { ImageViewer } from '../../../viewers/image';
@@ -80,6 +76,23 @@ function mountComponent(
   return { el, instance };
 }
 
+function mountComponentWithIntlWrapper(
+  mediaClient: MediaClient,
+  identifier: Identifier,
+  featureFlags?: MediaFeatureFlags,
+) {
+  const el = mountWithIntlWrapper(
+    <ItemViewer
+      previewCount={0}
+      mediaClient={mediaClient}
+      identifier={identifier}
+      featureFlags={featureFlags}
+    />,
+  );
+  const instance = el.find(ItemViewerBase).instance() as any;
+  return { el, instance };
+}
+
 function mountBaseComponent(
   mediaClient: MediaClient,
   identifier: FileIdentifier,
@@ -87,7 +100,7 @@ function mountBaseComponent(
 ) {
   const createAnalyticsEventSpy = jest.fn();
   createAnalyticsEventSpy.mockReturnValue({ fire: jest.fn() });
-  const el = mountWithIntlContext<ItemViewerBaseProps, ItemViewerBaseState>(
+  const el = mountWithIntlWrapper(
     <ItemViewerBase
       createAnalyticsEvent={createAnalyticsEventSpy}
       previewCount={0}
@@ -96,8 +109,8 @@ function mountBaseComponent(
       {...props}
     />,
   );
-  const instance = el.instance() as ItemViewerBase;
-  return { el, instance, createAnalyticsEventSpy };
+
+  return { el, createAnalyticsEventSpy };
 }
 
 describe('<ItemViewer />', () => {
@@ -363,7 +376,7 @@ describe('<ItemViewer />', () => {
         }),
       );
       const identifierCopy = { ...identifier };
-      const { el } = mountComponent(mediaClient, identifier);
+      const { el } = mountComponentWithIntlWrapper(mediaClient, identifier);
       expect(mediaClient.file.getFileState).toHaveBeenCalledTimes(1);
 
       // if the values stay the same, we will not resubscribe
@@ -410,8 +423,8 @@ describe('<ItemViewer />', () => {
           representations: { image: {} },
         }),
       );
-      const { el, instance } = mountBaseComponent(mediaClient, identifier);
-      expect(instance.state.item.status).toEqual('SUCCESSFUL');
+      const { el } = mountBaseComponent(mediaClient, identifier);
+      expect(el.find(ItemViewerBase).state().item.status).toEqual('SUCCESSFUL');
 
       const identifier2 = {
         ...identifier,
@@ -425,7 +438,7 @@ describe('<ItemViewer />', () => {
       el.setProps({ mediaClient, identifier: identifier2 });
       el.update();
 
-      expect(instance.state.item.status).toEqual('PENDING');
+      expect(el.find(ItemViewerBase).state().item.status).toEqual('PENDING');
     });
   });
 

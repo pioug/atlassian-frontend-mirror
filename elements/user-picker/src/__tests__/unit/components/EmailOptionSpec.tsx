@@ -1,6 +1,6 @@
 import { shallow } from 'enzyme';
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl-next';
 import { N200, N800 } from '@atlaskit/theme/colors';
 import { AddOptionAvatar } from '../../../components/AddOptionAvatar';
 import {

@@ -9,7 +9,7 @@ import {
 import {
   goToEditorTestingWDExample,
   mountEditor,
-  loadLocale,
+  // loadLocale,
 } from '../../../../__tests__/__helpers/testing-example-helpers';
 import { dateSelectors } from '../../../../__tests__/__helpers/page-objects/_date';
 
@@ -60,7 +60,6 @@ BrowserTestCase(
   async (client: any, testName: string) => {
     const locale = 'en-GB';
     const page = await goToEditorTestingWDExample(client);
-    await loadLocale(page, [locale]);
     await mountEditor(
       page,
       {
@@ -68,7 +67,7 @@ BrowserTestCase(
         allowDate: true,
         allowKeyboardAccessibleDatepicker: true,
       },
-      { i18n: { locale: 'en-GB' } },
+      { i18n: { locale } },
     );
     await page.click(editable);
 
@@ -94,7 +93,6 @@ BrowserTestCase(
   async (client: any, testName: string) => {
     const locale = 'en-GB';
     const page = await goToEditorTestingWDExample(client);
-    await loadLocale(page, [locale]);
     await mountEditor(
       page,
       {
@@ -129,7 +127,6 @@ BrowserTestCase(
   async (client: any, testName: string) => {
     const locale = 'hu';
     const page = await goToEditorTestingWDExample(client);
-    await loadLocale(page, [locale]);
     await mountEditor(
       page,
       {
@@ -167,7 +164,6 @@ BrowserTestCase(
   async (client: any, testName: string) => {
     const locale = 'hu';
     const page = await goToEditorTestingWDExample(client);
-    await loadLocale(page, [locale]);
     await mountEditor(
       page,
       {
@@ -204,7 +200,6 @@ BrowserTestCase(
   { skip: [] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
-    await loadLocale(page, ['en_GB']);
     await mountEditor(
       page,
       {
@@ -239,7 +234,6 @@ BrowserTestCase(
   { skip: [] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
-    await loadLocale(page, ['en_GB']);
     await mountEditor(
       page,
       {
@@ -307,7 +301,6 @@ BrowserTestCase(
   { skip: ['firefox', 'edge', 'safari'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
-    await loadLocale(page, ['en_GB']);
     await mountEditor(
       page,
       {
@@ -355,7 +348,6 @@ BrowserTestCase(
   { skip: ['firefox', 'edge', 'safari'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
-    await loadLocale(page, ['en_GB']);
     await mountEditor(
       page,
       {
@@ -413,7 +405,6 @@ BrowserTestCase(
   { skip: ['firefox', 'edge', 'safari'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
-    await loadLocale(page, ['en_GB']);
     await mountEditor(
       page,
       {

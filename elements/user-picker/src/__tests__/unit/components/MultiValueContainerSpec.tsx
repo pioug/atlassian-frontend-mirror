@@ -1,6 +1,6 @@
 import { shallow, ShallowWrapper } from 'enzyme';
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl-next';
 import { MultiValueContainer } from '../../../components/MultiValueContainer';
 import { renderProp } from '../_testUtils';
 
@@ -20,9 +20,9 @@ describe('MultiValueContainer', () => {
   };
 
   const findInput = (component: ShallowWrapper<any>) =>
-    (component.find(FormattedMessage as React.ComponentClass<any>).exists()
+    (component.find(FormattedMessage).exists()
       ? renderProp(
-          component.find(FormattedMessage as React.ComponentClass<any>),
+          component.find(FormattedMessage),
           'children',
           'add more people...',
         )

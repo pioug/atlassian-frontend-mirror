@@ -2,7 +2,7 @@ jest.mock('@atlaskit/media-ui/formatDate');
 
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import { IntlProvider } from 'react-intl';
+import { IntlProvider } from 'react-intl-next';
 import { TitleBox, FormattedDate } from '../titleBox';
 import { Truncate } from '@atlaskit/media-ui/truncateText';
 import { Breakpoint } from '../../common';

@@ -17,7 +17,7 @@ import {
 } from '@atlaskit/editor-shared-styles';
 import { AnalyticsEventPayload, PLATFORM, MODE } from '../analytics/events';
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../analytics/enums';
-import { injectIntl, InjectedIntlProps } from 'react-intl';
+import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 import { ActiveHeaderIdConsumer } from './active-header-id-provider';
 import _uniqueId from 'lodash/uniqueId';
 
@@ -109,7 +109,7 @@ function Expand({
   intl,
   fireAnalyticsEvent,
   nestedHeaderIds,
-}: ExpandProps & InjectedIntlProps) {
+}: ExpandProps & WrappedComponentProps) {
   const [expanded, setExpanded] = React.useState(false);
   const [focused, setFocused] = React.useState(false);
   const label = intl.formatMessage(

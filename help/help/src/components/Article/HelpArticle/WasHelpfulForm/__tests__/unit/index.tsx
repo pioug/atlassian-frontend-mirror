@@ -1,14 +1,21 @@
 import React from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { render, fireEvent } from '@testing-library/react';
-import { IntlProvider } from 'react-intl';
+import { createIntl, createIntlCache, IntlProvider } from 'react-intl-next';
 
 import { messages } from '../../../../../../messages';
 
 import ArticleWasHelpfulForm from '../../index';
 
-const intlProvider = new IntlProvider({ locale: 'en' });
-const { intl } = intlProvider.getChildContext();
+// Messages
+const cache = createIntlCache();
+const intl = createIntl(
+  {
+    locale: 'en',
+    messages: {},
+  },
+  cache,
+);
 const messageNo = intl.formatMessage(messages.help_article_rating_option_no);
 const messageYes = intl.formatMessage(messages.help_article_rating_option_yes);
 

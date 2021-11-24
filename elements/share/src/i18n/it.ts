@@ -35,11 +35,17 @@ export default {
   'fabric.elements.share.form.user-picker.placeholder.generic':
     'Inserisci nome, gruppo, team o e-mail',
   'fabric.elements.share.form.user-picker.placeholder.jira':
-    'Immetti nome, team o indirizzo e-mail',
+    'Inserisci nome, team o indirizzo e-mail',
+  'fabric.elements.share.form.user-picker.placholder.generic.existingUserOnly':
+    'Inserisci il nome, il gruppo o il team',
   'fabric.elements.share.form.user-picker.validation.required':
     "Seleziona almeno un utente, un gruppo, un team o un'e-mail.",
+  'fabric.elements.share.form.user-picker.validation.required.existingUserOnly':
+    'Seleziona almeno un utente, un gruppo o un team.',
   'fabric.elements.share.form.user-picker.validation.required.jira':
     'Seleziona almeno un utente, un team o un indirizzo e-mail.',
+  'fabric.elements.share.form.user-picker.validation.required.jira.existingUserOnly':
+    'Seleziona almeno un utente o un team.',
   'fabric.elements.share.success.message':
     '{object, select, blogpost {Post del blog condiviso} board {Board condivisa} calendar {Calendario condiviso} draft {Bozza condivisa} filter {Filtro condiviso} issue {Ticket condiviso} media {File multimediale condiviso} page {Pagina condivisa} project {Progetto condiviso} pullrequest {Richiesta di pull condivisa} question {Domanda condivisa} report {Report condiviso} repository {Repository condiviso} request {Richiesta condivisa} roadmap {Roadmap condivisa} site {Sito condiviso} space {Spazio condiviso} other {Collegamento condiviso}}',
   'fabric.elements.share.to.integration.button':

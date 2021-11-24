@@ -27,7 +27,10 @@ type IconsList = Record<string, IconData>;
 
 const iconIconInfo = Promise.all(
   Object.keys(metadata).map(async (name: string) => {
-    const icon = await import(`../glyph/${name}.js`);
+    const icon = await import(
+      /* webpackChunkName: "@atlaskit-internal_icon" */
+      `../glyph/${name}.js`
+    );
     return { name, icon: icon.default };
   }),
 ).then((newData) =>

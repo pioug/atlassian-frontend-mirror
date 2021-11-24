@@ -27,7 +27,7 @@ import { useTaskAndDecision } from './hooks/use-task-decision';
 import { useReflowDectector } from './hooks/use-reflow-detector';
 import throttle from 'lodash/throttle';
 import { withIntlProvider } from '../i18n/with-intl-provider';
-import { InjectedIntl, injectIntl } from 'react-intl';
+import { IntlShape, injectIntl } from 'react-intl-next';
 import { useCollabListeners } from './hooks/use-collab-listeners';
 import { geti18NMessages } from './editor-localisation-provider';
 import { withSystemTheme } from '../WithSystemTheme';
@@ -49,7 +49,7 @@ export interface MobileEditorProps extends EditorProps {
   emojiProvider: Promise<EmojiResource>;
   mediaProvider: Promise<MediaProviderType>;
   mentionProvider: Promise<MentionProvider>;
-  intl: InjectedIntl;
+  intl: IntlShape;
   bridge: WebBridgeImpl;
   editorConfiguration: EditorConfiguration;
   locale?: string;

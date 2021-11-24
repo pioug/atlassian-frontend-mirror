@@ -1,20 +1,11 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { IntlProvider, addLocaleData } from 'react-intl';
+import { IntlProvider } from 'react-intl-next';
 import Select from '@atlaskit/select';
 import { ExampleWrapper } from '../example-helpers/ExampleWrapper';
 import UserPicker from '../src';
 
 const exampleLocales = ['en-EN', 'cs-CZ', 'da-DK', 'de-DE'];
-
-const loadReactLocaleData = () => {
-  exampleLocales.forEach((locale: string) => {
-    const languageCode = locale.split('-')[0];
-    const data = require(`react-intl/locale-data/${languageCode}`);
-    addLocaleData(data);
-  });
-};
-loadReactLocaleData();
 
 const ExampleContainer = styled.div`
   display: flex;

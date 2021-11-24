@@ -9,7 +9,7 @@ import {
   OptionData,
 } from '../../../types';
 import { messages } from '../../i18n';
-import { InjectedIntl } from 'react-intl';
+import { IntlShape } from 'react-intl-next';
 
 interface ServerItem {
   id: string;
@@ -46,7 +46,7 @@ interface ServerGroup extends ServerItem {
 
 interface ServerResponse {
   recommendedUsers: ServerItem[];
-  intl: InjectedIntl;
+  intl: IntlShape;
 }
 
 enum EntityType {
@@ -57,7 +57,7 @@ enum EntityType {
 
 const getLozenzeProperties = (
   entity: ServerUser | ServerGroup,
-  intl: InjectedIntl,
+  intl: IntlShape,
 ): string | LozengeProps | undefined => {
   if (entity.attributes?.workspaceMember) {
     return intl.formatMessage(messages.memberLozengeText);
@@ -80,7 +80,7 @@ const getLozenzeProperties = (
 
 const transformUser = (
   item: ServerItem,
-  intl: InjectedIntl,
+  intl: IntlShape,
 ): User | Team | Group | void => {
   const type = item.entityType;
 
@@ -133,7 +133,7 @@ const transformUser = (
  */
 export const transformUsers = (
   serverResponse: ServerResponse,
-  intl: InjectedIntl,
+  intl: IntlShape,
 ): OptionData[] =>
   (serverResponse.recommendedUsers || [])
     .map((item) => transformUser(item, intl))

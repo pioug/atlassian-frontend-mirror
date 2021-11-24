@@ -2,7 +2,7 @@ import AkButton from '@atlaskit/button/custom-theme-button';
 import Spinner from '@atlaskit/spinner';
 import React from 'react';
 import { Component } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl-next';
 import { messages } from '../i18n';
 import * as styles from './styles';
 

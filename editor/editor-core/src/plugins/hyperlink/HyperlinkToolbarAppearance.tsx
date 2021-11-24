@@ -5,14 +5,14 @@ import {
   ProviderFactory,
   CardProvider,
 } from '@atlaskit/editor-common/provider-factory';
-import { InjectedIntl } from 'react-intl';
+import { IntlShape } from 'react-intl-next';
 import { CardOptions } from '@atlaskit/editor-common';
 import { EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import { CardPlatform } from '@atlaskit/smart-card';
 
 export interface HyperlinkToolbarAppearanceProps {
-  intl: InjectedIntl;
+  intl: IntlShape;
   editorState: EditorState;
   providerFactory: ProviderFactory;
   url: string;

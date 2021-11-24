@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-picker",
-  "version": "58.1.3",
+  "version": "59.0.0",
   "description": "Library for handling file uploads",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -31,11 +31,11 @@
     "@atlaskit/dropdown-menu": "^11.0.0",
     "@atlaskit/flag": "^14.4.0",
     "@atlaskit/icon": "^21.9.0",
-    "@atlaskit/media-card": "^72.1.0",
+    "@atlaskit/media-card": "^73.0.0",
     "@atlaskit/media-client": "^14.3.0",
     "@atlaskit/media-common": "^2.10.0",
-    "@atlaskit/media-editor": "^38.2.0",
-    "@atlaskit/media-ui": "^17.2.0",
+    "@atlaskit/media-editor": "^39.0.0",
+    "@atlaskit/media-ui": "^18.0.0",
     "@atlaskit/modal-dialog": "^12.2.0",
     "@atlaskit/outbound-auth-flow-client": "^3.3.0",
     "@atlaskit/spinner": "^15.0.0",
@@ -64,7 +64,7 @@
     "@atlaskit/media-core": "^32.2.0",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
-    "react-intl": "^2.6.0",
+    "react-intl-next": "npm:react-intl@^5.18.1",
     "rxjs": "^5.5.0",
     "styled-components": "^3.2.6"
   },
@@ -77,8 +77,8 @@
     "@atlaskit/docs": "*",
     "@atlaskit/media-core": "^32.2.0",
     "@atlaskit/media-integration-test-helpers": "^2.5.0",
-    "@atlaskit/media-test-helpers": "^28.9.0",
-    "@atlaskit/media-viewer": "^45.8.0",
+    "@atlaskit/media-test-helpers": "^29.0.0",
+    "@atlaskit/media-viewer": "^46.0.0",
     "@atlaskit/section-message": "^6.0.0",
     "@atlaskit/select": "^15.2.0",
     "@atlaskit/ssr": "*",
@@ -104,7 +104,7 @@
     "react": "^16.8.0",
     "react-circle": "^1.0.1",
     "react-dom": "^16.8.0",
-    "react-intl": "^2.6.0",
+    "react-intl-next": "npm:react-intl@^5.18.1",
     "rxjs": "^5.5.0",
     "typescript": "3.9.6",
     "wait-for-expect": "^1.2.0"

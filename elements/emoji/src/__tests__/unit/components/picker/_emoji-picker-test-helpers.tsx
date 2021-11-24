@@ -1,5 +1,5 @@
 import AkButton from '@atlaskit/button/custom-theme-button';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
 import { waitUntil } from '@atlaskit/elements-test-helpers';
 import { ReactWrapper } from 'enzyme';
 import React from 'react';
@@ -19,7 +19,7 @@ import EmojiPickerListSearch from '../../../../components/picker/EmojiPickerList
 import { EmojiDescription } from '../../../../types';
 import { hasSelector } from '../../_emoji-selectors';
 import { getEmojiResourcePromise, newEmojiRepository } from '../../_test-data';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl-next';
 import FileChooser from '../../../../components/common/FileChooser';
 import {
   WithAnalyticsEventsProps,

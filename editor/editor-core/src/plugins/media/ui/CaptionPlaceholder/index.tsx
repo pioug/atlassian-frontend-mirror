@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl-next';
 import styled from 'styled-components';
 
 import { N200 } from '@atlaskit/theme/colors';

@@ -424,7 +424,7 @@ const Element = () => (
         {},
         `
         import React from "react";
-        import { FormattedMessage, IntlProvider } from "react-intl";
+        import { FormattedMessage, IntlProvider } from "react-intl-next";
         import { shallow } from "enzyme";
         import { AtlaskitThemeProvider } from "@atlaskit/theme";
         import { Link } from "@confluence/route-manager";
@@ -498,7 +498,7 @@ const Element = () => (
         });`,
         `
         import React from "react";
-        import { FormattedMessage, IntlProvider } from "react-intl";
+        import { FormattedMessage, IntlProvider } from "react-intl-next";
         import { shallow } from "enzyme";
         import { AtlaskitThemeProvider } from "@atlaskit/theme";
         import { Link } from "@confluence/route-manager";

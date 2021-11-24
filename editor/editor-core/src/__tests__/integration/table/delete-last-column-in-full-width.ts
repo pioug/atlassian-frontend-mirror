@@ -19,12 +19,16 @@ BrowserTestCase(
   { skip: ['edge', 'safari'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
-    await mountEditor(page, {
-      appearance: fullpage.appearance,
-      allowTables: {
-        advanced: true,
+    await mountEditor(
+      page,
+      {
+        appearance: fullpage.appearance,
+        allowTables: {
+          advanced: true,
+        },
       },
-    });
+      { i18n: { locale: 'en' } },
+    );
 
     await page.click(editable);
 

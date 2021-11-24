@@ -891,14 +891,15 @@ export const createPlugin = (
         return false;
       },
       handleClick: (_editorView, _pos, event: MouseEvent) => {
+        const clickedInsideCaptionPlaceholder = (event.target as HTMLElement)?.closest(
+          `[data-id="${CAPTION_PLACEHOLDER_ID}"]`,
+        );
+
         // Workaround for Chrome given a regression introduced in prosemirror-view@1.18.6
         // Returning true prevents that updateSelection() is getting called in the commit below:
         // @see https://github.com/ProseMirror/prosemirror-view/compare/1.18.5...1.18.6
         return Boolean(
-          (browser.chrome || browser.safari) &&
-            event.target &&
-            CAPTION_PLACEHOLDER_ID ===
-              (event.target as HTMLElement).parentElement?.dataset.id,
+          (browser.chrome || browser.safari) && clickedInsideCaptionPlaceholder,
         );
       },
     },

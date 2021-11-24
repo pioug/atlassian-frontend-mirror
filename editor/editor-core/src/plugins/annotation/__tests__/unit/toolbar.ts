@@ -1,5 +1,5 @@
 import { getPluginState, inlineCommentPluginKey } from './../../utils';
-import { IntlProvider } from 'react-intl';
+import { createIntl } from 'react-intl-next';
 import {
   doc,
   emoji,
@@ -42,8 +42,9 @@ const providerFactory = ProviderFactory.create({ emojiProvider });
 
 describe('annotation', () => {
   const createEditor = createProsemirrorEditorFactory();
-  const intlProvider = new IntlProvider({ locale: 'en' });
-  const { intl } = intlProvider.getChildContext();
+  const intl = createIntl({
+    locale: 'en',
+  });
 
   const editor = (doc: DocBuilder) =>
     createEditor({

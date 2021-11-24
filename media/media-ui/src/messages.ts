@@ -1,4 +1,4 @@
-import { defineMessages, FormattedMessage } from 'react-intl';
+import { defineMessages, MessageDescriptor } from 'react-intl-next';
 
 export type RequestAccessMessageKey =
   | 'request_access_description'
@@ -128,10 +128,10 @@ export type MessageKey =
   | RequestAccessMessageKey;
 
 type Messages = {
-  [K in MessageKey]: FormattedMessage.MessageDescriptor;
+  [K in MessageKey]: MessageDescriptor;
 };
 
-export const messages = defineMessages<Messages>({
+export const messages: Messages = defineMessages({
   click_to_join: {
     id: 'fabric.media.click_to_join',
     defaultMessage: 'Join {context}',

@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { IntlProvider } from 'react-intl';
+import { IntlProvider } from 'react-intl-next';
 import { doc, p, DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import { createProsemirrorEditorFactory } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 

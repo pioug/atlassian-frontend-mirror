@@ -1,5 +1,5 @@
 import React from 'react';
-import { InjectedIntlProps, injectIntl } from 'react-intl';
+import { WrappedComponentProps, injectIntl } from 'react-intl-next';
 import Button from '@atlaskit/button/standard-button';
 
 import Modal, {
@@ -21,7 +21,7 @@ type ConfirmationDialogProps = {
 };
 
 const ConfirmationModalImpl = (
-  props: ConfirmationDialogProps & InjectedIntlProps,
+  props: ConfirmationDialogProps & WrappedComponentProps,
 ) => {
   const {
     onConfirm,

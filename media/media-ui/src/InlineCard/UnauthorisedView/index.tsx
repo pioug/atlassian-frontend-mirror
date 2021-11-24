@@ -2,7 +2,7 @@ import Button from '@atlaskit/button/custom-theme-button';
 import LockIcon from '@atlaskit/icon/glyph/lock-filled';
 import { N500, R400 } from '@atlaskit/theme/colors';
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl-next';
 import { messages } from '../../messages';
 import { Frame } from '../Frame';
 import { AKIconWrapper } from '../Icon';

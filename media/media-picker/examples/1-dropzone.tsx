@@ -1,6 +1,7 @@
 // eslint-disable-line no-console
 import React from 'react';
 import { Component } from 'react';
+import { IntlProvider } from 'react-intl-next';
 import {
   userAuthProvider,
   defaultMediaPickerCollectionName,
@@ -164,32 +165,34 @@ class DropzoneWrapper extends Component<{}, DropzoneWrapperState> {
     const { isConnectedToUsersCollection, isActive } = this.state;
 
     return (
-      <PopupContainer>
-        <PopupHeader>
-          <Button appearance="primary" onClick={this.onFetchLastItems}>
-            Fetch last items
-          </Button>
-          <Button appearance="danger">Cancel uploads</Button>
-          Connected to users collection
-          <Toggle
-            defaultChecked={isConnectedToUsersCollection}
-            onChange={this.onConnectionChange}
-          />
-          Active
-          <Toggle defaultChecked={isActive} onChange={this.onActiveChange} />
-        </PopupHeader>
-        <DropzoneContentWrapper>
-          <DropzoneContainer
-            isActive={isActive}
-            innerRef={this.saveDropzoneContainer}
-          />
-          <DropzoneItemsInfo>
-            {this.renderDragZone()}
-            <h1>User collection items</h1>
-            {this.renderLastItems()}
-          </DropzoneItemsInfo>
-        </DropzoneContentWrapper>
-      </PopupContainer>
+      <IntlProvider locale={'en'}>
+        <PopupContainer>
+          <PopupHeader>
+            <Button appearance="primary" onClick={this.onFetchLastItems}>
+              Fetch last items
+            </Button>
+            <Button appearance="danger">Cancel uploads</Button>
+            Connected to users collection
+            <Toggle
+              defaultChecked={isConnectedToUsersCollection}
+              onChange={this.onConnectionChange}
+            />
+            Active
+            <Toggle defaultChecked={isActive} onChange={this.onActiveChange} />
+          </PopupHeader>
+          <DropzoneContentWrapper>
+            <DropzoneContainer
+              isActive={isActive}
+              innerRef={this.saveDropzoneContainer}
+            />
+            <DropzoneItemsInfo>
+              {this.renderDragZone()}
+              <h1>User collection items</h1>
+              {this.renderLastItems()}
+            </DropzoneItemsInfo>
+          </DropzoneContentWrapper>
+        </PopupContainer>
+      </IntlProvider>
     );
   }
 }

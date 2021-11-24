@@ -5,7 +5,7 @@ import {
 import { EmojiProvider } from '@atlaskit/emoji/resource';
 import Tooltip from '@atlaskit/tooltip';
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl-next';
 import { style } from 'typestyle';
 import {
   createAndFireSafe,

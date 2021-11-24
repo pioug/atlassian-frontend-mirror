@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { IntlProvider, addLocaleData } from 'react-intl';
+import React, { useState } from 'react';
+import { IntlProvider } from 'react-intl-next';
 import LocaleSelect, {
   Locale,
   defaultLocales,
@@ -19,14 +19,6 @@ const selectableLocales = defaultLocales.reduce((result, locale) => {
   return [...result, locale];
 }, [] as Locale[]);
 
-function addAllLocaleData() {
-  Object.keys(locales).forEach((localeKey) => {
-    const lang = localeKey.substring(0, 2);
-    const localeData = require(`react-intl/locale-data/${lang}`);
-    addLocaleData(localeData);
-  });
-}
-
 export interface I18NWrapperState {
   locale: Locale;
 }
@@ -37,9 +29,6 @@ export interface I18NWrapperProps {
 
 export const I18NWrapper = ({ children }: I18NWrapperProps) => {
   const [locale, setLocale] = useState({ label: 'en', value: 'en' });
-
-  // We add the locale data only when mount
-  useEffect(() => addAllLocaleData(), []);
 
   const lang = locale.value.substring(0, 2);
   const messages = getMessages(locale.value);

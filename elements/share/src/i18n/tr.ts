@@ -37,10 +37,16 @@ export default {
     'Ad, grup, takım veya e-posta adresi girin',
   'fabric.elements.share.form.user-picker.placeholder.jira':
     'Ad, takım veya e-posta adresi girin',
+  'fabric.elements.share.form.user-picker.placholder.generic.existingUserOnly':
+    'Ad, grup veya takım girin',
   'fabric.elements.share.form.user-picker.validation.required':
     'En az bir kullanıcı, grup, takım veya e-posta adresi seçin.',
+  'fabric.elements.share.form.user-picker.validation.required.existingUserOnly':
+    'En az bir kullanıcı, grup veya takım seçin.',
   'fabric.elements.share.form.user-picker.validation.required.jira':
     'En az bir kullanıcı, takım veya e-posta adresi seçin.',
+  'fabric.elements.share.form.user-picker.validation.required.jira.existingUserOnly':
+    'En az bir kullanıcı veya takım seçin.',
   'fabric.elements.share.success.message':
     '{object, select, blogpost {Blog gönderisi paylaşıldı} board {Pano paylaşıldı} calendar {Takvim paylaşıldı} draft {Taslak paylaşıldı} filter {Filtre paylaşıldı} issue {Konu paylaşıldı} media {Medya paylaşıldı} page {Sayfa paylaşıldı} project {Proje paylaşıldı} pullrequest {Çekme İsteği paylaşıldı} question {Soru paylaşıldı} report {Rapor paylaşıldı} repository {Depo paylaşıldı} request {Talep paylaşıldı} roadmap {Yol haritası paylaşıldı} site {Site paylaşıldı} space {Alan paylaşıldı} other {Bağlantı paylaşıldı}}',
   'fabric.elements.share.to.integration.button':

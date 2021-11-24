@@ -1,6 +1,6 @@
 import React, { ComponentType, FC, useEffect, useState } from 'react';
 
-import { InjectedIntlProps, injectIntl } from 'react-intl';
+import { useIntl } from 'react-intl-next';
 import styled from 'styled-components';
 
 import Button from '@atlaskit/button/standard-button';
@@ -52,20 +52,16 @@ const cardStyles = (componentType: ComponentType<any>) => {
 };
 
 // create standard translated error messages here????
-const MacroComponent: FC<MacroRendererProps & InjectedIntlProps> = (props) => {
-  const {
-    createPromise,
-    eventDispatcher,
-    extension,
-    macroWhitelist,
-    intl,
-  } = props;
+export const MacroFallbackComponent: FC<MacroRendererProps> = (props) => {
+  const { createPromise, eventDispatcher, extension, macroWhitelist } = props;
   const { extensionKey, parameters } = extension;
 
   const [loading, setLoading] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const [retryCount, setRetryCount] = useState(0);
   const [errorMessage, setErrorMessage] = useState('');
+
+  const { formatMessage } = useIntl();
 
   const cardProps: CreateMacro = {
     isDisabled: false,
@@ -142,7 +138,7 @@ const MacroComponent: FC<MacroRendererProps & InjectedIntlProps> = (props) => {
     setLoaded(false);
     setLoading(false);
     setErrorMessage(
-      intl.formatMessage(legacyMobileMacrosMessages.errorLoadingMacro),
+      formatMessage(legacyMobileMacrosMessages.errorLoadingMacro),
     );
   };
 
@@ -157,7 +153,7 @@ const MacroComponent: FC<MacroRendererProps & InjectedIntlProps> = (props) => {
     setLoaded(false);
     setLoading(false);
     setErrorMessage(
-      intl.formatMessage(legacyMobileMacrosMessages.finalErrorLoadingMacro),
+      formatMessage(legacyMobileMacrosMessages.finalErrorLoadingMacro),
     );
   };
 
@@ -250,7 +246,7 @@ const MacroComponent: FC<MacroRendererProps & InjectedIntlProps> = (props) => {
     const newProps = {
       action: (
         <Action>
-          {intl.formatMessage(legacyMobileMacrosMessages.tapToLoadMacro)}
+          {formatMessage(legacyMobileMacrosMessages.tapToLoadMacro)}
         </Action>
       ),
       isDisabled: false,
@@ -278,7 +274,7 @@ const MacroComponent: FC<MacroRendererProps & InjectedIntlProps> = (props) => {
     const newProps = {
       action: (
         <Action callToAction>
-          {intl.formatMessage(legacyMobileMacrosMessages.tapToViewMacro)}
+          {formatMessage(legacyMobileMacrosMessages.tapToViewMacro)}
         </Action>
       ),
       isDisabled: false,
@@ -292,9 +288,7 @@ const MacroComponent: FC<MacroRendererProps & InjectedIntlProps> = (props) => {
     const newProps = {
       action: (
         <Action callToAction>
-          {intl.formatMessage(
-            legacyMobileMacrosMessages.tapToRetryLoadingMacro,
-          )}
+          {formatMessage(legacyMobileMacrosMessages.tapToRetryLoadingMacro)}
         </Action>
       ),
       isDisabled: false,
@@ -314,7 +308,7 @@ const MacroComponent: FC<MacroRendererProps & InjectedIntlProps> = (props) => {
       errorMessage,
       secondaryAction: (
         <Action callToAction>
-          {intl.formatMessage(legacyMobileMacrosMessages.tapToRefreshPage)}
+          {formatMessage(legacyMobileMacrosMessages.tapToRefreshPage)}
         </Action>
       ),
     };
@@ -376,5 +370,3 @@ const MacroComponent: FC<MacroRendererProps & InjectedIntlProps> = (props) => {
 
   return createCard(cardProps);
 };
-
-export const MacroFallbackComponent = injectIntl(MacroComponent);

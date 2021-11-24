@@ -1,5 +1,5 @@
 import React from 'react';
-import { injectIntl, InjectedIntlProps } from 'react-intl';
+import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 import styled from 'styled-components';
 
 import { gridSize } from '@atlaskit/theme/constants';
@@ -34,7 +34,7 @@ type Props = {
   canRemoveField?: boolean;
   children: React.ReactElement;
   className?: string;
-} & InjectedIntlProps;
+} & WrappedComponentProps;
 
 const RemovableField = ({
   name,

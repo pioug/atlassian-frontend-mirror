@@ -1,14 +1,21 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
-import { IntlProvider } from 'react-intl';
+import { createIntl, createIntlCache } from 'react-intl-next';
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 
 import { messages } from '../../../../messages';
 
 import { ShowMoreButton } from '../../index';
 
-const intlProvider = new IntlProvider({ locale: 'en' });
-const { intl } = intlProvider.getChildContext();
+// Messages
+const cache = createIntlCache();
+const intl = createIntl(
+  {
+    locale: 'en',
+    messages: {},
+  },
+  cache,
+);
 const buttonLabelShowMore = intl.formatMessage(
   messages.help_show_more_button_label_more,
   {

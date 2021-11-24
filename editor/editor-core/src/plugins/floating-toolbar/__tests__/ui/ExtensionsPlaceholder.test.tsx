@@ -25,7 +25,11 @@ describe('ExtensionsPlaceholder', () => {
   const createEditor = createEditorFactory();
   const testItemProps = {
     key: 'item-1',
-    icon: () => import('@atlaskit/icon/glyph/editor/success'),
+    icon: () =>
+      import(
+        /* webpackChunkName: "@atlaskit-internal_icon-editor-success" */
+        '@atlaskit/icon/glyph/editor/success'
+      ),
     label: 'item label',
     tooltip: 'item tooltip',
   };

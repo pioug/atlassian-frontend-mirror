@@ -10,7 +10,7 @@ import {
   isFileIdentifier,
   ExternalImageIdentifier,
 } from '@atlaskit/media-client';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl-next';
 import { messages, WithShowControlMethodProp } from '@atlaskit/media-ui';
 import { isCodeViewerItem } from '@atlaskit/media-ui/codeViewer';
 import { Outcome } from './domain';

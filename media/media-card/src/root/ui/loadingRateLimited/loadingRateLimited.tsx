@@ -7,8 +7,9 @@ import {
   ErrorWrapper,
   LoadingRateLimitedTextWrapper,
 } from './styled';
+import { FormattedMessageWrapper } from '../../styled';
 import { messages } from '@atlaskit/media-ui';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl-next';
 import { Breakpoint } from '../common';
 
 export const LoadingRateLimited = ({
@@ -23,10 +24,14 @@ export const LoadingRateLimited = ({
         positionBottom={positionBottom}
       >
         <CouldntLoadWrapper>
-          <FormattedMessage {...messages.couldnt_load_file} />
+          <FormattedMessageWrapper>
+            <FormattedMessage {...messages.couldnt_load_file} />
+          </FormattedMessageWrapper>
         </CouldntLoadWrapper>
         <ErrorWrapper>
-          <FormattedMessage {...messages.error_429} />
+          <FormattedMessageWrapper>
+            <FormattedMessage {...messages.error_429} />
+          </FormattedMessageWrapper>
         </ErrorWrapper>
       </LoadingRateLimitedTextWrapper>
     </LoadingRateLimitedContainer>

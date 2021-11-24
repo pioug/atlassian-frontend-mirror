@@ -1,7 +1,11 @@
 import React from 'react';
 
 import { ReactWrapper } from 'enzyme';
-import { InjectedIntl, InjectedIntlProps, IntlProvider } from 'react-intl';
+import {
+  IntlProvider,
+  IntlShape,
+  WrappedComponentProps,
+} from 'react-intl-next';
 
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
@@ -12,7 +16,7 @@ import {
   unsupportedBlock,
   unsupportedInline,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
 import Tooltip from '@atlaskit/tooltip';
 
 import * as Hooks from '../../../ui/unsupported-content-helper';
@@ -30,7 +34,7 @@ jest.mock('../../../utils/track-unsupported-content', () => {
 
 describe('Unsupported Content', () => {
   describe('Block Node', () => {
-    let wrapper: ReactWrapper<any & InjectedIntlProps, any, any>;
+    let wrapper: ReactWrapper<any & WrappedComponentProps, any, any>;
     const createEditor = createEditorFactory();
 
     afterEach(() => {
@@ -254,7 +258,7 @@ describe('Unsupported Content', () => {
           object,
           string,
           (import('prosemirror-model').Node<any> | undefined)?,
-          InjectedIntl?,
+          IntlShape?,
         ]
       >;
       beforeEach(() => {
@@ -339,7 +343,7 @@ describe('Unsupported Content', () => {
     });
   });
   describe('Inline Node', () => {
-    let wrapper: ReactWrapper<any & InjectedIntlProps, any, any>;
+    let wrapper: ReactWrapper<any & WrappedComponentProps, any, any>;
     const createEditor = createEditorFactory();
 
     afterEach(() => {
@@ -563,7 +567,7 @@ describe('Unsupported Content', () => {
           object,
           string,
           (import('prosemirror-model').Node<any> | undefined)?,
-          InjectedIntl?,
+          IntlShape?,
         ]
       >;
       beforeEach(() => {

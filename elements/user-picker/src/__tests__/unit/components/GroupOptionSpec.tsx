@@ -1,6 +1,6 @@
 import { shallow } from 'enzyme';
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl-next';
 
 import { N800, N200, B400 } from '@atlaskit/theme/colors';
 import PeopleIcon from '@atlaskit/icon/glyph/people';

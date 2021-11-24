@@ -1,5 +1,5 @@
 import React from 'react';
-import { InjectedIntl } from 'react-intl';
+import { IntlShape } from 'react-intl-next';
 import { allowListPayloadType, EventTypes } from '../event-dispatch';
 import { createQuickInsertProvider } from '../../providers';
 import WebBridgeImpl from '../native-to-web';
@@ -13,7 +13,7 @@ import { toNativeBridge } from '../web-to-native';
 
 export function useQuickInsert(
   bridge: WebBridgeImpl,
-  intl: InjectedIntl,
+  intl: IntlShape,
   isQuickInsertEnabled: boolean,
 ): EditorProps['quickInsert'] {
   const [quickAllowList, setQuickAllowList] = React.useState<

@@ -11,7 +11,7 @@ import { FailedTitleBox } from '../failedTitleBox';
 import { Breakpoint } from '../../common';
 import { TitleBoxWrapper } from '../styled';
 import EditorWarningIcon from '@atlaskit/icon/glyph/editor/warning';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl-next';
 
 describe('FailedTitleBox', () => {
   it('should render FailedTitleBox properly', () => {

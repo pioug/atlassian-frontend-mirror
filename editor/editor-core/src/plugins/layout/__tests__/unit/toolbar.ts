@@ -4,7 +4,7 @@ import {
   CreateUIAnalyticsEvent,
   UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
-import { IntlProvider, FormattedMessage } from 'react-intl';
+import { MessageDescriptor, createIntl } from 'react-intl-next';
 import { buildToolbar } from '../../toolbar';
 import { toolbarMessages } from '../../toolbar-messages';
 import { EditorView } from 'prosemirror-view';
@@ -33,12 +33,13 @@ describe('layout toolbar', () => {
     });
   };
 
-  const intlProvider = new IntlProvider({ locale: 'en' });
-  const { intl } = intlProvider.getChildContext();
+  const intl = createIntl({
+    locale: 'en',
+  });
 
   interface ExpectedLayoutButton {
     name: string;
-    message: FormattedMessage.MessageDescriptor;
+    message: MessageDescriptor;
   }
 
   const stdLayoutButtons: ExpectedLayoutButton[] = [

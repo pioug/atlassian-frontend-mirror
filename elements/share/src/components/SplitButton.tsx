@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl-next';
 import styled from 'styled-components';
 
 import { AnalyticsEventPayload } from '@atlaskit/analytics-next';

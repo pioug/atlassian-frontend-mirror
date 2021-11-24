@@ -3,7 +3,6 @@ import React from 'react';
 import { EditorView } from 'prosemirror-view';
 
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import { shallowWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import {
   doc,
   p,
@@ -15,7 +14,10 @@ import {
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import DropdownMenuWrapper from '../../../../../ui/DropdownMenu';
-import ContextualMenu from '../ContextualMenu';
+import { ContextualMenu } from '../ContextualMenu';
+
+import { shallow } from 'enzyme';
+import { createIntl } from 'react-intl-next';
 
 describe('ContextualMenu', () => {
   const createEditor = createEditorFactory();
@@ -33,8 +35,10 @@ describe('ContextualMenu', () => {
     });
 
     test('should render contextual menu when no tableCellPosition is passed but exist on editor state ', () => {
-      const wrapper = shallowWithIntl(
+      const intl = createIntl({ locale: 'en' });
+      const wrapper = shallow(
         <ContextualMenu
+          intl={intl}
           editorView={editorView}
           selectionRect={{ bottom: 0, left: 0, right: 0, top: 0 }}
           isOpen

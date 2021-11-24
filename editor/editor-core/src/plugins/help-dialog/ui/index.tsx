@@ -3,9 +3,9 @@ import {
   injectIntl,
   defineMessages,
   FormattedMessage,
-  InjectedIntl,
-  InjectedIntlProps,
-} from 'react-intl';
+  IntlShape,
+  WrappedComponentProps,
+} from 'react-intl-next';
 import { Schema } from 'prosemirror-model';
 import { EditorView } from 'prosemirror-view';
 import { browser } from '@atlaskit/editor-common';
@@ -91,7 +91,7 @@ export interface Format {
   imageEnabled?: boolean;
 }
 
-export const formatting: (intl: InjectedIntl) => Format[] = ({
+export const formatting: (intl: IntlShape) => Format[] = ({
   formatMessage,
 }) => [
   {
@@ -322,9 +322,7 @@ const shortcutNamesWithoutKeymap: string[] = [
   'quickInsert',
 ];
 
-const otherFormatting: (intl: InjectedIntl) => Format[] = ({
-  formatMessage,
-}) => [
+const otherFormatting: (intl: IntlShape) => Format[] = ({ formatMessage }) => [
   {
     name: formatMessage(toolbarMessages.clearFormatting),
     type: 'clearFormatting',
@@ -366,7 +364,7 @@ const imageAutoFormat: Format = {
   ),
 };
 
-const quickInsertAutoFormat: (intl: InjectedIntl) => Format = ({
+const quickInsertAutoFormat: (intl: IntlShape) => Format = ({
   formatMessage,
 }) => ({
   name: formatMessage(messages.quickInsert),
@@ -380,7 +378,7 @@ const quickInsertAutoFormat: (intl: InjectedIntl) => Format = ({
 
 export const getSupportedFormatting = (
   schema: Schema,
-  intl: InjectedIntl,
+  intl: IntlShape,
   imageEnabled?: boolean,
   quickInsertEnabled?: boolean,
 ): Format[] => {
@@ -429,7 +427,7 @@ export interface Props {
 }
 
 const ModalHeader = injectIntl(
-  ({ intl: { formatMessage } }: InjectedIntlProps) => {
+  ({ intl: { formatMessage } }: WrappedComponentProps) => {
     const { onClose } = useModal();
     return (
       <Header>
@@ -462,7 +460,7 @@ const ModalFooter = () => (
   </Footer>
 );
 
-class HelpDialog extends React.Component<Props & InjectedIntlProps> {
+class HelpDialog extends React.Component<Props & WrappedComponentProps> {
   static displayName = 'HelpDialog';
 
   private formatting: Format[] = [];

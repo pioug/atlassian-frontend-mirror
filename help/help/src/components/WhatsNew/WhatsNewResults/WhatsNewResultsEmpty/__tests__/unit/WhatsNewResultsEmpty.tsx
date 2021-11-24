@@ -2,13 +2,19 @@ import React from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { render, fireEvent } from '@testing-library/react';
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
-import { IntlProvider } from 'react-intl';
+import { createIntl, createIntlCache } from 'react-intl-next';
 
 import { messages } from '../../../../../../messages';
 import { WhatsNewResultsEmpty } from '../../../WhatsNewResultsEmpty';
 
-const intlProvider = new IntlProvider({ locale: 'en' });
-const { intl } = intlProvider.getChildContext();
+const cache = createIntlCache();
+const intl = createIntl(
+  {
+    locale: 'en',
+    messages: {},
+  },
+  cache,
+);
 const messageClearFilterLink = intl.formatMessage(
   messages.help_whats_new_no_results_clear_filter_button_label,
 );

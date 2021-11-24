@@ -35,12 +35,8 @@ const expandPlugin = (options: ExpandPluginOptions = {}): EditorPlugin => ({
     return [
       {
         name: 'expand',
-        plugin: ({ dispatch, reactContext }) => {
-          return createPlugin(
-            dispatch,
-            reactContext,
-            options.useLongPressSelection,
-          );
+        plugin: ({ dispatch, getIntl }) => {
+          return createPlugin(dispatch, getIntl, options.useLongPressSelection);
         },
       },
       {

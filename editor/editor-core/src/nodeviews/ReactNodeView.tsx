@@ -38,9 +38,10 @@ export default class ReactNodeView<P = ReactComponentProps>
   private contentDOMWrapper?: Node;
   private reactComponent?: React.ComponentType<any>;
   private portalProviderAPI: PortalProviderAPI;
-  private hasContext: boolean;
+  private hasAnalyticsContext: boolean;
   private _viewShouldUpdate?: shouldUpdate;
   protected eventDispatcher?: EventDispatcher;
+  private hasIntlContext: boolean;
 
   reactComponentProps: P;
 
@@ -57,8 +58,9 @@ export default class ReactNodeView<P = ReactComponentProps>
     eventDispatcher: EventDispatcher,
     reactComponentProps?: P,
     reactComponent?: React.ComponentType<any>,
-    hasContext: boolean = false,
+    hasAnalyticsContext: boolean = false,
     viewShouldUpdate?: shouldUpdate,
+    hasIntlContext: boolean = false,
   ) {
     this.node = node;
     this.view = view;
@@ -66,9 +68,10 @@ export default class ReactNodeView<P = ReactComponentProps>
     this.portalProviderAPI = portalProviderAPI;
     this.reactComponentProps = reactComponentProps || ({} as P);
     this.reactComponent = reactComponent;
-    this.hasContext = hasContext;
+    this.hasAnalyticsContext = hasAnalyticsContext;
     this._viewShouldUpdate = viewShouldUpdate;
     this.eventDispatcher = eventDispatcher;
+    this.hasIntlContext = hasIntlContext;
   }
 
   /**
@@ -158,7 +161,8 @@ export default class ReactNodeView<P = ReactComponentProps>
     this.portalProviderAPI.render(
       componentWithErrorBoundary,
       this.domRef!,
-      this.hasContext,
+      this.hasAnalyticsContext,
+      this.hasIntlContext,
     );
   }
 
@@ -316,6 +320,7 @@ export default class ReactNodeView<P = ReactComponentProps>
     eventDispatcher: EventDispatcher,
     props?: ReactComponentProps,
     viewShouldUpdate?: (nextNode: PMNode) => boolean,
+    hasIntlContext: boolean = false,
   ) {
     return (node: PMNode, view: EditorView, getPos: getPosHandler) =>
       new ReactNodeView(
@@ -328,6 +333,7 @@ export default class ReactNodeView<P = ReactComponentProps>
         component,
         false,
         viewShouldUpdate,
+        hasIntlContext,
       ).init();
   }
 }

@@ -12,6 +12,7 @@ jest.mock('../../../../hooks/use-container-width', () => {
 
 import React from 'react';
 import { ReactWrapper, mount } from 'enzyme';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
 import { ELEMENT_LIST_PADDING } from '../../../../constants';
 import ElementList from '../../ElementList';
 import EmptyState from '../../EmptyState';
@@ -146,7 +147,7 @@ describe('ElementList', () => {
 
     it('should render generic EmptyState Component if emptyStateHandler props are not passed', () => {
       elementListProps.items = [];
-      const wrapper = mount(<ElementList {...elementListProps} />);
+      const wrapper = mountWithIntl(<ElementList {...elementListProps} />);
       expect(wrapper.find(EmptyState)).toHaveLength(1);
     });
 

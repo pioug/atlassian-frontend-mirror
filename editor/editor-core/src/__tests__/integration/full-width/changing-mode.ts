@@ -17,17 +17,23 @@ BrowserTestCase(
   { skip: ['edge', 'safari', 'firefox'] },
   async (client: any) => {
     const page = await goToEditorTestingWDExample(client);
-    await mountEditor(page, {
-      appearance: fullpage.appearance,
-      defaultValue: JSON.stringify(mediumSizeDoc),
-      allowTables: {
-        advanced: true,
+    await mountEditor(
+      page,
+      {
+        appearance: fullpage.appearance,
+        defaultValue: JSON.stringify(mediumSizeDoc),
+        allowTables: {
+          advanced: true,
+        },
+        allowLayouts: {
+          allowBreakout: true,
+          UNSAFE_addSidebarLayouts: true,
+        },
       },
-      allowLayouts: {
-        allowBreakout: true,
-        UNSAFE_addSidebarLayouts: true,
+      {
+        i18n: { locale: 'en' },
       },
-    });
+    );
 
     await setProseMirrorTextSelection(page, { anchor: 314, head: 308 });
     await updateEditorProps(page, { appearance: 'full-width' });

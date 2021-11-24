@@ -1,7 +1,7 @@
 import React from 'react';
 import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
 import {
   doc,
   code_block,
@@ -19,11 +19,13 @@ import {
 import Color from '../../../../../ui/ColorPalette/Color';
 import ColorPalette from '../../../../../ui/ColorPalette';
 import ToolbarButton from '../../../../../ui/ToolbarButton';
-import ToolbarTextColor, {
+import {
+  ToolbarTextColor,
   Props as ToolbarTextColorProps,
 } from '../../../../../plugins/text-color/ui/ToolbarTextColor';
 import { ShowMoreWrapper } from '../../../../../plugins/text-color/ui/ToolbarTextColor/styles';
 import { PaletteColor } from '../../../../../ui/ColorPalette/Palettes/type';
+import { createIntl } from 'react-intl-next';
 
 const mockDispatchAnalytics = jest.fn(() => () => {});
 
@@ -124,9 +126,11 @@ describe('ToolbarTextColor', () => {
       const { editorView } = editor(doc(p('text')));
       pluginState = pluginKey.getState(editorView.state);
       mockDispatchAnalytics.mockClear();
+      const intl = createIntl({ locale: 'en' });
 
       toolbarTextColor = mountWithIntl(
         <ToolbarTextColor
+          intl={intl}
           pluginState={pluginState}
           editorView={editorView}
           dispatchAnalyticsEvent={mockDispatchAnalytics}
@@ -260,9 +264,11 @@ describe('ToolbarTextColor', () => {
       const { editorView } = editor(doc(code_block()('text')));
       const pluginState = pluginKey.getState(editorView.state);
       mockDispatchAnalytics.mockClear();
+      const intl = createIntl({ locale: 'en' });
 
       toolbarTextColor = mountWithIntl(
         <ToolbarTextColor
+          intl={intl}
           pluginState={pluginState}
           editorView={editorView}
           dispatchAnalyticsEvent={mockDispatchAnalytics}
@@ -286,9 +292,11 @@ describe('ToolbarTextColor', () => {
       const { editorView } = editor(doc(p('text')));
       pluginState = pluginKey.getState(editorView.state);
       mockDispatchAnalytics.mockClear();
+      const intl = createIntl({ locale: 'en' });
 
       toolbarTextColor = mountWithIntl(
         <ToolbarTextColor
+          intl={intl}
           pluginState={pluginState}
           editorView={editorView}
           showMoreColorsToggle={false}
@@ -318,9 +326,11 @@ describe('ToolbarTextColor', () => {
       const { editorView } = editor(doc(p('text')), props);
       pluginState = pluginKey.getState(editorView.state);
       mockDispatchAnalytics.mockClear();
+      const intl = createIntl({ locale: 'en' });
 
       toolbarTextColor = mountWithIntl(
         <ToolbarTextColor
+          intl={intl}
           pluginState={pluginState}
           editorView={editorView}
           showMoreColorsToggle

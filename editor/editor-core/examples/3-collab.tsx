@@ -281,7 +281,7 @@ const editorProps = ({
   extensionHandlers: extensionHandlers,
 });
 
-export default class Example extends React.Component<Props> {
+class Example extends React.Component<Props> {
   render() {
     return (
       <div>
@@ -324,3 +324,5 @@ export default class Example extends React.Component<Props> {
     );
   }
 }
+
+export default Example;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { injectIntl, InjectedIntlProps } from 'react-intl';
+import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 import AkCode from '@atlaskit/code/inline';
 import { codeBidiWarningMessages } from '@atlaskit/editor-common/messages';
 import { Mark } from 'prosemirror-model';
@@ -13,7 +13,7 @@ export const isCodeMark = (mark: Mark): boolean => {
 
 export function CodeWithIntl(
   props: MarkProps<{ codeBidiWarningTooltipEnabled: boolean }> &
-    InjectedIntlProps,
+    WrappedComponentProps,
 ) {
   const featureFlags = useFeatureFlags();
 

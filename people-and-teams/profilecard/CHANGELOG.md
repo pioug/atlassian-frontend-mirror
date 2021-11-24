@@ -1,5 +1,47 @@
 # @atlaskit/profilecard
 
+## 16.0.0
+
+### Major Changes
+
+- [`47f58da5946`](https://bitbucket.org/atlassian/atlassian-frontend/commits/47f58da5946) - ED-13322, ED-13324, ED-13326, ED-13323, ED-13204: Upgrade and support react-intl@^5.18.1 including breaking API changes, types and tests in atlassian-frontend packages
+
+  What changed: Upgraded our react-intl support from ^2.6.0 to ^5.18.1. This means editor packages now rely on consumers installing ^5.18.1, otherwise editor usage of react-intl will mismatch with actual installed react-intl APIs.
+  Why change was made: As part of a coordinated upgrade effort across AF packages, as react-intl v2 is quite dated.
+  How consumer should update their code: Ensure react-intl ^5.18.1 is installed in consuming applications.
+
+  Upgrade guide: To consume atlassian-frontend packages that use react-intl5 setup a second provider for the new version, using an npm alias
+
+  ```js
+  "react-intl": "^2.6.0",
+  "react-intl-next": "npm:react-intl@^5.18.1",
+  ```
+
+  ```js
+  import { IntlProvider } from 'react-intl';
+  import { IntlProvider as IntlNextProvider } from 'react-intl-next';
+
+  return (
+    <IntlProvider
+      key={locale}
+      data-test-language={locale}
+      locale={locale}
+      defaultLocale={DEFAULT_LOCALE}
+      messages={messages}
+    >
+      <IntlNextProvider
+        key={locale}
+        data-test-language={locale}
+        locale={locale}
+        defaultLocale={DEFAULT_LOCALE}
+        messages={messages}
+      >
+        {children}
+      </IntlNextProvider>
+    </IntlProvider>
+  );
+  ```
+
 ## 15.8.2
 
 ### Patch Changes

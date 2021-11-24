@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { render } from '@testing-library/react';
-import { IntlProvider } from 'react-intl';
+import { IntlProvider } from 'react-intl-next';
 
 import { MacroFallbackComponent } from '../../src/ui/MacroFallbackComponent';
 
@@ -10,7 +10,7 @@ import { macroComponentProps } from './props.mock';
 describe('MacroFallbackComponent', () => {
   it('should show spinner while loading', () => {
     const { getByTestId, container } = render(
-      <IntlProvider>
+      <IntlProvider locale={'en'}>
         <MacroFallbackComponent {...macroComponentProps} />
       </IntlProvider>,
     );

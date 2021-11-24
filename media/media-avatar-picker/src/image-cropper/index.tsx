@@ -1,7 +1,7 @@
 import React from 'react';
 import { Component } from 'react';
 import CrossIcon from '@atlaskit/icon/glyph/cross';
-import { InjectedIntlProps, injectIntl } from 'react-intl';
+import { WrappedComponentProps, injectIntl } from 'react-intl-next';
 import { messages, MediaImage } from '@atlaskit/media-ui';
 import { isImageRemote } from './isImageRemote';
 import {
@@ -32,7 +32,7 @@ export interface ImageCropperProp {
 }
 
 export class ImageCropper extends Component<
-  ImageCropperProp & InjectedIntlProps,
+  ImageCropperProp & WrappedComponentProps,
   {}
 > {
   static defaultProps = {
@@ -133,4 +133,4 @@ export class ImageCropper extends Component<
   }
 }
 
-export default injectIntl(ImageCropper);
+export default injectIntl(ImageCropper) as React.FC<ImageCropperProp>;

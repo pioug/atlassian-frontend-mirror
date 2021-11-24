@@ -9,9 +9,9 @@ import MediaSingle, {
 import Caption from '../../../../react/nodes/caption';
 import { MediaCardInternal } from '../../../../ui/MediaCard';
 import { UnsupportedBlock, WidthProvider } from '@atlaskit/editor-common';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
 import { ReactWrapper } from 'enzyme';
-import { InjectedIntlProps } from 'react-intl';
+import { WrappedComponentProps } from 'react-intl-next';
 import { ExtendedUIMediaSingle } from '../../../../react/nodes/mediaSingle/styles';
 
 describe('MediaSingle', () => {
@@ -21,7 +21,7 @@ describe('MediaSingle', () => {
     mediaSingleProps: Partial<MediaSingleProps> = {},
     mediaProps: Partial<MediaProps & { width: number; heigth: number }> = {},
     showCaption: boolean = true,
-  ): ReactWrapper<InjectedIntlProps, any> => {
+  ): ReactWrapper<WrappedComponentProps, any> => {
     return mountWithIntl(
       <WidthProvider>
         <MediaSingle
@@ -84,7 +84,7 @@ describe('MediaSingle', () => {
   });
 
   describe('with link mark', () => {
-    let mediaSingle: ReactWrapper<InjectedIntlProps, any>;
+    let mediaSingle: ReactWrapper<WrappedComponentProps, any>;
     const fireAnalyticsEvent = jest.fn();
     const mediaOnClick = jest.fn();
 

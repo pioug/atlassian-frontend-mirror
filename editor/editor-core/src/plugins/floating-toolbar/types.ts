@@ -1,4 +1,4 @@
-import { InjectedIntl } from 'react-intl';
+import { IntlShape } from 'react-intl-next';
 import { EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import { NodeType, Node } from 'prosemirror-model';
@@ -204,7 +204,7 @@ export interface FloatingToolbarConfig {
 
 export type FloatingToolbarHandler = (
   state: EditorState,
-  intl: InjectedIntl,
+  intl: IntlShape,
   providerFactory: ProviderFactory,
   cardOptions?: CardOptions,
 ) => FloatingToolbarConfig | undefined;

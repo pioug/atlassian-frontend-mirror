@@ -1,4 +1,4 @@
-import { InjectedIntl } from 'react-intl';
+import { IntlShape } from 'react-intl-next';
 
 import {
   QuickInsertItem,
@@ -21,7 +21,7 @@ export type QuickInsertOptions =
 
 export type QuickInsertHandler =
   | Array<QuickInsertItem>
-  | ((intl: InjectedIntl) => Array<QuickInsertItem>);
+  | ((intl: IntlShape) => Array<QuickInsertItem>);
 
 export type IconProps = {
   label?: string;

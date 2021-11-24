@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl-next';
 import { Appearance } from '@atlaskit/button/types';
 
 import { ActionProps } from '../components/Action';

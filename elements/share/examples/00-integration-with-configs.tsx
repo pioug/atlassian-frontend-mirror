@@ -1,5 +1,5 @@
 import React from 'react';
-import { addLocaleData, IntlProvider } from 'react-intl';
+import { IntlProvider } from 'react-intl-next';
 import styled from 'styled-components';
 import Select from '@atlaskit/select';
 import WorldIcon from '@atlaskit/icon/glyph/world';
@@ -9,6 +9,7 @@ import { userPickerData } from '@atlaskit/util-data-test/user-picker-data';
 import { Appearance } from '@atlaskit/button/types';
 import SectionMessage from '@atlaskit/section-message';
 import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import Icon from '@atlaskit/icon';
 
 import App from '../example-helpers/AppWithFlag';
 import RestrictionMessage from '../example-helpers/RestrictionMessage';
@@ -34,51 +35,9 @@ import {
   ShortenResponse,
   UrlShortenerClient,
 } from '../src/clients/AtlassianUrlShortenerClient';
-import SlackIcon from '../src/components/SlackIcon';
-import Icon from '@atlaskit/icon';
 import { IntegrationMode } from '../src/types/ShareEntities';
-
-const supportedLocales = [
-  'en-US',
-  'cs-CZ',
-  'da-DK',
-  'de-DE',
-  'es-ES',
-  'et-EE',
-  'fi-FI',
-  'fr-FR',
-  'hu-HU',
-  'is-IS',
-  'it-IT',
-  'ja-JP',
-  'ko-KR',
-  'nb-NB',
-  'nl-NL',
-  'pl-PL',
-  'pt-BR',
-  'pt-PT',
-  'ro-RO',
-  'ru-RU',
-  'sk-SK',
-  'sv-SE',
-  'tr-TR',
-  'th-TH',
-  'uk-UK',
-  'vi-VI',
-  'zh-TW',
-  'zh-HK',
-  'zh-ZH',
-  'zh-CN',
-];
-
-const loadReactLocaleData = () => {
-  supportedLocales.forEach((locale: string) => {
-    const languageCode = locale.split('-')[0];
-    const data = require(`react-intl/locale-data/${languageCode}`);
-    addLocaleData(data);
-  });
-};
-loadReactLocaleData();
+import languages from '../src/i18n/languages';
+import SlackIcon from '../src/components/monochromeSlackIcon';
 
 type UserData = {
   avatarUrl?: string;
@@ -355,7 +314,7 @@ export default class Example extends React.Component<{}, State> {
     hasSplit: false,
     integrationMode: 'off',
     shareIntegrations: [],
-    locales: supportedLocales,
+    locales: Object.keys(languages),
     locale: 'en-US',
   };
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { doc, p, DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import { sleep } from '@atlaskit/editor-test-helpers/sleep';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import Comment from '../../Comment';
 import { getDefaultMediaClientConfig } from '@atlaskit/media-test-helpers/fakeMediaClient';

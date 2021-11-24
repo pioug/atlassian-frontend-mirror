@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-editor",
-  "version": "38.2.2",
+  "version": "39.0.0",
   "description": "Media component for image annotations",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -36,7 +36,7 @@
     "@atlaskit/icon": "^21.9.0",
     "@atlaskit/inline-dialog": "^13.2.0",
     "@atlaskit/media-client": "^14.3.0",
-    "@atlaskit/media-ui": "^17.2.0",
+    "@atlaskit/media-ui": "^18.0.0",
     "@atlaskit/modal-dialog": "^12.2.0",
     "@atlaskit/range": "^5.0.11",
     "@atlaskit/spinner": "^15.0.0",
@@ -49,21 +49,21 @@
   },
   "peerDependencies": {
     "react": "^16.8.0",
-    "react-intl": "^2.6.0",
+    "react-intl-next": "npm:react-intl@^5.18.1",
     "rxjs": "^5.5.0",
     "styled-components": "^3.2.6"
   },
   "devDependencies": {
     "@atlaskit/build-utils": "*",
     "@atlaskit/docs": "^9.0.0",
-    "@atlaskit/media-card": "^72.1.0",
+    "@atlaskit/media-card": "^73.0.0",
     "@atlaskit/media-common": "^2.10.0",
-    "@atlaskit/media-test-helpers": "^28.9.0",
+    "@atlaskit/media-test-helpers": "^29.0.0",
     "@atlaskit/ssr": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "enzyme": "^3.10.0",
     "react-dom": "^16.8.0",
-    "react-intl": "^2.6.0",
+    "react-intl-next": "npm:react-intl@^5.18.1",
     "rxjs": "^5.5.0",
     "typescript": "3.9.6",
     "wait-for-expect": "^1.2.0"

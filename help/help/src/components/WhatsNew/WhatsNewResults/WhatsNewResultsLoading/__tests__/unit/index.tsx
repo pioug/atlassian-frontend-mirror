@@ -1,12 +1,19 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import { IntlProvider } from 'react-intl';
+import { createIntl, createIntlCache } from 'react-intl-next';
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 
 import { WhatsNewResultsLoading } from '../../index';
 
-const intlProvider = new IntlProvider({ locale: 'en' });
-const { intl } = intlProvider.getChildContext();
+// Messages
+const cache = createIntlCache();
+const intl = createIntl(
+  {
+    locale: 'en',
+    messages: {},
+  },
+  cache,
+);
 
 const analyticsSpy = jest.fn();
 

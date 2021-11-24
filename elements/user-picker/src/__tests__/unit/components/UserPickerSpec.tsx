@@ -19,7 +19,7 @@ jest.mock('../../../components/MessagesIntlProvider', () =>
 );
 
 import Select, { CreatableSelect } from '@atlaskit/select';
-import { shallowWithIntl } from 'enzyme-react-intl';
+import { shallow } from 'enzyme';
 import React from 'react';
 import { getComponents } from '../../../components/components';
 import { getCreatableProps } from '../../../components/creatable';
@@ -28,10 +28,24 @@ import { getStyles } from '../../../components/styles';
 import { UserPickerWithoutAnalytics } from '../../../components/UserPicker';
 import { User, UserPickerProps } from '../../../types';
 
+const mockFormatMessage = (descriptor: any) => descriptor.defaultMessage;
+const mockIntl = { formatMessage: mockFormatMessage };
+jest.mock('react-intl-next', () => {
+  return {
+    ...(jest.requireActual('react-intl-next') as any),
+    FormattedMessage: (descriptor: any) => (
+      <span>{descriptor.defaultMessage}</span>
+    ),
+    injectIntl: (Node: any) => (props: any) => (
+      <Node {...props} intl={mockIntl} />
+    ),
+  };
+});
+
 describe('UserPicker', () => {
   // dive twice to get to BaseUserPicker
   const shallowUserPicker = (props: Partial<UserPickerProps> = {}) =>
-    shallowWithIntl(<UserPickerWithoutAnalytics fieldId="test" {...props} />)
+    shallow(<UserPickerWithoutAnalytics fieldId="test" {...props} />)
       .dive()
       .dive();
 

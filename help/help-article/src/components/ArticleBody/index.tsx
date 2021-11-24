@@ -174,7 +174,17 @@ export const ArticleBody = (props: Props) => {
     props.bodyFormat === BODY_FORMAT_TYPES.html ? (
       <div id={IFRAME_CONTAINER_ID} />
     ) : (
-      <ReactRenderer document={props.body} />
+      <ReactRenderer
+        document={props.body}
+        eventHandlers={{
+          link: {
+            onClick: (event, href) => {
+              event.preventDefault();
+              window.open(href, '_blank');
+            },
+          },
+        }}
+      />
     )
   ) : null;
 };

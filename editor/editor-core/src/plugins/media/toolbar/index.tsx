@@ -1,11 +1,11 @@
 import React from 'react';
-import { InjectedIntl } from 'react-intl';
 import { EditorState, NodeSelection } from 'prosemirror-state';
 import {
   findParentNodeOfType,
   removeSelectedNode,
   safeInsert,
 } from 'prosemirror-utils';
+import { IntlShape } from 'react-intl-next';
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 import DownloadIcon from '@atlaskit/icon/glyph/download';
 import { mediaFilmstripItemDOMSelector } from '@atlaskit/media-filmstrip';
@@ -91,7 +91,7 @@ const changeMediaCardToInline: Command = (state, dispatch) => {
 
 const generateMediaCardFloatingToolbar = (
   state: EditorState,
-  intl: InjectedIntl,
+  intl: IntlShape,
   mediaPluginState: MediaPluginState,
 ) => {
   const { mediaGroup } = state.schema.nodes;
@@ -165,7 +165,7 @@ const generateMediaCardFloatingToolbar = (
 
 const generateMediaInlineFloatingToolbar = (
   state: EditorState,
-  intl: InjectedIntl,
+  intl: IntlShape,
   mediaPluginState: MediaPluginState,
 ) => {
   const { mediaInline } = state.schema.nodes;
@@ -239,7 +239,7 @@ const generateMediaInlineFloatingToolbar = (
 
 const generateMediaSingleFloatingToolbar = (
   state: EditorState,
-  intl: InjectedIntl,
+  intl: IntlShape,
   options: MediaFloatingToolbarOptions,
   pluginState: MediaPluginState,
   mediaLinkingState: MediaLinkingState,
@@ -349,7 +349,7 @@ const generateMediaSingleFloatingToolbar = (
 
 export const floatingToolbar = (
   state: EditorState,
-  intl: InjectedIntl,
+  intl: IntlShape,
   options: MediaFloatingToolbarOptions = {},
 ): FloatingToolbarConfig | undefined => {
   const { media, mediaInline, mediaSingle, mediaGroup } = state.schema.nodes;

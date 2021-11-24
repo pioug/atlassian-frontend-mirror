@@ -151,6 +151,7 @@ export function createPMPlugins(config: PMPluginCreateConfig): Plugin[] {
         reactContext: config.reactContext,
         dispatchAnalyticsEvent: config.dispatchAnalyticsEvent,
         featureFlags: config.featureFlags || {},
+        getIntl: config.getIntl,
       }),
     )
     .filter((plugin): plugin is Plugin => typeof plugin !== 'undefined')

@@ -4,11 +4,11 @@ jest.mock('../../../components/utils', () => ({
     !(config && config.disableSharingToEmails),
 }));
 
-import { shallowWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { ErrorMessage, Field, HelperMessage } from '@atlaskit/form';
 import UserPicker, { OptionData, SmartUserPicker } from '@atlaskit/user-picker';
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl-next';
+import { shallow, mount } from 'enzyme';
 import {
   Props,
   REQUIRED,
@@ -20,13 +20,26 @@ import { ConfigResponse } from '../../../types';
 import { ProductName } from '../../../types/Products';
 import { renderProp } from '../_testUtils';
 
+const mockFormatMessage = (descriptor: any) => descriptor.defaultMessage;
+const mockIntl = { formatMessage: mockFormatMessage };
+
+jest.mock('react-intl-next', () => {
+  return {
+    ...(jest.requireActual('react-intl-next') as any),
+    FormattedMessage: (descriptor: any) => (
+      <span>{descriptor.defaultMessage}</span>
+    ),
+    injectIntl: (Node: any) => (props: any) => (
+      <Node {...props} intl={mockIntl} />
+    ),
+  };
+});
+
 describe('UserPickerField', () => {
-  const renderUserPicker = (userPickerFieldProps: Props, ...args: any[]) =>
-    renderProp(
-      shallowWithIntl(<UserPickerField {...userPickerFieldProps} />),
-      'children',
-      ...args,
-    );
+  const renderUserPicker = (userPickerFieldProps: Props, ...args: any[]) => {
+    const c = shallow(<UserPickerField {...userPickerFieldProps} />);
+    return renderProp(c.dive().find(Field), 'children', ...args);
+  };
 
   afterEach(() => {
     (getMenuPortalTargetCurrentHTML as jest.Mock).mockClear();
@@ -49,15 +62,9 @@ describe('UserPickerField', () => {
     );
 
     const formattedMessage = field.find(FormattedMessage);
-    expect(formattedMessage).toHaveLength(2);
+    expect(formattedMessage).toHaveLength(1);
 
-    const formattedMessageAddMore = formattedMessage.first();
-    expect(formattedMessageAddMore).toHaveLength(1);
-    expect(formattedMessageAddMore.props()).toMatchObject(
-      messages.userPickerAddMoreMessage,
-    );
-
-    const formattedMessageDefaultConfluence = formattedMessage.last();
+    const formattedMessageDefaultConfluence = formattedMessage.first();
     expect(formattedMessageDefaultConfluence).toHaveLength(1);
     expect(formattedMessageDefaultConfluence.props()).toMatchObject(
       messages.infoMessageDefaultConfluence,
@@ -67,7 +74,7 @@ describe('UserPickerField', () => {
 
     const expectProps = {
       fieldId: 'share',
-      addMoreMessage: 'add more',
+      addMoreMessage: 'Enter more',
       onChange: fieldProps.onChange,
       value: fieldProps.value,
       placeholder: (
@@ -77,11 +84,7 @@ describe('UserPickerField', () => {
       isLoading: mockIsLoading,
     };
 
-    const userPicker = renderProp(
-      formattedMessageAddMore,
-      'children',
-      'add more',
-    ).find(UserPicker);
+    const userPicker = field.find(UserPicker);
     expect(userPicker).toHaveLength(1);
     expect(userPicker.props()).toMatchObject(expectProps);
   });
@@ -104,13 +107,6 @@ describe('UserPickerField', () => {
         helperMessage,
       },
       { fieldProps, meta: { valid: true } },
-    );
-
-    const formattedMessageAddMore = field.find(FormattedMessage);
-
-    expect(formattedMessageAddMore).toHaveLength(1);
-    expect(formattedMessageAddMore.props()).toMatchObject(
-      messages.userPickerAddMoreMessage,
     );
 
     const fieldHelperMessage = field.find(HelperMessage);
@@ -136,13 +132,6 @@ describe('UserPickerField', () => {
       { fieldProps, meta: { valid: true } },
     );
 
-    const formattedMessageAddMore = field.find(FormattedMessage);
-
-    expect(formattedMessageAddMore).toHaveLength(1);
-    expect(formattedMessageAddMore.props()).toMatchObject(
-      messages.userPickerAddMoreMessage,
-    );
-
     const fieldHelperMessage = field.find(HelperMessage);
 
     expect(fieldHelperMessage).toHaveLength(1);
@@ -164,11 +153,9 @@ describe('UserPickerField', () => {
     );
 
     const formattedMessage = field.find(FormattedMessage);
-    expect(formattedMessage).toHaveLength(2);
+    expect(formattedMessage).toHaveLength(1);
 
-    const formattedMessageAddMore = formattedMessage.first();
-
-    const infoMessageDefaultJira = formattedMessage.last();
+    const infoMessageDefaultJira = formattedMessage.first();
     expect(infoMessageDefaultJira).toHaveLength(1);
     expect(infoMessageDefaultJira.props()).toMatchObject(
       messages.infoMessageDefaultJira,
@@ -178,7 +165,7 @@ describe('UserPickerField', () => {
 
     const expectProps = {
       fieldId: 'share',
-      addMoreMessage: 'add more',
+      addMoreMessage: 'Enter more',
       onChange: fieldProps.onChange,
       value: fieldProps.value,
       placeholder: (
@@ -188,11 +175,7 @@ describe('UserPickerField', () => {
       isLoading: mockIsLoading,
     };
 
-    const userPicker = renderProp(
-      formattedMessageAddMore,
-      'children',
-      'add more',
-    ).find(UserPicker);
+    const userPicker = field.find(UserPicker);
     expect(userPicker).toHaveLength(1);
     expect(userPicker.props()).toMatchObject(expectProps);
   });
@@ -200,7 +183,7 @@ describe('UserPickerField', () => {
   it('should set defaultValue', () => {
     const defaultValue: OptionData[] = [];
     const loadOptions = jest.fn();
-    const component = shallowWithIntl(
+    const component = mount(
       <UserPickerField
         loadOptions={loadOptions}
         defaultValue={defaultValue}
@@ -220,12 +203,8 @@ describe('UserPickerField', () => {
       { loadOptions, product: 'confluence' },
       { fieldProps, meta: { valid: true } },
     );
-    const formattedMessageAddMore = field.find(FormattedMessage).first();
-    const userPicker = renderProp(
-      formattedMessageAddMore,
-      'children',
-      'add more',
-    ).find(UserPicker);
+
+    const userPicker = field.find(UserPicker);
     expect(userPicker).toHaveLength(1);
     userPicker.simulate('loadOptions', '');
     expect(loadOptions).not.toHaveBeenCalled();
@@ -249,12 +228,8 @@ describe('UserPickerField', () => {
         },
         { fieldProps, meta: { valid: true } },
       );
-      const formattedMessageAddMore = field.find(FormattedMessage).first();
-      const smartUserPicker = renderProp(
-        formattedMessageAddMore,
-        'children',
-        'add more',
-      ).find(SmartUserPicker);
+
+      const smartUserPicker = field.find(SmartUserPicker);
       expect(smartUserPicker).toHaveLength(1);
       expect(smartUserPicker.prop('siteId')).toBe(cloudId);
       expect(smartUserPicker.prop('includeTeams')).toBe(true);
@@ -269,10 +244,10 @@ describe('UserPickerField', () => {
       [undefined, [{ id: 'some-id' }]],
     ])('should return "%s" when called with %p', (expected, value) => {
       const loadOptions = jest.fn();
-      const component = shallowWithIntl(
+      const component = mount(
         <UserPickerField loadOptions={loadOptions} product="confluence" />,
       );
-      const validate = component.prop('validate');
+      const validate = component.find(Field).prop('validate');
       expect(validate(value)).toEqual(expected);
     });
   });
@@ -408,12 +383,7 @@ describe('UserPickerField', () => {
 
     it('should show existing user only placeholder', () => {
       const { component } = setUpInviteWarningTest();
-      const formattedMessageAddMore = component.find(FormattedMessage).first();
-      const userPicker = renderProp(
-        formattedMessageAddMore,
-        'children',
-        'add more',
-      ).find(UserPicker);
+      const userPicker = component.find(UserPicker);
       expect(userPicker.prop('placeholder')).toEqual(
         <FormattedMessage
           {...messages.userPickerGenericExistingUserOnlyPlaceholder}
@@ -423,12 +393,7 @@ describe('UserPickerField', () => {
 
     it('should show existing user only placeholder in Jira', () => {
       const { component } = setUpInviteWarningTest('jira');
-      const formattedMessageAddMore = component.find(FormattedMessage).first();
-      const userPicker = renderProp(
-        formattedMessageAddMore,
-        'children',
-        'add more',
-      ).find(UserPicker);
+      const userPicker = component.find(UserPicker);
       expect(userPicker.prop('placeholder')).toEqual(
         <FormattedMessage
           {...messages.userPickerExistingUserOnlyPlaceholder}
@@ -480,14 +445,7 @@ describe('UserPickerField', () => {
         { fieldProps, meta: { valid: true } },
       );
 
-      const formattedMessageAddMore = field.find(FormattedMessage).first();
-      expect(formattedMessageAddMore).toHaveLength(1);
-      const userPicker = renderProp(
-        formattedMessageAddMore,
-        'children',
-        'add more',
-      ).find(UserPicker);
-
+      const userPicker = field.find(UserPicker);
       userPicker.simulate('inputChange', 'some text');
       expect(onInputChange).toHaveBeenCalledTimes(1);
     });
@@ -509,12 +467,7 @@ describe('UserPickerField', () => {
         },
         { fieldProps, meta: { valid: true } },
       );
-      const formattedMessageAddMore = field.find(FormattedMessage).first();
-      const smartUserPicker = renderProp(
-        formattedMessageAddMore,
-        'children',
-        'add more',
-      ).find(SmartUserPicker);
+      const smartUserPicker = field.find(SmartUserPicker);
       expect(smartUserPicker.prop('allowEmail')).toBe(false);
     });
   });

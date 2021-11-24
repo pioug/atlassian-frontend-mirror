@@ -1,17 +1,18 @@
 import React from 'react';
 import { ReactWrapper } from 'enzyme';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
 import ModalElementBrowser from '../../ModalElementBrowser';
 import Button from '@atlaskit/button/custom-theme-button';
-import { IntlProvider } from 'react-intl';
+import { createIntl } from 'react-intl-next';
 import { messages } from '../../messages';
 
 let testProps = {} as any;
 
 describe('ModalElementBrowser', () => {
   let wrapper: ReactWrapper;
-  const intlProvider = new IntlProvider({ locale: 'en' });
-  const { intl } = intlProvider.getChildContext();
+  const intl = createIntl({
+    locale: 'en',
+  });
   const testHelpUrl = 'https://helpurl.com';
 
   beforeEach(() => {

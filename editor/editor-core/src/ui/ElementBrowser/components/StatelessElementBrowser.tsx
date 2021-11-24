@@ -1,5 +1,5 @@
 import React, { memo, useState, useCallback, useEffect } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl-next';
 import styled, { css } from 'styled-components';
 import { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
 

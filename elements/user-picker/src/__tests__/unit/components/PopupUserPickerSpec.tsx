@@ -5,12 +5,26 @@ jest.mock('../../../components/styles', () => ({
 import React from 'react';
 import find from 'lodash/find';
 import { PopupSelect } from '@atlaskit/select';
-import { shallowWithIntl } from 'enzyme-react-intl';
+import { shallow } from 'enzyme';
 import { getPopupStyles } from '../../../components/styles';
 import { PopupUserPickerWithoutAnalytics } from '../../../components/PopupUserPicker';
 import { PopupUserPickerProps } from '../../../types';
 import { getPopupProps } from '../../../components/popup';
 import { PopupControl } from '../../../components/PopupControl';
+
+const mockFormatMessage = (descriptor: any) => descriptor.defaultMessage;
+const mockIntl = { formatMessage: mockFormatMessage };
+jest.mock('react-intl-next', () => {
+  return {
+    ...(jest.requireActual('react-intl-next') as any),
+    FormattedMessage: (descriptor: any) => (
+      <span>{descriptor.defaultMessage}</span>
+    ),
+    injectIntl: (Node: any) => (props: any) => (
+      <Node {...props} intl={mockIntl} />
+    ),
+  };
+});
 
 const defaultProps: Partial<PopupUserPickerProps> = {
   boundariesElement: 'viewport',
@@ -24,7 +38,7 @@ const defaultProps: Partial<PopupUserPickerProps> = {
 
 describe('PopupUserPicker', () => {
   const shallowPopupUserPicker = (props: Partial<PopupUserPickerProps> = {}) =>
-    shallowWithIntl(
+    shallow(
       <PopupUserPickerWithoutAnalytics
         fieldId="test"
         target={jest.fn()}

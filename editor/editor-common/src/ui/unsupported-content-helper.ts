@@ -1,11 +1,11 @@
 import { Node as PMNode } from 'prosemirror-model';
-import { InjectedIntl } from 'react-intl';
+import { IntlShape } from 'react-intl-next';
 
 export function getUnsupportedContent(
   message: any,
   prefix: string,
   node?: PMNode,
-  intl?: InjectedIntl,
+  intl?: IntlShape,
 ) {
   let defaultLocale = 'en';
   let canTranslateToLocale = true;

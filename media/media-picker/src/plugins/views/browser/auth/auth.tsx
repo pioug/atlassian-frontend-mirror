@@ -1,7 +1,7 @@
 import React from 'react';
 import { useCallback } from 'react';
 import AkButton from '@atlaskit/button/custom-theme-button';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl-next';
 import { messages } from '@atlaskit/media-ui';
 import { auth } from '@atlaskit/outbound-auth-flow-client';
 import { JsonLd } from 'json-ld-types';

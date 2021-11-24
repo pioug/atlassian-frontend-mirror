@@ -1,5 +1,5 @@
 // Common Translations will live here
-import { defineMessages } from 'react-intl';
+import { defineMessages } from 'react-intl-next';
 import { linkMessages } from '@atlaskit/editor-common/messages';
 import { messages as statusMessages } from './plugins/status/nodeviews/messages';
 import { messages as dateMessages } from './plugins/date/nodeviews/messages';

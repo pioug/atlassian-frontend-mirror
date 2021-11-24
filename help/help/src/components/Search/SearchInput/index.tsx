@@ -10,7 +10,7 @@ import { gridSize } from '@atlaskit/theme/constants';
 import Spinner from '@atlaskit/spinner';
 import SearchIcon from '@atlaskit/icon/glyph/search';
 import EditorCloseIcon from '@atlaskit/icon/glyph/editor/close';
-import { injectIntl, InjectedIntlProps } from 'react-intl';
+import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 
 import {
   name as packageName,
@@ -33,7 +33,7 @@ const ANALYTICS_CONTEXT_DATA = {
   packageVersion,
 };
 
-export const SearchInput: React.FC<InjectedIntlProps> = ({
+export const SearchInput: React.FC<WrappedComponentProps> = ({
   intl: { formatMessage },
 }) => {
   const {
@@ -132,7 +132,7 @@ export const SearchInput: React.FC<InjectedIntlProps> = ({
   );
 };
 
-const SearchInputWithContext: React.FC<InjectedIntlProps> = (props) => {
+const SearchInputWithContext: React.FC<WrappedComponentProps> = (props) => {
   return (
     <AnalyticsContext data={ANALYTICS_CONTEXT_DATA}>
       <SearchInput {...props} />

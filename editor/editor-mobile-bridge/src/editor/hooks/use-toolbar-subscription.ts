@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import WebBridgeImpl from '../native-to-web';
 import EditorConfiguration from '../editor-configuration';
-import { InjectedIntl } from 'react-intl';
+import { IntlShape } from 'react-intl-next';
 import {
   StatusType,
   subscribeToToolbarAndPickerUpdates,
@@ -13,7 +13,7 @@ export function useToolbarSubscription(
   editorReady: boolean,
   editorConfiguration: EditorConfiguration,
   bridge: WebBridgeImpl,
-  intl: InjectedIntl,
+  intl: IntlShape,
 ) {
   useEffect(() => {
     if (!editorReady) {

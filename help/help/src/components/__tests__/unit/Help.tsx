@@ -1,7 +1,7 @@
 import React from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { render, wait, fireEvent, act } from '@testing-library/react';
-import { IntlProvider } from 'react-intl';
+import { createIntl, createIntlCache, IntlProvider } from 'react-intl-next';
 
 import {
   getMockArticle,
@@ -17,8 +17,14 @@ import { ARTICLE_TYPE } from '../../../model/Help';
 import { Help } from '../../Help';
 
 // Messages
-const intlProvider = new IntlProvider({ locale: 'en' });
-const { intl } = intlProvider.getChildContext();
+const cache = createIntlCache();
+const intl = createIntl(
+  {
+    locale: 'en',
+    messages: {},
+  },
+  cache,
+);
 const messageBack = intl.formatMessage(messages.help_navigation_back);
 
 // Mock props

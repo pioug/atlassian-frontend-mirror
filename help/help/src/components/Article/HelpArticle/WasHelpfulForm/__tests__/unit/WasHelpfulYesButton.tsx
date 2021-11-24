@@ -1,5 +1,5 @@
 import React from 'react';
-import { IntlProvider } from 'react-intl';
+import { createIntl, createIntlCache } from 'react-intl-next';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { render, fireEvent } from '@testing-library/react';
 
@@ -8,8 +8,15 @@ import { ArticleWasHelpfulYesButton } from '../../WasHelpfulYesButton';
 import { messages } from '../../../../../../messages';
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 
-const intlProvider = new IntlProvider({ locale: 'en' });
-const { intl } = intlProvider.getChildContext();
+// Messages
+const cache = createIntlCache();
+const intl = createIntl(
+  {
+    locale: 'en',
+    messages: {},
+  },
+  cache,
+);
 const messageYes = intl.formatMessage(messages.help_article_rating_option_yes);
 
 const mockOnClick = jest.fn();

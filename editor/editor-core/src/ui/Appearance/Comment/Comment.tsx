@@ -25,7 +25,7 @@ import { akEditorMobileBreakoutPoint } from '@atlaskit/editor-shared-styles';
 import WidthEmitter from '../../WidthEmitter';
 import { GRID_GUTTER } from '../../../plugins/grid';
 import classnames from 'classnames';
-import { InjectedIntlProps, injectIntl } from 'react-intl';
+import { WrappedComponentProps, injectIntl } from 'react-intl-next';
 import messages from '../../../messages';
 import { MediaPluginState } from '../../../plugins/media/pm-plugins/types';
 
@@ -103,7 +103,7 @@ SecondaryToolbar.displayName = 'SecondaryToolbar';
 export interface EditorAppearanceComponentState {}
 
 class Editor extends React.Component<
-  EditorAppearanceComponentProps & InjectedIntlProps,
+  EditorAppearanceComponentProps & WrappedComponentProps,
   EditorAppearanceComponentState
 > {
   static displayName = 'CommentEditorAppearance';

@@ -1,6 +1,6 @@
 import React from 'react';
 import FieldMessages from '../../../ui/ConfigPanel/FieldMessages';
-import { IntlProvider } from 'react-intl';
+import { IntlProvider } from 'react-intl-next';
 import { mount } from 'enzyme';
 
 function mountMessage({ description }: { description: string }) {

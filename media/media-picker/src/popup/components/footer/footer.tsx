@@ -2,7 +2,7 @@ import React from 'react';
 import { Component } from 'react';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl-next';
 import { messages } from '@atlaskit/media-ui';
 import { Wrapper, InsertButton, CancelButton } from './styled';
 import { startImport, hidePopup, resetView } from '../../actions';

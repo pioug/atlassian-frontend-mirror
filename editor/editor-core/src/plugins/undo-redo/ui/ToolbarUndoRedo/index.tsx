@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { InjectedIntlProps, injectIntl } from 'react-intl';
+import { WrappedComponentProps, injectIntl } from 'react-intl-next';
 import { EditorView } from 'prosemirror-view';
 import UndoIcon from '@atlaskit/icon/glyph/undo';
 import RedoIcon from '@atlaskit/icon/glyph/redo';
@@ -50,7 +50,9 @@ const forceFocus = (editorView: EditorView) => (command: Command) => {
     editorView.focus();
   }
 };
-export class ToolbarUndoRedo extends PureComponent<Props & InjectedIntlProps> {
+export class ToolbarUndoRedo extends PureComponent<
+  Props & WrappedComponentProps
+> {
   render() {
     const {
       disabled,

@@ -7,7 +7,7 @@ import {
 import * as colors from '@atlaskit/theme/colors';
 import Button from '@atlaskit/button/custom-theme-button';
 import ShortcutIcon from '@atlaskit/icon/glyph/shortcut';
-import { injectIntl, InjectedIntlProps } from 'react-intl';
+import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 
 import { messages } from '../../../messages';
 
@@ -21,7 +21,7 @@ export interface Props {
   ): void;
 }
 
-export const SearchExternalSite: React.FC<Props & InjectedIntlProps> = ({
+export const SearchExternalSite: React.FC<Props & WrappedComponentProps> = ({
   searchExternalUrl,
   onSearchExternalUrlClick,
   intl: { formatMessage },

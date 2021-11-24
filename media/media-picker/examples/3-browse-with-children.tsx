@@ -1,6 +1,7 @@
 // eslint-disable-line no-console
 import React from 'react';
 import { Component } from 'react';
+import { IntlProvider } from 'react-intl-next';
 import {
   defaultCollectionName,
   defaultMediaPickerCollectionName,
@@ -143,46 +144,50 @@ class BrowserWrapper extends Component<{}, BrowserWrapperState> {
     }
 
     return (
-      <PopupContainer>
-        <PopupHeader>
-          <DropdownMenu trigger={collectionName}>
-            <DropdownItem onClick={this.onCollectionChange}>
-              {defaultMediaPickerCollectionName}
-            </DropdownItem>
-            <DropdownItem onClick={this.onCollectionChange}>
-              {defaultCollectionName}
-            </DropdownItem>
-          </DropdownMenu>
-          <DropdownMenu trigger={authEnvironment}>
-            <DropdownItem onClick={this.onAuthTypeChange}>client</DropdownItem>
-            <DropdownItem onClick={this.onAuthTypeChange}>asap</DropdownItem>
-          </DropdownMenu>
-        </PopupHeader>
-        <FunctionalBrowserWrapper
-          mediaClient={mediaClient}
-          browseConfig={browseConfig}
-        >
-          {(browse) => (
-            <Button
-              style={{ margin: '5px' }}
-              appearance="primary"
-              onClick={browse}
-            >
-              Click me to upload
-            </Button>
-          )}
-        </FunctionalBrowserWrapper>
-        <FunctionalBrowserWrapper
-          mediaClient={mediaClient}
-          browseConfig={browseConfig}
-        >
-          {(browse) => (
-            <div style={{ margin: '5px' }} onClick={browse}>
-              Click me to upload. No, for real.
-            </div>
-          )}
-        </FunctionalBrowserWrapper>
-      </PopupContainer>
+      <IntlProvider locale="en">
+        <PopupContainer>
+          <PopupHeader>
+            <DropdownMenu trigger={collectionName}>
+              <DropdownItem onClick={this.onCollectionChange}>
+                {defaultMediaPickerCollectionName}
+              </DropdownItem>
+              <DropdownItem onClick={this.onCollectionChange}>
+                {defaultCollectionName}
+              </DropdownItem>
+            </DropdownMenu>
+            <DropdownMenu trigger={authEnvironment}>
+              <DropdownItem onClick={this.onAuthTypeChange}>
+                client
+              </DropdownItem>
+              <DropdownItem onClick={this.onAuthTypeChange}>asap</DropdownItem>
+            </DropdownMenu>
+          </PopupHeader>
+          <FunctionalBrowserWrapper
+            mediaClient={mediaClient}
+            browseConfig={browseConfig}
+          >
+            {(browse) => (
+              <Button
+                style={{ margin: '5px' }}
+                appearance="primary"
+                onClick={browse}
+              >
+                Click me to upload
+              </Button>
+            )}
+          </FunctionalBrowserWrapper>
+          <FunctionalBrowserWrapper
+            mediaClient={mediaClient}
+            browseConfig={browseConfig}
+          >
+            {(browse) => (
+              <div style={{ margin: '5px' }} onClick={browse}>
+                Click me to upload. No, for real.
+              </div>
+            )}
+          </FunctionalBrowserWrapper>
+        </PopupContainer>
+      </IntlProvider>
     );
   }
 }

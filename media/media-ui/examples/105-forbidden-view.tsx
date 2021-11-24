@@ -3,7 +3,7 @@ import Page, { Grid, GridColumn } from '@atlaskit/page';
 import { Label } from '@atlaskit/field-base';
 import TextField from '@atlaskit/textfield';
 import { InlineCardForbiddenView } from '../src/InlineCard/ForbiddenView';
-import { IntlProvider } from 'react-intl';
+import { IntlProvider } from 'react-intl-next';
 
 class Example extends React.Component {
   state = {

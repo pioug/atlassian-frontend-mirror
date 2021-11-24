@@ -9,7 +9,11 @@ import { N90, N80, N30 } from '@atlaskit/theme/colors';
 import Page16Icon from '@atlaskit/icon-object/glyph/page/16';
 import Tooltip from '@atlaskit/tooltip';
 import { KeyboardEvent, PureComponent } from 'react';
-import { defineMessages, InjectedIntlProps, injectIntl } from 'react-intl';
+import {
+  defineMessages,
+  WrappedComponentProps,
+  injectIntl,
+} from 'react-intl-next';
 import styled from 'styled-components';
 import {
   withAnalyticsEvents,
@@ -117,11 +121,11 @@ interface DefaultProps {
   displayText: string;
 }
 
-export type Props = InjectedIntlProps &
+export type Props = WrappedComponentProps &
   BaseProps &
   DefaultProps &
   WithAnalyticsEventsProps;
-type HyperlinkLinkAddToolbarProps = InjectedIntlProps &
+type HyperlinkLinkAddToolbarProps = WrappedComponentProps &
   BaseProps &
   Partial<DefaultProps> &
   WithAnalyticsEventsProps;

@@ -28,7 +28,7 @@ import {
   p,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { MediaAttributes } from '@atlaskit/adf-schema';
-import { IntlProvider } from 'react-intl';
+import { createIntl } from 'react-intl-next';
 import { MediaOptions } from '../../../../../plugins/media/types';
 import { stateKey } from '../../../../../plugins/media/pm-plugins/main';
 import { floatingToolbar } from '../../index';
@@ -46,8 +46,7 @@ import {
 import { MediaPluginState } from '../../../../../plugins/media/pm-plugins/types';
 
 describe('floatingToolbar()', () => {
-  const intlProvider = new IntlProvider({ locale: 'en' });
-  const { intl } = intlProvider.getChildContext();
+  const intl = createIntl({ locale: 'en' });
   const createEditor = createEditorFactory<MediaPluginState>();
 
   const editor = (doc: DocBuilder, mediaPropsOverride: MediaOptions = {}) => {

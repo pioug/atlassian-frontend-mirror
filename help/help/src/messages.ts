@@ -1,4 +1,4 @@
-import { defineMessages } from 'react-intl';
+import { defineMessages } from 'react-intl-next';
 
 export const messages = defineMessages({
   help_loading: {
@@ -224,7 +224,7 @@ export const messages = defineMessages({
   },
   help_whats_new_no_results_info: {
     id: 'help.whats.new_no_results_info',
-    defaultMessage: `We only display 3 months of recent releases.`,
+    defaultMessage: `We only display three months of recent releases.`,
     description: `text to display when the "What's new" API returns an empty array of articles"`,
   },
   help_whats_new_no_results_clear_filter_button_label: {

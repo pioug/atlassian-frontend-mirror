@@ -6,7 +6,7 @@ import {
   ConfluenceAttributes,
   RecommendationRequest,
 } from '../components';
-import { InjectedIntl } from 'react-intl';
+import { IntlShape } from 'react-intl-next';
 
 /**
  * @deprecated Please use @atlassian/smart-user-picker
@@ -25,7 +25,7 @@ export interface Context {
 
 const getUserRecommendations = (
   request: RecommendationRequest,
-  intl: InjectedIntl,
+  intl: IntlShape,
 ): Promise<OptionData[]> => {
   const url = getConfig().getRecommendationServiceUrl(request.baseUrl || '');
   return fetch(url, {

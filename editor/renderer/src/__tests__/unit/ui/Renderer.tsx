@@ -14,11 +14,10 @@ import { RendererAppearance } from '../../../ui/Renderer/types';
 import Loadable from 'react-loadable';
 import { initialDoc } from '../../__fixtures__/initial-doc';
 import { invalidDoc } from '../../__fixtures__/invalid-doc';
+import { intlRequiredDoc } from '../../__fixtures__/intl-required-doc';
 import * as linkDoc from '../../__fixtures__/links.adf.json';
 import { Media } from '../../../react/nodes';
-
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
-import { IntlProvider } from 'react-intl';
+import { IntlProvider } from 'react-intl-next';
 
 const validDoc = doc(
   heading({ level: 1 })(text('test')),
@@ -33,18 +32,6 @@ describe('@atlaskit/renderer/ui/Renderer', () => {
 
   const initRenderer = (doc: any = initialDoc, props: Partial<Props> = {}) =>
     mount(<Renderer document={doc} {...props} />);
-
-  const initRendererWithIntl = (
-    doc: any = initialDoc,
-    props: Partial<Props> = {},
-    locale: string = 'en',
-    messages = {},
-  ) =>
-    mountWithIntl(
-      <IntlProvider locale={locale} messages={messages}>
-        <Renderer document={doc} {...props} />
-      </IntlProvider>,
-    );
 
   afterEach(() => {
     if (renderer && renderer.length) {
@@ -86,7 +73,7 @@ describe('@atlaskit/renderer/ui/Renderer', () => {
   });
 
   it('should catch errors and render unsupported content text', () => {
-    const wrapper = initRendererWithIntl(invalidDoc, {
+    const wrapper = initRenderer(invalidDoc, {
       useSpecBasedValidator: true,
     });
     expect(wrapper.find('UnsupportedBlockNode')).toHaveLength(1);
@@ -95,12 +82,48 @@ describe('@atlaskit/renderer/ui/Renderer', () => {
 
   it('should call onError callback when catch error', () => {
     const onError = jest.fn();
-    const wrapper = initRendererWithIntl(invalidDoc, {
+    const wrapper = initRenderer(invalidDoc, {
       useSpecBasedValidator: true,
       onError,
     });
     expect(onError).toHaveBeenCalled();
     wrapper.unmount();
+  });
+
+  describe('react-intl-next', () => {
+    describe('when IntlProvider is not in component ancestry', () => {
+      renderer = initRenderer(intlRequiredDoc, { useSpecBasedValidator: true });
+      it('should not throw an error', () => {
+        expect(() => renderer).not.toThrow();
+      });
+      it('should setup a default IntlProvider with locale "en"', () => {
+        const renderer = initRenderer(intlRequiredDoc, {
+          useSpecBasedValidator: true,
+        });
+        const intlProviderWrapper = renderer.find(IntlProvider);
+        expect(intlProviderWrapper.length).toEqual(1);
+        expect(intlProviderWrapper.props()).toEqual(
+          expect.objectContaining({ locale: 'en' }),
+        );
+      });
+    });
+    describe('when IntlProvider is in component ancestry', () => {
+      const rendererWithIntl = mount(
+        <IntlProvider locale="es">
+          <Renderer document={intlRequiredDoc} useSpecBasedValidator />
+        </IntlProvider>,
+      );
+      it('should not throw an error', () => {
+        expect(() => rendererWithIntl).not.toThrow();
+      });
+      it('should use the provided IntlProvider, and not setup a default IntlProvider', () => {
+        const intlProviderWrapper = rendererWithIntl.find(IntlProvider);
+        expect(intlProviderWrapper.length).toEqual(1);
+        expect(intlProviderWrapper.props()).toEqual(
+          expect.objectContaining({ locale: 'es' }),
+        );
+      });
+    });
   });
 
   describe('Stage0', () => {
@@ -248,7 +271,9 @@ describe('@atlaskit/renderer/ui/Renderer', () => {
     });
 
     it('should render link mark around media if media.allowLinking is true', () => {
-      renderer = initRenderer(linkDoc, { media: { allowLinking: true } });
+      renderer = initRenderer(linkDoc, {
+        media: { allowLinking: true },
+      });
       const media = renderer.find(Media);
       const dataBlockLink = media.find('[data-block-link]');
       expect(dataBlockLink.length).not.toEqual(0);

@@ -16,7 +16,7 @@ import { render, unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
 import * as FetchProxyUtils from '../../../utils/fetch-proxy';
 import { nativeBridgeAPI } from '../../web-to-native/implementation';
-import { InjectedIntl } from 'react-intl';
+import { IntlShape } from 'react-intl-next';
 import { DocumentReflowDetector } from '../../../document-reflow-detector';
 import { eventDispatcher, EmitterEvents } from '../../dispatcher';
 import RendererBridgeImplementation from '../../../renderer/native-to-web/implementation';
@@ -95,7 +95,7 @@ describe('renderer bridge', () => {
   const intlMock = ({
     formatMessage: (messageDescriptor: any) =>
       messageDescriptor && messageDescriptor.defaultMessage,
-  } as unknown) as InjectedIntl;
+  } as unknown) as IntlShape;
   const initRenderer = (
     adf: string,
     allowAnnotations: boolean,

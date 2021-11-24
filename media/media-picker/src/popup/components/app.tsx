@@ -2,7 +2,12 @@ import { Component, ReactNode } from 'react';
 import React from 'react';
 import { Dispatch, Store } from 'redux';
 import { connect, Provider } from 'react-redux';
-import { IntlShape } from 'react-intl';
+import {
+  IntlShape,
+  injectIntl,
+  IntlProvider,
+  WrappedComponentProps,
+} from 'react-intl-next';
 import ModalDialog, { ModalTransition } from '@atlaskit/modal-dialog';
 import { MediaClient } from '@atlaskit/media-client';
 import { RECENTS_COLLECTION } from '@atlaskit/media-client/constants';
@@ -89,7 +94,10 @@ export interface AppOwnProps {
   featureFlags?: MediaFeatureFlags;
 }
 
-export type AppProps = AppStateProps & AppOwnProps & AppDispatchProps;
+export type AppProps = AppStateProps &
+  AppOwnProps &
+  AppDispatchProps &
+  Partial<WrappedComponentProps>;
 
 export interface AppState {
   readonly isDropzoneActive: boolean;
@@ -173,33 +181,44 @@ export class App extends Component<AppProps, AppState> {
 
     const { isDropzoneActive } = this.state;
 
-    return (
-      <ModalTransition>
-        {isVisible && (
-          <Provider store={store}>
-            <ModalDialog onClose={onClose} width="x-large">
-              <PassContext store={store} proxyReactContext={proxyReactContext}>
-                <div data-testid="media-picker-popup">
-                  <MediaPickerPopupWrapper>
-                    <SidebarWrapper>
-                      <Sidebar useForgePlugins={useForgePlugins} />
-                    </SidebarWrapper>
-                    <ViewWrapper>
-                      {this.renderCurrentView(selectedServiceName)}
-                      <Footer />
-                    </ViewWrapper>
-                    <DropzonePlaceholder isActive={isDropzoneActive} />
-                    <MainEditorView localUploader={this.localUploader} />
-                  </MediaPickerPopupWrapper>
-                  {this.renderClipboard()}
-                  {this.renderDropzone()}
-                  {this.renderBrowser()}
-                </div>
-              </PassContext>
-            </ModalDialog>
-          </Provider>
-        )}
-      </ModalTransition>
+    const content = (
+      <>
+        <ModalTransition>
+          {isVisible && (
+            <Provider store={store}>
+              <ModalDialog onClose={onClose} width="x-large">
+                <PassContext
+                  store={store}
+                  proxyReactContext={proxyReactContext}
+                >
+                  <div data-testid="media-picker-popup">
+                    <MediaPickerPopupWrapper>
+                      <SidebarWrapper>
+                        <Sidebar useForgePlugins={useForgePlugins} />
+                      </SidebarWrapper>
+                      <ViewWrapper>
+                        {this.renderCurrentView(selectedServiceName)}
+                        <Footer />
+                      </ViewWrapper>
+                      <DropzonePlaceholder isActive={isDropzoneActive} />
+                      <MainEditorView localUploader={this.localUploader} />
+                    </MediaPickerPopupWrapper>
+                    {this.renderClipboard()}
+                    {this.renderDropzone()}
+                    {this.renderBrowser()}
+                  </div>
+                </PassContext>
+              </ModalDialog>
+            </Provider>
+          )}
+        </ModalTransition>
+      </>
+    );
+
+    return this.props.intl ? (
+      content
+    ) : (
+      <IntlProvider locale="en">{content}</IntlProvider>
     );
   }
 
@@ -356,4 +375,8 @@ const mapDispatchToProps = (dispatch: Dispatch<State>): AppDispatchProps => ({
 export default connect<AppStateProps, AppDispatchProps, AppOwnProps, State>(
   mapStateToProps,
   mapDispatchToProps,
-)(App);
+)(
+  injectIntl(App as React.ComponentType<AppProps & WrappedComponentProps>, {
+    enforceContext: false,
+  }),
+);

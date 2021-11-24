@@ -21,6 +21,7 @@ const createPlugin: PMPluginFactory = ({
   eventDispatcher,
   dispatchAnalyticsEvent,
 }) => {
+  const hasIntlContext = true;
   return new Plugin({
     key: pluginKey,
     props: {
@@ -30,24 +31,32 @@ const createPlugin: PMPluginFactory = ({
           portalProviderAPI,
           eventDispatcher,
           { dispatchAnalyticsEvent },
+          undefined,
+          hasIntlContext,
         ),
         confluenceUnsupportedInline: ReactNodeView.fromComponent(
           UnsupportedInline,
           portalProviderAPI,
           eventDispatcher,
           { dispatchAnalyticsEvent },
+          undefined,
+          hasIntlContext,
         ),
         unsupportedBlock: ReactNodeView.fromComponent(
           UnsupportedBlock,
           portalProviderAPI,
           eventDispatcher,
           { dispatchAnalyticsEvent },
+          undefined,
+          hasIntlContext,
         ),
         unsupportedInline: ReactNodeView.fromComponent(
           UnsupportedInline,
           portalProviderAPI,
           eventDispatcher,
           { dispatchAnalyticsEvent },
+          undefined,
+          hasIntlContext,
         ),
       },
     },

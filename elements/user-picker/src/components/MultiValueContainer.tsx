@@ -1,7 +1,7 @@
 import { components, ValueContainerProps } from '@atlaskit/select';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl-next';
 import { messages } from './i18n';
 import { isChildInput } from './utils';
 import { User, Option } from '../types';
@@ -80,12 +80,14 @@ export class MultiValueContainer extends React.PureComponent<Props, State> {
     return value && value.length > 0;
   };
 
-  private addPlaceholder = (placeholder: string) =>
-    React.Children.map(this.props.children, (child) =>
+  private addPlaceholder = (placeholder: string): React.ReactElement => {
+    const children = React.Children.map(this.props.children, (child) =>
       isChildInput(child as React.ReactChild) && this.showPlaceholder()
         ? React.cloneElement(child as React.ReactElement, { placeholder })
         : child,
     );
+    return <>{children}</>;
+  };
 
   private renderChildren = () => {
     const {
@@ -98,7 +100,7 @@ export class MultiValueContainer extends React.PureComponent<Props, State> {
     if (addMoreMessage === undefined) {
       return (
         <FormattedMessage {...messages.addMore}>
-          {(addMore) => this.addPlaceholder(addMore as string)}
+          {(addMore) => this.addPlaceholder((addMore as unknown) as string)}
         </FormattedMessage>
       );
     }

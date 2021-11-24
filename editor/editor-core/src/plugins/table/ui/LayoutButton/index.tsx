@@ -2,7 +2,7 @@ import React from 'react';
 
 import classnames from 'classnames';
 import { EditorView } from 'prosemirror-view';
-import { InjectedIntlProps, injectIntl } from 'react-intl';
+import { WrappedComponentProps, injectIntl } from 'react-intl-next';
 
 import { TableLayout } from '@atlaskit/adf-schema';
 import { Popup, PopupPosition } from '@atlaskit/editor-common';
@@ -44,7 +44,7 @@ const getTitle = (layout: TableLayout) => {
   }
 };
 
-class LayoutButton extends React.Component<Props & InjectedIntlProps, any> {
+class LayoutButton extends React.Component<Props & WrappedComponentProps, any> {
   static displayName = 'LayoutButton';
 
   render() {

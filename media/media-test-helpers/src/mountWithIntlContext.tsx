@@ -1,6 +1,27 @@
-import { IntlProvider, intlShape } from 'react-intl';
-import { mount, ReactWrapper } from 'enzyme';
+import React from 'react';
+import {
+  RawIntlProvider,
+  createIntl,
+  WrappedComponentProps,
+  IntlProvider,
+} from 'react-intl-next';
+import { mount, ReactWrapper, shallow, ShallowWrapper } from 'enzyme';
 import { Component, ReactElement } from 'react';
+
+const mockIntl = createIntl({ locale: 'en' });
+
+/**
+ * When using React-Intl `injectIntl` on components, props.intl is required.
+ */
+function nodeWithIntlProp(node: ReactElement<any>) {
+  const intl = !!node.props.intl ? node.props.intl : mockIntl;
+
+  return (
+    <RawIntlProvider value={intl}>
+      {React.cloneElement(node, { intl })}
+    </RawIntlProvider>
+  );
+}
 
 /* TODO: We are explicitly using the third arg of ReactWrapper to work around the following TS issue which prevents a d.ts from being generated
  * and therefore fails the build:
@@ -12,18 +33,47 @@ export const mountWithIntlContext = <
   S,
   C extends Component<P, S> = Component<P, S>
 >(
-  node: ReactElement<P>,
-  reactContext?: Object,
-  childContextTypes?: Object,
-): ReactWrapper<P, S, C> => {
-  const intlProvider = new IntlProvider({
-    locale: 'en',
-    messages: {},
-  });
-  const intl = intlProvider.getChildContext().intl;
+  node: ReactElement<P & WrappedComponentProps>,
+  { context = {}, childContextTypes = {}, ...additionalOptions } = {},
+): ReactWrapper<P & WrappedComponentProps, S, C> => {
+  const intl = !!node.props.intl ? node.props.intl : mockIntl;
 
-  return mount<C>(node, {
-    context: { intl, ...reactContext },
-    childContextTypes: { intl: intlShape, ...childContextTypes },
-  });
+  return mount(
+    nodeWithIntlProp(node) as ReactElement<P & WrappedComponentProps>,
+    {
+      context: { intl, ...context },
+      ...additionalOptions,
+    },
+  );
+};
+
+export const shallowWithIntlContext = <
+  P,
+  S,
+  C extends Component<P, S> = Component<P, S>
+>(
+  node: ReactElement<P & WrappedComponentProps>,
+  { context = {}, ...additionalOptions } = {},
+): ShallowWrapper<P & WrappedComponentProps, S, C> => {
+  const intl = !!node.props.intl ? node.props.intl : mockIntl;
+
+  return shallow(
+    nodeWithIntlProp(node) as ReactElement<P & WrappedComponentProps>,
+    {
+      context: { intl, ...context },
+      ...additionalOptions,
+    },
+  );
+};
+
+export const mountWithIntlWrapper = (
+  node: React.ReactElement,
+): ReactWrapper => {
+  return mount(
+    React.createElement((props) => (
+      <IntlProvider locale="en">
+        {React.cloneElement(node, { ...props })}
+      </IntlProvider>
+    )),
+  );
 };

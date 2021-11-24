@@ -154,7 +154,7 @@ export {
   hasVisibleContent,
 } from './utils';
 export { getListCommands } from './utils/list-commands';
-export { ReactEditorView } from './create-editor';
+export { ReactEditorView, BaseReactEditorView } from './create-editor';
 export { getDefaultPresetOptionsFromEditorProps } from './create-editor';
 export type {
   Command,

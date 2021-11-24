@@ -36,7 +36,7 @@
     "react-dom": "^16.8.0"
   },
   "devDependencies": {
-    "@atlaskit/atlassian-navigation": "^1.3.0",
+    "@atlaskit/atlassian-navigation": "^2.0.0",
     "@atlaskit/atlassian-notifications": "^0.3.0",
     "@atlaskit/build-utils": "*",
     "@atlaskit/button": "^16.0.0",

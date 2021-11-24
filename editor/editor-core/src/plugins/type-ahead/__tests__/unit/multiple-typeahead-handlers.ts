@@ -37,6 +37,7 @@ afterAll(() => {
 
 describe('type-ahead: multiple plugins', () => {
   const createEditor = createProsemirrorEditorFactory();
+
   let createAnalyticsEvent: CreateUIAnalyticsEvent;
 
   const editor = (doc: DocBuilder) => {

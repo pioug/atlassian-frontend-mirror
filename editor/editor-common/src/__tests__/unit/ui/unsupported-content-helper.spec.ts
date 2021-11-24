@@ -1,4 +1,4 @@
-import { IntlProvider } from 'react-intl';
+import { createIntl } from 'react-intl-next';
 
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import {
@@ -242,8 +242,9 @@ describe('getUnsupportedContent', () => {
   });
 
   describe('When locale is not en', () => {
-    const intlProvider = new IntlProvider({ locale: 'nl-be' });
-    const { intl } = intlProvider.getChildContext();
+    const intl = createIntl({
+      locale: 'nl-be',
+    });
 
     it('should return default message when locale is not en', () => {
       const result = getUnsupportedContent(

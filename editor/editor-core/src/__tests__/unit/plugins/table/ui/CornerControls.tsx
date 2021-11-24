@@ -1,7 +1,7 @@
 import React from 'react';
 import { isTableSelected } from '@atlaskit/editor-tables/utils';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
 import {
   doc,
   table,

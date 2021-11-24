@@ -35,10 +35,16 @@ export default {
     'Név, csoport, csapat vagy e-mail-cím megadása',
   'fabric.elements.share.form.user-picker.placeholder.jira':
     'Írd be a nevet, a csapatot vagy az e-mail-címet',
+  'fabric.elements.share.form.user-picker.placholder.generic.existingUserOnly':
+    'Add meg a nevet, csoportot vagy csapatot',
   'fabric.elements.share.form.user-picker.validation.required':
     'Válassz ki legalább egy felhasználót, csoportot, csapatot vagy e-mail-címet.',
+  'fabric.elements.share.form.user-picker.validation.required.existingUserOnly':
+    'Válassz ki legalább egy felhasználót, csoportot vagy csapatot.',
   'fabric.elements.share.form.user-picker.validation.required.jira':
     'Válassz ki legalább egy felhasználót, csapatot vagy e-mail-címet.',
+  'fabric.elements.share.form.user-picker.validation.required.jira.existingUserOnly':
+    'Válassz ki legalább egy felhasználót vagy csapatot.',
   'fabric.elements.share.success.message':
     '{object, select, blogpost {Blogposzt megosztva} board {Tábla megosztva} calendar {Naptár megosztva} draft {Piszkozat megosztva} filter {Szűrő megosztva} issue {Ügy megosztva} media {Médiatartalom megosztva} page {Oldal megosztva} project {Projekt megosztva} pullrequest {Pull-kérelem megosztva} question {Kérdés megosztva} report {Jelentés megosztva} repository {Adattár megosztva} request {Kérés megosztva} roadmap {Útvonalterv megosztva} site {Webhely megosztva} space {Munkatér megosztva} other {Link megosztva}}',
   'fabric.elements.share.to.integration.button':

@@ -14,7 +14,7 @@ import EditIcon from '@atlaskit/icon/glyph/edit';
 import { CardAction, CardStatus } from '../src';
 import { CardView } from '../src/root/cardView';
 import { FileDetails, MediaType } from '@atlaskit/media-client';
-import { IntlProvider } from 'react-intl';
+import { IntlProvider } from 'react-intl-next';
 import { Y75 } from '@atlaskit/theme/colors';
 import { MainWrapper, mediaCardErrorState } from '../example-helpers';
 

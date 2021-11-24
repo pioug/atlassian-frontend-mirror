@@ -1,6 +1,6 @@
 import React from 'react';
 import { PureComponent } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, MessageDescriptor } from 'react-intl-next';
 import classNames from 'classnames';
 
 import * as styles from './styles';
@@ -11,7 +11,9 @@ import {
   AnalyticsEventPayload,
   CreateUIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
-import EmojiUploadPicker from '../common/EmojiUploadPicker';
+import EmojiUploadPickerWithIntl, {
+  EmojiUploadPicker,
+} from '../common/EmojiUploadPicker';
 import { uploadEmoji } from '../common/UploadEmoji';
 import {
   createAndFireEventInElementsChannel,
@@ -31,7 +33,7 @@ export interface Props {
 }
 
 export interface State {
-  uploadErrorMessage?: FormattedMessage.MessageDescriptor;
+  uploadErrorMessage?: MessageDescriptor;
 }
 
 export default class EmojiUploadComponent extends PureComponent<Props, State> {
@@ -49,7 +51,7 @@ export default class EmojiUploadComponent extends PureComponent<Props, State> {
   private onUploadEmoji = (upload: EmojiUpload, retry: boolean) => {
     const { emojiProvider } = this.props;
     this.fireAnalytics(uploadConfirmButton({ retry }));
-    const errorSetter = (message?: FormattedMessage.MessageDescriptor) => {
+    const errorSetter = (message?: MessageDescriptor) => {
       this.setState({
         uploadErrorMessage: message,
       });
@@ -112,7 +114,7 @@ export default class EmojiUploadComponent extends PureComponent<Props, State> {
         ref={this.props.onUploaderRef}
       >
         <div className={classNames([styles.emojiUploadFooter])}>
-          <EmojiUploadPicker
+          <EmojiUploadPickerWithIntl
             ref={this.onUploaderRef}
             onFileChooserClicked={this.onFileChooserClicked}
             onUploadCancelled={this.onUploadCancelled}

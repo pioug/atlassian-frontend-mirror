@@ -100,9 +100,9 @@ export const WhatsNewTypeIcon = styled.div<WhatsNewTypeIconProps>`
   display: inline-block;
   vertical-align: middle;
   position: relative;
-  height: ${gridSize() * 4}px;
-  width: ${gridSize() * 4}px;
-  border-radius: 50%;
+  height: ${gridSize() * 2}px;
+  width: ${gridSize() * 2}px;
+  border-radius: 2px;
   background-color: ${({ type }) => {
     switch (type) {
       case WHATS_NEW_ITEM_TYPES.IMPROVEMENT:
@@ -126,8 +126,8 @@ export const WhatsNewTypeIcon = styled.div<WhatsNewTypeIconProps>`
   }};
 
   & > img {
-    width: ${gridSize() * 2}px;
-    height: ${gridSize() * 2}px;
+    width: calc(100% - ${gridSize() / 2}px);
+    height: calc(100% - ${gridSize() / 2}px);
     position: absolute;
     left: 50%;
     top: 50%;

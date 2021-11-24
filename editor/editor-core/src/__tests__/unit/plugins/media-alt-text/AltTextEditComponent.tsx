@@ -14,14 +14,14 @@ jest.mock('prosemirror-inputrules', () => ({
 }));
 
 import React from 'react';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
 import { EditorView } from 'prosemirror-view';
 import AltTextEdit, {
   AltTextEditComponent,
   AltTextEditComponentState,
   MAX_ALT_TEXT_LENGTH,
 } from '../../../../plugins/media/pm-plugins/alt-text/ui/AltTextEdit';
-import { InjectedIntl, InjectedIntlProps } from 'react-intl';
+import { createIntl, WrappedComponentProps } from 'react-intl-next';
 import {
   EVENT_TYPE,
   ACTION,
@@ -29,7 +29,7 @@ import {
   ACTION_SUBJECT_ID,
 } from '../../../../plugins/analytics';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { ReactWrapper } from 'enzyme';
+import { mount, ReactWrapper } from 'enzyme';
 import PanelTextInput from '../../../../ui/PanelTextInput';
 import { ErrorMessage } from '@atlaskit/editor-common';
 import {
@@ -39,7 +39,11 @@ import {
 
 describe('AltTextEditComponent', () => {
   let createAnalyticsEvent: CreateUIAnalyticsEvent;
-  let wrapper: ReactWrapper<InjectedIntlProps, AltTextEditComponentState, any>;
+  let wrapper: ReactWrapper<
+    WrappedComponentProps,
+    AltTextEditComponentState,
+    any
+  >;
   beforeEach(() => {
     jest.clearAllMocks();
     createAnalyticsEvent = jest.fn().mockReturnValue({ fire() {} });
@@ -74,14 +78,10 @@ describe('AltTextEditComponent', () => {
       value: string,
     ): {
       view: EditorView<any>;
-      wrapper: ReactWrapper<
-        ReactIntl.InjectedIntlProps,
-        AltTextEditComponentState,
-        any
-      >;
+      wrapper: ReactWrapper<WrappedComponentProps, any, any>;
     } {
-      const intl = {} as InjectedIntl;
-      const wrapper = mountWithIntl<{}, AltTextEditComponentState>(
+      const intl = createIntl({ locale: 'en' });
+      const wrapper = mount(
         <AltTextEditComponent
           view={view}
           value={value}
@@ -211,8 +211,8 @@ describe('AltTextEditComponent', () => {
 
     describe('when new value is empty string', () => {
       it('should set state showClearTextButton=false', () => {
-        const intl = {} as InjectedIntl;
-        wrapper = mountWithIntl<{}, AltTextEditComponentState>(
+        const intl = createIntl({ locale: 'en' });
+        wrapper = mount<WrappedComponentProps, AltTextEditComponentState>(
           <AltTextEditComponent view={view} value={'test'} intl={intl} />,
         );
         expect(wrapper.state('showClearTextButton')).toBeTruthy();
@@ -227,8 +227,8 @@ describe('AltTextEditComponent', () => {
 
     describe('when there was an empty string, and new text is nonempty', () => {
       it('should set state showClearTextButton=true', () => {
-        const intl = {} as InjectedIntl;
-        wrapper = mountWithIntl<{}, AltTextEditComponentState>(
+        const intl = createIntl({ locale: 'en' });
+        wrapper = mount<WrappedComponentProps, AltTextEditComponentState>(
           <AltTextEditComponent view={view} intl={intl} />,
         );
         expect(wrapper.state('showClearTextButton')).toBeFalsy();
@@ -245,8 +245,8 @@ describe('AltTextEditComponent', () => {
   describe('when max length is set', () => {
     it('should ensure max length prop is passed to input', () => {
       const view = new mockView();
-      const intl = {} as InjectedIntl;
-      const wrapper = mountWithIntl<{}, AltTextEditComponentState>(
+      const intl = createIntl({ locale: 'en' });
+      const wrapper = mount<{}, AltTextEditComponentState>(
         <AltTextEditComponent view={view} intl={intl} />,
       );
       const input = wrapper.find('input');
@@ -282,7 +282,7 @@ describe('AltTextEditComponent', () => {
 
   describe('validation', () => {
     let wrapper: ReactWrapper<
-        ReactIntl.InjectedIntlProps,
+        WrappedComponentProps,
         AltTextEditComponentState,
         any
       >,
@@ -294,9 +294,9 @@ describe('AltTextEditComponent', () => {
 
     describe('when validator editor prop is set', () => {
       beforeEach(() => {
-        const intl = {} as InjectedIntl,
+        const intl = createIntl({ locale: 'en' }),
           value = 'test';
-        wrapper = mountWithIntl<{}, AltTextEditComponentState>(
+        wrapper = mount<WrappedComponentProps, AltTextEditComponentState>(
           <AltTextEditComponent
             view={view}
             value={value}

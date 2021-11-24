@@ -1,6 +1,6 @@
 import React from 'react';
-import { ReactWrapper } from 'enzyme';
-import { mountWithIntl } from 'enzyme-react-intl';
+import { mount, ReactWrapper } from 'enzyme';
+// import { mount } from 'enzyme-react-intl';
 import {
   AnalyticsListener,
   AnalyticsEventPayload,
@@ -16,6 +16,20 @@ import {
 import RecommendationsClient from '../../../../components/smart-user-picker/service/recommendationClient';
 import UsersClient from '../../../../components/smart-user-picker/service/UsersClient';
 import Select from '@atlaskit/select/Select';
+
+const mockFormatMessage = (descriptor: any) => descriptor.defaultMessage;
+const mockIntl = { formatMessage: mockFormatMessage, defaultLocale: 'en' };
+jest.mock('react-intl-next', () => {
+  return {
+    ...(jest.requireActual('react-intl-next') as any),
+    FormattedMessage: (descriptor: any) => (
+      <span>{descriptor.defaultMessage}</span>
+    ),
+    injectIntl: (Node: any) => (props: any) => (
+      <Node {...props} intl={mockIntl} />
+    ),
+  };
+});
 
 const mockPREFETCH_SESSION_ID = 'prefetch-session-id';
 
@@ -184,7 +198,7 @@ describe('SmartUserPicker', () => {
     props: Partial<SmartUserPickerProps> = {},
   ): ReactWrapper => {
     const smartUserPickerProps = { ...defaultProps, ...props };
-    return mountWithIntl(<SmartUserPicker {...smartUserPickerProps} />);
+    return mount(<SmartUserPicker {...smartUserPickerProps} />);
   };
 
   beforeEach(() => {
@@ -920,7 +934,7 @@ describe('SmartUserPicker', () => {
     };
 
     beforeEach(() => {
-      component = mountWithIntl(<AnalyticsTestComponent />);
+      component = mount(<AnalyticsTestComponent />);
       getUserRecommendationsMock.mockReturnValue(
         Promise.resolve(mockReturnOptions),
       );
@@ -988,7 +1002,7 @@ describe('SmartUserPicker', () => {
       const filterOptions = jest.fn((options: OptionData[]) => {
         return options.filter((option) => option.type === 'user');
       });
-      component = mountWithIntl(
+      component = mount(
         AnalyticsTestComponent({ filterOptions, productAttributes }),
       );
 
@@ -1011,7 +1025,7 @@ describe('SmartUserPicker', () => {
     });
 
     it('should trigger prefetch mounted event', async () => {
-      component = mountWithIntl(AnalyticsTestComponent({ prefetch: true }));
+      component = mount(AnalyticsTestComponent({ prefetch: true }));
 
       await flushPromises();
       expect(onEvent).toHaveBeenCalledWith(
@@ -1111,7 +1125,7 @@ describe('SmartUserPicker', () => {
     });
 
     it('should trigger preparedUsers loaded event', async () => {
-      component = mountWithIntl(AnalyticsTestComponent({ prefetch: true }));
+      component = mount(AnalyticsTestComponent({ prefetch: true }));
 
       await flushPromises();
 

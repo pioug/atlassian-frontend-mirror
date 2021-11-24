@@ -1,5 +1,5 @@
 import { EditorState } from 'prosemirror-state';
-import { InjectedIntlProps } from 'react-intl';
+import { WrappedComponentProps } from 'react-intl-next';
 import { Command } from '../../../../types/command';
 import { MenuItem } from '../../../../ui/DropdownMenu/types';
 import { TOOLBAR_ACTION_SUBJECT_ID } from '../../../../plugins/analytics/types/toolbar-button';
@@ -32,4 +32,4 @@ export type MenuIconState = {
 export type IconHookProps = {
   isToolbarDisabled?: boolean;
   editorState: EditorState;
-} & InjectedIntlProps;
+} & WrappedComponentProps;

@@ -1,4 +1,4 @@
-import { defineMessages } from 'react-intl';
+import { defineMessages } from 'react-intl-next';
 import styled, { css } from 'styled-components';
 
 import {

@@ -152,55 +152,76 @@ export class JIRATransformer implements Transformer<string> {
       table,
     } = this.schema.nodes;
 
+    // We compare node type names in this method rather than
+    // node types directly as the node comparision fails.
+
+    // This suggests the schema which is coming from
+    // the doc has been recreated after being passed
+    // to this transformer on setup which is somewhat
+    // unexpected.
+
+    // This package is internally (within editor) considered
+    // "obsolete", and we are aiming to either hand over
+    // or deprecate.
+
+    // This "fix" is being done to unblock an existing
+    // consumer so they can apply an unrelated security
+    // upgrade.
     if (node.isText) {
       return this.encodeText(node);
-    } else if (node.type === heading) {
+    } else if (node.type.name === heading.name) {
       return this.encodeHeading(node);
-    } else if (node.type === rule) {
+    } else if (node.type.name === rule.name) {
       return this.encodeHorizontalRule();
-    } else if (node.type === paragraph) {
+    } else if (node.type.name === paragraph.name) {
       return this.encodeParagraph(node);
-    } else if (node.type === hardBreak) {
+    } else if (node.type.name === hardBreak.name) {
       return this.encodeHardBreak();
     }
 
     if (isSchemaWithLists(this.schema)) {
-      if (node.type === bulletList) {
+      if (node.type.name === bulletList.name) {
         return this.encodeBulletList(node);
-      } else if (node.type === orderedList) {
+      } else if (node.type.name === orderedList.name) {
         return this.encodeOrderedList(node);
-      } else if (node.type === listItem) {
+      } else if (node.type.name === listItem.name) {
         return this.encodeListItem(node);
       }
     }
 
-    if (isSchemaWithMentions(this.schema) && node.type === mention) {
+    if (isSchemaWithMentions(this.schema) && node.type.name === mention.name) {
       return this.encodeMention(node, this.customEncoders.mention);
     }
 
-    if (isSchemaWithEmojis(this.schema) && node.type === emoji) {
+    if (isSchemaWithEmojis(this.schema) && node.type.name === emoji.name) {
       return this.encodeEmoji(node);
     }
 
-    if (isSchemaWithCodeBlock(this.schema) && node.type === codeBlock) {
+    if (
+      isSchemaWithCodeBlock(this.schema) &&
+      node.type.name === codeBlock.name
+    ) {
       return this.encodeCodeBlock(node);
     }
 
-    if (isSchemaWithBlockQuotes(this.schema) && node.type === blockquote) {
+    if (
+      isSchemaWithBlockQuotes(this.schema) &&
+      node.type.name === blockquote.name
+    ) {
       return this.encodeBlockQuote(node);
     }
 
     if (isSchemaWithMedia(this.schema)) {
-      if (node.type === mediaGroup) {
+      if (node.type.name === mediaGroup.name) {
         return this.encodeMediaGroup(node);
-      } else if (node.type === mediaSingle) {
+      } else if (node.type.name === mediaSingle.name) {
         return this.encodeMediaSingle(node);
-      } else if (node.type === media) {
+      } else if (node.type.name === media.name) {
         return this.encodeMedia(node);
       }
     }
 
-    if (isSchemaWithTables(this.schema) && node.type === table) {
+    if (isSchemaWithTables(this.schema) && node.type.name === table.name) {
       return this.encodeTable(node);
     }
 

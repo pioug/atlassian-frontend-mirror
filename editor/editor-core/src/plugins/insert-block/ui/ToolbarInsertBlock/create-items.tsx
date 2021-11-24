@@ -1,5 +1,5 @@
 import React from 'react';
-import { InjectedIntlProps } from 'react-intl';
+import { WrappedComponentProps } from 'react-intl-next';
 import memoize from 'lodash/memoize';
 import memoizeOne from 'memoize-one';
 import { Schema } from 'prosemirror-model';
@@ -62,7 +62,7 @@ export interface CreateItemsConfig {
   emojiProvider?: Promise<EmojiProvider>;
   schema: Schema;
   numberOfButtons: number;
-  formatMessage: InjectedIntlProps['intl']['formatMessage'];
+  formatMessage: WrappedComponentProps['intl']['formatMessage'];
   isNewMenuEnabled?: boolean;
 }
 

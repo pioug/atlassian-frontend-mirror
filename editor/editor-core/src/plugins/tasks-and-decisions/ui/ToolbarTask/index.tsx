@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 
 import { EditorView } from 'prosemirror-view';
-import { InjectedIntlProps, injectIntl } from 'react-intl';
+import { WrappedComponentProps, injectIntl } from 'react-intl-next';
 
 import TaskIcon from '@atlaskit/icon/glyph/editor/task';
 
@@ -20,7 +20,7 @@ export interface State {
 }
 
 export class ToolbarTask extends PureComponent<
-  Props & InjectedIntlProps,
+  Props & WrappedComponentProps,
   State
 > {
   state: State = { disabled: false };

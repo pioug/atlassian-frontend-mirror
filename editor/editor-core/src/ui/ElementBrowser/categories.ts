@@ -1,6 +1,6 @@
-import { defineMessages, InjectedIntl, Messages } from 'react-intl';
+import { defineMessages, IntlShape } from 'react-intl-next';
 
-export function getCategories(intl: InjectedIntl) {
+export function getCategories(intl: IntlShape) {
   return [
     {
       title: intl.formatMessage(messages.all),
@@ -31,7 +31,7 @@ export function getCategories(intl: InjectedIntl) {
   ];
 }
 
-const messages: Messages = defineMessages({
+const messages = defineMessages({
   all: {
     id: 'fabric.editor.elementbrowser.categorylist.category-all',
     defaultMessage: 'All',

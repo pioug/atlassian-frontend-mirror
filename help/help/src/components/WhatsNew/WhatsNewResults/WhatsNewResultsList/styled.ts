@@ -17,7 +17,7 @@ export const WhatsNewResultsListContainer = styled.div`
 `;
 
 export const WhatsNewResultsListGroupWrapper = styled.div`
-  padding: ${gridSize()}px 0 0 0;
+  padding: ${gridSize()}px 0 ${gridSize()}px 0;
 `;
 
 export const WhatsNewResultsListGroupTitle = styled.div`

@@ -35,10 +35,16 @@ export default {
     'Ange namn, grupp, team eller e-postadress',
   'fabric.elements.share.form.user-picker.placeholder.jira':
     'Ange namn, team eller e-postadress',
+  'fabric.elements.share.form.user-picker.placholder.generic.existingUserOnly':
+    'Ange namn, grupp eller team',
   'fabric.elements.share.form.user-picker.validation.required':
     'Välj minst en användare, en grupp, ett team eller en e-postadress.',
+  'fabric.elements.share.form.user-picker.validation.required.existingUserOnly':
+    'Välj minst en användare, en grupp eller ett team.',
   'fabric.elements.share.form.user-picker.validation.required.jira':
     'Välj minst en användare, ett team eller en e-postadress.',
+  'fabric.elements.share.form.user-picker.validation.required.jira.existingUserOnly':
+    'Välj minst en användare eller ett team.',
   'fabric.elements.share.success.message':
     '{object, select, blogpost {Blogginlägg delat} board {Tavla delad} calendar {Kalender delad} draft {Utkast delat} filter {Filter delat} issue {Ärende delat} media {Media delad} page {Sida delad} project {Projekt delat} pullrequest {Pull-begäran delad} question {Fråga delad} report {Rapport delad} repository {Lagringsplats delad} request {Förfrågan delad} roadmap {Översikt delad} site {Plats delad} space {Utrymme delat} other {Länk delad}}',
   'fabric.elements.share.to.integration.button': 'Dela till {integrationName}',

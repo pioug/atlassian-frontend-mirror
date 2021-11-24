@@ -6,14 +6,14 @@ import {
   timestampToTaskContext,
   DateSharedCssClassName,
 } from '@atlaskit/editor-common';
-import { injectIntl, InjectedIntlProps } from 'react-intl';
+import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 
 export interface Props {
   timestamp: string;
   parentIsIncompleteTask?: boolean;
 }
 
-class Date extends PureComponent<Props & InjectedIntlProps, {}> {
+class Date extends PureComponent<Props & WrappedComponentProps, {}> {
   render() {
     const { timestamp, parentIsIncompleteTask, intl } = this.props;
     const className =

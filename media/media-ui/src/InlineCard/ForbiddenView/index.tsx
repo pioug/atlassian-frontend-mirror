@@ -6,7 +6,7 @@ import { Frame } from '../Frame';
 import { IconAndTitleLayout } from '../IconAndTitleLayout';
 import { AKIconWrapper } from '../Icon';
 import { messages } from '../../messages';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl-next';
 import {
   IconStyledButton,
   LowercaseAppearance,

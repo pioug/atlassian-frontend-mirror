@@ -1,12 +1,16 @@
 import React from 'react';
 import EmptyState from '@atlaskit/empty-state';
-import { defineMessages, injectIntl, InjectedIntlProps } from 'react-intl';
+import {
+  defineMessages,
+  injectIntl,
+  WrappedComponentProps,
+} from 'react-intl-next';
 
 import ErrorImage from './ErrorImage';
 
 type Props = {
   errorMessage: string;
-} & InjectedIntlProps;
+} & WrappedComponentProps;
 
 const messages = defineMessages({
   configFailedToLoad: {

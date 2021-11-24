@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React from 'react';
 import { PureComponent } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 import { defaultCategories } from '../../util/constants';
 import { CategoryDescription, OnCategory } from '../../types';
 import { messages } from '../i18n';
@@ -44,13 +44,16 @@ const addNewCategories = (
     .sort(sortCategories);
 };
 
-export default class CategorySelector extends PureComponent<Props, State> {
+class CategorySelector extends PureComponent<
+  Props & WrappedComponentProps,
+  State
+> {
   static defaultProps = {
     onCategorySelected: () => {},
     dynamicCategories: [],
   };
 
-  constructor(props: Props) {
+  constructor(props: Props & WrappedComponentProps) {
     super(props);
     const { dynamicCategories } = props;
 
@@ -92,10 +95,12 @@ export default class CategorySelector extends PureComponent<Props, State> {
   }
 
   render() {
-    const { disableCategories } = this.props;
+    const { disableCategories, intl } = this.props;
     const { categories } = this.state;
     let categoriesSection;
     if (categories) {
+      const { formatMessage } = intl;
+
       categoriesSection = (
         <ul>
           {categories.map((categoryId: CategoryId) => {
@@ -110,22 +115,19 @@ export default class CategorySelector extends PureComponent<Props, State> {
             }
 
             const Icon = category.icon;
+            const categoryName = formatMessage(messages[category.name]);
             return (
               <li key={category.id}>
-                <FormattedMessage {...messages[category.name]}>
-                  {(categoryName) => (
-                    <button
-                      aria-label={categoryName as string}
-                      data-category-id={category.id}
-                      className={classNames(categoryClasses)}
-                      onClick={this.onClick}
-                      title={categoryName as string}
-                      type="button"
-                    >
-                      <Icon label={categoryName} />
-                    </button>
-                  )}
-                </FormattedMessage>
+                <button
+                  aria-label={categoryName}
+                  data-category-id={category.id}
+                  className={classNames(categoryClasses)}
+                  onClick={this.onClick}
+                  title={categoryName}
+                  type="button"
+                >
+                  <Icon label={categoryName} />
+                </button>
               </li>
             );
           })}
@@ -139,3 +141,5 @@ export default class CategorySelector extends PureComponent<Props, State> {
     );
   }
 }
+
+export default injectIntl(CategorySelector);

@@ -2,7 +2,7 @@ import React from 'react';
 import { ReactWrapper } from 'enzyme';
 
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
 import {
   doc,
   p,
@@ -14,7 +14,9 @@ import FullPage from '../../../ui/Appearance/FullPage';
 import EditorContext from '../../../ui/EditorContext';
 
 const mountWithContext = (node: React.ReactNode) =>
-  mountWithIntl(<EditorContext>{node}</EditorContext>);
+  mountWithIntl<any, unknown, EditorContext>(
+    <EditorContext>{node}</EditorContext>,
+  );
 
 describe('full page editor', () => {
   const createEditor = createEditorFactory();

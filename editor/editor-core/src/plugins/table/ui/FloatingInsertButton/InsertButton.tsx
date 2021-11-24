@@ -1,6 +1,6 @@
 import React, { SyntheticEvent } from 'react';
 
-import { InjectedIntlProps, injectIntl } from 'react-intl';
+import { WrappedComponentProps, injectIntl } from 'react-intl-next';
 
 import { tableMarginTop } from '@atlaskit/editor-common';
 import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
@@ -73,7 +73,7 @@ const InsertButton = ({
   type,
   intl: { formatMessage },
   hasStickyHeaders,
-}: ButtonProps & InjectedIntlProps) => {
+}: ButtonProps & WrappedComponentProps) => {
   const content = (
     <Tooltip
       content={

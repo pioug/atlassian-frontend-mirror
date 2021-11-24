@@ -2,7 +2,11 @@
 import React from 'react';
 import { jsx } from '@emotion/core';
 
-import { defineMessages, InjectedIntlProps, injectIntl } from 'react-intl';
+import {
+  defineMessages,
+  WrappedComponentProps,
+  injectIntl,
+} from 'react-intl-next';
 import EditorCloseIcon from '@atlaskit/icon/glyph/editor/close';
 import ChevronDownIcon from '@atlaskit/icon/glyph/hipchat/chevron-down';
 import ChevronUpIcon from '@atlaskit/icon/glyph/hipchat/chevron-up';
@@ -88,7 +92,7 @@ type State = {
   localFindText: string;
 };
 
-class Find extends React.Component<FindProps & InjectedIntlProps, State> {
+class Find extends React.Component<FindProps & WrappedComponentProps, State> {
   private findTextfieldRef = React.createRef<HTMLInputElement>();
   private isComposing = false;
 
@@ -103,7 +107,7 @@ class Find extends React.Component<FindProps & InjectedIntlProps, State> {
   private findPrevIcon: JSX.Element;
   private closeIcon: JSX.Element;
 
-  constructor(props: FindProps & InjectedIntlProps) {
+  constructor(props: FindProps & WrappedComponentProps) {
     super(props);
 
     const {

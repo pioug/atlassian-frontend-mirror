@@ -1,6 +1,10 @@
 import React from 'react';
 import { Component } from 'react';
-import { FormattedMessage, InjectedIntlProps, injectIntl } from 'react-intl';
+import {
+  FormattedMessage,
+  WrappedComponentProps,
+  injectIntl,
+} from 'react-intl-next';
 import Button from '@atlaskit/button/custom-theme-button';
 import ImageCropper from '../image-cropper';
 import Spinner from '@atlaskit/spinner';
@@ -89,7 +93,7 @@ const defaultState = {
 };
 
 export class ImageNavigator extends Component<
-  Props & InjectedIntlProps,
+  Props & WrappedComponentProps,
   State
 > {
   state: State = defaultState;
@@ -424,4 +428,4 @@ export class ImageNavigator extends Component<
   }
 }
 
-export default injectIntl(ImageNavigator);
+export default injectIntl(ImageNavigator) as React.FC<Props>;

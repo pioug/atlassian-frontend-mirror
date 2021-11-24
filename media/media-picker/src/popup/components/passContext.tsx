@@ -3,7 +3,7 @@ import { AppProxyReactContext } from './app';
 import { Store } from 'redux';
 import { State } from '../domain';
 import { UIAnalyticsEventHandler } from '@atlaskit/analytics-next';
-import { intlShape, IntlProvider } from 'react-intl';
+import { IntlProvider } from 'react-intl-next';
 
 export interface PassContextProps {
   store: Store<State>;
@@ -14,11 +14,10 @@ export default class PassContext extends Component<PassContextProps, any> {
   static childContextTypes = {
     store() {},
     getAtlaskitAnalyticsEventHandlers() {},
-    intl: intlShape,
+    intl() {},
   };
 
-  private createDefaultI18nProvider = () =>
-    new IntlProvider({ locale: 'en' }).getChildContext().intl;
+  private createDefaultI18nProvider = () => new IntlProvider({ locale: 'en' });
 
   getChildContext() {
     const { store, proxyReactContext } = this.props;

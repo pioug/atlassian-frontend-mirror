@@ -1,6 +1,6 @@
 import { AnalyticsViewerContainer } from '@atlaskit/analytics-viewer';
 import React from 'react';
-import { IntlProvider } from 'react-intl';
+import { IntlProvider } from 'react-intl-next';
 import {
   assignToMe,
   exampleOptions,

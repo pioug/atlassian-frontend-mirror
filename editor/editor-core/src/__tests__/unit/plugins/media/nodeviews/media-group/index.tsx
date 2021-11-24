@@ -3,6 +3,7 @@ import { defaultSchema } from '@atlaskit/adf-schema';
 import { nextTick } from '@atlaskit/editor-test-helpers/next-tick';
 import { fakeMediaProvider } from '@atlaskit/editor-test-helpers/media-provider';
 import { media, mediaGroup } from '@atlaskit/editor-test-helpers/doc-builder';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
 import { mount } from 'enzyme';
 import { EditorView } from 'prosemirror-view';
 import React from 'react';
@@ -14,6 +15,7 @@ import {
 } from '../../../../../../plugins/media/pm-plugins/main';
 import { MediaPluginState } from '../../../../../../plugins/media/pm-plugins/types';
 import { EditorAppearance } from '../../../../../../types';
+
 jest.mock('../../../../../../utils/', () => ({
   __esModule: true,
   setNodeSelection: jest.fn(),
@@ -80,7 +82,7 @@ describe('nodeviews/mediaGroup', () => {
       ...propOverrides,
     };
 
-    const wrapper = mount(<MediaGroup {...props} />);
+    const wrapper = mountWithIntl(<MediaGroup {...props} />);
 
     await nextTick();
 

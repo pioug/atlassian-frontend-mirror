@@ -19,7 +19,7 @@ import Tooltip from '@atlaskit/tooltip';
 import { N200 } from '@atlaskit/theme/colors';
 import EditorPanelIcon from '@atlaskit/icon/glyph/editor/panel';
 import { messages } from '../../../components/i18n';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl-next';
 import { UserSource } from '../../../../src/types';
 
 describe('ExternalUser Option', () => {

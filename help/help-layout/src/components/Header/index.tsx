@@ -1,5 +1,5 @@
 import React from 'react';
-import { injectIntl, InjectedIntlProps } from 'react-intl';
+import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 
 import { messages } from '../../messages';
@@ -9,7 +9,7 @@ import CloseButton from './CloseButton';
 import BackButton from './BackButton';
 import { HeaderContainer, HeaderTitle, HeaderContent } from './styled';
 
-export const HelpContent: React.FC<HelpPanelHeader & InjectedIntlProps> = ({
+export const HelpContent: React.FC<HelpPanelHeader & WrappedComponentProps> = ({
   headerTitle,
   headerContent,
   isBackbuttonVisible = false,

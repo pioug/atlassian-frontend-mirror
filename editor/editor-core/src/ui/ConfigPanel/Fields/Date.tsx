@@ -1,5 +1,5 @@
 import React from 'react';
-import { injectIntl, InjectedIntlProps } from 'react-intl';
+import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 
 import { Field } from '@atlaskit/form';
 import { DatePicker } from '@atlaskit/datetime-picker';
@@ -22,7 +22,7 @@ function Date({
   autoFocus?: boolean;
   onFieldChange: OnFieldChange;
   placeholder?: string;
-} & InjectedIntlProps) {
+} & WrappedComponentProps) {
   const { label, description, defaultValue, isRequired } = field;
 
   return (

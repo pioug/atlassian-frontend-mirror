@@ -518,6 +518,7 @@ export const ReactMediaSingleNode = (
   dispatchAnalyticsEvent?: DispatchAnalyticsEvent,
   mediaOptions: MediaOptions = {},
 ) => (node: PMNode, view: EditorView, getPos: getPosHandler) => {
+  const hasIntlContext = true;
   return new MediaSingleNodeView(
     node,
     view,
@@ -532,5 +533,9 @@ export const ReactMediaSingleNode = (
       dispatchAnalyticsEvent,
       isCopyPasteEnabled: mediaOptions.isCopyPasteEnabled,
     },
+    undefined,
+    undefined,
+    undefined,
+    hasIntlContext,
   ).init();
 };

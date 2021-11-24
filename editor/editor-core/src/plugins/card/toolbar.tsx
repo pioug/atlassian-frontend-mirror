@@ -1,5 +1,5 @@
 import React from 'react';
-import { InjectedIntl } from 'react-intl';
+import { IntlShape } from 'react-intl-next';
 import { EditorState, NodeSelection } from 'prosemirror-state';
 import { removeSelectedNode, findDomRefAtPos } from 'prosemirror-utils';
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
@@ -115,7 +115,7 @@ const unlinkCard = (node: Node, state: EditorState): Command => {
 
 const buildAlignmentOptions = (
   state: EditorState,
-  intl: InjectedIntl,
+  intl: IntlShape,
 ): FloatingToolbarItem<Command>[] => {
   return buildLayoutButtons(
     state,
@@ -129,7 +129,7 @@ const buildAlignmentOptions = (
 const generateDeleteButton = (
   node: Node,
   state: EditorState,
-  intl: InjectedIntl,
+  intl: IntlShape,
 ): Array<FloatingToolbarItem<Command>> => {
   const { inlineCard } = state.schema.nodes;
   const removeButton: FloatingToolbarItem<Command> = {
@@ -163,7 +163,7 @@ const generateDeleteButton = (
 
 const generateToolbarItems = (
   state: EditorState,
-  intl: InjectedIntl,
+  intl: IntlShape,
   providerFactory: ProviderFactory,
   cardOptions: CardOptions,
   platform?: CardPlatform,
@@ -263,7 +263,7 @@ export const floatingToolbar = (
 ) => {
   return (
     state: EditorState,
-    intl: InjectedIntl,
+    intl: IntlShape,
     providerFactory: ProviderFactory,
   ): FloatingToolbarConfig | undefined => {
     const { inlineCard, blockCard, embedCard } = state.schema.nodes;

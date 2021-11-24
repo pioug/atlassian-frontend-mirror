@@ -1,5 +1,17 @@
 # @atlaskit/editor-jira-transformer
 
+## 8.1.20
+
+### Patch Changes
+
+- [`d2ff410796a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d2ff410796a) - Fix jira-transformer
+
+## 8.1.19
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.1.18
 
 ### Patch Changes

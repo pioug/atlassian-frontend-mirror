@@ -1,14 +1,16 @@
 import {
   mountWithIntl,
   shallowWithIntl,
-} from '@atlaskit/editor-test-helpers/enzyme';
+} from '@atlaskit/editor-test-helpers/enzyme-next';
 import { waitUntil } from '@atlaskit/elements-test-helpers';
 import { ReactWrapper } from 'enzyme';
 import React from 'react';
 import CachingEmoji from '../../../../components/common/CachingEmoji';
 import Emoji from '../../../../components/common/Emoji';
 import EmojiButton from '../../../../components/common/EmojiButton';
-import EmojiPreview from '../../../../components/common/EmojiPreview';
+import EmojiPreviewWithIntl, {
+  EmojiPreview,
+} from '../../../../components/common/EmojiPreview';
 import * as styles from '../../../../components/common/styles';
 import ToneSelector from '../../../../components/common/ToneSelector';
 import { EmojiDescriptionWithVariations } from '../../../../types';
@@ -49,13 +51,13 @@ const toneEmoji: EmojiDescriptionWithVariations = {
 describe('<EmojiPreview />', () => {
   describe('preview', () => {
     it('should render an emoji preview if one is selected', () => {
-      const wrapper = shallowWithIntl(<EmojiPreview emoji={emoji} />);
+      const wrapper = mountWithIntl(<EmojiPreviewWithIntl emoji={emoji} />);
 
       expect(wrapper.find(`.${styles.preview}`)).toHaveLength(1);
     });
 
     it('should not render the emoji preview if one is not selected', () => {
-      const wrapper = shallowWithIntl(<EmojiPreview />);
+      const wrapper = shallowWithIntl(<EmojiPreviewWithIntl />);
 
       expect(wrapper.find(`.${styles.preview}`)).toHaveLength(0);
     });
@@ -64,17 +66,21 @@ describe('<EmojiPreview />', () => {
   describe('tone', () => {
     it('should display tone selector after clicking on the tone button', () => {
       const wrapper = mountWithIntl(
-        <EmojiPreview emoji={emoji} toneEmoji={toneEmoji} />,
+        <EmojiPreviewWithIntl emoji={emoji} toneEmoji={toneEmoji} />,
       );
 
       wrapper.find(EmojiButton).simulate('mousedown', { button: 0 });
-      expect(wrapper.state('selectingTone')).toEqual(true);
+      expect(wrapper.find(EmojiPreview).state('selectingTone')).toEqual(true);
       expect(wrapper.find(ToneSelector)).toHaveLength(1);
     });
 
     it('button should show current selected tone if provided', () => {
       const wrapper = mountWithIntl(
-        <EmojiPreview emoji={emoji} selectedTone={1} toneEmoji={toneEmoji} />,
+        <EmojiPreviewWithIntl
+          emoji={emoji}
+          selectedTone={1}
+          toneEmoji={toneEmoji}
+        />,
       );
 
       expect(wrapper.find(Emoji)).toHaveLength(2);
@@ -94,7 +100,7 @@ describe('<EmojiPreview />', () => {
 
     it('button should show default tone if selected tone is not specified', () => {
       const wrapper = mountWithIntl(
-        <EmojiPreview emoji={emoji} toneEmoji={toneEmoji} />,
+        <EmojiPreviewWithIntl emoji={emoji} toneEmoji={toneEmoji} />,
       );
 
       expect(wrapper.find(Emoji)).toHaveLength(2);
@@ -112,8 +118,8 @@ describe('<EmojiPreview />', () => {
 
     it('should stop selecting tone when tone selected', () => {
       const wrapper = mountWithIntl(
-        <EmojiPreview emoji={emoji} toneEmoji={toneEmoji} />,
-      );
+        <EmojiPreviewWithIntl emoji={emoji} toneEmoji={toneEmoji} />,
+      ).find(EmojiPreview);
 
       const instance = wrapper.instance() as EmojiPreview;
       instance.onToneButtonClick();
@@ -124,10 +130,10 @@ describe('<EmojiPreview />', () => {
 
     it('should pass onToneSelected to tone selector', () => {
       const wrapper = mountWithIntl(
-        <EmojiPreview emoji={emoji} toneEmoji={toneEmoji} />,
+        <EmojiPreviewWithIntl emoji={emoji} toneEmoji={toneEmoji} />,
       );
 
-      const instance = wrapper.instance() as EmojiPreview;
+      const instance = wrapper.find(EmojiPreview).instance() as EmojiPreview;
       instance.onToneButtonClick();
       wrapper.update();
 
@@ -138,8 +144,8 @@ describe('<EmojiPreview />', () => {
 
     it('should stop selecting tone on mouse leave', () => {
       const wrapper = mountWithIntl(
-        <EmojiPreview emoji={emoji} toneEmoji={toneEmoji} />,
-      );
+        <EmojiPreviewWithIntl emoji={emoji} toneEmoji={toneEmoji} />,
+      ).find(EmojiPreview);
 
       const instance = wrapper.instance() as EmojiPreview;
       instance.onToneButtonClick();
@@ -165,7 +171,7 @@ describe('<EmojiPreview />', () => {
     describe('Upload not supported', () => {
       it('"Add custom emoji" button should not appear when uploadEnabled is false', async (done) => {
         const component = mountWithIntl(
-          <EmojiPreview
+          <EmojiPreviewWithIntl
             emoji={emoji}
             toneEmoji={toneEmoji}
             uploadEnabled={false}
@@ -184,7 +190,7 @@ describe('<EmojiPreview />', () => {
 
       beforeEach(() => {
         component = mountWithIntl(
-          <EmojiPreview
+          <EmojiPreviewWithIntl
             emoji={emoji}
             toneEmoji={toneEmoji}
             uploadEnabled={true}
@@ -198,7 +204,9 @@ describe('<EmojiPreview />', () => {
       };
 
       const performToneButtonClick = (component: ReactWrapper) => {
-        const instance = component.instance() as EmojiPreview;
+        const instance = component
+          .find(EmojiPreview)
+          .instance() as EmojiPreview;
         instance.onToneButtonClick();
         component.update();
       };

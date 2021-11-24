@@ -1,7 +1,7 @@
 import { withAnalyticsEvents } from '@atlaskit/analytics-next';
 import debounce from 'lodash/debounce';
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl-next';
 import {
   cancelEvent,
   clearEvent,

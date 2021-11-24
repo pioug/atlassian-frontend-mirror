@@ -37,10 +37,16 @@ export default {
     'Skriv inn navn, gruppe, team eller e-post',
   'fabric.elements.share.form.user-picker.placeholder.jira':
     'Skriv inn navn, team eller e-postadresse',
+  'fabric.elements.share.form.user-picker.placholder.generic.existingUserOnly':
+    'Angi navn, gruppe eller team',
   'fabric.elements.share.form.user-picker.validation.required':
     'Velg minst én bruker, gruppe eller e-post eller minst ett team.',
+  'fabric.elements.share.form.user-picker.validation.required.existingUserOnly':
+    'Velg minst én bruker, gruppe eller ett team.',
   'fabric.elements.share.form.user-picker.validation.required.jira':
     'Velg minst én bruker, arbeidsgruppe eller e-postadresse.',
+  'fabric.elements.share.form.user-picker.validation.required.jira.existingUserOnly':
+    'Velg minst én bruker eller ett team.',
   'fabric.elements.share.success.message':
     '{object, select, blogpost {Blogginnlegg delt} board {Tavle delt} calendar {Kalender delt} draft {Utkast delt} filter {Filter delt} issue {Sak delt} media {Media delt} page {Side delt} project {Prosjekt delt} pullrequest {Pull-forespørsel delt} question {Spørsmål delt} report {Rapport delt} repository {Repositorium delt} request {Forespørsel delt} roadmap {Veikart delt} site {Side delt} space {Område delt} other {Kobling delt}}',
   'fabric.elements.share.to.integration.button': 'Del til {integrationName}',

@@ -64,7 +64,7 @@ import { formatDuration } from '../formatDuration';
 import { hideControlsClassName } from '../classNames';
 import { Shortcut, keyCodes } from '../shortcut';
 import { toggleFullscreen, getFullscreenElement } from './fullscreen';
-import { injectIntl, InjectedIntlProps } from 'react-intl';
+import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 import { messages } from '../messages';
 import simultaneousPlayManager from './simultaneousPlayManager';
 import { WithShowControlMethodProp } from '../types';
@@ -100,7 +100,7 @@ const MINIMUM_DURATION_BEFORE_SAVING_TIME = 60;
 const VIEWED_TRACKING_SECS = 2;
 
 export class CustomMediaPlayerBase extends Component<
-  CustomMediaPlayerProps & InjectedIntlProps & WithAnalyticsEventsProps,
+  CustomMediaPlayerProps & WrappedComponentProps & WithAnalyticsEventsProps,
   CustomMediaPlayerState
 > {
   videoWrapperRef?: HTMLElement;
@@ -813,7 +813,9 @@ export class CustomMediaPlayerBase extends Component<
   }
 }
 
-export const CustomMediaPlayer = withMediaAnalyticsContext(
+export const CustomMediaPlayer: React.ComponentType<
+  CustomMediaPlayerProps & WithAnalyticsEventsProps
+> = withMediaAnalyticsContext(
   {
     packageVersion,
     packageName,

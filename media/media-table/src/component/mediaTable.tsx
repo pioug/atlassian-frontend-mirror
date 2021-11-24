@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { IntlProvider, intlShape } from 'react-intl';
+import {
+  IntlProvider,
+  injectIntl,
+  WrappedComponentProps,
+} from 'react-intl-next';
 import { Subscription } from 'rxjs/Subscription';
 import { DynamicTableStateless } from '@atlaskit/dynamic-table';
 import { RowType, RowCellType } from '@atlaskit/dynamic-table/types';
@@ -29,7 +33,10 @@ import {
 } from '../util';
 import { withAnalyticsEvents } from '@atlaskit/analytics-next';
 
-export class MediaTable extends Component<MediaTableProps, MediaTableState> {
+export class MediaTable extends Component<
+  MediaTableProps & WrappedComponentProps,
+  MediaTableState
+> {
   state: MediaTableState = {
     fileInfoState: new Map(),
   };
@@ -268,10 +275,6 @@ export class MediaTable extends Component<MediaTableProps, MediaTableState> {
     );
   };
 
-  static contextTypes = {
-    intl: intlShape,
-  };
-
   render() {
     const content = (
       <MediaTableWrapper>
@@ -280,7 +283,7 @@ export class MediaTable extends Component<MediaTableProps, MediaTableState> {
       </MediaTableWrapper>
     );
 
-    return this.context.intl ? (
+    return this.props.intl ? (
       content
     ) : (
       <IntlProvider locale="en">{content}</IntlProvider>
@@ -288,4 +291,6 @@ export class MediaTable extends Component<MediaTableProps, MediaTableState> {
   }
 }
 
-export default withMediaClient(withAnalyticsEvents()(MediaTable));
+export default withMediaClient(
+  withAnalyticsEvents()(injectIntl(MediaTable, { enforceContext: false })),
+);

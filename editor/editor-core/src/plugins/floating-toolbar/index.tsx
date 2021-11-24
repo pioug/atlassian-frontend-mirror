@@ -41,6 +41,7 @@ import {
 } from './types';
 import { findNode } from './utils';
 import { ErrorBoundary } from '../../ui/ErrorBoundary';
+import { IntlShape } from 'react-intl-next';
 
 export type FloatingToolbarPluginState = Record<
   'getConfigWithNodeInfo',
@@ -158,12 +159,12 @@ const floatingToolbarPlugin = (): EditorPlugin => ({
       {
         // Should be after all toolbar plugins
         name: 'floatingToolbar',
-        plugin: ({ dispatch, reactContext, providerFactory }) =>
+        plugin: ({ dispatch, providerFactory, getIntl }) =>
           floatingToolbarPluginFactory({
             floatingToolbarHandlers,
             dispatch,
-            reactContext,
             providerFactory,
+            getIntl,
           }),
       },
       {
@@ -339,17 +340,17 @@ function sanitizeFloatingToolbarConfig(
 
 function floatingToolbarPluginFactory(options: {
   floatingToolbarHandlers: Array<FloatingToolbarHandler>;
+  getIntl: () => IntlShape;
   dispatch: Dispatch<FloatingToolbarPluginState>;
-  reactContext: () => { [key: string]: any };
   providerFactory: ProviderFactory;
 }) {
   const {
     floatingToolbarHandlers,
     dispatch,
-    reactContext,
     providerFactory,
+    getIntl,
   } = options;
-  const { intl } = reactContext();
+  const intl = getIntl();
   const getConfigWithNodeInfo = (editorState: EditorState) => {
     const activeConfigs = floatingToolbarHandlers
       .map((handler) => handler(editorState, intl, providerFactory))

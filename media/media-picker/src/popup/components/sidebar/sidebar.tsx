@@ -2,7 +2,7 @@ import React from 'react';
 import { Component } from 'react';
 import { connect } from 'react-redux';
 import UploadIcon from '@atlaskit/icon/glyph/upload';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl-next';
 import { messages } from '@atlaskit/media-ui';
 import { State } from '../../domain';
 import SidebarItem from './item/sidebarItem';

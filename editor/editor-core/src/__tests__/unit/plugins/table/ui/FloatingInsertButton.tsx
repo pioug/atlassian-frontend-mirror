@@ -1,5 +1,5 @@
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
 import {
   doc,
   table,
@@ -14,12 +14,13 @@ import {
   selectColumns,
   selectRows,
 } from '@atlaskit/editor-test-helpers/table';
-import { ReactWrapper } from 'enzyme';
+import { mount, ReactWrapper } from 'enzyme';
 import { findParentNodeOfTypeClosestToPos } from 'prosemirror-utils';
 import { EditorView } from 'prosemirror-view';
 import React from 'react';
 import { TablePluginState } from '../../../../../plugins/table/types';
-import FloatingInsertButton, {
+import {
+  FloatingInsertButton,
   Props as FloatingInsertButtonProps,
 } from '../../../../../plugins/table/ui/FloatingInsertButton';
 import InsertButton from '../../../../../plugins/table/ui/FloatingInsertButton/InsertButton';
@@ -33,6 +34,7 @@ import {
   EVENT_TYPE,
   CONTENT_COMPONENT,
 } from '../../../../../plugins/analytics/types/enums';
+import { createIntl, IntlShape } from 'react-intl-next';
 
 describe('Floating Insert Button when findDomRefAtPos fails', () => {
   const createEditor = createEditorFactory<TablePluginState>();
@@ -69,8 +71,11 @@ describe('Floating Insert Button when findDomRefAtPos fails', () => {
       editorView.state.schema.nodes.table,
     );
 
-    wrapper = mountWithIntl(
+    const intl = createIntl({ locale: 'en' });
+
+    wrapper = mount(
       <FloatingInsertButton
+        intl={intl}
         tableRef={document.querySelector('table')!}
         tableNode={tableNode && tableNode.node}
         editorView={editorView}
@@ -137,6 +142,8 @@ describe('Floating Insert Button', () => {
 
   let wrapper: ReactWrapper<FloatingInsertButtonProps>;
   let editorView: EditorView;
+  let tableNode: ReturnType<typeof findParentNodeOfTypeClosestToPos>;
+  let intl: IntlShape;
 
   beforeEach(() => {
     ({ editorView } = editor(
@@ -149,18 +156,19 @@ describe('Floating Insert Button', () => {
       ),
     ));
 
-    const tableNode = findParentNodeOfTypeClosestToPos(
+    tableNode = findParentNodeOfTypeClosestToPos(
       editorView.state.selection.$from,
       editorView.state.schema.nodes.table,
     );
 
-    wrapper = mountWithIntl(
+    wrapper = (mountWithIntl(
       <FloatingInsertButton
+        intl={intl}
         tableRef={document.querySelector('table')!}
         tableNode={tableNode && tableNode.node}
         editorView={editorView}
       />,
-    );
+    ) as unknown) as ReactWrapper<FloatingInsertButtonProps>;
   });
 
   afterEach(() => {
@@ -172,18 +180,12 @@ describe('Floating Insert Button', () => {
   });
 
   test('should render insert button for second column', () => {
-    wrapper.setProps({
-      insertColumnButtonIndex: 1,
-    });
-
+    wrapper.setProps({ insertColumnButtonIndex: 1 });
     expect(wrapper.find(InsertButton).length).toBe(1);
   });
 
   test('should render insert button for second row', () => {
-    wrapper.setProps({
-      insertRowButtonIndex: 1,
-    });
-
+    wrapper.setProps({ insertRowButtonIndex: 1 });
     expect(wrapper.find(InsertButton).length).toBe(1);
   });
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Component } from 'react';
-import { injectIntl, InjectedIntlProps } from 'react-intl';
+import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 import {
   WithAnalyticsEventsProps,
   withAnalyticsEvents,
@@ -33,7 +33,7 @@ export const tools: Tool[] = [
   'brush',
 ];
 
-export interface ToolbarProps {
+export interface ToolbarProps extends WrappedComponentProps {
   readonly color: string;
   readonly tool: Tool;
   readonly lineWidth: number;
@@ -49,7 +49,7 @@ export interface ToolbarState {
 }
 
 export class Toolbar extends Component<
-  ToolbarProps & InjectedIntlProps & WithAnalyticsEventsProps,
+  ToolbarProps & WithAnalyticsEventsProps,
   ToolbarState
 > {
   state: ToolbarState = { popup: 'none' };

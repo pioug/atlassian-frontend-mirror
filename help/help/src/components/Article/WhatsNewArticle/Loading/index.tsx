@@ -1,15 +1,24 @@
 import React from 'react';
-import { injectIntl, InjectedIntlProps } from 'react-intl';
+import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 import { gridSize } from '@atlaskit/theme/constants';
 import { messages } from '../../../../messages';
 
-import { LoadingRectangle, LoadingCircle } from '../../../../util/styled';
+import { LoadingRectangle } from '../../../../util/styled';
 
-export const Loading: React.FC<InjectedIntlProps> = ({
+export const Loading: React.FC<WrappedComponentProps> = ({
   intl: { formatMessage },
 }) => (
   <div aria-label={formatMessage(messages.help_loading)} role="img">
-    <LoadingCircle />
+    <LoadingRectangle
+      style={{
+        display: 'inline-block',
+        verticalAlign: 'middle',
+        position: 'relative',
+      }}
+      contentHeight="16px"
+      contentWidth="16px"
+      marginTop="4px"
+    />
     <LoadingRectangle
       style={{
         marginLeft: `${gridSize()}px`,
@@ -18,7 +27,7 @@ export const Loading: React.FC<InjectedIntlProps> = ({
       contentWidth="60px"
       marginTop="4px"
     />
-    <LoadingRectangle marginTop="16px" />
+    <LoadingRectangle marginTop="8px" />
     <LoadingRectangle contentWidth="90%" marginTop="16px" />
     <LoadingRectangle contentWidth="90%" />
     <LoadingRectangle contentWidth="80%" />

@@ -43,10 +43,18 @@ export default {
     '⁣⁢Enter name, group, team or email⁮⁪⁡⁬⁬؜‌‍⁪⁬؜؜⁭‍⁫⁯⁬⁪⁣⁤',
   'fabric.elements.share.form.user-picker.placeholder.jira':
     '⁣⁢Enter name, team or email⁪⁭‌⁬⁬‍⁬⁠‌‌⁡⁠⁡؜‍؜⁫⁭⁪⁭⁣⁤',
+  'fabric.elements.share.form.user-picker.placholder.generic.existingUserOnly':
+    '⁣⁢Enter name, group or team⁭⁫⁯‍⁬‌‍⁠⁡‌⁡⁠⁯‍⁡⁪⁪⁠⁠⁯⁡⁭⁣⁤',
   'fabric.elements.share.form.user-picker.validation.required':
     '⁣⁢Select at least one user, group, team or email.⁮⁪⁯⁡⁭⁡؜⁫⁯‌‍⁭⁫⁪⁯‌⁫⁠؜⁫⁣⁤',
+  'fabric.elements.share.form.user-picker.validation.required.existingUserOnly':
+    '⁣⁢Select at least one user, group or team.‍‌⁠⁮⁡؜⁭‌⁮⁠⁠‌⁡⁬‍⁮⁮‍⁣⁤',
   'fabric.elements.share.form.user-picker.validation.required.jira':
     '⁣⁢Select at least one user, team or email.؜⁬⁬⁭⁠‍؜⁯⁮‍⁬‍⁯‌⁫⁠⁠⁫⁪⁬⁣⁤',
+  'fabric.elements.share.form.user-picker.validation.required.jira.existingUserOnly':
+    '⁣⁢Select at least one user or team.⁭‌؜⁭⁭⁫⁭⁠‌⁯‍⁡؜‌‍⁬⁡⁭‌⁯⁬⁠⁡⁣⁤',
+  'fabric.elements.share.in.integration.button':
+    '⁣⁢Share in {integrationName}⁠؜⁪⁡⁬⁭⁡⁭‌⁫⁪⁬⁡؜‌⁮⁪⁯⁬‌⁬‌⁭⁣⁤',
   'fabric.elements.share.success.message':
     '{object, select, blogpost {⁣⁢Blog post shared⁡⁭‌‍⁡⁠⁮⁬⁯⁭⁠⁪⁡⁭⁭⁠⁬⁬⁡⁠⁬⁮⁬⁣⁤} board {⁣⁢Board shared‍⁡⁭‍؜⁠⁯⁯⁠⁯⁭⁯⁬⁯‌⁯⁪⁮⁣⁤} calendar {⁣⁢Calendar shared⁬⁯‌⁪⁫⁭⁡⁮⁬⁠⁭⁯⁮⁮⁬⁪⁡⁡⁬‍⁮؜⁠⁠⁫⁣⁤} draft {⁣⁢Draft shared⁬⁪⁠⁯‌⁮‍⁠⁭‍‍‍⁮؜‍⁫⁮⁠؜⁮⁣⁤} filter {⁣⁢Filter shared⁮⁯⁯⁫‍⁯⁯⁬⁮؜⁫؜‍⁭⁭⁭؜⁡⁮‍⁫⁣⁤} issue {⁣⁢Issue shared⁭⁡⁡⁮‍⁯⁫⁡⁯⁬⁡⁪‍⁫⁪⁮⁫⁠⁬؜⁡⁭⁠‌⁣⁤} media {⁣⁢Media shared؜⁬‌‍⁮⁬⁮⁪‌⁬⁫⁪⁮⁭⁠⁪⁠⁫⁪⁣⁤} page {⁣⁢Page shared‍⁡‍⁯⁫⁬‍‌؜‌⁬⁪⁪⁭؜‍⁭⁣⁤} project {⁣⁢Project shared⁮⁡⁮‍⁠⁡‍⁫؜⁬⁪⁡‍‌‌⁡⁭⁪⁬⁪⁪⁣⁤} pullrequest {⁣⁢Pull Request shared‌⁫⁫⁡⁡؜⁬⁮⁮⁠⁡⁫؜⁬⁫⁬‍⁠؜‌⁠⁬؜⁣⁤} question {⁣⁢Question shared⁮⁬⁠⁯⁪⁭⁪‍⁠‍⁭⁠؜‌‌⁫⁫⁫⁭⁫⁮⁭⁣⁤} report {⁣⁢Report shared⁮⁫⁮‍⁯؜⁡⁠⁭‍⁡⁯⁠⁭⁮‍⁯⁠‌⁣⁤} repository {⁣⁢Repository shared⁭⁪⁫⁬‍⁬‌⁪‌‌⁮⁬⁮⁪⁬⁬⁮⁬⁪⁯⁡⁡؜⁪⁣⁤} request {⁣⁢Request shared⁫⁡‌⁫⁭⁡⁡؜⁯⁯‍‌‌⁫‌⁬⁫؜⁯‌⁡⁬⁣⁤} roadmap {⁣⁢Roadmap shared⁭‍‍⁫⁭⁬⁬⁮‌⁡⁯⁭⁬⁡؜⁠⁡⁯⁪⁭⁫‌⁣⁤} site {⁣⁢Site shared؜⁭⁫⁡⁡⁫⁪؜⁪⁡⁬⁫؜؜⁫⁫⁡؜⁠⁫‍⁣⁤} space {⁣⁢Space shared⁪⁡⁬‍‍⁭‍⁮؜⁫؜⁡⁮⁮⁯⁮⁯⁫⁮⁡⁪⁮⁡⁣⁤} other {⁣⁢Link Shared⁬⁮⁭⁪‌‌⁯‍⁪⁫⁯⁮⁮⁫⁯‌⁭⁮⁮⁫⁯‍⁡⁬⁮⁬⁣⁤}}',
   'fabric.elements.share.to.integration.button':

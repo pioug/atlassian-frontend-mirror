@@ -7,7 +7,7 @@ import { fontSize } from '@atlaskit/theme/constants';
 import { R300 } from '@atlaskit/theme/colors';
 
 import { Frame } from '../../BlockCard/components/Frame';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl-next';
 import { messages } from '../../messages';
 import { gs } from '../../BlockCard/utils';
 

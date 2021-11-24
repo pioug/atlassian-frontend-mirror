@@ -19,7 +19,7 @@ import { EditorState } from 'prosemirror-state';
 import { NodeType } from 'prosemirror-model';
 import EditorConfiguration from './editor-configuration';
 import { ThemeModes } from '@atlaskit/theme/types';
-import { InjectedIntl } from 'react-intl';
+import { IntlShape } from 'react-intl-next';
 
 const getColorOptionsForMode = (themeMode: ThemeModes) => {
   return themeMode === 'light'
@@ -76,7 +76,7 @@ export const createInputToolbar = (
   status: StatusType,
   nodeType: NodeType,
   showStatusPickerAt: number,
-  intl: InjectedIntl,
+  intl: IntlShape,
 ): FloatingToolbarConfig => {
   return {
     title: 'Status',
@@ -102,7 +102,7 @@ export const createFloatingToolbarConfigForStatus = (
   showStatusPickerAt: number,
   refresh: (floatingToolbarConfig: FloatingToolbarConfig) => void,
   editorConfig: EditorConfiguration,
-  intl: InjectedIntl,
+  intl: IntlShape,
 ): FloatingToolbarConfig => {
   const themeMode = editorConfig.getMode();
 

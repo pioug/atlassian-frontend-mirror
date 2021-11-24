@@ -1,17 +1,18 @@
-import {
-  mountWithIntl,
-  shallowWithIntl,
-} from '@atlaskit/editor-test-helpers/enzyme';
 import ShareIcon from '@atlaskit/icon/glyph/share';
 import WorldIcon from '@atlaskit/icon/glyph/world';
 import Popup from '@atlaskit/popup';
 import Aktooltip from '@atlaskit/tooltip';
-import { shallow, ShallowWrapper, ReactWrapper } from 'enzyme';
+import { mount, shallow, ShallowWrapper, ReactWrapper } from 'enzyme';
 // AFP-2532 TODO: Fix automatic suppressions below
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { layers } from '@atlaskit/theme';
 import React from 'react';
-import { FormattedMessage, InjectedIntlProps, injectIntl } from 'react-intl';
+import {
+  FormattedMessage,
+  IntlProvider,
+  IntlShape,
+  WrappedComponentProps,
+} from 'react-intl-next';
 import ShareButton, {
   Props as ShareButtonProps,
 } from '../../../components/ShareButton';
@@ -30,7 +31,7 @@ import {
   RenderCustomTriggerButton,
   TooltipPosition,
 } from '../../../types';
-import { Omit, PropsOf } from '../_testUtils';
+import { PropsOf } from '../_testUtils';
 import mockPopper from '../_mockPopper';
 import SplitButton from '../../../components/SplitButton';
 
@@ -44,6 +45,25 @@ jest.mock('../../../components/localStorageUtils.ts', () => {
 });
 mockPopper();
 
+const mockFormatMessage = (descriptor: any) => descriptor.defaultMessage;
+const mockIntl = { formatMessage: mockFormatMessage };
+
+jest.mock('react-intl-next', () => {
+  return {
+    ...(jest.requireActual('react-intl-next') as any),
+    FormattedMessage: (descriptor: any) => (
+      <span>{descriptor.defaultMessage}</span>
+    ),
+    injectIntl: (Node: any) => (props: any) => (
+      <Node {...props} intl={mockIntl} />
+    ),
+  };
+});
+
+const mockIntlProps: WrappedComponentProps = {
+  intl: ({ formatMessage: mockFormatMessage } as unknown) as IntlShape,
+};
+
 describe('ShareDialogWithTrigger', () => {
   let mockCreateAnalyticsEvent: jest.Mock;
   let mockOnShareSubmit: jest.Mock = jest.fn();
@@ -54,11 +74,9 @@ describe('ShareDialogWithTrigger', () => {
   const mockOnTriggerButtonClick: jest.Mock = jest.fn();
 
   function getWrapper(
-    overrides: Partial<
-      Omit<PropsOf<ShareDialogWithTriggerInternal>, 'intl'>
-    > = {},
-  ): ShallowWrapper<Props & InjectedIntlProps> {
-    let props: Omit<PropsOf<ShareDialogWithTriggerInternal>, 'intl'> = {
+    overrides: Partial<PropsOf<ShareDialogWithTriggerInternal>> = {},
+  ): ShallowWrapper<Props & WrappedComponentProps> {
+    const props: Props & WrappedComponentProps = {
       copyLink: 'copyLink',
       loadUserOptions: mockLoadOptions,
       onTriggerButtonClick: mockOnTriggerButtonClick,
@@ -70,19 +88,18 @@ describe('ShareDialogWithTrigger', () => {
       createAnalyticsEvent: mockCreateAnalyticsEvent,
       product: 'confluence',
       ...overrides,
+      ...mockIntlProps,
     };
 
-    const WithIntl = injectIntl(ShareDialogWithTriggerInternal);
-
-    return shallowWithIntl<Props>(<WithIntl {...props} />);
+    return shallow<Props & WrappedComponentProps>(
+      <ShareDialogWithTriggerInternal {...props} />,
+    );
   }
 
   function getMountWrapper(
-    overrides: Partial<
-      Omit<PropsOf<ShareDialogWithTriggerInternal>, 'intl'>
-    > = {},
-  ): ReactWrapper<Props & InjectedIntlProps, State, any> {
-    let props: Omit<PropsOf<ShareDialogWithTriggerInternal>, 'intl'> = {
+    overrides: Partial<PropsOf<ShareDialogWithTriggerInternal>> = {},
+  ): ReactWrapper<Props & WrappedComponentProps, State, any> {
+    const props: PropsOf<ShareDialogWithTriggerInternal> = {
       copyLink: 'copyLink',
       loadUserOptions: mockLoadOptions,
       onTriggerButtonClick: mockOnTriggerButtonClick,
@@ -94,11 +111,14 @@ describe('ShareDialogWithTrigger', () => {
       createAnalyticsEvent: mockCreateAnalyticsEvent,
       product: 'confluence',
       ...overrides,
+      ...mockIntlProps,
     };
 
-    const WithIntl = injectIntl(ShareDialogWithTriggerInternal);
-
-    return mountWithIntl<Props, State>(<WithIntl {...props} />);
+    return mount(
+      <IntlProvider messages={{}} locale="en">
+        <ShareDialogWithTriggerInternal {...props} />
+      </IntlProvider>,
+    );
   }
 
   beforeEach(() => {
@@ -135,19 +155,33 @@ describe('ShareDialogWithTrigger', () => {
   describe('isDialogOpen state', () => {
     it('should be false by default', () => {
       const wrapper = getMountWrapper();
-      expect((wrapper.state() as State).isDialogOpen).toBe(false);
+      const shareDialogWithTriggerInternal = wrapper.find(
+        ShareDialogWithTriggerInternal,
+      );
+      expect(
+        (shareDialogWithTriggerInternal.state() as State).isDialogOpen,
+      ).toBe(false);
     });
 
     it('should be passed into isOpen prop Popup and isSelected props in ShareButton', () => {
       const wrapper = getMountWrapper();
-      let { isDialogOpen }: Partial<State> = wrapper.state();
+      const shareDialogWithTriggerInternal = wrapper.find(
+        ShareDialogWithTriggerInternal,
+      );
+      let {
+        isDialogOpen,
+      }: Partial<State> = shareDialogWithTriggerInternal.state();
       expect(isDialogOpen).toEqual(false);
-      expect(wrapper.find(Popup).prop('isOpen')).toEqual(isDialogOpen);
-      expect(wrapper.find(ShareButton).prop('isSelected')).toEqual(
+      expect(shareDialogWithTriggerInternal.find(Popup).prop('isOpen')).toEqual(
         isDialogOpen,
       );
+      expect(
+        shareDialogWithTriggerInternal.find(ShareButton).prop('isSelected'),
+      ).toEqual(isDialogOpen);
 
-      (wrapper as any).setState({ isDialogOpen: !isDialogOpen });
+      (shareDialogWithTriggerInternal as any).setState({
+        isDialogOpen: !isDialogOpen,
+      });
 
       expect(wrapper.find(Popup).prop('isOpen')).toEqual(!isDialogOpen);
       expect(wrapper.find(ShareButton).prop('isSelected')).toEqual(
@@ -157,26 +191,49 @@ describe('ShareDialogWithTrigger', () => {
 
     it('should be toggled if clicked on ShareButton', () => {
       const wrapper = getMountWrapper();
-      expect((wrapper.state() as State).isDialogOpen).toEqual(false);
-      wrapper.find(ShareButton).simulate('click');
-      expect((wrapper.state() as State).isDialogOpen).toEqual(true);
-      wrapper.find(ShareButton).simulate('click');
-      expect((wrapper.state() as State).isDialogOpen).toEqual(false);
+      const shareDialogWithTriggerInternal = wrapper.find(
+        ShareDialogWithTriggerInternal,
+      );
+      expect(
+        (shareDialogWithTriggerInternal.state() as State).isDialogOpen,
+      ).toEqual(false);
+      shareDialogWithTriggerInternal.find(ShareButton).simulate('click');
+      expect(
+        (shareDialogWithTriggerInternal.state() as State).isDialogOpen,
+      ).toEqual(true);
+      shareDialogWithTriggerInternal.find(ShareButton).simulate('click');
+      expect(
+        (shareDialogWithTriggerInternal.state() as State).isDialogOpen,
+      ).toEqual(false);
     });
   });
 
   describe('triggerButtonAppearance prop', () => {
     it('should pass to the value into ShareButton as appearance, and have a default value of "subtle"', () => {
-      const wrapper = getMountWrapper();
-      expect(wrapper.find(Popup).find(ShareButton).prop('appearance')).toEqual(
-        'subtle',
+      let wrapper = getMountWrapper();
+      let shareDialogWithTriggerInternal = wrapper.find(
+        ShareDialogWithTriggerInternal,
       );
+      expect(
+        shareDialogWithTriggerInternal
+          .find(Popup)
+          .find(ShareButton)
+          .prop('appearance'),
+      ).toEqual('subtle');
 
       const mockAppearance = 'primary';
-      wrapper.setProps({ triggerButtonAppearance: mockAppearance });
-      expect(wrapper.find(Popup).find(ShareButton).prop('appearance')).toEqual(
-        mockAppearance,
+
+      wrapper = getMountWrapper({ triggerButtonAppearance: mockAppearance });
+      shareDialogWithTriggerInternal = wrapper.find(
+        ShareDialogWithTriggerInternal,
       );
+
+      expect(
+        shareDialogWithTriggerInternal
+          .find(Popup)
+          .find(ShareButton)
+          .prop('appearance'),
+      ).toEqual(mockAppearance);
     });
   });
 
@@ -260,11 +317,21 @@ describe('ShareDialogWithTrigger', () => {
   describe('dialogPlacement prop', () => {
     it('should be passed into Popup component as placement prop', () => {
       const defaultPlacement: string = 'bottom-end';
-      const wrapper = getMountWrapper();
-      expect(wrapper.find(Popup).prop('placement')).toEqual(defaultPlacement);
+      let wrapper = getMountWrapper();
+      let shareDialogWithTriggerInternal = wrapper.find(
+        ShareDialogWithTriggerInternal,
+      );
+      expect(
+        shareDialogWithTriggerInternal.find(Popup).prop('placement'),
+      ).toEqual(defaultPlacement);
       const newPlacement: DialogPlacement = 'bottom-start';
-      wrapper.setProps({ dialogPlacement: newPlacement });
-      expect(wrapper.find(Popup).prop('placement')).toEqual(newPlacement);
+      wrapper = getMountWrapper({ dialogPlacement: newPlacement });
+      shareDialogWithTriggerInternal = wrapper.find(
+        ShareDialogWithTriggerInternal,
+      );
+      expect(
+        shareDialogWithTriggerInternal.find(Popup).prop('placement'),
+      ).toEqual(newPlacement);
     });
   });
 
@@ -282,17 +349,21 @@ describe('ShareDialogWithTrigger', () => {
   describe('isDisabled prop', () => {
     it('should be passed into ShareButton', () => {
       let isDisabled: boolean = false;
-      const wrapper = getMountWrapper({
+      let wrapper = getMountWrapper({
         isDisabled,
       });
       let shareButtonProps: ShareButtonProps = wrapper
+        .find(ShareDialogWithTriggerInternal)
         .find(ShareButton)
         .props();
       expect(shareButtonProps.isDisabled).toEqual(isDisabled);
 
-      wrapper.setProps({ isDisabled: !isDisabled });
+      wrapper = getMountWrapper({ isDisabled: !isDisabled });
 
-      shareButtonProps = wrapper.find(ShareButton).props();
+      shareButtonProps = wrapper
+        .find(ShareDialogWithTriggerInternal)
+        .find(ShareButton)
+        .props();
       expect(shareButtonProps.isDisabled).toEqual(!isDisabled);
     });
   });
@@ -315,10 +386,15 @@ describe('ShareDialogWithTrigger', () => {
       expect(mockRenderCustomTriggerButton).toHaveBeenCalledTimes(1);
       expect(mockRenderCustomTriggerButton).toHaveBeenCalledWith(
         {
-          error: (wrapper.state() as State).shareError,
-          isDisabled: wrapper.props().isDisabled,
-          isSelected: (wrapper.state() as State).isDialogOpen,
-          onClick: (wrapper.instance() as any).onTriggerClick,
+          error: (wrapper.find(ShareDialogWithTriggerInternal).state() as State)
+            .shareError,
+          isDisabled: Boolean(wrapper.props().isDisabled),
+          isSelected: (wrapper
+            .find(ShareDialogWithTriggerInternal)
+            .state() as State).isDialogOpen,
+          onClick: (wrapper
+            .find(ShareDialogWithTriggerInternal)
+            .instance() as any).onTriggerClick,
         },
         {
           'aria-controls': undefined,
@@ -327,8 +403,12 @@ describe('ShareDialogWithTrigger', () => {
           ref: expect.any(Function),
         },
       );
-      expect(wrapper.find('button').length).toBe(1);
-      expect(wrapper.find(ShareButton).length).toBe(0);
+      expect(
+        wrapper.find(ShareDialogWithTriggerInternal).find('button').length,
+      ).toBe(1);
+      expect(
+        wrapper.find(ShareDialogWithTriggerInternal).find(ShareButton).length,
+      ).toBe(0);
     });
   });
 
@@ -398,18 +478,32 @@ describe('ShareDialogWithTrigger', () => {
   describe('handleOpenDialog', () => {
     it('should set the isDialogOpen state to true', () => {
       const wrapper = getMountWrapper();
-      expect((wrapper.state() as State).isDialogOpen).toEqual(false);
-      wrapper.find(ShareButton).simulate('click');
-      expect((wrapper.state() as State).isDialogOpen).toEqual(true);
+      const shareDialogWithTriggerInternal = wrapper.find(
+        ShareDialogWithTriggerInternal,
+      );
+      expect(
+        (shareDialogWithTriggerInternal.state() as State).isDialogOpen,
+      ).toEqual(false);
+      shareDialogWithTriggerInternal.find(ShareButton).simulate('click');
+      expect(
+        (shareDialogWithTriggerInternal.state() as State).isDialogOpen,
+      ).toEqual(true);
     });
 
     it('should call the onDialogOpen prop if present', () => {
       const wrapper = getMountWrapper();
-      expect((wrapper.state() as State).isDialogOpen).toEqual(false);
+      const shareDialogWithTriggerInternal = wrapper.find(
+        ShareDialogWithTriggerInternal,
+      );
+      expect(
+        (shareDialogWithTriggerInternal.state() as State).isDialogOpen,
+      ).toEqual(false);
       expect(mockOnDialogOpen).not.toHaveBeenCalled();
 
-      wrapper.find(ShareButton).simulate('click');
-      expect((wrapper.state() as State).isDialogOpen).toEqual(true);
+      shareDialogWithTriggerInternal.find(ShareButton).simulate('click');
+      expect(
+        (shareDialogWithTriggerInternal.state() as State).isDialogOpen,
+      ).toEqual(true);
       expect(mockOnDialogOpen).toHaveBeenCalledTimes(1);
     });
 
@@ -705,55 +799,87 @@ describe('ShareDialogWithTrigger', () => {
 
   describe('Aktooltip', () => {
     it('should be rendered if the props.triggerButtonStyle is `icon-only`', () => {
-      const wrapper = getMountWrapper({
+      let wrapper = getMountWrapper({
         triggerButtonStyle: 'icon-only',
       });
-      expect(wrapper.find(Aktooltip)).toHaveLength(1);
-      expect(wrapper.find(Aktooltip).find(ShareButton)).toHaveLength(1);
+      let shareDialogWithTriggerInternal = wrapper.find(
+        ShareDialogWithTriggerInternal,
+      );
+      expect(shareDialogWithTriggerInternal.find(Aktooltip)).toHaveLength(1);
+      expect(
+        shareDialogWithTriggerInternal.find(Aktooltip).find(ShareButton),
+      ).toHaveLength(1);
 
-      wrapper.setProps({ triggerButtonStyle: 'icon-with-text' });
-      expect(wrapper.find(Aktooltip)).toHaveLength(0);
-      expect(wrapper.find(ShareButton)).toHaveLength(1);
+      wrapper = getMountWrapper({ triggerButtonStyle: 'icon-with-text' });
+      shareDialogWithTriggerInternal = wrapper.find(
+        ShareDialogWithTriggerInternal,
+      );
+      expect(shareDialogWithTriggerInternal.find(Aktooltip)).toHaveLength(0);
+      expect(shareDialogWithTriggerInternal.find(ShareButton)).toHaveLength(1);
 
-      wrapper.setProps({ triggerButtonStyle: 'text-only' });
-      expect(wrapper.find(Aktooltip)).toHaveLength(0);
-      expect(wrapper.find(ShareButton)).toHaveLength(1);
+      wrapper = getMountWrapper({ triggerButtonStyle: 'text-only' });
+      shareDialogWithTriggerInternal = wrapper.find(
+        ShareDialogWithTriggerInternal,
+      );
+      expect(shareDialogWithTriggerInternal.find(Aktooltip)).toHaveLength(0);
+      expect(shareDialogWithTriggerInternal.find(ShareButton)).toHaveLength(1);
 
       const MockCustomButton = () => <button />;
       const renderCustomTriggerButton: RenderCustomTriggerButton = ({
         onClick = () => {},
       }) => <MockCustomButton />;
 
-      wrapper.setProps({
+      wrapper = getMountWrapper({
         triggerButtonStyle: 'icon-only',
         renderCustomTriggerButton,
       });
+      shareDialogWithTriggerInternal = wrapper.find(
+        ShareDialogWithTriggerInternal,
+      );
 
-      expect(wrapper.find(Aktooltip)).toHaveLength(1);
-      expect(wrapper.find(Aktooltip).find(MockCustomButton)).toHaveLength(1);
+      expect(shareDialogWithTriggerInternal.find(Aktooltip)).toHaveLength(1);
+      expect(
+        shareDialogWithTriggerInternal.find(Aktooltip).find(MockCustomButton),
+      ).toHaveLength(1);
     });
 
     it('should digest props.triggerButtonTooltipText as content and props.triggerButtonTooltipPosition as position', () => {
-      const wrapper = getMountWrapper({
+      let wrapper = getMountWrapper({
         triggerButtonStyle: 'icon-only',
       });
-      expect((wrapper.find(Aktooltip).props() as any).content).toEqual('Share');
-      expect((wrapper.find(Aktooltip).props() as any).position).toEqual('top');
+      expect(
+        (wrapper
+          .find(ShareDialogWithTriggerInternal)
+          .find(Aktooltip)
+          .props() as any).content,
+      ).toEqual('Share');
+      expect(
+        (wrapper
+          .find(ShareDialogWithTriggerInternal)
+          .find(Aktooltip)
+          .props() as any).position,
+      ).toEqual('top');
 
       const customTooltipText = 'Custom Share';
       const customTooltipPosition: TooltipPosition = 'mouse';
 
-      wrapper.setProps({
+      wrapper = getMountWrapper({
         triggerButtonTooltipText: customTooltipText,
         triggerButtonTooltipPosition: customTooltipPosition,
       });
 
-      expect((wrapper.find(Aktooltip).props() as any).content).toEqual(
-        'Custom Share',
-      );
-      expect((wrapper.find(Aktooltip).props() as any).position).toEqual(
-        'mouse',
-      );
+      expect(
+        (wrapper
+          .find(ShareDialogWithTriggerInternal)
+          .find(Aktooltip)
+          .props() as any).content,
+      ).toEqual('Custom Share');
+      expect(
+        (wrapper
+          .find(ShareDialogWithTriggerInternal)
+          .find(Aktooltip)
+          .props() as any).position,
+      ).toEqual('mouse');
     });
   });
 

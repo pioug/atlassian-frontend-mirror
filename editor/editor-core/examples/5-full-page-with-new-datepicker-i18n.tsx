@@ -1,5 +1,5 @@
 import React from 'react';
-import { IntlProvider, addLocaleData } from 'react-intl';
+import { IntlProvider } from 'react-intl-next';
 import enMessages from '../src/i18n/en';
 import languages from '../src/i18n/languages';
 import WithEditorActions from './../src/ui/WithEditorActions';
@@ -8,6 +8,7 @@ import {
   SaveAndCancelButtons,
 } from './5-full-page';
 import LanguagePicker from '../example-helpers/LanguagePicker';
+import { getTranslations } from '../example-helpers/get-translations';
 
 export type Props = {};
 export type State = { locale: string; messages: { [key: string]: string } };
@@ -45,22 +46,9 @@ export default class ExampleEditor extends React.Component<Props, State> {
   }
 
   private loadLocale = async (locale: string) => {
-    const localeData = await import(
-      `react-intl/locale-data/${this.getLocalTag(locale)}`
-    );
-    addLocaleData(localeData.default);
-
-    const messages = await Promise.all([
-      import(`../src/i18n/${locale}`),
-      import(`@atlaskit/mention/src/i18n/${locale}`),
-    ]).then((args) => ({
-      ...args[0].default,
-      ...args[1].default,
-    }));
-
+    const messages = await getTranslations(locale);
     this.setState({ locale, messages });
   };
 
-  private getLocalTag = (locale: string) => locale.substring(0, 2);
   private getProperLanguageKey = (locale: string) => locale.replace('_', '-');
 }

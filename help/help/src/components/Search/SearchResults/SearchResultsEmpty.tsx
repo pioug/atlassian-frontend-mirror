@@ -7,7 +7,7 @@ import {
 import * as colors from '@atlaskit/theme/colors';
 import Button from '@atlaskit/button/custom-theme-button';
 import ShortcutIcon from '@atlaskit/icon/glyph/shortcut';
-import { injectIntl, InjectedIntlProps } from 'react-intl';
+import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 
 import NotFoundImage from '../../../assets/NotFoundImage';
 import { messages } from '../../../messages';
@@ -25,7 +25,7 @@ export interface Props {
   ): void;
 }
 
-export const SearchResultsEmpty: React.FC<Props & InjectedIntlProps> = ({
+export const SearchResultsEmpty: React.FC<Props & WrappedComponentProps> = ({
   searchExternalUrl,
   onSearchExternalUrlClick,
   intl: { formatMessage },

@@ -1,4 +1,7 @@
-export { default as ReactEditorView } from './ReactEditorView';
+export {
+  default as ReactEditorView,
+  ReactEditorView as BaseReactEditorView,
+} from './ReactEditorView';
 export { default as getUiComponent } from './get-ui-component';
 export {
   default as createPluginsList,

@@ -1,6 +1,6 @@
-import { mount } from 'enzyme';
 import React from 'react';
 import { EditorView } from 'prosemirror-view';
+import { mount } from 'enzyme';
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
 import { JSONTransformer } from '@atlaskit/editor-json-transformer';
 import { Transformer } from '@atlaskit/editor-common';
@@ -34,8 +34,9 @@ describe('Editor Actions', () => {
         />,
       );
 
-      const editorActions: EditorActions = (wrapper.instance() as any)
-        .editorActions;
+      const editorActions: EditorActions = (wrapper
+        .find(Editor)
+        .instance() as any).editorActions;
 
       const view: EditorView = editorActions._privateGetEditorView()!;
 

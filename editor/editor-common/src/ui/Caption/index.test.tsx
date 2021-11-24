@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { render } from '@testing-library/react';
-import { IntlProvider } from 'react-intl';
+import { IntlProvider } from 'react-intl-next';
 
 import { N200, N400 } from '@atlaskit/theme/colors';
 

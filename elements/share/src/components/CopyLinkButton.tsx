@@ -5,7 +5,11 @@ import { G300 } from '@atlaskit/theme/colors';
 import { layers } from '@atlaskit/theme/constants';
 import Tooltip from '@atlaskit/tooltip';
 import React from 'react';
-import { FormattedMessage, injectIntl, InjectedIntlProps } from 'react-intl';
+import {
+  FormattedMessage,
+  injectIntl,
+  WrappedComponentProps,
+} from 'react-intl-next';
 import styled from 'styled-components';
 import Button, { InlineDialogContentWrapper } from './styles';
 import { messages } from '../i18n';
@@ -55,7 +59,7 @@ export type State = {
 };
 
 export class CopyLinkButton extends React.Component<
-  Props & InjectedIntlProps,
+  Props & WrappedComponentProps,
   State
 > {
   private autoDismiss: ReturnType<typeof setTimeout> | undefined;

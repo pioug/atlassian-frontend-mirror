@@ -10,7 +10,11 @@ import UserPicker, {
   SmartUserPickerProps,
 } from '@atlaskit/user-picker';
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import {
+  injectIntl,
+  FormattedMessage,
+  WrappedComponentProps,
+} from 'react-intl-next';
 import { messages } from '../i18n';
 import { ConfigResponse, MessageDescriptor, ProductName } from '../types';
 import { allowEmails, getMenuPortalTargetCurrentHTML } from './utils';
@@ -130,7 +134,9 @@ const getRequiredMessage = (
   return messages[product];
 };
 
-export class UserPickerField extends React.Component<Props> {
+export class UserPickerFieldComponent extends React.Component<
+  WrappedComponentProps & Props
+> {
   private loadOptions = (search?: string) => {
     const { loadOptions } = this.props;
     if (loadOptions && search && search.length > 0) {
@@ -175,6 +181,7 @@ export class UserPickerField extends React.Component<Props> {
       defaultValue,
       enableSmartUserPicker,
       config,
+      intl,
       isLoading,
       product,
       onInputChange,
@@ -237,17 +244,16 @@ export class UserPickerField extends React.Component<Props> {
 
           return (
             <>
-              <FormattedMessage {...messages.userPickerAddMoreMessage}>
-                {(addMore) => (
-                  <UserPickerComponent
-                    {...fieldProps}
-                    {...commonPickerProps}
-                    {...smartUserPickerProps}
-                    addMoreMessage={addMore as string}
-                    menuPortalTarget={menuPortalTarget}
-                  />
+              <UserPickerComponent
+                {...fieldProps}
+                {...commonPickerProps}
+                {...smartUserPickerProps}
+                addMoreMessage={intl.formatMessage(
+                  messages.userPickerAddMoreMessage,
                 )}
-              </FormattedMessage>
+                menuPortalTarget={menuPortalTarget}
+              />
+
               {inviteWarningMessage && (
                 <HelperMessage>{inviteWarningMessage}</HelperMessage>
               )}
@@ -263,3 +269,7 @@ export class UserPickerField extends React.Component<Props> {
     );
   }
 }
+
+export const UserPickerField: React.ComponentType<Props> = injectIntl(
+  UserPickerFieldComponent,
+);

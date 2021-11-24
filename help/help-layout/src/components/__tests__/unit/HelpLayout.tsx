@@ -1,15 +1,21 @@
 import React from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { render, fireEvent } from '@testing-library/react';
-import { IntlProvider } from 'react-intl';
+import { createIntl, createIntlCache, IntlProvider } from 'react-intl-next';
 
 import { messages } from '../../../messages';
 
 import { HelpLayout } from '../../HelpLayout';
 
 // Messages
-const intlProvider = new IntlProvider({ locale: 'en' });
-const { intl } = intlProvider.getChildContext();
+const cache = createIntlCache();
+const intl = createIntl(
+  {
+    locale: 'en',
+    messages: {},
+  },
+  cache,
+);
 const messageClose = intl.formatMessage(messages.help_panel_header_close);
 const messageBack = intl.formatMessage(messages.help_panel_header_back);
 const messageLoading = intl.formatMessage(messages.help_loading);

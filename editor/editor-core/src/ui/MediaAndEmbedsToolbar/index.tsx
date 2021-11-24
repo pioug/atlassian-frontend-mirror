@@ -1,5 +1,5 @@
 import { EditorState, NodeSelection } from 'prosemirror-state';
-import { InjectedIntl } from 'react-intl';
+import { IntlShape } from 'react-intl-next';
 import { hasParentNodeOfType } from 'prosemirror-utils';
 import { Schema, NodeType, Node } from 'prosemirror-model';
 import {
@@ -143,7 +143,7 @@ const makeAlign = (layout: MediaSingleLayout, nodeType: NodeType): Command => {
 const mapIconsToToolbarItem = (
   icons: Array<any>,
   layout: MediaSingleLayout,
-  intl: InjectedIntl,
+  intl: IntlShape,
   nodeType: NodeType,
 ) =>
   icons.map<FloatingToolbarItem<Command>>((toolbarItem) => {
@@ -177,7 +177,7 @@ const shouldHideLayoutToolbar = (
 
 const buildLayoutButtons = (
   state: EditorState,
-  intl: InjectedIntl,
+  intl: IntlShape,
   nodeType: NodeType,
   allowResizing?: boolean,
   allowResizingInTables?: boolean,

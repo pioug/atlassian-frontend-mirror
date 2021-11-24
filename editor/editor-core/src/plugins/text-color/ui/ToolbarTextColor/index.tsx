@@ -1,7 +1,11 @@
 import React from 'react';
 
 import { EditorView } from 'prosemirror-view';
-import { defineMessages, InjectedIntlProps, injectIntl } from 'react-intl';
+import {
+  defineMessages,
+  WrappedComponentProps,
+  injectIntl,
+} from 'react-intl-next';
 
 import Button from '@atlaskit/button/custom-theme-button';
 import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles';
@@ -90,8 +94,8 @@ interface HandleOpenChangeData {
   logCloseEvent: boolean;
 }
 
-class ToolbarTextColor extends React.Component<
-  Props & InjectedIntlProps,
+export class ToolbarTextColor extends React.Component<
+  Props & WrappedComponentProps,
   State
 > {
   state: State = {

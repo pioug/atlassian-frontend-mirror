@@ -3,7 +3,11 @@ import React, { Component } from 'react';
 import { Rect } from '@atlaskit/editor-tables/table-map';
 import { splitCell } from '@atlaskit/editor-tables/utils';
 import { EditorView } from 'prosemirror-view';
-import { defineMessages, InjectedIntlProps, injectIntl } from 'react-intl';
+import {
+  defineMessages,
+  WrappedComponentProps,
+  injectIntl,
+} from 'react-intl-next';
 
 import {
   addColumnAfter,
@@ -111,7 +115,10 @@ export interface State {
   isSubmenuOpen: boolean;
 }
 
-class ContextualMenu extends Component<Props & InjectedIntlProps, State> {
+export class ContextualMenu extends Component<
+  Props & WrappedComponentProps,
+  State
+> {
   state: State = {
     isSubmenuOpen: false,
   };

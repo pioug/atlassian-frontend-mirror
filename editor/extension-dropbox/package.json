@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-extension-dropbox",
-  "version": "0.2.22",
+  "version": "0.2.23",
   "description": "A an atlassian editor extension to add a native dropbox picker",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -26,7 +26,7 @@
   "dependencies": {
     "@atlaskit/adf-utils": "^14.4.0",
     "@atlaskit/button": "^16.0.0",
-    "@atlaskit/editor-common": "^61.0.0",
+    "@atlaskit/editor-common": "^62.0.0",
     "@atlaskit/icon": "^21.9.0",
     "@atlaskit/modal-dialog": "^12.2.0",
     "@atlaskit/theme": "^12.0.0",

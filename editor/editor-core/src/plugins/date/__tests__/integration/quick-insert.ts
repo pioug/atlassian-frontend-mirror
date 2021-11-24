@@ -7,7 +7,6 @@ import {
 import {
   goToEditorTestingWDExample,
   mountEditor,
-  loadLocale,
 } from '../../../../__tests__/__helpers/testing-example-helpers';
 import { dateSelectors } from '../../../../__tests__/__helpers/page-objects/_date';
 
@@ -80,7 +79,6 @@ BrowserTestCase(
   {},
   async (client: any) => {
     const page = await goToEditorTestingWDExample(client);
-    await loadLocale(page, ['pt', 'es']);
 
     const JAN_1ST_2019_AEST_TIMEZONE = {
       year: 2019,

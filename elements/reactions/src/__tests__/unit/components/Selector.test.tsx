@@ -4,7 +4,7 @@ import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-re
 import {
   mountWithIntl,
   shallowWithIntl,
-} from '@atlaskit/editor-test-helpers/enzyme';
+} from '@atlaskit/editor-test-helpers/enzyme-next';
 import React from 'react';
 import { EmojiButton } from '../../../components/EmojiButton';
 import {

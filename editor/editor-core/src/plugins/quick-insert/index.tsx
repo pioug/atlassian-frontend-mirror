@@ -1,5 +1,5 @@
 import React from 'react';
-import { InjectedIntl } from 'react-intl';
+import { IntlShape } from 'react-intl-next';
 import { Plugin } from 'prosemirror-state';
 import memoizeOne from 'memoize-one';
 import {
@@ -41,11 +41,11 @@ const quickInsertPlugin = (
     return [
       {
         name: 'quickInsert', // It's important that this plugin is above TypeAheadPlugin
-        plugin: ({ providerFactory, reactContext, dispatch }) =>
+        plugin: ({ providerFactory, getIntl, dispatch }) =>
           quickInsertPluginFactory(
             quickInsert,
             providerFactory,
-            reactContext().intl,
+            getIntl,
             dispatch,
             options?.emptyStateHandler,
           ),
@@ -91,7 +91,7 @@ export default quickInsertPlugin;
 
 const processItems = (
   items: Array<QuickInsertHandler>,
-  intl: InjectedIntl,
+  intl: IntlShape,
   extendedActions?: Record<string, Function>,
 ) => {
   const reducedItems = items.reduce((acc: Array<QuickInsertItem>, item) => {
@@ -144,7 +144,7 @@ const setProviderState = (
 function quickInsertPluginFactory(
   quickInsertItems: Array<QuickInsertHandler>,
   providerFactory: ProviderFactory,
-  intl: InjectedIntl,
+  getIntl: () => IntlShape,
   dispatch: Dispatch,
   emptyStateHandler?: EmptyStateHandler,
 ) {
@@ -159,7 +159,7 @@ function quickInsertPluginFactory(
           // memo here to avoid using a singleton cache, avoids editor
           // getting confused when two editors exist within the same page.
           lazyDefaultItems: () =>
-            memoProcessItems(quickInsertItems || [], intl),
+            memoProcessItems(quickInsertItems || [], getIntl()),
         };
       },
 

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/right-side-panel",
-  "version": "0.4.6",
+  "version": "1.0.0",
   "description": "A cross-product right-side-panel component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -32,7 +32,7 @@
   "peerDependencies": {
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
-    "react-intl": "^2.6.0"
+    "react-intl-next": "npm:react-intl@^5.18.1"
   },
   "devDependencies": {
     "@atlaskit/button": "^16.0.0",

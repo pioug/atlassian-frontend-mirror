@@ -1,5 +1,5 @@
 import React from 'react';
-import { IntlProvider } from 'react-intl';
+import { IntlProvider } from 'react-intl-next';
 
 import Page, { Grid, GridColumn } from '@atlaskit/page';
 import Form, { Field, FormHeader } from '@atlaskit/form';

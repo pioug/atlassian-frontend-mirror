@@ -1,9 +1,5 @@
-import { shallowWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
-import { ShallowWrapper } from 'enzyme';
+import { shallow, ShallowWrapper, ReactWrapper } from 'enzyme';
 import React from 'react';
-
-// TODO remove once TypeScript 3.5 is available in Ak
-export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
 // extracted from @atlaskit/type-helpers, from whom it can't be consumed
 export type PropsOf<C> = C extends new (props: infer P) => React.Component
@@ -15,15 +11,16 @@ export type PropsOf<C> = C extends new (props: infer P) => React.Component
   : never;
 
 // TODO remove this when we upgrade enzyme to 3.8
+// @ts-ignore Upgrade @types/enzyme to 3.8+ and we can replace this
 export const renderProp = <P, S>(
-  wrapper: ShallowWrapper<P, S>,
+  wrapper: ShallowWrapper<P, S> | ReactWrapper<P, S>,
   renderProp: keyof P,
   ...args: any[]
 ): ShallowWrapper<any> => {
   const prop = wrapper.prop(renderProp);
   if (prop && typeof prop === 'function') {
     const Wrapper = () => prop(...args);
-    return shallowWithIntl(<Wrapper />);
+    return shallow(<Wrapper />);
   }
   throw new Error(`renderProp ${renderProp} is not a function`);
 };

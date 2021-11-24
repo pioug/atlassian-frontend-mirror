@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { IntlProvider } from 'react-intl';
+import { IntlProvider } from 'react-intl-next';
 import styled from 'styled-components';
 import {
   AnalyticsEventPayload,

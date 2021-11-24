@@ -1,7 +1,7 @@
 import React from 'react';
 import Form from '@atlaskit/form';
 import { shallow, ReactWrapper } from 'enzyme';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
 import { FieldComponent, FieldComponentProps } from '../../FormContent';
 import ColorPickerField from '../../Fields/ColorPicker';
 import ColorPickerButton from '../../../ColorPickerButton';

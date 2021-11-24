@@ -14,6 +14,7 @@ import Media, {
 import { stateKey as mediaStateKey } from '../../../../../plugins/media/pm-plugins/main';
 import { MediaPluginState } from '../../../../../plugins/media/pm-plugins/types';
 import { fakeMediaProvider } from '@atlaskit/editor-test-helpers/media-provider';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
 import { MediaProvider } from '@atlaskit/editor-common/provider-factory';
 import { ProsemirrorGetPosHandler } from '../../../../../nodeviews/types';
 import { isMobileUploadCompleted } from '../../../../../plugins/media/commands/helpers';
@@ -169,7 +170,7 @@ describe('nodeviews/media', () => {
       featureFlags,
     };
 
-    wrapper = mount(
+    wrapper = (mountWithIntl(
       <Media
         view={view}
         node={externalMediaNode()(defaultSchema)}
@@ -180,7 +181,7 @@ describe('nodeviews/media', () => {
         maxDimensions={cardDimensions}
         mediaOptions={mediaOptions}
       />,
-    );
+    ) as unknown) as ReactWrapper<MediaNodeProps>;
 
     expect(wrapper.find(Card).props().featureFlags).toEqual(featureFlags);
   });

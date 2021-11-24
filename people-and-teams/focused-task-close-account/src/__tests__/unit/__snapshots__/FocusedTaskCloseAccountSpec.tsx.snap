@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`isOpen snapshot 1`] = `
-<InjectIntl(MessagesIntlProvider)>
+<injectIntl(MessagesIntlProvider)>
   <WithAnalyticsContext(WithAnalyticsEvents(DrawerBase))
     icon={[Function]}
     isOpen={false}
@@ -23,11 +23,10 @@ exports[`isOpen snapshot 1`] = `
             spacing="none"
             target="_blank"
           >
-            <FormattedMessage
+            <Memo(MemoizedFormattedMessage)
               defaultMessage="Learn more"
               description="Text for a link to a page where a user can learn more about a particular topic"
               id="focused-task-close-account.learnMore"
-              values={Object {}}
             />
              
           </Memo(CustomThemeButton)>
@@ -40,7 +39,7 @@ exports[`isOpen snapshot 1`] = `
       />
     </styled.div>
   </WithAnalyticsContext(WithAnalyticsEvents(DrawerBase))>
-</InjectIntl(MessagesIntlProvider)>
+</injectIntl(MessagesIntlProvider)>
 `;
 
 exports[`learnMoreLink display Learn more link is displayed when the link is passed in the props 1`] = `
@@ -50,11 +49,10 @@ exports[`learnMoreLink display Learn more link is displayed when the link is pas
   spacing="none"
   target="_blank"
 >
-  <FormattedMessage
+  <MemoizedFormattedMessage
     defaultMessage="Learn more"
     description="Text for a link to a page where a user can learn more about a particular topic"
     id="focused-task-close-account.learnMore"
-    values={Object {}}
   />
    
 </CustomThemeButton>

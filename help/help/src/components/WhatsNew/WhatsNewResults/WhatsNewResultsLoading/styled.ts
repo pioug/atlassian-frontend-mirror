@@ -10,6 +10,7 @@ export const LoadignWhatsNewResultsList = styled.ul`
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  margin-top: ${gridSize() * 2}px;
 `;
 
 export const LoadignWhatsNewResultsListItem = styled.li`

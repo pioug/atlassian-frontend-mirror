@@ -703,7 +703,7 @@ const Renderer = (props: {
   );
 };
 
-export default function Example(props: EditorProps & ExampleProps) {
+export function FullPageExample(props: EditorProps & ExampleProps) {
   const [isEditingMode, setMode] = React.useState(true);
 
   const maybeDoc =
@@ -771,3 +771,5 @@ export default function Example(props: EditorProps & ExampleProps) {
     </EditorContext>
   );
 }
+
+export default FullPageExample;

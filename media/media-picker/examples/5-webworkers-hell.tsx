@@ -1,6 +1,8 @@
 // eslint-disable-line no-console
 import React from 'react';
 import { Component } from 'react';
+import { IntlProvider } from 'react-intl-next';
+
 import {
   mediaPickerAuthProvider,
   defaultMediaPickerCollectionName,
@@ -93,14 +95,16 @@ class BrowserWrapper extends Component<{}, BrowserWrapperState> {
     );
 
     return (
-      <PopupContainer>
-        <PopupHeader>{buttons}</PopupHeader>
-        <PreviewsWrapper>
-          <PreviewsTitle>Upload previews</PreviewsTitle>
-          {this.renderPreviews()}
-          {browsers}
-        </PreviewsWrapper>
-      </PopupContainer>
+      <IntlProvider locale="en">
+        <PopupContainer>
+          <PopupHeader>{buttons}</PopupHeader>
+          <PreviewsWrapper>
+            <PreviewsTitle>Upload previews</PreviewsTitle>
+            {this.renderPreviews()}
+            {browsers}
+          </PreviewsWrapper>
+        </PopupContainer>
+      </IntlProvider>
     );
   }
 }

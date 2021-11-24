@@ -59,7 +59,7 @@ describe('MainEditorView', () => {
     const { mainView } = setup(props);
 
     expect(mainView.find(SpinnerView)).toHaveLength(0);
-    expect(mainView.find('InjectIntl(ErrorView)')).toHaveLength(1);
+    expect(mainView.find('injectIntl(ErrorView)')).toHaveLength(1);
   });
 
   it('should EditorView when all is fine', () => {

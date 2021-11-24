@@ -1,14 +1,14 @@
 import { memoProcessItems } from '..';
 import { QuickInsertHandler } from '../types';
 
-import { InjectedIntl } from 'react-intl';
+import { IntlShape } from 'react-intl-next';
 import { EditorState } from 'prosemirror-state';
 
 describe('processItems', () => {
   const intlMock = ({
     formatMessage: (messageDescriptor: any) =>
       messageDescriptor && messageDescriptor.defaultMessage,
-  } as unknown) as InjectedIntl;
+  } as unknown) as IntlShape;
 
   const mockQuickInsertActionInsert = jest.fn();
   const mockEditorState = {} as EditorState;

@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core';
-import { IntlProvider } from 'react-intl';
+import { IntlProvider } from 'react-intl-next';
 import Page from '@atlaskit/page';
 
 interface VRTestCaseOpts {

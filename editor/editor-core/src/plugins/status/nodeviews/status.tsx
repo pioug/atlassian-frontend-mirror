@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Node as PMNode } from 'prosemirror-model';
 import { EditorView, NodeView } from 'prosemirror-view';
-import { InjectedIntlProps, injectIntl } from 'react-intl';
+import { injectIntl, IntlShape } from 'react-intl-next';
 import styled from 'styled-components';
 
 import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common';
@@ -27,21 +27,18 @@ export const StyledStatus = styled.span`
 
 export interface ContainerProps {
   view: EditorView;
+  intl: IntlShape;
   text?: string;
   color: Color;
   style?: StatusStyle;
   localId?: string;
-
   eventDispatcher?: EventDispatcher;
 }
 
-class StatusContainerView extends React.Component<
-  ContainerProps & InjectedIntlProps,
-  {}
-> {
+class StatusContainerView extends React.Component<ContainerProps, {}> {
   static displayName = 'StatusContainerView';
 
-  constructor(props: ContainerProps & InjectedIntlProps) {
+  constructor(props: ContainerProps) {
     super(props);
   }
 
@@ -127,8 +124,21 @@ export default function statusNodeView(
   eventDispatcher: EventDispatcher,
   options?: StatusPluginOptions,
 ) {
-  return (node: PMNode, view: EditorView, getPos: getPosHandler): NodeView =>
-    new StatusNodeView(node, view, getPos, portalProviderAPI, eventDispatcher, {
-      options,
-    }).init();
+  return (node: PMNode, view: EditorView, getPos: getPosHandler): NodeView => {
+    const hasIntlContext = true;
+    return new StatusNodeView(
+      node,
+      view,
+      getPos,
+      portalProviderAPI,
+      eventDispatcher,
+      {
+        options,
+      },
+      undefined,
+      undefined,
+      undefined,
+      hasIntlContext,
+    ).init();
+  };
 }

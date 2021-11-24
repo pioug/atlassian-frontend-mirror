@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { InjectedIntl } from 'react-intl';
+import { IntlShape } from 'react-intl-next';
 import { EditorState } from 'prosemirror-state';
 import styled from 'styled-components';
 
@@ -21,7 +21,7 @@ import { currentMediaNode } from '../utils/current-media-node';
 
 export interface LinkingToolbarProps {
   editorState: EditorState;
-  intl: InjectedIntl;
+  intl: IntlShape;
   mediaLinkingState: MediaLinkingState;
   onAddLink: React.MouseEventHandler;
   onEditLink: React.MouseEventHandler;

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { InjectedIntlProps, injectIntl } from 'react-intl';
+import { WrappedComponentProps, injectIntl } from 'react-intl-next';
 
 import styled from 'styled-components';
 import Tabs, { Tab, TabList, TabPanel } from '@atlaskit/tabs';
@@ -24,7 +24,7 @@ const PanelWrapper = styled.div`
 type Props = {
   field: TabGroupField;
   renderPanel: (tabField: TabField) => JSX.Element;
-} & InjectedIntlProps;
+} & WrappedComponentProps;
 
 const TabGroupImpl = (props: Props) => {
   const { field, renderPanel } = props;

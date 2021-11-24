@@ -21,7 +21,11 @@ import Flag, { FlagGroup } from '@atlaskit/flag';
 import AnnotateIcon from '@atlaskit/icon/glyph/media-services/annotate';
 import TrashIcon from '@atlaskit/icon/glyph/trash';
 import EditorInfoIcon from '@atlaskit/icon/glyph/error';
-import { FormattedMessage, InjectedIntlProps, injectIntl } from 'react-intl';
+import {
+  FormattedMessage,
+  WrappedComponentProps,
+  injectIntl,
+} from 'react-intl-next';
 import Button from '@atlaskit/button/standard-button';
 import ModalDialog, {
   ModalTransition,
@@ -116,7 +120,7 @@ export interface UploadViewDispatchProps {
 export type UploadViewProps = UploadViewOwnProps &
   UploadViewStateProps &
   UploadViewDispatchProps &
-  InjectedIntlProps;
+  WrappedComponentProps;
 
 export interface UploadViewState {
   readonly hasPopupBeenVisible: boolean;

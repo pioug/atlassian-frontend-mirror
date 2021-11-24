@@ -1,6 +1,8 @@
 import React from 'react';
 import { JsonLd } from 'json-ld-types';
-import { FormattedRelative } from 'react-intl';
+import { FormattedRelativeTime } from 'react-intl-next';
+
+import { selectUnit } from '@formatjs/intl-utils';
 
 import {
   extractPersonUpdatedBy,
@@ -19,21 +21,24 @@ export const extractByline = (
 ): React.ReactNode | undefined => {
   const updatedAt = extractDateUpdated(jsonLd);
   const createdAt = extractDateCreated(jsonLd as LinkTypeCreated);
+
   if (updatedAt) {
+    const { value, unit } = selectUnit(new Date(updatedAt).getTime());
     const updatedBy = extractPersonUpdatedBy(jsonLd as LinkTypeUpdatedBy);
     return (
       <span>
         Updated {updatedBy && `by ${updatedBy.name}`}{' '}
-        <FormattedRelative value={updatedAt} />
+        <FormattedRelativeTime value={value} unit={unit} />
       </span>
     );
   } else if (createdAt) {
+    const { value, unit } = selectUnit(new Date(createdAt).getTime());
     const createdBy = extractPersonCreatedBy(jsonLd);
     const createdByPerson = extractFirstPerson(createdBy);
     return (
       <span>
         Created {createdByPerson && `by ${createdByPerson.name}`}{' '}
-        <FormattedRelative value={createdAt} />
+        <FormattedRelativeTime value={value} unit={unit} />
       </span>
     );
   }

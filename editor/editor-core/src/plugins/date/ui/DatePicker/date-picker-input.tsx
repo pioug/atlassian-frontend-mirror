@@ -1,5 +1,9 @@
 import React from 'react';
-import { defineMessages, InjectedIntlProps, injectIntl } from 'react-intl';
+import {
+  defineMessages,
+  WrappedComponentProps,
+  injectIntl,
+} from 'react-intl-next';
 import { DispatchAnalyticsEvent } from '../../../analytics';
 import styled from 'styled-components';
 import { DateType } from '../../types';
@@ -50,7 +54,7 @@ const messages = defineMessages({
   },
 });
 class DatePickerInput extends React.Component<
-  InputProps & InjectedIntlProps,
+  InputProps & WrappedComponentProps,
   InputState
 > {
   private inputRef: any;
@@ -58,7 +62,7 @@ class DatePickerInput extends React.Component<
   private autofocusTimeout: any | undefined;
   private autoSelectAllTimeout: any | undefined;
 
-  constructor(props: InputProps & InjectedIntlProps) {
+  constructor(props: InputProps & WrappedComponentProps) {
     super(props);
     const { date } = props;
     this.setInputSelectionPos = undefined;

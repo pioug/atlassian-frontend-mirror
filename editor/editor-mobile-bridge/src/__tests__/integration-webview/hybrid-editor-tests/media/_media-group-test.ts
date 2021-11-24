@@ -26,7 +26,6 @@ const TestCases = () => {
   //    await mobileSnapshot(page);
   //  },
   //);
-
   // TODO: ED-13890 - Fix inconsistent test snapshot diff
   //MobileTestCase(
   //  'Media Group: Select the file in media group',
@@ -46,12 +45,10 @@ const TestCases = () => {
   //      '[data-testid="media-file-card-view"][data-test-status="complete"]',
   //    );
   //    await cards[0].click();
-
   //    await page.switchToNative();
   //    await mobileSnapshot(page);
   //  },
   //);
-
   MobileTestCase(
     'Media Group: Remove a file from the media group',
     {},

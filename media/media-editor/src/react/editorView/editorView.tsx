@@ -1,6 +1,6 @@
 import React from 'react';
 import { Component } from 'react';
-import { injectIntl, InjectedIntlProps } from 'react-intl';
+import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 import { messages } from '@atlaskit/media-ui';
 import { ThemeProvider } from 'styled-components';
 import { MediaEditor, LoadParameters } from '../mediaEditor';
@@ -43,7 +43,7 @@ export interface EditorViewState {
 }
 
 export class EditorView extends Component<
-  EditorViewProps & InjectedIntlProps,
+  EditorViewProps & WrappedComponentProps,
   EditorViewState
 > {
   private loadParameters?: LoadParameters;

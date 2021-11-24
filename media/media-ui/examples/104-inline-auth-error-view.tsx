@@ -2,7 +2,7 @@ import React from 'react';
 import Page, { Grid, GridColumn } from '@atlaskit/page';
 import { Label } from '@atlaskit/field-base';
 import TextField from '@atlaskit/textfield';
-import { IntlProvider } from 'react-intl';
+import { IntlProvider } from 'react-intl-next';
 import { InlineCardUnauthorizedView } from '../src/InlineCard/UnauthorisedView';
 
 class Example extends React.Component {

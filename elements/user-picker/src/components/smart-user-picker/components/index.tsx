@@ -6,7 +6,7 @@ import {
   WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
 import memoizeOne from 'memoize-one';
-import { InjectedIntlProps, injectIntl } from 'react-intl';
+import { WrappedComponentProps, injectIntl } from 'react-intl-next';
 
 import {
   requestUsersEvent,
@@ -336,7 +336,7 @@ export async function hydrateDefaultValues(
  * @deprecated
  */
 class SmartUserPicker extends React.Component<
-  Props & InjectedIntlProps,
+  Props & WrappedComponentProps,
   State
 > {
   state: State = {

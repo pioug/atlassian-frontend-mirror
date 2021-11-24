@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { IntlProvider, addLocaleData } from 'react-intl';
+import { IntlProvider } from 'react-intl-next';
 import { EditorView } from 'prosemirror-view';
 import { Step } from 'prosemirror-transform';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
@@ -66,7 +66,6 @@ function createEditorWindowBindings<T>(
     return;
   }
 
-  createLoadReactIntlLocale(win);
   const internalMediaMock = createMediaMockEnableOnce();
 
   const mountEditor: (
@@ -399,25 +398,6 @@ function withI18n(
   );
 }
 
-function createLoadReactIntlLocale(win: WindowWithExtensionsForTesting) {
-  win.__loadReactIntlLocale = (
-    locales: Array<string>,
-    done: (value?: any) => any,
-  ) => {
-    const modulesToLoad = locales.map(
-      (locale) => import(`react-intl/locale-data/${locale}`),
-    );
-    Promise.all(modulesToLoad)
-      .then((localeData) => {
-        localeData.forEach((data) => addLocaleData(data.default));
-        done();
-      })
-      .catch(() => {
-        done();
-      });
-  };
-}
-
 function createUpdateEditorProps<T>(
   win: WindowWithExtensionsForTesting,
   props: T,
@@ -452,10 +432,6 @@ type WindowWithExtensionsForTesting = Window & {
     MaybeWrapper?: EditorExampleComponent<any>,
   ) => void;
   __updateEditorProps?: (props: any, opts: any) => void;
-  __loadReactIntlLocale?: (
-    locales: Array<string>,
-    done: (value?: any) => any,
-  ) => void;
   __editorView?: EditorView;
   __applyRemoteSteps?: (__applyRemoteSteps: Array<string>) => void;
   __documentToJSON?: () => JSONDocNode;

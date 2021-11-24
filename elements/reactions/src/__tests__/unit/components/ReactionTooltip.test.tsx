@@ -1,6 +1,6 @@
 import Tooltip from '@atlaskit/tooltip';
-import { mount } from 'enzyme';
 import React from 'react';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
 import { ReactionTooltip } from '../../../components/ReactionTooltip';
 import { ReactionSummary } from '../../../types/ReactionSummary';
 
@@ -43,21 +43,21 @@ describe('ReactionTooltip', () => {
     ],
   };
 
-  const mountReactionTooltip = (
+  const renderReactionTooltip = (
     reactionSummary: ReactionSummary = reaction,
     emojiName: string = 'emoji name',
-  ) =>
-    mount(
-      <ReactionTooltip reaction={reactionSummary} emojiName={emojiName}>
-        <div id="content">content</div>
-      </ReactionTooltip>,
-    );
-
+  ) => (
+    <ReactionTooltip reaction={reactionSummary} emojiName={emojiName}>
+      <div id="content">content</div>
+    </ReactionTooltip>
+  );
   it('should render tooltip', () => {
-    const wrapper = mountReactionTooltip();
+    const wrapper = mountWithIntl(renderReactionTooltip());
 
     expect(wrapper.find(Tooltip).prop('position')).toEqual('bottom');
-    const tooltipContent = mount(wrapper.find(Tooltip).prop('content') as any);
+    const tooltipContent = mountWithIntl(
+      wrapper.find(Tooltip).prop('content') as any,
+    );
 
     const tooltipLines = tooltipContent.find('li');
     expect(tooltipLines).toHaveLength(7);
@@ -71,12 +71,16 @@ describe('ReactionTooltip', () => {
   });
 
   it('should not render footer with fewer users than the limit', () => {
-    const wrapper = mountReactionTooltip({
-      ...reaction,
-      users: reaction.users!.slice(0, 2),
-    });
+    const wrapper = mountWithIntl(
+      renderReactionTooltip({
+        ...reaction,
+        users: reaction.users!.slice(0, 2),
+      }),
+    );
 
-    const tooltipContent = mount(wrapper.find(Tooltip).prop('content') as any);
+    const tooltipContent = mountWithIntl(
+      wrapper.find(Tooltip).prop('content') as any,
+    );
 
     const tooltipLines = tooltipContent.find('li');
     expect(tooltipLines).toHaveLength(3);
@@ -86,9 +90,11 @@ describe('ReactionTooltip', () => {
   });
 
   it('should not render emoji name', () => {
-    const wrapper = mountReactionTooltip(reaction, '');
+    const wrapper = mountWithIntl(renderReactionTooltip(reaction, ''));
 
-    const tooltipContent = mount(wrapper.find(Tooltip).prop('content') as any);
+    const tooltipContent = mountWithIntl(
+      wrapper.find(Tooltip).prop('content') as any,
+    );
 
     const tooltipLines = tooltipContent.find('li');
     expect(tooltipLines).toHaveLength(6);

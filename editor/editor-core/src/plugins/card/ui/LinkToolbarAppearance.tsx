@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { InjectedIntl } from 'react-intl';
+import { IntlShape } from 'react-intl-next';
 import { EditorState } from 'prosemirror-state';
 import { CardContext, CardPlatform } from '@atlaskit/smart-card';
 import { EditorView } from 'prosemirror-view';
@@ -17,7 +17,7 @@ import nodeNames from '../../../messages';
 import { DropdownOptions } from '../../../plugins/floating-toolbar/ui/types';
 
 export interface LinkToolbarAppearanceProps {
-  intl: InjectedIntl;
+  intl: IntlShape;
   currentAppearance?: CardAppearance;
   editorState: EditorState;
   editorView?: EditorView;
@@ -131,7 +131,7 @@ export class LinkToolbarAppearance extends React.Component<
   }
 }
 
-const parentNodeName = (state: EditorState, intl: InjectedIntl): string => {
+const parentNodeName = (state: EditorState, intl: IntlShape): string => {
   try {
     const parentNode = state.selection.$from.node(1);
     const parentName = intl.formatMessage(

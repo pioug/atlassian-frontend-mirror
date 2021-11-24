@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { IntlShape } from 'react-intl';
+import { IntlShape } from 'react-intl-next';
 
 import TeamProfileCardClient from './client/TeamProfileCardClient';
 import UserProfileCardClient from './client/UserProfileCardClient';
@@ -283,7 +283,7 @@ export interface ProfilecardProps {
   withoutElevation?: boolean;
 
   // Allow to pass custom message for disabled account which `status` prop is `inactive` or `closed`.
-  // `disabledAccountMessage` should not contain react-intl components, ex: `FormattedMessage`,
+  // `disabledAccountMessage` should not contain react-intl-next components, ex: `FormattedMessage`,
   // because ProfileCard component is wrapped in its own `IntlProvider` and `FormattedMessage` will loads messages of `@atlaskit/profilecard`,
   // not from the consumer of `@atlaskit/profilecard`.
   disabledAccountMessage?: React.ReactNode;

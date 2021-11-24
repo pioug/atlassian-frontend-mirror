@@ -9,7 +9,7 @@ import {
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { MediaAttributes } from '@atlaskit/adf-schema';
 import { EditorView } from 'prosemirror-view';
-import { IntlProvider } from 'react-intl';
+import { createIntl } from 'react-intl-next';
 import { messages as altTextMessages } from '../../../../../plugins/media/pm-plugins/alt-text/messages';
 import {
   FloatingToolbarButton,
@@ -41,8 +41,9 @@ interface ToolbarWrapper {
 }
 
 describe('media', () => {
-  const intlProvider = new IntlProvider({ locale: 'en' });
-  const { intl } = intlProvider.getChildContext();
+  const intl = createIntl({
+    locale: 'en',
+  });
 
   const createEditor = createEditorFactory<MediaPluginState>();
 

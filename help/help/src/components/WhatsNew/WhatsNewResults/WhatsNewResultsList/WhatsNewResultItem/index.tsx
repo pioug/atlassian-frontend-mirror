@@ -4,7 +4,7 @@ import {
   UIAnalyticsEvent,
   AnalyticsContext,
 } from '@atlaskit/analytics-next';
-import { injectIntl, InjectedIntlProps } from 'react-intl';
+import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 
 import {
   name as packageName,
@@ -41,7 +41,7 @@ interface Props {
 }
 
 export const WhatsNewResultListItem: React.FC<
-  Props & Partial<WhatsNewArticleItem> & InjectedIntlProps
+  Props & Partial<WhatsNewArticleItem> & WrappedComponentProps
 > = ({
   intl: { formatMessage },
   styles,
@@ -84,7 +84,7 @@ export const WhatsNewResultListItem: React.FC<
 };
 
 const WhatsNewResultListItemWithContext: React.FC<
-  Props & Partial<WhatsNewArticleItem> & InjectedIntlProps
+  Props & Partial<WhatsNewArticleItem> & WrappedComponentProps
 > = (props) => {
   return (
     <AnalyticsContext data={ANALYTICS_CONTEXT_DATA}>

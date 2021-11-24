@@ -1,4 +1,4 @@
-import { defineMessages, InjectedIntl } from 'react-intl';
+import { defineMessages, IntlShape } from 'react-intl-next';
 
 const messages = defineMessages({
   story: {
@@ -40,7 +40,7 @@ const messages = defineMessages({
 
 // Workaround to get alt text for images from url
 // Can be removed when alt={iconAlt} will be available from GraphQL
-export const getCorrectAltByIconUrl = (iconUrl: string, intl: InjectedIntl) => {
+export const getCorrectAltByIconUrl = (iconUrl: string, intl: IntlShape) => {
   let alt = intl.formatMessage(messages.defaultAltText);
 
   if (iconUrl.includes('story.svg')) {

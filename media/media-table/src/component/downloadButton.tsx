@@ -1,6 +1,6 @@
 import React from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { injectIntl, InjectedIntlProps } from 'react-intl';
+import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 import { N40 } from '@atlaskit/theme/colors';
 import DownloadIcon from '@atlaskit/icon/glyph/download';
 import Button from '@atlaskit/button/custom-theme-button';
@@ -13,7 +13,7 @@ interface Props {
   onClick: (event: React.MouseEvent<HTMLElement>) => void;
 }
 
-const MediaDownloadButton = (props: Props & InjectedIntlProps) => {
+const MediaDownloadButton = (props: Props & WrappedComponentProps) => {
   const {
     onClick,
     intl: { formatMessage },

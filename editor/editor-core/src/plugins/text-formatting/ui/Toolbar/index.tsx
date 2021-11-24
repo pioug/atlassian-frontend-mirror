@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 
 import { EditorView } from 'prosemirror-view';
 import { EditorState } from 'prosemirror-state';
-import { injectIntl, InjectedIntlProps } from 'react-intl';
+import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 
 import { Separator, Wrapper, ButtonGroup } from '../../../../ui/styles';
 import { ToolbarSize } from '../../../../ui/Toolbar/types';
@@ -34,7 +34,7 @@ export type ToolbarFormattingProps = {
   popupsScrollableElement?: HTMLElement;
 };
 const ToolbarFormatting: React.FC<
-  ToolbarFormattingProps & InjectedIntlProps
+  ToolbarFormattingProps & WrappedComponentProps
 > = ({
   shouldUseResponsiveToolbar,
   popupsMountPoint,
@@ -122,7 +122,7 @@ const ToolbarFormatting: React.FC<
 };
 
 class Toolbar extends React.PureComponent<
-  ToolbarFormattingProps & InjectedIntlProps & { editorState: EditorState }
+  ToolbarFormattingProps & WrappedComponentProps & { editorState: EditorState }
 > {
   render() {
     const {

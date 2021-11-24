@@ -1,5 +1,5 @@
 import React from 'react';
-import { injectIntl, InjectedIntlProps } from 'react-intl';
+import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 import { EditorView } from 'prosemirror-view';
 import WithPluginState from '../../../ui/WithPluginState';
 import { EventDispatcher } from '../../../event-dispatcher';
@@ -15,7 +15,7 @@ export type AvatarsWithPluginStateProps = {
 } & CollabInviteToEditProps;
 
 const AvatarsWithPluginState: React.StatelessComponent<
-  AvatarsWithPluginStateProps & InjectedIntlProps
+  AvatarsWithPluginStateProps & WrappedComponentProps
 > = (props) => {
   const title = props.intl.formatMessage(messages.inviteToEditButtonTitle);
 

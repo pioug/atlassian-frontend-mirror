@@ -2,8 +2,8 @@ import React from 'react';
 import {
   FormattedMessage,
   defineMessages,
-  InjectedIntlProps,
-} from 'react-intl';
+  WrappedComponentProps,
+} from 'react-intl-next';
 import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
 import TextStyleIcon from '@atlaskit/icon/glyph/editor/text-style';
 
@@ -23,7 +23,7 @@ export interface BlockTypeButtonProps {
   disabled: boolean;
   title: MessageDescriptor;
   onClick(e: React.MouseEvent): void;
-  formatMessage: InjectedIntlProps['intl']['formatMessage'];
+  formatMessage: WrappedComponentProps['intl']['formatMessage'];
 }
 
 export const messages = defineMessages({

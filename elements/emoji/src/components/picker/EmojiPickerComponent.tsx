@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { PureComponent, SyntheticEvent } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, MessageDescriptor } from 'react-intl-next';
 import { getEmojiVariation } from '../../api/EmojiRepository';
 import {
   EmojiProvider,
@@ -85,7 +85,7 @@ export interface State {
   selectedTone?: ToneSelection;
   toneEmoji?: OptionalEmojiDescriptionWithVariations;
   query: string;
-  uploadErrorMessage?: FormattedMessage.MessageDescriptor;
+  uploadErrorMessage?: MessageDescriptor;
   uploadSupported: boolean;
   uploading: boolean;
   emojiToDelete?: EmojiDescription;
@@ -466,7 +466,7 @@ export default class EmojiPickerComponent extends PureComponent<Props, State> {
   private onUploadEmoji = (upload: EmojiUpload, retry: boolean) => {
     const { emojiProvider } = this.props;
     this.fireAnalytics(uploadConfirmButton({ retry }));
-    const errorSetter = (message?: FormattedMessage.MessageDescriptor) => {
+    const errorSetter = (message?: MessageDescriptor) => {
       this.setState({
         uploadErrorMessage: message,
       });

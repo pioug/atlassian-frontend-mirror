@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { IntlProvider } from 'react-intl';
+import { IntlProvider } from 'react-intl-next';
 import FormContent from '../../FormContent';
 import { createFakeExtensionManifest } from '@atlaskit/editor-test-helpers/extensions';
 import { FieldDefinition } from '@atlaskit/editor-common/extensions';

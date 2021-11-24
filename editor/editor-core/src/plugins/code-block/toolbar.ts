@@ -1,4 +1,4 @@
-import { defineMessages } from 'react-intl';
+import { defineMessages } from 'react-intl-next';
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 import CopyIcon from '@atlaskit/icon/glyph/copy';
 import { findDomRefAtPos } from 'prosemirror-utils';

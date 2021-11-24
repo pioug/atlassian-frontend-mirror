@@ -1,6 +1,10 @@
 import React, { PureComponent, ReactElement } from 'react';
 
-import { defineMessages, InjectedIntlProps, injectIntl } from 'react-intl';
+import {
+  defineMessages,
+  WrappedComponentProps,
+  injectIntl,
+} from 'react-intl-next';
 
 import {
   ProviderFactory,
@@ -31,12 +35,15 @@ export interface TaskProps {
   disabled?: boolean;
 }
 
-export class TaskItem extends PureComponent<TaskProps & InjectedIntlProps, {}> {
+export class TaskItem extends PureComponent<
+  TaskProps & WrappedComponentProps,
+  {}
+> {
   static displayName = 'TaskItem';
 
   private providerFactory: ProviderFactory;
 
-  constructor(props: TaskProps & InjectedIntlProps) {
+  constructor(props: TaskProps & WrappedComponentProps) {
     super(props);
     this.providerFactory = props.providers || new ProviderFactory();
   }

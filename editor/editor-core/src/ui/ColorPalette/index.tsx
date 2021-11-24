@@ -4,7 +4,7 @@ import Color from './Color';
 
 import { ColorPaletteWrapper } from './styles';
 import { PaletteColor } from './Palettes/type';
-import { injectIntl, InjectedIntlProps } from 'react-intl';
+import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 import { N0, N500 } from '@atlaskit/theme/colors';
 
 export interface Props {
@@ -29,7 +29,7 @@ export function getContrastColor(color: string, pool: string[]): string {
   )[0];
 }
 
-const ColorPalette = (props: Props & InjectedIntlProps) => {
+const ColorPalette = (props: Props & WrappedComponentProps) => {
   const {
     palette,
     cols = 7,

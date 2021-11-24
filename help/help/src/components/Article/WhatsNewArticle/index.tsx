@@ -1,5 +1,5 @@
 import React from 'react';
-import { injectIntl, InjectedIntlProps } from 'react-intl';
+import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 import { BODY_FORMAT_TYPES } from '@atlaskit/help-article';
 import HelpArticleContent from '@atlaskit/help-article';
 import { gridSize } from '@atlaskit/theme/constants';
@@ -37,7 +37,7 @@ interface Props {
   isLoading?: boolean;
 }
 
-export const WhatsNewArticle: React.FC<Props & InjectedIntlProps> = ({
+export const WhatsNewArticle: React.FC<Props & WrappedComponentProps> = ({
   intl: { formatMessage },
   article,
   isLoading,
@@ -122,7 +122,7 @@ export const WhatsNewArticle: React.FC<Props & InjectedIntlProps> = ({
   return null;
 };
 
-const WhatsNewArticleWithContext: React.FC<Props & InjectedIntlProps> = (
+const WhatsNewArticleWithContext: React.FC<Props & WrappedComponentProps> = (
   props,
 ) => {
   return (

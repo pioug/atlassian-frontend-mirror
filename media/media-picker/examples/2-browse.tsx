@@ -1,6 +1,7 @@
 // eslint-disable-line no-console
 import React from 'react';
 import { Component } from 'react';
+import { IntlProvider } from 'react-intl-next';
 import {
   defaultCollectionName,
   defaultMediaPickerCollectionName,
@@ -15,7 +16,6 @@ import { UploadParams, BrowserConfig } from '../src/types';
 import { Browser } from '../src/';
 import { FileState, MediaClient } from '@atlaskit/media-client';
 import { MediaClientConfig } from '@atlaskit/media-core';
-
 export interface BrowserWrapperState {
   collectionName: string;
   authEnvironment: AuthEnvironment;
@@ -116,37 +116,41 @@ class BrowserWrapper extends Component<{}, BrowserWrapperState> {
     }
 
     return (
-      <PopupContainer>
-        <PopupHeader>
-          <Button appearance="primary" onClick={this.onOpen}>
-            Open
-          </Button>
-          <DropdownMenu trigger={collectionName}>
-            <DropdownItem onClick={this.onCollectionChange}>
-              {defaultMediaPickerCollectionName}
-            </DropdownItem>
-            <DropdownItem onClick={this.onCollectionChange}>
-              {defaultCollectionName}
-            </DropdownItem>
-          </DropdownMenu>
-          <DropdownMenu trigger={authEnvironment}>
-            <DropdownItem onClick={this.onAuthTypeChange}>client</DropdownItem>
-            <DropdownItem onClick={this.onAuthTypeChange}>asap</DropdownItem>
-          </DropdownMenu>
-        </PopupHeader>
-        <UploadPreviews>
-          {({ onUploadsStart, onError, onPreviewUpdate }) => (
-            <Browser
-              onBrowseFn={this.onBrowseFn}
-              mediaClientConfig={mediaClient.config}
-              config={browseConfig}
-              onUploadsStart={onUploadsStart}
-              onError={onError}
-              onPreviewUpdate={onPreviewUpdate}
-            />
-          )}
-        </UploadPreviews>
-      </PopupContainer>
+      <IntlProvider locale="en">
+        <PopupContainer>
+          <PopupHeader>
+            <Button appearance="primary" onClick={this.onOpen}>
+              Open
+            </Button>
+            <DropdownMenu trigger={collectionName}>
+              <DropdownItem onClick={this.onCollectionChange}>
+                {defaultMediaPickerCollectionName}
+              </DropdownItem>
+              <DropdownItem onClick={this.onCollectionChange}>
+                {defaultCollectionName}
+              </DropdownItem>
+            </DropdownMenu>
+            <DropdownMenu trigger={authEnvironment}>
+              <DropdownItem onClick={this.onAuthTypeChange}>
+                client
+              </DropdownItem>
+              <DropdownItem onClick={this.onAuthTypeChange}>asap</DropdownItem>
+            </DropdownMenu>
+          </PopupHeader>
+          <UploadPreviews>
+            {({ onUploadsStart, onError, onPreviewUpdate }) => (
+              <Browser
+                onBrowseFn={this.onBrowseFn}
+                mediaClientConfig={mediaClient.config}
+                config={browseConfig}
+                onUploadsStart={onUploadsStart}
+                onError={onError}
+                onPreviewUpdate={onPreviewUpdate}
+              />
+            )}
+          </UploadPreviews>
+        </PopupContainer>
+      </IntlProvider>
     );
   }
 }

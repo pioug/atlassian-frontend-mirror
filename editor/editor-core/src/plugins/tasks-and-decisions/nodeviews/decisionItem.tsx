@@ -63,6 +63,7 @@ export const decisionItemNodeView = (
   portalProviderAPI: PortalProviderAPI,
   eventDispatcher: EventDispatcher,
 ) => (node: any, view: any, getPos: getPosHandler): NodeView => {
+  const hasIntlContext = true;
   return new Decision(
     node,
     view,
@@ -70,5 +71,9 @@ export const decisionItemNodeView = (
     portalProviderAPI,
     eventDispatcher,
     {},
+    undefined,
+    undefined,
+    undefined,
+    hasIntlContext,
   ).init();
 };

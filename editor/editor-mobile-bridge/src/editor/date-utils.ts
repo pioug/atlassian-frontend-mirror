@@ -1,5 +1,5 @@
 import { Node as PMNode } from 'prosemirror-model';
-import { InjectedIntl } from 'react-intl';
+import { IntlShape } from 'react-intl-next';
 import {
   Command,
   dateMessages,
@@ -16,7 +16,7 @@ import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 
 export const createFloatingToolbarConfigForDate = (
   node: PMNode,
-  intl: InjectedIntl,
+  intl: IntlShape,
 ): FloatingToolbarConfig => ({
   title: 'Date',
   nodeType: node.type,

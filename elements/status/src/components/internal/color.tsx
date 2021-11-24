@@ -7,7 +7,7 @@ import {
   HTMLAttributes,
   PureComponent,
 } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl-next';
 import styled from 'styled-components';
 import { ANALYTICS_HOVER_DELAY } from '../constants';
 import { messages } from '../i18n';
@@ -63,8 +63,10 @@ export default class Color extends PureComponent<ColorProps> {
     const borderStyle = `1px solid ${borderColor}`;
     return (
       <ButtonWrapper>
-        <FormattedMessage {...messages[`${value}Color`]}>
-          {(label) => (
+        <FormattedMessage
+          {...messages[`${value}Color` as keyof typeof messages]}
+        >
+          {(labels) => (
             <Button
               onClick={this.onClick}
               onMouseEnter={this.onMouseEnter}
@@ -72,7 +74,7 @@ export default class Color extends PureComponent<ColorProps> {
               onMouseDown={this.onMouseDown}
               tabIndex={tabIndex}
               className={`${isSelected ? 'selected' : ''}`}
-              title={label as string}
+              title={labels[0] as string}
               style={{
                 backgroundColor: backgroundColor || 'transparent',
                 border: borderStyle,
@@ -81,7 +83,7 @@ export default class Color extends PureComponent<ColorProps> {
               {isSelected && (
                 <EditorDoneIcon
                   primaryColor={borderColor}
-                  label={label as string}
+                  label={labels[0] as string}
                 />
               )}
             </Button>

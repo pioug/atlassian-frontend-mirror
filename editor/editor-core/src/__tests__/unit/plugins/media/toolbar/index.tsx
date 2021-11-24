@@ -44,7 +44,7 @@ import {
 } from '@atlaskit/media-test-helpers';
 import { shallow } from 'enzyme';
 import { ReactElement } from 'react';
-import { IntlProvider } from 'react-intl';
+import { createIntl } from 'react-intl-next';
 import commonMessages from '../../../../../messages';
 import { messages as altTextMessages } from '../../../../../plugins/media/pm-plugins/alt-text/messages';
 import {
@@ -124,8 +124,9 @@ describe('media', () => {
   });
 
   describe('toolbar', () => {
-    const intlProvider = new IntlProvider({ locale: 'en' });
-    const { intl } = intlProvider.getChildContext();
+    const intl = createIntl({
+      locale: 'en',
+    });
 
     const removeTitle = intl.formatMessage(commonMessages.remove);
 

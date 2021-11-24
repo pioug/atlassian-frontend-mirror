@@ -3,11 +3,10 @@ import uuidV4 from 'uuid/v4';
 import { Subscription } from 'rxjs/Subscription';
 
 import {
-  intlShape,
   IntlProvider,
   injectIntl,
-  InjectedIntlProps,
-} from 'react-intl';
+  WrappedComponentProps,
+} from 'react-intl-next';
 
 import {
   withAnalyticsContext,
@@ -78,7 +77,7 @@ export interface SmartMediaEditorState {
 }
 
 export class SmartMediaEditor extends React.Component<
-  SmartMediaEditorProps & InjectedIntlProps & WithAnalyticsEventsProps,
+  SmartMediaEditorProps & WrappedComponentProps & WithAnalyticsEventsProps,
   SmartMediaEditorState
 > {
   fileName?: string;
@@ -89,10 +88,6 @@ export class SmartMediaEditor extends React.Component<
   };
   getFileSubscription?: Subscription;
   uploadFileSubscription?: Subscription;
-
-  static contextTypes = {
-    intl: intlShape,
-  };
 
   private getFileUnsubscribeTimeoutId: number | undefined;
   private uploadFileUnsubscribeTimeoutId: number | undefined;

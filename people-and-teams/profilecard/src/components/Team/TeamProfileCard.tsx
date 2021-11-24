@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl-next';
 
 import AvatarGroup from '@atlaskit/avatar-group';
 import ButtonGroup from '@atlaskit/button/button-group';

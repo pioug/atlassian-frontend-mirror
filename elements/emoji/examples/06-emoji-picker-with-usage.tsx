@@ -6,6 +6,7 @@ import {
 import { EmojiProvider } from '../src/resource';
 import { EmojiPicker } from '../src/picker';
 import { EmojiResource } from '../src/api/EmojiResource';
+import { IntlProvider } from 'react-intl-next';
 
 const config = {
   providers: [{ url: 'https://api-private.stg.atlassian.com/emoji/standard' }],
@@ -19,10 +20,12 @@ class UsageShowingEmojiPickerTextInput extends UsageShowAndClearComponent {
   getWrappedComponent() {
     const { emojiResource } = this.props;
     return (
-      <EmojiPicker
-        onSelection={this.onSelection}
-        emojiProvider={Promise.resolve(emojiResource as EmojiProvider)}
-      />
+      <IntlProvider locale="en">
+        <EmojiPicker
+          onSelection={this.onSelection}
+          emojiProvider={Promise.resolve(emojiResource as EmojiProvider)}
+        />
+      </IntlProvider>
     );
   }
 }

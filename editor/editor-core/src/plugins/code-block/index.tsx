@@ -29,10 +29,10 @@ const codeBlockPlugin = (options: CodeBlockOptions): EditorPlugin => ({
     return [
       {
         name: 'codeBlock',
-        plugin: ({ reactContext }) =>
+        plugin: ({ getIntl }) =>
           createPlugin({
             useLongPressSelection: options.useLongPressSelection,
-            reactContext,
+            getIntl,
             appearance: options.appearance,
           }),
       },

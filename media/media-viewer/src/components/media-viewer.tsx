@@ -7,9 +7,7 @@ import { MediaViewerProps, MediaViewerDataSource } from './types';
 import { getIdentifierCollection } from '../utils/getIdentifierCollection';
 import { getSelectedIndex } from '../utils';
 
-export interface MediaViewerState {}
-
-export class MediaViewer extends Component<MediaViewerProps, MediaViewerState> {
+export class MediaViewer extends Component<MediaViewerProps> {
   // returns a valid MV data source including current the card identifier
   getDataSourceWithSelectedItem = (
     dataSource: MediaViewerDataSource,

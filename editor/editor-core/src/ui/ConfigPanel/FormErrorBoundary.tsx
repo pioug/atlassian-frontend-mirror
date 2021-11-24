@@ -1,5 +1,5 @@
 import React from 'react';
-import { InjectedIntlProps, injectIntl } from 'react-intl';
+import { WrappedComponentProps, injectIntl } from 'react-intl-next';
 import SectionMessage from '@atlaskit/section-message';
 import { ContextIdentifierProvider } from '@atlaskit/editor-common';
 import { FieldDefinition } from '@atlaskit/editor-common/extensions';
@@ -36,7 +36,7 @@ interface State {
   error?: Error;
 }
 class FormErrorBoundaryInner extends React.Component<
-  Props & WithAnalyticsEventsProps & InjectedIntlProps,
+  Props & WithAnalyticsEventsProps & WrappedComponentProps,
   State
 > {
   state: State = { error: undefined };

@@ -17,6 +17,7 @@ import { EditorSharedConfig } from '../../context/shared-config';
 import { EditorPropsExtended } from '../../editor-props-type';
 import { createSchema } from '../../../../../create-editor/create-schema';
 import { FeatureFlags } from '../../../../../types/feature-flags';
+import { IntlShape } from 'react-intl-next';
 
 export function createEditor({
   context,
@@ -41,6 +42,7 @@ export function createEditor({
   onDestroy,
   onMount,
   featureFlags,
+  getIntl,
 }: CreateEditorParams): EditorSharedConfig | null {
   if (!ref) {
     return null;
@@ -70,6 +72,7 @@ export function createEditor({
     dispatchAnalyticsEvent: onAnalyticsEvent as any,
     performanceTracking: {},
     featureFlags,
+    getIntl,
   });
   const state = EditorState.create({
     schema,
@@ -138,4 +141,5 @@ export type CreateEditorParams = Pick<
   createAnalyticsEvent?: CreateUIAnalyticsEvent;
   editorActions: EditorActions;
   featureFlags: FeatureFlags;
+  getIntl: () => IntlShape;
 };

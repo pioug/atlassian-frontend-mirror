@@ -88,6 +88,7 @@ describe(name, () => {
             dispatchAnalyticsEvent: () => {},
             performanceTracking: {},
             featureFlags: {},
+            getIntl: () => ({} as any),
           }).length,
         ).toEqual(1);
       });

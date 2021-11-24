@@ -1,6 +1,6 @@
 import React, { ErrorInfo } from 'react';
 import ReactDOM from 'react-dom';
-import { IntlProvider, FormattedMessage } from 'react-intl';
+import { IntlProvider, FormattedMessage } from 'react-intl-next';
 
 import { ModalProps } from '../components/Modal';
 import { ActionProps } from '../components/Action';

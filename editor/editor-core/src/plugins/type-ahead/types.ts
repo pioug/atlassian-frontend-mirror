@@ -1,5 +1,6 @@
 import { Node as PMNode, Fragment } from 'prosemirror-model';
 import type { DecorationSet } from 'prosemirror-view';
+
 import type {
   TypeAheadItem,
   TypeAheadItemRenderProps,

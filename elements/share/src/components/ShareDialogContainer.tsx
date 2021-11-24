@@ -7,7 +7,7 @@ import { Appearance } from '@atlaskit/button/types';
 import { LoadOptions, Value } from '@atlaskit/user-picker';
 import memoizeOne from 'memoize-one';
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl-next';
 import assert from 'tiny-invariant';
 import {
   AtlassianUrlShortenerClient,

@@ -1,4 +1,4 @@
-import { IntlProvider } from 'react-intl';
+import { createIntl } from 'react-intl-next';
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 
 import { editable, getDocFromElement, fullpage } from '../_helpers';
@@ -17,8 +17,9 @@ BrowserTestCase(
   { skip: ['edge', 'firefox', 'safari'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
-    const intlProvider = new IntlProvider({ locale: 'en' });
-    const { intl } = intlProvider.getChildContext();
+    const intl = createIntl({
+      locale: 'en',
+    });
 
     await mountEditor(page, {
       appearance: fullpage.appearance,
@@ -53,8 +54,9 @@ BrowserTestCase(
   { skip: ['edge', 'firefox', 'safari'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
-    const intlProvider = new IntlProvider({ locale: 'en' });
-    const { intl } = intlProvider.getChildContext();
+    const intl = createIntl({
+      locale: 'en',
+    });
 
     await mountEditor(page, {
       appearance: fullpage.appearance,

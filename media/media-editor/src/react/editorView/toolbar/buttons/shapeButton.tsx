@@ -1,6 +1,6 @@
 import React from 'react';
 import { Component } from 'react';
-import { injectIntl, InjectedIntlProps } from 'react-intl';
+import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
 import Button from '@atlaskit/button/custom-theme-button';
 import Tooltip from '@atlaskit/tooltip';
@@ -18,7 +18,7 @@ export interface ShapeButtonProps {
 }
 
 export class ShapeButton extends Component<
-  ShapeButtonProps & InjectedIntlProps
+  ShapeButtonProps & WrappedComponentProps
 > {
   render() {
     const {

@@ -8,6 +8,7 @@ import { setExpandRef } from '../commands';
 import { findExpand } from '../utils';
 import { expandClassNames } from '../ui/class-names';
 import { getPluginState, createPluginState, pluginKey } from './plugin-factory';
+import { IntlShape } from 'react-intl-next';
 
 function containsClass(
   element: Element | null,
@@ -18,7 +19,7 @@ function containsClass(
 
 export const createPlugin = (
   dispatch: Dispatch,
-  reactContext: () => { [key: string]: any },
+  getIntl: () => IntlShape,
   useLongPressSelection: boolean = false,
 ) => {
   const state = createPluginState(dispatch, {});
@@ -28,8 +29,8 @@ export const createPlugin = (
     key: pluginKey,
     props: {
       nodeViews: {
-        expand: ExpandNodeView(reactContext),
-        nestedExpand: ExpandNodeView(reactContext),
+        expand: ExpandNodeView(getIntl),
+        nestedExpand: ExpandNodeView(getIntl),
       },
       handleKeyDown(_view, event) {
         return containsClass(

@@ -10,6 +10,7 @@ import {
   mountWithIntlContext,
   fakeMediaClient,
 } from '@atlaskit/media-test-helpers';
+import { mount } from 'enzyme';
 
 function createItem(): ProcessedFileState {
   return {
@@ -37,7 +38,7 @@ function createInitialState() {
   };
 }
 
-function createTestViewer(props: BaseProps) {
+function createTestViewer(props: BaseProps, mountWithContext?: boolean) {
   const initSpy = jest.fn();
   const releaseSpy = jest.fn();
   const renderSuccessfulSpy = jest.fn((content: string) => (
@@ -51,7 +52,9 @@ function createTestViewer(props: BaseProps) {
     protected release = releaseSpy;
     protected renderSuccessful = renderSuccessfulSpy;
   }
-  const el = mountWithIntlContext(<TestViewer {...props} />);
+  const el = mountWithContext
+    ? mountWithIntlContext(<TestViewer {...props} />)
+    : mount(<TestViewer {...props} />);
   return { el, initSpy, releaseSpy, renderSuccessfulSpy };
 }
 
@@ -115,7 +118,7 @@ describe('BaseViewer', () => {
   });
 
   it('renders an error message when the content loading has failed', () => {
-    const { el } = createTestViewer(createProps());
+    const { el } = createTestViewer(createProps(), true);
     const content = Outcome.failed({
       failReason: 'previewFailed',
     });

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { N200, N500, B400 } from '@atlaskit/theme/colors';
 import LinkIcon from '@atlaskit/icon/glyph/link';
 import Tooltip from '@atlaskit/tooltip';
-import { InjectedIntlProps, injectIntl } from 'react-intl';
+import { WrappedComponentProps, injectIntl } from 'react-intl-next';
 import { headingAnchorLinkMessages } from '../../messages';
 import { MessageDescriptor } from '../../types/i18n';
 
@@ -36,7 +36,7 @@ type Props = {
   level: number;
 };
 
-type HeadingAnchorProps = Props & React.Props<any> & InjectedIntlProps;
+type HeadingAnchorProps = Props & React.Props<any> & WrappedComponentProps;
 type HeadingAnchorState = { tooltipMessage?: string; isClicked: boolean };
 
 class HeadingAnchor extends React.PureComponent<

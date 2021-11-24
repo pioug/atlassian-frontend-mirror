@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { InjectedIntlProps, injectIntl } from 'react-intl';
+import { WrappedComponentProps, injectIntl } from 'react-intl-next';
 
 import styled from 'styled-components';
 import { N40 } from '@atlaskit/theme/colors';
@@ -49,7 +49,7 @@ type Props = {
   field: FieldDefinition;
   children: React.ReactNode;
   isExpanded?: boolean;
-} & InjectedIntlProps;
+} & WrappedComponentProps;
 
 function Expand({ field, children, isExpanded = false, intl }: Props) {
   const [expanded, setExpanded] = useState(isExpanded);

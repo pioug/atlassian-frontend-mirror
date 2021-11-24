@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl-next';
 import { B400, N200, N800 } from '@atlaskit/theme/colors';
 import { Email } from '../types';
 import { AddOptionAvatar } from './AddOptionAvatar';
@@ -64,7 +64,7 @@ export class EmailOption extends React.PureComponent<EmailOptionProps> {
       this.renderOption(label)
     ) : (
       <FormattedMessage {...getAddEmailMessage(emailValidity)}>
-        {(label) => this.renderOption(label as string)}
+        {(label) => this.renderOption((label as unknown) as string)}
       </FormattedMessage>
     );
   }

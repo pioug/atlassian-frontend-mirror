@@ -1,14 +1,14 @@
 import React from 'react';
 import { initialDoc } from '../../__fixtures__/initial-doc';
 import Renderer, { Props } from '../../../ui/Renderer';
-import { IntlProvider, InjectedIntlProps } from 'react-intl';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { IntlProvider, WrappedComponentProps } from 'react-intl-next';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
 import Tooltip from '@atlaskit/tooltip';
 import { ReactWrapper } from 'enzyme';
 
 describe('Unsupported Content', () => {
   describe('Block Node', () => {
-    let renderer: ReactWrapper<any & InjectedIntlProps, any, any>;
+    let renderer: ReactWrapper<any & WrappedComponentProps, any, any>;
     afterEach(() => {
       renderer.unmount();
     });
@@ -106,7 +106,7 @@ describe('Unsupported Content', () => {
   });
 
   describe('Inline Node', () => {
-    let renderer: ReactWrapper<any & InjectedIntlProps, any, any>;
+    let renderer: ReactWrapper<any & WrappedComponentProps, any, any>;
 
     const doc = {
       version: 1,

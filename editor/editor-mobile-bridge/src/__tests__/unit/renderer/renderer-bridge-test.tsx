@@ -1,9 +1,8 @@
-import { ReactWrapper } from 'enzyme';
+import { mount, ReactWrapper } from 'enzyme';
 import React from 'react';
 import { MobileRenderer } from '../../../renderer/mobile-renderer-element';
 import WebBridgeImpl from '../../../renderer/native-to-web/implementation';
-import { InjectedIntl } from 'react-intl';
-import { mountWithIntl } from 'enzyme-react-intl';
+import { createIntl, RawIntlProvider } from 'react-intl-next';
 import {
   createCardClient,
   createEmojiProvider,
@@ -62,23 +61,23 @@ describe('renderer bridge', () => {
   let onContentRendered: jest.Mock;
   let mobileRenderer: ReactWrapper;
   const rendererBridge = new RendererBridgeImplementation();
-  const intlMock = ({
-    formatMessage: (messageDescriptor: any) =>
-      messageDescriptor && messageDescriptor.defaultMessage,
-  } as unknown) as InjectedIntl;
+  const intl = createIntl({ locale: 'en' });
 
-  const initRenderer = (adf: string): ReactWrapper =>
-    mountWithIntl(
-      <MobileRenderer
-        document={adf}
-        cardClient={createCardClient()}
-        emojiProvider={createEmojiProvider(new FetchProxy())}
-        mediaProvider={createMediaProvider()}
-        mentionProvider={createMentionProvider()}
-        intl={intlMock}
-        rendererBridge={rendererBridge}
-      />,
+  const initRenderer = (adf: string): ReactWrapper => {
+    return mount(
+      <RawIntlProvider value={intl}>
+        <MobileRenderer
+          document={adf}
+          cardClient={createCardClient()}
+          emojiProvider={createEmojiProvider(new FetchProxy())}
+          mediaProvider={createMediaProvider()}
+          mentionProvider={createMentionProvider()}
+          intl={intl}
+          rendererBridge={rendererBridge}
+        />
+      </RawIntlProvider>,
     );
+  };
 
   beforeEach(() => {
     // @ts-ignore This violated type definition upgrade of @types/jest to v24.0.18 & ts-jest v24.1.0.

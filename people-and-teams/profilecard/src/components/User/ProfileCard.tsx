@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl-next';
 
 import Avatar from '@atlaskit/avatar';
 import Button from '@atlaskit/button/custom-theme-button';

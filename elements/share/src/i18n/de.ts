@@ -37,10 +37,16 @@ export default {
     'Namen, Gruppe, Team oder E-Mail-Adresse eingeben',
   'fabric.elements.share.form.user-picker.placeholder.jira':
     'Namen, Team oder E-Mail-Adresse eingeben',
+  'fabric.elements.share.form.user-picker.placholder.generic.existingUserOnly':
+    'Namen, Gruppe oder Team eingeben',
   'fabric.elements.share.form.user-picker.validation.required':
     'Wählen Sie mindestens einen Benutzer, eine Gruppe, ein Team oder eine E-Mail-Adresse aus.',
+  'fabric.elements.share.form.user-picker.validation.required.existingUserOnly':
+    'Wählen Sie mindestens einen Benutzer, eine Gruppe oder ein Team aus.',
   'fabric.elements.share.form.user-picker.validation.required.jira':
     'Bitte wählen Sie mindestens einen Benutzer, ein Team oder eine E-Mail-Adresse aus.',
+  'fabric.elements.share.form.user-picker.validation.required.jira.existingUserOnly':
+    'Wählen Sie mindestens einen Benutzer oder ein Team aus.',
   'fabric.elements.share.success.message':
     '{object, select, blogpost {Geteilter Blogpost} board {Geteiltes Board} calendar {Geteilter Kalender} draft {Geteilter Entwurf} filter {Geteilter Filter} issue {Geteilter Vorgang} media {Geteilte Medien} page {Geteilte Seite} project {Geteiltes Projekt} pullrequest {Geteilte Pull-Anfrage} question {Geteilte Frage} report {Geteilter Bericht} repository {Geteiltes Repository} request {Geteilte Anfrage} roadmap {Geteilte Roadmap} site {Geteilte Site} space {Geteilter Bereich} other {Geteilter Link}}',
   'fabric.elements.share.to.integration.button': 'Mit {integrationName} teilen',

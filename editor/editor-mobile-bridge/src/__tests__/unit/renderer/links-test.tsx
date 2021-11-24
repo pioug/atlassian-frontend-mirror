@@ -12,7 +12,7 @@ import {
   createMentionProvider,
 } from '../../../providers';
 import { FetchProxy } from '../../../utils/fetch-proxy';
-import { InjectedIntl } from 'react-intl';
+import { IntlShape } from 'react-intl-next';
 import RendererBridgeImplementation from '../../../renderer/native-to-web/implementation';
 
 type MockedEvent = { preventDefault: () => void; defaultPrevented: boolean };
@@ -131,7 +131,7 @@ describe('renderer bridge: links', () => {
   const intlMock = ({
     formatMessage: (messageDescriptor: any) =>
       messageDescriptor && messageDescriptor.defaultMessage,
-  } as unknown) as InjectedIntl;
+  } as unknown) as IntlShape;
   const rendererBridge = new RendererBridgeImplementation();
   beforeEach(() => {
     jest.spyOn(window, 'requestAnimationFrame').mockImplementation((cb) => {

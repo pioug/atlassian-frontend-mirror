@@ -34,10 +34,16 @@ export default {
     'Saisir un nom, un groupe, une équipe ou une adresse e-mail',
   'fabric.elements.share.form.user-picker.placeholder.jira':
     'Saisissez un nom, une équipe ou une adresse e-mail',
+  'fabric.elements.share.form.user-picker.placholder.generic.existingUserOnly':
+    'Saisissez un nom, un groupe ou une équipe',
   'fabric.elements.share.form.user-picker.validation.required':
     'Sélectionnez au moins un utilisateur, un groupe, une équipe ou une adresse e-mail.',
+  'fabric.elements.share.form.user-picker.validation.required.existingUserOnly':
+    'Sélectionnez au moins un utilisateur, un groupe ou une équipe.',
   'fabric.elements.share.form.user-picker.validation.required.jira':
     'Sélectionnez au moins un utilisateur, une équipe ou une adresse e-mail.',
+  'fabric.elements.share.form.user-picker.validation.required.jira.existingUserOnly':
+    'Sélectionnez au moins un utilisateur ou une équipe.',
   'fabric.elements.share.success.message':
     '{object, select, blogpost {Billet de blog partagé} board {Tableau partagé} calendar {Calendrier partagé} draft {Brouillon partagé} filter {Filtre partagé} issue {Ticket partagé} media {Support partagé} page {Page partagée} project {Projet partagé} pullrequest {Pull request partagée} question {Question partagée} report {Rapport partagé} repository {Dépôt partagé} request {Demande partagée} roadmap {Feuille de route partagée} site {Site partagé} space {Espace partagé} other {Lien partagé}}',
   'fabric.elements.share.to.integration.button':

@@ -1,6 +1,10 @@
 import React, { useCallback } from 'react';
 import styled from 'styled-components';
-import { IntlProvider, injectIntl, InjectedIntlProps } from 'react-intl';
+import {
+  IntlProvider,
+  injectIntl,
+  WrappedComponentProps,
+} from 'react-intl-next';
 import {
   AnalyticsEventPayload,
   AnalyticsListener,
@@ -30,7 +34,7 @@ export default () => {
 const RenderElementBrowser = (
   props: {
     getItems: (query?: string, category?: string) => QuickInsertItem[];
-  } & InjectedIntlProps,
+  } & WrappedComponentProps,
 ) => (
   <Wrapper>
     <ElementBrowser

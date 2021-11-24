@@ -1,6 +1,6 @@
 import React from 'react';
 import { PureComponent } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl-next';
 import { messages } from '@atlaskit/media-ui';
 import { PredefinedAvatarViewWrapper, LargeAvatarImage } from './styled';
 import { Avatar } from '../avatar-list';

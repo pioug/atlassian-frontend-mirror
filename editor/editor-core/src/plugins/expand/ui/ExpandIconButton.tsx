@@ -4,13 +4,13 @@ import { expandMessages, ExpandLayoutWrapper } from '@atlaskit/editor-common';
 import { akEditorSwoopCubicBezier } from '@atlaskit/editor-shared-styles';
 import ChevronRightIcon from '@atlaskit/icon/glyph/chevron-right';
 import Tooltip from '@atlaskit/tooltip';
-import { InjectedIntl } from 'react-intl';
+import { IntlShape } from 'react-intl-next';
 import { expandClassNames } from './class-names';
 
 interface ExpandIconButtonProps {
   allowInteractiveExpand: boolean;
   expanded: boolean;
-  intl?: InjectedIntl;
+  intl?: IntlShape;
 }
 
 interface ExpandIconButtonWithLabelProps extends ExpandIconButtonProps {

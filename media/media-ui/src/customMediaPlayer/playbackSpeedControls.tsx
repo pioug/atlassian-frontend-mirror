@@ -9,7 +9,11 @@ import {
 } from '@atlaskit/select';
 import { B200, N900, N0, N600 } from '@atlaskit/theme/colors';
 import { NumericalCardDimensions } from '@atlaskit/media-common';
-import { FormattedMessage, InjectedIntlProps, injectIntl } from 'react-intl';
+import {
+  FormattedMessage,
+  WrappedComponentProps,
+  injectIntl,
+} from 'react-intl-next';
 import Tooltip from '@atlaskit/tooltip';
 import MediaButton from '../MediaButton';
 import { messages } from '../messages';
@@ -27,7 +31,7 @@ export interface PlaybackSpeedControlsState {
 }
 
 export class PlaybackSpeedControls extends Component<
-  PlaybackSpeedControlsProps & InjectedIntlProps,
+  PlaybackSpeedControlsProps & WrappedComponentProps,
   PlaybackSpeedControlsState
 > {
   state: PlaybackSpeedControlsState = {
@@ -157,4 +161,6 @@ export class PlaybackSpeedControls extends Component<
   }
 }
 
-export default injectIntl(PlaybackSpeedControls);
+export default injectIntl(PlaybackSpeedControls) as React.FC<
+  PlaybackSpeedControlsProps
+>;

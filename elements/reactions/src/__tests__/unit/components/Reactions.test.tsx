@@ -5,9 +5,9 @@ import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-re
 import {
   mountWithIntl,
   shallowWithIntl,
-} from '@atlaskit/editor-test-helpers/enzyme';
+} from '@atlaskit/editor-test-helpers/enzyme-next';
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl-next';
 import { reaction } from '../../../client/MockReactionsClient';
 import { messages } from '../../../components/i18n';
 import { Reaction } from '../../../components/Reaction';

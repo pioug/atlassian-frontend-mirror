@@ -1,6 +1,5 @@
-import { mount } from 'enzyme';
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl-next';
 import AddIcon from '@atlaskit/icon/glyph/add';
 import { N300 } from '@atlaskit/theme/colors';
 import InviteItem, {
@@ -12,6 +11,7 @@ import {
   NameSectionStyle,
 } from '../../../../../plugins/mentions/ui/InviteItem/styles';
 import { messages } from '../../../../../plugins/mentions/messages';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
 
 describe('@atlaskit/editor-core/ui/InviteItem', () => {
   let inviteItem: any;
@@ -23,7 +23,7 @@ describe('@atlaskit/editor-core/ui/InviteItem', () => {
   });
 
   it('should render invite item', () => {
-    inviteItem = mount(<InviteItem productName="jira" selected />);
+    inviteItem = mountWithIntl(<InviteItem productName="jira" selected />);
 
     expect(inviteItem.length).toBe(1);
     expect(inviteItem.find(MentionItemStyle).prop('selected')).toBe(true);
@@ -43,7 +43,7 @@ describe('@atlaskit/editor-core/ui/InviteItem', () => {
     });
   });
   it('should pass the value of userRole, "Jira" and "Confluence" into title based on the value of props.userRole and props.product', () => {
-    inviteItem = mount(<InviteItem productName="jira" />);
+    inviteItem = mountWithIntl(<InviteItem productName="jira" />);
 
     expect(
       inviteItem.find(NameSectionStyle).find(FormattedMessage).at(0).props(),
@@ -75,12 +75,14 @@ describe('@atlaskit/editor-core/ui/InviteItem', () => {
   });
   it('should call props.onMount if provided', () => {
     const mockOnMount = jest.fn();
-    inviteItem = mount(<InviteItem productName="jira" onMount={mockOnMount} />);
+    inviteItem = mountWithIntl(
+      <InviteItem productName="jira" onMount={mockOnMount} />,
+    );
     expect(mockOnMount).toBeCalled();
   });
   it('should call props.onMouseEnter when mouse entered', () => {
     const mockOnMouseEnter = jest.fn();
-    inviteItem = mount(
+    inviteItem = mountWithIntl(
       <InviteItem productName="jira" onMouseEnter={mockOnMouseEnter} />,
     );
 
@@ -94,7 +96,7 @@ describe('@atlaskit/editor-core/ui/InviteItem', () => {
   it('should call props.onSelection when mouse clicked', () => {
     const mockOnSelection = jest.fn();
     const mockLeftClickEvent = { button: 0 };
-    inviteItem = mount(
+    inviteItem = mountWithIntl(
       <InviteItem productName="jira" onSelection={mockOnSelection} />,
     );
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Component } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl-next';
 import { messages } from '@atlaskit/media-ui';
 import { Wrapper, Content, Label, Glass } from './styled';
 import { UploadIcon } from './icons';

@@ -1,4 +1,4 @@
-import { defineMessages, InjectedIntl } from 'react-intl';
+import { defineMessages, IntlShape } from 'react-intl-next';
 import { hasParentNodeOfType } from 'prosemirror-utils';
 import { EditorState } from 'prosemirror-state';
 import { Node as PMNode } from 'prosemirror-model';
@@ -60,7 +60,8 @@ const isLayoutSupported = (
 
 const breakoutOptions = (
   state: EditorState,
-  formatMessage: InjectedIntl['formatMessage'],
+  formatMessage: IntlShape['formatMessage'],
+  extensionState: ExtensionState,
   breakoutEnabled: boolean,
 ): Array<FloatingToolbarItem<Command>> => {
   const nodeWithPos = getSelectedExtension(state, true);
@@ -96,7 +97,7 @@ const breakoutOptions = (
 };
 
 const editButton = (
-  formatMessage: InjectedIntl['formatMessage'],
+  formatMessage: IntlShape['formatMessage'],
   extensionState: ExtensionState,
 ): Array<FloatingToolbarItem<Command>> => {
   if (!extensionState.showEditButton) {
@@ -148,6 +149,7 @@ export const getToolbarConfig = (
     const breakoutButtonArray = breakoutOptions(
       state,
       formatMessage,
+      extensionState,
       breakoutEnabled,
     );
 

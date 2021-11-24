@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { FormattedMessage, IntlProvider } from 'react-intl';
+import { IntlProvider } from 'react-intl-next';
 
 import { extractBlockActions } from '../index';
 import {
@@ -50,7 +50,7 @@ describe('extractors.block.extractBlockActions', () => {
       <IntlProvider locale="en">{props[0].text}</IntlProvider>,
     );
     const downloadMessageProp = downloadMessage
-      .find(FormattedMessage)
+      .find('FormattedMessage')
       .prop('defaultMessage');
     expect(downloadMessageProp).toEqual('Download');
   });

@@ -1,5 +1,5 @@
 import { ReactWrapper } from 'enzyme';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
 import React from 'react';
 import { List as VirtualList } from 'react-virtualized/dist/commonjs/List';
 import {

@@ -6,7 +6,7 @@ import {
   WarningSuggestion,
 } from '../warnings/styles';
 import { messages } from '@atlaskit/media-ui/messages';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl-next';
 import { errorIcon } from '@atlaskit/media-ui/errorIcon';
 import Button from '@atlaskit/button/custom-theme-button';
 

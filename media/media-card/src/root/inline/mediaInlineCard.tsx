@@ -1,7 +1,12 @@
 import React, { FC, useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { FileIdentifier, FileState, MediaClient } from '@atlaskit/media-client';
-import { InjectedIntlProps, injectIntl } from 'react-intl';
+import {
+  WrappedComponentProps,
+  injectIntl,
+  IntlProvider,
+  createIntl,
+} from 'react-intl-next';
 import {
   MediaInlineCardLoadedView,
   MediaInlineCardLoadingView,
@@ -24,7 +29,7 @@ export interface MediaInlineCardProps {
 
 // UI component which renders an inline link in the appropiate state based on a media file
 export const MediaInlineCardInternal: FC<
-  MediaInlineCardProps & InjectedIntlProps
+  MediaInlineCardProps & WrappedComponentProps
 > = ({
   mediaClient,
   identifier,
@@ -68,6 +73,15 @@ export const MediaInlineCardInternal: FC<
     return null;
   };
 
+  const renderContent = (children: React.ReactElement) => {
+    return intl ? (
+      children
+    ) : (
+      <IntlProvider locale="en">{children}</IntlProvider>
+    );
+  };
+  const defaultIntl = createIntl({ locale: 'en' });
+
   useEffect(() => {
     mediaClient.file
       .getFileState(identifier.id, {
@@ -86,7 +100,7 @@ export const MediaInlineCardInternal: FC<
   if (!fileState) {
     return (
       <MediaInlineCardLoadingView
-        message={intl.formatMessage(messages.loading_file)}
+        message={(intl || defaultIntl).formatMessage(messages.loading_file)}
         isSelected={isSelected}
       />
     );
@@ -94,7 +108,9 @@ export const MediaInlineCardInternal: FC<
   if (isErrored) {
     return (
       <MediaInlineCardErroredView
-        message={intl.formatMessage(messages.couldnt_load_file)}
+        message={(intl || defaultIntl).formatMessage(
+          messages.couldnt_load_file,
+        )}
         isSelected={isSelected}
       />
     );
@@ -111,7 +127,9 @@ export const MediaInlineCardInternal: FC<
   if (fileState.status === 'failed-processing') {
     return (
       <MediaInlineCardErroredView
-        message={intl.formatMessage(messages.couldnt_load_file)}
+        message={(intl || defaultIntl).formatMessage(
+          messages.couldnt_load_file,
+        )}
         isSelected={isSelected}
       />
     );
@@ -142,7 +160,7 @@ export const MediaInlineCardInternal: FC<
     formattedDate = formatDate(fileState.createdAt, locale);
   }
 
-  return (
+  return renderContent(
     <>
       <Tooltip position="bottom" content={formattedDate} tag="span">
         <MediaInlineCardLoadedView
@@ -153,8 +171,13 @@ export const MediaInlineCardInternal: FC<
         />
       </Tooltip>
       {mediaViewer}
-    </>
+    </>,
   );
 };
 
-export const MediaInlineCard = injectIntl(MediaInlineCardInternal);
+export const MediaInlineCard: React.FC<MediaInlineCardProps> = injectIntl(
+  MediaInlineCardInternal,
+  {
+    enforceContext: false,
+  },
+);

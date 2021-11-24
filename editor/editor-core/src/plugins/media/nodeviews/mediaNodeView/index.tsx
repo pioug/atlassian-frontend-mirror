@@ -174,6 +174,7 @@ export const ReactMediaNode = (
   providerFactory: ProviderFactory,
   mediaOptions: MediaOptions = {},
 ) => (node: PMNode, view: EditorView, getPos: getPosHandler) => {
+  const hasIntlContext = true;
   return new MediaNodeView(
     node,
     view,
@@ -185,5 +186,9 @@ export const ReactMediaNode = (
       providerFactory,
       mediaOptions,
     },
+    undefined,
+    undefined,
+    undefined,
+    hasIntlContext,
   ).init();
 };

@@ -30,6 +30,7 @@ import {
   fireEvent,
   cleanup,
 } from '@testing-library/react';
+import { IntlProvider } from 'react-intl-next';
 
 describe('smart-card: forbidden analytics', () => {
   let mockClient: CardClient;
@@ -53,9 +54,11 @@ describe('smart-card: forbidden analytics', () => {
     it('should fire analytics events when attempting to connect with an alternate account succeeds', async () => {
       const mockUrl = 'https://this.is.the.fourth.url';
       const { getByTestId, container } = render(
-        <Provider client={mockClient}>
-          <Card testId="forbiddenCard1" appearance="inline" url={mockUrl} />
-        </Provider>,
+        <IntlProvider locale="en">
+          <Provider client={mockClient}>
+            <Card testId="forbiddenCard1" appearance="inline" url={mockUrl} />
+          </Provider>
+        </IntlProvider>,
       );
       const forbiddenLink = await waitForElement(
         () => getByTestId('forbiddenCard1-forbidden-view'),
@@ -101,9 +104,11 @@ describe('smart-card: forbidden analytics', () => {
     it('should fire analytics events when attempting to connect with an alternate account fails', async () => {
       const mockUrl = 'https://this.is.the.fifth.url';
       const { getByTestId, container } = render(
-        <Provider client={mockClient}>
-          <Card testId="forbiddenCard2" appearance="inline" url={mockUrl} />
-        </Provider>,
+        <IntlProvider locale="en">
+          <Provider client={mockClient}>
+            <Card testId="forbiddenCard2" appearance="inline" url={mockUrl} />
+          </Provider>
+        </IntlProvider>,
       );
       const forbiddenLink = await waitForElement(
         () => getByTestId('forbiddenCard2-forbidden-view'),

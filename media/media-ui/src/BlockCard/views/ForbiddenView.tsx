@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl-next';
 import { MouseEvent } from 'react';
 import { R300 } from '@atlaskit/theme/colors';
 import LockIcon from '@atlaskit/icon/glyph/lock-filled';

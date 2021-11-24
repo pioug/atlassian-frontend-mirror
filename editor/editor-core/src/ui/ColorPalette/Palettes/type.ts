@@ -1,10 +1,10 @@
-import { FormattedMessage } from 'react-intl';
+import { MessageDescriptor } from 'react-intl-next';
 
 export interface PaletteColor {
   value: string;
   label: string;
   border: string;
-  message?: FormattedMessage.MessageDescriptor;
+  message?: MessageDescriptor;
 }
 
 export type Palette = Array<PaletteColor>;

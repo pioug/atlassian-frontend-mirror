@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import Button from '@atlaskit/button/custom-theme-button';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl-next';
 import { messages } from '@atlaskit/media-ui';
 import { startFileBrowser } from '../../../actions/startFileBrowser';
 import { State } from '../../../domain';

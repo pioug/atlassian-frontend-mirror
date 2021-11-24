@@ -77,6 +77,7 @@ export default function ExtensionNodeView(
   extensionNodeViewOptions: ExtensionNodeViewOptions,
 ) {
   return (node: PmNode, view: EditorView, getPos: getPosHandler): NodeView => {
+    const hasIntlContext = true;
     return new ExtensionNode(
       node,
       view,
@@ -88,6 +89,10 @@ export default function ExtensionNodeView(
         extensionHandlers,
         extensionNodeViewOptions,
       },
+      undefined,
+      undefined,
+      undefined,
+      hasIntlContext,
     ).init();
   };
 }

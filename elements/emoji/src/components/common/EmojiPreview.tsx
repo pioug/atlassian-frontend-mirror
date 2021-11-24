@@ -3,7 +3,11 @@ import AddIcon from '@atlaskit/icon/glyph/add';
 import classNames from 'classnames';
 import React from 'react';
 import { PureComponent } from 'react';
-import { FormattedMessage } from 'react-intl';
+import {
+  FormattedMessage,
+  injectIntl,
+  WrappedComponentProps,
+} from 'react-intl-next';
 import CachingEmoji from '../../components/common/CachingEmoji';
 import EmojiButton from '../../components/common/EmojiButton';
 import {
@@ -32,7 +36,10 @@ export interface State {
   selectingTone: boolean;
 }
 
-export default class EmojiPreview extends PureComponent<Props, State> {
+export class EmojiPreview extends PureComponent<
+  Props & WrappedComponentProps,
+  State
+> {
   state = {
     selectingTone: false,
   };
@@ -67,7 +74,8 @@ export default class EmojiPreview extends PureComponent<Props, State> {
   };
 
   renderTones() {
-    const { toneEmoji, selectedTone } = this.props;
+    const { toneEmoji, selectedTone, intl } = this.props;
+    const { formatMessage } = intl;
     if (!toneEmoji) {
       return null;
     }
@@ -86,24 +94,20 @@ export default class EmojiPreview extends PureComponent<Props, State> {
             previewEmojiId={previewEmoji.id as string}
           />
         )}
-        <FormattedMessage
-          {...messages.emojiSelectSkinToneButtonAriaLabelText}
-          values={{
-            selectedTone: `${setSkinToneAriaLabelText(
-              previewEmoji.name as string,
-            )} selected`,
-          }}
-        >
-          {(ariaLabel) => (
-            <EmojiButton
-              ariaExpanded={this.state.selectingTone}
-              emoji={previewEmoji}
-              selectOnHover={true}
-              onSelected={this.onToneButtonClick}
-              ariaLabelText={ariaLabel as string}
-            />
+        <EmojiButton
+          ariaExpanded={this.state.selectingTone}
+          emoji={previewEmoji}
+          selectOnHover={true}
+          onSelected={this.onToneButtonClick}
+          ariaLabelText={formatMessage(
+            messages.emojiSelectSkinToneButtonAriaLabelText,
+            {
+              selectedTone: `${setSkinToneAriaLabelText(
+                previewEmoji.name as string,
+              )} selected`,
+            },
           )}
-        </FormattedMessage>
+        />
       </div>
     );
   }
@@ -141,8 +145,9 @@ export default class EmojiPreview extends PureComponent<Props, State> {
 
   // note: emoji-picker-add-emoji className is used by pollinator synthetic checks
   renderAddOwnEmoji() {
-    const { onOpenUpload, uploadEnabled } = this.props;
+    const { onOpenUpload, uploadEnabled, intl } = this.props;
     const { selectingTone } = this.state;
+    const { formatMessage } = intl;
 
     if (!uploadEnabled || selectingTone) {
       return null;
@@ -153,13 +158,18 @@ export default class EmojiPreview extends PureComponent<Props, State> {
           {(label) => (
             <AkButton
               onClick={onOpenUpload}
-              iconBefore={<AddIcon label={label as string} size="small" />}
+              iconBefore={
+                <AddIcon
+                  label={formatMessage(messages.addCustomEmojiLabel)}
+                  size="small"
+                />
+              }
               appearance="subtle"
               className={
                 styles.addCustomEmojiButton + ' emoji-picker-add-emoji'
               }
             >
-              {label as string}
+              {label}
             </AkButton>
           )}
         </FormattedMessage>
@@ -181,3 +191,5 @@ export default class EmojiPreview extends PureComponent<Props, State> {
     );
   }
 }
+
+export default injectIntl(EmojiPreview);

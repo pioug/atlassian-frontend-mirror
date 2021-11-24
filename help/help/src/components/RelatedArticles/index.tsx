@@ -5,7 +5,7 @@ import {
 } from '@atlaskit/analytics-next';
 import SectionMessage from '@atlaskit/section-message';
 import Button from '@atlaskit/button/custom-theme-button';
-import { injectIntl, InjectedIntlProps } from 'react-intl';
+import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 
 import {
   name as packageName,
@@ -48,7 +48,7 @@ export interface Props {
   ) => void;
 }
 
-export const RelatedArticles: React.FC<Props & InjectedIntlProps> = ({
+export const RelatedArticles: React.FC<Props & WrappedComponentProps> = ({
   style = 'primary',
   routeGroup,
   routeName,

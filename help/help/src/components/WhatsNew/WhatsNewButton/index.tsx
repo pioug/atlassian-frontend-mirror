@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import { UIAnalyticsEvent, AnalyticsContext } from '@atlaskit/analytics-next';
 import * as colors from '@atlaskit/theme/colors';
 import LightbulbIcon from '@atlaskit/icon/glyph/lightbulb';
-import { injectIntl, InjectedIntlProps } from 'react-intl';
+import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 import {
   name as packageName,
   version as packageVersion,
@@ -20,7 +20,7 @@ const ANALYTICS_CONTEXT_DATA = {
   packageVersion,
 };
 
-export const WhatsNewButton: React.FC<InjectedIntlProps> = ({
+export const WhatsNewButton: React.FC<WrappedComponentProps> = ({
   intl: { formatMessage },
 }) => {
   const {
@@ -58,7 +58,7 @@ export const WhatsNewButton: React.FC<InjectedIntlProps> = ({
   );
 };
 
-const WhatsNewButtonWithContext: React.FC<InjectedIntlProps> = (props) => {
+const WhatsNewButtonWithContext: React.FC<WrappedComponentProps> = (props) => {
   return (
     <AnalyticsContext data={ANALYTICS_CONTEXT_DATA}>
       <WhatsNewButton {...props} />

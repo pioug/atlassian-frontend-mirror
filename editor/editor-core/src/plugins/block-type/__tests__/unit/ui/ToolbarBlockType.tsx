@@ -10,7 +10,7 @@ import {
   panel,
   DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
 import {
   createProsemirrorEditorFactory,
   LightEditorPlugin,

@@ -16,6 +16,7 @@ import * as ufoWrapper from '../../../state/analytics/ufoExperiences';
 import 'jest-extended';
 import { JestFunction } from '@atlaskit/media-test-helpers';
 import uuid from 'uuid';
+import { IntlProvider } from 'react-intl-next';
 
 describe('smart-card: success analytics', () => {
   let mockClient: CardClient;
@@ -57,9 +58,11 @@ describe('smart-card: success analytics', () => {
     it('should fire the resolved analytics event when the url was resolved', async () => {
       const mockUrl = 'https://this.is.the.sixth.url';
       const { getByTestId, getByRole } = render(
-        <Provider client={mockClient}>
-          <Card testId="resolvedCard1" appearance="inline" url={mockUrl} />
-        </Provider>,
+        <IntlProvider locale="en">
+          <Provider client={mockClient}>
+            <Card testId="resolvedCard1" appearance="inline" url={mockUrl} />
+          </Provider>
+        </IntlProvider>,
       );
       const resolvedView = await waitForElement(
         () => getByTestId('resolvedCard1-resolved-view'),
@@ -199,9 +202,11 @@ describe('smart-card: success analytics', () => {
     it('should fire clicked analytics event when a resolved URL is clicked', async () => {
       const mockUrl = 'https://this.is.the.seventh.url';
       const { getByTestId, getByRole } = render(
-        <Provider client={mockClient}>
-          <Card testId="resolvedCard2" appearance="inline" url={mockUrl} />
-        </Provider>,
+        <IntlProvider locale="en">
+          <Provider client={mockClient}>
+            <Card testId="resolvedCard2" appearance="inline" url={mockUrl} />
+          </Provider>
+        </IntlProvider>,
       );
       const resolvedView = await waitForElement(
         () => getByTestId('resolvedCard2-resolved-view'),
@@ -283,13 +288,15 @@ describe('smart-card: success analytics', () => {
   it('block: should fire invokeSucceeded event when an action is clicked & processed', async () => {
     const mockUrl = 'https://this.is.the.eigth.url';
     const { getByTestId } = render(
-      <Provider client={mockClient}>
-        <Card
-          testId="resolvedCardWithActions"
-          appearance="block"
-          url={mockUrl}
-        />
-      </Provider>,
+      <IntlProvider locale="en">
+        <Provider client={mockClient}>
+          <Card
+            testId="resolvedCardWithActions"
+            appearance="block"
+            url={mockUrl}
+          />
+        </Provider>
+      </IntlProvider>,
     );
     const downloadActionButton = await waitForElement(
       () => getByTestId('button-comment'),
@@ -335,13 +342,15 @@ describe('smart-card: success analytics', () => {
     );
     const mockUrl = 'https://this.is.the.eigth.url';
     const { getByTestId } = render(
-      <Provider client={mockClient}>
-        <Card
-          testId="resolvedCardWithActions"
-          appearance="block"
-          url={mockUrl}
-        />
-      </Provider>,
+      <IntlProvider locale="en">
+        <Provider client={mockClient}>
+          <Card
+            testId="resolvedCardWithActions"
+            appearance="block"
+            url={mockUrl}
+          />
+        </Provider>
+      </IntlProvider>,
     );
     const downloadActionButton = await waitForElement(
       () => getByTestId('button-comment'),
@@ -391,13 +400,15 @@ describe('smart-card: success analytics', () => {
   it('preview: should fire analytics on invocation, and render preview', async () => {
     const mockUrl = 'https://this.is.the.eigth.url';
     const { getByTestId } = render(
-      <Provider client={mockClient}>
-        <Card
-          testId="resolvedCardWithActions"
-          appearance="block"
-          url={mockUrl}
-        />
-      </Provider>,
+      <IntlProvider locale="en">
+        <Provider client={mockClient}>
+          <Card
+            testId="resolvedCardWithActions"
+            appearance="block"
+            url={mockUrl}
+          />
+        </Provider>
+      </IntlProvider>,
     );
     const previewActionButton = await waitForElement(
       () => getByTestId('button-preview-content'),

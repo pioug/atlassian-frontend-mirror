@@ -20,7 +20,6 @@ import { breakpointSize, BreakpointSizeValue } from '../../utils/breakpoint';
 import { shouldDisplayImageThumbnail } from '../../utils/shouldDisplayImageThumbnail';
 import { FabricChannel } from '@atlaskit/analytics-listeners';
 import { CardDimensionValue } from '../../index';
-import { FormattedMessage } from 'react-intl';
 import * as mediaUi from '@atlaskit/media-ui';
 
 const mockHumanReadableMediaSize = 'some KB';
@@ -149,7 +148,7 @@ describe('CardView', () => {
       const card = shallowCardViewBaseElement({ status: 'error' });
 
       expect(
-        (card.find(FileCardImageView).prop('error')! as FormattedMessage).props
+        (card.find(FileCardImageView).prop('error') as any).props
           .defaultMessage,
       ).toEqual('Failed to load');
     });

@@ -170,7 +170,10 @@ describe('<Footer />', () => {
         />,
       );
       expect(
-        element.find(InsertButton).find('FormattedMessage').prop('values'),
+        element
+          .find(InsertButton)
+          .find('MemoizedFormattedMessage')
+          .prop('values'),
       ).toEqual({
         0: 1,
       });

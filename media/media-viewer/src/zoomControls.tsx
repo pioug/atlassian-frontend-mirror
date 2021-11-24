@@ -12,7 +12,7 @@ import {
 import { fireAnalytics } from './analytics/';
 import { createZoomInButtonClickEvent } from './analytics/events/ui/zoomInButtonClicked';
 import { createZoomOutButtonClickedEvent } from './analytics/events/ui/zoomOutButtonClicked';
-import { injectIntl, InjectedIntlProps } from 'react-intl';
+import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 import { messages } from '@atlaskit/media-ui';
 
 export type ZoomControlsProps = Readonly<{
@@ -22,7 +22,7 @@ export type ZoomControlsProps = Readonly<{
   WithAnalyticsEventsProps;
 
 export class ZoomControlsBase extends Component<
-  ZoomControlsProps & InjectedIntlProps,
+  ZoomControlsProps & WrappedComponentProps,
   {}
 > {
   zoomIn = () => {
@@ -71,6 +71,6 @@ export class ZoomControlsBase extends Component<
   }
 }
 
-export const ZoomControls = withAnalyticsEvents({})(
-  injectIntl(ZoomControlsBase),
-);
+export const ZoomControls: React.ComponentType<ZoomControlsProps> = withAnalyticsEvents(
+  {},
+)(injectIntl(ZoomControlsBase));

@@ -1,5 +1,5 @@
 import React from 'react';
-import { injectIntl, InjectedIntlProps } from 'react-intl';
+import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 import {
   useAnalyticsEvents,
   UIAnalyticsEvent,
@@ -47,7 +47,7 @@ const transitionStyles: { [id: string]: React.CSSProperties } = {
   exited: { left: `${gridSize()}px`, opacity: 0 },
 };
 
-export const BackButton: React.FC<Props & InjectedIntlProps> = ({
+export const BackButton: React.FC<Props & WrappedComponentProps> = ({
   onClick,
   isVisible = true,
   intl: { formatMessage },
@@ -106,7 +106,9 @@ export const BackButton: React.FC<Props & InjectedIntlProps> = ({
   );
 };
 
-const BackButtonWithContext: React.FC<Props & InjectedIntlProps> = (props) => {
+const BackButtonWithContext: React.FC<Props & WrappedComponentProps> = (
+  props,
+) => {
   return (
     <AnalyticsContext
       data={{

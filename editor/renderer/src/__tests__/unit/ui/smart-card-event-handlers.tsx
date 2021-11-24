@@ -8,7 +8,7 @@ jest.mock('react-lazily-render', () => ({
 import React from 'react';
 import { ReactWrapper } from 'enzyme';
 import Renderer, { Props } from '../../../ui/Renderer';
-import { IntlProvider } from 'react-intl';
+import { IntlProvider } from 'react-intl-next';
 import { render } from '@testing-library/react';
 import { Provider as SmartCardProvider } from '@atlaskit/smart-card';
 import { cardClient } from '@atlaskit/media-integration-test-helpers';

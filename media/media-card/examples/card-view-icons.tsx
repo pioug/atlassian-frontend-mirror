@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { CardStatus } from '../src';
 import { CardView } from '../src/root/cardView';
 import { FileDetails, MediaType } from '@atlaskit/media-client';
-import { IntlProvider } from 'react-intl';
+import { IntlProvider } from 'react-intl-next';
 import { MainWrapper } from '../example-helpers';
 
 type WrapperDimensions = {

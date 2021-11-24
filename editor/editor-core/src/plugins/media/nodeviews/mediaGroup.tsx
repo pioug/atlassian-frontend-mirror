@@ -342,6 +342,7 @@ export const ReactMediaGroupNode = (
   providerFactory: ProviderFactory,
   mediaOptions: MediaOptions = {},
 ) => (node: PMNode, view: EditorView, getPos: getPosHandler): NodeView => {
+  const hasIntlContext = true;
   return new MediaGroupNodeView(
     node,
     view,
@@ -352,5 +353,9 @@ export const ReactMediaGroupNode = (
       providerFactory,
       mediaOptions,
     },
+    undefined,
+    undefined,
+    undefined,
+    hasIntlContext,
   ).init();
 };

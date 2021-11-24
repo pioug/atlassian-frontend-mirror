@@ -17,6 +17,7 @@ import {
 import { ZoomControls } from '../../../../../zoomControls';
 import { HDIconGroupWrapper, ImageWrapper, Img } from '../../../../../styled';
 import { ZoomLevel } from '../../../../../domain/zoomLevel';
+import { WrappedComponentProps } from 'react-intl-next';
 
 interface ImageSize {
   naturalWidth: number;
@@ -24,7 +25,7 @@ interface ImageSize {
 }
 
 function callOnLoad(
-  component: ReactWrapper<Props, State>,
+  component: ReactWrapper<Props & WrappedComponentProps, State>,
   props?: Partial<Props & ImageSize>,
 ) {
   const currentTarget: Partial<HTMLImageElement> = {

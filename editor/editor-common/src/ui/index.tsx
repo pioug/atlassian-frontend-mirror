@@ -64,3 +64,9 @@ export type { StyleProps as ExpandStyleProps } from './Expand';
 
 export { ErrorMessage, HelperMessage, ValidMessage } from './Messages';
 export { ClearNextSiblingMarginTop } from './clear-next-sibling-margin-top';
+export {
+  IntlNextErrorBoundary,
+  REACT_INTL_ERROR_MESSAGE,
+} from './IntlNextErrorBoundary';
+export { IntlLegacyFallbackProvider } from './IntlLegacyFallbackProvider';
+export { LegacyToNextIntlProvider } from './LegacyToNextIntlProvider';

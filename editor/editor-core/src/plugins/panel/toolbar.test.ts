@@ -1,8 +1,8 @@
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 import { ProviderFactory } from '@atlaskit/editor-common';
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
-import { FormattedMessage, IntlProvider } from 'react-intl';
 import { getToolbarItems, panelIconMap } from './toolbar';
+import { IntlShape, MessageDescriptor, createIntl } from 'react-intl-next';
 import * as actions from '../panel/actions';
 import { PanelOptions } from './pm-plugins/main';
 import {
@@ -36,9 +36,8 @@ import { EditorView } from 'prosemirror-view';
 import { emojiPluginKey } from '../emoji';
 import { G75 } from '@atlaskit/theme/colors';
 
-const dummyFormatMessage = (
-  messageDescriptor: FormattedMessage.MessageDescriptor,
-): string => messageDescriptor.defaultMessage || '';
+const dummyFormatMessage = (messageDescriptor: MessageDescriptor) =>
+  (messageDescriptor.defaultMessage as string) || '';
 
 const changePanelTypespy = jest.spyOn(actions, 'changePanelType');
 
@@ -83,7 +82,7 @@ describe('getToolbarItems', () => {
 
   it('should return 7 items when allowCustomPanelEdit is false and allowCustomPanel is true', () => {
     const items = getToolbarItems(
-      dummyFormatMessage,
+      dummyFormatMessage as IntlShape['formatMessage'],
       defaultSchema.nodes.panel,
       true,
       false,
@@ -123,8 +122,7 @@ describe('getToolbarItems', () => {
   });
 
   describe('when locale is en', () => {
-    const intlProvider = new IntlProvider({ locale: 'en' });
-    const { intl } = intlProvider.getChildContext();
+    const intl = createIntl({ locale: 'en' });
 
     it('should return default message when locale is en', () => {
       const { formatMessage } = intl;

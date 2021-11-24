@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount, ReactWrapper } from 'enzyme';
 import DateComponent from '../../../../react/nodes/date';
-import { IntlProvider, InjectedIntl } from 'react-intl';
+import { createIntl, IntlProvider, IntlShape } from 'react-intl-next';
 
 import {
   timestampToString,
@@ -15,7 +15,7 @@ describe('Renderer - React/Nodes/Date', () => {
   let date: ReactWrapper<any>;
   let dateNowMockFn: jest.SpyInstance;
   let dateUTCMockFn: jest.SpyInstance;
-  let intl: InjectedIntl;
+  let intl: IntlShape;
 
   beforeEach(() => {
     dateNowMockFn = jest.spyOn(Date, 'now');
@@ -24,10 +24,10 @@ describe('Renderer - React/Nodes/Date', () => {
     dateUTCMockFn.mockImplementation(() => '1323993600000'); // 16 December 2011 00:00:00
     dateNowMockFn.mockImplementation(() => '1323993600000'); // 16 December 2011 00:00:00
 
-    const intlProvider = new IntlProvider({
+    intl = createIntl({
       locale: 'en',
     });
-    intl = intlProvider.getChildContext().intl;
+
     timestamp = todayTimestampInUTC();
     wrapper = mount(
       <IntlProvider locale="en">

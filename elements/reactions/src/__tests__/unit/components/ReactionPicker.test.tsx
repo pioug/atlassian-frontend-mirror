@@ -1,6 +1,6 @@
 import { EmojiPicker, EmojiProvider } from '@atlaskit/emoji';
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
 import React from 'react';
 import { EmojiButton } from '../../../components/EmojiButton';
 import { ReactionPicker } from '../../../components/ReactionPicker';

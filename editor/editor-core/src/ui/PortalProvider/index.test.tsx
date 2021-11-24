@@ -12,6 +12,7 @@ import {
 } from '@atlaskit/analytics-next';
 import { PortalProvider, PortalRenderer, PortalProviderAPI } from './';
 import { ContextAdapter } from '../../nodeviews/context-adapter';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
 const Component = () => <div className="component">My component</div>;
 const Component2 = () => {
   const { createAnalyticsEvent } = useAnalyticsEvents();
@@ -32,7 +33,7 @@ describe('PortalProvider', () => {
   const initPortalProvider = () => {
     handleAnalyticsEvent = jest.fn();
     handleAnalyticsEventFromContext = jest.fn();
-    wrapper = mount(
+    wrapper = mountWithIntl(
       <AnalyticsListener
         channel="portalprovidertest"
         onEvent={handleAnalyticsEventFromContext}

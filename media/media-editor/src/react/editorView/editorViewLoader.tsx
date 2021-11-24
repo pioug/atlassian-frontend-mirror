@@ -13,7 +13,7 @@ export default class AsyncEditorView extends React.PureComponent<
   static displayName = 'AsyncEditorView';
   static EditorView?: typeof EditorViewType;
 
-  state = {
+  state: AsyncEditorViewState = {
     // Set state value to equal to current static value of this class.
     EditorView: AsyncEditorView.EditorView,
   };

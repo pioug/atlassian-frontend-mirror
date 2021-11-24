@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { injectIntl, InjectedIntlProps } from 'react-intl';
+import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 import {
   useAnalyticsEvents,
   UIAnalyticsEvent,
@@ -59,7 +59,7 @@ interface Props {
   ): void;
 }
 
-export const ArticleWasHelpfulForm: React.FC<Props & InjectedIntlProps> = ({
+export const ArticleWasHelpfulForm: React.FC<Props & WrappedComponentProps> = ({
   onWasHelpfulSubmit,
   onWasHelpfulYesButtonClick,
   onWasHelpfulNoButtonClick,
@@ -338,9 +338,9 @@ export const ArticleWasHelpfulForm: React.FC<Props & InjectedIntlProps> = ({
   return null;
 };
 
-const ArticleWasHelpfulFormWithContext: React.FC<Props & InjectedIntlProps> = (
-  props,
-) => {
+const ArticleWasHelpfulFormWithContext: React.FC<
+  Props & WrappedComponentProps
+> = (props) => {
   return (
     <AnalyticsContext data={ANALYTICS_CONTEXT_DATA}>
       <ArticleWasHelpfulForm {...props} />

@@ -7,12 +7,12 @@ import {
   MediaCollectionItem,
 } from '@atlaskit/media-client';
 import {
-  mountWithIntlContext,
   fakeMediaClient,
   asMock,
+  mountWithIntlWrapper,
 } from '@atlaskit/media-test-helpers';
 import Spinner from '@atlaskit/spinner';
-import { Collection, Props, State } from '../../../collection';
+import { Collection } from '../../../collection';
 import { ErrorMessage } from '../../../errorMessage';
 import { List } from '../../../list';
 import { MediaFeatureFlags } from '@atlaskit/media-common';
@@ -67,7 +67,7 @@ function createFixture(
   onClose?: () => {},
   featureFlags?: MediaFeatureFlags,
 ) {
-  const el = mountWithIntlContext<Props, State>(
+  const el = mountWithIntlWrapper(
     <Collection
       defaultSelectedItem={identifier}
       collectionName={collectionName}
@@ -146,12 +146,13 @@ describe('<Collection />', () => {
     asMock(mediaClient.file.getFileState).mockReturnValue(subject);
 
     const el = createFixture(mediaClient, identifier);
-    expect(el.state().items.status).toEqual('PENDING');
+    expect(el.find(Collection).state().items.status).toEqual('PENDING');
     subject.next(mediaCollectionItems);
-    expect(el.state().items.status).toEqual('SUCCESSFUL');
+    expect(el.find(Collection).state().items.status).toEqual('SUCCESSFUL');
 
     el.setProps({ collectionName: 'other-collection' });
-    expect(el.state().items.status).toEqual('PENDING');
+    el.update();
+    expect(el.find(Collection).state().items.status).toEqual('PENDING');
   });
 
   it('MSW-720: adds the collectionName to all identifiers passed to the List component', () => {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
 import Code, { CodeWithIntl } from '../../../../react/marks/code';
 import InlineComment from '../../../../react/marks/confluence-inline-comment';
 

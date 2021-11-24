@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/profilecard",
-  "version": "15.8.2",
+  "version": "16.0.0",
   "description": "A React component to display a card with user information.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -52,12 +52,12 @@
     "@babel/runtime": "^7.0.0",
     "date-fns": "^2.17.0",
     "lodash": "^4.17.15",
-    "lru-fast": "^0.2.2"
+    "lru-fast": "^0.2.2",
+    "react-intl-next": "npm:react-intl@^5.18.1"
   },
   "peerDependencies": {
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
-    "react-intl": "^2.6.0",
     "styled-components": "^3.2.6"
   },
   "devDependencies": {

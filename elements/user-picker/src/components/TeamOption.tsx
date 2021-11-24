@@ -1,6 +1,6 @@
 import { B400, N800, N200 } from '@atlaskit/theme/colors';
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl-next';
 import { Team } from '../types';
 import { AvatarItemOption, TextWrapper } from './AvatarItemOption';
 import { HighlightText } from './HighlightText';

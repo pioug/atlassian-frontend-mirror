@@ -1,7 +1,7 @@
 import { mockCreateAnalyticsEvent } from '@atlaskit/editor-test-helpers/mock-analytics-next';
 
 import React from 'react';
-import { IntlProvider } from 'react-intl';
+import { IntlProvider } from 'react-intl-next';
 import { mount, ReactWrapper } from 'enzyme';
 
 import {

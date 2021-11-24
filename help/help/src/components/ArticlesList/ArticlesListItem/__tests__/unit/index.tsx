@@ -2,15 +2,22 @@ import React from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { render, fireEvent } from '@testing-library/react';
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
-import { IntlProvider } from 'react-intl';
+import { createIntl, createIntlCache } from 'react-intl-next';
 
 import { getMockArticleItem } from '../../../../../util/testing/mock';
 
 import { ArticlesListItem } from '../../index';
 import { messages } from '../../../../../messages';
 
-const intlProvider = new IntlProvider({ locale: 'en' });
-const { intl } = intlProvider.getChildContext();
+// Messages
+const cache = createIntlCache();
+const intl = createIntl(
+  {
+    locale: 'en',
+    messages: {},
+  },
+  cache,
+);
 const messageTypeHelpArticle = intl.formatMessage(
   messages.help_article_list_item_type_help_article,
 );

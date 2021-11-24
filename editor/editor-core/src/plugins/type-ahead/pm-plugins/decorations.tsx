@@ -6,7 +6,7 @@ import { EditorView, DecorationSet, Decoration } from 'prosemirror-view';
 import { B400 } from '@atlaskit/theme/colors';
 import { keyName as keyNameNormalized } from 'w3c-keyname';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { IntlProvider, InjectedIntl } from 'react-intl';
+import { IntlProvider, IntlShape } from 'react-intl-next';
 import { redo, undo } from 'prosemirror-history';
 
 import {
@@ -24,7 +24,7 @@ import { getTypeAheadQuery } from '../utils';
 import { closeTypeAhead } from '../transforms/close-type-ahead';
 
 type FactoryProps = {
-  intl: InjectedIntl;
+  intl: IntlShape;
   popupMountRef: PopupMountPointReference;
   createAnalyticsEvent?: CreateUIAnalyticsEvent;
 };

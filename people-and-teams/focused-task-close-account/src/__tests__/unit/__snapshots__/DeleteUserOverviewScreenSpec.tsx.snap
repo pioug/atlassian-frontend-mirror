@@ -1,22 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`DeleteUserOverviewScreen 1`] = `
-<InjectIntl(MessagesIntlProvider)>
+<injectIntl(MessagesIntlProvider)>
   <styled.div>
     <styled.div>
-      <FormattedMessage
+      <MemoizedFormattedMessage
         defaultMessage="Delete account"
         description="Heading for the screen that explains what happens when an admin deletes a user's account"
         id="focused-task-close-account.delete-account.overview.heading.admin"
-        values={Object {}}
       />
     </styled.div>
-    <FormattedMessage
+    <MemoizedFormattedMessage
       defaultMessage="You're about to delete the account of:"
       description="First line for the screen when the user is about to delete their own account"
       id="focused-task-close-account.delete-account.overview.first.line.admin"
       tagName="p"
-      values={Object {}}
     />
     <UserInfo
       user={
@@ -27,15 +25,14 @@ exports[`DeleteUserOverviewScreen 1`] = `
         }
       }
     />
-    <FormattedMessage
+    <MemoizedFormattedMessage
       defaultMessage="When you delete the account:"
       description="A paragraph explaining that the admin is about to delete another user"
       id="focused-task-close-account.delete-account.overview.paragraph.about-to-delete.admin"
-      values={Object {}}
     />
     <styled.ul>
       <li>
-        <FormattedHTMLMessage
+        <MemoizedFormattedMessage
           defaultMessage="{fullName} will <b>immediately lose access</b> to all Atlassian account services. They currently have access to: "
           description="A paragraph explaining that upon deletion the user will lose access to certain services. The second sentence is to begin a list of services the user-to-be-deleted can currently access. {fullName} is filled in by the web app."
           id="focused-task-close-account.delete-account.overview.paragraph.loseAccess.admin"
@@ -59,57 +56,50 @@ exports[`DeleteUserOverviewScreen 1`] = `
         />
       </li>
       <li>
-        <FormattedHTMLMessage
+        <MemoizedFormattedMessage
           defaultMessage="We'll <b>delete their personal data</b>, such as their full name and email address, from Atlassian account services within 30 days, except in a few cases where required for legitimate business or legal purposes. "
           description="A paragraph explaining what parts of the user's personal data will be deleted"
           id="focused-task-close-account.delete-account.overview.paragraph.personal-data-will-be-deleted.admin"
-          values={Object {}}
         />
         <styled.span>
           <StatefulInlineDialog
             content={
               <styled.div>
-                <FormattedMessage
+                <Memo(MemoizedFormattedMessage)
                   defaultMessage="We keep personal data for limited periods when we have legitimate business or legal purposes. Some examples include:"
                   description="Text elaborating on the note that some personal data is required to be saved from deletion for legal purposes."
                   id="focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p1.admin"
                   tagName="p"
-                  values={Object {}}
                 />
-                <FormattedMessage
+                <Memo(MemoizedFormattedMessage)
                   defaultMessage="Information related to purchases, which we're required to keep for financial reporting."
                   description="Text elaborating on the note that some personal data is required to be saved from deletion for legal purposes."
                   id="focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.li1.admin"
                   tagName="li"
-                  values={Object {}}
                 />
-                <FormattedMessage
+                <Memo(MemoizedFormattedMessage)
                   defaultMessage="Records showing that we deleted someone's account, which we may need to provide to regulators."
                   description="Text elaborating on the note that some personal data is required to be saved from deletion for legal purposes."
                   id="focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.li2.admin"
                   tagName="li"
-                  values={Object {}}
                 />
-                <FormattedMessage
+                <Memo(MemoizedFormattedMessage)
                   defaultMessage="Data that's part of an active lawsuit, which we're required to keep by law."
                   description="Text elaborating on the note that some personal data is required to be saved from deletion for legal purposes."
                   id="focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.li3.admin"
                   tagName="li"
-                  values={Object {}}
                 />
-                <FormattedMessage
+                <Memo(MemoizedFormattedMessage)
                   defaultMessage="We don’t delete any personal data from content created by users, such as names or email addresses they typed in a page or issue. The product admins need to delete that data manually."
                   description="Text elaborating on the note that some personal data is required to be saved from deletion for legal purposes."
                   id="focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p2.admin"
                   tagName="p"
-                  values={Object {}}
                 />
-                <FormattedMessage
+                <Memo(MemoizedFormattedMessage)
                   defaultMessage="Users have the right to submit complaints to the supervisory authority in their country."
                   description="Text elaborating on the note that some personal data is required to be saved from deletion for legal purposes."
                   id="focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p3.admin"
                   tagName="p"
-                  values={Object {}}
                 />
               </styled.div>
             }
@@ -123,20 +113,18 @@ exports[`DeleteUserOverviewScreen 1`] = `
         </styled.span>
       </li>
       <li>
-        <FormattedMessage
+        <MemoizedFormattedMessage
           defaultMessage="We’ll email you a list of apps that may have stored their personal data."
           description="A note explaining that about apps storing personal data"
           id="focused-task-close-account.delete-account.overview.paragraph.list-of-apps-with-personal-data.admin"
-          values={Object {}}
         />
         <styled.span>
           <StatefulInlineDialog
             content={
-              <FormattedMessage
+              <Memo(MemoizedFormattedMessage)
                 defaultMessage="You or other users may have installed apps that add features to Atlassian products. These apps may have stored the user’s profile information."
                 description="Text elaborating on the note about apps storing personal data"
                 id="focused-task-close-account.delete-account.overview.inline-dialog.data-apps.admin"
-                values={Object {}}
               />
             }
             placement="auto-start"
@@ -149,20 +137,18 @@ exports[`DeleteUserOverviewScreen 1`] = `
         </styled.span>
       </li>
       <li>
-        <FormattedMessage
+        <MemoizedFormattedMessage
           defaultMessage="The content they've created will remain in Atlassian account services."
           description="A paragraph explaining that although the user's details will be deleted, content they have created will remain."
           id="focused-task-close-account.delete-account.overview.paragraph.content-created.admin"
-          values={Object {}}
         />
         <styled.span>
           <StatefulInlineDialog
             content={
-              <FormattedMessage
+              <Memo(MemoizedFormattedMessage)
                 defaultMessage="For example, pages, issues, and comments they've created in products."
                 description="Examples of what constitutes as created content. Appears when the user hovers over the info icon"
                 id="focused-task-close-account.delete-account.overview.inline-dialog.content-created.admin"
-                values={Object {}}
               />
             }
             placement="auto-start"
@@ -179,11 +165,10 @@ exports[`DeleteUserOverviewScreen 1`] = `
       <SectionMessage
         appearance="warning"
       >
-        <FormattedMessage
+        <MemoizedFormattedMessage
           defaultMessage="After a 14-day grace period, you won’t be able to cancel the deletion of the account. If you think you’ll need the account later, deactivate it instead."
           description="A warning message shown to users when they try to delete their account."
           id="focused-task-close-account.delete-account.overview.warning-section.body"
-          values={Object {}}
         />
         <p>
           <CustomThemeButton
@@ -191,37 +176,34 @@ exports[`DeleteUserOverviewScreen 1`] = `
             onClick={[Function]}
             spacing="none"
           >
-            <FormattedMessage
+            <MemoizedFormattedMessage
               defaultMessage="Deactivate account"
               description="Text that appears in a button, link or heading for the action of deactivating an account"
               id="focused-task-close-account.deactivate-account"
-              values={Object {}}
             />
           </CustomThemeButton>
         </p>
       </SectionMessage>
     </styled.div>
   </styled.div>
-</InjectIntl(MessagesIntlProvider)>
+</injectIntl(MessagesIntlProvider)>
 `;
 
 exports[`accessibleSites display text displayed is different when no accessibleSites prop is passed 1`] = `
-<InjectIntl(MessagesIntlProvider)>
+<injectIntl(MessagesIntlProvider)>
   <styled.div>
     <styled.div>
-      <FormattedMessage
+      <MemoizedFormattedMessage
         defaultMessage="Delete account"
         description="Heading for the screen that explains what happens when an admin deletes a user's account"
         id="focused-task-close-account.delete-account.overview.heading.admin"
-        values={Object {}}
       />
     </styled.div>
-    <FormattedMessage
+    <MemoizedFormattedMessage
       defaultMessage="You're about to delete the account of:"
       description="First line for the screen when the user is about to delete their own account"
       id="focused-task-close-account.delete-account.overview.first.line.admin"
       tagName="p"
-      values={Object {}}
     />
     <UserInfo
       user={
@@ -232,15 +214,14 @@ exports[`accessibleSites display text displayed is different when no accessibleS
         }
       }
     />
-    <FormattedMessage
+    <MemoizedFormattedMessage
       defaultMessage="When you delete the account:"
       description="A paragraph explaining that the admin is about to delete another user"
       id="focused-task-close-account.delete-account.overview.paragraph.about-to-delete.admin"
-      values={Object {}}
     />
     <styled.ul>
       <li>
-        <FormattedHTMLMessage
+        <MemoizedFormattedMessage
           defaultMessage="{fullName} will <b>immediately lose access</b> to all Atlassian account services. Currently, they don’t have access to any, except services like Community and Marketplace. "
           description="A paragraph explaining that upon deletion the user will lose access to certain services. The second sentence is to begin a list of services the user-to-be-deleted can currently access. {fullName} is filled in by the web app."
           id="focused-task-close-account.delete-account.overview.paragraph.loseAccess.admin.noSites"
@@ -252,57 +233,50 @@ exports[`accessibleSites display text displayed is different when no accessibleS
         />
       </li>
       <li>
-        <FormattedHTMLMessage
+        <MemoizedFormattedMessage
           defaultMessage="We'll <b>delete their personal data</b>, such as their full name and email address, from Atlassian account services within 30 days, except in a few cases where required for legitimate business or legal purposes. "
           description="A paragraph explaining what parts of the user's personal data will be deleted"
           id="focused-task-close-account.delete-account.overview.paragraph.personal-data-will-be-deleted.admin"
-          values={Object {}}
         />
         <styled.span>
           <StatefulInlineDialog
             content={
               <styled.div>
-                <FormattedMessage
+                <Memo(MemoizedFormattedMessage)
                   defaultMessage="We keep personal data for limited periods when we have legitimate business or legal purposes. Some examples include:"
                   description="Text elaborating on the note that some personal data is required to be saved from deletion for legal purposes."
                   id="focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p1.admin"
                   tagName="p"
-                  values={Object {}}
                 />
-                <FormattedMessage
+                <Memo(MemoizedFormattedMessage)
                   defaultMessage="Information related to purchases, which we're required to keep for financial reporting."
                   description="Text elaborating on the note that some personal data is required to be saved from deletion for legal purposes."
                   id="focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.li1.admin"
                   tagName="li"
-                  values={Object {}}
                 />
-                <FormattedMessage
+                <Memo(MemoizedFormattedMessage)
                   defaultMessage="Records showing that we deleted someone's account, which we may need to provide to regulators."
                   description="Text elaborating on the note that some personal data is required to be saved from deletion for legal purposes."
                   id="focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.li2.admin"
                   tagName="li"
-                  values={Object {}}
                 />
-                <FormattedMessage
+                <Memo(MemoizedFormattedMessage)
                   defaultMessage="Data that's part of an active lawsuit, which we're required to keep by law."
                   description="Text elaborating on the note that some personal data is required to be saved from deletion for legal purposes."
                   id="focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.li3.admin"
                   tagName="li"
-                  values={Object {}}
                 />
-                <FormattedMessage
+                <Memo(MemoizedFormattedMessage)
                   defaultMessage="We don’t delete any personal data from content created by users, such as names or email addresses they typed in a page or issue. The product admins need to delete that data manually."
                   description="Text elaborating on the note that some personal data is required to be saved from deletion for legal purposes."
                   id="focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p2.admin"
                   tagName="p"
-                  values={Object {}}
                 />
-                <FormattedMessage
+                <Memo(MemoizedFormattedMessage)
                   defaultMessage="Users have the right to submit complaints to the supervisory authority in their country."
                   description="Text elaborating on the note that some personal data is required to be saved from deletion for legal purposes."
                   id="focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p3.admin"
                   tagName="p"
-                  values={Object {}}
                 />
               </styled.div>
             }
@@ -316,20 +290,18 @@ exports[`accessibleSites display text displayed is different when no accessibleS
         </styled.span>
       </li>
       <li>
-        <FormattedMessage
+        <MemoizedFormattedMessage
           defaultMessage="We’ll email you a list of apps that may have stored their personal data."
           description="A note explaining that about apps storing personal data"
           id="focused-task-close-account.delete-account.overview.paragraph.list-of-apps-with-personal-data.admin"
-          values={Object {}}
         />
         <styled.span>
           <StatefulInlineDialog
             content={
-              <FormattedMessage
+              <Memo(MemoizedFormattedMessage)
                 defaultMessage="You or other users may have installed apps that add features to Atlassian products. These apps may have stored the user’s profile information."
                 description="Text elaborating on the note about apps storing personal data"
                 id="focused-task-close-account.delete-account.overview.inline-dialog.data-apps.admin"
-                values={Object {}}
               />
             }
             placement="auto-start"
@@ -342,20 +314,18 @@ exports[`accessibleSites display text displayed is different when no accessibleS
         </styled.span>
       </li>
       <li>
-        <FormattedMessage
+        <MemoizedFormattedMessage
           defaultMessage="The content they've created will remain in Atlassian account services."
           description="A paragraph explaining that although the user's details will be deleted, content they have created will remain."
           id="focused-task-close-account.delete-account.overview.paragraph.content-created.admin"
-          values={Object {}}
         />
         <styled.span>
           <StatefulInlineDialog
             content={
-              <FormattedMessage
+              <Memo(MemoizedFormattedMessage)
                 defaultMessage="For example, pages, issues, and comments they've created in products."
                 description="Examples of what constitutes as created content. Appears when the user hovers over the info icon"
                 id="focused-task-close-account.delete-account.overview.inline-dialog.content-created.admin"
-                values={Object {}}
               />
             }
             placement="auto-start"
@@ -372,11 +342,10 @@ exports[`accessibleSites display text displayed is different when no accessibleS
       <SectionMessage
         appearance="warning"
       >
-        <FormattedMessage
+        <MemoizedFormattedMessage
           defaultMessage="After a 14-day grace period, you won’t be able to cancel the deletion of the account. If you think you’ll need the account later, deactivate it instead."
           description="A warning message shown to users when they try to delete their account."
           id="focused-task-close-account.delete-account.overview.warning-section.body"
-          values={Object {}}
         />
         <p>
           <CustomThemeButton
@@ -384,37 +353,34 @@ exports[`accessibleSites display text displayed is different when no accessibleS
             onClick={[Function]}
             spacing="none"
           >
-            <FormattedMessage
+            <MemoizedFormattedMessage
               defaultMessage="Deactivate account"
               description="Text that appears in a button, link or heading for the action of deactivating an account"
               id="focused-task-close-account.deactivate-account"
-              values={Object {}}
             />
           </CustomThemeButton>
         </p>
       </SectionMessage>
     </styled.div>
   </styled.div>
-</InjectIntl(MessagesIntlProvider)>
+</injectIntl(MessagesIntlProvider)>
 `;
 
 exports[`accessibleSites display text displayed is different when no accessibleSites prop is passed for current user 1`] = `
-<InjectIntl(MessagesIntlProvider)>
+<injectIntl(MessagesIntlProvider)>
   <styled.div>
     <styled.div>
-      <FormattedMessage
+      <MemoizedFormattedMessage
         defaultMessage="Delete your account"
         description="Heading for the screen that explains what happens when a user's account is deleted"
         id="focused-task-close-account.delete-account.overview.heading.self"
-        values={Object {}}
       />
     </styled.div>
-    <FormattedMessage
+    <MemoizedFormattedMessage
       defaultMessage="You're about to delete your account:"
       description="First line for the screen when the admin is about to delete another user"
       id="focused-task-close-account.delete-account.overview.first.line.self"
       tagName="p"
-      values={Object {}}
     />
     <UserInfo
       user={
@@ -425,15 +391,14 @@ exports[`accessibleSites display text displayed is different when no accessibleS
         }
       }
     />
-    <FormattedMessage
+    <MemoizedFormattedMessage
       defaultMessage="When you delete your account:"
       description="A paragraph explaining that user is about to delete their own account"
       id="focused-task-close-account.delete-account.overview.paragraph.about-to-delete.self"
-      values={Object {}}
     />
     <styled.ul>
       <li>
-        <FormattedHTMLMessage
+        <MemoizedFormattedMessage
           defaultMessage="You'll <b>immediately lose access</b> to all Atlassian account services. Currently, you don’t have access to any, except services like Community and Marketplace."
           description="A paragraph explaining that upon deletion the user will lose access to certain services. The second sentence is to begin a list of services the user-to-be-deleted can currently access."
           id="focused-task-close-account.delete-account.overview.paragraph.loseAccess.self.noSites"
@@ -445,57 +410,50 @@ exports[`accessibleSites display text displayed is different when no accessibleS
         />
       </li>
       <li>
-        <FormattedHTMLMessage
+        <MemoizedFormattedMessage
           defaultMessage="We'll <b>delete your personal data</b>, such as your full name and email address, from Atlassian account services within 30 days, except in a few cases where required for legitimate business or legal purposes. "
           description="A paragraph explaining what parts of the user's personal data will be deleted"
           id="focused-task-close-account.delete-account.overview.paragraph.personal-data-will-be-deleted.self"
-          values={Object {}}
         />
         <styled.span>
           <StatefulInlineDialog
             content={
               <styled.div>
-                <FormattedMessage
+                <Memo(MemoizedFormattedMessage)
                   defaultMessage="We keep personal data for limited periods when we have legitimate business or legal purposes. Some examples include:"
                   description="Text elaborating on the note that some personal data is required to be saved from deletion for legal purposes."
                   id="focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p1.self"
                   tagName="p"
-                  values={Object {}}
                 />
-                <FormattedMessage
+                <Memo(MemoizedFormattedMessage)
                   defaultMessage="Information related to purchases, which we're required to keep for financial reporting."
                   description="Text elaborating on the note that some personal data is required to be saved from deletion for legal purposes."
                   id="focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.li1.self"
                   tagName="li"
-                  values={Object {}}
                 />
-                <FormattedMessage
+                <Memo(MemoizedFormattedMessage)
                   defaultMessage="Records showing that we deleted someone's account, which we may need to provide to regulators."
                   description="Text elaborating on the note that some personal data is required to be saved from deletion for legal purposes."
                   id="focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.li2.self"
                   tagName="li"
-                  values={Object {}}
                 />
-                <FormattedMessage
+                <Memo(MemoizedFormattedMessage)
                   defaultMessage="Data that's part of an active lawsuit, which we're required to keep by law."
                   description="Text elaborating on the note that some personal data is required to be saved from deletion for legal purposes."
                   id="focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.li3.self"
                   tagName="li"
-                  values={Object {}}
                 />
-                <FormattedMessage
+                <Memo(MemoizedFormattedMessage)
                   defaultMessage="We don't delete any personal data from content created by you or other people, such as names or email addresses typed into a page or issue. Your product admins need to delete that data manually."
                   description="Text elaborating on the note that some personal data is required to be saved from deletion for legal purposes."
                   id="focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p2.self"
                   tagName="p"
-                  values={Object {}}
                 />
-                <FormattedMessage
+                <Memo(MemoizedFormattedMessage)
                   defaultMessage="You have the right to submit complaints to the supervisory authority in your country."
                   description="Text elaborating on the note that some personal data is required to be saved from deletion for legal purposes."
                   id="focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p3.self"
                   tagName="p"
-                  values={Object {}}
                 />
               </styled.div>
             }
@@ -509,20 +467,18 @@ exports[`accessibleSites display text displayed is different when no accessibleS
         </styled.span>
       </li>
       <li>
-        <FormattedMessage
+        <MemoizedFormattedMessage
           defaultMessage="We’ll email you a list of apps that may have stored your personal data."
           description="A note explaining that about apps storing personal data"
           id="focused-task-close-account.delete-account.overview.paragraph.list-of-apps-with-personal-data.self"
-          values={Object {}}
         />
         <styled.span>
           <StatefulInlineDialog
             content={
-              <FormattedMessage
+              <Memo(MemoizedFormattedMessage)
                 defaultMessage="You or other users may have installed apps that add features to Atlassian products. These apps may have stored your profile information."
                 description="Text elaborating on the note about apps storing personal data"
                 id="focused-task-close-account.delete-account.overview.inline-dialog.data-apps.self"
-                values={Object {}}
               />
             }
             placement="auto-start"
@@ -535,20 +491,18 @@ exports[`accessibleSites display text displayed is different when no accessibleS
         </styled.span>
       </li>
       <li>
-        <FormattedMessage
+        <MemoizedFormattedMessage
           defaultMessage="The content you've created will remain in Atlassian account services."
           description="A paragraph explaining that although the user's details will be deleted, content they have created will remain."
           id="focused-task-close-account.delete-account.overview.paragraph.content-created.self"
-          values={Object {}}
         />
         <styled.span>
           <StatefulInlineDialog
             content={
-              <FormattedMessage
+              <Memo(MemoizedFormattedMessage)
                 defaultMessage="For example, pages, issues, and comments you've created in products."
                 description="Examples of what constitutes as created content. Appears when the user hovers over the info icon"
                 id="focused-task-close-account.delete-account.overview.inline-dialog.content-created.self"
-                values={Object {}}
               />
             }
             placement="auto-start"
@@ -565,11 +519,10 @@ exports[`accessibleSites display text displayed is different when no accessibleS
       <SectionMessage
         appearance="warning"
       >
-        <FormattedMessage
+        <MemoizedFormattedMessage
           defaultMessage="After a 14-day grace period, you won’t be able to cancel the deletion of the account. If you think you’ll need the account later, deactivate it instead."
           description="A warning message shown to users when they try to delete their account."
           id="focused-task-close-account.delete-account.overview.warning-section.body"
-          values={Object {}}
         />
         <p>
           <CustomThemeButton
@@ -577,37 +530,34 @@ exports[`accessibleSites display text displayed is different when no accessibleS
             onClick={[Function]}
             spacing="none"
           >
-            <FormattedMessage
+            <MemoizedFormattedMessage
               defaultMessage="Deactivate account"
               description="Text that appears in a button, link or heading for the action of deactivating an account"
               id="focused-task-close-account.deactivate-account"
-              values={Object {}}
             />
           </CustomThemeButton>
         </p>
       </SectionMessage>
     </styled.div>
   </styled.div>
-</InjectIntl(MessagesIntlProvider)>
+</injectIntl(MessagesIntlProvider)>
 `;
 
 exports[`deactivateUserHandler display warning section is not displayed if the deactivateUserHandler prop is not passed 1`] = `
-<InjectIntl(MessagesIntlProvider)>
+<injectIntl(MessagesIntlProvider)>
   <styled.div>
     <styled.div>
-      <FormattedMessage
+      <MemoizedFormattedMessage
         defaultMessage="Delete account"
         description="Heading for the screen that explains what happens when an admin deletes a user's account"
         id="focused-task-close-account.delete-account.overview.heading.admin"
-        values={Object {}}
       />
     </styled.div>
-    <FormattedMessage
+    <MemoizedFormattedMessage
       defaultMessage="You're about to delete the account of:"
       description="First line for the screen when the user is about to delete their own account"
       id="focused-task-close-account.delete-account.overview.first.line.admin"
       tagName="p"
-      values={Object {}}
     />
     <UserInfo
       user={
@@ -618,15 +568,14 @@ exports[`deactivateUserHandler display warning section is not displayed if the d
         }
       }
     />
-    <FormattedMessage
+    <MemoizedFormattedMessage
       defaultMessage="When you delete the account:"
       description="A paragraph explaining that the admin is about to delete another user"
       id="focused-task-close-account.delete-account.overview.paragraph.about-to-delete.admin"
-      values={Object {}}
     />
     <styled.ul>
       <li>
-        <FormattedHTMLMessage
+        <MemoizedFormattedMessage
           defaultMessage="{fullName} will <b>immediately lose access</b> to all Atlassian account services. They currently have access to: "
           description="A paragraph explaining that upon deletion the user will lose access to certain services. The second sentence is to begin a list of services the user-to-be-deleted can currently access. {fullName} is filled in by the web app."
           id="focused-task-close-account.delete-account.overview.paragraph.loseAccess.admin"
@@ -650,57 +599,50 @@ exports[`deactivateUserHandler display warning section is not displayed if the d
         />
       </li>
       <li>
-        <FormattedHTMLMessage
+        <MemoizedFormattedMessage
           defaultMessage="We'll <b>delete their personal data</b>, such as their full name and email address, from Atlassian account services within 30 days, except in a few cases where required for legitimate business or legal purposes. "
           description="A paragraph explaining what parts of the user's personal data will be deleted"
           id="focused-task-close-account.delete-account.overview.paragraph.personal-data-will-be-deleted.admin"
-          values={Object {}}
         />
         <styled.span>
           <StatefulInlineDialog
             content={
               <styled.div>
-                <FormattedMessage
+                <Memo(MemoizedFormattedMessage)
                   defaultMessage="We keep personal data for limited periods when we have legitimate business or legal purposes. Some examples include:"
                   description="Text elaborating on the note that some personal data is required to be saved from deletion for legal purposes."
                   id="focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p1.admin"
                   tagName="p"
-                  values={Object {}}
                 />
-                <FormattedMessage
+                <Memo(MemoizedFormattedMessage)
                   defaultMessage="Information related to purchases, which we're required to keep for financial reporting."
                   description="Text elaborating on the note that some personal data is required to be saved from deletion for legal purposes."
                   id="focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.li1.admin"
                   tagName="li"
-                  values={Object {}}
                 />
-                <FormattedMessage
+                <Memo(MemoizedFormattedMessage)
                   defaultMessage="Records showing that we deleted someone's account, which we may need to provide to regulators."
                   description="Text elaborating on the note that some personal data is required to be saved from deletion for legal purposes."
                   id="focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.li2.admin"
                   tagName="li"
-                  values={Object {}}
                 />
-                <FormattedMessage
+                <Memo(MemoizedFormattedMessage)
                   defaultMessage="Data that's part of an active lawsuit, which we're required to keep by law."
                   description="Text elaborating on the note that some personal data is required to be saved from deletion for legal purposes."
                   id="focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.li3.admin"
                   tagName="li"
-                  values={Object {}}
                 />
-                <FormattedMessage
+                <Memo(MemoizedFormattedMessage)
                   defaultMessage="We don’t delete any personal data from content created by users, such as names or email addresses they typed in a page or issue. The product admins need to delete that data manually."
                   description="Text elaborating on the note that some personal data is required to be saved from deletion for legal purposes."
                   id="focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p2.admin"
                   tagName="p"
-                  values={Object {}}
                 />
-                <FormattedMessage
+                <Memo(MemoizedFormattedMessage)
                   defaultMessage="Users have the right to submit complaints to the supervisory authority in their country."
                   description="Text elaborating on the note that some personal data is required to be saved from deletion for legal purposes."
                   id="focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p3.admin"
                   tagName="p"
-                  values={Object {}}
                 />
               </styled.div>
             }
@@ -714,20 +656,18 @@ exports[`deactivateUserHandler display warning section is not displayed if the d
         </styled.span>
       </li>
       <li>
-        <FormattedMessage
+        <MemoizedFormattedMessage
           defaultMessage="We’ll email you a list of apps that may have stored their personal data."
           description="A note explaining that about apps storing personal data"
           id="focused-task-close-account.delete-account.overview.paragraph.list-of-apps-with-personal-data.admin"
-          values={Object {}}
         />
         <styled.span>
           <StatefulInlineDialog
             content={
-              <FormattedMessage
+              <Memo(MemoizedFormattedMessage)
                 defaultMessage="You or other users may have installed apps that add features to Atlassian products. These apps may have stored the user’s profile information."
                 description="Text elaborating on the note about apps storing personal data"
                 id="focused-task-close-account.delete-account.overview.inline-dialog.data-apps.admin"
-                values={Object {}}
               />
             }
             placement="auto-start"
@@ -740,20 +680,18 @@ exports[`deactivateUserHandler display warning section is not displayed if the d
         </styled.span>
       </li>
       <li>
-        <FormattedMessage
+        <MemoizedFormattedMessage
           defaultMessage="The content they've created will remain in Atlassian account services."
           description="A paragraph explaining that although the user's details will be deleted, content they have created will remain."
           id="focused-task-close-account.delete-account.overview.paragraph.content-created.admin"
-          values={Object {}}
         />
         <styled.span>
           <StatefulInlineDialog
             content={
-              <FormattedMessage
+              <Memo(MemoizedFormattedMessage)
                 defaultMessage="For example, pages, issues, and comments they've created in products."
                 description="Examples of what constitutes as created content. Appears when the user hovers over the info icon"
                 id="focused-task-close-account.delete-account.overview.inline-dialog.content-created.admin"
-                values={Object {}}
               />
             }
             placement="auto-start"
@@ -767,26 +705,24 @@ exports[`deactivateUserHandler display warning section is not displayed if the d
       </li>
     </styled.ul>
   </styled.div>
-</InjectIntl(MessagesIntlProvider)>
+</injectIntl(MessagesIntlProvider)>
 `;
 
 exports[`delete screen display content is different when user is deactivated 1`] = `
-<InjectIntl(MessagesIntlProvider)>
+<injectIntl(MessagesIntlProvider)>
   <styled.div>
     <styled.div>
-      <FormattedMessage
+      <MemoizedFormattedMessage
         defaultMessage="Delete account"
         description="Heading for the screen that explains what happens when an admin deletes a user's account"
         id="focused-task-close-account.delete-account.overview.heading.admin"
-        values={Object {}}
       />
     </styled.div>
-    <FormattedMessage
+    <MemoizedFormattedMessage
       defaultMessage="You're about to delete the account of:"
       description="First line for the screen when the user is about to delete their own account"
       id="focused-task-close-account.delete-account.overview.first.line.admin"
       tagName="p"
-      values={Object {}}
     />
     <UserInfo
       user={
@@ -797,65 +733,57 @@ exports[`delete screen display content is different when user is deactivated 1`]
         }
       }
     />
-    <FormattedMessage
+    <MemoizedFormattedMessage
       defaultMessage="When you delete the account:"
       description="A paragraph explaining that the admin is about to delete another user"
       id="focused-task-close-account.delete-account.overview.paragraph.about-to-delete.admin"
-      values={Object {}}
     />
     <styled.ul>
       <li>
-        <FormattedHTMLMessage
+        <MemoizedFormattedMessage
           defaultMessage="We'll <b>delete their personal data</b>, such as their full name and email address, from Atlassian account services within 30 days, except in a few cases where required for legitimate business or legal purposes. "
           description="A paragraph explaining what parts of the user's personal data will be deleted"
           id="focused-task-close-account.delete-account.overview.paragraph.personal-data-will-be-deleted.admin"
-          values={Object {}}
         />
         <styled.span>
           <StatefulInlineDialog
             content={
               <styled.div>
-                <FormattedMessage
+                <Memo(MemoizedFormattedMessage)
                   defaultMessage="We keep personal data for limited periods when we have legitimate business or legal purposes. Some examples include:"
                   description="Text elaborating on the note that some personal data is required to be saved from deletion for legal purposes."
                   id="focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p1.admin"
                   tagName="p"
-                  values={Object {}}
                 />
-                <FormattedMessage
+                <Memo(MemoizedFormattedMessage)
                   defaultMessage="Information related to purchases, which we're required to keep for financial reporting."
                   description="Text elaborating on the note that some personal data is required to be saved from deletion for legal purposes."
                   id="focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.li1.admin"
                   tagName="li"
-                  values={Object {}}
                 />
-                <FormattedMessage
+                <Memo(MemoizedFormattedMessage)
                   defaultMessage="Records showing that we deleted someone's account, which we may need to provide to regulators."
                   description="Text elaborating on the note that some personal data is required to be saved from deletion for legal purposes."
                   id="focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.li2.admin"
                   tagName="li"
-                  values={Object {}}
                 />
-                <FormattedMessage
+                <Memo(MemoizedFormattedMessage)
                   defaultMessage="Data that's part of an active lawsuit, which we're required to keep by law."
                   description="Text elaborating on the note that some personal data is required to be saved from deletion for legal purposes."
                   id="focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.li3.admin"
                   tagName="li"
-                  values={Object {}}
                 />
-                <FormattedMessage
+                <Memo(MemoizedFormattedMessage)
                   defaultMessage="We don’t delete any personal data from content created by users, such as names or email addresses they typed in a page or issue. The product admins need to delete that data manually."
                   description="Text elaborating on the note that some personal data is required to be saved from deletion for legal purposes."
                   id="focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p2.admin"
                   tagName="p"
-                  values={Object {}}
                 />
-                <FormattedMessage
+                <Memo(MemoizedFormattedMessage)
                   defaultMessage="Users have the right to submit complaints to the supervisory authority in their country."
                   description="Text elaborating on the note that some personal data is required to be saved from deletion for legal purposes."
                   id="focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p3.admin"
                   tagName="p"
-                  values={Object {}}
                 />
               </styled.div>
             }
@@ -869,20 +797,18 @@ exports[`delete screen display content is different when user is deactivated 1`]
         </styled.span>
       </li>
       <li>
-        <FormattedMessage
+        <MemoizedFormattedMessage
           defaultMessage="We’ll email you a list of apps that may have stored their personal data."
           description="A note explaining that about apps storing personal data"
           id="focused-task-close-account.delete-account.overview.paragraph.list-of-apps-with-personal-data.admin"
-          values={Object {}}
         />
         <styled.span>
           <StatefulInlineDialog
             content={
-              <FormattedMessage
+              <Memo(MemoizedFormattedMessage)
                 defaultMessage="You or other users may have installed apps that add features to Atlassian products. These apps may have stored the user’s profile information."
                 description="Text elaborating on the note about apps storing personal data"
                 id="focused-task-close-account.delete-account.overview.inline-dialog.data-apps.admin"
-                values={Object {}}
               />
             }
             placement="auto-start"
@@ -895,20 +821,18 @@ exports[`delete screen display content is different when user is deactivated 1`]
         </styled.span>
       </li>
       <li>
-        <FormattedMessage
+        <MemoizedFormattedMessage
           defaultMessage="The content they've created will remain in Atlassian account services."
           description="A paragraph explaining that although the user's details will be deleted, content they have created will remain."
           id="focused-task-close-account.delete-account.overview.paragraph.content-created.admin"
-          values={Object {}}
         />
         <styled.span>
           <StatefulInlineDialog
             content={
-              <FormattedMessage
+              <Memo(MemoizedFormattedMessage)
                 defaultMessage="For example, pages, issues, and comments they've created in products."
                 description="Examples of what constitutes as created content. Appears when the user hovers over the info icon"
                 id="focused-task-close-account.delete-account.overview.inline-dialog.content-created.admin"
-                values={Object {}}
               />
             }
             placement="auto-start"
@@ -925,14 +849,13 @@ exports[`delete screen display content is different when user is deactivated 1`]
       <SectionMessage
         appearance="warning"
       >
-        <FormattedMessage
+        <MemoizedFormattedMessage
           defaultMessage="After a 14-day grace period, you won’t be able to cancel the deletion of the account."
           description="A warning message shown to deactivated users when they try to delete their account."
           id="focused-task-close-account.delete-account.overview.warning-section.deactivated.body"
-          values={Object {}}
         />
       </SectionMessage>
     </styled.div>
   </styled.div>
-</InjectIntl(MessagesIntlProvider)>
+</injectIntl(MessagesIntlProvider)>
 `;

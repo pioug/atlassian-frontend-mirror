@@ -1,4 +1,4 @@
-import { shallowWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { shallowWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
 import { ShallowWrapper } from 'enzyme';
 import React from 'react';
 import Color from '../../../../components/internal/color';

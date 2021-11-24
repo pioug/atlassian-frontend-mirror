@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import { Transition } from 'react-transition-group';
 import Select from '@atlaskit/select';
-import { injectIntl, InjectedIntlProps } from 'react-intl';
+import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 
 import { VIEW } from '../../constants';
 
@@ -42,7 +42,7 @@ const transitionStyles: {
   exited: { opacity: 0, visibility: 'hidden' },
 };
 
-export const WhatsNewResults: React.FC<InjectedIntlProps> = ({
+export const WhatsNewResults: React.FC<WrappedComponentProps> = ({
   intl: { formatMessage },
 }) => {
   const { view: helpContextView } = useNavigationContext();
@@ -106,73 +106,7 @@ export const WhatsNewResults: React.FC<InjectedIntlProps> = ({
             ...transitionStyles[state],
           }}
         >
-          {searchWhatsNewArticlesState !== REQUEST_STATE.error && (
-            <SelectContainer>
-              <Select
-                defaultValue={selectedOption}
-                className="single-select"
-                classNamePrefix="react-select"
-                options={[
-                  {
-                    value: '',
-                    label: formatMessage(
-                      messages.help_whats_new_filter_select_option_all,
-                    ),
-                  },
-                  {
-                    value: WHATS_NEW_ITEM_TYPES.NEW_FEATURE,
-                    label: formatMessage(
-                      messages.help_whats_new_filter_select_option_new,
-                    ),
-                  },
-                  {
-                    label: formatMessage(
-                      messages.help_whats_new_filter_select_option_improvement,
-                    ),
-                    value: WHATS_NEW_ITEM_TYPES.IMPROVEMENT,
-                  },
-                  {
-                    label: formatMessage(
-                      messages.help_whats_new_filter_select_option_fix,
-                    ),
-                    value: WHATS_NEW_ITEM_TYPES.FIX,
-                  },
-                  {
-                    label: formatMessage(
-                      messages.help_whats_new_filter_select_option_removed,
-                    ),
-                    value: WHATS_NEW_ITEM_TYPES.REMOVED,
-                  },
-                  {
-                    label: formatMessage(
-                      messages.help_whats_new_filter_select_option_experiment,
-                    ),
-                    value: WHATS_NEW_ITEM_TYPES.EXPERIMENT,
-                  },
-                ]}
-                value={selectedOption}
-                onChange={(option) => {
-                  if (onSearchWhatsNewArticles) {
-                    const selectedOptionValue = (option as { value: string })
-                      .value as WHATS_NEW_ITEM_TYPES | '';
-                    const selectedOptionLabel = (option as { label: string })
-                      .label as string;
-                    setSelectedOption({
-                      value: selectedOptionValue,
-                      label: selectedOptionLabel,
-                    });
-                    onSearchWhatsNewArticles(
-                      selectedOptionValue,
-                      NUMBER_OF_WHATS_NEW_ITEMS_PER_PAGE,
-                      '',
-                    );
-                  }
-                }}
-              />
-            </SelectContainer>
-          )}
-
-          <WhatsNewResultsListContainer>
+          <>
             {searchWhatsNewArticlesState === REQUEST_STATE.loading &&
               searchWhatsNewArticlesResult === null &&
               state !== 'exited' && <WhatsNewResultsLoading />}
@@ -181,27 +115,96 @@ export const WhatsNewResults: React.FC<InjectedIntlProps> = ({
               searchWhatsNewArticlesResult !== null &&
               state !== 'exited' && (
                 <>
-                  {searchWhatsNewArticlesResult.articles.length > 0 ? (
-                    <WhatsNewResultsList
-                      whatsNewArticles={searchWhatsNewArticlesResult.articles}
-                      onWhatsNewResultItemClick={onWhatsNewButtonClick}
-                      onShowMoreButtonClick={handleOnShowMoreButtonClick}
-                      hasNextPage={searchWhatsNewArticlesResult?.hasNextPage}
-                      nextPage={searchWhatsNewArticlesResult?.nextPage}
-                      loadingMore={
-                        searchWhatsNewArticlesState === REQUEST_STATE.loading
-                      }
+                  <SelectContainer>
+                    <Select
+                      defaultValue={selectedOption}
+                      className="single-select"
+                      classNamePrefix="react-select"
+                      options={[
+                        {
+                          value: '',
+                          label: formatMessage(
+                            messages.help_whats_new_filter_select_option_all,
+                          ),
+                        },
+                        {
+                          value: WHATS_NEW_ITEM_TYPES.NEW_FEATURE,
+                          label: formatMessage(
+                            messages.help_whats_new_filter_select_option_new,
+                          ),
+                        },
+                        {
+                          label: formatMessage(
+                            messages.help_whats_new_filter_select_option_improvement,
+                          ),
+                          value: WHATS_NEW_ITEM_TYPES.IMPROVEMENT,
+                        },
+                        {
+                          label: formatMessage(
+                            messages.help_whats_new_filter_select_option_fix,
+                          ),
+                          value: WHATS_NEW_ITEM_TYPES.FIX,
+                        },
+                        {
+                          label: formatMessage(
+                            messages.help_whats_new_filter_select_option_removed,
+                          ),
+                          value: WHATS_NEW_ITEM_TYPES.REMOVED,
+                        },
+                        {
+                          label: formatMessage(
+                            messages.help_whats_new_filter_select_option_experiment,
+                          ),
+                          value: WHATS_NEW_ITEM_TYPES.EXPERIMENT,
+                        },
+                      ]}
+                      value={selectedOption}
+                      onChange={(option) => {
+                        if (onSearchWhatsNewArticles) {
+                          const selectedOptionValue = (option as {
+                            value: string;
+                          }).value as WHATS_NEW_ITEM_TYPES | '';
+                          const selectedOptionLabel = (option as {
+                            label: string;
+                          }).label as string;
+                          setSelectedOption({
+                            value: selectedOptionValue,
+                            label: selectedOptionLabel,
+                          });
+                          onSearchWhatsNewArticles(
+                            selectedOptionValue,
+                            NUMBER_OF_WHATS_NEW_ITEMS_PER_PAGE,
+                            '',
+                          );
+                        }
+                      }}
                     />
-                  ) : (
-                    <WhatsNewResultsEmpty onClearFilter={handleOnClearFilter} />
-                  )}
+                  </SelectContainer>
+                  <WhatsNewResultsListContainer>
+                    {searchWhatsNewArticlesResult.articles.length > 0 ? (
+                      <WhatsNewResultsList
+                        whatsNewArticles={searchWhatsNewArticlesResult.articles}
+                        onWhatsNewResultItemClick={onWhatsNewButtonClick}
+                        onShowMoreButtonClick={handleOnShowMoreButtonClick}
+                        hasNextPage={searchWhatsNewArticlesResult?.hasNextPage}
+                        nextPage={searchWhatsNewArticlesResult?.nextPage}
+                        loadingMore={
+                          searchWhatsNewArticlesState === REQUEST_STATE.loading
+                        }
+                      />
+                    ) : (
+                      <WhatsNewResultsEmpty
+                        onClearFilter={handleOnClearFilter}
+                      />
+                    )}
+                  </WhatsNewResultsListContainer>
                 </>
               )}
 
             {searchWhatsNewArticlesState === REQUEST_STATE.error && (
               <WhatsNewResultsError onSearch={onSearchWhatsNewArticles} />
             )}
-          </WhatsNewResultsListContainer>
+          </>
         </WhatsNewResultsContainer>
       )}
     </Transition>

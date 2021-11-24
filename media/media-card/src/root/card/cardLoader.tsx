@@ -6,11 +6,11 @@ import type {
 import { useMemoizeFeatureFlags } from '@atlaskit/media-common';
 import Loadable from 'react-loadable';
 import { CardLoading } from '../..';
-import type { CardWithAnalyticsEventsProps } from '.';
+import type { CardBaseProps } from '.';
 import type { MediaCardAnalyticsErrorBoundaryProps } from '../media-card-analytics-error-boundary';
 
 export type CardWithMediaClientConfigProps = WithMediaClientConfigProps<
-  CardWithAnalyticsEventsProps
+  CardBaseProps
 >;
 
 const MediaCardContext = React.createContext({});
@@ -21,7 +21,7 @@ const CardLoadingWithContext: React.FC<{}> = () => {
 };
 
 const MediaCard = Loadable({
-  loader: (): Promise<React.ComponentType<CardWithAnalyticsEventsProps>> =>
+  loader: (): Promise<React.ComponentType<CardBaseProps>> =>
     import(
       /* webpackChunkName: "@atlaskit-internal_media-card" */ './index'
     ).then((mod) => mod.Card),

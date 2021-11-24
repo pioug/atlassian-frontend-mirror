@@ -158,8 +158,20 @@ export function taskItemNodeViewFactory(
   providerFactory: ProviderFactory,
 ) {
   return (node: any, view: any, getPos: getPosHandler): NodeView => {
-    return new Task(node, view, getPos, portalProviderAPI, eventDispatcher, {
-      providerFactory,
-    }).init();
+    const hasIntlContext = true;
+    return new Task(
+      node,
+      view,
+      getPos,
+      portalProviderAPI,
+      eventDispatcher,
+      {
+        providerFactory,
+      },
+      undefined,
+      undefined,
+      undefined,
+      hasIntlContext,
+    ).init();
   };
 }

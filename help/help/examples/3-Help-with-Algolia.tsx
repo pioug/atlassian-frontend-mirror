@@ -859,23 +859,23 @@ const Example: React.FC = () => {
                   >
                     <RelatedArticles
                       onRelatedArticlesListItemClick={(
-                        event,
-                        analytics,
-                        article,
+                        event: React.MouseEvent<HTMLElement, MouseEvent>,
+                        analytics: UIAnalyticsEvent,
+                        articleData: ArticleItem,
                       ) => {
                         console.log('onRelatedArticlesListItemClick');
                         console.log(event);
                         console.log(analytics);
-                        console.log(article);
+                        console.log(articleData);
                         articleIdSetter({
-                          id: article.id,
+                          id: articleData.id,
                           type: ARTICLE_TYPE.HELP_ARTICLE,
                         });
                       }}
                       onRelatedArticlesShowMoreClick={(
-                        event,
-                        analytics,
-                        isCollapsed,
+                        event: React.MouseEvent<HTMLElement, MouseEvent>,
+                        analytics: UIAnalyticsEvent,
+                        isCollapsed: boolean,
                       ) => {
                         console.log('onRelatedArticlesShowMoreClick');
                         console.log(event);

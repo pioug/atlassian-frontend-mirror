@@ -1,5 +1,5 @@
 import React from 'react';
-import { injectIntl, InjectedIntlProps } from 'react-intl';
+import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 
 import { messages } from '../../messages';
 
@@ -10,7 +10,7 @@ import {
   LoadignRelatedArticleListItem,
 } from './styled';
 
-const RelatedArticlesLoading: React.FC<InjectedIntlProps> = ({
+const RelatedArticlesLoading: React.FC<WrappedComponentProps> = ({
   intl: { formatMessage },
 }) => {
   return (

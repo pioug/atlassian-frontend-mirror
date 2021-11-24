@@ -9,12 +9,6 @@ import { FullPageEditor } from './page-objects/_media';
 
 const EDITOR_SELECTOR = selectors.editor;
 
-export async function loadLocale(page: WebdriverPage, locales: Array<string>) {
-  await page.executeAsync((locales, done) => {
-    (window as any).__loadReactIntlLocale(locales, done);
-  }, locales);
-}
-
 export async function mountEditor<T = EditorProps>(
   page: WebdriverPage,
   props: T,

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
 import { ReactWrapper } from 'enzyme';
 
 import { MediaType } from '@atlaskit/media-client';
@@ -25,7 +25,7 @@ import {
   LinkToolbarAppearance,
   LinkingToolbarProps,
 } from '../../../toolbar/linking-toolbar-appearance';
-import { IntlProvider } from 'react-intl';
+import { createIntl } from 'react-intl-next';
 import { EditorState, NodeSelection } from 'prosemirror-state';
 
 const waitForStateUpdate = async () => {
@@ -69,10 +69,9 @@ const defaultDocNode = doc(
   ),
 )(defaultSchema);
 
-const intlProvider = new IntlProvider({
+const intl = createIntl({
   locale: 'en',
 });
-const intl = intlProvider.getChildContext().intl;
 let editorState: EditorState;
 
 const setup = async (

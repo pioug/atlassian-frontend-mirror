@@ -1,7 +1,7 @@
 import React, { useCallback, useRef } from 'react';
 
 import { Node as PMNode } from 'prosemirror-model';
-import { InjectedIntlProps, injectIntl } from 'react-intl';
+import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 import styled from 'styled-components';
 
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
@@ -38,7 +38,7 @@ export interface Props {
   dispatchAnalyticsEvent?: (payload: UnsupportedContentTooltipPayload) => void;
 }
 
-const UnsupportedInlineNode: React.FC<Props & InjectedIntlProps> = ({
+const UnsupportedInlineNode: React.FC<Props & WrappedComponentProps> = ({
   node,
   intl,
   dispatchAnalyticsEvent,

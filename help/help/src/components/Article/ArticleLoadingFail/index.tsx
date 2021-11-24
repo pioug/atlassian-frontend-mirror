@@ -1,6 +1,6 @@
 import React from 'react';
 import Button from '@atlaskit/button/custom-theme-button';
-import { injectIntl, InjectedIntlProps } from 'react-intl';
+import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 import {
   useAnalyticsEvents,
   UIAnalyticsEvent,
@@ -30,7 +30,7 @@ interface Props {
   ): void;
 }
 
-export const ArticleLoadingFail: React.FC<InjectedIntlProps & Props> = ({
+export const ArticleLoadingFail: React.FC<WrappedComponentProps & Props> = ({
   onTryAgainButtonClick,
   intl: { formatMessage },
 }) => {
@@ -62,7 +62,7 @@ export const ArticleLoadingFail: React.FC<InjectedIntlProps & Props> = ({
   );
 };
 
-const ArticleLoadingFailWithContext: React.FC<Props & InjectedIntlProps> = (
+const ArticleLoadingFailWithContext: React.FC<Props & WrappedComponentProps> = (
   props,
 ) => {
   return (

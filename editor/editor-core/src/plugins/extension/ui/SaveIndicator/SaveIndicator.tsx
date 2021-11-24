@@ -8,7 +8,7 @@ import React, {
 import styled from 'styled-components';
 import { G300, N0 } from '@atlaskit/theme/colors';
 import CheckCircleIcon from '@atlaskit/icon/glyph/check-circle';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl-next';
 import { SaveIndicatorProps } from './types';
 import { messages } from './messages';
 

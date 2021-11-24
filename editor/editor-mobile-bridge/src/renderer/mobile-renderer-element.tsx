@@ -43,7 +43,7 @@ import { useRendererReflowDetected } from './hooks/use-renderer-reflow-detected'
 import { withLegacyMobileMacros } from '@atlaskit/legacy-mobile-macros';
 
 import { withIntlProvider } from '../i18n/with-intl-provider';
-import { injectIntl, InjectedIntl } from 'react-intl';
+import { injectIntl, IntlShape } from 'react-intl-next';
 import { geti18NMessages } from './renderer-localisation-provider';
 import { withSystemTheme } from '../WithSystemTheme';
 import RendererBridgeImplementation from './native-to-web/implementation';
@@ -53,7 +53,7 @@ export interface MobileRendererProps extends RendererProps {
   disableMediaLinking?: boolean;
   document: string;
   emojiProvider: Promise<EmojiResource>;
-  intl: InjectedIntl;
+  intl: IntlShape;
   mediaProvider: Promise<MediaProviderType>;
   mentionProvider: Promise<MentionProvider>;
   rendererBridge: RendererBridgeImplementation;
@@ -84,7 +84,7 @@ type BasicRendererProps = {
   document: string;
   emojiProvider: Promise<EmojiResource>;
   extensionHandlers: ExtensionHandlers;
-  intl: InjectedIntl;
+  intl: IntlShape;
   mediaProvider: Promise<MediaProviderType>;
   mentionProvider: Promise<MentionProvider>;
   objectAri: string;

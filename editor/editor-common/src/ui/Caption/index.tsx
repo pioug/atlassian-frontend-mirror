@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { InjectedIntlProps, injectIntl } from 'react-intl';
+import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 import styled from 'styled-components';
 
 import { N200, N400 } from '@atlaskit/theme/colors';
@@ -31,7 +31,7 @@ type Props = {
 };
 
 export class CaptionComponent extends React.Component<
-  Props & InjectedIntlProps
+  Props & WrappedComponentProps
 > {
   render() {
     const {

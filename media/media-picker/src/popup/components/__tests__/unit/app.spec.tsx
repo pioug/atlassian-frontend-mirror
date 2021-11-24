@@ -1,12 +1,14 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import { createStore, applyMiddleware, Middleware } from 'redux';
 import { Store } from 'react-redux';
 import { MediaFeatureFlags } from '@atlaskit/media-common';
-import { fakeMediaClient } from '@atlaskit/media-test-helpers';
 import {
+  fakeMediaClient,
   getComponentClassWithStore,
   mockStore,
+  mountWithIntlWrapper,
+  mountWithIntlContext,
 } from '@atlaskit/media-test-helpers';
 import { State } from '../../../domain';
 import ConnectedApp, { App, AppDispatchProps } from '../../app';
@@ -150,7 +152,7 @@ describe('App', () => {
         hasError: true,
       },
     });
-    const appGoogle = mount(
+    const appGoogle = mountWithIntlContext(
       <App
         store={store}
         selectedItems={[]}
@@ -163,7 +165,7 @@ describe('App', () => {
       />,
     );
 
-    const appDropbox = mount(
+    const appDropbox = mountWithIntlContext(
       <App
         store={store}
         selectedItems={[]}
@@ -232,7 +234,7 @@ describe('App', () => {
         userAuthProvider: mediaClient.config.authProvider,
       });
 
-      const wrapper = mount(element);
+      const wrapper = mountWithIntlContext(element);
       const dropzone = wrapper.find(Dropzone);
       expect(JSON.stringify(dropzone.prop('mediaClient'))).toEqual(
         JSON.stringify(dropzoneMediaClient),
@@ -268,7 +270,7 @@ describe('App', () => {
           {...handlers}
         />
       );
-      const wrapper = mount(element);
+      const wrapper = mountWithIntlContext(element);
       const instance = wrapper.instance() as App;
 
       instance.onDragLeave({ length: 3 });
@@ -309,7 +311,7 @@ describe('App', () => {
       userAuthProvider: mediaClient.config.authProvider,
     });
 
-    const wrapper = mount(element);
+    const wrapper = mountWithIntlContext(element);
     expect(wrapper.find(MediaPickerBrowser)).toHaveLength(1);
 
     const browser = wrapper.find(MediaPickerBrowser);
@@ -356,7 +358,7 @@ describe('App', () => {
       userAuthProvider: mediaClient.config.authProvider,
     });
 
-    const wrapper = mount(element);
+    const wrapper = mountWithIntlContext(element);
     expect(wrapper.find(MediaPickerClipboard)).toHaveLength(1);
 
     const clipboard = wrapper.find(MediaPickerClipboard);
@@ -407,7 +409,6 @@ describe('Connected App', () => {
   const setup = (
     featureFlags?: MediaFeatureFlags,
     store: Store<State> = mockStore(),
-    shallowMount = true,
   ) => {
     const dispatch = store.dispatch;
 
@@ -416,21 +417,12 @@ describe('Connected App', () => {
       ConnectedApp,
     ) as any;
 
-    const component = (shallowMount
-      ? shallow(
-          <ConnectedAppWithStore
-            store={store}
-            tenantUploadParams={tenantUploadParams}
-            featureFlags={featureFlags}
-          />,
-        )
-      : mount(
-          <ConnectedAppWithStore
-            store={store}
-            tenantUploadParams={tenantUploadParams}
-            featureFlags={featureFlags}
-          />,
-        )
+    const component = mountWithIntlWrapper(
+      <ConnectedAppWithStore
+        store={store}
+        tenantUploadParams={tenantUploadParams}
+        featureFlags={featureFlags}
+      />,
     ).find(App);
 
     return { dispatch, component };
@@ -450,6 +442,7 @@ describe('Connected App', () => {
         },
       ],
     };
+
     component.props().onUploadsStart(payload);
 
     expect(dispatch).toHaveBeenCalledWith(
@@ -498,7 +491,7 @@ describe('Connected App', () => {
       applyMiddleware(analyticsProcessing as Middleware),
     );
 
-    const { component } = setup(someFeatureFlags, store, false);
+    const { component } = setup(someFeatureFlags, store);
 
     component.find(LocalBrowserButton).simulate('click');
     expect(handler).toHaveBeenCalledWith(

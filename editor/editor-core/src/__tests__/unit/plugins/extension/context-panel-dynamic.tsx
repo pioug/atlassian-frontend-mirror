@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount, ReactWrapper } from 'enzyme';
-import { IntlProvider } from 'react-intl';
+import { IntlProvider } from 'react-intl-next';
 
 import { Parameters } from '@atlaskit/editor-common';
 import {

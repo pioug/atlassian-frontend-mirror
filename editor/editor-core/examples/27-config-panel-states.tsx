@@ -1,5 +1,4 @@
 import React from 'react';
-import { IntlProvider } from 'react-intl';
 import styled from 'styled-components';
 
 import {
@@ -13,6 +12,7 @@ import { N30 } from '@atlaskit/theme/colors';
 import { nativeFields } from '../example-helpers/config-panel/fields';
 
 import ConfigPanel from '../src/ui/ConfigPanel';
+import { IntlProvider } from 'react-intl-next';
 
 const Wrapper = styled.div`
   display: flex;
@@ -43,17 +43,15 @@ const createFakeContextPanel = (
     <ContextPanelWrapper>
       <h3>{props.title}</h3>
       <ContextPanel>
-        <IntlProvider locale="en-AU">
-          <ConfigPanel
-            showHeader
-            extensionProvider={extensionProvider}
-            extensionKey="examples"
-            extensionType="twp.editor.example"
-            nodeKey={props.nodeKey}
-            onChange={noop}
-            onCancel={noop}
-          />
-        </IntlProvider>
+        <ConfigPanel
+          showHeader
+          extensionProvider={extensionProvider}
+          extensionKey="examples"
+          extensionType="twp.editor.example"
+          nodeKey={props.nodeKey}
+          onChange={noop}
+          onCancel={noop}
+        />
       </ContextPanel>
     </ContextPanelWrapper>
   );
@@ -172,7 +170,7 @@ const noop = () => {};
 
 export default function Example() {
   return (
-    <>
+    <IntlProvider locale="en">
       <Wrapper>
         <FakeContextPanel nodeKey="loading" title="Loading state" />
         <FakeContextPanel nodeKey="error" title="Error state" />
@@ -203,6 +201,6 @@ export default function Example() {
           title="Missing description, summary and docs"
         />
       </Wrapper>
-    </>
+    </IntlProvider>
   );
 }

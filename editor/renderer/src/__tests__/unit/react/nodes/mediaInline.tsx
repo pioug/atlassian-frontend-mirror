@@ -1,8 +1,8 @@
 import React from 'react';
 import { MediaProvider, ProviderFactory } from '@atlaskit/editor-common';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
 import { ReactWrapper } from 'enzyme';
-import { InjectedIntlProps } from 'react-intl';
+import { WrappedComponentProps } from 'react-intl-next';
 import MediaInline, {
   MediaInlineProps,
   RenderMediaInline,
@@ -20,7 +20,7 @@ describe('MediaInline', () => {
 
   const mountMediaInline = (
     mediaInlineProps: MediaInlineProps,
-  ): ReactWrapper<InjectedIntlProps, any> => {
+  ): ReactWrapper<WrappedComponentProps, any> => {
     return mountWithIntl(<MediaInline {...mediaInlineProps} />);
   };
 

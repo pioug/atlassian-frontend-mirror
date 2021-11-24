@@ -8,7 +8,11 @@ import DropdownMenu, {
 } from '@atlaskit/dropdown-menu';
 import RefreshIcon from '@atlaskit/icon/glyph/refresh';
 import SettingsIcon from '@atlaskit/icon/glyph/settings';
-import { FormattedMessage, injectIntl, InjectedIntlProps } from 'react-intl';
+import {
+  FormattedMessage,
+  injectIntl,
+  WrappedComponentProps,
+} from 'react-intl-next';
 import { messages } from '@atlaskit/media-ui';
 import { startAuth } from '../../actions/startAuth';
 import { requestUnlinkCloudAccount } from '../../actions/unlinkCloudAccount';
@@ -64,7 +68,7 @@ export interface NavigationDispatchProps {
 
 export type NavigationProps = NavigationStateProps &
   NavigationDispatchProps &
-  InjectedIntlProps;
+  WrappedComponentProps;
 
 export interface NavigationState {
   readonly dropdownOpen: boolean;

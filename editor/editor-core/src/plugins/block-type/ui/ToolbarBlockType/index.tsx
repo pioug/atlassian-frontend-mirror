@@ -1,5 +1,5 @@
 import React from 'react';
-import { injectIntl, InjectedIntlProps } from 'react-intl';
+import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles';
 
 import DropdownMenu from '../../../../ui/DropdownMenu';
@@ -31,7 +31,7 @@ export interface State {
 }
 
 class ToolbarBlockType extends React.PureComponent<
-  Props & InjectedIntlProps,
+  Props & WrappedComponentProps,
   State
 > {
   state = {

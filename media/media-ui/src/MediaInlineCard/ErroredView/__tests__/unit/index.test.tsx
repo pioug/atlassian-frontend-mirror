@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { MediaInlineCardErroredView } from '../..';
-import { IntlProvider } from 'react-intl';
+import { IntlProvider } from 'react-intl-next';
 import WarningIcon from '@atlaskit/icon/glyph/warning';
 import ErrorIcon from '@atlaskit/icon/glyph/error';
 

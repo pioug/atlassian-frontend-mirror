@@ -1,8 +1,8 @@
 import { Plugin, NodeSelection } from 'prosemirror-state';
 import { codeBidiWarningMessages } from '@atlaskit/editor-common/messages';
 
+import { IntlShape } from 'react-intl-next';
 import type { EditorProps } from '../../../types';
-import { EditorReactContext } from '../../../types/editor-react-context';
 import { codeBlockNodeView } from '../nodeviews/code-block';
 import { highlightingCodeBlockNodeView } from '../nodeviews/highlighting-code-block';
 import { createSelectionClickHandler } from '../../selection/utils';
@@ -15,14 +15,14 @@ import { getFeatureFlags } from '../../feature-flags-context';
 
 export const createPlugin = ({
   useLongPressSelection = false,
-  reactContext,
+  getIntl,
   appearance,
 }: {
   useLongPressSelection?: boolean;
-  reactContext: () => EditorReactContext;
+  getIntl: () => IntlShape;
   appearance: EditorProps['appearance'];
 }) => {
-  const intl = reactContext().intl;
+  const intl = getIntl();
 
   const codeBidiWarningLabel = intl.formatMessage(
     codeBidiWarningMessages.label,

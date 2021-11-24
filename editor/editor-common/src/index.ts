@@ -253,6 +253,10 @@ export {
   MediaLink,
   wrappedLayouts,
   shouldAddDefaultWrappedWidth,
+  IntlNextErrorBoundary,
+  REACT_INTL_ERROR_MESSAGE,
+  IntlLegacyFallbackProvider,
+  LegacyToNextIntlProvider,
 } from './ui';
 // new child entry point ./ui/index.tsx
 export type {

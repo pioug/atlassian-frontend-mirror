@@ -1,6 +1,6 @@
 import React from 'react';
 import { EditorState } from 'prosemirror-state';
-import { InjectedIntl } from 'react-intl';
+import { IntlShape } from 'react-intl-next';
 import { ProviderFactory } from '@atlaskit/editor-common';
 
 import { FloatingToolbarConfig } from '../../floating-toolbar/types';
@@ -39,7 +39,7 @@ export const getLinkingToolbar = (
   toolbarBaseConfig: MediaToolbarBaseConfig,
   mediaLinkingState: MediaLinkingState,
   state: EditorState,
-  intl: InjectedIntl,
+  intl: IntlShape,
   providerFactory?: ProviderFactory,
 ): FloatingToolbarConfig | undefined => {
   const { link, visible, editable: editing, mediaPos } = mediaLinkingState;

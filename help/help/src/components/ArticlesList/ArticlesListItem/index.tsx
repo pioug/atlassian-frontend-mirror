@@ -6,7 +6,7 @@ import {
   AnalyticsContext,
 } from '@atlaskit/analytics-next';
 import ShortcutIcon from '@atlaskit/icon/glyph/shortcut';
-import { injectIntl, InjectedIntlProps } from 'react-intl';
+import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 
 import {
   name as packageName,
@@ -49,7 +49,7 @@ export const getTypeTitle = (itemType?: ARTICLE_ITEM_TYPES) => {
 };
 
 export const ArticlesListItem: React.FC<
-  Props & Partial<ArticleItem> & InjectedIntlProps
+  Props & Partial<ArticleItem> & WrappedComponentProps
 > = ({
   intl: { formatMessage },
   styles,
@@ -105,7 +105,7 @@ export const ArticlesListItem: React.FC<
 };
 
 const ArticlesListItemWithContext: React.FC<
-  Props & Partial<ArticleItem> & InjectedIntlProps
+  Props & Partial<ArticleItem> & WrappedComponentProps
 > = (props) => {
   return (
     <AnalyticsContext data={ANALYTICS_CONTEXT_DATA}>

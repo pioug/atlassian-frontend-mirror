@@ -6,6 +6,7 @@ import { loggedUser } from '@atlaskit/util-data-test/logged-user';
 
 import { lorem } from '../example-helpers';
 import { EmojiProvider } from '../src/resource';
+import { IntlProvider } from 'react-intl-next';
 
 export interface EmojiProps {}
 
@@ -23,13 +24,15 @@ export default class EmojiUploaderWithUpload extends React.Component<
       currentUser: { id: loggedUser },
     });
     return (
-      <div style={{ padding: '10px' }}>
-        <EmojiUploader emojiProvider={emojiProvider} />
-        <p style={{ width: '400px' }}>
-          {lorem}
-          {lorem}
-        </p>
-      </div>
+      <IntlProvider locale="en">
+        <div style={{ padding: '10px' }}>
+          <EmojiUploader emojiProvider={emojiProvider} />
+          <p style={{ width: '400px' }}>
+            {lorem}
+            {lorem}
+          </p>
+        </div>
+      </IntlProvider>
     );
   }
 }

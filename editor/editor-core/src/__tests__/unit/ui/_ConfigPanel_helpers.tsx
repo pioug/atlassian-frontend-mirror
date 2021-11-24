@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount, ReactWrapper } from 'enzyme';
-import { IntlProvider } from 'react-intl';
+import { IntlProvider } from 'react-intl-next';
 import retry from 'async-retry';
 import merge from 'lodash/merge';
 

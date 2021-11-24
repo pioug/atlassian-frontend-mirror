@@ -1,5 +1,5 @@
 import React from 'react';
-import { defineMessages, InjectedIntl } from 'react-intl';
+import { defineMessages, IntlShape } from 'react-intl-next';
 import { EditorView } from 'prosemirror-view';
 import { EditorState } from 'prosemirror-state';
 import { NodeType } from 'prosemirror-model';
@@ -193,7 +193,7 @@ const calculateToolbarPositionTrackHead = (toolbarTitle: string) => (
 
 export const buildToolbar = (
   state: EditorState,
-  intl: InjectedIntl,
+  intl: IntlShape,
   isToolbarAbove: boolean = false,
 ): FloatingToolbarConfig | undefined => {
   const { schema } = state;

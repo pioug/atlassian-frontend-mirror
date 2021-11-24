@@ -1,5 +1,5 @@
 import React from 'react';
-import { injectIntl, InjectedIntlProps } from 'react-intl';
+import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 import {
   useAnalyticsEvents,
   UIAnalyticsEvent,
@@ -31,7 +31,7 @@ interface Props {
  *
  * @param onClick - Function executed when the close btn is clicked
  */
-export const CloseButton: React.FC<Props & InjectedIntlProps> = ({
+export const CloseButton: React.FC<Props & WrappedComponentProps> = ({
   onClick,
   intl: { formatMessage },
 }) => {
@@ -69,7 +69,9 @@ export const CloseButton: React.FC<Props & InjectedIntlProps> = ({
   );
 };
 
-const CloseButtonWithContext: React.FC<Props & InjectedIntlProps> = (props) => {
+const CloseButtonWithContext: React.FC<Props & WrappedComponentProps> = (
+  props,
+) => {
   return (
     <AnalyticsContext
       data={{

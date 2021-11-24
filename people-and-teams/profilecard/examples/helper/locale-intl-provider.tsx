@@ -1,9 +1,6 @@
 import React from 'react';
 
-import { addLocaleData, IntlProvider } from 'react-intl';
-import * as en from 'react-intl/locale-data/en';
-
-addLocaleData(en);
+import { IntlProvider } from 'react-intl-next';
 
 type Props = {
   locale?: string;

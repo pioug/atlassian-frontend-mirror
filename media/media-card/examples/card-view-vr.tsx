@@ -5,7 +5,7 @@ import { CardStatus } from '../src';
 import { CardView } from '../src/root/cardView';
 import { FileDetails, MediaType } from '@atlaskit/media-client';
 import { tallImage, wideTransparentImage } from '@atlaskit/media-test-helpers';
-import { IntlProvider } from 'react-intl';
+import { IntlProvider } from 'react-intl-next';
 import { mediaCardErrorState } from '../example-helpers';
 
 type WrapperDimensions = {

@@ -4,7 +4,7 @@ import { PluginKey } from 'prosemirror-state';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { createMockCollabEditProvider } from '@atlaskit/synchrony-test-helpers';
 import { doc, p, DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
 import {
   createProsemirrorEditorFactory,
   LightEditorPlugin,

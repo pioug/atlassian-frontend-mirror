@@ -14,14 +14,20 @@ import {
   ACTION_SUBJECT_ID,
   EVENT_TYPE,
 } from '../../plugins/analytics/types/enums';
+import {
+  injectIntl,
+  IntlShape,
+  RawIntlProvider,
+  WrappedComponentProps,
+} from 'react-intl-next';
 
-export type PortalProviderProps = {
+export type BasePortalProviderProps = {
   render: (
     portalProviderAPI: PortalProviderAPI,
   ) => React.ReactChild | JSX.Element | null;
   onAnalyticsEvent?: FireAnalyticsCallback;
   useAnalyticsContext?: boolean;
-};
+} & WrappedComponentProps;
 
 export type Portals = Map<HTMLElement, React.ReactChild>;
 
@@ -31,20 +37,24 @@ export type PortalRendererState = {
 
 type MountedPortal = {
   children: () => React.ReactChild | null;
-  hasReactContext: boolean;
+  hasAnalyticsContext: boolean;
+  hasIntlContext: boolean;
 };
 
 export class PortalProviderAPI extends EventDispatcher {
   portals: Map<HTMLElement, MountedPortal> = new Map();
   context: any;
+  intl: IntlShape;
   onAnalyticsEvent?: FireAnalyticsCallback;
   useAnalyticsContext?: boolean;
 
   constructor(
+    intl: IntlShape,
     onAnalyticsEvent?: FireAnalyticsCallback,
     analyticsContext?: boolean,
   ) {
     super();
+    this.intl = intl;
     this.onAnalyticsEvent = onAnalyticsEvent;
     this.useAnalyticsContext = analyticsContext;
   }
@@ -56,14 +66,24 @@ export class PortalProviderAPI extends EventDispatcher {
   render(
     children: () => React.ReactChild | JSX.Element | null,
     container: HTMLElement,
-    hasReactContext: boolean = false,
+    hasAnalyticsContext: boolean = false,
+    hasIntlContext: boolean = false,
   ) {
-    this.portals.set(container, { children, hasReactContext });
-    const wrappedChildren = this.useAnalyticsContext ? (
+    this.portals.set(container, {
+      children,
+      hasAnalyticsContext,
+      hasIntlContext,
+    });
+    let wrappedChildren = this.useAnalyticsContext ? (
       <AnalyticsContextWrapper>{children()}</AnalyticsContextWrapper>
     ) : (
       (children() as JSX.Element)
     );
+    if (hasIntlContext) {
+      wrappedChildren = (
+        <RawIntlProvider value={this.intl}>{wrappedChildren}</RawIntlProvider>
+      );
+    }
     unstable_renderSubtreeIntoContainer(
       this.context,
       wrappedChildren,
@@ -73,18 +93,32 @@ export class PortalProviderAPI extends EventDispatcher {
 
   // TODO: until https://product-fabric.atlassian.net/browse/ED-5013
   // we (unfortunately) need to re-render to pass down any updated context.
-  // selectively do this for nodeviews that opt-in via `hasReactContext`
-  forceUpdate() {
+  // selectively do this for nodeviews that opt-in via `hasAnalyticsContext`
+  forceUpdate({ intl }: { intl: IntlShape }) {
+    this.intl = intl;
+
     this.portals.forEach((portal, container) => {
-      if (!portal.hasReactContext && !this.useAnalyticsContext) {
+      if (
+        !portal.hasAnalyticsContext &&
+        !this.useAnalyticsContext &&
+        !portal.hasIntlContext
+      ) {
         return;
       }
 
-      const wrappedChildren = this.useAnalyticsContext ? (
-        <AnalyticsContextWrapper>{portal.children()}</AnalyticsContextWrapper>
-      ) : (
-        (portal.children() as JSX.Element)
-      );
+      let wrappedChildren = portal.children() as JSX.Element;
+
+      if (portal.hasAnalyticsContext && this.useAnalyticsContext) {
+        wrappedChildren = (
+          <AnalyticsContextWrapper>{wrappedChildren}</AnalyticsContextWrapper>
+        );
+      }
+
+      if (portal.hasIntlContext) {
+        wrappedChildren = (
+          <RawIntlProvider value={this.intl}>{wrappedChildren}</RawIntlProvider>
+        );
+      }
 
       unstable_renderSubtreeIntoContainer(
         this.context,
@@ -129,14 +163,15 @@ export class PortalProviderAPI extends EventDispatcher {
   }
 }
 
-export class PortalProvider extends React.Component<PortalProviderProps> {
+class BasePortalProvider extends React.Component<BasePortalProviderProps> {
   static displayName = 'PortalProvider';
 
   portalProviderAPI: PortalProviderAPI;
 
-  constructor(props: PortalProviderProps) {
+  constructor(props: BasePortalProviderProps) {
     super(props);
     this.portalProviderAPI = new PortalProviderAPI(
+      props.intl,
       props.onAnalyticsEvent,
       props.useAnalyticsContext,
     );
@@ -147,9 +182,11 @@ export class PortalProvider extends React.Component<PortalProviderProps> {
   }
 
   componentDidUpdate() {
-    this.portalProviderAPI.forceUpdate();
+    this.portalProviderAPI.forceUpdate({ intl: this.props.intl });
   }
 }
+
+export const PortalProvider = injectIntl(BasePortalProvider);
 
 export class PortalRenderer extends React.Component<
   { portalProviderAPI: PortalProviderAPI },

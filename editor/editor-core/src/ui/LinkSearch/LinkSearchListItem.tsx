@@ -12,7 +12,7 @@ import differenceInCalendarDays from 'date-fns/differenceInCalendarDays';
 import format from 'date-fns/format';
 import { getCorrectAltByIconUrl } from './listItemAlts';
 
-import { injectIntl, InjectedIntlProps } from 'react-intl';
+import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 import messages from '../../messages';
 
 interface ContainerProps {
@@ -66,7 +66,7 @@ export interface Props {
 }
 
 class LinkSearchListItem extends React.PureComponent<
-  Props & InjectedIntlProps,
+  Props & WrappedComponentProps,
   {}
 > {
   handleSelect = (e: React.MouseEvent) => {

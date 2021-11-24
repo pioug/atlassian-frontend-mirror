@@ -1,7 +1,7 @@
 import React from 'react';
 
 import * as colors from '@atlaskit/theme/colors';
-import { injectIntl, InjectedIntlProps } from 'react-intl';
+import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 import { EditorView } from 'prosemirror-view';
 import { Node as PMNode } from 'prosemirror-model';
 import { findParentDomRefOfType, findDomRefAtPos } from 'prosemirror-utils';
@@ -90,7 +90,7 @@ function getBreakoutNodeElement(
   )(selection) as HTMLElement;
 }
 
-class LayoutButton extends React.Component<Props & InjectedIntlProps, {}> {
+class LayoutButton extends React.Component<Props & WrappedComponentProps, {}> {
   static displayName = 'LayoutButton';
 
   private handleClick = (breakoutMode: BreakoutMode) => () => {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, act } from '@testing-library/react';
-import { IntlProvider } from 'react-intl';
+import { IntlProvider } from 'react-intl-next';
 import { SaveIndicator } from './SaveIndicator';
 import { SaveIndicatorProps } from './types';
 

@@ -5,6 +5,7 @@ import { getEmojiResourceWithStandardAndAtlassianEmojis } from '@atlaskit/util-d
 import { loggedUser } from '@atlaskit/util-data-test/logged-user';
 import { onSelection } from '../example-helpers';
 import { EmojiProvider } from '../src/resource';
+import { IntlProvider } from 'react-intl-next';
 
 export interface EmojiState {
   siteEmojiEnabled: boolean;
@@ -39,16 +40,21 @@ export default class EmojiPickerWithUpload extends React.Component<
             currentUser: { id: loggedUser },
           });
     return (
-      <div style={{ padding: '10px' }}>
-        <EmojiPicker emojiProvider={emojiProvider} onSelection={onSelection} />
+      <IntlProvider locale="en">
+        <div style={{ padding: '10px' }}>
+          <EmojiPicker
+            emojiProvider={emojiProvider}
+            onSelection={onSelection}
+          />
 
-        <button onClick={() => this.enableSiteEmoji(true)}>
-          EmojiProvider with Site emoji
-        </button>
-        <button onClick={() => this.enableSiteEmoji(false)}>
-          EmojiProvider without Site emoji
-        </button>
-      </div>
+          <button onClick={() => this.enableSiteEmoji(true)}>
+            EmojiProvider with Site emoji
+          </button>
+          <button onClick={() => this.enableSiteEmoji(false)}>
+            EmojiProvider without Site emoji
+          </button>
+        </div>
+      </IntlProvider>
     );
   }
 }

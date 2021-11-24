@@ -1,6 +1,6 @@
 import React from 'react';
 import RendererDemo from './helper/RendererDemo';
-import { IntlProvider } from 'react-intl';
+import { IntlProvider } from 'react-intl-next';
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema';
 import { exampleDocument } from './helper/example-doc-with-custom-panels';
 

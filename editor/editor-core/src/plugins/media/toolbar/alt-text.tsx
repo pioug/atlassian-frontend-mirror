@@ -1,5 +1,5 @@
 import React from 'react';
-import { InjectedIntl } from 'react-intl';
+import { IntlShape } from 'react-intl-next';
 import { EditorView } from 'prosemirror-view';
 import {
   FloatingToolbarButton,
@@ -18,7 +18,7 @@ import { EditorState } from 'prosemirror-state';
 import { ClassNames } from '../pm-plugins/alt-text/style';
 
 export const altTextButton = (
-  intl: InjectedIntl,
+  intl: IntlShape,
   state: EditorState,
 ): FloatingToolbarButton<Command> => {
   const mediaNode = getMediaNodeFromSelection(state);

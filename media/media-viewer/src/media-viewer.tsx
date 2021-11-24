@@ -5,7 +5,11 @@ import {
   MediaFeatureFlags,
   withMediaAnalyticsContext,
 } from '@atlaskit/media-common';
-import { IntlProvider, intlShape } from 'react-intl';
+import {
+  IntlProvider,
+  injectIntl,
+  WrappedComponentProps,
+} from 'react-intl-next';
 import { Shortcut } from '@atlaskit/media-ui';
 import {
   withAnalyticsEvents,
@@ -45,13 +49,12 @@ export interface State {
   selectedIdentifier?: Identifier;
 }
 
-export class MediaViewerComponent extends React.Component<Props, State> {
+export class MediaViewerComponent extends React.Component<
+  Props & WrappedComponentProps,
+  State
+> {
   state: State = {
     isSidebarVisible: false,
-  };
-
-  static contextTypes = {
-    intl: intlShape,
   };
 
   UNSAFE_componentWillMount() {
@@ -140,7 +143,7 @@ export class MediaViewerComponent extends React.Component<Props, State> {
       </Blanket>
     );
 
-    return this.context.intl ? (
+    return this.props.intl ? (
       content
     ) : (
       <IntlProvider locale="en">{content}</IntlProvider>
@@ -199,7 +202,7 @@ export class MediaViewerComponent extends React.Component<Props, State> {
   }
 }
 
-export const MediaViewer = withMediaAnalyticsContext(
+export const MediaViewer: React.ComponentType<Props> = withMediaAnalyticsContext(
   {
     packageName,
     packageVersion,
@@ -209,4 +212,8 @@ export const MediaViewer = withMediaAnalyticsContext(
   {
     filterFeatureFlags: [],
   },
-)(withAnalyticsEvents()(MediaViewerComponent));
+)(
+  withAnalyticsEvents()(
+    injectIntl(MediaViewerComponent, { enforceContext: false }),
+  ),
+);

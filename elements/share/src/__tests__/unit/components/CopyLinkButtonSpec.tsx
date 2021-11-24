@@ -6,17 +6,43 @@ import React from 'react';
 import CheckCircleIcon from '@atlaskit/icon/glyph/check-circle';
 import Popup from '@atlaskit/popup';
 import Tooltip from '@atlaskit/tooltip';
-import { ReactWrapper } from 'enzyme';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
-import { InjectedIntlProps } from 'react-intl';
+import { mount, ReactWrapper } from 'enzyme';
+import { IntlShape, WrappedComponentProps } from 'react-intl-next';
 
-import CopyLinkButton, {
+import {
+  CopyLinkButton,
   Props,
   State,
   HiddenInput,
   MessageContainer,
 } from '../../../components/CopyLinkButton';
 import Button from '../../../components/styles';
+
+const mockFormatMessage = (descriptor: any) => descriptor.defaultMessage;
+const mockIntl = { formatMessage: mockFormatMessage };
+
+jest.mock('react-intl-next', () => {
+  return {
+    ...(jest.requireActual('react-intl-next') as any),
+    FormattedMessage: (descriptor: any) => (
+      <span>{descriptor.defaultMessage}</span>
+    ),
+    injectIntl: (Node: any) => (props: any) => (
+      <Node {...props} intl={mockIntl} />
+    ),
+  };
+});
+
+const mockIntlProps: WrappedComponentProps = {
+  intl: ({ formatMessage: mockFormatMessage } as unknown) as IntlShape,
+};
+
+const mockLink = 'link';
+
+const props = {
+  link: mockLink,
+  ...mockIntlProps,
+};
 
 describe('CopyLinkButton', () => {
   let originalExecCommand: (
@@ -43,10 +69,12 @@ describe('CopyLinkButton', () => {
 
   it('should render', () => {
     const wrapper: ReactWrapper<
-      Props & InjectedIntlProps,
+      Props & WrappedComponentProps,
       State,
       any
-    > = mountWithIntl<Props, State>(<CopyLinkButton link={mockLink} />);
+    > = mount<Props & WrappedComponentProps, State>(
+      <CopyLinkButton {...props} />,
+    );
 
     expect(wrapper.text()).toContain('Copy link');
 
@@ -72,11 +100,11 @@ describe('CopyLinkButton', () => {
 
   it('should render for public link', () => {
     const wrapper: ReactWrapper<
-      Props & InjectedIntlProps,
+      Props & WrappedComponentProps,
       State,
       any
-    > = mountWithIntl<Props, State>(
-      <CopyLinkButton link={mockLink} isPublicLink={true} />,
+    > = mount<Props & WrappedComponentProps, State>(
+      <CopyLinkButton {...props} isPublicLink={true} />,
     );
 
     expect(wrapper.text()).toContain('Copy public link');
@@ -102,11 +130,11 @@ describe('CopyLinkButton', () => {
 
   it('should render for public link', () => {
     const wrapper: ReactWrapper<
-      Props & InjectedIntlProps,
+      Props & WrappedComponentProps,
       State,
       any
-    > = mountWithIntl<Props, State>(
-      <CopyLinkButton link={mockLink} isPublicLink={true} isDisabled={true} />,
+    > = mount<Props & WrappedComponentProps, State>(
+      <CopyLinkButton {...props} isPublicLink={true} isDisabled={true} />,
     );
 
     expect(wrapper.text()).toContain('Copy public link');
@@ -132,11 +160,15 @@ describe('CopyLinkButton', () => {
 
   it('should render a copy link tooltip if copyTooltipText prop exists', () => {
     const wrapper: ReactWrapper<
-      Props & InjectedIntlProps,
+      Props & WrappedComponentProps,
       State,
       any
-    > = mountWithIntl<Props, State>(
-      <CopyLinkButton link={mockLink} copyTooltipText={mockTooltipText} />,
+    > = mount<Props & WrappedComponentProps, State>(
+      <CopyLinkButton
+        {...props}
+        link={mockLink}
+        copyTooltipText={mockTooltipText}
+      />,
     );
 
     const tooltip = wrapper.find(Tooltip);
@@ -147,10 +179,12 @@ describe('CopyLinkButton', () => {
   describe('componentWillUnmount', () => {
     it('should clear this.autoDismiss', () => {
       const wrapper: ReactWrapper<
-        Props & InjectedIntlProps,
+        Props & WrappedComponentProps,
         State,
         any
-      > = mountWithIntl<Props, State>(<CopyLinkButton link={mockLink} />);
+      > = mount<Props & WrappedComponentProps, State>(
+        <CopyLinkButton {...props} />,
+      );
       wrapper.find(Button).simulate('click');
       expect(wrapper.instance().autoDismiss).not.toBeUndefined();
       wrapper.instance().componentWillUnmount();
@@ -161,10 +195,12 @@ describe('CopyLinkButton', () => {
   describe('shouldShowCopiedMessage state', () => {
     it('should render the copied to clip board message, and dismiss the message when click outside the Inline Dialog', () => {
       const wrapper: ReactWrapper<
-        Props & InjectedIntlProps,
+        Props & WrappedComponentProps,
         State,
         any
-      > = mountWithIntl<Props, State>(<CopyLinkButton link={mockLink} />);
+      > = mount<Props & WrappedComponentProps, State>(
+        <CopyLinkButton {...props} />,
+      );
       wrapper.find(Button).simulate('click');
       expect(wrapper.find(CheckCircleIcon)).toHaveLength(1);
       expect(wrapper.find(MessageContainer)).toHaveLength(1);
@@ -189,11 +225,11 @@ describe('CopyLinkButton', () => {
     it('should copy the text from the HiddenInput and call onLinkCopy prop if given when the user clicks on the button', () => {
       const spiedOnLinkCopy: jest.Mock = jest.fn();
       const wrapper: ReactWrapper<
-        Props & InjectedIntlProps,
+        Props & WrappedComponentProps,
         State,
         any
-      > = mountWithIntl<Props, State>(
-        <CopyLinkButton onLinkCopy={spiedOnLinkCopy} link={mockLink} />,
+      > = mount<Props & WrappedComponentProps, State>(
+        <CopyLinkButton {...props} onLinkCopy={spiedOnLinkCopy} />,
       );
       const spiedInputSelect: jest.SpyInstance = jest.spyOn(
         // @ts-ignore accessing private property just for testing purpose

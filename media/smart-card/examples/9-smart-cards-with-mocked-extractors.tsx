@@ -15,7 +15,7 @@ import {
   GithubSourceCodeReference,
   GithubFile,
 } from '../examples-helpers/_jsonLDExamples';
-import { IntlProvider } from 'react-intl';
+import { IntlProvider } from 'react-intl-next';
 import {
   JiraTasks,
   GitHubIssue,

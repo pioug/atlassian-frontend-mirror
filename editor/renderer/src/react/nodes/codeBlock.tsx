@@ -1,5 +1,5 @@
 import React from 'react';
-import { injectIntl, InjectedIntlProps } from 'react-intl';
+import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 import styled from 'styled-components';
 import { CodeBlock as AkCodeBlock, SupportedLanguages } from '@atlaskit/code';
 import {
@@ -23,7 +23,7 @@ export interface Props {
   className?: string;
 }
 
-function CodeBlock(props: Props & InjectedIntlProps) {
+function CodeBlock(props: Props & WrappedComponentProps) {
   const {
     text,
     language,

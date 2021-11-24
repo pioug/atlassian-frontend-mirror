@@ -1,7 +1,11 @@
 import AkButton from '@atlaskit/button/custom-theme-button';
 import React from 'react';
 import { PureComponent } from 'react';
-import { FormattedMessage } from 'react-intl';
+import {
+  FormattedMessage,
+  injectIntl,
+  WrappedComponentProps,
+} from 'react-intl-next';
 import { customCategory } from '../../util/constants';
 import { EmojiDescription, Message } from '../../types';
 import { messages } from '../i18n';
@@ -20,8 +24,8 @@ export interface EmojiUploadPreviewProps {
   onAddEmoji: () => void;
 }
 
-export default class EmojiUploadPreview extends PureComponent<
-  EmojiUploadPreviewProps,
+class EmojiUploadPreview extends PureComponent<
+  EmojiUploadPreviewProps & WrappedComponentProps,
   {}
 > {
   render() {
@@ -32,7 +36,9 @@ export default class EmojiUploadPreview extends PureComponent<
       errorMessage,
       onAddEmoji,
       onUploadCancelled,
+      intl,
     } = this.props;
+    const { formatMessage } = intl;
 
     let emojiComponent;
 
@@ -76,19 +82,15 @@ export default class EmojiUploadPreview extends PureComponent<
               tooltip
             />
           ) : null}
-          <FormattedMessage {...messages.addEmojiLabel}>
-            {(label) => (
-              <RetryableButton
-                className={styles.uploadEmojiButton}
-                retryClassName={styles.uploadRetryButton}
-                label={label as string}
-                onSubmit={onAddEmoji}
-                appearance="primary"
-                loading={uploading}
-                error={!!errorMessage}
-              />
-            )}
-          </FormattedMessage>
+          <RetryableButton
+            className={styles.uploadEmojiButton}
+            retryClassName={styles.uploadRetryButton}
+            label={formatMessage(messages.addEmojiLabel)}
+            onSubmit={onAddEmoji}
+            appearance="primary"
+            loading={uploading}
+            error={!!errorMessage}
+          />
           <AkButton
             onClick={onUploadCancelled}
             appearance="subtle"
@@ -102,3 +104,5 @@ export default class EmojiUploadPreview extends PureComponent<
     );
   }
 }
+
+export default injectIntl(EmojiUploadPreview);

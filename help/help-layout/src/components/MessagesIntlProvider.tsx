@@ -1,16 +1,20 @@
 import React from 'react';
-import { IntlProvider, injectIntl, InjectedIntlProps } from 'react-intl';
-import { getMessagesForLocale, LangCode } from '../util/i18n-util';
+import {
+  IntlProvider,
+  injectIntl,
+  WrappedComponentProps,
+} from 'react-intl-next';
 
 export interface Props {
-  children: React.ReactChild;
+  locale?: string;
+  children: React.ReactNode;
 }
 
-export const MessagesIntlProvider: React.FC<Props & InjectedIntlProps> = ({
-  intl,
+export const MessagesIntlProvider: React.FC<Props & WrappedComponentProps> = ({
+  locale = 'en',
   children,
 }) => (
-  <IntlProvider messages={getMessagesForLocale(intl.locale as LangCode)}>
+  <IntlProvider key={locale} locale={locale}>
     {children}
   </IntlProvider>
 );

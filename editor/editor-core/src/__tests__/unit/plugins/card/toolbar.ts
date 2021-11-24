@@ -1,5 +1,5 @@
 import { ProviderFactory } from '@atlaskit/editor-common';
-import { IntlProvider } from 'react-intl';
+import { createIntl } from 'react-intl-next';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
 import {
@@ -51,8 +51,9 @@ describe('card', () => {
   };
 
   describe('toolbar', () => {
-    const intlProvider = new IntlProvider({ locale: 'en' });
-    const { intl } = intlProvider.getChildContext();
+    const intl = createIntl({
+      locale: 'en',
+    });
 
     const visitTitle = intl.formatMessage(linkMessages.openLink);
     const unlinkTitle = intl.formatMessage(linkToolbarMessages.unlink);

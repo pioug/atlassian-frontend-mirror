@@ -1,6 +1,7 @@
 import { ErrorReporter, ProviderFactory } from '@atlaskit/editor-common';
 import { Plugin } from 'prosemirror-state';
 import { Schema } from 'prosemirror-model';
+import { IntlShape } from 'react-intl-next';
 
 import { EditorReactContext } from '../types';
 import { Dispatch, EventDispatcher } from '../event-dispatcher';
@@ -18,6 +19,7 @@ export type PMPluginFactoryParams = {
   reactContext: () => EditorReactContext;
   dispatchAnalyticsEvent: DispatchAnalyticsEvent;
   featureFlags: FeatureFlags;
+  getIntl: () => IntlShape;
 };
 
 export type PMPluginFactory = (

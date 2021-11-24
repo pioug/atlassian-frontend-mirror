@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { InjectedIntlProps, injectIntl } from 'react-intl';
+import { WrappedComponentProps, injectIntl } from 'react-intl-next';
 
 import { EmojiPicker as AkEmojiPicker } from '@atlaskit/emoji/picker';
 import { EmojiId } from '@atlaskit/emoji/types';
@@ -43,8 +43,8 @@ const noop = () => {};
 
 const EmojiPickerWithListeners = withOuterListeners(AkEmojiPicker);
 
-class ToolbarInsertBlock extends React.PureComponent<
-  Props & InjectedIntlProps,
+export class ToolbarInsertBlock extends React.PureComponent<
+  Props & WrappedComponentProps,
   State
 > {
   private dropdownButtonRef?: HTMLElement;
@@ -59,7 +59,7 @@ class ToolbarInsertBlock extends React.PureComponent<
   };
 
   static getDerivedStateFromProps(
-    props: Props & InjectedIntlProps,
+    props: Props & WrappedComponentProps,
     state: State,
   ): State | null {
     const [buttons, dropdownItems] = createItems({

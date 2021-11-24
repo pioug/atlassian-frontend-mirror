@@ -1,7 +1,7 @@
 import React from 'react';
 import { Node as PMNode } from 'prosemirror-model';
 import { EditorView } from 'prosemirror-view';
-import { injectIntl, InjectedIntlProps } from 'react-intl';
+import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 import {
   timestampToString,
   timestampToTaskContext,
@@ -19,7 +19,7 @@ export interface Props {
   getPos?: getPosHandler;
 }
 
-class DateNodeView extends React.Component<Props & InjectedIntlProps> {
+class DateNodeView extends React.Component<Props & WrappedComponentProps> {
   render() {
     const {
       node: {

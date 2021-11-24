@@ -23,7 +23,11 @@ import {
   getExtension,
   isCodeViewerItem,
 } from '@atlaskit/media-ui/codeViewer';
-import { FormattedMessage, injectIntl, InjectedIntlProps } from 'react-intl';
+import {
+  FormattedMessage,
+  injectIntl,
+  WrappedComponentProps,
+} from 'react-intl-next';
 import { Outcome } from './domain';
 import {
   Header as HeaderWrapper,
@@ -34,6 +38,7 @@ import {
   MedatadataTextWrapper,
   MetadataIconWrapper,
   MetadataFileName,
+  FormattedMessageWrapper,
 } from './styled';
 import {
   ToolbarDownloadButton,
@@ -63,7 +68,10 @@ const initialState: State = {
   item: Outcome.pending(),
 };
 
-export class Header extends React.Component<Props & InjectedIntlProps, State> {
+export class Header extends React.Component<
+  Props & WrappedComponentProps,
+  State
+> {
   state: State = initialState;
 
   private subscription?: Subscription;
@@ -200,7 +208,9 @@ export class Header extends React.Component<Props & InjectedIntlProps, State> {
               {item.name || <FormattedMessage {...messages.unknown} />}
             </MetadataFileName>
             <MetadataSubText data-testid="media-viewer-file-metadata-text">
-              {this.renderFileTypeText(item)}
+              <FormattedMessageWrapper>
+                {this.renderFileTypeText(item)}
+              </FormattedMessageWrapper>
               {this.renderSize(item)}
             </MetadataSubText>
           </MedatadataTextWrapper>
@@ -289,4 +299,4 @@ export class Header extends React.Component<Props & InjectedIntlProps, State> {
   }
 }
 
-export default injectIntl(Header);
+export default injectIntl(Header) as React.ComponentType<Props>;

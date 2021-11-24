@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect, useMemo } from 'react';
-import { injectIntl, InjectedIntlProps } from 'react-intl';
+import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 import styled from 'styled-components';
 
 import { Field } from '@atlaskit/form';
@@ -52,7 +52,7 @@ const DateField = ({
   fieldName: 'from' | 'to';
   onFieldChange: OnFieldChange;
   isRequired?: boolean;
-} & InjectedIntlProps) => (
+} & WrappedComponentProps) => (
   <HorizontalFieldWrapper key={fieldName}>
     <Field
       name={`${scope}.${fieldName}`}
@@ -94,7 +94,7 @@ const DateRange = function ({
   onFieldChange: OnFieldChange;
   autoFocus?: boolean;
   placeholder?: string;
-} & InjectedIntlProps) {
+} & WrappedComponentProps) {
   const items = useMemo(() => {
     return [
       ...(field.items || []),

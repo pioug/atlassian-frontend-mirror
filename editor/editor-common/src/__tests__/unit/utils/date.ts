@@ -1,4 +1,4 @@
-import { InjectedIntl, IntlProvider } from 'react-intl';
+import { createIntl, IntlShape } from 'react-intl-next';
 
 import {
   isPastDate,
@@ -36,11 +36,9 @@ describe('@atlaskit/editor-common date utils', () => {
     describe('when there is intl', () => {
       it('should format using localization', () => {
         const date = Date.parse('2018-06-19');
-
-        const intlProvider = new IntlProvider({
+        const intl = createIntl({
           locale: 'en',
         });
-        const { intl } = intlProvider.getChildContext();
         expect(timestampToString(date, intl)).toEqual('Jun 19, 2018');
       });
     });
@@ -96,16 +94,15 @@ describe('@atlaskit/editor-common date utils', () => {
     describe('given Date.now is mocked', () => {
       let dateNowMockFn: jest.SpyInstance;
       let dateUTCMockFn: jest.SpyInstance;
-      let intl: InjectedIntl;
+      let intl: IntlShape;
 
       beforeEach(() => {
         dateNowMockFn = jest.spyOn(Date, 'now');
         dateUTCMockFn = jest.spyOn(Date, 'UTC');
 
-        const intlProvider = new IntlProvider({
+        intl = createIntl({
           locale: 'en',
         });
-        intl = intlProvider.getChildContext().intl;
       });
 
       afterEach(() => {
@@ -137,14 +134,11 @@ describe('@atlaskit/editor-common date utils', () => {
 
       describe('given the timestamp is in UTC', () => {
         beforeEach(() => {
-          dateUTCMockFn.mockImplementation(() => '1323993600000'); // 16 December 2011 00:00:00
-          dateNowMockFn.mockImplementation(() => '1323993600000'); // 16 December 2011 00:00:00
+          dateNowMockFn.mockImplementation(() => 1323993600000); // 16 December 2011 00:00:00
 
-          const intlProvider = new IntlProvider({
+          intl = createIntl({
             locale: 'en',
-            initialNow: '1323993600000',
           });
-          intl = intlProvider.getChildContext().intl;
         });
 
         it('should return Yesterday the distance from the current day is -1', () => {
@@ -196,7 +190,6 @@ describe('@atlaskit/editor-common date utils', () => {
         describe('given dates in UTC +10', () => {
           beforeEach(() => {
             // Monday June 15, 2:23pm (Sydney)
-            dateUTCMockFn.mockImplementation(() => UTCPlus10);
             dateNowMockFn.mockImplementation(() => UTCPlus10);
           });
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
+import { FormattedMessage, MessageDescriptor } from 'react-intl-next';
 import Button from '@atlaskit/button/custom-theme-button';
 import SectionMessage from '@atlaskit/section-message';
 import InfoIcon from '@atlaskit/icon/glyph/info';
@@ -20,8 +20,8 @@ export class DeleteUserOverviewScreen extends React.Component<
   };
 
   selectAdminOrSelfCopy = (
-    adminCopy: FormattedMessage.MessageDescriptor,
-    selfCopy: FormattedMessage.MessageDescriptor,
+    adminCopy: MessageDescriptor,
+    selfCopy: MessageDescriptor,
   ) => {
     return this.props.isCurrentUser ? selfCopy : adminCopy;
   };
@@ -37,7 +37,7 @@ export class DeleteUserOverviewScreen extends React.Component<
     return (
       <li>
         {!hasAccessibleSites && (
-          <FormattedHTMLMessage
+          <FormattedMessage
             {...this.selectAdminOrSelfCopy(
               overviewMessages.paragraphLoseAccessAdminNoSites,
               overviewMessages.paragraphLoseAccessSelfNoSites,
@@ -47,7 +47,7 @@ export class DeleteUserOverviewScreen extends React.Component<
         )}
         {hasAccessibleSites && (
           <>
-            <FormattedHTMLMessage
+            <FormattedMessage
               {...this.selectAdminOrSelfCopy(
                 overviewMessages.paragraphLoseAccessAdmin,
                 overviewMessages.paragraphLoseAccessSelf,
@@ -65,7 +65,7 @@ export class DeleteUserOverviewScreen extends React.Component<
   displaySecondListElement = () => {
     return (
       <li>
-        <FormattedHTMLMessage
+        <FormattedMessage
           {...this.selectAdminOrSelfCopy(
             overviewMessages.paragraphPersonalDataWillBeDeletedAdmin,
             overviewMessages.paragraphPersonalDataWillBeDeletedSelf,

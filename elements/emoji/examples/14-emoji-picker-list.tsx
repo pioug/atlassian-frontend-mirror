@@ -4,6 +4,7 @@ import { getEmojis } from '@atlaskit/util-data-test/get-emojis';
 import EmojiPickerList from '../src/components/picker/EmojiPickerList';
 
 import * as styles from '../src/components/picker/styles';
+import { IntlProvider } from 'react-intl-next';
 
 const allEmojis = getEmojis();
 
@@ -25,8 +26,10 @@ export default function Example() {
   };
 
   return (
-    <div className={classNames([styles.emojiPicker])}>
-      <EmojiPickerList emojis={emojis} query={query} onSearch={onSearch} />
-    </div>
+    <IntlProvider locale="en">
+      <div className={classNames([styles.emojiPicker])}>
+        <EmojiPickerList emojis={emojis} query={query} onSearch={onSearch} />
+      </div>
+    </IntlProvider>
   );
 }

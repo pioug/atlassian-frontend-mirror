@@ -132,6 +132,7 @@ export const createPlugin = (options: CardPluginOptions) => ({
             useAlternativePreloader,
             useInlineWrapper: platform === 'mobile',
           };
+          const hasIntlContext = true;
           return new InlineCard(
             node,
             view,
@@ -141,12 +142,15 @@ export const createPlugin = (options: CardPluginOptions) => ({
             reactComponentProps,
             undefined,
             true,
+            undefined,
+            hasIntlContext,
           ).init();
         },
         blockCard: (node, view, getPos) => {
           const reactComponentProps: BlockCardNodeViewProps = {
             platform,
           };
+          const hasIntlContext = true;
           return new BlockCard(
             node,
             view,
@@ -156,6 +160,8 @@ export const createPlugin = (options: CardPluginOptions) => ({
             reactComponentProps,
             undefined,
             true,
+            undefined,
+            hasIntlContext,
           ).init();
         },
         embedCard: (node, view, getPos) => {
@@ -166,7 +172,7 @@ export const createPlugin = (options: CardPluginOptions) => ({
             fullWidthMode,
             dispatchAnalyticsEvent,
           };
-
+          const hasIntlContext = true;
           return new EmbedCard(
             node,
             view,
@@ -176,6 +182,8 @@ export const createPlugin = (options: CardPluginOptions) => ({
             reactComponentProps,
             undefined,
             true,
+            undefined,
+            hasIntlContext,
           ).init();
         },
       },

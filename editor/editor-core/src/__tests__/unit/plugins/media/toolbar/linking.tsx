@@ -10,7 +10,7 @@ import { ProviderFactory, ErrorMessage } from '@atlaskit/editor-common';
 import { activityProviderFactory } from '@atlaskit/editor-test-helpers/mock-activity-provider';
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
 import { render, fireEvent } from '@testing-library/react';
 
 import {
@@ -33,7 +33,7 @@ import {
 import { ReactWrapper } from 'enzyme';
 import { EditorView } from 'prosemirror-view';
 import { ReactElement } from 'react';
-import { IntlProvider } from 'react-intl';
+import { createIntl, IntlProvider } from 'react-intl-next';
 import { linkToolbarMessages, linkMessages } from '../../../../../messages';
 import { INPUT_METHOD } from '../../../../../plugins/analytics';
 import {
@@ -91,8 +91,7 @@ const waitForStateUpdate = async () => {
 };
 
 describe('media', () => {
-  const intlProvider = new IntlProvider({ locale: 'en' });
-  const { intl } = intlProvider.getChildContext();
+  const intl = createIntl({ locale: 'en' });
 
   const createEditor = createEditorFactory<MediaPluginState>();
   const createAnalyticsEvent = jest.fn().mockReturnValue({ fire() {} });
@@ -256,12 +255,14 @@ describe('media', () => {
       (item) => item.type === 'custom',
     ) as FloatingToolbarCustom<Command>;
 
-    const linkingToolbar = mountWithIntl<LinkAddToolbarProps, any>(
+    const linkingToolbar = (mountWithIntl(
       linkingToolbarComponent.render(editorView) as ReactElement<any>,
-    );
+    ) as unknown) as ReactWrapper<LinkAddToolbarProps>;
 
     const linkingToolbarReactTestingLibrary = render(
-      <IntlProvider>{linkingToolbarComponent.render(editorView)}</IntlProvider>,
+      <IntlProvider locale="en">
+        {linkingToolbarComponent.render(editorView)}
+      </IntlProvider>,
     );
 
     return {
@@ -391,6 +392,7 @@ describe('media', () => {
             ({ linkingToolbar } = clickOnToolbarButton(toolbarWrapper, 'add', [
               recentItem1,
             ]));
+
             mediaLinkingState = getMediaLinkingState(editorView.state);
           });
 
@@ -520,6 +522,7 @@ describe('media', () => {
           ({ linkingToolbar } = clickOnToolbarButton(toolbarWrapper, 'add', [
             recentItem1,
           ]));
+
           ({ editorView, linkToolbarAppearance } = toolbarWrapper);
           linkingToolbarAppearanceWrapper = mountWithIntl(
             linkToolbarAppearance!,

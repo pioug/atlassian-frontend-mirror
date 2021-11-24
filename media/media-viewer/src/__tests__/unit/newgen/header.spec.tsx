@@ -14,9 +14,10 @@ import {
   asMock,
   mountWithIntlContext,
   asMockReturnValue,
+  mountWithIntlWrapper,
 } from '@atlaskit/media-test-helpers';
 import { MediaButton } from '@atlaskit/media-ui';
-import { Header, State as HeaderState } from '../../../header';
+import { Header } from '../../../header';
 import {
   MetadataFileName,
   MetadataSubText,
@@ -119,7 +120,8 @@ describe('<Header />', () => {
     asMock(mediaClient.file.getFileState).mockReturnValue(
       createFileStateSubject(processedImageState),
     );
-    const el = mountWithIntlContext(
+
+    const el = mountWithIntlWrapper(
       <Header
         intl={fakeIntl}
         mediaClient={mediaClient}
@@ -128,7 +130,6 @@ describe('<Header />', () => {
     );
     el.update();
     expect(el.find(MetadataFileName).text()).toEqual('my image');
-
     expect(mediaClient.file.getFileState).toHaveBeenCalledTimes(1);
     el.setProps({ identifier: identifier2 });
     expect(mediaClient.file.getFileState).toHaveBeenCalledTimes(2);
@@ -139,7 +140,7 @@ describe('<Header />', () => {
     asMock(mediaClient.file.getFileState).mockReturnValue(
       createFileStateSubject(processedImageState),
     );
-    const el = mountWithIntlContext<{}, HeaderState>(
+    const el = mountWithIntlWrapper(
       <Header
         intl={fakeIntl}
         mediaClient={mediaClient}
@@ -147,7 +148,7 @@ describe('<Header />', () => {
       />,
     );
 
-    expect(el.state().item.status).toEqual('SUCCESSFUL');
+    expect(el.find(Header).state().item.status).toEqual('SUCCESSFUL');
 
     // since the test is executed synchronously
     // let's prevent the second call to getFile from immediately resolving and
@@ -157,7 +158,7 @@ describe('<Header />', () => {
     );
 
     el.setProps({ identifier: identifier2 });
-    expect(el.state().item.status).toEqual('PENDING');
+    expect(el.find(Header).state().item.status).toEqual('PENDING');
   });
 
   it('component resets initial state when new mediaClient is passed', () => {
@@ -165,14 +166,14 @@ describe('<Header />', () => {
     asMock(mediaClient.file.getFileState).mockReturnValue(
       createFileStateSubject(processedImageState),
     );
-    const el = mountWithIntlContext<{}, HeaderState>(
+    const el = mountWithIntlWrapper(
       <Header
         intl={fakeIntl}
         mediaClient={mediaClient}
         identifier={identifier}
       />,
     );
-    expect(el.state().item.status).toEqual('SUCCESSFUL');
+    expect(el.find(Header).state().item.status).toEqual('SUCCESSFUL');
 
     // since the test is executed synchronously
     // let's prevent the second call to getFile from immediately resolving and
@@ -182,7 +183,7 @@ describe('<Header />', () => {
       createFileStateSubject(),
     );
     el.setProps({ mediaClient: newMediaClient });
-    expect(el.state().item.status).toEqual('PENDING');
+    expect(el.find(Header).state().item.status).toEqual('PENDING');
   });
 
   describe('Metadata', () => {
@@ -196,7 +197,9 @@ describe('<Header />', () => {
       );
 
       expect(element.find(MetadataFileName).text()).toEqual('some-name');
-      expect(element.find(MetadataSubText).text()).toEqual('image');
+      expect(element.find(MetadataSubText).text()).toEqual(
+        fakeIntl.formatMessage({ defaultMessage: 'image' }),
+      );
     });
 
     it('should default to dataURI as name when no name is passed in a external image identifier', () => {
@@ -248,7 +251,9 @@ describe('<Header />', () => {
           />,
         );
         el.update();
-        expect(el.find(MetadataFileName).text()).toEqual('unknown');
+        expect(el.find(MetadataFileName).text()).toEqual(
+          fakeIntl.formatMessage({ defaultMessage: 'unknown' }),
+        );
       });
     });
 
@@ -283,7 +288,8 @@ describe('<Header />', () => {
         );
         el.update();
         expect(el.find(MetadataSubText).text()).toEqual(
-          `${expectedText} · 11.7 MB`,
+          fakeIntl.formatMessage({ defaultMessage: `${expectedText}` }) +
+            ' · 11.7 MB',
         );
       };
 
@@ -313,7 +319,9 @@ describe('<Header />', () => {
           />,
         );
         el.update();
-        expect(el.find(MetadataSubText).text()).toEqual('image');
+        expect(el.find(MetadataSubText).text()).toEqual(
+          fakeIntl.formatMessage({ defaultMessage: 'image' }),
+        );
       });
 
       it('should not render media type if unavailable', () => {
@@ -335,7 +343,9 @@ describe('<Header />', () => {
           />,
         );
         el.update();
-        expect(el.find(MetadataSubText).text()).toEqual('unknown · 22.2 MB');
+        expect(el.find(MetadataSubText).text()).toEqual(
+          fakeIntl.formatMessage({ defaultMessage: 'unknown' }) + ' · 22.2 MB',
+        );
       });
     });
 

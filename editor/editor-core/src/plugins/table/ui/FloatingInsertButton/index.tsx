@@ -6,7 +6,7 @@ import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { findDomRefAtPos } from 'prosemirror-utils';
 import { findTable } from '@atlaskit/editor-tables/utils';
 import { EditorView } from 'prosemirror-view';
-import { InjectedIntlProps, injectIntl } from 'react-intl';
+import { WrappedComponentProps, injectIntl } from 'react-intl-next';
 
 import { Popup } from '@atlaskit/editor-common';
 
@@ -47,13 +47,13 @@ import {
   CONTENT_COMPONENT,
 } from '../../../analytics/types/enums';
 
-class FloatingInsertButton extends React.Component<
-  Props & InjectedIntlProps,
+export class FloatingInsertButton extends React.Component<
+  Props & WrappedComponentProps,
   any
 > {
   static displayName = 'FloatingInsertButton';
 
-  constructor(props: Props & InjectedIntlProps) {
+  constructor(props: Props & WrappedComponentProps) {
     super(props);
     this.insertColumn = this.insertColumn.bind(this);
     this.insertRow = this.insertRow.bind(this);
@@ -79,6 +79,7 @@ class FloatingInsertButton extends React.Component<
         : typeof insertRowButtonIndex !== 'undefined'
         ? 'row'
         : null;
+
     if (!tableNode || !tableRef || !type) {
       return null;
     }
@@ -141,6 +142,7 @@ class FloatingInsertButton extends React.Component<
         dispatchAnalyticsEvent(payload);
       }
     }
+
     if (!target || !(target instanceof HTMLElement)) {
       return null;
     }

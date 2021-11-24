@@ -1,15 +1,22 @@
 import React from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { render, fireEvent } from '@testing-library/react';
-import { IntlProvider } from 'react-intl';
+import { createIntl, createIntlCache } from 'react-intl-next';
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 
 import { messages } from '../../../../messages';
 
 import { CloseButton } from '../../CloseButton';
 
-const intlProvider = new IntlProvider({ locale: 'en' });
-const { intl } = intlProvider.getChildContext();
+// Messages
+const cache = createIntlCache();
+const intl = createIntl(
+  {
+    locale: 'en',
+    messages: {},
+  },
+  cache,
+);
 const messageClose = intl.formatMessage(messages.help_panel_header_close);
 
 const mockOnClick = jest.fn();

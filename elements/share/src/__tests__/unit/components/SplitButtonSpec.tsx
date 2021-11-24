@@ -7,6 +7,21 @@ import DropdownMenuStateless, {
 } from '@atlaskit/dropdown-menu';
 import IntegrationButton from '../../../components/IntegrationButton';
 
+const mockFormatMessage = (descriptor: any) => descriptor.defaultMessage;
+const mockIntl = { formatMessage: mockFormatMessage };
+
+jest.mock('react-intl-next', () => {
+  return {
+    ...(jest.requireActual('react-intl-next') as any),
+    FormattedMessage: (descriptor: any) => (
+      <span>{descriptor.defaultMessage}</span>
+    ),
+    injectIntl: (Node: any) => (props: any) => (
+      <Node {...props} intl={mockIntl} />
+    ),
+  };
+});
+
 describe('Share Split Button', () => {
   const mockCreateAndFireEventFunction = jest.fn();
   const mockOpenSplitButtonFunction = jest.fn();

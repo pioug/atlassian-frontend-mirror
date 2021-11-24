@@ -1,14 +1,14 @@
 import React from 'react';
-import { InjectedIntlProps } from 'react-intl';
+import { WrappedComponentProps } from 'react-intl-next';
 import { ReactWrapper } from 'enzyme';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
 import Textfield from '@atlaskit/textfield';
 import FindReplace, { FindReplaceProps } from '../../../ui/FindReplace';
 import Find from '../../../ui/Find';
 import Replace from '../../../ui/Replace';
 
 describe('FindReplace', () => {
-  let findReplace: ReactWrapper<FindReplaceProps & InjectedIntlProps>;
+  let findReplace: ReactWrapper<FindReplaceProps & WrappedComponentProps>;
   const onFindSpy = jest.fn();
   const onFindNextSpy = jest.fn();
   const onFindPrevSpy = jest.fn();
@@ -19,8 +19,8 @@ describe('FindReplace', () => {
   const onToggleMatchCaseSpy = jest.fn();
   const dispatchAnalyticsEventSpy = jest.fn();
 
-  const mountComponent = (props: Partial<FindReplaceProps> = {}) =>
-    mountWithIntl<FindReplaceProps & InjectedIntlProps, any>(
+  const mountComponent = (props: Partial<FindReplaceProps> = {}) => {
+    const wrapper = mountWithIntl(
       <FindReplace
         findText=""
         count={{ index: 0, total: 0 }}
@@ -40,6 +40,10 @@ describe('FindReplace', () => {
         {...props}
       />,
     );
+    return (wrapper as unknown) as ReactWrapper<
+      FindReplaceProps & WrappedComponentProps
+    >;
+  };
 
   const getInput = (component: typeof Find | typeof Replace) =>
     findReplace.find(component).find(Textfield).find('input');

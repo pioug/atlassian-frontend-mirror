@@ -8,7 +8,7 @@ import {
   PluginErrorDetails,
   PluginErrorText,
 } from './styled';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl-next';
 
 export interface PluginErrorViewProps {
   error: Error;

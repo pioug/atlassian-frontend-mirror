@@ -15,7 +15,7 @@ import { render as renderTestingLib, cleanup } from '@testing-library/react';
 import { mount } from 'enzyme';
 import * as rendererHook from '../../hooks/use-set-renderer-content';
 import { JSONDocNode } from '@atlaskit/editor-json-transformer';
-import { InjectedIntl } from 'react-intl';
+import { IntlShape } from 'react-intl-next';
 import * as useTranslations from '../../../i18n/use-translations';
 import RendererBridgeImplementation from '../../native-to-web/implementation';
 
@@ -34,7 +34,7 @@ describe('renderer bridge', () => {
     intlMock = ({
       formatMessage: (messageDescriptor: any) =>
         messageDescriptor && messageDescriptor.defaultMessage,
-    } as unknown) as InjectedIntl;
+    } as unknown) as IntlShape;
   });
 
   afterEach(() => {
@@ -93,7 +93,7 @@ describe('renderer bridge', () => {
       );
       const basicRendererIntlProp = result
         .find('BasicRenderer')
-        .prop('intl') as InjectedIntl;
+        .prop('intl') as IntlShape;
 
       expect(basicRendererIntlProp.locale).toBe('pl');
       expect(basicRendererIntlProp.messages).toBe(messages);

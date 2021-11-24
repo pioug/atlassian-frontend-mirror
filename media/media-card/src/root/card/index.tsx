@@ -33,7 +33,11 @@ import {
 } from '@atlaskit/media-client';
 import { MediaViewer, MediaViewerDataSource } from '@atlaskit/media-viewer';
 import { Subscription } from 'rxjs/Subscription';
-import { IntlProvider, intlShape } from 'react-intl';
+import {
+  injectIntl,
+  IntlProvider,
+  WrappedComponentProps,
+} from 'react-intl-next';
 import {
   CardAction,
   CardProps,
@@ -76,12 +80,11 @@ import {
 import getDocument from '../../utils/document';
 import { getCardStateFromFileState, createStateUpdater } from './cardState';
 
-export type CardWithAnalyticsEventsProps = CardProps & WithAnalyticsEventsProps;
+export type CardBaseProps = CardProps &
+  WithAnalyticsEventsProps &
+  Partial<WrappedComponentProps>;
 
-export class CardBase extends Component<
-  CardWithAnalyticsEventsProps,
-  CardState
-> {
+export class CardBase extends Component<CardBaseProps, CardState> {
   private hasBeenMounted: boolean = false;
   // We initialise timeElapsedTillCommenced
   // to avoid extra branching on a possibly undefined value.
@@ -96,12 +99,7 @@ export class CardBase extends Component<
     featureFlags: {},
   };
 
-  static contextTypes = {
-    // Required to detect a parent IntlProvider
-    intl: intlShape,
-  };
-
-  constructor(props: CardWithAnalyticsEventsProps) {
+  constructor(props: CardBaseProps) {
     super(props);
 
     let status: CardStatus = 'loading';
@@ -779,7 +777,7 @@ export class CardBase extends Component<
       </>
     );
 
-    return this.context.intl ? (
+    return this.props.intl ? (
       innerContent
     ) : (
       <IntlProvider locale="en">{innerContent}</IntlProvider>
@@ -818,7 +816,7 @@ export class CardBase extends Component<
   };
 }
 
-export const Card: React.ComponentType<CardWithAnalyticsEventsProps> = withMediaAnalyticsContext(
+export const Card: React.ComponentType<CardBaseProps> = withMediaAnalyticsContext(
   {
     packageVersion,
     packageName,
@@ -828,4 +826,13 @@ export const Card: React.ComponentType<CardWithAnalyticsEventsProps> = withMedia
   {
     filterFeatureFlags: relevantFeatureFlagNames,
   },
-)(withAnalyticsEvents()(CardBase));
+)(
+  withAnalyticsEvents()(
+    injectIntl(
+      CardBase as React.ComponentType<CardBaseProps & WrappedComponentProps>,
+      {
+        enforceContext: false,
+      },
+    ),
+  ),
+);

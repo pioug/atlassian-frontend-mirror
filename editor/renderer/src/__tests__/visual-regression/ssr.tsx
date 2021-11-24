@@ -8,6 +8,7 @@ import { defaultSchema } from '@atlaskit/adf-schema';
 import { snapshot } from './_utils';
 import doc from './__fixtures__/renderer-ssr.adf.json';
 import resizedImagedoc from './__fixtures__/ssr-resized-image.adf.json';
+import { IntlProvider } from 'react-intl-next';
 
 const { window } = new JSDOM('', { url: 'http://localhost/' });
 (global as any).window = window;
@@ -16,6 +17,22 @@ const { window } = new JSDOM('', { url: 'http://localhost/' });
 (global as any).document = window.document;
 
 describe('ssr for renderer', () => {
+  interface CustomProvidersProps {
+    children?: JSX.Element;
+    [k: string]: any;
+  }
+
+  const CustomProviders = (props: {
+    children?: JSX.Element;
+    [k: string]: any;
+  }) => {
+    const { children, ...rest } = props;
+    return (
+      <div {...rest}>
+        <IntlProvider locale="en">{children}</IntlProvider>
+      </div>
+    );
+  };
   let page: PuppeteerPage;
 
   beforeEach(async () => {
@@ -24,8 +41,8 @@ describe('ssr for renderer', () => {
 
   it('should not throw when rendering any example on the server', async () => {
     const { ReactRenderer } = require('../../index');
-    const element = React.createElement(
-      'div',
+    const element = React.createElement<CustomProvidersProps>(
+      CustomProviders,
       { style: { margin: '0 auto' } },
       React.createElement(ReactRenderer, {
         document: doc,
@@ -59,7 +76,7 @@ describe('ssr for renderer', () => {
   it('should render image right dimensions for a resized image on the server', async () => {
     const { ReactRenderer } = require('../../index');
     const element = React.createElement(
-      'div',
+      CustomProviders,
       { style: { margin: '0 auto' } },
       React.createElement(ReactRenderer, {
         document: resizedImagedoc,

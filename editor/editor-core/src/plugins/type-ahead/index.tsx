@@ -142,9 +142,9 @@ const typeAheadPlugin = (options?: TypeAheadPluginOptions): EditorPlugin => {
       return [
         {
           name: 'typeAhead',
-          plugin: ({ dispatch, reactContext }) =>
+          plugin: ({ dispatch, getIntl }) =>
             createPlugin({
-              reactContext,
+              getIntl,
               popupMountRef,
               reactDispatch: dispatch,
               typeAheadHandlers: typeAhead,

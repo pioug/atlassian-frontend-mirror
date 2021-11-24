@@ -7,7 +7,11 @@ import Tooltip from '@atlaskit/tooltip';
 import { LoadOptions, OptionData, Value } from '@atlaskit/user-picker';
 import Tabs, { Tab, TabList, TabPanel } from '@atlaskit/tabs';
 import React from 'react';
-import { FormattedMessage, injectIntl, InjectedIntlProps } from 'react-intl';
+import {
+  FormattedMessage,
+  injectIntl,
+  WrappedComponentProps,
+} from 'react-intl-next';
 import styled from 'styled-components';
 import { messages } from '../i18n';
 import {
@@ -122,7 +126,7 @@ export type Props = {
 
 export type InternalFormProps = FormChildrenArgs<ShareData> &
   Props &
-  InjectedIntlProps;
+  WrappedComponentProps;
 
 class InternalForm extends React.PureComponent<InternalFormProps> {
   static defaultProps = {

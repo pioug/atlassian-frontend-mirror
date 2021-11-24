@@ -10,7 +10,7 @@ import {
   DropdownLeftIconWrapper,
 } from './styles';
 import { messages } from '@atlaskit/media-ui';
-import { injectIntl, InjectedIntlProps } from 'react-intl';
+import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 import { PICKER_COLORS } from '../popups/colorPopup';
 
 export interface ColorButtonProps {
@@ -20,7 +20,7 @@ export interface ColorButtonProps {
 }
 
 export class ColorButton extends Component<
-  ColorButtonProps & InjectedIntlProps
+  ColorButtonProps & WrappedComponentProps
 > {
   render() {
     const {

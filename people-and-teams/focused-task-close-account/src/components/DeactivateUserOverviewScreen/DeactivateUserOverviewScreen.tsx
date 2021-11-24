@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
+import { FormattedMessage, MessageDescriptor } from 'react-intl-next';
 
 import { deactivateUserOverviewMessages } from '../../messages';
 import UserInfo from '../UserInfo';
@@ -16,8 +16,8 @@ export class DeactivateUserOverviewScreen extends React.Component<
   };
 
   selectAdminOrSelfCopy = (
-    adminCopy: FormattedMessage.MessageDescriptor,
-    selfCopy: FormattedMessage.MessageDescriptor,
+    adminCopy: MessageDescriptor,
+    selfCopy: MessageDescriptor,
   ) => {
     return this.props.isCurrentUser ? selfCopy : adminCopy;
   };
@@ -28,7 +28,7 @@ export class DeactivateUserOverviewScreen extends React.Component<
     return (
       <li>
         {!hasAccessibleSites && (
-          <FormattedHTMLMessage
+          <FormattedMessage
             {...this.selectAdminOrSelfCopy(
               deactivateUserOverviewMessages.paragraphLoseAccessAdminNoSites,
               deactivateUserOverviewMessages.paragraphLoseAccessSelfNoSites,
@@ -38,7 +38,7 @@ export class DeactivateUserOverviewScreen extends React.Component<
         )}
         {hasAccessibleSites && (
           <>
-            <FormattedHTMLMessage
+            <FormattedMessage
               {...this.selectAdminOrSelfCopy(
                 deactivateUserOverviewMessages.paragraphLoseAccessAdmin,
                 deactivateUserOverviewMessages.paragraphLoseAccessSelf,
@@ -58,7 +58,7 @@ export class DeactivateUserOverviewScreen extends React.Component<
   renderPersonalDataListElement = () => {
     return (
       <li>
-        <FormattedHTMLMessage
+        <FormattedMessage
           {...this.selectAdminOrSelfCopy(
             deactivateUserOverviewMessages.paragraphPersonalDataAdmin,
             deactivateUserOverviewMessages.paragraphPersonalDataSelf,

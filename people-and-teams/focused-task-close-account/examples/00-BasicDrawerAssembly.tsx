@@ -4,7 +4,7 @@ import Button from '@atlaskit/button/standard-button';
 import accessibleSites from '../src/mocks/accessibleSites';
 import { catherineHirons } from '../src/mocks/users';
 
-import { IntlProvider } from 'react-intl';
+import { IntlProvider } from 'react-intl-next';
 
 import {
   FocusedTaskCloseAccount,

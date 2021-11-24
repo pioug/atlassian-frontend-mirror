@@ -1,4 +1,4 @@
-import { FormattedMessage } from 'react-intl';
+import { MessageDescriptor } from 'react-intl-next';
 
 import { EmojiProvider, supportsUploadFeature } from '../../api/EmojiResource';
 
@@ -11,9 +11,7 @@ import { messages } from '../i18n';
 export const uploadEmoji = (
   upload: EmojiUpload,
   emojiProvider: EmojiProvider,
-  errorSetter: (
-    message: FormattedMessage.MessageDescriptor | undefined,
-  ) => void,
+  errorSetter: (message: MessageDescriptor | undefined) => void,
   onSuccess: (emojiDescription: EmojiDescription) => void,
   fireAnalytics: (event: AnalyticsEventPayload) => void,
 ) => {

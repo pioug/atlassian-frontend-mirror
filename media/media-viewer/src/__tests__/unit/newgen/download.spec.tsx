@@ -8,7 +8,10 @@ import {
 } from '../../../download';
 import React from 'react';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
-import { fakeMediaClient } from '@atlaskit/media-test-helpers';
+import {
+  fakeMediaClient,
+  mountWithIntlWrapper,
+} from '@atlaskit/media-test-helpers';
 import { MediaViewerError } from '../../../errors';
 
 describe('download', () => {
@@ -68,7 +71,7 @@ describe('download', () => {
     it('should trigger an analytics event in the media channel', () => {
       const mediaClient = fakeMediaClient();
       const spy = jest.fn();
-      const component = mount(
+      const component = mountWithIntlWrapper(
         <AnalyticsListener channel="media" onEvent={spy}>
           <ErrorViewDownloadButton
             fileState={processingFailedState}

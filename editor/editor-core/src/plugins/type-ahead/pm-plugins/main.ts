@@ -1,7 +1,7 @@
 import { EditorState, Transaction, Plugin } from 'prosemirror-state';
 import { DecorationSet } from 'prosemirror-view';
 import { InsertTypeAheadStep } from '@atlaskit/adf-schema/steps';
-import { EditorReactContext } from '../../../types/editor-react-context';
+import { IntlShape } from 'react-intl-next';
 
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { Dispatch } from '../../../event-dispatcher';
@@ -32,17 +32,17 @@ type Props = {
   reactDispatch: Dispatch;
   popupMountRef: PopupMountPointReference;
   typeAheadHandlers: Array<TypeAheadHandler>;
-  reactContext: () => EditorReactContext;
   createAnalyticsEvent?: CreateUIAnalyticsEvent;
+  getIntl: () => IntlShape;
 };
 export function createPlugin({
   reactDispatch,
-  reactContext,
   popupMountRef,
   createAnalyticsEvent,
   typeAheadHandlers,
+  getIntl,
 }: Props): Plugin {
-  const intl = reactContext().intl;
+  const intl = getIntl();
   const { createDecorations, removeDecorations } = factoryDecorations({
     intl,
     popupMountRef,

@@ -9,7 +9,7 @@ import {
 } from '@atlaskit/media-client';
 import { MediaButton, messages } from '@atlaskit/media-ui';
 import React, { useCallback } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl-next';
 import { ANALYTICS_MEDIA_CHANNEL } from '@atlaskit/media-common';
 import { createDownloadButtonClickedEvent } from './analytics/events/ui/downloadButtonClicked';
 import { createFailedPreviewDownloadButtonClickedEvent } from './analytics/events/ui/failedPreviewDownloadButtonClicked';

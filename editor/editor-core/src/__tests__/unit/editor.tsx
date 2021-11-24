@@ -73,6 +73,7 @@ import {
   version as packageVersion,
 } from '../../version-wrapper';
 import ReactEditorView, {
+  ReactEditorView as BaseReactEditorView,
   EditorViewProps,
 } from '../../create-editor/ReactEditorView';
 import { EditorActions, EditorContext, MediaOptions } from '../..';
@@ -87,6 +88,7 @@ const { ActivityResource } = jest.genMockFromModule<
 
 import * as EmojiModule from '@atlaskit/emoji';
 import { QuickInsertOptions } from '../../plugins/quick-insert/types';
+import { IntlProvider, WrappedComponentProps } from 'react-intl-next';
 const { EmojiResource } = jest.genMockFromModule<typeof EmojiModule>(
   '@atlaskit/emoji',
 );
@@ -106,8 +108,8 @@ describe(name, () => {
 
         const wrapper = mount(<Editor onChange={handleChange} />);
 
-        const editorView: EditorView = (wrapper.instance() as any).editorActions
-          .editorView;
+        const editorView: EditorView = (wrapper.find(Editor).instance() as any)
+          .editorActions.editorView;
 
         insertText(editorView, 'hello', 0);
         expect(handleChange).toHaveBeenCalled();
@@ -151,6 +153,42 @@ describe(name, () => {
       });
     });
 
+    describe('react-intl-next', () => {
+      describe('when IntlProvider is not in component ancestry', () => {
+        const renderEditor = () => mount(<Editor />);
+        it('should not throw an error', () => {
+          expect(() => renderEditor()).not.toThrow();
+        });
+        it('should setup a default IntlProvider with locale "en"', () => {
+          const wrapper = renderEditor();
+          const intlProviderWrapper = wrapper.find(IntlProvider);
+          expect(intlProviderWrapper.length).toEqual(1);
+          expect(intlProviderWrapper.props()).toEqual(
+            expect.objectContaining({ locale: 'en' }),
+          );
+        });
+      });
+      describe('when IntlProvider is in component ancestry', () => {
+        const renderEditorWithIntl = () =>
+          mount(
+            <IntlProvider locale="es">
+              <Editor />
+            </IntlProvider>,
+          );
+        it('should not throw an error', () => {
+          expect(() => renderEditorWithIntl()).not.toThrow();
+        });
+        it('should use the provided IntlProvider, and not setup a default IntlProvider', () => {
+          const wrapper = renderEditorWithIntl();
+          const intlProviderWrapper = wrapper.find(IntlProvider);
+          expect(intlProviderWrapper.length).toEqual(1);
+          expect(intlProviderWrapper.props()).toEqual(
+            expect.objectContaining({ locale: 'es' }),
+          );
+        });
+      });
+    });
+
     describe('save on enter', () => {
       it('should fire onSave when user presses Enter', () => {
         const handleSave = jest.fn();
@@ -158,8 +196,8 @@ describe(name, () => {
           <Editor onSave={handleSave} saveOnEnter={true} />,
         );
 
-        const editorView: EditorView = (wrapper.instance() as any).editorActions
-          .editorView;
+        const editorView: EditorView = (wrapper.find(Editor).instance() as any)
+          .editorActions.editorView;
 
         sendKeyToPm(editorView, 'Enter');
         expect(handleSave).toHaveBeenCalled();
@@ -171,8 +209,8 @@ describe(name, () => {
         const handleSave = jest.fn();
         const wrapper = mount(<Editor onSave={handleSave} />);
 
-        const editorView: EditorView = (wrapper.instance() as any).editorActions
-          .editorView;
+        const editorView: EditorView = (wrapper.find(Editor).instance() as any)
+          .editorActions.editorView;
 
         sendKeyToPm(editorView, 'Mod-Enter');
         expect(handleSave).toHaveBeenCalled();
@@ -219,7 +257,7 @@ describe(name, () => {
       appearances.forEach((appearance) => {
         it(`adds appearance analytics context to all editor events for ${appearance.appearance} editor`, (done) => {
           // editor fires an editor started event that should trigger the listener from
-          // just mounting the component
+          // just mount the component
           mount(
             <FabricAnalyticsListeners
               client={mockAnalyticsClient(appearance.analyticsAppearance, done)}
@@ -302,7 +340,7 @@ describe(name, () => {
           useOnReadyEditorActions?: boolean;
         }) => {
           let onReadyEditorActions: EditorActions;
-          const wrapper = mount<Editor>(
+          const wrapper = mount(
             <EditorContext editorActions={editorActions}>
               <Editor
                 onEditorReady={(localEditorActions) =>
@@ -727,9 +765,8 @@ describe(name, () => {
             }
           />,
         );
-        const providerFactory = component
-          .find<EditorViewProps>(ReactEditorView)
-          .props().providerFactory;
+        const providerFactory = component.find(ReactEditorView).props()
+          .providerFactory;
         return {
           component,
           activityProvider,
@@ -881,7 +918,7 @@ describe(name, () => {
 
         const component = mount(<Editor UNSAFE_cards={cardOptions} />);
         const providerFactory = component
-          .find<EditorViewProps>(ReactEditorView)
+          .find<EditorViewProps & WrappedComponentProps>(BaseReactEditorView)
           .props().providerFactory;
 
         assertProvider(providerFactory, 'cardProvider', cardProvider, done);

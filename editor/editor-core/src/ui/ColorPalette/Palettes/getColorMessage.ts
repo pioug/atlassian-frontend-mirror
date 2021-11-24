@@ -1,11 +1,10 @@
-import { FormattedMessage } from 'react-intl';
+import { MessageDescriptor } from 'react-intl-next';
 
 export default function getColorMessage(
-  messages: ReactIntl.Messages,
+  messages: Record<string | number, MessageDescriptor>,
   color: string,
-): FormattedMessage.MessageDescriptor | undefined {
-  let message: FormattedMessage.MessageDescriptor =
-    messages[color as keyof typeof messages];
+): MessageDescriptor | undefined {
+  let message = messages[color as keyof typeof messages];
 
   if (!message) {
     // eslint-disable-next-line no-console

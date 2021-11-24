@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import styled from 'styled-components';
-import { injectIntl, InjectedIntlProps } from 'react-intl';
+import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 import Textfield from '@atlaskit/textfield';
 import SearchIcon from '@atlaskit/icon/glyph/search';
 import { withAnalyticsContext } from '@atlaskit/analytics-next';
@@ -29,7 +29,7 @@ function ElementSearch({
   focus,
   onClick,
   searchTerm,
-}: Props & InjectedIntlProps): JSX.Element {
+}: Props & WrappedComponentProps): JSX.Element {
   const ref = useFocus(focus);
 
   const onChange = ({

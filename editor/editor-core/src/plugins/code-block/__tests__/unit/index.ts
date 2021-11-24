@@ -1,4 +1,4 @@
-import { IntlProvider } from 'react-intl';
+import { createIntl } from 'react-intl-next';
 import { PluginKey, NodeSelection } from 'prosemirror-state';
 import { isNodeSelection } from 'prosemirror-utils';
 import {
@@ -306,8 +306,9 @@ describe('code-block', () => {
 
   describe('toolbar', () => {
     const { editorView } = editor(doc(code_block({})('Some code here')));
-    const intlProvider = new IntlProvider({ locale: 'en' });
-    const { intl } = intlProvider.getChildContext();
+    const intl = createIntl({
+      locale: 'en',
+    });
 
     it('should not show clipboard button in toolbar when allowCopyToClipboard is false', () => {
       const createToolbar = getToolbarConfig(false);

@@ -69,7 +69,7 @@ import {
 } from '@atlaskit/media-test-helpers';
 
 import { CardAction, CardProps, CardState, CardPreview } from '../..';
-import { Card, CardBase, CardWithAnalyticsEventsProps } from '../../root/card';
+import { Card, CardBase, CardBaseProps } from '../../root/card';
 import { CardView } from '../../root/cardView';
 import { InlinePlayer } from '../../root/inlinePlayer';
 import { ViewportDetector } from '../../utils/viewportDetector';
@@ -77,7 +77,7 @@ import {
   getCardPreview,
   getCardPreviewFromCache,
 } from '../../root/card/getCardPreview';
-import { IntlProvider } from 'react-intl';
+import { IntlProvider } from 'react-intl-next';
 import { getFileAttributes } from '../../utils/analytics';
 import { getFileDetails } from '../../utils/metadata';
 import { getCardStatus } from '../../root/card/getCardStatus';
@@ -121,7 +121,7 @@ describe('Card', () => {
 
   const setup = (
     mediaClient: MediaClient = createMediaClientWithGetFile(),
-    props: Partial<CardWithAnalyticsEventsProps> = {},
+    props: Partial<CardBaseProps> = {},
     cardPreview: CardPreview | false = defaultCardPreview,
   ) => {
     asMockFunction(getCardPreview).mockReset();
@@ -133,11 +133,7 @@ describe('Card', () => {
 
     props = { isLazy: false, ...props };
 
-    const component = shallow<
-      CardBase,
-      CardWithAnalyticsEventsProps,
-      CardState
-    >(
+    const component = shallow<CardBase, CardBaseProps, CardState>(
       <CardBase mediaClient={mediaClient} identifier={identifier} {...props} />,
     );
 
@@ -217,14 +213,16 @@ describe('Card', () => {
   });
 
   it('should attach default IntlProvider when an ancestor is not found', () => {
-    const component = shallow(<CardBase identifier={identifier} />);
+    const component = mount(
+      <Card mediaClient={mediaClient} identifier={identifier} />,
+    );
     expect(component.find(IntlProvider).length).toBe(1);
   });
 
   it('should not attach default IntlProvider when an ancestor is found', () => {
     const component = mount(
-      <IntlProvider locale="es">
-        <CardBase identifier={identifier} />
+      <IntlProvider locale="en">
+        <Card mediaClient={mediaClient} identifier={identifier} />
       </IntlProvider>,
     );
     expect(component.find(IntlProvider).length).toBe(1);

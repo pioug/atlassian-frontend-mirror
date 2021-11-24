@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { act, createEvent, fireEvent, render } from '@testing-library/react';
-import { IntlProvider } from 'react-intl';
+import { IntlProvider } from 'react-intl-next';
 
 import { getMockTeamClient } from '../../../examples/helper/util';
 import ProfileClient from '../../../src/client/ProfileCardClient';

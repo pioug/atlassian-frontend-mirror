@@ -16,6 +16,7 @@ import CardClient from '../../../client';
 import { Card } from '../../Card';
 import { Provider } from '../../..';
 import { fakeFactory, mocks, waitFor } from '../../../utils/mocks';
+import { IntlProvider } from 'react-intl-next';
 
 describe('smart-card: card states, inline', () => {
   let mockClient: CardClient;
@@ -37,9 +38,11 @@ describe('smart-card: card states, inline', () => {
     describe('> state: loading', () => {
       it('inline: should render loading state initially', async () => {
         const { getByTestId } = render(
-          <Provider client={mockClient}>
-            <Card appearance="inline" url={mockUrl} />
-          </Provider>,
+          <IntlProvider locale="en">
+            <Provider client={mockClient}>
+              <Card appearance="inline" url={mockUrl} />
+            </Provider>
+          </IntlProvider>,
         );
         const loadingView = await waitForElement(() =>
           getByTestId('inline-card-resolving-view'),
@@ -62,10 +65,12 @@ describe('smart-card: card states, inline', () => {
 
         let resolvingView = null;
         const { getByText, getAllByText } = render(
-          <Provider client={mockClient}>
-            <Card appearance="inline" url={mockUrl} />
-            <DelayedCard />
-          </Provider>,
+          <IntlProvider locale="en">
+            <Provider client={mockClient}>
+              <Card appearance="inline" url={mockUrl} />
+              <DelayedCard />
+            </Provider>
+          </IntlProvider>,
         );
         expect(getByText(mockUrl)).toBeTruthy();
         // Then URL resolves, triggering update:
@@ -89,9 +94,11 @@ describe('smart-card: card states, inline', () => {
     describe('> state: resolved', () => {
       it('inline: should render with metadata when resolved', async () => {
         const { getByText } = render(
-          <Provider client={mockClient}>
-            <Card appearance="inline" url={mockUrl} />
-          </Provider>,
+          <IntlProvider locale="en">
+            <Provider client={mockClient}>
+              <Card appearance="inline" url={mockUrl} />
+            </Provider>
+          </IntlProvider>,
         );
         const resolvedView = await waitForElement(() =>
           getByText('I love cheese'),
@@ -104,9 +111,11 @@ describe('smart-card: card states, inline', () => {
       it('should re-render when URL changes', async () => {
         let resolvedView = null;
         const { getByText, rerender } = render(
-          <Provider client={mockClient}>
-            <Card appearance="inline" url={mockUrl} />
-          </Provider>,
+          <IntlProvider locale="en">
+            <Provider client={mockClient}>
+              <Card appearance="inline" url={mockUrl} />
+            </Provider>
+          </IntlProvider>,
         );
         resolvedView = await waitForElement(() => getByText('I love cheese'));
         expect(resolvedView).toBeTruthy();
@@ -114,9 +123,11 @@ describe('smart-card: card states, inline', () => {
         expect(mockFetch).toBeCalledTimes(1);
 
         rerender(
-          <Provider client={mockClient}>
-            <Card appearance="inline" url="https://google.com" />
-          </Provider>,
+          <IntlProvider locale="en">
+            <Provider client={mockClient}>
+              <Card appearance="inline" url="https://google.com" />
+            </Provider>
+          </IntlProvider>,
         );
         resolvedView = await waitForElement(() => getByText('I love cheese'));
         expect(mockFetch).toBeCalled();
@@ -126,9 +137,11 @@ describe('smart-card: card states, inline', () => {
       it('should not re-render when appearance changes', async () => {
         let resolvedView = null;
         const { getByText, rerender } = render(
-          <Provider client={mockClient}>
-            <Card appearance="inline" url={mockUrl} />
-          </Provider>,
+          <IntlProvider locale="en">
+            <Provider client={mockClient}>
+              <Card appearance="inline" url={mockUrl} />
+            </Provider>
+          </IntlProvider>,
         );
         resolvedView = await waitForElement(() => getByText('I love cheese'));
         expect(resolvedView).toBeTruthy();
@@ -136,9 +149,11 @@ describe('smart-card: card states, inline', () => {
         expect(mockFetch).toBeCalledTimes(1);
 
         rerender(
-          <Provider client={mockClient}>
-            <Card appearance="block" url={mockUrl} />
-          </Provider>,
+          <IntlProvider locale="en">
+            <Provider client={mockClient}>
+              <Card appearance="block" url={mockUrl} />
+            </Provider>
+          </IntlProvider>,
         );
         resolvedView = await waitForElement(() => getByText('I love cheese'));
         expect(mockFetch).toBeCalled();
@@ -151,9 +166,11 @@ describe('smart-card: card states, inline', () => {
         it('inline: renders the forbidden view if no access, with auth prompt', async () => {
           mockFetch.mockImplementationOnce(async () => mocks.forbidden);
           const { getByText, container } = render(
-            <Provider client={mockClient}>
-              <Card appearance="inline" url={mockUrl} />
-            </Provider>,
+            <IntlProvider locale="en">
+              <Provider client={mockClient}>
+                <Card appearance="inline" url={mockUrl} />
+              </Provider>
+            </IntlProvider>,
           );
           const forbiddenLink = await waitForElement(() =>
             getByText(/Restricted link/),
@@ -176,9 +193,11 @@ describe('smart-card: card states, inline', () => {
           mocks.forbidden.meta.auth = [];
           mockFetch.mockImplementationOnce(async () => mocks.forbidden);
           const { getByText, container } = render(
-            <Provider client={mockClient}>
-              <Card appearance="inline" url={mockUrl} />
-            </Provider>,
+            <IntlProvider locale="en">
+              <Provider client={mockClient}>
+                <Card appearance="inline" url={mockUrl} />
+              </Provider>
+            </IntlProvider>,
           );
           const forbiddenLinkTruncated = mockUrl.slice(0, 5);
           const forbiddenLink = await waitForElement(() =>
@@ -198,9 +217,11 @@ describe('smart-card: card states, inline', () => {
         it('inline: renders with connect flow', async () => {
           mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
           const { getByText, container } = render(
-            <Provider client={mockClient}>
-              <Card appearance="inline" url={mockUrl} />
-            </Provider>,
+            <IntlProvider locale="en">
+              <Provider client={mockClient}>
+                <Card appearance="inline" url={mockUrl} />
+              </Provider>
+            </IntlProvider>,
           );
           const unauthorizedLink = await waitForElement(() =>
             getByText(/Connect to preview/),
@@ -221,9 +242,11 @@ describe('smart-card: card states, inline', () => {
           mocks.unauthorized.meta.auth = [];
           mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
           const { getByText, container } = render(
-            <Provider client={mockClient}>
-              <Card appearance="inline" url={mockUrl} />
-            </Provider>,
+            <IntlProvider locale="en">
+              <Provider client={mockClient}>
+                <Card appearance="inline" url={mockUrl} />
+              </Provider>
+            </IntlProvider>,
           );
           const unauthorizedLink = await waitForElement(() =>
             getByText(mockUrl),
@@ -240,9 +263,11 @@ describe('smart-card: card states, inline', () => {
         it('inline: renders as blue link', async () => {
           mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
           const { getByText } = render(
-            <Provider client={mockClient} authFlow="disabled">
-              <Card appearance="inline" url={mockUrl} />
-            </Provider>,
+            <IntlProvider locale="en">
+              <Provider client={mockClient} authFlow="disabled">
+                <Card appearance="inline" url={mockUrl} />
+              </Provider>
+            </IntlProvider>,
           );
           const dumbLink = await waitForElement(() => getByText(mockUrl));
           expect(dumbLink).toBeTruthy();
@@ -261,9 +286,11 @@ describe('smart-card: card states, inline', () => {
             ),
         );
         const { getByText } = render(
-          <Provider client={mockClient}>
-            <Card appearance="inline" url={mockUrl} />
-          </Provider>,
+          <IntlProvider locale="en">
+            <Provider client={mockClient}>
+              <Card appearance="inline" url={mockUrl} />
+            </Provider>
+          </IntlProvider>,
         );
         const dumbLink = await waitForElement(() => getByText(mockUrl));
         expect(dumbLink).toBeTruthy();
@@ -274,9 +301,11 @@ describe('smart-card: card states, inline', () => {
       it('inline: renders error card when link not found', async () => {
         mockFetch.mockImplementationOnce(async () => mocks.notFound);
         const { getByText } = render(
-          <Provider client={mockClient}>
-            <Card appearance="inline" url={mockUrl} />
-          </Provider>,
+          <IntlProvider locale="en">
+            <Provider client={mockClient}>
+              <Card appearance="inline" url={mockUrl} />
+            </Provider>
+          </IntlProvider>,
         );
         const errorView = await waitForElement(() =>
           getByText(/Can't find link/),
@@ -292,9 +321,15 @@ describe('smart-card: card states, inline', () => {
     describe('> state: resolved', () => {
       it('inline: renders successfully with data', async () => {
         const { getByText } = render(
-          <Provider client={mockClient}>
-            <Card appearance="inline" url={mockUrl} data={mocks.success.data} />
-          </Provider>,
+          <IntlProvider locale="en">
+            <Provider client={mockClient}>
+              <Card
+                appearance="inline"
+                url={mockUrl}
+                data={mocks.success.data}
+              />
+            </Provider>
+          </IntlProvider>,
         );
         const resolvedView = await waitForElement(() =>
           getByText('I love cheese'),

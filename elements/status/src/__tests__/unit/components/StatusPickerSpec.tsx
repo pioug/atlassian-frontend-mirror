@@ -1,7 +1,7 @@
 import {
   shallowWithIntl,
   mountWithIntl,
-} from '@atlaskit/editor-test-helpers/enzyme';
+} from '@atlaskit/editor-test-helpers/enzyme-next';
 import TextField from '@atlaskit/textfield';
 import React from 'react';
 import { StatusPicker } from '../../..';

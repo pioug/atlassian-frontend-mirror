@@ -1,6 +1,5 @@
 import React, { useContext, useLayoutEffect, useRef } from 'react';
 import { PureComponent } from 'react';
-import { IntlProvider } from 'react-intl';
 import { Schema, Node as PMNode } from 'prosemirror-model';
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema';
 import { reduce } from '@atlaskit/adf-utils';
@@ -16,6 +15,9 @@ import {
   startMeasure,
   stopMeasure,
   shouldForceTracking,
+  IntlNextErrorBoundary,
+  LegacyToNextIntlProvider,
+  IntlLegacyFallbackProvider,
 } from '@atlaskit/editor-common';
 import { normalizeFeatureFlags } from '@atlaskit/editor-common/normalize-feature-flags';
 import { akEditorFullPageDefaultFontSize } from '@atlaskit/editor-shared-styles';
@@ -354,42 +356,44 @@ export class Renderer extends PureComponent<RendererProps> {
             <ActiveHeaderIdProvider
               value={getActiveHeadingId(allowHeadingAnchorLinks)}
             >
-              <IntlProvider>
-                <AnalyticsContext.Provider
-                  value={{
-                    fireAnalyticsEvent: (event: AnalyticsEventPayload) =>
-                      this.fireAnalyticsEvent(event),
-                  }}
-                >
-                  <SmartCardStorageProvider>
-                    <RendererWrapper
-                      appearance={appearance}
-                      dynamicTextSizing={!!allowDynamicTextSizing}
-                      allowNestedHeaderLinks={allowNestedHeaderLinks}
-                      allowColumnSorting={allowColumnSorting}
-                      allowCopyToClipboard={allowCopyToClipboard}
-                      allowCustomPanels={allowCustomPanels}
-                      allowPlaceholderText={allowPlaceholderText}
-                      innerRef={this.editorRef}
-                      onClick={handleWrapperOnClick}
-                      onMouseDown={this.onMouseDownEditView}
-                    >
-                      {enableSsrInlineScripts ? (
-                        <BreakoutSSRInlineScript
-                          allowDynamicTextSizing={!!allowDynamicTextSizing}
-                        />
-                      ) : null}
-                      <RendererActionsInternalUpdater
-                        doc={pmDoc}
-                        schema={schema}
-                        onAnalyticsEvent={this.fireAnalyticsEvent}
+              <LegacyToNextIntlProvider>
+                <IntlLegacyFallbackProvider>
+                  <AnalyticsContext.Provider
+                    value={{
+                      fireAnalyticsEvent: (event: AnalyticsEventPayload) =>
+                        this.fireAnalyticsEvent(event),
+                    }}
+                  >
+                    <SmartCardStorageProvider>
+                      <RendererWrapper
+                        appearance={appearance}
+                        dynamicTextSizing={!!allowDynamicTextSizing}
+                        allowNestedHeaderLinks={allowNestedHeaderLinks}
+                        allowColumnSorting={allowColumnSorting}
+                        allowCopyToClipboard={allowCopyToClipboard}
+                        allowCustomPanels={allowCustomPanels}
+                        allowPlaceholderText={allowPlaceholderText}
+                        innerRef={this.editorRef}
+                        onClick={handleWrapperOnClick}
+                        onMouseDown={this.onMouseDownEditView}
                       >
-                        {result}
-                      </RendererActionsInternalUpdater>
-                    </RendererWrapper>
-                  </SmartCardStorageProvider>
-                </AnalyticsContext.Provider>
-              </IntlProvider>
+                        {enableSsrInlineScripts ? (
+                          <BreakoutSSRInlineScript
+                            allowDynamicTextSizing={!!allowDynamicTextSizing}
+                          />
+                        ) : null}
+                        <RendererActionsInternalUpdater
+                          doc={pmDoc}
+                          schema={schema}
+                          onAnalyticsEvent={this.fireAnalyticsEvent}
+                        >
+                          {result}
+                        </RendererActionsInternalUpdater>
+                      </RendererWrapper>
+                    </SmartCardStorageProvider>
+                  </AnalyticsContext.Provider>
+                </IntlLegacyFallbackProvider>
+              </LegacyToNextIntlProvider>
             </ActiveHeaderIdProvider>
           </CopyTextProvider>
         </RendererContextProvider>
@@ -449,6 +453,7 @@ const RendererWithAnalytics = React.memo((props: RendererProps) => (
   >
     <WithCreateAnalyticsEvent
       render={(createAnalyticsEvent) => {
+        // `IntlNextErrorBoundary` only captures Internationalisation errors, leaving others for `ErrorBoundary`.
         return (
           <ErrorBoundary
             component={ACTION_SUBJECT.RENDERER}
@@ -456,7 +461,12 @@ const RendererWithAnalytics = React.memo((props: RendererProps) => (
             fallbackComponent={null}
             createAnalyticsEvent={createAnalyticsEvent}
           >
-            <Renderer {...props} createAnalyticsEvent={createAnalyticsEvent} />
+            <IntlNextErrorBoundary>
+              <Renderer
+                {...props}
+                createAnalyticsEvent={createAnalyticsEvent}
+              />
+            </IntlNextErrorBoundary>
           </ErrorBoundary>
         );
       }}

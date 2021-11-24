@@ -6,6 +6,7 @@ import EmojiPreview from '../src/components/common/EmojiPreview';
 
 import { emojiPickerWidth } from '../src/util/constants';
 import filters from '../src/util/filters';
+import { IntlProvider } from 'react-intl-next';
 
 const emojis = getEmojis();
 
@@ -30,8 +31,10 @@ const borderedStyle = {
 
 export default function Example() {
   return (
-    <div style={borderedStyle}>
-      <EmojiPreview emoji={longTongueEmoji} toneEmoji={toneEmoji} />
-    </div>
+    <IntlProvider locale="en">
+      <div style={borderedStyle}>
+        <EmojiPreview emoji={longTongueEmoji} toneEmoji={toneEmoji} />
+      </div>
+    </IntlProvider>
   );
 }

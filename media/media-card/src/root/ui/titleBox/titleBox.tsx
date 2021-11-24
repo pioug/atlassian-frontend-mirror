@@ -1,6 +1,6 @@
 import React from 'react';
 import LockFilledIcon from '@atlaskit/icon/glyph/lock-filled';
-import { injectIntl } from 'react-intl';
+import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 import { TitleBoxIcon as TitleBoxIconType } from '../../../index';
 import {
   TitleBoxWrapper,
@@ -23,12 +23,8 @@ export type TitleBoxProps = {
 
 type FormattedDateProps = { timestamp: number };
 
-type WithIntlProps = {
-  intl?: { locale?: string };
-};
-
-export const FormattedDate = injectIntl(
-  ({ timestamp, intl }: FormattedDateProps & WithIntlProps) => {
+export const FormattedDate: React.ComponentType<FormattedDateProps> = injectIntl(
+  ({ timestamp, intl }: FormattedDateProps & WrappedComponentProps) => {
     const { locale = 'en' } = intl || { locale: 'en' };
     return <>{formatDate(timestamp, locale)}</>;
   },

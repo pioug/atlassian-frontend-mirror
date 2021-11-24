@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { IntlProvider } from 'react-intl';
+import { IntlProvider } from 'react-intl-next';
 import { FieldComponent, FieldComponentProps } from '../../FormContent';
 import { FieldDefinition } from '@atlaskit/editor-common/extensions';
 

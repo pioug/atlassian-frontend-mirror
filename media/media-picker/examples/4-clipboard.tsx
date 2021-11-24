@@ -1,6 +1,7 @@
 // eslint-disable-line no-console
 import React from 'react';
 import { Component } from 'react';
+import { IntlProvider } from 'react-intl-next';
 import {
   userAuthProvider,
   defaultMediaPickerAuthProvider,
@@ -262,27 +263,29 @@ class ClipboardWrapper extends Component<{}, ClipboardWrapperState> {
     const height = Math.round(pastedImgHeight / pastedImgScaleFactor);
 
     return (
-      <InfoContainer>
-        {isLoading ? (
-          <Spinner size="large" />
-        ) : pastedImgSrc ? (
-          <>
-            <PastedImage
-              src={pastedImgSrc}
-              style={{ width, height }}
-              title="Click X button to close"
-            />
-            <div className="info">{`${width}x${height}`}</div>
-            <Button
-              className="close_button"
-              appearance="primary"
-              onClick={this.onCloseImg}
-            >
-              X
-            </Button>
-          </>
-        ) : null}
-      </InfoContainer>
+      <IntlProvider locale="en">
+        <InfoContainer>
+          {isLoading ? (
+            <Spinner size="large" />
+          ) : pastedImgSrc ? (
+            <>
+              <PastedImage
+                src={pastedImgSrc}
+                style={{ width, height }}
+                title="Click X button to close"
+              />
+              <div className="info">{`${width}x${height}`}</div>
+              <Button
+                className="close_button"
+                appearance="primary"
+                onClick={this.onCloseImg}
+              >
+                X
+              </Button>
+            </>
+          ) : null}
+        </InfoContainer>
+      </IntlProvider>
     );
   }
 }

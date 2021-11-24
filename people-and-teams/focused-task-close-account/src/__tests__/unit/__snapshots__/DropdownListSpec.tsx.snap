@@ -20,11 +20,10 @@ exports[`Dropdown list button renders sites list 1`] = `
     </li>
   </styled.ul>
   <styled.div>
-    <FormattedMessage
+    <MemoizedFormattedMessage
       defaultMessage="Other Atlassian account services, such as Atlassian Community and Marketplace. "
       description="A paragraph explaining that upon deletion the user may also lose access to services that weren't listed prior."
       id="focused-task-close-account.delete-account.overview.paragraph.loseAccess.footnote"
-      values={Object {}}
     />
   </styled.div>
 </Fragment>
@@ -55,11 +54,10 @@ exports[`Dropdown list button renders sites list with collapse button for more t
     </li>
   </styled.ul>
   <styled.div>
-    <FormattedMessage
+    <MemoizedFormattedMessage
       defaultMessage="Other Atlassian account services, such as Atlassian Community and Marketplace. "
       description="A paragraph explaining that upon deletion the user may also lose access to services that weren't listed prior."
       id="focused-task-close-account.delete-account.overview.paragraph.loseAccess.footnote"
-      values={Object {}}
     />
   </styled.div>
   <styled.div>
@@ -68,11 +66,10 @@ exports[`Dropdown list button renders sites list with collapse button for more t
       onClick={[Function]}
       spacing="none"
     >
-      <FormattedMessage
+      <MemoizedFormattedMessage
         defaultMessage="Show less"
         description="Button text displaying text on collapse"
         id="focused-task-close-account.delete-account.drop-down-collapse-button"
-        values={Object {}}
       />
     </CustomThemeButton>
   </styled.div>
@@ -104,7 +101,7 @@ exports[`Dropdown list button renders sites list with expand button for more tha
       onClick={[Function]}
       spacing="none"
     >
-      <FormattedMessage
+      <MemoizedFormattedMessage
         defaultMessage="{num} more"
         description="Button text displaying number of available sites greater than 3 on expand"
         id="focused-task-close-account.delete-account.drop-down-expand-button"
@@ -144,7 +141,7 @@ exports[`Dropdown list button renders sites list with expand button for more tha
       onClick={[Function]}
       spacing="none"
     >
-      <FormattedMessage
+      <MemoizedFormattedMessage
         defaultMessage="{num} more"
         description="Button text displaying number of available sites greater than 3 on expand"
         id="focused-task-close-account.delete-account.drop-down-expand-button"

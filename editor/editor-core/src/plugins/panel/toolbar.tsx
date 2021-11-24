@@ -6,7 +6,7 @@ import {
   FloatingToolbarButton,
 } from './../floating-toolbar/types';
 import { PanelPluginOptions } from './types';
-import { InjectedIntl } from 'react-intl';
+import { IntlShape } from 'react-intl-next';
 import SuccessIcon from '@atlaskit/icon/glyph/editor/success';
 import InfoIcon from '@atlaskit/icon/glyph/editor/info';
 import NoteIcon from '@atlaskit/icon/glyph/editor/note';
@@ -27,7 +27,6 @@ import {
   ProviderFactory,
   getPanelTypeBackground,
 } from '@atlaskit/editor-common';
-import { FormattedMessage } from 'react-intl';
 import { findPanel } from './utils';
 import { EditorView } from 'prosemirror-view';
 import { findDomRefAtPos } from 'prosemirror-utils';
@@ -58,9 +57,7 @@ export const panelIconMap: {
 };
 
 export const getToolbarItems = (
-  formatMessage: (
-    messageDescriptor: FormattedMessage.MessageDescriptor,
-  ) => string,
+  formatMessage: IntlShape['formatMessage'],
   panelNodeType: NodeType,
   isCustomPanelEnabled: boolean,
   isCustomPanelEditable: boolean,
@@ -282,7 +279,7 @@ export const getToolbarItems = (
 
 export const getToolbarConfig = (
   state: EditorState,
-  intl: InjectedIntl,
+  intl: IntlShape,
   options: PanelPluginOptions = {},
   providerFactory: ProviderFactory,
 ): FloatingToolbarConfig | undefined => {

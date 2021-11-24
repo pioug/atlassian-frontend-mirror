@@ -1,6 +1,6 @@
 import React from 'react';
 import { Component } from 'react';
-import { injectIntl, InjectedIntlProps } from 'react-intl';
+import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 import Button from '@atlaskit/button/custom-theme-button';
 import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
 import Tooltip from '@atlaskit/tooltip';
@@ -16,7 +16,7 @@ export interface LineWidthButtonProps {
 }
 
 export class LineWidthButton extends Component<
-  LineWidthButtonProps & InjectedIntlProps
+  LineWidthButtonProps & WrappedComponentProps
 > {
   render() {
     const {

@@ -1,7 +1,7 @@
 import React from 'react';
 import FieldText from '@atlaskit/textfield';
 import { PluginHeaderWrapper } from './styled';
-import { InjectedIntlProps, injectIntl } from 'react-intl';
+import { WrappedComponentProps, injectIntl } from 'react-intl-next';
 import { messages } from '@atlaskit/media-ui';
 
 export interface PluginHeaderProps {
@@ -12,7 +12,7 @@ export interface PluginHeaderProps {
   onQueryChange: React.FormEventHandler<HTMLInputElement>;
   query?: string;
 }
-export const PluginHeader = injectIntl(
+export const PluginHeader: React.FC<PluginHeaderProps> = injectIntl(
   ({
     name,
     loading,
@@ -21,7 +21,7 @@ export const PluginHeader = injectIntl(
     onQueryChange,
     query,
     intl: { formatMessage },
-  }: PluginHeaderProps & InjectedIntlProps) => {
+  }: PluginHeaderProps & WrappedComponentProps) => {
     const isReady = !loading && !error;
     const hasImages = isReady && typeof totalImages === 'number';
 

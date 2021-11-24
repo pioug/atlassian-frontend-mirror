@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { ThemeProvider } from 'styled-components';
-import { addLocaleData } from 'react-intl';
 import { ADFEntity, scrubAdf } from '@atlaskit/adf-utils';
 import { Checkbox } from '@atlaskit/checkbox';
 import { ProviderFactory } from '@atlaskit/editor-common';
@@ -32,6 +31,7 @@ import { KitchenSinkEditor } from './kitchen-sink-editor';
 import { isEmptyDocument } from '../../src/utils/document';
 import { getExampleExtensionProviders } from '../get-example-extension-providers';
 import { exampleSelectionDebugger } from '../example-editor-plugins';
+import { getTranslations } from '../../example-helpers/get-translations';
 
 addGlobalEventEmitterListeners();
 
@@ -432,11 +432,7 @@ export class KitchenSink extends React.Component<
   }
 
   private loadLocale = async (locale: string) => {
-    const localeData = await import(
-      `react-intl/locale-data/${locale.substring(0, 2)}`
-    );
-    addLocaleData(localeData.default);
-    const messages = await import(`../../src/i18n/${locale}`);
+    const messages = await getTranslations(locale);
     this.props.setLocale(locale);
     this.props.setMessages(messages);
   };

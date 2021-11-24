@@ -12,6 +12,7 @@ import {
   TransformAfter,
 } from '@atlaskit/editor-common/extensions';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import { REACT_INTL_ERROR_MESSAGE } from '@atlaskit/editor-common/ui';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import {
   inlineExtensionData,
@@ -48,6 +49,7 @@ import { getPluginState } from '../../../../plugins/extension/pm-plugins/main';
 import { getSelectedExtension } from '../../../../plugins/extension/utils';
 import { setNodeSelection } from '../../../../utils';
 import { waitForProvider, flushPromises } from '../../../__helpers/utils';
+import { useIntl } from 'react-intl-next';
 
 const macroProviderPromise = Promise.resolve(macroProvider);
 
@@ -838,6 +840,66 @@ describe('extension', () => {
       expect(pluginState.showContextPanel).toEqual(false);
       expect(pluginState.processParametersBefore).toEqual(undefined);
       expect(pluginState.processParametersAfter).toEqual(undefined);
+    });
+  });
+
+  describe('extension handlers', () => {
+    describe('i18n', () => {
+      it('should allow extension handlers to render components that consume react-intl (v5) context without errors', async () => {
+        const extensionKey = 'intl-consumer-test-key';
+        const extensionType = 'intl-consumer-type-key';
+        const dataTestId = 'ext-handler-container';
+
+        const ExampleNextIntlConsumer = () => {
+          const intl = useIntl();
+          return <div data-testid={dataTestId}>locale is: {intl.locale}</div>;
+        };
+
+        let reactIntlExceptionThrown = false;
+        class IntlErrorTracker extends React.Component {
+          state = {
+            didThrow: false,
+          };
+
+          componentDidCatch(err: Error) {
+            if (err.toString().includes(REACT_INTL_ERROR_MESSAGE)) {
+              reactIntlExceptionThrown = true;
+            }
+            this.setState({ didThrow: true });
+          }
+          render() {
+            if (this.state.didThrow) {
+              return null;
+            }
+            return this.props.children;
+          }
+        }
+
+        const extensionHandlers: ExtensionHandlers = {
+          [extensionType]: {
+            render: () => {
+              return (
+                <IntlErrorTracker>
+                  <ExampleNextIntlConsumer />
+                </IntlErrorTracker>
+              );
+            },
+          },
+        };
+
+        editor(
+          doc(
+            extension({
+              extensionKey,
+              extensionType,
+            })(),
+            paragraph(),
+          ),
+          extensionHandlers,
+        );
+
+        expect(reactIntlExceptionThrown).toEqual(false);
+      });
     });
   });
 });

@@ -1,7 +1,7 @@
 import { renderHook } from '@testing-library/react-hooks';
 import { useQuickInsert } from '../../use-quickinsert';
 import WebBridgeImpl from '../../../native-to-web';
-import { InjectedIntl } from 'react-intl';
+import { IntlShape } from 'react-intl-next';
 import { processQuickInsertItems } from '@atlaskit/editor-core';
 
 const mockSomeDefaultItems = [
@@ -27,7 +27,7 @@ describe('useQuickInsert Hook', () => {
   const intlMock = ({
     formatMessage: (messageDescriptor: any) =>
       messageDescriptor && messageDescriptor.defaultMessage,
-  } as unknown) as InjectedIntl;
+  } as unknown) as IntlShape;
 
   it('should not configure quick insert when isQuickInsertEnabled is false', () => {
     const bridge = new WebBridgeImpl();
@@ -64,7 +64,7 @@ describe('useQuickInsert Hook', () => {
       (bridge as any).editorView = true;
 
       const spy = jest.spyOn(bridge, 'setQuickInsertItems');
-      const { result, rerender } = renderHook((intlMockOpt?: InjectedIntl) => {
+      const { result, rerender } = renderHook((intlMockOpt?: IntlShape) => {
         return useQuickInsert(bridge, intlMockOpt || intlMock, true);
       });
 
@@ -79,7 +79,7 @@ describe('useQuickInsert Hook', () => {
       rerender(({
         formatMessage: (messageDescriptor: any) =>
           messageDescriptor && messageDescriptor.defaultMessage,
-      } as unknown) as InjectedIntl);
+      } as unknown) as IntlShape);
 
       expect(result.current).not.toBe(false);
       expect(result!.current).toStrictEqual({ provider: expect.any(Promise) });

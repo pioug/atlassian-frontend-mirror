@@ -12,10 +12,10 @@ import {
 } from './plugin-factory';
 
 export const createPlugin = (
-  { dispatch, reactContext }: PMPluginFactoryParams,
+  { dispatch, getIntl }: PMPluginFactoryParams,
   { appearance }: { appearance: EditorProps['appearance'] },
 ) => {
-  const intl = reactContext().intl;
+  const intl = getIntl();
 
   const codeBidiWarningLabel = intl.formatMessage(
     codeBidiWarningMessages.label,

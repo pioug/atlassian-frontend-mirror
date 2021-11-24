@@ -2,7 +2,7 @@ import React from 'react';
 
 import { ProviderFactory } from '@atlaskit/editor-common';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
 import { doc, p, DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import ToolbarTask from '../../../../../plugins/tasks-and-decisions/ui/ToolbarTask';

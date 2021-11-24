@@ -1,6 +1,6 @@
 // eslint-disable-line no-console
 import React from 'react';
-import { IntlProvider } from 'react-intl';
+import { IntlProvider } from 'react-intl-next';
 import { smallImage } from '@atlaskit/media-test-helpers';
 import ImageNavigator from '../src/image-navigator';
 
@@ -29,11 +29,11 @@ export default () => (
         imageSource={smallImage}
         onLoad={onLoad}
         onRemoveImage={() => console.log('onRemoveImage')}
-        onImageError={(errorMessage) =>
+        onImageError={(errorMessage: any) =>
           console.log('onImageError', errorMessage)
         }
-        onImageLoaded={(file) => console.log('onImageLoaded', file)}
-        onImageUploaded={(file) => console.log('onImageLoaded', file)}
+        onImageLoaded={(file: any) => console.log('onImageLoaded', file)}
+        onImageUploaded={(file: any) => console.log('onImageLoaded', file)}
       />
       <button onClick={exportImage}>Export</button>
       <img

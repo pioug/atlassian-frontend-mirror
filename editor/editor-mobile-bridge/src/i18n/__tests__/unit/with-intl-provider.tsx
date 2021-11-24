@@ -1,17 +1,19 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import { withIntlProvider } from '../../with-intl-provider';
-import { injectIntl } from 'react-intl';
+import { useIntl } from 'react-intl-next';
 import * as UseTranslationsHook from '../../use-translations';
 
-const TestComponent = withIntlProvider(
-  injectIntl((props) => {
+const TestComponent = withIntlProvider<{}>(
+  () => {
+    const intl = useIntl();
     return (
       <div>
-        <span>default locale: {props.intl.locale}</span>
+        <span>default locale: {intl.locale}</span>
+        <span>default messages: {JSON.stringify(intl.messages)}</span>
       </div>
     );
-  }),
+  },
   jest.fn(() => Promise.resolve({})),
 );
 
@@ -41,7 +43,7 @@ describe('i18n', () => {
       const result = render(<TestComponent locale="xx" />);
 
       return expect(
-        result.findByText('default locale: en'),
+        result.findByText('default messages: {}'),
       ).resolves.toBeDefined();
     });
   });
@@ -87,16 +89,14 @@ describe('i18n', () => {
         }),
       );
       geti18NMessages = jest.fn(() => Promise.resolve({ messages: {} }));
-      TestComponentWithMessageCallback = withIntlProvider(
-        injectIntl((props) => {
-          return (
-            <div>
-              <span>default locale: {props.intl.locale}</span>
-            </div>
-          );
-        }),
-        geti18NMessages,
-      );
+      TestComponentWithMessageCallback = withIntlProvider<{}>(() => {
+        const intl = useIntl();
+        return (
+          <div>
+            <span>default locale: {intl.locale}</span>
+          </div>
+        );
+      }, geti18NMessages);
     });
     afterEach(() => {
       jest.restoreAllMocks();

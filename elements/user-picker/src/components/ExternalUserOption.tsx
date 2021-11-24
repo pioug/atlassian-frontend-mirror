@@ -10,7 +10,7 @@ import { SlackIcon } from './assets/slack';
 import { GoogleIcon } from './assets/google';
 import { MicrosoftIcon } from './assets/microsoft';
 import { GitHubIcon } from './assets/github';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl-next';
 import { messages } from './i18n';
 
 export const ImageContainer = styled.span`

@@ -92,8 +92,8 @@ const mediaPlugin = (options?: MediaOptions): EditorPlugin => ({
           portalProviderAPI,
           reactContext,
           dispatchAnalyticsEvent,
-        }: PMPluginFactoryParams) =>
-          createPlugin(
+        }: PMPluginFactoryParams) => {
+          return createPlugin(
             schema,
             {
               providerFactory,
@@ -134,7 +134,8 @@ const mediaPlugin = (options?: MediaOptions): EditorPlugin => ({
             reactContext,
             dispatch,
             options,
-          ),
+          );
+        },
       },
       { name: 'mediaKeymap', plugin: () => keymapPlugin(options) },
     ];

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl-next';
 import Button from '@atlaskit/button';
 
 import NotFoundIllustration from './NotFoundIllustration';

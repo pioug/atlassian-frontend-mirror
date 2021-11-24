@@ -1,6 +1,6 @@
 import { render, fireEvent } from '@testing-library/react';
 import React from 'react';
-import { IntlProvider } from 'react-intl';
+import { IntlProvider } from 'react-intl-next';
 import { InlineCardUnauthorizedView } from '..';
 
 describe('Unauthorised View', () => {

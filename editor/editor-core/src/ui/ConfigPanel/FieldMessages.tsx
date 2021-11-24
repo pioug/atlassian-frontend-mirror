@@ -1,5 +1,5 @@
 import React, { Fragment, useMemo } from 'react';
-import { InjectedIntlProps, injectIntl } from 'react-intl';
+import { WrappedComponentProps, injectIntl } from 'react-intl-next';
 import { ErrorMessage, HelperMessage } from '@atlaskit/form';
 import { ValidationError, FieldTypeError } from './types';
 import { messages } from './messages';
@@ -57,7 +57,7 @@ const FieldMessages = function ({
   error,
   description,
   intl,
-}: { error?: string; description?: string } & InjectedIntlProps) {
+}: { error?: string; description?: string } & WrappedComponentProps) {
   if (!error && description) {
     return <Description description={description} />;
   }

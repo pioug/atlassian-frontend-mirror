@@ -2,7 +2,7 @@ import { mount, ReactWrapper } from 'enzyme';
 import { AtlaskitThemeProvider } from '@atlaskit/theme/components';
 
 import React from 'react';
-import { IntlProvider } from 'react-intl';
+import { IntlProvider as LegacyIntlProvider } from 'react-intl';
 import MobileEditor from '../../mobile-editor-element';
 import {
   createCardClient,
@@ -22,6 +22,7 @@ import MobileEditorConfiguration from '../../editor-configuration';
 import WebBridgeImpl from '../../native-to-web/implementation';
 import { toNativeBridge } from '../../web-to-native';
 import { Editor } from '@atlaskit/editor-core';
+import { LegacyToNextIntlProvider } from '@atlaskit/editor-common';
 
 jest.mock('../../../query-param-reader');
 jest.mock('../../web-to-native');
@@ -131,8 +132,12 @@ describe('mobile editor element', () => {
 
   it('should use locale prop value in react intl provider', () => {
     const mobileEditor = initEditor();
+    expect(mobileEditor.find(LegacyIntlProvider).prop('locale')).toBe('fr');
+  });
 
-    expect(mobileEditor.find(IntlProvider).prop('locale')).toBe('fr');
+  it('should use LegacyToNextIntlProvider', () => {
+    const mobileEditor = initEditor();
+    expect(mobileEditor.exists(LegacyToNextIntlProvider)).toEqual(true);
   });
 
   describe('should have correct default configurations', () => {

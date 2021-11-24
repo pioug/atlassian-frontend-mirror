@@ -1,6 +1,11 @@
 import React from 'react';
 import { ChangeEvent, ChangeEventHandler, PureComponent } from 'react';
-import { FormattedMessage } from 'react-intl';
+import {
+  FormattedMessage,
+  injectIntl,
+  MessageDescriptor,
+  WrappedComponentProps,
+} from 'react-intl-next';
 import TextField from '@atlaskit/textfield';
 
 import { EmojiUpload, Message } from '../../types';
@@ -30,7 +35,7 @@ export interface State {
   name?: string;
   filename?: string;
   uploadStatus?: UploadStatus;
-  chooseEmojiErrorMessage?: FormattedMessage.MessageDescriptor;
+  chooseEmojiErrorMessage?: MessageDescriptor;
 }
 
 const disallowedReplacementsMap = new Map([
@@ -71,7 +76,10 @@ interface ChooseEmojiFileProps {
   errorMessage?: Message;
 }
 
-class ChooseEmojiFile extends PureComponent<ChooseEmojiFileProps, {}> {
+class ChooseEmojiFile extends PureComponent<
+  ChooseEmojiFileProps & WrappedComponentProps,
+  {}
+> {
   private onKeyDown: React.KeyboardEventHandler<HTMLInputElement> = (event) => {
     if (event.key === 'Escape') {
       this.props.onUploadCancelled();
@@ -85,7 +93,9 @@ class ChooseEmojiFile extends PureComponent<ChooseEmojiFileProps, {}> {
       onClick,
       onNameChange,
       errorMessage,
+      intl,
     } = this.props;
+    const { formatMessage } = intl;
     const disableChooser = !name;
     const fileChooserButtonDescriptionId =
       'choose.emoji.file.button.screen.reader.description.id';
@@ -100,43 +110,35 @@ class ChooseEmojiFile extends PureComponent<ChooseEmojiFileProps, {}> {
         </div>
         <div className={styles.uploadChooseFileRow}>
           <span className={styles.uploadChooseFileEmojiName}>
-            <FormattedMessage {...messages.emojiPlaceholder}>
-              {(message) => (
-                <TextField
-                  placeholder={message as string}
-                  aria-label={message as string}
-                  maxLength={maxNameLength}
-                  onChange={onNameChange}
-                  onKeyDown={this.onKeyDown}
-                  value={name}
-                  isCompact
-                  autoFocus
-                />
-              )}
-            </FormattedMessage>
+            <TextField
+              placeholder={formatMessage(messages.emojiPlaceholder)}
+              aria-label={formatMessage(messages.emojiNameAriaLabel)}
+              maxLength={maxNameLength}
+              onChange={onNameChange}
+              onKeyDown={this.onKeyDown}
+              value={name}
+              isCompact
+              autoFocus
+            />
           </span>
           <span className={styles.uploadChooseFileBrowse}>
-            <FormattedMessage {...messages.emojiChooseFileTitle}>
-              {(message) => (
-                <FormattedMessage
-                  {...messages.emojiChooseFileScreenReaderDescription}
-                >
-                  {(screenReaderDescription) => (
-                    <>
-                      <span hidden id={fileChooserButtonDescriptionId}>
-                        {screenReaderDescription}
-                      </span>
-                      <FileChooser
-                        label={message as string}
-                        onChange={onChooseFile}
-                        onClick={onClick}
-                        accept="image/png,image/jpeg,image/gif"
-                        ariaDescribedBy={fileChooserButtonDescriptionId}
-                        isDisabled={disableChooser}
-                      />
-                    </>
-                  )}
-                </FormattedMessage>
+            <FormattedMessage
+              {...messages.emojiChooseFileScreenReaderDescription}
+            >
+              {(screenReaderDescription) => (
+                <>
+                  <span hidden id={fileChooserButtonDescriptionId}>
+                    {screenReaderDescription}
+                  </span>
+                  <FileChooser
+                    label={formatMessage(messages.emojiChooseFileTitle)}
+                    onChange={onChooseFile}
+                    onClick={onClick}
+                    accept="image/png,image/jpeg,image/gif"
+                    ariaDescribedBy={fileChooserButtonDescriptionId}
+                    isDisabled={disableChooser}
+                  />
+                </>
               )}
             </FormattedMessage>
           </span>
@@ -158,13 +160,16 @@ class ChooseEmojiFile extends PureComponent<ChooseEmojiFileProps, {}> {
   }
 }
 
-export default class EmojiUploadPicker extends PureComponent<Props, State> {
+export class EmojiUploadPicker extends PureComponent<
+  Props & WrappedComponentProps,
+  State
+> {
   state = {
     uploadStatus: UploadStatus.Waiting,
     chooseEmojiErrorMessage: undefined,
   } as State;
 
-  constructor(props: Props) {
+  constructor(props: Props & WrappedComponentProps) {
     super(props);
     if (props.errorMessage) {
       this.state.uploadStatus = UploadStatus.Error;
@@ -307,7 +312,7 @@ export default class EmojiUploadPicker extends PureComponent<Props, State> {
   };
 
   render() {
-    const { errorMessage, onUploadCancelled } = this.props;
+    const { errorMessage, onUploadCancelled, intl } = this.props;
     const {
       name,
       previewImage,
@@ -345,7 +350,10 @@ export default class EmojiUploadPicker extends PureComponent<Props, State> {
             <FormattedMessage {...chooseEmojiErrorMessage} />
           ) : undefined
         }
+        intl={intl}
       />
     );
   }
 }
+
+export default injectIntl(EmojiUploadPicker, { forwardRef: true });

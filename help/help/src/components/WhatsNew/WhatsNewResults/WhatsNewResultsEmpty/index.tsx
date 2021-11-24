@@ -4,7 +4,7 @@ import {
   UIAnalyticsEvent,
   AnalyticsContext,
 } from '@atlaskit/analytics-next';
-import { injectIntl, InjectedIntlProps } from 'react-intl';
+import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 
 import NotFoundImage from '../../../../assets/NotFoundImage';
 import { messages } from '../../../../messages';
@@ -18,9 +18,9 @@ export interface Props {
   onClearFilter: () => void;
 }
 
-export const WhatsNewResultsEmpty: React.FC<Props & InjectedIntlProps> = ({
-  intl: { formatMessage },
+export const WhatsNewResultsEmpty: React.FC<Props & WrappedComponentProps> = ({
   onClearFilter,
+  intl: { formatMessage },
 }) => {
   const { createAnalyticsEvent } = useAnalyticsEvents();
 

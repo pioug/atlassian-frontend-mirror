@@ -2,7 +2,12 @@ import React from 'react';
 import { PureComponent } from 'react';
 import ModalDialog, { ModalFooter, ModalBody } from '@atlaskit/modal-dialog';
 import Button from '@atlaskit/button/custom-theme-button';
-import { FormattedMessage, intlShape, IntlProvider } from 'react-intl';
+import {
+  FormattedMessage,
+  IntlProvider,
+  injectIntl,
+  WrappedComponentProps,
+} from 'react-intl-next';
 import { fileToDataURI, dataURItoFile, messages } from '@atlaskit/media-ui';
 import { Avatar } from '../avatar-list';
 import ImageNavigator, { CropProperties } from '../image-navigator';
@@ -44,8 +49,11 @@ export const fixedCrop = {
   size: CONTAINER_INNER_SIZE,
 } as CropProperties;
 
+export type AvatarPickerDialogWithIntlProps = AvatarPickerDialogProps &
+  Partial<WrappedComponentProps>;
+
 export class AvatarPickerDialog extends PureComponent<
-  AvatarPickerDialogProps,
+  AvatarPickerDialogWithIntlProps,
   AvatarPickerDialogState
 > {
   static defaultProps = {
@@ -143,10 +151,6 @@ export class AvatarPickerDialog extends PureComponent<
     this.setErrorState(errorMessage);
   };
 
-  static contextTypes = {
-    intl: intlShape,
-  };
-
   render() {
     const content = (
       <ModalDialog
@@ -163,7 +167,7 @@ export class AvatarPickerDialog extends PureComponent<
       </ModalDialog>
     );
 
-    return this.context.intl ? (
+    return this.props.intl ? (
       content
     ) : (
       <IntlProvider locale="en">{content}</IntlProvider>
@@ -285,3 +289,12 @@ export class AvatarPickerDialog extends PureComponent<
     }
   }
 }
+
+export default injectIntl(
+  AvatarPickerDialog as React.ComponentType<
+    AvatarPickerDialogWithIntlProps & WrappedComponentProps
+  >,
+  {
+    enforceContext: false,
+  },
+) as React.FC<AvatarPickerDialogProps>;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Component } from 'react';
 import { messages } from '@atlaskit/media-ui';
-import { injectIntl, InjectedIntlProps } from 'react-intl';
+import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 
 import {
   ErrorPopup,
@@ -20,7 +20,9 @@ export interface ErrorViewProps {
   readonly onRetry?: () => void;
 }
 
-export class ErrorView extends Component<ErrorViewProps & InjectedIntlProps> {
+export class ErrorView extends Component<
+  ErrorViewProps & WrappedComponentProps
+> {
   render(): JSX.Element {
     return (
       <EditorContainer>

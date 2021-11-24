@@ -4,8 +4,7 @@ jest.mock('dateformat', () => ({
 }));
 import React from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { IntlProvider } from 'react-intl';
-import { mount } from 'enzyme';
+import { IntlProvider, createIntl } from 'react-intl-next';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { DynamicTableStateless } from '@atlaskit/dynamic-table';
 import { HeadType } from '@atlaskit/dynamic-table/types';
@@ -25,6 +24,8 @@ import {
   asMockFunction,
   expectFunctionToHaveBeenCalledWith,
   defaultCollectionName,
+  mountWithIntlContext,
+  mountWithIntlWrapper,
 } from '@atlaskit/media-test-helpers';
 import { MediaViewer } from '@atlaskit/media-viewer';
 import { toHumanReadableMediaSize } from '@atlaskit/media-ui';
@@ -139,6 +140,7 @@ describe('MediaTable', () => {
     createAnalyticsEvent: createAnalyticsEventSpy,
     onPreviewOpen: onPreviewOpenMock,
     onPreviewClose: onPreviewCloseMock,
+    intl: createIntl({ locale: 'en' }),
   };
 
   const setup = async (
@@ -148,7 +150,7 @@ describe('MediaTable', () => {
   ) => {
     const mediaClientConfig = mediaClient.config;
 
-    const mediaTable = mount(
+    const mediaTable = mountWithIntlWrapper(
       <MediaTable mediaClient={mediaClient} {...defaultProps} {...props} />,
     );
 
@@ -509,18 +511,17 @@ describe('MediaTable', () => {
 
   describe('i18n', () => {
     it('does not render the IntlProvider internally if intl is present in context', () => {
-      const wrapper = mount(
-        <IntlProvider locale="en">
-          <MediaTable
-            mediaClient={getDefaultMediaClient()}
-            items={defaultItems}
-            itemsPerPage={3}
-            totalItems={defaultItems.length}
-            isLoading={false}
-            columns={defaultHeaders}
-            createAnalyticsEvent={jest.fn()}
-          />
-        </IntlProvider>,
+      const wrapper = mountWithIntlContext(
+        <MediaTable
+          intl={createIntl({ locale: 'en' })}
+          mediaClient={getDefaultMediaClient()}
+          items={defaultItems}
+          itemsPerPage={3}
+          totalItems={defaultItems.length}
+          isLoading={false}
+          columns={defaultHeaders}
+          createAnalyticsEvent={jest.fn()}
+        />,
       );
 
       const mediaTable = wrapper.find(MediaTable);

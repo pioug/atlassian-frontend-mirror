@@ -2,12 +2,23 @@ import { EditorProps } from '../../types';
 import { normalizeFeatureFlags } from '@atlaskit/editor-common/normalize-feature-flags';
 import type { FeatureFlags } from '../../types/feature-flags';
 import { browser } from '@atlaskit/editor-common';
+
+const safeNumberFeatureFlag = (value: unknown): number | undefined => {
+  const parsedValue = parseInt(value as any, 10);
+  return !isNaN(parsedValue) &&
+    Number.isInteger(parsedValue) &&
+    Number.isSafeInteger(parsedValue)
+    ? parsedValue
+    : undefined;
+};
+
 /**
  * Transforms EditorProps to an FeatureFlags object,
  * which is used by both current and archv3 editors.
  */
 export function createFeatureFlagsFromProps(props: EditorProps): FeatureFlags {
   const normalizedFeatureFlags = normalizeFeatureFlags(props.featureFlags);
+
   return {
     ...normalizedFeatureFlags,
 
@@ -151,10 +162,15 @@ export function createFeatureFlagsFromProps(props: EditorProps): FeatureFlags {
         ? !!props.featureFlags?.twoLineEditorToolbar
         : false,
     ),
+
     codeBidiWarnings: Boolean(
       typeof props.featureFlags?.codeBidiWarnings === 'boolean'
         ? !!props.featureFlags?.codeBidiWarnings
         : true,
+    ),
+
+    maxUnsafeChromeSpellcheckingVersion: safeNumberFeatureFlag(
+      props.featureFlags?.maxUnsafeChromeSpellcheckingVersion,
     ),
   };
 }

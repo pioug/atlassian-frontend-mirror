@@ -723,6 +723,7 @@ export function FullPageExample(props: EditorProps & ExampleProps) {
     tableRenderOptimization: true,
     stickyHeadersOptimization: true,
     tableOverflowShadowsOptimization: true,
+    maxUnsafeChromeSpellcheckingVersion: 100,
   };
 
   const featureFlags =

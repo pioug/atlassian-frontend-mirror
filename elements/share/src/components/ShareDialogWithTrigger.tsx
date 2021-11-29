@@ -43,6 +43,8 @@ import {
   shareTriggerButtonClicked,
   shareSplitButtonEvent,
   ANALYTICS_SOURCE,
+  shareTabClicked,
+  TabSubjectIdType,
 } from './analytics';
 import ShareButton from './ShareButton';
 import { ShareForm } from './ShareForm';
@@ -218,6 +220,16 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
     if (createAnalyticsEvent) {
       createAnalyticsEvent(payload).fire(CHANNEL_ID);
     }
+  };
+
+  private onTabChange = (index: number) => {
+    let subjectId = 'shareTab' as TabSubjectIdType;
+
+    if (index === 1) {
+      subjectId = 'shareToSlackTab';
+    }
+
+    this.createAndFireEvent(shareTabClicked(subjectId));
   };
 
   private getFlags = () => {
@@ -580,6 +592,7 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
                         !shareIntegrations ||
                         !shareIntegrations.length
                       }
+                      onTabChange={this.onTabChange}
                       helperMessage={shareFormHelperMessage}
                       shareError={shareError}
                       onDismiss={this.handleFormDismiss}

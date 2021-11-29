@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/share",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Fabric Share Element",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

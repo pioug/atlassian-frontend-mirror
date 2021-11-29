@@ -1,5 +1,11 @@
 # @atlaskit/share
 
+## 1.0.1
+
+### Patch Changes
+
+- [`b8afeefa482`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b8afeefa482) - Analytics update to tabs onChange event
+
 ## 1.0.0
 
 ### Major Changes

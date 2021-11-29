@@ -1,5 +1,13 @@
 # @atlaskit/editor-core
 
+## 153.0.1
+
+### Patch Changes
+
+- [`44f1ead3628`](https://bitbucket.org/atlassian/atlassian-frontend/commits/44f1ead3628) - [HOT-97409] Add feature flag to disable spellchecking for Chrome >= 96
+
+  Update `@atlaskit/icon` dependency to `^21.9.2`
+
 ## 153.0.0
 
 ### Major Changes

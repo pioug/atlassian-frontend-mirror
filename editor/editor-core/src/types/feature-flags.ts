@@ -301,6 +301,13 @@ export type FeatureFlags = {
    * @default false
    */
   twoLineEditorToolbar?: boolean;
+
+  /**
+   * Disable Spellchecking for chrome version below the max unsafe number
+   * @see https://ops.internal.atlassian.com/jira/browse/HOT-97409
+   * @default null
+   */
+  maxUnsafeChromeSpellcheckingVersion?: number;
 };
 
 export type FeatureFlagKey = keyof FeatureFlags;

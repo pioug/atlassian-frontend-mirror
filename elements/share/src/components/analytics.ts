@@ -93,6 +93,17 @@ export const errorEncountered = (
 export const shareTriggerButtonClicked = () =>
   createEvent('ui', ANALYTICS_SOURCE, 'clicked', 'button', 'share');
 
+export type TabSubjectIdType = 'shareTab' | 'shareToSlackTab';
+
+export const shareTabClicked = (subjectId: TabSubjectIdType) =>
+  createEvent(
+    'ui',
+    ANALYTICS_SOURCE,
+    'clicked',
+    'tab',
+    subjectId || 'shareTab',
+  );
+
 export const cancelShare = (start: number) =>
   createEvent(
     'ui',

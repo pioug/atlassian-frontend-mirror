@@ -1,4 +1,3 @@
-import accessibility from './accessibility';
 import baseStyles from './base';
 import browserFixesStyles from './browser-fixes';
 import resetStyles from './reset';
@@ -11,5 +10,4 @@ ${baseStyles}
 ${tableStyles}
 ${browserFixesStyles}
 ${utilStyles}
-${accessibility}
 `;

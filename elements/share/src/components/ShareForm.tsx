@@ -110,6 +110,7 @@ export type Props = {
   defaultValue?: DialogContentState;
   product: ProductName;
   onUserInputChange?: (query?: string, sessionId?: string) => void;
+  onTabChange?: (index: number) => void;
   enableSmartUserPicker?: boolean;
   loggedInAccountId?: string;
   cloudId?: string;
@@ -251,7 +252,12 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
   };
 
   render() {
-    const { title, integrationMode = 'off', shareIntegrations } = this.props;
+    const {
+      title,
+      integrationMode = 'off',
+      shareIntegrations,
+      onTabChange,
+    } = this.props;
 
     if (
       integrationMode === 'off' ||
@@ -265,7 +271,12 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
 
     if (integrationMode === 'tabs') {
       return (
-        <Tabs id="ShareForm-Tabs-Integrations">
+        <Tabs
+          id="ShareForm-Tabs-Integrations"
+          onChange={(index) => {
+            onTabChange?.(index);
+          }}
+        >
           <TabList>
             <Tab key={`share-tab-default`}>
               {title || <FormattedMessage {...messages.formTitle} />}

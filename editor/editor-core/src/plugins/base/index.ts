@@ -1,11 +1,12 @@
 import { baseKeymap } from 'prosemirror-commands';
 import { history } from 'prosemirror-history';
-import { browser } from '@atlaskit/editor-common';
+import { browser } from '@atlaskit/editor-common/utils';
 import { doc, paragraph, text } from '@atlaskit/adf-schema';
 import { EditorPlugin, PMPluginFactory } from '../../types';
 import filterStepsPlugin from './pm-plugins/filter-steps';
 import focusHandlerPlugin from './pm-plugins/focus-handler';
 import fixChrome88SelectionPlugin from './pm-plugins/fix-chrome-88-selection';
+import fixChromeSpellCheckingPlugin from './pm-plugins/fix-chrome-spell-checking';
 import contextIdentifierPlugin from './pm-plugins/context-identifier';
 import newlinePreserveMarksPlugin from './pm-plugins/newline-preserve-marks';
 import inlineCursorTargetPlugin from './pm-plugins/inline-cursor-target';
@@ -109,6 +110,11 @@ const basePlugin = (options?: BasePluginOptions): EditorPlugin => ({
         plugin: () => fixChrome88SelectionPlugin(),
       });
     }
+
+    plugins.push({
+      name: 'fixChromeSpellCheckingPlugin',
+      plugin: () => fixChromeSpellCheckingPlugin(),
+    });
 
     return plugins;
   },

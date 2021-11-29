@@ -1,5 +1,11 @@
 # @atlaskit/css-reset
 
+## 6.3.2
+
+### Patch Changes
+
+- [`b8fd2911013`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b8fd2911013) - [ux] Reduced motion styles that were causing layout flickers have been removed.
+
 ## 6.3.1
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @atlaskit/profilecard
 
+## 16.0.1
+
+### Patch Changes
+
+- [`82099b76445`](https://bitbucket.org/atlassian/atlassian-frontend/commits/82099b76445) - Add optional `testId` prop to `ProfileCardTrigger` to ease testing
+
 ## 16.0.0
 
 ### Major Changes

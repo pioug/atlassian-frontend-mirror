@@ -184,8 +184,18 @@ export const messages = defineMessages({
   },
   help_whats_new_button_label: {
     id: 'help.whats_new.button_label',
-    defaultMessage: `What's new`,
+    defaultMessage: 'Find out what’s changed in {productName}',
     description: `text for the "What's New" button`,
+  },
+  help_whats_new_button_label_without_product_name: {
+    id: 'help.whats_new.button_label',
+    defaultMessage: 'Find out what’s changed',
+    description: `text for the "What's New" button`,
+  },
+  help_whats_new_button_tooltip: {
+    id: 'help.whats_new.button_tooltip',
+    defaultMessage: `Explore our full collection of help and support resources.`,
+    description: `text for the "What's New" tooltip`,
   },
   help_whats_new_filter_select_option_all: {
     id: 'help.whats_new.filter_select_option_all',

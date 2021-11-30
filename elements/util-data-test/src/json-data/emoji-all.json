@@ -54311,6 +54311,9 @@
               "height": 64,
               "width": 64
           },
+          "ascii": [
+              "(#)"
+          ],
           "searchable": true,
           "shortName": ":note:"
         },

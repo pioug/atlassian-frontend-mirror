@@ -1,5 +1,11 @@
 # @atlaskit/help-layout
 
+## 4.0.1
+
+### Patch Changes
+
+- [`78c9f070230`](https://bitbucket.org/atlassian/atlassian-frontend/commits/78c9f070230) - Bump algoliasearch version from ^3.33.0 to ^3.35.1. In @atlaskit/help we updated the example 3 and moved Algolia API related code to it's own react hook
+
 ## 4.0.0
 
 ### Major Changes

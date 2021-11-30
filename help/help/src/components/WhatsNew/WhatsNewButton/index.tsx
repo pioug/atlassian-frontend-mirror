@@ -20,9 +20,13 @@ const ANALYTICS_CONTEXT_DATA = {
   packageVersion,
 };
 
-export const WhatsNewButton: React.FC<WrappedComponentProps> = ({
-  intl: { formatMessage },
-}) => {
+interface WhatsNewButtonProps {
+  productName?: string;
+}
+
+export const WhatsNewButton: React.FC<
+  WrappedComponentProps & WhatsNewButtonProps
+> = ({ productName, intl: { formatMessage } }) => {
   const {
     onWhatsNewButtonClick,
     whatsNewGetNotificationProvider,
@@ -50,15 +54,26 @@ export const WhatsNewButton: React.FC<WrappedComponentProps> = ({
     <HelpContentButton
       id="whats-new"
       key="whats-new"
+      tooltipText={formatMessage(messages.help_whats_new_button_tooltip)}
       notificationLogProvider={whatsNewGetNotificationProvider}
       onClick={handleOnButtonClick}
-      text={formatMessage(messages.help_whats_new_button_label)}
+      text={
+        productName
+          ? formatMessage(messages.help_whats_new_button_label, {
+              productName,
+            })
+          : formatMessage(
+              messages.help_whats_new_button_label_without_product_name,
+            )
+      }
       icon={<LightbulbIcon primaryColor={colors.N600} size="medium" label="" />}
     />
   );
 };
 
-const WhatsNewButtonWithContext: React.FC<WrappedComponentProps> = (props) => {
+const WhatsNewButtonWithContext: React.FC<
+  WrappedComponentProps & WhatsNewButtonProps
+> = (props) => {
   return (
     <AnalyticsContext data={ANALYTICS_CONTEXT_DATA}>
       <WhatsNewButton {...props} />

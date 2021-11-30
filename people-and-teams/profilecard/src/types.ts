@@ -100,6 +100,7 @@ export interface ProfileCardTriggerProps {
   position?: ProfilecardTriggerPosition;
   trigger?: TriggerType;
   children?: React.ReactNode;
+  testId?: string;
 }
 
 export interface ProfileCardTriggerState {

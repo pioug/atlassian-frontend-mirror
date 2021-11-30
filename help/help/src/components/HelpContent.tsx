@@ -27,6 +27,7 @@ export const HelpContent: React.FC<HelpContentInterface> = ({ footer }) => {
   const {
     onSearchWhatsNewArticles,
     onGetWhatsNewArticle,
+    productName,
   } = useWhatsNewArticleContext();
   const {
     isOverlayVisible,
@@ -91,7 +92,7 @@ export const HelpContent: React.FC<HelpContentInterface> = ({ footer }) => {
           >
             {homeContent}
             {onSearchWhatsNewArticles && onGetWhatsNewArticle && (
-              <WhatsNewButton />
+              <WhatsNewButton productName={productName} />
             )}
             {homeOptions &&
               homeOptions.map((defaultOption: HelpContentButtonProps) => {

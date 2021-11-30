@@ -17,6 +17,8 @@ import { NUMBER_OF_WHATS_NEW_ITEMS_PER_PAGE } from '../constants';
 interface WhatsNewArticleSharedInterface {
   // "What's New" notification provider. This prop is optional, if is not defined the "What's new" notification icon will be hidden
   whatsNewGetNotificationProvider?: Promise<NotificationLogProvider>;
+  // Product name used in the label of the "What's new" button. This prop is optional, if is not defined the "What's new" button label will not include the product name
+  productName?: string;
   // Event handler fired when the user clicks the "What's new" button. This prop is optional
   onWhatsNewButtonClick?(
     event: React.MouseEvent<HTMLElement, MouseEvent>,
@@ -70,6 +72,7 @@ export const WhatsNewArticleProvider: React.FC<WhatsNewArticleProviderInterface>
   onSearchWhatsNewArticlesShowMoreClick,
   onWhatsNewResultItemClick,
   onGetWhatsNewArticle,
+  productName,
   children,
 }) => {
   // What's new
@@ -149,6 +152,7 @@ export const WhatsNewArticleProvider: React.FC<WhatsNewArticleProviderInterface>
         searchWhatsNewArticlesResult,
         onWhatsNewResultItemClick,
         onGetWhatsNewArticle,
+        productName,
       }}
     >
       {children}

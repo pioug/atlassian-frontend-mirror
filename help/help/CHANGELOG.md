@@ -1,5 +1,17 @@
 # @atlaskit/help
 
+## 6.0.4
+
+### Patch Changes
+
+- [`9c8157a146f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9c8157a146f) - [ux] Add tooltip to HelpContentButton and update "What's new" button label
+
+## 6.0.3
+
+### Patch Changes
+
+- [`78c9f070230`](https://bitbucket.org/atlassian/atlassian-frontend/commits/78c9f070230) - Bump algoliasearch version from ^3.33.0 to ^3.35.1. In @atlaskit/help we updated the example 3 and moved Algolia API related code to it's own react hook
+
 ## 6.0.2
 
 ### Patch Changes

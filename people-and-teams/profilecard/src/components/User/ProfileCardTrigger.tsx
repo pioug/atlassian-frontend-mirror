@@ -214,7 +214,12 @@ class ProfilecardTrigger extends React.PureComponent<
         trigger={(triggerProps) => {
           const { ref, ...innerProps } = triggerProps;
           return (
-            <span {...innerProps} {...this.containerListeners} ref={ref}>
+            <span
+              {...innerProps}
+              {...this.containerListeners}
+              ref={ref}
+              data-testid={this.props.testId}
+            >
               {this.props.children}
             </span>
           );

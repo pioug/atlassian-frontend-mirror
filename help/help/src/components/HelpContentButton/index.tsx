@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react';
 import ShortcutIcon from '@atlaskit/icon/glyph/shortcut';
+import Tooltip from '@atlaskit/tooltip';
 import { NotificationIndicator } from '@atlaskit/notification-indicator';
 import { NotificationLogProvider } from '@atlaskit/notification-log-client';
 import {
@@ -28,6 +29,7 @@ export type Props = {
   notificationLogProvider?: Promise<NotificationLogProvider>;
   text: string;
   icon?: React.ReactChild;
+  tooltipText?: string;
   onClick?: (
     id: string,
     analytics: UIAnalyticsEvent,
@@ -49,6 +51,7 @@ const HelpContentButton = ({
   text,
   icon,
   onClick,
+  tooltipText,
 }: Props) => {
   const { createAnalyticsEvent } = useAnalyticsEvents();
 
@@ -65,6 +68,29 @@ const HelpContentButton = ({
     [createAnalyticsEvent, id, onClick],
   );
 
+  const buttonContent = (
+    <>
+      <HelpContentButtonIcon>{icon}</HelpContentButtonIcon>
+      <HelpContentButtonText>
+        {text}
+        {notificationLogProvider !== null && (
+          <HelpContentButtonExternalNotificationIcon>
+            <NotificationIndicator
+              notificationLogProvider={notificationLogProvider}
+              max={notificationMax}
+              appearance="primary"
+            />
+          </HelpContentButtonExternalNotificationIcon>
+        )}
+        {href != null && (
+          <HelpContentButtonExternalLinkIcon data-testid="shortcutIcon">
+            <ShortcutIcon size="small" label="" />
+          </HelpContentButtonExternalLinkIcon>
+        )}
+      </HelpContentButtonText>
+    </>
+  );
+
   return (
     <AnalyticsContext data={analitycsContextData}>
       <HelpContentButtonContainer
@@ -73,24 +99,13 @@ const HelpContentButton = ({
         id={id}
         target={href && '_blank'}
       >
-        <HelpContentButtonIcon>{icon}</HelpContentButtonIcon>
-        <HelpContentButtonText>
-          {text}
-          {notificationLogProvider !== null && (
-            <HelpContentButtonExternalNotificationIcon>
-              <NotificationIndicator
-                notificationLogProvider={notificationLogProvider}
-                max={notificationMax}
-                appearance="primary"
-              />
-            </HelpContentButtonExternalNotificationIcon>
-          )}
-          {href != null && (
-            <HelpContentButtonExternalLinkIcon data-testid="shortcutIcon">
-              <ShortcutIcon size="small" label="" />
-            </HelpContentButtonExternalLinkIcon>
-          )}
-        </HelpContentButtonText>
+        {tooltipText ? (
+          <Tooltip content={tooltipText} position="left">
+            {buttonContent}
+          </Tooltip>
+        ) : (
+          <>{buttonContent}</>
+        )}
       </HelpContentButtonContainer>
     </AnalyticsContext>
   );

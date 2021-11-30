@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { gridSize } from '@atlaskit/theme/constants';
-import algoliasearch from 'algoliasearch';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
 import { NotificationLogClient } from '@atlaskit/notification-log-client';
@@ -23,6 +22,7 @@ import {
 } from './utils/styled';
 
 import { useContentPlatformApi } from './utils/services/cpapi';
+import { useAlgolia } from './utils/services/algolia';
 import type { FilterConfiguration } from './utils/services/cpapi';
 
 import Help, {
@@ -44,10 +44,6 @@ const handleEvent = (analyticsEvent: { payload: any; context: any }) => {
   const { payload, context } = analyticsEvent;
   console.log('Received event:', { payload, context });
 };
-
-// Algolia configuration
-let client = algoliasearch('8K6J5OJIQW', 'c982b4b1a6ca921131d35edb63359b8c');
-var index = client.initIndex('product_help_uat');
 
 // Mockup notification Promise
 class MockNotificationLogClient extends NotificationLogClient {
@@ -77,7 +73,6 @@ const Example: React.FC = () => {
   } = useContentPlatformApi();
 
   // Algolia Values
-  const [algoliaIndex, setAlgoliaIndex] = useState<string>(index.indexName);
   const [articleId, setArticleId] = useState<articleId>({
     id: '',
     type: ARTICLE_TYPE.HELP_ARTICLE,
@@ -89,10 +84,20 @@ const Example: React.FC = () => {
   const [routeName, setRouteName] = useState<string | undefined>(
     'project-settings-software-access',
   );
-  const [productName, setProductName] = useState<string>('Jira Software');
-  const [productExperience, setProductExperience] = useState<string>(
-    'Next-gen',
-  );
+  const {
+    getArticleById,
+    getRelatedArticles,
+    searchArticles,
+    productName,
+    setProductName,
+    productExperience,
+    setProductExperience,
+    algoliaIndexName,
+    setAlgoliaIndexName,
+  } = useAlgolia({
+    productName: 'Jira Software',
+    productExperience: 'Next-gen',
+  });
 
   // CPAPI values
   const [fdIssueKeys, setFdIssueKeys] = useState<string>('');
@@ -109,6 +114,7 @@ const Example: React.FC = () => {
   const [algoliaParameters, setAlgoliaParameters] = useState({
     routeGroup,
     routeName,
+    algoliaIndexName,
     productName,
     productExperience,
   });
@@ -124,87 +130,6 @@ const Example: React.FC = () => {
   const closeDrawer = (): void => {
     setArticleId({ id: '', type: ARTICLE_TYPE.HELP_ARTICLE });
     setShowComponent(false);
-  };
-
-  const onGetHelpArticle = async (articleId: articleId): Promise<any> => {
-    return new Promise((resolve, reject) => {
-      index.search(
-        {
-          filters: `objectID:${articleId.id}`,
-        },
-        (err, res) => {
-          if (err) {
-            reject(err);
-          }
-
-          if (res) {
-            const article = res.hits[0];
-
-            if (article) {
-              resolve(article);
-            } else {
-              reject(`not found`);
-            }
-          } else {
-            reject(`No internet connection`);
-          }
-        },
-      );
-    });
-  };
-
-  const getRelatedArticle = (
-    routeGroup?: string,
-    routeName?: string,
-  ): Promise<any> => {
-    return new Promise((resolve, reject) => {
-      console.log(routeGroup);
-      const facetFilters = [
-        [
-          `routes.routeGroup:${routeGroup || ''}<score=10>`,
-          'routes.hasGroup:false<score=1>',
-        ],
-        routeName != null
-          ? [
-              `routes.routeName:${routeName || ''}<score=5>`,
-              'routes.hasName:false<score=1>',
-            ]
-          : ['routes.hasName:false<score=1>'],
-        `productName:${algoliaParameters.productName}`,
-        'routes.routeGroup:-hide',
-        'routes.routeName:-hide',
-        `productExperience:${algoliaParameters.productExperience}`,
-      ];
-
-      index.search(
-        {
-          // @ts-ignore
-          facetFilters,
-          sumOrFiltersScores: true,
-        },
-        (err: any, res: any) => {
-          if (err) {
-            reject(err);
-          }
-
-          console.log(res.hits);
-          resolve(res.hits);
-        },
-      );
-    });
-  };
-
-  const onSearch = async (query: string): Promise<any> => {
-    return new Promise((resolve, reject) => {
-      index
-        .search(query)
-        .then((result) => {
-          resolve(result.hits);
-        })
-        .catch(function (error) {
-          reject(error.message);
-        });
-    });
   };
 
   const handleOnSearchResultItemClick = (
@@ -268,11 +193,6 @@ const Example: React.FC = () => {
     }
 
     return searchWhatsNewArticles(filterConfig, numberOfItems, page);
-  };
-
-  const onGetWhatsNewArticle = (articleId: articleId): Promise<any> => {
-    console.log(articleId);
-    return getWhatsNewArticle(articleId);
   };
 
   const articleIdSetter = (articleId: articleId): void => {
@@ -510,9 +430,12 @@ const Example: React.FC = () => {
                     <>
                       <Textfield
                         {...fieldProps}
-                        value={algoliaIndex}
+                        value={algoliaParameters.algoliaIndexName}
                         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                          setAlgoliaIndex(e.target.value)
+                          setAlgoliaParameters({
+                            ...algoliaParameters,
+                            algoliaIndexName: e.target.value,
+                          })
                         }
                       />
                       <HelperMessage>e.g. : product_help_stg)</HelperMessage>
@@ -526,9 +449,12 @@ const Example: React.FC = () => {
                     <>
                       <Textfield
                         {...fieldProps}
-                        value={productName}
+                        value={algoliaParameters.productName}
                         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                          setProductName(e.target.value)
+                          setAlgoliaParameters({
+                            ...algoliaParameters,
+                            productName: e.target.value,
+                          })
                         }
                       />
                       <HelperMessage>e.g. : Jira Software</HelperMessage>
@@ -542,9 +468,12 @@ const Example: React.FC = () => {
                     <>
                       <Textfield
                         {...fieldProps}
-                        value={productExperience}
+                        value={algoliaParameters.productExperience}
                         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                          setProductExperience(e.target.value)
+                          setAlgoliaParameters({
+                            ...algoliaParameters,
+                            productExperience: e.target.value,
+                          })
                         }
                       />
                       <HelperMessage>e.g. : Next-gen</HelperMessage>
@@ -558,10 +487,13 @@ const Example: React.FC = () => {
                     <>
                       <Textfield
                         {...fieldProps}
-                        value={routeGroup}
+                        value={algoliaParameters.routeGroup}
                         name="route-group"
                         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                          setRouteGroup(e.target.value)
+                          setAlgoliaParameters({
+                            ...algoliaParameters,
+                            routeGroup: e.target.value,
+                          })
                         }
                       />
                       <HelperMessage>e.g. : servicedesk</HelperMessage>
@@ -575,9 +507,12 @@ const Example: React.FC = () => {
                     <>
                       <Textfield
                         {...fieldProps}
-                        value={routeName}
+                        value={algoliaParameters.routeName}
                         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                          setRouteName(e.target.value)
+                          setAlgoliaParameters({
+                            ...algoliaParameters,
+                            routeName: e.target.value,
+                          })
                         }
                       />
                       <HelperMessage>
@@ -777,13 +712,11 @@ const Example: React.FC = () => {
                 appearance="primary"
                 onClick={() => {
                   closeDrawer();
-                  setAlgoliaParameters({
-                    routeGroup,
-                    routeName: routeName !== '' ? routeName : undefined,
-                    productName,
-                    productExperience,
-                  });
-                  index.indexName = algoliaIndex;
+                  setRouteGroup(algoliaParameters.routeGroup);
+                  setRouteName(algoliaParameters.routeName);
+                  setProductName(algoliaParameters.productName);
+                  setProductExperience(algoliaParameters.productExperience);
+                  setAlgoliaIndexName(algoliaParameters.algoliaIndexName);
                   setTimeout(() => openDrawer(), 0);
                 }}
               >
@@ -817,7 +750,7 @@ const Example: React.FC = () => {
                     }}
                     footer={Footer}
                     helpArticle={{
-                      onGetHelpArticle,
+                      onGetHelpArticle: getArticleById,
                       onHelpArticleLoadingFailTryAgainButtonClick: handleOnHelpArticleLoadingFailTryAgainButtonClick,
                       onWasHelpfulSubmit: handleOnWasHelpfulSubmit,
                       onWasHelpfulYesButtonClick: handleOnWasHelpfulYesButtonClick,
@@ -828,7 +761,7 @@ const Example: React.FC = () => {
                       articleIdSetter,
                     }}
                     search={{
-                      onSearch,
+                      onSearch: searchArticles,
                       onSearchInputChanged: handleOnSearchInputChanged,
                       onSearchInputCleared: handleOnSearchInputCleared,
                       onSearchResultItemClick: handleOnSearchResultItemClick,
@@ -836,9 +769,9 @@ const Example: React.FC = () => {
                       searchExternalUrl: SEARCH_EXTERNAL_URL,
                     }}
                     relatedArticles={{
-                      routeGroup: algoliaParameters.routeGroup,
-                      routeName: algoliaParameters.routeName,
-                      onGetRelatedArticles: getRelatedArticle,
+                      routeGroup: routeGroup,
+                      routeName: routeName,
+                      onGetRelatedArticles: getRelatedArticles,
                       onRelatedArticlesShowMoreClick: handleOnRelatedArticlesShowMoreClick,
                       onRelatedArticlesListItemClick: handleOnRelatedArticlesListItemClick,
                     }}
@@ -846,10 +779,11 @@ const Example: React.FC = () => {
                       whatsNewGetNotificationProvider: Promise.resolve(
                         notificationsClient,
                       ),
+                      productName: 'Jira',
                       onWhatsNewButtonClick: handleOnWhatsNewButtonClick,
                       onSearchWhatsNewShowMoreClick: handleOnSearchWhatsNewShowMoreClick,
                       onSearchWhatsNewArticles: onSearchWhatsNewArticles,
-                      onGetWhatsNewArticle,
+                      onGetWhatsNewArticle: getWhatsNewArticle,
                       onWhatsNewResultItemClick: handleOnWhatsNewResultItemClick,
                     }}
                     header={{
@@ -882,9 +816,9 @@ const Example: React.FC = () => {
                         console.log(analytics);
                         console.log(isCollapsed);
                       }}
-                      onGetRelatedArticles={getRelatedArticle}
-                      routeGroup={algoliaParameters.routeGroup}
-                      routeName={algoliaParameters.routeName}
+                      onGetRelatedArticles={getRelatedArticles}
+                      routeGroup={routeGroup}
+                      routeName={routeName}
                     />
                   </Help>
                 </LocaleIntlProvider>

@@ -1,5 +1,11 @@
 # @atlaskit/popup
 
+## 1.2.0
+
+### Minor Changes
+
+- [`c2dd770a743`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c2dd770a743) - Add new prop which controls is outside click should be bound using capture
+
 ## 1.1.6
 
 ### Minor Changes

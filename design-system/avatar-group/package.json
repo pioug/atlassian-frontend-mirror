@@ -26,7 +26,7 @@
   "dependencies": {
     "@atlaskit/avatar": "^20.5.0",
     "@atlaskit/menu": "^1.2.0",
-    "@atlaskit/popup": "^1.1.0",
+    "@atlaskit/popup": "^1.2.0",
     "@atlaskit/theme": "^12.0.0",
     "@atlaskit/tokens": "^0.4.0",
     "@atlaskit/tooltip": "^17.5.0",

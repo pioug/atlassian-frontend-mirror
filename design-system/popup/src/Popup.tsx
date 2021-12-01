@@ -29,6 +29,7 @@ export const Popup: FC<PopupProps> = memo(
     popupComponent: PopupContainer,
     autoFocus = true,
     zIndex = defaultLayer,
+    shouldUseCaptureOnOutsideClick = false,
   }: PopupProps) => {
     const [triggerRef, setTriggerRef] = useState<HTMLElement | null>(null);
 
@@ -69,6 +70,7 @@ export const Popup: FC<PopupProps> = memo(
               testId={testId}
               onClose={onClose}
               autoFocus={autoFocus}
+              shouldUseCaptureOnOutsideClick={shouldUseCaptureOnOutsideClick}
               triggerRef={triggerRef}
             />
           </Portal>

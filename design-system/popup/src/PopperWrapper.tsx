@@ -45,6 +45,7 @@ function PopperWrapper({
   popupComponent: PopupContainer = DefaultPopupComponent,
   autoFocus = true,
   triggerRef,
+  shouldUseCaptureOnOutsideClick,
 }: PopperWrapperProps) {
   const [popupRef, setPopupRef] = useState<HTMLDivElement | null>(null);
 
@@ -53,7 +54,13 @@ function PopperWrapper({
   );
 
   useFocusManager({ initialFocusRef, popupRef });
-  useCloseManager({ isOpen, onClose, popupRef, triggerRef });
+  useCloseManager({
+    isOpen,
+    onClose,
+    popupRef,
+    triggerRef,
+    shouldUseCaptureOnOutsideClick,
+  });
 
   const modifiers = useMemo(
     () => [

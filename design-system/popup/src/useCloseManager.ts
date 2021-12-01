@@ -11,6 +11,7 @@ export const useCloseManager = ({
   onClose,
   popupRef,
   triggerRef,
+  shouldUseCaptureOnOutsideClick: capture,
 }: CloseManagerHook): void => {
   useEffect(() => {
     if (!isOpen || !popupRef) {
@@ -55,9 +56,16 @@ export const useCloseManager = ({
 
     const unbind = bindAll(window, [
       // --strictFunctionTypes prevents the above events from being recognised as event listeners
-      { type: 'click', listener: onClick as EventListener },
-      { type: 'keydown', listener: onKeyDown as EventListener },
+      {
+        type: 'click',
+        listener: onClick as EventListener,
+        options: { capture },
+      },
+      {
+        type: 'keydown',
+        listener: onKeyDown as EventListener,
+      },
     ]);
     return unbind;
-  }, [isOpen, onClose, popupRef, triggerRef]);
+  }, [isOpen, onClose, popupRef, triggerRef, capture]);
 };

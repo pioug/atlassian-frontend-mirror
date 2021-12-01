@@ -142,6 +142,7 @@ const DropdownMenu = (props: DropdownMenuProps) => {
         fallbackPlacements={fallbackPlacements}
         testId={testId && `${testId}--content`}
         trigger={renderTrigger}
+        shouldUseCaptureOnOutsideClick
         content={({ setInitialFocusRef }) => (
           <FocusManager>
             <MenuWrapper

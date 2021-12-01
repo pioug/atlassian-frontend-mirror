@@ -162,6 +162,12 @@ interface BaseProps {
    * Defaults to `true`.
    */
   autoFocus?: boolean;
+
+  /**
+   * Controls if the event which handles clicks outside the popup is be bound with
+   *  `capture: true`
+   */
+  shouldUseCaptureOnOutsideClick?: boolean;
 }
 
 export interface PopupProps extends BaseProps {
@@ -187,6 +193,7 @@ export interface PopperWrapperProps extends BaseProps {
 export type CloseManagerHook = Pick<PopupProps, 'isOpen' | 'onClose'> & {
   popupRef: PopupRef;
   triggerRef: TriggerRef;
+  shouldUseCaptureOnOutsideClick?: boolean;
 };
 
 export type FocusManagerHook = {

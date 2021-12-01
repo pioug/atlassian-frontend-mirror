@@ -27,7 +27,7 @@
     "@atlaskit/button": "^16.0.0",
     "@atlaskit/icon": "^21.9.0",
     "@atlaskit/logo": "*",
-    "@atlaskit/popup": "^1.1.0",
+    "@atlaskit/popup": "^1.2.0",
     "@atlaskit/theme": "^12.0.0",
     "@atlaskit/tokens": "^0.4.0",
     "@atlaskit/tooltip": "^17.5.0",

@@ -212,5 +212,51 @@ describe('dropdown menu', () => {
       const status = await findByRole('status');
       expect(status.innerText).toEqual(statusLabel);
     });
+
+    it('should close the dropdown menu on outside click', () => {
+      const { getByTestId, queryByTestId } = render(
+        <>
+          <button data-testid="outside" type="button" />
+          <DropdownMenu testId="ddm" trigger="click to open" />
+        </>,
+      );
+
+      act(() => {
+        fireEvent.click(getByTestId('ddm--trigger'));
+      });
+
+      expect(getByTestId('ddm--content')).toBeInTheDocument();
+
+      act(() => {
+        fireEvent.click(getByTestId('outside'));
+      });
+
+      expect(queryByTestId('ddm--content')).not.toBeInTheDocument();
+    });
+
+    it('should close the dropdown menu on outside click which has stopPropagation', () => {
+      const { getByTestId, queryByTestId } = render(
+        <>
+          <button
+            data-testid="outside"
+            type="button"
+            onClick={(e) => e.stopPropagation()}
+          />
+          <DropdownMenu testId="ddm" trigger="click to open" />
+        </>,
+      );
+
+      act(() => {
+        fireEvent.click(getByTestId('ddm--trigger'));
+      });
+
+      expect(getByTestId('ddm--content')).toBeInTheDocument();
+
+      act(() => {
+        fireEvent.click(getByTestId('outside'));
+      });
+
+      expect(queryByTestId('ddm--content')).not.toBeInTheDocument();
+    });
   });
 });

@@ -49,6 +49,8 @@ export default {
     'Виберіть принаймні одного користувача, команду або електронну адресу.',
   'fabric.elements.share.form.user-picker.validation.required.jira.existingUserOnly':
     'Виберіть принаймні одного користувача або команду.',
+  'fabric.elements.share.in.integration.button':
+    'Поділитися в {integrationName}',
   'fabric.elements.share.success.message':
     '{object, select, blogpost {Ви поділилися дописом у блозі} board {Ви поділилися дошкою} calendar {Ви поділилися календарем} draft {Ви поділилися чернеткою} filter {Ви поділилися фільтром} issue {Ви поділилися проблемою} media {Ви поділилися файлом мультимедіа} page {Ви поділилися сторінкою} project {Ви поділилися проектом} pullrequest {Ви поділилися запитом Pull request} question {Ви поділилися запитанням} report {Ви поділилися звітом} repository {Ви поділилися сховищем} request {Ви поділилися запитом} roadmap {Ви поділилися календарним планом} site {Ви поділилися сайтом} space {Ви поділилися розділом} other {Ви поділилися посиланням}}',
   'fabric.elements.share.to.integration.button':

@@ -45,6 +45,7 @@ export default {
     'Vælg mindst én bruger, ét team eller én e-mailadresse.',
   'fabric.elements.share.form.user-picker.validation.required.jira.existingUserOnly':
     'Vælg mindst én bruger eller ét team.',
+  'fabric.elements.share.in.integration.button': 'Del i {integrationName}',
   'fabric.elements.share.success.message':
     '{object, select, blogpost {Blogindlæg blev delt} board {Tavle blev delt} calendar {Kalender blev delt} draft {Kladde blev delt} filter {Filter blev delt} issue {Sag blev delt} media {Medie blev delt} page {Side blev delt} project {Projekt blev delt} pullrequest {Pullanmodning blev delt} question {Spørgsmål blev delt} report {Rapport blev delt} repository {Lager blev delt} request {Anmodning blev delt} roadmap {Oversigt blev delt} site {Side blev delt} space {Område blev delt} other {Link blev delt}}',
   'fabric.elements.share.to.integration.button': 'Del med {integrationName}',

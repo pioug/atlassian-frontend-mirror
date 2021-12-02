@@ -19,7 +19,6 @@ export default md`
 
   ### Quick links
 
-  - [Theming](/packages/design-system/theme/docs/theming)
   - [Colors](/packages/design-system/theme/docs/colors)
   - [Mixins](/packages/design-system/theme/docs/mixins)
   - [Constants](/packages/design-system/theme/docs/constants)

@@ -45,6 +45,8 @@ export default {
     'Selecciona al menos un usuario, equipo o correo electrónico.',
   'fabric.elements.share.form.user-picker.validation.required.jira.existingUserOnly':
     'Selecciona al menos un usuario o equipo.',
+  'fabric.elements.share.in.integration.button':
+    'Compartir en {integrationName}',
   'fabric.elements.share.success.message':
     '{object, select, blogpost {Entrada de blog compartida} board {Tablero compartido} calendar {Calendario compartido} draft {Borrador compartido} filter {Filtro compartido} issue {Incidencia compartida} media {Soportes compartidos} page {Página compartida} project {Proyecto compartido} pullrequest {Solicitud de extracción compartida} question {Pregunta compartida} report {Informe compartido} repository {Repositorio compartido} request {Solicitud compartida} roadmap {Hoja de ruta compartida} site {Sitio compartido} space {Espacio compartido} other {Enlace compartido}}',
   'fabric.elements.share.to.integration.button':

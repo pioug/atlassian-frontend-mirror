@@ -1,5 +1,17 @@
 # @atlaskit/share
 
+## 1.0.3
+
+### Patch Changes
+
+- [`6eb7be4e83d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6eb7be4e83d) - [ux] Implementing the product specific tab share titles for the experiment
+
+## 1.0.2
+
+### Patch Changes
+
+- [`1bc9346871a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1bc9346871a) - Updates to prop passing from share to integration. The share-to-slack form needs to make use of this onClose prop in the actual form
+
 ## 1.0.1
 
 ### Patch Changes

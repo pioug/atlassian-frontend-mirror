@@ -7,7 +7,8 @@ import {
   UnsupportedContentLevelsTracking,
 } from '@atlaskit/editor-common';
 import { Node as PMNode, Schema } from 'prosemirror-model';
-import { AnalyticsEventPayload } from './analytics/events';
+import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from './analytics/enums';
+import { AnalyticsEventPayload, PLATFORM } from './analytics/events';
 import { trackUnsupportedContentLevels } from './analytics/unsupported-content';
 import { RendererAppearance } from './ui/Renderer/types';
 
@@ -84,7 +85,21 @@ export const renderDocument = <T>(
 
   const { output: node, time: buildTreeTime } = withStopwatch<PMNode>(() => {
     const pmNode = schema.nodeFromJSON(validDoc);
-    pmNode.check();
+    try {
+      pmNode.check();
+    } catch (err) {
+      if (dispatchAnalyticsEvent) {
+        dispatchAnalyticsEvent({
+          action: ACTION.INVALID_PROSEMIRROR_DOCUMENT,
+          actionSubject: ACTION_SUBJECT.RENDERER,
+          attributes: {
+            platform: PLATFORM.WEB,
+            error: err?.toString(),
+          },
+          eventType: EVENT_TYPE.OPERATIONAL,
+        });
+      }
+    }
     return pmNode;
   });
 

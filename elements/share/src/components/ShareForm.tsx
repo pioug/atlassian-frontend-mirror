@@ -122,6 +122,7 @@ export type Props = {
   isSplitButton?: boolean;
   copyTooltipText?: string;
   integrationMode?: IntegrationMode;
+  handleCloseDialog?: () => void;
   shareIntegrations?: Array<Integration>;
 };
 
@@ -251,12 +252,31 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
     );
   };
 
+  renderMainTabTitle = () => {
+    const { title, product } = this.props;
+
+    if (title) {
+      return title;
+    }
+
+    if (!product) {
+      return <FormattedMessage {...messages.formTitle} />;
+    }
+
+    const productShareType =
+      product === 'jira'
+        ? { ...messages.shareMainTabTextJira }
+        : { ...messages.shareMainTabTextConfluence };
+
+    return <FormattedMessage {...productShareType} />;
+  };
+
   render() {
     const {
-      title,
       integrationMode = 'off',
       shareIntegrations,
       onTabChange,
+      handleCloseDialog,
     } = this.props;
 
     if (
@@ -278,9 +298,7 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
           }}
         >
           <TabList>
-            <Tab key={`share-tab-default`}>
-              {title || <FormattedMessage {...messages.formTitle} />}
-            </Tab>
+            <Tab key={`share-tab-default`}>{this.renderMainTabTitle()}</Tab>
             <Tab key={`share-tab-${firstIntegration.type}`}>
               <IntegrationWrapper>
                 <IntegrationIconWrapper>
@@ -297,9 +315,7 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
             <FormWrapper isMainShare={false}>
               <IntegrationForm
                 Content={firstIntegration.Content}
-                onIntegrationClose={() => {
-                  return null;
-                }}
+                onIntegrationClose={() => handleCloseDialog?.()}
               />
             </FormWrapper>
           </TabPanel>

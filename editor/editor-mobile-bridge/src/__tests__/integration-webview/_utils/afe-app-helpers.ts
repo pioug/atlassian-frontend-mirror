@@ -95,7 +95,9 @@ export async function uploadMedia(page: Page, id = testMediaFileId) {
  */
 export async function getTextColor(page: Page, selector = 'p > span') {
   return page.execute((selector: any) => {
-    return document.querySelectorAll(selector)[0].style.color;
+    const element = document.querySelectorAll(selector)[0];
+
+    return window.getComputedStyle(element).getPropertyValue('color');
   }, selector);
 }
 

@@ -62,6 +62,17 @@ export type ComponentCrashErrorAEP = AEP<
   EVENT_TYPE.OPERATIONAL
 >;
 
+type InvalidProsemirrorDocumentErrorAEP = AEP<
+  ACTION.INVALID_PROSEMIRROR_DOCUMENT,
+  ACTION_SUBJECT.RENDERER,
+  ACTION_SUBJECT_ID,
+  {
+    platform: PLATFORM.WEB;
+    errorStack?: string;
+  },
+  EVENT_TYPE.OPERATIONAL
+>;
+
 type RendererUnsupportedContentLevelsTrackingSucceeded = AEP<
   ACTION.UNSUPPORTED_CONTENT_LEVELS_TRACKING_SUCCEEDED,
   ACTION_SUBJECT.RENDERER,
@@ -252,4 +263,5 @@ export type AnalyticsEventPayload =
   | UnsupportedContentPayload
   | UnsupportedContentTooltipPayload
   | AnnotationAEP
-  | AnnotationDeleteAEP;
+  | AnnotationDeleteAEP
+  | InvalidProsemirrorDocumentErrorAEP;

@@ -1,5 +1,16 @@
 # @atlaskit/renderer
 
+## 84.1.0
+
+### Minor Changes
+
+- [`b9cd2373064`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b9cd2373064) - [ED-14106] Reset custom color when the node is inside a link
+
+### Patch Changes
+
+- [`d6c140182ce`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d6c140182ce) - [ED-14095] Send a new analytics events when the document loaded is not a valid ProseMirror Model
+- Updated dependencies
+
 ## 84.0.0
 
 ### Major Changes

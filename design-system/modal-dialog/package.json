@@ -27,7 +27,6 @@
   "atlaskit:src": "src/index.ts",
   "atlassian": {
     "team": "Design System Team",
-    "inPublicMirror": true,
     "releaseModel": "scheduled",
     "website": {
       "name": "Modal dialog"

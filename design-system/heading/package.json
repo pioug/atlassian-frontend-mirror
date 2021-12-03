@@ -9,7 +9,6 @@
   },
   "atlassian": {
     "team": "Design System Team",
-    "inPublicMirror": false,
     "releaseModel": "continuous",
     "website": {
       "name": "Heading"

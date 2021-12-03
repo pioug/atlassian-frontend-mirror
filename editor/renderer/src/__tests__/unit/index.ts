@@ -17,6 +17,10 @@ jest.mock('@atlaskit/editor-common/validator', () => ({
 }));
 import * as common from '@atlaskit/editor-common/validator';
 import { renderDocument, Serializer } from '../../index';
+
+import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../../analytics/enums';
+
+import { PLATFORM } from '../../analytics/events';
 import doc from '../__fixtures__/basic-document.adf.json';
 class MockSerializer implements Serializer<string> {
   serializeFragment(_fragment: any) {
@@ -128,6 +132,111 @@ describe('Renderer', () => {
       );
       expect(result.pmDoc).toBeDefined();
       expect(result.pmDoc!.toJSON()).toEqual(expectedDoc);
+    });
+
+    describe('when there is a textColor mark with a link', () => {
+      const initialDoc = {
+        version: 1,
+        type: 'doc',
+        content: [
+          {
+            type: 'paragraph',
+            content: [
+              {
+                type: 'text',
+                text: 'lol',
+                marks: [
+                  {
+                    type: 'link',
+                    attrs: {
+                      href: 'http://gnu.org',
+                    },
+                  },
+
+                  {
+                    type: 'textColor',
+                    attrs: {
+                      color: '#ff991f',
+                    },
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      };
+
+      it('should not throw an ProseMirror error validation', () => {
+        expect(() => {
+          renderDocument(initialDoc, serializer, schema, 'final', true);
+        }).not.toThrow();
+      });
+    });
+
+    describe('when there is an invalid ProseMirror document', () => {
+      const initialDoc = {
+        version: 1,
+        type: 'doc',
+        content: [
+          {
+            type: 'paragraph',
+            content: [
+              {
+                type: 'text',
+                text: 'lol',
+                marks: [
+                  {
+                    type: 'link',
+                    attrs: {
+                      href: 'http://gnu.org',
+                    },
+                  },
+                  {
+                    type: 'link',
+                    attrs: {
+                      href: 'http://atlassian.com',
+                    },
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      };
+
+      it('should not throw an error', () => {
+        expect(() => {
+          renderDocument(initialDoc, serializer, schema, 'final', true);
+        }).not.toThrow();
+      });
+
+      it('should call the dispatchAnalyticsEvent', () => {
+        const dispatchAnalyticsEvent = jest.fn();
+        try {
+          renderDocument(
+            initialDoc,
+            serializer,
+            schema,
+            'final',
+            true,
+            undefined,
+            dispatchAnalyticsEvent,
+          );
+        } catch (e) {}
+
+        expect(dispatchAnalyticsEvent).toHaveBeenCalledWith(
+          expect.objectContaining({
+            action: ACTION.INVALID_PROSEMIRROR_DOCUMENT,
+            actionSubject: ACTION_SUBJECT.RENDERER,
+            eventType: EVENT_TYPE.OPERATIONAL,
+            attributes: {
+              platform: PLATFORM.WEB,
+              error:
+                'RangeError: Invalid collection of marks for node text: link,link',
+            },
+          }),
+        );
+      });
     });
   });
 });

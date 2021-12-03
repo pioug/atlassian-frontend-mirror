@@ -235,6 +235,26 @@ type UploadExternalFailedAEP = OperationalAEP<
   undefined
 >;
 
+type InvalidProsemirrorDocumentErrorAEP = OperationalAEP<
+  ACTION.INVALID_PROSEMIRROR_DOCUMENT,
+  ACTION_SUBJECT.EDITOR,
+  undefined,
+  {
+    errorStack?: string;
+  },
+  undefined
+>;
+
+type DocumentProcessingErrorAEP = OperationalAEP<
+  ACTION.DOCUMENT_PROCESSING_ERROR,
+  ACTION_SUBJECT.EDITOR,
+  undefined,
+  {
+    errorStack?: string;
+  },
+  undefined
+>;
+
 type EditorStopAEP = UIAEP<
   ACTION.STOPPED,
   ACTION_SUBJECT.EDITOR,
@@ -389,4 +409,6 @@ export type GeneralEventPayload<T = void> =
   | WithPluginStateCalledAEP
   | CodeBlockLanguageSelectedAEP
   | EditorContentRetrievalPerformedAEP
-  | UfoSessionCompletePayloadAEP;
+  | UfoSessionCompletePayloadAEP
+  | InvalidProsemirrorDocumentErrorAEP
+  | DocumentProcessingErrorAEP;

@@ -13,6 +13,11 @@ import { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import { DispatchAnalyticsEvent } from '../plugins/analytics/types/dispatch-analytics-event';
 import { getBreakoutMode } from './node-width';
 import { BreakoutMarkAttrs } from '@atlaskit/adf-schema';
+import {
+  ACTION,
+  ACTION_SUBJECT,
+  EVENT_TYPE,
+} from '../plugins/analytics/types/enums';
 
 /**
  * Checks if node is an empty paragraph.
@@ -215,7 +220,22 @@ export function processRawValue(
     const parsedDoc = Node.fromJSON(schema, newEntity);
 
     // throws an error if the document is invalid
-    parsedDoc.check();
+    try {
+      parsedDoc.check();
+    } catch (err) {
+      if (dispatchAnalyticsEvent) {
+        dispatchAnalyticsEvent({
+          action: ACTION.INVALID_PROSEMIRROR_DOCUMENT,
+          actionSubject: ACTION_SUBJECT.EDITOR,
+          eventType: EVENT_TYPE.OPERATIONAL,
+          attributes: {
+            error: err?.toString(),
+          },
+        });
+      }
+
+      return;
+    }
 
     if (dispatchAnalyticsEvent) {
       findAndTrackUnsupportedContentNodes(
@@ -227,6 +247,17 @@ export function processRawValue(
 
     return parsedDoc;
   } catch (e) {
+    if (dispatchAnalyticsEvent) {
+      dispatchAnalyticsEvent({
+        action: ACTION.DOCUMENT_PROCESSING_ERROR,
+        actionSubject: ACTION_SUBJECT.EDITOR,
+        eventType: EVENT_TYPE.OPERATIONAL,
+        attributes: {
+          error: e?.toString(),
+        },
+      });
+    }
+
     // eslint-disable-next-line no-console
     console.error(
       `Error processing document:\n${e.message}\n\n`,

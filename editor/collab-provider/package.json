@@ -23,7 +23,7 @@
   "dependencies": {
     "@atlaskit/analytics-gas-types": "5.0.5",
     "@atlaskit/analytics-listeners": "^8.0.0",
-    "@atlaskit/editor-common": "^62.0.0",
+    "@atlaskit/editor-common": "^62.1.0",
     "@atlaskit/util-service-support": "^6.0.0",
     "@babel/runtime": "^7.0.0",
     "eventemitter2": "^4.1.0",

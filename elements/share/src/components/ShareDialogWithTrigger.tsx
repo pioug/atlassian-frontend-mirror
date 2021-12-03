@@ -611,6 +611,7 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
                       isPublicLink={isPublicLink}
                       copyTooltipText={copyTooltipText}
                       integrationMode={integrationMode}
+                      handleCloseDialog={this.handleCloseDialog}
                       shareIntegrations={shareIntegrations}
                     />
                   </InlineDialogFormWrapper>

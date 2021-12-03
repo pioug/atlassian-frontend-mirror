@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-mobile-bridge",
-  "version": "31.0.1",
+  "version": "31.0.2",
   "description": "Mobile distribution of the Editor",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -27,19 +27,19 @@
     "build:test": "webpack --config webpack.test.config.js -p"
   },
   "dependencies": {
-    "@atlaskit/adf-schema": "^20.0.0",
+    "@atlaskit/adf-schema": "^20.1.0",
     "@atlaskit/adf-utils": "^14.4.0",
     "@atlaskit/analytics-gas-types": "5.0.5",
     "@atlaskit/analytics-listeners": "8.1.2",
     "@atlaskit/analytics-next": "^8.2.0",
     "@atlaskit/collab-provider": "^7.1.0",
-    "@atlaskit/editor-common": "62.0.0",
-    "@atlaskit/editor-core": "153.0.1",
+    "@atlaskit/editor-common": "62.1.0",
+    "@atlaskit/editor-core": "153.1.0",
     "@atlaskit/editor-json-transformer": "8.7.0",
     "@atlaskit/emoji": "64.0.0",
-    "@atlaskit/legacy-mobile-macros": "1.0.0",
+    "@atlaskit/legacy-mobile-macros": "1.0.1",
     "@atlaskit/mention": "19.9.5",
-    "@atlaskit/renderer": "84.0.0",
+    "@atlaskit/renderer": "84.1.0",
     "@atlaskit/smart-card": "17.0.0",
     "@atlaskit/status": "1.0.0",
     "@atlaskit/task-decision": "17.2.4",

@@ -26,13 +26,14 @@ import {
   tableMarginTop,
   codeMarkSharedStyles,
   shadowSharedStyle,
-  shadowClassNames,
   dateSharedStyle,
   richMediaClassName,
   tasksAndDecisionsStyles,
   smartCardSharedStyles,
   tableCellPadding,
-} from '@atlaskit/editor-common';
+  textColorStyles,
+} from '@atlaskit/editor-common/styles';
+import { shadowClassNames } from '@atlaskit/editor-common/ui';
 import {
   editorFontSize,
   blockNodesVerticalMargin,
@@ -377,6 +378,7 @@ export const Wrapper = styled.div<RendererWrapperProps & HTMLAttributes<{}>>`
   ${codeMarkSharedStyles};
   ${shadowSharedStyle};
   ${dateSharedStyle};
+  ${textColorStyles};
   ${tasksAndDecisionsStyles};
   ${smartCardSharedStyles}
 

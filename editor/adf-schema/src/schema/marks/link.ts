@@ -1,5 +1,5 @@
 import { MarkSpec, Mark } from 'prosemirror-model';
-import { LINK, COLOR } from '../groups';
+import { LINK } from '../groups';
 import { isSafeUrl, normalizeUrl } from '../../utils/url';
 
 export interface ConfluenceLinkMetadata {
@@ -55,7 +55,7 @@ const getLinkAttrs = (attribute: string) => (domNode: Node | string) => {
 };
 
 export const link: MarkSpec = {
-  excludes: `${LINK} ${COLOR}`, // ED-5844 No multiple links in media node
+  excludes: `${LINK}`, // ED-5844 No multiple links in media node
   group: LINK,
   attrs: {
     href: {},

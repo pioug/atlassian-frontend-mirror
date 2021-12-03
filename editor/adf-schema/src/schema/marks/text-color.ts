@@ -142,12 +142,29 @@ export const textColor: MarkSpec = {
           : false;
       },
     },
+    {
+      tag: '.fabric-text-color-mark',
+      getAttrs: (maybeElement) => {
+        if (!(maybeElement instanceof HTMLElement)) {
+          return false;
+        }
+
+        const hexColor = maybeElement.dataset.textCustomColor;
+
+        return hexColor &&
+          (colorPalette.has(hexColor) || colorPaletteExtended.has(hexColor))
+          ? { color: hexColor }
+          : false;
+      },
+    },
   ],
   toDOM(mark) {
     return [
       'span',
       {
-        style: `color: ${mark.attrs.color}`,
+        class: 'fabric-text-color-mark',
+        style: `--custom-text-color: ${mark.attrs.color}`,
+        ['data-text-custom-color']: mark.attrs.color,
       },
     ];
   },

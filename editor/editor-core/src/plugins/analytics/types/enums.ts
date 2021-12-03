@@ -92,6 +92,8 @@ export enum ACTION {
   ON_CHANGE_CALLBACK = 'onChangeCalled',
   REMOVE_ICON = 'removedIcon',
   UFO_SESSION_COMPLETE = 'ufoSessionComplete',
+  INVALID_PROSEMIRROR_DOCUMENT = 'invalidProsemirrorDocument',
+  DOCUMENT_PROCESSING_ERROR = 'documentProcessingError',
 }
 
 export enum INPUT_METHOD {

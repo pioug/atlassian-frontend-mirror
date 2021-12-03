@@ -9,6 +9,7 @@ export enum ACTION {
   STARTED = 'started',
   RENDERED = 'rendered',
   CRASHED = 'unhandledErrorCaught',
+  INVALID_PROSEMIRROR_DOCUMENT = 'invalidProsemirrorDocument',
   SELECT_ALL_CAUGHT = 'selectAllCaught',
   SELECT_ALL_ESCAPED = 'selectAllEscaped',
   CLICKED = 'clicked',

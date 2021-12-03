@@ -207,4 +207,14 @@ export const messages = defineMessages({
     description:
       'Text for the button that allows the user to share the currently viewed item through a 3rd party app like Slack',
   },
+  shareMainTabTextJira: {
+    id: 'fabric.elements.share.main.tab.text.jira',
+    defaultMessage: 'Share issue',
+    description: 'Text for the main share tab for jira',
+  },
+  shareMainTabTextConfluence: {
+    id: 'fabric.elements.share.main.tab.text.confluence',
+    defaultMessage: 'Share page',
+    description: 'Text for the main share tab for confluence',
+  },
 });

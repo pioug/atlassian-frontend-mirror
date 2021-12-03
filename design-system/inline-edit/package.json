@@ -17,7 +17,6 @@
   "homepage": "https://atlassian.design/components/inline-edit/",
   "atlassian": {
     "team": "Design System Team",
-    "inPublicMirror": true,
     "releaseModel": "scheduled",
     "website": {
       "name": "Inline edit"

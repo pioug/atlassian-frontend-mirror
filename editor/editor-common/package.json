@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-common",
-  "version": "62.0.0",
+  "version": "62.1.0",
   "description": "A package that contains common classes and components for editor and renderer",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -42,7 +42,7 @@
   },
   "dependencies": {
     "@atlaskit/activity-provider": "^2.3.0",
-    "@atlaskit/adf-schema": "^20.0.0",
+    "@atlaskit/adf-schema": "^20.1.0",
     "@atlaskit/adf-utils": "^14.4.0",
     "@atlaskit/analytics-namespaced-context": "^6.3.0",
     "@atlaskit/analytics-next": "^8.2.0",

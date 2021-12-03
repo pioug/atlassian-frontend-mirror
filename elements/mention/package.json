@@ -49,7 +49,7 @@
     "@atlaskit/adf-utils": "^14.4.0",
     "@atlaskit/build-utils": "*",
     "@atlaskit/docs": "^9.0.0",
-    "@atlaskit/editor-core": "^153.0.0",
+    "@atlaskit/editor-core": "^153.1.0",
     "@atlaskit/editor-test-helpers": "^16.0.0",
     "@atlaskit/elements-test-helpers": "^0.7.0",
     "@atlaskit/section-message": "^6.0.0",

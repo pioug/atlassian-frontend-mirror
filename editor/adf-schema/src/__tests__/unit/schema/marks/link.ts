@@ -21,6 +21,35 @@ describe(`${name}/schema link mark`, () => {
   itMatches(`<p><a href="${href2}">${content}</a></p>`, href2, content);
   itMatches(`<p><a href="${href3}">${content}</a></p>`, href3, content);
 
+  describe('when there is a textColor mark', () => {
+    it('should not throw an error when the check() is called', () => {
+      const doc = {
+        type: 'text',
+        text: 'Foo',
+        marks: [
+          {
+            type: 'link',
+            attrs: {
+              href: 'http://example.com',
+            },
+          },
+
+          {
+            type: 'textColor',
+            attrs: {
+              color: '#ff5630',
+            },
+          },
+        ],
+      };
+
+      const textNode = Node.fromJSON(makeSchema(), doc);
+      expect(() => {
+        textNode.check();
+      }).not.toThrow();
+    });
+  });
+
   describe('whitelist URLs', () => {
     const schema = makeSchema();
 

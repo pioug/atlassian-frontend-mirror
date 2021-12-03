@@ -12,7 +12,8 @@ import {
   tasksAndDecisionsStyles,
   annotationSharedStyles,
   smartCardSharedStyles,
-} from '@atlaskit/editor-common';
+  textColorStyles,
+} from '@atlaskit/editor-common/styles';
 import { editorFontSize } from '@atlaskit/editor-shared-styles';
 
 import { unsupportedStyles } from '../../plugins/unsupported-content/styles';
@@ -98,6 +99,7 @@ const ContentStyles = styled.div<ContentStylesProps>`
     featureFlags?.codeBlockSyntaxHighlighting
       ? highlightingCodeBlockStyles
       : codeBlockStyles}
+  ${textColorStyles}
   ${listsStyles}
   ${ruleStyles}
   ${mediaStyles}

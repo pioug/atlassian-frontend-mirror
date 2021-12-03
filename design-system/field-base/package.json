@@ -16,7 +16,6 @@
   "atlassian": {
     "team": "Design System Team",
     "deprecatedAutoEntryPoints": true,
-    "inPublicMirror": true,
     "releaseModel": "scheduled",
     "website": {
       "deprecated": "Please use the Form/Textfield/Textarea/etc packages instead.",

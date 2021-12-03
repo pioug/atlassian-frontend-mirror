@@ -16,7 +16,6 @@
   "atlassian": {
     "team": "Design System Team",
     "deprecatedAutoEntryPoints": true,
-    "inPublicMirror": true,
     "releaseModel": "scheduled",
     "website": {
       "name": "Droplist",

@@ -1,5 +1,12 @@
 # @atlaskit/adf-schema
 
+## 20.1.0
+
+### Minor Changes
+
+- [`d6c140182ce`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d6c140182ce) - [ED-14095] Allow links along textColor marks to match the current ADF Schema
+- [`b9cd2373064`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b9cd2373064) - [ED-14106] Reset custom color when the node is inside a link
+
 ## 20.0.1
 
 ### Patch Changes

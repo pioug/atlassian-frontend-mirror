@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-core",
-  "version": "153.0.1",
+  "version": "153.1.0",
   "description": "A package contains Atlassian editor core functionality",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -26,7 +26,7 @@
   "dependencies": {
     "@atlaskit/activity": "^1.0.1",
     "@atlaskit/activity-provider": "^2.3.0",
-    "@atlaskit/adf-schema": "^20.0.0",
+    "@atlaskit/adf-schema": "^20.1.0",
     "@atlaskit/adf-utils": "^14.4.0",
     "@atlaskit/analytics-gas-types": "^5.0.0",
     "@atlaskit/analytics-listeners": "^8.0.0",
@@ -42,7 +42,7 @@
     "@atlaskit/date": "^0.8.0",
     "@atlaskit/datetime-picker": "^11.1.0",
     "@atlaskit/droplist": "^11.0.0",
-    "@atlaskit/editor-common": "^62.0.0",
+    "@atlaskit/editor-common": "^62.1.0",
     "@atlaskit/editor-json-transformer": "^8.7.0",
     "@atlaskit/editor-markdown-transformer": "^4.1.0",
     "@atlaskit/editor-shared-styles": "^1.6.0",
@@ -157,7 +157,7 @@
     "@atlaskit/page-layout": "^1.0.1",
     "@atlaskit/profilecard": "^16.0.0",
     "@atlaskit/pubsub": "^6.0.0",
-    "@atlaskit/renderer": "^84.0.0",
+    "@atlaskit/renderer": "^84.1.0",
     "@atlaskit/section-message": "^6.1.0",
     "@atlaskit/share": "*",
     "@atlaskit/smart-card": "^17.0.0",

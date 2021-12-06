@@ -1,5 +1,13 @@
 # @atlaskit/page
 
+## 12.1.0
+
+### Minor Changes
+
+- [`4e587fa832b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4e587fa832b) - [ux] The grid now uses CSS `gap` instead of margins.
+
+  This package has now been migrated from `styled-components` to `@emotion/core`. As part of this change theming has been removed from `Grid`. Spacing and columns can now be set directly on the `Grid` component rather than via the `theme` prop.
+
 ## 12.0.7
 
 ### Patch Changes

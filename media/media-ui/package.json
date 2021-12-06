@@ -84,7 +84,7 @@
     "@atlaskit/field-base": "^15.0.5",
     "@atlaskit/media-integration-test-helpers": "^2.5.0",
     "@atlaskit/media-test-helpers": "^29.0.0",
-    "@atlaskit/page": "^12.0.6",
+    "@atlaskit/page": "^12.1.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/textfield": "^5.0.5",
     "@atlaskit/visual-regression": "*",

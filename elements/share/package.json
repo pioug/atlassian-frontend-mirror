@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/share",
-  "version": "1.0.3",
+  "version": "2.0.1",
   "description": "Fabric Share Element",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -38,6 +38,7 @@
     "@atlaskit/icon": "^21.9.0",
     "@atlaskit/popup": "^1.2.0",
     "@atlaskit/portal": "^4.0.0",
+    "@atlaskit/spinner": "^15.1.4",
     "@atlaskit/tabs": "^13.2.3",
     "@atlaskit/theme": "^12.0.0",
     "@atlaskit/tooltip": "^17.5.0",
@@ -46,7 +47,9 @@
     "@babel/runtime": "^7.0.0",
     "fast-deep-equal": "^3.1.1",
     "memoize-one": "^6.0.0",
+    "react-device-detect": "^1.15.0",
     "react-intl-next": "npm:react-intl@^5.18.1",
+    "react-loosely-lazy": "^0.5.0",
     "tiny-invariant": "^0.0.3"
   },
   "peerDependencies": {
@@ -76,7 +79,8 @@
     "teams"
   ],
   "af:exports": {
-    ".": "./src/index.ts"
+    ".": "./src/index.ts",
+    "./clients": "./src/clients/index.ts"
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
 }

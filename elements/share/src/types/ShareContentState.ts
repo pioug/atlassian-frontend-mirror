@@ -11,7 +11,7 @@ export type ShareError = {
   message: string;
 };
 
-export type DialogContentState = {
+export type ShareData = {
   users: OptionData[];
-  comment?: Comment;
+  comment: Comment;
 };

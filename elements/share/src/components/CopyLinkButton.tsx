@@ -10,9 +10,11 @@ import {
   injectIntl,
   WrappedComponentProps,
 } from 'react-intl-next';
+import { isSafari } from 'react-device-detect';
 import styled from 'styled-components';
-import Button, { InlineDialogContentWrapper } from './styles';
+import Button from './styles';
 import { messages } from '../i18n';
+import { InlineDialogContentWrapper } from './ShareFormWrapper/styled';
 
 const Z_INDEX = layers.modal();
 
@@ -39,6 +41,8 @@ export const HiddenInput = React.forwardRef<HTMLInputElement, InputProps>(
   (props, ref) => (
     <input
       style={{ position: 'absolute', left: '-9999px' }}
+      tabIndex={-1}
+      aria-hidden={true}
       ref={ref}
       value={props.text}
       readOnly
@@ -109,14 +113,14 @@ export class CopyLinkButton extends React.Component<
     } = this.props;
     return (
       <Button
+        aria-label={formatMessage(
+          isPublicLink
+            ? messages.copyPublicLinkButtonText
+            : messages.copyLinkButtonText,
+        )}
         isDisabled={isDisabled}
         appearance="subtle-link"
-        iconBefore={
-          <LinkFilledIcon
-            label={formatMessage(messages.copyLinkButtonIconLabel)}
-            size="medium"
-          />
-        }
+        iconBefore={<LinkFilledIcon label="" size="medium" />}
         onClick={this.handleClick}
         {...triggerProps}
       >
@@ -138,16 +142,21 @@ export class CopyLinkButton extends React.Component<
 
     return (
       <>
+        {/* Added ARIA live region specifically for VoiceOver + Safari since the status */}
+        {/* message 'Link copied to clipboard' is not announced by VO */}
+        {isSafari && (
+          <div className="assistive" aria-live="assertive">
+            {shouldShowCopiedMessage &&
+              formatMessage(messages.copiedToClipboardMessage)}
+          </div>
+        )}
         <HiddenInput ref={this.inputRef} text={this.props.link} />
         <Popup
           zIndex={Z_INDEX}
           content={() => (
             <InlineDialogContentWrapper>
               <MessageContainer>
-                <CheckCircleIcon
-                  label={formatMessage(messages.copiedToClipboardIconLabel)}
-                  primaryColor={G300}
-                />
+                <CheckCircleIcon label="" primaryColor={G300} />
                 <MessageSpan>
                   <FormattedMessage {...messages.copiedToClipboardMessage} />
                 </MessageSpan>

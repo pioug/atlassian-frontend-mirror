@@ -1,18 +1,15 @@
+import React from 'react';
 import {
-  AnalyticsContext,
   AnalyticsEventPayload,
   WithAnalyticsEventsProps,
   withAnalyticsEvents,
 } from '@atlaskit/analytics-next';
-import { Appearance } from '@atlaskit/button/types';
 import SplitButton from './SplitButton';
 import ShareIcon from '@atlaskit/icon/glyph/share';
 import Popup, { TriggerProps } from '@atlaskit/popup';
 import Portal from '@atlaskit/portal';
 import Aktooltip from '@atlaskit/tooltip';
-import { gridSize, layers } from '@atlaskit/theme/constants';
-import { LoadOptions, Value } from '@atlaskit/user-picker';
-import React from 'react';
+import { layers } from '@atlaskit/theme/constants';
 import {
   FormattedMessage,
   injectIntl,
@@ -21,120 +18,35 @@ import {
 import styled from 'styled-components';
 import { messages } from '../i18n';
 import {
-  ConfigResponse,
-  DialogContentState,
-  DialogPlacement,
+  ShareData,
   Flag,
   OBJECT_SHARED,
-  OriginTracing,
-  ProductName,
-  RenderCustomTriggerButton,
-  ShareButtonStyle,
-  ShareError,
-  TooltipPosition,
   Integration,
+  ShareDialogWithTriggerProps,
+  ShareDialogWithTriggerStates,
 } from '../types';
 import {
   cancelShare,
   CHANNEL_ID,
   copyLinkButtonClicked,
-  formShareSubmitted,
   screenEvent,
   shareTriggerButtonClicked,
   shareSplitButtonEvent,
-  ANALYTICS_SOURCE,
   shareTabClicked,
-  TabSubjectIdType,
+  formShareSubmitted,
 } from './analytics';
+import type { TabSubjectIdType } from './analytics';
 import ShareButton from './ShareButton';
-import { ShareForm } from './ShareForm';
 import { generateSelectZIndex } from './utils';
 import { IconProps } from '@atlaskit/icon';
-import { InlineDialogContentWrapper } from './styles';
-import { IntegrationForm } from './IntegrationForm';
-import { IntegrationMode } from '../types/ShareEntities';
-
-type DialogState = {
-  isDialogOpen: boolean;
-  isSharing: boolean;
-  shareError?: ShareError;
-  ignoreIntermediateState: boolean;
-  defaultValue: DialogContentState;
-  isUsingSplitButton: boolean;
-  showIntegrationForm: boolean;
-  selectedIntegration: Integration | null;
-};
-
-export type State = DialogState;
-
-export type Props = {
-  onTriggerButtonClick?: () => void;
-  isAutoOpenDialog?: boolean;
-  config?: ConfigResponse;
-  isFetchingConfig?: boolean;
-  children?: RenderCustomTriggerButton;
-  copyLink: string;
-  analyticsDecorator?: (
-    payload: AnalyticsEventPayload,
-  ) => AnalyticsEventPayload;
-  dialogPlacement?: DialogPlacement;
-  dialogZIndex?: number;
-  isDisabled?: boolean;
-  loadUserOptions?: LoadOptions;
-  onDialogOpen?: () => void;
-  onDialogClose?: () => void;
-  onShareSubmit?: (shareContentState: DialogContentState) => Promise<any>;
-  renderCustomTriggerButton?: RenderCustomTriggerButton;
-  shareContentType: string;
-  shareFormTitle?: React.ReactNode;
-  shareFormHelperMessage?: string;
-  copyLinkOrigin?: OriginTracing;
-  formShareOrigin?: OriginTracing;
-  shouldCloseOnEscapePress?: boolean;
-  showFlags: (flags: Array<Flag>) => void;
-  enableSmartUserPicker?: boolean;
-  loggedInAccountId?: string;
-  cloudId?: string;
-  triggerButtonAppearance?: Appearance;
-  triggerButtonIcon?: React.ComponentType<IconProps>;
-  triggerButtonStyle?: ShareButtonStyle;
-  triggerButtonTooltipPosition?: TooltipPosition;
-  triggerButtonTooltipText?: React.ReactNode;
-  bottomMessage?: React.ReactNode;
-  submitButtonLabel?: React.ReactNode;
-  product: ProductName;
-  customFooter?: React.ReactNode;
-  onUserSelectionChange?: (value: Value) => void;
-  shareFieldsFooter?: React.ReactNode;
-  isCopyDisabled?: boolean;
-  isPublicLink?: boolean;
-  integrationMode?: IntegrationMode;
-  shareIntegrations?: Array<Integration>;
-  /** Atlassian Resource Identifier of a Site resource to be shared. */
-  shareAri?: string;
-  tabIndex?: number;
-  copyTooltipText?: string;
-};
+import LazyShareFormLazy from './LazyShareForm/lazy';
 
 const ShareButtonWrapper = styled.div`
   display: inline-flex;
   outline: none;
 `;
 
-const InlineDialogFormWrapper = styled.div`
-  width: 352px;
-`;
-
-const BottomMessageWrapper = styled.div`
-  width: 352px;
-`;
-
-const CustomFooterWrapper = styled.div`
-  /* Must match inline dialog padding. */
-  margin: 0 ${-gridSize() * 3}px ${-gridSize() * 2}px ${-gridSize() * 3}px;
-`;
-
-export const defaultShareContentState: DialogContentState = {
+export const defaultShareContentState: ShareData = {
   users: [],
   comment: {
     format: 'plain_text' as const,
@@ -142,15 +54,15 @@ export const defaultShareContentState: DialogContentState = {
   },
 };
 
-type ShareDialogWithTriggerInternalProps = Props &
+type ShareDialogWithTriggerInternalProps = ShareDialogWithTriggerProps &
   WrappedComponentProps &
   WithAnalyticsEventsProps;
 
 export class ShareDialogWithTriggerInternal extends React.PureComponent<
   ShareDialogWithTriggerInternalProps,
-  State
+  ShareDialogWithTriggerStates
 > {
-  static defaultProps: Partial<Props> = {
+  static defaultProps: Partial<ShareDialogWithTriggerProps> = {
     isDisabled: false,
     dialogPlacement: 'bottom-end',
     shouldCloseOnEscapePress: true,
@@ -168,7 +80,7 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
   private selectPortalRef = React.createRef<HTMLDivElement>();
   private start: number = 0;
 
-  state: State = {
+  state: ShareDialogWithTriggerStates = {
     isDialogOpen: false,
     isSharing: false,
     ignoreIntermediateState: false,
@@ -184,7 +96,7 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
     }
   }
 
-  componentDidUpdate(prevProps: Props) {
+  componentDidUpdate(prevProps: ShareDialogWithTriggerProps) {
     if (
       this.props.isAutoOpenDialog !== prevProps.isAutoOpenDialog &&
       this.props.isAutoOpenDialog
@@ -337,7 +249,7 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
     });
   };
 
-  private handleShareSubmit = (data: DialogContentState) => {
+  private handleShareSubmit = (data: ShareData) => {
     const {
       onShareSubmit,
       shareContentType,
@@ -377,7 +289,7 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
       });
   };
 
-  private handleFormDismiss = (data: DialogContentState) => {
+  private handleFormDismiss = (data: ShareData) => {
     this.setState(({ ignoreIntermediateState }) =>
       ignoreIntermediateState ? null : { defaultValue: data },
     );
@@ -531,6 +443,7 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
       showIntegrationForm,
       selectedIntegration,
     } = this.state;
+
     const {
       copyLink,
       dialogPlacement,
@@ -570,69 +483,56 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
       >
         <Popup
           content={() => (
-            <AnalyticsContext data={{ source: ANALYTICS_SOURCE }}>
-              <InlineDialogContentWrapper innerRef={this.containerRef}>
-                {showIntegrationForm && selectedIntegration !== null ? (
-                  <InlineDialogFormWrapper>
-                    <IntegrationForm
-                      Content={selectedIntegration.Content}
-                      onIntegrationClose={this.handleCloseDialog}
-                    />
-                  </InlineDialogFormWrapper>
-                ) : (
-                  <InlineDialogFormWrapper>
-                    <ShareForm
-                      copyLink={copyLink}
-                      loadOptions={loadUserOptions}
-                      isSharing={isSharing}
-                      onSubmit={this.handleShareSubmit}
-                      title={shareFormTitle}
-                      showTitle={
-                        integrationMode !== 'tabs' ||
-                        !shareIntegrations ||
-                        !shareIntegrations.length
-                      }
-                      onTabChange={this.onTabChange}
-                      helperMessage={shareFormHelperMessage}
-                      shareError={shareError}
-                      onDismiss={this.handleFormDismiss}
-                      defaultValue={defaultValue}
-                      config={config}
-                      isFetchingConfig={isFetchingConfig}
-                      onLinkCopy={this.handleCopyLink}
-                      submitButtonLabel={submitButtonLabel}
-                      product={product}
-                      enableSmartUserPicker={enableSmartUserPicker}
-                      loggedInAccountId={loggedInAccountId}
-                      cloudId={cloudId}
-                      onUserSelectionChange={onUserSelectionChange}
-                      fieldsFooter={shareFieldsFooter}
-                      selectPortalRef={this.selectPortalRef}
-                      isPublicLink={isPublicLink}
-                      copyTooltipText={copyTooltipText}
-                      integrationMode={integrationMode}
-                      handleCloseDialog={this.handleCloseDialog}
-                      shareIntegrations={shareIntegrations}
-                    />
-                  </InlineDialogFormWrapper>
-                )}
-                {bottomMessage ? (
-                  <BottomMessageWrapper>{bottomMessage}</BottomMessageWrapper>
-                ) : null}
-                {customFooter && (
-                  <CustomFooterWrapper>{customFooter}</CustomFooterWrapper>
-                )}
-              </InlineDialogContentWrapper>
-            </AnalyticsContext>
+            <div ref={this.containerRef}>
+              <LazyShareFormLazy
+                Content={selectedIntegration && selectedIntegration.Content}
+                selectedIntegration={selectedIntegration}
+                copyLink={copyLink}
+                showIntegrationForm={showIntegrationForm}
+                bottomMessage={bottomMessage}
+                customFooter={customFooter}
+                loadOptions={loadUserOptions}
+                isSharing={isSharing}
+                shareFormTitle={shareFormTitle}
+                showTitle={
+                  integrationMode !== 'tabs' ||
+                  !shareIntegrations ||
+                  !shareIntegrations.length
+                }
+                shareFormHelperMessage={shareFormHelperMessage}
+                shareError={shareError}
+                defaultValue={defaultValue}
+                config={config}
+                isFetchingConfig={isFetchingConfig}
+                submitButtonLabel={submitButtonLabel}
+                product={product}
+                enableSmartUserPicker={enableSmartUserPicker}
+                loggedInAccountId={loggedInAccountId}
+                cloudId={cloudId}
+                onUserSelectionChange={onUserSelectionChange}
+                shareFieldsFooter={shareFieldsFooter}
+                isPublicLink={isPublicLink}
+                copyTooltipText={copyTooltipText}
+                integrationMode={integrationMode}
+                shareIntegrations={shareIntegrations}
+                // actions
+                onLinkCopy={this.handleCopyLink}
+                onSubmit={this.handleShareSubmit}
+                onDismiss={this.handleFormDismiss}
+                onDialogClose={this.handleCloseDialog}
+                onTabChange={this.onTabChange}
+                //ref
+                selectPortalRef={this.selectPortalRef}
+              />
+            </div>
           )}
           isOpen={isDialogOpen}
           onClose={this.handleCloseDialog}
           placement={dialogPlacement}
-          trigger={(triggerProps: TriggerProps) =>
-            this.renderShareTriggerButton(triggerProps)
-          }
+          trigger={this.renderShareTriggerButton}
           zIndex={dialogZIndex}
         />
+
         {/* The select menu portal */}
         <Portal zIndex={generateSelectZIndex(dialogZIndex)}>
           <div ref={this.selectPortalRef} />
@@ -642,6 +542,6 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
   }
 }
 
-export const ShareDialogWithTrigger: React.ComponentType<Props> = withAnalyticsEvents()(
+export const ShareDialogWithTrigger: React.ComponentType<ShareDialogWithTriggerProps> = withAnalyticsEvents()(
   injectIntl(ShareDialogWithTriggerInternal),
 );

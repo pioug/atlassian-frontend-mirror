@@ -18,22 +18,28 @@ import ShareButton, {
 } from '../../../components/ShareButton';
 import {
   defaultShareContentState,
-  Props,
   ShareDialogWithTriggerInternal,
-  State,
 } from '../../../components/ShareDialogWithTrigger';
-import { ShareData, ShareForm } from '../../../components/ShareForm';
+import { ShareForm } from '../../../components/ShareForm';
 
 import { messages } from '../../../i18n';
 import {
   DialogPlacement,
   OBJECT_SHARED,
   RenderCustomTriggerButton,
+  ShareDialogWithTriggerProps,
+  ShareDialogWithTriggerStates,
   TooltipPosition,
+  ShareData,
 } from '../../../types';
 import { PropsOf } from '../_testUtils';
 import mockPopper from '../_mockPopper';
 import SplitButton from '../../../components/SplitButton';
+
+// disable lazy-load component in testing.
+jest.mock('../../../components/LazyShareForm/lazy', () => {
+  return jest.requireActual('../../../components/LazyShareForm/LazyShareForm');
+});
 
 jest.mock('../../../components/localStorageUtils.ts', () => {
   return {
@@ -64,6 +70,20 @@ const mockIntlProps: WrappedComponentProps = {
   intl: ({ formatMessage: mockFormatMessage } as unknown) as IntlShape,
 };
 
+const renderDialogContent = (wrapper: any) => {
+  const popup = wrapper.find(Popup);
+
+  let contentProp = popup.prop('content');
+  // skip first div
+  contentProp = contentProp().props.children;
+
+  return mount(
+    <IntlProvider messages={{}} locale="en">
+      {contentProp}
+    </IntlProvider>,
+  );
+};
+
 describe('ShareDialogWithTrigger', () => {
   let mockCreateAnalyticsEvent: jest.Mock;
   let mockOnShareSubmit: jest.Mock = jest.fn();
@@ -75,8 +95,10 @@ describe('ShareDialogWithTrigger', () => {
 
   function getWrapper(
     overrides: Partial<PropsOf<ShareDialogWithTriggerInternal>> = {},
-  ): ShallowWrapper<Props & WrappedComponentProps> {
-    const props: Props & WrappedComponentProps = {
+  ): ShallowWrapper<ShareDialogWithTriggerProps & WrappedComponentProps> {
+    const props: ShareDialogWithTriggerProps & WrappedComponentProps = {
+      cloudId: 'test-cloud-id',
+      shareAri: 'test-share-ari',
       copyLink: 'copyLink',
       loadUserOptions: mockLoadOptions,
       onTriggerButtonClick: mockOnTriggerButtonClick,
@@ -91,15 +113,21 @@ describe('ShareDialogWithTrigger', () => {
       ...mockIntlProps,
     };
 
-    return shallow<Props & WrappedComponentProps>(
+    return shallow<ShareDialogWithTriggerProps & WrappedComponentProps>(
       <ShareDialogWithTriggerInternal {...props} />,
     );
   }
 
   function getMountWrapper(
     overrides: Partial<PropsOf<ShareDialogWithTriggerInternal>> = {},
-  ): ReactWrapper<Props & WrappedComponentProps, State, any> {
+  ): ReactWrapper<
+    ShareDialogWithTriggerProps & WrappedComponentProps,
+    ShareDialogWithTriggerStates,
+    any
+  > {
     const props: PropsOf<ShareDialogWithTriggerInternal> = {
+      cloudId: 'test-cloud-id',
+      shareAri: 'test-share-ari',
       copyLink: 'copyLink',
       loadUserOptions: mockLoadOptions,
       onTriggerButtonClick: mockOnTriggerButtonClick,
@@ -159,7 +187,8 @@ describe('ShareDialogWithTrigger', () => {
         ShareDialogWithTriggerInternal,
       );
       expect(
-        (shareDialogWithTriggerInternal.state() as State).isDialogOpen,
+        (shareDialogWithTriggerInternal.state() as ShareDialogWithTriggerStates)
+          .isDialogOpen,
       ).toBe(false);
     });
 
@@ -170,7 +199,7 @@ describe('ShareDialogWithTrigger', () => {
       );
       let {
         isDialogOpen,
-      }: Partial<State> = shareDialogWithTriggerInternal.state();
+      }: Partial<ShareDialogWithTriggerStates> = shareDialogWithTriggerInternal.state();
       expect(isDialogOpen).toEqual(false);
       expect(shareDialogWithTriggerInternal.find(Popup).prop('isOpen')).toEqual(
         isDialogOpen,
@@ -195,15 +224,18 @@ describe('ShareDialogWithTrigger', () => {
         ShareDialogWithTriggerInternal,
       );
       expect(
-        (shareDialogWithTriggerInternal.state() as State).isDialogOpen,
+        (shareDialogWithTriggerInternal.state() as ShareDialogWithTriggerStates)
+          .isDialogOpen,
       ).toEqual(false);
       shareDialogWithTriggerInternal.find(ShareButton).simulate('click');
       expect(
-        (shareDialogWithTriggerInternal.state() as State).isDialogOpen,
+        (shareDialogWithTriggerInternal.state() as ShareDialogWithTriggerStates)
+          .isDialogOpen,
       ).toEqual(true);
       shareDialogWithTriggerInternal.find(ShareButton).simulate('click');
       expect(
-        (shareDialogWithTriggerInternal.state() as State).isDialogOpen,
+        (shareDialogWithTriggerInternal.state() as ShareDialogWithTriggerStates)
+          .isDialogOpen,
       ).toEqual(false);
     });
   });
@@ -386,12 +418,13 @@ describe('ShareDialogWithTrigger', () => {
       expect(mockRenderCustomTriggerButton).toHaveBeenCalledTimes(1);
       expect(mockRenderCustomTriggerButton).toHaveBeenCalledWith(
         {
-          error: (wrapper.find(ShareDialogWithTriggerInternal).state() as State)
-            .shareError,
+          error: (wrapper
+            .find(ShareDialogWithTriggerInternal)
+            .state() as ShareDialogWithTriggerStates).shareError,
           isDisabled: Boolean(wrapper.props().isDisabled),
           isSelected: (wrapper
             .find(ShareDialogWithTriggerInternal)
-            .state() as State).isDialogOpen,
+            .state() as ShareDialogWithTriggerStates).isDialogOpen,
           onClick: (wrapper
             .find(ShareDialogWithTriggerInternal)
             .instance() as any).onTriggerClick,
@@ -419,7 +452,7 @@ describe('ShareDialogWithTrigger', () => {
       });
       wrapper.setState({ isDialogOpen: true });
 
-      const popupContent = shallow(wrapper.find(Popup).prop('content')());
+      const popupContent = renderDialogContent(wrapper);
 
       const ShareFormProps = popupContent.find(ShareForm).props();
       expect(ShareFormProps.title).toEqual('Share this page');
@@ -432,7 +465,9 @@ describe('ShareDialogWithTrigger', () => {
         isAutoOpenDialog: true,
       });
 
-      expect((wrapper.state() as State).isDialogOpen).toEqual(true);
+      expect(
+        (wrapper.state() as ShareDialogWithTriggerStates).isDialogOpen,
+      ).toEqual(true);
       expect(mockOnDialogOpen).toHaveBeenCalledTimes(1);
     });
   });
@@ -443,7 +478,7 @@ describe('ShareDialogWithTrigger', () => {
         customFooter: 'Some message',
       });
       wrapper.setState({ isDialogOpen: true });
-      const popupContent = shallow(wrapper.find(Popup).prop('content')());
+      const popupContent = renderDialogContent(wrapper);
       expect(popupContent.contains('Some message')).toBeTruthy();
     });
   });
@@ -482,11 +517,13 @@ describe('ShareDialogWithTrigger', () => {
         ShareDialogWithTriggerInternal,
       );
       expect(
-        (shareDialogWithTriggerInternal.state() as State).isDialogOpen,
+        (shareDialogWithTriggerInternal.state() as ShareDialogWithTriggerStates)
+          .isDialogOpen,
       ).toEqual(false);
       shareDialogWithTriggerInternal.find(ShareButton).simulate('click');
       expect(
-        (shareDialogWithTriggerInternal.state() as State).isDialogOpen,
+        (shareDialogWithTriggerInternal.state() as ShareDialogWithTriggerStates)
+          .isDialogOpen,
       ).toEqual(true);
     });
 
@@ -496,13 +533,15 @@ describe('ShareDialogWithTrigger', () => {
         ShareDialogWithTriggerInternal,
       );
       expect(
-        (shareDialogWithTriggerInternal.state() as State).isDialogOpen,
+        (shareDialogWithTriggerInternal.state() as ShareDialogWithTriggerStates)
+          .isDialogOpen,
       ).toEqual(false);
       expect(mockOnDialogOpen).not.toHaveBeenCalled();
 
       shareDialogWithTriggerInternal.find(ShareButton).simulate('click');
       expect(
-        (shareDialogWithTriggerInternal.state() as State).isDialogOpen,
+        (shareDialogWithTriggerInternal.state() as ShareDialogWithTriggerStates)
+          .isDialogOpen,
       ).toEqual(true);
       expect(mockOnDialogOpen).toHaveBeenCalledTimes(1);
     });
@@ -540,11 +579,15 @@ describe('ShareDialogWithTrigger', () => {
     it('should set the isDialogOpen state to false', () => {
       const wrapper = getWrapper();
       wrapper.setState({ isDialogOpen: true });
-      expect((wrapper.state() as State).isDialogOpen).toEqual(true);
+      expect(
+        (wrapper.state() as ShareDialogWithTriggerStates).isDialogOpen,
+      ).toEqual(true);
       wrapper
         .find(Popup)
         .simulate('close', { isOpen: false, event: { type: 'submit' } });
-      expect((wrapper.state() as State).isDialogOpen).toEqual(false);
+      expect(
+        (wrapper.state() as ShareDialogWithTriggerStates).isDialogOpen,
+      ).toEqual(false);
       expect(mockOnDialogClose).toHaveBeenCalledTimes(1);
     });
 
@@ -555,11 +598,15 @@ describe('ShareDialogWithTrigger', () => {
         type: 'click',
       };
       wrapper.setState({ isDialogOpen: true });
-      expect((wrapper.state() as State).isDialogOpen).toEqual(true);
+      expect(
+        (wrapper.state() as ShareDialogWithTriggerStates).isDialogOpen,
+      ).toEqual(true);
       wrapper
         .find(Popup)
         .simulate('close', { isOpen: false, event: mockClickEvent });
-      expect((wrapper.state() as State).isDialogOpen).toEqual(false);
+      expect(
+        (wrapper.state() as ShareDialogWithTriggerStates).isDialogOpen,
+      ).toEqual(false);
       expect(mockOnDialogClose).toHaveBeenCalledTimes(1);
     });
 
@@ -570,7 +617,9 @@ describe('ShareDialogWithTrigger', () => {
       wrapper
         .find(Popup)
         .simulate('close', { isOpen: false, event: { type: 'submit' } });
-      expect((wrapper.state() as State).isDialogOpen).toEqual(false);
+      expect(
+        (wrapper.state() as ShareDialogWithTriggerStates).isDialogOpen,
+      ).toEqual(false);
       expect(mockOnDialogClose).toHaveBeenCalledTimes(1);
     });
   });
@@ -618,9 +667,16 @@ describe('ShareDialogWithTrigger', () => {
         .first()
         .simulate('keydown', escapeKeyDownEvent);
       expect(escapeKeyDownEvent.preventDefault).toHaveBeenCalledTimes(1);
-      expect((wrapper.state() as State).isDialogOpen).toBeTruthy();
-      expect((wrapper.state() as State).ignoreIntermediateState).toBeFalsy();
-      expect((wrapper.state() as State).shareError).toBeInstanceOf(Error);
+      expect(
+        (wrapper.state() as ShareDialogWithTriggerStates).isDialogOpen,
+      ).toBeTruthy();
+      expect(
+        (wrapper.state() as ShareDialogWithTriggerStates)
+          .ignoreIntermediateState,
+      ).toBeFalsy();
+      expect(
+        (wrapper.state() as ShareDialogWithTriggerStates).shareError,
+      ).toBeInstanceOf(Error);
     });
 
     it('should not preventDefault if shouldCloseOnEscapePress is true, and dialog should close', () => {
@@ -658,9 +714,16 @@ describe('ShareDialogWithTrigger', () => {
         .first()
         .simulate('keydown', escapeKeyDownEvent);
       expect(escapeKeyDownEvent.preventDefault).toHaveBeenCalledTimes(0);
-      expect((wrapper.state() as State).ignoreIntermediateState).toBeTruthy();
-      expect((wrapper.state() as State).shareError).toBeUndefined();
-      expect((wrapper.state() as State).isDialogOpen).toBeFalsy();
+      expect(
+        (wrapper.state() as ShareDialogWithTriggerStates)
+          .ignoreIntermediateState,
+      ).toBeTruthy();
+      expect(
+        (wrapper.state() as ShareDialogWithTriggerStates).shareError,
+      ).toBeUndefined();
+      expect(
+        (wrapper.state() as ShareDialogWithTriggerStates).isDialogOpen,
+      ).toBeFalsy();
     });
 
     it('should clear the state if an escape key is pressed down on the container regardless of the event.preventDefault value', () => {
@@ -697,45 +760,51 @@ describe('ShareDialogWithTrigger', () => {
       // @atlaskit/popup will catch the ESC, and close the window, we only
       // .preventDefault() when we don't want to close the popup on ESC
       expect(escapeKeyDownEvent.preventDefault).toHaveBeenCalledTimes(0);
-      expect((wrapper.state() as State).isDialogOpen).toBeFalsy();
+      expect(
+        (wrapper.state() as ShareDialogWithTriggerStates).isDialogOpen,
+      ).toBeFalsy();
       expect(mockOnDialogClose).toHaveBeenCalledTimes(1);
-      expect((wrapper.state() as State).ignoreIntermediateState).toBeTruthy();
-      expect((wrapper.state() as State).defaultValue).toEqual(
-        defaultShareContentState,
-      );
-      expect((wrapper.state() as State).shareError).toBeUndefined();
+      expect(
+        (wrapper.state() as ShareDialogWithTriggerStates)
+          .ignoreIntermediateState,
+      ).toBeTruthy();
+      expect(
+        (wrapper.state() as ShareDialogWithTriggerStates).defaultValue,
+      ).toEqual(defaultShareContentState);
+      expect(
+        (wrapper.state() as ShareDialogWithTriggerStates).shareError,
+      ).toBeUndefined();
     });
   });
 
   describe('handleShareSubmit', () => {
-    it('should call onSubmit props with an object of users and comment as an argument', () => {
+    it('should call onSubmit props with an object of users and comment as an argument', async () => {
       // @ts-ignore This violated type definition upgrade of @types/jest to v24.0.18 & ts-jest v24.1.0.
       //See BUILDTOOLS-210-clean: https://bitbucket.org/atlassian/atlaskit-mk-2/pull-requests/7178/buildtools-210-clean/diff
       const mockOnSubmit = jest.fn<{}>().mockResolvedValue({});
       const values: ShareData = {
         users: [
           { type: 'user', id: 'id', name: 'name' },
-          { type: 'email', id: 'email', name: 'email' },
+          { type: 'email', id: 'email@atlassian.com', name: 'email' },
         ],
         comment: {
           format: 'plain_text',
           value: 'comment',
         },
       };
-      const mockState: Partial<State> = {
+      const mockState: Partial<ShareDialogWithTriggerStates> = {
         isDialogOpen: true,
         isSharing: false,
         ignoreIntermediateState: false,
-        defaultValue: defaultShareContentState,
+        defaultValue: values,
       };
-      const wrapper = getMountWrapper({
+      const wrapper = getWrapper({
         onShareSubmit: mockOnSubmit,
       });
-      // @ts-ignore - `isDialogOpen` - the given error 'boolean | undefined' is not assignable to type 'boolean',
-      // whilst we're setting it to boolean above.
+
       wrapper.setState(mockState);
 
-      const popupContent = shallow(wrapper.find(Popup).prop('content')());
+      const popupContent = renderDialogContent(wrapper);
       popupContent.find(ShareForm).simulate('submit', values);
       expect(mockOnSubmit).toHaveBeenCalledTimes(1);
       expect(mockOnSubmit).toHaveBeenCalledWith(values);
@@ -755,7 +824,7 @@ describe('ShareDialogWithTrigger', () => {
           value: 'comment',
         },
       };
-      const mockState: Partial<State> = {
+      const mockState: Partial<ShareDialogWithTriggerStates> = {
         isDialogOpen: true,
         isSharing: false,
         ignoreIntermediateState: false,
@@ -769,7 +838,7 @@ describe('ShareDialogWithTrigger', () => {
 
       mockShowFlags.mockReset();
 
-      const popupContent = shallow(wrapper.find(Popup).prop('content')());
+      const popupContent = renderDialogContent(wrapper);
       popupContent.find(ShareForm).simulate('submit', values);
       expect(mockOnSubmit).toHaveBeenCalledTimes(1);
       expect(mockOnSubmit).toHaveBeenCalledWith(values);
@@ -889,7 +958,8 @@ describe('ShareDialogWithTrigger', () => {
         bottomMessage: 'Some message',
       });
       wrapper.setState({ isDialogOpen: true });
-      const popupContent = shallow(wrapper.find(Popup).prop('content')());
+
+      const popupContent = renderDialogContent(wrapper);
       expect(popupContent.contains('Some message')).toBeTruthy();
     });
   });

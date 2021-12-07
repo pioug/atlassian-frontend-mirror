@@ -64,6 +64,9 @@ const filterSuggestion = ({ shouldReturnSuggestion }: Suggestion) =>
 
 const rule: Rule.RuleModule = {
   meta: {
+    // We need to upgrade the version of ESLint.
+    // @ts-expect-error
+    hasSuggestions: true,
     docs: {
       recommended: true,
     },

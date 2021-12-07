@@ -19,6 +19,10 @@ import Tabs, { Tab, TabList } from '@atlaskit/tabs';
 const mockFormatMessage = (descriptor: any) => descriptor.defaultMessage;
 const mockIntl = { formatMessage: mockFormatMessage };
 
+const defaultProps = {
+  cloudId: 'test-cloud-id',
+};
+
 jest.mock('react-intl-next', () => {
   return {
     ...(jest.requireActual('react-intl-next') as any),
@@ -44,6 +48,7 @@ describe('ShareForm', () => {
       const onSubmit = jest.fn();
       const component = shallow(
         <ShareForm
+          {...defaultProps}
           copyLink={mockLink}
           loadOptions={loadOptions}
           onSubmit={onSubmit}
@@ -101,6 +106,7 @@ describe('ShareForm', () => {
       const loadOptions = jest.fn();
       const wrapper = shallow(
         <ShareForm
+          {...defaultProps}
           copyLink={mockLink}
           loadOptions={loadOptions}
           isSharing
@@ -123,6 +129,7 @@ describe('ShareForm', () => {
       const loadOptions = jest.fn();
       const wrapper = shallow(
         <ShareForm
+          {...defaultProps}
           copyLink={mockLink}
           loadOptions={loadOptions}
           shareError={mockShareError}
@@ -149,6 +156,7 @@ describe('ShareForm', () => {
       const loadOptions = jest.fn();
       const wrapper = (shallowWithIntl as typeof shallow)(
         <ShareForm
+          {...defaultProps}
           copyLink={mockLink}
           loadOptions={loadOptions}
           isFetchingConfig
@@ -171,6 +179,7 @@ describe('ShareForm', () => {
       const mockShareError: ShareError = { message: 'error' };
       const wrapper = shallow(
         <ShareForm
+          {...defaultProps}
           copyLink="link"
           loadOptions={jest.fn()}
           shareError={mockShareError}
@@ -207,6 +216,7 @@ describe('ShareForm', () => {
     it('should render the shareForm with the fields footer content', () => {
       const wrapper = shallow(
         <ShareForm
+          {...defaultProps}
           copyLink="link"
           loadOptions={jest.fn()}
           product="confluence"
@@ -235,6 +245,7 @@ describe('ShareForm', () => {
     };
     const component = shallow(
       <ShareForm
+        {...defaultProps}
         copyLink={mockLink}
         loadOptions={loadOptions}
         title="some title"
@@ -258,6 +269,7 @@ describe('ShareForm', () => {
     it('should render Share button with the correct text', () => {
       const wrapper = shallow(
         <ShareForm
+          {...defaultProps}
           copyLink="link"
           loadOptions={jest.fn()}
           isPublicLink={true}
@@ -282,6 +294,7 @@ describe('ShareForm', () => {
     it('should pass value to CopyLinkButton', () => {
       const wrapper = shallow(
         <ShareForm
+          {...defaultProps}
           copyLink="link"
           loadOptions={jest.fn()}
           isPublicLink={true}
@@ -310,6 +323,7 @@ describe('ShareForm', () => {
     it('should not render the share form header if showTitle is false', () => {
       const wrapper = (shallowWithIntl as typeof shallow)(
         <ShareForm
+          {...defaultProps}
           title="Share"
           showTitle={false}
           copyLink="link"
@@ -331,6 +345,7 @@ describe('ShareForm', () => {
     it('should not render Tabs when integrationMode is not Tabs and shareIntegrations has content', () => {
       const wrapper = (shallowWithIntl as typeof shallow)(
         <ShareForm
+          {...defaultProps}
           copyLink="link"
           product="confluence"
           integrationMode="off"
@@ -359,6 +374,7 @@ describe('ShareForm', () => {
     it('should not render Tabs when shareIntegrations array is empty', () => {
       const wrapper = (shallowWithIntl as typeof shallow)(
         <ShareForm
+          {...defaultProps}
           copyLink="link"
           product="confluence"
           integrationMode="tabs"
@@ -379,6 +395,7 @@ describe('ShareForm', () => {
     it('should render Integration Tab when shareIntegrations array is filled in', () => {
       const wrapper = (shallowWithIntl as typeof shallow)(
         <ShareForm
+          {...defaultProps}
           title="Share"
           showTitle={false}
           copyLink="link"
@@ -415,6 +432,7 @@ describe('helperMessage prop', () => {
     const helperMessage = 'this is the helper message to be displayed';
     const shareForm = (shallowWithIntl as typeof shallow)(
       <ShareForm
+        {...defaultProps}
         copyLink={mockLink}
         loadOptions={loadOptions}
         onSubmit={onSubmit}

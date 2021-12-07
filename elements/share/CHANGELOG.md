@@ -1,5 +1,18 @@
 # @atlaskit/share
 
+## 2.0.1
+
+### Patch Changes
+
+- [`edeab5ff699`](https://bitbucket.org/atlassian/atlassian-frontend/commits/edeab5ff699) - AK-15: Share dialog-> make ‘Link copied to clipboard’ notification accessible for screen reader users
+
+## 2.0.0
+
+### Major Changes
+
+- [`559b300e04b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/559b300e04b) - - Lazy-load form content of Share package
+  - Stop export `ShareServiceClient` and `ShareClient` in `@atlaskit/share`. So you should use `@atlaskit/share/clients` instead.
+
 ## 1.0.3
 
 ### Patch Changes

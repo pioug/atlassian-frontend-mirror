@@ -32,13 +32,16 @@ export const FormWrapper = styled.div`
   }
 `;
 
-type Props = {
-  Content: React.ComponentType<IntegrationContentProps>;
-  onIntegrationClose: () => void;
+export type IntegrationFormProps = {
+  Content: React.ComponentType<IntegrationContentProps> | null;
+  onIntegrationClose?: () => void;
 };
 
-export const IntegrationForm = ({ Content, onIntegrationClose }: Props) => (
+export const IntegrationForm = ({
+  Content,
+  onIntegrationClose = () => undefined,
+}: IntegrationFormProps) => (
   <FormWrapper>
-    <Content onClose={onIntegrationClose} />
+    {Content && <Content onClose={onIntegrationClose} />}
   </FormWrapper>
 );

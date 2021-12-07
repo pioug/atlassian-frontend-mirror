@@ -119,11 +119,6 @@ export const messages = defineMessages({
     defaultMessage: 'Invite',
     description: 'Button label for when the sharee action is set to "edit".',
   },
-  copyLinkButtonIconLabel: {
-    id: 'fabric.elements.share.copylink.button.icon.label',
-    defaultMessage: 'Copy link icon',
-    description: 'Default text for the aria-label of the copy Link icon',
-  },
   copyLinkButtonText: {
     id: 'fabric.elements.share.copylink.button.text',
     defaultMessage: 'Copy link',
@@ -134,11 +129,6 @@ export const messages = defineMessages({
     defaultMessage: 'Copy public link',
     description:
       'Default text for the Copy Link button when the link is public',
-  },
-  copiedToClipboardIconLabel: {
-    id: 'fabric.elements.share.copied.to.clipboard.icon.label',
-    defaultMessage: 'Copy link success icon',
-    description: 'Default text for the aria-label of the copied link icon',
   },
   copiedToClipboardMessage: {
     id: 'fabric.elements.share.copied.to.clipboard.message',

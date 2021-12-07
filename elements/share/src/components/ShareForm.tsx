@@ -1,12 +1,11 @@
+import React from 'react';
 import Button from '@atlaskit/button/custom-theme-button';
 import Form from '@atlaskit/form';
 import ErrorIcon from '@atlaskit/icon/glyph/error';
 import { R400 } from '@atlaskit/theme/colors';
 import { gridSize } from '@atlaskit/theme/constants';
 import Tooltip from '@atlaskit/tooltip';
-import { LoadOptions, OptionData, Value } from '@atlaskit/user-picker';
 import Tabs, { Tab, TabList, TabPanel } from '@atlaskit/tabs';
-import React from 'react';
 import {
   FormattedMessage,
   injectIntl,
@@ -14,20 +13,12 @@ import {
 } from 'react-intl-next';
 import styled from 'styled-components';
 import { messages } from '../i18n';
-import {
-  Comment,
-  ConfigResponse,
-  DialogContentState,
-  FormChildrenArgs,
-  Integration,
-  ProductName,
-} from '../types';
+import { FormChildrenArgs, ShareFormProps, ShareData } from '../types';
 import { CommentField } from './CommentField';
 import CopyLinkButton from './CopyLinkButton';
 import { ShareHeader } from './ShareHeader';
 import { UserPickerField } from './UserPickerField';
 import { IntegrationForm } from './IntegrationForm';
-import { IntegrationMode } from '../types/ShareEntities';
 
 const SubmitButtonWrapper = styled.div`
   display: flex;
@@ -84,50 +75,8 @@ const integrationTabText = (integrationName: string) => (
   />
 );
 
-type ShareError = {
-  message: string;
-};
-
-export type ShareData = {
-  users: OptionData[];
-  comment: Comment;
-};
-
-export type Props = {
-  config?: ConfigResponse;
-  isFetchingConfig?: boolean;
-  copyLink: string;
-  isSharing?: boolean;
-  loadOptions?: LoadOptions;
-  onLinkCopy?: (link: string) => void;
-  onSubmit?: (data: ShareData) => void;
-  shareError?: ShareError;
-  submitButtonLabel?: React.ReactNode;
-  title?: React.ReactNode;
-  showTitle?: boolean;
-  helperMessage?: string;
-  onDismiss?: (data: ShareData) => void;
-  defaultValue?: DialogContentState;
-  product: ProductName;
-  onUserInputChange?: (query?: string, sessionId?: string) => void;
-  onTabChange?: (index: number) => void;
-  enableSmartUserPicker?: boolean;
-  loggedInAccountId?: string;
-  cloudId?: string;
-  onUserSelectionChange?: (value: Value) => void;
-  fieldsFooter?: React.ReactNode;
-  selectPortalRef?: React.Ref<HTMLDivElement>;
-  isDisabled?: boolean;
-  isPublicLink?: boolean;
-  isSplitButton?: boolean;
-  copyTooltipText?: string;
-  integrationMode?: IntegrationMode;
-  handleCloseDialog?: () => void;
-  shareIntegrations?: Array<Integration>;
-};
-
 export type InternalFormProps = FormChildrenArgs<ShareData> &
-  Props &
+  ShareFormProps &
   WrappedComponentProps;
 
 class InternalForm extends React.PureComponent<InternalFormProps> {
@@ -178,7 +127,7 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
             defaultValue={defaultValue && defaultValue.users}
             config={config}
             isLoading={isFetchingConfig}
-            product={product}
+            product={product || 'confluence'}
             enableSmartUserPicker={enableSmartUserPicker}
             loggedInAccountId={loggedInAccountId}
             cloudId={cloudId}
@@ -329,7 +278,7 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
 
 const InternalFormWithIntl = injectIntl(InternalForm);
 
-export const ShareForm: React.FC<Props> = (props) => (
+export const ShareForm: React.FC<ShareFormProps> = (props) => (
   <Form<ShareData> onSubmit={props.onSubmit!}>
     {({ formProps, getValues }) => (
       <InternalFormWithIntl

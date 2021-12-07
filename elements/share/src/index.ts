@@ -1,12 +1,10 @@
-export { ShareServiceClient } from './clients/ShareServiceClient';
-export type { ShareClient } from './clients/ShareServiceClient';
 export { ShareDialogContainer } from './components/ShareDialogContainer';
-export type { Props as ShareDialogContainerProps } from './components/ShareDialogContainer';
 export {
   // Constants
   ADMIN_NOTIFIED,
   OBJECT_SHARED,
 } from './types';
+
 export type {
   // Types
   Comment,
@@ -37,4 +35,5 @@ export type {
   User,
   UserWithEmail,
   UserWithId,
+  ShareDialogContainerProps,
 } from './types';

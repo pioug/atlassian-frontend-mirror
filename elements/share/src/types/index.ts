@@ -17,7 +17,9 @@ export type {
 export type { ProductId, ProductName } from './Products';
 export type { ShareButtonStyle, TooltipPosition } from './ShareButton';
 export type {
-  DialogContentState,
+  ShareData,
+  // for legacy support
+  ShareData as DialogContentState,
   ShareContentState,
   ShareError,
 } from './ShareContentState';
@@ -25,6 +27,8 @@ export type {
   DialogPlacement,
   DialogBoundariesElement,
   RenderCustomTriggerButton,
+  ShareDialogWithTriggerProps,
+  ShareDialogWithTriggerStates,
 } from './ShareDialogWithTrigger';
 export type { User, UserWithEmail, UserWithId } from './User';
 export type {
@@ -38,3 +42,6 @@ export type {
 export type KeysOfType<T, TProp> = {
   [P in keyof T]: T[P] extends TProp ? P : never;
 }[keyof T];
+
+export type { ShareDialogContainerProps } from './ShareDialogContainer';
+export type { ShareFormProps } from './ShareForm';

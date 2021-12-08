@@ -142,7 +142,6 @@ export class ShareDialogContainerInternal extends React.Component<
         try {
           const config: ConfigResponse = await this.shareClient.getConfig(
             this.props.cloudId,
-            this.props.enableEmailPermissionCheck,
           );
 
           if (this._isMounted) {

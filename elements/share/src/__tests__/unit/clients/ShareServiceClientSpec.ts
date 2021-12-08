@@ -87,8 +87,8 @@ describe('ShareServiceClientImpl', () => {
   });
 
   describe('getConfig', () => {
-    it('should call requestService when enableEmailPermissionCheck is true', async () => {
-      await shareServiceClient.getConfig('some-cloud-id', true);
+    it('should call requestService', async () => {
+      await shareServiceClient.getConfig('some-cloud-id');
       expect(requestSpy).toBeCalledTimes(1);
       const callArgs = requestSpy.mock.calls[0];
       expect(callArgs[0]).toMatchObject({
@@ -101,16 +101,6 @@ describe('ShareServiceClientImpl', () => {
           method: 'get',
         },
       });
-    });
-
-    it('should not call requestService when enableEmailPermissionCheck is false', async () => {
-      await shareServiceClient.getConfig('some-cloud-id', false);
-      expect(requestSpy).toBeCalledTimes(0);
-    });
-
-    it('should not call requestService when enableEmailPermissionCheck is undefined', async () => {
-      await shareServiceClient.getConfig('some-cloud-id', undefined);
-      expect(requestSpy).toBeCalledTimes(0);
     });
   });
 });

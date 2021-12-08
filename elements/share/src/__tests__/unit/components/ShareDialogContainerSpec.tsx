@@ -339,28 +339,12 @@ describe('ShareDialogContainer', () => {
       expect(fetchConfig).toHaveBeenCalledTimes(1);
     });
 
-    it('should pass enableEmailPermissionCheck to getConfig when true', () => {
-      const wrapper = getWrapper({ enableEmailPermissionCheck: true });
+    it('should call getConfig', () => {
+      const wrapper = getWrapper();
 
       wrapper.instance().handleDialogOpen();
 
-      expect(mockGetConfig).toHaveBeenCalledWith(mockCloudId, true);
-    });
-
-    it('should pass enableEmailPermissionCheck to getConfig when false', () => {
-      const wrapper = getWrapper({ enableEmailPermissionCheck: false });
-
-      wrapper.instance().handleDialogOpen();
-
-      expect(mockGetConfig).toHaveBeenCalledWith(mockCloudId, false);
-    });
-
-    it('should pass enableEmailPermissionCheck to getConfig when undefined', () => {
-      const wrapper = getWrapper({ enableEmailPermissionCheck: undefined });
-
-      wrapper.instance().handleDialogOpen();
-
-      expect(mockGetConfig).toHaveBeenCalledWith(mockCloudId, undefined);
+      expect(mockGetConfig).toHaveBeenCalledWith(mockCloudId);
     });
 
     describe('isFetchingConfig state', () => {

@@ -1,5 +1,11 @@
 # @atlaskit/share
 
+## 3.0.0
+
+### Major Changes
+
+- [`b8ee9e3d609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b8ee9e3d609) - Remove "enableEmailPermissionCheck" prop
+
 ## 2.0.1
 
 ### Patch Changes

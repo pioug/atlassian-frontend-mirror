@@ -1,5 +1,11 @@
 # @atlaskit/css-reset
 
+## 6.3.3
+
+### Patch Changes
+
+- [`5168407f185`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5168407f185) - Fixes an issue in the CSS reset where the SVG text element didn't inherit the correct reset styles.
+
 ## 6.3.2
 
 ### Patch Changes

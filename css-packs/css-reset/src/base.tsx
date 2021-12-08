@@ -181,6 +181,13 @@ export default evaluateInner`
     font-weight: normal;
   }
 
+  text {
+    fill: ${
+      /* eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage */
+      token('color.text.highEmphasis')
+    };
+  }
+
   code,
   kbd {
     font-family: ${codeFontFamily};

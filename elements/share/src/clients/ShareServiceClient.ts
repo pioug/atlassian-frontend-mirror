@@ -13,10 +13,7 @@ export interface ShareClient {
     comment?: Comment,
   ): Promise<ShareResponse>;
 
-  getConfig(
-    cloudId: string,
-    enableEmailPermissionCheck?: boolean,
-  ): Promise<ConfigResponse>;
+  getConfig(cloudId: string): Promise<ConfigResponse>;
 }
 
 export type ShareRequest = (
@@ -48,16 +45,7 @@ export class ShareServiceClient implements ShareClient {
     };
   }
 
-  public getConfig(
-    cloudId: string,
-    enableEmailPermissionCheck?: boolean,
-  ): Promise<ConfigResponse> {
-    if (!enableEmailPermissionCheck) {
-      return Promise.resolve({
-        disableSharingToEmails: false,
-      });
-    }
-
+  public getConfig(cloudId: string): Promise<ConfigResponse> {
     const options = {
       path: SHARE_CONFIG_PATH,
       queryParams: { cloudId },

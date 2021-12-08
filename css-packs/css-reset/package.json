@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/css-reset",
-  "version": "6.3.2",
+  "version": "6.3.3",
   "description": "Base stylesheet for ADG",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

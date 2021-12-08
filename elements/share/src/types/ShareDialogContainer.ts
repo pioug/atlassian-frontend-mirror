@@ -104,11 +104,6 @@ export type ShareDialogContainerProps = {
    */
   enableSmartUserPicker?: boolean;
   /**
-   * When true, the component will call the Share service to check whether the
-   * site has sharing to emails enabled.
-   */
-  enableEmailPermissionCheck?: boolean;
-  /**
    * The userId of the sharer. If not provided, smart user picker
    * defaults it to the value 'Context'
    * which will tell the recommendation service to extract the

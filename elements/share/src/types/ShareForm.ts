@@ -1,7 +1,9 @@
-import type { ConfigResponse } from '../clients/ShareServiceClient';
-import type { ShareData, ShareError } from './ShareContentState';
 import type { LoadOptions } from '@atlaskit/user-picker';
+
+import type { ConfigResponse } from '../clients/ShareServiceClient';
+
 import type { ProductName } from './Products';
+import type { ShareData, ShareError } from './ShareContentState';
 import type { ShareDialogContainerProps } from './ShareDialogContainer';
 
 export type ShareFormProps = Pick<

@@ -1,20 +1,23 @@
 // This works only by calling before importing Popup
+// eslint-disable-next-line import/order
 import mockPopper from '../_mockPopper';
 mockPopper();
 
 import React from 'react';
-import CheckCircleIcon from '@atlaskit/icon/glyph/check-circle';
-import Popup from '@atlaskit/popup';
-import Tooltip from '@atlaskit/tooltip';
+
 import { mount, ReactWrapper } from 'enzyme';
 import { IntlShape, WrappedComponentProps } from 'react-intl-next';
 
+import CheckCircleIcon from '@atlaskit/icon/glyph/check-circle';
+import Popup from '@atlaskit/popup';
+import Tooltip from '@atlaskit/tooltip';
+
 import {
   CopyLinkButton,
-  Props,
-  State,
   HiddenInput,
   MessageContainer,
+  Props,
+  State,
 } from '../../../components/CopyLinkButton';
 import Button from '../../../components/styles';
 

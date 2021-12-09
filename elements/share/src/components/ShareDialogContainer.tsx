@@ -1,16 +1,20 @@
-import {
-  AnalyticsEventPayload,
-  WithAnalyticsEventsProps,
-  withAnalyticsEvents,
-} from '@atlaskit/analytics-next';
-import memoizeOne from 'memoize-one';
 import React from 'react';
+
+import deepEqual from 'fast-deep-equal';
+import memoizeOne from 'memoize-one';
 import { FormattedMessage } from 'react-intl-next';
 import assert from 'tiny-invariant';
+
+import {
+  AnalyticsEventPayload,
+  withAnalyticsEvents,
+  WithAnalyticsEventsProps,
+} from '@atlaskit/analytics-next';
+
 import {
   AtlassianUrlShortenerClient,
-  UrlShortenerClient,
   ShortenRequest,
+  UrlShortenerClient,
 } from '../clients/AtlassianUrlShortenerClient';
 import {
   ConfigResponse,
@@ -18,13 +22,15 @@ import {
   ShareServiceClient,
 } from '../clients/ShareServiceClient';
 import { messages } from '../i18n';
-import {
+import type {
   Content,
-  ShareData,
   MetaData,
   OriginTracing,
   OriginTracingFactory,
+  ShareData,
+  ShareDialogContainerProps,
 } from '../types';
+
 import {
   CHANNEL_ID,
   copyLinkButtonClicked,
@@ -32,12 +38,10 @@ import {
   shortUrlGenerated,
   shortUrlRequested,
 } from './analytics';
+import ErrorBoundary from './ErrorBoundary';
 import MessagesIntlProvider from './MessagesIntlProvider';
 import { ShareDialogWithTrigger } from './ShareDialogWithTrigger';
 import { optionDataToUsers } from './utils';
-import ErrorBoundary from './ErrorBoundary';
-import deepEqual from 'fast-deep-equal';
-import type { ShareDialogContainerProps } from '../types';
 
 const COPY_LINK_EVENT = copyLinkButtonClicked(0);
 
@@ -69,6 +73,7 @@ function getCurrentPageUrl(): string {
  * This component serves as a Provider to provide customizable implementations
  * to ShareDialogTrigger component
  */
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export class ShareDialogContainerInternal extends React.Component<
   WithAnalyticsEventsProps & ShareDialogContainerProps,
   State

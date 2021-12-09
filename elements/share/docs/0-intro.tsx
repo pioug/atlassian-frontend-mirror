@@ -1,13 +1,13 @@
+import React from 'react';
+
 import {
+  AtlassianInternalWarning,
   code,
+  DevPreviewWarning,
   Example,
   md,
   Props,
-  AtlassianInternalWarning,
-  DevPreviewWarning,
 } from '@atlaskit/docs';
-
-import React from 'react';
 
 export default md`
   ${(

@@ -1,18 +1,21 @@
-import ShareIcon from '@atlaskit/icon/glyph/share';
-import WorldIcon from '@atlaskit/icon/glyph/world';
-import Popup from '@atlaskit/popup';
-import Aktooltip from '@atlaskit/tooltip';
-import { mount, shallow, ShallowWrapper, ReactWrapper } from 'enzyme';
-// AFP-2532 TODO: Fix automatic suppressions below
-// eslint-disable-next-line @atlassian/tangerine/import/entry-points
-import { layers } from '@atlaskit/theme';
 import React from 'react';
+
+import { mount, ReactWrapper, shallow, ShallowWrapper } from 'enzyme';
 import {
   FormattedMessage,
   IntlProvider,
   IntlShape,
   WrappedComponentProps,
 } from 'react-intl-next';
+
+import ShareIcon from '@atlaskit/icon/glyph/share';
+import WorldIcon from '@atlaskit/icon/glyph/world';
+import Popup from '@atlaskit/popup';
+import { layers } from '@atlaskit/theme/constants';
+import Aktooltip from '@atlaskit/tooltip';
+// AFP-2532 TODO: Fix automatic suppressions below
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
+
 import ShareButton, {
   Props as ShareButtonProps,
 } from '../../../components/ShareButton';
@@ -21,20 +24,19 @@ import {
   ShareDialogWithTriggerInternal,
 } from '../../../components/ShareDialogWithTrigger';
 import { ShareForm } from '../../../components/ShareForm';
-
+import SplitButton from '../../../components/SplitButton';
 import { messages } from '../../../i18n';
 import {
   DialogPlacement,
   OBJECT_SHARED,
   RenderCustomTriggerButton,
+  ShareData,
   ShareDialogWithTriggerProps,
   ShareDialogWithTriggerStates,
   TooltipPosition,
-  ShareData,
 } from '../../../types';
-import { PropsOf } from '../_testUtils';
 import mockPopper from '../_mockPopper';
-import SplitButton from '../../../components/SplitButton';
+import { PropsOf } from '../_testUtils';
 
 // disable lazy-load component in testing.
 jest.mock('../../../components/LazyShareForm/lazy', () => {

@@ -1,8 +1,10 @@
 import React from 'react';
+
 import {
-  WithAnalyticsEventsProps,
   withAnalyticsEvents,
+  WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
+
 import { CHANNEL_ID, errorEncountered } from './analytics';
 
 type Props = WithAnalyticsEventsProps;
@@ -10,6 +12,8 @@ type State = {
   hasError: boolean;
 };
 
+// ErrorBoundary does not support in functional component
+// eslint-disable-next-line @repo/internal/react/no-class-components
 class ErrorBoundary extends React.Component<Props, State> {
   state = { hasError: false };
 

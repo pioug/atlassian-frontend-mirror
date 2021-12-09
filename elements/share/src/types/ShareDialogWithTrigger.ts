@@ -1,10 +1,10 @@
 import type { AnalyticsEventPayload } from '@atlaskit/analytics-next';
-
 import type { Placement } from '@atlaskit/popper';
 import type { TriggerProps } from '@atlaskit/popup';
-import type { ConfigResponse } from '../clients/ShareServiceClient';
-import type { OriginTracing } from './OriginTracing';
 
+import type { ConfigResponse } from '../clients/ShareServiceClient';
+
+import type { OriginTracing } from './OriginTracing';
 import type { ShareData, ShareError } from './ShareContentState';
 import type { ShareDialogContainerProps } from './ShareDialogContainer';
 import type { Integration } from './ShareEntities';

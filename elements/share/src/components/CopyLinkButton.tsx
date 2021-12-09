@@ -1,20 +1,24 @@
+import React from 'react';
+
+import { isSafari } from 'react-device-detect';
+import {
+  FormattedMessage,
+  injectIntl,
+  WrappedComponentProps,
+} from 'react-intl-next';
+import styled from 'styled-components';
+
 import CheckCircleIcon from '@atlaskit/icon/glyph/check-circle';
 import LinkFilledIcon from '@atlaskit/icon/glyph/link-filled';
 import Popup, { TriggerProps } from '@atlaskit/popup';
 import { G300 } from '@atlaskit/theme/colors';
 import { layers } from '@atlaskit/theme/constants';
 import Tooltip from '@atlaskit/tooltip';
-import React from 'react';
-import {
-  FormattedMessage,
-  injectIntl,
-  WrappedComponentProps,
-} from 'react-intl-next';
-import { isSafari } from 'react-device-detect';
-import styled from 'styled-components';
-import Button from './styles';
+
 import { messages } from '../i18n';
+
 import { InlineDialogContentWrapper } from './ShareFormWrapper/styled';
+import Button from './styles';
 
 const Z_INDEX = layers.modal();
 
@@ -62,6 +66,7 @@ export type State = {
   shouldShowCopiedMessage: boolean;
 };
 
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export class CopyLinkButton extends React.Component<
   Props & WrappedComponentProps,
   State

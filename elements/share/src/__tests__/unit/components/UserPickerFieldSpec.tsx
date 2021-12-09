@@ -4,11 +4,14 @@ jest.mock('../../../components/utils', () => ({
     !(config && config.disableSharingToEmails),
 }));
 
+import React from 'react';
+
+import { mount, shallow } from 'enzyme';
+import { FormattedMessage } from 'react-intl-next';
+
 import { ErrorMessage, Field, HelperMessage } from '@atlaskit/form';
 import UserPicker, { OptionData, SmartUserPicker } from '@atlaskit/user-picker';
-import React from 'react';
-import { FormattedMessage } from 'react-intl-next';
-import { shallow, mount } from 'enzyme';
+
 import {
   Props,
   REQUIRED,

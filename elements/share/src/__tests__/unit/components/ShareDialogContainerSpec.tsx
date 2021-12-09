@@ -1,11 +1,15 @@
-import { OptionData } from '@atlaskit/user-picker';
-import { shallow, ShallowWrapper } from 'enzyme';
 import React from 'react';
+
+import { shallow, ShallowWrapper } from 'enzyme';
+
+import { OptionData } from '@atlaskit/user-picker';
+
 import {
   ShortenResponse,
   UrlShortenerClient,
 } from '../../../clients/AtlassianUrlShortenerClient';
 import * as ShareServiceExports from '../../../clients/ShareServiceClient';
+import { copyLinkButtonClicked } from '../../../components/analytics';
 import {
   defaultConfig,
   ShareDialogContainerInternal,
@@ -14,7 +18,6 @@ import {
 import { ShareDialogWithTrigger } from '../../../components/ShareDialogWithTrigger';
 import { OriginTracing, TooltipPosition } from '../../../types';
 import { PropsOf } from '../_testUtils';
-import { copyLinkButtonClicked } from '../../../components/analytics';
 
 function currentEventLoopEnd() {
   return new Promise((resolve) => setImmediate(resolve));

@@ -1,10 +1,13 @@
 import React, { FunctionComponent } from 'react';
-import { LazySuspense, lazyForPaint } from 'react-loosely-lazy';
+
+import { lazyForPaint, LazySuspense } from 'react-loosely-lazy';
+
 import Spinner from '@atlaskit/spinner';
 
-import { SpinnerWrapper } from './styled';
-import type { LazyShareFormProps } from './LazyShareForm';
 import { ShareFormWrapper } from '../ShareFormWrapper';
+
+import type { LazyShareFormProps } from './LazyShareForm';
+import { SpinnerWrapper } from './styled';
 
 const LazyShareFormLazy = lazyForPaint<FunctionComponent<LazyShareFormProps>>(
   () =>

@@ -1,4 +1,5 @@
 import { B400, N200, N800 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 import React, { ReactNode } from 'react';
 import { ExternalUser, UserSource } from '../types';
 import { AvatarItemOption, TextWrapper } from './AvatarItemOption';
@@ -88,7 +89,14 @@ export class ExternalUserOption extends React.PureComponent<
     } = this.props;
 
     return (
-      <TextWrapper key="name" color={this.props.isSelected ? B400 : N800}>
+      <TextWrapper
+        key="name"
+        color={
+          this.props.isSelected
+            ? token('color.text.selected', B400)
+            : token('color.text.highEmphasis', N800)
+        }
+      >
         {name}
       </TextWrapper>
     );
@@ -103,7 +111,13 @@ export class ExternalUserOption extends React.PureComponent<
     const [emailUser, emailDomain] = email.split('@');
     const emailDomainWithAt = `@${emailDomain}`;
     return (
-      <TextWrapper color={this.props.isSelected ? B400 : N200}>
+      <TextWrapper
+        color={
+          this.props.isSelected
+            ? token('color.text.selected', B400)
+            : token('color.text.lowEmphasis', N200)
+        }
+      >
         {emailUser}
         <EmailDomainWrapper>{emailDomainWithAt}</EmailDomainWrapper>
       </TextWrapper>
@@ -131,7 +145,11 @@ export class ExternalUserOption extends React.PureComponent<
         content={this.formattedTooltipContent()}
         position={'right-start'}
       >
-        <EditorPanelIcon label="" size="large" primaryColor={N200} />
+        <EditorPanelIcon
+          label=""
+          size="large"
+          primaryColor={token('color.text.lowEmphasis', N200)}
+        />
       </Tooltip>
     ) : undefined;
 

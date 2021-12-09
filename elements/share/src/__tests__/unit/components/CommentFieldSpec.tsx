@@ -1,7 +1,11 @@
+import React from 'react';
+
+import { mount } from 'enzyme';
+
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import FieldTextArea from '@atlaskit/field-text-area';
 import { Field } from '@atlaskit/form';
-import React from 'react';
-import { mount } from 'enzyme';
+
 import { CommentField, Props } from '../../../components/CommentField';
 import { messages } from '../../../i18n';
 import { Comment } from '../../../types';

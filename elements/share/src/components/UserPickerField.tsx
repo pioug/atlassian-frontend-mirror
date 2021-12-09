@@ -1,24 +1,28 @@
+import React from 'react';
+
+import {
+  FormattedMessage,
+  injectIntl,
+  WrappedComponentProps,
+} from 'react-intl-next';
+
 import { ErrorMessage, Field, HelperMessage } from '@atlaskit/form';
 import UserPicker, {
   EmailValidationResponse,
+  isValidEmail,
   LoadOptions,
   OptionData,
-  Value,
-  isValidEmail,
-  UserPickerProps,
   SmartUserPicker,
   SmartUserPickerProps,
+  UserPickerProps,
+  Value,
 } from '@atlaskit/user-picker';
-import React from 'react';
-import {
-  injectIntl,
-  FormattedMessage,
-  WrappedComponentProps,
-} from 'react-intl-next';
+
 import { messages } from '../i18n';
 import { ConfigResponse, MessageDescriptor, ProductName } from '../types';
-import { allowEmails, getMenuPortalTargetCurrentHTML } from './utils';
+
 import { MAX_PICKER_HEIGHT } from './styles';
+import { allowEmails, getMenuPortalTargetCurrentHTML } from './utils';
 
 export const REQUIRED = 'REQUIRED';
 const DEBOUNCE_MS = 150;
@@ -134,6 +138,7 @@ const getRequiredMessage = (
   return messages[product];
 };
 
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export class UserPickerFieldComponent extends React.Component<
   WrappedComponentProps & Props
 > {

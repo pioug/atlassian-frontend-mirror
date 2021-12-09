@@ -1,10 +1,12 @@
 import React, { useMemo } from 'react';
+
 import {
-  IntlProvider,
   injectIntl,
-  WrappedComponentProps,
+  IntlProvider,
   MessageFormatElement,
+  WrappedComponentProps,
 } from 'react-intl-next';
+
 import { getMessagesForLocale, LangCode } from '../util/i18n-util';
 
 export interface Props {

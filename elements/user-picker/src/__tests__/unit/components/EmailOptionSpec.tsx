@@ -2,6 +2,7 @@ import { shallow } from 'enzyme';
 import React from 'react';
 import { FormattedMessage } from 'react-intl-next';
 import { N200, N800 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 import { AddOptionAvatar } from '../../../components/AddOptionAvatar';
 import {
   AvatarItemOption,
@@ -44,11 +45,15 @@ describe('EmailOption', () => {
     expect(avatarItemOption.props()).toMatchObject({
       avatar: <AddOptionAvatar label="Invite" />,
       primaryText: (
-        <TextWrapper key="name" color={N800}>
+        <TextWrapper key="name" color={token('color.text.highEmphasis', N800)}>
           test@test.com
         </TextWrapper>
       ),
-      secondaryText: <TextWrapper color={N200}>Invite</TextWrapper>,
+      secondaryText: (
+        <TextWrapper color={token('color.text.lowEmphasis', N200)}>
+          Invite
+        </TextWrapper>
+      ),
       lozenge: {
         text: 'EMAIL',
       },
@@ -69,11 +74,15 @@ describe('EmailOption', () => {
     expect(avatarItemOption.props()).toMatchObject({
       avatar: <AddOptionAvatar label="Invite" />,
       primaryText: (
-        <TextWrapper key="name" color={N800}>
+        <TextWrapper key="name" color={token('color.text.highEmphasis', N800)}>
           test@test.com
         </TextWrapper>
       ),
-      secondaryText: <TextWrapper color={N200}>Invite</TextWrapper>,
+      secondaryText: (
+        <TextWrapper color={token('color.text.lowEmphasis', N200)}>
+          Invite
+        </TextWrapper>
+      ),
       lozenge: {
         text: 'EMAIL',
       },
@@ -91,11 +100,15 @@ describe('EmailOption', () => {
     expect(avatarItemOption.props()).toMatchObject({
       avatar: <AddOptionAvatar label="Add new user" />,
       primaryText: (
-        <TextWrapper key="name" color={N800}>
+        <TextWrapper key="name" color={token('color.text.highEmphasis', N800)}>
           test@test.com
         </TextWrapper>
       ),
-      secondaryText: <TextWrapper color={N200}>Add new user</TextWrapper>,
+      secondaryText: (
+        <TextWrapper color={token('color.text.lowEmphasis', N200)}>
+          Add new user
+        </TextWrapper>
+      ),
     });
   });
 });

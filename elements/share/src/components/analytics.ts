@@ -6,6 +6,7 @@ import {
   OptionData,
   Team,
 } from '@atlaskit/user-picker';
+
 import { DialogContentState, OriginTracing } from '../types';
 import {
   name as packageName,

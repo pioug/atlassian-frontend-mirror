@@ -1,45 +1,51 @@
 import React from 'react';
-import {
-  AnalyticsEventPayload,
-  WithAnalyticsEventsProps,
-  withAnalyticsEvents,
-} from '@atlaskit/analytics-next';
-import SplitButton from './SplitButton';
-import ShareIcon from '@atlaskit/icon/glyph/share';
-import Popup, { TriggerProps } from '@atlaskit/popup';
-import Portal from '@atlaskit/portal';
-import Aktooltip from '@atlaskit/tooltip';
-import { layers } from '@atlaskit/theme/constants';
+
 import {
   FormattedMessage,
   injectIntl,
   WrappedComponentProps,
 } from 'react-intl-next';
 import styled from 'styled-components';
+
+import {
+  AnalyticsEventPayload,
+  withAnalyticsEvents,
+  WithAnalyticsEventsProps,
+} from '@atlaskit/analytics-next';
+import { IconProps } from '@atlaskit/icon';
+import ShareIcon from '@atlaskit/icon/glyph/share';
+import Popup, { TriggerProps } from '@atlaskit/popup';
+import Portal from '@atlaskit/portal';
+import { layers } from '@atlaskit/theme/constants';
+import Aktooltip from '@atlaskit/tooltip';
+
 import { messages } from '../i18n';
 import {
-  ShareData,
   Flag,
-  OBJECT_SHARED,
   Integration,
+  OBJECT_SHARED,
+  ShareData,
   ShareDialogWithTriggerProps,
   ShareDialogWithTriggerStates,
 } from '../types';
+
 import {
   cancelShare,
   CHANNEL_ID,
   copyLinkButtonClicked,
+  formShareSubmitted,
   screenEvent,
-  shareTriggerButtonClicked,
   shareSplitButtonEvent,
   shareTabClicked,
-  formShareSubmitted,
+  shareTriggerButtonClicked,
+  // type TabSubjectIdType,
 } from './analytics';
+// eslint-disable-next-line no-duplicate-imports
 import type { TabSubjectIdType } from './analytics';
-import ShareButton from './ShareButton';
-import { generateSelectZIndex } from './utils';
-import { IconProps } from '@atlaskit/icon';
 import LazyShareFormLazy from './LazyShareForm/lazy';
+import ShareButton from './ShareButton';
+import SplitButton from './SplitButton';
+import { generateSelectZIndex } from './utils';
 
 const ShareButtonWrapper = styled.div`
   display: inline-flex;
@@ -58,6 +64,7 @@ type ShareDialogWithTriggerInternalProps = ShareDialogWithTriggerProps &
   WrappedComponentProps &
   WithAnalyticsEventsProps;
 
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export class ShareDialogWithTriggerInternal extends React.PureComponent<
   ShareDialogWithTriggerInternalProps,
   ShareDialogWithTriggerStates

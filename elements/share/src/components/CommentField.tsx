@@ -1,7 +1,11 @@
+import React from 'react';
+
+import { useIntl } from 'react-intl-next';
+
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import FieldTextArea from '@atlaskit/field-text-area';
 import { Field } from '@atlaskit/form';
-import React from 'react';
-import { useIntl } from 'react-intl-next';
+
 import { messages } from '../i18n';
 import { Comment } from '../types';
 

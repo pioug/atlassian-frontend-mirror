@@ -1,7 +1,9 @@
-import { shallow } from 'enzyme';
 import React from 'react';
+
+import { shallow } from 'enzyme';
 import { FormattedMessage } from 'react-intl-next';
-import { ShareHeader, FormHeaderTitle } from '../../../components/ShareHeader';
+
+import { FormHeaderTitle, ShareHeader } from '../../../components/ShareHeader';
 import { messages } from '../../../i18n';
 
 describe('ShareHeader', () => {

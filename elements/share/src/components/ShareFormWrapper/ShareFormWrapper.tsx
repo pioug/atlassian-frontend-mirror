@@ -1,8 +1,9 @@
 import React, { ReactNode } from 'react';
 
-import { InlineDialogFormWrapper, InlineDialogContentWrapper } from './styled';
-import { ShareHeader } from '../ShareHeader';
 import { ShareDialogWithTriggerProps } from '../../types';
+import { ShareHeader } from '../ShareHeader';
+
+import { InlineDialogContentWrapper, InlineDialogFormWrapper } from './styled';
 
 export type ShareFormWrapperProps = Pick<
   ShareDialogWithTriggerProps,

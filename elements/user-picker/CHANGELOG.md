@@ -1,5 +1,14 @@
 # @atlaskit/user-picker
 
+## 8.1.0
+
+### Minor Changes
+
+- [`c48834ce234`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c48834ce234) - [ux] Instrumented `@atlaskit/user-picker` with the new theming package, `@atlaskit/tokens`.
+
+  New tokens will be visible only in applications configured to use the new Tokens API (currently in alpha).
+  These changes are intended to be interoperable with the legacy theme implementation. Legacy dark mode users should expect no visual or breaking changes.
+
 ## 8.0.0
 
 ### Major Changes

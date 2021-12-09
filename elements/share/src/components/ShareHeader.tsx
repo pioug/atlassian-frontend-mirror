@@ -1,8 +1,11 @@
 import React from 'react';
+
 import { FormattedMessage } from 'react-intl-next';
 import styled from 'styled-components';
+
 import { gridSize } from '@atlaskit/theme/constants';
 import { h500 } from '@atlaskit/theme/typography';
+
 import { messages } from '../i18n';
 
 export type Props = {

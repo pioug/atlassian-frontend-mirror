@@ -3,6 +3,7 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl-next';
 
 import { N800, N200, B400 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 import PeopleIcon from '@atlaskit/icon/glyph/people';
 
 import {
@@ -37,12 +38,12 @@ describe('GroupOption', () => {
         </GroupOptionIconWrapper>
       ),
       primaryText: [
-        <TextWrapper key="name" color={N800}>
+        <TextWrapper key="name" color={token('color.text.highEmphasis', N800)}>
           <HighlightText>dead-jedi-admins</HighlightText>
         </TextWrapper>,
       ],
       secondaryText: (
-        <TextWrapper color={N200}>
+        <TextWrapper color={token('color.text.lowEmphasis', N200)}>
           <FormattedMessage
             id="fabric.elements.user-picker.group.byline"
             defaultMessage="Admin-managed group"
@@ -59,12 +60,12 @@ describe('GroupOption', () => {
     expect(avatarItemOption.props()).toMatchObject(
       expect.objectContaining({
         primaryText: [
-          <TextWrapper key="name" color={B400}>
+          <TextWrapper key="name" color={token('color.text.selected', B400)}>
             <HighlightText>dead-jedi-admins</HighlightText>
           </TextWrapper>,
         ],
         secondaryText: (
-          <TextWrapper color={B400}>
+          <TextWrapper color={token('color.text.selected', B400)}>
             <FormattedMessage
               id="fabric.elements.user-picker.group.byline"
               defaultMessage="Admin-managed group"
@@ -87,7 +88,7 @@ describe('GroupOption', () => {
     const component = shallowOption({ group: groupWithHighlight });
     const avatarItemOption = component.find(AvatarItemOption);
     expect(avatarItemOption.prop('primaryText')).toEqual([
-      <TextWrapper key="name" color={N800}>
+      <TextWrapper key="name" color={token('color.text.highEmphasis', N800)}>
         <HighlightText highlights={[testHighlightRange]}>
           dead-jedi-admins
         </HighlightText>

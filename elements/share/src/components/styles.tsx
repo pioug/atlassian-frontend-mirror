@@ -1,6 +1,7 @@
 import React from 'react';
-import { CustomThemeButtonProps } from '@atlaskit/button/types';
+
 import Button from '@atlaskit/button/custom-theme-button';
+import { CustomThemeButtonProps } from '@atlaskit/button/types';
 
 export const MAX_PICKER_HEIGHT = 102;
 

@@ -1,4 +1,5 @@
 import React, { useCallback } from 'react';
+
 import { FormattedMessage } from 'react-intl-next';
 import styled from 'styled-components';
 
@@ -9,15 +10,16 @@ import DropdownMenu, {
   DropdownItem,
   DropdownItemGroup,
 } from '@atlaskit/dropdown-menu';
+import { OnOpenChangeArgs } from '@atlaskit/dropdown-menu/types';
 import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
 import { N800 } from '@atlaskit/theme/colors';
 import { borderRadius } from '@atlaskit/theme/constants';
 
 import { messages } from '../i18n';
 import { DialogPlacement, Integration } from '../types';
+
 import { shareIntegrationButtonEvent } from './analytics';
 import IntegrationButton from './IntegrationButton';
-import { OnOpenChangeArgs } from '@atlaskit/dropdown-menu/types';
 
 const SplitButtonWrapper = styled.div`
   display: flex;

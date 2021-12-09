@@ -1,24 +1,28 @@
 import React from 'react';
-import Button from '@atlaskit/button/custom-theme-button';
-import Form from '@atlaskit/form';
-import ErrorIcon from '@atlaskit/icon/glyph/error';
-import { R400 } from '@atlaskit/theme/colors';
-import { gridSize } from '@atlaskit/theme/constants';
-import Tooltip from '@atlaskit/tooltip';
-import Tabs, { Tab, TabList, TabPanel } from '@atlaskit/tabs';
+
 import {
   FormattedMessage,
   injectIntl,
   WrappedComponentProps,
 } from 'react-intl-next';
 import styled from 'styled-components';
+
+import Button from '@atlaskit/button/custom-theme-button';
+import Form from '@atlaskit/form';
+import ErrorIcon from '@atlaskit/icon/glyph/error';
+import Tabs, { Tab, TabList, TabPanel } from '@atlaskit/tabs';
+import { R400 } from '@atlaskit/theme/colors';
+import { gridSize } from '@atlaskit/theme/constants';
+import Tooltip from '@atlaskit/tooltip';
+
 import { messages } from '../i18n';
-import { FormChildrenArgs, ShareFormProps, ShareData } from '../types';
+import { FormChildrenArgs, ShareData, ShareFormProps } from '../types';
+
 import { CommentField } from './CommentField';
 import CopyLinkButton from './CopyLinkButton';
+import { IntegrationForm } from './IntegrationForm';
 import { ShareHeader } from './ShareHeader';
 import { UserPickerField } from './UserPickerField';
-import { IntegrationForm } from './IntegrationForm';
 
 const SubmitButtonWrapper = styled.div`
   display: flex;
@@ -79,6 +83,7 @@ export type InternalFormProps = FormChildrenArgs<ShareData> &
   ShareFormProps &
   WrappedComponentProps;
 
+// eslint-disable-next-line @repo/internal/react/no-class-components
 class InternalForm extends React.PureComponent<InternalFormProps> {
   static defaultProps = {
     onSubmit: () => {},

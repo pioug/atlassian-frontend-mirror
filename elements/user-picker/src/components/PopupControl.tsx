@@ -1,5 +1,6 @@
 import React from 'react';
 import { themed } from '@atlaskit/theme/components';
+import { token } from '@atlaskit/tokens';
 import { gridSize } from '@atlaskit/theme/constants';
 import { components, ControlProps } from '@atlaskit/select';
 import styled, { css } from 'styled-components';
@@ -16,7 +17,10 @@ const ControlWrapper = styled.div`
   padding: 0px ${spacing}px ${spacing}px;
 `;
 
-const getColor = themed({ light: N200, dark: DN90 });
+const getColor = themed({
+  light: token('color.text.lowEmphasis', N200),
+  dark: token('color.text.lowEmphasis', DN90),
+});
 
 const getPadding = () => {
   const right = 0;

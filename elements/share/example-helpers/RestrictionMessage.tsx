@@ -1,6 +1,8 @@
-import LockFilledIcon from '@atlaskit/icon/glyph/lock-filled';
 import React from 'react';
+
 import styled from 'styled-components';
+
+import LockFilledIcon from '@atlaskit/icon/glyph/lock-filled';
 
 const message =
   'Restrictions on this page may prevent people from viewing or editing';

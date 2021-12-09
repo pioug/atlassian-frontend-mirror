@@ -3,6 +3,7 @@ import {
   ServiceConfig,
   utils,
 } from '@atlaskit/util-service-support';
+
 import { Comment, Content, MetaData, User } from '../types';
 
 export interface ShareClient {

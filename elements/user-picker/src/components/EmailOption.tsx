@@ -1,6 +1,7 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl-next';
 import { B400, N200, N800 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 import { Email } from '../types';
 import { AddOptionAvatar } from './AddOptionAvatar';
 import { AvatarItemOption, TextWrapper } from './AvatarItemOption';
@@ -35,7 +36,14 @@ export class EmailOption extends React.PureComponent<EmailOptionProps> {
     } = this.props;
 
     return (
-      <TextWrapper key="name" color={this.props.isSelected ? B400 : N800}>
+      <TextWrapper
+        key="name"
+        color={
+          this.props.isSelected
+            ? token('color.text.selected', B400)
+            : token('color.text.highEmphasis', N800)
+        }
+      >
         {id}
       </TextWrapper>
     );
@@ -43,7 +51,13 @@ export class EmailOption extends React.PureComponent<EmailOptionProps> {
 
   private renderSecondaryText = (label: string) => {
     return (
-      <TextWrapper color={this.props.isSelected ? B400 : N200}>
+      <TextWrapper
+        color={
+          this.props.isSelected
+            ? token('color.text.selected', B400)
+            : token('color.text.lowEmphasis', N200)
+        }
+      >
         {label}
       </TextWrapper>
     );

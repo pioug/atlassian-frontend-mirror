@@ -1,11 +1,14 @@
-import Button from '@atlaskit/button/custom-theme-button';
-import { mount } from 'enzyme';
 import React from 'react';
-import SplitButton from '../../../components/SplitButton';
+
+import { mount } from 'enzyme';
+
+import Button from '@atlaskit/button/custom-theme-button';
 import DropdownMenuStateless, {
   DropdownItemGroup,
 } from '@atlaskit/dropdown-menu';
+
 import IntegrationButton from '../../../components/IntegrationButton';
+import SplitButton from '../../../components/SplitButton';
 
 const mockFormatMessage = (descriptor: any) => descriptor.defaultMessage;
 const mockIntl = { formatMessage: mockFormatMessage };

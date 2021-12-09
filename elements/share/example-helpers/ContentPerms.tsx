@@ -1,5 +1,7 @@
 import React from 'react';
+
 import styled from 'styled-components';
+
 import UnlockIcon from '@atlaskit/icon/glyph/unlock';
 import { N300 } from '@atlaskit/theme/colors';
 

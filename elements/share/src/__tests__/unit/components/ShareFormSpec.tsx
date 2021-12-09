@@ -1,10 +1,15 @@
+import React from 'react';
+
+import { shallow } from 'enzyme';
+import { FormattedMessage } from 'react-intl-next';
+
 import Button from '@atlaskit/button/custom-theme-button';
+import { shallowWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
 import Form, { FormProps, HelperMessage } from '@atlaskit/form';
 import ErrorIcon from '@atlaskit/icon/glyph/error';
+import Tabs, { Tab, TabList } from '@atlaskit/tabs';
 import Tooltip from '@atlaskit/tooltip';
-import { shallow } from 'enzyme';
-import React from 'react';
-import { FormattedMessage } from 'react-intl-next';
+
 import { CommentField } from '../../../components/CommentField';
 import CopyLinkButton from '../../../components/CopyLinkButton';
 import { FormFooter, ShareForm } from '../../../components/ShareForm';
@@ -13,8 +18,6 @@ import { UserPickerField } from '../../../components/UserPickerField';
 import { messages } from '../../../i18n';
 import { DialogContentState, ShareError } from '../../../types';
 import { renderProp } from '../_testUtils';
-import { shallowWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
-import Tabs, { Tab, TabList } from '@atlaskit/tabs';
 
 const mockFormatMessage = (descriptor: any) => descriptor.defaultMessage;
 const mockIntl = { formatMessage: mockFormatMessage };

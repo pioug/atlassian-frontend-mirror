@@ -1,7 +1,9 @@
 import React from 'react';
-import { G300 } from '@atlaskit/theme/colors';
-import SuccessIcon from '@atlaskit/icon/glyph/check-circle';
+
 import { AutoDismissFlag, FlagGroup } from '@atlaskit/flag';
+import SuccessIcon from '@atlaskit/icon/glyph/check-circle';
+import { G300 } from '@atlaskit/theme/colors';
+
 import { Flag } from '../src/types';
 
 type RenderChildren = (
@@ -16,6 +18,7 @@ type State = {
   flags: Array<Flag>;
 };
 
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export default class AppWithFlag extends React.PureComponent<Props, State> {
   state = {
     flags: [],

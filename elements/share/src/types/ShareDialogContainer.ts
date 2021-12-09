@@ -1,20 +1,22 @@
-import type { IconProps } from '@atlaskit/icon';
 import type { Appearance } from '@atlaskit/button/types';
+import type { IconProps } from '@atlaskit/icon';
 import type { LoadOptions, Value } from '@atlaskit/user-picker';
-import type { ShareClient } from '../clients/ShareServiceClient';
+
 import type {
   ShortenRequest,
   UrlShortenerClient,
 } from '../clients/AtlassianUrlShortenerClient';
+import type { ShareClient } from '../clients/ShareServiceClient';
+
+import type { Flag } from './Flag';
+import type { OriginTracing, OriginTracingFactory } from './OriginTracing';
+import type { ProductId, ProductName } from './Products';
+import type { ShareButtonStyle, TooltipPosition } from './ShareButton';
 import type {
   DialogPlacement,
   RenderCustomTriggerButton,
 } from './ShareDialogWithTrigger';
-import type { OriginTracing, OriginTracingFactory } from './OriginTracing';
-import type { ProductId, ProductName } from './Products';
-import type { ShareButtonStyle, TooltipPosition } from './ShareButton';
 import type { Integration, IntegrationMode } from './ShareEntities';
-import type { Flag } from './Flag';
 
 export type ShareDialogContainerProps = {
   /* Callback function to be called on trigger button click. */

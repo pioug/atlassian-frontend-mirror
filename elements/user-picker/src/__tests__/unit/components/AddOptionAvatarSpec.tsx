@@ -1,5 +1,6 @@
 import EmailIcon from '@atlaskit/icon/glyph/email';
 import { N500 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 import { shallow } from 'enzyme';
 import React from 'react';
 import {
@@ -22,7 +23,7 @@ describe('AddOptionAvatar', () => {
     expect(inviteIcon.props()).toMatchObject({
       label: 'Invite',
       size: 'medium',
-      primaryColor: N500,
+      primaryColor: token('color.text.mediumEmphasis', N500),
     });
   });
 });

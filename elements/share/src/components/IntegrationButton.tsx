@@ -1,7 +1,9 @@
 import React from 'react';
+
 import styled from 'styled-components';
-import { CustomThemeButtonProps } from '@atlaskit/button/types';
+
 import Button from '@atlaskit/button/custom-theme-button';
+import { CustomThemeButtonProps } from '@atlaskit/button/types';
 import { N500 } from '@atlaskit/theme/colors';
 
 const IntegrationButtonCopyWrapper = styled.span`

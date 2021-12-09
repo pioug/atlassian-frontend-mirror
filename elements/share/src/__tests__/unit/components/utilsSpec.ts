@@ -1,13 +1,15 @@
 import { createRef } from 'react';
+
+import { layers } from '@atlaskit/theme/constants';
+
 import {
   allowEmails,
   generateSelectZIndex,
-  zIndexAddition,
   getMenuPortalTargetCurrentHTML,
+  zIndexAddition,
 } from '../../../components/utils';
 // AFP-2532 TODO: Fix automatic suppressions below
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
-import { layers } from '@atlaskit/theme';
 
 describe('utils functions', () => {
   describe('generateSelectZIndex', () => {

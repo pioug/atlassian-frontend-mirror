@@ -1,19 +1,28 @@
 import React from 'react';
+
 import { IntlProvider } from 'react-intl-next';
 import styled from 'styled-components';
-import Select from '@atlaskit/select';
+
+import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { Appearance } from '@atlaskit/button/types';
+import Icon from '@atlaskit/icon';
 import WorldIcon from '@atlaskit/icon/glyph/world';
+import SectionMessage from '@atlaskit/section-message';
+import Select from '@atlaskit/select';
 import Toggle from '@atlaskit/toggle';
 import { OptionData, setSmartUserPickerEnv } from '@atlaskit/user-picker';
 import { userPickerData } from '@atlaskit/util-data-test/user-picker-data';
-import { Appearance } from '@atlaskit/button/types';
-import SectionMessage from '@atlaskit/section-message';
-import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import Icon from '@atlaskit/icon';
 
 import App from '../example-helpers/AppWithFlag';
 import RestrictionMessage from '../example-helpers/RestrictionMessage';
 import { ProductName, ShareDialogContainer } from '../src';
+import {
+  ShortenRequest,
+  ShortenResponse,
+  UrlShortenerClient,
+} from '../src/clients/AtlassianUrlShortenerClient';
+import SlackIcon from '../src/components/monochromeSlackIcon';
+import languages from '../src/i18n/languages';
 import {
   Comment,
   ConfigResponse,
@@ -30,14 +39,7 @@ import {
   TooltipPosition,
   User,
 } from '../src/types';
-import {
-  ShortenRequest,
-  ShortenResponse,
-  UrlShortenerClient,
-} from '../src/clients/AtlassianUrlShortenerClient';
 import { IntegrationMode } from '../src/types/ShareEntities';
-import languages from '../src/i18n/languages';
-import SlackIcon from '../src/components/monochromeSlackIcon';
 
 type UserData = {
   avatarUrl?: string;
@@ -287,6 +289,7 @@ const IntegrationIcon = () => (
 
 setSmartUserPickerEnv('local');
 
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export default class Example extends React.Component<{}, State> {
   state: State = {
     isAutoOpenDialog: false,

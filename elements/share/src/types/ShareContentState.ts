@@ -1,4 +1,5 @@
 import { OptionData } from '@atlaskit/user-picker';
+
 import { Comment } from './ShareEntities';
 import { User } from './User';
 

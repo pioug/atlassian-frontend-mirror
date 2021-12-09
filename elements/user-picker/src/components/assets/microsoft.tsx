@@ -1,4 +1,5 @@
 import React from 'react';
+import { token } from '@atlaskit/tokens';
 
 export function MicrosoftIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -11,17 +12,30 @@ export function MicrosoftIcon(props: React.SVGProps<SVGSVGElement>) {
       {...props}
     >
       <g clipPath="url(#clip0)">
-        <path d="M0 0H5.70233V5.7023H0V0Z" fill="white" />
-        <path d="M6.29785 0H12.0002V5.7023H6.29785V0Z" fill="white" />
-        <path d="M0 6.29688H5.70233V11.9992H0V6.29688Z" fill="white" />
+        <path
+          d="M0 0H5.70233V5.7023H0V0Z"
+          fill={token('color.text.onBold', 'white')}
+        />
+        <path
+          d="M6.29785 0H12.0002V5.7023H6.29785V0Z"
+          fill={token('color.text.onBold', 'white')}
+        />
+        <path
+          d="M0 6.29688H5.70233V11.9992H0V6.29688Z"
+          fill={token('color.text.onBold', 'white')}
+        />
         <path
           d="M6.29785 6.29688H12.0002V11.9992H6.29785V6.29688Z"
-          fill="white"
+          fill={token('color.text.onBold', 'white')}
         />
       </g>
       <defs>
         <clipPath id="clip0">
-          <rect width="12" height="11.9999" fill="white" />
+          <rect
+            width="12"
+            height="11.9999"
+            fill={token('color.text.onBold', 'white')}
+          />
         </clipPath>
       </defs>
     </svg>

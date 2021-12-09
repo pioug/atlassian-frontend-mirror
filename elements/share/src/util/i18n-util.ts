@@ -1,3 +1,5 @@
+// Cannot import from `../i18n` because there is `../i18n.tsx` file there.
+/* eslint-disable @atlassian/tangerine/import/no-dangling-index */
 import {
   cs,
   da,

@@ -1,17 +1,19 @@
 import React from 'react';
+
 import { AnalyticsContext } from '@atlaskit/analytics-next';
 import type { LoadOptions } from '@atlaskit/user-picker';
 
-import { ShareForm } from '../ShareForm';
-import { ANALYTICS_SOURCE } from '../analytics';
-import { IntegrationForm, IntegrationFormProps } from '../IntegrationForm';
-import { BottomMessageWrapper, CustomFooterWrapper } from './styled';
 import type {
   ShareData,
   ShareDialogWithTriggerProps,
   ShareDialogWithTriggerStates,
 } from '../../types';
+import { ANALYTICS_SOURCE } from '../analytics';
+import { IntegrationForm, IntegrationFormProps } from '../IntegrationForm';
+import { ShareForm } from '../ShareForm';
 import { ShareFormWrapper } from '../ShareFormWrapper';
+
+import { BottomMessageWrapper, CustomFooterWrapper } from './styled';
 
 export type LazyShareFormProps = Pick<
   ShareDialogWithTriggerProps,

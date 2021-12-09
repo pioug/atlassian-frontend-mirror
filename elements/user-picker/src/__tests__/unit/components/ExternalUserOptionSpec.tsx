@@ -16,7 +16,7 @@ import {
 } from '../../../components/ExternalUserOption';
 import { GoogleIcon } from '../../../components/assets/google';
 import Tooltip from '@atlaskit/tooltip';
-import { N200 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 import EditorPanelIcon from '@atlaskit/icon/glyph/editor/panel';
 import { messages } from '../../../components/i18n';
 import { FormattedMessage } from 'react-intl-next';
@@ -43,12 +43,15 @@ describe('ExternalUser Option', () => {
     );
 
   const expectedPrimaryText = (
-    <TextWrapper key="name" color={colors.N800}>
+    <TextWrapper
+      key="name"
+      color={token('color.text.highEmphasis', colors.N800)}
+    >
       {user.name}
     </TextWrapper>
   );
   const expectedSecondaryText = (
-    <TextWrapper color={colors.N200}>
+    <TextWrapper color={token('color.text.lowEmphasis', colors.N200)}>
       {user.email.split('@')[0]}
       <EmailDomainWrapper>{'@' + user.email.split('@')[1]}</EmailDomainWrapper>
     </TextWrapper>
@@ -85,7 +88,11 @@ describe('ExternalUser Option', () => {
         </React.Fragment>
       }
     >
-      <EditorPanelIcon label="" size="large" primaryColor={N200} />
+      <EditorPanelIcon
+        label=""
+        size="large"
+        primaryColor={token('color.text.lowEmphasis', colors.N200)}
+      />
     </Tooltip>
   );
 

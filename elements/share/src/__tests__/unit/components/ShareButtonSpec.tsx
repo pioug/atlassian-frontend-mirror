@@ -1,7 +1,8 @@
-import Button from '@atlaskit/button/custom-theme-button';
-
 import React from 'react';
-import { shallow, mount, ReactWrapper, ShallowWrapper } from 'enzyme';
+
+import { mount, ReactWrapper, shallow, ShallowWrapper } from 'enzyme';
+
+import Button from '@atlaskit/button/custom-theme-button';
 
 import ShareButton, { Props } from '../../../components/ShareButton';
 

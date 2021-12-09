@@ -1,6 +1,9 @@
 import React from 'react';
+
 import styled from 'styled-components';
+
 import { h500 } from '@atlaskit/theme/typography';
+
 import { IntegrationContentProps } from '../types';
 
 export const FormWrapper = styled.div`

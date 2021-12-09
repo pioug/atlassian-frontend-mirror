@@ -1,4 +1,5 @@
 import { Team } from '@atlaskit/user-picker';
+
 import {
   cancelShare,
   copyLinkButtonClicked,

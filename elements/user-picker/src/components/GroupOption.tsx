@@ -3,6 +3,7 @@ import { FormattedMessage } from 'react-intl-next';
 import styled from 'styled-components';
 
 import { N20, B400, N800, N200 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 import PeopleIcon from '@atlaskit/icon/glyph/people';
 
 import { Group } from '../types';
@@ -14,7 +15,7 @@ export const GroupOptionIconWrapper = styled.span`
   padding: 2px;
 
   > span {
-    background-color: ${N20};
+    background-color: ${token('color.background.subtleNeutral.resting', N20)};
     border-radius: 50%;
     padding: 4px;
   }
@@ -32,7 +33,14 @@ export class GroupOption extends React.PureComponent<GroupOptionProps> {
       group: { name, highlight },
     } = this.props;
     return [
-      <TextWrapper key="name" color={isSelected ? B400 : N800}>
+      <TextWrapper
+        key="name"
+        color={
+          isSelected
+            ? token('color.text.selected', B400)
+            : token('color.text.highEmphasis', N800)
+        }
+      >
         <HighlightText highlights={highlight && highlight.name}>
           {name}
         </HighlightText>
@@ -49,7 +57,13 @@ export class GroupOption extends React.PureComponent<GroupOptionProps> {
   private renderByline = () => {
     const { isSelected } = this.props;
     return (
-      <TextWrapper color={isSelected ? B400 : N200}>
+      <TextWrapper
+        color={
+          isSelected
+            ? token('color.text.selected', B400)
+            : token('color.text.lowEmphasis', N200)
+        }
+      >
         <FormattedMessage {...messages.groupByline} />
       </TextWrapper>
     );

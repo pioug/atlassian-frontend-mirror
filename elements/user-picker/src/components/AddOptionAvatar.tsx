@@ -1,13 +1,13 @@
 import EmailIcon from '@atlaskit/icon/glyph/email';
 import { N40, N500 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 import React from 'react';
 import styled from 'styled-components';
 
 const EmailAvatarWrapper = styled.span`
-  color: black;
   padding: ${(props: { isLozenge?: boolean }) => (props.isLozenge ? 0 : 4)}px;
 
-  background-color: ${N40};
+  background-color: ${token('color.background.subtleNeutral.resting', N40)};
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -27,7 +27,7 @@ export const AddOptionAvatar: React.FunctionComponent<AddOptionAvatarProps> = ({
       <EmailIcon
         label={label}
         size={isLozenge ? 'small' : 'medium'}
-        primaryColor={N500}
+        primaryColor={token('color.text.mediumEmphasis', N500)}
       />
     </EmailAvatarWrapper>
   );

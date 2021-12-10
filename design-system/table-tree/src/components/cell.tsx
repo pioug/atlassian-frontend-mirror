@@ -25,10 +25,8 @@ class Cell extends Component<CellProps> {
     return (
       <CommonCell
         role="gridcell"
-        indent={indentLevel ? `${25 * indentLevel}` : undefined}
-        style={{
-          width,
-        }}
+        indent={indentLevel ? `${25 * indentLevel}px` : undefined}
+        width={width}
         className={className}
         {...props}
       >

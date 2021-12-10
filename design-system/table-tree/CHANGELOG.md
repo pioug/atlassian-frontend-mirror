@@ -1,5 +1,11 @@
 # @atlaskit/table-tree
 
+## 9.0.14
+
+### Patch Changes
+
+- [`ca37d9b9707`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ca37d9b9707) - Hotfix to resolve an issue introduced in 9.0.12 which meant the indent of rows was not being applied correctly.
+
 ## 9.0.13
 
 ### Minor Changes

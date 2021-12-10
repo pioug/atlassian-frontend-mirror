@@ -7,7 +7,9 @@ import staticData from './data-cleancode-toc.json';
 // eslint-disable-next-line import/no-anonymous-default-export
 export default class extends PureComponent<any, any> {
   state: any = {
-    expansionMap: {},
+    expansionMap: {
+      1: true,
+    },
   };
 
   render() {

@@ -19,6 +19,7 @@ const commonStyles = css({
 
 interface CommonCellProps {
   indent?: string;
+  width?: string | number;
 }
 
 /**
@@ -26,12 +27,13 @@ interface CommonCellProps {
  */
 const CommonCell: FC<HTMLAttributes<HTMLDivElement> & CommonCellProps> = ({
   indent,
+  width,
   ...props
 }) => (
   <div
-    style={{ '--indent': indent } as CSSProperties}
-    css={commonStyles}
     {...props}
+    style={{ '--indent': indent, width } as CSSProperties}
+    css={commonStyles}
   />
 );
 

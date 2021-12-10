@@ -325,30 +325,12 @@ test('headers and column widths', async () => {
   const pageHeader = tree.header(1);
   expect(pageHeader.text()).toEqual('Page #');
 
-  expect(tree.cell(0, 0).find(CommonCell).props().style).toHaveProperty(
-    'width',
-    300,
-  );
-  expect(tree.cell(0, 1).find(CommonCell).props().style).toHaveProperty(
-    'width',
-    100,
-  );
-  expect(tree.cell(1, 0).find(CommonCell).props().style).toHaveProperty(
-    'width',
-    300,
-  );
-  expect(tree.cell(1, 1).find(CommonCell).props().style).toHaveProperty(
-    'width',
-    100,
-  );
-  expect(tree.cell(2, 0).find(CommonCell).props().style).toHaveProperty(
-    'width',
-    300,
-  );
-  expect(tree.cell(2, 1).find(CommonCell).props().style).toHaveProperty(
-    'width',
-    100,
-  );
+  expect(tree.cell(0, 0).find(CommonCell).props().width).toEqual(300);
+  expect(tree.cell(0, 1).find(CommonCell).props().width).toEqual(100);
+  expect(tree.cell(1, 0).find(CommonCell).props().width).toEqual(300);
+  expect(tree.cell(1, 1).find(CommonCell).props().width).toEqual(100);
+  expect(tree.cell(2, 0).find(CommonCell).props().width).toEqual(300);
+  expect(tree.cell(2, 1).find(CommonCell).props().width).toEqual(100);
 });
 
 function createTreeHarness(treeWrapper: any) {

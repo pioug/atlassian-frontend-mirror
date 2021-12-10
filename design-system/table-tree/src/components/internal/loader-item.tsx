@@ -44,7 +44,7 @@ export default class LoaderItem extends Component<LoaderItemProps, any> {
     const { phase } = this.state;
     return phase === 'loading' ? (
       <TreeRowContainer>
-        <CommonCell style={{ paddingLeft: 25 * depth, width: '100%' }}>
+        <CommonCell indent={`${25 * depth}px`} width="100%">
           <LoaderItemContainer isRoot={depth === 1}>
             <Spinner size="small" />
           </LoaderItemContainer>

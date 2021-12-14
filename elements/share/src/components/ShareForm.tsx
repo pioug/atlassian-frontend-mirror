@@ -16,7 +16,7 @@ import { gridSize } from '@atlaskit/theme/constants';
 import Tooltip from '@atlaskit/tooltip';
 
 import { messages } from '../i18n';
-import { FormChildrenArgs, ShareData, ShareFormProps } from '../types';
+import { FormChildrenArgs, ShareData, ShareFormProps, TabType } from '../types';
 
 import { CommentField } from './CommentField';
 import CopyLinkButton from './CopyLinkButton';
@@ -79,6 +79,10 @@ const integrationTabText = (integrationName: string) => (
   />
 );
 
+export type State = {
+  selectedTab: TabType;
+};
+
 export type InternalFormProps = FormChildrenArgs<ShareData> &
   ShareFormProps &
   WrappedComponentProps;
@@ -87,6 +91,10 @@ export type InternalFormProps = FormChildrenArgs<ShareData> &
 class InternalForm extends React.PureComponent<InternalFormProps> {
   static defaultProps = {
     onSubmit: () => {},
+  };
+
+  state: State = {
+    selectedTab: TabType.default,
   };
 
   componentWillUnmount() {
@@ -225,6 +233,10 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
     return <FormattedMessage {...productShareType} />;
   };
 
+  changeTab = (tab: TabType) => {
+    this.setState({ selectedTab: tab });
+  };
+
   render() {
     const {
       integrationMode = 'off',
@@ -248,8 +260,10 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
         <Tabs
           id="ShareForm-Tabs-Integrations"
           onChange={(index) => {
+            this.changeTab(index);
             onTabChange?.(index);
           }}
+          selected={this.state.selectedTab}
         >
           <TabList>
             <Tab key={`share-tab-default`}>{this.renderMainTabTitle()}</Tab>
@@ -270,6 +284,9 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
               <IntegrationForm
                 Content={firstIntegration.Content}
                 onIntegrationClose={() => handleCloseDialog?.()}
+                changeTab={(index) => {
+                  this.changeTab(index);
+                }}
               />
             </FormWrapper>
           </TabPanel>

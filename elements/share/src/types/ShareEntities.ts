@@ -19,7 +19,13 @@ export type MetaData = {
 // Third party integrations
 export type IntegrationContentProps = {
   onClose: () => void;
+  changeTab?: (index: TabType) => void;
 };
+
+export enum TabType {
+  default = 0,
+  Slack = 1,
+}
 
 export type Integration = {
   type: string;

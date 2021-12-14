@@ -974,6 +974,98 @@ describe('paste paragraph edge cases', () => {
     ),
   };
 
+  const case35: CASE = {
+    /** paste from self */
+    id: 'case35',
+    target: doc(
+      // prettier-ignore
+      p('{<>}'),
+    ),
+    source: `
+    <meta charset='utf-8'>
+    <div data-node-type="mediaSingle" data-layout="center" data-width="" data-pm-slice="0 0 []">
+    <a
+      href="https://ops.internal.atlassian.com/jira/browse/HOT-97158"
+      data-block-link="true"
+      class="blockLink"
+    >
+      <div data-id="28dd8159-mochi-floof"
+      data-node-type="media"
+      data-type="file"
+      data-collection="MediaServicesSample"
+      data-width="418"
+      data-height="418"
+      data-alt=""
+      title="Attachment"
+      data-file-name="image-20211213-mochi.png"
+      data-file-size="112233"
+      data-file-mime-type="image/png"
+      data-context-id="DUMMY-OBJECT-ID"
+    ></div></a></div>`,
+    result: doc(
+      mediaSingle({ layout: 'center' })(
+        link({
+          href: 'https://ops.internal.atlassian.com/jira/browse/HOT-97158',
+        })(
+          media({
+            __contextId: 'DUMMY-OBJECT-ID',
+            __displayType: null,
+            __external: false,
+            __fileMimeType: 'image/png',
+            __fileName: 'image-20211213-mochi.png',
+            __fileSize: 112233,
+            alt: '',
+            collection: 'MediaServicesSample',
+            height: 418,
+            id: '28dd8159-mochi-floof',
+            type: 'file',
+            width: 418,
+          })(),
+        ),
+      ),
+    ),
+  };
+  const case36: CASE = {
+    /** case 35 without data-block-link="true" */
+    id: 'case36',
+    target: doc(
+      // prettier-ignore
+      p('{<>}'),
+    ),
+    source: `
+    <meta charset='utf-8'>
+    <div data-node-type="mediaSingle" data-layout="center" data-width="" data-pm-slice="0 0 []">
+    <a
+      href="https://ops.internal.atlassian.com/jira/browse/HOT-97158"
+      class="blockLink"
+    >
+      <div data-id="28dd8159-mochi-floof"
+      data-node-type="media"
+      data-type="file"
+      data-collection="MediaServicesSample"
+      data-width="418"
+      data-height="418"
+      data-alt=""
+      title="Attachment"
+      data-file-name="image-20211213-mochi.png"
+      data-file-size="112233"
+      data-file-mime-type="image/png"
+      data-context-id="DUMMY-OBJECT-ID"
+    ></div></a></div>`,
+    result: doc(
+      mediaSingle({ layout: 'center' })(
+        media({
+          __displayType: null,
+          __external: false,
+          alt: '',
+          collection: '',
+          id: '',
+          type: 'file',
+        })(),
+      ),
+    ),
+  };
+
   describe.each<CASE>([
     // prettier-ignore
     case00,
@@ -1011,6 +1103,8 @@ describe('paste paragraph edge cases', () => {
     // case32,
     case33,
     case34,
+    case35,
+    case36,
   ])('cases', ({ id, target, source, result }) => {
     const paste = () => {
       dispatchPasteEvent(editorView, {

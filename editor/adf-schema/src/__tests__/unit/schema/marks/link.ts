@@ -9,6 +9,7 @@ const href3 = 'http://atlassian.com?test=123';
 const unsafeHref = 'javascript:alert("hack")';
 const content = 'foo';
 const sampleLink = `<a href="${href}">${content}</a>`;
+const sampleBlockLink = `<a href="${href}" data-block-link="true" class="blockLink"><p>${content}</p></a>`;
 const emptyLink = `<a>${content}</a>`;
 
 describe(`${name}/schema link mark`, () => {
@@ -114,11 +115,21 @@ describe(`${name}/schema link mark`, () => {
     });
   });
 
-  it(`serializes to ${sampleLink}`, () => {
-    const schema = makeSchema();
-    const node = schema.text(content, [schema.marks.link.create({ href })]);
-    const html: string = toHTML(node, schema);
-    expect(html).toContain(`${sampleLink}`);
+  describe('serialization', () => {
+    it(`serializes to ${sampleLink}`, () => {
+      const schema = makeSchema();
+      const node = schema.text(content, [schema.marks.link.create({ href })]);
+      const html: string = toHTML(node, schema);
+      expect(html).toContain(`${sampleLink}`);
+    });
+    it(`serializes block marked links ${sampleLink}`, () => {
+      const schema = makeSchema();
+      const node = schema.nodes.paragraph.create(null, schema.text(content), [
+        schema.marks.link.create({ href }),
+      ]);
+      const html: string = toHTML(node, schema);
+      expect(html).toContain(`${sampleBlockLink}`);
+    });
   });
 
   describe('confluence metadata', () => {

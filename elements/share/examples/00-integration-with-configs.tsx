@@ -29,6 +29,7 @@ import {
   Content,
   DialogPlacement,
   Integration,
+  IntegrationContentProps,
   KeysOfType,
   MetaData,
   OriginTracing,
@@ -275,10 +276,18 @@ const listenerHandler = (event: UIAnalyticsEvent, channel?: string) => {
   );
 };
 
-const IntegrationContent = () => {
+const IntegrationContent = (props: IntegrationContentProps) => {
   return (
     <>
       <div>Share to Integration form</div>
+      <a
+        href="#"
+        onClick={() => {
+          props?.changeTab?.(0);
+        }}
+      >
+        Change tab
+      </a>
     </>
   );
 };

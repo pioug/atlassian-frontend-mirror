@@ -1,5 +1,17 @@
 # @atlaskit/share
 
+## 3.0.2
+
+### Patch Changes
+
+- [`f316529ecf5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f316529ecf5) - add accessible label for share button
+
+## 3.0.1
+
+### Patch Changes
+
+- [`97c7770541f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/97c7770541f) - Added updates to share to control tabs via code
+
 ## 3.0.0
 
 ### Major Changes

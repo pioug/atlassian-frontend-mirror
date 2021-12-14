@@ -283,7 +283,9 @@ describe('ShareDialogWithTrigger', () => {
         .find(ShareButton)
         .prop('iconBefore');
       expect(iconBefore.type).toBe(ShareIcon);
-      expect(iconBefore.props['label']).toBe('Share icon');
+      expect(wrapper.find(Popup).find(ShareButton).prop('aria-label')).toBe(
+        'Share',
+      );
     });
 
     it('should render text in the share button if the value is "icon-with-text"', () => {
@@ -301,7 +303,9 @@ describe('ShareDialogWithTrigger', () => {
         .find(ShareButton)
         .prop('iconBefore');
       expect(iconBefore.type).toBe(ShareIcon);
-      expect(iconBefore.props['label']).toBe('Share icon');
+      expect(wrapper.find(Popup).find(ShareButton).prop('aria-label')).toBe(
+        'Share',
+      );
     });
 
     it('should render only text without ShareIcon in the share button if the value is "text-only"', () => {
@@ -332,7 +336,9 @@ describe('ShareDialogWithTrigger', () => {
         .find(ShareButton)
         .prop('iconBefore');
       expect(iconBefore.type).toBe(WorldIcon);
-      expect(iconBefore.props['label']).toBe('Share icon');
+      expect(wrapper.find(Popup).find(ShareButton).prop('aria-label')).toBe(
+        'Share',
+      );
     });
 
     it('should show the default icon when no icon is passed', () => {
@@ -344,7 +350,9 @@ describe('ShareDialogWithTrigger', () => {
         .find(ShareButton)
         .prop('iconBefore');
       expect(iconBefore.type).toBe(ShareIcon);
-      expect(iconBefore.props['label']).toBe('Share icon');
+      expect(wrapper.find(Popup).find(ShareButton).prop('aria-label')).toBe(
+        'Share',
+      );
     });
   });
 

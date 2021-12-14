@@ -38,13 +38,15 @@ export const FormWrapper = styled.div`
 export type IntegrationFormProps = {
   Content: React.ComponentType<IntegrationContentProps> | null;
   onIntegrationClose?: () => void;
+  changeTab?: (index: number) => void;
 };
 
 export const IntegrationForm = ({
   Content,
   onIntegrationClose = () => undefined,
+  changeTab = () => undefined,
 }: IntegrationFormProps) => (
   <FormWrapper>
-    {Content && <Content onClose={onIntegrationClose} />}
+    {Content && <Content onClose={onIntegrationClose} changeTab={changeTab} />}
   </FormWrapper>
 );

@@ -105,6 +105,7 @@ export const link: MarkSpec = {
       'a',
       {
         ...attrs,
+        ['data-block-link']: 'true',
         class: 'blockLink',
       },
       0,

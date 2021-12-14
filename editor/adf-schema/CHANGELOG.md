@@ -1,5 +1,12 @@
 # @atlaskit/adf-schema
 
+## 20.1.1
+
+### Patch Changes
+
+- [`41265fc80a4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41265fc80a4) - MEX-1245 Ensure nodes with block marks can be parsed during
+  parseDOM/toDOM (e.g. linked media)
+
 ## 20.1.0
 
 ### Minor Changes

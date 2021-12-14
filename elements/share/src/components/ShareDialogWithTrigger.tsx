@@ -371,12 +371,11 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
               <FormattedMessage {...messages.shareTriggerButtonText} />
             ) : null
           }
+          aria-label={formatMessage(messages.shareTriggerButtonText)}
           onClick={this.onTriggerClick}
           iconBefore={
             triggerButtonStyle !== 'text-only' ? (
-              <ShareButtonIcon
-                label={formatMessage(messages.shareTriggerButtonIconLabel)}
-              />
+              <ShareButtonIcon label="" />
             ) : undefined
           }
           isSelected={isDialogOpen}

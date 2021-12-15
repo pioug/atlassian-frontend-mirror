@@ -107,7 +107,11 @@ export const panel = (allowCustomPanel: boolean): NodeSpec => {
     toDOM(node: Node) {
       const attrs: DOMAttributes = getDomAttrs(node.attrs);
 
-      return ['div', attrs, ['div', {}, 0]];
+      const contentAttrs: Record<string, string> = {
+        'data-panel-content': 'true',
+      };
+
+      return ['div', attrs, ['div', contentAttrs, 0]];
     },
   };
   return panelNodeSpec;

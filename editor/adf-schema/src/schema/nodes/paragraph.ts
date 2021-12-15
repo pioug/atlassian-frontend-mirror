@@ -168,6 +168,8 @@ const NOT_INTERNAL_ELEMENTS = [
   ':not([data-task-state])',
   ':not([data-pm-slice])',
   ':not([data-mark-type])',
+  ':not([data-layout-content])',
+  ':not([data-panel-content])',
 ].join('');
 
 const pDOM: DOMOutputSpec = ['p', 0];

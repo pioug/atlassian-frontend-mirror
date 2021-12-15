@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-client",
-  "version": "14.3.1",
+  "version": "14.3.2",
   "description": "Media API Web Client Library",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -34,7 +34,7 @@
     "deep-equal": "^1.0.1",
     "eventemitter2": "^4.1.0",
     "lru-fast": "^0.2.2",
-    "query-string": "^5.1.0",
+    "query-string": "^6.14.1",
     "rusha": "^0.8.13",
     "setimmediate": "^1.0.5",
     "uuid": "^3.1.0",

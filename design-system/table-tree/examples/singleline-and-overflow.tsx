@@ -1,7 +1,7 @@
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
-import React from 'react';
+/** @jsx jsx */
+import { css, jsx } from '@emotion/core';
 
-import styled from '@emotion/styled';
+import { token } from '@atlaskit/tokens';
 
 import TableTree, { Cell, Header, Headers, Row, Rows } from '../src';
 
@@ -17,16 +17,16 @@ const staticData = [
   },
 ];
 
-const OverflowingBox = styled.div`
-  background: red;
-  width: 150px;
-  bottom: 100%;
-  margin-bottom: -15px;
-  right: 0;
-  position: absolute;
-  color: #000;
-  border: 5px solid #800;
-`;
+const overflowingBoxStyles = css({
+  width: '150px',
+  marginBottom: '-15px',
+  position: 'absolute',
+  right: 0,
+  bottom: '100%',
+  background: token('color.background.boldDanger.resting', 'red'),
+  border: `5px solid ${token('color.border.neutral', '#800')}`,
+  color: token('color.text.onBold', '#000'),
+});
 
 export default () => (
   <TableTree>
@@ -40,7 +40,7 @@ export default () => (
         <Row itemId={title} hasChildren={false}>
           <Cell singleLine>{title}</Cell>
           <Cell>
-            {description} <OverflowingBox>Overflowing box</OverflowingBox>
+            {description} <div css={overflowingBoxStyles}>Overflowing box</div>
           </Cell>
         </Row>
       )}

@@ -1,8 +1,10 @@
-import React, { PureComponent } from 'react';
+/** @jsx jsx */
+import { PureComponent } from 'react';
 
-import styled from '@emotion/styled';
+import { css, jsx } from '@emotion/core';
 
 import Select from '@atlaskit/select';
+import { token } from '@atlaskit/tokens';
 
 import TableTree, {
   Cell,
@@ -41,16 +43,16 @@ function generateChildItems(parent: Item, count: number) {
   return items;
 }
 
-const PerformanceTweakContainer = styled.div`
-  position: fixed;
-  bottom: 0;
-  right: 0;
-  background: rgba(100%, 100%, 100%, 0.8);
-  border: 5px solid rgba(0, 0, 0, 0.8);
-  border-width: 5px 0 0 5px;
-  padding: 20px;
-  width: 450px;
-`;
+const performanceTweakContainerStyles = css({
+  width: '450px',
+  padding: '20px',
+  position: 'fixed',
+  right: 0,
+  bottom: 0,
+  background: token('color.background.default', 'rgba(100%, 100%, 100%, 0.8)'),
+  border: `5px solid ${token('color.border.neutral', 'rgba(0, 0, 0, 0.8)')}`,
+  borderWidth: '5px 0 0 5px',
+});
 
 const childCountPerItem = 100;
 const childCountOptions = [
@@ -142,7 +144,7 @@ export default class extends PureComponent {
             )}
           />
         </TableTree>
-        <PerformanceTweakContainer>
+        <div css={performanceTweakContainerStyles}>
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <div>Tree children per item:</div>
             <div style={{ width: '90px', margin: '0 20px 0 10px' }}>
@@ -159,7 +161,7 @@ export default class extends PureComponent {
               Items loaded total: <strong>{this.state.totalCount}</strong>
             </div>
           </div>
-        </PerformanceTweakContainer>
+        </div>
       </div>
     );
   }

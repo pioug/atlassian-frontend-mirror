@@ -1,5 +1,11 @@
 # @atlaskit/media-client
 
+## 14.3.2
+
+### Patch Changes
+
+- [`59a14d364b1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/59a14d364b1) - Bump query-string@^6.14.1
+
 ## 14.3.1
 
 ### Patch Changes

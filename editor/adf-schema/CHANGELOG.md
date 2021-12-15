@@ -1,5 +1,11 @@
 # @atlaskit/adf-schema
 
+## 20.1.2
+
+### Patch Changes
+
+- [`bfc3a31f7d0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bfc3a31f7d0) - ED-14130 fix copy paste block cards
+
 ## 20.1.1
 
 ### Patch Changes

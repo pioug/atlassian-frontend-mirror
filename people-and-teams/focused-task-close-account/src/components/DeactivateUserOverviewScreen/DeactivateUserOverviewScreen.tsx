@@ -33,7 +33,10 @@ export class DeactivateUserOverviewScreen extends React.Component<
               deactivateUserOverviewMessages.paragraphLoseAccessAdminNoSites,
               deactivateUserOverviewMessages.paragraphLoseAccessSelfNoSites,
             )}
-            values={{ fullName: user.fullName }}
+            values={{
+              fullName: user.fullName,
+              b: (s: string) => <b>{s}</b>,
+            }}
           />
         )}
         {hasAccessibleSites && (
@@ -43,7 +46,10 @@ export class DeactivateUserOverviewScreen extends React.Component<
                 deactivateUserOverviewMessages.paragraphLoseAccessAdmin,
                 deactivateUserOverviewMessages.paragraphLoseAccessSelf,
               )}
-              values={{ fullName: user.fullName }}
+              values={{
+                fullName: user.fullName,
+                b: (s: string) => <b>{s}</b>,
+              }}
               tagName={'p'}
             />
             <Styled.AccessibleSitesWrapper>

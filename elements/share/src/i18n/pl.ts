@@ -45,6 +45,8 @@ export default {
     'Wybierz co najmniej jednego użytkownika, jeden zespół lub adres e-mail.',
   'fabric.elements.share.form.user-picker.validation.required.jira.existingUserOnly':
     'Wybierz co najmniej jednego użytkownika lub jeden zespół.',
+  'fabric.elements.share.in.integration.button':
+    'Udostępnij w {integrationName}',
   'fabric.elements.share.success.message':
     '{object, select, blogpost {Udostępniono wpis na blogu} board {Udostępniono tablicę} calendar {Udostępniono kalendarz} draft {Udostępniono wersję roboczą} filter {Udostępniono filtr} issue {Udostępniono zgłoszenie} media {Udostępniono media} page {Udostępniono stronę} project {Udostępniono projekt} pullrequest {Udostępniono pull request} question {Udostępniono pytanie} report {Udostępniono raport} repository {Udostępniono repozytorium} request {Udostępniono wniosek} roadmap {Udostępniono harmonogram} site {Udostępniono witrynę} space {Udostępniono przestrzeń} other {Udostępniono łącze}}',
   'fabric.elements.share.to.integration.button':

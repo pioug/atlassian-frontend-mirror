@@ -42,7 +42,10 @@ export class DeleteUserOverviewScreen extends React.Component<
               overviewMessages.paragraphLoseAccessAdminNoSites,
               overviewMessages.paragraphLoseAccessSelfNoSites,
             )}
-            values={{ fullName: user.fullName }}
+            values={{
+              fullName: user.fullName,
+              b: (s: string) => <b>{s}</b>,
+            }}
           />
         )}
         {hasAccessibleSites && (
@@ -52,7 +55,10 @@ export class DeleteUserOverviewScreen extends React.Component<
                 overviewMessages.paragraphLoseAccessAdmin,
                 overviewMessages.paragraphLoseAccessSelf,
               )}
-              values={{ fullName: user.fullName }}
+              values={{
+                fullName: user.fullName,
+                b: (s: string) => <b>{s}</b>,
+              }}
               tagName={'p'}
             />
             <DropdownList accessibleSites={accessibleSites} />
@@ -70,6 +76,9 @@ export class DeleteUserOverviewScreen extends React.Component<
             overviewMessages.paragraphPersonalDataWillBeDeletedAdmin,
             overviewMessages.paragraphPersonalDataWillBeDeletedSelf,
           )}
+          values={{
+            b: (s: string) => <b>{s}</b>,
+          }}
         />
         <Styled.IconHoverWrapper>
           <StatefulInlineDialog

@@ -1,5 +1,11 @@
 # @atlaskit/focused-task-close-account
 
+## 1.0.1
+
+### Patch Changes
+
+- [`1370ed06ad5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1370ed06ad5) - Fix a bug in UI - showing <b> in UI which is caused when we upgraded react-intl version
+
 ## 1.0.0
 
 ### Major Changes

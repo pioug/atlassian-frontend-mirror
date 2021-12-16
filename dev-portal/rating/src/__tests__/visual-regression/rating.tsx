@@ -13,7 +13,7 @@ describe('star rating', () => {
   it('should start with nothing checked', async () => {
     const { __BASEURL__, page } = global;
     const url = getExampleUrl(
-      'design-system',
+      'dev-portal',
       'rating',
       'uncontrolled',
       __BASEURL__,
@@ -29,7 +29,7 @@ describe('star rating', () => {
   it('should hover over three stars', async () => {
     const { __BASEURL__, page } = global;
     const url = getExampleUrl(
-      'design-system',
+      'dev-portal',
       'rating',
       'uncontrolled',
       __BASEURL__,
@@ -46,7 +46,7 @@ describe('star rating', () => {
   it('should start select two stars', async () => {
     const { __BASEURL__, page } = global;
     const url = getExampleUrl(
-      'design-system',
+      'dev-portal',
       'rating',
       'uncontrolled',
       __BASEURL__,
@@ -63,7 +63,7 @@ describe('star rating', () => {
   it('should select three stars using keyboard', async () => {
     const { __BASEURL__, page } = global;
     const url = getExampleUrl(
-      'design-system',
+      'dev-portal',
       'rating',
       'uncontrolled',
       __BASEURL__,

@@ -47,6 +47,7 @@ export default {
     'Bitte wählen Sie mindestens einen Benutzer, ein Team oder eine E-Mail-Adresse aus.',
   'fabric.elements.share.form.user-picker.validation.required.jira.existingUserOnly':
     'Wählen Sie mindestens einen Benutzer oder ein Team aus.',
+  'fabric.elements.share.in.integration.button': 'In {integrationName} teilen',
   'fabric.elements.share.success.message':
     '{object, select, blogpost {Geteilter Blogpost} board {Geteiltes Board} calendar {Geteilter Kalender} draft {Geteilter Entwurf} filter {Geteilter Filter} issue {Geteilter Vorgang} media {Geteilte Medien} page {Geteilte Seite} project {Geteiltes Projekt} pullrequest {Geteilte Pull-Anfrage} question {Geteilte Frage} report {Geteilter Bericht} repository {Geteiltes Repository} request {Geteilte Anfrage} roadmap {Geteilte Roadmap} site {Geteilte Site} space {Geteilter Bereich} other {Geteilter Link}}',
   'fabric.elements.share.to.integration.button': 'Mit {integrationName} teilen',

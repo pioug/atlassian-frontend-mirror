@@ -10,7 +10,7 @@ const ButtonIconBeforeExample = () => {
       iconBefore={<StarFilledIcon label="Star icon" size="small" />}
       appearance="primary"
     >
-      Icon after
+      Icon before
     </Button>
   );
 };

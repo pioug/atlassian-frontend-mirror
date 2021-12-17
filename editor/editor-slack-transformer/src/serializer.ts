@@ -51,11 +51,19 @@ const unsupportedNodes = {
     state.write('[block card]');
     state.closeBlock(node);
   },
-  embedCard(state: MarkdownSerializerState) {
+  embedCard(state: MarkdownSerializerState, node: PMNode) {
     state.write('[embedded card]');
+    state.closeBlock(node);
   },
-  inlineCard(state: MarkdownSerializerState) {
-    state.write('[inline card]');
+  /**
+   * Inline cards with url type attributes will be sent as a link
+   */
+  inlineCard(state: MarkdownSerializerState, node: PMNode) {
+    const content = node.attrs.url
+      ? `[<${node.attrs.url}|inline card>]`
+      : '[inline card]';
+
+    state.write(content);
   },
   inlineExtension(state: MarkdownSerializerState) {
     state.write('[inline extension]');

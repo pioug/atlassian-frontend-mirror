@@ -776,17 +776,21 @@ describe('SlackTransformer: serializer', () => {
 });
 
 describe('inline card', () => {
-  it('should serialize an inline card', () => {
+  it('should serialize an inline card with url type attributes', () => {
+    const url =
+      'https://product-fabric.atlassian.net/browse/EX-522#icft=EX-522';
+
     expect(
       markdownSerializer.serialize(
-        doc(
-          p(
-            inlineCard({
-              url:
-                'https://product-fabric.atlassian.net/browse/EX-522#icft=EX-522',
-            })(),
-          ),
-        )(defaultSchema),
+        doc(p(inlineCard({ url })()))(defaultSchema),
+      ),
+    ).toEqual(`[<${url}|inline card>]`);
+  });
+
+  it('should serialize an inline card with data type attributes', () => {
+    expect(
+      markdownSerializer.serialize(
+        doc(p(inlineCard({ data: {} })()))(defaultSchema),
       ),
     ).toEqual('[inline card]');
   });

@@ -1,5 +1,11 @@
 # @atlaskit/editor-slack-transformer
 
+## 3.1.0
+
+### Minor Changes
+
+- [`95c8a998ef1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/95c8a998ef1) - Inline cards with url type attributes are sent as links. Adding a new row after embedded card
+
 ## 3.0.0
 
 ### Major Changes

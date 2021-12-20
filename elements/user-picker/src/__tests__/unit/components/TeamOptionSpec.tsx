@@ -9,7 +9,10 @@ import {
 } from '../../../components/AvatarItemOption';
 import { HighlightText } from '../../../components/HighlightText';
 import { SizeableAvatar } from '../../../components/SizeableAvatar';
-import { TeamOption, TeamOptionProps } from '../../../components/TeamOption';
+import {
+  TeamOption,
+  TeamOptionProps,
+} from '../../../components/TeamOption/main';
 import { Team } from '../../../types';
 
 describe('Team Option', () => {

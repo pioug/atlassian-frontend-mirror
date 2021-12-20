@@ -2,13 +2,13 @@ import React from 'react';
 
 import Banner from '../../src';
 
-const message =
-  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum lobortis, odio egestas pulvinar sodales, neque justo tempor tellus, eget venenatis arcu ante non purus. Pellentesque tellus eros, rutrum vel enim non, tempor faucibus felis. Nullam pharetra erat sed magna porttitor, eget tincidunt odio finibus';
-
 const BannerAnnouncementExample = () => {
   return (
     <Banner appearance="announcement" isOpen>
-      {message}
+      We’re making changes to our server and Data Center products, including the
+      end of sale for new server licenses on February 2, 2021 and the end of
+      support for server on February 2, 2024.{' '}
+      <a href="/components/banner/examples">Learn what this means for you</a>
     </Banner>
   );
 };

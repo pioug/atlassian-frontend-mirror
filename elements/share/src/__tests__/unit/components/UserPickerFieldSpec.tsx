@@ -35,6 +35,10 @@ jest.mock('react-intl-next', () => {
     injectIntl: (Node: any) => (props: any) => (
       <Node {...props} intl={mockIntl} />
     ),
+    useIntl: jest.fn().mockReturnValue({
+      locale: 'en',
+      formatMessage: (descriptor: any) => descriptor.defaultMessage,
+    }),
   };
 });
 

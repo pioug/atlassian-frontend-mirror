@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 8.2.0
+
+### Minor Changes
+
+- [`35b466f6fb5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/35b466f6fb5) - Asynchronously load user options in user-picker
+
 ## 8.1.0
 
 ### Minor Changes

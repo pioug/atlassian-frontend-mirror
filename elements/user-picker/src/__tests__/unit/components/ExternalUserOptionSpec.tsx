@@ -13,7 +13,7 @@ import {
   SourceWrapper,
   SourcesTooltipContainer,
   ImageContainer,
-} from '../../../components/ExternalUserOption';
+} from '../../../components/ExternalUserOption/main';
 import { GoogleIcon } from '../../../components/assets/google';
 import Tooltip from '@atlaskit/tooltip';
 import { token } from '@atlaskit/tokens';

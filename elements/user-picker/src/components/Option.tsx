@@ -1,22 +1,28 @@
-import { components } from '@atlaskit/select';
+import { components, OptionProps as AkOptionProps } from '@atlaskit/select';
 import React, { FC } from 'react';
 import { Option as OptionType } from '../types';
-import { EmailOption } from './EmailOption';
-import { TeamOption } from './TeamOption';
 import { UserOption } from './UserOption';
-import { GroupOption } from './GroupOption';
-import { ExternalUserOption } from './ExternalUserOption';
+import AsyncExternalOption from './ExternalUserOption';
+import AsyncTeamOption from './TeamOption';
+import AsyncGroupOption from './GroupOption';
+import AsyncEmailOption from './EmailOption';
 import { isEmail, isTeam, isUser, isGroup, isExternalUser } from './utils';
 import { isValidEmail } from './emailValidation';
 
-export type OptionProps = {
+export type OptionProps = AkOptionProps & {
   data: OptionType;
   isSelected: boolean;
+  isDisabled: boolean;
+  isFocused: boolean;
   status?: string;
   selectProps: {
     emailLabel?: string;
   };
 };
+
+const defaultOption = ({ data: { data }, isSelected, status }: OptionProps) => (
+  <UserOption user={data} status={status} isSelected={isSelected} />
+);
 
 const dataOption = ({
   data: { data },
@@ -26,7 +32,11 @@ const dataOption = ({
 }: OptionProps) => {
   if (isExternalUser(data)) {
     return (
-      <ExternalUserOption user={data} status={status} isSelected={isSelected} />
+      <AsyncExternalOption
+        user={data}
+        status={status}
+        isSelected={isSelected}
+      />
     );
   }
 
@@ -36,7 +46,7 @@ const dataOption = ({
 
   if (isEmail(data)) {
     return (
-      <EmailOption
+      <AsyncEmailOption
         email={data}
         emailValidity={isValidEmail(data.id)}
         isSelected={isSelected}
@@ -46,16 +56,20 @@ const dataOption = ({
   }
 
   if (isTeam(data)) {
-    return <TeamOption team={data} isSelected={isSelected} />;
+    return <AsyncTeamOption team={data} isSelected={isSelected} />;
   }
 
   if (isGroup(data)) {
-    return <GroupOption group={data} isSelected={isSelected} />;
+    return <AsyncGroupOption group={data} isSelected={isSelected} />;
   }
 
   return null;
 };
 
 export const Option: FC<OptionProps> = (props) => (
-  <components.Option {...(props as any)}>{dataOption(props)}</components.Option>
+  <components.Option {...(props as AkOptionProps)}>
+    <React.Suspense fallback={defaultOption(props)}>
+      {dataOption(props)}
+    </React.Suspense>
+  </components.Option>
 );

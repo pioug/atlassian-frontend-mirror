@@ -53,7 +53,6 @@ export class UserPickerWithoutAnalytics extends React.Component<
           emailLabel,
         }
       : { ...defaultPickerProps };
-
     return (
       <MessagesIntlProvider>
         <BaseUserPickerWithoutAnalytics

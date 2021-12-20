@@ -1,18 +1,18 @@
 import { B400, N200, N800 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import React, { ReactNode } from 'react';
-import { ExternalUser, UserSource } from '../types';
-import { AvatarItemOption, TextWrapper } from './AvatarItemOption';
-import { SizeableAvatar } from './SizeableAvatar';
+import { ExternalUser, UserSource } from '../../types';
+import { AvatarItemOption, TextWrapper } from '../AvatarItemOption';
+import { SizeableAvatar } from '../SizeableAvatar';
 import EditorPanelIcon from '@atlaskit/icon/glyph/editor/panel';
 import Tooltip from '@atlaskit/tooltip';
 import styled from 'styled-components';
-import { SlackIcon } from './assets/slack';
-import { GoogleIcon } from './assets/google';
-import { MicrosoftIcon } from './assets/microsoft';
-import { GitHubIcon } from './assets/github';
+import { SlackIcon } from '../assets/slack';
+import { GoogleIcon } from '../assets/google';
+import { MicrosoftIcon } from '../assets/microsoft';
+import { GitHubIcon } from '../assets/github';
 import { FormattedMessage } from 'react-intl-next';
-import { messages } from './i18n';
+import { messages } from '../i18n';
 
 export const ImageContainer = styled.span`
   height: 12px;

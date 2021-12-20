@@ -15,7 +15,7 @@ import {
   GroupOption,
   GroupOptionProps,
   GroupOptionIconWrapper,
-} from '../../../components/GroupOption';
+} from '../../../components/GroupOption/main';
 import { Group } from '../../../types';
 
 describe('GroupOption', () => {

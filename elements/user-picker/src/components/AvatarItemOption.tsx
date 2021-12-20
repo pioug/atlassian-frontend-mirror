@@ -3,8 +3,17 @@ import styled from 'styled-components';
 import { B400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import Lozenge from '@atlaskit/lozenge';
-import Tooltip from '@atlaskit/tooltip';
 import { LozengeProps } from '../types';
+
+const AsyncTooltip = React.lazy(() =>
+  import(
+    /* webpackChunkName: "@atlaskit-internal_@atlaskit/tooltip" */ '@atlaskit/tooltip'
+  ).then((module) => {
+    return {
+      default: module.default,
+    };
+  }),
+);
 
 const Wrapper = styled.span`
   align-items: center;
@@ -70,14 +79,17 @@ export const AvatarItemOption = ({
         <Text>{primaryText}</Text>
         <AdditionalInfo withTooltip={Boolean(sourcesInfoTooltip)}>
           {!sourcesInfoTooltip &&
-            lozenge &&
-            lozenge.text &&
-            (lozenge.tooltip ? (
+            lozenge?.text &&
+            (lozenge?.tooltip ? (
               // Note that entire Lozenge must be wrapped in the Tooltip (rather than just the
               // Lozenge text) or tooltip won't work
-              <Tooltip content={lozenge.tooltip}>
-                <Lozenge {...lozenge}>{lozenge.text}</Lozenge>
-              </Tooltip>
+              <React.Suspense
+                fallback={<Lozenge {...lozenge}>{lozenge.text}</Lozenge>}
+              >
+                <AsyncTooltip content={lozenge.tooltip}>
+                  <Lozenge {...lozenge}>{lozenge.text}</Lozenge>
+                </AsyncTooltip>
+              </React.Suspense>
             ) : (
               <Lozenge {...lozenge}>{lozenge.text}</Lozenge>
             ))}

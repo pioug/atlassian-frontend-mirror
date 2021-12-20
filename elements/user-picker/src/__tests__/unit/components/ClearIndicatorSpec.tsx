@@ -1,16 +1,17 @@
 import { components } from '@atlaskit/select';
 import Tooltip from '@atlaskit/tooltip';
-import { shallow } from 'enzyme';
+import noop from 'lodash/noop';
+import { mount } from 'enzyme';
 import React from 'react';
 import { ClearIndicator } from '../../../components/ClearIndicator';
 
 describe('ClearIndicator', () => {
-  const shallowClearIndicator = (props: any) =>
-    shallow(<ClearIndicator {...props} />);
+  const renderClearIndicator = (props: any) =>
+    mount(<ClearIndicator {...props} getStyles={noop} cx={noop} />);
 
   it('should clear value onMouseDown', () => {
     const clearValue = jest.fn();
-    const component = shallowClearIndicator({
+    const component = renderClearIndicator({
       clearValue,
       selectProps: { isFocused: true },
     });
@@ -25,7 +26,7 @@ describe('ClearIndicator', () => {
   });
 
   it('should call stopPropagation if not focused', () => {
-    const component = shallowClearIndicator({
+    const component = renderClearIndicator({
       clearValue: jest.fn(),
       selectProps: { isFocused: false },
     });
@@ -39,7 +40,7 @@ describe('ClearIndicator', () => {
   });
 
   it('should not call stopPropagation if focused', () => {
-    const component = shallowClearIndicator({
+    const component = renderClearIndicator({
       clearValue: jest.fn(),
       selectProps: { isFocused: true },
     });
@@ -52,20 +53,37 @@ describe('ClearIndicator', () => {
     expect(stopPropagation).toHaveBeenCalledTimes(0);
   });
 
-  it('should pass in clearValueLabel to tooltip', () => {
-    const component = shallowClearIndicator({
+  it('should pass in clearValueLabel to tooltip', async () => {
+    const component = renderClearIndicator({
       selectProps: { clearValueLabel: 'test' },
     });
-    component.simulate('hover');
+
+    // fallback
+    component.find(components.ClearIndicator);
+
+    // await tooltip loading
+    await new Promise(setImmediate);
+    component.update();
+
+    component.find(components.ClearIndicator);
     const tooltip = component.find(Tooltip);
+
     expect(tooltip).toHaveLength(1);
     expect(tooltip.prop('content')).toEqual('test');
   });
 
-  it('should not render tooltip if no clearValueLabel', () => {
-    const component = shallowClearIndicator({ selectProps: {} });
-    component.simulate('hover');
+  it('should not render tooltip if no clearValueLabel', async () => {
+    const component = renderClearIndicator({ selectProps: {} });
+
+    component.find(components.ClearIndicator);
+
+    // await tooltip loading
+    await new Promise(setImmediate);
+    component.update();
+
+    component.find(components.ClearIndicator);
     const tooltip = component.find(Tooltip);
-    expect(tooltip.prop('content')).toBeUndefined();
+
+    expect(tooltip).toHaveLength(0);
   });
 });

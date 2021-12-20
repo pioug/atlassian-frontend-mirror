@@ -6,10 +6,10 @@ import { N20, B400, N800, N200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import PeopleIcon from '@atlaskit/icon/glyph/people';
 
-import { Group } from '../types';
-import { AvatarItemOption, TextWrapper } from './AvatarItemOption';
-import { messages } from './i18n';
-import { HighlightText } from './HighlightText';
+import { Group } from '../../types';
+import { AvatarItemOption, TextWrapper } from '.././AvatarItemOption';
+import { messages } from '.././i18n';
+import { HighlightText } from '.././HighlightText';
 
 export const GroupOptionIconWrapper = styled.span`
   padding: 2px;

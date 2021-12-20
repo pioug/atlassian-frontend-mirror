@@ -97,7 +97,7 @@ describe('AvatarItemOption', () => {
     it(
       'with lozenge and lozenge tooltip but without sourcesInfoTooltip ' +
         'when lozenge with its tooltip is present but sourcesInfoTooltip is not present',
-      () => {
+      async () => {
         const lozengeWithTooltip: LozengeProps = {
           text: 'Guest',
           appearance: 'new',
@@ -111,6 +111,13 @@ describe('AvatarItemOption', () => {
             avatar="Avatar"
           />,
         );
+
+        // suspense fallbacks to lozenge
+        expect(component.text()).toContain(lozengeWithTooltip.text);
+        expect(component.text()).not.toContain(lozengeWithTooltip.tooltip);
+
+        // await tooltip loading
+        await new Promise(setImmediate);
 
         expect(component.text()).not.toContain(sourcesInfoTooltip);
         expect(component.text()).toContain(lozengeWithTooltip.text);

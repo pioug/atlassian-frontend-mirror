@@ -1,18 +1,30 @@
 import { components } from '@atlaskit/select';
-import { shallow } from 'enzyme';
+import noop from 'lodash/noop';
+import { IntlProvider } from 'react-intl-next';
+
+import { mount } from 'enzyme';
 import React from 'react';
-import { EmailOption } from '../../../components/EmailOption';
-import { Option, OptionProps } from '../../../components/Option';
-import { TeamOption } from '../../../components/TeamOption';
+import { AvatarItemOption } from '../../../components/AvatarItemOption';
+import { EmailOption } from '../../../components/EmailOption/main';
+import { Option } from '../../../components/Option';
+import { TeamOption } from '../../../components/TeamOption/main';
 import { UserOption } from '../../../components/UserOption';
-import { GroupOption } from '../../../components/GroupOption';
+import { GroupOption } from '../../../components/GroupOption/main';
 import { Email, Team, User, Group, ExternalUser } from '../../../types';
-import { ExternalUserOption } from '../../../components/ExternalUserOption';
+import { ExternalUserOption } from '../../../components/ExternalUserOption/main';
 
 describe('Option', () => {
   const selectProps: any = {};
 
-  const shallowOption = (props: OptionProps) => shallow(<Option {...props} />);
+  // assigning props as any to avoid nooping all react-select Option props.
+  // Option is a react-select plugin so it passes down a heap of style-based props
+  // which we're not interested in testing here.
+  const renderOption = (props: any) =>
+    mount(
+      <IntlProvider locale="en">
+        <Option {...props} getStyles={noop} cx={noop} />
+      </IntlProvider>,
+    );
 
   describe('UserOption', () => {
     const user: User = {
@@ -23,7 +35,7 @@ describe('Option', () => {
     };
 
     it('should render Option with UserOption', () => {
-      const component = shallowOption({
+      const component = renderOption({
         data: { data: user, label: user.name, value: user.id },
         isSelected: true,
         status: 'online',
@@ -56,8 +68,8 @@ describe('Option', () => {
       sources: [],
     };
 
-    it('should render option with ExternalUserOption', () => {
-      const component = shallowOption({
+    it('should render option with ExternalUserOption', async () => {
+      const component = renderOption({
         data: {
           data: externalUser,
           label: externalUser.name,
@@ -67,6 +79,14 @@ describe('Option', () => {
         isSelected: true,
         selectProps,
       });
+
+      // fallback
+      component.find(AvatarItemOption);
+
+      // wait for lazy load to resolve
+      await new Promise(setImmediate);
+      component.update();
+
       const option = component.find(components.Option);
       expect(option).toHaveLength(1);
       expect(option.props()).toMatchObject({
@@ -74,7 +94,6 @@ describe('Option', () => {
         status: 'online',
         isSelected: true,
       });
-
       const externalUserOption = component.find(ExternalUserOption);
       expect(externalUserOption).toHaveLength(1);
       expect(externalUserOption.props()).toMatchObject({
@@ -92,14 +111,21 @@ describe('Option', () => {
       name: 'test@test.com',
     };
 
-    it('should render Option with EmailOption', () => {
-      const component = shallowOption({
+    it('should render Option with EmailOption', async () => {
+      const component = renderOption({
         data: { data: email, label: email.name, value: email.id },
         isSelected: false,
         selectProps: {
           emailLabel: 'Invite',
         },
       });
+
+      // fallback
+      component.find(AvatarItemOption);
+
+      // wait for lazy load to resolve
+      await new Promise(setImmediate);
+      component.update();
 
       const option = component.find(components.Option);
       expect(option).toHaveLength(1);
@@ -118,20 +144,27 @@ describe('Option', () => {
     });
   });
 
-  describe('TeamOption', () => {
+  describe('TeamOption', async () => {
     const team: Team = {
       id: 'team-123',
       name: 'That Awesome team',
       type: 'team',
     };
 
-    it('should render option with TeamOption', () => {
-      const component = shallowOption({
+    it('should render option with TeamOption', async () => {
+      const component = renderOption({
         data: { data: team, label: team.name, value: team.id },
         status: 'online',
         isSelected: true,
         selectProps,
       });
+
+      // fallback
+      component.find(AvatarItemOption);
+
+      // wait for lazy load to resolve
+      await new Promise(setImmediate);
+      component.update();
 
       const option = component.find(components.Option);
       expect(option).toHaveLength(1);
@@ -156,12 +189,19 @@ describe('Option', () => {
       type: 'group',
     };
 
-    it('should render option with GroupOption', () => {
-      const component = shallowOption({
+    it('should render option with GroupOption', async () => {
+      const component = renderOption({
         data: { data: group, label: group.name, value: group.id },
         isSelected: true,
         selectProps,
       });
+
+      // fallback
+      component.find(AvatarItemOption);
+
+      // wait for lazy load to resolve
+      await new Promise(setImmediate);
+      component.update();
 
       const option = component.find(components.Option);
       expect(option).toHaveLength(1);

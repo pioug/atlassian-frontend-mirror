@@ -1,6 +1,15 @@
 import React from 'react';
 import { components, IndicatorProps } from '@atlaskit/select';
-import Tooltip from '@atlaskit/tooltip';
+
+const AsyncTooltip = React.lazy(() =>
+  import(
+    /* webpackChunkName: "@atlaskit-internal_@atlaskit/tooltip" */ '@atlaskit/tooltip'
+  ).then((module) => {
+    return {
+      default: module.default,
+    };
+  }),
+);
 
 export class ClearIndicator extends React.PureComponent<IndicatorProps<any>> {
   private handleMouseDown = (event: React.MouseEvent) => {
@@ -19,16 +28,21 @@ export class ClearIndicator extends React.PureComponent<IndicatorProps<any>> {
     const {
       selectProps: { clearValueLabel },
     } = this.props;
-    return (
-      <Tooltip content={clearValueLabel}>
-        <components.ClearIndicator
-          {...this.props}
-          innerProps={{
-            ...this.props.innerProps,
-            onMouseDown: this.handleMouseDown,
-          }}
-        />
-      </Tooltip>
+    const Indicator = (
+      <components.ClearIndicator
+        {...this.props}
+        innerProps={{
+          ...this.props.innerProps,
+          onMouseDown: this.handleMouseDown,
+        }}
+      />
+    );
+    return clearValueLabel ? (
+      <React.Suspense fallback={Indicator}>
+        <AsyncTooltip content={clearValueLabel}>{Indicator}</AsyncTooltip>
+      </React.Suspense>
+    ) : (
+      Indicator
     );
   }
 }

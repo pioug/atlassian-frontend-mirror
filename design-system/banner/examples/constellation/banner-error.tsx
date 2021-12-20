@@ -11,7 +11,9 @@ const BannerErrorExample = () => {
       icon={<ErrorIcon label="" secondaryColor="inherit" />}
       isOpen
     >
-      Error message goes here
+      Bitbucket is experiencing an incident, but we’re on it. Check our status
+      page for more details.{' '}
+      <a href="/components/banner/examples">Learn more</a>
     </Banner>
   );
 };

@@ -2,11 +2,11 @@ import { B400, N800, N200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import React from 'react';
 import { FormattedMessage } from 'react-intl-next';
-import { Team } from '../types';
-import { AvatarItemOption, TextWrapper } from './AvatarItemOption';
-import { HighlightText } from './HighlightText';
-import { messages } from './i18n';
-import { SizeableAvatar } from './SizeableAvatar';
+import { Team } from '../../types';
+import { AvatarItemOption, TextWrapper } from '.././AvatarItemOption';
+import { HighlightText } from '.././HighlightText';
+import { messages } from '.././i18n';
+import { SizeableAvatar } from '.././SizeableAvatar';
 
 export type TeamOptionProps = {
   team: Team;

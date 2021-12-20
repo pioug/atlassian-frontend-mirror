@@ -17,17 +17,16 @@ import RecommendationsClient from '../../../../components/smart-user-picker/serv
 import UsersClient from '../../../../components/smart-user-picker/service/UsersClient';
 import Select from '@atlaskit/select/Select';
 
-const mockFormatMessage = (descriptor: any) => descriptor.defaultMessage;
-const mockIntl = { formatMessage: mockFormatMessage, defaultLocale: 'en' };
 jest.mock('react-intl-next', () => {
   return {
     ...(jest.requireActual('react-intl-next') as any),
     FormattedMessage: (descriptor: any) => (
       <span>{descriptor.defaultMessage}</span>
     ),
-    injectIntl: (Node: any) => (props: any) => (
-      <Node {...props} intl={mockIntl} />
-    ),
+    useIntl: jest.fn().mockReturnValue({
+      defaultLocale: 'en',
+      formatMessage: (descriptor: any) => descriptor.defaultMessage,
+    }),
   };
 });
 

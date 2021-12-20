@@ -8,7 +8,10 @@ import {
   AvatarItemOption,
   TextWrapper,
 } from '../../../components/AvatarItemOption';
-import { EmailOption, EmailOptionProps } from '../../../components/EmailOption';
+import {
+  EmailOption,
+  EmailOptionProps,
+} from '../../../components/EmailOption/main';
 import { Email, EmailType } from '../../../types';
 import { renderProp } from '../_testUtils';
 

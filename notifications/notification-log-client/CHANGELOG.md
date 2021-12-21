@@ -1,5 +1,11 @@
 # @atlaskit/notification-log-service
 
+## 6.0.0
+
+### Major Changes
+
+- [`8be1ff8ac9b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8be1ff8ac9b) - Removed V3 Notifications Api feature flag. By default, V3 Notifications Api will be used.
+
 ## 5.2.0
 
 ### Minor Changes

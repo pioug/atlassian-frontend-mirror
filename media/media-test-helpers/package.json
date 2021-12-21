@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-test-helpers",
-  "version": "29.0.0",
+  "version": "29.0.1",
   "description": "Collection of test helpers used in media component stories and specs",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -35,7 +35,7 @@
     "enzyme": "^3.10.0",
     "exenv": "^1.2.2",
     "kakapo": "^4.0.6",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "mock-socket": "^9.0.3",
     "react-intl-next": "npm:react-intl@^5.18.1",
     "react-redux": "^5.1.2",

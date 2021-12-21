@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-json-transformer",
-  "version": "8.7.0",
+  "version": "8.7.1",
   "description": "JSON transformer",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -32,7 +32,7 @@
     "@atlaskit/adf-schema": "^20.1.0",
     "@atlaskit/adf-utils": "^14.4.0",
     "@babel/runtime": "^7.0.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "prosemirror-model": "1.14.3"
   },
   "devDependencies": {

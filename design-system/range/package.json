@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/range",
-  "version": "5.1.1",
+  "version": "5.1.2",
   "description": "A range lets users choose an approximate value on a slider.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -47,7 +47,7 @@
     "@testing-library/react": "^8.0.1",
     "@types/jscodeshift": "^0.11.0",
     "jscodeshift": "^0.13.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "react-dom": "^16.8.0",
     "storybook-addon-performance": "^0.16.0",
     "typescript": "3.9.6"

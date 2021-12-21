@@ -1,5 +1,17 @@
 # @atlaskit/atlassian-navigation
 
+## 2.0.2
+
+### Patch Changes
+
+- [`9dd6250db15`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9dd6250db15) - Updates token value for selected button text. Button text should now be "blue" when selected
+
+## 2.0.1
+
+### Patch Changes
+
+- [`c55c736ecea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c55c736ecea) - Patch VULN AFP-3486 AFP-3487 AFP-3488 AFP-3489
+
 ## 2.0.0
 
 ### Major Changes

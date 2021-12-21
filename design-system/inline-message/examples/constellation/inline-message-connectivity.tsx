@@ -10,7 +10,7 @@ const InlineMessageConnectivityExample = () => {
     >
       <p>
         {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-        <a href="#">Log in</a> to see more information
+        <a href="#">Log in</a> to access your account information
       </p>
     </InlineMessage>
   );

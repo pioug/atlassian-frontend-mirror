@@ -4,11 +4,7 @@ import {
   utils,
 } from '@atlaskit/util-service-support';
 import { version as npmPackageVersion } from './version.json';
-import {
-  NotificationLogProvider,
-  NotificationCountResponse,
-  CountUnseenRequestServiceOptions,
-} from './types';
+import { NotificationLogProvider, NotificationCountResponse } from './types';
 
 export const DEFAULT_SOURCE = 'atlaskitNotificationLogClient';
 
@@ -28,12 +24,10 @@ export default class NotificationLogClient implements NotificationLogProvider {
   }
 
   public async countUnseenNotifications(
-    options: CountUnseenRequestServiceOptions = {},
+    options: RequestServiceOptions = {},
   ): Promise<NotificationCountResponse> {
     const mergedOptions: RequestServiceOptions = {
-      path: options.useV3NotificationsApi
-        ? '/api/3/notifications/count/unseen'
-        : '/api/2/notifications/count/unseen',
+      path: '/api/3/notifications/count/unseen',
       ...options,
       queryParams: {
         ...(this.cloudId && { cloudId: this.cloudId }),

@@ -1,5 +1,11 @@
 # @atlaskit/css-reset
 
+## 6.3.4
+
+### Patch Changes
+
+- [`02a2f889019`](https://bitbucket.org/atlassian/atlassian-frontend/commits/02a2f889019) - Removes css that sets the SVG text element's color styles
+
 ## 6.3.3
 
 ### Patch Changes

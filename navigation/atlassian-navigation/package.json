@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/atlassian-navigation",
-  "version": "2.0.0",
+  "version": "2.0.2",
   "description": "A horizontal navigation component for Atlassian products.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -35,7 +35,7 @@
     "@babel/runtime": "^7.0.0",
     "@emotion/core": "^10.0.9",
     "chromatism": "^2.6.0",
-    "lodash": "^4.17.15"
+    "lodash": "^4.17.21"
   },
   "peerDependencies": {
     "react": "^16.8.0"

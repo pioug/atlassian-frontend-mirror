@@ -131,7 +131,7 @@ const defaultTheme: { mode: Mode } = {
         boxShadow: '',
       },
       selected: {
-        color: token('color.text.mediumEmphasis', B400),
+        color: token('color.text.selected', B400),
         backgroundColor: token('color.background.selected.resting', ''),
         boxShadow: '',
         borderColor: token('color.iconBorder.brand', B400),

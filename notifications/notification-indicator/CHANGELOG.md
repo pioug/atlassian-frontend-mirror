@@ -1,5 +1,15 @@
 # @atlaskit/notification-indicator
 
+## 9.0.0
+
+### Major Changes
+
+- [`8be1ff8ac9b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8be1ff8ac9b) - Removed V3 Notifications Api feature flag. By default, V3 Notifications Api will be used.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.1.0
 
 ### Minor Changes

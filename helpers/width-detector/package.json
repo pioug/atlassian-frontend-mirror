@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/width-detector",
-  "version": "3.0.6",
+  "version": "3.0.7",
   "description": "Wrapper for components that need to respond to width changes",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -41,7 +41,7 @@
     "@emotion/core": "^10.0.9",
     "@emotion/styled": "^10.0.7",
     "enzyme": "^3.10.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "react-dom": "^16.8.0",
     "typescript": "3.9.6",
     "wait-for-expect": "^1.2.0"

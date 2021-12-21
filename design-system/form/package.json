@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/form",
-  "version": "8.4.5",
+  "version": "8.4.6",
   "description": "A form allows users to input information.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -43,7 +43,7 @@
     "@emotion/core": "^10.0.9",
     "final-form": "^4.20.1",
     "final-form-focus": "^1.1.2",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "react-uid": "^2.2.0",
     "tiny-invariant": "^0.0.3"
   },

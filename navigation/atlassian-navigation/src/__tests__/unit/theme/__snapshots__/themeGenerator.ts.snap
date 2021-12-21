@@ -94,7 +94,7 @@ Object {
     "borderColor": "var(--ds-iconBorder-brand, #0052CC)",
     "bordorBottom": "4px solid var(--ds-iconBorder-brand, #0052CC)",
     "boxShadow": "",
-    "color": "var(--ds-text-mediumEmphasis, #0052CC)",
+    "color": "var(--ds-text-selected, #0052CC)",
   },
 }
 `;

@@ -1,0 +1,45 @@
+{
+  "name": "@atlaskit/storybook-addon-design-system",
+  "version": "0.1.0",
+  "author": "Atlassian Pty Ltd",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "atlassian": {
+    "team": "Design System Team",
+    "releaseModel": "scheduled"
+  },
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "module:es2019": "dist/es2019/index.js",
+  "types": "dist/types/index.d.ts",
+  "sideEffects": false,
+  "atlaskit:src": "src/index.tsx",
+  "af:exports": {
+    ".": "./src/index.tsx"
+  },
+  "dependencies": {
+    "@atlaskit/tokens": "^0.4.0",
+    "@babel/runtime": "^7.0.0",
+    "@storybook/addons": "^6.1.11",
+    "@storybook/components": "^6.0.0"
+  },
+  "devDependencies": {
+    "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0"
+  },
+  "techstack": {
+    "@atlassian/frontend": {
+      "import-structure": "atlassian-conventions"
+    },
+    "@repo/internal": {
+      "design-system": "v1",
+      "deprecation": "no-deprecated-imports",
+      "styling": "emotion"
+    }
+  },
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
+}

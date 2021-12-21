@@ -36,39 +36,27 @@ describe('NotificationLogClient', () => {
     mockTenantExperience();
 
     const provider = new NotificationLogClient(notificationLogUrl, '123');
-    return provider
-      .countUnseenNotifications({
-        useV3NotificationsApi: true,
-      })
-      .then(({ count }) => {
-        expect(count).toEqual(5);
-      });
+    return provider.countUnseenNotifications().then(({ count }) => {
+      expect(count).toEqual(5);
+    });
   });
 
   it('should accept a null cloud id', () => {
     mockUserCentricExperience();
 
     const provider = new NotificationLogClient(notificationLogUrl);
-    return provider
-      .countUnseenNotifications({
-        useV3NotificationsApi: true,
-      })
-      .then(({ count }) => {
-        expect(count).toEqual(10);
-      });
+    return provider.countUnseenNotifications().then(({ count }) => {
+      expect(count).toEqual(10);
+    });
   });
 
   it('should add the app version header', () => {
     mockTenantExperience();
     const provider = new NotificationLogClient(notificationLogUrl, '123');
-    return provider
-      .countUnseenNotifications({
-        useV3NotificationsApi: true,
-      })
-      .then(() => {
-        expect(fetchMock.lastOptions().headers['x-app-version']).toEqual(
-          `${npmPackageVersion}-${DEFAULT_SOURCE}`,
-        );
-      });
+    return provider.countUnseenNotifications().then(() => {
+      expect(fetchMock.lastOptions().headers['x-app-version']).toEqual(
+        `${npmPackageVersion}-${DEFAULT_SOURCE}`,
+      );
+    });
   });
 });

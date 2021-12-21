@@ -1,5 +1,11 @@
 # @atlaskit/media-common
 
+## 2.10.1
+
+### Patch Changes
+
+- [`c55c736ecea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c55c736ecea) - Patch VULN AFP-3486 AFP-3487 AFP-3488 AFP-3489
+
 ## 2.10.0
 
 ### Minor Changes

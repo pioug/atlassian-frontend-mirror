@@ -1,6 +1,7 @@
 import { shallow, ShallowWrapper } from 'enzyme';
 import React from 'react';
-import { User } from '../../types';
+import { ExusUserSourceProvider } from '../../clients/UserSourceProvider';
+import { LoadUserSource, User } from '../../types';
 
 export const renderProp = (
   wrapper: ShallowWrapper<any>,
@@ -25,3 +26,11 @@ export const testUser: User = {
 export const flushPromises = () => {
   return new Promise((resolve) => setImmediate(resolve));
 };
+
+export const createMockedSourceProvider = (
+  mockFetch: LoadUserSource,
+): React.ComponentType => ({ children }) => (
+  <ExusUserSourceProvider fetchUserSource={mockFetch}>
+    {children}
+  </ExusUserSourceProvider>
+);

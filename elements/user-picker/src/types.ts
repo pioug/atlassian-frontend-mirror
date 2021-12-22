@@ -41,6 +41,13 @@ export type UserPickerProps = WithAnalyticsEventsProps & {
    * sessionId?: user picker session identifier, used to track success metric for users providers
    */
   loadOptions?: LoadOptions;
+  /**
+   * Function used to load user source if they are an external user.
+   * accepts two params:
+   * accountId: account ID of the user to lookup sources
+   * signal: AbortController signal to abort the request if the tooltip is closed
+   */
+  loadUserSource?: LoadUserSource;
   /** Callback for value change events fired whenever a selection is inserted or removed. */
   onChange?: OnChange;
   /** To enable multi user picker. */
@@ -299,6 +306,14 @@ export type Option<Data = OptionData> = {
   value: string;
   data: Data;
 };
+
+export interface UserSourceResult {
+  sourceId: string;
+  sourceType: UserSource;
+}
+export interface LoadUserSource {
+  (accountId: string, signal?: AbortSignal): Promise<UserSourceResult[]>;
+}
 
 export interface LoadOptions {
   (searchText?: string, sessionId?: string):

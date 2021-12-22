@@ -75,6 +75,11 @@ export const messages = defineMessages({
     defaultMessage: 'Found in:',
     description: 'From where the external user is coming',
   },
+  externalUserSourcesError: {
+    id: 'fabric.elements.user-picker.external.sourced.error',
+    defaultMessage: "We can't connect you right now.",
+    description: "Error message when we can't fetch a user's import sources",
+  },
   slackProvider: {
     id: 'fabric.elements.user-picker.slack.provider',
     defaultMessage: 'Slack',

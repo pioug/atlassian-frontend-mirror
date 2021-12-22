@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 8.3.0
+
+### Minor Changes
+
+- [`88551bad1ec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/88551bad1ec) - [ux] Add support for asychronously fetching the sources for an external user when a user hovers over the sources tooltip
+
 ## 8.2.1
 
 ### Patch Changes

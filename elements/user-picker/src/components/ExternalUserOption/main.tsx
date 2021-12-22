@@ -6,6 +6,7 @@ import { AvatarItemOption, TextWrapper } from '../AvatarItemOption';
 import { SizeableAvatar } from '../SizeableAvatar';
 import EditorPanelIcon from '@atlaskit/icon/glyph/editor/panel';
 import Tooltip from '@atlaskit/tooltip';
+import Spinner from '@atlaskit/spinner';
 import styled from 'styled-components';
 import { SlackIcon } from '../assets/slack';
 import { GoogleIcon } from '../assets/google';
@@ -13,6 +14,7 @@ import { MicrosoftIcon } from '../assets/microsoft';
 import { GitHubIcon } from '../assets/github';
 import { FormattedMessage } from 'react-intl-next';
 import { messages } from '../i18n';
+import { ExternalUserSourcesContainer } from '../ExternalUserSourcesContainer';
 
 export const ImageContainer = styled.span`
   height: 12px;
@@ -140,12 +142,13 @@ export class ExternalUserOption extends React.PureComponent<
   };
 
   private getSourcesInfoTooltip = () =>
-    this.props.user.sources?.length > 0 ? (
+    this.props.user.isExternal ? (
       <Tooltip
         content={this.formattedTooltipContent()}
         position={'right-start'}
       >
         <EditorPanelIcon
+          testId="source-icon"
           label=""
           size="large"
           primaryColor={token('color.text.lowEmphasis', N200)}
@@ -154,24 +157,46 @@ export class ExternalUserOption extends React.PureComponent<
     ) : undefined;
 
   private formattedTooltipContent() {
+    const {
+      user: { id, sources },
+    } = this.props;
     return (
-      <React.Fragment>
-        <span>
-          <FormattedMessage {...messages.externalUserSourcesHeading} />
-        </span>
-        <SourcesTooltipContainer>
-          {(this.props.user.sources
-            .map((s) => SourcesInfoMap.get(s))
-            .filter((s) => s) as SourceInfo[]).map(({ key, icon, label }) => (
-            <SourceWrapper key={key}>
-              <ImageContainer>{icon}</ImageContainer>
+      <ExternalUserSourcesContainer accountId={id} initialSources={sources}>
+        {({ sources, sourcesLoading, sourcesError }) => (
+          <React.Fragment>
+            {/* If fetching fails but we have static sources, just show them instead of the error message */}
+            {sourcesError !== null && sources.length === 0 ? (
               <span>
-                <FormattedMessage {...label} />
+                <FormattedMessage {...messages.externalUserSourcesError} />
               </span>
-            </SourceWrapper>
-          ))}
-        </SourcesTooltipContainer>
-      </React.Fragment>
+            ) : (
+              <React.Fragment>
+                <span>
+                  <FormattedMessage {...messages.externalUserSourcesHeading} />
+                </span>
+                <SourcesTooltipContainer>
+                  {sourcesLoading && (
+                    <Spinner size="small" appearance="invert" />
+                  )}
+                  {!sourcesLoading &&
+                    (sources
+                      .map((s) => SourcesInfoMap.get(s))
+                      .filter((s) => s) as SourceInfo[]).map(
+                      ({ key, icon, label }) => (
+                        <SourceWrapper key={key}>
+                          <ImageContainer>{icon}</ImageContainer>
+                          <span>
+                            <FormattedMessage {...label} />
+                          </span>
+                        </SourceWrapper>
+                      ),
+                    )}
+                </SourcesTooltipContainer>
+              </React.Fragment>
+            )}
+          </React.Fragment>
+        )}
+      </ExternalUserSourcesContainer>
     );
   }
 }

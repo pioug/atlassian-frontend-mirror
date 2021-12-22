@@ -47,6 +47,8 @@ describe('UserPicker', () => {
   const shallowUserPicker = (props: Partial<UserPickerProps> = {}) =>
     shallow(<UserPickerWithoutAnalytics fieldId="test" {...props} />)
       .dive()
+      .dive()
+      .dive()
       .dive();
 
   const options: User[] = [

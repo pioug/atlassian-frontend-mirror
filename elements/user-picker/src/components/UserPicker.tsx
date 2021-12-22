@@ -8,6 +8,7 @@ import { getComponents } from './components';
 import { getCreatableProps } from './creatable';
 import { getCreatableSuggestedEmailProps } from './creatableEmailSuggestion';
 import MessagesIntlProvider from './MessagesIntlProvider';
+import { ExusUserSourceProvider } from './../clients/UserSourceProvider';
 
 export class UserPickerWithoutAnalytics extends React.Component<
   UserPickerProps
@@ -30,6 +31,7 @@ export class UserPickerWithoutAnalytics extends React.Component<
       menuShouldBlockScroll,
       captureMenuScroll,
       closeMenuOnScroll,
+      loadUserSource,
     } = this.props;
     const width = this.props.width as string | number;
 
@@ -55,14 +57,16 @@ export class UserPickerWithoutAnalytics extends React.Component<
       : { ...defaultPickerProps };
     return (
       <MessagesIntlProvider>
-        <BaseUserPickerWithoutAnalytics
-          {...this.props}
-          width={width}
-          SelectComponent={SelectComponent}
-          styles={getStyles(width, isMulti, this.props.styles)}
-          components={getComponents(isMulti, anchor)}
-          pickerProps={pickerProps}
-        />
+        <ExusUserSourceProvider fetchUserSource={loadUserSource}>
+          <BaseUserPickerWithoutAnalytics
+            {...this.props}
+            width={width}
+            SelectComponent={SelectComponent}
+            styles={getStyles(width, isMulti, this.props.styles)}
+            components={getComponents(isMulti, anchor)}
+            pickerProps={pickerProps}
+          />
+        </ExusUserSourceProvider>
       </MessagesIntlProvider>
     );
   }

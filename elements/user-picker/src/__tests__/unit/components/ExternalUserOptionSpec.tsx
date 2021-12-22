@@ -1,28 +1,12 @@
-import * as colors from '@atlaskit/theme/colors';
-import { shallow } from 'enzyme';
+import '@testing-library/jest-dom/extend-expect';
 import React from 'react';
-import {
-  AvatarItemOption,
-  TextWrapper,
-} from '../../../components/AvatarItemOption';
-import { SizeableAvatar } from '../../../components/SizeableAvatar';
-import {
-  ExternalUserOption,
-  ExternalUserOptionProps,
-  EmailDomainWrapper,
-  SourceWrapper,
-  SourcesTooltipContainer,
-  ImageContainer,
-} from '../../../components/ExternalUserOption/main';
-import { GoogleIcon } from '../../../components/assets/google';
-import Tooltip from '@atlaskit/tooltip';
-import { token } from '@atlaskit/tokens';
-import EditorPanelIcon from '@atlaskit/icon/glyph/editor/panel';
-import { messages } from '../../../components/i18n';
-import { FormattedMessage } from 'react-intl-next';
-import { UserSource } from '../../../../src/types';
+import { render, fireEvent } from '@testing-library/react';
+import { ExternalUserOption } from '../../../components/ExternalUserOption/main';
+import { UserSource, UserSourceResult } from '../../../../src/types';
+import { ExusUserSourceProvider } from '../../../../src/clients/UserSourceProvider';
+import { IntlProvider } from 'react-intl-next';
 
-describe('ExternalUser Option', () => {
+describe('ExternalUserOption', () => {
   const source = 'google';
   const user = {
     id: 'abc-123',
@@ -30,101 +14,155 @@ describe('ExternalUser Option', () => {
     email: 'jbeleren@email.com',
     avatarUrl: 'http://avatars.atlassian.com/jace.png',
     lozenge: 'WORKSPACE',
+    isExternal: true,
     sources: [source] as UserSource[],
   };
-  const shallowOption = (props: Partial<ExternalUserOptionProps> = {}) =>
-    shallow<ExternalUserOption>(
-      <ExternalUserOption
-        user={user}
-        status="approved"
-        isSelected={false}
-        {...props}
-      />,
+
+  // Check for text within some HTML that ignores it being split across nodes
+  // eg. <div>jbeleren<span>@email.com</span></div>
+  const hasTextIgnoringHtml = (matchingText: string) => (
+    content: string,
+    node: Element,
+  ) => {
+    const hasText = (node: Element) => node.textContent === matchingText;
+    const nodeHasText = hasText(node);
+    const childrenDontHaveText = Array.from(node.children).every(
+      (child) => !hasText(child),
     );
 
-  const expectedPrimaryText = (
-    <TextWrapper
-      key="name"
-      color={token('color.text.highEmphasis', colors.N800)}
-    >
-      {user.name}
-    </TextWrapper>
-  );
-  const expectedSecondaryText = (
-    <TextWrapper color={token('color.text.lowEmphasis', colors.N200)}>
-      {user.email.split('@')[0]}
-      <EmailDomainWrapper>{'@' + user.email.split('@')[1]}</EmailDomainWrapper>
-    </TextWrapper>
-  );
-  const expectedSizeableAvatar = (
-    <SizeableAvatar
-      appearance="big"
-      src="http://avatars.atlassian.com/jace.png"
-      presence="approved"
-      name="Jace Beleren"
-    />
-  );
+    return nodeHasText && childrenDontHaveText;
+  };
 
-  const expectedSourcesInfoTooltip = (
-    <Tooltip
-      position={'right-start'}
-      content={
-        <React.Fragment>
-          <span>
-            <FormattedMessage {...messages.externalUserSourcesHeading} />
-          </span>
-          <SourcesTooltipContainer>
-            {[
-              <SourceWrapper key={source}>
-                <ImageContainer>
-                  <GoogleIcon />
-                </ImageContainer>
-                <span>
-                  <FormattedMessage {...messages.googleProvider} />
-                </span>
-              </SourceWrapper>,
-            ]}
-          </SourcesTooltipContainer>
-        </React.Fragment>
-      }
-    >
-      <EditorPanelIcon
-        label=""
-        size="large"
-        primaryColor={token('color.text.lowEmphasis', colors.N200)}
-      />
-    </Tooltip>
-  );
+  it('should name, email and avatar', () => {
+    const { getByText, getByRole } = render(
+      <IntlProvider messages={{}} locale="en">
+        <ExternalUserOption user={user} status="approved" isSelected={false} />
+      </IntlProvider>,
+    );
+    expect(getByText(hasTextIgnoringHtml(user.email))).toBeTruthy();
+    expect(getByText(user.name)).toBeTruthy();
+    expect(getByRole('img')).toHaveAttribute('aria-label', user.name);
+  });
 
-  it(
-    'should render ExternalUserOption component with ' +
-      'secondary text and tooltip elements when sources collection is not empty',
-    () => {
-      const component = shallowOption();
-      const avatarItemOption = component.find(AvatarItemOption);
-      expect(avatarItemOption.props()).toMatchObject({
-        avatar: expectedSizeableAvatar,
-        primaryText: expectedPrimaryText,
-        secondaryText: expectedSecondaryText,
-      });
-      expect(avatarItemOption.props().sourcesInfoTooltip).toStrictEqual(
-        expectedSourcesInfoTooltip,
-      );
-    },
-  );
+  it('should render a tooltip containing the user sources', async () => {
+    expect.assertions(4);
+    const { getByTestId, getByRole, findByRole } = render(
+      <IntlProvider messages={{}} locale="en">
+        <ExternalUserOption user={user} status="approved" isSelected={false} />
+      </IntlProvider>,
+    );
+    // Sources info icon is visible
+    expect(getByTestId('source-icon')).toBeTruthy();
+    // Hover over tooltip
+    fireEvent.mouseOver(getByTestId('source-icon'));
+    await findByRole('tooltip');
+    const tooltip = getByRole('tooltip');
+    // Tooltip has single source displayed
+    expect(tooltip).toHaveTextContent('Found in:');
+    expect(tooltip).toHaveTextContent('Google');
+    expect(tooltip).not.toHaveTextContent('GitHub');
+  });
 
-  it('should not render tooltip elements when sources collection is empty', () => {
+  it('should render tooltip elements and merge async sources into the tooltip contents', async () => {
+    expect.assertions(3);
+    const mockFetch = jest.fn(
+      () =>
+        new Promise<UserSourceResult[]>((resolve) => {
+          resolve([
+            {
+              sourceId: '1234',
+              sourceType: 'github',
+            },
+          ]);
+        }),
+    );
+    const { getByTestId, getByRole, findByRole } = render(
+      <IntlProvider messages={{}} locale="en">
+        <ExusUserSourceProvider fetchUserSource={mockFetch}>
+          <ExternalUserOption
+            user={user}
+            status="approved"
+            isSelected={false}
+          />
+        </ExusUserSourceProvider>
+      </IntlProvider>,
+    );
+    // Hover over tooltip
+    fireEvent.mouseOver(getByTestId('source-icon'));
+    await findByRole('tooltip');
+    const tooltip = getByRole('tooltip');
+    // Tooltip has expected sources displayed
+    expect(tooltip).toHaveTextContent('Found in:');
+    expect(tooltip).toHaveTextContent('Google');
+    expect(tooltip).toHaveTextContent('GitHub');
+  });
+
+  it('should not render tooltip elements when sources collection is empty and user is not external', () => {
+    const userWithEmptySources = {
+      ...user,
+      isExternal: false,
+      sources: [],
+    };
+    const { queryByTestId } = render(
+      <IntlProvider messages={{}} locale="en">
+        <ExternalUserOption
+          user={userWithEmptySources}
+          status="approved"
+          isSelected={false}
+        />
+      </IntlProvider>,
+    );
+    // Sources info icon is not visible
+    expect(queryByTestId('source-icon')).not.toBeTruthy();
+  });
+
+  it('should render tooltip elements when sources collection is empty and user is external', () => {
     const userWithEmptySources = {
       ...user,
       sources: [],
     };
-    const component = shallowOption({ user: userWithEmptySources });
-    const avatarItemOption = component.find(AvatarItemOption);
-    expect(avatarItemOption.props()).toMatchObject({
-      avatar: expectedSizeableAvatar,
-      primaryText: expectedPrimaryText,
-      secondaryText: expectedSecondaryText,
-      sourcesInfoTooltip: undefined,
-    });
+    const { queryByTestId } = render(
+      <IntlProvider messages={{}} locale="en">
+        <ExternalUserOption
+          user={userWithEmptySources}
+          status="approved"
+          isSelected={false}
+        />
+      </IntlProvider>,
+    );
+    // Sources info icon is visible
+    expect(queryByTestId('source-icon')).toBeTruthy();
+  });
+
+  it('should not render an error in the tooltip if the fetch call fails', async () => {
+    const fetchSpy = jest
+      .fn()
+      .mockImplementation(() => Promise.reject(new Error('Failed to fetch')));
+    // Empty sources so that we show the error
+    const userWithEmptySources = {
+      ...user,
+      sources: [],
+    };
+
+    expect.assertions(2);
+    const { getByTestId, getByRole, findByRole } = render(
+      <ExusUserSourceProvider fetchUserSource={fetchSpy}>
+        <IntlProvider messages={{}} locale="en">
+          <ExternalUserOption
+            user={userWithEmptySources}
+            status="approved"
+            isSelected={false}
+          />
+        </IntlProvider>
+      </ExusUserSourceProvider>,
+    );
+    // Sources info icon is visible
+    expect(getByTestId('source-icon')).toBeTruthy();
+    // Hover over tooltip
+    fireEvent.mouseOver(getByTestId('source-icon'));
+    await findByRole('tooltip');
+    const tooltip = getByRole('tooltip');
+    // Tooltip has error
+    expect(tooltip).toHaveTextContent("We can't connect you right now.");
   });
 });

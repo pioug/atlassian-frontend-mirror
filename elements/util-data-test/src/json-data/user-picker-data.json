@@ -338,5 +338,14 @@
     "type": "user",
     "isExternal": true,
     "sources": ["github"]
+  },
+  {
+    "id": "external-5",
+    "name": "Dorian",
+    "email": "Dorian@email.com",
+    "avatarUrl": "https://ptc-directory-sited-static.us-east-1.staging.public.atl-paas.net/teams/avatars/4.svg",
+    "type": "user",
+    "isExternal": true,
+    "sources": []
   }
 ]

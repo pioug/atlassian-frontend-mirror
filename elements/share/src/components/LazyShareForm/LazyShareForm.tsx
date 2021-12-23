@@ -91,6 +91,7 @@ function LazyShareForm(props: LazyShareFormProps) {
     onDismiss,
     onSubmit,
     onDialogClose,
+    onTabChange,
     // ref
     selectPortalRef,
     // props from states of parent:
@@ -154,6 +155,7 @@ function LazyShareForm(props: LazyShareFormProps) {
             onLinkCopy={onLinkCopy}
             onUserSelectionChange={onUserSelectionChange}
             handleCloseDialog={onDialogClose}
+            onTabChange={onTabChange}
           />
         )}
       </ShareFormWrapper>

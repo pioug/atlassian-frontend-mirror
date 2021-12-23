@@ -1,5 +1,11 @@
 # @atlaskit/share
 
+## 3.0.3
+
+### Patch Changes
+
+- [`c05de712c4d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c05de712c4d) - Fixing bug where the prop onTabChange was not being passed to the ShareForm
+
 ## 3.0.2
 
 ### Patch Changes

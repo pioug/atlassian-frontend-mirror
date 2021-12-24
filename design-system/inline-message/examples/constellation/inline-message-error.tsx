@@ -7,6 +7,7 @@ const InlineMessageErrorExample = () => {
     <InlineMessage
       type="error"
       iconLabel="Error! This name is already in use. Try another."
+      secondaryText="Username taken"
     >
       <p>This name is already in use. Try another.</p>
     </InlineMessage>

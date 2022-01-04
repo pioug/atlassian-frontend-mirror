@@ -13,6 +13,7 @@ import { token } from '@atlaskit/tokens';
 
 import { ProfileCard } from '../../src';
 import { profiles } from '../../src/mocks';
+import { reportingLinesData } from '../../src/mocks/reporting-lines-data';
 import {
   LozengeProps,
   StatusModifiedDateType,
@@ -81,6 +82,10 @@ type State = {
   hasCompanyName: boolean;
   hasLongName: boolean;
   hasLongRole: boolean;
+  hasManagers: boolean;
+  hasDirectReports: boolean;
+  hasReportingLineClickHandler: boolean;
+  hasReportingLineProfileUrl: boolean;
   hasAltActions: boolean;
   hasNoActions: boolean;
   hasLoadingState: boolean;
@@ -118,6 +123,10 @@ export default class ProfilecardInteractive extends Component<Props, State> {
     hasTime: true,
     hasLongName: false,
     hasLongRole: false,
+    hasManagers: true,
+    hasDirectReports: true,
+    hasReportingLineClickHandler: true,
+    hasReportingLineProfileUrl: true,
     hasAltActions: false,
     hasNoActions: false,
     hasLoadingState: false,
@@ -302,6 +311,24 @@ export default class ProfilecardInteractive extends Component<Props, State> {
               timestring={
                 this.state.hasTime ? getTimeString(this.state.hasWeekday) : ''
               }
+              reportingLines={{
+                managers: this.state.hasManagers
+                  ? reportingLinesData.managers
+                  : undefined,
+                reports: this.state.hasDirectReports
+                  ? reportingLinesData.reports
+                  : undefined,
+              }}
+              reportingLinesProfileUrl={
+                this.state.hasReportingLineProfileUrl ? '/' : undefined
+              }
+              onReportingLinesClick={
+                this.state.hasReportingLineClickHandler
+                  ? (user) => {
+                      console.log('Clicked on ' + user.accountIdentifier);
+                    }
+                  : undefined
+              }
               clientFetchProfile={handleActionClick('Retry')}
               disabledAccountMessage={
                 this.state.hasDisabledAccountMessage ? (
@@ -338,6 +365,18 @@ export default class ProfilecardInteractive extends Component<Props, State> {
               <li>{this.createCheckboxBooleanAttribute('hasLongName')}</li>
               <li>{this.createCheckboxBooleanAttribute('hasLongRole')}</li>
               <li>{this.createCheckboxBooleanAttribute('hasWeekday')}</li>
+              <li>{this.createCheckboxBooleanAttribute('hasManagers')}</li>
+              <li>{this.createCheckboxBooleanAttribute('hasDirectReports')}</li>
+              <li>
+                {this.createCheckboxBooleanAttribute(
+                  'hasReportingLineProfileUrl',
+                )}
+              </li>
+              <li>
+                {this.createCheckboxBooleanAttribute(
+                  'hasReportingLineClickHandler',
+                )}
+              </li>
             </ul>
 
             <ul>

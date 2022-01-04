@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 import { ProfileCard } from '../src';
 import { profiles } from '../src/mocks';
+import { reportingLinesData } from '../src/mocks/reporting-lines-data';
 
 import LocaleIntlProvider from './helper/locale-intl-provider';
 
@@ -32,6 +33,11 @@ export default function Example() {
               callback: () => {},
             },
           ]}
+          reportingLines={reportingLinesData}
+          reportingLinesProfileUrl="/"
+          onReportingLinesClick={(user) => {
+            console.log('Clicked on ' + user.pii?.name);
+          }}
         />
       </MainStage>
     </LocaleIntlProvider>

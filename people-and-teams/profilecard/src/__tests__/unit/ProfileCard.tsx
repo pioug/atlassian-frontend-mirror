@@ -11,7 +11,11 @@ import {
   FullNameLabel,
   SpinnerContainer,
 } from '../../styled/Card';
-import { LozengeProps, ProfilecardProps } from '../../types';
+import {
+  LozengeProps,
+  ProfilecardProps,
+  ReportingLinesUser,
+} from '../../types';
 
 import mockGlobalDate from './helper/_mock-global-date';
 
@@ -380,6 +384,36 @@ describe('Profilecard', () => {
         const card = renderShallow({ customLozenges });
 
         expect(card).toMatchSnapshot();
+      });
+    });
+
+    describe('reportingLines property', () => {
+      const exampleReportingLinesUser: ReportingLinesUser = {
+        accountIdentifier: 'abcd',
+        identifierType: 'ATLASSIAN_ID',
+        pii: {
+          name: 'name',
+          picture: 'picture',
+        },
+      };
+
+      it('should match snapshot when no reporting lines are specified', () => {
+        expect(renderShallow({ reportingLines: undefined })).toMatchSnapshot();
+        expect(renderShallow({ reportingLines: {} })).toMatchSnapshot();
+        expect(
+          renderShallow({ reportingLines: { managers: [], reports: [] } }),
+        ).toMatchSnapshot();
+      });
+
+      it('should match snapshot when reporting lines are specified', () => {
+        expect(
+          renderShallow({
+            reportingLines: {
+              managers: [exampleReportingLinesUser],
+              reports: [exampleReportingLinesUser, exampleReportingLinesUser],
+            },
+          }),
+        ).toMatchSnapshot();
       });
     });
   });

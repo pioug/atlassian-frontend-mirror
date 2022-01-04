@@ -1,5 +1,11 @@
 # @atlaskit/profilecard
 
+## 16.1.0
+
+### Minor Changes
+
+- [`a5c73ccaa58`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a5c73ccaa58) - Added manager and direct reports section to profile hover card"
+
 ## 16.0.2
 
 ### Patch Changes

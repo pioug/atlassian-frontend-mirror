@@ -65,4 +65,20 @@ export const simpleMockProfilecardClient = (modifyResponse: any) => ({
   getTeamProfile: (orgId: string, teamId: string, analytics: any) => {
     return Promise.reject({ reason: 'not built yet' });
   },
+
+  getReportingLines: (userId: string) => {
+    const reportingLinesUsers = profilecardData.map((user, index) => ({
+      accountIdentifier: '123456:12345-67890-' + index,
+      identifierType: 'ATLASSIAN_ID',
+      pii: {
+        name: user.User.fullName,
+        picture: user.User.avatarUrl,
+      },
+    }));
+    const halfCount = Math.ceil(reportingLinesUsers.length / 2);
+    return Promise.resolve({
+      managers: reportingLinesUsers.slice(0, halfCount),
+      reports: reportingLinesUsers.slice(-halfCount),
+    });
+  },
 });

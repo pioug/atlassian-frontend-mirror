@@ -1,7 +1,9 @@
+import TeamCentralCardClient from '../client/TeamCentralCardClient';
 import UserProfileCardClient from '../client/UserProfileCardClient';
 import { ClientOverrides, ProfileClientOptions } from '../types';
 
 import profiles from './profile-data';
+import { reportingLinesData } from './reporting-lines-data';
 import { getTimeString, getWeekday, random } from './util';
 
 export default function getMockProfileClient(
@@ -40,10 +42,31 @@ export default function getMockProfileClient(
     }
   }
 
+  class MockTeamCentralClient extends TeamCentralCardClient {
+    makeRequest(userId: string) {
+      const timeout = random(1500) + 500;
+      const matchError = userId.match(/^error:([0-9a-zA-Z\-]+)$/);
+      const error = matchError && matchError[1];
+
+      return new Promise<any>((resolve, reject) => {
+        setTimeout(() => {
+          if (error) {
+            return reject({ reason: error });
+          }
+          return resolve(reportingLinesData);
+        }, timeout);
+      });
+    }
+  }
+
   return class MockProfileClient extends BaseProfileClient {
     constructor(options: ProfileClientOptions, clients: ClientOverrides = {}) {
       super(options, {
         userClient: new MockUserClient(options),
+        teamCentralClient: new MockTeamCentralClient({
+          ...options,
+          teamCentralUrl: 'defaultTeamCentralUrl',
+        }),
         ...clients,
       });
     }

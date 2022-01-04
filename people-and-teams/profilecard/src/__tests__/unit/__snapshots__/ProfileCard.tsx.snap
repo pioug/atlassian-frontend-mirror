@@ -56,6 +56,10 @@ exports[`Profilecard ProfileCard customLozenges property should match snapshot w
         <IconLabel
           icon="location"
         />
+        <ReportingLinesDetails
+          analytics={[Function]}
+          getDuration={[Function]}
+        />
       </styled.div>
     </styled.div>
   </styled.div>
@@ -93,6 +97,10 @@ exports[`Profilecard ProfileCard customLozenges property should match snapshot w
         </IconLabel>
         <IconLabel
           icon="location"
+        />
+        <ReportingLinesDetails
+          analytics={[Function]}
+          getDuration={[Function]}
         />
       </styled.div>
     </styled.div>
@@ -141,6 +149,10 @@ exports[`Profilecard ProfileCard customLozenges property should match snapshot w
         <IconLabel
           icon="location"
         />
+        <ReportingLinesDetails
+          analytics={[Function]}
+          getDuration={[Function]}
+        />
       </styled.div>
     </styled.div>
   </styled.div>
@@ -178,6 +190,10 @@ exports[`Profilecard ProfileCard fullName property should match snapshot when fu
         </IconLabel>
         <IconLabel
           icon="location"
+        />
+        <ReportingLinesDetails
+          analytics={[Function]}
+          getDuration={[Function]}
         />
       </styled.div>
     </styled.div>
@@ -217,6 +233,10 @@ exports[`Profilecard ProfileCard fullName property should match snapshot when fu
         <IconLabel
           icon="location"
         />
+        <ReportingLinesDetails
+          analytics={[Function]}
+          getDuration={[Function]}
+        />
       </styled.div>
     </styled.div>
   </styled.div>
@@ -254,6 +274,217 @@ exports[`Profilecard ProfileCard fullName property should match snapshot when ni
         </IconLabel>
         <IconLabel
           icon="location"
+        />
+        <ReportingLinesDetails
+          analytics={[Function]}
+          getDuration={[Function]}
+        />
+      </styled.div>
+    </styled.div>
+  </styled.div>
+</styled.div>
+`;
+
+exports[`Profilecard ProfileCard reportingLines property should match snapshot when no reporting lines are specified 1`] = `
+<styled.div>
+  <styled.div
+    isDisabledUser={false}
+  >
+    <styled.div>
+      <Avatar
+        borderColor="var(--ds-background-overlay, #FFFFFF)"
+        size="xlarge"
+      />
+    </styled.div>
+    <styled.div>
+      <styled.div>
+        <styled.span
+          noMeta={true}
+        >
+          full name test (jscrazy) 
+        </styled.span>
+        <IconLabel
+          icon="email"
+        />
+        <IconLabel
+          icon="time"
+        />
+        <IconLabel
+          icon="companyName"
+        >
+          Atlassian
+        </IconLabel>
+        <IconLabel
+          icon="location"
+        />
+        <ReportingLinesDetails
+          analytics={[Function]}
+          getDuration={[Function]}
+        />
+      </styled.div>
+    </styled.div>
+  </styled.div>
+</styled.div>
+`;
+
+exports[`Profilecard ProfileCard reportingLines property should match snapshot when no reporting lines are specified 2`] = `
+<styled.div>
+  <styled.div
+    isDisabledUser={false}
+  >
+    <styled.div>
+      <Avatar
+        borderColor="var(--ds-background-overlay, #FFFFFF)"
+        size="xlarge"
+      />
+    </styled.div>
+    <styled.div>
+      <styled.div>
+        <styled.span
+          noMeta={true}
+        >
+          full name test (jscrazy) 
+        </styled.span>
+        <IconLabel
+          icon="email"
+        />
+        <IconLabel
+          icon="time"
+        />
+        <IconLabel
+          icon="companyName"
+        >
+          Atlassian
+        </IconLabel>
+        <IconLabel
+          icon="location"
+        />
+        <ReportingLinesDetails
+          analytics={[Function]}
+          getDuration={[Function]}
+          reportingLines={Object {}}
+        />
+      </styled.div>
+    </styled.div>
+  </styled.div>
+</styled.div>
+`;
+
+exports[`Profilecard ProfileCard reportingLines property should match snapshot when no reporting lines are specified 3`] = `
+<styled.div>
+  <styled.div
+    isDisabledUser={false}
+  >
+    <styled.div>
+      <Avatar
+        borderColor="var(--ds-background-overlay, #FFFFFF)"
+        size="xlarge"
+      />
+    </styled.div>
+    <styled.div>
+      <styled.div>
+        <styled.span
+          noMeta={true}
+        >
+          full name test (jscrazy) 
+        </styled.span>
+        <IconLabel
+          icon="email"
+        />
+        <IconLabel
+          icon="time"
+        />
+        <IconLabel
+          icon="companyName"
+        >
+          Atlassian
+        </IconLabel>
+        <IconLabel
+          icon="location"
+        />
+        <ReportingLinesDetails
+          analytics={[Function]}
+          getDuration={[Function]}
+          reportingLines={
+            Object {
+              "managers": Array [],
+              "reports": Array [],
+            }
+          }
+        />
+      </styled.div>
+    </styled.div>
+  </styled.div>
+</styled.div>
+`;
+
+exports[`Profilecard ProfileCard reportingLines property should match snapshot when reporting lines are specified 1`] = `
+<styled.div>
+  <styled.div
+    isDisabledUser={false}
+  >
+    <styled.div>
+      <Avatar
+        borderColor="var(--ds-background-overlay, #FFFFFF)"
+        size="xlarge"
+      />
+    </styled.div>
+    <styled.div>
+      <styled.div>
+        <styled.span
+          noMeta={true}
+        >
+          full name test (jscrazy) 
+        </styled.span>
+        <IconLabel
+          icon="email"
+        />
+        <IconLabel
+          icon="time"
+        />
+        <IconLabel
+          icon="companyName"
+        >
+          Atlassian
+        </IconLabel>
+        <IconLabel
+          icon="location"
+        />
+        <ReportingLinesDetails
+          analytics={[Function]}
+          getDuration={[Function]}
+          reportingLines={
+            Object {
+              "managers": Array [
+                Object {
+                  "accountIdentifier": "abcd",
+                  "identifierType": "ATLASSIAN_ID",
+                  "pii": Object {
+                    "name": "name",
+                    "picture": "picture",
+                  },
+                },
+              ],
+              "reports": Array [
+                Object {
+                  "accountIdentifier": "abcd",
+                  "identifierType": "ATLASSIAN_ID",
+                  "pii": Object {
+                    "name": "name",
+                    "picture": "picture",
+                  },
+                },
+                Object {
+                  "accountIdentifier": "abcd",
+                  "identifierType": "ATLASSIAN_ID",
+                  "pii": Object {
+                    "name": "name",
+                    "picture": "picture",
+                  },
+                },
+              ],
+            }
+          }
         />
       </styled.div>
     </styled.div>

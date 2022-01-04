@@ -4,7 +4,8 @@ import styled from 'styled-components';
 
 import { ProfileCard } from '../src';
 import { profiles } from '../src/mocks';
-import { ProfilecardProps } from '../src/types';
+import { reportingLinesData } from '../src/mocks/reporting-lines-data';
+import { ProfilecardProps, ReportingLinesUser } from '../src/types';
 
 import LocaleIntlProvider from './helper/locale-intl-provider';
 
@@ -58,7 +59,13 @@ const fakeData = (data = {}): ProfilecardProps => {
   );
 };
 
-const bestCaseProfile = fakeData();
+const bestCaseProfile = fakeData({
+  reportingLines: reportingLinesData,
+  reportingLinesProfileUrl: '/',
+  onReportingLinesClick: (user: ReportingLinesUser) => {
+    console.log('Clicked on ' + user.pii?.name);
+  },
+});
 
 const worstCaseProfile = fakeData({
   avatarUrl: null,

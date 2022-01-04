@@ -5,8 +5,10 @@ import filterActions from '../../internal/filterActions';
 import { CardWrapper } from '../../styled/Card';
 import {
   ProfileCardAction,
+  ProfileCardClientData,
   ProfileCardResourcedProps,
   ProfileCardResourcedState,
+  TeamCentralReportingLinesData,
 } from '../../types';
 import { ErrorMessage } from '../Error';
 
@@ -29,6 +31,7 @@ export default class ProfileCardResourced extends React.PureComponent<
     hasError: false,
     error: null,
     data: null,
+    reportingLinesData: undefined,
   };
 
   componentDidMount() {
@@ -88,10 +91,14 @@ export default class ProfileCardResourced extends React.PureComponent<
         data: null,
       },
       () => {
-        this.props.resourceClient
-          .getProfile(cloudId, userId)
+        const requests = Promise.all([
+          this.props.resourceClient.getProfile(cloudId, userId),
+          this.props.resourceClient.getReportingLines(userId),
+        ]);
+
+        requests
           .then(
-            (res) => this.handleClientSuccess(res),
+            (res) => this.handleClientSuccess(res[0], res[1]),
             (err) => this.handleClientError(err),
           )
           .catch((err) => this.handleClientError(err));
@@ -99,7 +106,10 @@ export default class ProfileCardResourced extends React.PureComponent<
     );
   };
 
-  handleClientSuccess(res: any) {
+  handleClientSuccess(
+    profileData: ProfileCardClientData,
+    reportingLinesData: TeamCentralReportingLinesData,
+  ) {
     if (!this._isMounted) {
       return;
     }
@@ -107,7 +117,8 @@ export default class ProfileCardResourced extends React.PureComponent<
     this.setState({
       isLoading: false,
       hasError: false,
-      data: res,
+      data: profileData,
+      reportingLinesData,
     });
   }
 
@@ -127,8 +138,8 @@ export default class ProfileCardResourced extends React.PureComponent<
     filterActions(this.props.actions, this.state.data);
 
   render(): React.ReactNode {
-    const { isLoading, hasError, error, data } = this.state;
-    const { analytics } = this.props;
+    const { isLoading, hasError, error, data, reportingLinesData } = this.state;
+    const { analytics, onReportingLinesClick } = this.props;
 
     const isFetchingOrNotStartToFetchYet =
       isLoading === true || isLoading === undefined;
@@ -152,6 +163,8 @@ export default class ProfileCardResourced extends React.PureComponent<
       errorType: error,
       clientFetchProfile: this.clientFetchProfile,
       analytics,
+      reportingLines: reportingLinesData,
+      onReportingLinesClick: onReportingLinesClick,
       ...data,
     };
 

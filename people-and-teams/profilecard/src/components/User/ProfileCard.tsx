@@ -33,6 +33,8 @@ import { isBasicClick } from '../../util/click';
 import { ErrorMessage } from '../Error';
 import { IconLabel } from '../Icon';
 
+import ReportingLinesDetails from './ReportingLinesDetails';
+
 export default class Profilecard extends React.PureComponent<ProfilecardProps> {
   static defaultProps: ProfilecardProps = {
     isLoading: false,
@@ -143,6 +145,13 @@ export default class Profilecard extends React.PureComponent<ProfilecardProps> {
         <IconLabel icon="time">{timestring}</IconLabel>
         <IconLabel icon="companyName">{companyName}</IconLabel>
         <IconLabel icon="location">{location}</IconLabel>
+        <ReportingLinesDetails
+          reportingLines={this.props.reportingLines}
+          reportingLinesProfileUrl={this.props.reportingLinesProfileUrl}
+          onReportingLinesClick={this.props.onReportingLinesClick}
+          analytics={this.props.analytics}
+          getDuration={() => this.durationSince(this.timeOpen)}
+        />
       </DetailsGroup>
     );
   }
@@ -285,7 +294,7 @@ export default class Profilecard extends React.PureComponent<ProfilecardProps> {
   }
 
   render() {
-    const { fullName, status, withoutElevation } = this.props;
+    const { fullName, status, withoutElevation, reportingLines } = this.props;
     let cardContent: React.ReactNode = null;
 
     // @FIXME do closed users have empty fullName field?
@@ -307,6 +316,8 @@ export default class Profilecard extends React.PureComponent<ProfilecardProps> {
 
       this.callAnalytics(AnalyticsName.PROFILE_CARD_LOADED, {
         duration: this.durationSince(this.timeOpen),
+        managersCount: reportingLines?.managers?.length || 0,
+        directReportsCount: reportingLines?.reports?.length || 0,
       });
 
       cardContent = (

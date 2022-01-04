@@ -10,6 +10,7 @@ import { AnalyticsName } from '../../internal/analytics';
 const clientUrl = 'https://foo/';
 const client = new ProfileClient({
   url: clientUrl,
+  teamCentralUrl: clientUrl,
 });
 
 const defaultProps = {
@@ -23,11 +24,13 @@ const defaultProps = {
   analytics: jest.fn(),
 };
 
+const waitForPromises = () => new Promise((resolve) => setTimeout(resolve));
 const renderShallow = (props = {}) =>
   shallow(<ProfileCardResourced {...defaultProps} {...props} />);
 
 beforeEach(() => {
   jest.spyOn(client, 'getProfile').mockResolvedValue({});
+  jest.spyOn(client, 'getReportingLines').mockResolvedValue({});
 });
 
 describe('Fetching data', () => {
@@ -35,6 +38,9 @@ describe('Fetching data', () => {
     renderShallow();
     expect(defaultProps.resourceClient.getProfile).toHaveBeenCalledWith(
       defaultProps.cloudId,
+      defaultProps.userId,
+    );
+    expect(defaultProps.resourceClient.getReportingLines).toHaveBeenCalledWith(
       defaultProps.userId,
     );
   });
@@ -48,10 +54,14 @@ describe('Fetching data', () => {
       userId: 'new-test-user-id',
     });
 
-    await defaultProps.resourceClient.getProfile;
+    await waitForPromises();
+
     expect(wrapper.state('isLoading')).toEqual(false);
     expect(defaultProps.resourceClient.getProfile).toHaveBeenCalledWith(
       defaultProps.cloudId,
+      'new-test-user-id',
+    );
+    expect(defaultProps.resourceClient.getReportingLines).toHaveBeenCalledWith(
       'new-test-user-id',
     );
   });
@@ -64,11 +74,14 @@ describe('Fetching data', () => {
 
     const wrapper = renderShallow();
 
-    await defaultProps.resourceClient.getProfile;
+    await waitForPromises();
 
     expect(wrapper.state('isLoading')).toEqual(false);
     expect(defaultProps.resourceClient.getProfile).toHaveBeenCalledWith(
       defaultProps.cloudId,
+      'test-user-id',
+    );
+    expect(defaultProps.resourceClient.getReportingLines).toHaveBeenCalledWith(
       'test-user-id',
     );
 
@@ -77,11 +90,14 @@ describe('Fetching data', () => {
       resourceClient: newClient,
     });
 
-    await newClient.getProfile;
+    await waitForPromises();
 
     // expect(wrapper.state('isLoading')).toEqual(false);
     expect(newClient.getProfile).toHaveBeenCalledWith(
       defaultProps.cloudId,
+      'test-user-id',
+    );
+    expect(defaultProps.resourceClient.getReportingLines).toHaveBeenCalledWith(
       'test-user-id',
     );
   });

@@ -1,0 +1,75 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ReportingLinesDetails should match snapshot when manager and reports are NOT specified 1`] = `<Fragment />`;
+
+exports[`ReportingLinesDetails should match snapshot when manager and reports are specified 1`] = `
+<Fragment>
+  <styled.div>
+    <styled.h5
+      style={
+        Object {
+          "marginBottom": 0,
+        }
+      }
+    >
+      <MemoizedFormattedMessage
+        defaultMessage="Manager"
+        description="Title for a section on the profile card that show the user's direct manager"
+        id="pt.team-profile-card.manager.heading"
+      />
+    </styled.h5>
+    <styled.div>
+      <CustomThemeButton
+        appearance="subtle"
+        href="profile-urlabcd"
+        isDisabled={false}
+        onClick={[Function]}
+        spacing="none"
+      >
+        <styled.div>
+          <Avatar
+            size="xsmall"
+            src="picture"
+          />
+          <styled.span>
+            name
+          </styled.span>
+        </styled.div>
+      </CustomThemeButton>
+    </styled.div>
+  </styled.div>
+  <styled.div>
+    <styled.h5>
+      <MemoizedFormattedMessage
+        defaultMessage="Direct reports"
+        description="Title for a section on the profile card that show the user's direct reports"
+        id="pt.team-profile-card.directReports.heading"
+      />
+    </styled.h5>
+    <AvatarGroup
+      appearance="stack"
+      data={
+        Array [
+          Object {
+            "href": "profile-urlabcd",
+            "key": "abcd",
+            "name": "name",
+            "onClick": [Function],
+            "src": "picture",
+          },
+          Object {
+            "href": "profile-urlabcd",
+            "key": "abcd",
+            "name": "name",
+            "onClick": [Function],
+            "src": "picture",
+          },
+        ]
+      }
+      maxCount={5}
+      size="small"
+      testId="profilecard-reports-avatar-group"
+    />
+  </styled.div>
+</Fragment>
+`;

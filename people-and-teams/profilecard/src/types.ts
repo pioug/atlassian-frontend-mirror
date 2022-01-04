@@ -2,6 +2,7 @@ import React from 'react';
 
 import { IntlShape } from 'react-intl-next';
 
+import TeamCentralCardClient from './client/TeamCentralCardClient';
 import TeamProfileCardClient from './client/TeamProfileCardClient';
 import UserProfileCardClient from './client/UserProfileCardClient';
 
@@ -61,11 +62,29 @@ export interface ProfileCardClientData {
   customLozenges?: LozengeProps[];
 }
 
+export interface ReportingLinesUserPII {
+  name: string;
+  picture?: string;
+}
+
+export interface ReportingLinesUser {
+  accountIdentifier: string;
+  identifierType: 'ATLASSIAN_ID' | 'BASE64_HASH' | 'UNKNOWN';
+  pii?: ReportingLinesUserPII;
+}
+
+export interface TeamCentralReportingLinesData {
+  managers?: ReportingLinesUser[];
+  reports?: ReportingLinesUser[];
+}
+
 export interface ProfileCardResourcedProps {
   userId: string;
   cloudId: string;
   resourceClient: ProfileClient;
   actions?: ProfileCardAction[];
+  reportingLinesProfileUrl?: string;
+  onReportingLinesClick?: (user: ReportingLinesUser) => void;
   analytics?: any;
   position?: ProfilecardTriggerPosition;
   trigger?: TriggerType;
@@ -78,6 +97,7 @@ export interface ProfileCardResourcedState {
   hasError: boolean;
   error?: ProfileCardErrorType;
   data: ProfileCardClientData | null;
+  reportingLinesData?: TeamCentralReportingLinesData;
 }
 
 export interface ProfileCardTriggerProps {
@@ -96,6 +116,8 @@ export interface ProfileCardTriggerProps {
   cloudId?: string;
   resourceClient: ProfileClient;
   actions?: ProfileCardAction[];
+  reportingLinesProfileUrl?: string;
+  onReportingLinesClick?: (user: ReportingLinesUser) => void;
   analytics?: any;
   position?: ProfilecardTriggerPosition;
   trigger?: TriggerType;
@@ -109,6 +131,7 @@ export interface ProfileCardTriggerState {
   hasError: boolean;
   error?: ProfileCardErrorType;
   data: ProfileCardClientData | null;
+  reportingLinesData?: TeamCentralReportingLinesData;
 }
 
 export interface TeamProfileCardTriggerState {
@@ -282,6 +305,12 @@ export interface ProfilecardProps {
   analytics?: any;
   statusModifiedDate?: number | null;
   withoutElevation?: boolean;
+  /** Show manager and direct reports section on profile hover card, if available */
+  reportingLines?: TeamCentralReportingLinesData;
+  /** Base URL to populate href value for manager's and direct reports' user avatar  */
+  reportingLinesProfileUrl?: string;
+  /** Click handler when user clicks on manager's and direct reports' user avatar, un-clickable otherwise */
+  onReportingLinesClick?: (user: ReportingLinesUser) => void;
 
   // Allow to pass custom message for disabled account which `status` prop is `inactive` or `closed`.
   // `disabledAccountMessage` should not contain react-intl-next components, ex: `FormattedMessage`,
@@ -338,6 +367,7 @@ export interface ProfileClient {
     orgId?: string,
     fireAnalytics?: (event: Record<string, any>) => void,
   ) => Promise<Team>;
+  getReportingLines: (userId: string) => Promise<TeamCentralReportingLinesData>;
 }
 
 export type ProfilecardTriggerPosition =
@@ -362,9 +392,12 @@ export interface ProfileClientOptions {
   url: string;
   cacheSize?: number;
   cacheMaxAge?: number;
+  /** Enables Team Central functionality if enabled */
+  teamCentralUrl?: string;
 }
 
 export interface ClientOverrides {
   userClient?: UserProfileCardClient;
   teamClient?: TeamProfileCardClient;
+  teamCentralClient?: TeamCentralCardClient;
 }

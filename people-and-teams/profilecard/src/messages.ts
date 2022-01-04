@@ -171,6 +171,18 @@ const messages = defineMessages({
     description:
       'Text on a button that will try to get the data again when clicked',
   },
+  managerSectionHeading: {
+    id: 'pt.team-profile-card.manager.heading',
+    defaultMessage: 'Manager',
+    description:
+      "Title for a section on the profile card that show the user's direct manager",
+  },
+  directReportsSectionHeading: {
+    id: 'pt.team-profile-card.directReports.heading',
+    defaultMessage: 'Direct reports',
+    description:
+      "Title for a section on the profile card that show the user's direct reports",
+  },
 });
 
 export default messages;

@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { getExamplesFor } from '@atlaskit/build-utils/getExamples';
-import { ssr, mockConsole } from '@atlaskit/ssr';
+
+import { getExamplesFor, mockConsole, ssr } from '@atlaskit/ssr';
 
 const getConsoleMockCalls = mockConsole(console);
 

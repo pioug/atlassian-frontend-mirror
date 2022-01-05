@@ -1,7 +1,8 @@
 import React from 'react';
 import * as ReactDOMServer from 'react-dom/server';
-import { getExamplesFor } from '@atlaskit/build-utils/getExamples';
 import waitForExpect from 'wait-for-expect';
+
+import { getExamplesFor } from '@atlaskit/ssr';
 
 test('media-viewer server side rendering', async () => {
   const examples = await getExamplesFor('media-viewer');

@@ -1,5 +1,11 @@
 # @atlaskit/onboarding
 
+## 10.3.2
+
+### Patch Changes
+
+- [`9a5740d1ec3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9a5740d1ec3) - [ux] The `pulse` prop now works correctly for `<SpotlightPulse />`. Previously, it was applying the pulse to the `SpotlightPulse` target regardless of the `pulse` value. Now it checks the value of `pulse` and applies the animation accordingly.
+
 ## 10.3.1
 
 ### Patch Changes

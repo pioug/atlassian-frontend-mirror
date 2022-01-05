@@ -9,11 +9,13 @@ type BaseProps = React.HTMLAttributes<HTMLDivElement> & {
   bgColor?: string;
   radius?: number;
   className?: string;
+  testId?: string;
 };
 
 type TargetProps = Omit<BaseProps, 'css'> & {
   // eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
   pulse?: boolean;
+  testId?: string;
 };
 
 // NOTE:
@@ -26,6 +28,8 @@ const pulseKeyframes = keyframes({
     boxShadow: `${baseShadow}, 0 0 0 10px rgba(101, 84, 192, 0.01)`,
   },
 });
+// This is needed for unit tests
+export const pulseKeyframesName = pulseKeyframes.name;
 const animationStyles = css({
   animation: `${pulseKeyframes} 3000ms ${easing} infinite`,
 });
@@ -41,10 +45,12 @@ const Base: React.FC<BaseProps> = ({
   bgColor,
   radius,
   style,
+  testId,
   ...props
 }) => (
   <div
     css={baseStyles}
+    data-testid={testId}
     style={
       {
         ...style,
@@ -112,8 +118,13 @@ export const TargetOverlay: React.FC<React.HTMLAttributes<HTMLDivElement>> = (
  *
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/onboarding)
  */
-export const Pulse: React.FC<TargetProps> = ({ children, ...props }) => (
-  <Base {...props} css={animationStyles}>
+export const Pulse: React.FC<TargetProps> = ({
+  children,
+  pulse = true,
+  testId,
+  ...props
+}) => (
+  <Base {...props} css={[pulse && animationStyles]} testId={testId}>
     {children}
   </Base>
 );

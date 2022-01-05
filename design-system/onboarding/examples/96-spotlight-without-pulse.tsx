@@ -4,15 +4,12 @@ import { useCallback, useState } from 'react';
 
 import { css, jsx } from '@emotion/core';
 
-import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/custom-theme-button';
-import { borderRadius } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 import {
   Spotlight,
   SpotlightManager,
-  SpotlightPulse,
   SpotlightTarget,
   SpotlightTransition,
 } from '../src';
@@ -25,7 +22,11 @@ const wrapperStyles = css({
   flexDirection: 'column',
 });
 
-const NewFeature: React.FC<{}> = () => {
+/**
+ * This example shows the use of onboarding without <SpotlightPulse />. It also displays how it looks
+ * when pulse={false}. Note that the pulse prop here is different to the one in <SpotlightPulse />.
+ */
+const SpotlightWithoutPulseExample: React.FC<{}> = () => {
   const [isSpotlightVisible, setIsSpotlightVisible] = useState(false);
 
   const toggleIsSpotlightVisible = useCallback(() => {
@@ -33,23 +34,17 @@ const NewFeature: React.FC<{}> = () => {
   }, [setIsSpotlightVisible]);
 
   return (
-    <div css={wrapperStyles}>
+    <div css={wrapperStyles} data-testid="spotlight-examples">
       <SpotlightManager blanketIsTinted={false}>
-        <ButtonGroup>
-          <SpotlightTarget name="button">
-            <SpotlightPulse radius={borderRadius()}>
-              <Button onClick={toggleIsSpotlightVisible}>
-                I am a new feature
-              </Button>
-            </SpotlightPulse>
-          </SpotlightTarget>
-          <Button>Another element</Button>
-        </ButtonGroup>
+        <SpotlightTarget name="button">
+          <Button testId="open-spotlight" onClick={toggleIsSpotlightVisible}>
+            New feature
+          </Button>
+        </SpotlightTarget>
         <SpotlightTransition>
           {isSpotlightVisible && (
             <Spotlight
               target="button"
-              heading="Switch it up"
               actionsBeforeElement="1/3"
               targetBgColor={token('color.background.card', '#fff')}
               actions={[
@@ -58,9 +53,11 @@ const NewFeature: React.FC<{}> = () => {
                   text: 'Got it',
                 },
               ]}
+              pulse={false}
             >
-              It is now easier to create an issue. Click on the plus button to
-              create a new issue.
+              This spotlight target does not show a pulse keyframe. Note that
+              this is specific to Spotlight and is different to the pulse in
+              SpotlightPulse.
             </Spotlight>
           )}
         </SpotlightTransition>
@@ -69,4 +66,4 @@ const NewFeature: React.FC<{}> = () => {
   );
 };
 
-export default NewFeature;
+export default SpotlightWithoutPulseExample;

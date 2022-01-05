@@ -42,7 +42,6 @@
     "styled-components": "^3.2.6"
   },
   "devDependencies": {
-    "@atlaskit/build-utils": "*",
     "@atlaskit/docs": "*",
     "@atlaskit/media-core": "^32.2.0",
     "@atlaskit/media-test-helpers": "^29.0.0",

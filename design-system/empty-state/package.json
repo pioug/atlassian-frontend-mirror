@@ -34,7 +34,6 @@
     "react": "^16.8.0"
   },
   "devDependencies": {
-    "@atlaskit/build-utils": "*",
     "@atlaskit/docs": "^9.0.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",

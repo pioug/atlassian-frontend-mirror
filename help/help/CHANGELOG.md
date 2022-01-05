@@ -1,5 +1,11 @@
 # @atlaskit/help
 
+## 6.0.7
+
+### Patch Changes
+
+- [`07bd0f6e2e7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/07bd0f6e2e7) - [ux] Fix onWhatsNewResultItemClick analytics event issue
+
 ## 6.0.6
 
 ### Patch Changes

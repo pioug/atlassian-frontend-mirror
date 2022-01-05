@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { getExamplesFor } from '@atlaskit/build-utils/getExamples';
+
 import waitForExpect from 'wait-for-expect';
 
-import { ssr } from '@atlaskit/ssr';
+import { getExamplesFor, ssr } from '@atlaskit/ssr';
 
 jest.spyOn(global.console, 'error').mockImplementation(() => {});
 

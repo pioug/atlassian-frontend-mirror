@@ -50,7 +50,7 @@ export const WhatsNewResults: React.FC<WrappedComponentProps> = ({
     searchWhatsNewArticlesResult,
     onSearchWhatsNewArticles,
     searchWhatsNewArticlesState,
-    onWhatsNewButtonClick,
+    onWhatsNewResultItemClick,
   } = useWhatsNewArticleContext();
   const SELECT_DEFAULT_VALUE: {
     value: WHATS_NEW_ITEM_TYPES | '';
@@ -184,7 +184,7 @@ export const WhatsNewResults: React.FC<WrappedComponentProps> = ({
                     {searchWhatsNewArticlesResult.articles.length > 0 ? (
                       <WhatsNewResultsList
                         whatsNewArticles={searchWhatsNewArticlesResult.articles}
-                        onWhatsNewResultItemClick={onWhatsNewButtonClick}
+                        onWhatsNewResultItemClick={onWhatsNewResultItemClick}
                         onShowMoreButtonClick={handleOnShowMoreButtonClick}
                         hasNextPage={searchWhatsNewArticlesResult?.hasNextPage}
                         nextPage={searchWhatsNewArticlesResult?.nextPage}

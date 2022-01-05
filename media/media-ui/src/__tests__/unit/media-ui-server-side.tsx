@@ -1,6 +1,7 @@
 import React from 'react';
 import * as ReactDOMServer from 'react-dom/server';
-import { getExamplesFor } from '@atlaskit/build-utils/getExamples';
+
+import { getExamplesFor } from '@atlaskit/ssr';
 
 test.skip('media-ui server side rendering', async (done) => {
   const examples = await getExamplesFor('media-ui');

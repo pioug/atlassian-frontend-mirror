@@ -1,5 +1,4 @@
-import { getExamplesFor } from '@atlaskit/build-utils/getExamples';
-import { ssr } from '@atlaskit/ssr';
+import { getExamplesFor, ssr } from '@atlaskit/ssr';
 
 // @ts-ignore - global usage
 jest.spyOn(global.console, 'error').mockImplementation(() => {});

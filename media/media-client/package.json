@@ -48,7 +48,6 @@
     "rxjs": "^5.5.0"
   },
   "devDependencies": {
-    "@atlaskit/build-utils": "*",
     "@atlaskit/button": "^16.1.0",
     "@atlaskit/docs": "*",
     "@atlaskit/media-card": "^73.0.0",

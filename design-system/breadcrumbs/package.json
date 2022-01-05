@@ -42,7 +42,6 @@
     "react-dom": "^16.8.0"
   },
   "devDependencies": {
-    "@atlaskit/build-utils": "*",
     "@atlaskit/docs": "*",
     "@atlaskit/logo": "^13.5.0",
     "@atlaskit/section-message": "^6.1.0",

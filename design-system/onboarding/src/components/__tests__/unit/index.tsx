@@ -2,7 +2,15 @@ import React from 'react';
 
 import { render } from '@testing-library/react';
 
-import { Spotlight, SpotlightManager, SpotlightTarget } from '../../../index';
+import Button, { ButtonGroup } from '@atlaskit/button';
+
+import {
+  Spotlight,
+  SpotlightManager,
+  SpotlightPulse,
+  SpotlightTarget,
+} from '../../../index';
+import { pulseKeyframesName } from '../../../styled/target';
 
 interface ElementStubProps {
   testId?: string;
@@ -210,5 +218,93 @@ describe('<Spotlight />', () => {
         </SpotlightManager>,
       );
     }).not.toThrow();
+  });
+
+  it('pulse should not appear on target element when SpotlightPulse pulse prop is true', () => {
+    const { getByTestId } = render(
+      <SpotlightManager>
+        <SpotlightTarget name="target-one">
+          <ElementStub
+            width={100}
+            height={50}
+            position="fixed"
+            testId="target"
+            marginLeft={50}
+            marginTop={100}
+          >
+            Target
+          </ElementStub>
+        </SpotlightTarget>
+
+        <Spotlight target="target-one">Spotlight for target</Spotlight>
+      </SpotlightManager>,
+    );
+
+    expect(getByTestId('spotlight--target')).toHaveStyle(
+      `animation: ${pulseKeyframesName} 3000ms cubic-bezier(0.55,0.055,0.675,0.19) infinite`,
+    );
+  });
+
+  it('pulse should not appear on target element when SpotlightPulse pulse prop is false', () => {
+    const { getByTestId } = render(
+      <SpotlightManager>
+        <SpotlightTarget name="target-one">
+          <ElementStub
+            width={100}
+            height={50}
+            position="fixed"
+            testId="target"
+            marginLeft={50}
+            marginTop={100}
+          >
+            Target
+          </ElementStub>
+        </SpotlightTarget>
+
+        <Spotlight pulse={false} target="target-one">
+          Spotlight for target
+        </Spotlight>
+      </SpotlightManager>,
+    );
+
+    expect(getByTestId('spotlight--target')).not.toHaveStyle(
+      `animation: ${pulseKeyframesName} 3000ms cubic-bezier(0.55,0.055,0.675,0.19) infinite`,
+    );
+  });
+
+  it('pulse should not appear on element when SpotlightPulse pulse prop is false', () => {
+    const { getByTestId } = render(
+      <SpotlightManager>
+        <ButtonGroup>
+          <SpotlightTarget name="copy">
+            <SpotlightPulse pulse={false} radius={3} testId="spotlight-pulse">
+              <Button>Existing feature</Button>
+            </SpotlightPulse>
+          </SpotlightTarget>
+        </ButtonGroup>
+      </SpotlightManager>,
+    );
+
+    expect(getByTestId('spotlight-pulse')).not.toHaveStyle(
+      `animation: ${pulseKeyframesName} 3000ms cubic-bezier(0.55,0.055,0.675,0.19) infinite`,
+    );
+  });
+
+  it('pulse should appear on element when SpotlightPulse pulse prop is true', () => {
+    const { getByTestId } = render(
+      <SpotlightManager>
+        <ButtonGroup>
+          <SpotlightTarget name="copy">
+            <SpotlightPulse pulse={true} radius={3} testId="spotlight-pulse">
+              <Button>Existing feature</Button>
+            </SpotlightPulse>
+          </SpotlightTarget>
+        </ButtonGroup>
+      </SpotlightManager>,
+    );
+
+    expect(getByTestId('spotlight-pulse')).toHaveStyle(
+      `animation: ${pulseKeyframesName} 3000ms cubic-bezier(0.55,0.055,0.675,0.19) infinite`,
+    );
   });
 });

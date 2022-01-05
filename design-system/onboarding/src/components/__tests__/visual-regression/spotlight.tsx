@@ -90,4 +90,24 @@ describe('onboarding spotlight visual regression', () => {
       await takeElementScreenShot(page, spotlightContainer),
     ).toMatchProdImageSnapshot();
   });
+
+  it('should not display pulse animation when pulse prop is false', async () => {
+    const { __BASEURL__, page } = global;
+
+    const url = getExampleUrl(
+      'design-system',
+      'onboarding',
+      'spotlight-without-pulse',
+      __BASEURL__,
+    );
+
+    await loadPage(page, url, { disabledSideEffects: { animation: true } });
+    await page.waitForSelector(openButtonSelector);
+    await page.click(openButtonSelector);
+
+    await page.waitForSelector(spotlightTargetSelector);
+
+    const image = await takeElementScreenShot(page, 'body');
+    expect(image).toMatchProdImageSnapshot();
+  });
 });

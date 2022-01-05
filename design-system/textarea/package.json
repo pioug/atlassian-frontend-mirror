@@ -34,7 +34,6 @@
     "react": "^16.8.0"
   },
   "devDependencies": {
-    "@atlaskit/build-utils": "*",
     "@atlaskit/button": "^16.1.0",
     "@atlaskit/docs": "*",
     "@atlaskit/form": "^8.4.0",

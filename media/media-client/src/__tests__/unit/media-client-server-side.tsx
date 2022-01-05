@@ -1,6 +1,8 @@
 import React from 'react';
 import * as ReactDOMServer from 'react-dom/server';
-import { getExamplesFor } from '@atlaskit/build-utils/getExamples';
+
+import { getExamplesFor } from '@atlaskit/ssr';
+
 import { MediaClient } from '../..';
 
 class Example extends React.Component {

@@ -37,7 +37,6 @@
     "react": "^16.8.0"
   },
   "devDependencies": {
-    "@atlaskit/build-utils": "*",
     "@atlaskit/docs": "*",
     "@atlaskit/radio": "^5.2.0",
     "@atlaskit/section-message": "^6.0.0",

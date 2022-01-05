@@ -3,8 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import waitForExpect from 'wait-for-expect';
 
-import { getExamplesFor } from '@atlaskit/build-utils/getExamples';
-import { ssr } from '@atlaskit/ssr';
+import { getExamplesFor, ssr } from '@atlaskit/ssr';
 
 const error: jest.Mocked<any> = jest
   .spyOn(global.console, 'error')

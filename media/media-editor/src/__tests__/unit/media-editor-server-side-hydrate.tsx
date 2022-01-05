@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { getExamplesFor } from '@atlaskit/build-utils/getExamples';
-import { ssr, mockConsole } from '@atlaskit/ssr';
 import waitForExpect from 'wait-for-expect';
+
+import { getExamplesFor, ssr, mockConsole } from '@atlaskit/ssr';
 
 const getConsoleMockCalls = mockConsole(console);
 

@@ -1,8 +1,24 @@
 # @atlaskit/toggle
 
+## 12.4.0
+
+### Minor Changes
+
+- [`5f184bb7147`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f184bb7147) - **Note**: It is a re-release of the wrongly `patched` version `11.4.1` that should have been a `minor` release.
+
+  [ux] Instrumented toggle with the new theming package, `@atlaskit/tokens`.
+
+  New tokens will be visible only in applications configured to use the new Tokens API (currently in alpha). These changes are intended to be interoperable with the legacy theme implementation.Legacy dark mode users should expect no visual or breaking changes.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.3.1
 
 ### Minor Changes
+
+_WRONG RELEASE TYPE - DON'T USE_
 
 - [`fa8d020232e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fa8d020232e) - [ux] Instrumented toggle with the new theming package, `@atlaskit/tokens`.
 

@@ -14,7 +14,7 @@
   "types": "dist/types/index.d.ts",
   "atlaskit:src": "src/index.ts",
   "atlassian": {
-    "team": "AFP: App Infrastructure",
+    "team": "UIP Frontend Observability",
     "deprecatedAutoEntryPoints": true,
     "releaseModel": "continuous"
   },

@@ -1,8 +1,21 @@
 # @atlaskit/theme
 
+## 12.1.0
+
+### Minor Changes
+
+- [`85d6182cad7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/85d6182cad7) - **Note**: It is a re-release of the wrongly `patched` version `12.0.2` that should have been a `minor` release.
+
+  [ux] Instrumented theme with the new theming package, @atlaskit/tokens.
+
+  New tokens will be visible only in applications configured to use the new Tokens API (currently in alpha).
+  These changes are intended to be interoperable with the legacy theme implementation. Legacy dark mode users should expect no visual or breaking changes.
+
 ## 12.0.2
 
 ### Minor Changes
+
+_WRONG RELEASE TYPE - DON'T USE_
 
 - [`420621d097e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/420621d097e) - [ux] Instrumented theme with the new theming package, @atlaskit/tokens.
 

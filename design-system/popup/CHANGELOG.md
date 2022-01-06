@@ -1,5 +1,17 @@
 # @atlaskit/popup
 
+## 1.3.0
+
+### Minor Changes
+
+- [`2e42aa0d900`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e42aa0d900) - **Note**: It is a re-release of the wrongly `patched` version `1.1.6` that should have been a `minor` release.
+
+  Expose `fallbackPlacement` modifier from to specify a list of fallback options to try incase there isn't enough space
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.2.0
 
 ### Minor Changes
@@ -7,6 +19,8 @@
 - [`c2dd770a743`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c2dd770a743) - Add new prop which controls is outside click should be bound using capture
 
 ## 1.1.6
+
+_WRONG RELEASE TYPE - DON'T USE_
 
 ### Minor Changes
 

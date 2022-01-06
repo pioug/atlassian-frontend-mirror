@@ -24,11 +24,11 @@
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^8.0.0",
-    "@atlaskit/icon": "^21.9.0",
+    "@atlaskit/icon": "^21.10.0",
     "@atlaskit/item": "^12.0.0",
     "@atlaskit/layer": "^9.0.0",
     "@atlaskit/spinner": "^15.0.0",
-    "@atlaskit/theme": "^12.0.0",
+    "@atlaskit/theme": "^12.1.0",
     "@atlaskit/tooltip": "^17.5.0",
     "@babel/runtime": "^7.0.0",
     "prop-types": "^15.5.10"

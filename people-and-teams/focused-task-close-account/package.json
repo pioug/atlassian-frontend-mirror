@@ -27,10 +27,10 @@
     "@atlaskit/avatar": "^20.5.0",
     "@atlaskit/button": "^16.0.0",
     "@atlaskit/drawer": "^7.1.0",
-    "@atlaskit/icon": "^21.9.0",
+    "@atlaskit/icon": "^21.10.0",
     "@atlaskit/inline-dialog": "^13.2.0",
     "@atlaskit/section-message": "^6.0.0",
-    "@atlaskit/theme": "^12.0.0",
+    "@atlaskit/theme": "^12.1.0",
     "@babel/runtime": "^7.0.0",
     "react-intl-next": "npm:react-intl@^5.18.1"
   },

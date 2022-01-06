@@ -1,5 +1,17 @@
 # @atlaskit/icon
 
+## 21.10.0
+
+### Minor Changes
+
+- [`1c835620aa5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1c835620aa5) - **Note**: It is a re-release of the wrongly `patched` version `21.9.2` that should have been a `minor` release.
+
+  CETI-16 added remove emoji icon so that it appears in mobilekit too
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 21.9.3
 
 ### Patch Changes
@@ -9,6 +21,8 @@
 ## 21.9.2
 
 ### Minor Changes
+
+_WRONG RELEASE TYPE - DON'T USE_
 
 - [`229177bb85d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/229177bb85d) - CETI-16 added remove emoji icon so that it appears in mobilekit too
 

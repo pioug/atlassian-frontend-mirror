@@ -1,5 +1,30 @@
 # @atlaskit/feedback-collector
 
+## 8.0.0
+
+### Major Changes
+
+- [`286af9264f7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/286af9264f7) - **Note**: It is a re-release of the wrongly `patched` version `7.1.2` that should have been a `major` release.
+
+  ## Breaking Changes
+
+  The new `cookie` property is **required**. This is property is a simple string of the user's cloud session token. Please pass in the entire key/value pair of the cookie. Like:
+
+  ```html
+  <FeedbackCollector cookie={"cloud.session.token=...."} >
+  ```
+
+  This is used for getting Entitlement information about the user (used in feedback analysis) and for validating identities (see [VULN229258](https://asecurityteam.atlassian.net/browse/VULN-229258))
+
+  ## Other changes
+
+  - Uses new Feedback Collector API for data analysis
+  - Data encoding
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.1.3
 
 ### Patch Changes
@@ -9,6 +34,8 @@
 ## 7.1.2
 
 ### Major Changes
+
+_WRONG RELEASE TYPE - DON'T USE_
 
 - [`be25f4abde4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/be25f4abde4) - ## Breaking Changes
 

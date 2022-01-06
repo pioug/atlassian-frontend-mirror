@@ -1,5 +1,23 @@
 # @atlaskit/table-tree
 
+## 9.1.0
+
+### Minor Changes
+
+- [`4dd20cb2110`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4dd20cb2110) - **Note**: It is a re-release of the wrongly `patched` version `21.9.2` that should have been a `minor` release.
+
+  Package has been migrated from `styled-components` to `@emotion/core`.
+
+  Other internal changes:
+
+  - Package has been migrated to typescript
+  - Components now have partial type support.
+  - Package internally supports `@atlaskit/tokens` colors.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.0.15
 
 ### Patch Changes
@@ -15,6 +33,8 @@
 ## 9.0.13
 
 ### Minor Changes
+
+_WRONG RELEASE TYPE - DON'T USE_
 
 - [`3fe03999326`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3fe03999326) - Package has been migrated from `styled-components` to `@emotion/core`.
 

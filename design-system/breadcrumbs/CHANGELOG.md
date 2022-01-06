@@ -1,8 +1,22 @@
 # @atlaskit/breadcrumbs
 
+## 11.5.0
+
+### Minor Changes
+
+- [`040a261b2d1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/040a261b2d1) - **Note**: It is a re-release of the wrongly `patched` version `11.4.1` that should have been a `minor` release.
+
+  [ux] Bug fix; removed the dangling space that trails the final breadcrumbItem. Introduced in v11 there was additional space where the final '/' would be, now it ends directly after the final item again.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.4.1
 
 ### Minor Changes
+
+_WRONG RELEASE TYPE - DON'T USE_
 
 - [`ff925e68253`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ff925e68253) - [ux] Bug fix; removed the dangling space that trails the final breadcrumbItem. Introduced in v11 there was additional space where the final '/' would be, now it ends directly after the final item again.
 

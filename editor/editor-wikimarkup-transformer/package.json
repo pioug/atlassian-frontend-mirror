@@ -26,7 +26,7 @@
   "dependencies": {
     "@atlaskit/adf-schema": "^20.1.0",
     "@atlaskit/editor-json-transformer": "^8.7.0",
-    "@atlaskit/theme": "^12.0.0",
+    "@atlaskit/theme": "^12.1.0",
     "@babel/runtime": "^7.0.0",
     "prosemirror-model": "1.14.3"
   },

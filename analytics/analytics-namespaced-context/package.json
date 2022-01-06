@@ -20,7 +20,7 @@
     ".": "./src/index.ts"
   },
   "atlassian": {
-    "team": "AFP: App Infrastructure",
+    "team": "UIP Frontend Observability",
     "releaseModel": "continuous"
   },
   "config": {

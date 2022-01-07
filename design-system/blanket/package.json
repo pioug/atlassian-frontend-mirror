@@ -40,7 +40,6 @@
   },
   "devDependencies": {
     "@atlaskit/badge": "^15.0.0",
-    "@atlaskit/build-utils": "*",
     "@atlaskit/button": "^16.1.0",
     "@atlaskit/docs": "*",
     "@atlaskit/ssr": "*",

@@ -58,7 +58,6 @@
   "devDependencies": {
     "@atlaskit/analytics-listeners": "^8.0.0",
     "@atlaskit/analytics-namespaced-context": "^6.3.0",
-    "@atlaskit/build-utils": "*",
     "@atlaskit/button": "^16.1.0",
     "@atlaskit/checkbox": "^12.3.0",
     "@atlaskit/docs": "*",

@@ -66,7 +66,6 @@
   "devDependencies": {
     "@atlaskit/analytics-gas-types": "^5.0.5",
     "@atlaskit/avatar": "^20.5.0",
-    "@atlaskit/build-utils": "^2.6.2",
     "@atlaskit/css-reset": "^6.3.0",
     "@atlaskit/docs": "*",
     "@atlaskit/editor-core": "^153.1.0",

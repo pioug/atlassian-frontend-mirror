@@ -9,7 +9,6 @@ import {
 import smartLinkAdf from '../../__fixtures__/smart-link.adf.json';
 import smartLinkExpandAdf from '../../__fixtures__/smart-link-expand.adf.json';
 import smartLinkListAdf from '../../__fixtures__/smart-link-list.adf.json';
-import blueLinkAdf from '../../__fixtures__/blue-link.adf.json';
 import { mobileSnapshot } from '../../_utils/snapshot';
 
 export default () => {
@@ -65,13 +64,14 @@ export default () => {
   //  await mobileSnapshot(page);
   //});
 
-  MobileTestCase('SmartLinks: blue link', {}, async (client) => {
-    const page = await Page.create(client);
-    await loadEditor(page);
-    await page.switchToWeb();
-    await setADFContent(page, blueLinkAdf);
-    await page.waitForSelector('a');
-    await focusOnWebView(page);
-    await mobileSnapshot(page);
-  });
+  // TODO: ED-13890 - Fix inconsistent test snapshot diff
+  // MobileTestCase('SmartLinks: blue link', {}, async (client) => {
+  //   const page = await Page.create(client);
+  //   await loadEditor(page);
+  //   await page.switchToWeb();
+  //   await setADFContent(page, blueLinkAdf);
+  //   await page.waitForSelector('a');
+  //   await focusOnWebView(page);
+  //   await mobileSnapshot(page);
+  // });
 };

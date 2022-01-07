@@ -72,7 +72,6 @@
     "@atlaskit/analytics-listeners": "^8.0.0",
     "@atlaskit/analytics-namespaced-context": "^6.3.0",
     "@atlaskit/banner": "^11.3.0",
-    "@atlaskit/build-utils": "*",
     "@atlaskit/checkbox": "^12.2.0",
     "@atlaskit/docs": "*",
     "@atlaskit/media-core": "^32.2.0",

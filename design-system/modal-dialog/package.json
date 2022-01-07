@@ -60,7 +60,6 @@
     "@atlaskit/avatar": "*",
     "@atlaskit/avatar-group": "*",
     "@atlaskit/breadcrumbs": "*",
-    "@atlaskit/build-utils": "*",
     "@atlaskit/button": "*",
     "@atlaskit/checkbox": "*",
     "@atlaskit/datetime-picker": "*",

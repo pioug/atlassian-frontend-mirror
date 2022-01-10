@@ -1,5 +1,11 @@
 # @atlaskit/reactions
 
+## 21.0.1
+
+### Patch Changes
+
+- [`b44aa6749c0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b44aa6749c0) - [ux] Changed the token usage for emoji name to make it visible in the reaction tooltip.
+
 ## 21.0.0
 
 ### Major Changes

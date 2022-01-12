@@ -2,7 +2,8 @@ import React from 'react';
 
 import styled from 'styled-components';
 
-import { ProfileCardTrigger } from '../src';
+// Simulating import from '@atlaskit/profilecard/user'
+import ProfileCardTrigger from '../src/components/User';
 
 import LocaleIntlProvider from './helper/locale-intl-provider';
 import { getMockProfileClient } from './helper/util';

@@ -38,7 +38,7 @@ const WhatsNewResultsList: React.FC<
 
       if (featureRolloutDateString) {
         const featureRolloutDateArray = featureRolloutDateString.replace(
-          '-',
+          '/-/g',
           '/',
         );
         const featureRolloutDate = toDate(new Date(featureRolloutDateArray));

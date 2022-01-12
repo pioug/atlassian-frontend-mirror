@@ -21,7 +21,7 @@ import {
   ShortenResponse,
   UrlShortenerClient,
 } from '../src/clients/AtlassianUrlShortenerClient';
-import SlackIcon from '../src/components/monochromeSlackIcon';
+import SlackIcon from '../src/components/colorSlackIcon';
 import languages from '../src/i18n/languages';
 import {
   Comment,

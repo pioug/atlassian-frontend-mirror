@@ -4,7 +4,7 @@ import { shallow } from 'enzyme';
 
 import ProfileClient from '../../client/ProfileCardClient';
 import { ErrorMessage } from '../../components/Error';
-import { ProfileCardResourced } from '../../components/User';
+import ProfileCardResourced from '../../components/User/ProfileCardResourced';
 import { AnalyticsName } from '../../internal/analytics';
 
 const clientUrl = 'https://foo/';

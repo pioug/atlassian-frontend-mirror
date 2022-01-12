@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { browser } from '@atlaskit/editor-common/utils';
 import { tableEditing } from '@atlaskit/editor-tables/pm-plugins';
 import { createTable } from '@atlaskit/editor-tables/utils';
 
@@ -21,6 +22,7 @@ import { IconTable } from '../quick-insert/assets';
 
 import { pluginConfig } from './create-plugin-config';
 import { createPlugin as createTableLocalIdPlugin } from './pm-plugins/table-local-id';
+import { createPlugin as createTableSafariDelayedDomSelectionSyncingWorkaroundPlugin } from './pm-plugins/safari-delayed-dom-selection-syncing-workaround';
 import { createPlugin as createDecorationsPlugin } from './pm-plugins/decorations/plugin';
 import { keymapPlugin } from './pm-plugins/keymap';
 import { tableSelectionKeymapPlugin } from './pm-plugins/table-selection-keymap';
@@ -69,7 +71,7 @@ const tablesPlugin = (options?: TablePluginOptions): EditorPlugin => ({
   },
 
   pmPlugins() {
-    return [
+    const plugins: ReturnType<NonNullable<EditorPlugin['pmPlugins']>> = [
       {
         name: 'table',
         plugin: ({
@@ -138,6 +140,19 @@ const tablesPlugin = (options?: TablePluginOptions): EditorPlugin => ({
         plugin: ({ dispatch }) => createTableLocalIdPlugin(dispatch),
       },
     ];
+
+    // workaround for prosemirrors delayed dom selection syncing during pointer drag
+    // causing issues with table selections in Safari
+    // https://github.com/ProseMirror/prosemirror-view/commit/885258b80551ac87b81601d3ed25f552aeb22293
+    if (browser.safari) {
+      plugins.push({
+        name: 'tableSafariDelayedDomSelectionSyncingWorkaround',
+        plugin: () => {
+          return createTableSafariDelayedDomSelectionSyncingWorkaroundPlugin();
+        },
+      });
+    }
+    return plugins;
   },
 
   contentComponent({

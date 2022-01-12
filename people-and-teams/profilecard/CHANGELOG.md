@@ -1,5 +1,11 @@
 # @atlaskit/profilecard
 
+## 16.2.0
+
+### Minor Changes
+
+- [`4039320b130`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4039320b130) - Support lazy loading in the ProfileCardTrigger component
+
 ## 16.1.0
 
 ### Minor Changes

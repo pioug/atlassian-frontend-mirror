@@ -69,6 +69,7 @@ const IntegrationWrapper = styled.div`
 `;
 
 const IntegrationIconWrapper = styled.span`
+  margin-bottom: -2px;
   margin-right: 5px;
 `;
 

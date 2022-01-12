@@ -1,5 +1,11 @@
 # @atlaskit/editor-core
 
+## 153.1.3
+
+### Patch Changes
+
+- [`fa87054a61a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fa87054a61a) - workaround issue where prosemirrors new drag selection delay logic breaks safaris table selections.
+
 ## 153.1.2
 
 ### Patch Changes

@@ -11,7 +11,6 @@ import TeamProfileCardTrigger from './components/Team/TeamProfileCardTrigger';
 import ProfileCard from './components/User/ProfileCard';
 import ProfileCardResourced from './components/User/ProfileCardResourced';
 import ProfileCardTrigger from './components/User/ProfileCardTrigger';
-// Do not export TeamProfileCard here as it will break lazy-loading for the team trigger.
 import { DELAY_MS_HIDE, DELAY_MS_SHOW } from './util/config';
 
 // Legacy Profile Card in Jira still needs to use `withOuterListeners`

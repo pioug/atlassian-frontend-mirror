@@ -1,5 +1,11 @@
 # @atlaskit/share
 
+## 3.0.4
+
+### Patch Changes
+
+- [`1977f429d03`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1977f429d03) - Bug fixes
+
 ## 3.0.3
 
 ### Patch Changes

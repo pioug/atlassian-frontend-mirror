@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 
 import Popup from '@atlaskit/popup';
 import { layers } from '@atlaskit/theme/constants';
@@ -15,7 +15,7 @@ import {
 } from '../../types';
 import { DELAY_MS_HIDE, DELAY_MS_SHOW } from '../../util/config';
 
-import Profilecard from './ProfileCard';
+import { ProfileCardLazy } from './lazyProfileCard';
 import UserLoadingState from './UserLoadingState';
 
 class ProfilecardTrigger extends React.PureComponent<
@@ -191,13 +191,17 @@ class ProfilecardTrigger extends React.PureComponent<
 
     return (
       <div {...wrapperProps}>
-        <Profilecard
-          {...newProps}
-          actions={this.filterActions()}
-          hasError={this.state.hasError}
-          errorType={this.state.error}
-          withoutElevation
-        />
+        {this.state.visible && (
+          <Suspense fallback={null}>
+            <ProfileCardLazy
+              {...newProps}
+              actions={this.filterActions()}
+              hasError={this.state.hasError}
+              errorType={this.state.error}
+              withoutElevation
+            />
+          </Suspense>
+        )}
       </div>
     );
   }

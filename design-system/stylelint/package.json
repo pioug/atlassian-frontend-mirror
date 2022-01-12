@@ -1,0 +1,59 @@
+{
+  "name": "@atlaskit/stylelint-design-system",
+  "version": "0.1.0",
+  "description": "Stylelint plugin for Design System code standards.",
+  "author": "Atlassian Pty Ltd",
+  "license": "Apache-2.0",
+  "keywords": [
+    "stylelint-plugin"
+  ],
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "atlassian": {
+    "team": "Design System Team",
+    "releaseModel": "continuous",
+    "website": {
+      "name": "StylelintPluginDesignSystem"
+    }
+  },
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "module:es2019": "dist/es2019/index.js",
+  "types": "dist/types/index.d.ts",
+  "sideEffects": false,
+  "atlaskit:src": "src/index.tsx",
+  "af:exports": {
+    ".": "./src/index.tsx"
+  },
+  "dependencies": {
+    "@atlaskit/tokens": "^0.4.0",
+    "@babel/runtime": "^7.0.0",
+    "postcss-value-parser": "^4.2.0"
+  },
+  "peerDependencies": {
+    "stylelint": "^8.4.0"
+  },
+  "devDependencies": {
+    "@atlaskit/build-utils": "*",
+    "@atlaskit/docs": "*",
+    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
+    "@types/jest-preset-stylelint": "^3.0.1",
+    "@types/stylelint": "^13.13.3",
+    "jest-preset-stylelint": "^4.2.0",
+    "typescript": "3.9.6",
+    "wait-for-expect": "^1.2.0"
+  },
+  "techstack": {
+    "@atlassian/frontend": {
+      "import-structure": "atlassian-conventions",
+      "circular-dependencies": "file-and-folder-level"
+    },
+    "@repo/internal": {
+      "design-system": "v1",
+      "deprecation": "no-deprecated-imports"
+    }
+  },
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
+}

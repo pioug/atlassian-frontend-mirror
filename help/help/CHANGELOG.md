@@ -1,5 +1,11 @@
 # @atlaskit/help
 
+## 6.0.8
+
+### Patch Changes
+
+- [`222834915fa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/222834915fa) - [ux] Fix date formatting in What's New
+
 ## 6.0.7
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @atlaskit/share
 
+## 3.0.5
+
+### Patch Changes
+
+- [`7fe36d0765b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7fe36d0765b) - Analytics context changes for share to integrations
+
 ## 3.0.4
 
 ### Patch Changes

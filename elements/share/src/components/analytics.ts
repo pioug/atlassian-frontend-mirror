@@ -46,7 +46,7 @@ const createScreenEvent = (
 
 export const CHANNEL_ID = 'fabric-elements';
 export const ANALYTICS_SOURCE = 'shareModal';
-export const INTEGRATION_MODAL_SOURCE = 'integrationShareModal';
+export const INTEGRATION_MODAL_SOURCE = 'integrationShareDialog';
 
 export const screenEvent = ({ isPublicLink = false }) =>
   createScreenEvent(ANALYTICS_SOURCE, {

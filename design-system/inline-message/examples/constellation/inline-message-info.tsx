@@ -4,13 +4,17 @@ import InlineMessage from '../../src';
 
 const InlineMessageInfoExample = () => {
   return (
-    <InlineMessage type="info" secondaryText="Learn more">
+    <InlineMessage type="info">
       <p>
-        <strong>Want more information?</strong>
+        <strong>Test drive your new search</strong>
+      </p>
+      <p>
+        We've turbocharged your search results so you can get back to doing what
+        you do best.
       </p>
       <p>
         {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-        <a href="#">Log in</a> to setup your Bitbucket account.
+        <a href="#">Learn more</a>
       </p>
     </InlineMessage>
   );

@@ -8,7 +8,7 @@ import type {
   ShareDialogWithTriggerProps,
   ShareDialogWithTriggerStates,
 } from '../../types';
-import { ANALYTICS_SOURCE } from '../analytics';
+import { INTEGRATION_MODAL_SOURCE } from '../analytics';
 import { IntegrationForm, IntegrationFormProps } from '../IntegrationForm';
 import { ShareForm } from '../ShareForm';
 import { ShareFormWrapper } from '../ShareFormWrapper';
@@ -115,51 +115,51 @@ function LazyShareForm(props: LazyShareFormProps) {
   );
 
   return (
-    <AnalyticsContext data={{ source: ANALYTICS_SOURCE }}>
-      <ShareFormWrapper
-        footer={footer}
-        // form title will be determined by `title` and `showTitle` prop passed to `ShareForm`,
-        // so we don't need to show title via ShareFormWrapper
-        shouldShowTitle={false}
-      >
-        {showIntegrationForm && selectedIntegration !== null ? (
+    <ShareFormWrapper
+      footer={footer}
+      // form title will be determined by `title` and `showTitle` prop passed to `ShareForm`,
+      // so we don't need to show title via ShareFormWrapper
+      shouldShowTitle={false}
+    >
+      {showIntegrationForm && selectedIntegration !== null ? (
+        <AnalyticsContext data={{ source: INTEGRATION_MODAL_SOURCE }}>
           <IntegrationForm
             Content={selectedIntegration.Content}
             onIntegrationClose={onDialogClose}
           />
-        ) : (
-          <ShareForm
-            copyLink={copyLink}
-            loadOptions={loadOptions}
-            title={shareFormTitle}
-            showTitle={showTitle}
-            helperMessage={shareFormHelperMessage}
-            shareError={shareError}
-            defaultValue={defaultValue}
-            config={config}
-            submitButtonLabel={submitButtonLabel}
-            product={product}
-            enableSmartUserPicker={enableSmartUserPicker}
-            loggedInAccountId={loggedInAccountId}
-            cloudId={cloudId}
-            fieldsFooter={shareFieldsFooter}
-            selectPortalRef={selectPortalRef}
-            copyTooltipText={copyTooltipText}
-            integrationMode={integrationMode}
-            shareIntegrations={shareIntegrations}
-            isSharing={isSharing}
-            isFetchingConfig={isFetchingConfig}
-            isPublicLink={isPublicLink}
-            onSubmit={onSubmit}
-            onDismiss={onDismiss}
-            onLinkCopy={onLinkCopy}
-            onUserSelectionChange={onUserSelectionChange}
-            handleCloseDialog={onDialogClose}
-            onTabChange={onTabChange}
-          />
-        )}
-      </ShareFormWrapper>
-    </AnalyticsContext>
+        </AnalyticsContext>
+      ) : (
+        <ShareForm
+          copyLink={copyLink}
+          loadOptions={loadOptions}
+          title={shareFormTitle}
+          showTitle={showTitle}
+          helperMessage={shareFormHelperMessage}
+          shareError={shareError}
+          defaultValue={defaultValue}
+          config={config}
+          submitButtonLabel={submitButtonLabel}
+          product={product}
+          enableSmartUserPicker={enableSmartUserPicker}
+          loggedInAccountId={loggedInAccountId}
+          cloudId={cloudId}
+          fieldsFooter={shareFieldsFooter}
+          selectPortalRef={selectPortalRef}
+          copyTooltipText={copyTooltipText}
+          integrationMode={integrationMode}
+          shareIntegrations={shareIntegrations}
+          isSharing={isSharing}
+          isFetchingConfig={isFetchingConfig}
+          isPublicLink={isPublicLink}
+          onSubmit={onSubmit}
+          onDismiss={onDismiss}
+          onLinkCopy={onLinkCopy}
+          onUserSelectionChange={onUserSelectionChange}
+          handleCloseDialog={onDialogClose}
+          onTabChange={onTabChange}
+        />
+      )}
+    </ShareFormWrapper>
   );
 }
 

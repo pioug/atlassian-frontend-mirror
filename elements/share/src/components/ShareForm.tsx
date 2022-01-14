@@ -7,6 +7,7 @@ import {
 } from 'react-intl-next';
 import styled from 'styled-components';
 
+import { AnalyticsContext } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button/custom-theme-button';
 import Form from '@atlaskit/form';
 import ErrorIcon from '@atlaskit/icon/glyph/error';
@@ -18,6 +19,7 @@ import Tooltip from '@atlaskit/tooltip';
 import { messages } from '../i18n';
 import { FormChildrenArgs, ShareData, ShareFormProps, TabType } from '../types';
 
+import { ANALYTICS_SOURCE, INTEGRATION_MODAL_SOURCE } from './analytics';
 import { CommentField } from './CommentField';
 import CopyLinkButton from './CopyLinkButton';
 import { IntegrationForm } from './IntegrationForm';
@@ -39,12 +41,8 @@ const CenterAlignedIconWrapper = styled.div`
   }
 `;
 
-interface FormWrapperType {
-  isMainShare?: boolean;
-}
-
-export const FormWrapper = styled.div<FormWrapperType>`
-  margin-top: ${(props) => (props.isMainShare ? gridSize() : gridSize() * 2)}px;
+export const FormWrapper = styled.div`
+  margin-top: ${gridSize()}px;
   width: 100%;
 
   /* jira has a class override font settings on h1 in gh-custom-field-pickers.css */
@@ -69,7 +67,7 @@ const IntegrationWrapper = styled.div`
 `;
 
 const IntegrationIconWrapper = styled.span`
-  margin-bottom: -2px;
+  margin-bottom: -6px;
   margin-right: 5px;
 `;
 
@@ -131,40 +129,42 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
     } = this.props;
 
     return (
-      <form {...formProps}>
-        {showTitle && <ShareHeader title={title} />}
-        <FormField>
-          <UserPickerField
-            onInputChange={onUserInputChange}
-            onChange={onUserSelectionChange}
-            loadOptions={loadOptions}
-            defaultValue={defaultValue && defaultValue.users}
-            config={config}
-            isLoading={isFetchingConfig}
-            product={product || 'confluence'}
-            enableSmartUserPicker={enableSmartUserPicker}
-            loggedInAccountId={loggedInAccountId}
-            cloudId={cloudId}
-            selectPortalRef={selectPortalRef}
-            isPublicLink={isPublicLink}
-            helperMessage={helperMessage}
-          />
-        </FormField>
-        <FormField>
-          <CommentField defaultValue={defaultValue && defaultValue.comment} />
-        </FormField>
-        {fieldsFooter}
-        <FormFooter>
-          <CopyLinkButton
-            isDisabled={isDisabled}
-            onLinkCopy={onLinkCopy}
-            link={copyLink}
-            isPublicLink={isPublicLink}
-            copyTooltipText={copyTooltipText}
-          />
-          {this.renderSubmitButton()}
-        </FormFooter>
-      </form>
+      <AnalyticsContext data={{ source: ANALYTICS_SOURCE }}>
+        <form {...formProps}>
+          {showTitle && <ShareHeader title={title} />}
+          <FormField>
+            <UserPickerField
+              onInputChange={onUserInputChange}
+              onChange={onUserSelectionChange}
+              loadOptions={loadOptions}
+              defaultValue={defaultValue && defaultValue.users}
+              config={config}
+              isLoading={isFetchingConfig}
+              product={product || 'confluence'}
+              enableSmartUserPicker={enableSmartUserPicker}
+              loggedInAccountId={loggedInAccountId}
+              cloudId={cloudId}
+              selectPortalRef={selectPortalRef}
+              isPublicLink={isPublicLink}
+              helperMessage={helperMessage}
+            />
+          </FormField>
+          <FormField>
+            <CommentField defaultValue={defaultValue && defaultValue.comment} />
+          </FormField>
+          {fieldsFooter}
+          <FormFooter>
+            <CopyLinkButton
+              isDisabled={isDisabled}
+              onLinkCopy={onLinkCopy}
+              link={copyLink}
+              isPublicLink={isPublicLink}
+              copyTooltipText={copyTooltipText}
+            />
+            {this.renderSubmitButton()}
+          </FormFooter>
+        </form>
+      </AnalyticsContext>
     );
   };
 
@@ -278,18 +278,20 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
             </Tab>
           </TabList>
           <TabPanel key={`share-tabPanel-default`}>
-            <FormWrapper isMainShare>{this.renderShareForm()}</FormWrapper>
+            <FormWrapper>{this.renderShareForm()}</FormWrapper>
           </TabPanel>
           <TabPanel key={`share-tabPanel-integration`}>
-            <FormWrapper isMainShare={false}>
-              <IntegrationForm
-                Content={firstIntegration.Content}
-                onIntegrationClose={() => handleCloseDialog?.()}
-                changeTab={(index) => {
-                  this.changeTab(index);
-                }}
-              />
-            </FormWrapper>
+            <AnalyticsContext data={{ source: INTEGRATION_MODAL_SOURCE }}>
+              <FormWrapper>
+                <IntegrationForm
+                  Content={firstIntegration.Content}
+                  onIntegrationClose={() => handleCloseDialog?.()}
+                  changeTab={(index) => {
+                    this.changeTab(index);
+                  }}
+                />
+              </FormWrapper>
+            </AnalyticsContext>
           </TabPanel>
         </Tabs>
       );

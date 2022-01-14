@@ -1,5 +1,11 @@
 # @atlaskit/util-data-test
 
+## 17.1.1
+
+### Patch Changes
+
+- [`1d343f094cc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1d343f094cc) - created new mock profile client function with types
+
 ## 17.1.0
 
 ### Minor Changes

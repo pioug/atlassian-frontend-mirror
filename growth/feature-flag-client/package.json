@@ -17,7 +17,7 @@
   "types": "dist/types/index.d.ts",
   "atlaskit:src": "src/index.ts",
   "atlassian": {
-    "team": "Measurement Platform",
+    "team": "MEP: Switcheroo",
     "releaseModel": "continuous",
     "website": {
       "name": "Feature Flag Client"

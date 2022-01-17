@@ -176,12 +176,16 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
       submitButtonLabel,
       isDisabled,
       isPublicLink,
+      integrationMode,
     } = this.props;
     const shouldShowWarning = shareError && !isSharing;
     const buttonAppearance = !shouldShowWarning ? 'primary' : 'warning';
-    const sendLabel = isPublicLink
-      ? messages.formSendPublic
-      : messages.formSend;
+    const tabMode = integrationMode === 'tabs';
+    const formPublicLabel = tabMode
+      ? messages.formSharePublic
+      : messages.formSendPublic;
+    const formSendLabel = tabMode ? messages.formShare : messages.formSend;
+    const sendLabel = isPublicLink ? formPublicLabel : formSendLabel;
     const buttonLabel = shareError ? messages.formRetry : sendLabel;
     const ButtonLabelWrapper =
       buttonAppearance === 'warning' ? 'strong' : React.Fragment;

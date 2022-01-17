@@ -11,9 +11,19 @@ export const messages = defineMessages({
     defaultMessage: 'Send',
     description: 'Label for Share form submit button.',
   },
+  formShare: {
+    id: 'fabric.elements.share.form.share',
+    defaultMessage: 'Share',
+    description: 'Label for Share form submit button.',
+  },
   formSendPublic: {
     id: 'fabric.elements.share.form.public.send',
     defaultMessage: 'Send public link',
+    description: 'Label for Share form submit button when link is public.',
+  },
+  formSharePublic: {
+    id: 'fabric.elements.share.form.public.share',
+    defaultMessage: 'Share public link',
     description: 'Label for Share form submit button when link is public.',
   },
   formRetry: {

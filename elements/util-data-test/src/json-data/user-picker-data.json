@@ -346,6 +346,7 @@
     "avatarUrl": "https://ptc-directory-sited-static.us-east-1.staging.public.atl-paas.net/teams/avatars/4.svg",
     "type": "user",
     "isExternal": true,
+    "requiresSourceHydration": true,
     "sources": []
   }
 ]

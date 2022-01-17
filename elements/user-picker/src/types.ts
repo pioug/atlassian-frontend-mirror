@@ -229,6 +229,7 @@ export const UserType = 'user';
 export type UserSource = 'google' | 'slack' | 'microsoft' | 'github';
 
 export interface ExternalUser extends User {
+  requiresSourceHydration?: boolean;
   sources: UserSource[];
 }
 
@@ -241,6 +242,7 @@ export interface User extends OptionData {
   email?: string;
   isExternal?: boolean;
 }
+
 export type LozengeColor =
   | 'default'
   | 'success'

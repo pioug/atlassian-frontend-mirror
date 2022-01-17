@@ -294,6 +294,32 @@ describe('ShareForm', () => {
       expect(buttonLabel.props()).toMatchObject(messages.formSendPublic);
     });
 
+    it('should render Share button with the share text for integration mode "tabs"', () => {
+      const wrapper = shallow(
+        <ShareForm
+          {...defaultProps}
+          copyLink="link"
+          loadOptions={jest.fn()}
+          isPublicLink={true}
+          product="confluence"
+          integrationMode="tabs"
+        />,
+      );
+
+      const akForm = wrapper.find<FormProps<{}>>(Form);
+      const form = renderProp(akForm, 'children', { formProps: {} })
+        .dive()
+        .dive()
+        .find('form');
+      const footer = form.find(FormFooter);
+      const button = footer.find(Button);
+      expect(button).toHaveLength(1);
+
+      const buttonLabel = button.find(FormattedMessage);
+      expect(buttonLabel).toHaveLength(1);
+      expect(buttonLabel.props()).toMatchObject(messages.formSharePublic);
+    });
+
     it('should pass value to CopyLinkButton', () => {
       const wrapper = shallow(
         <ShareForm
@@ -370,6 +396,31 @@ describe('ShareForm', () => {
 
       const tabs = form.find(Tabs);
       expect(tabs).toHaveLength(0);
+    });
+
+    it('should render the share button text as "share" when integrationMode is "tabs"', () => {
+      const wrapper = shallow(
+        <ShareForm
+          {...defaultProps}
+          copyLink="link"
+          loadOptions={jest.fn()}
+          product="confluence"
+          integrationMode="tabs"
+        />,
+      );
+
+      const akForm = wrapper.find<FormProps<{}>>(Form);
+      const form = renderProp(akForm, 'children', { formProps: {} })
+        .dive()
+        .dive()
+        .find('form');
+      const footer = form.find(FormFooter);
+      const button = footer.find(Button);
+      expect(button).toHaveLength(1);
+
+      const buttonLabel = button.find(FormattedMessage);
+      expect(buttonLabel).toHaveLength(1);
+      expect(buttonLabel.props()).toMatchObject(messages.formShare);
     });
   });
 

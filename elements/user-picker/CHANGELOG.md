@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 8.3.1
+
+### Patch Changes
+
+- [`e75137a9eff`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e75137a9eff) - Adding ability to mark which external users need their sources hydrated
+
 ## 8.3.0
 
 ### Minor Changes

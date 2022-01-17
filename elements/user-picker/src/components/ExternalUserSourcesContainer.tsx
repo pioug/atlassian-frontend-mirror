@@ -14,6 +14,7 @@ type SourcesChildrenFunc = ({
 
 interface SourcesContainerProps {
   accountId: string;
+  shouldFetchSources: boolean;
   initialSources: UserSource[];
   children: SourcesChildrenFunc;
 }
@@ -21,13 +22,14 @@ interface SourcesContainerProps {
 export const ExternalUserSourcesContainer: React.FC<SourcesContainerProps> = ({
   children,
   accountId,
+  shouldFetchSources,
   initialSources = [],
 }) => {
   const {
     sources,
     loading: sourcesLoading,
     error: sourcesError,
-  } = useUserSource(accountId, initialSources);
+  } = useUserSource(accountId, shouldFetchSources, initialSources);
 
   if (typeof children === 'function') {
     return (children as Function)({ sources, sourcesLoading, sourcesError });

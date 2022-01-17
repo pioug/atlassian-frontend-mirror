@@ -2,13 +2,17 @@ import '@testing-library/jest-dom/extend-expect';
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import { ExternalUserOption } from '../../../components/ExternalUserOption/main';
-import { UserSource, UserSourceResult } from '../../../../src/types';
+import {
+  ExternalUser,
+  UserSource,
+  UserSourceResult,
+} from '../../../../src/types';
 import { ExusUserSourceProvider } from '../../../../src/clients/UserSourceProvider';
 import { IntlProvider } from 'react-intl-next';
 
 describe('ExternalUserOption', () => {
   const source = 'google';
-  const user = {
+  const user: ExternalUser = {
     id: 'abc-123',
     name: 'Jace Beleren',
     email: 'jbeleren@email.com',
@@ -16,6 +20,11 @@ describe('ExternalUserOption', () => {
     lozenge: 'WORKSPACE',
     isExternal: true,
     sources: [source] as UserSource[],
+  };
+
+  const userRequiresHydration: ExternalUser = {
+    ...user,
+    requiresSourceHydration: true,
   };
 
   // Check for text within some HTML that ignores it being split across nodes
@@ -39,7 +48,7 @@ describe('ExternalUserOption', () => {
         <ExternalUserOption user={user} status="approved" isSelected={false} />
       </IntlProvider>,
     );
-    expect(getByText(hasTextIgnoringHtml(user.email))).toBeTruthy();
+    expect(getByText(hasTextIgnoringHtml(user.email!))).toBeTruthy();
     expect(getByText(user.name)).toBeTruthy();
     expect(getByRole('img')).toHaveAttribute('aria-label', user.name);
   });
@@ -80,7 +89,7 @@ describe('ExternalUserOption', () => {
       <IntlProvider messages={{}} locale="en">
         <ExusUserSourceProvider fetchUserSource={mockFetch}>
           <ExternalUserOption
-            user={user}
+            user={userRequiresHydration}
             status="approved"
             isSelected={false}
           />
@@ -140,7 +149,7 @@ describe('ExternalUserOption', () => {
       .mockImplementation(() => Promise.reject(new Error('Failed to fetch')));
     // Empty sources so that we show the error
     const userWithEmptySources = {
-      ...user,
+      ...userRequiresHydration,
       sources: [],
     };
 
@@ -164,5 +173,51 @@ describe('ExternalUserOption', () => {
     const tooltip = getByRole('tooltip');
     // Tooltip has error
     expect(tooltip).toHaveTextContent("We can't connect you right now.");
+  });
+
+  it('should not call fetch sources if user does not require soruce hydration', async () => {
+    const mockFetch = jest.fn(
+      () =>
+        new Promise<UserSourceResult[]>((resolve) => {
+          resolve([
+            {
+              sourceId: '1234',
+              sourceType: 'github',
+            },
+          ]);
+        }),
+    );
+
+    const userNoHydration: ExternalUser = {
+      ...user,
+      requiresSourceHydration: false,
+    };
+
+    expect.assertions(5);
+    const { getByTestId, getByRole, findByRole } = render(
+      <ExusUserSourceProvider fetchUserSource={mockFetch}>
+        <IntlProvider messages={{}} locale="en">
+          <ExternalUserOption
+            user={userNoHydration}
+            status="approved"
+            isSelected={false}
+          />
+        </IntlProvider>
+      </ExusUserSourceProvider>,
+    );
+    // Sources info icon is visible
+    expect(getByTestId('source-icon')).toBeTruthy();
+    // Hover over tooltip
+    fireEvent.mouseOver(getByTestId('source-icon'));
+    await findByRole('tooltip');
+    const tooltip = getByRole('tooltip');
+
+    // Tooltip has single source displayed
+    expect(tooltip).toHaveTextContent('Found in:');
+    expect(tooltip).toHaveTextContent('Google');
+    expect(tooltip).not.toHaveTextContent('GitHub');
+
+    // fetch was not called
+    expect(mockFetch).toBeCalledTimes(0);
   });
 });

@@ -1,5 +1,11 @@
 # @atlaskit/share
 
+## 3.0.6
+
+### Patch Changes
+
+- [`3bada8f14f6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3bada8f14f6) - Rendering of share form submit button depends on the integration type. A type of 'tabs' will change the label to 'share'
+
 ## 3.0.5
 
 ### Patch Changes

@@ -158,10 +158,14 @@ export class ExternalUserOption extends React.PureComponent<
 
   private formattedTooltipContent() {
     const {
-      user: { id, sources },
+      user: { id, requiresSourceHydration, sources },
     } = this.props;
     return (
-      <ExternalUserSourcesContainer accountId={id} initialSources={sources}>
+      <ExternalUserSourcesContainer
+        accountId={id}
+        shouldFetchSources={Boolean(requiresSourceHydration)}
+        initialSources={sources}
+      >
         {({ sources, sourcesLoading, sourcesError }) => (
           <React.Fragment>
             {/* If fetching fails but we have static sources, just show them instead of the error message */}

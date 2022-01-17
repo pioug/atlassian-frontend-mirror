@@ -24,6 +24,7 @@ export const ExusUserSourceProvider: React.FC<UserSourceContext> = ({
 
 export const useUserSource = (
   accountId: string,
+  shouldFetchSources: boolean,
   existingSources?: UserSource[],
 ) => {
   const { fetchUserSource } = useContext(ExusUserSourceContext);
@@ -48,7 +49,7 @@ export const useUserSource = (
       isMounted = false;
     };
 
-    if (!fetchUserSource) {
+    if (!fetchUserSource || !shouldFetchSources) {
       setLoading(false);
       return cleanup;
     }
@@ -69,7 +70,13 @@ export const useUserSource = (
     }
 
     return cleanup;
-  }, [fetchUserSource, accountId, sources, abortController]);
+  }, [
+    fetchUserSource,
+    accountId,
+    sources,
+    abortController,
+    shouldFetchSources,
+  ]);
 
   return { sources: Array.from(sources), loading, error };
 };

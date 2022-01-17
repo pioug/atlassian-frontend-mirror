@@ -32,33 +32,32 @@ const InputWrapper = styled.div`
   margin-bottom: 20px;
 `;
 
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
 const Example = () => {
   const [hasAsyncSources, setHasAsyncSources] = React.useState(true);
   const [selectedSources, setSelectedSources] = React.useState<Option[]>(
     sources,
   );
   const loadUserSource = useCallback(
-    (accountId: string) => {
-      return new Promise<UserSourceResult[]>((resolve, reject) => {
-        const randomFailure = Math.random() < 0.2;
-        window.setTimeout(() => {
-          if (randomFailure) {
-            reject(new Error('Random failure'));
-          } else {
-            resolve(
-              selectedSources.map((source, index) => {
-                return {
-                  sourceId: String(index),
-                  sourceType: source.value as UserSource,
-                };
-              }) as UserSourceResult[],
-            );
-          }
-        }, 1500);
-      });
+    async (accountId: string) => {
+      const randomFailure = Math.random() < 0.2;
+      await sleep(1500);
+
+      if (randomFailure) {
+        throw new Error('Random failure');
+      } else {
+        return selectedSources.map((source, index) => {
+          return {
+            sourceId: String(index),
+            sourceType: source.value as UserSource,
+          };
+        }) as UserSourceResult[];
+      }
     },
     [selectedSources],
   );
+
   return (
     <ExampleContainer>
       <>

@@ -6,7 +6,9 @@ import { createMockedSourceProvider } from '../_testUtils';
 describe('UserSourceProvider', () => {
   describe('useUserSource hook', () => {
     it('returns loading: false when no function provided and no sources by default', () => {
-      const { result, rerender } = renderHook(() => useUserSource('1234'));
+      const { result, rerender } = renderHook(() =>
+        useUserSource('1234', true),
+      );
       const { sources, loading } = result.current;
       rerender();
       expect(loading).toStrictEqual(false);
@@ -14,7 +16,16 @@ describe('UserSourceProvider', () => {
     });
     it('returns initial sources by default if passed as props', () => {
       const { result, rerender } = renderHook(() =>
-        useUserSource('1234', ['github']),
+        useUserSource('1234', true, ['github']),
+      );
+      const { sources, loading } = result.current;
+      rerender();
+      expect(loading).toStrictEqual(false);
+      expect(sources).toEqual(['github']);
+    });
+    it('returns initial sources by default if argument indicating that sources do not need to be fetched', () => {
+      const { result, rerender } = renderHook(() =>
+        useUserSource('1234', false, ['github']),
       );
       const { sources, loading } = result.current;
       rerender();
@@ -34,7 +45,7 @@ describe('UserSourceProvider', () => {
           }),
       );
       const { result, rerender, waitForNextUpdate } = renderHook(
-        () => useUserSource('1234'),
+        () => useUserSource('1234', true),
         {
           wrapper: createMockedSourceProvider(mockFetch),
         },
@@ -58,7 +69,7 @@ describe('UserSourceProvider', () => {
           }),
       );
       const { result, rerender, waitForNextUpdate } = renderHook(
-        () => useUserSource('1234'),
+        () => useUserSource('1234', true),
         {
           wrapper: createMockedSourceProvider(mockFetch),
         },

@@ -268,7 +268,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   `keyboard-accessibility.ts: Backspace after opening existing date should delete it`,
-  { skip: ['firefox', 'edge', 'safari'] },
+  { skip: ['firefox', 'safari'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 
@@ -298,7 +298,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'keyboard-accessibility.ts: Arrow up in textfield works on existing date',
-  { skip: ['firefox', 'edge', 'safari'] },
+  { skip: ['firefox', 'safari'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(
@@ -345,7 +345,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'keyboard-accessibility.ts: Ctrl/Cmd-c on existing date copies node not text',
-  { skip: ['firefox', 'edge', 'safari'] },
+  { skip: ['firefox', 'safari'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(
@@ -402,7 +402,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'keyboard-accessibility.ts: Tab on existing date selected the input',
-  { skip: ['firefox', 'edge', 'safari'] },
+  { skip: ['firefox', 'safari'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(

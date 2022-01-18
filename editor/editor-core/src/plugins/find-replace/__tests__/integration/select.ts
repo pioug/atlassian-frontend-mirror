@@ -15,7 +15,7 @@ const chord = (page: Page, keys: string[]) => [trigger(page), ...keys, 'NULL'];
 
 BrowserTestCase(
   'select.ts: Find on selection should select find input on activation',
-  { skip: ['safari', 'edge', 'firefox'] },
+  { skip: ['safari', 'firefox'] },
   async (client: any) => {
     const page = await goToEditorTestingWDExample(client);
 
@@ -44,7 +44,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'select.ts: Find on selection should select find input on update',
-  { skip: ['safari', 'edge', 'firefox'] },
+  { skip: ['safari', 'firefox'] },
   async (client: any) => {
     const page = await goToEditorTestingWDExample(client);
 

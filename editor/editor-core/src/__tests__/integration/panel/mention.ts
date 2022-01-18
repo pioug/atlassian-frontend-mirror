@@ -15,7 +15,7 @@ import { selectors } from './_utils';
 
 BrowserTestCase(
   'mention.ts: Can insert mention inside panel using click',
-  { skip: ['edge', 'safari'] },
+  { skip: ['safari'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {

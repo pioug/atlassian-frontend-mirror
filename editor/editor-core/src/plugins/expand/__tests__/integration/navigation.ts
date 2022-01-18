@@ -21,7 +21,7 @@ const collapseExpandThenFocusTitle = async (page: any) => {
 
 BrowserTestCase(
   'navigation.ts: pressing Backspace should delete an expand when cursor is inside content',
-  { skip: ['edge', 'safari', 'firefox'] },
+  { skip: ['safari', 'firefox'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 
@@ -41,7 +41,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'navigation.ts: pressing Backspace should delete an expand when cursor is inside title',
-  { skip: ['edge', 'safari', 'firefox'] },
+  { skip: ['safari', 'firefox'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 
@@ -61,7 +61,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'navigation.ts: pressing Enter should collapse an expand when cursor is inside title',
-  { skip: ['edge', 'safari', 'firefox'] },
+  { skip: ['safari', 'firefox'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 
@@ -80,7 +80,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'navigation.ts: when cursor is after a collapsed expand, pressing Backspace should focus the title',
-  { skip: ['edge', 'safari', 'firefox'] },
+  { skip: ['safari', 'firefox'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 
@@ -101,7 +101,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'navigation.ts: when cursor is after two collapsed expands, pressing Backspace should focus the title of the second one',
-  { skip: ['edge', 'safari', 'firefox'] },
+  { skip: ['safari', 'firefox'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 

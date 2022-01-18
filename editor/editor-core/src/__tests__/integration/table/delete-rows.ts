@@ -14,7 +14,7 @@ import { deleteRow } from '../../__helpers/page-objects/_table';
 
 BrowserTestCase(
   'Should delete merged rows from contextual menu and append missing cells to the table',
-  { skip: ['edge', 'firefox', 'safari'] },
+  { skip: ['firefox', 'safari'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
     const intl = createIntl({
@@ -51,7 +51,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'Should delete merged rows from contextual menu and decrement rowspan of the spanning cell',
-  { skip: ['edge', 'firefox', 'safari'] },
+  { skip: ['firefox', 'safari'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
     const intl = createIntl({
@@ -88,7 +88,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'Should delete a row when table is nested inside bodied extension',
-  { skip: ['edge', 'firefox', 'safari'] },
+  { skip: ['firefox', 'safari'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 

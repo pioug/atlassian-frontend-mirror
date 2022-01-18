@@ -14,7 +14,7 @@ import { selectors } from './_utils';
 
 BrowserTestCase(
   'change-type.ts: Change the type of panel to Error',
-  { skip: ['edge'] },
+  {},
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {

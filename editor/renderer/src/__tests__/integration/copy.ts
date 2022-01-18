@@ -51,7 +51,7 @@ const getClipboardContent = async (page: Page, type: string) => {
 // We should remove this test.
 BrowserTestCase(
   `Copy correct table structure`,
-  { skip: ['edge', 'safari'] },
+  { skip: ['safari'] },
   async (client: any) => {
     const page = await goToRendererTestingExample(client);
 

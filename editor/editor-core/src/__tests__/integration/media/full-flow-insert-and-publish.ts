@@ -16,7 +16,7 @@ type ClientType = Parameters<typeof goToFullPage>[0];
 BrowserTestCase(
   'full-flow-insert-and-publish.ts: Drag folder that contains a folder (which has multiple images), verify, wait',
   {
-    skip: ['safari', 'edge'],
+    skip: ['safari'],
   },
   async (client: ClientType) => {
     const page = await goToFullPage(client);
@@ -38,7 +38,7 @@ BrowserTestCase(
 BrowserTestCase(
   'full-flow-insert-and-publish.ts: Drag folder (contains an image), verify, wait',
   {
-    skip: ['safari', 'edge'],
+    skip: ['safari'],
   },
   async (client: ClientType) => {
     const page = await goToFullPage(client);
@@ -60,7 +60,7 @@ BrowserTestCase(
 BrowserTestCase(
   'full-flow-insert-and-publish.ts: Drag image, verify, wait',
   {
-    skip: ['safari', 'edge'],
+    skip: ['safari'],
   },
   async (client: ClientType) => {
     const page = await goToFullPage(client);
@@ -81,7 +81,7 @@ BrowserTestCase(
 BrowserTestCase(
   'full-flow-insert-and-publish.ts: Drag image, verify, wait, publish, check',
   {
-    skip: ['safari', 'edge'],
+    skip: ['safari'],
   },
   async (client: ClientType) => {
     const page = await goToFullPage(client);
@@ -131,7 +131,7 @@ BrowserTestCase(
 BrowserTestCase(
   'full-flow-insert-and-publish.ts: Click paragraph, ensure editor loads',
   {
-    skip: ['safari', 'edge'],
+    skip: ['safari'],
   },
   async (client: ClientType) => {
     const page = await goToFullPageClickToEdit(client);
@@ -165,7 +165,7 @@ BrowserTestCase(
 BrowserTestCase(
   'full-flow-insert-and-publish.ts: Drag image, verify, wait, publish, close media viewer and make sure editor not opened',
   {
-    skip: ['safari', 'edge'],
+    skip: ['safari'],
   },
   async (client: ClientType) => {
     const page = await goToFullPageClickToEdit(client);

@@ -5,7 +5,7 @@ import WebBridgeImpl from '../../../editor/native-to-web';
 
 // FIXME Ideally these would be mobile browsers
 // Safari & Chrome should suffice for now.
-export const skipBrowsers: Browser[] = ['firefox', 'edge'];
+export const skipBrowsers: Browser[] = ['firefox'];
 
 export const navigateOrClear = async (browser: any, path: string) => {
   await browser.goto(path);

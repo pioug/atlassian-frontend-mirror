@@ -14,7 +14,7 @@ import { messages } from '../../../plugins/insert-block/ui/ToolbarInsertBlock/me
 
 BrowserTestCase(
   `quick-insert.ts: Extension: Quick Insert`,
-  { skip: ['edge', 'safari'] },
+  { skip: ['safari'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {

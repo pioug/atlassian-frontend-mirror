@@ -11,9 +11,7 @@ import { messages } from '../../../../plugins/insert-block/ui/ToolbarInsertBlock
 
 BrowserTestCase(
   `card: selecting a link from CMD + K menu should create an inline card using keyboard`,
-  {
-    skip: ['edge'],
-  },
+  {},
   async (client: ConstructorParameters<typeof Page>[0], testName: string) => {
     const page = new Page(client);
 

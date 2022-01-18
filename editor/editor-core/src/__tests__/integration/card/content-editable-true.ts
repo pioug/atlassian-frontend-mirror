@@ -14,7 +14,7 @@ type ClientType = Parameters<typeof goToEditorTestingWDExample>[0];
 
 BrowserTestCase(
   'card: should set contentediable=true on blocks and embeds',
-  { skip: ['safari', 'edge', 'firefox'] },
+  { skip: ['safari', 'firefox'] },
   async (client: ClientType, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 

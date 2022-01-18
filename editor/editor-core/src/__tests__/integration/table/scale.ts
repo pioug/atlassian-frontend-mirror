@@ -16,7 +16,7 @@ import {
 
 BrowserTestCase(
   'Should scale remaining columns when adding a new column preventing from going to overflow',
-  { skip: ['edge', 'safari'] },
+  { skip: ['safari'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 
@@ -37,7 +37,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'Should scale remaining columns when deleting a column recovering table from overflow',
-  { skip: ['edge', 'safari'] },
+  { skip: ['safari'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 

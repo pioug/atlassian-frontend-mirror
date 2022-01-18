@@ -13,7 +13,7 @@ import adf from './__fixtures__/one-image.adf';
 
 BrowserTestCase(
   'inserting.ts: Inserts caption on click of placeholder',
-  { skip: ['edge'] },
+  {},
   async (
     client: Parameters<typeof goToEditorTestingWDExample>[0],
     _testName: string,

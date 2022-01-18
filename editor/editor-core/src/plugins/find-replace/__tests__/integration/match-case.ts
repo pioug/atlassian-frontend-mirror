@@ -35,7 +35,7 @@ const openFindReplace = async (
 
 BrowserTestCase(
   'match-case.ts: should hide Match Case button if "allowMatchCase" feature flag is not explicitly toggled on',
-  { skip: ['edge'] },
+  {},
   async (client: any, testName: string) => {
     const { page } = await openFindReplace(client, matchCaseAdf, false);
     const matchCaseBtn = await page.$(findReplaceSelectors.matchCaseButton);
@@ -45,7 +45,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'match-case.ts: should initially start with Match Case button toggled off',
-  { skip: ['edge'] },
+  {},
   async (client: any, testName: string) => {
     const { page } = await openFindReplace(client, matchCaseAdf, true);
     const matchCaseBtn = await page.$(findReplaceSelectors.matchCaseButton);
@@ -56,7 +56,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'match-case.ts: find with Match Case button toggled off should find all results, ignoring case',
-  { skip: ['edge'] },
+  {},
   async (client: any, testName: string) => {
     const { page } = await openFindReplace(client, matchCaseAdf, true);
     await findText(page, 'HELLO');
@@ -67,7 +67,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'match-case.ts: find with Match Case button toggled on should find results that exactly match case',
-  { skip: ['edge'] },
+  {},
   async (client: any, testName: string) => {
     const { page } = await openFindReplace(client, matchCaseAdf, true);
     await toggleMatchCase(page, true);

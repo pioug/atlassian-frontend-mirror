@@ -6,7 +6,7 @@ import { fullpageDisabled } from '../_helpers';
 // TODO: fix expect condition or find a way to fetch error from api
 BrowserTestCase(
   "disabled.ts: Shouldn't be able to type in the disabled editor",
-  { skip: ['edge', 'firefox', 'safari', 'chrome'] },
+  { skip: ['firefox', 'safari', 'chrome'] },
   async (client: any) => {
     const browser = new Page(client);
     await browser.goto(fullpageDisabled.path);
@@ -19,7 +19,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   "disabled.ts: Shouldn't be able to type in a panel",
-  { skip: ['edge', 'firefox', 'safari', 'chrome'] },
+  { skip: ['firefox', 'safari', 'chrome'] },
   async (client: any) => {
     const browser = new Page(client);
     await browser.goto(fullpageDisabled.path);
@@ -34,7 +34,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   "disabled.ts: Shouldn't be able to type in a table",
-  { skip: ['edge', 'firefox', 'safari', 'chrome'] },
+  { skip: ['firefox', 'safari', 'chrome'] },
   async (client: any) => {
     const browser = new Page(client);
     await browser.goto(fullpageDisabled.path);

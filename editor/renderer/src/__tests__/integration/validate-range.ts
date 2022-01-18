@@ -16,8 +16,8 @@ const CHAR_WIDTH = 6;
 // Selection in Catalina Safari isn't working properly.
 BrowserTestCase(
   `A selection containing text and media validates false`,
-  { skip: ['edge', 'firefox', 'safari'] },
-  async (client: WebdriverIO.BrowserObject) => {
+  { skip: ['firefox', 'safari'] },
+  async (client: any) => {
     const page = await goToRendererTestingExample(client);
     await mountRenderer(
       page,
@@ -38,7 +38,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   `A selection containing text and mention validates false`,
-  { skip: ['edge', 'firefox', 'safari'] },
+  { skip: ['firefox', 'safari'] },
   async (client: any) => {
     const page = await goToRendererTestingExample(client);
     await mountRenderer(
@@ -60,7 +60,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   `A selection containing text and emoji validates false`,
-  { skip: ['edge', 'firefox', 'safari'] },
+  { skip: ['firefox', 'safari'] },
   async (client: any) => {
     const page = await goToRendererTestingExample(client);
     await mountRenderer(
@@ -82,7 +82,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   `A selection containing text and status validates false`,
-  { skip: ['edge', 'firefox', 'safari'] },
+  { skip: ['firefox', 'safari'] },
   async (client: any) => {
     const page = await goToRendererTestingExample(client);
     await mountRenderer(
@@ -104,8 +104,8 @@ BrowserTestCase(
 
 BrowserTestCase(
   `A full line selection with inline nodes validates false`,
-  { skip: ['edge', 'firefox', 'safari'] },
-  async (client: WebdriverIO.BrowserObject) => {
+  { skip: ['firefox', 'safari'] },
+  async (client: any) => {
     const page = await goToRendererTestingExample(client);
     await mountRenderer(
       page,
@@ -134,8 +134,8 @@ BrowserTestCase(
 
 BrowserTestCase(
   `A full line selection without inline nodes validates true`,
-  { skip: ['edge', 'firefox', 'safari'] },
-  async (client: WebdriverIO.BrowserObject) => {
+  { skip: ['firefox', 'safari'] },
+  async (client: any) => {
     const page = await goToRendererTestingExample(client);
     await mountRenderer(
       page,

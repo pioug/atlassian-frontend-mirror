@@ -14,7 +14,7 @@ import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 BrowserTestCase(
   `card: selecting an inline card and choosing a new page from edit-link menu should update title and url for supported link`,
   {
-    skip: ['edge', 'safari', 'firefox'],
+    skip: ['safari', 'firefox'],
   },
   async (client: ConstructorParameters<typeof Page>[0], testName: string) => {
     const page = new Page(client);

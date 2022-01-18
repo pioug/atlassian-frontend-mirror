@@ -37,7 +37,7 @@ import {
 
 BrowserTestCase(
   'Can resize normally with a rowspan in the non last column.',
-  { skip: ['edge'] },
+  {},
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 
@@ -58,7 +58,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'Can resize normally with a rowspan and colspan',
-  { skip: ['edge'] },
+  {},
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 
@@ -79,7 +79,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'Can resize normally on a full width table with content',
-  { skip: ['edge', 'firefox', 'safari'] },
+  { skip: ['firefox', 'safari'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 
@@ -100,7 +100,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   `Created column should be set to ${tableNewColumnMinWidth}px`,
-  { skip: ['edge', 'safari'] },
+  { skip: ['safari'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 
@@ -121,7 +121,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   "Can't resize the last column of a table with dynamic sizing enabled.",
-  { skip: ['edge'] },
+  {},
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 
@@ -143,7 +143,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'Can resize the last column when table is nested in Columns',
-  { skip: ['edge', 'firefox', 'safari'] },
+  { skip: ['firefox', 'safari'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 
@@ -165,7 +165,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'Should stack columns to the left when widths of some of the columns equal minWidth',
-  { skip: ['edge'] },
+  {},
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 
@@ -197,32 +197,28 @@ BrowserTestCase(
     },
   },
 ].forEach(({ test, featureFlags }) => {
-  BrowserTestCase(
-    test,
-    { skip: ['edge'] },
-    async (client: any, testName: string) => {
-      const page = await goToEditorTestingWDExample(client);
+  BrowserTestCase(test, {}, async (client: any, testName: string) => {
+    const page = await goToEditorTestingWDExample(client);
 
-      await mountEditor(page, {
-        appearance: fullpage.appearance,
-        defaultValue: JSON.stringify(resizedTableWithStackedColumns),
-        allowTables: {
-          advanced: true,
-        },
-        featureFlags,
-      });
+    await mountEditor(page, {
+      appearance: fullpage.appearance,
+      defaultValue: JSON.stringify(resizedTableWithStackedColumns),
+      allowTables: {
+        advanced: true,
+      },
+      featureFlags,
+    });
 
-      await resizeColumn(page, { cellHandlePos: 2, resizeWidth: 420 });
+    await resizeColumn(page, { cellHandlePos: 2, resizeWidth: 420 });
 
-      const doc = await page.$eval(editable, getDocFromElement);
-      expect(doc).toMatchCustomDocSnapshot(testName);
-    },
-  );
+    const doc = await page.$eval(editable, getDocFromElement);
+    expect(doc).toMatchCustomDocSnapshot(testName);
+  });
 });
 
 BrowserTestCase(
   'Should bulk resize 3 columns in 4 columns table',
-  { skip: ['edge', 'firefox', 'safari'] },
+  { skip: ['firefox', 'safari'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 
@@ -245,7 +241,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'Should recover from overflow when number col is selected',
-  { skip: ['edge', 'firefox', 'safari'] },
+  { skip: ['firefox', 'safari'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 
@@ -268,7 +264,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'Should bulk resize selected columns',
-  { skip: ['edge', 'firefox', 'safari'] },
+  { skip: ['firefox', 'safari'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 
@@ -291,7 +287,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'Can resize normally while editor changes its appearance',
-  { skip: ['edge', 'firefox', 'safari'] },
+  { skip: ['firefox', 'safari'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 

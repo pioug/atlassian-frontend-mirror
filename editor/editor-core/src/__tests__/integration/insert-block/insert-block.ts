@@ -14,7 +14,7 @@ const emojiPanel = '[data-emoji-picker-container="true"]';
 
 BrowserTestCase(
   'insert-block.ts: opens emoji picker from toolbar button',
-  { skip: ['edge'] },
+  {},
   async (client: any) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, fullpage);
@@ -28,7 +28,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'insert-block.ts: opens emoji picker from dropdown after resizing',
-  { skip: ['edge'] },
+  {},
   async (client: any) => {
     const page = await goToEditorTestingWDExample(client);
 
@@ -49,7 +49,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'insert-block.ts: with new extensions opens emoji picker from dropdown after resizing',
-  { skip: ['edge'] },
+  {},
   async (client: any) => {
     const page = await goToEditorTestingWDExample(client);
 

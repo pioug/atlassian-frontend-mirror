@@ -12,7 +12,7 @@ import messages from '../../../plugins/table/ui/messages';
 
 BrowserTestCase(
   'Should delete merged columns from contextual menu and append missing cells to the table',
-  { skip: ['edge', 'firefox', 'safari'] },
+  { skip: ['firefox', 'safari'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
     const intl = createIntl({
@@ -49,7 +49,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'Should delete merged columns from contextual menu and decrement colspan of the spanning cell',
-  { skip: ['edge', 'firefox', 'safari'] },
+  { skip: ['firefox', 'safari'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
     const intl = createIntl({

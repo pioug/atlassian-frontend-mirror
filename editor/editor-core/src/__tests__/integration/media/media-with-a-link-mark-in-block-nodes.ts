@@ -40,7 +40,7 @@ async function loadADF(client: any, adf: object): Promise<any> {
 
 BrowserTestCase(
   'should load the adf with media single inside a layout column',
-  { skip: ['edge'] },
+  {},
   async (client: any, testName: string) => {
     const doc = await loadADF(client, adfMediaSingleWithLinkInALayoutColumn);
     expect(doc).toMatchCustomDocSnapshot(testName);
@@ -49,7 +49,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'should load the adf with media single inside a table cell',
-  { skip: ['edge'] },
+  {},
   async (client: any, testName: string) => {
     const doc = await loadADF(client, adfMediaSingleWithLinkInATable);
     expect(doc).toMatchCustomDocSnapshot(testName);
@@ -58,7 +58,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'should load the adf with media single inside a list item',
-  { skip: ['edge'] },
+  {},
   async (client: any, testName: string) => {
     const doc = await loadADF(client, adfMediaSingleWithLinkInAListItem);
     expect(doc).toMatchCustomDocSnapshot(testName);
@@ -67,7 +67,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'should load the adf with media single inside an expand',
-  { skip: ['edge'] },
+  {},
   async (client: any, testName: string) => {
     const doc = await loadADF(client, adfMediaSingleWithLinkInAnExpand);
     expect(doc).toMatchCustomDocSnapshot(testName);
@@ -76,7 +76,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'should load the adf with media single inside a bodied extension',
-  { skip: ['edge'] },
+  {},
   async (client: any, testName: string) => {
     const doc = await loadADF(
       client,
@@ -89,7 +89,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'should load the adf with media single inside a nested expand',
-  { skip: ['edge'] },
+  {},
   async (client: any, testName: string) => {
     const doc = await loadADF(client, adfMediaSingleWithLinkInANestedExpand);
 

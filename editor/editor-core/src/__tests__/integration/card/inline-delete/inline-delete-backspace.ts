@@ -10,7 +10,7 @@ import {
 BrowserTestCase(
   `card: pressing backspace with the cursor at the end of Inline link should delete it`,
   {
-    skip: ['safari', 'edge'],
+    skip: ['safari'],
   },
   async (client: ConstructorParameters<typeof Page>[0], testName: string) => {
     const page = new Page(client);

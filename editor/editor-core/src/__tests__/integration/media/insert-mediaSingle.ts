@@ -13,7 +13,7 @@ import {
 
 BrowserTestCase(
   'insert-mediaSingle.ts: Inserts a media single on fullpage',
-  { skip: ['edge', 'safari'] },
+  { skip: ['safari'] },
   async (
     client: Parameters<typeof goToEditorTestingWDExample>[0],
     testName: string,
@@ -45,7 +45,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'insert-mediaSingle.ts: Inserts media single on left when the alignLeftOnInsert prop is true',
-  { skip: ['edge', 'safari'] },
+  { skip: ['safari'] },
   async (
     client: Parameters<typeof goToEditorTestingWDExample>[0],
     testName: string,
@@ -78,7 +78,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'insert-mediaSingle.ts: Inserts media single on left in comment editor',
-  { skip: ['edge', 'safari'] },
+  { skip: ['safari'] },
   async (
     client: Parameters<typeof goToEditorTestingWDExample>[0],
     testName: string,

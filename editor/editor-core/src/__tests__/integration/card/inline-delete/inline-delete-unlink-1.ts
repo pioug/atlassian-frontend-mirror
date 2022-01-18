@@ -11,7 +11,7 @@ import { waitForInlineCardSelection } from '@atlaskit/media-integration-test-hel
 BrowserTestCase(
   `card: unlinking an Inline Link should replace it with text corresponding to the title of the previously linked page`,
   {
-    skip: ['safari', 'edge'],
+    skip: ['safari'],
   },
   async (client: ConstructorParameters<typeof Page>[0], testName: string) => {
     const page = new Page(client);

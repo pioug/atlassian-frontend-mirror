@@ -19,7 +19,7 @@ const createRepeatedArray = <T>(seq: T[], timesRepeated: number): T[] => {
 
 BrowserTestCase(
   'indentation.ts: Should indent when tab is pressed',
-  { skip: ['edge', 'safari', 'firefox'] },
+  { skip: ['safari', 'firefox'] },
   async (client: any, testName: string) => {
     const page = new Page(client);
     await page.goto(fullpage.path);
@@ -36,7 +36,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'indentation.ts: Should indent to max indentation and no more',
-  { skip: ['edge', 'safari', 'firefox'] },
+  { skip: ['safari', 'firefox'] },
   async (client: any, testName: string) => {
     const page = new Page(client);
     await page.goto(fullpage.path);
@@ -53,7 +53,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'indentation.ts: Should not indent backwards when at 0 indentation',
-  { skip: ['edge', 'safari', 'firefox'] },
+  { skip: ['safari', 'firefox'] },
   async (client: any, testName: string) => {
     const page = new Page(client);
     await page.goto(fullpage.path);
@@ -70,7 +70,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'indentation.ts: Should indent back to 0 when at max indentation',
-  { skip: ['edge', 'safari', 'firefox'] },
+  { skip: ['safari', 'firefox'] },
   async (client: any, testName: string) => {
     const page = new Page(client);
     await page.goto(fullpage.path);

@@ -14,19 +14,15 @@ const cardHiddenWithCacheSelector =
 const cardHiddenWithoutCacheSelector =
   '[data-testid="media-card-hidden-card-without-cache"]';
 // Edge & Safari see https://product-fabric.atlassian.net/browse/BMPT-597
-BrowserTestCase(
-  'MediaCard - load image',
-  { skip: ['edge'] },
-  async (client: BrowserObject) => {
-    const page = await gotoCardFilesMockedPage(client);
+BrowserTestCase('MediaCard - load image', {}, async (client: BrowserObject) => {
+  const page = await gotoCardFilesMockedPage(client);
 
-    expect(await page.isCardLoadedSuccessful(cardStandardSelector)).toBe(true);
-  },
-);
+  expect(await page.isCardLoadedSuccessful(cardStandardSelector)).toBe(true);
+});
 
 BrowserTestCase(
   'MediaCard - load image with contextId',
-  { skip: ['edge'] },
+  {},
   async (client: BrowserObject) => {
     const page = await gotoCardFilesMockedPage(client);
 
@@ -38,7 +34,7 @@ BrowserTestCase(
 
 // BrowserTestCase(
 //   'MediaCard - load image and launch media viewer',
-//   { skip: ['edge'] },
+//   {},
 //   async (client: BrowserObject) => {
 //     const page = await gotoCardFilesMockedPage(client);
 
@@ -52,7 +48,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'MediaCard - renders loading card',
-  { skip: ['edge'] },
+  {},
   async (client: BrowserObject) => {
     const page = await gotoCardFilesMockedPage(client);
 
@@ -62,7 +58,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'MediaCard - cards that is not in the viewport but is available in local cache',
-  { skip: ['edge', 'safari'] },
+  { skip: ['safari'] },
   async (client: BrowserObject) => {
     const page = await gotoCardFilesMockedPage(client);
 
@@ -74,7 +70,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'MediaCard - cards that is not in the viewport and no local cache available',
-  { skip: ['edge', 'safari'] },
+  { skip: ['safari'] },
   async (client: BrowserObject) => {
     const page = await gotoCardFilesMockedPage(client);
 

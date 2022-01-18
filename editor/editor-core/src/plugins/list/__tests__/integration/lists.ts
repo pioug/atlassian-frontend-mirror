@@ -34,7 +34,7 @@ async function insertList(
 
 BrowserTestCase(
   `list: shouldn't change focus on tab if the list is not indentable`,
-  { skip: ['edge'] },
+  {},
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
@@ -58,7 +58,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'list: should be able to insert lists via keyboard shortcut (Windows)',
-  { skip: ['edge', 'safari', 'firefox'] },
+  { skip: ['safari', 'firefox'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
@@ -75,7 +75,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'list: should be able to insert lists via keyboard shortcut (Mac)',
-  { skip: ['edge', 'chrome', 'firefox'] },
+  { skip: ['chrome', 'firefox'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
@@ -107,7 +107,7 @@ BrowserTestCase(
  */
 BrowserTestCase(
   'list: should be able to navigate lists correctly in firefox',
-  { skip: ['edge', 'chrome', 'safari'] },
+  { skip: ['chrome', 'safari'] },
   async (client: any) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
@@ -143,7 +143,7 @@ BrowserTestCase(
 //Cases below refer to the cases found in this document: https://product-fabric.atlassian.net/wiki/spaces/E/pages/1146954996/List+Backspace+and+Delete+Behaviour
 BrowserTestCase(
   'list: should handle backspace correctly when at the start of a list',
-  { skip: ['edge', 'safari', 'firefox'] },
+  { skip: ['safari', 'firefox'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 
@@ -213,7 +213,7 @@ BrowserTestCase(
 //Will test cases for paragraphs and other list nodes when deleting at the end of a list
 BrowserTestCase(
   'list: should handle delete correctly when at the end of a list',
-  { skip: ['edge', 'safari', 'firefox'] },
+  { skip: ['safari', 'firefox'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 
@@ -280,7 +280,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'list: ctrl-d shortcut should behave the same as delete key (Mac)',
-  { skip: ['edge', 'chrome', 'firefox'] },
+  { skip: ['chrome', 'firefox'] },
   async (client: any) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
@@ -302,7 +302,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'list: ctrl-d shortcut should not change editable content (Windows)',
-  { skip: ['edge', 'safari', 'firefox'] },
+  { skip: ['safari', 'firefox'] },
   async (client: any) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {

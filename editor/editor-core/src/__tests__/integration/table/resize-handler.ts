@@ -63,7 +63,7 @@ BrowserTestCase(
   'Should display the resizer handler after a cellselection',
   // We are skipping other browsers because this test relies on drag and drop,
   // and this API isn't stable in other browsers
-  { skip: ['firefox', 'edge', 'safari'] },
+  { skip: ['firefox', 'safari'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 

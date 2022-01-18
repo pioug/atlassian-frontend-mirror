@@ -9,9 +9,7 @@ import { ConfluenceCardProvider } from '@atlaskit/editor-test-helpers/confluence
 
 BrowserTestCase(
   `card: typing in a supported link and pressing enter should create an inline card`,
-  {
-    skip: ['edge'],
-  },
+  {},
   async (client: ConstructorParameters<typeof Page>[0], testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 

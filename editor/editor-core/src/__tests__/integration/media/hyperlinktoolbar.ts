@@ -23,7 +23,6 @@ async function setupEditor(client: any): Promise<Page> {
 BrowserTestCase(
   'Inserts a link via hyperlinktoolbar',
   {
-    // skip: ['edge'],
     skip: ['*'],
   },
   async (client: any, testName: string) => {
@@ -49,7 +48,6 @@ BrowserTestCase(
 BrowserTestCase(
   "Doesn't insert a link via hyperlinktoolbar when switching between fields",
   {
-    // skip: ['edge'],
     skip: ['*'],
   },
   async (client: any, testName: string) => {
@@ -73,7 +71,6 @@ BrowserTestCase(
 BrowserTestCase(
   "Doesn't insert a link via hyperlinktoolbar when clicking out of toolbar",
   {
-    // skip: ['edge'],
     skip: ['*'],
   },
   async (client: any, testName: string) => {
@@ -96,7 +93,6 @@ BrowserTestCase(
 BrowserTestCase(
   'Inserts a link when tabbing through hyperlinktoolbar',
   {
-    // skip: ['edge'],
     skip: ['*'],
   },
   async (client: any, testName: string) => {

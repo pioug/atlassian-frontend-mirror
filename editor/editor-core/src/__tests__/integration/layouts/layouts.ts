@@ -10,7 +10,7 @@ import { messages as insertBlockMessages } from '../../../plugins/insert-block/u
 
 BrowserTestCase(
   `layouts: Backspacing within a layout shouldnt remove all contents`,
-  { skip: ['firefox', 'edge'] },
+  { skip: ['firefox'] },
   async (client: any, testName: string) => {
     const page = new Page(client);
     await page.goto(fullpage.path);

@@ -15,9 +15,7 @@ const mockLinkUrlEndsWith = 'Home+opt-in+requests';
 
 BrowserTestCase(
   'card: inserting a link with CMD + K with keyboard should retain display text and insert a blue link',
-  {
-    skip: ['edge'],
-  },
+  {},
   async (client: ConstructorParameters<typeof Page>[0], testName: string) => {
     const page = new Page(client);
 

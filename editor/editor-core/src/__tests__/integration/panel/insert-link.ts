@@ -15,7 +15,7 @@ import { selectors } from './_utils';
 BrowserTestCase(
   'insert-link.ts: Insert link in panel by typing Markdown',
   // IE skipped due to malformed input error: https://product-fabric.atlassian.net/browse/ED-7043
-  { skip: ['edge'] },
+  {},
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {

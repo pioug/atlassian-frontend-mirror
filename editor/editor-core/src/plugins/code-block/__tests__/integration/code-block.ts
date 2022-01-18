@@ -16,7 +16,7 @@ const floatingToolbarLanguageSelector = 'div[aria-label="Floating Toolbar"]';
 ['comment', 'full-page'].forEach((editor) => {
   BrowserTestCase(
     `code-block: produces correct ADF after language change for ${editor}`,
-    { skip: ['safari', 'edge'] },
+    { skip: ['safari'] },
     async (client: any, testName: string) => {
       const page = await goToEditorTestingWDExample(client);
 
@@ -36,7 +36,7 @@ const floatingToolbarLanguageSelector = 'div[aria-label="Floating Toolbar"]';
 
   BrowserTestCase(
     `code-block: code block language is preserved after floating toolbar loses and gains focus for ${editor}`,
-    { skip: ['safari', 'edge'] },
+    { skip: ['safari'] },
     async (client: any) => {
       const page = await goToEditorTestingWDExample(client);
 
@@ -65,7 +65,7 @@ const floatingToolbarLanguageSelector = 'div[aria-label="Floating Toolbar"]';
 
   BrowserTestCase(
     `code-block: code block selected language correctly changes when moving selection directly from one code block to another for ${editor}`,
-    { skip: ['safari', 'edge'] },
+    { skip: ['safari'] },
     async (client: any) => {
       const page = await goToEditorTestingWDExample(client);
 
@@ -159,7 +159,7 @@ const floatingToolbarLanguageSelector = 'div[aria-label="Floating Toolbar"]';
 // https://product-fabric.atlassian.net/browse/ED-12780
 BrowserTestCase(
   `code-block: code-highlighting layer is empty for plain text`,
-  { skip: ['safari', 'edge'] },
+  { skip: ['safari'] },
   async (client: any) => {
     const page = await goToEditorTestingWDExample(client);
 

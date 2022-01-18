@@ -10,7 +10,7 @@ import {
 BrowserTestCase(
   `card: pasting an link converts to inline card`,
   {
-    skip: ['safari', 'edge'],
+    skip: ['safari'],
   },
   async (client: ConstructorParameters<typeof Page>[0], testName: string) => {
     const page = new Page(client);

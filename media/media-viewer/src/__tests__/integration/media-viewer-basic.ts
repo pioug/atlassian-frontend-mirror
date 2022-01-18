@@ -31,7 +31,7 @@ const openMediaViewer = async (client: WebDriverIOBrowser) => {
 
 BrowserTestCase(
   'media-viewer-basic.ts: Navigation should navigate back and forth',
-  { skip: ['edge'] },
+  {},
   async (client: WebDriverIOBrowser) => {
     const mediaViewer = await openMediaViewer(client);
     await mediaViewer.validateMediaCard({
@@ -70,7 +70,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'media-viewer-basic.ts: Should close on Close click',
-  { skip: ['edge'] },
+  {},
   async (client: ConstructorParameters<typeof Page>[0]) => {
     const mediaViewer = await openMediaViewer(client);
     await mediaViewer.closeMediaViewer(false);
@@ -79,7 +79,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'media-viewer-basic.ts: Should close on Escape press',
-  { skip: ['edge'] },
+  {},
   async (client: ConstructorParameters<typeof Page>[0]) => {
     const mediaViewer = await openMediaViewer(client);
     await mediaViewer.closeMediaViewer(true);
@@ -88,7 +88,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'media-viewer-basic.ts: Should open and close sidebar',
-  { skip: ['edge'] },
+  {},
   async (client: ConstructorParameters<typeof Page>[0]) => {
     const mediaViewer = await openMediaViewer(client);
     await mediaViewer.openSidebar();

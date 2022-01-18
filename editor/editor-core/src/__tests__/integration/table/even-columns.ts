@@ -22,7 +22,7 @@ import {
 // moveTo in doubleClickResizeHandle does not work for safari
 BrowserTestCase(
   'Should even columns on double click on resize handle when table is selected',
-  { skip: ['safari', 'edge'] },
+  { skip: ['safari'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 
@@ -45,7 +45,7 @@ BrowserTestCase(
 // moveTo in doubleClickResizeHandle does not work for safari
 BrowserTestCase(
   'Should even columns and remain overflown on double click on resize handle when table is selected',
-  { skip: ['safari', 'edge'] },
+  { skip: ['safari'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 

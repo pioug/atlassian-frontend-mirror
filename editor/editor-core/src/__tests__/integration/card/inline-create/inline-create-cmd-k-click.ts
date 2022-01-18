@@ -12,9 +12,7 @@ import { messages } from '../../../../plugins/insert-block/ui/ToolbarInsertBlock
 // Selection in Catalina Safari isn't working properly.
 BrowserTestCase(
   `card: selecting a link from CMD + K menu should create an inline card with click`,
-  {
-    skip: ['edge'],
-  },
+  {},
   async (client: ConstructorParameters<typeof Page>[0], testName: string) => {
     const page = new Page(client);
 

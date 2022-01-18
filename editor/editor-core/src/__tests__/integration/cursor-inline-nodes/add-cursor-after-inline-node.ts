@@ -146,7 +146,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'when cmd + shift + left arrow is pressed after inline nodes, the whole line should be selected in Safari',
-  { skip: ['chrome', 'edge', 'firefox'] },
+  { skip: ['chrome', 'firefox'] },
   async (client: any, testName: string) => {
     testSelectLineOfInlineNodes(client, testName, 'Command');
   },

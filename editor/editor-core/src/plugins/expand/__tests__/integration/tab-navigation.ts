@@ -36,7 +36,7 @@ describe('given the gap cursor is on the left of the expand', () => {
         BrowserTestCase(
           'should collapse the expand',
           // TODO: Unskip Safari as part of https://product-fabric.atlassian.net/browse/ED-11351
-          { skip: ['edge', 'safari'] },
+          { skip: ['safari'] },
           async (client: any, testName: string) => {
             const page = await startEditor(client);
             await page.keys('Tab');
@@ -52,7 +52,7 @@ describe('given the gap cursor is on the left of the expand', () => {
         BrowserTestCase(
           'should collapse the expand',
           // TODO: Unskip Safari as part of https://product-fabric.atlassian.net/browse/ED-11351
-          { skip: ['edge', 'safari'] },
+          { skip: ['safari'] },
           async (client: any, testName: string) => {
             const page = await startEditor(client);
             await page.keys('Tab');
@@ -70,7 +70,7 @@ describe('given the gap cursor is on the left of the expand', () => {
     BrowserTestCase(
       'should focus on title',
       // TODO: Unskip Safari as part of https://product-fabric.atlassian.net/browse/ED-11351
-      { skip: ['edge', 'safari'] },
+      { skip: ['safari'] },
       async (client: any, testName: string) => {
         const page = await startEditor(client);
         await page.keys('Tab');
@@ -88,7 +88,7 @@ describe('given the gap cursor is on the left of the expand', () => {
       BrowserTestCase(
         'should focus on content',
         // TODO: Unskip Safari as part of https://product-fabric.atlassian.net/browse/ED-11351
-        { skip: ['edge', 'safari'] },
+        { skip: ['safari'] },
         async (client: any, testName: string) => {
           const page = await startEditor(client);
           await page.keys('Tab');
@@ -107,7 +107,7 @@ describe('given the gap cursor is on the left of the expand', () => {
         'should focus outside',
         // TODO: Unskip Safari as part of https://product-fabric.atlassian.net/browse/ED-11351
         // TODO: unskip chrome and firefox https://product-fabric.atlassian.net/browse/ED-13164
-        { skip: ['edge', 'safari', 'chrome', 'firefox'] },
+        { skip: ['*'] },
         async (client: any, testName: string) => {
           const page = await startEditor(client, true);
           await page.keys('Tab');

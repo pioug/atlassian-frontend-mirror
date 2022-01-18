@@ -14,7 +14,7 @@ const input = 'helloworld';
 [comment, fullpage].forEach((editor) => {
   BrowserTestCase(
     `toolbar-2.ts: should be able to select heading1 for ${editor.name} editor`,
-    { skip: ['safari', 'edge'] },
+    { skip: ['safari'] },
     async (client: any) => {
       const page = await goToEditorTestingWDExample(client);
       await mountEditor(page, { appearance: editor.appearance });

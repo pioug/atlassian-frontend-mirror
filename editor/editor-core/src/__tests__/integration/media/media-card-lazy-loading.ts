@@ -10,7 +10,7 @@ type ClientType = Parameters<typeof goToEditorTestingWDExample>[0];
 
 BrowserTestCase(
   'media-card: should lazy render media cards after scrolling down',
-  { skip: ['safari', 'edge'] },
+  { skip: ['safari'] },
   async (client: ClientType, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
     const lazySelector = '[data-testid="media-card-loading"]';

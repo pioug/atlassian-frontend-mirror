@@ -27,7 +27,7 @@ async function redoShortcut(
 
 BrowserTestCase(
   `undo-redo.ts: should be able to undo & redo via toolbar buttons in the full page editor`,
-  { skip: ['edge'] },
+  {},
   async (client: any) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
@@ -49,7 +49,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   `undo-redo.ts: should be able to undo & redo via keyboard shortcut (Windows)`,
-  { skip: ['safari', 'edge'] },
+  { skip: ['safari'] },
   async (client: any) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
@@ -71,7 +71,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   `undo-redo.ts: should be able to undo & redo via keyboard shortcut (Mac)`,
-  { skip: ['chrome', 'firefox', 'edge'] },
+  { skip: ['chrome', 'firefox'] },
   async (client: any) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {

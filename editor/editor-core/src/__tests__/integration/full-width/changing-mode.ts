@@ -14,7 +14,7 @@ import { mediumSizeDoc } from './__fixtures__/medium-document';
 BrowserTestCase(
   'Should transition successfully, without error, when a selection over react nodes exists',
   // `page.checkConsoleErrors` only runs on Chrome so we skip all other browsers.
-  { skip: ['edge', 'safari', 'firefox'] },
+  { skip: ['safari', 'firefox'] },
   async (client: any) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(

@@ -9,7 +9,7 @@ import adf from './_fixtures_/wrapped-media-in-table.adf.json';
 
 BrowserTestCase(
   'wrapped-media-in-table.ts: Allows clicking next to wrapped media in table',
-  { skip: ['edge', 'safari', 'firefox'] },
+  { skip: ['safari', 'firefox'] },
   async (
     client: Parameters<typeof goToEditorTestingWDExample>[0],
     testCase: string,

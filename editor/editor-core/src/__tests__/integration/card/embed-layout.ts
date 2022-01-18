@@ -16,7 +16,7 @@ import { editable, getDocFromElement } from '../_helpers';
   BrowserTestCase(
     `embed-layout.ts: Layout ${layout.type} selector for embed Card`,
     {
-      // skip: ['edge', 'safari', 'firefox'],
+      // skip: ['safari', 'firefox'],
       skip: ['*'],
     },
     async (

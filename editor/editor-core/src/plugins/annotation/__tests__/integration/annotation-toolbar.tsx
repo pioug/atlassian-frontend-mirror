@@ -15,7 +15,7 @@ import { BrowserObject } from '@atlaskit/webdriver-runner/wd-wrapper';
 
 BrowserTestCase(
   `toolbar is disabled when selection includes inline nodes`,
-  { skip: ['edge'] },
+  {},
   async (client: any) => {
     const page = await goToEditorTestingWDExample(client);
 
@@ -37,7 +37,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   `toolbar shows up when selecting whole paragraph and releasing mouse outside editor`,
-  { skip: ['edge'] },
+  {},
   async (client: BrowserObject) => {
     const page = await goToEditorTestingWDExample(client);
 

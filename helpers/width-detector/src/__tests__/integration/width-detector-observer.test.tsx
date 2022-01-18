@@ -11,7 +11,7 @@ const width = () => {
 
 BrowserTestCase(
   'width-detector-observer.ts: does not resize when sentinel is offscreen by default',
-  { skip: ['safari', 'firefox', 'edge'] },
+  { skip: ['safari', 'firefox'] },
   async (client: any) => {
     const page = new Page(client);
     await page.goto(getExampleUrl('helpers', 'width-detector', 'scrolling'));
@@ -33,7 +33,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'width-detector-observer.ts: resizes when sentinel is offscreen for offscreen=true',
-  { skip: ['safari', 'firefox', 'edge'] },
+  { skip: ['safari', 'firefox'] },
   async (client: any) => {
     const page = new Page(client);
     await page.goto(getExampleUrl('helpers', 'width-detector', 'scrolling'));

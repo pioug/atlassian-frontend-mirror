@@ -1,9 +1,9 @@
 import { addons, makeDecorator, useEffect } from '@storybook/addons';
 
-// eslint-disable-next-line
-import '../../../node_modules/@atlaskit/tokens/css/atlassian-light.css';
-// eslint-disable-next-line
-import '../../../node_modules/@atlaskit/tokens/css/atlassian-dark.css';
+// // eslint-disable-next-line
+// import '../../../node_modules/@atlaskit/tokens/css/atlassian-light.css';
+// // eslint-disable-next-line
+// import '../../../node_modules/@atlaskit/tokens/css/atlassian-dark.css';
 
 import {
   DECORATOR_ID,

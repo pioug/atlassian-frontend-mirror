@@ -12,7 +12,7 @@ import * as cardFatalAdf from '../_fixtures_/inline-card-adf.fatal.json';
 BrowserTestCase(
   `card: pasting a fatal error link should turn to href in adf`,
   {
-    // skip: ['safari', 'edge'],
+    // skip: ['safari'],
     skip: ['*'],
   },
   async (client: ConstructorParameters<typeof Page>[0], testName: string) => {

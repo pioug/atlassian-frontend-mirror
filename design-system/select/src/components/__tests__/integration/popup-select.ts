@@ -10,7 +10,7 @@ const popupSelect = '#react-select-2-input';
 
 BrowserTestCase(
   `Popup Select should close when Escape key is pressed in IE and Edge`,
-  { skip: ['safari', 'chrome', 'firefox'] }, // the issue was only occurring in IE and Edge - AK-5319
+  { skip: ['*'] }, // the issue was only occurring in IE and Edge - AK-5319
   async (client: any) => {
     const popupSelectTest = new Page(client);
     await popupSelectTest.goto(urlPopupSelect);

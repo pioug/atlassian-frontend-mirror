@@ -8,7 +8,7 @@ const titleSelector = '.ak-editor-content-area textarea';
 
 BrowserTestCase(
   'focus.ts: Should focus title initially',
-  { skip: ['edge', 'safari'] },
+  { skip: ['safari'] },
   async (client: any) => {
     const browser = new Page(client);
     await browser.goto(fullPageEditor);
@@ -20,7 +20,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'focus.ts: Should focus editor when click on editor',
-  { skip: ['edge', 'safari'] },
+  { skip: ['safari'] },
   async (client: any) => {
     const browser = new Page(client);
     await browser.goto(fullPageEditor);
@@ -33,7 +33,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'focus.ts: Should focus editor when hit tab key',
-  { skip: ['edge', 'safari'] },
+  { skip: ['safari'] },
   async (client: any) => {
     const browser = new Page(client);
     await browser.goto(fullPageEditor);

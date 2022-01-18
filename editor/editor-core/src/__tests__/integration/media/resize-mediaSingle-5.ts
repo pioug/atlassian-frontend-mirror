@@ -21,7 +21,7 @@ BrowserTestCase(
    * @see https://product-fabric.atlassian.net/browse/EDM-1541
    * @see https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/6614/afp-2188-prevent-inaccurate-jest-results
    */
-  { skip: ['chrome', 'firefox', 'edge', 'safari'] },
+  { skip: ['*'] },
   async (browserObject: BrowserObject) => {
     let page: Page = await goToEditorTestingWDExample(browserObject);
     // This 1500 is important for Safari to work for mysterious reasons. Yes, :magic:

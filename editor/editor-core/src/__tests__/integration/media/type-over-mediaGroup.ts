@@ -9,7 +9,7 @@ import {
 [comment].forEach((editor) => {
   BrowserTestCase(
     `type-over-mediaGroup.ts: Typeover the selected media item in a media group`,
-    { skip: ['edge'] },
+    {},
     async (
       client: Parameters<typeof goToEditorTestingWDExample>[0],
       testName: string,

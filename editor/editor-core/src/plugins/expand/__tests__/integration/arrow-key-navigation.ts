@@ -62,7 +62,7 @@ describe('expand: arrow key navigation', () => {
 
     BrowserTestCase(
       'sets node selection when user hits right arrow',
-      { skip: ['edge'] },
+      {},
       async (client: any) => {
         const page = await startEditorWithLeftGapCursor(client);
         await sendArrowRightKey(page);
@@ -73,7 +73,7 @@ describe('expand: arrow key navigation', () => {
 
     BrowserTestCase(
       'sets selection inside expand title when user hits right arrow twice',
-      { skip: ['edge'] },
+      {},
       async (client: any, testName: string) => {
         const page = await startEditorWithLeftGapCursor(client);
         await sendArrowRightKey(page, { numTimes: 2 });
@@ -86,7 +86,7 @@ describe('expand: arrow key navigation', () => {
 
     BrowserTestCase(
       'sets node selection when user hits right arrow thrice',
-      { skip: ['edge'] },
+      {},
       async (client: any) => {
         const page = await startEditorWithLeftGapCursor(client);
         await sendArrowRightKey(page, { numTimes: 3 });
@@ -97,7 +97,7 @@ describe('expand: arrow key navigation', () => {
 
     BrowserTestCase(
       'sets right side gap cursor selection when user hits right arrow four times',
-      { skip: ['edge'] },
+      {},
       async (client: any) => {
         const page = await startEditorWithLeftGapCursor(client);
         await sendArrowRightKey(page, { numTimes: 4 });
@@ -123,7 +123,7 @@ describe('expand: arrow key navigation', () => {
 
     BrowserTestCase(
       'sets node selection when user hits left arrow',
-      { skip: ['edge'] },
+      {},
       async (client: any) => {
         const page = await startEditorWithRightGapCursor(client);
         await sendArrowLeftKey(page);
@@ -134,7 +134,7 @@ describe('expand: arrow key navigation', () => {
 
     BrowserTestCase(
       'sets selection inside expand title when user hits left arrow twice',
-      { skip: ['edge'] },
+      {},
       async (client: any, testName: string) => {
         const page = await startEditorWithRightGapCursor(client);
         await sendArrowLeftKey(page, { numTimes: 2 });
@@ -147,7 +147,7 @@ describe('expand: arrow key navigation', () => {
 
     BrowserTestCase(
       'sets node selection when user hits right arrow thrice',
-      { skip: ['edge'] },
+      {},
       async (client: any) => {
         const page = await startEditorWithRightGapCursor(client);
         await sendArrowLeftKey(page, { numTimes: 3 });
@@ -158,7 +158,7 @@ describe('expand: arrow key navigation', () => {
 
     BrowserTestCase(
       'sets left side gap cursor selection when user hits left arrow four times',
-      { skip: ['edge'] },
+      {},
       async (client: any) => {
         const page = await startEditorWithRightGapCursor(client);
         await sendArrowLeftKey(page, { numTimes: 4 });
@@ -190,7 +190,7 @@ describe('expand: arrow key navigation', () => {
     // Neither does calling element.click passing in x/y co-ordinates
     BrowserTestCase(
       'sets selection inside expand title when user hits left arrow',
-      { skip: ['firefox', 'safari', 'edge'] },
+      { skip: ['firefox', 'safari'] },
       async (client: any, testName: string) => {
         const page = await startEditorWithNodeSelection(client);
         await sendArrowLeftKey(page);
@@ -203,7 +203,7 @@ describe('expand: arrow key navigation', () => {
 
     BrowserTestCase(
       'sets left side gap cursor selection when user hits left arrow twice',
-      { skip: ['firefox', 'safari', 'edge'] },
+      { skip: ['firefox', 'safari'] },
       async (client: any) => {
         const page = await startEditorWithNodeSelection(client);
         await sendArrowLeftKey(page, { numTimes: 2 });
@@ -219,7 +219,7 @@ describe('expand: arrow key navigation', () => {
 
     BrowserTestCase(
       'sets right side gap cursor selection when user hits right arrow',
-      { skip: ['firefox', 'safari', 'edge'] },
+      { skip: ['firefox', 'safari'] },
       async (client: any) => {
         const page = await startEditorWithNodeSelection(client);
         await sendArrowRightKey(page);
@@ -236,7 +236,7 @@ describe('expand: arrow key navigation', () => {
     describe('and then clicks inside expand title', () => {
       BrowserTestCase(
         'sets node selection when user hits left arrow',
-        { skip: ['firefox', 'safari', 'edge'] },
+        { skip: ['firefox', 'safari'] },
         async (client: any) => {
           const page = await startEditorWithNodeSelection(client);
           await page.click(selectors.expandTitleInput);
@@ -248,7 +248,7 @@ describe('expand: arrow key navigation', () => {
 
       BrowserTestCase(
         'sets left side gap cursor selection when user hits left arrow twice',
-        { skip: ['firefox', 'safari', 'edge'] },
+        { skip: ['firefox', 'safari'] },
         async (client: any) => {
           const page = await startEditorWithNodeSelection(client);
           await page.click(selectors.expandTitleInput);
@@ -265,7 +265,7 @@ describe('expand: arrow key navigation', () => {
 
       BrowserTestCase(
         'sets node selection when user hits right arrow',
-        { skip: ['firefox', 'safari', 'edge'] },
+        { skip: ['firefox', 'safari'] },
         async (client: any) => {
           const page = await startEditorWithNodeSelection(client);
           await page.click(selectors.expandTitleInput);
@@ -277,7 +277,7 @@ describe('expand: arrow key navigation', () => {
 
       BrowserTestCase(
         'sets right side gap cursor selection when user hits right arrow twice',
-        { skip: ['firefox', 'safari', 'edge'] },
+        { skip: ['firefox', 'safari'] },
         async (client: any) => {
           const page = await startEditorWithNodeSelection(client);
           await page.click(selectors.expandTitleInput);
@@ -306,7 +306,7 @@ describe('expand: arrow key navigation', () => {
 
     BrowserTestCase(
       'sets selection inside expand body when user hits down arrow',
-      { skip: ['edge'] },
+      {},
       async (client: any, testName: string) => {
         const page = await startEditorWithTitleFocus(client);
         await page.keys('ArrowDown');
@@ -319,7 +319,7 @@ describe('expand: arrow key navigation', () => {
 
     BrowserTestCase(
       'sets selection below collapsed expand when user hits down arrow',
-      { skip: ['edge'] },
+      {},
       async (client: any, testName: string) => {
         const page = await startEditorWithTitleFocus(
           client,
@@ -335,7 +335,7 @@ describe('expand: arrow key navigation', () => {
 
     BrowserTestCase(
       'sets left side gap cursor selection when user hits up arrow',
-      { skip: ['edge'] },
+      {},
       async (client: any) => {
         const page = await startEditorWithTitleFocus(client);
         await page.keys('ArrowUp');
@@ -353,7 +353,7 @@ describe('expand: arrow key navigation', () => {
   describe('given the focus is in expand body', () => {
     BrowserTestCase(
       'sets focus inside expand title when user hits up arrow',
-      { skip: ['edge'] },
+      {},
       async (client: any, testName: string) => {
         const page = await startEditor(client);
         await page.keys('ArrowUp');
@@ -366,7 +366,7 @@ describe('expand: arrow key navigation', () => {
 
     BrowserTestCase(
       "doesn't set focus inside expand title when user hits up arrow from second line of expand body",
-      { skip: ['edge'] },
+      {},
       async (client: any, testName: string) => {
         const page = await startEditor(client, multiLineExpandAdf);
         // set selection at end of second line (there was some flakiness when trying to get this selection by clicking)

@@ -15,7 +15,7 @@ type ClientType = Parameters<typeof goToEditorTestingWDExample>[0];
 BrowserTestCase(
   'embed: should open a new window to authenticate with a provider',
   {
-    // skip: ['safari', 'edge'],
+    // skip: ['safari'],
     skip: ['*'],
   },
   async (client: ClientType) => {

@@ -21,7 +21,7 @@ const alignRight = async (page: any) => {
 
 BrowserTestCase(
   'alignment: should be able to add alignment to paragraphs',
-  { skip: ['edge'] },
+  {},
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 
@@ -65,7 +65,7 @@ BrowserTestCase(
 // TODO: test failing on safari and edge
 BrowserTestCase(
   'alignment: disabled when inside special nodes',
-  { skip: ['safari', 'edge'] },
+  { skip: ['safari'] },
   async (client: any) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
@@ -84,7 +84,7 @@ BrowserTestCase(
 // TODO: test failing on safari and edge
 BrowserTestCase(
   'alignment: disabled when editor is disabled',
-  { skip: ['safari', 'edge'] },
+  { skip: ['safari'] },
   async (client: any) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
@@ -99,7 +99,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'alignment: should maintain alignment when hit return',
-  { skip: ['edge'] },
+  {},
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
@@ -126,7 +126,7 @@ BrowserTestCase(
 BrowserTestCase(
   'alignment: should be able to add alignment to selected cells',
   // @see ED-10292
-  { skip: ['edge', 'safari'] },
+  { skip: ['safari'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
     const CELL = 'tbody td:first-child';

@@ -34,7 +34,7 @@ const removeFuzzyMediaAttrs = (doc: { [key: string]: any }) => {
 
 BrowserTestCase(
   'upload-external-media.ts: Uploads external media when pasted',
-  { skip: ['edge', 'safari'] },
+  { skip: ['safari'] },
   async (client: ConstructorParameters<typeof Page>[0], testCase: string) => {
     const sample = new Page(client);
     await copyToClipboard(

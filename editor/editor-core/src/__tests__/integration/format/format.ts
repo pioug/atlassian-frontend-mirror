@@ -23,7 +23,7 @@ const insertHeadings = async (page: Page, modifierKeys: string[]) => {
 
 BrowserTestCase(
   'format.ts: user should be able to create link using markdown',
-  { skip: ['edge'] },
+  {},
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, { appearance: 'full-page' });
@@ -38,7 +38,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'format.ts: user should be able to format bold, italics and strikethrough with markdown',
-  { skip: ['edge'] },
+  {},
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, { appearance: 'full-page' });
@@ -61,7 +61,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'format.ts: user should be able to write inline code',
-  { skip: ['edge'] },
+  {},
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, { appearance: 'full-page' });
@@ -77,7 +77,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'format.ts: should be able to use keyboard shortcuts to set headings (Windows)',
-  { skip: ['safari', 'edge'] },
+  { skip: ['safari'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, { appearance: 'full-page' });
@@ -90,7 +90,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'format.ts: should be able to use keyboard shortcuts to set headings (Mac)',
-  { skip: ['chrome', 'firefox', 'edge'] },
+  { skip: ['chrome', 'firefox'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, { appearance: 'full-page' });

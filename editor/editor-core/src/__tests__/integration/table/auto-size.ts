@@ -61,7 +61,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'Scales to full-width',
-  { skip: ['edge', 'safari', 'firefox'] },
+  { skip: ['safari', 'firefox'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
     const doc = await loadAndRetrieveDocument(

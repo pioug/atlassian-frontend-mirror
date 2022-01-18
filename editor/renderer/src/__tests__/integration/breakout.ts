@@ -10,7 +10,7 @@ const sleep = (time: number) =>
 
 BrowserTestCase(
   'Addapts full-width table after scrolling to resizing',
-  { skip: ['edge', 'firefox', 'safari'] },
+  { skip: ['firefox', 'safari'] },
   async (client: any, testName: string) => {
     const page = await goToRendererTestingExample(client);
     await mountRenderer(page, {}, tableLayoutAdf);

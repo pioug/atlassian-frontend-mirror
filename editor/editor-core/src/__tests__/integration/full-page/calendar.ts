@@ -13,7 +13,7 @@ const dateView = `span.dateView-content-wrap`;
 // https://product-fabric.atlassian.net/browse/ED-4531
 BrowserTestCase(
   'calendar.ts: user should be able to open calendar',
-  { skip: ['edge', 'safari'] },
+  { skip: ['safari'] },
   async (client: any) => {
     const page = await goToEditorTestingWDExample(client);
     page.teardownMockDate();
@@ -30,7 +30,7 @@ BrowserTestCase(
 // https://product-fabric.atlassian.net/browse/ED-5033
 BrowserTestCase(
   'calendar.ts: clicking date when calendar is open should close it',
-  { skip: ['edge', 'safari'] },
+  { skip: ['safari'] },
   async (client: any) => {
     const page = await goToEditorTestingWDExample(client);
     page.teardownMockDate();
@@ -49,7 +49,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'calendar.ts: clicking on another date should open its date picker',
-  { skip: ['edge', 'safari'] },
+  { skip: ['safari'] },
   async (client: any) => {
     const page = await goToEditorTestingWDExample(client);
     page.teardownMockDate();

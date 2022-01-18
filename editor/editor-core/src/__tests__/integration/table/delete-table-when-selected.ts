@@ -22,7 +22,7 @@ import basicTableAdf from './__fixtures__/basic-table';
 
 BrowserTestCase(
   'replaces table with text when user types with a full-table cell selection',
-  { skip: ['edge'] },
+  {},
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
@@ -45,7 +45,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'replaces table with content when user pastes plain text with a full-table cell selection',
-  { skip: ['edge', 'safari'] },
+  { skip: ['safari'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
     await page.waitFor(clipboardInput);
@@ -72,7 +72,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'replaces table with content when user pastes rich text with a full-table cell selection',
-  { skip: ['edge', 'safari'] },
+  { skip: ['safari'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
     await page.waitFor(clipboardInput);

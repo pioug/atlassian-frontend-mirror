@@ -11,7 +11,7 @@ const editorSelector = selectors.editor;
 
 BrowserTestCase(
   'media: when message is not a media image node does nothing',
-  { skip: ['edge', 'safari'] },
+  { skip: ['safari'] },
   async (client: WebdriverIO.BrowserObject, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 

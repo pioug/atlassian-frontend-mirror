@@ -76,7 +76,7 @@ async function mountRenderer(
 
 BrowserTestCase(
   'paste.ts: paste tests on fullpage editor: plain text',
-  { skip: ['edge', 'safari'] },
+  { skip: ['safari'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 
@@ -97,7 +97,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'paste.ts: paste tests on fullpage editor: text formatting',
-  { skip: ['edge', 'safari'] },
+  { skip: ['safari'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 
@@ -120,7 +120,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'paste.ts: paste tests on fullpage editor: bullet list',
-  { skip: ['edge', 'safari'] },
+  { skip: ['safari'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 
@@ -143,7 +143,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'paste.ts: paste tests on fullpage editor: ordered list',
-  { skip: ['edge', 'safari'] },
+  { skip: ['safari'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 
@@ -193,7 +193,7 @@ BrowserTestCase(
   /* NOTE: https://product-fabric.atlassian.net/browse/ED-9822:
      we've got this bug in Firefox where it doubles up the items when pasting
   */
-  { skip: ['edge', 'safari', 'firefox'] },
+  { skip: ['safari', 'firefox'] },
   async (client: WebdriverIO.BrowserObject, testName: string) => {
     let page = new WebdriverPage(client);
     let url = getExampleUrl(
@@ -272,7 +272,7 @@ BrowserTestCase(
    * Notes that Chrome on MacOS will fail this test because we are using ['Shift', 'Insert'] in page.paste()
    * which would actually paste the text.
    */
-  { skip: ['edge', 'safari', 'firefox'] },
+  { skip: ['safari', 'firefox'] },
   async (client: WebdriverIO.BrowserObject, testName: string) => {
     let page = new WebdriverPage(client);
     let url = getExampleUrl(
@@ -335,7 +335,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'paste.ts: paste tests on fullpage editor: hyperlink',
-  { skip: ['edge', 'safari'] },
+  { skip: ['safari'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 

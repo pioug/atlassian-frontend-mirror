@@ -131,7 +131,7 @@ describe('typeahead: editor focus', () => {
     },
   );
   describe('when access from Safari and using keyboard selection shortcuts', () => {
-    const allButSafari: Browser[] = ['chrome', 'firefox', 'edge'];
+    const allButSafari: Browser[] = ['chrome', 'firefox'];
     describe('when select using COMMAND+SHIFT+ARROW_LEFT', () => {
       BrowserTestCase(
         'it should not delete any content',

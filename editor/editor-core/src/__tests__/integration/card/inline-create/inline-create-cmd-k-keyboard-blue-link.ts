@@ -12,9 +12,7 @@ import { messages } from '../../../../plugins/insert-block/ui/ToolbarInsertBlock
 
 BrowserTestCase(
   'card: inserting a link with CMD + K with link not in recents list inserted as blue link',
-  {
-    skip: ['edge'],
-  },
+  {},
   async (client: ConstructorParameters<typeof Page>[0], testName: string) => {
     const page = new Page(client);
     const mockUrl = 'https://i.want.donuts';

@@ -10,7 +10,7 @@ import { waitForInlineCardSelection } from '@atlaskit/media-integration-test-hel
 
 BrowserTestCase(
   'card: copy-paste within editor should work',
-  { skip: ['safari', 'edge'] },
+  { skip: ['safari'] },
   async (client: ClientType, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 

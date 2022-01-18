@@ -18,7 +18,7 @@ const collapsedSidebar = '[aria-expanded="false"]';
 
 BrowserTestCase(
   'Left sidebar should be collapsed on click of grab area via keyboard',
-  { skip: ['safari', 'edge', 'chrome', 'firefox'] },
+  { skip: ['*'] },
   async (client: any) => {
     const testPage = new Page(client);
     await testPage.goto(exampleUrl);

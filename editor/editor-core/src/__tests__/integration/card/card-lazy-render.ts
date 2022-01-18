@@ -22,7 +22,7 @@ const TOTAL_CARDS = 7;
 
 BrowserTestCase(
   'card: should lazy render cards after scrolling down, requesting data in the background (with prefetching)',
-  { skip: ['safari', 'edge'] },
+  { skip: ['safari'] },
   async (client: ClientType, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
     const cardSelector = inlineCardSelector();

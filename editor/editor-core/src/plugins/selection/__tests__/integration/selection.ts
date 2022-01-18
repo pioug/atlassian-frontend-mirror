@@ -114,7 +114,7 @@ const initEditor = async (
 
 BrowserTestCase(
   'selection: right arrow sets correct selections',
-  { skip: ['safari', 'edge'] },
+  { skip: ['safari'] },
   async (client: any) => {
     const page = await goToEditorTestingWDExample(client);
     await initEditor(page, selectionAdf, { anchor: 2 });
@@ -145,7 +145,7 @@ BrowserTestCase(
 // so we give it its own test with the decisions removed
 BrowserTestCase(
   'selection: right arrow sets correct selections',
-  { skip: ['chrome', 'firefox', 'edge'] },
+  { skip: ['chrome', 'firefox'] },
   async (client: any) => {
     const page = await goToEditorTestingWDExample(client);
     await initEditor(page, selectionAdfNoDecisions, { anchor: 2 });
@@ -159,7 +159,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'selection: left arrow sets correct selections',
-  { skip: ['safari', 'edge'] },
+  { skip: ['safari'] },
   async (client: any) => {
     const page = await goToEditorTestingWDExample(client);
     await initEditor(page, selectionAdf, { anchor: 32 });
@@ -190,7 +190,7 @@ BrowserTestCase(
 // so we give it its own test with the decisions removed
 BrowserTestCase(
   'selection: left arrow sets correct selections',
-  { skip: ['chrome', 'firefox', 'edge'] },
+  { skip: ['chrome', 'firefox'] },
   async (client: any) => {
     const page = await goToEditorTestingWDExample(client);
     await initEditor(page, selectionAdfNoDecisions, { anchor: 25 });

@@ -11,9 +11,7 @@ import { waitForInlineCardSelection } from '@atlaskit/media-integration-test-hel
 
 BrowserTestCase(
   `card: unlinking a card created from CMD + K should leave only url text`,
-  {
-    skip: ['edge'],
-  },
+  {},
   async (client: ConstructorParameters<typeof Page>[0], testName: string) => {
     const page = new Page(client);
 

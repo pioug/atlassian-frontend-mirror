@@ -11,7 +11,7 @@ import {
 
 BrowserTestCase(
   'should display element list items when new category is clicked on after scrolling',
-  { skip: ['safari', 'edge'] },
+  { skip: ['safari'] },
   async (client: any) => {
     const page = await goToFullPageWithXExtensions(client);
     await page.click(toolbarMenuItemsSelectors[ToolbarMenuItem.insertMenu]);

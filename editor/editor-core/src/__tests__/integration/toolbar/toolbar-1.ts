@@ -13,7 +13,7 @@ const input = 'helloworld ';
 [comment, fullpage].forEach((editor) => {
   BrowserTestCase(
     `toolbar-1.ts: should be able to select normal text, bold, italics, underline style for ${editor.name} editor`,
-    { skip: ['safari', 'edge'] },
+    { skip: ['safari'] },
     async (client: any, testName: string) => {
       const bold = `[aria-label="${textFormattingMessages.bold.defaultMessage}"]`;
       const italic = `[aria-label="${textFormattingMessages.italic.defaultMessage}"]`;

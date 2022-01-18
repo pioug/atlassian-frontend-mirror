@@ -12,7 +12,7 @@ import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 
 BrowserTestCase(
   'card: changing the link URL of an inline link to another supported link should reresolve smart card',
-  { skip: ['safari', 'edge', 'firefox'] },
+  { skip: ['safari', 'firefox'] },
   async (client: ConstructorParameters<typeof Page>[0], testName: string) => {
     const page = new Page(client);
 

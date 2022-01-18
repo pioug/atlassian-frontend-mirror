@@ -15,7 +15,7 @@ import { selectors } from '../panel/_utils';
 
 [
   {
-    skipBrowsers: ['edge', 'safari'],
+    skipBrowsers: ['safari'],
     message: 'Inserts media single before paragraph',
     setup: async (page: Page) => {
       await page.type(editable, 'some text');
@@ -23,14 +23,14 @@ import { selectors } from '../panel/_utils';
     },
   },
   {
-    skipBrowsers: ['edge', 'safari'],
+    skipBrowsers: ['safari'],
     message: 'Inserts media single after paragraph',
     setup: async (page: Page) => {
       await page.type(editable, 'some text ');
     },
   },
   {
-    skipBrowsers: ['edge', 'safari'],
+    skipBrowsers: ['safari'],
     message: 'Inserts media single before paragraph nested in a panel',
     setup: async (page: Page) => {
       await quickInsert(page, 'Info panel');
@@ -40,7 +40,7 @@ import { selectors } from '../panel/_utils';
     },
   },
   {
-    skipBrowsers: ['edge', 'safari'],
+    skipBrowsers: ['safari'],
     message: 'Inserts a media single after paragraph nested in a panel',
     setup: async (page: Page) => {
       await quickInsert(page, 'Info panel');

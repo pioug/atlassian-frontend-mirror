@@ -21,7 +21,7 @@ const getScrollTop = async (client: any) =>
 
 BrowserTestCase(
   'scroll.ts: Page should not scroll while editing expand title',
-  { skip: ['edge'] },
+  {},
   async (client: any) => {
     const page = await goToEditorTestingWDExample(client);
 

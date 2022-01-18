@@ -13,7 +13,7 @@ import { findReplaceSelectors } from '../../../../__tests__/__helpers/page-objec
 
 BrowserTestCase(
   'replace.ts: modifying find text before replace should not restore stale pluginState replace text',
-  { skip: ['safari', 'edge'] },
+  { skip: ['safari'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 

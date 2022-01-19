@@ -6,6 +6,7 @@ import {
   allowEmails,
   generateSelectZIndex,
   getMenuPortalTargetCurrentHTML,
+  resolveShareFooter,
   zIndexAddition,
 } from '../../../components/utils';
 // AFP-2532 TODO: Fix automatic suppressions below
@@ -56,6 +57,22 @@ describe('utils functions', () => {
           disableSharingToEmails: true,
         }),
       ).toBe(false);
+    });
+  });
+  describe('resolveShareFooter()', () => {
+    // The first tab is the default shareForm
+    it('should return customFooter when integrationMode is tabs and tabIndex is the first tab only', () => {
+      const customFooter = () => {};
+      const actual = resolveShareFooter('tabs', 0, customFooter);
+      expect(actual).toBe(customFooter);
+    });
+    it('should return undefined when integrationMode is not tabs', () => {
+      const actual = resolveShareFooter('split', 0, () => {});
+      expect(actual).toBe(undefined);
+    });
+    it('should return undefined when tabIndex is not 0', () => {
+      const actual = resolveShareFooter('tabs', 1, () => {});
+      expect(actual).toBe(undefined);
     });
   });
 });

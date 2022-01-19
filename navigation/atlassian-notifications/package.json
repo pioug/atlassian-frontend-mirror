@@ -15,7 +15,7 @@
   "sideEffects": false,
   "atlaskit:src": "src/index.ts",
   "atlassian": {
-    "team": "Activity Platform",
+    "team": "Work Platform: Incoming Work",
     "deprecatedAutoEntryPoints": true,
     "releaseModel": "continuous"
   },

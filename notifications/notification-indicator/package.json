@@ -13,7 +13,7 @@
   "types": "dist/types/index.d.ts",
   "atlaskit:src": "src/index.ts",
   "atlassian": {
-    "team": "Activity Platform",
+    "team": "Work Platform: Incoming Work",
     "releaseModel": "continuous",
     "website": {
       "name": "Notification Indicator"

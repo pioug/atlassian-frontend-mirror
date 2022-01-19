@@ -486,6 +486,7 @@ describe('ShareDialogWithTrigger', () => {
     it('should render', () => {
       const wrapper = getWrapper({
         customFooter: 'Some message',
+        integrationMode: 'tabs',
       });
       wrapper.setState({ isDialogOpen: true });
       const popupContent = renderDialogContent(wrapper);

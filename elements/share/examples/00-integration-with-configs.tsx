@@ -5,7 +5,6 @@ import styled from 'styled-components';
 
 import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { Appearance } from '@atlaskit/button/types';
-import Icon from '@atlaskit/icon';
 import WorldIcon from '@atlaskit/icon/glyph/world';
 import SectionMessage from '@atlaskit/section-message';
 import Select from '@atlaskit/select';
@@ -292,10 +291,6 @@ const IntegrationContent = (props: IntegrationContentProps) => {
   );
 };
 
-const IntegrationIcon = () => (
-  <Icon glyph={SlackIcon} label="Integration icon" size="small" />
-);
-
 setSmartUserPickerEnv('local');
 
 // eslint-disable-next-line @repo/internal/react/no-class-components
@@ -480,7 +475,7 @@ export default class Example extends React.Component<{}, State> {
                           shareIntegrations: [
                             {
                               type: 'Slack',
-                              Icon: IntegrationIcon,
+                              Icon: SlackIcon,
                               Content: IntegrationContent,
                             },
                           ],
@@ -501,7 +496,7 @@ export default class Example extends React.Component<{}, State> {
                           shareIntegrations: [
                             {
                               type: 'Slack',
-                              Icon: IntegrationIcon,
+                              Icon: SlackIcon,
                               Content: IntegrationContent,
                             },
                           ],

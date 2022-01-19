@@ -86,4 +86,5 @@ export type ShareDialogWithTriggerStates = {
   isUsingSplitButton: boolean;
   showIntegrationForm: boolean;
   selectedIntegration: Integration | null;
+  tabIndex: number;
 };

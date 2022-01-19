@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 8.3.2
+
+### Patch Changes
+
+- [`9fd6117d5e4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9fd6117d5e4) - Fix behavior of base URL so that API calls use baseUrl as base url
+
 ## 8.3.1
 
 ### Patch Changes

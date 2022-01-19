@@ -22,7 +22,7 @@ const LOCAL_CONFIG: Config = {
 const PRD_CONFIG: Config = {
   getRecommendationServiceUrl(baseUrl: string) {
     return baseUrl
-      ? `/${baseUrl}/gateway/api/v1/recommendations`
+      ? `${baseUrl}/gateway/api/v1/recommendations`
       : '/gateway/api/v1/recommendations';
   },
   getUsersServiceUrl(productKey: string) {

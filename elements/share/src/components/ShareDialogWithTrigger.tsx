@@ -45,7 +45,7 @@ import type { TabSubjectIdType } from './analytics';
 import LazyShareFormLazy from './LazyShareForm/lazy';
 import ShareButton from './ShareButton';
 import SplitButton from './SplitButton';
-import { generateSelectZIndex } from './utils';
+import { generateSelectZIndex, resolveShareFooter } from './utils';
 
 const ShareButtonWrapper = styled.div`
   display: inline-flex;
@@ -95,6 +95,7 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
     isUsingSplitButton: false,
     showIntegrationForm: false,
     selectedIntegration: null,
+    tabIndex: 0,
   };
 
   componentDidMount() {
@@ -149,6 +150,7 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
     }
 
     this.createAndFireEvent(shareTabClicked(subjectId));
+    this.setState({ tabIndex: index });
   };
 
   private getFlags = () => {
@@ -253,6 +255,7 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
       isDialogOpen: false,
       showIntegrationForm: false,
       selectedIntegration: null,
+      tabIndex: 0,
     });
   };
 
@@ -480,6 +483,12 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
         ? { outline: 'none' }
         : undefined;
 
+    const footer = resolveShareFooter(
+      integrationMode,
+      this.state.tabIndex,
+      customFooter,
+    );
+
     // for performance purposes, we may want to have a loadable content i.e. ShareForm
     return (
       <ShareButtonWrapper
@@ -496,7 +505,7 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
                 copyLink={copyLink}
                 showIntegrationForm={showIntegrationForm}
                 bottomMessage={bottomMessage}
-                customFooter={customFooter}
+                customFooter={footer}
                 loadOptions={loadUserOptions}
                 isSharing={isSharing}
                 shareFormTitle={shareFormTitle}

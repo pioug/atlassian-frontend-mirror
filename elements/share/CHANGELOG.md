@@ -1,5 +1,17 @@
 # @atlaskit/share
 
+## 3.0.8
+
+### Patch Changes
+
+- [`9f7c98cf94f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9f7c98cf94f) - Fixes issues with share dialog closing and resetting tabIndex
+
+## 3.0.7
+
+### Patch Changes
+
+- [`4e97b934e85`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4e97b934e85) - Adds condition to only render customFooter for default share form
+
 ## 3.0.6
 
 ### Patch Changes

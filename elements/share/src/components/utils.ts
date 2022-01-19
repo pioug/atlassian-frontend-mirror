@@ -4,6 +4,7 @@ import { OptionData } from '@atlaskit/user-picker';
 // AFP-2532 TODO: Fix automatic suppressions below
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { ConfigResponse, User, UserWithEmail } from '../types';
+import type { IntegrationMode } from '../types/ShareEntities';
 
 /**
  * We need to generate correct zIndex, for the PopUp and for the Select inside it.
@@ -59,3 +60,13 @@ export const optionDataToUsers = (optionDataArray: OptionData[]): User[] =>
 
 export const allowEmails = (config?: ConfigResponse): boolean =>
   !(config && config.disableSharingToEmails);
+
+export const resolveShareFooter = (
+  integrationMode: IntegrationMode | undefined,
+  tabIndex: number,
+  customFooter: React.ReactNode,
+): React.ReactNode | undefined => {
+  if (integrationMode === 'tabs' && tabIndex === 0 && customFooter) {
+    return customFooter;
+  }
+};

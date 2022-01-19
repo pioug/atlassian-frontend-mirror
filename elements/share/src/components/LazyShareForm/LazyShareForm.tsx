@@ -108,7 +108,7 @@ function LazyShareForm(props: LazyShareFormProps) {
       {bottomMessage ? (
         <BottomMessageWrapper>{bottomMessage}</BottomMessageWrapper>
       ) : null}
-      {customFooter && (
+      {customFooter && selectedIntegration === null && (
         <CustomFooterWrapper>{customFooter}</CustomFooterWrapper>
       )}
     </div>

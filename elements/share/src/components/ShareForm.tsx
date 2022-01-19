@@ -240,13 +240,13 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
 
   changeTab = (tab: TabType) => {
     this.setState({ selectedTab: tab });
+    this.props.onTabChange?.(tab);
   };
 
   render() {
     const {
       integrationMode = 'off',
       shareIntegrations,
-      onTabChange,
       handleCloseDialog,
     } = this.props;
 
@@ -264,10 +264,7 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
       return (
         <Tabs
           id="ShareForm-Tabs-Integrations"
-          onChange={(index) => {
-            this.changeTab(index);
-            onTabChange?.(index);
-          }}
+          onChange={this.changeTab}
           selected={this.state.selectedTab}
         >
           <TabList>
@@ -290,9 +287,7 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
                 <IntegrationForm
                   Content={firstIntegration.Content}
                   onIntegrationClose={() => handleCloseDialog?.()}
-                  changeTab={(index) => {
-                    this.changeTab(index);
-                  }}
+                  changeTab={this.changeTab}
                 />
               </FormWrapper>
             </AnalyticsContext>

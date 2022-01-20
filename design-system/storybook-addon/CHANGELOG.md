@@ -1,5 +1,11 @@
 # @atlaskit/storybook-addon-design-system
 
+## 0.2.0
+
+### Minor Changes
+
+- [`068c9a0b770`](https://bitbucket.org/atlassian/atlassian-frontend/commits/068c9a0b770) - Refactors the storybook addon into a "tool addon"
+
 ## 0.1.1
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 0.4.2
+
+### Patch Changes
+
+- [`068c9a0b770`](https://bitbucket.org/atlassian/atlassian-frontend/commits/068c9a0b770) - Adds official entrypoint for theme css files
+
 ## 0.4.1
 
 ### Patch Changes

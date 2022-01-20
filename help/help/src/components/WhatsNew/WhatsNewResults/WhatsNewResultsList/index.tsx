@@ -33,7 +33,7 @@ const WhatsNewResultsList: React.FC<WhatsNewResultsListInterface> = ({
   onWhatsNewResultItemClick,
   onShowMoreButtonClick,
 }) => {
-  const { setArticleId } = useNavigationContext();
+  const { openArticle } = useNavigationContext();
   const handleShowMoreButtonClick = (
     event: React.MouseEvent<HTMLElement, MouseEvent>,
     analyticsEvent: UIAnalyticsEvent,
@@ -49,18 +49,16 @@ const WhatsNewResultsList: React.FC<WhatsNewResultsListInterface> = ({
       analyticsEvent: UIAnalyticsEvent,
       articleData: any,
     ) => {
-      if (setArticleId) {
-        setArticleId({
-          id: articleData.id,
-          type: ARTICLE_TYPE.WHATS_NEW,
-        });
-      }
+      openArticle({
+        id: articleData.id,
+        type: ARTICLE_TYPE.WHATS_NEW,
+      });
 
       if (onWhatsNewResultItemClick) {
         onWhatsNewResultItemClick(event, analyticsEvent, articleData);
       }
     },
-    [onWhatsNewResultItemClick, setArticleId],
+    [onWhatsNewResultItemClick, openArticle],
   );
 
   return whatsNewArticles && whatsNewArticles.length > 0 ? (

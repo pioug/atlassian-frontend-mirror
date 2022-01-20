@@ -36,6 +36,7 @@ import type {
   ArticleFeedback,
   articleId,
   WhatsNewArticle,
+  HistoryItem,
 } from '../src';
 
 const SEARCH_EXTERNAL_URL = 'https://support.atlassian.com/';
@@ -72,12 +73,15 @@ const Example: React.FC = () => {
     getWhatsNewArticle,
   } = useContentPlatformApi();
 
-  // Algolia Values
-  const [articleId, setArticleId] = useState<articleId>({
-    id: '',
-    type: ARTICLE_TYPE.HELP_ARTICLE,
+  const [navigationData, setNavigationData] = useState<{
+    articleId: articleId;
+    history: HistoryItem[];
+  }>({
+    articleId: { id: '', type: ARTICLE_TYPE.HELP_ARTICLE },
+    history: [],
   });
 
+  // Algolia Values
   const [routeGroup, setRouteGroup] = useState<string>(
     'project-settings-software',
   );
@@ -123,12 +127,15 @@ const Example: React.FC = () => {
     articleId: string = '',
     type: ARTICLE_TYPE = ARTICLE_TYPE.HELP_ARTICLE,
   ) => {
-    setArticleId({ id: articleId, type });
+    setNavigationData({ articleId: { id: articleId, type }, history: [] });
     setShowComponent(true);
   };
 
   const closeDrawer = (): void => {
-    setArticleId({ id: '', type: ARTICLE_TYPE.HELP_ARTICLE });
+    setNavigationData({
+      articleId: { id: '', type: ARTICLE_TYPE.HELP_ARTICLE },
+      history: [],
+    });
     setShowComponent(false);
   };
 
@@ -195,8 +202,13 @@ const Example: React.FC = () => {
     return searchWhatsNewArticles(filterConfig, numberOfItems, page);
   };
 
-  const articleIdSetter = (articleId: articleId): void => {
-    setArticleId(articleId);
+  const navigationDataSetter = (navigationData: {
+    articleId: articleId;
+    history: HistoryItem[];
+  }): void => {
+    console.log('new navigation data');
+    console.log(navigationData);
+    setNavigationData(navigationData);
   };
 
   const handleOnWasHelpfulNoButtonClick = (
@@ -757,8 +769,8 @@ const Example: React.FC = () => {
                       onWasHelpfulNoButtonClick: handleOnWasHelpfulNoButtonClick,
                     }}
                     navigation={{
-                      articleId,
-                      articleIdSetter,
+                      navigationData,
+                      setNavigationData: navigationDataSetter,
                     }}
                     search={{
                       onSearch: searchArticles,
@@ -801,9 +813,12 @@ const Example: React.FC = () => {
                         console.log(event);
                         console.log(analytics);
                         console.log(articleData);
-                        articleIdSetter({
-                          id: articleData.id,
-                          type: ARTICLE_TYPE.HELP_ARTICLE,
+                        setNavigationData({
+                          ...navigationData,
+                          articleId: {
+                            id: articleData.id,
+                            type: ARTICLE_TYPE.HELP_ARTICLE,
+                          },
                         });
                       }}
                       onRelatedArticlesShowMoreClick={(

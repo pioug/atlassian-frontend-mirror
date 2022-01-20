@@ -1,45 +1,13 @@
-import React from 'react';
-
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { addons, types } from '@storybook/addons';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { AddonPanel } from '@storybook/components';
 
-import {
-  ADDON_ID,
-  EVENT_THEME_CHANGED,
-  PANEL_ID,
-  PANEL_TITLE,
-} from './constants';
+import { Tool } from './components';
+import { ADDON_ID, TITLE, TOOL_ID } from './constants';
 
-interface TokensPanelProps {
-  onThemeChange: (theme: string) => void;
-}
-
-const TokensPanel = ({ onThemeChange }: TokensPanelProps) => (
-  <div style={{ padding: '20px' }}>
-    <h1>ADS Design Tokens</h1>
-    <select
-      name="theme"
-      onChange={(event) => onThemeChange(event.target.value)}
-    >
-      <option value="none">Disable theme</option>
-      <option value="light">Light theme</option>
-      <option value="dark">Dark theme</option>
-    </select>
-  </div>
-);
-
-addons.register(ADDON_ID, (api) => {
-  addons.add(PANEL_ID, {
-    type: types.PANEL,
-    title: PANEL_TITLE,
-    render: ({ active, key }) => (
-      <AddonPanel active={active || false} key={key}>
-        <TokensPanel
-          onThemeChange={(theme) => api.emit(EVENT_THEME_CHANGED, theme)}
-        />
-      </AddonPanel>
-    ),
+addons.register(ADDON_ID, () => {
+  addons.add(TOOL_ID, {
+    type: types.TOOL,
+    title: TITLE,
+    match: ({ viewMode }) => !!(viewMode && viewMode.match(/^(story|docs)$/)),
+    render: Tool,
   });
 });

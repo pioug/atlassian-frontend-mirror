@@ -1,4 +1,5 @@
 import React, { useReducer, useEffect, useCallback, useMemo } from 'react';
+import isEqual from 'lodash/isEqual';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { Article, ArticleItem } from '../../model/Article';
 import { WhatsNewArticleItem, WhatsNewArticle } from '../../model/WhatsNew';
@@ -16,15 +17,25 @@ import { useHeaderContext } from './headerContext';
 
 type ViewType = keyof typeof VIEW;
 
-interface NavigationSharedInterface {
+interface NavigationProviderInterface {
+  // Navigation data this prop is optional. ID of the article to display and the history
+  navigationData?: {
+    articleId: articleId;
+    history: HistoryItem[];
+  };
+  // Setter for the navigation data. This prop is optional
+  setNavigationData?(navigationData: {
+    articleId: articleId;
+    history: HistoryItem[];
+  }): void;
+}
+
+interface NavigationContextInterface {
   articleId?: articleId;
   history?: HistoryItem[];
   historySetter?(history: HistoryItem[]): void;
-}
-
-interface NavigationContextInterface extends NavigationSharedInterface {
   view: ViewType;
-  setArticleId?(id: articleId): void;
+  openArticle(id: articleId): void;
   canNavigateBack: boolean;
   navigateBack?(): void;
   onGetArticle?(id: articleId): Promise<Article | WhatsNewArticle>;
@@ -39,9 +50,7 @@ interface NavigationContextInterface extends NavigationSharedInterface {
   ): void;
 }
 
-interface NavigationProviderInterface extends NavigationSharedInterface {
-  articleIdSetter?(id: articleId): void;
-}
+const DEFAULT_ARTICLE_ID = { id: '', type: ARTICLE_TYPE.HELP_ARTICLE };
 
 export const [useNavigationContext, CtxProvider] = createCtx<
   NavigationContextInterface
@@ -67,6 +76,15 @@ const getSimpleHistory = (history: HistoryItem[]) =>
   history.map((historyItem) => {
     const { id, uid, type } = historyItem;
     return { id, uid, state: REQUEST_STATE.reload, type };
+  });
+
+/**
+ * Get history data (list of IDs and UID)
+ */
+const getHistoryData = (history: HistoryItem[]) =>
+  history.map((historyItem) => {
+    const { id, uid } = historyItem;
+    return { id, uid };
   });
 
 /**
@@ -149,13 +167,35 @@ const navigationReducer = (
     const {
       payload: newArticleId,
     }: navigationReducerAction<articleId> = action;
+
+    if (isEqual(newArticleId, DEFAULT_ARTICLE_ID)) {
+      newState = {
+        articleId: newArticleId,
+        history: [],
+        view: VIEW.DEFAULT_CONTENT,
+      };
+    } else {
+      newState = {
+        articleId: newArticleId,
+        history: [
+          ...currentHistory,
+          getNewHistoryItem(newArticleId.id, newArticleId.type),
+        ],
+        view: getViewForArticleId(newArticleId),
+      };
+    }
+  } else if (action.type === 'addNewHistoryItem' && action.payload) {
+    const {
+      payload: newArticleId,
+    }: navigationReducerAction<articleId> = action;
+
     newState = {
-      articleId: newArticleId,
+      articleId: currentArticleId,
       history: [
         ...currentHistory,
         getNewHistoryItem(newArticleId.id, newArticleId.type),
       ],
-      view: getViewForArticleId(newArticleId),
+      view: getViewForArticleId(currentArticleId),
     };
   } else if (action.type === 'updateHistoryItem' && action.payload) {
     const {
@@ -219,10 +259,11 @@ const navigationReducer = (
 };
 
 export const NavigationContextProvider: React.FC<NavigationProviderInterface> = ({
-  articleId: propsArticleId = { id: '', type: ARTICLE_TYPE.HELP_ARTICLE },
-  articleIdSetter,
-  history: propsHistory = [],
-  historySetter,
+  navigationData = {
+    articleId: DEFAULT_ARTICLE_ID,
+    history: [],
+  },
+  setNavigationData,
   children,
 }) => {
   const { onGetHelpArticle } = useHelpArticleContext();
@@ -230,6 +271,7 @@ export const NavigationContextProvider: React.FC<NavigationProviderInterface> = 
   const { homeContent, homeOptions } = useHomeContext();
   const { onSearch, isSearchResultVisible, searchValue } = useSearchContext();
   const { onCloseButtonClick } = useHeaderContext();
+  const { articleId: propsArticleId, history: propsHistory } = navigationData;
 
   const [
     { articleId: currentArticleId, history: currentHistory, view: currentView },
@@ -254,8 +296,6 @@ export const NavigationContextProvider: React.FC<NavigationProviderInterface> = 
     /**
      * - If default content isn't defined and the history only has one article,
      * we should not display the back button
-     * - If the prop.article.setArticleId is not defined, we should also hide the back
-     * button because we are not able to navigate though the history without it
      */
     if (
       (currentHistory.length === 1 && !isDefaultContentDefined) ||
@@ -398,6 +438,13 @@ export const NavigationContextProvider: React.FC<NavigationProviderInterface> = 
     [onCloseButtonClick],
   );
 
+  const onOpenArticle = useCallback((newArticleId: articleId) => {
+    dispatchNavigationAction({
+      type: 'addNewHistoryItem',
+      payload: newArticleId,
+    });
+  }, []);
+
   useEffect(() => {
     if (isSearchResultVisible) {
       dispatchNavigationAction({
@@ -408,49 +455,74 @@ export const NavigationContextProvider: React.FC<NavigationProviderInterface> = 
   }, [isSearchResultVisible]);
 
   useEffect(() => {
-    const simpleHistory = getSimpleHistory(currentHistory);
-    historySetter && historySetter(simpleHistory);
-  }, [historySetter, currentHistory]);
+    const lastHistoryItem =
+      currentHistory.length > 0
+        ? getCurrentArticle(currentHistory)
+        : getNewHistoryItem(DEFAULT_ARTICLE_ID.id, DEFAULT_ARTICLE_ID.type);
 
-  useEffect(() => {
     /**
      * If the propsArticleId.id (host articleId) is different from currentArticleId.id (internal articleId)
-     * it means the host updated propsArticleId and we need to use this new value to load a new article.
      * */
-    if (
-      propsArticleId?.id !== currentArticleId.id ||
-      propsArticleId?.type !== currentArticleId.type
-    ) {
-      dispatchNavigationAction({
-        type: 'newArticle',
-        payload: propsArticleId,
-      });
-    } else {
+    if (!isEqual(propsArticleId, currentArticleId)) {
       /**
-       * If the propsArticleId.id (host articleId) is equal to currentArticleId.id (internal articleId)
-       * and the id from the last history item is different from currentArticleId.id, it means the history
-       * changed and we need to update the host articleId (propsArticleId) using 'articleIdSetter' and the local
-       * history using the dispatchNavigationAction reducer
-       * */
-
-      const lastHistoryItem =
-        currentHistory.length > 0
-          ? getCurrentArticle(currentHistory)
-          : getNewHistoryItem('', ARTICLE_TYPE.HELP_ARTICLE);
+       * If propsArticleId and lastHistoryItem are the same, we just need to update the articleId
+       * because is out of sync
+       */
       if (
-        articleIdSetter &&
-        lastHistoryItem &&
-        (currentArticleId.id !== lastHistoryItem.id ||
-          currentArticleId.type !== lastHistoryItem.type)
+        propsArticleId.id === lastHistoryItem.id &&
+        propsArticleId.type === lastHistoryItem.type
       ) {
         dispatchNavigationAction({
           type: 'updateArticleId',
-          payload: { id: lastHistoryItem.id, type: lastHistoryItem.type },
+          payload: propsArticleId,
         });
-        articleIdSetter({ id: lastHistoryItem.id, type: lastHistoryItem.type });
+      } else {
+        /**
+         * Otherwise we need to add a new article
+         */
+        dispatchNavigationAction({
+          type: 'newArticle',
+          payload: propsArticleId,
+        });
+      }
+    } else {
+      // console.log('same articleId');
+
+      if (setNavigationData) {
+        const simpleHistory = getSimpleHistory(currentHistory);
+
+        if (
+          currentArticleId.id !== lastHistoryItem.id ||
+          currentArticleId.type !== lastHistoryItem.type
+        ) {
+          /**
+           * If the propsArticleId.id (host articleId) is equal to currentArticleId.id (internal articleId)
+           * and the id from the last history item is different from currentArticleId.id, it means the history
+           * changed
+           * */
+          if (setNavigationData) {
+            setNavigationData({
+              articleId: { id: lastHistoryItem.id, type: lastHistoryItem.type },
+              history: simpleHistory,
+            });
+          }
+        } else if (
+          !isEqual(getHistoryData(propsHistory), getHistoryData(currentHistory))
+        ) {
+          setNavigationData({
+            articleId: propsArticleId,
+            history: simpleHistory,
+          });
+        }
       }
     }
-  }, [currentArticleId, propsArticleId, currentHistory, articleIdSetter]);
+  }, [
+    currentArticleId,
+    propsArticleId,
+    currentHistory,
+    setNavigationData,
+    propsHistory,
+  ]);
 
   useEffect(() => {
     const requestNewArticle = async (historyItem: HistoryItem) => {
@@ -478,7 +550,7 @@ export const NavigationContextProvider: React.FC<NavigationProviderInterface> = 
       value={{
         view: currentView,
         articleId: currentArticleId,
-        setArticleId: articleIdSetter,
+        openArticle: onOpenArticle,
         history: currentHistory,
         getCurrentArticle: () => getCurrentArticle(currentHistory),
         getCurrentArticleItemData: () =>

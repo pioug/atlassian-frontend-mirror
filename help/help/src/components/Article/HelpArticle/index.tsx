@@ -28,7 +28,7 @@ interface Props {
 }
 
 export const HelpArticle: React.FC<Props> = ({ article, isLoading }) => {
-  const { setArticleId, getCurrentArticleItemData } = useNavigationContext();
+  const { openArticle, getCurrentArticleItemData } = useNavigationContext();
   const {
     onWasHelpfulNoButtonClick,
     onWasHelpfulYesButtonClick,
@@ -104,14 +104,12 @@ export const HelpArticle: React.FC<Props> = ({ article, isLoading }) => {
         onRelatedArticlesListItemClick(event, analyticsEvent, articleData);
       }
 
-      if (setArticleId) {
-        setArticleId({
-          id: articleData.id,
-          type: ARTICLE_TYPE.HELP_ARTICLE,
-        });
-      }
+      openArticle({
+        id: articleData.id,
+        type: ARTICLE_TYPE.HELP_ARTICLE,
+      });
     },
-    [setArticleId, onRelatedArticlesListItemClick],
+    [openArticle, onRelatedArticlesListItemClick],
   );
 
   const handleOnRelatedArticlesShowMoreClick = useCallback(

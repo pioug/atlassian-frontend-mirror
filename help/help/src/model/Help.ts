@@ -79,14 +79,16 @@ export interface Help {
   };
 
   navigation?: {
-    // ID of the article to display. This property is requiered (the articleId state is lifted up to the parent component)
-    articleId?: articleId;
-    // Setter for the articleId. This property is requiered (the articleId state is lifted up to the parent component)
-    articleIdSetter?(id: articleId): void;
-    // History. This prop is optional
-    history?: HistoryItem[];
-    // Setter for the history. This prop is optional
-    historySetter?(history: HistoryItem[]): void;
+    // Navigation data this prop is optional. ID of the article to display and the history
+    navigationData?: {
+      articleId: articleId;
+      history: HistoryItem[];
+    };
+    // Setter for the navigation data. This prop is optional
+    setNavigationData?(navigationData: {
+      articleId: articleId;
+      history: HistoryItem[];
+    }): void;
   };
 
   helpArticle?: {

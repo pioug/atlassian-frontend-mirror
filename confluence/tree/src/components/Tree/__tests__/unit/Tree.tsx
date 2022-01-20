@@ -7,6 +7,7 @@ import {
   DragUpdate,
   DragStart,
   Droppable,
+  Draggable,
 } from 'react-beautiful-dnd-next';
 import { getBox } from 'css-box-model';
 import Tree from '../../Tree';
@@ -107,6 +108,30 @@ describe('@atlaskit/tree - Tree', () => {
         provided: expect.any(Object),
         snapshot: expect.any(Object),
       });
+    });
+
+    it('renders Draggable around each item if drag and drop is enabled', () => {
+      const tree = mount(
+        <Tree
+          tree={treeWithThreeLeaves}
+          renderItem={mockRender}
+          isDragEnabled={true}
+        />,
+      );
+      const draggables = tree.find(Draggable);
+      expect(draggables).toHaveLength(3);
+    });
+
+    it('does not render Draggable around each item if drag and drop is disabled', () => {
+      const tree = mount(
+        <Tree
+          tree={treeWithThreeLeaves}
+          renderItem={mockRender}
+          isDragEnabled={false}
+        />,
+      );
+      const draggables = tree.find(Draggable);
+      expect(draggables).toHaveLength(0);
     });
 
     it('re-renders only the items which have been changed', () => {

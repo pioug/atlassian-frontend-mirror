@@ -253,6 +253,25 @@ export default class Tree extends Component<Props, State> {
         ? !isDragEnabled(flatItem.item)
         : !isDragEnabled;
 
+    // If drag and drop is disabled, render TreeItem directly with stubbed provided and snapshot
+    if (isDragDisabled) {
+      return this.renderTreeItem({
+        flatItem,
+        path: flatItem.path,
+        provided: {
+          draggableProps: {
+            'data-react-beautiful-dnd-draggable': '',
+          },
+          innerRef: () => {},
+          dragHandleProps: null,
+        },
+        snapshot: {
+          isDragging: false,
+          isDropAnimating: false,
+        },
+      });
+    }
+
     return (
       <Draggable
         key={flatItem.item.id}
@@ -269,17 +288,35 @@ export default class Tree extends Component<Props, State> {
     provided: DraggableProvided,
     snapshot: DraggableStateSnapshot,
   ) => {
-    const { renderItem, onExpand, onCollapse, offsetPerLevel } = this.props;
-
     const currentPath: Path = this.calculateEffectivePath(flatItem, snapshot);
     if (snapshot.isDropAnimating) {
       this.onDropAnimating();
     }
+    return this.renderTreeItem({
+      flatItem,
+      path: currentPath,
+      provided,
+      snapshot,
+    });
+  };
+
+  renderTreeItem = ({
+    flatItem,
+    path,
+    provided,
+    snapshot,
+  }: {
+    flatItem: FlattenedItem;
+    path: Path;
+    provided: DraggableProvided;
+    snapshot: DraggableStateSnapshot;
+  }) => {
+    const { renderItem, onExpand, onCollapse, offsetPerLevel } = this.props;
     return (
       <TreeItem
         key={flatItem.item.id}
         item={flatItem.item}
-        path={currentPath}
+        path={path}
         onExpand={onExpand}
         onCollapse={onCollapse}
         renderItem={renderItem}

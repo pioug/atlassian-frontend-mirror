@@ -31,7 +31,7 @@ export const WhatsNewButton: React.FC<
     onWhatsNewButtonClick,
     whatsNewGetNotificationProvider,
   } = useWhatsNewArticleContext();
-  const { setArticleId } = useNavigationContext();
+  const { openArticle } = useNavigationContext();
 
   const handleOnButtonClick = useCallback(
     (
@@ -43,11 +43,9 @@ export const WhatsNewButton: React.FC<
         onWhatsNewButtonClick(event, analytics);
       }
 
-      if (setArticleId) {
-        setArticleId({ id: '', type: ARTICLE_TYPE.WHATS_NEW });
-      }
+      openArticle({ id: '', type: ARTICLE_TYPE.WHATS_NEW });
     },
-    [onWhatsNewButtonClick, setArticleId],
+    [onWhatsNewButtonClick, openArticle],
   );
 
   return (

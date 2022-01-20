@@ -43,7 +43,7 @@ export const SearchResults: React.FC = () => {
     onSearchResultItemClick,
     onSearchExternalUrlClick,
   } = useSearchContext();
-  const { setArticleId, view } = useNavigationContext();
+  const { openArticle, view } = useNavigationContext();
 
   const handleOnSearchResultItemClick = useCallback(
     (
@@ -51,16 +51,14 @@ export const SearchResults: React.FC = () => {
       analyticsEvent: UIAnalyticsEvent,
       articleData: ArticleItem,
     ): void => {
-      if (setArticleId) {
-        setArticleId({
-          id: articleData.id,
-          type: ARTICLE_TYPE.HELP_ARTICLE,
-        });
-      }
+      openArticle({
+        id: articleData.id,
+        type: ARTICLE_TYPE.HELP_ARTICLE,
+      });
 
       onSearchResultItemClick(event, analyticsEvent, articleData);
     },
-    [onSearchResultItemClick, setArticleId],
+    [onSearchResultItemClick, openArticle],
   );
 
   return (

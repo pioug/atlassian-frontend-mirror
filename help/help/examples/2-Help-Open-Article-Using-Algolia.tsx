@@ -4,7 +4,7 @@ import Page from '@atlaskit/page';
 
 import LocaleIntlProvider from '../example-helpers/LocaleIntlProvider';
 import Help, { ARTICLE_TYPE } from '../src';
-import type { Article, articleId } from '../src';
+import type { Article, articleId, HistoryItem } from '../src';
 
 import {
   ExampleWrapper,
@@ -18,10 +18,23 @@ var client = algoliasearch('8K6J5OJIQW', 'c982b4b1a6ca921131d35edb63359b8c');
 var index = client.initIndex('product_help_dev');
 
 const Example: React.FC = () => {
-  const [articleId, setArticleId] = useState<articleId>({
-    id: 'zqjkEZh4DPqRCpUSeg8a5',
-    type: ARTICLE_TYPE.HELP_ARTICLE,
+  const [navigationData, setNavigationData] = useState<{
+    articleId: articleId;
+    history: HistoryItem[];
+  }>({
+    articleId: { id: 'zqjkEZh4DPqRCpUSeg8a5', type: ARTICLE_TYPE.HELP_ARTICLE },
+    history: [],
   });
+
+  const navigationDataSetter = (navigationData: {
+    articleId: articleId;
+    history: HistoryItem[];
+  }): void => {
+    console.log('new navigation data');
+    console.log(navigationData);
+    setNavigationData(navigationData);
+  };
+
   const onGetHelpArticle = async (articleId: articleId): Promise<Article> => {
     return new Promise((resolve, reject) => {
       index.search(
@@ -56,7 +69,10 @@ const Example: React.FC = () => {
           <HelpWrapper>
             <LocaleIntlProvider locale={'en'}>
               <Help
-                navigation={{ articleId, articleIdSetter: setArticleId }}
+                navigation={{
+                  navigationData,
+                  setNavigationData: navigationDataSetter,
+                }}
                 helpArticle={{
                   onGetHelpArticle,
                 }}

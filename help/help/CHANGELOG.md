@@ -1,5 +1,11 @@
 # @atlaskit/help
 
+## 7.0.0
+
+### Major Changes
+
+- [`396fbf5fc2d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/396fbf5fc2d) - [ux] Update the way we set the articleId and the history in the component
+
 ## 6.0.8
 
 ### Patch Changes

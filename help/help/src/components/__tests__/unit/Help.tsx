@@ -28,7 +28,7 @@ const intl = createIntl(
 const messageBack = intl.formatMessage(messages.help_navigation_back);
 
 // Mock props
-const mockArticleIdSetter = jest.fn().mockImplementation((id) => id);
+const MockNavigationDataSetter = jest.fn().mockImplementation((id) => id);
 const mockOnGetHelpArticle = jest.fn().mockImplementation(
   (id) =>
     new Promise((resolve, reject) => {
@@ -78,7 +78,7 @@ describe('Help', () => {
 
   it('Should load and display an article if the articleId != ""', async () => {
     jest.useFakeTimers();
-    const { queryByText } = render(
+    const { queryByText, rerender } = render(
       <IntlProvider locale="en">
         <Help
           header={{
@@ -86,8 +86,49 @@ describe('Help', () => {
             onBackButtonClick: mockOnBackButtonClick,
           }}
           navigation={{
-            articleId: { id: '1', type: ARTICLE_TYPE.HELP_ARTICLE },
-            articleIdSetter: mockArticleIdSetter,
+            navigationData: {
+              articleId: { id: '', type: ARTICLE_TYPE.HELP_ARTICLE },
+              history: [],
+            },
+            setNavigationData: MockNavigationDataSetter,
+          }}
+          helpArticle={{
+            onGetHelpArticle: mockOnGetHelpArticle,
+            onHelpArticleLoadingFailTryAgainButtonClick: mockOnHelpArticleLoadingFailTryAgainButtonClick,
+            onWasHelpfulYesButtonClick: mockOnWasHelpfulYesButtonClick,
+            onWasHelpfulNoButtonClick: mockOnWasHelpfulNoButtonClick,
+          }}
+          relatedArticles={{
+            onGetRelatedArticles: mockOnGetRelatedArticles,
+            onRelatedArticlesListItemClick: mockOnRelatedArticlesListItemClick,
+          }}
+          search={{
+            onSearch: mockOnSearch,
+            onSearchInputChanged: mockOnSearchInputChanged,
+            onSearchInputCleared: mockOnSearchInputCleared,
+            onSearchResultItemClick: mockOnSearchResultItemClick,
+            searchExternalUrl: mockSearchExternalUrl,
+            onSearchExternalUrlClick: mockOnSearchExternalUrlClick,
+          }}
+        >
+          <div>{defaultContentText}</div>
+        </Help>
+      </IntlProvider>,
+    );
+
+    rerender(
+      <IntlProvider locale="en">
+        <Help
+          header={{
+            onCloseButtonClick: mockOnCloseButtonClick,
+            onBackButtonClick: mockOnBackButtonClick,
+          }}
+          navigation={{
+            navigationData: {
+              articleId: { id: '1', type: ARTICLE_TYPE.HELP_ARTICLE },
+              history: [],
+            },
+            setNavigationData: MockNavigationDataSetter,
           }}
           helpArticle={{
             onGetHelpArticle: mockOnGetHelpArticle,
@@ -115,6 +156,7 @@ describe('Help', () => {
 
     // onGetArticle promise gets resolved after 100ms
     act(() => jest.advanceTimersByTime(100));
+    expect(mockOnGetHelpArticle).toHaveBeenCalledTimes(1);
 
     const defaultContentElm = queryByText(defaultContentText);
     expect(defaultContentElm).not.toBeNull();
@@ -139,7 +181,7 @@ describe('Help', () => {
   it('Should display the Back button if an article is open', async () => {
     jest.useFakeTimers();
 
-    const { queryByText } = render(
+    const { queryByText, rerender } = render(
       <IntlProvider locale="en">
         <Help
           header={{
@@ -147,8 +189,49 @@ describe('Help', () => {
             onBackButtonClick: mockOnBackButtonClick,
           }}
           navigation={{
-            articleId: { id: '1', type: ARTICLE_TYPE.HELP_ARTICLE },
-            articleIdSetter: mockArticleIdSetter,
+            navigationData: {
+              articleId: { id: '', type: ARTICLE_TYPE.HELP_ARTICLE },
+              history: [],
+            },
+            setNavigationData: MockNavigationDataSetter,
+          }}
+          helpArticle={{
+            onGetHelpArticle: mockOnGetHelpArticle,
+            onHelpArticleLoadingFailTryAgainButtonClick: mockOnHelpArticleLoadingFailTryAgainButtonClick,
+            onWasHelpfulYesButtonClick: mockOnWasHelpfulYesButtonClick,
+            onWasHelpfulNoButtonClick: mockOnWasHelpfulNoButtonClick,
+          }}
+          relatedArticles={{
+            onGetRelatedArticles: mockOnGetRelatedArticles,
+            onRelatedArticlesListItemClick: mockOnRelatedArticlesListItemClick,
+          }}
+          search={{
+            onSearch: mockOnSearch,
+            onSearchInputChanged: mockOnSearchInputChanged,
+            onSearchInputCleared: mockOnSearchInputCleared,
+            onSearchResultItemClick: mockOnSearchResultItemClick,
+            searchExternalUrl: mockSearchExternalUrl,
+            onSearchExternalUrlClick: mockOnSearchExternalUrlClick,
+          }}
+        >
+          <div>{defaultContentText}</div>
+        </Help>
+      </IntlProvider>,
+    );
+
+    rerender(
+      <IntlProvider locale="en">
+        <Help
+          header={{
+            onCloseButtonClick: mockOnCloseButtonClick,
+            onBackButtonClick: mockOnBackButtonClick,
+          }}
+          navigation={{
+            navigationData: {
+              articleId: { id: '1', type: ARTICLE_TYPE.HELP_ARTICLE },
+              history: [],
+            },
+            setNavigationData: MockNavigationDataSetter,
           }}
           helpArticle={{
             onGetHelpArticle: mockOnGetHelpArticle,
@@ -175,10 +258,12 @@ describe('Help', () => {
     );
 
     // onGetArticle promise gets resolved after 100ms
-    act(() => jest.advanceTimersByTime(100));
+    act(() => jest.advanceTimersByTime(200));
 
     // Wait until the fade-in transition of the back button finishes
-    act(() => jest.advanceTimersByTime(SLIDEIN_OVERLAY_TRANSITION_DURATION_MS));
+    act(() =>
+      jest.advanceTimersByTime(SLIDEIN_OVERLAY_TRANSITION_DURATION_MS + 200),
+    );
     const BackButton = queryByText(messageBack)!.closest('button');
     expect(BackButton).not.toBeNull();
 
@@ -188,7 +273,7 @@ describe('Help', () => {
 
       // Wait until the fade-out transition of the back button finishes
       act(() =>
-        jest.advanceTimersByTime(SLIDEIN_OVERLAY_TRANSITION_DURATION_MS),
+        jest.advanceTimersByTime(SLIDEIN_OVERLAY_TRANSITION_DURATION_MS + 200),
       );
 
       await wait(() => expect(mockOnBackButtonClick).toHaveBeenCalledTimes(1));

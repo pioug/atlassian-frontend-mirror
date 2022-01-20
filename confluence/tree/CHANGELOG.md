@@ -1,5 +1,11 @@
 # @atlaskit/tree
 
+## 8.5.0
+
+### Minor Changes
+
+- [`1fb6e5f07eb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1fb6e5f07eb) - Performance optimization which prevents Draggables from being rendered if drag and drop is disabled
+
 ## 8.4.0
 
 ### Minor Changes

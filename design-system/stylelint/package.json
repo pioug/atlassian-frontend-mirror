@@ -36,7 +36,7 @@
     "stylelint": "^8.4.0"
   },
   "devDependencies": {
-    "@atlaskit/build-utils": "*",
+    "@af/build-utils": "*",
     "@atlaskit/docs": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@types/jest-preset-stylelint": "^3.0.1",

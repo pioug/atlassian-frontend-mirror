@@ -66,7 +66,9 @@ export const resolveShareFooter = (
   tabIndex: number,
   customFooter: React.ReactNode,
 ): React.ReactNode | undefined => {
-  if (integrationMode === 'tabs' && tabIndex === 0 && customFooter) {
-    return customFooter;
+  if (customFooter) {
+    if (integrationMode !== 'tabs' || tabIndex === 0) {
+      return customFooter;
+    }
   }
 };

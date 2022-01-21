@@ -66,12 +66,17 @@ describe('utils functions', () => {
       const actual = resolveShareFooter('tabs', 0, customFooter);
       expect(actual).toBe(customFooter);
     });
-    it('should return undefined when integrationMode is not tabs', () => {
-      const actual = resolveShareFooter('split', 0, () => {});
-      expect(actual).toBe(undefined);
+    it('should return customFooter when integrationMode is not tabs', () => {
+      const customFooter = () => {};
+      const actual = resolveShareFooter('split', 0, customFooter);
+      expect(actual).toBe(customFooter);
     });
     it('should return undefined when tabIndex is not 0', () => {
       const actual = resolveShareFooter('tabs', 1, () => {});
+      expect(actual).toBe(undefined);
+    });
+    it('should return undefined when customFooter is undefined', () => {
+      const actual = resolveShareFooter('tabs', 1, undefined);
       expect(actual).toBe(undefined);
     });
   });

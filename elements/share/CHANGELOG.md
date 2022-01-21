@@ -1,5 +1,11 @@
 # @atlaskit/share
 
+## 3.0.9
+
+### Patch Changes
+
+- [`da84c14aa89`](https://bitbucket.org/atlassian/atlassian-frontend/commits/da84c14aa89) - Custom footer display in stein fix. Connected analytics event fire fix
+
 ## 3.0.8
 
 ### Patch Changes

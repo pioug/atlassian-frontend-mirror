@@ -493,7 +493,7 @@ export default async () => {
   MobileTestCase(
     `adaptive toolbar: passes through toolbar on panel to status`,
     // Skipping because of https://product-fabric.atlassian.net/browse/ME-1581
-    { skipPlatform: ['ios'] },
+    { skipPlatform: ['*'] },
     async (client: any, testName: string) => {
       const page = await Page.create(client);
       await loadEditor(page);
@@ -527,7 +527,7 @@ export default async () => {
   MobileTestCase(
     `adaptive toolbar: passes through toolbar on date to status`,
     // Skipping because of https://product-fabric.atlassian.net/browse/ME-1581
-    { skipPlatform: ['ios'] },
+    { skipPlatform: ['*'] },
     async (client: any, testName: string) => {
       const page = await Page.create(client);
       await loadEditor(page);

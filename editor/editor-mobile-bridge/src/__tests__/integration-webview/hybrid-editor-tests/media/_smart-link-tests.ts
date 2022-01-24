@@ -20,17 +20,25 @@ export default () => {
     await focusOnWebView(page);
   };
 
-  MobileTestCase('SmartLinks: inline', {}, async (client) => {
-    const page = await Page.create(client);
-    await loadEditorWithAdf(page, smartLinkAdf);
-    await mobileSnapshot(page);
-  });
+  MobileTestCase(
+    'SmartLinks: inline',
+    { skipPlatform: ['*'] },
+    async (client) => {
+      const page = await Page.create(client);
+      await loadEditorWithAdf(page, smartLinkAdf);
+      await mobileSnapshot(page);
+    },
+  );
 
-  MobileTestCase('SmartLinks: expand', {}, async (client) => {
-    const page = await Page.create(client);
-    await loadEditorWithAdf(page, smartLinkExpandAdf);
-    await mobileSnapshot(page);
-  });
+  MobileTestCase(
+    'SmartLinks: expand',
+    { skipPlatform: ['*'] },
+    async (client) => {
+      const page = await Page.create(client);
+      await loadEditorWithAdf(page, smartLinkExpandAdf);
+      await mobileSnapshot(page);
+    },
+  );
 
   // TODO: ED-13890 - Fix inconsistent test snapshot diff
   //MobileTestCase('SmartLinks: table', {}, async (client) => {
@@ -42,15 +50,19 @@ export default () => {
   //  await mobileSnapshot(page);
   //});
 
-  MobileTestCase('SmartLinks: list', {}, async (client) => {
-    const page = await Page.create(client);
-    await loadEditorWithAdf(page, smartLinkListAdf);
-    await page.switchToWeb();
-    await page.waitForSelector('ul');
-    const inlineLink = await page.$(inlineCardSelector());
-    await inlineLink.scrollIntoView();
-    await mobileSnapshot(page);
-  });
+  MobileTestCase(
+    'SmartLinks: list',
+    { skipPlatform: ['*'] },
+    async (client) => {
+      const page = await Page.create(client);
+      await loadEditorWithAdf(page, smartLinkListAdf);
+      await page.switchToWeb();
+      await page.waitForSelector('ul');
+      const inlineLink = await page.$(inlineCardSelector());
+      await inlineLink.scrollIntoView();
+      await mobileSnapshot(page);
+    },
+  );
 
   // TODO: ED-13890 - Fix inconsistent test snapshot diff
   //MobileTestCase('SmartLinks: layout', {}, async (client) => {

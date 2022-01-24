@@ -75,7 +75,7 @@ export default async () => {
 
   MobileTestCase(
     'Media in Layouts: 2 column',
-    { skipPlatform: ['android'] },
+    { skipPlatform: ['*'] },
     async (client) => {
       const page = await setup(
         client,
@@ -86,38 +86,46 @@ export default async () => {
     },
   );
 
-  MobileTestCase('Media in Layouts: 3 columns', {}, async (client) => {
-    const page = await setup(
-      client,
-      media3ColumnLayoutAdf,
-      mediaCardSelector(),
-    );
-    await mobileSnapshot(page);
-  });
+  MobileTestCase(
+    'Media in Layouts: 3 columns',
+    { skipPlatform: ['*'] },
+    async (client) => {
+      const page = await setup(
+        client,
+        media3ColumnLayoutAdf,
+        mediaCardSelector(),
+      );
+      await mobileSnapshot(page);
+    },
+  );
 
-  MobileTestCase('Media: Load and delete MediaGroup', {}, async (client) => {
-    const page = await setup(client, mediaGroupAdf, mediaCardSelector());
-    const card = await page.$(mediaCardSelector());
-    await card.click();
+  MobileTestCase(
+    'Media: Load and delete MediaGroup',
+    { skipPlatform: ['*'] },
+    async (client) => {
+      const page = await setup(client, mediaGroupAdf, mediaCardSelector());
+      const card = await page.$(mediaCardSelector());
+      await card.click();
 
-    await mobileSnapshot(page);
-    // ensure card is selected
-    await page.switchToWeb();
-    // Delete media group
-    await page.click(
-      '[data-testid="media-file-card-view"] [data-testid="media-card-primary-action"]',
-    );
+      await mobileSnapshot(page);
+      // ensure card is selected
+      await page.switchToWeb();
+      // Delete media group
+      await page.click(
+        '[data-testid="media-file-card-view"] [data-testid="media-card-primary-action"]',
+      );
 
-    const mediaGroupExists = await page.isExisting(
-      '[data-testid="media-filmstrip"]',
-    );
-    // Ensure MediaGroup is deleted
-    expect(mediaGroupExists).toBeFalsy();
-  });
+      const mediaGroupExists = await page.isExisting(
+        '[data-testid="media-filmstrip"]',
+      );
+      // Ensure MediaGroup is deleted
+      expect(mediaGroupExists).toBeFalsy();
+    },
+  );
 
   MobileTestCase(
     'Media inside expand',
-    { skipPlatform: ['android', 'ios'] },
+    { skipPlatform: ['*'] },
     async (client) => {
       const page = await setup(client, mediaExpandAdf, mediaCardSelector());
       await mobileSnapshot(page);
@@ -136,7 +144,7 @@ export default async () => {
 
   MobileTestCase(
     'Media: Load ADF with media inside a table',
-    {},
+    { skipPlatform: ['*'] },
     async (client) => {
       const page = await setup(client, mediaImageTableAdf, mediaCardSelector());
       await mobileSnapshot(page);
@@ -167,16 +175,20 @@ export default async () => {
     },
   );
 
-  MobileTestCase('Media: failed processing', {}, async (client) => {
-    const page = await setup(
-      client,
-      mediaSingleVideoFailedProcessingAdf,
-      mediaCardSelector('failed-processing'),
-    );
-    await mobileSnapshot(page);
-  });
+  MobileTestCase(
+    'Media: failed processing',
+    { skipPlatform: ['*'] },
+    async (client) => {
+      const page = await setup(
+        client,
+        mediaSingleVideoFailedProcessingAdf,
+        mediaCardSelector('failed-processing'),
+      );
+      await mobileSnapshot(page);
+    },
+  );
 
-  MobileTestCase('Media: error', {}, async (client) => {
+  MobileTestCase('Media: error', { skipPlatform: ['*'] }, async (client) => {
     const page = await setup(
       client,
       mediaSingleEmptyFileAdf,

@@ -5,8 +5,8 @@ import { Code } from '../../src';
 const CodeDefaultExample = () => {
   return (
     <p>
-      To start creating a changeset, run <Code>bolt changeset</Code>. Then you
-      will be prompted to select packages for release.
+      To start creating a changeset, run <Code>yarn changeset</Code>. Then
+      you'll be prompted to select packages for release.
     </p>
   );
 };

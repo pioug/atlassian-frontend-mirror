@@ -15,7 +15,7 @@ import { waitForMedia } from '../_utils/media';
 export default async () => {
   MobileTestCase(
     'Renderer Media: Load ADF with a MediaGroup node',
-    {},
+    { skipPlatform: ['*'] },
     async (client) => {
       const page = await Page.create(client);
       await loadRenderer(page);
@@ -38,7 +38,7 @@ export default async () => {
 
   MobileTestCase(
     'Renderer Media in Layouts: 2 column',
-    { skipPlatform: ['android'] },
+    { skipPlatform: ['*'] },
     async (client) => {
       const page = await Page.create(client);
 
@@ -54,31 +54,39 @@ export default async () => {
     },
   );
 
-  MobileTestCase('Renderer Media in Layouts: 3 columns', {}, async (client) => {
-    const page = await Page.create(client);
+  MobileTestCase(
+    'Renderer Media in Layouts: 3 columns',
+    { skipPlatform: ['*'] },
+    async (client) => {
+      const page = await Page.create(client);
 
-    await loadRenderer(page);
-    await page.switchToWeb();
-    await setADFContent(page, media3ColumnLayoutAdf, 'renderer');
-    await waitForMedia(page);
-    const layout = await page.$('[data-layout-section="true"]');
-    await layout.scrollIntoView();
-    await mobileSnapshot(page);
-  });
+      await loadRenderer(page);
+      await page.switchToWeb();
+      await setADFContent(page, media3ColumnLayoutAdf, 'renderer');
+      await waitForMedia(page);
+      const layout = await page.$('[data-layout-section="true"]');
+      await layout.scrollIntoView();
+      await mobileSnapshot(page);
+    },
+  );
 
-  MobileTestCase('Renderer Media inside expand', {}, async (client) => {
-    const page = await Page.create(client);
+  MobileTestCase(
+    'Renderer Media inside expand',
+    { skipPlatform: ['*'] },
+    async (client) => {
+      const page = await Page.create(client);
 
-    await loadRenderer(page);
-    await page.switchToWeb();
-    await setADFContent(page, mediaExpandAdf, 'renderer');
-    await waitForMedia(page);
-    await mobileSnapshot(page);
-  });
+      await loadRenderer(page);
+      await page.switchToWeb();
+      await setADFContent(page, mediaExpandAdf, 'renderer');
+      await waitForMedia(page);
+      await mobileSnapshot(page);
+    },
+  );
 
   MobileTestCase(
     'Renderer Media: MediaSingle video file',
-    {},
+    { skipPlatform: ['*'] },
     async (client) => {
       const page = await Page.create(client);
       await loadRenderer(page);

@@ -41,7 +41,7 @@ export default async () => {
   );
   MobileTestCase(
     'Clickable Area: Mobile does not scroll when clicking in clickable area',
-    {},
+    { skipPlatform: ['*'] },
     async (client) => {
       const page = await Page.create(client);
       await loadEditor(page);

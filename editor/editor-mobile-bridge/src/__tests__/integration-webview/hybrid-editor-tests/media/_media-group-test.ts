@@ -51,7 +51,7 @@ const TestCases = () => {
   //);
   MobileTestCase(
     'Media Group: Remove a file from the media group',
-    {},
+    { skipPlatform: ['*'] },
     async (client) => {
       const page = await Page.create(client);
       await loadEditor(page);

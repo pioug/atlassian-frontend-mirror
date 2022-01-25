@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/css-reset",
-  "version": "6.3.4",
+  "version": "6.3.5",
   "description": "Base stylesheet for ADG",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -35,7 +35,7 @@
   },
   "dependencies": {
     "@atlaskit/theme": "^12.1.0",
-    "@atlaskit/tokens": "^0.4.0",
+    "@atlaskit/tokens": "^0.5.0",
     "@babel/runtime": "^7.0.0",
     "fbjs": "^3.0.0"
   },

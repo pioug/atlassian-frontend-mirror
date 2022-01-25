@@ -1,0 +1,68 @@
+{
+    "version": 1,
+    "type": "doc",
+    "content": [
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "world",
+            "marks": [
+              {
+                "type": "link",
+                "attrs": {
+                  "href": "http://google.com"
+                }
+              },
+              {
+                "type": "textColor",
+                "attrs": {
+                  "color": "#6554c0"
+                }
+              }
+            ]
+          },
+          {
+            "type": "text",
+            "text": " ",
+            "marks": [
+              {
+                "type": "textColor",
+                "attrs": {
+                  "color": "#6554c0"
+                }
+              }
+            ]
+          },
+          {
+            "type": "text",
+            "text": "more",
+            "marks": [
+              {
+                "type": "em"
+              },
+              {
+                "type": "strong"
+              },
+              {
+                "type": "textColor",
+                "attrs": {
+                  "color": "#6554c0"
+                }
+              },
+              {
+                "type": "strike"
+              },
+              {
+                "type": "subsup",
+                "attrs": {
+                  "type": "sup"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }

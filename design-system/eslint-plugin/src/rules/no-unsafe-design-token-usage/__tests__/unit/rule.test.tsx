@@ -6,11 +6,22 @@ import rule from '../../index';
 // Mock rename mapping in case it changes
 jest.mock('@atlaskit/tokens/rename-mapping', () => ({
   __esModule: true,
-  default: { 'tokenName.old': 'tokenName.new' },
+  default: [
+    {
+      path: 'tokenName.old',
+      state: 'deleted',
+      replacement: 'tokenName.new',
+    },
+    {
+      path: 'tokenName.deprecated',
+      state: 'deprecated',
+      replacement: 'tokenName.new',
+    },
+  ],
 }));
 
-const oldTokenName = Object.keys(renameMapping)[0];
-const newTokenName = renameMapping[oldTokenName];
+const oldTokenName = renameMapping[0].path;
+const newTokenName = renameMapping[0].replacement;
 
 tester.run('no-unsafe-design-token-usage', rule, {
   valid: [
@@ -220,24 +231,24 @@ tester.run('no-unsafe-design-token-usage', rule, {
       options: [{ shouldEnforceFallbacks: true }],
       code: `css({ color: token('${oldTokenName}', fallback) })`,
       output: `css({ color: token('${newTokenName}', fallback) })`,
-      errors: [{ messageId: 'tokenRenamed' }],
+      errors: [{ messageId: 'tokenRemoved' }],
     },
     {
       options: [{ shouldEnforceFallbacks: true }],
       code: `css({ color: token('${oldTokenName}', getColor()) })`,
       output: `css({ color: token('${newTokenName}', getColor()) })`,
-      errors: [{ messageId: 'tokenRenamed' }],
+      errors: [{ messageId: 'tokenRemoved' }],
     },
     {
       options: [{ shouldEnforceFallbacks: true }],
       code: `css({ color: token('${oldTokenName}', 'blue') })`,
       output: `css({ color: token('${newTokenName}', 'blue') })`,
-      errors: [{ messageId: 'tokenRenamed' }],
+      errors: [{ messageId: 'tokenRemoved' }],
     },
     {
       code: `css({ color: token('${oldTokenName}') })`,
       output: `css({ color: token('${newTokenName}') })`,
-      errors: [{ messageId: 'tokenRenamed' }],
+      errors: [{ messageId: 'tokenRemoved' }],
     },
     // Using config -> shouldEnforceFallbacks: false
     {

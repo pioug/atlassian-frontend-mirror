@@ -381,6 +381,14 @@ type CodeBlockLanguageSelectedAEP = TrackAEP<
   undefined
 >;
 
+type TextLinkCodeMarkTransformedAEP = OperationalAEP<
+  ACTION.TEXT_LINK_MARK_TRANSFORMED,
+  ACTION_SUBJECT.EDITOR,
+  undefined,
+  undefined,
+  undefined
+>;
+
 export type GeneralEventPayload<T = void> =
   | AnnotateButtonAEP
   | AnnotationAEP
@@ -410,5 +418,6 @@ export type GeneralEventPayload<T = void> =
   | CodeBlockLanguageSelectedAEP
   | EditorContentRetrievalPerformedAEP
   | UfoSessionCompletePayloadAEP
+  | TextLinkCodeMarkTransformedAEP
   | InvalidProsemirrorDocumentErrorAEP
   | DocumentProcessingErrorAEP;

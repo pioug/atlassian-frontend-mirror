@@ -57,6 +57,7 @@ const unsupportedMarks = [
   'unsupportedMark',
   'unsupportedNodeAttribute',
   'typeAheadQuery',
+  'dataConsumer',
 ];
 
 /**

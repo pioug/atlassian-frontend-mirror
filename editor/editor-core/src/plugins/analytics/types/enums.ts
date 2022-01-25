@@ -76,6 +76,7 @@ export enum ACTION {
   SYNCHRONY_DISCONNECTED = 'synchronyDisconnected',
   SYNCHRONY_ENTITY_ERROR = 'synchronyEntityError',
   SYNCHRONY_ERROR = 'synchronyError',
+  TEXT_LINK_MARK_TRANSFORMED = 'textLinkMarkTransformed',
   TOGGLE_EXPAND = 'toggleExpand',
   TRANSACTION_DISPATCHED = 'transactionDispatched',
   TYPING_FINISHED = 'typingFinished',

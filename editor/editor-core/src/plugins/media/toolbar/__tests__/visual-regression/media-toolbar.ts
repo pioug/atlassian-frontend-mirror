@@ -53,7 +53,8 @@ describe('Media Toolbar:', () => {
     );
   });
 
-  it('should open media viewer when preview button clicked', async () => {
+  // TODO: Unskip test https://product-fabric.atlassian.net/browse/ED-14402
+  it.skip('should open media viewer when preview button clicked', async () => {
     await page.click('[data-testid="file-preview-toolbar-button"]');
     await page.waitForSelector('[data-testid="media-viewer-error"]');
   });

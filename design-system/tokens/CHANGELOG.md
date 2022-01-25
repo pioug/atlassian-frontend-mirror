@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 0.5.0
+
+### Minor Changes
+
+- [`03a2ceaaabd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/03a2ceaaabd) - Rename mapper entrypoint now outputs migration meta data in array format rather than object.
+
 ## 0.4.2
 
 ### Patch Changes

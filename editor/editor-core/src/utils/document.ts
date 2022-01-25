@@ -1,6 +1,6 @@
 import { Node, Schema, ResolvedPos } from 'prosemirror-model';
 import { Transaction, EditorState, TextSelection } from 'prosemirror-state';
-import { ADFEntity } from '@atlaskit/adf-utils';
+import { ADFEntity, transformTextLinkCodeMarks } from '@atlaskit/adf-utils';
 import { ContentNodeWithPos } from 'prosemirror-utils';
 import { sanitizeNodeForPrivacy } from '../utils/filter/privacy-filter';
 import {
@@ -205,9 +205,25 @@ export function processRawValue(
       return Node.fromJSON(schema, node);
     }
 
+    // See: HOT-97965 https://product-fabric.atlassian.net/browse/ED-14400
+    // We declared in code mark spec that links and marks should not co-exist on
+    // text nodes. This util strips code marks from bad text nodes and preserves links.
+    // Otherwise, prosemirror will try to repair the invalid document by stripping links
+    // and preserving code marks during content changes.
+    let { transformedAdf, isTransformed } = transformTextLinkCodeMarks(
+      node as ADFEntity,
+    );
+    if (isTransformed && dispatchAnalyticsEvent) {
+      dispatchAnalyticsEvent({
+        action: ACTION.TEXT_LINK_MARK_TRANSFORMED,
+        actionSubject: ACTION_SUBJECT.EDITOR,
+        eventType: EVENT_TYPE.OPERATIONAL,
+      });
+    }
+
     const entity: ADFEntity = validateADFEntity(
       schema,
-      node as ADFEntity,
+      transformedAdf || (node as ADFEntity),
       dispatchAnalyticsEvent,
     );
 

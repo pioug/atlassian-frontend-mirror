@@ -2,7 +2,6 @@ src/
 examples-utils/
 examples/
 index.ts
-index.js
 docs/
 build/
 __tests__/

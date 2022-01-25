@@ -1,5 +1,5 @@
 import { layoutSectionWithSingleColumn } from './nodes';
-import { dataConsumer, fragment } from './marks';
+import { fragment } from './marks';
 import { createSchema, SchemaConfig } from './create-schema';
 
 type DefaultSchemaNodes =
@@ -67,7 +67,8 @@ type DefaultSchemaMarks =
   | 'annotation'
   | 'unsupportedMark'
   | 'unsupportedNodeAttribute'
-  | 'typeAheadQuery';
+  | 'typeAheadQuery'
+  | 'dataConsumer';
 
 const getDefaultSchemaConfig = (): SchemaConfig<
   DefaultSchemaNodes,
@@ -140,6 +141,7 @@ const getDefaultSchemaConfig = (): SchemaConfig<
       'alignment',
       'indentation',
       'annotation',
+      'dataConsumer',
       'unsupportedMark',
       'unsupportedNodeAttribute',
       'typeAheadQuery', // https://product-fabric.atlassian.net/browse/ED-10214,
@@ -160,7 +162,6 @@ export const getSchemaBasedOnStage = (stage = 'final') => {
       layoutSection: layoutSectionWithSingleColumn,
     };
     defaultSchemaConfig.customMarkSpecs = {
-      dataConsumer: dataConsumer,
       fragment,
     };
     defaultSchemaConfig.nodes.push('mediaInline');

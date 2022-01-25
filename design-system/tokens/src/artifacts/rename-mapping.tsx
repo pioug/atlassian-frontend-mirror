@@ -17,8 +17,12 @@
 import tokens from './token-names';
 
 type Token = keyof typeof tokens | string;
-type RenameMapper = Partial<Record<Token, Token>>;
+type RenameMap = {
+  path: string;
+  state: 'deprecated' | 'deleted';
+  replacement: Token;
+}
 
-const renameMapper: RenameMapper = {}
+const renameMapper: RenameMap[] = [];
 
 export default renameMapper;

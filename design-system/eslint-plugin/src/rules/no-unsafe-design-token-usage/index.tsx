@@ -13,6 +13,12 @@ type PluginConfig = {
   shouldEnforceFallbacks: boolean;
 };
 
+const getCleanPathId = (path: string) =>
+  path
+    .split('.')
+    .filter((el) => el !== '[default]')
+    .join('.');
+
 const defaultConfig: PluginConfig = {
   shouldEnforceFallbacks: false,
 };
@@ -40,7 +46,8 @@ token('color.background.blanket');
 \`\`\`
 `,
       invalidToken: 'The token "{{name}}" does not exist.',
-      tokenRenamed: 'The token "{{name}}" has been renamed.',
+      tokenRemoved:
+        'The token "{{name}}" is removed in favour of "{{replacement}}".',
       tokenFallbackEnforced: `Token function requires a fallback, preferably something that best matches the light/default theme in case tokens aren't present.
 
 \`\`\`
@@ -154,18 +161,22 @@ token('color.background.blanket');
           return;
         }
 
-        if (typeof tokenKey === 'string' && tokenKey in renameMapping) {
+        const migrationMeta = renameMapping
+          .filter((t) => t.state === 'deleted')
+          .find((t) => t.path === tokenKey);
+
+        if (typeof tokenKey === 'string' && migrationMeta) {
+          const cleanTokenKey = getCleanPathId(migrationMeta.replacement);
+
           context.report({
-            messageId: 'tokenRenamed',
+            messageId: 'tokenRemoved',
             node,
             data: {
               name: tokenKey,
+              replacement: cleanTokenKey,
             },
             fix: (fixer) =>
-              fixer.replaceText(
-                node.arguments[0],
-                `'${renameMapping[tokenKey]}'`,
-              ),
+              fixer.replaceText(node.arguments[0], `'${cleanTokenKey}'`),
           });
           return;
         }

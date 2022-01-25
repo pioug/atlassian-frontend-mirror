@@ -8,10 +8,11 @@ const formatter: Format['formatter'] = ({ dictionary }) => {
         token.attributes.group !== 'palette' &&
         token.attributes.replacement,
     )
-    .reduce<Record<string, string>>((accum, token) => {
-      accum[token.path.join('.')] = token.attributes?.replacement;
-      return accum;
-    }, {});
+    .map((token) => ({
+      path: token.path.join('.'),
+      state: token.attributes?.state,
+      replacement: token.attributes?.replacement,
+    }));
 
   return `
 // THIS IS AN AUTO-GENERATED FILE DO NOT MODIFY DIRECTLY
@@ -32,9 +33,13 @@ const formatter: Format['formatter'] = ({ dictionary }) => {
 import tokens from './token-names';
 
 type Token = keyof typeof tokens | string;
-type RenameMapper = Partial<Record<Token, Token>>;
+type RenameMap = {
+  path: string;
+  state: 'deprecated' | 'deleted';
+  replacement: Token;
+}
 
-const renameMapper: RenameMapper = ${JSON.stringify(tokens, null, 2)}
+const renameMapper: RenameMap[] = ${JSON.stringify(tokens, null, 2)};
 
 export default renameMapper;
 `;

@@ -84,3 +84,4 @@ export type {
   VisitorCollection,
 } from './types';
 export { getEmptyADF } from './empty-adf';
+export { transformTextLinkCodeMarks } from './transforms/text-link-code-transform';

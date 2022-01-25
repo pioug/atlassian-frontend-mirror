@@ -1,5 +1,11 @@
 # @atlaskit/adf-schema
 
+## 20.1.3
+
+### Patch Changes
+
+- [`b4d09742c59`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b4d09742c59) - [ED-14236] Add dataConsumer mark to defaultSchema on adf-schema
+
 ## 20.1.2
 
 ### Patch Changes

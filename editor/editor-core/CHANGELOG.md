@@ -1,5 +1,11 @@
 # @atlaskit/editor-core
 
+## 153.1.4
+
+### Patch Changes
+
+- [`60a8ae28c1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/60a8ae28c1f) - [ux] HOT-97965: Strip code marks from text nodes when code and link marks both exist
+
 ## 153.1.3
 
 ### Patch Changes

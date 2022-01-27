@@ -33,4 +33,4 @@ This will generate static image modules that can be used to easily embed inside 
 Currently uses a custom build process, which like this: `SVG -> PNG -> Base64 -> TypeScript Module`
 
 - Add the source image to `src/static/svg` folder and to generator config `src/static/image-sources.ts`
-- run `bolt run build:images`
+- run `yarn run build:images`

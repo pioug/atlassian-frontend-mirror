@@ -122,7 +122,20 @@ describe('@atlaskit/tree - Tree', () => {
       expect(draggables).toHaveLength(3);
     });
 
-    it('does not render Draggable around each item if drag and drop is disabled', () => {
+    it('renders Draggable around each item if drag and drop is conditionally enabled using a function', () => {
+      const isDragEnabled = () => false;
+      const tree = mount(
+        <Tree
+          tree={treeWithThreeLeaves}
+          renderItem={mockRender}
+          isDragEnabled={isDragEnabled}
+        />,
+      );
+      const draggables = tree.find(Draggable);
+      expect(draggables).toHaveLength(3);
+    });
+
+    it('does not render Draggable around each item if drag and drop is explicitly disabled', () => {
       const tree = mount(
         <Tree
           tree={treeWithThreeLeaves}

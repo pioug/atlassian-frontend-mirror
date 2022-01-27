@@ -1,0 +1,87 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`default-value-hydration-client should reject promise on network error: URS error 1`] = `"error calling smart service, statusCode=504, statusText=Gateway Timeout"`;
+
+exports[`default-value-hydration-client should translate given context to correct fetch request: URS query 1`] = `
+Object {
+  "context": Object {
+    "childObjectId": "childObjectId",
+    "containerId": "containerId",
+    "contextType": "fieldId",
+    "objectId": "objectId",
+    "principalId": "principalId",
+    "productAttributes": Object {
+      "emailDomain": "Context",
+      "isPublicRepo": false,
+      "pullRequestId": 18056,
+      "workspaceIds": Array [
+        "02b941e3-cfaa-40f9-9a58-cec53e20bdc3",
+      ],
+    },
+    "productKey": "bitbucket",
+    "sessionId": "session-id",
+    "siteId": "site-id",
+  },
+  "includeGroups": true,
+  "includeTeams": true,
+  "includeUsers": true,
+  "maxNumberOfResults": 50,
+  "searchQuery": Object {
+    "cpusQueryHighlights": Object {
+      "field": "field",
+      "query": "query",
+    },
+    "customQuery": "name.mention:test_user email.mention:test_user nickname.mention:test_user",
+    "customerDirectoryId": "37e1dc69-9db4-4d1e-8083-a663329ba939",
+    "filter": "(NOT not_mentionable:true) AND (account_status:active)",
+    "minimumAccessLevel": "APPLICATION",
+    "queryString": "query",
+    "restrictTo": Object {
+      "groupIds": Array [
+        "user1",
+        "user2",
+      ],
+      "userIds": Array [
+        "user1",
+        "user2",
+      ],
+    },
+    "searchUserbase": true,
+  },
+}
+`;
+
+exports[`default-value-hydration-client should translate given context to correct fetch request: URS users 1`] = `
+Array [
+  Object {
+    "accessLevel": "CONTAINER",
+    "accountStatus": "ACTIVE",
+    "avatarUrl": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net",
+    "email": "jsmith@atlassian.com",
+    "entityType": "USER",
+    "id": "5ee0adc79583380ab0afec31",
+    "locale": "en-GB",
+    "matchPositions": Object {},
+    "name": "John Smith",
+    "nickname": "John Smith",
+    "notMentionable": false,
+    "title": "Development Manager",
+    "userType": "DEFAULT",
+  },
+  Object {
+    "accessLevel": "CONTAINER",
+    "accountStatus": "ACTIVE",
+    "avatarUrl": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net",
+    "email": "jsmith@atlassian.com",
+    "entityType": "USER",
+    "id": "5ee0adc79583380ab0afec32",
+    "locale": "en-GB",
+    "matchPositions": Object {},
+    "name": "John Doe",
+    "nickname": "John Doe",
+    "notMentionable": false,
+    "title": "Development Manager",
+    "userType": "DEFAULT",
+  },
+]
+`;

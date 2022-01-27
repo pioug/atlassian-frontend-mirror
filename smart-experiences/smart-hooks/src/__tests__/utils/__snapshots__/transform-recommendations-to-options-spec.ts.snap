@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`transform recommendations to UserPicker options should correctly transform group option: URS groups 1`] = `
+Array [
+  Object {
+    "id": "id-group",
+    "lozenge": undefined,
+    "name": "group1",
+    "type": "group",
+  },
+]
+`;
+
+exports[`transform recommendations to UserPicker options should correctly transform team option: URS teams 1`] = `
+Array [
+  Object {
+    "avatarUrl": "https://large-avatarurl.com",
+    "description": "does things",
+    "id": "id-team",
+    "includesYou": true,
+    "memberCount": 5,
+    "name": "team1",
+    "type": "team",
+  },
+]
+`;
+
+exports[`transform recommendations to UserPicker options should correctly transform user option workspace member: URS users collaborator 1`] = `
+Array [
+  Object {
+    "avatarUrl": "https://avatarurl.com",
+    "email": "user@atlassian.com",
+    "id": "id-user",
+    "lozenge": Object {
+      "appearance": "new",
+      "text": "GUEST",
+      "tooltip": "Guests can only access certain spaces and have limited access to user info.",
+    },
+    "name": "user1",
+    "type": "user",
+  },
+]
+`;
+
+exports[`transform recommendations to UserPicker options should correctly transform user option workspace member: URS users workspace member 1`] = `
+Array [
+  Object {
+    "avatarUrl": "https://avatarurl.com",
+    "email": "user@atlassian.com",
+    "id": "id-user",
+    "lozenge": "MEMBER",
+    "name": "user1",
+    "type": "user",
+  },
+]
+`;

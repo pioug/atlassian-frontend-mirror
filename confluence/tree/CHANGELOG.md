@@ -1,5 +1,11 @@
 # @atlaskit/tree
 
+## 8.6.0
+
+### Minor Changes
+
+- [`7becb9517f5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7becb9517f5) - Fixed bug where drag and drop is broken in the case where only some tree items are draggable (i.e. passing a function to the isDragEnabled prop)
+
 ## 8.5.0
 
 ### Minor Changes

@@ -248,13 +248,8 @@ export default class Tree extends Component<Props, State> {
   renderItem = (flatItem: FlattenedItem, index: number): ReactNode => {
     const { isDragEnabled } = this.props;
 
-    const isDragDisabled =
-      typeof isDragEnabled === 'function'
-        ? !isDragEnabled(flatItem.item)
-        : !isDragEnabled;
-
-    // If drag and drop is disabled, render TreeItem directly with stubbed provided and snapshot
-    if (isDragDisabled) {
+    // If drag and drop is explicitly disabled for all items, render TreeItem directly with stubbed provided and snapshot
+    if (isDragEnabled === false) {
       return this.renderTreeItem({
         flatItem,
         path: flatItem.path,
@@ -271,6 +266,11 @@ export default class Tree extends Component<Props, State> {
         },
       });
     }
+
+    const isDragDisabled =
+      typeof isDragEnabled === 'function'
+        ? !isDragEnabled(flatItem.item)
+        : !isDragEnabled;
 
     return (
       <Draggable

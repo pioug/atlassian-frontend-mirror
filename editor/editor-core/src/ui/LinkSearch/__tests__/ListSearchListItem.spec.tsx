@@ -21,6 +21,8 @@ describe('ListSearchListItem', () => {
       onMouseMove: jest.fn(),
       onMouseEnter: jest.fn(),
       onMouseLeave: jest.fn(),
+      role: '',
+      id: '',
     };
     const options: Required<SetupOptions> = {
       ...defaultOptions,

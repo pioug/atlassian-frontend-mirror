@@ -10,7 +10,7 @@ import {
   CardAppearance,
   CardProvider,
 } from '@atlaskit/editor-common/provider-factory';
-import { ProviderFactory } from '@atlaskit/editor-common';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 
 import { OutstandingRequests } from '../../../types';
 import { Request } from '../../../types';

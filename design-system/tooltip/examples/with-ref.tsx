@@ -13,8 +13,8 @@ const CustomisedTagWithRef = React.forwardRef((props, ref: Ref<any>) => {
       ref={ref}
       style={{
         display: 'inline-block',
-        background: token('color.background.boldWarning.resting', 'orange'),
-        color: token('color.text.onBoldWarning', '#000000'),
+        background: token('color.background.warning.bold', 'orange'),
+        color: token('color.text.warning.inverse', '#000000'),
       }}
     >
       {children}

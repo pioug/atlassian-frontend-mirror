@@ -1,5 +1,5 @@
 import { Node as PMNode, Schema } from 'prosemirror-model';
-import { Transformer } from '@atlaskit/editor-common';
+import { Transformer } from '@atlaskit/editor-common/types';
 import parse from './parse';
 import encode from './encode';
 export { LANGUAGE_MAP as CONFLUENCE_LANGUAGE_MAP } from './languageMap';

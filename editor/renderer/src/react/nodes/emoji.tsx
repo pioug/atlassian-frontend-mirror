@@ -1,8 +1,8 @@
 import React from 'react';
 import { EmojiAttributes } from '@atlaskit/adf-schema';
 import { PureComponent } from 'react';
-import { ProviderFactory } from '@atlaskit/editor-common';
-import { Emoji } from '@atlaskit/editor-common';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import { Emoji } from '@atlaskit/editor-common/emoji';
 
 export interface EmojiProps extends EmojiAttributes {
   providers?: ProviderFactory;

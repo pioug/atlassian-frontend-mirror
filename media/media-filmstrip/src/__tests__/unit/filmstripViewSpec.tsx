@@ -1,7 +1,7 @@
 declare var global: any; // we need define an interface for the Node global object when overwriting global objects, in this case MutationObserver
 declare var window: any;
 import React from 'react';
-import { shallow, CommonWrapper } from 'enzyme';
+import { shallow, CommonWrapper, mount } from 'enzyme';
 import { FilmstripView, LeftArrow, RightArrow } from '../../filmstripView';
 import {
   FilmStripListWrapper,
@@ -240,6 +240,114 @@ describe('FilmstripView', () => {
         offset: 14,
         animate: true,
       });
+    });
+  });
+
+  describe('.handleTouchStart()', () => {
+    it('should update FilmstripView state properties when touch move starts', () => {
+      const element = mount(<FilmstripView />);
+
+      const filmstripListElement = element.find(FilmStripListWrapper);
+      filmstripListElement.simulate('touchStart', {
+        touches: [{ clientX: 200 }],
+      });
+
+      expect(element.state('touchMoveStartPosition')).toBe(200);
+      expect(element.state('isTouchMoveInProgress')).toBe(true);
+    });
+  });
+
+  describe('.handleTouchMove()', () => {
+    it('should call onScroll() with an updated offset and direction set to right', () => {
+      const INITIAL_OFFSET = 300;
+      const INITIAL_TOUCH_START_POSITION = 100;
+      const NEW_TOUCH_START_POSITION = 200;
+      const onScroll = jest.fn();
+      const element = mount(<FilmstripView />);
+
+      mockSizing(element, 700, 300);
+      element.setProps({ offset: INITIAL_OFFSET, onScroll });
+      element.setState({
+        touchMoveStartPosition: INITIAL_TOUCH_START_POSITION,
+        isTouchMoveInProgress: true,
+      });
+
+      const filmstripListElement = element.find(FilmStripListWrapper);
+      filmstripListElement.simulate('touchMove', {
+        touches: [{ clientX: NEW_TOUCH_START_POSITION }],
+      });
+
+      expect(onScroll).toBeCalledWith({
+        direction: 'right',
+        offset:
+          INITIAL_OFFSET -
+          (NEW_TOUCH_START_POSITION - INITIAL_TOUCH_START_POSITION),
+        animate: false,
+      });
+    });
+
+    it('should call onScroll() with an updated offset and direction set to left', () => {
+      const INITIAL_OFFSET = 300;
+      const INITIAL_TOUCH_START_POSITION = 200;
+      const NEW_TOUCH_START_POSITION = 100;
+      const onScroll = jest.fn();
+      const element = mount(
+        <FilmstripView offset={INITIAL_OFFSET} onScroll={onScroll} />,
+      );
+
+      mockSizing(element, 700, 300);
+      element.setState({
+        touchMoveStartPosition: INITIAL_TOUCH_START_POSITION,
+        isTouchMoveInProgress: true,
+      });
+      const filmstripListElement = element.find(FilmStripListWrapper);
+      filmstripListElement.simulate('touchMove', {
+        touches: [{ clientX: NEW_TOUCH_START_POSITION }],
+      });
+
+      expect(onScroll).toBeCalledWith({
+        direction: 'left',
+        offset:
+          INITIAL_OFFSET -
+          (NEW_TOUCH_START_POSITION - INITIAL_TOUCH_START_POSITION),
+        animate: false,
+      });
+    });
+
+    it('should not call onScroll() when touch move is not in progress', () => {
+      const INITIAL_OFFSET = 300;
+      const INITIAL_TOUCH_START_POSITION = 100;
+      const NEW_TOUCH_START_POSITION = 200;
+      const onScroll = jest.fn();
+      const element = mount(
+        <FilmstripView offset={INITIAL_OFFSET} onScroll={onScroll} />,
+      );
+
+      element.setState({
+        touchMoveStartPosition: INITIAL_TOUCH_START_POSITION,
+        isTouchMoveInProgress: false,
+      });
+
+      const filmstripListElement = element.find(FilmStripListWrapper);
+      filmstripListElement.simulate('touchMove', {
+        touches: [{ clientX: NEW_TOUCH_START_POSITION }],
+      });
+
+      expect(onScroll).not.toBeCalled();
+    });
+  });
+
+  describe('.handleTouchEnd()', () => {
+    it('should update FilmstripView state properties when touch move ends', () => {
+      const element = mount(<FilmstripView />);
+      const filmstripListElement = element.find(FilmStripListWrapper);
+
+      filmstripListElement.simulate('touchEnd', {
+        touches: [{ clientX: 100 }],
+      });
+
+      expect(element.state('touchMoveStartPosition')).toBe(100);
+      expect(element.state('isTouchMoveInProgress')).toBe(false);
     });
   });
 

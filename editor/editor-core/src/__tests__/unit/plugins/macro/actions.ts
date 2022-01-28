@@ -10,6 +10,7 @@ import {
   MacroAttributes,
   MacroProvider,
 } from '@atlaskit/editor-common/provider-factory';
+import { uuid } from '@atlaskit/adf-schema';
 
 jest.mock('@atlaskit/adf-schema', () => ({
   ...jest.requireActual<Object>('@atlaskit/adf-schema'),
@@ -39,6 +40,13 @@ describe('macro plugin -> commands -> insert macro from provider', () => {
   const createEditor = createEditorFactory();
 
   it('should normalise a nodes layout if nested inside another node', async () => {
+    const firstGen = 'mochiId-first-gen';
+    const secondGen = 'mochiId-second-gen';
+    jest
+      .spyOn(uuid, 'generate')
+      .mockReturnValueOnce(firstGen)
+      .mockReturnValueOnce(secondGen);
+
     const { editorView } = createEditor({
       doc: doc(
         bodiedExtension({
@@ -68,13 +76,13 @@ describe('macro plugin -> commands -> insert macro from provider', () => {
         bodiedExtension({
           extensionKey: 'fake.extension',
           extensionType: 'atlassian.com.editor',
-          localId: 'testId',
+          localId: firstGen,
         })(
           extension({
             extensionKey: 'com.fake',
             extensionType: 'com.fake',
             layout: 'default',
-            localId: 'testId',
+            localId: secondGen,
           })(),
         ),
       ),

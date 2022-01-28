@@ -35,7 +35,7 @@ const getPrimitiveStyles = (
   const styles = {
     alignItems: 'center',
     backgroundColor: isFocused
-      ? token('color.background.transparentNeutral.hover', N20)
+      ? token('color.background.neutral.subtle.hovered', N20)
       : 'transparent',
     color: isDisabled ? token('color.text.disabled', 'inherit') : 'inherit',
     display: 'flex ',
@@ -43,14 +43,11 @@ const getPrimitiveStyles = (
     paddingLeft: `${gridSize() * 2}px`,
     paddingTop: 4,
     boxShadow: isFocused
-      ? `inset 2px 0px 0px ${token('color.text.selected', B400)};`
+      ? `inset 2px 0px 0px ${token('color.text.brand', B400)};`
       : '',
 
     ':active': {
-      backgroundColor: token(
-        'color.background.transparentNeutral.pressed',
-        N30,
-      ),
+      backgroundColor: token('color.background.neutral.subtle.pressed', N30),
     },
 
     '@media screen and (-ms-high-contrast: active)': {
@@ -75,8 +72,8 @@ const getPrimitiveStyles = (
 
 // maintains function shape
 const backgroundColor = themed({
-  light: token('color.background.subtleNeutral.resting', N0),
-  dark: token('color.background.subtleNeutral.resting', DN10),
+  light: token('color.background.neutral', N0),
+  dark: token('color.background.neutral', DN10),
 });
 const transparent = themed({ light: 'transparent', dark: 'transparent' });
 
@@ -109,28 +106,28 @@ const getPrimaryColor = ({
     });
   } else if (isSelected && isActive) {
     color = themed({
-      light: token('color.background.boldBrand.pressed', B75),
-      dark: token('color.background.boldBrand.pressed', B200),
+      light: token('color.background.brand.bold.pressed', B75),
+      dark: token('color.background.brand.bold.pressed', B200),
     });
   } else if (isActive) {
     color = themed({
-      light: token('color.background.subtleBrand.pressed', B75),
-      dark: token('color.background.subtleBrand.pressed', B200),
+      light: token('color.background.brand.pressed', B75),
+      dark: token('color.background.brand.pressed', B200),
     });
   } else if (isFocused && isSelected) {
     color = themed({
-      light: token('color.background.boldBrand.hover', B300),
-      dark: token('color.background.boldBrand.hover', B75),
+      light: token('color.background.brand.bold.hovered', B300),
+      dark: token('color.background.brand.bold.hovered', B75),
     });
   } else if (isFocused) {
     color = themed({
-      light: token('color.background.default', N0),
-      dark: token('color.background.default', DN30),
+      light: token('elevation.surface', N0),
+      dark: token('elevation.surface', DN30),
     });
   } else if (isSelected) {
     color = themed({
-      light: token('color.background.boldBrand.resting', B400),
-      dark: token('color.background.boldBrand.resting', B100),
+      light: token('color.background.brand.bold', B400),
+      dark: token('color.background.brand.bold', B100),
     });
   }
   return color(rest);
@@ -144,8 +141,8 @@ const getSecondaryColor = ({
   ...rest
 }: ControlProps): string => {
   let color: ThemedValue<string> = themed({
-    light: token('color.background.default', N0),
-    dark: token('color.background.default', DN10),
+    light: token('elevation.surface', N0),
+    dark: token('elevation.surface', DN10),
   });
 
   if (isDisabled && isSelected) {
@@ -155,8 +152,8 @@ const getSecondaryColor = ({
     });
   } else if (isActive && isSelected && !isDisabled) {
     color = themed({
-      light: token('color.background.default', B400),
-      dark: token('color.background.default', DN10),
+      light: token('elevation.surface', B400),
+      dark: token('elevation.surface', DN10),
     });
   } else if (!isSelected) {
     color = transparent;
@@ -177,17 +174,17 @@ const getBorderColor = ({
   } else if (isDisabled) {
     return token('color.background.disabled', N100);
   } else if (isSelected && isActive) {
-    return token('color.background.boldBrand.pressed', B400);
+    return token('color.background.brand.bold.pressed', B400);
   } else if (isActive) {
-    return token('color.background.boldBrand.resting', B400);
+    return token('color.background.brand.bold', B400);
   } else if (isFocused && isSelected) {
-    return token('color.background.boldBrand.hover', B400);
+    return token('color.background.brand.bold.hovered', B400);
   } else if (isFocused) {
-    return token('color.border.neutral', N100);
+    return token('color.border', N100);
   } else if (isSelected) {
-    return token('color.background.boldBrand.resting', B400);
+    return token('color.background.brand.bold', B400);
   }
-  return token('color.border.neutral', N100);
+  return token('color.border', N100);
 };
 
 interface OptionState {

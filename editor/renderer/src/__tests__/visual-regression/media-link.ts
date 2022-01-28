@@ -1,6 +1,6 @@
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { snapshot, initRendererWithADF, animationFrame } from './_utils';
-import { richMediaClassName } from '@atlaskit/editor-common';
+import { richMediaClassName } from '@atlaskit/editor-common/styles';
 import mediaLink from './__fixtures__/media-link.adf.json';
 import wrappedMediaLink from './__fixtures__/wrapped-media-link.adf.json';
 import mediaLinkInsideExpand from './__fixtures__/media-link-inside-expand.adf.json';

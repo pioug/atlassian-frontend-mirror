@@ -21,6 +21,8 @@ describe('ListSearchList', () => {
       onSelect: jest.fn(),
       selectedIndex: -1,
       ariaControls: '',
+      role: '',
+      id: '',
     };
     const options: Required<SetupOptions> = {
       ...defaultOptions,

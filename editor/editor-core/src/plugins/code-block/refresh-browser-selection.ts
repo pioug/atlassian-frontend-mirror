@@ -1,4 +1,4 @@
-import { browser } from '@atlaskit/editor-common';
+import { browser } from '@atlaskit/editor-common/utils';
 import { EditorState, Transaction } from 'prosemirror-state';
 import { pluginKey } from './plugin-key';
 

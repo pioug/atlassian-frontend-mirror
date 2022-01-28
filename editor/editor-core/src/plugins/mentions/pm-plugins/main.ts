@@ -5,10 +5,8 @@ import {
   buildSliPayload,
   MentionProvider,
 } from '@atlaskit/mention/resource';
-import {
-  ContextIdentifierProvider,
-  ProviderFactory,
-} from '@atlaskit/editor-common';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
 
 import { Dispatch, EventDispatcher } from '../../../event-dispatcher';
 import { PortalProviderAPI } from '../../../ui/PortalProvider';

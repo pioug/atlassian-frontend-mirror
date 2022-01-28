@@ -20,6 +20,7 @@ import { MediaCardError } from './../../errors';
 export const relevantFeatureFlagNames: Array<keyof MediaFeatureFlags> = [
   'newCardExperience',
   'captions',
+  'timestampOnVideo',
 ];
 
 export const fireOperationalEvent = (

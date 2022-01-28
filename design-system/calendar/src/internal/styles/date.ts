@@ -20,29 +20,29 @@ import { ThemeModes } from '@atlaskit/theme/types';
 import { token } from '@atlaskit/tokens';
 
 const textColor = {
-  light: token('color.text.highEmphasis', N900),
-  dark: token('color.text.highEmphasis', DN600),
+  light: token('color.text', N900),
+  dark: token('color.text', DN600),
 };
-const textColorMedium = token('color.text.mediumEmphasis', N600);
+const textColorMedium = token('color.text.subtle', N600);
 const todayColor = {
-  light: token('color.text.selected', B400),
-  dark: token('color.text.selected', B100),
+  light: token('color.text.brand', B400),
+  dark: token('color.text.brand', B100),
 };
 const hoverBackground = {
-  light: token('color.background.transparentNeutral.hover', N30),
-  dark: token('color.background.transparentNeutral.hover', N800),
+  light: token('color.background.neutral.subtle.hovered', N30),
+  dark: token('color.background.neutral.subtle.hovered', N800),
 };
 const textSelected = {
-  light: token('color.text.selected', N0),
-  dark: token('color.text.selected', N700),
+  light: token('color.text.brand', N0),
+  dark: token('color.text.brand', N700),
 };
 const selectedBackground = {
-  light: token('color.background.selected.resting', N500),
-  dark: token('color.background.selected.resting', N0),
+  light: token('color.background.brand', N500),
+  dark: token('color.background.brand', N0),
 };
 const borderColorFocused = {
-  light: token('color.border.focus', B100),
-  dark: token('color.border.focus', B75),
+  light: token('color.border.focused', B100),
+  dark: token('color.border.focused', B75),
 };
 
 export const dateCellStyles = (mode: ThemeModes = 'light'): CSSObject => ({
@@ -58,7 +58,7 @@ export const dateCellStyles = (mode: ThemeModes = 'light'): CSSObject => ({
   fontSize: 14,
   textAlign: 'center',
   '&[data-sibling]': {
-    color: token('color.text.lowEmphasis', N200),
+    color: token('color.text.subtlest', N200),
   },
   '&[data-today]': {
     color: todayColor[mode],
@@ -75,8 +75,8 @@ export const dateCellStyles = (mode: ThemeModes = 'light'): CSSObject => ({
     },
   },
   '&[data-prev-selected]': {
-    backgroundColor: token('color.background.subtleBrand.resting', B50),
-    color: token('color.text.mediumEmphasis', N600),
+    backgroundColor: token('color.background.brand', B50),
+    color: token('color.text.subtle', N600),
   },
   '&[data-selected]': {
     backgroundColor: selectedBackground[mode],
@@ -94,18 +94,18 @@ export const dateCellStyles = (mode: ThemeModes = 'light'): CSSObject => ({
     color: textColor[mode],
   },
   '&:active': {
-    backgroundColor: token('color.background.transparentNeutral.pressed', B50),
+    backgroundColor: token('color.background.neutral.subtle.pressed', B50),
     color: textColor[mode],
   },
   '&[data-selected]:hover': {
     color: textColorMedium,
   },
   '&[data-prev-selected]:hover': {
-    backgroundColor: token('color.background.subtleBrand.resting', B50),
+    backgroundColor: token('color.background.brand', B50),
     color: textColorMedium,
   },
   '&[data-sibling]:hover': {
-    color: token('color.text.lowEmphasis', N200),
+    color: token('color.text.subtlest', N200),
   },
   '&[data-disabled]:hover': {
     backgroundColor: 'transparent',

@@ -1,9 +1,11 @@
 import {
-  ContextIdentifierProvider,
-  MediaProvider,
   ProviderFactory,
   WithProviders,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-common/provider-factory';
+import type {
+  ContextIdentifierProvider,
+  MediaProvider,
+} from '@atlaskit/editor-common/provider-factory';
 import EditorCloseIcon from '@atlaskit/icon/glyph/editor/close';
 import { Identifier } from '@atlaskit/media-client';
 import { MediaClientConfig } from '@atlaskit/media-core';

@@ -26,7 +26,7 @@ import {
   quickInsertProvider,
 } from '../../examples/5-full-page';
 import { Error } from '../ErrorReport';
-import { validationErrorHandler } from '@atlaskit/editor-common';
+import { validationErrorHandler } from '@atlaskit/editor-common/utils';
 
 export type ValidatingKitchenSinkEditorProps = {
   actions: EditorActions;
@@ -82,7 +82,7 @@ export class ValidatingKitchenSinkEditor extends React.Component<
             provider: this.quickInsertProviderPromise,
           }}
           UNSAFE_allowUndoRedoButtons={true}
-          UNSAFE_allowFragmentMark={true}
+          allowFragmentMark={true}
           allowTextColor={true}
           allowTables={{
             advanced: true,

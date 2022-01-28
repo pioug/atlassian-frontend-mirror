@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { MediaInlineCard } from '@atlaskit/media-card';
-import { ProviderFactory, WithProviders } from '@atlaskit/editor-common';
+import {
+  ProviderFactory,
+  WithProviders,
+} from '@atlaskit/editor-common/provider-factory';
 import { FileIdentifier } from '@atlaskit/media-client';
 import { MediaProvider } from '../../ui/MediaCard';
 import { MediaClientConfig } from '@atlaskit/media-core/auth';

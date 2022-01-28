@@ -2,8 +2,7 @@ import React, { useCallback, useMemo, useState } from 'react';
 
 import { CSSObject } from '@emotion/core';
 
-import GlobalTheme from '@atlaskit/theme/components';
-import { ThemeModes } from '@atlaskit/theme/types';
+import { useGlobalTheme } from '@atlaskit/theme/components';
 
 import ButtonBase from './shared/button-base';
 import { getCss } from './shared/css';
@@ -18,94 +17,77 @@ const isFirefox: boolean =
 
 export type ButtonProps = BaseProps;
 
-type InnerProps = ButtonProps & {
-  mode: ThemeModes;
-};
+const Button = React.memo(
+  React.forwardRef(function Button(
+    {
+      onMouseDown: providedOnMouseDown = noop,
+      onMouseUp: providedOnMouseUp = noop,
+      ...rest
+    }: ButtonProps,
+    ref: React.Ref<HTMLElement>,
+  ) {
+    const { mode } = useGlobalTheme();
+    const appearance: Appearance = rest.appearance || 'default';
+    const spacing: Spacing = rest.spacing || 'default';
+    const shouldFitContainer: boolean = Boolean(rest.shouldFitContainer);
+    const isSelected: boolean = Boolean(rest.isSelected);
+    const isOnlySingleIcon: boolean = getIsOnlySingleIcon(rest);
 
-const ButtonWithMode = React.forwardRef(function ButtonWithMode(
-  {
-    mode,
-    onMouseDown: providedOnMouseDown = noop,
-    onMouseUp: providedOnMouseUp = noop,
-    ...rest
-  }: InnerProps,
-  ref: React.Ref<HTMLElement>,
-) {
-  const appearance: Appearance = rest.appearance || 'default';
-  const spacing: Spacing = rest.spacing || 'default';
-  const shouldFitContainer: boolean = Boolean(rest.shouldFitContainer);
-  const isSelected: boolean = Boolean(rest.isSelected);
-  const isOnlySingleIcon: boolean = getIsOnlySingleIcon(rest);
+    const [isActive, setIsActive] = useState<boolean>(false);
 
-  const [isActive, setIsActive] = useState<boolean>(false);
+    // Wrap onMouseDown / onMouseUp to manually trigger active state
+    //  in Firefox
+    const onMouseDown = useCallback(
+      (event: React.MouseEvent<HTMLElement>) => {
+        providedOnMouseDown(event);
+        if (isFirefox) {
+          setIsActive(true);
+        }
+      },
+      [providedOnMouseDown, setIsActive],
+    );
 
-  // Wrap onMouseDown / onMouseUp to manually trigger active state
-  //  in Firefox
-  const onMouseDown = useCallback(
-    (event: React.MouseEvent<HTMLElement>) => {
-      providedOnMouseDown(event);
-      if (isFirefox) {
-        setIsActive(true);
-      }
-    },
-    [providedOnMouseDown, setIsActive],
-  );
+    const onMouseUp = useCallback(
+      (event: React.MouseEvent<HTMLElement>) => {
+        providedOnMouseUp(event);
+        if (isFirefox) {
+          setIsActive(false);
+        }
+      },
+      [providedOnMouseUp, setIsActive],
+    );
 
-  const onMouseUp = useCallback(
-    (event: React.MouseEvent<HTMLElement>) => {
-      providedOnMouseUp(event);
-      if (isFirefox) {
-        setIsActive(false);
-      }
-    },
-    [providedOnMouseUp, setIsActive],
-  );
-
-  const buttonCss: CSSObject = useMemo(
-    () =>
-      getCss({
+    const buttonCss: CSSObject = useMemo(
+      () =>
+        getCss({
+          appearance,
+          spacing,
+          mode,
+          isSelected,
+          shouldFitContainer,
+          isOnlySingleIcon,
+        }),
+      [
         appearance,
         spacing,
         mode,
         isSelected,
         shouldFitContainer,
         isOnlySingleIcon,
-      }),
-    [
-      appearance,
-      spacing,
-      mode,
-      isSelected,
-      shouldFitContainer,
-      isOnlySingleIcon,
-    ],
-  );
+      ],
+    );
 
-  return (
-    <ButtonBase
-      {...rest}
-      ref={ref}
-      buttonCss={buttonCss}
-      // Due to how click events are set, we need to set active styles
-      //  manually in Firefox and wrap onMouseDown/onMouseUp
-      data-firefox-is-active={isActive ? true : undefined}
-      onMouseDown={onMouseDown}
-      onMouseUp={onMouseUp}
-    />
-  );
-});
-
-const Button = React.memo(
-  React.forwardRef(function Button(
-    props: ButtonProps,
-    ref: React.Ref<HTMLElement>,
-  ) {
     return (
-      <GlobalTheme.Consumer>
-        {({ mode }: { mode: ThemeModes }) => {
-          return <ButtonWithMode {...props} ref={ref} mode={mode} />;
-        }}
-      </GlobalTheme.Consumer>
+      <ButtonBase
+        {...rest}
+        ref={ref}
+        buttonCss={buttonCss}
+        // Due to how click events are set, we need to set active styles
+        //  manually in Firefox and wrap onMouseDown/onMouseUp
+        data-firefox-is-active={isActive ? true : undefined}
+        onMouseDown={onMouseDown}
+        onMouseUp={onMouseUp}
+      />
     );
   }),
 );

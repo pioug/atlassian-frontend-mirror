@@ -1,5 +1,5 @@
 import { AnnotationTypes } from '@atlaskit/adf-schema';
-import { InlineCommentViewComponentProps } from '@atlaskit/editor-common';
+import { InlineCommentViewComponentProps } from '@atlaskit/editor-common/types';
 import { memo, useLayoutEffect } from 'react';
 import {
   EmitterEvents,

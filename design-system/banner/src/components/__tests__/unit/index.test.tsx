@@ -28,7 +28,7 @@ describe('banner', () => {
       it('should apply error styles when error appearance supplied', () => {
         const appearance = 'error';
         expect(getBackgroundColor({ appearance })).toBe(
-          `var(--ds-background-boldDanger-resting, #DE350B)`,
+          `var(--ds-background-danger-bold, #DE350B)`,
         );
       });
     });

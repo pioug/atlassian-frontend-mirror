@@ -51,7 +51,7 @@ const NewFeature: React.FC<{}> = () => {
               target="button"
               heading="Switch it up"
               actionsBeforeElement="1/3"
-              targetBgColor={token('color.background.card', '#fff')}
+              targetBgColor={token('elevation.surface.raised', '#fff')}
               actions={[
                 {
                   onClick: toggleIsSpotlightVisible,

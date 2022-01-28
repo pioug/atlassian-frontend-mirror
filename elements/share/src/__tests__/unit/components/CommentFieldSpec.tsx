@@ -2,9 +2,8 @@ import React from 'react';
 
 import { mount } from 'enzyme';
 
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import FieldTextArea from '@atlaskit/field-text-area';
 import { Field } from '@atlaskit/form';
+import TextArea from '@atlaskit/textarea';
 
 import { CommentField, Props } from '../../../components/CommentField';
 import { messages } from '../../../i18n';
@@ -23,24 +22,24 @@ describe('CommentField', () => {
   const buildCommentField = (props: Partial<Props> = {}) => {
     const component = mount(<CommentField {...props} />);
     const field = component.find(Field);
-    const fieldTextArea = field.find(FieldTextArea);
+    const textArea = field.find(TextArea);
     return {
-      fieldTextArea,
+      textArea,
       field,
       component,
     };
   };
 
   it('should render TextField', () => {
-    const { fieldTextArea } = buildCommentField();
+    const { textArea } = buildCommentField();
 
-    expect(fieldTextArea).toHaveLength(1);
-    expect(fieldTextArea.prop('placeholder')).toEqual(
+    expect(textArea).toHaveLength(1);
+    expect(textArea.prop('placeholder')).toEqual(
       messages.commentPlaceholder.defaultMessage,
     );
-    expect(fieldTextArea.prop('onChange')).toBeInstanceOf(Function);
-    expect(fieldTextArea.prop('value')).toBe(undefined);
-    expect(fieldTextArea.prop('maxLength')).toBe(500);
+    expect(textArea.prop('onChange')).toBeInstanceOf(Function);
+    expect(textArea.prop('value')).toBe(undefined);
+    expect(textArea.prop('maxLength')).toBe(500);
   });
 
   it('should set defaultValue and see the change in value for <FieldTextArea />', () => {
@@ -48,11 +47,11 @@ describe('CommentField', () => {
       format: 'plain_text',
       value: 'some comment',
     };
-    const { field, fieldTextArea } = buildCommentField({ defaultValue });
+    const { field, textArea } = buildCommentField({ defaultValue });
     expect(field.props()).toMatchObject({
       defaultValue,
       name: 'comment',
     });
-    expect(fieldTextArea.prop('value')).toBe('some comment');
+    expect(textArea.prop('value')).toBe('some comment');
   });
 });

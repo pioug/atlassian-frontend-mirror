@@ -57,6 +57,7 @@ export const FormattingTextDropdownMenu: React.FC<DropdownMenuProps> = React.mem
         zIndex={akEditorMenuZIndex}
         fitHeight={188}
         fitWidth={136}
+        shouldUseDefaultRole
       >
         <MoreButton
           isSelected={isMenuOpen || hasFormattingActive}
@@ -64,6 +65,7 @@ export const FormattingTextDropdownMenu: React.FC<DropdownMenuProps> = React.mem
           isReducedSpacing={isReducedSpacing}
           isDisabled={false}
           onClick={toggleMenu}
+          aria-expanded={isMenuOpen}
         />
       </DropdownMenu>
     );

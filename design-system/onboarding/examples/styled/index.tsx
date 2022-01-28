@@ -8,13 +8,13 @@ import * as colors from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 const highlights: Record<string, any> = {
-  blue: token('color.accent.boldBlue', colors.B300),
-  green: token('color.accent.boldGreen', colors.G300),
-  neutral: token('color.border.neutral', colors.N100),
-  purple: token('color.accent.boldPurple', colors.P300),
-  red: token('color.accent.boldRed', colors.R300),
-  teal: token('color.accent.subtleTeal', colors.T300),
-  yellow: token('color.accent.boldOrange', colors.Y300),
+  blue: token('color.background.accent.blue.bold', colors.B300),
+  green: token('color.background.accent.green.bold', colors.G300),
+  neutral: token('color.border', colors.N100),
+  purple: token('color.background.accent.purple.bold', colors.P300),
+  red: token('color.background.accent.red.bold', colors.R300),
+  teal: token('color.background.accent.teal', colors.T300),
+  yellow: token('color.background.accent.orange.bold', colors.Y300),
 };
 
 const highlightGroupStyles = css({
@@ -62,7 +62,8 @@ export const Highlight = forwardRef<
     css={highlightStyles}
     style={
       {
-        backgroundColor: props.bg ?? token('color.background.card', colors.N20),
+        backgroundColor:
+          props.bg ?? token('elevation.surface.raised', colors.N20),
         borderRadius: `${props.radius ?? 0}px`,
         borderLeftColor: highlights[props.color],
         cursor: props.onClick ? 'pointer' : 'auto',
@@ -76,8 +77,8 @@ const codeStyles = css({
   display: 'inline-block',
   paddingRight: '0.3em',
   paddingLeft: '0.3em',
-  backgroundColor: token('color.background.subtleDiscovery.hover', colors.P50),
-  border: `1px solid ${token('color.iconBorder.discovery', colors.P75)}`,
+  backgroundColor: token('color.background.discovery.hovered', colors.P50),
+  border: `1px solid ${token('color.border.discovery', colors.P75)}`,
   borderRadius: '0.2em',
   color: token('color.text.discovery', colors.P500),
   fontFamily: 'Monaco, monospace',

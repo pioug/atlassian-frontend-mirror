@@ -10,7 +10,7 @@ import {
 } from '@atlaskit/editor-common/extensions';
 
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import { ContextIdentifierProvider } from '@atlaskit/editor-common';
+import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
 
 import { EditorAppearance } from '../../../types/editor-appearance';
 import { Dispatch, EventDispatcher } from '../../../event-dispatcher';

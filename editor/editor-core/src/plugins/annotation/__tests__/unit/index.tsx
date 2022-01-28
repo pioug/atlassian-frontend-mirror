@@ -1,7 +1,7 @@
 import { mount, ReactWrapper } from 'enzyme';
 import { EditorView } from 'prosemirror-view';
 import { TextSelection, Selection } from 'prosemirror-state';
-import { ProviderFactory } from '@atlaskit/editor-common';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import * as prosemirrorUtils from 'prosemirror-utils';

@@ -18,14 +18,15 @@ import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-p
 import { customInsertMenuItems } from '@atlaskit/editor-test-helpers/mock-insert-menu';
 import { macroProvider } from '@atlaskit/editor-test-helpers/mock-macro-provider';
 import { exampleMediaFeatureFlags } from '@atlaskit/media-test-helpers/exampleMediaFeatureFlags';
+import { combineExtensionProviders } from '@atlaskit/editor-common/extensions';
+import type { ExtensionProvider } from '@atlaskit/editor-common/extensions';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type { Providers } from '@atlaskit/editor-common/provider-factory';
+
 import {
-  ProviderFactory,
-  ExtensionProvider,
-  combineExtensionProviders,
-  Providers,
   TTI_SEVERITY_THRESHOLD_DEFAULTS,
   TTI_FROM_INVOCATION_SEVERITY_THRESHOLD_DEFAULTS,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-common/utils';
 
 import { EmojiProvider } from '@atlaskit/emoji/resource';
 import {

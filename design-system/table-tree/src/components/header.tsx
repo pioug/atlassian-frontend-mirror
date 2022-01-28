@@ -11,7 +11,7 @@ import ColumnCell from './internal/common-cell';
 import withColumnWidth from './internal/with-column-width';
 
 const headerStyles = css({
-  color: token('color.text.mediumEmphasis', N300),
+  color: token('color.text.subtle', N300),
   fontSize: 12,
   fontWeight: 'bold',
   letterSpacing: -0.1,

@@ -8,14 +8,16 @@ import {
   RichMediaAttributes,
 } from '@atlaskit/adf-schema';
 import {
-  MediaSingle,
   WithProviders,
+  ProviderFactory,
+} from '@atlaskit/editor-common/provider-factory';
+import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
+import {
+  MediaSingle,
   DEFAULT_IMAGE_HEIGHT,
   DEFAULT_IMAGE_WIDTH,
-  browser,
-  ProviderFactory,
-  ContextIdentifierProvider,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-common/ui';
+import { browser } from '@atlaskit/editor-common/utils';
 import { CardEvent } from '@atlaskit/media-card';
 import { isNodeSelectedOrInRange } from '../../../utils/nodes';
 import { MediaClientConfig } from '@atlaskit/media-core';

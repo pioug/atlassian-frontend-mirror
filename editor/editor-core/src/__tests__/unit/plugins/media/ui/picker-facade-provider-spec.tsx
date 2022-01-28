@@ -5,7 +5,7 @@ import React from 'react';
 import { MediaProvider } from '../../../../../plugins/media/pm-plugins/main';
 import PickerFacadeProvider from '../../../../../plugins/media/ui/MediaPicker/PickerFacadeProvider';
 import { getDefaultMediaClientConfig } from '@atlaskit/media-test-helpers';
-import { ProviderFactory } from '@atlaskit/editor-common';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 // AFP-2532 TODO: Fix automatic suppressions below
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { ProviderHandler } from '@atlaskit/editor-common/src/provider-factory/types';

@@ -1,5 +1,17 @@
 # @atlaskit/legacy-mobile-macros
 
+## 1.1.0
+
+### Minor Changes
+
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - Switches Confluence mobile macros to use the extension provider API instead of extension handlers
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - [ux] Adds a placeholder for the chart extension in the mobile renderer
+
+### Patch Changes
+
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - ED-13753 update editor-common import confluence
+- Updated dependencies
+
 ## 1.0.4
 
 ### Patch Changes

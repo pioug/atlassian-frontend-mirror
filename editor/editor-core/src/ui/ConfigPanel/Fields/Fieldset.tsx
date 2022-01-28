@@ -7,7 +7,7 @@ import Button from '@atlaskit/button/custom-theme-button';
 import Select from '@atlaskit/select';
 import AddCircleIcon from '@atlaskit/icon/glyph/add-circle';
 
-import { ExtensionManifest } from '@atlaskit/editor-common';
+import type { ExtensionManifest } from '@atlaskit/editor-common/extensions';
 
 import {
   Fieldset,

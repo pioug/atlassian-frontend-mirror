@@ -35,7 +35,7 @@ const CustomHeader = () => {
       <Button appearance="link" onClick={onClose}>
         <CrossIcon
           label="Close Modal"
-          primaryColor={token('color.text.mediumEmphasis', N500)}
+          primaryColor={token('color.text.subtle', N500)}
         />
       </Button>
     </div>

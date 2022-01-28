@@ -1,5 +1,5 @@
 import { EditorView } from 'prosemirror-view';
-import { ProviderFactory } from '@atlaskit/editor-common';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { EditorAppearance } from '../../types/editor-appearance';
 import { ToolbarSize, ToolbarUIComponentFactory } from './types';
 import { EventDispatcher } from '../../event-dispatcher';

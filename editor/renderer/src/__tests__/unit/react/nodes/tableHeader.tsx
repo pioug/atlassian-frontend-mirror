@@ -12,7 +12,7 @@ import {
   EVENT_TYPE,
 } from '../../../../analytics/enums';
 import { RendererCssClassName } from '../../../../consts';
-import { SortOrder } from '@atlaskit/editor-common';
+import { SortOrder } from '@atlaskit/editor-common/types';
 
 describe('Renderer - React/Nodes/TableHeader', () => {
   const baseProps = {

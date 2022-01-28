@@ -6,6 +6,7 @@ import {
   createMentionProvider,
   createMediaProvider,
   createCardClient,
+  createExtensionProvider,
 } from '../providers';
 import { createEmojiProvider } from '../providers/emojiProvider';
 import { useFetchProxy } from '../utils/fetch-proxy';
@@ -14,6 +15,7 @@ import getBridge from './native-to-web/bridge-initialiser';
 import useRendererConfiguration from './hooks/use-renderer-configuration';
 import { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import { Serialized } from '../types';
+import { getEnableLegacyMobileMacros } from '../query-param-reader';
 
 interface AppProps {
   document: string;
@@ -35,6 +37,8 @@ export const App: React.FC<AppProps> = (props) => {
     content.current = rendererBridge.getContent();
   }, [rendererBridge]);
 
+  const enableConfluenceMobileMacros = getEnableLegacyMobileMacros(); // TODO: use renderer configuration instead of query params
+
   return (
     <MobileRenderer
       allowAnnotations={rendererConfiguration.isAnnotationsAllowed()}
@@ -47,6 +51,7 @@ export const App: React.FC<AppProps> = (props) => {
       locale={rendererConfiguration.getLocale()}
       mediaProvider={createMediaProvider()}
       mentionProvider={createMentionProvider()}
+      extensionProvider={createExtensionProvider(enableConfluenceMobileMacros)}
       onLocaleChanged={onLocaleChanged}
       onWillLocaleChange={onWillLocaleChange}
       rendererBridge={rendererBridge}

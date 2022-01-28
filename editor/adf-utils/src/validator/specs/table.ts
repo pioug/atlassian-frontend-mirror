@@ -14,5 +14,6 @@ export default {
       optional: true,
     },
     content: { type: 'array', items: ['tableRow'], minItems: 1 },
+    marks: { type: 'array', items: ['fragment'], optional: true },
   },
 };

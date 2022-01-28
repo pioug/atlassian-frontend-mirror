@@ -88,14 +88,14 @@ describe('color-picker-button', () => {
   it('should hide popup and call onChange after selecting a color', () => {
     const wrapper = getWrapper();
 
-    selectColor(wrapper, 'Mintie');
+    selectColor(wrapper, 'Green');
 
     // ensure popup is hidden
     expect(wrapper.find('Popup')).toHaveLength(0);
 
     // ensure callback was called
     expect(onChangeMock).toBeCalledWith({
-      label: 'Mintie',
+      label: 'Green',
       value: colors.G75,
       border: DEFAULT_BORDER_COLOR,
     });
@@ -103,14 +103,14 @@ describe('color-picker-button', () => {
 
   it('analytics', async () => {
     const wrapper = getWrapper('ConfigPanel');
-    selectColor(wrapper, 'Doctor');
+    selectColor(wrapper, 'White');
     expect(mockCreateAnalyticsEvent).toHaveBeenCalledWith({
       action: ACTION.UPDATED,
       actionSubject: ACTION_SUBJECT.PICKER,
       actionSubjectId: ACTION_SUBJECT_ID.PICKER_COLOR,
       attributes: {
         color: '#FFFFFF',
-        label: 'Doctor',
+        label: 'White',
         placement: 'ConfigPanel',
       },
       eventType: EVENT_TYPE.TRACK,

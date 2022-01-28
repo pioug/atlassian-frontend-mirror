@@ -1,5 +1,13 @@
 # @atlaskit/dropdown-menu
 
+## 11.0.3
+
+### Patch Changes
+
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - Updates usage of deprecated token names so they're aligned with the latest naming conventions. No UI or visual changes
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - Bump dependency tiny-invariant to latest"
+- Updated dependencies
+
 ## 11.0.2
 
 ### Patch Changes

@@ -1,6 +1,7 @@
 import React from 'react';
 import { EditorPlugin } from '../../types';
-import { WithProviders, Providers } from '@atlaskit/editor-common';
+import { WithProviders } from '@atlaskit/editor-common/provider-factory';
+import type { Providers } from '@atlaskit/editor-common/provider-factory';
 import { pluginKey as blockTypeStateKey } from '../block-type/pm-plugins/main';
 import { stateKey as mediaStateKey } from '../media/pm-plugins/plugin-key';
 import { stateKey as hyperlinkPluginKey } from '../hyperlink/pm-plugins/main';

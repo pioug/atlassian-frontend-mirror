@@ -10,7 +10,7 @@ import {
 import {
   AnnotationUpdateEmitter,
   AnnotationUpdateEvent,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-common/types';
 import {
   ExampleSelectionInlineComponent,
   ExampleViewInlineCommentComponent,

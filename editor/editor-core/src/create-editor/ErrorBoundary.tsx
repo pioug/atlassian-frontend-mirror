@@ -3,15 +3,13 @@ import uuid from 'uuid';
 import { EditorView } from 'prosemirror-view';
 import memoizeOne from 'memoize-one';
 
-import {
-  ContextIdentifierProvider,
-  IntlNextErrorBoundary,
-  sniffUserBrowserExtensions,
-  UserBrowserExtensionResults,
-} from '@atlaskit/editor-common';
+import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
+import { sniffUserBrowserExtensions } from '@atlaskit/editor-common/utils';
+import type { UserBrowserExtensionResults } from '@atlaskit/editor-common/utils';
 import { ExperienceStore } from '@atlaskit/editor-common/ufo';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import type { CustomData } from '@atlaskit/ufo/types';
+import { IntlNextErrorBoundary } from '@atlaskit/editor-common/ui';
 
 import {
   ACTION,

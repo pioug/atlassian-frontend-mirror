@@ -3,7 +3,6 @@ export default [
   'mention',
   'emoji',
   'inlineExtension_with_marks',
-  'inlineExtension_with_experimental_marks',
   'date',
   'placeholder',
   'inlineCard',

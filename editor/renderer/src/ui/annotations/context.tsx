@@ -1,6 +1,6 @@
 import React, { createContext } from 'react';
 import { Position } from './types';
-import { AnnotationProviders } from '@atlaskit/editor-common';
+import type { AnnotationProviders } from '@atlaskit/editor-common/types';
 import { AnnotationId, AnnotationMarkStates } from '@atlaskit/adf-schema';
 
 type ChildrenProps = {

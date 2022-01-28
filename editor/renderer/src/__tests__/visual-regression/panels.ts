@@ -1,4 +1,4 @@
-import { ADFStage } from '@atlaskit/editor-common';
+import type { ADFStage } from '@atlaskit/editor-common/validator';
 import {
   PuppeteerPage,
   waitForLoadedBackgroundImages,

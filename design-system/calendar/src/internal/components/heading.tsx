@@ -11,14 +11,14 @@ import { ThemeModes } from '@atlaskit/theme/types';
 import { token } from '@atlaskit/tokens';
 
 const headingColor = {
-  light: token('color.text.highEmphasis', N800),
-  dark: token('color.text.highEmphasis', DN800),
+  light: token('color.text', N800),
+  dark: token('color.text', DN800),
 };
 
 const headingStyles = css({
   display: 'flex',
   padding: '0 0 13px 0',
-  color: token('color.text.highEmphasis', N800),
+  color: token('color.text', N800),
   fontWeight: 'bold',
 });
 
@@ -63,7 +63,7 @@ const Heading = memo<Props>(function Heading({
           <ArrowleftIcon
             label="Last month"
             size="medium"
-            primaryColor={token('color.text.lowEmphasis', N70)}
+            primaryColor={token('color.text.subtlest', N70)}
           />
         }
       />
@@ -85,7 +85,7 @@ const Heading = memo<Props>(function Heading({
           <ArrowrightIcon
             label="Next month"
             size="medium"
-            primaryColor={token('color.text.lowEmphasis', N70)}
+            primaryColor={token('color.text.subtlest', N70)}
           />
         }
       />

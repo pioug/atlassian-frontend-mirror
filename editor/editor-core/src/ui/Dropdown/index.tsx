@@ -2,7 +2,7 @@ import React from 'react';
 import { PureComponent } from 'react';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import DropdownList from '@atlaskit/droplist';
-import { Popup } from '@atlaskit/editor-common';
+import { Popup } from '@atlaskit/editor-common/ui';
 import withOuterListeners from '../with-outer-listeners';
 
 export interface Props {

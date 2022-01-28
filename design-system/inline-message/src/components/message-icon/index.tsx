@@ -18,24 +18,24 @@ interface MessageIconProps {
 
 const iconColor = themed('appearance', {
   connectivity: {
-    light: token('color.iconBorder.brand', colors.B400),
-    dark: token('color.iconBorder.brand', colors.B100),
+    light: token('color.icon.brand', colors.B400),
+    dark: token('color.icon.brand', colors.B100),
   },
   confirmation: {
-    light: token('color.iconBorder.success', colors.G300),
-    dark: token('color.iconBorder.success', colors.G300),
+    light: token('color.icon.success', colors.G300),
+    dark: token('color.icon.success', colors.G300),
   },
   info: {
-    light: token('color.iconBorder.discovery', colors.P300),
-    dark: token('color.iconBorder.discovery', colors.P300),
+    light: token('color.icon.discovery', colors.P300),
+    dark: token('color.icon.discovery', colors.P300),
   },
   warning: {
-    light: token('color.iconBorder.warning', colors.Y300),
-    dark: token('color.iconBorder.warning', colors.Y300),
+    light: token('color.icon.warning', colors.Y300),
+    dark: token('color.icon.warning', colors.Y300),
   },
   error: {
-    light: token('color.iconBorder.danger', colors.R400),
-    dark: token('color.iconBorder.danger', colors.R400),
+    light: token('color.icon.danger', colors.R400),
+    dark: token('color.icon.danger', colors.R400),
   },
 });
 

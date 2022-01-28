@@ -1,12 +1,14 @@
 import React from 'react';
 import Loadable from 'react-loadable';
 import {
-  combineProviders,
-  ExtensionProvider,
   getQuickInsertItemsFromModule,
-  MenuItem,
   resolveImport,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-common/extensions';
+import type {
+  ExtensionProvider,
+  MenuItem,
+} from '@atlaskit/editor-common/extensions';
+import { combineProviders } from '@atlaskit/editor-common/provider-helpers';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import {
   QuickInsertItem,

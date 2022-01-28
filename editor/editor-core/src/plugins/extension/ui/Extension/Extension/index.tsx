@@ -1,13 +1,13 @@
 import React from 'react';
 import { Node as PmNode } from 'prosemirror-model';
 import { EditorView } from 'prosemirror-view';
-import {
-  calcBreakoutWidth,
-  overflowShadow,
-  OverflowShadowProps,
+import type {
   ExtensionProvider,
   ReferenceEntity,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-common/extensions';
+import { overflowShadow } from '@atlaskit/editor-common/ui';
+import type { OverflowShadowProps } from '@atlaskit/editor-common/ui';
+import { calcBreakoutWidth } from '@atlaskit/editor-common/utils';
 import {
   Wrapper,
   Header,

@@ -3,7 +3,7 @@ import React from 'react';
 import {
   ProviderFactory,
   ContextIdentifierProvider,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-common/provider-factory';
 import {
   insertMediaSingleNode,
   mediaPluginKey,

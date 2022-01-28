@@ -2,182 +2,104 @@ import type { BackgroundColorTokenSchema, ValueSchema } from '../../../types';
 
 const color: ValueSchema<BackgroundColorTokenSchema> = {
   color: {
+    blanket: { value: 'DN-100A' },
     background: {
-      sunken: {
-        value: 'DN-100A',
+      disabled: { value: 'DN200A' },
+      // @ts-ignore temporary value
+      inverse: { value: '#ffffff33' },
+      input: {
+        '[default]': { value: 'DN100A' },
+        hovered: { value: 'DN0' },
+        pressed: { value: 'DN200A' },
       },
-      default: {
-        value: 'DN0',
-      },
-      card: {
-        value: 'DN100',
-      },
-      overlay: {
-        value: 'DN200',
-      },
-      selected: {
-        resting: {
-          value: 'DN200A',
+      neutral: {
+        '[default]': {
+          '[default]': { value: 'DN200A' },
+          hovered: { value: 'DN300A' },
+          pressed: { value: 'DN400A' },
         },
-        hover: {
-          value: 'DN300A',
+        subtle: {
+          // @ts-ignore temporary value
+          '[default]': { value: 'transparent' },
+          hovered: { value: 'DN200A' },
+          pressed: { value: 'DN300A' },
         },
-        pressed: {
-          value: 'DN400A',
-        },
-      },
-      blanket: {
-        value: 'DN-100A',
-      },
-      disabled: {
-        value: 'DN200A',
-      },
-      boldBrand: {
-        resting: {
-          value: 'B400',
-        },
-        hover: {
-          value: 'B300',
-        },
-        pressed: {
-          value: 'B200',
+        bold: {
+          '[default]': { value: 'DN800' },
+          hovered: { value: 'DN900' },
+          pressed: { value: 'DN1000' },
         },
       },
-      subtleBrand: {
-        resting: {
-          value: 'B1000',
+      brand: {
+        '[default]': {
+          '[default]': { value: 'DN200A' },
+          hovered: { value: 'DN300A' },
+          pressed: { value: 'DN400A' },
         },
-        hover: {
-          value: 'B900',
-        },
-        pressed: {
-          value: 'B800',
-        },
-      },
-      boldDanger: {
-        resting: {
-          value: 'R400',
-        },
-        hover: {
-          value: 'R300',
-        },
-        pressed: {
-          value: 'R200',
+        bold: {
+          '[default]': { value: 'B400' },
+          hovered: { value: 'B300' },
+          pressed: { value: 'B200' },
         },
       },
-      subtleDanger: {
-        resting: {
-          value: 'R1000',
+      danger: {
+        '[default]': {
+          '[default]': { value: 'R1000' },
+          hovered: { value: 'R900' },
+          pressed: { value: 'R800' },
         },
-        hover: {
-          value: 'R900',
-        },
-        pressed: {
-          value: 'R800',
-        },
-      },
-      boldWarning: {
-        resting: {
-          value: 'Y400',
-        },
-        hover: {
-          value: 'Y300',
-        },
-        pressed: {
-          value: 'Y200',
+        bold: {
+          '[default]': { value: 'R400' },
+          hovered: { value: 'R300' },
+          pressed: { value: 'R200' },
         },
       },
-      subtleWarning: {
-        resting: {
-          value: 'Y1000',
+      warning: {
+        '[default]': {
+          '[default]': { value: 'Y1000' },
+          hovered: { value: 'Y900' },
+          pressed: { value: 'Y800' },
         },
-        hover: {
-          value: 'Y900',
-        },
-        pressed: {
-          value: 'Y800',
-        },
-      },
-      boldSuccess: {
-        resting: {
-          value: 'G400',
-        },
-        hover: {
-          value: 'G300',
-        },
-        pressed: {
-          value: 'G200',
+        bold: {
+          '[default]': { value: 'Y400' },
+          hovered: { value: 'Y300' },
+          pressed: { value: 'Y200' },
         },
       },
-      subtleSuccess: {
-        resting: {
-          value: 'G1000',
+      success: {
+        '[default]': {
+          '[default]': { value: 'G1000' },
+          hovered: { value: 'G900' },
+          pressed: { value: 'G800' },
         },
-        hover: {
-          value: 'G900',
-        },
-        pressed: {
-          value: 'G800',
-        },
-      },
-      boldDiscovery: {
-        resting: {
-          value: 'P400',
-        },
-        hover: {
-          value: 'P300',
-        },
-        pressed: {
-          value: 'P200',
+        bold: {
+          '[default]': { value: 'G400' },
+          hovered: { value: 'G300' },
+          pressed: { value: 'G200' },
         },
       },
-      subtleDiscovery: {
-        resting: {
-          value: 'P1000',
+      discovery: {
+        '[default]': {
+          '[default]': { value: 'P1000' },
+          hovered: { value: 'P900' },
+          pressed: { value: 'P800' },
         },
-        hover: {
-          value: 'P900',
-        },
-        pressed: {
-          value: 'P800',
-        },
-      },
-      boldNeutral: {
-        resting: {
-          value: 'DN800',
-        },
-        hover: {
-          value: 'DN900',
-        },
-        pressed: {
-          value: 'DN1000',
+        bold: {
+          '[default]': { value: 'P400' },
+          hovered: { value: 'P300' },
+          pressed: { value: 'P200' },
         },
       },
-      transparentNeutral: {
-        hover: {
-          value: 'DN200A',
+      information: {
+        '[default]': {
+          '[default]': { value: 'B1000' },
+          hovered: { value: 'B900' },
+          pressed: { value: 'B800' },
         },
-        pressed: {
-          value: 'DN300A',
-        },
-      },
-      subtleNeutral: {
-        resting: {
-          value: 'DN200A',
-        },
-        hover: {
-          value: 'DN300A',
-        },
-        pressed: {
-          value: 'DN400A',
-        },
-      },
-      subtleBorderedNeutral: {
-        resting: {
-          value: 'DN100A',
-        },
-        pressed: {
-          value: 'DN200A',
+        bold: {
+          '[default]': { value: 'B400' },
+          hovered: { value: 'B300' },
+          pressed: { value: 'B200' },
         },
       },
     },

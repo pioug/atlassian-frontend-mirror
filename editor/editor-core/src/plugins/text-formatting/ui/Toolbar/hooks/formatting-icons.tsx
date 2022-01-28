@@ -16,6 +16,8 @@ import {
   tooltip,
   toggleBold,
   toggleItalic,
+  toggleSubscript,
+  toggleSuperscript,
   ToolTipContent,
   Keymap,
 } from '../../../../../keymaps';
@@ -44,7 +46,7 @@ type IconButtonType = {
   message: MessageDescriptor;
   command: Command;
   tooltipKeymap?: Keymap;
-  component?: (props: { label: string }) => React.ReactElement;
+  component?: () => React.ReactElement;
 };
 
 const IconButtons: Record<IconTypes, IconButtonType> = {
@@ -53,14 +55,14 @@ const IconButtons: Record<IconTypes, IconButtonType> = {
     command: withToolbarInputMethod(commands.toggleStrongWithAnalytics),
     message: toolbarMessages.bold,
     tooltipKeymap: toggleBold,
-    component: ({ label }) => <BoldIcon label={label} />,
+    component: () => <BoldIcon label="" />,
   },
   em: {
     buttonId: TOOLBAR_ACTION_SUBJECT_ID.TEXT_FORMATTING_ITALIC,
     command: withToolbarInputMethod(commands.toggleEmWithAnalytics),
     message: toolbarMessages.italic,
     tooltipKeymap: toggleItalic,
-    component: ({ label }) => <ItalicIcon label={label} />,
+    component: () => <ItalicIcon label="" />,
   },
   underline: {
     command: withToolbarInputMethod(commands.toggleUnderlineWithAnalytics),
@@ -80,10 +82,12 @@ const IconButtons: Record<IconTypes, IconButtonType> = {
   subscript: {
     command: withToolbarInputMethod(commands.toggleSubscriptWithAnalytics),
     message: toolbarMessages.subscript,
+    tooltipKeymap: toggleSubscript,
   },
   superscript: {
     command: withToolbarInputMethod(commands.toggleSuperscriptWithAnalytics),
     message: toolbarMessages.superscript,
+    tooltipKeymap: toggleSuperscript,
   },
 };
 
@@ -108,9 +112,7 @@ const getIcon = ({
     iconMark: iconType,
     key: iconType,
     command: icon.command,
-    iconElement: icon.component
-      ? icon.component({ label: content })
-      : undefined,
+    iconElement: icon.component ? icon.component() : undefined,
     tooltipElement: tooltipKeymap ? (
       <ToolTipContent description={content} keymap={tooltipKeymap} />
     ) : undefined,

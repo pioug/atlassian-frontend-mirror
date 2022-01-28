@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { linkSharedStyle } from '@atlaskit/editor-common';
+import { linkSharedStyle } from '@atlaskit/editor-common/styles';
 
 export const linkStyles = css`
   .ProseMirror {

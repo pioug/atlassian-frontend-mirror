@@ -3,11 +3,11 @@ import { mount, ReactWrapper } from 'enzyme';
 import DateComponent from '../../../../react/nodes/date';
 import { createIntl, IntlProvider, IntlShape } from 'react-intl-next';
 
+import { DateSharedCssClassName } from '@atlaskit/editor-common/styles';
 import {
   timestampToString,
   todayTimestampInUTC,
-  DateSharedCssClassName,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-common/utils';
 
 describe('Renderer - React/Nodes/Date', () => {
   let timestamp: string;

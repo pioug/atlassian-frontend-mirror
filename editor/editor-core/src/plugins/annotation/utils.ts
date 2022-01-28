@@ -7,11 +7,11 @@ import {
   AllSelection,
 } from 'prosemirror-state';
 import { Decoration } from 'prosemirror-view';
+import { AnnotationSharedClassNames } from '@atlaskit/editor-common/styles';
 import {
-  AnnotationSharedClassNames,
   canApplyAnnotationOnRange,
   getAnnotationIdsFromRange,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-common/utils';
 import {
   AnnotationMarkAttributes,
   AnnotationTypes,

@@ -1,7 +1,5 @@
-import {
-  ContextIdentifierProvider,
-  ProviderFactory,
-} from '@atlaskit/editor-common';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
 import { PluginKey, Plugin, EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import { Dispatch } from '../../../event-dispatcher';

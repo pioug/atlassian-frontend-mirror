@@ -3,7 +3,7 @@ import { getSelectionRect } from '@atlaskit/editor-tables/utils';
 import { EditorView } from 'prosemirror-view';
 
 import { CellAttributes, TableLayout } from '@atlaskit/adf-schema';
-import { tableCellMinWidth } from '@atlaskit/editor-common';
+import { tableCellMinWidth } from '@atlaskit/editor-common/styles';
 import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
 
 import { getParentNodeWidth } from '../../../../utils/node-width';

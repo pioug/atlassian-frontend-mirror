@@ -1,5 +1,5 @@
 import { css } from 'styled-components';
-import { DateSharedCssClassName } from '@atlaskit/editor-common';
+import { DateSharedCssClassName } from '@atlaskit/editor-common/styles';
 import {
   SelectionStyle,
   getSelectionStyles,

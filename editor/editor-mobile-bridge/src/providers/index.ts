@@ -6,3 +6,4 @@ export { createCardClient, createCardProvider } from './cardProvider';
 export { createDefaultProviderFactory } from './createDefaultProviderFactory';
 export { createEditorProviders } from './createEditorProviders';
 export { createQuickInsertProvider } from './quickInsertProvider';
+export { createExtensionProvider } from './extensionProvider';

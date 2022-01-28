@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { Popup, withOuterListeners } from '@atlaskit/editor-common';
+import { Popup, withOuterListeners } from '@atlaskit/editor-common/ui';
 import Button from '@atlaskit/button';
 import Tooltip from '@atlaskit/tooltip';
 import { N60A } from '@atlaskit/theme/colors';

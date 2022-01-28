@@ -24,18 +24,24 @@ import {
 import { token } from '@atlaskit/tokens';
 
 const themedBackground = themed({
-  light: token('color.background.overlay', N0),
-  dark: token('color.background.overlay', DN50),
+  light: token('elevation.surface.overlay', N0),
+  dark: token('elevation.surface.overlay', DN50),
 });
 
 const themedColor = themed({
-  light: token('color.text.highEmphasis', N900),
-  dark: token('color.text.highEmphasis', DN600),
+  light: token('color.text', N900),
+  dark: token('color.text', DN600),
 });
 
 const themedBoxShadow = themed({
-  light: token('shadow.overlay', `0 4px 8px -2px ${N50A}, 0 0 1px ${N60A}`),
-  dark: token('shadow.overlay', `0 4px 8px -2px ${DN50A}, 0 0 1px ${DN60A}`),
+  light: token(
+    'elevation.shadow.overlay',
+    `0 4px 8px -2px ${N50A}, 0 0 1px ${N60A}`,
+  ),
+  dark: token(
+    'elevation.shadow.overlay',
+    `0 4px 8px -2px ${DN50A}, 0 0 1px ${DN60A}`,
+  ),
 });
 
 const borderRadius = getBorderRadius();

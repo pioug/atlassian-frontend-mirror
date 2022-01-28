@@ -5,7 +5,8 @@ import { EditorView } from 'prosemirror-view';
 import { Node } from 'prosemirror-model';
 
 import ButtonGroup from '@atlaskit/button/button-group';
-import { ExtensionProvider, ProviderFactory } from '@atlaskit/editor-common';
+import type { ExtensionProvider } from '@atlaskit/editor-common/extensions';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { themed } from '@atlaskit/theme/components';
 import { borderRadius, gridSize } from '@atlaskit/theme/constants';
 import { DN70 } from '@atlaskit/theme/colors';
@@ -24,6 +25,7 @@ import { ExtensionsPlaceholder } from './ExtensionsPlaceholder';
 import ColorPickerButton from '../../../ui/ColorPickerButton';
 import { PaletteColor } from '../../../ui/ColorPalette/Palettes';
 import { EmojiPickerButton } from './EmojiPickerButton';
+import Announcer from '../../../utils/announcer/announcer';
 
 const akGridSize = gridSize();
 
@@ -189,6 +191,10 @@ export default class Toolbar extends Component<Props> {
         hasCompactLeftPadding={firstElementIsSelect}
         className={className}
       >
+        <Announcer
+          text="Floating toolbar controls have been opened"
+          delay={250}
+        />
         <ButtonGroup>
           {items
             .filter((item) => !item.hidden)
@@ -228,6 +234,7 @@ export default class Toolbar extends Component<Props> {
                       tooltipContent={item.tooltipContent}
                       testId={item.testId}
                       hideTooltipOnClick={item.hideTooltipOnClick}
+                      ariaHasPopup={item.ariaHasPopup}
                     >
                       {item.showTitle && item.title}
                     </Button>
@@ -319,7 +326,7 @@ export default class Toolbar extends Component<Props> {
                         providerFactory={providerFactory}
                         isSelected={item.selected}
                         onChange={(selected) =>
-                          dispatchCommand(item.onChange(selected.shortName))
+                          dispatchCommand(item.onChange(selected))
                         }
                       />
                     );

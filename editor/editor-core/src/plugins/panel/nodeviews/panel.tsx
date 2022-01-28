@@ -2,33 +2,33 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Node, DOMSerializer } from 'prosemirror-model';
 import { EditorView } from 'prosemirror-view';
-import InfoIcon from '@atlaskit/icon/glyph/editor/info';
-import SuccessIcon from '@atlaskit/icon/glyph/editor/success';
-import NoteIcon from '@atlaskit/icon/glyph/editor/note';
-import WarningIcon from '@atlaskit/icon/glyph/editor/warning';
-import ErrorIcon from '@atlaskit/icon/glyph/editor/error';
 import TipIcon from '@atlaskit/icon/glyph/editor/hint';
 import { PanelType, PanelAttributes } from '@atlaskit/adf-schema';
 import { getPosHandlerNode, getPosHandler } from '../../../nodeviews/';
-import {
-  PanelSharedCssClassName,
-  ProviderFactory,
-} from '@atlaskit/editor-common';
-import { Emoji } from '@atlaskit/editor-common';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import { PanelSharedCssClassName } from '@atlaskit/editor-common/styles';
+import { Emoji } from '@atlaskit/editor-common/emoji';
 import { PanelPluginOptions } from '../types';
 import { panelAttrsToDom } from '../utils';
 import { akEditorCustomIconSize } from '@atlaskit/editor-shared-styles/consts';
+import {
+  PanelInfoIcon,
+  PanelSuccessIcon,
+  PanelNoteIcon,
+  PanelWarningIcon,
+  PanelErrorIcon,
+} from '@atlaskit/editor-common/icons';
 
 export const panelIcons: {
   [key in PanelType]: React.ComponentType<{ label: string }>;
 } = {
-  info: InfoIcon,
-  success: SuccessIcon,
-  note: NoteIcon,
+  info: PanelInfoIcon,
+  success: PanelSuccessIcon,
+  note: PanelNoteIcon,
   tip: TipIcon,
-  warning: WarningIcon,
-  error: ErrorIcon,
-  custom: InfoIcon,
+  warning: PanelWarningIcon,
+  error: PanelErrorIcon,
+  custom: PanelInfoIcon,
 };
 
 interface PanelIconAttributes {
@@ -43,7 +43,7 @@ export const PanelIcon: React.FC<PanelIconAttributes> = (
   const {
     allowCustomPanel,
     providerFactory,
-    panelAttributes: { panelType, panelIcon },
+    panelAttributes: { panelType, panelIcon, panelIconId, panelIconText },
   } = props;
 
   if (allowCustomPanel && panelIcon && panelType === PanelType.CUSTOM) {
@@ -51,6 +51,8 @@ export const PanelIcon: React.FC<PanelIconAttributes> = (
       <Emoji
         providers={providerFactory}
         shortName={panelIcon}
+        id={panelIconId}
+        fallback={panelIconText}
         showTooltip={false}
         allowTextFallback={false}
         fitToHeight={akEditorCustomIconSize}
@@ -117,7 +119,9 @@ class PanelNodeView {
     mutation: MutationRecord | { type: 'selection'; target: Element },
   ) {
     // ignore mutation if it caused by the icon.
-    return mutation.target === this.icon;
+    return (
+      mutation.target === this.icon || mutation.target.parentNode === this.icon
+    );
   }
 }
 

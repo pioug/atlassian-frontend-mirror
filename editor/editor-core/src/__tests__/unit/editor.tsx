@@ -2,8 +2,8 @@ const mockStopMeasureDuration = 1234;
 const tti = 1000;
 const ttiFromInvocation = 500;
 
-jest.mock('@atlaskit/editor-common', () => ({
-  ...jest.requireActual<Object>('@atlaskit/editor-common'),
+jest.mock('@atlaskit/editor-common/utils', () => ({
+  ...jest.requireActual<Object>('@atlaskit/editor-common/utils'),
   startMeasure: jest.fn(),
   stopMeasure: jest.fn(
     (
@@ -93,11 +93,9 @@ const { EmojiResource } = jest.genMockFromModule<typeof EmojiModule>(
   '@atlaskit/emoji',
 );
 
-import {
-  ExtensionProvider,
-  CardOptions,
-  measureTTI as mockMeasureTTI,
-} from '@atlaskit/editor-common';
+import type { ExtensionProvider } from '@atlaskit/editor-common/extensions';
+import { measureTTI as mockMeasureTTI } from '@atlaskit/editor-common/utils';
+import { CardOptions } from '@atlaskit/editor-common/card';
 const measureTTI: any = mockMeasureTTI;
 
 describe(name, () => {

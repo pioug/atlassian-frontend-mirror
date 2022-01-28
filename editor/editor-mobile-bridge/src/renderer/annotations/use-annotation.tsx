@@ -4,7 +4,7 @@ import {
   AnnotationUpdateEmitter,
   AnnotationUpdateEvent,
   AnnotationState,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-common/types';
 import RendererBridgeImplementation from '../native-to-web/implementation';
 import { createSelectionComponent } from './create-selection-component';
 import { createViewComponent } from './create-view-component';

@@ -14,7 +14,7 @@ describe('createPlayedTrackEvent', () => {
           isHDActive: false,
           isAutoPlay: true,
           isFullScreenEnabled: false,
-          isLargePlayer: true,
+          playerSize: 'large',
           playbackSpeed: 1,
         },
         'file-id',
@@ -36,7 +36,7 @@ describe('createPlayedTrackEvent', () => {
           isHDActive: false,
           isAutoPlay: true,
           isFullScreenEnabled: false,
-          isLargePlayer: true,
+          playerSize: 'large',
           playbackSpeed: 1,
         },
         fileAttributes: {

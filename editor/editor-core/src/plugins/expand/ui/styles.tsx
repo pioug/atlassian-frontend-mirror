@@ -10,7 +10,7 @@ import {
   DN50,
   R200,
 } from '@atlaskit/theme/colors';
-import { sharedExpandStyles } from '@atlaskit/editor-common';
+import { sharedExpandStyles } from '@atlaskit/editor-common/ui';
 import {
   SelectionStyle,
   getSelectionStyles,

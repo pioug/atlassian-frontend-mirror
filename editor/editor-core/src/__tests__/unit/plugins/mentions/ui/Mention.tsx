@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { ResourcedMention } from '@atlaskit/mention/element';
-import { ProviderFactory } from '@atlaskit/editor-common';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import Mention from '../../../../../plugins/mentions/ui/Mention';
 import { MentionProvider } from '@atlaskit/mention/types';
 // AFP-2532 TODO: Fix automatic suppressions below

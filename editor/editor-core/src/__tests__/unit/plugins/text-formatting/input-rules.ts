@@ -30,7 +30,7 @@ import {
   codeRegex,
 } from '../../../../plugins/text-formatting/pm-plugins/input-rule';
 import { EditorView } from 'prosemirror-view';
-import { ProviderFactory } from '@atlaskit/editor-common';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 const createProductPayload = (product: string, originalSpelling: string) => ({

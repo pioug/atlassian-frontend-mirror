@@ -1,5 +1,5 @@
 import {
-  B100,
+  B200,
   B300,
   B75,
   N0,
@@ -11,7 +11,10 @@ import {
   N200,
   DN30,
 } from '@atlaskit/theme/colors';
-import { tableCellBorderWidth, tableMarginTop } from '@atlaskit/editor-common';
+import {
+  tableCellBorderWidth,
+  tableMarginTop,
+} from '@atlaskit/editor-common/styles';
 import {
   akEditorTableBorder,
   akEditorTableBorderDark,
@@ -42,7 +45,7 @@ export const tableBorderColor = themed({
 });
 export const tableFloatingControlsColor = N20;
 export const tableCellSelectedColor = B75;
-export const tableToolbarSelectedColor = B100;
+export const tableToolbarSelectedColor = B200;
 export const tableBorderSelectedColor = B300;
 export const tableCellDeleteColor = R50;
 export const tableBorderDeleteColor = R400;

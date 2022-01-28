@@ -5,398 +5,425 @@ import type {
 
 const color: AttributeSchema<BackgroundColorTokenSchema> = {
   color: {
+    blanket: {
+      attributes: {
+        group: 'paint',
+        state: 'active',
+        description:
+          'Use for the screen overlay that appears with modal dialogs',
+      },
+    },
     background: {
-      sunken: {
-        attributes: {
-          group: 'paint',
-          state: 'active',
-          description: 'Use as a secondary background for the UI',
-        },
-      },
-      default: {
-        attributes: {
-          group: 'paint',
-          state: 'active',
-          description: 'Use as the primary background for the UI',
-        },
-      },
-      card: {
-        attributes: {
-          group: 'paint',
-          state: 'active',
-          description:
-            'Use for the background of raised cards, such as Jira cards on a Kanban board.\nCombine with shadow.card.',
-        },
-      },
-      overlay: {
-        attributes: {
-          group: 'paint',
-          state: 'active',
-          description: `
-Use for the background of overlay elements, such as modals, dropdown menus, flags, and inline dialogs (i.e. elements that sit on top of the UI).
-
-Also use for the background of raised cards in a dragged state.
-
-Combine with shadow.overlay.`,
-        },
-      },
-      selected: {
-        resting: {
-          attributes: {
-            group: 'paint',
-            state: 'active',
-            description: 'Use for backgrounds of elements in a selected state',
-          },
-        },
-        hover: {
-          attributes: {
-            group: 'paint',
-            state: 'active',
-            description: 'Hover state of background.selected',
-          },
-        },
-        pressed: {
-          attributes: {
-            group: 'paint',
-            state: 'active',
-            description: 'Pressed state of background.selected',
-          },
-        },
-      },
-      blanket: {
-        attributes: {
-          group: 'paint',
-          state: 'active',
-          description:
-            'Use for the screen overlay that appears with modal dialogs',
-        },
-      },
       disabled: {
         attributes: {
           group: 'paint',
           state: 'active',
-          description: 'Use for backgrounds of elements in a disabled state',
+          description: 'Use for backgrounds of elements in a disabled state.',
         },
       },
-      boldBrand: {
-        resting: {
+      inverse: {
+        attributes: {
+          group: 'paint',
+          state: 'active',
+          description:
+            'Use for backgrounds of elements on a bold background, such as in the buttons on spotlight cards.',
+        },
+      },
+      input: {
+        '[default]': {
           attributes: {
             group: 'paint',
             state: 'active',
             description:
-              'A vibrant background for small UI elements like primary buttons and bold in progress lozenges.',
+              'Use for background of form UI elements, such as text fields, checkboxes, and radio buttons.',
           },
         },
-        hover: {
+        hovered: {
           attributes: {
             group: 'paint',
             state: 'active',
-            description: 'Hover state of background.boldBrand',
+            description: 'Hovered state for color.background.input',
           },
         },
         pressed: {
           attributes: {
             group: 'paint',
             state: 'active',
-            description: 'Pressed state of background.boldBrand',
+            description: 'Pressed state for color.background.input',
           },
         },
       },
-      subtleBrand: {
-        resting: {
-          attributes: {
-            group: 'paint',
-            state: 'active',
-            description:
-              'Use for subdued backgrounds of UI elements like information section messages and in progress lozenges.',
+      neutral: {
+        '[default]': {
+          '[default]': {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description:
+                'The default background for neutral elements, such as default buttons.',
+            },
+          },
+          hovered: {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description: 'Hovered state for color.background.neutral',
+            },
+          },
+          pressed: {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description: 'Pressed state for color.background.neutral',
+            },
           },
         },
-        hover: {
-          attributes: {
-            group: 'paint',
-            state: 'active',
-            description: 'Hover state for background.subtleBrand',
+        subtle: {
+          '[default]': {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description:
+                'Use for the background of elements that appear to have no background in a resting state, such as subtle buttons and menu items.',
+            },
+          },
+          hovered: {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description: 'Hovered state for color.background.neutral.subtle',
+            },
+          },
+          pressed: {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description: 'Pressed state for color.background.neutral.subtle',
+            },
           },
         },
-        pressed: {
-          attributes: {
-            group: 'paint',
-            state: 'active',
-            description: 'Pressed state for background.subtleBrand',
+        bold: {
+          '[default]': {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description:
+                'A vibrant background option for neutral UI elements, such as announcement banners.',
+            },
           },
-        },
-      },
-      boldDanger: {
-        resting: {
-          attributes: {
-            group: 'paint',
-            state: 'active',
-            description:
-              'A vibrant background for small UI elements like danger buttons and bold removed lozenges.',
+          hovered: {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description: 'Hovered state of color.background.neutral.bold',
+            },
           },
-        },
-        hover: {
-          attributes: {
-            group: 'paint',
-            state: 'active',
-            description: 'Hover state of background.boldDanger',
-          },
-        },
-        pressed: {
-          attributes: {
-            group: 'paint',
-            state: 'active',
-            description: 'Pressed state of background.boldDanger',
-          },
-        },
-      },
-      subtleDanger: {
-        resting: {
-          attributes: {
-            group: 'paint',
-            state: 'active',
-            description:
-              'Use for subdued backgrounds of UI elements like error section messages and removed lozenges.',
-          },
-        },
-        hover: {
-          attributes: {
-            group: 'paint',
-            state: 'active',
-            description: 'Hover state for background.subtleDanger',
-          },
-        },
-        pressed: {
-          attributes: {
-            group: 'paint',
-            state: 'active',
-            description: 'Pressed state for background.subtleDanger',
-          },
-        },
-      },
-      boldWarning: {
-        resting: {
-          attributes: {
-            group: 'paint',
-            state: 'active',
-            description:
-              'A vibrant background for small UI elements like warning buttons and bold moved lozenges.',
-          },
-        },
-        hover: {
-          attributes: {
-            group: 'paint',
-            state: 'active',
-            description: 'Hover state of background.boldWarning',
-          },
-        },
-        pressed: {
-          attributes: {
-            group: 'paint',
-            state: 'active',
-            description: 'Pressed state of background.boldWarning',
+          pressed: {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description: 'Pressed state of color.background.neutral.bold',
+            },
           },
         },
       },
-      subtleWarning: {
-        resting: {
-          attributes: {
-            group: 'paint',
-            state: 'active',
-            description:
-              'Use for subdued backgrounds of UI elements like warning section messages and moved lozenges.',
+      brand: {
+        '[default]': {
+          '[default]': {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description:
+                'Use for the background of elements in a selected state, such as in opened dropdown buttons.',
+            },
+          },
+          hovered: {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description: 'Hovered state for color.background.brand',
+            },
+          },
+          pressed: {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description: 'Pressed state for color.background.brand',
+            },
           },
         },
-        hover: {
-          attributes: {
-            group: 'paint',
-            state: 'active',
-            description: 'Hover state for background.subtleWarning',
+        bold: {
+          '[default]': {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description:
+                'Use for the backgrounds of primary buttons or elements in a selected state, such as checkboxed and radio buttons.',
+            },
           },
-        },
-        pressed: {
-          attributes: {
-            group: 'paint',
-            state: 'active',
-            description: 'Pressed state for background.subtleWarning',
+          hovered: {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description: 'Hovered state of color.background.brand.bold',
+            },
           },
-        },
-      },
-      boldSuccess: {
-        resting: {
-          attributes: {
-            group: 'paint',
-            state: 'active',
-            description:
-              'A vibrant background for small UI elements like checked toggles and bold success lozenges.',
-          },
-        },
-        hover: {
-          attributes: {
-            group: 'paint',
-            state: 'active',
-            description: 'Hover state of background.boldSuccess',
-          },
-        },
-        pressed: {
-          attributes: {
-            group: 'paint',
-            state: 'active',
-            description: 'Pressed state of background.boldSuccess',
-          },
-        },
-      },
-      subtleSuccess: {
-        resting: {
-          attributes: {
-            group: 'paint',
-            state: 'active',
-            description:
-              'Use for subdued backgrounds of UI elements like success section messages and success lozenges. ',
-          },
-        },
-        hover: {
-          attributes: {
-            group: 'paint',
-            state: 'active',
-            description: 'Hover state for background.subtleSuccess',
-          },
-        },
-        pressed: {
-          attributes: {
-            group: 'paint',
-            state: 'active',
-            description: 'Pressed state for background.subtleSuccess',
+          pressed: {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description: 'Pressed state of color.background.brand.bold',
+            },
           },
         },
       },
-      boldDiscovery: {
-        resting: {
-          attributes: {
-            group: 'paint',
-            state: 'active',
-            description:
-              'A vibrant background for small UI elements like onboarding buttons and bold new lozenges.',
+      danger: {
+        '[default]': {
+          '[default]': {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description:
+                'Use for backgrounds communicating critical informaton, such in error section messages.',
+            },
+          },
+          hovered: {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description: 'Hovered state for color.background.danger',
+            },
+          },
+          pressed: {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description: 'Pressed state for color.background.danger',
+            },
           },
         },
-        hover: {
-          attributes: {
-            group: 'paint',
-            state: 'active',
-            description: 'Hover state of background.boldDiscovery',
+        bold: {
+          '[default]': {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description:
+                'A vibrant background option for communicating critical information, such as in danger buttons and error banners.',
+            },
           },
-        },
-        pressed: {
-          attributes: {
-            group: 'paint',
-            state: 'active',
-            description: 'Pressed state of background.boldDiscovery',
+          hovered: {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description: 'Hovered state of color.background.danger.bold',
+            },
           },
-        },
-      },
-      subtleDiscovery: {
-        resting: {
-          attributes: {
-            group: 'paint',
-            state: 'active',
-            description:
-              'Use for subdued backgrounds of UI elements like discovery section messages and new lozenges.',
-          },
-        },
-        hover: {
-          attributes: {
-            group: 'paint',
-            state: 'active',
-            description: 'Hover state for background.subtleDiscovery',
-          },
-        },
-        pressed: {
-          attributes: {
-            group: 'paint',
-            state: 'active',
-            description: 'Pressed state for background.subtleDiscovery',
-          },
-        },
-      },
-      boldNeutral: {
-        resting: {
-          attributes: {
-            group: 'paint',
-            state: 'active',
-            description:
-              'A vibrant background for small UI elements like unchecked toggles and bold default lozenges.',
-          },
-        },
-        hover: {
-          attributes: {
-            group: 'paint',
-            state: 'active',
-            description: 'Hover state of background.boldNeutral',
-          },
-        },
-        pressed: {
-          attributes: {
-            group: 'paint',
-            state: 'active',
-            description: 'Pressed state of background.boldNeutral',
+          pressed: {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description: 'Pressed state of color.background.danger.bold',
+            },
           },
         },
       },
-      transparentNeutral: {
-        hover: {
-          attributes: {
-            group: 'paint',
-            state: 'active',
-            description:
-              'Hover state for UIs that don’t have a default background, such as menu items or subtle buttons.',
+      warning: {
+        '[default]': {
+          '[default]': {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description:
+                'Use for backgrounds communicating caution, such as in warning section messages.',
+            },
+          },
+          hovered: {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description: 'Hovered state for color.background.warning',
+            },
+          },
+          pressed: {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description: 'Pressed state for color.background.warning',
+            },
           },
         },
-        pressed: {
-          attributes: {
-            group: 'paint',
-            state: 'active',
-            description:
-              'Pressed state for UIs that don’t have a default background, such as menu items or subtle buttons.',
+        bold: {
+          '[default]': {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description:
+                'A vibrant background option for communicating caution, such as in warning buttons and warning banners.',
+            },
+          },
+          hovered: {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description: 'Hovered state of color.background.warning.bold',
+            },
+          },
+          pressed: {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description: 'Pressed state of color.background.warning.bold',
+            },
           },
         },
       },
-      subtleNeutral: {
-        resting: {
-          attributes: {
-            group: 'paint',
-            state: 'active',
-            description:
-              'Use as the default background of UI elements like buttons, lozenges, and tags.',
+      success: {
+        '[default]': {
+          '[default]': {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description:
+                'Use for backgrounds communicating a favourable outcome, such as in success section messages.',
+            },
+          },
+          hovered: {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description: 'Hovered state for color.background.success',
+            },
+          },
+          pressed: {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description: 'Pressed state for color.background.success',
+            },
           },
         },
-        hover: {
-          attributes: {
-            group: 'paint',
-            state: 'active',
-            description: 'Hover state for background.subtleNeutral',
+        bold: {
+          '[default]': {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description:
+                'A vibrant background option for communicating a favourable outcome, such as in checked toggles.',
+            },
           },
-        },
-        pressed: {
-          attributes: {
-            group: 'paint',
-            state: 'active',
-            description: 'Pressed state for background.subtleNeutral',
+          hovered: {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description: 'Hovered state of color.background.success.bold',
+            },
+          },
+          pressed: {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description: 'Pressed state of color.background.success.bold',
+            },
           },
         },
       },
-      subtleBorderedNeutral: {
-        resting: {
-          attributes: {
-            group: 'paint',
-            state: 'active',
-            description: 'Hover state for background.subtleBorderedNeutral',
+      discovery: {
+        '[default]': {
+          '[default]': {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description:
+                'Use for backgrounds communicating change or something new, such as in discovery section messages.',
+            },
+          },
+          hovered: {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description: 'Hover state for color.background.discovery',
+            },
+          },
+          pressed: {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description: 'Pressed state for color.background.discovery',
+            },
           },
         },
-        pressed: {
-          attributes: {
-            group: 'paint',
-            state: 'active',
-            description: 'Pressed state for background.subtleBorderedNeutral',
+        bold: {
+          '[default]': {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description:
+                'A vibrant background option communicating change or something new, such as in onboarding spotlights.',
+            },
+          },
+          hovered: {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description: 'Hovered state of color.background.discovery.bold',
+            },
+          },
+          pressed: {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description: 'Pressed state of color.background.discovery.bold',
+            },
+          },
+        },
+      },
+      information: {
+        '[default]': {
+          '[default]': {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description:
+                'Use for backgrounds communicating information or something in-progress, such as in information section messages.',
+            },
+          },
+          hovered: {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description: 'Hovered state of color.background.information',
+            },
+          },
+          pressed: {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description: 'Pressed state of color.background.information',
+            },
+          },
+        },
+        bold: {
+          '[default]': {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description:
+                'A vibrant background option for communicating information or something in-progress.',
+            },
+          },
+          hovered: {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description: 'Hovered state of color.background.information.bold',
+            },
+          },
+          pressed: {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description: 'Pressed state of color.background.information.bold',
+            },
           },
         },
       },

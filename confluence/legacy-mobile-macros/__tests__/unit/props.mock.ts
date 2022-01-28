@@ -2,21 +2,29 @@ import EventEmitter from 'events';
 
 export const createPromise = () => {
   return {
-    submit: () => new Promise((resolve) => resolve()),
+    submit: () => new Promise((resolve) => {}),
   };
 };
 
 export const eventDispatcher = new EventEmitter();
 
-export const macroComponentProps = {
+const macroComponentProps = {
   macroWhitelist: [],
   extension: {
     extensionKey: 'jira',
     extensionType: 'com.atlassian.confluence.macro.core',
     localId: 'c145e554-f571-4208-a0f1-2170e1987722',
   },
+  renderingStrategy: undefined,
   eventDispatcher,
   createPromise,
+};
+
+export const getMockMacroComponentProps = () => {
+  let props = JSON.parse(JSON.stringify(macroComponentProps));
+  props.createPromise = macroComponentProps.createPromise;
+  props.eventDispatcher = macroComponentProps.eventDispatcher;
+  return props;
 };
 
 export const macrosTestProps = {

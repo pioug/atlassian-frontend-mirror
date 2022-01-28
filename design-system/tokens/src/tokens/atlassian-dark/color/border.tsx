@@ -3,11 +3,35 @@ import type { BorderColorTokenSchema, ValueSchema } from '../../../types';
 const color: ValueSchema<BorderColorTokenSchema> = {
   color: {
     border: {
-      focus: {
+      '[default]': {
+        value: 'DN300A',
+      },
+      focused: {
         value: 'B300',
       },
-      neutral: {
+      input: {
         value: 'DN300A',
+      },
+      disabled: {
+        value: 'DN200A',
+      },
+      brand: {
+        value: 'B400',
+      },
+      danger: {
+        value: 'R500',
+      },
+      warning: {
+        value: 'Y500',
+      },
+      success: {
+        value: 'G500',
+      },
+      discovery: {
+        value: 'P500',
+      },
+      information: {
+        value: 'B500',
       },
     },
   },

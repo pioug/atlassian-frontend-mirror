@@ -1,7 +1,7 @@
 import { Node as PmNode } from 'prosemirror-model';
 import { EditorView, NodeView } from 'prosemirror-view';
 
-import { findOverflowScrollParent } from '@atlaskit/editor-common';
+import { findOverflowScrollParent } from '@atlaskit/editor-common/ui';
 
 import { EventDispatcher } from '../../../../../event-dispatcher';
 import { pluginKey as widthPluginKey } from '../../../../../plugins/width';
@@ -362,10 +362,10 @@ export class TableRowNodeView implements NodeView {
     this.unsubscribe();
 
     if (this.tree) {
-      this.makeRowHeaderNotSticky(this.tree.table);
+      this.makeRowHeaderNotSticky(this.tree.table, true);
     }
 
-    this.emitOff();
+    this.emitOff(true);
   }
 
   ignoreMutation(
@@ -533,8 +533,11 @@ export class TableRowNodeView implements NodeView {
   getCurrentTableTop = (tree: TableDOMElements): number =>
     this.getScrolledTableTop(tree.wrapper) + tree.table.clientHeight;
 
-  makeRowHeaderNotSticky = (table: HTMLElement) => {
-    if (!this.isSticky) {
+  makeRowHeaderNotSticky = (
+    table: HTMLElement,
+    isEditorDestroyed: boolean = false,
+  ) => {
+    if (!this.isSticky || !table || !this.dom) {
       return;
     }
 
@@ -547,7 +550,7 @@ export class TableRowNodeView implements NodeView {
     this.dom.style.top = '';
     table.style.removeProperty('margin-top');
 
-    this.emitOff();
+    this.emitOff(isEditorDestroyed);
   };
 
   /* emit external events */
@@ -571,7 +574,7 @@ export class TableRowNodeView implements NodeView {
     })(this.view.state, this.view.dispatch, this.view);
   };
 
-  emitOff = () => {
+  emitOff = (isEditorDestroyed: boolean) => {
     if (this.top === 0 && this.padding === 0) {
       return;
     }
@@ -579,11 +582,13 @@ export class TableRowNodeView implements NodeView {
     this.top = 0;
     this.padding = 0;
 
-    updateStickyState({
-      pos: this.getPos(),
-      sticky: false,
-      top: this.top,
-      padding: this.padding,
-    })(this.view.state, this.view.dispatch, this.view);
+    if (!isEditorDestroyed) {
+      updateStickyState({
+        pos: this.getPos(),
+        sticky: false,
+        top: this.top,
+        padding: this.padding,
+      })(this.view.state, this.view.dispatch, this.view);
+    }
   };
 }

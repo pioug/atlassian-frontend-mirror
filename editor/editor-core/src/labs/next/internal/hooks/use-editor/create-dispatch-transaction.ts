@@ -1,7 +1,7 @@
 import { EditorView } from 'prosemirror-view';
 import { Transaction } from 'prosemirror-state';
 import { Node as PMNode, Node } from 'prosemirror-model';
-import { Transformer } from '@atlaskit/editor-common';
+import { Transformer } from '@atlaskit/editor-common/types';
 import {
   ACTION,
   ACTION_SUBJECT,

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/page-layout",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "A collection of components which let you compose an application's page layout",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -28,7 +28,7 @@
     "@atlaskit/theme": "^12.1.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/core": "^10.0.9",
-    "raf-schd": "^2.1.0"
+    "raf-schd": "^4.0.3"
   },
   "peerDependencies": {
     "react": "^16.8.0",
@@ -56,6 +56,7 @@
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@testing-library/dom": "^7.7.3",
     "@testing-library/react": "^8.0.1",
+    "@types/raf-schd": "^4.0.1",
     "jest-emotion": "^10.0.32",
     "raf-stub": "^2.0.1",
     "storybook-addon-performance": "^0.16.0",

@@ -1,7 +1,7 @@
 import { DecorationSet, Decoration } from 'prosemirror-view';
 import { ResolvedPos, Node } from 'prosemirror-model';
 import { PluginKey, Plugin, EditorState, Transaction } from 'prosemirror-state';
-import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common';
+import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/utils';
 
 export const inlineCursorTargetStateKey = new PluginKey(
   'inlineCursorTargetPlugin',

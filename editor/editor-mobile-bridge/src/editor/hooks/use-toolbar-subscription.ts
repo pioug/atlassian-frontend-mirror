@@ -8,6 +8,8 @@ import {
 } from '@atlaskit/editor-core';
 import { createFloatingToolbarConfigForStatus } from '../status-utils';
 import { createFloatingToolbarConfigForDate } from '../date-utils';
+import { isPanelNode } from '@atlaskit/editor-core/src/plugins/paste/util';
+import { createFloatingToolbarConfigForPanel } from '../panel-utils';
 
 export function useToolbarSubscription(
   editorReady: boolean,
@@ -61,6 +63,12 @@ export function useToolbarSubscription(
             node,
           );
         } else if (toolbarConfig && toolbarConfig.config) {
+          if (isPanelNode(toolbarConfig.node)) {
+            toolbarConfig.config = createFloatingToolbarConfigForPanel(
+              editorConfiguration,
+              toolbarConfig,
+            );
+          }
           bridge.mobileEditingToolbarActions.notifyNativeBridgeForEditCapabilitiesChanges(
             toolbarConfig.config,
             toolbarConfig.node,

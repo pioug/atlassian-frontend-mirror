@@ -8,9 +8,9 @@ import {
 
 import {
   ProviderFactory,
-  Providers,
   WithProviders,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-common/provider-factory';
+import type { Providers } from '@atlaskit/editor-common/provider-factory';
 import { ContentRef } from '@atlaskit/task-decision';
 
 import TaskItemWithProviders from './task-item-with-providers';

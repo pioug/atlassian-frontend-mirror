@@ -27,29 +27,29 @@ export interface ThemeTokens {
 
 export const thumb = {
   default: {
-    background: token('color.background.card', colors.N0),
+    background: token('elevation.surface.raised', colors.N0),
   },
   disabled: {
-    boxShadow: token('shadow.card', `0 0 1px ${colors.N60A}`),
+    boxShadow: token('elevation.shadow.raised', `0 0 1px ${colors.N60A}`),
   },
   focus: {
-    background: token('color.background.boldNeutral.resting', colors.N0),
-    border: token('color.border.focus', colors.B200),
+    background: token('color.background.neutral.bold', colors.N0),
+    border: token('color.border.focused', colors.B200),
   },
 };
 
 export const track = {
   default: {
-    lower: token('color.background.boldBrand.resting', colors.B400),
-    upper: token('color.background.subtleNeutral.resting', colors.N30),
+    lower: token('color.background.brand.bold', colors.B400),
+    upper: token('color.background.neutral', colors.N30),
   },
   disabled: {
     lower: token('color.text.disabled', colors.N50),
     upper: token('color.background.disabled', colors.N30),
   },
   hover: {
-    lower: token('color.background.boldBrand.hover', colors.B300),
-    upper: token('color.background.subtleNeutral.hover', colors.N40),
+    lower: token('color.background.brand.bold.hovered', colors.B300),
+    upper: token('color.background.neutral.hovered', colors.N40),
   },
 };
 

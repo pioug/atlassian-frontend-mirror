@@ -3,11 +3,11 @@ import { PureComponent } from 'react';
 import { MentionProvider } from '@atlaskit/mention/resource';
 import { ResourcedMention } from '@atlaskit/mention/element';
 import {
-  MentionEventHandlers,
   ProviderFactory,
-  Providers,
   WithProviders,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-common/provider-factory';
+import type { Providers } from '@atlaskit/editor-common/provider-factory';
+import type { MentionEventHandlers } from '@atlaskit/editor-common/ui';
 
 export interface MentionProps {
   id: string;

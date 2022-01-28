@@ -44,7 +44,7 @@ const Footer = (props: HeaderProps) => {
       },
       'div&:active': {
         backgroundColor: 'transparent',
-        color: token('color.text.mediumEmphasis', N500),
+        color: token('color.text.subtle', N500),
       },
     }),
     props.cssFn,

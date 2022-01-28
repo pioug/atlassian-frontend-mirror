@@ -26,7 +26,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@atlaskit/util-service-support": "^6.0.0",
+    "@atlaskit/util-service-support": "^6.1.0",
     "@babel/runtime": "^7.0.0",
     "eventemitter2": "^4.1.0",
     "pubnub": "^4.37.0"

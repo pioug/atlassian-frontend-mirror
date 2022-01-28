@@ -16,8 +16,8 @@ import {
   EmbedResizeMessageListener,
 } from '@atlaskit/smart-card';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import { CardOptions } from '@atlaskit/editor-common';
-import { MediaSingle as RichMediaWrapper } from '@atlaskit/editor-common';
+import { MediaSingle as RichMediaWrapper } from '@atlaskit/editor-common/ui';
+import { CardOptions } from '@atlaskit/editor-common/card';
 import {
   EmbedCardComponent,
   EmbedCardState,

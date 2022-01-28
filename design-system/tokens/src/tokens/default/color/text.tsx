@@ -3,73 +3,42 @@ import type { AttributeSchema, TextColorTokenSchema } from '../../../types';
 const color: AttributeSchema<TextColorTokenSchema> = {
   color: {
     text: {
-      selected: {
+      '[default]': {
         attributes: {
           group: 'paint',
           state: 'active',
           description:
-            'Use for text, icons, borders, or other visual indicators in selected states',
+            'Use for primary text, such as body copy, sentence case headers, and buttons.',
         },
       },
-      highEmphasis: {
+      subtle: {
         attributes: {
           group: 'paint',
           state: 'active',
           description:
-            'Use for primary text, such as body copy, sentence case headers, and buttons',
+            'Use for secondary text, such as navigation, subtle button links, input field labels, and all caps subheadings.',
         },
       },
-      mediumEmphasis: {
-        attributes: {
-          group: 'paint',
-          state: 'active',
-          description: `
-Use for secondary text, such navigation, subtle button links, input field labels, and all caps subheadings.
-
-Use for icon-only buttons, or icons paired with text.highEmphasis text
-      `,
-        },
-      },
-      lowEmphasis: {
-        attributes: {
-          group: 'paint',
-          state: 'active',
-          description: `
-Use for tertiary text, such as meta-data, breadcrumbs, input field placeholder and helper text.
-
-Use for icons that are paired with text.medEmphasis text`,
-        },
-      },
-      onBold: {
-        attributes: {
-          group: 'paint',
-          state: 'active',
-          description: 'Use for text and icons when on bold backgrounds',
-        },
-      },
-      onBoldWarning: {
+      subtlest: {
         attributes: {
           group: 'paint',
           state: 'active',
           description:
-            'Use for text and icons when on bold warning backgrounds',
+            'Use for tertiary text, such as meta-data, breadcrumbs, input field placeholder and helper text.',
         },
       },
-      link: {
-        resting: {
-          attributes: {
-            group: 'paint',
-            state: 'active',
-            description:
-              'Use for links in a resting or hover state. Add an underline for hover states',
-          },
+      disabled: {
+        attributes: {
+          group: 'paint',
+          state: 'active',
+          description: 'Use for text in a disabled state.',
         },
-        pressed: {
-          attributes: {
-            group: 'paint',
-            state: 'active',
-            description: 'Use for links in a pressed state',
-          },
+      },
+      inverse: {
+        attributes: {
+          group: 'paint',
+          state: 'active',
+          description: 'Use for text on bold backgrounds.',
         },
       },
       brand: {
@@ -77,15 +46,7 @@ Use for icons that are paired with text.medEmphasis text`,
           group: 'paint',
           state: 'active',
           description:
-            'Use rarely for text on subtle brand backgrounds, such as in progress lozenges, or on subtle blue accent backgrounds, such as colored tags.',
-        },
-      },
-      warning: {
-        attributes: {
-          group: 'paint',
-          state: 'active',
-          description:
-            'Use rarely for text on subtle warning backgrounds, such as in lozenges, or text on subtle warning backgrounds, such as in moved lozenges',
+            'Use for text in selected or opened states, such as tabs and dropdown buttons.',
         },
       },
       danger: {
@@ -93,7 +54,24 @@ Use for icons that are paired with text.medEmphasis text`,
           group: 'paint',
           state: 'active',
           description:
-            'Use rarely for critical text, such as input field error messaging, or text on subtle danger backgrounds, such as in removed lozenges, or text on subtle red accent backgrounds, such as colored tags.',
+            'Use for critical text, such as input field error messaging.',
+        },
+      },
+      warning: {
+        '[default]': {
+          attributes: {
+            group: 'paint',
+            state: 'active',
+            description:
+              'Use for text to emphasize caution, such as in moved lozenges.',
+          },
+        },
+        inverse: {
+          attributes: {
+            group: 'paint',
+            state: 'active',
+            description: 'Use for text when on bold warning backgrounds.',
+          },
         },
       },
       success: {
@@ -101,7 +79,7 @@ Use for icons that are paired with text.medEmphasis text`,
           group: 'paint',
           state: 'active',
           description:
-            'Use rarely for positive text, such as input field success messaging, or text on subtle success backgrounds, such as in success lozenges, or text on subtle green accent backgrounds, such as colored tags.',
+            'Use for text to communicate a favourable outcome, such as input field success messaging.',
         },
       },
       discovery: {
@@ -109,14 +87,32 @@ Use for icons that are paired with text.medEmphasis text`,
           group: 'paint',
           state: 'active',
           description:
-            'Use rarely for text on subtle discovery backgrounds, such as in new lozenges, or text on subtle purple accent backgrounds, such as colored tags.',
+            'Use for text to emphasize change or something new, such as in new lozenges.',
         },
       },
-      disabled: {
+      information: {
         attributes: {
           group: 'paint',
           state: 'active',
-          description: 'Use for text and icons in disabled states',
+          description:
+            'Use for informative text or to communicate something is in progress, such as in-progress lozenges.',
+        },
+      },
+    },
+    link: {
+      '[default]': {
+        attributes: {
+          group: 'paint',
+          state: 'active',
+          description:
+            'Use for links in a default or hovered state. Add an underline for hovered states.',
+        },
+      },
+      pressed: {
+        attributes: {
+          group: 'paint',
+          state: 'active',
+          description: 'Use for links in a pressed state.',
         },
       },
     },

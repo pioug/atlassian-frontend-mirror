@@ -1,5 +1,14 @@
 # @atlaskit/modal-dialog
 
+## 12.2.2
+
+### Patch Changes
+
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - The no-unsafe-design-token-usage eslint rule now respects the new token naming conventions when auto-fixing by correctly formatting token ids.
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - The no-unsafe-design-token-usage eslint rule now respects the new token naming conventions when auto-fixing by correctly formatting token ids.
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - Bump raf-schd to latest (4.0.3), including better TS typings.
+- Updated dependencies
+
 ## 12.2.1
 
 ### Patch Changes

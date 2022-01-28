@@ -14,7 +14,7 @@ import {
   replaceParentNodeOfType,
 } from 'prosemirror-utils';
 
-import { getValidNode } from '@atlaskit/editor-common';
+import { getValidNode } from '@atlaskit/editor-common/validator';
 import {
   Providers,
   MacroProvider,

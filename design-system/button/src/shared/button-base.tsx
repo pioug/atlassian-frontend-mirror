@@ -126,8 +126,8 @@ export default React.forwardRef<HTMLElement, Props>(function ButtonBase(
       '[data-theme] & svg': {
         stroke:
           isSelected || isDisabled
-            ? token('color.text.mediumEmphasis', N500)
-            : token('color.text.onBoldWarning', N500),
+            ? token('color.text.subtle', N500)
+            : token('color.text.warning.inverse', N500),
       },
     };
   }

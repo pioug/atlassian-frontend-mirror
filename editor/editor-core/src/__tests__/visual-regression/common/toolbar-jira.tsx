@@ -62,7 +62,7 @@ describe('Toolbar: Jira configurarion', () => {
             viewport.width,
           )
         ) {
-          const emojiButtonSelector = `${mainToolbarSelector} button:not([disabled]) ${
+          const emojiButtonSelector = `${mainToolbarSelector} button:not([disabled])${
             toolbarMenuItemsSelectors[ToolbarMenuItem.emoji]
           }`;
           await page.waitForSelector(emojiButtonSelector, {

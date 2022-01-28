@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useCallback } from 'react';
 import styled from 'styled-components';
 import { keyName as keyNameNormalized } from 'w3c-keyname';
-import { browser, ZERO_WIDTH_SPACE } from '@atlaskit/editor-common';
+import { browser, ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/utils';
 
 import { CloseSelectionOptions } from '../constants';
 

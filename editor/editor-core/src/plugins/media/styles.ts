@@ -2,7 +2,7 @@ import { css } from 'styled-components';
 import {
   mediaSingleSharedStyle,
   richMediaClassName,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-common/styles';
 import {
   akEditorDeleteBorder,
   akEditorDeleteBackground,

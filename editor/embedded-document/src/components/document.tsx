@@ -7,7 +7,7 @@ import {
   WithEditorActions,
 } from '@atlaskit/editor-core';
 import { ReactRenderer, RendererProps } from '@atlaskit/renderer';
-import { ProviderFactory } from '@atlaskit/editor-common';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { Props as BaseProps } from '../context/embedded-document';
 import { Mode } from '../context/context';
 import { Document as DocumentModel } from '../model';

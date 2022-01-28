@@ -4,13 +4,15 @@ import {
   Context as CardContext,
   EmbedResizeMessageListener,
 } from '@atlaskit/smart-card';
+
 import {
-  EventHandlers,
   WidthConsumer,
   mapBreakpointToLayoutMaxWidth,
   UnsupportedBlock,
   MediaSingle as UIMediaSingle,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-common/ui';
+
+import type { EventHandlers } from '@atlaskit/editor-common/ui';
 import {
   akEditorDefaultLayoutWidth,
   akEditorFullWidthLayoutWidth,

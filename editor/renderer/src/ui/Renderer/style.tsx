@@ -9,6 +9,7 @@ import {
 } from '@atlaskit/theme/constants';
 import * as colors from '@atlaskit/theme/colors';
 import { headingSizes as headingSizesImport } from '@atlaskit/theme/typography';
+
 import {
   tableSharedStyle,
   columnLayoutSharedStyle,
@@ -33,6 +34,7 @@ import {
   tableCellPadding,
   textColorStyles,
 } from '@atlaskit/editor-common/styles';
+
 import { shadowClassNames } from '@atlaskit/editor-common/ui';
 import {
   editorFontSize,

@@ -58,7 +58,7 @@ export class AlignmentToolbar extends React.Component<
           mountTo={popupsMountPoint}
           boundariesElement={popupsBoundariesElement}
           scrollableElement={popupsScrollableElement}
-          isOpen={this.state.isOpen}
+          isOpen={isOpen}
           handleClickOutside={this.hide}
           handleEscapeKeydown={this.hide}
           fitWidth={112}
@@ -69,8 +69,10 @@ export class AlignmentToolbar extends React.Component<
               disabled={disabled}
               selected={isOpen}
               title={title}
-              aria-label="Text alignment"
               className="align-btn"
+              aria-label="Text alignment"
+              aria-expanded={isOpen}
+              aria-haspopup
               onClick={this.toggleOpen}
               iconBefore={
                 <TriggerWrapper>
@@ -107,7 +109,7 @@ export class AlignmentToolbar extends React.Component<
   };
 
   private hide = () => {
-    if (this.state.isOpen === true) {
+    if (this.state.isOpen) {
       this.setState({ isOpen: false });
     }
   };

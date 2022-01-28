@@ -1,0 +1,165 @@
+{
+    "version": 1,
+    "type": "doc",
+    "content": [
+        {
+            "type": "table",
+            "attrs": {
+                "isNumberColumnEnabled": false,
+                "layout": "default",
+                "localId": "d78ec861-f0a1-4d7a-8a36-dc40c74167be"
+            },
+            "content": [
+                {
+                    "type": "tableRow",
+                    "content": [
+                        {
+                            "type": "tableHeader",
+                            "attrs": {},
+                            "content": [
+                                {
+                                    "type": "paragraph",
+                                    "content": []
+                                }
+                            ]
+                        },
+                        {
+                            "type": "tableHeader",
+                            "attrs": {},
+                            "content": [
+                                {
+                                    "type": "paragraph",
+                                    "content": []
+                                }
+                            ]
+                        },
+                        {
+                            "type": "tableHeader",
+                            "attrs": {},
+                            "content": [
+                                {
+                                    "type": "paragraph",
+                                    "content": []
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "tableRow",
+                    "content": [
+                        {
+                            "type": "tableCell",
+                            "attrs": {},
+                            "content": [
+                                {
+                                    "type": "paragraph",
+                                    "content": [
+                                        {
+                                            "type": "text",
+                                            "text": "text"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "type": "tableCell",
+                            "attrs": {},
+                            "content": [
+                                {
+                                    "type": "taskList",
+                                    "attrs": {
+                                        "localId": "083bb629-7515-4b56-ab23-186bd992dcb9"
+                                    },
+                                    "content": [
+                                        {
+                                            "type": "taskItem",
+                                            "attrs": {
+                                                "localId": "8c2589ee-d854-418b-94b6-9546789087ff",
+                                                "state": "TODO"
+                                            },
+                                            "content": [
+                                                {
+                                                    "type": "text",
+                                                    "text": "Action item 1"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "type": "taskItem",
+                                            "attrs": {
+                                                "localId": "cc4f1744-412d-446d-a320-c0930da84b6a",
+                                                "state": "TODO"
+                                            },
+                                            "content": [
+                                                {
+                                                    "type": "text",
+                                                    "text": "Action item 2"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "paragraph",
+                                    "content": []
+                                }
+                            ]
+                        },
+                        {
+                            "type": "tableCell",
+                            "attrs": {},
+                            "content": [
+                                {
+                                    "type": "paragraph",
+                                    "content": [
+                                        {
+                                            "type": "text",
+                                            "text": "text"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "tableRow",
+                    "content": [
+                        {
+                            "type": "tableCell",
+                            "attrs": {},
+                            "content": [
+                                {
+                                    "type": "paragraph",
+                                    "content": []
+                                }
+                            ]
+                        },
+                        {
+                            "type": "tableCell",
+                            "attrs": {},
+                            "content": [
+                                {
+                                    "type": "paragraph",
+                                    "content": []
+                                }
+                            ]
+                        },
+                        {
+                            "type": "tableCell",
+                            "attrs": {},
+                            "content": [
+                                {
+                                    "type": "paragraph",
+                                    "content": []
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

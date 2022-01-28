@@ -14,7 +14,7 @@ import {
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
 import { createCollabEditProvider } from '@atlaskit/synchrony-test-helpers';
-import { ExtensionHandlers } from '@atlaskit/editor-common';
+import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
 import { cardProvider } from '@atlaskit/editor-test-helpers/card-provider';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';

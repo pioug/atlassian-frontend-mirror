@@ -15,7 +15,7 @@ import { EditorProps } from '../../../../types';
 import { EditorView } from 'prosemirror-view';
 import { insertMediaGroupNode } from '../../../../plugins/media/utils/media-files';
 import { ImagePreview, MediaFile } from '@atlaskit/media-picker/types';
-import { ProviderFactory } from '@atlaskit/editor-common';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { MediaPluginState } from '../../../../plugins/media/pm-plugins/types';
 
 export const testCollectionName = `media-plugin-mock-collection-${randomId()}`;

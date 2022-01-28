@@ -56,11 +56,12 @@ import {
 
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 import {
-  MediaSingle,
   DefaultExtensionProvider,
   combineExtensionProviders,
-  ExtensionProvider,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-common/extensions';
+import type { ExtensionProvider } from '@atlaskit/editor-common/extensions';
+import { MediaSingle } from '@atlaskit/editor-common/ui';
+import { CardOptions } from '@atlaskit/editor-common/card';
 import { EmojiProvider } from '@atlaskit/emoji';
 import { getEmojiResourceWithStandardAndAtlassianEmojis } from '@atlaskit/util-data-test/get-emoji-resource-standard-atlassian';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
@@ -92,7 +93,6 @@ import tablesPlugin from '../../../table';
 import emojiPlugin from '../../../emoji';
 import mentionsPlugin from '../../../mentions';
 import cardPlugin from '../../../card';
-import { CardOptions } from '@atlaskit/editor-common';
 import pastePlugin from '../../index';
 import mediaPlugin from '../../../media';
 import { PluginConfig as TablePluginConfig } from '../../../table/types';
@@ -112,14 +112,14 @@ import {
 import { inlineCommentPluginKey } from '../../../annotation/utils';
 import { handlePasteLinkOnSelectedText } from '../../handlers';
 import { Slice } from 'prosemirror-model';
-import { measureRender as measureRenderMocked } from '@atlaskit/editor-common';
+import { measureRender as measureRenderMocked } from '@atlaskit/editor-common/utils';
 import { createPasteMeasurePayload as createPasteMeasurePayloadMocked } from '../../pm-plugins/analytics';
 import unsupportedContentPlugin from '../../../unsupported-content';
 
 const TABLE_LOCAL_ID = 'test-table-local-id';
 
-jest.mock('@atlaskit/editor-common', () => ({
-  ...jest.requireActual<Object>('@atlaskit/editor-common'),
+jest.mock('@atlaskit/editor-common/utils', () => ({
+  ...jest.requireActual<Object>('@atlaskit/editor-common/utils'),
   measureRender: jest.fn(
     (
       measureName: string,
@@ -755,7 +755,7 @@ describe('paste plugins', () => {
         );
       });
 
-      /* 
+      /*
         Addressing problem from https://product-fabric.atlassian.net/browse/MEX-924
       */
 

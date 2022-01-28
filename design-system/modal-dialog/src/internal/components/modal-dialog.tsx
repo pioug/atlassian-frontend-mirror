@@ -32,7 +32,7 @@ const dialogStyles = css({
   flex: '1 1 auto',
   flexDirection: 'column',
 
-  backgroundColor: token('color.background.overlay', N0),
+  backgroundColor: token('elevation.surface.overlay', N0),
   color: textColor,
   pointerEvents: 'auto',
 
@@ -45,7 +45,7 @@ const dialogStyles = css({
 
     borderRadius,
     boxShadow: token(
-      'shadow.overlay',
+      'elevation.shadow.overlay',
       `0 0 0 1px ${N30A}, 0 2px 1px ${N30A}, 0 0 20px -6px ${N60A}`,
     ),
   },

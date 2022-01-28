@@ -6,7 +6,7 @@ import {
   Transaction,
 } from 'prosemirror-state';
 import { removeNodeBefore, findDomRefAtPos } from 'prosemirror-utils';
-import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common';
+import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/utils';
 import { Direction, isBackward, isForward } from './direction';
 import { GapCursorSelection, Side } from './selection';
 import { isTextBlockNearPos, getMediaNearPos } from './utils';

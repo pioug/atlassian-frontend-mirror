@@ -6,7 +6,7 @@ import {
   UseComponentRenderTrackingArgs,
 } from '../utils/react-hooks/use-component-renderer-tracking';
 
-import { RenderCountProfiler as RenderCountProfilerClass } from '@atlaskit/editor-common';
+import { RenderCountProfiler as RenderCountProfilerClass } from '@atlaskit/editor-common/utils';
 
 export enum ProfiledComponentIds {
   editor = 'Editor',

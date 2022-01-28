@@ -29,6 +29,10 @@ export const getAllowCaptions = (): boolean => {
   return getQueryParams().get('allowCaptions') === 'true';
 };
 
+export const getAllowMediaInline = (): boolean => {
+  return getQueryParams().get('allowMediaInline') === 'true';
+};
+
 export const getSelectionObserverEnabled = (): boolean =>
   getQueryParams().get('selectionObserverEnabled') === 'true';
 

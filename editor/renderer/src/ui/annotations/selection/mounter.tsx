@@ -1,9 +1,9 @@
 import React, { useCallback, useState, useContext } from 'react';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
-import {
+import type {
   AnnotationByMatches,
   InlineCommentSelectionComponentProps,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-common/types';
 import { ApplyAnnotation } from '../../../actions/index';
 import { updateWindowSelectionAroundDraft } from '../draft';
 import { Position } from '../types';

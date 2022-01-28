@@ -1,6 +1,9 @@
 import React from 'react';
 import { EditorView } from 'prosemirror-view';
-import { ProviderFactory, WithProviders } from '@atlaskit/editor-common';
+import {
+  ProviderFactory,
+  WithProviders,
+} from '@atlaskit/editor-common/provider-factory';
 
 import HyperlinkAddToolbarComp from './HyperlinkAddToolbar';
 import { LinkInputType } from '../../types';

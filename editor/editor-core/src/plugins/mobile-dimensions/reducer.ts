@@ -22,6 +22,11 @@ export default function (
         ...state,
         mobilePaddingTop: action.paddingTop,
       };
+    case MobileDimensionsActionTypes.SET_IS_EXPANDED:
+      return {
+        ...state,
+        isExpanded: action.isExpanded,
+      };
   }
   return state;
 }

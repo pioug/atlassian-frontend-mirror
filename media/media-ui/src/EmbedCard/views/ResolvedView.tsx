@@ -51,16 +51,26 @@ export const EmbedCardResolvedView = React.forwardRef<
     },
     embedIframeRef,
   ) => {
-    const src = typeof context?.icon === 'string' ? context.icon : undefined;
+    const iconFromContext = context?.icon;
+    const src =
+      typeof iconFromContext === 'string' ? iconFromContext : undefined;
     const text = title || context?.text;
     const linkGlyph = React.useMemo(
-      () => <LinkGlyph label="icon" size="small" />,
+      () => (
+        <LinkGlyph
+          label="icon"
+          size="small"
+          testId="embed-card-fallback-icon"
+        />
+      ),
       [],
     );
-    const icon = React.useMemo(
-      () => <ImageIcon src={src} default={linkGlyph} />,
-      [src, linkGlyph],
-    );
+    let icon = React.useMemo(() => {
+      if (React.isValidElement(iconFromContext)) {
+        return iconFromContext;
+      }
+      return <ImageIcon src={src} default={linkGlyph} />;
+    }, [src, linkGlyph, iconFromContext]);
 
     return (
       <ExpandedFrame

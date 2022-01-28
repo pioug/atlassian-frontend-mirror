@@ -4,7 +4,7 @@ import { EditorPlugin } from '../../types';
 import { createPlugin } from './pm-plugins/main';
 import { floatingToolbar } from './toolbar';
 import { EditorSmartCardEvents } from './ui/EditorSmartCardEvents';
-import { CardOptions } from '@atlaskit/editor-common';
+import { CardOptions } from '@atlaskit/editor-common/card';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 const cardPlugin = (

@@ -101,6 +101,8 @@ const ToolbarFormatting: React.FC<
               isReducedSpacing={isReducedSpacing}
               isDisabled={true}
               isSelected={false}
+              aria-expanded={undefined}
+              aria-pressed={undefined}
             />
           </div>
         ) : (

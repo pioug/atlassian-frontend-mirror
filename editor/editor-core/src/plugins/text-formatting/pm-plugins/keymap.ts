@@ -47,6 +47,26 @@ export default function keymapPlugin(schema: Schema): Plugin {
     );
   }
 
+  if (schema.marks.subsup) {
+    keymaps.bindKeymapWithCommand(
+      keymaps.toggleSubscript.common!,
+      commands.toggleSubscriptWithAnalytics({
+        inputMethod: INPUT_METHOD.SHORTCUT,
+      }),
+      list,
+    );
+  }
+
+  if (schema.marks.subsup) {
+    keymaps.bindKeymapWithCommand(
+      keymaps.toggleSuperscript.common!,
+      commands.toggleSuperscriptWithAnalytics({
+        inputMethod: INPUT_METHOD.SHORTCUT,
+      }),
+      list,
+    );
+  }
+
   if (schema.marks.underline) {
     keymaps.bindKeymapWithCommand(
       keymaps.toggleUnderline.common!,

@@ -13,7 +13,11 @@ const validationExampleUrl = getExampleUrl(
   'inline-edit',
   'validation',
 );
-
+const datepickerExampleUrl = getExampleUrl(
+  'design-system',
+  'inline-edit',
+  'inline-edit-with-datepicker',
+);
 /* Css selectors used for the inline edit tests */
 const readViewContentWrapper = 'button[aria-label="Edit"] + div';
 const input = 'input[name="inlineEdit"]';
@@ -114,12 +118,42 @@ BrowserTestCase(
   },
 );
 
-// FIXME: This test was automatically skipped due to failure on 9/2/2021: https://product-fabric.atlassian.net/browse/SKIP-44
+BrowserTestCase(
+  'Selecting a date in a datepicker using keyboard should bring up the editview (and not the readview)',
+  { skip: ['chrome', 'firefox'] }, // it fails on these browsers on Windows on Browserstack. The test passes on an actual Windows machine
+  async (client: any) => {
+    const inlineEditTest = new Page(client);
+    const datepicker =
+      '[data-testid="datepicker--datepicker--popper--container"]';
+    const datepickerWrapper = '[data-testid="datepicker"]';
+    const focusedInput = '[aria-autocomplete="list"]';
+    const readView = '[data-testid="readview"]';
+    await inlineEditTest.goto(datepickerExampleUrl);
+
+    await inlineEditTest.waitForSelector(readView);
+    await inlineEditTest.safariCompatibleTab();
+
+    await inlineEditTest.keys(['Tab']); // focus inline-edit
+    await inlineEditTest.keys(['Enter']); // Enter edit view
+    await inlineEditTest.waitForSelector(datepickerWrapper);
+    await inlineEditTest.keys(['Tab']); // Open datepicker
+    await inlineEditTest.waitForSelector(datepicker);
+
+    // Select data using keyboard
+    await inlineEditTest.keys(['ArrowLeft']);
+    await inlineEditTest.keys(['ArrowLeft']);
+    await inlineEditTest.keys(['Enter']);
+
+    expect(await inlineEditTest.isVisible(focusedInput)).toBe(true);
+    expect(await inlineEditTest.hasFocus(focusedInput)).toBe(true);
+
+    await inlineEditTest.checkConsoleErrors();
+  },
+);
+
 BrowserTestCase(
   'An error message is displayed correctly',
-  {
-    skip: ['*'],
-  },
+  {},
   async (client: any) => {
     const inlineEditTest = new Page(client);
     await inlineEditTest.goto(validationExampleUrl);

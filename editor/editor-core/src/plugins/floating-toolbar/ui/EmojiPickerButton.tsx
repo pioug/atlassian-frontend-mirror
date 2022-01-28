@@ -3,12 +3,11 @@ import styled from 'styled-components';
 import Button from '@atlaskit/button';
 import { EditorView } from 'prosemirror-view';
 import {
-  Popup,
   ProviderFactory,
-  Providers,
-  withOuterListeners,
   WithProviders,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-common/provider-factory';
+import type { Providers } from '@atlaskit/editor-common/provider-factory';
+import { Popup, withOuterListeners } from '@atlaskit/editor-common/ui';
 import { EmojiPicker, EmojiId } from '@atlaskit/emoji';
 import Tooltip from '@atlaskit/tooltip';
 import EditorEmojiAddIcon from './EditorEmojiAddIcon';
@@ -49,6 +48,18 @@ export const EmojiPickerButton: React.FunctionComponent<{
     props.onChange && props.onChange(emoji);
   };
 
+  const isDetachedElement = (el: HTMLElement) => !document.body.contains(el);
+
+  const handleEmojiClickOutside = (e: MouseEvent) => {
+    // Ignore click events for detached elements.
+    // Workaround for CETI-240 - where two onClicks fire - one when the upload button is
+    // still in the document, and one once it's detached. Does not always occur, and
+    // may be a side effect of a react render optimisation
+    if (e && e.target && !isDetachedElement(e.target as HTMLElement)) {
+      togglePopup();
+    }
+  };
+
   const renderPicker = (providers: Providers) => {
     if (!providers.emojiProvider) {
       return null;
@@ -59,7 +70,7 @@ export const EmojiPickerButton: React.FunctionComponent<{
         emojiProvider={providers.emojiProvider}
         onSelection={updateEmoji}
         onPickerRef={() => {}}
-        handleClickOutside={togglePopup}
+        handleClickOutside={handleEmojiClickOutside}
       />
     );
   };

@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { SortOrder, compose } from '@atlaskit/editor-common';
+import { compose } from '@atlaskit/editor-common/utils';
+import { SortOrder } from '@atlaskit/editor-common/types';
 
 import { RendererCssClassName } from '../../consts';
 

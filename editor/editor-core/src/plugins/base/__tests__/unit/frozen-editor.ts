@@ -1,5 +1,5 @@
-jest.mock('@atlaskit/editor-common', () => ({
-  ...jest.requireActual<Object>('@atlaskit/editor-common'),
+jest.mock('@atlaskit/editor-common/utils', () => ({
+  ...jest.requireActual<Object>('@atlaskit/editor-common/utils'),
   isPerformanceAPIAvailable: () => true,
 }));
 const mockStore = {
@@ -39,7 +39,7 @@ import {
   BROWSER_FREEZE_INTERACTION_TYPE,
   EVENT_TYPE,
 } from '../../../analytics';
-import { SEVERITY } from '@atlaskit/editor-common';
+import { SEVERITY } from '@atlaskit/editor-common/utils';
 import { EditorExperience } from '@atlaskit/editor-common/ufo';
 import { doc, p, DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import basePlugin, { BasePluginOptions } from '../../';

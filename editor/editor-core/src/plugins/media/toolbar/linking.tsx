@@ -1,7 +1,7 @@
 import React from 'react';
 import { EditorState } from 'prosemirror-state';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { IntlShape } from 'react-intl-next';
-import { ProviderFactory } from '@atlaskit/editor-common';
 
 import { FloatingToolbarConfig } from '../../floating-toolbar/types';
 import { hideLinkingToolbar, setUrlToMedia, unlink } from '../commands/linking';

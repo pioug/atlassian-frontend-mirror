@@ -143,69 +143,69 @@ export const DN10A = 'rgba(13, 20, 36, 0.97)';
 
 // Themed colors
 export const background = themed({
-  light: token('color.background.default', N0),
-  dark: token('color.background.default', DN30),
+  light: token('elevation.surface', N0),
+  dark: token('elevation.surface', DN30),
 });
 export const backgroundActive = themed({
-  light: token('color.background.selected.resting', B50),
-  dark: token('color.background.selected.resting', B75),
+  light: token('color.background.brand', B50),
+  dark: token('color.background.brand', B75),
 });
 export const backgroundHover = themed({
-  light: token('color.background.subtleNeutral.hover', N30),
-  dark: token('color.background.subtleNeutral.hover', DN70),
+  light: token('color.background.neutral.hovered', N30),
+  dark: token('color.background.neutral.hovered', DN70),
 });
 export const backgroundOnLayer = themed({
-  light: token('color.background.overlay', N0),
-  dark: token('color.background.overlay', DN50),
+  light: token('elevation.surface.overlay', N0),
+  dark: token('elevation.surface.overlay', DN50),
 });
 export const text = themed({
-  light: token('color.text.highEmphasis', N900),
-  dark: token('color.text.highEmphasis', DN600),
+  light: token('color.text', N900),
+  dark: token('color.text', DN600),
 });
 export const textHover = themed({
-  light: token('color.text.highEmphasis', N800),
-  dark: token('color.text.highEmphasis', DN600),
+  light: token('color.text', N800),
+  dark: token('color.text', DN600),
 });
 export const textActive = themed({
-  light: token('color.text.selected', B400),
-  dark: token('color.text.selected', B400),
+  light: token('color.text.brand', B400),
+  dark: token('color.text.brand', B400),
 });
 export const subtleText = themed({
-  light: token('color.text.lowEmphasis', N200),
-  dark: token('color.text.lowEmphasis', DN300),
+  light: token('color.text.subtlest', N200),
+  dark: token('color.text.subtlest', DN300),
 });
 export const placeholderText = themed({
-  light: token('color.text.lowEmphasis', N100),
-  dark: token('color.text.lowEmphasis', DN200),
+  light: token('color.text.subtlest', N100),
+  dark: token('color.text.subtlest', DN200),
 });
 export const heading = themed({
-  light: token('color.text.highEmphasis', N800),
-  dark: token('color.text.highEmphasis', DN600),
+  light: token('color.text', N800),
+  dark: token('color.text', DN600),
 });
 export const subtleHeading = themed({
-  light: token('color.text.lowEmphasis', N200),
-  dark: token('color.text.lowEmphasis', DN300),
+  light: token('color.text.subtlest', N200),
+  dark: token('color.text.subtlest', DN300),
 });
 export const codeBlock = themed({ light: N20, dark: DN50 });
 export const link = themed({
-  light: token('color.text.link.resting', B400),
-  dark: token('color.text.link.resting', B100),
+  light: token('color.link', B400),
+  dark: token('color.link', B100),
 });
 export const linkHover = themed({
-  light: token('color.text.link.pressed', B300),
-  dark: token('color.text.link.pressed', B200),
+  light: token('color.link.pressed', B300),
+  dark: token('color.link.pressed', B200),
 });
 export const linkActive = themed({
-  light: token('color.text.link.pressed', B500),
-  dark: token('color.text.link.pressed', B100),
+  light: token('color.link.pressed', B500),
+  dark: token('color.link.pressed', B100),
 });
 export const linkOutline = themed({
-  light: token('color.border.focus', B100),
-  dark: token('color.border.focus', B200),
+  light: token('color.border.focused', B100),
+  dark: token('color.border.focused', B200),
 });
 export const primary = themed({
-  light: token('color.background.boldBrand.resting', B400),
-  dark: token('color.background.boldBrand.resting', B100),
+  light: token('color.background.brand.bold', B400),
+  dark: token('color.background.brand.bold', B100),
 });
 export const blue = themed({
   light: B400,
@@ -231,5 +231,4 @@ export const green = themed({
   light: G300,
   dark: G300,
 });
-export const skeleton = () =>
-  token('color.background.subtleNeutral.resting', N20A);
+export const skeleton = () => token('color.background.neutral', N20A);

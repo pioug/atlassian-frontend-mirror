@@ -1,5 +1,5 @@
 import React from 'react';
-import { browser } from '@atlaskit/editor-common';
+import { browser } from '@atlaskit/editor-common/utils';
 import { Command } from '../types/command';
 import styled from 'styled-components';
 import { N400 } from '@atlaskit/theme/colors';
@@ -11,6 +11,11 @@ export const toggleUnderline = makeKeyMapWithCommon('Underline', 'Mod-u');
 export const toggleStrikethrough = makeKeyMapWithCommon(
   'Strikethrough',
   'Mod-Shift-s',
+);
+export const toggleSubscript = makeKeyMapWithCommon('Subscript', 'Mod-Shift-,');
+export const toggleSuperscript = makeKeyMapWithCommon(
+  'Superscript',
+  'Mod-Shift-.',
 );
 export const toggleCode = makeKeyMapWithCommon('Code', 'Mod-Shift-m');
 export const pastePlainText = makeKeyMapWithCommon(
@@ -103,6 +108,9 @@ export const paste = makeKeyMapWithCommon('Paste', 'Mod-v');
 export const altPaste = makeKeyMapWithCommon('Paste', 'Mod-Shift-v');
 
 export const find = makeKeyMapWithCommon('Find', 'Mod-f');
+
+export const alignLeft = makeKeyMapWithCommon('Align Left', 'Mod-Shift-l');
+export const alignRight = makeKeyMapWithCommon('Align Right', 'Mod-Shift-r');
 
 const arrowKeysMap: Record<string, string> = {
   // for reference: https://wincent.com/wiki/Unicode_representations_of_modifier_keys
@@ -208,6 +216,8 @@ const ALL = [
   toggleItalic,
   toggleUnderline,
   toggleStrikethrough,
+  toggleSubscript,
+  toggleSuperscript,
   toggleCode,
   setNormalText,
   toggleHeading1,

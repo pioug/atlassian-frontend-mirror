@@ -49,8 +49,8 @@ const performanceTweakContainerStyles = css({
   position: 'fixed',
   right: 0,
   bottom: 0,
-  background: token('color.background.default', 'rgba(100%, 100%, 100%, 0.8)'),
-  border: `5px solid ${token('color.border.neutral', 'rgba(0, 0, 0, 0.8)')}`,
+  background: token('elevation.surface', 'rgba(100%, 100%, 100%, 0.8)'),
+  border: `5px solid ${token('color.border', 'rgba(0, 0, 0, 0.8)')}`,
   borderWidth: '5px 0 0 5px',
 });
 

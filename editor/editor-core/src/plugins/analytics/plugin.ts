@@ -3,7 +3,7 @@ import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import {
   isPerformanceAPIAvailable,
   measureRender,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-common/utils';
 import { EditorPlugin } from '../../types/editor-plugin';
 import { ACTION, AnalyticsEventPayload, EVENT_TYPE } from './types';
 import { getAnalyticsEventsFromTransaction } from './utils';

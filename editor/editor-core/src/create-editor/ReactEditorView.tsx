@@ -5,23 +5,25 @@ import { DirectEditorProps, EditorView } from 'prosemirror-view';
 import { Node as PMNode } from 'prosemirror-model';
 import { WrappedComponentProps, injectIntl } from 'react-intl-next';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+
 import {
   browser,
   ErrorReporter,
   getAnalyticsEventSeverity,
   getResponseEndTime,
   measureRender,
-  ProviderFactory,
-  Transformer,
   startMeasure,
   stopMeasure,
   shouldForceTracking,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-common/utils';
+
 import {
   ExperienceStore,
   EditorExperience,
   RELIABILITY_INTERVAL,
 } from '@atlaskit/editor-common/ufo';
+import { Transformer } from '@atlaskit/editor-common/types';
 
 import { createDispatch, Dispatch, EventDispatcher } from '../event-dispatcher';
 import { processRawValue } from '../utils';
@@ -64,7 +66,7 @@ import { getDocStructure, SimplifiedNode } from '../utils/document-logger';
 import { isFullPage } from '../utils/is-full-page';
 import measurements from '../utils/performance/measure-enum';
 import { getNodesCount } from '../utils/document';
-import { analyticsEventKey, SEVERITY } from '@atlaskit/editor-common';
+import { analyticsEventKey, SEVERITY } from '@atlaskit/editor-common/utils';
 import { createSchema } from './create-schema';
 import { PluginPerformanceObserver } from '../utils/performance/plugin-performance-observer';
 import { PluginPerformanceReportData } from '../utils/performance/plugin-performance-report';

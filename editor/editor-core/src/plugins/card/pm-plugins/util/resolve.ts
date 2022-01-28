@@ -7,7 +7,7 @@ import { EditorView } from 'prosemirror-view';
 import { OutstandingRequests, Request } from '../../types';
 import { setProvider } from '../actions';
 import { replaceQueuedUrlWithCard, handleFallbackWithAnalytics } from '../doc';
-import { CardOptions } from '@atlaskit/editor-common';
+import { CardOptions } from '@atlaskit/editor-common/card';
 
 // ============================================================================ //
 // ============================== PROVIDER UTILS ============================== //

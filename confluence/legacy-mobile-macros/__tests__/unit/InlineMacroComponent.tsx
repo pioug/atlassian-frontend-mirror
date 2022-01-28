@@ -2,9 +2,8 @@ import React from 'react';
 
 import { createRenderer } from 'react-test-renderer/shallow';
 
-import { macroExtensionHandlerKey } from '../../src/ui/constants';
-import { InlineMacroComponent } from '../../src/ui/InlineMacroComponent';
-import { Anchor } from '../../src/ui/InlineMacroComponent/Anchor';
+import { InlineMacroComponent, macroExtensionHandlerKey } from '../../src/ui';
+import { Anchor } from '../../src/ui/MacroComponent/InlineMacroComponent/Anchor';
 
 describe('InlineMacroComponent', () => {
   it('should throw an error when the extension key does not match a supported extension', () => {
@@ -28,6 +27,6 @@ describe('InlineMacroComponent', () => {
     const renderer = createRenderer();
     renderer.render(<InlineMacroComponent extension={extension} />);
     const result = renderer.getRenderOutput();
-    expect(result.type).toEqual(Anchor);
+    expect(result.props.children.type).toEqual(Anchor);
   });
 });

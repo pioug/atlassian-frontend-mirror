@@ -5,7 +5,7 @@ import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 import { EditorView } from 'prosemirror-view';
 import { Node as PMNode } from 'prosemirror-model';
 import { findParentDomRefOfType, findDomRefAtPos } from 'prosemirror-utils';
-import { Popup } from '@atlaskit/editor-common';
+import { Popup } from '@atlaskit/editor-common/ui';
 import CollapseIcon from '@atlaskit/icon/glyph/editor/collapse';
 import ExpandIcon from '@atlaskit/icon/glyph/editor/expand';
 import ToolbarButton from '../../../ui/ToolbarButton';

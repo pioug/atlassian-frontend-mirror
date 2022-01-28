@@ -10,7 +10,9 @@ const onClick = (...args: any[]) => {
 const StyledTooltip = () => (
   <span>
     Create
-    <span style={{ color: token('color.accent.boldOrange', 'orange') }}>
+    <span
+      style={{ color: token('color.background.accent.orange.bold', 'orange') }}
+    >
       [c]
     </span>
   </span>

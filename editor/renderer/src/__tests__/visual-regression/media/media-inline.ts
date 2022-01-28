@@ -1,6 +1,6 @@
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { snapshot, Device, initRendererWithADF } from '../_utils';
-import { ADFStage } from '@atlaskit/editor-common';
+import type { ADFStage } from '@atlaskit/editor-common/validator';
 import {
   selectors,
   waitForLoadedMediaInlineCard,

@@ -31,25 +31,25 @@ const iconMap = (key?: string, color?: string) => {
     info: (
       <Info
         label="Info"
-        primaryColor={color || token('color.iconBorder.discovery', P300)}
+        primaryColor={color || token('color.icon.discovery', P300)}
       />
     ),
     success: (
       <Tick
         label="Success"
-        primaryColor={color || token('color.iconBorder.success', G300)}
+        primaryColor={color || token('color.icon.success', G300)}
       />
     ),
     warning: (
       <Warning
         label="Warning"
-        primaryColor={color || token('color.iconBorder.warning', Y300)}
+        primaryColor={color || token('color.icon.warning', Y300)}
       />
     ),
     error: (
       <Error
         label="Error"
-        primaryColor={color || token('color.iconBorder.danger', R300)}
+        primaryColor={color || token('color.icon.danger', R300)}
       />
     ),
   };

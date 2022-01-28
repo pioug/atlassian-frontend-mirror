@@ -13,7 +13,7 @@ export default () => (
       icon={
         <SuccessIcon
           label="Success"
-          secondaryColor={token('color.iconBorder.success', G400)}
+          secondaryColor={token('color.icon.success', G400)}
         />
       }
       id="success"

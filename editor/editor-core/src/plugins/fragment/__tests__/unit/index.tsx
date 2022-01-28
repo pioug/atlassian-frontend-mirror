@@ -31,32 +31,32 @@ import layoutPlugin from '../../../layout';
 import expandPlugin from '../../../expand';
 import panelPlugin from '../../../panel';
 
-function mockExtension() {
+function mockExtension(localId?: string) {
   return extension({
     extensionKey: 'test-key-extension',
     extensionType: 'com.atlassian.extensions.update',
     parameters: { count: 0 },
     layout: 'default',
-    localId: 'test-extension-local-id',
+    localId: localId || 'test-extension-local-id',
   })();
 }
 
-function mockInlineExtension() {
+function mockInlineExtension(localId?: string) {
   return inlineExtension({
     extensionKey: 'test-key-inline-extension',
     extensionType: 'com.atlassian.extensions.update',
     parameters: { count: 0 },
-    localId: 'test-inline-extension-local-id',
+    localId: localId || 'test-inline-extension-local-id',
   })();
 }
 
-function mockBodiedExtension(content: BuilderContent = p()) {
+function mockBodiedExtension(content: BuilderContent = p(), localId?: string) {
   return bodiedExtension({
     extensionKey: 'test-key-bodied-extension',
     extensionType: 'com.atlassian.extensions.update',
     parameters: { count: 0 },
     layout: 'default',
-    localId: 'test-bodied-extension-local-id',
+    localId: localId || 'test-bodied-extension-local-id',
   })(content);
 }
 
@@ -132,8 +132,12 @@ describe('fragment plugin', () => {
         expectDocValidity(
           doc(
             mockTable(
-              fragmentMark({ localId: 'test-fragment-id' })(mockExtension()),
-              fragmentMark({ localId: 'test-fragment-id' })(mockExtension()),
+              fragmentMark({ localId: 'test-fragment-id-1' })(
+                mockExtension('unique-id-within-document-1'),
+              ),
+              fragmentMark({ localId: 'test-fragment-id-2' })(
+                mockExtension('unique-id-within-document-2'),
+              ),
             ),
           ),
         );
@@ -145,12 +149,12 @@ describe('fragment plugin', () => {
         expectDocValidity(
           doc(
             mockTable(
-              fragmentMark({ localId: 'test-fragment-id' })(
-                p(mockInlineExtension()),
+              fragmentMark({ localId: 'test-fragment-id-1' })(
+                p(mockInlineExtension('unique-id-within-document-1')),
               ),
               p(
-                fragmentMark({ localId: 'test-fragment-id' })(
-                  mockInlineExtension(),
+                fragmentMark({ localId: 'test-fragment-id-2' })(
+                  mockInlineExtension('unique-id-within-document-2'),
                 ),
               ),
             ),

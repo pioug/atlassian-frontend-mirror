@@ -21,6 +21,11 @@ import {
   WithAnalyticsEventsProps,
   UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
+import { ProgressBar } from './ui/progressBar/progressBar';
+import { Breakpoint } from './ui/common';
+import { calcBreakpointSize } from './ui/styled';
+import { isValidPercentageUnit } from '../utils/isValidPercentageUnit';
+import { getElementDimension } from '../utils/getElementDimension';
 
 export const inlinePlayerClassName = 'media-card-inline-player';
 export interface InlinePlayerOwnProps {
@@ -28,6 +33,7 @@ export interface InlinePlayerOwnProps {
   mediaClient: MediaClient;
   dimensions?: CardDimensions;
   originalDimensions?: NumericalCardDimensions;
+  autoplay: boolean;
   selected?: boolean;
   onError?: (error: Error) => void;
   readonly onClick?: (
@@ -43,6 +49,9 @@ export type InlinePlayerProps = InlinePlayerOwnProps & WithAnalyticsEventsProps;
 
 export interface InlinePlayerState {
   fileSrc?: string;
+  isUploading?: boolean;
+  progress?: number;
+  elementWidth?: number;
 }
 
 export const getPreferredVideoArtifact = (
@@ -70,12 +79,14 @@ export class InlinePlayerBase extends Component<
 > {
   subscription?: Subscription;
   state: InlinePlayerState = {};
+  divRef: React.RefObject<HTMLDivElement> = React.createRef();
 
   static defaultProps = {
     dimensions: defaultImageCardDimensions,
   };
 
   componentDidMount() {
+    this.saveElementWidth();
     const { mediaClient, identifier } = this.props;
     const { id, collectionName } = identifier;
 
@@ -85,11 +96,18 @@ export class InlinePlayerBase extends Component<
       .getFileState(id, { collectionName })
       .subscribe({
         next: async (fileState) => {
+          if (fileState.status === 'uploading') {
+            this.setState({ isUploading: true, progress: fileState.progress });
+          } else {
+            this.setState({ isUploading: false });
+          }
+
           const { fileSrc: existingFileSrc } = this.state;
           // we want to reuse the existing fileSrc to prevent re renders
           if (existingFileSrc) {
             return;
           }
+
           if (fileState.status !== 'error' && fileState.preview) {
             const { value } = await fileState.preview;
 
@@ -187,6 +205,29 @@ export class InlinePlayerBase extends Component<
     });
   };
 
+  private get breakpoint(): Breakpoint {
+    const width =
+      this.state.elementWidth ||
+      (this.props.dimensions ? this.props.dimensions.width : '') ||
+      defaultImageCardDimensions.width;
+
+    return calcBreakpointSize(parseInt(`${width}`, 10));
+  }
+
+  saveElementWidth = () => {
+    const { dimensions } = this.props;
+    if (!dimensions) {
+      return;
+    }
+
+    const { width } = dimensions;
+
+    if (width && isValidPercentageUnit(width) && !!this.divRef.current) {
+      const elementWidth = getElementDimension(this.divRef.current, 'width');
+      this.setState({ elementWidth });
+    }
+  };
+
   render() {
     const {
       onClick,
@@ -196,8 +237,9 @@ export class InlinePlayerBase extends Component<
       testId,
       identifier,
       forwardRef,
+      autoplay,
     } = this.props;
-    const { fileSrc } = this.state;
+    const { fileSrc, isUploading, progress } = this.state;
 
     if (!fileSrc) {
       return <CardLoading testId={testId} dimensions={dimensions} />;
@@ -218,7 +260,7 @@ export class InlinePlayerBase extends Component<
               type="video"
               src={fileSrc}
               fileId={identifier.id}
-              isAutoPlay
+              isAutoPlay={autoplay}
               isHDAvailable={false}
               onDownloadClick={this.onDownloadClick}
               onFirstPlay={this.onFirstPlay}
@@ -230,6 +272,14 @@ export class InlinePlayerBase extends Component<
             />
           )}
         </InactivityDetector>
+        {isUploading ? (
+          <ProgressBar
+            progress={progress}
+            breakpoint={this.breakpoint}
+            positionBottom
+            showOnTop
+          />
+        ) : null}
       </InlinePlayerWrapper>
     );
   }

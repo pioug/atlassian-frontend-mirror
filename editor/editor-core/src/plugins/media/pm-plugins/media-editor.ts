@@ -1,5 +1,6 @@
 import { Plugin, PluginSpec } from 'prosemirror-state';
-import { MediaProvider, ProviderFactory } from '@atlaskit/editor-common';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
 
 import { PMPluginFactoryParams } from '../../../types';
 import { setMediaClientConfig } from '../commands/media-editor';

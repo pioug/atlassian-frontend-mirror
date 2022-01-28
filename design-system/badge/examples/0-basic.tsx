@@ -18,15 +18,15 @@ const itemStyles = css({
   borderRadius: `${borderRadius()}px`,
   color: 'inherit',
   '&:hover': {
-    backgroundColor: token('color.background.subtleNeutral.hover', N20),
+    backgroundColor: token('color.background.neutral.hovered', N20),
   },
 });
 
 const invertedItemStyles = css({
-  background: token('color.background.boldBrand.resting', B400),
-  color: token('color.text.onBold', N0),
+  background: token('color.background.brand.bold', B400),
+  color: token('color.text.inverse', N0),
   '&:hover': {
-    backgroundColor: token('color.background.boldBrand.hover', B500),
+    backgroundColor: token('color.background.brand.bold.hovered', B500),
   },
 });
 

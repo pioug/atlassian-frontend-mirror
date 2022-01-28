@@ -20,7 +20,7 @@ import {
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 
-import { browser } from '@atlaskit/editor-common';
+import { browser } from '@atlaskit/editor-common/utils';
 import {
   pluginKey as blockTypePluginKey,
   BlockTypeState,

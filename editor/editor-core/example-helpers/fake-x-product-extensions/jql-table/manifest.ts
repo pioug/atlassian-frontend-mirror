@@ -1,4 +1,7 @@
-import { ExtensionManifest, Parameters } from '@atlaskit/editor-common';
+import type {
+  ExtensionManifest,
+  Parameters,
+} from '@atlaskit/editor-common/extensions';
 
 const manifest: ExtensionManifest = {
   title: 'Jira',

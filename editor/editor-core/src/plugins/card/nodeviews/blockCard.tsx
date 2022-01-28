@@ -1,7 +1,8 @@
 import React from 'react';
 import { Node as PMNode } from 'prosemirror-model';
 import { Card as SmartCard } from '@atlaskit/smart-card';
-import { UnsupportedBlock, browser } from '@atlaskit/editor-common';
+import { UnsupportedBlock } from '@atlaskit/editor-common/ui';
+import { browser } from '@atlaskit/editor-common/utils';
 import PropTypes from 'prop-types';
 import { EditorView } from 'prosemirror-view';
 import rafSchedule from 'raf-schd';
@@ -9,7 +10,7 @@ import rafSchedule from 'raf-schd';
 import { SmartCardProps, Card } from './genericCard';
 import { ReactNodeView, getPosHandler } from '../../../nodeviews/';
 import { registerCard } from '../pm-plugins/actions';
-import { findOverflowScrollParent } from '@atlaskit/editor-common';
+import { findOverflowScrollParent } from '@atlaskit/editor-common/ui';
 
 export interface Props {
   children?: React.ReactNode;

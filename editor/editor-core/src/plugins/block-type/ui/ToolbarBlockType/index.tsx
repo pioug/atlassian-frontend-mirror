@@ -93,6 +93,7 @@ class ToolbarBlockType extends React.PureComponent<
             zIndex={akEditorMenuZIndex}
             fitHeight={360}
             fitWidth={106}
+            shouldUseDefaultRole
           >
             <BlockTypeButton
               isSmall={isSmall}
@@ -102,6 +103,7 @@ class ToolbarBlockType extends React.PureComponent<
               title={blockTypeTitles[0]}
               onClick={this.handleTriggerClick}
               formatMessage={formatMessage}
+              aria-expanded={active}
             >
               {longestDropdownMenuItem}
             </BlockTypeButton>
@@ -121,6 +123,7 @@ class ToolbarBlockType extends React.PureComponent<
           title={blockTypeTitles[0]}
           onClick={this.handleTriggerClick}
           formatMessage={formatMessage}
+          aria-expanded={active}
         >
           {longestDropdownMenuItem}
         </BlockTypeButton>
@@ -150,6 +153,7 @@ class ToolbarBlockType extends React.PureComponent<
           </BlockTypeMenuItem>
         ),
         value: blockType,
+        label: formatMessage(blockType.title),
         key: `${blockType.name}-${index}`,
         elemAfter: (
           <KeyboardShortcut selected={isActive}>

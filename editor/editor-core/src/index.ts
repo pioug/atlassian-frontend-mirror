@@ -143,6 +143,7 @@ export type { AnalyticsEventPayload } from './plugins/analytics';
 export {
   setKeyboardHeight,
   setMobilePaddingTop,
+  setIsExpanded,
 } from './plugins/mobile-dimensions/commands';
 
 // Used in editor-test-helpers

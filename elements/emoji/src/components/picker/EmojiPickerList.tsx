@@ -6,9 +6,13 @@ import { List as VirtualList } from 'react-virtualized/dist/commonjs/List';
 import { customCategory, userCustomTitle } from '../../util/constants';
 import {
   EmojiDescription,
+  EmojiDescriptionWithVariations,
   EmojiId,
+  Message,
   OnCategory,
   OnEmojiEvent,
+  OnToneSelected,
+  OnToneSelectorCancelled,
   ToneSelection,
   User,
 } from '../../types';
@@ -29,7 +33,9 @@ import {
   virtualItemRenderer,
 } from './EmojiPickerVirtualItems';
 import * as styles from './styles';
-import EmojiPickerListSearch from './EmojiPickerListSearch';
+import EmojiActions from '../common/EmojiActions';
+import { OnUploadEmoji } from '../common/EmojiUploadPicker';
+import { OnDeleteEmoji } from '../common/EmojiDeletePreview';
 
 const categoryClassname = 'emoji-category';
 
@@ -46,12 +52,24 @@ export interface Props {
   onEmojiActive?: OnEmojiEvent;
   onEmojiDelete?: OnEmojiEvent;
   onCategoryActivated?: OnCategory;
-  onMouseLeave?: () => void;
-  onMouseEnter?: () => void;
   selectedTone?: ToneSelection;
   onSearch?: OnSearch;
   loading?: boolean;
   query?: string;
+  initialUploadName?: string;
+  onToneSelected?: OnToneSelected;
+  onToneSelectorCancelled?: OnToneSelectorCancelled;
+  toneEmoji?: EmojiDescriptionWithVariations;
+  uploading: boolean;
+  emojiToDelete?: EmojiDescription;
+  uploadErrorMessage?: Message;
+  uploadEnabled: boolean;
+  onUploadEmoji: OnUploadEmoji;
+  onUploadCancelled: () => void;
+  onDeleteEmoji: OnDeleteEmoji;
+  onCloseDelete: () => void;
+  onFileChooserClicked?: () => void;
+  onOpenUpload: () => void;
 }
 
 export interface State {}
@@ -359,17 +377,47 @@ export default class EmojiPickerVirtualList extends PureComponent<
     virtualItemRenderer(this.virtualItems, context);
 
   render() {
-    const { onMouseLeave, onMouseEnter, query } = this.props;
+    const {
+      query,
+      selectedTone,
+      onToneSelected,
+      onToneSelectorCancelled,
+      toneEmoji,
+      uploading,
+      uploadEnabled,
+      emojiToDelete,
+      initialUploadName,
+      uploadErrorMessage,
+      onUploadCancelled,
+      onUploadEmoji,
+      onCloseDelete,
+      onDeleteEmoji,
+      onFileChooserClicked,
+      onOpenUpload,
+    } = this.props;
     const classes = [styles.emojiPickerList];
 
     return (
-      <div
-        ref="root"
-        className={classNames(classes)}
-        onMouseLeave={onMouseLeave}
-        onMouseEnter={onMouseEnter}
-      >
-        <EmojiPickerListSearch onChange={this.onSearch} query={query} />
+      <div ref="root" className={classNames(classes)}>
+        <EmojiActions
+          selectedTone={selectedTone}
+          onToneSelected={onToneSelected}
+          onToneSelectorCancelled={onToneSelectorCancelled}
+          toneEmoji={toneEmoji}
+          uploading={uploading}
+          uploadEnabled={uploadEnabled}
+          emojiToDelete={emojiToDelete}
+          initialUploadName={initialUploadName}
+          uploadErrorMessage={uploadErrorMessage}
+          onUploadCancelled={onUploadCancelled}
+          onUploadEmoji={onUploadEmoji}
+          onCloseDelete={onCloseDelete}
+          onDeleteEmoji={onDeleteEmoji}
+          onFileChooserClicked={onFileChooserClicked}
+          onOpenUpload={onOpenUpload}
+          query={query}
+          onChange={this.onSearch}
+        />
         <VirtualList
           ref="list"
           height={sizes.listHeight}

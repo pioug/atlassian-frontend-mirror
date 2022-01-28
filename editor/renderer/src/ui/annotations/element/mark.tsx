@@ -1,8 +1,6 @@
 import React, { useMemo, useCallback, MouseEvent } from 'react';
-import {
-  AnnotationSharedCSSByState,
-  OnAnnotationClickPayload,
-} from '@atlaskit/editor-common';
+import { AnnotationSharedCSSByState } from '@atlaskit/editor-common/styles';
+import type { OnAnnotationClickPayload } from '@atlaskit/editor-common/types';
 import {
   AnnotationMarkStates,
   AnnotationId,

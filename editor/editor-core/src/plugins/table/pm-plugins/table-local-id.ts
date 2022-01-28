@@ -17,7 +17,7 @@ import rafSchedule from 'raf-schd';
 
 import { uuid } from '@atlaskit/adf-schema';
 
-import { stepAdds } from '../../../utils/step';
+import { stepAddsOneOf } from '../../../utils/step';
 
 interface TableLocalIdPluginState {
   // One time parse for initial load with existing tables without localIds
@@ -34,7 +34,9 @@ const getPluginState = (
  * Traverses a transaction's steps to see if we're inserting any tables
  */
 const checkIsAddingTable = (transaction: Transaction, nodeType: NodeType) => {
-  return transaction.steps.some((step) => stepAdds(step, nodeType));
+  return transaction.steps.some((step) =>
+    stepAddsOneOf(step, new Set([nodeType])),
+  );
 };
 
 /**

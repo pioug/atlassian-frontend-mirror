@@ -1,5 +1,13 @@
 # @atlaskit/share
 
+## 3.0.10
+
+### Patch Changes
+
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - [ux] Replace dependency on deprecated @atlaskit/field-text-area with supported package @atlaskit/textarea.
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - Bump dependency tiny-invariant to latest"
+- Updated dependencies
+
 ## 3.0.9
 
 ### Patch Changes

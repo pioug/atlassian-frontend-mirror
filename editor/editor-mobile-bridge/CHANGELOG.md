@@ -1,5 +1,64 @@
 # @atlaskit/editor-mobile-bridge
 
+## 31.1.0
+
+### Minor Changes
+
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - Added setClickAreaExpanded method to be called on the native side when compact editor is expanded or collapssed
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - CETI-80 added dark mode color palette for mobile through bridge
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - Switches Confluence mobile macros to use the extension provider API instead of extension handlers
+- [`5af69bfe9be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5af69bfe9be) - CETI-241 - Added additional panel ADF attributes (panelIconId, panelIconText) to uniquely identify custom panel emojis. The change has been categorised as major since it is a change to the full-schema ADF. However, the custom panel feature is behind a feature flag, has not yet been released to production, and is only currently planned for release to Confluence. See ADF change #61 for further details.
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - [ux] Set padding-left of list items to 1rem for editor and renderer on mobile
+
+### Patch Changes
+
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - [ux][me-1599] Fix entering a new line when inside a code block on mobile in composition.
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - ED-13875 Removed editor common root entry
+
+  We remove the ability to import from `@atlaskit/editor-common` in favour of the following sub entries:
+
+  `@atlaskit/editor-common/collab`
+
+  `@atlaskit/editor-common/extensions`
+
+  `@atlaskit/editor-common/normalize-feature-flags`
+
+  `@atlaskit/editor-common/messages`
+
+  `@atlaskit/editor-common/provider-factory`
+
+  `@atlaskit/editor-common/styles`
+
+  `@atlaskit/editor-common/validator`
+
+  `@atlaskit/editor-common/in-product`
+
+  `@atlaskit/editor-common/cypress-config`
+
+  `@atlaskit/editor-common/type-ahead`
+
+  `@atlaskit/editor-common/ufo`
+
+  `@atlaskit/editor-common/types`
+
+  `@atlaskit/editor-common/ui`
+
+  `@atlaskit/editor-common/utils`
+
+  `@atlaskit/editor-common/card`
+
+  `@atlaskit/editor-common/emoji`
+
+  `@atlaskit/editor-common/mention`
+
+  `@atlaskit/editor-common/provider-helpers`
+
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - ED-13025 Bump prosemirror-view 1.23.1 -> 1.23.2
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - Revert media inline ff to use query params
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - Bump raf-schd to latest (4.0.3), including better TS typings.
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - ED-13753 Updated editor-common import entries.
+- Updated dependencies
+
 ## 31.0.8
 
 ### Patch Changes

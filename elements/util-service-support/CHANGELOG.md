@@ -1,5 +1,11 @@
 # @atlaskit/util-service-support
 
+## 6.1.0
+
+### Minor Changes
+
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - Remove unused polyfills
+
 ## 6.0.5
 
 ### Patch Changes

@@ -114,14 +114,14 @@ interface State {
 }
 
 const isInvalidBorderStyles = css({
-  borderColor: token('color.iconBorder.danger', R400),
+  borderColor: token('color.border.danger', R400),
 });
 const isFocusedBorderStyles = css({
-  borderColor: token('color.border.focus', B100),
+  borderColor: token('color.border.focused', B100),
 });
 
 const isFocusedStyles = css({
-  backgroundColor: token('color.background.default', N0),
+  backgroundColor: token('elevation.surface', N0),
 });
 
 const subtleBgStyles = css({
@@ -131,15 +131,15 @@ const subtleBgStyles = css({
 
 const hoverStyles = css({
   '&:hover': {
-    backgroundColor: token('color.background.default', N30),
-    borderColor: token('color.border.neutral', N30),
+    backgroundColor: token('elevation.surface', N30),
+    borderColor: token('color.border', N30),
   },
 });
 
 const isInvalidHoverStyles = css({
   '&:hover': {
-    backgroundColor: token('color.background.default', N0),
-    borderColor: token('color.iconBorder.danger', R400),
+    backgroundColor: token('elevation.surface', N0),
+    borderColor: token('color.border.danger', R400),
   },
 });
 
@@ -151,8 +151,8 @@ const isDisabledStyles = css({
 
 const baseContainerStyles = css({
   display: 'flex',
-  backgroundColor: token('color.background.subtleNeutral.resting', N20),
-  border: `2px solid ${token('color.border.neutral', N20)}`,
+  backgroundColor: token('color.background.neutral', N20),
+  border: `2px solid ${token('color.border', N20)}`,
   borderRadius: `${borderRadius()}px`,
   transition:
     'background-color 200ms ease-in-out, border-color 200ms ease-in-out',
@@ -184,10 +184,10 @@ const iconContainerStyles = css({
   paddingLeft: `${ICON_PADDING * 2}px`,
   alignItems: 'center',
   flexBasis: 'inherit',
-  color: token('color.text.lowEmphasis', N70),
+  color: token('color.text.subtlest', N70),
   transition: `color 150ms`,
   '&:hover': {
-    color: token('color.text.mediumEmphasis', N500),
+    color: token('color.text.subtle', N500),
   },
 });
 

@@ -14,7 +14,7 @@ describe('createPlayPauseBlanketClickedEvent', () => {
     isLoading: false,
     isAutoPlay: true,
     isFullScreenEnabled: false,
-    isLargePlayer: true,
+    playerSize: 'large',
     playbackSpeed: 1,
   };
 
@@ -40,7 +40,7 @@ describe('createPlayPauseBlanketClickedEvent', () => {
           isMuted: false,
           isAutoPlay: true,
           isFullScreenEnabled: false,
-          isLargePlayer: true,
+          playerSize: 'large',
           playbackSpeed: 1,
         },
         fileAttributes: {

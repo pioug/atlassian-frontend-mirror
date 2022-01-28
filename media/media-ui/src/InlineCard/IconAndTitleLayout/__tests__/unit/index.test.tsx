@@ -74,6 +74,18 @@ describe('IconAndTitleLayout', () => {
 
       expect(customDefaultIcon).toBeDefined();
     });
+
+    it('renders shimmer placeholder while image is loading', () => {
+      const { getByTestId } = renderWithIntl(
+        <IconAndTitleLayout title="title" icon="src-loading" />,
+      );
+
+      const customDefaultIcon = getByTestId(
+        'inline-card-icon-and-title-loading',
+      );
+
+      expect(customDefaultIcon).toBeDefined();
+    });
   });
 
   it('should render emoji in place of default icon when emoji is provided', () => {

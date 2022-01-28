@@ -34,12 +34,12 @@ const tooltipStyle = style({
 
 const emojiNameStyle = style({
   textTransform: 'capitalize',
-  color: token('color.text.onBold', N90),
+  color: token('color.text.inverse', N90),
   fontWeight: 600,
 });
 
 const footerStyle = style({
-  color: token('color.text.onBold', N90),
+  color: token('color.text.inverse', N90),
   fontWeight: 300,
 });
 

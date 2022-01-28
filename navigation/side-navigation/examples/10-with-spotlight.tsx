@@ -142,7 +142,7 @@ const SpotlightRenderer = () => {
   const [variant, setVariant] = useState<number | undefined>();
   const variants = [
     <Spotlight
-      targetBgColor={token('color.background.default', N10)}
+      targetBgColor={token('elevation.surface', N10)}
       actions={[
         {
           onClick: () => setVariant(Number(variant) + 1),
@@ -158,7 +158,7 @@ const SpotlightRenderer = () => {
     </Spotlight>,
 
     <Spotlight
-      targetBgColor={token('color.background.default', N10)}
+      targetBgColor={token('elevation.surface', N10)}
       actions={[
         {
           onClick: () => setVariant(Number(variant) + 1),
@@ -178,7 +178,7 @@ const SpotlightRenderer = () => {
     </Spotlight>,
 
     <Spotlight
-      targetBgColor={token('color.background.default', N10)}
+      targetBgColor={token('elevation.surface', N10)}
       actions={[
         {
           onClick: () => setVariant(Number(variant) + 1),
@@ -198,7 +198,7 @@ const SpotlightRenderer = () => {
     </Spotlight>,
 
     <Spotlight
-      targetBgColor={token('color.background.default', N10)}
+      targetBgColor={token('elevation.surface', N10)}
       actions={[
         {
           onClick: () => setVariant(Number(variant) + 1),
@@ -218,7 +218,7 @@ const SpotlightRenderer = () => {
     </Spotlight>,
 
     <Spotlight
-      targetBgColor={token('color.background.default', N10)}
+      targetBgColor={token('elevation.surface', N10)}
       actions={[
         {
           onClick: () => setVariant(undefined),

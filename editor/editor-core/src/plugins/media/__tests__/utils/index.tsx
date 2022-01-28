@@ -2,7 +2,8 @@ import React from 'react';
 import assert from 'assert';
 import { EditorView } from 'prosemirror-view';
 
-import { ProviderFactory, wrappedLayouts } from '@atlaskit/editor-common';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import { wrappedLayouts } from '@atlaskit/editor-common/ui';
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';

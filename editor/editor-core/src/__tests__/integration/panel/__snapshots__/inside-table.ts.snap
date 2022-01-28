@@ -25,6 +25,8 @@ Object {
                   "attrs": Object {
                     "panelColor": null,
                     "panelIcon": null,
+                    "panelIconId": null,
+                    "panelIconText": null,
                     "panelType": "error",
                   },
                   "content": Array [

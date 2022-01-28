@@ -11,45 +11,45 @@ export const MSThemeColors = {
 
 export const arrow = {
   defaultColor: themed({
-    light: token('color.background.subtleNeutral.resting', colors.N40),
-    dark: token('color.background.subtleNeutral.resting', colors.DN40),
+    light: token('color.background.neutral', colors.N40),
+    dark: token('color.background.neutral', colors.DN40),
   }),
   selectedColor: themed({
-    light: token('color.text.lowEmphasis', colors.N300),
-    dark: token('color.text.lowEmphasis', colors.DN300),
+    light: token('color.text.subtlest', colors.N300),
+    dark: token('color.text.subtlest', colors.DN300),
   }),
   hoverColor: themed({
-    light: token('color.background.subtleNeutral.pressed', colors.N60),
-    dark: token('color.background.subtleNeutral.pressed', colors.DN60),
+    light: token('color.background.neutral.pressed', colors.N60),
+    dark: token('color.background.neutral.pressed', colors.DN60),
   }),
 };
 
 export const row = {
   focusOutline: themed({
-    light: token('color.border.focus', colors.B100),
-    dark: token('color.border.focus', colors.B100),
+    light: token('color.border.focused', colors.B100),
+    dark: token('color.border.focused', colors.B100),
   }),
   highlightedBackground: themed({
-    light: token('color.background.selected.resting', colors.B50),
-    dark: token('color.background.selected.resting', colors.DN50),
+    light: token('color.background.brand', colors.B50),
+    dark: token('color.background.brand', colors.DN50),
   }),
   hoverBackground: themed({
-    light: token('color.background.subtleBorderedNeutral.resting', colors.N10),
-    dark: token('color.background.subtleBorderedNeutral.resting', colors.DN40),
+    light: token('color.background.input', colors.N10),
+    dark: token('color.background.input', colors.DN40),
   }),
   hoverHighlightedBackground: themed({
-    light: token('color.background.selected.hover', colors.B75),
-    dark: token('color.background.selected.hover', colors.DN60),
+    light: token('color.background.brand.hovered', colors.B75),
+    dark: token('color.background.brand.hovered', colors.DN60),
   }),
 };
 
 export const head = {
   borderColor: themed({
-    light: token('color.border.neutral', colors.N40),
-    dark: token('color.border.neutral', colors.DN50),
+    light: token('color.border', colors.N40),
+    dark: token('color.border', colors.DN50),
   }),
   textColor: themed({
-    light: token('color.text.lowEmphasis', colors.N300),
-    dark: token('color.text.lowEmphasis', colors.DN300),
+    light: token('color.text.subtlest', colors.N300),
+    dark: token('color.text.subtlest', colors.DN300),
   }),
 };

@@ -5,8 +5,8 @@ import {
   ProviderFactory,
   CardProvider,
 } from '@atlaskit/editor-common/provider-factory';
+import { CardOptions } from '@atlaskit/editor-common/card';
 import { IntlShape } from 'react-intl-next';
-import { CardOptions } from '@atlaskit/editor-common';
 import { EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import { CardPlatform } from '@atlaskit/smart-card';

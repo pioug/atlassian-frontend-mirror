@@ -6,8 +6,13 @@ import {
   insertStatusFromMenu,
   STATUS_SELECTORS,
 } from '../../__helpers/page-objects/_status';
-import { animationFrame } from '../../__helpers/page-objects/_editor';
+import {
+  animationFrame,
+  waitForElementOffset,
+} from '../../__helpers/page-objects/_editor';
 import adf from './__fixtures__/status-adf.json';
+import overflownStatusInsideTableAdf from './__fixtures__/overflow-status-inside-table.adf.json';
+
 import blank_adf from './__fixtures__/blank-adf.json';
 import {
   insertTaskFromMenu,
@@ -20,17 +25,21 @@ describe('Status:', () => {
     page = global.page;
   });
 
+  async function clickStatusAndWait() {
+    await animationFrame(page);
+    await clickOnStatus(page);
+    await animationFrame(page);
+    await waitForStatusToolbar(page);
+    await animationFrame(page);
+  }
+
   it('should display as selected', async () => {
     await initEditorWithAdf(page, {
       adf,
       appearance: Appearance.fullPage,
       viewport: { width: 600, height: 300 },
     });
-    await animationFrame(page);
-    await clickOnStatus(page);
-    await animationFrame(page);
-    await waitForStatusToolbar(page);
-    await animationFrame(page);
+    await clickStatusAndWait();
     await snapshot(page);
   });
 
@@ -45,5 +54,22 @@ describe('Status:', () => {
     await insertStatusFromMenu(page);
     await page.waitForSelector(STATUS_SELECTORS.STATUS_NODE);
     await snapshot(page);
+  });
+
+  it('when overflown inside a table and selected', async () => {
+    await initEditorWithAdf(page, {
+      adf: overflownStatusInsideTableAdf,
+      appearance: Appearance.fullPage,
+      viewport: { width: 600, height: 400 },
+    });
+    await clickStatusAndWait();
+    await page.click(STATUS_SELECTORS.STATUS_POPUP_INPUT);
+    await waitForElementOffset(page, STATUS_SELECTORS.STATUS_POPUP_INPUT, {
+      top: { min: 100, max: 300 },
+      left: { min: 20, max: 150 },
+    });
+    await snapshot(page, undefined, undefined, {
+      captureBeyondViewport: false,
+    });
   });
 });

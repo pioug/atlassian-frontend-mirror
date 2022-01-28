@@ -20,6 +20,7 @@ import { pluginConfig as getPluginConfig } from '../create-plugin-config';
 import { getPluginState, pluginKey } from '../pm-plugins/plugin-factory';
 import { pluginKey as tableResizingPluginKey } from '../pm-plugins/table-resizing';
 import { generateColgroup } from '../pm-plugins/table-resizing/utils';
+import { TableMap } from '@atlaskit/editor-tables/table-map';
 
 import TableComponent from './TableComponent';
 import { Props, TableOptions } from './types';
@@ -184,6 +185,14 @@ export default class TableView extends ReactNodeView<Props> {
       if (attrKeys.length !== nextAttrKeys.length) {
         return true;
       }
+
+      const tableMap = TableMap.get(node);
+      const nextTableMap = TableMap.get(nextNode);
+
+      if (tableMap.width !== nextTableMap.width) {
+        return true;
+      }
+
       return attrKeys.some((key) => {
         return node.attrs[key] !== nextNode.attrs[key];
       });

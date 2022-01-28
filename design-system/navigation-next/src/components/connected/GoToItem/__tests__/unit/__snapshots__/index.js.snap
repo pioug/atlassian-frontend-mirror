@@ -62,7 +62,7 @@ exports[`GoToItemBase Default After prop should show a spinner if the incoming v
   -webkit-animation-delay: 200ms;
   animation-delay: 200ms;
   fill: none;
-  stroke: var(--ds-text-mediumEmphasis,#42526E);
+  stroke: var(--ds-text-subtle,#42526E);
   stroke-width: 1.5;
   stroke-linecap: round;
   stroke-dasharray: 60;

@@ -11,10 +11,7 @@ import { MediaSingleDefinition as MediaSingle } from '../media-single';
 import { DecisionListDefinition as DecisionList } from '../decision-list';
 import { TaskListDefinition as TaskList } from '../task-list';
 import { TableDefinition as Table } from '../tableNodes';
-import {
-  ExtensionDefinition as Extension,
-  ExtensionWithMarksDefinition as ExtensionWithMarks,
-} from '../extension';
+import { ExtensionDefinition as Extension } from '../extension';
 import { BlockCardDefinition as BlockCard } from '../block-card';
 import { EmbedCardDefinition as EmbedCard } from '../embed-card';
 
@@ -38,6 +35,5 @@ export type NonNestableBlockContent =
   | TaskList
   | Table
   | Extension
-  | ExtensionWithMarks
   | BlockCard
   | EmbedCard;

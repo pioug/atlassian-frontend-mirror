@@ -36,6 +36,7 @@ describe('event-handlers', () => {
           doc(table()(tr(tdCursor, tdEmpty), tr(tdEmpty, tdEmpty))),
         );
         const fakeHandler = jest.fn();
+        fakeHandler.mockReturnValue(true);
         // @ts-ignore
         const fakeMouseEvent = jest.fn() as Event;
 
@@ -83,6 +84,7 @@ describe('event-handlers', () => {
             doc(table()(tr(tdCursor, tdEmpty), tr(tdEmpty, tdEmpty))),
           );
           const fakeHandler = jest.fn();
+          fakeHandler.mockReturnValue(true);
           // @ts-ignore
           const fakeMouseEvent = jest.fn() as Event;
 

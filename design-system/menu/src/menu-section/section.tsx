@@ -72,7 +72,7 @@ const unscrollableStyles = css({
 
 const separatorStyles = css({
   borderTop: `2px solid var(${VAR_SEPARATOR_COLOR}, ${token(
-    'color.border.neutral',
+    'color.border',
     N30A,
   )})`,
 });

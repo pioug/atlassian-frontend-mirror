@@ -1,10 +1,10 @@
-import { ActiveTokens } from './artifacts/types';
+import { InternalTokenIds } from './artifacts/types-internal';
 
 export type Groups = 'raw' | 'paint' | 'shadow' | 'palette';
 export type ActiveTokenStates = 'active';
 export type ReplacedTokenStates = 'deprecated' | 'deleted';
 export type TokenState = ActiveTokenStates | ReplacedTokenStates;
-export type Replacement = ActiveTokens[]; // Ideally, this is typed to all tokens that are active
+export type Replacement = InternalTokenIds | InternalTokenIds[]; // Ideally, this is typed to all tokens that are active
 
 export interface Token<TValue, Group extends Groups> {
   value: TValue;
@@ -211,6 +211,304 @@ export interface PaletteColorTokenSchema {
 
 export interface BackgroundColorTokenSchema {
   color: {
+    blanket: PaintToken;
+    background: {
+      disabled: PaintToken;
+      inverse: PaintToken;
+      input: {
+        '[default]': PaintToken;
+        hovered: PaintToken;
+        pressed: PaintToken;
+      };
+      neutral: {
+        '[default]': {
+          '[default]': PaintToken;
+          hovered: PaintToken;
+          pressed: PaintToken;
+        };
+        subtle: {
+          '[default]': PaintToken;
+          hovered: PaintToken;
+          pressed: PaintToken;
+        };
+        bold: {
+          '[default]': PaintToken;
+          hovered: PaintToken;
+          pressed: PaintToken;
+        };
+      };
+      brand: {
+        '[default]': {
+          '[default]': PaintToken;
+          hovered: PaintToken;
+          pressed: PaintToken;
+        };
+        bold: {
+          '[default]': PaintToken;
+          hovered: PaintToken;
+          pressed: PaintToken;
+        };
+      };
+      danger: {
+        '[default]': {
+          '[default]': PaintToken;
+          hovered: PaintToken;
+          pressed: PaintToken;
+        };
+        bold: {
+          '[default]': PaintToken;
+          hovered: PaintToken;
+          pressed: PaintToken;
+        };
+      };
+      warning: {
+        '[default]': {
+          '[default]': PaintToken;
+          hovered: PaintToken;
+          pressed: PaintToken;
+        };
+        bold: {
+          '[default]': PaintToken;
+          hovered: PaintToken;
+          pressed: PaintToken;
+        };
+      };
+      success: {
+        '[default]': {
+          '[default]': PaintToken;
+          hovered: PaintToken;
+          pressed: PaintToken;
+        };
+        bold: {
+          '[default]': PaintToken;
+          hovered: PaintToken;
+          pressed: PaintToken;
+        };
+      };
+      discovery: {
+        '[default]': {
+          '[default]': PaintToken;
+          hovered: PaintToken;
+          pressed: PaintToken;
+        };
+        bold: {
+          '[default]': PaintToken;
+          hovered: PaintToken;
+          pressed: PaintToken;
+        };
+      };
+      information: {
+        '[default]': {
+          '[default]': PaintToken;
+          hovered: PaintToken;
+          pressed: PaintToken;
+        };
+        bold: {
+          '[default]': PaintToken;
+          hovered: PaintToken;
+          pressed: PaintToken;
+        };
+      };
+    };
+  };
+}
+
+export interface BorderColorTokenSchema {
+  color: {
+    border: {
+      '[default]': PaintToken;
+      focused: PaintToken;
+      input: PaintToken;
+      disabled: PaintToken;
+      brand: PaintToken;
+      danger: PaintToken;
+      warning: PaintToken;
+      success: PaintToken;
+      discovery: PaintToken;
+      information: PaintToken;
+    };
+  };
+}
+
+export interface IconColorTokenSchema {
+  color: {
+    icon: {
+      '[default]': PaintToken;
+      subtle: PaintToken;
+      inverse: PaintToken;
+      disabled: PaintToken;
+      brand: PaintToken;
+      danger: PaintToken;
+      warning: {
+        '[default]': PaintToken;
+        inverse: PaintToken;
+      };
+      success: PaintToken;
+      discovery: PaintToken;
+      information: PaintToken;
+    };
+  };
+}
+
+export interface TextColorTokenSchema {
+  color: {
+    text: {
+      '[default]': PaintToken;
+      subtle: PaintToken;
+      subtlest: PaintToken;
+      inverse: PaintToken;
+      brand: PaintToken;
+      danger: PaintToken;
+      warning: {
+        '[default]': PaintToken;
+        inverse: PaintToken;
+      };
+      success: PaintToken;
+      information: PaintToken;
+      discovery: PaintToken;
+      disabled: PaintToken;
+    };
+    link: {
+      '[default]': PaintToken;
+      pressed: PaintToken;
+    };
+  };
+}
+
+export interface AccentColorTokenSchema {
+  color: {
+    text: {
+      accent: {
+        blue: PaintToken;
+        red: PaintToken;
+        orange: PaintToken;
+        yellow: PaintToken;
+        green: PaintToken;
+        purple: PaintToken;
+        teal: PaintToken;
+        magenta: PaintToken;
+      };
+    };
+    icon: {
+      accent: {
+        blue: PaintToken;
+        red: PaintToken;
+        orange: PaintToken;
+        yellow: PaintToken;
+        green: PaintToken;
+        purple: PaintToken;
+        teal: PaintToken;
+        magenta: PaintToken;
+      };
+    };
+    border: {
+      accent: {
+        blue: PaintToken;
+        red: PaintToken;
+        orange: PaintToken;
+        yellow: PaintToken;
+        green: PaintToken;
+        purple: PaintToken;
+        teal: PaintToken;
+        magenta: PaintToken;
+      };
+    };
+    background: {
+      accent: {
+        blue: {
+          '[default]': PaintToken;
+          bold: PaintToken;
+        };
+        red: {
+          '[default]': PaintToken;
+          bold: PaintToken;
+        };
+        orange: {
+          '[default]': PaintToken;
+          bold: PaintToken;
+        };
+        yellow: {
+          '[default]': PaintToken;
+          bold: PaintToken;
+        };
+        green: {
+          '[default]': PaintToken;
+          bold: PaintToken;
+        };
+        teal: {
+          '[default]': PaintToken;
+          bold: PaintToken;
+        };
+        purple: {
+          '[default]': PaintToken;
+          bold: PaintToken;
+        };
+        magenta: {
+          '[default]': PaintToken;
+          bold: PaintToken;
+        };
+      };
+    };
+  };
+}
+
+export interface InteractionColorTokenSchema {
+  color: {
+    interaction: {
+      pressed: PaintToken;
+      hovered: PaintToken;
+      inverse: {
+        pressed: PaintToken;
+        hovered: PaintToken;
+      };
+    };
+  };
+}
+
+export interface UtilTokenSchema {
+  UNSAFE_util: {
+    transparent: RawToken;
+    MISSING_TOKEN: RawToken;
+  };
+}
+
+export interface SurfaceTokenSchema {
+  elevation: {
+    surface: {
+      '[default]': PaintToken;
+      sunken: PaintToken;
+      raised: PaintToken;
+      overlay: PaintToken;
+    };
+  };
+}
+
+export interface ShadowTokenSchema {
+  elevation: {
+    shadow: {
+      raised: ShadowToken;
+      overlay: ShadowToken;
+    };
+  };
+}
+
+export interface DeprecatedTokenSchema {
+  color: {
+    accent: {
+      boldBlue: PaintToken;
+      boldGreen: PaintToken;
+      boldOrange: PaintToken;
+      boldPurple: PaintToken;
+      boldRed: PaintToken;
+      boldTeal: PaintToken;
+      subtleBlue: PaintToken;
+      subtleRed: PaintToken;
+      subtleGreen: PaintToken;
+      subtleOrange: PaintToken;
+      subtleTeal: PaintToken;
+      subtlePurple: PaintToken;
+      subtleMagenta: PaintToken;
+    };
     background: {
       default: PaintToken;
       sunken: PaintToken;
@@ -221,7 +519,6 @@ export interface BackgroundColorTokenSchema {
         hover: PaintToken;
         pressed: PaintToken;
       };
-      disabled: PaintToken;
       blanket: PaintToken;
       boldBrand: {
         resting: PaintToken;
@@ -292,20 +589,10 @@ export interface BackgroundColorTokenSchema {
         pressed: PaintToken;
       };
     };
-  };
-}
-
-export interface BorderColorTokenSchema {
-  color: {
     border: {
       focus: PaintToken;
       neutral: PaintToken;
     };
-  };
-}
-
-export interface IconBorderColorTokenSchema {
-  color: {
     iconBorder: {
       brand: PaintToken;
       danger: PaintToken;
@@ -313,11 +600,6 @@ export interface IconBorderColorTokenSchema {
       success: PaintToken;
       discovery: PaintToken;
     };
-  };
-}
-
-export interface TextColorTokenSchema {
-  color: {
     text: {
       selected: PaintToken;
       highEmphasis: PaintToken;
@@ -329,66 +611,27 @@ export interface TextColorTokenSchema {
         resting: PaintToken;
         pressed: PaintToken;
       };
-      brand: PaintToken;
-      warning: PaintToken;
-      danger: PaintToken;
-      success: PaintToken;
-      discovery: PaintToken;
-      disabled: PaintToken;
     };
-  };
-}
-
-export interface AccentColorTokenSchema {
-  color: {
-    accent: {
-      boldBlue: PaintToken;
-      boldGreen: PaintToken;
-      boldOrange: PaintToken;
-      boldPurple: PaintToken;
-      boldRed: PaintToken;
-      boldTeal: PaintToken;
-      subtleBlue: PaintToken;
-      subtleRed: PaintToken;
-      subtleGreen: PaintToken;
-      subtleOrange: PaintToken;
-      subtleTeal: PaintToken;
-      subtlePurple: PaintToken;
-      subtleMagenta: PaintToken;
-    };
-  };
-}
-
-export interface OverlayColorTokenSchema {
-  color: {
     overlay: {
       pressed: PaintToken;
       hover: PaintToken;
     };
   };
-}
-
-export interface ShadowTokenSchema {
   shadow: {
     card: ShadowToken;
     overlay: ShadowToken;
   };
 }
 
-export interface UtilTokenSchema {
-  UNSAFE_util: {
-    transparent: RawToken;
-    MISSING_TOKEN: RawToken;
-  };
-}
+export type ElevationTokenSchema = SurfaceTokenSchema & ShadowTokenSchema;
 
 export type ColorTokenSchema = BackgroundColorTokenSchema &
   BorderColorTokenSchema &
-  IconBorderColorTokenSchema &
+  IconColorTokenSchema &
   TextColorTokenSchema &
   AccentColorTokenSchema &
   UtilTokenSchema;
 
 export type TokenSchema = PaletteColorTokenSchema &
   ColorTokenSchema &
-  ShadowTokenSchema;
+  ElevationTokenSchema;

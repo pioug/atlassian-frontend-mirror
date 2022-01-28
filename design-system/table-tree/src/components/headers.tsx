@@ -8,7 +8,7 @@ import { token } from '@atlaskit/tokens';
 
 const containerStyles = css({
   display: 'flex',
-  borderBottom: `solid 2px ${token('color.border.neutral', '#dfe1e6')}`,
+  borderBottom: `solid 2px ${token('color.border', '#dfe1e6')}`,
 });
 
 export default class Headers extends Component<any> {

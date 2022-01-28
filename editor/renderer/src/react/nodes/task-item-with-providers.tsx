@@ -1,6 +1,6 @@
 import React from 'react';
 import { Component, ReactNode } from 'react';
-import { ContextIdentifierProvider } from '@atlaskit/editor-common';
+import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
 import {
   ContentRef,
   TaskDecisionProvider,

@@ -1,4 +1,4 @@
-import { ContextIdentifierProvider } from '@atlaskit/editor-common';
+import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
 import {
   UpdateExtension,
   ExtensionProvider,

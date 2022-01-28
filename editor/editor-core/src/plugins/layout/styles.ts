@@ -2,7 +2,7 @@ import { css } from 'styled-components';
 
 import { gridSize } from '@atlaskit/theme/constants';
 import { N40A, N50A } from '@atlaskit/theme/colors';
-import { columnLayoutSharedStyle } from '@atlaskit/editor-common';
+import { columnLayoutSharedStyle } from '@atlaskit/editor-common/styles';
 import {
   gridMediumMaxWidth,
   akEditorDeleteBackground,

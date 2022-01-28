@@ -2,6 +2,8 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
 
+import { token } from '@atlaskit/tokens';
+
 import DynamicTable from '../src';
 
 import { head, rows } from './content/sample-data';
@@ -22,7 +24,10 @@ const overflow = css({
     height: '100%',
     width: 8,
     content: "''",
-    background: `linear-gradient(to right, rgba(99, 114, 130, 0) 0px, rgba(9, 30, 66, 0.13) 100%)`,
+    background: `linear-gradient(to right, ${token(
+      'color.blanket',
+      'rgba(99, 114, 130, 0)',
+    )} 0px, ${token('color.blanket', 'rgba(9, 30, 66, 0.13)')} 100%)`,
   },
 });
 

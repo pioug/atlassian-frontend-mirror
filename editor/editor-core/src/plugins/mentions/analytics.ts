@@ -17,7 +17,7 @@ import {
 import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
 import { isTeamType } from './utils';
 import { TeamInfoAttrAnalytics } from './types';
-import { ContextIdentifierProvider } from '@atlaskit/editor-common';
+import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
 
 const componentName = 'mention';
 

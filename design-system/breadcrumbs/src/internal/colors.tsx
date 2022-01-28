@@ -9,12 +9,12 @@ export type BreadcrumbsContainerColors = {
 
 const colorMap = {
   light: {
-    textColor: token('color.text.lowEmphasis', N200),
-    separatorColor: token('color.text.lowEmphasis', N200),
+    textColor: token('color.text.subtlest', N200),
+    separatorColor: token('color.text.subtlest', N200),
   },
   dark: {
-    textColor: token('color.text.lowEmphasis', N300),
-    separatorColor: token('color.text.lowEmphasis', N300),
+    textColor: token('color.text.subtlest', N300),
+    separatorColor: token('color.text.subtlest', N300),
   },
 };
 

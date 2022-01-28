@@ -19,7 +19,7 @@ const rankingStyles = css({
 });
 
 const elevationStyle = token(
-  'shadow.overlay',
+  'elevation.shadow.overlay',
   `0 20px 32px -8px ${N50A}, 0 0 1px ${N60A}`,
 );
 
@@ -28,7 +28,7 @@ const elevationStyle = token(
  * Skipping it for now as it may impact migration as util-shared-styles does not support this feature
  */
 const rankingItemStyles = css({
-  backgroundColor: token('color.background.subtleNeutral.resting', N20),
+  backgroundColor: token('color.background.neutral', N20),
   boxShadow: elevationStyle,
   borderRadius: '2px',
 });
@@ -36,7 +36,7 @@ const rankingItemStyles = css({
 const draggableStyles = css({
   '&:focus': {
     outlineStyle: 'solid',
-    outlineColor: token('color.border.focus', B100),
+    outlineColor: token('color.border.focused', B100),
   },
   outlineWidth: '2px',
 });

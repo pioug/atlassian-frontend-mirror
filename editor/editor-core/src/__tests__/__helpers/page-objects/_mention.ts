@@ -1,4 +1,4 @@
-import { MentionSharedCssClassName } from '@atlaskit/editor-common';
+import { MentionSharedCssClassName } from '@atlaskit/editor-common/mention';
 import { selectors } from './_editor';
 
 export const MENTION_TRIGGER = '@';

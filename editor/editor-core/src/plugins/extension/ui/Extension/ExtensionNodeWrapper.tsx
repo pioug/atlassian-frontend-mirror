@@ -1,5 +1,5 @@
 import React from 'react';
-import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common';
+import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/utils';
 
 type Props = {
   children: React.ReactNode;

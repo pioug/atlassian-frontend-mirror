@@ -1,7 +1,7 @@
 import React from 'react';
 import { EditorView } from 'prosemirror-view';
 import { Node as PMNode } from 'prosemirror-model';
-import { Caption } from '@atlaskit/editor-common';
+import { Caption } from '@atlaskit/editor-common/ui';
 
 import {
   getPosHandler,

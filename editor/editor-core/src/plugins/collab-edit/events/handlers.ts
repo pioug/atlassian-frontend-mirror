@@ -1,6 +1,6 @@
 import { EditorView } from 'prosemirror-view';
-import {
-  ProviderFactory,
+
+import type {
   CollabEventInitData,
   CollabEventConnectionData,
   CollabEventPresenceData,
@@ -8,7 +8,9 @@ import {
   CollabEventRemoteData,
   CollabEventLocalStepData,
   CollabEditProvider,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-common/collab';
+
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 
 import {
   handleInit,

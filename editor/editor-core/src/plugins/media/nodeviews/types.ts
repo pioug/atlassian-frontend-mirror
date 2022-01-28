@@ -1,10 +1,10 @@
 import { Node as PMNode } from 'prosemirror-model';
 import { EditorView } from 'prosemirror-view';
-import {
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type {
   ContextIdentifierProvider,
-  ProviderFactory,
   MediaProvider,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-common/provider-factory';
 import { ProsemirrorGetPosHandler, ForwardRef } from '../../../nodeviews';
 import { EventDispatcher } from '../../../event-dispatcher';
 import { MediaOptions } from '../types';

@@ -8,7 +8,7 @@ import MediaSingle, {
 } from '../../../../react/nodes/mediaSingle';
 import Caption from '../../../../react/nodes/caption';
 import { MediaCardInternal } from '../../../../ui/MediaCard';
-import { UnsupportedBlock, WidthProvider } from '@atlaskit/editor-common';
+import { UnsupportedBlock, WidthProvider } from '@atlaskit/editor-common/ui';
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
 import { ReactWrapper } from 'enzyme';
 import { WrappedComponentProps } from 'react-intl-next';

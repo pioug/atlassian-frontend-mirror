@@ -3,15 +3,17 @@ import { Node, Schema } from 'prosemirror-model';
 import { EditorView } from 'prosemirror-view';
 import EditorActions from '../actions';
 
-import {
-  ContextIdentifierProvider,
-  ErrorReportingHandler,
+import type {
   ExtensionHandlers,
   ExtensionProvider,
+} from '@atlaskit/editor-common/extensions';
+import type {
+  ContextIdentifierProvider,
   SearchProvider,
   Providers,
-  Transformer,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-common/provider-factory';
+import { Transformer } from '@atlaskit/editor-common/types';
+import type { ErrorReportingHandler } from '@atlaskit/editor-common/utils';
 
 import { ActivityProvider } from '@atlaskit/activity-provider';
 import { MentionProvider } from '@atlaskit/mention/resource';
@@ -21,7 +23,7 @@ import { PluginConfig as TablesPluginConfig } from '../plugins/table/types';
 import { TextColorPluginConfig } from '../plugins/text-color/pm-plugins/main';
 import { MediaOptions, MediaState } from '../plugins/media/types';
 import { CollabEditOptions } from '../plugins/collab-edit/types';
-import { CardOptions } from '@atlaskit/editor-common';
+import { CardOptions } from '@atlaskit/editor-common/card';
 import { QuickInsertOptions } from '../plugins/quick-insert/types';
 import { AnnotationProviders } from '../plugins/annotation/types';
 import { TextFormattingOptions } from '../plugins/text-formatting/types';
@@ -390,10 +392,10 @@ export interface EditorProps {
   featureFlags?: { [featureFlag: string]: string | boolean };
 
   /**
-   * Enable experimental support for the "fragment" mark.
+   * Enable support for the "fragment" mark.
    * Refer to ADF Change proposal #60 for more details.
    */
-  UNSAFE_allowFragmentMark?: boolean;
+  allowFragmentMark?: boolean;
 
   /**
    * @deprecated Do not use outside of Editor team.

@@ -35,6 +35,7 @@ import {
   getEnableLightDarkTheming,
   getAllowCaptions,
   getMediaImageResize,
+  getAllowMediaInline,
 } from '../query-param-reader';
 import { useEditorLifecycle } from './hooks/use-editor-life-cycle';
 import { usePluginListeners } from './hooks/use-plugin-listeners';
@@ -126,7 +127,7 @@ export function MobileEditor(props: MobileEditorProps) {
     allowResizingInTables: getMediaImageResize(),
     featureFlags: {
       captions: getAllowCaptions(),
-      mediaInline: editorConfiguration.isAllowMediaInlineEnabled(),
+      mediaInline: getAllowMediaInline(),
     },
     alignLeftOnInsert: true,
   };

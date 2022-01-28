@@ -14,7 +14,7 @@ describe('createMediaShortcutPressedEvent', () => {
     isLoading: false,
     isAutoPlay: true,
     isFullScreenEnabled: false,
-    isLargePlayer: true,
+    playerSize: 'large',
     playbackSpeed: 1,
   };
 
@@ -42,7 +42,7 @@ describe('createMediaShortcutPressedEvent', () => {
           isMuted: false,
           isAutoPlay: true,
           isFullScreenEnabled: false,
-          isLargePlayer: true,
+          playerSize: 'large',
           playbackSpeed: 1,
         },
         fileAttributes: {

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card } from '@atlaskit/smart-card';
-import { EventHandlers, UnsupportedInline } from '@atlaskit/editor-common';
+import { UnsupportedInline } from '@atlaskit/editor-common/ui';
+import type { EventHandlers } from '@atlaskit/editor-common/ui';
 
 import { CardErrorBoundary } from './fallback';
 import {

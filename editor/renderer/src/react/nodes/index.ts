@@ -1,4 +1,5 @@
 import React from 'react';
+import Loadable from 'react-loadable';
 import { Fragment, Node, Mark } from 'prosemirror-model';
 
 import Blockquote from './blockquote';
@@ -6,7 +7,7 @@ import BodiedExtension, {
   Props as BodiedExtensionProps,
 } from './bodiedExtension';
 import BulletList from './bulletList';
-import DecisionList from './decisionList';
+
 import Doc, { DocWithSelectAllTrap } from './doc';
 import Extension, { Props as ExtensionProps } from './extension';
 import HardBreak from './hardBreak';
@@ -17,33 +18,36 @@ import InlineExtension, {
 import LayoutSection from './layoutSection';
 import LayoutColumn from './layoutColumn';
 import ListItem from './listItem';
-import MediaSingle from './mediaSingle';
 import Caption from './caption';
 import OrderedList from './orderedList';
-import Panel from './panel';
 import Paragraph from './paragraph';
 import Placeholder from './placeholder';
 import Rule from './rule';
-import TaskList from './taskList';
 import Table from './table';
 import { TableCell, TableHeader } from './tableCell';
 import TableRow from './tableRow';
 import UnknownBlock from './unknownBlock';
-import Loadable from 'react-loadable';
-import EmbedCard from './embedCard';
-import { UnsupportedBlock, UnsupportedInline } from '@atlaskit/editor-common';
+import {
+  UnsupportedBlock,
+  UnsupportedInline,
+} from '@atlaskit/editor-common/ui';
 
 import type CodeBlockComponent from './codeBlock';
+import type TaskListComponent from './taskList';
 import type TaskItemComponent from './taskItem';
+import type DecisionListComponent from './decisionList';
 import type DecisionItemComponent from './decisionItem';
 import type DateComponent from './date';
 import type StatusComponent from './status';
 import type EmojiComponent from './emoji';
+import type PanelComponent from './panel';
+import type EmbedCardComponent from './embedCard';
 import type InlineCardComponent from './inlineCard';
 import type BlockCardComponent from './blockCard';
 import type MediaComponent from './media';
 import type MediaGroupComponent from './mediaGroup';
 import type MediaInlineComponent from './mediaInline';
+import type MediaSingleComponent from './mediaSingle';
 import type MentionComponent from './mention';
 import type ExpandComponent from '../../ui/Expand';
 
@@ -56,12 +60,30 @@ const CodeBlock = Loadable({
   loading: () => null,
 });
 
+const TaskList = Loadable({
+  loader: () =>
+    import(
+      /* webpackChunkName: "@atlaskit-internal_renderer-node_TaskList" */
+      './taskList'
+    ).then((mod) => mod.default) as Promise<typeof TaskListComponent>,
+  loading: () => null,
+});
+
 const TaskItem = Loadable({
   loader: () =>
     import(
       /* webpackChunkName: "@atlaskit-internal_renderer-node_TaskItem" */
       './taskItem'
     ).then((mod) => mod.default) as Promise<typeof TaskItemComponent>,
+  loading: () => null,
+});
+
+const DecisionList = Loadable({
+  loader: () =>
+    import(
+      /* webpackChunkName: "@atlaskit-internal_renderer-node_DecisionList" */
+      './decisionList'
+    ).then((mod) => mod.default) as Promise<typeof DecisionListComponent>,
   loading: () => null,
 });
 
@@ -98,6 +120,24 @@ const Emoji = Loadable({
       /* webpackChunkName: "@atlaskit-internal_renderer-node_Emoji" */
       './emoji'
     ).then((mod) => mod.default) as Promise<typeof EmojiComponent>,
+  loading: () => null,
+});
+
+const Panel = Loadable({
+  loader: () =>
+    import(
+      /* webpackChunkName: "@atlaskit-internal_renderer-node_Panel" */
+      './panel'
+    ).then((mod) => mod.default) as Promise<typeof PanelComponent>,
+  loading: () => null,
+});
+
+const EmbedCard = Loadable({
+  loader: () =>
+    import(
+      /* webpackChunkName: "@atlaskit-internal_renderer-node_EmbedCard" */
+      './embedCard'
+    ).then((mod) => mod.default) as Promise<typeof EmbedCardComponent>,
   loading: () => null,
 });
 
@@ -143,6 +183,15 @@ const MediaInline = Loadable({
       /* webpackChunkName: "@atlaskit-internal_renderer-node_MediaInline" */
       './mediaInline'
     ).then((mod) => mod.default) as Promise<typeof MediaInlineComponent>,
+  loading: () => null,
+});
+
+const MediaSingle = Loadable({
+  loader: () =>
+    import(
+      /* webpackChunkName: "@atlaskit-internal_renderer-node_MediaSingle" */
+      './mediaSingle'
+    ).then((mod) => mod.default) as Promise<typeof MediaSingleComponent>,
   loading: () => null,
 });
 

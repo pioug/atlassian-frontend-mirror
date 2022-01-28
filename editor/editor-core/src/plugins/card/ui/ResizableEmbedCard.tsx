@@ -9,7 +9,7 @@ import {
   calcPctFromPx,
   calcPxFromColumns,
   wrappedLayouts,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-common/ui';
 import {
   akEditorMediaResizeHandlerPaddingWide,
   akEditorBreakoutPadding,

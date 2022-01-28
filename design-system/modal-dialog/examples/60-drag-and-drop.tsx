@@ -40,9 +40,9 @@ const baseCardStyles = css({
   padding: `${gridUnit * 2}px ${gridUnit}px`,
 
   position: 'relative',
-  background: token('color.background.subtleWarning.resting', Y75),
+  background: token('color.background.warning', Y75),
 
-  borderBottom: `1px solid ${token('color.iconBorder.danger', R200)}`,
+  borderBottom: `1px solid ${token('color.border.danger', R200)}`,
   borderRadius: '3px',
 
   cursor: 'pointer',
@@ -59,12 +59,12 @@ const draggingCardStyles = css({
 });
 
 const hoverCardStyles = css({
-  background: token('color.background.subtleDanger.hover', R75),
+  background: token('color.background.danger.hovered', R75),
   textDecoration: 'none',
 });
 
 const activeCardStyles = css({
-  background: token('color.background.subtleSuccess.pressed', G300),
+  background: token('color.background.success.pressed', G300),
 });
 
 const isMiddleClick = (event: React.MouseEvent) => event.button === 1;

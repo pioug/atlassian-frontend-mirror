@@ -34,7 +34,7 @@ export default () => {
     >
       <div
         style={{
-          border: `1px solid ${token('color.border.neutral', '#EFEFEF')}`,
+          border: `1px solid ${token('color.border', '#EFEFEF')}`,
           borderRadius: '4px',
         }}
       >
@@ -161,7 +161,7 @@ export default () => {
       </div>
       <div
         style={{
-          border: `1px solid ${token('color.border.neutral', '#efefef')}`,
+          border: `1px solid ${token('color.border', '#efefef')}`,
           height: 'max-content',
           borderRadius: '4px',
         }}
@@ -175,10 +175,7 @@ export default () => {
               iconAfter={
                 <StarFilledIcon
                   label=""
-                  primaryColor={token(
-                    'color.iconBorder.warning',
-                    'rgb(255, 171, 0)',
-                  )}
+                  primaryColor={token('color.icon.warning', 'rgb(255, 171, 0)')}
                 />
               }
             >
@@ -190,10 +187,7 @@ export default () => {
               iconAfter={
                 <StarFilledIcon
                   label=""
-                  primaryColor={token(
-                    'color.iconBorder.warning',
-                    'rgb(255, 171, 0)',
-                  )}
+                  primaryColor={token('color.icon.warning', 'rgb(255, 171, 0)')}
                 />
               }
             >

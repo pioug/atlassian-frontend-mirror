@@ -20,8 +20,8 @@ export default evaluateInner`
   }
 
   body {
-    background-color: ${token('color.background.default', '#fff')};
-    color: ${token('color.text.highEmphasis', colors.N800)};
+    background-color: ${token('elevation.surface', '#fff')};
+    color: ${token('color.text', colors.N800)};
     font-family: ${fontFamily};
     font-size: ${fontSize()}px;
     font-style: normal;
@@ -51,23 +51,23 @@ export default evaluateInner`
 
   /* Links */
   a {
-    color: ${token('color.text.link.resting', colors.B400)};
+    color: ${token('color.link', colors.B400)};
     text-decoration: none;
   }
   a:hover {
-    color: ${token('color.text.link.resting', colors.B300)};
+    color: ${token('color.link', colors.B300)};
     text-decoration: underline;
   }
   a:active {
-    color: ${token('color.text.link.pressed', colors.B500)};
+    color: ${token('color.link.pressed', colors.B500)};
   }
   a:focus-visible {
-    outline: 2px solid ${token('color.border.focus', colors.B100)};
+    outline: 2px solid ${token('color.border.focused', colors.B100)};
     outline-offset: 2px;
   }
   @supports not selector(*:focus-visible) {
     a:focus {
-      outline: 2px solid ${token('color.border.focus', colors.B100)};
+      outline: 2px solid ${token('color.border.focused', colors.B100)};
       outline-offset: 2px;
     }
   }
@@ -194,7 +194,7 @@ export default evaluateInner`
   }
 
   abbr {
-    border-bottom: 1px ${token('color.border.neutral', '#ccc')} dotted;
+    border-bottom: 1px ${token('color.border', '#ccc')} dotted;
     cursor: help;
   }
 

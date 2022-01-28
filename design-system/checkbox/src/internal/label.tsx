@@ -14,7 +14,7 @@ export const labelCSS = (): CSSObject => ({
   fontFamily: fontFamily,
   alignItems: 'center',
   display: 'flex',
-  color: token('color.text.highEmphasis', N900),
+  color: token('color.text', N900),
   cursor: 'default',
   '&[data-disabled]': {
     color: token('color.text.disabled', N80),

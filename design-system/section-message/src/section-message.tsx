@@ -21,8 +21,8 @@ const actionMarginTop = spacing;
 const iconWrapperWidth = spacing * 5;
 
 const titleColor = {
-  light: token('color.text.highEmphasis', N800),
-  dark: token('color.text.highEmphasis', DN600),
+  light: token('color.text', N800),
+  dark: token('color.text', DN600),
 };
 
 const containerStyles = css({

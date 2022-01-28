@@ -1,6 +1,6 @@
 import { EditorView } from 'prosemirror-view';
 import { NodeType } from 'prosemirror-model';
-import { ProviderFactory } from '@atlaskit/editor-common';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { Providers } from '@atlaskit/editor-common/provider-factory';
 import { FileIdentifier } from '@atlaskit/media-client';
 import { MediaClientConfig } from '@atlaskit/media-core';

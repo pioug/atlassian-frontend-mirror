@@ -1,12 +1,12 @@
 import {
   startMeasure as startMeasureWithMark,
   stopMeasure as stopMeasureWithMark,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-common/utils';
 import { TransactionTracker } from '../../track-transactions';
 import * as timingUtils from '../../get-performance-timing';
 
-jest.mock('@atlaskit/editor-common', () => ({
-  ...jest.requireActual<Object>('@atlaskit/editor-common'),
+jest.mock('@atlaskit/editor-common/utils', () => ({
+  ...jest.requireActual<Object>('@atlaskit/editor-common/utils'),
   isPerformanceAPIAvailable: () => true,
 }));
 

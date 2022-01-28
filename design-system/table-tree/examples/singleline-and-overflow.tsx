@@ -23,9 +23,9 @@ const overflowingBoxStyles = css({
   position: 'absolute',
   right: 0,
   bottom: '100%',
-  background: token('color.background.boldDanger.resting', 'red'),
-  border: `5px solid ${token('color.border.neutral', '#800')}`,
-  color: token('color.text.onBold', '#000'),
+  background: token('color.background.danger.bold', 'red'),
+  border: `5px solid ${token('color.border', '#800')}`,
+  color: token('color.text.inverse', '#000'),
 });
 
 export default () => (

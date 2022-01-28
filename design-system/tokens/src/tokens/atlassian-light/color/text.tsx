@@ -3,49 +3,52 @@ import type { TextColorTokenSchema, ValueSchema } from '../../../types';
 const color: ValueSchema<TextColorTokenSchema> = {
   color: {
     text: {
-      selected: {
-        value: 'B700',
-      },
-      highEmphasis: {
+      '[default]': {
         value: 'N1000',
       },
-      mediumEmphasis: {
+      subtle: {
         value: 'N800',
       },
-      lowEmphasis: {
+      subtlest: {
         value: 'N700',
       },
-      onBold: {
+      inverse: {
         value: 'N0',
       },
-      onBoldWarning: {
-        value: 'N1000',
+      disabled: {
+        value: 'N500',
       },
-      link: {
-        resting: {
-          value: 'B700',
-        },
-        pressed: {
-          value: 'B800',
-        },
-      },
+
       brand: {
-        value: 'B800',
-      },
-      warning: {
-        value: 'O800',
+        value: 'B700',
       },
       danger: {
         value: 'R800',
       },
+      warning: {
+        '[default]': {
+          value: 'O800',
+        },
+        inverse: {
+          value: 'N1000',
+        },
+      },
       success: {
         value: 'G800',
+      },
+      information: {
+        value: 'B800',
       },
       discovery: {
         value: 'P800',
       },
-      disabled: {
-        value: 'N500',
+    },
+    link: {
+      '[default]': {
+        value: 'B700',
+      },
+      pressed: {
+        value: 'B800',
       },
     },
   },

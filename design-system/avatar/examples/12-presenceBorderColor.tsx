@@ -39,14 +39,14 @@ export default () => (
       <PresenceWrapper>
         <Presence
           presence="busy"
-          borderColor={token('color.iconBorder.discovery', 'rebeccapurple')}
+          borderColor={token('color.border.discovery', 'rebeccapurple')}
         />
       </PresenceWrapper>
 
       <PresenceWrapper>
         <Presence
           presence="offline"
-          borderColor={token('color.iconBorder.brand', 'rgba(0, 0, 255, 0.2)')}
+          borderColor={token('color.border.brand', 'rgba(0, 0, 255, 0.2)')}
         />
       </PresenceWrapper>
 

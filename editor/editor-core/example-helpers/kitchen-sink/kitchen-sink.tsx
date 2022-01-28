@@ -3,7 +3,7 @@ import React from 'react';
 import { ThemeProvider } from 'styled-components';
 import { ADFEntity, scrubAdf } from '@atlaskit/adf-utils';
 import { Checkbox } from '@atlaskit/checkbox';
-import { ProviderFactory } from '@atlaskit/editor-common';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import Flag from '@atlaskit/flag';
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import DeprecatedThemeProvider from '@atlaskit/theme/deprecated-provider-please-do-not-use';

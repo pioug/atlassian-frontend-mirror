@@ -1,7 +1,7 @@
 import { EditorProps } from '../../types';
 import { normalizeFeatureFlags } from '@atlaskit/editor-common/normalize-feature-flags';
 import type { FeatureFlags } from '../../types/feature-flags';
-import { browser } from '@atlaskit/editor-common';
+import { browser } from '@atlaskit/editor-common/utils';
 
 const safeNumberFeatureFlag = (value: unknown): number | undefined => {
   const parsedValue = parseInt(value as any, 10);

@@ -25,7 +25,8 @@ import {
   temporaryMediaWithDimensions,
   temporaryMedia,
 } from './_utils';
-import { ProviderFactory, richMediaClassName } from '@atlaskit/editor-common';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import { richMediaClassName } from '@atlaskit/editor-common/styles';
 import { INPUT_METHOD } from '../../../../plugins/analytics';
 import { processRawValue } from '../../../../utils/document';
 import {

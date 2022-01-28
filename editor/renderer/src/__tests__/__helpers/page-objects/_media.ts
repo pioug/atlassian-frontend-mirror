@@ -27,10 +27,18 @@ export const waitForAllMedia = async (
 
 export const waitForLoadedMediaInlineCard = async (
   page: PuppeteerPage,
-  status?: 'loading' | 'loaded' | 'errored',
+  status: 'loading' | 'loaded' | 'errored' = 'loaded',
 ) => {
-  await page.waitForSelector(selectors.mediaInlineCardSelector(status));
+  await page.waitForSelector(selectors.mediaInlineCardSelector(status), {
+    visible: true,
+    timeout: 10000,
+  });
   if (status === 'loading') {
     await page.waitForSelector('.inline-loading-spinner');
+  } else if (status === 'loaded') {
+    await page.waitForSelector(
+      '[data-testid="media-inline-card-file-type-icon"]',
+      { timeout: 10000 },
+    );
   }
 };

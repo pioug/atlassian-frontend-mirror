@@ -67,7 +67,7 @@ const Header = forwardRef<HTMLElement, HeaderProps>(
           fontSize: headingSizes.h400.size,
           letterSpacing: '-0.003em',
           fontWeight: 600,
-          color: token('color.text.highEmphasis', N500),
+          color: token('color.text', N500),
         },
         // Will look interactive if the `component` is anything other than a div.
         'div&:hover': {
@@ -76,7 +76,7 @@ const Header = forwardRef<HTMLElement, HeaderProps>(
         },
         'div&:active': {
           backgroundColor: 'transparent',
-          color: token('color.text.highEmphasis', N500),
+          color: token('color.text', N500),
         },
       }),
       props.cssFn,

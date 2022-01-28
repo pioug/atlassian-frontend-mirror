@@ -157,7 +157,7 @@ describe('<UploadingEmojiPicker />', () => {
       const component = await helper.setupPicker({ emojiProvider });
 
       await waitUntil(() =>
-        commonHelper.findEmojiPreviewSection(component).exists(),
+        commonHelper.findEmojiActionsSection(component).exists(),
       );
 
       const addEmoji = commonHelper.findCustomEmojiButton(component);
@@ -167,7 +167,7 @@ describe('<UploadingEmojiPicker />', () => {
     it('UploadingEmojiResource - "without media token" - no upload UI', async () => {
       const component = await helper.setupPicker();
       await waitUntil(() =>
-        commonHelper.findEmojiPreviewSection(component).exists(),
+        commonHelper.findEmojiActionsSection(component).exists(),
       );
       const addEmoji = commonHelper.findCustomEmojiButton(component);
       expect(addEmoji).toHaveLength(0);
@@ -177,7 +177,7 @@ describe('<UploadingEmojiPicker />', () => {
       const component = await helper.setupPicker({ emojiProvider });
       await helper.showCategory(customCategory, component, customTitle);
       await waitUntil(() =>
-        commonHelper.findEmojiPreviewSection(component).exists(),
+        commonHelper.findEmojiActionsSection(component).exists(),
       );
 
       const addEmoji = await safeFindCustomEmojiButton(component);
@@ -199,7 +199,7 @@ describe('<UploadingEmojiPicker />', () => {
 
       // click add
       await waitUntil(() =>
-        commonHelper.findEmojiPreviewSection(component).exists(),
+        commonHelper.findEmojiActionsSection(component).exists(),
       );
       const addEmoji = await safeFindCustomEmojiButton(component);
       addEmoji.simulate('click');
@@ -374,7 +374,7 @@ describe('<UploadingEmojiPicker />', () => {
       );
 
       await waitUntil(() =>
-        commonHelper.findEmojiPreviewSection(component).exists(),
+        commonHelper.findEmojiActionsSection(component).exists(),
       );
       const addEmoji = await safeFindCustomEmojiButton(component);
 

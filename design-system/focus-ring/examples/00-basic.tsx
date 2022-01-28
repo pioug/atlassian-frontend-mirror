@@ -1,7 +1,11 @@
 /** @jsx jsx */
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { css, jsx } from '@emotion/core';
+
+import Button from '@atlaskit/button';
+import { ProgressIndicator } from '@atlaskit/progress-indicator';
+import Textfield from '@atlaskit/textfield';
 
 import FocusRing from '../src';
 
@@ -13,6 +17,14 @@ const stylesStyles = css({
   borderRadius: '3px',
 });
 
+const stackStyles = css({
+  display: 'flex',
+  maxWidth: 200,
+  padding: 8,
+  gap: 8,
+  flexDirection: 'column',
+});
+
 export default () => {
   const buttonRef = useRef<HTMLButtonElement | null>(null);
   useEffect(() => {
@@ -20,17 +32,30 @@ export default () => {
       buttonRef.current.focus();
     }
   }, []);
+
+  const [index, setSelectedIndex] = useState(0);
   return (
-    <div data-testid="outerDiv" style={{ padding: 8 }}>
+    <div data-testid="outerDiv" css={stackStyles}>
+      <Button>AK Button</Button>
       <FocusRing>
         <button type="button" ref={buttonRef} css={stylesStyles}>
-          hello
+          Native Button
         </button>
       </FocusRing>
+      <Textfield placeholder="AK Textfield" />
       <FocusRing isInset>
-        <input data-testid="input" css={stylesStyles} placeholder="hello" />
+        <input
+          data-testid="input"
+          css={stylesStyles}
+          placeholder="Native Textfield"
+        />
       </FocusRing>
-      <input css={stylesStyles} placeholder="standard input" />
+      <ProgressIndicator
+        values={[1, 2, 3, 4]}
+        onSelect={({ index: selected }) => setSelectedIndex(selected)}
+        selectedIndex={index}
+        testId="focus-test"
+      />
     </div>
   );
 };

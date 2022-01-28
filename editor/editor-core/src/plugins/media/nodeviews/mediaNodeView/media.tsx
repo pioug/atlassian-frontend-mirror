@@ -1,9 +1,9 @@
-import {
+import type {
   ContextIdentifierProvider,
-  ImageLoaderProps,
   MediaProvider,
-  withImageLoader,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-common/provider-factory';
+import { withImageLoader } from '@atlaskit/editor-common/utils';
+import type { ImageLoaderProps } from '@atlaskit/editor-common/utils';
 import {
   Card,
   CardDimensions,

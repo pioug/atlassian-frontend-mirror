@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { EditorState } from 'prosemirror-state';
 
 import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles';
-import { Popup } from '@atlaskit/editor-common';
+import { Popup } from '@atlaskit/editor-common/ui';
 import type { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
 import { borderRadius, gridSize } from '@atlaskit/theme/constants';
 import { N0, N60A, N50A } from '@atlaskit/theme/colors';

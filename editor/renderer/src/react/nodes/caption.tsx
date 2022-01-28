@@ -1,5 +1,5 @@
 import React from 'react';
-import { Caption } from '@atlaskit/editor-common';
+import { Caption } from '@atlaskit/editor-common/ui';
 import { NodeProps } from '../types';
 
 const RenderCaption = ({ children, dataAttributes }: NodeProps) => {

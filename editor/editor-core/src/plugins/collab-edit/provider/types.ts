@@ -1,15 +1,15 @@
 import { ServiceConfig } from '@atlaskit/util-service-support';
 
-import {
+import type {
   CollabEventTelepointerData as TelepointerData,
   CollabParticipant as Participant,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-common/collab';
 
 export type {
   CollabEvent,
   CollabEventData,
   CollabEditProvider,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-common/collab';
 
 export type { TelepointerData, Participant };
 

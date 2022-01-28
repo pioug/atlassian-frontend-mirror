@@ -9,7 +9,10 @@ import {
   unsupportedNodeAttribute,
 } from '@atlaskit/adf-schema';
 
-import { UnsupportedBlock, UnsupportedInline } from '@atlaskit/editor-common';
+import {
+  UnsupportedBlock,
+  UnsupportedInline,
+} from '@atlaskit/editor-common/ui';
 
 import { ReactNodeView } from '../../nodeviews';
 import { EditorPlugin, PMPluginFactory } from '../../types';

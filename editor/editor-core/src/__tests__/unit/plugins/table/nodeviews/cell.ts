@@ -29,8 +29,8 @@ import TableCellViews from '../../../../../plugins/table/nodeviews/tableCell';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import * as domHelpers from '../../../../../plugins/table/pm-plugins/sticky-headers/nodeviews/dom';
 
-jest.mock('@atlaskit/editor-common', () => ({
-  ...jest.requireActual<Object>('@atlaskit/editor-common'),
+jest.mock('@atlaskit/editor-common/utils', () => ({
+  ...jest.requireActual<Object>('@atlaskit/editor-common/utils'),
   browser: {
     chrome: false,
   },

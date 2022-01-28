@@ -1,5 +1,23 @@
 # @atlaskit/media-card
 
+## 73.1.0
+
+### Minor Changes
+
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - [ux] Displaying the control bar including the timestamp by default for videos that have been processed.
+
+### Patch Changes
+
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - fix percent width on media-card
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - Refactor solution for fixing media card images overlaps with creating preview message
+- [`e221ee215e7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e221ee215e7) - fix vertical scroll for firefox when media link is wrapped
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - Improved card lazy offset
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - Add media node updater to media inline node
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - show progress bar for inline player when videos is uploading
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - Adding a feature flag for TimestampOnVideo
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - Fix cardview issue with creating preview text overlaps with image in safari"
+- Updated dependencies
+
 ## 73.0.0
 
 ### Major Changes

@@ -2,7 +2,8 @@ import React from 'react';
 import { RendererContext } from '../types';
 import ExtensionRenderer from '../../ui/ExtensionRenderer';
 
-import { ExtensionHandlers, ProviderFactory } from '@atlaskit/editor-common';
+import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 
 export interface Props {
   extensionHandlers?: ExtensionHandlers;

@@ -175,7 +175,7 @@ export default class Popup extends React.Component<Props, State> {
      * So, calling scheduledUpdatePosition to position popup on next request animation frame,
      * which is currently working for most of the floating toolbar and other popups.
      */
-    this.scheduledUpdatePosition();
+    this.scheduledUpdatePosition(this.props);
   }
 
   private handleRef = (popup: HTMLDivElement) => {
@@ -190,7 +190,7 @@ export default class Popup extends React.Component<Props, State> {
     this.updatePosition(props),
   );
 
-  onResize = () => this.scheduledUpdatePosition();
+  onResize = () => this.scheduledUpdatePosition(this.props);
 
   UNSAFE_componentWillReceiveProps(newProps: Props) {
     // We are delaying `updatePosition` otherwise it happens before the children

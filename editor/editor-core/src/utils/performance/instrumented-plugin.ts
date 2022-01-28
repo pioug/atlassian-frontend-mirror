@@ -5,7 +5,7 @@ import {
   PluginSpec,
 } from 'prosemirror-state';
 import { Schema } from 'prosemirror-model';
-import { startMeasure, stopMeasure } from '@atlaskit/editor-common';
+import { startMeasure, stopMeasure } from '@atlaskit/editor-common/utils';
 import { EditorView } from 'prosemirror-view';
 import { EditorProps } from '../../types/editor-props';
 import { TransactionTracker } from './track-transactions';

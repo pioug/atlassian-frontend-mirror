@@ -14,7 +14,7 @@ const DeleteButton: FC<CustomThemeButtonProps> = (props) => (
       iconBefore={
         <CrossCircleIcon
           label={deleteEmojiLabel}
-          primaryColor={token('color.text.mediumEmphasis', N500)}
+          primaryColor={token('color.text.subtle', N500)}
           size="small"
         />
       }

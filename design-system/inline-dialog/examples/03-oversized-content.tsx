@@ -12,7 +12,7 @@ const centeredContainerStyles = {
 };
 
 const targetStyles = {
-  background: token('color.background.boldSuccess.resting', G300),
+  background: token('color.background.success.bold', G300),
   padding: '10px',
 };
 
@@ -25,7 +25,7 @@ const scrollContainerStyles = {
 const oversizedStyles = {
   height: '2000px',
   width: '2000px',
-  background: token('color.background.boldWarning.resting', Y300),
+  background: token('color.background.warning.bold', Y300),
 };
 
 const dialogContentStyles = (

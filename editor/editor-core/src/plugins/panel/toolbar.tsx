@@ -5,7 +5,7 @@ import {
   FloatingToolbarItem,
   FloatingToolbarButton,
 } from './../floating-toolbar/types';
-import { PanelPluginOptions } from './types';
+import { EmojiInfo, PanelPluginOptions } from './types';
 import { IntlShape } from 'react-intl-next';
 import SuccessIcon from '@atlaskit/icon/glyph/editor/success';
 import InfoIcon from '@atlaskit/icon/glyph/editor/info';
@@ -23,10 +23,8 @@ import { NodeType } from 'prosemirror-model';
 
 import { Command } from '../../types';
 import { panelBackgroundPalette } from '../../ui/ColorPalette/Palettes/panelBackgroundPalette';
-import {
-  ProviderFactory,
-  getPanelTypeBackground,
-} from '@atlaskit/editor-common';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import { getPanelTypeBackground } from '@atlaskit/editor-common/styles';
 import { findPanel } from './utils';
 import { EditorView } from 'prosemirror-view';
 import { findDomRefAtPos } from 'prosemirror-utils';
@@ -44,16 +42,20 @@ import {
   withAnalytics,
 } from '../analytics';
 import { messages } from './message';
+import { EmojiId } from '@atlaskit/emoji/types';
 
 export const panelIconMap: {
-  [key in Exclude<PanelType, PanelType.CUSTOM>]: string;
+  [key in Exclude<PanelType, PanelType.CUSTOM>]: EmojiInfo;
 } = {
-  [PanelType.INFO]: ':info:',
-  [PanelType.NOTE]: ':note:',
-  [PanelType.WARNING]: ':warning:',
-  [PanelType.ERROR]: ':cross_mark:',
-  [PanelType.SUCCESS]: ':check_mark:',
-  [PanelType.TIP]: ':tip:',
+  [PanelType.INFO]: { shortName: ':info:', id: 'atlassian-info' },
+  [PanelType.NOTE]: { shortName: ':note:', id: 'atlassian-note' },
+  [PanelType.WARNING]: { shortName: ':warning:', id: 'atlassian-warning' },
+  [PanelType.ERROR]: { shortName: ':cross_mark:', id: 'atlassian-cross_mark' },
+  [PanelType.SUCCESS]: {
+    shortName: ':check_mark:',
+    id: 'atlassian-check_mark',
+  },
+  [PanelType.TIP]: { shortName: ':tip:', id: 'atlassian-tip' },
 };
 
 export const getToolbarItems = (
@@ -123,9 +125,10 @@ export const getToolbarItems = (
         PanelType,
         PanelType.CUSTOM
       >;
-      const panelInfo = panelIconMap[emojiInfo];
-      const previousEmoji = panelInfo ? { emoji: panelInfo } : {};
-
+      const panelEmoji = panelIconMap[emojiInfo];
+      const previousEmoji = panelEmoji
+        ? { emoji: panelEmoji.shortName, emojiId: panelEmoji.id }
+        : {};
       if (previousColor === color) {
         changePanelType(
           PanelType.CUSTOM,
@@ -152,25 +155,41 @@ export const getToolbarItems = (
       return false;
     };
 
-    const changeEmoji = (emoji: string): Command => (state, dispatch) => {
+    const changeEmoji = (emoji: EmojiId): Command => (state, dispatch) => {
       const panelNode = findPanel(state);
       if (panelNode === undefined) {
         return false;
       }
       let previousIcon = panelNode.node.attrs.panelIcon || '';
-      if (previousIcon === emoji) {
-        changePanelType(PanelType.CUSTOM, { emoji }, true)(state, dispatch);
+      if (previousIcon === emoji.shortName) {
+        changePanelType(
+          PanelType.CUSTOM,
+          {
+            emoji: emoji.shortName,
+            emojiId: emoji.id,
+            emojiText: emoji.fallback,
+          },
+          true,
+        )(state, dispatch);
         return false;
       }
       const payload: AnalyticsEventPayload = {
         action: ACTION.CHANGED_ICON,
         actionSubject: ACTION_SUBJECT.PANEL,
         actionSubjectId: ACTION_SUBJECT_ID.PANEL,
-        attributes: { newIcon: emoji, previousIcon: previousIcon },
+        attributes: { newIcon: emoji.shortName, previousIcon: previousIcon },
         eventType: EVENT_TYPE.TRACK,
       };
       withAnalytics(payload)(
-        changePanelType(PanelType.CUSTOM, { emoji }, true),
+        changePanelType(
+          PanelType.CUSTOM,
+          {
+            emoji: emoji.shortName,
+            emojiId: emoji.id,
+            emojiText: emoji.fallback,
+          },
+          true,
+        ),
       )(state, dispatch);
       return false;
     };
@@ -193,7 +212,7 @@ export const getToolbarItems = (
       withAnalytics(payload)(
         changePanelType(
           PanelType.CUSTOM,
-          { emoji: undefined },
+          { emoji: undefined, emojiId: undefined, emojiText: undefined },
           isCustomPanelEnabled,
         ),
       )(state, dispatch);
@@ -233,7 +252,7 @@ export const getToolbarItems = (
         selectType: 'emoji',
         options: [],
         selected: activePanelType === PanelType.CUSTOM && !!activePanelIcon,
-        onChange: (emojiShortName) => changeEmoji(emojiShortName),
+        onChange: (emoji) => changeEmoji(emoji),
       };
 
       const removeEmojiButton: FloatingToolbarButton<Command> = {

@@ -149,7 +149,6 @@ const InlineDialog: FC<InlineDialogProps> = memo<InlineDialogProps>(
   },
 );
 
-// enzyme relies on components having a display name
 InlineDialog.displayName = 'InlineDialog';
 
 export { InlineDialog as InlineDialogWithoutAnalytics };

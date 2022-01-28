@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { MediaSingle as UIMediaSingle } from '@atlaskit/editor-common';
+import { MediaSingle as UIMediaSingle } from '@atlaskit/editor-common/ui';
 
 export const ExtendedUIMediaSingle = styled(UIMediaSingle)`
   ${({ layout }) =>

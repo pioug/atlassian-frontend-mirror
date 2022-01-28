@@ -22,7 +22,7 @@ export const codeFontFamily = () =>
   `'SFMono-Medium', 'SF Mono', 'Segoe UI Mono', 'Roboto Mono', 'Ubuntu Mono', Menlo, Consolas, Courier, monospace`;
 
 export const focusRing = (
-  color: string = token('color.border.focus', B100),
+  color: string = token('color.border.focused', B100),
   outlineWidth: number = gridSize() / 4,
 ) => `
   &:focus {
@@ -68,10 +68,7 @@ export const assistive = visuallyHidden;
 export const skeletonShimmer = () =>
   ({
     css: {
-      backgroundColor: token(
-        'color.background.subtleNeutral.resting',
-        skeletonColor(),
-      ),
+      backgroundColor: token('color.background.neutral', skeletonColor()),
       animationDuration: '1.5s',
       animationIterationCount: 'infinite',
       animationTimingFunction: 'linear',
@@ -79,13 +76,10 @@ export const skeletonShimmer = () =>
     },
     keyframes: {
       from: {
-        backgroundColor: token(
-          'color.background.subtleNeutral.resting',
-          skeletonColor(),
-        ),
+        backgroundColor: token('color.background.neutral', skeletonColor()),
       },
       to: {
-        backgroundColor: token('color.background.subtleNeutral.hover', N30A),
+        backgroundColor: token('color.background.neutral.hovered', N30A),
       },
     },
   } as const);

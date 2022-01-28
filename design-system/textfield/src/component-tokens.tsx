@@ -22,40 +22,40 @@ export const disabledBackgroundColor = {
 };
 
 export const defaultBackgroundColor = {
-  light: token('color.background.subtleBorderedNeutral.resting', N10),
-  dark: token('color.background.subtleBorderedNeutral.resting', DN10),
+  light: token('color.background.input', N10),
+  dark: token('color.background.input', DN10),
 };
 
 export const defaultBackgroundColorFocus = {
-  light: token('color.background.default', N0),
-  dark: token('color.background.default', DN10),
+  light: token('elevation.surface', N0),
+  dark: token('elevation.surface', DN10),
 };
 
 export const defaultBackgroundColorHover = {
-  light: token('color.background.default', N30),
-  dark: token('color.background.default', DN30),
+  light: token('elevation.surface', N30),
+  dark: token('elevation.surface', DN30),
 };
 
 export const subtleBackgroundColorHover = {
-  light: token('color.background.transparentNeutral.hover', N30),
-  dark: token('color.background.transparentNeutral.hover', DN30),
+  light: token('color.background.neutral.subtle.hovered', N30),
+  dark: token('color.background.neutral.subtle.hovered', DN30),
 };
 
 export const defaultBorderColor = {
-  light: token('color.border.neutral', N40),
-  dark: token('color.border.neutral', DN40),
+  light: token('color.border', N40),
+  dark: token('color.border', DN40),
 };
 
 export const defaultBorderColorFocus = {
-  light: token('color.border.focus', B100),
-  dark: token('color.border.focus', B75),
+  light: token('color.border.focused', B100),
+  dark: token('color.border.focused', B75),
 };
 
 export const transparent = { light: 'transparent', dark: 'transparent' };
 
 export const textColor = {
-  light: token('color.text.highEmphasis', N900),
-  dark: token('color.text.highEmphasis', DN600),
+  light: token('color.text', N900),
+  dark: token('color.text', DN600),
 };
 
 export const disabledTextColor = {
@@ -64,6 +64,6 @@ export const disabledTextColor = {
 };
 
 export const placeholderTextColor = {
-  light: token('color.text.lowEmphasis', N100),
-  dark: token('color.text.lowEmphasis', DN90),
+  light: token('color.text.subtlest', N100),
+  dark: token('color.text.subtlest', DN90),
 };

@@ -11,6 +11,7 @@ import formatterRaw from './formatters/format-raw';
 import formatterRenameMapper from './formatters/format-rename-mapper';
 import formatterTSTokenDefaults from './formatters/format-typescript-token-defaults';
 import formatterTSGeneratedTypes from './formatters/format-typescript-token-generated-types';
+import formatterTSGeneratedTypesInternal from './formatters/format-typescript-token-generated-types-internal';
 import formatterTSTokenNames from './formatters/format-typescript-token-names';
 import boxShadowTransform from './transforms/box-shadow';
 import paletteTransform from './transforms/palette';
@@ -25,6 +26,10 @@ const createConfig = (themeName: string): Config => {
     {
       format: 'typescript/custom-token-names',
       destination: 'token-names.tsx',
+    },
+    {
+      format: 'typescript/custom-token-types-internal',
+      destination: 'types-internal.tsx',
     },
     {
       format: 'typescript/custom-token-types',
@@ -53,6 +58,7 @@ const createConfig = (themeName: string): Config => {
       'typescript/custom-token-names': formatterTSTokenNames as any,
       'typescript/custom-token-default-values': formatterTSTokenDefaults as any,
       'typescript/custom-token-types': formatterTSGeneratedTypes as any,
+      'typescript/custom-token-types-internal': formatterTSGeneratedTypesInternal as any,
       'figma/custom-figma': formatterFigma as any,
       'rename-mapper': formatterRenameMapper as any,
       raw: formatterRaw as any,

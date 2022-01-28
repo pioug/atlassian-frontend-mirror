@@ -5,7 +5,8 @@ import { EditorView } from 'prosemirror-view';
 import { WrappedComponentProps, injectIntl } from 'react-intl-next';
 
 import { TableLayout } from '@atlaskit/adf-schema';
-import { Popup, PopupPosition } from '@atlaskit/editor-common';
+import { Popup } from '@atlaskit/editor-common/ui';
+import type { PopupPosition } from '@atlaskit/editor-common/ui';
 import CollapseIcon from '@atlaskit/icon/glyph/editor/collapse';
 import ExpandIcon from '@atlaskit/icon/glyph/editor/expand';
 

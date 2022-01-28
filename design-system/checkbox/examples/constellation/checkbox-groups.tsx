@@ -40,7 +40,7 @@ const CheckboxGroupsExample = () => {
           // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
           borderColor: '#ccc',
           padding: '0.5em',
-          color: token('color.text.highEmphasis', N500),
+          color: token('color.text', N500),
           margin: '0.5em',
         }}
       >

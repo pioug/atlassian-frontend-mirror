@@ -13,7 +13,7 @@ const commonStyles = css({
   padding: '10px 25px 10px var(--indent, 25px)',
   position: 'relative',
   alignItems: 'flex-start',
-  color: token('color.text.highEmphasis', N800),
+  color: token('color.text', N800),
   lineHeight: '20px',
 });
 

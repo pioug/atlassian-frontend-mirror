@@ -1,5 +1,12 @@
 # @atlaskit/conversation
 
+## 16.0.40
+
+### Patch Changes
+
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - ED-13753 Updated editor-common import entries.
+- Updated dependencies
+
 ## 16.0.39
 
 ### Patch Changes

@@ -1,5 +1,15 @@
 # @atlaskit/media-filmstrip
 
+## 42.2.0
+
+### Minor Changes
+
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - [ux] Add touch events to support swipe gestures on film stip for mobile users
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 42.1.3
 
 ### Patch Changes

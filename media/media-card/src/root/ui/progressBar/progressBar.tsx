@@ -6,12 +6,14 @@ export type ProgressBarProps = {
   progress?: number;
   breakpoint?: Breakpoint;
   positionBottom?: boolean;
+  showOnTop?: boolean;
 };
 
 export const ProgressBar = ({
   progress,
   breakpoint = Breakpoint.SMALL,
   positionBottom = false,
+  showOnTop = false,
 }: ProgressBarProps) => {
   const normalizedProgress = Math.min(1, Math.max(0, progress || 0)) * 100;
   return (
@@ -19,6 +21,7 @@ export const ProgressBar = ({
       progress={normalizedProgress}
       breakpoint={breakpoint}
       positionBottom={positionBottom}
+      showOnTop={showOnTop}
     />
   );
 };

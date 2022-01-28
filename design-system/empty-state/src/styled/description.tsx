@@ -10,7 +10,7 @@ import { token } from '@atlaskit/tokens';
 const descriptionStyles = css({
   marginTop: 0,
   marginBottom: `${getGridSize() * 3}px`,
-  color: token('color.text.highEmphasis', N800),
+  color: token('color.text', N800),
 });
 
 /**

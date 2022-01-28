@@ -12,10 +12,10 @@ import Avatar from '../src';
 const DivPresence = styled.div`
   align-items: center;
   background-color: ${token(
-    'color.background.boldDiscovery.resting',
+    'color.background.discovery.bold',
     'rebeccapurple',
   )};
-  color: ${token('color.background.default', 'white')};
+  color: ${token('elevation.surface', 'white')};
   display: flex;
   font-size: 0.75em;
   font-weight: 500;

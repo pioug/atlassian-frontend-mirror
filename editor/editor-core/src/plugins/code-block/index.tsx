@@ -31,7 +31,7 @@ const codeBlockPlugin = (options: CodeBlockOptions): EditorPlugin => ({
         name: 'codeBlock',
         plugin: ({ getIntl }) =>
           createPlugin({
-            useLongPressSelection: options.useLongPressSelection,
+            ...options,
             getIntl,
             appearance: options.appearance,
           }),

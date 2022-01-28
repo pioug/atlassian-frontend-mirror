@@ -24,6 +24,7 @@ export const selectors = {
   actionList: '[data-node-type="actionList"]',
   undoButton: '[data-testid="ak-editor-toolbar-button-undo"]',
   redoButton: '[data-testid="ak-editor-toolbar-button-redo"]',
+  popup: `[aria-label="Popup"]`,
 };
 
 export enum timeouts {
@@ -335,5 +336,39 @@ export const selectAtPosWithProseMirror = async (
     },
     startPos,
     endPos,
+  );
+};
+
+export const waitForElementOffset = async (
+  page: PuppeteerPage,
+  selector: string,
+  bounds: {
+    top: { min: number; max: number };
+    left: { min: number; max: number };
+  },
+) => {
+  await page.waitForFunction(
+    (
+      selector: string,
+      bounds: {
+        top: { min: number; max: number };
+        left: { min: number; max: number };
+      },
+    ) => {
+      const el = document.querySelector(selector);
+      if (!el) {
+        return false;
+      }
+      const rect = el.getBoundingClientRect();
+      return (
+        rect.top >= bounds.top.min &&
+        rect.top <= bounds.top.max &&
+        rect.left >= bounds.left.min &&
+        rect.left <= bounds.left.max
+      );
+    },
+    {},
+    selector,
+    bounds,
   );
 };

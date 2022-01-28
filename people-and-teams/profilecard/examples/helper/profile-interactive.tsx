@@ -23,8 +23,8 @@ import {
 const StoryWrapper = styled.div`
   label {
     color: ${themed({
-      light: token('color.text.highEmphasis', N800),
-      dark: token('color.text.highEmphasis', N0),
+      light: token('color.text', N800),
+      dark: token('color.text', N0),
     })};
     margin-right: 10px;
     -webkit-user-select: none;

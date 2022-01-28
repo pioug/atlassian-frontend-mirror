@@ -11,7 +11,8 @@ import {
 import { findDomRefAtPos, findSelectedNodeOfType } from 'prosemirror-utils';
 import { Node } from 'prosemirror-model';
 import camelCase from 'lodash/camelCase';
-import { Popup, ProviderFactory } from '@atlaskit/editor-common';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import { Popup } from '@atlaskit/editor-common/ui';
 // AFP-2532 TODO: Fix automatic suppressions below
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { Position } from '@atlaskit/editor-common/src/ui/Popup/utils';

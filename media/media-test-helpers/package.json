@@ -27,7 +27,7 @@
     "@atlaskit/media-common": "^2.10.0",
     "@atlaskit/media-core": "^32.2.0",
     "@atlaskit/media-picker": "^59.0.0",
-    "@atlaskit/media-ui": "^18.0.0",
+    "@atlaskit/media-ui": "^18.1.0",
     "@atlaskit/popup": "^1.3.0",
     "@atlaskit/textfield": "^5.0.1",
     "@atlaskit/tooltip": "^17.5.0",

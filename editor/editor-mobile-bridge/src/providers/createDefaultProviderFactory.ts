@@ -1,4 +1,4 @@
-import { ProviderFactory } from '@atlaskit/editor-common';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { createEditorProviders } from './createEditorProviders';
 import mockEmojiProvider from './mockEmojiProvider';
 import { FetchProxy } from '../utils/fetch-proxy';

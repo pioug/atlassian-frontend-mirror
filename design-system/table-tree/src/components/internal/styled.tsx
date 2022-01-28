@@ -6,11 +6,11 @@ import { css, jsx } from '@emotion/core';
 import { N30, N800 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-export const iconColor = token('color.text.highEmphasis', N800);
+export const iconColor = token('color.text', N800);
 
 const treeRowContainerStyles = css({
   display: 'flex',
-  borderBottom: `1px solid ${token('color.border.neutral', N30)}`,
+  borderBottom: `1px solid ${token('color.border', N30)}`,
 });
 
 /**

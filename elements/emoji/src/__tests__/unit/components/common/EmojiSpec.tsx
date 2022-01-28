@@ -1,6 +1,5 @@
 import { shallow } from 'enzyme';
 import React from 'react';
-import Tooltip from '@atlaskit/tooltip';
 import * as styles from '../../../../components/common/styles';
 import Emoji from '../../../../components/common/Emoji';
 import { spriteEmoji, imageEmoji } from '../../_test-data';
@@ -44,16 +43,12 @@ describe('<Emoji />', () => {
 
     it('should be wrapped in a tooltip if showTooltip is set to true', () => {
       const wrapper = shallow(<Emoji emoji={spriteEmoji} showTooltip={true} />);
-
-      const tooltip = wrapper.find(Tooltip);
-      expect(tooltip).toHaveLength(1);
+      expect(wrapper.prop('title')).toBe(':grimacing:');
     });
 
     it('should not be wrapped in a tooltip if showTooltip is not set', () => {
       const wrapper = shallow(<Emoji emoji={spriteEmoji} />);
-
-      const tooltip = wrapper.find(Tooltip);
-      expect(tooltip).toHaveLength(0);
+      expect(wrapper.prop('title')).toBe('');
     });
   });
 
@@ -95,16 +90,12 @@ describe('<Emoji />', () => {
 
     it('should be wrapped in a tooltip if showTooltip is set to true', () => {
       const wrapper = shallow(<Emoji emoji={imageEmoji} showTooltip={true} />);
-
-      const tooltip = wrapper.find(Tooltip);
-      expect(tooltip).toHaveLength(1);
+      expect(wrapper.prop('title')).toBe(':grimacing:');
     });
 
     it('should not be wrapped in a tooltip if showTooltip is not set', () => {
       const wrapper = shallow(<Emoji emoji={imageEmoji} />);
-
-      const tooltip = wrapper.find(Tooltip);
-      expect(tooltip).toHaveLength(0);
+      expect(wrapper.prop('title')).toBe('');
     });
 
     it('should show delete button is showDelete is passed in', () => {

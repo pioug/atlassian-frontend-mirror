@@ -12,7 +12,6 @@ export interface FragmentAttributes {
 }
 
 /**
- * @stage 0
  * @name fragment_mark
  * @description Indicates that the elements decorated with this mark belong to a "fragment" entity, which represents a collection of ADF nodes.
  * This entity can be referred to later by its `localId` attribute.

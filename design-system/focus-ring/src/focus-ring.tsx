@@ -1,30 +1,32 @@
 /** @jsx jsx */
 import { Children, cloneElement, FC } from 'react';
 
-import { ClassNames, css, jsx } from '@emotion/core';
+import { ClassNames, css, CSSObject, jsx } from '@emotion/core';
 
-import { B100, N0 } from '@atlaskit/theme/colors';
+import { B100 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import type { FocusRingProps } from './types';
 
-const baseFocusStyles = css({
-  boxShadow: `0 0 0 2px ${token(
-    'color.background.default',
-    N0,
-  )}, 0 0 0 4px ${token('color.border.focus', B100)}`,
-  outline: 'none',
-});
+const BORDER_WIDTH = 2;
+
+const focusOutsideStyles: CSSObject = {
+  outlineOffset: BORDER_WIDTH,
+  outline: `${BORDER_WIDTH}px solid ${token('color.border.focused', B100)}`,
+};
 
 const baseInsetStyles = css({
-  boxShadow: `inset 0px 0px 0px 2px ${token('color.border.focus', B100)}`,
+  boxShadow: `inset 0px 0px 0px ${BORDER_WIDTH}px ${token(
+    'color.border.focused',
+    B100,
+  )}`,
   outline: 'none',
 });
 
 const focusRingStyles = css({
-  '&:focus-visible': baseFocusStyles,
+  '&:focus-visible': focusOutsideStyles,
   '@supports not selector(*:focus-visible)': {
-    '&:focus': baseFocusStyles,
+    '&:focus': focusOutsideStyles,
   },
   '@media screen and (forced-colors: active), screen and (-ms-high-contrast: active)': {
     '&:focus-visible': {
@@ -52,6 +54,17 @@ const insetFocusRingStyles = css({
  * A focus ring is used indicate the currently focused item.
  *
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/focus-ring)
+ *
+ * @example
+ * ```jsx
+ * import FocusRing from '@atlaskit/focus-ring';
+ *
+ * const InteractiveComponent = () => (
+ *   <FocusRing>
+ *     <button type="button">Hello</button>
+ *   </FocusRing>
+ * )
+ * ```
  */
 const FocusRing: FC<FocusRingProps> = ({ children, isInset }) => (
   <ClassNames>

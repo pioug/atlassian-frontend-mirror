@@ -22,16 +22,16 @@ const flashAnimation = keyframes({
     backgroundColor: 'transparent',
   },
   '20%': {
-    backgroundColor: token('color.background.selected.pressed', B75),
-    borderColor: token('color.iconBorder.brand', B300),
+    backgroundColor: token('color.background.brand.pressed', B75),
+    borderColor: token('color.icon.brand', B300),
   },
   '75%': {
-    backgroundColor: token('color.background.selected.pressed', B75),
-    borderColor: token('color.iconBorder.brand', B300),
+    backgroundColor: token('color.background.brand.pressed', B75),
+    borderColor: token('color.icon.brand', B300),
   },
   '100%': {
-    backgroundColor: token('color.background.selected.pressed', B75),
-    borderColor: token('color.iconBorder.brand', B300),
+    backgroundColor: token('color.background.brand.pressed', B75),
+    borderColor: token('color.icon.brand', B300),
   },
 });
 

@@ -20,7 +20,7 @@ type TargetProps = Omit<BaseProps, 'css'> & {
 
 // NOTE:
 // Pulse color "rgb(101, 84, 192)" derived from "colors.P300"
-const baseShadow = token('shadow.overlay', `0 0 0 2px ${P300}`);
+const baseShadow = token('elevation.shadow.overlay', `0 0 0 2px ${P300}`);
 const easing = 'cubic-bezier(0.55, 0.055, 0.675, 0.19)';
 const pulseKeyframes = keyframes({
   '0%, 33%': { boxShadow: `${baseShadow}, 0 0 0 rgba(101, 84, 192, 1)` },

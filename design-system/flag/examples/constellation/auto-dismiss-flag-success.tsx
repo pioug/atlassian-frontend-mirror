@@ -39,7 +39,7 @@ const AutoDismissFlagSuccessExample = () => {
               icon={
                 <SuccessIcon
                   label="Success"
-                  secondaryColor={token('color.iconBorder.success', G400)}
+                  secondaryColor={token('color.icon.success', G400)}
                 />
               }
               key={flagId}

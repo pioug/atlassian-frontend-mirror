@@ -1,11 +1,11 @@
 import React from 'react';
 import { PureComponent } from 'react';
+import { DateSharedCssClassName } from '@atlaskit/editor-common/styles';
 import {
   isPastDate,
   timestampToString,
   timestampToTaskContext,
-  DateSharedCssClassName,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-common/utils';
 import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 
 export interface Props {

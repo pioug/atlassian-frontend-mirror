@@ -15,9 +15,8 @@ import {
   removeTable,
 } from '@atlaskit/editor-tables/utils';
 import { EditorView } from 'prosemirror-view';
-import rafSchedule from 'raf-schd';
 
-import { browser } from '@atlaskit/editor-common';
+import { browser } from '@atlaskit/editor-common/utils';
 
 import {
   isElementInTableCell,
@@ -146,8 +145,6 @@ export const handleClick = (view: EditorView, event: Event): boolean => {
   ) as HTMLTableRowElement;
   const rowIndex = rowElement && rowElement.rowIndex;
   const cellIndex = map.width * rowIndex + colIndex;
-  const posInTable = map.map[cellIndex + 1];
-
   const {
     dispatch,
     state: {
@@ -161,6 +158,7 @@ export const handleClick = (view: EditorView, event: Event): boolean => {
 
   /** Only if the last item is media group, insert a paragraph */
   if (isLastItemMediaGroup(editorElement)) {
+    const posInTable = map.map[cellIndex] + editorElement.nodeSize;
     tr.insert(posInTable + table.pos, paragraph.create());
     dispatch(tr);
     setNodeSelection(view, posInTable + table.pos);
@@ -498,8 +496,10 @@ export const whenTableInFocus = (
     return false;
   }
 
-  // debounce event handler
-  return rafSchedule(
-    eventHandler(view, mouseEvent, tableCellOptimization, elementContentRects),
+  return eventHandler(
+    view,
+    mouseEvent,
+    tableCellOptimization,
+    elementContentRects,
   );
 };

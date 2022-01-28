@@ -28,8 +28,8 @@ const lightWrapperStyles = css({
   display: 'inline-block',
   boxSizing: 'border-box',
   padding: 16,
-  backgroundColor: token('color.background.overlay', N0),
-  color: token('color.text.highEmphasis', N900),
+  backgroundColor: token('elevation.surface.overlay', N0),
+  color: token('color.text', N900),
   outline: 'none',
   userSelect: 'none',
 });
@@ -38,8 +38,8 @@ const darkWrapperStyles = css({
   display: 'inline-block',
   boxSizing: 'border-box',
   padding: 16,
-  backgroundColor: token('color.background.overlay', N700),
-  color: token('color.text.highEmphasis', DN600),
+  backgroundColor: token('elevation.surface.overlay', N700),
+  color: token('color.text', DN600),
   outline: 'none',
   userSelect: 'none',
 });

@@ -73,10 +73,16 @@ export const updateExtensionLayout = (layout: ExtensionLayout) =>
     const selectedExtension = getSelectedExtension(state, true);
 
     if (selectedExtension) {
-      return tr.setNodeMarkup(selectedExtension.pos, undefined, {
-        ...selectedExtension.node.attrs,
-        layout,
-      });
+      const trWithNewNodeMarkup = tr.setNodeMarkup(
+        selectedExtension.pos,
+        undefined,
+        {
+          ...selectedExtension.node.attrs,
+          layout,
+        },
+      );
+      trWithNewNodeMarkup.setMeta('scrollIntoView', false);
+      return trWithNewNodeMarkup;
     }
 
     return tr;

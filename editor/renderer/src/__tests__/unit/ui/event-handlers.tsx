@@ -43,7 +43,7 @@ import { ReactWrapper } from 'enzyme';
 import Renderer, { Props } from '../../../ui/Renderer';
 import { IntlProvider } from 'react-intl-next';
 import { render } from '@testing-library/react';
-import { ProviderFactory } from '@atlaskit/editor-common';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { exampleMediaFeatureFlags } from '@atlaskit/media-test-helpers';
 import initialDoc from '../../__fixtures__/event-handlers.adf.json';
 

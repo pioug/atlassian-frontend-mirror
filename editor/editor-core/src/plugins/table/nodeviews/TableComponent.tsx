@@ -7,10 +7,10 @@ import { EditorView } from 'prosemirror-view';
 import rafSchedule from 'raf-schd';
 
 import {
-  browser,
   calcTableWidth,
   tableMarginSides,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-common/styles';
+import { browser } from '@atlaskit/editor-common/utils';
 import {
   akEditorMobileBreakoutPoint,
   akEditorTableToolbarSize as tableToolbarSize,
@@ -120,7 +120,6 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 
   private wrapper?: HTMLDivElement | null;
   private table?: HTMLTableElement | null;
-  private frameId?: number;
   private node: PmNode;
   private containerWidth?: WidthPluginState;
   private layoutSize?: number;
@@ -179,7 +178,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
        */
       window.addEventListener('resize', this.handleWindowResizeDebounced);
       this.updateTableContainerWidth();
-      this.frameId = this.handleTableResizingDebounced(this.props);
+      this.handleTableResizingDebounced();
     }
 
     const currentStickyState = stickyHeadersPluginKey.getState(
@@ -199,13 +198,13 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
     }
 
     this.handleScrollDebounced.cancel();
+    this.scaleTableDebounced.cancel();
+    this.handleTableResizingDebounced.cancel();
+    this.handleAutoSizeDebounced.cancel();
+    this.handleWindowResizeDebounced.cancel();
 
     if (this.props.allowColumnResizing) {
       window.removeEventListener('resize', this.handleWindowResizeDebounced);
-    }
-
-    if (this.frameId && window) {
-      window.cancelAnimationFrame(this.frameId);
     }
 
     if (this.overflowShadowsObserver) {
@@ -263,7 +262,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
         updateControls(view.state);
       }
 
-      this.frameId = this.handleTableResizingDebounced(prevProps);
+      this.handleTableResizingDebounced();
     }
   }
 
@@ -592,9 +591,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
     const domAtPos = view.domAtPos.bind(view);
     const { width } = containerWidth;
 
-    if (this.frameId && window) {
-      window.cancelAnimationFrame(this.frameId);
-    }
+    this.scaleTableDebounced.cancel();
 
     scaleTable(
       this.table,
@@ -635,7 +632,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
     }
 
     const parentWidth = this.getParentNodeWidth();
-    this.frameId = this.scaleTableDebounced(parentWidth);
+    this.scaleTableDebounced(parentWidth);
   };
 
   private updateTableContainerWidth = () => {

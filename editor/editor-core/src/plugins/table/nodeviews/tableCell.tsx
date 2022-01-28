@@ -1,7 +1,7 @@
 import uuid from 'uuid';
 import { Node, DOMSerializer } from 'prosemirror-model';
 import { EditorView, NodeView } from 'prosemirror-view';
-import { ProviderFactory } from '@atlaskit/editor-common';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { getPosHandler } from '../../../../src/nodeviews';
 import {
   getCellDomAttrs,

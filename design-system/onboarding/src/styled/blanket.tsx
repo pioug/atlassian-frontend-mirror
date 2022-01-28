@@ -7,8 +7,8 @@ import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 const backgroundColor = themed({
-  light: token('color.background.blanket', N100A),
-  dark: token('color.background.blanket', DN90A),
+  light: token('color.blanket', N100A),
+  dark: token('color.blanket', DN90A),
 });
 
 // IE11 and Edge: z-index needed because fixed position calculates z-index relative

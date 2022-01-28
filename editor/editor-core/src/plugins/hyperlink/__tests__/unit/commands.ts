@@ -11,7 +11,7 @@ import {
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { EditorTestCardProvider } from '@atlaskit/editor-test-helpers/card-provider';
-import { CardOptions } from '@atlaskit/editor-common';
+import { CardOptions } from '@atlaskit/editor-common/card';
 import {
   createProsemirrorEditorFactory,
   Preset,

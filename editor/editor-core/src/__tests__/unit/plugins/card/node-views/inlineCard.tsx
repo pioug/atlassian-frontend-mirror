@@ -17,10 +17,14 @@ jest.mock('@atlaskit/smart-card', () => {
     },
   };
 });
-jest.mock('@atlaskit/editor-common', () => ({
+
+jest.mock('@atlaskit/editor-common/utils', () => ({
   browser: () => ({}),
-  findOverflowScrollParent: () => mockFindOverflowScrollParent(),
   withImageLoader: jest.fn(),
+}));
+
+jest.mock('@atlaskit/editor-common/ui', () => ({
+  findOverflowScrollParent: () => mockFindOverflowScrollParent(),
   overflowShadow: jest.fn(),
   sharedExpandStyles: jest.fn(),
   WidthProvider: jest.fn(),

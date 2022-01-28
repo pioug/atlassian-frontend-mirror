@@ -1,10 +1,11 @@
 /* eslint-disable no-console */
 import React, { useCallback, useRef } from 'react';
+import { AnnotationProviders } from '@atlaskit/editor-common/types';
 import {
-  WithCreateAnalyticsEvent,
-  AnnotationProviders,
   ExtensionHandlers,
-} from '@atlaskit/editor-common';
+  ExtensionProvider,
+} from '@atlaskit/editor-common/extensions';
+import { WithCreateAnalyticsEvent } from '@atlaskit/editor-common/ui';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { MentionProvider } from '@atlaskit/mention/types';
 import { MediaProvider as MediaProviderType } from '@atlaskit/editor-common/provider-factory';
@@ -23,11 +24,8 @@ import {
 } from '@atlaskit/smart-card';
 import { EmojiResource } from '@atlaskit/emoji/resource';
 import { analyticsBridgeClient } from '../analytics-client';
-import { createPromise } from '../cross-platform-promise';
-import { eventDispatcher } from './dispatcher';
 import {
   getEnableLightDarkTheming,
-  getEnableLegacyMobileMacros,
   getAllowCaptions,
 } from '../query-param-reader';
 import { useRendererContent } from './hooks/use-set-renderer-content';
@@ -40,7 +38,6 @@ import { useRendererDestroyed } from './hooks/use-renderer-destroyed';
 import { eventHandlers } from './event-handlers';
 import { isApple } from '../utils/is-apple';
 import { useRendererReflowDetected } from './hooks/use-renderer-reflow-detected';
-import { withLegacyMobileMacros } from '@atlaskit/legacy-mobile-macros';
 
 import { withIntlProvider } from '../i18n/with-intl-provider';
 import { injectIntl, IntlShape } from 'react-intl-next';
@@ -56,6 +53,7 @@ export interface MobileRendererProps extends RendererProps {
   intl: IntlShape;
   mediaProvider: Promise<MediaProviderType>;
   mentionProvider: Promise<MentionProvider>;
+  extensionProvider?: Promise<ExtensionProvider>;
   rendererBridge: RendererBridgeImplementation;
 }
 
@@ -87,6 +85,7 @@ type BasicRendererProps = {
   intl: IntlShape;
   mediaProvider: Promise<MediaProviderType>;
   mentionProvider: Promise<MentionProvider>;
+  extensionProvider?: Promise<ExtensionProvider>;
   objectAri: string;
   rendererBridge: RendererBridgeImplementation;
   allowCustomPanels: boolean;
@@ -116,21 +115,20 @@ const BasicRenderer: React.FC<WithCreateAnalyticsEventProps> = ({
   disableMediaLinking,
   document: initialDocument,
   emojiProvider,
-  extensionHandlers,
   mediaProvider,
   mentionProvider,
+  extensionProvider,
   rendererBridge,
   allowCustomPanels,
 }: WithCreateAnalyticsEventProps) => {
   const document = useRendererContent(initialDocument);
-  const providerFactory = useCreateProviderFactory(
-    {
-      mentionProvider,
-      emojiProvider,
-      mediaProvider,
-    },
-    rendererBridge,
-  );
+  let providers = {
+    mentionProvider,
+    emojiProvider,
+    mediaProvider,
+    extensionProvider,
+  };
+  const providerFactory = useCreateProviderFactory(providers, rendererBridge);
   const rendererContext = useRendererContext(rendererBridge);
   const headingAnchorLinksConfig = useHeadingLinks(allowHeadingAnchorLinks);
   const annotationProvider = useAnnotation(allowAnnotations);
@@ -164,7 +162,6 @@ const BasicRenderer: React.FC<WithCreateAnalyticsEventProps> = ({
       rendererContext={rendererContext}
       eventHandlers={eventHandlers}
       useSpecBasedValidator={true}
-      extensionHandlers={extensionHandlers}
       allowCustomPanels={allowCustomPanels}
     />
   );
@@ -209,16 +206,7 @@ const ThemedBasicRenderer = withSystemTheme(
   getEnableLightDarkTheming(),
 );
 
-const MobileRenderer = withLegacyMobileMacros<
-  MobileRendererProps,
-  typeof createPromise,
-  typeof eventDispatcher
->(
-  withFabricAnalytics(withSmartCard(ThemedBasicRenderer)),
-  createPromise,
-  eventDispatcher,
-  getEnableLegacyMobileMacros(),
-);
+const MobileRenderer = withFabricAnalytics(withSmartCard(ThemedBasicRenderer));
 
 export { MobileRenderer };
 

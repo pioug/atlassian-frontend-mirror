@@ -1,7 +1,7 @@
 import React from 'react';
 import { WrappedComponentProps, injectIntl } from 'react-intl-next';
 import SectionMessage from '@atlaskit/section-message';
-import { ContextIdentifierProvider } from '@atlaskit/editor-common';
+import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
 import { FieldDefinition } from '@atlaskit/editor-common/extensions';
 import {
   withAnalyticsContext,

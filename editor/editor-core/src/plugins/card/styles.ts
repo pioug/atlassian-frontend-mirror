@@ -7,7 +7,7 @@ import {
   akEditorDeleteBackground,
 } from '@atlaskit/editor-shared-styles';
 import { N20 } from '@atlaskit/theme/colors';
-import { SmartCardSharedCssClassName } from '@atlaskit/editor-common';
+import { SmartCardSharedCssClassName } from '@atlaskit/editor-common/styles';
 import { akEditorSelectedNodeClassName } from '@atlaskit/editor-shared-styles';
 
 export const smartCardStyles = css`

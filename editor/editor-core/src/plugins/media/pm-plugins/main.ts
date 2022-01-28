@@ -7,12 +7,11 @@ import { Decoration, DecorationSet, EditorView } from 'prosemirror-view';
 import { MediaClientConfig } from '@atlaskit/media-core';
 import { RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema';
 import { PopupConfig, UploadParams } from '@atlaskit/media-picker/types';
-import {
+import type {
   ContextIdentifierProvider,
-  ErrorReporter,
   MediaProvider,
-  browser,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-common/provider-factory';
+import { ErrorReporter, browser } from '@atlaskit/editor-common/utils';
 import assert from 'assert';
 import { findDomRefAtPos, isNodeSelection } from 'prosemirror-utils';
 import { Dispatch } from '../../../event-dispatcher';

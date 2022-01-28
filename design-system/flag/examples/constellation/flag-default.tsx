@@ -11,7 +11,7 @@ const FlagDefaultExample = () => {
     <Flag
       icon={
         <InfoIcon
-          primaryColor={token('color.iconBorder.discovery', B300)}
+          primaryColor={token('color.icon.discovery', B300)}
           label="Info"
         />
       }

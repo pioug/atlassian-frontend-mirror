@@ -39,7 +39,7 @@ const AutoDismissFlagInfoExample = () => {
               icon={
                 <InfoIcon
                   label="Info"
-                  secondaryColor={token('color.iconBorder.discovery', N500)}
+                  secondaryColor={token('color.icon.discovery', N500)}
                 />
               }
               key={flagId}

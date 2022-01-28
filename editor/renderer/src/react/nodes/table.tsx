@@ -5,17 +5,19 @@ import { Node as PMNode } from 'prosemirror-model';
 import { UrlType } from '@atlaskit/adf-schema';
 import {
   calcTableWidth,
-  WidthConsumer,
   TableSharedCssClassName,
-  overflowShadow,
-  OverflowShadowProps,
+  tableMarginTop,
+} from '@atlaskit/editor-common/styles';
+import { WidthConsumer, overflowShadow } from '@atlaskit/editor-common/ui';
+import type { OverflowShadowProps } from '@atlaskit/editor-common/ui';
+
+import {
   createCompareNodes,
-  SortOrder,
   convertProsemirrorTableNodeToArrayOfRows,
   hasMergedCell,
   compose,
-  tableMarginTop,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-common/utils';
+import { SortOrder } from '@atlaskit/editor-common/types';
 
 import {
   RendererAppearance,

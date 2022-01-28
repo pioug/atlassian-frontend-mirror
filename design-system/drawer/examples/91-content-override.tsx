@@ -20,7 +20,10 @@ const ContentOverrideComponent: FC = ({ children }) => {
         flex: 1,
         overflow: 'auto',
         marginTop: 24,
-        border: `3px dashed ${token('color.accent.boldPurple', 'pink')}`,
+        border: `3px dashed ${token(
+          'color.background.accent.purple.bold',
+          'pink',
+        )}`,
       }}
     >
       {children}

@@ -39,6 +39,8 @@ export const BlockInsertMenuLegacy: React.FC<BlockInsertMenuLegacyProps> = (
       zIndex={akEditorMenuZIndex}
     >
       <DropDownButton
+        aria-expanded={props.open}
+        aria-haspopup
         handleRef={props.onRef}
         selected={props.open}
         disabled={props.disabled}

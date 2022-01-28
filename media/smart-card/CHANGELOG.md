@@ -1,5 +1,15 @@
 # @atlaskit/smart-card
 
+## 17.0.1
+
+### Patch Changes
+
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - Flexible UI: Add base element - Icon
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - Flexible UI: Add base element - Link
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - Update doc
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - Flexible UI: Add base block and container
+- Updated dependencies
+
 ## 17.0.0
 
 ### Major Changes

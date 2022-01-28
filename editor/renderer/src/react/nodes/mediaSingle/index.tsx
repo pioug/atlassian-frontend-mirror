@@ -3,11 +3,11 @@ import {
   RichMediaLayout as MediaSingleLayout,
 } from '@atlaskit/adf-schema';
 import {
-  EventHandlers,
-  ImageLoaderProps,
   mapBreakpointToLayoutMaxWidth,
   WidthConsumer,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-common/ui';
+import type { EventHandlers } from '@atlaskit/editor-common/ui';
+import type { ImageLoaderProps } from '@atlaskit/editor-common/utils';
 import {
   akEditorFullWidthLayoutWidth,
   getAkEditorFullPageMaxWidth,

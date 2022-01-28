@@ -30,45 +30,45 @@ export const disabledBorder = {
 };
 
 export const invalidBorderColor = {
-  light: token('color.iconBorder.danger', R400),
-  dark: token('color.iconBorder.danger', R400),
+  light: token('color.border.danger', R400),
+  dark: token('color.border.danger', R400),
 };
 
 export const defaultBorderColor = {
-  light: token('color.border.neutral', N40),
-  dark: token('color.border.neutral', DN40),
+  light: token('color.border', N40),
+  dark: token('color.border', DN40),
 };
 export const defaultBorderColorFocus = {
-  light: token('color.border.focus', B100),
-  dark: token('color.border.focus', B75),
+  light: token('color.border.focused', B100),
+  dark: token('color.border.focused', B75),
 };
 
 export const defaultBackgroundColor = {
-  light: token('color.background.subtleNeutral.resting', N10),
-  dark: token('color.background.subtleNeutral.resting', DN10),
+  light: token('color.background.neutral', N10),
+  dark: token('color.background.neutral', DN10),
 };
 export const defaultBackgroundColorHover = {
-  light: token('color.background.default', N30),
-  dark: token('color.background.default', DN30),
+  light: token('elevation.surface', N30),
+  dark: token('elevation.surface', DN30),
 };
 export const defaultBackgroundColorFocus = {
-  light: token('color.background.default', N0),
-  dark: token('color.background.default', DN10),
+  light: token('elevation.surface', N0),
+  dark: token('elevation.surface', DN10),
 };
 
 // TODO Subtle hover styles not defined in Figma: https://product-fabric.atlassian.net/browse/DSP-1568
 export const subtleHoverBackgroundColor = {
-  light: token('color.background.transparentNeutral.hover', N30),
-  dark: token('color.background.transparentNeutral.hover', DN30),
+  light: token('color.background.neutral.subtle.hovered', N30),
+  dark: token('color.background.neutral.subtle.hovered', DN30),
 };
 
 export const placeholderTextColor = {
-  light: token('color.text.lowEmphasis', N100),
-  dark: token('color.text.lowEmphasis', DN200),
+  light: token('color.text.subtlest', N100),
+  dark: token('color.text.subtlest', DN200),
 };
 export const textColor = {
-  light: token('color.text.highEmphasis', N900),
-  dark: token('color.text.highEmphasis', DN600),
+  light: token('color.text', N900),
+  dark: token('color.text', DN600),
 };
 export const disabledTextColor = {
   light: token('color.text.disabled', N70),

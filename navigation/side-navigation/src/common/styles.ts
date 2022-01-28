@@ -31,28 +31,28 @@ export const overrideStyleFunction = <TState>(
 
 const defaultStyles = {
   '&:hover': {
-    color: token('color.text.mediumEmphasis', N500),
-    backgroundColor: token('color.background.transparentNeutral.hover', N30),
+    color: token('color.text.subtle', N500),
+    backgroundColor: token('color.background.neutral.subtle.hovered', N30),
   },
   '&:active': {
-    color: token('color.text.mediumEmphasis', B400),
-    backgroundColor: token('color.background.transparentNeutral.pressed', B50),
+    color: token('color.text.subtle', B400),
+    backgroundColor: token('color.background.neutral.subtle.pressed', B50),
   },
 };
 
 const selectedStyles = {
-  backgroundColor: token('color.background.selected.resting', N30),
-  color: token('color.text.selected', B400),
+  backgroundColor: token('color.background.brand', N30),
+  color: token('color.text.brand', B400),
   ':visited': {
-    color: token('color.text.selected', B400),
+    color: token('color.text.brand', B400),
   },
   '&:hover': {
-    backgroundColor: token('color.background.selected.hover', N30),
-    color: token('color.text.selected', N500),
+    backgroundColor: token('color.background.brand.hovered', N30),
+    color: token('color.text.brand', N500),
   },
   '&:active': {
-    backgroundColor: token('color.background.selected.pressed', B50),
-    color: token('color.text.selected', B400),
+    backgroundColor: token('color.background.brand.pressed', B50),
+    color: token('color.text.brand', B400),
   },
 };
 
@@ -66,7 +66,7 @@ export const baseSideNavItemStyle: CSSFn = ({ isSelected, isDisabled }) => {
     // -- TODO: DELETE THESE COLOR OVERRIDES WHEN CLEANING UP FALLBACK THEMING --
     // Menu and side navigation are now color aligned so they do not need this!
     // See: https://product-fabric.atlassian.net/browse/DSP-1684
-    backgroundColor: token('color.background.default', N10),
+    backgroundColor: token('elevation.surface', N10),
     ...(!isDisabled && !isSelected && defaultStyles),
     ...(!isDisabled && isSelected && selectedStyles),
     // -- END TODO --------------------------------------------------------------

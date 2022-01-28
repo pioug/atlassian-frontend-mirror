@@ -19,7 +19,7 @@ import {
   temporaryMediaInline,
   getFreshMediaProvider,
 } from './_utils';
-import { ProviderFactory } from '@atlaskit/editor-common';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 
 describe('media-inline', () => {
   const createEditor = createEditorFactory();

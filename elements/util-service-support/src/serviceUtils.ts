@@ -1,5 +1,3 @@
-import * as URL from 'url';
-import USP from 'url-search-params'; // IE, Safari, Mobile Chrome, Mobile Safari
 import {
   buildCredentials,
   KeyValues,
@@ -7,8 +5,6 @@ import {
   SecurityOptions,
   ServiceConfig,
 } from './types';
-
-const URLSearchParams = USP.default || USP;
 
 const defaultRequestServiceOptions: RequestServiceOptions = {};
 
@@ -19,7 +15,9 @@ const buildUrl = (
   secOptions?: SecurityOptions,
 ): string => {
   const searchParam = new URLSearchParams(
-    URL.parse(baseUrl).search || undefined,
+    // For relative urls, the URL class requires base to be set. It's ignored if a url is not relative.
+    // Since we only care about search params it is fine to have any base url here.
+    new URL(baseUrl, 'https://BASE_FALLBACK').search || undefined,
   );
   baseUrl = baseUrl.split('?')[0];
   if (queryParams) {

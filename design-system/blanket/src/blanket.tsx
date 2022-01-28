@@ -42,11 +42,11 @@ const invisibleStyles = css({
 });
 
 const lightBgStyles = css({
-  backgroundColor: token('color.background.blanket', N100A),
+  backgroundColor: token('color.blanket', N100A),
 });
 
 const darkBgStyles = css({
-  backgroundColor: token('color.background.blanket', DN90A),
+  backgroundColor: token('color.blanket', DN90A),
 });
 
 const backgroundStyle: { [index in ThemeModes]: ReturnType<typeof css> } = {

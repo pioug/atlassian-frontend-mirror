@@ -4,7 +4,7 @@ import { Node as PMNode } from 'prosemirror-model';
 import * as themeColors from '@atlaskit/theme/colors';
 
 import { hexToRgba } from '@atlaskit/adf-schema';
-import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common';
+import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/utils';
 import { addAnalytics } from '../analytics/utils';
 import {
   AnalyticsEventPayload,

@@ -1,6 +1,9 @@
 import React, { RefObject } from 'react';
 import { ActivityItem, ActivityProvider } from '@atlaskit/activity-provider';
-import { SearchProvider, QuickSearchResult } from '@atlaskit/editor-common';
+import type {
+  SearchProvider,
+  QuickSearchResult,
+} from '@atlaskit/editor-common/provider-factory';
 import { isSafeUrl } from '@atlaskit/adf-schema';
 import CrossCircleIcon from '@atlaskit/icon/glyph/cross-circle';
 import EditorAlignLeftIcon from '@atlaskit/icon/glyph/editor/align-left';
@@ -49,13 +52,19 @@ import { EditorView } from 'prosemirror-view';
 import { LinkInputType } from '../../types';
 import { hideLinkToolbar as cardHideLinkToolbar } from '../../../card/pm-plugins/actions';
 import { ScreenReaderText } from '../../styles';
+import { browser } from '@atlaskit/editor-common/utils';
+import { transformTimeStamp } from '../../../../ui/LinkSearch/transformTimeStamp';
+import Announcer from '../../../../utils/announcer/announcer';
 
 export const RECENT_SEARCH_LIST_SIZE = 5;
 
-const ClearText = styled.span`
+const ClearText = styled.button`
   cursor: pointer;
-  padding-right: 8px;
+  padding: 0;
+  margin-right: 8px;
   color: ${N90};
+  background: transparent;
+  border: none;
 `;
 
 const TextInputWrapper = styled.div`
@@ -529,6 +538,22 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
     }
   };
 
+  private getScreenReaderText = () => {
+    const { intl } = this.props;
+    const { items, selectedIndex } = this.state;
+
+    if (items.length && selectedIndex > -1) {
+      const { name, container, lastUpdatedDate, lastViewedDate } = items[
+        selectedIndex
+      ];
+
+      const date = transformTimeStamp(intl, lastViewedDate, lastUpdatedDate);
+      return `${name}, ${container}, ${date?.pageAction} ${date?.dateString} ${
+        date?.timeSince || ''
+      }`;
+    }
+  };
+
   render() {
     const {
       items,
@@ -553,6 +578,15 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
     const formatClearLinkText = formatMessage(messages.clearLink);
     const formatDisplayText = formatMessage(messages.displayText);
     const screenReaderDescriptionId = 'search-recent-links-field-description';
+    const linkSearchListId = 'hyperlink-search-list';
+    const ariaActiveDescendant =
+      selectedIndex > -1 ? `link-search-list-item-${selectedIndex}` : '';
+
+    // Added workaround with a screen reader Announcer specifically for VoiceOver + Safari
+    // as the Aria design pattern for combobox does not work in this case
+    // for details: https://a11y-internal.atlassian.net/browse/AK-740
+    const screenReaderText = browser.safari && this.getScreenReaderText();
+
     return (
       <div className="recent-list">
         <Container provider={!!activityProvider} innerRef={this.wrapperRef}>
@@ -562,10 +596,23 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
                 <LinkIcon label={formatLinkAddressText} />
               </Tooltip>
             </IconWrapper>
+            {screenReaderText && (
+              <Announcer
+                ariaLive="assertive"
+                text={screenReaderText}
+                ariaRelevant="additions"
+                delay={250}
+              />
+            )}
             <ScreenReaderText aria-hidden="true" id={screenReaderDescriptionId}>
               {formatMessage(messages.searchLinkAriaDescription)}
             </ScreenReaderText>
             <PanelTextInput
+              role="combobox"
+              ariaExpanded
+              ariaActiveDescendant={ariaActiveDescendant}
+              ariaControls={linkSearchListId}
+              ariaAutoComplete
               describedById={screenReaderDescriptionId}
               ref={(ele) => (this.urlInputContainer = ele)}
               placeholder={placeholder}
@@ -600,18 +647,22 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
               onCancel={this.handleCancel}
               defaultValue={displayText}
               onSubmit={this.handleSubmit}
-              onKeyDown={this.handleTextKeyDown}
+              onKeyDown={this.handleKeyDown}
             />
             {displayText && (
               <Tooltip content={formatMessage(messages.clearText)}>
-                <ClearText onClick={this.handleClearDisplayText}>
+                <ClearText
+                  onClick={this.handleClearDisplayText}
+                  onKeyDown={this.handleClearTextKeyDown}
+                >
                   <CrossCircleIcon label={formatMessage(messages.clearText)} />
                 </ClearText>
               </Tooltip>
             )}
           </TextInputWrapper>
           <ScreenReaderText
-            aria-live="assertive"
+            aria-live="polite"
+            aria-atomic="true"
             id="fabric.editor.hyperlink.suggested.results"
           >
             {displayUrl &&
@@ -621,6 +672,8 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
           </ScreenReaderText>
           <LinkSearchList
             ariaControls="fabric.editor.hyperlink.suggested.results"
+            id={linkSearchListId}
+            role="listbox"
             items={items}
             isLoading={isLoading}
             selectedIndex={selectedIndex}
@@ -737,7 +790,7 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
     }
   };
 
-  private handleTextKeyDown = (event: KeyboardEvent<HTMLElement>) => {
+  private handleClearTextKeyDown = (event: KeyboardEvent<HTMLElement>) => {
     const KEY_CODE_TAB = 9;
     const { keyCode } = event;
     if (keyCode === KEY_CODE_TAB) {
@@ -754,8 +807,6 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
       event.preventDefault();
       return;
     }
-
-    this.handleKeyDown(event);
   };
 
   private handleKeyDown = (event: KeyboardEvent<any>) => {

@@ -1,5 +1,17 @@
 # @atlaskit/adf-schema
 
+## 21.0.0
+
+### Major Changes
+
+- [`5af69bfe9be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5af69bfe9be) - CETI-241 - Added additional panel ADF attributes (panelIconId, panelIconText) to uniquely identify custom panel emojis. The change has been categorised as major since it is a change to the full-schema ADF. However, the custom panel feature is behind a feature flag, has not yet been released to production, and is only currently planned for release to Confluence. See ADF change #61 for further details.
+
+### Minor Changes
+
+- [`f110cbb7218`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f110cbb7218) - CETI-243 Handling Duplicate Emoji Issue When Copying From Renderer
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - - Allow `table` nodes to have `fragment` marks
+  - Promote `fragment` mark to "full" ADF schema
+
 ## 20.1.3
 
 ### Patch Changes

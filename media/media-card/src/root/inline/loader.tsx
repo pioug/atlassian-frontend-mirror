@@ -27,6 +27,7 @@ export default class MediaInlineCardLoader extends React.PureComponent<
   static displayName = 'MediaInlineCardLoader';
   static MediaInlineCard?: MediaInlineCardWithMediaClientConfigComponent;
   static ErrorBoundary?: ErrorBoundaryComponent;
+  isMounted = false;
 
   state: MediaInlineCardLoaderState = {
     MediaInlineCard: MediaInlineCardLoader.MediaInlineCard,
@@ -34,6 +35,7 @@ export default class MediaInlineCardLoader extends React.PureComponent<
   };
 
   async componentDidMount() {
+    this.isMounted = true;
     if (!this.state.MediaInlineCard) {
       try {
         const [
@@ -58,12 +60,18 @@ export default class MediaInlineCardLoader extends React.PureComponent<
         MediaInlineCardLoader.ErrorBoundary =
           mediaCardErrorBoundaryModule.default;
 
-        this.setState({
-          MediaInlineCard: MediaInlineCardLoader.MediaInlineCard,
-          ErrorBoundary: MediaInlineCardLoader.ErrorBoundary,
-        });
+        if (this.isMounted) {
+          this.setState({
+            MediaInlineCard: MediaInlineCardLoader.MediaInlineCard,
+            ErrorBoundary: MediaInlineCardLoader.ErrorBoundary,
+          });
+        }
       } catch (error) {}
     }
+  }
+
+  async componentWillUnmount() {
+    this.isMounted = false;
   }
 
   render() {

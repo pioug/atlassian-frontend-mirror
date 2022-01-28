@@ -1,13 +1,13 @@
 import React from 'react';
 import { Node as PMNode } from 'prosemirror-model';
 import { EditorView } from 'prosemirror-view';
+import { DateSharedCssClassName } from '@atlaskit/editor-common/styles';
 import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 import {
   timestampToString,
   timestampToTaskContext,
   isPastDate,
-  DateSharedCssClassName,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-common/utils';
 import { Date } from '@atlaskit/date';
 import { setDatePickerAt } from '../actions';
 import { getPosHandler } from '../../../nodeviews';

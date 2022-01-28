@@ -69,12 +69,12 @@ export const Section = styled.div`
 `;
 
 const Container = styled.div`
-  border: 1px solid ${token('color.border.neutral', '#ccc')};
+  border: 1px solid ${token('color.border', '#ccc')};
   border-radius: 3px;
   margin: 8px;
   padding: 8px;
   strong {
-    color: ${token('color.text.highEmphasis', 'black')};
+    color: ${token('color.text', 'black')};
   }
 `;
 

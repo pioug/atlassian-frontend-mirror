@@ -9,7 +9,7 @@ import {
   UploadEndEventPayload,
 } from '@atlaskit/media-picker/types';
 import { MediaClientConfig } from '@atlaskit/media-core';
-import { ErrorReportingHandler } from '@atlaskit/editor-common';
+import type { ErrorReportingHandler } from '@atlaskit/editor-common/utils';
 import { MediaFeatureFlags } from '@atlaskit/media-common/mediaFeatureFlags';
 
 import {

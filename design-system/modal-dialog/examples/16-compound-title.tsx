@@ -42,7 +42,7 @@ const CustomHeader = () => {
         <Button onClick={onClose} appearance="link">
           <CrossIcon
             label="Close Modal"
-            primaryColor={token('color.iconBorder.danger', R400)}
+            primaryColor={token('color.icon.danger', R400)}
             size="small"
           />
         </Button>

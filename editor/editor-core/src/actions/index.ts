@@ -2,7 +2,6 @@ import { Node } from 'prosemirror-model';
 import { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import { TextSelection } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
-import { Transformer } from '@atlaskit/editor-common';
 import { toJSON } from '../utils';
 import { processRawValue, isEmptyDocument } from '../utils/document';
 import {
@@ -12,7 +11,8 @@ import {
 import { EventDispatcher, createDispatch } from '../event-dispatcher';
 import { safeInsert } from 'prosemirror-utils';
 import { AnalyticsEventPayload } from '@atlaskit/analytics-next/AnalyticsEvent';
-import { analyticsEventKey } from '@atlaskit/editor-common';
+import { analyticsEventKey } from '@atlaskit/editor-common/utils';
+import { Transformer } from '@atlaskit/editor-common/types';
 import { findNodePosWithLocalId } from '../plugins/extension/utils';
 
 export type ContextUpdateHandler = (

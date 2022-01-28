@@ -41,27 +41,27 @@ const reactionStyle = style({
   minWidth: '36px',
   height: `${akHeight}px`,
   background: 'transparent',
-  border: `1px solid ${token('color.border.neutral', N40)}`,
+  border: `1px solid ${token('color.border', N40)}`,
   boxSizing: 'border-box',
   borderRadius: '20px',
-  color: `${token('color.text.mediumEmphasis', N400)}`,
+  color: `${token('color.text.subtle', N400)}`,
   cursor: 'pointer',
   margin: 0,
   padding: 0,
   transition: '200ms ease-in-out',
   $nest: {
     '&:hover': {
-      background: `${token('color.background.transparentNeutral.hover', N20)}`,
+      background: `${token('color.background.neutral.subtle.hovered', N20)}`,
     },
   },
 });
 
 const reactedStyle = style({
-  backgroundColor: token('color.background.selected.resting', B50),
-  borderColor: token('color.iconBorder.brand', B300),
+  backgroundColor: token('color.background.brand', B50),
+  borderColor: token('color.icon.brand', B300),
   $nest: {
     '&:hover': {
-      background: `${token('color.background.selected.hover', B75)}`,
+      background: `${token('color.background.brand.hovered', B75)}`,
     },
   },
 });

@@ -108,6 +108,10 @@ function renderCardImageView(
     : isUploadError
     ? 'uploadError'
     : undefined;
+  const width = urlParams.get('width');
+  if (width) {
+    dimensions.width = width;
+  }
 
   return (
     <CardWrapper key={key} {...wrapperDimensionsSmall}>

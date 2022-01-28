@@ -63,7 +63,7 @@ import {
   DefaultPresetPluginOptions,
 } from '../labs/next/presets/default';
 import { EditorPresetProps } from '../labs/next/presets/types';
-import { shouldForceTracking } from '@atlaskit/editor-common';
+import { shouldForceTracking } from '@atlaskit/editor-common/utils';
 import { LayoutPluginOptions } from '../plugins/layout/types';
 import {
   BeforeAndAfterToolbarComponents,
@@ -168,6 +168,7 @@ export function getDefaultPresetOptionsFromEditorProps(
       ...props.codeBlock,
       useLongPressSelection: false,
       appearance: props.appearance,
+      allowCompositionInputOverride: isMobile,
     },
   };
 }
@@ -572,7 +573,7 @@ export default function createPluginsList(
     ]);
   }
 
-  if (props.UNSAFE_allowFragmentMark) {
+  if (props.allowFragmentMark) {
     preset.add(fragmentMarkPlugin);
   }
 

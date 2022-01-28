@@ -31,7 +31,7 @@ const iconWrapperStyles = css({
  * An icon wrapper is used internally only.
  */
 const IconWrapper: FC<IconWrapperProps> = ({
-  bgColor = token('color.background.overlay', background()),
+  bgColor = token('elevation.surface.overlay', background()),
   children,
 }) => (
   <span

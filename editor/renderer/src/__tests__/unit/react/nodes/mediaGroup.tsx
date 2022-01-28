@@ -13,11 +13,9 @@ import {
   defaultImageCardDimensions,
 } from '@atlaskit/media-card';
 import { FilmstripView } from '@atlaskit/media-filmstrip';
-import {
-  ProviderFactory,
-  EventHandlers,
-  UnsupportedBlock,
-} from '@atlaskit/editor-common';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import { UnsupportedBlock } from '@atlaskit/editor-common/ui';
+import type { EventHandlers } from '@atlaskit/editor-common/ui';
 import { MediaFeatureFlags } from '@atlaskit/media-common';
 import Media from '../../../../react/nodes/media';
 import MediaGroup from '../../../../react/nodes/mediaGroup';

@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Popup } from '@atlaskit/editor-common/ui';
 import {
-  Popup,
   timestampToUTCDate,
   timestampToIsoFormat,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-common/utils';
 import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles';
 import Calendar from '@atlaskit/calendar';
 import { borderRadius } from '@atlaskit/theme/constants';

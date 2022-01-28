@@ -3,7 +3,7 @@ import React from 'react';
 import { EditorView } from 'prosemirror-view';
 import { Node } from 'prosemirror-model';
 
-import { ProviderFactory } from '@atlaskit/editor-common';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 
 import HyperlinkToolbar from '../../hyperlink/ui/HyperlinkAddToolbar';
 import { showLinkToolbar, hideLinkToolbar } from '../pm-plugins/actions';

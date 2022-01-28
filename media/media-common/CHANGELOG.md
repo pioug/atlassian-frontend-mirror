@@ -1,5 +1,12 @@
 # @atlaskit/media-common
 
+## 2.10.2
+
+### Patch Changes
+
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - Switched as false default value for FF "Timestamp on video"
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - Adding a feature flag for TimestampOnVideo
+
 ## 2.10.1
 
 ### Patch Changes

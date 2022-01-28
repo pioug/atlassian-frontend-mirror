@@ -34,6 +34,8 @@ export const SingleToolbarButtons: React.FC<{
           disabled={item.isDisabled}
           title={item.tooltipElement}
           iconBefore={item.iconElement}
+          aria-pressed={item.isActive}
+          aria-label={String(item.content)}
         />
       ))}
     </ButtonGroup>

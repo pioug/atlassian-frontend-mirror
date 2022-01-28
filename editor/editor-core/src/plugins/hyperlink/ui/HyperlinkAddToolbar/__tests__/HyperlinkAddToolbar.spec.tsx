@@ -25,7 +25,7 @@ import {
   expectFunctionToHaveBeenCalledWith,
   flushPromises,
 } from '@atlaskit/media-test-helpers';
-import { SearchProvider } from '@atlaskit/editor-common';
+import type { SearchProvider } from '@atlaskit/editor-common/provider-factory';
 import { INPUT_METHOD } from '../../../../analytics';
 import { shallow } from 'enzyme';
 import { LinkSearchListItemData } from '../../../../../ui/LinkSearch/types';

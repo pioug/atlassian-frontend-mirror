@@ -1,6 +1,6 @@
 import { Node as PMNode } from 'prosemirror-model';
 
-import { tableCellMinWidth } from '@atlaskit/editor-common';
+import { tableCellMinWidth } from '@atlaskit/editor-common/styles';
 import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
 
 import { DomAtPos } from '../../../../../types';

@@ -5,11 +5,20 @@ describe('Inline Card', () => {
   it.each([
     ['shows default icon on inline cards', 'vr-inline-card-default-icon'],
     ['renders lozenge correctly on inline card', 'vr-inline-card-lozenge'],
+    [
+      'shows shimmer preloader when icon takes awhile to load',
+      'vr-inline-card-loading-icon',
+    ],
   ])('%s', async (_: string, testName: string) => {
     const url = getURL(testName);
     const page = await setup(url);
 
     await waitForResolvedInlineCard(page);
+    if (testName === 'vr-inline-card-loading-icon') {
+      await page.waitForSelector(
+        '[data-testid="inline-card-icon-and-title-loading"]',
+      );
+    }
 
     const image = await takeSnapshot(page);
     expect(image).toMatchProdImageSnapshot();

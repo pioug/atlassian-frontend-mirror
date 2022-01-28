@@ -348,6 +348,10 @@ export interface RowType extends React.ComponentPropsWithoutRef<'tr'> {
    */
   onKeyPress?: React.KeyboardEventHandler;
   /**
+   * Highlights the row. Should be used to draw attention to a row; not to indicate selection.
+   */
+  isHighlighted?: boolean;
+  /**
    * Hook for automated testing.
    */
   testId?: string;

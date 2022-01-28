@@ -31,7 +31,7 @@ import {
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { mount, ReactWrapper } from 'enzyme';
 import PanelTextInput from '../../../../ui/PanelTextInput';
-import { ErrorMessage } from '@atlaskit/editor-common';
+import { ErrorMessage } from '@atlaskit/editor-common/ui';
 import {
   closeMediaAltTextMenu,
   updateAltText,

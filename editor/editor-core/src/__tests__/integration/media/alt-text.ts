@@ -1,6 +1,6 @@
 import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
-import { richMediaClassName } from '@atlaskit/editor-common';
+import { richMediaClassName } from '@atlaskit/editor-common/styles';
 import {
   editable,
   getDocFromElement,

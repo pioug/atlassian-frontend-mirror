@@ -1,8 +1,31 @@
-import React, { FC, useEffect } from 'react';
-import { LazyContent } from './lazyContent';
+import React, { useEffect, forwardRef } from 'react';
 
-type ViewportDetectorProps = {
-  targetRef: HTMLElement | null;
+/**
+ * As IntersectionObserver::rootMargin doesn't work within IFrames, we use an empty div + dynamic offsetTop to eagerly detect cards entering viewport.
+ * Using this approach, we can lazy load cards ABS_VIEWPORT_ANCHOR_OFFSET_TOP px before they enter viewport.
+ */
+export const ABS_VIEWPORT_ANCHOR_OFFSET_TOP = 900; //px
+
+export const ViewportAnchor = forwardRef<HTMLDivElement, { offsetTop: number }>(
+  (props, ref) => {
+    if (typeof IntersectionObserver === 'undefined') {
+      return null;
+    }
+
+    return (
+      <div
+        ref={ref}
+        className="media-card-viewport-anchor"
+        style={{ position: 'absolute', top: `${props.offsetTop}px` }}
+      />
+    );
+  },
+);
+
+export type ViewportDetectorProps = {
+  cardEl: HTMLElement | null;
+  preAnchorRef: React.RefObject<HTMLDivElement>;
+  postAnchorRef: React.RefObject<HTMLDivElement>;
   onVisible: () => void;
 };
 
@@ -18,38 +41,51 @@ const createIntersectionObserverCallback = (
   }
 };
 
-const Observer: FC<ViewportDetectorProps> = ({
+const ViewportObserver: React.FC<ViewportDetectorProps> = ({
   onVisible,
+  cardEl,
   children,
-  targetRef,
+  preAnchorRef,
+  postAnchorRef,
 }) => {
   useEffect(() => {
     // IntersectionObserver uses root and target elements to detect intersections, defaulting root to the viewport
     const intersectionObserver = new IntersectionObserver(
       createIntersectionObserverCallback(onVisible),
     );
-    targetRef && intersectionObserver.observe(targetRef);
+
+    preAnchorRef?.current && intersectionObserver.observe(preAnchorRef.current);
+    postAnchorRef?.current &&
+      intersectionObserver.observe(postAnchorRef.current);
+    cardEl && intersectionObserver.observe(cardEl);
+
     return () => {
       intersectionObserver.disconnect();
     };
-  }, [targetRef, onVisible]);
+  }, [cardEl, preAnchorRef, postAnchorRef, onVisible]);
 
   return <>{children}</>;
 };
 
-export const createViewportDetector = (
-  isIntersectionObserverSupported: boolean,
-): React.FC<ViewportDetectorProps> => ({ children, targetRef, onVisible }) =>
-  isIntersectionObserverSupported ? (
-    <Observer targetRef={targetRef} onVisible={onVisible}>
-      {children}
-    </Observer>
-  ) : (
-    <LazyContent placeholder={<>{children}</>} onRender={onVisible}>
-      {children}
-    </LazyContent>
-  );
+export const ViewportDetector: React.FC<ViewportDetectorProps> = ({
+  cardEl,
+  preAnchorRef,
+  postAnchorRef,
+  onVisible,
+  children,
+}) => {
+  if (typeof IntersectionObserver === 'undefined') {
+    return <>{children}</>;
+  }
 
-export const ViewportDetector = createViewportDetector(
-  typeof IntersectionObserver !== 'undefined',
-);
+  return (
+    <ViewportObserver
+      cardEl={cardEl}
+      preAnchorRef={preAnchorRef}
+      postAnchorRef={postAnchorRef}
+      onVisible={onVisible}
+    >
+      {children}
+    </ViewportObserver>
+  );
+};

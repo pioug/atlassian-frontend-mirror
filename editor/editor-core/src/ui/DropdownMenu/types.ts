@@ -17,6 +17,7 @@ export interface Props {
   items: Array<{
     items: MenuItem[];
   }>;
+  shouldUseDefaultRole?: boolean;
 }
 
 export interface MenuItem {
@@ -34,6 +35,8 @@ export interface MenuItem {
   isDisabled?: boolean;
   handleRef?: any;
   className?: string;
+  'aria-label'?: React.AriaAttributes['aria-label'];
+  'aria-haspopup'?: React.AriaAttributes['aria-haspopup'];
   onClick?: (editorActions: EditorActions) => void;
 }
 

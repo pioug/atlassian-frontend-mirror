@@ -1,5 +1,15 @@
 # @atlaskit/util-data-test
 
+## 17.2.0
+
+### Minor Changes
+
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - Upgrade js-search to v2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 17.1.2
 
 ### Patch Changes

@@ -61,7 +61,6 @@ import {
   WithMediaPlayerState,
 } from './analytics';
 import { formatDuration } from '../formatDuration';
-import { hideControlsClassName } from '../classNames';
 import { Shortcut, keyCodes } from '../shortcut';
 import { toggleFullscreen, getFullscreenElement } from './fullscreen';
 import { injectIntl, WrappedComponentProps } from 'react-intl-next';
@@ -73,7 +72,7 @@ import PlaybackSpeedControls from './playbackSpeedControls';
 import { PlayPauseBlanket } from './playPauseBlanket';
 import Tooltip from '@atlaskit/tooltip';
 import { SkipTenBackwardIcon, SkipTenForwardIcon } from './icons';
-
+import { getControlsWrapperClassName } from './getControlsWrapperClassName';
 export interface CustomMediaPlayerProps
   extends WithPlaybackProps,
     WithShowControlMethodProp {
@@ -95,7 +94,8 @@ export interface CustomMediaPlayerState extends WithMediaPlayerState {}
 
 export type Action = () => void;
 
-const SMALL_VIDEO_MAX_WIDTH = 400;
+const MEDIUM_VIDEO_MAX_WIDTH = 400;
+const SMALL_VIDEO_MAX_WIDTH = 160;
 const MINIMUM_DURATION_BEFORE_SAVING_TIME = 60;
 const VIEWED_TRACKING_SECS = 2;
 
@@ -121,7 +121,7 @@ export class CustomMediaPlayerBase extends Component<
 
   state: CustomMediaPlayerState = {
     isFullScreenEnabled: false,
-    isLargePlayer: true,
+    playerSize: 'large',
     playbackSpeed: 1,
   };
 
@@ -135,7 +135,7 @@ export class CustomMediaPlayerBase extends Component<
       onFirstPlay,
       createAnalyticsEvent,
     } = this.props;
-    const { isFullScreenEnabled, isLargePlayer, playbackSpeed } = this.state;
+    const { isFullScreenEnabled, playerSize, playbackSpeed } = this.state;
 
     fireAnalyticsEvent(
       createCustomMediaPlayerScreenEvent(
@@ -145,7 +145,7 @@ export class CustomMediaPlayerBase extends Component<
           isHDAvailable,
           isHDActive,
           isFullScreenEnabled,
-          isLargePlayer,
+          playerSize,
           playbackSpeed,
         },
         fileId,
@@ -173,7 +173,7 @@ export class CustomMediaPlayerBase extends Component<
               isHDAvailable,
               isHDActive,
               isFullScreenEnabled,
-              isLargePlayer,
+              playerSize,
               playbackSpeed,
             },
             fileId,
@@ -330,10 +330,21 @@ export class CustomMediaPlayerBase extends Component<
     this.createAndFireUIEvent('mediaButtonClick', 'fullScreenButton');
   };
 
-  private onResize = (width: number) =>
-    this.setState({
-      isLargePlayer: width > SMALL_VIDEO_MAX_WIDTH,
-    });
+  private onResize = (width: number) => {
+    if (width > MEDIUM_VIDEO_MAX_WIDTH) {
+      this.setState({
+        playerSize: 'large',
+      });
+    } else if (width > SMALL_VIDEO_MAX_WIDTH) {
+      this.setState({
+        playerSize: 'medium',
+      });
+    } else {
+      this.setState({
+        playerSize: 'small',
+      });
+    }
+  };
 
   private saveVideoWrapperRef = (el?: HTMLElement) =>
     (this.videoWrapperRef = el);
@@ -572,14 +583,14 @@ export class CustomMediaPlayerBase extends Component<
       isAutoPlay,
       createAnalyticsEvent,
     } = this.props;
-    const { isFullScreenEnabled, isLargePlayer, playbackSpeed } = this.state;
+    const { isFullScreenEnabled, playerSize, playbackSpeed } = this.state;
     const playbackState: PlaybackState = {
       ...this.videoState,
       isAutoPlay,
       isHDAvailable,
       isHDActive,
       isFullScreenEnabled,
-      isLargePlayer,
+      playerSize,
       playbackSpeed,
     };
 
@@ -648,7 +659,7 @@ export class CustomMediaPlayerBase extends Component<
       isHDActive,
       type,
     } = this.props;
-    const { isFullScreenEnabled, isLargePlayer, playbackSpeed } = this.state;
+    const { isFullScreenEnabled, playerSize, playbackSpeed } = this.state;
     const { status, currentTime } = videoState;
 
     if (
@@ -665,7 +676,7 @@ export class CustomMediaPlayerBase extends Component<
             isHDAvailable,
             isHDActive,
             isFullScreenEnabled,
-            isLargePlayer,
+            playerSize,
             playbackSpeed,
           },
           fileId,
@@ -742,8 +753,11 @@ export class CustomMediaPlayerBase extends Component<
               duration,
               isLoading,
             } = videoState;
-            const { isLargePlayer } = this.state;
+            const { playerSize } = this.state;
             const isPlaying = status === 'playing';
+
+            const isLargePlayer = playerSize === 'large';
+            const isMediumPlayer = playerSize === 'medium';
 
             const skipAmount = 10;
             const skipBackward = () => {
@@ -778,7 +792,9 @@ export class CustomMediaPlayerBase extends Component<
                 >
                   {video}
                 </PlayPauseBlanket>
-                <ControlsWrapper className={hideControlsClassName}>
+                <ControlsWrapper
+                  className={getControlsWrapperClassName(this.wasPlayedOnce)}
+                >
                   <TimeWrapper>
                     <TimeRange
                       currentTime={currentTime}
@@ -791,16 +807,19 @@ export class CustomMediaPlayerBase extends Component<
                   <TimebarWrapper>
                     <LeftControls>
                       {this.renderPlayPauseButton(isPlaying)}
-                      {this.renderSkipBackwardButton(skipBackward)}
-                      {this.renderSkipForwardButton(skipForward)}
+                      {isLargePlayer &&
+                        this.renderSkipBackwardButton(skipBackward)}
+                      {isLargePlayer &&
+                        this.renderSkipForwardButton(skipForward)}
                       {this.renderVolume(videoState, actions, isLargePlayer)}
                     </LeftControls>
                     <RightControls>
-                      {isLargePlayer && this.renderCurrentTime(videoState)}
-                      {this.renderHDButton()}
-                      {this.renderSpeedControls()}
+                      {(isMediumPlayer || isLargePlayer) &&
+                        this.renderCurrentTime(videoState)}
+                      {isLargePlayer && this.renderHDButton()}
+                      {isLargePlayer && this.renderSpeedControls()}
                       {this.renderFullScreenButton()}
-                      {this.renderDownloadButton()}
+                      {isLargePlayer && this.renderDownloadButton()}
                     </RightControls>
                   </TimebarWrapper>
                 </ControlsWrapper>

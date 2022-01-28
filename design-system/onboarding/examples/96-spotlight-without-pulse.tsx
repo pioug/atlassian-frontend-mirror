@@ -46,7 +46,7 @@ const SpotlightWithoutPulseExample: React.FC<{}> = () => {
             <Spotlight
               target="button"
               actionsBeforeElement="1/3"
-              targetBgColor={token('color.background.card', '#fff')}
+              targetBgColor={token('elevation.surface.raised', '#fff')}
               actions={[
                 {
                   onClick: toggleIsSpotlightVisible,

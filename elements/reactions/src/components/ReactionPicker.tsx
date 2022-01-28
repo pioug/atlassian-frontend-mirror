@@ -48,9 +48,12 @@ const contentStyle = style({
 });
 
 const popupStyle = style({
-  background: token('color.background.overlay', N0),
+  background: token('elevation.surface.overlay', N0),
   borderRadius: `${borderRadius()}px`,
-  boxShadow: token('shadow.overlay', `0 4px 8px -2px ${N50A}, 0 0 1px ${N60A}`),
+  boxShadow: token(
+    'elevation.shadow.overlay',
+    `0 4px 8px -2px ${N50A}, 0 0 1px ${N60A}`,
+  ),
 
   $nest: {
     '&> div': {

@@ -8,7 +8,7 @@ import { findTable } from '@atlaskit/editor-tables/utils';
 import { EditorView } from 'prosemirror-view';
 import { WrappedComponentProps, injectIntl } from 'react-intl-next';
 
-import { Popup } from '@atlaskit/editor-common';
+import { Popup } from '@atlaskit/editor-common/ui';
 
 import { closestElement } from '../../../../utils/dom';
 import { INPUT_METHOD } from '../../../analytics';

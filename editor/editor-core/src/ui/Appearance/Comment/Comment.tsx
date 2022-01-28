@@ -20,7 +20,7 @@ import { stateKey as mediaPluginKey } from '../../../plugins/media/pm-plugins/pl
 import { ClickAreaBlock } from '../../Addon';
 import { tableCommentEditorStyles } from '../../../plugins/table/ui/common-styles.css';
 import WithFlash from '../../WithFlash';
-import { WidthConsumer } from '@atlaskit/editor-common';
+import { WidthConsumer } from '@atlaskit/editor-common/ui';
 import { akEditorMobileBreakoutPoint } from '@atlaskit/editor-shared-styles';
 import WidthEmitter from '../../WidthEmitter';
 import { GRID_GUTTER } from '../../../plugins/grid';

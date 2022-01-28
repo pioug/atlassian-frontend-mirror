@@ -316,7 +316,7 @@ const generateFlagData = (flags: FlagData[]): FlagData => ({
   icon: (
     <Info
       label="Info icon"
-      primaryColor={token('color.iconBorder.discovery', P300)}
+      primaryColor={token('color.icon.discovery', P300)}
     />
   ),
   id: flags.length,

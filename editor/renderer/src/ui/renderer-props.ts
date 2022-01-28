@@ -1,12 +1,10 @@
 import { Schema } from 'prosemirror-model';
-import {
-  ADFStage,
-  ProviderFactory,
-  EventHandlers,
-  ExtensionHandlers,
-  AnnotationProviders,
-  UnsupportedContentLevelsTracking,
-} from '@atlaskit/editor-common';
+import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type { ADFStage } from '@atlaskit/editor-common/validator';
+import type { AnnotationProviders } from '@atlaskit/editor-common/types';
+import type { EventHandlers } from '@atlaskit/editor-common/ui';
+import type { UnsupportedContentLevelsTracking } from '@atlaskit/editor-common/utils';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { RendererContext } from '../';
 import { RenderOutputStat } from '../render-document';

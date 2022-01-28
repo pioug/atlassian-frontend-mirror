@@ -1,10 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import {
-  TableSharedCssClassName,
-  OverflowShadowProps,
-} from '@atlaskit/editor-common';
+import { TableSharedCssClassName } from '@atlaskit/editor-common/styles';
+import type { OverflowShadowProps } from '@atlaskit/editor-common/ui';
 import { akEditorStickyHeaderZIndex } from '@atlaskit/editor-shared-styles';
 import { TableLayout } from '@atlaskit/adf-schema';
 import * as colors from '@atlaskit/theme/colors';

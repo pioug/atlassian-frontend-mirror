@@ -1,5 +1,12 @@
 # @atlaskit/collab-provider
 
+## 7.1.4
+
+### Patch Changes
+
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - ED-13912 refactor editor collab-provider and make sure that initializeChannel is only called once
+- Updated dependencies
+
 ## 7.1.3
 
 ### Patch Changes

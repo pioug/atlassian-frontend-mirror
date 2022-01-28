@@ -1,10 +1,8 @@
 import { PropsWithChildren } from 'react';
 import { Node as PMNode, NodeType, Schema } from 'prosemirror-model';
-import {
-  EventHandlers,
-  ProviderFactory,
-  ExtensionHandlers,
-} from '@atlaskit/editor-common';
+import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type { EventHandlers } from '@atlaskit/editor-common/ui';
 import { AnalyticsEventPayload } from '../analytics/events';
 import { Serializer } from '../index';
 import {

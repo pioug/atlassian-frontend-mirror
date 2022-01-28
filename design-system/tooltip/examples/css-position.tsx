@@ -22,7 +22,7 @@ const color = {
 };
 
 const boxShadow = token(
-  'shadow.overlay',
+  'elevation.shadow.overlay',
   `0 4px 8px -2px ${N60A}, 0 0 1px ${N60A}`,
 );
 
@@ -37,10 +37,7 @@ const Position = forwardRef<HTMLDivElement, PosTypes>(
   ({ children, pos, pinned, top = 0 }, ref) => (
     <div
       css={css`
-        background-color: ${token(
-          'color.background.subtleNeutral.resting',
-          N20,
-        )};
+        background-color: ${token('color.background.neutral', N20)};
         border-radius: 5px;
         height: 60px;
         padding: 8px;

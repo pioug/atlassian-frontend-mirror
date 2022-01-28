@@ -16,5 +16,12 @@ export type DomPanelAtrrs = {
   class: string;
   'data-panel-type': string;
   'data-panel-color'?: string;
+  'data-panel-icon-id'?: string;
+  'data-panel-icon-text'?: string;
   style: string;
+};
+
+export type EmojiInfo = {
+  shortName: string;
+  id: string;
 };

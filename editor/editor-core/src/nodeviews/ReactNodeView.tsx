@@ -1,7 +1,7 @@
 import React from 'react';
 import { NodeView, EditorView, Decoration } from 'prosemirror-view';
 import { Node as PMNode } from 'prosemirror-model';
-import { startMeasure, stopMeasure } from '@atlaskit/editor-common';
+import { startMeasure, stopMeasure } from '@atlaskit/editor-common/utils';
 
 import { PortalProviderAPI } from '../ui/PortalProvider';
 import { analyticsPluginKey } from '../plugins/analytics/plugin-key';

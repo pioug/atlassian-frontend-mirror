@@ -33,10 +33,11 @@ class Body extends React.Component<Props, {}> {
             key={row.key || rowIndex}
             row={row}
             isHighlighted={
-              !!highlightedRowIndex &&
-              (typeof highlightedRowIndex === 'number'
-                ? highlightedRowIndex === rowIndex
-                : highlightedRowIndex.indexOf(rowIndex) > -1)
+              row.isHighlighted ||
+              (!!highlightedRowIndex &&
+                (typeof highlightedRowIndex === 'number'
+                  ? highlightedRowIndex === rowIndex
+                  : highlightedRowIndex.indexOf(rowIndex) > -1))
             }
             testId={testId}
           />

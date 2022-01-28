@@ -19,6 +19,7 @@ interface RendererProviders {
   mediaProvider: Providers['mediaProvider'];
   mentionProvider: Providers['mentionProvider'];
   emojiProvider: Providers['emojiProvider'];
+  extensionProvider: Providers['extensionProvider'];
 }
 
 export function useCreateProviderFactory(
@@ -42,12 +43,14 @@ export function useCreateProviderFactory(
       mediaProvider: providers.mediaProvider,
       emojiProvider: providers.emojiProvider,
       mentionProvider: providers.mentionProvider,
+      extensionProvider: providers.extensionProvider,
       taskDecisionProvider: Promise.resolve(taskDecisionProvider),
     });
   }, [
     providers.emojiProvider,
     providers.mediaProvider,
     providers.mentionProvider,
+    providers.extensionProvider,
     taskDecisionProvider,
   ]);
 }

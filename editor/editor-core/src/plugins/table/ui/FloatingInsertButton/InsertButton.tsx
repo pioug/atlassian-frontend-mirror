@@ -2,7 +2,7 @@ import React, { SyntheticEvent } from 'react';
 
 import { WrappedComponentProps, injectIntl } from 'react-intl-next';
 
-import { tableMarginTop } from '@atlaskit/editor-common';
+import { tableMarginTop } from '@atlaskit/editor-common/styles';
 import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
 import Tooltip from '@atlaskit/tooltip';
 

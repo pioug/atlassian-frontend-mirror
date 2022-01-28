@@ -18,14 +18,7 @@ export interface ExtensionBaseDefinition {
  * @name extension_with_marks_node
  */
 export type ExtensionDefinition = ExtensionBaseDefinition &
-  MarksObject<DataConsumerDefinition>;
-
-/**
- * @stage 0
- * @name extension_with_experimental_marks_node
- */
-export type ExtensionWithMarksDefinition = ExtensionBaseDefinition &
-  MarksObject<FragmentDefinition>;
+  MarksObject<DataConsumerDefinition | FragmentDefinition>;
 
 const createExtensionNodeSpec = (): NodeSpec => {
   const nodeSpec: NodeSpec = {

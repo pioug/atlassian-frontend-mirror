@@ -1,1 +1,1 @@
-export { withLegacyMobileMacros } from './ui';
+export { getConfluenceMobileMacroManifests } from './ui';

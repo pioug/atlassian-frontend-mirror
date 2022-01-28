@@ -1,5 +1,15 @@
 # @atlaskit/task-decision
 
+## 17.3.0
+
+### Minor Changes
+
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - AK-735 Update decision icon color
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 17.2.4
 
 ### Patch Changes

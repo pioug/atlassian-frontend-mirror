@@ -10,7 +10,7 @@ import {
   calcPctFromPx,
   calcColumnsFromPx,
   wrappedLayouts,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-common/ui';
 import { akEditorWideLayoutWidth } from '@atlaskit/editor-shared-styles';
 import { Wrapper } from './styled';
 import { Props, EnabledHandles, SnapPointsProps } from './types';

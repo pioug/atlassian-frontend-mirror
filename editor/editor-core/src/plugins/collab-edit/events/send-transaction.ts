@@ -1,4 +1,4 @@
-import { CollabEditProvider } from '@atlaskit/editor-common';
+import type { CollabEditProvider } from '@atlaskit/editor-common/collab';
 import { Transaction, EditorState } from 'prosemirror-state';
 import { getSendableSelection } from '../actions';
 import { CollabEventTelepointerData } from '../types';

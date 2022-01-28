@@ -6,7 +6,7 @@ import Story16Icon from '@atlaskit/icon-object/glyph/story/16';
 import Task16Icon from '@atlaskit/icon-object/glyph/task/16';
 import Page16Icon from '@atlaskit/icon-object/glyph/page/16';
 import Blog16Icon from '@atlaskit/icon-object/glyph/blog/16';
-import { LinkContentType } from '@atlaskit/editor-common';
+import type { LinkContentType } from '@atlaskit/editor-common/provider-factory';
 
 export const mapContentTypeToIcon: {
   [key in LinkContentType]?: React.ReactElement;

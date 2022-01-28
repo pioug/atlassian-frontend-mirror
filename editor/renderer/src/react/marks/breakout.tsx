@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { BreakoutMarkAttrs } from '@atlaskit/adf-schema';
-import { calcBreakoutWidth, WidthConsumer } from '@atlaskit/editor-common';
+import { WidthConsumer } from '@atlaskit/editor-common/ui';
+import { calcBreakoutWidth } from '@atlaskit/editor-common/utils';
 import { blockNodesVerticalMargin } from '@atlaskit/editor-shared-styles';
 import { MarkProps } from '../types';
 

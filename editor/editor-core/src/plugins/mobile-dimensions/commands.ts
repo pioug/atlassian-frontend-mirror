@@ -18,3 +18,9 @@ export const setMobilePaddingTop = (paddingTop: number) =>
     type: MobileDimensionsActionTypes.SET_MOBILE_PADDING_TOP,
     paddingTop,
   });
+
+export const setIsExpanded = (isExpanded: boolean) =>
+  createCommand({
+    type: MobileDimensionsActionTypes.SET_IS_EXPANDED,
+    isExpanded,
+  });

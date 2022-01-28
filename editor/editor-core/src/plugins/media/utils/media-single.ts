@@ -6,7 +6,7 @@ import {
 } from 'prosemirror-utils';
 import { EditorState, Selection, Transaction } from 'prosemirror-state';
 import { RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema';
-import { calcPxFromPct, wrappedLayouts } from '@atlaskit/editor-common';
+import { calcPxFromPct, wrappedLayouts } from '@atlaskit/editor-common/ui';
 import {
   akEditorBreakoutPadding,
   breakoutWideScaleRatio,

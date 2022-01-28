@@ -18,7 +18,7 @@ const itemHeadingFontSize = headingSizes.h100.size;
 
 const headingStyles = css({
   padding: `0 ${itemSidePadding}px`,
-  color: token('color.text.lowEmphasis', N200),
+  color: token('color.text.subtlest', N200),
   fontSize: itemHeadingFontSize,
   fontWeight: 700,
   lineHeight: itemHeadingContentHeight / itemHeadingFontSize,

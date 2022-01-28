@@ -1,5 +1,11 @@
 # @atlaskit/editor-slack-transformer
 
+## 3.1.1
+
+### Patch Changes
+
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - ED-13025 Bump prosemirror-view 1.23.1 -> 1.23.2
+
 ## 3.1.0
 
 ### Minor Changes

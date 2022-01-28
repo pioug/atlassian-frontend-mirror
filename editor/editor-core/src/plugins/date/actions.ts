@@ -5,7 +5,7 @@ import {
   Selection,
 } from 'prosemirror-state';
 import { Fragment } from 'prosemirror-model';
-import { todayTimestampInUTC } from '@atlaskit/editor-common';
+import { todayTimestampInUTC } from '@atlaskit/editor-common/utils';
 import { Command, CommandDispatch } from '../../types';
 import { DateType } from './types';
 import { TOOLBAR_MENU_TYPE } from '../insert-block/ui/ToolbarInsertBlock/types';

@@ -6,7 +6,7 @@ import {
   withAnalyticsEvents,
   WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
-import { BaseTheme } from '@atlaskit/editor-common';
+import { BaseTheme } from '@atlaskit/editor-common/ui';
 import {
   akEditorMenuZIndex,
   akEditorToolbarKeylineHeight,

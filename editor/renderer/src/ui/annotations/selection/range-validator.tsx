@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Position } from '../types';
 import { useUserSelectionRange } from '../hooks/user-selection';
 import { SelectionInlineCommentMounter } from './mounter';
-import { InlineCommentSelectionComponentProps } from '@atlaskit/editor-common';
+import type { InlineCommentSelectionComponentProps } from '@atlaskit/editor-common/types';
 import { RendererContext as ActionsContext } from '../../RendererActionsContext';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 

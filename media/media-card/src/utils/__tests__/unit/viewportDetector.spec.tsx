@@ -1,7 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { createViewportDetector } from '../../viewportDetector';
-import { LazyContent } from '../../lazyContent';
+import { ViewportDetector } from '../../viewportDetector';
 
 const observeMock = jest.fn();
 const disconnectMock = jest.fn();
@@ -22,40 +21,64 @@ const IntersectionObserverMock = jest.fn((intersectionCallback) => {
 });
 (global as any).IntersectionObserver = IntersectionObserverMock;
 
-const setup = (isIntersectionObserverSupported: boolean) => {
+const setup = (
+  preAnchorRef: React.RefObject<HTMLDivElement> = {
+    current: document.createElement('div'),
+  },
+  postAnchorRef: React.RefObject<HTMLDivElement> = {
+    current: document.createElement('div'),
+  },
+) => {
   const Child = () => <>Hi!</>;
   const callBack = jest.fn();
-  const targetRef = document.createElement('div');
-  const ViewportDetector = createViewportDetector(
-    isIntersectionObserverSupported,
-  );
+  const cardEl = document.createElement('div');
   const component = mount(
-    <ViewportDetector onVisible={callBack} targetRef={targetRef}>
+    <ViewportDetector
+      onVisible={callBack}
+      cardEl={cardEl}
+      preAnchorRef={preAnchorRef}
+      postAnchorRef={postAnchorRef}
+    >
       <Child />
     </ViewportDetector>,
   );
-  return { component, Child, callBack, targetRef };
+  return { component, Child, callBack, cardEl, preAnchorRef, postAnchorRef };
 };
 
-describe('ViewportDetector', () => {
-  it('should use LazyContent when IntersectionObserver is not supported', () => {
-    const { component, Child, callBack } = setup(false);
-    expect(component.find(Child)).toHaveLength(1);
-    const lazyContent = component.find(LazyContent);
-    expect(lazyContent).toHaveLength(1);
-    expect(lazyContent.prop('onRender')).toBe(callBack);
-    const placeholder = lazyContent.prop('placeholder');
-    expect(placeholder).toBeDefined();
-  });
+describe('ViewportDetector logic:', () => {
+  beforeEach(() => jest.clearAllMocks());
 
-  it('should use IntersectionObserver when supported', () => {
-    const { component, Child, callBack } = setup(true);
-    expect(component.find(Child)).toHaveLength(1);
-    expect(component.find(LazyContent)).toHaveLength(0);
+  describe('ViewportDetector', () => {
+    it('should observe DOM node referenced by preAnchorRef + postAnchorRef + cardEl', () => {
+      const preAnchorEl = document.createElement('div');
+      const postAnchorEl = document.createElement('div');
+      const { cardEl } = setup(
+        { current: preAnchorEl },
+        { current: postAnchorEl },
+      );
 
-    intersectionTrigger();
-    expect(observeMock).toBeCalledTimes(1);
-    expect(disconnectMock).toBeCalledTimes(1);
-    expect(callBack).toBeCalledTimes(1);
+      expect(observeMock).toBeCalledTimes(3);
+      expect(observeMock).toHaveBeenNthCalledWith(1, preAnchorEl);
+      expect(observeMock).toHaveBeenNthCalledWith(2, postAnchorEl);
+      expect(observeMock).toHaveBeenNthCalledWith(3, cardEl);
+    });
+
+    it('should observe cardEl if anchorRef is empty', () => {
+      const { cardEl } = setup({ current: null }, { current: null });
+
+      expect(observeMock).toBeCalledTimes(1);
+      expect(observeMock).toHaveBeenCalledWith(cardEl);
+    });
+
+    it('should call callback & disconnect when observe node(s) in viewport', () => {
+      const { component, Child, callBack } = setup();
+      expect(component.find(Child)).toHaveLength(1);
+      expect(observeMock).toBeCalledTimes(3);
+
+      intersectionTrigger();
+
+      expect(callBack).toBeCalledTimes(1);
+      expect(disconnectMock).toBeCalledTimes(1);
+    });
   });
 });

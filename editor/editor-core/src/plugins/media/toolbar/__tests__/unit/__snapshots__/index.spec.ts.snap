@@ -24,12 +24,16 @@ Array [
     "id": "editor.media.view.switcher",
     "options": Array [
       Object {
+        "disabled": false,
+        "id": "editor.media.view.switcher.inline",
         "onClick": [Function],
         "selected": false,
         "testId": "inline-appearance",
         "title": "Display inline",
       },
       Object {
+        "disabled": false,
+        "id": "editor.media.view.switcher.thumbnail",
         "onClick": [Function],
         "selected": true,
         "testId": "thumbnail-appearance",
@@ -82,12 +86,16 @@ Array [
     "id": "editor.media.view.switcher",
     "options": Array [
       Object {
+        "disabled": false,
+        "id": "editor.media.view.switcher.inline",
         "onClick": [Function],
         "selected": true,
         "testId": "inline-appearance",
         "title": "Display inline",
       },
       Object {
+        "disabled": false,
+        "id": "editor.media.view.switcher.thumbnail",
         "onClick": [Function],
         "selected": false,
         "testId": "thumbnail-appearance",

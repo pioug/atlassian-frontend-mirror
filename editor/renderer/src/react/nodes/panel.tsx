@@ -1,22 +1,22 @@
 import React from 'react';
 import styled from 'styled-components';
-import InfoIcon from '@atlaskit/icon/glyph/editor/info';
 import TipIcon from '@atlaskit/icon/glyph/editor/hint';
-import SuccessIcon from '@atlaskit/icon/glyph/editor/success';
-import ErrorIcon from '@atlaskit/icon/glyph/editor/error';
-import NoteIcon from '@atlaskit/icon/glyph/editor/note';
-import WarningIcon from '@atlaskit/icon/glyph/warning';
 import { PanelType } from '@atlaskit/adf-schema';
-import {
-  PanelSharedCssClassName,
-  ProviderFactory,
-} from '@atlaskit/editor-common';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import { PanelSharedCssClassName } from '@atlaskit/editor-common/styles';
 import EmojiIcon from '@atlaskit/icon/glyph/editor/emoji';
 import EmojiItem from './emoji';
 // AFP-2532 TODO: Fix automatic suppressions below
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { themed } from '@atlaskit/theme';
-import { getPanelBackgroundDarkModeColors } from '@atlaskit/editor-common';
+import { getPanelBackgroundDarkModeColors } from '@atlaskit/editor-common/styles';
+import {
+  PanelInfoIcon,
+  PanelSuccessIcon,
+  PanelNoteIcon,
+  PanelWarningIcon,
+  PanelErrorIcon,
+} from '@atlaskit/editor-common/icons';
 
 interface PanelStyledProps {
   'data-panel-type': PanelType;
@@ -48,21 +48,22 @@ export interface Props {
   children?: React.ReactNode;
   providers?: ProviderFactory;
   panelType: PanelType;
-
   allowCustomPanels?: boolean;
-  // @stage 0
   panelIcon?: string;
-  // @stage 0
+  panelIconId?: string;
+  panelIconText?: string;
   panelColor?: string;
 }
 
-const panelIcons = {
-  info: InfoIcon,
-  success: SuccessIcon,
-  note: NoteIcon,
+const panelIcons: {
+  [key in PanelType]: React.ComponentType<{ label: string }>;
+} = {
+  info: PanelInfoIcon,
+  success: PanelSuccessIcon,
+  note: PanelNoteIcon,
   tip: TipIcon,
-  warning: WarningIcon,
-  error: ErrorIcon,
+  warning: PanelWarningIcon,
+  error: PanelErrorIcon,
   custom: EmojiIcon,
 };
 
@@ -72,6 +73,8 @@ const Panel = (props: Props) => {
     panelType: type,
     panelColor,
     panelIcon,
+    panelIconId,
+    panelIconText,
     providers,
     children,
   } = props;
@@ -86,7 +89,14 @@ const Panel = (props: Props) => {
   const getIcon = () => {
     if (panelType === PanelType.CUSTOM) {
       if (panelIcon && providers) {
-        return <EmojiItem shortName={panelIcon} providers={providers} />;
+        return (
+          <EmojiItem
+            id={panelIconId}
+            text={panelIconText}
+            shortName={panelIcon}
+            providers={providers}
+          />
+        );
       }
 
       return null;
@@ -110,6 +120,8 @@ const Panel = (props: Props) => {
       data-panel-type={panelType}
       data-panel-color={panelColor}
       data-panel-icon={panelIcon}
+      data-panel-icon-id={panelIconId}
+      data-panel-icon-text={panelIconText}
       backgroundColor={panelColor}
     >
       {renderIcon()}

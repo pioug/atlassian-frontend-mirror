@@ -11,10 +11,12 @@ import { css, jsx } from '@emotion/core';
 
 import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { easeIn, ExitingPersistence, SlideIn } from '@atlaskit/motion';
+import VisuallyHidden from '@atlaskit/visually-hidden';
+import noop from '@atlaskit/ds-lib/noop';
 import Portal from '@atlaskit/portal';
 import { gridSize as getGridSize, layers } from '@atlaskit/theme/constants';
 
-type Props = {
+type FlagGroupProps = {
   /** ID attribute used for DOM selection. */
   id?: string;
   /** Describes the specific role of this FlagGroup for users viewing the page with a screen reader (defaults to `Flag notifications`). */
@@ -34,8 +36,6 @@ export const flagWidth = gridSize * 50;
 export const flagAnimationTime = 400;
 const flagBottom = gridSize * 6;
 const flagLeft = gridSize * 10;
-
-function noop() {}
 
 type FlagGroupAPI = {
   onDismissed: (id: number | string, analyticsEvent: UIAnalyticsEvent) => void;
@@ -57,40 +57,55 @@ export function useFlagGroup() {
 
 // transition: none is set on first-of-type to prevent a bug in Firefox
 // that causes a broken transition
-const baseStyles = `
-  bottom: 0;
-  position: absolute;
-  width: ${flagWidth}px;
-  transition: transform ${flagAnimationTime}ms ease-in-out;
+const baseStyles = css({
+  width: flagWidth,
+  position: 'absolute',
+  bottom: 0,
+  transition: `transform ${flagAnimationTime}ms ease-in-out`,
+  '@media (max-width: 560px)': {
+    width: '100vw',
+  },
+  ':first-of-type': {
+    transform: `translate(0,0)`,
+    transition: 'none',
+  },
+  ':nth-of-type(n + 2)': {
+    animationDuration: '0ms',
+    transform: `translateX(0) translateY(100%) translateY(${2 * gridSize}px)`,
+  },
+  ':nth-of-type(1)': {
+    zIndex: 5,
+  },
+  ':nth-of-type(2)': {
+    zIndex: 4,
+  },
+  '&:nth-of-type(n + 4)': {
+    visibility: 'hidden',
+  },
+});
 
-  @media (max-width: 560px) {
-    width: 100vw;
-  }
+// Transform needed to push up while 1st flag is leaving
+// Exiting time should match the exiting time of motion so is halved
+const dismissAllowedStyles = css({
+  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+  '&& + *': {
+    transform: `translate(0, 0)`,
+    transitionDuration: `${flagAnimationTime / 2}ms`,
+  },
+});
 
-  &:first-of-type {
-    transition: none;
-    transform: translate(0,0);
-  }
+const flagGroupContainerStyles = css({
+  position: 'fixed',
+  zIndex: layers.flag(),
+  bottom: flagBottom,
+  left: flagLeft,
+  '@media (max-width: 560px)': {
+    bottom: 0,
+    left: 0,
+  },
+});
 
-  &:nth-of-type(n + 2) {
-    animation-duration: 0ms;
-    transform: translateX(0) translateY(100%) translateY(${2 * gridSize}px);
-  }
-
-  /* Layer the 'primary' flag above the 'secondary' flag */
-  &:nth-of-type(1) {
-    z-index: 5;
-  }
-  &:nth-of-type(2) {
-    z-index: 4;
-  }
-
-  &:nth-of-type(n + 4) {
-    visibility: hidden;
-  }
-`;
-
-const FlagGroup = (props: Props) => {
+const FlagGroup = (props: FlagGroupProps) => {
   const {
     id,
     label = 'Flag notifications',
@@ -118,26 +133,15 @@ const FlagGroup = (props: Props) => {
 
           return (
             <SlideIn
-              enterFrom={'left'}
-              fade={'inout'}
+              enterFrom="left"
+              fade="inout"
               duration={flagAnimationTime}
               animationTimingFunction={() => easeIn}
             >
               {(props) => (
                 <div
                   {...props}
-                  css={css`
-                    ${baseStyles}
-                    ${isDismissAllowed
-                      ? // Transform needed to push up while 1st flag is leaving
-                        // Exiting time should match the exiting time of motion so is halved
-                        `
-                    && + * {
-                     transform: translate(0, 0);
-                     transition-duration: ${flagAnimationTime / 2}ms
-                   }`
-                      : ''}
-                  `}
+                  css={[baseStyles, isDismissAllowed && dismissAllowedStyles]}
                 >
                   <FlagGroupContext.Provider
                     value={
@@ -159,34 +163,11 @@ const FlagGroup = (props: Props) => {
 
   return (
     <Portal zIndex={layers.flag()}>
-      <div
-        id={id}
-        css={css`
-          bottom: ${flagBottom}px;
-          left: ${flagLeft}px;
-          position: fixed;
-          z-index: ${layers.flag()};
-          @media (max-width: 560px) {
-            bottom: 0;
-            left: 0;
-          }
-        `}
-      >
+      <div id={id} css={flagGroupContainerStyles}>
         {hasFlags ? (
-          <LabelTag
-            css={css`
-              border: 0;
-              clip: rect(1px, 1px, 1px, 1px);
-              height: 1px;
-              overflow: hidden;
-              padding: 0;
-              position: absolute;
-              white-space: nowrap;
-              width: 1px;
-            `}
-          >
-            {label}
-          </LabelTag>
+          <VisuallyHidden>
+            <LabelTag>{label}</LabelTag>
+          </VisuallyHidden>
         ) : null}
 
         <ExitingPersistence appear={false}>

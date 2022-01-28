@@ -8,7 +8,7 @@ import {
   MockMentionResource,
   MockMentionConfig,
 } from '@atlaskit/util-data-test/mock-mention-resource';
-import { ProviderFactory } from '@atlaskit/editor-common';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import {
   MentionProvider,
   MentionDescription,

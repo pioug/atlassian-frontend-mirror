@@ -3,12 +3,12 @@ import { Transaction, EditorState, TextSelection } from 'prosemirror-state';
 import { ADFEntity, transformTextLinkCodeMarks } from '@atlaskit/adf-utils';
 import { ContentNodeWithPos } from 'prosemirror-utils';
 import { sanitizeNodeForPrivacy } from '../utils/filter/privacy-filter';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import {
-  ProviderFactory,
-  Transformer,
   validateADFEntity,
   findAndTrackUnsupportedContentNodes,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-common/utils';
+import { Transformer } from '@atlaskit/editor-common/types';
 import { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import { DispatchAnalyticsEvent } from '../plugins/analytics/types/dispatch-analytics-event';
 import { getBreakoutMode } from './node-width';

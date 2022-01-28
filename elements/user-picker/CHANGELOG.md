@@ -1,5 +1,17 @@
 # @atlaskit/user-picker
 
+## 8.3.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.3.4
+
+### Patch Changes
+
+- [`7f48efc8487`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7f48efc8487) - Use baseUrl prop in default user value hydration query
+
 ## 8.3.3
 
 ### Patch Changes

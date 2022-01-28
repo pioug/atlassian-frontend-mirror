@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { Selection } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 
-import { browser } from '@atlaskit/editor-common';
+import { browser } from '@atlaskit/editor-common/utils';
 import type { TableColumnOrdering } from '@atlaskit/adf-schema/steps';
 
 import { hoverRows, selectRow } from '../../commands';

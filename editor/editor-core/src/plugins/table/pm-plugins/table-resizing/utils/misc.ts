@@ -2,11 +2,11 @@ import { NodeSpec, ResolvedPos } from 'prosemirror-model';
 import { EditorView } from 'prosemirror-view';
 
 import { CellAttributes, TableLayout } from '@atlaskit/adf-schema';
+import { calcTableWidth } from '@atlaskit/editor-common/styles';
 import {
-  calcTableWidth,
   getBreakpoint,
   mapBreakpointToLayoutMaxWidth,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-common/ui';
 import {
   akEditorDefaultLayoutWidth,
   akEditorFullWidthLayoutWidth,

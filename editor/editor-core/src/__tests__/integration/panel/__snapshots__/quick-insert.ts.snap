@@ -7,6 +7,8 @@ Object {
       "attrs": Object {
         "panelColor": "#E6FCFF",
         "panelIcon": ":rainbow:",
+        "panelIconId": "1f308",
+        "panelIconText": "🌈",
         "panelType": "custom",
       },
       "content": Array [

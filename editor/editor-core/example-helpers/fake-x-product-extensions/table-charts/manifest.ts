@@ -6,6 +6,7 @@ import {
 } from '@atlaskit/editor-common/extensions';
 import { ExtensionAPI } from '@atlaskit/editor-common/extensions';
 import { ADFEntity } from '@atlaskit/adf-utils';
+import { uuid } from '@atlaskit/adf-schema';
 
 const manifest: ExtensionManifest = {
   title: 'Extension with table toolbar items',
@@ -228,6 +229,20 @@ const manifest: ExtensionManifest = {
               ).then((mod) => mod.default),
             action: async (adf: ADFEntity, api: ExtensionAPI) => {
               const localId: string = adf.attrs?.localId || '';
+              const existingFragmentMark = adf.marks?.find(
+                (m) => m.type === 'fragment',
+              );
+              let fragmentMarkLocalId = existingFragmentMark?.attrs?.localId;
+              if (!existingFragmentMark) {
+                fragmentMarkLocalId = uuid.generate();
+                api.doc.update(localId, ({ attrs, marks }) => ({
+                  attrs,
+                  marks: (marks ?? []).concat({
+                    type: 'fragment',
+                    attrs: { localId: fragmentMarkLocalId },
+                  }),
+                }));
+              }
               const chartADF: ADFEntity = {
                 type: 'extension',
                 attrs: {
@@ -241,7 +256,7 @@ const manifest: ExtensionManifest = {
                   {
                     type: 'dataConsumer',
                     attrs: {
-                      sources: [localId],
+                      sources: [fragmentMarkLocalId],
                     },
                   },
                 ],

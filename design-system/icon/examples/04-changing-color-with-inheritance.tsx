@@ -34,10 +34,10 @@ const ChangingColorWithInheritance = () => {
       style={{
         backgroundColor: isColorFlipped
           ? 'white'
-          : token('color.background.boldBrand.resting', B500),
+          : token('color.background.brand.bold', B500),
         color: isColorFlipped
-          ? token('color.text.highEmphasis', N800)
-          : token('color.text.onBold', N0),
+          ? token('color.text', N800)
+          : token('color.text.inverse', N0),
       }}
     >
       <p css={textStyles} style={{ backgroundColor: 'inherit' }}>

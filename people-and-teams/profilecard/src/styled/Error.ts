@@ -32,6 +32,6 @@ export const TeamErrorTitle = styled.p`
 `;
 
 export const TeamErrorText = styled.p`
-  color: ${token('color.text.lowEmphasis', N200)};
+  color: ${token('color.text.subtlest', N200)};
   margin-top: ${gridSize() * 1}px;
 `;

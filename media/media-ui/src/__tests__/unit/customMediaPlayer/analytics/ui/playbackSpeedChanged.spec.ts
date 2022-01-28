@@ -14,7 +14,7 @@ describe('createPlaybackSpeedChangedEvent', () => {
     isLoading: false,
     isAutoPlay: true,
     isFullScreenEnabled: false,
-    isLargePlayer: true,
+    playerSize: 'large',
     playbackSpeed: 1,
   };
 
@@ -36,7 +36,7 @@ describe('createPlaybackSpeedChangedEvent', () => {
           isMuted: false,
           isAutoPlay: true,
           isFullScreenEnabled: false,
-          isLargePlayer: true,
+          playerSize: 'large',
           playbackSpeed: 1,
         },
         fileAttributes: {

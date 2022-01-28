@@ -13,7 +13,7 @@ import exampleImage from './img/example-image.png';
 
 const containerStyles = css({
   width: '300px',
-  backgroundColor: token('color.background.subtleNeutral.resting', N20),
+  backgroundColor: token('color.background.neutral', N20),
 });
 
 const Container: FC = (props) => <div css={containerStyles} {...props} />;

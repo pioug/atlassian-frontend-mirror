@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { Popup } from '@atlaskit/editor-common';
+import { Popup } from '@atlaskit/editor-common/ui';
 import FloatingToolbar from '../../../ui/FloatingToolbar';
 import { Container } from '../../../ui/FloatingToolbar/styles';
 import Toolbar from '../../../plugins/floating-toolbar/ui/Toolbar';

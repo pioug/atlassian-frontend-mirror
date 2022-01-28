@@ -31,29 +31,29 @@ export const appearanceIconSchema: {
   [key in Appearance]: AppearanceIconSchema;
 } = {
   information: {
-    backgroundColor: token('color.background.subtleBrand.resting', B50),
+    backgroundColor: token('color.background.brand', B50),
     Icon: InfoIcon,
-    primaryIconColor: token('color.iconBorder.brand', B500),
+    primaryIconColor: token('color.icon.brand', B500),
   },
   warning: {
-    backgroundColor: token('color.background.subtleWarning.resting', Y50),
+    backgroundColor: token('color.background.warning', Y50),
     Icon: WarningIcon,
-    primaryIconColor: token('color.iconBorder.warning', Y500),
+    primaryIconColor: token('color.icon.warning', Y500),
   },
   error: {
-    backgroundColor: token('color.background.subtleDanger.resting', R50),
+    backgroundColor: token('color.background.danger', R50),
     Icon: ErrorIcon,
-    primaryIconColor: token('color.iconBorder.danger', R500),
+    primaryIconColor: token('color.icon.danger', R500),
   },
   success: {
-    backgroundColor: token('color.background.subtleSuccess.resting', G50),
+    backgroundColor: token('color.background.success', G50),
     Icon: CheckCircleIcon,
-    primaryIconColor: token('color.iconBorder.success', G500),
+    primaryIconColor: token('color.icon.success', G500),
   },
   discovery: {
-    backgroundColor: token('color.background.subtleDiscovery.resting', P50),
+    backgroundColor: token('color.background.discovery', P50),
     Icon: QuestionCircleIcon,
-    primaryIconColor: token('color.iconBorder.discovery', P500),
+    primaryIconColor: token('color.icon.discovery', P500),
   },
 };
 

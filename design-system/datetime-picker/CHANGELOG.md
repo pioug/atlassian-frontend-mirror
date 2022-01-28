@@ -1,5 +1,13 @@
 # @atlaskit/datetime-picker
 
+## 11.1.5
+
+### Patch Changes
+
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - Updates usage of deprecated token names so they're aligned with the latest naming conventions. No UI or visual changes
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - Fix bug in inline-edit and Form which prevented date selection in datetimepicker using the keyboard.
+- Updated dependencies
+
 ## 11.1.4
 
 ### Patch Changes

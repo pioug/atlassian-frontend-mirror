@@ -15,6 +15,7 @@ const largeSizeSettings = { marginBottom: 12 };
 export function generateResponsiveStyles(
   breakpoint: Breakpoint,
   positionBottom: boolean,
+  showOnTop: boolean,
   multiplier: number = 1,
 ) {
   const setting =
@@ -25,7 +26,7 @@ export function generateResponsiveStyles(
     setting.marginBottom * multiplier +
     (positionBottom ? marginPositionBottom : getTitleBoxHeight(breakpoint));
   return `
-    bottom: ${marginBottom}px
+    ${showOnTop ? 'top' : 'bottom'}: ${marginBottom}px
   `;
 }
 
@@ -33,10 +34,11 @@ export type StyledBarProps = {
   progress: number;
   breakpoint: Breakpoint;
   positionBottom: boolean;
+  showOnTop: boolean;
 };
 
 export const StyledBar = styled.div`
-  ${({ progress, breakpoint, positionBottom }: StyledBarProps) => `
+  ${({ progress, breakpoint, positionBottom, showOnTop }: StyledBarProps) => `
     ${borderRadius}
     overflow: hidden;
     position: absolute;
@@ -45,6 +47,7 @@ export const StyledBar = styled.div`
     background-color: ${rgba(N0, 0.8)};
     height: ${height + padding * 2}px;
     padding: ${padding}px;
+    box-sizing: border-box;
 
     ::before {
       content: '';
@@ -55,7 +58,7 @@ export const StyledBar = styled.div`
       display: block;
     }
 
-    ${generateResponsiveStyles(breakpoint, positionBottom)}
+    ${generateResponsiveStyles(breakpoint, positionBottom, showOnTop)}
 `}
 `;
 

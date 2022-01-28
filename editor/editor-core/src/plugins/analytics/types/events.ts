@@ -31,10 +31,10 @@ import {
   EditLinkToolbarAEP,
 } from './link-tool-bar-events';
 import { ExtensionEventPayload } from './extension-events';
-import {
+import type {
   UnsupportedContentPayload,
   UserBrowserExtensionResults,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-common/utils';
 import { AvatarEventPayload } from './avatar';
 
 export type AnalyticsEventPayload<T = void> =

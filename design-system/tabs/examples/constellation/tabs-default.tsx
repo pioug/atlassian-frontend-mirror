@@ -24,9 +24,9 @@ const panelStyles = css({
   justifyContent: 'center',
   flexDirection: 'column',
   flexGrow: 1,
-  backgroundColor: token('color.background.subtleNeutral.resting', N20),
+  backgroundColor: token('color.background.neutral', N20),
   borderRadius: `${borderRadius}px`,
-  color: token('color.text.lowEmphasis', N200),
+  color: token('color.text.subtlest', N200),
   fontSize: '4em',
   fontWeight: 500,
 });

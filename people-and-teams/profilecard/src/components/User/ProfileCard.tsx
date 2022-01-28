@@ -333,7 +333,7 @@ export default class Profilecard extends React.PureComponent<ProfilecardProps> {
                   ? this.props.avatarUrl
                   : undefined
               }
-              borderColor={token('color.background.overlay', N0)}
+              borderColor={token('elevation.surface.overlay', N0)}
             />
           </ProfileImage>
           <CardContent>

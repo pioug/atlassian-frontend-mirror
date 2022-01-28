@@ -43,8 +43,17 @@ describe('ClickAreaMobile', () => {
     expect(clickAreaClickHandlerMock).toHaveBeenCalledTimes(0);
   });
 
-  it('should set the min height of the click area as passed', () => {
-    const clickWrapper = mount(<ClickAreaMobile minHeight={200} />);
+  it('should set the min height of the click area as passed and set in styles', () => {
+    const clickWrapper = mount(
+      <ClickAreaMobile minHeight={200} isExpanded={true} />,
+    );
+    expect(clickWrapper).toMatchSnapshot();
+  });
+
+  it('should set the min height of the click area as passed, but not set in styles', () => {
+    const clickWrapper = mount(
+      <ClickAreaMobile minHeight={200} isExpanded={false} />,
+    );
     expect(clickWrapper).toMatchSnapshot();
   });
 

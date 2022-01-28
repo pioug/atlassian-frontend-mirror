@@ -8,7 +8,7 @@ import {
   AnalyticsListener,
   UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
-import { ProviderFactory } from '@atlaskit/editor-common';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 
 import { EventDispatcher } from '../../../event-dispatcher';
 import {

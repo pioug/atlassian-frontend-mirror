@@ -42,7 +42,7 @@ export default () => {
       style={{
         backgroundColor: isColorFlipped
           ? 'white'
-          : token('color.background.boldBrand.resting', B500),
+          : token('color.background.brand.bold', B500),
       }}
     >
       <p
@@ -57,7 +57,7 @@ export default () => {
         <Tooltip content={label} key={label}>
           <Icon
             primaryColor={
-              isColorFlipped ? token('color.text.lowEmphasis', N300) : 'white'
+              isColorFlipped ? token('color.text.subtlest', N300) : 'white'
             }
             size="xlarge"
             label={label}

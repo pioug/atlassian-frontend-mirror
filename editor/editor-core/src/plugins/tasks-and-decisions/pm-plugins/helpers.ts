@@ -1,7 +1,10 @@
 import { Node, NodeType, ResolvedPos } from 'prosemirror-model';
 import { EditorState, Selection, Transaction } from 'prosemirror-state';
 import { liftTarget } from 'prosemirror-transform';
-import { hasParentNodeOfType } from 'prosemirror-utils';
+import {
+  findParentNodeClosestToPos,
+  hasParentNodeOfType,
+} from 'prosemirror-utils';
 
 import { findFarthestParentNode } from '../../../utils';
 
@@ -23,6 +26,11 @@ export const isActionOrDecisionItem = (node: Node) => {
 export const isInsideTask = (state: EditorState) => {
   const { taskItem } = state.schema.nodes;
   return hasParentNodeOfType([taskItem])(state.selection);
+};
+
+export const isInsideDecision = (state: EditorState) => {
+  const { decisionItem } = state.schema.nodes;
+  return hasParentNodeOfType([decisionItem])(state.selection);
 };
 
 export const isTable = (node?: Node | null): Boolean => {
@@ -69,6 +77,16 @@ export const getCurrentIndentLevel = (selection: Selection) => {
   }
 
   return $from.depth - furthestParent.depth;
+};
+
+/**
+ * Finds the index of the current task item in relation to the closest taskList
+ */
+export const getTaskItemIndex = (state: EditorState) => {
+  const $pos = state.selection.$from;
+  const isTaskList = (node: Node | undefined) => node?.type.name === 'taskList';
+  const itemAtPos = findParentNodeClosestToPos($pos, isTaskList);
+  return $pos.index(itemAtPos ? itemAtPos.depth : undefined);
 };
 
 /**

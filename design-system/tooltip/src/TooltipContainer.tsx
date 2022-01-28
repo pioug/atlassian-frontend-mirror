@@ -64,11 +64,11 @@ const TooltipContainer = forwardRef<HTMLDivElement, TooltipContainerProps>(
               truncate ? truncateCss : null,
               css`
                 background-color: ${mode === 'light'
-                  ? token('color.background.boldNeutral.resting', N800)
-                  : token('color.background.boldNeutral.resting', DN0)};
+                  ? token('color.background.neutral.bold', N800)
+                  : token('color.background.neutral.bold', DN0)};
                 color: ${mode === 'light'
-                  ? token('color.text.onBold', N0)
-                  : token('color.text.onBold', DN600)};
+                  ? token('color.text.inverse', N0)
+                  : token('color.text.inverse', DN600)};
               `,
             ]}
           >

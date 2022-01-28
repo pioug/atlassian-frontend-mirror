@@ -15,7 +15,7 @@ export default function Example() {
         <div
           style={{
             width: '300px',
-            border: `1px solid ${token('color.border.neutral', '#777')}`,
+            border: `1px solid ${token('color.border', '#777')}`,
           }}
         >
           <p>This is a message with some reactions</p>

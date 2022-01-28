@@ -2,8 +2,9 @@ import React from 'react';
 import { EventHandler, MouseEvent, KeyboardEvent } from 'react';
 import PropTypes from 'prop-types';
 import { Card as SmartCard } from '@atlaskit/smart-card';
-import { UnsupportedInline, ZERO_WIDTH_SPACE } from '@atlaskit/editor-common';
-import { findOverflowScrollParent } from '@atlaskit/editor-common';
+import { UnsupportedInline } from '@atlaskit/editor-common/ui';
+import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/utils';
+import { findOverflowScrollParent } from '@atlaskit/editor-common/ui';
 import rafSchedule from 'raf-schd';
 
 import { SmartCardProps, Card } from './genericCard';

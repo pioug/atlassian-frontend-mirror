@@ -1,5 +1,69 @@
 # @atlaskit/editor-common
 
+## 63.0.0
+
+### Major Changes
+
+- [`272a64c6bf0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/272a64c6bf0) - CETI-166 Increase the standard panel icons size to make it consistent with the emojis in the panel content area
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - ED-13875 Removed editor common root entry
+
+  We remove the ability to import from `@atlaskit/editor-common` in favour of the following sub entries:
+
+  `@atlaskit/editor-common/collab`
+
+  `@atlaskit/editor-common/extensions`
+
+  `@atlaskit/editor-common/normalize-feature-flags`
+
+  `@atlaskit/editor-common/messages`
+
+  `@atlaskit/editor-common/provider-factory`
+
+  `@atlaskit/editor-common/styles`
+
+  `@atlaskit/editor-common/validator`
+
+  `@atlaskit/editor-common/in-product`
+
+  `@atlaskit/editor-common/cypress-config`
+
+  `@atlaskit/editor-common/type-ahead`
+
+  `@atlaskit/editor-common/ufo`
+
+  `@atlaskit/editor-common/types`
+
+  `@atlaskit/editor-common/ui`
+
+  `@atlaskit/editor-common/utils`
+
+  `@atlaskit/editor-common/card`
+
+  `@atlaskit/editor-common/emoji`
+
+  `@atlaskit/editor-common/mention`
+
+  `@atlaskit/editor-common/provider-helpers`
+
+### Minor Changes
+
+- [`51b65ffbd1b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/51b65ffbd1b) - CETI-240 handle add custom emoji in floating toolbar
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - CETI-80 added dark mode color palette for mobile through bridge
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - - Allow `table` nodes to have `fragment` marks
+  - Promote `fragment` mark to "full" ADF schema
+- [`5af69bfe9be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5af69bfe9be) - CETI-241 - Added additional panel ADF attributes (panelIconId, panelIconText) to uniquely identify custom panel emojis. The change has been categorised as major since it is a change to the full-schema ADF. However, the custom panel feature is behind a feature flag, has not yet been released to production, and is only currently planned for release to Confluence. See ADF change #61 for further details.
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - Add `update` function to `ExtensionAPI.doc`
+
+  This function allows consumers to mutate `ADFEntity.attrs` or `ADFEntity.marks` by the `localId` of the entity.
+
+### Patch Changes
+
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - ED-13025 Bump prosemirror-view 1.23.1 -> 1.23.2
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - ED-10264 fixed jumping cursor when clicking overflown status in table
+- [`231b3d8b718`](https://bitbucket.org/atlassian/atlassian-frontend/commits/231b3d8b718) - CETI-242 Change the Color palette labels for panel
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - Bump raf-schd to latest (4.0.3), including better TS typings.
+- Updated dependencies
+
 ## 62.1.1
 
 ### Patch Changes

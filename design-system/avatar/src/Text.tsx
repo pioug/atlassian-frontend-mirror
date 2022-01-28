@@ -13,7 +13,7 @@ const getStyles = (
 ): CSSObject => ({
   display: 'block',
   margin: 0,
-  color: token('color.text.highEmphasis', N900),
+  color: token('color.text', N900),
 
   ...(shouldTruncate && {
     overflowX: 'hidden',
@@ -22,7 +22,7 @@ const getStyles = (
   }),
 
   ...(isSecondary && {
-    color: token('color.text.lowEmphasis', N200),
+    color: token('color.text.subtlest', N200),
     fontSize: '0.85em',
   }),
 });

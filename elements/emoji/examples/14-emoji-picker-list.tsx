@@ -1,7 +1,9 @@
 import React from 'react';
 import classNames from 'classnames';
 import { getEmojis } from '@atlaskit/util-data-test/get-emojis';
-import EmojiPickerList from '../src/components/picker/EmojiPickerList';
+import EmojiPickerList, {
+  Props,
+} from '../src/components/picker/EmojiPickerList';
 
 import * as styles from '../src/components/picker/styles';
 import { IntlProvider } from 'react-intl-next';
@@ -25,10 +27,16 @@ export default function Example() {
     );
   };
 
+  const props = {
+    emojis,
+    query,
+    onSearch,
+  };
+
   return (
     <IntlProvider locale="en">
       <div className={classNames([styles.emojiPicker])}>
-        <EmojiPickerList emojis={emojis} query={query} onSearch={onSearch} />
+        <EmojiPickerList {...(props as Props)} />
       </div>
     </IntlProvider>
   );

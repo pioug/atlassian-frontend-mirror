@@ -1,5 +1,5 @@
 import React from 'react';
-import { AnnotationSharedClassNames } from '@atlaskit/editor-common';
+import { AnnotationSharedClassNames } from '@atlaskit/editor-common/styles';
 import { ReactNodeView, ForwardRef } from '../../../nodeviews';
 import WithPluginState from '../../../ui/WithPluginState';
 import { inlineCommentPluginKey } from '../utils';

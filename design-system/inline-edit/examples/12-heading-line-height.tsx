@@ -15,11 +15,8 @@ const ReadViewContainer = styled.div`
 `;
 
 const Message = styled.div`
-  background-color: ${token(
-    'color.background.boldDanger.resting',
-    'orangered',
-  )};
-  color: ${token('color.text.onBold', 'white')};
+  background-color: ${token('color.background.danger.bold', 'orangered')};
+  color: ${token('color.text.inverse', 'white')};
   padding: 8px;
   margin: 8px 0;
   border-radius: 3px;

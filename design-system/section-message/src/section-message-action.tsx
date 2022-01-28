@@ -20,7 +20,7 @@ const actionStyles = css({
   '& + &::before': {
     display: 'inline-block',
     width: `${actionsSeparatorWidth}px`,
-    color: `${token('color.text.mediumEmphasis', N500)}`,
+    color: `${token('color.text.subtle', N500)}`,
     content: '"·"',
     textAlign: 'center',
     verticalAlign: 'middle',

@@ -46,10 +46,10 @@ export default () => {
       <div
         style={{
           display: 'inline-block',
-          color: token('color.text.highEmphasis', N800),
-          backgroundColor: token('color.background.overlay', '#fff'),
+          color: token('color.text', N800),
+          backgroundColor: token('elevation.surface.overlay', '#fff'),
           boxShadow: token(
-            'shadow.overlay',
+            'elevation.shadow.overlay',
             '0px 4px 8px rgba(9, 30, 66, 0.25), 0px 0px 1px rgba(9, 30, 66, 0.31)',
           ),
           borderRadius: 4,

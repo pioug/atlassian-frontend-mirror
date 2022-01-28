@@ -29,6 +29,8 @@ export interface Props {
   onMouseEnter?: (objectId: string) => void;
   onMouseLeave?: (objectId: string) => void;
   ariaControls?: string;
+  role?: string;
+  id?: string;
 }
 
 export default class LinkSearchList extends PureComponent<Props, {}> {
@@ -42,6 +44,8 @@ export default class LinkSearchList extends PureComponent<Props, {}> {
       selectedIndex,
       isLoading,
       ariaControls,
+      role,
+      id,
     } = this.props;
 
     let itemsContent;
@@ -49,9 +53,11 @@ export default class LinkSearchList extends PureComponent<Props, {}> {
 
     if (items && items.length > 0) {
       itemsContent = (
-        <List aria-controls={ariaControls}>
+        <List id={id} role={role} aria-controls={ariaControls}>
           {items.map((item, index) => (
             <LinkSearchListItem
+              id={`link-search-list-item-${index}`}
+              role={role && 'option'}
               item={item}
               selected={selectedIndex === index}
               onMouseMove={onMouseMove}

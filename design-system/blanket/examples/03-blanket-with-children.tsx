@@ -17,11 +17,11 @@ const blanketChildStyles = css({
   width: '50%',
   margin: `${gridSize() * 3}px auto`,
   padding: `${gridSize() * 5}px`,
-  backgroundColor: token('color.background.default', N0),
+  backgroundColor: token('elevation.surface', N0),
 });
 
 const darkBackgroundStyles = css({
-  backgroundColor: token('color.background.default', DN50),
+  backgroundColor: token('elevation.surface', DN50),
 });
 
 const LIGHT = 'light';

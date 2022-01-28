@@ -56,8 +56,8 @@ jest.mock('@atlaskit/editor-core', () => ({
   openDatePicker: jest.fn(() => () => {}),
   setMobilePaddingTop: jest.fn(() => () => {}),
 }));
-jest.mock('@atlaskit/editor-common', () => ({
-  ...jest.requireActual<Object>('@atlaskit/editor-common'),
+jest.mock('@atlaskit/editor-common/utils', () => ({
+  ...jest.requireActual<Object>('@atlaskit/editor-common/utils'),
   measureRender: jest.fn((name, callback) => {
     callback();
   }),

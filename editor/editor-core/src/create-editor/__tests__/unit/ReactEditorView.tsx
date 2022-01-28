@@ -1,8 +1,8 @@
 const mockStopMeasureDuration = 1234;
 const mockStartTime = 1;
 const mockResponseTime = 200;
-jest.mock('@atlaskit/editor-common', () => ({
-  ...jest.requireActual<Object>('@atlaskit/editor-common'),
+jest.mock('@atlaskit/editor-common/utils', () => ({
+  ...jest.requireActual<Object>('@atlaskit/editor-common/utils'),
   startMeasure: jest.fn(),
   measureRender: jest.fn(async (name: string, callback: Function) => {
     await Promise.resolve(0);
@@ -45,11 +45,8 @@ import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
 import { EditorView } from 'prosemirror-view';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
-import {
-  measureRender,
-  ProviderFactory,
-  SEVERITY,
-} from '@atlaskit/editor-common';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import { measureRender, SEVERITY } from '@atlaskit/editor-common/utils';
 import { toJSON } from '../../../utils';
 import { ReactEditorView, shouldReconfigureState } from '../../ReactEditorView';
 import { EditorConfig } from '../../../types/editor-config';

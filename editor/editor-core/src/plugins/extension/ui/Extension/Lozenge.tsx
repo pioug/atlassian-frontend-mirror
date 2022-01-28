@@ -2,7 +2,7 @@ import React from 'react';
 import { Component } from 'react';
 import { Node as PmNode } from 'prosemirror-model';
 import EditorFileIcon from '@atlaskit/icon/glyph/editor/file';
-import { getExtensionLozengeData } from '@atlaskit/editor-common';
+import { getExtensionLozengeData } from '@atlaskit/editor-common/utils';
 import {
   PlaceholderFallback,
   PlaceholderFallbackParams,

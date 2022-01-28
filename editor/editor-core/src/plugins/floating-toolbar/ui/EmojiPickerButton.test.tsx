@@ -10,7 +10,7 @@ import { doc, p, panel } from '@atlaskit/editor-test-helpers/doc-builder';
 import { EmojiPickerButton } from './EmojiPickerButton';
 import { ReactWrapper } from 'enzyme';
 import panelPlugin from '../../panel';
-import { ProviderFactory } from '@atlaskit/editor-common';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
 import { act } from 'react-dom/test-utils';
 
@@ -65,24 +65,6 @@ describe('emoji-picker-button', () => {
 
     // show the popup
     expect(wrapper.find('Popup')).toHaveLength(1);
-  });
-
-  it('should close EmojiPicker popup after clicking outside', () => {
-    // clicking on the button to open the popup
-    wrapper.find('button').simulate('click');
-
-    // make sure the popup and picker are shown
-    expect(wrapper.find('Popup')).toHaveLength(1);
-
-    const emojiPicker = wrapper.find('EmojiPickerInternal').instance();
-    // calling click outside
-    act(() => {
-      (emojiPicker.props as any).handleClickOutside();
-    });
-
-    wrapper.update();
-    // make sure popup is hidden
-    expect(wrapper.find('Popup')).toHaveLength(0);
   });
 
   it('should hide popup and call onChange after selecting an emoji', () => {

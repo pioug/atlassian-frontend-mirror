@@ -1,4 +1,5 @@
-import { WidthConsumer, ProviderFactory } from '@atlaskit/editor-common';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import { WidthConsumer } from '@atlaskit/editor-common/ui';
 import { ContextPanelConsumer } from '../../ContextPanel/context';
 import { EditorView } from 'prosemirror-view';
 import React, { ReactElement } from 'react';

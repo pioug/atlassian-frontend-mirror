@@ -1,4 +1,4 @@
-import { AnnotationByMatches } from '@atlaskit/editor-common';
+import { AnnotationByMatches } from '@atlaskit/editor-common/types';
 import {
   ContentBridge,
   AnnotationBridge,

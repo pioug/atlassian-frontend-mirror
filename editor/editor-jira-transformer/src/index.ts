@@ -14,7 +14,7 @@ import {
   isSchemaWithMedia,
   isSchemaWithTables,
 } from '@atlaskit/adf-schema';
-import { Transformer } from '@atlaskit/editor-common';
+import { Transformer } from '@atlaskit/editor-common/types';
 
 export type CustomEncoder = (userId: string) => string;
 

@@ -1,7 +1,7 @@
 import { name } from '../../../../version.json';
 import { JSONDocNode } from '../../../../utils/index';
 import { sanitizeNodeForPrivacy } from '../../../../utils/filter/privacy-filter';
-import { ProviderFactory } from '@atlaskit/editor-common';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { waitUntil } from '@atlaskit/media-test-helpers';
 import { MentionProvider } from '@atlaskit/mention/types';
 

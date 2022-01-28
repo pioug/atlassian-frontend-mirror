@@ -1,5 +1,11 @@
 # @atlaskit/page-layout
 
+## 1.0.7
+
+### Patch Changes
+
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - Bump raf-schd to latest (4.0.3), including better TS typings.
+
 ## 1.0.6
 
 ### Patch Changes

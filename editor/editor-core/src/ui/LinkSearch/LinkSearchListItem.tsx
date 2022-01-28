@@ -7,13 +7,10 @@ import { fontSizeSmall } from '@atlaskit/theme';
 import { N20, N300, N800 } from '@atlaskit/theme/colors';
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 import { LinkSearchListItemData } from './types';
-import formatDistance from 'date-fns/formatDistance';
-import differenceInCalendarDays from 'date-fns/differenceInCalendarDays';
-import format from 'date-fns/format';
 import { getCorrectAltByIconUrl } from './listItemAlts';
 
+import { transformTimeStamp } from './transformTimeStamp';
 import { injectIntl, WrappedComponentProps } from 'react-intl-next';
-import messages from '../../messages';
 
 interface ContainerProps {
   selected: boolean;
@@ -63,6 +60,8 @@ export interface Props {
   onMouseMove?: (objectId: string) => void;
   onMouseEnter?: (objectId: string) => void;
   onMouseLeave?: (objectId: string) => void;
+  id?: string;
+  role?: string;
 }
 
 class LinkSearchListItem extends React.PureComponent<
@@ -114,67 +113,36 @@ class LinkSearchListItem extends React.PureComponent<
     return null;
   }
 
-  renderWithSpaces(
-    pageAction: string,
-    dateString: string,
-    timeSince: string = '',
-  ) {
-    return (
-      <>
-        &nbsp; •
-        <span
-          className="link-search-timestamp"
-          data-test-id="link-search-timestamp"
-        >
-          &nbsp; {pageAction} {dateString} {timeSince}
-        </span>
-      </>
-    );
-  }
-
-  renderAbsoluteOrRelativeDate(
-    timeStamp: Date,
-    pageAction: 'updated' | 'viewed',
-  ) {
-    const { intl } = this.props;
-
-    let pageActionText: string = '';
-    switch (pageAction) {
-      case 'updated':
-        pageActionText = intl.formatMessage(messages.timeUpdated);
-        break;
-      case 'viewed':
-        pageActionText = intl.formatMessage(messages.timeViewed);
-        break;
-    }
-
-    if (differenceInCalendarDays(timeStamp, Date.now()) < -7) {
-      return this.renderWithSpaces(
-        pageActionText,
-        format(timeStamp, 'MMMM dd, yyyy'),
-      );
-    }
-    return this.renderWithSpaces(
-      pageActionText,
-      formatDistance(timeStamp, Date.now()),
-      intl.formatMessage(messages.timeAgo),
-    );
-  }
-
   renderTimeStamp() {
-    const { lastUpdatedDate, lastViewedDate } = this.props.item;
-    if (lastViewedDate) {
-      return this.renderAbsoluteOrRelativeDate(lastViewedDate, 'viewed');
-    }
-    if (lastUpdatedDate) {
-      return this.renderAbsoluteOrRelativeDate(lastUpdatedDate, 'updated');
-    }
+    const { item, intl } = this.props;
+    const date = transformTimeStamp(
+      intl,
+      item.lastViewedDate,
+      item.lastUpdatedDate,
+    );
+
+    return (
+      date && (
+        <>
+          &nbsp; •
+          <span
+            className="link-search-timestamp"
+            data-test-id="link-search-timestamp"
+          >
+            &nbsp; {date.pageAction} {date.dateString} {date.timeSince || ''}
+          </span>
+        </>
+      )
+    );
   }
 
   render() {
-    const { item, selected } = this.props;
+    const { item, selected, id, role } = this.props;
     return (
       <Container
+        role={role}
+        id={id}
+        aria-selected={selected}
         data-testid="link-search-list-item"
         selected={selected}
         onMouseMove={this.handleMouseMove}

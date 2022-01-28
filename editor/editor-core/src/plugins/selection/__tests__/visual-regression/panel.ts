@@ -5,7 +5,7 @@ import {
 import {
   PanelSharedCssClassName,
   PanelSharedSelectors,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-common/styles';
 import {
   snapshot,
   initEditorWithAdf,
@@ -16,6 +16,7 @@ import { mentionSelectors } from '../../../../__tests__/__helpers/page-objects/_
 import { animationFrame } from '../../../../__tests__/__helpers/page-objects/_editor';
 import selectionPanelAdf from './__fixtures__/panel.adf.json';
 import { akEditorSelectedNodeClassName } from '@atlaskit/editor-shared-styles';
+import { retryUntilStablePosition } from '../../../../__tests__/__helpers/page-objects/_toolbar';
 
 // ED-10826: The editor may present a clickable interface before it is
 // fully mounted. We implement retryable clicking to overcome this edge case.
@@ -72,6 +73,15 @@ describe('Selection:', () => {
       await page.hover(PanelSharedSelectors.removeButton);
       await page.waitForSelector(`.${PanelSharedCssClassName.prefix}.danger`);
       await waitForTooltip(page);
+      await retryUntilStablePosition(
+        page,
+
+        () => {
+          return page.hover(PanelSharedSelectors.removeButton);
+        },
+
+        '.atlaskit-portal-container div[role="tooltip"]',
+      );
       await snapshot(page);
     });
 

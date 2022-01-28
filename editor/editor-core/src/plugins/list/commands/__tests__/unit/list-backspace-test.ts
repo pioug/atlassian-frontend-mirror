@@ -1,14 +1,4 @@
 import {
-  p,
-  ul,
-  li,
-  doc,
-  DocBuilder,
-} from '@atlaskit/editor-test-helpers/doc-builder';
-import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
-import { calcJoinListScenario, listBackspace } from '../../listBackspace';
-import { walkPrevNode } from '../../../../../utils/commands';
-import {
   LIST_TEXT_SCENARIOS,
   addAnalytics,
   ACTION,
@@ -19,6 +9,16 @@ import {
   DELETE_DIRECTION,
 } from '../../../../analytics';
 jest.mock('../../../../analytics');
+import {
+  p,
+  ul,
+  li,
+  doc,
+  DocBuilder,
+} from '@atlaskit/editor-test-helpers/doc-builder';
+import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
+import { calcJoinListScenario, listBackspace } from '../../listBackspace';
+import { walkPrevNode } from '../../../../../utils/commands';
 
 describe('list-backspace', () => {
   // prettier-ignore
@@ -72,6 +72,12 @@ describe('list-backspace', () => {
     ),
   );
 
+  // describe('test', () => {
+  //   it('should pass', () => {
+  //     const myState = createEditorState(documentCase4);
+  //     expect(1).toBeTruthy();
+  //   });
+  // });
   afterEach(() => {
     (addAnalytics as jest.Mock).mockReset();
   });

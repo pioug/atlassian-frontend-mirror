@@ -8,9 +8,9 @@ import { SmartCardProps, Card } from './genericCard';
 import {
   UnsupportedBlock,
   MediaSingle as RichMediaWrapper,
-  browser,
   findOverflowScrollParent,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-common/ui';
+import { browser } from '@atlaskit/editor-common/utils';
 import {
   DEFAULT_EMBED_CARD_HEIGHT,
   DEFAULT_EMBED_CARD_WIDTH,

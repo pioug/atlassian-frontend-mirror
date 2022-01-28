@@ -1,6 +1,8 @@
 import { Schema } from 'prosemirror-model';
 import { defaultSchema } from '@atlaskit/adf-schema';
-import { Transformer, ADNode, EventHandlers } from '@atlaskit/editor-common';
+import type { ADNode } from '@atlaskit/editor-common/validator';
+import type { EventHandlers } from '@atlaskit/editor-common/ui';
+import { Transformer } from '@atlaskit/editor-common/types';
 import { JSONTransformer } from '@atlaskit/editor-json-transformer';
 import { Node as PMNode } from 'prosemirror-model';
 import { RendererAppearance } from './ui/Renderer/types';

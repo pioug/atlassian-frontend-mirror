@@ -15,6 +15,7 @@ import {
   SelectOption,
 } from '@atlaskit/editor-core';
 import { Node, NodeType } from 'prosemirror-model';
+import { EmojiId } from '@atlaskit/emoji';
 
 export type MobileEditorToolbarItem = FloatingToolbarItem<Command> & {
   key?: string;
@@ -431,7 +432,10 @@ export default class MobileEditorToolbarActions {
     editorView: EditorView,
   ) {
     if (value) {
-      picker.onChange(value)(editorView.state, editorView.dispatch);
+      const emojiId: EmojiId = {
+        shortName: value,
+      };
+      picker.onChange(emojiId)(editorView.state, editorView.dispatch);
     }
   }
 

@@ -12,10 +12,8 @@ import {
   useInlineCommentsFilter,
 } from '../hooks';
 import { InlineCommentsStateContext } from '../context';
-import {
-  AnnotationUpdateEvent,
-  OnAnnotationClickPayload,
-} from '@atlaskit/editor-common';
+import { AnnotationUpdateEvent } from '@atlaskit/editor-common/types';
+import type { OnAnnotationClickPayload } from '@atlaskit/editor-common/types';
 
 type MarkElementProps = {
   id: AnnotationId;

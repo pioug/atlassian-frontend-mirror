@@ -21,7 +21,7 @@ import {
   CardWrapper,
 } from '../../../../ui/MediaCard';
 import { MediaSSR } from '../../../../types/mediaOptions';
-import { MediaLink } from '@atlaskit/editor-common';
+import { MediaLink } from '@atlaskit/editor-common/ui';
 import { MediaClientConfig } from '@atlaskit/media-core';
 
 const doc = require('../../../../../examples/helper/media-layout.adf.json');

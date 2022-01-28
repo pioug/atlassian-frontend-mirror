@@ -154,4 +154,25 @@ describe('Snapshot Test', () => {
     const image = await page.screenshot();
     expect(image).toMatchProdImageSnapshot();
   });
+
+  it('Should have correct highlighted row before and after sorting', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'dynamic-table',
+      'highlighted-row-with-sorting',
+      global.__BASEURL__,
+    );
+
+    const { page } = global;
+
+    await loadPage(page, url);
+    await page.waitForSelector(table);
+    // Take screenshot before sorting
+    const tableBefore = await takeElementScreenShot(page, table);
+    expect(tableBefore).toMatchProdImageSnapshot();
+    // Take screenshot after sorting
+    await page.click(tableHeadParty);
+    const tableAfter = await takeElementScreenShot(page, table);
+    expect(tableAfter).toMatchProdImageSnapshot();
+  });
 });

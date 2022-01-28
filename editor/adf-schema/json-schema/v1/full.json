@@ -427,6 +427,37 @@
       ],
       "additionalProperties": false
     },
+    "fragment_mark": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "fragment"
+          ]
+        },
+        "attrs": {
+          "type": "object",
+          "properties": {
+            "localId": {
+              "type": "string",
+              "minLength": 1
+            },
+            "name": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "localId"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "type",
+        "attrs"
+      ],
+      "additionalProperties": false
+    },
     "hardBreak_node": {
       "type": "object",
       "properties": {
@@ -580,7 +611,14 @@
             "marks": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/dataConsumer_mark"
+                "anyOf": [
+                  {
+                    "$ref": "#/definitions/dataConsumer_mark"
+                  },
+                  {
+                    "$ref": "#/definitions/fragment_mark"
+                  }
+                ]
               }
             }
           },
@@ -1426,6 +1464,12 @@
             "panelIcon": {
               "type": "string"
             },
+            "panelIconId": {
+              "type": "string"
+            },
+            "panelIconText": {
+              "type": "string"
+            },
             "panelColor": {
               "type": "string"
             }
@@ -1745,7 +1789,14 @@
             "marks": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/dataConsumer_mark"
+                "anyOf": [
+                  {
+                    "$ref": "#/definitions/dataConsumer_mark"
+                  },
+                  {
+                    "$ref": "#/definitions/fragment_mark"
+                  }
+                ]
               }
             }
           },
@@ -1905,6 +1956,12 @@
             "$ref": "#/definitions/table_row_node"
           },
           "minItems": 1
+        },
+        "marks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/fragment_mark"
+          }
         }
       },
       "required": [
@@ -2283,7 +2340,14 @@
             "marks": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/dataConsumer_mark"
+                "anyOf": [
+                  {
+                    "$ref": "#/definitions/dataConsumer_mark"
+                  },
+                  {
+                    "$ref": "#/definitions/fragment_mark"
+                  }
+                ]
               }
             }
           },

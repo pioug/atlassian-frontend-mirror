@@ -1,5 +1,11 @@
 # @atlaskit/layer
 
+## 9.0.4
+
+### Patch Changes
+
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - Bump raf-schd to latest (4.0.3), including better TS typings.
+
 ## 9.0.3
 
 ### Patch Changes

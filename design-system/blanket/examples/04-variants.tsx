@@ -16,7 +16,7 @@ const labelStyles = css({
   display: 'inline-block',
   marginTop: `0`,
   marginBottom: '4px',
-  color: token('color.text.lowEmphasis', colors.N200),
+  color: token('color.text.subtlest', colors.N200),
   fontSize: `${headingSizes.h200.size / fontSize()}em`,
   fontStyle: 'inherit',
   fontWeight: 600,
@@ -28,8 +28,8 @@ const blanketStyles = css({
   boxSizing: 'border-box',
   maxWidth: '144px',
   flexDirection: 'column',
-  background: token('color.background.default', colors.N0),
-  border: `2px dashed ${token('color.accent.subtleBlue', colors.B75)}`,
+  background: token('elevation.surface', colors.N0),
+  border: `2px dashed ${token('color.background.accent.blue', colors.B75)}`,
   pointerEvents: 'initial',
 });
 

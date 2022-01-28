@@ -1,4 +1,4 @@
-import { PopupProps } from '@atlaskit/editor-common';
+import type { PopupProps } from '@atlaskit/editor-common/ui';
 
 import {
   tableDeleteButtonOffset,

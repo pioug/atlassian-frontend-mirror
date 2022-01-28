@@ -131,6 +131,8 @@ Object {
       "attrs": Object {
         "panelColor": null,
         "panelIcon": null,
+        "panelIconId": null,
+        "panelIconText": null,
         "panelType": "info",
       },
       "content": Array [

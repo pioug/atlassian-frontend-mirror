@@ -9,7 +9,7 @@ export type WithPlaybackProps = {
 };
 
 export type WithMediaPlayerState = {
-  isLargePlayer: boolean;
+  playerSize: 'small' | 'medium' | 'large';
   isFullScreenEnabled: boolean;
   playbackSpeed: number;
 };
@@ -39,7 +39,7 @@ export function createPlaybackAttributes(
     isAutoPlay,
     isHDAvailable,
     isHDActive,
-    isLargePlayer,
+    playerSize,
     isFullScreenEnabled,
     playbackSpeed,
     status,
@@ -55,7 +55,7 @@ export function createPlaybackAttributes(
       isHDAvailable,
       isHDActive,
       playbackSpeed,
-      isLargePlayer,
+      playerSize,
       isFullScreenEnabled,
       durationInSec: duration && parseInt(`${duration}`, 10),
       absoluteTimeInSec: currentTime && parseInt(`${currentTime}`, 10),

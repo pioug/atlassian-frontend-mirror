@@ -1,6 +1,6 @@
 interface Config {
   getRecommendationServiceUrl(baseUrl: string): string;
-  getUsersServiceUrl(productKey: string): string;
+  getUsersServiceUrl(productKey: string, baseUrl?: string): string;
 }
 
 let env = 'prod';
@@ -25,10 +25,10 @@ const PRD_CONFIG: Config = {
       ? `${baseUrl}/gateway/api/v1/recommendations`
       : '/gateway/api/v1/recommendations';
   },
-  getUsersServiceUrl(productKey: string) {
+  getUsersServiceUrl(productKey: string, baseUrl: string = '') {
     return productKey === 'jira'
-      ? `/rest/api/3/user/bulk`
-      : `/wiki/rest/api/user/bulk`;
+      ? `${baseUrl}/rest/api/3/user/bulk`
+      : `${baseUrl}/wiki/rest/api/user/bulk`;
   },
 };
 /**

@@ -3,11 +3,13 @@ import { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import { render } from 'react-dom';
 import { act } from 'react-dom/test-utils';
 import {
-  AnnotationState,
-  AnnotationProviders,
   AnnotationUpdateEmitter,
   AnnotationUpdateEvent,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-common/types';
+import type {
+  AnnotationState,
+  AnnotationProviders,
+} from '@atlaskit/editor-common/types';
 import { AnnotationTypes, AnnotationMarkStates } from '@atlaskit/adf-schema';
 import { ProvidersContext } from '../../../context';
 import { useLoadAnnotations } from '../../use-load-annotations';

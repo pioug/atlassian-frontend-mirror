@@ -3,7 +3,7 @@ import { md, code } from '@atlaskit/docs';
 export default md`
   # Intro
 
-  The Client is a HTTP client which interacts with the [Object Resolver Service](https://microscope.prod.atl-paas.net/object-resolver-service), or a service of your own. It lives on the **SmartCardProvider**, which uses **React.Context**. 
+  The Client is a HTTP client which interacts with the [Object Resolver Service](https://microscope.prod.atl-paas.net/services/object-resolver-service), or a service of your own. It lives on the **SmartCardProvider**, which uses **React.Context**. 
   
   The Object Resolver Service provides two primary endpoints:
 
@@ -31,6 +31,11 @@ export default md`
     };
   }
   `}
+
+  ## Backend endpoint
+
+  By default, the Client will talk to **/gateway/api/object-resolver** endpoint of the current domain. This assumes that your product has already integrated with Stargate so that our service is accessible through that endpoint.
+  We **do not** offer a way to configure that endpoint. Please refer to the section below on how to provide your own implementation.
 
   ## Providing your own implementation
 

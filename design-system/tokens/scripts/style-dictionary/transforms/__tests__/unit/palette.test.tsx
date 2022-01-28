@@ -64,7 +64,7 @@ describe('palette transformer', () => {
     expect(actual).toEqual('#FEFEFE');
   });
 
-  it('should transfer named color values', () => {
+  it('should transfer transparent to equivallant hex representation', () => {
     const token: PaintToken = {
       attributes: { group: 'paint', description: '', state: 'active' },
       // @ts-ignore
@@ -73,6 +73,21 @@ describe('palette transformer', () => {
 
     const actual = palette.transformer({ original: token } as any);
 
-    expect(actual).toEqual('transparent');
+    expect(actual).toEqual('#00000000');
+  });
+
+  it('should throw error if invalid color format is provided', () => {
+    const token = {
+      path: ['color', 'background'],
+      original: {
+        attributes: { group: 'paint', description: '', state: 'active' },
+        // @ts-ignore
+        value: 'rgb(0,0,0)',
+      },
+    };
+
+    expect(() => palette.transformer(token as any)).toThrowError(
+      'Invalid color format "rgb(0,0,0)" provided to token: "color.background". Please use either a base token, hexadecimal or "transparent"',
+    );
   });
 });

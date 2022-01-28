@@ -80,6 +80,7 @@ export interface CardProps extends SharedCardProps, CardEventProps {
 export interface CardState {
   status: CardStatus;
   isCardVisible: boolean;
+  shouldAutoplay?: boolean;
   isPlayingFile: boolean;
   mediaViewerSelectedItem?: Identifier;
   fileState?: FileState;

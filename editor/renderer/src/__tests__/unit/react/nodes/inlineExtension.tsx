@@ -3,11 +3,9 @@ import { mount } from 'enzyme';
 import InlineExtension from '../../../../react/nodes/inlineExtension';
 import { RendererContext } from '../../../../react/types';
 import { defaultSchema } from '@atlaskit/adf-schema';
-import {
-  ExtensionHandlers,
-  ProviderFactory,
-  combineExtensionProviders,
-} from '@atlaskit/editor-common';
+import { combineExtensionProviders } from '@atlaskit/editor-common/extensions';
+import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { createFakeExtensionProvider } from '@atlaskit/editor-test-helpers/extensions';
 import Loadable from 'react-loadable';
 

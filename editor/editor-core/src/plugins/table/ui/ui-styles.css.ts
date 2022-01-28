@@ -1,9 +1,5 @@
 import { css } from 'styled-components';
-import {
-  tableCellBorderWidth,
-  tableMarginBottom,
-  tableMarginTop,
-} from '@atlaskit/editor-common';
+import { tableCellBorderWidth, tableMarginBottom, tableMarginTop } from '@atlaskit/editor-common/styles';
 import {
   akEditorShadowZIndex,
   akEditorTableNumberColumnWidth,

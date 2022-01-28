@@ -22,7 +22,7 @@ import MobileEditorConfiguration from '../../editor-configuration';
 import WebBridgeImpl from '../../native-to-web/implementation';
 import { toNativeBridge } from '../../web-to-native';
 import { Editor } from '@atlaskit/editor-core';
-import { LegacyToNextIntlProvider } from '@atlaskit/editor-common';
+import { LegacyToNextIntlProvider } from '@atlaskit/editor-common/ui';
 
 jest.mock('../../../query-param-reader');
 jest.mock('../../web-to-native');
@@ -324,15 +324,6 @@ describe('mobile editor element', () => {
       initEditor();
 
       expect(mockedisIndentationAllowed).toBeCalled();
-    });
-
-    it('should have called isAllowMediaInlineEnabled', () => {
-      const mockedisAllowMediaInlineEnabled = jest.spyOn(
-        MobileEditorConfiguration.prototype,
-        'isAllowMediaInlineEnabled',
-      );
-      initEditor();
-      expect(mockedisAllowMediaInlineEnabled).toBeCalled();
     });
   });
 

@@ -11,7 +11,7 @@ import {
 import { Mark, Node, ResolvedPos } from 'prosemirror-model';
 import { ContentNodeWithPos } from 'prosemirror-utils';
 
-import { browser } from '@atlaskit/editor-common';
+import { browser } from '@atlaskit/editor-common/utils';
 
 import {
   GapCursorSelection,

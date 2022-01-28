@@ -3,14 +3,16 @@ import memoizeOne from 'memoize-one';
 
 import { RendererContext } from '../react/types';
 import { ExtensionLayout } from '@atlaskit/adf-schema';
-import {
+import { getNodeRenderer } from '@atlaskit/editor-common/extensions';
+import type {
   ExtensionHandlers,
-  getExtensionRenderer,
-  WithProviders,
   ExtensionProvider,
+} from '@atlaskit/editor-common/extensions';
+import {
+  WithProviders,
   ProviderFactory,
-  getNodeRenderer,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-common/provider-factory';
+import { getExtensionRenderer } from '@atlaskit/editor-common/utils';
 
 export interface Props {
   type: 'extension' | 'inlineExtension' | 'bodiedExtension';

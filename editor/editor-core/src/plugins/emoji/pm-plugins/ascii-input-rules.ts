@@ -2,7 +2,7 @@ import { EmojiProvider } from '@atlaskit/emoji/resource';
 import { EmojiDescription } from '@atlaskit/emoji/types';
 import { Schema, Node } from 'prosemirror-model';
 import { EditorState, Transaction, Plugin, PluginKey } from 'prosemirror-state';
-import { ProviderFactory } from '@atlaskit/editor-common';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { createRule, createPlugin } from '../../../utils/input-rules';
 
 import { leafNodeReplacementCharacter } from '@atlaskit/prosemirror-input-rules';

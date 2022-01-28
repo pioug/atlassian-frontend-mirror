@@ -10,7 +10,7 @@ export const emojiUploadWidget = style({
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'stretch',
-  background: token('color.background.overlay', 'white'),
+  background: token('elevation.surface.overlay', 'white'),
   height: `120px`,
   width: `${emojiPickerWidth}px`,
   marginBottom: '8px',

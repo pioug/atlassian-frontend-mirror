@@ -1,17 +1,24 @@
+import { MediaAttributes } from '@atlaskit/adf-schema';
 import { TextSelection } from 'prosemirror-state';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import {
   doc,
   table,
+  td,
   tr,
   tdEmpty,
+  thEmpty,
   tdCursor,
   DocBuilder,
+  media,
+  mediaGroup,
+  p,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { TablePluginState } from '../../../../plugins/table/types';
 import {
   handleMouseOver,
   handleMouseMove,
+  handleClick,
 } from '../../../../plugins/table/event-handlers';
 import {
   showInsertColumnButton,
@@ -22,7 +29,17 @@ import { pluginKey } from '../../../../plugins/table/pm-plugins/plugin-factory';
 describe('table event handlers', () => {
   const createEditor = createEditorFactory<TablePluginState>();
   const editor = (doc: DocBuilder) =>
-    createEditor({ doc, editorProps: { allowTables: true }, pluginKey });
+    createEditor({
+      doc,
+      editorProps: {
+        allowTables: true,
+        media: {
+          allowMediaSingle: true,
+          allowMediaGroup: true,
+        },
+      },
+      pluginKey,
+    });
 
   describe('#handleMouseOver', () => {
     describe('when insert col/row button is hidden', () => {
@@ -76,6 +93,102 @@ describe('table event handlers', () => {
           target: firstCell.node,
         };
         expect(handleMouseMove(editorView, event as any)).toEqual(false);
+      });
+    });
+  });
+
+  describe('#handleClick', () => {
+    describe('clicking on media group node', () => {
+      describe('when on last cell of middle row', () => {
+        describe('when last element is media group node', () => {
+          it('should insert a new paragraph node', () => {
+            const testCollectionName = 'media-plugin-mock-collection-random-id';
+            const fileId = 'random-id';
+            const mediaAttrs: MediaAttributes = {
+              id: fileId,
+              type: 'file',
+              collection: testCollectionName,
+            };
+            const tableAttrs = { localId: 'table' };
+
+            const { editorView } = editor(
+              doc(
+                table(tableAttrs)(
+                  tr(thEmpty, thEmpty, thEmpty),
+                  tr(tdEmpty, tdEmpty, td()(mediaGroup(media(mediaAttrs)()))),
+                  tr(tdEmpty, tdEmpty, tdEmpty),
+                ),
+              ),
+            );
+
+            const firstCell = editorView.domAtPos(27);
+            const event = {
+              target: firstCell.node,
+            };
+            expect(handleClick(editorView, event as any)).toEqual(true);
+
+            expect(editorView.state.doc).toEqualDocument(
+              doc(
+                table(tableAttrs)(
+                  tr(thEmpty, thEmpty, thEmpty),
+                  tr(
+                    tdEmpty,
+                    tdEmpty,
+                    td()(mediaGroup(media(mediaAttrs)()), p()),
+                  ),
+                  tr(tdEmpty, tdEmpty, tdEmpty),
+                ),
+              ),
+            );
+          });
+        });
+
+        describe('when last element is not media group node', () => {
+          it('should not insert a new paragraph node', () => {
+            const testCollectionName = 'media-plugin-mock-collection-random-id';
+            const fileId = 'random-id';
+            const mediaAttrs: MediaAttributes = {
+              id: fileId,
+              type: 'file',
+              collection: testCollectionName,
+            };
+            const tableAttrs = { localId: 'table' };
+
+            const { editorView } = editor(
+              doc(
+                table(tableAttrs)(
+                  tr(thEmpty, thEmpty, thEmpty),
+                  tr(
+                    tdEmpty,
+                    tdEmpty,
+                    td()(mediaGroup(media(mediaAttrs)()), p()),
+                  ),
+                  tr(tdEmpty, tdEmpty, tdEmpty),
+                ),
+              ),
+            );
+
+            const firstCell = editorView.domAtPos(27);
+            const event = {
+              target: firstCell.node,
+            };
+            expect(handleClick(editorView, event as any)).toEqual(true);
+
+            expect(editorView.state.doc).toEqualDocument(
+              doc(
+                table(tableAttrs)(
+                  tr(thEmpty, thEmpty, thEmpty),
+                  tr(
+                    tdEmpty,
+                    tdEmpty,
+                    td()(mediaGroup(media(mediaAttrs)()), p()),
+                  ),
+                  tr(tdEmpty, tdEmpty, tdEmpty),
+                ),
+              ),
+            );
+          });
+        });
       });
     });
   });

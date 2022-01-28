@@ -3,7 +3,7 @@ import { Dropzone, DropzoneConfig } from '@atlaskit/media-picker';
 import PickerFacadeProvider from './PickerFacadeProvider';
 import { MediaPluginState } from '../../pm-plugins/types';
 import { MediaFeatureFlags } from '@atlaskit/media-common/mediaFeatureFlags';
-import { findOverflowScrollParent } from '@atlaskit/editor-common';
+import { findOverflowScrollParent } from '@atlaskit/editor-common/ui';
 import { EditorAppearance } from '../../../../types/editor-appearance';
 
 type Props = {

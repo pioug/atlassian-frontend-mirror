@@ -1,7 +1,7 @@
 import { N400 } from '@atlaskit/theme/colors';
 import styled from 'styled-components';
 import { HTMLAttributes, ComponentClass } from 'react';
-import { headingsSharedStyles } from '@atlaskit/editor-common';
+import { headingsSharedStyles } from '@atlaskit/editor-common/styles';
 import { Shortcut } from '../../../../ui/styles';
 
 export const BlockTypeMenuItem = styled.div<{

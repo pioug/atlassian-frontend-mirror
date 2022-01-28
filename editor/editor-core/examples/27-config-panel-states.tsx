@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import {
-  DefaultExtensionProvider,
+import { DefaultExtensionProvider } from '@atlaskit/editor-common/extensions';
+import type {
   ExtensionManifest,
   ExtensionProvider,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-common/extensions';
 
 import { N30 } from '@atlaskit/theme/colors';
 

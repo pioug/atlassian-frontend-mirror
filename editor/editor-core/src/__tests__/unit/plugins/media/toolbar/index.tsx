@@ -64,7 +64,7 @@ import {
   temporaryFileId,
   testCollectionName,
 } from '../_utils';
-import { ProviderFactory } from '@atlaskit/editor-common';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import {
   getToolbarItems,
   findToolbarBtn,

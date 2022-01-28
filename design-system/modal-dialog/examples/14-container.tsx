@@ -21,7 +21,7 @@ const customContainerStyles = css({
   height: '700px',
   flex: '1 1 auto',
   flexDirection: 'column',
-  background: token('color.background.subtleWarning.resting', Y50),
+  background: token('color.background.warning', Y50),
 });
 
 export default function DefaultModal() {

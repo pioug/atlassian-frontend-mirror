@@ -1,8 +1,6 @@
 import React from 'react';
-import {
-  ExtensionManifest,
-  ContextIdentifierProvider,
-} from '@atlaskit/editor-common';
+import type { ExtensionManifest } from '@atlaskit/editor-common/extensions';
+import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
 
 import {
   FieldDefinition,

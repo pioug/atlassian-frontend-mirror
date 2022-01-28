@@ -149,11 +149,7 @@ export const NewFileExperienceWrapper = styled.div`
     }
 
     /* Tooltip does not support percentage dimensions. We enforce them here */
-    ${
-      shouldDisplayTooltip
-        ? `> div { ${getWrapperDimensions(dimensions, appearance)} }`
-        : ''
-    }
+    ${shouldDisplayTooltip ? `> div { width: 100%; height: 100% }` : ''}
 `}
 `;
 

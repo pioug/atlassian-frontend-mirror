@@ -1,7 +1,7 @@
 import { Node as PMNode } from 'prosemirror-model';
 import { MediaClientConfig } from '@atlaskit/media-core';
 import { RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema';
-import { ContextIdentifierProvider } from '@atlaskit/editor-common';
+import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
 import { MediaProvider } from '@atlaskit/editor-common/provider-factory';
 import { MediaOptions, MediaState } from '../types';
 import { MediaPluginOptions } from '../media-plugin-options';

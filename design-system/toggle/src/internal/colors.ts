@@ -39,59 +39,53 @@ export type ToggleContainerColors = {
 
 const colorMap = {
   light: {
-    backgroundColorChecked: token('color.background.boldSuccess.resting', G400),
+    backgroundColorChecked: token('color.background.success.bold', G400),
     backgroundColorCheckedHover: token(
-      'color.background.boldSuccess.hover',
+      'color.background.success.bold.hovered',
       G300,
     ),
     backgroundColorCheckedDisabled: token('color.background.disabled', N20),
 
-    backgroundColorUnchecked: token(
-      'color.background.boldNeutral.resting',
-      N200,
-    ),
+    backgroundColorUnchecked: token('color.background.neutral.bold', N200),
     backgroundColorUncheckedHover: token(
-      'color.background.boldNeutral.hover',
+      'color.background.neutral.bold.hovered',
       N70,
     ),
     backgroundColorUncheckedDisabled: token('color.background.disabled', N20),
 
-    borderColorFocus: token('color.border.focus', B100),
+    borderColorFocus: token('color.border.focused', B100),
 
-    iconColorChecked: token('color.text.onBold', N0),
+    iconColorChecked: token('color.text.inverse', N0),
     iconColorDisabled: token('color.text.disabled', N70),
-    iconColorUnchecked: token('color.text.onBold', N0),
+    iconColorUnchecked: token('color.text.inverse', N0),
 
-    handleBackgroundColor: token('color.background.default', N0),
-    handleBackgroundColorChecked: token('color.background.default', N0),
+    handleBackgroundColor: token('elevation.surface', N0),
+    handleBackgroundColorChecked: token('elevation.surface', N0),
     handleBackgroundColorDisabled: token('color.text.disabled', N0),
   },
   dark: {
-    backgroundColorChecked: token('color.background.boldSuccess.resting', G300),
+    backgroundColorChecked: token('color.background.success.bold', G300),
     backgroundColorCheckedHover: token(
-      'color.background.boldSuccess.hover',
+      'color.background.success.bold.hovered',
       G200,
     ),
     backgroundColorCheckedDisabled: token('color.background.disabled', DN70),
 
-    backgroundColorUnchecked: token(
-      'color.background.boldNeutral.resting',
-      DN70,
-    ),
+    backgroundColorUnchecked: token('color.background.neutral.bold', DN70),
     backgroundColorUncheckedHover: token(
-      'color.background.boldNeutral.hover',
+      'color.background.neutral.bold.hovered',
       DN60,
     ),
     backgroundColorUncheckedDisabled: token('color.background.disabled', DN70),
 
-    borderColorFocus: token('color.border.focus', B75),
+    borderColorFocus: token('color.border.focused', B75),
 
-    iconColorChecked: token('color.text.onBold', DN30),
+    iconColorChecked: token('color.text.inverse', DN30),
     iconColorDisabled: token('color.text.disabled', DN30),
-    iconColorUnchecked: token('color.text.onBold', DN600),
+    iconColorUnchecked: token('color.text.inverse', DN600),
 
-    handleBackgroundColor: token('color.background.default', DN600),
-    handleBackgroundColorChecked: token('color.background.default', DN0),
+    handleBackgroundColor: token('elevation.surface', DN600),
+    handleBackgroundColorChecked: token('elevation.surface', DN0),
     handleBackgroundColorDisabled: token('color.text.disabled', DN0),
   },
 };

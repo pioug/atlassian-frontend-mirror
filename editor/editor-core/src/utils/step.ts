@@ -7,13 +7,12 @@ export const stepHasSlice = (
   step && step.hasOwnProperty('slice');
 
 /**
- * Checks whether a given step adds a given nodeType
+ * Checks whether a given step is adding nodes of given nodeTypes
  *
  * @param step Step to check
- * @param nodeType NodeType being added
- * @returns
+ * @param nodeTypes NodeTypes being added
  */
-export function stepAdds(step: Step, nodeType: NodeType): boolean {
+export function stepAddsOneOf(step: Step, nodeTypes: Set<NodeType>): boolean {
   let adds = false;
 
   if (!stepHasSlice(step)) {
@@ -21,7 +20,7 @@ export function stepAdds(step: Step, nodeType: NodeType): boolean {
   }
 
   step.slice.content.descendants((node) => {
-    if (node.type === nodeType) {
+    if (nodeTypes.has(node.type)) {
       adds = true;
     }
     return !adds;

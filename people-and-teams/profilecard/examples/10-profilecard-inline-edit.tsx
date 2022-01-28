@@ -21,7 +21,7 @@ const EditViewContainer = styled.div`
 `;
 
 const Container = styled.div`
-  border: 1px solid ${token('color.border.neutral', '#ccc')};
+  border: 1px solid ${token('color.border', '#ccc')};
   border-radius: 3px;
   margin: 8px;
   padding: 8px;
@@ -147,7 +147,7 @@ function MiniEditor(props: {
           >
             <strong
               style={{
-                color: token('color.text.highEmphasis', 'black'),
+                color: token('color.text', 'black'),
               }}
             >
               {value.label}

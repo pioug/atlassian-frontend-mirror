@@ -14,7 +14,7 @@ import {
 import {
   PanelSharedCssClassName,
   PanelSharedSelectors,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-common/styles';
 import { waitForNoTooltip } from '@atlaskit/visual-regression/helper';
 import { panelSelectors } from '../../__helpers/page-objects/_panel';
 import { pressKeyCombo } from '../../__helpers/page-objects/_keyboard';
@@ -229,6 +229,43 @@ describe('custom panels', () => {
       'ArrowDown',
       'ArrowDown',
     ]);
+  });
+
+  it('should open custom Emoji option when clicked on addYourOwnEmoji button', async () => {
+    await page.click(`.${PanelSharedCssClassName.icon}`);
+    await page.click(`${PanelSharedSelectors.emojiIcon}`);
+    await page.click(`${PanelSharedSelectors.addYourOwnEmoji}`);
+    await page.click(`${PanelSharedSelectors.emojiNameInCustomEmoji}`);
+    await page.hover(`${PanelSharedSelectors.title}`);
+  });
+
+  describe('with a duplicate short name, ', () => {
+    it('should be able select yellow warning emoji', async () => {
+      await page.click(`.${PanelSharedCssClassName.icon}`);
+      await page.click(`${PanelSharedSelectors.warningButton}`);
+      await page.click(`${PanelSharedSelectors.emojiIcon}`);
+      await page.waitForSelector(`${PanelSharedSelectors.emojiPopup}`, {
+        visible: true,
+      });
+      //Search warning in emojiPicker
+      await page.focus(`${PanelSharedSelectors.searchEmoji}`);
+      await page.keyboard.type('warning');
+      await page.waitForSelector(`${PanelSharedSelectors.orangeWarningIcon}`, {
+        visible: true,
+      });
+      await page.waitForSelector(`${PanelSharedSelectors.yellowWarningIcon}`, {
+        visible: true,
+      });
+
+      //Select yellow warning icon
+      await page.click(`${PanelSharedSelectors.yellowWarningIcon}`);
+      await page.waitForSelector(`.${PanelSharedCssClassName.icon}`, {
+        visible: true,
+      });
+      await page.click(`${PanelSharedSelectors.title}`);
+
+      await waitForNoTooltip(page);
+    });
   });
 });
 

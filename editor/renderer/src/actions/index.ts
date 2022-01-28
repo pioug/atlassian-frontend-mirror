@@ -2,12 +2,14 @@ import {
   JSONTransformer,
   JSONDocNode,
 } from '@atlaskit/editor-json-transformer';
+import type {
+  AnnotationActionResult,
+  AnnotationByMatches,
+} from '@atlaskit/editor-common/types';
 import {
   canApplyAnnotationOnRange,
   getAnnotationIdsFromRange,
-  AnnotationActionResult,
-  AnnotationByMatches,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-common/utils';
 import { AnnotationTypes, AnnotationId } from '@atlaskit/adf-schema';
 import { Node, Schema, Mark } from 'prosemirror-model';
 import { Step, RemoveMarkStep } from 'prosemirror-transform';

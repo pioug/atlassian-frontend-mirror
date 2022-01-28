@@ -6,11 +6,11 @@ import {
   SizeEvent,
   ScrollEvent,
 } from '@atlaskit/media-filmstrip';
-import {
+import type {
   EventHandlers,
   CardSurroundings,
   CardEventClickHandler,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-common/ui';
 import { Identifier } from '@atlaskit/media-client';
 import { MediaProps } from './media';
 import { MediaFeatureFlags } from '@atlaskit/media-common';

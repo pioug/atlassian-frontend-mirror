@@ -41,13 +41,13 @@ function getStrokeColor({
 }): string {
   if (mode === 'light') {
     return appearance === 'inherit'
-      ? token('color.text.mediumEmphasis', N500)
-      : token('color.text.onBold', N0);
+      ? token('color.text.subtle', N500)
+      : token('color.text.inverse', N0);
   }
 
   return appearance === 'inherit'
-    ? token('color.text.mediumEmphasis', DN900)
-    : token('color.text.onBold', DN500);
+    ? token('color.text.subtle', DN900)
+    : token('color.text.inverse', DN500);
 }
 
 export default React.memo(

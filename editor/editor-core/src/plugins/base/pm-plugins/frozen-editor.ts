@@ -5,7 +5,7 @@ import {
   isPerformanceAPIAvailable,
   getAnalyticsEventSeverity,
   SEVERITY,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-common/utils';
 import { EditorExperience, ExperienceStore } from '@atlaskit/editor-common/ufo';
 import {
   ACTION,

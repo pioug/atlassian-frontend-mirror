@@ -65,7 +65,7 @@ const wordBreakStyles = css({
 
 const descriptionStyles = css({
   marginTop: itemDescriptionSpacing,
-  color: token('color.text.lowEmphasis', N200),
+  color: token('color.text.subtlest', N200),
   fontSize: headingSizes.h200.size,
 });
 
@@ -101,11 +101,11 @@ const unselectedStyles = css({
     color: 'currentColor',
   },
   ':hover': {
-    backgroundColor: token('color.background.transparentNeutral.hover', N20),
+    backgroundColor: token('color.background.neutral.subtle.hovered', N20),
     color: 'currentColor',
   },
   ':active': {
-    backgroundColor: token('color.background.transparentNeutral.pressed', N30),
+    backgroundColor: token('color.background.neutral.subtle.pressed', N30),
     boxShadow: 'none',
     color: 'currentColor',
   },
@@ -120,19 +120,19 @@ const disabledStyles = css({
 });
 
 const selectedStyles = css({
-  backgroundColor: token('color.background.selected.resting', N20),
+  backgroundColor: token('color.background.brand', N20),
   // Fallback set as babel plugin inserts one otherwise
-  color: token('color.text.selected', 'currentColor'),
+  color: token('color.text.brand', 'currentColor'),
   ':visited': {
-    color: token('color.text.selected', 'currentColor'),
+    color: token('color.text.brand', 'currentColor'),
   },
   ':hover': {
-    backgroundColor: token('color.background.selected.hover', N20),
-    color: token('color.text.selected', 'currentColor'),
+    backgroundColor: token('color.background.brand.hovered', N20),
+    color: token('color.text.brand', 'currentColor'),
   },
   ':active': {
-    backgroundColor: token('color.background.selected.pressed', N30),
-    color: token('color.text.selected', 'currentColor'),
+    backgroundColor: token('color.background.brand.pressed', N30),
+    color: token('color.text.brand', 'currentColor'),
   },
 });
 

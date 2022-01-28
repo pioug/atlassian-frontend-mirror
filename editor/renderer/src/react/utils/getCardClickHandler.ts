@@ -1,4 +1,4 @@
-import { EventHandlers } from '@atlaskit/editor-common';
+import type { EventHandlers } from '@atlaskit/editor-common/ui';
 
 import { getEventHandler } from '../../utils';
 

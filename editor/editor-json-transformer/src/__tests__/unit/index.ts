@@ -7,7 +7,7 @@ import {
   uuid,
 } from '@atlaskit/adf-schema';
 import { BitbucketTransformer } from '@atlaskit/editor-bitbucket-transformer';
-import { ProviderFactory } from '@atlaskit/editor-common';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { ConfluenceTransformer } from '@atlaskit/editor-confluence-transformer';
 import { EditorProps } from '@atlaskit/editor-core';
 import { JIRATransformer } from '@atlaskit/editor-jira-transformer';

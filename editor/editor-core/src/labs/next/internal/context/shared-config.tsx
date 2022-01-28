@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { EditorView } from 'prosemirror-view';
-import { Transformer } from '@atlaskit/editor-common';
+import { Transformer } from '@atlaskit/editor-common/types';
 import { EventDispatcher, Dispatch } from '../../../../event-dispatcher';
 import { EditorAppearanceComponentProps } from '../../../../types';
 import { FireAnalyticsCallback } from '../../../../plugins/analytics';

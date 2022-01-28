@@ -3,10 +3,10 @@ import { EditorView } from 'prosemirror-view';
 import { mount } from 'enzyme';
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
 import { JSONTransformer } from '@atlaskit/editor-json-transformer';
-import { Transformer } from '@atlaskit/editor-common';
 import { EditorActions } from '../../../index';
 import Editor from '../../../editor';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+import { Transformer } from '@atlaskit/editor-common/types';
 
 import {
   doc,

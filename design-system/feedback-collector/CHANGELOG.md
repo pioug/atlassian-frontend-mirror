@@ -1,5 +1,12 @@
 # @atlaskit/feedback-collector
 
+## 8.0.2
+
+### Patch Changes
+
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - Updates usage of deprecated token names so they're aligned with the latest naming conventions. No UI or visual changes
+- Updated dependencies
+
 ## 8.0.1
 
 ### Patch Changes

@@ -5,9 +5,6 @@ import {
   TextSelection,
   Transaction,
 } from 'prosemirror-state';
-import { Decoration, DecorationSet } from 'prosemirror-view';
-
-import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common';
 
 import { Dispatch, EventDispatcher } from '../../event-dispatcher';
 import { PortalProviderAPI } from '../../ui/PortalProvider';
@@ -139,35 +136,6 @@ const createPlugin = (
     props: {
       nodeViews: {
         status: statusNodeView(portalProviderAPI, eventDispatcher, options),
-      },
-      decorations(state: EditorState) {
-        const { tr } = state;
-        const nodeAtSelection = tr.doc.nodeAt(tr.selection.from);
-
-        if (
-          options &&
-          options.allowZeroWidthSpaceAfter &&
-          nodeAtSelection &&
-          nodeAtSelection.type === state.schema.nodes.status
-        ) {
-          const delayedNodeRendering = () => {
-            return document.createTextNode(ZERO_WIDTH_SPACE);
-          };
-
-          const decoration = Decoration.widget(
-            tr.selection.from,
-            delayedNodeRendering,
-            {
-              side: 1,
-              key: '#status-zero-width-char-decoration',
-            },
-          );
-
-          const { doc } = state;
-          return DecorationSet.create(doc, [decoration]);
-        }
-
-        return null;
       },
     },
   });

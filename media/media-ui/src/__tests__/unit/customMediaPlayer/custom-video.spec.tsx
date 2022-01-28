@@ -1,3 +1,4 @@
+jest.mock('../../../customMediaPlayer/getControlsWrapperClassName');
 jest.mock('../../../customMediaPlayer/fullscreen', () => {
   const original = jest.requireActual('../../../customMediaPlayer/fullscreen');
   return {
@@ -53,6 +54,13 @@ import {
 import { PlaybackSpeedControls } from '../../../customMediaPlayer/playbackSpeedControls';
 import { PlayPauseBlanket } from '../../../customMediaPlayer/playPauseBlanket';
 import { ReactWrapper } from 'enzyme';
+import * as getControlsWrapperClassNameModule from '../../../customMediaPlayer/getControlsWrapperClassName';
+import MediaButton from '../../../MediaButton';
+
+const getControlsWrapperClassName = jest.spyOn(
+  getControlsWrapperClassNameModule,
+  'getControlsWrapperClassName',
+);
 
 // Removes errors from JSDOM virtual console on CustomMediaPlayer tests
 // Trick taken from https://github.com/jsdom/jsdom/issues/2155
@@ -850,20 +858,82 @@ describe('<CustomMediaPlayer />', () => {
   });
 
   describe('on resize', () => {
-    it('Should show/hide current time when video is bigger/smaller than 400px', async () => {
+    it('should show/hide forward and backwards controls, when video is bigger/smaller than 400px (playerSize is large)', async () => {
       const { component, setWidth } = setup();
-      setWidth(399);
+
+      // small sized video <160px
+      setWidth(150);
+      component.update();
+
+      expect(
+        component
+          .find(MediaButton)
+          .filter('[testId="custom-media-player-skip-forward-button"]'),
+      ).toHaveLength(0);
+
+      expect(
+        component
+          .find(MediaButton)
+          .filter('[testId="custom-media-player-skip-backward-button"]'),
+      ).toHaveLength(0);
+
+      // medium sized video >160px & < 400px
+
+      setWidth(250);
+      component.update();
+
+      expect(
+        component
+          .find(MediaButton)
+          .filter('[testId="custom-media-player-skip-forward-button"]'),
+      ).toHaveLength(0);
+
+      expect(
+        component
+          .find(MediaButton)
+          .filter('[testId="custom-media-player-skip-backward-button"]'),
+      ).toHaveLength(0);
+
+      // large sized video
+
+      setWidth(420);
+      component.update();
+
+      expect(
+        component
+          .find(MediaButton)
+          .filter('[testId="custom-media-player-skip-forward-button"]'),
+      ).toHaveLength(1);
+
+      expect(
+        component
+          .find(MediaButton)
+          .filter('[testId="custom-media-player-skip-backward-button"]'),
+      ).toHaveLength(1);
+    });
+
+    it('when the playerSize is medium or large (above 160px width), show the timestamp and playback speed controls', async () => {
+      const { component, setWidth } = setup();
+      setWidth(150);
       component.update();
 
       expect(component.find(CurrentTime)).toHaveLength(0);
+      expect(component.find(PlaybackSpeedControls)).toHaveLength(0);
+
+      setWidth(170);
+      component.update();
+
+      expect(component.find(CurrentTime)).toHaveLength(1);
+      expect(component.find(PlaybackSpeedControls)).toHaveLength(0);
 
       setWidth(401);
       component.update();
 
       expect(component.find(CurrentTime)).toHaveLength(1);
+      expect(component.find(PlaybackSpeedControls)).toHaveLength(1);
     });
 
-    it('Should show/hide volume controls when video is bigger/smaller than 400px', async () => {
+    it('Should show/hide volume controls when video is bigger/smaller than 400px (playerSize is large)', async () => {
       const { component, setWidth } = setup();
 
       setWidth(399);
@@ -1494,5 +1564,46 @@ describe('<CustomMediaPlayer />', () => {
         expect(component2.find(MediaPlayer).props().defaultTime).toEqual(0);
       });
     });
+  });
+  it('ControlsWrapper should be visible when a video does not have autoplay, until it has been played for the first time as then it should be hidden', async () => {
+    const component = mountWithIntlContext<
+      CustomMediaPlayerProps,
+      CustomMediaPlayerState,
+      CustomMediaPlayerBase
+    >(
+      <CustomMediaPlayerBase
+        type="video"
+        fileId="some-file-id"
+        isHDAvailable={false}
+        src="video-src"
+        intl={fakeIntl}
+        isAutoPlay={false}
+        // The test won't pass if we don't pass this prop
+        onFirstPlay={() => {}}
+      />,
+    );
+    expect(getControlsWrapperClassName).not.toHaveBeenCalledWith(true);
+    (component.instance() as any).play();
+    // We need to force an update to make ControlsWrapper rerender after play
+    component.instance().forceUpdate();
+    expect(getControlsWrapperClassName).toHaveBeenLastCalledWith(true);
+  });
+
+  it('ControlsWrapper should be hidden when a video has autoplay', async () => {
+    mountWithIntlContext<
+      CustomMediaPlayerProps,
+      CustomMediaPlayerState,
+      CustomMediaPlayerBase
+    >(
+      <CustomMediaPlayerBase
+        type="video"
+        fileId="some-file-id"
+        isHDAvailable={false}
+        src="video-src"
+        intl={fakeIntl}
+        isAutoPlay={true}
+      />,
+    );
+    expect(getControlsWrapperClassName).toHaveBeenCalledWith(true);
   });
 });

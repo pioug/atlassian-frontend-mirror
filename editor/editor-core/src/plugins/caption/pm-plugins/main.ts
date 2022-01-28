@@ -4,7 +4,7 @@ import { pluginKey } from './plugin-key';
 import captionNodeView from './../nodeviews';
 import { PortalProviderAPI } from '../../../ui/PortalProvider';
 import { Dispatch, EventDispatcher } from '../../../event-dispatcher';
-import { ProviderFactory } from '@atlaskit/editor-common';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import {
   addAnalytics,
   ACTION,

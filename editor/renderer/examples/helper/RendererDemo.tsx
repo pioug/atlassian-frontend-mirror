@@ -6,15 +6,15 @@ import { getMockProfilecardClient } from '@atlaskit/util-data-test/get-mock-prof
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
 import { CardEvent } from '@atlaskit/media-card';
 import { defaultSchema } from '@atlaskit/adf-schema';
-import {
+import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type { ADFStage } from '@atlaskit/editor-common/validator';
+import type { AnnotationProviders } from '@atlaskit/editor-common/types';
+import type {
   CardSurroundings,
-  ProviderFactory,
-  ExtensionHandlers,
   EventHandlers,
-  AnnotationProviders,
-  ADFStage,
-  UnsupportedContentLevelsTracking,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-common/ui';
+import type { UnsupportedContentLevelsTracking } from '@atlaskit/editor-common/utils';
 import { IframeWidthObserverFallbackWrapper } from '@atlaskit/width-detector';
 import Button from '@atlaskit/button/standard-button';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';

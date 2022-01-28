@@ -1,5 +1,5 @@
 import { collab } from 'prosemirror-collab';
-import { CollabEditProvider } from '@atlaskit/editor-common';
+import type { CollabEditProvider } from '@atlaskit/editor-common/collab';
 import { EditorPlugin } from '../../types';
 import { createPlugin, pluginKey } from './plugin';
 import {

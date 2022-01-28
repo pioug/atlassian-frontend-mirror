@@ -21,7 +21,7 @@ const lightPanelColor = {
   error: colors.R50,
 };
 
-const darkPanelColors = {
+export const darkPanelColors = {
   // standard panels
   info: '#0C294F',
   error: `#441C13`,
@@ -91,9 +91,9 @@ const darkPanelColors = {
   T1200S: `#0B3037`,
 
   // Dark Mode Alpha
-  DNA20A: 'rgba(150, 176, 210, 0.53)',
-  DNA40A: 'rgba(134, 156, 180, 0.29)',
-  DNA80A: '#161A1D',
+  DarkGray: '#161A1D',
+  Gray: '#2C333A',
+  LightGray: '#5A6977',
 
   TextColor: '#D9DDE3',
 };
@@ -122,13 +122,13 @@ const panelEmojiSpriteVerticalAlignment =
   -(gridSize() * 3 - akEditorCustomIconSize) / 2;
 const panelEmojiImageVerticalAlignment = panelEmojiSpriteVerticalAlignment - 1;
 
-export const getPanelBackgroundDarkModeColors = [
+const panelDarkModeColors = [
   [colors.B50, darkPanelColors.B1200S],
   [colors.B75, darkPanelColors.B900],
   [colors.B100, darkPanelColors.B800S],
-  [colors.N0, darkPanelColors.DNA80A],
-  [colors.N20, darkPanelColors.DNA40A],
-  [colors.N60, darkPanelColors.DNA20A],
+  [colors.N0, darkPanelColors.LightGray],
+  [colors.N20, darkPanelColors.Gray],
+  [colors.N60, darkPanelColors.DarkGray],
   [colors.T50, darkPanelColors.T1200S],
   [colors.T75, darkPanelColors.T900],
   [colors.T100, darkPanelColors.T900S],
@@ -144,7 +144,16 @@ export const getPanelBackgroundDarkModeColors = [
   [colors.P50, darkPanelColors.P1200S],
   [colors.P75, darkPanelColors.P900],
   [colors.P100, darkPanelColors.P800S],
-]
+];
+
+export const getPanelDarkColor = (panelColor: string) => {
+  const colorObject = panelDarkModeColors.find(
+    (color) => color[0] === panelColor || color[1] === panelColor,
+  );
+  return colorObject ? colorObject[1] : darkPanelColors.B1200S;
+};
+
+export const getPanelBackgroundDarkModeColors = panelDarkModeColors
   .map(([colorName, colorValue]) => getPanelDarkModeCSS(colorName, colorValue))
   .join('\n');
 
@@ -174,13 +183,20 @@ export const PanelSharedSelectors = {
   errorPanel: `.${prefix}[data-panel-type=${PanelType.ERROR}]`,
   successPanel: `.${prefix}[data-panel-type=${PanelType.SUCCESS}]`,
   noteButton: `button[aria-label="Note"]`,
+  warningButton: `button[aria-label="Warning"]`,
   removeButton: `button[aria-label="Remove"]`,
   colorPalette: `[aria-label="Background color"]`,
-  selectedColor: `[aria-label="The smell"]`,
+  selectedColor: `[aria-label="Light green"]`,
   removeEmojiIcon: `[aria-label="Remove emoji"]`,
   emojiIcon: `[aria-label="editor-add-emoji"]`,
   selectedEmoji: `[aria-label=":grinning:"]`,
+  addYourOwnEmoji: `[aria-label="Add your own emoji"]`,
+  emojiNameInCustomEmoji: `[aria-label="Enter a name for the new emoji"]`,
   title: `#editor-title`,
+  emojiPopup: `[aria-label="Popup"]`,
+  searchEmoji: `[aria-label="Search emoji"]`,
+  orangeWarningIcon: `[aria-label=":warning:"]`,
+  yellowWarningIcon: `[aria-label=":warning:"]  span:nth-child(1)`,
 };
 
 const iconDynamicStyles = (panelType: Exclude<PanelType, PanelType.CUSTOM>) => (
@@ -246,7 +262,7 @@ export const panelSharedStyles = css`
 
       > span {
         vertical-align: middle;
-        display: inline;
+        display: inline-flex;
       }
 
       .${emojiSprite} {

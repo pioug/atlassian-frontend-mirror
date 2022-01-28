@@ -1,11 +1,11 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import {
-  ProviderFactory,
+import { combineExtensionProviders } from '@atlaskit/editor-common/extensions';
+import type {
   ExtensionHandlers,
   ExtensionParams,
-  combineExtensionProviders,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-common/extensions';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { extensionData } from '@atlaskit/editor-test-helpers/mock-extension-data';
 import { macroProvider } from '@atlaskit/editor-test-helpers/mock-macro-provider';
 import { createFakeExtensionProvider } from '@atlaskit/editor-test-helpers/extensions';

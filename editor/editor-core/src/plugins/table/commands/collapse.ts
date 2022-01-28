@@ -2,14 +2,14 @@ import { Command } from '../../../types';
 import { collapseSelectedTable } from '../utils/collapse';
 
 export const wrapTableInExpand: Command = (state, dispatch) => {
-  const canCollapseTr = collapseSelectedTable(state.tr);
+  const collapseTr = collapseSelectedTable(state.tr);
 
-  if (!canCollapseTr) {
+  if (!collapseTr) {
     return false;
   }
 
   if (dispatch) {
-    dispatch(canCollapseTr);
+    dispatch(collapseTr);
   }
 
   return true;

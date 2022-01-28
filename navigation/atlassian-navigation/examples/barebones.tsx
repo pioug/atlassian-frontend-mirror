@@ -29,7 +29,7 @@ const PopupContents = () => (
         description="But what is an Atlassian, anyway?"
         iconBefore={
           <QuestionCircleIcon
-            primaryColor={token('color.iconBorder.brand', colors.B300)}
+            primaryColor={token('color.icon.brand', colors.B300)}
             label=""
             size="medium"
           />
@@ -67,7 +67,7 @@ export default () => (
   <div
     style={{
       paddingBottom: 8,
-      border: `1px solid ${token('color.border.neutral', colors.N40)}`,
+      border: `1px solid ${token('color.border', colors.N40)}`,
       borderRadius: borderRadius(),
     }}
   >

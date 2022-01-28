@@ -25,6 +25,11 @@ export const emoji: NodeSpec = {
     text: { default: '' },
   },
   parseDOM: [
+    // Handle copy/paste beautiful panel from renderer />
+    {
+      tag: 'div.ak-editor-panel__icon span',
+      ignore: true,
+    },
     {
       tag: 'span[data-emoji-short-name]',
       getAttrs: (domNode) => {
@@ -38,11 +43,6 @@ export const emoji: NodeSpec = {
             dom.getAttribute('data-emoji-text') || emoji.attrs!.text.default,
         };
       },
-    },
-    // Handle copy/paste beautiful panel from renderer />
-    {
-      tag: 'div.ak-editor-panel__icon',
-      ignore: true,
     },
     // Handle copy/paste from old <ac:emoticon />
     {

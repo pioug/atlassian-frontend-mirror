@@ -21,14 +21,11 @@ import {
 import TextWrapperComponent from './nodes/text-wrapper';
 
 import { toReact as markToReact, isAnnotationMark } from './marks';
-import {
-  ProviderFactory,
-  getMarksByOrder,
-  isSameMark,
-  EventHandlers,
-  ExtensionHandlers,
-  calcTableColumnWidths,
-} from '@atlaskit/editor-common';
+import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import { getMarksByOrder, isSameMark } from '@atlaskit/editor-common/validator';
+import type { EventHandlers } from '@atlaskit/editor-common/ui';
+import { calcTableColumnWidths } from '@atlaskit/editor-common/utils';
 import { getText } from '../utils';
 import { findChildrenByType } from 'prosemirror-utils';
 import {

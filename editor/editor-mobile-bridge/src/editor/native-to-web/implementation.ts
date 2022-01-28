@@ -21,6 +21,7 @@ import {
   setBlockTypeWithAnalytics,
   setKeyboardHeight,
   setMobilePaddingTop,
+  setIsExpanded,
   StatusState,
   StatusType,
   TextFormattingInputMethodBasic,
@@ -317,6 +318,15 @@ export default class WebBridgeImpl
   onStatusPickerDismissed() {
     if (this.statusBridgeState && this.editorView) {
       commitStatusPicker()(this.editorView);
+    }
+  }
+
+  setClickAreaExpanded(isExpanded: boolean) {
+    if (this.editorView) {
+      setIsExpanded(isExpanded)(
+        this.editorView.state,
+        this.editorView.dispatch,
+      );
     }
   }
 

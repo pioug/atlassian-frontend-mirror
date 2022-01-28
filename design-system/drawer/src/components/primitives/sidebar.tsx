@@ -13,7 +13,7 @@ import { SidebarProps } from '../types';
 const defaultStyle = {
   alignItems: 'center',
   boxSizing: 'border-box',
-  color: token('color.text.mediumEmphasis', N500),
+  color: token('color.text.subtle', N500),
   display: 'flex',
   flexShrink: 0,
   flexDirection: 'column',

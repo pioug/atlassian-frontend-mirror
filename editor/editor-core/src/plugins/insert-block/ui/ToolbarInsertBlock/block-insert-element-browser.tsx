@@ -1,6 +1,6 @@
 import React from 'react';
 import { EditorView } from 'prosemirror-view';
-import { Popup } from '@atlaskit/editor-common';
+import { Popup } from '@atlaskit/editor-common/ui';
 import InsertMenu from '../../../../ui/ElementBrowser/InsertMenu';
 import { BlockMenuItem } from './create-items';
 import { DropDownButton } from './dropdown-button';
@@ -47,6 +47,8 @@ export const BlockInsertElementBrowser: React.FC<BlockInsertElementBrowserProps>
         </Popup>
       )}
       <DropDownButton
+        aria-expanded={props.open}
+        aria-haspopup
         handleRef={props.onRef}
         selected={props.open}
         disabled={props.disabled}

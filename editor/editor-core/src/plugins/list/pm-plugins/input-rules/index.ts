@@ -17,7 +17,10 @@ export default function inputRulePlugin(
   if (bulletList) {
     rules.push(
       createRuleForListType({
-        expression: /^\s*([\*\-\•]) $/,
+        // Using UTF instead of • character
+        // because of issue where product converted the
+        // character into an escaped version.
+        expression: /^\s*([\*\-\u2022]) $/,
         listType: bulletList,
       }),
     );

@@ -1,6 +1,6 @@
 import { css } from 'styled-components';
 
-import { ruleSharedStyles } from '@atlaskit/editor-common';
+import { ruleSharedStyles } from '@atlaskit/editor-common/styles';
 import {
   akEditorLineHeight,
   akEditorSelectedBorderColor,

@@ -15,7 +15,6 @@ describe('Editor Configuration', () => {
     expect(editorConfig.isScrollGutterPersisted()).toEqual(false);
     expect(editorConfig.isCustomPanelEnabled()).toEqual(false);
     expect(editorConfig.isCustomPanelEditable()).toEqual(false);
-    expect(editorConfig.isAllowMediaInlineEnabled()).toEqual(false);
   });
 
   it('should persist scroll gutter for compact editor', () => {
@@ -154,14 +153,6 @@ describe('Editor Configuration', () => {
     );
 
     expect(editorConfig.isCustomPanelEditable()).toEqual(true);
-  });
-
-  it('should set the allowCustomPanelEdit value', () => {
-    const editorConfig = new MobileEditorConfiguration(
-      '{"allowMediaInline": true}',
-    );
-
-    expect(editorConfig.isAllowMediaInlineEnabled()).toEqual(true);
   });
 
   it('should clone and update the current configuration with the new configuration', () => {

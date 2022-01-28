@@ -1,12 +1,10 @@
 import React, { SyntheticEvent } from 'react';
 import { PureComponent } from 'react';
-import {
-  WithProviders,
-  ContextIdentifierProvider,
-  MediaLink,
-  EventHandlers,
-} from '@atlaskit/editor-common';
-import { ProviderFactory } from '@atlaskit/editor-common';
+import { WithProviders } from '@atlaskit/editor-common/provider-factory';
+import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
+import { MediaLink } from '@atlaskit/editor-common/ui';
+import type { EventHandlers } from '@atlaskit/editor-common/ui';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { MediaCard, MediaCardProps, MediaProvider } from '../../ui/MediaCard';
 import { LinkDefinition } from '@atlaskit/adf-schema';
 import { MediaFeatureFlags } from '@atlaskit/media-common';

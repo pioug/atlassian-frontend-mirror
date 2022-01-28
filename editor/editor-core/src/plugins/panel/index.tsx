@@ -170,6 +170,8 @@ const panelPlugin = (options: PanelPluginOptions = {}): EditorPlugin => ({
               {
                 panelType: PanelType.CUSTOM,
                 panelIcon: ':rainbow:',
+                panelIconId: '1f308',
+                panelIconText: '🌈',
                 panelColor: T50,
               },
               state,

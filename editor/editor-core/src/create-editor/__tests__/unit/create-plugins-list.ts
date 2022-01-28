@@ -1,6 +1,7 @@
 jest.mock('../../../plugins');
 jest.mock('../../../plugins/placeholder');
 jest.mock('../../../plugins/selection');
+jest.mock('../../../plugins/code-block');
 
 import {
   analyticsPlugin,
@@ -24,6 +25,7 @@ import {
 
 import placeholderPlugin from '../../../plugins/placeholder';
 import selectionPlugin from '../../../plugins/selection';
+import codeBlockPlugin from '../../../plugins/code-block';
 
 import createPluginsList, {
   getScrollGutterOptions,
@@ -311,6 +313,26 @@ describe('createPluginsList', () => {
       });
 
       expect(scrollGutterOptions?.gutterSize).toBe(36);
+    });
+  });
+
+  describe('codeblock', () => {
+    it('should pass allowCompositionInputOverride when mobile editor', () => {
+      createPluginsList({ appearance: 'mobile' });
+      expect(codeBlockPlugin).toHaveBeenCalledWith({
+        allowCompositionInputOverride: true,
+        appearance: 'mobile',
+        useLongPressSelection: false,
+      });
+    });
+
+    it('should not pass allowCompositionInputOverride when not mobile editor', () => {
+      createPluginsList({ appearance: 'full-page' });
+      expect(codeBlockPlugin).toHaveBeenCalledWith({
+        allowCompositionInputOverride: false,
+        appearance: 'full-page',
+        useLongPressSelection: false,
+      });
     });
   });
 });

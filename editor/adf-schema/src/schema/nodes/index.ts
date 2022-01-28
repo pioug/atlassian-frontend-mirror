@@ -121,20 +121,11 @@ export type { TaskListDefinition, TaskListContent } from './task-list';
 export { taskItem } from './task-item';
 export type { TaskItemDefinition } from './task-item';
 export { extension } from './extension';
-export type {
-  ExtensionDefinition,
-  ExtensionWithMarksDefinition,
-} from './extension';
+export type { ExtensionDefinition } from './extension';
 export { inlineExtension } from './inline-extension';
-export type {
-  InlineExtensionDefinition,
-  InlineExtensionWithMarksDefinition,
-} from './inline-extension';
+export type { InlineExtensionDefinition } from './inline-extension';
 export { bodiedExtension } from './bodied-extension';
-export type {
-  BodiedExtensionDefinition,
-  BodiedExtensionWithMarksDefinition,
-} from './bodied-extension';
+export type { BodiedExtensionDefinition } from './bodied-extension';
 export { date } from './date';
 export type { DateDefinition } from './date';
 export { placeholder } from './placeholder';

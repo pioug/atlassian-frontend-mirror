@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { ExtensionManifest } from '@atlaskit/editor-common';
+import { ExtensionManifest } from '@atlaskit/editor-common/extensions';
 import { inlineCard } from '@atlaskit/adf-utils';
 
 import enableDropbox from './enable-dropbox';

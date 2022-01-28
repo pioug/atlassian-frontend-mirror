@@ -7,6 +7,7 @@ import { iconMap } from '../../plugins/alignment/ui/ToolbarAlignment/icon-map';
 import AlignmentButton from './AlignmentButton';
 import { alignmentMessages } from './messages';
 import { AlignmentWrapper } from './styles';
+import { Keymap, alignLeft, alignRight } from '../../keymaps';
 
 export interface Props {
   selectedAlignment?: string;
@@ -16,11 +17,15 @@ export interface Props {
 
 const alignmentOptions: Array<{
   title: MessageDescriptor;
+  shortcut?: Keymap;
   value: AlignmentState;
 }> = [
-  { title: alignmentMessages.alignLeft, value: 'start' },
-  { title: alignmentMessages.alignCenter, value: 'center' },
-  { title: alignmentMessages.alignRight, value: 'end' },
+  { title: alignmentMessages.alignLeft, shortcut: alignLeft, value: 'start' },
+  {
+    title: alignmentMessages.alignCenter,
+    value: 'center',
+  },
+  { title: alignmentMessages.alignRight, shortcut: alignRight, value: 'end' },
 ];
 
 class Alignment extends PureComponent<Props & WrappedComponentProps> {
@@ -30,7 +35,7 @@ class Alignment extends PureComponent<Props & WrappedComponentProps> {
     return (
       <AlignmentWrapper className={className} style={{ maxWidth: 3 * 32 }}>
         {alignmentOptions.map((alignment) => {
-          const { value, title } = alignment;
+          const { value, title, shortcut } = alignment;
           const message = intl.formatMessage(title);
           return (
             <AlignmentButton
@@ -38,6 +43,7 @@ class Alignment extends PureComponent<Props & WrappedComponentProps> {
               key={value}
               value={value}
               label={message}
+              shortcut={shortcut}
               onClick={onClick}
               isSelected={value === selectedAlignment}
             />

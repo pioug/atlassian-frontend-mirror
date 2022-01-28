@@ -1,5 +1,5 @@
 import { Decoration } from 'prosemirror-view';
-import { AnnotationSharedClassNames } from '@atlaskit/editor-common';
+import { AnnotationSharedClassNames } from '@atlaskit/editor-common/styles';
 import {
   annotation,
   doc,

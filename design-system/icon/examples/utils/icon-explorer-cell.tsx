@@ -24,7 +24,7 @@ const iconExplorerLinkStyles = css({
     lineHeight: 0,
   },
   '&:hover': {
-    background: token('color.background.subtleNeutral.hover', N30A),
+    background: token('color.background.neutral.hovered', N30A),
   },
 });
 

@@ -61,11 +61,13 @@ export function MobileAppearance({
       );
 
       let minHeight = 100;
+      let currentIsExpanded = true; // isExpanded prop should always be true for Hybrid Editor
       if (mobileDimensions) {
         const {
           keyboardHeight,
           windowHeight,
           mobilePaddingTop,
+          isExpanded,
         } = mobileDimensions;
         /*
           We calculate the min-height based on the windowHeight - keyboardHeight - paddingTop.
@@ -73,9 +75,17 @@ export function MobileAppearance({
           but if the clickable area is bigger than the windowHeight - keyboard (including toolbar) then the view
           is scrolled nevertheless, and it gives the sensation that the content was lost.
         */
-        const keyboardHeightVh = (keyboardHeight * 100) / windowHeight;
-        const paddingVh = (mobilePaddingTop * 100) / windowHeight;
-        minHeight = 100 - keyboardHeightVh - paddingVh;
+
+        if (!persistScrollGutter) {
+          // in iOS Hybrid Editor windowHeight doesn't exclude keyboardHeight
+          // in Android keyboardHeight is always set to -1;
+          minHeight = windowHeight - keyboardHeight - 2 * mobilePaddingTop;
+        } else {
+          // in iOS Compact Editor windowHeight excludes keyboardHeight
+          minHeight = windowHeight - mobilePaddingTop;
+          // isExpanded can be true of false for Compact editor
+          currentIsExpanded = isExpanded;
+        }
       }
       return (
         <WithFlash animate={maxContentSizeReached}>
@@ -87,6 +97,7 @@ export function MobileAppearance({
               editorView={editorView || undefined}
               minHeight={minHeight}
               persistScrollGutter={persistScrollGutter}
+              isExpanded={currentIsExpanded}
             >
               <ContentArea>
                 <div className="ak-editor-content-area">{children}</div>

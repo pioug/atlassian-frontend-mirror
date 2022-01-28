@@ -19,6 +19,7 @@ import { NORMAL_TEXT } from '../../types';
 export interface BlockTypeButtonProps {
   isSmall?: boolean;
   isReducedSpacing?: boolean;
+  'aria-expanded': React.AriaAttributes['aria-expanded'];
   selected: boolean;
   disabled: boolean;
   title: MessageDescriptor;
@@ -48,6 +49,8 @@ export const BlockTypeButton: React.StatelessComponent<BlockTypeButtonProps> = (
       onClick={props.onClick}
       title={labelTextStyles}
       aria-label={labelTextStyles}
+      aria-haspopup
+      aria-expanded={props['aria-expanded']}
       iconAfter={
         <Wrapper isSmall={props.isSmall}>
           {props.isSmall && <TextStyleIcon label={labelTextStyles} />}

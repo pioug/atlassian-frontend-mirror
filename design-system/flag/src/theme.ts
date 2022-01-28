@@ -26,24 +26,24 @@ import { AppearanceTypes } from './types';
 
 const flagBackgroundColor = {
   error: {
-    light: token('color.background.overlay', R400),
-    dark: token('color.background.overlay', R300),
+    light: token('elevation.surface.overlay', R400),
+    dark: token('elevation.surface.overlay', R300),
   },
   info: {
-    light: token('color.background.overlay', N500),
-    dark: token('color.background.overlay', N500),
+    light: token('elevation.surface.overlay', N500),
+    dark: token('elevation.surface.overlay', N500),
   },
   normal: {
-    light: token('color.background.overlay', N0),
-    dark: token('color.background.overlay', DN50),
+    light: token('elevation.surface.overlay', N0),
+    dark: token('elevation.surface.overlay', DN50),
   },
   success: {
-    light: token('color.background.overlay', G400),
-    dark: token('color.background.overlay', G300),
+    light: token('elevation.surface.overlay', G400),
+    dark: token('elevation.surface.overlay', G300),
   },
   warning: {
-    light: token('color.background.overlay', Y200),
-    dark: token('color.background.overlay', Y300),
+    light: token('elevation.surface.overlay', Y200),
+    dark: token('elevation.surface.overlay', Y300),
   },
 };
 
@@ -52,51 +52,51 @@ export const getFlagBackgroundColor = (
   mode: ThemeModes,
 ): string => flagBackgroundColor[appearance][mode];
 
-export const flagBorderColor = token('color.background.overlay', N60A);
+export const flagBorderColor = token('elevation.surface.overlay', N60A);
 
 const flagIconColor = {
   error: {
-    light: token('color.iconBorder.danger', N0),
-    dark: token('color.iconBorder.danger', DN40),
+    light: token('color.icon.danger', N0),
+    dark: token('color.icon.danger', DN40),
   },
   info: {
-    light: token('color.iconBorder.discovery', N0),
-    dark: token('color.iconBorder.discovery', DN600),
+    light: token('color.icon.discovery', N0),
+    dark: token('color.icon.discovery', DN600),
   },
   normal: {
-    light: token('color.iconBorder.brand', N500),
-    dark: token('color.iconBorder.brand', DN600),
+    light: token('color.icon.brand', N500),
+    dark: token('color.icon.brand', DN600),
   },
   success: {
-    light: token('color.iconBorder.success', N0),
-    dark: token('color.iconBorder.success', DN40),
+    light: token('color.icon.success', N0),
+    dark: token('color.icon.success', DN40),
   },
   warning: {
-    light: token('color.iconBorder.warning', N700),
-    dark: token('color.iconBorder.warning', DN40),
+    light: token('color.icon.warning', N700),
+    dark: token('color.icon.warning', DN40),
   },
 };
 
 const flagTextColor = {
   error: {
-    light: token('color.text.highEmphasis', N0),
-    dark: token('color.text.highEmphasis', DN40),
+    light: token('color.text', N0),
+    dark: token('color.text', DN40),
   },
   info: {
-    light: token('color.text.highEmphasis', N0),
-    dark: token('color.text.highEmphasis', DN600),
+    light: token('color.text', N0),
+    dark: token('color.text', DN600),
   },
   normal: {
-    light: token('color.text.highEmphasis', N500),
-    dark: token('color.text.highEmphasis', DN600),
+    light: token('color.text', N500),
+    dark: token('color.text', DN600),
   },
   success: {
-    light: token('color.text.highEmphasis', N0),
-    dark: token('color.text.highEmphasis', DN40),
+    light: token('color.text', N0),
+    dark: token('color.text', DN40),
   },
   warning: {
-    light: token('color.text.highEmphasis', N700),
-    dark: token('color.text.highEmphasis', DN40),
+    light: token('color.text', N700),
+    dark: token('color.text', DN40),
   },
 };
 
@@ -116,24 +116,24 @@ export const flagShadowColor = N50A;
 
 const flagFocusRingColor = {
   error: {
-    light: token('color.border.focus', N40),
-    dark: token('color.border.focus', N40),
+    light: token('color.border.focused', N40),
+    dark: token('color.border.focused', N40),
   },
   info: {
-    light: token('color.border.focus', N40),
-    dark: token('color.border.focus', N40),
+    light: token('color.border.focused', N40),
+    dark: token('color.border.focused', N40),
   },
   normal: {
-    light: token('color.border.focus', B100),
-    dark: token('color.border.focus', B100),
+    light: token('color.border.focused', B100),
+    dark: token('color.border.focused', B100),
   },
   success: {
-    light: token('color.border.focus', N40),
-    dark: token('color.border.focus', N40),
+    light: token('color.border.focused', N40),
+    dark: token('color.border.focused', N40),
   },
   warning: {
-    light: token('color.border.focus', N200),
-    dark: token('color.border.focus', N200),
+    light: token('color.border.focused', N200),
+    dark: token('color.border.focused', N200),
   },
 };
 
@@ -146,59 +146,47 @@ const lightButtonBackground = 'rgba(255, 255, 255, 0.08)';
 
 const actionBackground = {
   success: {
-    light: token(
-      'color.background.subtleNeutral.resting',
-      lightButtonBackground,
-    ),
-    dark: token('color.background.subtleNeutral.resting', N30A),
+    light: token('color.background.neutral', lightButtonBackground),
+    dark: token('color.background.neutral', N30A),
   },
   info: {
-    light: token(
-      'color.background.subtleNeutral.resting',
-      lightButtonBackground,
-    ),
-    dark: token(
-      'color.background.subtleNeutral.resting',
-      lightButtonBackground,
-    ),
+    light: token('color.background.neutral', lightButtonBackground),
+    dark: token('color.background.neutral', lightButtonBackground),
   },
   error: {
-    light: token(
-      'color.background.subtleNeutral.resting',
-      lightButtonBackground,
-    ),
-    dark: token('color.background.subtleNeutral.resting', N30A),
+    light: token('color.background.neutral', lightButtonBackground),
+    dark: token('color.background.neutral', N30A),
   },
   warning: {
-    light: token('color.background.subtleNeutral.resting', N30A),
-    dark: token('color.background.subtleNeutral.resting', N30A),
+    light: token('color.background.neutral', N30A),
+    dark: token('color.background.neutral', N30A),
   },
   normal: {
-    light: token('color.background.subtleNeutral.resting', 'none'),
-    dark: token('color.background.subtleNeutral.resting', 'none'),
+    light: token('color.background.neutral', 'none'),
+    dark: token('color.background.neutral', 'none'),
   },
 };
 
 const actionColor = {
   success: {
-    light: token('color.text.mediumEmphasis', N0),
-    dark: token('color.text.mediumEmphasis', DN40),
+    light: token('color.text.subtle', N0),
+    dark: token('color.text.subtle', DN40),
   },
   info: {
-    light: token('color.text.mediumEmphasis', N0),
-    dark: token('color.text.mediumEmphasis', DN600),
+    light: token('color.text.subtle', N0),
+    dark: token('color.text.subtle', DN600),
   },
   error: {
-    light: token('color.text.mediumEmphasis', N0),
-    dark: token('color.text.mediumEmphasis', DN600),
+    light: token('color.text.subtle', N0),
+    dark: token('color.text.subtle', DN600),
   },
   warning: {
-    light: token('color.text.mediumEmphasis', N700),
-    dark: token('color.text.mediumEmphasis', DN40),
+    light: token('color.text.subtle', N700),
+    dark: token('color.text.subtle', DN40),
   },
   normal: {
-    light: token('color.text.mediumEmphasis', B400),
-    dark: token('color.text.mediumEmphasis', B100),
+    light: token('color.text.subtle', B400),
+    dark: token('color.text.subtle', B100),
   },
 };
 

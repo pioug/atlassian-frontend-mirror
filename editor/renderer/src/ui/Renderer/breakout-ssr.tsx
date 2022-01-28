@@ -1,5 +1,5 @@
 import React from 'react';
-import { breakoutConsts } from '@atlaskit/editor-common';
+import { breakoutConsts } from '@atlaskit/editor-common/utils';
 
 /**
  * Inline Script that updates breakout node width on client side,

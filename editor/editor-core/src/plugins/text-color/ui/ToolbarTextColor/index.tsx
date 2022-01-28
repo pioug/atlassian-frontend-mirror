@@ -157,6 +157,8 @@ export class ToolbarTextColor extends React.Component<
               disabled={disabled || pluginState.disabled}
               selected={isOpen}
               aria-label={labelTextColor}
+              aria-expanded={isOpen}
+              aria-haspopup
               title={labelTextColor}
               onClick={this.toggleOpen}
               iconBefore={

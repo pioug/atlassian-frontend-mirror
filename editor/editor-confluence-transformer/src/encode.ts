@@ -8,7 +8,7 @@ import {
 import {
   timestampToIsoFormat,
   calcTableColumnWidths,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-common/utils';
 import { Fragment, Node as PMNode, Mark, Schema } from 'prosemirror-model';
 import parseCxhtml from './parse-cxhtml';
 import { AC_XMLNS, FAB_XMLNS, default as encodeCxhtml } from './encode-cxhtml';

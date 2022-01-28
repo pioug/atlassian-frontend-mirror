@@ -131,6 +131,8 @@ class FindReplaceToolbarButton extends React.PureComponent<
               }
               iconBefore={<EditorSearchIcon label={title} />}
               onClick={this.toggleOpen}
+              aria-expanded={isActive}
+              aria-haspopup
             />
           }
         >

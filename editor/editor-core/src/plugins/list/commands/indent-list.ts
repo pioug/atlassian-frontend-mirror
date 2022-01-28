@@ -1,4 +1,5 @@
 import { Command } from '../../../types';
+import { findParentNodeOfType } from 'prosemirror-utils';
 import {
   ACTION,
   ACTION_SUBJECT,
@@ -25,26 +26,31 @@ export function indentList(
       tr,
       selection: { $from },
     } = state;
-
     // don't indent if selection is not inside a list
     if (!isInsideListItem(state)) {
       return false;
     }
+
+    const { tableCell, tableHeader } = state.schema.nodes;
+    const cell = findParentNodeOfType([tableCell, tableHeader])(
+      state.selection,
+    )!;
     const firstListItemSelectedAttributes = getListItemAttributes($from);
+    const parentListNode = findFirstParentListNode($from);
 
     if (
-      firstListItemSelectedAttributes &&
-      firstListItemSelectedAttributes.indentLevel === 0 &&
-      firstListItemSelectedAttributes.itemIndex === 0
+      !parentListNode ||
+      (firstListItemSelectedAttributes &&
+        firstListItemSelectedAttributes.indentLevel === 0 &&
+        firstListItemSelectedAttributes.itemIndex === 0)
     ) {
-      // Even though this is a non-operation, we don't want to send this event to the browser. Because if we return false, the browser will move the focus to another place
-      return true;
-    }
-
-    const parentListNode = findFirstParentListNode($from);
-    if (!parentListNode) {
-      // Even though this is a non-operation, we don't want to send this event to the browser. Because if we return false, the browser will move the focus to another place
-      return true;
+      if (cell) {
+        // dont consume tab, as table-keymap should move cursor to next cell
+        return false;
+      } else {
+        // Even though this is a non-operation, we don't want to send this event to the browser. Because if we return false, the browser will move the focus to another place
+        return true;
+      }
     }
 
     const currentListNode = parentListNode.node;

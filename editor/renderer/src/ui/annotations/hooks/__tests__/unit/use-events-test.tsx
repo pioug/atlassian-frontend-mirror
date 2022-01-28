@@ -2,10 +2,10 @@ import React from 'react';
 import { render, unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
 import {
-  AnnotationState,
   AnnotationUpdateEmitter,
   AnnotationUpdateEvent,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-common/types';
+import type { AnnotationState } from '@atlaskit/editor-common/types';
 import { AnnotationTypes, AnnotationMarkStates } from '@atlaskit/adf-schema';
 import {
   useAnnotationStateByTypeEvent,

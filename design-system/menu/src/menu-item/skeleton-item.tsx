@@ -24,10 +24,7 @@ const itemElemSkeletonOffset =
   (itemExpectedElemSize - skeletonItemElemSize) / 2;
 const skeletonTextBorderRadius = 100;
 const skeletonContentHeight = 9;
-const skeletonColor = token(
-  'color.background.subtleNeutral.resting',
-  skeletonColorFn(),
-);
+const skeletonColor = token('color.background.neutral', skeletonColorFn());
 
 const skeletonStyles = css({
   display: 'flex',

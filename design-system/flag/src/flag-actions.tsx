@@ -1,12 +1,13 @@
+/* eslint-disable @repo/internal/styles/no-nested-styles */
 /** @jsx jsx */
-import { ComponentType } from 'react';
+import type { ComponentType, CSSProperties } from 'react';
 
 import { css, jsx } from '@emotion/core';
 
 import Button from '@atlaskit/button/custom-theme-button';
-import { CustomThemeButtonProps } from '@atlaskit/button/types';
+import type { CustomThemeButtonProps } from '@atlaskit/button/types';
 import { gridSize as getGridSize } from '@atlaskit/theme/constants';
-import { ThemeModes } from '@atlaskit/theme/types';
+import type { ThemeModes } from '@atlaskit/theme/types';
 
 import { DEFAULT_APPEARANCE } from './constants';
 import {
@@ -14,7 +15,7 @@ import {
   getActionColor,
   getFlagFocusRingColor,
 } from './theme';
-import { ActionsType, AppearanceTypes } from './types';
+import type { ActionsType, AppearanceTypes } from './types';
 
 type Props = {
   appearance: AppearanceTypes;
@@ -27,6 +28,52 @@ type Props = {
 const gridSize = getGridSize();
 const separatorWidth = gridSize * 2;
 const defaultAppearanceTranslate = gridSize / 4;
+
+const separatorStyles = css({
+  display: 'inline-block',
+  width: separatorWidth,
+  textAlign: 'center',
+});
+
+const actionContainerStyles = css({
+  display: 'flex',
+  paddingTop: gridSize,
+  alignItems: 'center',
+  flexWrap: 'wrap',
+  transform: `translateX(-${defaultAppearanceTranslate}px)`,
+});
+
+const boldActionContainerStyles = css({
+  transform: 0 as any,
+});
+
+const buttonStyles = css({
+  '&&, a&&': {
+    marginLeft: 0,
+    padding: `0 ${gridSize}px !important`,
+    background: `var(--bg-color)`,
+    color: `var(--color) !important`,
+    fontWeight: 500,
+  },
+  '&&:focus, a&&:focus': {
+    boxShadow: `0 0 0 2px var(--focus-color)`,
+  },
+  '&&:hover, &&:active, a&&:hover, a&&:active': {
+    textDecoration: 'underline',
+  },
+});
+
+const appeanceNormalButtonStyles = css({
+  '&&, a&&': {
+    padding: '0 !important',
+  },
+});
+
+const isBoldButtonStyles = css({
+  '&&, a&&': {
+    marginLeft: gridSize,
+  },
+});
 
 const FlagActions = (props: Props) => {
   const {
@@ -44,27 +91,12 @@ const FlagActions = (props: Props) => {
 
   return (
     <div
-      css={css`
-        display: flex;
-        flex-wrap: wrap;
-        padding-top: ${gridSize}px;
-        transform: ${appearance === DEFAULT_APPEARANCE
-          ? `translateX(-${defaultAppearanceTranslate}px)`
-          : 0};
-        align-items: center;
-      `}
+      css={[actionContainerStyles, isBold && boldActionContainerStyles]}
       data-testid={testId && `${testId}-actions`}
     >
       {actions.map((action, index) => [
         index && !isBold ? (
-          <div
-            css={css`
-              text-align: center;
-              display: inline-block;
-              width: ${separatorWidth}px;
-            `}
-            key={index + 0.5}
-          >
+          <div css={separatorStyles} key={index + 0.5}>
             ·
           </div>
         ) : (
@@ -79,26 +111,18 @@ const FlagActions = (props: Props) => {
           spacing="compact"
           testId={action.testId}
           key={index}
-          css={css`
-            &&,
-            a&& {
-              margin-left: ${index && isBold ? gridSize : 0}px;
-              font-weight: 500;
-              padding: 0 ${appearance === 'normal' ? 0 : gridSize}px !important;
-              background: ${getActionBackground(appearance, mode)};
-              color: ${getActionColor(appearance, mode)} !important;
-            }
-            &&:focus,
-            a&&:focus {
-              box-shadow: 0 0 0 2px ${getFlagFocusRingColor(appearance, mode)};
-            }
-            &&:hover,
-            &&:active,
-            a&&:hover,
-            a&&:active {
-              text-decoration: underline;
-            }
-          `}
+          style={
+            {
+              '--color': getActionColor(appearance, mode),
+              '--bg-color': getActionBackground(appearance, mode),
+              '--focus-color': getFlagFocusRingColor(appearance, mode),
+            } as CSSProperties
+          }
+          css={[
+            buttonStyles,
+            isBold && isBoldButtonStyles,
+            appearance === 'normal' && appeanceNormalButtonStyles,
+          ]}
         >
           {action.content}
         </Button>,

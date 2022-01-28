@@ -17,7 +17,7 @@ describe.skip('server side rendering and hydration', () => {
     ['01-skin-tone-emoji-by-shortcut.tsx'],
     ['02-content-resourced-emoji.tsx'],
     ['11-emoji-preview-with-description.tsx'],
-    ['12-emoji-preview-with-long-name-description-tone-selector.tsx'],
+    ['12-emoji-preview-with-long-name-description.tsx'],
   ])('ssr("%s")', async (fileName: string) => {
     await ssr_hydrate(__dirname, `${ExamplesPath}/${fileName}`);
 

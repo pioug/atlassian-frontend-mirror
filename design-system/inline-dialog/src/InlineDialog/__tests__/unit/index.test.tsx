@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 
 import { act, cleanup, fireEvent, render } from '@testing-library/react';
-import { mount } from 'enzyme';
 
 import Button from '@atlaskit/button';
 
@@ -33,16 +32,15 @@ jest.mock('popper.js', () => {
 
 describe('inline-dialog', () => {
   afterEach(cleanup);
-  describe('default', () => {
-    it('should render any children passed to it', () => {
-      const { queryByTestId } = render(
-        <InlineDialog content={() => null}>
-          <div data-testid="child-content">Click me!</div>
-        </InlineDialog>,
-      );
 
-      expect(queryByTestId('child-content')).not.toBeNull();
-    });
+  it('should render the children of an inline dialog as the target', () => {
+    const { queryByTestId } = render(
+      <InlineDialog content={() => null}>
+        <div data-testid="child-content">Click me!</div>
+      </InlineDialog>,
+    );
+
+    expect(queryByTestId('child-content')).not.toBeNull();
   });
 
   describe('isOpen', () => {
@@ -51,9 +49,10 @@ describe('inline-dialog', () => {
         <p>Hello!</p>
       </div>
     );
-    it('should render the content if isOpen is set', () => {
+
+    it('should render the content when is open', () => {
       const { queryByTestId } = render(
-        <InlineDialog content={content} isOpen>
+        <InlineDialog content={content} isOpen={true}>
           <div id="children" />
         </InlineDialog>,
       );
@@ -61,12 +60,13 @@ describe('inline-dialog', () => {
       expect(queryByTestId('inline-dialog-content')).not.toBeNull();
     });
 
-    it('should not render the content if isOpen is not set', () => {
+    it('should not render the content when is not open', () => {
       const { queryByTestId } = render(
-        <InlineDialog content={content}>
+        <InlineDialog content={content} isOpen={false}>
           <div id="children" />
         </InlineDialog>,
       );
+
       expect(queryByTestId('inline-dialog-content')).toBeNull();
     });
   });
@@ -84,6 +84,7 @@ describe('inline-dialog', () => {
       );
 
       fireEvent.click(getByTestId('dummy-content'));
+
       expect(spy).toHaveBeenCalledTimes(1);
     });
   });
@@ -104,6 +105,7 @@ describe('inline-dialog', () => {
       );
 
       getByTestId('dummy-link').focus();
+
       expect(spy).toHaveBeenCalledTimes(1);
     });
   });
@@ -123,6 +125,7 @@ describe('inline-dialog', () => {
       );
 
       fireEvent.blur(getByTestId('dummy-link'));
+
       expect(spy).toHaveBeenCalledTimes(1);
     });
   });
@@ -280,17 +283,22 @@ describe('inline-dialog', () => {
 });
 
 describe('InlineDialogWithAnalytics', () => {
+  let consoleWarn: jest.SpyInstance;
+  let consoleError: jest.SpyInstance;
+
   beforeEach(() => {
-    jest.spyOn(global.console, 'warn');
-    jest.spyOn(global.console, 'error');
+    consoleWarn = jest.spyOn(global.console, 'warn');
+    consoleError = jest.spyOn(global.console, 'error');
   });
+
   afterEach(() => {
-    global.console.warn.mockRestore();
-    global.console.error.mockRestore();
+    consoleWarn.mockRestore();
+    consoleError.mockRestore();
   });
 
   it('should mount without errors', () => {
-    mount(<InlineDialogWithAnalytics children={''} content={''} />);
+    render(<InlineDialogWithAnalytics children={''} content={''} />);
+
     /* eslint-disable no-console */
     expect(console.warn).not.toHaveBeenCalled();
     expect(console.error).not.toHaveBeenCalled();

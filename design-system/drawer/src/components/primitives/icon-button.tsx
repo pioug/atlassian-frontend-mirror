@@ -26,10 +26,10 @@ const iconButtonStyles = css({
   fontSize: 'inherit',
   lineHeight: 1,
   '&:hover': {
-    backgroundColor: token('color.background.transparentNeutral.hover', N30A),
+    backgroundColor: token('color.background.neutral.subtle.hovered', N30A),
   },
   '&:active': {
-    backgroundColor: token('color.background.transparentNeutral.pressed', B50),
+    backgroundColor: token('color.background.neutral.subtle.pressed', B50),
     outline: 0,
   },
 });

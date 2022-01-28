@@ -11,7 +11,7 @@ const FlagActionsExample = () => {
     <Flag
       icon={
         <SuccessIcon
-          primaryColor={token('color.iconBorder.success', G300)}
+          primaryColor={token('color.icon.success', G300)}
           label="Success"
         />
       }

@@ -7,7 +7,10 @@ import {
   TextSelection,
   Transaction,
 } from 'prosemirror-state';
-import { findParentNodeOfTypeClosestToPos } from 'prosemirror-utils';
+import {
+  findParentNodeOfType,
+  findParentNodeOfTypeClosestToPos,
+} from 'prosemirror-utils';
 
 import { uuid } from '@atlaskit/adf-schema';
 
@@ -44,6 +47,8 @@ import {
   subtreeHeight,
   walkOut,
   isTable,
+  getTaskItemIndex,
+  isInsideDecision,
 } from './helpers';
 
 const indentationAnalytics = (
@@ -146,6 +151,23 @@ const unindent = filter(isInsideTask, (state, dispatch) => {
   )(autoJoin(liftSelection, ['taskList']))(state, dispatch);
 });
 
+// if selection is decision item or first action item in table cell
+// then dont consume the Tab, as table-keymap should tab to the next cell
+const shouldLetTabThroughInTable = (state: EditorState) => {
+  const curIndentLevel = getCurrentIndentLevel(state.selection);
+  const curIndex = getTaskItemIndex(state);
+  const { tableCell, tableHeader } = state.schema.nodes;
+  const cell = findParentNodeOfType([tableCell, tableHeader])(state.selection)!;
+
+  if (
+    ((curIndentLevel === 1 && curIndex === 0) || isInsideDecision(state)) &&
+    cell
+  ) {
+    return true;
+  }
+  return false;
+};
+
 const indent = filter(isInsideTask, (state, dispatch) => {
   // limit ui indentation to 6 levels
   const curIndentLevel = getCurrentIndentLevel(state.selection);
@@ -159,7 +181,6 @@ const indent = filter(isInsideTask, (state, dispatch) => {
   if (maxDepth >= 6) {
     return true;
   }
-
   return withAnalytics(
     indentationAnalytics(curIndentLevel, INDENT_DIRECTION.INDENT),
   )(autoJoin(wrapSelectionInTaskList, ['taskList']))(state, dispatch);
@@ -434,12 +455,20 @@ export function keymapPlugin(
   consumeTabs?: boolean,
 ): Plugin | undefined {
   const indentHandlers = {
-    'Shift-Tab': consumeTabs
-      ? chainCommands(unindent, isInsideTaskOrDecisionItem)
-      : unindent,
-    Tab: consumeTabs
-      ? chainCommands(indent, isInsideTaskOrDecisionItem)
-      : indent,
+    'Shift-Tab': filter(
+      [
+        isInsideTaskOrDecisionItem,
+        (state) => !shouldLetTabThroughInTable(state),
+      ],
+      (state, dispatch) => unindent(state, dispatch) || !!consumeTabs,
+    ),
+    Tab: filter(
+      [
+        isInsideTaskOrDecisionItem,
+        (state) => !shouldLetTabThroughInTable(state),
+      ],
+      (state, dispatch) => indent(state, dispatch) || !!consumeTabs,
+    ),
   };
 
   const defaultHandlers = consumeTabs

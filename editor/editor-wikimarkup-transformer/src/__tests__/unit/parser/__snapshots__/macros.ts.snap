@@ -7,6 +7,8 @@ Object {
       "attrs": Object {
         "panelColor": null,
         "panelIcon": null,
+        "panelIconId": null,
+        "panelIconText": null,
         "panelType": "error",
       },
       "content": Array [
@@ -155,6 +157,17 @@ Object {
 }
 `;
 
+exports[`JIRA wiki markup - Macros ADFS-719 should not blow up when a valid adf macro is passed in 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
 exports[`JIRA wiki markup - Macros ADFS-719 should place invalid adf macro inside a code block w/err msg 1`] = `
 Object {
   "content": Array [
@@ -170,17 +183,6 @@ Object {
         },
       ],
       "type": "codeBlock",
-    },
-  ],
-  "type": "doc",
-}
-`;
-
-exports[`JIRA wiki markup - Macros ADFS-719 should not blow up when a valid adf macro is passed in 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "type": "paragraph",
     },
   ],
   "type": "doc",
@@ -289,6 +291,8 @@ Object {
       "attrs": Object {
         "panelColor": null,
         "panelIcon": null,
+        "panelIconId": null,
+        "panelIconText": null,
         "panelType": "info",
       },
       "content": Array [
@@ -330,6 +334,8 @@ Object {
       "attrs": Object {
         "panelColor": null,
         "panelIcon": null,
+        "panelIconId": null,
+        "panelIconText": null,
         "panelType": "info",
       },
       "content": Array [
@@ -374,6 +380,8 @@ Object {
       "attrs": Object {
         "panelColor": null,
         "panelIcon": null,
+        "panelIconId": null,
+        "panelIconText": null,
         "panelType": "info",
       },
       "content": Array [
@@ -474,6 +482,8 @@ Object {
       "attrs": Object {
         "panelColor": null,
         "panelIcon": null,
+        "panelIconId": null,
+        "panelIconText": null,
         "panelType": "info",
       },
       "content": Array [
@@ -568,6 +578,8 @@ Object {
       "attrs": Object {
         "panelColor": null,
         "panelIcon": null,
+        "panelIconId": null,
+        "panelIconText": null,
         "panelType": "info",
       },
       "content": Array [
@@ -649,6 +661,8 @@ Object {
       "attrs": Object {
         "panelColor": null,
         "panelIcon": null,
+        "panelIconId": null,
+        "panelIconText": null,
         "panelType": "info",
       },
       "content": Array [
@@ -781,6 +795,8 @@ Object {
       "attrs": Object {
         "panelColor": null,
         "panelIcon": null,
+        "panelIconId": null,
+        "panelIconText": null,
         "panelType": "info",
       },
       "content": Array [
@@ -862,6 +878,8 @@ Object {
       "attrs": Object {
         "panelColor": null,
         "panelIcon": null,
+        "panelIconId": null,
+        "panelIconText": null,
         "panelType": "info",
       },
       "content": Array [
@@ -1223,6 +1241,8 @@ Object {
       "attrs": Object {
         "panelColor": null,
         "panelIcon": null,
+        "panelIconId": null,
+        "panelIconText": null,
         "panelType": "info",
       },
       "content": Array [
@@ -1245,6 +1265,8 @@ Object {
       "attrs": Object {
         "panelColor": null,
         "panelIcon": null,
+        "panelIconId": null,
+        "panelIconText": null,
         "panelType": "info",
       },
       "content": Array [
@@ -1272,6 +1294,8 @@ Object {
       "attrs": Object {
         "panelColor": null,
         "panelIcon": null,
+        "panelIconId": null,
+        "panelIconText": null,
         "panelType": "error",
       },
       "content": Array [
@@ -1313,6 +1337,8 @@ Object {
       "attrs": Object {
         "panelColor": null,
         "panelIcon": null,
+        "panelIconId": null,
+        "panelIconText": null,
         "panelType": "success",
       },
       "content": Array [
@@ -1354,6 +1380,8 @@ Object {
       "attrs": Object {
         "panelColor": null,
         "panelIcon": null,
+        "panelIconId": null,
+        "panelIconText": null,
         "panelType": "info",
       },
       "content": Array [
@@ -1506,6 +1534,8 @@ Object {
       "attrs": Object {
         "panelColor": null,
         "panelIcon": null,
+        "panelIconId": null,
+        "panelIconText": null,
         "panelType": "success",
       },
       "content": Array [
@@ -1550,6 +1580,8 @@ Object {
       "attrs": Object {
         "panelColor": null,
         "panelIcon": null,
+        "panelIconId": null,
+        "panelIconText": null,
         "panelType": "error",
       },
       "content": Array [
@@ -1629,6 +1661,8 @@ Object {
       "attrs": Object {
         "panelColor": null,
         "panelIcon": null,
+        "panelIconId": null,
+        "panelIconText": null,
         "panelType": "info",
       },
       "content": Array [
@@ -1688,6 +1722,8 @@ Object {
       "attrs": Object {
         "panelColor": null,
         "panelIcon": null,
+        "panelIconId": null,
+        "panelIconText": null,
         "panelType": "info",
       },
       "content": Array [
@@ -1715,6 +1751,8 @@ Object {
       "attrs": Object {
         "panelColor": null,
         "panelIcon": null,
+        "panelIconId": null,
+        "panelIconText": null,
         "panelType": "info",
       },
       "content": Array [

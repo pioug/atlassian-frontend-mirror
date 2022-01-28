@@ -1,6 +1,6 @@
-jest.mock('@atlaskit/editor-common', () => {
+jest.mock('@atlaskit/editor-common/ui', () => {
   return {
-    ...jest.requireActual<Object>('@atlaskit/editor-common'),
+    ...jest.requireActual<Object>('@atlaskit/editor-common/ui'),
     findOverflowScrollParent: jest.fn(),
   };
 });
@@ -10,7 +10,7 @@ jest.mock('../../../../../ui/WithPluginState', () => ({
     return render({ focus: true });
   },
 }));
-import { findOverflowScrollParent } from '@atlaskit/editor-common';
+import { findOverflowScrollParent } from '@atlaskit/editor-common/ui';
 import { mount, ReactWrapper } from 'enzyme';
 import React from 'react';
 import { Props } from '../../../../../plugins/media/ui/MediaPicker/PickerFacadeProvider';

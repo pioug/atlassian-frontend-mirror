@@ -31,6 +31,27 @@ export const findMediaSingleNode = (
   );
 };
 
+/**
+ * Finds the media inline node with the given id.
+ * Media Inline is inserted like a media single node into the media plugin state.
+ * However it is not of type mediaSingle.
+ *
+ * @param mediaPluginState
+ * @param id
+ * @param isMediaSingle
+ * @returns {MediaNodeWithPosHandler | null}
+ */
+export const findMediaInlineNode = (
+  mediaPluginState: MediaPluginState,
+  id: string,
+  isMediaSingle: boolean,
+): MediaNodeWithPosHandler | null => {
+  if (!isMediaSingle) {
+    return findMediaSingleNode(mediaPluginState, id);
+  }
+  return null;
+};
+
 export const findAllMediaSingleNodes = (
   mediaPluginState: MediaPluginState,
   id: string,
@@ -51,6 +72,12 @@ export const findMediaNode = (
   const mediaNodeWithPos = isMediaSingle
     ? findMediaSingleNode(mediaPluginState, id)
     : mediaPluginState.mediaGroupNodes[id];
+
+  // Should attempt to find media inline node if media single node or media group node is not found
+  if (!mediaNodeWithPos) {
+    return findMediaInlineNode(mediaPluginState, id, isMediaSingle);
+  }
+
   return mediaNodeWithPos;
 };
 

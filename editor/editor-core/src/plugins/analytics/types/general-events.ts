@@ -18,7 +18,7 @@ import {
 import { FeatureFlagKey } from '../../../types/feature-flags';
 import { AnnotationAEP } from './inline-comment-events';
 import { RichMediaLayout } from '@atlaskit/adf-schema';
-import { SEVERITY } from '@atlaskit/editor-common';
+import { SEVERITY } from '@atlaskit/editor-common/utils';
 
 export enum PLATFORMS {
   NATIVE = 'mobileNative',

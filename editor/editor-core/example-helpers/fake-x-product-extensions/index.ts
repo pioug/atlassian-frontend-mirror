@@ -5,7 +5,7 @@ import { default as awesomeMochi } from './mochi';
 import { manifest as tableCharts } from './table-charts';
 import dropbox from '@atlaskit/editor-extension-dropbox';
 
-import { DefaultExtensionProvider } from '@atlaskit/editor-common';
+import { DefaultExtensionProvider } from '@atlaskit/editor-common/extensions';
 
 export const getXProductExtensionProvider = () =>
   new DefaultExtensionProvider<any>(

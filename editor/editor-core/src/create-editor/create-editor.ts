@@ -1,6 +1,7 @@
 import { MarkSpec } from 'prosemirror-model';
 import { Plugin } from 'prosemirror-state';
-import { ErrorReporter, ErrorReportingHandler } from '@atlaskit/editor-common';
+import { ErrorReporter } from '@atlaskit/editor-common/utils';
+import type { ErrorReportingHandler } from '@atlaskit/editor-common/utils';
 import {
   EditorConfig,
   EditorPlugin,

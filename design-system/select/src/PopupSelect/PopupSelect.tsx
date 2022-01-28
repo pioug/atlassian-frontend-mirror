@@ -109,7 +109,7 @@ export default class PopupSelect<
     {
       groupHeading: (provided) => ({
         ...provided,
-        color: token('color.text.lowEmphasis', N80),
+        color: token('color.text.subtlest', N80),
       }),
     },
   );

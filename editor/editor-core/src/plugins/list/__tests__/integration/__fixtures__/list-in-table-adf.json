@@ -1,0 +1,160 @@
+{
+    "version": 1,
+    "type": "doc",
+    "content": [
+        {
+            "type": "table",
+            "attrs": {
+                "isNumberColumnEnabled": false,
+                "layout": "default",
+                "localId": "f23f5e1f-90d6-41d9-b5cd-48c174041f26"
+            },
+            "content": [
+                {
+                    "type": "tableRow",
+                    "content": [
+                        {
+                            "type": "tableHeader",
+                            "attrs": {},
+                            "content": [
+                                {
+                                    "type": "paragraph",
+                                    "content": []
+                                }
+                            ]
+                        },
+                        {
+                            "type": "tableHeader",
+                            "attrs": {},
+                            "content": [
+                                {
+                                    "type": "paragraph",
+                                    "content": []
+                                }
+                            ]
+                        },
+                        {
+                            "type": "tableHeader",
+                            "attrs": {},
+                            "content": [
+                                {
+                                    "type": "paragraph",
+                                    "content": []
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "tableRow",
+                    "content": [
+                        {
+                            "type": "tableCell",
+                            "attrs": {},
+                            "content": [
+                                {
+                                    "type": "paragraph",
+                                    "content": [
+                                        {
+                                            "type": "text",
+                                            "text": "text"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "type": "tableCell",
+                            "attrs": {},
+                            "content": [
+                                {
+                                    "type": "bulletList",
+                                    "content": [
+                                        {
+                                            "type": "listItem",
+                                            "content": [
+                                                {
+                                                    "type": "paragraph",
+                                                    "content": [
+                                                        {
+                                                            "type": "text",
+                                                            "text": "Bullet item 1"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "type": "listItem",
+                                            "content": [
+                                                {
+                                                    "type": "paragraph",
+                                                    "content": [
+                                                        {
+                                                            "type": "text",
+                                                            "text": "Bullet item 2"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "type": "tableCell",
+                            "attrs": {},
+                            "content": [
+                                {
+                                    "type": "paragraph",
+                                    "content": [
+                                        {
+                                            "type": "text",
+                                            "text": "text"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "tableRow",
+                    "content": [
+                        {
+                            "type": "tableCell",
+                            "attrs": {},
+                            "content": [
+                                {
+                                    "type": "paragraph",
+                                    "content": []
+                                }
+                            ]
+                        },
+                        {
+                            "type": "tableCell",
+                            "attrs": {},
+                            "content": [
+                                {
+                                    "type": "paragraph",
+                                    "content": []
+                                }
+                            ]
+                        },
+                        {
+                            "type": "tableCell",
+                            "attrs": {},
+                            "content": [
+                                {
+                                    "type": "paragraph",
+                                    "content": []
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

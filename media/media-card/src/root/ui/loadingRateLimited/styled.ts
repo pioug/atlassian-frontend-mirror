@@ -38,7 +38,7 @@ export const LoadingRateLimitedTextWrapper = styled.div`
     display: block;
     width:100%;
     text-align:center;
-    ${generateResponsiveStyles(breakpoint, positionBottom, 1)}
+    ${generateResponsiveStyles(breakpoint, positionBottom, false, 1)}
   `}
 `;
 

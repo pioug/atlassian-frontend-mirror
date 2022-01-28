@@ -18,7 +18,7 @@ const dayNameCellStyles = css({
   minWidth: 40,
   padding: '8px 8px',
   border: 0,
-  color: token('color.text.mediumEmphasis', N200),
+  color: token('color.text.subtle', N200),
   fontSize: 11,
   fontWeight: 700,
   textAlign: 'center',

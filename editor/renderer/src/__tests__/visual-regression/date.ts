@@ -3,7 +3,7 @@ import { THEME_MODES } from '@atlaskit/theme/constants';
 import { initRendererWithADF, snapshot } from './_utils';
 import * as adfWithDate from '../__fixtures__/date.adf.json';
 import { selectors } from '../__helpers/page-objects/_date';
-import { getModeFromTheme } from '@atlaskit/editor-common';
+import { getModeFromTheme } from '@atlaskit/editor-common/utils';
 
 describe('Snapshot Test: Date', () => {
   let page: PuppeteerPage;

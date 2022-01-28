@@ -29,7 +29,7 @@ import {
 import { Command } from '../../../../types';
 import { SelectionBookmark, AllSelection } from 'prosemirror-state';
 import { DecorationSet } from 'prosemirror-view';
-import { AnnotationSharedClassNames } from '@atlaskit/editor-common';
+import { AnnotationSharedClassNames } from '@atlaskit/editor-common/styles';
 
 const annotationPreset = new Preset<LightEditorPlugin>()
   .add([annotationPlugin, { inlineComment: inlineCommentProvider }])

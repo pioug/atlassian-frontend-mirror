@@ -47,7 +47,7 @@ const AppFrame = ({
             minHeight: 600,
             borderRight: hideBorder
               ? undefined
-              : `1px solid ${token('color.border.neutral', N40)}`,
+              : `1px solid ${token('color.border', N40)}`,
           }}
         >
           {children}

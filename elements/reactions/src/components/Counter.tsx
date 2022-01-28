@@ -11,14 +11,14 @@ const animationTime = 300;
 
 export const countStyle = style({
   fontSize: '11px',
-  color: token('color.text.lowEmphasis', N90),
+  color: token('color.text.subtlest', N90),
   overflow: 'hidden',
   height: `${akHeight}px`,
   transition: `width ${animationTime}ms ease-in-out`,
 });
 
 export const highlightStyle = style({
-  color: token('color.text.selected', B400),
+  color: token('color.text.brand', B400),
   fontWeight: 600,
 });
 

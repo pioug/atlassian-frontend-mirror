@@ -1,5 +1,5 @@
 import React, { ReactElement, useState, useEffect } from 'react';
-import { ProviderFactory } from '@atlaskit/editor-common';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { EditorView } from 'prosemirror-view';
 
 import AvatarsWithPluginState from '../../../plugins/collab-edit/ui';

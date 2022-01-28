@@ -1,4 +1,4 @@
-import { CollabEditProvider } from '@atlaskit/editor-common';
+import type { CollabEditProvider } from '@atlaskit/editor-common/collab';
 import { sendTransaction } from '../../../events/send-transaction';
 import collabEditPlugin from '../../../';
 

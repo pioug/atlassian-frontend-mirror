@@ -2,7 +2,7 @@ import React from 'react';
 import { mount, ReactWrapper } from 'enzyme';
 import { IntlProvider } from 'react-intl-next';
 
-import { Parameters } from '@atlaskit/editor-common';
+import type { Parameters } from '@atlaskit/editor-common/extensions';
 import {
   DefaultExtensionProvider,
   FieldDefinition,

@@ -91,7 +91,6 @@ export interface State {
   emojiToDelete?: EmojiDescription;
   // the picker is considered loaded when at least 1 set of emojis have loaded
   loading: boolean;
-  showUploadButton: boolean;
 }
 
 export default class EmojiPickerComponent extends PureComponent<Props, State> {
@@ -119,7 +118,6 @@ export default class EmojiPickerComponent extends PureComponent<Props, State> {
       loading: true,
       uploadSupported: false,
       uploading: false,
-      showUploadButton: true,
     };
 
     this.openTime = 0;
@@ -196,11 +194,6 @@ export default class EmojiPickerComponent extends PureComponent<Props, State> {
     if (this.state.selectedEmoji !== emoji) {
       this.setState({
         selectedEmoji: emoji,
-        showUploadButton: false,
-      } as State);
-    } else {
-      this.setState({
-        showUploadButton: false,
       } as State);
     }
   };
@@ -246,18 +239,6 @@ export default class EmojiPickerComponent extends PureComponent<Props, State> {
 
   onFileChooserClicked = () => {
     this.fireAnalytics(selectedFileEvent());
-  };
-
-  onEmojiPickerMouseLeave = () => {
-    this.setState({
-      showUploadButton: true,
-    });
-  };
-
-  onEmojiPickerMouseEnter = () => {
-    this.setState({
-      showUploadButton: false,
-    });
   };
 
   private fireAnalytics = (analyticsEvent: AnalyticsEventPayload) => {
@@ -590,7 +571,6 @@ export default class EmojiPickerComponent extends PureComponent<Props, State> {
       uploading,
       uploadErrorMessage,
       uploadSupported,
-      showUploadButton,
     } = this.state;
 
     const recordUsageOnSelection = createRecordSelectionDefault(
@@ -624,31 +604,29 @@ export default class EmojiPickerComponent extends PureComponent<Props, State> {
           onEmojiActive={this.onEmojiActive}
           onEmojiDelete={this.onTriggerDelete}
           onCategoryActivated={this.onCategoryActivated}
-          onMouseLeave={this.onEmojiPickerMouseLeave}
-          onMouseEnter={this.onEmojiPickerMouseEnter}
           onSearch={this.onSearch}
           query={query}
           selectedTone={selectedTone}
           loading={loading}
           ref="emojiPickerList"
-        />
-        <EmojiPickerFooter
           initialUploadName={query}
-          selectedEmoji={selectedEmoji}
-          selectedTone={selectedTone}
           onToneSelected={this.onToneSelected}
           onToneSelectorCancelled={this.onToneSelectorCancelled}
           toneEmoji={toneEmoji}
           uploading={uploading}
           emojiToDelete={emojiToDelete}
           uploadErrorMessage={formattedErrorMessage}
-          uploadEnabled={uploadSupported && showUploadButton && !uploading}
+          uploadEnabled={uploadSupported && !uploading}
           onUploadEmoji={this.onUploadEmoji}
           onUploadCancelled={this.onUploadCancelled}
           onDeleteEmoji={this.onDeleteEmoji}
           onCloseDelete={this.onCloseDelete}
           onFileChooserClicked={this.onFileChooserClicked}
           onOpenUpload={this.onOpenUpload}
+        />
+        <EmojiPickerFooter
+          selectedEmoji={selectedEmoji}
+          isUploading={uploading}
         />
       </div>
     );

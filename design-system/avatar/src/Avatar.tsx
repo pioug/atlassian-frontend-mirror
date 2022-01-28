@@ -143,7 +143,7 @@ const getStyles = (
     size,
     radius,
     appearance,
-    borderColor = token('color.background.overlay', N0),
+    borderColor = token('elevation.surface.overlay', N0),
     stackIndex,
     isInteractive,
     isDisabled,
@@ -214,19 +214,22 @@ const getStyles = (
 
       :focus {
         outline: none;
-        box-shadow: 0 0 0 ${BORDER_WIDTH}px ${token('color.border.focus', B300)}
+        box-shadow: 0 0 0 ${BORDER_WIDTH}px ${token(
+      'color.border.focused',
+      B300,
+    )}
       }
 
       :hover {
         &::after {
-          background-color: ${token('color.overlay.hover', N70A)};
+          background-color: ${token('color.interaction.hovered', N70A)};
           opacity: 1;
         }
       }
 
       :active {
         &::after {
-          background-color: ${token('color.overlay.pressed', N70A)};
+          background-color: ${token('color.interaction.pressed', N70A)};
           opacity: 1;
         }
       }
@@ -249,7 +252,7 @@ const getStyles = (
         &::after {
           opacity: 0.7;
           pointer-events: none;
-          background-color: ${token('color.background.default', N0)};
+          background-color: ${token('elevation.surface', N0)};
         }
       `}
   `;

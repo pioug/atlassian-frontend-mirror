@@ -1,4 +1,3 @@
-import { Transformer } from '@atlaskit/editor-common';
 import { EditorView } from 'prosemirror-view';
 import { OnEditorViewStateUpdated } from '../create-editor/get-plugins';
 import { EventDispatcher } from '../event-dispatcher';

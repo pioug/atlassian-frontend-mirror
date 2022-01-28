@@ -22,7 +22,7 @@ const wrapperStyles = css({
   display: 'flex',
   marginRight: 'auto',
   alignItems: 'center',
-  color: token('color.text.lowEmphasis', subtleText()),
+  color: token('color.text.subtlest', subtleText()),
   cursor: 'help',
 });
 

@@ -24,10 +24,10 @@ const Tick = () => (
 const DivPresence = styled.div`
   align-items: center;
   background-color: ${token(
-    'color.background.boldDiscovery.resting',
+    'color.background.discovery.bold',
     'rebeccapurple',
   )};
-  color: ${token('color.text.onBold', 'white')};
+  color: ${token('color.text.inverse', 'white')};
   display: flex;
   font-size: 0.75em;
   font-weight: 500;

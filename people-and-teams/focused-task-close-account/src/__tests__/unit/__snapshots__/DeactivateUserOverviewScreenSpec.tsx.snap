@@ -39,7 +39,6 @@ exports[`DeactivateUserOverviewScreen 1`] = `
           tagName="p"
           values={
             Object {
-              "b": [Function],
               "fullName": "Catherine Hirons",
             }
           }
@@ -121,7 +120,6 @@ exports[`accessibleSites display text displayed is different when no accessibleS
           id="focused-task-close-account.deactivate-account.overview.paragraph.loseAccess.admin.noSites"
           values={
             Object {
-              "b": [Function],
               "fullName": "Catherine Hirons",
             }
           }
@@ -190,7 +188,6 @@ exports[`accessibleSites display text displayed is different when no accessibleS
           id="focused-task-close-account.deactivate-account.overview.paragraph.loseAccess.self.noSites"
           values={
             Object {
-              "b": [Function],
               "fullName": "Catherine Hirons",
             }
           }

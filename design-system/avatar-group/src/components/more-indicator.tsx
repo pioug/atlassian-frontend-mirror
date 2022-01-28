@@ -40,35 +40,32 @@ const getButtonStyles = (
 ) => {
   // eslint-disable-next-line @repo/internal/react/no-css-string-literals
   const activeStyles = css`
-    background-color: ${token('color.background.selected.resting', B50)};
+    background-color: ${token('color.background.brand', B50)};
     transform: scale(${ACTIVE_SCALE_FACTOR});
-    box-shadow: 0 0 0 ${BORDER_WIDTH}px ${token('color.text.selected', B300)};
-    color: ${token('color.text.selected', B400)};
+    box-shadow: 0 0 0 ${BORDER_WIDTH}px ${token('color.text.brand', B300)};
+    color: ${token('color.text.brand', B400)};
   `;
 
   // eslint-disable-next-line @repo/internal/react/no-css-string-literals
   return css`
-    color: ${token('color.text.highEmphasis', N500)};
-    background-color: ${token('color.background.subtleNeutral.resting', N20)};
+    color: ${token('color.text', N500)};
+    background-color: ${token('color.background.neutral', N20)};
     font-size: ${FONT_SIZE[size]}px;
     font-family: inherit;
     font-weight: 500;
 
     &:hover {
-      background-color: ${token('color.background.subtleNeutral.hover', N30)};
-      color: ${token('color.text.highEmphasis', N500)};
+      background-color: ${token('color.background.neutral.hovered', N30)};
+      color: ${token('color.text', N500)};
       &:after {
-        background-color: ${token(
-          'color.background.subtleNeutral.hover',
-          N30A,
-        )};
+        background-color: ${token('color.background.neutral.hovered', N30A)};
         opacity: 1;
       }
     }
 
     &:active {
-      background-color: ${token('color.background.subtleNeutral.pressed', B50)};
-      color: ${token('color.text.highEmphasis', B400)};
+      background-color: ${token('color.background.neutral.pressed', B50)};
+      color: ${token('color.text', B400)};
       &:after {
         background-color: transparent;
       }
@@ -94,7 +91,7 @@ const MoreIndicator = forwardRef<HTMLButtonElement, MoreIndicatorProps>(
   (
     {
       appearance = 'circle' as AppearanceType,
-      borderColor = token('color.background.overlay', background()),
+      borderColor = token('elevation.surface.overlay', background()),
       size = 'medium' as SizeType,
       count = 0,
       testId,

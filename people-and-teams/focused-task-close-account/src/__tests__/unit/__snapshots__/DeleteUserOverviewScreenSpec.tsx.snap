@@ -39,7 +39,6 @@ exports[`DeleteUserOverviewScreen 1`] = `
           tagName="p"
           values={
             Object {
-              "b": [Function],
               "fullName": "Catherine Hirons",
             }
           }
@@ -61,11 +60,6 @@ exports[`DeleteUserOverviewScreen 1`] = `
           defaultMessage="We'll <b>delete their personal data</b>, such as their full name and email address, from Atlassian account services within 30 days, except in a few cases where required for legitimate business or legal purposes. "
           description="A paragraph explaining what parts of the user's personal data will be deleted"
           id="focused-task-close-account.delete-account.overview.paragraph.personal-data-will-be-deleted.admin"
-          values={
-            Object {
-              "b": [Function],
-            }
-          }
         />
         <styled.span>
           <StatefulInlineDialog
@@ -233,7 +227,6 @@ exports[`accessibleSites display text displayed is different when no accessibleS
           id="focused-task-close-account.delete-account.overview.paragraph.loseAccess.admin.noSites"
           values={
             Object {
-              "b": [Function],
               "fullName": "Catherine Hirons",
             }
           }
@@ -244,11 +237,6 @@ exports[`accessibleSites display text displayed is different when no accessibleS
           defaultMessage="We'll <b>delete their personal data</b>, such as their full name and email address, from Atlassian account services within 30 days, except in a few cases where required for legitimate business or legal purposes. "
           description="A paragraph explaining what parts of the user's personal data will be deleted"
           id="focused-task-close-account.delete-account.overview.paragraph.personal-data-will-be-deleted.admin"
-          values={
-            Object {
-              "b": [Function],
-            }
-          }
         />
         <styled.span>
           <StatefulInlineDialog
@@ -416,7 +404,6 @@ exports[`accessibleSites display text displayed is different when no accessibleS
           id="focused-task-close-account.delete-account.overview.paragraph.loseAccess.self.noSites"
           values={
             Object {
-              "b": [Function],
               "fullName": "Catherine Hirons",
             }
           }
@@ -427,11 +414,6 @@ exports[`accessibleSites display text displayed is different when no accessibleS
           defaultMessage="We'll <b>delete your personal data</b>, such as your full name and email address, from Atlassian account services within 30 days, except in a few cases where required for legitimate business or legal purposes. "
           description="A paragraph explaining what parts of the user's personal data will be deleted"
           id="focused-task-close-account.delete-account.overview.paragraph.personal-data-will-be-deleted.self"
-          values={
-            Object {
-              "b": [Function],
-            }
-          }
         />
         <styled.span>
           <StatefulInlineDialog
@@ -600,7 +582,6 @@ exports[`deactivateUserHandler display warning section is not displayed if the d
           tagName="p"
           values={
             Object {
-              "b": [Function],
               "fullName": "Catherine Hirons",
             }
           }
@@ -622,11 +603,6 @@ exports[`deactivateUserHandler display warning section is not displayed if the d
           defaultMessage="We'll <b>delete their personal data</b>, such as their full name and email address, from Atlassian account services within 30 days, except in a few cases where required for legitimate business or legal purposes. "
           description="A paragraph explaining what parts of the user's personal data will be deleted"
           id="focused-task-close-account.delete-account.overview.paragraph.personal-data-will-be-deleted.admin"
-          values={
-            Object {
-              "b": [Function],
-            }
-          }
         />
         <styled.span>
           <StatefulInlineDialog
@@ -768,11 +744,6 @@ exports[`delete screen display content is different when user is deactivated 1`]
           defaultMessage="We'll <b>delete their personal data</b>, such as their full name and email address, from Atlassian account services within 30 days, except in a few cases where required for legitimate business or legal purposes. "
           description="A paragraph explaining what parts of the user's personal data will be deleted"
           id="focused-task-close-account.delete-account.overview.paragraph.personal-data-will-be-deleted.admin"
-          values={
-            Object {
-              "b": [Function],
-            }
-          }
         />
         <styled.span>
           <StatefulInlineDialog

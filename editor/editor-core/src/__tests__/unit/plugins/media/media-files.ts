@@ -34,7 +34,7 @@ import {
   insertMediaGroupItem,
   getFreshMediaProvider,
 } from './_utils';
-import { ProviderFactory } from '@atlaskit/editor-common';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 
 const TABLE_LOCAL_ID = 'test-table-local-id';
 

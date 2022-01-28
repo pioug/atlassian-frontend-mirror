@@ -10,6 +10,8 @@ export interface DropDownButtonProps {
   label: string;
   selected: boolean;
   disabled?: boolean;
+  'aria-expanded': React.AriaAttributes['aria-expanded'];
+  'aria-haspopup': React.AriaAttributes['aria-haspopup'];
   onClick: React.MouseEventHandler;
   spacing: 'none' | 'default';
   handleRef(el: ToolbarButtonRef): void;
@@ -34,7 +36,10 @@ export const DropDownButton: React.StatelessComponent<DropDownButtonProps> = Rea
       disabled={props.disabled}
       onClick={props.onClick}
       spacing={props.spacing}
-      iconBefore={<DropDownButtonIcon label={props.label} />}
+      aria-expanded={props['aria-expanded']}
+      aria-haspopup={props['aria-haspopup']}
+      aria-label={props.label}
+      iconBefore={<DropDownButtonIcon label="" />}
       title={<ToolTipContent description={props.label} shortcutOverride="/" />}
     />
   ),

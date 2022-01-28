@@ -360,6 +360,8 @@ describe(name, () => {
                 panelType: 'info',
                 panelColor: null,
                 panelIcon: null,
+                panelIconId: null,
+                panelIconText: null,
               },
               content: [
                 {
@@ -1743,6 +1745,8 @@ describe(name, () => {
                     panelType: PanelType.INFO,
                     panelColor: null,
                     panelIcon: null,
+                    panelIconId: null,
+                    panelIconText: null,
                   },
                   content: [
                     {
@@ -1813,6 +1817,8 @@ describe(name, () => {
                     panelType: PanelType.INFO,
                     panelColor: null,
                     panelIcon: null,
+                    panelIconId: null,
+                    panelIconText: null,
                   },
                   content: [
                     {
@@ -1890,6 +1896,8 @@ describe(name, () => {
                     panelType: PanelType.INFO,
                     panelColor: null,
                     panelIcon: null,
+                    panelIconId: null,
+                    panelIconText: null,
                   },
                   content: [
                     {

@@ -6,16 +6,22 @@ import {
   AnnotationTypes,
   AnnotationId,
 } from '@atlaskit/adf-schema';
-import {
+import { AnnotationUpdateEmitter } from '@atlaskit/editor-common/types';
+import type {
   AnnotationState,
   AnnotationProviders,
-  AnnotationUpdateEmitter,
+} from '@atlaskit/editor-common/types';
+import {
   UnsupportedBlock,
   UnsupportedInline,
+} from '@atlaskit/editor-common/ui';
+
+import {
   SEVERITY,
   stopMeasure,
   UNSUPPORTED_CONTENT_LEVEL_SEVERITY_THRESHOLD_DEFAULTS,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-common/utils';
+
 import {
   CreateUIAnalyticsEvent,
   UIAnalyticsEvent,
@@ -31,13 +37,19 @@ import { Paragraph } from '../../../../react/nodes';
 
 let mockCreateAnalyticsEvent = jest.fn(() => ({ fire() {} }));
 
-jest.mock('@atlaskit/editor-common', () => {
+jest.mock('@atlaskit/editor-common/ui', () => {
   const WithCreateAnalyticsEventMock = (props: any) =>
     props.render(mockCreateAnalyticsEvent);
   return {
-    ...jest.requireActual<Object>('@atlaskit/editor-common'),
-    stopMeasure: jest.fn(),
+    ...jest.requireActual<Object>('@atlaskit/editor-common/ui'),
     WithCreateAnalyticsEvent: WithCreateAnalyticsEventMock,
+  };
+});
+
+jest.mock('@atlaskit/editor-common/utils', () => {
+  return {
+    ...jest.requireActual<Object>('@atlaskit/editor-common/utils'),
+    stopMeasure: jest.fn(),
   };
 });
 
@@ -686,8 +698,8 @@ describe('unsupported content levels severity', () => {
 
       beforeEach(() => {
         jest.resetModules();
-        jest.doMock('@atlaskit/editor-common', () => ({
-          ...jest.requireActual<Object>('@atlaskit/editor-common'),
+        jest.doMock('@atlaskit/editor-common/utils', () => ({
+          ...jest.requireActual<Object>('@atlaskit/editor-common/utils'),
           getUnsupportedContentLevelData: jest.fn(() => {
             throw new Error('custom mocked error');
           }),

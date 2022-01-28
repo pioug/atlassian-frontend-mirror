@@ -4,7 +4,8 @@ import {
   Node as PMNode,
 } from 'prosemirror-model';
 import { EditorView, NodeView } from 'prosemirror-view';
-import { ProviderFactory, ZERO_WIDTH_SPACE } from '@atlaskit/editor-common';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/utils';
 import type {
   EmojiDescription,
   EmojiProvider,

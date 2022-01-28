@@ -35,7 +35,7 @@ const rankingStyles = css({
 const getHeadStyles = (theme: GlobalThemeTokens) =>
   css({
     borderBottom: `2px solid ${token(
-      'color.border.neutral',
+      'color.border',
       head.borderColor({ theme }),
     )}`,
   });
@@ -67,9 +67,9 @@ const headCellStyles = css([
     position: 'relative',
     textAlign: 'left',
     verticalAlign: 'top',
-    color: token('color.text.lowEmphasis', `var(${CSS_VAR_TEXT_COLOR})`),
+    color: token('color.text.subtlest', `var(${CSS_VAR_TEXT_COLOR})`),
     '&:focus': {
-      outline: `solid 2px ${token('color.border.focus', B100)}`,
+      outline: `solid 2px ${token('color.border.focused', B100)}`,
     },
   },
 ]);
@@ -187,7 +187,7 @@ export const getArrowStyles = (
 const onClickStyles = css({
   '&:hover': {
     cursor: 'pointer',
-    backgroundColor: token('color.background.subtleNeutral.hover', N30A),
+    backgroundColor: token('color.background.neutral.hovered', N30A),
   },
 });
 

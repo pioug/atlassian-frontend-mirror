@@ -16,7 +16,7 @@ jest.mock('@atlaskit/media-client', () => ({
   }),
 }));
 import { getMediaClient } from '@atlaskit/media-client';
-import { ProviderFactory } from '@atlaskit/editor-common';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import {

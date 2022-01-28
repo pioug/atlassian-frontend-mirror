@@ -26,10 +26,7 @@ const FlagGroupExample = () => {
       actions,
       description: 'Added from the context.',
       icon: (
-        <Info
-          label="Info"
-          primaryColor={token('color.iconBorder.discovery', P300)}
-        />
+        <Info label="Info" primaryColor={token('color.icon.discovery', P300)} />
       ),
       id: id,
       title: `${id}: Whoa a new flag!`,
@@ -41,10 +38,7 @@ const FlagGroupExample = () => {
       actions,
       description: 'I was not given an id.',
       icon: (
-        <Info
-          label="Info"
-          primaryColor={token('color.iconBorder.discovery', P300)}
-        />
+        <Info label="Info" primaryColor={token('color.icon.discovery', P300)} />
       ),
       title: `${flagCount.current++}: Whoa a new flag!`,
     });
@@ -55,10 +49,7 @@ const FlagGroupExample = () => {
       actions,
       description: 'I will automatically dismiss after 8 seconds.',
       icon: (
-        <Info
-          label="Info"
-          primaryColor={token('color.iconBorder.discovery', P300)}
-        />
+        <Info label="Info" primaryColor={token('color.icon.discovery', P300)} />
       ),
       title: `${flagCount.current++}: Whoa a new flag!`,
       isAutoDismiss: true,

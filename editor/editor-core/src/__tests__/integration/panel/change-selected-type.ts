@@ -13,7 +13,7 @@ import { selectors } from './_utils';
 import {
   PanelSharedCssClassName,
   PanelSharedSelectors,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-common/styles';
 
 BrowserTestCase(
   'change-selected-type.ts: Select panel and then change type',
@@ -129,6 +129,50 @@ BrowserTestCase(
     //press keyboard shortcut
     await page.undo();
 
+    await expectToMatchDocument(page, testName);
+  },
+);
+
+BrowserTestCase(
+  'should render panel with icon using fallback text when icon short name is incorrect when allowCustomPanelEdit is true',
+  {},
+  async (client: any, testName: string) => {
+    const page = await goToEditorTestingWDExample(client);
+    await mountEditor(page, {
+      appearance: fullpage.appearance,
+      allowPanel: {
+        allowCustomPanel: true,
+        allowCustomPanelEdit: true,
+      },
+      defaultValue: {
+        version: 1,
+        type: 'doc',
+        content: [
+          {
+            type: 'panel',
+            attrs: {
+              panelType: 'custom',
+              panelIcon: ':winkk:',
+              panelIconText: '😉',
+            },
+            content: [
+              {
+                type: 'paragraph',
+                content: [
+                  {
+                    type: 'text',
+                    text: 'custom - only emoji',
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    });
+
+    const selector = `span[data-emoji-text="😉"]`;
+    expect(await page.isExisting(selector)).toBe(true);
     await expectToMatchDocument(page, testName);
   },
 );

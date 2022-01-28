@@ -4,7 +4,7 @@ import { TableLayout } from '@atlaskit/adf-schema';
 import {
   tableCellBorderWidth,
   tableCellMinWidth,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-common/styles';
 import {
   akEditorTableNumberColumnWidth,
   akEditorWideLayoutWidth,

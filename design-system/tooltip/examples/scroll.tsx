@@ -21,7 +21,7 @@ interface StyledProps {
 }
 
 const Parent = styled.div<StyledProps>`
-  background-color: ${token('color.background.sunken', N20)};
+  background-color: ${token('elevation.surface.sunken', N20)};
   border-radius: 5px;
   margin-bottom: 8px;
   height: 64px;
@@ -81,7 +81,7 @@ export default () => (
         <Parent
           scroll="vertical"
           style={{
-            backgroundColor: token('color.background.overlay', N40),
+            backgroundColor: token('elevation.surface.overlay', N40),
           }}
         >
           <Shim scroll="vertical">

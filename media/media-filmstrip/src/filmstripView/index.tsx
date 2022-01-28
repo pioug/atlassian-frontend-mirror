@@ -82,6 +82,8 @@ export interface FilmstripViewProps {
 export interface FilmstripViewState {
   bufferWidth: number;
   windowWidth: number;
+  touchMoveStartPosition: number;
+  isTouchMoveInProgress: boolean;
 }
 
 export interface ArrowProps {
@@ -126,6 +128,8 @@ export class FilmstripView extends React.Component<
   state = {
     bufferWidth: 0,
     windowWidth: 0,
+    touchMoveStartPosition: 0,
+    isTouchMoveInProgress: false,
   };
 
   constructor(props: FilmstripViewProps) {
@@ -399,6 +403,41 @@ export class FilmstripView extends React.Component<
     }
   };
 
+  handleTouchStart = (event: React.TouchEvent) => {
+    if (event.touches[0]) {
+      this.setState({
+        touchMoveStartPosition: event.touches[0].clientX,
+        isTouchMoveInProgress: true,
+      });
+    }
+  };
+
+  handleTouchEnd = (event: React.TouchEvent) => {
+    if (event.touches[0]) {
+      this.setState({
+        touchMoveStartPosition: event.touches[0].clientX,
+        isTouchMoveInProgress: false,
+      });
+    }
+  };
+
+  handleTouchMove = (event: React.TouchEvent) => {
+    const { onScroll } = this.props;
+
+    if (this.state.isTouchMoveInProgress && onScroll) {
+      const currentPosition = event.touches[0].clientX;
+      const newOffset = this.state.touchMoveStartPosition
+        ? this.offset - (currentPosition - this.state.touchMoveStartPosition)
+        : this.offset;
+
+      onScroll({
+        direction: newOffset > this.offset ? 'left' : 'right',
+        offset: newOffset,
+        animate: false,
+      });
+    }
+  };
+
   renderLeftArrow() {
     const { canGoLeft } = this;
     if (!canGoLeft) {
@@ -455,6 +494,9 @@ export class FilmstripView extends React.Component<
         <FilmStripListWrapper
           innerRef={this.handleWindowElementChange}
           onWheel={this.handleScroll}
+          onTouchStart={this.handleTouchStart}
+          onTouchMove={this.handleTouchMove}
+          onTouchEnd={this.handleTouchEnd}
         >
           <FilmStripList
             innerRef={this.handleBufferElementChange}

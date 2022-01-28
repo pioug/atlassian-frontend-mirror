@@ -1,10 +1,7 @@
 import { HardBreakDefinition as HardBreak } from '../hard-break';
 import { MentionDefinition as Mention } from '../mention';
 import { EmojiDefinition as Emoji } from '../emoji';
-import {
-  InlineExtensionDefinition as InlineExtensionWithoutMark,
-  InlineExtensionWithMarksDefinition as InlineExtensionWithMark,
-} from '../inline-extension';
+import { InlineExtensionDefinition } from '../inline-extension';
 import { DateDefinition as Date } from '../date';
 import { PlaceholderDefinition as Placeholder } from '../placeholder';
 import { InlineCardDefinition as InlineCard } from '../inline-card';
@@ -47,7 +44,7 @@ export type InlineAtomic =
   | HardBreak
   | Mention
   | Emoji
-  | InlineExtensionWithoutMark
+  | InlineExtensionDefinition
   | Date
   | Placeholder
   | InlineCard
@@ -56,8 +53,4 @@ export type InlineAtomic =
 /**
  * @name inline_node
  */
-export type Inline =
-  | InlineFormattedText
-  | InlineCode
-  | InlineExtensionWithMark
-  | InlineAtomic;
+export type Inline = InlineFormattedText | InlineCode | InlineAtomic;

@@ -3,7 +3,7 @@ import { css } from 'styled-components';
 import {
   panelSharedStyles,
   PanelSharedCssClassName,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-common/styles';
 import {
   SelectionStyle,
   getSelectionStyles,

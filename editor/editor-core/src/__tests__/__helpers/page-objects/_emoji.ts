@@ -1,4 +1,4 @@
-import { EmojiSharedCssClassName } from '@atlaskit/editor-common/styles';
+import { EmojiSharedCssClassName } from '@atlaskit/editor-common/emoji';
 import { TestPage } from './_types';
 import { selectors } from './_editor';
 

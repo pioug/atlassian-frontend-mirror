@@ -122,7 +122,6 @@ export class EmojiPreview extends PureComponent<
 
     const previewClasses = classNames({
       [styles.preview]: true,
-      [styles.withToneSelector]: !!this.props.toneEmoji,
     });
 
     const previewTextClasses = classNames({

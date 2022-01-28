@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, createRef } from 'react';
 import ReactDOM from 'react-dom';
 import {
   version as packageVersion,
@@ -46,7 +46,11 @@ import {
   CardPreview,
 } from '../..';
 import { CardView } from '../cardView';
-import { ViewportDetector } from '../../utils/viewportDetector';
+import {
+  ABS_VIEWPORT_ANCHOR_OFFSET_TOP,
+  ViewportDetector,
+  ViewportAnchor,
+} from '../../utils/viewportDetector';
 import { getRequestedDimensions } from '../../utils/getDataURIDimension';
 import {
   getCardPreview,
@@ -79,6 +83,8 @@ import {
 } from './cardAnalytics';
 import getDocument from '../../utils/document';
 import { getCardStateFromFileState, createStateUpdater } from './cardState';
+import { isProcessedFileState } from '@atlaskit/media-client';
+import { getMediaFeatureFlag } from '@atlaskit/media-common';
 
 export type CardBaseProps = CardProps &
   WithAnalyticsEventsProps &
@@ -86,6 +92,8 @@ export type CardBaseProps = CardProps &
 
 export class CardBase extends Component<CardBaseProps, CardState> {
   private hasBeenMounted: boolean = false;
+  private viewportPreAnchorRef = createRef<HTMLDivElement>();
+  private viewportPostAnchorRef = createRef<HTMLDivElement>();
   // We initialise timeElapsedTillCommenced
   // to avoid extra branching on a possibly undefined value.
   private timeElapsedTillCommenced: number = performance.now();
@@ -132,6 +140,7 @@ export class CardBase extends Component<CardBaseProps, CardState> {
       status,
       isCardVisible,
       isPlayingFile: false,
+      shouldAutoplay: false,
       cardPreview,
       cardRef: null,
       isBannedLocalPreview: false,
@@ -171,7 +180,14 @@ export class CardBase extends Component<CardBaseProps, CardState> {
       dimensions: prevDimensions,
     } = prevProps;
     const { isCardVisible: prevIsCardVisible } = prevState;
-    const { mediaClient, identifier, dimensions, featureFlags } = this.props;
+    const {
+      mediaClient,
+      identifier,
+      dimensions,
+      featureFlags,
+      useInlinePlayer,
+      disableOverlay,
+    } = this.props;
     const {
       isCardVisible,
       cardPreview,
@@ -179,7 +195,9 @@ export class CardBase extends Component<CardBaseProps, CardState> {
       fileState,
       isBannedLocalPreview,
       previewDidRender,
+      isPlayingFile,
     } = this.state;
+
     const isDifferent = isDifferentIdentifier(prevIdentifier, identifier);
     const turnedVisible = !prevIsCardVisible && isCardVisible;
     const isNewMediaClient = prevMediaClient !== mediaClient;
@@ -246,6 +264,23 @@ export class CardBase extends Component<CardBaseProps, CardState> {
     ) {
       this.safeSetState({ status: 'complete' });
       this.unsubscribe();
+    }
+
+    const isVideo = this.fileAttributes.fileMediatype === 'video';
+
+    const videoAvailableToPlay = fileState && isProcessedFileState(fileState);
+
+    if (
+      isVideo &&
+      !isPlayingFile &&
+      disableOverlay &&
+      useInlinePlayer &&
+      videoAvailableToPlay &&
+      getMediaFeatureFlag('timestampOnVideo', this.props.featureFlags)
+    ) {
+      this.setState({
+        isPlayingFile: true,
+      });
     }
   }
 
@@ -565,6 +600,7 @@ export class CardBase extends Component<CardBaseProps, CardState> {
     if (useInlinePlayer && isVideo && !!cardPreview) {
       this.setState({
         isPlayingFile: true,
+        shouldAutoplay: true,
       });
     } else if (shouldOpenMediaViewer) {
       let mediaViewerSelectedItem: Identifier | undefined;
@@ -609,6 +645,7 @@ export class CardBase extends Component<CardBaseProps, CardState> {
       testId,
       originalDimensions,
     } = this.props;
+    const { shouldAutoplay } = this.state;
 
     return (
       <InlinePlayer
@@ -616,6 +653,7 @@ export class CardBase extends Component<CardBaseProps, CardState> {
         dimensions={dimensions}
         originalDimensions={originalDimensions}
         identifier={identifier as FileIdentifier}
+        autoplay={!!shouldAutoplay}
         onError={this.onInlinePlayerError}
         onClick={this.onClick}
         selected={selected}
@@ -760,8 +798,21 @@ export class CardBase extends Component<CardBaseProps, CardState> {
     );
 
     return isLazy ? (
-      <ViewportDetector targetRef={cardRef} onVisible={this.onCardInViewport}>
+      <ViewportDetector
+        cardEl={cardRef}
+        preAnchorRef={this.viewportPreAnchorRef}
+        postAnchorRef={this.viewportPostAnchorRef}
+        onVisible={this.onCardInViewport}
+      >
+        <ViewportAnchor
+          ref={this.viewportPreAnchorRef}
+          offsetTop={-ABS_VIEWPORT_ANCHOR_OFFSET_TOP}
+        />
         {card}
+        <ViewportAnchor
+          ref={this.viewportPostAnchorRef}
+          offsetTop={ABS_VIEWPORT_ANCHOR_OFFSET_TOP}
+        />
       </ViewportDetector>
     ) : (
       card

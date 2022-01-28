@@ -1,5 +1,17 @@
 # @atlaskit/emoji
 
+## 64.1.0
+
+### Minor Changes
+
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - [ux] Task: https://a11y-internal.atlassian.net/browse/AK-97, Emoji picker: made emojis list keyboard accessible, moved tone selector and place it right after search input, placed upload/remove emoji menus above the emoji list.
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - Remove @atlaskit/tooltip from critical path of rendering emoji
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - Upgrade js-search to v2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 64.0.1
 
 ### Patch Changes

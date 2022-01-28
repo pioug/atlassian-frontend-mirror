@@ -1,5 +1,106 @@
 # @atlaskit/editor-core
 
+## 154.0.0
+
+### Major Changes
+
+- [`5af69bfe9be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5af69bfe9be) - CETI-241 - Added additional panel ADF attributes (panelIconId, panelIconText) to uniquely identify custom panel emojis. The change has been categorised as major since it is a change to the full-schema ADF. However, the custom panel feature is behind a feature flag, has not yet been released to production, and is only currently planned for release to Confluence. See ADF change #61 for further details.
+- [`272a64c6bf0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/272a64c6bf0) - [ux] CETI-166 Increase the standard panel icons size to make it consistent with the emojis in the panel content area
+
+### Minor Changes
+
+- [`51b65ffbd1b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/51b65ffbd1b) - CETI-240 handle add custom emoji in floating toolbar
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - [ux][me-1599] Fix entering a new line when inside a code block on mobile in composition.
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - Added setClickAreaExpanded method to be called on the native side when compact editor is expanded or collapssed
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - CETI-80 added dark mode color palette for mobile through bridge
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - - Allow `table` nodes to have `fragment` marks
+  - Promote `fragment` mark to "full" ADF schema
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - Add `update` function to `ExtensionAPI.doc`
+
+  This function allows consumers to mutate `ADFEntity.attrs` or `ADFEntity.marks` by the `localId` of the entity.
+
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - Add accessibility improvements for editor toolbar controls. Remove redundant attributes.
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - [ux] AK-325 add shortcuts to set aligment, superscript and subscript
+
+### Patch Changes
+
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - AK-707 add communicate state (attribute aria-pressed) to toggle button in floating toolbar
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - AK-740: make suggested links announceable as a whole entity by a screen reader
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - [ux] ED-13868 Prevent page scroll after resizing chart
+- [`5c247f0010f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5c247f0010f) - [ED-14256] Fix dispatching when destroying table row
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - [ux] ED-13991 Fix bug causing cursor to move to the next table cell when adding a task or decision (via toolbar) to a table
+- [`c4435882937`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c4435882937) - Blue selection border not appearing on emoji when clicked issue fixed.
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - [Floating toolbar] - Button property 'aria-haspopup' is optional
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - ED-13846 Rerender tables with tableRenderOptimization flag set to true if the table size changes to prevent table flashing when adding new columns.
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - [ux][ed-13870] Insert paragraph node at the correct location when selecting attachment in the last column of table
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - ED-13941 Explicitly use UTF in regex for bulletList to prevent transformation of characters in build steps
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - ED-13912-pt3 For NCS, we don't want to use memoizeOne when initialising collab
+- [`d71aa067600`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d71aa067600) - Add items ids for media toolbar view switcher
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - ED-13875 Removed editor common root entry
+
+  We remove the ability to import from `@atlaskit/editor-common` in favour of the following sub entries:
+
+  `@atlaskit/editor-common/collab`
+
+  `@atlaskit/editor-common/extensions`
+
+  `@atlaskit/editor-common/normalize-feature-flags`
+
+  `@atlaskit/editor-common/messages`
+
+  `@atlaskit/editor-common/provider-factory`
+
+  `@atlaskit/editor-common/styles`
+
+  `@atlaskit/editor-common/validator`
+
+  `@atlaskit/editor-common/in-product`
+
+  `@atlaskit/editor-common/cypress-config`
+
+  `@atlaskit/editor-common/type-ahead`
+
+  `@atlaskit/editor-common/ufo`
+
+  `@atlaskit/editor-common/types`
+
+  `@atlaskit/editor-common/ui`
+
+  `@atlaskit/editor-common/utils`
+
+  `@atlaskit/editor-common/card`
+
+  `@atlaskit/editor-common/emoji`
+
+  `@atlaskit/editor-common/mention`
+
+  `@atlaskit/editor-common/provider-helpers`
+
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - ED-13912 refactor editor collab-provider and make sure that initializeChannel is only called once
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - ED-13025 Bump prosemirror-view 1.23.1 -> 1.23.2
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - ED-10264 fixed jumping cursor when clicking overflown status in table
+- [`231b3d8b718`](https://bitbucket.org/atlassian/atlassian-frontend/commits/231b3d8b718) - CETI-242 Change the Color palette labels for panel
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - [ux][hyperlinkaddtoolbar] - clear text and clear links buttons are keyboard accessible
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - ED-13696: Fix undo/redo behaviour when interacting with tables while the
+  `allowCollapse` is enabled on the `allowTables` Editor prop.
+- [`c461c43a44e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c461c43a44e) - [ux][ed-14208] Revert addition of center text align keyboard shortcut because mod-shift-e conflicts with a Confluence keyboard shortcut which opens the page preview. Originally introduced in AK-325
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - AK-838: make Toolbar's Text styles, More formatting and Text alignment buttons accessible for screen reader users
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - [Floating toolbar] Notify screenreader users about opened floating controls
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - Revert media inline ff to use query params
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - Add media node updater to media inline node
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - ED-13912-pt2 put back memoizeOne since Synchrony is still relying on it
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - [ux] ED-9979 Fixed bug stopping tab navigation from proceeding in tableCells that contained lists, taskLists or decisionLists
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - Bump raf-schd to latest (4.0.3), including better TS typings.
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - AK-632 Made macros focusable
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - ED-13753 Updated editor-common import entries.
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - The color constant tableToolbarSelectedColor has been changed to more contrast.
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - ED-13908 Ensure extensions being added always have localIds
+
+  In some cases of extension insertion (quick insert / typeahead), extensions wouldn't
+  have a localId generated immediately.
+
+- Updated dependencies
+
 ## 153.1.4
 
 ### Patch Changes

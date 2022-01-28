@@ -1,5 +1,11 @@
 # @atlaskit/pagination
 
+## 14.1.3
+
+### Patch Changes
+
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - Bump dependency tiny-invariant to latest"
+
 ## 14.1.2
 
 ### Patch Changes

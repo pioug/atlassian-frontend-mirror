@@ -1,5 +1,12 @@
 # @atlaskit/editor-jira-transformer
 
+## 8.1.21
+
+### Patch Changes
+
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - ED-13753 Updated editor-common import entries.
+- Updated dependencies
+
 ## 8.1.20
 
 ### Patch Changes

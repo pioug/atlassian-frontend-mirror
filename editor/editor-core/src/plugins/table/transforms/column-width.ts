@@ -1,7 +1,7 @@
 import { Node as PMNode } from 'prosemirror-model';
 import { Transaction } from 'prosemirror-state';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
-import { tableNewColumnMinWidth } from '@atlaskit/editor-common';
+import { tableNewColumnMinWidth } from '@atlaskit/editor-common/styles';
 
 import { CellAttributes } from '@atlaskit/adf-schema';
 
@@ -18,7 +18,7 @@ import {
   normaliseTableLayout,
 } from '../pm-plugins/table-resizing/utils/resize-state';
 import { getTableMaxWidth } from '../pm-plugins/table-resizing/utils/misc';
-import { tableCellMinWidth } from '@atlaskit/editor-common';
+import { tableCellMinWidth } from '@atlaskit/editor-common/styles';
 import { scaleTableTo } from '../pm-plugins/table-resizing/utils/scale-table';
 
 export const updateColumnWidths = (

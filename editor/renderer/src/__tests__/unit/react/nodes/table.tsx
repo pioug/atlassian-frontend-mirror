@@ -1,6 +1,5 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { SortOrder } from '@atlaskit/editor-common';
 import {
   akEditorTableNumberColumnWidth,
   akEditorDefaultLayoutWidth,
@@ -13,6 +12,7 @@ import { calcScalePercent } from '../../../../react/nodes/table/colgroup';
 import { TableCell, TableHeader } from '../../../../react/nodes/tableCell';
 import TableRow from '../../../../react/nodes/tableRow';
 import { Context as SmartCardStorageContext } from '../../../../ui/SmartCardStorage';
+import { SortOrder } from '@atlaskit/editor-common/types';
 
 describe('Renderer - React/Nodes/Table', () => {
   const renderWidth = akEditorDefaultLayoutWidth;

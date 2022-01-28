@@ -24,14 +24,7 @@ export interface BodiedExtensionBaseDefinition {
  * @name bodiedExtension_with_marks_node
  */
 export type BodiedExtensionDefinition = BodiedExtensionBaseDefinition &
-  MarksObject<DataConsumerDefinition>;
-
-/**
- * @stage 0
- * @name bodiedExtension_with_experimental_marks_node
- */
-export type BodiedExtensionWithMarksDefinition = BodiedExtensionBaseDefinition &
-  MarksObject<FragmentDefinition>;
+  MarksObject<DataConsumerDefinition | FragmentDefinition>;
 
 const createBodiedExtensionNodeSpec = (): NodeSpec => {
   const nodeSpec: NodeSpec = {

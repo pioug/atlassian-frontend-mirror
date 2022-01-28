@@ -1,5 +1,17 @@
 # @atlaskit/tokens
 
+## 0.6.0
+
+### Minor Changes
+
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - Various improvements & changes to the tokens build scripts. These changes affect how various artifacts are generated, particularly relating to Figma
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - Adds new tokens which represent the latest taxonomy changes.
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - Introduces the new accent token set from the latest version of the taxonomy
+
+### Patch Changes
+
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - The `token()` function no longer throws and instead omits an error in the case where the provided token doesn't exist or is not found.
+
 ## 0.5.0
 
 ### Minor Changes

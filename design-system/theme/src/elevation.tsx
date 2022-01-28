@@ -7,11 +7,11 @@ import themed from './utils/themed';
 // Cards on a board
 export const e100 = themed({
   light: `box-shadow: ${token(
-    'shadow.card',
+    'elevation.shadow.raised',
     `0 1px 1px ${N50A}, 0 0 1px 1px ${N40A}`,
   )};`,
   dark: `box-shadow: ${token(
-    'shadow.card',
+    'elevation.shadow.raised',
     `0 1px 1px ${DN50A}, 0 0 1px 1px ${DN40A}`,
   )};`,
 });
@@ -19,11 +19,11 @@ export const e100 = themed({
 // Inline dialogs
 export const e200 = themed({
   light: `box-shadow: ${token(
-    'shadow.overlay',
+    'elevation.shadow.overlay',
     `0 4px 8px -2px ${N50A}, 0 0 1px ${N60A}`,
   )};`,
   dark: `box-shadow: ${token(
-    'shadow.overlay',
+    'elevation.shadow.overlay',
     `0 4px 8px -2px ${DN50A}, 0 0 1px ${DN60A}`,
   )};`,
 });
@@ -31,11 +31,11 @@ export const e200 = themed({
 // Modals
 export const e300 = themed({
   light: `box-shadow: ${token(
-    'shadow.overlay',
+    'elevation.shadow.overlay',
     `0 8px 16px -4px ${N50A}, 0 0 1px ${N60A}`,
   )};`,
   dark: `box-shadow: ${token(
-    'shadow.overlay',
+    'elevation.shadow.overlay',
     `0 8px 16px -4px ${DN50A}, 0 0 1px ${DN60A}`,
   )};`,
 });
@@ -43,11 +43,11 @@ export const e300 = themed({
 // Panels
 export const e400 = themed({
   light: `box-shadow: ${token(
-    'shadow.overlay',
+    'elevation.shadow.overlay',
     `0 12px 24px -6px ${N50A}, 0 0 1px ${N60A}`,
   )};`,
   dark: `box-shadow: ${token(
-    'shadow.overlay',
+    'elevation.shadow.overlay',
     `0 12px 24px -6px ${DN50A}, 0 0 1px ${DN60A}`,
   )};`,
 });
@@ -55,11 +55,11 @@ export const e400 = themed({
 // Flag messages (notifications)
 export const e500 = themed({
   light: `box-shadow: ${token(
-    'shadow.overlay',
+    'elevation.shadow.overlay',
     `0 20px 32px -8px ${N50A}, 0 0 1px ${N60A}`,
   )};`,
   dark: `box-shadow: ${token(
-    'shadow.overlay',
+    'elevation.shadow.overlay',
     `0 20px 32px -8px ${DN50A}, 0 0 1px ${DN60A}`,
   )};`,
 });

@@ -107,16 +107,13 @@ class SpotlightCard extends React.Component<SpotlightCardProps> {
               () => ({
                 ...others,
                 container: {
-                  background: token(
-                    'color.background.boldDiscovery.resting',
-                    P300,
-                  ),
-                  color: token('color.text.onBold', N0),
+                  background: token('color.background.discovery.bold', P300),
+                  color: token('color.text.inverse', N0),
                   width: `${Math.min(Math.max(width!, 160), 600)}px`,
                   boxShadow: isFlat
                     ? undefined
                     : token(
-                        'shadow.card',
+                        'elevation.shadow.raised',
                         `0 4px 8px -2px ${N50A}, 0 0 1px ${N60A}`,
                       ),
                   ...container,

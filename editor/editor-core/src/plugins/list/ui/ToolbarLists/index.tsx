@@ -115,6 +115,8 @@ class ToolbarLists extends PureComponent<Props & WrappedComponentProps, State> {
             spacing={isReducedSpacing ? 'none' : 'default'}
             onClick={this.handleBulletListClick}
             selected={bulletListActive}
+            aria-pressed={bulletListActive}
+            aria-label={labelUnorderedList}
             disabled={bulletListDisabled || disabled}
             title={
               <ToolTipContent
@@ -122,13 +124,15 @@ class ToolbarLists extends PureComponent<Props & WrappedComponentProps, State> {
                 keymap={toggleBulletListKeymap}
               />
             }
-            iconBefore={<BulletListIcon label={labelUnorderedList} />}
+            iconBefore={<BulletListIcon label="" />}
           />
           <ToolbarButton
             buttonId={TOOLBAR_BUTTON.ORDERED_LIST}
             spacing={isReducedSpacing ? 'none' : 'default'}
             onClick={this.handleOrderedListClick}
             selected={orderedListActive}
+            aria-pressed={orderedListActive}
+            aria-label={labelOrderedList}
             disabled={orderedListDisabled || disabled}
             title={
               <ToolTipContent
@@ -136,7 +140,7 @@ class ToolbarLists extends PureComponent<Props & WrappedComponentProps, State> {
                 keymap={toggleOrderedListKeymap}
               />
             }
-            iconBefore={<NumberListIcon label={labelOrderedList} />}
+            iconBefore={<NumberListIcon label="" />}
           />
           {isSeparator && <Separator />}
         </ButtonGroup>
@@ -162,10 +166,14 @@ class ToolbarLists extends PureComponent<Props & WrappedComponentProps, State> {
             onOpenChange={this.onOpenChange}
             fitHeight={188}
             fitWidth={175}
+            shouldUseDefaultRole
           >
             <ToolbarButton
               spacing={isReducedSpacing ? 'none' : 'default'}
               selected={bulletListActive || orderedListActive}
+              aria-expanded={isDropdownOpen}
+              aria-haspopup
+              aria-label={labelLists}
               disabled={disabled}
               onClick={this.handleTriggerClick}
               title={labelLists}

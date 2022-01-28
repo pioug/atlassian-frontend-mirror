@@ -37,10 +37,10 @@ export const footerItemGap = gridSize;
 export const titleIconMargin = gridSize;
 
 export const keylineHeight = 2;
-export const keylineColor = token('color.border.neutral', N30);
-export const textColor = token('color.text.highEmphasis', text());
+export const keylineColor = token('color.border', N30);
+export const textColor = token('color.text', text());
 
 export const iconColor: { [key in Appearance]: string } = {
-  danger: token('color.iconBorder.danger', R400),
-  warning: token('color.iconBorder.warning', Y400),
+  danger: token('color.icon.danger', R400),
+  warning: token('color.icon.warning', Y400),
 } as const;

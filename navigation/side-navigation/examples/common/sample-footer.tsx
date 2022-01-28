@@ -21,14 +21,14 @@ const Container: React.FC<CustomItemComponentProps> = (props) => {
 const ExampleFooter = () => {
   const linkCSS = {
     fontSize: 12,
-    color: token('color.text.lowEmphasis', N200),
+    color: token('color.text.subtlest', N200),
     '&:hover': {
       textDecoration: 'underline',
       cursor: 'pointer',
       color: 'currentColor',
     },
     '&:active': {
-      color: token('color.text.highEmphasis', N200),
+      color: token('color.text', N200),
     },
   };
 

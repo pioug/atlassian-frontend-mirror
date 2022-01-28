@@ -17,11 +17,11 @@ const appearances: AppearanceTypes[] = [
   'warning',
 ];
 const color = {
-  error: token('color.iconBorder.danger', R400),
-  info: token('color.iconBorder.discovery', N500),
-  normal: token('color.iconBorder.brand', N0),
-  success: token('color.iconBorder.success', G400),
-  warning: token('color.iconBorder.warning', Y200),
+  error: token('color.icon.danger', R400),
+  info: token('color.icon.discovery', N500),
+  normal: token('color.icon.brand', N0),
+  success: token('color.icon.success', G400),
+  warning: token('color.icon.warning', Y200),
 };
 
 const AutoDismissExample = () => {

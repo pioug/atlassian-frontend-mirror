@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import Spinner from '@atlaskit/spinner';
-import { Popup } from '@atlaskit/editor-common';
+import { Popup } from '@atlaskit/editor-common/ui';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/custom-theme-button';
 

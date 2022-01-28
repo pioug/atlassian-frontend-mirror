@@ -1,5 +1,5 @@
 import { Node as PMNode, Schema } from 'prosemirror-model';
-import { timestampToIsoFormat } from '@atlaskit/editor-common';
+import { timestampToIsoFormat } from '@atlaskit/editor-common/utils';
 import { getText } from '../../utils';
 import { NodeReducer } from './';
 

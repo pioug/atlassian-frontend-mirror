@@ -1,4 +1,4 @@
-import { DefaultExtensionProvider } from '@atlaskit/editor-common';
+import { DefaultExtensionProvider } from '@atlaskit/editor-common/extensions';
 import { ExtensionManifest } from '@atlaskit/editor-common/extensions';
 import React from 'react';
 

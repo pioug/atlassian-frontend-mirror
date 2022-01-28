@@ -6,23 +6,26 @@ import { IntlShape } from 'react-intl';
 import memoizeOne from 'memoize-one';
 import uuid from 'uuid/v4';
 import { name, version } from './version-wrapper';
+import { combineExtensionProviders } from '@atlaskit/editor-common/extensions';
+import type { ExtensionProvider } from '@atlaskit/editor-common/extensions';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import {
-  ProviderFactory,
-  Transformer,
   BaseTheme,
-  getAnalyticsAppearance,
   WithCreateAnalyticsEvent,
+  WidthProvider,
+  LegacyToNextIntlProvider,
+  IntlLegacyFallbackProvider,
+} from '@atlaskit/editor-common/ui';
+import {
+  getAnalyticsAppearance,
   startMeasure,
   stopMeasure,
   clearMeasure,
   measureTTI,
   getTTISeverity,
-  ExtensionProvider,
-  combineExtensionProviders,
-  WidthProvider,
-  LegacyToNextIntlProvider,
-  IntlLegacyFallbackProvider,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-common/utils';
+import { Transformer } from '@atlaskit/editor-common/types';
+
 import { EditorExperience, ExperienceStore } from '@atlaskit/editor-common/ufo';
 import { akEditorFullPageDefaultFontSize } from '@atlaskit/editor-shared-styles';
 import { FabricEditorAnalyticsContext } from '@atlaskit/analytics-namespaced-context';

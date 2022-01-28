@@ -92,34 +92,34 @@ const rootStyles = css({
 });
 
 const titleColor = themed({
-  light: token('color.text.highEmphasis', colors.N600),
-  dark: token('color.text.highEmphasis', colors.DN600),
+  light: token('color.text', colors.N600),
+  dark: token('color.text', colors.DN600),
 });
 const textColor = themed({
-  light: token('color.text.lowEmphasis', colors.N300),
-  dark: token('color.text.lowEmphasis', colors.DN100),
+  light: token('color.text.subtlest', colors.N300),
+  dark: token('color.text.subtlest', colors.DN100),
 });
 
 const iconColor = themed('appearance', {
   connectivity: {
-    light: token('color.iconBorder.brand', colors.B300),
-    dark: token('color.iconBorder.brand', colors.B75),
+    light: token('color.icon.brand', colors.B300),
+    dark: token('color.icon.brand', colors.B75),
   },
   confirmation: {
-    light: token('color.iconBorder.success', colors.G200),
-    dark: token('color.iconBorder.success', colors.G200),
+    light: token('color.icon.success', colors.G200),
+    dark: token('color.icon.success', colors.G200),
   },
   info: {
-    light: token('color.iconBorder.discovery', colors.P200),
-    dark: token('color.iconBorder.discovery', colors.P200),
+    light: token('color.icon.discovery', colors.P200),
+    dark: token('color.icon.discovery', colors.P200),
   },
   warning: {
-    light: token('color.iconBorder.warning', colors.Y200),
-    dark: token('color.iconBorder.warning', colors.Y200),
+    light: token('color.icon.warning', colors.Y200),
+    dark: token('color.icon.warning', colors.Y200),
   },
   error: {
-    light: token('color.iconBorder.danger', colors.R300),
-    dark: token('color.iconBorder.danger', colors.R300),
+    light: token('color.icon.danger', colors.R300),
+    dark: token('color.icon.danger', colors.R300),
   },
 });
 

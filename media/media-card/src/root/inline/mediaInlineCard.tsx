@@ -83,18 +83,22 @@ export const MediaInlineCardInternal: FC<
   const defaultIntl = createIntl({ locale: 'en' });
 
   useEffect(() => {
-    mediaClient.file
+    const subscription = mediaClient.file
       .getFileState(identifier.id, {
         collectionName: identifier.collectionName,
       })
       .subscribe({
         next: (fileState) => {
           setFileState(fileState);
+          setIsErrored(false);
         },
         error: () => {
           setIsErrored(true);
         },
       });
+    return () => {
+      subscription.unsubscribe();
+    };
   }, [identifier.collectionName, identifier.id, mediaClient.file]);
 
   if (!fileState) {

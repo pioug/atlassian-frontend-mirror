@@ -1,7 +1,10 @@
 import { activityProviderFactory } from '@atlaskit/editor-test-helpers/mock-activity-provider';
 import { searchProviderFactory } from '@atlaskit/editor-test-helpers/mock-search-provider';
 import { ActivityItem } from '@atlaskit/activity-provider';
-import { QuickSearchResult, LinkContentType } from '@atlaskit/editor-common';
+import type {
+  QuickSearchResult,
+  LinkContentType,
+} from '@atlaskit/editor-common/provider-factory';
 import { RECENT_SEARCH_LIST_SIZE } from '../../HyperlinkAddToolbar';
 
 const allQuickSearchResultContentTypes: QuickSearchResult['contentType'][] = [

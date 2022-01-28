@@ -14,7 +14,7 @@ import { undo } from 'prosemirror-history';
 import { NodeSelection, TextSelection } from 'prosemirror-state';
 import { MockMentionResource } from '@atlaskit/util-data-test/mock-mention-resource';
 import { getDefaultMediaClientConfig } from '@atlaskit/media-test-helpers/fakeMediaClient';
-import { ProviderFactory } from '@atlaskit/editor-common';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { setNodeSelection } from '../../../../utils';
 import {
   removeMediaNode,

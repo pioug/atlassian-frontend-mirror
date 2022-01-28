@@ -2,7 +2,7 @@ import React from 'react';
 import { IntlProvider } from 'react-intl';
 import { IntlShape } from 'react-intl-next';
 import { useTranslations } from './use-translations';
-import { LegacyToNextIntlProvider } from '@atlaskit/editor-common';
+import { LegacyToNextIntlProvider } from '@atlaskit/editor-common/ui';
 
 type geti18NMessagesType = (localeFileName: string) => Promise<Object>;
 

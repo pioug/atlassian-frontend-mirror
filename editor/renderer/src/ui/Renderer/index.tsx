@@ -3,22 +3,26 @@ import { PureComponent } from 'react';
 import { Schema, Node as PMNode } from 'prosemirror-model';
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema';
 import { reduce } from '@atlaskit/adf-utils';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import {
   UnsupportedBlock,
-  ProviderFactory,
   BaseTheme,
   WidthProvider,
+  WithCreateAnalyticsEvent,
+  LegacyToNextIntlProvider,
+  IntlLegacyFallbackProvider,
+  IntlNextErrorBoundary,
+} from '@atlaskit/editor-common/ui';
+
+import {
   getAnalyticsAppearance,
   getAnalyticsEventSeverity,
-  WithCreateAnalyticsEvent,
   getResponseEndTime,
   startMeasure,
   stopMeasure,
   shouldForceTracking,
-  IntlNextErrorBoundary,
-  LegacyToNextIntlProvider,
-  IntlLegacyFallbackProvider,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-common/utils';
+
 import { normalizeFeatureFlags } from '@atlaskit/editor-common/normalize-feature-flags';
 import { akEditorFullPageDefaultFontSize } from '@atlaskit/editor-shared-styles';
 import {

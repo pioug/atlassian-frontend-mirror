@@ -15,7 +15,7 @@ export default function TableCellAlignment() {
         margin: 8px;
 
         td {
-          border: 1px solid ${token('color.border.neutral', 'black')};
+          border: 1px solid ${token('color.border', 'black')};
           text-align: center;
         }
         // For VR testing purposes we are overriding the animation timing

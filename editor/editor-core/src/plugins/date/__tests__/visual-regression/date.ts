@@ -22,7 +22,7 @@ import {
 import { quickInsert } from '../../../../__tests__/__helpers/page-objects/_extensions';
 import { standardDateMockMillisUnixTime } from '@atlaskit/visual-regression/helper/mock-date';
 import { THEME_MODES } from '@atlaskit/theme/constants';
-import { getModeFromTheme } from '@atlaskit/editor-common';
+import { getModeFromTheme } from '@atlaskit/editor-common/utils';
 
 const { dateInput, dateInputFocused } = dateSelectors;
 const defaultViewPort = { width: 600, height: 600 };

@@ -18,9 +18,12 @@ const popupStyles = css({
   boxSizing: 'border-box',
   zIndex: layers.layer(),
   flex: '1 1 auto',
-  backgroundColor: token('color.background.overlay', N0),
+  backgroundColor: token('elevation.surface.overlay', N0),
   borderRadius: `${borderRadius()}px`,
-  boxShadow: token('shadow.overlay', `0 4px 8px -2px ${N50A}, 0 0 1px ${N60A}`),
+  boxShadow: token(
+    'elevation.shadow.overlay',
+    `0 4px 8px -2px ${N50A}, 0 0 1px ${N60A}`,
+  ),
   overflow: 'auto',
   ':focus': {
     outline: 'none',

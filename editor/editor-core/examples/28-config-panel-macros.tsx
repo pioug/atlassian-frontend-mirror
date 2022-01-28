@@ -2,7 +2,7 @@ import React from 'react';
 import ConfigPanelWithExtensionPicker from '../example-helpers/config-panel/ConfigPanelWithExtensionPicker';
 import { getConfluenceMacrosExtensionProvider } from '../example-helpers/confluence-macros';
 
-import { combineExtensionProviders } from '@atlaskit/editor-common';
+import { combineExtensionProviders } from '@atlaskit/editor-common/extensions';
 import EditorActions from '../src/actions';
 
 const macroExtensionProvider = getConfluenceMacrosExtensionProvider(

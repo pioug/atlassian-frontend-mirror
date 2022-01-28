@@ -102,14 +102,18 @@ const generateMediaCardFloatingToolbar = (
       title: intl.formatMessage(messages.displayThumbnail),
       options: [
         {
+          id: 'editor.media.view.switcher.inline',
           title: intl.formatMessage(cardMessages.inline),
           selected: false,
+          disabled: false,
           onClick: changeMediaCardToInline,
           testId: 'inline-appearance',
         },
         {
+          id: 'editor.media.view.switcher.thumbnail',
           title: intl.formatMessage(messages.displayThumbnail),
           selected: true,
+          disabled: false,
           onClick: () => {
             return true;
           },
@@ -176,16 +180,20 @@ const generateMediaInlineFloatingToolbar = (
       title: intl.formatMessage(cardMessages.inline),
       options: [
         {
+          id: 'editor.media.view.switcher.inline',
           title: intl.formatMessage(cardMessages.inline),
           selected: true,
+          disabled: false,
           onClick: () => {
             return true;
           },
           testId: 'inline-appearance',
         },
         {
+          id: 'editor.media.view.switcher.thumbnail',
           title: intl.formatMessage(messages.displayThumbnail),
           selected: false,
+          disabled: false,
           onClick: changeInlineToMediaCard,
           testId: 'thumbnail-appearance',
         },

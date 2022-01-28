@@ -289,7 +289,7 @@ function ElementItem({
         innerRef={ref}
         onKeyPress={onKeyPress}
         data-testid={`element-item-${index}`}
-        tabIndex={-1}
+        tabIndex={0}
         style={inlineMode ? null : itemStyleOverrides}
       >
         <ItemContent

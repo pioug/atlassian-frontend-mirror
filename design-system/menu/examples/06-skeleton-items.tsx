@@ -31,14 +31,14 @@ const Item = ({ isLoading, ...props }: any) => {
     icon = (
       <span
         style={{
-          background: token('color.text.onBold', N30),
+          background: token('color.text.inverse', N30),
           borderRadius: '50%',
           width: 24,
           height: 24,
         }}
       >
         <UserAvatarCircleIcon
-          primaryColor={token('color.text.lowEmphasis', N40)}
+          primaryColor={token('color.text.subtlest', N40)}
           label=""
         />
       </span>
@@ -80,7 +80,7 @@ export default () => {
         <div
           style={{
             width: '200px',
-            border: `1px solid ${token('color.border.neutral', '#EFEFEF')}`,
+            border: `1px solid ${token('color.border', '#EFEFEF')}`,
             margin: '10px auto',
             borderRadius: '4px',
             alignSelf: 'flex-start',
@@ -108,7 +108,7 @@ export default () => {
         <div
           style={{
             width: '200px',
-            border: `1px solid ${token('color.border.neutral', '#EFEFEF')}`,
+            border: `1px solid ${token('color.border', '#EFEFEF')}`,
             margin: '10px auto',
             borderRadius: '4px',
           }}

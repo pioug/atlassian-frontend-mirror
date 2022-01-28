@@ -30,7 +30,7 @@ import {
   defaultMediaPickerCollectionName,
 } from '@atlaskit/media-test-helpers/collectionNames';
 import { videoFileId } from '@atlaskit/media-test-helpers/exampleMediaItems';
-import { ProviderFactory } from '@atlaskit/editor-common';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { getFileStreamsCache } from '@atlaskit/media-client';
 
 const Wrapper = styled.div`

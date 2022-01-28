@@ -36,6 +36,8 @@ export const BlockInsertMenu: React.FC<BlockInsertMenuProps> = (props) => {
     return (
       <div>
         <DropDownButton
+          aria-expanded={props.open}
+          aria-haspopup
           handleRef={props.onRef}
           selected={props.open}
           disabled={props.disabled}

@@ -31,6 +31,8 @@ interface ItemInit {
   name: string;
   shortcut?: string;
   Icon: React.ComponentType<{ label: string }>;
+  'aria-label'?: React.AriaAttributes['aria-label'];
+  'aria-haspopup'?: React.AriaAttributes['aria-haspopup'];
 }
 
 const from = (init: ItemInit): MenuItem => ({
@@ -39,6 +41,8 @@ const from = (init: ItemInit): MenuItem => ({
   value: { name: init.name },
   elemBefore: <init.Icon label={init.content} />,
   elemAfter: init.shortcut ? <Shortcut>{init.shortcut}</Shortcut> : undefined,
+  'aria-label': init.content,
+  'aria-haspopup': init['aria-haspopup'],
   shortcut: init.shortcut,
   isDisabled: init.disabled,
 });
@@ -47,6 +51,8 @@ export interface CreateInit {
   content: string;
   disabled: boolean;
   tooltipDescription?: string;
+  'aria-label'?: React.AriaAttributes['aria-label'];
+  'aria-haspopup'?: React.AriaAttributes['aria-haspopup'];
 }
 
 const mem = <TFunc extends (...args: any[]) => any>(fn: TFunc): TFunc =>
@@ -71,6 +77,7 @@ export const link = mem((init: CreateInit) =>
     name: 'link',
     shortcut: tooltip(addLink),
     Icon: LinkIcon,
+    'aria-haspopup': init['aria-haspopup'],
   }),
 );
 
@@ -102,6 +109,7 @@ export const mention = mem((init: CreateInit) =>
     name: 'mention',
     Icon: MentionIcon,
     shortcut: '@',
+    'aria-haspopup': init['aria-haspopup'],
   }),
 );
 
@@ -113,6 +121,7 @@ export const emoji = mem((init: CreateInit) =>
     name: 'emoji',
     Icon: EmojiIcon,
     shortcut: ':',
+    'aria-haspopup': init['aria-haspopup'],
   }),
 );
 

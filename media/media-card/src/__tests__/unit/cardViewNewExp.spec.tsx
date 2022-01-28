@@ -586,6 +586,53 @@ describe('CardView New Experience', () => {
       );
     });
 
+    it(`should render ImageRenderer with isImageVisible true when forceSyncDisplay`, () => {
+      const component = shallowCardViewBase({
+        dataURI: 'some-data-uri',
+        status: 'complete',
+        forceSyncDisplay: true,
+      });
+      const imageRenderer = component.find(ImageRenderer);
+      expect(imageRenderer).toHaveLength(1);
+      expect(imageRenderer.props()).toEqual(
+        expect.objectContaining({
+          isImageVisible: true,
+        }),
+      );
+    });
+
+    it(`should render ImageRenderer with isImageVisible true when didImageRender true`, () => {
+      const component = shallowCardViewBase({
+        status: 'complete',
+        dataURI: 'some-data-uri',
+      });
+      const imageRenderer = component.find(ImageRenderer);
+      const onImageLoad = imageRenderer.prop('onImageLoad');
+      onImageLoad && onImageLoad();
+
+      expect(component.find(ImageRenderer).props()).toEqual(
+        expect.objectContaining({
+          isImageVisible: true,
+        }),
+      );
+    });
+
+    it(`should render ImageRenderer with isImageVisible false when not forceSyncDisplay and didImageRender false`, () => {
+      const component = shallowCardViewBase({
+        status: 'complete',
+        dataURI: 'some-data-uri',
+      });
+      const imageRenderer = component.find(ImageRenderer);
+      const onImageError = imageRenderer.prop('onImageError');
+      onImageError && onImageError();
+
+      expect(component.find(ImageRenderer).props()).toEqual(
+        expect.objectContaining({
+          isImageVisible: false,
+        }),
+      );
+    });
+
     it(`should render TickBox when overlay is enabled and card is selectable`, () => {
       // Selected tickbox
       const componentA = shallowCardViewBase({

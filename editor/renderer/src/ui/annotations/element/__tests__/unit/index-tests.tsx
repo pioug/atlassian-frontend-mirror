@@ -1,5 +1,5 @@
 import React from 'react';
-import { AnnotationUpdateEvent } from '@atlaskit/editor-common';
+import { AnnotationUpdateEvent } from '@atlaskit/editor-common/types';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
 import { MarkElement } from '../../';
 import TestRenderer from 'react-test-renderer';

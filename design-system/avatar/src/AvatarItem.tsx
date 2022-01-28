@@ -139,7 +139,7 @@ const getStyles = (
     `
         :hover {
           background-color: ${token(
-            'color.background.transparentNeutral.hover',
+            'color.background.neutral.subtle.hovered',
             backgroundHover(),
           )};
           cursor: pointer;
@@ -148,12 +148,12 @@ const getStyles = (
 
         :focus {
           outline: none;
-          border-color: ${token('color.border.focus', B200)};
+          border-color: ${token('color.border.focused', B200)};
         }
 
         :active {
           background-color: ${token(
-            'color.background.transparentNeutral.pressed',
+            'color.background.neutral.subtle.pressed',
             backgroundActive(),
           )};
         }

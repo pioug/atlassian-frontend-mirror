@@ -95,7 +95,7 @@ const InlineEditValidationExample = () => {
                   >
                     <ErrorIcon
                       label="error"
-                      primaryColor={token('color.iconBorder.danger', R400)}
+                      primaryColor={token('color.icon.danger', R400)}
                     />
                   </div>
                 )

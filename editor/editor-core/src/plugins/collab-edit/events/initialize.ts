@@ -1,6 +1,6 @@
 import { EditorView } from 'prosemirror-view';
 import { Step } from 'prosemirror-transform';
-import { ProviderFactory } from '@atlaskit/editor-common';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import memoizeOne from 'memoize-one';
 
 import { CollabEditProvider } from '../provider';
@@ -39,11 +39,17 @@ export const initialize = ({ options, providerFactory, view }: Props) => (
   cleanup = subscribe(view, provider, options, providerFactory);
 
   // Initialize provider
-  /**
-   * We only want to initialise once, if we reload/reconfigure this plugin
-   * We dont want to re-init collab, it would break existing sessions
-   */
-  initCollabMemo(provider, view);
+  if (options.useNativePlugin) {
+    // ED-13912 For NCS we don't want to use memoizeOne because it causes
+    // infinite text while changing page-width
+    initCollab(provider, view);
+  } else {
+    /**
+     * We only want to initialise once, if we reload/reconfigure this plugin
+     * We dont want to re-init collab, it would break existing sessions
+     */
+    initCollabMemo(provider, view);
+  }
 
   return cleanup;
 };

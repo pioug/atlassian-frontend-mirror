@@ -305,6 +305,8 @@ export class CardViewBase extends React.Component<
       forceSyncDisplay,
     } = this.props;
 
+    const { didImageRender } = this.state;
+
     return (
       !!dataURI && (
         <ImageRenderer
@@ -318,6 +320,7 @@ export class CardViewBase extends React.Component<
           onImageError={this.onImageError}
           nativeLazyLoad={nativeLazyLoad}
           forceSyncDisplay={forceSyncDisplay}
+          isImageVisible={forceSyncDisplay || didImageRender}
         />
       )
     );

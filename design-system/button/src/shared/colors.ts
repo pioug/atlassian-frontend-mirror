@@ -46,148 +46,148 @@ const values: Values = {
   background: {
     default: {
       default: {
-        light: token('color.background.subtleNeutral.resting', colors.N20A),
-        dark: token('color.background.subtleNeutral.resting', colors.DN70),
+        light: token('color.background.neutral', colors.N20A),
+        dark: token('color.background.neutral', colors.DN70),
       },
       hover: {
-        light: token('color.background.subtleNeutral.hover', colors.N30A),
-        dark: token('color.background.subtleNeutral.hover', colors.DN60),
+        light: token('color.background.neutral.hovered', colors.N30A),
+        dark: token('color.background.neutral.hovered', colors.DN60),
       },
       active: {
-        light: token('color.background.subtleNeutral.pressed', fadedB75),
-        dark: token('color.background.subtleNeutral.pressed', colors.B75),
+        light: token('color.background.neutral.pressed', fadedB75),
+        dark: token('color.background.neutral.pressed', colors.B75),
       },
       disabled: {
         light: token('color.background.disabled', colors.N20A),
         dark: token('color.background.disabled', colors.DN70),
       },
       selected: {
-        light: token('color.background.selected.resting', colors.N700),
-        dark: token('color.background.selected.resting', colors.DN0),
+        light: token('color.background.brand', colors.N700),
+        dark: token('color.background.brand', colors.DN0),
       },
       focusSelected: {
-        light: token('color.background.selected.resting', colors.N700),
-        dark: token('color.background.selected.resting', colors.DN0),
+        light: token('color.background.brand', colors.N700),
+        dark: token('color.background.brand', colors.DN0),
       },
     },
     primary: {
       default: {
-        light: token('color.background.boldBrand.resting', colors.B400),
-        dark: token('color.background.boldBrand.resting', colors.B100),
+        light: token('color.background.brand.bold', colors.B400),
+        dark: token('color.background.brand.bold', colors.B100),
       },
       hover: {
-        light: token('color.background.boldBrand.hover', colors.B300),
-        dark: token('color.background.boldBrand.hover', colors.B75),
+        light: token('color.background.brand.bold.hovered', colors.B300),
+        dark: token('color.background.brand.bold.hovered', colors.B75),
       },
       active: {
-        light: token('color.background.boldBrand.pressed', colors.B500),
-        dark: token('color.background.boldBrand.pressed', colors.B200),
+        light: token('color.background.brand.bold.pressed', colors.B500),
+        dark: token('color.background.brand.bold.pressed', colors.B200),
       },
       disabled: {
         light: token('color.background.disabled', colors.N20A),
         dark: token('color.background.disabled', colors.DN70),
       },
       selected: {
-        light: token('color.background.selected.resting', colors.N700),
-        dark: token('color.background.selected.resting', colors.DN0),
+        light: token('color.background.brand', colors.N700),
+        dark: token('color.background.brand', colors.DN0),
       },
       focusSelected: {
-        light: token('color.background.selected.resting', colors.N700),
-        dark: token('color.background.selected.resting', colors.DN0),
+        light: token('color.background.brand', colors.N700),
+        dark: token('color.background.brand', colors.DN0),
       },
     },
     warning: {
       default: {
-        light: token('color.background.boldWarning.resting', colors.Y300),
-        dark: token('color.background.boldWarning.resting', colors.Y300),
+        light: token('color.background.warning.bold', colors.Y300),
+        dark: token('color.background.warning.bold', colors.Y300),
       },
       hover: {
-        light: token('color.background.boldWarning.hover', colors.Y200),
-        dark: token('color.background.boldWarning.hover', colors.Y200),
+        light: token('color.background.warning.bold.hovered', colors.Y200),
+        dark: token('color.background.warning.bold.hovered', colors.Y200),
       },
       active: {
-        light: token('color.background.boldWarning.pressed', colors.Y400),
-        dark: token('color.background.boldWarning.pressed', colors.Y400),
+        light: token('color.background.warning.bold.pressed', colors.Y400),
+        dark: token('color.background.warning.bold.pressed', colors.Y400),
       },
       disabled: {
         light: token('color.background.disabled', colors.N20A),
         dark: token('color.background.disabled', colors.DN70),
       },
       selected: {
-        light: token('color.background.selected.resting', colors.Y400),
-        dark: token('color.background.selected.resting', colors.Y400),
+        light: token('color.background.brand', colors.Y400),
+        dark: token('color.background.brand', colors.Y400),
       },
       focusSelected: {
-        light: token('color.background.selected.resting', colors.Y400),
-        dark: token('color.background.selected.resting', colors.Y400),
+        light: token('color.background.brand', colors.Y400),
+        dark: token('color.background.brand', colors.Y400),
       },
     },
     danger: {
       default: {
-        light: token('color.background.boldDanger.resting', colors.R400),
-        dark: token('color.background.boldDanger.resting', colors.R400),
+        light: token('color.background.danger.bold', colors.R400),
+        dark: token('color.background.danger.bold', colors.R400),
       },
       hover: {
-        light: token('color.background.boldDanger.hover', colors.R300),
-        dark: token('color.background.boldDanger.hover', colors.R300),
+        light: token('color.background.danger.bold.hovered', colors.R300),
+        dark: token('color.background.danger.bold.hovered', colors.R300),
       },
       active: {
-        light: token('color.background.boldDanger.pressed', colors.R500),
-        dark: token('color.background.boldDanger.pressed', colors.R500),
+        light: token('color.background.danger.bold.pressed', colors.R500),
+        dark: token('color.background.danger.bold.pressed', colors.R500),
       },
       disabled: {
         light: token('color.background.disabled', colors.N20A),
         dark: token('color.background.disabled', colors.DN70),
       },
       selected: {
-        light: token('color.background.selected.resting', colors.R500),
-        dark: token('color.background.selected.resting', colors.R500),
+        light: token('color.background.brand', colors.R500),
+        dark: token('color.background.brand', colors.R500),
       },
       focusSelected: {
-        light: token('color.background.selected.resting', colors.R500),
-        dark: token('color.background.selected.resting', colors.R500),
+        light: token('color.background.brand', colors.R500),
+        dark: token('color.background.brand', colors.R500),
       },
     },
     link: {
       default: { light: 'none', dark: 'none' },
       selected: {
-        light: token('color.background.selected.resting', colors.N700),
-        dark: token('color.background.selected.resting', colors.N20),
+        light: token('color.background.brand', colors.N700),
+        dark: token('color.background.brand', colors.N20),
       },
       focusSelected: {
-        light: token('color.background.selected.resting', colors.N700),
-        dark: token('color.background.selected.resting', colors.N20),
+        light: token('color.background.brand', colors.N700),
+        dark: token('color.background.brand', colors.N20),
       },
     },
     subtle: {
       default: { light: 'none', dark: 'none' },
       hover: {
-        light: token('color.background.transparentNeutral.hover', colors.N30A),
-        dark: token('color.background.transparentNeutral.hover', colors.DN60),
+        light: token('color.background.neutral.subtle.hovered', colors.N30A),
+        dark: token('color.background.neutral.subtle.hovered', colors.DN60),
       },
       active: {
-        light: token('color.background.transparentNeutral.pressed', fadedB75),
-        dark: token('color.background.transparentNeutral.pressed', colors.B75),
+        light: token('color.background.neutral.subtle.pressed', fadedB75),
+        dark: token('color.background.neutral.subtle.pressed', colors.B75),
       },
       disabled: { light: 'none', dark: 'none' },
       selected: {
-        light: token('color.background.selected.resting', colors.N700),
-        dark: token('color.background.selected.resting', colors.DN0),
+        light: token('color.background.brand', colors.N700),
+        dark: token('color.background.brand', colors.DN0),
       },
       focusSelected: {
-        light: token('color.background.selected.resting', colors.N700),
-        dark: token('color.background.selected.resting', colors.DN0),
+        light: token('color.background.brand', colors.N700),
+        dark: token('color.background.brand', colors.DN0),
       },
     },
     'subtle-link': {
       default: { light: 'none', dark: 'none' },
       selected: {
-        light: token('color.background.selected.resting', colors.N700),
-        dark: token('color.background.selected.resting', colors.N20),
+        light: token('color.background.brand', colors.N700),
+        dark: token('color.background.brand', colors.N20),
       },
       focusSelected: {
-        light: token('color.background.selected.resting', colors.N700),
-        dark: token('color.background.selected.resting', colors.N20),
+        light: token('color.background.brand', colors.N700),
+        dark: token('color.background.brand', colors.N20),
       },
     },
   },
@@ -195,224 +195,224 @@ const values: Values = {
   boxShadowColor: {
     default: {
       focus: {
-        light: token('color.border.focus', colors.B100),
-        dark: token('color.border.focus', colors.B75),
+        light: token('color.border.focused', colors.B100),
+        dark: token('color.border.focused', colors.B75),
       },
       focusSelected: {
-        light: token('color.border.focus', colors.B100),
-        dark: token('color.border.focus', colors.B75),
+        light: token('color.border.focused', colors.B100),
+        dark: token('color.border.focused', colors.B75),
       },
     },
     primary: {
       focus: {
-        light: token('color.border.focus', colors.B100),
-        dark: token('color.border.focus', colors.B75),
+        light: token('color.border.focused', colors.B100),
+        dark: token('color.border.focused', colors.B75),
       },
       focusSelected: {
-        light: token('color.border.focus', colors.B100),
-        dark: token('color.border.focus', colors.B75),
+        light: token('color.border.focused', colors.B100),
+        dark: token('color.border.focused', colors.B75),
       },
     },
     warning: {
       focus: {
-        light: token('color.border.focus', colors.Y500),
-        dark: token('color.border.focus', colors.Y500),
+        light: token('color.border.focused', colors.Y500),
+        dark: token('color.border.focused', colors.Y500),
       },
       focusSelected: {
-        light: token('color.border.focus', colors.Y500),
-        dark: token('color.border.focus', colors.Y500),
+        light: token('color.border.focused', colors.Y500),
+        dark: token('color.border.focused', colors.Y500),
       },
     },
     danger: {
       focus: {
-        light: token('color.border.focus', colors.R100),
-        dark: token('color.border.focus', colors.R100),
+        light: token('color.border.focused', colors.R100),
+        dark: token('color.border.focused', colors.R100),
       },
       focusSelected: {
-        light: token('color.border.focus', colors.R100),
-        dark: token('color.border.focus', colors.R100),
+        light: token('color.border.focused', colors.R100),
+        dark: token('color.border.focused', colors.R100),
       },
     },
     link: {
       focus: {
-        light: token('color.border.focus', colors.B100),
-        dark: token('color.border.focus', colors.B75),
+        light: token('color.border.focused', colors.B100),
+        dark: token('color.border.focused', colors.B75),
       },
       focusSelected: {
-        light: token('color.border.focus', colors.B100),
-        dark: token('color.border.focus', colors.B75),
+        light: token('color.border.focused', colors.B100),
+        dark: token('color.border.focused', colors.B75),
       },
     },
     subtle: {
       focus: {
-        light: token('color.border.focus', colors.B100),
-        dark: token('color.border.focus', colors.B75),
+        light: token('color.border.focused', colors.B100),
+        dark: token('color.border.focused', colors.B75),
       },
       focusSelected: {
-        light: token('color.border.focus', colors.B100),
-        dark: token('color.border.focus', colors.B75),
+        light: token('color.border.focused', colors.B100),
+        dark: token('color.border.focused', colors.B75),
       },
     },
     'subtle-link': {
       focus: {
-        light: token('color.border.focus', colors.B100),
-        dark: token('color.border.focus', colors.B75),
+        light: token('color.border.focused', colors.B100),
+        dark: token('color.border.focused', colors.B75),
       },
       focusSelected: {
-        light: token('color.border.focus', colors.B100),
-        dark: token('color.border.focus', colors.B75),
+        light: token('color.border.focused', colors.B100),
+        dark: token('color.border.focused', colors.B75),
       },
     },
   },
   color: {
     default: {
       default: {
-        light: token('color.text.highEmphasis', colors.N500),
-        dark: token('color.text.highEmphasis', colors.DN400),
+        light: token('color.text', colors.N500),
+        dark: token('color.text', colors.DN400),
       },
       active: {
-        light: token('color.text.highEmphasis', colors.B400),
-        dark: token('color.text.highEmphasis', colors.B400),
+        light: token('color.text', colors.B400),
+        dark: token('color.text', colors.B400),
       },
       disabled: {
         light: token('color.text.disabled', colors.N70),
         dark: token('color.text.disabled', colors.DN30),
       },
       selected: {
-        light: token('color.text.selected', colors.N20),
-        dark: token('color.text.selected', colors.DN400),
+        light: token('color.text.brand', colors.N20),
+        dark: token('color.text.brand', colors.DN400),
       },
       focusSelected: {
-        light: token('color.text.selected', colors.N20),
-        dark: token('color.text.selected', colors.DN400),
+        light: token('color.text.brand', colors.N20),
+        dark: token('color.text.brand', colors.DN400),
       },
     },
     primary: {
       default: {
-        light: token('color.text.onBold', colors.N0),
-        dark: token('color.text.onBold', colors.DN30),
+        light: token('color.text.inverse', colors.N0),
+        dark: token('color.text.inverse', colors.DN30),
       },
       disabled: {
         light: token('color.text.disabled', colors.N70),
         dark: token('color.text.disabled', colors.DN30),
       },
       selected: {
-        light: token('color.text.selected', colors.N20),
-        dark: token('color.text.selected', colors.DN400),
+        light: token('color.text.brand', colors.N20),
+        dark: token('color.text.brand', colors.DN400),
       },
       focusSelected: {
-        light: token('color.text.selected', colors.N20),
-        dark: token('color.text.selected', colors.DN400),
+        light: token('color.text.brand', colors.N20),
+        dark: token('color.text.brand', colors.DN400),
       },
     },
     warning: {
       default: {
-        light: token('color.text.onBoldWarning', colors.N800),
-        dark: token('color.text.onBoldWarning', colors.N800),
+        light: token('color.text.warning.inverse', colors.N800),
+        dark: token('color.text.warning.inverse', colors.N800),
       },
       disabled: {
         light: token('color.text.disabled', colors.N70),
         dark: token('color.text.disabled', colors.DN30),
       },
       selected: {
-        light: token('color.text.selected', colors.N800),
-        dark: token('color.text.selected', colors.N800),
+        light: token('color.text.brand', colors.N800),
+        dark: token('color.text.brand', colors.N800),
       },
       focusSelected: {
-        light: token('color.text.selected', colors.N800),
-        dark: token('color.text.selected', colors.N800),
+        light: token('color.text.brand', colors.N800),
+        dark: token('color.text.brand', colors.N800),
       },
     },
     danger: {
       default: {
-        light: token('color.text.onBold', colors.N0),
-        dark: token('color.text.onBold', colors.N0),
+        light: token('color.text.inverse', colors.N0),
+        dark: token('color.text.inverse', colors.N0),
       },
       disabled: {
         light: token('color.text.disabled', colors.N70),
         dark: token('color.text.disabled', colors.DN30),
       },
       selected: {
-        light: token('color.text.selected', colors.N0),
-        dark: token('color.text.selected', colors.N0),
+        light: token('color.text.brand', colors.N0),
+        dark: token('color.text.brand', colors.N0),
       },
       focusSelected: {
-        light: token('color.text.selected', colors.N0),
-        dark: token('color.text.selected', colors.N0),
+        light: token('color.text.brand', colors.N0),
+        dark: token('color.text.brand', colors.N0),
       },
     },
     link: {
       default: {
-        light: token('color.text.link.resting', colors.B400),
-        dark: token('color.text.link.resting', colors.B100),
+        light: token('color.link', colors.B400),
+        dark: token('color.link', colors.B100),
       },
       hover: {
-        light: token('color.text.link.resting', colors.B300),
-        dark: token('color.text.link.resting', colors.B75),
+        light: token('color.link', colors.B300),
+        dark: token('color.link', colors.B75),
       },
       active: {
-        light: token('color.text.link.pressed', colors.B500),
-        dark: token('color.text.link.pressed', colors.B200),
+        light: token('color.link.pressed', colors.B500),
+        dark: token('color.link.pressed', colors.B200),
       },
       disabled: {
         light: token('color.text.disabled', colors.N70),
         dark: token('color.text.disabled', colors.DN100),
       },
       selected: {
-        light: token('color.text.selected', colors.N20),
-        dark: token('color.text.selected', colors.N700),
+        light: token('color.text.brand', colors.N20),
+        dark: token('color.text.brand', colors.N700),
       },
       focusSelected: {
-        light: token('color.text.selected', colors.N20),
-        dark: token('color.text.selected', colors.N700),
+        light: token('color.text.brand', colors.N20),
+        dark: token('color.text.brand', colors.N700),
       },
     },
     subtle: {
       default: {
-        light: token('color.text.highEmphasis', colors.N500),
-        dark: token('color.text.highEmphasis', colors.DN400),
+        light: token('color.text', colors.N500),
+        dark: token('color.text', colors.DN400),
       },
       active: {
-        light: token('color.text.highEmphasis', colors.B400),
-        dark: token('color.text.highEmphasis', colors.B400),
+        light: token('color.text', colors.B400),
+        dark: token('color.text', colors.B400),
       },
       disabled: {
         light: token('color.text.disabled', colors.N70),
         dark: token('color.text.disabled', colors.DN100),
       },
       selected: {
-        light: token('color.text.selected', colors.N20),
-        dark: token('color.text.selected', colors.DN400),
+        light: token('color.text.brand', colors.N20),
+        dark: token('color.text.brand', colors.DN400),
       },
       focusSelected: {
-        light: token('color.text.selected', colors.N20),
-        dark: token('color.text.selected', colors.DN400),
+        light: token('color.text.brand', colors.N20),
+        dark: token('color.text.brand', colors.DN400),
       },
     },
     'subtle-link': {
       default: {
-        light: token('color.text.mediumEmphasis', colors.N200),
-        dark: token('color.text.mediumEmphasis', colors.DN400),
+        light: token('color.text.subtle', colors.N200),
+        dark: token('color.text.subtle', colors.DN400),
       },
       hover: {
-        light: token('color.text.mediumEmphasis', colors.N90),
-        dark: token('color.text.mediumEmphasis', colors.B50),
+        light: token('color.text.subtle', colors.N90),
+        dark: token('color.text.subtle', colors.B50),
       },
       active: {
-        light: token('color.text.highEmphasis', colors.N400),
-        dark: token('color.text.highEmphasis', colors.DN300),
+        light: token('color.text', colors.N400),
+        dark: token('color.text', colors.DN300),
       },
       disabled: {
         light: token('color.text.disabled', colors.N70),
         dark: token('color.text.disabled', colors.DN100),
       },
       selected: {
-        light: token('color.text.selected', colors.N20),
-        dark: token('color.text.selected', colors.DN400),
+        light: token('color.text.brand', colors.N20),
+        dark: token('color.text.brand', colors.DN400),
       },
       focusSelected: {
-        light: token('color.text.selected', colors.N20),
-        dark: token('color.text.selected', colors.DN400),
+        light: token('color.text.brand', colors.N20),
+        dark: token('color.text.brand', colors.DN400),
       },
     },
   },

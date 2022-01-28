@@ -30,7 +30,7 @@ const messageErrorColorStyles = css({
 });
 
 const messageNeutralColorStyles = css({
-  color: token('color.text.lowEmphasis', N200),
+  color: token('color.text.subtlest', N200),
 });
 
 const messageValidColorStyles = css({

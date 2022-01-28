@@ -1,4 +1,3 @@
-import Tooltip from '@atlaskit/tooltip';
 import classNames from 'classnames';
 import React from 'react';
 import { MouseEvent, SyntheticEvent } from 'react';
@@ -78,6 +77,8 @@ export interface Props {
    * Fits emoji to height in pixels, keeping aspect ratio
    */
   fitToHeight?: number;
+
+  shouldBeInteractive?: boolean;
 }
 
 const handleMouseDown = (props: Props, event: MouseEvent<any>) => {
@@ -91,6 +92,24 @@ const handleMouseDown = (props: Props, event: MouseEvent<any>) => {
   const { emoji, onSelected } = props;
   event.preventDefault();
   if (onSelected && leftClick(event)) {
+    onSelected(toEmojiId(emoji), emoji, event);
+  }
+};
+
+const handleKeyPress = (
+  props: Props,
+  event: React.KeyboardEvent<HTMLElement>,
+) => {
+  // Clicked emoji delete button
+  if (
+    event.target instanceof Element &&
+    event.target.getAttribute('aria-label') === deleteEmojiLabel
+  ) {
+    return;
+  }
+  const { emoji, onSelected } = props;
+  event.preventDefault();
+  if (onSelected && (event.key === 'Enter' || event.key === ' ')) {
     onSelected(toEmojiId(emoji), emoji, event);
   }
 };
@@ -135,6 +154,7 @@ const renderAsSprite = (props: Props) => {
     selectOnHover,
     className,
     showTooltip,
+    shouldBeInteractive,
   } = props;
   const representation = emoji.representation as SpriteRepresentation;
   const sprite = representation.sprite;
@@ -175,7 +195,10 @@ const renderAsSprite = (props: Props) => {
 
   return (
     <span
+      tabIndex={shouldBeInteractive ? 0 : undefined}
+      role={shouldBeInteractive ? 'button' : undefined}
       className={classNames(classes)}
+      onKeyPress={(event) => handleKeyPress(props, event)}
       onMouseDown={(event) => {
         handleMouseDown(props, event);
       }}
@@ -183,14 +206,9 @@ const renderAsSprite = (props: Props) => {
         handleMouseMove(props, event);
       }}
       aria-label={emoji.shortName}
+      title={showTooltip ? emoji.shortName : ''}
     >
-      {showTooltip ? (
-        <Tooltip tag="span" content={emoji.shortName}>
-          {emojiNode}
-        </Tooltip>
-      ) : (
-        emojiNode
-      )}
+      {emojiNode}
     </span>
   );
 };
@@ -205,6 +223,7 @@ const renderAsImage = (props: Props) => {
     className,
     showTooltip,
     showDelete,
+    shouldBeInteractive,
   } = props;
 
   const classes = {
@@ -283,7 +302,10 @@ const renderAsImage = (props: Props) => {
 
   return (
     <span
+      tabIndex={shouldBeInteractive ? 0 : undefined}
+      role={shouldBeInteractive ? 'button' : undefined}
       className={classNames(classes)}
+      onKeyPress={(event) => handleKeyPress(props, event)}
       onMouseDown={(event) => {
         handleMouseDown(props, event);
       }}
@@ -291,15 +313,10 @@ const renderAsImage = (props: Props) => {
         handleMouseMove(props, event);
       }}
       aria-label={emoji.shortName}
+      title={showTooltip ? emoji.shortName : ''}
     >
       {deleteButton}
-      {showTooltip ? (
-        <Tooltip tag="span" content={emoji.shortName}>
-          {emojiNode}
-        </Tooltip>
-      ) : (
-        emojiNode
-      )}
+      {emojiNode}
     </span>
   );
 };

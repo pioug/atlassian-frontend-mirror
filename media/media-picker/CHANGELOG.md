@@ -1,5 +1,12 @@
 # @atlaskit/media-picker
 
+## 59.0.2
+
+### Patch Changes
+
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - Removed Usage of "api-private." URL in Media Picker extensibility component
+- Updated dependencies
+
 ## 59.0.1
 
 ### Patch Changes

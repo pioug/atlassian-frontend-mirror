@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import { Card } from '@atlaskit/smart-card';
-import { EventHandlers, UnsupportedBlock } from '@atlaskit/editor-common';
+import { UnsupportedBlock } from '@atlaskit/editor-common/ui';
+import type { EventHandlers } from '@atlaskit/editor-common/ui';
 
 import { getPlatform } from '../../utils';
 import { CardErrorBoundary } from './fallback';

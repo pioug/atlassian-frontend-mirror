@@ -4,7 +4,7 @@ import {
   wrappedLayouts,
   shouldAddDefaultWrappedWidth,
   calcPxFromColumns,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-common/ui';
 
 import { findParentNodeOfTypeClosestToPos } from 'prosemirror-utils';
 import { EditorView } from 'prosemirror-view';

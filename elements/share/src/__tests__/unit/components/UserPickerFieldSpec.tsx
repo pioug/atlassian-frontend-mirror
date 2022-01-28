@@ -120,7 +120,9 @@ describe('UserPickerField', () => {
 
     expect(fieldHelperMessage).toHaveLength(1);
     expect(fieldHelperMessage.html()).toEqual(
-      '<div class="css-yif38n-Message">Recipients will see the name of the board and your message</div>',
+      expect.stringContaining(
+        'Recipients will see the name of the board and your message',
+      ),
     );
   });
 
@@ -143,7 +145,9 @@ describe('UserPickerField', () => {
 
     expect(fieldHelperMessage).toHaveLength(1);
     expect(fieldHelperMessage.html()).toEqual(
-      '<div class="css-yif38n-Message">Recipients will see the name of the roadmap and your message</div>',
+      expect.stringContaining(
+        'Recipients will see the name of the roadmap and your message',
+      ),
     );
   });
 

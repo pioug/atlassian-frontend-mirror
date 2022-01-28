@@ -5,7 +5,7 @@ describe('Snapshot Test', () => {
     const url = getExampleUrl(
       'design-system',
       'flag',
-      'flag-without-flagGroup',
+      'flag-without-flag-group',
       global.__BASEURL__,
     );
 
@@ -21,7 +21,7 @@ describe('Snapshot Test', () => {
     const url = getExampleUrl(
       'design-system',
       'flag',
-      'flag-without-flagGroup',
+      'flag-without-flag-group',
       global.__BASEURL__,
     );
 
@@ -61,7 +61,7 @@ describe('Snapshot Test', () => {
     const url = getExampleUrl(
       'design-system',
       'flag',
-      'flag-without-flagGroup',
+      'flag-without-flag-group',
       global.__BASEURL__,
     );
 

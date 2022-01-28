@@ -306,7 +306,7 @@ import {
   InputRule as UnpredictableInputRule,
 } from 'prosemirror-inputrules';
 import { EditorView } from 'prosemirror-view';
-import { startMeasure, stopMeasure } from '@atlaskit/editor-common';
+import { startMeasure, stopMeasure } from '@atlaskit/editor-common/utils';
 function createUnpredictableInputRulePlugin(
   pluginName: string,
   rules: Array<InputRuleWrapper>,

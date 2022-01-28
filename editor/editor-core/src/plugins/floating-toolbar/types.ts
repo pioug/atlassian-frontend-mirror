@@ -13,8 +13,9 @@ import { SelectOption } from './ui/Select';
 import React from 'react';
 import { DropdownOptions, RenderOptionsPropsT } from './ui/types';
 import { DispatchAnalyticsEvent } from '../analytics/types/dispatch-analytics-event';
-import { CardOptions } from '@atlaskit/editor-common';
+import { CardOptions } from '@atlaskit/editor-common/card';
 import { PaletteColor } from '../../ui/ColorPalette/Palettes/type';
+import { EmojiId } from '@atlaskit/emoji/types';
 
 export type Icon = React.ComponentType<{ label: string }>;
 export type RenderOptionsProps = RenderOptionsPropsT<Command>;
@@ -52,6 +53,14 @@ export type FloatingToolbarButton<T> = {
   confirmDialog?: ConfirmDialogOptions;
   // For sending data over the mobile bridge
   metadata?: { [key: string]: string };
+  ariaHasPopup?:
+    | boolean
+    | 'dialog'
+    | 'menu'
+    | 'listbox'
+    | 'tree'
+    | 'grid'
+    | undefined;
 };
 
 export type FloatingToolbarInput<T> = {
@@ -105,7 +114,7 @@ export type FloatingToolbarColorPicker<T> = FloatingToolbarSelectBase<
 
 export type FloatingToolbarEmojiPicker<T> = FloatingToolbarSelectBase<
   T,
-  string
+  EmojiId
 > & {
   selectType: 'emoji';
   selected?: boolean;

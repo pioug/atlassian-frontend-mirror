@@ -1,11 +1,14 @@
+import { Node } from 'prosemirror-model';
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 import {
   getDocFromElement,
   fullpage,
+  expectToMatchSelection,
   editable,
   getProseMirrorPos,
   setProseMirrorTextSelection,
+  animationFrame,
 } from '../../../../__tests__/integration/_helpers';
 import {
   goToEditorTestingWDExample,
@@ -15,8 +18,9 @@ import { KEY } from '../../../../__tests__/__helpers/page-objects/_keyboard';
 
 import floatsAdf from './__fixtures__/lists-adjacent-floats.adf.json';
 import listsAdf from './__fixtures__/lists-indentation-paragraphs.json';
+import listInTableAdf from './__fixtures__/list-in-table-adf.json';
 import sampleSchema from '@atlaskit/editor-test-helpers/schema';
-import { Node } from 'prosemirror-model';
+import { clickFirstCell } from '../../../../__tests__/__helpers/page-objects/_table';
 
 const PM_FOCUS_SELECTOR = '.ProseMirror-focused';
 
@@ -31,6 +35,70 @@ async function insertList(
   await page.type(editable, 'item');
   await page.keys(['Enter', 'Enter']); // double enter to exit list
 }
+
+BrowserTestCase(
+  'list: tabbing through a tableCell that contains a list should go to the next cell',
+  { skip: [] },
+  async (client: any) => {
+    const page = await goToEditorTestingWDExample(client);
+    await mountEditor(page, {
+      appearance: fullpage.appearance,
+      defaultValue: listInTableAdf,
+      allowTables: {},
+    });
+
+    await clickFirstCell(page);
+    await page.keys(['Tab', 'Tab']);
+    await animationFrame(page);
+    await expectToMatchSelection(page, {
+      type: 'text',
+      from: 64,
+      to: 68,
+    });
+  },
+);
+
+BrowserTestCase(
+  'list: tabbing from the first listItem in a tableCell should go to the next cell',
+  { skip: [] },
+  async (client: any) => {
+    const page = await goToEditorTestingWDExample(client);
+    await mountEditor(page, {
+      appearance: fullpage.appearance,
+      defaultValue: listInTableAdf,
+      allowTables: {},
+    });
+
+    await page.click('li:nth-of-type(1)');
+    await page.keys(['Tab']);
+    await animationFrame(page);
+    await expectToMatchSelection(page, {
+      type: 'text',
+      from: 64,
+      to: 68,
+    });
+  },
+);
+
+BrowserTestCase(
+  'list: tabbing from the second listItem in a tableCell should indent the listItem',
+  { skip: [] },
+  async (client: any, testName: string) => {
+    const page = await goToEditorTestingWDExample(client);
+    await mountEditor(page, {
+      appearance: fullpage.appearance,
+      defaultValue: listInTableAdf,
+      allowTables: {},
+    });
+
+    await page.click('li:nth-of-type(2)');
+    await page.keys(['Tab']);
+    await animationFrame(page);
+    expect(
+      await page.$eval(editable, getDocFromElement),
+    ).toMatchCustomDocSnapshot(testName);
+  },
+);
 
 BrowserTestCase(
   `list: shouldn't change focus on tab if the list is not indentable`,

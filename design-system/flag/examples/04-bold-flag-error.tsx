@@ -13,7 +13,7 @@ export default () => (
       icon={
         <ErrorIcon
           label="Error"
-          secondaryColor={token('color.iconBorder.danger', R400)}
+          secondaryColor={token('color.icon.danger', R400)}
         />
       }
       id="error"

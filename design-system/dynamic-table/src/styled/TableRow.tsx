@@ -16,7 +16,7 @@ export type ITableRowProps = {
 const rowStyles = css({
   '&:focus': {
     outline: `2px solid ${token(
-      'color.border.focus',
+      'color.border.focused',
       `var(${cssVars.CSS_VAR_HOVER_BACKGROUND})`,
     )}`,
     outlineOffset: `-2px`,
@@ -26,19 +26,19 @@ const rowStyles = css({
 const rowBackgroundStyles = css({
   '&:hover': {
     backgroundColor: token(
-      'color.background.transparentNeutral.hover',
+      'color.background.neutral.subtle.hovered',
       `var(${cssVars.CSS_VAR_HOVER_BACKGROUND})`,
     ),
   },
 });
 const rowHighlightedBackgroundStyles = css({
   backgroundColor: token(
-    'color.background.selected.resting',
+    'color.background.brand',
     `var(${cssVars.CSS_VAR_HIGHLIGHTED_BACKGROUND})`,
   ),
   '&:hover': {
     backgroundColor: token(
-      'color.background.selected.hover',
+      'color.background.brand.hovered',
       `var(${cssVars.CSS_VAR_HOVER_HIGHLIGHTED_BACKGROUND})`,
     ),
   },

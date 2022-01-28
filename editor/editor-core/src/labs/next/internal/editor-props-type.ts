@@ -1,6 +1,6 @@
 import { Schema } from 'prosemirror-model';
-import { Transformer } from '@atlaskit/editor-common';
 import EditorActions from '../../../actions';
+import { Transformer } from '@atlaskit/editor-common/types';
 import { EditorPlugin } from '../../../types';
 import { FireAnalyticsCallback } from '../../../plugins/analytics';
 import { PortalProviderAPI } from '../../../ui/PortalProvider';

@@ -14,7 +14,7 @@ describe('createMediaButtonClickedEvent', () => {
     isLoading: false,
     isAutoPlay: true,
     isFullScreenEnabled: false,
-    isLargePlayer: true,
+    playerSize: 'large',
     playbackSpeed: 1,
   };
   it('with video type, button type and fileId', () => {
@@ -41,7 +41,7 @@ describe('createMediaButtonClickedEvent', () => {
           isMuted: false,
           isAutoPlay: true,
           isFullScreenEnabled: false,
-          isLargePlayer: true,
+          playerSize: 'large',
           playbackSpeed: 1,
         },
         fileAttributes: {

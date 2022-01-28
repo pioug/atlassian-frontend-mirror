@@ -81,8 +81,9 @@ export class ToolbarUndoRedo extends PureComponent<
           spacing={isReducedSpacing ? 'none' : 'default'}
           onClick={handleUndo}
           disabled={!canUndo || disabled}
+          aria-label={labelUndo}
           title={<ToolTipContent description={labelUndo} keymap={undoKeymap} />}
-          iconBefore={<UndoIcon label={labelUndo} />}
+          iconBefore={<UndoIcon label="" />}
           testId="ak-editor-toolbar-button-undo"
         />
         <ToolbarButton
@@ -91,8 +92,9 @@ export class ToolbarUndoRedo extends PureComponent<
           onClick={handleRedo}
           disabled={!canRedo || disabled}
           title={<ToolTipContent description={labelRedo} keymap={redoKeymap} />}
-          iconBefore={<RedoIcon label={labelRedo} />}
+          iconBefore={<RedoIcon label="" />}
           testId="ak-editor-toolbar-button-redo"
+          aria-label={labelRedo}
         />
         <Separator />
       </ButtonGroup>

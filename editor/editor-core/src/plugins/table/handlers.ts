@@ -4,7 +4,7 @@ import { ContentNodeWithPos, findParentNodeOfType } from 'prosemirror-utils';
 import { findTable } from '@atlaskit/editor-tables/utils';
 
 import { isTextInput } from '../../utils/is-text-input';
-import { collapseSelectedTable } from './utils/collapse';
+import { isTableCollapsible } from './utils/collapse';
 
 import { defaultTableSelection } from './pm-plugins/default-table-selection';
 import { pluginKey as tableResizingPluginKey } from './pm-plugins/table-resizing';
@@ -109,8 +109,7 @@ const updateCollapseHandler: BuilderTablePluginState = ({ tr, table }) => (
   const isTableCollapsed =
     expandNodeType && !!findParentNodeOfType(expandNodeType)(tr.selection);
 
-  // check result of wrapping without applying it
-  const trCanBeCollapsed = collapseSelectedTable(tr);
+  const trCanBeCollapsed = isTableCollapsible(tr).tableIsCollapsible;
 
   // We're focused on a table + we're not inside an expand
   const canCollapseTable: boolean =

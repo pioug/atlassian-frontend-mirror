@@ -32,6 +32,10 @@ export type Props = {
   titlePosition?: PositionType;
   item?: MenuItem;
   testId?: string;
+  'aria-label'?: React.AriaAttributes['aria-label'];
+  'aria-expanded'?: React.AriaAttributes['aria-expanded'];
+  'aria-haspopup'?: React.AriaAttributes['aria-haspopup'];
+  'aria-pressed'?: React.AriaAttributes['aria-pressed'];
 } & Pick<ButtonProps, 'aria-label' | 'children'>;
 
 const ButtonWrapper = styled.div`
@@ -58,6 +62,10 @@ const ToolbarButton = React.forwardRef<ToolbarButtonRef, Props>(
       title,
       titlePosition = 'top',
       item,
+      'aria-label': ariaLabel,
+      'aria-haspopup': ariaHasPopup,
+      'aria-expanded': ariaExpanded,
+      'aria-pressed': ariaPressed,
       onClick,
       onItemClick,
     } = props;
@@ -94,7 +102,6 @@ const ToolbarButton = React.forwardRef<ToolbarButtonRef, Props>(
 
       [disabled, onClick, onItemClick, item, buttonId],
     );
-    const ariaLabel = props['aria-label'];
     const id = buttonId ? `editor-toolbar__${buttonId}` : undefined;
 
     const button = (
@@ -102,11 +109,9 @@ const ToolbarButton = React.forwardRef<ToolbarButtonRef, Props>(
         id={id}
         ref={ref}
         appearance="subtle"
-        aria-haspopup
         testId={testId}
         className={className}
         href={href}
-        aria-label={ariaLabel}
         iconAfter={iconAfter}
         iconBefore={iconBefore}
         isDisabled={disabled}
@@ -115,6 +120,10 @@ const ToolbarButton = React.forwardRef<ToolbarButtonRef, Props>(
         spacing={spacing || 'default'}
         target={target}
         shouldFitContainer
+        aria-expanded={ariaExpanded}
+        aria-haspopup={ariaHasPopup}
+        aria-label={ariaLabel}
+        aria-pressed={ariaPressed}
       >
         {children}
       </Button>

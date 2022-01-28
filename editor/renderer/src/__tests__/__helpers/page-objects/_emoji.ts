@@ -1,4 +1,4 @@
-import { EmojiSharedCssClassName } from '@atlaskit/editor-common';
+import { EmojiSharedCssClassName } from '@atlaskit/editor-common/emoji';
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 
 export const emojiSelectors = {

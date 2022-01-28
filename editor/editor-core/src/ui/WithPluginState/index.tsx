@@ -2,7 +2,7 @@ import React from 'react';
 import { PluginKey } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import PropTypes from 'prop-types';
-import { startMeasure, stopMeasure } from '@atlaskit/editor-common';
+import { startMeasure, stopMeasure } from '@atlaskit/editor-common/utils';
 import { createDispatch, EventDispatcher } from '../../event-dispatcher';
 import EditorActions from '../../actions';
 import { EditorSharedConfig } from '../../labs/next/Editor';

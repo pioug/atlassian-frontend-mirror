@@ -4,7 +4,8 @@ import { NumericalCardDimensions } from '@atlaskit/media-card';
 import { EditorView } from 'prosemirror-view';
 import { media } from '@atlaskit/editor-test-helpers/doc-builder';
 import { defaultSchema } from '@atlaskit/adf-schema';
-import { ProviderFactory, browser } from '@atlaskit/editor-common';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import { browser } from '@atlaskit/editor-common/utils';
 import { MediaFeatureFlags } from '@atlaskit/media-common';
 import { Card } from '@atlaskit/media-card';
 import Media, {

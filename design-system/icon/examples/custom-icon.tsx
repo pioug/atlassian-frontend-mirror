@@ -28,17 +28,17 @@ export default function CustomIcon() {
       <CanonicalIcon
         label=""
         size="small"
-        primaryColor={token('color.iconBorder.brand', B300)}
+        primaryColor={token('color.icon.brand', B300)}
       />
       <CanonicalIcon
         label=""
         size="medium"
-        primaryColor={token('color.iconBorder.brand', B300)}
+        primaryColor={token('color.icon.brand', B300)}
       />
       <CanonicalIcon
         label=""
         size="large"
-        primaryColor={token('color.iconBorder.brand', B300)}
+        primaryColor={token('color.icon.brand', B300)}
       />
     </div>
   );

@@ -7,8 +7,8 @@ import {
   CardProvider,
 } from '@atlaskit/editor-common/provider-factory';
 import { doc, p, inlineCard } from '@atlaskit/editor-test-helpers/doc-builder';
-import { CardOptions } from '@atlaskit/editor-common';
 import { HyperlinkToolbarAppearance } from '../../HyperlinkToolbarAppearance';
+import { CardOptions } from '@atlaskit/editor-common/card';
 import { LinkToolbarAppearance } from '../../../../plugins/card/ui/LinkToolbarAppearance';
 import { nextTick } from '@atlaskit/editor-test-helpers/next-tick';
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';

@@ -82,6 +82,7 @@ describe('<InlinePlayer />', () => {
 
     const TheInlinePlayer = () => (
       <InlinePlayerComponent
+        autoplay={true}
         dimensions={{}}
         mediaClient={mediaClient}
         identifier={identifier || defaultIdentifier}
@@ -418,6 +419,62 @@ describe('<InlinePlayer />', () => {
     const inactivityDetector = component.find(InactivityDetector).instance();
     expect(component.find(CustomMediaPlayer).prop('showControls')).toBe(
       (inactivityDetector as any).checkMouseMovement,
+    );
+  });
+
+  describe('ProgressBar for video player', () => {
+    it('should render ProgressBar for а video that is being played when status is uploading', async () => {
+      const mediaClient = fakeMediaClient();
+      asMockReturnValue(
+        mediaClient.file.getFileState,
+        createFileStateSubject({
+          status: 'uploading',
+          preview: {
+            value: new Blob([], { type: 'video/mp4' }),
+          },
+          id: '',
+          mediaType: 'image',
+          mimeType: '',
+          name: '',
+          progress: 0,
+          size: 0,
+        }),
+      );
+      const { component } = setup({ mediaClient });
+      await update(component);
+      expect(component.find('ProgressBar').exists()).toBe(true);
+    });
+
+    it.each([
+      'loading',
+      'processing',
+      'loading-preview',
+      'complete',
+      'error',
+      'failed-processing',
+    ] as const)(
+      'should not render ProgressBar for а video that is being played when status is %s',
+      async (status: any) => {
+        const mediaClient = fakeMediaClient();
+        asMockReturnValue(
+          mediaClient.file.getFileState,
+          createFileStateSubject({
+            status,
+            preview: {
+              value: new Blob([], { type: 'video/mp4' }),
+            },
+            id: '',
+            mediaType: 'image',
+            mimeType: '',
+            name: '',
+            progress: 0,
+            size: 0,
+          }),
+        );
+        const { component } = setup({ mediaClient });
+        await update(component);
+        expect(component.find('ProgressBar').exists()).toBe(false);
+      },
     );
   });
 });

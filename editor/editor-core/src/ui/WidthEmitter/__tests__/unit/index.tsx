@@ -1,6 +1,6 @@
 import { mount } from 'enzyme';
 import React from 'react';
-import { WidthProvider } from '@atlaskit/editor-common';
+import { WidthProvider } from '@atlaskit/editor-common/ui';
 import WidthEmitter from '../../index';
 import { pluginKey as widthPluginKey } from '../../../../plugins/width';
 import { ContextPanelProvider } from '../../../ContextPanel/context';

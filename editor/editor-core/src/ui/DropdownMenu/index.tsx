@@ -5,7 +5,7 @@ import DropList from '@atlaskit/droplist';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import Item, { ItemGroup } from '@atlaskit/item';
 import Tooltip from '@atlaskit/tooltip';
-import { Popup } from '@atlaskit/editor-common';
+import { Popup } from '@atlaskit/editor-common/ui';
 import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
 import withOuterListeners from '../with-outer-listeners';
 import { Props, State } from './types';
@@ -65,7 +65,12 @@ export default class DropdownMenuWrapper extends PureComponent<Props, State> {
   };
 
   private renderItem(item: typeof Item) {
-    const { onItemActivated, onMouseEnter, onMouseLeave } = this.props;
+    const {
+      onItemActivated,
+      onMouseEnter,
+      onMouseLeave,
+      shouldUseDefaultRole,
+    } = this.props;
 
     // onClick and value.name are the action indicators in the handlers
     // If neither are present, don't wrap in an Item.
@@ -76,7 +81,7 @@ export default class DropdownMenuWrapper extends PureComponent<Props, State> {
     const dropListItem = (
       <ItemWrapper key={item.key || item.content} isSelected={item.isActive}>
         <Item
-          role="menuitem"
+          role={shouldUseDefaultRole ? 'button' : 'menuitem'}
           elemBefore={item.elemBefore}
           elemAfter={item.elemAfter}
           isDisabled={item.isDisabled}
@@ -84,7 +89,8 @@ export default class DropdownMenuWrapper extends PureComponent<Props, State> {
           onMouseEnter={() => onMouseEnter && onMouseEnter({ item })}
           onMouseLeave={() => onMouseLeave && onMouseLeave({ item })}
           className={item.className}
-          aria-label={String(item.content)}
+          aria-label={item.label || String(item.content)}
+          aria-pressed={shouldUseDefaultRole ? item.isActive : undefined}
         >
           <ItemContentWrapper hasElemBefore={!!item.elemBefore}>
             {item.content}
@@ -120,6 +126,7 @@ export default class DropdownMenuWrapper extends PureComponent<Props, State> {
       fitWidth,
       isOpen,
       zIndex,
+      shouldUseDefaultRole,
     } = this.props;
 
     return (
@@ -146,7 +153,10 @@ export default class DropdownMenuWrapper extends PureComponent<Props, State> {
         >
           <div style={{ height: 0, minWidth: fitWidth || 0 }} />
           {items.map((group, index) => (
-            <ItemGroup key={index} role="menu">
+            <ItemGroup
+              key={index}
+              role={shouldUseDefaultRole ? 'group' : 'menu'}
+            >
               {group.items.map((item) => this.renderItem(item))}
             </ItemGroup>
           ))}

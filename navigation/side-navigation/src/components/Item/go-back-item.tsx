@@ -14,10 +14,7 @@ const GoBackItem = forwardRef<HTMLElement, ButtonItemProps>(
     {
       cssFn,
       iconBefore = (
-        <LeftArrow
-          secondaryColor={token('color.background.default', N10)}
-          label=""
-        />
+        <LeftArrow secondaryColor={token('elevation.surface', N10)} label="" />
       ),
       onClick,
       isSelected,

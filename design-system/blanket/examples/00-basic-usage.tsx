@@ -14,10 +14,10 @@ import Blanket from '../src';
 const eventResultStyles = css({
   margin: '0.5em',
   padding: '0.5em',
-  borderColor: token('color.border.neutral', '#ccc'),
+  borderColor: token('color.border', '#ccc'),
   borderStyle: 'dashed',
   borderWidth: '1px',
-  color: token('color.text.lowEmphasis', '#ccc'),
+  color: token('color.text.subtlest', '#ccc'),
 });
 
 const LIGHT = 'light';

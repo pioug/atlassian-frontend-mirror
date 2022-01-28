@@ -6,7 +6,7 @@ import {
 } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 
-import { browser } from '@atlaskit/editor-common';
+import { browser } from '@atlaskit/editor-common/utils';
 
 import { Dispatch } from '../../../event-dispatcher';
 import { DispatchAnalyticsEvent } from '../../analytics';

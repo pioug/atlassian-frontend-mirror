@@ -34,7 +34,7 @@ export default function Example() {
               <Button appearance="link" onClick={closeModal}>
                 <CrossIcon
                   label="Close Modal"
-                  primaryColor={token('color.text.mediumEmphasis', N500)}
+                  primaryColor={token('color.text.subtle', N500)}
                 />
               </Button>
             </ModalHeader>

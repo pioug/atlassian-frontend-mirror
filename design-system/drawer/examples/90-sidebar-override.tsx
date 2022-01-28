@@ -20,7 +20,7 @@ const SidebarOverrideComponent: FC = ({ children }) => {
       style={{
         alignItems: 'center',
         boxSizing: 'border-box',
-        color: token('color.text.mediumEmphasis', N500),
+        color: token('color.text.subtle', N500),
         display: 'flex',
         flexShrink: 0,
         flexDirection: 'column',
@@ -28,7 +28,10 @@ const SidebarOverrideComponent: FC = ({ children }) => {
         paddingBottom: 16,
         paddingTop: 24,
         width: 64,
-        border: `3px dashed ${token('color.accent.boldTeal', 'teal')}`,
+        border: `3px dashed ${token(
+          'color.background.accent.teal.bold',
+          'teal',
+        )}`,
       }}
     >
       {children}

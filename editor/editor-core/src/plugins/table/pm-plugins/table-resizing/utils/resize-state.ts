@@ -1,10 +1,10 @@
 import { Node as PMNode } from 'prosemirror-model';
 
 import {
-  calcTableColumnWidths,
   tableCellMinWidth,
   tableNewColumnMinWidth,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-common/styles';
+import { calcTableColumnWidths } from '@atlaskit/editor-common/utils';
 import { Rect } from '@atlaskit/editor-tables/table-map';
 import { TableLayout } from '@atlaskit/adf-schema';
 import { hasTableBeenResized, insertColgroupFromNode } from './colgroup';

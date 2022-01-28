@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 
 import MoreIcon from '@atlaskit/icon/glyph/editor/more';
 
@@ -10,19 +10,18 @@ type MoreButtonProps = {
   isReducedSpacing: boolean;
   isSelected: boolean;
   isDisabled: boolean;
+  'aria-expanded': React.AriaAttributes['aria-expanded'];
   onClick?: () => void;
 };
 export const MoreButton: React.FC<MoreButtonProps> = React.memo(
-  ({ label, isReducedSpacing, isSelected, isDisabled, onClick }) => {
-    const more = useMemo(
-      () => (
-        <TriggerWrapper>
-          <MoreIcon label={label} />
-        </TriggerWrapper>
-      ),
-      [label],
-    );
-
+  ({
+    label,
+    'aria-expanded': ariaExpanded,
+    isReducedSpacing,
+    isSelected,
+    isDisabled,
+    onClick,
+  }) => {
     return (
       <ToolbarButton
         disabled={isDisabled}
@@ -30,7 +29,14 @@ export const MoreButton: React.FC<MoreButtonProps> = React.memo(
         onClick={onClick}
         spacing={isReducedSpacing ? 'none' : 'default'}
         title={label}
-        iconBefore={more}
+        iconBefore={
+          <TriggerWrapper>
+            <MoreIcon label="" />
+          </TriggerWrapper>
+        }
+        aria-expanded={ariaExpanded}
+        aria-label={label}
+        aria-haspopup
       />
     );
   },

@@ -16,6 +16,14 @@ export interface Props {
   selected?: boolean;
   disabled?: boolean;
   appearance?: ButtonAppearance;
+  ariaHasPopup?:
+    | boolean
+    | 'dialog'
+    | 'menu'
+    | 'listbox'
+    | 'tree'
+    | 'grid'
+    | undefined;
   href?: string;
   target?: string;
   children?: React.ReactNode;
@@ -44,6 +52,7 @@ export default ({
   tooltipContent,
   testId,
   hideTooltipOnClick = true,
+  ariaHasPopup,
 }: Props) => {
   // Check if there's only an icon and add additional styles
   const iconOnly = (icon || iconAfter) && !children;
@@ -75,11 +84,12 @@ export default ({
             };
           }}
           aria-label={title}
+          aria-pressed={selected}
           spacing={'compact'}
           href={href}
           target={target}
           appearance={appearance}
-          aria-haspopup={true}
+          aria-haspopup={ariaHasPopup}
           iconBefore={icon || undefined}
           iconAfter={iconAfter}
           onClick={onClick}

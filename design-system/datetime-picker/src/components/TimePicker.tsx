@@ -303,7 +303,7 @@ class TimePicker extends React.Component<TimePickerProps, State> {
       ? {
           border: `2px solid ${
             this.getSafeState().isFocused
-              ? token('color.border.focus', B100)
+              ? token('color.border.focused', B100)
               : `transparent`
           }`,
           backgroundColor: 'transparent',

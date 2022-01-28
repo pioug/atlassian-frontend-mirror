@@ -29,6 +29,9 @@ const getResolvedProps = (overrides = {}): EmbedCardResolvedViewProps => ({
   onClick: mockOnClick,
   ...overrides,
 });
+const MockIconElement = () => {
+  return <span data-testid="mock-icon-element" />;
+};
 
 describe('EmbedCard Views', () => {
   beforeEach(() => {
@@ -54,6 +57,36 @@ describe('EmbedCard Views', () => {
       expect(outerFrame.textContent).toBe('Smart Link Assets');
       expect(innerFrame).toBeTruthy();
       expect(innerFrame.getAttribute('src')).toBe(props.preview?.src);
+    });
+
+    it('renders icon when icon prop is a jsx element', async () => {
+      const props = getResolvedProps({
+        context: { icon: <MockIconElement /> },
+      });
+      const { getByTestId } = render(<EmbedCardResolvedView {...props} />);
+
+      expect(getByTestId('mock-icon-element')).toBeDefined();
+    });
+
+    it('renders correct icon when icon prop is a url string', async () => {
+      const props = getResolvedProps();
+      const { getByTestId } = render(<EmbedCardResolvedView {...props} />);
+      const embedCardResolved = getByTestId('embed-card-resolved-view');
+
+      expect(
+        embedCardResolved
+          .querySelector('.smart-link-icon')
+          ?.getAttribute('src'),
+      ).toBe(props.context!.icon);
+    });
+
+    it('renders fallback icon when icon prop is not a valid link or element', async () => {
+      const props = getResolvedProps({
+        context: { icon: 'src-error' },
+      });
+      const { getByTestId } = render(<EmbedCardResolvedView {...props} />);
+
+      expect(getByTestId('embed-card-fallback-icon')).toBeDefined();
     });
 
     it('should default to context text if title is missing', () => {

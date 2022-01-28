@@ -3,8 +3,14 @@ import {
   TransformBefore,
   TransformAfter,
 } from '@atlaskit/editor-common/extensions';
-import { ADFEntity } from '@atlaskit/adf-utils';
-import { Node as PMNode, NodeType, Fragment, Mark } from 'prosemirror-model';
+import { ADFEntity, ADFEntityMark } from '@atlaskit/adf-utils';
+import {
+  Node as PMNode,
+  NodeType,
+  Fragment,
+  Mark,
+  Schema as PMSchema,
+} from 'prosemirror-model';
 import type { EditorView } from 'prosemirror-view';
 import { NodeSelection } from 'prosemirror-state';
 import {
@@ -25,7 +31,7 @@ import {
   AnalyticsEventPayload,
 } from '../analytics';
 import { getNodeTypesReferenced, getDataConsumerMark } from './utils';
-import { setTextSelection } from 'prosemirror-utils';
+import { NodeWithPos, setTextSelection } from 'prosemirror-utils';
 
 interface EditInLegacyMacroBrowserArgs {
   view: EditorView;
@@ -75,32 +81,49 @@ const extensionAPICallPayload = (
 export const createExtensionAPI = (
   options: CreateExtensionAPIOptions,
 ): ExtensionAPI => {
-  const doc = {
+  /**
+   * Finds the node and its position by `localId`. Throws if the node could not be found.
+   *
+   * @returns {NodeWithPos}
+   */
+  const ensureNodePosByLocalId = (
+    localId: string,
+    { opName }: { opName: string },
+  ): NodeWithPos => {
+    // Be extra cautious since 3rd party devs can use regular JS without type safety
+    if (typeof localId !== 'string' || localId === '') {
+      throw new Error(`${opName}(): Invalid localId '${localId}'.`);
+    }
+
+    // Find the node + position matching the given ID
+    const {
+      editorView: { state },
+    } = options;
+    const nodePos = findNodePosWithLocalId(state, localId);
+
+    if (!nodePos) {
+      throw new Error(`${opName}(): Could not find node with ID '${localId}'.`);
+    }
+
+    return nodePos;
+  };
+
+  const doc: ExtensionAPI['doc'] = {
     insertAfter: (
       localId: string,
       adf: ADFEntity,
       opt?: { allowSelectionToNewNode?: boolean },
     ) => {
-      const { editorView } = options;
-      const { dispatch } = editorView;
-
-      // Be extra cautious since 3rd party devs can use regular JS without type safety
-      if (typeof localId !== 'string' || localId === '') {
-        throw new Error(`insertAfter(): Invalid localId '${localId}'.`);
-      }
       if (typeof adf !== 'object' || Array.isArray(adf)) {
         throw new Error(`insertAfter(): Invalid ADF given.`);
       }
 
-      // Find the node + position matching the given ID
-      const { state } = editorView;
-      const nodePos = findNodePosWithLocalId(state, localId);
+      const nodePos = ensureNodePosByLocalId(localId, {
+        opName: 'insertAfter',
+      });
 
-      if (!nodePos) {
-        throw new Error(
-          `insertAfter(): Could not find node with ID '${localId}'.`,
-        );
-      }
+      const { editorView } = options;
+      const { dispatch, state } = editorView;
 
       // Validate the given ADF
       const { tr, schema } = state;
@@ -184,33 +207,83 @@ export const createExtensionAPI = (
       dispatch(tr);
     },
     scrollTo: (localId: string) => {
-      const { editorView } = options;
-      const { dispatch } = editorView;
-
-      // Be extra cautious since 3rd party devs can use regular JS without type safety
-      if (typeof localId !== 'string' || localId === '') {
-        throw new Error(`scrollTo(): Invalid localId '${localId}'.`);
-      }
-
-      // Find the node + position matching the given ID
-      const { state } = editorView;
-      const nodePos = findNodePosWithLocalId(state, localId);
-
-      if (!nodePos) {
-        throw new Error(
-          `scrollTo(): Could not find node with ID '${localId}'.`,
-        );
-      }
+      const nodePos = ensureNodePosByLocalId(localId, { opName: 'scrollTo' });
 
       // Analytics - tracking the api call
       const apiCallPayload: AnalyticsEventPayload = extensionAPICallPayload(
         'scrollTo',
       );
 
+      const {
+        editorView: { dispatch, state },
+      } = options;
       let { tr } = state;
       tr = addAnalytics(state, tr, apiCallPayload);
       tr = setTextSelection(nodePos.pos)(tr);
       tr = tr.scrollIntoView();
+      dispatch(tr);
+    },
+    update: (localId, mutationCallback) => {
+      const { node, pos } = ensureNodePosByLocalId(localId, {
+        opName: 'update',
+      });
+
+      const {
+        editorView: { dispatch, state },
+      } = options;
+      const { tr, schema } = state;
+
+      const changedValues = mutationCallback({
+        attrs: node.attrs,
+        marks: node.marks.map((pmMark) => ({
+          type: pmMark.type.name,
+          attrs: pmMark.attrs,
+        })),
+      });
+
+      const ensureValidMark = (mark: ADFEntityMark) => {
+        if (typeof mark !== 'object' || Array.isArray(mark)) {
+          throw new Error(`update(): Invalid mark given.`);
+        }
+
+        // Ensure that the given mark is present in the schema
+        const markType = (schema as PMSchema).marks[mark.type];
+
+        if (!markType) {
+          throw new Error(`update(): Invalid ADF mark type '${mark.type}'.`);
+        }
+        if (!node.type.allowsMarkType(markType)) {
+          throw new Error(
+            `update(): Node of type '${node.type.name}' does not allow marks of type '${mark.type}'.`,
+          );
+        }
+
+        return { mark: markType, attrs: mark.attrs };
+      };
+
+      const newMarks = changedValues.marks
+        ?.map(ensureValidMark)
+        .map(({ mark, attrs }) => mark.create(attrs));
+
+      // Validate if the new attributes result in a valid node.
+      // We're doing this by relying on `createChecked`, which validates attributes,
+      // and if we don't exit - we assume validity.
+      try {
+        node.type.createChecked(changedValues.attrs, node.content, newMarks);
+      } catch (err) {
+        throw new Error(
+          `update(): The given ADFEntity cannot be inserted in the current position.\n${err}`,
+        );
+      }
+
+      tr.setNodeMarkup(pos, undefined, changedValues.attrs, newMarks);
+
+      // Analytics - tracking the api call
+      const apiCallPayload: AnalyticsEventPayload = extensionAPICallPayload(
+        'update',
+      );
+      addAnalytics(state, tr, apiCallPayload);
+
       dispatch(tr);
     },
   };

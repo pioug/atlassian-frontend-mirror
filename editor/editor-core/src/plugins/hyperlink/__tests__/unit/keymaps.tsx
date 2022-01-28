@@ -16,7 +16,7 @@ import {
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { HyperlinkState, InsertStatus, stateKey } from '../../pm-plugins/main';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { CardOptions } from '@atlaskit/editor-common';
+import { CardOptions } from '@atlaskit/editor-common/card';
 import analyticsPlugin from '../../../analytics';
 import hyperlinkPlugin from '../../index';
 import textFormattingPlugin from '../../../text-formatting';

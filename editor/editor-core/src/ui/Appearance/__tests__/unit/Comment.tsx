@@ -5,7 +5,7 @@ import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import Comment from '../../Comment';
 import { getDefaultMediaClientConfig } from '@atlaskit/media-test-helpers/fakeMediaClient';
-import { ProviderFactory } from '@atlaskit/editor-common';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { getMediaPluginState } from '../../../../plugins/media/pm-plugins/main';
 import { ReactWrapper } from 'enzyme';
 import EditorContext from '../../../EditorContext';

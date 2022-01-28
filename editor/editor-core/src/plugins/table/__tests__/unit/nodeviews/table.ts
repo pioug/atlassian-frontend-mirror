@@ -116,12 +116,23 @@ describe('table -> nodeviews -> table.tsx', () => {
           renderSpy = jest.spyOn(tableNodeView, 'render');
         });
 
-        it('does not rerender if attributes did not change', () => {
-          const newNodeWithUnchangedAttributes = createTableNode({
+        it('does not rerender if attributes or table width did not change', () => {
+          const newNodeWithUnchangedAttributesOrWidth = createTableNode({
             isNumberColumnEnabled: true,
-          })(tr(td()(p('{<>}text1')), tdEmpty));
-          tableNodeView.update(newNodeWithUnchangedAttributes, []);
+          })(tr(td()(p('{<>}text1')), tdEmpty, tdEmpty));
+          tableNodeView.update(newNodeWithUnchangedAttributesOrWidth, []);
           expect(renderSpy).not.toHaveBeenCalled();
+        });
+
+        it('rerenders when table width changes', () => {
+          const newNodeWithUnchangedAttributesAndExtraColumn = createTableNode({
+            isNumberColumnEnabled: true,
+          })(tr(td()(p('{<>}text1')), tdEmpty, tdEmpty, tdEmpty));
+          tableNodeView.update(
+            newNodeWithUnchangedAttributesAndExtraColumn,
+            [],
+          );
+          expect(renderSpy).toHaveBeenCalled();
         });
 
         it('rerenders when attributes change', () => {

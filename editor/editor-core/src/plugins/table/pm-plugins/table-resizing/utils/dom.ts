@@ -2,11 +2,11 @@ import { EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 
 import {
-  browser,
   tableCellBorderWidth,
   tableCellPadding,
   tableMarginTop,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-common/styles';
+import { browser } from '@atlaskit/editor-common/utils';
 
 import {
   closestElement,

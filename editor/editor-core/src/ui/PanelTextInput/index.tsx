@@ -2,7 +2,7 @@ import React from 'react';
 import { KeyboardEvent, PureComponent } from 'react';
 import { Input } from './styles';
 import { FocusEvent } from 'react';
-import { browser } from '@atlaskit/editor-common';
+import { browser } from '@atlaskit/editor-common/utils';
 
 export interface Props {
   autoFocus?: boolean | FocusOptions;
@@ -23,6 +23,11 @@ export interface Props {
   testId?: string;
   ariaLabel?: string;
   describedById?: string;
+  ariaExpanded?: boolean;
+  ariaActiveDescendant?: string;
+  ariaControls?: string;
+  role?: string;
+  ariaAutoComplete?: boolean;
 }
 
 export interface State {
@@ -78,10 +83,20 @@ export default class PanelTextInput extends PureComponent<Props, State> {
       testId,
       ariaLabel,
       describedById,
+      ariaActiveDescendant,
+      ariaControls,
+      ariaExpanded,
+      ariaAutoComplete,
+      role,
     } = this.props;
     const { value } = this.state;
     return (
       <Input
+        role={role}
+        aria-autocomplete={ariaAutoComplete ? 'list' : undefined}
+        aria-expanded={ariaExpanded}
+        aria-controls={ariaControls}
+        aria-activedescendant={ariaActiveDescendant}
         aria-describedby={describedById}
         data-testid={testId || ''}
         type="text"

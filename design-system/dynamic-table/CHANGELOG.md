@@ -1,5 +1,16 @@
 # @atlaskit/dynamic-table
 
+## 14.5.0
+
+### Minor Changes
+
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - Rows can now also be highlighted using the isHighlighted property inside the rows data
+
+### Patch Changes
+
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - Updates usage of deprecated token names so they're aligned with the latest naming conventions. No UI or visual changes
+- Updated dependencies
+
 ## 14.4.4
 
 ### Patch Changes

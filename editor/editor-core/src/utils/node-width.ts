@@ -1,7 +1,7 @@
 import { EditorState } from 'prosemirror-state';
 import { Node as PMNode, MarkType } from 'prosemirror-model';
 import { findParentNodeOfTypeClosestToPos } from 'prosemirror-utils';
-import { absoluteBreakoutWidth } from '@atlaskit/editor-common';
+import { absoluteBreakoutWidth } from '@atlaskit/editor-common/utils';
 import {
   akEditorFullWidthLayoutWidth,
   akLayoutGutterOffset,

@@ -3,7 +3,7 @@ import { EditorView } from 'prosemirror-view';
 
 import { uuid } from '@atlaskit/adf-schema';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { ProviderFactory } from '@atlaskit/editor-common';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import {
   blockquote,
@@ -18,6 +18,9 @@ import {
   taskItem,
   taskList,
   DocBuilder,
+  table,
+  tr,
+  td,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { compareSelection } from '@atlaskit/editor-test-helpers/selection';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
@@ -61,6 +64,7 @@ describe('tasks and decisions - commands', () => {
       editorProps: {
         allowAnalyticsGASV3: true,
         allowTasksAndDecisions: true,
+        allowTables: {},
         allowPanel: true,
         media: {},
       },
@@ -199,6 +203,42 @@ describe('tasks and decisions - commands', () => {
                 ),
               );
 
+              expect(editorView.state.doc).toEqualDocument(expectedDoc);
+              compareSelection(editorFactory, expectedDoc, editorView);
+            });
+          });
+
+          describe('when cursor is inside a table', () => {
+            it(`should position the cursor correctly after adding ${name}s `, () => {
+              ({ editorView } = editorFactory(
+                doc(table()(tr(td()(p('{<>}')), td()(p())))),
+              ));
+
+              // create new list
+              insertTaskDecisionCommand(listName);
+              let expectedDoc = doc(
+                table({ localId: 'local-uuid' })(
+                  tr(td()(list(listProps)(item(itemProps)('{<>}'))), td()(p())),
+                ),
+              );
+              expect(editorView.state.doc).toEqualDocument(expectedDoc);
+              compareSelection(editorFactory, expectedDoc, editorView);
+
+              // add item to existing list
+              insertTaskDecisionCommand(listName);
+              expectedDoc = doc(
+                table({ localId: 'local-uuid' })(
+                  tr(
+                    td()(
+                      list(listProps)(
+                        item(itemProps)(),
+                        item(itemProps)('{<>}'),
+                      ),
+                    ),
+                    td()(p()),
+                  ),
+                ),
+              );
               expect(editorView.state.doc).toEqualDocument(expectedDoc);
               compareSelection(editorFactory, expectedDoc, editorView);
             });

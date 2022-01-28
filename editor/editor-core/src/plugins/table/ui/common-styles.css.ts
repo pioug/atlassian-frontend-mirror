@@ -1,6 +1,6 @@
 import { css } from 'styled-components';
 
-import { tableMarginTop, tableSharedStyle } from '@atlaskit/editor-common';
+import { tableMarginTop, tableSharedStyle } from '@atlaskit/editor-common/styles';
 import { fontSize } from '@atlaskit/theme/constants';
 import { N40A, B300, N300, N20A, N0, R500 } from '@atlaskit/theme/colors';
 import {

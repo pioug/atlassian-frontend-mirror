@@ -42,6 +42,12 @@ export type ExtensionAPI<T extends Parameters = Parameters> = {
       },
     ) => void;
     scrollTo: (localId: string) => void;
+    update: (
+      localId: string,
+      mutationCallback: (
+        currentValue: Pick<ADFEntity, 'attrs' | 'marks'>,
+      ) => Pick<ADFEntity, 'attrs' | 'marks'>,
+    ) => void;
   };
 };
 

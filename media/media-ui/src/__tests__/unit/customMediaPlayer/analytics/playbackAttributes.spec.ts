@@ -16,7 +16,7 @@ const playbackState: PlaybackState = {
   isHDActive: true,
   isHDAvailable: true,
   isFullScreenEnabled: true,
-  isLargePlayer: false,
+  playerSize: 'large',
   playbackSpeed: 2,
 };
 
@@ -24,7 +24,7 @@ const playbackStateWithUndefined: PlaybackState = {
   isAutoPlay: true,
   isFullScreenEnabled: false,
   isHDAvailable: false,
-  isLargePlayer: true,
+  playerSize: 'large',
   playbackSpeed: 1,
 };
 
@@ -39,7 +39,7 @@ const playbackAttributes: PlaybackAttributes = {
   isHDActive: true,
   isHDAvailable: true,
   isFullScreenEnabled: true,
-  isLargePlayer: false,
+  playerSize: 'large',
   playbackSpeed: 2,
 };
 
@@ -53,7 +53,7 @@ describe('createPlaybackAttributes', () => {
       isAutoPlay: true,
       isFullScreenEnabled: false,
       isHDAvailable: false,
-      isLargePlayer: true,
+      playerSize: 'large',
       playbackSpeed: 1,
     });
   });

@@ -5,7 +5,7 @@ import {
   getResponseEndTime,
   startMeasure,
   stopMeasure,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-common/utils';
 import EditorActions from '../../../../../actions';
 import measurements from '../../../../../utils/performance/measure-enum';
 import { getNodesCount } from '../../../../../utils';

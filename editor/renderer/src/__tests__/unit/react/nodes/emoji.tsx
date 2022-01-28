@@ -2,7 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 
 import RendererEmoji from '../../../../react/nodes/emoji';
-import { Emoji } from '@atlaskit/editor-common';
+import { Emoji } from '@atlaskit/editor-common/emoji';
 
 describe('Emoji', () => {
   it('should render Emoji UI component', () => {

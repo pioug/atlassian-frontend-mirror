@@ -36,7 +36,7 @@ const invalidRules = {
     backgroundColorHover: componentTokens.defaultBackgroundColorHover.light,
     // ^--- the above values aren't used directly they remain because its exposed by the `textFieldColors` export
     backgroundColorFocus: componentTokens.defaultBackgroundColorFocus.light,
-    borderColor: token('color.iconBorder.danger', R400),
+    borderColor: token('color.border.danger', R400),
     borderColorFocus: componentTokens.defaultBorderColorFocus.light,
   },
   dark: {
@@ -45,7 +45,7 @@ const invalidRules = {
     backgroundColorHover: componentTokens.defaultBackgroundColorHover.dark,
     // ^--- the above values aren't used directly they remain because its exposed by the `textFieldColors` export
     backgroundColorFocus: componentTokens.defaultBackgroundColorFocus.dark,
-    borderColor: token('color.iconBorder.danger', R400),
+    borderColor: token('color.border.danger', R400),
     borderColorFocus: componentTokens.defaultBorderColorFocus.dark,
   },
 };

@@ -1,6 +1,6 @@
 import React from 'react';
 import ImageLoader from 'react-render-image';
-import { Icon } from '../Icon';
+import { Icon, Shimmer } from '../Icon';
 import {
   IconEmptyWrapper,
   IconPositionWrapper,
@@ -58,6 +58,7 @@ export class IconAndTitleLayout extends React.Component<
           />
         }
         errored={errored}
+        loading={<Shimmer data-testid={`${testId}-loading`} />}
       />
     );
   }

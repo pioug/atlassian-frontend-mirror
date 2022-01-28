@@ -1,6 +1,7 @@
 import { Node as PMNode } from 'prosemirror-model';
 import { EditorView, NodeView } from 'prosemirror-view';
-import { ProviderFactory, ErrorReporter } from '@atlaskit/editor-common';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import { ErrorReporter } from '@atlaskit/editor-common/utils';
 import { MediaState, CustomMediaPicker } from './types';
 import { getPosHandler } from '../../nodeviews/types';
 

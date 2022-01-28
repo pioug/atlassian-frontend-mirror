@@ -11,10 +11,11 @@ import { clickAreaClickHandler } from '../click-area-helper';
 const ClickWrapper = styled.div<{
   minHeight: number;
   persistScrollGutter?: boolean;
+  isExpanded?: boolean;
 }>`
   height: 100%;
   ${(props) =>
-    props.persistScrollGutter !== true && `min-height: ${props.minHeight}vh`}
+    props.isExpanded && props.minHeight && `min-height: ${props.minHeight}px`}
 `;
 ClickWrapper.displayName = 'ClickWrapper';
 
@@ -23,6 +24,7 @@ export interface Props {
   minHeight: number;
   children?: any;
   persistScrollGutter?: boolean;
+  isExpanded?: boolean;
 }
 
 /**
@@ -68,6 +70,7 @@ export default class ClickAreaMobile extends React.Component<Props> {
         persistScrollGutter={this.props.persistScrollGutter}
         onClick={this.handleClick}
         innerRef={this.clickElementRef}
+        isExpanded={this.props.isExpanded}
       >
         {this.props.children}
       </ClickWrapper>

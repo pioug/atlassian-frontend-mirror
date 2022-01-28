@@ -1,110 +1,127 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
-// import { DocNode } from '@atlaskit/adf-schema';
-import { ExtensionParams } from '@atlaskit/editor-common';
+import type { ExtensionManifest } from '@atlaskit/editor-common/extensions';
 
-// import { ExtensionLinkComponent } from './ExtensionLinkComponent';
-import { macroExtensionHandlerKey } from './constants';
-import {
-  InlineMacroComponent,
-  shouldRenderInline,
-} from './InlineMacroComponent';
-import { MacroFallbackComponent } from './MacroFallbackComponent';
-// const shouldRenderAsLink = (extensionKey: string) => {
-//   return [
-//     ExtensionKeys.GOOGLE_DOCS,
-//     ExtensionKeys.GOOGLE_SHEETS,
-//     ExtensionKeys.GOOGLE_SLIDES,
-//     ExtensionKeys.TRELLO_CARD,
-//     ExtensionKeys.TRELLO_BOARD,
-//   ].includes(extensionKey);
-// };
+import { ChartPlaceholder } from './ChartPlaceholder';
+import { MacroComponent, macroExtensionHandlerKey } from './MacroComponent';
 
-const withLegacyMobileMacros = <
-  P extends object,
+const chartExtensionType = 'com.atlassian.chart';
+const chartExtensionKey = 'chart';
+
+function getConfluenceMobileMacroManifests<
   createPromiseType extends Function,
   eventDispatcherType
 >(
-  Component: React.ComponentType<P>,
   createPromise: createPromiseType,
   eventDispatcher: eventDispatcherType,
-  enableLegacyMobileMacros?: boolean,
-): React.FC<P> => (props: P) => {
-  if (!enableLegacyMobileMacros) {
-    return <Component {...props} />;
-  }
-
-  const [macroWhitelist, setMacroWhitelist] = useState([]);
-
-  useEffect(() => {
-    createPromise('customConfigurationMacro')
-      .submit()
-      .then((result: any) => {
-        var resultObj = JSON.parse(JSON.stringify(result));
-        /*
-          The workaround below is for iOS
-          The returned from iOS is wrapped as an Object with the key being resultId:
-          {
-            "<request id>": {
-              "contentId": "...",
-              "macroWhiteList": []
-            }
+): Promise<ExtensionManifest[]> {
+  return createPromise('customConfigurationMacro')
+    .submit()
+    .then((result: any) => {
+      var resultObj = JSON.parse(JSON.stringify(result));
+      /*
+        The workaround below is for iOS
+        The returned from iOS is wrapped as an Object with the key being resultId:
+        {
+          "<request id>": {
+            "contentId": "...",
+            "legacyMacroManifests": { },
+            "renderStrategyMap": { }
           }
-          Since the value of the requestId is not a constant we take the value of the
-          first key in the result and pass it as the result Object.
-        */
-        // Format the object ony if there is no key called `macroWhitelist` in the result Object
-        if (
-          !('macroWhitelist' in resultObj) &&
-          Object.keys(resultObj).length > 0
-        ) {
-          const firstKey = Object.keys(resultObj)[0];
-          resultObj = resultObj[firstKey];
         }
+        Since the value of the requestId is not a constant we take the value of the
+        first key in the result and pass it as the result Object.
+      */
+      // Format the object ony if there is no key called `renderStrategyMap` in the result Object
+      const shouldExtractFirstKey =
+        !('renderingStrategyMap' in resultObj) &&
+        Object.keys(resultObj).length > 0;
+      if (shouldExtractFirstKey) {
+        const firstKey = Object.keys(resultObj)[0];
+        resultObj = resultObj[firstKey];
+      }
 
-        setMacroWhitelist(resultObj.macroWhitelist);
-      });
-  }, []);
-
-  // const nestedRender = (document: DocNode) => {
-  //   const params = {
-  //     ...props,
-  //     document,
-  //   };
-  //   return <Component {...params} />;
-  // };
-
-  const getMacroExtensionHandler = (otherProps: any) => {
-    return (extension: ExtensionParams<any>) =>
-      // NOTE: Rendering as link disabled until we can fix setContent overriding
-      //       nested renderer content
-      // shouldRenderAsLink(extension.extensionKey) ? (
-      //   <ExtensionLinkComponent extension={extension} render={nestedRender} />
-      // ) : (
-      shouldRenderInline(extension.extensionKey) ? (
-        <InlineMacroComponent extension={extension} {...otherProps} />
-      ) : (
-        <MacroFallbackComponent
-          extension={extension}
-          macroWhitelist={macroWhitelist}
-          createPromise={createPromise}
-          eventDispatcher={eventDispatcher}
-        />
+      let macroManifests = resultObj.legacyMacroManifests.macros.map(
+        (macro: any) => {
+          return {
+            title: macro.title,
+            type: macroExtensionHandlerKey,
+            key: macro.macroName,
+            description: macro.description,
+            icons: {
+              '48': () => import('@atlaskit/icon/glyph/editor/addon'),
+            },
+            modules: {
+              nodes: {
+                default: {
+                  type: 'extension',
+                  render: () => {
+                    return Promise.resolve(({ node }: { node: any }) => {
+                      return (
+                        <MacroComponent
+                          extension={node}
+                          renderingStrategy={
+                            resultObj.renderingStrategyMap?.[
+                              node.extensionType
+                            ]?.[node.extensionKey]
+                          }
+                          createPromise={createPromise}
+                          eventDispatcher={eventDispatcher}
+                        />
+                      );
+                    });
+                  },
+                },
+              },
+            },
+          };
+        },
       );
-  };
 
-  const getExtensionHandlers = (props: any) => {
-    return {
-      [macroExtensionHandlerKey]: getMacroExtensionHandler(props),
-    };
-  };
+      if (
+        resultObj.renderingStrategyMap?.[chartExtensionType]?.[
+          chartExtensionKey
+        ] === 'placeholder'
+      ) {
+        macroManifests.push(getChartPlaceholderManifest());
+      }
 
-  const params = {
-    ...props,
-    extensionHandlers: getExtensionHandlers(props),
-  };
+      return macroManifests;
+    });
+}
 
-  return <Component {...params} />;
+function getChartPlaceholderManifest(): ExtensionManifest {
+  return {
+    title: 'Chart Placeholder',
+    type: chartExtensionType,
+    key: chartExtensionKey,
+    description:
+      'Placeholder for the chart extension until it can be fully supported on mobile',
+    icons: {
+      '48': () => import('@atlaskit/icon/glyph/editor/addon'),
+    },
+    modules: {
+      nodes: {
+        default: {
+          type: 'extension',
+          render: () =>
+            Promise.resolve(({ node }: { node: any }) => {
+              return <ChartPlaceholder />;
+            }),
+        },
+      },
+    },
+  };
+}
+
+export {
+  getConfluenceMobileMacroManifests,
+  MacroComponent,
+  macroExtensionHandlerKey,
 };
 
-export { withLegacyMobileMacros };
+export {
+  InlineMacroComponent,
+  MacroFallbackCard,
+  MacroFallbackComponent,
+} from './MacroComponent';

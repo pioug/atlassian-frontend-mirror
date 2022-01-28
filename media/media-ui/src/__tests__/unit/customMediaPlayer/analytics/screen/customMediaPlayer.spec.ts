@@ -10,7 +10,7 @@ describe('createCustomMediaPlayerScreenEvent', () => {
           isHDActive: false,
           isAutoPlay: true,
           isFullScreenEnabled: false,
-          isLargePlayer: true,
+          playerSize: 'large',
           playbackSpeed: 1,
         },
         'file-id',
@@ -27,7 +27,7 @@ describe('createCustomMediaPlayerScreenEvent', () => {
           isHDActive: false,
           isAutoPlay: true,
           isFullScreenEnabled: false,
-          isLargePlayer: true,
+          playerSize: 'large',
           playbackSpeed: 1,
         },
         fileAttributes: {

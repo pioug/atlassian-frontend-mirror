@@ -1,6 +1,9 @@
 import React, { useCallback, forwardRef } from 'react';
 import Button from '@atlaskit/button/custom-theme-button';
-import { expandMessages, ExpandLayoutWrapper } from '@atlaskit/editor-common';
+import {
+  expandMessages,
+  ExpandLayoutWrapper,
+} from '@atlaskit/editor-common/ui';
 import { akEditorSwoopCubicBezier } from '@atlaskit/editor-shared-styles';
 import ChevronRightIcon from '@atlaskit/icon/glyph/chevron-right';
 import Tooltip from '@atlaskit/tooltip';

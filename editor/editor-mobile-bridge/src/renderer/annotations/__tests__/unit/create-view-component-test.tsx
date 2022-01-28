@@ -1,5 +1,5 @@
 import React from 'react';
-import { InlineCommentViewComponentProps } from '@atlaskit/editor-common';
+import { InlineCommentViewComponentProps } from '@atlaskit/editor-common/types';
 import { render, unmountComponentAtNode } from 'react-dom';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
 import { nativeBridgeAPI as webToNativeBridgeAPI } from '../../../web-to-native/implementation';

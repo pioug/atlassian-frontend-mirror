@@ -46,14 +46,12 @@ import { MediaSingleDefinition as MediaSingle } from './media-single';
 import { DecisionListDefinition as DecisionList } from './decision-list';
 import { TaskListDefinition as TaskList } from './task-list';
 // eslint-disable-next-line import/no-cycle
-import {
-  ExtensionDefinition as Extension,
-  ExtensionWithMarksDefinition as ExtensionWithMarks,
-} from './extension';
+import { ExtensionDefinition as Extension } from './extension';
 import { BlockCardDefinition as BlockCard } from './block-card';
 import { EmbedCardDefinition as EmbedCard } from './embed-card';
 import { NestedExpandDefinition as NestedExpand } from './nested-expand';
 import { uuid } from '../../utils/uuid';
+import { FragmentDefinition } from '../marks/fragment';
 
 export type { CellAttributes };
 export const tablePrefixSelector = 'pm-table';
@@ -211,6 +209,7 @@ export interface TableDefinition {
    * @minItems 1
    */
   content: Array<TableRow>;
+  marks?: Array<FragmentDefinition>;
 }
 
 /**
@@ -242,7 +241,6 @@ export type TableCellContent = Array<
   | DecisionList
   | TaskList
   | Extension
-  | ExtensionWithMarks
   | BlockCard
   | NestedExpand
   | EmbedCard

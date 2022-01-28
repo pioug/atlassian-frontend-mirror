@@ -1,6 +1,6 @@
 import { css } from 'styled-components';
 
-import { MentionSharedCssClassName } from '@atlaskit/editor-common';
+import { MentionSharedCssClassName } from '@atlaskit/editor-common/mention';
 import {
   SelectionStyle,
   getSelectionStyles,

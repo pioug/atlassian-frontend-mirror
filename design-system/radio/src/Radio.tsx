@@ -42,11 +42,11 @@ const labelStyles = css({
 });
 
 const lightLabelStyles = css({
-  color: token('color.text.highEmphasis', N900),
+  color: token('color.text', N900),
 });
 
 const darkLabelStyles = css({
-  color: token('color.text.highEmphasis', DN600),
+  color: token('color.text', DN600),
 });
 
 const radioStyles = css({

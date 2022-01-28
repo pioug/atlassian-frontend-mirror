@@ -2,24 +2,28 @@ import React from 'react';
 
 import { render } from '@testing-library/react';
 
-import { MacroCard } from '../../src/ui/MacroFallbackComponent/MacroFallbackCard';
+import { MacroFallbackCard } from '../../src/ui';
 
 import { macrosTestProps } from './props.mock';
 
-describe('MacroCard', () => {
+describe('MacroFallbackCard', () => {
   it('should render macroName', () => {
-    const { getByText } = render(<MacroCard {...macrosTestProps.default} />);
+    const { getByText } = render(
+      <MacroFallbackCard {...macrosTestProps.default} />,
+    );
     expect(getByText(macrosTestProps.default.macroName)).toBeTruthy();
   });
 
   it('should show error message if exists', () => {
-    const { getByText } = render(<MacroCard {...macrosTestProps.error} />);
+    const { getByText } = render(
+      <MacroFallbackCard {...macrosTestProps.error} />,
+    );
     expect(getByText(macrosTestProps.error.errorMessage)).toBeTruthy();
   });
 
   it("shouldn't show error message while loading", () => {
     const { queryByText } = render(
-      <MacroCard {...macrosTestProps.loadingError} />,
+      <MacroFallbackCard {...macrosTestProps.loadingError} />,
     );
     expect(queryByText(macrosTestProps.loadingError.errorMessage)).toBeNull();
   });

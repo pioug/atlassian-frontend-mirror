@@ -12,6 +12,7 @@ const getInitialState = (): MobileDimensionsPluginState => ({
   keyboardHeight: -1,
   mobilePaddingTop: 0,
   windowHeight: window.innerHeight,
+  isExpanded: false,
 });
 
 /**
@@ -26,6 +27,10 @@ const createPlugin = (dispatch: Dispatch) => {
     key: mobileDimensionsPluginKey,
     view(editorView) {
       const handleResize = () => {
+        if (rafId) {
+          window.cancelAnimationFrame(rafId);
+        }
+
         let windowInnerHeight = window.innerHeight;
         let count = 0;
 
@@ -43,8 +48,13 @@ const createPlugin = (dispatch: Dispatch) => {
             } else {
               rafId = requestAnimationFrame(checkWindowHeight);
             }
+          } else {
+            rafId = requestAnimationFrame(checkWindowHeight);
           }
+
+          windowInnerHeight = window.innerHeight;
         };
+
         rafId = requestAnimationFrame(checkWindowHeight);
       };
       // the window will resize on Android when the keyboard shows/hides

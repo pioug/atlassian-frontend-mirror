@@ -16,7 +16,9 @@ export enum PanelType {
 }
 export interface PanelAttributes {
   panelType: PanelType;
-  panelIcon?: string;
+  panelIcon?: string; // To identify emojis by shortName
+  panelIconId?: string; // To uniquely identify emojis by id
+  panelIconText?: string; // falling back to Unicode representation of standard emojis when image representation cannot be loaded
   panelColor?: string;
 }
 
@@ -44,6 +46,8 @@ type NodeSpecAttributes = {
 type ParseDOMAttrs = {
   panelType: string;
   panelIcon?: string;
+  panelIconId?: string;
+  panelIconText?: string;
   panelColor?: string;
 };
 
@@ -51,6 +55,8 @@ const getDefaultAttrs = (): NodeSpecAttributes => {
   let attrs: NodeSpecAttributes = {
     panelType: { default: 'info' },
     panelIcon: { default: null },
+    panelIconId: { default: null },
+    panelIconText: { default: null },
     panelColor: { default: null },
   };
 
@@ -61,6 +67,8 @@ const getDomAttrs = (nodeAttrs: { [key: string]: any }): DOMAttributes => {
   let attrs: DOMAttributes = {
     'data-panel-type': nodeAttrs.panelType,
     'data-panel-icon': nodeAttrs.panelIcon,
+    'data-panel-icon-id': nodeAttrs.panelIconId,
+    'data-panel-icon-text': nodeAttrs.panelIconText,
     'data-panel-color': nodeAttrs.panelColor,
   };
 
@@ -79,6 +87,8 @@ const getParseDOMAttrs = (
     parseDOMAttrs = {
       ...parseDOMAttrs,
       panelIcon: (dom as HTMLElement).getAttribute('data-panel-icon')!,
+      panelIconId: (dom as HTMLElement).getAttribute('data-panel-icon-id')!,
+      panelIconText: (dom as HTMLElement).getAttribute('data-panel-icon-text')!,
       panelColor: (dom as HTMLElement).getAttribute('data-panel-color')!,
     };
   } else {

@@ -1,7 +1,7 @@
 import prettier from 'prettier';
 import type { Format } from 'style-dictionary';
 
-import { customPropertyKey } from './utils/custom-property';
+import { getTokenId } from '../utils/token-ids';
 
 const formatter: Format['formatter'] = ({ dictionary }) => {
   const activeTokens: string[] = [];
@@ -12,7 +12,7 @@ const formatter: Format['formatter'] = ({ dictionary }) => {
         token.attributes?.group !== 'palette' &&
         token.attributes?.state === 'active',
     )
-    .forEach((token) => activeTokens.push(customPropertyKey(token.path)));
+    .forEach((token) => activeTokens.push(getTokenId(token.path)));
 
   const activeTokenType = activeTokens
     .map((value) => ` | '${value}'`)

@@ -163,7 +163,7 @@ describe('@atlaskit/editor-core/ui/Toolbar', () => {
       );
       const moreButton = getByLabelText('More formatting');
       fireEvent.click(moreButton);
-      expect(getByRole('menu')).toBeInTheDocument();
+      expect(getByRole('group')).toBeInTheDocument();
     });
 
     it('should show six buttons inside more button group', () => {
@@ -182,8 +182,8 @@ describe('@atlaskit/editor-core/ui/Toolbar', () => {
       );
       const moreButton = getByLabelText('More formatting');
       fireEvent.click(moreButton);
-      const group = getByRole('menu');
-      expect(within(group).getAllByRole('menuitem')).toHaveLength(6);
+      const group = getByRole('group');
+      expect(within(group).getAllByRole('button')).toHaveLength(6);
     });
 
     describe('when formatting is not allowed', () => {
@@ -236,7 +236,7 @@ describe('@atlaskit/editor-core/ui/Toolbar', () => {
           );
           const moreButton = getByLabelText('More formatting');
           fireEvent.click(moreButton);
-          const group = getByRole('menu');
+          const group = getByRole('group');
           const button = within(group).getByLabelText(buttonName);
 
           expect(button).toHaveAttribute('aria-disabled', 'true');
@@ -267,7 +267,7 @@ describe('@atlaskit/editor-core/ui/Toolbar', () => {
       );
       const moreButton = getByLabelText('More formatting');
       fireEvent.click(moreButton);
-      const group = getByRole('menu');
+      const group = getByRole('group');
       expect(within(group).getByLabelText(buttonName)).toBeInTheDocument();
     });
 
@@ -297,7 +297,7 @@ describe('@atlaskit/editor-core/ui/Toolbar', () => {
         const moreButton = getByLabelText('More formatting');
         fireEvent.click(moreButton);
 
-        const group = getByRole('menu');
+        const group = getByRole('group');
         const commandButton = within(group).getByLabelText(buttonName);
         fireEvent.click(commandButton);
 
@@ -366,7 +366,7 @@ describe('@atlaskit/editor-core/ui/Toolbar', () => {
         const moreButton = getByLabelText('More formatting');
         fireEvent.click(moreButton);
 
-        const group = getByRole('menu');
+        const group = getByRole('group');
         const commandButton = within(group).getByLabelText(buttonName);
         fireEvent.click(commandButton);
 
@@ -402,7 +402,7 @@ describe('@atlaskit/editor-core/ui/Toolbar', () => {
       const moreButton = getByLabelText('More formatting');
       fireEvent.click(moreButton);
 
-      const group = getByRole('menu');
+      const group = getByRole('group');
       const commandButton = within(group).getByLabelText('Clear formatting');
       fireEvent.click(commandButton);
 

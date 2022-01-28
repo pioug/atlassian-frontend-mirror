@@ -6,8 +6,6 @@ import {
 } from './types';
 import { JsonLd } from 'json-ld-types';
 
-const NON_TENANT_API_ENDPOINT =
-  'https://api-private.stg.atlassian.com/object-resolver';
 const TENANT_HOST_REGEX = [
   /^https:\/\/([^\.]*\.)*atl-paas\.net/,
   /^https:\/\/([^\.]*\.)*atlassian\.net/,
@@ -27,7 +25,10 @@ export class ForgeClient {
         return `${window.location.origin}/gateway/api/object-resolver`;
       }
     }
-    return NON_TENANT_API_ENDPOINT;
+
+    // MEX-946: as we've planned to remove this feature part of MEX-1099 and it's unshipped,
+    // let's not support that use case
+    throw new Error("Non-tenanted API isn't supported");
   }
 
   public async invokeProvider(

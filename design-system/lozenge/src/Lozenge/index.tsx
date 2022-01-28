@@ -69,63 +69,63 @@ export interface LozengeProps {
 }
 
 const defaultAppearanceStyles = css({
-  backgroundColor: token('color.background.subtleNeutral.resting', N40),
-  color: token('color.text.highEmphasis', N500),
+  backgroundColor: token('color.background.neutral', N40),
+  color: token('color.text', N500),
 });
 
 const inprogressAppearanceStyles = css({
-  backgroundColor: token('color.background.subtleBrand.resting', B50),
+  backgroundColor: token('color.background.brand', B50),
   color: token('color.text.brand', B500),
 });
 
 const movedAppearanceStyles = css({
-  backgroundColor: token('color.background.subtleWarning.resting', Y75),
+  backgroundColor: token('color.background.warning', Y75),
   color: token('color.text.warning', N800),
 });
 
 const newAppearanceStyles = css({
-  backgroundColor: token('color.background.subtleDiscovery.resting', P50),
+  backgroundColor: token('color.background.discovery', P50),
   color: token('color.text.discovery', P500),
 });
 
 const removedAppearanceStyles = css({
-  backgroundColor: token('color.background.subtleDanger.resting', R50),
+  backgroundColor: token('color.background.danger', R50),
   color: token('color.text.danger', R500),
 });
 
 const successAppearanceStyles = css({
-  backgroundColor: token('color.background.subtleSuccess.resting', G50),
+  backgroundColor: token('color.background.success', G50),
   color: token('color.text.success', G500),
 });
 
 const defaultBoldAppearanceStyles = css({
-  backgroundColor: token('color.background.boldNeutral.resting', N500),
-  color: token('color.text.onBold', N0),
+  backgroundColor: token('color.background.neutral.bold', N500),
+  color: token('color.text.inverse', N0),
 });
 
 const inprogressBoldAppearanceStyles = css({
-  backgroundColor: token('color.background.boldBrand.resting', B400),
-  color: token('color.text.onBold', N0),
+  backgroundColor: token('color.background.brand.bold', B400),
+  color: token('color.text.inverse', N0),
 });
 
 const movedBoldAppearanceStyles = css({
-  backgroundColor: token('color.background.boldWarning.resting', Y500),
-  color: token('color.text.onBoldWarning', N800),
+  backgroundColor: token('color.background.warning.bold', Y500),
+  color: token('color.text.warning.inverse', N800),
 });
 
 const newBoldAppearanceStyles = css({
-  backgroundColor: token('color.background.boldDiscovery.resting', P400),
-  color: token('color.text.onBold', N0),
+  backgroundColor: token('color.background.discovery.bold', P400),
+  color: token('color.text.inverse', N0),
 });
 
 const removedBoldAppearanceStyles = css({
-  backgroundColor: token('color.background.boldDanger.resting', R400),
-  color: token('color.text.onBold', N0),
+  backgroundColor: token('color.background.danger.bold', R400),
+  color: token('color.text.inverse', N0),
 });
 
 const successBoldAppearanceStyles = css({
-  backgroundColor: token('color.background.boldSuccess.resting', G400),
-  color: token('color.text.onBold', N0),
+  backgroundColor: token('color.background.success.bold', G400),
+  color: token('color.text.inverse', N0),
 });
 
 const subtleAppearances: Record<ThemeAppearance, SerializedStyles> = {

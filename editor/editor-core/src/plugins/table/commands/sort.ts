@@ -11,7 +11,7 @@ import {
 } from '@atlaskit/editor-tables/utils';
 
 import { CardAttributes, UrlType } from '@atlaskit/adf-schema';
-import { createCompareNodes } from '@atlaskit/editor-common';
+import { createCompareNodes } from '@atlaskit/editor-common/utils';
 
 import { Command } from '../../../types';
 import { pluginKey } from '../../card/pm-plugins/main';

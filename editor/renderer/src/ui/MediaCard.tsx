@@ -21,11 +21,9 @@ import {
   FileState,
 } from '@atlaskit/media-client';
 import { MediaType } from '@atlaskit/adf-schema';
-import {
-  withImageLoader,
-  ImageStatus,
-  ContextIdentifierProvider,
-} from '@atlaskit/editor-common';
+import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
+import { withImageLoader } from '@atlaskit/editor-common/utils';
+import type { ImageStatus } from '@atlaskit/editor-common/utils';
 import { MediaFeatureFlags } from '@atlaskit/media-common';
 import { RendererAppearance } from './Renderer/types';
 import { RendererContext } from '../react/types';

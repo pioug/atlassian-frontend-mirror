@@ -2,8 +2,8 @@ import type { ThemeModes } from '@atlaskit/theme/types';
 import { token } from '@atlaskit/tokens';
 
 const themedBackground = {
-  light: token('color.background.default', '#FFFFFF'),
-  dark: token('color.background.default', '#1B2638'),
+  light: token('elevation.surface', '#FFFFFF'),
+  dark: token('elevation.surface', '#1B2638'),
 } as const;
 
 /**

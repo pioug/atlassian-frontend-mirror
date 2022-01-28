@@ -20,8 +20,8 @@ interface AvatarImageProps {
   testId?: string;
 }
 
-export const ICON_BACKGROUND = token('color.text.onBold', background());
-export const ICON_COLOR = token('color.text.lowEmphasis', N90);
+export const ICON_BACKGROUND = token('color.text.inverse', background());
+export const ICON_COLOR = token('color.text.subtlest', N90);
 
 const avatarImageStyles = css({
   display: 'block',

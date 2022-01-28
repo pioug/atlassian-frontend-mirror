@@ -17,7 +17,7 @@ import {
 } from '../analytics';
 import { findPanel } from './utils';
 import { PanelOptions } from './pm-plugins/main';
-import { getPanelTypeBackground } from '@atlaskit/editor-common';
+import { getPanelTypeBackground } from '@atlaskit/editor-common/styles';
 
 export type DomAtPos = (pos: number) => { node: HTMLElement; offset: number };
 
@@ -73,14 +73,20 @@ export const changePanelType = (
     let previousColor =
       panelNode.node.attrs.panelColor || getPanelTypeBackground(previousType);
     let previousIcon = panelNode.node.attrs.panelIcon;
+    let previousIconId = panelNode.node.attrs.panelIconId;
+    let previousIconText = panelNode.node.attrs.panelIconText;
     let newPanelOptions: PanelOptions = {
       color: previousColor,
       emoji: previousIcon,
+      emojiId: previousIconId,
+      emojiText: previousIconText,
       ...panelOptions,
     };
 
     newTr = tr.setNodeMarkup(panelNode.pos, nodes.panel, {
       panelIcon: newPanelOptions.emoji,
+      panelIconId: newPanelOptions.emojiId,
+      panelIconText: newPanelOptions.emojiText,
       panelColor: newPanelOptions.color,
       panelType,
     });

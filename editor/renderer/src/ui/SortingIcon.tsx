@@ -1,10 +1,10 @@
 import React from 'react';
 
 import styled from 'styled-components';
-import { SortOrder } from '@atlaskit/editor-common';
 import Tooltip from '@atlaskit/tooltip';
 import { gridSize } from '@atlaskit/theme/constants';
 import { N20, N30 } from '@atlaskit/theme/colors';
+import { SortOrder } from '@atlaskit/editor-common/types';
 
 // We use data url here because of this issue:
 // https://product-fabric.atlassian.net/browse/ED-8001

@@ -4,7 +4,7 @@ import { Node as PMNode } from 'prosemirror-model';
 import { EditorView } from 'prosemirror-view';
 
 import { isSafeUrl } from '@atlaskit/adf-schema';
-import { ProviderFactory } from '@atlaskit/editor-common';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import {
   Context as SmartCardContext,
   APIError,

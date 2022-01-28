@@ -3,7 +3,7 @@ import { THEME_MODES } from '@atlaskit/theme/constants';
 import { initRendererWithADF, snapshot } from './_utils';
 import * as placeholderAdf from './__fixtures__/placeholder.adf.json';
 import { selectors } from '../__helpers/page-objects/_placeholder';
-import { getModeFromTheme } from '@atlaskit/editor-common';
+import { getModeFromTheme } from '@atlaskit/editor-common/utils';
 
 describe('Snapshot Test: Placeholder', () => {
   let page: PuppeteerPage;

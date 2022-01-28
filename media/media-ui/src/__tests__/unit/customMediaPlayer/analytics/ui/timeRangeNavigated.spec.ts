@@ -14,7 +14,7 @@ describe('createTimeRangeNavigatedEvent', () => {
     isLoading: false,
     isAutoPlay: true,
     isFullScreenEnabled: false,
-    isLargePlayer: true,
+    playerSize: 'large',
     playbackSpeed: 1,
   };
 
@@ -42,7 +42,7 @@ describe('createTimeRangeNavigatedEvent', () => {
           isMuted: false,
           isAutoPlay: true,
           isFullScreenEnabled: false,
-          isLargePlayer: true,
+          playerSize: 'large',
           playbackSpeed: 1,
         },
         fileAttributes: {

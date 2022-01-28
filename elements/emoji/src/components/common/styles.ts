@@ -137,7 +137,6 @@ export const name = 'emoji-common-name';
 export const shortName = 'emoji-common-shortname';
 export const previewSingleLine = 'emoji-common-preview-single-line';
 export const toneSelectorContainer = 'emoji-common-tone-selector-container';
-export const withToneSelector = 'emoji-common-with-tone-selector';
 export const emojiPreviewSection = 'emoji-preview-section';
 
 export const emojiPreview = style({
@@ -200,7 +199,7 @@ export const emojiPreview = style({
           $nest: {
             [`.${name}`]: {
               display: 'block',
-              color: token('color.text.highEmphasis', colors.N900),
+              color: token('color.text', colors.N900),
               overflow: 'hidden',
               textOverflow: 'ellipsis',
               whiteSpace: 'nowrap',
@@ -214,7 +213,7 @@ export const emojiPreview = style({
 
             [`.${shortName}`]: {
               display: 'block',
-              color: token('color.text.mediumEmphasis', colors.N200),
+              color: token('color.text.subtle', colors.N200),
               fontSize: '12px',
               lineHeight: 1,
               marginBottom: '-2px',
@@ -235,7 +234,7 @@ export const emojiPreview = style({
             },
 
             [`.${shortName}`]: {
-              color: token('color.text.highEmphasis', colors.N900),
+              color: token('color.text', colors.N900),
               fontSize: '14px',
             },
           },
@@ -243,30 +242,24 @@ export const emojiPreview = style({
       },
     },
 
-    [`.${buttons}`]: {
-      flex: 1,
-      textAlign: 'right',
-      margin: '6px',
-    },
-
-    [`.${toneSelectorContainer}`]: {
-      flex: 1,
-      display: 'flex',
-      justifyContent: 'flex-end',
-      margin: '6px',
-    },
-
-    [`.${withToneSelector} .${previewText}`]: {
+    [`.${previewText}`]: {
       maxWidth: '235px',
       width: '235px' /* IE */,
     },
   },
 });
 
+export const emojiToneSelectorContainer = style({
+  flex: 1,
+  display: 'flex',
+  justifyContent: 'flex-end',
+  padding: '8px 10px 8px 0',
+});
+
 // Scrollable
 
 export const emojiScrollable = style({
-  border: `1px solid ${token('color.border.neutral', '#fff')}`,
+  border: `1px solid ${token('color.border', '#fff')}`,
   borderRadius: `${borderRadius()}px`,
   display: 'block',
   margin: '0',
@@ -286,7 +279,7 @@ export const emojiUpload = style({
 });
 
 export const uploadChooseFileMessage = style({
-  color: token('color.text.mediumEmphasis', colors.N300),
+  color: token('color.text.subtle', colors.N300),
   fontSize: '12px',
   paddingBottom: '7px',
 });
@@ -336,7 +329,7 @@ export const uploadPreview = style({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
-  background: token('color.background.subtleNeutral.resting', colors.N20),
+  background: token('color.background.neutral', colors.N20),
   borderRadius: `${borderRadius()}px`,
   padding: '10px',
 });
@@ -344,7 +337,7 @@ export const uploadPreview = style({
 export const uploadPreviewText = style({
   $nest: {
     h5: {
-      color: token('color.text.mediumEmphasis', colors.N300),
+      color: token('color.text.subtle', colors.N300),
       paddingBottom: '4px',
       fontSize: '12px',
     },
@@ -375,6 +368,7 @@ export const uploadAddRow = style({
 export const AddCustomEmoji = style({
   alignSelf: 'center',
   marginLeft: '10px',
+  marginBottom: '10px',
 });
 
 // Emoji Delete preview
@@ -389,15 +383,15 @@ export const deletePreview = style({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'flex-end',
-  fontSize: '12px',
 });
 
 export const deleteText = style({
   height: '64px',
+  fontSize: '12px',
 
   $nest: {
     ':first-child': {
-      color: token('color.text.mediumEmphasis', colors.N300),
+      color: token('color.text.subtle', colors.N300),
       lineHeight: '16px',
     },
   },

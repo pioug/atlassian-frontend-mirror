@@ -1,25 +1,17 @@
 import prettier from 'prettier';
 import type { Format } from 'style-dictionary';
 
-import {
-  customPropertyKey,
-  customPropertyValue,
-} from './utils/custom-property';
+import { getCSSCustomPropertyId, getTokenId } from '../utils/token-ids';
 
 const formatter: Format['formatter'] = ({ dictionary }) => {
   const tokens: Record<string, string> = {};
 
-  dictionary.allTokens.forEach((token) => {
-    if (token.attributes && token.attributes.group === 'palette') {
-      // Ignore palette tokens.
-      return;
-    }
-
-    // We found a named token!
-    const tokenName = customPropertyKey(token.path);
-    const tokenMappedName = customPropertyValue(token.path);
-    tokens[tokenName] = tokenMappedName;
-  });
+  dictionary.allTokens
+    .filter((token) => token.attributes?.group !== 'palette')
+    .forEach((token) => {
+      const tokenName = getTokenId(token.path);
+      tokens[tokenName] = getCSSCustomPropertyId(token.path);
+    });
 
   const tokensKeyValues = Object.keys(tokens)
     .map((name) => `  '${name}': '--${tokens[name]}',`)

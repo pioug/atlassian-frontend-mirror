@@ -5,7 +5,7 @@ import { splitText, calcTextSplitOffset } from './text';
 import { calcInsertDraftPositionOnText } from './position';
 import { dataAttributes } from './dom';
 import styled from 'styled-components';
-import { AnnotationSharedCSSByState } from '@atlaskit/editor-common';
+import { AnnotationSharedCSSByState } from '@atlaskit/editor-common/styles';
 
 const DraftAnnotation = styled.mark`
   color: inherit;

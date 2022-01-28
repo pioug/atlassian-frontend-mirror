@@ -14,8 +14,8 @@ import { token } from '@atlaskit/tokens';
 import Spinner from '../src';
 
 const grid: number = gridSize();
-const dark: string = token('color.text.highEmphasis', N500);
-const light: string = token('color.text.highEmphasis', N0);
+const dark: string = token('color.text', N500);
+const light: string = token('color.text', N0);
 
 const container = css`
   width: 100px;

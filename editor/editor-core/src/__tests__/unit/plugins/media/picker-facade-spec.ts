@@ -7,7 +7,7 @@ import {
 import { MediaError, MediaFile, Popup } from '@atlaskit/media-picker/types';
 
 import PickerFacade from '../../../../plugins/media/picker-facade';
-import { ErrorReportingHandler } from '@atlaskit/editor-common';
+import type { ErrorReportingHandler } from '@atlaskit/editor-common/utils';
 
 describe('Media PickerFacade', () => {
   const errorReporter: ErrorReportingHandler = {

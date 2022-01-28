@@ -1,6 +1,6 @@
 import React from 'react';
 import { PureComponent } from 'react';
-import { Popup } from '@atlaskit/editor-common';
+import { Popup } from '@atlaskit/editor-common/ui';
 import { Container } from './styles';
 
 export type Coordinates = {

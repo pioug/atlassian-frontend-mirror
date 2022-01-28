@@ -25,7 +25,6 @@ export class FullPageEditor extends React.Component<
   static displayName = 'FullPageEditor';
   private scrollContainer: HTMLElement | null = null;
   private contentArea: HTMLElement | undefined;
-  private scheduledKeylineUpdate: number | undefined;
 
   private contentAreaRef = (contentArea: HTMLElement) => {
     this.contentArea = contentArea;
@@ -69,7 +68,7 @@ export class FullPageEditor extends React.Component<
   });
 
   private handleResize = () => {
-    this.scheduledKeylineUpdate = this.updateToolbarKeyline();
+    this.updateToolbarKeyline();
   };
 
   public componentDidMount() {
@@ -78,10 +77,7 @@ export class FullPageEditor extends React.Component<
 
   public componentWillUnmount() {
     window.removeEventListener('resize', this.handleResize);
-
-    if (this.scheduledKeylineUpdate) {
-      cancelAnimationFrame(this.scheduledKeylineUpdate);
-    }
+    this.updateToolbarKeyline.cancel();
   }
 
   public render() {

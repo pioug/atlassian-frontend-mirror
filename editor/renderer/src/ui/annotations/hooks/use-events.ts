@@ -1,11 +1,15 @@
 import { useLayoutEffect, useState } from 'react';
 import {
   AnnotationUpdateEvent,
-  AnnotationUpdateEventPayloads,
   AnnotationUpdateEmitter,
+} from '@atlaskit/editor-common/types';
+
+import type {
+  AnnotationUpdateEventPayloads,
   InlineCommentViewComponentProps,
   OnAnnotationClickPayload,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-common/types';
+
 import {
   AnnotationMarkStates,
   AnnotationId,

@@ -18,14 +18,7 @@ export interface InlineExtensionBaseDefinition {
  * @name inlineExtension_with_marks_node
  */
 export type InlineExtensionDefinition = InlineExtensionBaseDefinition &
-  MarksObject<DataConsumerDefinition>;
-
-/**
- * @stage 0
- * @name inlineExtension_with_experimental_marks_node
- */
-export type InlineExtensionWithMarksDefinition = InlineExtensionBaseDefinition &
-  MarksObject<FragmentDefinition>;
+  MarksObject<DataConsumerDefinition | FragmentDefinition>;
 
 const createInlineExtensionNodeSpec = (): NodeSpec => {
   const nodeSpec: NodeSpec = {

@@ -16,7 +16,7 @@ import { token } from '@atlaskit/tokens';
 import Tooltip from '../src';
 
 const Toolbar = styled.div`
-  background-color: ${token('color.background.subtleNeutral.resting', N20)};
+  background-color: ${token('color.background.neutral', N20)};
   border-radius: ${borderRadius}px;
   display: flex;
   padding: 5px;
@@ -31,7 +31,7 @@ const Action = styled.div`
   width: 36px;
 
   &:hover {
-    background-color: ${token('color.background.subtleNeutral.hover', N40)};
+    background-color: ${token('color.background.neutral.hovered', N40)};
   }
 `;
 

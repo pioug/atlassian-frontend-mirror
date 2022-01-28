@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useRef } from 'react';
 import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
+import noop from '@atlaskit/ds-lib/noop';
 
 import { AutoDismissFlagProps } from './types';
 
@@ -11,8 +12,6 @@ const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
 export const AUTO_DISMISS_SECONDS = 8;
-
-function noop() {}
 
 const AutoDismissFlag = (props: AutoDismissFlagProps) => {
   const { id, analyticsContext, onDismissed: onDismissedProp = noop } = props;

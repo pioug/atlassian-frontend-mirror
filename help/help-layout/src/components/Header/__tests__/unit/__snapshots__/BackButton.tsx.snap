@@ -162,7 +162,7 @@ exports[`BackButton Should match snapshot 1`] = `
         aria-hidden="true"
         class="emotion-0"
         role="presentation"
-        style="--icon-primary-color: currentColor; --icon-secondary-color: var(--ds-background-default, #FFFFFF);"
+        style="--icon-primary-color: currentColor; --icon-secondary-color: var(--ds-surface, #FFFFFF);"
       >
         <svg
           height="24"

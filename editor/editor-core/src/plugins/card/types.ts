@@ -6,7 +6,7 @@ import {
 } from '@atlaskit/editor-common/provider-factory';
 import { SmartLinkEvents } from '@atlaskit/smart-card';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { CardOptions } from '@atlaskit/editor-common';
+import { CardOptions } from '@atlaskit/editor-common/card';
 
 export type CardInfo = {
   title?: string;

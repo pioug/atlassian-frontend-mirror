@@ -7,7 +7,7 @@ import { ReactRenderer } from '@atlaskit/renderer';
 
 import { Content } from './styles';
 import { toJSON } from '../src/utils';
-import { ProviderFactory } from '@atlaskit/editor-common';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
 
 const emojiProvider = getEmojiProvider({

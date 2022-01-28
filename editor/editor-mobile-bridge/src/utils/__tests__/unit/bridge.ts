@@ -1,4 +1,4 @@
-import { measureRender } from '@atlaskit/editor-common';
+import { measureRender } from '@atlaskit/editor-common/utils';
 import { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import {
   isContentEmpty,
@@ -6,8 +6,8 @@ import {
   PerformanceMatrices,
 } from '../../bridge';
 
-jest.mock('@atlaskit/editor-common', () => ({
-  ...jest.requireActual<Object>('@atlaskit/editor-common'),
+jest.mock('@atlaskit/editor-common/utils', () => ({
+  ...jest.requireActual<Object>('@atlaskit/editor-common/utils'),
   measureRender: jest.fn((_, callback) => {
     callback(1000);
   }),

@@ -6,6 +6,7 @@ import { pluginKey, createPlugin } from './pm-plugins/main';
 import { changeAlignment } from './commands';
 import ToolbarAlignment from './ui/ToolbarAlignment';
 import { AlignmentPluginState, AlignmentState } from './pm-plugins/types';
+import { keymapPlugin } from './pm-plugins/keymap';
 
 export const defaultConfig: AlignmentPluginState = {
   align: 'start',
@@ -23,6 +24,10 @@ const alignmentPlugin = (): EditorPlugin => ({
       {
         name: 'alignmentPlugin',
         plugin: ({ dispatch }) => createPlugin(dispatch, defaultConfig),
+      },
+      {
+        name: 'annotationKeymap',
+        plugin: () => keymapPlugin(),
       },
     ];
   },

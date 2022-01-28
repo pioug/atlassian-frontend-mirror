@@ -6,34 +6,34 @@ import { ChromeColors, ChromeLinkColors, TagColor } from './types';
 
 const textColors = {
   standard: {
-    light: token('color.text.highEmphasis', colors.N700),
-    dark: token('color.text.highEmphasis', colors.DN600),
+    light: token('color.text', colors.N700),
+    dark: token('color.text', colors.DN600),
   },
   /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
   green: {
-    light: token('color.text.highEmphasis', colors.N800),
-    dark: token('color.text.highEmphasis', colors.N800),
+    light: token('color.text', colors.N800),
+    dark: token('color.text', colors.N800),
   },
   purple: {
-    light: token('color.text.highEmphasis', colors.N800),
-    dark: token('color.text.highEmphasis', colors.N800),
+    light: token('color.text', colors.N800),
+    dark: token('color.text', colors.N800),
   },
   red: {
-    light: token('color.text.highEmphasis', colors.N800),
-    dark: token('color.text.highEmphasis', colors.N800),
+    light: token('color.text', colors.N800),
+    dark: token('color.text', colors.N800),
   },
   yellow: {
-    light: token('color.text.highEmphasis', colors.N800),
-    dark: token('color.text.highEmphasis', colors.N800),
+    light: token('color.text', colors.N800),
+    dark: token('color.text', colors.N800),
   },
   grey: { light: colors.N0, dark: colors.N0 },
   teal: {
-    light: token('color.text.highEmphasis', colors.N800),
-    dark: token('color.text.highEmphasis', colors.N800),
+    light: token('color.text', colors.N800),
+    dark: token('color.text', colors.N800),
   },
   blue: {
-    light: token('color.text.highEmphasis', colors.N800),
-    dark: token('color.text.highEmphasis', colors.N800),
+    light: token('color.text', colors.N800),
+    dark: token('color.text', colors.N800),
   },
   tealLight: { light: colors.N500, dark: colors.N500 },
   /* eslint-enable @atlaskit/design-system/ensure-design-token-usage */
@@ -63,8 +63,8 @@ const textColors = {
 
 const backgroundColors = {
   standard: {
-    light: token('color.background.subtleNeutral.resting', colors.N20),
-    dark: token('color.background.subtleNeutral.resting', colors.DN100A),
+    light: token('color.background.neutral', colors.N20),
+    dark: token('color.background.neutral', colors.DN100A),
   },
   /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
   green: { light: colors.G200, dark: colors.G200 },
@@ -77,24 +77,24 @@ const backgroundColors = {
   tealLight: { light: colors.T100, dark: colors.T100 },
   /* eslint-enable @atlaskit/design-system/ensure-design-token-usage */
   blueLight: {
-    light: token('color.accent.subtleBlue', colors.B75),
-    dark: token('color.accent.subtleBlue', colors.B75),
+    light: token('color.background.accent.blue', colors.B75),
+    dark: token('color.background.accent.blue', colors.B75),
   },
   greenLight: {
-    light: token('color.accent.subtleGreen', colors.G100),
-    dark: token('color.accent.subtleGreen', colors.G100),
+    light: token('color.background.accent.green', colors.G100),
+    dark: token('color.background.accent.green', colors.G100),
   },
   purpleLight: {
-    light: token('color.accent.subtlePurple', colors.P75),
-    dark: token('color.accent.subtlePurple', colors.P75),
+    light: token('color.background.accent.purple', colors.P75),
+    dark: token('color.background.accent.purple', colors.P75),
   },
   redLight: {
-    light: token('color.accent.subtleRed', colors.R75),
-    dark: token('color.accent.subtleRed', colors.R75),
+    light: token('color.background.accent.red', colors.R75),
+    dark: token('color.background.accent.red', colors.R75),
   },
   yellowLight: {
-    light: token('color.accent.subtleOrange', colors.Y100),
-    dark: token('color.accent.subtleOrange', colors.Y100),
+    light: token('color.background.accent.orange', colors.Y100),
+    dark: token('color.background.accent.orange', colors.Y100),
   },
   // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   greyLight: { light: colors.N30, dark: colors.N30 },
@@ -102,8 +102,8 @@ const backgroundColors = {
 
 const linkBackgroundColorHover = {
   standard: {
-    light: token('color.background.subtleNeutral.hover', colors.N30),
-    dark: token('color.background.subtleNeutral.hover', colors.DN60),
+    light: token('color.background.neutral.hovered', colors.N30),
+    dark: token('color.background.neutral.hovered', colors.DN60),
   },
   /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
   green: { light: colors.G100, dark: colors.DN60 },
@@ -124,18 +124,18 @@ const linkBackgroundColorHover = {
 };
 
 const focusRingColorObj = {
-  light: token('color.border.focus', colors.B100),
-  dark: token('color.border.focus', colors.B75),
+  light: token('color.border.focused', colors.B100),
+  dark: token('color.border.focused', colors.B75),
 };
 
 const focusBoxShadowColorObj = {
-  light: token('color.border.focus', colors.B100),
-  dark: token('color.border.focus', colors.B75),
+  light: token('color.border.focused', colors.B100),
+  dark: token('color.border.focused', colors.B75),
 };
 
 const linkHoverColorObj = {
-  light: token('color.text.link.pressed', colors.B300),
-  dark: token('color.text.link.pressed', colors.B200),
+  light: token('color.link.pressed', colors.B300),
+  dark: token('color.link.pressed', colors.B200),
 };
 
 const getTextColor = (tagColor: TagColor, mode: ThemeModes): string => {
@@ -161,8 +161,8 @@ const getActiveBackgroundColor = (
   mode: ThemeModes,
 ): string => {
   return {
-    light: token('color.background.subtleNeutral.pressed', colors.N30),
-    dark: token('color.background.subtleNeutral.pressed', colors.DN600),
+    light: token('color.background.neutral.pressed', colors.N30),
+    dark: token('color.background.neutral.pressed', colors.DN600),
   }[mode];
 };
 
@@ -171,8 +171,8 @@ const getActiveBackgroundColorForRemoval = (
   mode: ThemeModes,
 ): string => {
   return {
-    light: token('color.background.subtleDanger.pressed', colors.R50),
-    dark: token('color.background.subtleDanger.pressed', colors.DN600),
+    light: token('color.background.danger.pressed', colors.R50),
+    dark: token('color.background.danger.pressed', colors.DN600),
   }[mode];
 };
 
@@ -181,8 +181,8 @@ const getTextColorForRemoval = (
   mode: ThemeModes,
 ): string => {
   return {
-    light: token('color.text.highEmphasis', colors.R500),
-    dark: token('color.text.highEmphasis', colors.DN30),
+    light: token('color.text', colors.R500),
+    dark: token('color.text', colors.DN30),
   }[mode];
 };
 
@@ -191,8 +191,8 @@ const getBackgroundColorForRemoval = (
   mode: ThemeModes,
 ): string => {
   return {
-    light: token('color.background.subtleDanger.hover', colors.R50),
-    dark: token('color.background.subtleDanger.hover', colors.R100),
+    light: token('color.background.danger.hovered', colors.R50),
+    dark: token('color.background.danger.hovered', colors.R100),
   }[mode];
 };
 

@@ -135,7 +135,7 @@ describe('CustomMediaPlayer Analytics', () => {
               isAutoPlay: true,
               isHDAvailable: false,
               isFullScreenEnabled: false,
-              isLargePlayer: true,
+              playerSize: 'large',
               playbackSpeed: 1,
             },
             fileAttributes: {
@@ -212,7 +212,7 @@ describe('CustomMediaPlayer Analytics', () => {
           isAutoPlay: true,
           isHDAvailable: false,
           isFullScreenEnabled: false,
-          isLargePlayer: true,
+          playerSize: 'large',
           isMuted: false,
           playbackSpeed: 1,
         },

@@ -1,6 +1,9 @@
 import { css } from 'styled-components';
 
-import { StatusSharedCssClassName } from '@atlaskit/editor-common';
+import {
+  StatusSharedCssClassName,
+  TableSharedCssClassName,
+} from '@atlaskit/editor-common/styles';
 import {
   SelectionStyle,
   getSelectionStyles,
@@ -11,6 +14,18 @@ import {
 } from '@atlaskit/editor-shared-styles';
 
 export const statusStyles = css`
+  .${TableSharedCssClassName.TABLE_CELL_WRAPPER},
+    .${TableSharedCssClassName.TABLE_HEADER_CELL_WRAPPER},
+    [data-layout-section] {
+    .${StatusSharedCssClassName.STATUS_CONTAINER} {
+      max-width: 100%;
+      line-height: 0;
+
+      > span {
+        width: 100%;
+      }
+    }
+  }
   .${StatusSharedCssClassName.STATUS_CONTAINER} {
     // these two styles can be removed when displayInlineBlockForInlineNodes is enabled by default
     // as it will make all inline nodes inline-block by default

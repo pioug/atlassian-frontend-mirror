@@ -1,10 +1,10 @@
 import { EditorState } from 'prosemirror-state';
-import {
-  DefaultExtensionProvider,
+import { DefaultExtensionProvider } from '@atlaskit/editor-common/extensions';
+import type {
   ExtensionManifest,
   ExtensionModule,
   ExtensionProvider,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-common/extensions';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import { createFakeExtensionManifest } from '@atlaskit/editor-test-helpers/extensions';
 

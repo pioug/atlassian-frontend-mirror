@@ -6,7 +6,7 @@ import {
   DropzoneConfig,
 } from '@atlaskit/media-picker/types';
 import { MediaClientConfig } from '@atlaskit/media-core';
-import { ErrorReporter } from '@atlaskit/editor-common';
+import { ErrorReporter } from '@atlaskit/editor-common/utils';
 import { MediaProvider } from '@atlaskit/editor-common/provider-factory';
 import PickerFacade from '../../picker-facade';
 import { CustomMediaPicker } from '../../types';

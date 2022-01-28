@@ -5,7 +5,7 @@ import {
   fontSizeSmall,
   gridSize,
 } from '@atlaskit/theme/constants';
-import { EmojiSharedCssClassName } from '@atlaskit/editor-common';
+import { EmojiSharedCssClassName } from '@atlaskit/editor-common/emoji';
 import {
   SelectionStyle,
   getSelectionStyles,
@@ -28,8 +28,7 @@ export const emojiStyles = css`
 
     &.${akEditorSelectedNodeClassName} {
       .${EmojiSharedCssClassName.EMOJI_SPRITE},
-        .${EmojiSharedCssClassName.EMOJI_IMAGE}
-        > span {
+        .${EmojiSharedCssClassName.EMOJI_IMAGE} {
         border-radius: 2px;
         ${getSelectionStyles([
           SelectionStyle.Blanket,

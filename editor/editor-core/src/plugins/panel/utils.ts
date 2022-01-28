@@ -5,7 +5,7 @@ import {
   findParentNodeOfType,
 } from 'prosemirror-utils';
 import { PanelType, PanelAttributes } from '@atlaskit/adf-schema';
-import { PanelSharedCssClassName } from '@atlaskit/editor-common';
+import { PanelSharedCssClassName } from '@atlaskit/editor-common/styles';
 import { DomPanelAtrrs } from './types';
 
 export const findPanel = (
@@ -23,12 +23,18 @@ export const panelAttrsToDom = (
   attrs: PanelAttributes,
   allowCustomPanel: boolean,
 ): DOMOutputSpec => {
-  const { panelColor, panelType, panelIcon } = attrs;
+  const {
+    panelColor,
+    panelType,
+    panelIcon,
+    panelIconId,
+    panelIconText,
+  } = attrs;
   const isCustomPanel = panelType === PanelType.CUSTOM && allowCustomPanel;
 
   const style =
     panelColor && isCustomPanel ? `background-color: ${panelColor}` : '';
-  const hasIcon = !isCustomPanel || !!panelIcon;
+  const hasIcon = !isCustomPanel || !!panelIcon || !!panelIconId;
 
   let panelAttrs: DomPanelAtrrs = {
     class: PanelSharedCssClassName.prefix,
@@ -36,7 +42,12 @@ export const panelAttrsToDom = (
     style,
   };
   if (panelColor && isCustomPanel) {
-    panelAttrs = { ...panelAttrs, 'data-panel-color': panelColor };
+    panelAttrs = {
+      ...panelAttrs,
+      'data-panel-color': panelColor,
+      'data-panel-icon-id': panelIconId,
+      'data-panel-icon-text': panelIconText,
+    };
   }
   const iconDiv: DOMOutputSpec = [
     'div',

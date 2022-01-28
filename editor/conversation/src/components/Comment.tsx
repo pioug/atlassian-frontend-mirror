@@ -4,7 +4,7 @@ import AkComment, {
   CommentAuthor,
   CommentTime,
 } from '@atlaskit/comment';
-import { WithProviders } from '@atlaskit/editor-common';
+import { WithProviders } from '@atlaskit/editor-common/provider-factory';
 import { Editor as AkEditor, EditorProps } from '@atlaskit/editor-core';
 import { ConnectedReactionsView } from '@atlaskit/reactions';
 import { ReactRenderer } from '@atlaskit/renderer';

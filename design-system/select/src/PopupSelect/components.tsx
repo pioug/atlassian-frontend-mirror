@@ -30,10 +30,10 @@ export const MenuDialog: FC<MenuDialogProps> = ({
 }) => (
   <div
     css={{
-      backgroundColor: token('color.background.overlay', 'white'),
+      backgroundColor: token('elevation.surface.overlay', 'white'),
       borderRadius: 4,
       boxShadow: token(
-        'shadow.overlay',
+        'elevation.shadow.overlay',
         `0 0 0 1px ${N40A}, 0 4px 11px ${N40A}`,
       ),
       maxWidth,

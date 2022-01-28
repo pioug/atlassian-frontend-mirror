@@ -9,7 +9,7 @@ import {
 import { EditorView } from 'prosemirror-view';
 import { createPortal } from 'react-dom';
 
-import { Popup } from '@atlaskit/editor-common';
+import { Popup } from '@atlaskit/editor-common/ui';
 import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
 
 import { closestElement } from '../../../../utils/dom';

@@ -2,9 +2,9 @@ import React from 'react';
 import Button from '@atlaskit/button/standard-button';
 import AddCommentIcon from '@atlaskit/icon/glyph/comment';
 import uuid from 'uuid/v4';
-import { InlineCommentSelectionComponentProps } from '@atlaskit/editor-common';
+import type { InlineCommentSelectionComponentProps } from '@atlaskit/editor-common/types';
 import styled from 'styled-components';
-import { Popup } from '@atlaskit/editor-common';
+import { Popup } from '@atlaskit/editor-common/ui';
 // AFP-2532 TODO: Fix automatic suppressions below
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { Position } from '@atlaskit/editor-common/src/ui/Popup/utils';

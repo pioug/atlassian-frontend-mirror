@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import Panel from '../../../../react/nodes/panel';
 import { PanelType } from '@atlaskit/adf-schema';
-import { ProviderFactory } from '@atlaskit/editor-common';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import EmojiItem from '../../../../react/nodes/emoji';
 
 describe('Renderer - React/Nodes/Panel', () => {

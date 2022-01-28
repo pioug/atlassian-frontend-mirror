@@ -3,9 +3,9 @@ import { ActivityProvider } from '@atlaskit/activity-provider';
 import {
   ProviderFactory,
   WithProviders,
-  Providers,
-  Diff,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-common/provider-factory';
+import type { Providers } from '@atlaskit/editor-common/provider-factory';
+import type { Diff } from '@atlaskit/editor-common/utils';
 
 export interface ExpandedActivityProviderProps {
   providerFactory: ProviderFactory;

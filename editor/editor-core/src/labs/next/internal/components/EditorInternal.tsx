@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { WidthProvider } from '@atlaskit/editor-common/ui';
 import { injectIntl, IntlShape, WrappedComponentProps } from 'react-intl-next';
-import { WidthProvider } from '@atlaskit/editor-common';
 import { useProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import EditorContext from '../../../../ui/EditorContext';
 import EditorActions from '../../../../actions';

@@ -4,8 +4,8 @@ import { getValidDocument, ADFStage } from '@atlaskit/editor-common/validator';
 import {
   validateADFEntity,
   findAndTrackUnsupportedContentNodes,
-  UnsupportedContentLevelsTracking,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-common/utils';
+import type { UnsupportedContentLevelsTracking } from '@atlaskit/editor-common/utils';
 import { Node as PMNode, Schema } from 'prosemirror-model';
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from './analytics/enums';
 import { AnalyticsEventPayload, PLATFORM } from './analytics/events';

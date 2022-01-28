@@ -1,9 +1,7 @@
 import { Plugin } from 'prosemirror-state';
 
-import {
-  PanelSharedCssClassName,
-  ProviderFactory,
-} from '@atlaskit/editor-common';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import { PanelSharedCssClassName } from '@atlaskit/editor-common/styles';
 
 import { getPanelNodeView } from '../nodeviews/panel';
 import { PanelPluginOptions, pluginKey } from '../types';
@@ -13,6 +11,8 @@ import { createSelectionClickHandler } from '../../selection/utils';
 export type PanelOptions = {
   color?: string;
   emoji?: string;
+  emojiId?: string;
+  emojiText?: string;
 };
 
 export const createPlugin = (

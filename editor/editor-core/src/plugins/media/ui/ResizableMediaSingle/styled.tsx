@@ -1,4 +1,4 @@
-import { MediaSingleDimensionHelper } from '@atlaskit/editor-common';
+import { MediaSingleDimensionHelper } from '@atlaskit/editor-common/ui';
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`

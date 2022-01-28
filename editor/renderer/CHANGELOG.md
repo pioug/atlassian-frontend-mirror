@@ -1,5 +1,23 @@
 # @atlaskit/renderer
 
+## 85.0.0
+
+### Major Changes
+
+- [`5af69bfe9be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5af69bfe9be) - CETI-241 - Added additional panel ADF attributes (panelIconId, panelIconText) to uniquely identify custom panel emojis. The change has been categorised as major since it is a change to the full-schema ADF. However, the custom panel feature is behind a feature flag, has not yet been released to production, and is only currently planned for release to Confluence. See ADF change #61 for further details.
+- [`272a64c6bf0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/272a64c6bf0) - [ux] CETI-166 Increase the standard panel icons size to make it consistent with the emojis in the panel content area
+
+### Minor Changes
+
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - Make DecisionList, TaskList, MediaSingle, EmbedCard and Panel loadable.
+
+### Patch Changes
+
+- [`e221ee215e7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e221ee215e7) - fix vertical scroll for firefox when media link is wrapped
+- [`231b3d8b718`](https://bitbucket.org/atlassian/atlassian-frontend/commits/231b3d8b718) - CETI-242 Change the Color palette labels for panel
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - ED-13753 Updated editor-common import entries.
+- Updated dependencies
+
 ## 84.1.1
 
 ### Patch Changes

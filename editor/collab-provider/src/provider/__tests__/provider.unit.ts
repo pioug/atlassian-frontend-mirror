@@ -107,6 +107,20 @@ describe('provider unit tests', () => {
   };
 
   describe('Emit events', () => {
+    it('should call initializeChannel once', () => {
+      const provider = createSocketIOCollabProvider(testProviderConfig);
+      const initializeChannelSpy = jest.spyOn(
+        provider as any,
+        'initializeChannel',
+      );
+      provider.initialize(() => editorState);
+      // make sure initializeChannel is called
+      expect(initializeChannelSpy).toHaveBeenCalledTimes(1);
+      provider.initialize(() => editorState);
+      // make sure initializeChannel is not called again
+      expect(initializeChannelSpy).toHaveBeenCalledTimes(1);
+    });
+
     it('should emit connected event when provider is connected via socketIO', async (done) => {
       const provider = createSocketIOCollabProvider(testProviderConfig);
       provider.on('connected', ({ sid }) => {

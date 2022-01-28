@@ -5,7 +5,7 @@ import React, {
   useLayoutEffect,
   createContext,
 } from 'react';
-import { browser } from '@atlaskit/editor-common';
+import { browser } from '@atlaskit/editor-common/utils';
 
 const Context = createContext<ResizeObserver | null>(null);
 

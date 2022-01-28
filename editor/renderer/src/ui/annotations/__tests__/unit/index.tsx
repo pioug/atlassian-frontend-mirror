@@ -1,8 +1,8 @@
-import {
+import { AnnotationUpdateEmitter } from '@atlaskit/editor-common/types';
+import type {
   AnnotationProviders,
-  AnnotationUpdateEmitter,
   InlineCommentViewComponentProps,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-common/types';
 import RendererActions from '../../../../actions/index';
 import { ProvidersContext } from '../../context';
 import React from 'react';

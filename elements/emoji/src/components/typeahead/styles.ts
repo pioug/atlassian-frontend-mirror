@@ -17,11 +17,11 @@ export const emojiTypeAhead = 'emoji-typeahead-element';
 export const typeAheadListContainer = 'emoji-typeahead-list-container';
 
 export const typeAheadList = style({
-  background: token('color.background.overlay', 'white'),
+  background: token('elevation.surface.overlay', 'white'),
   border: `1px solid ${noDialogContainerBorderColor}`,
   borderRadius: noDialogContainerBorderRadius,
   boxShadow: noDialogContainerBoxShadow,
-  color: token('color.text.mediumEmphasis', '#333'),
+  color: token('color.text.subtle', '#333'),
   width: emojiTypeAheadWidth,
 });
 

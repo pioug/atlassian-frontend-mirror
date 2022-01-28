@@ -6,7 +6,7 @@ import { WrappedComponentProps, injectIntl } from 'react-intl-next';
 import styled from 'styled-components';
 
 import { TableLayout } from '@atlaskit/adf-schema';
-import { Popup } from '@atlaskit/editor-common';
+import { Popup } from '@atlaskit/editor-common/ui';
 import {
   akEditorFloatingOverlapPanelZIndex,
   akEditorSmallZIndex,

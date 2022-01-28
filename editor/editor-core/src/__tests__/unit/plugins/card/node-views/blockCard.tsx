@@ -1,5 +1,5 @@
 import React from 'react';
-import { browser } from '@atlaskit/editor-common';
+import { browser } from '@atlaskit/editor-common/utils';
 
 let mockFindOverflowScrollParent = jest.fn();
 let mockRafSchedule = jest.fn().mockImplementation((cb: any) => cb());
@@ -19,16 +19,19 @@ jest.mock('@atlaskit/smart-card', () => {
     },
   };
 });
-jest.mock('@atlaskit/editor-common', () => ({
+jest.mock('@atlaskit/editor-common/ui', () => ({
+  findOverflowScrollParent: () => mockFindOverflowScrollParent(),
+  overflowShadow: jest.fn(),
+  sharedExpandStyles: jest.fn(),
+  WidthProvider: jest.fn(),
+}));
+
+jest.mock('@atlaskit/editor-common/utils', () => ({
   browser: {
     ie: false,
     ie_version: 0,
   },
-  findOverflowScrollParent: () => mockFindOverflowScrollParent(),
   withImageLoader: jest.fn(),
-  overflowShadow: jest.fn(),
-  sharedExpandStyles: jest.fn(),
-  WidthProvider: jest.fn(),
 }));
 
 import { mount, shallow } from 'enzyme';

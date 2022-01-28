@@ -59,7 +59,7 @@ const floatingToolbarLanguageSelector = 'div[aria-label="Floating Toolbar"]';
       // Check that the language is still selected
       await page.waitForSelector(floatingToolbarLanguageSelector);
       const language = await page.getText(floatingToolbarLanguageSelector);
-      expect(language.trim()).toEqual('JavaScript');
+      expect(language.trim()).toContain('JavaScript');
     },
   );
 
@@ -92,7 +92,9 @@ const floatingToolbarLanguageSelector = 'div[aria-label="Floating Toolbar"]';
       const secondCodeblockInitialLanguage = await page.getText(
         floatingToolbarLanguageSelector,
       );
-      expect(secondCodeblockInitialLanguage.trim()).toEqual('Select language');
+      expect(secondCodeblockInitialLanguage.trim()).toContain(
+        'Select language',
+      );
       // Set a language on the second code block
       await page.type(codeBlockSelectors.languageSelectInput, ['Arduino']);
       await page.keys('Return');
@@ -103,7 +105,7 @@ const floatingToolbarLanguageSelector = 'div[aria-label="Floating Toolbar"]';
       const firstCodeBlock = await page.getText(
         floatingToolbarLanguageSelector,
       );
-      expect(firstCodeBlock.trim()).toEqual('JavaScript');
+      expect(firstCodeBlock.trim()).toContain('JavaScript');
 
       // Check that the language on the second code block is still the same
       // not sure if this is working 100%
@@ -112,7 +114,7 @@ const floatingToolbarLanguageSelector = 'div[aria-label="Floating Toolbar"]';
       const secondCodeBlock = await page.getText(
         floatingToolbarLanguageSelector,
       );
-      expect(secondCodeBlock.trim()).toEqual('Arduino');
+      expect(secondCodeBlock.trim()).toContain('Arduino');
     },
   );
 
@@ -140,7 +142,9 @@ const floatingToolbarLanguageSelector = 'div[aria-label="Floating Toolbar"]';
       const secondCodeblockInitialLanguage = await page.getText(
         floatingToolbarLanguageSelector,
       );
-      expect(secondCodeblockInitialLanguage.trim()).toEqual('Select language');
+      expect(secondCodeblockInitialLanguage.trim()).toContain(
+        'Select language',
+      );
       // Set a language on the second code block
       await page.type(codeBlockSelectors.languageSelectInput, ['Arduino']);
       await page.keys(['Return']);
@@ -151,7 +155,7 @@ const floatingToolbarLanguageSelector = 'div[aria-label="Floating Toolbar"]';
       const firstBlockLanguage = await page.getText(
         floatingToolbarLanguageSelector,
       );
-      expect(firstBlockLanguage.trim()).toEqual('Select language');
+      expect(firstBlockLanguage.trim()).toContain('Select language');
     },
   );
 });

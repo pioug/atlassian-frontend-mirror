@@ -2,7 +2,7 @@ import React from 'react';
 import {
   WidthProvider,
   ClearNextSiblingMarginTop,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-common/ui';
 
 export default function LayoutSection(
   props: { width?: number } & React.Props<any>,

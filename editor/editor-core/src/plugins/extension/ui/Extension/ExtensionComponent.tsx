@@ -5,15 +5,19 @@ import { Node as PMNode } from 'prosemirror-model';
 import memoizeOne from 'memoize-one';
 
 import {
-  ExtensionHandlers,
-  getExtensionRenderer,
   getNodeRenderer,
-  ExtensionProvider,
   getExtensionModuleNodePrivateProps,
+} from '@atlaskit/editor-common/extensions';
+
+import type {
+  ExtensionHandlers,
+  ExtensionProvider,
   ReferenceEntity,
   ExtensionParams,
   Parameters,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-common/extensions';
+
+import { getExtensionRenderer } from '@atlaskit/editor-common/utils';
 
 import Extension from './Extension';
 import InlineExtension from './InlineExtension';

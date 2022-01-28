@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/design-system/no-unsafe-design-token-usage */
 import {
   B200,
   B400,

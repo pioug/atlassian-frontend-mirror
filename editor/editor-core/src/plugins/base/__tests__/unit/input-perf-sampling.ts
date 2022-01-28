@@ -15,8 +15,8 @@ import {
 import basePlugin from '../../';
 import * as timingUtils from '../../../../utils/performance/get-performance-timing';
 
-jest.mock('@atlaskit/editor-common', () => ({
-  ...jest.requireActual<Object>('@atlaskit/editor-common'),
+jest.mock('@atlaskit/editor-common/utils', () => ({
+  ...jest.requireActual<Object>('@atlaskit/editor-common/utils'),
   isPerformanceAPIAvailable: () => true,
 }));
 

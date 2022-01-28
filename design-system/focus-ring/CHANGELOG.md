@@ -1,5 +1,13 @@
 # @atlaskit/focus-ring
 
+## 0.2.7
+
+### Patch Changes
+
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - Updates usage of deprecated token names so they're aligned with the latest naming conventions. No UI or visual changes
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - [ux] The component has reworked its internal so that it can now better deal with issues where the background-color was obscured by the focus-ring box shadow.
+- Updated dependencies
+
 ## 0.2.6
 
 ### Patch Changes

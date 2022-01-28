@@ -1,5 +1,5 @@
 import React from 'react';
-import { ProviderFactory } from '@atlaskit/editor-common';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { CommentAction as AkCommentAction } from '@atlaskit/comment';
 import { Provider, connect } from 'react-redux';
 import { ThunkDispatch } from 'redux-thunk';

@@ -178,9 +178,12 @@ function getValidDate(iso: string) {
 
 const menuStyles = css({
   zIndex: layers.dialog(),
-  backgroundColor: token('color.background.default', N20),
+  backgroundColor: token('elevation.surface', N20),
   borderRadius: `${borderRadius()}px`,
-  boxShadow: token('shadow.overlay', `0 4px 8px -2px ${N50A}, 0 0 1px ${N60A}`),
+  boxShadow: token(
+    'elevation.shadow.overlay',
+    `0 4px 8px -2px ${N50A}, 0 0 1px ${N60A}`,
+  ),
 });
 
 const Menu = ({
@@ -412,6 +415,11 @@ class DatePicker extends Component<DatePickerProps, State> {
         }
         break;
       case 'enter':
+        // Prevent form submission when a date is selected
+        // using enter. See https://product-fabric.atlassian.net/browse/DSP-2501
+        // for more details.
+        event.preventDefault();
+
         if (!this.isDateDisabled(view)) {
           this.setState({
             inputValue: '',
@@ -479,7 +487,7 @@ class DatePicker extends Component<DatePickerProps, State> {
 
   getSubtleControlStyles = (isOpen: boolean) => ({
     border: `2px solid ${
-      isOpen ? token('color.border.focus', B100) : `transparent`
+      isOpen ? token('color.border.focused', B100) : `transparent`
     }`,
     backgroundColor: 'transparent',
     padding: '1px',

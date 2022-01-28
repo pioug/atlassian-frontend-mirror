@@ -1,6 +1,7 @@
 import { EditorView } from 'prosemirror-view';
 import { RefObject } from 'react';
-import { ProviderFactory, ExtensionHandlers } from '@atlaskit/editor-common';
+import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { EventDispatcher } from '../event-dispatcher';
 import EditorActions from '../actions';
 import { UIComponentFactory } from '../types/ui-components';

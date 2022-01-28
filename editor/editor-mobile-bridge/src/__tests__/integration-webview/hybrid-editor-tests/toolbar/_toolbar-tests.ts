@@ -12,7 +12,7 @@ import {
   StatusSharedCssClassName,
   DateSharedCssClassName,
   TableSharedCssClassName,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-common/styles';
 import { loadEditor } from '../../_page-objects/hybrid-editor-page';
 
 const buildInitialStatusToolbarItems = (color: PaletteColor) => [

@@ -31,6 +31,11 @@ const boldAppearanceItems: Array<boldAppearanceItem> = boldAppearanceNames.map(
   }),
 );
 
+const iconStyles = css({
+  width: gridSize() * 3,
+  height: gridSize() * 3,
+});
+
 const ConnectionDemo = () => {
   const [appearance, setAppearance] = useState<AppearanceTypes>(
     boldAppearanceNames[0],
@@ -57,19 +62,14 @@ const ConnectionDemo = () => {
         return (
           <ErrorIcon
             label="Error"
-            secondaryColor={token('color.iconBorder.danger', R400)}
+            secondaryColor={token('color.icon.danger', R400)}
           />
         );
       case 'info':
         // We wrap the Spinner in a div the same height as a standard Icon, to avoid
         // the flag height jumping when Flag.appearance is changed.
         return (
-          <div
-            css={css`
-              height: ${gridSize() * 3}px;
-              width: ${gridSize() * 3}px;
-            `}
-          >
+          <div css={iconStyles}>
             <Spinner size="small" appearance="invert" />
           </div>
         );
@@ -77,21 +77,21 @@ const ConnectionDemo = () => {
         return (
           <SuccessIcon
             label="Success"
-            secondaryColor={token('color.iconBorder.success', G400)}
+            secondaryColor={token('color.icon.success', G400)}
           />
         );
       case 'warning':
         return (
           <WarningIcon
             label="Warning"
-            secondaryColor={token('color.iconBorder.warning', Y200)}
+            secondaryColor={token('color.icon.warning', Y200)}
           />
         );
       default:
         return (
           <SuccessIcon
             label=""
-            secondaryColor={token('color.iconBorder.success', G400)}
+            secondaryColor={token('color.icon.success', G400)}
           />
         );
     }

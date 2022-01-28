@@ -1,4 +1,5 @@
-import { ErrorReporter, ProviderFactory } from '@atlaskit/editor-common';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import { ErrorReporter } from '@atlaskit/editor-common/utils';
 import { Plugin } from 'prosemirror-state';
 import { Schema } from 'prosemirror-model';
 import { IntlShape } from 'react-intl-next';

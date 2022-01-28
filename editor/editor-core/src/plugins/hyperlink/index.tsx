@@ -2,7 +2,7 @@ import React from 'react';
 import { link } from '@atlaskit/adf-schema';
 import { EditorPlugin } from '../../types';
 import { createInputRulePlugin } from './pm-plugins/input-rule';
-import { CardOptions } from '@atlaskit/editor-common';
+import { CardOptions } from '@atlaskit/editor-common/card';
 import { createKeymapPlugin } from './pm-plugins/keymap';
 import { plugin, stateKey, LinkAction } from './pm-plugins/main';
 import fakeCursorToolbarPlugin from './pm-plugins/fake-cursor-for-toolbar';

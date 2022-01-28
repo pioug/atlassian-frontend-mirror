@@ -7,7 +7,7 @@ exports[`Profilecard ProfileCard customLozenges property should match snapshot w
   >
     <styled.div>
       <Avatar
-        borderColor="var(--ds-background-overlay, #FFFFFF)"
+        borderColor="var(--ds-surface-overlay, #FFFFFF)"
         size="xlarge"
       />
     </styled.div>
@@ -73,7 +73,7 @@ exports[`Profilecard ProfileCard customLozenges property should match snapshot w
   >
     <styled.div>
       <Avatar
-        borderColor="var(--ds-background-overlay, #FFFFFF)"
+        borderColor="var(--ds-surface-overlay, #FFFFFF)"
         size="xlarge"
       />
     </styled.div>
@@ -115,7 +115,7 @@ exports[`Profilecard ProfileCard customLozenges property should match snapshot w
   >
     <styled.div>
       <Avatar
-        borderColor="var(--ds-background-overlay, #FFFFFF)"
+        borderColor="var(--ds-surface-overlay, #FFFFFF)"
         size="xlarge"
       />
     </styled.div>
@@ -166,7 +166,7 @@ exports[`Profilecard ProfileCard fullName property should match snapshot when fu
   >
     <styled.div>
       <Avatar
-        borderColor="var(--ds-background-overlay, #FFFFFF)"
+        borderColor="var(--ds-surface-overlay, #FFFFFF)"
         size="xlarge"
       />
     </styled.div>
@@ -208,7 +208,7 @@ exports[`Profilecard ProfileCard fullName property should match snapshot when fu
   >
     <styled.div>
       <Avatar
-        borderColor="var(--ds-background-overlay, #FFFFFF)"
+        borderColor="var(--ds-surface-overlay, #FFFFFF)"
         size="xlarge"
       />
     </styled.div>
@@ -250,7 +250,7 @@ exports[`Profilecard ProfileCard fullName property should match snapshot when ni
   >
     <styled.div>
       <Avatar
-        borderColor="var(--ds-background-overlay, #FFFFFF)"
+        borderColor="var(--ds-surface-overlay, #FFFFFF)"
         size="xlarge"
       />
     </styled.div>
@@ -292,7 +292,7 @@ exports[`Profilecard ProfileCard reportingLines property should match snapshot w
   >
     <styled.div>
       <Avatar
-        borderColor="var(--ds-background-overlay, #FFFFFF)"
+        borderColor="var(--ds-surface-overlay, #FFFFFF)"
         size="xlarge"
       />
     </styled.div>
@@ -334,7 +334,7 @@ exports[`Profilecard ProfileCard reportingLines property should match snapshot w
   >
     <styled.div>
       <Avatar
-        borderColor="var(--ds-background-overlay, #FFFFFF)"
+        borderColor="var(--ds-surface-overlay, #FFFFFF)"
         size="xlarge"
       />
     </styled.div>
@@ -377,7 +377,7 @@ exports[`Profilecard ProfileCard reportingLines property should match snapshot w
   >
     <styled.div>
       <Avatar
-        borderColor="var(--ds-background-overlay, #FFFFFF)"
+        borderColor="var(--ds-surface-overlay, #FFFFFF)"
         size="xlarge"
       />
     </styled.div>
@@ -425,7 +425,7 @@ exports[`Profilecard ProfileCard reportingLines property should match snapshot w
   >
     <styled.div>
       <Avatar
-        borderColor="var(--ds-background-overlay, #FFFFFF)"
+        borderColor="var(--ds-surface-overlay, #FFFFFF)"
         size="xlarge"
       />
     </styled.div>
@@ -499,7 +499,7 @@ exports[`Profilecard ProfileCard status property should match snapshot when stat
   >
     <styled.div>
       <Avatar
-        borderColor="var(--ds-background-overlay, #FFFFFF)"
+        borderColor="var(--ds-surface-overlay, #FFFFFF)"
         size="xlarge"
       />
     </styled.div>
@@ -541,7 +541,7 @@ exports[`Profilecard ProfileCard status property should match snapshot when stat
   >
     <styled.div>
       <Avatar
-        borderColor="var(--ds-background-overlay, #FFFFFF)"
+        borderColor="var(--ds-surface-overlay, #FFFFFF)"
         size="xlarge"
       />
     </styled.div>
@@ -581,7 +581,7 @@ exports[`Profilecard ProfileCard status property should match snapshot when stat
   >
     <styled.div>
       <Avatar
-        borderColor="var(--ds-background-overlay, #FFFFFF)"
+        borderColor="var(--ds-surface-overlay, #FFFFFF)"
         size="xlarge"
       />
     </styled.div>
@@ -633,7 +633,7 @@ exports[`Profilecard ProfileCard status property should match snapshot when stat
   >
     <styled.div>
       <Avatar
-        borderColor="var(--ds-background-overlay, #FFFFFF)"
+        borderColor="var(--ds-surface-overlay, #FFFFFF)"
         size="xlarge"
       />
     </styled.div>
@@ -685,7 +685,7 @@ exports[`Profilecard ProfileCard status property should match snapshot when stat
   >
     <styled.div>
       <Avatar
-        borderColor="var(--ds-background-overlay, #FFFFFF)"
+        borderColor="var(--ds-surface-overlay, #FFFFFF)"
         size="xlarge"
       />
     </styled.div>
@@ -732,7 +732,7 @@ exports[`Profilecard ProfileCard status property should match snapshot when stat
   >
     <styled.div>
       <Avatar
-        borderColor="var(--ds-background-overlay, #FFFFFF)"
+        borderColor="var(--ds-surface-overlay, #FFFFFF)"
         size="xlarge"
       />
     </styled.div>
@@ -777,7 +777,7 @@ exports[`Profilecard ProfileCard status property should match snapshot when stat
   >
     <styled.div>
       <Avatar
-        borderColor="var(--ds-background-overlay, #FFFFFF)"
+        borderColor="var(--ds-surface-overlay, #FFFFFF)"
         size="xlarge"
       />
     </styled.div>
@@ -834,7 +834,7 @@ exports[`Profilecard ProfileCard status property should match snapshot when stat
   >
     <styled.div>
       <Avatar
-        borderColor="var(--ds-background-overlay, #FFFFFF)"
+        borderColor="var(--ds-surface-overlay, #FFFFFF)"
         size="xlarge"
       />
     </styled.div>

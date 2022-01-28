@@ -22,18 +22,18 @@ export type TabColors = {
 
 const tabColorMap = {
   light: {
-    labelColor: token('color.text.mediumEmphasis', N500),
-    activeLabelColor: token('color.text.highEmphasis', B500),
-    hoverLabelColor: token('color.text.mediumEmphasis', B400),
-    selectedColor: token('color.text.selected', B400),
-    focusBorderColor: token('color.border.focus', B100),
+    labelColor: token('color.text.subtle', N500),
+    activeLabelColor: token('color.text', B500),
+    hoverLabelColor: token('color.text.subtle', B400),
+    selectedColor: token('color.text.brand', B400),
+    focusBorderColor: token('color.border.focused', B100),
   },
   dark: {
-    labelColor: token('color.text.mediumEmphasis', DN400),
-    activeLabelColor: token('color.text.highEmphasis', B200),
-    hoverLabelColor: token('color.text.mediumEmphasis', B75),
-    selectedColor: token('color.text.selected', B75),
-    focusBorderColor: token('color.border.focus', B75),
+    labelColor: token('color.text.subtle', DN400),
+    activeLabelColor: token('color.text', B200),
+    hoverLabelColor: token('color.text.subtle', B75),
+    selectedColor: token('color.text.brand', B75),
+    focusBorderColor: token('color.border.focused', B75),
   },
 };
 
@@ -50,16 +50,16 @@ export type TabLineColors = {
 
 const tabLineColorMap = {
   light: {
-    lineColor: token('color.border.neutral', N30),
-    hoveredColor: token('color.border.neutral', 'transparent'),
-    activeColor: token('color.border.neutral', 'transparent'),
-    selectedColor: token('color.text.selected', B400),
+    lineColor: token('color.border', N30),
+    hoveredColor: token('color.border', 'transparent'),
+    activeColor: token('color.border', 'transparent'),
+    selectedColor: token('color.text.brand', B400),
   },
   dark: {
-    lineColor: token('color.border.neutral', DN0),
-    hoveredColor: token('color.border.neutral', 'transparent'),
-    activeColor: token('color.border.neutral', 'transparent'),
-    selectedColor: token('color.text.selected', B75),
+    lineColor: token('color.border', DN0),
+    hoveredColor: token('color.border', 'transparent'),
+    activeColor: token('color.border', 'transparent'),
+    selectedColor: token('color.text.brand', B75),
   },
 };
 
@@ -67,8 +67,8 @@ export const getTabLineColor = (mode: ThemeModes): TabLineColors =>
   tabLineColorMap[mode];
 
 const tabPanelFocusColorMap = {
-  light: token('color.border.focus', B100),
-  dark: token('color.border.focus', B75),
+  light: token('color.border.focused', B100),
+  dark: token('color.border.focused', B75),
 };
 
 export const getTabPanelFocusColor = (mode: ThemeModes): string =>

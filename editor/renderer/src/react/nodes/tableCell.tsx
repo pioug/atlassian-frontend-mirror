@@ -3,7 +3,9 @@ import {
   CellAttributes,
   tableBackgroundColorPalette,
 } from '@atlaskit/adf-schema';
-import { compose, SortOrder } from '@atlaskit/editor-common';
+import { compose } from '@atlaskit/editor-common/utils';
+import { SortOrder } from '@atlaskit/editor-common/types';
+
 import SortingIcon from '../../ui/SortingIcon';
 import { AnalyticsEventPayload, MODE, PLATFORM } from '../../analytics/events';
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../../analytics/enums';

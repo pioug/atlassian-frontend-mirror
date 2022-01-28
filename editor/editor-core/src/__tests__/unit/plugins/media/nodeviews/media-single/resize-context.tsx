@@ -11,7 +11,7 @@ import {
   td,
   tr,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { MediaSingle } from '@atlaskit/editor-common';
+import { MediaSingle } from '@atlaskit/editor-common/ui';
 
 import { MediaOptions } from '../../../../../../plugins/media/types';
 import { mediaEditor, testCollectionName } from '../../_utils';

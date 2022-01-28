@@ -3,7 +3,7 @@ import { Transaction } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 
 import { TableLayout } from '@atlaskit/adf-schema';
-import { tableCellMinWidth } from '@atlaskit/editor-common';
+import { tableCellMinWidth } from '@atlaskit/editor-common/styles';
 import {
   akEditorDefaultLayoutWidth,
   akEditorWideLayoutWidth,

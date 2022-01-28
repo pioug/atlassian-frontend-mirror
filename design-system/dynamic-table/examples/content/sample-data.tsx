@@ -86,6 +86,7 @@ export const head = createHead(true);
 
 export const rows = presidents.map((president: President, index: number) => ({
   key: `row-${index}-${president.name}`,
+  isHighlighted: false,
   cells: [
     {
       key: createKey(president.name),

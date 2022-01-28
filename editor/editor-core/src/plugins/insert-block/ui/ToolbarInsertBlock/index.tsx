@@ -4,7 +4,7 @@ import { WrappedComponentProps, injectIntl } from 'react-intl-next';
 
 import { EmojiPicker as AkEmojiPicker } from '@atlaskit/emoji/picker';
 import { EmojiId } from '@atlaskit/emoji/types';
-import { Popup } from '@atlaskit/editor-common';
+import { Popup } from '@atlaskit/editor-common/ui';
 import ToolbarButton, { ToolbarButtonRef } from '../../../../ui/ToolbarButton';
 import { Separator, ButtonGroup, Wrapper } from '../../../../ui/styles';
 import { createTable } from '../../../table/commands';
@@ -265,6 +265,8 @@ export class ToolbarInsertBlock extends React.PureComponent<
             iconBefore={btn.elemBefore}
             selected={btn.isActive}
             title={btn.title}
+            aria-label={btn['aria-label']}
+            aria-haspopup={btn['aria-haspopup']}
             onItemClick={this.insertToolbarMenuItem}
           />
         ))}

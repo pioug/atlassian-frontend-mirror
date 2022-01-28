@@ -3,7 +3,8 @@ import { Node as PMNode } from 'prosemirror-model';
 import { RendererContext } from '../types';
 import { Serializer } from '../..';
 import { ExtensionLayout } from '@atlaskit/adf-schema';
-import { ExtensionHandlers, ProviderFactory } from '@atlaskit/editor-common';
+import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { renderExtension } from './extension';
 import ExtensionRenderer from '../../ui/ExtensionRenderer';
 

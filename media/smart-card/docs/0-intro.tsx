@@ -15,6 +15,8 @@ export default md`
   - a Client which communicates with Object Resolver Service;
   - a Client which with a custom fetch function (defined by you!).
 
+  If you have any questions, you can reach out to [#help-linking-platform](https://atlassian.slack.com/archives/CFKGAQZRV) for help.
+
   ## Usage
 
   ${code`import { Provider, Card } from '@atlaskit/smart-card';`}

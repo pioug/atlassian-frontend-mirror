@@ -1,8 +1,8 @@
-import {
+import type {
   ExtensionManifest,
   ExtensionModuleNodes,
   ExtensionModule,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-common/extensions';
 
 import { mockFieldResolver } from './confluence-fields-data-providers';
 

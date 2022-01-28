@@ -3,7 +3,7 @@ import { Plugin } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import { Node as PMNode } from 'prosemirror-model';
 import { breakout } from '@atlaskit/adf-schema';
-import { calcBreakoutWidth } from '@atlaskit/editor-common';
+import { calcBreakoutWidth } from '@atlaskit/editor-common/utils';
 import { EditorPlugin, PMPluginFactoryParams } from '../../types';
 import WithPluginState from '../../ui/WithPluginState';
 import { pluginKey as widthPluginKey, WidthPluginState } from '../width';

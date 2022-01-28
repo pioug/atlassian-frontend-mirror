@@ -8,7 +8,7 @@ import {
 } from 'react-intl-next';
 import { Schema } from 'prosemirror-model';
 import { EditorView } from 'prosemirror-view';
-import { browser } from '@atlaskit/editor-common';
+import { browser } from '@atlaskit/editor-common/utils';
 import CrossIcon from '@atlaskit/icon/glyph/cross';
 import AkModalDialog, {
   ModalTransition,
@@ -36,6 +36,7 @@ import { messages as listMessages } from '../../list/messages';
 import { messages as insertBlockMessages } from '../../insert-block/ui/ToolbarInsertBlock/messages';
 import { messages as blockTypeMessages } from '../../block-type/messages';
 import { messages as undoRedoMessages } from '../../undo-redo/messages';
+import { alignmentMessages } from '../../../ui/Alignment/messages';
 import { closeHelpCommand } from '../commands';
 import { annotationMessages } from '../../annotation/toolbar';
 
@@ -138,6 +139,16 @@ export const formatting: (intl: IntlShape) => Format[] = ({
         </CodeLg>
       </span>
     ),
+  },
+  {
+    name: formatMessage(toolbarMessages.subscript),
+    type: 'subsup',
+    keymap: () => keymaps.toggleSubscript,
+  },
+  {
+    name: formatMessage(toolbarMessages.superscript),
+    type: 'subsup',
+    keymap: () => keymaps.toggleSuperscript,
   },
   {
     name: formatMessage(blockTypeMessages.heading1),
@@ -305,7 +316,6 @@ export const formatting: (intl: IntlShape) => Format[] = ({
       </span>
     ),
   },
-
   {
     name: formatMessage(insertBlockMessages.mention),
     type: 'mention',
@@ -314,6 +324,16 @@ export const formatting: (intl: IntlShape) => Format[] = ({
         <CodeLg>@</CodeLg>
       </span>
     ),
+  },
+  {
+    name: formatMessage(alignmentMessages.alignLeft),
+    type: 'alignment',
+    keymap: () => keymaps.alignLeft,
+  },
+  {
+    name: formatMessage(alignmentMessages.alignRight),
+    type: 'alignment',
+    keymap: () => keymaps.alignRight,
   },
 ];
 const shortcutNamesWithoutKeymap: string[] = [

@@ -1,4 +1,5 @@
 import { Plugin, NodeSelection } from 'prosemirror-state';
+import { EditorView, EditorProps as PMEditorProps } from 'prosemirror-view';
 import { codeBidiWarningMessages } from '@atlaskit/editor-common/messages';
 
 import { IntlShape } from 'react-intl-next';
@@ -17,16 +18,40 @@ export const createPlugin = ({
   useLongPressSelection = false,
   getIntl,
   appearance,
+  allowCompositionInputOverride = false,
 }: {
   useLongPressSelection?: boolean;
   getIntl: () => IntlShape;
   appearance: EditorProps['appearance'];
+  // We only want this DOM event on mobile as composition only happens on mobile
+  // Don't want to add an uneccessary listener to web
+  allowCompositionInputOverride?: boolean;
 }) => {
   const intl = getIntl();
 
   const codeBidiWarningLabel = intl.formatMessage(
     codeBidiWarningMessages.label,
   );
+
+  const handleDOMEvents: PMEditorProps['handleDOMEvents'] = {};
+
+  // ME-1599: Composition on mobile was causing the DOM observer to mutate the code block
+  // incorrecly and lose content when pressing enter in the middle of a code block line.
+  if (allowCompositionInputOverride) {
+    handleDOMEvents.beforeinput = (view: EditorView, event: Event) => {
+      if (
+        event.composed &&
+        // insertParagraph will be the input type when the enter key is pressed.
+        (event as any).inputType === 'insertParagraph' &&
+        findCodeBlock(view.state, view.state.selection)
+      ) {
+        event.preventDefault();
+        return true;
+      }
+
+      return false;
+    };
+  }
 
   return new Plugin({
     state: {
@@ -97,6 +122,7 @@ export const createPlugin = ({
           ),
         { useLongPressSelection },
       ),
+      handleDOMEvents,
     },
   });
 };

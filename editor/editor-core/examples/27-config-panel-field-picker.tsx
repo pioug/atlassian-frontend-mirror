@@ -3,7 +3,7 @@ import React from 'react';
 import {
   combineExtensionProviders,
   DefaultExtensionProvider,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-common/extensions';
 import exampleManifest from '../example-helpers/config-panel/example-manifest-individual-fields';
 
 import ConfigPanelWithExtensionPicker from '../example-helpers/config-panel/ConfigPanelWithExtensionPicker';

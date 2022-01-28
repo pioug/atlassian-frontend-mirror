@@ -13,7 +13,7 @@ const FlagInfoExample = () => {
       icon={
         <InfoIcon
           label="Info"
-          secondaryColor={token('color.iconBorder.discovery', N500)}
+          secondaryColor={token('color.icon.discovery', N500)}
         />
       }
       id="info"

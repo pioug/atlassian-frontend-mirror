@@ -11,10 +11,8 @@ import {
   withAnalyticsEvents,
   WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
-import {
-  ContextIdentifierProvider,
-  ExtensionManifest,
-} from '@atlaskit/editor-common';
+import type { ExtensionManifest } from '@atlaskit/editor-common/extensions';
+import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
 import Form from '@atlaskit/form';
 import {
   FieldDefinition,

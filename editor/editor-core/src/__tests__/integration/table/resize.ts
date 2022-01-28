@@ -1,5 +1,5 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
-import { tableNewColumnMinWidth } from '@atlaskit/editor-common';
+import { tableNewColumnMinWidth } from '@atlaskit/editor-common/styles';
 import { PluginKey } from 'prosemirror-state';
 import {
   editable,

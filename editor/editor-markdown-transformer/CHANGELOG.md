@@ -1,5 +1,12 @@
 # @atlaskit/editor-markdown-transformer
 
+## 4.2.3
+
+### Patch Changes
+
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - ED-13753 Updated editor-common import entries.
+- Updated dependencies
+
 ## 4.2.2
 
 ### Patch Changes

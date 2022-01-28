@@ -19,28 +19,28 @@ import { token } from '@atlaskit/tokens';
 
 export const backgroundColors = {
   added: {
-    light: token('color.background.subtleSuccess.resting', G50),
-    dark: token('color.background.subtleSuccess.resting', G50),
+    light: token('color.background.success', G50),
+    dark: token('color.background.success', G50),
   },
   default: {
-    light: token('color.background.subtleNeutral.resting', N40),
-    dark: token('color.background.subtleNeutral.resting', DN70),
+    light: token('color.background.neutral', N40),
+    dark: token('color.background.neutral', DN70),
   },
   important: {
-    light: token('color.background.boldDanger.resting', R400),
-    dark: token('color.background.boldDanger.resting', R400),
+    light: token('color.background.danger.bold', R400),
+    dark: token('color.background.danger.bold', R400),
   },
   primary: {
-    light: token('color.background.boldBrand.resting', B400),
-    dark: token('color.background.boldBrand.resting', B100),
+    light: token('color.background.brand.bold', B400),
+    dark: token('color.background.brand.bold', B100),
   },
   primaryInverted: {
-    light: token('color.background.default', N0),
-    dark: token('color.background.default', DN400),
+    light: token('elevation.surface', N0),
+    dark: token('elevation.surface', DN400),
   },
   removed: {
-    light: token('color.background.subtleDanger.resting', R50),
-    dark: token('color.background.subtleDanger.resting', R50),
+    light: token('color.background.danger', R50),
+    dark: token('color.background.danger', R50),
   },
 };
 
@@ -50,16 +50,16 @@ export const textColors = {
     dark: token('color.text.success', G500),
   },
   default: {
-    light: token('color.text.highEmphasis', N800),
-    dark: token('color.text.highEmphasis', DN900),
+    light: token('color.text', N800),
+    dark: token('color.text', DN900),
   },
   important: {
-    light: token('color.text.onBold', N0),
-    dark: token('color.text.onBold', N0),
+    light: token('color.text.inverse', N0),
+    dark: token('color.text.inverse', N0),
   },
   primary: {
-    light: token('color.text.onBold', N0),
-    dark: token('color.text.onBold', DN0),
+    light: token('color.text.inverse', N0),
+    dark: token('color.text.inverse', DN0),
   },
   primaryInverted: {
     light: token('color.text.brand', B500),

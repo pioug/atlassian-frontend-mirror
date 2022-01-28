@@ -1,8 +1,5 @@
 import { ExpandDefinition as Expand } from '../expand';
-import {
-  BodiedExtensionDefinition as BodiedExtension,
-  BodiedExtensionWithMarksDefinition as BodiedExtensionWithMarks,
-} from '../bodied-extension';
+import { BodiedExtensionDefinition as BodiedExtension } from '../bodied-extension';
 import { PanelDefinition as Panel } from '../panel';
 import {
   ParagraphDefinition as Paragraph,
@@ -22,10 +19,7 @@ import { MediaSingleDefinition as MediaSingle } from '../media-single';
 import { DecisionListDefinition as DecisionList } from '../decision-list';
 import { TaskListDefinition as TaskList } from '../task-list';
 import { TableDefinition as Table } from '../tableNodes';
-import {
-  ExtensionDefinition as Extension,
-  ExtensionWithMarksDefinition as ExtensionWithMarks,
-} from '../extension';
+import { ExtensionDefinition as Extension } from '../extension';
 import { BlockCardDefinition as BlockCard } from '../block-card';
 import { EmbedCardDefinition as EmbedCard } from '../embed-card';
 
@@ -52,8 +46,6 @@ export type BlockContent =
   | Table
   | Expand
   | Extension
-  | ExtensionWithMarks
   | BodiedExtension
-  | BodiedExtensionWithMarks
   | BlockCard
   | EmbedCard;

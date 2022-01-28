@@ -2,8 +2,7 @@ import prettier from 'prettier';
 import type { Format } from 'style-dictionary';
 
 import { DEFAULT_THEME } from '../constants';
-
-import { customPropertyKey } from './utils/custom-property';
+import { getTokenId } from '../utils/token-ids';
 
 const formatter: Format['formatter'] = ({ dictionary }) => {
   const tokens: Record<string, string> = {};
@@ -11,7 +10,7 @@ const formatter: Format['formatter'] = ({ dictionary }) => {
   dictionary.allTokens
     .filter((token) => token.attributes?.group !== 'palette')
     .forEach((token) => {
-      const tokenName = customPropertyKey(token.path);
+      const tokenName = getTokenId(token.path);
       tokens[tokenName] = token.value;
     });
 

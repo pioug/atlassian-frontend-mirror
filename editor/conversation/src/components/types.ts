@@ -1,4 +1,4 @@
-import { ProviderFactory } from '@atlaskit/editor-common';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { Comment as CommentType, User } from '../model';
 import { Editor as AkEditor, EditorProps } from '@atlaskit/editor-core';
 import { CommentAction as AkCommentAction } from '@atlaskit/comment';

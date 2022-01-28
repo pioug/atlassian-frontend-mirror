@@ -4,7 +4,6 @@ import React from 'react';
 import { EmojiProvider } from '../../../../api/EmojiResource';
 import { CachingMediaEmoji } from '../../../../components/common/CachingEmoji';
 import Emoji from '../../../../components/common/Emoji';
-import EmojiPreview from '../../../../components/common/EmojiPreview';
 import ResourcedEmoji from '../../../../components/common/ResourcedEmoji';
 import EmojiPicker from '../../../../components/picker/EmojiPicker';
 import EmojiPickerList from '../../../../components/picker/EmojiPickerList';
@@ -20,6 +19,7 @@ import {
   emojisVisible,
   setupPicker,
 } from '../picker/_emoji-picker-test-helpers';
+import EmojiPickerPreview from '../../../../components/picker/EmojiPickerPreview';
 
 describe('Media Emoji Handling across components', () => {
   let emojiProvider: Promise<EmojiProvider>;
@@ -71,14 +71,19 @@ describe('Media Emoji Handling across components', () => {
       const emojiDescription = emoji.prop('emoji');
       expect(emojiDescription).toEqual(mediaEmoji);
       expect(list.find(CachingMediaEmoji).length).toEqual(1);
-      let preview = component.find(EmojiPreview);
-      expect(preview.length).toEqual(1);
 
       // Hover to force preview
       emoji.simulate('mousemove');
 
+      let preview = component.find(EmojiPickerPreview);
+      expect(preview.length).toEqual(1);
+
       await waitUntil(() =>
-        hasSelector(component, Emoji, (preview = component.find(EmojiPreview))),
+        hasSelector(
+          component,
+          Emoji,
+          (preview = component.find(EmojiPickerPreview)),
+        ),
       );
       const previewEmojiDescription = preview.find(Emoji).prop('emoji');
       expect(previewEmojiDescription).toEqual(mediaEmoji);

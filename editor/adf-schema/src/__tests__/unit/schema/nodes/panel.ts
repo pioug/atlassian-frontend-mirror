@@ -42,12 +42,14 @@ describe(`${name}/schema panel node `, () => {
   });
 
   describe('With CustomPanel NodeSpec FF On ', () => {
-    it('should have data-panel-icon and data-panel-color when serializing to DOM', () => {
+    it('should have data-panel-icon, data-panel-color, data-panel-icon-id and data-panel-icon-text when serializing to DOM', () => {
       const html = toHTML(
         schemaWithAllowCustomPanel.nodes.panel.create({
           panelType: 'custom',
           panelIcon: ':smiley:',
           panelColor: '#33FF33',
+          panelIconId: '1f603',
+          panelIconText: '😃',
         }),
         schemaWithAllowCustomPanel,
       );
@@ -56,6 +58,8 @@ describe(`${name}/schema panel node `, () => {
         panelType: 'custom',
         panelIcon: ':smiley:',
         panelColor: '#33FF33',
+        panelIconId: '1f603',
+        panelIconText: '😃',
       });
     });
 
@@ -67,16 +71,20 @@ describe(`${name}/schema panel node `, () => {
           panelType: 'tip',
           panelColor: null,
           panelIcon: null,
+          panelIconId: null,
+          panelIconText: null,
         },
       },
       {
         subject: 'icon and color',
         html:
-          '<div data-panel-type="custom" data-panel-icon=":smiley:" data-panel-color="#33FF33"><p>testing</p></div>',
+          '<div data-panel-type="custom" data-panel-icon=":smiley:" data-panel-color="#33FF33" data-panel-icon-id="1f603" data-panel-icon-text="😃"><p>testing</p></div>',
         expected: {
           panelType: 'custom',
           panelColor: '#33FF33',
           panelIcon: ':smiley:',
+          panelIconId: '1f603',
+          panelIconText: '😃',
         },
       },
     ])('extract correct values', ({ html, subject, expected }) => {
@@ -90,7 +98,7 @@ describe(`${name}/schema panel node `, () => {
 
     it('should extract the correct attributes of panelType', () => {
       const doc = fromHTML(
-        "<div data-panel-type='tip' data-panel-icon=':smiley:' data-panel-color='#33FF33'><p>testing</p></div>",
+        "<div data-panel-type='tip' data-panel-icon=':smiley:' data-panel-color='#33FF33' data-panel-icon-id='1f603' data-panel-icon-text='😃'><p>testing</p></div>",
         schemaWithAllowCustomPanel,
       );
       const panel = doc.firstChild;
@@ -99,6 +107,8 @@ describe(`${name}/schema panel node `, () => {
         expect.objectContaining({
           panelIcon: ':smiley:',
           panelColor: '#33FF33',
+          panelIconId: '1f603',
+          panelIconText: '😃',
         }),
       );
     });
@@ -113,6 +123,8 @@ describe(`${name}/schema panel node `, () => {
           panelType: 'info',
           panelColor: null,
           panelIcon: null,
+          panelIconId: null,
+          panelIconText: null,
         },
       },
       {
@@ -123,6 +135,8 @@ describe(`${name}/schema panel node `, () => {
           panelType: 'info',
           panelColor: null,
           panelIcon: null,
+          panelIconId: null,
+          panelIconText: null,
         },
       },
     ])('extract correct values', ({ html, subject, expected }) => {

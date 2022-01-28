@@ -1,5 +1,5 @@
 import { memo, useCallback, useLayoutEffect, useState } from 'react';
-import { InlineCommentSelectionComponentProps } from '@atlaskit/editor-common';
+import { InlineCommentSelectionComponentProps } from '@atlaskit/editor-common/types';
 import { nativeBridgeAPI as webToNativeBridgeAPI } from '../web-to-native/implementation';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
 import {

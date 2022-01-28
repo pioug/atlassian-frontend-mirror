@@ -1,7 +1,6 @@
 import { mount, ReactWrapper } from 'enzyme';
 import React from 'react';
 import { waitUntil } from '@atlaskit/elements-test-helpers';
-import Tooltip from '@atlaskit/tooltip';
 
 import { EmojiDescription } from '../../../../types';
 import Emoji from '../../../../components/common/Emoji';
@@ -77,8 +76,8 @@ describe('<ResourcedEmoji />', () => {
     );
 
     return waitUntil(() => emojiVisible(component)).then(() => {
-      const tooltip = component.find(Tooltip);
-      expect(tooltip).toHaveLength(0);
+      const emoji = component.find(Emoji);
+      expect(emoji.childAt(0).prop('title')).toBe('');
     });
   });
 
@@ -92,8 +91,8 @@ describe('<ResourcedEmoji />', () => {
     );
 
     return waitUntil(() => emojiVisible(component)).then(() => {
-      const tooltip = component.find(Tooltip);
-      expect(tooltip).toHaveLength(1);
+      const emoji = component.find(Emoji);
+      expect(emoji.childAt(0).prop('title')).toBe(':grin:');
     });
   });
 
@@ -217,8 +216,8 @@ describe('<ResourcedEmoji />', () => {
     );
 
     return waitUntil(() => emojiPlaceHolderVisible(component)).then(() => {
-      const tooltip = component.find(Tooltip);
-      expect(tooltip).toHaveLength(1);
+      const placeholder = component.find(EmojiPlaceholder);
+      expect(placeholder.childAt(0).prop('title')).toBeDefined();
     });
   });
 });

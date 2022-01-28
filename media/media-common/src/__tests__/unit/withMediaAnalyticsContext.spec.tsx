@@ -59,6 +59,7 @@ describe('withMediaAnalyticsContext()', () => {
     const analyticsEventPayload = { test: 'ok' };
     const someFeatureFlags: MediaFeatureFlags = {
       captions: true,
+      timestampOnVideo: true,
     };
     const onEvent = jest.fn();
 
@@ -102,6 +103,7 @@ describe('withMediaAnalyticsContext()', () => {
     };
     const someFeatureFlags: MediaFeatureFlags = {
       captions: true,
+      timestampOnVideo: true,
       ...filteredFlags,
     };
     const onEvent = jest.fn();

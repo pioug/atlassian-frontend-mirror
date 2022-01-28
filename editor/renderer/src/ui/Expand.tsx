@@ -10,7 +10,7 @@ import {
   ExpandIconWrapper,
   ExpandLayoutWrapper,
   ClearNextSiblingMarginTop,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-common/ui';
 import {
   akEditorLineHeight,
   relativeFontSizeToBase16,

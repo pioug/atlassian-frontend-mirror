@@ -74,29 +74,31 @@ describe('Annotation toolbar positioning', () => {
       await init(page, adf);
     });
 
+    afterEach(async () => {
+      await page.waitForSelector(annotationSelectors.floatingToolbarCreate);
+      await snapshot(page);
+    });
+
     it(`toolbar left by top-line left boundary`, async () => {
       await selectAtPosWithProseMirror(page, 108, 249);
-      await snapshot(page);
     });
 
     it(`toolbar left by left editor boundary`, async () => {
       // select upwards
       await selectAtPosWithProseMirror(page, 788, 661);
-      await snapshot(page);
     });
 
     it(`toolbar right by top-line right boundary`, async () => {
       await selectAtPosWithProseMirror(page, 7, 73);
-      await snapshot(page);
     });
 
     it(`toolbar right by right editor boundary`, async () => {
       await selectAtPosWithProseMirror(page, 45, 127);
-      await snapshot(page);
     });
 
     it(`align to mouse cursor and update as selection changes`, async () => {
       await selectAtPosWithProseMirror(page, 142, 281);
+      await page.waitForSelector(annotationSelectors.floatingToolbarCreate);
       await snapshot(page);
 
       // update selection
@@ -104,49 +106,40 @@ describe('Annotation toolbar positioning', () => {
       await page.keyboard.down('Shift');
       await page.mouse.click(lastPosition.left, lastPosition.top);
       await page.keyboard.up('Shift');
-      await snapshot(page);
     });
 
     it(`across multiple nodes on same line`, async () => {
       await selectAtPosWithProseMirror(page, 1018, 1047);
-      await snapshot(page);
     });
 
     it(`across multiple nodes on different lines`, async () => {
       await selectAtPosWithProseMirror(page, 1018, 1114);
-      await snapshot(page);
     });
 
     it(`when only whitespace is selected`, async () => {
       await selectAtPosWithProseMirror(page, 8, 7);
-      await snapshot(page);
     });
 
     it(`text selection in table cell`, async () => {
       await scrollToElement(page, 'table');
 
       await selectAtPosWithProseMirror(page, 1365, 1390);
-      await snapshot(page);
     });
 
-    // FIXME: This test was automatically skipped due to failure on 8/26/2021: https://product-fabric.atlassian.net/browse/ED-13675
-    it.skip(`text selection in wide breakout node`, async () => {
+    it(`text selection in wide breakout node`, async () => {
       await selectAtPosWithProseMirror(page, 1, 2);
       await scrollToBottom(page);
       await selectAtPosWithProseMirror(page, 1712, 1686);
-      await snapshot(page);
     });
 
     it(`text selection in full width breakout node (left side)`, async () => {
       await scrollToBottom(page);
       await selectAtPosWithProseMirror(page, 2305, 2279);
-      await snapshot(page);
     });
 
     it(`text selection in full width breakout node (right side)`, async () => {
       await scrollToBottom(page);
       await selectAtPosWithProseMirror(page, 3010, 3041);
-      await snapshot(page);
     });
   });
 

@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 import { Providers } from '@atlaskit/editor-common/provider-factory';
-import { CollabEditProvider } from '@atlaskit/editor-common';
+import type { CollabEditProvider } from '@atlaskit/editor-common/collab';
 
 export type {
   CollabParticipant,
@@ -10,7 +10,7 @@ export type {
   CollabEventPresenceData,
   CollabEventTelepointerData,
   CollabSendableSelection,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-common/collab';
 
 export type InviteToEditComponentProps = {
   children: ReactElement<InviteToEditButtonProps>;

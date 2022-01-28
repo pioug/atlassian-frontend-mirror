@@ -48,7 +48,7 @@ const wrapperStyles = css({
   zIndex: layers.blanket() + 1,
   top: 0,
   left: 0,
-  backgroundColor: token('color.background.overlay', N0),
+  backgroundColor: token('elevation.surface.overlay', N0),
   overflow: 'hidden',
 });
 

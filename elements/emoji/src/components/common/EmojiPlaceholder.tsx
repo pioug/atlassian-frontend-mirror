@@ -1,6 +1,5 @@
 import React from 'react';
 import classNames from 'classnames';
-import Tooltip from '@atlaskit/tooltip';
 import { placeholder, placeholderContainer } from './styles';
 import { defaultEmojiHeight } from '../../util/constants';
 import { EmojiImageRepresentation } from '../../types';
@@ -51,20 +50,13 @@ const EmojiPlaceholder = (props: Props) => {
     [placeholderContainer]: true,
   };
 
-  const placeholderNode = (
+  return (
     <span
       aria-label={shortName}
       className={classNames(classes)}
       style={style}
+      title={showTooltip ? shortName : ''}
     />
-  );
-
-  return showTooltip ? (
-    <Tooltip tag="span" content={shortName}>
-      {placeholderNode}
-    </Tooltip>
-  ) : (
-    placeholderNode
   );
 };
 

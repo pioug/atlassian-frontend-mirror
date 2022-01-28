@@ -40,6 +40,7 @@ export default class EmojiPickerEmojiRow extends PureComponent<Props, {}> {
                 showDelete={showDelete}
                 onDelete={onDelete}
                 placeholderSize={24}
+                shouldBeInteractive
               />
             </span>
           );

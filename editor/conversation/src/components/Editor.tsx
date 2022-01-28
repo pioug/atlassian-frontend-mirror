@@ -2,7 +2,7 @@ import React from 'react';
 import debounce from 'lodash/debounce';
 import styled from 'styled-components';
 import AkAvatar from '@atlaskit/avatar';
-import { ProviderFactory } from '@atlaskit/editor-common';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 
 import {
   Editor as AkEditor,

@@ -5,11 +5,11 @@ import {
   FloatingToolbarItem,
 } from '../types';
 import { Command } from '../../../types';
-import {
+import { DefaultExtensionProvider } from '@atlaskit/editor-common/extensions';
+import type {
   ContextualToolbar,
-  DefaultExtensionProvider,
   ExtensionManifest,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-common/extensions';
 
 export const getToolbarItems = (
   toolbar: FloatingToolbarConfig,

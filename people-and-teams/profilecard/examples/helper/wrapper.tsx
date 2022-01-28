@@ -5,8 +5,14 @@ import { themed } from '@atlaskit/theme/components';
 import { token } from '@atlaskit/tokens';
 
 const themedBoxShadow = themed({
-  light: token('shadow.overlay', `0 4px 8px -2px ${N50A}, 0 0 1px ${N60A}`),
-  dark: token('shadow.overlay', `0 4px 8px -2px ${DN50A}, 0 0 1px ${DN60A}`),
+  light: token(
+    'elevation.shadow.overlay',
+    `0 4px 8px -2px ${N50A}, 0 0 1px ${N60A}`,
+  ),
+  dark: token(
+    'elevation.shadow.overlay',
+    `0 4px 8px -2px ${DN50A}, 0 0 1px ${DN60A}`,
+  ),
 });
 
 export const CardWrapper = styled.div`

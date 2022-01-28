@@ -6,7 +6,8 @@ jest.mock('../../../../../plugins/media/utils/check-media-type', () => ({
 }));
 
 import { ActivityItem } from '@atlaskit/activity-provider';
-import { ProviderFactory, ErrorMessage } from '@atlaskit/editor-common';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import { ErrorMessage } from '@atlaskit/editor-common/ui';
 import { activityProviderFactory } from '@atlaskit/editor-test-helpers/mock-activity-provider';
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';

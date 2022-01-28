@@ -1,14 +1,18 @@
 import { MediaADFAttrs } from '@atlaskit/adf-schema';
 import {
-  DEFAULT_IMAGE_HEIGHT,
-  DEFAULT_IMAGE_WIDTH,
-  browser,
   ProviderFactory,
   WithProviders,
+} from '@atlaskit/editor-common/provider-factory';
+import type {
   Providers,
   MediaProvider,
   ContextIdentifierProvider,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-common/provider-factory';
+import {
+  DEFAULT_IMAGE_HEIGHT,
+  DEFAULT_IMAGE_WIDTH,
+} from '@atlaskit/editor-common/ui';
+import { browser } from '@atlaskit/editor-common/utils';
 import { Node as PMNode } from 'prosemirror-model';
 import { NodeSelection } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';

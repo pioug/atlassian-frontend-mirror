@@ -1,6 +1,8 @@
 import { fragment } from '@atlaskit/adf-schema';
 import { Plugin } from 'prosemirror-state';
+
 import { pluginKey } from './plugin-key';
+import { createPlugin as createFragmentMarkConsistencyPlugin } from './pm-plugins/fragment-consistency';
 import { EditorPlugin } from '../../types';
 
 export function createPlugin(): Plugin {
@@ -17,6 +19,15 @@ const fragmentMarkPlugin = (): EditorPlugin => ({
       {
         name: 'fragment',
         mark: fragment,
+      },
+    ];
+  },
+
+  pmPlugins() {
+    return [
+      {
+        name: 'fragmentMarkConsistency',
+        plugin: ({ dispatch }) => createFragmentMarkConsistencyPlugin(dispatch),
       },
     ];
   },

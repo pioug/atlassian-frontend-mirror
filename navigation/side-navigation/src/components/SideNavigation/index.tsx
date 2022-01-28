@@ -41,9 +41,9 @@ const SideNavigation = forwardRef<HTMLElement, SideNavigationProps>(
         css={{
           width: '100%',
           height: '100%',
-          color: token('color.text.mediumEmphasis', N500),
+          color: token('color.text.subtle', N500),
           minWidth: gridSize() * 30,
-          backgroundColor: token('color.background.default', N10),
+          backgroundColor: token('elevation.surface', N10),
           position: 'relative',
           display: 'flex',
           flexDirection: 'column',

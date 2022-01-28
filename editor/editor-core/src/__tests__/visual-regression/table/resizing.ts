@@ -28,7 +28,7 @@ import { retryUntilStablePosition } from '../../__helpers/page-objects/_toolbar'
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { TableCssClassName as ClassName } from '../../../plugins/table/types';
 import { EditorProps } from '../../../types';
-import { TableSharedCssClassName } from '@atlaskit/editor-common';
+import { TableSharedCssClassName } from '@atlaskit/editor-common/styles';
 
 const waitToolbarThenSnapshot = async (page: PuppeteerPage) => {
   await retryUntilStablePosition(

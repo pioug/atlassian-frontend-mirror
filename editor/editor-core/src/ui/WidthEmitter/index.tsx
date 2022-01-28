@@ -1,7 +1,8 @@
 import React from 'react';
 import { EditorView } from 'prosemirror-view';
 import { pluginKey as widthPluginKey } from '../../plugins/width';
-import { WidthConsumerContext, WidthConsumer } from '@atlaskit/editor-common';
+import { WidthConsumer } from '@atlaskit/editor-common/ui';
+import type { WidthConsumerContext } from '@atlaskit/editor-common/ui';
 import {
   ContextPanelConsumer,
   ContextPanelContext,

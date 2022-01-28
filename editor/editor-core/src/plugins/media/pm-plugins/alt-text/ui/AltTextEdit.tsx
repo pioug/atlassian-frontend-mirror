@@ -28,7 +28,7 @@ import {
 import { RECENT_SEARCH_WIDTH_IN_PX } from '../../../../../ui/LinkSearch/ToolbarComponents';
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 
-import { ErrorMessage } from '@atlaskit/editor-common';
+import { ErrorMessage } from '@atlaskit/editor-common/ui';
 
 export const CONTAINER_WIDTH_IN_PX = RECENT_SEARCH_WIDTH_IN_PX;
 export const MAX_ALT_TEXT_LENGTH = 510; // double tweet length

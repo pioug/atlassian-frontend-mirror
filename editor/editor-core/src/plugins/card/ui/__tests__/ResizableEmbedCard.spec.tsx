@@ -5,8 +5,8 @@ import {
   embedCard,
   DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { CardOptions } from '@atlaskit/editor-common';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+import { CardOptions } from '@atlaskit/editor-common/card';
 import ResizableEmbedCard, {
   Props as ResizableEmbedCardProps,
 } from '../ResizableEmbedCard';

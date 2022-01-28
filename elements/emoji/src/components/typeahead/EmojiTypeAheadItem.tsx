@@ -4,8 +4,8 @@ import { PureComponent } from 'react';
 import { toEmojiId } from '../../util/type-helpers';
 import { EmojiDescription, OnEmojiEvent } from '../../types';
 import { leftClick } from '../../util/mouse';
-import EmojiPreview from '../common/EmojiPreview';
 import * as styles from './styles';
+import EmojiPickerPreview from '../picker/EmojiPickerPreview';
 
 export interface Props {
   onMouseMove: OnEmojiEvent;
@@ -49,7 +49,7 @@ export default class EmojiTypeAheadItem extends PureComponent<Props, {}> {
         data-emoji-id={emoji.shortName}
       >
         <div className={styles.typeAheadItemRow}>
-          <EmojiPreview emoji={emoji} />
+          <EmojiPickerPreview emoji={emoji} />
         </div>
       </div>
     );

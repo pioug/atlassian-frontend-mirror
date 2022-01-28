@@ -16,7 +16,7 @@ import {
 import { EditorView } from 'prosemirror-view';
 
 import { uuid } from '@atlaskit/adf-schema';
-import { ContextIdentifierProvider } from '@atlaskit/editor-common';
+import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
 
 import { Command } from '../../types';
 import {
@@ -153,10 +153,11 @@ export const insertTaskDecision = (
     itemLocalId: string;
   }) => {
     const { $to } = state.selection;
-    const pos = $to.end($to.depth);
+    const endPos = $to.end($to.depth);
+    const newItemParagraphPos = endPos + 2;
     return tr
-      .split(pos, 1, [{ type: item, attrs: { localId: itemLocalId } }])
-      .setSelection(new TextSelection(tr.doc.resolve(pos + $to.depth)));
+      .split(endPos, 1, [{ type: item, attrs: { localId: itemLocalId } }])
+      .setSelection(new TextSelection(tr.doc.resolve(newItemParagraphPos)));
   };
 
   const tr = insertTaskDecisionWithAnalytics(

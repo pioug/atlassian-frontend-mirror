@@ -10,7 +10,7 @@ import {
   TableLayout,
   tablePrefixSelector,
 } from '@atlaskit/adf-schema';
-import { TableSharedCssClassName } from '@atlaskit/editor-common';
+import { TableSharedCssClassName } from '@atlaskit/editor-common/styles';
 import { TableColumnOrdering } from '@atlaskit/adf-schema/steps';
 
 import { INPUT_METHOD } from '../analytics/types/enums';

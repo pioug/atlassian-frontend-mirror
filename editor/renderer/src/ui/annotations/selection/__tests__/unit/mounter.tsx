@@ -2,7 +2,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import { act } from 'react-dom/test-utils';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
-import { InlineCommentSelectionComponentProps } from '@atlaskit/editor-common';
+import type { InlineCommentSelectionComponentProps } from '@atlaskit/editor-common/types';
 import { SelectionInlineCommentMounter } from '../../mounter';
 import { Position } from '../../../types';
 import { ApplyAnnotation } from '../../../../../actions/index';

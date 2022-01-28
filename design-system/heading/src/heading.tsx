@@ -28,7 +28,7 @@ const headingResetStyles = css({
 });
 
 const h900Styles = css({
-  color: token('color.text.highEmphasis', N800),
+  color: token('color.text', N800),
   fontSize: `${35 / 14}rem`,
   fontWeight: 500,
   letterSpacing: '-0.01em',
@@ -36,7 +36,7 @@ const h900Styles = css({
 });
 
 const h800Styles = css({
-  color: token('color.text.highEmphasis', N800),
+  color: token('color.text', N800),
   fontSize: `${29 / 14}rem`,
   fontWeight: 600,
   letterSpacing: '-0.01em',
@@ -44,7 +44,7 @@ const h800Styles = css({
 });
 
 const h700Styles = css({
-  color: token('color.text.highEmphasis', N800),
+  color: token('color.text', N800),
   fontSize: `${24 / 14}rem`,
   fontWeight: 500,
   letterSpacing: '-0.01em',
@@ -52,7 +52,7 @@ const h700Styles = css({
 });
 
 const h600Styles = css({
-  color: token('color.text.highEmphasis', N800),
+  color: token('color.text', N800),
   fontSize: `${20 / 14}rem`,
   fontWeight: 500,
   letterSpacing: '-0.008em',
@@ -60,7 +60,7 @@ const h600Styles = css({
 });
 
 const h500Styles = css({
-  color: token('color.text.highEmphasis', N800),
+  color: token('color.text', N800),
   fontSize: `${16 / 14}rem`,
   fontWeight: 600,
   letterSpacing: '-0.006em',
@@ -68,7 +68,7 @@ const h500Styles = css({
 });
 
 const h400Styles = css({
-  color: token('color.text.highEmphasis', N800),
+  color: token('color.text', N800),
   fontSize: '1rem',
   fontWeight: 600,
   letterSpacing: '-0.003em',
@@ -76,7 +76,7 @@ const h400Styles = css({
 });
 
 const h300Styles = css({
-  color: token('color.text.highEmphasis', N800),
+  color: token('color.text', N800),
   fontSize: `${12 / 14}rem`,
   fontWeight: 600,
   letterSpacing: 0,
@@ -85,7 +85,7 @@ const h300Styles = css({
 });
 
 const h200Styles = css({
-  color: token('color.text.lowEmphasis', N200),
+  color: token('color.text.subtlest', N200),
   fontSize: `${12 / 14}rem`,
   fontWeight: 600,
   letterSpacing: 0,
@@ -93,7 +93,7 @@ const h200Styles = css({
 });
 
 const h100Styles = css({
-  color: token('color.text.lowEmphasis', N200),
+  color: token('color.text.subtlest', N200),
   fontSize: `${11 / 14}rem`,
   fontWeight: 700,
   letterSpacing: 0,

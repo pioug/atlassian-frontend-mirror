@@ -8,12 +8,9 @@ const urlBanner = getExampleUrl('design-system', 'banner', 'testing');
 /* Css selectors used for the test */
 const myBannerTestId = "[data-testid='myBannerTestId']";
 
-// FIXME: This test was automatically skipped due to failure on 8/23/2021: https://product-fabric.atlassian.net/browse/SKIP-42
 BrowserTestCase(
   'Banner should be identified and visible by data-testid',
-  {
-    skip: ['*'],
-  },
+  {},
   async (client: any) => {
     const bannerTest = new Page(client);
     await bannerTest.goto(urlBanner);

@@ -1,5 +1,5 @@
 import { JSONDocNode, JSONNode } from '@atlaskit/editor-json-transformer';
-import { measureRender } from '@atlaskit/editor-common';
+import { measureRender } from '@atlaskit/editor-common/utils';
 import { measurements } from '@atlaskit/editor-core';
 
 type TotalNodeSizeAndNodes = {

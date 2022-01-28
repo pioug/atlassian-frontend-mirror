@@ -1,5 +1,5 @@
 import { RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema';
-import { MediaSingleProps } from '@atlaskit/editor-common';
+import type { MediaSingleProps } from '@atlaskit/editor-common/ui';
 import { MediaClientConfig } from '@atlaskit/media-core';
 import { GridType } from '../../../grid/types';
 import { EditorView } from 'prosemirror-view';

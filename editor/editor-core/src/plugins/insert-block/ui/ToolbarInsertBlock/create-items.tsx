@@ -143,6 +143,7 @@ const createInsertBlockItems = (
         content: formatMessage(messages.link),
         tooltipDescription: formatMessage(messages.linkDescription),
         disabled: !!linkDisabled,
+        'aria-haspopup': 'dialog',
       }),
     );
   }
@@ -172,6 +173,7 @@ const createInsertBlockItems = (
         content: formatMessage(messages.mention),
         tooltipDescription: formatMessage(messages.mentionDescription),
         disabled: !isTypeAheadAllowed,
+        'aria-haspopup': 'listbox',
       }),
     );
   }
@@ -182,6 +184,7 @@ const createInsertBlockItems = (
         content: formatMessage(messages.emoji),
         tooltipDescription: formatMessage(messages.emojiDescription),
         disabled: emojiDisabled || !isTypeAheadAllowed,
+        'aria-haspopup': 'dialog',
       }),
     );
   }

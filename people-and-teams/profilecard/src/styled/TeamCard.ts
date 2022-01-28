@@ -21,7 +21,7 @@ export const CardWrapper = styled.div`
 `;
 
 const loadingImage = css`
-  background-color: ${token('color.background.subtleNeutral.resting', N20)};
+  background-color: ${token('color.background.neutral', N20)};
 `;
 
 const defaultImage = css`
@@ -68,7 +68,7 @@ export const TeamName = styled.h6`
 `;
 
 export const MemberCount = styled.div`
-  color: ${token('color.text.lowEmphasis', N200)};
+  color: ${token('color.text.subtlest', N200)};
   margin-top: ${gridSize() * 0.5}px;
 `;
 
@@ -97,7 +97,7 @@ export const ActionButtons = styled.div`
   justify-content: space-between;
   margin: ${gridSize() * 3}px -${gridSize() * 3}px 0 -${gridSize()}px;
   background-color: ${token(
-    'color.background.overlay',
+    'elevation.surface.overlay',
     'hsla(0, 100%, 100%, 0.2)',
   )};
 `;

@@ -1,7 +1,7 @@
 import React, { Component, ReactElement } from 'react';
 
 import { FabricElementsAnalyticsContext } from '@atlaskit/analytics-namespaced-context';
-import { ContextIdentifierProvider } from '@atlaskit/editor-common';
+import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
 import {
   ContentRef,
   ResourcedTaskItem,

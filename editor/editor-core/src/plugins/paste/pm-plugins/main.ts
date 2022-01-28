@@ -4,6 +4,7 @@ import { Schema, Slice, Node, Fragment } from 'prosemirror-model';
 import { Plugin, PluginKey, EditorState, Transaction } from 'prosemirror-state';
 import uuid from 'uuid';
 import { MarkdownTransformer } from '@atlaskit/editor-markdown-transformer';
+import { CardOptions } from '@atlaskit/editor-common/card';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import {
   ExtensionProvider,
@@ -65,7 +66,7 @@ import {
   PasteTypes,
 } from '../../analytics';
 import { insideTable, measurements } from '../../../utils';
-import { CardOptions, measureRender } from '@atlaskit/editor-common';
+import { measureRender } from '@atlaskit/editor-common/utils';
 import {
   transformSliceToCorrectMediaWrapper,
   unwrapNestedMediaElements,

@@ -4,7 +4,7 @@ jest.mock('../../utils/viewportDetector', () => {
   return {
     __esModule: true,
     ...actualModule,
-    ViewportDetector: jest.fn(actualModule.ViewportDetector),
+    ViewportDetector: jest.fn(({ children }) => <>{children}</>),
   };
 });
 jest.mock('../../root/card/getCardPreview', () => {
@@ -72,7 +72,7 @@ import { CardAction, CardProps, CardState, CardPreview } from '../..';
 import { Card, CardBase, CardBaseProps } from '../../root/card';
 import { CardView } from '../../root/cardView';
 import { InlinePlayer } from '../../root/inlinePlayer';
-import { ViewportDetector } from '../../utils/viewportDetector';
+import { ViewportDetector, ViewportAnchor } from '../../utils/viewportDetector';
 import {
   getCardPreview,
   getCardPreviewFromCache,
@@ -286,6 +286,9 @@ describe('Card', () => {
     const viewportDetector = card.find(ViewportDetector);
     expect(viewportDetector).toHaveLength(1);
     expect(viewportDetector.prop('onVisible')).toBeDefined();
+
+    const viewportAnchor = card.find(ViewportAnchor);
+    expect(viewportAnchor).toHaveLength(2);
   });
 
   it('should request metadata when Card is in viewport', () => {
@@ -302,6 +305,7 @@ describe('Card', () => {
       onMouseEnter: hoverHandler,
     });
     expect(component.find(ViewportDetector)).toHaveLength(0);
+    expect(component.find(ViewportAnchor)).toHaveLength(0);
   });
 
   it('should only pass MediaCardError down to CardView', () => {
@@ -987,8 +991,12 @@ describe('Card', () => {
       expect(component.find(InlinePlayer)).toHaveLength(1);
     });
 
-    it('should set isPlayingFile=true when clicking on a viewable video file', () => {
-      const { component } = setup(undefined, { useInlinePlayer: true });
+    it('should set isPlayingFile=true when the mediatype is a video, with useInlineplayer=true and disableOverlay=true and feature flag is on', () => {
+      const { component } = setup(undefined, {
+        useInlinePlayer: true,
+        disableOverlay: true,
+        featureFlags: { timestampOnVideo: true },
+      });
       component.setState({
         cardPreview: { dataURI: 'data-uri', source: 'remote' },
         fileState: {
@@ -1001,8 +1009,113 @@ describe('Card', () => {
           artifacts: {},
         },
       });
-      component.find(CardView).simulate('click');
+
       expect(component.state('isPlayingFile')).toBeTruthy();
+
+      //autoplay disabled when control bar is shown by default
+      expect(component.state('shouldAutoplay')).toBeFalsy();
+    });
+
+    it('should set isPlayingFile=false when status is error', () => {
+      const fileState: FileState = {
+        id: 'some-id',
+        status: 'error',
+      };
+
+      const { component } = setup(undefined, {
+        useInlinePlayer: true,
+        disableOverlay: true,
+      });
+      component.setState({
+        cardPreview: { dataURI: 'data-uri', source: 'remote' },
+        fileState: fileState,
+      });
+
+      expect(component.state('isPlayingFile')).toBeFalsy();
+
+      //autoplay disabled when control bar is shown by default
+      expect(component.state('shouldAutoplay')).toBeFalsy();
+    });
+
+    it('should set isPlayingFile=false when status is uploading', () => {
+      const fileState: FileState = {
+        id: 'some-id',
+        name: 'some-video.mp4',
+        mediaType: 'video',
+        mimeType: 'video/mp4',
+        size: 12345,
+        status: 'uploading',
+        progress: 0.2,
+        preview: {
+          value: new Blob([]),
+        },
+      };
+
+      const { component } = setup(undefined, {
+        useInlinePlayer: true,
+        disableOverlay: true,
+      });
+      component.setState({
+        cardPreview: { dataURI: 'data-uri', source: 'remote' },
+        fileState: fileState,
+      });
+
+      expect(component.state('isPlayingFile')).toBeFalsy();
+
+      //autoplay disabled when control bar is shown by default
+      expect(component.state('shouldAutoplay')).toBeFalsy();
+    });
+
+    it('should set isPlayingFile=false when status is uploading', () => {
+      const fileState: FileState = {
+        id: 'some-id',
+        name: 'some-video.mp4',
+        mediaType: 'video',
+        mimeType: 'video/mp4',
+        size: 12345,
+        status: 'processing',
+        preview: {
+          value: new Blob([]),
+        },
+      };
+
+      const { component } = setup(undefined, {
+        useInlinePlayer: true,
+        disableOverlay: true,
+      });
+      component.setState({
+        cardPreview: { dataURI: 'data-uri', source: 'remote' },
+        fileState: fileState,
+      });
+
+      expect(component.state('isPlayingFile')).toBeFalsy();
+
+      //autoplay disabled when control bar is shown by default
+      expect(component.state('shouldAutoplay')).toBeFalsy();
+    });
+
+    it('should set isPlayingFile=true and shoulAutoplay=true when clicking on a viewable video file', () => {
+      const { component } = setup(undefined, {
+        useInlinePlayer: true,
+        disableOverlay: false,
+      });
+      component.setState({
+        cardPreview: { dataURI: 'data-uri', source: 'remote' },
+        fileState: {
+          id: 'some-id',
+          name: 'some-video.mp4',
+          mediaType: 'video',
+          mimeType: 'video/mp4',
+          size: 12345,
+          status: 'processed',
+          artifacts: {},
+        },
+      });
+
+      component.find(CardView).simulate('click');
+
+      expect(component.state('isPlayingFile')).toBeTruthy();
+      expect(component.state('shouldAutoplay')).toBeTruthy();
     });
 
     it("shouldn't set isPlayingFile=true when clicking on a non-viewable video file", () => {
@@ -1060,6 +1173,7 @@ describe('Card', () => {
         useInlinePlayer: true,
         shouldOpenMediaViewer: true,
         identifier: videoIdentifier,
+        disableOverlay: false,
       });
 
       await nextTick();

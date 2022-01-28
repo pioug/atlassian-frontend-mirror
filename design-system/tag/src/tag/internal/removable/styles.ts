@@ -26,7 +26,7 @@ export const removeButtonStyles = ({
   appearance: 'none',
   border: 'none',
   borderRadius: defaultBorderRadius,
-  color: token('color.text.highEmphasis', N500),
+  color: token('color.text', N500),
   display: 'flex',
   justifyContent: 'center',
   height: '16px',

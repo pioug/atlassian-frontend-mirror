@@ -59,7 +59,7 @@ export const outerContainerCSS = (
       height: scrollIndicatorHeight,
       borderRadius: scrollIndicatorBorderRadius,
       backgroundColor: `var(${VAR_SEPARATOR_COLOR}, ${token(
-        'color.border.neutral',
+        'color.border',
         N30,
       )})`,
       position: 'absolute',
@@ -78,7 +78,7 @@ export const outerContainerCSS = (
       bottom: 0,
       zIndex: scrollIndicatorZIndex,
       backgroundColor: `var(${VAR_SEPARATOR_COLOR}, ${token(
-        'color.border.neutral',
+        'color.border',
         N30,
       )})`,
     },
@@ -109,7 +109,7 @@ export const innerContainerCSS = (opts: StyleOpts) =>
           right: 0,
           height: scrollIndicatorHeight,
           backgroundColor: `var(${VAR_SCROLL_INDICATOR_COLOR}, ${token(
-            'color.background.default',
+            'elevation.surface',
             N10,
           )})`,
           position: 'absolute',
@@ -131,7 +131,7 @@ export const innerContainerCSS = (opts: StyleOpts) =>
       position: 'relative',
       zIndex: scrollIndicatorMaskZIndex,
       backgroundColor: `var(${VAR_SCROLL_INDICATOR_COLOR}, ${token(
-        'color.background.default',
+        'elevation.surface',
         N10,
       )})`,
     },

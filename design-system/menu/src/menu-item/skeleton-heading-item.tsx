@@ -16,10 +16,7 @@ const skeletonStyles = css({
     display: 'block',
     width: '30%',
     height: gridSize(),
-    backgroundColor: token(
-      'color.background.subtleNeutral.resting',
-      skeletonColorFn(),
-    ),
+    backgroundColor: token('color.background.neutral', skeletonColorFn()),
     borderRadius: 100,
     content: '""',
   },

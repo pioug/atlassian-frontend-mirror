@@ -5,8 +5,7 @@ import {
   DEFAULT_THEME,
   LONG_SHORT_MAPPING,
 } from '../constants';
-
-import { customPropertyValue } from './utils/custom-property';
+import { getCSSCustomPropertyId } from '../utils/token-ids';
 
 const formatter: Format['formatter'] = ({ dictionary, options }) => {
   if (!options.themeName) {
@@ -25,7 +24,7 @@ const formatter: Format['formatter'] = ({ dictionary, options }) => {
   dictionary.allTokens
     .filter((token) => token.attributes && token.attributes.group !== 'palette')
     .forEach((token) => {
-      const tokenName = customPropertyValue(token.path);
+      const tokenName = getCSSCustomPropertyId(token.path);
       tokens.push({ ...token, name: tokenName });
     });
 

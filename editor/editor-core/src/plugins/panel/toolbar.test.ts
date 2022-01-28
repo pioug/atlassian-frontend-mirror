@@ -1,5 +1,5 @@
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
-import { ProviderFactory } from '@atlaskit/editor-common';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
 import { getToolbarItems, panelIconMap } from './toolbar';
 import { IntlShape, MessageDescriptor, createIntl } from 'react-intl-next';
@@ -35,6 +35,7 @@ import {
 import { EditorView } from 'prosemirror-view';
 import { emojiPluginKey } from '../emoji';
 import { G75 } from '@atlaskit/theme/colors';
+import { EmojiId } from '@atlaskit/emoji';
 
 const dummyFormatMessage = (messageDescriptor: MessageDescriptor) =>
   (messageDescriptor.defaultMessage as string) || '';
@@ -164,42 +165,40 @@ describe('getToolbarItems', () => {
       });
     };
 
+    const standardPanels: Exclude<PanelType, PanelType.CUSTOM>[] = [
+      PanelType.INFO,
+      PanelType.NOTE,
+      PanelType.SUCCESS,
+      PanelType.WARNING,
+      PanelType.ERROR,
+      PanelType.TIP,
+    ];
+
     it(`should call changePanelType when clicked on emoji picker
           with changed emoji`, () => {
+      const emojiId: EmojiId = {
+        shortName: ':smiley:',
+        id: '1f603',
+        fallback: '😃',
+      };
       const emojiPickerConfig = itemsWithCustomPanelEnabled.find(
         (item) => item.type === 'select' && item.selectType === 'emoji',
       );
-      (emojiPickerConfig as FloatingToolbarEmojiPicker<any>)!.onChange(
-        ':smiley:',
-      )(editorView.state);
-      expect(changePanelTypespy).toBeCalledWith(
-        PanelType.CUSTOM,
-        { emoji: ':smiley:' } as PanelOptions,
-        true,
+      (emojiPickerConfig as FloatingToolbarEmojiPicker<any>)!.onChange(emojiId)(
+        editorView.state,
       );
-    });
-
-    it(`should call changePanelType when clicked on color picker
-          with changed color`, () => {
-      const colorPickerConfig = itemsWithCustomPanelEnabled.find(
-        (item) => item.type === 'select' && item.selectType === 'color',
-      );
-      (colorPickerConfig as FloatingToolbarColorPicker<any>)!.onChange({
-        label: 'Mintie',
-        value: G75,
-        border: DEFAULT_BORDER_COLOR,
-      })(editorView.state);
       expect(changePanelTypespy).toBeCalledWith(
         PanelType.CUSTOM,
         {
-          color: G75,
-          emoji: panelIconMap[PanelType.INFO],
+          emoji: ':smiley:',
+          emojiId: '1f603',
+          emojiText: '😃',
         } as PanelOptions,
         true,
       );
     });
 
-    it.each([PanelType.INFO, PanelType.NOTE, PanelType.WARNING, PanelType.TIP])(
+    it.each(standardPanels)(
       `should call changePanelType when clicked on color picker
           with previous icon for %p panel`,
       (value) => {
@@ -214,62 +213,19 @@ describe('getToolbarItems', () => {
           value: G75,
           border: DEFAULT_BORDER_COLOR,
         })(editorView.state);
+
+        const emojiInfo = panelIconMap[value];
         expect(changePanelTypespy).toBeCalledWith(
           PanelType.CUSTOM,
           {
             color: G75,
-            emoji: `:${value}:`,
+            emoji: emojiInfo.shortName,
+            emojiId: emojiInfo.id,
           } as PanelOptions,
           true,
         );
       },
     );
-
-    it(`should call changePanelType when clicked on color picker
-          with previous icon for error panel`, () => {
-      const { editorView } = editor(
-        doc(panel({ panelType: `error` })(p('text'))),
-      );
-      const colorPickerConfig = itemsWithCustomPanelEnabled.find(
-        (item) => item.type === 'select' && item.selectType === 'color',
-      );
-      (colorPickerConfig as FloatingToolbarColorPicker<any>)!.onChange({
-        label: 'Mintie',
-        value: G75,
-        border: DEFAULT_BORDER_COLOR,
-      })(editorView.state);
-      expect(changePanelTypespy).toBeCalledWith(
-        PanelType.CUSTOM,
-        {
-          color: G75,
-          emoji: `:cross_mark:`,
-        } as PanelOptions,
-        true,
-      );
-    });
-
-    it(`should call changePanelType when clicked on color picker
-    with previous icon for success panel`, () => {
-      const { editorView } = editor(
-        doc(panel({ panelType: `success` })(p('text'))),
-      );
-      const colorPickerConfig = itemsWithCustomPanelEnabled.find(
-        (item) => item.type === 'select' && item.selectType === 'color',
-      );
-      (colorPickerConfig as FloatingToolbarColorPicker<any>)!.onChange({
-        label: 'Mintie',
-        value: G75,
-        border: DEFAULT_BORDER_COLOR,
-      })(editorView.state);
-      expect(changePanelTypespy).toBeCalledWith(
-        PanelType.CUSTOM,
-        {
-          color: G75,
-          emoji: `:check_mark:`,
-        } as PanelOptions,
-        true,
-      );
-    });
 
     it(`should call changePanelType when clicked on hide emoji`, () => {
       const removeEmojiButton:
@@ -383,6 +339,11 @@ describe('getToolbarItems', () => {
     const createEditor = createProsemirrorEditorFactory();
     let createAnalyticsEvent: jest.Mock = jest.fn(() => ({ fire() {} }));
     let editorView: EditorView;
+    const emojiId: EmojiId = {
+      shortName: ':smiley:',
+      id: '1f603',
+      fallback: '😃',
+    };
 
     beforeEach(() => {
       ({ editorView } = createEditor({
@@ -424,9 +385,10 @@ describe('getToolbarItems', () => {
       const emojiPickerConfig = itemsWithCustomPanelEnabled.find(
         (item) => item.type === 'select' && item.selectType === 'emoji',
       );
-      (emojiPickerConfig as FloatingToolbarEmojiPicker<any>)!.onChange(
-        ':smiley:',
-      )(editorView.state, editorView.dispatch);
+      (emojiPickerConfig as FloatingToolbarEmojiPicker<any>)!.onChange(emojiId)(
+        editorView.state,
+        editorView.dispatch,
+      );
 
       const payload: AnalyticsEventPayload = {
         action: ACTION.CHANGED_ICON,
@@ -450,9 +412,10 @@ describe('getToolbarItems', () => {
         (item) => item.type === 'select' && item.selectType === 'emoji',
       );
 
-      (emojiPickerConfig as FloatingToolbarEmojiPicker<any>)!.onChange(
-        ':smiley:',
-      )(editorView.state, editorView.dispatch);
+      (emojiPickerConfig as FloatingToolbarEmojiPicker<any>)!.onChange(emojiId)(
+        editorView.state,
+        editorView.dispatch,
+      );
       (removeEmojiButton as FloatingToolbarButton<any>)!.onClick(
         editorView.state,
         editorView.dispatch,
@@ -494,13 +457,15 @@ describe('getToolbarItems', () => {
       const emojiPickerConfig = itemsWithCustomPanelEnabled.find(
         (item) => item.type === 'select' && item.selectType === 'emoji',
       );
-      (emojiPickerConfig as FloatingToolbarEmojiPicker<any>)!.onChange(
-        ':smiley:',
-      )(editorView.state, editorView.dispatch);
+      (emojiPickerConfig as FloatingToolbarEmojiPicker<any>)!.onChange(emojiId)(
+        editorView.state,
+        editorView.dispatch,
+      );
 
-      (emojiPickerConfig as FloatingToolbarEmojiPicker<any>)!.onChange(
-        ':smiley:',
-      )(editorView.state, editorView.dispatch);
+      (emojiPickerConfig as FloatingToolbarEmojiPicker<any>)!.onChange(emojiId)(
+        editorView.state,
+        editorView.dispatch,
+      );
       expect(createAnalyticsEvent).toHaveBeenCalledTimes(3);
     });
   });

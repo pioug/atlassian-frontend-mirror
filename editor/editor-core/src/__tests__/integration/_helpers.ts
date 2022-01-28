@@ -337,7 +337,7 @@ export const insertMedia = async (
   let mediaPickerHasOpened = false;
   const attempts = 3;
   for (let i = 0; i < attempts; i++) {
-    const openMediaPopup = `button:enabled  [aria-label="${insertBlockMessages.filesAndImages.defaultMessage}"]`;
+    const openMediaPopup = `button[aria-label="${insertBlockMessages.filesAndImages.defaultMessage}"]`;
     // wait for media button in toolbar and click it
     await page.waitForSelector(openMediaPopup);
     // Potential fix for EDM-486. The theory is media picker is not opening with following click
@@ -459,8 +459,8 @@ export const forEach = async (
 };
 
 export const insertMenuItem = async (browser: any, title: string) => {
-  await browser.waitForSelector(`button span[aria-label="${title}"]`);
-  await browser.click(`button span[aria-label="${title}"]`);
+  await browser.waitForSelector(`button[aria-label="${title}"]`);
+  await browser.click(`button[aria-label="${title}"]`);
 };
 
 export const currentSelectedEmoji = '.emoji-typeahead-selected';

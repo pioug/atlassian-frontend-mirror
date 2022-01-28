@@ -25,12 +25,12 @@ jest.mock('../../../../pm-plugins/sticky-headers/commands', () => ({
   ),
   updateStickyState: jest.fn(() => jest.fn()),
 }));
-jest.mock('@atlaskit/editor-common', () => ({
-  ...jest.requireActual<Object>('@atlaskit/editor-common'),
+jest.mock('@atlaskit/editor-common/ui', () => ({
+  ...jest.requireActual<Object>('@atlaskit/editor-common/ui'),
   findOverflowScrollParent: jest.fn(() => jest.fn()),
 }));
 
-import { findOverflowScrollParent } from '@atlaskit/editor-common';
+import { findOverflowScrollParent } from '@atlaskit/editor-common/ui';
 import { updateStickyState } from '../../../../pm-plugins/sticky-headers/commands';
 import { TableCssClassName } from '../../../../types';
 import { mount } from 'enzyme';

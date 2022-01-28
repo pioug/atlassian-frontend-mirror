@@ -147,6 +147,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
   private metadata: Metadata = {};
   private stepRejectCounter: number = 0;
   private analyticsClient?: AnalyticsWebClient;
+  private isChannelInitialized: boolean = false;
 
   // SessionID is the unique socket-session.
   private sessionId?: string;
@@ -166,30 +167,14 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
     super();
     this.config = config;
     this.channel = new Channel(config);
+    this.isChannelInitialized = false;
+
     if (config.analyticsClient) {
       this.analyticsClient = config.analyticsClient;
     }
   }
 
-  /**
-   * Called by collab plugin in editor when it's ready to
-   * initialize a collab session.
-   */
-  initialize(getState: EditorStateGetter): this;
-  initialize(options: InitializeOptions): this;
-  initialize(optionsOrGetState: InitializeOptions | EditorStateGetter): this {
-    this.getState =
-      typeof optionsOrGetState === 'function'
-        ? optionsOrGetState
-        : optionsOrGetState.getState;
-
-    this.clientId =
-      typeof optionsOrGetState === 'function'
-        ? // Quick-hack to get clientID from native collab-plugin.
-          (this.getState().plugins.find((p: any) => p.key === 'collab$')!
-            .spec as any).config.clientID
-        : optionsOrGetState.clientId;
-
+  private initializeChannel = () => {
     this.channel
       .on('connected', ({ sid, initialized }) => {
         this.sessionId = sid;
@@ -223,6 +208,32 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
       .on('disconnect', this.onDisconnected)
       .on('error', this.onErrorHandled)
       .connect();
+  };
+
+  /**
+   * Called by collab plugin in editor when it's ready to
+   * initialize a collab session.
+   */
+  initialize(getState: EditorStateGetter): this;
+  initialize(options: InitializeOptions): this;
+  initialize(optionsOrGetState: InitializeOptions | EditorStateGetter): this {
+    // move this
+    this.getState =
+      typeof optionsOrGetState === 'function'
+        ? optionsOrGetState
+        : optionsOrGetState.getState;
+
+    this.clientId =
+      typeof optionsOrGetState === 'function'
+        ? // Quick-hack to get clientID from native collab-plugin.
+          (this.getState().plugins.find((p: any) => p.key === 'collab$')!
+            .spec as any).config.clientID
+        : optionsOrGetState.clientId;
+
+    if (!this.isChannelInitialized) {
+      this.initializeChannel();
+      this.isChannelInitialized = true;
+    }
 
     return this;
   }

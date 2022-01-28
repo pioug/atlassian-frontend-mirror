@@ -1,6 +1,7 @@
 import { waitUntil } from '@atlaskit/elements-test-helpers';
 import { mockNonUploadingEmojiResourceFactory } from '@atlaskit/util-data-test/mock-non-uploading-emoji-resource-factory';
 import { ReactWrapper } from 'enzyme';
+import { List as VirtualList } from 'react-virtualized/dist/commonjs/List';
 import EmojiRepository from '../../../../api/EmojiRepository';
 import Emoji, {
   Props as EmojiProps,
@@ -13,10 +14,8 @@ import CategorySelector, {
   sortCategories,
 } from '../../../../components/picker/CategorySelector';
 import ToneSelector from '../../../../components/common/ToneSelector';
-import EmojiPreview from '../../../../components/common/EmojiPreview';
 import { Props } from '../../../../components/picker/EmojiPicker';
 import EmojiPickerFooter from '../../../../components/picker/EmojiPickerFooter';
-import EmojiPickerList from '../../../../components/picker/EmojiPickerList';
 import {
   customCategory,
   customTitle,
@@ -43,12 +42,13 @@ import {
   toneSelectedEvent,
   toneSelectorClosedEvent,
 } from '../../../../util/analytics';
+import EmojiActions from '../../../../components/common/EmojiActions';
 
 describe('<EmojiPicker />', () => {
   let onEvent: jest.SpyInstance;
 
   const getUpdatedList = (component: any) =>
-    component.update().find(EmojiPickerList);
+    component.update().find(VirtualList);
 
   beforeEach(async () => {
     onEvent = jest.fn();
@@ -118,7 +118,7 @@ describe('<EmojiPicker />', () => {
 
     it('should tone selector in preview by default', async () => {
       const component = await helper.setupPicker();
-      const footer = component.find(EmojiPickerFooter);
+      const footer = component.find(EmojiActions);
       const previewEmoji = footer.find(Emoji);
 
       // Only contains tone emoji
@@ -473,8 +473,8 @@ describe('<EmojiPicker />', () => {
       const hoverButton = list.find(Emoji).at(0);
       hoverButton.simulate('mousemove');
 
-      const footer = component.find(EmojiPickerFooter);
-      const toneEmoji = footer.find(EmojiButton);
+      const emojiActions = component.find(EmojiActions);
+      const toneEmoji = emojiActions.find(EmojiButton);
       expect(toneEmoji).toHaveLength(1);
     });
 
@@ -499,7 +499,7 @@ describe('<EmojiPicker />', () => {
       const hoverButton = list.find(Emoji).at(0);
       hoverButton.simulate('mousemove');
 
-      const preview = component.find(EmojiPreview);
+      const preview = component.find(EmojiActions);
       const toneEmoji = preview.find(EmojiButton);
       const toneSelectorOpener = toneEmoji.prop('onSelected');
       expect(toneSelectorOpener).toBeDefined();
@@ -544,7 +544,7 @@ describe('<EmojiPicker />', () => {
       const hoverButton = list.find(Emoji).at(0);
       hoverButton.simulate('mousemove');
 
-      const preview = component.find(EmojiPreview);
+      const preview = component.find(EmojiActions);
       const toneEmoji = preview.find(EmojiButton);
       const toneSelectorOpener = toneEmoji.prop('onSelected');
       expect(toneSelectorOpener).toBeDefined();

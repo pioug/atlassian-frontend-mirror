@@ -7,6 +7,7 @@ import { User, UserType } from '../../../types';
 export interface UsersRequest {
   accountIds: string[];
   productKey: 'jira' | 'confluence';
+  baseUrl?: string;
 }
 
 interface JiraUserResponse {
@@ -45,7 +46,10 @@ interface ConfluenceUserItem {
 }
 
 const getUsersById = (request: UsersRequest): Promise<User[]> => {
-  const url = `${getConfig().getUsersServiceUrl(request.productKey)}`;
+  const url = `${getConfig().getUsersServiceUrl(
+    request.productKey,
+    request.baseUrl,
+  )}`;
 
   let params = new URLSearchParams();
   request.accountIds.map((id) => params.append('accountId', id));

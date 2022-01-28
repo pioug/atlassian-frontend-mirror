@@ -24,13 +24,13 @@ const moreButtonStyle = style({
   verticalAlign: 'top',
   $nest: {
     '&:hover': {
-      backgroundColor: token('color.background.transparentNeutral.hover', N30A),
+      backgroundColor: token('color.background.neutral.subtle.hovered', N30A),
     },
   },
 });
 
 const separatorStyle = style({
-  backgroundColor: token('color.border.neutral', N30A),
+  backgroundColor: token('color.border', N30A),
   margin: '8px 8px 8px 4px',
   width: '1px',
   height: '60%',

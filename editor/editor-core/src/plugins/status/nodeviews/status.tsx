@@ -5,7 +5,7 @@ import { EditorView, NodeView } from 'prosemirror-view';
 import { injectIntl, IntlShape } from 'react-intl-next';
 import styled from 'styled-components';
 
-import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common';
+import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/utils';
 import { Color, Status, StatusStyle } from '@atlaskit/status/element';
 
 import { EventDispatcher } from '../../../event-dispatcher';
@@ -106,6 +106,7 @@ export class StatusNodeView extends ReactNodeView<Props> {
 
     return (
       <InlineNodeWrapper useInlineWrapper={options && options.useInlineWrapper}>
+        {options && options.allowZeroWidthSpaceAfter && ZERO_WIDTH_SPACE}
         <IntlStatusContainerView
           view={this.view}
           text={text}

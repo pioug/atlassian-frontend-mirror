@@ -37,7 +37,7 @@ const hintStyles = css({
   display: 'flex',
   marginRight: 'auto',
   alignItems: 'center',
-  color: token('color.text.lowEmphasis', subtleText()),
+  color: token('color.text.subtlest', subtleText()),
   cursor: 'help',
 });
 
@@ -63,7 +63,7 @@ const CustomHeader = () => {
         <Button onClick={onClose} appearance="link">
           <CrossIcon
             label="Close Modal"
-            primaryColor={token('color.iconBorder.danger', R400)}
+            primaryColor={token('color.icon.danger', R400)}
             size="small"
           />
         </Button>
@@ -74,7 +74,7 @@ const CustomHeader = () => {
 
 const bodyStyles: React.CSSProperties = {
   padding: 90,
-  backgroundColor: token('color.background.overlay', N30),
+  backgroundColor: token('elevation.surface.overlay', N30),
   overflowY: 'auto',
   overflowX: 'hidden',
 };

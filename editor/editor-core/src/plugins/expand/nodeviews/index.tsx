@@ -10,7 +10,7 @@ import {
   DOMSerializer,
   DOMOutputSpec,
 } from 'prosemirror-model';
-import { expandMessages } from '@atlaskit/editor-common';
+import { expandMessages } from '@atlaskit/editor-common/ui';
 
 import { getPosHandlerNode, getPosHandler } from '../../../nodeviews/';
 import { isEmptyNode } from '../../../utils';

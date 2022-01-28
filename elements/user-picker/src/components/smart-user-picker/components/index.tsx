@@ -294,6 +294,7 @@ function isOptionData(
 export async function hydrateDefaultValues(
   value: DefaultValue,
   productKey: SupportedProduct,
+  baseUrl?: string,
 ): Promise<User[]> {
   //return if no value
   if (!value) {
@@ -327,6 +328,7 @@ export async function hydrateDefaultValues(
   const results = await getUsersById({
     productKey,
     accountIds,
+    baseUrl,
   });
 
   return sortResults(results, accountIds);
@@ -364,6 +366,7 @@ class SmartUserPicker extends React.Component<
       const value = await hydrateDefaultValues(
         this.props.defaultValue,
         this.props.productKey,
+        this.props.baseUrl,
       );
 
       this.setState({

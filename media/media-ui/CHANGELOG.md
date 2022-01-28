@@ -1,5 +1,18 @@
 # @atlaskit/media-ui
 
+## 18.1.0
+
+### Minor Changes
+
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - [ux] Displaying the control bar including the timestamp by default for videos that have been processed.
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - [ux] Making the control bar for videos adaptive (controls change based on video size)
+
+### Patch Changes
+
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - Refactor solution for fixing media card images overlaps with creating preview message
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - fixed confluence embed smartlink icon
+- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - add shimer placeholder
+
 ## 18.0.1
 
 ### Patch Changes

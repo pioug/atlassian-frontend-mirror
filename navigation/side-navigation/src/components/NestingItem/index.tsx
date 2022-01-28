@@ -240,7 +240,7 @@ const NestingItem = <TCustomComponentProps extends CustomItemComponentProps>(
         <span data-right-arrow>
           <RightArrow
             testId={testId && `${testId}--item--right-arrow`}
-            secondaryColor={token('color.background.default', N10)}
+            secondaryColor={token('elevation.surface', N10)}
             label=""
           />
         </span>

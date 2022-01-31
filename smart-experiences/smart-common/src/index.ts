@@ -10,3 +10,4 @@ export type {
   UserSearchItem,
   UserSearchQuery,
 } from './types';
+export { PRD_CONFIG as config } from './config';

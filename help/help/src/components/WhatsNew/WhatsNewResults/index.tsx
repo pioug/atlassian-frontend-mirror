@@ -1,5 +1,6 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useRef } from 'react';
 import { Transition } from 'react-transition-group';
+import isEqual from 'lodash/isEqual';
 import Select from '@atlaskit/select';
 import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 
@@ -27,6 +28,11 @@ import {
   WhatsNewResultsListContainer,
 } from './styled';
 
+interface SelectOption {
+  value: WHATS_NEW_ITEM_TYPES | undefined | '';
+  label: string;
+}
+
 const defaultStyle: Partial<{ [index: string]: string | number | null }> = {
   transition: `opacity ${FADEIN_OVERLAY_TRANSITION_DURATION_MS}ms`,
   opacity: 0,
@@ -52,18 +58,22 @@ export const WhatsNewResults: React.FC<WrappedComponentProps> = ({
     searchWhatsNewArticlesState,
     onWhatsNewResultItemClick,
   } = useWhatsNewArticleContext();
-  const SELECT_DEFAULT_VALUE: {
-    value: WHATS_NEW_ITEM_TYPES | '';
-    label: string;
-  } = {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const containerScrollPosition = useRef<number>(0);
+
+  const SELECT_DEFAULT_VALUE: SelectOption = {
     value: '',
     label: formatMessage(messages.help_whats_new_filter_select_option_all),
   };
 
-  const [selectedOption, setSelectedOption] = useState<{
-    value: WHATS_NEW_ITEM_TYPES | '';
-    label: string;
-  }>(SELECT_DEFAULT_VALUE);
+  const SELECT_EMPTY_VALUE: SelectOption = {
+    value: undefined,
+    label: '',
+  };
+
+  const [selectedOption, setSelectedOption] = useState<SelectOption>(
+    SELECT_EMPTY_VALUE,
+  );
 
   const handleOnShowMoreButtonClick = useCallback(() => {
     if (searchWhatsNewArticlesResult && onSearchWhatsNewArticles) {
@@ -79,8 +89,27 @@ export const WhatsNewResults: React.FC<WrappedComponentProps> = ({
   }, [onSearchWhatsNewArticles, searchWhatsNewArticlesResult, selectedOption]);
 
   const handleOnEnter = () => {
-    setSelectedOption(SELECT_DEFAULT_VALUE);
-    onSearchWhatsNewArticles && onSearchWhatsNewArticles();
+    setTimeout(() => {
+      if (containerRef.current) {
+        containerRef.current.scrollTop = containerScrollPosition.current;
+      }
+    }, 0);
+
+    if (isEqual(selectedOption, SELECT_EMPTY_VALUE)) {
+      setSelectedOption(SELECT_DEFAULT_VALUE);
+      onSearchWhatsNewArticles && onSearchWhatsNewArticles();
+    }
+  };
+
+  const handleOnExit = () => {
+    if (helpContextView === VIEW.DEFAULT_CONTENT) {
+      setSelectedOption(SELECT_EMPTY_VALUE);
+      containerScrollPosition.current = 0;
+    } else {
+      containerScrollPosition.current = containerRef.current
+        ? containerRef.current.scrollTop
+        : 0;
+    }
   };
 
   const handleOnClearFilter = () => {
@@ -98,9 +127,11 @@ export const WhatsNewResults: React.FC<WrappedComponentProps> = ({
       in={helpContextView === VIEW.WHATS_NEW}
       timeout={FADEIN_OVERLAY_TRANSITION_DURATION_MS}
       onEnter={handleOnEnter}
+      onExit={handleOnExit}
     >
       {(state: TRANSITION_STATUS) => (
         <WhatsNewResultsContainer
+          ref={containerRef}
           style={{
             ...defaultStyle,
             ...transitionStyles[state],

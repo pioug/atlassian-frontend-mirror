@@ -27,13 +27,14 @@ export default md`
   ### Instantiating a basic \`ProfileClient\`
 
   ${code`
-import ProfileCardResourced, { ProfileClient } from '@atlaskit/profilecard';
+import ProfileCardTrigger from '@atlaskit/profilecard/user';
+import ProfileClient from '@atlaskit/profilecard/client';
 
 const profileClient = new ProfileClient({
   url: 'https://directory-graphql-service/endpoint' // GraphQL service endpoint
 });
 
-<ProfileCardResourced
+<ProfileCardTrigger
   cloudId="SOME-CLOUD-ID"
   userId="SOME-USER-ID"
   resourceClient={profileClient}
@@ -44,13 +45,15 @@ const profileClient = new ProfileClient({
       callback: () => {}
     }
   ]}
-/>
+>
+  <Avatar ... />
+</ProfileCardTrigger>
   `}
 
   ### Customising the LRU cache of the \`ProfileClient\`
 
   ${code`
-import { ProfileClient } from '@atlaskit/profilecard';
+import ProfileClient from '@atlaskit/profilecard/client';
 
 const profileClient = new ProfileClient({
   url: 'https://directory-graphql-service/endpoint', // GraphQL service endpoint
@@ -62,7 +65,8 @@ const profileClient = new ProfileClient({
   ### Customising / Extending the \`ProfileClient\`
 
   ${code`
-import { ProfileClient, Team, TeamProfileClient, UserProfileClient } from '@atlaskit/profilecard';
+import { ProfileClient, TeamProfileClient, UserProfileClient } from '@atlaskit/profilecard/client';
+import { Team } from '@atlaskit/profilecard/types';
 
 const getUserDetailsSpecialWay = (url, cloudId, userId) => {
   const fetchUrl = \`https://someservice.com/fetchuser?userId=\${userId}\`;

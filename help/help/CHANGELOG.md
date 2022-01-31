@@ -1,5 +1,11 @@
 # @atlaskit/help
 
+## 7.0.1
+
+### Patch Changes
+
+- [`4ef57768666`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ef57768666) - [ux] Improve navigation in the "What's new" section
+
 ## 7.0.0
 
 ### Major Changes

@@ -21,7 +21,7 @@
     }
   },
   "scripts": {
-    "lint:fix": "(cd ../../.. && bolt w @atlaskit/codeshifts format-package-jsons && yarn eslint --fix 'packages/elements/share/**/*.{ts,tsx,ts}')",
+    "lint:fix": "(cd ../../.. && yarn workspace @atlaskit/codeshifts format-package-jsons && yarn eslint --fix 'packages/elements/share/**/*.{ts,tsx,ts}')",
     "lint": "(cd ../../.. && yarn eslint 'packages/elements/share/**/*.{ts,tsx,ts}')",
     "typecheck": "NODE_OPTIONS=--max-old-space-size=4096 tsc --noEmit --project ./tsconfig.json",
     "test": "(cd ../../.. && yarn test 'packages/elements/share')"

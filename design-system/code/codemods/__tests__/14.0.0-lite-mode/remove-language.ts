@@ -27,7 +27,7 @@ describe('remove language prop', () => {
       return (
         <p>
           To start creating a changeset, run{' '}
-          <Code language="text" text="bolt changeset" />. Then you will be prompted
+          <Code language="text" text="yarn changeset" />. Then you will be prompted
           to select packages for release.
         </p>
       );
@@ -43,7 +43,7 @@ describe('remove language prop', () => {
       return (
         <p>
           To start creating a changeset, run{' '}
-          <Code text="bolt changeset" />. Then you will be prompted
+          <Code text="yarn changeset" />. Then you will be prompted
           to select packages for release.
         </p>
       );
@@ -66,7 +66,7 @@ describe('remove language prop', () => {
       return (
         <p>
           To start creating a changeset, run{' '}
-          <Code language={language} text="bolt changeset" />. Then you will be prompted
+          <Code language={language} text="yarn changeset" />. Then you will be prompted
           to select packages for release.
         </p>
       );
@@ -84,7 +84,7 @@ describe('remove language prop', () => {
       return (
         <p>
           To start creating a changeset, run{' '}
-          <Code text="bolt changeset" />. Then you will be prompted
+          <Code text="yarn changeset" />. Then you will be prompted
           to select packages for release.
         </p>
       );
@@ -105,7 +105,7 @@ describe('remove language prop', () => {
       return (
         <p>
           To start creating a changeset, run{' '}
-          <Code text="bolt changeset" />. Then you will be prompted
+          <Code text="yarn changeset" />. Then you will be prompted
           to select packages for release.
         </p>
       );
@@ -120,7 +120,7 @@ describe('remove language prop', () => {
       return (
         <p>
           To start creating a changeset, run{' '}
-          <Code text="bolt changeset" />. Then you will be prompted
+          <Code text="yarn changeset" />. Then you will be prompted
           to select packages for release.
         </p>
       );

@@ -27,7 +27,7 @@
   },
   "scripts": {
     "ak-postbuild": "yarn codegen-tokens && yarn check-clean-git",
-    "check-clean-git": "git diff --exit-code -- packages/design-system/tokens/ || (echo 'tokens are is out of date, run bolt build tokens' && false)",
+    "check-clean-git": "git diff --exit-code -- packages/design-system/tokens/ || (echo 'tokens are is out of date, run yarn build tokens' && false)",
     "codegen-tokens": "ts-node --project ../../../tsconfig.node.json ./scripts/style-dictionary/build"
   },
   "dependencies": {

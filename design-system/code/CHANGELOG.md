@@ -1,5 +1,11 @@
 # @atlaskit/code
 
+## 14.3.2
+
+### Patch Changes
+
+- [`b5226ba2c15`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b5226ba2c15) - Replace `bolt` with `yarn` for rendered example changeset commands
+
 ## 14.3.1
 
 ### Patch Changes

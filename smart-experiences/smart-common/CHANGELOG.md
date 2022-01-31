@@ -1,5 +1,11 @@
 # @atlaskit/smart-common
 
+## 0.0.3
+
+### Patch Changes
+
+- [`7805ed6d7d5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7805ed6d7d5) - Exporting config from smart-common
+
 ## 0.0.2
 
 ### Patch Changes

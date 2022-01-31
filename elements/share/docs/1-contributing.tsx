@@ -35,12 +35,12 @@ Since we have no control over the actual share action, it shouldn’t be needed 
 In the repo root dir:
 
 ~~~bash
-bolt start share
-bolt lint
-bolt lint:eslint
-bolt typecheck
-bolt run test ./packages/elements/share/src/__tests__/*
-bolt run test ./packages/elements/share/src/__tests__/unit/components/ShareDialogWithTriggerSpec.tsx
+yarn start share
+yarn lint
+yarn lint:eslint
+yarn typecheck
+yarn test ./packages/elements/share/src/__tests__/*
+yarn test ./packages/elements/share/src/__tests__/unit/components/ShareDialogWithTriggerSpec.tsx
 ~~~
 
 In the package dir: (subset, faster)

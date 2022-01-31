@@ -23,7 +23,8 @@ export default md`
   ### Using the ProfileCardTrigger
 
   ${code`
-import { ProfileClient, TeamProfileCardTrigger } from '@atlaskit/profilecard';
+import ProfileCardTrigger from '@atlaskit/profilecard/user';
+import ProfileClient from '@atlaskit/profilecard/client';
 
 const profileClient = new ProfileClient({
   url: 'https://directory-graphql-service/endpoint' // GraphQL service endpoint

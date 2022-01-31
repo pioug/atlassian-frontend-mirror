@@ -19,7 +19,7 @@ describe('make the test prop a child', () => {
       return (
         <p>
           To start creating a changeset, run{' '}
-          <Code text="bolt changeset" />. Then you will be prompted
+          <Code text="yarn changeset" />. Then you will be prompted
           to select packages for release.
         </p>
       );
@@ -34,7 +34,7 @@ describe('make the test prop a child', () => {
       return (
         <p>
           To start creating a changeset, run{' '}
-          <Code>bolt changeset</Code>. Then you will be prompted
+          <Code>yarn changeset</Code>. Then you will be prompted
           to select packages for release.
         </p>
       );
@@ -51,7 +51,7 @@ describe('make the test prop a child', () => {
 
     import { Code } from '@atlaskit/code';
 
-    const text = "bolt changeset";
+    const text = "yarn changeset";
 
     export default function CodeDefaultExample() {
       return (
@@ -68,7 +68,7 @@ describe('make the test prop a child', () => {
 
     import { Code } from '@atlaskit/code';
 
-    const text = "bolt changeset";
+    const text = "yarn changeset";
 
     export default function CodeDefaultExample() {
       return (
@@ -95,7 +95,7 @@ describe('make the test prop a child', () => {
       return (
         <p>
           To start creating a changeset, run{' '}
-          <Code testId="hello!" text="bolt changeset" />. Then you will be prompted
+          <Code testId="hello!" text="yarn changeset" />. Then you will be prompted
           to select packages for release.
         </p>
       );
@@ -110,7 +110,7 @@ describe('make the test prop a child', () => {
       return (
         <p>
           To start creating a changeset, run{' '}
-          <Code testId="hello!">bolt changeset</Code>. Then you will be prompted
+          <Code testId="hello!">yarn changeset</Code>. Then you will be prompted
           to select packages for release.
         </p>
       );
@@ -133,7 +133,7 @@ describe('make the test prop a child', () => {
       return (
         <p>
           To start creating a changeset, run{' '}
-          <Code {...codeProps} text="bolt changeset" />. Then you will be prompted
+          <Code {...codeProps} text="yarn changeset" />. Then you will be prompted
           to select packages for release.
         </p>
       );
@@ -150,7 +150,7 @@ describe('make the test prop a child', () => {
       return (
         <p>
           To start creating a changeset, run{' '}
-          <Code {...codeProps}>bolt changeset</Code>. Then you will be prompted
+          <Code {...codeProps}>yarn changeset</Code>. Then you will be prompted
           to select packages for release.
         </p>
       );
@@ -167,7 +167,7 @@ describe('make the test prop a child', () => {
 
     import { Code } from '@atlaskit/code';
 
-    const text = "bolt changeset" ;
+    const text = "yarn changeset" ;
 
     export default function CodeDefaultExample() {
       return (
@@ -185,7 +185,7 @@ describe('make the test prop a child', () => {
 
     import { Code } from '@atlaskit/code';
 
-    const text = "bolt changeset" ;
+    const text = "yarn changeset" ;
 
     export default function CodeDefaultExample() {
       return (

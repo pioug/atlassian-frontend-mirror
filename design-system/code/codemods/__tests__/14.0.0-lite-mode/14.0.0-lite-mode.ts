@@ -14,12 +14,12 @@ describe('all transforms should be applied', () => {
     import { Code } from '@atlaskit/code';
 
     export default function CodeDefaultExample() {
-      const text = "bolt changeset";
+      const text = "yarn changeset";
 
       return (
         <p>
           To start creating a changeset, run{' '}
-          <Code language="text" text="bolt changeset" />. Then you will be prompted
+          <Code language="text" text="yarn changeset" />. Then you will be prompted
           to select packages for release.
         </p>
       );
@@ -32,12 +32,12 @@ describe('all transforms should be applied', () => {
     import { Code } from '@atlaskit/code';
 
     export default function CodeDefaultExample() {
-      const text = "bolt changeset";
+      const text = "yarn changeset";
 
       return (
         <p>
           To start creating a changeset, run{' '}
-          <Code>bolt changeset</Code>. Then you will be prompted
+          <Code>yarn changeset</Code>. Then you will be prompted
           to select packages for release.
         </p>
       );
@@ -60,7 +60,7 @@ describe('all transforms should be applied', () => {
       return (
         <p>
           To start creating a changeset, run{' '}
-          <AkCode language={language} text="bolt changeset" />. Then you will be prompted
+          <AkCode language={language} text="yarn changeset" />. Then you will be prompted
           to select packages for release.
         </p>
       );
@@ -78,7 +78,7 @@ describe('all transforms should be applied', () => {
       return (
         <p>
           To start creating a changeset, run{' '}
-          <AkCode>bolt changeset</AkCode>. Then you will be prompted
+          <AkCode>yarn changeset</AkCode>. Then you will be prompted
           to select packages for release.
         </p>
       );
@@ -186,11 +186,11 @@ describe('all transforms should be applied', () => {
     import { Code } from '@atlaskit/code';
 
     export default function CodeDefaultExample() {
-      const text = "bolt changeset";
+      const text = "yarn changeset";
 
       return (
         <p>
-          To start creating a changeset, run <Code language="text" text="bolt changeset" />. All g mate.
+          To start creating a changeset, run <Code language="text" text="yarn changeset" />. All g mate.
         </p>
       );
     }
@@ -202,11 +202,11 @@ describe('all transforms should be applied', () => {
     import { Code } from '@atlaskit/code';
 
     export default function CodeDefaultExample() {
-      const text = "bolt changeset";
+      const text = "yarn changeset";
 
       return (
         <p>
-          To start creating a changeset, run <Code>bolt changeset</Code>. All g mate.
+          To start creating a changeset, run <Code>yarn changeset</Code>. All g mate.
         </p>
       );
     }

@@ -10,7 +10,7 @@ export const basicCode = {
       content: [
         {
           type: 'text',
-          text: 'bolt changeset',
+          text: 'yarn changeset',
           marks: [
             {
               type: 'code',
@@ -24,7 +24,7 @@ export const basicCode = {
       content: [
         {
           type: 'text',
-          text: 'bolt changeset',
+          text: 'yarn changeset',
           marks: [
             {
               type: 'code',

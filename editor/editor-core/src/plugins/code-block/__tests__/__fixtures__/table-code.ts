@@ -24,7 +24,7 @@ export const tableCode = {
                   content: [
                     {
                       type: 'text',
-                      text: 'bolt changeset',
+                      text: 'yarn changeset',
                       marks: [
                         {
                           type: 'code',

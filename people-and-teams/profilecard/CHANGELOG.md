@@ -1,5 +1,11 @@
 # @atlaskit/profilecard
 
+## 16.2.3
+
+### Patch Changes
+
+- [`4d4d5d66cb8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4d4d5d66cb8) - Use entrypoints to import profilecard components
+
 ## 16.2.2
 
 ### Patch Changes

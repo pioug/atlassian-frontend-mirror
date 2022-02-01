@@ -1,5 +1,11 @@
 # @atlaskit/analytics-namespaced-context
 
+## 6.4.0
+
+### Minor Changes
+
+- [`a21e53776ff`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a21e53776ff) - Added a recentWork channel
+
 ## 6.3.0
 
 ### Minor Changes

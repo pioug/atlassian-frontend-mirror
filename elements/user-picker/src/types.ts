@@ -226,7 +226,13 @@ export interface OptionData {
 
 export const UserType = 'user';
 
-export type UserSource = 'google' | 'slack' | 'microsoft' | 'github';
+export type UserSource =
+  | 'google'
+  | 'slack'
+  | 'microsoft'
+  | 'github'
+  | 'jira'
+  | 'confluence';
 
 export interface ExternalUser extends User {
   requiresSourceHydration?: boolean;

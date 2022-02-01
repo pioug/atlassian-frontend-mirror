@@ -69,8 +69,8 @@
     "styled-components": "^3.2.6"
   },
   "devDependencies": {
-    "@atlaskit/analytics-listeners": "^8.0.0",
-    "@atlaskit/analytics-namespaced-context": "^6.3.0",
+    "@atlaskit/analytics-listeners": "^8.2.0",
+    "@atlaskit/analytics-namespaced-context": "^6.4.0",
     "@atlaskit/banner": "^11.3.0",
     "@atlaskit/checkbox": "^12.2.0",
     "@atlaskit/docs": "*",

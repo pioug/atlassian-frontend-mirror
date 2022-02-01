@@ -22,7 +22,7 @@
     }
   },
   "dependencies": {
-    "@atlaskit/analytics-namespaced-context": "^6.3.0",
+    "@atlaskit/analytics-namespaced-context": "^6.4.0",
     "@atlaskit/analytics-next": "^8.2.0",
     "@atlaskit/avatar": "^20.5.0",
     "@atlaskit/icon": "^21.10.0",
@@ -48,7 +48,7 @@
     "react": "^16.8.0"
   },
   "devDependencies": {
-    "@atlaskit/analytics-listeners": "^8.0.0",
+    "@atlaskit/analytics-listeners": "^8.2.0",
     "@atlaskit/atlassian-navigation": "^2.0.0",
     "@atlaskit/badge": "^15.0.0",
     "@atlaskit/banner": "^11.3.0",

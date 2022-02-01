@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/analytics-namespaced-context",
-  "version": "6.3.0",
+  "version": "6.4.0",
   "description": "Provides a namespace for AnalyticsContext data (@atlaskit/analytics-next)",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -17,6 +17,7 @@
     "./MediaAnalyticsContext": "./src/MediaAnalyticsContext.tsx",
     "./NavigationAnalyticsContext": "./src/NavigationAnalyticsContext.tsx",
     "./PeopleTeamsAnalyticsContext": "./src/PeopleTeamsAnalyticsContext.tsx",
+    "./RecentWorkAnalyticsContext": "./src/RecentWorkAnalyticsContext.tsx",
     ".": "./src/index.ts"
   },
   "atlassian": {
@@ -34,7 +35,7 @@
     "react": "^16.8.0"
   },
   "devDependencies": {
-    "@atlaskit/analytics-listeners": "^8.1.0",
+    "@atlaskit/analytics-listeners": "^8.2.0",
     "@atlaskit/docs": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "enzyme": "^3.10.0",

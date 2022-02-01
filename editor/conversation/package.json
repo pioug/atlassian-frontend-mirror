@@ -46,7 +46,7 @@
     "styled-components": "^3.2.6"
   },
   "devDependencies": {
-    "@atlaskit/analytics-listeners": "^8.0.0",
+    "@atlaskit/analytics-listeners": "^8.2.0",
     "@atlaskit/docs": "*",
     "@atlaskit/util-data-test": "^17.2.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",

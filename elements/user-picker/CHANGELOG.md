@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 8.4.0
+
+### Minor Changes
+
+- [`29dd0cee8cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/29dd0cee8cf) - [ux] Add support for Jira and Confluence user sources
+
 ## 8.3.5
 
 ### Patch Changes

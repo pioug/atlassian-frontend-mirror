@@ -103,6 +103,17 @@ export class DummyNotificationsComponent extends React.Component<Props> {
   }
 }
 
+export class DummyRecentWorkComponent extends React.Component<Props> {
+  render() {
+    return (
+      <CustomButton
+        text={FabricChannel.recentWork}
+        onClick={this.props.onClick}
+      />
+    );
+  }
+}
+
 class MyButton extends React.Component<Props> {
   static displayName = 'MyButton';
   render() {
@@ -122,6 +133,7 @@ const componentChannels = {
   [FabricChannel.media]: DummyMediaComponent,
   [FabricChannel.peopleTeams]: DummyPeopleTeamsComponent,
   [FabricChannel.notifications]: DummyNotificationsComponent,
+  [FabricChannel.recentWork]: DummyNotificationsComponent,
 };
 
 export const createComponentWithAnalytics = (channel: FabricChannel) =>

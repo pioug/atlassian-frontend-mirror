@@ -1,29 +1,35 @@
+import React, { ReactNode } from 'react';
+import { FormattedMessage } from 'react-intl-next';
+import EditorPanelIcon from '@atlaskit/icon/glyph/editor/panel';
+import { ConfluenceIcon } from '@atlaskit/logo/confluence-icon';
+import { JiraIcon } from '@atlaskit/logo/jira-icon';
+import Tooltip from '@atlaskit/tooltip';
+import Spinner from '@atlaskit/spinner';
 import { B400, N200, N800 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
-import React, { ReactNode } from 'react';
 import { ExternalUser, UserSource } from '../../types';
 import { AvatarItemOption, TextWrapper } from '../AvatarItemOption';
 import { SizeableAvatar } from '../SizeableAvatar';
-import EditorPanelIcon from '@atlaskit/icon/glyph/editor/panel';
-import Tooltip from '@atlaskit/tooltip';
-import Spinner from '@atlaskit/spinner';
 import styled from 'styled-components';
 import { SlackIcon } from '../assets/slack';
 import { GoogleIcon } from '../assets/google';
 import { MicrosoftIcon } from '../assets/microsoft';
 import { GitHubIcon } from '../assets/github';
-import { FormattedMessage } from 'react-intl-next';
 import { messages } from '../i18n';
 import { ExternalUserSourcesContainer } from '../ExternalUserSourcesContainer';
 
 export const ImageContainer = styled.span`
-  height: 12px;
-  width: 12px;
+  height: 16px;
+  width: 16px;
   padding-right: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const SourcesTooltipContainer = styled.div`
   padding-bottom: 4px;
+  padding-right: 4px;
 `;
 
 export const SourceWrapper = styled.div`
@@ -62,6 +68,22 @@ const SourcesInfoMap = new Map<UserSource, SourceInfo>([
   [
     'github',
     { key: 'github', icon: <GitHubIcon />, label: messages.gitHubProvider },
+  ],
+  [
+    'jira',
+    {
+      key: 'jira',
+      icon: <JiraIcon size={'xsmall'} />,
+      label: messages.jiraSource,
+    },
+  ],
+  [
+    'confluence',
+    {
+      key: 'confluence',
+      icon: <ConfluenceIcon size={'xsmall'} />,
+      label: messages.confluenceSource,
+    },
   ],
 ]);
 

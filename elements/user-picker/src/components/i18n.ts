@@ -100,6 +100,16 @@ export const messages = defineMessages({
     defaultMessage: 'GitHub',
     description: 'This external user is sourced from GitHub provider',
   },
+  jiraSource: {
+    id: 'fabric.elements.user-picker.source.jira',
+    defaultMessage: 'Jira',
+    description: 'This external user is sourced from Jira',
+  },
+  confluenceSource: {
+    id: 'fabric.elements.user-picker.source.confluence',
+    defaultMessage: 'Confluence',
+    description: 'This external user is sourced from Confluence',
+  },
   memberLozengeText: {
     id: 'fabric.elements.user-picker.member.lozenge.text',
     defaultMessage: 'MEMBER',

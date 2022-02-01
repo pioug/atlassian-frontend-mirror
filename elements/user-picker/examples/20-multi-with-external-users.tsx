@@ -17,6 +17,8 @@ const sources = [
   { value: 'github', label: 'GitHub' },
   { value: 'microsoft', label: 'Microsoft' },
   { value: 'google', label: 'Google' },
+  { value: 'jira', label: 'Jira' },
+  { value: 'confluence', label: 'Confluence' },
 ];
 
 const ExampleContainer = styled.div`

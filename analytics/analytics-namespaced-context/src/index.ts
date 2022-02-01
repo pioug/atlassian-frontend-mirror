@@ -25,3 +25,8 @@ export {
   NOTIFICATIONS_CONTEXT,
   NotificationsAnalyticsContext,
 } from './NotificationsAnalyticsContext';
+
+export {
+  RECENT_WORK_CONTEXT,
+  RecentWorkAnalyticsContext,
+} from './RecentWorkAnalyticsContext';

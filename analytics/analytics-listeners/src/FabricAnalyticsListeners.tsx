@@ -9,6 +9,7 @@ import FabricEditorListener from './fabric/FabricEditorListener';
 import MediaAnalyticsListener from './media/MediaAnalyticsListener';
 import PeopleTeamsAnalyticsListener from './peopleTeams/PeopleTeamsAnalyticsListener';
 import NotificationsAnalyticsListener from './notifications/NotificationsAnalyticsListener';
+import RecentWorkAnalyticsListener from './recentWork/RecentWorkAnalyticsListener';
 
 export type Props = {
   /** Children! */
@@ -27,6 +28,7 @@ const listenerMap = {
   [FabricChannel.media]: MediaAnalyticsListener,
   [FabricChannel.peopleTeams]: PeopleTeamsAnalyticsListener,
   [FabricChannel.notifications]: NotificationsAnalyticsListener,
+  [FabricChannel.recentWork]: RecentWorkAnalyticsListener,
 };
 
 class FabricAnalyticsListeners extends React.Component<Props> {

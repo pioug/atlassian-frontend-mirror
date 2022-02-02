@@ -39,7 +39,7 @@ export default function Example() {
                   <Textfield
                     ref={focusRef}
                     autoComplete="off"
-                    placeholder="gbelson@hooli.com"
+                    placeholder="ian@atlas.com"
                     {...fieldProps}
                   />
                 )}
@@ -48,7 +48,7 @@ export default function Example() {
             <ModalFooter>
               <Button appearance="subtle">Learn more</Button>
               <Button appearance="primary" onClick={closeModal} autoFocus>
-                Try it now
+                Sign up
               </Button>
             </ModalFooter>
           </Modal>

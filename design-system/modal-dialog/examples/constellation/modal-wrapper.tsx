@@ -52,7 +52,7 @@ export default function Example() {
                     <Fragment>
                       <Textfield
                         {...fieldProps}
-                        defaultValue="Atlassy"
+                        defaultValue="Ian Atlas"
                         value={undefined}
                       />
                       <HelperMessage>

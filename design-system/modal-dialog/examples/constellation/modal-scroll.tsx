@@ -46,7 +46,7 @@ export default function Example() {
               <ModalTitle>Our voice and tone</ModalTitle>
             </ModalHeader>
             <ModalBody>
-              <h5>Be bold</h5>
+              <h3>Be bold</h3>
               <p>
                 Motivate teams to do their best work. Offer best practices to
                 get users going in the right direction. Be bold and offer just
@@ -57,7 +57,7 @@ export default function Example() {
                 go.
               </p>
 
-              <h5>Be optimistic</h5>
+              <h3>Be optimistic</h3>
 
               <p>
                 Focusing on the details gives people confidence in our products.
@@ -73,7 +73,7 @@ export default function Example() {
                 attention on the important bits first.
               </p>
 
-              <h5>Be practical, with a wink</h5>
+              <h3>Be practical, with a wink</h3>
 
               <p>
                 Keep our own story short and give teams just enough to get

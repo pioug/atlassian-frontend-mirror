@@ -16,7 +16,6 @@ export interface MediaImageProps {
   loading?: 'auto' | 'lazy' | 'eager';
   //An option to force display image with showImage rules bypassed
   forceSyncDisplay?: boolean;
-  className?: string;
 }
 
 export interface MediaImageState {
@@ -90,7 +89,6 @@ export class MediaImage extends Component<MediaImageProps, MediaImageState> {
       alt = '',
       loading,
       forceSyncDisplay,
-      className,
     } = this.props;
     const {
       parentWidth,
@@ -431,7 +429,6 @@ export class MediaImage extends Component<MediaImageProps, MediaImageState> {
 
     return (
       <ImageComponent
-        className={className}
         loading={loading}
         data-testid="media-image"
         draggable={false}

@@ -1,5 +1,11 @@
 # @atlaskit/editor-common
 
+## 63.0.1
+
+### Patch Changes
+
+- [`b921ec55066`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b921ec55066) - Fix chrome version parsing logic to accept 3 digits instead of just 2
+
 ## 63.0.0
 
 ### Major Changes

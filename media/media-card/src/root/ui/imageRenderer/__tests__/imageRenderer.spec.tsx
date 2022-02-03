@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { ImageRenderer, ImageRendererBase } from '../imageRenderer';
+import { ImageRenderer } from '../imageRenderer';
 import { resizeModeToMediaImageProps } from '../../../../utils/resizeModeToMediaImageProps';
 import { MediaType } from '@atlaskit/media-client';
 import { MediaImage } from '@atlaskit/media-ui';
@@ -8,50 +8,6 @@ import { MediaImage } from '@atlaskit/media-ui';
 const nonImageMediaTypes: MediaType[] = ['video', 'audio', 'doc', 'unknown'];
 
 describe('ImageRenderer', () => {
-  it('should render ImageRenderBase with props', () => {
-    const mediaType = 'image';
-    const dataURI = 'some-data';
-    const resizeMode = 'stretchy-fit';
-    const nativeLazyLoad = true;
-    const previewOrientation = 6;
-    const alt = 'this is a test';
-    const isImageVisible = true;
-    const forceSyncDisplay = true;
-    const className = 'test-class';
-    const onImageLoad = jest.fn();
-    const onImageError = jest.fn();
-    const component = mount(
-      <ImageRenderer
-        mediaType={mediaType}
-        className={className}
-        dataURI={dataURI}
-        resizeMode={resizeMode}
-        nativeLazyLoad={nativeLazyLoad}
-        previewOrientation={previewOrientation}
-        alt={alt}
-        onImageLoad={onImageLoad}
-        onImageError={onImageError}
-        forceSyncDisplay={forceSyncDisplay}
-        isImageVisible={isImageVisible}
-      />,
-    );
-
-    const imageRendererBase = component.find(ImageRendererBase);
-    expect(imageRendererBase).toHaveLength(1);
-    expect(imageRendererBase.props()).toHaveProperty('className');
-    expect(imageRendererBase.props()).toMatchObject({
-      mediaType,
-      dataURI,
-      resizeMode,
-      nativeLazyLoad,
-      previewOrientation,
-      alt,
-      onImageLoad,
-      onImageError,
-      forceSyncDisplay,
-    });
-  });
-
   it('should render MediaImage with props', () => {
     const mediaType = 'image';
     const dataURI = 'some-data';
@@ -172,34 +128,4 @@ describe('ImageRenderer', () => {
       expect(onDisplayImage).toHaveBeenCalledTimes(0);
     },
   );
-
-  describe('Visibility', () => {
-    it('should be visible if isImageVisible is true', () => {
-      const component = mount(
-        <ImageRenderer
-          mediaType={'image'}
-          dataURI={'some-data'}
-          isImageVisible={true}
-        />,
-      );
-      expect(component.find(MediaImage)).toHaveStyleRule(
-        'visibility',
-        'visible',
-      );
-    });
-
-    it('should be hidden if isImageVisible is false', () => {
-      const component = mount(
-        <ImageRenderer
-          mediaType={'image'}
-          dataURI={'some-data'}
-          isImageVisible={false}
-        />,
-      );
-      expect(component.find(MediaImage)).toHaveStyleRule(
-        'visibility',
-        'hidden',
-      );
-    });
-  });
 });

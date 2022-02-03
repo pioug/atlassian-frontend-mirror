@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { MediaType, ImageResizeMode } from '@atlaskit/media-client';
 import { MediaImage } from '@atlaskit/media-ui';
 import { resizeModeToMediaImageProps } from '../../../utils/resizeModeToMediaImageProps';
-import styled from 'styled-components';
 
 export type ImageRendererProps = {
   readonly dataURI: string;
@@ -15,11 +14,9 @@ export type ImageRendererProps = {
   readonly onImageLoad?: () => void;
   readonly nativeLazyLoad?: boolean;
   readonly forceSyncDisplay?: boolean;
-  readonly isImageVisible?: boolean;
-  readonly className?: string;
 };
 
-export const ImageRendererBase: React.FC<ImageRendererProps> = ({
+export const ImageRenderer: React.FC<ImageRendererProps> = ({
   dataURI,
   previewOrientation,
   alt,
@@ -30,7 +27,6 @@ export const ImageRendererBase: React.FC<ImageRendererProps> = ({
   mediaType,
   nativeLazyLoad,
   forceSyncDisplay,
-  className = 'media-card-image-renderer',
 }) => {
   useEffect(() => {
     // TODO: trigger accordingly with the succeeded event. This could be a breaking change
@@ -41,7 +37,6 @@ export const ImageRendererBase: React.FC<ImageRendererProps> = ({
 
   return (
     <MediaImage
-      className={className}
       dataURI={dataURI}
       alt={alt}
       previewOrientation={previewOrientation}
@@ -53,9 +48,3 @@ export const ImageRendererBase: React.FC<ImageRendererProps> = ({
     />
   );
 };
-
-export const ImageRenderer = styled(ImageRendererBase)`
-  ${({ isImageVisible }: { isImageVisible?: boolean }) => `
-    visibility: ${isImageVisible ? 'visible' : 'hidden'};
-`}
-`;

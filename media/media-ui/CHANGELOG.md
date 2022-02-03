@@ -1,5 +1,11 @@
 # @atlaskit/media-ui
 
+## 18.1.1
+
+### Patch Changes
+
+- [`9ca8f7e9d74`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9ca8f7e9d74) - Revert extra image visibility style for media card
+
 ## 18.1.0
 
 ### Minor Changes

@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 8.4.1
+
+### Patch Changes
+
+- [`22928ac80d0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/22928ac80d0) - Fix: user sources would keep being fetched in a loop as long as the tooltip was displayed
+
 ## 8.4.0
 
 ### Minor Changes

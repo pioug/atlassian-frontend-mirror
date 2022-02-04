@@ -28,9 +28,7 @@ export const useUserSource = (
   existingSources?: UserSource[],
 ) => {
   const { fetchUserSource } = useContext(ExusUserSourceContext);
-  const [sources, setUserSources] = useState<Set<UserSource>>(
-    new Set(existingSources),
-  );
+  const [externalSources, setExternalSources] = useState([] as UserSource[]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -54,29 +52,36 @@ export const useUserSource = (
       return cleanup;
     }
 
-    if (isMounted) {
-      fetchUserSource(accountId, abortController?.signal)
-        .then((externalSources) => {
-          setLoading(false);
-          const externalSourceTypes = externalSources.map(
-            (source) => source.sourceType,
-          );
-          setUserSources(new Set([...sources, ...externalSourceTypes]));
-        })
-        .catch((error) => {
-          setLoading(false);
-          setError(error);
-        });
-    }
+    fetchUserSource(accountId, abortController?.signal)
+      .then((externalSources) => {
+        if (!isMounted) {
+          return;
+        }
+        setLoading(false);
+        const externalSourceTypes = externalSources.map(
+          (source) => source.sourceType,
+        );
+        setExternalSources(externalSourceTypes);
+      })
+      .catch((error) => {
+        if (!isMounted) {
+          return;
+        }
+        setLoading(false);
+        setError(error);
+      });
 
     return cleanup;
-  }, [
-    fetchUserSource,
-    accountId,
-    sources,
-    abortController,
-    shouldFetchSources,
-  ]);
+  }, [fetchUserSource, accountId, abortController, shouldFetchSources]);
 
-  return { sources: Array.from(sources), loading, error };
+  return useMemo(
+    () => ({
+      sources: Array.from(
+        new Set([...(existingSources ?? []), ...externalSources]),
+      ),
+      loading,
+      error,
+    }),
+    [error, existingSources, externalSources, loading],
+  );
 };

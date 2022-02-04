@@ -23,7 +23,7 @@ export const ExternalUserSourcesContainer: React.FC<SourcesContainerProps> = ({
   children,
   accountId,
   shouldFetchSources,
-  initialSources = [],
+  initialSources,
 }) => {
   const {
     sources,

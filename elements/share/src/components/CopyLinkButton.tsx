@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { isSafari } from 'react-device-detect';
 import {
   FormattedMessage,
   injectIntl,
@@ -31,6 +30,8 @@ export const MessageContainer = styled.div`
   align-items: center;
   margin: -8px -16px;
 `;
+
+const isSafari = navigator.userAgent.indexOf('Safari');
 
 const MessageSpan = styled.span`
   text-indent: 6px;

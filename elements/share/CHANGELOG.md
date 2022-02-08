@@ -1,5 +1,11 @@
 # @atlaskit/share
 
+## 3.0.11
+
+### Patch Changes
+
+- [`cc08c9c2bb1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cc08c9c2bb1) - Remove react-device-detect dependency from @atlaskit/share. Only used to detect for Safari which can be done in a much lighterweight way, @atlaskit/share is 10.7kb gzipped
+
 ## 3.0.10
 
 ### Patch Changes

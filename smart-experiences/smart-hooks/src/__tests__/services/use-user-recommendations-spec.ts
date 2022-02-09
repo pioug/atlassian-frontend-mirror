@@ -1,12 +1,40 @@
 import { act, HookResult, renderHook } from '@testing-library/react-hooks';
+import { v4 as uuid } from 'uuid';
 
+import { createAndFireEvent } from '@atlaskit/analytics-next';
 import { fetchUserRecommendations } from '@atlaskit/smart-common';
 
 import { mockUserSearchData } from '../../../example-helpers/mock-urs-data';
 import useUserRecommendations, {
   instrumentFailureOption,
 } from '../../services/use-user-recommendations';
+import { UsersFetchedUfoExperience } from '../../services/use-user-recommendations/ufoExperiences';
 import { UseUserRecommendationsProps } from '../../types';
+
+jest.mock('../../services/use-user-recommendations/ufoExperiences', () => ({
+  UsersFetchedUfoExperience: {
+    getInstance: jest.fn(),
+  },
+}));
+
+jest.mock('uuid', () => ({
+  __esModule: true,
+  v4: jest.fn(),
+}));
+
+jest.mock('@atlaskit/analytics-next', () => {
+  return {
+    ...(jest.requireActual('@atlaskit/analytics-next') as Object),
+    createAndFireEvent: jest
+      .fn()
+      .mockReturnValue(jest.fn().mockReturnValue(jest.fn())),
+  };
+});
+
+jest.mock('@atlaskit/smart-common', () => ({
+  ...(jest.requireActual('@atlaskit/smart-common') as Object),
+  fetchUserRecommendations: jest.fn(),
+}));
 
 const mockProps: UseUserRecommendationsProps = {
   fieldId: 'mockFieldId',
@@ -14,13 +42,45 @@ const mockProps: UseUserRecommendationsProps = {
   productKey: 'jira',
 };
 
-jest.mock('@atlaskit/smart-common', () => ({
-  ...(jest.requireActual('@atlaskit/smart-common') as Object),
-  fetchUserRecommendations: jest.fn(),
-}));
-
 describe('useUserRecommendations hook', () => {
+  let uuidMock = uuid as jest.Mock;
   let fetchUserRecommendationsMock = fetchUserRecommendations as jest.Mock;
+
+  // analytics
+  let fireEventMock = createAndFireEvent() as jest.Mock;
+  let usersFetchedUfoStartMock: jest.Mock;
+  let usersFetchedUfoSuccessMock: jest.Mock;
+  let usersFetchedUfoFailMock: jest.Mock;
+  let UsersFetchedUfoExperienceInstanceMock = UsersFetchedUfoExperience;
+
+  beforeEach(() => {
+    fetchUserRecommendationsMock.mockReturnValue(
+      Promise.resolve(mockUserSearchData),
+    );
+
+    uuidMock
+      .mockReturnValueOnce('renderId')
+      .mockReturnValueOnce('1')
+      .mockReturnValueOnce('2')
+      .mockReturnValue('sessionId');
+
+    usersFetchedUfoStartMock = jest.fn();
+    usersFetchedUfoSuccessMock = jest.fn();
+    usersFetchedUfoFailMock = jest.fn();
+    (UsersFetchedUfoExperienceInstanceMock.getInstance as jest.Mock).mockReturnValue(
+      {
+        start: usersFetchedUfoStartMock,
+        success: usersFetchedUfoSuccessMock,
+        failure: usersFetchedUfoFailMock,
+      },
+    );
+  });
+
+  afterEach(() => {
+    uuidMock.mockReset();
+    jest.clearAllMocks();
+    jest.resetModules();
+  });
 
   const setUpInstrumentation = (
     result: HookResult<ReturnType<typeof useUserRecommendations>>,
@@ -31,24 +91,14 @@ describe('useUserRecommendations hook', () => {
 
     act(() => {
       // instantiate analytics handlers to satisfy instrumentation verification
-      result.current.onChange();
-      result.current.onInputChange();
+      result.current.selectUserFactory();
+      result.current.triggerSearchFactory();
     });
 
     expect(result.current.recommendations).toEqual([]);
     expect(result.current.isLoading).toEqual(false);
     expect(result.current.error).toBeUndefined();
   };
-
-  beforeEach(() => {
-    fetchUserRecommendationsMock.mockReturnValue(
-      Promise.resolve(mockUserSearchData),
-    );
-  });
-
-  afterEach(() => {
-    jest.clearAllMocks();
-  });
 
   it('should return recommendations', async () => {
     const { result, waitForNextUpdate } = renderHook(() =>
@@ -59,7 +109,7 @@ describe('useUserRecommendations hook', () => {
 
     act(() => {
       // search for users
-      result.current.onInputChange()('', 'sessionId1');
+      result.current.triggerSearchFactory()('');
     });
 
     expect(result.current.recommendations).toEqual([]);
@@ -87,7 +137,7 @@ describe('useUserRecommendations hook', () => {
 
     act(() => {
       // search for users
-      result.current.onInputChange()('', 'sessionId1');
+      result.current.triggerSearchFactory()('');
     });
 
     expect(result.current.recommendations).toEqual([]);
@@ -115,8 +165,8 @@ describe('useUserRecommendations hook', () => {
 
     act(() => {
       // instantiate analytics handlers to satisfy instrumentation verification
-      result.current.onChange();
-      result.current.onInputChange();
+      result.current.selectUserFactory();
+      result.current.triggerSearchFactory();
     });
 
     expect(result.current.recommendations).toEqual(mockUserSearchData);
@@ -134,5 +184,119 @@ describe('useUserRecommendations hook', () => {
     expect(recommendations).toEqual(instrumentFailureOption);
     expect(isLoading).toEqual(false);
     expect(error).toBeUndefined();
+  });
+
+  describe('with Analytics', () => {
+    beforeEach(() => {});
+
+    it('should change sessions between searches', async () => {
+      // SETUP
+      const { result, waitForNextUpdate } = renderHook(() =>
+        useUserRecommendations(mockProps),
+      );
+      setUpInstrumentation(result);
+
+      // ACT & TEST
+      act(() => {
+        // search for users
+        result.current.triggerSearchFactory()('');
+      });
+
+      // wait for search to resolve
+      await waitForNextUpdate();
+
+      act(() => {
+        // clicks on user
+        result.current.selectUserFactory()(mockUserSearchData[0].id);
+      });
+
+      expect(fireEventMock).toHaveBeenCalledWith(
+        expect.objectContaining({
+          action: 'selected',
+          actionSubject: 'user',
+          attributes: expect.objectContaining({
+            context: 'mockFieldId',
+            loadedUsersSize: mockUserSearchData.length,
+            maxNumberOfResults: 25,
+            position: 0,
+            productKey: 'jira',
+            queryLength: 0,
+            renderId: 'renderId',
+            selectedUser: '2234',
+            sessionId: '1',
+            tenantId: 'tenantId',
+          }),
+          eventType: 'track',
+          source: '@atlaskit/smart-hooks/use-user-recommendations',
+        }),
+      );
+
+      // changes input
+      act(() => {
+        result.current.triggerSearchFactory()('ad');
+      });
+      // wait for search to resolve
+      await waitForNextUpdate();
+
+      // clicks on user
+      act(() => {
+        result.current.selectUserFactory()(mockUserSearchData[3].id);
+      });
+
+      expect(fireEventMock).toHaveBeenCalledWith(
+        expect.objectContaining({
+          action: 'selected',
+          actionSubject: 'user',
+          attributes: expect.objectContaining({
+            position: 3,
+            queryLength: 2,
+            renderId: 'renderId',
+            selectedUser: '12312412',
+            sessionId: '2',
+          }),
+        }),
+      );
+    });
+
+    it('should track UFO search experience success', async () => {
+      // SETUP
+      const { result, waitForNextUpdate } = renderHook(() =>
+        useUserRecommendations(mockProps),
+      );
+      setUpInstrumentation(result);
+
+      // ACT & TEST
+      act(() => {
+        // search for users
+        result.current.triggerSearchFactory()('');
+      });
+      expect(usersFetchedUfoStartMock).toHaveBeenCalledTimes(1);
+
+      // wait for search to resolve
+      await waitForNextUpdate();
+
+      expect(usersFetchedUfoSuccessMock).toHaveBeenCalledTimes(1);
+    });
+
+    it('should track UFO search experience fail', async () => {
+      // SETUP
+      fetchUserRecommendationsMock.mockReturnValue(Promise.reject());
+      const { result, waitForNextUpdate } = renderHook(() =>
+        useUserRecommendations(mockProps),
+      );
+      setUpInstrumentation(result);
+
+      // ACT & TEST
+      act(() => {
+        // search for users
+        result.current.triggerSearchFactory()('');
+      });
+      expect(usersFetchedUfoStartMock).toHaveBeenCalledTimes(1);
+
+      // wait for search to resolve
+      await waitForNextUpdate();
+
+      expect(usersFetchedUfoFailMock).toHaveBeenCalledTimes(1);
+    });
   });
 });

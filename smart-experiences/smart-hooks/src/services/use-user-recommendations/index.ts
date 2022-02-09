@@ -1,16 +1,24 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import debounce from 'lodash/debounce';
+import { v4 as uuid } from 'uuid';
 
+import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import {
   EntityType,
   fetchUserRecommendations,
   UserSearchItem,
 } from '@atlaskit/smart-common';
-import { ActionTypes, Value } from '@atlaskit/user-picker';
 
 import type { UseUserRecommendationsProps } from '../../types';
 import useFunctionUsageTracking from '../use-function-usage-tracking';
+
+import {
+  createDefaultAttributes,
+  findUserPosition,
+  fireUserSelectedEvent,
+} from './analytics';
+import { UsersFetchedUfoExperience } from './ufoExperiences';
 
 const MAX_NUMBER_RESULTS = 25;
 
@@ -55,11 +63,56 @@ const useUserRecommendations = (props: UseUserRecommendationsProps) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<any>();
 
+  const renderId = useRef<string>('');
+  const sessionId = useRef<string>('');
+  const currentQuery = useRef<string>('');
+
+  const { createAnalyticsEvent } = useAnalyticsEvents();
+
+  const getAnalyticsAttributes = useCallback(
+    () => ({
+      ...createDefaultAttributes(
+        {
+          fieldId,
+          objectId,
+          containerId,
+          childObjectId,
+          preload,
+          includeTeams,
+          productKey,
+          principalId,
+          tenantId,
+          maxNumberOfResults,
+        },
+        renderId.current,
+        sessionId.current,
+        currentQuery.current,
+      ),
+    }),
+    [
+      childObjectId,
+      containerId,
+      fieldId,
+      includeTeams,
+      maxNumberOfResults,
+      objectId,
+      preload,
+      principalId,
+      productKey,
+      tenantId,
+    ],
+  );
+
   const fetchRecommendations = useCallback(
-    async (query?: string, sessionId?: string) => {
+    async (query?: string) => {
       setIsLoading(true);
+      // restart session
+      sessionId.current = uuid();
+
+      UsersFetchedUfoExperience.getInstance(fieldId).start();
+
       try {
-        const recommendedUsers = await fetchUserRecommendations({
+        const recommendedUsersResult = await fetchUserRecommendations({
           baseUrl,
           context: {
             childObjectId,
@@ -70,7 +123,7 @@ const useUserRecommendations = (props: UseUserRecommendationsProps) => {
             productKey,
             contextType: fieldId,
             siteId: tenantId,
-            sessionId: sessionId,
+            sessionId: sessionId.current,
           },
           includeUsers,
           includeGroups,
@@ -79,8 +132,18 @@ const useUserRecommendations = (props: UseUserRecommendationsProps) => {
           searchQuery: cpusSearchQuery,
           query,
         });
-        setRecommendations(recommendedUsers);
+        currentQuery.current = query ?? '';
+        UsersFetchedUfoExperience.getInstance(fieldId).success({
+          metadata: {
+            ...getAnalyticsAttributes(),
+            loadedUsersSize: recommendedUsersResult.length,
+          },
+        });
+        setRecommendations(recommendedUsersResult);
       } catch (error) {
+        UsersFetchedUfoExperience.getInstance(fieldId).failure({
+          metadata: getAnalyticsAttributes(),
+        });
         setError(error);
       }
       setIsLoading(false);
@@ -89,17 +152,18 @@ const useUserRecommendations = (props: UseUserRecommendationsProps) => {
       baseUrl,
       childObjectId,
       containerId,
-      fieldId,
-      includeGroups,
-      includeTeams,
-      includeUsers,
-      maxNumberOfResults,
       objectId,
       principalId,
       productAttributes,
       productKey,
-      cpusSearchQuery,
+      fieldId,
       tenantId,
+      includeUsers,
+      includeGroups,
+      includeTeams,
+      maxNumberOfResults,
+      cpusSearchQuery,
+      getAnalyticsAttributes,
     ],
   );
 
@@ -114,16 +178,24 @@ const useUserRecommendations = (props: UseUserRecommendationsProps) => {
     }
   }, [preload, debouncedFetchRecommendations]);
 
-  // TODO - analytics
   const onInputChange = useCallback(
-    (query?: string, sessionId?: string) => {
-      debouncedFetchRecommendations(query, sessionId);
+    (query?: string) => {
+      debouncedFetchRecommendations(query ?? '');
     },
     [debouncedFetchRecommendations],
   );
 
-  // TODO - analytics
-  const onChange = useCallback((value: Value, action: ActionTypes) => {}, []);
+  const onUserSelect = useCallback(
+    (userId: string) => {
+      fireUserSelectedEvent(createAnalyticsEvent, {
+        ...getAnalyticsAttributes(),
+        selectedUser: userId,
+        loadedUsersSize: recommendations.length,
+        position: findUserPosition(recommendations, userId),
+      });
+    },
+    [createAnalyticsEvent, getAnalyticsAttributes, recommendations],
+  );
 
   const {
     isUsed: isOnInputChangeUsed,
@@ -131,17 +203,21 @@ const useUserRecommendations = (props: UseUserRecommendationsProps) => {
   } = useFunctionUsageTracking<typeof onInputChange>(onInputChange);
 
   const {
-    isUsed: isOnChangeUsed,
-    trackingFunction: usageTrackedOnChange,
-  } = useFunctionUsageTracking<typeof onChange>(onChange);
+    isUsed: isOnUserSelectUsed,
+    trackingFunction: usageTrackedOnUserSelect,
+  } = useFunctionUsageTracking<typeof onUserSelect>(onUserSelect);
+
+  useEffect(() => {
+    renderId.current = uuid();
+  }, []);
 
   return {
     recommendations:
-      isOnInputChangeUsed && isOnChangeUsed
+      isOnInputChangeUsed && isOnUserSelectUsed
         ? recommendations
         : instrumentFailureOption,
-    onInputChange: usageTrackedOnInputChange,
-    onChange: usageTrackedOnChange,
+    triggerSearchFactory: usageTrackedOnInputChange,
+    selectUserFactory: usageTrackedOnUserSelect,
     isLoading,
     error,
   };

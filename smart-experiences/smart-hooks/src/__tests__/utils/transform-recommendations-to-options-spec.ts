@@ -62,7 +62,7 @@ const mockServerGroup = {
   },
 };
 
-describe('transform recommendations to UserPicker options', async () => {
+describe('transform recommendations to UserPicker options', () => {
   it('should correctly transform user option workspace member', async () => {
     const options = await transformRecommendationsToOptions(
       [mockServerUserWorkspaceMember],

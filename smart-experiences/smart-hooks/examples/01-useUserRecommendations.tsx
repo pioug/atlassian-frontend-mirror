@@ -1,16 +1,30 @@
-import React, { useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 
 import { IntlProvider, useIntl } from 'react-intl-next';
 
 import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import Textfield from '@atlaskit/textfield';
+import { ufologger } from '@atlaskit/ufo';
 import UserPicker, { ActionTypes, Value } from '@atlaskit/user-picker';
+import { payloadPublisher } from '@atlassian/ufo';
 
 import { useEndpointMocks } from '../example-helpers/use-endpoint-mocks';
 import {
   transformRecommendationsToOptions,
   useUserRecommendations,
 } from '../src';
+
+payloadPublisher.setup({
+  product: 'examples',
+  gasv3: {
+    sendOperationalEvent: (event) => {
+      console.log('sendOperationalEvent:', event);
+    },
+  },
+  app: { version: { web: 'unknown' } },
+});
+
+ufologger.enable();
 
 const JIRA_CLOUD_ID = '49d8b9d6-ee7d-4931-a0ca-7fcae7d1c3b5';
 
@@ -29,7 +43,7 @@ type State = {
   containerId?: string;
 };
 
-const UserPickerExample = () => {
+const UserPickerExample = React.memo(() => {
   useEndpointMocks();
 
   let [state, setState] = useState<State>({
@@ -49,8 +63,8 @@ const UserPickerExample = () => {
 
   const {
     recommendations,
-    onChange: onChangeFactory,
-    onInputChange: onInputChangeFactory,
+    triggerSearchFactory,
+    selectUserFactory,
   } = useUserRecommendations({
     baseUrl: state.baseUrl,
     fieldId: 'fieldId',
@@ -63,11 +77,13 @@ const UserPickerExample = () => {
     tenantId: state.tenantId,
     preload: state.isPreloadOn,
   });
-  const onChange = onChangeFactory();
-  const onInputChange = onInputChangeFactory();
+  const triggerSearch = triggerSearchFactory();
+  const selectUser = selectUserFactory();
   const intl = useIntl();
-  const options = transformRecommendationsToOptions(recommendations, intl);
-
+  const options = useMemo(
+    () => transformRecommendationsToOptions(recommendations, intl),
+    [recommendations, intl],
+  );
   const createBoolean = (
     id:
       | 'includeUsers'
@@ -123,10 +139,22 @@ const UserPickerExample = () => {
     );
   };
 
-  const handleChange = (value: Value, action: ActionTypes) => {
-    console.log(value);
-    onChange(value, action);
-  };
+  const handleChange = useCallback(
+    (value: Value, action: ActionTypes) => {
+      console.log(value);
+      if (value && Array.isArray(value)) {
+        // For UserPickers, the last item in the array is the most recently selected
+        // for the multipicker case
+        value.length > 0 && selectUser(value[value.length - 1].id);
+      } else {
+        // please ensure ID is not PII/UGC
+        value && selectUser(value.id);
+      }
+    },
+    [selectUser],
+  );
+
+  const onFocus = useCallback(() => triggerSearch(''), [triggerSearch]);
 
   return (
     <div>
@@ -150,22 +178,22 @@ const UserPickerExample = () => {
       {createBoolean('includeUsers', 'includeUsers')}
       {createBoolean('includeTeams', 'includeTeams')}
       {createBoolean('includeGroups', 'includeGroups')}
-      {createBoolean('isPreloadOn', 'preload')}
+      {createBoolean('isPreloadOn', 'isPreloadOn')}
       {createBoolean('isMulti', 'isMulti')}
       <hr />
       <label htmlFor="user-picker">User Picker</label>
       <UserPicker
         maxOptions={10}
         isMulti={state.isMulti}
-        onFocus={() => onInputChange('')}
-        onInputChange={onInputChange}
+        onFocus={onFocus}
+        onInputChange={triggerSearch}
         onChange={handleChange}
         fieldId={state.fieldId}
         options={options}
       />
     </div>
   );
-};
+});
 
 export default () => {
   let onEvent = (e: UIAnalyticsEvent) => {

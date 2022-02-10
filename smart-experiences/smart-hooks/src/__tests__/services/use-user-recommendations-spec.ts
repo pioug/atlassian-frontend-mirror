@@ -51,9 +51,12 @@ describe('useUserRecommendations hook', () => {
   let usersFetchedUfoStartMock: jest.Mock;
   let usersFetchedUfoSuccessMock: jest.Mock;
   let usersFetchedUfoFailMock: jest.Mock;
+  let usersFetchedUfoAbortMock: jest.Mock;
   let UsersFetchedUfoExperienceInstanceMock = UsersFetchedUfoExperience;
 
   beforeEach(() => {
+    jest.useFakeTimers();
+
     fetchUserRecommendationsMock.mockReturnValue(
       Promise.resolve(mockUserSearchData),
     );
@@ -67,16 +70,19 @@ describe('useUserRecommendations hook', () => {
     usersFetchedUfoStartMock = jest.fn();
     usersFetchedUfoSuccessMock = jest.fn();
     usersFetchedUfoFailMock = jest.fn();
+    usersFetchedUfoAbortMock = jest.fn();
     (UsersFetchedUfoExperienceInstanceMock.getInstance as jest.Mock).mockReturnValue(
       {
         start: usersFetchedUfoStartMock,
         success: usersFetchedUfoSuccessMock,
         failure: usersFetchedUfoFailMock,
+        abort: usersFetchedUfoAbortMock,
       },
     );
   });
 
   afterEach(() => {
+    jest.useRealTimers();
     uuidMock.mockReset();
     jest.clearAllMocks();
     jest.resetModules();
@@ -184,6 +190,39 @@ describe('useUserRecommendations hook', () => {
     expect(recommendations).toEqual(instrumentFailureOption);
     expect(isLoading).toEqual(false);
     expect(error).toBeUndefined();
+  });
+
+  it('should not refetch if current query was the same as last query', async () => {
+    // disable debounce since debounce may cause potential fetch to not refetch
+    const { result, waitForNextUpdate } = renderHook(() =>
+      useUserRecommendations({ ...mockProps, debounceTimeMs: 0 }),
+    );
+
+    setUpInstrumentation(result);
+
+    act(() => {
+      // search for users
+      result.current.triggerSearchFactory()('');
+    });
+
+    // wait for search to resolve
+    await waitForNextUpdate();
+
+    expect(fetchUserRecommendationsMock).toHaveBeenCalledTimes(1);
+
+    act(() => {
+      // search for users
+      result.current.triggerSearchFactory()('');
+    });
+
+    // no state change so no need to wait for next update
+    expect(result.current.recommendations).toEqual(mockUserSearchData);
+    // memoization means hook will skip loading phase
+    expect(result.current.isLoading).toEqual(false);
+    expect(result.current.error).toBeUndefined();
+
+    // still called only once
+    expect(fetchUserRecommendationsMock).toHaveBeenCalledTimes(1);
   });
 
   describe('with Analytics', () => {
@@ -297,6 +336,53 @@ describe('useUserRecommendations hook', () => {
       await waitForNextUpdate();
 
       expect(usersFetchedUfoFailMock).toHaveBeenCalledTimes(1);
+    });
+
+    it('should abort UFO search experience if new search is triggered', async () => {
+      // SETUP
+      // abortcontroller signal does not cancel fetch because client is mocked
+      // so simulate race condition by cancelling the first call
+      fetchUserRecommendationsMock
+        .mockReturnValueOnce(
+          new Promise((_, reject) => {
+            setTimeout(() => {
+              let error = new Error('AbortError');
+              error.name = 'AbortError';
+              reject(error);
+            }, 10);
+          }),
+        )
+        .mockReturnValueOnce(
+          new Promise((resolve) => {
+            setTimeout(() => {
+              resolve(mockUserSearchData);
+            }, 20);
+          }),
+        );
+      const { result, waitForNextUpdate } = renderHook(() =>
+        useUserRecommendations({ ...mockProps, debounceTimeMs: 0 }),
+      );
+      setUpInstrumentation(result);
+
+      // ACT & TEST
+      act(() => {
+        // search for users
+        result.current.triggerSearchFactory()('');
+      });
+
+      jest.advanceTimersByTime(5);
+
+      act(() => {
+        // search for users
+        result.current.triggerSearchFactory()('a');
+      });
+
+      jest.advanceTimersByTime(100);
+
+      // wait for search to resolve
+      await waitForNextUpdate();
+
+      expect(usersFetchedUfoAbortMock).toHaveBeenCalledTimes(1);
     });
   });
 });

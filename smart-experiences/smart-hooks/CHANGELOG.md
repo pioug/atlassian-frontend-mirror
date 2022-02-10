@@ -1,5 +1,12 @@
 # @atlaskit/smart-hooks
 
+## 0.1.1
+
+### Patch Changes
+
+- [`c7cd471ace6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c7cd471ace6) - [ux] add abortcontrollers, replace ufo experience identifier, memoization for search query
+- Updated dependencies
+
 ## 0.1.0
 
 ### Minor Changes

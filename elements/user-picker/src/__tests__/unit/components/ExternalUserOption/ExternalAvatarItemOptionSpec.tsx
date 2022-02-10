@@ -1,7 +1,6 @@
 import { mount } from 'enzyme';
 import React, { ReactNode } from 'react';
-import { LozengeProps } from '../../../types';
-import { AvatarItemOption } from '../../../components/AvatarItemOption';
+import { ExternalAvatarItemOption } from '../../../../components/ExternalUserOption/ExternalAvatarItemOption';
 
 jest.mock('@atlaskit/tooltip', () => ({
   ...jest.requireActual<any>('@atlaskit/tooltip'),
@@ -20,42 +19,42 @@ jest.mock('@atlaskit/tooltip', () => ({
   ),
 }));
 
-describe('AvatarItemOption', () => {
+describe('ExternalAvatarItemOption', () => {
   describe('should render AvatarItem with', () => {
+    const avatar = 'Avatar';
     const primaryText = 'PrimaryText';
     const secondaryText = 'SecondaryText';
-    const lozenge: LozengeProps = {
-      text: 'in progress',
-      appearance: 'inprogress',
-    };
+    const sourcesInfoTooltip = 'Sources Info Tooltip';
 
     it('primary as well as secondary texts', () => {
-      const primaryText = 'PrimaryText';
-      const secondaryText = 'SecondaryText';
       const component = mount(
-        <AvatarItemOption
+        <ExternalAvatarItemOption
           primaryText={primaryText}
           secondaryText={secondaryText}
           avatar="Avatar"
         />,
       );
 
+      expect(component.text()).toContain(avatar);
       expect(component.text()).toContain(primaryText);
       expect(component.text()).toContain(secondaryText);
-      expect(component.text()).not.toContain(lozenge.text);
+      expect(component.text()).not.toContain(sourcesInfoTooltip);
     });
 
-    it('with lozenge when lozenge is present', () => {
+    it('sources info tooltip', () => {
       const component = mount(
-        <AvatarItemOption
+        <ExternalAvatarItemOption
           primaryText={primaryText}
           secondaryText={secondaryText}
-          lozenge={lozenge}
           avatar="Avatar"
+          sourcesInfoTooltip={sourcesInfoTooltip}
         />,
       );
 
-      expect(component.text()).toContain(lozenge.text);
+      expect(component.text()).toContain(avatar);
+      expect(component.text()).toContain(primaryText);
+      expect(component.text()).toContain(secondaryText);
+      expect(component.text()).toContain(sourcesInfoTooltip);
     });
   });
 });

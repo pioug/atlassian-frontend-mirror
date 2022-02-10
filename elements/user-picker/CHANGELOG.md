@@ -1,5 +1,12 @@
 # @atlaskit/user-picker
 
+## 8.5.0
+
+### Minor Changes
+
+- [`b74959620f2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b74959620f2) - added hover state for info icon, and updated primary color correspondingly
+  separated avatar item option for external users and applied different css settings
+
 ## 8.4.1
 
 ### Patch Changes

@@ -1,22 +1,23 @@
 import React, { ReactNode } from 'react';
 import { FormattedMessage } from 'react-intl-next';
-import EditorPanelIcon from '@atlaskit/icon/glyph/editor/panel';
+import styled from 'styled-components';
 import { ConfluenceIcon } from '@atlaskit/logo/confluence-icon';
 import { JiraIcon } from '@atlaskit/logo/jira-icon';
-import Tooltip from '@atlaskit/tooltip';
 import Spinner from '@atlaskit/spinner';
 import { B400, N200, N800 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
+import Tooltip from '@atlaskit/tooltip';
 import { ExternalUser, UserSource } from '../../types';
-import { AvatarItemOption, TextWrapper } from '../AvatarItemOption';
+import { TextWrapper } from '../AvatarItemOption';
 import { SizeableAvatar } from '../SizeableAvatar';
-import styled from 'styled-components';
 import { SlackIcon } from '../assets/slack';
 import { GoogleIcon } from '../assets/google';
 import { MicrosoftIcon } from '../assets/microsoft';
 import { GitHubIcon } from '../assets/github';
 import { messages } from '../i18n';
 import { ExternalUserSourcesContainer } from '../ExternalUserSourcesContainer';
+import InfoIcon from './InfoIcon';
+import { ExternalAvatarItemOption } from './ExternalAvatarItemOption';
 
 export const ImageContainer = styled.span`
   height: 16px;
@@ -98,7 +99,7 @@ export class ExternalUserOption extends React.PureComponent<
 > {
   render() {
     return (
-      <AvatarItemOption
+      <ExternalAvatarItemOption
         avatar={this.renderAvatar()}
         primaryText={this.getPrimaryText()}
         secondaryText={this.renderSecondaryText()}
@@ -169,12 +170,7 @@ export class ExternalUserOption extends React.PureComponent<
         content={this.formattedTooltipContent()}
         position={'right-start'}
       >
-        <EditorPanelIcon
-          testId="source-icon"
-          label=""
-          size="large"
-          primaryColor={token('color.text.lowEmphasis', N200)}
-        />
+        <InfoIcon />
       </Tooltip>
     ) : undefined;
 

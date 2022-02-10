@@ -62,6 +62,7 @@ const UserPickerExample = React.memo(() => {
   });
 
   const {
+    isLoading,
     recommendations,
     triggerSearchFactory,
     selectUserFactory,
@@ -190,6 +191,7 @@ const UserPickerExample = React.memo(() => {
         onChange={handleChange}
         fieldId={state.fieldId}
         options={options}
+        isLoading={isLoading}
       />
     </div>
   );

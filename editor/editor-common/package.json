@@ -62,7 +62,7 @@
     "@atlaskit/theme": "^12.1.0",
     "@atlaskit/tooltip": "^17.5.0",
     "@atlaskit/ufo": "^0.0.6",
-    "@atlaskit/user-picker": "^8.4.0",
+    "@atlaskit/user-picker": "^8.5.0",
     "@atlaskit/width-detector": "^3.0.0",
     "@babel/runtime": "^7.0.0",
     "@types/prosemirror-model": "^1.11.0",

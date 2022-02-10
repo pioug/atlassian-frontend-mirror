@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import debounce from 'lodash/debounce';
+import memoizeOne from 'memoize-one';
 import { v4 as uuid } from 'uuid';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
@@ -62,10 +63,11 @@ const useUserRecommendations = (props: UseUserRecommendationsProps) => {
   const [recommendations, setRecommendations] = useState<UserSearchItem[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<any>();
+  const [renderId] = useState<string>(() => uuid());
 
-  const renderId = useRef<string>('');
   const sessionId = useRef<string>('');
   const currentQuery = useRef<string>('');
+  const lastAbortController = useRef<AbortController | null>();
 
   const { createAnalyticsEvent } = useAnalyticsEvents();
 
@@ -84,7 +86,7 @@ const useUserRecommendations = (props: UseUserRecommendationsProps) => {
           tenantId,
           maxNumberOfResults,
         },
-        renderId.current,
+        renderId,
         sessionId.current,
         currentQuery.current,
       ),
@@ -99,6 +101,7 @@ const useUserRecommendations = (props: UseUserRecommendationsProps) => {
       preload,
       principalId,
       productKey,
+      renderId,
       tenantId,
     ],
   );
@@ -112,26 +115,38 @@ const useUserRecommendations = (props: UseUserRecommendationsProps) => {
       UsersFetchedUfoExperience.getInstance(fieldId).start();
 
       try {
-        const recommendedUsersResult = await fetchUserRecommendations({
-          baseUrl,
-          context: {
-            childObjectId,
-            containerId,
-            objectId,
-            principalId,
-            productAttributes,
-            productKey,
-            contextType: fieldId,
-            siteId: tenantId,
-            sessionId: sessionId.current,
+        if (lastAbortController.current) {
+          lastAbortController.current?.abort();
+        }
+        // in case there are still IE users, check AbortController before init,
+        // IE has no timeout applied on fetch since AbortController isn't available
+        const currentController =
+          typeof AbortController !== 'undefined' ? new AbortController() : null;
+        lastAbortController.current = currentController;
+
+        const recommendedUsersResult = await fetchUserRecommendations(
+          {
+            baseUrl,
+            context: {
+              childObjectId,
+              containerId,
+              objectId,
+              principalId,
+              productAttributes,
+              productKey,
+              contextType: fieldId,
+              siteId: tenantId,
+              sessionId: sessionId.current,
+            },
+            includeUsers,
+            includeGroups,
+            includeTeams,
+            maxNumberOfResults,
+            searchQuery: cpusSearchQuery,
+            query,
           },
-          includeUsers,
-          includeGroups,
-          includeTeams,
-          maxNumberOfResults,
-          searchQuery: cpusSearchQuery,
-          query,
-        });
+          currentController?.signal,
+        );
         currentQuery.current = query ?? '';
         UsersFetchedUfoExperience.getInstance(fieldId).success({
           metadata: {
@@ -141,12 +156,21 @@ const useUserRecommendations = (props: UseUserRecommendationsProps) => {
         });
         setRecommendations(recommendedUsersResult);
       } catch (error) {
-        UsersFetchedUfoExperience.getInstance(fieldId).failure({
-          metadata: getAnalyticsAttributes(),
-        });
-        setError(error);
+        if (error instanceof Error && error.name === 'AbortError') {
+          // Request aborted client-side
+          UsersFetchedUfoExperience.getInstance(fieldId).abort();
+          // return early to prevent disabling isLoading
+          return;
+        } else {
+          UsersFetchedUfoExperience.getInstance(fieldId).failure({
+            metadata: getAnalyticsAttributes(),
+          });
+          setError(error);
+        }
       }
       setIsLoading(false);
+      // clear abort controller
+      lastAbortController.current = undefined;
     },
     [
       baseUrl,
@@ -167,22 +191,22 @@ const useUserRecommendations = (props: UseUserRecommendationsProps) => {
     ],
   );
 
-  const debouncedFetchRecommendations = useMemo(
-    () => debounce(fetchRecommendations, debounceTimeMs),
+  const memoizedDebouncedFetchRecommendations = useMemo(
+    () => memoizeOne(debounce(fetchRecommendations, debounceTimeMs)),
     [fetchRecommendations, debounceTimeMs],
   );
 
   useEffect(() => {
     if (preload) {
-      debouncedFetchRecommendations('');
+      memoizedDebouncedFetchRecommendations('');
     }
-  }, [preload, debouncedFetchRecommendations]);
+  }, [preload, memoizedDebouncedFetchRecommendations]);
 
   const onInputChange = useCallback(
     (query?: string) => {
-      debouncedFetchRecommendations(query ?? '');
+      memoizedDebouncedFetchRecommendations(query ?? '');
     },
-    [debouncedFetchRecommendations],
+    [memoizedDebouncedFetchRecommendations],
   );
 
   const onUserSelect = useCallback(
@@ -206,10 +230,6 @@ const useUserRecommendations = (props: UseUserRecommendationsProps) => {
     isUsed: isOnUserSelectUsed,
     trackingFunction: usageTrackedOnUserSelect,
   } = useFunctionUsageTracking<typeof onUserSelect>(onUserSelect);
-
-  useEffect(() => {
-    renderId.current = uuid();
-  }, []);
 
   return {
     recommendations:

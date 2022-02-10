@@ -37,9 +37,8 @@ const Text = styled.span<{ secondary?: boolean }>`
     `color: ${token('color.text.selected', B400)}; font-size: 0.85em;`}
 `;
 
-const AdditionalInfo = styled.span<{ withTooltip?: boolean }>`
+const AdditionalInfo = styled.span`
   float: right;
-  ${({ withTooltip }) => withTooltip && ` padding-top: 5px;`}
 `;
 
 export const TextWrapper = styled.span`
@@ -54,7 +53,6 @@ export type AvatarItemOptionProps = {
   primaryText?: ReactNode;
   secondaryText?: ReactNode;
   lozenge?: LozengeProps;
-  sourcesInfoTooltip?: ReactNode;
 };
 
 export const AvatarItemOption = ({
@@ -62,7 +60,6 @@ export const AvatarItemOption = ({
   primaryText,
   secondaryText,
   lozenge,
-  sourcesInfoTooltip,
 }: AvatarItemOptionProps) => (
   <Wrapper>
     {avatar}
@@ -77,9 +74,8 @@ export const AvatarItemOption = ({
     >
       <div>
         <Text>{primaryText}</Text>
-        <AdditionalInfo withTooltip={Boolean(sourcesInfoTooltip)}>
-          {!sourcesInfoTooltip &&
-            lozenge?.text &&
+        <AdditionalInfo>
+          {lozenge?.text &&
             (lozenge?.tooltip ? (
               // Note that entire Lozenge must be wrapped in the Tooltip (rather than just the
               // Lozenge text) or tooltip won't work
@@ -93,7 +89,6 @@ export const AvatarItemOption = ({
             ) : (
               <Lozenge {...lozenge}>{lozenge.text}</Lozenge>
             ))}
-          {sourcesInfoTooltip}
         </AdditionalInfo>
       </div>
       <div>

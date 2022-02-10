@@ -3,9 +3,11 @@ import { UserSearchItem, UserSearchRequest } from '../../types';
 
 const fetchUserRecommendations = (
   request: UserSearchRequest,
+  signal?: AbortSignal,
 ): Promise<UserSearchItem[]> => {
   const url = PRD_CONFIG.getRecommendationServiceUrl(request.baseUrl);
   return fetch(url, {
+    signal,
     method: 'POST',
     credentials: 'include',
     headers: {

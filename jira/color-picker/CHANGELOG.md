@@ -1,5 +1,11 @@
 # @atlaskit/color-picker
 
+## 1.3.0
+
+### Minor Changes
+
+- [`10b517acfea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/10b517acfea) - [ux] Updated how the darker border for each colour block is rendered by using css instead of `darken()`
+
 ## 1.2.6
 
 ### Patch Changes

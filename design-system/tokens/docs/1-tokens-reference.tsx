@@ -1,13 +1,19 @@
 /** @jsx jsx */
-import { Fragment } from 'react';
+import { Fragment, useState } from 'react';
 
 import { css, jsx } from '@emotion/core';
 
 import { Code } from '@atlaskit/code';
 import { md } from '@atlaskit/docs';
+import SearchIcon from '@atlaskit/icon/glyph/search';
 import Lozenge from '@atlaskit/lozenge';
+import SectionMessage from '@atlaskit/section-message';
 import Tabs, { Tab, TabList, TabPanel } from '@atlaskit/tabs';
+import TextField from '@atlaskit/textfield';
+import { borderRadius, gridSize } from '@atlaskit/theme/constants';
+import Toggle from '@atlaskit/toggle';
 
+import { token } from '../src';
 import darkTheme from '../src/artifacts/tokens-raw/atlassian-dark';
 import lightTheme from '../src/artifacts/tokens-raw/atlassian-light';
 
@@ -59,9 +65,9 @@ const tokenStyles = css({
   display: 'grid',
   gridGap: '10px',
   gridTemplateColumns: 'repeat(6, 1fr)',
-  borderRadius: '3px',
-  border: '1px solid #eee',
-  marginBottom: '8px',
+  borderRadius: borderRadius(),
+  border: `1px solid ${token('color.border', '#eaeaea')}`,
+  marginBottom: `${gridSize()}px`,
   padding: '10px',
 });
 
@@ -72,9 +78,9 @@ const tokenNameStyles = css({
 const tokenValueStyles = css({
   gridColumnStart: 'span 2',
   padding: '5px',
-  borderRadius: '3px',
+  borderRadius: borderRadius(),
   minWidth: '180px',
-  border: '1px solid #eaeaea',
+  border: `1px solid ${token('color.border', '#eaeaea')}`,
   'span:nth-of-type(2)': {
     display: 'none',
   },
@@ -84,6 +90,15 @@ const tokenValueStyles = css({
   ':hover span:nth-of-type(2)': {
     display: 'block',
   },
+});
+
+const searchWrapperStyles = css({
+  display: 'flex',
+  flexDirection: 'column',
+  margin: `${gridSize() * 2}px 0px`,
+  padding: 8,
+  borderRadius: borderRadius(),
+  border: `1px solid ${token('color.border', '#eaeaea')}`,
 });
 
 const tokenDescriptionStyles = css({
@@ -162,28 +177,158 @@ const Token = ({ name, value, attributes, original }: Token) => (
 );
 
 const TokenList = ({ list }: { list: Token[] }) => (
-  <ul css={listStyles}>
-    {list.map((token) => (
-      <li key={token.name}>
-        <Token {...token} />
-      </li>
-    ))}
-  </ul>
+  <Fragment>
+    <div>
+      <ul css={listStyles}>
+        {list.map((token) => (
+          <li key={token.name}>
+            <Token {...token} />
+          </li>
+        ))}
+      </ul>
+    </div>
+  </Fragment>
 );
 
+const TokenExplorer = () => {
+  const [searchQuery, setSearchQuery] = useState('');
+  const [showDeprecated, setShowDeprecated] = useState(true);
+  const [showDeleted, setShowDeleted] = useState(false);
+
+  const filterTheme = (theme: typeof lightTheme) =>
+    theme
+      .filter(
+        (token) =>
+          token.attributes.state === 'active' ||
+          (token.attributes.state === 'deprecated' && showDeprecated) ||
+          (token.attributes.state === 'deleted' && showDeleted),
+      )
+      .filter(
+        (token) =>
+          !searchQuery ||
+          token.name.search(
+            searchQuery.replace(/[-[\]{}()*+?.,\\^$|]/g, '\\$&'),
+          ) !== -1,
+      );
+
+  const filteredDarkTheme = filterTheme(darkTheme);
+  const filteredLightTheme = filterTheme(lightTheme);
+  const numResults = filteredLightTheme.length;
+
+  return (
+    <Fragment>
+      <div css={searchWrapperStyles}>
+        <div css={{ display: 'flex', alignItems: 'center' }}>
+          <TextField
+            name="token-search"
+            aria-label="tokens search"
+            placeholder="Search for tokens"
+            isMonospaced={true}
+            elemBeforeInput={
+              <div css={{ margin: `0px ${gridSize()}px` }}>
+                <SearchIcon size="small" label="" />
+              </div>
+            }
+            elemAfterInput={
+              <div css={{ margin: `0px ${gridSize() * 2}px`, display: 'flex' }}>
+                <Lozenge appearance={numResults ? 'default' : 'removed'}>
+                  {numResults} results
+                </Lozenge>
+              </div>
+            }
+            onChange={(e) => {
+              setSearchQuery((e.target as HTMLInputElement).value);
+            }}
+          />
+        </div>
+        <div css={{ display: 'flex', alignItems: 'center', marginTop: '4px' }}>
+          <label htmlFor="toggle-deprecated">Show deprecated tokens</label>
+          <Toggle
+            id="toggle-deprecated"
+            onChange={() => setShowDeprecated((prev) => !prev)}
+            isChecked={showDeprecated}
+          />
+          <label
+            htmlFor="toggle-deleted"
+            css={{ marginLeft: `${gridSize() * 2}px` }}
+          >
+            Show deleted tokens
+          </label>
+          <Toggle
+            id="toggle-deleted"
+            onChange={() => setShowDeleted((prev) => !prev)}
+            isChecked={showDeleted}
+          />
+        </div>
+      </div>
+
+      <Tabs id="default">
+        <TabList>
+          <Tab>Alassian Light Theme</Tab>
+          <Tab>Alassian Dark Theme</Tab>
+        </TabList>
+        <TabPanel>
+          <TokenList
+            list={(filteredLightTheme as Token[]).sort(sortByStatus)}
+          />
+        </TabPanel>
+        <TabPanel>
+          <TokenList list={(filteredDarkTheme as Token[]).sort(sortByStatus)} />
+        </TabPanel>
+      </Tabs>
+    </Fragment>
+  );
+};
+
 export default md`
-  ${(
-    <Tabs id="default">
-      <TabList>
-        <Tab>Alassian Light Theme</Tab>
-        <Tab>Alassian Dark Theme</Tab>
-      </TabList>
-      <TabPanel>
-        <TokenList list={(lightTheme as Token[]).sort(sortByStatus)} />
-      </TabPanel>
-      <TabPanel>
-        <TokenList list={(darkTheme as Token[]).sort(sortByStatus)} />
-      </TabPanel>
-    </Tabs>
-  )}
+    ${(
+      <SectionMessage title="Documentation is based on latest version of @atlaskit/tokens">
+        <p>
+          Tokens in the list below are documented as they appear in the latest
+          version of the tokens package.
+        </p>
+        <p>
+          If you are an older version of the token package, see the
+          @atlaskit/tokens changelog to see what's changed.
+        </p>
+      </SectionMessage>
+    )}
+
+    Design Tokens in the Atlassian Design System are subject to change,
+    and can be deprecated or deleted over time in major version updates.
+    The tokens listed below are labelled based on one of the following
+    three states:
+
+    ${(
+      <ul>
+        <li>
+          <Lozenge appearance={getAppearance('active')}>active</Lozenge> tokens
+          are the up-to-date tokens you should be using when building with the
+          Atlassian Design System.
+        </li>
+        <li>
+          <Lozenge appearance={getAppearance('deprecated')}>deprecated</Lozenge>{' '}
+          tokens are still present in the most recent version of{' '}
+          <Code>@atlaskit/tokens</Code> but will raise linting errors, and will
+          be removed in the next major version. If there is a replacement token,
+          the tokens linting rule will provide the option to 'fix' the usage and
+          insert the recommended replacement token.
+        </li>
+        <li>
+          <Lozenge appearance={getAppearance('deleted')}>deleted</Lozenge>{' '}
+          tokens existed in previous versions of <Code>@atlaskit/tokens</Code>,
+          but were deprecated and then deleted over two major versions. These
+          tokens are documented here for reference only, and should not be used.
+        </li>
+      </ul>
+    )}
+
+    **Note on color hex values:** Tokens use a new version of the Atlassian color palette
+    that's currently a work in progress. As a result, color values will not match those imported from
+    \`@atlaskit/theme/colors\`. When using tokens, focus on choosing a token with the
+    right **purpose** rather than an exact color match
+
+    ## Atlassian Design Tokens
+
+  ${(<TokenExplorer />)}
 `;

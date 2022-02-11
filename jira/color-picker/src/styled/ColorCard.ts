@@ -4,9 +4,6 @@ import styled, { css } from 'styled-components';
 import { borderRadius, colors } from '@atlaskit/theme';
 import { COLOR_CARD_SIZE } from '../constants';
 
-// polished has problems tree-shaking https://github.com/styled-components/polished/issues/478
-import darken from 'polished/lib/color/darken';
-
 type ColorCardProps = {
   focused?: boolean;
 };
@@ -76,5 +73,5 @@ export const ColorCardContent = styled.div<ColorCardContentProps>`
   height: 22px;
   border-radius: ${borderRadius()}px;
   background: ${(props) => props.color};
-  border: solid 1px ${(props) => darken(0.1, props.color)};
+  border: 1px solid hsla(0, 0%, 0%, 0.2);
 `;
